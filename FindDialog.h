@@ -14,11 +14,13 @@ class FindDialog : public QDialog, private Ui::FindDialog
 public:
 	FindDialog(QWidget *parent);
 
-	static void FindDialog::doFindDialog(TeXDocument *document);
+	static void doFindDialog(TeXDocument *document);
 
 protected:
 
 private slots:
+	void toggledRegexOption(bool checked);
+	void checkRegex(const QString& str);
 
 private:
 	void init();

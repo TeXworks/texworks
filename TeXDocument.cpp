@@ -1,6 +1,8 @@
 #include "TeXDocument.h"
 #include "TeXHighlighter.h"
 #include "FindDialog.h"
+#include "QTeXApp.h"
+#include "PDFDocument.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -11,6 +13,7 @@
 #include <QInputDialog>
 #include <QSettings>
 #include <QStringList>
+#include <QRegExp>
 
 const int kStatusMessageDuration = 3000;
 const int kNewWindowOffset = 32;
@@ -28,11 +31,20 @@ TeXDocument::TeXDocument(const QString &fileName)
 	loadFile(fileName);
 }
 
+TeXDocument::~TeXDocument()
+{
+fprintf(stderr, "TeXDocument::~TeXDocument()\n");
+}
+
 void
 TeXDocument::init()
 {
+fprintf(stderr, "TeXDocument::init()\n");
+
 	setupUi(this);
 	
+	setAttribute( Qt::WA_DeleteOnClose, true );
+
 	textEdit_console->hide();
 	
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
@@ -46,6 +58,11 @@ TeXDocument::init()
 	connect(actionFont, SIGNAL(triggered()), this, SLOT(doFontDialog()));
 	connect(actionGo_to_Line, SIGNAL(triggered()), this, SLOT(doLineDialog()));
 	connect(actionFind, SIGNAL(triggered()), this, SLOT(doFindDialog()));
+	connect(actionFind_Again, SIGNAL(triggered()), this, SLOT(doFindAgain()));
+
+	connect(actionCopy_to_Find, SIGNAL(triggered()), this, SLOT(copyToFind()));
+	connect(actionCopy_to_Replace, SIGNAL(triggered()), this, SLOT(copyToReplace()));
+	connect(actionFind_Selection, SIGNAL(triggered()), this, SLOT(findSelection()));
 
 	connect(actionIndent, SIGNAL(triggered()), this, SLOT(doIndent()));
 	connect(actionUnindent, SIGNAL(triggered()), this, SLOT(doUnindent()));
@@ -55,18 +72,10 @@ TeXDocument::init()
 
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
 
-	for (int i = 0; i < kMaxRecentFiles; ++i) {
-		recentFileActs[i] = new QAction(this);
-		recentFileActs[i]->setVisible(false);
-		connect(recentFileActs[i], SIGNAL(triggered()), this, SLOT(openRecentFile()));
-	}
-
-	menuRecent = new QMenu(tr("Open Recent"), menuFile);
-	menuFile->insertMenu(actionOpen_Recent, menuRecent);
+	QTeXApp *app = qobject_cast<QTeXApp *>(qApp);
+	if (app != NULL)
+		menuFile->insertMenu(actionOpen_Recent, app->getRecentFilesMenu());
 	menuFile->removeAction(actionOpen_Recent);
-	for (int i = 0; i < kMaxRecentFiles; ++i)
-		menuRecent->addAction(recentFileActs[i]);
-	updateRecentFileActions();
 	
 	highlighter = new TeXHighlighter(textEdit->document());
 }
@@ -111,13 +120,6 @@ void TeXDocument::open(const QString &fileName)
 	}
 }
 
-void TeXDocument::openRecentFile()
-{
-	QAction *action = qobject_cast<QAction *>(sender());
-	if (action)
-		open(action->data().toString());
-}
-
 void TeXDocument::closeEvent(QCloseEvent *event)
 {
 	if (maybeSave())
@@ -128,11 +130,10 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 
 bool TeXDocument::save()
 {
-	if (isUntitled) {
+	if (isUntitled)
 		return saveAs();
-	} else {
+	else
 		return saveFile(curFile);
-	}
 }
 
 bool TeXDocument::saveAs()
@@ -173,12 +174,23 @@ void TeXDocument::loadFile(const QString &fileName)
 	}
 
 	QTextStream in(&file);
+	in.setCodec("UTF-8");
+	in.setAutoDetectUnicode(true);
+
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	textEdit->setPlainText(in.readAll());
 	QApplication::restoreOverrideCursor();
 
 	setCurrentFile(fileName);
 	statusBar()->showMessage(tr("File \"%1\" loaded").arg(strippedName(curFile)), kStatusMessageDuration);
+
+	QFileInfo fi(fileName);
+	QString pdfName = fi.path() + "/" + fi.completeBaseName() + ".pdf";
+	fi.setFile(pdfName);
+	if (fi.exists()) {
+		PDFDocument *pdfWin = new PDFDocument(pdfName);
+		pdfWin->show();
+	}
 }
 
 bool TeXDocument::saveFile(const QString &fileName)
@@ -225,30 +237,10 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 		while (files.size() > kMaxRecentFiles)
 			files.removeLast();
 		settings.setValue("recentFileList", files);
-
-		foreach (QWidget *widget, QApplication::topLevelWidgets()) {
-			TeXDocument *doc = qobject_cast<TeXDocument *>(widget);
-			if (doc)
-				doc->updateRecentFileActions();
-		}
+		QTeXApp *app = qobject_cast<QTeXApp *>(qApp);
+		if (app)
+			app->updateRecentFileActions();
 	}
-}
-
-void TeXDocument::updateRecentFileActions()
-{
-	QSettings settings;
-	QStringList files = settings.value("recentFileList").toStringList();
-
-	int numRecentFiles = qMin(files.size(), kMaxRecentFiles);
-
-	for (int i = 0; i < numRecentFiles; ++i) {
-		QString text = strippedName(files[i]);
-		recentFileActs[i]->setText(text);
-		recentFileActs[i]->setData(files[i]);
-		recentFileActs[i]->setVisible(true);
-	}
-	for (int j = numRecentFiles; j < kMaxRecentFiles; ++j)
-		recentFileActs[j]->setVisible(false);
 }
 
 QString TeXDocument::strippedName(const QString &fullFileName)
@@ -376,4 +368,73 @@ void TeXDocument::doUnindent()
 void TeXDocument::doUncomment()
 {
 	unPrefixLines("%");
+}
+
+void TeXDocument::doFindAgain()
+{
+	QSettings settings;
+	QString	searchText = settings.value("searchText").toString();
+	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value("searchFlags").toInt();
+	QTextCursor	curs;
+	if (settings.value("searchRegex").toBool()) {
+		QRegExp	regex(searchText,
+						(flags & QTextDocument::FindCaseSensitively) != 0
+						? Qt::CaseSensitive : Qt::CaseInsensitive);
+		if (regex.isValid()) {
+			curs = textEdit->document()->find(regex, textEdit->textCursor(), flags);
+			if (curs.isNull() && settings.value("searchWrap").toBool()) {
+				curs = QTextCursor(textEdit->document());
+				if ((flags & QTextDocument::FindBackward) != 0)
+					curs.movePosition(QTextCursor::End);
+				curs = textEdit->document()->find(regex, curs, flags);
+			}
+		}
+		else {
+			qApp->beep();
+			statusBar()->showMessage(tr("Invalid regular expression"), kStatusMessageDuration);
+			return;
+		}
+	}
+	else {
+		curs = textEdit->document()->find(searchText, textEdit->textCursor(), flags);
+		if (curs.isNull() && settings.value("searchWrap").toBool()) {
+			curs = QTextCursor(textEdit->document());
+			if ((flags & QTextDocument::FindBackward) != 0)
+				curs.movePosition(QTextCursor::End);
+			curs = textEdit->document()->find(searchText, curs, flags);
+		}
+	}
+	if (curs.isNull()) {
+		qApp->beep();
+		statusBar()->showMessage(tr("Not found"), kStatusMessageDuration);
+	}
+	else {
+		textEdit->setTextCursor(curs);
+	}
+}
+
+void TeXDocument::copyToFind()
+{
+	if (textEdit->textCursor().hasSelection()) {
+		QString searchText = textEdit->textCursor().selectedText();
+		QSettings settings;
+		if (settings.value("searchRegex").toBool())
+			searchText = QRegExp::escape(searchText);
+		settings.setValue("searchText", searchText);
+	}
+}
+
+void TeXDocument::copyToReplace()
+{
+	if (textEdit->textCursor().hasSelection()) {
+		QString replaceText = textEdit->textCursor().selectedText();
+		QSettings settings;
+		settings.setValue("replaceText", replaceText);
+	}
+}
+
+void TeXDocument::findSelection()
+{
+	copyToFind();
+	doFindAgain();
 }

@@ -141,8 +141,8 @@
     <addaction name="actionFind_Again" />
     <addaction name="actionReplace" />
     <addaction name="separator" />
-    <addaction name="actionEnter_Find_Text" />
-    <addaction name="actionEnter_Replace_Text" />
+    <addaction name="actionCopy_to_Find" />
+    <addaction name="actionCopy_to_Replace" />
     <addaction name="actionFind_Selection" />
     <addaction name="separator" />
     <addaction name="actionGo_to_Line" />
@@ -400,7 +400,7 @@
     <string>Ctrl+R</string>
    </property>
   </action>
-  <action name="actionEnter_Find_Text" >
+  <action name="actionCopy_to_Find" >
    <property name="text" >
     <string>Copy to Find</string>
    </property>
@@ -408,7 +408,7 @@
     <string>Ctrl+E</string>
    </property>
   </action>
-  <action name="actionEnter_Replace_Text" >
+  <action name="actionCopy_to_Replace" >
    <property name="text" >
     <string>Copy to Replace</string>
    </property>

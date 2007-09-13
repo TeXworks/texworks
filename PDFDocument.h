@@ -5,7 +5,7 @@
 #include <QImage>
 #include <QLabel>
 
-#include "poppler/qt4/poppler-qt4.h"
+#include "poppler-qt4.h"
 
 #include "ui_PDFDocument.h"
 
@@ -65,7 +65,7 @@ class PDFDocument : public QMainWindow, private Ui::PDFDocument
 public:
 	PDFDocument(const QString &fileName);
 
-	static PDFDocument *PDFDocument::findDocument(const QString &fileName);
+	static PDFDocument *findDocument(const QString &fileName);
 
 protected:
 	void closeEvent(QCloseEvent *event);
