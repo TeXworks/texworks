@@ -33,19 +33,30 @@ TeXDocument::TeXDocument(const QString &fileName)
 
 TeXDocument::~TeXDocument()
 {
-fprintf(stderr, "TeXDocument::~TeXDocument()\n");
+	if (pdfDoc != NULL) {
+		pdfDoc->close();
+		pdfDoc = NULL;
+	}
 }
 
 void
 TeXDocument::init()
 {
-fprintf(stderr, "TeXDocument::init()\n");
+	pdfDoc = NULL;
 
 	setupUi(this);
 	
-	setAttribute( Qt::WA_DeleteOnClose, true );
+	setAttribute(Qt::WA_DeleteOnClose, true);
+	setAttribute(Qt::WA_MacNoClickThrough, true);
 
-	textEdit_console->hide();
+	textEdit_console->hide();	
+
+	lineNumberLabel = new QLabel();
+	statusBar()->addPermanentWidget(lineNumberLabel);
+	lineNumberLabel->setFrameStyle(QFrame::StyledPanel);
+	lineNumberLabel->setFont(statusBar()->font());
+	statusLine = statusTotal = 0;
+	showCursorPosition();
 	
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
@@ -71,11 +82,15 @@ fprintf(stderr, "TeXDocument::init()\n");
 	connect(actionUncomment, SIGNAL(triggered()), this, SLOT(doUncomment()));
 
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
+	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
+	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
 
-	QTeXApp *app = qobject_cast<QTeXApp *>(qApp);
-	if (app != NULL)
-		menuFile->insertMenu(actionOpen_Recent, app->getRecentFilesMenu());
+	menuRecent = new QMenu(tr("Open Recent"));
+	updateRecentFileActions();
+	menuFile->insertMenu(actionOpen_Recent, menuRecent);
 	menuFile->removeAction(actionOpen_Recent);
+
+	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
 	
 	highlighter = new TeXHighlighter(textEdit->document());
 }
@@ -86,6 +101,8 @@ TeXDocument::newFile()
 	TeXDocument *doc = new TeXDocument;
 	doc->move(x() + kNewWindowOffset, y() + kNewWindowOffset);
 	doc->show();
+	doc->raise();
+	doc->activateWindow();
 }
 
 void
@@ -97,26 +114,28 @@ TeXDocument::open()
 
 void TeXDocument::open(const QString &fileName)
 {
+	TeXDocument *doc = NULL;
 	if (!fileName.isEmpty()) {
-		TeXDocument *doc = findDocument(fileName);
-		if (doc) {
-			doc->show();
-			doc->raise();
-			doc->activateWindow();
-			return;
-		}
-
-		if (isUntitled && textEdit->document()->isEmpty() && !isWindowModified())
-			loadFile(fileName);
-		else {
-			doc = new TeXDocument(fileName);
-			if (doc->isUntitled) {
-				delete doc;
-				return;
+		doc = findDocument(fileName);
+		if (doc == NULL) {
+			if (isUntitled && textEdit->document()->isEmpty() && !isWindowModified()) {
+				loadFile(fileName);
+				doc = this;
 			}
-			doc->move(x() + kNewWindowOffset, y() + kNewWindowOffset);
-			doc->show();
+			else {
+				doc = new TeXDocument(fileName);
+				if (doc->isUntitled) {
+					delete doc;
+					return;
+				}
+				doc->move(x() + kNewWindowOffset, y() + kNewWindowOffset);
+			}
 		}
+	}
+	if (doc != NULL) {
+		doc->show();
+		doc->raise();
+		doc->activateWindow();
 	}
 }
 
@@ -149,7 +168,7 @@ bool TeXDocument::maybeSave()
 {
 	if (textEdit->document()->isModified()) {
 		QMessageBox::StandardButton ret;
-		ret = QMessageBox::warning(this, tr("QTeX"),
+		ret = QMessageBox::warning(this, tr("TeXWorks"),
 					 tr("The document \"%1\" has been modified.\n"
 						"Do you want to save your changes?")
 						.arg(strippedName(curFile)),
@@ -166,7 +185,7 @@ void TeXDocument::loadFile(const QString &fileName)
 {
 	QFile file(fileName);
 	if (!file.open(QFile::ReadOnly | QFile::Text)) {
-		QMessageBox::warning(this, tr("QTeX"),
+		QMessageBox::warning(this, tr("TeXWorks"),
 							 tr("Cannot read file \"%1\":\n%2.")
 							 .arg(fileName)
 							 .arg(file.errorString()));
@@ -188,16 +207,22 @@ void TeXDocument::loadFile(const QString &fileName)
 	QString pdfName = fi.path() + "/" + fi.completeBaseName() + ".pdf";
 	fi.setFile(pdfName);
 	if (fi.exists()) {
-		PDFDocument *pdfWin = new PDFDocument(pdfName);
-		pdfWin->show();
+		pdfDoc = new PDFDocument(pdfName, this);
+		pdfDoc->show();
+		connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
 	}
+}
+
+void TeXDocument::pdfClosed()
+{
+	pdfDoc = NULL;
 }
 
 bool TeXDocument::saveFile(const QString &fileName)
 {
 	QFile file(fileName);
 	if (!file.open(QFile::WriteOnly | QFile::Text)) {
-		QMessageBox::warning(this, tr("QTeX"),
+		QMessageBox::warning(this, tr("TeXWorks"),
 							 tr("Cannot write file \"%1\":\n%2.")
 							 .arg(fileName)
 							 .arg(file.errorString()));
@@ -205,6 +230,7 @@ bool TeXDocument::saveFile(const QString &fileName)
 	}
 
 	QTextStream out(&file);
+	out.setCodec("UTF-8");
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	out << textEdit->toPlainText();
 	QApplication::restoreOverrideCursor();
@@ -227,7 +253,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	textEdit->document()->setModified(false);
 	setWindowModified(false);
 
-	setWindowTitle(tr("%1[*] - %2").arg(strippedName(curFile)).arg(tr("QTeX")));
+	setWindowTitle(tr("%1[*] - %2").arg(strippedName(curFile)).arg(tr("TeXWorks")));
 
 	if (!isUntitled) {
 		QSettings settings;
@@ -237,10 +263,15 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 		while (files.size() > kMaxRecentFiles)
 			files.removeLast();
 		settings.setValue("recentFileList", files);
-		QTeXApp *app = qobject_cast<QTeXApp *>(qApp);
+		QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 		if (app)
 			app->updateRecentFileActions();
 	}
+}
+
+void TeXDocument::updateRecentFileActions()
+{
+	QTeXApp::updateRecentFileActions(this, recentFileActions, menuRecent);
 }
 
 QString TeXDocument::strippedName(const QString &fullFileName)
@@ -248,12 +279,23 @@ QString TeXDocument::strippedName(const QString &fullFileName)
 	return QFileInfo(fullFileName).fileName();
 }
 
+void TeXDocument::showCursorPosition()
+{
+	int line = textEdit->textCursor().blockNumber() + 1;
+	int total = textEdit->document()->blockCount();
+	if (line != statusLine || total != statusTotal) {
+		lineNumberLabel->setText(tr("Line %1 of %2").arg(line).arg(total));
+		statusLine = line;
+		statusTotal = total;
+	}
+}
+
 TeXDocument *TeXDocument::findDocument(const QString &fileName)
 {
 	QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath();
 
 	foreach (QWidget *widget, qApp->topLevelWidgets()) {
-		TeXDocument *theDoc = qobject_cast<TeXDocument *>(widget);
+		TeXDocument *theDoc = qobject_cast<TeXDocument*>(widget);
 		if (theDoc && theDoc->curFile == canonicalFilePath)
 			return theDoc;
 	}

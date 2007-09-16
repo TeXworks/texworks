@@ -123,11 +123,6 @@
     <addaction name="actionTeX" />
     <addaction name="actionLaTeX" />
    </widget>
-   <widget class="QMenu" name="menuView" >
-    <property name="title" >
-     <string>Preview</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menuWindow" >
     <property name="title" >
      <string>Window</string>
@@ -168,10 +163,9 @@
    </widget>
    <addaction name="menuFile" />
    <addaction name="menuEdit" />
-   <addaction name="menuFormat" />
    <addaction name="menuSearch" />
+   <addaction name="menuFormat" />
    <addaction name="menuRun" />
-   <addaction name="menuView" />
    <addaction name="menuWindow" />
    <addaction name="menuHelp" />
   </widget>
@@ -504,7 +498,7 @@
   </action>
   <action name="actionAbout_QTeX" >
    <property name="text" >
-    <string>About QTeX...</string>
+    <string>About TeXWorks...</string>
    </property>
   </action>
   <action name="actionOpen_Recent" >

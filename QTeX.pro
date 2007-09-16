@@ -4,7 +4,7 @@
 # Then modified by hand....
 
 TEMPLATE = app
-TARGET = 
+TARGET = TeXWorks
 DEPENDPATH += .
 INCLUDEPATH += .
 

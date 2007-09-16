@@ -1,5 +1,4 @@
 #include "QTeXApp.h"
-
 #include "TeXDocument.h"
 
 #include <QMessageBox>
@@ -22,18 +21,7 @@ void QTeXApp::init()
 {
 	setOrganizationName("TUG");
 	setOrganizationDomain("tug.org");
-	setApplicationName("QTeX");
-
-	for (int i = 0; i < kMaxRecentFiles; ++i) {
-		recentFileActs[i] = new QAction(this);
-		recentFileActs[i]->setVisible(false);
-		connect(recentFileActs[i], SIGNAL(triggered()), this, SLOT(openRecentFile()));
-	}
-
-	menuRecent = new QMenu(tr("Open Recent"));
-	for (int i = 0; i < kMaxRecentFiles; ++i)
-		menuRecent->addAction(recentFileActs[i]);
-	updateRecentFileActions();
+	setApplicationName("TeXWorks");
 
 #ifdef Q_WS_MAC
 	setQuitOnLastWindowClosed(false);
@@ -54,11 +42,13 @@ void QTeXApp::init()
 	menuFile->addAction(actionOpen);
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 
+	menuRecent = new QMenu(tr("Open Recent"));
+	updateRecentFileActions();
 	menuFile->addMenu(menuRecent);
 
 	menuHelp = menuBar->addMenu(tr("Help"));
 
-	QAction *aboutAction = new QAction(tr("About QTeX..."), this);
+	QAction *aboutAction = new QAction(tr("About TeXWorks..."), this);
 	menuHelp->addAction(aboutAction);
 	connect(aboutAction, SIGNAL(triggered()), qApp, SLOT(about()));
 #endif
@@ -66,8 +56,8 @@ void QTeXApp::init()
 
 void QTeXApp::about()
 {
-   QMessageBox::about(activeWindow(), tr("About QTeX..."),
-			tr("<p>QTeX is a simple environment for editing, "
+   QMessageBox::about(activeWindow(), tr("About TeXWorks"),
+			tr("<p>TeXWorks is a simple environment for editing, "
 			    "typesetting, and previewing TeX documents.</p>"
 				"<p>Distributed under the GNU General Public License, version 2.</p>"
 				"<p>&#xA9; 2007 Jonathan Kew.</p>"
@@ -123,18 +113,33 @@ void QTeXApp::preferences()
 
 void QTeXApp::updateRecentFileActions()
 {
+	updateRecentFileActions(this, recentFileActions, menuRecent);	
+	emit recentFileActionsChanged();
+}
+
+void QTeXApp::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu) /* static */
+{
 	QSettings settings;
 	QStringList files = settings.value("recentFileList").toStringList();
+	int numRecentFiles = files.size();
 
-	int numRecentFiles = qMin(files.size(), kMaxRecentFiles);
+	while (actions.size() < numRecentFiles) {
+		QAction *act = new QAction(parent);
+		act->setVisible(false);
+		connect(act, SIGNAL(triggered()), qApp, SLOT(openRecentFile()));
+		actions.append(act);
+		menu->addAction(act);
+	}
+
+	while (actions.size() > numRecentFiles) {
+		QAction *act = actions.takeLast();
+		delete act;
+	}
 
 	for (int i = 0; i < numRecentFiles; ++i) {
 		QString text = TeXDocument::strippedName(files[i]);
-		recentFileActs[i]->setText(text);
-		recentFileActs[i]->setData(files[i]);
-		recentFileActs[i]->setVisible(true);
+		actions[i]->setText(text);
+		actions[i]->setData(files[i]);
+		actions[i]->setVisible(true);
 	}
-	for (int j = numRecentFiles; j < kMaxRecentFiles; ++j)
-		recentFileActs[j]->setVisible(false);
 }
-
