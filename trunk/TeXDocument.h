@@ -9,8 +9,10 @@ class QAction;
 class QMenu;
 class QTextEdit;
 class QToolBar;
+class QLabel;
 
 class TeXHighlighter;
+class PDFDocument;
 
 class TeXDocument : public QMainWindow, private Ui::TeXDocument
 {
@@ -19,6 +21,7 @@ class TeXDocument : public QMainWindow, private Ui::TeXDocument
 public:
 	TeXDocument();
 	TeXDocument(const QString &fileName);
+
 	virtual ~TeXDocument();
 
 	static TeXDocument *findDocument(const QString &fileName);
@@ -49,6 +52,9 @@ private slots:
 	void copyToFind();
 	void copyToReplace();
 	void findSelection();
+	void pdfClosed();
+	void updateRecentFileActions();
+	void showCursorPosition();
 
 private:
 	void init();
@@ -58,11 +64,18 @@ private:
 	void setCurrentFile(const QString &fileName);
 	void prefixLines(const QString &prefix);
 	void unPrefixLines(const QString &prefix);
-	void updateRecentFileActions();
 
 	QString curFile;
 	bool isUntitled;
 	TeXHighlighter *highlighter;
+	PDFDocument *pdfDoc;
+
+	QLabel *lineNumberLabel;
+	int statusLine;
+	int statusTotal;
+
+	QList<QAction*> recentFileActions;
+	QMenu *menuRecent;
 };
 
 #endif

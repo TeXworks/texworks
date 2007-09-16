@@ -2,6 +2,7 @@
 #define QTeXApp_H
 
 #include <QApplication>
+#include <QList>
 
 class QString;
 class QAction;
@@ -21,12 +22,19 @@ public:
 		{ return menuRecent; }
 
 	void updateRecentFileActions();
+	static void updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu);
 
 #ifdef Q_WS_MAC
+private:
 	QMenuBar *menuBar;
 	QMenu *menuFile;
 	QMenu *menuHelp;
+	QList<QAction*> recentFileActions;
+	QMenu *menuRecent;
 #endif
+
+signals:
+	void recentFileActionsChanged();
 
 private slots:
 	void about();
@@ -38,9 +46,6 @@ private slots:
 private:
 	void init();
 	void open(const QString &fileName);
-
-	QAction *recentFileActs[kMaxRecentFiles];
-	QMenu *menuRecent;
 };
 
 #endif

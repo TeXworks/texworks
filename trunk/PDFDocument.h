@@ -13,7 +13,25 @@ class QAction;
 class QMenu;
 class QToolBar;
 class QScrollArea;
+class TeXDocument;
 
+class PDFMagnifier : public QLabel
+{
+	Q_OBJECT
+
+public:
+	PDFMagnifier(QWidget *parent);
+	void setPage(Poppler::Page *p, double scale);
+
+protected:
+	virtual void paintEvent(QPaintEvent *event);
+
+private:
+	Poppler::Page	*page;
+	double	scaleFactor;
+
+	QImage	image;
+};
 
 class PDFWidget : public QLabel
 {
@@ -36,8 +54,15 @@ private slots:
 	void zoomIn();
 	void zoomOut();
 
+public slots:
+	void windowResized();
+
 protected:
 	virtual void paintEvent(QPaintEvent *event);
+
+	virtual void mousePressEvent(QMouseEvent *event);
+	virtual void mouseReleaseEvent(QMouseEvent *event);
+	virtual void mouseMoveEvent(QMouseEvent *event);
 
 private:
 	void init();
@@ -50,11 +75,16 @@ private:
 
 	int pageIndex;
 	double	scaleFactor;
-
-	int prevPage;
-	QRect	prevGeom;
+	typedef enum {
+		kFixedMag,
+		kFitWidth,
+		kFitWindow
+	} autoScaleOption;
+	autoScaleOption scaleOption;
 	
 	QImage	image;
+
+	PDFMagnifier	*magnifier;
 };
 
 
@@ -63,14 +93,19 @@ class PDFDocument : public QMainWindow, private Ui::PDFDocument
 	Q_OBJECT
 
 public:
-	PDFDocument(const QString &fileName);
+	PDFDocument(const QString &fileName, TeXDocument *sourceDoc);
 
 	static PDFDocument *findDocument(const QString &fileName);
 
 protected:
-	void closeEvent(QCloseEvent *event);
+//	void closeEvent(QCloseEvent *event);
+	virtual void resizeEvent(QResizeEvent *event);
 
 private slots:
+	void updateRecentFileActions();
+
+signals:
+	void windowResized();
 
 private:
 	void init();
@@ -85,6 +120,11 @@ private:
 	
 	PDFWidget	*pdfWidget;
 	QScrollArea	*scrollArea;
+
+	TeXDocument *sourceDoc;
+
+	QList<QAction*> recentFileActions;
+	QMenu *menuRecent;
 };
 
 #endif

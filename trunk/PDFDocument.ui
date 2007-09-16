@@ -72,9 +72,16 @@
      <string>Window</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuTypeset" >
+    <property name="title" >
+     <string>Typeset</string>
+    </property>
+    <addaction name="actionTypeset" />
+   </widget>
    <addaction name="menuFile" />
    <addaction name="menuEdit" />
    <addaction name="menuView" />
+   <addaction name="menuTypeset" />
    <addaction name="menuWindow" />
    <addaction name="menuHelp" />
   </widget>
@@ -112,7 +119,7 @@
   </widget>
   <action name="actionAbout_QTeX" >
    <property name="text" >
-    <string>About QTeX</string>
+    <string>About TeXWorks...</string>
    </property>
   </action>
   <action name="actionFirst_Page" >
@@ -281,6 +288,17 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Backspace</string>
+   </property>
+  </action>
+  <action name="actionTypeset" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/typeset.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Typeset</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+T</string>
    </property>
   </action>
  </widget>

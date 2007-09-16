@@ -20,6 +20,7 @@ protected:
 
 private slots:
 	void toggledRegexOption(bool checked);
+	void toggledSelectionOption(bool checked);
 	void checkRegex(const QString& str);
 
 private:
