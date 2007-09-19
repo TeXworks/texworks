@@ -45,6 +45,7 @@ private slots:
 	void doFontDialog();
 	void doLineDialog();
 	void doFindDialog();
+	void doReplaceDialog();
 	void doIndent();
 	void doUnindent();
 	void doComment();
