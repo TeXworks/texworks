@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>FindDialog</class>
- <widget class="QDialog" name="FindDialog" >
+ <class>ReplaceDialog</class>
+ <widget class="QDialog" name="ReplaceDialog" >
   <property name="windowModality" >
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -8,18 +8,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>486</width>
-    <height>171</height>
+    <width>481</width>
+    <height>213</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
   <property name="windowTitle" >
-   <string>Find</string>
+   <string>Replace</string>
   </property>
   <property name="sizeGripEnabled" >
    <bool>false</bool>
@@ -32,19 +26,19 @@
     <rect>
      <x>19</x>
      <y>18</y>
-     <width>41</width>
-     <height>22</height>
+     <width>52</width>
+     <height>18</height>
     </rect>
    </property>
    <property name="text" >
-    <string>Find:</string>
+    <string>Replace:</string>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget" >
    <property name="geometry" >
     <rect>
-     <x>64</x>
-     <y>50</y>
+     <x>80</x>
+     <y>86</y>
      <width>169</width>
      <height>65</height>
     </rect>
@@ -73,27 +67,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QDialogButtonBox" name="buttonBox" >
-   <property name="geometry" >
-    <rect>
-     <x>14</x>
-     <y>130</y>
-     <width>463</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation" >
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons" >
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
   <widget class="QWidget" name="layoutWidget" >
    <property name="geometry" >
     <rect>
-     <x>250</x>
-     <y>50</y>
+     <x>266</x>
+     <y>86</y>
      <width>144</width>
      <height>65</height>
     </rect>
@@ -125,9 +103,9 @@
   <widget class="QLineEdit" name="searchText" >
    <property name="geometry" >
     <rect>
-     <x>65</x>
+     <x>80</x>
      <y>15</y>
-     <width>401</width>
+     <width>387</width>
      <height>26</height>
     </rect>
    </property>
@@ -135,8 +113,8 @@
   <widget class="QLabel" name="regexStatus" >
    <property name="geometry" >
     <rect>
-     <x>270</x>
-     <y>114</y>
+     <x>286</x>
+     <y>151</y>
      <width>161</width>
      <height>17</height>
     </rect>
@@ -150,40 +128,85 @@
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="label_2" >
+   <property name="geometry" >
+    <rect>
+     <x>40</x>
+     <y>53</y>
+     <width>32</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>With:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="replaceText" >
+   <property name="geometry" >
+    <rect>
+     <x>80</x>
+     <y>50</y>
+     <width>387</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_replace" >
+   <property name="geometry" >
+    <rect>
+     <x>380</x>
+     <y>170</y>
+     <width>90</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Replace</string>
+   </property>
+   <property name="default" >
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_replaceAll" >
+   <property name="geometry" >
+    <rect>
+     <x>270</x>
+     <y>170</y>
+     <width>111</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Replace All</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_cancel" >
+   <property name="geometry" >
+    <rect>
+     <x>190</x>
+     <y>170</y>
+     <width>81</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Cancel</string>
+   </property>
+  </widget>
  </widget>
+ <tabstops>
+  <tabstop>searchText</tabstop>
+  <tabstop>replaceText</tabstop>
+  <tabstop>checkBox_wrap</tabstop>
+  <tabstop>checkBox_backwards</tabstop>
+  <tabstop>checkBox_selection</tabstop>
+  <tabstop>checkBox_case</tabstop>
+  <tabstop>checkBox_words</tabstop>
+  <tabstop>checkBox_regex</tabstop>
+  <tabstop>pushButton_cancel</tabstop>
+  <tabstop>pushButton_replaceAll</tabstop>
+  <tabstop>pushButton_replace</tabstop>
+ </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>FindDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>FindDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

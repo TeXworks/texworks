@@ -17,12 +17,15 @@ macx {
 }
 
 # Input
-HEADERS += FindDialog.h PDFDocument.h QTeXApp.h TeXDocument.h TeXHighlighter.h
-FORMS += Find.ui PDFDocument.ui TeXDocument.ui
-SOURCES += FindDialog.cpp \
-           main.cpp \
-           PDFDocument.cpp \
+HEADERS += QTeXApp.h TeXDocument.h TeXHighlighter.h PDFDocument.h FindDialog.h
+
+FORMS += TeXDocument.ui PDFDocument.ui Find.ui Replace.ui
+
+SOURCES += main.cpp \
            QTeXApp.cpp \
            TeXDocument.cpp \
-           TeXHighlighter.cpp
+           TeXHighlighter.cpp \
+           PDFDocument.cpp \
+           FindDialog.cpp
+
 RESOURCES += resources.qrc

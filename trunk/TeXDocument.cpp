@@ -70,6 +70,7 @@ TeXDocument::init()
 	connect(actionGo_to_Line, SIGNAL(triggered()), this, SLOT(doLineDialog()));
 	connect(actionFind, SIGNAL(triggered()), this, SLOT(doFindDialog()));
 	connect(actionFind_Again, SIGNAL(triggered()), this, SLOT(doFindAgain()));
+	connect(actionReplace, SIGNAL(triggered()), this, SLOT(doReplaceDialog()));
 
 	connect(actionCopy_to_Find, SIGNAL(triggered()), this, SLOT(copyToFind()));
 	connect(actionCopy_to_Replace, SIGNAL(triggered()), this, SLOT(copyToReplace()));
@@ -326,6 +327,11 @@ void TeXDocument::doLineDialog()
 void TeXDocument::doFindDialog()
 {
 	FindDialog::doFindDialog(this);
+}
+
+void TeXDocument::doReplaceDialog()
+{
+	ReplaceDialog::doReplaceDialog(this);
 }
 
 void TeXDocument::prefixLines(const QString &prefix)
