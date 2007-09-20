@@ -1,4 +1,4 @@
-#include <QtGui>
+#include <QRegExp>
 
 #include "TeXHighlighter.h"
 

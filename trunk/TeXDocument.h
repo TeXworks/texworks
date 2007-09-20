@@ -2,6 +2,7 @@
 #define TeXDocument_H
 
 #include <QMainWindow>
+#include <QList>
 
 #include "ui_TeXDocument.h"
 
@@ -25,17 +26,24 @@ public:
 	virtual ~TeXDocument();
 
 	static TeXDocument *findDocument(const QString &fileName);
-	static QString strippedName(const QString &fullFileName);
+	static QList<TeXDocument*> documentList()
+		{
+			return docList;
+		}
+
 
 	void open(const QString &fileName);
 	bool untitled()
 		{ return isUntitled; }
+	QString fileName() const
+		{ return curFile; }
 
 protected:
 	void closeEvent(QCloseEvent *event);
 
 public slots:
 	void doFindAgain();
+	void selectWindow();
 	
 private slots:
 	void newFile();
@@ -55,6 +63,7 @@ private slots:
 	void findSelection();
 	void pdfClosed();
 	void updateRecentFileActions();
+	void updateWindowMenu();
 	void showCursorPosition();
 
 private:
@@ -65,6 +74,7 @@ private:
 	void setCurrentFile(const QString &fileName);
 	void prefixLines(const QString &prefix);
 	void unPrefixLines(const QString &prefix);
+	void zoomToLeft();
 
 	QString curFile;
 	bool isUntitled;
@@ -77,6 +87,8 @@ private:
 
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
+
+	static QList<TeXDocument*> docList;
 };
 
 #endif

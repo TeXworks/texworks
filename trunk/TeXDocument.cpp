@@ -11,12 +11,12 @@
 #include <QStatusBar>
 #include <QFontDialog>
 #include <QInputDialog>
+#include <QDesktopWidget>
 #include <QSettings>
 #include <QStringList>
 #include <QRegExp>
 
-const int kStatusMessageDuration = 3000;
-const int kNewWindowOffset = 32;
+QList<TeXDocument*> TeXDocument::docList;
 
 TeXDocument::TeXDocument()
 {
@@ -37,11 +37,14 @@ TeXDocument::~TeXDocument()
 		pdfDoc->close();
 		pdfDoc = NULL;
 	}
+	docList.removeAll(this);
+	updateWindowMenu();
 }
 
-void
-TeXDocument::init()
+void TeXDocument::init()
 {
+	docList.append(this);
+
 	pdfDoc = NULL;
 
 	setupUi(this);
@@ -92,22 +95,28 @@ TeXDocument::init()
 	menuFile->removeAction(actionOpen_Recent);
 
 	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
+	connect(qApp, SIGNAL(windowListChanged()), this, SLOT(updateWindowMenu()));
 	
+	connect(this, SIGNAL(destroyed()), qApp, SLOT(updateWindowMenus()));
+
 	highlighter = new TeXHighlighter(textEdit->document());
+
+	zoomToLeft();
 }
 
-void
-TeXDocument::newFile()
+void TeXDocument::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
-	doc->move(x() + kNewWindowOffset, y() + kNewWindowOffset);
+	QRect rect = doc->geometry();
+	rect.setTop(rect.top() + kNewWindowOffset);
+	rect.setLeft(rect.left() + kNewWindowOffset);
+	doc->setGeometry(rect);
 	doc->show();
 	doc->raise();
 	doc->activateWindow();
 }
 
-void
-TeXDocument::open()
+void TeXDocument::open()
 {
 	QString fileName = QFileDialog::getOpenFileName();
 	open(fileName);
@@ -133,11 +142,8 @@ void TeXDocument::open(const QString &fileName)
 			}
 		}
 	}
-	if (doc != NULL) {
-		doc->show();
-		doc->raise();
-		doc->activateWindow();
-	}
+	if (doc != NULL)
+		doc->selectWindow();
 }
 
 void TeXDocument::closeEvent(QCloseEvent *event)
@@ -172,7 +178,7 @@ bool TeXDocument::maybeSave()
 		ret = QMessageBox::warning(this, tr("TeXWorks"),
 					 tr("The document \"%1\" has been modified.\n"
 						"Do you want to save your changes?")
-						.arg(strippedName(curFile)),
+						.arg(QTeXApp::strippedName(curFile)),
 					 QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 		if (ret == QMessageBox::Save)
 			return save();
@@ -202,13 +208,15 @@ void TeXDocument::loadFile(const QString &fileName)
 	QApplication::restoreOverrideCursor();
 
 	setCurrentFile(fileName);
-	statusBar()->showMessage(tr("File \"%1\" loaded").arg(strippedName(curFile)), kStatusMessageDuration);
+	selectWindow();
+	statusBar()->showMessage(tr("File \"%1\" loaded").arg(QTeXApp::strippedName(curFile)), kStatusMessageDuration);
 
 	QFileInfo fi(fileName);
 	QString pdfName = fi.path() + "/" + fi.completeBaseName() + ".pdf";
 	fi.setFile(pdfName);
 	if (fi.exists()) {
 		pdfDoc = new PDFDocument(pdfName, this);
+		pdfDoc->zoomToRight();
 		pdfDoc->show();
 		connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
 	}
@@ -237,7 +245,7 @@ bool TeXDocument::saveFile(const QString &fileName)
 	QApplication::restoreOverrideCursor();
 
 	setCurrentFile(fileName);
-	statusBar()->showMessage(tr("File \"%1\" saved").arg(strippedName(curFile)), kStatusMessageDuration);
+	statusBar()->showMessage(tr("File \"%1\" saved").arg(QTeXApp::strippedName(curFile)), kStatusMessageDuration);
 	return true;
 }
 
@@ -254,20 +262,24 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	textEdit->document()->setModified(false);
 	setWindowModified(false);
 
-	setWindowTitle(tr("%1[*] - %2").arg(strippedName(curFile)).arg(tr("TeXWorks")));
+	setWindowTitle(tr("%1[*] - %2").arg(QTeXApp::strippedName(curFile)).arg(tr("TeXWorks")));
 
+	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 	if (!isUntitled) {
 		QSettings settings;
 		QStringList files = settings.value("recentFileList").toStringList();
 		files.removeAll(fileName);
 		files.prepend(fileName);
-		while (files.size() > kMaxRecentFiles)
-			files.removeLast();
+		if (app)
+			while (files.size() > app->maxRecentFiles())
+				files.removeLast();
 		settings.setValue("recentFileList", files);
-		QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 		if (app)
 			app->updateRecentFileActions();
 	}
+	
+	if (app)
+		app->updateWindowMenus();
 }
 
 void TeXDocument::updateRecentFileActions()
@@ -275,9 +287,9 @@ void TeXDocument::updateRecentFileActions()
 	QTeXApp::updateRecentFileActions(this, recentFileActions, menuRecent);
 }
 
-QString TeXDocument::strippedName(const QString &fullFileName)
+void TeXDocument::updateWindowMenu()
 {
-	return QFileInfo(fullFileName).fileName();
+	QTeXApp::updateWindowMenu(this, menuWindow);
 }
 
 void TeXDocument::showCursorPosition()
@@ -289,6 +301,13 @@ void TeXDocument::showCursorPosition()
 		statusLine = line;
 		statusTotal = total;
 	}
+}
+
+void TeXDocument::selectWindow()
+{
+	show();
+	raise();
+	activateWindow();
 }
 
 TeXDocument *TeXDocument::findDocument(const QString &fileName)
@@ -485,4 +504,15 @@ void TeXDocument::findSelection()
 {
 	copyToFind();
 	doFindAgain();
+}
+
+void TeXDocument::zoomToLeft()
+{
+	QDesktopWidget *desktop = QApplication::desktop();
+	QRect screenRect = desktop->availableGeometry(this);
+	screenRect.setTop(screenRect.top() + 22);
+	screenRect.setLeft(screenRect.left() + 1);
+	screenRect.setBottom(screenRect.bottom() - 1);
+	screenRect.setRight((screenRect.left() + screenRect.right()) / 2 - 1);
+	setGeometry(screenRect);
 }

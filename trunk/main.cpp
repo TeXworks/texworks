@@ -1,6 +1,5 @@
 #include "QTeXApp.h"
 #include "TeXDocument.h"
-#include "PDFDocument.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,4 +10,3 @@ int main(int argc, char *argv[])
 
 	return app.exec();
 }
-
