@@ -127,6 +127,9 @@
     <property name="title" >
      <string>Window</string>
     </property>
+    <addaction name="actionStack" />
+    <addaction name="actionTile" />
+    <addaction name="actionTile_Front_Two" />
    </widget>
    <widget class="QMenu" name="menuSearch" >
     <property name="title" >
@@ -504,6 +507,21 @@
   <action name="actionOpen_Recent" >
    <property name="text" >
     <string>Open Recent</string>
+   </property>
+  </action>
+  <action name="actionStack" >
+   <property name="text" >
+    <string>Stack</string>
+   </property>
+  </action>
+  <action name="actionTile" >
+   <property name="text" >
+    <string>Tile</string>
+   </property>
+  </action>
+  <action name="actionTile_Front_Two" >
+   <property name="text" >
+    <string>Tile Front Two</string>
    </property>
   </action>
  </widget>

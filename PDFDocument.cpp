@@ -10,11 +10,14 @@
 #include <QLabel>
 #include <QScrollArea>
 #include <QStyle>
+#include <QDesktopWidget>
 
 #include <math.h>
 
 const double kMaxScaleFactor = 8.0;
 const double kMinScaleFactor = 0.125;
+
+#pragma mark === PDFMagnifier ===
 
 const int kMagnifierWidth = 360;
 const int kMagnifierHeight = 240;
@@ -45,6 +48,7 @@ void PDFMagnifier::paintEvent(QPaintEvent *event)
 	painter.drawImage(event->rect(), img);
 }
 
+#pragma mark === PDFWidget ===
 
 PDFWidget::PDFWidget()
 	: QLabel()
@@ -272,19 +276,28 @@ void PDFWidget::zoomOut()
 	}
 }
 
-const int kStatusMessageDuration = 3000;
-const int kNewWindowOffset = 32;
+#pragma mark === PDFDocument ===
+
+QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 	: sourceDoc(texDoc)
 {
 	init();
 	loadFile(fileName);
+	stackUnder((QWidget*)texDoc);
+}
+
+PDFDocument::~PDFDocument()
+{
+	docList.removeAll(this);
 }
 
 void
 PDFDocument::init()
 {
+	docList.append(this);
+
 	setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
@@ -304,6 +317,9 @@ PDFDocument::init()
 	
 	connect(actionAbout_QTeX, SIGNAL(triggered()), qApp, SLOT(about()));
 
+	connect(actionNew, SIGNAL(triggered()), qApp, SLOT(newFile()));
+	connect(actionOpen, SIGNAL(triggered()), qApp, SLOT(open()));
+
 	connect(actionFirst_Page, SIGNAL(triggered()), pdfWidget, SLOT(goFirst()));
 	connect(actionPrevious_Page, SIGNAL(triggered()), pdfWidget, SLOT(goPrev()));
 	connect(actionNext_Page, SIGNAL(triggered()), pdfWidget, SLOT(goNext()));
@@ -321,6 +337,9 @@ PDFDocument::init()
 	menuFile->removeAction(actionOpen_Recent);
 
 	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
+	connect(qApp, SIGNAL(windowListChanged()), this, SLOT(updateWindowMenu()));
+
+	connect(this, SIGNAL(destroyed()), qApp, SLOT(updateWindowMenus()));
 }
  
 void PDFDocument::updateRecentFileActions()
@@ -328,10 +347,17 @@ void PDFDocument::updateRecentFileActions()
 	QTeXApp::updateRecentFileActions(this, recentFileActions, menuRecent);
 }
 
-//void PDFDocument::closeEvent(QCloseEvent *event)
-//{
-//	event->accept();
-//}
+void PDFDocument::updateWindowMenu()
+{
+	QTeXApp::updateWindowMenu(this, menuWindow);
+}
+
+void PDFDocument::selectWindow()
+{
+	show();
+	raise();
+	activateWindow();
+}
 
 void PDFDocument::resizeEvent(QResizeEvent *event)
 {
@@ -353,23 +379,21 @@ void PDFDocument::loadFile(const QString &fileName)
 
 	setCurrentFile(fileName);
 
-	if (document == NULL) {
-		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(strippedName(curFile)));
-	}
+	if (document == NULL)
+		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(QTeXApp::strippedName(curFile)));
 }
 
 void PDFDocument::setCurrentFile(const QString &fileName)
 {
 	curFile = QFileInfo(fileName).canonicalFilePath();
 
-	setWindowTitle(tr("%1[*] - %2").arg(strippedName(curFile)).arg(tr("TeXWorks")));
+	setWindowTitle(tr("%1[*] - %2").arg(QTeXApp::strippedName(curFile)).arg(tr("TeXWorks")));
+
+	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
+	if (app)
+		app->updateWindowMenus();
 }
  
-QString PDFDocument::strippedName(const QString &fullFileName)
-{
-	return QFileInfo(fullFileName).fileName();
-}
-
 PDFDocument *PDFDocument::findDocument(const QString &fileName)
 {
 	QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath();
@@ -380,4 +404,15 @@ PDFDocument *PDFDocument::findDocument(const QString &fileName)
 			return theDoc;
 	}
 	return NULL;
+}
+
+void PDFDocument::zoomToRight()
+{
+	QDesktopWidget *desktop = QApplication::desktop();
+	QRect screenRect = desktop->availableGeometry(this);
+	screenRect.setTop(screenRect.top() + 22);
+	screenRect.setLeft((screenRect.left() + screenRect.right()) / 2 + 1);
+	screenRect.setBottom(screenRect.bottom() - 1);
+	screenRect.setRight(screenRect.right() - 1);
+	setGeometry(screenRect);
 }

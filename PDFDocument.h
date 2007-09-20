@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QImage>
 #include <QLabel>
+#include <QList>
 
 #include "poppler-qt4.h"
 
@@ -94,15 +95,28 @@ class PDFDocument : public QMainWindow, private Ui::PDFDocument
 
 public:
 	PDFDocument(const QString &fileName, TeXDocument *sourceDoc);
+	virtual ~PDFDocument();
 
 	static PDFDocument *findDocument(const QString &fileName);
+	static QList<PDFDocument*> documentList()
+		{
+			return docList;
+		}
+
+	QString fileName() const
+		{ return curFile; }
+
+	void zoomToRight();
 
 protected:
-//	void closeEvent(QCloseEvent *event);
 	virtual void resizeEvent(QResizeEvent *event);
+
+public slots:
+	void selectWindow();
 
 private slots:
 	void updateRecentFileActions();
+	void updateWindowMenu();
 
 signals:
 	void windowResized();
@@ -111,7 +125,6 @@ private:
 	void init();
 	void loadFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
-	QString strippedName(const QString &fullFileName);
 
 	QString curFile;
 	QImage	image;
@@ -125,6 +138,8 @@ private:
 
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
+
+	static QList<PDFDocument*> docList;
 };
 
 #endif

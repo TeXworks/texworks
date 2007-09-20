@@ -137,13 +137,13 @@
     <rect>
      <x>270</x>
      <y>114</y>
-     <width>161</width>
+     <width>201</width>
      <height>17</height>
     </rect>
    </property>
    <property name="font" >
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>9</pointsize>
     </font>
    </property>
    <property name="text" >

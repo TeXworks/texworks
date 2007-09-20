@@ -9,8 +9,7 @@ FindDialog::FindDialog(QWidget *parent)
 	init();
 }
 
-void
-FindDialog::init()
+void FindDialog::init()
 {
 	setupUi(this);
 
@@ -173,4 +172,6 @@ void ReplaceDialog::doReplaceDialog(TeXDocument *document)
 	dlg.setSizeGripEnabled(false);	
 
 	DialogCode	result = (DialogCode)dlg.exec();
+
+	/* FIXME: FINISH THIS */
 }
