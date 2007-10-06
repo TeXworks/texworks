@@ -106,7 +106,10 @@ public:
 	QString fileName() const
 		{ return curFile; }
 
-	void zoomToRight();
+	void zoomToRight(QWidget *otherWindow);
+	void reload();
+	void showScale(double scale);
+	void showPage(int page);
 
 protected:
 	virtual void resizeEvent(QResizeEvent *event);
@@ -117,6 +120,8 @@ public slots:
 private slots:
 	void updateRecentFileActions();
 	void updateWindowMenu();
+	void retypeset();
+	void goToSource();
 
 signals:
 	void windowResized();
@@ -136,6 +141,8 @@ private:
 
 	TeXDocument *sourceDoc;
 
+	QLabel *pageLabel;
+	QLabel *scaleLabel;
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
 

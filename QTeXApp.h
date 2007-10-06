@@ -9,7 +9,7 @@ class QString;
 class QMenu;
 class QMenuBar;
 
-/* general constants used by multiple document types */
+// general constants used by multiple document types
 const int kStatusMessageDuration = 3000;
 const int kNewWindowOffset = 32;
 
@@ -21,20 +21,11 @@ class QTeXApp : public QApplication
 public:
 	QTeXApp(int argc, char *argv[]);
 
-	/* static method to actually perform the updates to a menu; used by the documents to update their own menus */
-	static void updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu);
-
-	/* update the SelWinActions in a menu, used by the documents */
-	static void updateWindowMenu(QWidget *window, QMenu *menu);
-
-	/* return just the filename from a full pathname, suitable for UI display */
-	static QString strippedName(const QString &fullFileName);
-
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
 
 #ifdef Q_WS_MAC
-	/* on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu */
+	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
 	QMenu *getRecentFilesMenu()
 		{ return menuRecent; }
 
@@ -47,16 +38,21 @@ private:
 #endif
 
 public slots:
-	/* called by documents when they load a file */
+	// called by documents when they load a file
 	void updateRecentFileActions();
 
-	/* called by windows when the open/close/change name */
+	// called by windows when they open/close/change name
 	void updateWindowMenus();
 
+	void stackWindows();
+	void tileWindows();
+	void tileTwoWindows();
+
 signals:
-	/* emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu */
+	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu
 	void recentFileActionsChanged();
-	/* emitted when the window list may have changed, so documents can update their window menu */
+
+	// emitted when the window list may have changed, so documents can update their window menu
 	void windowListChanged();
 
 private slots:
@@ -66,19 +62,14 @@ private slots:
 	void openRecentFile();
 	void preferences();
 
+protected:
+	bool event(QEvent *);
+
 private:
 	void init();
 	void open(const QString &fileName);
 	
 	int f_maxRecentFiles;
-};
-
-class SelWinAction : public QAction
-{
-	Q_OBJECT
-	
-public:
-	SelWinAction(QObject *parent, const QString &fileName);
 };
 
 #endif

@@ -1,5 +1,7 @@
 #include "PDFDocument.h"
+#include "TeXDocument.h"
 #include "QTeXApp.h"
+#include "QTeXUtils.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -132,6 +134,7 @@ void PDFWidget::reloadPage()
 		delete page;
 	page = document->page(pageIndex);
 	adjustSize();
+	update();
 	updateStatusBar();
 }
 
@@ -139,12 +142,10 @@ void PDFWidget::updateStatusBar()
 {
 	QWidget *widget = window();
 	PDFDocument *doc = qobject_cast<PDFDocument*>(widget);
-	if (doc)
-		doc->statusBar()->showMessage(tr("%1%  page %2 of %3")
-										.arg(round(scaleFactor * 10000.0) / 100.0)
-										.arg(pageIndex+1)
-										.arg(document->numPages())
-										);
+	if (doc) {
+		doc->showPage(pageIndex+1);
+		doc->showScale(scaleFactor);
+	}
 }
 
 void PDFWidget::goFirst()
@@ -308,6 +309,16 @@ PDFDocument::init()
 	pdfWidget->setScaledContents(true);
 	connect(this, SIGNAL(windowResized()), pdfWidget, SLOT(windowResized()));
 
+	scaleLabel = new QLabel();
+	statusBar()->addPermanentWidget(scaleLabel);
+	scaleLabel->setFrameStyle(QFrame::StyledPanel);
+	scaleLabel->setFont(statusBar()->font());
+
+	pageLabel = new QLabel();
+	statusBar()->addPermanentWidget(pageLabel);
+	pageLabel->setFrameStyle(QFrame::StyledPanel);
+	pageLabel->setFont(statusBar()->font());
+
 	scrollArea = new QScrollArea;
 	scrollArea->setBackgroundRole(QPalette::Dark);
 	scrollArea->setWidget(pdfWidget);
@@ -331,6 +342,13 @@ PDFDocument::init()
 	connect(actionZoom_In, SIGNAL(triggered()), pdfWidget, SLOT(zoomIn()));
 	connect(actionZoom_Out, SIGNAL(triggered()), pdfWidget, SLOT(zoomOut()));
 
+	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
+	
+	connect(actionStack, SIGNAL(triggered()), qApp, SLOT(stackWindows()));
+	connect(actionTile, SIGNAL(triggered()), qApp, SLOT(tileWindows()));
+	connect(actionTile_Front_Two, SIGNAL(triggered()), qApp, SLOT(tileTwoWindows()));
+	connect(actionGo_to_Source, SIGNAL(triggered()), this, SLOT(goToSource()));
+
 	menuRecent = new QMenu(tr("Open Recent"));
 	updateRecentFileActions();
 	menuFile->insertMenu(actionOpen_Recent, menuRecent);
@@ -339,17 +357,19 @@ PDFDocument::init()
 	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
 	connect(qApp, SIGNAL(windowListChanged()), this, SLOT(updateWindowMenu()));
 
+	connect(actionPreferences, SIGNAL(triggered()), qApp, SLOT(preferences()));
+
 	connect(this, SIGNAL(destroyed()), qApp, SLOT(updateWindowMenus()));
 }
  
 void PDFDocument::updateRecentFileActions()
 {
-	QTeXApp::updateRecentFileActions(this, recentFileActions, menuRecent);
+	QTeXUtils::updateRecentFileActions(this, recentFileActions, menuRecent);
 }
 
 void PDFDocument::updateWindowMenu()
 {
-	QTeXApp::updateWindowMenu(this, menuWindow);
+	QTeXUtils::updateWindowMenu(this, menuWindow);
 }
 
 void PDFDocument::selectWindow()
@@ -367,9 +387,18 @@ void PDFDocument::resizeEvent(QResizeEvent *event)
 
 void PDFDocument::loadFile(const QString &fileName)
 {
+	setCurrentFile(fileName);
+	reload();
+}
+
+void PDFDocument::reload()
+{
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	document = Poppler::Document::load(fileName);
+	if (document != NULL)
+		delete document;
+
+	document = Poppler::Document::load(curFile);
 	document->setRenderBackend(Poppler::Document::SplashBackend);
 	document->setRenderHint(Poppler::Document::Antialiasing);
 	document->setRenderHint(Poppler::Document::TextAntialiasing);
@@ -377,17 +406,15 @@ void PDFDocument::loadFile(const QString &fileName)
 	
 	QApplication::restoreOverrideCursor();
 
-	setCurrentFile(fileName);
-
 	if (document == NULL)
-		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(QTeXApp::strippedName(curFile)));
+		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(QTeXUtils::strippedName(curFile)));
 }
 
 void PDFDocument::setCurrentFile(const QString &fileName)
 {
 	curFile = QFileInfo(fileName).canonicalFilePath();
 
-	setWindowTitle(tr("%1[*] - %2").arg(QTeXApp::strippedName(curFile)).arg(tr("TeXWorks")));
+	setWindowTitle(tr("%1[*] - %2").arg(QTeXUtils::strippedName(curFile)).arg(tr("TeXWorks")));
 
 	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 	if (app)
@@ -406,13 +433,35 @@ PDFDocument *PDFDocument::findDocument(const QString &fileName)
 	return NULL;
 }
 
-void PDFDocument::zoomToRight()
+void PDFDocument::zoomToRight(QWidget *otherWindow)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
-	QRect screenRect = desktop->availableGeometry(this);
+	QRect screenRect = desktop->availableGeometry(otherWindow == NULL ? this : otherWindow);
 	screenRect.setTop(screenRect.top() + 22);
 	screenRect.setLeft((screenRect.left() + screenRect.right()) / 2 + 1);
 	screenRect.setBottom(screenRect.bottom() - 1);
 	screenRect.setRight(screenRect.right() - 1);
 	setGeometry(screenRect);
+}
+
+void PDFDocument::showPage(int page)
+{
+	pageLabel->setText(tr("page %1 of %2").arg(page).arg(document->numPages()));
+}
+
+void PDFDocument::showScale(double scale)
+{
+	scaleLabel->setText(tr("%1%").arg(round(scale * 10000.0) / 100.0));
+}
+
+void PDFDocument::retypeset()
+{
+	if (sourceDoc != NULL)
+		sourceDoc->typeset();
+}
+
+void PDFDocument::goToSource()
+{
+	if (sourceDoc != NULL)
+		sourceDoc->selectWindow();
 }

@@ -1,6 +1,8 @@
 #include "QTeXApp.h"
+#include "QTeXUtils.h"
 #include "TeXDocument.h"
 #include "PDFDocument.h"
+#include "PrefsDialog.h"
 
 #include <QMessageBox>
 #include <QFileDialog>
@@ -10,7 +12,10 @@
 #include <QAction>
 #include <QSettings>
 #include <QStringList>
+#include <QEvent>
+#include <QKeyEvent>
 #include <QKeySequence>
+#include <QDesktopWidget>
 
 const int kDefaultMaxRecentFiles = 10;
 
@@ -41,6 +46,10 @@ void QTeXApp::init()
 	actionNew->setIcon(QIcon(":/images/images/filenew.png"));
 	menuFile->addAction(actionNew);
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
+
+	QAction *actionPreferences = new QAction(tr("Preferences..."), this);
+	menuFile->addAction(actionPreferences);
+	connect(actionPreferences, SIGNAL(triggered()), this, SLOT(preferences()));
 
 	QAction *actionOpen = new QAction(tr("Open..."), this);
     actionOpen->setShortcut(QKeySequence("Ctrl+O"));
@@ -97,24 +106,13 @@ void QTeXApp::open()
 
 void QTeXApp::open(const QString &fileName)
 {
-	TeXDocument *doc = TeXDocument::findDocument(fileName);
-	if (doc) {
-		doc->show();
-		doc->raise();
-		doc->activateWindow();
-		return;
-	}
-
-	doc = new TeXDocument(fileName);
-	if (doc->untitled()) {
-		delete doc;
-		return;
-	}
-	doc->show();
+	// TODO: support directly opening a PDF?
+	TeXDocument::openDocument(fileName);
 }
 
 void QTeXApp::preferences()
 {
+	PrefsDialog::doPrefsDialog(activeWindow());
 }
 
 int QTeXApp::maxRecentFiles() const
@@ -142,7 +140,7 @@ void QTeXApp::setMaxRecentFiles(int value)
 void QTeXApp::updateRecentFileActions()
 {
 #ifdef Q_WS_MAC
-	updateRecentFileActions(this, recentFileActions, menuRecent);	
+	QTeXUtils::updateRecentFileActions(this, recentFileActions, menuRecent);	
 #endif
 	emit recentFileActionsChanged();
 }
@@ -152,84 +150,25 @@ void QTeXApp::updateWindowMenus()
 	emit windowListChanged();
 }
 
-void QTeXApp::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu) /* static */
+void QTeXApp::stackWindows()
 {
-	QSettings settings;
-	QStringList files = settings.value("recentFileList").toStringList();
-	int numRecentFiles = files.size();
-
-	while (actions.size() < numRecentFiles) {
-		QAction *act = new QAction(parent);
-		act->setVisible(false);
-		connect(act, SIGNAL(triggered()), qApp, SLOT(openRecentFile()));
-		actions.append(act);
-		menu->addAction(act);
-	}
-
-	while (actions.size() > numRecentFiles) {
-		QAction *act = actions.takeLast();
-		delete act;
-	}
-
-	for (int i = 0; i < numRecentFiles; ++i) {
-		QString text = QTeXApp::strippedName(files[i]);
-		actions[i]->setText(text);
-		actions[i]->setData(files[i]);
-		actions[i]->setVisible(true);
-	}
 }
 
-void QTeXApp::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
+void QTeXApp::tileWindows()
 {
-	// shorten the menu by removing everything from the first "selectWindow" action onwards
-	QList<QAction*> actions = menu->actions();
-	for (QList<QAction*>::iterator i = actions.begin(); i != actions.end(); ++i) {
-		SelWinAction *selWin = qobject_cast<SelWinAction*>(*i);
-		if (selWin)
-			menu->removeAction(*i);
-	}
-	while (!menu->actions().isEmpty() && menu->actions().last()->isSeparator())
-		menu->removeAction(menu->actions().last());
-	
-	// append an item for each TeXDocument
-	bool first = true;
-	foreach (TeXDocument *texDoc, TeXDocument::documentList()) {
-		if (first && !menu->actions().isEmpty())
-			menu->addSeparator();
-		first = false;
-		SelWinAction *selWin = new SelWinAction(menu, texDoc->fileName());
-		if (texDoc == qobject_cast<TeXDocument*>(window)) {
-			selWin->setCheckable(true);
-			selWin->setChecked(true);
-		}
-		connect(selWin, SIGNAL(triggered()), texDoc, SLOT(selectWindow()));
-		menu->addAction(selWin);
-	}
-	
-	// append an item for each PDFDocument
-	first = true;
-	foreach (PDFDocument *pdfDoc, PDFDocument::documentList()) {
-		if (first && !menu->actions().isEmpty())
-			menu->addSeparator();
-		first = false;
-		SelWinAction *selWin = new SelWinAction(menu, pdfDoc->fileName());
-		if (pdfDoc == qobject_cast<PDFDocument*>(window)) {
-			selWin->setCheckable(true);
-			selWin->setChecked(true);
-		}
-		connect(selWin, SIGNAL(triggered()), pdfDoc, SLOT(selectWindow()));
-		menu->addAction(selWin);
-	}
 }
 
-QString QTeXApp::strippedName(const QString &fullFileName)
+void QTeXApp::tileTwoWindows()
 {
-	return QFileInfo(fullFileName).fileName();
 }
 
-SelWinAction::SelWinAction(QObject *parent, const QString &fileName)
-	: QAction(parent)
+bool QTeXApp::event(QEvent *event)
 {
-	setText(QTeXApp::strippedName(fileName));
-	setData(fileName);
+	switch (event->type()) {
+		case QEvent::FileOpen:
+			open(static_cast<QFileOpenEvent *>(event)->file());        
+			return true;
+		default:
+			return QApplication::event(event);
+	}
 }

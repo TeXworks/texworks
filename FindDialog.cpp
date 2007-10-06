@@ -2,14 +2,15 @@
 #include "TeXDocument.h"
 
 #include <QSettings>
+#include <QPushButton>
 
-FindDialog::FindDialog(QWidget *parent)
+FindDialog::FindDialog(QTextEdit *parent)
 	: QDialog(parent)
 {
-	init();
+	init(parent);
 }
 
-void FindDialog::init()
+void FindDialog::init(QTextEdit *document)
 {
 	setupUi(this);
 
@@ -26,13 +27,13 @@ void FindDialog::init()
     checkBox_regex->setChecked(regexOption);
     checkBox_words->setEnabled(!regexOption);
 
-	bool wrapOption = settings.value("searchWrap").toBool();
-    checkBox_wrap->setChecked(wrapOption);
-
 	bool selectionOption = settings.value("searchSelection").toBool();
-    checkBox_selection->setChecked(selectionOption);
-    checkBox_wrap->setEnabled(!selectionOption);
-    checkBox_backwards->setEnabled(!selectionOption);
+	checkBox_selection->setEnabled(document->textCursor().hasSelection());
+    checkBox_selection->setChecked(selectionOption && checkBox_selection->isEnabled());
+
+	bool wrapOption = settings.value("searchWrap").toBool();
+	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()));
+    checkBox_wrap->setChecked(wrapOption);
 
 	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value("searchFlags").toInt();
 	checkBox_case->setChecked((flags & QTextDocument::FindCaseSensitively) != 0);
@@ -51,7 +52,6 @@ void FindDialog::toggledRegexOption(bool checked)
 
 void FindDialog::toggledSelectionOption(bool checked)
 {
-	checkBox_backwards->setEnabled(!checked);
 	checkBox_wrap->setEnabled(!checked);
 }
 
@@ -62,19 +62,15 @@ void FindDialog::checkRegex(const QString& str)
 		if (regex.isValid())
 			regexStatus->setText("");
 		else
-			regexStatus->setText(tr("Invalid regular expression"));
+			regexStatus->setText(tr("(invalid)"));
 	}
 }
 
-void FindDialog::doFindDialog(TeXDocument *document)
+QDialog::DialogCode FindDialog::doFindDialog(QTextEdit *document)
 {
 	FindDialog dlg(document);
 
 	dlg.show();
-	// doing this AFTER dlg.show() seems to be a necessary hack...
-	dlg.setSizeGripEnabled(true);
-	dlg.setSizeGripEnabled(false);	
-
 	DialogCode	result = (DialogCode)dlg.exec();
 	
 	if (result == Accepted) {
@@ -94,18 +90,18 @@ void FindDialog::doFindDialog(TeXDocument *document)
 		settings.setValue("searchRegex", dlg.checkBox_regex->isChecked());
 		settings.setValue("searchWrap", dlg.checkBox_wrap->isChecked());
 		settings.setValue("searchSelection", dlg.checkBox_selection->isChecked());
-
-		document->doFindAgain();
 	}
+
+	return result;
 }
 
-ReplaceDialog::ReplaceDialog(QWidget *parent)
+ReplaceDialog::ReplaceDialog(QTextEdit *parent)
 	: QDialog(parent)
 {
-	init();
+	init(parent);
 }
 
-void ReplaceDialog::init()
+void ReplaceDialog::init(QTextEdit *document)
 {
 	setupUi(this);
 
@@ -113,22 +109,31 @@ void ReplaceDialog::init()
 	connect(checkBox_selection, SIGNAL(toggled(bool)), this, SLOT(toggledSelectionOption(bool)));
 	connect(searchText, SIGNAL(textChanged(const QString&)), this, SLOT(checkRegex(const QString&)));
 
+	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Replace"));
+	connect(buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked()), this, SLOT(clickedReplace()));
+	buttonBox->button(QDialogButtonBox::SaveAll)->setText(tr("Replace All"));
+	connect(buttonBox->button(QDialogButtonBox::SaveAll), SIGNAL(clicked()), this, SLOT(clickedReplaceAll()));
+	buttonBox->button(QDialogButtonBox::Abort)->setText(tr("Cancel"));
+	connect(buttonBox->button(QDialogButtonBox::Abort), SIGNAL(clicked()), this, SLOT(reject()));
+
 	QSettings settings;
 	QString	str = settings.value("searchText").toString();
 	searchText->setText(str);
 	searchText->selectAll();
+	str = settings.value("replaceText").toString();
+	replaceText->setText(str);
 
 	bool regexOption = settings.value("searchRegex").toBool();
     checkBox_regex->setChecked(regexOption);
     checkBox_words->setEnabled(!regexOption);
 
-	bool wrapOption = settings.value("searchWrap").toBool();
-    checkBox_wrap->setChecked(wrapOption);
-
 	bool selectionOption = settings.value("searchSelection").toBool();
-    checkBox_selection->setChecked(selectionOption);
-    checkBox_wrap->setEnabled(!selectionOption);
-    checkBox_backwards->setEnabled(!selectionOption);
+	checkBox_selection->setEnabled(document->textCursor().hasSelection());
+    checkBox_selection->setChecked(selectionOption && checkBox_selection->isEnabled());
+
+	bool wrapOption = settings.value("searchWrap").toBool();
+	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()));
+    checkBox_wrap->setChecked(wrapOption);
 
 	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value("searchFlags").toInt();
 	checkBox_case->setChecked((flags & QTextDocument::FindCaseSensitively) != 0);
@@ -147,7 +152,6 @@ void ReplaceDialog::toggledRegexOption(bool checked)
 
 void ReplaceDialog::toggledSelectionOption(bool checked)
 {
-	checkBox_backwards->setEnabled(!checked);
 	checkBox_wrap->setEnabled(!checked);
 }
 
@@ -158,20 +162,50 @@ void ReplaceDialog::checkRegex(const QString& str)
 		if (regex.isValid())
 			regexStatus->setText("");
 		else
-			regexStatus->setText(tr("Invalid regular expression"));
+			regexStatus->setText(tr("(invalid)"));
 	}
 }
 
-void ReplaceDialog::doReplaceDialog(TeXDocument *document)
+void ReplaceDialog::clickedReplace()
+{
+	done(1);
+}
+
+void ReplaceDialog::clickedReplaceAll()
+{
+	done(2);
+}
+
+ReplaceDialog::DialogCode ReplaceDialog::doReplaceDialog(QTextEdit *document)
 {
 	ReplaceDialog dlg(document);
 
 	dlg.show();
-	// doing this AFTER dlg.show() seems to be a necessary hack...
-	dlg.setSizeGripEnabled(true);
-	dlg.setSizeGripEnabled(false);	
+	int	result = dlg.exec();
 
-	DialogCode	result = (DialogCode)dlg.exec();
+	if (result == 0)
+		return Cancel;
+	else {
+		QSettings settings;
+		QString str = dlg.searchText->text();
+		settings.setValue("searchText", str);
+		
+		str = dlg.replaceText->text();
+		settings.setValue("replaceText", str);
 
-	/* FIXME: FINISH THIS */
+		int flags = 0;
+		if (dlg.checkBox_case->isChecked())
+			flags |= QTextDocument::FindCaseSensitively;
+		if (dlg.checkBox_words->isChecked())
+			flags |= QTextDocument::FindWholeWords;
+		if (dlg.checkBox_backwards->isChecked())
+			flags |= QTextDocument::FindBackward;
+		settings.setValue("searchFlags", (int)flags);
+
+		settings.setValue("searchRegex", dlg.checkBox_regex->isChecked());
+		settings.setValue("searchWrap", dlg.checkBox_wrap->isChecked());
+		settings.setValue("searchSelection", dlg.checkBox_selection->isChecked());
+
+		return (result == 2) ? ReplaceAll : ReplaceOne;
+	}
 }

@@ -7,15 +7,16 @@
 #include "ui_Replace.h"
 
 class TeXDocument;
+class QTextEdit;
 
 class FindDialog : public QDialog, private Ui::FindDialog
 {
 	Q_OBJECT
 
 public:
-	FindDialog(QWidget *parent);
+	FindDialog(QTextEdit *document);
 
-	static void doFindDialog(TeXDocument *document);
+	static DialogCode doFindDialog(QTextEdit *document);
 
 private slots:
 	void toggledRegexOption(bool checked);
@@ -23,7 +24,7 @@ private slots:
 	void checkRegex(const QString& str);
 
 private:
-	void init();
+	void init(QTextEdit *document);
 };
 
 class ReplaceDialog : public QDialog, private Ui::ReplaceDialog
@@ -31,17 +32,25 @@ class ReplaceDialog : public QDialog, private Ui::ReplaceDialog
 	Q_OBJECT
 
 public:
-	ReplaceDialog(QWidget *parent);
+	ReplaceDialog(QTextEdit *parent);
 	
-	static void doReplaceDialog(TeXDocument *document);
+	typedef enum {
+		Cancel,
+		ReplaceOne,
+		ReplaceAll
+	} DialogCode;
+	
+	static DialogCode doReplaceDialog(QTextEdit *document);
 
 private slots:
 	void toggledRegexOption(bool checked);
 	void toggledSelectionOption(bool checked);
 	void checkRegex(const QString& str);
+	void clickedReplace();
+	void clickedReplaceAll();
 
 private:
-	void init();
+	void init(QTextEdit *document);
 };
 
 #endif

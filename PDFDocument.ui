@@ -49,6 +49,8 @@
     <addaction name="actionCopy" />
     <addaction name="actionPaste" />
     <addaction name="actionClear" />
+    <addaction name="separator" />
+    <addaction name="actionPreferences" />
    </widget>
    <widget class="QMenu" name="menuView" >
     <property name="title" >
@@ -71,6 +73,11 @@
     <property name="title" >
      <string>Window</string>
     </property>
+    <addaction name="actionStack" />
+    <addaction name="actionTile" />
+    <addaction name="actionTile_Front_Two" />
+    <addaction name="separator" />
+    <addaction name="actionGo_to_Source" />
    </widget>
    <widget class="QMenu" name="menuTypeset" >
     <property name="title" >
@@ -299,6 +306,34 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionPreferences" >
+   <property name="text" >
+    <string>Preferences...</string>
+   </property>
+  </action>
+  <action name="actionStack" >
+   <property name="text" >
+    <string>Stack</string>
+   </property>
+  </action>
+  <action name="actionTile" >
+   <property name="text" >
+    <string>Tile</string>
+   </property>
+  </action>
+  <action name="actionTile_Front_Two" >
+   <property name="text" >
+    <string>Tile Front Two</string>
+   </property>
+  </action>
+  <action name="actionGo_to_Source" >
+   <property name="text" >
+    <string>Go to Source</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+'</string>
    </property>
   </action>
  </widget>

@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>486</width>
-    <height>171</height>
+    <width>478</width>
+    <height>163</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -22,135 +22,166 @@
    <string>Find</string>
   </property>
   <property name="sizeGripEnabled" >
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <property name="modal" >
    <bool>true</bool>
   </property>
-  <widget class="QLabel" name="label" >
-   <property name="geometry" >
-    <rect>
-     <x>19</x>
-     <y>18</y>
-     <width>41</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Find:</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget" >
-   <property name="geometry" >
-    <rect>
-     <x>64</x>
-     <y>50</y>
-     <width>169</width>
-     <height>65</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" >
-    <item>
-     <widget class="QCheckBox" name="checkBox_wrap" >
-      <property name="text" >
-       <string>Wrap around</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="checkBox_backwards" >
-      <property name="text" >
-       <string>Find backwards</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="checkBox_selection" >
-      <property name="text" >
-       <string>Search within selection</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QDialogButtonBox" name="buttonBox" >
-   <property name="geometry" >
-    <rect>
-     <x>14</x>
-     <y>130</y>
-     <width>463</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation" >
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons" >
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget" >
-   <property name="geometry" >
-    <rect>
-     <x>250</x>
-     <y>50</y>
-     <width>144</width>
-     <height>65</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" >
-    <item>
-     <widget class="QCheckBox" name="checkBox_case" >
-      <property name="text" >
-       <string>Case sensitive</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="checkBox_words" >
-      <property name="text" >
-       <string>Whole words</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="checkBox_regex" >
-      <property name="text" >
-       <string>Regular expression</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QLineEdit" name="searchText" >
-   <property name="geometry" >
-    <rect>
-     <x>65</x>
-     <y>15</y>
-     <width>401</width>
-     <height>26</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="regexStatus" >
-   <property name="geometry" >
-    <rect>
-     <x>270</x>
-     <y>114</y>
-     <width>201</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font" >
-    <font>
-     <pointsize>9</pointsize>
-    </font>
-   </property>
-   <property name="text" >
-    <string/>
-   </property>
-  </widget>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Find:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QLineEdit" name="searchText" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+       <horstretch>1</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <layout class="QHBoxLayout" >
+     <item>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QCheckBox" name="checkBox_wrap" >
+         <property name="text" >
+          <string>&amp;Wrap around</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_backwards" >
+         <property name="text" >
+          <string>Find &amp;backwards</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_selection" >
+         <property name="text" >
+          <string>Search within &amp;selection</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QCheckBox" name="checkBox_case" >
+         <property name="text" >
+          <string>&amp;Case sensitive</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_words" >
+         <property name="text" >
+          <string>W&amp;hole words</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_regex" >
+         <property name="text" >
+          <string>&amp;Regular expression</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" >
+       <property name="bottomMargin" >
+        <number>3</number>
+       </property>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>31</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="regexStatus" >
+         <property name="palette" >
+          <palette>
+           <active>
+            <colorrole role="WindowText" >
+             <brush brushstyle="SolidPattern" >
+              <color alpha="255" >
+               <red>255</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="WindowText" >
+             <brush brushstyle="SolidPattern" >
+              <color alpha="255" >
+               <red>255</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="WindowText" >
+             <brush brushstyle="SolidPattern" >
+              <color alpha="255" >
+               <red>127</red>
+               <green>127</green>
+               <blue>127</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0" colspan="2" >
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
+ <tabstops>
+  <tabstop>searchText</tabstop>
+  <tabstop>checkBox_wrap</tabstop>
+  <tabstop>checkBox_backwards</tabstop>
+  <tabstop>checkBox_selection</tabstop>
+  <tabstop>checkBox_case</tabstop>
+  <tabstop>checkBox_words</tabstop>
+  <tabstop>checkBox_regex</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
