@@ -1,0 +1,505 @@
+<ui version="4.0" >
+ <class>PrefsDialog</class>
+ <widget class="QDialog" name="PrefsDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>479</width>
+    <height>433</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>TeXWorks Preferences</string>
+  </property>
+  <property name="modal" >
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QTabWidget" name="tabWidget" >
+     <property name="currentIndex" >
+      <number>3</number>
+     </property>
+     <widget class="QWidget" name="tab_general" >
+      <attribute name="title" >
+       <string>General</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item rowspan="2" row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox" >
+         <property name="title" >
+          <string>Toolbar buttons</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QRadioButton" name="smallIcons" >
+            <property name="text" >
+             <string>Small icons</string>
+            </property>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="mediumIcons" >
+            <property name="text" >
+             <string>Medium icons</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="largeIcons" >
+            <property name="text" >
+             <string>Large icons</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="showText" >
+            <property name="text" >
+             <string>Show text</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QGroupBox" name="groupBox_3" >
+         <property name="title" >
+          <string>When launched, show</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QRadioButton" name="blankDocument" >
+            <property name="text" >
+             <string>New blank document</string>
+            </property>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="openDialog" >
+            <property name="text" >
+             <string>File Open dialog</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item rowspan="2" row="1" column="1" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>91</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_editor" >
+      <attribute name="title" >
+       <string>Editor</string>
+      </attribute>
+      <widget class="QGroupBox" name="groupBox_2" >
+       <property name="geometry" >
+        <rect>
+         <x>20</x>
+         <y>10</y>
+         <width>391</width>
+         <height>150</height>
+        </rect>
+       </property>
+       <property name="title" >
+        <string>Default formatting</string>
+       </property>
+       <widget class="QFontComboBox" name="editorFont" >
+        <property name="geometry" >
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>300</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <property name="maxVisibleItems" >
+         <number>20</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="fontSize" >
+        <property name="geometry" >
+         <rect>
+          <x>320</x>
+          <y>30</y>
+          <width>63</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="suffix" >
+         <string> pt</string>
+        </property>
+        <property name="value" >
+         <number>13</number>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="tabWidth" >
+        <property name="geometry" >
+         <rect>
+          <x>86</x>
+          <y>66</y>
+          <width>63</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="suffix" >
+         <string> pt</string>
+        </property>
+        <property name="minimum" >
+         <number>6</number>
+        </property>
+        <property name="value" >
+         <number>36</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label" >
+        <property name="geometry" >
+         <rect>
+          <x>14</x>
+          <y>70</y>
+          <width>71</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="text" >
+         <string>Tab width:</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="wrapLines" >
+        <property name="geometry" >
+         <rect>
+          <x>10</x>
+          <y>100</y>
+          <width>91</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text" >
+         <string>Wrap lines</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="syntaxColoring" >
+        <property name="geometry" >
+         <rect>
+          <x>10</x>
+          <y>120</y>
+          <width>122</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text" >
+         <string>Syntax coloring</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="layoutWidget" >
+       <property name="geometry" >
+        <rect>
+         <x>20</x>
+         <y>170</y>
+         <width>311</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="label_2" >
+          <property name="text" >
+           <string>Default encoding:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="encoding" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="tab_preview" >
+      <attribute name="title" >
+       <string>Preview</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="tab_typesetting" >
+      <attribute name="title" >
+       <string>Typesetting</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox_4" >
+         <property name="title" >
+          <string>Paths for TeX and related programs</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="QListWidget" name="binPathList" >
+            <property name="currentRow" >
+             <number>-1</number>
+            </property>
+            <item>
+             <property name="text" >
+              <string>/usr/texbin</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>/usr/local/bin</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <layout class="QGridLayout" >
+            <item row="0" column="0" colspan="2" >
+             <widget class="QPushButton" name="pushButton_4" >
+              <property name="text" >
+               <string>Add</string>
+              </property>
+              <property name="autoDefault" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2" >
+             <widget class="QPushButton" name="pushButton_5" >
+              <property name="text" >
+               <string>Remove</string>
+              </property>
+              <property name="autoDefault" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <widget class="QPushButton" name="pushButton_6" >
+              <property name="text" >
+               <string> ^ </string>
+              </property>
+              <property name="autoDefault" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" >
+             <widget class="QPushButton" name="pushButton_7" >
+              <property name="text" >
+               <string> v </string>
+              </property>
+              <property name="autoDefault" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QGroupBox" name="groupBox_5" >
+         <property name="title" >
+          <string>Processing tools</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="QListWidget" name="binPathList_2" >
+            <property name="currentRow" >
+             <number>-1</number>
+            </property>
+            <item>
+             <property name="text" >
+              <string>pdftex</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>pdflatex</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>xetex</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>xelatex</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>context</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>bibtex</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>makeindex</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QPushButton" name="pushButton" >
+              <property name="text" >
+               <string>Add</string>
+              </property>
+              <property name="autoDefault" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_2" >
+              <property name="text" >
+               <string>Remove</string>
+              </property>
+              <property name="autoDefault" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_3" >
+              <property name="text" >
+               <string>Edit</string>
+              </property>
+              <property name="autoDefault" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QCheckBox" name="checkBox" >
+         <property name="text" >
+          <string>Auto-hide output panel unless errors occur</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>binPathList</tabstop>
+  <tabstop>binPathList_2</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>smallIcons</tabstop>
+  <tabstop>mediumIcons</tabstop>
+  <tabstop>largeIcons</tabstop>
+  <tabstop>showText</tabstop>
+  <tabstop>blankDocument</tabstop>
+  <tabstop>openDialog</tabstop>
+  <tabstop>editorFont</tabstop>
+  <tabstop>fontSize</tabstop>
+  <tabstop>tabWidth</tabstop>
+  <tabstop>wrapLines</tabstop>
+  <tabstop>syntaxColoring</tabstop>
+  <tabstop>encoding</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>PrefsDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>PrefsDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

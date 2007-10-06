@@ -7,15 +7,15 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 {
 	HighlightingRule rule;
 
-	specialCharFormat.setFontWeight(QFont::Bold);
 	specialCharFormat.setForeground(Qt::magenta);
+	specialCharFormat.setFontWeight(QFont::Bold);
 	rule.pattern = QRegExp("[$#^_{}&]");
 	rule.format = specialCharFormat;
 	highlightingRules.append(rule);
 
 	controlSequenceFormat.setForeground(Qt::blue);
-	controlSequenceFormat.setFontWeight(QFont::Bold);
-	rule.pattern = QRegExp("\\\\(?:[A-Za-z]+|.)");
+//	controlSequenceFormat.setFontWeight(QFont::Bold);
+	rule.pattern = QRegExp("\\\\(?:[A-Za-z@]+|.)");
 	rule.format = controlSequenceFormat;
 	highlightingRules.append(rule);
 
@@ -30,6 +30,7 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	highlightingRules.append(rule);
 
 	commentFormat.setForeground(Qt::red);
+	commentFormat.setFontItalic(true);
 	rule.pattern = QRegExp("%.*");
 	rule.format = commentFormat;
 	highlightingRules.append(rule);

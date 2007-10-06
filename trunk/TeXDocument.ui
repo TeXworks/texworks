@@ -47,6 +47,12 @@
        <enum>Qt::Vertical</enum>
       </property>
       <widget class="QTextEdit" name="textEdit" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+         <horstretch>0</horstretch>
+         <verstretch>4</verstretch>
+        </sizepolicy>
+       </property>
        <property name="frameShape" >
         <enum>QFrame::NoFrame</enum>
        </property>
@@ -58,6 +64,17 @@
        </property>
       </widget>
       <widget class="QTextEdit" name="textEdit_console" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+         <horstretch>0</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font" >
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="frameShape" >
         <enum>QFrame::NoFrame</enum>
        </property>
@@ -67,11 +84,17 @@
        <property name="midLineWidth" >
         <number>0</number>
        </property>
+       <property name="undoRedoEnabled" >
+        <bool>false</bool>
+       </property>
        <property name="readOnly" >
         <bool>true</bool>
        </property>
        <property name="tabStopWidth" >
         <number>36</number>
+       </property>
+       <property name="acceptRichText" >
+        <bool>false</bool>
        </property>
       </widget>
      </widget>
@@ -113,6 +136,7 @@
     <addaction name="actionClear" />
     <addaction name="separator" />
     <addaction name="actionSelect_All" />
+    <addaction name="actionPreferences" />
    </widget>
    <widget class="QMenu" name="menuRun" >
     <property name="title" >
@@ -120,8 +144,6 @@
     </property>
     <addaction name="actionTypeset" />
     <addaction name="separator" />
-    <addaction name="actionTeX" />
-    <addaction name="actionLaTeX" />
    </widget>
    <widget class="QMenu" name="menuWindow" >
     <property name="title" >
@@ -130,6 +152,9 @@
     <addaction name="actionStack" />
     <addaction name="actionTile" />
     <addaction name="actionTile_Front_Two" />
+    <addaction name="separator" />
+    <addaction name="actionGo_to_Preview" />
+    <addaction name="actionShow_Hide_Console" />
    </widget>
    <widget class="QMenu" name="menuSearch" >
     <property name="title" >
@@ -157,6 +182,7 @@
     <addaction name="actionUnindent" />
     <addaction name="separator" />
     <addaction name="actionWrap_Lines" />
+    <addaction name="actionSyntax_Coloring" />
    </widget>
    <widget class="QMenu" name="menuHelp" >
     <property name="title" >
@@ -351,9 +377,6 @@
    <property name="text" >
     <string>Clear</string>
    </property>
-   <property name="shortcut" >
-    <string>Ctrl+Backspace</string>
-   </property>
   </action>
   <action name="actionTypeset" >
    <property name="icon" >
@@ -361,6 +384,9 @@
    </property>
    <property name="text" >
     <string>Typeset</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+T</string>
    </property>
   </action>
   <action name="actionTeX" >
@@ -490,6 +516,12 @@
    </property>
   </action>
   <action name="actionWrap_Lines" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
    <property name="text" >
     <string>Wrap Lines</string>
    </property>
@@ -524,6 +556,38 @@
     <string>Tile Front Two</string>
    </property>
   </action>
+  <action name="actionPreferences" >
+   <property name="text" >
+    <string>Preferences...</string>
+   </property>
+  </action>
+  <action name="actionGo_to_Preview" >
+   <property name="text" >
+    <string>Go to Preview</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+'</string>
+   </property>
+  </action>
+  <action name="actionShow_Hide_Console" >
+   <property name="text" >
+    <string>Hide Output Panel</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+\</string>
+   </property>
+  </action>
+  <action name="actionSyntax_Coloring" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Syntax Coloring</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="resources.qrc" />
@@ -531,7 +595,7 @@
  <connections>
   <connection>
    <sender>actionUndo</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>textEdit</receiver>
    <slot>undo()</slot>
    <hints>
@@ -547,7 +611,7 @@
   </connection>
   <connection>
    <sender>actionRedo</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>textEdit</receiver>
    <slot>redo()</slot>
    <hints>
@@ -563,7 +627,7 @@
   </connection>
   <connection>
    <sender>actionCut</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>textEdit</receiver>
    <slot>cut()</slot>
    <hints>
@@ -579,7 +643,7 @@
   </connection>
   <connection>
    <sender>actionCopy</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>textEdit</receiver>
    <slot>copy()</slot>
    <hints>
@@ -595,7 +659,7 @@
   </connection>
   <connection>
    <sender>actionPaste</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>textEdit</receiver>
    <slot>paste()</slot>
    <hints>
@@ -611,7 +675,7 @@
   </connection>
   <connection>
    <sender>actionSelect_All</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>textEdit</receiver>
    <slot>selectAll()</slot>
    <hints>
@@ -682,6 +746,22 @@
     <hint type="sourcelabel" >
      <x>387</x>
      <y>195</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>textEdit</sender>
+   <signal>copyAvailable(bool)</signal>
+   <receiver>actionClear</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>389</x>
+     <y>175</y>
     </hint>
     <hint type="destinationlabel" >
      <x>-1</x>
