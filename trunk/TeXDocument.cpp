@@ -16,6 +16,7 @@
 #include <QClipboard>
 #include <QSettings>
 #include <QStringList>
+#include <QComboBox>
 #include <QRegExp>
 #include <QProcess>
 #include <QDebug>
@@ -67,6 +68,16 @@ void TeXDocument::init()
 	lineNumberLabel->setFont(statusBar()->font());
 	statusLine = statusTotal = 0;
 	showCursorPosition();
+	
+	engine = new QComboBox(this);
+	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
+	if (app != NULL) {
+		engine->addItem("default (" + app->getDefaultEngine().name() + ")");
+		foreach (Engine e, app->getEngineList())
+			engine->addItem(e.name());
+	}
+	engine->setEditable(false);
+	toolBar_run->addWidget(engine);
 	
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
@@ -754,17 +765,19 @@ void TeXDocument::typeset()
 	if (process)
 		return;
 
-	if (textEdit->document()->isModified())
+	if (isUntitled || textEdit->document()->isModified())
 		if (!save())
 			return;
+
+	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
+	if (app == NULL)
+		return; // actually, that would be an internal error!
 
 	process = new QProcess(this);
 	QFileInfo fileInfo(curFile);
 	process->setWorkingDirectory(fileInfo.canonicalPath());
 
-	QStringList binPaths;
-	binPaths << "/usr/texbin" << "/usr/local/bin" << "/Volumes/Nenya/texlive/Master/bin/powerpc-darwin" << "/usr/bin";
-
+	const QStringList& binPaths = app->getBinaryPaths();
 	QStringList env = QProcess::systemEnvironment();
 	QStringListIterator iter(binPaths);
 	iter.toBack();
@@ -773,26 +786,23 @@ void TeXDocument::typeset()
 		env.replaceInStrings(QRegExp("^PATH=(.*)", Qt::CaseInsensitive), "PATH=" + path + ":\\1");
 	}
 	process->setEnvironment(env);
-
-	QStringList args;
-	args.append(fileInfo.fileName());
 	process->setProcessChannelMode(QProcess::MergedChannels);
 
 	connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(processStandardOutput()));
 	connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
-	connect(process, SIGNAL(started()), this, SLOT(processStarted()));
 	connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
 
+	Engine e = (engine->currentIndex() == 0) ? app->getDefaultEngine() : app->getNamedEngine(engine->currentText());
+	QStringList args = e.arguments();
 	args.replaceInStrings("$fullname", fileInfo.fileName());
 	args.replaceInStrings("$basename", fileInfo.completeBaseName());
 	args.replaceInStrings("$suffix", fileInfo.suffix());
 	args.replaceInStrings("$directory", fileInfo.absoluteDir().absolutePath());
 
-	QString program = "xelatex";
 	iter.toFront();
 	while (iter.hasNext()) {
 		QString path = iter.next();
-		fileInfo = QFileInfo(path, program);
+		fileInfo = QFileInfo(path, e.program());
 		if (fileInfo.exists()) {
 			textEdit_console->clear();
 			showConsole();
@@ -816,12 +826,8 @@ void TeXDocument::processError(QProcess::ProcessError /*error*/)
 {
 	textEdit_console->append(process->errorString());
 	process->kill();
-//	delete process;
+	process->deleteLater();
 	process = NULL;
-}
-
-void TeXDocument::processStarted()
-{
 }
 
 void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
@@ -842,7 +848,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	if (exitCode == 0 && settings.value("autoHideConsole", true).toBool())
 		hideConsole();
 
-	delete process;
+	process->deleteLater();
 	process = NULL;
 }
 

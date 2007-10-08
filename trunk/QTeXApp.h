@@ -5,6 +5,8 @@
 #include <QList>
 #include <QAction>
 
+#include "QTeXUtils.h"
+
 class QString;
 class QMenu;
 class QMenuBar;
@@ -16,7 +18,6 @@ const int kNewWindowOffset = 32;
 class QTeXApp : public QApplication
 {
 	Q_OBJECT
-    Q_PROPERTY(int maxRecentFiles READ maxRecentFiles WRITE setMaxRecentFiles)
 
 public:
 	QTeXApp(int argc, char *argv[]);
@@ -24,12 +25,14 @@ public:
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
 
-#ifdef Q_WS_MAC
-	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
-	QMenu *getRecentFilesMenu()
-		{ return menuRecent; }
+	const QStringList getBinaryPaths();
+	const QList<Engine> getEngineList();
+	const Engine getDefaultEngine();
+	const Engine getNamedEngine(const QString& name);
 
+#ifdef Q_WS_MAC
 private:
+	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
 	QMenuBar *menuBar;
 	QMenu *menuFile;
 	QMenu *menuHelp;
@@ -54,6 +57,9 @@ signals:
 
 	// emitted when the window list may have changed, so documents can update their window menu
 	void windowListChanged();
+	
+	// emitted when the engine list is changed from Preferences, so docs can update their menus
+	void engineListChanged();
 
 private slots:
 	void about();
@@ -68,8 +74,14 @@ protected:
 private:
 	void init();
 	void open(const QString &fileName);
+	void setDefaultPaths();
+	void setDefaultEngineList();
 	
 	int f_maxRecentFiles;
+
+	QStringList *f_binaryPaths;
+	QList<Engine> *f_engineList;
+	int f_defaultEngineIndex;
 };
 
 #endif

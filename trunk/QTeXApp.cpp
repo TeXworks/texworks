@@ -32,7 +32,10 @@ void QTeXApp::init()
 	setApplicationName("TeXWorks");
 
 	QSettings settings;
-	f_maxRecentFiles = settings.contains("maxRecentFiles") ? settings.value("maxRecentFiles").toInt() : kDefaultMaxRecentFiles;
+	f_maxRecentFiles = settings.value("maxRecentFiles", kDefaultMaxRecentFiles).toInt();
+
+	f_binaryPaths = NULL;
+	f_engineList = NULL;
 
 #ifdef Q_WS_MAC
 	setQuitOnLastWindowClosed(false);
@@ -171,4 +174,109 @@ bool QTeXApp::event(QEvent *event)
 		default:
 			return QApplication::event(event);
 	}
+}
+
+void QTeXApp::setDefaultPaths()
+{
+	if (f_binaryPaths == NULL)
+		f_binaryPaths = new QStringList;
+	else
+		f_binaryPaths->clear();
+	*f_binaryPaths
+#ifdef Q_WS_MAC
+		<< "/usr/texbin"
+		<< "/usr/local/bin"
+		<< "/Volumes/Nenya/texlive/Master/bin/powerpc-darwin"
+#endif
+#ifdef Q_WS_X11
+		<< "/usr/local/texlive/2007/bin/i386-linux"
+		<< "/usr/local/bin"
+#endif
+#ifdef Q_WS_WIN
+		<< "c:/texlive/2007/bin"
+		<< "c:/w32tex/bin"
+#endif
+		;
+}
+
+const QStringList QTeXApp::getBinaryPaths()
+{
+	if (f_binaryPaths == NULL) {
+		f_binaryPaths = new QStringList;
+		QSettings settings;
+		if (settings.contains("binaryPaths"))
+			*f_binaryPaths = settings.value("binaryPaths").toStringList();
+		else
+			setDefaultPaths();
+	}
+	return *f_binaryPaths;
+}
+
+void QTeXApp::setDefaultEngineList()
+{
+	if (f_engineList == NULL)
+		f_engineList = new QList<Engine>;
+	else
+		f_engineList->clear();
+#ifdef Q_WS_WIN
+#define EXE ".exe"
+#else
+#define EXE
+#endif
+	*f_engineList
+		<< Engine("pdfTeX", "pdftex" EXE, QStringList("$fullname"), true)
+		<< Engine("pdfLaTeX", "pdflatex" EXE, QStringList("$fullname"), true)
+		<< Engine("XeTeX", "xetex" EXE, QStringList("$fullname"), true)
+		<< Engine("XeLaTeX", "xelatex" EXE, QStringList("$fullname"), true)
+		<< Engine("ConTeXt", "texexec" EXE, QStringList("$fullname"), true)
+		<< Engine("BibTeX", "bibtex" EXE, QStringList("$basename"), false)
+		<< Engine("MakeIndex", "makeindex" EXE, QStringList("$basename"), false);
+	f_defaultEngineIndex = 1;
+}
+
+const QList<Engine> QTeXApp::getEngineList()
+{
+	if (f_engineList == NULL) {
+		f_engineList = new QList<Engine>;
+		QSettings settings;
+		if (settings.childGroups().contains("engines")) {
+			settings.beginGroup("engines");
+			QStringList childKeys = settings.childKeys();
+			foreach (QString engineName, childKeys) {
+				Engine eng;
+				eng.setName(engineName);
+				settings.beginGroup(engineName);
+				eng.setProgram(settings.value("program").toString());
+				eng.setArguments(settings.value("arguments").toStringList());
+				eng.setShowPdf(settings.value("showPdf").toBool());
+				settings.endGroup();
+				f_engineList->append(eng);
+			}
+			settings.endGroup();
+		}
+		else
+			setDefaultEngineList();
+	}
+	return *f_engineList;
+}
+
+const Engine QTeXApp::getDefaultEngine()
+{
+	const QList<Engine> engines = getEngineList();
+	if (f_defaultEngineIndex < engines.count())
+		return engines[f_defaultEngineIndex];
+	else if (engines.empty())
+		return Engine();
+	else
+		return engines[0];
+}
+
+const Engine QTeXApp::getNamedEngine(const QString& name)
+{
+	const QList<Engine> engines = getEngineList();
+	foreach (Engine e, engines) {
+		if (e.name().compare(name, Qt::CaseInsensitive) == 0)
+			return e;
+	}
+	return Engine();
 }

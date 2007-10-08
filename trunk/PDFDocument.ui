@@ -343,7 +343,7 @@
  <connections>
   <connection>
    <sender>actionClose</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>PDFDocument</receiver>
    <slot>close()</slot>
    <hints>
