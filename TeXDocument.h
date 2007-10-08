@@ -80,7 +80,6 @@ private slots:
 	void editMenuAboutToShow();
 	void processStandardOutput();
 	void processError(QProcess::ProcessError error);
-	void processStarted();
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void toggleConsoleVisibility();
 	void goToPreview();
@@ -108,6 +107,7 @@ private:
 	int statusLine;
 	int statusTotal;
 
+	QComboBox *engine;
 	QProcess *process;
 
 	QList<QAction*> recentFileActions;
