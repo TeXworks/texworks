@@ -207,8 +207,8 @@
    </property>
    <property name="iconSize" >
     <size>
-     <width>16</width>
-     <height>16</height>
+     <width>24</width>
+     <height>24</height>
     </size>
    </property>
    <attribute name="toolBarArea" >
@@ -229,8 +229,8 @@
    </property>
    <property name="iconSize" >
     <size>
-     <width>16</width>
-     <height>16</height>
+     <width>24</width>
+     <height>24</height>
     </size>
    </property>
    <attribute name="toolBarArea" >
@@ -249,6 +249,8 @@
    <addaction name="actionCut" />
    <addaction name="actionCopy" />
    <addaction name="actionPaste" />
+   <addaction name="separator" />
+   <addaction name="actionFind" />
   </widget>
   <widget class="QStatusBar" name="myStatusBar" >
    <property name="font" >
@@ -417,6 +419,9 @@
    </property>
   </action>
   <action name="actionFind" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/searchfind.png</iconset>
+   </property>
    <property name="text" >
     <string>Find...</string>
    </property>
