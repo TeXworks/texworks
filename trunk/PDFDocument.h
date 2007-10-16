@@ -21,7 +21,7 @@ class PDFMagnifier : public QLabel
 	Q_OBJECT
 
 public:
-	PDFMagnifier(QWidget *parent);
+	PDFMagnifier(QWidget *parent, double inDpi);
 	void setPage(Poppler::Page *p, double scale);
 
 protected:
@@ -30,7 +30,7 @@ protected:
 private:
 	Poppler::Page	*page;
 	double	scaleFactor;
-
+	double	dpi;
 	QImage	image;
 };
 
@@ -76,6 +76,7 @@ private:
 
 	int pageIndex;
 	double	scaleFactor;
+	double	dpi;
 	typedef enum {
 		kFixedMag,
 		kFitWidth,

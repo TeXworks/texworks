@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>232</height>
+    <width>464</width>
+    <height>279</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -26,7 +26,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
+   <item row="0" column="1" colspan="3" >
     <widget class="QLineEdit" name="toolName" >
      <property name="text" >
       <string/>
@@ -40,7 +40,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
+   <item row="1" column="1" colspan="3" >
     <widget class="QLineEdit" name="program" >
      <property name="text" >
       <string/>
@@ -48,33 +48,77 @@
     </widget>
    </item>
    <item row="2" column="0" >
-    <layout class="QVBoxLayout" >
-     <item>
-      <widget class="QLabel" name="label_3" >
-       <property name="text" >
-        <string>Arguments:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>20</width>
-         <height>61</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
+    <widget class="QLabel" name="label_3" >
+     <property name="text" >
+      <string>Arguments:</string>
+     </property>
+    </widget>
    </item>
-   <item row="2" column="1" >
-    <widget class="QListWidget" name="arguments" />
+   <item rowspan="3" row="2" column="1" >
+    <widget class="QListWidget" name="arguments" >
+     <property name="alternatingRowColors" >
+      <bool>true</bool>
+     </property>
+     <property name="uniformItemSizes" >
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
-   <item row="3" column="0" colspan="2" >
+   <item row="2" column="2" >
+    <widget class="QToolButton" name="argUp" >
+     <property name="icon" >
+      <iconset resource="resources.qrc" >:/images/images/up.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3" >
+    <widget class="QToolButton" name="argDown" >
+     <property name="icon" >
+      <iconset resource="resources.qrc" >:/images/images/down.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item rowspan="2" row="3" column="0" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>61</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="2" colspan="2" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="2" >
+    <widget class="QToolButton" name="argAdd" >
+     <property name="icon" >
+      <iconset resource="resources.qrc" >:/images/images/plus.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="3" >
+    <widget class="QToolButton" name="argRemove" >
+     <property name="icon" >
+      <iconset resource="resources.qrc" >:/images/images/minus.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="4" >
     <widget class="QCheckBox" name="viewPdf" >
      <property name="text" >
       <string>View PDF after running</string>
@@ -84,7 +128,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="2" >
+   <item row="6" column="0" colspan="4" >
     <widget class="QDialogButtonBox" name="dialogButtonBox" >
      <property name="orientation" >
       <enum>Qt::Horizontal</enum>
@@ -103,7 +147,9 @@
   <tabstop>viewPdf</tabstop>
   <tabstop>dialogButtonBox</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc" />
+ </resources>
  <connections>
   <connection>
    <sender>dialogButtonBox</sender>

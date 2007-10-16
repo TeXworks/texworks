@@ -5,6 +5,8 @@
 #include <QString>
 #include <QList>
 
+class QMainWindow;
+
 // static utility methods
 class QTeXUtils
 {
@@ -24,6 +26,7 @@ public:
 	static void tile(QList<QWidget*> windows);
 	static void stack(QList<QWidget*> windows);
 	static void ensureOnScreen(QWidget *window);
+	static void applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool showText);
 
 private:
 	QTeXUtils();

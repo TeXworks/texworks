@@ -144,6 +144,18 @@ void QTeXUtils::stack(QList<QWidget*> windows)
 {
 }
 
+void QTeXUtils::applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool showText)
+{
+	iconSize = iconSize * 8 + 8;	// convert 1,2,3 to 16,24,32
+	foreach (QObject *object, theWindow->children()) {
+		QToolBar *theToolBar = qobject_cast<QToolBar*>(object);
+		if (theToolBar != NULL) {
+			theToolBar->setToolButtonStyle(showText ? Qt::ToolButtonTextUnderIcon : Qt::ToolButtonIconOnly);
+			theToolBar->setIconSize(QSize(iconSize, iconSize));
+		}
+	}
+}
+
 #pragma mark === SelWinAction ===
 
 // action subclass used for dynamic window-selection items in the Window menu

@@ -40,7 +40,8 @@ FORMS	+=	TeXDocument.ui \
 			PDFDocument.ui \
 			Find.ui \
 			Replace.ui \
-			PrefsDialog.ui
+			PrefsDialog.ui \
+			ToolConfig.ui
 
 SOURCES	+=	main.cpp \
 			QTeXApp.cpp \

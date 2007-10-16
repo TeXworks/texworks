@@ -138,6 +138,9 @@ void TeXDocument::init()
 	highlighter = new TeXHighlighter(textEdit->document());
 	textEdit->installEventFilter(CmdKeyFilter::filter());
 
+	QSettings settings;
+	QTeXUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
+
 //	positionWindowOnScreen(NULL);
 }
 

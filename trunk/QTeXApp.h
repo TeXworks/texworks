@@ -25,6 +25,9 @@ public:
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
 
+	void setBinaryPaths(const QStringList& paths);
+	void setEngineList(const QList<Engine>& engineList);
+
 	const QStringList getBinaryPaths();
 	const QList<Engine> getEngineList();
 	const Engine getDefaultEngine();

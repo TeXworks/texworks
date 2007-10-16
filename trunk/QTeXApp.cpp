@@ -40,6 +40,9 @@ void QTeXApp::init()
 #ifdef Q_WS_MAC
 	setQuitOnLastWindowClosed(false);
 
+	extern void qt_mac_set_menubar_icons(bool);
+	qt_mac_set_menubar_icons(false);
+
 	menuBar = new QMenuBar;
 
 	menuFile = menuBar->addMenu(tr("File"));
@@ -212,6 +215,13 @@ const QStringList QTeXApp::getBinaryPaths()
 	return *f_binaryPaths;
 }
 
+void QTeXApp::setBinaryPaths(const QStringList& paths)
+{
+	if (f_binaryPaths == NULL)
+		f_binaryPaths = new QStringList;
+	*f_binaryPaths = paths;
+}
+
 void QTeXApp::setDefaultEngineList()
 {
 	if (f_engineList == NULL)
@@ -258,6 +268,13 @@ const QList<Engine> QTeXApp::getEngineList()
 			setDefaultEngineList();
 	}
 	return *f_engineList;
+}
+
+void QTeXApp::setEngineList(const QList<Engine>& engineList)
+{
+	if (f_engineList == NULL)
+		f_engineList = new QList<Engine>;
+	*f_engineList = engineList;
 }
 
 const Engine QTeXApp::getDefaultEngine()

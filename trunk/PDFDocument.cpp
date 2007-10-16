@@ -13,6 +13,7 @@
 #include <QScrollArea>
 #include <QStyle>
 #include <QDesktopWidget>
+#include <QSettings>
 
 #include <math.h>
 
@@ -24,10 +25,11 @@ const double kMinScaleFactor = 0.125;
 const int kMagnifierWidth = 360;
 const int kMagnifierHeight = 240;
 
-PDFMagnifier::PDFMagnifier(QWidget *parent)
+PDFMagnifier::PDFMagnifier(QWidget *parent, double inDpi)
 	: QLabel(parent)
 	, page(NULL)
 	, scaleFactor(1.0)
+	, dpi(inDpi)
 {
 }
 
@@ -43,7 +45,7 @@ void PDFMagnifier::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     drawFrame(&painter);
 
-	QImage img = page->renderToImage(72.0 * scaleFactor * 2, 72.0 * scaleFactor * 2,
+	QImage img = page->renderToImage(dpi * scaleFactor * 2, dpi * scaleFactor * 2,
 									x() * 2 + event->rect().x() + kMagnifierWidth / 2,
 									y() * 2 + event->rect().y() + kMagnifierHeight / 2,
 									event->rect().width(), event->rect().height());
@@ -58,9 +60,11 @@ PDFWidget::PDFWidget()
 	, page(NULL)
 	, pageIndex(0)
 	, scaleFactor(1.0)
+	, dpi(72.0)
 	, scaleOption(kFixedMag)
 	, magnifier(NULL)
 {
+	dpi = QApplication::desktop()->logicalDpiX();
 }
 
 void PDFWidget::setDocument(Poppler::Document *doc)
@@ -88,7 +92,7 @@ void PDFWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     drawFrame(&painter);
 
-	QImage img = page->renderToImage(72.0 * scaleFactor, 72.0 * scaleFactor,
+	QImage img = page->renderToImage(dpi * scaleFactor, dpi * scaleFactor,
 									event->rect().x(), event->rect().y(),
 									event->rect().width(), event->rect().height());
 	painter.drawImage(event->rect(), img);
@@ -97,7 +101,7 @@ void PDFWidget::paintEvent(QPaintEvent *event)
 void PDFWidget::mousePressEvent(QMouseEvent *event)
 {
 	if (!magnifier)
-		magnifier = new PDFMagnifier(this);
+		magnifier = new PDFMagnifier(this, dpi);
 	magnifier->setPage(page, scaleFactor);
 	magnifier->setFixedSize(kMagnifierWidth, kMagnifierHeight);
 	magnifier->move(event->x() - kMagnifierWidth/2, event->y() - kMagnifierHeight/2);
@@ -360,6 +364,9 @@ PDFDocument::init()
 	connect(actionPreferences, SIGNAL(triggered()), qApp, SLOT(preferences()));
 
 	connect(this, SIGNAL(destroyed()), qApp, SLOT(updateWindowMenus()));
+
+	QSettings settings;
+	QTeXUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 }
  
 void PDFDocument::updateRecentFileActions()
