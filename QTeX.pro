@@ -12,15 +12,16 @@ macx {
 	INCLUDEPATH += /usr/local/include/poppler
 	INCLUDEPATH += /usr/local/include/poppler/qt4
 
-	LIBS += -L/usr/local/lib -lpoppler-qt4
+	LIBS += /usr/local/lib/libpoppler-qt4.so
 	LIBS += -L/usr/X11R6/lib -lfontconfig
 
 	QMAKE_INFO_PLIST = TeXWorks.plist
 }
 
 unix {
-	INCLUDEPATH += /usr/include/poppler
-	LIBS += -lpoppler-qt4
+	INCLUDEPATH += /usr/local/include/poppler
+	INCLUDEPATH += /usr/local/include/poppler/qt4
+	LIBS += -Wl,-rpath,/usr/local/lib -lpoppler-qt4
 	LIBS += -lfontconfig
 }
 

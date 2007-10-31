@@ -126,7 +126,7 @@ void PDFWidget::mouseMoveEvent(QMouseEvent *event)
 void PDFWidget::adjustSize()
 {
 	if (page) {
-		QSize	pageSize = (page->pageSizeF() * scaleFactor).toSize();
+		QSize	pageSize = (page->pageSizeF() * scaleFactor * dpi / 72.0).toSize();
 		if (pageSize != size())
 			resize(pageSize);
 	}
@@ -213,7 +213,7 @@ void PDFWidget::fitWidth()
 		QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
 		if (scrollArea) {
 			double portWidth = scrollArea->viewport()->width();
-			QSizeF	pageSize = page->pageSizeF();
+			QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
 			scaleFactor = portWidth / pageSize.width();
 			if (scaleFactor < kMinScaleFactor)
 				scaleFactor = kMinScaleFactor;
@@ -236,7 +236,7 @@ void PDFWidget::fitWindow()
 		if (scrollArea) {
 			double portWidth = scrollArea->viewport()->width();
 			double portHeight = scrollArea->viewport()->height();
-			QSizeF	pageSize = page->pageSizeF();
+			QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
 			double sfh = portWidth / pageSize.width();
 			double sfv = portHeight / pageSize.height();
 			scaleFactor = sfh < sfv ? sfh : sfv;

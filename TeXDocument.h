@@ -16,6 +16,7 @@ class QTextEdit;
 class QToolBar;
 class QLabel;
 class QProcess;
+class QComboBox;
 
 class TeXHighlighter;
 class PDFDocument;
