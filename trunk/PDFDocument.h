@@ -32,6 +32,11 @@ private:
 	double	scaleFactor;
 	double	dpi;
 	QImage	image;
+	
+	QPoint	imageLoc;
+	QSize	imageSize;
+	double	imageDpi;
+	Poppler::Page	*imagePage;
 };
 
 class PDFWidget : public QLabel
@@ -85,6 +90,9 @@ private:
 	autoScaleOption scaleOption;
 	
 	QImage	image;
+	QRect	imageRect;
+	double	imageDpi;
+	Poppler::Page	*imagePage;
 
 	PDFMagnifier	*magnifier;
 	bool magnifying;
