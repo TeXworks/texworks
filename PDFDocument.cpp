@@ -22,8 +22,8 @@ const double kMinScaleFactor = 0.125;
 
 #pragma mark === PDFMagnifier ===
 
-const int kMagnifierWidth = 360;
-const int kMagnifierHeight = 240;
+const int kMagnifierWidth = 400;
+const int kMagnifierHeight = 300;
 
 PDFMagnifier::PDFMagnifier(QWidget *parent, double inDpi)
 	: QLabel(parent)
@@ -37,6 +37,10 @@ void PDFMagnifier::setPage(Poppler::Page *p, double scale)
 {
 	page = p;
 	scaleFactor = scale;
+	QWidget *w = qobject_cast<QWidget*>(parent());
+	image = page->renderToImage(dpi * scaleFactor * 2, dpi * scaleFactor * 2,
+								w->rect().x() * 2, w->rect().y() * 2,
+								w->rect().width() * 2, w->rect().height() * 2);
 	update();
 }
 
@@ -44,12 +48,7 @@ void PDFMagnifier::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     drawFrame(&painter);
-
-	QImage img = page->renderToImage(dpi * scaleFactor * 2, dpi * scaleFactor * 2,
-									x() * 2 + event->rect().x() + kMagnifierWidth / 2,
-									y() * 2 + event->rect().y() + kMagnifierHeight / 2,
-									event->rect().width(), event->rect().height());
-	painter.drawImage(event->rect(), img);
+	painter.drawImage(event->rect(), image, event->rect().translated(x() * 2 + kMagnifierWidth / 2, y() * 2 + kMagnifierHeight / 2));
 }
 
 #pragma mark === PDFWidget ===
@@ -63,6 +62,7 @@ PDFWidget::PDFWidget()
 	, dpi(72.0)
 	, scaleOption(kFixedMag)
 	, magnifier(NULL)
+	, magnifying(false)
 {
 	dpi = QApplication::desktop()->logicalDpiX();
 }
@@ -89,17 +89,27 @@ void PDFWidget::windowResized()
 
 void PDFWidget::paintEvent(QPaintEvent *event)
 {
-    QPainter painter(this);
-    drawFrame(&painter);
+	QPainter painter(this);
+	drawFrame(&painter);
 
-	QImage img = page->renderToImage(dpi * scaleFactor, dpi * scaleFactor,
-									event->rect().x(), event->rect().y(),
-									event->rect().width(), event->rect().height());
-	painter.drawImage(event->rect(), img);
+	if (magnifying) {
+		painter.drawImage(event->rect(), image, event->rect());
+	}
+	else {
+		QImage img = page->renderToImage(dpi * scaleFactor, dpi * scaleFactor,
+										event->rect().x(), event->rect().y(),
+										event->rect().width(), event->rect().height());
+		painter.drawImage(event->rect(), img);
+	}
 }
 
 void PDFWidget::mousePressEvent(QMouseEvent *event)
 {
+	magnifying = true;
+	image = page->renderToImage(dpi * scaleFactor, dpi * scaleFactor,
+										rect().x(), rect().y(),
+										rect().width(), rect().height());
+
 	if (!magnifier)
 		magnifier = new PDFMagnifier(this, dpi);
 	magnifier->setPage(page, scaleFactor);
@@ -113,6 +123,8 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 {
 	if (magnifier)
 		magnifier->close();
+	magnifying = false;
+	image = QImage();
 	event->accept();
 }
 

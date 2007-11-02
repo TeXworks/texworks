@@ -87,6 +87,7 @@ private:
 	QImage	image;
 
 	PDFMagnifier	*magnifier;
+	bool magnifying;
 };
 
 
