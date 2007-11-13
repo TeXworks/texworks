@@ -174,6 +174,7 @@ void PDFWidget::reloadPage()
 	adjustSize();
 	update();
 	updateStatusBar();
+	emit changedPage(pageIndex);
 }
 
 void PDFWidget::updateStatusBar()
@@ -226,7 +227,6 @@ void PDFWidget::doPageDialog()
 {
 }
 
-
 void PDFWidget::actualSize()
 {
 	scaleOption = kFixedMag;
@@ -235,6 +235,7 @@ void PDFWidget::actualSize()
 		adjustSize();
 		update();
 		updateStatusBar();
+		emit changedZoom(scaleFactor);
 	}
 }
 
@@ -256,6 +257,7 @@ void PDFWidget::fitWidth()
 			adjustSize();
 			update();
 			updateStatusBar();
+			emit changedZoom(scaleFactor);
 		}
 	}
 }
@@ -281,6 +283,7 @@ void PDFWidget::fitWindow()
 			adjustSize();
 			update();
 			updateStatusBar();
+			emit changedZoom(scaleFactor);
 		}
 	}
 }
@@ -297,6 +300,7 @@ void PDFWidget::zoomIn()
 		adjustSize();
 		update();
 		updateStatusBar();
+		emit changedZoom(scaleFactor);
 	}
 }
 
@@ -312,6 +316,7 @@ void PDFWidget::zoomOut()
 		adjustSize();
 		update();
 		updateStatusBar();
+		emit changedZoom(scaleFactor);
 	}
 }
 
@@ -373,12 +378,14 @@ PDFDocument::init()
 	connect(actionPrevious_Page, SIGNAL(triggered()), pdfWidget, SLOT(goPrev()));
 	connect(actionNext_Page, SIGNAL(triggered()), pdfWidget, SLOT(goNext()));
 	connect(actionLast_Page, SIGNAL(triggered()), pdfWidget, SLOT(goLast()));
+	connect(pdfWidget, SIGNAL(changedPage(int)), this, SLOT(enablePageActions(int)));
 
 	connect(actionActual_Size, SIGNAL(triggered()), pdfWidget, SLOT(actualSize()));
 	connect(actionFit_to_Width, SIGNAL(triggered()), pdfWidget, SLOT(fitWidth()));
 	connect(actionFit_to_Window, SIGNAL(triggered()), pdfWidget, SLOT(fitWindow()));
 	connect(actionZoom_In, SIGNAL(triggered()), pdfWidget, SLOT(zoomIn()));
 	connect(actionZoom_Out, SIGNAL(triggered()), pdfWidget, SLOT(zoomOut()));
+	connect(pdfWidget, SIGNAL(changedZoom(double)), this, SLOT(enableZoomActions(double)));
 
 	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	
@@ -505,4 +512,18 @@ void PDFDocument::goToSource()
 {
 	if (sourceDoc != NULL)
 		sourceDoc->selectWindow();
+}
+
+void PDFDocument::enablePageActions(int pageIndex)
+{
+	actionFirst_Page->setEnabled(pageIndex > 0);
+	actionPrevious_Page->setEnabled(pageIndex > 0);
+	actionNext_Page->setEnabled(pageIndex < document->numPages() - 1);
+	actionLast_Page->setEnabled(pageIndex < document->numPages() - 1);
+}
+
+void PDFDocument::enableZoomActions(double scaleFactor)
+{
+	actionZoom_In->setEnabled(scaleFactor < kMaxScaleFactor);
+	actionZoom_Out->setEnabled(scaleFactor > kMinScaleFactor);
 }

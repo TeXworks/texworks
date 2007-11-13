@@ -63,6 +63,10 @@ private slots:
 public slots:
 	void windowResized();
 
+signals:
+	void changedPage(int);
+	void changedZoom(double);
+
 protected:
 	virtual void paintEvent(QPaintEvent *event);
 
@@ -130,6 +134,8 @@ public slots:
 private slots:
 	void updateRecentFileActions();
 	void updateWindowMenu();
+	void enablePageActions(int);
+	void enableZoomActions(double);
 	void retypeset();
 	void goToSource();
 
@@ -142,7 +148,6 @@ private:
 	void setCurrentFile(const QString &fileName);
 
 	QString curFile;
-	QImage	image;
 	
 	Poppler::Document	*document;
 	

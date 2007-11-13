@@ -80,9 +80,8 @@ void QTeXApp::about()
    QMessageBox::about(activeWindow(), tr("About TeXWorks"),
 			tr("<p>TeXWorks is a simple environment for editing, "
 			    "typesetting, and previewing TeX documents.</p>"
-				"<p>Distributed under the GNU General Public License, version 2.</p>"
 				"<p>&#xA9; 2007 Jonathan Kew.</p>"
-				"<p>Built using the Qt toolkit from <a href=\"http://trolltech.com/\">Trolltech</a>.</p>"
+				"<p>Distributed under the GNU General Public License, version 2.</p>"
 				));
 }
 

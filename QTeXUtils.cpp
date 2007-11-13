@@ -12,6 +12,8 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QDesktopWidget>
+#include <QCompleter>
+#include <QAbstractItemView>
 
 #pragma mark === QTeXUtils ===
 
@@ -191,6 +193,34 @@ bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 			 && keyEvent->key() != Qt::Key_V)
 				return true;
 	}
+	return QObject::eventFilter(obj, event);
+}
+
+#pragma mark === CompletionFilter ===
+
+// a CompletionFilter object is attached to all TeXDocument editors
+
+bool CompletionFilter::eventFilter(QObject *obj, QEvent *event)
+{
+//	QTextEdit *te = qobject_cast<QTextEdit*>(obj);
+//	if (te) {
+		switch (event->type()) {
+			case QEvent::KeyPress: {
+				fprintf(stderr, "keypress\n");
+//				te->keyPressEvent(static_cast<QKeyEvent*>(event));
+				doc->keyPressEvent(static_cast<QKeyEvent*>(event));
+				return QObject::eventFilter(obj, event);
+			}
+			
+			case QEvent::FocusIn:
+//				te->focusInEvent(static_cast<QFocusEvent*>(event));
+				return QObject::eventFilter(obj, event);
+				
+			default:
+				break;
+		}
+//	}
+
 	return QObject::eventFilter(obj, event);
 }
 

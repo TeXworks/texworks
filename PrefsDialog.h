@@ -21,6 +21,8 @@ public:
 private slots:
 	void buttonClicked(QAbstractButton *whichButton);
 	
+	void changedTabPanel(int index);
+
 	void updatePathButtons();
 	void movePathUp();
 	void movePathDown();

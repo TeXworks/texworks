@@ -32,6 +32,7 @@ win32 {
 HEADERS	+=	QTeXApp.h \
 			QTeXUtils.h \
 			TeXDocument.h \
+			CompletingEdit.h \
 			TeXHighlighter.h \
 			PDFDocument.h \
 			FindDialog.h \
@@ -48,6 +49,7 @@ SOURCES	+=	main.cpp \
 			QTeXApp.cpp \
 			QTeXUtils.cpp \
 			TeXDocument.cpp \
+			CompletingEdit.cpp \
 			TeXHighlighter.cpp \
 			PDFDocument.cpp \
 			FindDialog.cpp \
