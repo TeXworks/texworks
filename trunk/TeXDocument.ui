@@ -46,7 +46,7 @@
       <property name="orientation" >
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QTextEdit" name="textEdit" >
+      <widget class="CompletingEdit" name="textEdit" >
        <property name="sizePolicy" >
         <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
          <horstretch>0</horstretch>
@@ -115,6 +115,7 @@
      <string>File</string>
     </property>
     <addaction name="actionNew" />
+    <addaction name="actionNew_from_Template" />
     <addaction name="actionOpen" />
     <addaction name="actionOpen_Recent" />
     <addaction name="separator" />
@@ -610,7 +611,22 @@
     <string>Syntax Coloring</string>
    </property>
   </action>
+  <action name="actionNew_from_Template" >
+   <property name="text" >
+    <string>New from Template...</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Shift+N</string>
+   </property>
+  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CompletingEdit</class>
+   <extends>QTextEdit</extends>
+   <header>CompletingEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources.qrc" />
  </resources>

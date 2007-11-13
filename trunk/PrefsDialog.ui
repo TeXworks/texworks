@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>532</width>
+    <width>497</width>
     <height>487</height>
    </rect>
   </property>
@@ -39,9 +39,6 @@
            <widget class="QRadioButton" name="smallIcons" >
             <property name="text" >
              <string>Small icons</string>
-            </property>
-            <property name="checked" >
-             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -80,8 +77,12 @@
             <property name="text" >
              <string>New blank document</string>
             </property>
-            <property name="checked" >
-             <bool>true</bool>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="templateDialog" >
+            <property name="text" >
+             <string>Template selection dialog</string>
             </property>
            </widget>
           </item>
@@ -128,10 +129,10 @@
        <string>Editor</string>
       </attribute>
       <layout class="QGridLayout" >
-       <item row="0" column="0" colspan="2" >
+       <item row="0" column="0" >
         <widget class="QGroupBox" name="groupBox_2" >
          <property name="title" >
-          <string>Default formatting</string>
+          <string>Editor defaults</string>
          </property>
          <layout class="QGridLayout" >
           <item row="0" column="0" colspan="3" >
@@ -221,42 +222,191 @@
             </item>
            </layout>
           </item>
+          <item row="2" column="2" >
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="QLabel" name="label_2" >
+              <property name="text" >
+               <string>Encoding:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="encoding" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+                <horstretch>1</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
          </layout>
         </widget>
        </item>
        <item row="1" column="0" >
-        <layout class="QHBoxLayout" >
-         <item>
-          <widget class="QLabel" name="label_2" >
-           <property name="text" >
-            <string>Default encoding:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="encoding" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
-             <horstretch>1</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QGroupBox" name="groupBox_7" >
+         <property name="title" >
+          <string>Autocompletion lists</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="1" >
+           <widget class="QToolButton" name="addCompletionFile" >
+            <property name="icon" >
+             <iconset resource="resources.qrc" >:/images/images/plus.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2" >
+           <widget class="QToolButton" name="removeCompletionFile" >
+            <property name="icon" >
+             <iconset resource="resources.qrc" >:/images/images/minus.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="2" >
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>91</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item rowspan="2" row="0" column="0" >
+           <widget class="QListWidget" name="completionFiles" />
+          </item>
+         </layout>
+        </widget>
        </item>
-       <item row="1" column="1" >
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_preview" >
+      <attribute name="title" >
+       <string>Preview</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox_6" >
+         <property name="title" >
+          <string>Default scaling</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="verticalSpacing" >
+           <number>0</number>
+          </property>
+          <item row="0" column="0" >
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QRadioButton" name="radioButton" >
+              <property name="text" >
+               <string>Actual size</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_2" >
+              <property name="text" >
+               <string>Fit to Width</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_3" >
+              <property name="text" >
+               <string>Fit to Window</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0" >
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="QRadioButton" name="radioButton_4" >
+              <property name="text" >
+               <string>Fixed scale:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="scale" >
+              <property name="suffix" >
+               <string> %</string>
+              </property>
+              <property name="minimum" >
+               <number>25</number>
+              </property>
+              <property name="maximum" >
+               <number>800</number>
+              </property>
+              <property name="value" >
+               <number>200</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="1" >
         <spacer>
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" >
           <size>
-           <width>171</width>
+           <width>40</width>
            <height>20</height>
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="1" column="0" >
+        <layout class="QHBoxLayout" >
+         <property name="leftMargin" >
+          <number>3</number>
+         </property>
+         <property name="topMargin" >
+          <number>3</number>
+         </property>
+         <property name="rightMargin" >
+          <number>3</number>
+         </property>
+         <property name="bottomMargin" >
+          <number>3</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_4" >
+           <property name="text" >
+            <string>Screen resolution:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="resolution" >
+           <property name="suffix" >
+            <string> dpi</string>
+           </property>
+           <property name="minimum" >
+            <number>50</number>
+           </property>
+           <property name="maximum" >
+            <number>200</number>
+           </property>
+           <property name="value" >
+            <number>72</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item row="2" column="0" >
         <spacer>
@@ -272,11 +422,6 @@
         </spacer>
        </item>
       </layout>
-     </widget>
-     <widget class="QWidget" name="tab_preview" >
-      <attribute name="title" >
-       <string>Preview</string>
-      </attribute>
      </widget>
      <widget class="QWidget" name="tab_typesetting" >
       <attribute name="title" >
@@ -485,6 +630,7 @@
   <tabstop>largeIcons</tabstop>
   <tabstop>showText</tabstop>
   <tabstop>blankDocument</tabstop>
+  <tabstop>templateDialog</tabstop>
   <tabstop>openDialog</tabstop>
   <tabstop>editorFont</tabstop>
   <tabstop>fontSize</tabstop>
@@ -492,6 +638,15 @@
   <tabstop>wrapLines</tabstop>
   <tabstop>syntaxColoring</tabstop>
   <tabstop>encoding</tabstop>
+  <tabstop>completionFiles</tabstop>
+  <tabstop>addCompletionFile</tabstop>
+  <tabstop>removeCompletionFile</tabstop>
+  <tabstop>radioButton</tabstop>
+  <tabstop>radioButton_2</tabstop>
+  <tabstop>radioButton_3</tabstop>
+  <tabstop>radioButton_4</tabstop>
+  <tabstop>scale</tabstop>
+  <tabstop>resolution</tabstop>
   <tabstop>binPathList</tabstop>
   <tabstop>pathUp</tabstop>
   <tabstop>pathDown</tabstop>

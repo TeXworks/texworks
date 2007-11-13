@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/images" >
         <file>images/back.png</file>
+        <file>images/back2.png</file>
         <file>images/down.png</file>
         <file>images/editcopy.png</file>
         <file>images/editcut.png</file>
@@ -15,7 +16,10 @@
         <file>images/fileopen.png</file>
         <file>images/fileprint.png</file>
         <file>images/filesave.png</file>
+        <file>images/first.png</file>
         <file>images/forward.png</file>
+        <file>images/forward2.png</file>
+        <file>images/last.png</file>
         <file>images/minus.png</file>
         <file>images/plus.png</file>
         <file>images/searchfind.png</file>

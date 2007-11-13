@@ -34,6 +34,31 @@ void PrefsDialog::init()
 	connect(toolAdd, SIGNAL(clicked()), this, SLOT(addTool()));
 	connect(toolRemove, SIGNAL(clicked()), this, SLOT(removeTool()));
 	connect(toolEdit, SIGNAL(clicked()), this, SLOT(editTool()));
+	
+	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changedTabPanel(int)));
+}
+
+void PrefsDialog::changedTabPanel(int index)
+{
+	// this all feels a bit hacky, but seems to keep things tidy on Mac OS X at least
+	QWidget *page = tabWidget->widget(index);
+	page->clearFocus();
+	switch (index) {
+		case 0: // General
+			page->focusWidget()->clearFocus();
+			break;
+		case 1: // Editor
+			editorFont->setFocus();
+			editorFont->lineEdit()->selectAll();
+			break;
+		case 2: // Preview
+			scale->setFocus();
+			scale->selectAll();
+			break;
+		case 3: // Typesetting
+			binPathList->setFocus();
+			break;
+	}
 }
 
 void PrefsDialog::updatePathButtons()

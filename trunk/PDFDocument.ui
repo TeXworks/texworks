@@ -33,6 +33,7 @@
      <string>File</string>
     </property>
     <addaction name="actionNew" />
+    <addaction name="actionNew_from_Template" />
     <addaction name="actionOpen" />
     <addaction name="actionOpen_Recent" />
     <addaction name="separator" />
@@ -130,6 +131,9 @@
    </property>
   </action>
   <action name="actionFirst_Page" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/first.png</iconset>
+   </property>
    <property name="text" >
     <string>First Page</string>
    </property>
@@ -138,6 +142,9 @@
    </property>
   </action>
   <action name="actionPrevious_Page" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/back2.png</iconset>
+   </property>
    <property name="text" >
     <string>Previous Page</string>
    </property>
@@ -146,6 +153,9 @@
    </property>
   </action>
   <action name="actionNext_Page" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/forward2.png</iconset>
+   </property>
    <property name="text" >
     <string>Next Page</string>
    </property>
@@ -154,6 +164,9 @@
    </property>
   </action>
   <action name="actionLast_Page" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/last.png</iconset>
+   </property>
    <property name="text" >
     <string>Last Page</string>
    </property>
@@ -221,6 +234,9 @@
    </property>
   </action>
   <action name="actionNew" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/filenew.png</iconset>
+   </property>
    <property name="text" >
     <string>New</string>
    </property>
@@ -229,6 +245,9 @@
    </property>
   </action>
   <action name="actionOpen" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/fileopen.png</iconset>
+   </property>
    <property name="text" >
     <string>Open...</string>
    </property>
@@ -250,6 +269,9 @@
    </property>
   </action>
   <action name="actionUndo" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/editundo.png</iconset>
+   </property>
    <property name="text" >
     <string>Undo</string>
    </property>
@@ -258,6 +280,9 @@
    </property>
   </action>
   <action name="actionRedo" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/editredo.png</iconset>
+   </property>
    <property name="text" >
     <string>Redo</string>
    </property>
@@ -266,6 +291,9 @@
    </property>
   </action>
   <action name="actionCut" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/editcut.png</iconset>
+   </property>
    <property name="text" >
     <string>Cut</string>
    </property>
@@ -274,6 +302,9 @@
    </property>
   </action>
   <action name="actionCopy" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/editcopy.png</iconset>
+   </property>
    <property name="text" >
     <string>Copy</string>
    </property>
@@ -282,6 +313,9 @@
    </property>
   </action>
   <action name="actionPaste" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/editpaste.png</iconset>
+   </property>
    <property name="text" >
     <string>Paste</string>
    </property>
@@ -334,6 +368,14 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+'</string>
+   </property>
+  </action>
+  <action name="actionNew_from_Template" >
+   <property name="text" >
+    <string>New from Template...</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Shift+N</string>
    </property>
   </action>
  </widget>

@@ -15,7 +15,7 @@ class QMenu;
 class QTextEdit;
 class QToolBar;
 class QLabel;
-class QProcess;
+class QComboBox;
 class QComboBox;
 
 class TeXHighlighter;
@@ -26,6 +26,8 @@ class TeXDocument : public QMainWindow, private Ui::TeXDocument
 	Q_OBJECT
 
 public:
+	friend class CompletionFilter;
+
 	TeXDocument();
 	TeXDocument(const QString &fileName);
 
@@ -99,9 +101,11 @@ private:
 	void showConsole();
 	void hideConsole();
 
+
 	QString curFile;
 	bool isUntitled;
 	TeXHighlighter *highlighter;
+	QCompleter *completer;
 	PDFDocument *pdfDoc;
 
 	QLabel *lineNumberLabel;
