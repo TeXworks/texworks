@@ -64,11 +64,13 @@
     <addaction name="separator" />
     <addaction name="actionGo_to_Page" />
     <addaction name="separator" />
+    <addaction name="actionZoom_In" />
+    <addaction name="actionZoom_Out" />
     <addaction name="actionActual_Size" />
     <addaction name="actionFit_to_Width" />
     <addaction name="actionFit_to_Window" />
-    <addaction name="actionZoom_In" />
-    <addaction name="actionZoom_Out" />
+    <addaction name="separator" />
+    <addaction name="actionFull_Screen" />
    </widget>
    <widget class="QMenu" name="menuWindow" >
     <property name="title" >
@@ -116,6 +118,8 @@
    <attribute name="toolBarBreak" >
     <bool>false</bool>
    </attribute>
+   <addaction name="actionTypeset" />
+   <addaction name="separator" />
    <addaction name="actionFirst_Page" />
    <addaction name="actionPrevious_Page" />
    <addaction name="actionNext_Page" />
@@ -124,10 +128,12 @@
    <addaction name="actionZoom_In" />
    <addaction name="actionZoom_Out" />
    <addaction name="actionActual_Size" />
+   <addaction name="actionFit_to_Width" />
+   <addaction name="actionFit_to_Window" />
   </widget>
   <action name="actionAbout_QTeX" >
    <property name="text" >
-    <string>About TeXWorks...</string>
+    <string>About TeXworks...</string>
    </property>
   </action>
   <action name="actionFirst_Page" >
@@ -174,11 +180,6 @@
     <string>Ctrl+Right</string>
    </property>
   </action>
-  <action name="action" >
-   <property name="text" >
-    <string>-</string>
-   </property>
-  </action>
   <action name="actionGo_to_Page" >
    <property name="text" >
     <string>Go to Page...</string>
@@ -210,6 +211,12 @@
    </property>
   </action>
   <action name="actionFit_to_Window" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/fitwindow.png</iconset>
+   </property>
    <property name="text" >
     <string>Fit to Window</string>
    </property>
@@ -218,6 +225,9 @@
    </property>
   </action>
   <action name="actionActual_Size" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/actualsize.png</iconset>
+   </property>
    <property name="text" >
     <string>Actual Size</string>
    </property>
@@ -226,6 +236,12 @@
    </property>
   </action>
   <action name="actionFit_to_Width" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/fitwidth.png</iconset>
+   </property>
    <property name="text" >
     <string>Fit to Width</string>
    </property>
@@ -376,6 +392,17 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Shift+N</string>
+   </property>
+  </action>
+  <action name="actionFull_Screen" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Full Screen</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Shift+F</string>
    </property>
   </action>
  </widget>
