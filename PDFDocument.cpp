@@ -98,10 +98,10 @@ void PDFWidget::windowResized()
 		case kFixedMag:
 			break;
 		case kFitWidth:
-			fitWidth();
+			fitWidth(true);
 			break;
 		case kFitWindow:
-			fitWindow();
+			fitWindow(true);
 			break;
 	}
 }
@@ -237,55 +237,66 @@ void PDFWidget::actualSize()
 		updateStatusBar();
 		emit changedZoom(scaleFactor);
 	}
+	emit changedScaleOption(scaleOption);
 }
 
-void PDFWidget::fitWidth()
+void PDFWidget::fitWidth(bool checked)
 {
-	scaleOption = kFitWidth;
-	QWidget *widget = window();
-	PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
-	if (doc) {
-		QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
-		if (scrollArea) {
-			double portWidth = scrollArea->viewport()->width();
-			QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
-			scaleFactor = portWidth / pageSize.width();
-			if (scaleFactor < kMinScaleFactor)
-				scaleFactor = kMinScaleFactor;
-			else if (scaleFactor > kMaxScaleFactor)
-				scaleFactor = kMaxScaleFactor;
-			adjustSize();
-			update();
-			updateStatusBar();
-			emit changedZoom(scaleFactor);
+	if (checked) {
+		scaleOption = kFitWidth;
+		QWidget *widget = window();
+		PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
+		if (doc) {
+			QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
+			if (scrollArea) {
+				double portWidth = scrollArea->viewport()->width();
+				QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
+				scaleFactor = portWidth / pageSize.width();
+				if (scaleFactor < kMinScaleFactor)
+					scaleFactor = kMinScaleFactor;
+				else if (scaleFactor > kMaxScaleFactor)
+					scaleFactor = kMaxScaleFactor;
+				adjustSize();
+				update();
+				updateStatusBar();
+				emit changedZoom(scaleFactor);
+			}
 		}
 	}
+	else
+		scaleOption = kFixedMag;
+	emit changedScaleOption(scaleOption);
 }
 
-void PDFWidget::fitWindow()
+void PDFWidget::fitWindow(bool checked)
 {
-	scaleOption = kFitWindow;
-	QWidget *widget = window();
-	PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
-	if (doc) {
-		QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
-		if (scrollArea) {
-			double portWidth = scrollArea->viewport()->width();
-			double portHeight = scrollArea->viewport()->height();
-			QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
-			double sfh = portWidth / pageSize.width();
-			double sfv = portHeight / pageSize.height();
-			scaleFactor = sfh < sfv ? sfh : sfv;
-			if (scaleFactor < kMinScaleFactor)
-				scaleFactor = kMinScaleFactor;
-			else if (scaleFactor > kMaxScaleFactor)
-				scaleFactor = kMaxScaleFactor;
-			adjustSize();
-			update();
-			updateStatusBar();
-			emit changedZoom(scaleFactor);
+	if (checked) {
+		scaleOption = kFitWindow;
+		QWidget *widget = window();
+		PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
+		if (doc) {
+			QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
+			if (scrollArea) {
+				double portWidth = scrollArea->viewport()->width();
+				double portHeight = scrollArea->viewport()->height();
+				QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
+				double sfh = portWidth / pageSize.width();
+				double sfv = portHeight / pageSize.height();
+				scaleFactor = sfh < sfv ? sfh : sfv;
+				if (scaleFactor < kMinScaleFactor)
+					scaleFactor = kMinScaleFactor;
+				else if (scaleFactor > kMaxScaleFactor)
+					scaleFactor = kMaxScaleFactor;
+				adjustSize();
+				update();
+				updateStatusBar();
+				emit changedZoom(scaleFactor);
+			}
 		}
 	}
+	else
+		scaleOption = kFixedMag;
+	emit changedScaleOption(scaleOption);
 }
 
 void PDFWidget::zoomIn()
@@ -302,6 +313,7 @@ void PDFWidget::zoomIn()
 		updateStatusBar();
 		emit changedZoom(scaleFactor);
 	}
+	emit changedScaleOption(scaleOption);
 }
 
 void PDFWidget::zoomOut()
@@ -318,6 +330,26 @@ void PDFWidget::zoomOut()
 		updateStatusBar();
 		emit changedZoom(scaleFactor);
 	}
+	emit changedScaleOption(scaleOption);
+}
+
+void PDFWidget::saveState()
+{
+	saveScaleFactor = scaleFactor;
+	saveScaleOption = scaleOption;
+}
+
+void PDFWidget::restoreState()
+{
+	if (scaleFactor != saveScaleFactor) {
+		scaleFactor = saveScaleFactor;
+		adjustSize();
+		update();
+		updateStatusBar();
+		emit changedZoom(scaleFactor);
+	}
+	scaleOption = saveScaleOption;
+	emit changedScaleOption(scaleOption);
 }
 
 #pragma mark === PDFDocument ===
@@ -345,6 +377,7 @@ PDFDocument::init()
 	setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
+	setWindowIcon(QIcon(":/images/images/pdfdoc.png"));
 	
 	pdfWidget = new PDFWidget;
 	pdfWidget->setBackgroundRole(QPalette::Base);
@@ -364,6 +397,7 @@ PDFDocument::init()
 
 	scrollArea = new QScrollArea;
 	scrollArea->setBackgroundRole(QPalette::Dark);
+	scrollArea->setAlignment(Qt::AlignCenter);
 	scrollArea->setWidget(pdfWidget);
 	setCentralWidget(scrollArea);
 
@@ -381,11 +415,13 @@ PDFDocument::init()
 	connect(pdfWidget, SIGNAL(changedPage(int)), this, SLOT(enablePageActions(int)));
 
 	connect(actionActual_Size, SIGNAL(triggered()), pdfWidget, SLOT(actualSize()));
-	connect(actionFit_to_Width, SIGNAL(triggered()), pdfWidget, SLOT(fitWidth()));
-	connect(actionFit_to_Window, SIGNAL(triggered()), pdfWidget, SLOT(fitWindow()));
+	connect(actionFit_to_Width, SIGNAL(triggered(bool)), pdfWidget, SLOT(fitWidth(bool)));
+	connect(actionFit_to_Window, SIGNAL(triggered(bool)), pdfWidget, SLOT(fitWindow(bool)));
 	connect(actionZoom_In, SIGNAL(triggered()), pdfWidget, SLOT(zoomIn()));
 	connect(actionZoom_Out, SIGNAL(triggered()), pdfWidget, SLOT(zoomOut()));
+	connect(actionFull_Screen, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
 	connect(pdfWidget, SIGNAL(changedZoom(double)), this, SLOT(enableZoomActions(double)));
+	connect(pdfWidget, SIGNAL(changedScaleOption(autoScaleOption)), this, SLOT(adjustScaleActions(autoScaleOption)));
 
 	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	
@@ -450,6 +486,8 @@ void PDFDocument::reload()
 	document->setRenderBackend(Poppler::Document::SplashBackend);
 	document->setRenderHint(Poppler::Document::Antialiasing);
 	document->setRenderHint(Poppler::Document::TextAntialiasing);
+	globalParams->setScreenType(screenClustered);
+
 	pdfWidget->setDocument(document);
 	
 	QApplication::restoreOverrideCursor();
@@ -462,7 +500,7 @@ void PDFDocument::setCurrentFile(const QString &fileName)
 {
 	curFile = QFileInfo(fileName).canonicalFilePath();
 
-	setWindowTitle(tr("%1[*] - %2").arg(QTeXUtils::strippedName(curFile)).arg(tr("TeXWorks")));
+	setWindowTitle(tr("%1[*] - %2").arg(QTeXUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
 
 	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 	if (app)
@@ -526,4 +564,31 @@ void PDFDocument::enableZoomActions(double scaleFactor)
 {
 	actionZoom_In->setEnabled(scaleFactor < kMaxScaleFactor);
 	actionZoom_Out->setEnabled(scaleFactor > kMinScaleFactor);
+}
+
+void PDFDocument::adjustScaleActions(autoScaleOption scaleOption)
+{
+	actionFit_to_Window->setChecked(scaleOption == kFitWindow);
+	actionFit_to_Width->setChecked(scaleOption == kFitWidth);
+}
+
+void PDFDocument::toggleFullScreen()
+{
+	if (windowState() & Qt::WindowFullScreen) {
+		// exiting full-screen mode
+		statusBar()->show();
+		toolBar->show();
+		showNormal();
+		pdfWidget->restoreState();
+		actionFull_Screen->setChecked(false);
+	}
+	else {
+		// entering full-screen mode
+		statusBar()->hide();
+		toolBar->hide();
+		showFullScreen();
+		pdfWidget->saveState();
+		pdfWidget->fitWindow(true);
+		actionFull_Screen->setChecked(true);
+	}
 }

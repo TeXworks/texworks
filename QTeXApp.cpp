@@ -29,7 +29,9 @@ void QTeXApp::init()
 {
 	setOrganizationName("TUG");
 	setOrganizationDomain("tug.org");
-	setApplicationName("TeXWorks");
+	setApplicationName(TEXWORKS_NAME);
+
+	setWindowIcon(QIcon(":/images/images/appicon.png"));
 
 	QSettings settings;
 	f_maxRecentFiles = settings.value("maxRecentFiles", kDefaultMaxRecentFiles).toInt();
@@ -69,7 +71,7 @@ void QTeXApp::init()
 
 	menuHelp = menuBar->addMenu(tr("Help"));
 
-	QAction *aboutAction = new QAction(tr("About TeXWorks..."), this);
+	QAction *aboutAction = new QAction(tr("About " TEXWORKS_NAME "..."), this);
 	menuHelp->addAction(aboutAction);
 	connect(aboutAction, SIGNAL(triggered()), qApp, SLOT(about()));
 #endif
@@ -77,10 +79,10 @@ void QTeXApp::init()
 
 void QTeXApp::about()
 {
-   QMessageBox::about(activeWindow(), tr("About TeXWorks"),
-			tr("<p>TeXWorks is a simple environment for editing, "
+   QMessageBox::about(activeWindow(), tr("About " TEXWORKS_NAME),
+			tr("<p>" TEXWORKS_NAME " is a simple environment for editing, "
 			    "typesetting, and previewing TeX documents.</p>"
-				"<p>&#xA9; 2007 Jonathan Kew.</p>"
+				"<p>&#xA9; 2007-2008 Jonathan Kew.</p>"
 				"<p>Distributed under the GNU General Public License, version 2.</p>"
 				));
 }

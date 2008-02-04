@@ -556,7 +556,7 @@
   </action>
   <action name="actionAbout_QTeX" >
    <property name="text" >
-    <string>About TeXWorks...</string>
+    <string>About TeXworks...</string>
    </property>
   </action>
   <action name="actionOpen_Recent" >

@@ -7,6 +7,7 @@
 #include <QList>
 
 #include "poppler-qt4.h"
+#include "GlobalParams.h"
 
 #include "ui_PDFDocument.h"
 
@@ -39,6 +40,12 @@ private:
 	Poppler::Page	*imagePage;
 };
 
+typedef enum {
+	kFixedMag,
+	kFitWidth,
+	kFitWindow
+} autoScaleOption;
+
 class PDFWidget : public QLabel
 {
 	Q_OBJECT
@@ -46,6 +53,9 @@ class PDFWidget : public QLabel
 public:
 	PDFWidget();
 	void setDocument(Poppler::Document *doc);
+
+	void saveState(); // used when toggling full screen mode
+	void restoreState();
 
 private slots:
 	void goFirst();
@@ -55,17 +65,18 @@ private slots:
 	void doPageDialog();
 	
 	void actualSize();
-	void fitWidth();
-	void fitWindow();
+	void fitWidth(bool checked);
 	void zoomIn();
 	void zoomOut();
 
 public slots:
 	void windowResized();
+	void fitWindow(bool checked);
 
 signals:
 	void changedPage(int);
 	void changedZoom(double);
+	void changedScaleOption(autoScaleOption);
 
 protected:
 	virtual void paintEvent(QPaintEvent *event);
@@ -86,12 +97,10 @@ private:
 	int pageIndex;
 	double	scaleFactor;
 	double	dpi;
-	typedef enum {
-		kFixedMag,
-		kFitWidth,
-		kFitWindow
-	} autoScaleOption;
 	autoScaleOption scaleOption;
+
+	double			saveScaleFactor;
+	autoScaleOption	saveScaleOption;
 	
 	QImage	image;
 	QRect	imageRect;
@@ -136,8 +145,10 @@ private slots:
 	void updateWindowMenu();
 	void enablePageActions(int);
 	void enableZoomActions(double);
+	void adjustScaleActions(autoScaleOption);
 	void retypeset();
 	void goToSource();
+	void toggleFullScreen();
 
 signals:
 	void windowResized();

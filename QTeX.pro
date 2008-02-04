@@ -4,7 +4,7 @@
 # Then modified by hand....take care if re-running "qmake -project"
 
 TEMPLATE	=	app
-TARGET		=	TeXWorks
+TARGET		=	TeXworks
 DEPENDPATH	+=	.
 INCLUDEPATH	+=	.
 
@@ -12,10 +12,10 @@ macx {
 	INCLUDEPATH += /usr/local/include/poppler
 	INCLUDEPATH += /usr/local/include/poppler/qt4
 
-	LIBS += -L/usr/local/lib -lpoppler-qt4
-	LIBS += -L/usr/X11R6/lib -lfontconfig
+	LIBS += -L/usr/local/lib -lpoppler-qt4 -lpoppler
+#	LIBS += -L/usr/X11R6/lib -lfontconfig
 
-	QMAKE_INFO_PLIST = TeXWorks.plist
+	QMAKE_INFO_PLIST = TeXworks.plist
 }
 
 linux {

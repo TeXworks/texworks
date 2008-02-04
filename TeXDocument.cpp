@@ -61,7 +61,8 @@ void TeXDocument::init()
 	process = NULL;
 
 	setupUi(this);
-	
+	setWindowIcon(QIcon(":/images/images/texdoc.png"));
+
 	completer = new QCompleter(latexStrings(), this);
 	textEdit->setCompleter(completer);
 
@@ -257,7 +258,7 @@ bool TeXDocument::maybeSave()
 {
 	if (textEdit->document()->isModified()) {
 		QMessageBox::StandardButton ret;
-		ret = QMessageBox::warning(this, tr("TeXWorks"),
+		ret = QMessageBox::warning(this, tr(TEXWORKS_NAME),
 					 tr("The document \"%1\" has been modified.\n"
 						"Do you want to save your changes?")
 						.arg(QTeXUtils::strippedName(curFile)),
@@ -274,7 +275,7 @@ void TeXDocument::loadFile(const QString &fileName)
 {
 	QFile file(fileName);
 	if (!file.open(QFile::ReadOnly | QFile::Text)) {
-		QMessageBox::warning(this, tr("TeXWorks"),
+		QMessageBox::warning(this, tr(TEXWORKS_NAME),
 							 tr("Cannot read file \"%1\":\n%2.")
 							 .arg(fileName)
 							 .arg(file.errorString()));
@@ -318,7 +319,7 @@ bool TeXDocument::saveFile(const QString &fileName)
 {
 	QFile file(fileName);
 	if (!file.open(QFile::WriteOnly | QFile::Text)) {
-		QMessageBox::warning(this, tr("TeXWorks"),
+		QMessageBox::warning(this, tr(TEXWORKS_NAME),
 							 tr("Cannot write file \"%1\":\n%2.")
 							 .arg(fileName)
 							 .arg(file.errorString()));
@@ -349,7 +350,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	textEdit->document()->setModified(false);
 	setWindowModified(false);
 
-	setWindowTitle(tr("%1[*] - %2").arg(QTeXUtils::strippedName(curFile)).arg(tr("TeXWorks")));
+	setWindowTitle(tr("%1[*] - %2").arg(QTeXUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
 
 	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 	if (!isUntitled) {

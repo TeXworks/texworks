@@ -1,6 +1,6 @@
 /* This file is based on textedit.cpp from the Qt examples;
    the original copyright notice appears below.
-   Changes for TeXWorks are (c) 2007 Jonathan Kew. */
+   Changes for TeXworks are (c) 2007 Jonathan Kew. */
 
 /****************************************************************************
 **
@@ -40,6 +40,8 @@
 **
 ****************************************************************************/
 
+#define POPUP 1
+
 #include "CompletingEdit.h"
 
 #include <QCompleter>
@@ -71,11 +73,19 @@ void CompletingEdit::setCompleter(QCompleter *completer)
         return;
 
     c->setWidget(this);
+#if POPUP
     c->setCompletionMode(QCompleter::PopupCompletion);
-//    c->setCompletionMode(QCompleter::InlineCompletion);	// doesn't yet work
+#else
+    c->setCompletionMode(QCompleter::InlineCompletion);	// doesn't yet work
+#endif
     c->setCaseSensitivity(Qt::CaseInsensitive);
+#if POPUP
     QObject::connect(c, SIGNAL(activated(const QString&)),
                      this, SLOT(insertCompletion(const QString&)));
+#else
+    QObject::connect(c, SIGNAL(highlighted(const QString&)),
+                     this, SLOT(showCurrentCompletion(const QString&)));
+#endif
 }
 
 QCompleter *CompletingEdit::completer() const
@@ -94,6 +104,20 @@ void CompletingEdit::insertCompletion(const QString& completion)
 //    tc.insertText(completion.right(extra));
 	tc.select(QTextCursor::WordUnderCursor);
 	tc.insertText(completion);
+    setTextCursor(tc);
+}
+
+void CompletingEdit::showCurrentCompletion(const QString& completion)
+{
+    if (c->widget() != this)
+        return;
+    QTextCursor tc = textCursor();
+    int extra = completion.length() - c->completionPrefix().length();
+    tc.movePosition(QTextCursor::Left);
+    tc.movePosition(QTextCursor::EndOfWord);
+    tc.insertText(completion.right(extra));
+	tc.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor, extra);
+	tc.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, extra);
     setTextCursor(tc);
 }
 
@@ -129,8 +153,13 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
     }
 
     bool isShortcut = (e->key() == Qt::Key_Escape);
+#if POPUP
     if (!c || !isShortcut) // don't process the shortcut when we have a completer
         QTextEdit::keyPressEvent(e);
+#else
+    if (!isShortcut) // don't process the shortcut when we have a completer
+        QTextEdit::keyPressEvent(e);
+#endif
 
     const bool ctrlOrShift = e->modifiers() & (Qt::ControlModifier | Qt::ShiftModifier);
     if (!c || (ctrlOrShift && e->text().isEmpty()))
@@ -152,10 +181,17 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
         if (c->popup() != NULL)
 			c->popup()->setCurrentIndex(c->completionModel()->index(0, 0));
     }
+#if !POPUP
+	else if (isShortcut) {
+		fprintf(stderr,"next\n");
+	}
+#endif
 	QRect cr = cursorRect();
+#if POPUP
 	if (c->popup() != NULL) {
 		cr.setWidth(c->popup()->sizeHintForColumn(0)
 					+ c->popup()->verticalScrollBar()->sizeHint().width());
 	}
+#endif
     c->complete(cr);
 }

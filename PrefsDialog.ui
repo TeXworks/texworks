@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>TeXWorks Preferences</string>
+   <string>TeXworks Preferences</string>
   </property>
   <property name="sizeGripEnabled" >
    <bool>true</bool>

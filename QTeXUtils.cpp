@@ -129,13 +129,19 @@ void QTeXUtils::sideBySide(QWidget *window1, QWidget *window2)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect screenRect = desktop->availableGeometry(window1);
-	screenRect.setTop(screenRect.top() + window1->geometry().y() - window1->y());
+//	screenRect.setTop(screenRect.top() + window1->geometry().y() - window1->y());
 	QRect r(screenRect);
 	r.setRight(r.left() + r.right() / 2 - 1);
-	window1->setGeometry(r);
+	//window1->setGeometry(r);
+	int wDiff = window1->frameGeometry().width() - window1->width();
+	int hDiff = window1->frameGeometry().height() - window1->height();
+	window1->move(r.left(), r.top());
+	window1->resize(r.width() - wDiff, r.height() - hDiff);
 	r.setRight(screenRect.right());
 	r.setLeft(r.left() + r.right() / 2);
-	window2->setGeometry(r);
+	//window2->setGeometry(r);
+	window2->move(r.left(), r.top());
+	window2->resize(r.width() - wDiff, r.height() - hDiff);
 }
 
 void QTeXUtils::tile(QList<QWidget*> windows)

@@ -1,6 +1,6 @@
 /* This file is based on textedit.h from the Qt examples;
    the original copyright notice appears below.
-   Changes for TeXWorks are (c) 2007 Jonathan Kew. */
+   Changes for TeXworks are (c) 2007 Jonathan Kew. */
 
 /****************************************************************************
 **
@@ -64,6 +64,7 @@ protected:
 
 private slots:
     void insertCompletion(const QString &completion);
+    void showCurrentCompletion(const QString &completion);
 
 private:
     QString textUnderCursor() const;

@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/images" >
+        <file>images/actualsize.png</file>
+        <file>images/appicon.png</file>
         <file>images/back.png</file>
         <file>images/back2.png</file>
         <file>images/down.png</file>
@@ -17,12 +19,16 @@
         <file>images/fileprint.png</file>
         <file>images/filesave.png</file>
         <file>images/first.png</file>
+        <file>images/fitwidth.png</file>
+        <file>images/fitwindow.png</file>
         <file>images/forward.png</file>
         <file>images/forward2.png</file>
         <file>images/last.png</file>
         <file>images/minus.png</file>
         <file>images/plus.png</file>
+        <file>images/pdfdoc.png</file>
         <file>images/searchfind.png</file>
+        <file>images/texdoc.png</file>
         <file>images/typeset.png</file>
         <file>images/up.png</file>
         <file>images/zoomin.png</file>

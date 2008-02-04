@@ -26,14 +26,12 @@
 			<true/>
 		</dict>
 	</array>
-<!--
 	<key>CFBundleIconFile</key>
-	<string>application.icns</string>
--->
+	<string>TeXworks.icns</string>
 	<key>CFBundleGetInfoString</key>
-	<string>TeXWorks version 0.1&#xA;(c) 2007 Jonathan Kew&#xA;Released under GPL v2.0</string>
+	<string>TeXworks version 0.1&#xA;(c) 2007-2008 Jonathan Kew&#xA;Released under GPL v2.0</string>
 	<key>CFBundleExecutable</key>
-	<string>TeXWorks</string>
+	<string>TeXworks</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.tug.texworks</string>
 	<key>CFBundleInfoDictionaryVersion</key>
