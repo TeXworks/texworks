@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QLabel>
 #include <QList>
+#include <QCursor>
 
 #include "poppler-qt4.h"
 #include "GlobalParams.h"
@@ -85,11 +86,18 @@ protected:
 	virtual void mouseReleaseEvent(QMouseEvent *event);
 	virtual void mouseMoveEvent(QMouseEvent *event);
 
+	virtual void keyPressEvent(QKeyEvent *event);
+	virtual void keyReleaseEvent(QKeyEvent *event);
+
+	virtual void focusInEvent(QFocusEvent *event);
+
 private:
 	void init();
 	void reloadPage();
 	void adjustSize();
 	void updateStatusBar();
+	void updateCursor();
+	int currentTool();
 	
 	Poppler::Document	*document;
 	Poppler::Page		*page;
@@ -108,7 +116,11 @@ private:
 	Poppler::Page	*imagePage;
 
 	PDFMagnifier	*magnifier;
-	bool magnifying;
+	int		usingTool;
+
+	static QCursor	*magnifierCursor;
+	static QCursor	*zoomInCursor;
+	static QCursor	*zoomOutCursor;
 };
 
 
