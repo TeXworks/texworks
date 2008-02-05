@@ -8,7 +8,6 @@
 #include <QCursor>
 
 #include "poppler-qt4.h"
-#include "GlobalParams.h"
 
 #include "ui_PDFDocument.h"
 

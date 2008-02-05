@@ -19,7 +19,7 @@
 
 const int kDefaultMaxRecentFiles = 10;
 
-QTeXApp::QTeXApp(int argc, char *argv[])
+QTeXApp::QTeXApp(int &argc, char **argv)
 	: QApplication(argc, argv)
 {
 	init();

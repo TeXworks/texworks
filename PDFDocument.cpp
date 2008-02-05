@@ -18,6 +18,8 @@
 
 #include <math.h>
 
+#include "GlobalParams.h"
+
 const double kMaxScaleFactor = 8.0;
 const double kMinScaleFactor = 0.125;
 

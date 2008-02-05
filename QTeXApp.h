@@ -22,13 +22,15 @@ class QTeXApp : public QApplication
 	Q_OBJECT
 
 public:
-	QTeXApp(int argc, char *argv[]);
+	QTeXApp(int &argc, char **argv);
 
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
 
 	void setBinaryPaths(const QStringList& paths);
 	void setEngineList(const QList<Engine>& engineList);
+
+	void open(const QString &fileName);
 
 	const QStringList getBinaryPaths();
 	const QList<Engine> getEngineList();
@@ -78,7 +80,6 @@ protected:
 
 private:
 	void init();
-	void open(const QString &fileName);
 	void setDefaultPaths();
 	void setDefaultEngineList();
 	

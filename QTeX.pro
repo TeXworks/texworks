@@ -26,6 +26,14 @@ linux {
 }
 
 win32 {
+	QT	+=	xml
+
+	INCLUDEPATH += X:/QTeX-libs/poppler-mingw32/poppler/inst/usr/local/include/poppler
+	INCLUDEPATH += X:/QTeX-libs/poppler-mingw32/poppler/inst/usr/local/include/poppler/qt4
+
+	LIBS += -LX:/QTeX-libs/poppler-mingw32/poppler/inst/usr/local/lib
+	LIBS += -L"C:/Program Files/GnuWin32/lib"
+	LIBS += -lpoppler-qt4 -lpoppler -lfreetype
 }
 
 # Input
