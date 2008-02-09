@@ -56,6 +56,7 @@ public:
 
 	void saveState(); // used when toggling full screen mode
 	void restoreState();
+	void setResolution(int res);
 
 private slots:
 	void goFirst();
@@ -144,6 +145,7 @@ public:
 	void reload();
 	void showScale(double scale);
 	void showPage(int page);
+	void setResolution(int res);
 
 protected:
 	virtual void resizeEvent(QResizeEvent *event);

@@ -93,7 +93,8 @@ PDFWidget::PDFWidget()
 	, magnifier(NULL)
 	, usingTool(kNone)
 {
-	dpi = QApplication::desktop()->logicalDpiX();
+	QSettings settings;
+	dpi = settings.value("previewResolution", QApplication::desktop()->logicalDpiX()).toInt();
 	
 	setBackgroundRole(QPalette::Base);
 	setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
@@ -150,10 +151,6 @@ void PDFWidget::mousePressEvent(QMouseEvent *event)
 {
 	switch (currentTool()) {
 		case kMagnifier:
-			image = page->renderToImage(dpi * scaleFactor, dpi * scaleFactor,
-												rect().x(), rect().y(),
-												rect().width(), rect().height());
-
 			if (!magnifier)
 				magnifier = new PDFMagnifier(this, dpi);
 			magnifier->setPage(page, scaleFactor);
@@ -222,6 +219,16 @@ void PDFWidget::adjustSize()
 		QSize	pageSize = (page->pageSizeF() * scaleFactor * dpi / 72.0).toSize();
 		if (pageSize != size())
 			resize(pageSize);
+	}
+}
+
+void PDFWidget::setResolution(int res)
+{
+	dpi = res;
+	adjustSize();
+	if (magnifier) {
+		delete magnifier;
+		magnifier = NULL;
 	}
 }
 
@@ -537,7 +544,6 @@ PDFDocument::init()
 	connect(actionFull_Screen, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
 	connect(pdfWidget, SIGNAL(changedZoom(double)), this, SLOT(enableZoomActions(double)));
 	connect(pdfWidget, SIGNAL(changedScaleOption(autoScaleOption)), this, SLOT(adjustScaleActions(autoScaleOption)));
-	connect(pdfWidget, SIGNAL(moveWidget(const QPoint&)), this, SLOT(movePdfWidget(const QPoint&)));
 
 	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	
@@ -709,4 +715,10 @@ void PDFDocument::toggleFullScreen()
 		pdfWidget->fitWindow(true);
 		actionFull_Screen->setChecked(true);
 	}
+}
+
+void PDFDocument::setResolution(int res)
+{
+	if (res > 0)
+		pdfWidget->setResolution(res);
 }

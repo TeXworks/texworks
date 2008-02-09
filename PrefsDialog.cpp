@@ -1,5 +1,6 @@
 #include "PrefsDialog.h"
 #include "QTeXApp.h"
+#include "PDFDocument.h"
 
 #include <QSettings>
 #include <QFontDatabase>
@@ -8,6 +9,7 @@
 #include <QFileDialog>
 #include <QMainWindow>
 #include <QToolBar>
+#include <QDesktopWidget>
 #include <QtAlgorithms>
 
 PrefsDialog::PrefsDialog(QWidget *parent)
@@ -268,6 +270,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.encoding->setCurrentIndex(nameList.indexOf("UTF-8"));
 
 	// Preview
+	int oldResolution = settings.value("previewResolution", QApplication::desktop()->logicalDpiX()).toInt();
+	dlg.resolution->setValue(oldResolution);
 	
 	// Typesetting
 	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
@@ -323,6 +327,15 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		settings.setValue("font", font.toString());
 		
 		// Preview
+		int newResolution = dlg.resolution->value();
+		if (newResolution != oldResolution) {
+			settings.setValue("previewResolution", newResolution);
+			foreach (QWidget *widget, qApp->topLevelWidgets()) {
+				PDFDocument *thePdfDoc = qobject_cast<PDFDocument*>(widget);
+				if (thePdfDoc != NULL)
+					thePdfDoc->setResolution(newResolution);
+			}
+		}
 		
 		// Typesetting
 		if (app != NULL) {
