@@ -99,6 +99,9 @@
       </widget>
      </widget>
     </item>
+    <item>
+     <widget class="QLineEdit" name="inputLine" />
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar" >

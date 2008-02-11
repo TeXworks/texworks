@@ -15,6 +15,7 @@
 #include <QDesktopWidget>
 #include <QSettings>
 #include <QScrollBar>
+#include <QRegion>
 
 #include <math.h>
 
@@ -22,6 +23,8 @@
 
 const double kMaxScaleFactor = 8.0;
 const double kMinScaleFactor = 0.125;
+
+const int magSizes[] = { 200, 300, 400 };
 
 // tool codes
 const int kNone = 0;
@@ -32,8 +35,6 @@ const int kZoomOut = 4;
 
 #pragma mark === PDFMagnifier ===
 
-const int kMagnifierWidth = 400;
-const int kMagnifierHeight = 300;
 const int kMagFactor = 2;
 
 PDFMagnifier::PDFMagnifier(QWidget *parent, double inDpi)
@@ -76,8 +77,18 @@ void PDFMagnifier::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     drawFrame(&painter);
 	painter.drawImage(event->rect(), image,
-		event->rect().translated(x() * kMagFactor + kMagnifierWidth / 2,
-								 y() * kMagFactor + kMagnifierHeight / 2));
+		event->rect().translated(x() * kMagFactor + width() / 2,
+								 y() * kMagFactor + height() / 2));
+}
+
+void PDFMagnifier::resizeEvent(QResizeEvent * /*event*/)
+{
+	QSettings settings;
+	if (settings.value("circularMagnifier", kDefault_CircularMagnifier).toBool()) {
+		int side = qMin(width(), height());
+		QRegion maskedRegion(width() / 2 - side / 2, height() / 2 - side / 2, side, side, QRegion::Ellipse);
+		setMask(maskedRegion);
+	}
 }
 
 #pragma mark === PDFWidget ===
@@ -151,11 +162,17 @@ void PDFWidget::mousePressEvent(QMouseEvent *event)
 {
 	switch (currentTool()) {
 		case kMagnifier:
-			if (!magnifier)
+			if (!magnifier) {
 				magnifier = new PDFMagnifier(this, dpi);
+				QSettings settings;
+	 			int magnifierSize = settings.value("magnifierSize", kDefault_MagnifierSize).toInt();
+				if (magnifierSize <= 0 || magnifierSize > (int)(sizeof(magSizes) / sizeof(int)))
+					magnifierSize = kDefault_MagnifierSize;
+				magnifierSize = magSizes[magnifierSize - 1];
+				magnifier->setFixedSize(magnifierSize * 4 / 3, magnifierSize);
+			}
+			magnifier->move(event->x() - magnifier->width() / 2, event->y() - magnifier->height() / 2);
 			magnifier->setPage(page, scaleFactor);
-			magnifier->setFixedSize(kMagnifierWidth, kMagnifierHeight);
-			magnifier->move(event->x() - kMagnifierWidth/2, event->y() - kMagnifierHeight/2);
 			magnifier->show();
 			setCursor(Qt::BlankCursor);
 			usingTool = kMagnifier;
@@ -194,7 +211,7 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 void PDFWidget::mouseMoveEvent(QMouseEvent *event)
 {
 	if (usingTool == kMagnifier)
-		magnifier->move(event->x() - kMagnifierWidth/2, event->y() - kMagnifierHeight/2);
+		magnifier->move(event->x() - magnifier->width() / 2, event->y() - magnifier->height() / 2);
 	else if (usingTool == kScroll) {
 		QPoint delta = event->globalPos() - scrollClickPos;
 		scrollClickPos = event->globalPos();
@@ -222,14 +239,19 @@ void PDFWidget::adjustSize()
 	}
 }
 
-void PDFWidget::setResolution(int res)
+void PDFWidget::resetMagnifier()
 {
-	dpi = res;
-	adjustSize();
 	if (magnifier) {
 		delete magnifier;
 		magnifier = NULL;
 	}
+}
+
+void PDFWidget::setResolution(int res)
+{
+	dpi = res;
+	adjustSize();
+	resetMagnifier();
 }
 
 void PDFWidget::reloadPage()
@@ -717,8 +739,18 @@ void PDFDocument::toggleFullScreen()
 	}
 }
 
+void PDFDocument::resetMagnifier()
+{
+	pdfWidget->resetMagnifier();
+}
+
 void PDFDocument::setResolution(int res)
 {
 	if (res > 0)
 		pdfWidget->setResolution(res);
+}
+
+void PDFDocument::enableTypesetAction(bool enabled)
+{
+	actionTypeset->setEnabled(enabled);
 }

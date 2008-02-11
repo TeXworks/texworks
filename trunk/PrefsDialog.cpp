@@ -190,13 +190,44 @@ void PrefsDialog::buttonClicked(QAbstractButton *whichButton)
 		restoreDefaults();
 }
 
+const int kDefault_LaunchOption = 1;
+const int kDefault_ToolBarIcons = 2;
+const bool kDefault_ToolBarText = false;
+const bool kDefault_SyntaxColoring = true;
+const bool kDefault_WrapLines = true;
+const int kDefault_TabWidth = 32;
+const int kDefault_PreviewScaleOption = 1;
+const int kDefault_PreviewScale = 200;
+const bool kDefault_HideConsole = true;
+
 void PrefsDialog::restoreDefaults()
 {
 	switch (tabWidget->currentIndex()) {
 		case 0:
 			// General
-			mediumIcons->setChecked(true);
-			showText->setChecked(false);
+			switch (kDefault_ToolBarIcons) {
+				case 1:
+					smallIcons->setChecked(true);
+					break;
+				case 2:
+					mediumIcons->setChecked(true);
+					break;
+				case 3:
+					largeIcons->setChecked(true);
+					break;
+			}
+			showText->setChecked(kDefault_ToolBarText);
+			switch (kDefault_LaunchOption) {
+				case 1:
+					blankDocument->setChecked(true);
+					break;
+				case 2:
+					templateDialog->setChecked(true);
+					break;
+				case 3:
+					openDialog->setChecked(true);
+					break;
+			}
 			blankDocument->setChecked(true);
 			break;
 
@@ -207,14 +238,43 @@ void PrefsDialog::restoreDefaults()
 				editorFont->setEditText(font.family());
 				fontSize->setValue(font.pointSize());
 			}
-			tabWidth->setValue(36);
-			wrapLines->setChecked(true);
-			syntaxColoring->setChecked(true);
+			tabWidth->setValue(kDefault_TabWidth);
+			wrapLines->setChecked(kDefault_WrapLines);
+			syntaxColoring->setChecked(kDefault_SyntaxColoring);
 			encoding->setCurrentIndex(encoding->findText("UTF-8"));
 			break;
 	
 		case 2:
 			// Preview
+			switch (kDefault_PreviewScaleOption) {
+				default:
+					actualSize->setChecked(true);
+					break;
+				case 2:
+					fitWidth->setChecked(true);
+					break;
+				case 3:
+					fitWindow->setChecked(true);
+					break;
+				case 4:
+					fixedScale->setChecked(true);
+					break;
+			}
+			scale->setValue(kDefault_PreviewScale);
+			resolution->setValue(QApplication::desktop()->logicalDpiX());
+			
+			switch (kDefault_MagnifierSize) {
+				case 1:
+					smallMag->setChecked(true);
+					break;
+				default:
+					mediumMag->setChecked(true);
+					break;
+				case 3:
+					largeMag->setChecked(true);
+					break;
+			}
+			circularMag->setChecked(kDefault_CircularMagnifier);
 			break;
 		
 		case 3:
@@ -240,7 +300,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	// initialize controls based on the current settings
 	
 	// General
-	int oldIconSize = settings.value("toolBarIconSize", 2).toInt();
+	int oldIconSize = settings.value("toolBarIconSize", kDefault_ToolBarIcons).toInt();
 	switch (oldIconSize) {
 		case 1:
 			dlg.smallIcons->setChecked(true);
@@ -252,13 +312,25 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			dlg.mediumIcons->setChecked(true);
 			break;
 	}
-	bool oldShowText = settings.value("toolBarShowText", false).toBool();
+	bool oldShowText = settings.value("toolBarShowText", kDefault_ToolBarText).toBool();
 	dlg.showText->setChecked(oldShowText);
+
+	switch (settings.value("launchOption", kDefault_LaunchOption).toInt()) {
+		default:
+			dlg.blankDocument->setChecked(true);
+			break;
+		case 2:
+			dlg.templateDialog->setChecked(true);
+			break;
+		case 3:
+			dlg.openDialog->setChecked(true);
+			break;
+	}
 	
 	// Editor
-	dlg.syntaxColoring->setChecked(settings.value("syntaxColoring", true).toBool());
-	dlg.wrapLines->setChecked(settings.value("wrapLines", true).toBool());
-	dlg.tabWidth->setValue(settings.value("tabWidth", 32).toInt());
+	dlg.syntaxColoring->setChecked(settings.value("syntaxColoring", kDefault_SyntaxColoring).toBool());
+	dlg.wrapLines->setChecked(settings.value("wrapLines", kDefault_WrapLines).toBool());
+	dlg.tabWidth->setValue(settings.value("tabWidth", kDefault_TabWidth).toInt());
 	QFontDatabase fdb;
 	dlg.editorFont->addItems(fdb.families());
 	QString fontString = settings.value("font").toString();
@@ -270,8 +342,39 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.encoding->setCurrentIndex(nameList.indexOf("UTF-8"));
 
 	// Preview
+	switch (settings.value("scaleOption", kDefault_PreviewScaleOption).toInt()) {
+		default:
+			dlg.actualSize->setChecked(true);
+			break;
+		case 2:
+			dlg.fitWidth->setChecked(true);
+			break;
+		case 3:
+			dlg.fitWindow->setChecked(true);
+			break;
+		case 4:
+			dlg.fixedScale->setChecked(true);
+			break;
+	}
+	dlg.scale->setValue(settings.value("previewScale", kDefault_PreviewScale).toInt());
+
 	int oldResolution = settings.value("previewResolution", QApplication::desktop()->logicalDpiX()).toInt();
 	dlg.resolution->setValue(oldResolution);
+	
+	int oldMagSize = settings.value("magnifierSize", kDefault_MagnifierSize).toInt();
+	switch (oldMagSize) {
+		case 1:
+			dlg.smallMag->setChecked(true);
+			break;
+		default:
+			dlg.mediumMag->setChecked(true);
+			break;
+		case 3:
+			dlg.largeMag->setChecked(true);
+			break;
+	}
+	bool oldCircular = settings.value("circularMagnifier", kDefault_CircularMagnifier).toBool();
+	dlg.circularMag->setChecked(oldCircular);
 	
 	// Typesetting
 	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
@@ -283,7 +386,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			dlg.defaultTool->addItem(e.name());
 		}
 	}
-	dlg.autoHideOutput->setChecked(settings.value("autoHideConsole", true).toBool());
+	dlg.autoHideOutput->setChecked(settings.value("autoHideConsole", kDefault_HideConsole).toBool());
 	if (dlg.binPathList->count() > 0)
 		dlg.binPathList->setCurrentItem(dlg.binPathList->item(0));
 	if (dlg.toolList->count() > 0)
@@ -318,6 +421,13 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			}
 		}
 		
+		int launchOption = 1;
+		if (dlg.templateDialog->isChecked())
+			launchOption = 2;
+		else if (dlg.openDialog->isChecked())
+			launchOption = 3;
+		settings.setValue("launchOption", launchOption);
+		
 		// Editor
 		settings.setValue("syntaxColoring", dlg.syntaxColoring->isChecked());
 		settings.setValue("wrapLines", dlg.wrapLines->isChecked());
@@ -327,16 +437,43 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		settings.setValue("font", font.toString());
 		
 		// Preview
-		int newResolution = dlg.resolution->value();
-		if (newResolution != oldResolution) {
-			settings.setValue("previewResolution", newResolution);
+		int scaleOption = 1;
+		if (dlg.fitWidth->isChecked())
+			scaleOption = 2;
+		else if (dlg.fitWindow->isChecked())
+			scaleOption = 3;
+		else if (dlg.fixedScale->isChecked())
+			scaleOption = 4;
+		int scale = dlg.scale->value();
+		settings.setValue("scaleOption", scaleOption);
+		settings.setValue("previewScale", scale);
+		
+		int resolution = dlg.resolution->value();
+		if (resolution != oldResolution) {
+			settings.setValue("previewResolution", resolution);
 			foreach (QWidget *widget, qApp->topLevelWidgets()) {
 				PDFDocument *thePdfDoc = qobject_cast<PDFDocument*>(widget);
 				if (thePdfDoc != NULL)
-					thePdfDoc->setResolution(newResolution);
+					thePdfDoc->setResolution(resolution);
 			}
 		}
 		
+		int magSize = 2;
+		if (dlg.smallMag->isChecked())
+			magSize = 1;
+		else if (dlg.largeMag->isChecked())
+			magSize = 3;
+		settings.setValue("magnifierSize", magSize);
+		bool circular = dlg.circularMag->isChecked();
+		settings.setValue("circularMagnifier", circular);
+		if (oldMagSize != magSize || oldCircular != circular) {
+			foreach (QWidget *widget, qApp->topLevelWidgets()) {
+				PDFDocument *thePdfDoc = qobject_cast<PDFDocument*>(widget);
+				if (thePdfDoc != NULL)
+					thePdfDoc->resetMagnifier();
+			}
+		}
+
 		// Typesetting
 		if (app != NULL) {
 			QStringList paths;

@@ -79,7 +79,7 @@ void QTeXApp::init()
 
 void QTeXApp::about()
 {
-   QMessageBox::about(activeWindow(), tr("About " TEXWORKS_NAME),
+   QMessageBox::about(NULL, tr("About " TEXWORKS_NAME),
 			tr("<p>" TEXWORKS_NAME " is a simple environment for editing, "
 			    "typesetting, and previewing TeX documents.</p>"
 				"<p>&#xA9; 2007-2008 Jonathan Kew.</p>"

@@ -11,6 +11,9 @@
 
 #include "ui_PDFDocument.h"
 
+const int kDefault_MagnifierSize = 300;
+const bool kDefault_CircularMagnifier = true;
+
 class QAction;
 class QMenu;
 class QToolBar;
@@ -27,6 +30,7 @@ public:
 
 protected:
 	virtual void paintEvent(QPaintEvent *event);
+	virtual void resizeEvent(QResizeEvent *event);
 
 private:
 	Poppler::Page	*page;
@@ -57,6 +61,7 @@ public:
 	void saveState(); // used when toggling full screen mode
 	void restoreState();
 	void setResolution(int res);
+	void resetMagnifier();
 
 private slots:
 	void goFirst();
@@ -146,6 +151,8 @@ public:
 	void showScale(double scale);
 	void showPage(int page);
 	void setResolution(int res);
+	void resetMagnifier();
+	void enableTypesetAction(bool enabled);
 
 protected:
 	virtual void resizeEvent(QResizeEvent *event);
