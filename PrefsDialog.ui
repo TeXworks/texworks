@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>497</width>
-    <height>487</height>
+    <width>569</width>
+    <height>527</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -22,7 +22,7 @@
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab_general" >
       <attribute name="title" >
@@ -292,33 +292,30 @@
        <string>Preview</string>
       </attribute>
       <layout class="QGridLayout" >
-       <item row="0" column="0" >
+       <item rowspan="2" row="0" column="0" >
         <widget class="QGroupBox" name="groupBox_6" >
          <property name="title" >
           <string>Default scaling</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="verticalSpacing" >
-           <number>0</number>
-          </property>
           <item row="0" column="0" >
            <layout class="QVBoxLayout" >
             <item>
-             <widget class="QRadioButton" name="radioButton" >
+             <widget class="QRadioButton" name="actualSize" >
               <property name="text" >
                <string>Actual size</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_2" >
+             <widget class="QRadioButton" name="fitWidth" >
               <property name="text" >
                <string>Fit to Width</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_3" >
+             <widget class="QRadioButton" name="fitWindow" >
               <property name="text" >
                <string>Fit to Window</string>
               </property>
@@ -329,7 +326,7 @@
           <item row="1" column="0" >
            <layout class="QHBoxLayout" >
             <item>
-             <widget class="QRadioButton" name="radioButton_4" >
+             <widget class="QRadioButton" name="fixedScale" >
               <property name="text" >
                <string>Fixed scale:</string>
               </property>
@@ -337,6 +334,9 @@
             </item>
             <item>
              <widget class="QSpinBox" name="scale" >
+              <property name="correctionMode" >
+               <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+              </property>
               <property name="suffix" >
                <string> %</string>
               </property>
@@ -357,19 +357,60 @@
         </widget>
        </item>
        <item row="0" column="1" >
+        <widget class="QGroupBox" name="groupBox_8" >
+         <property name="title" >
+          <string>Magnifying glass</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QRadioButton" name="smallMag" >
+              <property name="text" >
+               <string>Small</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="mediumMag" >
+              <property name="text" >
+               <string>Medium</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="largeMag" >
+              <property name="text" >
+               <string>Large</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="circularMag" >
+            <property name="text" >
+             <string>Circular magnifier</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item rowspan="3" row="1" column="1" >
         <spacer>
          <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeHint" >
           <size>
-           <width>40</width>
-           <height>20</height>
+           <width>241</width>
+           <height>291</height>
           </size>
          </property>
         </spacer>
        </item>
-       <item row="1" column="0" >
+       <item row="2" column="0" >
         <layout class="QHBoxLayout" >
          <property name="leftMargin" >
           <number>3</number>
@@ -392,14 +433,17 @@
          </item>
          <item>
           <widget class="QSpinBox" name="resolution" >
+           <property name="correctionMode" >
+            <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+           </property>
            <property name="suffix" >
             <string> dpi</string>
            </property>
            <property name="minimum" >
-            <number>50</number>
+            <number>36</number>
            </property>
            <property name="maximum" >
-            <number>200</number>
+            <number>288</number>
            </property>
            <property name="value" >
             <number>72</number>
@@ -408,7 +452,7 @@
          </item>
         </layout>
        </item>
-       <item row="2" column="0" >
+       <item row="3" column="0" >
         <spacer>
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
@@ -641,10 +685,10 @@
   <tabstop>completionFiles</tabstop>
   <tabstop>addCompletionFile</tabstop>
   <tabstop>removeCompletionFile</tabstop>
-  <tabstop>radioButton</tabstop>
-  <tabstop>radioButton_2</tabstop>
-  <tabstop>radioButton_3</tabstop>
-  <tabstop>radioButton_4</tabstop>
+  <tabstop>actualSize</tabstop>
+  <tabstop>fitWidth</tabstop>
+  <tabstop>fitWindow</tabstop>
+  <tabstop>fixedScale</tabstop>
   <tabstop>scale</tabstop>
   <tabstop>resolution</tabstop>
   <tabstop>binPathList</tabstop>

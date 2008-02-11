@@ -777,15 +777,21 @@ void TeXDocument::zoomToLeft(QWidget *otherWindow)
 void TeXDocument::typeset()
 {
 	if (process)
-		return;
+		return;	// this shouldn't happen if we disable the command at the right time
 
 	if (isUntitled || textEdit->document()->isModified())
-		if (!save())
+		if (!save()) {
+			statusBar()->showMessage(tr("Cannot process unsaved document"), kStatusMessageDuration);
 			return;
+		}
 
 	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 	if (app == NULL)
 		return; // actually, that would be an internal error!
+
+	actionTypeset->setEnabled(false);
+	if (pdfDoc != NULL)
+		pdfDoc->enableTypesetAction(false);
 
 	process = new QProcess(this);
 	QFileInfo fileInfo(curFile);
@@ -813,16 +819,30 @@ void TeXDocument::typeset()
 	args.replaceInStrings("$suffix", fileInfo.suffix());
 	args.replaceInStrings("$directory", fileInfo.absoluteDir().absolutePath());
 
+	bool foundCommand = false;
 	iter.toFront();
 	while (iter.hasNext()) {
 		QString path = iter.next();
 		fileInfo = QFileInfo(path, e.program());
 		if (fileInfo.exists()) {
+			foundCommand = true;
 			textEdit_console->clear();
 			showConsole();
 			process->start(fileInfo.absoluteFilePath(), args);
 			break;
 		}
+	}
+	if (!foundCommand) {
+		process->deleteLater();
+		process = NULL;
+		QMessageBox::critical(this, tr("Unable to execute %1").arg(e.name()),
+								tr("The program \"%1\" was not found.\n\n"
+								"Check configuration of the %2 tool and path settings"
+								" in the Preferences dialog.").arg(e.program()).arg(e.name()),
+								QMessageBox::Cancel);
+		actionTypeset->setEnabled(true);
+		if (pdfDoc != NULL)
+			pdfDoc->enableTypesetAction(true);
 	}
 }
 
@@ -842,6 +862,9 @@ void TeXDocument::processError(QProcess::ProcessError /*error*/)
 	process->kill();
 	process->deleteLater();
 	process = NULL;
+	actionTypeset->setEnabled(true);
+	if (pdfDoc != NULL)
+		pdfDoc->enableTypesetAction(true);
 }
 
 void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
@@ -861,9 +884,14 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	QSettings settings;
 	if (exitCode == 0 && settings.value("autoHideConsole", true).toBool())
 		hideConsole();
+	else
+		inputLine->hide();
 
 	process->deleteLater();
 	process = NULL;
+	actionTypeset->setEnabled(true);
+	if (pdfDoc != NULL)
+		pdfDoc->enableTypesetAction(true);
 }
 
 void TeXDocument::showConsole()
@@ -874,12 +902,15 @@ void TeXDocument::showConsole()
 		sizes[1] = kMinConsoleHeight > half ? half : kMinConsoleHeight;
 	splitter->setSizes(sizes);
 	textEdit_console->show();
+	if (process != NULL)
+		inputLine->show();
 	actionShow_Hide_Console->setText(tr("Hide Output Panel"));
 }
 
 void TeXDocument::hideConsole()
 {
 	textEdit_console->hide();
+	inputLine->hide();
 	actionShow_Hide_Console->setText(tr("Show Output Panel"));
 }
 
