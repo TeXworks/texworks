@@ -37,6 +37,9 @@ public:
 	const Engine getDefaultEngine();
 	const Engine getNamedEngine(const QString& name);
 
+	void setDefaultPaths();
+	void setDefaultEngineList();
+
 #ifdef Q_WS_MAC
 private:
 	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
@@ -80,8 +83,6 @@ protected:
 
 private:
 	void init();
-	void setDefaultPaths();
-	void setDefaultEngineList();
 	
 	int f_maxRecentFiles;
 

@@ -38,6 +38,8 @@ void PrefsDialog::init()
 	connect(toolEdit, SIGNAL(clicked()), this, SLOT(editTool()));
 	
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changedTabPanel(int)));
+	
+	pathsChanged = toolsChanged = false;
 }
 
 void PrefsDialog::changedTabPanel(int index)
@@ -82,6 +84,7 @@ void PrefsDialog::movePathUp()
 		QListWidgetItem *item = binPathList->takeItem(selRow);
 		binPathList->insertItem(selRow - 1, item);
 		binPathList->setCurrentItem(binPathList->item(selRow - 1));
+		pathsChanged = true;
 	}
 }
 
@@ -94,6 +97,7 @@ void PrefsDialog::movePathDown()
 		QListWidgetItem *item = binPathList->takeItem(selRow);
 		binPathList->insertItem(selRow + 1, item);
 		binPathList->setCurrentItem(binPathList->item(selRow + 1));
+		pathsChanged = true;
 	}
 }
 
@@ -105,14 +109,17 @@ void PrefsDialog::addPath()
 	if (dir != "") {
 		binPathList->addItem(dir);
 		binPathList->setCurrentItem(binPathList->item(binPathList->count() - 1));
+		pathsChanged = true;
 	}
 }
 
 void PrefsDialog::removePath()
 {
 	if (binPathList->currentRow() > -1)
-		if (binPathList->currentItem()->isSelected())
+		if (binPathList->currentItem()->isSelected()) {
 			binPathList->takeItem(binPathList->currentRow());
+			pathsChanged = true;
+		}
 }
 
 void PrefsDialog::updateToolButtons()
@@ -137,6 +144,7 @@ void PrefsDialog::moveToolUp()
 		toolList->setCurrentItem(toolList->item(selRow - 1));
 		Engine e = engineList.takeAt(selRow);
 		engineList.insert(selRow - 1, e);
+		toolsChanged = true;
 	}
 }
 
@@ -151,6 +159,7 @@ void PrefsDialog::moveToolDown()
 		toolList->setCurrentItem(toolList->item(selRow + 1));
 		Engine e = engineList.takeAt(selRow);
 		engineList.insert(selRow + 1, e);
+		toolsChanged = true;
 	}
 }
 
@@ -159,8 +168,10 @@ void PrefsDialog::addTool()
 	Engine e;
 	e.setName(tr("New Tool"));
 	e.setShowPdf(true);
-	if (ToolConfig::doToolConfig(this, e) == QDialog::Accepted)
+	if (ToolConfig::doToolConfig(this, e) == QDialog::Accepted) {
 		engineList.append(e);
+		toolsChanged = true;
+	}
 }
 
 void PrefsDialog::removeTool()
@@ -169,6 +180,7 @@ void PrefsDialog::removeTool()
 		if (toolList->currentItem()->isSelected()) {
 			engineList.removeAt(toolList->currentRow());
 			toolList->takeItem(toolList->currentRow());
+			toolsChanged = true;
 		}
 }
 
@@ -180,6 +192,7 @@ void PrefsDialog::editTool()
 			if (ToolConfig::doToolConfig(this, e) == QDialog::Accepted) {
 				engineList[toolList->currentRow()] = e;
 				toolList->currentItem()->setText(e.name());
+				toolsChanged = true;
 			}
 		}
 }
@@ -279,8 +292,38 @@ void PrefsDialog::restoreDefaults()
 		
 		case 3:
 			// Typesetting
+			{
+				QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
+				if (app != NULL) {
+					app->setDefaultEngineList();
+					app->setDefaultPaths();
+					initPathAndToolLists();
+				}
+			}
+			autoHideOutput->setChecked(kDefault_HideConsole);
 			break;
 	}
+}
+
+void PrefsDialog::initPathAndToolLists()
+{
+	binPathList->clear();
+	toolList->clear();
+	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
+	if (app != NULL) {
+		binPathList->addItems(app->getBinaryPaths());
+		engineList = app->getEngineList();
+		foreach (Engine e, engineList) {
+			toolList->addItem(e.name());
+			defaultTool->addItem(e.name());
+		}
+	}
+	if (binPathList->count() > 0)
+		binPathList->setCurrentItem(binPathList->item(0));
+	if (toolList->count() > 0)
+		toolList->setCurrentItem(toolList->item(0));
+	updatePathButtons();
+	updateToolButtons();
 }
 
 QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
@@ -377,22 +420,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.circularMag->setChecked(oldCircular);
 	
 	// Typesetting
-	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
-	if (app != NULL) {
-		dlg.binPathList->addItems(app->getBinaryPaths());
-		dlg.engineList = app->getEngineList();
-		foreach (Engine e, dlg.engineList) {
-			dlg.toolList->addItem(e.name());
-			dlg.defaultTool->addItem(e.name());
-		}
-	}
+	dlg.initPathAndToolLists();
 	dlg.autoHideOutput->setChecked(settings.value("autoHideConsole", kDefault_HideConsole).toBool());
-	if (dlg.binPathList->count() > 0)
-		dlg.binPathList->setCurrentItem(dlg.binPathList->item(0));
-	if (dlg.toolList->count() > 0)
-		dlg.toolList->setCurrentItem(dlg.toolList->item(0));
-	dlg.updatePathButtons();
-	dlg.updateToolButtons();
 
 	if (parent && parent->inherits("TeXDocument"))
 		dlg.tabWidget->setCurrentIndex(1);
@@ -475,12 +504,17 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		}
 
 		// Typesetting
+		QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 		if (app != NULL) {
-			QStringList paths;
-			for (int i = 0; i < dlg.binPathList->count(); ++i)
-				paths << dlg.binPathList->item(i)->text();
-			app->setBinaryPaths(paths);
-			app->setEngineList(dlg.engineList);
+			if (dlg.pathsChanged) {
+				QStringList paths;
+				for (int i = 0; i < dlg.binPathList->count(); ++i)
+					paths << dlg.binPathList->item(i)->text();
+				app->setBinaryPaths(paths);
+			}
+			if (dlg.toolsChanged) {
+				app->setEngineList(dlg.engineList);
+			}
 		}
 	}
 

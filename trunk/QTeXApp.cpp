@@ -250,23 +250,21 @@ const QList<Engine> QTeXApp::getEngineList()
 	if (f_engineList == NULL) {
 		f_engineList = new QList<Engine>;
 		QSettings settings;
-		if (settings.childGroups().contains("engines")) {
-			settings.beginGroup("engines");
-			QStringList childKeys = settings.childKeys();
-			foreach (QString engineName, childKeys) {
+		int count = settings.beginReadArray("engines");
+		if (count > 0) {
+			for (int i = 0; i < count; ++i) {
+				settings.setArrayIndex(i);
 				Engine eng;
-				eng.setName(engineName);
-				settings.beginGroup(engineName);
+				eng.setName(settings.value("name").toString());
 				eng.setProgram(settings.value("program").toString());
 				eng.setArguments(settings.value("arguments").toStringList());
 				eng.setShowPdf(settings.value("showPdf").toBool());
-				settings.endGroup();
 				f_engineList->append(eng);
 			}
-			settings.endGroup();
 		}
 		else
 			setDefaultEngineList();
+		settings.endArray();
 	}
 	return *f_engineList;
 }
@@ -276,6 +274,23 @@ void QTeXApp::setEngineList(const QList<Engine>& engineList)
 	if (f_engineList == NULL)
 		f_engineList = new QList<Engine>;
 	*f_engineList = engineList;
+	QSettings settings;
+	int i = settings.beginReadArray("engines");
+	settings.endArray();
+	settings.beginWriteArray("engines", engineList.count());
+	while (i > engineList.count()) {
+		settings.setArrayIndex(--i);
+		settings.remove("");
+	}
+	i = 0;
+	foreach (Engine eng, engineList) {
+		settings.setArrayIndex(i++);
+		settings.setValue("name", eng.name());
+		settings.setValue("program", eng.program());
+		settings.setValue("arguments", eng.arguments());
+		settings.setValue("showPdf", eng.showPdf());
+	}
+	settings.endArray();
 }
 
 const Engine QTeXApp::getDefaultEngine()
