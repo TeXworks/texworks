@@ -13,7 +13,6 @@
 #include <QKeyEvent>
 #include <QDesktopWidget>
 #include <QCompleter>
-#include <QAbstractItemView>
 
 #pragma mark === QTeXUtils ===
 
