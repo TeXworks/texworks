@@ -38,16 +38,19 @@ public:
 		{
 			return docList;
 		}
-	static void openDocument(const QString &fileName);
+	static void openDocument(const QString &fileName, int lineNo = 0);
 
 
-	void open(const QString &fileName);
+	TeXDocument *open(const QString &fileName);
 	bool untitled()
 		{ return isUntitled; }
 	QString fileName() const
 		{ return curFile; }
 	QTextCursor textCursor()
 		{ return textEdit->textCursor(); }
+
+signals:
+	void syncFromSource(const QString&, int);
 
 protected:
 	void closeEvent(QCloseEvent *event);
@@ -73,6 +76,7 @@ private slots:
 	void doUnindent();
 	void doComment();
 	void doUncomment();
+	void setWrapLines(bool wrap);
 	void copyToFind();
 	void copyToReplace();
 	void findSelection();
@@ -86,6 +90,7 @@ private slots:
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void toggleConsoleVisibility();
 	void goToPreview();
+	void syncClick(int lineNo);
 
 private:
 	void init();
@@ -100,7 +105,7 @@ private:
 	QTextCursor doSearch(const QString& searchText, const QRegExp *regex, QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
 	void showConsole();
 	void hideConsole();
-
+	void goToLine(int lineNo);
 
 	QString curFile;
 	bool isUntitled;

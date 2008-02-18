@@ -125,11 +125,14 @@
    <addaction name="actionNext_Page" />
    <addaction name="actionLast_Page" />
    <addaction name="separator" />
-   <addaction name="actionZoom_In" />
-   <addaction name="actionZoom_Out" />
    <addaction name="actionActual_Size" />
    <addaction name="actionFit_to_Width" />
    <addaction name="actionFit_to_Window" />
+   <addaction name="separator" />
+   <addaction name="actionMagnify" />
+   <addaction name="actionScroll" />
+   <addaction name="actionSelect_Text" />
+   <addaction name="actionSelect_Image" />
   </widget>
   <action name="actionAbout_QTeX" >
    <property name="text" >
@@ -403,6 +406,44 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Shift+F</string>
+   </property>
+  </action>
+  <action name="actionMagnify" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/zoomin.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Magnify</string>
+   </property>
+  </action>
+  <action name="actionScroll" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Scroll</string>
+   </property>
+  </action>
+  <action name="actionSelect_Text" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Select Text</string>
+   </property>
+  </action>
+  <action name="actionSelect_Image" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Select Image</string>
    </property>
   </action>
  </widget>

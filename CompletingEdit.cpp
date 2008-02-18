@@ -52,6 +52,7 @@
 #include <QModelIndex>
 #include <QAbstractItemModel>
 #include <QScrollBar>
+#include <QTextCursor>
 
 CompletingEdit::CompletingEdit(QWidget *parent)
 	: QTextEdit(parent), c(NULL)
@@ -194,4 +195,23 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 	}
 #endif
     c->complete(cr);
+}
+
+void CompletingEdit::mousePressEvent(QMouseEvent *e)
+{
+	if (e->modifiers() == Qt::ControlModifier)
+		e->accept();
+	else
+		QTextEdit::mousePressEvent(e);
+}
+
+void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
+{
+	if (e->modifiers() == Qt::ControlModifier) {
+		e->accept();
+		QTextCursor cursor = cursorForPosition(e->pos());
+		emit syncClick(cursor.blockNumber() + 1);
+	}
+	else
+		QTextEdit::mouseReleaseEvent(e);
 }
