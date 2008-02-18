@@ -60,6 +60,8 @@ public slots:
 	void stackWindows();
 	void tileWindows();
 	void tileTwoWindows();
+	
+	void syncFromSource(const QString& sourceFile, int lineNo);
 
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu
@@ -70,6 +72,8 @@ signals:
 	
 	// emitted when the engine list is changed from Preferences, so docs can update their menus
 	void engineListChanged();
+	
+	void syncPdf(const QString& sourceFile, int lineNo);
 
 private slots:
 	void about();

@@ -313,3 +313,8 @@ const Engine QTeXApp::getNamedEngine(const QString& name)
 	}
 	return Engine();
 }
+
+void QTeXApp::syncFromSource(const QString& sourceFile, int lineNo)
+{
+	emit syncPdf(sourceFile, lineNo);
+}

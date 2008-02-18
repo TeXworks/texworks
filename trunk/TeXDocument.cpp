@@ -114,10 +114,14 @@ void TeXDocument::init()
 	connect(actionComment, SIGNAL(triggered()), this, SLOT(doComment()));
 	connect(actionUncomment, SIGNAL(triggered()), this, SLOT(doUncomment()));
 
+	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
+
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), actionSave, SLOT(setEnabled(bool)));
 	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
+	connect(textEdit, SIGNAL(syncClick(int)), this, SLOT(syncClick(int)));
+	connect(this, SIGNAL(syncFromSource(const QString&, int)), qApp, SLOT(syncFromSource(const QString&, int)));
 
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(clipboardChanged()));
 	clipboardChanged();
@@ -185,7 +189,7 @@ void TeXDocument::open()
 	open(fileName);
 }
 
-void TeXDocument::open(const QString &fileName)
+TeXDocument* TeXDocument::open(const QString &fileName)
 {
 	TeXDocument *doc = NULL;
 	if (!fileName.isEmpty()) {
@@ -199,34 +203,37 @@ void TeXDocument::open(const QString &fileName)
 				doc = new TeXDocument(fileName);
 				if (doc->isUntitled) {
 					delete doc;
-					return;
+					doc = NULL;
 				}
 			}
 		}
 	}
 	if (doc != NULL)
 		doc->selectWindow();
+	return doc;
 }
 
-void TeXDocument::openDocument(const QString &fileName) // static
+void TeXDocument::openDocument(const QString &fileName, int lineNo) // static
 {
 	TeXDocument *doc = findDocument(fileName);
+	if (doc == NULL) {
+		if (docList.count() == 1) {
+			doc = docList[0];
+			doc = doc->open(fileName); // open into existing window if untitled/empty
+		}
+		else {
+			doc = new TeXDocument(fileName);
+			if (doc->isUntitled) {
+				delete doc;
+				return;
+			}
+		}
+	}
 	if (doc != NULL) {
 		doc->selectWindow();
-		return;
+		if (lineNo > 0)
+			doc->goToLine(lineNo);
 	}
-	if (docList.count() == 1) {
-		doc = docList[0];
-		doc->open(fileName); // open into existing window if untitled/empty
-		return;
-	}
-	doc = new TeXDocument(fileName);
-	if (doc->isUntitled) {
-		delete doc;
-		return;
-	}
-	if (doc != NULL)
-		doc->selectWindow();
 }
 
 void TeXDocument::closeEvent(QCloseEvent *event)
@@ -300,7 +307,7 @@ void TeXDocument::loadFile(const QString &fileName)
 void TeXDocument::showPdfIfAvailable()
 {
 	QFileInfo fi(curFile);
-	QString pdfName = fi.path() + "/" + fi.completeBaseName() + ".pdf";
+	QString pdfName = fi.canonicalPath() + "/" + fi.completeBaseName() + ".pdf";
 	fi.setFile(pdfName);
 	if (fi.exists()) {
 		pdfDoc = new PDFDocument(pdfName, this);
@@ -415,6 +422,15 @@ void TeXDocument::clear()
 	textEdit->textCursor().removeSelectedText();
 }
 
+void TeXDocument::goToLine(int lineNo)
+{
+	QTextCursor cursor = textEdit->textCursor();
+	cursor.setPosition(0);
+	cursor.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, lineNo - 1);
+	cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
+	textEdit->setTextCursor(cursor);
+}
+
 void TeXDocument::doFontDialog()
 {
 	textEdit->setFont(QFontDialog::getFont(0, textEdit->font()));
@@ -424,15 +440,11 @@ void TeXDocument::doLineDialog()
 {
 	QTextCursor cursor = textEdit->textCursor();
 	bool ok;
-	int i = QInputDialog::getInteger(this, tr("Go to Line"),
+	int lineNo = QInputDialog::getInteger(this, tr("Go to Line"),
 									tr("Line number:"), cursor.blockNumber() + 1,
 									1, textEdit->document()->blockCount(), 1, &ok);
-	if (ok) {
-		cursor.setPosition(0);
-		cursor.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, i - 1);
-		cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
-		textEdit->setTextCursor(cursor);
-	}
+	if (ok)
+		goToLine(lineNo);
 }
 
 void TeXDocument::doFindDialog()
@@ -530,6 +542,11 @@ void TeXDocument::doUnindent()
 void TeXDocument::doUncomment()
 {
 	unPrefixLines("%");
+}
+
+void TeXDocument::setWrapLines(bool wrap)
+{
+	textEdit->setWordWrapMode(wrap ? QTextOption::WordWrap : QTextOption::NoWrap);
 }
 
 void TeXDocument::doFindAgain()
@@ -926,6 +943,12 @@ void TeXDocument::goToPreview()
 {
 	if (pdfDoc != NULL)
 		pdfDoc->selectWindow();
+}
+
+void TeXDocument::syncClick(int lineNo)
+{
+	if (!isUntitled)
+		emit syncFromSource(curFile, lineNo);
 }
 
 static QStringList latexStrings()

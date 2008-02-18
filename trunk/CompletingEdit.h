@@ -58,9 +58,14 @@ public:
     void setCompleter(QCompleter *c);
     QCompleter *completer() const;
 
+signals:
+	void syncClick(int);
+
 protected:
-    void keyPressEvent(QKeyEvent *e);
-    void focusInEvent(QFocusEvent *e);
+    virtual void keyPressEvent(QKeyEvent *e);
+    virtual void focusInEvent(QFocusEvent *e);
+	virtual void mousePressEvent(QMouseEvent *e);
+	virtual void mouseReleaseEvent(QMouseEvent *e);
 
 private slots:
     void insertCompletion(const QString &completion);

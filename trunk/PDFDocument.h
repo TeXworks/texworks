@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QList>
 #include <QCursor>
+#include <QButtonGroup>
 
 #include "poppler-qt4.h"
 
@@ -62,6 +63,8 @@ public:
 	void restoreState();
 	void setResolution(int res);
 	void resetMagnifier();
+	void goToPage(int pageIndex);
+	void setHighlightBoxes(const QList<QRectF>& boxlist);
 
 private slots:
 	void goFirst();
@@ -74,21 +77,24 @@ private slots:
 	void fitWidth(bool checked);
 	void zoomIn();
 	void zoomOut();
-
+	
 public slots:
 	void windowResized();
 	void fitWindow(bool checked);
+	void setTool(int tool);
 
 signals:
 	void changedPage(int);
 	void changedZoom(double);
 	void changedScaleOption(autoScaleOption);
+	void syncClick(int, double, const QPoint&);
 
 protected:
 	virtual void paintEvent(QPaintEvent *event);
 
 	virtual void mousePressEvent(QMouseEvent *event);
 	virtual void mouseReleaseEvent(QMouseEvent *event);
+	virtual void mouseDoubleClickEvent(QMouseEvent *event);
 	virtual void mouseMoveEvent(QMouseEvent *event);
 
 	virtual void keyPressEvent(QKeyEvent *event);
@@ -102,7 +108,7 @@ private:
 	void adjustSize();
 	void updateStatusBar();
 	void updateCursor();
-	int currentTool();
+	void useMagnifier(const QMouseEvent *inEvent);
 	
 	Poppler::Document	*document;
 	Poppler::Page		*page;
@@ -121,7 +127,10 @@ private:
 	Poppler::Page	*imagePage;
 
 	PDFMagnifier	*magnifier;
-	int		usingTool;
+	int		currentTool;	// the current tool selected in the toolbar
+	int		usingTool;	// the tool actually being used in an ongoing mouse drag
+
+	QList<QRectF>	highlightBoxes;
 
 	static QCursor	*magnifierCursor;
 	static QCursor	*zoomInCursor;
@@ -169,6 +178,8 @@ private slots:
 	void retypeset();
 	void goToSource();
 	void toggleFullScreen();
+	void syncClick(int page, double scaleFactor, const QPoint& pos);
+	void syncFromSource(const QString& sourceFile, int lineNo);
 
 signals:
 	void windowResized();
@@ -177,6 +188,7 @@ private:
 	void init();
 	void loadFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
+	void loadSyncData();
 
 	QString curFile;
 	
@@ -184,6 +196,7 @@ private:
 	
 	PDFWidget	*pdfWidget;
 	QScrollArea	*scrollArea;
+	QButtonGroup	*toolButtonGroup;
 
 	TeXDocument *sourceDoc;
 
@@ -191,6 +204,21 @@ private:
 	QLabel *scaleLabel;
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
+
+	typedef struct HBox {
+		int tag;
+		int line;
+		int x;
+		int y;
+		int w;
+		int h;
+		int first;
+		int last;
+	} HBox;
+	typedef QVector<HBox> PageSyncInfo;
+
+	QList<PageSyncInfo> pageSyncInfo;
+	QHash<int,QString> tagToFile;
 
 	static QList<PDFDocument*> docList;
 };
