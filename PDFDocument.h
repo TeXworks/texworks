@@ -12,7 +12,7 @@
 
 #include "ui_PDFDocument.h"
 
-const int kDefault_MagnifierSize = 300;
+const int kDefault_MagnifierSize = 2;
 const bool kDefault_CircularMagnifier = true;
 
 class QAction;

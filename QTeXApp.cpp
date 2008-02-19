@@ -21,6 +21,9 @@ const int kDefaultMaxRecentFiles = 10;
 
 QTeXApp::QTeXApp(int &argc, char **argv)
 	: QApplication(argc, argv)
+	, f_binaryPaths(NULL)
+	, f_engineList(NULL)
+	, f_defaultEngineIndex(0)
 {
 	init();
 }
@@ -35,9 +38,6 @@ void QTeXApp::init()
 
 	QSettings settings;
 	f_maxRecentFiles = settings.value("maxRecentFiles", kDefaultMaxRecentFiles).toInt();
-
-	f_binaryPaths = NULL;
-	f_engineList = NULL;
 
 #ifdef Q_WS_MAC
 	setQuitOnLastWindowClosed(false);
