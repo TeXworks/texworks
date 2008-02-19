@@ -168,11 +168,9 @@ void PDFWidget::paintEvent(QPaintEvent *event)
 
 	if (!highlightBoxes.isEmpty()) {
 		painter.setRenderHint(QPainter::Antialiasing);
-		painter.setCompositionMode(QPainter::CompositionMode_ColorBurn);
 		painter.scale(72 / 72.27 * scaleFactor / 8, 72 / 72.27 * scaleFactor / 8);
 		painter.setPen(QColor(0, 0, 0, 0));
 		painter.setBrush(QColor(255, 255, 0, 63));
-		
 		foreach (const QRectF& box, highlightBoxes)
 			painter.drawRoundRect(box);
 	}
