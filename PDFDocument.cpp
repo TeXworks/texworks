@@ -168,7 +168,7 @@ void PDFWidget::paintEvent(QPaintEvent *event)
 
 	if (!highlightBoxes.isEmpty()) {
 		painter.setRenderHint(QPainter::Antialiasing);
-		painter.scale(72 / 72.27 * scaleFactor / 8, 72 / 72.27 * scaleFactor / 8);
+		painter.scale(dpi / 72.27 * scaleFactor / 8, dpi / 72.27 * scaleFactor / 8);
 		painter.setPen(QColor(0, 0, 0, 0));
 		painter.setBrush(QColor(255, 255, 0, 63));
 		foreach (const QRectF& box, highlightBoxes)
@@ -248,7 +248,7 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 		case kNone:
 			if (mouseDownModifiers & Qt::ControlModifier) {
 				if (event->modifiers() & Qt::ControlModifier)
-					emit syncClick(pageIndex, scaleFactor, event->pos());
+					emit syncClick(pageIndex, scaleFactor * dpi / 72.0, event->pos());
 				break;
 			}
 			if (currentTool == kMagnifier) {
