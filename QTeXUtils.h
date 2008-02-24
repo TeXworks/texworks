@@ -58,28 +58,6 @@ private:
 	static CmdKeyFilter *filterObj;
 };
 
-// filter used to add completion functionality to a QTextEdit
-class CompletionFilter: public QObject
-{
-	Q_OBJECT
-
-public:
-	CompletionFilter(TeXDocument* parentDoc)
-		: QObject((QObject*)parentDoc)
-		, doc(parentDoc)
-		{
-		}
-
-	~CompletionFilter()
-		{
-		}
-
-protected:
-	bool eventFilter(QObject *obj, QEvent *event);
-
-	TeXDocument *doc;
-};
-
 // specification of an "engine" used to process files
 class Engine : public QObject
 {
