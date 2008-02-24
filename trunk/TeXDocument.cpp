@@ -19,7 +19,6 @@
 #include <QComboBox>
 #include <QRegExp>
 #include <QProcess>
-#include <QCompleter>
 #include <QAbstractItemView>
 #include <QScrollBar>
 #include <QDebug>
@@ -49,12 +48,8 @@ TeXDocument::~TeXDocument()
 	}
 	docList.removeAll(this);
 	updateWindowMenu();
-	
-	if (completer != NULL)
-		delete completer;
 }
 
-static QStringList latexStrings();
 void TeXDocument::init()
 {
 	pdfDoc = NULL;
@@ -62,9 +57,6 @@ void TeXDocument::init()
 
 	setupUi(this);
 	setWindowIcon(QIcon(":/images/images/texdoc.png"));
-
-	completer = new QCompleter(latexStrings(), this);
-	textEdit->setCompleter(completer);
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
@@ -949,149 +941,4 @@ void TeXDocument::syncClick(int lineNo)
 {
 	if (!isUntitled)
 		emit syncFromSource(curFile, lineNo);
-}
-
-static QStringList latexStrings()
-{
-	QStringList list;
-	
-	list
-<< "\\addcontentsline"
-<< "\\address"
-<< "\\addtocontents"
-<< "\\addtocounter"
-<< "\\addtolength"
-<< "\\addvspace"
-<< "\\alph"
-<< "\\appendix"
-<< "\\arabic"
-<< "\\author"
-<< "\\bf"
-<< "\\bibitem"
-<< "\\bigskip"
-<< "\\cdots"
-<< "\\centering"
-<< "\\circle"
-<< "\\cite"
-<< "\\cleardoublepage"
-<< "\\clearpage"
-<< "\\cline"
-<< "\\closing"
-<< "\\dashbox"
-<< "\\date"
-<< "\\ddots"
-<< "\\dotfill"
-<< "\\em"
-<< "\\fbox"
-<< "\\flushbottom"
-<< "\\fnsymbol"
-<< "\\footnote"
-<< "\\footnotemark"
-<< "\\footnotesize"
-<< "\\footnotetext"
-<< "\\frac"
-<< "\\frame"
-<< "\\framebox"
-<< "\\framebox"
-<< "\\hfill"
-<< "\\hline"
-<< "\\hrulespace"
-<< "\\hspace"
-<< "\\huge"
-<< "\\Huge"
-<< "\\hyphenation"
-<< "\\include"
-<< "\\includeonly"
-<< "\\indent"
-<< "\\input"
-<< "\\it"
-<< "\\kill"
-<< "\\label"
-<< "\\large"
-<< "\\Large"
-<< "\\LARGE"
-<< "\\ldots"
-<< "\\line"
-<< "\\linebreak"
-<< "\\linethickness"
-<< "\\location"
-<< "\\makebox"
-<< "\\makebox"
-<< "\\maketitle"
-<< "\\mark"
-<< "\\mbox"
-<< "\\medskip"
-<< "\\multicolumn"
-<< "\\multiput"
-<< "\\newcommand"
-<< "\\newcounter"
-<< "\\newenvironment"
-<< "\\newfont"
-<< "\\newlength"
-<< "\\newline"
-<< "\\newpage"
-<< "\\newsavebox"
-<< "\\newtheorem"
-<< "\\nocite"
-<< "\\noindent"
-<< "\\nolinebreak"
-<< "\\nopagebreak"
-<< "\\normalsize"
-<< "\\onecolumn"
-<< "\\opening"
-<< "\\oval"
-<< "\\overbrace"
-<< "\\overline"
-<< "\\pagebreak"
-<< "\\pagenumbering"
-<< "\\pageref"
-<< "\\pagestyle"
-<< "\\par"
-<< "\\parbox"
-<< "\\put"
-<< "\\raggedbottom"
-<< "\\raggedleft"
-<< "\\raggedright"
-<< "\\raisebox"
-<< "\\ref"
-<< "\\rm"
-<< "\\roman"
-<< "\\rule"
-<< "\\savebox"
-<< "\\sc"
-<< "\\scriptsize"
-<< "\\setcounter"
-<< "\\setlength"
-<< "\\settowidth"
-<< "\\sf"
-<< "\\shortstack"
-<< "\\signature"
-<< "\\sl"
-<< "\\small"
-<< "\\smallskip"
-<< "\\sqrt"
-<< "\\Styles"
-<< "\\telephone"
-<< "\\thanks"
-<< "\\thispagestyle"
-<< "\\tiny"
-<< "\\title"
-<< "\\tt"
-<< "\\twocolumn"
-<< "\\typein"
-<< "\\typeout"
-<< "\\underbrace"
-<< "\\underline"
-<< "\\usebox"
-<< "\\usecounter"
-<< "\\value"
-<< "\\vdots"
-<< "\\vector"
-<< "\\verb"
-<< "\\vfill"
-<< "\\vline"
-<< "\\vspace"
-	;
-
-	return list;
 }
