@@ -27,8 +27,8 @@
 
 #define SYNCTEX_EXT		".synctex"
 
-const double kMaxScaleFactor = 8.0;
-const double kMinScaleFactor = 0.125;
+const qreal kMaxScaleFactor = 8.0;
+const qreal kMinScaleFactor = 0.125;
 
 const int magSizes[] = { 200, 300, 400 };
 
@@ -43,7 +43,7 @@ const int kSelectImage = 4;
 
 const int kMagFactor = 2;
 
-PDFMagnifier::PDFMagnifier(QWidget *parent, double inDpi)
+PDFMagnifier::PDFMagnifier(QWidget *parent, qreal inDpi)
 	: QLabel(parent)
 	, page(NULL)
 	, scaleFactor(kMagFactor)
@@ -53,7 +53,7 @@ PDFMagnifier::PDFMagnifier(QWidget *parent, double inDpi)
 {
 }
 
-void PDFMagnifier::setPage(Poppler::Page *p, double scale)
+void PDFMagnifier::setPage(Poppler::Page *p, qreal scale)
 {
 	page = p;
 	scaleFactor = scale * kMagFactor;
@@ -63,7 +63,7 @@ void PDFMagnifier::setPage(Poppler::Page *p, double scale)
 	}
 	else {
 		QWidget *parentWidget = qobject_cast<QWidget*>(parent());
-		double newDpi = dpi * scaleFactor;
+		qreal newDpi = dpi * scaleFactor;
 		QPoint newLoc = parentWidget->rect().topLeft() * kMagFactor;
 		QSize newSize = parentWidget->rect().size() * kMagFactor;
 		if (page != imagePage || newDpi != imageDpi || newLoc != imageLoc || newSize != imageSize)
@@ -154,7 +154,7 @@ void PDFWidget::paintEvent(QPaintEvent *event)
 	QPainter painter(this);
 	drawFrame(&painter);
 
-	double newDpi = dpi * scaleFactor;
+	qreal newDpi = dpi * scaleFactor;
 	QRect newRect = rect();
 	if (page != imagePage || newDpi != imageDpi || newRect != imageRect)
 		image = page->renderToImage(dpi * scaleFactor, dpi * scaleFactor,
@@ -172,7 +172,7 @@ void PDFWidget::paintEvent(QPaintEvent *event)
 		painter.setPen(QColor(0, 0, 0, 0));
 		painter.setBrush(QColor(255, 255, 0, 63));
 		foreach (const QRectF& box, highlightBoxes)
-			painter.drawRoundRect(box);
+			painter.drawRect(box);
 	}
 }
 
@@ -247,8 +247,11 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 	switch (usingTool) {
 		case kNone:
 			if (mouseDownModifiers & Qt::ControlModifier) {
-				if (event->modifiers() & Qt::ControlModifier)
-					emit syncClick(pageIndex, scaleFactor * dpi / 72.0, event->pos());
+				if (event->modifiers() & Qt::ControlModifier) {
+					QPointF unscaledPos(event->pos().x() / scaleFactor * dpi / 72.0,
+										event->pos().y() / scaleFactor * dpi / 72.0);
+					emit syncClick(pageIndex, unscaledPos);
+				}
 				break;
 			}
 			if (currentTool == kMagnifier) {
@@ -409,7 +412,7 @@ void PDFWidget::updateStatusBar()
 	QWidget *widget = window();
 	PDFDocument *doc = qobject_cast<PDFDocument*>(widget);
 	if (doc) {
-		doc->showPage(pageIndex+1);
+		doc->showPage(pageIndex + 1);
 		doc->showScale(scaleFactor);
 	}
 }
@@ -487,7 +490,7 @@ void PDFWidget::fitWidth(bool checked)
 		if (doc) {
 			QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
 			if (scrollArea) {
-				double portWidth = scrollArea->viewport()->width();
+				qreal portWidth = scrollArea->viewport()->width();
 				QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
 				scaleFactor = portWidth / pageSize.width();
 				if (scaleFactor < kMinScaleFactor)
@@ -515,11 +518,11 @@ void PDFWidget::fitWindow(bool checked)
 		if (doc) {
 			QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
 			if (scrollArea) {
-				double portWidth = scrollArea->viewport()->width();
-				double portHeight = scrollArea->viewport()->height();
+				qreal portWidth = scrollArea->viewport()->width();
+				qreal portHeight = scrollArea->viewport()->height();
 				QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
-				double sfh = portWidth / pageSize.width();
-				double sfv = portHeight / pageSize.height();
+				qreal sfh = portWidth / pageSize.width();
+				qreal sfv = portHeight / pageSize.height();
 				scaleFactor = sfh < sfv ? sfh : sfv;
 				if (scaleFactor < kMinScaleFactor)
 					scaleFactor = kMinScaleFactor;
@@ -664,9 +667,9 @@ PDFDocument::init()
 	connect(actionZoom_In, SIGNAL(triggered()), pdfWidget, SLOT(zoomIn()));
 	connect(actionZoom_Out, SIGNAL(triggered()), pdfWidget, SLOT(zoomOut()));
 	connect(actionFull_Screen, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
-	connect(pdfWidget, SIGNAL(changedZoom(double)), this, SLOT(enableZoomActions(double)));
+	connect(pdfWidget, SIGNAL(changedZoom(qreal)), this, SLOT(enableZoomActions(qreal)));
 	connect(pdfWidget, SIGNAL(changedScaleOption(autoScaleOption)), this, SLOT(adjustScaleActions(autoScaleOption)));
-	connect(pdfWidget, SIGNAL(syncClick(int, double, const QPoint&)), this, SLOT(syncClick(int, double, const QPoint&)));
+	connect(pdfWidget, SIGNAL(syncClick(int, const QPointF&)), this, SLOT(syncClick(int, const QPointF&)));
 	
 	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	
@@ -754,14 +757,19 @@ void PDFDocument::reload()
 
 void PDFDocument::loadSyncData()
 {
+	pageSyncInfo.clear();
+	tagToFile.clear();
+	syncMag = 1.0;
+
 	QFileInfo fi(curFile);
 	QString syncName = fi.canonicalPath() + "/" + fi.completeBaseName() + SYNCTEX_EXT;
 	fi.setFile(syncName);
-
+	
 	if (fi.exists()) {
 		QFile	syncFile(syncName);
 		if (syncFile.open(QIODevice::ReadOnly)) {
 			int sheet = 0;
+			bool pdfMode = true;
 			QStack<HBox> openBoxes;
 			char data[MAX_SYNC_LINE_LENGTH];
 			qint64 len;
@@ -773,14 +781,30 @@ void PDFDocument::loadSyncData()
 			}
 			len = syncFile.readLine(data, MAX_SYNC_LINE_LENGTH);
 			data[len] = 0;
-			if (strncmp(data, "version:1", 9) != 0) {
-				statusBar()->showMessage(tr("Unrecognized SyncTeX format \"%1\"").arg(data), kStatusMessageDuration);
-				goto done;
+			if (strncmp(data, "version:", 8) != 0) {
+				int vers = atoi(data + 8);
+				if (vers != 1) {
+					statusBar()->showMessage(tr("Unrecognized SyncTeX format \"%1\"").arg(data), kStatusMessageDuration);
+					goto done;
+				}
 			}
 			while ((len = syncFile.readLine(data, MAX_SYNC_LINE_LENGTH)) > 0) {
 				data[len] = 0;
 				if (len > 1 && data[1] == ':') {
 					switch (data[0]) {
+						case '>':
+							//>:no pdf
+							if (strncmp(data + 2, "no pdf", 6) == 0)
+								pdfMode = false;
+							break;
+						case 'm':
+							//m:1200
+							{
+								int mag;
+								if (sscanf(data + 2, "%d", &mag) == 1)
+									syncMag = mag / 1000.0;
+							}
+							break;
 						case 'i':
 							//i:18:42MRKUK.TEV
 							{
@@ -793,18 +817,20 @@ void PDFDocument::loadSyncData()
 							break;
 						case 's':
 							//s:1
-							{
-								sscanf(data + 2, "%d", &sheet);
-								while (pageSyncInfo.count() < sheet)
-									pageSyncInfo.append(PageSyncInfo());
-								openBoxes.clear();
-							}
+							sscanf(data + 2, "%d", &sheet);
+							while (pageSyncInfo.count() < sheet)
+								pageSyncInfo.append(PageSyncInfo());
+							openBoxes.clear();
 							break;
 						case 'h':
 							//h:18:39(-578,3840,3368,4074)0
 							if (sheet > 0) {
 								int tag, line, x, y, w, h, d;
 								sscanf(data + 2, "%d:%d(%d,%d,%d,%d)%d", &tag, &line, &x, &y, &w, &h, &d);
+								if (pdfMode) {
+									x += 7227 * 8 / 100;
+									y += 7227 * 8 / 100;
+								}
 								HBox hb = { tag, line, x, y, w, h, INT_MAX, -1 };
 								openBoxes.push(hb);
 							}
@@ -845,13 +871,15 @@ void PDFDocument::loadSyncData()
 	}
 }
 
-void PDFDocument::syncClick(int page, double scaleFactor, const QPoint& pos)
+void PDFDocument::syncClick(int page, const QPointF& pos)
 {
 	if (page < pageSyncInfo.count()) {
+		qreal offset = (72 - 72 * syncMag);
+		QPointF syncPos((pos.x() - offset) * 8 / syncMag, (pos.y() - offset) * 8 / syncMag);
 		const PageSyncInfo& psi = pageSyncInfo[page];
 		foreach (const HBox& hb, psi) {
-			QRectF r((scaleFactor * (hb.x + 72 * 8)) / 8, (scaleFactor * (hb.y - hb.h + 72 * 8)) / 8, (scaleFactor * hb.w) / 8, (scaleFactor * hb.h) / 8);
-			if (r.contains(pos.x(), pos.y())) {
+			QRectF r(hb.x, hb.y, hb.w, -hb.h);
+			if (r.contains(syncPos.x(), syncPos.y())) {
 				TeXDocument::openDocument(tagToFile[hb.tag], (hb.first < INT_MAX) ? hb.first : hb.line);
 				break;
 			}
@@ -870,6 +898,7 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo)
 	}
 	if (tag != -1) {
 		QList<QRectF> boxlist;
+		qreal offset = (72 - 72 * syncMag) * 8;
 		int pageIndex = -1;
 		for (int p = 0; pageIndex == -1 && p < pageSyncInfo.size(); ++p) {
 			const PageSyncInfo& psi = pageSyncInfo[p];
@@ -880,7 +909,8 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo)
 					if (pageIndex == -1)
 						pageIndex = p;
 					if (pageIndex == p)
-						boxlist.append(QRectF(hb.x + 72 * 8, hb.y - hb.h + 72 * 8, hb.w, hb.h));
+						boxlist.append(QRectF(hb.x * syncMag + offset, hb.y * syncMag + offset,
+												hb.w * syncMag, -hb.h * syncMag));
 				}
 			}
 		}
@@ -932,7 +962,7 @@ void PDFDocument::showPage(int page)
 	pageLabel->setText(tr("page %1 of %2").arg(page).arg(document->numPages()));
 }
 
-void PDFDocument::showScale(double scale)
+void PDFDocument::showScale(qreal scale)
 {
 	scaleLabel->setText(tr("%1%").arg(round(scale * 10000.0) / 100.0));
 }
@@ -959,7 +989,7 @@ void PDFDocument::enablePageActions(int pageIndex)
 //	actionLast_Page->setEnabled(pageIndex < document->numPages() - 1);
 }
 
-void PDFDocument::enableZoomActions(double scaleFactor)
+void PDFDocument::enableZoomActions(qreal scaleFactor)
 {
 	actionZoom_In->setEnabled(scaleFactor < kMaxScaleFactor);
 	actionZoom_Out->setEnabled(scaleFactor > kMinScaleFactor);
