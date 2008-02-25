@@ -26,8 +26,8 @@ class PDFMagnifier : public QLabel
 	Q_OBJECT
 
 public:
-	PDFMagnifier(QWidget *parent, double inDpi);
-	void setPage(Poppler::Page *p, double scale);
+	PDFMagnifier(QWidget *parent, qreal inDpi);
+	void setPage(Poppler::Page *p, qreal scale);
 
 protected:
 	virtual void paintEvent(QPaintEvent *event);
@@ -35,13 +35,13 @@ protected:
 
 private:
 	Poppler::Page	*page;
-	double	scaleFactor;
-	double	dpi;
+	qreal	scaleFactor;
+	qreal	dpi;
 	QImage	image;
 	
 	QPoint	imageLoc;
 	QSize	imageSize;
-	double	imageDpi;
+	qreal	imageDpi;
 	Poppler::Page	*imagePage;
 };
 
@@ -85,9 +85,9 @@ public slots:
 
 signals:
 	void changedPage(int);
-	void changedZoom(double);
+	void changedZoom(qreal);
 	void changedScaleOption(autoScaleOption);
-	void syncClick(int, double, const QPoint&);
+	void syncClick(int, const QPointF&);
 
 protected:
 	virtual void paintEvent(QPaintEvent *event);
@@ -114,16 +114,16 @@ private:
 	Poppler::Page		*page;
 
 	int pageIndex;
-	double	scaleFactor;
-	double	dpi;
+	qreal	scaleFactor;
+	qreal	dpi;
 	autoScaleOption scaleOption;
 
-	double			saveScaleFactor;
+	qreal			saveScaleFactor;
 	autoScaleOption	saveScaleOption;
 	
 	QImage	image;
 	QRect	imageRect;
-	double	imageDpi;
+	qreal	imageDpi;
 	Poppler::Page	*imagePage;
 
 	PDFMagnifier	*magnifier;
@@ -157,7 +157,7 @@ public:
 
 	void zoomToRight(QWidget *otherWindow);
 	void reload();
-	void showScale(double scale);
+	void showScale(qreal scale);
 	void showPage(int page);
 	void setResolution(int res);
 	void resetMagnifier();
@@ -173,12 +173,12 @@ private slots:
 	void updateRecentFileActions();
 	void updateWindowMenu();
 	void enablePageActions(int);
-	void enableZoomActions(double);
+	void enableZoomActions(qreal);
 	void adjustScaleActions(autoScaleOption);
 	void retypeset();
 	void goToSource();
 	void toggleFullScreen();
-	void syncClick(int page, double scaleFactor, const QPoint& pos);
+	void syncClick(int page, const QPointF& pos);
 	void syncFromSource(const QString& sourceFile, int lineNo);
 
 signals:
@@ -219,6 +219,7 @@ private:
 
 	QList<PageSyncInfo> pageSyncInfo;
 	QHash<int,QString> tagToFile;
+	qreal	syncMag;
 
 	static QList<PDFDocument*> docList;
 };
