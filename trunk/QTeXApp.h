@@ -28,7 +28,7 @@ public:
 	void setMaxRecentFiles(int value);
 
 	void setBinaryPaths(const QStringList& paths);
-	void setEngineList(const QList<Engine>& engineList);
+	void setEngineList(const QList<Engine>& engines);
 
 	void open(const QString &fileName);
 
@@ -88,11 +88,11 @@ protected:
 private:
 	void init();
 	
-	int f_maxRecentFiles;
+	int recentFilesLimit;
 
-	QStringList *f_binaryPaths;
-	QList<Engine> *f_engineList;
-	int f_defaultEngineIndex;
+	QStringList *binaryPaths;
+	QList<Engine> *engineList;
+	int defaultEngineIndex;
 };
 
 #endif
