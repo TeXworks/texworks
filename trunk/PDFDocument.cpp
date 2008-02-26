@@ -789,7 +789,7 @@ void PDFDocument::loadSyncData()
 				}
 			}
 			while ((len = syncFile.readLine(data, MAX_SYNC_LINE_LENGTH)) > 0) {
-				data[len] = 0;
+				data[len - 1] = 0; // wipe out the end-of-line
 				if (len > 1 && data[1] == ':') {
 					switch (data[0]) {
 						case '>':
@@ -809,15 +809,22 @@ void PDFDocument::loadSyncData()
 							//i:18:42MRKUK.TEV
 							{
 								int tag;
-								char filename[PATH_MAX];
-								sscanf(data + 2, "%d:%s", &tag, filename);
+								if (sscanf(data + 2, "%d", &tag) != 1)
+									break;
+								char *filename = index(data + 2, ':');
+								if (filename == NULL)
+									break;
+								++filename;
+								if (*filename == 0)
+									break;
 								QFileInfo info(QFileInfo(curFile).absoluteDir(), filename);
 								tagToFile[tag] = info.canonicalFilePath();
 							}
 							break;
 						case 's':
 							//s:1
-							sscanf(data + 2, "%d", &sheet);
+							if (sscanf(data + 2, "%d", &sheet) != 1)
+								break;
 							while (pageSyncInfo.count() < sheet)
 								pageSyncInfo.append(PageSyncInfo());
 							openBoxes.clear();
@@ -826,7 +833,8 @@ void PDFDocument::loadSyncData()
 							//h:18:39(-578,3840,3368,4074)0
 							if (sheet > 0) {
 								int tag, line, x, y, w, h, d;
-								sscanf(data + 2, "%d:%d(%d,%d,%d,%d)%d", &tag, &line, &x, &y, &w, &h, &d);
+								if (sscanf(data + 2, "%d:%d(%d,%d,%d,%d)%d", &tag, &line, &x, &y, &w, &h, &d) != 7)
+									break;
 								if (pdfMode) {
 									x += 7227 * 8 / 100;
 									y += 7227 * 8 / 100;
@@ -843,7 +851,8 @@ void PDFDocument::loadSyncData()
 								if (!openBoxes.isEmpty()) {
 									HBox& hb = openBoxes.top();
 									int tag, line, x, y;
-									sscanf(data + 2, "%d:%d(%d,%d)", &tag, &line, &x, &y);
+									if (sscanf(data + 2, "%d:%d(%d,%d)", &tag, &line, &x, &y) != 4)
+										break;
 									if (tag == hb.tag) {
 										if (line < hb.first)
 											hb.first = line;
