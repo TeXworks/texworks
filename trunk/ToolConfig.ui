@@ -107,14 +107,14 @@
    <item row="4" column="2" >
     <widget class="QToolButton" name="argAdd" >
      <property name="icon" >
-      <iconset resource="resources.qrc" >:/images/images/plus.png</iconset>
+      <iconset resource="resources.qrc" >:/images/tango/list-add.png</iconset>
      </property>
     </widget>
    </item>
    <item row="4" column="3" >
     <widget class="QToolButton" name="argRemove" >
      <property name="icon" >
-      <iconset resource="resources.qrc" >:/images/images/minus.png</iconset>
+      <iconset resource="resources.qrc" >:/images/tango/list-remove.png</iconset>
      </property>
     </widget>
    </item>

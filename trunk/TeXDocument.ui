@@ -265,7 +265,7 @@
   </widget>
   <action name="actionNew" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/filenew.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/document-new.png</iconset>
    </property>
    <property name="text" >
     <string>New</string>
@@ -276,7 +276,7 @@
   </action>
   <action name="actionOpen" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/fileopen.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/document-open.png</iconset>
    </property>
    <property name="text" >
     <string>Open...</string>
@@ -298,7 +298,7 @@
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/filesave.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/document-save.png</iconset>
    </property>
    <property name="text" >
     <string>Save</string>
@@ -328,7 +328,7 @@
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editundo.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-undo.png</iconset>
    </property>
    <property name="text" >
     <string>Undo</string>
@@ -342,7 +342,7 @@
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editredo.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-redo.png</iconset>
    </property>
    <property name="text" >
     <string>Redo</string>
@@ -356,7 +356,7 @@
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editcut.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-cut.png</iconset>
    </property>
    <property name="text" >
     <string>Cut</string>
@@ -370,7 +370,7 @@
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editcopy.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-copy.png</iconset>
    </property>
    <property name="text" >
     <string>Copy</string>
@@ -384,7 +384,7 @@
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editpaste.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-paste.png</iconset>
    </property>
    <property name="text" >
     <string>Paste</string>
@@ -424,7 +424,7 @@
   </action>
   <action name="actionFind" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/searchfind.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-find.png</iconset>
    </property>
    <property name="text" >
     <string>Find...</string>
