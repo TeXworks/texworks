@@ -61,6 +61,10 @@ void TeXDocument::init()
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
 
+#ifdef Q_WS_MAC
+	setUnifiedTitleAndToolBarOnMac(true); // more "native" but less flexible... which to use?
+#endif
+
 	hideConsole();
 
 	lineNumberLabel = new QLabel();
