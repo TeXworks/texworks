@@ -769,7 +769,8 @@ void PDFDocument::loadSyncData()
 		QFile	syncFile(syncName);
 		if (syncFile.open(QIODevice::ReadOnly)) {
 			int sheet = 0;
-			bool pdfMode = true;
+			int origin = 0;
+			bool pdfMode = false;
 			QStack<HBox> openBoxes;
 			char data[MAX_SYNC_LINE_LENGTH];
 			qint64 len;
@@ -793,12 +794,17 @@ void PDFDocument::loadSyncData()
 				if (len > 1 && data[1] == ':') {
 					switch (data[0]) {
 						case '>':
-							//>:no pdf
-							if (strncmp(data + 2, "no pdf", 6) == 0)
-								pdfMode = false;
+							// >:pdf
+							if (strncmp(data + 2, "pdf", 3) == 0)
+								pdfMode = true;
+							break;
+						case 'z':
+							// z:578
+							if (sscanf(data + 2, "%d", &origin) == 1)
+								;
 							break;
 						case 'm':
-							//m:1200
+							// m:1200
 							{
 								int mag;
 								if (sscanf(data + 2, "%d", &mag) == 1)
@@ -806,7 +812,7 @@ void PDFDocument::loadSyncData()
 							}
 							break;
 						case 'i':
-							//i:18:42MRKUK.TEV
+							// i:18:42MRKUK.TEV
 							{
 								int tag;
 								if (sscanf(data + 2, "%d", &tag) != 1)
@@ -822,7 +828,7 @@ void PDFDocument::loadSyncData()
 							}
 							break;
 						case 's':
-							//s:1
+							// s:1
 							if (sscanf(data + 2, "%d", &sheet) != 1)
 								break;
 							while (pageSyncInfo.count() < sheet)
@@ -830,21 +836,17 @@ void PDFDocument::loadSyncData()
 							openBoxes.clear();
 							break;
 						case 'h':
-							//h:18:39(-578,3840,3368,4074)0
+							// h:18:39(-578,3840,3368,4074)0
 							if (sheet > 0) {
 								int tag, line, x, y, w, h, d;
 								if (sscanf(data + 2, "%d:%d(%d,%d,%d,%d,%d)", &tag, &line, &x, &y, &w, &h, &d) != 7)
 									break;
-								if (pdfMode) {
-									x += 7227 * 8 / 100;
-									y += 7227 * 8 / 100;
-								}
-								HBox hb = { tag, line, x, y, w, h, INT_MAX, -1 };
+								HBox hb = { tag, line, origin + x, origin + y, w, h, INT_MAX, -1 };
 								openBoxes.push(hb);
 							}
 							break;
 						case 'k':
-							//k:2:8(2707,1536,-57)
+							// k:2:8(2707,1536,-57)
 							if (sheet > 0) {
 								if (!openBoxes.isEmpty()) {
 									HBox& hb = openBoxes.top();
@@ -862,7 +864,7 @@ void PDFDocument::loadSyncData()
 							break;
 						case 'g':
 						case '$':
-							//g:18:39(-578,3840)
+							// g:18:39(-578,3840)
 							if (sheet > 0) {
 								if (!openBoxes.isEmpty()) {
 									HBox& hb = openBoxes.top();
