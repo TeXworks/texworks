@@ -51,10 +51,12 @@ signals:
 
 protected:
 	void closeEvent(QCloseEvent *event);
+	bool event(QEvent *event);
 
 public slots:
 	void selectWindow();
 	void typeset();
+	void interrupt();
 	
 private slots:
 	void newFile();
@@ -88,6 +90,7 @@ private slots:
 	void toggleConsoleVisibility();
 	void goToPreview();
 	void syncClick(int lineNo);
+	void openAt(QAction *action);
 
 private:
 	void init();
@@ -103,6 +106,7 @@ private:
 	void showConsole();
 	void hideConsole();
 	void goToLine(int lineNo);
+	void updateTypesettingAction();
 
 	QString curFile;
 	bool isUntitled;

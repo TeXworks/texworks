@@ -162,6 +162,7 @@ public:
 	void setResolution(int res);
 	void resetMagnifier();
 	void enableTypesetAction(bool enabled);
+	void updateTypesettingAction(bool processRunning);
 
 protected:
 	virtual void resizeEvent(QResizeEvent *event);
@@ -176,6 +177,7 @@ private slots:
 	void enableZoomActions(qreal);
 	void adjustScaleActions(autoScaleOption);
 	void retypeset();
+	void interrupt();
 	void goToSource();
 	void toggleFullScreen();
 	void syncClick(int page, const QPointF& pos);

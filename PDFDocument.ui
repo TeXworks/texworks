@@ -141,7 +141,7 @@
   </action>
   <action name="actionFirst_Page" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/first.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/go-first.png</iconset>
    </property>
    <property name="text" >
     <string>First Page</string>
@@ -152,7 +152,7 @@
   </action>
   <action name="actionPrevious_Page" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/back2.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/go-previous.png</iconset>
    </property>
    <property name="text" >
     <string>Previous Page</string>
@@ -163,7 +163,7 @@
   </action>
   <action name="actionNext_Page" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/forward2.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/go-next.png</iconset>
    </property>
    <property name="text" >
     <string>Next Page</string>
@@ -174,7 +174,7 @@
   </action>
   <action name="actionLast_Page" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/last.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/go-last.png</iconset>
    </property>
    <property name="text" >
     <string>Last Page</string>
@@ -254,7 +254,7 @@
   </action>
   <action name="actionNew" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/filenew.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/document-new.png</iconset>
    </property>
    <property name="text" >
     <string>New</string>
@@ -265,7 +265,7 @@
   </action>
   <action name="actionOpen" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/fileopen.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/document-open.png</iconset>
    </property>
    <property name="text" >
     <string>Open...</string>
@@ -289,7 +289,7 @@
   </action>
   <action name="actionUndo" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editundo.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-undo.png</iconset>
    </property>
    <property name="text" >
     <string>Undo</string>
@@ -300,7 +300,7 @@
   </action>
   <action name="actionRedo" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editredo.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-redo.png</iconset>
    </property>
    <property name="text" >
     <string>Redo</string>
@@ -311,7 +311,7 @@
   </action>
   <action name="actionCut" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editcut.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-cut.png</iconset>
    </property>
    <property name="text" >
     <string>Cut</string>
@@ -322,7 +322,7 @@
   </action>
   <action name="actionCopy" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editcopy.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-copy.png</iconset>
    </property>
    <property name="text" >
     <string>Copy</string>
@@ -333,7 +333,7 @@
   </action>
   <action name="actionPaste" >
    <property name="icon" >
-    <iconset resource="resources.qrc" >:/images/images/editpaste.png</iconset>
+    <iconset resource="resources.qrc" >:/images/tango/edit-paste.png</iconset>
    </property>
    <property name="text" >
     <string>Paste</string>

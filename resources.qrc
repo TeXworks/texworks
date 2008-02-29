@@ -2,34 +2,33 @@
     <qresource prefix="/images" >
         <file>images/actualsize.png</file>
         <file>images/appicon.png</file>
-        <file>images/back.png</file>
-        <file>images/back2.png</file>
+        <file>tango/go-previous.png</file>
         <file>images/down.png</file>
-        <file>images/editcopy.png</file>
-        <file>images/editcut.png</file>
+        <file>tango/edit-copy.png</file>
+        <file>tango/edit-cut.png</file>
         <file>images/editgrid.png</file>
         <file>images/edithlayout.png</file>
         <file>images/editlower.png</file>
-        <file>images/editpaste.png</file>
-        <file>images/editredo.png</file>
-        <file>images/editundo.png</file>
+        <file>tango/edit-paste.png</file>
+        <file>tango/edit-redo.png</file>
+        <file>tango/edit-undo.png</file>
         <file>images/editvlayout.png</file>
-        <file>images/filenew.png</file>
-        <file>images/fileopen.png</file>
+        <file>tango/document-new.png</file>
+        <file>tango/document-open.png</file>
         <file>images/fileprint.png</file>
-        <file>images/filesave.png</file>
-        <file>images/first.png</file>
+        <file>tango/document-save.png</file>
+        <file>tango/go-first.png</file>
         <file>images/fitwidth.png</file>
         <file>images/fitwindow.png</file>
-        <file>images/forward.png</file>
-        <file>images/forward2.png</file>
-        <file>images/last.png</file>
-        <file>images/minus.png</file>
-        <file>images/plus.png</file>
+        <file>tango/go-next.png</file>
+        <file>tango/go-last.png</file>
+        <file>tango/list-remove.png</file>
+        <file>tango/list-add.png</file>
         <file>images/pdfdoc.png</file>
-        <file>images/searchfind.png</file>
+        <file>tango/edit-find.png</file>
         <file>images/texdoc.png</file>
         <file>images/typeset.png</file>
+        <file>tango/process-stop.png</file>
         <file>images/up.png</file>
         <file>images/zoomin.png</file>
         <file>images/zoomout.png</file>

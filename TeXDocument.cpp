@@ -16,6 +16,7 @@
 #include <QClipboard>
 #include <QSettings>
 #include <QStringList>
+#include <QUrl>
 #include <QComboBox>
 #include <QRegExp>
 #include <QProcess>
@@ -56,7 +57,6 @@ void TeXDocument::init()
 	process = NULL;
 
 	setupUi(this);
-	setWindowIcon(QIcon(":/images/images/texdoc.png"));
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
@@ -236,6 +236,72 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 		event->ignore();
 }
 
+bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/qq/qq18-macfeatures.html
+{
+//	if (!isActiveWindow())
+		return QMainWindow::event(event);
+	
+	switch (event->type()) {
+		case QEvent::IconDrag:
+			{
+				event->accept();
+				Qt::KeyboardModifiers mods = qApp->keyboardModifiers();
+				if (mods == Qt::NoModifier) {
+					QDrag *drag = new QDrag(this);
+					QMimeData *data = new QMimeData();
+					data->setUrls(QList<QUrl>() << QUrl::fromLocalFile(curFile));
+					drag->setMimeData(data);
+					QPixmap dragIcon(":/images/images/texdoc.png");
+					drag->setPixmap(dragIcon);
+					drag->setHotSpot(QPoint(dragIcon.width() - 5, 5));
+					drag->start(Qt::LinkAction | Qt::CopyAction);
+				}
+				else if (mods == Qt::ControlModifier) {
+					QMenu menu(this);
+					connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(openAt(QAction*)));
+					QFileInfo info(curFile);
+					QAction *action = menu.addAction(info.fileName());
+					action->setIcon(QIcon(":/images/images/texdoc.png"));
+					QStringList folders = info.absolutePath().split('/');
+					QStringListIterator it(folders);
+					it.toBack();
+					while (it.hasPrevious()) {
+						QString str = it.previous();
+						QIcon icon;
+						if (!str.isEmpty()) {
+							icon = style()->standardIcon(QStyle::SP_DirClosedIcon, 0, this);
+						}
+						else {
+							str = "/";
+							icon = style()->standardIcon(QStyle::SP_DriveHDIcon, 0, this);
+						}
+						action = menu.addAction(str);
+						action->setIcon(icon);
+					}
+					QPoint pos(QCursor::pos().x() - 20, frameGeometry().y());
+					menu.exec(pos);
+				}
+				else {
+					event->ignore();
+				}
+				return true;
+			}
+		
+		default:
+			return QMainWindow::event(event);
+	}
+}
+
+void TeXDocument::openAt(QAction *action)
+{
+	QString path = curFile.left(curFile.indexOf(action->text())) + action->text();
+	if (path == curFile)
+		return;
+	QProcess proc;
+	proc.start("/usr/bin/open", QStringList() << path, QIODevice::ReadOnly);
+	proc.waitForFinished();
+}
+
 bool TeXDocument::save()
 {
 	if (isUntitled)
@@ -341,11 +407,15 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	static int sequenceNumber = 1;
 
 	isUntitled = fileName.isEmpty();
-	if (isUntitled)
+	if (isUntitled) {
 		curFile = tr("untitled-%1.tex").arg(sequenceNumber++);
-	else
+		setWindowIcon(QIcon());
+	}
+	else {
 		curFile = QFileInfo(fileName).canonicalFilePath();
-
+		setWindowIcon(QIcon(":/images/images/texdoc.png"));
+	}
+	
 	textEdit->document()->setModified(false);
 	setWindowModified(false);
 
@@ -798,11 +868,9 @@ void TeXDocument::typeset()
 	if (app == NULL)
 		return; // actually, that would be an internal error!
 
-	actionTypeset->setEnabled(false);
-	if (pdfDoc != NULL)
-		pdfDoc->enableTypesetAction(false);
-
 	process = new QProcess(this);
+	updateTypesettingAction();
+	
 	QFileInfo fileInfo(curFile);
 	process->setWorkingDirectory(fileInfo.canonicalPath());
 
@@ -849,9 +917,32 @@ void TeXDocument::typeset()
 								"Check configuration of the %2 tool and path settings"
 								" in the Preferences dialog.").arg(e.program()).arg(e.name()),
 								QMessageBox::Cancel);
-		actionTypeset->setEnabled(true);
+		updateTypesettingAction();
+	}
+}
+
+void TeXDocument::interrupt()
+{
+	if (process != NULL) {
+		process->kill();
+	}
+}
+
+void TeXDocument::updateTypesettingAction()
+{
+	if (process == NULL) {
+		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
+		actionTypeset->setIcon(QIcon(":/images/images/typeset.png"));
+		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(typeset()));
 		if (pdfDoc != NULL)
-			pdfDoc->enableTypesetAction(true);
+			pdfDoc->updateTypesettingAction(false);
+	}
+	else {
+		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(typeset()));
+		actionTypeset->setIcon(QIcon(":/images/tango/process-stop.png"));
+		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
+		if (pdfDoc != NULL)
+			pdfDoc->updateTypesettingAction(true);
 	}
 }
 
@@ -871,9 +962,8 @@ void TeXDocument::processError(QProcess::ProcessError /*error*/)
 	process->kill();
 	process->deleteLater();
 	process = NULL;
-	actionTypeset->setEnabled(true);
-	if (pdfDoc != NULL)
-		pdfDoc->enableTypesetAction(true);
+	inputLine->hide();
+	updateTypesettingAction();
 }
 
 void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
@@ -898,9 +988,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 	process->deleteLater();
 	process = NULL;
-	actionTypeset->setEnabled(true);
-	if (pdfDoc != NULL)
-		pdfDoc->enableTypesetAction(true);
+	updateTypesettingAction();
 }
 
 void TeXDocument::showConsole()

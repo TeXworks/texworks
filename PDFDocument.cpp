@@ -833,7 +833,7 @@ void PDFDocument::loadSyncData()
 							//h:18:39(-578,3840,3368,4074)0
 							if (sheet > 0) {
 								int tag, line, x, y, w, h, d;
-								if (sscanf(data + 2, "%d:%d(%d,%d,%d,%d)%d", &tag, &line, &x, &y, &w, &h, &d) != 7)
+								if (sscanf(data + 2, "%d:%d(%d,%d,%d,%d,%d)", &tag, &line, &x, &y, &w, &h, &d) != 7)
 									break;
 								if (pdfMode) {
 									x += 7227 * 8 / 100;
@@ -843,8 +843,24 @@ void PDFDocument::loadSyncData()
 								openBoxes.push(hb);
 							}
 							break;
-						case 'g':
 						case 'k':
+							//k:2:8(2707,1536,-57)
+							if (sheet > 0) {
+								if (!openBoxes.isEmpty()) {
+									HBox& hb = openBoxes.top();
+									int tag, line, x, y, k;
+									if (sscanf(data + 2, "%d:%d(%d,%d,%d)", &tag, &line, &x, &y, &k) != 5)
+										break;
+									if (tag == hb.tag) {
+										if (line < hb.first)
+											hb.first = line;
+										if (line > hb.last)
+											hb.last = line;
+									}
+								}
+							}
+							break;
+						case 'g':
 						case '$':
 							//g:18:39(-578,3840)
 							if (sheet > 0) {
@@ -869,7 +885,8 @@ void PDFDocument::loadSyncData()
 				else if (data[0] == 'e' && data[1] <= ' ') {
 					if (sheet > 0) {
 						PageSyncInfo& psi = pageSyncInfo[sheet - 1];
-						psi.append(openBoxes.pop());
+						if (!openBoxes.isEmpty())
+							psi.append(openBoxes.pop());
 					}
 				}
 			}
@@ -982,6 +999,12 @@ void PDFDocument::retypeset()
 		sourceDoc->typeset();
 }
 
+void PDFDocument::interrupt()
+{
+	if (sourceDoc != NULL)
+		sourceDoc->interrupt();
+}
+
 void PDFDocument::goToSource()
 {
 	if (sourceDoc != NULL)
@@ -1045,4 +1068,19 @@ void PDFDocument::setResolution(int res)
 void PDFDocument::enableTypesetAction(bool enabled)
 {
 	actionTypeset->setEnabled(enabled);
+}
+
+void PDFDocument::updateTypesettingAction(bool processRunning)
+{
+	if (processRunning) {
+		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
+		actionTypeset->setIcon(QIcon(":/images/tango/process-stop.png"));
+		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
+		enableTypesetAction(true);
+	}
+	else {
+		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
+		actionTypeset->setIcon(QIcon(":/images/images/typeset.png"));
+		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
+	}
 }
