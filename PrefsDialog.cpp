@@ -144,6 +144,7 @@ void PrefsDialog::moveToolUp()
 		toolList->setCurrentItem(toolList->item(selRow - 1));
 		Engine e = engineList.takeAt(selRow);
 		engineList.insert(selRow - 1, e);
+		refreshDefaultTool();
 		toolsChanged = true;
 	}
 }
@@ -159,6 +160,7 @@ void PrefsDialog::moveToolDown()
 		toolList->setCurrentItem(toolList->item(selRow + 1));
 		Engine e = engineList.takeAt(selRow);
 		engineList.insert(selRow + 1, e);
+		refreshDefaultTool();
 		toolsChanged = true;
 	}
 }
@@ -170,6 +172,7 @@ void PrefsDialog::addTool()
 	e.setShowPdf(true);
 	if (ToolConfig::doToolConfig(this, e) == QDialog::Accepted) {
 		engineList.append(e);
+		refreshDefaultTool();
 		toolsChanged = true;
 	}
 }
@@ -180,6 +183,7 @@ void PrefsDialog::removeTool()
 		if (toolList->currentItem()->isSelected()) {
 			engineList.removeAt(toolList->currentRow());
 			toolList->takeItem(toolList->currentRow());
+			refreshDefaultTool();
 			toolsChanged = true;
 		}
 }
@@ -195,6 +199,19 @@ void PrefsDialog::editTool()
 				toolsChanged = true;
 			}
 		}
+}
+
+void PrefsDialog::refreshDefaultTool()
+{
+	QString val;
+	if (defaultTool->count() > 0)
+		val = defaultTool->currentText();
+	defaultTool->clear();
+	foreach (Engine e, engineList) {
+		defaultTool->addItem(e.name());
+		if (e.name() == val)
+			defaultTool->setCurrentIndex(defaultTool->count() - 1);
+	}
 }
 
 void PrefsDialog::buttonClicked(QAbstractButton *whichButton)
@@ -316,6 +333,8 @@ void PrefsDialog::initPathAndToolLists()
 		foreach (Engine e, engineList) {
 			toolList->addItem(e.name());
 			defaultTool->addItem(e.name());
+			if (e.name() == app->getDefaultEngine().name())
+				defaultTool->setCurrentIndex(defaultTool->count() - 1);
 		}
 	}
 	if (binPathList->count() > 0)
@@ -423,16 +442,25 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.initPathAndToolLists();
 	dlg.autoHideOutput->setChecked(settings.value("autoHideConsole", kDefault_HideConsole).toBool());
 
-	if (parent && parent->inherits("TeXDocument"))
-		dlg.tabWidget->setCurrentIndex(1);
-	else if (parent && parent->inherits("PDFDocument"))
-		dlg.tabWidget->setCurrentIndex(2);
+	// Decide which tab to select initially
+	if (sCurrentTab == -1) {
+		if (parent && parent->inherits("TeXDocument"))
+			sCurrentTab = 1;
+		else if (parent && parent->inherits("PDFDocument"))
+			sCurrentTab = 2;
+		else
+			sCurrentTab = 0;
+	}
+	if (sCurrentTab != dlg.tabWidget->currentIndex())
+		dlg.tabWidget->setCurrentIndex(sCurrentTab);
 	
 	dlg.show();
 
 	DialogCode	result = (DialogCode)dlg.exec();
 
 	if (result == Accepted) {
+		sCurrentTab = dlg.tabWidget->currentIndex();
+	
 		// General
 		int iconSize = 2;
 		if (dlg.smallIcons->isChecked())
@@ -515,11 +543,14 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			if (dlg.toolsChanged) {
 				app->setEngineList(dlg.engineList);
 			}
+			app->setDefaultEngine(dlg.defaultTool->currentText());
 		}
 	}
 
 	return result;
 }
+
+int PrefsDialog::sCurrentTab = -1;
 
 ToolConfig::ToolConfig(QWidget *parent)
 	: QDialog(parent)	

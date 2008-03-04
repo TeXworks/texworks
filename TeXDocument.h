@@ -82,6 +82,7 @@ private slots:
 	void pdfClosed();
 	void updateRecentFileActions();
 	void updateWindowMenu();
+	void updateEngineList();
 	void showCursorPosition();
 	void editMenuAboutToShow();
 	void processStandardOutput();

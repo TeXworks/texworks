@@ -193,10 +193,12 @@ void QTeXApp::setDefaultPaths()
 		<< "/Volumes/Nenya/texlive/Master/bin/powerpc-darwin"
 #endif
 #ifdef Q_WS_X11
+		<< "/usr/local/texlive/2008/bin/i386-linux"
 		<< "/usr/local/texlive/2007/bin/i386-linux"
 		<< "/usr/local/bin"
 #endif
 #ifdef Q_WS_WIN
+		<< "c:/texlive/2008/bin"
 		<< "c:/texlive/2007/bin"
 		<< "c:/w32tex/bin"
 #endif
@@ -265,6 +267,7 @@ const QList<Engine> QTeXApp::getEngineList()
 		else
 			setDefaultEngineList();
 		settings.endArray();
+		setDefaultEngine(settings.value("defaultEngine").toString());
 	}
 	return *engineList;
 }
@@ -291,6 +294,8 @@ void QTeXApp::setEngineList(const QList<Engine>& engines)
 		settings.setValue("showPdf", eng.showPdf());
 	}
 	settings.endArray();
+	settings.setValue("defaultEngine", getDefaultEngine().name());
+	emit engineListChanged();
 }
 
 const Engine QTeXApp::getDefaultEngine()
@@ -298,10 +303,26 @@ const Engine QTeXApp::getDefaultEngine()
 	const QList<Engine> engines = getEngineList();
 	if (defaultEngineIndex < engines.count())
 		return engines[defaultEngineIndex];
-	else if (engines.empty())
+	defaultEngineIndex = 0;
+	if (engines.empty())
 		return Engine();
 	else
 		return engines[0];
+}
+
+void QTeXApp::setDefaultEngine(const QString& name)
+{
+	const QList<Engine> engines = getEngineList();
+	int i;
+	for (i = 0; i < engines.count(); ++i)
+		if (engines[i].name() == name) {
+			QSettings settings;
+			settings.setValue("defaultEngine", name);
+			break;
+		}
+	if (i == engines.count())
+		i = 0;
+	defaultEngineIndex = i;
 }
 
 const Engine QTeXApp::getNamedEngine(const QString& name)

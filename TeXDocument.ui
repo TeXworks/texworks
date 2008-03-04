@@ -222,7 +222,6 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionTypeset" />
-   <addaction name="separator" />
   </widget>
   <widget class="QToolBar" name="toolBar_edit" >
    <property name="windowTitle" >

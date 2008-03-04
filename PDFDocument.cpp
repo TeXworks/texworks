@@ -620,7 +620,7 @@ PDFDocument::init()
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
 	setWindowIcon(QIcon(":/images/images/pdfdoc.png"));
-	
+		
 	pdfWidget = new PDFWidget;
 	connect(this, SIGNAL(windowResized()), pdfWidget, SLOT(windowResized()));
 
@@ -733,24 +733,23 @@ void PDFDocument::reload()
 		delete document;
 
 	document = Poppler::Document::load(curFile);
-	document->setRenderBackend(Poppler::Document::SplashBackend);
-	document->setRenderHint(Poppler::Document::Antialiasing);
-	document->setRenderHint(Poppler::Document::TextAntialiasing);
-	globalParams->setScreenType(screenDispersed);
-
-	pdfWidget->setDocument(document);
-	
-	QApplication::restoreOverrideCursor();
-
-	pdfWidget->setFocus();
-
-	if (document == NULL)
-		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(QTeXUtils::strippedName(curFile)));
-
 	if (document != NULL) {
+		document->setRenderBackend(Poppler::Document::SplashBackend);
+		document->setRenderHint(Poppler::Document::Antialiasing);
+		document->setRenderHint(Poppler::Document::TextAntialiasing);
+		globalParams->setScreenType(screenDispersed);
+
+		pdfWidget->setDocument(document);
+		
+		QApplication::restoreOverrideCursor();
+
+		pdfWidget->setFocus();
+
 		// FIXME: see if this takes long enough that we should offload it to a separate thread
 		loadSyncData();
 	}
+	else
+		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(QTeXUtils::strippedName(curFile)));
 }
 
 #define MAX_SYNC_LINE_LENGTH	(PATH_MAX + 256)
