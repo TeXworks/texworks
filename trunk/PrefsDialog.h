@@ -39,12 +39,15 @@ private slots:
 private:
 	void init();
 	void restoreDefaults();
+	void refreshDefaultTool();
 	void initPathAndToolLists();
 	
 	QList<Engine> engineList;
 	
 	bool pathsChanged;
 	bool toolsChanged;
+	
+	static int sCurrentTab;
 };
 
 class ToolConfig : public QDialog, private Ui::ToolConfigDialog

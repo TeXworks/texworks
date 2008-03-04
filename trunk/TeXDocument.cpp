@@ -61,10 +61,6 @@ void TeXDocument::init()
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
 
-#ifdef Q_WS_MAC
-	setUnifiedTitleAndToolBarOnMac(true); // more "native" but less flexible... which to use?
-#endif
-
 	hideConsole();
 
 	lineNumberLabel = new QLabel();
@@ -77,12 +73,18 @@ void TeXDocument::init()
 	engine = new QComboBox(this);
 	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 	if (app != NULL) {
-		engine->addItem("default (" + app->getDefaultEngine().name() + ")");
-		foreach (Engine e, app->getEngineList())
+		QString defName = app->getDefaultEngine().name();
+		foreach (Engine e, app->getEngineList()) {
 			engine->addItem(e.name());
+			if (e.name() == defName)
+				engine->setCurrentIndex(engine->count() - 1);
+		}
 	}
 	engine->setEditable(false);
+	engine->setFocusPolicy(Qt::NoFocus);
 	toolBar_run->addWidget(engine);
+	
+	connect(app, SIGNAL(engineListChanged()), this, SLOT(updateEngineList()));
 	
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
@@ -242,7 +244,7 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 
 bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/qq/qq18-macfeatures.html
 {
-//	if (!isActiveWindow())
+	if (!isActiveWindow())
 		return QMainWindow::event(event);
 	
 	switch (event->type()) {
@@ -260,7 +262,7 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 					drag->setHotSpot(QPoint(dragIcon.width() - 5, 5));
 					drag->start(Qt::LinkAction | Qt::CopyAction);
 				}
-				else if (mods == Qt::ControlModifier) {
+				else if (mods == Qt::ShiftModifier) {
 					QMenu menu(this);
 					connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(openAt(QAction*)));
 					QFileInfo info(curFile);
@@ -451,6 +453,20 @@ void TeXDocument::updateRecentFileActions()
 void TeXDocument::updateWindowMenu()
 {
 	QTeXUtils::updateWindowMenu(this, menuWindow);
+}
+
+void TeXDocument::updateEngineList()
+{
+	QString val = engine->currentText();
+	engine->clear();
+	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
+	if (app != NULL) {
+		foreach (Engine e, app->getEngineList()) {
+			engine->addItem(e.name());
+			if (e.name() == val)
+				engine->setCurrentIndex(engine->count() - 1);
+		}
+	}
 }
 
 void TeXDocument::showCursorPosition()
@@ -872,6 +888,12 @@ void TeXDocument::typeset()
 	if (app == NULL)
 		return; // actually, that would be an internal error!
 
+	Engine e = app->getNamedEngine(engine->currentText());
+	if (e.program() == "") {
+		statusBar()->showMessage(tr("%1 is not properly configured").arg(engine->currentText()), kStatusMessageDuration);
+		return;
+	}
+
 	process = new QProcess(this);
 	updateTypesettingAction();
 	
@@ -893,7 +915,6 @@ void TeXDocument::typeset()
 	connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
 	connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
 
-	Engine e = (engine->currentIndex() == 0) ? app->getDefaultEngine() : app->getNamedEngine(engine->currentText());
 	QStringList args = e.arguments();
 	args.replaceInStrings("$fullname", fileInfo.fileName());
 	args.replaceInStrings("$basename", fileInfo.completeBaseName());

@@ -34,8 +34,10 @@ public:
 
 	const QStringList getBinaryPaths();
 	const QList<Engine> getEngineList();
-	const Engine getDefaultEngine();
+
 	const Engine getNamedEngine(const QString& name);
+	const Engine getDefaultEngine();
+	void setDefaultEngine(const QString& name);
 
 	void setDefaultPaths();
 	void setDefaultEngineList();
