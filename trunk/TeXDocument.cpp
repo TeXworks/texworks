@@ -22,6 +22,8 @@
 #include <QProcess>
 #include <QAbstractItemView>
 #include <QScrollBar>
+#include <QActionGroup>
+#include <QTextCodec>
 #include <QDebug>
 
 const int kMinConsoleHeight = 160;
@@ -70,19 +72,20 @@ void TeXDocument::init()
 	statusLine = statusTotal = 0;
 	showCursorPosition();
 	
-	engine = new QComboBox(this);
+	engineActions = new QActionGroup(this);
+	connect(engineActions, SIGNAL(triggered(QAction*)), this, SLOT(selectedEngine(QAction*)));
+	
 	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 	if (app != NULL) {
-		QString defName = app->getDefaultEngine().name();
-		foreach (Engine e, app->getEngineList()) {
-			engine->addItem(e.name());
-			if (e.name() == defName)
-				engine->setCurrentIndex(engine->count() - 1);
-		}
+		codec = app->getDefaultCodec();
+		engineName = app->getDefaultEngine().name();
 	}
+	engine = new QComboBox(this);
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
 	toolBar_run->addWidget(engine);
+	updateEngineList();
+	connect(engine, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(selectedEngine(const QString&)));
 	
 	connect(app, SIGNAL(engineListChanged()), this, SLOT(updateEngineList()));
 	
@@ -116,6 +119,7 @@ void TeXDocument::init()
 
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), actionSave, SLOT(setEnabled(bool)));
+	connect(textEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(syncClick(int)), this, SLOT(syncClick(int)));
@@ -148,6 +152,8 @@ void TeXDocument::init()
 
 	highlighter = new TeXHighlighter(textEdit->document());
 	textEdit->installEventFilter(CmdKeyFilter::filter());
+
+	connect(inputLine, SIGNAL(returnPressed()), this, SLOT(acceptInputLine()));
 
 	QSettings settings;
 	QTeXUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
@@ -246,7 +252,7 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 {
 	if (!isActiveWindow())
 		return QMainWindow::event(event);
-	
+
 	switch (event->type()) {
 		case QEvent::IconDrag:
 			{
@@ -342,6 +348,24 @@ bool TeXDocument::maybeSave()
 	return true;
 }
 
+QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr)
+{
+	// peek at the file for %!TEX encoding = ....
+	QRegExp re("%!TEX encoding *= *([^\\r\\n]+)[\\r\\n]", Qt::CaseInsensitive);
+	int pos = re.indexIn(peekStr);
+	QTextCodec *reqCodec = NULL;
+	if (pos > -1) {
+		QString codecName = re.cap(1).trimmed();
+		// FIXME: support TeXShop synonyms here
+		reqCodec = QTextCodec::codecForName(codecName.toAscii());
+		if (reqCodec == NULL)
+			fprintf(stderr, "no codec for <%s>, will use default\n", codecName.toAscii().data());
+	}
+	return reqCodec;
+}
+
+#define PEEK_LENGTH 1024
+
 void TeXDocument::loadFile(const QString &fileName)
 {
 	QFile file(fileName);
@@ -353,9 +377,17 @@ void TeXDocument::loadFile(const QString &fileName)
 		return;
 	}
 
+	QString peekStr(file.peek(PEEK_LENGTH));
+	codec = scanForEncoding(peekStr);
+	if (codec == NULL) {
+		QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
+		if (app != NULL)
+			codec = app->getDefaultCodec();
+	}
+	
 	QTextStream in(&file);
-	in.setCodec("UTF-8");
-	in.setAutoDetectUnicode(true);
+	if (codec != NULL)
+		in.setCodec(codec);
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	textEdit->setPlainText(in.readAll());
@@ -365,7 +397,10 @@ void TeXDocument::loadFile(const QString &fileName)
 	showPdfIfAvailable();
 	selectWindow();
 	
-	statusBar()->showMessage(tr("File \"%1\" loaded").arg(QTeXUtils::strippedName(curFile)), kStatusMessageDuration);
+	statusBar()->showMessage(tr("File \"%1\" loaded (%2)")
+								.arg(QTeXUtils::strippedName(curFile))
+								.arg(QString::fromAscii(codec ? codec->name() : "default encoding")),
+								kStatusMessageDuration);
 }
 
 void TeXDocument::showPdfIfAvailable()
@@ -397,14 +432,24 @@ bool TeXDocument::saveFile(const QString &fileName)
 		return false;
 	}
 
-	QTextStream out(&file);
-	out.setCodec("UTF-8");
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	out << textEdit->toPlainText();
+	
+	QString theText = textEdit->toPlainText();
+	QTextCodec *newCodec = scanForEncoding(theText.toAscii().left(PEEK_LENGTH));
+	if (newCodec != NULL)
+		codec = newCodec;
+	
+	QTextStream out(&file);
+	if (codec != NULL)
+		out.setCodec(codec);
+	out << theText;
 	QApplication::restoreOverrideCursor();
 
 	setCurrentFile(fileName);
-	statusBar()->showMessage(tr("File \"%1\" saved").arg(QTeXUtils::strippedName(curFile)), kStatusMessageDuration);
+	statusBar()->showMessage(tr("File \"%1\" saved (%2)")
+								.arg(QTeXUtils::strippedName(curFile))
+								.arg(QString::fromAscii(codec ? codec->name() : "default encoding")),
+								kStatusMessageDuration);
 	return true;
 }
 
@@ -457,14 +502,43 @@ void TeXDocument::updateWindowMenu()
 
 void TeXDocument::updateEngineList()
 {
-	QString val = engine->currentText();
+	while (menuRun->actions().count() > 2)
+		menuRun->removeAction(menuRun->actions().last());
+	while (engineActions->actions().count() > 0)
+		engineActions->removeAction(engineActions->actions().last());
 	engine->clear();
 	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 	if (app != NULL) {
 		foreach (Engine e, app->getEngineList()) {
+			QAction *newAction = new QAction(e.name(), engineActions);
+			newAction->setCheckable(true);
+			menuRun->addAction(newAction);
 			engine->addItem(e.name());
-			if (e.name() == val)
+			if (e.name() == engineName) {
 				engine->setCurrentIndex(engine->count() - 1);
+				newAction->setChecked(true);
+			}
+		}
+	}
+}
+
+void TeXDocument::selectedEngine(QAction* engineAction) // sent by actions in menubar menu; update toolbar combo box
+{
+	engineName = engineAction->text();
+	for (int i = 0; i < engine->count(); ++i)
+		if (engine->itemText(i) == engineName) {
+			engine->setCurrentIndex(i);
+			break;
+		}
+}
+
+void TeXDocument::selectedEngine(const QString& name) // sent by toolbar combo box; need to update menu
+{
+	engineName = name;
+	foreach (QAction *act, engineActions->actions()) {
+		if (act->text() == name) {
+			act->setChecked(true);
+			break;
 		}
 	}
 }
@@ -894,10 +968,23 @@ void TeXDocument::typeset()
 		return;
 	}
 
+	QFileInfo fileInfo(curFile);
+	QString rootDoc = findRootDocName();
+	if (rootDoc == "")
+		rootDoc = curFile;
+	else {
+		rootDoc = fileInfo.absolutePath() + "/" + rootDoc;
+		fileInfo = QFileInfo(rootDoc);
+	}
+
+	if (!fileInfo.isReadable()) {
+		statusBar()->showMessage(tr("File %1 is not readable").arg(rootDoc), kStatusMessageDuration);
+		return;
+	}
+
 	process = new QProcess(this);
 	updateTypesettingAction();
 	
-	QFileInfo fileInfo(curFile);
 	process->setWorkingDirectory(fileInfo.canonicalPath());
 
 	const QStringList& binPaths = app->getBinaryPaths();
@@ -923,18 +1010,20 @@ void TeXDocument::typeset()
 
 	bool foundCommand = false;
 	iter.toFront();
-	while (iter.hasNext()) {
+	while (iter.hasNext() && !foundCommand) {
 		QString path = iter.next();
 		fileInfo = QFileInfo(path, e.program());
-		if (fileInfo.exists()) {
+		if (fileInfo.exists())
 			foundCommand = true;
-			textEdit_console->clear();
-			showConsole();
-			process->start(fileInfo.absoluteFilePath(), args);
-			break;
-		}
 	}
-	if (!foundCommand) {
+
+	if (foundCommand) {
+		textEdit_console->clear();
+		showConsole();
+		inputLine->setFocus(Qt::OtherFocusReason);
+		process->start(fileInfo.absoluteFilePath(), args);
+	}
+	else {
 		process->deleteLater();
 		process = NULL;
 		QMessageBox::critical(this, tr("Unable to execute %1").arg(e.name()),
@@ -1044,6 +1133,26 @@ void TeXDocument::toggleConsoleVisibility()
 		showConsole();
 }
 
+void TeXDocument::acceptInputLine()
+{
+	if (process != NULL) {
+		QString	str = inputLine->text();
+		QTextCursor	curs(textEdit_console->document());
+		curs.setPosition(textEdit_console->toPlainText().length());
+		textEdit_console->setTextCursor(curs);
+		QTextCharFormat	consoleFormat = textEdit_console->currentCharFormat();
+		QTextCharFormat inputFormat(consoleFormat);
+		inputFormat.setForeground(inputLine->palette().text());
+		str.append("\n");
+		textEdit_console->insertPlainText(str);
+		curs.movePosition(QTextCursor::PreviousCharacter);
+		curs.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, str.length() - 1);
+		curs.setCharFormat(inputFormat);
+		process->write(str.toUtf8());
+		inputLine->clear();
+	}
+}
+
 void TeXDocument::goToPreview()
 {
 	if (pdfDoc != NULL)
@@ -1054,4 +1163,43 @@ void TeXDocument::syncClick(int lineNo)
 {
 	if (!isUntitled)
 		emit syncFromSource(curFile, lineNo);
+}
+
+void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*charsAdded*/)
+{
+	if (position < PEEK_LENGTH) {
+		QTextCursor curs(textEdit->document());
+		curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
+		QString peekStr = curs.selectedText();
+		QRegExp re("%!TEX TS-program *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
+		int pos = re.indexIn(peekStr);
+		if (pos > -1) {
+			QString name = re.cap(1).trimmed();
+			int index = engine->findText(name, Qt::MatchFixedString);
+			if (index > -1) {
+				if (index != engine->currentIndex()) {
+					engine->setCurrentIndex(index);
+					statusBar()->showMessage(tr("Set engine to \"%1\"").arg(engine->currentText()), kStatusMessageDuration);
+				}
+				else
+					statusBar()->clearMessage();
+			}
+			else {
+				statusBar()->showMessage(tr("Engine \"%1\" not defined").arg(name), kStatusMessageDuration);
+			}
+		}
+	}
+}
+
+QString TeXDocument::findRootDocName()
+{
+	QString rootName;
+	QTextCursor curs(textEdit->document());
+	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
+	QString peekStr = curs.selectedText();
+	QRegExp re("%!TEX root *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
+	int pos = re.indexIn(peekStr);
+	if (pos > -1)
+		rootName = re.cap(1).trimmed();
+	return rootName;
 }

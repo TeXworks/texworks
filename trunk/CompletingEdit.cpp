@@ -12,6 +12,7 @@
 #include <QFile>
 #include <QDir>
 #include <QTextStream>
+#include <QAbstractTextDocumentLayout>
 
 
 CompletingEdit::CompletingEdit(QWidget *parent)
@@ -64,6 +65,63 @@ void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 	else
 		QTextEdit::mouseReleaseEvent(e);
 }
+
+void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
+{
+	if (e->modifiers() != Qt::NoModifier)
+		QTextEdit::mouseDoubleClickEvent(e);
+	else {
+		// don't like QTextEdit's selection behavior, so try to improve it here
+		QPoint	pos = e->pos();
+		const int cursorPos = document()->documentLayout()->hitTest(pos, Qt::FuzzyHit);
+		if (cursorPos == -1)
+			return;
+
+		QTextCursor cursor(document());
+		cursor.setPosition(cursorPos);
+		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+		// check if click was within the char to the right of cursor; if so we select forwards
+		QRect r = cursorRect(cursor);
+		if (r.contains(pos, true)) {
+			QString s = cursor.selectedText();
+			if (s == "(" || s == "[" || s == "{") {
+				// select forwards to matching bracket
+			}
+			else {
+				// select word forwards
+				cursor.setPosition(cursorPos);
+				cursor.movePosition(QTextCursor::EndOfWord);
+				cursor.movePosition(QTextCursor::StartOfWord, QTextCursor::KeepAnchor);
+			}
+			setTextCursor(cursor);
+			e->accept();
+			return;
+		}
+
+		cursor.setPosition(cursorPos);
+		cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+		r = cursorRect(cursor);
+		if (r.contains(pos)) {
+			QString s = cursor.selectedText();
+			if (s == ")" || s == "]" || s == "}") {
+				// select backwards to matching bracket
+			}
+			else {
+				// select word backwards
+				cursor.setPosition(cursorPos);
+				cursor.movePosition(QTextCursor::StartOfWord);
+				cursor.movePosition(QTextCursor::EndOfWord, QTextCursor::KeepAnchor);
+			}
+			setTextCursor(cursor);
+			e->accept();
+			return;
+		}
+
+		// else fall back on whatever QTextEdit does
+		QTextEdit::mouseDoubleClickEvent(e);
+	}
+}
+
 void CompletingEdit::focusInEvent(QFocusEvent *e)
 {
     if (c)

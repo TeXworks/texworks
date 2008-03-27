@@ -896,6 +896,8 @@ void PDFDocument::loadSyncData()
 			syncFile.close();
 		}
 	}
+	else
+		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
 }
 
 void PDFDocument::syncClick(int page, const QPointF& pos)

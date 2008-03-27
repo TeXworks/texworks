@@ -349,13 +349,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 {
 	PrefsDialog dlg(NULL);
 	
-	QSet<QTextCodec*> codecs;
-	foreach (QByteArray codecName, QTextCodec::availableCodecs())
-		codecs.insert(QTextCodec::codecForName(codecName));
 	QStringList nameList;
-	foreach (QTextCodec *codec, codecs)
+	foreach (QTextCodec *codec, *QTeXUtils::findCodecs())
 		nameList.append(codec->name());
-	nameList.sort();
 	dlg.encoding->addItems(nameList);
 	
 	QSettings settings;

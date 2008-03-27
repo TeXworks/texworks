@@ -70,6 +70,43 @@
          <verstretch>1</verstretch>
         </sizepolicy>
        </property>
+       <property name="palette" >
+        <palette>
+         <active>
+          <colorrole role="Text" >
+           <brush brushstyle="SolidPattern" >
+            <color alpha="255" >
+             <red>0</red>
+             <green>102</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="Text" >
+           <brush brushstyle="SolidPattern" >
+            <color alpha="255" >
+             <red>0</red>
+             <green>102</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="Text" >
+           <brush brushstyle="SolidPattern" >
+            <color alpha="255" >
+             <red>127</red>
+             <green>127</green>
+             <blue>127</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
        <property name="font" >
         <font>
          <pointsize>12</pointsize>
@@ -100,7 +137,50 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="inputLine" />
+     <widget class="QLineEdit" name="inputLine" >
+      <property name="palette" >
+       <palette>
+        <active>
+         <colorrole role="Text" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>153</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="Text" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>153</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="Text" >
+          <brush brushstyle="SolidPattern" >
+           <color alpha="255" >
+            <red>127</red>
+            <green>127</green>
+            <blue>127</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font" >
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -513,6 +593,9 @@
    </property>
   </action>
   <action name="actionIndent" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/tango/format-indent-more.png</iconset>
+   </property>
    <property name="text" >
     <string>Indent</string>
    </property>
@@ -521,6 +604,9 @@
    </property>
   </action>
   <action name="actionUnindent" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/tango/format-indent-less.png</iconset>
+   </property>
    <property name="text" >
     <string>Unindent</string>
    </property>
@@ -586,6 +672,9 @@
    </property>
   </action>
   <action name="actionPreferences" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/tango/preferences-system.png</iconset>
+   </property>
    <property name="text" >
     <string>Preferences...</string>
    </property>

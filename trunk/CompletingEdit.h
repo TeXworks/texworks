@@ -22,6 +22,7 @@ protected:
     virtual void focusInEvent(QFocusEvent *e);
 	virtual void mousePressEvent(QMouseEvent *e);
 	virtual void mouseReleaseEvent(QMouseEvent *e);
+	virtual void mouseDoubleClickEvent(QMouseEvent *e);
 
 private slots:
 	void clearCompleter();

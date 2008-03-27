@@ -288,6 +288,9 @@
    </property>
   </action>
   <action name="actionUndo" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset resource="resources.qrc" >:/images/tango/edit-undo.png</iconset>
    </property>
@@ -299,6 +302,9 @@
    </property>
   </action>
   <action name="actionRedo" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset resource="resources.qrc" >:/images/tango/edit-redo.png</iconset>
    </property>
@@ -310,6 +316,9 @@
    </property>
   </action>
   <action name="actionCut" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset resource="resources.qrc" >:/images/tango/edit-cut.png</iconset>
    </property>
@@ -321,6 +330,9 @@
    </property>
   </action>
   <action name="actionCopy" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset resource="resources.qrc" >:/images/tango/edit-copy.png</iconset>
    </property>
@@ -332,6 +344,9 @@
    </property>
   </action>
   <action name="actionPaste" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset resource="resources.qrc" >:/images/tango/edit-paste.png</iconset>
    </property>
@@ -343,6 +358,9 @@
    </property>
   </action>
   <action name="actionClear" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>Clear</string>
    </property>
@@ -362,6 +380,9 @@
    </property>
   </action>
   <action name="actionPreferences" >
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/tango/preferences-system.png</iconset>
+   </property>
    <property name="text" >
     <string>Preferences...</string>
    </property>
@@ -426,6 +447,9 @@
    <property name="checkable" >
     <bool>true</bool>
    </property>
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/hand.png</iconset>
+   </property>
    <property name="text" >
     <string>Scroll</string>
    </property>
@@ -434,6 +458,9 @@
    <property name="checkable" >
     <bool>true</bool>
    </property>
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/text-tool.png</iconset>
+   </property>
    <property name="text" >
     <string>Select Text</string>
    </property>
@@ -441,6 +468,9 @@
   <action name="actionSelect_Image" >
    <property name="checkable" >
     <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="resources.qrc" >:/images/images/rect-select.png</iconset>
    </property>
    <property name="text" >
     <string>Select Image</string>

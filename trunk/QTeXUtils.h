@@ -13,6 +13,9 @@ class TeXDocument;
 class QTeXUtils
 {
 public:
+	// return a sorted list of all the available text codecs
+	static QList<QTextCodec*> *findCodecs();
+
 	// perform the updates to a menu; used by the documents to update their own menus
 	static void updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu);
 
@@ -32,6 +35,8 @@ public:
 
 private:
 	QTeXUtils();
+
+	static QList<QTextCodec*> *codecList;
 };
 
 // this special QAction class is used in Window menus, so that it's easy to recognize the dynamically-created items
