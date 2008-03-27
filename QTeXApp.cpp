@@ -16,11 +16,13 @@
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QDesktopWidget>
+#include <QTextCodec>
 
 const int kDefaultMaxRecentFiles = 10;
 
 QTeXApp::QTeXApp(int &argc, char **argv)
 	: QApplication(argc, argv)
+	, defaultCodec(NULL)
 	, binaryPaths(NULL)
 	, engineList(NULL)
 	, defaultEngineIndex(0)
@@ -39,11 +41,16 @@ void QTeXApp::init()
 	QSettings settings;
 	recentFilesLimit = settings.value("maxRecentFiles", kDefaultMaxRecentFiles).toInt();
 
+	QString codecName = settings.value("defaultEncoding", "UTF-8").toString();
+	defaultCodec = QTextCodec::codecForName(codecName.toAscii());
+	if (defaultCodec == NULL)
+		defaultCodec = QTextCodec::codecForName("UTF-8");
+
 #ifdef Q_WS_MAC
 	setQuitOnLastWindowClosed(false);
 
-	extern void qt_mac_set_menubar_icons(bool);
-	qt_mac_set_menubar_icons(false);
+//	extern void qt_mac_set_menubar_icons(bool);
+//	qt_mac_set_menubar_icons(false);
 
 	menuBar = new QMenuBar;
 
@@ -51,17 +58,18 @@ void QTeXApp::init()
 
 	QAction *actionNew = new QAction(tr("New"), this);
     actionNew->setShortcut(QKeySequence("Ctrl+N"));
-	actionNew->setIcon(QIcon(":/images/images/filenew.png"));
+	actionNew->setIcon(QIcon(":/images/tango/document-new.png"));
 	menuFile->addAction(actionNew);
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 
 	QAction *actionPreferences = new QAction(tr("Preferences..."), this);
+	actionPreferences->setIcon(QIcon(":/images/tango/preferences-system.png"));
 	menuFile->addAction(actionPreferences);
 	connect(actionPreferences, SIGNAL(triggered()), this, SLOT(preferences()));
 
 	QAction *actionOpen = new QAction(tr("Open..."), this);
     actionOpen->setShortcut(QKeySequence("Ctrl+O"));
-	actionOpen->setIcon(QIcon(":/images/images/fileopen.png"));
+	actionOpen->setIcon(QIcon(":/images/tango/document-open.png"));
 	menuFile->addAction(actionOpen);
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 
@@ -338,4 +346,21 @@ const Engine QTeXApp::getNamedEngine(const QString& name)
 void QTeXApp::syncFromSource(const QString& sourceFile, int lineNo)
 {
 	emit syncPdf(sourceFile, lineNo);
+}
+
+QTextCodec *QTeXApp::getDefaultCodec()
+{
+	return defaultCodec;
+}
+
+void QTeXApp::setDefaultCodec(QTextCodec *codec)
+{
+	if (codec == NULL)
+		return;
+
+	if (codec != defaultCodec) {
+		defaultCodec = codec;
+		QSettings settings;
+		settings.setValue("defaultEncoding", codec->name());
+	}
 }

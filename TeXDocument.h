@@ -16,6 +16,8 @@ class QTextEdit;
 class QToolBar;
 class QLabel;
 class QComboBox;
+class QActionGroup;
+class QTextCodec;
 
 class TeXHighlighter;
 class PDFDocument;
@@ -89,13 +91,18 @@ private slots:
 	void processError(QProcess::ProcessError error);
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void toggleConsoleVisibility();
+	void acceptInputLine();
 	void goToPreview();
 	void syncClick(int lineNo);
 	void openAt(QAction *action);
+	void selectedEngine(QAction* engineAction);
+	void selectedEngine(const QString& name);
+	void contentsChanged(int position, int charsRemoved, int charsAdded);
 
 private:
 	void init();
 	bool maybeSave();
+	QTextCodec *scanForEncoding(const QString &peekStr);
 	void loadFile(const QString &fileName);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
@@ -108,7 +115,9 @@ private:
 	void hideConsole();
 	void goToLine(int lineNo);
 	void updateTypesettingAction();
+	QString findRootDocName();
 
+	QTextCodec *codec;
 	QString curFile;
 	bool isUntitled;
 	TeXHighlighter *highlighter;
@@ -117,6 +126,9 @@ private:
 	QLabel *lineNumberLabel;
 	int statusLine;
 	int statusTotal;
+
+	QActionGroup *engineActions;
+	QString engineName;
 
 	QComboBox *engine;
 	QProcess *process;

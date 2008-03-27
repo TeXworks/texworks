@@ -41,6 +41,9 @@ public:
 
 	void setDefaultPaths();
 	void setDefaultEngineList();
+	
+	QTextCodec *getDefaultCodec();
+	void setDefaultCodec(QTextCodec *codec);
 
 #ifdef Q_WS_MAC
 private:
@@ -91,6 +94,8 @@ private:
 	void init();
 	
 	int recentFilesLimit;
+
+	QTextCodec *defaultCodec;
 
 	QStringList *binaryPaths;
 	QList<Engine> *engineList;
