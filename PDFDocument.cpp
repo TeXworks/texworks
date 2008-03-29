@@ -955,12 +955,8 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo)
 void PDFDocument::setCurrentFile(const QString &fileName)
 {
 	curFile = QFileInfo(fileName).canonicalFilePath();
-
 	setWindowTitle(tr("%1[*] - %2").arg(QTeXUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
-
-	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
-	if (app)
-		app->updateWindowMenus();
+	QTeXApp::instance()->updateWindowMenus();
 }
  
 PDFDocument *PDFDocument::findDocument(const QString &fileName)

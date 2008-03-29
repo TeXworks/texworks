@@ -75,11 +75,8 @@ void TeXDocument::init()
 	engineActions = new QActionGroup(this);
 	connect(engineActions, SIGNAL(triggered(QAction*)), this, SLOT(selectedEngine(QAction*)));
 	
-	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
-	if (app != NULL) {
-		codec = app->getDefaultCodec();
-		engineName = app->getDefaultEngine().name();
-	}
+	codec = QTeXApp::instance()->getDefaultCodec();
+	engineName = QTeXApp::instance()->getDefaultEngine().name();
 	engine = new QComboBox(this);
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
@@ -87,7 +84,7 @@ void TeXDocument::init()
 	updateEngineList();
 	connect(engine, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(selectedEngine(const QString&)));
 	
-	connect(app, SIGNAL(engineListChanged()), this, SLOT(updateEngineList()));
+	connect(QTeXApp::instance(), SIGNAL(engineListChanged()), this, SLOT(updateEngineList()));
 	
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
@@ -242,6 +239,12 @@ void TeXDocument::openDocument(const QString &fileName, int lineNo) // static
 
 void TeXDocument::closeEvent(QCloseEvent *event)
 {
+	if (process != NULL) {
+		statusBar()->showMessage(tr("Cannot close window while tool is running"), kStatusMessageDuration);
+		event->ignore();
+		return;
+	}
+
 	if (maybeSave())
 		event->accept();
 	else
@@ -380,9 +383,7 @@ void TeXDocument::loadFile(const QString &fileName)
 	QString peekStr(file.peek(PEEK_LENGTH));
 	codec = scanForEncoding(peekStr);
 	if (codec == NULL) {
-		QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
-		if (app != NULL)
-			codec = app->getDefaultCodec();
+		codec = QTeXApp::instance()->getDefaultCodec();
 	}
 	
 	QTextStream in(&file);
@@ -472,22 +473,18 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 
 	setWindowTitle(tr("%1[*] - %2").arg(QTeXUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
 
-	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
 	if (!isUntitled) {
 		QSettings settings;
 		QStringList files = settings.value("recentFileList").toStringList();
 		files.removeAll(fileName);
 		files.prepend(fileName);
-		if (app)
-			while (files.size() > app->maxRecentFiles())
-				files.removeLast();
+		while (files.size() > QTeXApp::instance()->maxRecentFiles())
+			files.removeLast();
 		settings.setValue("recentFileList", files);
-		if (app)
-			app->updateRecentFileActions();
+		QTeXApp::instance()->updateRecentFileActions();
 	}
 	
-	if (app)
-		app->updateWindowMenus();
+	QTeXApp::instance()->updateWindowMenus();
 }
 
 void TeXDocument::updateRecentFileActions()
@@ -507,17 +504,14 @@ void TeXDocument::updateEngineList()
 	while (engineActions->actions().count() > 0)
 		engineActions->removeAction(engineActions->actions().last());
 	engine->clear();
-	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
-	if (app != NULL) {
-		foreach (Engine e, app->getEngineList()) {
-			QAction *newAction = new QAction(e.name(), engineActions);
-			newAction->setCheckable(true);
-			menuRun->addAction(newAction);
-			engine->addItem(e.name());
-			if (e.name() == engineName) {
-				engine->setCurrentIndex(engine->count() - 1);
-				newAction->setChecked(true);
-			}
+	foreach (Engine e, QTeXApp::instance()->getEngineList()) {
+		QAction *newAction = new QAction(e.name(), engineActions);
+		newAction->setCheckable(true);
+		menuRun->addAction(newAction);
+		engine->addItem(e.name());
+		if (e.name() == engineName) {
+			engine->setCurrentIndex(engine->count() - 1);
+			newAction->setChecked(true);
 		}
 	}
 }
@@ -958,11 +952,7 @@ void TeXDocument::typeset()
 			return;
 		}
 
-	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
-	if (app == NULL)
-		return; // actually, that would be an internal error!
-
-	Engine e = app->getNamedEngine(engine->currentText());
+	Engine e = QTeXApp::instance()->getNamedEngine(engine->currentText());
 	if (e.program() == "") {
 		statusBar()->showMessage(tr("%1 is not properly configured").arg(engine->currentText()), kStatusMessageDuration);
 		return;
@@ -987,7 +977,7 @@ void TeXDocument::typeset()
 	
 	process->setWorkingDirectory(fileInfo.canonicalPath());
 
-	const QStringList& binPaths = app->getBinaryPaths();
+	const QStringList& binPaths = QTeXApp::instance()->getBinaryPaths();
 	QStringList env = QProcess::systemEnvironment();
 	QStringListIterator iter(binPaths);
 	iter.toBack();
@@ -1171,7 +1161,7 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 		QTextCursor curs(textEdit->document());
 		curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
 		QString peekStr = curs.selectedText();
-		QRegExp re("%!TEX TS-program *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
+		QRegExp re("%!TEX (?:TS-)program *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
 		int pos = re.indexIn(peekStr);
 		if (pos > -1) {
 			QString name = re.cap(1).trimmed();

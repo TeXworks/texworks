@@ -309,14 +309,9 @@ void PrefsDialog::restoreDefaults()
 		
 		case 3:
 			// Typesetting
-			{
-				QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
-				if (app != NULL) {
-					app->setDefaultEngineList();
-					app->setDefaultPaths();
-					initPathAndToolLists();
-				}
-			}
+			QTeXApp::instance()->setDefaultEngineList();
+			QTeXApp::instance()->setDefaultPaths();
+			initPathAndToolLists();
 			autoHideOutput->setChecked(kDefault_HideConsole);
 			break;
 	}
@@ -326,16 +321,13 @@ void PrefsDialog::initPathAndToolLists()
 {
 	binPathList->clear();
 	toolList->clear();
-	QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
-	if (app != NULL) {
-		binPathList->addItems(app->getBinaryPaths());
-		engineList = app->getEngineList();
-		foreach (Engine e, engineList) {
-			toolList->addItem(e.name());
-			defaultTool->addItem(e.name());
-			if (e.name() == app->getDefaultEngine().name())
-				defaultTool->setCurrentIndex(defaultTool->count() - 1);
-		}
+	binPathList->addItems(QTeXApp::instance()->getBinaryPaths());
+	engineList = QTeXApp::instance()->getEngineList();
+	foreach (Engine e, engineList) {
+		toolList->addItem(e.name());
+		defaultTool->addItem(e.name());
+		if (e.name() == QTeXApp::instance()->getDefaultEngine().name())
+			defaultTool->setCurrentIndex(defaultTool->count() - 1);
 	}
 	if (binPathList->count() > 0)
 		binPathList->setCurrentItem(binPathList->item(0));
@@ -528,19 +520,15 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		}
 
 		// Typesetting
-		QTeXApp *app = qobject_cast<QTeXApp*>(qApp);
-		if (app != NULL) {
-			if (dlg.pathsChanged) {
-				QStringList paths;
-				for (int i = 0; i < dlg.binPathList->count(); ++i)
-					paths << dlg.binPathList->item(i)->text();
-				app->setBinaryPaths(paths);
-			}
-			if (dlg.toolsChanged) {
-				app->setEngineList(dlg.engineList);
-			}
-			app->setDefaultEngine(dlg.defaultTool->currentText());
+		if (dlg.pathsChanged) {
+			QStringList paths;
+			for (int i = 0; i < dlg.binPathList->count(); ++i)
+				paths << dlg.binPathList->item(i)->text();
+			QTeXApp::instance()->setBinaryPaths(paths);
 		}
+		if (dlg.toolsChanged)
+			QTeXApp::instance()->setEngineList(dlg.engineList);
+		QTeXApp::instance()->setDefaultEngine(dlg.defaultTool->currentText());
 	}
 
 	return result;

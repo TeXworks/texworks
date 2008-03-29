@@ -45,6 +45,8 @@ public:
 	QTextCodec *getDefaultCodec();
 	void setDefaultCodec(QTextCodec *codec);
 
+	static QTeXApp *instance();
+
 #ifdef Q_WS_MAC
 private:
 	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
@@ -100,6 +102,13 @@ private:
 	QStringList *binaryPaths;
 	QList<Engine> *engineList;
 	int defaultEngineIndex;
+
+	static QTeXApp *theAppInstance;
 };
+
+inline QTeXApp *QTeXApp::instance()
+{
+	return theAppInstance;
+}
 
 #endif
