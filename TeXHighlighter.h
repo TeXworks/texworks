@@ -13,6 +13,8 @@ class TeXHighlighter : public QSyntaxHighlighter
 
 public:
 	TeXHighlighter(QTextDocument *parent = 0);
+	
+	void setActive(bool active);
 
 protected:
 	void highlightBlock(const QString &text);
@@ -29,6 +31,8 @@ private:
 	QTextCharFormat packageFormat;
 	QTextCharFormat environmentFormat;
 	QTextCharFormat commentFormat;
+	
+	bool isActive;
 };
 
 #endif

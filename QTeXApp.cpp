@@ -51,8 +51,8 @@ void QTeXApp::init()
 #ifdef Q_WS_MAC
 	setQuitOnLastWindowClosed(false);
 
-//	extern void qt_mac_set_menubar_icons(bool);
-//	qt_mac_set_menubar_icons(false);
+	extern void qt_mac_set_menubar_icons(bool);
+	qt_mac_set_menubar_icons(false);
 
 	menuBar = new QMenuBar;
 

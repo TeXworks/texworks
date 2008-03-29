@@ -78,6 +78,7 @@ private slots:
 	void doComment();
 	void doUncomment();
 	void setWrapLines(bool wrap);
+	void setSyntaxColoring(bool coloring);
 	void copyToFind();
 	void copyToReplace();
 	void findSelection();
