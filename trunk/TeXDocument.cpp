@@ -406,7 +406,10 @@ void TeXDocument::loadFile(const QString &fileName)
 
 void TeXDocument::showPdfIfAvailable()
 {
-	QFileInfo fi(curFile);
+	findRootFilePath();
+	if (rootFilePath == "")
+		return;
+	QFileInfo fi(rootFilePath);
 	QString pdfName = fi.canonicalPath() + "/" + fi.completeBaseName() + ".pdf";
 	fi.setFile(pdfName);
 	if (fi.exists()) {
@@ -958,17 +961,10 @@ void TeXDocument::typeset()
 		return;
 	}
 
-	QFileInfo fileInfo(curFile);
-	QString rootDoc = findRootDocName();
-	if (rootDoc == "")
-		rootDoc = curFile;
-	else {
-		rootDoc = fileInfo.absolutePath() + "/" + rootDoc;
-		fileInfo = QFileInfo(rootDoc);
-	}
-
+	findRootFilePath();
+	QFileInfo fileInfo(rootFilePath);
 	if (!fileInfo.isReadable()) {
-		statusBar()->showMessage(tr("File %1 is not readable").arg(rootDoc), kStatusMessageDuration);
+		statusBar()->showMessage(tr("File %1 is not readable").arg(rootFilePath), kStatusMessageDuration);
 		return;
 	}
 
@@ -1181,15 +1177,24 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 	}
 }
 
-QString TeXDocument::findRootDocName()
+void TeXDocument::findRootFilePath()
 {
+	if (isUntitled) {
+		rootFilePath = "";
+		return;
+	}
+	QFileInfo fileInfo(curFile);
 	QString rootName;
 	QTextCursor curs(textEdit->document());
 	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
 	QString peekStr = curs.selectedText();
 	QRegExp re("%!TEX root *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
 	int pos = re.indexIn(peekStr);
-	if (pos > -1)
+	if (pos > -1) {
 		rootName = re.cap(1).trimmed();
-	return rootName;
+		QFileInfo rootFileInfo(fileInfo.canonicalPath() + "/" + rootName);
+		rootFilePath = rootFileInfo.canonicalFilePath();
+	}
+	else
+		rootFilePath = fileInfo.canonicalFilePath();
 }

@@ -17,6 +17,40 @@
 
 #pragma mark === QTeXUtils ===
 
+const QString QTeXUtils::getLibraryPath()
+{
+#ifdef Q_WS_MAC
+	QString libPath(QDir::homePath() + "/Library/" + TEXWORKS_NAME);
+#endif
+#ifdef Q_WS_X11
+	QString libPath(QDir::homePath() + "/." + TEXWORKS_NAME);
+#endif
+#ifdef Q_WS_WIN
+	QString libPath(QDir::homePath() + "/" + TEXWORKS_NAME);
+#endif
+	// check if libPath exists
+	QFileInfo info(libPath);
+	if (!info.exists()) {
+		// create libPath
+		if (QDir::root().mkpath(libPath)) {
+			QString cwd = QDir::currentPath();
+			if (QDir::setCurrent(libPath)) {
+				// create subdirs completion, templates, palettes, scripts
+				QDir libDir(libPath);
+				libDir.mkdir("completion");
+				libDir.mkdir("palettes");
+				libDir.mkdir("scripts");
+				libDir.mkdir("templates");
+				
+				// copy default contents from app resources into these
+			}
+			QDir::setCurrent(cwd);
+		}
+	}
+	
+	return libPath;
+}
+
 QList<QTextCodec*> *QTeXUtils::codecList = NULL;
 
 QList<QTextCodec*> *QTeXUtils::findCodecs()

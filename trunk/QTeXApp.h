@@ -7,8 +7,6 @@
 
 #include "QTeXUtils.h"
 
-#define TEXWORKS_NAME "TeXworks" /* app name, for use in menus, messages, etc */
-
 class QString;
 class QMenu;
 class QMenuBar;

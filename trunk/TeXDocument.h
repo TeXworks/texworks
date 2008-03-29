@@ -115,10 +115,11 @@ private:
 	void hideConsole();
 	void goToLine(int lineNo);
 	void updateTypesettingAction();
-	QString findRootDocName();
+	void findRootFilePath();
 
 	QTextCodec *codec;
 	QString curFile;
+	QString rootFilePath;
 	bool isUntitled;
 	TeXHighlighter *highlighter;
 	PDFDocument *pdfDoc;
