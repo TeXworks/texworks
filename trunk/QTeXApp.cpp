@@ -20,6 +20,8 @@
 
 const int kDefaultMaxRecentFiles = 10;
 
+QTeXApp *QTeXApp::theAppInstance = NULL;
+
 QTeXApp::QTeXApp(int &argc, char **argv)
 	: QApplication(argc, argv)
 	, defaultCodec(NULL)
@@ -83,6 +85,8 @@ void QTeXApp::init()
 	menuHelp->addAction(aboutAction);
 	connect(aboutAction, SIGNAL(triggered()), qApp, SLOT(about()));
 #endif
+
+	theAppInstance = this;
 }
 
 void QTeXApp::about()
