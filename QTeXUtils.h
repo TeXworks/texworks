@@ -5,6 +5,8 @@
 #include <QString>
 #include <QList>
 
+#define TEXWORKS_NAME "TeXworks" /* app name, for use in menus, messages, etc */
+
 class QMainWindow;
 class QCompleter;
 class TeXDocument;
@@ -13,6 +15,9 @@ class TeXDocument;
 class QTeXUtils
 {
 public:
+	// return the path to our "library" folder for resources like templates, completion lists, etc
+	static const QString getLibraryPath();
+
 	// return a sorted list of all the available text codecs
 	static QList<QTextCodec*> *findCodecs();
 

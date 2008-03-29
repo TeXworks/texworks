@@ -1,4 +1,5 @@
 #include "CompletingEdit.h"
+#include "QTeXUtils.h"
 
 #include <QCompleter>
 #include <QKeyEvent>
@@ -331,28 +332,12 @@ void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
 {
 	QStandardItemModel *model = new QStandardItemModel(0, 2, theCompleter); // columns are abbrev, expansion
 
-	QFileInfo	fileInfo;
-	const QString	filename = "TeXworks-completion.txt";
-	foreach (const QString& libPath, QCoreApplication::libraryPaths()) {
-		QDir	dir(libPath);
-#ifdef Q_WS_MAC
-		if (dir.dirName() == "MacOS") {
-			if (dir.cdUp())
-				if (dir.dirName() == "Contents") {
-					dir.cdUp(); // up to the .app package dir
-					dir.cdUp(); // and to the enclosing dir where the app is located
-				}
-		}
-#endif
-		fileInfo = QFileInfo(dir, filename);
-		if (fileInfo.exists())
-			break;
-	}
-
-	if (fileInfo.filePath() != "")
+	QDir completionDir(QTeXUtils::getLibraryPath() + "/completion");
+	foreach (QFileInfo fileInfo, completionDir.entryInfoList(QDir::Files | QDir::Readable, QDir::Name)) {
 		loadCompletionsFromFile(model, fileInfo.canonicalFilePath());
+	}
 
 	theCompleter->setModel(model);
 }
 
-QCompleter			*CompletingEdit::sharedCompleter = NULL;
+QCompleter	*CompletingEdit::sharedCompleter = NULL;
