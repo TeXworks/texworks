@@ -4,6 +4,7 @@
 
 TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	: QSyntaxHighlighter(parent)
+	, isActive(true)
 {
 	HighlightingRule rule;
 
@@ -35,13 +36,21 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 
 void TeXHighlighter::highlightBlock(const QString &text)
 {
-	foreach (HighlightingRule rule, highlightingRules) {
-		QRegExp expression(rule.pattern);
-		int index = text.indexOf(expression);
-		while (index >= 0) {
-			int length = expression.matchedLength();
-			setFormat(index, length, rule.format);
-			index = text.indexOf(expression, index + length);
+	if (isActive) {
+		foreach (HighlightingRule rule, highlightingRules) {
+			QRegExp expression(rule.pattern);
+			int index = text.indexOf(expression);
+			while (index >= 0) {
+				int length = expression.matchedLength();
+				setFormat(index, length, rule.format);
+				index = text.indexOf(expression, index + length);
+			}
 		}
 	}
+}
+
+void TeXHighlighter::setActive(bool active)
+{
+	isActive = active;
+	rehighlight();
 }

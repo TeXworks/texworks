@@ -57,6 +57,7 @@ void TeXDocument::init()
 {
 	pdfDoc = NULL;
 	process = NULL;
+	highlighter = NULL;
 
 	setupUi(this);
 
@@ -112,8 +113,6 @@ void TeXDocument::init()
 	connect(actionComment, SIGNAL(triggered()), this, SLOT(doComment()));
 	connect(actionUncomment, SIGNAL(triggered()), this, SLOT(doUncomment()));
 
-	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
-
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), actionSave, SLOT(setEnabled(bool)));
 	connect(textEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
@@ -147,13 +146,24 @@ void TeXDocument::init()
 
 	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(editMenuAboutToShow()));
 
-	highlighter = new TeXHighlighter(textEdit->document());
 	textEdit->installEventFilter(CmdKeyFilter::filter());
 
 	connect(inputLine, SIGNAL(returnPressed()), this, SLOT(acceptInputLine()));
 
 	QSettings settings;
 	QTeXUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
+
+	highlighter = new TeXHighlighter(textEdit->document());
+	bool b = settings.value("wrapLines", true).toBool();
+	actionWrap_Lines->setChecked(b);
+	setWrapLines(b);
+
+	b = settings.value("syntaxColoring", true).toBool();
+	actionSyntax_Coloring->setChecked(b);
+	setSyntaxColoring(b);
+	
+	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
+	connect(actionSyntax_Coloring, SIGNAL(triggered(bool)), this, SLOT(setSyntaxColoring(bool)));
 
 //	positionWindowOnScreen(NULL);
 
@@ -700,6 +710,11 @@ void TeXDocument::doUncomment()
 void TeXDocument::setWrapLines(bool wrap)
 {
 	textEdit->setWordWrapMode(wrap ? QTextOption::WordWrap : QTextOption::NoWrap);
+}
+
+void TeXDocument::setSyntaxColoring(bool coloring)
+{
+	highlighter->setActive(coloring);
 }
 
 void TeXDocument::doFindAgain()
