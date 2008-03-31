@@ -361,19 +361,58 @@ bool TeXDocument::maybeSave()
 	return true;
 }
 
-QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr)
+static char* texshopSynonyms[] = {
+	"MacOSRoman",		"Apple Roman",
+	"IsoLatin",			"ISO 8859-1",
+	"IsoLatin2",		"ISO 8859-2",
+	"IsoLatin5",		"ISO 8859-5",
+	"IsoLatin9",		"ISO 8859-9",
+//	"MacJapanese",		"",
+//	"DOSJapanese",		"",
+	"SJIS_X0213",		"Shift-JIS",
+	"EUC_JP",			"EUC-JP",
+//	"JISJapanese",		"",
+//	"MacKorean",		"",
+	"UTF-8 Unicode",	"UTF-8",
+	"Standard Unicode",	"UTF-16",
+//	"Mac Cyrillic",		"",
+//	"DOS Cyrillic",		"",
+//	"DOS Russian",		"",
+	"Windows Cyrillic",	"Windows-1251",
+	"KOI8_R",			"KOI8-R",
+//	"Mac Chinese Traditional",	"",
+//	"Mac Chinese Simplified",	"",
+//	"DOS Chinese Traditional",	"",
+//	"DOS Chinese Simplified",	"",
+//	"GBK",				"",
+//	"GB 2312",			"",
+	"GB 18030",			"GB18030-0",
+	NULL
+};
+
+QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName)
 {
 	// peek at the file for %!TEX encoding = ....
 	QRegExp re("%!TEX encoding *= *([^\\r\\n]+)[\\r\\n]", Qt::CaseInsensitive);
 	int pos = re.indexIn(peekStr);
 	QTextCodec *reqCodec = NULL;
 	if (pos > -1) {
-		QString codecName = re.cap(1).trimmed();
-		// FIXME: support TeXShop synonyms here
-		reqCodec = QTextCodec::codecForName(codecName.toAscii());
-		if (reqCodec == NULL)
-			fprintf(stderr, "no codec for <%s>, will use default\n", codecName.toAscii().data());
+		hasMetadata = true;
+		reqName = re.cap(1).trimmed();
+		reqCodec = QTextCodec::codecForName(reqName.toAscii());
+		if (reqCodec == NULL) {
+			static QHash<QString,QString> *synonyms = NULL;
+			if (synonyms == NULL) {
+				synonyms = new QHash<QString,QString>;
+				for (int i = 0; texshopSynonyms[i] != NULL; i += 2)
+					synonyms->insert(QString(texshopSynonyms[i]).toLower(), texshopSynonyms[i+1]);
+			}
+			if (synonyms->contains(reqName.toLower()))
+				reqCodec = QTextCodec::codecForName(synonyms->value(reqName.toLower()).toAscii());
+		}
 	}
+	else
+		hasMetadata = false;
 	return reqCodec;
 }
 
@@ -391,14 +430,25 @@ void TeXDocument::loadFile(const QString &fileName)
 	}
 
 	QString peekStr(file.peek(PEEK_LENGTH));
-	codec = scanForEncoding(peekStr);
+	QString reqName;
+	bool hasMetadata;
+	codec = scanForEncoding(peekStr, hasMetadata, reqName);
 	if (codec == NULL) {
 		codec = QTeXApp::instance()->getDefaultCodec();
+		if (hasMetadata) {
+			if (QMessageBox::warning(this, tr("Unrecognized encoding"),
+					tr("The text encoding %1 used in %2 is not supported.\n\n"
+					   "It will be interpreted as %3 instead, which may result in incorrect text.")
+						.arg(reqName)
+						.arg(fileName)
+						.arg(QString::fromAscii(codec->name())),
+					QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
+				return;
+		}
 	}
 	
 	QTextStream in(&file);
-	if (codec != NULL)
-		in.setCodec(codec);
+	in.setCodec(codec);
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	textEdit->setPlainText(in.readAll());
@@ -410,7 +460,7 @@ void TeXDocument::loadFile(const QString &fileName)
 	
 	statusBar()->showMessage(tr("File \"%1\" loaded (%2)")
 								.arg(QTeXUtils::strippedName(curFile))
-								.arg(QString::fromAscii(codec ? codec->name() : "default encoding")),
+								.arg(QString::fromAscii(codec->name())),
 								kStatusMessageDuration);
 }
 
@@ -437,6 +487,24 @@ void TeXDocument::pdfClosed()
 
 bool TeXDocument::saveFile(const QString &fileName)
 {
+	bool hasMetadata;
+	QString reqName;
+	QString theText = textEdit->toPlainText();
+	QTextCodec *newCodec = scanForEncoding(theText.toAscii().left(PEEK_LENGTH), hasMetadata, reqName);
+
+	if (newCodec != NULL)
+		codec = newCodec;
+	else if (hasMetadata) {
+		if (QMessageBox::warning(this, tr("Unrecognized encoding"),
+				tr("The text encoding %1 requested for %2 is not supported.\n\n"
+				   "It will be saved as %3 instead, which may result in incorrect text.")
+					.arg(reqName)
+					.arg(fileName)
+					.arg(QString(codec->name())),
+				QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
+			return false;
+	}
+
 	QFile file(fileName);
 	if (!file.open(QFile::WriteOnly | QFile::Text)) {
 		QMessageBox::warning(this, tr(TEXWORKS_NAME),
@@ -447,23 +515,17 @@ bool TeXDocument::saveFile(const QString &fileName)
 	}
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	
-	QString theText = textEdit->toPlainText();
-	QTextCodec *newCodec = scanForEncoding(theText.toAscii().left(PEEK_LENGTH));
-	if (newCodec != NULL)
-		codec = newCodec;
-	
 	QTextStream out(&file);
 	if (codec != NULL)
 		out.setCodec(codec);
 	out << theText;
-	QApplication::restoreOverrideCursor();
-
 	setCurrentFile(fileName);
 	statusBar()->showMessage(tr("File \"%1\" saved (%2)")
 								.arg(QTeXUtils::strippedName(curFile))
 								.arg(QString::fromAscii(codec ? codec->name() : "default encoding")),
 								kStatusMessageDuration);
+	QApplication::restoreOverrideCursor();
+
 	return true;
 }
 
@@ -1172,7 +1234,7 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 		QTextCursor curs(textEdit->document());
 		curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
 		QString peekStr = curs.selectedText();
-		QRegExp re("%!TEX (?:TS-)program *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
+		QRegExp re("%!TEX (?:TS-)?program *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
 		int pos = re.indexIn(peekStr);
 		if (pos > -1) {
 			QString name = re.cap(1).trimmed();

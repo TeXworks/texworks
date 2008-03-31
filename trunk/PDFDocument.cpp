@@ -20,6 +20,7 @@
 #include <QHash>
 #include <QList>
 #include <QStack>
+#include <QInputDialog>
 
 #include <math.h>
 
@@ -455,12 +456,19 @@ void PDFWidget::goLast()
 
 void PDFWidget::doPageDialog()
 {
+	bool ok;
+	setCursor(Qt::ArrowCursor);
+	int pageNo = QInputDialog::getInteger(this, tr("Go to Page"),
+									tr("Page number:"), pageIndex + 1,
+									1, document->numPages(), 1, &ok);
+	if (ok)
+		goToPage(pageNo - 1);
 }
 
 void PDFWidget::goToPage(int p)
 {
 	if (p != pageIndex) {
-		if (p > 0 && p < document->numPages()) {
+		if (p >= 0 && p < document->numPages()) {
 			pageIndex = p;
 			reloadPage();
 			update();
@@ -659,6 +667,7 @@ PDFDocument::init()
 	connect(actionPrevious_Page, SIGNAL(triggered()), pdfWidget, SLOT(goPrev()));
 	connect(actionNext_Page, SIGNAL(triggered()), pdfWidget, SLOT(goNext()));
 	connect(actionLast_Page, SIGNAL(triggered()), pdfWidget, SLOT(goLast()));
+	connect(actionGo_to_Page, SIGNAL(triggered()), pdfWidget, SLOT(doPageDialog()));
 	connect(pdfWidget, SIGNAL(changedPage(int)), this, SLOT(enablePageActions(int)));
 
 	connect(actionActual_Size, SIGNAL(triggered()), pdfWidget, SLOT(actualSize()));

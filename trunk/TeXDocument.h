@@ -103,7 +103,7 @@ private slots:
 private:
 	void init();
 	bool maybeSave();
-	QTextCodec *scanForEncoding(const QString &peekStr);
+	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
 	void loadFile(const QString &fileName);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
