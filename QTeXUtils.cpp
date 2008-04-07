@@ -17,7 +17,7 @@
 
 #pragma mark === QTeXUtils ===
 
-const QString QTeXUtils::getLibraryPath()
+const QString QTeXUtils::getLibraryPath(const QString& subdir)
 {
 #ifdef Q_WS_MAC
 	QString libPath(QDir::homePath() + "/Library/" + TEXWORKS_NAME);
@@ -28,6 +28,7 @@ const QString QTeXUtils::getLibraryPath()
 #ifdef Q_WS_WIN
 	QString libPath(QDir::homePath() + "/" + TEXWORKS_NAME);
 #endif
+	libPath += "/"  + subdir;
 	// check if libPath exists
 	QFileInfo info(libPath);
 	if (!info.exists()) {
@@ -35,14 +36,7 @@ const QString QTeXUtils::getLibraryPath()
 		if (QDir::root().mkpath(libPath)) {
 			QString cwd = QDir::currentPath();
 			if (QDir::setCurrent(libPath)) {
-				// create subdirs completion, templates, palettes, scripts
-				QDir libDir(libPath);
-				libDir.mkdir("completion");
-				libDir.mkdir("palettes");
-				libDir.mkdir("scripts");
-				libDir.mkdir("templates");
-				
-				// copy default contents from app resources into these
+				// copy default contents from app resources into the library dir
 			}
 			QDir::setCurrent(cwd);
 		}

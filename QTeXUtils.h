@@ -16,7 +16,7 @@ class QTeXUtils
 {
 public:
 	// return the path to our "library" folder for resources like templates, completion lists, etc
-	static const QString getLibraryPath();
+	static const QString getLibraryPath(const QString& subdir);
 
 	// return a sorted list of all the available text codecs
 	static QList<QTextCodec*> *findCodecs();

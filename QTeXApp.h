@@ -62,12 +62,6 @@ public slots:
 	// called by windows when they open/close/change name
 	void updateWindowMenus();
 
-	void stackWindows();
-	void tileWindows();
-	void tileTwoWindows();
-	
-	void syncFromSource(const QString& sourceFile, int lineNo);
-
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu
 	void recentFileActionsChanged();
@@ -83,9 +77,17 @@ signals:
 private slots:
 	void about();
 	void newFile();
+	void newFromTemplate();
 	void open();
 	void openRecentFile();
 	void preferences();
+
+	void stackWindows();
+	void tileWindows();
+	void tileTwoWindows();
+	
+	void syncFromSource(const QString& sourceFile, int lineNo);
+
 
 protected:
 	bool event(QEvent *);

@@ -28,7 +28,7 @@ class TeXDocument : public QMainWindow, private Ui::TeXDocument
 
 public:
 	TeXDocument();
-	TeXDocument(const QString &fileName);
+	TeXDocument(const QString &fileName, bool asTemplate = false);
 
 	virtual ~TeXDocument();
 
@@ -41,6 +41,7 @@ public:
 
 
 	TeXDocument *open(const QString &fileName);
+	void makeUntitled();
 	bool untitled()
 		{ return isUntitled; }
 	QString fileName() const
@@ -62,6 +63,7 @@ public slots:
 	
 private slots:
 	void newFile();
+	void newFromTemplate();
 	void open();
 	bool save();
 	bool saveAs();
@@ -104,7 +106,7 @@ private:
 	void init();
 	bool maybeSave();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
-	void loadFile(const QString &fileName);
+	void loadFile(const QString &fileName, bool asTemplate = false);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
 	void showPdfIfAvailable();
