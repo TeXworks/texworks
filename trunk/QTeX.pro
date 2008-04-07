@@ -44,14 +44,16 @@ HEADERS	+=	QTeXApp.h \
 			TeXHighlighter.h \
 			PDFDocument.h \
 			FindDialog.h \
-			PrefsDialog.h
+			PrefsDialog.h \
+			TemplateDialog.h
 
 FORMS	+=	TeXDocument.ui \
 			PDFDocument.ui \
 			Find.ui \
 			Replace.ui \
 			PrefsDialog.ui \
-			ToolConfig.ui
+			ToolConfig.ui \
+			TemplateDialog.ui
 
 SOURCES	+=	main.cpp \
 			QTeXApp.cpp \
@@ -61,6 +63,7 @@ SOURCES	+=	main.cpp \
 			TeXHighlighter.cpp \
 			PDFDocument.cpp \
 			FindDialog.cpp \
-			PrefsDialog.cpp
+			PrefsDialog.cpp \
+			TemplateDialog.cpp
 
 RESOURCES	+=	resources.qrc

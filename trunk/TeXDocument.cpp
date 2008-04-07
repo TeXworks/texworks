@@ -1,6 +1,7 @@
 #include "TeXDocument.h"
 #include "TeXHighlighter.h"
 #include "FindDialog.h"
+#include "TemplateDialog.h"
 #include "QTeXApp.h"
 #include "QTeXUtils.h"
 #include "PDFDocument.h"
@@ -33,14 +34,14 @@ QList<TeXDocument*> TeXDocument::docList;
 TeXDocument::TeXDocument()
 {
 	init();
-	setCurrentFile("");
+	makeUntitled();
 	statusBar()->showMessage(tr("New document"), kStatusMessageDuration);
 }
 
-TeXDocument::TeXDocument(const QString &fileName)
+TeXDocument::TeXDocument(const QString &fileName, bool asTemplate)
 {
 	init();
-	loadFile(fileName);
+	loadFile(fileName, asTemplate);
 }
 
 TeXDocument::~TeXDocument()
@@ -88,6 +89,7 @@ void TeXDocument::init()
 	connect(QTeXApp::instance(), SIGNAL(engineListChanged()), this, SLOT(updateEngineList()));
 	
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
+	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 	connect(actionAbout_QTeX, SIGNAL(triggered()), qApp, SLOT(about()));
 
@@ -186,6 +188,30 @@ void TeXDocument::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->selectWindow();
+}
+
+void TeXDocument::newFromTemplate()
+{
+	QString templateName = TemplateDialog::doTemplateDialog(this);
+	if (!templateName.isEmpty()) {
+		TeXDocument *doc = NULL;
+		if (isUntitled && textEdit->document()->isEmpty() && !isWindowModified()) {
+			loadFile(templateName, true);
+			doc = this;
+		}
+		else {
+			doc = new TeXDocument(templateName, true);
+		}
+		if (doc != NULL) {
+			doc->makeUntitled();
+			doc->selectWindow();
+		}
+	}
+}
+
+void TeXDocument::makeUntitled()
+{
+	setCurrentFile("");
 }
 
 void TeXDocument::open()
@@ -418,7 +444,7 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 
 #define PEEK_LENGTH 1024
 
-void TeXDocument::loadFile(const QString &fileName)
+void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
 {
 	QFile file(fileName);
 	if (!file.open(QFile::ReadOnly | QFile::Text)) {
@@ -454,14 +480,16 @@ void TeXDocument::loadFile(const QString &fileName)
 	textEdit->setPlainText(in.readAll());
 	QApplication::restoreOverrideCursor();
 
-	setCurrentFile(fileName);
-	showPdfIfAvailable();
-	selectWindow();
-	
-	statusBar()->showMessage(tr("File \"%1\" loaded (%2)")
-								.arg(QTeXUtils::strippedName(curFile))
-								.arg(QString::fromAscii(codec->name())),
-								kStatusMessageDuration);
+	if (!asTemplate) {
+		setCurrentFile(fileName);
+		showPdfIfAvailable();
+		selectWindow();
+		
+		statusBar()->showMessage(tr("File \"%1\" loaded (%2)")
+									.arg(QTeXUtils::strippedName(curFile))
+									.arg(QString::fromAscii(codec->name())),
+									kStatusMessageDuration);
+	}
 }
 
 void TeXDocument::showPdfIfAvailable()

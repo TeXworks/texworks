@@ -661,6 +661,7 @@ PDFDocument::init()
 	connect(actionAbout_QTeX, SIGNAL(triggered()), qApp, SLOT(about()));
 
 	connect(actionNew, SIGNAL(triggered()), qApp, SLOT(newFile()));
+	connect(actionNew_from_Template, SIGNAL(triggered()), qApp, SLOT(newFromTemplate()));
 	connect(actionOpen, SIGNAL(triggered()), qApp, SLOT(open()));
 
 	connect(actionFirst_Page, SIGNAL(triggered()), pdfWidget, SLOT(goFirst()));

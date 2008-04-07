@@ -3,6 +3,7 @@
 #include "TeXDocument.h"
 #include "PDFDocument.h"
 #include "PrefsDialog.h"
+#include "TemplateDialog.h"
 
 #include <QMessageBox>
 #include <QFileDialog>
@@ -64,6 +65,11 @@ void QTeXApp::init()
 	menuFile->addAction(actionNew);
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 
+	QAction *actionNew_from_Template = new QAction(tr("New from Template..."), this);
+	actionNew_from_Template->setShortcut(QKeySequence("Ctrl+Shift+N"));
+	menuFile->addAction(actionNew_from_Template);
+	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
+
 	QAction *actionPreferences = new QAction(tr("Preferences..."), this);
 	actionPreferences->setIcon(QIcon(":/images/tango/preferences-system.png"));
 	menuFile->addAction(actionPreferences);
@@ -103,6 +109,18 @@ void QTeXApp::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->show();
+}
+
+void QTeXApp::newFromTemplate()
+{
+	QString templateName = TemplateDialog::doTemplateDialog(NULL);
+	if (!templateName.isEmpty()) {
+		TeXDocument *doc = new TeXDocument(templateName, true);
+		if (doc != NULL) {
+			doc->makeUntitled();
+			doc->selectWindow();
+		}
+	}
 }
 
 void QTeXApp::openRecentFile()
