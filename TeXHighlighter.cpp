@@ -28,7 +28,7 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	rule.format = packageFormat;
 	highlightingRules.append(rule);
 
-	commentFormat.setForeground(Qt::darkGray);
+	commentFormat.setForeground(Qt::red);
 	rule.pattern = QRegExp("%.*");
 	rule.format = commentFormat;
 	highlightingRules.append(rule);
