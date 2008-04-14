@@ -8,12 +8,13 @@ TARGET		=	TeXworks
 DEPENDPATH	+=	.
 INCLUDEPATH	+=	.
 
+QT			+=	xml
+
 macx {
 	INCLUDEPATH += /usr/local/include/poppler
 	INCLUDEPATH += /usr/local/include/poppler/qt4
 
 	LIBS += -L/usr/local/lib -lpoppler-qt4 -lpoppler
-#	LIBS += -L/usr/X11R6/lib -lfontconfig
 
 	QMAKE_INFO_PLIST = TeXworks.plist
 }
@@ -26,8 +27,6 @@ linux {
 }
 
 win32 {
-	QT	+=	xml
-
 	INCLUDEPATH += X:/QTeX-libs/poppler-mingw32/poppler/inst/usr/local/include/poppler
 	INCLUDEPATH += X:/QTeX-libs/poppler-mingw32/poppler/inst/usr/local/include/poppler/qt4
 
