@@ -15,6 +15,9 @@ class TeXDocument;
 class QTeXUtils
 {
 public:
+	// is the given file a PDF document?
+	static bool isPDFfile(const QString& fileName);
+
 	// return the path to our "library" folder for resources like templates, completion lists, etc
 	static const QString getLibraryPath(const QString& subdir);
 

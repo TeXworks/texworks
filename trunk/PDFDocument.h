@@ -108,10 +108,13 @@ private:
 	void adjustSize();
 	void updateStatusBar();
 	void updateCursor();
+	void updateCursor(const QPoint& pos);
 	void useMagnifier(const QMouseEvent *inEvent);
+	void doLink(const Poppler::Link *link);
 	
 	Poppler::Document	*document;
 	Poppler::Page		*page;
+	Poppler::Link		*clickedLink;
 
 	int pageIndex;
 	qreal	scaleFactor;
@@ -143,7 +146,7 @@ class PDFDocument : public QMainWindow, private Ui::PDFDocument
 	Q_OBJECT
 
 public:
-	PDFDocument(const QString &fileName, TeXDocument *sourceDoc);
+	PDFDocument(const QString &fileName, TeXDocument *sourceDoc = NULL);
 	virtual ~PDFDocument();
 
 	static PDFDocument *findDocument(const QString &fileName);

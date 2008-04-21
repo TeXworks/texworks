@@ -126,13 +126,8 @@ void QTeXApp::newFromTemplate()
 void QTeXApp::openRecentFile()
 {
 	QAction *action = qobject_cast<QAction *>(sender());
-	if (action) {
-		TeXDocument *doc = qobject_cast<TeXDocument *>(activeWindow());
-		if (doc)
-			doc->open(action->data().toString());
-		else
-			open(action->data().toString());
-	}
+	if (action)
+		open(action->data().toString());
 }
 
 void QTeXApp::open()
@@ -143,8 +138,15 @@ void QTeXApp::open()
 
 void QTeXApp::open(const QString &fileName)
 {
-	// TODO: support directly opening a PDF?
-	TeXDocument::openDocument(fileName);
+	if (QTeXUtils::isPDFfile(fileName)) {
+		PDFDocument *doc = PDFDocument::findDocument(fileName);
+		if (doc == NULL)
+			doc = new PDFDocument(fileName);
+		if (doc != NULL)
+			doc->selectWindow();
+	}
+	else
+		TeXDocument::openDocument(fileName);
 }
 
 void QTeXApp::preferences()
