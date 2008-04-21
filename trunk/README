@@ -1,0 +1,28 @@
+License
+=======
+
+TeXworks is copyright (c) 2007-08 by Jonathan Kew.
+Distributed under the terms of the GNU General Public License, version 2.0.
+See the file COPYING for details.
+
+Building TeXworks
+=================
+
+Notes by Jonathan Kew, 2008-04-21
+
+To build TeXworks from source, you will need to install developer packages for Qt4 (4.3.2 is known to work; later versions should also work) and Poppler (0.8.0 or later), along with their dependencies (such as Freetype, fontconfig, zlib, etc.) Details will depend on your platform.
+
+After installing the necessary libraries (and their headers), check the TeXworks.pro file and update paths as necessary; some of the paths currently in the project file are specific to one of my build machines.
+
+Once the project file is correct, run qmake to create a Makefile or Xcode project, and then run make or use Xcode to build the application. Do not run "qmake -pro" to recreate the .pro file, as it has been hand-edited.
+
+The current TeXworks prototype has been successfully built with
+ - Xcode 2.2 on Mac OS X 10.4
+ - gcc 4 on Linux
+ - mingw32 on Windows XP
+ - mingw32 cross-compiler hosted on Mac OS X
+Getting all the right libraries built and installed for the mingw32 can be tricky. By slightly patching poppler 0.8.0, it is possible to build a version that does not depend on fontconfig (and thence on various other libraries), though it will then not work properly for PDFs with non-embedded fonts.
+
+To avoid having to build the poppler dependencies for Windows, you can get precompiled libraries from the KDE on Windows project.
+
+Alternatively, I believe a Visual C build would have fewer dependencies, as poppler builds differently under VC (that's another story...), but I have not tried this personally.
