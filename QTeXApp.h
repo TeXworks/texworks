@@ -1,11 +1,11 @@
-#ifndef QTeXApp_H
-#define QTeXApp_H
+#ifndef TWApp_H
+#define TWApp_H
 
 #include <QApplication>
 #include <QList>
 #include <QAction>
 
-#include "QTeXUtils.h"
+#include "TWUtils.h"
 
 class QString;
 class QMenu;
@@ -15,12 +15,12 @@ class QMenuBar;
 const int kStatusMessageDuration = 3000;
 const int kNewWindowOffset = 32;
 
-class QTeXApp : public QApplication
+class TWApp : public QApplication
 {
 	Q_OBJECT
 
 public:
-	QTeXApp(int &argc, char **argv);
+	TWApp(int &argc, char **argv);
 
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
@@ -43,7 +43,7 @@ public:
 	QTextCodec *getDefaultCodec();
 	void setDefaultCodec(QTextCodec *codec);
 
-	static QTeXApp *instance();
+	static TWApp *instance();
 
 #ifdef Q_WS_MAC
 private:
@@ -103,10 +103,10 @@ private:
 	QList<Engine> *engineList;
 	int defaultEngineIndex;
 
-	static QTeXApp *theAppInstance;
+	static TWApp *theAppInstance;
 };
 
-inline QTeXApp *QTeXApp::instance()
+inline TWApp *TWApp::instance()
 {
 	return theAppInstance;
 }

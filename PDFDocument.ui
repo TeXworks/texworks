@@ -26,7 +26,7 @@
     <property name="title" >
      <string>Help</string>
     </property>
-    <addaction name="actionAbout_QTeX" />
+    <addaction name="actionAbout_TW" />
    </widget>
    <widget class="QMenu" name="menuFile" >
     <property name="title" >
@@ -134,7 +134,7 @@
    <addaction name="actionSelect_Text" />
    <addaction name="actionSelect_Image" />
   </widget>
-  <action name="actionAbout_QTeX" >
+  <action name="actionAbout_TW" >
    <property name="text" >
     <string>About TeXworks...</string>
    </property>

@@ -1,4 +1,4 @@
-#include "QTeXUtils.h"
+#include "TWUtils.h"
 
 #include "TeXDocument.h"
 #include "PDFDocument.h"
@@ -16,9 +16,9 @@
 #include <QTextCodec>
 #include <QFile>
 
-#pragma mark === QTeXUtils ===
+#pragma mark === TWUtils ===
 
-bool QTeXUtils::isPDFfile(const QString& fileName)
+bool TWUtils::isPDFfile(const QString& fileName)
 {
 	QFile theFile(fileName);
 	if (theFile.open(QIODevice::ReadOnly)) {
@@ -29,7 +29,7 @@ bool QTeXUtils::isPDFfile(const QString& fileName)
 	return false;
 }
 
-const QString QTeXUtils::getLibraryPath(const QString& subdir)
+const QString TWUtils::getLibraryPath(const QString& subdir)
 {
 #ifdef Q_WS_MAC
 	QString libPath(QDir::homePath() + "/Library/" + TEXWORKS_NAME);
@@ -57,9 +57,9 @@ const QString QTeXUtils::getLibraryPath(const QString& subdir)
 	return libPath;
 }
 
-QList<QTextCodec*> *QTeXUtils::codecList = NULL;
+QList<QTextCodec*> *TWUtils::codecList = NULL;
 
-QList<QTextCodec*> *QTeXUtils::findCodecs()
+QList<QTextCodec*> *TWUtils::findCodecs()
 {
 	if (codecList != NULL)
 		return codecList;
@@ -90,12 +90,12 @@ QList<QTextCodec*> *QTeXUtils::findCodecs()
 	return codecList;
 }
 
-QString QTeXUtils::strippedName(const QString &fullFileName)
+QString TWUtils::strippedName(const QString &fullFileName)
 {
 	return QFileInfo(fullFileName).fileName();
 }
 
-void QTeXUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu) /* static */
+void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu) /* static */
 {
 	QSettings settings;
 	QStringList files = settings.value("recentFileList").toStringList();
@@ -115,14 +115,14 @@ void QTeXUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &action
 	}
 
 	for (int i = 0; i < numRecentFiles; ++i) {
-		QString text = QTeXUtils::strippedName(files[i]);
+		QString text = TWUtils::strippedName(files[i]);
 		actions[i]->setText(text);
 		actions[i]->setData(files[i]);
 		actions[i]->setVisible(true);
 	}
 }
 
-void QTeXUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
+void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 {
 	// shorten the menu by removing everything from the first "selectWindow" action onwards
 	QList<QAction*> actions = menu->actions();
@@ -165,7 +165,7 @@ void QTeXUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	}
 }
 
-void QTeXUtils::ensureOnScreen(QWidget *window)
+void TWUtils::ensureOnScreen(QWidget *window)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect screenRect = desktop->availableGeometry(window);
@@ -190,7 +190,7 @@ void QTeXUtils::ensureOnScreen(QWidget *window)
 												));
 }
 
-void QTeXUtils::zoomToScreen(QWidget *window)
+void TWUtils::zoomToScreen(QWidget *window)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect screenRect = desktop->availableGeometry(window);
@@ -198,7 +198,7 @@ void QTeXUtils::zoomToScreen(QWidget *window)
 	window->setGeometry(screenRect);
 }
 
-void QTeXUtils::sideBySide(QWidget *window1, QWidget *window2)
+void TWUtils::sideBySide(QWidget *window1, QWidget *window2)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect screenRect = desktop->availableGeometry(window1);
@@ -217,15 +217,15 @@ void QTeXUtils::sideBySide(QWidget *window1, QWidget *window2)
 	window2->resize(r.width() - wDiff, r.height() - hDiff);
 }
 
-void QTeXUtils::tile(QList<QWidget*> windows)
+void TWUtils::tile(QList<QWidget*> windows)
 {
 }
 
-void QTeXUtils::stack(QList<QWidget*> windows)
+void TWUtils::stack(QList<QWidget*> windows)
 {
 }
 
-void QTeXUtils::applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool showText)
+void TWUtils::applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool showText)
 {
 	iconSize = iconSize * 8 + 8;	// convert 1,2,3 to 16,24,32
 	foreach (QObject *object, theWindow->children()) {
@@ -244,7 +244,7 @@ void QTeXUtils::applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool s
 SelWinAction::SelWinAction(QObject *parent, const QString &fileName)
 	: QAction(parent)
 {
-	setText(QTeXUtils::strippedName(fileName));
+	setText(TWUtils::strippedName(fileName));
 	setData(fileName);
 }
 

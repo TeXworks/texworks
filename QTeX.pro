@@ -36,8 +36,8 @@ win32 {
 }
 
 # Input
-HEADERS	+=	QTeXApp.h \
-			QTeXUtils.h \
+HEADERS	+=	TWApp.h \
+			TWUtils.h \
 			TeXDocument.h \
 			CompletingEdit.h \
 			TeXHighlighter.h \
@@ -55,8 +55,8 @@ FORMS	+=	TeXDocument.ui \
 			TemplateDialog.ui
 
 SOURCES	+=	main.cpp \
-			QTeXApp.cpp \
-			QTeXUtils.cpp \
+			TWApp.cpp \
+			TWUtils.cpp \
 			TeXDocument.cpp \
 			CompletingEdit.cpp \
 			TeXHighlighter.cpp \

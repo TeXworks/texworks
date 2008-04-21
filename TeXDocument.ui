@@ -272,7 +272,7 @@
     <property name="title" >
      <string>Help</string>
     </property>
-    <addaction name="actionAbout_QTeX" />
+    <addaction name="actionAbout_TW" />
    </widget>
    <addaction name="menuFile" />
    <addaction name="menuEdit" />
@@ -646,7 +646,7 @@
     <string>None</string>
    </property>
   </action>
-  <action name="actionAbout_QTeX" >
+  <action name="actionAbout_TW" >
    <property name="text" >
     <string>About TeXworks...</string>
    </property>

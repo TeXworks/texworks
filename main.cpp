@@ -1,9 +1,9 @@
-#include "QTeXApp.h"
+#include "TWApp.h"
 #include "TeXDocument.h"
 
 int main(int argc, char *argv[])
 {
-	QTeXApp app(argc, argv);
+	TWApp app(argc, argv);
 
 	// first argument is the executable name, so we skip that
 	for (int i = 1; i < argc; ++i)

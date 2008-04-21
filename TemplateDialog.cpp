@@ -1,6 +1,6 @@
 #include "TemplateDialog.h"
 #include "TeXHighlighter.h"
-#include "QTeXUtils.h"
+#include "TWUtils.h"
 
 #include <QDirModel>
 #include <QFile>
@@ -25,7 +25,7 @@ void TemplateDialog::init()
 {
 	setupUi(this);
 
-	QString templatePath = QTeXUtils::getLibraryPath("templates");
+	QString templatePath = TWUtils::getLibraryPath("templates");
 		// do this before creating the model, as getLibraryPath might initialize a new dir
 		
 	model = new QDirModel;

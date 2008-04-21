@@ -2,8 +2,8 @@
 #include "TeXHighlighter.h"
 #include "FindDialog.h"
 #include "TemplateDialog.h"
-#include "QTeXApp.h"
-#include "QTeXUtils.h"
+#include "TWApp.h"
+#include "TWUtils.h"
 #include "PDFDocument.h"
 
 #include <QCloseEvent>
@@ -77,8 +77,8 @@ void TeXDocument::init()
 	engineActions = new QActionGroup(this);
 	connect(engineActions, SIGNAL(triggered(QAction*)), this, SLOT(selectedEngine(QAction*)));
 	
-	codec = QTeXApp::instance()->getDefaultCodec();
-	engineName = QTeXApp::instance()->getDefaultEngine().name();
+	codec = TWApp::instance()->getDefaultCodec();
+	engineName = TWApp::instance()->getDefaultEngine().name();
 	engine = new QComboBox(this);
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
@@ -86,12 +86,12 @@ void TeXDocument::init()
 	updateEngineList();
 	connect(engine, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(selectedEngine(const QString&)));
 	
-	connect(QTeXApp::instance(), SIGNAL(engineListChanged()), this, SLOT(updateEngineList()));
+	connect(TWApp::instance(), SIGNAL(engineListChanged()), this, SLOT(updateEngineList()));
 	
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
-	connect(actionAbout_QTeX, SIGNAL(triggered()), qApp, SLOT(about()));
+	connect(actionAbout_TW, SIGNAL(triggered()), qApp, SLOT(about()));
 
 	connect(actionSave, SIGNAL(triggered()), this, SLOT(save()));
 	connect(actionSave_As, SIGNAL(triggered()), this, SLOT(saveAs()));
@@ -153,7 +153,7 @@ void TeXDocument::init()
 	connect(inputLine, SIGNAL(returnPressed()), this, SLOT(acceptInputLine()));
 
 	QSettings settings;
-	QTeXUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
+	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
 	highlighter = new TeXHighlighter(textEdit->document());
 	bool b = settings.value("wrapLines", true).toBool();
@@ -223,7 +223,7 @@ void TeXDocument::open()
 		options = QFileDialog::DontUseSheet;
 #endif
 	QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Open File")), QString(), QString(), NULL, options);
-	QTeXApp::instance()->open(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
+	TWApp::instance()->open(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
 }
 
 TeXDocument* TeXDocument::open(const QString &fileName)
@@ -377,7 +377,7 @@ bool TeXDocument::maybeSave()
 		ret = QMessageBox::warning(this, tr(TEXWORKS_NAME),
 					 tr("The document \"%1\" has been modified.\n"
 						"Do you want to save your changes?")
-						.arg(QTeXUtils::strippedName(curFile)),
+						.arg(TWUtils::strippedName(curFile)),
 					 QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 		if (ret == QMessageBox::Save)
 			return save();
@@ -460,7 +460,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
 	bool hasMetadata;
 	codec = scanForEncoding(peekStr, hasMetadata, reqName);
 	if (codec == NULL) {
-		codec = QTeXApp::instance()->getDefaultCodec();
+		codec = TWApp::instance()->getDefaultCodec();
 		if (hasMetadata) {
 			if (QMessageBox::warning(this, tr("Unrecognized encoding"),
 					tr("The text encoding %1 used in %2 is not supported.\n\n"
@@ -486,7 +486,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
 		selectWindow();
 		
 		statusBar()->showMessage(tr("File \"%1\" loaded (%2)")
-									.arg(QTeXUtils::strippedName(curFile))
+									.arg(TWUtils::strippedName(curFile))
 									.arg(QString::fromAscii(codec->name())),
 									kStatusMessageDuration);
 	}
@@ -502,7 +502,7 @@ void TeXDocument::showPdfIfAvailable()
 	fi.setFile(pdfName);
 	if (fi.exists()) {
 		pdfDoc = new PDFDocument(pdfName, this);
-		QTeXUtils::sideBySide(this, pdfDoc);
+		TWUtils::sideBySide(this, pdfDoc);
 		pdfDoc->show();
 		connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
 	}
@@ -549,7 +549,7 @@ bool TeXDocument::saveFile(const QString &fileName)
 	out << theText;
 	setCurrentFile(fileName);
 	statusBar()->showMessage(tr("File \"%1\" saved (%2)")
-								.arg(QTeXUtils::strippedName(curFile))
+								.arg(TWUtils::strippedName(curFile))
 								.arg(QString::fromAscii(codec ? codec->name() : "default encoding")),
 								kStatusMessageDuration);
 	QApplication::restoreOverrideCursor();
@@ -574,30 +574,30 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	textEdit->document()->setModified(false);
 	setWindowModified(false);
 
-	setWindowTitle(tr("%1[*] - %2").arg(QTeXUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
+	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
 
 	if (!isUntitled) {
 		QSettings settings;
 		QStringList files = settings.value("recentFileList").toStringList();
 		files.removeAll(fileName);
 		files.prepend(fileName);
-		while (files.size() > QTeXApp::instance()->maxRecentFiles())
+		while (files.size() > TWApp::instance()->maxRecentFiles())
 			files.removeLast();
 		settings.setValue("recentFileList", files);
-		QTeXApp::instance()->updateRecentFileActions();
+		TWApp::instance()->updateRecentFileActions();
 	}
 	
-	QTeXApp::instance()->updateWindowMenus();
+	TWApp::instance()->updateWindowMenus();
 }
 
 void TeXDocument::updateRecentFileActions()
 {
-	QTeXUtils::updateRecentFileActions(this, recentFileActions, menuRecent);
+	TWUtils::updateRecentFileActions(this, recentFileActions, menuRecent);
 }
 
 void TeXDocument::updateWindowMenu()
 {
-	QTeXUtils::updateWindowMenu(this, menuWindow);
+	TWUtils::updateWindowMenu(this, menuWindow);
 }
 
 void TeXDocument::updateEngineList()
@@ -607,7 +607,7 @@ void TeXDocument::updateEngineList()
 	while (engineActions->actions().count() > 0)
 		engineActions->removeAction(engineActions->actions().last());
 	engine->clear();
-	foreach (Engine e, QTeXApp::instance()->getEngineList()) {
+	foreach (Engine e, TWApp::instance()->getEngineList()) {
 		QAction *newAction = new QAction(e.name(), engineActions);
 		newAction->setCheckable(true);
 		menuRun->addAction(newAction);
@@ -1060,7 +1060,7 @@ void TeXDocument::typeset()
 			return;
 		}
 
-	Engine e = QTeXApp::instance()->getNamedEngine(engine->currentText());
+	Engine e = TWApp::instance()->getNamedEngine(engine->currentText());
 	if (e.program() == "") {
 		statusBar()->showMessage(tr("%1 is not properly configured").arg(engine->currentText()), kStatusMessageDuration);
 		return;
@@ -1078,7 +1078,7 @@ void TeXDocument::typeset()
 	
 	process->setWorkingDirectory(fileInfo.canonicalPath());
 
-	const QStringList& binPaths = QTeXApp::instance()->getBinaryPaths();
+	const QStringList& binPaths = TWApp::instance()->getBinaryPaths();
 	QStringList env = QProcess::systemEnvironment();
 	QStringListIterator iter(binPaths);
 	iter.toBack();
