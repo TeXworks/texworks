@@ -1,7 +1,7 @@
 #include "PDFDocument.h"
 #include "TeXDocument.h"
-#include "QTeXApp.h"
-#include "QTeXUtils.h"
+#include "TWApp.h"
+#include "TWUtils.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -769,7 +769,7 @@ PDFDocument::init()
 
 	document = NULL;
 	
-	connect(actionAbout_QTeX, SIGNAL(triggered()), qApp, SLOT(about()));
+	connect(actionAbout_TW, SIGNAL(triggered()), qApp, SLOT(about()));
 
 	connect(actionNew, SIGNAL(triggered()), qApp, SLOT(newFile()));
 	connect(actionNew_from_Template, SIGNAL(triggered()), qApp, SLOT(newFromTemplate()));
@@ -814,17 +814,17 @@ PDFDocument::init()
 	connect(qApp, SIGNAL(syncPdf(const QString&, int)), this, SLOT(syncFromSource(const QString&, int)));
 
 	QSettings settings;
-	QTeXUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
+	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 }
  
 void PDFDocument::updateRecentFileActions()
 {
-	QTeXUtils::updateRecentFileActions(this, recentFileActions, menuRecent);
+	TWUtils::updateRecentFileActions(this, recentFileActions, menuRecent);
 }
 
 void PDFDocument::updateWindowMenu()
 {
-	QTeXUtils::updateWindowMenu(this, menuWindow);
+	TWUtils::updateWindowMenu(this, menuWindow);
 }
 
 void PDFDocument::selectWindow()
@@ -870,7 +870,7 @@ void PDFDocument::reload()
 		loadSyncData();
 	}
 	else
-		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(QTeXUtils::strippedName(curFile)));
+		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(TWUtils::strippedName(curFile)));
 }
 
 #define MAX_SYNC_LINE_LENGTH	(PATH_MAX + 256)
@@ -1076,8 +1076,8 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo)
 void PDFDocument::setCurrentFile(const QString &fileName)
 {
 	curFile = QFileInfo(fileName).canonicalFilePath();
-	setWindowTitle(tr("%1[*] - %2").arg(QTeXUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
-	QTeXApp::instance()->updateWindowMenus();
+	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
+	TWApp::instance()->updateWindowMenus();
 }
  
 PDFDocument *PDFDocument::findDocument(const QString &fileName)

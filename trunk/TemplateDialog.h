@@ -5,7 +5,7 @@
 #include <QString>
 #include <QItemSelection>
 
-#include "QTeXUtils.h"
+#include "TWUtils.h"
 
 #include "ui_TemplateDialog.h"
 

@@ -1,5 +1,5 @@
 #include "PrefsDialog.h"
-#include "QTeXApp.h"
+#include "TWApp.h"
 #include "PDFDocument.h"
 
 #include <QSettings>
@@ -309,8 +309,8 @@ void PrefsDialog::restoreDefaults()
 		
 		case 3:
 			// Typesetting
-			QTeXApp::instance()->setDefaultEngineList();
-			QTeXApp::instance()->setDefaultPaths();
+			TWApp::instance()->setDefaultEngineList();
+			TWApp::instance()->setDefaultPaths();
 			initPathAndToolLists();
 			autoHideOutput->setChecked(kDefault_HideConsole);
 			break;
@@ -321,12 +321,12 @@ void PrefsDialog::initPathAndToolLists()
 {
 	binPathList->clear();
 	toolList->clear();
-	binPathList->addItems(QTeXApp::instance()->getBinaryPaths());
-	engineList = QTeXApp::instance()->getEngineList();
+	binPathList->addItems(TWApp::instance()->getBinaryPaths());
+	engineList = TWApp::instance()->getEngineList();
 	foreach (Engine e, engineList) {
 		toolList->addItem(e.name());
 		defaultTool->addItem(e.name());
-		if (e.name() == QTeXApp::instance()->getDefaultEngine().name())
+		if (e.name() == TWApp::instance()->getDefaultEngine().name())
 			defaultTool->setCurrentIndex(defaultTool->count() - 1);
 	}
 	if (binPathList->count() > 0)
@@ -342,7 +342,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	PrefsDialog dlg(NULL);
 	
 	QStringList nameList;
-	foreach (QTextCodec *codec, *QTeXUtils::findCodecs())
+	foreach (QTextCodec *codec, *TWUtils::findCodecs())
 		nameList.append(codec->name());
 	dlg.encoding->addItems(nameList);
 	
@@ -462,7 +462,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			foreach (QWidget *widget, qApp->topLevelWidgets()) {
 				QMainWindow *theWindow = qobject_cast<QMainWindow*>(widget);
 				if (theWindow != NULL)
-					QTeXUtils::applyToolbarOptions(theWindow, iconSize, showText);
+					TWUtils::applyToolbarOptions(theWindow, iconSize, showText);
 			}
 		}
 		
@@ -524,11 +524,11 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			QStringList paths;
 			for (int i = 0; i < dlg.binPathList->count(); ++i)
 				paths << dlg.binPathList->item(i)->text();
-			QTeXApp::instance()->setBinaryPaths(paths);
+			TWApp::instance()->setBinaryPaths(paths);
 		}
 		if (dlg.toolsChanged)
-			QTeXApp::instance()->setEngineList(dlg.engineList);
-		QTeXApp::instance()->setDefaultEngine(dlg.defaultTool->currentText());
+			TWApp::instance()->setEngineList(dlg.engineList);
+		TWApp::instance()->setDefaultEngine(dlg.defaultTool->currentText());
 	}
 
 	return result;

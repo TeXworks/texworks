@@ -1,5 +1,5 @@
-#ifndef QTeXUtils_H
-#define QTeXUtils_H
+#ifndef TWUtils_H
+#define TWUtils_H
 
 #include <QAction>
 #include <QString>
@@ -12,7 +12,7 @@ class QCompleter;
 class TeXDocument;
 
 // static utility methods
-class QTeXUtils
+class TWUtils
 {
 public:
 	// is the given file a PDF document?
@@ -42,7 +42,7 @@ public:
 	static void applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool showText);
 
 private:
-	QTeXUtils();
+	TWUtils();
 
 	static QList<QTextCodec*> *codecList;
 };

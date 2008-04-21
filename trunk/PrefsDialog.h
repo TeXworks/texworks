@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QList>
 
-#include "QTeXUtils.h"
+#include "TWUtils.h"
 
 #include "ui_PrefsDialog.h"
 #include "ui_ToolConfig.h"

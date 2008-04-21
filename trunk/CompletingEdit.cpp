@@ -1,5 +1,5 @@
 #include "CompletingEdit.h"
-#include "QTeXUtils.h"
+#include "TWUtils.h"
 
 #include <QCompleter>
 #include <QKeyEvent>
@@ -332,7 +332,7 @@ void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
 {
 	QStandardItemModel *model = new QStandardItemModel(0, 2, theCompleter); // columns are abbrev, expansion
 
-	QDir completionDir(QTeXUtils::getLibraryPath("completion"));
+	QDir completionDir(TWUtils::getLibraryPath("completion"));
 	foreach (QFileInfo fileInfo, completionDir.entryInfoList(QDir::Files | QDir::Readable, QDir::Name)) {
 		loadCompletionsFromFile(model, fileInfo.canonicalFilePath());
 	}

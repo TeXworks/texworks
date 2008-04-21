@@ -1,5 +1,5 @@
-#include "QTeXApp.h"
-#include "QTeXUtils.h"
+#include "TWApp.h"
+#include "TWUtils.h"
 #include "TeXDocument.h"
 #include "PDFDocument.h"
 #include "PrefsDialog.h"
@@ -21,9 +21,9 @@
 
 const int kDefaultMaxRecentFiles = 10;
 
-QTeXApp *QTeXApp::theAppInstance = NULL;
+TWApp *TWApp::theAppInstance = NULL;
 
-QTeXApp::QTeXApp(int &argc, char **argv)
+TWApp::TWApp(int &argc, char **argv)
 	: QApplication(argc, argv)
 	, defaultCodec(NULL)
 	, binaryPaths(NULL)
@@ -33,7 +33,7 @@ QTeXApp::QTeXApp(int &argc, char **argv)
 	init();
 }
 
-void QTeXApp::init()
+void TWApp::init()
 {
 	setOrganizationName("TUG");
 	setOrganizationDomain("tug.org");
@@ -95,7 +95,7 @@ void QTeXApp::init()
 	theAppInstance = this;
 }
 
-void QTeXApp::about()
+void TWApp::about()
 {
    QMessageBox::about(NULL, tr("About " TEXWORKS_NAME),
 			tr("<p>" TEXWORKS_NAME " is a simple environment for editing, "
@@ -105,13 +105,13 @@ void QTeXApp::about()
 				));
 }
 
-void QTeXApp::newFile()
+void TWApp::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->show();
 }
 
-void QTeXApp::newFromTemplate()
+void TWApp::newFromTemplate()
 {
 	QString templateName = TemplateDialog::doTemplateDialog(NULL);
 	if (!templateName.isEmpty()) {
@@ -123,22 +123,22 @@ void QTeXApp::newFromTemplate()
 	}
 }
 
-void QTeXApp::openRecentFile()
+void TWApp::openRecentFile()
 {
 	QAction *action = qobject_cast<QAction *>(sender());
 	if (action)
 		open(action->data().toString());
 }
 
-void QTeXApp::open()
+void TWApp::open()
 {
 	QString fileName = QFileDialog::getOpenFileName();
 	open(fileName);
 }
 
-void QTeXApp::open(const QString &fileName)
+void TWApp::open(const QString &fileName)
 {
-	if (QTeXUtils::isPDFfile(fileName)) {
+	if (TWUtils::isPDFfile(fileName)) {
 		PDFDocument *doc = PDFDocument::findDocument(fileName);
 		if (doc == NULL)
 			doc = new PDFDocument(fileName);
@@ -149,17 +149,17 @@ void QTeXApp::open(const QString &fileName)
 		TeXDocument::openDocument(fileName);
 }
 
-void QTeXApp::preferences()
+void TWApp::preferences()
 {
 	PrefsDialog::doPrefsDialog(activeWindow());
 }
 
-int QTeXApp::maxRecentFiles() const
+int TWApp::maxRecentFiles() const
 {
 	return recentFilesLimit;
 }
 
-void QTeXApp::setMaxRecentFiles(int value)
+void TWApp::setMaxRecentFiles(int value)
 {
 	if (value < 1)
 		value = 1;
@@ -176,32 +176,32 @@ void QTeXApp::setMaxRecentFiles(int value)
 	}
 }
 
-void QTeXApp::updateRecentFileActions()
+void TWApp::updateRecentFileActions()
 {
 #ifdef Q_WS_MAC
-	QTeXUtils::updateRecentFileActions(this, recentFileActions, menuRecent);	
+	TWUtils::updateRecentFileActions(this, recentFileActions, menuRecent);	
 #endif
 	emit recentFileActionsChanged();
 }
 
-void QTeXApp::updateWindowMenus()
+void TWApp::updateWindowMenus()
 {
 	emit windowListChanged();
 }
 
-void QTeXApp::stackWindows()
+void TWApp::stackWindows()
 {
 }
 
-void QTeXApp::tileWindows()
+void TWApp::tileWindows()
 {
 }
 
-void QTeXApp::tileTwoWindows()
+void TWApp::tileTwoWindows()
 {
 }
 
-bool QTeXApp::event(QEvent *event)
+bool TWApp::event(QEvent *event)
 {
 	switch (event->type()) {
 		case QEvent::FileOpen:
@@ -212,7 +212,7 @@ bool QTeXApp::event(QEvent *event)
 	}
 }
 
-void QTeXApp::setDefaultPaths()
+void TWApp::setDefaultPaths()
 {
 	if (binaryPaths == NULL)
 		binaryPaths = new QStringList;
@@ -237,7 +237,7 @@ void QTeXApp::setDefaultPaths()
 		;
 }
 
-const QStringList QTeXApp::getBinaryPaths()
+const QStringList TWApp::getBinaryPaths()
 {
 	if (binaryPaths == NULL) {
 		binaryPaths = new QStringList;
@@ -250,14 +250,14 @@ const QStringList QTeXApp::getBinaryPaths()
 	return *binaryPaths;
 }
 
-void QTeXApp::setBinaryPaths(const QStringList& paths)
+void TWApp::setBinaryPaths(const QStringList& paths)
 {
 	if (binaryPaths == NULL)
 		binaryPaths = new QStringList;
 	*binaryPaths = paths;
 }
 
-void QTeXApp::setDefaultEngineList()
+void TWApp::setDefaultEngineList()
 {
 	if (engineList == NULL)
 		engineList = new QList<Engine>;
@@ -279,7 +279,7 @@ void QTeXApp::setDefaultEngineList()
 	defaultEngineIndex = 1;
 }
 
-const QList<Engine> QTeXApp::getEngineList()
+const QList<Engine> TWApp::getEngineList()
 {
 	if (engineList == NULL) {
 		engineList = new QList<Engine>;
@@ -304,7 +304,7 @@ const QList<Engine> QTeXApp::getEngineList()
 	return *engineList;
 }
 
-void QTeXApp::setEngineList(const QList<Engine>& engines)
+void TWApp::setEngineList(const QList<Engine>& engines)
 {
 	if (engineList == NULL)
 		engineList = new QList<Engine>;
@@ -330,7 +330,7 @@ void QTeXApp::setEngineList(const QList<Engine>& engines)
 	emit engineListChanged();
 }
 
-const Engine QTeXApp::getDefaultEngine()
+const Engine TWApp::getDefaultEngine()
 {
 	const QList<Engine> engines = getEngineList();
 	if (defaultEngineIndex < engines.count())
@@ -342,7 +342,7 @@ const Engine QTeXApp::getDefaultEngine()
 		return engines[0];
 }
 
-void QTeXApp::setDefaultEngine(const QString& name)
+void TWApp::setDefaultEngine(const QString& name)
 {
 	const QList<Engine> engines = getEngineList();
 	int i;
@@ -357,7 +357,7 @@ void QTeXApp::setDefaultEngine(const QString& name)
 	defaultEngineIndex = i;
 }
 
-const Engine QTeXApp::getNamedEngine(const QString& name)
+const Engine TWApp::getNamedEngine(const QString& name)
 {
 	const QList<Engine> engines = getEngineList();
 	foreach (Engine e, engines) {
@@ -367,17 +367,17 @@ const Engine QTeXApp::getNamedEngine(const QString& name)
 	return Engine();
 }
 
-void QTeXApp::syncFromSource(const QString& sourceFile, int lineNo)
+void TWApp::syncFromSource(const QString& sourceFile, int lineNo)
 {
 	emit syncPdf(sourceFile, lineNo);
 }
 
-QTextCodec *QTeXApp::getDefaultCodec()
+QTextCodec *TWApp::getDefaultCodec()
 {
 	return defaultCodec;
 }
 
-void QTeXApp::setDefaultCodec(QTextCodec *codec)
+void TWApp::setDefaultCodec(QTextCodec *codec)
 {
 	if (codec == NULL)
 		return;
