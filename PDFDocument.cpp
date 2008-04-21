@@ -21,10 +21,14 @@
 #include <QList>
 #include <QStack>
 #include <QInputDialog>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include <math.h>
 
 #include "GlobalParams.h"
+
+#include "poppler-link.h"
 
 #define SYNCTEX_EXT		".synctex"
 
@@ -108,6 +112,7 @@ PDFWidget::PDFWidget()
 	: QLabel()
 	, document(NULL)
 	, page(NULL)
+	, clickedLink(NULL)
 	, pageIndex(0)
 	, scaleFactor(1.0)
 	, dpi(72.0)
@@ -122,6 +127,7 @@ PDFWidget::PDFWidget()
 	setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	setFocusPolicy(Qt::StrongFocus);
 	setScaledContents(true);
+	setMouseTracking(true);
 
 	if (magnifierCursor == NULL) {
 		magnifierCursor = new QCursor(QPixmap(":/images/images/magnifiercursor.png"));
@@ -222,55 +228,138 @@ static Qt::KeyboardModifiers mouseDownModifiers;
 
 void PDFWidget::mousePressEvent(QMouseEvent *event)
 {
+	clickedLink = NULL;
 	mouseDownModifiers = event->modifiers();
 	if (mouseDownModifiers & Qt::ControlModifier) {
 		// ctrl key - this is a sync click, don't handle the mouseDown here
 	}
-	else switch (currentTool) {
-		case kMagnifier:
-			if (mouseDownModifiers & (Qt::ShiftModifier | Qt::AltModifier))
-				; // do nothing - zoom in or out (on mouseUp)
-			else
-				useMagnifier(event);
-			break;
-		
-		case kScroll:
-			setCursor(Qt::ClosedHandCursor);
-			scrollClickPos = event->globalPos();
-			usingTool = kScroll;
-			break;
+	else {
+		// check for click in link
+		foreach (Poppler::Link* link, page->links()) {
+			// poppler's linkArea is relative to the page rect, it seems
+			QPointF scaledPos(event->pos().x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
+								event->pos().y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
+			if (link->linkArea().contains(scaledPos)) {
+				clickedLink = link;
+				break;
+			}
+		}
+		if (clickedLink == NULL) {
+			switch (currentTool) {
+				case kMagnifier:
+					if (mouseDownModifiers & (Qt::ShiftModifier | Qt::AltModifier))
+						; // do nothing - zoom in or out (on mouseUp)
+					else
+						useMagnifier(event);
+					break;
+				
+				case kScroll:
+					setCursor(Qt::ClosedHandCursor);
+					scrollClickPos = event->globalPos();
+					usingTool = kScroll;
+					break;
+			}
+		}
 	}
 	event->accept();
 }
 
 void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-	switch (usingTool) {
-		case kNone:
-			if (mouseDownModifiers & Qt::ControlModifier) {
-				if (event->modifiers() & Qt::ControlModifier) {
-					QPointF unscaledPos(event->pos().x() / scaleFactor * dpi / 72.0,
-										event->pos().y() / scaleFactor * dpi / 72.0);
-					emit syncClick(pageIndex, unscaledPos);
+	if (clickedLink != NULL) {
+		QPointF scaledPos(event->pos().x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
+							event->pos().y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
+		if (clickedLink->linkArea().contains(scaledPos)) {
+			doLink(clickedLink);
+		}
+	}
+	else {
+		switch (usingTool) {
+			case kNone:
+				// Ctrl-click to sync
+				if (mouseDownModifiers & Qt::ControlModifier) {
+					if (event->modifiers() & Qt::ControlModifier) {
+						QPointF unscaledPos(event->pos().x() / scaleFactor * dpi / 72.0,
+											event->pos().y() / scaleFactor * dpi / 72.0);
+						emit syncClick(pageIndex, unscaledPos);
+					}
+					break;
+				}
+				// check whether to zoom
+				if (currentTool == kMagnifier) {
+					Qt::KeyboardModifiers mods = QApplication::keyboardModifiers();
+					if (mods & Qt::AltModifier)
+						zoomOut();
+					else if (mods & Qt::ShiftModifier)
+						zoomIn();
 				}
 				break;
-			}
-			if (currentTool == kMagnifier) {
-				Qt::KeyboardModifiers mods = QApplication::keyboardModifiers();
-				if (mods & Qt::AltModifier)
-					zoomOut();
-				else if (mods & Qt::ShiftModifier)
-					zoomIn();
-			}
-			break;
-		case kMagnifier:
-			magnifier->close();
-			break;
+			case kMagnifier:
+				magnifier->close();
+				break;
+		}
 	}
-
+	clickedLink = NULL;
 	usingTool = kNone;
 	updateCursor();
 	event->accept();
+}
+
+void PDFWidget::doLink(const Poppler::Link *link)
+{
+	switch (link->linkType()) {
+		case Poppler::Link::None:
+			break;
+		case Poppler::Link::Goto:
+			{
+				const Poppler::LinkGoto *go = dynamic_cast<const Poppler::LinkGoto*>(link);
+				Q_ASSERT(go != NULL);
+				if (go->isExternal()) {
+					QString file = go->fileName();
+					break; // FIXME -- we don't handle this yet!
+				}
+				Poppler::LinkDestination dest = go->destination();
+				if (dest.pageNumber() > 0) {
+					goToPage(dest.pageNumber() - 1);
+					if (dest.isChangeZoom()) {
+						// FIXME
+					}
+					QWidget *widget = window();
+					PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
+					if (doc) {
+						QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
+						if (scrollArea) {
+							if (dest.isChangeLeft()) {
+								int destLeft = (int)floor(dest.left() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
+								scrollArea->horizontalScrollBar()->setValue(destLeft);
+							}
+							if (dest.isChangeTop()) {
+								int destTop = (int)floor(dest.top() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
+								scrollArea->verticalScrollBar()->setValue(destTop);
+							}
+						}
+					}
+				}
+			}
+			break;
+		case Poppler::Link::Execute:
+			break;
+		case Poppler::Link::Browse:
+			{
+				const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
+				Q_ASSERT(browse != NULL);
+				QString url = browse->url();
+				if (!QDesktopServices::openUrl(QUrl(url)))
+					QApplication::beep();
+			}
+			break;
+		case Poppler::Link::Action:
+			break;
+		case Poppler::Link::Sound:
+			break;
+		case Poppler::Link::Movie:
+			break;
+	}
 }
 
 void PDFWidget::mouseDoubleClickEvent(QMouseEvent *event)
@@ -307,6 +396,10 @@ void PDFWidget::mouseMoveEvent(QMouseEvent *event)
 				}
 			}
 			break;
+		
+		default:
+			updateCursor(event->pos());
+			break;
 	}
 	event->accept();
 }
@@ -339,6 +432,7 @@ void PDFWidget::updateCursor()
 {
 	if (usingTool != kNone)
 		return;
+
 	switch (currentTool) {
 		case kScroll:
 			setCursor(Qt::OpenHandCursor);
@@ -361,6 +455,22 @@ void PDFWidget::updateCursor()
 			setCursor(Qt::CrossCursor);
 			break;
 	}
+}
+
+void PDFWidget::updateCursor(const QPoint& pos)
+{
+	// check for link
+	foreach (Poppler::Link* link, page->links()) {
+		// poppler's linkArea is relative to the page rect, it seems
+		
+		QPointF scaledPos(pos.x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
+							pos.y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
+		if (link->linkArea().contains(scaledPos)) {
+			setCursor(Qt::PointingHandCursor);
+			return;
+		}
+	}
+	updateCursor();
 }
 
 void PDFWidget::adjustSize()
@@ -611,7 +721,8 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 {
 	init();
 	loadFile(fileName);
-	stackUnder((QWidget*)texDoc);
+	if (texDoc != NULL)
+		stackUnder((QWidget*)texDoc);
 }
 
 PDFDocument::~PDFDocument()

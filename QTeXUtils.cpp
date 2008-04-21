@@ -14,8 +14,20 @@
 #include <QDesktopWidget>
 #include <QCompleter>
 #include <QTextCodec>
+#include <QFile>
 
 #pragma mark === QTeXUtils ===
+
+bool QTeXUtils::isPDFfile(const QString& fileName)
+{
+	QFile theFile(fileName);
+	if (theFile.open(QIODevice::ReadOnly)) {
+		QByteArray ba = theFile.peek(8);
+		if (ba.startsWith("%PDF-1."))
+			return true;
+	}
+	return false;
+}
 
 const QString QTeXUtils::getLibraryPath(const QString& subdir)
 {
