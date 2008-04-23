@@ -45,7 +45,7 @@
 
 #include <math.h>
 
-#include "GlobalParams.h"
+//#include "GlobalParams.h"
 
 #include "poppler-link.h"
 
@@ -146,7 +146,7 @@ PDFWidget::PDFWidget()
 	setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	setFocusPolicy(Qt::StrongFocus);
 	setScaledContents(true);
-	setMouseTracking(true);
+//	setMouseTracking(true);
 
 	if (magnifierCursor == NULL) {
 		magnifierCursor = new QCursor(QPixmap(":/images/images/magnifiercursor.png"));
@@ -192,13 +192,12 @@ void PDFWidget::paintEvent(QPaintEvent *event)
 
 	painter.drawImage(event->rect(), image, event->rect());
 
-	if (!highlightBoxes.isEmpty()) {
+	if (!highlightPath.isEmpty()) {
 		painter.setRenderHint(QPainter::Antialiasing);
-		painter.scale(dpi / 72.27 * scaleFactor / 8, dpi / 72.27 * scaleFactor / 8);
+		painter.scale(dpi / 72.27 * scaleFactor, dpi / 72.27 * scaleFactor);
 		painter.setPen(QColor(0, 0, 0, 0));
 		painter.setBrush(QColor(255, 255, 0, 63));
-		foreach (const QRectF& box, highlightBoxes)
-			painter.drawRect(box);
+		painter.drawPath(highlightPath);
 	}
 }
 
@@ -478,6 +477,7 @@ void PDFWidget::updateCursor()
 
 void PDFWidget::updateCursor(const QPoint& pos)
 {
+/*
 	// check for link
 	foreach (Poppler::Link* link, page->links()) {
 		// poppler's linkArea is relative to the page rect, it seems
@@ -489,6 +489,7 @@ void PDFWidget::updateCursor(const QPoint& pos)
 			return;
 		}
 	}
+*/
 	updateCursor();
 }
 
@@ -516,9 +517,9 @@ void PDFWidget::setResolution(int res)
 	resetMagnifier();
 }
 
-void PDFWidget::setHighlightBoxes(const QList<QRectF>& boxlist)
+void PDFWidget::setHighlightPath(const QPainterPath& path)
 {
-	highlightBoxes = boxlist;
+	highlightPath = path;
 }
 
 void PDFWidget::reloadPage()
@@ -529,7 +530,7 @@ void PDFWidget::reloadPage()
 		magnifier->setPage(NULL, 0);
 	imagePage = NULL;
 	image = QImage();
-	highlightBoxes.clear();
+	highlightPath = QPainterPath();
 	page = document->page(pageIndex);
 	adjustSize();
 	update();
@@ -737,6 +738,7 @@ QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 	: sourceDoc(texDoc)
+	, scanner(NULL)
 {
 	init();
 	loadFile(fileName);
@@ -746,6 +748,8 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 
 PDFDocument::~PDFDocument()
 {
+	if (scanner != NULL)
+		synctex_scanner_free(scanner);
 	docList.removeAll(this);
 }
 
@@ -869,6 +873,11 @@ void PDFDocument::reload()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
+	if (scanner != NULL) {
+		synctex_scanner_free(scanner);
+		scanner = NULL;
+	}
+
 	if (document != NULL)
 		delete document;
 
@@ -877,215 +886,90 @@ void PDFDocument::reload()
 		document->setRenderBackend(Poppler::Document::SplashBackend);
 		document->setRenderHint(Poppler::Document::Antialiasing);
 		document->setRenderHint(Poppler::Document::TextAntialiasing);
-		globalParams->setScreenType(screenDispersed);
+//		globalParams->setScreenType(screenDispersed);
 
 		pdfWidget->setDocument(document);
-		
-		QApplication::restoreOverrideCursor();
-
 		pdfWidget->setFocus();
 
-		// FIXME: see if this takes long enough that we should offload it to a separate thread
 		loadSyncData();
 	}
 	else
 		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(TWUtils::strippedName(curFile)));
-}
 
-#define MAX_SYNC_LINE_LENGTH	(PATH_MAX + 256)
+	QApplication::restoreOverrideCursor();
+}
 
 void PDFDocument::loadSyncData()
 {
-	pageSyncInfo.clear();
-	tagToFile.clear();
-	syncMag = 1.0;
-
 	QFileInfo fi(curFile);
 	QString syncName = fi.canonicalPath() + "/" + fi.completeBaseName() + SYNCTEX_EXT;
 	fi.setFile(syncName);
-	
 	if (fi.exists()) {
-		QFile	syncFile(syncName);
-		if (syncFile.open(QIODevice::ReadOnly)) {
-			int sheet = 0;
-			int origin = 0;
-			bool pdfMode = false;
-			QStack<HBox> openBoxes;
-			char data[MAX_SYNC_LINE_LENGTH];
-			qint64 len;
-			len = syncFile.readLine(data, MAX_SYNC_LINE_LENGTH);
-			data[len] = 0;
-			if (strncmp(data, "SyncTeX", 7) != 0 && strncmp(data, "synchronize", 11) != 0) {
-				statusBar()->showMessage(tr("Unrecognized SyncTeX header line \"%1\"").arg(data), kStatusMessageDuration);
-				goto done;
-			}
-			len = syncFile.readLine(data, MAX_SYNC_LINE_LENGTH);
-			data[len] = 0;
-			if (strncmp(data, "version:", 8) != 0) {
-				int vers = atoi(data + 8);
-				if (vers != 1) {
-					statusBar()->showMessage(tr("Unrecognized SyncTeX format \"%1\"").arg(data), kStatusMessageDuration);
-					goto done;
-				}
-			}
-			while ((len = syncFile.readLine(data, MAX_SYNC_LINE_LENGTH)) > 0) {
-				data[len - 1] = 0; // wipe out the end-of-line
-				if (len > 1 && data[1] == ':') {
-					switch (data[0]) {
-						case '>':
-							// >:pdf
-							if (strncmp(data + 2, "pdf", 3) == 0)
-								pdfMode = true;
-							break;
-						case 'z':
-							// z:578
-							if (sscanf(data + 2, "%d", &origin) == 1)
-								;
-							break;
-						case 'm':
-							// m:1200
-							{
-								int mag;
-								if (sscanf(data + 2, "%d", &mag) == 1)
-									syncMag = mag / 1000.0;
-							}
-							break;
-						case 'i':
-							// i:18:42MRKUK.TEV
-							{
-								int tag;
-								if (sscanf(data + 2, "%d", &tag) != 1)
-									break;
-								char *filename = index(data + 2, ':');
-								if (filename == NULL)
-									break;
-								++filename;
-								if (*filename == 0)
-									break;
-								QFileInfo info(QFileInfo(curFile).absoluteDir(), filename);
-								tagToFile[tag] = info.canonicalFilePath();
-							}
-							break;
-						case 's':
-							// s:1
-							if (sscanf(data + 2, "%d", &sheet) != 1)
-								break;
-							while (pageSyncInfo.count() < sheet)
-								pageSyncInfo.append(PageSyncInfo());
-							openBoxes.clear();
-							break;
-						case 'h':
-							// h:18:39(-578,3840,3368,4074)0
-							if (sheet > 0) {
-								int tag, line, x, y, w, h, d;
-								if (sscanf(data + 2, "%d:%d(%d,%d,%d,%d,%d)", &tag, &line, &x, &y, &w, &h, &d) != 7)
-									break;
-								HBox hb = { tag, line, origin + x, origin + y, w, h, INT_MAX, -1 };
-								openBoxes.push(hb);
-							}
-							break;
-						case 'k':
-							// k:2:8(2707,1536,-57)
-							if (sheet > 0) {
-								if (!openBoxes.isEmpty()) {
-									HBox& hb = openBoxes.top();
-									int tag, line, x, y, k;
-									if (sscanf(data + 2, "%d:%d(%d,%d,%d)", &tag, &line, &x, &y, &k) != 5)
-										break;
-									if (tag == hb.tag) {
-										if (line < hb.first)
-											hb.first = line;
-										if (line > hb.last)
-											hb.last = line;
-									}
-								}
-							}
-							break;
-						case 'g':
-						case '$':
-							// g:18:39(-578,3840)
-							if (sheet > 0) {
-								if (!openBoxes.isEmpty()) {
-									HBox& hb = openBoxes.top();
-									int tag, line, x, y;
-									if (sscanf(data + 2, "%d:%d(%d,%d)", &tag, &line, &x, &y) != 4)
-										break;
-									if (tag == hb.tag) {
-										if (line < hb.first)
-											hb.first = line;
-										if (line > hb.last)
-											hb.last = line;
-									}
-								}
-							}
-							break;
-						default:
-							break;
-					}
-				}
-				else if (data[0] == 'e' && data[1] <= ' ') {
-					if (sheet > 0) {
-						PageSyncInfo& psi = pageSyncInfo[sheet - 1];
-						if (!openBoxes.isEmpty())
-							psi.append(openBoxes.pop());
-					}
-				}
-			}
+		scanner = synctex_scanner_new_with_contents_of_file(syncName.toUtf8().data());
+		if (scanner == NULL) {
+			statusBar()->showMessage(tr("Unrecognized SyncTeX data: \"%1\"").arg(syncName), kStatusMessageDuration);
+		}
+		else {
 			statusBar()->showMessage(tr("Loaded SyncTeX data: \"%1\"").arg(syncName), kStatusMessageDuration);
-		done:
-			syncFile.close();
 		}
 	}
 	else
 		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
 }
 
-void PDFDocument::syncClick(int page, const QPointF& pos)
+void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 {
-	if (page < pageSyncInfo.count()) {
-		qreal offset = (72 - 72 * syncMag);
-		QPointF syncPos((pos.x() - offset) * 8 / syncMag, (pos.y() - offset) * 8 / syncMag);
-		const PageSyncInfo& psi = pageSyncInfo[page];
-		foreach (const HBox& hb, psi) {
-			QRectF r(hb.x, hb.y, hb.w, -hb.h);
-			if (r.contains(syncPos.x(), syncPos.y())) {
-				TeXDocument::openDocument(tagToFile[hb.tag], (hb.first < INT_MAX) ? hb.first : hb.line);
-				break;
-			}
+	if (scanner == NULL)
+		return;
+	if (synctex_edit_query(scanner, pageIndex + 1, pos.x(), pos.y()) > 0) {
+		synctex_node_t node;
+		while ((node = synctex_next_result(scanner)) != NULL) {
+			const char *filename = synctex_scanner_get_name(scanner, synctex_node_tag(node));
+			QDir curDir(QFileInfo(curFile).canonicalPath());
+			TeXDocument::openDocument(QFileInfo(curDir, filename).canonicalFilePath(), synctex_node_line(node));
+			break; // FIXME: currently we just take the first hit
 		}
 	}
 }
 
 void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo)
 {
-	int tag = -1;
-	foreach (int i, tagToFile.keys()) {
-		if (tagToFile[i] == sourceFile) {
-			tag = i;
+	if (scanner == NULL)
+		return;
+
+	// find the name synctex is using for this source file...
+	const QFileInfo sourceFileInfo(sourceFile);
+	QDir curDir(QFileInfo(curFile).canonicalPath());
+	synctex_node_t node = synctex_scanner_input(scanner);
+	const char* name = NULL;
+	while (node != NULL) {
+		name = synctex_scanner_get_name(scanner, synctex_node_tag(node));
+		const QFileInfo fi(curDir, name);
+		if (fi == sourceFileInfo)
 			break;
-		}
+		name = NULL;
+		node = synctex_node_sibling(node);
 	}
-	if (tag != -1) {
-		QList<QRectF> boxlist;
-		qreal offset = (72 - 72 * syncMag) * 8;
-		int pageIndex = -1;
-		for (int p = 0; pageIndex == -1 && p < pageSyncInfo.size(); ++p) {
-			const PageSyncInfo& psi = pageSyncInfo[p];
-			foreach (const HBox& hb, psi) {
-				if (hb.tag != tag)
-					continue;
-				if (hb.first <= lineNo && hb.last >= lineNo) {
-					if (pageIndex == -1)
-						pageIndex = p;
-					if (pageIndex == p)
-						boxlist.append(QRectF(hb.x * syncMag + offset, hb.y * syncMag + offset,
-												hb.w * syncMag, -hb.h * syncMag));
-				}
-			}
+	if (name == NULL)
+		return;
+
+	if (synctex_display_query(scanner, name, lineNo, 0) > 0) {
+		int page = -1;
+		QPainterPath path;
+		while ((node = synctex_next_result(scanner)) != NULL) {
+			if (page == -1)
+				page = synctex_node_page(node);
+			if (synctex_node_page(node) != page)
+				continue;
+			QRectF nodeRect(synctex_node_box_visible_h(node),
+							synctex_node_box_visible_v(node) - synctex_node_box_visible_height(node),
+							synctex_node_box_visible_width(node),
+							synctex_node_box_visible_height(node) + synctex_node_box_visible_depth(node));
+			path.addRect(nodeRect);
 		}
-		if (pageIndex != -1) {
-			pdfWidget->goToPage(pageIndex);
-			pdfWidget->setHighlightBoxes(boxlist);
+		if (page > 0) {
+			pdfWidget->goToPage(page - 1);
+			pdfWidget->setHighlightPath(path);
 			pdfWidget->update();
 			selectWindow();
 		}

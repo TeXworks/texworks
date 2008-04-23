@@ -26,8 +26,10 @@
 #include <QList>
 #include <QCursor>
 #include <QButtonGroup>
+#include <QPainterPath>
 
 #include "poppler-qt4.h"
+#include "synctex_parser.h"
 
 #include "ui_PDFDocument.h"
 
@@ -83,7 +85,7 @@ public:
 	void setResolution(int res);
 	void resetMagnifier();
 	void goToPage(int pageIndex);
-	void setHighlightBoxes(const QList<QRectF>& boxlist);
+	void setHighlightPath(const QPainterPath& path);
 
 private slots:
 	void goFirst();
@@ -152,7 +154,7 @@ private:
 	int		currentTool;	// the current tool selected in the toolbar
 	int		usingTool;	// the tool actually being used in an ongoing mouse drag
 
-	QList<QRectF>	highlightBoxes;
+	QPainterPath	highlightPath;
 
 	static QCursor	*magnifierCursor;
 	static QCursor	*zoomInCursor;
@@ -229,21 +231,7 @@ private:
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
 
-	typedef struct HBox {
-		int tag;
-		int line;
-		int x;
-		int y;
-		int w;
-		int h;
-		int first;
-		int last;
-	} HBox;
-	typedef QVector<HBox> PageSyncInfo;
-
-	QList<PageSyncInfo> pageSyncInfo;
-	QHash<int,QString> tagToFile;
-	qreal	syncMag;
+	synctex_scanner_t scanner;
 
 	static QList<PDFDocument*> docList;
 };
