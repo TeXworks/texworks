@@ -27,8 +27,8 @@
 #include <QTextStream>
 #include <QSettings>
 
-TemplateDialog::TemplateDialog(QWidget *parent)
-	: QDialog(parent)
+TemplateDialog::TemplateDialog()
+	: QDialog(NULL)
 	, model(NULL)
 {
 	init();
@@ -79,11 +79,11 @@ void TemplateDialog::selectionChanged(const QItemSelection &selected, const QIte
 	}
 }
 
-QString TemplateDialog::doTemplateDialog(QWidget *parent)
+QString TemplateDialog::doTemplateDialog()
 {
 	QString rval;
 
-	TemplateDialog dlg(NULL);
+	TemplateDialog dlg;
 	dlg.show();
 	DialogCode	result = (DialogCode)dlg.exec();
 

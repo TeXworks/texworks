@@ -19,6 +19,7 @@
 
 #include "TWApp.h"
 #include "TeXDocument.h"
+#include "PDFDocument.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,7 +29,7 @@ int main(int argc, char *argv[])
 	for (int i = 1; i < argc; ++i)
 		app.open(argv[i]);
 	
-	if (TeXDocument::documentList().size() == 0) {
+	if (TeXDocument::documentList().size() == 0 && PDFDocument::documentList().size() == 0) {
 		TeXDocument *mainWin = new TeXDocument;
 		mainWin->show();
 	}

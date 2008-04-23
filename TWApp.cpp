@@ -132,7 +132,7 @@ void TWApp::newFile()
 
 void TWApp::newFromTemplate()
 {
-	QString templateName = TemplateDialog::doTemplateDialog(NULL);
+	QString templateName = TemplateDialog::doTemplateDialog();
 	if (!templateName.isEmpty()) {
 		TeXDocument *doc = new TeXDocument(templateName, true);
 		if (doc != NULL) {
