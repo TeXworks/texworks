@@ -46,7 +46,8 @@ HEADERS	+=	TWApp.h \
 			PDFDocument.h \
 			FindDialog.h \
 			PrefsDialog.h \
-			TemplateDialog.h
+			TemplateDialog.h \
+			synctex_parser.h
 
 FORMS	+=	TeXDocument.ui \
 			PDFDocument.ui \
@@ -65,6 +66,7 @@ SOURCES	+=	main.cpp \
 			PDFDocument.cpp \
 			FindDialog.cpp \
 			PrefsDialog.cpp \
-			TemplateDialog.cpp
+			TemplateDialog.cpp \
+			synctex_parser.c
 
 RESOURCES	+=	resources.qrc
