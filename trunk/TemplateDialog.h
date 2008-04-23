@@ -35,10 +35,10 @@ class TemplateDialog : public QDialog, private Ui::TemplateDialog
 	Q_OBJECT
 
 public:
-	TemplateDialog(QWidget *parent);
+	TemplateDialog();
 	virtual ~TemplateDialog();
 
-	static QString doTemplateDialog(QWidget *parent);
+	static QString doTemplateDialog();
 
 private slots:
 	void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);

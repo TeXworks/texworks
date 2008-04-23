@@ -10,10 +10,8 @@
 			<array>
 				<string>tex</string>
 			</array>
-<!--
 			<key>CFBundleTypeIconFile</key>
-			<string>application.icns</string>
--->
+			<string>TeXworks.icns</string>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>text/plain</string>

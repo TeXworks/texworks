@@ -17,6 +17,8 @@ macx {
 	LIBS += -L/usr/local/lib -lpoppler-qt4 -lpoppler
 
 	QMAKE_INFO_PLIST = TeXworks.plist
+
+	ICON = TeXworks.icns
 }
 
 linux {

@@ -211,7 +211,7 @@ void TeXDocument::newFile()
 
 void TeXDocument::newFromTemplate()
 {
-	QString templateName = TemplateDialog::doTemplateDialog(this);
+	QString templateName = TemplateDialog::doTemplateDialog();
 	if (!templateName.isEmpty()) {
 		TeXDocument *doc = NULL;
 		if (isUntitled && textEdit->document()->isEmpty() && !isWindowModified()) {
