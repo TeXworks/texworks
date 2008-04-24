@@ -194,7 +194,7 @@ void PDFWidget::paintEvent(QPaintEvent *event)
 
 	if (!highlightPath.isEmpty()) {
 		painter.setRenderHint(QPainter::Antialiasing);
-		painter.scale(dpi / 72.27 * scaleFactor, dpi / 72.27 * scaleFactor);
+		painter.scale(dpi / 72.0 * scaleFactor, dpi / 72.0 * scaleFactor);
 		painter.setPen(QColor(0, 0, 0, 0));
 		painter.setBrush(QColor(255, 255, 0, 63));
 		painter.drawPath(highlightPath);
@@ -297,8 +297,8 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 				// Ctrl-click to sync
 				if (mouseDownModifiers & Qt::ControlModifier) {
 					if (event->modifiers() & Qt::ControlModifier) {
-						QPointF unscaledPos(event->pos().x() / scaleFactor * dpi / 72.0,
-											event->pos().y() / scaleFactor * dpi / 72.0);
+						QPointF unscaledPos(event->pos().x() / scaleFactor * 72.0 / dpi,
+											event->pos().y() / scaleFactor * 72.0 / dpi);
 						emit syncClick(pageIndex, unscaledPos);
 					}
 					break;
@@ -477,11 +477,9 @@ void PDFWidget::updateCursor()
 
 void PDFWidget::updateCursor(const QPoint& pos)
 {
-/*
 	// check for link
 	foreach (Poppler::Link* link, page->links()) {
-		// poppler's linkArea is relative to the page rect, it seems
-		
+		// poppler's linkArea is relative to the page rect
 		QPointF scaledPos(pos.x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
 							pos.y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
 		if (link->linkArea().contains(scaledPos)) {
@@ -489,7 +487,6 @@ void PDFWidget::updateCursor(const QPoint& pos)
 			return;
 		}
 	}
-*/
 	updateCursor();
 }
 
@@ -921,6 +918,8 @@ void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 {
 	if (scanner == NULL)
 		return;
+	pdfWidget->setHighlightPath(QPainterPath());
+	pdfWidget->update();
 	if (synctex_edit_query(scanner, pageIndex + 1, pos.x(), pos.y()) > 0) {
 		synctex_node_t node;
 		while ((node = synctex_next_result(scanner)) != NULL) {
