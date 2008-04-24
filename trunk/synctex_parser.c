@@ -1008,7 +1008,16 @@ int _synctex_scan_post_scriptum(synctex_scanner_t scanner) {
 	scanner->y_offset = scanner->x_offset;
 	/* By default, C programs start in the "C" locale
 	 * But we are in a library, so we cannot assume that. */
-	locale_t locale = newlocale(LC_ALL_MASK, NULL, NULL);
+	locale_t locale = NULL; /*newlocale(LC_ALL_MASK, NULL, NULL);*/
+	/* "man xlocale" says that
+		If a NULL locale_t is passed, the C locale will be used.
+	   so we don't need to actually create one here. */
+/*
+	if(NULL == locale) {
+		fprintf(stderr, "failed to create locale\n");
+		return -1;
+	}
+*/
 	int status = 0;
 next_record:
 	if(0 == strncmp((char *)PTR,"Magnification:",14)) {
@@ -1018,13 +1027,13 @@ next_record:
 next_line:
 			status = _synctex_next_line(scanner);
 			if(status<0) {
-				freelocale(locale);
+				/*freelocale(locale);*/
 				return -1;
 			} else if(0 == status) {
 				goto next_record;
 			}
 		}
-		freelocale(locale);
+		/*freelocale(locale);*/
 		return 0;
 	} else if(0 == strncmp((char *)PTR,"X Offset:",9)) {
 		PTR += 9;
@@ -1076,7 +1085,7 @@ next_line:
 			}
 			goto next_line;
 		}
-		freelocale(locale);
+		/*freelocale(locale);*/
 		return 0;
 	} else if(0 == strncmp((char *)PTR,"Y Offset:",9)) {
 		PTR += 9;
@@ -1128,7 +1137,7 @@ next_line:
 			}
 			goto next_line;
 		}
-		freelocale(locale);
+		/*freelocale(locale);*/
 		return 0;
 	}
 	goto next_line;
@@ -1706,7 +1715,8 @@ bail:
 /*  Where the synctex scanner is created.
  *  name is the full path of the synctex file. */
 synctex_scanner_t synctex_scanner_new_with_contents_of_file(const char * name) {
-	synctex_scanner_t scanner = (synctex_scanner_t)_synctex_malloc(sizeof(_synctex_scanner_t));
+	synctex_scanner_t scanner = (synctex_scanner_t)_synctex_malloc(
+		sizeof(_synctex_scanner_t) + synctex_node_type_last * sizeof(_synctex_class_t));
 	if(NULL == scanner) {
 		return NULL;
 	}
