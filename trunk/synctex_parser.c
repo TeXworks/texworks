@@ -1813,10 +1813,14 @@ void synctex_scanner_free(synctex_scanner_t scanner) {
 		return;
 	}
 	FREE(scanner->sheet);
-	free(START);
-	free(scanner->output);
-	free(scanner->input);
-	free(scanner->lists_of_friends);
+	if(NULL != START)
+		free(START);
+	if(NULL != scanner->output)
+		free(scanner->output);
+	if(NULL != scanner->input)
+		free(scanner->input);
+	if(NULL != scanner->lists_of_friends)
+		free(scanner->lists_of_friends);
 	free(scanner);
 }
 
