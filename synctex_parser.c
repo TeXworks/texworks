@@ -1715,8 +1715,7 @@ bail:
 /*  Where the synctex scanner is created.
  *  name is the full path of the synctex file. */
 synctex_scanner_t synctex_scanner_new_with_contents_of_file(const char * name) {
-	synctex_scanner_t scanner = (synctex_scanner_t)_synctex_malloc(
-		sizeof(_synctex_scanner_t) + synctex_node_type_last * sizeof(_synctex_class_t));
+	synctex_scanner_t scanner = (synctex_scanner_t)_synctex_malloc(sizeof(_synctex_scanner_t));
 	if(NULL == scanner) {
 		return NULL;
 	}

@@ -969,6 +969,7 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo)
 		}
 		if (page > 0) {
 			pdfWidget->goToPage(page - 1);
+			path.setFillRule(Qt::WindingFill);
 			pdfWidget->setHighlightPath(path);
 			pdfWidget->update();
 			selectWindow();
