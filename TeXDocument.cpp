@@ -186,7 +186,7 @@ void TeXDocument::init()
 	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
 	connect(actionSyntax_Coloring, SIGNAL(triggered(bool)), this, SLOT(setSyntaxColoring(bool)));
 
-//	positionWindowOnScreen(NULL);
+	TWUtils::zoomToHalfScreen(this);
 
 	docList.append(this);
 }
@@ -675,6 +675,8 @@ void TeXDocument::selectWindow()
 	show();
 	raise();
 	activateWindow();
+	if (isMinimized())
+		showNormal();
 }
 
 TeXDocument *TeXDocument::findDocument(const QString &fileName)
