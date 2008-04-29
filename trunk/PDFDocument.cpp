@@ -49,7 +49,7 @@
 
 #include "poppler-link.h"
 
-#define SYNCTEX_EXT		".synctex"
+#define SYNCTEX_EXT		".synctex.gz"
 
 const qreal kMaxScaleFactor = 8.0;
 const qreal kMinScaleFactor = 0.125;
@@ -835,6 +835,8 @@ PDFDocument::init()
 
 	QSettings settings;
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
+
+	TWUtils::zoomToHalfScreen(this, true);
 }
  
 void PDFDocument::updateRecentFileActions()
@@ -852,6 +854,8 @@ void PDFDocument::selectWindow()
 	show();
 	raise();
 	activateWindow();
+	if (isMinimized())
+		showNormal();
 }
 
 void PDFDocument::resizeEvent(QResizeEvent *event)
