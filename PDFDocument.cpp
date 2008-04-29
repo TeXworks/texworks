@@ -517,6 +517,18 @@ void PDFWidget::setResolution(int res)
 void PDFWidget::setHighlightPath(const QPainterPath& path)
 {
 	highlightPath = path;
+	if (!path.isEmpty()) {
+		QRectF r = path.boundingRect();
+		QWidget *widget = window();
+		PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
+		if (doc) {
+			QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
+			if (scrollArea) {
+				scrollArea->ensureVisible((int)((r.left() + r.right()) / 2 * dpi / 72 * scaleFactor),
+											(int)((r.top() + r.bottom()) / 2 * dpi / 72 * scaleFactor));
+			}
+		}
+	}
 }
 
 void PDFWidget::reloadPage()
