@@ -139,6 +139,7 @@ private:
 	void goToLine(int lineNo);
 	void updateTypesettingAction();
 	void findRootFilePath();
+	void maybeCenterSelection(int oldScrollValue = -1);
 
 	QTextCodec *codec;
 	QString curFile;

@@ -704,7 +704,24 @@ void TeXDocument::goToLine(int lineNo)
 	cursor.setPosition(0);
 	cursor.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, lineNo - 1);
 	cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
+	int oldScrollValue = -1;
+	if (textEdit->verticalScrollBar() != NULL)
+		oldScrollValue = textEdit->verticalScrollBar()->value();
 	textEdit->setTextCursor(cursor);
+	maybeCenterSelection(oldScrollValue);
+}
+
+void TeXDocument::maybeCenterSelection(int oldScrollValue)
+{
+	if (oldScrollValue != -1 && textEdit->verticalScrollBar() != NULL) {
+		int newScrollValue = textEdit->verticalScrollBar()->value();
+		if (newScrollValue != oldScrollValue) {
+			int delta = (textEdit->height() - textEdit->cursorRect().height()) / 2;
+			if (newScrollValue < oldScrollValue)
+				delta = -delta;
+			textEdit->verticalScrollBar()->setValue(newScrollValue + delta);
+		}
+	}
 }
 
 void TeXDocument::doFontDialog()
@@ -1063,7 +1080,11 @@ void TeXDocument::findSelection()
 
 void TeXDocument::showSelection()
 {
+	int oldScrollValue = -1;
+	if (textEdit->verticalScrollBar() != NULL)
+		oldScrollValue = textEdit->verticalScrollBar()->value();
 	textEdit->ensureCursorVisible();
+	maybeCenterSelection(oldScrollValue);
 }
 
 void TeXDocument::zoomToLeft(QWidget *otherWindow)
@@ -1185,7 +1206,7 @@ void TeXDocument::processStandardOutput()
 	QTextCursor cursor(textEdit_console->document());
 	cursor.select(QTextCursor::Document);
 	cursor.setPosition(cursor.selectionEnd());
-	cursor.insertText(bytes);
+	cursor.insertText(QString::fromUtf8(bytes));
 	textEdit_console->setTextCursor(cursor);
 }
 
