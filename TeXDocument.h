@@ -103,6 +103,7 @@ private slots:
 	void copyToFind();
 	void copyToReplace();
 	void findSelection();
+	void showSelection();
 	void pdfClosed();
 	void updateRecentFileActions();
 	void updateWindowMenu();
