@@ -68,7 +68,8 @@ void PrefsDialog::changedTabPanel(int index)
 	page->clearFocus();
 	switch (index) {
 		case 0: // General
-			page->focusWidget()->clearFocus();
+			if (page->focusWidget() != NULL)
+				page->focusWidget()->clearFocus();
 			break;
 		case 1: // Editor
 			editorFont->setFocus();

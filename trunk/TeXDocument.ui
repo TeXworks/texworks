@@ -253,6 +253,7 @@
     <addaction name="actionFind_Selection" />
     <addaction name="separator" />
     <addaction name="actionGo_to_Line" />
+    <addaction name="actionShow_Selection" />
    </widget>
    <widget class="QMenu" name="menuFormat" >
     <property name="title" >
@@ -712,6 +713,14 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Shift+N</string>
+   </property>
+  </action>
+  <action name="actionShow_Selection" >
+   <property name="text" >
+    <string>Show Selection</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+=</string>
    </property>
   </action>
  </widget>

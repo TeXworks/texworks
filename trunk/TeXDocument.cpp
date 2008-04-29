@@ -128,6 +128,8 @@ void TeXDocument::init()
 	connect(actionCopy_to_Replace, SIGNAL(triggered()), this, SLOT(copyToReplace()));
 	connect(actionFind_Selection, SIGNAL(triggered()), this, SLOT(findSelection()));
 
+	connect(actionShow_Selection, SIGNAL(triggered()), this, SLOT(showSelection()));
+
 	connect(actionIndent, SIGNAL(triggered()), this, SLOT(doIndent()));
 	connect(actionUnindent, SIGNAL(triggered()), this, SLOT(doUnindent()));
 
@@ -1057,6 +1059,11 @@ void TeXDocument::findSelection()
 {
 	copyToFind();
 	doFindAgain();
+}
+
+void TeXDocument::showSelection()
+{
+	textEdit->ensureCursorVisible();
 }
 
 void TeXDocument::zoomToLeft(QWidget *otherWindow)
