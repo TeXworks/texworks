@@ -54,6 +54,7 @@ public:
 
 	// window positioning utilities
 	static void zoomToScreen(QWidget *window);
+	static void zoomToHalfScreen(QWidget *window, bool rhs = false);
 	static void sideBySide(QWidget *window1, QWidget *window2);
 	static void tile(QList<QWidget*> windows);
 	static void stack(QList<QWidget*> windows);
