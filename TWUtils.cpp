@@ -217,23 +217,28 @@ void TWUtils::zoomToScreen(QWidget *window)
 	window->setGeometry(screenRect);
 }
 
-void TWUtils::sideBySide(QWidget *window1, QWidget *window2)
+void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
-	QRect screenRect = desktop->availableGeometry(window1);
-//	screenRect.setTop(screenRect.top() + window1->geometry().y() - window1->y());
-	QRect r(screenRect);
-	r.setRight(r.left() + r.right() / 2 - 1);
-	//window1->setGeometry(r);
-	int wDiff = window1->frameGeometry().width() - window1->width();
-	int hDiff = window1->frameGeometry().height() - window1->height();
-	window1->move(r.left(), r.top());
-	window1->resize(r.width() - wDiff, r.height() - hDiff);
-	r.setRight(screenRect.right());
-	r.setLeft(r.left() + r.right() / 2);
-	//window2->setGeometry(r);
-	window2->move(r.left(), r.top());
-	window2->resize(r.width() - wDiff, r.height() - hDiff);
+	QRect r = desktop->availableGeometry(window);
+	int wDiff = window->frameGeometry().width() - window->width();
+	int hDiff = window->frameGeometry().height() - window->height();
+	if (rhs) {
+		r.setLeft(r.left() + r.right() / 2);
+		window->move(r.left(), r.top());
+		window->resize(r.width() - wDiff, r.height() - hDiff);
+	}
+	else {
+		r.setRight(r.left() + r.right() / 2 - 1);
+		window->move(r.left(), r.top());
+		window->resize(r.width() - wDiff, r.height() - hDiff);
+	}
+}
+
+void TWUtils::sideBySide(QWidget *window1, QWidget *window2)
+{
+	zoomToHalfScreen(window1, false);
+	zoomToHalfScreen(window2, true);
 }
 
 void TWUtils::tile(QList<QWidget*> windows)
