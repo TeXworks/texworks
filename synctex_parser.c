@@ -42,6 +42,12 @@ authorization from the copyright holder.
 #include "math.h"
 #include "errno.h"
 
+#define SYNCTEX_GZ 1
+
+#if SYNCTEX_GZ
+#include "zlib.h"
+#endif
+
 /*  This custom malloc functions initializes to 0 the newly allocated memory. */
 void *_synctex_malloc(size_t size) {
 	void * ptr = malloc(size);
@@ -601,7 +607,7 @@ sibling:
 	if(SIBLING(node)) {
 		return SIBLING(node);
 	}
-	if(node = PARENT(node)) {
+	if((node = PARENT(node)) != NULL) {
 		if(node->class->type == synctex_node_type_sheet) {// EXC_BAD_ACCESS?
 			return NULL;
 		}
@@ -833,6 +839,11 @@ void _synctex_display_input(synctex_node_t node) {
 
 #define SYNCTEX_NOERR 0
 
+int synctex_bail(void) {
+		printf("*** ERROR\n");
+		return -1;
+}
+
 /*  Used when parsing the synctex file.
  *  Advance to the next character starting a line.
  *  Actually, only \n is recognized as end of line marker. */
@@ -881,7 +892,7 @@ int _synctex_decode_string(synctex_scanner_t scanner, char ** valueRef) {
 		++end;
 	}
 	size_t len = end - (char *)PTR;
-	if(* valueRef = malloc(len+1)) {
+	if((*valueRef = malloc(len+1)) != NULL) {
 		if(memcpy((*valueRef),(synctex_node_t)PTR,len)) {
 			(* valueRef)[len]='\0';
 			PTR += len;
@@ -1741,15 +1752,45 @@ synctex_scanner_t synctex_scanner_new_with_contents_of_file(const char * name) {
 	scanner->class[synctex_node_type_input] = synctex_class_input;
 	(scanner->class[synctex_node_type_input]).scanner = scanner;
 
+#if SYNCTEX_GZ
+	gzFile F = gzopen(name,"r");
+#else
 	FILE * F = fopen(name,"r");
+#endif
 	if(NULL == F) {
 		printf("SyncTeX: could not open %s, error %i\n",name,errno);
 bail:
 		synctex_scanner_free(scanner);
 		return NULL;
 	}
+#if SYNCTEX_GZ
+	while(1) {
+		char buf[1024];
+		int i = gzread(F, buf, sizeof(buf));
+		if (i == -1) {
+			gzclose(F);
+			goto bail;
+		}
+		if (i == 0)
+			break;
+	}
+	size_t size = gztell(F);
+	gzseek(F, 0, SEEK_SET);
+	START = (unsigned char *)malloc(size+1);
+	if(NULL == START) {
+		printf("malloc error\n");
+		gzclose(F);
+		goto bail;
+	}
+	if(size != gzread(F, (void *)START, size)) {
+bailey:
+		gzclose(F);
+		goto bail;
+	}
+	gzclose(F);
+#else
 	if(fseek(F, 0, SEEK_END)) {
-		close(F);
+		fclose(F);
 		goto bail;
 	}
 	size_t size = ftell(F);
@@ -1757,15 +1798,16 @@ bail:
 	START = (unsigned char *)malloc(size+1);
 	if(NULL == START) {
 		printf("malloc error\n");
-		close(F);
+		fclose(F);
 		goto bail;
 	}
 	if(size != fread((void *)START, 1, size, F)) {
 bailey:
-		close(F);
+		fclose(F);
 		goto bail;
 	}
-	close(F);
+	fclose(F);
+#endif
 	START[size] = '\0'; /* ensure null termination */
 	/* first read the beginning */
 	END = START + size;
@@ -1884,7 +1926,7 @@ const char * synctex_scanner_get_name(synctex_scanner_t scanner,int tag) {
 		if(tag == INFO(input)[TAG]) {
 			return (char *)(INFO(input)[NAME]);
 		}
-	} while(input = SIBLING(input));
+	} while((input = SIBLING(input)) != NULL);
 	return 0;
 }
 int synctex_scanner_get_tag(synctex_scanner_t scanner,const char * name) {
@@ -1897,7 +1939,7 @@ int synctex_scanner_get_tag(synctex_scanner_t scanner,const char * name) {
 				(0 == strncmp(name,(char *)(INFO(input)[NAME]),strlen(name)))) {
 			return INFO(input)[TAG];
 		}
-	} while(input = SIBLING(input));
+	} while((input = SIBLING(input)) != NULL);
 	return 0;
 }
 synctex_node_t synctex_scanner_input(synctex_scanner_t scanner) {
@@ -2238,7 +2280,7 @@ int synctex_edit_query(synctex_scanner_t scanner,int page,float h,float v) {
 	synctex_node_t node = CHILD(sheet); /* start with the child of the sheet */
 	synctex_node_t next;
 has_node_any_child:
-	if(next = CHILD(node)) {
+	if((next = CHILD(node)) != NULL) {
 		/* node is a non void box */
 		if(_synctex_point_in_visible_box(h,v,node)) {
 			/* we found a non void box containing the point */
@@ -2285,7 +2327,7 @@ node_has_no_child:
 		*ptr = NULL;
 	}
 next_sibling:
-	if(next = SIBLING(node)) {
+	if((next = SIBLING(node)) != NULL) {
 		node = next;
 		goto has_node_any_child;
 	}
@@ -2314,7 +2356,7 @@ we_are_done:
 		float best = synctex_node_box_visible_width(node);
 		float candidate;
 		synctex_node_t * best_node_ref = NULL;
-		while(node = *(++ptr)) {
+		while((node = *(++ptr)) != NULL) {
 			candidate = synctex_node_box_visible_width(node);
 			if(candidate<best) {
 				best = candidate;
@@ -2329,7 +2371,7 @@ we_are_done:
 		/* We do need to check children to find out the node closest to the hit point.
 		 * Working with boxes is not very accurate because in general boxes are created asynchronously.
 		 * The glue, kern, math are more appropriate for synchronization. */
-		if(node = CHILD(*start)) {
+		if((node = CHILD(*start)) != NULL) {
 			best = INFINITY;
 			synctex_node_t best_node = NULL;
 			do {
@@ -2344,9 +2386,9 @@ we_are_done:
 					case synctex_node_type_vbox:
 						break;
 				}			
-			} while(node = SIBLING(node));
+			} while((node = SIBLING(node)) != NULL);
 			if(best_node) {
-				if(START = malloc(sizeof(synctex_node_t))) {
+				if((START = malloc(sizeof(synctex_node_t))) != NULL) {
 					* (synctex_node_t *)START = best_node;
 					END = START + sizeof(synctex_node_t);
 					PTR = NULL;
@@ -2381,13 +2423,25 @@ synctex_node_t synctex_next_result(synctex_scanner_t scanner) {
 	}
 }
 
-int synctex_bail(void) {
-		printf("*** ERROR\n");
-		return -1;
-}
 #pragma mark -
 #pragma mark TESTS
 /*  This is not public, it is not up to date */
+int _synctex_scan_next_line_header(synctex_scanner_t scanner, unsigned char * valueRef) {
+	if(NULL == scanner || NULL == valueRef) return -1;
+	/* read until the next '\0' byte, return the following one */
+	while(PTR<END) {
+		if(*PTR=='\0') {
+			if(++PTR<END) {
+				*valueRef = *(PTR++);
+				return 0;
+			}
+		} else {
+			++PTR;
+		}
+	}
+	return -1;
+}
+
 synctex_scanner_t synctex_scanner_new_with_data(const void * bytes, unsigned int length) {
 	synctex_scanner_t scanner = (synctex_scanner_t)_synctex_malloc(sizeof(_synctex_scanner_t));
 	if(NULL != scanner) {
@@ -2416,21 +2470,6 @@ bail:
 	return scanner;
 }
 
-int _synctex_scan_next_line_header(synctex_scanner_t scanner, unsigned char * valueRef) {
-	if(NULL == scanner || NULL == valueRef) return -1;
-	/* read until the next '\0' byte, return the following one */
-	while(PTR<END) {
-		if(*PTR=='\0') {
-			if(++PTR<END) {
-				*valueRef = *(PTR++);
-				return 0;
-			}
-		} else {
-			++PTR;
-		}
-	}
-	return -1;
-}
 int synctex_jump(synctex_scanner_t scanner)
 {
 	unsigned char the_char;
