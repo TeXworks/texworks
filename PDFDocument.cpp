@@ -49,7 +49,8 @@
 
 #include "poppler-link.h"
 
-#define SYNCTEX_EXT		".synctex.gz"
+#define SYNCTEX_GZ_EXT	".synctex.gz"
+#define SYNCTEX_EXT		".synctex"
 
 const qreal kMaxScaleFactor = 8.0;
 const qreal kMinScaleFactor = 0.125;
@@ -915,8 +916,13 @@ void PDFDocument::reload()
 void PDFDocument::loadSyncData()
 {
 	QFileInfo fi(curFile);
-	QString syncName = fi.canonicalPath() + "/" + fi.completeBaseName() + SYNCTEX_EXT;
+	QString syncName = fi.canonicalPath() + "/" + fi.completeBaseName() + SYNCTEX_GZ_EXT;
 	fi.setFile(syncName);
+	if (!fi.exists()) {
+		fi.setFile(curFile);
+		syncName = fi.canonicalPath() + "/" + fi.completeBaseName() + SYNCTEX_EXT;
+		fi.setFile(syncName);
+	}
 	if (fi.exists()) {
 		scanner = synctex_scanner_new_with_contents_of_file(syncName.toUtf8().data());
 		if (scanner == NULL) {
