@@ -639,6 +639,7 @@ QDialog::DialogCode ToolConfig::doToolConfig(QWidget *parent, Engine &engine)
 
 	DialogCode	result = (DialogCode)dlg.exec();
 	if (result == Accepted) {
+		dlg.arguments->setCurrentItem(NULL); // ensure editing is terminated
 		engine.setName(dlg.toolName->text());
 		engine.setProgram(dlg.program->text());
 		QStringList args;
