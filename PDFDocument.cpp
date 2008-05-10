@@ -45,7 +45,7 @@
 
 #include <math.h>
 
-//#include "GlobalParams.h"
+#include "GlobalParams.h"
 
 #include "poppler-link.h"
 
@@ -72,7 +72,7 @@ PDFMagnifier::PDFMagnifier(QWidget *parent, qreal inDpi)
 	: QLabel(parent)
 	, page(NULL)
 	, scaleFactor(kMagFactor)
-	, dpi(inDpi)
+	, parentDpi(inDpi)
 	, imageDpi(0)
 	, imagePage(NULL)
 {
@@ -87,18 +87,23 @@ void PDFMagnifier::setPage(Poppler::Page *p, qreal scale)
 		image = QImage();
 	}
 	else {
-		QWidget *parentWidget = qobject_cast<QWidget*>(parent());
-		qreal newDpi = dpi * scaleFactor;
-		QPoint newLoc = parentWidget->rect().topLeft() * kMagFactor;
-		QSize newSize = parentWidget->rect().size() * kMagFactor;
-		if (page != imagePage || newDpi != imageDpi || newLoc != imageLoc || newSize != imageSize)
-			image = page->renderToImage(newDpi, newDpi,
-										newLoc.x(), newLoc.y(),
-										newSize.width(), newSize.height());
-		imagePage = page;
-		imageDpi = newDpi;
-		imageLoc = newLoc;
-		imageSize = newSize;
+		PDFWidget* parent = qobject_cast<PDFWidget*>(parentWidget());
+		if (parent != NULL) {
+			QWidget* viewport = parent->parentWidget();
+			if (viewport != NULL) {
+				qreal dpi = parentDpi * scaleFactor;
+				QPoint tl = parent->mapFromParent(viewport->rect().topLeft());
+				QPoint br = parent->mapFromParent(viewport->rect().bottomRight());
+				QSize  size = QSize(br.x() - tl.x(), br.y() - tl.y()) * kMagFactor;
+				QPoint loc = tl * kMagFactor;
+				if (page != imagePage || dpi != imageDpi || loc != imageLoc || size != imageSize)
+					image = page->renderToImage(dpi, dpi, loc.x(), loc.y(), size.width(), size.height());
+				imagePage = page;
+				imageDpi = dpi;
+				imageLoc = loc;
+				imageSize = size;
+			}
+		}
 	}
 	update();
 }
@@ -108,8 +113,8 @@ void PDFMagnifier::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     drawFrame(&painter);
 	painter.drawImage(event->rect(), image,
-		event->rect().translated(x() * kMagFactor + width() / 2,
-								 y() * kMagFactor + height() / 2));
+		event->rect().translated((x() * kMagFactor - imageLoc.x()) + width() / 2,
+								 (y() * kMagFactor - imageLoc.y()) + height() / 2));
 }
 
 void PDFMagnifier::resizeEvent(QResizeEvent * /*event*/)
@@ -387,10 +392,23 @@ void PDFWidget::mouseMoveEvent(QMouseEvent *event)
 {
 	switch (usingTool) {
 		case kMagnifier:
-			magnifier->move(event->x() - magnifier->width() / 2, event->y() - magnifier->height() / 2);
-			if (magnifier->isHidden()) {
-				magnifier->show();
-				setCursor(Qt::BlankCursor);
+			{
+				QRect viewportClip(mapFromParent(parentWidget()->rect().topLeft()),
+									mapFromParent(parentWidget()->rect().bottomRight() - QPoint(1, 1)));
+				QPoint constrainedLoc = event->pos();
+				if (constrainedLoc.x() < viewportClip.left())
+					constrainedLoc.setX(viewportClip.left());
+				else if (constrainedLoc.x() > viewportClip.right())
+					constrainedLoc.setX(viewportClip.right());
+				if (constrainedLoc.y() < viewportClip.top())
+					constrainedLoc.setY(viewportClip.top());
+				else if (constrainedLoc.y() > viewportClip.bottom())
+					constrainedLoc.setY(viewportClip.bottom());
+				magnifier->move(constrainedLoc.x() - magnifier->width() / 2, constrainedLoc.y() - magnifier->height() / 2);
+				if (magnifier->isHidden()) {
+					magnifier->show();
+					setCursor(Qt::BlankCursor);
+				}
 			}
 			break;
 
@@ -916,7 +934,7 @@ void PDFDocument::reload()
 		document->setRenderBackend(Poppler::Document::SplashBackend);
 		document->setRenderHint(Poppler::Document::Antialiasing);
 		document->setRenderHint(Poppler::Document::TextAntialiasing);
-//		globalParams->setScreenType(screenDispersed);
+		globalParams->setScreenType(screenDispersed);
 
 		pdfWidget->setDocument(document);
 		pdfWidget->setFocus();
