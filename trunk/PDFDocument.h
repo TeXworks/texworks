@@ -57,7 +57,7 @@ protected:
 private:
 	Poppler::Page	*page;
 	qreal	scaleFactor;
-	qreal	dpi;
+	qreal	parentDpi;
 	QImage	image;
 	
 	QPoint	imageLoc;
