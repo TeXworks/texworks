@@ -132,7 +132,9 @@ private:
 	void updateCursor(const QPoint& pos);
 	void useMagnifier(const QMouseEvent *inEvent);
 	void doLink(const Poppler::Link *link);
-	
+	void doZoom(const QPoint& clickPos, int dir);
+	QScrollArea* getScrollArea();
+
 	Poppler::Document	*document;
 	Poppler::Page		*page;
 	Poppler::Link		*clickedLink;
