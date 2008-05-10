@@ -298,9 +298,9 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 				// Ctrl-click to sync
 				if (mouseDownModifiers & Qt::ControlModifier) {
 					if (event->modifiers() & Qt::ControlModifier) {
-						QPointF unscaledPos(event->pos().x() / scaleFactor * 72.0 / dpi,
-											event->pos().y() / scaleFactor * 72.0 / dpi);
-						emit syncClick(pageIndex, unscaledPos);
+						QPointF pagePos(event->pos().x() / scaleFactor * 72.0 / dpi,
+										event->pos().y() / scaleFactor * 72.0 / dpi);
+						emit syncClick(pageIndex, pagePos);
 					}
 					break;
 				}
@@ -308,9 +308,9 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 				if (currentTool == kMagnifier) {
 					Qt::KeyboardModifiers mods = QApplication::keyboardModifiers();
 					if (mods & Qt::AltModifier)
-						zoomOut();
+						doZoom(event->pos(), -1);
 					else if (mods & Qt::ShiftModifier)
-						zoomIn();
+						doZoom(event->pos(), 1);
 				}
 				break;
 			case kMagnifier:
@@ -343,19 +343,15 @@ void PDFWidget::doLink(const Poppler::Link *link)
 					if (dest.isChangeZoom()) {
 						// FIXME
 					}
-					QWidget *widget = window();
-					PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
-					if (doc) {
-						QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
-						if (scrollArea) {
-							if (dest.isChangeLeft()) {
-								int destLeft = (int)floor(dest.left() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
-								scrollArea->horizontalScrollBar()->setValue(destLeft);
-							}
-							if (dest.isChangeTop()) {
-								int destTop = (int)floor(dest.top() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
-								scrollArea->verticalScrollBar()->setValue(destTop);
-							}
+					QScrollArea*	scrollArea = getScrollArea();
+					if (scrollArea) {
+						if (dest.isChangeLeft()) {
+							int destLeft = (int)floor(dest.left() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
+							scrollArea->horizontalScrollBar()->setValue(destLeft);
+						}
+						if (dest.isChangeTop()) {
+							int destTop = (int)floor(dest.top() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
+							scrollArea->verticalScrollBar()->setValue(destTop);
 						}
 					}
 				}
@@ -402,16 +398,12 @@ void PDFWidget::mouseMoveEvent(QMouseEvent *event)
 			{
 				QPoint delta = event->globalPos() - scrollClickPos;
 				scrollClickPos = event->globalPos();
-				QWidget *widget = window();
-				PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
-				if (doc) {
-					QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
-					if (scrollArea) {
-						int oldX = scrollArea->horizontalScrollBar()->value();
-						scrollArea->horizontalScrollBar()->setValue(oldX - delta.x());
-						int oldY = scrollArea->verticalScrollBar()->value();
-						scrollArea->verticalScrollBar()->setValue(oldY - delta.y());
-					}
+				QScrollArea*	scrollArea = getScrollArea();
+				if (scrollArea) {
+					int oldX = scrollArea->horizontalScrollBar()->value();
+					scrollArea->horizontalScrollBar()->setValue(oldX - delta.x());
+					int oldY = scrollArea->verticalScrollBar()->value();
+					scrollArea->verticalScrollBar()->setValue(oldY - delta.y());
 				}
 			}
 			break;
@@ -519,15 +511,11 @@ void PDFWidget::setHighlightPath(const QPainterPath& path)
 {
 	highlightPath = path;
 	if (!path.isEmpty()) {
-		QRectF r = path.boundingRect();
-		QWidget *widget = window();
-		PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
-		if (doc) {
-			QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
-			if (scrollArea) {
-				scrollArea->ensureVisible((int)((r.left() + r.right()) / 2 * dpi / 72 * scaleFactor),
-											(int)((r.top() + r.bottom()) / 2 * dpi / 72 * scaleFactor));
-			}
+		QScrollArea*	scrollArea = getScrollArea();
+		if (scrollArea) {
+			QRectF r = path.boundingRect();
+			scrollArea->ensureVisible((int)((r.left() + r.right()) / 2 * dpi / 72 * scaleFactor),
+										(int)((r.top() + r.bottom()) / 2 * dpi / 72 * scaleFactor));
 		}
 	}
 }
@@ -633,23 +621,19 @@ void PDFWidget::fitWidth(bool checked)
 {
 	if (checked) {
 		scaleOption = kFitWidth;
-		QWidget *widget = window();
-		PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
-		if (doc) {
-			QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
-			if (scrollArea) {
-				qreal portWidth = scrollArea->viewport()->width();
-				QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
-				scaleFactor = portWidth / pageSize.width();
-				if (scaleFactor < kMinScaleFactor)
-					scaleFactor = kMinScaleFactor;
-				else if (scaleFactor > kMaxScaleFactor)
-					scaleFactor = kMaxScaleFactor;
-				adjustSize();
-				update();
-				updateStatusBar();
-				emit changedZoom(scaleFactor);
-			}
+		QScrollArea*	scrollArea = getScrollArea();
+		if (scrollArea) {
+			qreal portWidth = scrollArea->viewport()->width();
+			QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
+			scaleFactor = portWidth / pageSize.width();
+			if (scaleFactor < kMinScaleFactor)
+				scaleFactor = kMinScaleFactor;
+			else if (scaleFactor > kMaxScaleFactor)
+				scaleFactor = kMaxScaleFactor;
+			adjustSize();
+			update();
+			updateStatusBar();
+			emit changedZoom(scaleFactor);
 		}
 	}
 	else
@@ -661,26 +645,22 @@ void PDFWidget::fitWindow(bool checked)
 {
 	if (checked) {
 		scaleOption = kFitWindow;
-		QWidget *widget = window();
-		PDFDocument*	doc = qobject_cast<PDFDocument*>(widget);
-		if (doc) {
-			QScrollArea*	scrollArea = qobject_cast<QScrollArea*>(doc->centralWidget());
-			if (scrollArea) {
-				qreal portWidth = scrollArea->viewport()->width();
-				qreal portHeight = scrollArea->viewport()->height();
-				QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
-				qreal sfh = portWidth / pageSize.width();
-				qreal sfv = portHeight / pageSize.height();
-				scaleFactor = sfh < sfv ? sfh : sfv;
-				if (scaleFactor < kMinScaleFactor)
-					scaleFactor = kMinScaleFactor;
-				else if (scaleFactor > kMaxScaleFactor)
-					scaleFactor = kMaxScaleFactor;
-				adjustSize();
-				update();
-				updateStatusBar();
-				emit changedZoom(scaleFactor);
-			}
+		QScrollArea*	scrollArea = getScrollArea();
+		if (scrollArea) {
+			qreal portWidth = scrollArea->viewport()->width();
+			qreal portHeight = scrollArea->viewport()->height();
+			QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
+			qreal sfh = portWidth / pageSize.width();
+			qreal sfv = portHeight / pageSize.height();
+			scaleFactor = sfh < sfv ? sfh : sfv;
+			if (scaleFactor < kMinScaleFactor)
+				scaleFactor = kMinScaleFactor;
+			else if (scaleFactor > kMaxScaleFactor)
+				scaleFactor = kMaxScaleFactor;
+			adjustSize();
+			update();
+			updateStatusBar();
+			emit changedZoom(scaleFactor);
 		}
 	}
 	else
@@ -688,38 +668,65 @@ void PDFWidget::fitWindow(bool checked)
 	emit changedScaleOption(scaleOption);
 }
 
-void PDFWidget::zoomIn()
+void PDFWidget::doZoom(const QPoint& clickPos, int dir) // dir = 1 for in, -1 for out
 {
+	QPointF pagePos(clickPos.x() / scaleFactor * 72.0 / dpi,
+					clickPos.y() / scaleFactor * 72.0 / dpi);
 	scaleOption = kFixedMag;
-	if (scaleFactor < kMaxScaleFactor) {
+	emit changedScaleOption(scaleOption);
+
+	QPoint globalPos = mapToGlobal(clickPos);
+	if (dir > 0 && scaleFactor < kMaxScaleFactor) {
 		scaleFactor *= sqrt(2.0);
 		if (fabs(scaleFactor - round(scaleFactor)) < 0.01)
 			scaleFactor = round(scaleFactor);
 		if (scaleFactor > kMaxScaleFactor)
 			scaleFactor = kMaxScaleFactor;
-		adjustSize();
-		update();
-		updateStatusBar();
-		emit changedZoom(scaleFactor);
 	}
-	emit changedScaleOption(scaleOption);
-}
-
-void PDFWidget::zoomOut()
-{
-	scaleOption = kFixedMag;
-	if (scaleFactor > kMinScaleFactor) {
+	else if (dir < 0 && scaleFactor > kMinScaleFactor) {
 		scaleFactor /= sqrt(2.0);
 		if (fabs(scaleFactor - round(scaleFactor)) < 0.01)
 			scaleFactor = round(scaleFactor);
 		if (scaleFactor < kMinScaleFactor)
 			scaleFactor = kMinScaleFactor;
-		adjustSize();
-		update();
-		updateStatusBar();
-		emit changedZoom(scaleFactor);
 	}
-	emit changedScaleOption(scaleOption);
+	else
+		return;
+
+	adjustSize();
+	update();
+	updateStatusBar();
+	emit changedZoom(scaleFactor);
+	QPoint localPos = mapFromGlobal(globalPos);
+	QPoint pageToLocal(int(pagePos.x() * scaleFactor / 72.0 * dpi),
+						int(pagePos.y() * scaleFactor / 72.0 * dpi));
+	QScrollArea*	scrollArea = getScrollArea();
+	if (scrollArea) {
+		QScrollBar* hs = scrollArea->horizontalScrollBar();
+		if (hs != NULL)
+			hs->setValue(hs->value() + pageToLocal.x() - localPos.x());
+		QScrollBar* vs = scrollArea->verticalScrollBar();
+		if (vs != NULL)
+			vs->setValue(vs->value() + pageToLocal.y() - localPos.y());
+	}
+}
+
+void PDFWidget::zoomIn()
+{
+	QWidget *parent = parentWidget();
+	if (parent != NULL) {
+		QPoint ctr = mapFromParent(QPoint(parent->width() / 2, parent->height() / 2));
+		doZoom(ctr, 1);
+	}
+}
+
+void PDFWidget::zoomOut()
+{
+	QWidget *parent = parentWidget();
+	if (parent != NULL) {
+		QPoint ctr = mapFromParent(QPoint(parent->width() / 2, parent->height() / 2));
+		doZoom(ctr, -1);
+	}
 }
 
 void PDFWidget::saveState()
@@ -739,6 +746,15 @@ void PDFWidget::restoreState()
 	}
 	scaleOption = saveScaleOption;
 	emit changedScaleOption(scaleOption);
+}
+
+QScrollArea* PDFWidget::getScrollArea()
+{
+	QWidget* parent = parentWidget();
+	if (parent != NULL)
+		return qobject_cast<QScrollArea*>(parent->parentWidget());
+	else
+		return NULL;
 }
 
 
