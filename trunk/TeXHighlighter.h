@@ -24,6 +24,8 @@
 
 #include <QTextCharFormat>
 
+#include <hunspell/hunspell.h>
+
 class QTextDocument;
 
 class TeXHighlighter : public QSyntaxHighlighter
@@ -34,6 +36,8 @@ public:
 	TeXHighlighter(QTextDocument *parent = 0);
 	
 	void setActive(bool active);
+
+	void setSpellChecker(Hunhandle *h);
 
 protected:
 	void highlightBlock(const QString &text);
@@ -50,8 +54,13 @@ private:
 	QTextCharFormat packageFormat;
 	QTextCharFormat environmentFormat;
 	QTextCharFormat commentFormat;
+
+	QTextCharFormat spellFormat;
+	QTextCharFormat spellCommentFormat;
 	
 	bool isActive;
+
+	Hunhandle *pHunspell;
 };
 
 #endif

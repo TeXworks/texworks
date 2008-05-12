@@ -23,6 +23,9 @@
 #include <QAction>
 #include <QString>
 #include <QList>
+#include <QHash>
+
+#include <hunspell/hunspell.h>
 
 #define TEXWORKS_NAME "TeXworks" /* app name, for use in menus, messages, etc */
 
@@ -42,6 +45,12 @@ public:
 
 	// return a sorted list of all the available text codecs
 	static QList<QTextCodec*> *findCodecs();
+
+	// get list of available dictionaries
+	static QStringList *getDictionaryList();
+	
+	// get dictionary for a given language
+	static Hunhandle *getDictionary(const QString& language);
 
 	// perform the updates to a menu; used by the documents to update their own menus
 	static void updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu);
@@ -64,7 +73,10 @@ public:
 private:
 	TWUtils();
 
-	static QList<QTextCodec*> *codecList;
+	static QList<QTextCodec*>	*codecList;
+	static QStringList			*dictionaryList;
+
+	static QHash<const QString,Hunhandle*>	*dictionaries;
 };
 
 // this special QAction class is used in Window menus, so that it's easy to recognize the dynamically-created items

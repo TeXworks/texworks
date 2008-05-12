@@ -211,6 +211,13 @@
     <property name="title" >
      <string>Edit</string>
     </property>
+    <widget class="QMenu" name="menuSpelling" >
+     <property name="title" >
+      <string>Spelling</string>
+     </property>
+     <addaction name="actionNone_2" />
+     <addaction name="separator" />
+    </widget>
     <addaction name="actionUndo" />
     <addaction name="actionRedo" />
     <addaction name="separator" />
@@ -220,6 +227,8 @@
     <addaction name="actionClear" />
     <addaction name="separator" />
     <addaction name="actionSelect_All" />
+    <addaction name="separator" />
+    <addaction name="menuSpelling" />
     <addaction name="actionPreferences" />
    </widget>
    <widget class="QMenu" name="menuRun" >
@@ -721,6 +730,11 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+=</string>
+   </property>
+  </action>
+  <action name="actionNone_2" >
+   <property name="text" >
+    <string>None</string>
    </property>
   </action>
  </widget>

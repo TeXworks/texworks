@@ -29,6 +29,8 @@
 
 #include "FindDialog.h"
 
+#include <hunspell/hunspell.h>
+
 class QAction;
 class QMenu;
 class QTextEdit;
@@ -160,6 +162,8 @@ private:
 
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
+
+	Hunhandle *pHunspell;
 
 	static QList<TeXDocument*> docList;
 };

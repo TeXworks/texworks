@@ -58,7 +58,7 @@ void TemplateDialog::init()
 			this, SLOT(selectionChanged(const QItemSelection&, const QItemSelection&)));
 
 	QSettings settings;
-	if (settings.value("wrapLines", true).toBool()) {
+	if (settings.value("syntaxColoring", true).toBool()) {
 		new TeXHighlighter(textEdit->document());
 	}
 }

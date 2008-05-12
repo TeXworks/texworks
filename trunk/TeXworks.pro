@@ -14,7 +14,7 @@ macx {
 	INCLUDEPATH += /usr/local/include/poppler
 	INCLUDEPATH += /usr/local/include/poppler/qt4
 
-	LIBS += -L/usr/local/lib -lpoppler-qt4 -lpoppler
+	LIBS += -L/usr/local/lib -lpoppler-qt4 -lpoppler -lhunspell-1.2
 
 	QMAKE_INFO_PLIST = TeXworks.plist
 
@@ -24,7 +24,10 @@ macx {
 linux {
 	INCLUDEPATH += /usr/local/include/poppler
 	INCLUDEPATH += /usr/local/include/poppler/qt4
+	INCLUDEPATH += /usr/include/poppler
+	INCLUDEPATH += /usr/include/poppler/qt4
 	LIBS += -Wl,-rpath,/usr/local/lib -lpoppler-qt4
+	LIBS += -Wl,-rpath,/usr/local/lib -lhunspell-1.2
 	LIBS += -lfontconfig
 }
 
@@ -34,7 +37,7 @@ win32 {
 
 	LIBS += -LX:/QTeX-libs/poppler-mingw32/poppler/inst/usr/local/lib
 	LIBS += -L"C:/Program Files/GnuWin32/lib"
-	LIBS += -lpoppler-qt4 -lpoppler -lfreetype
+	LIBS += -lpoppler-qt4 -lpoppler -lfreetype -lhunspell-1.2
 }
 
 # Input

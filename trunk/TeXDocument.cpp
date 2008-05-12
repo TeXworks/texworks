@@ -78,6 +78,7 @@ void TeXDocument::init()
 	pdfDoc = NULL;
 	process = NULL;
 	highlighter = NULL;
+	pHunspell = NULL;
 
 	setupUi(this);
 
@@ -188,6 +189,14 @@ void TeXDocument::init()
 	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
 	connect(actionSyntax_Coloring, SIGNAL(triggered(bool)), this, SLOT(setSyntaxColoring(bool)));
 
+	foreach (QString lang, *TWUtils::getDictionaryList()) {
+		menuSpelling->addAction(lang);
+	}
+	
+	pHunspell = TWUtils::getDictionary("en_US");
+	highlighter->setSpellChecker(pHunspell);
+	textEdit->setSpellChecker(pHunspell);
+	
 	TWUtils::zoomToHalfScreen(this);
 
 	docList.append(this);

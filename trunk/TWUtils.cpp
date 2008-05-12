@@ -109,6 +109,51 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 	return codecList;
 }
 
+QStringList* TWUtils::dictionaryList = NULL;
+
+QStringList* TWUtils::getDictionaryList()
+{
+	if (dictionaryList != NULL)
+		return dictionaryList;
+
+	dictionaryList = new QStringList;
+	QDir dicDir(TWUtils::getLibraryPath("dictionaries"));
+	foreach (QFileInfo dicFileInfo, dicDir.entryInfoList(QStringList("*.dic"),
+										QDir::Files | QDir::Readable,
+										QDir::Name | QDir::IgnoreCase)) {
+		QFileInfo affFileInfo(dicFileInfo.dir(), dicFileInfo.completeBaseName() + ".aff");
+		if (affFileInfo.isReadable())
+			*dictionaryList << dicFileInfo.completeBaseName();
+	}
+	
+	return dictionaryList;
+}
+
+QHash<const QString,Hunhandle*> *TWUtils::dictionaries = NULL;
+
+Hunhandle* TWUtils::getDictionary(const QString& language)
+{
+	if (language.isEmpty())
+		return NULL;
+	
+	if (dictionaries == NULL)
+		dictionaries = new QHash<const QString,Hunhandle*>;
+	
+	if (dictionaries->contains(language))
+		return dictionaries->value(language);
+	
+	Hunhandle *h = NULL;
+	const QString dictPath = getLibraryPath("dictionaries");
+	QFileInfo affFile(dictPath + "/" + language + ".aff");
+	QFileInfo dicFile(dictPath + "/" + language + ".dic");
+	if (affFile.isReadable() && dicFile.isReadable()) {
+		h = Hunspell_create(affFile.canonicalFilePath().toUtf8().data(),
+							dicFile.canonicalFilePath().toUtf8().data());
+		(*dictionaries)[language] = h;
+	}
+	return h;
+}
+
 QString TWUtils::strippedName(const QString &fullFileName)
 {
 	return QFileInfo(fullFileName).fileName();
