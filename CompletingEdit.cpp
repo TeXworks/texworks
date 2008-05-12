@@ -31,12 +31,14 @@
 #include <QFileInfo>
 #include <QFile>
 #include <QDir>
+#include <QMenu>
 #include <QTextStream>
 #include <QAbstractTextDocumentLayout>
+#include <QSignalMapper>
 
 
 CompletingEdit::CompletingEdit(QWidget *parent)
-	: QTextEdit(parent), c(NULL), cmpCursor(QTextCursor())
+	: QTextEdit(parent), c(NULL), cmpCursor(QTextCursor()), pHunspell(NULL)
 {
 	if (sharedCompleter == NULL) {
 		sharedCompleter = new QCompleter(qApp);
@@ -357,6 +359,54 @@ void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
 	}
 
 	theCompleter->setModel(model);
+}
+
+void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
+{
+	QMenu *menu = createStandardContextMenu();
+
+	if (pHunspell != NULL) {
+		currentWord = cursorForPosition(event->pos());
+		currentWord.select(QTextCursor::WordUnderCursor);
+		if (currentWord.hasSelection()) {
+			QByteArray utf8word = currentWord.selectedText().toUtf8();
+			int spellResult = Hunspell_spell(pHunspell, utf8word.data());
+			if (spellResult == 0) {
+				char **suggestionList;
+				int count = Hunspell_suggest(pHunspell, &suggestionList, utf8word.data());
+				menu->insertSeparator(menu->actions().first());
+				if (count == 0)
+					menu->insertAction(menu->actions().first(), new QAction(tr("No suggestions"), this));
+				else {
+					QSignalMapper *mapper = new QSignalMapper(menu);
+					QAction* sep = menu->actions().first();
+					for (int i = 0; i < count; ++i) {
+						QString str = QString::fromUtf8(suggestionList[i]);
+						QAction *act = new QAction(str, menu);
+						connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
+						mapper->setMapping(act, str);
+						menu->insertAction(sep, act);
+						free(suggestionList[i]);
+					}
+					free(suggestionList);
+					connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(correction(const QString&)));
+				}
+			}
+		}
+	}
+	
+	menu->exec(event->globalPos());
+	delete menu;
+}
+
+void CompletingEdit::setSpellChecker(Hunhandle* h)
+{
+	pHunspell = h;
+}
+
+void CompletingEdit::correction(const QString& suggestion)
+{
+	currentWord.insertText(suggestion);
 }
 
 QCompleter	*CompletingEdit::sharedCompleter = NULL;

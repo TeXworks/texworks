@@ -37,6 +37,8 @@
 #include <QKeySequence>
 #include <QDesktopWidget>
 #include <QTextCodec>
+#include <QLocale>
+#include <QTranslator>
 
 const int kDefaultMaxRecentFiles = 10;
 
@@ -59,6 +61,11 @@ void TWApp::init()
 	setApplicationName(TEXWORKS_NAME);
 
 	setWindowIcon(QIcon(":/images/images/appicon.png"));
+
+	QString locale = QLocale::system().name();
+	QTranslator translator;
+	translator.load(QString(TEXWORKS_NAME "_") + locale);
+	installTranslator(&translator);
 
 	QSettings settings;
 	recentFilesLimit = settings.value("maxRecentFiles", kDefaultMaxRecentFiles).toInt();

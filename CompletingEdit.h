@@ -22,6 +22,8 @@
 
 #include <QTextEdit>
 
+#include <hunspell/hunspell.h>
+
 class QCompleter;
 class QStandardItemModel;
 
@@ -33,6 +35,8 @@ public:
     CompletingEdit(QWidget *parent = 0);
     ~CompletingEdit();
 
+	void setSpellChecker(Hunhandle *h);
+
 signals:
 	void syncClick(int);
 
@@ -42,9 +46,11 @@ protected:
 	virtual void mousePressEvent(QMouseEvent *e);
 	virtual void mouseReleaseEvent(QMouseEvent *e);
 	virtual void mouseDoubleClickEvent(QMouseEvent *e);
+	virtual void contextMenuEvent(QContextMenuEvent *e);
 
 private slots:
 	void clearCompleter();
+	void correction(const QString& suggestion);
 
 private:
     void setCompleter(QCompleter *c);
@@ -61,6 +67,9 @@ private:
 	QString prevCompletion; // used with multiple entries for the same key (e.g., "--")
 	int itemIndex;
 	int prevRow;
+
+	QTextCursor currentWord;
+	Hunhandle *pHunspell;
 
 	static QCompleter	*sharedCompleter;
 };

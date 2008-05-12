@@ -24,6 +24,7 @@
 TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	: QSyntaxHighlighter(parent)
 	, isActive(true)
+	, pHunspell(NULL)
 {
 	HighlightingRule rule;
 
@@ -51,18 +52,48 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	rule.pattern = QRegExp("%.*");
 	rule.format = commentFormat;
 	highlightingRules.append(rule);
+	
+	spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+	spellCommentFormat = commentFormat;
+	spellCommentFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
 }
 
 void TeXHighlighter::highlightBlock(const QString &text)
 {
 	if (isActive) {
+		int index;
 		foreach (HighlightingRule rule, highlightingRules) {
 			QRegExp expression(rule.pattern);
-			int index = text.indexOf(expression);
+			index = text.indexOf(expression);
 			while (index >= 0) {
 				int length = expression.matchedLength();
 				setFormat(index, length, rule.format);
 				index = text.indexOf(expression, index + length);
+			}
+		}
+		
+		// to be revised... quick-and-dirty approach to finding words, just for testing
+		if (pHunspell != NULL) {
+			QStringList wordList = text.split(QRegExp("\\W+"), QString::SkipEmptyParts);
+			int index = 0;
+			foreach (QString word, wordList) {
+				index = text.indexOf(word, index);
+				QTextCharFormat currFormat = format(index);
+				if (currFormat == controlSequenceFormat
+					|| currFormat == environmentFormat
+					|| currFormat == packageFormat) {
+					// skip
+				}
+				else {
+					int spellResult = Hunspell_spell(pHunspell, word.toUtf8().data());
+					if (spellResult == 0) {
+						if (format(index) == commentFormat)
+							setFormat(index, word.length(), spellCommentFormat);
+						else
+							setFormat(index, word.length(), spellFormat);
+					}
+				}
+				index += word.length();
 			}
 		}
 	}
@@ -71,5 +102,11 @@ void TeXHighlighter::highlightBlock(const QString &text)
 void TeXHighlighter::setActive(bool active)
 {
 	isActive = active;
+	rehighlight();
+}
+
+void TeXHighlighter::setSpellChecker(Hunhandle* h)
+{
+	pHunspell = h;
 	rehighlight();
 }
