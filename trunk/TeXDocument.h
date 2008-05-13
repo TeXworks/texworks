@@ -123,6 +123,7 @@ private slots:
 	void selectedEngine(QAction* engineAction);
 	void selectedEngine(const QString& name);
 	void contentsChanged(int position, int charsRemoved, int charsAdded);
+	void setLanguage(const QString& lang);
 
 private:
 	void init();

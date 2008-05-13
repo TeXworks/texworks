@@ -44,6 +44,7 @@
 #include <QScrollBar>
 #include <QActionGroup>
 #include <QTextCodec>
+#include <QSignalMapper>
 #include <QDebug>
 
 const int kMinConsoleHeight = 160;
@@ -84,6 +85,8 @@ void TeXDocument::init()
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
+
+	setContextMenuPolicy(Qt::NoContextMenu);
 
 	hideConsole();
 
@@ -189,17 +192,42 @@ void TeXDocument::init()
 	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
 	connect(actionSyntax_Coloring, SIGNAL(triggered(bool)), this, SLOT(setSyntaxColoring(bool)));
 
+	QSignalMapper *mapper = new QSignalMapper(this);
+	connect(actionNone, SIGNAL(triggered()), mapper, SLOT(map()));
+	mapper->setMapping(actionNone, QString());
+	connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(setLanguage(const QString&)));
+
+	QActionGroup *group = new QActionGroup(this);
+	group->addAction(actionNone);
+
+	QString defLang = settings.value("language", "en_US").toString();
 	foreach (QString lang, *TWUtils::getDictionaryList()) {
-		menuSpelling->addAction(lang);
+		QAction *act = menuSpelling->addAction(lang);
+		act->setCheckable(true);
+		connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
+		mapper->setMapping(act, lang);
+		group->addAction(act);
+		if (lang == defLang)
+			act->trigger();
 	}
-	
-	pHunspell = TWUtils::getDictionary("en_US");
-	highlighter->setSpellChecker(pHunspell);
-	textEdit->setSpellChecker(pHunspell);
 	
 	TWUtils::zoomToHalfScreen(this);
 
 	docList.append(this);
+}
+
+void TeXDocument::setLanguage(const QString& lang)
+{
+	pHunspell = TWUtils::getDictionary(lang);
+	if (pHunspell != NULL) {
+		codec = QTextCodec::codecForName(Hunspell_get_dic_encoding(pHunspell));
+		if (codec == NULL)
+			codec = QTextCodec::codecForLocale(); // almost certainly wrong, if we couldn't find the actual name!
+	}
+	else
+		codec = NULL;
+	highlighter->setSpellChecker(pHunspell, codec);
+	textEdit->setSpellChecker(pHunspell, codec);
 }
 
 void TeXDocument::clipboardChanged()

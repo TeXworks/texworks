@@ -27,6 +27,7 @@
 #include <hunspell/hunspell.h>
 
 class QTextDocument;
+class QTextCodec;
 
 class TeXHighlighter : public QSyntaxHighlighter
 {
@@ -37,7 +38,7 @@ public:
 	
 	void setActive(bool active);
 
-	void setSpellChecker(Hunhandle *h);
+	void setSpellChecker(Hunhandle *h, QTextCodec *codec);
 
 protected:
 	void highlightBlock(const QString &text);
@@ -61,6 +62,7 @@ private:
 	bool isActive;
 
 	Hunhandle *pHunspell;
+	QTextCodec *spellingCodec;
 };
 
 #endif

@@ -26,6 +26,7 @@
 
 class QCompleter;
 class QStandardItemModel;
+class QTextCodec;
 
 class CompletingEdit : public QTextEdit
 {
@@ -35,7 +36,7 @@ public:
     CompletingEdit(QWidget *parent = 0);
     ~CompletingEdit();
 
-	void setSpellChecker(Hunhandle *h);
+	void setSpellChecker(Hunhandle *h, QTextCodec *codec);
 
 signals:
 	void syncClick(int);
@@ -70,6 +71,7 @@ private:
 
 	QTextCursor currentWord;
 	Hunhandle *pHunspell;
+	QTextCodec *spellingCodec;
 
 	static QCompleter	*sharedCompleter;
 };

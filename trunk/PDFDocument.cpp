@@ -806,7 +806,9 @@ PDFDocument::init()
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
 	setWindowIcon(QIcon(":/images/images/pdfdoc.png"));
-		
+	
+	setContextMenuPolicy(Qt::NoContextMenu);
+
 	pdfWidget = new PDFWidget;
 	connect(this, SIGNAL(windowResized()), pdfWidget, SLOT(windowResized()));
 
