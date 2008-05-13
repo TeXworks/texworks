@@ -51,15 +51,18 @@ bool TWUtils::isPDFfile(const QString& fileName)
 const QString TWUtils::getLibraryPath(const QString& subdir)
 {
 #ifdef Q_WS_MAC
-	QString libPath(QDir::homePath() + "/Library/" + TEXWORKS_NAME);
+	QString libPath(QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/" + subdir);
 #endif
 #ifdef Q_WS_X11
-	QString libPath(QDir::homePath() + "/." + TEXWORKS_NAME);
+	QString libPath;
+	if (subdir == "dictionaries")
+		libPath = "/usr/share/myspell/dicts";
+	else
+		libPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/" + subdir;
 #endif
 #ifdef Q_WS_WIN
-	QString libPath(QDir::homePath() + "/" + TEXWORKS_NAME);
+	QString libPath(QDir::homePath() + "/" + TEXWORKS_NAME + "/" + subdir);
 #endif
-	libPath += "/"  + subdir;
 	// check if libPath exists
 	QFileInfo info(libPath);
 	if (!info.exists()) {
@@ -118,11 +121,10 @@ QStringList* TWUtils::getDictionaryList()
 
 	dictionaryList = new QStringList;
 	QDir dicDir(TWUtils::getLibraryPath("dictionaries"));
-	foreach (QFileInfo dicFileInfo, dicDir.entryInfoList(QStringList("*.dic"),
-										QDir::Files | QDir::Readable,
-										QDir::Name | QDir::IgnoreCase)) {
-		QFileInfo affFileInfo(dicFileInfo.dir(), dicFileInfo.completeBaseName() + ".aff");
-		if (affFileInfo.isReadable())
+	foreach (QFileInfo affFileInfo, dicDir.entryInfoList(QStringList("*.aff"),
+				QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
+		QFileInfo dicFileInfo(affFileInfo.dir(), affFileInfo.completeBaseName() + ".dic");
+		if (dicFileInfo.isReadable())
 			*dictionaryList << dicFileInfo.completeBaseName();
 	}
 	
