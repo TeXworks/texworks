@@ -215,7 +215,7 @@
      <property name="title" >
       <string>Spelling</string>
      </property>
-     <addaction name="actionNone_2" />
+     <addaction name="actionNone" />
      <addaction name="separator" />
     </widget>
     <addaction name="actionUndo" />
@@ -652,6 +652,12 @@
    </property>
   </action>
   <action name="actionNone" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
    <property name="text" >
     <string>None</string>
    </property>
@@ -730,11 +736,6 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+=</string>
-   </property>
-  </action>
-  <action name="actionNone_2" >
-   <property name="text" >
-    <string>None</string>
    </property>
   </action>
  </widget>

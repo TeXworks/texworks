@@ -18,6 +18,7 @@
 */
 
 #include <QRegExp>
+#include <QTextCodec>
 
 #include "TeXHighlighter.h"
 
@@ -87,7 +88,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 					// skip
 				}
 				else {
-					int spellResult = Hunspell_spell(pHunspell, word.toUtf8().data());
+					int spellResult = Hunspell_spell(pHunspell, spellingCodec->fromUnicode(word).data());
 					if (spellResult == 0) {
 						if (format(index) == commentFormat)
 							setFormat(index, word.length(), spellCommentFormat);
@@ -107,8 +108,9 @@ void TeXHighlighter::setActive(bool active)
 	rehighlight();
 }
 
-void TeXHighlighter::setSpellChecker(Hunhandle* h)
+void TeXHighlighter::setSpellChecker(Hunhandle* h, QTextCodec* codec)
 {
 	pHunspell = h;
+	spellingCodec = codec;
 	rehighlight();
 }

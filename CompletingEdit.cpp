@@ -33,12 +33,13 @@
 #include <QDir>
 #include <QMenu>
 #include <QTextStream>
+#include <QTextCodec>
 #include <QAbstractTextDocumentLayout>
 #include <QSignalMapper>
 
 
 CompletingEdit::CompletingEdit(QWidget *parent)
-	: QTextEdit(parent), c(NULL), cmpCursor(QTextCursor()), pHunspell(NULL)
+	: QTextEdit(parent), c(NULL), cmpCursor(QTextCursor()), pHunspell(NULL), spellingCodec(NULL)
 {
 	if (sharedCompleter == NULL) {
 		sharedCompleter = new QCompleter(qApp);
@@ -369,11 +370,11 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 		currentWord = cursorForPosition(event->pos());
 		currentWord.select(QTextCursor::WordUnderCursor);
 		if (currentWord.hasSelection()) {
-			QByteArray utf8word = currentWord.selectedText().toUtf8();
-			int spellResult = Hunspell_spell(pHunspell, utf8word.data());
+			QByteArray word = spellingCodec->fromUnicode(currentWord.selectedText());
+			int spellResult = Hunspell_spell(pHunspell, word.data());
 			if (spellResult == 0) {
 				char **suggestionList;
-				int count = Hunspell_suggest(pHunspell, &suggestionList, utf8word.data());
+				int count = Hunspell_suggest(pHunspell, &suggestionList, word.data());
 				menu->insertSeparator(menu->actions().first());
 				if (count == 0)
 					menu->insertAction(menu->actions().first(), new QAction(tr("No suggestions"), this));
@@ -381,7 +382,7 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 					QSignalMapper *mapper = new QSignalMapper(menu);
 					QAction* sep = menu->actions().first();
 					for (int i = 0; i < count; ++i) {
-						QString str = QString::fromUtf8(suggestionList[i]);
+						QString str = spellingCodec->toUnicode(suggestionList[i]);
 						QAction *act = new QAction(str, menu);
 						connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
 						mapper->setMapping(act, str);
@@ -399,9 +400,10 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	delete menu;
 }
 
-void CompletingEdit::setSpellChecker(Hunhandle* h)
+void CompletingEdit::setSpellChecker(Hunhandle* h, QTextCodec *codec)
 {
 	pHunspell = h;
+	spellingCodec = codec;
 }
 
 void CompletingEdit::correction(const QString& suggestion)
