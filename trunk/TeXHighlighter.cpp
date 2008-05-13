@@ -54,8 +54,10 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	highlightingRules.append(rule);
 	
 	spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+	spellFormat.setUnderlineColor(Qt::red);
 	spellCommentFormat = commentFormat;
 	spellCommentFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+	spellCommentFormat.setUnderlineColor(Qt::black);
 }
 
 void TeXHighlighter::highlightBlock(const QString &text)

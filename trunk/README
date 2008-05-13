@@ -8,9 +8,20 @@ See the file COPYING for details.
 Building TeXworks
 =================
 
-Notes by Jonathan Kew, 2008-04-21
+Notes by Jonathan Kew, 2008-05-13
 
-To build TeXworks from source, you will need to install developer packages for Qt4 (4.3.2 is known to work; later versions should also work) and Poppler (0.8.0 or later), along with their dependencies (such as Freetype, fontconfig, zlib, etc.) Details will depend on your platform.
+To build TeXworks from source, you will need to install developer packages (or equivalent) for:
+
+ - Qt4 (4.3.2 is known to work; later versions should also work)
+   http://trolltech.com/downloads/opensource#qt-open-source-edition
+
+ - Poppler (0.8.0 or later)
+   http://poppler.freedesktop.org/
+
+ - Hunspell (1.2.2 recommended; not tested with earlier versions)
+   http://hunspell.sourceforge.net/
+
+along with their dependencies (such as Freetype, fontconfig, zlib, etc.) Details will depend on your platform. On Linux or similar systems, your package manager can probably provide all these.
 
 After installing the necessary libraries (and their headers), check the TeXworks.pro file and update paths as necessary; some of the paths currently in the project file are specific to one of my build machines.
 
