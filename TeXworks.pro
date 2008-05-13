@@ -22,13 +22,9 @@ macx {
 }
 
 linux {
-	INCLUDEPATH += /usr/local/include/poppler
-	INCLUDEPATH += /usr/local/include/poppler/qt4
 	INCLUDEPATH += /usr/include/poppler
 	INCLUDEPATH += /usr/include/poppler/qt4
-	LIBS += -Wl,-rpath,/usr/local/lib -lpoppler-qt4
-	LIBS += -Wl,-rpath,/usr/local/lib -lhunspell-1.2
-	LIBS += -lfontconfig
+	LIBS += -lpoppler-qt4 -lfontconfig -lhunspell
 }
 
 win32 {
