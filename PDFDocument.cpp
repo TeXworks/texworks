@@ -45,7 +45,7 @@
 
 #include <math.h>
 
-#include "GlobalParams.h"
+//#include "GlobalParams.h"
 
 #include "poppler-link.h"
 
@@ -934,7 +934,7 @@ void PDFDocument::reload()
 		document->setRenderBackend(Poppler::Document::SplashBackend);
 		document->setRenderHint(Poppler::Document::Antialiasing);
 		document->setRenderHint(Poppler::Document::TextAntialiasing);
-		globalParams->setScreenType(screenDispersed);
+//		globalParams->setScreenType(screenDispersed);
 
 		pdfWidget->setDocument(document);
 		pdfWidget->setFocus();
@@ -1092,12 +1092,14 @@ void PDFDocument::goToSource()
 
 void PDFDocument::enablePageActions(int pageIndex)
 {
-// disabling these leads to a crash if we hit the end of document while auto-repeating a key
+#ifndef Q_WS_MAC
+// On Mac OS X, disabling these leads to a crash if we hit the end of document while auto-repeating a key
 // (seems like a Qt bug, but needs further investigation)
-//	actionFirst_Page->setEnabled(pageIndex > 0);
-//	actionPrevious_Page->setEnabled(pageIndex > 0);
-//	actionNext_Page->setEnabled(pageIndex < document->numPages() - 1);
-//	actionLast_Page->setEnabled(pageIndex < document->numPages() - 1);
+	actionFirst_Page->setEnabled(pageIndex > 0);
+	actionPrevious_Page->setEnabled(pageIndex > 0);
+	actionNext_Page->setEnabled(pageIndex < document->numPages() - 1);
+	actionLast_Page->setEnabled(pageIndex < document->numPages() - 1);
+#endif
 }
 
 void PDFDocument::enableZoomActions(qreal scaleFactor)
