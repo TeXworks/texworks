@@ -21,7 +21,9 @@
 #include "TeXDocument.h"
 #include "TWApp.h"
 #include "TWUtils.h"
+#include "PDFDocks.h"
 
+#include <QDockWidget>
 #include <QCloseEvent>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -329,6 +331,34 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 	event->accept();
 }
 
+void PDFWidget::goToDestination(const Poppler::LinkDestination& dest)
+{
+	if (dest.pageNumber() > 0) {
+		goToPage(dest.pageNumber() - 1);
+		if (dest.isChangeZoom()) {
+			// FIXME
+		}
+		QScrollArea*	scrollArea = getScrollArea();
+		if (scrollArea) {
+			if (dest.isChangeLeft()) {
+				int destLeft = (int)floor(dest.left() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
+				scrollArea->horizontalScrollBar()->setValue(destLeft);
+			}
+			if (dest.isChangeTop()) {
+				int destTop = (int)floor(dest.top() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
+				scrollArea->verticalScrollBar()->setValue(destTop);
+			}
+		}
+	}
+}
+
+void PDFWidget::goToDestination(const QString& destName)
+{
+	const Poppler::LinkDestination *dest = document->linkDestination(destName);
+	if (dest)
+		goToDestination(*dest);
+}
+
 void PDFWidget::doLink(const Poppler::Link *link)
 {
 	switch (link->linkType()) {
@@ -342,24 +372,7 @@ void PDFWidget::doLink(const Poppler::Link *link)
 					QString file = go->fileName();
 					break; // FIXME -- we don't handle this yet!
 				}
-				Poppler::LinkDestination dest = go->destination();
-				if (dest.pageNumber() > 0) {
-					goToPage(dest.pageNumber() - 1);
-					if (dest.isChangeZoom()) {
-						// FIXME
-					}
-					QScrollArea*	scrollArea = getScrollArea();
-					if (scrollArea) {
-						if (dest.isChangeLeft()) {
-							int destLeft = (int)floor(dest.left() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
-							scrollArea->horizontalScrollBar()->setValue(destLeft);
-						}
-						if (dest.isChangeTop()) {
-							int destTop = (int)floor(dest.top() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
-							scrollArea->verticalScrollBar()->setValue(destTop);
-						}
-					}
-				}
+				goToDestination(go->destination());
 			}
 			break;
 		case Poppler::Link::Execute:
@@ -810,7 +823,6 @@ PDFDocument::init()
 	setContextMenuPolicy(Qt::NoContextMenu);
 
 	pdfWidget = new PDFWidget;
-	connect(this, SIGNAL(windowResized()), pdfWidget, SLOT(windowResized()));
 
 	toolButtonGroup = new QButtonGroup(toolBar);
 	toolButtonGroup->addButton(qobject_cast<QAbstractButton*>(toolBar->widgetForAction(actionMagnify)), kMagnifier);
@@ -830,11 +842,13 @@ PDFDocument::init()
 	pageLabel->setFrameStyle(QFrame::StyledPanel);
 	pageLabel->setFont(statusBar()->font());
 
-	scrollArea = new QScrollArea;
+	scrollArea = new PDFScrollArea;
 	scrollArea->setBackgroundRole(QPalette::Dark);
 	scrollArea->setAlignment(Qt::AlignCenter);
 	scrollArea->setWidget(pdfWidget);
 	setCentralWidget(scrollArea);
+	
+	connect(scrollArea, SIGNAL(resized()), pdfWidget, SLOT(windowResized()));
 
 	document = NULL;
 	
@@ -882,6 +896,24 @@ PDFDocument::init()
 
 	connect(qApp, SIGNAL(syncPdf(const QString&, int)), this, SLOT(syncFromSource(const QString&, int)));
 
+	menuShow->addAction(toolBar->toggleViewAction());
+	menuShow->addSeparator();
+
+	QDockWidget *dw = new PDFOutlineDock(this);
+	dw->hide();
+	addDockWidget(Qt::LeftDockWidgetArea, dw);
+	menuShow->addAction(dw->toggleViewAction());
+
+	dw = new PDFInfoDock(this);
+	dw->hide();
+	addDockWidget(Qt::LeftDockWidgetArea, dw);
+	menuShow->addAction(dw->toggleViewAction());
+
+	dw = new PDFFontsDock(this);
+	dw->hide();
+	addDockWidget(Qt::BottomDockWidgetArea, dw);
+	menuShow->addAction(dw->toggleViewAction());\
+
 	QSettings settings;
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
@@ -907,10 +939,32 @@ void PDFDocument::selectWindow()
 		showNormal();
 }
 
-void PDFDocument::resizeEvent(QResizeEvent *event)
+void PDFDocument::changeEvent(QEvent *event)
 {
-	QMainWindow::resizeEvent(event);
-	emit windowResized();
+	if (event->type() == QEvent::ActivationChange) {
+		if (isActiveWindow()) {
+			foreach (QWidget* w, latentVisibleWidgets)
+				w->show();
+			latentVisibleWidgets.clear();
+		}
+		else {
+			foreach (QObject* child, children()) {
+				QToolBar* tb = qobject_cast<QToolBar*>(child);
+				if (tb && tb->isVisible() && tb->isFloating()) {
+					latentVisibleWidgets.append(tb);
+					tb->hide();
+					continue;
+				}
+				QDockWidget* dw = qobject_cast<QDockWidget*>(child);
+				if (dw && dw->isVisible() && dw->isFloating()) {
+					latentVisibleWidgets.append(dw);
+					dw->hide();
+					continue;
+				}
+			}
+		}
+	}
+	QMainWindow::changeEvent(event);
 }
 
 void PDFDocument::loadFile(const QString &fileName)
@@ -1166,4 +1220,10 @@ void PDFDocument::updateTypesettingAction(bool processRunning)
 		actionTypeset->setIcon(QIcon(":/images/images/typeset.png"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	}
+}
+
+void PDFDocument::goToDestination(const QString& destName)
+{
+	if (pdfWidget)
+		pdfWidget->goToDestination(destName);
 }

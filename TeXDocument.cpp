@@ -211,6 +211,9 @@ void TeXDocument::init()
 			act->trigger();
 	}
 	
+	menuShow->addAction(toolBar_run->toggleViewAction());
+	menuShow->addAction(toolBar_edit->toggleViewAction());
+	
 	TWUtils::zoomToHalfScreen(this);
 
 	docList.append(this);

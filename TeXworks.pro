@@ -50,6 +50,7 @@ HEADERS	+=	TWApp.h \
 			CompletingEdit.h \
 			TeXHighlighter.h \
 			PDFDocument.h \
+			PDFDocks.h \
 			FindDialog.h \
 			PrefsDialog.h \
 			TemplateDialog.h \
@@ -70,6 +71,7 @@ SOURCES	+=	main.cpp \
 			CompletingEdit.cpp \
 			TeXHighlighter.cpp \
 			PDFDocument.cpp \
+			PDFDocks.cpp \
 			FindDialog.cpp \
 			PrefsDialog.cpp \
 			TemplateDialog.cpp \

@@ -86,6 +86,7 @@ public:
 	void resetMagnifier();
 	void goToPage(int pageIndex);
 	void setHighlightPath(const QPainterPath& path);
+	void goToDestination(const QString& destName);
 
 private slots:
 	void goFirst();
@@ -131,6 +132,7 @@ private:
 	void updateCursor();
 	void updateCursor(const QPoint& pos);
 	void useMagnifier(const QMouseEvent *inEvent);
+	void goToDestination(const Poppler::LinkDestination& dest);
 	void doLink(const Poppler::Link *link);
 	void doZoom(const QPoint& clickPos, int dir);
 	QScrollArea* getScrollArea();
@@ -189,9 +191,15 @@ public:
 	void resetMagnifier();
 	void enableTypesetAction(bool enabled);
 	void updateTypesettingAction(bool processRunning);
+	void goToDestination(const QString& destName);
+
+	Poppler::Document *popplerDoc()
+		{
+			return document;
+		}
 
 protected:
-	virtual void resizeEvent(QResizeEvent *event);
+	virtual void changeEvent(QEvent *event);
 
 public slots:
 	void selectWindow();
@@ -208,9 +216,6 @@ private slots:
 	void toggleFullScreen();
 	void syncClick(int page, const QPointF& pos);
 	void syncFromSource(const QString& sourceFile, int lineNo);
-
-signals:
-	void windowResized();
 
 private:
 	void init();
@@ -232,6 +237,8 @@ private:
 	QLabel *scaleLabel;
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
+
+	QList<QWidget*> latentVisibleWidgets;
 
 	synctex_scanner_t scanner;
 

@@ -242,6 +242,13 @@
     <property name="title" >
      <string>Window</string>
     </property>
+    <widget class="QMenu" name="menuShow" >
+     <property name="title" >
+      <string>Show</string>
+     </property>
+    </widget>
+    <addaction name="menuShow" />
+    <addaction name="separator" />
     <addaction name="actionStack" />
     <addaction name="actionTile" />
     <addaction name="actionTile_Front_Two" />
@@ -294,7 +301,7 @@
   </widget>
   <widget class="QToolBar" name="toolBar_run" >
    <property name="windowTitle" >
-    <string>toolBar</string>
+    <string>Typeset Toolbar</string>
    </property>
    <property name="allowedAreas" >
     <set>Qt::LeftToolBarArea|Qt::NoToolBarArea|Qt::TopToolBarArea</set>
@@ -315,7 +322,7 @@
   </widget>
   <widget class="QToolBar" name="toolBar_edit" >
    <property name="windowTitle" >
-    <string>toolBar</string>
+    <string>Edit Toolbar</string>
    </property>
    <property name="allowedAreas" >
     <set>Qt::LeftToolBarArea|Qt::NoToolBarArea|Qt::TopToolBarArea</set>
