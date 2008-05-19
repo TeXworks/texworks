@@ -76,6 +76,13 @@
     <property name="title" >
      <string>Window</string>
     </property>
+    <widget class="QMenu" name="menuShow" >
+     <property name="title" >
+      <string>Show</string>
+     </property>
+    </widget>
+    <addaction name="menuShow" />
+    <addaction name="separator" />
     <addaction name="actionStack" />
     <addaction name="actionTile" />
     <addaction name="actionTile_Front_Two" />
@@ -104,7 +111,7 @@
   </widget>
   <widget class="QToolBar" name="toolBar" >
    <property name="windowTitle" >
-    <string>toolBar</string>
+    <string>Toolbar</string>
    </property>
    <property name="iconSize" >
     <size>
