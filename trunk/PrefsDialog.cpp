@@ -246,8 +246,6 @@ const bool kDefault_ToolBarText = false;
 const bool kDefault_SyntaxColoring = true;
 const bool kDefault_WrapLines = true;
 const int kDefault_TabWidth = 32;
-const int kDefault_PreviewScaleOption = 1;
-const int kDefault_PreviewScale = 200;
 const bool kDefault_HideConsole = true;
 
 void PrefsDialog::restoreDefaults()
