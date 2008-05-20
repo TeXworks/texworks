@@ -156,6 +156,21 @@ PDFWidget::PDFWidget()
 	setScaledContents(true);
 //	setMouseTracking(true);
 
+	switch (settings.value("scaleOption", kDefault_PreviewScaleOption).toInt()) {
+		default:
+			fixedScale(1.0);
+			break;
+		case 2:
+			fitWidth(true);
+			break;
+		case 3:
+			fitWindow(true);
+			break;
+		case 4:
+			fixedScale(settings.value("previewScale", kDefault_PreviewScale).toInt() / 100.0);
+			break;
+	}
+
 	if (magnifierCursor == NULL) {
 		magnifierCursor = new QCursor(QPixmap(":/images/images/magnifiercursor.png"));
 		zoomInCursor = new QCursor(QPixmap(":/images/images/zoomincursor.png"));
@@ -635,11 +650,11 @@ void PDFWidget::goToPage(int p)
 	}
 }
 
-void PDFWidget::actualSize()
+void PDFWidget::fixedScale(qreal scale)
 {
 	scaleOption = kFixedMag;
-	if (scaleFactor != 1.0) {
-		scaleFactor = 1.0;
+	if (scaleFactor != scale) {
+		scaleFactor = scale;
 		adjustSize();
 		update();
 		updateStatusBar();
@@ -865,7 +880,7 @@ PDFDocument::init()
 	connect(actionGo_to_Page, SIGNAL(triggered()), pdfWidget, SLOT(doPageDialog()));
 	connect(pdfWidget, SIGNAL(changedPage(int)), this, SLOT(enablePageActions(int)));
 
-	connect(actionActual_Size, SIGNAL(triggered()), pdfWidget, SLOT(actualSize()));
+	connect(actionActual_Size, SIGNAL(triggered()), pdfWidget, SLOT(fixedScale()));
 	connect(actionFit_to_Width, SIGNAL(triggered(bool)), pdfWidget, SLOT(fitWidth(bool)));
 	connect(actionFit_to_Window, SIGNAL(triggered(bool)), pdfWidget, SLOT(fitWindow(bool)));
 	connect(actionZoom_In, SIGNAL(triggered()), pdfWidget, SLOT(zoomIn()));

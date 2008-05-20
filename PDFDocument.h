@@ -35,6 +35,8 @@
 
 const int kDefault_MagnifierSize = 2;
 const bool kDefault_CircularMagnifier = true;
+const int kDefault_PreviewScaleOption = 1;
+const int kDefault_PreviewScale = 200;
 
 class QAction;
 class QMenu;
@@ -95,7 +97,7 @@ private slots:
 	void goLast();
 	void doPageDialog();
 	
-	void actualSize();
+	void fixedScale(qreal scale = 1.0);
 	void fitWidth(bool checked);
 	void zoomIn();
 	void zoomOut();
