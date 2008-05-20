@@ -560,12 +560,19 @@ void TeXDocument::showPdfIfAvailable()
 		return;
 	QFileInfo fi(rootFilePath);
 	QString pdfName = fi.canonicalPath() + "/" + fi.completeBaseName() + ".pdf";
-	fi.setFile(pdfName);
-	if (fi.exists()) {
-		pdfDoc = new PDFDocument(pdfName, this);
-		TWUtils::sideBySide(this, pdfDoc);
-		pdfDoc->show();
-		connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
+	PDFDocument *pdfDoc = PDFDocument::findDocument(pdfName);
+	if (pdfDoc != NULL) {
+		pdfDoc->reload();
+		pdfDoc->selectWindow();
+	}
+	else {
+		fi.setFile(pdfName);
+		if (fi.exists()) {
+			pdfDoc = new PDFDocument(pdfName, this);
+			TWUtils::sideBySide(this, pdfDoc);
+			pdfDoc->show();
+			connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
+		}
 	}
 }
 
@@ -1149,16 +1156,24 @@ void TeXDocument::typeset()
 			return;
 		}
 
-	Engine e = TWApp::instance()->getNamedEngine(engine->currentText());
-	if (e.program() == "") {
-		statusBar()->showMessage(tr("%1 is not properly configured").arg(engine->currentText()), kStatusMessageDuration);
-		return;
-	}
-
 	findRootFilePath();
 	QFileInfo fileInfo(rootFilePath);
 	if (!fileInfo.isReadable()) {
 		statusBar()->showMessage(tr("File %1 is not readable").arg(rootFilePath), kStatusMessageDuration);
+		return;
+	}
+
+	if (rootFilePath != QFileInfo(curFile).canonicalFilePath()) {
+		TeXDocument* rootDoc = findDocument(rootFilePath);
+		if (rootDoc != NULL) {
+			rootDoc->typeset();
+			return;
+		}
+	}
+
+	Engine e = TWApp::instance()->getNamedEngine(engine->currentText());
+	if (e.program() == "") {
+		statusBar()->showMessage(tr("%1 is not properly configured").arg(engine->currentText()), kStatusMessageDuration);
 		return;
 	}
 
