@@ -131,6 +131,26 @@ void TWApp::about()
 				));
 }
 
+void TWApp::launchAction()
+{
+	if (TeXDocument::documentList().size() > 0 || PDFDocument::documentList().size() > 0)
+		return;
+
+	QSettings settings;
+	int launchOption = settings.value("launchOption", 1).toInt();
+	switch (launchOption) {
+		case 1: // Blank document
+			newFile();
+			break;
+		case 2: // New from Template
+			newFromTemplate();
+			break;
+		case 3: // Open File
+			open();
+			break;
+	}
+}
+
 void TWApp::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
@@ -159,7 +179,8 @@ void TWApp::openRecentFile()
 void TWApp::open()
 {
 	QString fileName = QFileDialog::getOpenFileName();
-	open(fileName);
+	if (!fileName.isEmpty())
+		open(fileName);
 }
 
 void TWApp::open(const QString &fileName)

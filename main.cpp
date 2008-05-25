@@ -18,8 +18,6 @@
 */
 
 #include "TWApp.h"
-#include "TeXDocument.h"
-#include "PDFDocument.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,11 +26,9 @@ int main(int argc, char *argv[])
 	// first argument is the executable name, so we skip that
 	for (int i = 1; i < argc; ++i)
 		app.open(argv[i]);
-	
-	if (TeXDocument::documentList().size() == 0 && PDFDocument::documentList().size() == 0) {
-		TeXDocument *mainWin = new TeXDocument;
-		mainWin->show();
-	}
+
+	// possibly perform an action (e.g., if launched without doc)
+	app.launchAction();
 
 	return app.exec();
 }

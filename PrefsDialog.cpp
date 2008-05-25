@@ -407,7 +407,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		font.fromString(fontString);
 	dlg.editorFont->setCurrentIndex(fdb.families().indexOf(font.family()));
 	dlg.fontSize->setValue(font.pointSize());
-	dlg.encoding->setCurrentIndex(nameList.indexOf("UTF-8"));
+	dlg.encoding->setCurrentIndex(nameList.indexOf(TWApp::instance()->getDefaultCodec()->name()));
 
 	// Preview
 	switch (settings.value("scaleOption", kDefault_PreviewScaleOption).toInt()) {
@@ -498,6 +498,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		font = QFont(dlg.editorFont->currentText());
 		font.setPointSize(dlg.fontSize->value());
 		settings.setValue("font", font.toString());
+		TWApp::instance()->setDefaultCodec(QTextCodec::codecForName(dlg.encoding->currentText().toAscii()));
 		
 		// Preview
 		int scaleOption = 1;
