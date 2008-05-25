@@ -221,16 +221,17 @@ void TeXDocument::init()
 
 void TeXDocument::setLanguage(const QString& lang)
 {
+	QTextCodec *spellingCodec;
 	pHunspell = TWUtils::getDictionary(lang);
 	if (pHunspell != NULL) {
-		codec = QTextCodec::codecForName(Hunspell_get_dic_encoding(pHunspell));
-		if (codec == NULL)
-			codec = QTextCodec::codecForLocale(); // almost certainly wrong, if we couldn't find the actual name!
+		spellingCodec = QTextCodec::codecForName(Hunspell_get_dic_encoding(pHunspell));
+		if (spellingCodec == NULL)
+			spellingCodec = QTextCodec::codecForLocale(); // almost certainly wrong, if we couldn't find the actual name!
 	}
 	else
-		codec = NULL;
-	highlighter->setSpellChecker(pHunspell, codec);
-	textEdit->setSpellChecker(pHunspell, codec);
+		spellingCodec = NULL;
+	highlighter->setSpellChecker(pHunspell, spellingCodec);
+	textEdit->setSpellChecker(pHunspell, spellingCodec);
 }
 
 void TeXDocument::clipboardChanged()
@@ -597,32 +598,53 @@ bool TeXDocument::saveFile(const QString &fileName)
 					.arg(reqName)
 					.arg(fileName)
 					.arg(QString(codec->name())),
-				QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
-			return false;
+				QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel)
+			goto notSaved;
+	}
+	
+	if (codec != NULL) {
+		if (!codec->canEncode(theText)) {
+			if (QMessageBox::warning(this, tr("Text cannot be converted"),
+					tr("This document contains characters that cannot be represented in the encoding %1.\n\n"
+					   "If you proceed, they will be replaced with default codes. "
+					   "Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.")
+						.arg(QString(codec->name())),
+					QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel)
+				goto notSaved;
+		}
 	}
 
-	QFile file(fileName);
-	if (!file.open(QFile::WriteOnly | QFile::Text)) {
-		QMessageBox::warning(this, tr(TEXWORKS_NAME),
-							 tr("Cannot write file \"%1\":\n%2.")
-							 .arg(fileName)
-							 .arg(file.errorString()));
-		return false;
+	{
+		QFile file(fileName);
+		if (!file.open(QFile::WriteOnly | QFile::Text)) {
+			QMessageBox::warning(this, tr(TEXWORKS_NAME),
+								 tr("Cannot write file \"%1\":\n%2.")
+								 .arg(fileName)
+								 .arg(file.errorString()));
+			goto notSaved;
+		}
+		else {
+			QApplication::setOverrideCursor(Qt::WaitCursor);
+			QTextStream out(&file);
+			if (codec != NULL)
+				out.setCodec(codec);
+			out << theText;
+			setCurrentFile(fileName);
+			statusBar()->showMessage(tr("File \"%1\" saved (%2)")
+										.arg(TWUtils::strippedName(curFile))
+										.arg(codec ? QString::fromAscii(codec->name()) : tr("default encoding")),
+										kStatusMessageDuration);
+			QApplication::restoreOverrideCursor();
+		}
 	}
-
-	QApplication::setOverrideCursor(Qt::WaitCursor);
-	QTextStream out(&file);
-	if (codec != NULL)
-		out.setCodec(codec);
-	out << theText;
-	setCurrentFile(fileName);
-	statusBar()->showMessage(tr("File \"%1\" saved (%2)")
-								.arg(TWUtils::strippedName(curFile))
-								.arg(QString::fromAscii(codec ? codec->name() : "default encoding")),
-								kStatusMessageDuration);
-	QApplication::restoreOverrideCursor();
-
+	
 	return true;
+
+notSaved:
+	statusBar()->showMessage(tr("Document \"%1\" was not saved")
+								.arg(TWUtils::strippedName(curFile)),
+								kStatusMessageDuration);
+	return false;
 }
 
 void TeXDocument::setCurrentFile(const QString &fileName)

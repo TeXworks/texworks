@@ -41,6 +41,8 @@ class TWApp : public QApplication
 public:
 	TWApp(int &argc, char **argv);
 
+	void launchAction();
+
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
 
