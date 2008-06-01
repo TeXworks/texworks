@@ -1,20 +1,20 @@
 /*
-    This is part of TeXworks, an environment for working with TeX documents
-    Copyright (C) 2007-08  Jonathan Kew
+	This is part of TeXworks, an environment for working with TeX documents
+	Copyright (C) 2007-08  Jonathan Kew
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, write to the Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+	You should have received a copy of the GNU General Public License along
+	with this program; if not, write to the Free Software Foundation, Inc.,
+	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
 #ifndef PDFDOCKS_H
@@ -35,26 +35,27 @@ class PDFDock : public QDockWidget
 	Q_OBJECT
 
 public:
-    PDFDock(const QString& title, PDFDocument *doc = 0);
-    virtual ~PDFDock();
+	PDFDock(const QString& title, PDFDocument *doc = 0);
+	virtual ~PDFDock();
 
-    virtual void documentLoaded();
-    virtual void documentClosed();
-    virtual void pageChanged(int page);
+	void setPage(int page);
+	void reloadPage();
 
-    void setPage(int page);
-    void reloadPage();
+public slots:
+	virtual void documentLoaded();
+	virtual void documentClosed();
+	virtual void pageChanged(int page);
 
 protected:
-    virtual void fillInfo() = 0;
+	virtual void fillInfo() = 0;
 
-    PDFDocument *document;
+	PDFDocument *document;
 
 private slots:
-    void myVisibilityChanged(bool visible);
+	void myVisibilityChanged(bool visible);
 
 private:
-    bool filled;
+	bool filled;
 };
 
 
@@ -66,7 +67,8 @@ public:
 	PDFOutlineDock(PDFDocument *doc = 0);
 	virtual ~PDFOutlineDock();
 
-    virtual void documentClosed();
+public slots:
+	virtual void documentClosed();
 
 protected:
 	virtual void fillInfo();
@@ -75,7 +77,7 @@ private slots:
 	void followTocSelection();
 
 private:
-    QTreeWidget *tree;
+	QTreeWidget *tree;
 };
 
 class PDFDockTreeWidget : public QTreeWidget
@@ -92,19 +94,20 @@ public:
 
 class PDFInfoDock : public PDFDock
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    PDFInfoDock(PDFDocument *doc = 0);
-    ~PDFInfoDock();
+	PDFInfoDock(PDFDocument *doc = 0);
+	~PDFInfoDock();
 
-    virtual void documentClosed();
+public slots:
+	virtual void documentClosed();
 
 protected:
-    virtual void fillInfo();
+	virtual void fillInfo();
 
 private:
-    QListWidget *list;
+	QListWidget *list;
 };
 
 class PDFDockListWidget : public QListWidget
@@ -121,19 +124,20 @@ public:
 
 class PDFFontsDock : public PDFDock
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    PDFFontsDock(PDFDocument *doc = 0);
-    ~PDFFontsDock();
+	PDFFontsDock(PDFDocument *doc = 0);
+	~PDFFontsDock();
 
-    virtual void documentClosed();
+public slots:
+	virtual void documentClosed();
 
 protected:
-    virtual void fillInfo();
+	virtual void fillInfo();
 
 private:
-    QTableWidget *table;
+	QTableWidget *table;
 };
 
 
