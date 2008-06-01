@@ -50,10 +50,12 @@ extern "C" {
 #endif
 
 /* This is the designated method to create a new synctex scanner object.
- * name is the full path of the synctex file to be parsed.
- * NULL is returned in case of an error.
+ * name can be the tex file that originated the synctex file.
+ * The ".tex" file extension is removed and replaced by the proper extension.
+ * Then the synctex_scanner_new_with_contents_of_file is called.
+ * NULL is returned in case of an error or non existent file.
  */
-synctex_scanner_t synctex_scanner_new_with_contents_of_file(const char * name);
+synctex_scanner_t synctex_scanner_new_with_output_file(const char * output);
 
 /* This is the designated method to delete a synctex scanner object.
  */
@@ -88,6 +90,7 @@ float synctex_scanner_magnification(synctex_scanner_t scanner);
 const char * synctex_scanner_get_name(synctex_scanner_t scanner,int tag);
 int synctex_scanner_get_tag(synctex_scanner_t scanner,const char * name);
 synctex_node_t synctex_scanner_input(synctex_scanner_t scanner);
+const char * synctex_scanner_get_output(synctex_scanner_t scanner);
 
 /* Browsing the nodes
  * parent, child and sibling are standard names for tree nodes.
@@ -214,6 +217,27 @@ float synctex_node_box_visible_depth(synctex_node_t node);
 int synctex_display_query(synctex_scanner_t scanner,const char * name,int line,int column);
 int synctex_edit_query(synctex_scanner_t scanner,int page,float h,float v);
 synctex_node_t synctex_next_result(synctex_scanner_t scanner);
+
+/* The main synctex updater object.
+ * This object is used to append information to the synctex file.
+ * Its implementation is considered private.
+ */
+typedef struct __synctex_updater_t _synctex_updater_t;
+typedef _synctex_updater_t * synctex_updater_t;
+
+/* Designated initializer.
+ * Once you are done with your whole job,
+ * free the updater */
+synctex_updater_t synctex_updater_new_with_output_file(const char * output);
+
+/* Use the next functions to append records to the synctex file,
+ * no consistency tests made on the arguments */
+void synctex_updater_append_magnification(synctex_updater_t updater, char * magnification);
+void synctex_updater_append_x_offset(synctex_updater_t updater, char * x_offset);
+void synctex_updater_append_y_offset(synctex_updater_t updater, char * y_offset);
+
+/* You MUST free the updater, once everything is properly appended */
+void synctex_updater_free(synctex_updater_t updater);
 
 #ifdef __cplusplus
 };

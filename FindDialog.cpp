@@ -1,20 +1,20 @@
 /*
-    This is part of TeXworks, an environment for working with TeX documents
-    Copyright (C) 2007-08  Jonathan Kew
+	This is part of TeXworks, an environment for working with TeX documents
+	Copyright (C) 2007-08  Jonathan Kew
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, write to the Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+	You should have received a copy of the GNU General Public License along
+	with this program; if not, write to the Free Software Foundation, Inc.,
+	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
 #include "FindDialog.h"
@@ -43,21 +43,21 @@ void FindDialog::init(QTextEdit *document)
 	searchText->selectAll();
 
 	bool regexOption = settings.value("searchRegex").toBool();
-    checkBox_regex->setChecked(regexOption);
-    checkBox_words->setEnabled(!regexOption);
+	checkBox_regex->setChecked(regexOption);
+	checkBox_words->setEnabled(!regexOption);
 
 	bool selectionOption = settings.value("searchSelection").toBool();
 	checkBox_selection->setEnabled(document->textCursor().hasSelection());
-    checkBox_selection->setChecked(selectionOption && checkBox_selection->isEnabled());
+	checkBox_selection->setChecked(selectionOption && checkBox_selection->isEnabled());
 
 	bool wrapOption = settings.value("searchWrap").toBool();
 	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()));
-    checkBox_wrap->setChecked(wrapOption);
+	checkBox_wrap->setChecked(wrapOption);
 
 	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value("searchFlags").toInt();
 	checkBox_case->setChecked((flags & QTextDocument::FindCaseSensitively) != 0);
-    checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
-    checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
+	checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
+	checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
 }
 
 void FindDialog::toggledRegexOption(bool checked)
@@ -143,21 +143,21 @@ void ReplaceDialog::init(QTextEdit *document)
 	replaceText->setText(str);
 
 	bool regexOption = settings.value("searchRegex").toBool();
-    checkBox_regex->setChecked(regexOption);
-    checkBox_words->setEnabled(!regexOption);
+	checkBox_regex->setChecked(regexOption);
+	checkBox_words->setEnabled(!regexOption);
 
 	bool selectionOption = settings.value("searchSelection").toBool();
 	checkBox_selection->setEnabled(document->textCursor().hasSelection());
-    checkBox_selection->setChecked(selectionOption && checkBox_selection->isEnabled());
+	checkBox_selection->setChecked(selectionOption && checkBox_selection->isEnabled());
 
 	bool wrapOption = settings.value("searchWrap").toBool();
 	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()));
-    checkBox_wrap->setChecked(wrapOption);
+	checkBox_wrap->setChecked(wrapOption);
 
 	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value("searchFlags").toInt();
 	checkBox_case->setChecked((flags & QTextDocument::FindCaseSensitively) != 0);
-    checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
-    checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
+	checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
+	checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
 }
 
 void ReplaceDialog::toggledRegexOption(bool checked)

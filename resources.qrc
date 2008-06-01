@@ -42,5 +42,6 @@
 		<file>tango/preferences-system.png</file>
 		<file>tango/format-indent-less.png</file>
 		<file>tango/format-indent-more.png</file>		
+		<file>images/runtool.png</file>		
     </qresource>
 </RCC>

@@ -1,20 +1,20 @@
 /*
-    This is part of TeXworks, an environment for working with TeX documents
-    Copyright (C) 2007-08  Jonathan Kew
+	This is part of TeXworks, an environment for working with TeX documents
+	Copyright (C) 2007-08  Jonathan Kew
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, write to the Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+	You should have received a copy of the GNU General Public License along
+	with this program; if not, write to the Free Software Foundation, Inc.,
+	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
 #include "TWApp.h"
@@ -86,7 +86,7 @@ void TWApp::init()
 	menuFile = menuBar->addMenu(tr("File"));
 
 	QAction *actionNew = new QAction(tr("New"), this);
-    actionNew->setShortcut(QKeySequence("Ctrl+N"));
+	actionNew->setShortcut(QKeySequence("Ctrl+N"));
 	actionNew->setIcon(QIcon(":/images/tango/document-new.png"));
 	menuFile->addAction(actionNew);
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
@@ -102,7 +102,7 @@ void TWApp::init()
 	connect(actionPreferences, SIGNAL(triggered()), this, SLOT(preferences()));
 
 	QAction *actionOpen = new QAction(tr("Open..."), this);
-    actionOpen->setShortcut(QKeySequence("Ctrl+O"));
+	actionOpen->setShortcut(QKeySequence("Ctrl+O"));
 	actionOpen->setIcon(QIcon(":/images/tango/document-open.png"));
 	menuFile->addAction(actionOpen);
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
@@ -123,12 +123,12 @@ void TWApp::init()
 
 void TWApp::about()
 {
-   QMessageBox::about(NULL, tr("About " TEXWORKS_NAME),
-			tr("<p>" TEXWORKS_NAME " is a simple environment for editing, "
+	QMessageBox::about(NULL, tr("About %1").arg(TEXWORKS_NAME),
+			tr("<p>%1 is a simple environment for editing, "
 			    "typesetting, and previewing TeX documents.</p>"
 				"<p>&#xA9; 2007-2008 Jonathan Kew.</p>"
 				"<p>Distributed under the GNU General Public License, version 2.</p>"
-				));
+				).arg(TEXWORKS_NAME));
 }
 
 void TWApp::launchAction()

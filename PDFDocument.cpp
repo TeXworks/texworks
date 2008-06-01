@@ -1,20 +1,20 @@
 /*
-    This is part of TeXworks, an environment for working with TeX documents
-    Copyright (C) 2007-08  Jonathan Kew
+	This is part of TeXworks, an environment for working with TeX documents
+	Copyright (C) 2007-08  Jonathan Kew
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, write to the Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+	You should have received a copy of the GNU General Public License along
+	with this program; if not, write to the Free Software Foundation, Inc.,
+	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
 #include "PDFDocument.h"
@@ -112,8 +112,8 @@ void PDFMagnifier::setPage(Poppler::Page *p, qreal scale)
 
 void PDFMagnifier::paintEvent(QPaintEvent *event)
 {
-    QPainter painter(this);
-    drawFrame(&painter);
+	QPainter painter(this);
+	drawFrame(&painter);
 	painter.drawImage(event->rect(), image,
 		event->rect().translated((x() * kMagFactor - imageLoc.x()) + width() / 2,
 								 (y() * kMagFactor - imageLoc.y()) + height() / 2));
@@ -918,16 +918,22 @@ PDFDocument::init()
 	dw->hide();
 	addDockWidget(Qt::LeftDockWidgetArea, dw);
 	menuShow->addAction(dw->toggleViewAction());
+	connect(this, SIGNAL(reloaded()), dw, SLOT(documentLoaded()));
+	connect(pdfWidget, SIGNAL(changedPage(int)), dw, SLOT(pageChanged(int)));
 
 	dw = new PDFInfoDock(this);
 	dw->hide();
 	addDockWidget(Qt::LeftDockWidgetArea, dw);
 	menuShow->addAction(dw->toggleViewAction());
+	connect(this, SIGNAL(reloaded()), dw, SLOT(documentLoaded()));
+	connect(pdfWidget, SIGNAL(changedPage(int)), dw, SLOT(pageChanged(int)));
 
 	dw = new PDFFontsDock(this);
 	dw->hide();
 	addDockWidget(Qt::BottomDockWidgetArea, dw);
 	menuShow->addAction(dw->toggleViewAction());\
+	connect(this, SIGNAL(reloaded()), dw, SLOT(documentLoaded()));
+	connect(pdfWidget, SIGNAL(changedPage(int)), dw, SLOT(pageChanged(int)));
 
 	QSettings settings;
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
@@ -1011,6 +1017,7 @@ void PDFDocument::reload()
 		pdfWidget->setFocus();
 
 		loadSyncData();
+		emit reloaded();
 	}
 	else
 		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(TWUtils::strippedName(curFile)));
@@ -1020,25 +1027,11 @@ void PDFDocument::reload()
 
 void PDFDocument::loadSyncData()
 {
-	QFileInfo fi(curFile);
-	QString syncName = fi.canonicalPath() + "/" + fi.completeBaseName() + SYNCTEX_GZ_EXT;
-	fi.setFile(syncName);
-	if (!fi.exists()) {
-		fi.setFile(curFile);
-		syncName = fi.canonicalPath() + "/" + fi.completeBaseName() + SYNCTEX_EXT;
-		fi.setFile(syncName);
-	}
-	if (fi.exists()) {
-		scanner = synctex_scanner_new_with_contents_of_file(syncName.toUtf8().data());
-		if (scanner == NULL) {
-			statusBar()->showMessage(tr("Unrecognized SyncTeX data: \"%1\"").arg(syncName), kStatusMessageDuration);
-		}
-		else {
-			statusBar()->showMessage(tr("Loaded SyncTeX data: \"%1\"").arg(syncName), kStatusMessageDuration);
-		}
-	}
-	else
+	scanner = synctex_scanner_new_with_output_file(curFile.toUtf8().data());
+	if (scanner == NULL)
 		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
+	else
+		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(synctex_scanner_get_output(scanner)), kStatusMessageDuration);
 }
 
 void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
@@ -1232,7 +1225,7 @@ void PDFDocument::updateTypesettingAction(bool processRunning)
 	}
 	else {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
-		actionTypeset->setIcon(QIcon(":/images/images/typeset.png"));
+		actionTypeset->setIcon(QIcon(":/images/images/runtool.png"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	}
 }

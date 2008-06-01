@@ -1,20 +1,20 @@
 /*
-    This is part of TeXworks, an environment for working with TeX documents
-    Copyright (C) 2007-08  Jonathan Kew
+	This is part of TeXworks, an environment for working with TeX documents
+	Copyright (C) 2007-08  Jonathan Kew
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, write to the Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+	You should have received a copy of the GNU General Public License along
+	with this program; if not, write to the Free Software Foundation, Inc.,
+	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
 #include "CompletingEdit.h"
@@ -56,11 +56,11 @@ CompletingEdit::~CompletingEdit()
 
 void CompletingEdit::setCompleter(QCompleter *completer)
 {
-    c = completer;
-    if (!c)
-        return;
+	c = completer;
+	if (!c)
+		return;
 
-    c->setWidget(this);
+	c->setWidget(this);
 }
 
 void CompletingEdit::clearCompleter()
@@ -147,21 +147,21 @@ void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
 
 void CompletingEdit::focusInEvent(QFocusEvent *e)
 {
-    if (c)
-        c->setWidget(this);
-    QTextEdit::focusInEvent(e);
+	if (c)
+		c->setWidget(this);
+	QTextEdit::focusInEvent(e);
 }
 
 void CompletingEdit::keyPressEvent(QKeyEvent *e)
 {
-    bool isShortcut = (e->key() == Qt::Key_Escape);
+	bool isShortcut = (e->key() == Qt::Key_Escape);
 
-    if (!isShortcut) {	// not the shortcut key, so simply accept it
+	if (!isShortcut) {	// not the shortcut key, so simply accept it
 		if (e->text() != "") {
 			clearCompleter();
 			cmpCursor = QTextCursor();
 		}
-        QTextEdit::keyPressEvent(e);
+		QTextEdit::keyPressEvent(e);
 		return;
 	}
 	
@@ -254,22 +254,22 @@ void CompletingEdit::showCompletion(const QString& completion, int insOffset)
 {
 	disconnect(this, SIGNAL(cursorPositionChanged()), this, SLOT(clearCompleter()));
 
-    if (c->widget() != this)
-        return;
+	if (c->widget() != this)
+		return;
 
-    QTextCursor tc = cmpCursor;
+	QTextCursor tc = cmpCursor;
 	if (tc.isNull()) {
 		tc = textCursor();
 		tc.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, c->completionPrefix().length());
 	}
 
-    tc.insertText(completion);
+	tc.insertText(completion);
 	cmpCursor = tc;
 	cmpCursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, completion.length());
 
 	if (insOffset != -1)
 		tc.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor, completion.length() - insOffset);
-    setTextCursor(tc);
+	setTextCursor(tc);
 
 	ExtraSelection sel;
 	sel.cursor = cmpCursor;
@@ -284,8 +284,8 @@ void CompletingEdit::showCompletion(const QString& completion, int insOffset)
 
 void CompletingEdit::showCurrentCompletion()
 {
-    if (c->widget() != this)
-        return;
+	if (c->widget() != this)
+		return;
 
 	QStandardItemModel *model = qobject_cast<QStandardItemModel*>(c->model());
 	QList<QStandardItem*> items = model->findItems(c->currentCompletion());
