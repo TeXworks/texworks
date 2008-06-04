@@ -145,6 +145,9 @@
    <property name="text" >
     <string>About TeXworks...</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::AboutRole</enum>
+   </property>
   </action>
   <action name="actionFirst_Page" >
    <property name="icon" >
@@ -155,6 +158,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Left</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionPrevious_Page" >
@@ -167,6 +173,9 @@
    <property name="shortcut" >
     <string>Left</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionNext_Page" >
    <property name="icon" >
@@ -177,6 +186,9 @@
    </property>
    <property name="shortcut" >
     <string>Right</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionLast_Page" >
@@ -189,6 +201,9 @@
    <property name="shortcut" >
     <string>Ctrl+Right</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionGo_to_Page" >
    <property name="text" >
@@ -196,6 +211,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+G</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionZoom_In" >
@@ -208,6 +226,9 @@
    <property name="shortcut" >
     <string>Ctrl++</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionZoom_Out" >
    <property name="icon" >
@@ -218,6 +239,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+-</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionFit_to_Window" >
@@ -233,6 +257,9 @@
    <property name="shortcut" >
     <string>Ctrl+3</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionActual_Size" >
    <property name="icon" >
@@ -243,6 +270,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+1</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionFit_to_Width" >
@@ -258,6 +288,9 @@
    <property name="shortcut" >
     <string>Ctrl+2</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionNew" >
    <property name="icon" >
@@ -268,6 +301,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+N</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionOpen" >
@@ -280,10 +316,16 @@
    <property name="shortcut" >
     <string>Ctrl+O</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionOpen_Recent" >
    <property name="text" >
     <string>Open Recent</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionClose" >
@@ -292,6 +334,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+W</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionUndo" >
@@ -307,6 +352,9 @@
    <property name="shortcut" >
     <string>Ctrl+Z</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionRedo" >
    <property name="enabled" >
@@ -320,6 +368,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Shift+Z</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionCut" >
@@ -335,6 +386,9 @@
    <property name="shortcut" >
     <string>Ctrl+X</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionCopy" >
    <property name="enabled" >
@@ -348,6 +402,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+C</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionPaste" >
@@ -363,6 +420,9 @@
    <property name="shortcut" >
     <string>Ctrl+V</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionClear" >
    <property name="enabled" >
@@ -373,6 +433,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Backspace</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionTypeset" >
@@ -385,6 +448,9 @@
    <property name="shortcut" >
     <string>Ctrl+T</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionPreferences" >
    <property name="icon" >
@@ -393,20 +459,32 @@
    <property name="text" >
     <string>Preferences...</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::PreferencesRole</enum>
+   </property>
   </action>
   <action name="actionStack" >
    <property name="text" >
     <string>Stack</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionTile" >
    <property name="text" >
     <string>Tile</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionTile_Front_Two" >
    <property name="text" >
     <string>Tile Front Two</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionGo_to_Source" >
@@ -416,6 +494,9 @@
    <property name="shortcut" >
     <string>Ctrl+'</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionNew_from_Template" >
    <property name="text" >
@@ -423,6 +504,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Shift+N</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionFull_Screen" >
@@ -434,6 +518,9 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Shift+F</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionMagnify" >
