@@ -46,6 +46,9 @@ public:
 	// return a sorted list of all the available text codecs
 	static QList<QTextCodec*> *findCodecs();
 
+	// get list of available translations
+	static QStringList *getTranslationList();
+	
 	// get list of available dictionaries
 	static QStringList *getDictionaryList();
 	
@@ -75,6 +78,7 @@ private:
 
 	static QList<QTextCodec*>	*codecList;
 	static QStringList			*dictionaryList;
+	static QStringList			*translationList;
 
 	static QHash<const QString,Hunhandle*>	*dictionaries;
 };

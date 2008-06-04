@@ -395,6 +395,31 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			break;
 	}
 	
+	QString oldLocale = settings.value("locale").toString();
+	int oldLocaleIndex = 0;
+	dlg.localePopup->addItem("English (built-in)");
+	QStringList *trList = TWUtils::getTranslationList();
+	QStringList::ConstIterator iter;
+	for (iter = trList->constBegin(); iter != trList->constEnd(); ++iter) {
+		QLocale loc(*iter);
+		QLocale::Language	language = loc.language();
+		QString locName;
+		if (language == QLocale::C)
+			locName = *iter;
+		else {
+			locName = QLocale::languageToString(language);
+			if (iter->contains('_')) {
+				QLocale::Country	country  = loc.country();
+				if (country != QLocale::AnyCountry)
+					locName += " (" + QLocale::countryToString(country) + ")";
+			}
+		}
+		dlg.localePopup->addItem(locName);
+		if (*iter == oldLocale)
+			oldLocaleIndex = dlg.localePopup->count() - 1;
+	}
+	dlg.localePopup->setCurrentIndex(oldLocaleIndex);
+	
 	// Editor
 	dlg.syntaxColoring->setChecked(settings.value("syntaxColoring", kDefault_SyntaxColoring).toBool());
 	dlg.wrapLines->setChecked(settings.value("wrapLines", kDefault_WrapLines).toBool());
@@ -490,6 +515,11 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		else if (dlg.openDialog->isChecked())
 			launchOption = 3;
 		settings.setValue("launchOption", launchOption);
+		
+		if (dlg.localePopup->currentIndex() < 1) // delete the setting, if present
+			settings.remove("locale");
+		else
+			settings.setValue("locale", trList->at(dlg.localePopup->currentIndex() - 1));
 		
 		// Editor
 		settings.setValue("syntaxColoring", dlg.syntaxColoring->isChecked());
