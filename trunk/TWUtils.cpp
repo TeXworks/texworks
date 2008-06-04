@@ -112,6 +112,25 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 	return codecList;
 }
 
+QStringList* TWUtils::translationList = NULL;
+
+QStringList* TWUtils::getTranslationList()
+{
+	if (translationList != NULL)
+		return translationList;
+
+	translationList = new QStringList;
+	QDir transDir(TWUtils::getLibraryPath("translations"));
+	foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(TEXWORKS_NAME "_*.qm"),
+				QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
+		QString locName = qmFileInfo.completeBaseName();
+		locName.remove(TEXWORKS_NAME "_");
+		*translationList << locName;
+	}
+	
+	return translationList;
+}
+
 QStringList* TWUtils::dictionaryList = NULL;
 
 QStringList* TWUtils::getDictionaryList()

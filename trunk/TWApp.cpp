@@ -56,18 +56,28 @@ TWApp::TWApp(int &argc, char **argv)
 
 void TWApp::init()
 {
+	setWindowIcon(QIcon(":/images/images/appicon.png"));
+
 	setOrganizationName("TUG");
 	setOrganizationDomain("tug.org");
 	setApplicationName(TEXWORKS_NAME);
 
-	setWindowIcon(QIcon(":/images/images/appicon.png"));
-
-	QString locale = QLocale::system().name();
-	QTranslator translator;
-	translator.load(QString(TEXWORKS_NAME "_") + locale);
-	installTranslator(&translator);
-
 	QSettings settings;
+	QString locale = settings.value("locale", QLocale::system().name()).toString();
+	QString translations = TWUtils::getLibraryPath("translations");
+
+	QTranslator *qtTranslator = new QTranslator(this);
+	if (qtTranslator->load("qt_" + locale, translations))
+		installTranslator(qtTranslator);
+	else
+		delete qtTranslator;
+
+	QTranslator *twTranslator = new QTranslator(this);
+	if (twTranslator->load(TEXWORKS_NAME + locale, translations))
+		installTranslator(twTranslator);
+	else
+		delete twTranslator;
+
 	recentFilesLimit = settings.value("maxRecentFiles", kDefaultMaxRecentFiles).toInt();
 
 	QString codecName = settings.value("defaultEncoding", "UTF-8").toString();

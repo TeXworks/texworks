@@ -22,7 +22,7 @@
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_general" >
       <attribute name="title" >
@@ -66,7 +66,7 @@
          </layout>
         </widget>
        </item>
-       <item row="0" column="1" >
+       <item row="0" column="1" colspan="2" >
         <widget class="QGroupBox" name="groupBox_3" >
          <property name="title" >
           <string>When launched, show</string>
@@ -96,28 +96,46 @@
          </layout>
         </widget>
        </item>
-       <item rowspan="2" row="1" column="1" >
+       <item rowspan="3" row="1" column="2" >
         <spacer>
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeHint" >
           <size>
-           <width>20</width>
-           <height>91</height>
+           <width>111</width>
+           <height>311</height>
           </size>
          </property>
         </spacer>
        </item>
-       <item row="2" column="0" >
+       <item row="2" column="0" colspan="2" >
+        <layout class="QHBoxLayout" >
+         <item>
+          <widget class="QLabel" name="label_5" >
+           <property name="text" >
+            <string>Interface locale (for next launch):</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="localePopup" >
+           <property name="maxVisibleItems" >
+            <number>20</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="0" >
         <spacer>
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeHint" >
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>242</width>
+           <height>271</height>
           </size>
          </property>
         </spacer>
