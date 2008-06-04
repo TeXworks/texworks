@@ -285,7 +285,8 @@ void TeXDocument::open()
 		options = QFileDialog::DontUseSheet;
 #endif
 	QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Open File")), QString(), QString(), NULL, options);
-	TWApp::instance()->open(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
+	if (!fileName.isEmpty())
+		TWApp::instance()->open(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
 }
 
 TeXDocument* TeXDocument::open(const QString &fileName)
