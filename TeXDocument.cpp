@@ -482,7 +482,7 @@ static char* texshopSynonyms[] = {
 QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName)
 {
 	// peek at the file for %!TEX encoding = ....
-	QRegExp re("%!TEX encoding *= *([^\\r\\n]+)[\\r\\n]", Qt::CaseInsensitive);
+	QRegExp re("% *!TEX +encoding *= *([^\\r\\n]+)[\\r\\n]", Qt::CaseInsensitive);
 	int pos = re.indexIn(peekStr);
 	QTextCodec *reqCodec = NULL;
 	if (pos > -1) {
@@ -1389,7 +1389,7 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 		QTextCursor curs(textEdit->document());
 		curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
 		QString peekStr = curs.selectedText();
-		QRegExp re("%!TEX (?:TS-)?program *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
+		QRegExp re("% *!TEX +(?:TS-)?program *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
 		int pos = re.indexIn(peekStr);
 		if (pos > -1) {
 			QString name = re.cap(1).trimmed();
@@ -1420,7 +1420,7 @@ void TeXDocument::findRootFilePath()
 	QTextCursor curs(textEdit->document());
 	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
 	QString peekStr = curs.selectedText();
-	QRegExp re("%!TEX root *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
+	QRegExp re("% *!TEX +root *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
 	int pos = re.indexIn(peekStr);
 	if (pos > -1) {
 		rootName = re.cap(1).trimmed();
