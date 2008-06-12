@@ -312,6 +312,8 @@ void TWApp::setBinaryPaths(const QStringList& paths)
 	if (binaryPaths == NULL)
 		binaryPaths = new QStringList;
 	*binaryPaths = paths;
+	QSettings settings;
+	settings.setValue("binaryPaths", paths);
 }
 
 void TWApp::setDefaultEngineList()
