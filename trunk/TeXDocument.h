@@ -144,12 +144,13 @@ private:
 	void findRootFilePath();
 	void maybeCenterSelection(int oldScrollValue = -1);
 
+	TeXHighlighter *highlighter;
+	PDFDocument *pdfDoc;
+
 	QTextCodec *codec;
 	QString curFile;
 	QString rootFilePath;
 	bool isUntitled;
-	TeXHighlighter *highlighter;
-	PDFDocument *pdfDoc;
 
 	QLabel *lineNumberLabel;
 	int statusLine;

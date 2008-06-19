@@ -76,6 +76,7 @@ TeXDocument::~TeXDocument()
 
 void TeXDocument::init()
 {
+	codec = NULL;
 	pdfDoc = NULL;
 	process = NULL;
 	highlighter = NULL;
@@ -562,8 +563,9 @@ void TeXDocument::showPdfIfAvailable()
 		return;
 	QFileInfo fi(rootFilePath);
 	QString pdfName = fi.canonicalPath() + "/" + fi.completeBaseName() + ".pdf";
-	PDFDocument *pdfDoc = PDFDocument::findDocument(pdfName);
-	if (pdfDoc != NULL) {
+	PDFDocument *existingPdf = PDFDocument::findDocument(pdfName);
+	if (existingPdf != NULL) {
+		pdfDoc = existingPdf;
 		pdfDoc->reload();
 		pdfDoc->selectWindow();
 	}
