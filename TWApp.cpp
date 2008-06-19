@@ -141,10 +141,10 @@ void TWApp::about()
 				).arg(TEXWORKS_NAME));
 }
 
-void TWApp::launchAction()
+bool TWApp::launchAction()
 {
 	if (TeXDocument::documentList().size() > 0 || PDFDocument::documentList().size() > 0)
-		return;
+		return true;
 
 	QSettings settings;
 	int launchOption = settings.value("launchOption", 1).toInt();
@@ -159,6 +159,20 @@ void TWApp::launchAction()
 			open();
 			break;
 	}
+#ifndef Q_WS_MAC	// on Mac OS, it's OK to end up with no document (we still have the app menu bar)
+					// but on W32 and X11 we need a window otherwise the user can't interact at all
+	if (TeXDocument::documentList().size() == 0 && PDFDocument::documentList().size() == 0)
+		newFile();
+	if (TeXDocument::documentList().size() == 0) {
+		// something went wrong, give up!
+		(void)QMessageBox::critical(NULL, tr("Unable to create window"),
+				tr("Something is badly wrong; %1 was unable to create a document window. "
+				   "The application will now quit.").arg(TEXWORKS_NAME),
+				QMessageBox::Close, QMessageBox::Close);
+		return false;
+	}
+#endif
+	return true;
 }
 
 void TWApp::newFile()
