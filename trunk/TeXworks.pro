@@ -4,9 +4,14 @@
 # Then modified by hand....take care if re-running "qmake -project"
 
 TEMPLATE	=	app
-TARGET		=	TeXworks
 DEPENDPATH	+=	.
 INCLUDEPATH	+=	.
+
+linux-g++ {
+	TARGET		=	texworks
+} else {
+	TARGET		=	TeXworks
+}
 
 QT			+=	xml
 
