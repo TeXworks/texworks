@@ -451,7 +451,7 @@ bool TeXDocument::maybeSave()
 	return true;
 }
 
-static char* texshopSynonyms[] = {
+static const char* texshopSynonyms[] = {
 	"MacOSRoman",		"Apple Roman",
 	"IsoLatin",			"ISO 8859-1",
 	"IsoLatin2",		"ISO 8859-2",
