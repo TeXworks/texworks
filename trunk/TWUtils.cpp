@@ -34,6 +34,7 @@
 #include <QCompleter>
 #include <QTextCodec>
 #include <QFile>
+#include <QDirIterator>
 
 #pragma mark === TWUtils ===
 
@@ -71,12 +72,35 @@ const QString TWUtils::getLibraryPath(const QString& subdir)
 			QString cwd = QDir::currentPath();
 			if (QDir::setCurrent(libPath)) {
 				// copy default contents from app resources into the library dir
+				QDir resDir(":/resources/" + subdir);
+				copyResources(resDir, libPath);
 			}
 			QDir::setCurrent(cwd);
 		}
 	}
 	
 	return libPath;
+}
+
+void TWUtils::copyResources(const QDir& resDir, const QString& libPath)
+{
+	QDirIterator iter(resDir, QDirIterator::Subdirectories);
+	while (iter.hasNext()) {
+		(void)iter.next();
+		if (iter.fileInfo().isDir())
+			continue;
+		QString destPath = iter.fileInfo().canonicalPath();
+		destPath.replace(resDir.path(), libPath);
+		QFileInfo dest(destPath);
+		if (!dest.exists())
+			if (!QDir::root().mkpath(destPath))
+				continue;
+		if (QDir::setCurrent(destPath)) {
+			QFile srcFile(iter.fileInfo().canonicalFilePath());
+			srcFile.copy(iter.fileName());
+			QDir::setCurrent(libPath);
+		}
+	}
 }
 
 QList<QTextCodec*> *TWUtils::codecList = NULL;

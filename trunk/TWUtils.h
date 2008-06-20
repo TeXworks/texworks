@@ -24,6 +24,7 @@
 #include <QString>
 #include <QList>
 #include <QHash>
+#include <QDir>
 
 #include <hunspell/hunspell.h>
 
@@ -42,6 +43,7 @@ public:
 
 	// return the path to our "library" folder for resources like templates, completion lists, etc
 	static const QString getLibraryPath(const QString& subdir);
+	static void copyResources(const QDir& resDir, const QString& libPath);
 
 	// return a sorted list of all the available text codecs
 	static QList<QTextCodec*> *findCodecs();
