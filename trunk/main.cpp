@@ -27,9 +27,5 @@ int main(int argc, char *argv[])
 	for (int i = 1; i < argc; ++i)
 		app.open(argv[i]);
 
-	// possibly perform an action (e.g., if launched without doc)
-	if (app.launchAction())
-		return app.exec();
-	else
-		return 0;
+	return app.exec();
 }
