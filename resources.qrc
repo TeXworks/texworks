@@ -44,4 +44,12 @@
 		<file>tango/format-indent-more.png</file>		
 		<file>images/runtool.png</file>		
     </qresource>
+	<qresource>
+		<file>resources/completion/tw-basic.txt</file>
+		<file>resources/completion/tw-context.txt</file>
+		<file>resources/completion/tw-latex.txt</file>
+		<file>resources/templates/LaTeX/article.tex</file>
+		<file>resources/templates/LaTeX/beamer-presentation.tex</file>
+		<file>resources/templates/XeLaTeX/article-fontspec.tex</file>
+	</qresource>
 </RCC>
