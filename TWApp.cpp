@@ -141,10 +141,10 @@ void TWApp::about()
 				).arg(TEXWORKS_NAME));
 }
 
-bool TWApp::launchAction()
+void TWApp::launchAction()
 {
 	if (TeXDocument::documentList().size() > 0 || PDFDocument::documentList().size() > 0)
-		return true;
+		return;
 
 	QSettings settings;
 	int launchOption = settings.value("launchOption", 1).toInt();
@@ -169,10 +169,9 @@ bool TWApp::launchAction()
 				tr("Something is badly wrong; %1 was unable to create a document window. "
 				   "The application will now quit.").arg(TEXWORKS_NAME),
 				QMessageBox::Close, QMessageBox::Close);
-		return false;
+		quit();
 	}
 #endif
-	return true;
 }
 
 void TWApp::newFile()
@@ -274,10 +273,17 @@ void TWApp::tileTwoWindows()
 
 bool TWApp::event(QEvent *event)
 {
+	static bool oneTimeOnly = false;
 	switch (event->type()) {
 		case QEvent::FileOpen:
 			open(static_cast<QFileOpenEvent *>(event)->file());        
 			return true;
+		case QEvent::ApplicationActivate:
+			if (oneTimeOnly == false) {
+				launchAction();
+				oneTimeOnly = true;
+			}
+			return QApplication::event(event);
 		default:
 			return QApplication::event(event);
 	}
