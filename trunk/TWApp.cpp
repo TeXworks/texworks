@@ -136,8 +136,16 @@ void TWApp::about()
 	QMessageBox::about(NULL, tr("About %1").arg(TEXWORKS_NAME),
 			tr("<p>%1 is a simple environment for editing, "
 			    "typesetting, and previewing TeX documents.</p>"
-				"<p>&#xA9; 2007-2008 Jonathan Kew.</p>"
-				"<p>Distributed under the GNU General Public License, version 2.</p>"
+				"<small>"
+				"<p>&#xA9; 2007-2008 Jonathan Kew."
+				"<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2."
+				"<p><a href=\"http://trolltech.com/products/qt\">Qt4</a> application framework by Trolltech ASA."
+				"<br><a href=\"http://poppler.freedesktop.org/\">Poppler</a> PDF library by Kristian H&#xF8;gsberg and others."
+				"<br><a href=\"http://hunspell.sourceforge.net/\">Hunspell</a> spell checker by L&#xE1;szl&#xF3; N&#xE9;meth."
+				"<br>Concept and resources from <a href=\"http://www.uoregon.edu/~koch/texshop/\">TeXShop</a> by Richard Koch."
+				"<br>SyncTeX technology by J&#xE9;r&#xF4;me Laurens."
+				"<br>Some icons used are from the <a href=\"http://tango.freedesktop.org/\">Tango Desktop Project</a>."
+				"</small>"
 				).arg(TEXWORKS_NAME));
 }
 
