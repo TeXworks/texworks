@@ -49,7 +49,9 @@
 		<file>resources/completion/tw-context.txt</file>
 		<file>resources/completion/tw-latex.txt</file>
 		<file>resources/templates/LaTeX/article.tex</file>
-		<file>resources/templates/LaTeX/beamer-presentation.tex</file>
+		<file>resources/templates/LaTeX/speaker_introduction-ornate-2min.en.tex</file>
+		<file>resources/templates/LaTeX/generic-ornate-15min-45min.en.tex</file>
+		<file>resources/templates/LaTeX/conference-ornate-20min.en.tex</file>
 		<file>resources/templates/XeLaTeX/article-fontspec.tex</file>
 	</qresource>
 </RCC>

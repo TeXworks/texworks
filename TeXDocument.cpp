@@ -427,7 +427,7 @@ bool TeXDocument::save()
 
 bool TeXDocument::saveAs()
 {
-	QString fileName = QFileDialog::getSaveFileName(this);
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), curFile);
 	if (fileName.isEmpty())
 		return false;
 

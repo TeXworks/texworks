@@ -1031,7 +1031,7 @@ void PDFDocument::loadSyncData()
 	if (scanner == NULL)
 		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
 	else
-		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(synctex_scanner_get_output(scanner)), kStatusMessageDuration);
+		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(synctex_scanner_get_synctex(scanner)), kStatusMessageDuration);
 }
 
 void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
