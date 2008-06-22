@@ -12,9 +12,11 @@
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License along
-	with this program; if not, write to the Free Software Foundation, Inc.,
-	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+	For links to further information, or to contact the author,
+	see <http://tug.org/texworks/>.
 */
 
 #include "TemplateDialog.h"
@@ -36,8 +38,6 @@ TemplateDialog::TemplateDialog()
 
 TemplateDialog::~TemplateDialog()
 {
-	if (model != NULL)
-		delete model;
 }
 
 void TemplateDialog::init()
@@ -47,12 +47,13 @@ void TemplateDialog::init()
 	QString templatePath = TWUtils::getLibraryPath("templates");
 		// do this before creating the model, as getLibraryPath might initialize a new dir
 		
-	model = new QDirModel;
+	model = new QDirModel(this);
 	treeView->setModel(model);
 	treeView->setRootIndex(model->index(templatePath));
 	treeView->expandAll();
 	treeView->resizeColumnToContents(0);
 	treeView->hideColumn(2);
+	treeView->collapseAll();
 	
 	connect(treeView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
 			this, SLOT(selectionChanged(const QItemSelection&, const QItemSelection&)));
