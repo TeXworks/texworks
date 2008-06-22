@@ -9,6 +9,7 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>tex</string>
+				<string>ltx</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>TeXworks.icns</string>
@@ -22,6 +23,26 @@
 			<string>Editor</string>
 			<key>LSIsAppleDefaultForType</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>pdf</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>TeXworks.icns</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/pdf</string>
+			</array>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.adobe.pdf</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>PDF Document</string>
 		</dict>
 	</array>
 	<key>CFBundleIconFile</key>
