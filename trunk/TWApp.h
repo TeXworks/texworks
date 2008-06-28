@@ -43,8 +43,6 @@ class TWApp : public QApplication
 public:
 	TWApp(int &argc, char **argv);
 
-	void launchAction();
-
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
 
@@ -84,6 +82,9 @@ public slots:
 
 	// called by windows when they open/close/change name
 	void updateWindowMenus();
+
+	// called once when the app is first launched
+	void launchAction();
 
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu

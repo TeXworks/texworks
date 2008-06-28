@@ -21,6 +21,8 @@
 
 #include "TWApp.h"
 
+#include <QTimer>
+
 int main(int argc, char *argv[])
 {
 	TWApp app(argc, argv);
@@ -28,6 +30,8 @@ int main(int argc, char *argv[])
 	// first argument is the executable name, so we skip that
 	for (int i = 1; i < argc; ++i)
 		app.open(argv[i]);
+
+	QTimer::singleShot(100, &app, SLOT(launchAction()));
 
 	return app.exec();
 }
