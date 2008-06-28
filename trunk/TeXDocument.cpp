@@ -355,12 +355,9 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 
 bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/qq/qq18-macfeatures.html
 {
-	if (!isActiveWindow())
-		return QMainWindow::event(event);
-
 	switch (event->type()) {
 		case QEvent::IconDrag:
-			{
+			if (isActiveWindow()) {
 				event->accept();
 				Qt::KeyboardModifiers mods = qApp->keyboardModifiers();
 				if (mods == Qt::NoModifier) {
@@ -403,10 +400,36 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 				}
 				return true;
 			}
-		
+
+#ifndef Q_WS_WIN /* this currently doesn't work on windows - permanently hides floaters! */
+		case QEvent::WindowActivate:
+			foreach (QWidget* w, latentVisibleWidgets)
+				w->show();
+			latentVisibleWidgets.clear();
+			break;
+		case QEvent::WindowDeactivate:
+			foreach (QObject* child, children()) {
+				QToolBar* tb = qobject_cast<QToolBar*>(child);
+				if (tb && tb->isVisible() && tb->isFloating()) {
+					latentVisibleWidgets.append(tb);
+					tb->hide();
+					continue;
+				}
+/* currently no dock widgets for TeXDocument
+				QDockWidget* dw = qobject_cast<QDockWidget*>(child);
+				if (dw && dw->isVisible() && dw->isFloating()) {
+					latentVisibleWidgets.append(dw);
+					dw->hide();
+					continue;
+				}
+*/
+			}
+			break;
+#endif
 		default:
-			return QMainWindow::event(event);
+			break;
 	}
+	return QMainWindow::event(event);
 }
 
 void TeXDocument::openAt(QAction *action)
