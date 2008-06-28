@@ -962,15 +962,16 @@ void PDFDocument::selectWindow()
 		showNormal();
 }
 
-void PDFDocument::changeEvent(QEvent *event)
+bool PDFDocument::event(QEvent *event)
 {
-	if (event->type() == QEvent::ActivationChange) {
-		if (isActiveWindow()) {
+	switch (event->type()) {
+#ifndef Q_WS_WIN /* this currently doesn't work on windows - permanently hides floaters! */
+		case QEvent::WindowActivate:
 			foreach (QWidget* w, latentVisibleWidgets)
 				w->show();
 			latentVisibleWidgets.clear();
-		}
-		else {
+			break;
+		case QEvent::WindowDeactivate:
 			foreach (QObject* child, children()) {
 				QToolBar* tb = qobject_cast<QToolBar*>(child);
 				if (tb && tb->isVisible() && tb->isFloating()) {
@@ -985,9 +986,12 @@ void PDFDocument::changeEvent(QEvent *event)
 					continue;
 				}
 			}
-		}
+			break;
+#endif
+		default:
+			break;
 	}
-	QMainWindow::changeEvent(event);
+	return QMainWindow::event(event);
 }
 
 void PDFDocument::loadFile(const QString &fileName)

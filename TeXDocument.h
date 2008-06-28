@@ -169,6 +169,8 @@ private:
 
 	Hunhandle *pHunspell;
 
+	QList<QWidget*> latentVisibleWidgets;
+
 	static QList<TeXDocument*> docList;
 };
 
