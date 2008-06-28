@@ -283,17 +283,10 @@ void TWApp::tileTwoWindows()
 
 bool TWApp::event(QEvent *event)
 {
-	static bool oneTimeOnly = false;
 	switch (event->type()) {
 		case QEvent::FileOpen:
 			open(static_cast<QFileOpenEvent *>(event)->file());        
 			return true;
-		case QEvent::ApplicationActivate:
-			if (oneTimeOnly == false) {
-				launchAction();
-				oneTimeOnly = true;
-			}
-			return QApplication::event(event);
 		default:
 			return QApplication::event(event);
 	}
