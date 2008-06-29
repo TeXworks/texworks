@@ -220,15 +220,18 @@ private slots:
 	void toggleFullScreen();
 	void syncClick(int page, const QPointF& pos);
 	void syncFromSource(const QString& sourceFile, int lineNo);
+	void hideFloatersUnlessThis(QWidget* currWindow);
 
 signals:
 	void reloaded();
+	void activatedWindow(QWidget*);
 
 private:
 	void init();
 	void loadFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
 	void loadSyncData();
+	void showFloaters();
 
 	QString curFile;
 	
