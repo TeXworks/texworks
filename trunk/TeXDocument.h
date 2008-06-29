@@ -74,6 +74,7 @@ public:
 
 signals:
 	void syncFromSource(const QString&, int);
+	void activatedWindow(QWidget*);
 
 protected:
 	void closeEvent(QCloseEvent *event);
@@ -126,6 +127,7 @@ private slots:
 	void selectedEngine(const QString& name);
 	void contentsChanged(int position, int charsRemoved, int charsAdded);
 	void setLanguage(const QString& lang);
+	void hideFloatersUnlessThis(QWidget* currWindow);
 
 private:
 	void init();
@@ -145,6 +147,7 @@ private:
 	void updateTypesettingAction();
 	void findRootFilePath();
 	void maybeCenterSelection(int oldScrollValue = -1);
+	void showFloaters();
 
 	TeXHighlighter *highlighter;
 	PDFDocument *pdfDoc;

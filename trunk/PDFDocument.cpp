@@ -907,6 +907,9 @@ PDFDocument::init()
 	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
 	connect(qApp, SIGNAL(windowListChanged()), this, SLOT(updateWindowMenu()));
 
+	connect(qApp, SIGNAL(hideFloatersExcept(QWidget*)), this, SLOT(hideFloatersUnlessThis(QWidget*)));
+	connect(this, SIGNAL(activatedWindow(QWidget*)), qApp, SLOT(activatedWindow(QWidget*)));
+
 	connect(actionPreferences, SIGNAL(triggered()), qApp, SLOT(preferences()));
 
 	connect(this, SIGNAL(destroyed()), qApp, SLOT(updateWindowMenus()));
@@ -962,32 +965,41 @@ void PDFDocument::selectWindow()
 		showNormal();
 }
 
+void PDFDocument::hideFloatersUnlessThis(QWidget* currWindow)
+{
+	PDFDocument* p = qobject_cast<PDFDocument*>(currWindow);
+	if (p == this)
+		return;
+	foreach (QObject* child, children()) {
+		QToolBar* tb = qobject_cast<QToolBar*>(child);
+		if (tb && tb->isVisible() && tb->isFloating()) {
+			latentVisibleWidgets.append(tb);
+			tb->hide();
+			continue;
+		}
+		QDockWidget* dw = qobject_cast<QDockWidget*>(child);
+		if (dw && dw->isVisible() && dw->isFloating()) {
+			latentVisibleWidgets.append(dw);
+			dw->hide();
+			continue;
+		}
+	}
+}
+
+void PDFDocument::showFloaters()
+{
+	foreach (QWidget* w, latentVisibleWidgets)
+		w->show();
+	latentVisibleWidgets.clear();
+}
+
 bool PDFDocument::event(QEvent *event)
 {
 	switch (event->type()) {
-#ifndef Q_WS_WIN /* this currently doesn't work on windows - permanently hides floaters! */
 		case QEvent::WindowActivate:
-			foreach (QWidget* w, latentVisibleWidgets)
-				w->show();
-			latentVisibleWidgets.clear();
+			showFloaters();
+			emit activatedWindow(this);
 			break;
-		case QEvent::WindowDeactivate:
-			foreach (QObject* child, children()) {
-				QToolBar* tb = qobject_cast<QToolBar*>(child);
-				if (tb && tb->isVisible() && tb->isFloating()) {
-					latentVisibleWidgets.append(tb);
-					tb->hide();
-					continue;
-				}
-				QDockWidget* dw = qobject_cast<QDockWidget*>(child);
-				if (dw && dw->isVisible() && dw->isFloating()) {
-					latentVisibleWidgets.append(dw);
-					dw->hide();
-					continue;
-				}
-			}
-			break;
-#endif
 		default:
 			break;
 	}

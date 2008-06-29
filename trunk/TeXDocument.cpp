@@ -47,6 +47,7 @@
 #include <QActionGroup>
 #include <QTextCodec>
 #include <QSignalMapper>
+#include <QDockWidget>
 #include <QDebug>
 
 const int kMinConsoleHeight = 160;
@@ -164,6 +165,9 @@ void TeXDocument::init()
 	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
 	connect(qApp, SIGNAL(windowListChanged()), this, SLOT(updateWindowMenu()));
 	
+	connect(qApp, SIGNAL(hideFloatersExcept(QWidget*)), this, SLOT(hideFloatersUnlessThis(QWidget*)));
+	connect(this, SIGNAL(activatedWindow(QWidget*)), qApp, SLOT(activatedWindow(QWidget*)));
+
 	connect(actionStack, SIGNAL(triggered()), qApp, SLOT(stackWindows()));
 	connect(actionTile, SIGNAL(triggered()), qApp, SLOT(tileWindows()));
 	connect(actionTile_Front_Two, SIGNAL(triggered()), qApp, SLOT(tileTwoWindows()));
@@ -353,6 +357,34 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 		event->ignore();
 }
 
+void TeXDocument::hideFloatersUnlessThis(QWidget* currWindow)
+{
+	TeXDocument* p = qobject_cast<TeXDocument*>(currWindow);
+	if (p == this)
+		return;
+	foreach (QObject* child, children()) {
+		QToolBar* tb = qobject_cast<QToolBar*>(child);
+		if (tb && tb->isVisible() && tb->isFloating()) {
+			latentVisibleWidgets.append(tb);
+			tb->hide();
+			continue;
+		}
+		QDockWidget* dw = qobject_cast<QDockWidget*>(child);
+		if (dw && dw->isVisible() && dw->isFloating()) {
+			latentVisibleWidgets.append(dw);
+			dw->hide();
+			continue;
+		}
+	}
+}
+
+void TeXDocument::showFloaters()
+{
+	foreach (QWidget* w, latentVisibleWidgets)
+		w->show();
+	latentVisibleWidgets.clear();
+}
+
 bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/qq/qq18-macfeatures.html
 {
 	switch (event->type()) {
@@ -401,31 +433,11 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 				return true;
 			}
 
-#ifndef Q_WS_WIN /* this currently doesn't work on windows - permanently hides floaters! */
 		case QEvent::WindowActivate:
-			foreach (QWidget* w, latentVisibleWidgets)
-				w->show();
-			latentVisibleWidgets.clear();
+			showFloaters();
+			emit activatedWindow(this);
 			break;
-		case QEvent::WindowDeactivate:
-			foreach (QObject* child, children()) {
-				QToolBar* tb = qobject_cast<QToolBar*>(child);
-				if (tb && tb->isVisible() && tb->isFloating()) {
-					latentVisibleWidgets.append(tb);
-					tb->hide();
-					continue;
-				}
-/* currently no dock widgets for TeXDocument
-				QDockWidget* dw = qobject_cast<QDockWidget*>(child);
-				if (dw && dw->isVisible() && dw->isFloating()) {
-					latentVisibleWidgets.append(dw);
-					dw->hide();
-					continue;
-				}
-*/
-			}
-			break;
-#endif
+
 		default:
 			break;
 	}

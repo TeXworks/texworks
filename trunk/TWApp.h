@@ -86,6 +86,8 @@ public slots:
 	// called once when the app is first launched
 	void launchAction();
 
+	void activatedWindow(QWidget* theWindow);
+
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu
 	void recentFileActionsChanged();
@@ -97,6 +99,8 @@ signals:
 	void engineListChanged();
 	
 	void syncPdf(const QString& sourceFile, int lineNo);
+
+	void hideFloatersExcept(QWidget* theWindow);
 
 private slots:
 	void about();

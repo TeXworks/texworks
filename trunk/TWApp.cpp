@@ -470,3 +470,8 @@ void TWApp::setDefaultCodec(QTextCodec *codec)
 		settings.setValue("defaultEncoding", codec->name());
 	}
 }
+
+void TWApp::activatedWindow(QWidget* theWindow)
+{
+	emit hideFloatersExcept(theWindow);
+}
