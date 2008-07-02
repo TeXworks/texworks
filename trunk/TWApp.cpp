@@ -302,12 +302,13 @@ void TWApp::setDefaultPaths()
 #ifdef Q_WS_MAC
 		<< "/usr/texbin"
 		<< "/usr/local/bin"
-		<< "/Volumes/Nenya/texlive/Master/bin/powerpc-darwin"
+		<< "/usr/bin"
 #endif
 #ifdef Q_WS_X11
 		<< "/usr/local/texlive/2008/bin/i386-linux"
 		<< "/usr/local/texlive/2007/bin/i386-linux"
 		<< "/usr/local/bin"
+		<< "/usr/bin"
 #endif
 #ifdef Q_WS_WIN
 		<< "c:/texlive/2008/bin"

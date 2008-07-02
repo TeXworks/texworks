@@ -237,8 +237,8 @@ void TeXDocument::setLanguage(const QString& lang)
 	}
 	else
 		spellingCodec = NULL;
-	highlighter->setSpellChecker(pHunspell, spellingCodec);
 	textEdit->setSpellChecker(pHunspell, spellingCodec);
+	highlighter->setSpellChecker(pHunspell, spellingCodec);
 }
 
 void TeXDocument::clipboardChanged()
