@@ -76,30 +76,30 @@ void TeXHighlighter::highlightBlock(const QString &text)
 				index = text.indexOf(expression, index + length);
 			}
 		}
-		
-		// to be revised... quick-and-dirty approach to finding words, just for testing
-		if (pHunspell != NULL) {
-			QStringList wordList = text.split(QRegExp("\\W+"), QString::SkipEmptyParts);
-			int index = 0;
-			foreach (QString word, wordList) {
-				index = text.indexOf(word, index);
-				QTextCharFormat currFormat = format(index);
-				if (currFormat == controlSequenceFormat
-					|| currFormat == environmentFormat
-					|| currFormat == packageFormat) {
-					// skip
-				}
-				else {
-					int spellResult = Hunspell_spell(pHunspell, spellingCodec->fromUnicode(word).data());
-					if (spellResult == 0) {
-						if (format(index) == commentFormat)
-							setFormat(index, word.length(), spellCommentFormat);
-						else
-							setFormat(index, word.length(), spellFormat);
-					}
-				}
-				index += word.length();
+	}
+
+	// to be revised... quick-and-dirty approach to finding words, just for testing
+	if (pHunspell != NULL) {
+		QStringList wordList = text.split(QRegExp("\\W+"), QString::SkipEmptyParts);
+		int index = 0;
+		foreach (QString word, wordList) {
+			index = text.indexOf(word, index);
+			QTextCharFormat currFormat = format(index);
+			if (currFormat == controlSequenceFormat
+				|| currFormat == environmentFormat
+				|| currFormat == packageFormat) {
+				// skip
 			}
+			else {
+				int spellResult = Hunspell_spell(pHunspell, spellingCodec->fromUnicode(word).data());
+				if (spellResult == 0) {
+					if (format(index) == commentFormat)
+						setFormat(index, word.length(), spellCommentFormat);
+					else
+						setFormat(index, word.length(), spellFormat);
+				}
+			}
+			index += word.length();
 		}
 	}
 }
