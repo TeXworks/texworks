@@ -3,26 +3,13 @@
 <file>resfiles/completion/tw-basic.txt</file>
 <file>resfiles/completion/tw-context.txt</file>
 <file>resfiles/completion/tw-latex.txt</file>
-<file>resfiles/templates/GraphicsTemplate.tex</file>
-<file>resfiles/templates/LaTeX/article.tex</file>
-<file>resfiles/templates/LaTeX/conference-ornate-20min.en.tex</file>
-<file>resfiles/templates/LaTeX/generic-ornate-15min-45min.en.tex</file>
-<file>resfiles/templates/LaTeX/speaker_introduction-ornate-2min.en.tex</file>
-<file>resfiles/templates/More/LaTeX - Float Figure.tex</file>
-<file>resfiles/templates/More/LaTeX - Float Table.tex</file>
-<file>resfiles/templates/More/LaTeX - Math  align equation.tex</file>
-<file>resfiles/templates/More/LaTeX - Math  split line.tex</file>
-<file>resfiles/templates/More/LaTeX - Math array.tex</file>
-<file>resfiles/templates/More/LaTeX - Math matrix.tex</file>
-<file>resfiles/templates/More/LaTeX Class - Article.tex</file>
-<file>resfiles/templates/More/LaTeX Class - KOMA Letter.tex</file>
-<file>resfiles/templates/More/LaTeX Class - Letter.tex</file>
-<file>resfiles/templates/More/LaTeX Class - Memoir.tex</file>
-<file>resfiles/templates/More/LaTeX Class - Slides.tex</file>
-<file>resfiles/templates/More/LaTeX Preamble - Article customise.tex</file>
-<file>resfiles/templates/More/LaTeX Preamble - Common packages.tex</file>
-<file>resfiles/templates/More/LaTeX Preamble - Font choices.tex</file>
-<file>resfiles/templates/More/LaTeX Preamble - Memoir customise.tex</file>
-<file>resfiles/templates/XeLaTeX/article-fontspec.tex</file>
+<file>resfiles/templates/Basic LaTeX documents/article.tex</file>
+<file>resfiles/templates/Basic LaTeX documents/letter.tex</file>
+<file>resfiles/templates/Beamer presentations/conference-ornate-20min.en.tex</file>
+<file>resfiles/templates/Beamer presentations/generic-ornate-15min-45min.en.tex</file>
+<file>resfiles/templates/Beamer presentations/speaker_introduction-ornate-2min.en.tex</file>
+<file>resfiles/templates/More LaTeX classes/KOMA-letter.tex</file>
+<file>resfiles/templates/More LaTeX classes/memoir.tex</file>
+<file>resfiles/templates/XeLaTeX documents/article-fontspec.tex</file>
 </qresource>
 </RCC>
