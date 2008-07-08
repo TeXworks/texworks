@@ -21,6 +21,10 @@ TEMPLATE	=	app
 DEPENDPATH	+=	.
 INCLUDEPATH	+=	.
 
+MOC_DIR     = ./moc
+OBJECTS_DIR = ./obj
+UI_DIR      = ./ui
+
 linux-g++ {
 	TARGET		=	texworks
 } else {
@@ -63,39 +67,39 @@ win32 {
 }
 
 # Input
-HEADERS	+=	TWApp.h \
-			TWUtils.h \
-			TeXDocument.h \
-			CompletingEdit.h \
-			TeXHighlighter.h \
-			PDFDocument.h \
-			PDFDocks.h \
-			FindDialog.h \
-			PrefsDialog.h \
-			TemplateDialog.h \
-			synctex_parser.h
+HEADERS	+=	src/TWApp.h \
+			src/TWUtils.h \
+			src/TeXDocument.h \
+			src/CompletingEdit.h \
+			src/TeXHighlighter.h \
+			src/PDFDocument.h \
+			src/PDFDocks.h \
+			src/FindDialog.h \
+			src/PrefsDialog.h \
+			src/TemplateDialog.h \
+			src/synctex_parser.h
 
-FORMS	+=	TeXDocument.ui \
-			PDFDocument.ui \
-			Find.ui \
-			Replace.ui \
-			PrefsDialog.ui \
-			ToolConfig.ui \
-			TemplateDialog.ui
+FORMS	+=	src/TeXDocument.ui \
+			src/PDFDocument.ui \
+			src/Find.ui \
+			src/Replace.ui \
+			src/PrefsDialog.ui \
+			src/ToolConfig.ui \
+			src/TemplateDialog.ui
 
-SOURCES	+=	main.cpp \
-			TWApp.cpp \
-			TWUtils.cpp \
-			TeXDocument.cpp \
-			CompletingEdit.cpp \
-			TeXHighlighter.cpp \
-			PDFDocument.cpp \
-			PDFDocks.cpp \
-			FindDialog.cpp \
-			PrefsDialog.cpp \
-			TemplateDialog.cpp \
-			synctex_parser.c
+SOURCES	+=	src/main.cpp \
+			src/TWApp.cpp \
+			src/TWUtils.cpp \
+			src/TeXDocument.cpp \
+			src/CompletingEdit.cpp \
+			src/TeXHighlighter.cpp \
+			src/PDFDocument.cpp \
+			src/PDFDocks.cpp \
+			src/FindDialog.cpp \
+			src/PrefsDialog.cpp \
+			src/TemplateDialog.cpp \
+			src/synctex_parser.c
 
-RESOURCES	+=	resources.qrc \
-				resfiles.qrc
+RESOURCES	+=	res/resources.qrc \
+				res/resfiles.qrc
 
