@@ -18,8 +18,8 @@
 #	see <http://tug.org/texworks/>.
 
 TEMPLATE	=	app
-DEPENDPATH	+=	.
-INCLUDEPATH	+=	.
+DEPENDPATH	+=	./src
+INCLUDEPATH	+=	./src
 
 MOC_DIR     = ./moc
 OBJECTS_DIR = ./obj
