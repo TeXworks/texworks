@@ -56,15 +56,16 @@ linux-g++ {
 }
 
 win32 {
-	INCLUDEPATH += X:/QTeX-libs/poppler-mingw32/poppler/inst/usr/local/include/poppler
-	INCLUDEPATH += X:/QTeX-libs/poppler-mingw32/poppler/inst/usr/local/include/poppler/qt4
+	INCLUDEPATH += z:/cross-tools/usr/local/include
+	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler
+	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler/qt4
 
-	LIBS += -LX:/QTeX-libs/poppler-mingw32/poppler/inst/usr/local/lib
-	LIBS += -L"C:/Program Files/GnuWin32/lib"
+	LIBS += -Lz:/cross-tools/usr/local/lib
 	LIBS += -lpoppler-qt4
 	LIBS += -lpoppler
 	LIBS += -lfreetype
 	LIBS += -lhunspell-1.2
+	LIBS += -lz
 }
 
 # Input
