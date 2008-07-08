@@ -24,6 +24,7 @@ INCLUDEPATH	+=	./src
 MOC_DIR     = ./moc
 OBJECTS_DIR = ./obj
 UI_DIR      = ./ui
+RCC_DIR     = ./rcc
 
 linux-g++ {
 	TARGET		=	texworks
