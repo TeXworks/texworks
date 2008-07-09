@@ -194,6 +194,7 @@ void PrefsDialog::addTool()
 	e.setShowPdf(true);
 	if (ToolConfig::doToolConfig(this, e) == QDialog::Accepted) {
 		engineList.append(e);
+		toolList->addItem(e.name());
 		refreshDefaultTool();
 		toolsChanged = true;
 	}
