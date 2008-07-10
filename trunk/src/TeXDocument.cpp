@@ -291,9 +291,14 @@ void TeXDocument::open()
 	if (!(isUntitled && textEdit->document()->isEmpty() && !isWindowModified()))
 		options = QFileDialog::DontUseSheet;
 #endif
-	QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Open File")), QString(), QString(), NULL, options);
-	if (!fileName.isEmpty())
+	QSettings settings;
+	QString lastOpenDir = settings.value("openDialogDir").toString(); 
+	QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Open File")), lastOpenDir, QString(), NULL, options);
+	if (!fileName.isEmpty()) {
+		QFileInfo info(fileName);
+		settings.setValue("openDialogDir", info.canonicalPath());
 		TWApp::instance()->open(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
+	}
 }
 
 TeXDocument* TeXDocument::open(const QString &fileName)
