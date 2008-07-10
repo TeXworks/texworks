@@ -581,6 +581,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		if (dlg.toolsChanged)
 			TWApp::instance()->setEngineList(dlg.engineList);
 		TWApp::instance()->setDefaultEngine(dlg.defaultTool->currentText());
+		settings.setValue("autoHideConsole", dlg.autoHideOutput->isChecked());
 	}
 
 	return result;
