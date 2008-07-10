@@ -357,11 +357,12 @@ void TWApp::setDefaultEngineList()
 #define EXE
 #endif
 	*engineList
-		<< Engine("pdfTeX", "pdftex" EXE, QStringList(QStringList("-synctex=1") << "$fullname"), true)
-		<< Engine("pdfLaTeX", "pdflatex" EXE, QStringList(QStringList("-synctex=1") << "$fullname"), true)
-		<< Engine("XeTeX", "xetex" EXE, QStringList(QStringList("-synctex=1") << "$fullname"), true)
-		<< Engine("XeLaTeX", "xelatex" EXE, QStringList(QStringList("-synctex=1") << "$fullname"), true)
-		<< Engine("ConTeXt", "texexec" EXE, QStringList("$fullname"), true)
+		<< Engine("pdfTeX", "pdftex" EXE, QStringList("-synctex=1") << "$fullname", true)
+		<< Engine("pdfLaTeX", "pdflatex" EXE, QStringList("-synctex=1") << "$fullname", true)
+		<< Engine("XeTeX", "xetex" EXE, QStringList("-synctex=1") << "$fullname", true)
+		<< Engine("XeLaTeX", "xelatex" EXE, QStringList("-synctex=1") << "$fullname", true)
+		<< Engine("ConTeXt", "texmfstart" EXE, QStringList("texexec") << "$fullname", true)
+		<< Engine("XeConTeXt", "texmfstart" EXE, QStringList("texexec") << "--xtx" << "$fullname", true)
 		<< Engine("BibTeX", "bibtex" EXE, QStringList("$basename"), false)
 		<< Engine("MakeIndex", "makeindex" EXE, QStringList("$basename"), false);
 	defaultEngineIndex = 1;
