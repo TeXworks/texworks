@@ -211,9 +211,14 @@ void TWApp::openRecentFile()
 
 void TWApp::open()
 {
-	QString fileName = QFileDialog::getOpenFileName();
-	if (!fileName.isEmpty())
+	QSettings settings;
+	QString lastOpenDir = settings.value("openDialogDir").toString(); 
+	QString fileName = QFileDialog::getOpenFileName(NULL, QString(tr("Open File")), lastOpenDir);
+	if (!fileName.isEmpty()) {
+		QFileInfo info(fileName);
+		settings.setValue("openDialogDir", info.canonicalPath());
 		open(fileName);
+	}
 }
 
 void TWApp::open(const QString &fileName)
