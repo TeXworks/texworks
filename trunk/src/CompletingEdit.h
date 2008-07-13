@@ -40,6 +40,8 @@ public:
 
 	void setSpellChecker(Hunhandle *h, QTextCodec *codec);
 
+	bool selectWord(QTextCursor& cursor);
+
 signals:
 	void syncClick(int);
 

@@ -353,6 +353,138 @@ void TWUtils::applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool sho
 	}
 }
 
+bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
+{
+	// try to do a sensible "word" selection for TeX documents, taking account of the form of control sequences:
+	// given an index representing a caret,
+	// if current char (following caret) is letter, apostrophe, or '@', extend in both directions
+	//    include apostrophe if surrounded by letters
+	//    include preceding backslash if any, unless word contains apostrophe
+	// if preceding char is backslash, extend to include backslash only
+	// if current char is number, extend in both directions
+	// if current char is space or tab, extend in both directions to include all spaces or tabs
+	// if current char is backslash, include next char; if letter or '@', extend to include all following letters or '@'
+	// else select single char following index
+	// returns TRUE if the resulting selection consists of word-forming chars
+
+	start = end = index;
+
+	if (text.length() < 1) // empty
+		return false;
+
+	if (index >= text.length()) // end of line
+		return false;
+	QChar	ch = text.at(index);
+
+#define IS_WORD_FORMING(ch) (ch.isLetter() || ch.isMark())
+
+	bool isControlSeq = false; // becomes true if we include an @ sign or a leading backslash
+	bool includesApos = false; // becomes true if we include an apostrophe
+	if (IS_WORD_FORMING(ch) || ch == '@' || ch == '\'' || ch == 0x2019) {
+		if (ch == '@')
+			isControlSeq = true;
+		else if (ch == '\'' || ch == 0x2019)
+			includesApos = true;
+		while (start > 0) {
+			--start;
+			ch = text.at(start);
+			if (IS_WORD_FORMING(ch))
+				continue;
+			if (!includesApos && ch == '@') {
+				isControlSeq = true;
+				continue;
+			}
+			if (!isControlSeq && (ch == '\'' || ch == 0x2019) && start > 0 && IS_WORD_FORMING(text.at(start - 1))) {
+				includesApos = true;
+				continue;
+			}
+			++start;
+			break;
+		}
+		if (start > 0 && text.at(start - 1) == '\\') {
+			isControlSeq = true;
+			--start;
+		}
+		while (++end < text.length()) {
+			ch = text.at(end);
+			if (IS_WORD_FORMING(ch))
+				continue;
+			if (!includesApos && ch == '@') {
+				isControlSeq = true;
+				continue;
+			}
+			if (!isControlSeq && (ch == '\'' || ch == 0x2019) && end < text.length() - 1 && IS_WORD_FORMING(text.at(end + 1))) {
+				includesApos = true;
+				continue;
+			}
+			break;
+		}
+		return !isControlSeq;
+	}
+	
+	if (index > 0 && text.at(index - 1) == '\\') {
+		start = index - 1;
+		end = index + 1;
+		return false;
+	}
+	
+	if (ch.isNumber()) {
+		// TODO: handle decimals, leading signs
+		while (start > 0) {
+			--start;
+			ch = text.at(start);
+			if (ch.isNumber())
+				continue;
+			++start;
+			break;
+		}
+		while (++end < text.length()) {
+			ch = text.at(end);
+			if (ch.isNumber())
+				continue;
+			break;
+		}
+		return false;
+	}
+	
+	if (ch == ' ' || ch == '\t') {
+		while (start > 0) {
+			--start;
+			ch = text.at(start);
+			if (!(ch == ' ' || ch == '\t')) {
+				++start;
+				break;
+			}
+		}
+		while (++end < text.length()) {
+			ch = text.at(end);
+			if (!(ch == ' ' || ch == '\t'))
+				break;
+		}
+		return false;
+	}
+	
+	if (ch == '\\') {
+		if (++end < text.length()) {
+			ch = text.at(end);
+			if (IS_WORD_FORMING(ch) || ch == '@')
+				while (++end < text.length()) {
+					ch = text.at(end);
+					if (IS_WORD_FORMING(ch) || ch == '@')
+						continue;
+					break;
+				}
+			else
+				++end;
+		}
+		return false;
+	}
+
+	// else the character is selected in isolation
+	end = index + 1;
+	return false;
+}
+
 #pragma mark === SelWinAction ===
 
 // action subclass used for dynamic window-selection items in the Window menu

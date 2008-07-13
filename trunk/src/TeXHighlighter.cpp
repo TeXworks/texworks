@@ -23,6 +23,7 @@
 #include <QTextCodec>
 
 #include "TeXHighlighter.h"
+#include "TWUtils.h"
 
 TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	: QSyntaxHighlighter(parent)
@@ -78,28 +79,29 @@ void TeXHighlighter::highlightBlock(const QString &text)
 		}
 	}
 
-	// to be revised... quick-and-dirty approach to finding words, just for testing
 	if (pHunspell != NULL) {
-		QStringList wordList = text.split(QRegExp("\\W+"), QString::SkipEmptyParts);
 		int index = 0;
-		foreach (QString word, wordList) {
-			index = text.indexOf(word, index);
-			QTextCharFormat currFormat = format(index);
-			if (currFormat == controlSequenceFormat
-				|| currFormat == environmentFormat
-				|| currFormat == packageFormat) {
-				// skip
-			}
-			else {
-				int spellResult = Hunspell_spell(pHunspell, spellingCodec->fromUnicode(word).data());
-				if (spellResult == 0) {
-					if (format(index) == commentFormat)
-						setFormat(index, word.length(), spellCommentFormat);
-					else
-						setFormat(index, word.length(), spellFormat);
+		while (index < text.length()) {
+			int start, end;
+			if (TWUtils::findNextWord(text, index, start, end)) {
+				QTextCharFormat currFormat = format(index);
+				if (currFormat == controlSequenceFormat
+					|| currFormat == environmentFormat
+					|| currFormat == packageFormat) {
+					// skip
+				}
+				else {
+					QString word = text.mid(start, end - start);
+					int spellResult = Hunspell_spell(pHunspell, spellingCodec->fromUnicode(word).data());
+					if (spellResult == 0) {
+						if (currFormat == commentFormat)
+							setFormat(start, end - start, spellCommentFormat);
+						else
+							setFormat(start, end - start, spellFormat);
+					}
 				}
 			}
-			index += word.length();
+			index = end;
 		}
 	}
 }
