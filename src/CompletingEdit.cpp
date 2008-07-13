@@ -38,6 +38,9 @@
 #include <QTextCodec>
 #include <QAbstractTextDocumentLayout>
 #include <QSignalMapper>
+#include <QTextDocument>
+#include <QTextBlock>
+#include <QScrollBar>
 
 
 CompletingEdit::CompletingEdit(QWidget *parent)
@@ -91,56 +94,64 @@ void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 		QTextEdit::mouseReleaseEvent(e);
 }
 
+bool CompletingEdit::selectWord(QTextCursor& cursor)
+{
+	if (cursor.selectionEnd() - cursor.selectionStart() > 1)
+		return false;	// actually an error by the caller
+
+	const QTextBlock block = document()->findBlock(cursor.selectionStart());
+	const QString text = block.text();
+	if (text.length() < 1) // empty line
+		return false;
+
+	int start, end;
+	bool result = TWUtils::findNextWord(text, cursor.selectionStart() - block.position(), start, end);
+	cursor.setPosition(block.position() + start);
+	cursor.setPosition(block.position() + end, QTextCursor::KeepAnchor);
+
+	return result;
+}
+
 void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
 {
 	if (e->modifiers() != Qt::NoModifier)
 		QTextEdit::mouseDoubleClickEvent(e);
 	else {
 		// don't like QTextEdit's selection behavior, so try to improve it here
-		QPoint	pos = e->pos();
+		QPoint	pos = e->pos() + QPoint(horizontalScrollBar()->value(), verticalScrollBar()->value());
 		const int cursorPos = document()->documentLayout()->hitTest(pos, Qt::FuzzyHit);
 		if (cursorPos == -1)
 			return;
 
 		QTextCursor cursor(document());
 		cursor.setPosition(cursorPos);
-		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+		cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
+		
 		// check if click was within the char to the right of cursor; if so we select forwards
 		QRect r = cursorRect(cursor);
-		if (r.contains(pos, true)) {
-			QString s = cursor.selectedText();
-			if (s == "(" || s == "[" || s == "{") {
-				// select forwards to matching bracket
-			}
-			else {
-				// select word forwards
-				cursor.setPosition(cursorPos);
-				cursor.movePosition(QTextCursor::EndOfWord);
-				cursor.movePosition(QTextCursor::StartOfWord, QTextCursor::KeepAnchor);
-			}
+		if (r.contains(pos)) {
+			// Currently I don't seem to be getting a useful answer from cursorRect(), it's always zero-width :-(
+			// and so this path will not be used, but leaving it here in hopes of fixing it some day
+//			QString s = cursor.selectedText();
+//			if (isPairedChar(s)) ...
+			(void)selectWord(cursor);
 			setTextCursor(cursor);
 			e->accept();
 			return;
 		}
 
 		cursor.setPosition(cursorPos);
-		cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
-		r = cursorRect(cursor);
-		if (r.contains(pos)) {
-			QString s = cursor.selectedText();
-			if (s == ")" || s == "]" || s == "}") {
-				// select backwards to matching bracket
-			}
-			else {
-				// select word backwards
-				cursor.setPosition(cursorPos);
-				cursor.movePosition(QTextCursor::StartOfWord);
-				cursor.movePosition(QTextCursor::EndOfWord, QTextCursor::KeepAnchor);
-			}
+		cursor.setPosition(cursorPos - 1, QTextCursor::KeepAnchor);
+		// don't test because the rect will be zero width (see above)!
+//		r = cursorRect(cursor);
+//		if (r.contains(pos)) {
+//			QString s = cursor.selectedText();
+//			if (isPairedChar(s)) ...
+			(void)selectWord(cursor);
 			setTextCursor(cursor);
 			e->accept();
 			return;
-		}
+//		}
 
 		// else fall back on whatever QTextEdit does
 		QTextEdit::mouseDoubleClickEvent(e);
@@ -370,8 +381,8 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 
 	if (pHunspell != NULL) {
 		currentWord = cursorForPosition(event->pos());
-		currentWord.select(QTextCursor::WordUnderCursor);
-		if (currentWord.hasSelection()) {
+		currentWord.setPosition(currentWord.position());
+		if (selectWord(currentWord)) {
 			QByteArray word = spellingCodec->fromUnicode(currentWord.selectedText());
 			int spellResult = Hunspell_spell(pHunspell, word.data());
 			if (spellResult == 0) {
