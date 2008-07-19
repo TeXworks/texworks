@@ -144,6 +144,9 @@ void TeXDocument::init()
 	connect(actionComment, SIGNAL(triggered()), this, SLOT(doComment()));
 	connect(actionUncomment, SIGNAL(triggered()), this, SLOT(doUncomment()));
 
+	connect(actionTo_Uppercase, SIGNAL(triggered()), this, SLOT(toUppercase()));
+	connect(actionTo_Lowercase, SIGNAL(triggered()), this, SLOT(toLowercase()));
+
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), actionSave, SLOT(setEnabled(bool)));
 	connect(textEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
@@ -949,6 +952,27 @@ void TeXDocument::doUnindent()
 void TeXDocument::doUncomment()
 {
 	unPrefixLines("%");
+}
+
+void TeXDocument::toUppercase()
+{
+	replaceSelection(textEdit->textCursor().selectedText().toUpper());
+}
+
+void TeXDocument::toLowercase()
+{
+	replaceSelection(textEdit->textCursor().selectedText().toLower());
+}
+
+void TeXDocument::replaceSelection(const QString& newText)
+{
+	QTextCursor cursor = textEdit->textCursor();
+	int start = cursor.selectionStart();
+	cursor.insertText(newText);
+	int end = cursor.selectionEnd();
+	cursor.setPosition(start);
+	cursor.setPosition(end, QTextCursor::KeepAnchor);
+	textEdit->setTextCursor(cursor);
 }
 
 void TeXDocument::setWrapLines(bool wrap)
