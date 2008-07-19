@@ -103,6 +103,8 @@ private slots:
 	void doUnindent();
 	void doComment();
 	void doUncomment();
+	void toUppercase();
+	void toLowercase();
 	void setWrapLines(bool wrap);
 	void setSyntaxColoring(bool coloring);
 	void copyToFind();
@@ -139,6 +141,7 @@ private:
 	void showPdfIfAvailable();
 	void prefixLines(const QString &prefix);
 	void unPrefixLines(const QString &prefix);
+	void replaceSelection(const QString& newText);
 	void zoomToLeft(QWidget *otherWindow);
 	QTextCursor doSearch(const QString& searchText, const QRegExp *regex, QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
 	void showConsole();
