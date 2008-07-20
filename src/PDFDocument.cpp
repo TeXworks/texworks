@@ -414,7 +414,8 @@ void PDFWidget::doLink(const Poppler::Link *link)
 
 void PDFWidget::mouseDoubleClickEvent(QMouseEvent *event)
 {
-	useMagnifier(event);
+	if (!(mouseDownModifiers & Qt::ControlModifier))
+		useMagnifier(event);
 	event->accept();
 }
 
