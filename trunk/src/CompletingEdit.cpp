@@ -114,7 +114,9 @@ bool CompletingEdit::selectWord(QTextCursor& cursor)
 
 void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
 {
-	if (e->modifiers() != Qt::NoModifier)
+	if (e->modifiers() == Qt::ControlModifier)
+		e->accept();
+	else if (e->modifiers() != Qt::NoModifier)
 		QTextEdit::mouseDoubleClickEvent(e);
 	else {
 		// don't like QTextEdit's selection behavior, so try to improve it here
