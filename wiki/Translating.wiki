@@ -1,4 +1,4 @@
-#summary Translating the !TeXworks interface.
+#summary Translating the TeXworks interface.
 
 = Summary =
 
