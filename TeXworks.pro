@@ -44,6 +44,8 @@ macx {
 
 	QMAKE_INFO_PLIST = TeXworks.plist
 
+#	CONFIG += x86 ppc
+
 	ICON = TeXworks.icns
 }
 
@@ -104,4 +106,3 @@ SOURCES	+=	src/main.cpp \
 
 RESOURCES	+=	res/resources.qrc \
 				res/resfiles.qrc
-

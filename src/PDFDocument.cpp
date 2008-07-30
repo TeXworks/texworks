@@ -156,7 +156,7 @@ PDFWidget::PDFWidget()
 	setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	setFocusPolicy(Qt::StrongFocus);
 	setScaledContents(true);
-//	setMouseTracking(true);
+	setMouseTracking(true);
 
 	switch (settings.value("scaleOption", kDefault_PreviewScaleOption).toInt()) {
 		default:
@@ -344,7 +344,7 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 	}
 	clickedLink = NULL;
 	usingTool = kNone;
-	updateCursor();
+	updateCursor(event->pos());
 	event->accept();
 }
 
@@ -421,6 +421,7 @@ void PDFWidget::mouseDoubleClickEvent(QMouseEvent *event)
 
 void PDFWidget::mouseMoveEvent(QMouseEvent *event)
 {
+	updateCursor(event->pos());
 	switch (usingTool) {
 		case kMagnifier:
 			{
@@ -458,7 +459,6 @@ void PDFWidget::mouseMoveEvent(QMouseEvent *event)
 			break;
 		
 		default:
-			updateCursor(event->pos());
 			break;
 	}
 	event->accept();
@@ -466,19 +466,19 @@ void PDFWidget::mouseMoveEvent(QMouseEvent *event)
 
 void PDFWidget::keyPressEvent(QKeyEvent *event)
 {
-	updateCursor();
+	updateCursor(mapFromGlobal(QCursor::pos()));
 	event->ignore();
 }
 
 void PDFWidget::keyReleaseEvent(QKeyEvent *event)
 {
-	updateCursor();
+	updateCursor(mapFromGlobal(QCursor::pos()));
 	event->ignore();
 }
 
 void PDFWidget::focusInEvent(QFocusEvent *event)
 {
-	updateCursor();
+	updateCursor(mapFromGlobal(QCursor::pos()));
 	event->ignore();
 }
 
