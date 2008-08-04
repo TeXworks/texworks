@@ -190,6 +190,18 @@ void TeXDocument::init()
 	QSettings settings;
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
+	QFont font = textEdit->font();
+	if (settings.contains("font")) {
+		QString fontString = settings.value("font").toString();
+		if (fontString != "") {
+			font.fromString(fontString);
+			textEdit->setFont(font);
+		}
+	}
+	font.setPointSize(font.pointSize() - 1);
+	inputLine->setFont(font);
+	textEdit_console->setFont(font);
+	
 	highlighter = new TeXHighlighter(textEdit->document());
 	bool b = settings.value("wrapLines", true).toBool();
 	actionWrap_Lines->setChecked(b);

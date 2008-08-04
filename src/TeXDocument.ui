@@ -106,11 +106,6 @@
          </disabled>
         </palette>
        </property>
-       <property name="font" >
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
        <property name="frameShape" >
         <enum>QFrame::NoFrame</enum>
        </property>
