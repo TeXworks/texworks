@@ -75,7 +75,7 @@ void TWApp::init()
 		delete qtTranslator;
 
 	QTranslator *twTranslator = new QTranslator(this);
-	if (twTranslator->load(TEXWORKS_NAME + locale, translations))
+	if (twTranslator->load(TEXWORKS_NAME "_" + locale, translations))
 		installTranslator(twTranslator);
 	else
 		delete twTranslator;
