@@ -9,9 +9,6 @@
     <height>580</height>
    </rect>
   </property>
-  <property name="cursor" >
-   <cursorShape>IBeamCursor</cursorShape>
-  </property>
   <property name="windowTitle" >
    <string>untitled.tex[*]</string>
   </property>
@@ -51,6 +48,9 @@
          <horstretch>0</horstretch>
          <verstretch>4</verstretch>
         </sizepolicy>
+       </property>
+       <property name="cursor" stdset="0" >
+        <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="frameShape" >
         <enum>QFrame::NoFrame</enum>
@@ -105,6 +105,9 @@
           </colorrole>
          </disabled>
         </palette>
+       </property>
+       <property name="cursor" stdset="0" >
+        <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="frameShape" >
         <enum>QFrame::NoFrame</enum>
