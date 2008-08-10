@@ -367,6 +367,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		nameList.append(codec->name());
 	dlg.encoding->addItems(nameList);
 	
+	dlg.language->addItems(*TWUtils::getDictionaryList());
+	
 	QSettings settings;
 	// initialize controls based on the current settings
 	
@@ -436,6 +438,14 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.editorFont->setCurrentIndex(fdb.families().indexOf(font.family()));
 	dlg.fontSize->setValue(font.pointSize());
 	dlg.encoding->setCurrentIndex(nameList.indexOf(TWApp::instance()->getDefaultCodec()->name()));
+
+	QString defLang = settings.value("language", tr("None")).toString();
+	for (int i = 0; i < dlg.language->count(); ++i) {
+		if (dlg.language->itemText(i) == defLang) {
+			dlg.language->setCurrentIndex(i);
+			break;
+		}
+	}
 
 	// Preview
 	switch (settings.value("scaleOption", kDefault_PreviewScaleOption).toInt()) {
@@ -532,6 +542,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		font.setPointSize(dlg.fontSize->value());
 		settings.setValue("font", font.toString());
 		TWApp::instance()->setDefaultCodec(QTextCodec::codecForName(dlg.encoding->currentText().toAscii()));
+		settings.setValue("language", dlg.language->currentText());
 		
 		// Preview
 		int scaleOption = 1;

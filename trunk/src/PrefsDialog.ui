@@ -25,6 +25,14 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="tab_general" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>539</width>
+        <height>448</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>General</string>
       </attribute>
@@ -101,7 +109,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>111</width>
            <height>311</height>
@@ -132,7 +140,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>242</width>
            <height>271</height>
@@ -143,16 +151,24 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_editor" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>539</width>
+        <height>448</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Editor</string>
       </attribute>
-      <layout class="QGridLayout" >
+      <layout class="QGridLayout" name="gridLayout_2" >
        <item row="0" column="0" >
         <widget class="QGroupBox" name="groupBox_2" >
          <property name="title" >
           <string>Editor defaults</string>
          </property>
-         <layout class="QGridLayout" >
+         <layout class="QGridLayout" name="gridLayout" >
           <item row="0" column="0" colspan="3" >
            <layout class="QHBoxLayout" >
             <item>
@@ -208,7 +224,7 @@
             <property name="orientation" >
              <enum>Qt::Horizontal</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>40</width>
               <height>20</height>
@@ -216,7 +232,7 @@
             </property>
            </spacer>
           </item>
-          <item row="2" column="0" colspan="2" >
+          <item rowspan="2" row="2" column="0" colspan="2" >
            <layout class="QVBoxLayout" >
             <item>
              <widget class="QCheckBox" name="wrapLines" >
@@ -261,6 +277,45 @@
             </item>
            </layout>
           </item>
+          <item rowspan="2" row="3" column="2" >
+           <layout class="QHBoxLayout" name="_2" >
+            <item>
+             <widget class="QLabel" name="label_6" >
+              <property name="text" >
+               <string>Spell-check language:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="language" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+                <horstretch>1</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <item>
+               <property name="text" >
+                <string>None</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="4" column="0" colspan="2" >
+           <spacer name="verticalSpacer" >
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>20</width>
+              <height>6</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
         </widget>
        </item>
@@ -269,7 +324,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>261</height>
@@ -280,6 +335,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_preview" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>539</width>
+        <height>448</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Preview</string>
       </attribute>
@@ -394,7 +457,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>241</width>
            <height>291</height>
@@ -404,16 +467,7 @@
        </item>
        <item row="2" column="0" >
         <layout class="QHBoxLayout" >
-         <property name="leftMargin" >
-          <number>3</number>
-         </property>
-         <property name="topMargin" >
-          <number>3</number>
-         </property>
-         <property name="rightMargin" >
-          <number>3</number>
-         </property>
-         <property name="bottomMargin" >
+         <property name="margin" >
           <number>3</number>
          </property>
          <item>
@@ -449,7 +503,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -460,6 +514,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_typesetting" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>539</width>
+        <height>448</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Typesetting</string>
       </attribute>
@@ -497,14 +559,16 @@
             <item row="0" column="1" >
              <widget class="QToolButton" name="pathUp" >
               <property name="icon" >
-               <iconset resource="resources.qrc" >:/images/tango/go-up.png</iconset>
+               <iconset resource="../res/resources.qrc" >
+                <normaloff>:/images/tango/go-up.png</normaloff>:/images/tango/go-up.png</iconset>
               </property>
              </widget>
             </item>
             <item row="0" column="2" >
              <widget class="QToolButton" name="pathDown" >
               <property name="icon" >
-               <iconset resource="resources.qrc" >:/images/tango/go-down.png</iconset>
+               <iconset resource="../res/resources.qrc" >
+                <normaloff>:/images/tango/go-down.png</normaloff>:/images/tango/go-down.png</iconset>
               </property>
              </widget>
             </item>
@@ -513,7 +577,7 @@
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>20</width>
                 <height>40</height>
@@ -524,14 +588,16 @@
             <item row="2" column="1" >
              <widget class="QToolButton" name="pathAdd" >
               <property name="icon" >
-               <iconset resource="resources.qrc" >:/images/tango/list-add.png</iconset>
+               <iconset resource="../res/resources.qrc" >
+                <normaloff>:/images/tango/list-add.png</normaloff>:/images/tango/list-add.png</iconset>
               </property>
              </widget>
             </item>
             <item row="2" column="2" >
              <widget class="QToolButton" name="pathRemove" >
               <property name="icon" >
-               <iconset resource="resources.qrc" >:/images/tango/list-remove.png</iconset>
+               <iconset resource="../res/resources.qrc" >
+                <normaloff>:/images/tango/list-remove.png</normaloff>:/images/tango/list-remove.png</iconset>
               </property>
              </widget>
             </item>
@@ -566,14 +632,16 @@
             <item row="0" column="1" >
              <widget class="QToolButton" name="toolUp" >
               <property name="icon" >
-               <iconset resource="resources.qrc" >:/images/tango/go-up.png</iconset>
+               <iconset resource="../res/resources.qrc" >
+                <normaloff>:/images/tango/go-up.png</normaloff>:/images/tango/go-up.png</iconset>
               </property>
              </widget>
             </item>
             <item row="0" column="2" >
              <widget class="QToolButton" name="toolDown" >
               <property name="icon" >
-               <iconset resource="resources.qrc" >:/images/tango/go-down.png</iconset>
+               <iconset resource="../res/resources.qrc" >
+                <normaloff>:/images/tango/go-down.png</normaloff>:/images/tango/go-down.png</iconset>
               </property>
              </widget>
             </item>
@@ -589,7 +657,7 @@
               <property name="orientation" >
                <enum>Qt::Vertical</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>20</width>
                 <height>10</height>
@@ -600,14 +668,16 @@
             <item row="3" column="1" >
              <widget class="QToolButton" name="toolAdd" >
               <property name="icon" >
-               <iconset resource="resources.qrc" >:/images/tango/list-add.png</iconset>
+               <iconset resource="../res/resources.qrc" >
+                <normaloff>:/images/tango/list-add.png</normaloff>:/images/tango/list-add.png</iconset>
               </property>
              </widget>
             </item>
             <item row="3" column="2" >
              <widget class="QToolButton" name="toolRemove" >
               <property name="icon" >
-               <iconset resource="resources.qrc" >:/images/tango/list-remove.png</iconset>
+               <iconset resource="../res/resources.qrc" >
+                <normaloff>:/images/tango/list-remove.png</normaloff>:/images/tango/list-remove.png</iconset>
               </property>
              </widget>
             </item>
@@ -654,7 +724,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
      </property>
     </widget>
    </item>
@@ -697,7 +767,7 @@
   <tabstop>tabWidget</tabstop>
  </tabstops>
  <resources>
-  <include location="resources.qrc" />
+  <include location="../res/resources.qrc" />
  </resources>
  <connections>
   <connection>

@@ -222,7 +222,7 @@ void TeXDocument::init()
 	QActionGroup *group = new QActionGroup(this);
 	group->addAction(actionNone);
 
-	QString defLang = settings.value("language", "en_US").toString();
+	QString defLang = settings.value("language", tr("None")).toString();
 	foreach (QString lang, *TWUtils::getDictionaryList()) {
 		QAction *act = menuSpelling->addAction(lang);
 		act->setCheckable(true);
