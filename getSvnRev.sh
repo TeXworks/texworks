@@ -8,7 +8,7 @@ svn update
 # get the current revision number
 REV=`svn info | fgrep Revision: | cut -d ' ' -f 2`
 
-if [ x"`svn status src/SvnRev.h`" == x ]; then
+if [ `svn status | grep -c "^[^?]"` == 0 ]; then
 	# make a new SvnRev.h file
 	echo "#define SVN_REVISION $REV" > src/SvnRev.h.new
 	# and check if it matches the existing one
@@ -18,7 +18,7 @@ if [ x"`svn status src/SvnRev.h`" == x ]; then
 		echo "revision is current"
 	fi
 else
-	# if the SvnRev.h file is modified already, we'll bump the revision number
+	# if we have local modifications, we'll bump the revision number
 	REV=$((1+REV))
 	echo "#define SVN_REVISION $REV" > src/SvnRev.h.new
 fi
