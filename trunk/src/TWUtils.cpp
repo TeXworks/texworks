@@ -513,13 +513,18 @@ bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 {
 	if (event->type() == QEvent::KeyPress) {
 		QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-		if ((keyEvent->modifiers() & Qt::ControlModifier) != 0)
+		if ((keyEvent->modifiers() & Qt::ControlModifier) != 0) {
+#ifndef Q_WS_MAC // on Windows, at least, AltGr appears as Ctrl+Alt, so don't filter those
+			if ((keyEvent->modifiers() & Qt::AltModifier) != 0)
+				return QObject::eventFilter(obj, event);
+#endif
 			if (keyEvent->key() != Qt::Key_Z
 			 && keyEvent->key() != Qt::Key_X
 			 && keyEvent->key() != Qt::Key_C
 			 && keyEvent->key() != Qt::Key_V
 			 && keyEvent->key() != Qt::Key_Escape)
 				return true;
+		}
 	}
 	return QObject::eventFilter(obj, event);
 }
