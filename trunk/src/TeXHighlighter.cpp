@@ -37,11 +37,6 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	rule.format = specialCharFormat;
 	highlightingRules.append(rule);
 
-	controlSequenceFormat.setForeground(Qt::blue);
-	rule.pattern = QRegExp("\\\\(?:[A-Za-z@]+|.)");
-	rule.format = controlSequenceFormat;
-	highlightingRules.append(rule);
-
 	environmentFormat.setForeground(Qt::darkGreen);
 	rule.pattern = QRegExp("\\\\(?:begin|end)\\s*\\{[^}]*\\}");
 	rule.format = environmentFormat;
@@ -50,6 +45,11 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	packageFormat.setForeground(Qt::darkBlue);
 	rule.pattern = QRegExp("\\\\usepackage\\s*(?:\\[[^]]*\\]\\s*)?\\{[^}]*\\}");
 	rule.format = packageFormat;
+	highlightingRules.append(rule);
+
+	controlSequenceFormat.setForeground(Qt::blue);
+	rule.pattern = QRegExp("\\\\(?:[A-Za-z@]+|.)");
+	rule.format = controlSequenceFormat;
 	highlightingRules.append(rule);
 
 	commentFormat.setForeground(Qt::red);
@@ -67,15 +67,23 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 void TeXHighlighter::highlightBlock(const QString &text)
 {
 	if (isActive) {
-		int index;
-		foreach (HighlightingRule rule, highlightingRules) {
-			QRegExp expression(rule.pattern);
-			index = text.indexOf(expression);
-			while (index >= 0) {
-				int length = expression.matchedLength();
-				setFormat(index, length, rule.format);
-				index = text.indexOf(expression, index + length);
+		int index = 0;
+		while (index < text.length()) {
+			int firstIndex = INT_MAX, len;
+			const HighlightingRule* firstRule = NULL;
+			foreach (const HighlightingRule& rule, highlightingRules) {
+				int foundIndex = text.indexOf(rule.pattern, index);
+				if (foundIndex >= 0 && foundIndex < firstIndex) {
+					firstIndex = foundIndex;
+					firstRule = &rule;
+				}
 			}
+			if (firstRule != NULL && (len = firstRule->pattern.matchedLength()) > 0) {
+				setFormat(firstIndex, len, firstRule->format);
+				index = firstIndex + len;
+			}
+			else
+				break;
 		}
 	}
 
