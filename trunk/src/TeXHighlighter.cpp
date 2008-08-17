@@ -25,6 +25,8 @@
 #include "TeXHighlighter.h"
 #include "TWUtils.h"
 
+#include <limits.h> // for INT_MAX
+
 TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	: QSyntaxHighlighter(parent)
 	, isActive(true)
