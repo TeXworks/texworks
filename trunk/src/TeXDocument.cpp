@@ -48,6 +48,8 @@
 #include <QTextCodec>
 #include <QSignalMapper>
 #include <QDockWidget>
+#include <QTableView>
+#include <QStandardItemModel>
 #include <QDebug>
 
 const int kMinConsoleHeight = 160;
@@ -340,7 +342,7 @@ TeXDocument* TeXDocument::open(const QString &fileName)
 	return doc;
 }
 
-void TeXDocument::openDocument(const QString &fileName, int lineNo) // static
+void TeXDocument::openDocument(const QString &fileName, int lineNo, int selStart, int selEnd) // static
 {
 	TeXDocument *doc = findDocument(fileName);
 	if (doc == NULL) {
@@ -359,7 +361,7 @@ void TeXDocument::openDocument(const QString &fileName, int lineNo) // static
 	if (doc != NULL) {
 		doc->selectWindow();
 		if (lineNo > 0)
-			doc->goToLine(lineNo);
+			doc->goToLine(lineNo, selStart, selEnd);
 	}
 }
 
@@ -792,7 +794,9 @@ void TeXDocument::selectedEngine(const QString& name) // sent by toolbar combo b
 
 void TeXDocument::showCursorPosition()
 {
-	int line = textEdit->textCursor().blockNumber() + 1;
+	QTextCursor cursor = textEdit->textCursor();
+	cursor.setPosition(cursor.selectionStart());
+	int line = cursor.blockNumber() + 1;
 	int total = textEdit->document()->blockCount();
 	if (line != statusLine || total != statusTotal) {
 		lineNumberLabel->setText(tr("Line %1 of %2").arg(line).arg(total));
@@ -827,15 +831,43 @@ void TeXDocument::clear()
 	textEdit->textCursor().removeSelectedText();
 }
 
-void TeXDocument::goToLine(int lineNo)
+QString TeXDocument::getLineText(int lineNo) const
 {
-	QTextCursor cursor = textEdit->textCursor();
-	cursor.setPosition(0);
-	cursor.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, lineNo - 1);
-	cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
+	QTextDocument* doc = textEdit->document();
+	if (lineNo < 1 || lineNo > doc->blockCount())
+		return QString();
+#if QT_VERSION >= 0x040400
+	return doc->findBlockByNumber(lineNo - 1).text();
+#else
+	QTextBlock block = doc->findBlock(0);
+	while (--lineNo > 0)
+		block = block.next();
+	return block.text();
+#endif
+}
+
+void TeXDocument::goToLine(int lineNo, int selStart, int selEnd)
+{
+	QTextDocument* doc = textEdit->document();
+	if (lineNo < 1 || lineNo > doc->blockCount())
+		return;
 	int oldScrollValue = -1;
 	if (textEdit->verticalScrollBar() != NULL)
 		oldScrollValue = textEdit->verticalScrollBar()->value();
+#if QT_VERSION >= 0x040400
+	QTextCursor cursor(doc->findBlockByNumber(lineNo - 1));
+#else
+	QTextBlock block = doc->findBlock(0);
+	while (--lineNo > 0)
+		block = block.next();
+	QTextCursor cursor(block);
+#endif
+	if (selStart >= 0 && selEnd >= selStart) {
+		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, selStart);
+		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, selEnd - selStart);
+	}
+	else
+		cursor.movePosition(QTextCursor::NextBlock, QTextCursor::KeepAnchor);
 	textEdit->setTextCursor(cursor);
 	maybeCenterSelection(oldScrollValue);
 }
@@ -861,6 +893,7 @@ void TeXDocument::doFontDialog()
 void TeXDocument::doLineDialog()
 {
 	QTextCursor cursor = textEdit->textCursor();
+	cursor.setPosition(cursor.selectionStart());
 	bool ok;
 	int lineNo = QInputDialog::getInteger(this, tr("Go to Line"),
 									tr("Line number:"), cursor.blockNumber() + 1,
@@ -872,7 +905,7 @@ void TeXDocument::doLineDialog()
 void TeXDocument::doFindDialog()
 {
 	if (FindDialog::doFindDialog(textEdit) == QDialog::Accepted)
-		doFindAgain();
+		doFindAgain(true);
 }
 
 void TeXDocument::doReplaceDialog()
@@ -997,7 +1030,7 @@ void TeXDocument::setSyntaxColoring(bool coloring)
 	highlighter->setActive(coloring);
 }
 
-void TeXDocument::doFindAgain()
+void TeXDocument::doFindAgain(bool fromDialog)
 {
 	QSettings settings;
 	QString	searchText = settings.value("searchText").toString();
@@ -1018,52 +1051,96 @@ void TeXDocument::doFindAgain()
 		}
 	}
 
-	QTextCursor	curs = textEdit->textCursor();
-	if (settings.value("searchSelection").toBool() && curs.hasSelection()) {
-		int s = curs.selectionStart();
-		int e = curs.selectionEnd();
-		if ((flags & QTextDocument::FindBackward) != 0) {
-			curs = (regex != NULL)
-				? textEdit->document()->find(*regex, e, flags)
-				: textEdit->document()->find(searchText, e, flags);
-			if (!curs.isNull()) {
+	if (fromDialog && settings.value("searchFindAll").toBool()) {
+		bool singleFile = true;
+		QList<SearchResult> results;
+		flags &= ~QTextDocument::FindBackward;
+		int docListIndex = 0;
+		TeXDocument* theDoc = this;
+		while (1) {
+			QTextCursor curs(theDoc->textDoc());
+			while (1) {
+				curs = (regex != NULL)
+					? theDoc->textDoc()->find(*regex, curs, flags)
+					: theDoc->textDoc()->find(searchText, curs, flags);
+				if (curs.isNull())
+					break;
+				int blockStart = curs.block().position();
+				results.append(SearchResult(theDoc, curs.blockNumber() + 1,
+								curs.selectionStart() - blockStart, curs.selectionEnd() - blockStart));
+			}
+
+			if (settings.value("searchAllFiles").toBool() == false)
+				break;
+			// go to next document
+		next_doc:
+			if (docList[docListIndex] == theDoc)
+				docListIndex++;
+			if (docListIndex == docList.count())
+				break;
+			theDoc = docList[docListIndex];
+			if (theDoc == this)
+				goto next_doc;
+			singleFile = false;
+		}
+		
+		if (results.count() == 0) {
+			qApp->beep();
+			statusBar()->showMessage(tr("Not found"), kStatusMessageDuration);
+		}
+		else {
+			SearchResults::presentResults(results, this, singleFile);
+			statusBar()->showMessage(tr("Found %1 occurrence(s)").arg(results.count()), kStatusMessageDuration);
+		}
+	}
+	else {
+		QTextCursor	curs = textEdit->textCursor();
+		if (settings.value("searchSelection").toBool() && curs.hasSelection()) {
+			int s = curs.selectionStart();
+			int e = curs.selectionEnd();
+			if ((flags & QTextDocument::FindBackward) != 0) {
+				curs = (regex != NULL)
+					? textEdit->document()->find(*regex, e, flags)
+					: textEdit->document()->find(searchText, e, flags);
+				if (!curs.isNull()) {
+					if (curs.selectionEnd() > e)
+						curs = (regex != NULL)
+							? textEdit->document()->find(*regex, curs, flags)
+							: textEdit->document()->find(searchText, curs, flags);
+					if (curs.selectionStart() < s)
+						curs = QTextCursor();
+				}
+			}
+			else {
+				curs = textEdit->document()->find(searchText, s, flags);
 				if (curs.selectionEnd() > e)
-					curs = (regex != NULL)
-						? textEdit->document()->find(*regex, curs, flags)
-						: textEdit->document()->find(searchText, curs, flags);
-				if (curs.selectionStart() < s)
 					curs = QTextCursor();
 			}
 		}
 		else {
-			curs = textEdit->document()->find(searchText, s, flags);
-			if (curs.selectionEnd() > e)
-				curs = QTextCursor();
-		}
-	}
-	else {
-		curs = (regex != NULL)
-			? textEdit->document()->find(*regex, curs, flags)
-			: textEdit->document()->find(searchText, curs, flags);
-		if (curs.isNull() && settings.value("searchWrap").toBool()) {
-			curs = QTextCursor(textEdit->document());
-			if ((flags & QTextDocument::FindBackward) != 0)
-				curs.movePosition(QTextCursor::End);
 			curs = (regex != NULL)
 				? textEdit->document()->find(*regex, curs, flags)
 				: textEdit->document()->find(searchText, curs, flags);
+			if (curs.isNull() && settings.value("searchWrap").toBool()) {
+				curs = QTextCursor(textEdit->document());
+				if ((flags & QTextDocument::FindBackward) != 0)
+					curs.movePosition(QTextCursor::End);
+				curs = (regex != NULL)
+					? textEdit->document()->find(*regex, curs, flags)
+					: textEdit->document()->find(searchText, curs, flags);
+			}
 		}
+
+		if (curs.isNull()) {
+			qApp->beep();
+			statusBar()->showMessage(tr("Not found"), kStatusMessageDuration);
+		}
+		else
+			textEdit->setTextCursor(curs);
 	}
 
 	if (regex != NULL)
 		delete regex;
-
-	if (curs.isNull()) {
-		qApp->beep();
-		statusBar()->showMessage(tr("Not found"), kStatusMessageDuration);
-	}
-	else
-		textEdit->setTextCursor(curs);
 }
 
 void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)

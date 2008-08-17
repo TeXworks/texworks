@@ -87,6 +87,7 @@ FORMS	+=	src/TeXDocument.ui \
 			src/PDFDocument.ui \
 			src/Find.ui \
 			src/Replace.ui \
+			src/SearchResults.ui \
 			src/PrefsDialog.ui \
 			src/ToolConfig.ui \
 			src/TemplateDialog.ui

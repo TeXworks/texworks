@@ -60,7 +60,7 @@ public:
 		{
 			return docList;
 		}
-	static void openDocument(const QString &fileName, int lineNo = 0);
+	static void openDocument(const QString &fileName, int lineNo = 0, int selStart = -1, int selEnd = -1);
 
 
 	TeXDocument *open(const QString &fileName);
@@ -71,6 +71,9 @@ public:
 		{ return curFile; }
 	QTextCursor textCursor()
 		{ return textEdit->textCursor(); }
+	QTextDocument* textDoc()
+		{ return textEdit->document(); }
+	QString getLineText(int lineNo) const;
 
 signals:
 	void syncFromSource(const QString&, int);
@@ -96,7 +99,7 @@ private slots:
 	void doFontDialog();
 	void doLineDialog();
 	void doFindDialog();
-	void doFindAgain();
+	void doFindAgain(bool fromDialog = false);
 	void doReplaceDialog();
 	void doReplace(ReplaceDialog::DialogCode mode);
 	void doIndent();
@@ -146,11 +149,12 @@ private:
 	QTextCursor doSearch(const QString& searchText, const QRegExp *regex, QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
 	void showConsole();
 	void hideConsole();
-	void goToLine(int lineNo);
+	void goToLine(int lineNo, int selStart = -1, int selEnd = -1);
 	void updateTypesettingAction();
 	void findRootFilePath();
 	void maybeCenterSelection(int oldScrollValue = -1);
 	void showFloaters();
+	void presentResults(const QList<SearchResult>& results);
 
 	TeXHighlighter *highlighter;
 	PDFDocument *pdfDoc;
