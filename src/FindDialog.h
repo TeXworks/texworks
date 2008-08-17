@@ -23,9 +23,12 @@
 #define FindDialog_H
 
 #include <QDialog>
+#include <QDockWidget>
+#include <QList>
 
 #include "ui_Find.h"
 #include "ui_Replace.h"
+#include "ui_SearchResults.h"
 
 class TeXDocument;
 class QTextEdit;
@@ -40,6 +43,7 @@ public:
 	static DialogCode doFindDialog(QTextEdit *document);
 
 private slots:
+	void toggledFindAllOption(bool checked);
 	void toggledRegexOption(bool checked);
 	void toggledSelectionOption(bool checked);
 	void checkRegex(const QString& str);
@@ -47,6 +51,7 @@ private slots:
 private:
 	void init(QTextEdit *document);
 };
+
 
 class ReplaceDialog : public QDialog, private Ui::ReplaceDialog
 {
@@ -72,6 +77,33 @@ private slots:
 
 private:
 	void init(QTextEdit *document);
+};
+
+
+class SearchResult {
+public:
+	SearchResult(const TeXDocument* texdoc, int line, int start, int end)
+		: doc(texdoc), lineNo(line), selStart(start), selEnd(end)
+		{ }
+
+	const TeXDocument* doc;
+	int lineNo;
+	int selStart;
+	int selEnd;
+};
+
+
+class SearchResults	: public QDockWidget, private Ui::SearchResults
+{
+	Q_OBJECT
+	
+public:
+	static void presentResults(const QList<SearchResult>& results, QMainWindow* parent, bool singleFile);
+	
+	SearchResults(QWidget* parent);
+	
+private slots:
+	void showSelectedEntry();
 };
 
 #endif
