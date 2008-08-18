@@ -314,7 +314,7 @@ void TWApp::setDefaultPaths()
 		<< "/usr/bin"
 #endif
 #ifdef Q_WS_X11
-		<< "/usr/local/texlive/2008/bin/i386-linux"
+		<< "/usr/local/texlive/2008/bin/i386-linux"	// FIXME: what about other *nix systems?
 		<< "/usr/local/texlive/2007/bin/i386-linux"
 		<< "/usr/local/bin"
 		<< "/usr/bin"
@@ -323,8 +323,21 @@ void TWApp::setDefaultPaths()
 		<< "c:/texlive/2008/bin"
 		<< "c:/texlive/2007/bin"
 		<< "c:/w32tex/bin"
+		<< "c:/Program Files/MiKTeX 2.7/miktex/bin"
+		<< "c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
 #endif
 		;
+	for (int i = binaryPaths->count() - 1; i >= 0; --i) {
+		QDir dir(binaryPaths->at(i));
+		if (!dir.exists())
+			binaryPaths->removeAt(i);
+	}
+	if (binaryPaths->count() == 0) {
+		QMessageBox::warning(NULL, tr("No default binary directory found"),
+			tr("None of the predefined directories for TeX-related programs could be found."
+				"<p><small>To run any processes, you will need to set the binaries directory (or directories) "
+				"for your TeX distribution using the Typesetting tab of the Preferences dialog."));
+	}
 }
 
 const QStringList TWApp::getBinaryPaths()
