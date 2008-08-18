@@ -1367,8 +1367,14 @@ void TeXDocument::typeset()
 	QStringListIterator iter(binPaths);
 	iter.toBack();
 	while (iter.hasPrevious()) {
-		QString path = iter.previous();
-		env.replaceInStrings(QRegExp("^PATH=(.*)", Qt::CaseInsensitive), "PATH=" + path + ":\\1");
+		QString path = QDir::toNativeSeparators(iter.previous());
+		env.replaceInStrings(QRegExp("^PATH=(.*)", Qt::CaseInsensitive),
+#ifdef Q_WS_WIN
+			"PATH=" + path + ";\\1"
+#else
+			"PATH=" + path + ":\\1"
+#endif
+			);
 	}
 	process->setEnvironment(env);
 	process->setProcessChannelMode(QProcess::MergedChannels);
