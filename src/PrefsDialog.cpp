@@ -128,6 +128,14 @@ void PrefsDialog::addPath()
 	QString dir = QFileDialog::getExistingDirectory(this, tr("Choose Directory"),
 					 "/usr", 0 /*QFileDialog::DontUseNativeDialog*/
 								/*QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks*/);
+	dir = QDir::fromNativeSeparators(dir);
+#ifdef Q_WS_WIN
+	if (dir.length() > 2)
+#else
+	if (dir.length() > 1)
+#endif
+		if (dir.at(dir.length() - 1) == '/')
+			dir.chop(1);
 	if (dir != "") {
 		binPathList->addItem(dir);
 		binPathList->setCurrentItem(binPathList->item(binPathList->count() - 1));
@@ -334,6 +342,8 @@ void PrefsDialog::restoreDefaults()
 			TWApp::instance()->setDefaultPaths();
 			initPathAndToolLists();
 			autoHideOutput->setChecked(kDefault_HideConsole);
+			pathsChanged = true;
+			toolsChanged = true;
 			break;
 	}
 }
