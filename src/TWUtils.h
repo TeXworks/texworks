@@ -28,7 +28,7 @@
 #include <QHash>
 #include <QDir>
 
-#include <hunspell/hunspell.h>
+#include <hunspell.h>
 
 #define TEXWORKS_NAME "TeXworks" /* app name, for use in menus, messages, etc */
 

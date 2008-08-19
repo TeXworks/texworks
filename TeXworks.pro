@@ -37,6 +37,7 @@ QT			+=	xml
 macx {
 	INCLUDEPATH += /usr/local/include/poppler
 	INCLUDEPATH += /usr/local/include/poppler/qt4
+	INCLUDEPATH += /usr/local/include/hunspell
 
 	LIBS += -L/usr/local/lib
 	LIBS += -lpoppler-qt4
@@ -44,7 +45,7 @@ macx {
 
 	QMAKE_INFO_PLIST = TeXworks.plist
 
-#	CONFIG += x86 ppc
+	CONFIG += x86 ppc
 
 	ICON = TeXworks.icns
 }
@@ -52,6 +53,7 @@ macx {
 linux-g++ {
 	INCLUDEPATH += /usr/include/poppler
 	INCLUDEPATH += /usr/include/poppler/qt4
+	INCLUDEPATH += /usr/include/hunspell
 
 	LIBS += -lpoppler-qt4
 	LIBS += -lhunspell
@@ -61,6 +63,7 @@ win32 {
 	INCLUDEPATH += z:/cross-tools/usr/local/include
 	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler
 	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler/qt4
+	INCLUDEPATH += z:/cross-tools/usr/local/include/hunspell
 
 	LIBS += -Lz:/cross-tools/usr/local/lib
 	LIBS += -lpoppler-qt4

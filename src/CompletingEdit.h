@@ -24,7 +24,7 @@
 
 #include <QTextEdit>
 
-#include <hunspell/hunspell.h>
+#include <hunspell.h>
 
 class QCompleter;
 class QStandardItemModel;
