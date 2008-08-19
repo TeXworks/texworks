@@ -26,7 +26,7 @@
 
 #include <QTextCharFormat>
 
-#include <hunspell/hunspell.h>
+#include <hunspell.h>
 
 class QTextDocument;
 class QTextCodec;

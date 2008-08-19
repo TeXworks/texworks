@@ -31,7 +31,7 @@
 
 #include "FindDialog.h"
 
-#include <hunspell/hunspell.h>
+#include <hunspell.h>
 
 class QAction;
 class QMenu;
