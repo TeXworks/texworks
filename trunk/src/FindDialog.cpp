@@ -263,6 +263,15 @@ SearchResults::SearchResults(QWidget* parent)
 
 void SearchResults::presentResults(const QList<SearchResult>& results, QMainWindow* parent, bool singleFile)
 {
+	if (singleFile) {
+		// remove any existing results dock from this parent window
+		QList<SearchResults*> children = parent->findChildren<SearchResults*>();
+		foreach (SearchResults* child, children) {
+			parent->removeDockWidget(child);
+			child->deleteLater();
+		}
+	}
+
 	SearchResults* resultsWindow = new SearchResults(parent);
 
 	resultsWindow->table->setRowCount(results.count());
@@ -286,19 +295,13 @@ void SearchResults::presentResults(const QList<SearchResult>& results, QMainWind
 	resultsWindow->table->resizeRowsToContents();
 
 	if (singleFile) {
-		// remove any existing results dock from this parent window
-		QList<SearchResults*> children = parent->findChildren<SearchResults*>();
-		foreach (SearchResults* child, children) {
-			parent->removeDockWidget(child);
-			child->deleteLater();
-		}
 		resultsWindow->setAllowedAreas(Qt::TopDockWidgetArea|Qt::BottomDockWidgetArea);
 		resultsWindow->setFloating(false);
 		parent->addDockWidget(Qt::TopDockWidgetArea, resultsWindow);
 	}
 	else {
 		resultsWindow->setAllowedAreas(Qt::NoDockWidgetArea);
-		resultsWindow->setFloating(true);
+		resultsWindow->setFeatures(QDockWidget::NoDockWidgetFeatures);
 		resultsWindow->setParent(NULL);
 		resultsWindow->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint);
 	}
@@ -323,5 +326,5 @@ void SearchResults::showSelectedEntry()
 	int selEnd = item->text().toInt();
 
 	if (!fileName.isEmpty())
-		TeXDocument::openDocument(fileName, lineNo, selStart, selEnd);
+		TeXDocument::openDocument(fileName, false, lineNo, selStart, selEnd);
 }

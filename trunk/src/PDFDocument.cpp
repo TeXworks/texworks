@@ -1064,7 +1064,7 @@ void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 		while ((node = synctex_next_result(scanner)) != NULL) {
 			const char *filename = synctex_scanner_get_name(scanner, synctex_node_tag(node));
 			QDir curDir(QFileInfo(curFile).canonicalPath());
-			TeXDocument::openDocument(QFileInfo(curDir, filename).canonicalFilePath(), synctex_node_line(node));
+			TeXDocument::openDocument(QFileInfo(curDir, filename).canonicalFilePath(), false, synctex_node_line(node));
 			break; // FIXME: currently we just take the first hit
 		}
 	}
