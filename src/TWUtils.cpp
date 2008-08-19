@@ -498,8 +498,10 @@ SelWinAction::SelWinAction(QObject *parent, const QString &fileName)
 
 #pragma mark === CmdKeyFilter ===
 
-// the singleton CmdKeyFilter object is attached to all text-editing widgets
+// on OS X only, the singleton CmdKeyFilter object is attached to all TeXDocument editor widgets
+// to stop Command-keys getting inserted into edit text items
 
+#ifdef Q_WS_MAC
 CmdKeyFilter *CmdKeyFilter::filterObj = NULL;
 
 CmdKeyFilter *CmdKeyFilter::filter()
@@ -514,20 +516,17 @@ bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 	if (event->type() == QEvent::KeyPress) {
 		QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
 		if ((keyEvent->modifiers() & Qt::ControlModifier) != 0) {
-#ifndef Q_WS_MAC // on Windows, at least, AltGr appears as Ctrl+Alt, so don't filter those
-			if ((keyEvent->modifiers() & Qt::AltModifier) != 0)
-				return QObject::eventFilter(obj, event);
-#endif
-			if (keyEvent->key() != Qt::Key_Z
+			if (keyEvent->key() <= 0x0ff
+			 && keyEvent->key() != Qt::Key_Z
 			 && keyEvent->key() != Qt::Key_X
 			 && keyEvent->key() != Qt::Key_C
-			 && keyEvent->key() != Qt::Key_V
-			 && keyEvent->key() != Qt::Key_Escape)
+			 && keyEvent->key() != Qt::Key_V)
 				return true;
 		}
 	}
 	return QObject::eventFilter(obj, event);
 }
+#endif
 
 #pragma mark === Engine ===
 

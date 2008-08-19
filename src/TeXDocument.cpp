@@ -185,7 +185,9 @@ void TeXDocument::init()
 
 	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(editMenuAboutToShow()));
 
+#ifdef Q_WS_MAC
 	textEdit->installEventFilter(CmdKeyFilter::filter());
+#endif
 
 	connect(inputLine, SIGNAL(returnPressed()), this, SLOT(acceptInputLine()));
 
