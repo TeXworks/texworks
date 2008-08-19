@@ -1,0 +1,31 @@
+#summary Notes on building TeXworks on various distributions.
+
+Building !TeXworks on typical GNU/Linux systems should be fairly straightforward. You just need standard build tools (gcc, make, etc.), and the development files (not just runtime libraries) for Qt4, poppler, and hunspell. The exact set of packages needed will depend how your distribution arranges things; some examples are given here.
+
+=== Fedora 9 ===
+
+{{{
+# yum install poppler-devel qt4-devel hunspell-devel
+$ svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
+$ cd texworks-read-only
+$ qmake
+$ make
+$ ./texworks
+}}}
+
+(Thanks to Dave Crossland for this.)
+
+=== Ubuntu (Hardy) ===
+
+{{{
+$ sudo aptitude install build-essential libpoppler-qt4-dev libhunspell-dev
+$ svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
+$ cd texworks-read-only
+$ qmake
+$ make
+$ ./texworks
+}}}
+
+(I hope this is OK; have not checked on a completely virgin Ubuntu system, so it is possible I missed something in the dependencies.)
+
+Another option would be to use the [http://tug.org/pipermail/texworks/2008q3/000002.html Ubuntu package] announced by Martin Sievers, thus avoiding the need to compile from source.
