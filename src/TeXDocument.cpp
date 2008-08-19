@@ -344,7 +344,7 @@ TeXDocument* TeXDocument::open(const QString &fileName)
 	return doc;
 }
 
-void TeXDocument::openDocument(const QString &fileName, int lineNo, int selStart, int selEnd) // static
+void TeXDocument::openDocument(const QString &fileName, bool activate, int lineNo, int selStart, int selEnd) // static
 {
 	TeXDocument *doc = findDocument(fileName);
 	if (doc == NULL) {
@@ -361,7 +361,14 @@ void TeXDocument::openDocument(const QString &fileName, int lineNo, int selStart
 		}
 	}
 	if (doc != NULL) {
-		doc->selectWindow();
+		if (activate)
+			doc->selectWindow();
+		else {
+			doc->show();
+			doc->raise();
+			if (doc->isMinimized())
+				doc->showNormal();
+		}
 		if (lineNo > 0)
 			doc->goToLine(lineNo, selStart, selEnd);
 	}
