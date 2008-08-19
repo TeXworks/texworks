@@ -311,7 +311,10 @@ void SearchResults::presentResults(const QList<SearchResult>& results, QMainWind
 
 void SearchResults::showSelectedEntry()
 {
-	int row = table->currentRow();
+	QList<QTableWidgetSelectionRange> ranges = table->selectedRanges();
+	if (ranges.count() == 0)
+		return;
+	int row = ranges.first().topRow();
 	QString fileName;
 	int	lineNo = 1;
 	QTableWidgetItem* item = table->item(row, 0);
