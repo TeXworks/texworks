@@ -189,7 +189,10 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 	
 	if (c == NULL) {
 		cmpCursor = textCursor();
-		cmpCursor.select(QTextCursor::WordUnderCursor);
+		if (!selectWord(cmpCursor)) {
+			cmpCursor.setPosition(textCursor().selectionStart() - 1);
+			selectWord(cmpCursor);
+		}
 		// check if the word is preceded by open-brace; if so try with that included
 		int start = cmpCursor.selectionStart();
 		int end = cmpCursor.selectionEnd();
