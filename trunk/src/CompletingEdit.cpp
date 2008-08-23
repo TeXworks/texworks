@@ -41,6 +41,7 @@
 #include <QTextDocument>
 #include <QTextBlock>
 #include <QScrollBar>
+#include <QTimer>
 
 
 CompletingEdit::CompletingEdit(QWidget *parent)
@@ -121,7 +122,7 @@ void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
 	else {
 		// don't like QTextEdit's selection behavior, so try to improve it here
 		QPoint	pos = e->pos() + QPoint(horizontalScrollBar()->value(), verticalScrollBar()->value());
-		const int cursorPos = document()->documentLayout()->hitTest(pos, Qt::FuzzyHit);
+		int cursorPos = document()->documentLayout()->hitTest(pos, Qt::FuzzyHit);
 		if (cursorPos == -1)
 			return;
 
@@ -142,18 +143,46 @@ void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
 			return;
 		}
 
-		cursor.setPosition(cursorPos);
-		cursor.setPosition(cursorPos - 1, QTextCursor::KeepAnchor);
-		// don't test because the rect will be zero width (see above)!
-//		r = cursorRect(cursor);
-//		if (r.contains(pos)) {
-//			QString s = cursor.selectedText();
-//			if (isPairedChar(s)) ...
-			(void)selectWord(cursor);
-			setTextCursor(cursor);
-			e->accept();
-			return;
-//		}
+		if (cursorPos > 0) {
+			cursorPos -= 1;
+			cursor.setPosition(cursorPos);
+			cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
+			// don't test because the rect will be zero width (see above)!
+	//		r = cursorRect(cursor);
+	//		if (r.contains(pos)) {
+				const QString plainText = toPlainText();
+				QChar curChr = plainText[cursorPos];
+				QChar c;
+				c = TWUtils::closerMatching(curChr);
+				if (c != 0) {
+					int balancePos = TWUtils::balanceDelim(plainText, cursorPos + 1, c, 1);
+					if (balancePos < 0)
+						QApplication::beep();
+					else
+						cursor.setPosition(balancePos + 1, QTextCursor::KeepAnchor);
+					setTextCursor(cursor);
+					e->accept();
+					return;
+				}
+				c = TWUtils::openerMatching(curChr);
+				if (c != 0) {
+					int balancePos = TWUtils::balanceDelim(plainText, cursorPos - 1, c, -1);
+					if (balancePos < 0)
+						QApplication::beep();
+					else {
+						cursor.setPosition(balancePos);
+						cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
+					}
+					setTextCursor(cursor);
+					e->accept();
+					return;
+				}
+				(void)selectWord(cursor);
+				setTextCursor(cursor);
+				e->accept();
+				return;
+	//		}
+		}
 
 		// else fall back on whatever QTextEdit does
 		QTextEdit::mouseDoubleClickEvent(e);
@@ -167,6 +196,11 @@ void CompletingEdit::focusInEvent(QFocusEvent *e)
 	QTextEdit::focusInEvent(e);
 }
 
+void CompletingEdit::clearExtraSelections()
+{
+	setExtraSelections(QList<ExtraSelection>());
+}
+
 void CompletingEdit::keyPressEvent(QKeyEvent *e)
 {
 	bool isShortcut = (e->key() == Qt::Key_Escape);
@@ -176,7 +210,39 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 			clearCompleter();
 			cmpCursor = QTextCursor();
 		}
+		int pos = textCursor().selectionStart(); // remember cursor before the keystroke
 		QTextEdit::keyPressEvent(e);
+		if ((e->modifiers() & Qt::ControlModifier) == 0) { // not a command key - maybe do brace matching
+			QTextCursor cursor = textCursor();
+			if (!cursor.hasSelection()) {
+				if (cursor.selectionStart() == pos + 1 || cursor.selectionStart() == pos - 1) {
+					if (cursor.selectionStart() == pos - 1) // we moved backward, set pos to look at the char we just passed over
+						--pos;
+					const QString text = document()->toPlainText();
+					int match = -2;
+					QChar c;
+					if (pos > 0 && (c = TWUtils::openerMatching(text[pos])) != 0)
+						match = TWUtils::balanceDelim(text, pos - 1, c, -1);
+					else if (pos < text.length() - 1 && (c = TWUtils::closerMatching(text[pos])) != 0)
+						match = TWUtils::balanceDelim(text, pos + 1, c, 1);
+					if (match == -1) // no matching delimiter found
+						QApplication::beep();
+					else if (match >= 0) {
+						QTextCharFormat	format;
+						format.setBackground(QBrush("orange"));
+						QList<ExtraSelection> selList;
+						ExtraSelection	sel;
+						sel.cursor = QTextCursor(document());
+						sel.cursor.setPosition(match);
+						sel.cursor.setPosition(match + 1, QTextCursor::KeepAnchor);
+						sel.format = format;
+						selList.append(sel);
+						setExtraSelections(selList);
+						QTimer::singleShot(250, this, SLOT(clearExtraSelections()));
+					}
+				}
+			}
+		}
 		return;
 	}
 	

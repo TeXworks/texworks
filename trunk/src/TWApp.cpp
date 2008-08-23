@@ -90,6 +90,8 @@ void TWApp::init()
 	if (defaultCodec == NULL)
 		defaultCodec = QTextCodec::codecForName("UTF-8");
 
+	TWUtils::setUpPairs(TWUtils::defaultPairs());
+
 #ifdef Q_WS_MAC
 	setQuitOnLastWindowClosed(false);
 
