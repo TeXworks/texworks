@@ -231,6 +231,7 @@
     <addaction name="actionClear" />
     <addaction name="separator" />
     <addaction name="actionSelect_All" />
+    <addaction name="actionBalance_Delimiters" />
     <addaction name="menuChange_Case" />
     <addaction name="separator" />
     <addaction name="menuSpelling" />
@@ -275,6 +276,7 @@
     <addaction name="separator" />
     <addaction name="actionGo_to_Line" />
     <addaction name="actionShow_Selection" />
+    <addaction name="separator" />
    </widget>
    <widget class="QMenu" name="menuFormat" >
     <property name="title" >
@@ -934,6 +936,17 @@
    </property>
    <property name="text" >
     <string>all lowercase</string>
+   </property>
+  </action>
+  <action name="actionBalance_Delimiters" >
+   <property name="text" >
+    <string>Balance Delimiters</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+B</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
  </widget>

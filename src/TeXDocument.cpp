@@ -149,6 +149,8 @@ void TeXDocument::init()
 	connect(actionTo_Uppercase, SIGNAL(triggered()), this, SLOT(toUppercase()));
 	connect(actionTo_Lowercase, SIGNAL(triggered()), this, SLOT(toLowercase()));
 
+	connect(actionBalance_Delimiters, SIGNAL(triggered()), this, SLOT(balanceDelimiters()));
+
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), actionSave, SLOT(setEnabled(bool)));
 	connect(textEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
@@ -1027,6 +1029,31 @@ void TeXDocument::replaceSelection(const QString& newText)
 	cursor.setPosition(start);
 	cursor.setPosition(end, QTextCursor::KeepAnchor);
 	textEdit->setTextCursor(cursor);
+}
+
+void TeXDocument::balanceDelimiters()
+{
+	const QString text = textEdit->toPlainText();
+	QTextCursor cursor = textEdit->textCursor();
+	int openPos = TWUtils::findOpeningDelim(text, cursor.selectionStart());
+	if (openPos >= 0) {
+		do {
+			int closePos = TWUtils::balanceDelim(text, openPos + 1, TWUtils::closerMatching(text[openPos]), 1);
+			if (closePos < 0)
+				break;
+			if (closePos >= cursor.selectionEnd()) {
+				cursor.setPosition(openPos);
+				cursor.setPosition(closePos + 1, QTextCursor::KeepAnchor);
+				textEdit->setTextCursor(cursor);
+				return;
+			}
+			if (openPos > 0)
+				openPos = TWUtils::findOpeningDelim(text, openPos - 1);
+			else
+				break;
+		} while (openPos >= 0);
+	}
+	QApplication::beep();
 }
 
 void TeXDocument::setWrapLines(bool wrap)

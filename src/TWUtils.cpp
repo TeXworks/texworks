@@ -485,6 +485,77 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 	return false;
 }
 
+QMap<QChar,QChar> TWUtils::pairOpeners;
+QMap<QChar,QChar> TWUtils::pairClosers;
+
+QChar TWUtils::closerMatching(QChar c)
+{
+	return pairClosers.value(c);
+}
+
+QChar TWUtils::openerMatching(QChar c)
+{
+	return pairOpeners.value(c);
+}
+
+void TWUtils::setUpPairs(const QList< QPair<QChar,QChar> >& pairs)
+{
+	pairOpeners.clear();
+	pairClosers.clear();
+	typedef QPair<QChar,QChar> charPairT; // otherwise foreach macro breaks
+	foreach (charPairT p, pairs) {
+		pairClosers[p.first] = p.second;
+		pairOpeners[p.second] = p.first;
+	}
+}
+
+QList< QPair<QChar,QChar> > TWUtils::defaultPairs()
+{
+	QList< QPair<QChar,QChar> > rval;
+	rval.append(QPair<QChar,QChar>('(', ')'));
+	rval.append(QPair<QChar,QChar>('[', ']'));
+	rval.append(QPair<QChar,QChar>('{', '}'));
+	rval.append(QPair<QChar,QChar>(0x00ab, 0x00bb));	// guillemots
+	rval.append(QPair<QChar,QChar>(0x2018, 0x2019));	// single quotes
+	rval.append(QPair<QChar,QChar>(0x201c, 0x201d));	// double quotes
+	rval.append(QPair<QChar,QChar>(0x2039, 0x203a));	// single guillemots
+	return rval;
+}
+
+int TWUtils::balanceDelim(const QString& text, int pos, QChar delim, int direction)
+{
+	int len = text.length();
+	QChar c;
+	while ((c = text[pos]) != delim) {
+		if (openerMatching(c) != 0) {
+			if (direction > 0)
+				return -1;
+			pos = balanceDelim(text, pos + direction, openerMatching(c), direction) + direction;
+		}
+		else if (closerMatching(c) != 0) {
+			if (direction < 0)
+				return -1;
+			pos = balanceDelim(text, pos + direction, closerMatching(c), direction) + direction;
+		}
+		else
+			pos += direction;
+		if (pos < 0 || pos >= len)
+			return -1;
+	}
+	return pos;
+}
+
+int TWUtils::findOpeningDelim(const QString& text, int pos)
+	// find the first opening delimiter before offset /pos/
+{
+	while (--pos >= 0) {
+		QChar c = text[pos];
+		if (closerMatching(c) != 0)
+			return pos;
+	}
+	return -1;
+}
+
 #pragma mark === SelWinAction ===
 
 // action subclass used for dynamic window-selection items in the Window menu

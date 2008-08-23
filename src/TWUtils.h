@@ -22,11 +22,14 @@
 #ifndef TWUtils_H
 #define TWUtils_H
 
+#include <QDebug>
 #include <QAction>
 #include <QString>
 #include <QList>
 #include <QHash>
 #include <QDir>
+#include <QMap>
+#include <QPair>
 
 #include <hunspell.h>
 
@@ -80,6 +83,13 @@ public:
 	// find a "word", in TeX terms, returning whether it's a natural-language word or a control seq, punctuation, etc
 	static bool findNextWord(const QString& text, int index, int& start, int& end);
 
+	static QChar closerMatching(QChar c);
+	static QChar openerMatching(QChar c);
+	static void setUpPairs(const QList< QPair<QChar,QChar> >& pairs);
+	static QList< QPair<QChar,QChar> > defaultPairs();
+	static int balanceDelim(const QString& text, int pos, QChar delim, int direction);
+	static int findOpeningDelim(const QString& text, int pos);
+
 private:
 	TWUtils();
 
@@ -88,6 +98,9 @@ private:
 	static QStringList			*translationList;
 
 	static QHash<const QString,Hunhandle*>	*dictionaries;
+
+	static QMap<QChar,QChar>	pairOpeners;
+	static QMap<QChar,QChar>	pairClosers;
 };
 
 // this special QAction class is used in Window menus, so that it's easy to recognize the dynamically-created items

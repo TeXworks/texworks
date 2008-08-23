@@ -108,6 +108,7 @@ private slots:
 	void doUncomment();
 	void toUppercase();
 	void toLowercase();
+	void balanceDelimiters();
 	void setWrapLines(bool wrap);
 	void setSyntaxColoring(bool coloring);
 	void copyToFind();

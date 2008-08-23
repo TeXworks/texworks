@@ -56,6 +56,7 @@ protected:
 private slots:
 	void clearCompleter();
 	void correction(const QString& suggestion);
+	void clearExtraSelections();
 
 private:
 	void setCompleter(QCompleter *c);
