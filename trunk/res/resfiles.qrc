@@ -11,5 +11,7 @@
 <file>resfiles/templates/More LaTeX classes/KOMA-letter.tex</file>
 <file>resfiles/templates/More LaTeX classes/memoir.tex</file>
 <file>resfiles/templates/XeLaTeX documents/article-fontspec.tex</file>
+<file>resfiles/translations/qt_de.qm</file>
+<file>resfiles/translations/TeXworks_de.qm</file>
 </qresource>
 </RCC>
