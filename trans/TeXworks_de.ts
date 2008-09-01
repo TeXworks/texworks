@@ -237,7 +237,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="269"/>
         <source>Actual Size</source>
-        <translation>Aktuelle Größe</translation>
+        <translation>Originalgröße</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="272"/>
@@ -632,7 +632,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="361"/>
         <source>Actual size</source>
-        <translation>Aktuelle Größe</translation>
+        <translation>Originalgröße</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="368"/>
