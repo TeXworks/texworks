@@ -55,6 +55,9 @@ TWApp::TWApp(int &argc, char **argv)
 	, binaryPaths(NULL)
 	, engineList(NULL)
 	, defaultEngineIndex(0)
+#ifdef Q_WS_WIN
+	, messageTargetWindow(NULL)
+#endif
 {
 	init();
 }
@@ -501,3 +504,65 @@ void TWApp::activatedWindow(QWidget* theWindow)
 {
 	emit hideFloatersExcept(theWindow);
 }
+
+#ifdef Q_WS_WIN	// support for the Windows single-instance code
+#include <windows.h>
+
+LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg) 
+	{
+		case WM_COPYDATA:
+			{
+				const COPYDATASTRUCT* pcds = (const COPYDATASTRUCT*)lParam;
+				if (pcds->dwData == TW_OPEN_FILE_MSG) {
+					if (TWApp::instance() != NULL) {
+						QString fileName = QString::fromLocal8Bit((const char*)pcds->lpData, pcds->cbData);
+						TWApp::instance()->open(fileName);
+					}
+				}
+			}
+			return 0;
+
+		default:
+			return DefWindowProc(hwnd, uMsg, wParam, lParam); 
+	}
+	return 0;
+} 
+
+void TWApp::createMessageTarget(QWidget* aWindow)
+{
+	if (messageTargetWindow != NULL)
+		return;
+
+	if (QCoreApplication::startingUp())
+		return;
+
+	if (!aWindow || !aWindow->isWindow())
+		return;
+
+	HINSTANCE hInstance = (HINSTANCE)GetWindowLongPtr(aWindow->winId(), GWLP_HINSTANCE);
+	if (hInstance == NULL)
+		return;
+
+	WNDCLASSA myWindowClass;
+	myWindowClass.style = 0;
+	myWindowClass.lpfnWndProc = &TW_HiddenWindowProc;
+	myWindowClass.cbClsExtra = 0;
+	myWindowClass.cbWndExtra = 0;
+	myWindowClass.hInstance = hInstance;
+	myWindowClass.hIcon = NULL;
+	myWindowClass.hCursor = NULL;
+	myWindowClass.hbrBackground = NULL;
+	myWindowClass.lpszMenuName = NULL;
+	myWindowClass.lpszClassName = TW_HIDDEN_WINDOW_CLASS;
+
+	ATOM atom = RegisterClassA(&myWindowClass);
+	if (atom == 0)
+		return;
+
+	messageTargetWindow = CreateWindowA(TW_HIDDEN_WINDOW_CLASS, TEXWORKS_NAME, WS_OVERLAPPEDWINDOW,
+					CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+					HWND_MESSAGE, NULL, hInstance, NULL);
+}
+#endif

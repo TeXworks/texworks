@@ -52,6 +52,10 @@
 #include <QStandardItemModel>
 #include <QDebug>
 
+#ifdef Q_WS_WIN
+#include <windows.h>
+#endif
+
 const int kMinConsoleHeight = 160;
 
 QList<TeXDocument*> TeXDocument::docList;
@@ -88,6 +92,9 @@ void TeXDocument::init()
 	pHunspell = NULL;
 
 	setupUi(this);
+#ifdef Q_WS_WIN
+	TWApp::instance()->createMessageTarget(this);
+#endif
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
@@ -645,9 +652,10 @@ void TeXDocument::showPdfIfAvailable()
 			pdfDoc = new PDFDocument(pdfName, this);
 			TWUtils::sideBySide(this, pdfDoc);
 			pdfDoc->show();
-			connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
 		}
 	}
+	if (pdfDoc != NULL)
+		connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
 }
 
 void TeXDocument::pdfClosed()
