@@ -36,6 +36,13 @@ class QMenuBar;
 const int kStatusMessageDuration = 3000;
 const int kNewWindowOffset = 32;
 
+#ifdef Q_WS_WIN // for communication with the original instance
+#define _WIN32_WINNT			0x0500	// for HWND_MESSAGE
+#include <windows.h>
+#define TW_HIDDEN_WINDOW_CLASS	TEXWORKS_NAME ":MessageTarget"
+#define TW_OPEN_FILE_MSG		(('T' << 8) + 'W')	// just a small sanity check for the receiver
+#endif
+
 class TWApp : public QApplication
 {
 	Q_OBJECT
@@ -65,6 +72,10 @@ public:
 	void setDefaultCodec(QTextCodec *codec);
 
 	static TWApp *instance();
+
+#ifdef Q_WS_WIN
+	void createMessageTarget(QWidget* aWindow);
+#endif
 
 #ifdef Q_WS_MAC
 private:
@@ -130,6 +141,10 @@ private:
 	QStringList *binaryPaths;
 	QList<Engine> *engineList;
 	int defaultEngineIndex;
+
+#ifdef Q_WS_WIN
+	HWND messageTargetWindow;
+#endif
 
 	static TWApp *theAppInstance;
 };

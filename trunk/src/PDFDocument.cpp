@@ -834,6 +834,10 @@ PDFDocument::init()
 	docList.append(this);
 
 	setupUi(this);
+#ifdef Q_WS_WIN
+	TWApp::instance()->createMessageTarget(this);
+#endif
+
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
 	setWindowIcon(QIcon(":/images/images/pdfdoc.png"));
