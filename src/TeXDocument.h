@@ -166,8 +166,6 @@ private:
 	bool isUntitled;
 
 	QLabel *lineNumberLabel;
-	int statusLine;
-	int statusTotal;
 
 	QActionGroup *engineActions;
 	QString engineName;

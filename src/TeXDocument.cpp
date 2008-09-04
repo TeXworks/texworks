@@ -107,7 +107,6 @@ void TeXDocument::init()
 	statusBar()->addPermanentWidget(lineNumberLabel);
 	lineNumberLabel->setFrameStyle(QFrame::StyledPanel);
 	lineNumberLabel->setFont(statusBar()->font());
-	statusLine = statusTotal = 0;
 	showCursorPosition();
 	
 	engineActions = new QActionGroup(this);
@@ -817,11 +816,8 @@ void TeXDocument::showCursorPosition()
 	cursor.setPosition(cursor.selectionStart());
 	int line = cursor.blockNumber() + 1;
 	int total = textEdit->document()->blockCount();
-	if (line != statusLine || total != statusTotal) {
-		lineNumberLabel->setText(tr("Line %1 of %2").arg(line).arg(total));
-		statusLine = line;
-		statusTotal = total;
-	}
+	int col = cursor.position() - textEdit->document()->findBlock(cursor.selectionStart()).position();
+	lineNumberLabel->setText(tr("Line %1 of %2; col %3").arg(line).arg(total).arg(col));
 }
 
 void TeXDocument::selectWindow()
