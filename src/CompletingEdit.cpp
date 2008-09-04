@@ -221,7 +221,7 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 					const QString text = document()->toPlainText();
 					int match = -2;
 					QChar c;
-					if (pos > 0 && (c = TWUtils::openerMatching(text[pos])) != 0)
+					if (pos > 0 && pos < text.length() - 1 && (c = TWUtils::openerMatching(text[pos])) != 0)
 						match = TWUtils::balanceDelim(text, pos - 1, c, -1);
 					else if (pos < text.length() - 1 && (c = TWUtils::closerMatching(text[pos])) != 0)
 						match = TWUtils::balanceDelim(text, pos + 1, c, 1);
