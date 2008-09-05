@@ -1,0 +1,25 @@
+#summary How to provide spelling dictionaries for the TeXworks editor.
+
+= Obtaining dictionaries =
+
+The !TeXworks progam does not currently include any bundled spelling dictionaries. Therefore, if you want spell-checking to be enabled in the editor, you will need to install dictionaries separately.
+
+The editor uses the [http://hunspell.sourceforge.net/ hunspell] spell-checker; more information is available at that project's site. Hunspell also supports dictionaries from the older myspell program.
+
+One easy source of dictionaries is the !OpenOffice.org project, which uses the same spelling engine. There is a list of available dictionaries at http://wiki.services.openoffice.org/wiki/Dictionaries (see the *All Language Packs* download, or links to individual language dictionaries). Note that !TeXworks only uses the spelling dictionaries (`*.dic` and `*.aff`) for each language; it won't do anything with the hyphenation or thesaurus files that are also available for OOo.
+
+= Installing =
+
+The dictionaries are installed in different locations depending on your platform:
+
+== Windows ==
+
+You should have a !TeXworks resources directory in your "user profile" directory, typically `C:\Documents and Settings\Your Name\`. This is automatically created the first time you run !TeXworks, and some default resources are copied there. There should be a `dictionaries` subdirectory, but it is initially empty. Place the `*.dic` and `*.aff` files there, and then re-start !TeXworks.
+
+== Mac OS X ==
+
+You should find a !TeXworks resources folder inside the Library folder of your Home (user) folder. This is automatically created the first time you run !TeXworks, and some default resources are copied there. There should be a `dictionaries` subdirectory, but it is initially empty. Place the `*.dic` and `*.aff` files there, and then re-start !TeXworks.
+
+== GNU/Linux ==
+
+On these systems, it is quite likely that appropriate dictionaries are already present, thanks to other programs using the same spell-check engine. However, if you need to add dictionaries, they should be placed in `/usr/share/myspell/dicts`. (This will typically require administrative privileges. I guess we'll offer some way to install "personal" dictionaries as a non-privileged user in the future.)
