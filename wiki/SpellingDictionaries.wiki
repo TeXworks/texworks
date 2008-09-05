@@ -1,4 +1,4 @@
-#summary How to provide spelling dictionaries for the TeXworks editor.
+#summary How to install spelling dictionaries for the TeXworks editor.
 
 = Obtaining dictionaries =
 
