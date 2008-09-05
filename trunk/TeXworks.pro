@@ -53,11 +53,7 @@ macx {
 linux-g++ {
 	CONFIG		+= link_pkgconfig
 	PKGCONFIG	+= hunspell
-
-	INCLUDEPATH += /usr/include/poppler
-	INCLUDEPATH += /usr/include/poppler/qt4
-
-	LIBS 		+= -lpoppler-qt4
+	PKGCONFIG	+= poppler-qt4
 }
 
 win32 {
