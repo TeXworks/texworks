@@ -68,11 +68,30 @@ int main(int argc, char *argv[])
 
 	TWApp app(argc, argv);
 
+#ifdef Q_WS_X11
+	if (QDBusConnection::sessionBus().registerService(TW_SERVICE_NAME) == false) {
+		QDBusInterface	interface(TW_SERVICE_NAME, TW_APP_PATH, TW_INTERFACE_NAME);
+		if (interface.isValid()) {
+			interface.call("bringToFront");
+			for (int i = 1; i < argc; ++i)
+				interface.call("openFile", QString(argv[i]));
+		}
+		return 0;
+	}
+
+	new TWAdaptor(&app);
+	if (QDBusConnection::sessionBus().registerObject(TW_APP_PATH, &app) == false) {
+		// failed to register the application object, so unregister our service
+		// and continue as a multiple-instance app instead
+		(void)QDBusConnection::sessionBus().unregisterService(TW_SERVICE_NAME);
+	}
+#endif
+
 	// first argument is the executable name, so we skip that
 	for (int i = 1; i < argc; ++i)
 		app.open(argv[i]);
 
-	QTimer::singleShot(100, &app, SLOT(launchAction()));
+	QTimer::singleShot(1, &app, SLOT(launchAction()));
 
 	int rval = app.exec();
 
