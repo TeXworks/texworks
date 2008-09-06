@@ -566,3 +566,17 @@ void TWApp::createMessageTarget(QWidget* aWindow)
 					HWND_MESSAGE, NULL, hInstance, NULL);
 }
 #endif
+
+#ifdef Q_WS_X11
+void TWApp::bringToFront()
+{
+	foreach (QWidget* widget, topLevelWidgets()) {
+		QMainWindow* window = qobject_cast<QMainWindow*>(widget);
+		if (window != NULL) {
+			window->raise();
+			window->activateWindow();
+		}
+	}
+}
+#endif
+

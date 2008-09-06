@@ -76,6 +76,9 @@ public:
 #ifdef Q_WS_WIN
 	void createMessageTarget(QWidget* aWindow);
 #endif
+#ifdef Q_WS_X11
+	void bringToFront();
+#endif
 
 #ifdef Q_WS_MAC
 private:
@@ -154,4 +157,33 @@ inline TWApp *TWApp::instance()
 	return theAppInstance;
 }
 
-#endif
+#ifdef Q_WS_X11
+#include <QtDBus>
+
+#define TW_SERVICE_NAME 	"org.tug.texworks.application"
+#define TW_APP_PATH		"/org/tug/texworks/application"
+#define TW_INTERFACE_NAME	"org.tug.texworks.application"
+
+class TWAdaptor: public QDBusAbstractAdaptor
+{
+	Q_OBJECT
+	Q_CLASSINFO("D-Bus Interface", "org.tug.texworks.application") // using the #define here fails :(
+
+private:
+	TWApp *app;
+
+public:
+	TWAdaptor(TWApp *application)
+		: QDBusAbstractAdaptor(application), app(application)
+		{ }
+	
+public slots:
+	Q_NOREPLY void openFile(const QString& fileName)
+		{ app->open(fileName); }
+	Q_NOREPLY void bringToFront()
+		{ app->bringToFront(); }
+};
+#endif	// Q_WS_X11
+
+#endif	// TWApp_H
+

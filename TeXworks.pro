@@ -51,9 +51,15 @@ macx {
 }
 
 linux-g++ {
+	QT		+= dbus
+	# this doesn't seem to work, hence using the lines below
+	LIBS		+= -lQtDBus
+	INCLUDEPATH	+= /usr/include/qt4/QtDBus
+
 	CONFIG		+= link_pkgconfig
 	PKGCONFIG	+= hunspell
 	PKGCONFIG	+= poppler-qt4
+	PKGCONFIG	+= dbus-1
 }
 
 win32 {
