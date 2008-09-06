@@ -3,6 +3,9 @@ Copyright (c) 2008 jerome DOT laurens AT u-bourgogne DOT fr
 
 This file is part of the SyncTeX package.
 
+Version: 1.2
+See synctex_parser.readme for more details
+
 License:
 --------
 Permission is hereby granted, free of charge, to any person
@@ -31,23 +34,14 @@ shall not be used in advertising or otherwise to promote the sale,
 use or other dealings in this Software without prior written  
 authorization from the copyright holder.
 
-Acknowledgments:
-----------------
-The author received useful remarks from the pdfTeX developers, especially Hahn The Thanh,
-and significant help from XeTeX developer Jonathan Kew
-
-Nota Bene:
-----------
-If you include or use a significant part of the synctex package into a software,
-I would appreciate to be listed as contributor and see "SyncTeX" highlighted.
-
-Version 1
-Thu Jun 19 09:39:21 UTC 2008
-
 */
 
 #ifndef __SYNCTEX_PARSER__
 #   define __SYNCTEX_PARSER__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* synctex_node_t is the type for all synctex nodes.
  * The synctex file is parsed into a tree of nodes, either sheet, boxes, math nodes... */
@@ -56,31 +50,81 @@ typedef struct _synctex_node * synctex_node_t;
 /* The main synctex object is a scanner
  * Its implementation is considered private.
  * The basic workflow is
- * - create a scanner with a file
- * - perform actions on that scanner
- * - free the scanner
+ * - create a "synctex scanner" with the contents of a file
+ * - perform actions on that scanner like display or edit queries
+ * - free the scanner when the work is done
  */
 typedef struct __synctex_scanner_t _synctex_scanner_t;
 typedef _synctex_scanner_t * synctex_scanner_t;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* This is the designated method to create a new synctex scanner object.
  * output is the pdf/dvi/xdv file associated to the synctex file.
- * If relevant, it can be the tex file that originated the synctex file
- * but it might cause problems if the \jobname has a custom value.
+ * If necessary, it can be the tex file that originated the synctex file
+ * but this might cause problems if the \jobname has a custom value.
+ * Despite this method can accept a relative path in practice,
+ * you should only pass a full path name.
+ * The path should be encoded by the underlying file system,
+ * assuming that it is based on 8 bits characters, including UTF8,
+ * not 16 bits nor 32 bits.
  * The last file extension is removed and replaced by the proper extension.
- * Then the private method synctex_scanner_new_with_contents_of_file is called.
+ * Then the private method _synctex_scanner_new_with_contents_of_file is called.
  * NULL is returned in case of an error or non existent file.
+ * Once you have a scanner, use the synctex_display_query and synctex_edit_query below.
  */
 synctex_scanner_t synctex_scanner_new_with_output_file(const char * output);
 
 /* This is the designated method to delete a synctex scanner object.
- * Frees all the memory.
+ * Frees all the memory, you must call it when you are finished with the scanner.
  */
 void synctex_scanner_free(synctex_scanner_t scanner);
+
+/* The main entry points.
+ * Given the file name, a line and a column number, synctex_display_query returns the number of nodes
+ * satisfying the contrain. Use code like
+ *
+ *     if(synctex_display_query(scanner,name,line,column)>0) {
+ *         synctex_node_t node;
+ *         while((node = synctex_next_result(scanner))) {
+ *             // do something with node
+ *             ...
+ *         }
+ *     }
+ *
+ * For example, one can
+ * - highlight each resulting node in the output, using synctex_node_h and synctex_node_v
+ * - highlight all the rectangles enclosing those nodes, using synctex_box_... functions
+ * - highlight just the character using that information
+ *
+ * Given the page and the position in the page, synctex_edit_query returns the number of nodes
+ * satisfying the contrain. Use code like
+ *
+ *     if(synctex_edit_query(scanner,page,h,v)>0) {
+ *         synctex_node_t node;
+ *         while(node = synctex_next_result(scanner)) {
+ *             // do something with node
+ *             ...
+ *         }
+ *     }
+ *
+ * For example, one can
+ * - highlight each resulting line in the input,
+ * - highlight just the character using that information
+ *
+ * page is 1 based
+ * h and v are coordinates in 72 dpi unit, relative to the top left corner of the page.
+ * If you make a new query, the result of the previous one is discarded.
+ * If one of this function returns a non positive integer,
+ * it means that an error occurred.
+ *
+ * Both methods are conservative, in the sense that matching is weak.
+ * If the exact column number is not found, there will be an answer with the whole line.
+ *
+ * Sumatra-PDF, Skim, iTeXMac2 and Texworks are examples of open source software that use this library.
+ * You can browse their code for a concrete implementation.
+ */
+int synctex_display_query(synctex_scanner_t scanner,const char * name,int line,int column);
+int synctex_edit_query(synctex_scanner_t scanner,int page,float h,float v);
+synctex_node_t synctex_next_result(synctex_scanner_t scanner);
 
 /* Display all the information contained in the scanner object.
  * If the records are too numerous, only the first ones are displayed.
@@ -162,7 +206,6 @@ typedef enum {
 	synctex_node_type_void_vbox,
 	synctex_node_type_hbox,
 	synctex_node_type_void_hbox,
-	synctex_node_type_hbox_non_void,
 	synctex_node_type_kern,
 	synctex_node_type_glue,
 	synctex_node_type_math,
@@ -196,21 +239,21 @@ int synctex_node_column(synctex_node_t node);
 int synctex_node_page(synctex_node_t node);
 
 /* For quite all nodes, horizontal, vertical coordinates, and width.
- * These are expressed in page coordinates, with origin at the top left corner.
+ * These are expressed in TeX small points coordinates, with origin at the top left corner.
  */
-float synctex_node_h(synctex_node_t node);
-float synctex_node_v(synctex_node_t node);
-float synctex_node_width(synctex_node_t node);
+int synctex_node_h(synctex_node_t node);
+int synctex_node_v(synctex_node_t node);
+int synctex_node_width(synctex_node_t node);
 
 /* For all nodes, dimensions of the enclosing box.
- * These are expressed in page coordinates, with origin at the top left corner.
+ * These are expressed in TeX small points coordinates, with origin at the top left corner.
  * A box is enclosing itself.
  */
-float synctex_node_box_h(synctex_node_t node);
-float synctex_node_box_v(synctex_node_t node);
-float synctex_node_box_width(synctex_node_t node);
-float synctex_node_box_height(synctex_node_t node);
-float synctex_node_box_depth(synctex_node_t node);
+int synctex_node_box_h(synctex_node_t node);
+int synctex_node_box_v(synctex_node_t node);
+int synctex_node_box_width(synctex_node_t node);
+int synctex_node_box_height(synctex_node_t node);
+int synctex_node_box_depth(synctex_node_t node);
 
 /* For quite all nodes, horizontal, vertical coordinates, and width.
  * The visible dimensions are bigger than real ones to compensate 0 width boxes
@@ -231,42 +274,6 @@ float synctex_node_box_visible_v(synctex_node_t node);
 float synctex_node_box_visible_width(synctex_node_t node);
 float synctex_node_box_visible_height(synctex_node_t node);
 float synctex_node_box_visible_depth(synctex_node_t node);
-
-/* The main entry points.
- * Given the file name, a line and a column number, synctex_display_query returns the number of nodes
- * satisfying the contrain. Use code like
- *
- *     if(synctex_display_query(scanner,name,line,column)>0) {
- *         synctex_node_t node;
- *         while((node = synctex_next_result(scanner))) {
- *             // do something with node
- *             ...
- *         }
- *     }
- *
- * Given the page and the position in the page, synctex_edit_query returns the number of nodes
- * satisfying the contrain. Use code like
- *
- *     if(synctex_edit_query(scanner,page,h,v)>0) {
- *         synctex_node_t node;
- *         while(node = synctex_next_result(scanner)) {
- *             // do something with node
- *             ...
- *         }
- *     }
- *
- * page is 1 based
- * h and v are coordinates relative to the top left corner of the page.
- * If you make a new query, the result of the previous one is discarded.
- * If one of this function returns a non positive integer,
- * it means that an error occurred.
- *
- * Both methods are conservative, in the sense that matching is weak.
- * If the exact column number is not found, there will be an answer with the whole line.
- */
-int synctex_display_query(synctex_scanner_t scanner,const char * name,int line,int column);
-int synctex_edit_query(synctex_scanner_t scanner,int page,float h,float v);
-synctex_node_t synctex_next_result(synctex_scanner_t scanner);
 
 /* The main synctex updater object.
  * This object is used to append information to the synctex file.
@@ -292,7 +299,7 @@ void synctex_updater_append_y_offset(synctex_updater_t updater, char * y_offset)
 void synctex_updater_free(synctex_updater_t updater);
 
 #ifdef __cplusplus
-};
+}
 #endif
 
 #endif
