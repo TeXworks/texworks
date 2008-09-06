@@ -320,7 +320,7 @@ void TeXDocument::open()
 #endif
 	QSettings settings;
 	QString lastOpenDir = settings.value("openDialogDir").toString(); 
-	QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Open File")), lastOpenDir, QString(), NULL, options);
+	QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
 	if (!fileName.isEmpty()) {
 		QFileInfo info(fileName);
 		settings.setValue("openDialogDir", info.canonicalPath());
@@ -503,7 +503,12 @@ bool TeXDocument::save()
 
 bool TeXDocument::saveAs()
 {
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), curFile);
+#ifdef Q_WS_WIN
+	QFileDialog::Options	options = QFileDialog::DontUseNativeDialog;
+#else
+	QFileDialog::Options	options = 0;
+#endif
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), curFile, TWUtils::filterList()->join(";;"), NULL, options);
 	if (fileName.isEmpty())
 		return false;
 

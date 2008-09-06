@@ -62,6 +62,10 @@ public:
 	// get dictionary for a given language
 	static Hunhandle *getDictionary(const QString& language);
 
+	// list of filename filters for the Open/Save dialogs
+	static QStringList* filterList();
+	static void setDefaultFilters();
+
 	// perform the updates to a menu; used by the documents to update their own menus
 	static void updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu);
 
@@ -98,6 +102,8 @@ private:
 	static QStringList			*translationList;
 
 	static QHash<const QString,Hunhandle*>	*dictionaries;
+
+	static QStringList			*filters;
 
 	static QMap<QChar,QChar>	pairOpeners;
 	static QMap<QChar,QChar>	pairClosers;
