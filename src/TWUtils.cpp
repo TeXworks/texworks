@@ -201,6 +201,39 @@ Hunhandle* TWUtils::getDictionary(const QString& language)
 	return h;
 }
 
+QStringList* TWUtils::filters = NULL;
+QStringList* TWUtils::filterList()
+{
+	 if (filters == NULL) {
+		filters = new QStringList;
+		QSettings settings;
+		if (settings.contains("fileNameFilters"))
+			*filters = settings.value("fileNameFilters").toStringList();
+		else
+			setDefaultFilters();
+	 }
+	 return filters;
+}
+
+void TWUtils::setDefaultFilters()
+{
+	filters->clear();
+	*filters << QObject::tr("TeX documents (*.tex)");
+	*filters << QObject::tr("LaTeX documents (*.ltx)");
+	*filters << QObject::tr("BibTeX databases (*.bib)");
+	*filters << QObject::tr("Style files (*.sty)");
+	*filters << QObject::tr("Class files (*.cls)");
+	*filters << QObject::tr("Documented macros (*.dtx)");
+	*filters << QObject::tr("Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)");
+	*filters << QObject::tr("Text files (*.txt)");
+	*filters << QObject::tr("PDF documents (*.pdf)");
+#ifdef Q_WS_WIN
+	*filters << QObject::tr("All files") + " (*.*)";	// unfortunately this doesn't work nicely on OS X or X11
+#else
+	*filters << QObject::tr("All files") + " (*)";
+#endif
+}
+
 QString TWUtils::strippedName(const QString &fullFileName)
 {
 	return QFileInfo(fullFileName).fileName();
