@@ -127,6 +127,8 @@ void TeXDocument::init()
 	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 	connect(actionAbout_TW, SIGNAL(triggered()), qApp, SLOT(about()));
+	connect(actionGoToHomePage, SIGNAL(triggered()), qApp, SLOT(goToHomePage()));
+	connect(actionWriteToMailingList, SIGNAL(triggered()), qApp, SLOT(writeToMailingList()));
 
 	connect(actionSave, SIGNAL(triggered()), this, SLOT(save()));
 	connect(actionSave_As, SIGNAL(triggered()), this, SLOT(saveAs()));

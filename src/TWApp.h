@@ -71,6 +71,8 @@ public:
 	QTextCodec *getDefaultCodec();
 	void setDefaultCodec(QTextCodec *codec);
 
+	void openUrl(const QString& urlString);
+
 	static TWApp *instance();
 
 #ifdef Q_WS_WIN
@@ -101,6 +103,9 @@ public slots:
 	void launchAction();
 
 	void activatedWindow(QWidget* theWindow);
+
+	void goToHomePage();
+	void writeToMailingList();
 
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu

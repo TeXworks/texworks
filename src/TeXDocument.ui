@@ -297,6 +297,9 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout_TW" />
+    <addaction name="separator" />
+    <addaction name="actionGoToHomePage" />
+    <addaction name="actionWriteToMailingList" />
    </widget>
    <addaction name="menuFile" />
    <addaction name="menuEdit" />
@@ -947,6 +950,16 @@
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionGoToHomePage" >
+   <property name="text" >
+    <string>Go to TeXworks home page</string>
+   </property>
+  </action>
+  <action name="actionWriteToMailingList" >
+   <property name="text" >
+    <string>Email to the mailing list</string>
    </property>
   </action>
  </widget>

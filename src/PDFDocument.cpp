@@ -398,9 +398,7 @@ void PDFWidget::doLink(const Poppler::Link *link)
 			{
 				const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
 				Q_ASSERT(browse != NULL);
-				QString url = browse->url();
-				if (!QDesktopServices::openUrl(QUrl(url)))
-					QApplication::beep();
+				TWApp::instance()->openUrl(browse->url());
 			}
 			break;
 		case Poppler::Link::Action:
@@ -875,6 +873,8 @@ PDFDocument::init()
 	document = NULL;
 	
 	connect(actionAbout_TW, SIGNAL(triggered()), qApp, SLOT(about()));
+	connect(actionGoToHomePage, SIGNAL(triggered()), qApp, SLOT(goToHomePage()));
+	connect(actionWriteToMailingList, SIGNAL(triggered()), qApp, SLOT(writeToMailingList()));
 
 	connect(actionNew, SIGNAL(triggered()), qApp, SLOT(newFile()));
 	connect(actionNew_from_Template, SIGNAL(triggered()), qApp, SLOT(newFromTemplate()));
