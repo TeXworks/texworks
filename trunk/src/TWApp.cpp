@@ -44,6 +44,8 @@
 #include <QTextCodec>
 #include <QLocale>
 #include <QTranslator>
+#include <QUrl>
+#include <QDesktopServices>
 
 const int kDefaultMaxRecentFiles = 10;
 
@@ -158,6 +160,24 @@ void TWApp::about()
 				"<br>Some icons used are from the <a href=\"http://tango.freedesktop.org/\">Tango Desktop Project</a>."
 				"</small>"
 				).arg(TEXWORKS_NAME).arg(TEXWORKS_VERSION).arg(SVN_REVISION));
+}
+
+void TWApp::openUrl(const QString& urlString)
+{
+	if (!QDesktopServices::openUrl(QUrl(urlString)))
+		QMessageBox::warning(NULL, tr(TEXWORKS_NAME),
+					 tr("Unable to access \"%1\"; perhaps your browser or mail application is not properly configured?")
+						.arg(urlString));
+}
+
+void TWApp::goToHomePage()
+{
+	openUrl("http://texworks.org/");
+}
+
+void TWApp::writeToMailingList()
+{
+	openUrl("mailto:texworks@tug.org?subject=message%20from%20TeXworks%20user");
 }
 
 void TWApp::launchAction()
