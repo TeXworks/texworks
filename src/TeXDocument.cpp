@@ -50,6 +50,8 @@
 #include <QDockWidget>
 #include <QTableView>
 #include <QStandardItemModel>
+#include <QAbstractButton>
+#include <QPushButton>
 #include <QDebug>
 
 #ifdef Q_WS_WIN
@@ -132,6 +134,7 @@ void TeXDocument::init()
 
 	connect(actionSave, SIGNAL(triggered()), this, SLOT(save()));
 	connect(actionSave_As, SIGNAL(triggered()), this, SLOT(saveAs()));
+	connect(actionRevert_to_Saved, SIGNAL(triggered()), this, SLOT(revert()));
 	connect(actionClose, SIGNAL(triggered()), this, SLOT(close()));
 
 	connect(actionClear, SIGNAL(triggered()), this, SLOT(clear()));
@@ -161,6 +164,7 @@ void TeXDocument::init()
 
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), actionSave, SLOT(setEnabled(bool)));
+	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(maybeEnableRevert(bool)));
 	connect(textEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
@@ -532,6 +536,25 @@ bool TeXDocument::maybeSave()
 			return false;
 	}
 	return true;
+}
+
+void TeXDocument::revert()
+{
+	if (!isUntitled) {
+		QMessageBox	messageBox(QMessageBox::Warning, tr(TEXWORKS_NAME),
+					tr("Do you want to discard all changes to the document \"%1\", and revert to the last saved version?")
+					   .arg(TWUtils::strippedName(curFile)), QMessageBox::Cancel, this);
+		QAbstractButton *revertButton = messageBox.addButton(tr("Revert"), QMessageBox::DestructiveRole);
+		messageBox.setDefaultButton(QMessageBox::Cancel);
+		messageBox.exec();
+		if (messageBox.clickedButton() == revertButton)
+			loadFile(curFile);
+	}
+}
+
+void TeXDocument::maybeEnableRevert(bool modified)
+{
+	actionRevert_to_Saved->setEnabled(modified && !isUntitled);
 }
 
 static const char* texshopSynonyms[] = {

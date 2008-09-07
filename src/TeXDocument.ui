@@ -276,7 +276,6 @@
     <addaction name="separator" />
     <addaction name="actionGo_to_Line" />
     <addaction name="actionShow_Selection" />
-    <addaction name="separator" />
    </widget>
    <widget class="QMenu" name="menuFormat" >
     <property name="title" >
