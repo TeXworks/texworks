@@ -45,6 +45,7 @@ class QMenu;
 class QToolBar;
 class QScrollArea;
 class TeXDocument;
+class QShortcut;
 
 class PDFMagnifier : public QLabel
 {
@@ -100,13 +101,18 @@ private slots:
 	void doPageDialog();
 	
 	void fixedScale(qreal scale = 1.0);
-	void fitWidth(bool checked);
+	void fitWidth(bool checked = true);
 	void zoomIn();
 	void zoomOut();
 	
+	void upOrPrev();
+	void leftOrPrev();
+	void downOrNext();
+	void rightOrNext();
+
 public slots:
 	void windowResized();
-	void fitWindow(bool checked);
+	void fitWindow(bool checked = true);
 	void setTool(int tool);
 
 signals:
@@ -128,6 +134,8 @@ protected:
 
 	virtual void focusInEvent(QFocusEvent *event);
 
+	virtual void contextMenuEvent(QContextMenuEvent *event);
+
 private:
 	void init();
 	void reloadPage();
@@ -140,7 +148,7 @@ private:
 	void doLink(const Poppler::Link *link);
 	void doZoom(const QPoint& clickPos, int dir);
 	QScrollArea* getScrollArea();
-
+	
 	Poppler::Document	*document;
 	Poppler::Page		*page;
 	Poppler::Link		*clickedLink;
@@ -152,6 +160,13 @@ private:
 
 	qreal			saveScaleFactor;
 	autoScaleOption	saveScaleOption;
+
+	QAction	*ctxZoomInAction;
+	QAction	*ctxZoomOutAction;
+	QShortcut *shortcutUp;
+	QShortcut *shortcutLeft;
+	QShortcut *shortcutDown;
+	QShortcut *shortcutRight;
 	
 	QImage	image;
 	QRect	imageRect;

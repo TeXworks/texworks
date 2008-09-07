@@ -186,7 +186,7 @@
     <string>First Page</string>
    </property>
    <property name="shortcut" >
-    <string>Ctrl+Left</string>
+    <string>Home</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
@@ -201,7 +201,7 @@
     <string>Previous Page</string>
    </property>
    <property name="shortcut" >
-    <string>Left</string>
+    <string>PgUp</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
@@ -216,7 +216,7 @@
     <string>Next Page</string>
    </property>
    <property name="shortcut" >
-    <string>Right</string>
+    <string>PgDown</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
@@ -231,7 +231,7 @@
     <string>Last Page</string>
    </property>
    <property name="shortcut" >
-    <string>Ctrl+Right</string>
+    <string>End</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>

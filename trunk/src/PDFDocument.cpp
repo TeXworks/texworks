@@ -46,6 +46,7 @@
 #include <QInputDialog>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QShortcut>
 
 #include <math.h>
 
@@ -178,6 +179,26 @@ PDFWidget::PDFWidget()
 		zoomInCursor = new QCursor(QPixmap(":/images/images/zoomincursor.png"));
 		zoomOutCursor = new QCursor(QPixmap(":/images/images/zoomoutcursor.png"));
 	}
+	
+	ctxZoomInAction = new QAction("Zoom In", this);
+	addAction(ctxZoomInAction);
+	ctxZoomOutAction = new QAction("Zoom Out", this);
+	addAction(ctxZoomOutAction);
+	
+	QAction *action = new QAction("Actual Size", this);
+	connect(action, SIGNAL(triggered()), this, SLOT(fixedScale()));
+	addAction(action);
+	action = new QAction("Fit to Width", this);
+	connect(action, SIGNAL(triggered()), this, SLOT(fitWidth()));
+	addAction(action);
+	action = new QAction("Fit to Window", this);
+	connect(action, SIGNAL(triggered()), this, SLOT(fitWindow()));
+	addAction(action);
+	
+	shortcutUp = new QShortcut(QKeySequence("Up"), this, SLOT(upOrPrev()));
+	shortcutLeft = new QShortcut(QKeySequence("Left"), this, SLOT(leftOrPrev()));
+	shortcutDown = new QShortcut(QKeySequence("Down"), this, SLOT(downOrNext()));
+	shortcutRight = new QShortcut(QKeySequence("Right"), this, SLOT(rightOrNext()));
 }
 
 void PDFWidget::setDocument(Poppler::Document *doc)
@@ -272,6 +293,12 @@ static Qt::KeyboardModifiers mouseDownModifiers;
 void PDFWidget::mousePressEvent(QMouseEvent *event)
 {
 	clickedLink = NULL;
+	
+	if (event->button() != Qt::LeftButton) {
+		QWidget::mousePressEvent(event);
+		return;
+	}
+
 	mouseDownModifiers = event->modifiers();
 	if (mouseDownModifiers & Qt::ControlModifier) {
 		// ctrl key - this is a sync click, don't handle the mouseDown here
@@ -412,6 +439,10 @@ void PDFWidget::doLink(const Poppler::Link *link)
 
 void PDFWidget::mouseDoubleClickEvent(QMouseEvent *event)
 {
+	if (event->button() != Qt::LeftButton) {
+		QWidget::mouseDoubleClickEvent(event);
+		return;
+	}
 	if (!(mouseDownModifiers & Qt::ControlModifier))
 		useMagnifier(event);
 	event->accept();
@@ -478,6 +509,22 @@ void PDFWidget::focusInEvent(QFocusEvent *event)
 {
 	updateCursor(mapFromGlobal(QCursor::pos()));
 	event->ignore();
+}
+
+void PDFWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+	QMenu	menu(this);
+	menu.addActions(actions());
+	
+	ctxZoomInAction->setEnabled(scaleFactor < kMaxScaleFactor);
+	ctxZoomOutAction->setEnabled(scaleFactor > kMinScaleFactor);
+
+	QAction *action = menu.exec(event->globalPos());
+
+	if (action == ctxZoomInAction)
+		doZoom(event->pos(), 1);
+	else if (action == ctxZoomOutAction)
+		doZoom(event->pos(), -1);
 }
 
 void PDFWidget::setTool(int tool)
@@ -627,6 +674,54 @@ void PDFWidget::goLast()
 		reloadPage();
 		update();
 	}
+}
+
+void PDFWidget::upOrPrev()
+{
+	QScrollBar*		scrollBar = getScrollArea()->verticalScrollBar();
+	if (scrollBar->value() > scrollBar->minimum())
+		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepSub);
+	else {
+		goPrev();
+		scrollBar->triggerAction(QAbstractSlider::SliderToMaximum);
+	}
+	shortcutUp->setAutoRepeat(scrollBar->value() > scrollBar->minimum());
+}
+
+void PDFWidget::leftOrPrev()
+{
+	QScrollBar*		scrollBar = getScrollArea()->horizontalScrollBar();
+	if (scrollBar->value() > scrollBar->minimum())
+		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepSub);
+	else {
+		goPrev();
+		scrollBar->triggerAction(QAbstractSlider::SliderToMaximum);
+	}
+	shortcutLeft->setAutoRepeat(scrollBar->value() > scrollBar->minimum());
+}
+
+void PDFWidget::downOrNext()
+{
+	QScrollBar*		scrollBar = getScrollArea()->verticalScrollBar();
+	if (scrollBar->value() < scrollBar->maximum())
+		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepAdd);
+	else {
+		goNext();
+		scrollBar->triggerAction(QAbstractSlider::SliderToMinimum);
+	}
+	shortcutDown->setAutoRepeat(scrollBar->value() < scrollBar->maximum());
+}
+
+void PDFWidget::rightOrNext()
+{
+	QScrollBar*		scrollBar = getScrollArea()->horizontalScrollBar();
+	if (scrollBar->value() < scrollBar->maximum())
+		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepAdd);
+	else {
+		goNext();
+		scrollBar->triggerAction(QAbstractSlider::SliderToMinimum);
+	}
+	shortcutRight->setAutoRepeat(scrollBar->value() < scrollBar->maximum());
 }
 
 void PDFWidget::doPageDialog()
@@ -1179,14 +1274,15 @@ void PDFDocument::goToSource()
 
 void PDFDocument::enablePageActions(int pageIndex)
 {
-#ifndef Q_WS_MAC
+//#ifndef Q_WS_MAC
 // On Mac OS X, disabling these leads to a crash if we hit the end of document while auto-repeating a key
 // (seems like a Qt bug, but needs further investigation)
+// 2008-09-07: seems to no longer be a problem, probably thanks to Qt 4.4 update
 	actionFirst_Page->setEnabled(pageIndex > 0);
 	actionPrevious_Page->setEnabled(pageIndex > 0);
 	actionNext_Page->setEnabled(pageIndex < document->numPages() - 1);
 	actionLast_Page->setEnabled(pageIndex < document->numPages() - 1);
-#endif
+//#endif
 }
 
 void PDFDocument::enableZoomActions(qreal scaleFactor)
