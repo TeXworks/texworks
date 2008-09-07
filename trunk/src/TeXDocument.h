@@ -94,6 +94,8 @@ private slots:
 	void open();
 	bool save();
 	bool saveAs();
+	void revert();
+	void maybeEnableRevert(bool modified);
 	void clear();
 	void clipboardChanged();
 	void doFontDialog();
