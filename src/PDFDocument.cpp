@@ -527,6 +527,17 @@ void PDFWidget::contextMenuEvent(QContextMenuEvent *event)
 		doZoom(event->pos(), -1);
 }
 
+void PDFWidget::wheelEvent(QWheelEvent *event)
+{
+	int numDegrees = event->delta() / 8;
+	int numSteps = numDegrees / 15;
+	QScrollBar *scrollBar = (event->orientation() == Qt::Horizontal)
+				? getScrollArea()->horizontalScrollBar()
+				: getScrollArea()->verticalScrollBar();
+	scrollBar->setValue(scrollBar->value() - numSteps * scrollBar->singleStep());
+	event->accept();
+}
+
 void PDFWidget::setTool(int tool)
 {
 	currentTool = tool;

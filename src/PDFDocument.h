@@ -135,6 +135,7 @@ protected:
 	virtual void focusInEvent(QFocusEvent *event);
 
 	virtual void contextMenuEvent(QContextMenuEvent *event);
+	virtual void wheelEvent(QWheelEvent *event);
 
 private:
 	void init();
