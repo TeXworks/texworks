@@ -534,7 +534,14 @@ void PDFWidget::wheelEvent(QWheelEvent *event)
 	QScrollBar *scrollBar = (event->orientation() == Qt::Horizontal)
 				? getScrollArea()->horizontalScrollBar()
 				: getScrollArea()->verticalScrollBar();
-	scrollBar->setValue(scrollBar->value() - numSteps * scrollBar->singleStep());
+	if (scrollBar->minimum() == scrollBar->maximum()) {
+		if (event->delta() > 0 && pageIndex > 0)
+			goPrev();
+		else if (event->delta() < 0 && pageIndex < document->numPages() - 1)
+			goNext();
+	}
+	else
+		scrollBar->setValue(scrollBar->value() - numSteps * scrollBar->singleStep());
 	event->accept();
 }
 
@@ -693,8 +700,10 @@ void PDFWidget::upOrPrev()
 	if (scrollBar->value() > scrollBar->minimum())
 		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepSub);
 	else {
-		goPrev();
-		scrollBar->triggerAction(QAbstractSlider::SliderToMaximum);
+		if (pageIndex > 0) {
+			goPrev();
+			scrollBar->triggerAction(QAbstractSlider::SliderToMaximum);
+		}
 	}
 	shortcutUp->setAutoRepeat(scrollBar->value() > scrollBar->minimum());
 }
@@ -705,8 +714,10 @@ void PDFWidget::leftOrPrev()
 	if (scrollBar->value() > scrollBar->minimum())
 		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepSub);
 	else {
-		goPrev();
-		scrollBar->triggerAction(QAbstractSlider::SliderToMaximum);
+		if (pageIndex > 0) {
+			goPrev();
+			scrollBar->triggerAction(QAbstractSlider::SliderToMaximum);
+		}
 	}
 	shortcutLeft->setAutoRepeat(scrollBar->value() > scrollBar->minimum());
 }
@@ -717,8 +728,10 @@ void PDFWidget::downOrNext()
 	if (scrollBar->value() < scrollBar->maximum())
 		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepAdd);
 	else {
-		goNext();
-		scrollBar->triggerAction(QAbstractSlider::SliderToMinimum);
+		if (pageIndex < document->numPages() - 1) {
+			goNext();
+			scrollBar->triggerAction(QAbstractSlider::SliderToMinimum);
+		}
 	}
 	shortcutDown->setAutoRepeat(scrollBar->value() < scrollBar->maximum());
 }
@@ -729,8 +742,10 @@ void PDFWidget::rightOrNext()
 	if (scrollBar->value() < scrollBar->maximum())
 		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepAdd);
 	else {
-		goNext();
-		scrollBar->triggerAction(QAbstractSlider::SliderToMinimum);
+		if (pageIndex < document->numPages() - 1) {
+			goNext();
+			scrollBar->triggerAction(QAbstractSlider::SliderToMinimum);
+		}
 	}
 	shortcutRight->setAutoRepeat(scrollBar->value() < scrollBar->maximum());
 }
