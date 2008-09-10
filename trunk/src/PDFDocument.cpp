@@ -529,19 +529,34 @@ void PDFWidget::contextMenuEvent(QContextMenuEvent *event)
 
 void PDFWidget::wheelEvent(QWheelEvent *event)
 {
+	static QTime lastScrollTime = QTime::currentTime();
+	bool mayChangePage = true;
 	int numDegrees = event->delta() / 8;
 	int numSteps = numDegrees / 15;
 	QScrollBar *scrollBar = (event->orientation() == Qt::Horizontal)
 				? getScrollArea()->horizontalScrollBar()
 				: getScrollArea()->verticalScrollBar();
-	if (scrollBar->minimum() == scrollBar->maximum()) {
-		if (event->delta() > 0 && pageIndex > 0)
-			goPrev();
-		else if (event->delta() < 0 && pageIndex < document->numPages() - 1)
-			goNext();
-	}
-	else
+	if (scrollBar->minimum() < scrollBar->maximum()) {
+		int oldValue = scrollBar->value();
 		scrollBar->setValue(scrollBar->value() - numSteps * scrollBar->singleStep());
+		if (scrollBar->value() != oldValue) {
+			lastScrollTime = QTime::currentTime();
+			mayChangePage = false;
+		}
+		if (QTime::currentTime() < lastScrollTime.addMSecs(500))
+			mayChangePage = false;
+	}
+	if (mayChangePage) {
+		if (event->delta() > 0 && pageIndex > 0) {
+			goPrev();
+			scrollBar->triggerAction(QAbstractSlider::SliderToMaximum);
+		}
+		else if (event->delta() < 0 && pageIndex < document->numPages() - 1) {
+			goNext();
+			scrollBar->triggerAction(QAbstractSlider::SliderToMinimum);
+		}
+		lastScrollTime = QTime::currentTime();
+	}
 	event->accept();
 }
 
