@@ -229,9 +229,9 @@ void PDFWidget::paintEvent(QPaintEvent *event)
 	qreal newDpi = dpi * scaleFactor;
 	QRect newRect = rect();
 	if (page != imagePage || newDpi != imageDpi || newRect != imageRect)
-		image = page->renderToImage(dpi * scaleFactor, dpi * scaleFactor,
-									rect().x(), rect().y(),
-									rect().width(), rect().height());
+		if (page != NULL)
+			image = page->renderToImage(dpi * scaleFactor, dpi * scaleFactor,
+						rect().x(), rect().y(), rect().width(), rect().height());
 	imagePage = page;
 	imageDpi = newDpi;
 	imageRect = newRect;
@@ -656,7 +656,12 @@ void PDFWidget::reloadPage()
 	imagePage = NULL;
 	image = QImage();
 	highlightPath = QPainterPath();
-	page = document->page(pageIndex);
+	if (pageIndex >= document->numPages())
+		pageIndex = document->numPages() - 1;
+	if (pageIndex >= 0)
+		page = document->page(pageIndex);
+	else
+		page = NULL;
 	adjustSize();
 	update();
 	updateStatusBar();
