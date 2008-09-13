@@ -30,13 +30,14 @@
 
 class QTextDocument;
 class QTextCodec;
+class TeXDocument;
 
 class TeXHighlighter : public QSyntaxHighlighter
 {
 	Q_OBJECT
 
 public:
-	TeXHighlighter(QTextDocument *parent = 0);
+	TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument = NULL);
 	
 	void setActive(bool active);
 
@@ -60,11 +61,20 @@ private:
 
 	QTextCharFormat spellFormat;
 	QTextCharFormat spellCommentFormat;
-	
-	bool isActive;
 
-	Hunhandle *pHunspell;
-	QTextCodec *spellingCodec;
+	struct TagPattern {
+		QRegExp pattern;
+		unsigned int level;
+	};
+	QVector<TagPattern> tagPatterns;
+	
+	TeXDocument	*texDoc;
+
+	bool isActive;
+	bool isTagging;
+
+	Hunhandle	*pHunspell;
+	QTextCodec	*spellingCodec;
 };
 
 #endif

@@ -82,6 +82,7 @@ HEADERS	+=	src/TWApp.h \
 			src/TeXDocument.h \
 			src/CompletingEdit.h \
 			src/TeXHighlighter.h \
+			src/TeXDocks.h \
 			src/PDFDocument.h \
 			src/PDFDocks.h \
 			src/FindDialog.h \
@@ -104,6 +105,7 @@ SOURCES	+=	src/main.cpp \
 			src/TeXDocument.cpp \
 			src/CompletingEdit.cpp \
 			src/TeXHighlighter.cpp \
+			src/TeXDocks.cpp \
 			src/PDFDocument.cpp \
 			src/PDFDocks.cpp \
 			src/FindDialog.cpp \
