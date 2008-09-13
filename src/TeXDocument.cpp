@@ -21,6 +21,7 @@
 
 #include "TeXDocument.h"
 #include "TeXHighlighter.h"
+#include "TeXDocks.h"
 #include "FindDialog.h"
 #include "TemplateDialog.h"
 #include "TWApp.h"
@@ -220,7 +221,7 @@ void TeXDocument::init()
 	inputLine->setFont(font);
 	textEdit_console->setFont(font);
 	
-	highlighter = new TeXHighlighter(textEdit->document());
+	highlighter = new TeXHighlighter(textEdit->document(), this);
 	bool b = settings.value("wrapLines", true).toBool();
 	actionWrap_Lines->setChecked(b);
 	setWrapLines(b);
@@ -253,8 +254,14 @@ void TeXDocument::init()
 	
 	menuShow->addAction(toolBar_run->toggleViewAction());
 	menuShow->addAction(toolBar_edit->toggleViewAction());
-	
+	menuShow->addSeparator();
+
 	TWUtils::zoomToHalfScreen(this);
+
+	QDockWidget *dw = new TagsDock(this);
+	dw->hide();
+	addDockWidget(Qt::LeftDockWidgetArea, dw);
+	menuShow->addAction(dw->toggleViewAction());
 
 	docList.append(this);
 }
@@ -1662,4 +1669,40 @@ void TeXDocument::findRootFilePath()
 	}
 	else
 		rootFilePath = fileInfo.canonicalFilePath();
+}
+
+void TeXDocument::addTag(const QTextCursor& cursor, int level, const QString& text)
+{
+	int index = 0;
+	while (index < tags.size()) {
+		if (tags[index].cursor.selectionStart() > cursor.selectionStart())
+			break;
+		++index;
+	}
+	tags.insert(index, Tag(cursor, level, text));
+}
+
+int TeXDocument::removeTags(int offset, int len)
+{
+	int removed = 0;
+	for (int index = tags.count() - 1; index >= 0; --index) {
+		if (tags[index].cursor.selectionStart() < offset)
+			break;
+		if (tags[index].cursor.selectionStart() < offset + len) {
+			tags.removeAt(index);
+			++removed;
+		}
+	}
+	return removed;
+}
+
+void TeXDocument::goToTag(int index)
+{
+	if (index < tags.count())
+		textEdit->setTextCursor(tags[index].cursor);
+}
+
+void TeXDocument::tagsChanged()
+{
+	emit tagListUpdated();
 }

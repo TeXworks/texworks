@@ -75,9 +75,26 @@ public:
 		{ return textEdit->document(); }
 	QString getLineText(int lineNo) const;
 
+	void addTag(const QTextCursor& cursor, int level, const QString& text);
+	int removeTags(int offset, int len);
+	void goToTag(int index);
+	void tagsChanged();
+
+	class Tag {
+	public:
+		QTextCursor	cursor;
+		int			level;
+		QString		text;
+		Tag(const QTextCursor& curs, int lvl, const QString& txt)
+			: cursor(curs), level(lvl), text(txt) { };
+	};
+	const QList<Tag> getTags() const
+		{ return tags; }
+
 signals:
 	void syncFromSource(const QString&, int);
 	void activatedWindow(QWidget*);
+	void tagListUpdated();
 
 protected:
 	void closeEvent(QCloseEvent *event);
@@ -181,6 +198,8 @@ private:
 	Hunhandle *pHunspell;
 
 	QList<QWidget*> latentVisibleWidgets;
+
+	QList<Tag>	tags;
 
 	static QList<TeXDocument*> docList;
 };

@@ -21,16 +21,21 @@
 
 #include <QRegExp>
 #include <QTextCodec>
+#include <QTextCursor>
 
 #include "TeXHighlighter.h"
+#include "TeXDocument.h"
 #include "TWUtils.h"
 
 #include <limits.h> // for INT_MAX
 
-TeXHighlighter::TeXHighlighter(QTextDocument *parent)
+TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
 	: QSyntaxHighlighter(parent)
+	, texDoc(texDocument)
 	, isActive(true)
+	, isTagging(true)
 	, pHunspell(NULL)
+	, spellingCodec(NULL)
 {
 	HighlightingRule rule;
 
@@ -64,6 +69,27 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent)
 	spellCommentFormat = commentFormat;
 	spellCommentFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
 	spellCommentFormat.setUnderlineColor(Qt::black);
+
+	// default tag patterns for LaTeX (need to make this customizable)
+	TagPattern patt;
+	patt.pattern = QRegExp("^\\s*\\\\part\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
+	patt.level = 1;
+	tagPatterns.append(patt);
+	patt.pattern = QRegExp("^\\s*\\\\chapter\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
+	patt.level = 2;
+	tagPatterns.append(patt);
+	patt.pattern = QRegExp("^\\s*\\\\section\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
+	patt.level = 3;
+	tagPatterns.append(patt);
+	patt.pattern = QRegExp("^\\s*\\\\subsection\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
+	patt.level = 4;
+	tagPatterns.append(patt);
+	patt.pattern = QRegExp("^\\s*\\\\subsubsection\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
+	patt.level = 5;
+	tagPatterns.append(patt);
+	patt.pattern = QRegExp("^%:\\s*(.+)");
+	patt.level = 0;
+	tagPatterns.append(patt);
 }
 
 void TeXHighlighter::highlightBlock(const QString &text)
@@ -87,6 +113,42 @@ void TeXHighlighter::highlightBlock(const QString &text)
 			else
 				break;
 		}
+	}
+
+	if (texDoc != NULL) {
+		bool changed = false;
+		if (texDoc->removeTags(currentBlock().position(), currentBlock().length()) > 0)
+			changed = true;
+		if (isTagging) {
+			int index = 0;
+			while (index < text.length()) {
+				int firstIndex = INT_MAX, len;
+				TagPattern* firstPatt = NULL;
+				for (int i = 0; i < tagPatterns.count(); ++i) {
+					TagPattern& patt = tagPatterns[i];
+					int foundIndex = text.indexOf(patt.pattern, index);
+					if (foundIndex >= 0 && foundIndex < firstIndex) {
+						firstIndex = foundIndex;
+						firstPatt = &patt;
+					}
+				}
+				if (firstPatt != NULL && (len = firstPatt->pattern.matchedLength()) > 0) {
+					QTextCursor	cursor(document());
+					cursor.setPosition(currentBlock().position() + firstIndex);
+					cursor.setPosition(currentBlock().position() + firstIndex + len, QTextCursor::KeepAnchor);
+					QString text = firstPatt->pattern.cap(1);
+					if (text.isEmpty())
+						text = firstPatt->pattern.cap(0);
+					texDoc->addTag(cursor, firstPatt->level, text);
+					index = firstIndex + len;
+					changed = true;
+				}
+				else
+					break;
+			}
+		}
+		if (changed)	
+			texDoc->tagsChanged();
 	}
 
 	if (pHunspell != NULL) {
