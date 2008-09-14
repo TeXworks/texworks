@@ -1037,6 +1037,9 @@ PDFDocument::init()
 	connect(pdfWidget, SIGNAL(changedZoom(qreal)), this, SLOT(enableZoomActions(qreal)));
 	connect(pdfWidget, SIGNAL(changedScaleOption(autoScaleOption)), this, SLOT(adjustScaleActions(autoScaleOption)));
 	connect(pdfWidget, SIGNAL(syncClick(int, const QPointF&)), this, SLOT(syncClick(int, const QPointF&)));
+
+	if (actionZoom_In->shortcut() == QKeySequence("Ctrl++"))
+		new QShortcut(QKeySequence("Ctrl+="), pdfWidget, SLOT(zoomIn()));
 	
 	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	
