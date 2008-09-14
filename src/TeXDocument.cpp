@@ -1698,8 +1698,10 @@ int TeXDocument::removeTags(int offset, int len)
 
 void TeXDocument::goToTag(int index)
 {
-	if (index < tags.count())
+	if (index < tags.count()) {
 		textEdit->setTextCursor(tags[index].cursor);
+		textEdit->setFocus(Qt::OtherFocusReason);
+	}
 }
 
 void TeXDocument::tagsChanged()

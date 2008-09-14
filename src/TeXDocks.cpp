@@ -50,6 +50,7 @@ void TeXDock::myVisibilityChanged(bool visible)
 TagsDock::TagsDock(TeXDocument *doc)
 	: TeXDock(tr("Tags"), doc)
 {
+	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 	tree = new TeXDockTreeWidget(this);
 	tree->setAlternatingRowColors(true);
 	tree->header()->hide();
@@ -67,19 +68,27 @@ void TagsDock::fillInfo()
 	tree->clear();
 	const QList<TeXDocument::Tag>& tags = document->getTags();
 	if (tags.size() > 0) {
-		QTreeWidgetItem *item = 0, *prevZero = 0;
+		QTreeWidgetItem *item = 0, *bmItem = 0;
+		QTreeWidgetItem *bookmarks = new QTreeWidgetItem(tree);
+		bookmarks->setText(0, tr("Bookmarks"));
+		bookmarks->setFlags(Qt::ItemIsEnabled);
+		tree->expandItem(bookmarks);
+		QTreeWidgetItem *outline = new QTreeWidgetItem(tree, bookmarks);
+		outline->setText(0, tr("Outline"));
+		outline->setFlags(Qt::ItemIsEnabled);
+		tree->expandItem(outline);
 		for (int index = 0; index < tags.size(); ++index) {
 			const TeXDocument::Tag& bm = tags[index];
 			if (bm.level < 1) {
-				prevZero = new QTreeWidgetItem(tree, prevZero, QTreeWidgetItem::UserType);
-				prevZero->setText(0, bm.text);
-				prevZero->setText(1, QString::number(index));
+				bmItem = new QTreeWidgetItem(bookmarks, QTreeWidgetItem::UserType);
+				bmItem->setText(0, bm.text);
+				bmItem->setText(1, QString::number(index));
 			}
 			else  {
 				while (item != 0 && item->type() >= QTreeWidgetItem::UserType + bm.level)
 					item = item->parent();
 				if (item == 0)
-					item = new QTreeWidgetItem(tree, QTreeWidgetItem::UserType + bm.level);
+					item = new QTreeWidgetItem(outline, QTreeWidgetItem::UserType + bm.level);
 				else
 					item = new QTreeWidgetItem(item, QTreeWidgetItem::UserType + bm.level);
 				item->setText(0, bm.text);
@@ -87,11 +96,10 @@ void TagsDock::fillInfo()
 				tree->expandItem(item);
 			}
 		}
-		if (prevZero != 0 && item != 0) {
-			item = new QTreeWidgetItem(tree, prevZero);
-			item->setText(0, QString(0x2014));
-			item->setDisabled(true);
-		}
+		if (bookmarks->childCount() == 0)
+			bookmarks->setHidden(true);
+		if (outline->childCount() == 0)
+			outline->setHidden(true);
 		connect(tree, SIGNAL(itemSelectionChanged()), this, SLOT(followTagSelection()));
 	} else {
 		QTreeWidgetItem *item = new QTreeWidgetItem();
