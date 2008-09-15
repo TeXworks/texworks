@@ -21,9 +21,6 @@
   <property name="windowTitle" >
    <string>Find</string>
   </property>
-  <property name="sizeGripEnabled" >
-   <bool>true</bool>
-  </property>
   <property name="modal" >
    <bool>true</bool>
   </property>
@@ -177,9 +174,6 @@
             </colorrole>
            </disabled>
           </palette>
-         </property>
-         <property name="text" >
-          <string/>
          </property>
         </widget>
        </item>

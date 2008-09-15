@@ -38,6 +38,9 @@ void FindDialog::init(QTextEdit *document)
 {
 	setupUi(this);
 
+	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Find"));
+
+	connect(checkBox_allFiles, SIGNAL(toggled(bool)), this, SLOT(toggledAllFilesOption(bool)));
 	connect(checkBox_findAll, SIGNAL(toggled(bool)), this, SLOT(toggledFindAllOption(bool)));
 	connect(checkBox_regex, SIGNAL(toggled(bool)), this, SLOT(toggledRegexOption(bool)));
 	connect(checkBox_selection, SIGNAL(toggled(bool)), this, SLOT(toggledSelectionOption(bool)));
@@ -56,8 +59,8 @@ void FindDialog::init(QTextEdit *document)
 	checkBox_findAll->setChecked(findAll);
 	
 	bool allFiles = settings.value("searchAllFiles").toBool();
-	checkBox_allFiles->setChecked(allFiles);
 	checkBox_allFiles->setEnabled(TeXDocument::documentList().count() > 1);
+	checkBox_allFiles->setChecked(allFiles && checkBox_allFiles->isEnabled());
 
 	bool selectionOption = settings.value("searchSelection").toBool();
 	checkBox_selection->setEnabled(document->textCursor().hasSelection() && !findAll);
@@ -72,6 +75,15 @@ void FindDialog::init(QTextEdit *document)
 	checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
 	checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
 	checkBox_backwards->setEnabled(!findAll);
+}
+
+void FindDialog::toggledAllFilesOption(bool checked)
+{
+	QTextEdit* document = qobject_cast<QTextEdit*>(parent());
+	checkBox_selection->setEnabled(document != NULL && document->textCursor().hasSelection() && !checked && !checkBox_findAll->isChecked());
+	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()) && !checked && !checkBox_findAll->isChecked());
+	checkBox_backwards->setEnabled(!checked && !checkBox_findAll->isChecked());
+	checkBox_findAll->setEnabled(!checked);
 }
 
 void FindDialog::toggledFindAllOption(bool checked)
@@ -148,16 +160,19 @@ void ReplaceDialog::init(QTextEdit *document)
 {
 	setupUi(this);
 
+	connect(checkBox_allFiles, SIGNAL(toggled(bool)), this, SLOT(toggledAllFilesOption(bool)));
 	connect(checkBox_regex, SIGNAL(toggled(bool)), this, SLOT(toggledRegexOption(bool)));
 	connect(checkBox_selection, SIGNAL(toggled(bool)), this, SLOT(toggledSelectionOption(bool)));
 	connect(searchText, SIGNAL(textChanged(const QString&)), this, SLOT(checkRegex(const QString&)));
 
+	// using "standard" buttons then changing the labels means that Qt can reorder them appropriately for the platform
+	// whereas if we just put our own named buttons in place manually, they'd always stay in the same order
 	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Replace"));
 	connect(buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked()), this, SLOT(clickedReplace()));
 	buttonBox->button(QDialogButtonBox::SaveAll)->setText(tr("Replace All"));
 	connect(buttonBox->button(QDialogButtonBox::SaveAll), SIGNAL(clicked()), this, SLOT(clickedReplaceAll()));
-	buttonBox->button(QDialogButtonBox::Abort)->setText(tr("Cancel"));
-	connect(buttonBox->button(QDialogButtonBox::Abort), SIGNAL(clicked()), this, SLOT(reject()));
+	buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
+	connect(buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(clicked()), this, SLOT(reject()));
 
 	QSettings settings;
 	QString	str = settings.value("searchText").toString();
@@ -169,6 +184,10 @@ void ReplaceDialog::init(QTextEdit *document)
 	bool regexOption = settings.value("searchRegex").toBool();
 	checkBox_regex->setChecked(regexOption);
 	checkBox_words->setEnabled(!regexOption);
+
+	bool allFiles = settings.value("searchAllFiles").toBool();
+	checkBox_allFiles->setEnabled(TeXDocument::documentList().count() > 1);
+	checkBox_allFiles->setChecked(allFiles && checkBox_allFiles->isEnabled());
 
 	bool selectionOption = settings.value("searchSelection").toBool();
 	checkBox_selection->setEnabled(document->textCursor().hasSelection());
@@ -182,6 +201,15 @@ void ReplaceDialog::init(QTextEdit *document)
 	checkBox_case->setChecked((flags & QTextDocument::FindCaseSensitively) != 0);
 	checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
 	checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
+}
+
+void ReplaceDialog::toggledAllFilesOption(bool checked)
+{
+	QTextEdit* document = qobject_cast<QTextEdit*>(parent());
+	checkBox_selection->setEnabled(document != NULL && document->textCursor().hasSelection() && !checked);
+	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()) && !checked);
+	checkBox_backwards->setEnabled(!checked);
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!checked);
 }
 
 void ReplaceDialog::toggledRegexOption(bool checked)
@@ -248,6 +276,7 @@ ReplaceDialog::DialogCode ReplaceDialog::doReplaceDialog(QTextEdit *document)
 		settings.setValue("searchRegex", dlg.checkBox_regex->isChecked());
 		settings.setValue("searchWrap", dlg.checkBox_wrap->isChecked());
 		settings.setValue("searchSelection", dlg.checkBox_selection->isChecked());
+		settings.setValue("searchAllFiles", dlg.checkBox_allFiles->isChecked());
 
 		return (result == 2) ? ReplaceAll : ReplaceOne;
 	}
