@@ -52,7 +52,6 @@ TagsDock::TagsDock(TeXDocument *doc)
 {
 	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 	tree = new TeXDockTreeWidget(this);
-	tree->setAlternatingRowColors(true);
 	tree->header()->hide();
 	tree->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	setWidget(tree);
@@ -72,10 +71,12 @@ void TagsDock::fillInfo()
 		QTreeWidgetItem *bookmarks = new QTreeWidgetItem(tree);
 		bookmarks->setText(0, tr("Bookmarks"));
 		bookmarks->setFlags(Qt::ItemIsEnabled);
+		bookmarks->setForeground(0, Qt::blue);
 		tree->expandItem(bookmarks);
 		QTreeWidgetItem *outline = new QTreeWidgetItem(tree, bookmarks);
 		outline->setText(0, tr("Outline"));
 		outline->setFlags(Qt::ItemIsEnabled);
+		outline->setForeground(0, Qt::blue);
 		tree->expandItem(outline);
 		for (int index = 0; index < tags.size(); ++index) {
 			const TeXDocument::Tag& bm = tags[index];
