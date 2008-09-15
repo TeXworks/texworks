@@ -62,7 +62,6 @@ public:
 		}
 	static void openDocument(const QString &fileName, bool activate = true, int lineNo = 0, int selStart = -1, int selEnd = -1);
 
-
 	TeXDocument *open(const QString &fileName);
 	void makeUntitled();
 	bool untitled()
@@ -167,6 +166,8 @@ private:
 	void replaceSelection(const QString& newText);
 	void zoomToLeft(QWidget *otherWindow);
 	QTextCursor doSearch(const QString& searchText, const QRegExp *regex, QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
+	int doReplaceAll(const QString& searchText, QRegExp* regex, const QString& replacement,
+						QTextDocument::FindFlags flags, int rangeStart = -1, int rangeEnd = -1);
 	void showConsole();
 	void hideConsole();
 	void goToLine(int lineNo, int selStart = -1, int selEnd = -1);

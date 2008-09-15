@@ -43,6 +43,7 @@ public:
 	static DialogCode doFindDialog(QTextEdit *document);
 
 private slots:
+	void toggledAllFilesOption(bool checked);
 	void toggledFindAllOption(bool checked);
 	void toggledRegexOption(bool checked);
 	void toggledSelectionOption(bool checked);
@@ -69,6 +70,7 @@ public:
 	static DialogCode doReplaceDialog(QTextEdit *document);
 
 private slots:
+	void toggledAllFilesOption(bool checked);
 	void toggledRegexOption(bool checked);
 	void toggledSelectionOption(bool checked);
 	void checkRegex(const QString& str);

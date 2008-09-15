@@ -1128,7 +1128,7 @@ void TeXDocument::doFindAgain(bool fromDialog)
 		}
 	}
 
-	if (fromDialog && settings.value("searchFindAll").toBool()) {
+	if (fromDialog && (settings.value("searchFindAll").toBool() || settings.value("searchAllFiles").toBool())) {
 		bool singleFile = true;
 		QList<SearchResult> results;
 		flags &= ~QTextDocument::FindBackward;
@@ -1243,12 +1243,19 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 		}
 	}
 	
+	bool allFiles = (mode == ReplaceDialog::ReplaceAll) && settings.value("searchAllFiles").toBool();
+	
 	bool searchWrap = settings.value("searchWrap").toBool();
 	bool searchSel = settings.value("searchSelection").toBool();
 	
 	int rangeStart, rangeEnd;
 	QTextCursor searchRange = textCursor();
-	if (searchSel) {
+	if (allFiles) {
+		searchRange.select(QTextCursor::Document);
+		rangeStart = searchRange.selectionStart();
+		rangeEnd = searchRange.selectionEnd();
+	}
+	else if (searchSel) {
 		rangeStart = searchRange.selectionStart();
 		rangeEnd = searchRange.selectionEnd();
 	}
@@ -1288,42 +1295,64 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 		}
 	}
 	else if (mode == ReplaceDialog::ReplaceAll) {
-		int replacements = 0;
-		bool first = true;
-		while (1) {
-			QTextCursor curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
-			if (curs.isNull()) {
-				if (!first)
-					searchRange.endEditBlock();
-				break;
-			}
-			if (first) {
-				searchRange.beginEditBlock();
-				first = false;
-			}
-			QString target = curs.selectedText();
-			int oldLen = target.length();
-			if (regex != NULL)
-				target.replace(*regex, replacement);
-			else
-				target = replacement;
-			int newLen = target.length();
-			if ((flags & QTextDocument::FindBackward) != 0)
-				rangeEnd = curs.selectionStart();
-			else {
-				rangeStart = curs.selectionEnd() - oldLen + newLen;
-				rangeEnd += newLen - oldLen;
-			}
-			searchRange.setPosition(curs.selectionStart());
-			searchRange.setPosition(curs.selectionEnd(), QTextCursor::KeepAnchor);
-			searchRange.insertText(target);
-			++replacements;
+		if (allFiles) {
+			int replacements = 0;
+			foreach (TeXDocument* doc, docList)
+				replacements += doc->doReplaceAll(searchText, regex, replacement, flags);
+			statusBar()->showMessage(tr("Replaced %1 occurrence(s) in %2 documents").arg(replacements).arg(docList.count()), kStatusMessageDuration);
 		}
-		statusBar()->showMessage(tr("Replaced %1 occurrence(s)").arg(replacements), kStatusMessageDuration);
+		else {
+			int replacements = doReplaceAll(searchText, regex, replacement, flags, rangeStart, rangeEnd);
+			statusBar()->showMessage(tr("Replaced %1 occurrence(s)").arg(replacements), kStatusMessageDuration);
+		}
 	}
 
 	if (regex != NULL)
 		delete regex;
+}
+
+int TeXDocument::doReplaceAll(const QString& searchText, QRegExp* regex, const QString& replacement,
+								QTextDocument::FindFlags flags, int rangeStart, int rangeEnd)
+{
+	QTextCursor searchRange = textCursor();
+	searchRange.select(QTextCursor::Document);
+	if (rangeStart < 0)
+		rangeStart = searchRange.selectionStart();
+	if (rangeEnd < 0)
+		rangeEnd = searchRange.selectionEnd();
+		
+	int replacements = 0;
+	bool first = true;
+	while (1) {
+		QTextCursor curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
+		if (curs.isNull()) {
+			if (!first)
+				searchRange.endEditBlock();
+			break;
+		}
+		if (first) {
+			searchRange.beginEditBlock();
+			first = false;
+		}
+		QString target = curs.selectedText();
+		int oldLen = target.length();
+		if (regex != NULL)
+			target.replace(*regex, replacement);
+		else
+			target = replacement;
+		int newLen = target.length();
+		if ((flags & QTextDocument::FindBackward) != 0)
+			rangeEnd = curs.selectionStart();
+		else {
+			rangeStart = curs.selectionEnd() - oldLen + newLen;
+			rangeEnd += newLen - oldLen;
+		}
+		searchRange.setPosition(curs.selectionStart());
+		searchRange.setPosition(curs.selectionEnd(), QTextCursor::KeepAnchor);
+		searchRange.insertText(target);
+		++replacements;
+	}
+	return replacements;
 }
 
 QTextCursor TeXDocument::doSearch(const QString& searchText, const QRegExp *regex, QTextDocument::FindFlags flags, int s, int e)

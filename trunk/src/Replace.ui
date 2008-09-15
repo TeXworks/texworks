@@ -9,19 +9,22 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>195</height>
+    <height>219</height>
    </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle" >
    <string>Replace</string>
   </property>
-  <property name="sizeGripEnabled" >
-   <bool>true</bool>
-  </property>
   <property name="modal" >
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" >
+  <layout class="QGridLayout" name="gridLayout" >
    <item row="0" column="0" >
     <widget class="QLabel" name="label" >
      <property name="text" >
@@ -57,71 +60,88 @@
     </widget>
    </item>
    <item row="2" column="1" >
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout" name="horizontalLayout" >
      <item>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout" >
        <item>
         <widget class="QCheckBox" name="checkBox_wrap" >
          <property name="text" >
-          <string>Wrap around</string>
+          <string>&amp;Wrap around</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="checkBox_backwards" >
          <property name="text" >
-          <string>Find backwards</string>
+          <string>Find &amp;backwards</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="checkBox_selection" >
          <property name="text" >
-          <string>Search within selection</string>
+          <string>Search within &amp;selection</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_allFiles" >
+         <property name="text" >
+          <string>Search all &amp;open files</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout_3" >
        <item>
         <widget class="QCheckBox" name="checkBox_case" >
          <property name="text" >
-          <string>Case sensitive</string>
+          <string>&amp;Case sensitive</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="checkBox_words" >
          <property name="text" >
-          <string>Whole words</string>
+          <string>W&amp;hole words</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="checkBox_regex" >
          <property name="text" >
-          <string>Regular expression</string>
+          <string>&amp;Regular expression</string>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" >
-       <property name="bottomMargin" >
-        <number>3</number>
-       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2" >
        <item>
-        <spacer>
+        <spacer name="verticalSpacer_3" >
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
-           <height>31</height>
+           <height>34</height>
           </size>
          </property>
         </spacer>
@@ -165,19 +185,29 @@
            </disabled>
           </palette>
          </property>
-         <property name="text" >
-          <string/>
-         </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
     </layout>
    </item>
-   <item row="3" column="1" >
+   <item row="3" column="0" colspan="2" >
     <widget class="QDialogButtonBox" name="buttonBox" >
      <property name="standardButtons" >
-      <set>QDialogButtonBox::Abort|QDialogButtonBox::NoButton|QDialogButtonBox::Ok|QDialogButtonBox::SaveAll</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::SaveAll</set>
      </property>
     </widget>
    </item>
@@ -189,6 +219,7 @@
   <tabstop>checkBox_wrap</tabstop>
   <tabstop>checkBox_backwards</tabstop>
   <tabstop>checkBox_selection</tabstop>
+  <tabstop>checkBox_allFiles</tabstop>
   <tabstop>checkBox_case</tabstop>
   <tabstop>checkBox_words</tabstop>
   <tabstop>checkBox_regex</tabstop>
