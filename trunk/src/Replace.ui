@@ -80,14 +80,14 @@
        <item>
         <widget class="QCheckBox" name="checkBox_selection" >
          <property name="text" >
-          <string>Search within &amp;selection</string>
+          <string>Replace within &amp;selection</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="checkBox_allFiles" >
          <property name="text" >
-          <string>Search all &amp;open files</string>
+          <string>Replace in all &amp;open files</string>
          </property>
         </widget>
        </item>
