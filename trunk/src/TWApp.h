@@ -131,7 +131,6 @@ private slots:
 
 	void stackWindows();
 	void tileWindows();
-	void tileTwoWindows();
 	
 	void syncFromSource(const QString& sourceFile, int lineNo);
 
@@ -142,6 +141,8 @@ protected:
 private:
 	void init();
 	
+	void arrangeWindows(TWUtils::WindowArrangementFunction func);
+
 	int recentFilesLimit;
 
 	QTextCodec *defaultCodec;

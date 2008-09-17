@@ -213,6 +213,9 @@ public:
 	void updateTypesettingAction(bool processRunning);
 	void goToDestination(const QString& destName);
 
+	TeXDocument *sourceDocument()
+		{ return sourceDoc; }
+
 	Poppler::Document *popplerDoc()
 		{
 			return document;
@@ -222,7 +225,7 @@ protected:
 	virtual bool event(QEvent *event);
 
 public slots:
-	void selectWindow();
+	void selectWindow(bool activate = true);
 
 private slots:
 	void updateRecentFileActions();
@@ -237,6 +240,9 @@ private slots:
 	void syncClick(int page, const QPointF& pos);
 	void syncFromSource(const QString& sourceFile, int lineNo);
 	void hideFloatersUnlessThis(QWidget* currWindow);
+	void sideBySide();
+	void placeOnLeft();
+	void placeOnRight();
 
 signals:
 	void reloaded();

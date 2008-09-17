@@ -311,14 +311,28 @@ void TWApp::updateWindowMenus()
 
 void TWApp::stackWindows()
 {
+	arrangeWindows(TWUtils::stackWindowsInRect);
 }
 
 void TWApp::tileWindows()
 {
+	arrangeWindows(TWUtils::tileWindowsInRect);
 }
 
-void TWApp::tileTwoWindows()
+void TWApp::arrangeWindows(TWUtils::WindowArrangementFunction func)
 {
+	QDesktopWidget *desktop = QApplication::desktop();
+	for (int screenIndex = 0; screenIndex < desktop->numScreens(); ++screenIndex) {
+		QWidgetList windows;
+		foreach (TeXDocument* texDoc, TeXDocument::documentList())
+			if (desktop->screenNumber(texDoc) == screenIndex)
+				windows << texDoc;
+		foreach (PDFDocument* pdfDoc, PDFDocument::documentList())
+			if (desktop->screenNumber(pdfDoc) == screenIndex)
+				windows << pdfDoc;
+		if (windows.size() > 0)
+			(*func)(windows, desktop->availableGeometry(screenIndex));
+	}
 }
 
 bool TWApp::event(QEvent *event)
