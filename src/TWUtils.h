@@ -76,11 +76,14 @@ public:
 	static QString strippedName(const QString &fullFileName);
 
 	// window positioning utilities
+	typedef void (WindowArrangementFunction)(const QWidgetList& windows, const QRect& bounds);
+	
+	static void tileWindowsInRect(const QWidgetList& windows, const QRect& bounds);
+	static void stackWindowsInRect(const QWidgetList& windows, const QRect& bounds);
+
 	static void zoomToScreen(QWidget *window);
 	static void zoomToHalfScreen(QWidget *window, bool rhs = false);
 	static void sideBySide(QWidget *window1, QWidget *window2);
-	static void tile(QList<QWidget*> windows);
-	static void stack(QList<QWidget*> windows);
 	static void ensureOnScreen(QWidget *window);
 	static void applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool showText);
 

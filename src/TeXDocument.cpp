@@ -190,7 +190,9 @@ void TeXDocument::init()
 
 	connect(actionStack, SIGNAL(triggered()), qApp, SLOT(stackWindows()));
 	connect(actionTile, SIGNAL(triggered()), qApp, SLOT(tileWindows()));
-	connect(actionTile_Front_Two, SIGNAL(triggered()), qApp, SLOT(tileTwoWindows()));
+	connect(actionSide_by_Side, SIGNAL(triggered()), this, SLOT(sideBySide()));
+	connect(actionPlace_on_Left, SIGNAL(triggered()), this, SLOT(placeOnLeft()));
+	connect(actionPlace_on_Right, SIGNAL(triggered()), this, SLOT(placeOnRight()));
 	connect(actionShow_Hide_Console, SIGNAL(triggered()), this, SLOT(toggleConsoleVisibility()));
 	connect(actionGo_to_Preview, SIGNAL(triggered()), this, SLOT(goToPreview()));
 	
@@ -690,13 +692,16 @@ void TeXDocument::showPdfIfAvailable()
 			pdfDoc->show();
 		}
 	}
-	if (pdfDoc != NULL)
+	if (pdfDoc != NULL) {
+		actionSide_by_Side->setEnabled(true);
 		connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
+	}
 }
 
 void TeXDocument::pdfClosed()
 {
 	pdfDoc = NULL;
+	actionSide_by_Side->setEnabled(false);
 }
 
 bool TeXDocument::saveFile(const QString &fileName)
@@ -857,13 +862,35 @@ void TeXDocument::showCursorPosition()
 	lineNumberLabel->setText(tr("Line %1 of %2; col %3").arg(line).arg(total).arg(col));
 }
 
-void TeXDocument::selectWindow()
+void TeXDocument::selectWindow(bool activate)
 {
 	show();
 	raise();
-	activateWindow();
+	if (activate)
+		activateWindow();
 	if (isMinimized())
 		showNormal();
+}
+
+void TeXDocument::sideBySide()
+{
+	if (pdfDoc != NULL) {
+		TWUtils::sideBySide(this, pdfDoc);
+		pdfDoc->selectWindow(false);
+		selectWindow();
+	}
+	else
+		placeOnLeft();
+}
+
+void TeXDocument::placeOnLeft()
+{
+	TWUtils::zoomToHalfScreen(this, false);
+}
+
+void TeXDocument::placeOnRight()
+{
+	TWUtils::zoomToHalfScreen(this, true);
 }
 
 TeXDocument *TeXDocument::findDocument(const QString &fileName)

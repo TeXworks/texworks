@@ -956,8 +956,10 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 {
 	init();
 	loadFile(fileName);
-	if (texDoc != NULL)
+	if (texDoc != NULL) {
 		stackUnder((QWidget*)texDoc);
+		actionSide_by_Side->setEnabled(true);
+	}
 }
 
 PDFDocument::~PDFDocument()
@@ -1045,7 +1047,9 @@ PDFDocument::init()
 	
 	connect(actionStack, SIGNAL(triggered()), qApp, SLOT(stackWindows()));
 	connect(actionTile, SIGNAL(triggered()), qApp, SLOT(tileWindows()));
-	connect(actionTile_Front_Two, SIGNAL(triggered()), qApp, SLOT(tileTwoWindows()));
+	connect(actionSide_by_Side, SIGNAL(triggered()), this, SLOT(sideBySide()));
+	connect(actionPlace_on_Left, SIGNAL(triggered()), this, SLOT(placeOnLeft()));
+	connect(actionPlace_on_Right, SIGNAL(triggered()), this, SLOT(placeOnRight()));
 	connect(actionGo_to_Source, SIGNAL(triggered()), this, SLOT(goToSource()));
 
 	menuRecent = new QMenu(tr("Open Recent"));
@@ -1105,13 +1109,35 @@ void PDFDocument::updateWindowMenu()
 	TWUtils::updateWindowMenu(this, menuWindow);
 }
 
-void PDFDocument::selectWindow()
+void PDFDocument::selectWindow(bool activate)
 {
 	show();
 	raise();
-	activateWindow();
+	if (activate)
+		activateWindow();
 	if (isMinimized())
 		showNormal();
+}
+
+void PDFDocument::sideBySide()
+{
+	if (sourceDoc != NULL) {
+		TWUtils::sideBySide(sourceDoc, this);
+		sourceDoc->selectWindow(false);
+		selectWindow();
+	}
+	else
+		placeOnRight();
+}
+
+void PDFDocument::placeOnLeft()
+{
+	TWUtils::zoomToHalfScreen(this, false);
+}
+
+void PDFDocument::placeOnRight()
+{
+	TWUtils::zoomToHalfScreen(this, true);
 }
 
 void PDFDocument::hideFloatersUnlessThis(QWidget* currWindow)

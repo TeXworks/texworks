@@ -97,7 +97,9 @@
     <addaction name="separator" />
     <addaction name="actionStack" />
     <addaction name="actionTile" />
-    <addaction name="actionTile_Front_Two" />
+    <addaction name="actionSide_by_Side" />
+    <addaction name="actionPlace_on_Left" />
+    <addaction name="actionPlace_on_Right" />
     <addaction name="separator" />
     <addaction name="actionGo_to_Source" />
    </widget>
@@ -525,14 +527,6 @@
     <enum>QAction::NoRole</enum>
    </property>
   </action>
-  <action name="actionTile_Front_Two" >
-   <property name="text" >
-    <string>Tile Front Two</string>
-   </property>
-   <property name="menuRole" >
-    <enum>QAction::NoRole</enum>
-   </property>
-  </action>
   <action name="actionGo_to_Source" >
    <property name="text" >
     <string>Go to Source</string>
@@ -628,6 +622,24 @@
   <action name="actionWriteToMailingList" >
    <property name="text" >
     <string>Email to the mailing list</string>
+   </property>
+  </action>
+  <action name="actionSide_by_Side" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Side by Side</string>
+   </property>
+  </action>
+  <action name="actionPlace_on_Left" >
+   <property name="text" >
+    <string>Place on Left</string>
+   </property>
+  </action>
+  <action name="actionPlace_on_Right" >
+   <property name="text" >
+    <string>Place on Right</string>
    </property>
   </action>
  </widget>

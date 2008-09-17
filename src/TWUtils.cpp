@@ -366,12 +366,66 @@ void TWUtils::sideBySide(QWidget *window1, QWidget *window2)
 	zoomToHalfScreen(window2, true);
 }
 
-void TWUtils::tile(QList<QWidget*> windows)
+void TWUtils::tileWindowsInRect(const QWidgetList& windows, const QRect& bounds)
 {
+	int numWindows = windows.count();
+	int rows = 1, cols = 1;
+	while (rows * cols < numWindows)
+		if (rows == cols)
+			++cols;
+		else
+			++rows;
+	QRect r;
+	r.setWidth(bounds.width() / cols);
+	r.setHeight(bounds.height() / rows);
+	r.moveLeft(bounds.left());
+	r.moveTop(bounds.top());
+	int x = 0, y = 0;
+	foreach (QWidget* window, windows) {
+		int wDiff = window->frameGeometry().width() - window->width();
+		int hDiff = window->frameGeometry().height() - window->height();
+		window->move(r.left(), r.top());
+		window->resize(r.width() - wDiff, r.height() - hDiff);
+		if (++x == cols) {
+			x = 0;
+			++y;
+			r.moveLeft(bounds.left());
+			r.moveTop(bounds.top() + (bounds.height() * y) / rows);
+		}
+		else
+			r.moveLeft(bounds.left() + (bounds.width() * x) / cols); 
+	}
 }
 
-void TWUtils::stack(QList<QWidget*> windows)
+void TWUtils::stackWindowsInRect(const QWidgetList& windows, const QRect& bounds)
 {
+	const int kStackingOffset = 20;
+	QRect r(bounds);
+	r.setWidth(r.width() / 2);
+	int index = 0;
+	foreach (QWidget* window, windows) {
+		int wDiff = window->frameGeometry().width() - window->width();
+		int hDiff = window->frameGeometry().height() - window->height();
+		window->move(r.left(), r.top());
+		window->resize(r.width() - wDiff, r.height() - hDiff);
+		r.moveLeft(r.left() + kStackingOffset);
+		if (r.right() > bounds.right()) {
+			r = bounds;
+			r.setWidth(r.width() / 2);
+			index = 0;
+		}
+		else if (++index == 10) {
+			r.setTop(bounds.top());
+			index = 0;
+		}
+		else {
+			r.setTop(r.top() + kStackingOffset);
+			if (r.height() < bounds.height() / 2) {
+				r.setTop(bounds.top());
+				index = 0;
+			}
+		}
+	}
 }
 
 void TWUtils::applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool showText)

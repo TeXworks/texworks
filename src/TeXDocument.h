@@ -74,6 +74,9 @@ public:
 		{ return textEdit->document(); }
 	QString getLineText(int lineNo) const;
 
+	PDFDocument* pdfDocument()
+		{ return pdfDoc; }
+
 	void addTag(const QTextCursor& cursor, int level, const QString& text);
 	int removeTags(int offset, int len);
 	void goToTag(int index);
@@ -100,7 +103,7 @@ protected:
 	bool event(QEvent *event);
 
 public slots:
-	void selectWindow();
+	void selectWindow(bool activate = true);
 	void typeset();
 	void interrupt();
 	
@@ -152,6 +155,9 @@ private slots:
 	void contentsChanged(int position, int charsRemoved, int charsAdded);
 	void setLanguage(const QString& lang);
 	void hideFloatersUnlessThis(QWidget* currWindow);
+	void sideBySide();
+	void placeOnLeft();
+	void placeOnRight();
 
 private:
 	void init();
