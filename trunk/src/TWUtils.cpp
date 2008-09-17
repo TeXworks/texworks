@@ -386,6 +386,8 @@ void TWUtils::tileWindowsInRect(const QWidgetList& windows, const QRect& bounds)
 		int hDiff = window->frameGeometry().height() - window->height();
 		window->move(r.left(), r.top());
 		window->resize(r.width() - wDiff, r.height() - hDiff);
+		if (window->isMinimized())
+			window->showNormal();
 		if (++x == cols) {
 			x = 0;
 			++y;
@@ -408,6 +410,8 @@ void TWUtils::stackWindowsInRect(const QWidgetList& windows, const QRect& bounds
 		int hDiff = window->frameGeometry().height() - window->height();
 		window->move(r.left(), r.top());
 		window->resize(r.width() - wDiff, r.height() - hDiff);
+		if (window->isMinimized())
+			window->showNormal();
 		r.moveLeft(r.left() + kStackingOffset);
 		if (r.right() > bounds.right()) {
 			r = bounds;
