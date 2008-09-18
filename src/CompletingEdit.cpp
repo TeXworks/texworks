@@ -16,7 +16,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 	For links to further information, or to contact the author,
-	see <http://tug.org/texworks/>.
+	see <http://texworks.org/>.
 */
 
 #include "CompletingEdit.h"
