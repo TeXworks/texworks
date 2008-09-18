@@ -37,65 +37,87 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
 	, pHunspell(NULL)
 	, spellingCodec(NULL)
 {
-	HighlightingRule rule;
+	QDir configDir(TWUtils::getLibraryPath("configuration"));
+	QRegExp whitespace("\\s+");
 
-	specialCharFormat.setForeground(Qt::darkRed);
-	rule.pattern = QRegExp("[$#^_{}&]");
-	rule.format = specialCharFormat;
-	highlightingRules.append(rule);
+	QFile syntaxFile(configDir.filePath("syntax-patterns.txt"));
+	if (syntaxFile.open(QIODevice::ReadOnly)) {
+		while (1) {
+			QByteArray ba = syntaxFile.readLine();
+			if (ba.size() == 0)
+				break;
+			if (ba[0] == '#' || ba[0] == '\n')
+				continue;
+			QString line = QString::fromUtf8(ba.data(), ba.size());
+			QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
+			if (parts.size() != 3)
+				continue;
+			QColor color(parts[0]);
+			if (color.isValid()) {
+				HighlightingRule rule;
+				rule.format.setForeground(color);
+				if (parts[1].compare("Y", Qt::CaseInsensitive) == 0) {
+					rule.spellCheck = true;
+					rule.spellFormat = rule.format;
+					rule.spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+				}
+				else
+					rule.spellCheck = false;
+				rule.pattern = QRegExp(parts[2]);
+				if (rule.pattern.isValid() && !rule.pattern.isEmpty())
+					highlightingRules.append(rule);
+			}
+		}
+	}
 
-	environmentFormat.setForeground(Qt::darkGreen);
-	rule.pattern = QRegExp("\\\\(?:begin|end)\\s*\\{[^}]*\\}");
-	rule.format = environmentFormat;
-	highlightingRules.append(rule);
-
-	packageFormat.setForeground(Qt::darkBlue);
-	rule.pattern = QRegExp("\\\\usepackage\\s*(?:\\[[^]]*\\]\\s*)?\\{[^}]*\\}");
-	rule.format = packageFormat;
-	highlightingRules.append(rule);
-
-	controlSequenceFormat.setForeground(Qt::blue);
-	rule.pattern = QRegExp("\\\\(?:[A-Za-z@]+|.)");
-	rule.format = controlSequenceFormat;
-	highlightingRules.append(rule);
-
-	commentFormat.setForeground(Qt::red);
-	rule.pattern = QRegExp("%.*");
-	rule.format = commentFormat;
-	highlightingRules.append(rule);
-	
 	spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
 	spellFormat.setUnderlineColor(Qt::red);
-	spellCommentFormat = commentFormat;
-	spellCommentFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-	spellCommentFormat.setUnderlineColor(Qt::black);
 
-	// default tag patterns for LaTeX (need to make this customizable)
-	TagPattern patt;
-	patt.pattern = QRegExp("^\\s*\\\\part\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
-	patt.level = 1;
-	tagPatterns.append(patt);
-	patt.pattern = QRegExp("^\\s*\\\\chapter\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
-	patt.level = 2;
-	tagPatterns.append(patt);
-	patt.pattern = QRegExp("^\\s*\\\\section\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
-	patt.level = 3;
-	tagPatterns.append(patt);
-	patt.pattern = QRegExp("^\\s*\\\\subsection\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
-	patt.level = 4;
-	tagPatterns.append(patt);
-	patt.pattern = QRegExp("^\\s*\\\\subsubsection\\s*(?:\\[[^]]*\\]\\s*)?\\{([^}]*)\\}");
-	patt.level = 5;
-	tagPatterns.append(patt);
-	patt.pattern = QRegExp("^%:\\s*(.+)");
-	patt.level = 0;
-	tagPatterns.append(patt);
+	// read tag-recognition patterns
+	QFile tagPatternFile(configDir.filePath("tag-patterns.txt"));
+	if (tagPatternFile.open(QIODevice::ReadOnly)) {
+		while (1) {
+			QByteArray ba = tagPatternFile.readLine();
+			if (ba.size() == 0)
+				break;
+			if (ba[0] == '$' || ba[0] == '\n')
+				continue;
+			QString line = QString::fromUtf8(ba.data(), ba.size());
+			QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
+			if (parts.size() != 2)
+				continue;
+			TagPattern patt;
+			bool ok;
+			patt.level = parts[0].toInt(&ok);
+			if (ok) {
+				patt.pattern = QRegExp(parts[1]);
+				if (patt.pattern.isValid() && !patt.pattern.isEmpty())
+					tagPatterns.append(patt);
+			}
+		}
+	}
+}
+
+void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, const QTextCharFormat &spellFormat)
+{
+	while (index < limit) {
+		int start, end;
+		if (TWUtils::findNextWord(text, index, start, end)) {
+			if (start < limit) {
+				QString word = text.mid(start, end - start);
+				int spellResult = Hunspell_spell(pHunspell, spellingCodec->fromUnicode(word).data());
+				if (spellResult == 0)
+					setFormat(start, end - start, spellFormat);
+			}
+		}
+		index = end;
+	}
 }
 
 void TeXHighlighter::highlightBlock(const QString &text)
 {
+	int index = 0;
 	if (isActive) {
-		int index = 0;
 		while (index < text.length()) {
 			int firstIndex = INT_MAX, len;
 			const HighlightingRule* firstRule = NULL;
@@ -107,13 +129,19 @@ void TeXHighlighter::highlightBlock(const QString &text)
 				}
 			}
 			if (firstRule != NULL && (len = firstRule->pattern.matchedLength()) > 0) {
+				if (pHunspell != NULL && firstIndex > index)
+					spellCheckRange(text, index, firstIndex, spellFormat);
 				setFormat(firstIndex, len, firstRule->format);
 				index = firstIndex + len;
+				if (pHunspell != NULL && firstRule->spellCheck)
+					spellCheckRange(text, firstIndex, index, firstRule->spellFormat);
 			}
 			else
 				break;
 		}
 	}
+	if (pHunspell != NULL)
+		spellCheckRange(text, index, text.length(), spellFormat);
 
 #if QT_VERSION >= 0x040400	/* the currentBlock() method is not available in 4.3.x */
 	if (texDoc != NULL) {
@@ -152,32 +180,6 @@ void TeXHighlighter::highlightBlock(const QString &text)
 			texDoc->tagsChanged();
 	}
 #endif
-
-	if (pHunspell != NULL) {
-		int index = 0;
-		while (index < text.length()) {
-			int start, end;
-			if (TWUtils::findNextWord(text, index, start, end)) {
-				QTextCharFormat currFormat = format(index);
-				if (currFormat == controlSequenceFormat
-					|| currFormat == environmentFormat
-					|| currFormat == packageFormat) {
-					// skip
-				}
-				else {
-					QString word = text.mid(start, end - start);
-					int spellResult = Hunspell_spell(pHunspell, spellingCodec->fromUnicode(word).data());
-					if (spellResult == 0) {
-						if (currFormat == commentFormat)
-							setFormat(start, end - start, spellCommentFormat);
-						else
-							setFormat(start, end - start, spellFormat);
-					}
-				}
-			}
-			index = end;
-		}
-	}
 }
 
 void TeXHighlighter::setActive(bool active)

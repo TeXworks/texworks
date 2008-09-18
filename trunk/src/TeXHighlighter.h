@@ -46,21 +46,18 @@ public:
 protected:
 	void highlightBlock(const QString &text);
 
+	void spellCheckRange(const QString &text, int index, int limit, const QTextCharFormat &spellFormat);
+
 private:
 	struct HighlightingRule {
 		QRegExp pattern;
 		QTextCharFormat format;
+		QTextCharFormat	spellFormat;
+		bool spellCheck;
 	};
 	QVector<HighlightingRule> highlightingRules;
 
-	QTextCharFormat controlSequenceFormat;
-	QTextCharFormat specialCharFormat;
-	QTextCharFormat packageFormat;
-	QTextCharFormat environmentFormat;
-	QTextCharFormat commentFormat;
-
 	QTextCharFormat spellFormat;
-	QTextCharFormat spellCommentFormat;
 
 	struct TagPattern {
 		QRegExp pattern;
