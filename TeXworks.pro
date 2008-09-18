@@ -15,7 +15,7 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #	For links to further information, or to contact the author,
-#	see <http://tug.org/texworks/>.
+#	see <http://texworks.org/>.
 
 TEMPLATE	=	app
 DEPENDPATH	+=	./src
@@ -26,10 +26,10 @@ OBJECTS_DIR = ./obj
 UI_DIR      = ./ui
 RCC_DIR     = ./rcc
 
-linux-g++ {
-	TARGET		=	texworks
+unix:!macx {
+	TARGET	=	texworks
 } else {
-	TARGET		=	TeXworks
+	TARGET	=	TeXworks
 }
 
 QT			+=	xml
@@ -50,19 +50,27 @@ macx {
 	ICON = TeXworks.icns
 }
 
-linux-g++ {
-	QT		+= dbus
-	# this doesn't seem to work, hence using the lines below
-	LIBS		+= -lQtDBus
-	INCLUDEPATH	+= /usr/include/qt4/QtDBus
-
+unix:!macx { # on Unix-ish platforms we rely on pkgconfig, and use dbus
+	QT			+= dbus
 	CONFIG		+= link_pkgconfig
 	PKGCONFIG	+= hunspell
 	PKGCONFIG	+= poppler-qt4
 	PKGCONFIG	+= dbus-1
 }
 
-win32 {
+linux-g++ {
+	# Qt/dbus config on Debian is broken, hence the lines below
+	LIBS		+= -lQtDBus
+	INCLUDEPATH	+= /usr/include/qt4/QtDBus
+}
+
+openbsd-g++ {
+	# Same bug exists in OpenBSD/qt4
+	LIBS		+= -lQtDBus
+	INCLUDEPATH	+= /usr/local/include/X11/qt4/QtDBus
+}
+
+win32 { # paths here are specific to my cross-compilation setup
 	INCLUDEPATH += z:/cross-tools/usr/local/include
 	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler
 	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler/qt4
