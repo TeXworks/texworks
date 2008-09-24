@@ -105,7 +105,7 @@ void TagsDock::fillInfo()
 	} else {
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(0, tr("No tags"));
-		item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+		item->setFlags(item->flags() & ~(Qt::ItemIsEnabled | Qt::ItemIsSelectable));
 		tree->addTopLevelItem(item);
 	}
 }

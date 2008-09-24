@@ -14,6 +14,7 @@
 # Note that order of rules may be important if several rules could match at the same position;
 # this is why the generic "control sequence" rule comes AFTER the specific \begin/\end one.
 
+[LaTeX]
 # special characters
 darkred		N	[$#^_{}&]
 
@@ -28,3 +29,21 @@ blue		N	\\(?:[A-Za-z@]+|.)
 
 # comments
 red			Y	%.*
+
+[ConTeXt]
+# special characters
+darkred		N	[$#^_{}&]
+
+# start/stop
+darkgreen	N	\\(?:start|stop)[A-Za-z]+
+
+# control sequences
+blue		N	\\(?:[A-Za-z@]+|.)
+
+# comments
+red			Y	%.*
+
+# other possibilities to be added....
+# [BibTeX]
+# [Metapost]
+# etc

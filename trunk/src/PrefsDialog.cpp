@@ -22,6 +22,8 @@
 #include "PrefsDialog.h"
 #include "TWApp.h"
 #include "PDFDocument.h"
+#include "TeXHighlighter.h"
+#include "CompletingEdit.h"
 
 #include <QSettings>
 #include <QFontDatabase>
@@ -254,7 +256,8 @@ void PrefsDialog::buttonClicked(QAbstractButton *whichButton)
 const int kDefault_LaunchOption = 1;
 const int kDefault_ToolBarIcons = 2;
 const bool kDefault_ToolBarText = false;
-const bool kDefault_SyntaxColoring = true;
+const int kDefault_SyntaxColoring = 0;
+const int kDefault_IndentMode = -1;
 const bool kDefault_WrapLines = true;
 const int kDefault_TabWidth = 32;
 const bool kDefault_HideConsole = true;
@@ -299,7 +302,8 @@ void PrefsDialog::restoreDefaults()
 			}
 			tabWidth->setValue(kDefault_TabWidth);
 			wrapLines->setChecked(kDefault_WrapLines);
-			syntaxColoring->setChecked(kDefault_SyntaxColoring);
+			syntaxColoring->setCurrentIndex(kDefault_SyntaxColoring);
+			autoIndent->setCurrentIndex(kDefault_IndentMode);
 			encoding->setCurrentIndex(encoding->findText("UTF-8"));
 			break;
 	
@@ -377,6 +381,12 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		nameList.append(codec->name());
 	dlg.encoding->addItems(nameList);
 	
+	QStringList syntaxOptions = TeXHighlighter::syntaxOptions();
+	dlg.syntaxColoring->addItems(syntaxOptions);
+	
+	QStringList indentModes = CompletingEdit::autoIndentModes();
+	dlg.autoIndent->addItems(indentModes);
+	
 	dlg.language->addItems(*TWUtils::getDictionaryList());
 	
 	QSettings settings;
@@ -436,7 +446,12 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.localePopup->setCurrentIndex(oldLocaleIndex);
 	
 	// Editor
-	dlg.syntaxColoring->setChecked(settings.value("syntaxColoring", kDefault_SyntaxColoring).toBool());
+	dlg.syntaxColoring->setCurrentIndex(settings.contains("syntaxColoring")
+							? 1 + syntaxOptions.indexOf(settings.value("syntaxColoring").toString())
+							: 1 + kDefault_SyntaxColoring);
+	dlg.autoIndent->setCurrentIndex(settings.contains("autoIndent")
+							? 1 + indentModes.indexOf(settings.value("autoIndent").toString())
+							: 1 + kDefault_IndentMode);
 	dlg.wrapLines->setChecked(settings.value("wrapLines", kDefault_WrapLines).toBool());
 	dlg.tabWidth->setValue(settings.value("tabWidth", kDefault_TabWidth).toInt());
 	QFontDatabase fdb;
@@ -450,12 +465,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.encoding->setCurrentIndex(nameList.indexOf(TWApp::instance()->getDefaultCodec()->name()));
 
 	QString defLang = settings.value("language", tr("None")).toString();
-	for (int i = 0; i < dlg.language->count(); ++i) {
-		if (dlg.language->itemText(i) == defLang) {
-			dlg.language->setCurrentIndex(i);
-			break;
-		}
-	}
+	int i = dlg.language->findText(settings.value("language", tr("None")).toString());
+	if (i >= 0)
+		dlg.language->setCurrentIndex(i);
 
 	// Preview
 	switch (settings.value("scaleOption", kDefault_PreviewScaleOption).toInt()) {
@@ -545,7 +557,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			settings.setValue("locale", trList->at(dlg.localePopup->currentIndex() - 1));
 		
 		// Editor
-		settings.setValue("syntaxColoring", dlg.syntaxColoring->isChecked());
+		settings.setValue("syntaxColoring", dlg.syntaxColoring->currentText());
+		settings.setValue("autoIndent", dlg.autoIndent->currentText());
 		settings.setValue("wrapLines", dlg.wrapLines->isChecked());
 		settings.setValue("tabWidth", dlg.tabWidth->value());
 		font = QFont(dlg.editorFont->currentText());

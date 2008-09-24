@@ -223,17 +223,61 @@ void TeXDocument::init()
 	inputLine->setFont(font);
 	textEdit_console->setFont(font);
 	
-	highlighter = new TeXHighlighter(textEdit->document(), this);
 	bool b = settings.value("wrapLines", true).toBool();
 	actionWrap_Lines->setChecked(b);
 	setWrapLines(b);
 
-	b = settings.value("syntaxColoring", true).toBool();
-	actionSyntax_Coloring->setChecked(b);
-	setSyntaxColoring(b);
+	highlighter = new TeXHighlighter(textEdit->document(), this);
+
+	QString syntaxOption = settings.value("syntaxColoring").toString();
+	QStringList options = TeXHighlighter::syntaxOptions();
+
+	QSignalMapper *syntaxMapper = new QSignalMapper(this);
+	connect(syntaxMapper, SIGNAL(mapped(int)), this, SLOT(setSyntaxColoring(int)));
+	syntaxMapper->setMapping(actionSyntaxColoring_None, -1);
+	connect(actionSyntaxColoring_None, SIGNAL(triggered()), syntaxMapper, SLOT(map()));
+
+	QActionGroup *syntaxGroup = new QActionGroup(this);
+	syntaxGroup->addAction(actionSyntaxColoring_None);
+
+	int index = 0;
+	foreach (const QString& opt, options) {
+		QAction *action = menuSyntax_Coloring->addAction(opt, syntaxMapper, SLOT(map()));
+		action->setCheckable(true);
+		syntaxGroup->addAction(action);
+		syntaxMapper->setMapping(action, index);
+		if (opt == syntaxOption) {
+			action->setChecked(true);
+			setSyntaxColoring(index);
+		}
+		++index;
+	}
+	
+	QString indentOption = settings.value("autoIndent").toString();
+	options = CompletingEdit::autoIndentModes();
+	
+	QSignalMapper *indentMapper = new QSignalMapper(this);
+	connect(indentMapper, SIGNAL(mapped(int)), this, SLOT(setAutoIndentMode(int)));
+	indentMapper->setMapping(actionAutoIndent_None, -1);
+	connect(actionAutoIndent_None, SIGNAL(triggered()), indentMapper, SLOT(map()));
+	
+	QActionGroup *indentGroup = new QActionGroup(this);
+	indentGroup->addAction(actionAutoIndent_None);
+	
+	index = 0;
+	foreach (const QString& opt, options) {
+		QAction *action = menuAuto_indent_Mode->addAction(opt, indentMapper, SLOT(map()));
+		action->setCheckable(true);
+		indentGroup->addAction(action);
+		indentMapper->setMapping(action, index);
+		if (opt == indentOption) {
+			action->setChecked(true);
+			setAutoIndentMode(index);
+		}
+		++index;
+	}
 	
 	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
-	connect(actionSyntax_Coloring, SIGNAL(triggered(bool)), this, SLOT(setSyntaxColoring(bool)));
 
 	QSignalMapper *mapper = new QSignalMapper(this);
 	connect(actionNone, SIGNAL(triggered()), mapper, SLOT(map()));
@@ -1129,9 +1173,14 @@ void TeXDocument::setWrapLines(bool wrap)
 	textEdit->setWordWrapMode(wrap ? QTextOption::WordWrap : QTextOption::NoWrap);
 }
 
-void TeXDocument::setSyntaxColoring(bool coloring)
+void TeXDocument::setSyntaxColoring(int index)
 {
-	highlighter->setActive(coloring);
+	highlighter->setActiveIndex(index);
+}
+
+void TeXDocument::setAutoIndentMode(int index)
+{
+	textEdit->setAutoIndentMode(index);
 }
 
 void TeXDocument::doFindAgain(bool fromDialog)

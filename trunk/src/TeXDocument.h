@@ -131,7 +131,8 @@ private slots:
 	void toLowercase();
 	void balanceDelimiters();
 	void setWrapLines(bool wrap);
-	void setSyntaxColoring(bool coloring);
+	void setSyntaxColoring(int index);
+	void setAutoIndentMode(int index);
 	void copyToFind();
 	void copyToReplace();
 	void findSelection();

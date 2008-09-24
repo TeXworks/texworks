@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>569</width>
-    <height>527</height>
+    <width>541</width>
+    <height>455</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -18,7 +18,7 @@
   <property name="modal" >
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" >
+  <layout class="QGridLayout" name="gridLayout_2" >
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
@@ -29,8 +29,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>539</width>
-        <height>448</height>
+        <width>511</width>
+        <height>376</height>
        </rect>
       </property>
       <attribute name="title" >
@@ -155,21 +155,21 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>539</width>
-        <height>448</height>
+        <width>511</width>
+        <height>376</height>
        </rect>
       </property>
       <attribute name="title" >
        <string>Editor</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_2" >
+      <layout class="QGridLayout" name="gridLayout_3" >
        <item row="0" column="0" >
         <widget class="QGroupBox" name="groupBox_2" >
          <property name="title" >
           <string>Editor defaults</string>
          </property>
          <layout class="QGridLayout" name="gridLayout" >
-          <item row="0" column="0" colspan="3" >
+          <item row="0" column="0" >
            <layout class="QHBoxLayout" >
             <item>
              <widget class="QComboBox" name="editorFont" >
@@ -200,40 +200,43 @@
            </layout>
           </item>
           <item row="1" column="0" >
-           <widget class="QLabel" name="label" >
-            <property name="text" >
-             <string>Tab width:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" >
-           <widget class="QSpinBox" name="tabWidth" >
-            <property name="suffix" >
-             <string> pt</string>
-            </property>
-            <property name="minimum" >
-             <number>6</number>
-            </property>
-            <property name="value" >
-             <number>36</number>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2" >
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0" >
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item rowspan="2" row="2" column="0" colspan="2" >
-           <layout class="QVBoxLayout" >
+           <layout class="QHBoxLayout" name="horizontalLayout" >
+            <item>
+             <widget class="QLabel" name="label" >
+              <property name="text" >
+               <string>Tab width:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="tabWidth" >
+              <property name="suffix" >
+               <string> pt</string>
+              </property>
+              <property name="minimum" >
+               <number>6</number>
+              </property>
+              <property name="value" >
+               <number>36</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="spacer" >
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType" >
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>32</width>
+                <height>24</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
             <item>
              <widget class="QCheckBox" name="wrapLines" >
               <property name="text" >
@@ -245,40 +248,100 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="syntaxColoring" >
-              <property name="text" >
-               <string>Syntax coloring</string>
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
               </property>
-              <property name="checked" >
-               <bool>true</bool>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>78</width>
+                <height>24</height>
+               </size>
               </property>
-             </widget>
+             </spacer>
             </item>
            </layout>
           </item>
-          <item row="2" column="2" >
-           <layout class="QHBoxLayout" >
+          <item row="2" column="0" >
+           <layout class="QHBoxLayout" name="horizontalLayout_2" >
             <item>
-             <widget class="QLabel" name="label_2" >
+             <widget class="QLabel" name="label_7" >
               <property name="text" >
-               <string>Encoding:</string>
+               <string>Syntax coloring:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="encoding" >
+             <widget class="QComboBox" name="syntaxColoring" >
               <property name="sizePolicy" >
                <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
                 <horstretch>1</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <item>
+               <property name="text" >
+                <string>None</string>
+               </property>
+              </item>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer" >
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>160</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
-          <item rowspan="2" row="3" column="2" >
-           <layout class="QHBoxLayout" name="_2" >
+          <item row="3" column="0" >
+           <layout class="QHBoxLayout" name="horizontalLayout_3" >
+            <item>
+             <widget class="QLabel" name="label_8" >
+              <property name="text" >
+               <string>Auto-Indent mode:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="autoIndent" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+                <horstretch>1</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <item>
+               <property name="text" >
+                <string>None</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2" >
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>160</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item row="4" column="0" >
+           <layout class="QHBoxLayout" name="horizontalLayout_4" >
             <item>
              <widget class="QLabel" name="label_6" >
               <property name="text" >
@@ -301,33 +364,67 @@
               </item>
              </widget>
             </item>
+            <item>
+             <spacer name="horizontalSpacer_3" >
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>160</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
-          <item row="4" column="0" colspan="2" >
-           <spacer name="verticalSpacer" >
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0" >
-             <size>
-              <width>20</width>
-              <height>6</height>
-             </size>
-            </property>
-           </spacer>
+          <item row="5" column="0" >
+           <layout class="QHBoxLayout" name="horizontalLayout_5" >
+            <item>
+             <widget class="QLabel" name="label_2" >
+              <property name="text" >
+               <string>Encoding:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="encoding" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+                <horstretch>1</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4" >
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>160</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
        </item>
        <item row="1" column="0" >
-        <spacer>
+        <spacer name="verticalSpacer" >
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
-           <height>261</height>
+           <height>67</height>
           </size>
          </property>
         </spacer>
@@ -339,8 +436,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>539</width>
-        <height>448</height>
+        <width>511</width>
+        <height>376</height>
        </rect>
       </property>
       <attribute name="title" >
@@ -518,8 +615,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>539</width>
-        <height>448</height>
+        <width>511</width>
+        <height>376</height>
        </rect>
       </property>
       <attribute name="title" >
@@ -738,17 +835,24 @@
   <tabstop>blankDocument</tabstop>
   <tabstop>templateDialog</tabstop>
   <tabstop>openDialog</tabstop>
+  <tabstop>localePopup</tabstop>
   <tabstop>editorFont</tabstop>
   <tabstop>fontSize</tabstop>
   <tabstop>tabWidth</tabstop>
   <tabstop>wrapLines</tabstop>
   <tabstop>syntaxColoring</tabstop>
+  <tabstop>autoIndent</tabstop>
+  <tabstop>language</tabstop>
   <tabstop>encoding</tabstop>
   <tabstop>actualSize</tabstop>
   <tabstop>fitWidth</tabstop>
   <tabstop>fitWindow</tabstop>
   <tabstop>fixedScale</tabstop>
   <tabstop>scale</tabstop>
+  <tabstop>smallMag</tabstop>
+  <tabstop>mediumMag</tabstop>
+  <tabstop>largeMag</tabstop>
+  <tabstop>circularMag</tabstop>
   <tabstop>resolution</tabstop>
   <tabstop>binPathList</tabstop>
   <tabstop>pathUp</tabstop>
@@ -758,13 +862,13 @@
   <tabstop>toolList</tabstop>
   <tabstop>toolUp</tabstop>
   <tabstop>toolDown</tabstop>
-  <tabstop>toolEdit</tabstop>
   <tabstop>toolAdd</tabstop>
   <tabstop>toolRemove</tabstop>
+  <tabstop>toolEdit</tabstop>
   <tabstop>defaultTool</tabstop>
   <tabstop>autoHideOutput</tabstop>
-  <tabstop>buttonBox</tabstop>
   <tabstop>tabWidget</tabstop>
+  <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources>
   <include location="../res/resources.qrc" />
