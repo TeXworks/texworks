@@ -45,14 +45,26 @@
 
 
 CompletingEdit::CompletingEdit(QWidget *parent)
-	: QTextEdit(parent), c(NULL), cmpCursor(QTextCursor()), pHunspell(NULL), spellingCodec(NULL)
+	: QTextEdit(parent),
+	  autoIndentMode(-1), prefixLength(0),
+	  c(NULL), cmpCursor(QTextCursor()),
+	  pHunspell(NULL), spellingCodec(NULL)
 {
 	if (sharedCompleter == NULL) {
 		sharedCompleter = new QCompleter(qApp);
 		sharedCompleter->setCompletionMode(QCompleter::InlineCompletion);
 		sharedCompleter->setCaseSensitivity(Qt::CaseInsensitive);
 		loadCompletionFiles(sharedCompleter);
+
+		currentCompletionFormat = new QTextCharFormat;
+		currentCompletionFormat->setBackground(QColor("yellow").lighter(175));
+		braceMatchingFormat = new QTextCharFormat;
+		braceMatchingFormat->setBackground(QColor("orange"));
 	}
+	
+	loadIndentModes();
+	
+	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
 }
 
 CompletingEdit::~CompletingEdit()
@@ -69,11 +81,16 @@ void CompletingEdit::setCompleter(QCompleter *completer)
 	c->setWidget(this);
 }
 
-void CompletingEdit::clearCompleter()
+void CompletingEdit::cursorPositionChangedSlot()
 {
 	setCompleter(NULL);
-	setExtraSelections(QList<ExtraSelection>());
-	disconnect(this, SIGNAL(cursorPositionChanged()), this, SLOT(clearCompleter()));
+	if (!currentCompletionRange.isNull()) {
+		QTextCursor curs = textCursor();
+		if (curs.selectionStart() < currentCompletionRange.selectionStart() || curs.selectionEnd() >= currentCompletionRange.selectionEnd())
+			currentCompletionRange = QTextCursor();
+		resetExtraSelections();
+	}
+	prefixLength = 0;
 }
 
 void CompletingEdit::mousePressEvent(QMouseEvent *e)
@@ -196,57 +213,120 @@ void CompletingEdit::focusInEvent(QFocusEvent *e)
 	QTextEdit::focusInEvent(e);
 }
 
-void CompletingEdit::clearExtraSelections()
+void CompletingEdit::resetExtraSelections()
 {
-	setExtraSelections(QList<ExtraSelection>());
+	QList<ExtraSelection> selections;
+	if (!currentCompletionRange.isNull()) {
+		ExtraSelection sel;
+		sel.cursor = currentCompletionRange;
+		sel.format = *currentCompletionFormat;
+		selections.append(sel);
+	}
+	setExtraSelections(selections);
 }
 
 void CompletingEdit::keyPressEvent(QKeyEvent *e)
 {
-	bool isShortcut = (e->key() == Qt::Key_Escape);
+	// Shortcut key for command completion
+	bool isShortcut = (e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab);
+	if (isShortcut) {
+		handleCompletionShortcut(e);
+		return;
+	}
 
-	if (!isShortcut) {	// not the shortcut key, so simply accept it
-		if (e->text() != "") {
-			clearCompleter();
-			cmpCursor = QTextCursor();
-		}
-		int pos = textCursor().selectionStart(); // remember cursor before the keystroke
+	if (e->text() != "")
+		cmpCursor = QTextCursor();
+
+	switch (e->key()) {
+		case Qt::Key_Return:
+			handleReturn(e);
+			break;
+
+		case Qt::Key_Backspace:
+			handleBackspace(e);
+			break;
+
+		default:
+			handleOtherKey(e);
+			break;
+	}
+}
+
+void CompletingEdit::handleReturn(QKeyEvent *e)
+{
+	QString prefix;
+	if (autoIndentMode >= 0 && autoIndentMode < indentModes->count() && e->modifiers() == 0) {
+		QRegExp &re = (*indentModes)[autoIndentMode].regex;
+		QString blockText = textCursor().block().text();
+		if (blockText.indexOf(re) == 0 && re.matchedLength() > 0)
+			prefix = blockText.left(re.matchedLength());
+	}
+	QTextEdit::keyPressEvent(e);
+	if (!prefix.isEmpty()) {
+		insertPlainText(prefix);
+		prefixLength = prefix.length();
+	}
+}
+
+void CompletingEdit::handleBackspace(QKeyEvent *e)
+{
+	QTextCursor curs = textCursor();
+	if (e->modifiers() == 0 && prefixLength > 0 && !curs.hasSelection()) {
+		curs.beginEditBlock();
+		// note that prefixLength will get reset on the first deletion,
+		// so it is important that the loop counts down rather than up!
+		for (int i = prefixLength; i > 0; --i)
+			curs.deletePreviousChar();
+		curs.endEditBlock();
+	}
+	else
 		QTextEdit::keyPressEvent(e);
-		if ((e->modifiers() & Qt::ControlModifier) == 0) { // not a command key - maybe do brace matching
-			QTextCursor cursor = textCursor();
-			if (!cursor.hasSelection()) {
-				if (cursor.selectionStart() == pos + 1 || cursor.selectionStart() == pos - 1) {
-					if (cursor.selectionStart() == pos - 1) // we moved backward, set pos to look at the char we just passed over
-						--pos;
-					const QString text = document()->toPlainText();
-					int match = -2;
-					QChar c;
-					if (pos > 0 && pos < text.length() - 1 && (c = TWUtils::openerMatching(text[pos])) != 0)
-						match = TWUtils::balanceDelim(text, pos - 1, c, -1);
-					else if (pos < text.length() - 1 && (c = TWUtils::closerMatching(text[pos])) != 0)
-						match = TWUtils::balanceDelim(text, pos + 1, c, 1);
-					if (match == -1) // no matching delimiter found
-						QApplication::beep();
-					else if (match >= 0) {
-						QTextCharFormat	format;
-						format.setBackground(QBrush("orange"));
-						QList<ExtraSelection> selList;
-						ExtraSelection	sel;
-						sel.cursor = QTextCursor(document());
-						sel.cursor.setPosition(match);
-						sel.cursor.setPosition(match + 1, QTextCursor::KeepAnchor);
-						sel.format = format;
-						selList.append(sel);
-						setExtraSelections(selList);
-						QTimer::singleShot(250, this, SLOT(clearExtraSelections()));
-					}
+}
+
+void CompletingEdit::handleOtherKey(QKeyEvent *e)
+{
+	int pos = textCursor().selectionStart(); // remember cursor before the keystroke
+	QTextEdit::keyPressEvent(e);
+	if ((e->modifiers() & Qt::ControlModifier) == 0) { // not a command key - maybe do brace matching
+		QTextCursor cursor = textCursor();
+		if (!cursor.hasSelection()) {
+			if (cursor.selectionStart() == pos + 1 || cursor.selectionStart() == pos - 1) {
+				if (cursor.selectionStart() == pos - 1) // we moved backward, set pos to look at the char we just passed over
+					--pos;
+				const QString text = document()->toPlainText();
+				int match = -2;
+				QChar c;
+				if (pos > 0 && pos < text.length() - 1 && (c = TWUtils::openerMatching(text[pos])) != 0)
+					match = TWUtils::balanceDelim(text, pos - 1, c, -1);
+				else if (pos < text.length() - 1 && (c = TWUtils::closerMatching(text[pos])) != 0)
+					match = TWUtils::balanceDelim(text, pos + 1, c, 1);
+				if (match == -1) // no matching delimiter found
+					QApplication::beep();
+				else if (match >= 0) {
+					QList<ExtraSelection> selList = extraSelections();
+					ExtraSelection	sel;
+					sel.cursor = QTextCursor(document());
+					sel.cursor.setPosition(match);
+					sel.cursor.setPosition(match + 1, QTextCursor::KeepAnchor);
+					sel.format = *braceMatchingFormat;
+					selList.append(sel);
+					setExtraSelections(selList);
+					QTimer::singleShot(250, this, SLOT(resetExtraSelections()));
 				}
 			}
 		}
-		return;
-	}
-	
-	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::ControlModifier) {
+	}	
+}
+
+void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
+{
+// usage:
+//   unmodified: next completion
+//   shift     : previous completion
+//   alt       : skip to next placeholder
+//   alt-shift : skip to previous placeholder
+
+	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::AltModifier) {
 		if (!find(QString(0x2022), (e->modifiers() & Qt::ShiftModifier)
 									? QTextDocument::FindBackward : (QTextDocument::FindFlags)0))
 			QApplication::beep();
@@ -255,7 +335,7 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 	
 	if (c == NULL) {
 		cmpCursor = textCursor();
-		if (!selectWord(cmpCursor)) {
+		if (!selectWord(cmpCursor) && textCursor().selectionStart() > 0) {
 			cmpCursor.setPosition(textCursor().selectionStart() - 1);
 			selectWord(cmpCursor);
 		}
@@ -305,12 +385,14 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 					if (e->modifiers() == Qt::ShiftModifier)
 						c->setCurrentRow(c->completionCount() - 1);
 					showCurrentCompletion();
+					return;
 				}
 			}
 			break;
 		}
 	}
-	else if (c->completionCount() > 0) {
+	
+	if (c != NULL && c->completionCount() > 0) {
 		if (e->modifiers() == Qt::ShiftModifier)  {
 			if (c->currentRow() == 0) {
 				showCompletion(c->completionPrefix());
@@ -331,12 +413,15 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 				showCurrentCompletion();
 			}
 		}
+		return;
 	}
+	
+	QTextEdit::keyPressEvent(e);
 }
 
 void CompletingEdit::showCompletion(const QString& completion, int insOffset)
 {
-	disconnect(this, SIGNAL(cursorPositionChanged()), this, SLOT(clearCompleter()));
+	disconnect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
 
 	if (c->widget() != this)
 		return;
@@ -355,15 +440,10 @@ void CompletingEdit::showCompletion(const QString& completion, int insOffset)
 		tc.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor, completion.length() - insOffset);
 	setTextCursor(tc);
 
-	ExtraSelection sel;
-	sel.cursor = cmpCursor;
-	sel.format = QTextCharFormat();
-	sel.format.setBackground(QBrush(QColor(255, 255, 127)));
-	QList<ExtraSelection> selections;
-	selections.append(sel);
-	setExtraSelections(selections);
+	currentCompletionRange = cmpCursor;
+	resetExtraSelections();
 
-	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(clearCompleter()));
+	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
 }
 
 void CompletingEdit::showCurrentCompletion()
@@ -490,9 +570,56 @@ void CompletingEdit::setSpellChecker(Hunhandle* h, QTextCodec *codec)
 	spellingCodec = codec;
 }
 
+void CompletingEdit::setAutoIndentMode(int index)
+{
+	autoIndentMode = (index >= 0 && index < indentModes->count()) ? index : -1;
+}
+
 void CompletingEdit::correction(const QString& suggestion)
 {
 	currentWord.insertText(suggestion);
 }
 
+void CompletingEdit::loadIndentModes()
+{
+	if (indentModes == NULL) {
+		QDir configDir(TWUtils::getLibraryPath("configuration"));
+		indentModes = new QList<IndentMode>;
+		QFile indentPatternFile(configDir.filePath("auto-indent-patterns.txt"));
+		if (indentPatternFile.open(QIODevice::ReadOnly)) {
+			QRegExp re("\"([^\"]+)\"\\s+(.+)");
+			while (1) {
+				QByteArray ba = indentPatternFile.readLine();
+				if (ba.size() == 0)
+					break;
+				if (ba[0] == '#' || ba[0] == '\n')
+					continue;
+				QString line = QString::fromUtf8(ba.data(), ba.size()).trimmed();
+				if (re.exactMatch(line)) {
+					IndentMode mode;
+					mode.name = re.cap(1);
+					mode.regex = QRegExp(re.cap(2).trimmed());
+					if (!mode.name.isEmpty() && mode.regex.isValid())
+						indentModes->append(mode);
+				}
+			}
+		}
+	}
+}
+
+QStringList CompletingEdit::autoIndentModes()
+{
+	loadIndentModes();
+	
+	QStringList modes;
+	foreach (const IndentMode& mode, *indentModes)
+		modes << mode.name;
+	return modes;
+}
+
+QTextCharFormat	*CompletingEdit::currentCompletionFormat = NULL;
+QTextCharFormat	*CompletingEdit::braceMatchingFormat = NULL;
+
 QCompleter	*CompletingEdit::sharedCompleter = NULL;
+
+QList<CompletingEdit::IndentMode> *CompletingEdit::indentModes = NULL;

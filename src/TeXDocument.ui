@@ -283,6 +283,20 @@
     <property name="title" >
      <string>Format</string>
     </property>
+    <widget class="QMenu" name="menuAuto_indent_Mode" >
+     <property name="title" >
+      <string>Auto-indent Mode</string>
+     </property>
+     <addaction name="actionAutoIndent_None" />
+     <addaction name="separator" />
+    </widget>
+    <widget class="QMenu" name="menuSyntax_Coloring" >
+     <property name="title" >
+      <string>Syntax Coloring</string>
+     </property>
+     <addaction name="actionSyntaxColoring_None" />
+     <addaction name="separator" />
+    </widget>
     <addaction name="actionFont" />
     <addaction name="separator" />
     <addaction name="actionComment" />
@@ -291,7 +305,8 @@
     <addaction name="actionUnindent" />
     <addaction name="separator" />
     <addaction name="actionWrap_Lines" />
-    <addaction name="actionSyntax_Coloring" />
+    <addaction name="menuSyntax_Coloring" />
+    <addaction name="menuAuto_indent_Mode" />
    </widget>
    <widget class="QMenu" name="menuHelp" >
     <property name="title" >
@@ -842,20 +857,6 @@
     <enum>QAction::NoRole</enum>
    </property>
   </action>
-  <action name="actionSyntax_Coloring" >
-   <property name="checkable" >
-    <bool>true</bool>
-   </property>
-   <property name="checked" >
-    <bool>true</bool>
-   </property>
-   <property name="text" >
-    <string>Syntax Coloring</string>
-   </property>
-   <property name="menuRole" >
-    <enum>QAction::NoRole</enum>
-   </property>
-  </action>
   <action name="actionNew_from_Template" >
    <property name="text" >
     <string>New from Template...</string>
@@ -931,6 +932,28 @@
   <action name="actionPlace_on_Right" >
    <property name="text" >
     <string>Place on Right</string>
+   </property>
+  </action>
+  <action name="actionAutoIndent_None" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>None</string>
+   </property>
+  </action>
+  <action name="actionSyntaxColoring_None" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>None</string>
    </property>
   </action>
  </widget>

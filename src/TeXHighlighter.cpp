@@ -29,73 +29,20 @@
 
 #include <limits.h> // for INT_MAX
 
+QList<TeXHighlighter::HighlightingSpec> *TeXHighlighter::syntaxRules = NULL;
+QList<TeXHighlighter::TagPattern> *TeXHighlighter::tagPatterns = NULL;
+
 TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
 	: QSyntaxHighlighter(parent)
 	, texDoc(texDocument)
-	, isActive(true)
+	, highlightIndex(-1)
 	, isTagging(true)
 	, pHunspell(NULL)
 	, spellingCodec(NULL)
 {
-	QDir configDir(TWUtils::getLibraryPath("configuration"));
-	QRegExp whitespace("\\s+");
-
-	QFile syntaxFile(configDir.filePath("syntax-patterns.txt"));
-	if (syntaxFile.open(QIODevice::ReadOnly)) {
-		while (1) {
-			QByteArray ba = syntaxFile.readLine();
-			if (ba.size() == 0)
-				break;
-			if (ba[0] == '#' || ba[0] == '\n')
-				continue;
-			QString line = QString::fromUtf8(ba.data(), ba.size());
-			QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
-			if (parts.size() != 3)
-				continue;
-			QColor color(parts[0]);
-			if (color.isValid()) {
-				HighlightingRule rule;
-				rule.format.setForeground(color);
-				if (parts[1].compare("Y", Qt::CaseInsensitive) == 0) {
-					rule.spellCheck = true;
-					rule.spellFormat = rule.format;
-					rule.spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-				}
-				else
-					rule.spellCheck = false;
-				rule.pattern = QRegExp(parts[2]);
-				if (rule.pattern.isValid() && !rule.pattern.isEmpty())
-					highlightingRules.append(rule);
-			}
-		}
-	}
-
+	loadPatterns();
 	spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
 	spellFormat.setUnderlineColor(Qt::red);
-
-	// read tag-recognition patterns
-	QFile tagPatternFile(configDir.filePath("tag-patterns.txt"));
-	if (tagPatternFile.open(QIODevice::ReadOnly)) {
-		while (1) {
-			QByteArray ba = tagPatternFile.readLine();
-			if (ba.size() == 0)
-				break;
-			if (ba[0] == '$' || ba[0] == '\n')
-				continue;
-			QString line = QString::fromUtf8(ba.data(), ba.size());
-			QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
-			if (parts.size() != 2)
-				continue;
-			TagPattern patt;
-			bool ok;
-			patt.level = parts[0].toInt(&ok);
-			if (ok) {
-				patt.pattern = QRegExp(parts[1]);
-				if (patt.pattern.isValid() && !patt.pattern.isEmpty())
-					tagPatterns.append(patt);
-			}
-		}
-	}
 }
 
 void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, const QTextCharFormat &spellFormat)
@@ -117,7 +64,8 @@ void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, 
 void TeXHighlighter::highlightBlock(const QString &text)
 {
 	int index = 0;
-	if (isActive) {
+	if (highlightIndex >= 0 && highlightIndex < syntaxRules->count()) {
+		QList<HighlightingRule>& highlightingRules = (*syntaxRules)[highlightIndex].rules;
 		while (index < text.length()) {
 			int firstIndex = INT_MAX, len;
 			const HighlightingRule* firstRule = NULL;
@@ -153,8 +101,8 @@ void TeXHighlighter::highlightBlock(const QString &text)
 			while (index < text.length()) {
 				int firstIndex = INT_MAX, len;
 				TagPattern* firstPatt = NULL;
-				for (int i = 0; i < tagPatterns.count(); ++i) {
-					TagPattern& patt = tagPatterns[i];
+				for (int i = 0; i < tagPatterns->count(); ++i) {
+					TagPattern& patt = (*tagPatterns)[i];
 					int foundIndex = text.indexOf(patt.pattern, index);
 					if (foundIndex >= 0 && foundIndex < firstIndex) {
 						firstIndex = foundIndex;
@@ -182,9 +130,9 @@ void TeXHighlighter::highlightBlock(const QString &text)
 #endif
 }
 
-void TeXHighlighter::setActive(bool active)
+void TeXHighlighter::setActiveIndex(int index)
 {
-	isActive = active;
+	highlightIndex = (index >= 0 && index < syntaxRules->count()) ? index : -1;
 	rehighlight();
 }
 
@@ -193,4 +141,96 @@ void TeXHighlighter::setSpellChecker(Hunhandle* h, QTextCodec* codec)
 	pHunspell = h;
 	spellingCodec = codec;
 	rehighlight();
+}
+
+QStringList TeXHighlighter::syntaxOptions()
+{
+	loadPatterns();
+	
+	QStringList options;
+	if (syntaxRules != NULL)
+		foreach (const HighlightingSpec& spec, *syntaxRules)
+			options << spec.name;
+	return options;
+}
+
+void TeXHighlighter::loadPatterns()
+{
+	if (syntaxRules != NULL)
+		return;
+
+	QDir configDir(TWUtils::getLibraryPath("configuration"));
+	QRegExp whitespace("\\s+");
+
+	if (syntaxRules == NULL) {
+		syntaxRules = new QList<HighlightingSpec>;
+		QFile syntaxFile(configDir.filePath("syntax-patterns.txt"));
+		QRegExp sectionRE("^\\[([^]]+)\\]");
+		if (syntaxFile.open(QIODevice::ReadOnly)) {
+			HighlightingSpec spec;
+			spec.name = tr("default");
+			while (1) {
+				QByteArray ba = syntaxFile.readLine();
+				if (ba.size() == 0)
+					break;
+				if (ba[0] == '#' || ba[0] == '\n')
+					continue;
+				QString line = QString::fromUtf8(ba.data(), ba.size());
+				if (sectionRE.indexIn(line) == 0) {
+					if (spec.rules.count() > 0)
+						syntaxRules->append(spec);
+					spec.rules.clear();
+					spec.name = sectionRE.cap(1);
+					continue;
+				}
+				QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
+				if (parts.size() != 3)
+					continue;
+				QColor color(parts[0]);
+				if (color.isValid()) {
+					HighlightingRule rule;
+					rule.format.setForeground(color);
+					if (parts[1].compare("Y", Qt::CaseInsensitive) == 0) {
+						rule.spellCheck = true;
+						rule.spellFormat = rule.format;
+						rule.spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+					}
+					else
+						rule.spellCheck = false;
+					rule.pattern = QRegExp(parts[2]);
+					if (rule.pattern.isValid() && !rule.pattern.isEmpty())
+						spec.rules.append(rule);
+				}
+			}
+			if (spec.rules.count() > 0)
+				syntaxRules->append(spec);
+		}
+	}
+	
+	if (tagPatterns == NULL) {
+		// read tag-recognition patterns
+		tagPatterns = new QList<TagPattern>;
+		QFile tagPatternFile(configDir.filePath("tag-patterns.txt"));
+		if (tagPatternFile.open(QIODevice::ReadOnly)) {
+			while (1) {
+				QByteArray ba = tagPatternFile.readLine();
+				if (ba.size() == 0)
+					break;
+				if (ba[0] == '#' || ba[0] == '\n')
+					continue;
+				QString line = QString::fromUtf8(ba.data(), ba.size());
+				QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
+				if (parts.size() != 2)
+					continue;
+				TagPattern patt;
+				bool ok;
+				patt.level = parts[0].toInt(&ok);
+				if (ok) {
+					patt.pattern = QRegExp(parts[1]);
+					if (patt.pattern.isValid() && !patt.pattern.isEmpty())
+						tagPatterns->append(patt);
+				}
+			}
+		}
+	}
 }

@@ -42,6 +42,10 @@ public:
 
 	bool selectWord(QTextCursor& cursor);
 
+	void setAutoIndentMode(int index);
+
+	static QStringList autoIndentModes();
+
 signals:
 	void syncClick(int);
 
@@ -54,9 +58,9 @@ protected:
 	virtual void contextMenuEvent(QContextMenuEvent *e);
 
 private slots:
-	void clearCompleter();
+	void cursorPositionChangedSlot();
 	void correction(const QString& suggestion);
-	void clearExtraSelections();
+	void resetExtraSelections();
 
 private:
 	void setCompleter(QCompleter *c);
@@ -66,6 +70,22 @@ private:
 
 	void loadCompletionsFromFile(QStandardItemModel *model, const QString& filename);
 	void loadCompletionFiles(QCompleter *theCompleter);
+
+	void handleCompletionShortcut(QKeyEvent *e);
+	void handleReturn(QKeyEvent *e);
+	void handleBackspace(QKeyEvent *e);
+	void handleOtherKey(QKeyEvent *e);
+
+	static void loadIndentModes();
+
+	struct IndentMode {
+		QString	name;
+		QRegExp	regex;
+	};
+	static QList<IndentMode> *indentModes;
+	int autoIndentMode;
+
+	int prefixLength;
 
 	QCompleter *c;
 	QTextCursor cmpCursor;
@@ -78,6 +98,11 @@ private:
 	Hunhandle *pHunspell;
 	QTextCodec *spellingCodec;
 
+	QTextCursor	currentCompletionRange;
+
+	static QTextCharFormat	*currentCompletionFormat;
+	static QTextCharFormat	*braceMatchingFormat;
+	
 	static QCompleter	*sharedCompleter;
 };
 

@@ -39,9 +39,11 @@ class TeXHighlighter : public QSyntaxHighlighter
 public:
 	TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument = NULL);
 	
-	void setActive(bool active);
+	void setActiveIndex(int index);
 
 	void setSpellChecker(Hunhandle *h, QTextCodec *codec);
+
+	static QStringList syntaxOptions();
 
 protected:
 	void highlightBlock(const QString &text);
@@ -49,13 +51,20 @@ protected:
 	void spellCheckRange(const QString &text, int index, int limit, const QTextCharFormat &spellFormat);
 
 private:
+	static void loadPatterns();
+
 	struct HighlightingRule {
 		QRegExp pattern;
 		QTextCharFormat format;
 		QTextCharFormat	spellFormat;
 		bool spellCheck;
 	};
-	QVector<HighlightingRule> highlightingRules;
+	typedef QList<HighlightingRule> HighlightingRules;
+	struct HighlightingSpec {
+		QString				name;
+		HighlightingRules	rules;
+	};
+	static QList<HighlightingSpec> *syntaxRules;
 
 	QTextCharFormat spellFormat;
 
@@ -63,11 +72,11 @@ private:
 		QRegExp pattern;
 		unsigned int level;
 	};
-	QVector<TagPattern> tagPatterns;
+	static QList<TagPattern> *tagPatterns;
 	
 	TeXDocument	*texDoc;
 
-	bool isActive;
+	int highlightIndex;
 	bool isTagging;
 
 	Hunhandle	*pHunspell;
