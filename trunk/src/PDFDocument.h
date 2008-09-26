@@ -222,6 +222,7 @@ public:
 		}
 
 protected:
+	virtual void changeEvent(QEvent *event);
 	virtual bool event(QEvent *event);
 
 public slots:

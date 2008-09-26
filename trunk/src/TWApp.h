@@ -86,10 +86,20 @@ public:
 private:
 	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
 	QMenuBar *menuBar;
+
 	QMenu *menuFile;
-	QMenu *menuHelp;
-	QList<QAction*> recentFileActions;
+	QAction *actionNew;
+	QAction *actionNew_from_Template;
+	QAction *actionOpen;
+	QAction *actionPreferences;
+
 	QMenu *menuRecent;
+	QList<QAction*> recentFileActions;
+
+	QMenu *menuHelp;
+	QAction *aboutAction;
+	QAction *homePageAction;
+	QAction *mailingListAction;
 #endif
 
 public slots:
@@ -107,6 +117,8 @@ public slots:
 	void goToHomePage();
 	void writeToMailingList();
 
+	void applyTranslation(const QString& locale);
+
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu
 	void recentFileActionsChanged();
@@ -121,6 +133,8 @@ signals:
 
 	void hideFloatersExcept(QWidget* theWindow);
 
+	void updatedTranslators();
+
 private slots:
 	void about();
 	void newFile();
@@ -134,9 +148,10 @@ private slots:
 	
 	void syncFromSource(const QString& sourceFile, int lineNo);
 
+	void changeLanguage();
 
 protected:
-	bool event(QEvent *);
+	virtual bool event(QEvent *);
 
 private:
 	void init();
@@ -150,6 +165,8 @@ private:
 	QStringList *binaryPaths;
 	QList<Engine> *engineList;
 	int defaultEngineIndex;
+
+	QList<QTranslator*> translators;
 
 #ifdef Q_WS_WIN
 	HWND messageTargetWindow;

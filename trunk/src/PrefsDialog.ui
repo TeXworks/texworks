@@ -122,12 +122,18 @@
          <item>
           <widget class="QLabel" name="label_5" >
            <property name="text" >
-            <string>Interface locale (for next launch):</string>
+            <string>Interface locale:</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QComboBox" name="localePopup" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="maxVisibleItems" >
             <number>20</number>
            </property>
