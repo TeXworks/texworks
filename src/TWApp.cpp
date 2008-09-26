@@ -73,20 +73,9 @@ void TWApp::init()
 	setApplicationName(TEXWORKS_NAME);
 
 	QSettings settings;
+	
 	QString locale = settings.value("locale", QLocale::system().name()).toString();
-	QString translations = TWUtils::getLibraryPath("translations");
-
-	QTranslator *qtTranslator = new QTranslator(this);
-	if (qtTranslator->load("qt_" + locale, translations))
-		installTranslator(qtTranslator);
-	else
-		delete qtTranslator;
-
-	QTranslator *twTranslator = new QTranslator(this);
-	if (twTranslator->load(TEXWORKS_NAME "_" + locale, translations))
-		installTranslator(twTranslator);
-	else
-		delete twTranslator;
+	applyTranslation(locale);
 
 	recentFilesLimit = settings.value("maxRecentFiles", kDefaultMaxRecentFiles).toInt();
 
@@ -107,24 +96,21 @@ void TWApp::init()
 
 	menuFile = menuBar->addMenu(tr("File"));
 
-	QAction *actionNew = new QAction(tr("New"), this);
-	actionNew->setShortcut(QKeySequence("Ctrl+N"));
+	actionNew = new QAction(tr("New"), this);
 	actionNew->setIcon(QIcon(":/images/tango/document-new.png"));
 	menuFile->addAction(actionNew);
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 
-	QAction *actionNew_from_Template = new QAction(tr("New from Template..."), this);
-	actionNew_from_Template->setShortcut(QKeySequence("Ctrl+Shift+N"));
+	actionNew_from_Template = new QAction(tr("New from Template..."), this);
 	menuFile->addAction(actionNew_from_Template);
 	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
 
-	QAction *actionPreferences = new QAction(tr("Preferences..."), this);
+	actionPreferences = new QAction(tr("Preferences..."), this);
 	actionPreferences->setIcon(QIcon(":/images/tango/preferences-system.png"));
 	menuFile->addAction(actionPreferences);
 	connect(actionPreferences, SIGNAL(triggered()), this, SLOT(preferences()));
 
-	QAction *actionOpen = new QAction(tr("Open..."), this);
-	actionOpen->setShortcut(QKeySequence("Ctrl+O"));
+	actionOpen = new QAction(tr("Open..."), this);
 	actionOpen->setIcon(QIcon(":/images/tango/document-open.png"));
 	menuFile->addAction(actionOpen);
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
@@ -135,18 +121,40 @@ void TWApp::init()
 
 	menuHelp = menuBar->addMenu(tr("Help"));
 
-	QAction *aboutAction = new QAction(tr("About " TEXWORKS_NAME "..."), this);
+	aboutAction = new QAction(tr("About " TEXWORKS_NAME "..."), this);
 	menuHelp->addAction(aboutAction);
 	connect(aboutAction, SIGNAL(triggered()), qApp, SLOT(about()));
-	QAction *homePageAction = new QAction(tr("Go to TeXworks home page"), this);
+	homePageAction = new QAction(tr("Go to TeXworks home page"), this);
 	menuHelp->addAction(homePageAction);
 	connect(homePageAction, SIGNAL(triggered()), qApp, SLOT(goToHomePage()));
-	QAction *mailingListAction = new QAction(tr("Email to the mailing list"), this);
+	mailingListAction = new QAction(tr("Email to the mailing list"), this);
 	menuHelp->addAction(mailingListAction);
 	connect(mailingListAction, SIGNAL(triggered()), qApp, SLOT(writeToMailingList()));
+	
+	connect(this, SIGNAL(updatedTranslators()), this, SLOT(changeLanguage()));
 #endif
 
 	theAppInstance = this;
+}
+
+void TWApp::changeLanguage()
+{
+#ifdef Q_WS_MAC
+	menuFile->setTitle(tr("File"));
+	actionNew->setText(tr("New"));
+	actionNew->setShortcut(QKeySequence(tr("Ctrl+N")));
+	actionNew_from_Template->setText(tr("New from Template..."));
+	actionNew_from_Template->setShortcut(QKeySequence(tr("Ctrl+Shift+N")));
+	actionOpen->setText(tr("Open..."));
+	actionOpen->setShortcut(QKeySequence(tr("Ctrl+O")));
+
+	menuRecent->setTitle(tr("Open Recent"));
+
+	menuHelp->setTitle(tr("Help"));
+	aboutAction->setText(tr("About " TEXWORKS_NAME "..."));
+	homePageAction->setText(tr("Go to TeXworks home page"));
+	mailingListAction->setText(tr("Email to the mailing list"));
+#endif
 }
 
 void TWApp::about()
@@ -544,6 +552,38 @@ void TWApp::activatedWindow(QWidget* theWindow)
 {
 	emit hideFloatersExcept(theWindow);
 }
+
+void TWApp::applyTranslation(const QString& locale)
+{
+	foreach (QTranslator* t, translators) {
+		removeTranslator(t);
+		delete t;
+	}
+	translators.clear();
+
+	if (!locale.isEmpty()) {
+		QString translations = TWUtils::getLibraryPath("translations");
+		
+		QTranslator *qtTranslator = new QTranslator(this);
+		if (qtTranslator->load("qt_" + locale, translations)) {
+			installTranslator(qtTranslator);
+			translators.append(qtTranslator);
+		}
+		else
+			delete qtTranslator;
+
+		QTranslator *twTranslator = new QTranslator(this);
+		if (twTranslator->load(TEXWORKS_NAME "_" + locale, translations)) {
+			installTranslator(twTranslator);
+			translators.append(twTranslator);
+		}
+		else
+			delete twTranslator;
+	}
+
+	emit updatedTranslators();
+}
+
 
 #ifdef Q_WS_WIN	// support for the Windows single-instance code
 #include <windows.h>

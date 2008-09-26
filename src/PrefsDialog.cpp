@@ -291,6 +291,7 @@ void PrefsDialog::restoreDefaults()
 					break;
 			}
 			blankDocument->setChecked(true);
+			localePopup->setCurrentIndex(0);
 			break;
 
 		case 1:
@@ -551,10 +552,17 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			launchOption = 3;
 		settings.setValue("launchOption", launchOption);
 		
-		if (dlg.localePopup->currentIndex() < 1) // delete the setting, if present
-			settings.remove("locale");
-		else
-			settings.setValue("locale", trList->at(dlg.localePopup->currentIndex() - 1));
+		if (dlg.localePopup->currentIndex() != oldLocaleIndex) {
+			if (dlg.localePopup->currentIndex() < 1) { // delete the setting, if present
+				settings.remove("locale");
+				TWApp::instance()->applyTranslation(QString());
+			}
+			else {
+				QString locale = trList->at(dlg.localePopup->currentIndex() - 1);
+				settings.setValue("locale", locale);
+				TWApp::instance()->applyTranslation(locale);
+			}
+		}
 		
 		// Editor
 		settings.setValue("syntaxColoring", dlg.syntaxColoring->currentText());

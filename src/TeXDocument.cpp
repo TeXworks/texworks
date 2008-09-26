@@ -312,6 +312,17 @@ void TeXDocument::init()
 	docList.append(this);
 }
 
+void TeXDocument::changeEvent(QEvent *event)
+{
+	if (event->type() == QEvent::LanguageChange) {
+		QString title = windowTitle();
+		retranslateUi(this);
+		setWindowTitle(title);
+	}
+	else
+		QMainWindow::changeEvent(event);
+}
+
 void TeXDocument::setLanguage(const QString& lang)
 {
 	QTextCodec *spellingCodec;

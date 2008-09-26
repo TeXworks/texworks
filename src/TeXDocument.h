@@ -99,8 +99,9 @@ signals:
 	void tagListUpdated();
 
 protected:
-	void closeEvent(QCloseEvent *event);
-	bool event(QEvent *event);
+	virtual void changeEvent(QEvent *event);
+	virtual void closeEvent(QCloseEvent *event);
+	virtual bool event(QEvent *event);
 
 public slots:
 	void selectWindow(bool activate = true);

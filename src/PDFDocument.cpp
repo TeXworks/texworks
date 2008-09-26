@@ -1098,7 +1098,18 @@ PDFDocument::init()
 
 	TWUtils::zoomToHalfScreen(this, true);
 }
- 
+
+void PDFDocument::changeEvent(QEvent *event)
+{
+	if (event->type() == QEvent::LanguageChange) {
+		QString title = windowTitle();
+		retranslateUi(this);
+		setWindowTitle(title);
+	}
+	else
+		QMainWindow::changeEvent(event);
+}
+
 void PDFDocument::updateRecentFileActions()
 {
 	TWUtils::updateRecentFileActions(this, recentFileActions, menuRecent);
