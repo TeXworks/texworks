@@ -460,8 +460,10 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 		return;
 	}
 
-	if (maybeSave())
+	if (maybeSave()) {
 		event->accept();
+		deleteLater();
+	}
 	else
 		event->ignore();
 }

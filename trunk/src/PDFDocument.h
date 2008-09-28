@@ -224,6 +224,7 @@ public:
 protected:
 	virtual void changeEvent(QEvent *event);
 	virtual bool event(QEvent *event);
+	virtual void closeEvent(QCloseEvent *event);
 
 public slots:
 	void selectWindow(bool activate = true);
