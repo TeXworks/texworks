@@ -123,15 +123,16 @@ void TWApp::init()
 
 	aboutAction = new QAction(tr("About " TEXWORKS_NAME "..."), this);
 	menuHelp->addAction(aboutAction);
-	connect(aboutAction, SIGNAL(triggered()), qApp, SLOT(about()));
+	connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 	homePageAction = new QAction(tr("Go to TeXworks home page"), this);
 	menuHelp->addAction(homePageAction);
-	connect(homePageAction, SIGNAL(triggered()), qApp, SLOT(goToHomePage()));
+	connect(homePageAction, SIGNAL(triggered()), this, SLOT(goToHomePage()));
 	mailingListAction = new QAction(tr("Email to the mailing list"), this);
 	menuHelp->addAction(mailingListAction);
-	connect(mailingListAction, SIGNAL(triggered()), qApp, SLOT(writeToMailingList()));
+	connect(mailingListAction, SIGNAL(triggered()), this, SLOT(writeToMailingList()));
 	
 	connect(this, SIGNAL(updatedTranslators()), this, SLOT(changeLanguage()));
+	changeLanguage();
 #endif
 
 	theAppInstance = this;
