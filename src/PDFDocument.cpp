@@ -1192,6 +1192,12 @@ bool PDFDocument::event(QEvent *event)
 	return QMainWindow::event(event);
 }
 
+void PDFDocument::closeEvent(QCloseEvent *event)
+{
+	event->accept();
+	deleteLater();
+}
+
 void PDFDocument::loadFile(const QString &fileName)
 {
 	setCurrentFile(fileName);
