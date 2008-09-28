@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>MainWindow</string>
+   <string>untitled.pdf[*]</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <property name="geometry" >
