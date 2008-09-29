@@ -651,17 +651,18 @@ void PDFWidget::reloadPage()
 {
 	if (page != NULL)
 		delete page;
+	page = NULL;
 	if (magnifier != NULL)
 		magnifier->setPage(NULL, 0);
 	imagePage = NULL;
 	image = QImage();
 	highlightPath = QPainterPath();
-	if (pageIndex >= document->numPages())
-		pageIndex = document->numPages() - 1;
-	if (pageIndex >= 0)
-		page = document->page(pageIndex);
-	else
-		page = NULL;
+	if (document != NULL) {
+		if (pageIndex >= document->numPages())
+			pageIndex = document->numPages() - 1;
+		if (pageIndex >= 0)
+			page = document->page(pageIndex);
+	}
 	adjustSize();
 	update();
 	updateStatusBar();
@@ -698,7 +699,7 @@ void PDFWidget::goPrev()
 
 void PDFWidget::goNext()
 {
-	if (pageIndex < document->numPages() - 1) {
+	if (document != NULL && pageIndex < document->numPages() - 1) {
 		++pageIndex;
 		reloadPage();
 		update();
@@ -707,7 +708,7 @@ void PDFWidget::goNext()
 
 void PDFWidget::goLast()
 {
-	if (pageIndex != document->numPages() - 1) {
+	if (document != NULL && pageIndex != document->numPages() - 1) {
 		pageIndex = document->numPages() - 1;
 		reloadPage();
 		update();
@@ -716,6 +717,8 @@ void PDFWidget::goLast()
 
 void PDFWidget::upOrPrev()
 {
+	if (document == NULL)
+		return;
 	QScrollBar*		scrollBar = getScrollArea()->verticalScrollBar();
 	if (scrollBar->value() > scrollBar->minimum())
 		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepSub);
@@ -730,6 +733,8 @@ void PDFWidget::upOrPrev()
 
 void PDFWidget::leftOrPrev()
 {
+	if (document == NULL)
+		return;
 	QScrollBar*		scrollBar = getScrollArea()->horizontalScrollBar();
 	if (scrollBar->value() > scrollBar->minimum())
 		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepSub);
@@ -744,6 +749,8 @@ void PDFWidget::leftOrPrev()
 
 void PDFWidget::downOrNext()
 {
+	if (document == NULL)
+		return;
 	QScrollBar*		scrollBar = getScrollArea()->verticalScrollBar();
 	if (scrollBar->value() < scrollBar->maximum())
 		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepAdd);
@@ -758,6 +765,8 @@ void PDFWidget::downOrNext()
 
 void PDFWidget::rightOrNext()
 {
+	if (document == NULL)
+		return;
 	QScrollBar*		scrollBar = getScrollArea()->horizontalScrollBar();
 	if (scrollBar->value() < scrollBar->maximum())
 		scrollBar->triggerAction(QAbstractSlider::SliderSingleStepAdd);
@@ -772,6 +781,8 @@ void PDFWidget::rightOrNext()
 
 void PDFWidget::doPageDialog()
 {
+	if (document == NULL)
+		return;
 	bool ok;
 	setCursor(Qt::ArrowCursor);
 	int pageNo = QInputDialog::getInteger(this, tr("Go to Page"),
@@ -783,7 +794,7 @@ void PDFWidget::doPageDialog()
 
 void PDFWidget::goToPage(int p)
 {
-	if (p != pageIndex) {
+	if (p != pageIndex && document != NULL) {
 		if (p >= 0 && p < document->numPages()) {
 			pageIndex = p;
 			reloadPage();
@@ -810,7 +821,7 @@ void PDFWidget::fitWidth(bool checked)
 	if (checked) {
 		scaleOption = kFitWidth;
 		QScrollArea*	scrollArea = getScrollArea();
-		if (scrollArea) {
+		if (scrollArea && page != NULL) {
 			qreal portWidth = scrollArea->viewport()->width();
 			QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
 			scaleFactor = portWidth / pageSize.width();
@@ -834,7 +845,7 @@ void PDFWidget::fitWindow(bool checked)
 	if (checked) {
 		scaleOption = kFitWindow;
 		QScrollArea*	scrollArea = getScrollArea();
-		if (scrollArea) {
+		if (scrollArea && page != NULL) {
 			qreal portWidth = scrollArea->viewport()->width();
 			qreal portHeight = scrollArea->viewport()->height();
 			QSizeF	pageSize = page->pageSizeF() * dpi / 72.0;
@@ -1230,7 +1241,8 @@ void PDFDocument::reload()
 		emit reloaded();
 	}
 	else
-		statusBar()->showMessage(tr("Failed to load file \"%1\"").arg(TWUtils::strippedName(curFile)));
+		statusBar()->showMessage(tr("Failed to load file \"%1\"; perhaps it is not a valid PDF document.")
+									.arg(TWUtils::strippedName(curFile)));
 
 	QApplication::restoreOverrideCursor();
 }
