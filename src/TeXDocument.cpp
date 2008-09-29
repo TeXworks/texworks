@@ -1826,3 +1826,30 @@ void TeXDocument::tagsChanged()
 {
 	emit tagListUpdated();
 }
+
+void TeXDocument::dragEnterEvent(QDragEnterEvent *event)
+{
+	// Only accept files for now
+	event->ignore();
+	if (event->mimeData()->hasUrls()) {
+		const QList<QUrl> urls = event->mimeData()->urls();
+		foreach (const QUrl& url, urls) {
+			if (url.scheme() == "file") {
+				event->acceptProposedAction();
+				break;
+			}
+		}
+	}
+}
+
+void TeXDocument::dropEvent(QDropEvent *event)
+{
+	event->ignore();
+	if (event->mimeData()->hasUrls()) {
+		const QList<QUrl> urls = event->mimeData()->urls();
+		foreach (const QUrl& url, urls)
+			if (url.scheme() == "file")
+				TWApp::instance()->open(url.path());
+		event->acceptProposedAction();
+	}
+}

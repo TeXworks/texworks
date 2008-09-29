@@ -225,6 +225,8 @@ protected:
 	virtual void changeEvent(QEvent *event);
 	virtual bool event(QEvent *event);
 	virtual void closeEvent(QCloseEvent *event);
+	virtual void dragEnterEvent(QDragEnterEvent *event);
+	virtual void dropEvent(QDropEvent *event);
 
 public slots:
 	void selectWindow(bool activate = true);
