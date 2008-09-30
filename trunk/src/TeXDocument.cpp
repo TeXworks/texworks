@@ -1837,6 +1837,16 @@ void TeXDocument::tagsChanged()
 	emit tagListUpdated();
 }
 
+#ifdef Q_WS_MAC
+#define OPEN_FILE_IN_NEW_WINDOW	Qt::MoveAction // unmodified drag appears as MoveAction on Mac OS X
+#define INSERT_DOCUMENT_TEXT	Qt::CopyAction
+#define CREATE_INCLUDE_COMMAND	Qt::LinkAction
+#else
+#define OPEN_FILE_IN_NEW_WINDOW	Qt::CopyAction // ...but as CopyAction on X11
+#define INSERT_DOCUMENT_TEXT	Qt::MoveAction
+#define CREATE_INCLUDE_COMMAND	Qt::LinkAction
+#endif
+
 void TeXDocument::dragEnterEvent(QDragEnterEvent *event)
 {
 	event->ignore();
@@ -1853,7 +1863,7 @@ void TeXDocument::dragEnterEvent(QDragEnterEvent *event)
 
 void TeXDocument::dragMoveEvent(QDragMoveEvent *event)
 {
-	if (event->proposedAction() == Qt::CopyAction || event->proposedAction() == Qt::LinkAction) {
+	if (event->proposedAction() == INSERT_DOCUMENT_TEXT || event->proposedAction() == CREATE_INCLUDE_COMMAND) {
 		if (dragSavedCursor.isNull())
 			dragSavedCursor = textEdit->textCursor();
 		QTextCursor curs = textEdit->cursorForPosition(textEdit->mapFromGlobal(mapToGlobal(event->pos())));
@@ -1889,7 +1899,10 @@ void TeXDocument::dropEvent(QDropEvent *event)
 			if (url.scheme() == "file") {
 				QString fileName = url.toLocalFile();
 				switch (action) {
-					case Qt::CopyAction:
+					case OPEN_FILE_IN_NEW_WINDOW:
+						TWApp::instance()->open(url.toLocalFile());
+						break;
+					case INSERT_DOCUMENT_TEXT:
 						if (TWUtils::isPDFfile(fileName)) {
 							// skip PDFs, they shouldn't be copied into the text
 							// FIXME: also check for image files and skip those
@@ -1907,10 +1920,7 @@ void TeXDocument::dropEvent(QDropEvent *event)
 							}
 						}
 						break;
-					case Qt::MoveAction:
-						TWApp::instance()->open(url.toLocalFile());
-						break;
-					case Qt::LinkAction:
+					case CREATE_INCLUDE_COMMAND:
 						if (!editBlockStarted) {
 							curs.beginEditBlock();
 							editBlockStarted = true;
