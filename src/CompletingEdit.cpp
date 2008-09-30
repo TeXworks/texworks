@@ -617,6 +617,14 @@ QStringList CompletingEdit::autoIndentModes()
 	return modes;
 }
 
+void CompletingEdit::dragEnterEvent(QDragEnterEvent *event)
+{
+	if (event->mimeData()->hasUrls())
+		event->ignore();
+	else
+		QTextEdit::dragEnterEvent(event);
+}
+
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = NULL;
 QTextCharFormat	*CompletingEdit::braceMatchingFormat = NULL;
 

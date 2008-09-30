@@ -56,6 +56,7 @@ protected:
 	virtual void mouseReleaseEvent(QMouseEvent *e);
 	virtual void mouseDoubleClickEvent(QMouseEvent *e);
 	virtual void contextMenuEvent(QContextMenuEvent *e);
+	virtual void dragEnterEvent(QDragEnterEvent *e);
 
 private slots:
 	void cursorPositionChangedSlot();
