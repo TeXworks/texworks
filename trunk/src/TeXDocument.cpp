@@ -680,7 +680,10 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 
 #define PEEK_LENGTH 1024
 
-void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
+QString TeXDocument::readFile(const QString &fileName, QTextCodec **codecUsed)
+	// reads the text from a file, after checking for %!TEX encoding.... metadata
+	// sets codecUsed to the QTextCodec used to read the text
+	// returns a null (not just empty) QString on failure
 {
 	QFile file(fileName);
 	if (!file.open(QFile::ReadOnly | QFile::Text)) {
@@ -688,32 +691,39 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
 							 tr("Cannot read file \"%1\":\n%2.")
 							 .arg(fileName)
 							 .arg(file.errorString()));
-		return;
+		return QString();
 	}
 
 	QString peekStr(file.peek(PEEK_LENGTH));
 	QString reqName;
 	bool hasMetadata;
-	codec = scanForEncoding(peekStr, hasMetadata, reqName);
-	if (codec == NULL) {
-		codec = TWApp::instance()->getDefaultCodec();
+	*codecUsed = scanForEncoding(peekStr, hasMetadata, reqName);
+	if (*codecUsed == NULL) {
+		*codecUsed = TWApp::instance()->getDefaultCodec();
 		if (hasMetadata) {
 			if (QMessageBox::warning(this, tr("Unrecognized encoding"),
 					tr("The text encoding %1 used in %2 is not supported.\n\n"
 					   "It will be interpreted as %3 instead, which may result in incorrect text.")
 						.arg(reqName)
 						.arg(fileName)
-						.arg(QString::fromAscii(codec->name())),
+						.arg(QString::fromAscii((*codecUsed)->name())),
 					QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
-				return;
+				return QString();
 		}
 	}
 	
 	QTextStream in(&file);
-	in.setCodec(codec);
+	in.setCodec(*codecUsed);
+	return in.readAll();
+}
 
+void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
+{
+	QString fileContents = readFile(fileName, &codec);
+	if (fileContents.isNull())
+		return;
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	textEdit->setPlainText(in.readAll());
+	textEdit->setPlainText(fileContents);
 	QApplication::restoreOverrideCursor();
 
 	if (!asTemplate) {
@@ -1829,7 +1839,6 @@ void TeXDocument::tagsChanged()
 
 void TeXDocument::dragEnterEvent(QDragEnterEvent *event)
 {
-	// Only accept files for now
 	event->ignore();
 	if (event->mimeData()->hasUrls()) {
 		const QList<QUrl> urls = event->mimeData()->urls();
@@ -1842,14 +1851,84 @@ void TeXDocument::dragEnterEvent(QDragEnterEvent *event)
 	}
 }
 
+void TeXDocument::dragMoveEvent(QDragMoveEvent *event)
+{
+	if (event->proposedAction() == Qt::CopyAction || event->proposedAction() == Qt::LinkAction) {
+		if (dragSavedCursor.isNull())
+			dragSavedCursor = textEdit->textCursor();
+		QTextCursor curs = textEdit->cursorForPosition(textEdit->mapFromGlobal(mapToGlobal(event->pos())));
+		textEdit->setTextCursor(curs);
+	}
+	else {
+		if (!dragSavedCursor.isNull()) {
+			textEdit->setTextCursor(dragSavedCursor);
+			dragSavedCursor = QTextCursor();
+		}
+	}
+	event->acceptProposedAction();
+}
+
+void TeXDocument::dragLeaveEvent(QDragLeaveEvent *event)
+{
+	if (!dragSavedCursor.isNull()) {
+		textEdit->setTextCursor(dragSavedCursor);
+		dragSavedCursor = QTextCursor();
+	}
+	event->accept();
+}
+
 void TeXDocument::dropEvent(QDropEvent *event)
 {
-	event->ignore();
 	if (event->mimeData()->hasUrls()) {
+		Qt::DropAction action = event->proposedAction();
 		const QList<QUrl> urls = event->mimeData()->urls();
-		foreach (const QUrl& url, urls)
-			if (url.scheme() == "file")
-				TWApp::instance()->open(url.toLocalFile());
-		event->acceptProposedAction();
+		bool editBlockStarted = false;
+		QString text;
+		QTextCursor curs = textEdit->cursorForPosition(textEdit->mapFromGlobal(mapToGlobal(event->pos())));
+		foreach (const QUrl& url, urls) {
+			if (url.scheme() == "file") {
+				QString fileName = url.toLocalFile();
+				switch (action) {
+					case Qt::CopyAction:
+						if (TWUtils::isPDFfile(fileName)) {
+							// skip PDFs, they shouldn't be copied into the text
+							// FIXME: also check for image files and skip those
+						}
+						else {
+							QTextCodec *codecUsed;
+							text = readFile(fileName, &codecUsed);
+							if (!text.isNull()) {
+								if (!editBlockStarted) {
+									curs.beginEditBlock();
+									editBlockStarted = true;
+								}
+								textEdit->setTextCursor(curs);
+								curs.insertText(text);
+							}
+						}
+						break;
+					case Qt::MoveAction:
+						TWApp::instance()->open(url.toLocalFile());
+						break;
+					case Qt::LinkAction:
+						if (!editBlockStarted) {
+							curs.beginEditBlock();
+							editBlockStarted = true;
+						}
+						textEdit->setTextCursor(curs);
+						text = QString::fromLatin1("\\include{") + fileName + QString::fromLatin1("}\n");
+							// FIXME: this needs to be configurable, and should distinguish text from graphics
+						curs.insertText(text);
+						break;
+					default:
+						// do nothing
+						break;
+				}
+			}
+		}
+		if (editBlockStarted)
+			curs.endEditBlock();
 	}
+	dragSavedCursor = QTextCursor();
+	event->accept();
 }

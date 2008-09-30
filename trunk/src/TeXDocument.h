@@ -103,6 +103,8 @@ protected:
 	virtual void closeEvent(QCloseEvent *event);
 	virtual bool event(QEvent *event);
 	virtual void dragEnterEvent(QDragEnterEvent *event);
+	virtual void dragMoveEvent(QDragMoveEvent *event);
+	virtual void dragLeaveEvent(QDragLeaveEvent *event);
 	virtual void dropEvent(QDropEvent *event);
 
 public slots:
@@ -167,6 +169,7 @@ private:
 	void init();
 	bool maybeSave();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
+	QString readFile(const QString &fileName, QTextCodec **codecUsed);
 	void loadFile(const QString &fileName, bool asTemplate = false);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
@@ -211,6 +214,8 @@ private:
 	QList<QWidget*> latentVisibleWidgets;
 
 	QList<Tag>	tags;
+
+	QTextCursor	dragSavedCursor;
 
 	static QList<TeXDocument*> docList;
 };
