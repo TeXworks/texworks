@@ -300,9 +300,9 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 					match = TWUtils::balanceDelim(text, pos - 1, c, -1);
 				else if (pos < text.length() - 1 && (c = TWUtils::closerMatching(text[pos])) != 0)
 					match = TWUtils::balanceDelim(text, pos + 1, c, 1);
-				if (match == -1) // no matching delimiter found
+				if (match < 0) // no matching delimiter found
 					QApplication::beep();
-				else if (match >= 0) {
+				else {
 					QList<ExtraSelection> selList = extraSelections();
 					ExtraSelection	sel;
 					sel.cursor = QTextCursor(document());

@@ -618,18 +618,13 @@ int TWUtils::balanceDelim(const QString& text, int pos, QChar delim, int directi
 	int len = text.length();
 	QChar c;
 	while ((c = text[pos]) != delim) {
-		if (openerMatching(c) != 0) {
-			if (direction > 0)
-				return -1;
-			pos = balanceDelim(text, pos + direction, openerMatching(c), direction) + direction;
-		}
-		else if (closerMatching(c) != 0) {
-			if (direction < 0)
-				return -1;
-			pos = balanceDelim(text, pos + direction, closerMatching(c), direction) + direction;
-		}
-		else
-			pos += direction;
+		if (openerMatching(c) != 0)
+			pos = (direction < 0) ? balanceDelim(text, pos - 1, openerMatching(c), -1) : -1;
+		else if (closerMatching(c) != 0)
+			pos = (direction > 0) ? balanceDelim(text, pos + 1, closerMatching(c), 1) : -1;
+		if (pos < 0)
+			return -1;
+		pos += direction;
 		if (pos < 0 || pos >= len)
 			return -1;
 	}
