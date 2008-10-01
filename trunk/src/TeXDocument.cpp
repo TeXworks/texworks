@@ -1266,7 +1266,7 @@ void TeXDocument::doFindAgain(bool fromDialog)
 		}
 		else {
 			SearchResults::presentResults(results, this, singleFile);
-			statusBar()->showMessage(tr("Found %1 occurrence(s)").arg(results.count()), kStatusMessageDuration);
+			statusBar()->showMessage(tr("Found %n occurrence(s)", "", results.count()), kStatusMessageDuration);
 		}
 	}
 	else {
@@ -1398,11 +1398,14 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 			int replacements = 0;
 			foreach (TeXDocument* doc, docList)
 				replacements += doc->doReplaceAll(searchText, regex, replacement, flags);
-			statusBar()->showMessage(tr("Replaced %1 occurrence(s) in %2 documents").arg(replacements).arg(docList.count()), kStatusMessageDuration);
+			QString numOccurrences = tr("%n occurrence(s)", "", replacements);
+			QString numDocuments = tr("%n documents", "", docList.count());
+			QString message = tr("Replaced %1 in %2").arg(numOccurrences).arg(numDocuments);
+			statusBar()->showMessage(message, kStatusMessageDuration);
 		}
 		else {
 			int replacements = doReplaceAll(searchText, regex, replacement, flags, rangeStart, rangeEnd);
-			statusBar()->showMessage(tr("Replaced %1 occurrence(s)").arg(replacements), kStatusMessageDuration);
+			statusBar()->showMessage(tr("Replaced %n occurrence(s)", "", replacements), kStatusMessageDuration);
 		}
 	}
 
