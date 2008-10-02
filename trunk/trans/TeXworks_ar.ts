@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="de_DE">
+<!DOCTYPE TS><TS version="1.1" language="ar">
 <context>
     <name>CompletingEdit</name>
     <message>
         <location filename="../src/CompletingEdit.cpp" line="544"/>
         <source>No suggestions</source>
-        <translation>Keine Vorschläge</translation>
+        <translation>لا اقتراحات</translation>
     </message>
 </context>
 <context>
@@ -13,57 +13,57 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="41"/>
         <source>Find</source>
-        <translation>Suche</translation>
+        <translation>ابحث</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="31"/>
         <source>Find:</source>
-        <translation>Suche:</translation>
+        <translation>ابحث:</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="52"/>
         <source>&amp;Wrap around</source>
-        <translation>&amp;Umbrechen</translation>
+        <translation>لف &amp;عبر المستند</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="59"/>
         <source>Find &amp;backwards</source>
-        <translation>Rüc&amp;kwärtssuche</translation>
+        <translation>ابحث &amp;عكسيا</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="66"/>
         <source>Search within &amp;selection</source>
-        <translation>&amp;Suche in der Auswahl</translation>
+        <translation>ابحث &amp;داخل التحديد</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="73"/>
         <source>Find &amp;all occurrences</source>
-        <translation>Suche &amp;alle</translation>
+        <translation>اعثر على &amp;كل التواجدات</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="80"/>
         <source>Search all &amp;open files</source>
-        <translation>Suche in allen geöffneten &amp;Dateien</translation>
+        <translation>ابحث في كل الملفات ال&amp;مفتوحة</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="91"/>
         <source>&amp;Case sensitive</source>
-        <translation>Beachte &amp;Groß-/Kleinschreibung</translation>
+        <translation>&amp;حسّاس للأحرف الكبيرة والصغيرة</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="98"/>
         <source>W&amp;hole words</source>
-        <translation>Nur ganze &amp;Wörter</translation>
+        <translation>كل&amp;مات كاملة</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="105"/>
         <source>&amp;Regular expression</source>
-        <translation>&amp;Reguläre Ausdrücke</translation>
+        <translation>&amp;تعابير نمطية</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="118"/>
         <source>(invalid)</source>
-        <translation>(ungültig)</translation>
+        <translation>(غير صحيح)</translation>
     </message>
 </context>
 <context>
@@ -71,17 +71,17 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="369"/>
         <source>Open Recent</source>
-        <translation>Zuletzt geöffnet</translation>
+        <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1042"/>
-        <source>Failed to load file &quot;%1&quot;</source>
-        <translation type="obsolete">Konnte die Datei &quot;%1&quot; nicht laden</translation>
+        <location filename="../src/PDFDocument.cpp" line="1246"/>
+        <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
+        <translation>تعذّر تحميل الملف &quot;%1&quot;؛ ربما ليس ملف بي‌دي‌إف سليم.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1255"/>
         <source>No SyncTeX data available</source>
-        <translation>Keine SyncTeX-Daten verfügbar</translation>
+        <translation>لا توجد أي بيانات ‌SyncTeX</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1257"/>
@@ -96,107 +96,107 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1354"/>
         <source>page %1 of %2</source>
-        <translation>Seite %1 von %2</translation>
+        <translation>صفحة %1 من %2</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1359"/>
         <source>%1%</source>
-        <translation>%1%</translation>
+        <translation>%1٪</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="13"/>
-        <source>MainWindow</source>
-        <translation type="obsolete">Hauptfenster</translation>
+        <location filename="../src/PDFDocument.ui" line="16"/>
+        <source>untitled.pdf[*]</source>
+        <translation>untitled.pdf[*]</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="39"/>
         <source>Help</source>
-        <translation>Hilfe</translation>
+        <translation>مساعدة</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="48"/>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation>ملف</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="59"/>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation>تحرير</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="73"/>
         <source>View</source>
-        <translation>Ansicht</translation>
+        <translation>عرض</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="92"/>
         <source>Window</source>
-        <translation>Fenster</translation>
+        <translation>نافذة</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="96"/>
         <source>Show</source>
-        <translation>Zeige</translation>
+        <translation>اعرض</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="496"/>
         <source>Typeset</source>
-        <translation>Setze</translation>
+        <translation>صُفّ</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="147"/>
         <source>Toolbar</source>
-        <translation>Werkzeugleiste</translation>
+        <translation>شريط الأدوات</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="179"/>
         <source>About TeXworks...</source>
-        <translation>Über TeXworks...</translation>
+        <translation>عنْ TeXworks...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="191"/>
         <source>First Page</source>
-        <translation>Erste Seite</translation>
+        <translation>الصفحة الأولى</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="160"/>
-        <source>Ctrl+Left</source>
-        <translation type="obsolete">Ctrl+Left</translation>
+        <location filename="../src/PDFDocument.ui" line="194"/>
+        <source>Home</source>
+        <translation>البداية</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="206"/>
         <source>Previous Page</source>
-        <translation>Vorige Seite</translation>
+        <translation>الصفحة السابقة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="174"/>
-        <source>Left</source>
-        <translation type="obsolete">Left</translation>
+        <location filename="../src/PDFDocument.ui" line="209"/>
+        <source>PgUp</source>
+        <translation>صفحة للأعلى</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="221"/>
         <source>Next Page</source>
-        <translation>Nächste Seite</translation>
+        <translation>الصفحة التالية</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="188"/>
-        <source>Right</source>
-        <translation type="obsolete">Right</translation>
+        <location filename="../src/PDFDocument.ui" line="224"/>
+        <source>PgDown</source>
+        <translation>صفحة للأسفل</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="236"/>
         <source>Last Page</source>
-        <translation>Letzte Seite</translation>
+        <translation>الصفحة الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="202"/>
-        <source>Ctrl+Right</source>
-        <translation type="obsolete">Ctrl+Right</translation>
+        <location filename="../src/PDFDocument.ui" line="239"/>
+        <source>End</source>
+        <translation>النهاية</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="247"/>
         <source>Go to Page...</source>
-        <translation>Gehe zu Seite...</translation>
+        <translation>اذهب إلى صفحة...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="250"/>
@@ -206,7 +206,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="262"/>
         <source>Zoom In</source>
-        <translation>Vergrößern</translation>
+        <translation>قرّب</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="265"/>
@@ -216,7 +216,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="277"/>
         <source>Zoom Out</source>
-        <translation>Verkleinern</translation>
+        <translation>بعّد</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="280"/>
@@ -226,7 +226,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="295"/>
         <source>Fit to Window</source>
-        <translation>In das Fenster einpassen</translation>
+        <translation>لائم النافذة</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="298"/>
@@ -236,7 +236,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="310"/>
         <source>Actual Size</source>
-        <translation>Originalgröße</translation>
+        <translation>الحجم الحقيقي</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="313"/>
@@ -246,7 +246,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="328"/>
         <source>Fit to Width</source>
-        <translation>In Breite einpassen</translation>
+        <translation>لائم العرض</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="331"/>
@@ -256,7 +256,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="343"/>
         <source>New</source>
-        <translation>Neu</translation>
+        <translation>جديد</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="346"/>
@@ -266,7 +266,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="358"/>
         <source>Open...</source>
-        <translation>Öffne...</translation>
+        <translation>افتح...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="361"/>
@@ -276,7 +276,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="377"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>أغلق</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="380"/>
@@ -286,7 +286,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="395"/>
         <source>Undo</source>
-        <translation>Rückgängig</translation>
+        <translation>تراجع</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="398"/>
@@ -296,7 +296,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="413"/>
         <source>Redo</source>
-        <translation>Wiederholen</translation>
+        <translation>أعِد</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="416"/>
@@ -306,7 +306,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="431"/>
         <source>Cut</source>
-        <translation>Ausschneiden</translation>
+        <translation>قص</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="434"/>
@@ -316,7 +316,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="449"/>
         <source>Copy</source>
-        <translation>Kopieren</translation>
+        <translation>انسخ</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="452"/>
@@ -326,7 +326,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="467"/>
         <source>Paste</source>
-        <translation>Einfügen</translation>
+        <translation>الصق</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="470"/>
@@ -336,7 +336,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="481"/>
         <source>Clear</source>
-        <translation>Löschen</translation>
+        <translation>امسح</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="484"/>
@@ -351,27 +351,22 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="511"/>
         <source>Preferences...</source>
-        <translation>Einstellungen...</translation>
+        <translation>التفضيلات...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="519"/>
         <source>Stack</source>
-        <translation>Stapeln</translation>
+        <translation>مكدّسة</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="527"/>
         <source>Tile</source>
-        <translation>Anordnen</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="484"/>
-        <source>Tile Front Two</source>
-        <translation type="obsolete">Zwei Fenster anordnen</translation>
+        <translation>بلاط</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="535"/>
         <source>Go to Source</source>
-        <translation>Gehe zum Quelltext</translation>
+        <translation>اذهب إلى المصدر</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="538"/>
@@ -381,7 +376,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="546"/>
         <source>New from Template...</source>
-        <translation>Neu aus Vorlage...</translation>
+        <translation>جديد من قالب...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="549"/>
@@ -391,7 +386,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="560"/>
         <source>Full Screen</source>
-        <translation>Vollbildschirm</translation>
+        <translation>ملء الشاشة</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="563"/>
@@ -401,77 +396,47 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="581"/>
         <source>Magnify</source>
-        <translation>Vergrößern</translation>
+        <translation>تكبير</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="593"/>
         <source>Scroll</source>
-        <translation>Rollen</translation>
+        <translation>لف</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="605"/>
         <source>Select Text</source>
-        <translation>Text auswählen</translation>
+        <translation>تحديد نص</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="617"/>
         <source>Select Image</source>
-        <translation>Bild auswählen</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.cpp" line="1246"/>
-        <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="16"/>
-        <source>untitled.pdf[*]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="194"/>
-        <source>Home</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="209"/>
-        <source>PgUp</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="224"/>
-        <source>PgDown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="239"/>
-        <source>End</source>
-        <translation type="unfinished">Ende</translation>
+        <translation>تحديد صورة</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="622"/>
         <source>Go to TeXworks home page</source>
-        <translation type="unfinished"></translation>
+        <translation>اذهب إلى صفحة TeXworks الرئيسية</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="627"/>
         <source>Email to the mailing list</source>
-        <translation type="unfinished"></translation>
+        <translation>راسل القائمة البريدية</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="635"/>
         <source>Side by Side</source>
-        <translation type="unfinished"></translation>
+        <translation>جنبا إلى جنب</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="640"/>
         <source>Place on Left</source>
-        <translation type="unfinished"></translation>
+        <translation>ضعها يسارا</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="645"/>
         <source>Place on Right</source>
-        <translation type="unfinished"></translation>
+        <translation>ضعها يمينا</translation>
     </message>
 </context>
 <context>
@@ -479,47 +444,47 @@
     <message>
         <location filename="../src/PDFDocks.cpp" line="219"/>
         <source>Fonts</source>
-        <translation>Schriften</translation>
+        <translation>الخطوط</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="226"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>الاسم</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="226"/>
         <source>Type</source>
-        <translation>Typ</translation>
+        <translation>النوع</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="226"/>
         <source>Subset</source>
-        <translation>Untermenge</translation>
+        <translation>جزئي</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="226"/>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation>الملف</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="251"/>
         <source>[none]</source>
-        <translation>[keine]</translation>
+        <translation>[لا شيء]</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="256"/>
         <source>yes</source>
-        <translation>Ja</translation>
+        <translation>نعم</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="256"/>
         <source>no</source>
-        <translation>Nein</translation>
+        <translation>لا</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="257"/>
         <source>[embedded]</source>
-        <translation>[eingebettet]</translation>
+        <translation>[مضمّن]</translation>
     </message>
 </context>
 <context>
@@ -527,7 +492,7 @@
     <message>
         <location filename="../src/PDFDocks.cpp" line="160"/>
         <source>PDF Info</source>
-        <translation>PDF Information</translation>
+        <translation>معلومات بي‌دي‌إف</translation>
     </message>
 </context>
 <context>
@@ -535,12 +500,12 @@
     <message>
         <location filename="../src/PDFDocks.cpp" line="98"/>
         <source>Contents</source>
-        <translation>Inhalt</translation>
+        <translation>المحتويات</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="120"/>
         <source>No TOC</source>
-        <translation>Kein Inhaltsverzeichnis</translation>
+        <translation>لا جدول محتويات</translation>
     </message>
 </context>
 <context>
@@ -548,37 +513,37 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="788"/>
         <source>Go to Page</source>
-        <translation>Gehe zu Seite</translation>
+        <translation>اذهب إلى الصفحة</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="789"/>
         <source>Page number:</source>
-        <translation>Seitenzahl:</translation>
+        <translation>رقم الصفحة:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="183"/>
         <source>Zoom In</source>
-        <translation type="unfinished">Vergrößern</translation>
+        <translation type="unfinished">قرّب</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="185"/>
         <source>Zoom Out</source>
-        <translation type="unfinished">Verkleinern</translation>
+        <translation type="unfinished">بعّد</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="188"/>
         <source>Actual Size</source>
-        <translation type="unfinished">Originalgröße</translation>
+        <translation type="unfinished">الحجم الحقيقي</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="191"/>
         <source>Fit to Width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">لائم العرض</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="194"/>
         <source>Fit to Window</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">لائم النافذة</translation>
     </message>
 </context>
 <context>
@@ -586,232 +551,222 @@
     <message>
         <location filename="../src/PrefsDialog.cpp" line="130"/>
         <source>Choose Directory</source>
-        <translation>Wähle Verzeichnis</translation>
+        <translation>اختر مجلدا</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="203"/>
         <source>New Tool</source>
-        <translation>Neues Werkzeug</translation>
+        <translation>أداة جديدة</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="368"/>
         <source>None</source>
-        <translation>Keine</translation>
+        <translation>لا شيء</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="13"/>
         <source>TeXworks Preferences</source>
-        <translation>TeXworks Einstellungen</translation>
+        <translation>تفضيلات TeXworks</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="37"/>
         <source>General</source>
-        <translation>Allgemein</translation>
+        <translation>عام</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="43"/>
         <source>Toolbar buttons</source>
-        <translation>Knöpfe in der Werkzeugleiste</translation>
+        <translation>أزرار شريط الأدوات</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="49"/>
         <source>Small icons</source>
-        <translation>Kleine Bilder</translation>
+        <translation>أيقونات صغيرة</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="56"/>
         <source>Medium icons</source>
-        <translation>Mittlere Bilder</translation>
+        <translation>أيقونات متوسطة</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="63"/>
         <source>Large icons</source>
-        <translation>Große Bilder</translation>
+        <translation>أيقونات كبيرة</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="70"/>
         <source>Show text as well as icons</source>
-        <translation>Zeige Text und Bilder</translation>
+        <translation>اعرض نص وأيقونات</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="80"/>
         <source>When launched, show</source>
-        <translation>Zeige, wenn gestartet</translation>
+        <translation>عند التشغيل، اعرض</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="86"/>
         <source>New blank document</source>
-        <translation>Neues leeres Dokument</translation>
+        <translation>مستند جديد خالي</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="93"/>
         <source>Template selection dialog</source>
-        <translation>Auswahldialog für Vorlagen</translation>
+        <translation>حوار اختيار قالب</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="100"/>
         <source>File Open dialog</source>
-        <translation>Dialog zur Dateiauswahl</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="125"/>
-        <source>Interface locale (for next launch):</source>
-        <translation type="obsolete">Sprache der Oberfläche (Neustart erforderlich):</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="169"/>
-        <source>Editor</source>
-        <translation>Editor</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="175"/>
-        <source>Editor defaults</source>
-        <translation>Editor Standardeinstellungen</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="220"/>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="213"/>
-        <source>Tab width:</source>
-        <translation>Tabulatorbreite:</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="249"/>
-        <source>Wrap lines</source>
-        <translation>Zeilenumbruch</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="250"/>
-        <source>Syntax coloring</source>
-        <translation type="obsolete">Syntax-Hervorhebung</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="393"/>
-        <source>Encoding:</source>
-        <translation>Kodierung:</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="354"/>
-        <source>Spell-check language:</source>
-        <translation>Sprache der Rechtschreibprüfung:</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="450"/>
-        <source>Preview</source>
-        <translation>Vorschau</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="456"/>
-        <source>Default scaling</source>
-        <translation>Standardvergrößerung</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="464"/>
-        <source>Actual size</source>
-        <translation>Originalgröße</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="471"/>
-        <source>Fit to Width</source>
-        <translation>Breite einpassen</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="478"/>
-        <source>Fit to Window</source>
-        <translation>An das Fenster anpassen</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="489"/>
-        <source>Fixed scale:</source>
-        <translation>Feste Vergrößerung:</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="499"/>
-        <source> %</source>
-        <translation>%</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="520"/>
-        <source>Magnifying glass</source>
-        <translation>Lupe</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="528"/>
-        <source>Small</source>
-        <translation>Klein</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="535"/>
-        <source>Medium</source>
-        <translation>Mittel</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="542"/>
-        <source>Large</source>
-        <translation>Groß</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="551"/>
-        <source>Circular magnifier</source>
-        <translation>Ringlupe</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="579"/>
-        <source>Screen resolution:</source>
-        <translation>Bildschirmauflösung:</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="589"/>
-        <source> dpi</source>
-        <translation>dpi</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="629"/>
-        <source>Typesetting</source>
-        <translation>Textsatz</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="646"/>
-        <source>Paths for TeX and related programs</source>
-        <translation>Pfade für TeX und verwandte Programme</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="719"/>
-        <source>Processing tools</source>
-        <translation>Verarbeitungsprogramme</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="754"/>
-        <source>Edit...</source>
-        <translation>Bearbeiten...</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="792"/>
-        <source>Default:</source>
-        <translation>Standard:</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="816"/>
-        <source>Auto-hide output panel unless errors occur</source>
-        <translation>Verberge Ausgabe, wenn kein Fehler auftritt</translation>
+        <translation>حوار فتح ملف</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="125"/>
         <source>Interface locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>لغة الواجهة:</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="169"/>
+        <source>Editor</source>
+        <translation>المحرر</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="175"/>
+        <source>Editor defaults</source>
+        <translation>افتراضيات المحرر</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="220"/>
+        <source> pt</source>
+        <translation> نقطة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="213"/>
+        <source>Tab width:</source>
+        <translation>عرض علامة التبويب:</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="249"/>
+        <source>Wrap lines</source>
+        <translation>لف السطور</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="276"/>
         <source>Syntax coloring:</source>
-        <translation type="unfinished"></translation>
+        <translation>تلوين السياق:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="315"/>
         <source>Auto-Indent mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>طور الإزاحة الآلية:</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="354"/>
+        <source>Spell-check language:</source>
+        <translation>لغة التدقيق الإملائي:</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="393"/>
+        <source>Encoding:</source>
+        <translation>الترميز:</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="450"/>
+        <source>Preview</source>
+        <translation>المعاينة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="456"/>
+        <source>Default scaling</source>
+        <translation>التحجيم الافتراضي</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="464"/>
+        <source>Actual size</source>
+        <translation>الحجم الفعلي</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="471"/>
+        <source>Fit to Width</source>
+        <translation>لائم العرض</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="478"/>
+        <source>Fit to Window</source>
+        <translation>لائم النافذة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="489"/>
+        <source>Fixed scale:</source>
+        <translation>تحجيم ثابت:</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="499"/>
+        <source> %</source>
+        <translation> ٪</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="520"/>
+        <source>Magnifying glass</source>
+        <translation>العدسة المكبرة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="528"/>
+        <source>Small</source>
+        <translation>صغيرة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="535"/>
+        <source>Medium</source>
+        <translation>متوسطة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="542"/>
+        <source>Large</source>
+        <translation>كبيرة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="551"/>
+        <source>Circular magnifier</source>
+        <translation>مكبرة دائرية</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="579"/>
+        <source>Screen resolution:</source>
+        <translation>ميز الشاشة:</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="589"/>
+        <source> dpi</source>
+        <translation> نقطة/بوصة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="629"/>
+        <source>Typesetting</source>
+        <translation>صفّ الحروف</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="646"/>
+        <source>Paths for TeX and related programs</source>
+        <translation>مسارات TeX والبرامج المتعلقة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="719"/>
+        <source>Processing tools</source>
+        <translation>أدوات المعالجة</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="754"/>
+        <source>Edit...</source>
+        <translation>حرّر...</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="792"/>
+        <source>Default:</source>
+        <translation>الافتراضي:</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="816"/>
+        <source>Auto-hide output panel unless errors occur</source>
+        <translation>أخفِ لوحة الخرج تلقائيا ما لم تحدث أخطاء</translation>
     </message>
 </context>
 <context>
@@ -819,52 +774,52 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="221"/>
         <source>TeX documents (*.tex)</source>
-        <translation type="unfinished"></translation>
+        <translation>مستندات TeX (*.tex)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="222"/>
         <source>LaTeX documents (*.ltx)</source>
-        <translation type="unfinished"></translation>
+        <translation>مستندات LaTeX (*.ltx)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="223"/>
         <source>BibTeX databases (*.bib)</source>
-        <translation type="unfinished"></translation>
+        <translation>قواعد بيانات BibTeX (*.bib)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="224"/>
         <source>Style files (*.sty)</source>
-        <translation type="unfinished"></translation>
+        <translation>ملفات الطرز (*.sty)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="225"/>
         <source>Class files (*.cls)</source>
-        <translation type="unfinished"></translation>
+        <translation>ملفات الأصناف (*.cls)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="226"/>
         <source>Documented macros (*.dtx)</source>
-        <translation type="unfinished"></translation>
+        <translation>الماكروهات الموثّقة (*.cls)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="227"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>كل الملفات المساعدة (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="228"/>
         <source>Text files (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation>ملفات النصوص (*.txt)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="229"/>
         <source>PDF documents (*.pdf)</source>
-        <translation type="unfinished"></translation>
+        <translation>مستندات بي‌دي‌إف (*.pdf)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="233"/>
         <source>All files</source>
-        <translation type="unfinished"></translation>
+        <translation>كل الملفات</translation>
     </message>
 </context>
 <context>
@@ -872,97 +827,67 @@
     <message>
         <location filename="../src/Replace.ui" line="22"/>
         <source>Replace</source>
-        <translation>Ersetzen</translation>
+        <translation>استبدل</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="172"/>
         <source>Replace All</source>
-        <translation>Alle ersetzen</translation>
+        <translation>استبدل الكل</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="174"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>ألغِ</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="236"/>
         <source>(invalid)</source>
-        <translation>(ungültig)</translation>
+        <translation>(غير صحيح)</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="31"/>
         <source>Replace:</source>
-        <translation>Ersetzen:</translation>
+        <translation>استبدل:</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="48"/>
         <source>With:</source>
-        <translation>Mit:</translation>
-    </message>
-    <message>
-        <location filename="../src/Replace.ui" line="66"/>
-        <source>Wrap around</source>
-        <translation type="obsolete">Umbrechen</translation>
-    </message>
-    <message>
-        <location filename="../src/Replace.ui" line="73"/>
-        <source>Find backwards</source>
-        <translation type="obsolete">Rückwärtssuche</translation>
-    </message>
-    <message>
-        <location filename="../src/Replace.ui" line="80"/>
-        <source>Search within selection</source>
-        <translation type="obsolete">Suche in der Auswahl</translation>
-    </message>
-    <message>
-        <location filename="../src/Replace.ui" line="91"/>
-        <source>Case sensitive</source>
-        <translation type="obsolete">Beachte Groß-/Kleinschreibung</translation>
-    </message>
-    <message>
-        <location filename="../src/Replace.ui" line="98"/>
-        <source>Whole words</source>
-        <translation type="obsolete">Ganze Wörter</translation>
-    </message>
-    <message>
-        <location filename="../src/Replace.ui" line="105"/>
-        <source>Regular expression</source>
-        <translation type="obsolete">Reguläre Ausdrücke</translation>
+        <translation>بواسطة:</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="69"/>
         <source>&amp;Wrap around</source>
-        <translation type="unfinished">&amp;Umbrechen</translation>
+        <translation>لف &amp;عبر المستند</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="76"/>
         <source>Find &amp;backwards</source>
-        <translation type="unfinished">Rüc&amp;kwärtssuche</translation>
+        <translation>ابحث &amp;عكسيا</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="83"/>
         <source>Replace within &amp;selection</source>
-        <translation type="unfinished"></translation>
+        <translation>استبدل &amp;داخل التحديد</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="90"/>
         <source>Replace in all &amp;open files</source>
-        <translation type="unfinished"></translation>
+        <translation>استبدل في كل المفات ال&amp;مفتوحة</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="101"/>
         <source>&amp;Case sensitive</source>
-        <translation type="unfinished">Beachte &amp;Groß-/Kleinschreibung</translation>
+        <translation>&amp;حسّاس للأحرف الكبيرة والصغيرة</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="108"/>
         <source>W&amp;hole words</source>
-        <translation type="unfinished">Nur ganze &amp;Wörter</translation>
+        <translation>كل&amp;مات كاملة</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="115"/>
         <source>&amp;Regular expression</source>
-        <translation type="unfinished">&amp;Reguläre Ausdrücke</translation>
+        <translation>&amp;تعابير نمطية</translation>
     </message>
 </context>
 <context>
@@ -970,32 +895,32 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="317"/>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation>الملف</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="317"/>
         <source>Line</source>
-        <translation>Zeile</translation>
+        <translation>السطر</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="317"/>
         <source>Start</source>
-        <translation>Start</translation>
+        <translation>البداية</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="317"/>
         <source>End</source>
-        <translation>Ende</translation>
+        <translation>النهاية</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="317"/>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation>النص</translation>
     </message>
     <message>
         <location filename="../src/SearchResults.ui" line="16"/>
         <source>Search Results</source>
-        <translation>Suchergebnisse</translation>
+        <translation>نتائج البحث</translation>
     </message>
 </context>
 <context>
@@ -1003,112 +928,108 @@
     <message>
         <location filename="../src/TWApp.cpp" line="144"/>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation>ملف</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="145"/>
         <source>New</source>
-        <translation>Neu</translation>
+        <translation>جديد</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="147"/>
         <source>New from Template...</source>
-        <translation>Neu aus Vorlage...</translation>
+        <translation>جديد من قالب...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="108"/>
         <source>Preferences...</source>
-        <translation>Einstellungen...</translation>
+        <translation>التفضيلات...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="149"/>
         <source>Open...</source>
-        <translation>Öffne...</translation>
+        <translation>افتح...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="152"/>
         <source>Open Recent</source>
-        <translation>Zuletzt geöffnet</translation>
+        <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="154"/>
         <source>Help</source>
-        <translation>Hilfe</translation>
+        <translation>مساعدة</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="155"/>
         <source>About </source>
-        <translation>Über</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="163"/>
-        <source>About %1</source>
-        <translation>Über %1</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="157"/>
-        <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;&lt;small&gt;&lt;p&gt;&amp;#xA9; 2007-2008 Jonathan Kew&lt;br&gt;Version %2 (r.%3)&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; application framework by Trolltech ASA.&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.&lt;br&gt;SyncTeX technology by J&amp;#xE9;r&amp;#xF4;me Laurens.&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.&lt;/small&gt;</source>
-        <translation type="obsolete">&lt;p&gt;%1 ist eine einfache Umgebung zum Bearbeiten, Setzen und Anschauen von TeX-Dokumenten.&lt;/p&gt;&lt;small&gt;&lt;p&gt;&amp;#xA9; 2007-2008 Jonathan Kew&lt;br&gt;Version %2 (r. %3)&lt;p&gt;Verteilt unter der &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, Version 2.&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; Anwendungs-Framework von Trolltech ASA.&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF-Bibliothek von Kristian H&amp;#xF8;gsberg, Albert Astals Cid u.a.&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; Rechtschreibprüfung von L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.&lt;br&gt;Konzept und Mittel von &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; von Richard Koch.&lt;br&gt;SyncTeX-Technologie von J&amp;#xE9;r&amp;#xF4;me Laurens.&lt;br&gt;Einige der benutzten Bilder stammen vom &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.&lt;/small&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="222"/>
-        <source>Unable to create window</source>
-        <translation>Kann kein Fenster erzeugen</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="224"/>
-        <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
-        <translation>Irgendetwas ist ganz falsch; %1 konnte kein Dokumentfenster erzeugen. Die Anwendung wird sich jetzt beenden.</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="260"/>
-        <source>Open File</source>
-        <translation>Datei öffnen</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="390"/>
-        <source>No default binary directory found</source>
-        <translation>Kein Standard-Binärverzeichnis gefunden</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="393"/>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Keins der vordefinierten Verzeichnisse für TeX und verwandte Programme konnte gefunden werden.&lt;p&gt;&lt;small&gt;Um irgendeinen Prozess zu starten, müssen Sie das korrekte Binärverzeichnis (oder mehrere) Ihrer TeX-Distribution angeben im Einstellungs-Dialog unter &quot;Textsatz&quot;.</translation>
+        <translation>عنْ</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="156"/>
         <source>Go to TeXworks home page</source>
-        <translation type="unfinished"></translation>
+        <translation>اذهب إلى صفحة TeXworks الرئيسية</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="157"/>
         <source>Email to the mailing list</source>
-        <translation type="unfinished"></translation>
+        <translation>راسل القائمة البريدية</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="146"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished">Ctrl+N</translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="148"/>
         <source>Ctrl+Shift+N</source>
-        <translation type="unfinished">Ctrl+Shift+N</translation>
+        <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="150"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished">Ctrl+O</translation>
+        <translation>Ctrl+O</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="163"/>
+        <source>About %1</source>
+        <translation>عنْ %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="177"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;&lt;small&gt;&lt;p&gt;&amp;#xA9; 2007-2008 Jonathan Kew&lt;br&gt;Version %2 (r.%3)&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; application framework by Trolltech ASA.&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.&lt;/small&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;%1 هو بيئة بسيطة لتحرير، وصفّ، ومعاينة ملفات TeX.&lt;/p&gt; &lt;small&gt;&lt;p&gt;حقوق النشر &amp;#xA9; ٢٠٠٧-٢٠٠٨ جوناثان كيو&lt;br&gt; 
+الإصدارة %2 (م.%3)&lt;p&gt;يوزع وفق &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;رخصة جنو العمومية&lt;/a&gt;، الإصدارة٢.&lt;p dir=&quot;ltr&quot;&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; application framework by Trolltech ASA.&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.&lt;/small&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="185"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation type="unfinished"></translation>
+        <translation>تعذّر الوصول إلى &quot;%1&quot;؛ ربما المتصفح أو تطبيق البريد ليس مضبوطا؟</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="222"/>
+        <source>Unable to create window</source>
+        <translation>تعذّر إنشاء نافذة</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="224"/>
+        <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
+        <translation>هناك عطل كبير؛ لم يستطع %1 إنشاء نافذة مستند. سيغلق التطبيق الآن.</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="260"/>
+        <source>Open File</source>
+        <translation>افتح ملفا</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="390"/>
+        <source>No default binary directory found</source>
+        <translation>لم يُعثر على مجلد ثنائيات مبدئي</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="393"/>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
+        <translation>لم يعثر على أي من المجلدات المحددة للتطبيقات المتعلقة بTeX.&lt;p&gt;&lt;small&gt;قبل تشغيل أي عملية ستحتاج لتحديد مجلد (أو مجلدات) الثنائيات لتوزيعة TeX لديك مستخدما لسان الصف الطباعي في حوار التفضيلات.</translation>
     </message>
 </context>
 <context>
@@ -1116,22 +1037,22 @@
     <message>
         <location filename="../src/TeXDocks.cpp" line="51"/>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>الوسوم</translation>
     </message>
     <message>
         <location filename="../src/TeXDocks.cpp" line="72"/>
         <source>Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>العلامات</translation>
     </message>
     <message>
         <location filename="../src/TeXDocks.cpp" line="77"/>
         <source>Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>المخطط العام</translation>
     </message>
     <message>
         <location filename="../src/TeXDocks.cpp" line="107"/>
         <source>No tags</source>
-        <translation type="unfinished"></translation>
+        <translation>لا وسوم</translation>
     </message>
 </context>
 <context>
@@ -1139,111 +1060,124 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="70"/>
         <source>New document</source>
-        <translation>Neues Dokument</translation>
+        <translation>مستند جديد</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="807"/>
         <source>Open Recent</source>
-        <translation>Zuletzt geöffnet</translation>
+        <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="959"/>
         <source>None</source>
-        <translation>Keine</translation>
+        <translation>لا شيء</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="394"/>
         <source>Open File</source>
-        <translation>Datei öffnen</translation>
+        <translation>افتح ملفا</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="459"/>
         <source>Cannot close window while tool is running</source>
-        <translation>Kann das Fenster nicht schließen, während ein Programm läuft</translation>
+        <translation>لا يمكن غلق النافذة بينما تعمل الأداة</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="584"/>
         <source>Save File</source>
-        <translation>Datei speichern</translation>
+        <translation>احفظ الملف</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="598"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
-        <translation>Das Dokument &quot;%1&quot; wurde geändert.
-Möchten Sie die Änderungen speichern?</translation>
+        <translation>لقد تغيّر المستند &quot;%1&quot;. أتريد حفظ تغييراتك؟</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="613"/>
+        <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
+        <translation>أتريد تجاهل كل التغييرات على المستند &quot;%1&quot;، واستعادة آخر نسخة محفوظة؟</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="614"/>
+        <source>Revert</source>
+        <translation>استعد</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="693"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation>Kann die Datei &quot;%1&quot; nicht lesen: %2.</translation>
+        <translation>تعذّر قراءة الملف &quot;%1&quot;: 
+%2.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="785"/>
         <source>Unrecognized encoding</source>
-        <translation>Unbekannte Kodierung</translation>
+        <translation>ترميز غير معروف</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="708"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
-        <translation>Die von %2 benutzte Kodierung %1 wird nicht unterstützt.
-Sie wird stattdessen als %3 interpretiert; das kann zu Fehlern im Text führen.</translation>
+        <translation>ترميز النص %1 المستخدم في %2 غير مدعوم. 
+
+سيفسر كما لو كان %3 بدلا من هذا، ما قد ينتج عنه نص غير صحيح.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="736"/>
         <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation>Datei &quot;%1&quot; geladen (%2)</translation>
+        <translation>حُمّل الملف &quot;%1&quot; (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="788"/>
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>Die von %2 benutzte Kodierung %1 wird nicht unterstützt.
-Die Datei wird stattdessen als %3 gespeichert; das kann zu Fehlern im Text führen.</translation>
+        <translation>ترميز النص %1 المطلوب في %2 غير مدعوم. 
+
+سيحفظ باستخدام %3 بدلا من هذا، ما قد ينتج عنه نص غير صحيح.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="797"/>
         <source>Text cannot be converted</source>
-        <translation>Der Text kann nicht konvertiert werden</translation>
+        <translation>تعذّر تحويل النص</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="801"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
-        <translation>Dieses Dokument enthält Zeichen, die in der Kodierung %1 nicht dargestellt werden können.
-Wenn Sie fortfahren, werden sie mit Standardzeichen überschrieben. Alternativ können Sie eine andere Kodierung (bspw. UTF-8) verwenden, um Datenverlust vorzubeugen.</translation>
+        <translation>يحتوي هذا المستند على محارف لا يمكن تمثيلها باستخدام الترميز %1. 
+
+إذا أكملت، ستستبدل بالرموز الافتراضية. أو ربما قد ترغب في استخدام ترميز آخر (مثل UTF-8) لتفادي فقد البيانات.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="812"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation>Kann die Datei &quot;%1&quot; nicht schreiben.
+        <translation>تعذّر كتابة الملف &quot;%1&quot;: 
 %2.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="824"/>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation>Datei &quot;%1&quot; gespeichert (%2)</translation>
+        <translation>حُفِظ الملف &quot;%1&quot; (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="825"/>
         <source>default encoding</source>
-        <translation>Standard-Kodierung</translation>
+        <translation>الترميز الافتراضي</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="835"/>
         <source>Document &quot;%1&quot; was not saved</source>
-        <translation>Datei &quot;%1&quot; wurde nicht gespeichert</translation>
+        <translation>لم يُحفظ المستند &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="846"/>
         <source>untitled-%1.tex</source>
-        <translation>Namenlos-%1.tex</translation>
+        <translation>untitled-%1.tex</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="857"/>
@@ -1251,158 +1185,158 @@ Wenn Sie fortfahren, werden sie mit Standardzeichen überschrieben. Alternativ k
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="813"/>
-        <source>Line %1 of %2</source>
-        <translation type="obsolete">Zeile %1 von %2</translation>
+        <location filename="../src/TeXDocument.cpp" line="930"/>
+        <source>Line %1 of %2; col %3</source>
+        <translation>السطر %1 من %2؛ عمود %3</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1045"/>
         <source>Go to Line</source>
-        <translation>Gehe zu Zeile</translation>
+        <translation>اذهب لسطر</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1046"/>
         <source>Line number:</source>
-        <translation>Zeilennummer:</translation>
+        <translation>رقم السطر:</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1340"/>
         <source>Invalid regular expression</source>
-        <translation>Ungültiger regulärer Ausdruck</translation>
+        <translation>تعبير نمطي غير صحيح</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1385"/>
         <source>Not found</source>
-        <translation>Nicht gefunden</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.cpp" line="1129"/>
-        <source>Found %1 occurrence(s)</source>
-        <translation type="obsolete">%1 Stelle(n) gefunden</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.cpp" line="1281"/>
-        <source>Replaced %1 occurrence(s)</source>
-        <translation type="obsolete">%1 Stelle(n) ersetzt</translation>
+        <translation>غير موجود</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1544"/>
         <source>Cannot process unsaved document</source>
-        <translation>Das Dokument kann nicht gesetzt werden ohne zu speichern</translation>
+        <translation>لا يمكن معالجة الملف دون حفظه</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1551"/>
         <source>File %1 is not readable</source>
-        <translation>Datei %1 ist nicht lesbar</translation>
+        <translation>الملف %1 غير مقروء</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1565"/>
         <source>%1 is not properly configured</source>
-        <translation>%1 ist nicht korrekt konfiguriert</translation>
+        <translation>%1 ليس معدّا بشكل سليم</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1619"/>
         <source>Unable to execute %1</source>
-        <translation>Kann %1 nicht ausführen</translation>
+        <translation>تعذّر تنفيذ %1</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1622"/>
         <source>The program &quot;%1&quot; was not found.
 
 Check configuration of the %2 tool and path settings in the Preferences dialog.</source>
-        <translation>Das Programm &quot;%1&quot; wurde nicht gefunden.
+        <translation>لم يُعثر على البرنامج &quot;%1&quot;. 
 
-Überprüfen Sie die Konfiguration  von %2 und die Pfadeinstellungen im Einstellungs-Dialog.</translation>
+راجع ضبط الأداة &quot;%2&quot; وإعدادات المسارات في حوار التفضيلات.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="854"/>
         <source>Hide Output Panel</source>
-        <translation>Verstecke die Ausgabe</translation>
+        <translation>أخفِ لوحة الخرج</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1715"/>
         <source>Show Output Panel</source>
-        <translation>Zeige die Ausgabe</translation>
+        <translation>أظهر لوحة الخرْج</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1772"/>
         <source>Set engine to &quot;%1&quot;</source>
-        <translation>Verwende &quot;%1&quot; für die Übersetzung</translation>
+        <translation>اضبط المحرك ليكون &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1778"/>
         <source>Engine &quot;%1&quot; not defined</source>
-        <translation>Program &quot;%1&quot; nicht definiert</translation>
+        <translation>المحرك &quot;%1&quot; غير موجود</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="16"/>
         <source>untitled.tex[*]</source>
-        <translation>Namenlos.tex[*]</translation>
+        <translation>untitled.tex[*]</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="198"/>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation>ملف</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="212"/>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation>تحرير</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="216"/>
         <source>Spelling</source>
-        <translation>Rechtschreibung</translation>
+        <translation>الإملاء</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="223"/>
         <source>Change Case</source>
-        <translation>Groß-/Kleinschreibung umschalten</translation>
+        <translation>غيّر الحالة</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="604"/>
         <source>Typeset</source>
-        <translation>Übersetzen</translation>
+        <translation>صُفّ</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="252"/>
         <source>Window</source>
-        <translation>Fenster</translation>
+        <translation>نافذة</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="256"/>
         <source>Show</source>
-        <translation>Zeige</translation>
+        <translation>اعرض</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="272"/>
         <source>Search</source>
-        <translation>Suche</translation>
+        <translation>ابحث</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="287"/>
         <source>Format</source>
-        <translation>Format</translation>
+        <translation>تنسيق</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="291"/>
+        <source>Auto-indent Mode</source>
+        <translation>طور الإزاحة التلقائية</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="298"/>
+        <source>Syntax Coloring</source>
+        <translation>تلوين السياق</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="316"/>
         <source>Help</source>
-        <translation>Hilfe</translation>
+        <translation>مساعدة</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="341"/>
         <source>Typeset Toolbar</source>
-        <translation>Textsatz-Werkzeugleiste</translation>
+        <translation>شريط أدوات الصف الطباعي</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="370"/>
         <source>Edit Toolbar</source>
-        <translation>Bearbeitungs-Werkzeugleiste</translation>
+        <translation>شريط أدوات التحرير</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="422"/>
         <source>New</source>
-        <translation>Neu</translation>
+        <translation>جديد</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="425"/>
@@ -1412,7 +1346,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="437"/>
         <source>Open...</source>
-        <translation>Öffne...</translation>
+        <translation>افتح...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="440"/>
@@ -1422,7 +1356,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="448"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>أغلق</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="451"/>
@@ -1432,7 +1366,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="466"/>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation>احفظ</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="469"/>
@@ -1442,7 +1376,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="477"/>
         <source>Save As...</source>
-        <translation>Speichern als...</translation>
+        <translation>احفظ باسم...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="480"/>
@@ -1452,12 +1386,12 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="491"/>
         <source>Revert to Saved</source>
-        <translation>Zurück zur gespeicherten Version</translation>
+        <translation>استعد المحفوظ</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="506"/>
         <source>Undo</source>
-        <translation>Rückgängig</translation>
+        <translation>تراجع</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="509"/>
@@ -1467,7 +1401,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="524"/>
         <source>Redo</source>
-        <translation>Wiederholen</translation>
+        <translation>أعِد</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="527"/>
@@ -1477,7 +1411,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="542"/>
         <source>Cut</source>
-        <translation>Ausschneiden</translation>
+        <translation>قص</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="545"/>
@@ -1487,7 +1421,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="560"/>
         <source>Copy</source>
-        <translation>Kopieren</translation>
+        <translation>انسخ</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="563"/>
@@ -1497,7 +1431,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="578"/>
         <source>Paste</source>
-        <translation>Einfügen</translation>
+        <translation>الصق</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="581"/>
@@ -1507,7 +1441,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="592"/>
         <source>Clear</source>
-        <translation>Löschen</translation>
+        <translation>امسح</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="607"/>
@@ -1515,19 +1449,9 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="593"/>
-        <source>TeX</source>
-        <translation type="obsolete">TeX</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="601"/>
-        <source>LaTeX</source>
-        <translation type="obsolete">LaTeX</translation>
-    </message>
-    <message>
         <location filename="../src/TeXDocument.ui" line="619"/>
         <source>Find...</source>
-        <translation>Suche...</translation>
+        <translation>ابحث...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="622"/>
@@ -1537,7 +1461,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="630"/>
         <source>Find Again</source>
-        <translation>Weitersuchen</translation>
+        <translation>ابحث ثانية</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="633"/>
@@ -1547,7 +1471,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="645"/>
         <source>Replace...</source>
-        <translation>Ersetzen...</translation>
+        <translation>استبدل...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="648"/>
@@ -1557,7 +1481,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="656"/>
         <source>Copy to Find</source>
-        <translation>Kopieren zum Suchen</translation>
+        <translation>انسخ إلى البحث</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="659"/>
@@ -1567,7 +1491,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="667"/>
         <source>Copy to Replace</source>
-        <translation>Kopieren zum Ersetzen</translation>
+        <translation>انسخ إلى الاستبدال</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="670"/>
@@ -1577,7 +1501,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="678"/>
         <source>Go to Line...</source>
-        <translation>Gehe zu Zeile...</translation>
+        <translation>اذهب إلى السطر...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="681"/>
@@ -1587,7 +1511,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="689"/>
         <source>Find Selection</source>
-        <translation>Suche Auswahl</translation>
+        <translation>ابحث عن المحدد</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="692"/>
@@ -1597,7 +1521,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="700"/>
         <source>Select All</source>
-        <translation>Alles markieren</translation>
+        <translation>اختر الكل</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="703"/>
@@ -1605,29 +1529,14 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <translation>Ctrl+A</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="705"/>
-        <source>pdfTeX</source>
-        <translation type="obsolete">pdfTeX</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="713"/>
-        <source>XeTeX</source>
-        <translation type="obsolete">XeTeX</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="721"/>
-        <source>luaTeX</source>
-        <translation type="obsolete">luaTeX</translation>
-    </message>
-    <message>
         <location filename="../src/TeXDocument.ui" line="711"/>
         <source>Font...</source>
-        <translation>Schriftart...</translation>
+        <translation>الخط...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="723"/>
         <source>Indent</source>
-        <translation>Einrücken</translation>
+        <translation>أزِح</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="726"/>
@@ -1637,7 +1546,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="738"/>
         <source>Unindent</source>
-        <translation>Ausrücken</translation>
+        <translation>أرجِع</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="741"/>
@@ -1647,7 +1556,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="749"/>
         <source>Comment</source>
-        <translation>Auskommentieren</translation>
+        <translation>علّق</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="752"/>
@@ -1657,7 +1566,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="760"/>
         <source>Uncomment</source>
-        <translation>Kommentar entfernen</translation>
+        <translation>أزِل التعليق</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="763"/>
@@ -1667,37 +1576,32 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="777"/>
         <source>Wrap Lines</source>
-        <translation>Zeilen umbrechen</translation>
+        <translation>لف السطور</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="799"/>
         <source>About TeXworks...</source>
-        <translation>Über TeXworks...</translation>
+        <translation>عنْ TeXworks...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="815"/>
         <source>Stack</source>
-        <translation>Stapeln</translation>
+        <translation>مكدّسة</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="823"/>
         <source>Tile</source>
-        <translation>Kacheln</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="849"/>
-        <source>Tile Front Two</source>
-        <translation type="obsolete">Zweiteilen</translation>
+        <translation>بلاط</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="835"/>
         <source>Preferences...</source>
-        <translation>Einstellungen...</translation>
+        <translation>التفضيلات...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="843"/>
         <source>Go to Preview</source>
-        <translation>Gehe zur Vorschau</translation>
+        <translation>اذهب إلى المعاينة</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="846"/>
@@ -1710,14 +1614,9 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <translation>Ctrl+\</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="298"/>
-        <source>Syntax Coloring</source>
-        <translation>Syntax-Hervorhebung</translation>
-    </message>
-    <message>
         <location filename="../src/TeXDocument.ui" line="865"/>
         <source>New from Template...</source>
-        <translation>Neu aus Vorlage...</translation>
+        <translation>جديد من قالب...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="868"/>
@@ -1727,7 +1626,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="876"/>
         <source>Show Selection</source>
-        <translation>Auswahl anzeigen</translation>
+        <translation>أظهر التحديد</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="879"/>
@@ -1737,17 +1636,17 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="890"/>
         <source>ALL UPPERCASE</source>
-        <translation>GROSSSCHREIBUNG</translation>
+        <translation>ALL UPPERCASE</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="898"/>
         <source>all lowercase</source>
-        <translation>kleinschreibung</translation>
+        <translation>all lowercase</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="903"/>
         <source>Balance Delimiters</source>
-        <translation>Klammern ausgleichen</translation>
+        <translation>وازِن المحددات</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="906"/>
@@ -1755,86 +1654,94 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <translation>Ctrl+B</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="613"/>
-        <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/TeXDocument.ui" line="914"/>
+        <source>Go to TeXworks home page</source>
+        <translation>اذهب إلى صفحة TeXworks الرئيسية</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="614"/>
-        <source>Revert</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/TeXDocument.ui" line="919"/>
+        <source>Email to the mailing list</source>
+        <translation>راسل القائمة البريدية</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="930"/>
-        <source>Line %1 of %2; col %3</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/TeXDocument.ui" line="927"/>
+        <source>Side by Side</source>
+        <translation>جنبا إلى جنب</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="932"/>
+        <source>Place on Left</source>
+        <translation>ضعها يسارا</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="937"/>
+        <source>Place on Right</source>
+        <translation>ضعها يمينا</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/TeXDocument.cpp" line="1270"/>
         <source>Found %n occurrence(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>لم يُعثر على نتائج</numerusform>
+            <numerusform>عُثِر على نتيجة واحدة</numerusform>
+            <numerusform>عُثِر على نتيجتين</numerusform>
+            <numerusform>عُثِر على %n نتائج</numerusform>
+            <numerusform>عُثِر على %n نتيجة</numerusform>
+            <numerusform>عُثِر على %n نتيجة</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/TeXDocument.cpp" line="1409"/>
+        <source>Replaced %n occurrence(s)</source>
+        <translation>
+            <numerusform>لم يُستبدل أي شيء</numerusform>
+            <numerusform>استُبدِل تواجد واحد</numerusform>
+            <numerusform>استُبدِل تواجدين</numerusform>
+            <numerusform>استُبدِلت %n تواجدات</numerusform>
+            <numerusform>استُبدِل %n تواجدا</numerusform>
+            <numerusform>استُبدِل %n تواجد</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/TeXDocument.cpp" line="1401"/>
+        <source>in %n documents</source>
+        <translation type="obsolete">
+            <numerusform>في صفر مستند</numerusform>
+            <numerusform>في مستند واحد</numerusform>
+            <numerusform>في مستندين</numerusform>
+            <numerusform>في %n مستندات</numerusform>
+            <numerusform>في %n مستندا</numerusform>
+            <numerusform>في %n مستند</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/TeXDocument.cpp" line="1402"/>
         <source>%n occurrence(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>لا شيء</numerusform>
+            <numerusform>تواجد واحد</numerusform>
+            <numerusform>تواجدين</numerusform>
+            <numerusform>%n تواجدات</numerusform>
+            <numerusform>%n تواجدا</numerusform>
+            <numerusform>%n تواجد</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/TeXDocument.cpp" line="1403"/>
         <source>%n documents</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>لا شيء</numerusform>
+            <numerusform>مستند واحد</numerusform>
+            <numerusform>مستندين</numerusform>
+            <numerusform>%n مستندات</numerusform>
+            <numerusform>%n مستندا</numerusform>
+            <numerusform>%n مستند</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1404"/>
         <source>Replaced %1 in %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1409"/>
-        <source>Replaced %n occurrence(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="291"/>
-        <source>Auto-indent Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="914"/>
-        <source>Go to TeXworks home page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="919"/>
-        <source>Email to the mailing list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="927"/>
-        <source>Side by Side</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="932"/>
-        <source>Place on Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="937"/>
-        <source>Place on Right</source>
-        <translation type="unfinished"></translation>
+        <translation>استُبدِل %1 في %2</translation>
     </message>
 </context>
 <context>
@@ -1842,7 +1749,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXHighlighter.cpp" line="171"/>
         <source>default</source>
-        <translation type="unfinished"></translation>
+        <translation>الافتراضي</translation>
     </message>
 </context>
 <context>
@@ -1850,12 +1757,12 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TemplateDialog.ui" line="13"/>
         <source>New File using Template</source>
-        <translation>Neue Datei aus Vorlage</translation>
+        <translation>ملف جديد مستخدما قالب</translation>
     </message>
     <message>
         <location filename="../src/TemplateDialog.ui" line="25"/>
         <source>Choose template for the new document:</source>
-        <translation>Wähle Vorlage für das neue Dokument:</translation>
+        <translation>اختر قالبا للمستند الجديد:</translation>
     </message>
 </context>
 <context>
@@ -1863,7 +1770,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/PrefsDialog.cpp" line="687"/>
         <source>NewArgument</source>
-        <translation>Neues Argument</translation>
+        <translation>معطى‌جديد</translation>
     </message>
 </context>
 <context>
@@ -1871,27 +1778,27 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/ToolConfig.ui" line="13"/>
         <source>Tool Configuration</source>
-        <translation>Konfiguration des Werkzeugs</translation>
+        <translation>ضبط الأداة</translation>
     </message>
     <message>
         <location filename="../src/ToolConfig.ui" line="25"/>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation>الاسم:</translation>
     </message>
     <message>
         <location filename="../src/ToolConfig.ui" line="39"/>
         <source>Program:</source>
-        <translation>Programmdatei:</translation>
+        <translation>البرنامج:</translation>
     </message>
     <message>
         <location filename="../src/ToolConfig.ui" line="53"/>
         <source>Arguments:</source>
-        <translation>Argumente:</translation>
+        <translation>المعطيات:</translation>
     </message>
     <message>
         <location filename="../src/ToolConfig.ui" line="124"/>
         <source>View PDF after running</source>
-        <translation>PDF anzeigen nach Beendigung</translation>
+        <translation>اعرض بي‌دي‌إف بعد التشغيل</translation>
     </message>
 </context>
 </TS>
