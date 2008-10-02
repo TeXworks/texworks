@@ -180,18 +180,18 @@ PDFWidget::PDFWidget()
 		zoomOutCursor = new QCursor(QPixmap(":/images/images/zoomoutcursor.png"));
 	}
 	
-	ctxZoomInAction = new QAction("Zoom In", this);
+	ctxZoomInAction = new QAction(tr("Zoom In"), this);
 	addAction(ctxZoomInAction);
-	ctxZoomOutAction = new QAction("Zoom Out", this);
+	ctxZoomOutAction = new QAction(tr("Zoom Out"), this);
 	addAction(ctxZoomOutAction);
 	
-	QAction *action = new QAction("Actual Size", this);
+	QAction *action = new QAction(tr("Actual Size"), this);
 	connect(action, SIGNAL(triggered()), this, SLOT(fixedScale()));
 	addAction(action);
-	action = new QAction("Fit to Width", this);
+	action = new QAction(tr("Fit to Width"), this);
 	connect(action, SIGNAL(triggered()), this, SLOT(fitWidth()));
 	addAction(action);
-	action = new QAction("Fit to Window", this);
+	action = new QAction(tr("Fit to Window"), this);
 	connect(action, SIGNAL(triggered()), this, SLOT(fitWindow()));
 	addAction(action);
 	
@@ -1115,6 +1115,7 @@ void PDFDocument::changeEvent(QEvent *event)
 	if (event->type() == QEvent::LanguageChange) {
 		QString title = windowTitle();
 		retranslateUi(this);
+		menuRecent->setTitle(tr("Open Recent"));
 		setWindowTitle(title);
 	}
 	else
