@@ -78,10 +78,6 @@ TeXDocument::TeXDocument(const QString &fileName, bool asTemplate)
 
 TeXDocument::~TeXDocument()
 {
-	if (pdfDoc != NULL) {
-		pdfDoc->close();
-		pdfDoc = NULL;
-	}
 	docList.removeAll(this);
 	updateWindowMenu();
 }
@@ -746,11 +742,18 @@ void TeXDocument::showPdfIfAvailable()
 		return;
 	QFileInfo fi(rootFilePath);
 	QString pdfName = fi.canonicalPath() + "/" + fi.completeBaseName() + ".pdf";
+	if (pdfDoc != NULL) {
+		disconnect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
+		disconnect(this, SIGNAL(destroyed(QObject*)), pdfDoc, SLOT(texClosed(QObject*)));
+	}
 	PDFDocument *existingPdf = PDFDocument::findDocument(pdfName);
 	if (existingPdf != NULL) {
-		pdfDoc = existingPdf;
-		pdfDoc->reload();
-		pdfDoc->selectWindow();
+		if (pdfDoc != existingPdf) {
+			pdfDoc = existingPdf;
+			pdfDoc->reload();
+			pdfDoc->selectWindow();
+			pdfDoc->linkToSource(this);
+		}
 	}
 	else {
 		fi.setFile(pdfName);
@@ -763,11 +766,16 @@ void TeXDocument::showPdfIfAvailable()
 	if (pdfDoc != NULL) {
 		actionSide_by_Side->setEnabled(true);
 		connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
+		connect(this, SIGNAL(destroyed(QObject*)), pdfDoc, SLOT(texClosed(QObject*)));
 	}
 }
 
 void TeXDocument::pdfClosed()
 {
+	if (pdfDoc != NULL) {
+		disconnect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
+		disconnect(this, SIGNAL(destroyed(QObject*)), pdfDoc, SLOT(texClosed(QObject*)));
+	}
 	pdfDoc = NULL;
 	actionSide_by_Side->setEnabled(false);
 }

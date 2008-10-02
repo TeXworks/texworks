@@ -212,9 +212,7 @@ public:
 	void enableTypesetAction(bool enabled);
 	void updateTypesettingAction(bool processRunning);
 	void goToDestination(const QString& destName);
-
-	TeXDocument *sourceDocument()
-		{ return sourceDoc; }
+	void linkToSource(TeXDocument *texDoc);
 
 	Poppler::Document *popplerDoc()
 		{
@@ -230,7 +228,8 @@ protected:
 
 public slots:
 	void selectWindow(bool activate = true);
-
+	void texClosed(QObject *obj);
+	
 private slots:
 	void updateRecentFileActions();
 	void updateWindowMenu();
@@ -267,7 +266,7 @@ private:
 	QScrollArea	*scrollArea;
 	QButtonGroup	*toolButtonGroup;
 
-	TeXDocument *sourceDoc;
+	QList<TeXDocument*> sourceDocList;
 
 	QLabel *pageLabel;
 	QLabel *scaleLabel;
