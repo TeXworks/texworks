@@ -423,7 +423,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	
 	QString oldLocale = settings.value("locale").toString();
 	int oldLocaleIndex = 0;
-	dlg.localePopup->addItem("English (built-in)");
+	dlg.localePopup->addItem(tr("English (built-in)"));
 	QStringList *trList = TWUtils::getTranslationList();
 	QStringList::ConstIterator iter;
 	for (iter = trList->constBegin(); iter != trList->constEnd(); ++iter) {
