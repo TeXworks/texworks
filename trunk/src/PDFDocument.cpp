@@ -962,14 +962,14 @@ QScrollArea* PDFWidget::getScrollArea()
 QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
-	: sourceDoc(texDoc)
-	, scanner(NULL)
+	: scanner(NULL)
 {
 	init();
 	loadFile(fileName);
 	if (texDoc != NULL) {
 		stackUnder((QWidget*)texDoc);
 		actionSide_by_Side->setEnabled(true);
+		sourceDocList.append(texDoc);
 	}
 }
 
@@ -1122,6 +1122,23 @@ void PDFDocument::changeEvent(QEvent *event)
 		QMainWindow::changeEvent(event);
 }
 
+void PDFDocument::linkToSource(TeXDocument *texDoc)
+{
+	if (texDoc != NULL && !sourceDocList.contains(texDoc))
+		sourceDocList.append(texDoc);
+}
+
+void PDFDocument::texClosed(QObject *obj)
+{
+	TeXDocument *texDoc = reinterpret_cast<TeXDocument*>(obj);
+		// can't use qobject_cast here as the object's metadata is already gone!
+	if (texDoc != 0) {
+		sourceDocList.removeAll(texDoc);
+		if (sourceDocList.count() == 0)
+			deleteLater();
+	}
+}
+
 void PDFDocument::updateRecentFileActions()
 {
 	TWUtils::updateRecentFileActions(this, recentFileActions, menuRecent);
@@ -1144,9 +1161,9 @@ void PDFDocument::selectWindow(bool activate)
 
 void PDFDocument::sideBySide()
 {
-	if (sourceDoc != NULL) {
-		TWUtils::sideBySide(sourceDoc, this);
-		sourceDoc->selectWindow(false);
+	if (sourceDocList.count() > 0) {
+		TWUtils::sideBySide(sourceDocList[0], this);
+		sourceDocList[0]->selectWindow(false);
 		selectWindow();
 	}
 	else
@@ -1361,20 +1378,20 @@ void PDFDocument::showScale(qreal scale)
 
 void PDFDocument::retypeset()
 {
-	if (sourceDoc != NULL)
-		sourceDoc->typeset();
+	if (sourceDocList.count() > 0)
+		sourceDocList[0]->typeset();
 }
 
 void PDFDocument::interrupt()
 {
-	if (sourceDoc != NULL)
-		sourceDoc->interrupt();
+	if (sourceDocList.count() > 0)
+		sourceDocList[0]->interrupt();
 }
 
 void PDFDocument::goToSource()
 {
-	if (sourceDoc != NULL)
-		sourceDoc->selectWindow();
+	if (sourceDocList.count() > 0)
+		sourceDocList[0]->selectWindow();
 }
 
 void PDFDocument::enablePageActions(int pageIndex)
