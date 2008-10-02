@@ -296,13 +296,11 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 				const QString text = document()->toPlainText();
 				int match = -2;
 				QChar c;
-				if (pos > 0 && pos < text.length() - 1 && (c = TWUtils::openerMatching(text[pos])) != 0)
+				if (pos > 0 && pos < text.length() && (c = TWUtils::openerMatching(text[pos])) != 0)
 					match = TWUtils::balanceDelim(text, pos - 1, c, -1);
 				else if (pos < text.length() - 1 && (c = TWUtils::closerMatching(text[pos])) != 0)
 					match = TWUtils::balanceDelim(text, pos + 1, c, 1);
-				if (match < 0) // no matching delimiter found
-					QApplication::beep();
-				else {
+				if (match >= 0) {
 					QList<ExtraSelection> selList = extraSelections();
 					ExtraSelection	sel;
 					sel.cursor = QTextCursor(document());
