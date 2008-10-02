@@ -92,8 +92,7 @@ public:
 
 	static QChar closerMatching(QChar c);
 	static QChar openerMatching(QChar c);
-	static void setUpPairs(const QList< QPair<QChar,QChar> >& pairs);
-	static QList< QPair<QChar,QChar> > defaultPairs();
+	static void setUpPairs();
 	static int balanceDelim(const QString& text, int pos, QChar delim, int direction);
 	static int findOpeningDelim(const QString& text, int pos);
 

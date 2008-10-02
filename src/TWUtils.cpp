@@ -589,28 +589,30 @@ QChar TWUtils::openerMatching(QChar c)
 	return pairOpeners.value(c);
 }
 
-void TWUtils::setUpPairs(const QList< QPair<QChar,QChar> >& pairs)
+void TWUtils::setUpPairs()
 {
 	pairOpeners.clear();
 	pairClosers.clear();
-	typedef QPair<QChar,QChar> charPairT; // otherwise foreach macro breaks
-	foreach (charPairT p, pairs) {
-		pairClosers[p.first] = p.second;
-		pairOpeners[p.second] = p.first;
-	}
-}
 
-QList< QPair<QChar,QChar> > TWUtils::defaultPairs()
-{
-	QList< QPair<QChar,QChar> > rval;
-	rval.append(QPair<QChar,QChar>('(', ')'));
-	rval.append(QPair<QChar,QChar>('[', ']'));
-	rval.append(QPair<QChar,QChar>('{', '}'));
-	rval.append(QPair<QChar,QChar>(0x00ab, 0x00bb));	// guillemots
-	rval.append(QPair<QChar,QChar>(0x2018, 0x2019));	// single quotes
-	rval.append(QPair<QChar,QChar>(0x201c, 0x201d));	// double quotes
-	rval.append(QPair<QChar,QChar>(0x2039, 0x203a));	// single guillemots
-	return rval;
+	QDir configDir(TWUtils::getLibraryPath("configuration"));
+	QRegExp pair("([^\\s])\\s+([^\\s])\\s*(?:#.*)?");
+
+	QFile pairsFile(configDir.filePath("delimiter-pairs.txt"));
+	if (pairsFile.open(QIODevice::ReadOnly)) {
+		while (1) {
+			QByteArray ba = pairsFile.readLine();
+			if (ba.size() == 0)
+				break;
+			if (ba[0] == '#' || ba[0] == '\n')
+				continue;
+			ba.chop(1);
+			QString line = QString::fromUtf8(ba.data(), ba.size());
+			if (pair.exactMatch(line)) {
+				pairClosers[pair.cap(1).at(0)] = pair.cap(2).at(0);
+				pairOpeners[pair.cap(2).at(0)] = pair.cap(1).at(0);
+			}
+		}
+	}
 }
 
 int TWUtils::balanceDelim(const QString& text, int pos, QChar delim, int direction)

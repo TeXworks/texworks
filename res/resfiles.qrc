@@ -4,6 +4,7 @@
 <file>resfiles/completion/tw-context.txt</file>
 <file>resfiles/completion/tw-latex.txt</file>
 <file>resfiles/configuration/auto-indent-patterns.txt</file>
+<file>resfiles/configuration/delimiter-pairs.txt</file>
 <file>resfiles/configuration/syntax-patterns.txt</file>
 <file>resfiles/configuration/tag-patterns.txt</file>
 <file>resfiles/templates/Basic LaTeX documents/article.tex</file>
@@ -14,7 +15,11 @@
 <file>resfiles/templates/More LaTeX classes/KOMA-letter.tex</file>
 <file>resfiles/templates/More LaTeX classes/memoir.tex</file>
 <file>resfiles/templates/XeLaTeX documents/article-fontspec.tex</file>
+<file>resfiles/translations/qt_ar.qm</file>
 <file>resfiles/translations/qt_de.qm</file>
+<file>resfiles/translations/qt_fr.qm</file>
+<file>resfiles/translations/TeXworks_ar.qm</file>
 <file>resfiles/translations/TeXworks_de.qm</file>
+<file>resfiles/translations/TeXworks_fr.qm</file>
 </qresource>
 </RCC>
