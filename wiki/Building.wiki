@@ -15,13 +15,13 @@ $ ./texworks
 
 (Thanks to Dave Crossland for this.)
 
-=== Ubuntu (Hardy) ===
+=== Ubuntu (Hardy) & Debian ===
 
 {{{
-$ sudo aptitude install build-essential libpoppler-qt4-dev libhunspell-dev
+$ sudo aptitude install build-essential libpoppler-qt4-dev libhunspell-dev libdbus-1-dev
 $ svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
 $ cd texworks-read-only
-$ qmake
+$ qmake-qt4
 $ make
 $ ./texworks
 }}}
