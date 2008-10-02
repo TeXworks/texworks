@@ -43,8 +43,10 @@ class TeXDocument;
 class TWUtils
 {
 public:
-	// is the given file a PDF document?
+	// is the given file a PDF document? image? Postscript?
 	static bool isPDFfile(const QString& fileName);
+	static bool isImageFile(const QString& fileName);
+	static bool isPostscriptFile(const QString& fileName);
 
 	// return the path to our "library" folder for resources like templates, completion lists, etc
 	static const QString getLibraryPath(const QString& subdir);
@@ -92,9 +94,15 @@ public:
 
 	static QChar closerMatching(QChar c);
 	static QChar openerMatching(QChar c);
-	static void setUpPairs();
+	static void readConfig();
+	
 	static int balanceDelim(const QString& text, int pos, QChar delim, int direction);
 	static int findOpeningDelim(const QString& text, int pos);
+
+	static QString includeTextCommand();
+	static QString includePdfCommand();
+	static QString includeImageCommand();
+	static QString includePostscriptCommand();
 
 private:
 	TWUtils();
@@ -109,6 +117,11 @@ private:
 
 	static QMap<QChar,QChar>	pairOpeners;
 	static QMap<QChar,QChar>	pairClosers;
+
+	static QString sIncludeTextCommand;
+	static QString sIncludePdfCommand;
+	static QString sIncludeImageCommand;
+	static QString sIncludePostscriptCommand;
 };
 
 // this special QAction class is used in Window menus, so that it's easy to recognize the dynamically-created items

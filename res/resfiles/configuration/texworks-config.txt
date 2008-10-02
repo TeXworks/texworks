@@ -1,0 +1,11 @@
+# TeXworks: Miscellaneous configuration options that don't show up in the Preferences
+
+# Template commands to insert for files dragged into the editor window
+# Note that %1 represents the filename; #RET# represents a newline
+
+include-text:		\include{%1}#RET#
+
+include-postscript:	\includegraphics[]{%1}#RET#
+include-pdf:		\includegraphics[]{%1}#RET#
+include-image:		\includegraphics[]{%1}#RET#
+

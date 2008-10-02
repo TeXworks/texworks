@@ -51,6 +51,23 @@ bool TWUtils::isPDFfile(const QString& fileName)
 	return false;
 }
 
+bool TWUtils::isImageFile(const QString& fileName)
+{
+	QImage	image(fileName);
+	return !image.isNull();
+}
+
+bool TWUtils::isPostscriptFile(const QString& fileName)
+{
+	QFile theFile(fileName);
+	if (theFile.open(QIODevice::ReadOnly)) {
+		QByteArray ba = theFile.peek(4);
+		if (ba.startsWith("%!PS"))
+			return true;
+	}
+	return false;
+}
+
 const QString TWUtils::getLibraryPath(const QString& subdir)
 {
 #ifdef Q_WS_MAC
@@ -589,7 +606,32 @@ QChar TWUtils::openerMatching(QChar c)
 	return pairOpeners.value(c);
 }
 
-void TWUtils::setUpPairs()
+QString TWUtils::sIncludePdfCommand;
+QString TWUtils::sIncludeImageCommand;
+QString TWUtils::sIncludePostscriptCommand;
+QString TWUtils::sIncludeTextCommand;
+
+QString TWUtils::includePdfCommand()
+{
+	return sIncludePdfCommand;
+}
+
+QString TWUtils::includeImageCommand()
+{
+	return sIncludeImageCommand;
+}
+
+QString TWUtils::includePostscriptCommand()
+{
+	return sIncludePostscriptCommand;
+}
+
+QString TWUtils::includeTextCommand()
+{
+	return sIncludeTextCommand;
+}
+
+void TWUtils::readConfig()
 {
 	pairOpeners.clear();
 	pairClosers.clear();
@@ -610,6 +652,44 @@ void TWUtils::setUpPairs()
 			if (pair.exactMatch(line)) {
 				pairClosers[pair.cap(1).at(0)] = pair.cap(2).at(0);
 				pairOpeners[pair.cap(2).at(0)] = pair.cap(1).at(0);
+			}
+		}
+	}
+
+	// defaults in case not found
+	sIncludeTextCommand			= "\\include{%1}\n";
+	sIncludePdfCommand			= "\\includegraphics[]{%1}\n";
+	sIncludeImageCommand		= "\\includegraphics[]{%1}\n";
+	sIncludePostscriptCommand	= "\\includegraphics[]{%1}\n";
+
+	QFile configFile(configDir.filePath("texworks-config.txt"));
+	if (configFile.open(QIODevice::ReadOnly)) {
+		QRegExp textRE("include-text:\\s*(.+)");
+		QRegExp pdfRE("include-pdf:\\s*(.+)");
+		QRegExp imageRE("include-image:\\s*(.+)");
+		QRegExp postscriptRE("include-postscript:\\s*(.+)");
+		while (1) {
+			QByteArray ba = configFile.readLine();
+			if (ba.size() == 0)
+				break;
+			if (ba[0] == '#' || ba[0] == '\n')
+				continue;
+			QString	line = QString::fromUtf8(ba.data(), ba.size());
+			if (textRE.exactMatch(line)) {
+				sIncludeTextCommand = textRE.cap(1).trimmed().replace("#RET#", "\n");
+				continue;
+			}
+			if (pdfRE.exactMatch(line)) {
+				sIncludePdfCommand = pdfRE.cap(1).trimmed().replace("#RET#", "\n");
+				continue;
+			}
+			if (imageRE.exactMatch(line)) {
+				sIncludeImageCommand = imageRE.cap(1).trimmed().replace("#RET#", "\n");
+				continue;
+			}
+			if (postscriptRE.exactMatch(line)) {
+				sIncludePostscriptCommand = postscriptRE.cap(1).trimmed().replace("#RET#", "\rn");
+				continue;
 			}
 		}
 	}

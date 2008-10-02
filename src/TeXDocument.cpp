@@ -772,10 +772,6 @@ void TeXDocument::showPdfIfAvailable()
 
 void TeXDocument::pdfClosed()
 {
-	if (pdfDoc != NULL) {
-		disconnect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
-		disconnect(this, SIGNAL(destroyed(QObject*)), pdfDoc, SLOT(texClosed(QObject*)));
-	}
 	pdfDoc = NULL;
 	actionSide_by_Side->setEnabled(false);
 }
@@ -1912,14 +1908,11 @@ void TeXDocument::dropEvent(QDropEvent *event)
 				QString fileName = url.toLocalFile();
 				switch (action) {
 					case OPEN_FILE_IN_NEW_WINDOW:
-						TWApp::instance()->open(url.toLocalFile());
+						TWApp::instance()->open(fileName);
 						break;
+
 					case INSERT_DOCUMENT_TEXT:
-						if (TWUtils::isPDFfile(fileName)) {
-							// skip PDFs, they shouldn't be copied into the text
-							// FIXME: also check for image files and skip those
-						}
-						else {
+						if (!TWUtils::isPDFfile(fileName) && !TWUtils::isImageFile(fileName) && !TWUtils::isPostscriptFile(fileName)) {
 							QTextCodec *codecUsed;
 							text = readFile(fileName, &codecUsed);
 							if (!text.isNull()) {
@@ -1930,17 +1923,25 @@ void TeXDocument::dropEvent(QDropEvent *event)
 								textEdit->setTextCursor(curs);
 								curs.insertText(text);
 							}
+							break;
 						}
-						break;
+						// for graphic files, fall through -- behave the same as the "link" action
+
 					case CREATE_INCLUDE_COMMAND:
 						if (!editBlockStarted) {
 							curs.beginEditBlock();
 							editBlockStarted = true;
 						}
 						textEdit->setTextCursor(curs);
-						text = QString::fromLatin1("\\include{") + fileName + QString::fromLatin1("}\n");
-							// FIXME: this needs to be configurable, and should distinguish text from graphics
-						curs.insertText(text);
+						if (TWUtils::isPDFfile(fileName))
+							text = TWUtils::includePdfCommand();
+						else if (TWUtils::isImageFile(fileName))
+							text = TWUtils::includeImageCommand();
+						else if (TWUtils::isPostscriptFile(fileName))
+							text = TWUtils::includePostscriptCommand();
+						else
+							text = TWUtils::includeTextCommand();
+						curs.insertText(text.arg(fileName));
 						break;
 					default:
 						// do nothing
