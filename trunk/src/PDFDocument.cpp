@@ -1135,7 +1135,7 @@ void PDFDocument::texClosed(QObject *obj)
 	if (texDoc != 0) {
 		sourceDocList.removeAll(texDoc);
 		if (sourceDocList.count() == 0)
-			deleteLater();
+			close();
 	}
 }
 
