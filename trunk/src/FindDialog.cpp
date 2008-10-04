@@ -27,6 +27,7 @@
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QTextBlock>
+#include <QFileInfo>
 
 FindDialog::FindDialog(QTextEdit *parent)
 	: QDialog(parent)
@@ -306,7 +307,9 @@ void SearchResults::presentResults(const QList<SearchResult>& results, QMainWind
 	resultsWindow->table->setRowCount(results.count());
 	int i = 0;
 	foreach (const SearchResult &result, results) {
-		resultsWindow->table->setItem(i, 0, new QTableWidgetItem(result.doc->fileName()));
+		QTableWidgetItem *item = new QTableWidgetItem(QFileInfo(result.doc->fileName()).fileName());
+		item->setToolTip(result.doc->fileName());
+		resultsWindow->table->setItem(i, 0, item);
 		resultsWindow->table->setItem(i, 1, new QTableWidgetItem(QString::number(result.lineNo)));
 		resultsWindow->table->setItem(i, 2, new QTableWidgetItem(QString::number(result.selStart)));
 		resultsWindow->table->setItem(i, 3, new QTableWidgetItem(QString::number(result.selEnd)));
@@ -349,7 +352,7 @@ void SearchResults::showSelectedEntry()
 	QTableWidgetItem* item = table->item(row, 0);
 	if (!item)
 		return;
-	fileName = item->text();
+	fileName = item->toolTip();
 	item = table->item(row, 1);
 	lineNo = item->text().toInt();
 	item = table->item(row, 2);
