@@ -419,7 +419,7 @@ TeXDocument* TeXDocument::open(const QString &fileName)
 	return doc;
 }
 
-void TeXDocument::openDocument(const QString &fileName, bool activate, int lineNo, int selStart, int selEnd) // static
+TeXDocument* TeXDocument::openDocument(const QString &fileName, bool activate, bool raiseWindow, int lineNo, int selStart, int selEnd) // static
 {
 	TeXDocument *doc = findDocument(fileName);
 	if (doc == NULL) {
@@ -431,7 +431,7 @@ void TeXDocument::openDocument(const QString &fileName, bool activate, int lineN
 			doc = new TeXDocument(fileName);
 			if (doc->isUntitled) {
 				delete doc;
-				return;
+				doc = NULL;
 			}
 		}
 	}
@@ -440,13 +440,16 @@ void TeXDocument::openDocument(const QString &fileName, bool activate, int lineN
 			doc->selectWindow();
 		else {
 			doc->show();
-			doc->raise();
-			if (doc->isMinimized())
-				doc->showNormal();
+			if (raiseWindow) {
+				doc->raise();
+				if (doc->isMinimized())
+					doc->showNormal();
+			}
 		}
 		if (lineNo > 0)
 			doc->goToLine(lineNo, selStart, selEnd);
 	}
+	return doc;
 }
 
 void TeXDocument::closeEvent(QCloseEvent *event)
@@ -1538,6 +1541,12 @@ void TeXDocument::zoomToLeft(QWidget *otherWindow)
 	setGeometry(screenRect);
 }
 
+#ifdef Q_WS_WIN
+#define PATH_SEPARATOR ";"
+#else
+#define PATH_SEPARATOR ":"
+#endif
+
 void TeXDocument::typeset()
 {
 	if (process)
@@ -1552,16 +1561,17 @@ void TeXDocument::typeset()
 	findRootFilePath();
 	QFileInfo fileInfo(rootFilePath);
 	if (!fileInfo.isReadable()) {
-		statusBar()->showMessage(tr("File %1 is not readable").arg(rootFilePath), kStatusMessageDuration);
+		statusBar()->showMessage(tr("Root document %1 is not readable").arg(rootFilePath), kStatusMessageDuration);
 		return;
 	}
 
 	if (rootFilePath != QFileInfo(curFile).canonicalFilePath()) {
-		TeXDocument* rootDoc = findDocument(rootFilePath);
-		if (rootDoc != NULL) {
+		TeXDocument* rootDoc = openDocument(rootFilePath, false, false);
+		if (rootDoc != NULL)
 			rootDoc->typeset();
-			return;
-		}
+		else
+			statusBar()->showMessage(tr("Root document %1 not found").arg(rootFilePath), kStatusMessageDuration);
+		return;
 	}
 
 	Engine e = TWApp::instance()->getNamedEngine(engine->currentText());
@@ -1575,23 +1585,26 @@ void TeXDocument::typeset()
 	
 	process->setWorkingDirectory(fileInfo.canonicalPath());
 
-	const QStringList& binPaths = TWApp::instance()->getBinaryPaths();
+	QStringList binPaths = TWApp::instance()->getBinaryPaths();
 	QStringList env = QProcess::systemEnvironment();
 	QStringListIterator iter(binPaths);
 	iter.toBack();
 	while (iter.hasPrevious()) {
 		QString path = QDir::toNativeSeparators(iter.previous());
-		env.replaceInStrings(QRegExp("^PATH=(.*)", Qt::CaseInsensitive),
-#ifdef Q_WS_WIN
-			"PATH=" + path + ";\\1"
-#else
-			"PATH=" + path + ":\\1"
-#endif
-			);
+		env.replaceInStrings(QRegExp("^PATH=(.*)", Qt::CaseInsensitive), "PATH=" + path + PATH_SEPARATOR "\\1");
 	}
 	process->setEnvironment(env);
 	process->setProcessChannelMode(QProcess::MergedChannels);
 
+	QStringListIterator envIter(env);
+	while (envIter.hasNext()) {
+		QString envVar = envIter.next();
+		if (envVar.startsWith("PATH=")) {
+			binPaths = envVar.mid(5).split(PATH_SEPARATOR, QString::SkipEmptyParts);
+			break;
+		}
+	}
+	
 	connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(processStandardOutput()));
 	connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
 	connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
@@ -1603,14 +1616,14 @@ void TeXDocument::typeset()
 	args.replaceInStrings("$directory", fileInfo.absoluteDir().absolutePath());
 
 	bool foundCommand = false;
-	iter.toFront();
-	while (iter.hasNext() && !foundCommand) {
-		QString path = iter.next();
+	QStringListIterator pathIter(binPaths);
+	while (pathIter.hasNext() && !foundCommand) {
+		QString path = pathIter.next();
 		fileInfo = QFileInfo(path, e.program());
 		if (fileInfo.exists())
 			foundCommand = true;
 	}
-
+	
 	if (foundCommand) {
 		textEdit_console->clear();
 		showConsole();
@@ -1801,7 +1814,10 @@ void TeXDocument::findRootFilePath()
 	if (pos > -1) {
 		rootName = re.cap(1).trimmed();
 		QFileInfo rootFileInfo(fileInfo.canonicalPath() + "/" + rootName);
-		rootFilePath = rootFileInfo.canonicalFilePath();
+		if (rootFileInfo.exists())
+			rootFilePath = rootFileInfo.canonicalFilePath();
+		else
+			rootFilePath = rootFileInfo.filePath();
 	}
 	else
 		rootFilePath = fileInfo.canonicalFilePath();

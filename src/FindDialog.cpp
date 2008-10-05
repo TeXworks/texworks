@@ -361,5 +361,5 @@ void SearchResults::showSelectedEntry()
 	int selEnd = item->text().toInt();
 
 	if (!fileName.isEmpty())
-		TeXDocument::openDocument(fileName, false, lineNo, selStart, selEnd);
+		TeXDocument::openDocument(fileName, false, true, lineNo, selStart, selEnd);
 }

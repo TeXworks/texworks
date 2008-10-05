@@ -60,7 +60,8 @@ public:
 		{
 			return docList;
 		}
-	static void openDocument(const QString &fileName, bool activate = true, int lineNo = 0, int selStart = -1, int selEnd = -1);
+	static TeXDocument *openDocument(const QString &fileName, bool activate = true, bool raiseWindow = true,
+									 int lineNo = 0, int selStart = -1, int selEnd = -1);
 
 	TeXDocument *open(const QString &fileName);
 	void makeUntitled();
