@@ -26,6 +26,7 @@
 #include <QList>
 #include <QRegExp>
 #include <QProcess>
+#include <QDateTime>
 
 #include "ui_TeXDocument.h"
 
@@ -172,6 +173,7 @@ private:
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
 	QString readFile(const QString &fileName, QTextCodec **codecUsed);
 	void loadFile(const QString &fileName, bool asTemplate = false);
+	void reloadIfChangedOnDisk();
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
 	void showPdfIfAvailable();
@@ -198,6 +200,7 @@ private:
 	QString curFile;
 	QString rootFilePath;
 	bool isUntitled;
+	QDateTime lastModified;
 
 	QLabel *lineNumberLabel;
 
