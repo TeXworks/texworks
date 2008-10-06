@@ -546,6 +546,7 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 
 		case QEvent::WindowActivate:
 			showFloaters();
+			reloadIfChangedOnDisk();
 			emit activatedWindow(this);
 			break;
 
@@ -726,7 +727,12 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
 	textEdit->setPlainText(fileContents);
 	QApplication::restoreOverrideCursor();
 
-	if (!asTemplate) {
+	if (asTemplate) {
+		lastModified = QDateTime();
+	}
+	else {
+		QFileInfo info(fileName);
+		lastModified = info.lastModified();
 		setCurrentFile(fileName);
 		showPdfIfAvailable();
 		selectWindow();
@@ -735,6 +741,27 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
 									.arg(TWUtils::strippedName(curFile))
 									.arg(QString::fromAscii(codec->name())),
 									kStatusMessageDuration);
+	}
+}
+
+void TeXDocument::reloadIfChangedOnDisk()
+{
+	if (isUntitled || !lastModified.isValid())
+		return;
+	QDateTime fileModified = QFileInfo(curFile).lastModified();
+	if (fileModified.isValid() && fileModified != lastModified) {
+		if (textEdit->document()->isModified()) {
+			if (QMessageBox::warning(this, tr("File changed on disk"),
+									 tr("%1 has been modified by another program.\n\n"
+										"Do you want to discard your current changes, and reload the file from disk?")
+									 .arg(curFile),
+									 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel) {
+				lastModified = QDateTime();	// invalidate the timestamp
+				return;
+			}
+		}
+		// user chose to discard, or there were no local changes
+		loadFile(curFile);
 	}
 }
 
@@ -781,6 +808,22 @@ void TeXDocument::pdfClosed()
 
 bool TeXDocument::saveFile(const QString &fileName)
 {
+	QFileInfo fileInfo(fileName);
+	QDateTime fileModified = fileInfo.lastModified();
+	if (fileName == curFile && fileModified.isValid() && fileModified != lastModified) {
+		if (QMessageBox::warning(this, tr("File changed on disk"),
+								 tr("%1 has been modified by another program.\n\n"
+									"Do you want to proceed with saving this file, overwriting the version on disk?")
+								 .arg(fileName),
+								 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel) {
+			notSaved:
+				statusBar()->showMessage(tr("Document \"%1\" was not saved")
+										 .arg(TWUtils::strippedName(curFile)),
+										 kStatusMessageDuration);
+				return false;
+		}
+	}
+	
 	bool hasMetadata;
 	QString reqName;
 	QString theText = textEdit->toPlainText();
@@ -834,14 +877,9 @@ bool TeXDocument::saveFile(const QString &fileName)
 			QApplication::restoreOverrideCursor();
 		}
 	}
-	
-	return true;
+	lastModified = fileInfo.lastModified();
 
-notSaved:
-	statusBar()->showMessage(tr("Document \"%1\" was not saved")
-								.arg(TWUtils::strippedName(curFile)),
-								kStatusMessageDuration);
-	return false;
+	return true;
 }
 
 void TeXDocument::setCurrentFile(const QString &fileName)
