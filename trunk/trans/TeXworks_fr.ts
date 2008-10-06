@@ -172,7 +172,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="206"/>
         <source>PgUp</source>
-        <translation type="unfinished">Page vers le haut</translation>
+        <translation type="unfinished">PgUp</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="218"/>
@@ -182,7 +182,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="221"/>
         <source>PgDown</source>
-        <translation type="unfinished">Page vers le bas</translation>
+        <translation type="unfinished">PgDown</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="233"/>
