@@ -142,16 +142,25 @@ void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 {
 	if ((e->buttons() == Qt::LeftButton) && dragSelecting) {
+		QPoint pos = e->pos();
+		int scrollValue = -1;
+		if (verticalScrollBar() != NULL) {
+			if (pos.y() < frameRect().top())
+				verticalScrollBar()->triggerAction(QScrollBar::SliderSingleStepSub);
+			else if (pos.y() > frameRect().bottom())
+				verticalScrollBar()->triggerAction(QScrollBar::SliderSingleStepAdd);
+			scrollValue = verticalScrollBar()->value();
+		}
 		QTextCursor curs;
 		switch (clickCount) {
 			case 1:
-				curs = cursorForPosition(e->pos());
+				curs = cursorForPosition(pos);
 				break;
 			case 2:
-				curs = wordSelectionForPos(e->pos());
+				curs = wordSelectionForPos(pos);
 				break;
 			default:
-				curs = blockSelectionForPos(e->pos());
+				curs = blockSelectionForPos(pos);
 				break;
 		}
 		int start = qMin(dragStartCursor.selectionStart(), curs.selectionStart());
@@ -159,6 +168,8 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 		curs.setPosition(start);
 		curs.setPosition(end, QTextCursor::KeepAnchor);
 		setTextCursor(curs);
+		if (scrollValue != -1)
+			verticalScrollBar()->setValue(scrollValue);
 		e->accept();
 	}
 	else
