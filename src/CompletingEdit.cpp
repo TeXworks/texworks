@@ -43,9 +43,8 @@
 #include <QScrollBar>
 #include <QTimer>
 
-
 CompletingEdit::CompletingEdit(QWidget *parent)
-	: QTextEdit(parent),
+	: QTextEdit(parent), dragSelecting(false),
 	  autoIndentMode(-1), prefixLength(0),
 	  c(NULL), cmpCursor(QTextCursor()),
 	  pHunspell(NULL), spellingCodec(NULL)
@@ -103,13 +102,32 @@ void CompletingEdit::mousePressEvent(QMouseEvent *e)
 
 void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 {
-	if (e->modifiers() == Qt::ControlModifier) {
+	if (dragSelecting) {
+		dragSelecting = false;
+		e->accept();
+	}
+	else if (e->modifiers() == Qt::ControlModifier) {
 		e->accept();
 		QTextCursor cursor = cursorForPosition(e->pos());
 		emit syncClick(cursor.blockNumber() + 1);
 	}
 	else
 		QTextEdit::mouseReleaseEvent(e);
+}
+
+void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
+{
+	if ((e->buttons() & Qt::LeftButton) && dragSelecting) {
+		QTextCursor curs = wordSelectionForPos(e->pos());
+		int start = qMin(dragStartCursor.selectionStart(), curs.selectionStart());
+		int end = qMax(dragStartCursor.selectionEnd(), curs.selectionEnd());
+		curs.setPosition(start);
+		curs.setPosition(end, QTextCursor::KeepAnchor);
+		setTextCursor(curs);
+		e->accept();
+	}
+	else
+		QTextEdit::mouseMoveEvent(e);
 }
 
 bool CompletingEdit::selectWord(QTextCursor& cursor)
@@ -130,6 +148,62 @@ bool CompletingEdit::selectWord(QTextCursor& cursor)
 	return result;
 }
 
+QTextCursor CompletingEdit::wordSelectionForPos(const QPoint& mousePos)
+{
+	QTextCursor cursor;
+	QPoint	pos = mousePos + QPoint(horizontalScrollBar()->value(), verticalScrollBar()->value());
+	int cursorPos = document()->documentLayout()->hitTest(pos, Qt::FuzzyHit);
+	if (cursorPos == -1)
+		return cursor;
+
+	cursor = QTextCursor(document());
+	cursor.setPosition(cursorPos);
+	cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
+
+	// check if click was within the char to the right of cursor; if so we select forwards
+	QRect r = cursorRect(cursor);
+	if (r.contains(pos)) {
+		// Currently I don't seem to be getting a useful answer from cursorRect(), it's always zero-width :-(
+		// and so this path will not be used, but leaving it here in hopes of fixing it some day
+		//			QString s = cursor.selectedText();
+		//			if (isPairedChar(s)) ...
+		(void)selectWord(cursor);
+		return cursor;
+	}
+
+	if (cursorPos > 0) {
+		cursorPos -= 1;
+		cursor.setPosition(cursorPos);
+		cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
+		// don't test because the rect will be zero width (see above)!
+		//		r = cursorRect(cursor);
+		//		if (r.contains(pos)) {
+		const QString plainText = toPlainText();
+		QChar curChr = plainText[cursorPos];
+		QChar c;
+		if ((c = TWUtils::closerMatching(curChr)) != 0) {
+			int balancePos = TWUtils::balanceDelim(plainText, cursorPos + 1, c, 1);
+			if (balancePos < 0)
+				QApplication::beep();
+			else
+				cursor.setPosition(balancePos + 1, QTextCursor::KeepAnchor);
+				}
+		else if ((c = TWUtils::openerMatching(curChr)) != 0) {
+			int balancePos = TWUtils::balanceDelim(plainText, cursorPos - 1, c, -1);
+			if (balancePos < 0)
+				QApplication::beep();
+			else {
+				cursor.setPosition(balancePos);
+				cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
+			}
+		}
+		else
+			(void)selectWord(cursor);
+	//		}
+	}
+	return cursor;
+}
+
 void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
 {
 	if (e->modifiers() == Qt::ControlModifier)
@@ -138,71 +212,17 @@ void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
 		QTextEdit::mouseDoubleClickEvent(e);
 	else {
 		// don't like QTextEdit's selection behavior, so try to improve it here
-		QPoint	pos = e->pos() + QPoint(horizontalScrollBar()->value(), verticalScrollBar()->value());
-		int cursorPos = document()->documentLayout()->hitTest(pos, Qt::FuzzyHit);
-		if (cursorPos == -1)
-			return;
-
-		QTextCursor cursor(document());
-		cursor.setPosition(cursorPos);
-		cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
-		
-		// check if click was within the char to the right of cursor; if so we select forwards
-		QRect r = cursorRect(cursor);
-		if (r.contains(pos)) {
-			// Currently I don't seem to be getting a useful answer from cursorRect(), it's always zero-width :-(
-			// and so this path will not be used, but leaving it here in hopes of fixing it some day
-//			QString s = cursor.selectedText();
-//			if (isPairedChar(s)) ...
-			(void)selectWord(cursor);
+		QTextCursor cursor = wordSelectionForPos(e->pos());
+		if (cursor.isNull()) {
+			// else fall back on whatever QTextEdit does
+			QTextEdit::mouseDoubleClickEvent(e);
+		}
+		else {
 			setTextCursor(cursor);
 			e->accept();
-			return;
+			dragSelecting = true;
+			dragStartCursor = cursor;
 		}
-
-		if (cursorPos > 0) {
-			cursorPos -= 1;
-			cursor.setPosition(cursorPos);
-			cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
-			// don't test because the rect will be zero width (see above)!
-	//		r = cursorRect(cursor);
-	//		if (r.contains(pos)) {
-				const QString plainText = toPlainText();
-				QChar curChr = plainText[cursorPos];
-				QChar c;
-				c = TWUtils::closerMatching(curChr);
-				if (c != 0) {
-					int balancePos = TWUtils::balanceDelim(plainText, cursorPos + 1, c, 1);
-					if (balancePos < 0)
-						QApplication::beep();
-					else
-						cursor.setPosition(balancePos + 1, QTextCursor::KeepAnchor);
-					setTextCursor(cursor);
-					e->accept();
-					return;
-				}
-				c = TWUtils::openerMatching(curChr);
-				if (c != 0) {
-					int balancePos = TWUtils::balanceDelim(plainText, cursorPos - 1, c, -1);
-					if (balancePos < 0)
-						QApplication::beep();
-					else {
-						cursor.setPosition(balancePos);
-						cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
-					}
-					setTextCursor(cursor);
-					e->accept();
-					return;
-				}
-				(void)selectWord(cursor);
-				setTextCursor(cursor);
-				e->accept();
-				return;
-	//		}
-		}
-
-		// else fall back on whatever QTextEdit does
-		QTextEdit::mouseDoubleClickEvent(e);
 	}
 }
 

@@ -54,6 +54,7 @@ protected:
 	virtual void focusInEvent(QFocusEvent *e);
 	virtual void mousePressEvent(QMouseEvent *e);
 	virtual void mouseReleaseEvent(QMouseEvent *e);
+	virtual void mouseMoveEvent(QMouseEvent *e);
 	virtual void mouseDoubleClickEvent(QMouseEvent *e);
 	virtual void contextMenuEvent(QContextMenuEvent *e);
 	virtual void dragEnterEvent(QDragEnterEvent *e);
@@ -77,6 +78,11 @@ private:
 	void handleBackspace(QKeyEvent *e);
 	void handleOtherKey(QKeyEvent *e);
 
+	QTextCursor wordSelectionForPos(const QPoint& mousePos);
+	
+	bool dragSelecting;
+	QTextCursor dragStartCursor;
+	
 	static void loadIndentModes();
 
 	struct IndentMode {
