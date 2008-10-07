@@ -44,7 +44,7 @@
 #include <QTimer>
 
 CompletingEdit::CompletingEdit(QWidget *parent)
-	: QTextEdit(parent), dragSelecting(false),
+	: QTextEdit(parent), dragSelecting(false), clickCount(0),
 	  autoIndentMode(-1), prefixLength(0),
 	  c(NULL), cmpCursor(QTextCursor()),
 	  pHunspell(NULL), spellingCodec(NULL)
@@ -96,8 +96,32 @@ void CompletingEdit::mousePressEvent(QMouseEvent *e)
 {
 	if (e->modifiers() == Qt::ControlModifier)
 		e->accept();
-	else
+	else if (e->modifiers() != Qt::NoModifier || e->buttons() != Qt::LeftButton)
 		QTextEdit::mousePressEvent(e);
+	else {
+		if (clickTimer.isActive() && (e->pos() - clickPos).manhattanLength() < qApp->startDragDistance())
+			++clickCount;
+		else
+			clickCount = 1;
+		clickPos = e->pos();
+		clickTimer.start(qApp->doubleClickInterval(), this);
+		QTextCursor	curs;
+		switch (clickCount) {
+			case 1:
+				curs = cursorForPosition(clickPos);
+				break;
+			case 2:
+				curs = wordSelectionForPos(clickPos);
+				break;
+			default:
+				curs = blockSelectionForPos(clickPos);
+				break;
+		}
+		setTextCursor(curs);
+		dragSelecting = true;
+		dragStartCursor = curs;
+		e->accept();
+	}
 }
 
 void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
@@ -117,8 +141,19 @@ void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 
 void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 {
-	if ((e->buttons() & Qt::LeftButton) && dragSelecting) {
-		QTextCursor curs = wordSelectionForPos(e->pos());
+	if ((e->buttons() == Qt::LeftButton) && dragSelecting) {
+		QTextCursor curs;
+		switch (clickCount) {
+			case 1:
+				curs = cursorForPosition(e->pos());
+				break;
+			case 2:
+				curs = wordSelectionForPos(e->pos());
+				break;
+			default:
+				curs = blockSelectionForPos(e->pos());
+				break;
+		}
 		int start = qMin(dragStartCursor.selectionStart(), curs.selectionStart());
 		int end = qMax(dragStartCursor.selectionEnd(), curs.selectionEnd());
 		curs.setPosition(start);
@@ -128,6 +163,14 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 	}
 	else
 		QTextEdit::mouseMoveEvent(e);
+}
+
+QTextCursor CompletingEdit::blockSelectionForPos(const QPoint& pos)
+{
+	QTextCursor curs = cursorForPosition(pos);
+	curs.setPosition(curs.block().position());
+	curs.setPosition(curs.block().position() + curs.block().length(), QTextCursor::KeepAnchor);
+	return curs;
 }
 
 bool CompletingEdit::selectWord(QTextCursor& cursor)
@@ -210,22 +253,20 @@ void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
 		e->accept();
 	else if (e->modifiers() != Qt::NoModifier)
 		QTextEdit::mouseDoubleClickEvent(e);
-	else {
-		// don't like QTextEdit's selection behavior, so try to improve it here
-		QTextCursor cursor = wordSelectionForPos(e->pos());
-		if (cursor.isNull()) {
-			// else fall back on whatever QTextEdit does
-			QTextEdit::mouseDoubleClickEvent(e);
-		}
-		else {
-			setTextCursor(cursor);
-			e->accept();
-			dragSelecting = true;
-			dragStartCursor = cursor;
-		}
-	}
+	else
+		mousePressEvent(e); // don't like QTextEdit's selection behavior, so we try to improve it
 }
 
+void CompletingEdit::timerEvent(QTimerEvent *e)
+{
+	if (e->timerId() == clickTimer.timerId()) {
+		clickTimer.stop();
+		e->accept();
+	}
+	else
+		QTextEdit::timerEvent(e);
+}
+	
 void CompletingEdit::focusInEvent(QFocusEvent *e)
 {
 	if (c)
@@ -275,7 +316,7 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 void CompletingEdit::handleReturn(QKeyEvent *e)
 {
 	QString prefix;
-	if (autoIndentMode >= 0 && autoIndentMode < indentModes->count() && e->modifiers() == 0) {
+	if (autoIndentMode >= 0 && autoIndentMode < indentModes->count() && e->modifiers() == Qt::NoModifier) {
 		QRegExp &re = (*indentModes)[autoIndentMode].regex;
 		QString blockText = textCursor().block().text();
 		if (blockText.indexOf(re) == 0 && re.matchedLength() > 0)
@@ -291,7 +332,7 @@ void CompletingEdit::handleReturn(QKeyEvent *e)
 void CompletingEdit::handleBackspace(QKeyEvent *e)
 {
 	QTextCursor curs = textCursor();
-	if (e->modifiers() == 0 && prefixLength > 0 && !curs.hasSelection()) {
+	if (e->modifiers() == Qt::NoModifier && prefixLength > 0 && !curs.hasSelection()) {
 		curs.beginEditBlock();
 		// note that prefixLength will get reset on the first deletion,
 		// so it is important that the loop counts down rather than up!
