@@ -23,6 +23,7 @@
 #define COMPLETING_EDIT_H
 
 #include <QTextEdit>
+#include <QTimer>
 
 #include <hunspell.h>
 
@@ -58,6 +59,7 @@ protected:
 	virtual void mouseDoubleClickEvent(QMouseEvent *e);
 	virtual void contextMenuEvent(QContextMenuEvent *e);
 	virtual void dragEnterEvent(QDragEnterEvent *e);
+	virtual void timerEvent(QTimerEvent *e);
 
 private slots:
 	void cursorPositionChangedSlot();
@@ -78,10 +80,15 @@ private:
 	void handleBackspace(QKeyEvent *e);
 	void handleOtherKey(QKeyEvent *e);
 
-	QTextCursor wordSelectionForPos(const QPoint& mousePos);
+	QTextCursor wordSelectionForPos(const QPoint& pos);
+	QTextCursor blockSelectionForPos(const QPoint& pos);
 	
 	bool dragSelecting;
 	QTextCursor dragStartCursor;
+
+	QBasicTimer clickTimer;
+	QPoint clickPos;
+	int clickCount;
 	
 	static void loadIndentModes();
 
