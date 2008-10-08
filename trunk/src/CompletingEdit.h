@@ -60,6 +60,8 @@ protected:
 	virtual void contextMenuEvent(QContextMenuEvent *e);
 	virtual void dragEnterEvent(QDragEnterEvent *e);
 	virtual void timerEvent(QTimerEvent *e);
+	virtual bool canInsertFromMimeData(const QMimeData *source) const;
+	virtual void insertFromMimeData(const QMimeData *source);
 
 private slots:
 	void cursorPositionChangedSlot();

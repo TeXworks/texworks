@@ -695,6 +695,17 @@ void CompletingEdit::dragEnterEvent(QDragEnterEvent *event)
 		QTextEdit::dragEnterEvent(event);
 }
 
+void CompletingEdit::insertFromMimeData(const QMimeData *source)
+{
+	if (source->hasText())
+		textCursor().insertText(source->text());
+}
+
+bool CompletingEdit::canInsertFromMimeData(const QMimeData *source) const
+{
+	return source->hasText();
+}
+
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = NULL;
 QTextCharFormat	*CompletingEdit::braceMatchingFormat = NULL;
 
