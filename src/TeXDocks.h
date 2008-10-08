@@ -45,11 +45,10 @@ protected:
 
 	TeXDocument *document;
 
+	bool filled;
+
 private slots:
 	void myVisibilityChanged(bool visible);
-
-private:
-	bool filled;
 };
 
 

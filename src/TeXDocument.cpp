@@ -724,7 +724,12 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
 	if (fileContents.isNull())
 		return;
 	QApplication::setOverrideCursor(Qt::WaitCursor);
+	deferTagListChanges = true;
+	tagListChanged = false;
 	textEdit->setPlainText(fileContents);
+	deferTagListChanges = false;
+	if (tagListChanged > 0)
+		emit tagListUpdated();
 	QApplication::restoreOverrideCursor();
 
 	if (asTemplate) {
@@ -1906,7 +1911,10 @@ void TeXDocument::goToTag(int index)
 
 void TeXDocument::tagsChanged()
 {
-	emit tagListUpdated();
+	if (deferTagListChanges)
+		tagListChanged = true;
+	else
+		emit tagListUpdated();
 }
 
 #ifdef Q_WS_MAC

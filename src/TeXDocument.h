@@ -219,6 +219,8 @@ private:
 	QList<QWidget*> latentVisibleWidgets;
 
 	QList<Tag>	tags;
+	bool deferTagListChanges;
+	bool tagListChanged;
 
 	QTextCursor	dragSavedCursor;
 
