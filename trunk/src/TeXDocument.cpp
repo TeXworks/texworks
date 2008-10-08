@@ -1502,24 +1502,39 @@ QTextCursor TeXDocument::doSearch(QTextDocument *theDoc, const QString& searchTe
 {
 	QTextCursor curs;
 	if ((flags & QTextDocument::FindBackward) != 0) {
-		if (regex != NULL)
-			curs = theDoc->find(*regex, e, flags);
-		else
-			curs = theDoc->find(searchText, e, flags);
-		if (!curs.isNull()) {
-			if (curs.selectionEnd() > e) {
-				if (regex != NULL)
-					curs = theDoc->find(*regex, curs, flags);
-				else
-					curs = theDoc->find(searchText, curs, flags);
+		if (regex != NULL) {
+			// this doesn't seem to match \n or even \x2029 for newline
+			// curs = theDoc->find(*regex, e, flags);
+			int offset = regex->lastIndexIn(theDoc->toPlainText(), e, QRegExp::CaretAtZero);
+			while (offset >= s && offset + regex->matchedLength() > e)
+				offset = regex->lastIndexIn(theDoc->toPlainText(), offset - 1, QRegExp::CaretAtZero);
+			if (offset >= s) {
+				curs = QTextCursor(theDoc);
+				curs.setPosition(offset);
+				curs.setPosition(offset + regex->matchedLength(), QTextCursor::KeepAnchor);
 			}
-			if (curs.selectionStart() < s)
-				curs = QTextCursor();
+		}
+		else {
+			curs = theDoc->find(searchText, e, flags);
+			if (!curs.isNull()) {
+				if (curs.selectionEnd() > e)
+					curs = theDoc->find(searchText, curs, flags);
+				if (curs.selectionStart() < s)
+					curs = QTextCursor();
+			}
 		}
 	}
 	else {
-		if (regex != NULL)
-			curs = theDoc->find(*regex, s, flags);
+		if (regex != NULL) {
+			// this doesn't seem to match \n or even \x2029 for newline
+			// curs = theDoc->find(*regex, s, flags);
+			int offset = regex->indexIn(theDoc->toPlainText(), s, QRegExp::CaretAtZero);
+			if (offset >= 0) {
+				curs = QTextCursor(theDoc);
+				curs.setPosition(offset);
+				curs.setPosition(offset + regex->matchedLength(), QTextCursor::KeepAnchor);
+			}
+		}
 		else
 			curs = theDoc->find(searchText, s, flags);
 		if (curs.selectionEnd() > e)
