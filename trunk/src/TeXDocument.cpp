@@ -1281,15 +1281,20 @@ void TeXDocument::doFindAgain(bool fromDialog)
 		TeXDocument* theDoc = this;
 		while (1) {
 			QTextCursor curs(theDoc->textDoc());
+			curs.movePosition(QTextCursor::End);
+			int rangeStart = 0;
+			int rangeEnd = curs.position();
 			while (1) {
-				curs = (regex != NULL)
-					? theDoc->textDoc()->find(*regex, curs, flags)
-					: theDoc->textDoc()->find(searchText, curs, flags);
+				curs = doSearch(theDoc->textDoc(), searchText, regex, flags, rangeStart, rangeEnd);
 				if (curs.isNull())
 					break;
 				int blockStart = curs.block().position();
 				results.append(SearchResult(theDoc, curs.blockNumber() + 1,
 								curs.selectionStart() - blockStart, curs.selectionEnd() - blockStart));
+				if ((flags & QTextDocument::FindBackward) != 0)
+					rangeEnd = curs.selectionStart();
+				else
+					rangeStart = curs.selectionEnd();
 			}
 
 			if (settings.value("searchAllFiles").toBool() == false)
@@ -1318,38 +1323,28 @@ void TeXDocument::doFindAgain(bool fromDialog)
 	else {
 		QTextCursor	curs = textEdit->textCursor();
 		if (settings.value("searchSelection").toBool() && curs.hasSelection()) {
-			int s = curs.selectionStart();
-			int e = curs.selectionEnd();
+			int rangeStart = curs.selectionStart();
+			int rangeEnd = curs.selectionEnd();
+			curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+		}
+		else {
 			if ((flags & QTextDocument::FindBackward) != 0) {
-				curs = (regex != NULL)
-					? textEdit->document()->find(*regex, e, flags)
-					: textEdit->document()->find(searchText, e, flags);
-				if (!curs.isNull()) {
-					if (curs.selectionEnd() > e)
-						curs = (regex != NULL)
-							? textEdit->document()->find(*regex, curs, flags)
-							: textEdit->document()->find(searchText, curs, flags);
-					if (curs.selectionStart() < s)
-						curs = QTextCursor();
+				int rangeStart = 0;
+				int rangeEnd = curs.selectionStart();
+				curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+				if (curs.isNull() && settings.value("searchWrap").toBool()) {
+					curs = QTextCursor(textEdit->document());
+					curs.movePosition(QTextCursor::End);
+					curs = doSearch(textEdit->document(), searchText, regex, flags, 0, curs.position());
 				}
 			}
 			else {
-				curs = textEdit->document()->find(searchText, s, flags);
-				if (curs.selectionEnd() > e)
-					curs = QTextCursor();
-			}
-		}
-		else {
-			curs = (regex != NULL)
-				? textEdit->document()->find(*regex, curs, flags)
-				: textEdit->document()->find(searchText, curs, flags);
-			if (curs.isNull() && settings.value("searchWrap").toBool()) {
-				curs = QTextCursor(textEdit->document());
-				if ((flags & QTextDocument::FindBackward) != 0)
-					curs.movePosition(QTextCursor::End);
-				curs = (regex != NULL)
-					? textEdit->document()->find(*regex, curs, flags)
-					: textEdit->document()->find(searchText, curs, flags);
+				int rangeStart = curs.selectionEnd();
+				curs.movePosition(QTextCursor::End);
+				int rangeEnd = curs.position();
+				curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+				if (curs.isNull() && settings.value("searchWrap").toBool())
+					curs = doSearch(textEdit->document(), searchText, regex, flags, 0, rangeEnd);
 			}
 		}
 
@@ -1424,7 +1419,7 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 	}
 	
 	if (mode == ReplaceDialog::ReplaceOne) {
-		QTextCursor curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
+		QTextCursor curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
 		if (curs.isNull()) {
 			qApp->beep();
 			statusBar()->showMessage(tr("Not found"), kStatusMessageDuration);
@@ -1472,7 +1467,7 @@ int TeXDocument::doReplaceAll(const QString& searchText, QRegExp* regex, const Q
 	int replacements = 0;
 	bool first = true;
 	while (1) {
-		QTextCursor curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
+		QTextCursor curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
 		if (curs.isNull()) {
 			if (!first)
 				searchRange.endEditBlock();
@@ -1503,20 +1498,20 @@ int TeXDocument::doReplaceAll(const QString& searchText, QRegExp* regex, const Q
 	return replacements;
 }
 
-QTextCursor TeXDocument::doSearch(const QString& searchText, const QRegExp *regex, QTextDocument::FindFlags flags, int s, int e)
+QTextCursor TeXDocument::doSearch(QTextDocument *theDoc, const QString& searchText, const QRegExp *regex, QTextDocument::FindFlags flags, int s, int e)
 {
 	QTextCursor curs;
 	if ((flags & QTextDocument::FindBackward) != 0) {
 		if (regex != NULL)
-			curs = textEdit->document()->find(*regex, e, flags);
+			curs = theDoc->find(*regex, e, flags);
 		else
-			curs = textEdit->document()->find(searchText, e, flags);
+			curs = theDoc->find(searchText, e, flags);
 		if (!curs.isNull()) {
 			if (curs.selectionEnd() > e) {
 				if (regex != NULL)
-					curs = textEdit->document()->find(*regex, curs, flags);
+					curs = theDoc->find(*regex, curs, flags);
 				else
-					curs = textEdit->document()->find(searchText, curs, flags);
+					curs = theDoc->find(searchText, curs, flags);
 			}
 			if (curs.selectionStart() < s)
 				curs = QTextCursor();
@@ -1524,9 +1519,9 @@ QTextCursor TeXDocument::doSearch(const QString& searchText, const QRegExp *rege
 	}
 	else {
 		if (regex != NULL)
-			curs = textEdit->document()->find(*regex, s, flags);
+			curs = theDoc->find(*regex, s, flags);
 		else
-			curs = textEdit->document()->find(searchText, s, flags);
+			curs = theDoc->find(searchText, s, flags);
 		if (curs.selectionEnd() > e)
 			curs = QTextCursor();
 	}

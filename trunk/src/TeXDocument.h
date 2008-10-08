@@ -181,7 +181,8 @@ private:
 	void unPrefixLines(const QString &prefix);
 	void replaceSelection(const QString& newText);
 	void zoomToLeft(QWidget *otherWindow);
-	QTextCursor doSearch(const QString& searchText, const QRegExp *regex, QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
+	QTextCursor doSearch(QTextDocument *theDoc, const QString& searchText, const QRegExp *regex,
+						 QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
 	int doReplaceAll(const QString& searchText, QRegExp* regex, const QString& replacement,
 						QTextDocument::FindFlags flags, int rangeStart = -1, int rangeEnd = -1);
 	void showConsole();
