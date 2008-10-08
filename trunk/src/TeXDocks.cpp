@@ -113,7 +113,8 @@ void TagsDock::fillInfo()
 void TagsDock::listChanged()
 {
 	tree->clear();
-	if (document)
+	filled = false;
+	if (document && isVisible())
 		fillInfo();
 }
 
