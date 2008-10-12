@@ -859,29 +859,29 @@ bool TeXDocument::saveFile(const QString &fileName)
 		}
 	}
 
-	{
-		QFile file(fileName);
-		if (!file.open(QFile::WriteOnly | QFile::Text)) {
-			QMessageBox::warning(this, tr(TEXWORKS_NAME),
-								 tr("Cannot write file \"%1\":\n%2.")
-								 .arg(fileName)
-								 .arg(file.errorString()));
-			goto notSaved;
-		}
-		else {
-			QApplication::setOverrideCursor(Qt::WaitCursor);
-			QTextStream out(&file);
-			if (codec != NULL)
-				out.setCodec(codec);
-			out << theText;
-			setCurrentFile(fileName);
-			statusBar()->showMessage(tr("File \"%1\" saved (%2)")
-										.arg(TWUtils::strippedName(curFile))
-										.arg(codec ? QString::fromAscii(codec->name()) : tr("default encoding")),
-										kStatusMessageDuration);
-			QApplication::restoreOverrideCursor();
-		}
+	QFile file(fileName);
+	if (!file.open(QFile::WriteOnly | QFile::Text)) {
+		QMessageBox::warning(this, tr(TEXWORKS_NAME),
+							 tr("Cannot write file \"%1\":\n%2.")
+							 .arg(fileName)
+							 .arg(file.errorString()));
+		goto notSaved;
 	}
+	else {
+		QApplication::setOverrideCursor(Qt::WaitCursor);
+		QTextStream out(&file);
+		if (codec != NULL)
+			out.setCodec(codec);
+		out << theText;
+		setCurrentFile(fileName);
+		statusBar()->showMessage(tr("File \"%1\" saved (%2)")
+									.arg(TWUtils::strippedName(curFile))
+									.arg(codec ? QString::fromAscii(codec->name()) : tr("default encoding")),
+									kStatusMessageDuration);
+		QApplication::restoreOverrideCursor();
+	}
+
+	fileInfo = QFileInfo(fileName);
 	lastModified = fileInfo.lastModified();
 
 	return true;
