@@ -129,6 +129,7 @@ private slots:
 	void doFindDialog();
 	void doFindAgain(bool fromDialog = false);
 	void doReplaceDialog();
+	void doReplaceAgain();
 	void doReplace(ReplaceDialog::DialogCode mode);
 	void doIndent();
 	void doUnindent();
