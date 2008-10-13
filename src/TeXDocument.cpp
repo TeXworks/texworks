@@ -53,6 +53,7 @@
 #include <QStandardItemModel>
 #include <QAbstractButton>
 #include <QPushButton>
+#include <QFileSystemWatcher>
 #include <QDebug>
 
 #ifdef Q_WS_WIN
@@ -306,6 +307,9 @@ void TeXDocument::init()
 	addDockWidget(Qt::LeftDockWidgetArea, dw);
 	menuShow->addAction(dw->toggleViewAction());
 
+	watcher = new QFileSystemWatcher(this);
+	connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()));
+	
 	docList.append(this);
 }
 
@@ -547,7 +551,6 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 
 		case QEvent::WindowActivate:
 			showFloaters();
-			reloadIfChangedOnDisk();
 			emit activatedWindow(this);
 			break;
 
@@ -719,7 +722,7 @@ QString TeXDocument::readFile(const QString &fileName, QTextCodec **codecUsed)
 	return in.readAll();
 }
 
-void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
+void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBackground)
 {
 	QString fileContents = readFile(fileName, &codec);
 	if (fileContents.isNull())
@@ -741,12 +744,17 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate)
 		lastModified = info.lastModified();
 		setCurrentFile(fileName);
 		showPdfIfAvailable();
-		selectWindow();
+		if (!inBackground)
+			selectWindow();
 		
 		statusBar()->showMessage(tr("File \"%1\" loaded (%2)")
 									.arg(TWUtils::strippedName(curFile))
 									.arg(QString::fromAscii(codec->name())),
 									kStatusMessageDuration);
+		const QStringList files = watcher->files();
+		if (files.count() > 0)
+			watcher->removePaths(files);
+		watcher->addPath(fileName);
 	}
 }
 
@@ -756,6 +764,7 @@ void TeXDocument::reloadIfChangedOnDisk()
 		return;
 	QDateTime fileModified = QFileInfo(curFile).lastModified();
 	if (fileModified.isValid() && fileModified != lastModified) {
+		watcher->removePaths(watcher->files()); // stop watching until next save or reload
 		if (textEdit->document()->isModified()) {
 			if (QMessageBox::warning(this, tr("File changed on disk"),
 									 tr("%1 has been modified by another program.\n\n"
@@ -767,7 +776,7 @@ void TeXDocument::reloadIfChangedOnDisk()
 			}
 		}
 		// user chose to discard, or there were no local changes
-		loadFile(curFile);
+		loadFile(curFile, false, true);
 	}
 }
 
@@ -884,6 +893,10 @@ bool TeXDocument::saveFile(const QString &fileName)
 
 	fileInfo = QFileInfo(fileName);
 	lastModified = fileInfo.lastModified();
+	const QStringList files = watcher->files();
+	if (files.count() > 0)
+		watcher->removePaths(files);
+	watcher->addPath(fileName);
 
 	return true;
 }

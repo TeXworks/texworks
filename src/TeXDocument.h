@@ -42,6 +42,7 @@ class QLabel;
 class QComboBox;
 class QActionGroup;
 class QTextCodec;
+class QFileSystemWatcher;
 
 class TeXHighlighter;
 class PDFDocument;
@@ -167,14 +168,14 @@ private slots:
 	void sideBySide();
 	void placeOnLeft();
 	void placeOnRight();
+	void reloadIfChangedOnDisk();
 
 private:
 	void init();
 	bool maybeSave();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
 	QString readFile(const QString &fileName, QTextCodec **codecUsed);
-	void loadFile(const QString &fileName, bool asTemplate = false);
-	void reloadIfChangedOnDisk();
+	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
 	void showPdfIfAvailable();
@@ -219,6 +220,8 @@ private:
 
 	QList<QWidget*> latentVisibleWidgets;
 
+	QFileSystemWatcher *watcher;
+	
 	QList<Tag>	tags;
 	bool deferTagListChanges;
 	bool tagListChanged;
