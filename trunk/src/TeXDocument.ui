@@ -274,6 +274,7 @@
     <addaction name="actionFind" />
     <addaction name="actionFind_Again" />
     <addaction name="actionReplace" />
+    <addaction name="actionReplace_Again" />
     <addaction name="separator" />
     <addaction name="actionCopy_to_Find" />
     <addaction name="actionCopy_to_Replace" />
@@ -957,6 +958,17 @@
    </property>
    <property name="text" >
     <string>None</string>
+   </property>
+  </action>
+  <action name="actionReplace_Again" >
+   <property name="text" >
+    <string>Replace Again</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Shift+R</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
  </widget>

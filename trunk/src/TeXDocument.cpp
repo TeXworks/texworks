@@ -141,6 +141,7 @@ void TeXDocument::init()
 	connect(actionFind, SIGNAL(triggered()), this, SLOT(doFindDialog()));
 	connect(actionFind_Again, SIGNAL(triggered()), this, SLOT(doFindAgain()));
 	connect(actionReplace, SIGNAL(triggered()), this, SLOT(doReplaceDialog()));
+	connect(actionReplace_Again, SIGNAL(triggered()), this, SLOT(doReplaceAgain()));
 
 	connect(actionCopy_to_Find, SIGNAL(triggered()), this, SLOT(copyToFind()));
 	connect(actionCopy_to_Replace, SIGNAL(triggered()), this, SLOT(copyToReplace()));
@@ -1365,6 +1366,11 @@ void TeXDocument::doFindAgain(bool fromDialog)
 		delete regex;
 }
 
+void TeXDocument::doReplaceAgain()
+{
+	doReplace(ReplaceDialog::ReplaceOne);
+}
+
 void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 {
 	QSettings settings;
@@ -1373,7 +1379,6 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 	if (searchText.isEmpty())
 		return;
 	
-	QString	replacement = settings.value("replaceText").toString();
 	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value("searchFlags").toInt();
 
 	QRegExp	*regex = NULL;
@@ -1386,6 +1391,16 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 			delete regex;
 			return;
 		}
+	}
+
+	QString	replacement = settings.value("replaceText").toString();
+	if (regex != NULL) {
+		QRegExp unicodeCode("\\\\x([0-9A-Fa-f]{4})");
+		while (replacement.indexOf(unicodeCode) >= 0) {
+			bool ok;
+			replacement.replace(unicodeCode.cap(0), (QChar)unicodeCode.cap(1).toUInt(&ok, 16));
+		}
+		replacement = replacement.replace("\\t", "\t").replace("\\n", "\n").replace("\\\\", "\\");
 	}
 	
 	bool allFiles = (mode == ReplaceDialog::ReplaceAll) && settings.value("searchAllFiles").toBool();
@@ -1431,12 +1446,14 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 		}
 		else {
 			// do replacement
-			QString target = curs.selectedText();
+			QString target;
 			if (regex != NULL)
-				target.replace(*regex, replacement);
+				target = textEdit->document()->toPlainText()
+							.mid(curs.selectionStart(), curs.selectionEnd() - curs.selectionStart()).replace(*regex, replacement);
 			else
 				target = replacement;
 			curs.insertText(target);
+			textEdit->setTextCursor(curs);
 		}
 	}
 	else if (mode == ReplaceDialog::ReplaceAll) {
@@ -1482,10 +1499,10 @@ int TeXDocument::doReplaceAll(const QString& searchText, QRegExp* regex, const Q
 			searchRange.beginEditBlock();
 			first = false;
 		}
-		QString target = curs.selectedText();
-		int oldLen = target.length();
+		QString target;
+		int oldLen = curs.selectionEnd() - curs.selectionStart();
 		if (regex != NULL)
-			target.replace(*regex, replacement);
+			target = textEdit->document()->toPlainText().mid(curs.selectionStart(), oldLen).replace(*regex, replacement);
 		else
 			target = replacement;
 		int newLen = target.length();
@@ -1500,19 +1517,24 @@ int TeXDocument::doReplaceAll(const QString& searchText, QRegExp* regex, const Q
 		searchRange.insertText(target);
 		++replacements;
 	}
+	if (!first) {
+		searchRange.setPosition(rangeStart);
+		textEdit->setTextCursor(searchRange);
+	}
 	return replacements;
 }
 
 QTextCursor TeXDocument::doSearch(QTextDocument *theDoc, const QString& searchText, const QRegExp *regex, QTextDocument::FindFlags flags, int s, int e)
 {
 	QTextCursor curs;
+	const QString& docText = theDoc->toPlainText();
 	if ((flags & QTextDocument::FindBackward) != 0) {
 		if (regex != NULL) {
 			// this doesn't seem to match \n or even \x2029 for newline
 			// curs = theDoc->find(*regex, e, flags);
-			int offset = regex->lastIndexIn(theDoc->toPlainText(), e, QRegExp::CaretAtZero);
+			int offset = regex->lastIndexIn(docText, e, QRegExp::CaretAtZero);
 			while (offset >= s && offset + regex->matchedLength() > e)
-				offset = regex->lastIndexIn(theDoc->toPlainText(), offset - 1, QRegExp::CaretAtZero);
+				offset = regex->lastIndexIn(docText, offset - 1, QRegExp::CaretAtZero);
 			if (offset >= s) {
 				curs = QTextCursor(theDoc);
 				curs.setPosition(offset);
@@ -1533,7 +1555,7 @@ QTextCursor TeXDocument::doSearch(QTextDocument *theDoc, const QString& searchTe
 		if (regex != NULL) {
 			// this doesn't seem to match \n or even \x2029 for newline
 			// curs = theDoc->find(*regex, s, flags);
-			int offset = regex->indexIn(theDoc->toPlainText(), s, QRegExp::CaretAtZero);
+			int offset = regex->indexIn(docText, s, QRegExp::CaretAtZero);
 			if (offset >= 0) {
 				curs = QTextCursor(theDoc);
 				curs.setPosition(offset);
