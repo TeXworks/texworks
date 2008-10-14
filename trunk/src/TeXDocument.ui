@@ -206,6 +206,8 @@
     <addaction name="actionSave" />
     <addaction name="actionSave_As" />
     <addaction name="actionRevert_to_Saved" />
+    <addaction name="separator" />
+    <addaction name="actionRemove_Aux_Files" />
    </widget>
    <widget class="QMenu" name="menuEdit" >
     <property name="title" >
@@ -966,6 +968,14 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+Shift+R</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionRemove_Aux_Files" >
+   <property name="text" >
+    <string>Remove Aux Files...</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>

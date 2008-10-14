@@ -610,25 +610,31 @@ QString TWUtils::sIncludePdfCommand;
 QString TWUtils::sIncludeImageCommand;
 QString TWUtils::sIncludePostscriptCommand;
 QString TWUtils::sIncludeTextCommand;
+QString TWUtils::sCleanupPatterns;
 
-QString TWUtils::includePdfCommand()
+const QString& TWUtils::includePdfCommand()
 {
 	return sIncludePdfCommand;
 }
 
-QString TWUtils::includeImageCommand()
+const QString& TWUtils::includeImageCommand()
 {
 	return sIncludeImageCommand;
 }
 
-QString TWUtils::includePostscriptCommand()
+const QString& TWUtils::includePostscriptCommand()
 {
 	return sIncludePostscriptCommand;
 }
 
-QString TWUtils::includeTextCommand()
+const QString& TWUtils::includeTextCommand()
 {
 	return sIncludeTextCommand;
+}
+
+const QString& TWUtils::cleanupPatterns()
+{
+	return sCleanupPatterns;
 }
 
 void TWUtils::readConfig()
@@ -656,18 +662,18 @@ void TWUtils::readConfig()
 		}
 	}
 
-	// defaults in case not found
+	// defaults in case config file not found
 	sIncludeTextCommand			= "\\include{%1}\n";
 	sIncludePdfCommand			= "\\includegraphics[]{%1}\n";
 	sIncludeImageCommand		= "\\includegraphics[]{%1}\n";
 	sIncludePostscriptCommand	= "\\includegraphics[]{%1}\n";
 
+	sCleanupPatterns = "*.aux $jobname.log $jobname.lof $jobname.lot $jobname.toc";
+
 	QFile configFile(configDir.filePath("texworks-config.txt"));
 	if (configFile.open(QIODevice::ReadOnly)) {
-		QRegExp textRE("include-text:\\s*(.+)");
-		QRegExp pdfRE("include-pdf:\\s*(.+)");
-		QRegExp imageRE("include-image:\\s*(.+)");
-		QRegExp postscriptRE("include-postscript:\\s*(.+)");
+		QRegExp keyVal("([-a-z]+):\\s*([^ \\t].+)");
+			// looking for keyword, colon, optional whitespace, value
 		while (1) {
 			QByteArray ba = configFile.readLine();
 			if (ba.size() == 0)
@@ -675,21 +681,38 @@ void TWUtils::readConfig()
 			if (ba[0] == '#' || ba[0] == '\n')
 				continue;
 			QString	line = QString::fromUtf8(ba.data(), ba.size());
-			if (textRE.exactMatch(line)) {
-				sIncludeTextCommand = textRE.cap(1).trimmed().replace("#RET#", "\n");
-				continue;
-			}
-			if (pdfRE.exactMatch(line)) {
-				sIncludePdfCommand = pdfRE.cap(1).trimmed().replace("#RET#", "\n");
-				continue;
-			}
-			if (imageRE.exactMatch(line)) {
-				sIncludeImageCommand = imageRE.cap(1).trimmed().replace("#RET#", "\n");
-				continue;
-			}
-			if (postscriptRE.exactMatch(line)) {
-				sIncludePostscriptCommand = postscriptRE.cap(1).trimmed().replace("#RET#", "\rn");
-				continue;
+			if (keyVal.exactMatch(line)) {
+				// if that matched, keyVal.cap(1) is the keyword, cap(2) is the value
+				const QString& keyword = keyVal.cap(1);
+				QString value = keyVal.cap(2).trimmed();
+				if (keyword == "include-text") {
+					sIncludeTextCommand = value.replace("#RET#", "\n");
+					continue;
+				}
+				if (keyword == "include-pdf") {
+					sIncludePdfCommand = value.replace("#RET#", "\n");
+					continue;
+				}
+				if (keyword == "include-image") {
+					sIncludeImageCommand = value.replace("#RET#", "\n");
+					continue;
+				}
+				if (keyword == "include-postscript") {
+					sIncludePostscriptCommand = value.replace("#RET#", "\n");
+					continue;
+				}
+				if (keyword == "cleanup-patterns") {
+					static bool first = true;
+					if (first) {
+						sCleanupPatterns = value;
+						first = false;
+					}
+					else {
+						sCleanupPatterns += " ";
+						sCleanupPatterns += value;
+					}
+					continue;
+				}
 			}
 		}
 	}
