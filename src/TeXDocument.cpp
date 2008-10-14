@@ -27,6 +27,7 @@
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "PDFDocument.h"
+#include "ConfirmDelete.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -135,6 +136,8 @@ void TeXDocument::init()
 	connect(actionRevert_to_Saved, SIGNAL(triggered()), this, SLOT(revert()));
 	connect(actionClose, SIGNAL(triggered()), this, SLOT(close()));
 
+	connect(actionRemove_Aux_Files, SIGNAL(triggered()), this, SLOT(removeAuxFiles()));
+	
 	connect(actionClear, SIGNAL(triggered()), this, SLOT(clear()));
 
 	connect(actionFont, SIGNAL(triggered()), this, SLOT(doFontDialog()));
@@ -380,6 +383,7 @@ void TeXDocument::newFromTemplate()
 void TeXDocument::makeUntitled()
 {
 	setCurrentFile("");
+	actionRemove_Aux_Files->setEnabled(false);
 }
 
 void TeXDocument::open()
@@ -930,6 +934,8 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 		settings.setValue("recentFileList", files);
 		TWApp::instance()->updateRecentFileActions();
 	}
+	
+	actionRemove_Aux_Files->setEnabled(!isUntitled);
 	
 	TWApp::instance()->updateWindowMenus();
 }
@@ -1950,6 +1956,31 @@ void TeXDocument::tagsChanged()
 		tagListChanged = true;
 	else
 		emit tagListUpdated();
+}
+
+void TeXDocument::removeAuxFiles()
+{
+	findRootFilePath();
+	if (rootFilePath.isEmpty())
+		return;
+
+	QFileInfo fileInfo(rootFilePath);
+	QString jobname = fileInfo.completeBaseName();
+	QDir dir(fileInfo.dir());
+	
+	QStringList filterList = TWUtils::cleanupPatterns().split(QRegExp("\\s+"));
+	if (filterList.count() == 0)
+		return;
+	for (int i = 0; i < filterList.count(); ++i)
+		filterList[i].replace("$jobname", jobname);
+	
+	dir.setNameFilters(filterList);
+	QStringList auxFileList = dir.entryList(QDir::Files | QDir::CaseSensitive, QDir::Name);
+	if (auxFileList.count() > 0)
+		ConfirmDelete::doConfirmDelete(dir, auxFileList);
+	else
+		(void)QMessageBox::information(this, tr("No files found"),
+									   tr("No auxiliary files associated with this document at the moment."));
 }
 
 #ifdef Q_WS_MAC

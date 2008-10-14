@@ -99,10 +99,12 @@ public:
 	static int balanceDelim(const QString& text, int pos, QChar delim, int direction);
 	static int findOpeningDelim(const QString& text, int pos);
 
-	static QString includeTextCommand();
-	static QString includePdfCommand();
-	static QString includeImageCommand();
-	static QString includePostscriptCommand();
+	static const QString& includeTextCommand();
+	static const QString& includePdfCommand();
+	static const QString& includeImageCommand();
+	static const QString& includePostscriptCommand();
+	
+	static const QString& cleanupPatterns();
 
 private:
 	TWUtils();
@@ -122,6 +124,7 @@ private:
 	static QString sIncludePdfCommand;
 	static QString sIncludeImageCommand;
 	static QString sIncludePostscriptCommand;
+	static QString sCleanupPatterns;
 };
 
 // this special QAction class is used in Window menus, so that it's easy to recognize the dynamically-created items

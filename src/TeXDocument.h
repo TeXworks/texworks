@@ -169,6 +169,7 @@ private slots:
 	void placeOnLeft();
 	void placeOnRight();
 	void reloadIfChangedOnDisk();
+	void removeAuxFiles();
 
 private:
 	void init();
