@@ -9,3 +9,14 @@ include-postscript:	\includegraphics[]{%1}#RET#
 include-pdf:		\includegraphics[]{%1}#RET#
 include-image:		\includegraphics[]{%1}#RET#
 
+# Patterns for the Remove Aux Files command; entries are cumulative
+# (any occurrence of $jobname will be replaced by the root file name)
+
+cleanup-patterns:	*.aux
+cleanup-patterns:	$jobname.blg $jobname.brf $jobname.ccs $jobname.ent $jobname.fff
+cleanup-patterns:	$jobname.glo $jobname.idx $jobname.idv $jobname.ilg $jobname.ind $jobname.ioa
+cleanup-patterns:	$jobname.lg $jobname.lof $jobname.log $jobname.lot
+cleanup-patterns:	$jobname.mte $jobname.mlf $jobname.out $jobname.pdfsync
+cleanup-patterns:	$jobname.toc $jobname.ttt $jobname.wrm $jobname.xref
+cleanup-patterns:	$jobname.4ct $jobname.4tc
+
