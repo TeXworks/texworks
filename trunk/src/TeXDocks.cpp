@@ -25,6 +25,7 @@
 
 #include <QTreeWidget>
 #include <QHeaderView>
+#include <QScrollBar>
 #include <QDomNode>
 
 TeXDock::TeXDock(const QString& title, TeXDocument *doc)
@@ -56,6 +57,7 @@ TagsDock::TagsDock(TeXDocument *doc)
 	tree->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	setWidget(tree);
 	connect(doc, SIGNAL(tagListUpdated()), this, SLOT(listChanged()));
+	saveScrollValue = 0;
 }
 
 TagsDock::~TagsDock()
@@ -64,6 +66,7 @@ TagsDock::~TagsDock()
 
 void TagsDock::fillInfo()
 {
+	disconnect(tree, SIGNAL(itemSelectionChanged()), this, SLOT(followTagSelection()));
 	tree->clear();
 	const QList<TeXDocument::Tag>& tags = document->getTags();
 	if (tags.size() > 0) {
@@ -101,6 +104,10 @@ void TagsDock::fillInfo()
 			bookmarks->setHidden(true);
 		if (outline->childCount() == 0)
 			outline->setHidden(true);
+		if (saveScrollValue > 0) {
+			tree->verticalScrollBar()->setValue(saveScrollValue);
+			saveScrollValue = 0;
+		}
 		connect(tree, SIGNAL(itemSelectionChanged()), this, SLOT(followTagSelection()));
 	} else {
 		QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -112,6 +119,7 @@ void TagsDock::fillInfo()
 
 void TagsDock::listChanged()
 {
+	saveScrollValue = tree->verticalScrollBar()->value();
 	tree->clear();
 	filled = false;
 	if (document && isVisible())

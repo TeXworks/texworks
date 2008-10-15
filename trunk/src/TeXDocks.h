@@ -71,6 +71,7 @@ private slots:
 
 private:
 	QTreeWidget *tree;
+	int saveScrollValue;
 };
 
 class TeXDockTreeWidget : public QTreeWidget
