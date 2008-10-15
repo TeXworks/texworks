@@ -88,13 +88,15 @@ const QString TWUtils::getLibraryPath(const QString& subdir)
 	if (!info.exists()) {
 		// create libPath
 		if (QDir::root().mkpath(libPath)) {
-			QString cwd = QDir::currentPath();
-			if (QDir::setCurrent(libPath)) {
-				// copy default contents from app resources into the library dir
-				QDir resDir(":/resfiles/" + subdir);
-				copyResources(resDir, libPath);
+			if (subdir != "translations") { // don't copy the built-in translations
+				QString cwd = QDir::currentPath();
+				if (QDir::setCurrent(libPath)) {
+					// copy default contents from app resources into the library dir
+					QDir resDir(":/resfiles/" + subdir);
+					copyResources(resDir, libPath);
+				}
+				QDir::setCurrent(cwd);
 			}
-			QDir::setCurrent(cwd);
 		}
 	}
 	
@@ -163,12 +165,22 @@ QStringList* TWUtils::getTranslationList()
 		return translationList;
 
 	translationList = new QStringList;
-	QDir transDir(TWUtils::getLibraryPath("translations"));
+	
+	QDir transDir(":/resfiles/translations");
+	foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(TEXWORKS_NAME "_*.qm"),
+														  QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
+		QString locName = qmFileInfo.completeBaseName();
+		locName.remove(TEXWORKS_NAME "_");
+		*translationList << locName;
+	}
+	
+	transDir = QDir(TWUtils::getLibraryPath("translations"));
 	foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(TEXWORKS_NAME "_*.qm"),
 				QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
 		QString locName = qmFileInfo.completeBaseName();
 		locName.remove(TEXWORKS_NAME "_");
-		*translationList << locName;
+		if (!translationList->contains(locName, Qt::CaseInsensitive))
+			*translationList << locName;
 	}
 	
 	return translationList;
