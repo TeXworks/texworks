@@ -563,10 +563,15 @@ void TWApp::applyTranslation(const QString& locale)
 	translators.clear();
 
 	if (!locale.isEmpty()) {
-		QString translations = TWUtils::getLibraryPath("translations");
+		QString basicTranslations = ":/resfiles/translations";
+		QString extraTranslations = TWUtils::getLibraryPath("translations");
 		
 		QTranslator *qtTranslator = new QTranslator(this);
-		if (qtTranslator->load("qt_" + locale, translations)) {
+		if (qtTranslator->load("qt_" + locale, extraTranslations)) {
+			installTranslator(qtTranslator);
+			translators.append(qtTranslator);
+		}
+		else if (qtTranslator->load("qt_" + locale, basicTranslations)) {
 			installTranslator(qtTranslator);
 			translators.append(qtTranslator);
 		}
@@ -574,7 +579,11 @@ void TWApp::applyTranslation(const QString& locale)
 			delete qtTranslator;
 
 		QTranslator *twTranslator = new QTranslator(this);
-		if (twTranslator->load(TEXWORKS_NAME "_" + locale, translations)) {
+		if (twTranslator->load(TEXWORKS_NAME "_" + locale, extraTranslations)) {
+			installTranslator(twTranslator);
+			translators.append(twTranslator);
+		}
+		else if (twTranslator->load(TEXWORKS_NAME "_" + locale, basicTranslations)) {
 			installTranslator(twTranslator);
 			translators.append(twTranslator);
 		}
