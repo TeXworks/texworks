@@ -191,7 +191,7 @@
     <string>First Page</string>
    </property>
    <property name="shortcut" >
-    <string>Home</string>
+    <string comment="shortcut key name, do not translate" >Home</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
@@ -206,7 +206,7 @@
     <string>Previous Page</string>
    </property>
    <property name="shortcut" >
-    <string>PgUp</string>
+    <string comment="shortcut key name, do not translate" >PgUp</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
@@ -221,7 +221,7 @@
     <string>Next Page</string>
    </property>
    <property name="shortcut" >
-    <string>PgDown</string>
+    <string comment="shortcut key name, do not translate" >PgDown</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
@@ -236,7 +236,7 @@
     <string>Last Page</string>
    </property>
    <property name="shortcut" >
-    <string>End</string>
+    <string comment="shortcut key name, do not translate" >End</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
