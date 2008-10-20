@@ -721,9 +721,13 @@ QString TeXDocument::readFile(const QString &fileName, QTextCodec **codecUsed)
 		}
 	}
 	
-	QTextStream in(&file);
-	in.setCodec(*codecUsed);
-	return in.readAll();
+	if (file.atEnd())
+		return QString("");
+	else {
+		QTextStream in(&file);
+		in.setCodec(*codecUsed);
+		return in.readAll();
+	}
 }
 
 void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBackground)
