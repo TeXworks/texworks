@@ -257,11 +257,13 @@ void TWApp::open()
 {
 	QSettings settings;
 	QString lastOpenDir = settings.value("openDialogDir").toString();
-	QString fileName = QFileDialog::getOpenFileName(NULL, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"));
-	if (!fileName.isEmpty()) {
-		QFileInfo info(fileName);
-		settings.setValue("openDialogDir", info.canonicalPath());
-		open(fileName);
+	QStringList files = QFileDialog::getOpenFileNames(NULL, QString(tr("Open File(s)")), lastOpenDir, TWUtils::filterList()->join(";;"));
+	foreach (QString fileName, files) {
+		if (!fileName.isEmpty()) {
+			QFileInfo info(fileName);
+			settings.setValue("openDialogDir", info.canonicalPath());
+			open(fileName);
+		}
 	}
 }
 

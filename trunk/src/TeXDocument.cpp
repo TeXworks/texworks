@@ -396,11 +396,13 @@ void TeXDocument::open()
 #endif
 	QSettings settings;
 	QString lastOpenDir = settings.value("openDialogDir").toString(); 
-	QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
-	if (!fileName.isEmpty()) {
-		QFileInfo info(fileName);
-		settings.setValue("openDialogDir", info.canonicalPath());
-		TWApp::instance()->open(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
+	QStringList files = QFileDialog::getOpenFileNames(this, QString(tr("Open File(s)")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
+	foreach(QString fileName, files){
+		if (!fileName.isEmpty()) {
+			QFileInfo info(fileName);
+			settings.setValue("openDialogDir", info.canonicalPath());
+			TWApp::instance()->open(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
+		}
 	}
 }
 
