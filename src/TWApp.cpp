@@ -257,7 +257,7 @@ void TWApp::open()
 {
 	QSettings settings;
 	QString lastOpenDir = settings.value("openDialogDir").toString();
-	QStringList files = QFileDialog::getOpenFileNames(NULL, QString(tr("Open File(s)")), lastOpenDir, TWUtils::filterList()->join(";;"));
+	QStringList files = QFileDialog::getOpenFileNames(NULL, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"));
 	foreach (QString fileName, files) {
 		if (!fileName.isEmpty()) {
 			QFileInfo info(fileName);

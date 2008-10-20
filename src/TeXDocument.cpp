@@ -396,7 +396,7 @@ void TeXDocument::open()
 #endif
 	QSettings settings;
 	QString lastOpenDir = settings.value("openDialogDir").toString(); 
-	QStringList files = QFileDialog::getOpenFileNames(this, QString(tr("Open File(s)")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
+	QStringList files = QFileDialog::getOpenFileNames(this, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
 	foreach(QString fileName, files){
 		if (!fileName.isEmpty()) {
 			QFileInfo info(fileName);
