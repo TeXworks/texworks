@@ -189,7 +189,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="194"/>
         <source>Home</source>
-        <translation>Home</translation>
+        <translation type="obsolete">Home</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="206"/>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="209"/>
         <source>PgUp</source>
-        <translation>PgUp</translation>
+        <translation type="obsolete">PgUp</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="221"/>
@@ -209,7 +209,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="224"/>
         <source>PgDown</source>
-        <translation>PgDown</translation>
+        <translation type="obsolete">PgDown</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="236"/>
@@ -219,7 +219,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="239"/>
         <source>End</source>
-        <translation>End</translation>
+        <translation type="obsolete">End</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="247"/>
@@ -465,6 +465,30 @@
         <location filename="../src/PDFDocument.ui" line="645"/>
         <source>Place on Right</source>
         <translation>Plaats rechts</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="194"/>
+        <source>Home</source>
+        <comment>shortcut key name, do not translate</comment>
+        <translation>Home</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="209"/>
+        <source>PgUp</source>
+        <comment>shortcut key name, do not translate</comment>
+        <translation>PgUp</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="224"/>
+        <source>PgDown</source>
+        <comment>shortcut key name, do not translate</comment>
+        <translation>PgDown</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="239"/>
+        <source>End</source>
+        <comment>shortcut key name, do not translate</comment>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1051,17 +1075,22 @@
     <message>
         <location filename="../src/TWApp.cpp" line="260"/>
         <source>Open File</source>
-        <translation>Open bestand</translation>
+        <translation type="obsolete">Open bestand</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="390"/>
+        <location filename="../src/TWApp.cpp" line="392"/>
         <source>No default binary directory found</source>
         <translation>Geen standaard folder voor programmas gevonden</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="393"/>
+        <location filename="../src/TWApp.cpp" line="395"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>Geen van de gedefinieerde folders voor TeX-gerelateerde programma;s kon worden gevonden. &lt;p&gt;&lt;small&gt;Om processen te kunnen uitvoeren, moet u de folder(s) voor programmas in uw TeX distributie instellen in het Typesetting gedeelte van de Voorkeuren.</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="260"/>
+        <source>Open File(s)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1107,49 +1136,49 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="399"/>
         <source>Open File</source>
-        <translation>Open Bestand</translation>
+        <translation type="obsolete">Open Bestand</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="467"/>
+        <location filename="../src/TeXDocument.cpp" line="469"/>
         <source>Cannot close window while tool is running</source>
         <translation>Venster kan niet gesloten terwijl programma aktief is</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="592"/>
+        <location filename="../src/TeXDocument.cpp" line="594"/>
         <source>Save File</source>
         <translation>Bestand opslaan</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="606"/>
+        <location filename="../src/TeXDocument.cpp" line="608"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Het document &quot;%1&quot; is aangepast.
 Wilt u de wijzigingen opslaan?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="621"/>
+        <location filename="../src/TeXDocument.cpp" line="623"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>Wilt u alle wijzigingen in het bestand &quot;%1&quot; ongedaan maken en terug gaan naar de laatste bewaarde versie?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="622"/>
+        <location filename="../src/TeXDocument.cpp" line="624"/>
         <source>Revert</source>
         <translation>Ongedaan maken</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="701"/>
+        <location filename="../src/TeXDocument.cpp" line="703"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
         <translation>Kan bestand &quot;%1&quot; niet lezen:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="854"/>
+        <location filename="../src/TeXDocument.cpp" line="860"/>
         <source>Unrecognized encoding</source>
         <translation>Onbekende codering</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="716"/>
+        <location filename="../src/TeXDocument.cpp" line="718"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1158,17 +1187,17 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 Het zal behandeld worden als %3, wat kan resulteren in incorrecte tekst.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="755"/>
+        <location filename="../src/TeXDocument.cpp" line="761"/>
         <source>File &quot;%1&quot; loaded (%2)</source>
         <translation>Bestand &quot;%1&quot; geladen (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="833"/>
+        <location filename="../src/TeXDocument.cpp" line="839"/>
         <source>File changed on disk</source>
         <translation>Bestand veranderd op schijf</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="776"/>
+        <location filename="../src/TeXDocument.cpp" line="782"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -1177,7 +1206,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Wilt u uw aanpassingen ongedaan maken, en het bestand herladen van schijf?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="836"/>
+        <location filename="../src/TeXDocument.cpp" line="842"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -1186,12 +1215,12 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Wilt u doorgaan met opslaan en het bestand op schijf overschrijven?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="840"/>
+        <location filename="../src/TeXDocument.cpp" line="846"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>Document &quot;%1&quot; werd niet opgeslagen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="857"/>
+        <location filename="../src/TeXDocument.cpp" line="863"/>
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
@@ -1200,12 +1229,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 Het bestand zal worden opgeslagen als %3, wat kan resulteren in incorrecte tekst.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="866"/>
+        <location filename="../src/TeXDocument.cpp" line="872"/>
         <source>Text cannot be converted</source>
         <translation>De tekst kan niet omgezet worden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="870"/>
+        <location filename="../src/TeXDocument.cpp" line="876"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -1214,58 +1243,58 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 Indien u doorgaat, zullen zij worden vervangen door standaard codes. Een alternatief dat dataverlies kan voorkomen is om een andere codering (zoals UTF-8) te gebruiken.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="880"/>
+        <location filename="../src/TeXDocument.cpp" line="886"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
         <translation>Kan bestand &quot;%1&quot; niet schrijven:%2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="892"/>
+        <location filename="../src/TeXDocument.cpp" line="898"/>
         <source>File &quot;%1&quot; saved (%2)</source>
         <translation>Bestand &quot;%1&quot; bewaard (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="893"/>
+        <location filename="../src/TeXDocument.cpp" line="899"/>
         <source>default encoding</source>
         <translation>standaard codering</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="914"/>
+        <location filename="../src/TeXDocument.cpp" line="920"/>
         <source>untitled-%1.tex</source>
         <translation>naamloos-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="925"/>
+        <location filename="../src/TeXDocument.cpp" line="931"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1000"/>
+        <location filename="../src/TeXDocument.cpp" line="1006"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Regel %1 van %2; kolom %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1115"/>
+        <location filename="../src/TeXDocument.cpp" line="1121"/>
         <source>Go to Line</source>
         <translation>Ga naar regel</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1116"/>
+        <location filename="../src/TeXDocument.cpp" line="1122"/>
         <source>Line number:</source>
         <translation>Regel:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1409"/>
+        <location filename="../src/TeXDocument.cpp" line="1415"/>
         <source>Invalid regular expression</source>
         <translation>Ongeldige reguliere expressie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1464"/>
+        <location filename="../src/TeXDocument.cpp" line="1470"/>
         <source>Not found</source>
         <translation>Niet gevonden</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1345"/>
+        <location filename="../src/TeXDocument.cpp" line="1351"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>%n keer gevonden</numerusform>
@@ -1273,7 +1302,7 @@ Indien u doorgaat, zullen zij worden vervangen door standaard codes. Een alterna
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1483"/>
+        <location filename="../src/TeXDocument.cpp" line="1489"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n keer</numerusform>
@@ -1281,7 +1310,7 @@ Indien u doorgaat, zullen zij worden vervangen door standaard codes. Een alterna
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1484"/>
+        <location filename="../src/TeXDocument.cpp" line="1490"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n bestand</numerusform>
@@ -1289,12 +1318,12 @@ Indien u doorgaat, zullen zij worden vervangen door standaard codes. Een alterna
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1485"/>
+        <location filename="../src/TeXDocument.cpp" line="1491"/>
         <source>Replaced %1 in %2</source>
         <translation>%1 vervangen in %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1490"/>
+        <location filename="../src/TeXDocument.cpp" line="1496"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>%n keer vervangen</numerusform>
@@ -1302,32 +1331,32 @@ Indien u doorgaat, zullen zij worden vervangen door standaard codes. Een alterna
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1651"/>
+        <location filename="../src/TeXDocument.cpp" line="1657"/>
         <source>Cannot process unsaved document</source>
         <translation>Niet-opgeslagen bestanden kunnen niet verwerkt worden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1658"/>
+        <location filename="../src/TeXDocument.cpp" line="1664"/>
         <source>Root document %1 is not readable</source>
         <translation>Hoofd document %1 kan niet gelezen worden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1667"/>
+        <location filename="../src/TeXDocument.cpp" line="1673"/>
         <source>Root document %1 not found</source>
         <translation>Hoofd document %1 niet gevonden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1673"/>
+        <location filename="../src/TeXDocument.cpp" line="1679"/>
         <source>%1 is not properly configured</source>
         <translation>%1 is niet correct geconfigureerd</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1730"/>
+        <location filename="../src/TeXDocument.cpp" line="1736"/>
         <source>Unable to execute %1</source>
         <translation>Kan %1 niet uitvoeren</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1733"/>
+        <location filename="../src/TeXDocument.cpp" line="1739"/>
         <source>The program &quot;%1&quot; was not found.
 
 Check configuration of the %2 tool and path settings in the Preferences dialog.</source>
@@ -1341,27 +1370,27 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
         <translation>Verberg uitvoer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1826"/>
+        <location filename="../src/TeXDocument.cpp" line="1832"/>
         <source>Show Output Panel</source>
         <translation>Toon uitvoer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1883"/>
+        <location filename="../src/TeXDocument.cpp" line="1889"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Zet engine op %1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1889"/>
+        <location filename="../src/TeXDocument.cpp" line="1895"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>Engine &quot;%1&quot; is niet gedefinieerd</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1982"/>
+        <location filename="../src/TeXDocument.cpp" line="1988"/>
         <source>No files found</source>
         <translation>Geen bestanden gevonden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1983"/>
+        <location filename="../src/TeXDocument.cpp" line="1989"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Er zijn momenteel geen hulpbestanden verbonden met dit document.</translation>
     </message>
@@ -1799,6 +1828,11 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
         <location filename="../src/TeXDocument.ui" line="978"/>
         <source>Remove Aux Files...</source>
         <translation>Verwijder hulpbestanden...</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="399"/>
+        <source>Open File(s)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
