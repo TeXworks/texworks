@@ -187,19 +187,9 @@
         <translation>Eerste pagina</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="194"/>
-        <source>Home</source>
-        <translation type="obsolete">Home</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.ui" line="206"/>
         <source>Previous Page</source>
         <translation>Vorige pagina</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="209"/>
-        <source>PgUp</source>
-        <translation type="obsolete">PgUp</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="221"/>
@@ -207,19 +197,9 @@
         <translation>Volgende pagina</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="224"/>
-        <source>PgDown</source>
-        <translation type="obsolete">PgDown</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.ui" line="236"/>
         <source>Last Page</source>
         <translation>Laatste pagina</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="239"/>
-        <source>End</source>
-        <translation type="obsolete">End</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="247"/>
@@ -1075,7 +1055,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="260"/>
         <source>Open File</source>
-        <translation type="obsolete">Open bestand</translation>
+        <translation type="unfinished">Open bestand</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="392"/>
@@ -1086,11 +1066,6 @@
         <location filename="../src/TWApp.cpp" line="395"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>Geen van de gedefinieerde folders voor TeX-gerelateerde programma;s kon worden gevonden. &lt;p&gt;&lt;small&gt;Om processen te kunnen uitvoeren, moet u de folder(s) voor programmas in uw TeX distributie instellen in het Typesetting gedeelte van de Voorkeuren.</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="260"/>
-        <source>Open File(s)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1136,7 +1111,7 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="399"/>
         <source>Open File</source>
-        <translation type="obsolete">Open Bestand</translation>
+        <translation type="unfinished">Open Bestand</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="469"/>
@@ -1828,11 +1803,6 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
         <location filename="../src/TeXDocument.ui" line="978"/>
         <source>Remove Aux Files...</source>
         <translation>Verwijder hulpbestanden...</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.cpp" line="399"/>
-        <source>Open File(s)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
