@@ -187,19 +187,9 @@
         <translation>الصفحة الأولى</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="194"/>
-        <source>Home</source>
-        <translation type="obsolete">البداية</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.ui" line="206"/>
         <source>Previous Page</source>
         <translation>الصفحة السابقة</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="209"/>
-        <source>PgUp</source>
-        <translation type="obsolete">صفحة للأعلى</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="221"/>
@@ -207,19 +197,9 @@
         <translation>الصفحة التالية</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="224"/>
-        <source>PgDown</source>
-        <translation type="obsolete">صفحة للأسفل</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.ui" line="236"/>
         <source>Last Page</source>
         <translation>الصفحة الأخيرة</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="239"/>
-        <source>End</source>
-        <translation type="obsolete">النهاية</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="247"/>
@@ -1076,7 +1056,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="260"/>
         <source>Open File</source>
-        <translation type="obsolete">افتح ملفا</translation>
+        <translation type="unfinished">افتح ملفا</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="392"/>
@@ -1087,11 +1067,6 @@
         <location filename="../src/TWApp.cpp" line="395"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>لم يعثر على أي من المجلدات المحددة للتطبيقات المتعلقة بTeX.&lt;p&gt;&lt;small&gt;قبل تشغيل أي عملية ستحتاج لتحديد مجلد (أو مجلدات) الثنائيات لتوزيعة TeX لديك مستخدما لسان الصف الطباعي في حوار التفضيلات.</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="260"/>
-        <source>Open File(s)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1137,7 +1112,7 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="399"/>
         <source>Open File</source>
-        <translation type="obsolete">افتح ملفا</translation>
+        <translation type="unfinished">افتح ملفا</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="469"/>
@@ -1857,11 +1832,6 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
     <message>
         <location filename="../src/TeXDocument.ui" line="978"/>
         <source>Remove Aux Files...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.cpp" line="399"/>
-        <source>Open File(s)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

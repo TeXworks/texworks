@@ -187,19 +187,9 @@
         <translation type="unfinished">Première page</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="194"/>
-        <source>Home</source>
-        <translation type="obsolete">Début</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.ui" line="206"/>
         <source>Previous Page</source>
         <translation type="unfinished">Page précédente</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="209"/>
-        <source>PgUp</source>
-        <translation type="obsolete">PgUp</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="221"/>
@@ -207,19 +197,9 @@
         <translation type="unfinished">Page suivante</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="224"/>
-        <source>PgDown</source>
-        <translation type="obsolete">PgDown</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.ui" line="236"/>
         <source>Last Page</source>
         <translation type="unfinished">Dernière page</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="239"/>
-        <source>End</source>
-        <translation type="obsolete">Fin</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="247"/>
@@ -1075,7 +1055,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="260"/>
         <source>Open File</source>
-        <translation type="obsolete">Ouvrir un fichier</translation>
+        <translation type="unfinished">Ouvrir un fichier</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="392"/>
@@ -1100,11 +1080,6 @@
     <message>
         <location filename="../src/TWApp.cpp" line="150"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="260"/>
-        <source>Open File(s)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1151,7 +1126,7 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="399"/>
         <source>Open File</source>
-        <translation type="obsolete">Ouvrir un fichier</translation>
+        <translation type="unfinished">Ouvrir un fichier</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="469"/>
@@ -1860,11 +1835,6 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
     <message>
         <location filename="../src/TeXDocument.ui" line="978"/>
         <source>Remove Aux Files...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.cpp" line="399"/>
-        <source>Open File(s)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

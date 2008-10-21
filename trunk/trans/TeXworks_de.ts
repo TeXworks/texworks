@@ -457,26 +457,6 @@
         <translation>Unbenannt.pdf[*]</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="194"/>
-        <source>Home</source>
-        <translation type="obsolete">Pos1</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="209"/>
-        <source>PgUp</source>
-        <translation type="obsolete">BildAuf</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="224"/>
-        <source>PgDown</source>
-        <translation type="obsolete">BildAb</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="239"/>
-        <source>End</source>
-        <translation type="obsolete">Ende</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.ui" line="622"/>
         <source>Go to TeXworks home page</source>
         <translation>Besuche die TeXworks Homepage</translation>
@@ -1120,7 +1100,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="260"/>
         <source>Open File</source>
-        <translation type="obsolete">Datei öffnen</translation>
+        <translation type="unfinished">Datei öffnen</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="392"/>
@@ -1145,17 +1125,17 @@
     <message>
         <location filename="../src/TWApp.cpp" line="146"/>
         <source>Ctrl+N</source>
-        <translation>Strg+N</translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="148"/>
         <source>Ctrl+Shift+N</source>
-        <translation>Strg+Umschalt+N</translation>
+        <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="150"/>
         <source>Ctrl+O</source>
-        <translation>Strg+O</translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="177"/>
@@ -1166,11 +1146,6 @@
         <location filename="../src/TWApp.cpp" line="185"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
         <translation>Zugriff auf &apos;%1&apos; nicht möglich; vielleicht sind Ihr Browser oder Ihr Emailprogramm nicht richtig konfiguriert?</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="260"/>
-        <source>Open File(s)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1216,7 +1191,7 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="399"/>
         <source>Open File</source>
-        <translation type="obsolete">Datei öffnen</translation>
+        <translation type="unfinished">Datei öffnen</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="469"/>
@@ -1949,17 +1924,12 @@ Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplat
     <message>
         <location filename="../src/TeXDocument.ui" line="970"/>
         <source>Ctrl+Shift+R</source>
-        <translation>Strg+Umschalt+R</translation>
+        <translation>Ctrl+Shift+R</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="978"/>
         <source>Remove Aux Files...</source>
         <translation>Hilfsdateien entfernen...</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.cpp" line="399"/>
-        <source>Open File(s)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
