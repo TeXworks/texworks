@@ -514,17 +514,38 @@ void PDFWidget::focusInEvent(QFocusEvent *event)
 void PDFWidget::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu	menu(this);
+
+	PDFDocument *pdfDoc = qobject_cast<PDFDocument*>(window());
+	if (pdfDoc && pdfDoc->hasSyncData()) {
+		QAction *act = new QAction(tr("Jump to Source"), &menu);
+		act->setData(QVariant(event->pos()));
+		connect(act, SIGNAL(triggered()), this, SLOT(jumpToSource()));
+		menu.addAction(act);
+		menu.addSeparator();
+	}
+	
 	menu.addActions(actions());
 	
 	ctxZoomInAction->setEnabled(scaleFactor < kMaxScaleFactor);
 	ctxZoomOutAction->setEnabled(scaleFactor > kMinScaleFactor);
-
+	
 	QAction *action = menu.exec(event->globalPos());
 
 	if (action == ctxZoomInAction)
 		doZoom(event->pos(), 1);
 	else if (action == ctxZoomOutAction)
 		doZoom(event->pos(), -1);
+}
+
+void PDFWidget::jumpToSource()
+{
+	QAction *act = qobject_cast<QAction*>(sender());
+	if (act != NULL) {
+		QPoint eventPos = act->data().toPoint();
+		QPointF pagePos(eventPos.x() / scaleFactor * 72.0 / dpi,
+						eventPos.y() / scaleFactor * 72.0 / dpi);
+		emit syncClick(pageIndex, pagePos);
+	}
 }
 
 void PDFWidget::wheelEvent(QWheelEvent *event)

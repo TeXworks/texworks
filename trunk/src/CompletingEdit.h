@@ -68,6 +68,7 @@ private slots:
 	void cursorPositionChangedSlot();
 	void correction(const QString& suggestion);
 	void resetExtraSelections();
+	void jumpToPdf();
 
 private:
 	void setCompleter(QCompleter *c);

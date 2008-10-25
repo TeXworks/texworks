@@ -104,6 +104,7 @@ private slots:
 	void fitWidth(bool checked = true);
 	void zoomIn();
 	void zoomOut();
+	void jumpToSource();
 	
 	void upOrPrev();
 	void leftOrPrev();
@@ -213,6 +214,10 @@ public:
 	void updateTypesettingAction(bool processRunning);
 	void goToDestination(const QString& destName);
 	void linkToSource(TeXDocument *texDoc);
+	bool hasSyncData()
+		{
+			return scanner != NULL;
+		}
 
 	Poppler::Document *popplerDoc()
 		{

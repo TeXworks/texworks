@@ -682,10 +682,23 @@ void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
 	theCompleter->setModel(model);
 }
 
+void CompletingEdit::jumpToPdf()
+{
+	QAction *act = qobject_cast<QAction*>(sender());
+	if (act != NULL)
+		emit syncClick(act->data().toInt());
+}
+
 void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = createStandardContextMenu();
 
+	QAction *act = new QAction(tr("Jump to PDF"), menu);
+	act->setData(QVariant(cursorForPosition(event->pos()).blockNumber() + 1));
+	connect(act, SIGNAL(triggered()), this, SLOT(jumpToPdf()));
+	menu->insertSeparator(menu->actions().first());
+	menu->insertAction(menu->actions().first(), act);
+	
 	if (pHunspell != NULL) {
 		currentWord = cursorForPosition(event->pos());
 		currentWord.setPosition(currentWord.position());
@@ -697,13 +710,13 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 				int count = Hunspell_suggest(pHunspell, &suggestionList, word.data());
 				menu->insertSeparator(menu->actions().first());
 				if (count == 0)
-					menu->insertAction(menu->actions().first(), new QAction(tr("No suggestions"), this));
+					menu->insertAction(menu->actions().first(), new QAction(tr("No suggestions"), menu));
 				else {
 					QSignalMapper *mapper = new QSignalMapper(menu);
 					QAction* sep = menu->actions().first();
 					for (int i = 0; i < count; ++i) {
 						QString str = spellingCodec->toUnicode(suggestionList[i]);
-						QAction *act = new QAction(str, menu);
+						act = new QAction(str, menu);
 						connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
 						mapper->setMapping(act, str);
 						menu->insertAction(sep, act);
