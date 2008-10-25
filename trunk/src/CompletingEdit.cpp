@@ -44,7 +44,8 @@
 #include <QTimer>
 
 CompletingEdit::CompletingEdit(QWidget *parent)
-	: QTextEdit(parent), dragSelecting(false), clickCount(0),
+	: QTextEdit(parent), 
+clickCount(0),
 	  autoIndentMode(-1), prefixLength(0),
 	  c(NULL), cmpCursor(QTextCursor()),
 	  pHunspell(NULL), spellingCodec(NULL)
@@ -94,86 +95,171 @@ void CompletingEdit::cursorPositionChangedSlot()
 
 void CompletingEdit::mousePressEvent(QMouseEvent *e)
 {
-	if (e->modifiers() == Qt::ControlModifier)
-		e->accept();
-	else if (e->modifiers() != Qt::NoModifier || e->buttons() != Qt::LeftButton)
+	if (e->buttons() != Qt::LeftButton) {
+		mouseMode = none;
 		QTextEdit::mousePressEvent(e);
-	else {
-		if (clickTimer.isActive() && (e->pos() - clickPos).manhattanLength() < qApp->startDragDistance())
-			++clickCount;
-		else
-			clickCount = 1;
-		clickPos = e->pos();
-		clickTimer.start(qApp->doubleClickInterval(), this);
-		QTextCursor	curs;
-		switch (clickCount) {
-			case 1:
-				curs = cursorForPosition(clickPos);
-				break;
-			case 2:
-				curs = wordSelectionForPos(clickPos);
-				break;
-			default:
-				curs = blockSelectionForPos(clickPos);
-				break;
-		}
-		setTextCursor(curs);
-		dragSelecting = true;
-		dragStartCursor = curs;
+		return;
+	}
+
+	if (e->modifiers() == Qt::ControlModifier) {
+		mouseMode = synctexClick;
 		e->accept();
+		return;
+	}
+
+	mouseMode = normalSelection;
+	clickPos = e->pos();
+	if (e->modifiers() & Qt::ShiftModifier) {
+		mouseMode = extendingSelection;
+		clickCount = 1;
+		QTextEdit::mousePressEvent(e);
+		return;
+	}
+
+	if (clickTimer.isActive() && (e->pos() - clickPos).manhattanLength() < qApp->startDragDistance())
+		++clickCount;
+	else
+		clickCount = 1;
+	clickTimer.start(qApp->doubleClickInterval(), this);
+
+	QTextCursor	curs;
+	switch (clickCount) {
+		case 1:
+			curs = cursorForPosition(clickPos);
+			break;
+		case 2:
+			curs = wordSelectionForPos(clickPos);
+			break;
+		default:
+			curs = blockSelectionForPos(clickPos);
+			break;
+	}
+
+	if (clickCount > 1) {
+		setTextCursor(curs);
+		mouseMode = dragSelecting;
+	}
+	dragStartCursor = curs;
+	e->accept();
+}
+
+void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
+{
+	switch (mouseMode) {
+		case none:
+			QTextEdit::mouseMoveEvent(e);
+			return;
+		
+		case synctexClick:
+		case ignoring:
+			e->accept();
+			return;
+
+		case extendingSelection:
+			QTextEdit::mouseMoveEvent(e);
+			return;
+			
+		case normalSelection:
+			if (clickCount == 1
+				&& dragStartCursor.position() >= textCursor().selectionStart()
+				&& dragStartCursor.position() < textCursor().selectionEnd()) {
+				if ((e->pos() - clickPos).manhattanLength() >= qApp->startDragDistance()) {
+					int sourceStart = textCursor().selectionStart();
+					int sourceEnd = textCursor().selectionEnd();
+					QTextCursor source = textCursor();
+					QDrag *drag = new QDrag(this);
+					drag->setMimeData(createMimeDataFromSelection());
+					textCursor().beginEditBlock();
+					Qt::DropAction action = drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::MoveAction);
+					if (action != Qt::IgnoreAction) {
+						QTextCursor dropCursor = textCursor();
+						dropCursor.setPosition(droppedOffset);
+						dropCursor.setPosition(droppedOffset + droppedLength, QTextCursor::KeepAnchor);
+						if (action == Qt::MoveAction && (this == drag->target() || this->isAncestorOf(drag->target()))) {
+							if (droppedOffset >= sourceStart && droppedOffset <= sourceEnd) {
+								source.setPosition(droppedOffset + droppedLength);
+								source.setPosition(sourceEnd + droppedLength, QTextCursor::KeepAnchor);
+								source.removeSelectedText();
+								source.setPosition(sourceStart);
+								source.setPosition(droppedOffset, QTextCursor::KeepAnchor);
+								source.removeSelectedText();
+							}
+							else
+								source.removeSelectedText();
+						}
+						setTextCursor(dropCursor);
+					}
+					textCursor().endEditBlock();
+					mouseMode = ignoring;
+				}
+				e->accept();
+				return;
+			}
+			setTextCursor(dragStartCursor);
+			mouseMode = dragSelecting;
+			// fall through to dragSelecting
+
+		case dragSelecting:
+			QPoint pos = e->pos();
+			int scrollValue = -1;
+			if (verticalScrollBar() != NULL) {
+				if (pos.y() < frameRect().top())
+					verticalScrollBar()->triggerAction(QScrollBar::SliderSingleStepSub);
+				else if (pos.y() > frameRect().bottom())
+					verticalScrollBar()->triggerAction(QScrollBar::SliderSingleStepAdd);
+				scrollValue = verticalScrollBar()->value();
+			}
+			QTextCursor curs;
+			switch (clickCount) {
+				case 1:
+					curs = cursorForPosition(pos);
+					break;
+				case 2:
+					curs = wordSelectionForPos(pos);
+					break;
+				default:
+					curs = blockSelectionForPos(pos);
+					break;
+			}
+			int start = qMin(dragStartCursor.selectionStart(), curs.selectionStart());
+			int end = qMax(dragStartCursor.selectionEnd(), curs.selectionEnd());
+			curs.setPosition(start);
+			curs.setPosition(end, QTextCursor::KeepAnchor);
+			setTextCursor(curs);
+			if (scrollValue != -1)
+				verticalScrollBar()->setValue(scrollValue);
+			e->accept();
+			return;
 	}
 }
 
 void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 {
-	if (dragSelecting) {
-		dragSelecting = false;
-		e->accept();
+	switch (mouseMode) {
+		case none:
+			QTextEdit::mouseReleaseEvent(e);
+			return;
+		case ignoring:
+			e->accept();
+			return;
+		case synctexClick:
+			{
+				QTextCursor curs = cursorForPosition(e->pos());
+				emit syncClick(curs.blockNumber() + 1);
+			}
+			e->accept();
+			return;
+		case dragSelecting:
+			e->accept();
+			return;
+		case normalSelection:
+			setTextCursor(dragStartCursor);
+			e->accept();
+			return;
+		case extendingSelection:
+			QTextEdit::mouseReleaseEvent(e);
+			return;
 	}
-	else if (e->modifiers() == Qt::ControlModifier) {
-		e->accept();
-		QTextCursor cursor = cursorForPosition(e->pos());
-		emit syncClick(cursor.blockNumber() + 1);
-	}
-	else
-		QTextEdit::mouseReleaseEvent(e);
-}
-
-void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
-{
-	if ((e->buttons() == Qt::LeftButton) && dragSelecting) {
-		QPoint pos = e->pos();
-		int scrollValue = -1;
-		if (verticalScrollBar() != NULL) {
-			if (pos.y() < frameRect().top())
-				verticalScrollBar()->triggerAction(QScrollBar::SliderSingleStepSub);
-			else if (pos.y() > frameRect().bottom())
-				verticalScrollBar()->triggerAction(QScrollBar::SliderSingleStepAdd);
-			scrollValue = verticalScrollBar()->value();
-		}
-		QTextCursor curs;
-		switch (clickCount) {
-			case 1:
-				curs = cursorForPosition(pos);
-				break;
-			case 2:
-				curs = wordSelectionForPos(pos);
-				break;
-			default:
-				curs = blockSelectionForPos(pos);
-				break;
-		}
-		int start = qMin(dragStartCursor.selectionStart(), curs.selectionStart());
-		int end = qMax(dragStartCursor.selectionEnd(), curs.selectionEnd());
-		curs.setPosition(start);
-		curs.setPosition(end, QTextCursor::KeepAnchor);
-		setTextCursor(curs);
-		if (scrollValue != -1)
-			verticalScrollBar()->setValue(scrollValue);
-		e->accept();
-	}
-	else
-		QTextEdit::mouseMoveEvent(e);
 }
 
 QTextCursor CompletingEdit::blockSelectionForPos(const QPoint& pos)
@@ -695,10 +781,28 @@ void CompletingEdit::dragEnterEvent(QDragEnterEvent *event)
 		QTextEdit::dragEnterEvent(event);
 }
 
+void CompletingEdit::dropEvent(QDropEvent *event)
+{
+	QTextCursor dropCursor = cursorForPosition(event->pos());
+	if (!dropCursor.isNull()) {
+		droppedOffset = dropCursor.position();
+		droppedLength = event->mimeData()->text().length();
+	}
+	else
+		droppedOffset = -1;
+	QTextEdit::dropEvent(event);
+}
+
 void CompletingEdit::insertFromMimeData(const QMimeData *source)
 {
-	if (source->hasText())
-		textCursor().insertText(source->text());
+	if (source->hasText()) {
+		QTextCursor curs = textCursor();
+		int offset = curs.selectionStart();
+		curs.insertText(source->text());
+		curs.setPosition(offset);
+		curs.setPosition(offset + source->text().length(), QTextCursor::KeepAnchor);
+		setTextCursor(curs);
+	}
 }
 
 bool CompletingEdit::canInsertFromMimeData(const QMimeData *source) const

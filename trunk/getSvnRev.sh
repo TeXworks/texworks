@@ -28,6 +28,7 @@ if [ -e src/SvnRev.h.new ]; then
 	mv src/SvnRev.h.new src/SvnRev.h
 	VER=`fgrep TEXWORKS_VERSION src/TWVersion.h | cut -d '"' -f 2`
 	sed -e "s/@VER@/$VER/;s/@REV@/$REV/;" <TeXworks.plist.in >TeXworks.plist
+	cp TeXworks.plist Info.plist
 	echo "revision updated"
 	svn status # show status, as a reminder to commit the change(s)
 fi

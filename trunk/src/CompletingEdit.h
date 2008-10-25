@@ -59,6 +59,7 @@ protected:
 	virtual void mouseDoubleClickEvent(QMouseEvent *e);
 	virtual void contextMenuEvent(QContextMenuEvent *e);
 	virtual void dragEnterEvent(QDragEnterEvent *e);
+	virtual void dropEvent(QDropEvent *e);
 	virtual void timerEvent(QTimerEvent *e);
 	virtual bool canInsertFromMimeData(const QMimeData *source) const;
 	virtual void insertFromMimeData(const QMimeData *source);
@@ -85,9 +86,20 @@ private:
 	QTextCursor wordSelectionForPos(const QPoint& pos);
 	QTextCursor blockSelectionForPos(const QPoint& pos);
 	
-	bool dragSelecting;
+	enum MouseMode {
+		none,
+		ignoring,
+		synctexClick,
+		normalSelection,
+		extendingSelection,
+		dragSelecting
+	};
+	MouseMode mouseMode;
+	
 	QTextCursor dragStartCursor;
 
+	int droppedOffset, droppedLength;
+	
 	QBasicTimer clickTimer;
 	QPoint clickPos;
 	int clickCount;
