@@ -171,8 +171,6 @@
    <addaction name="separator" />
    <addaction name="actionMagnify" />
    <addaction name="actionScroll" />
-   <addaction name="actionSelect_Text" />
-   <addaction name="actionSelect_Image" />
   </widget>
   <action name="actionAbout_TW" >
    <property name="text" >
