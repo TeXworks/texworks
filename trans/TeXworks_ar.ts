@@ -3,9 +3,14 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="614"/>
+        <location filename="../src/CompletingEdit.cpp" line="713"/>
         <source>No suggestions</source>
         <translation>لا اقتراحات</translation>
+    </message>
+    <message>
+        <location filename="../src/CompletingEdit.cpp" line="696"/>
+        <source>Jump to PDF</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -97,37 +102,37 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../src/PDFDocument.ui" line="369"/>
+        <location filename="../src/PDFDocument.ui" line="367"/>
         <source>Open Recent</source>
         <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1263"/>
+        <location filename="../src/PDFDocument.cpp" line="1284"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>تعذّر تحميل الملف &quot;%1&quot;؛ ربما ليس ملف بي‌دي‌إف سليم.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1272"/>
+        <location filename="../src/PDFDocument.cpp" line="1293"/>
         <source>No SyncTeX data available</source>
         <translation>لا توجد أي بيانات ‌SyncTeX</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1274"/>
+        <location filename="../src/PDFDocument.cpp" line="1295"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1342"/>
+        <location filename="../src/PDFDocument.cpp" line="1363"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1371"/>
+        <location filename="../src/PDFDocument.cpp" line="1392"/>
         <source>page %1 of %2</source>
         <translation>صفحة %1 من %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1376"/>
+        <location filename="../src/PDFDocument.cpp" line="1397"/>
         <source>%1%</source>
         <translation>%1٪</translation>
     </message>
@@ -167,7 +172,7 @@
         <translation>اعرض</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="496"/>
+        <location filename="../src/PDFDocument.ui" line="494"/>
         <source>Typeset</source>
         <translation>صُفّ</translation>
     </message>
@@ -177,295 +182,295 @@
         <translation>شريط الأدوات</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="179"/>
+        <location filename="../src/PDFDocument.ui" line="177"/>
         <source>About TeXworks...</source>
         <translation>عنْ TeXworks...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="191"/>
+        <location filename="../src/PDFDocument.ui" line="189"/>
         <source>First Page</source>
         <translation>الصفحة الأولى</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="206"/>
+        <location filename="../src/PDFDocument.ui" line="204"/>
         <source>Previous Page</source>
         <translation>الصفحة السابقة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="221"/>
+        <location filename="../src/PDFDocument.ui" line="219"/>
         <source>Next Page</source>
         <translation>الصفحة التالية</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="236"/>
+        <location filename="../src/PDFDocument.ui" line="234"/>
         <source>Last Page</source>
         <translation>الصفحة الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="247"/>
+        <location filename="../src/PDFDocument.ui" line="245"/>
         <source>Go to Page...</source>
         <translation>اذهب إلى صفحة...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="250"/>
+        <location filename="../src/PDFDocument.ui" line="248"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="262"/>
+        <location filename="../src/PDFDocument.ui" line="260"/>
         <source>Zoom In</source>
         <translation>قرّب</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="265"/>
+        <location filename="../src/PDFDocument.ui" line="263"/>
         <source>Ctrl++</source>
         <translation>Ctrl++</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="277"/>
+        <location filename="../src/PDFDocument.ui" line="275"/>
         <source>Zoom Out</source>
         <translation>بعّد</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="280"/>
+        <location filename="../src/PDFDocument.ui" line="278"/>
         <source>Ctrl+-</source>
         <translation>Ctrl+-</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="295"/>
+        <location filename="../src/PDFDocument.ui" line="293"/>
         <source>Fit to Window</source>
         <translation>لائم النافذة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="298"/>
+        <location filename="../src/PDFDocument.ui" line="296"/>
         <source>Ctrl+3</source>
         <translation>Ctrl+3</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="310"/>
+        <location filename="../src/PDFDocument.ui" line="308"/>
         <source>Actual Size</source>
         <translation>الحجم الحقيقي</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="313"/>
+        <location filename="../src/PDFDocument.ui" line="311"/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="328"/>
+        <location filename="../src/PDFDocument.ui" line="326"/>
         <source>Fit to Width</source>
         <translation>لائم العرض</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="331"/>
+        <location filename="../src/PDFDocument.ui" line="329"/>
         <source>Ctrl+2</source>
         <translation>Ctrl+2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="343"/>
+        <location filename="../src/PDFDocument.ui" line="341"/>
         <source>New</source>
         <translation>جديد</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="346"/>
+        <location filename="../src/PDFDocument.ui" line="344"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="358"/>
+        <location filename="../src/PDFDocument.ui" line="356"/>
         <source>Open...</source>
         <translation>افتح...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="361"/>
+        <location filename="../src/PDFDocument.ui" line="359"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="377"/>
+        <location filename="../src/PDFDocument.ui" line="375"/>
         <source>Close</source>
         <translation>أغلق</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="380"/>
+        <location filename="../src/PDFDocument.ui" line="378"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="395"/>
+        <location filename="../src/PDFDocument.ui" line="393"/>
         <source>Undo</source>
         <translation>تراجع</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="398"/>
+        <location filename="../src/PDFDocument.ui" line="396"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="413"/>
+        <location filename="../src/PDFDocument.ui" line="411"/>
         <source>Redo</source>
         <translation>أعِد</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="416"/>
+        <location filename="../src/PDFDocument.ui" line="414"/>
         <source>Ctrl+Shift+Z</source>
         <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="431"/>
+        <location filename="../src/PDFDocument.ui" line="429"/>
         <source>Cut</source>
         <translation>قص</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="434"/>
+        <location filename="../src/PDFDocument.ui" line="432"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="449"/>
+        <location filename="../src/PDFDocument.ui" line="447"/>
         <source>Copy</source>
         <translation>انسخ</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="452"/>
+        <location filename="../src/PDFDocument.ui" line="450"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="467"/>
+        <location filename="../src/PDFDocument.ui" line="465"/>
         <source>Paste</source>
         <translation>الصق</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="470"/>
+        <location filename="../src/PDFDocument.ui" line="468"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="481"/>
+        <location filename="../src/PDFDocument.ui" line="479"/>
         <source>Clear</source>
         <translation>امسح</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="484"/>
+        <location filename="../src/PDFDocument.ui" line="482"/>
         <source>Ctrl+Backspace</source>
         <translation>Ctrl+Backspace</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="499"/>
+        <location filename="../src/PDFDocument.ui" line="497"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="511"/>
+        <location filename="../src/PDFDocument.ui" line="509"/>
         <source>Preferences...</source>
         <translation>التفضيلات...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="519"/>
+        <location filename="../src/PDFDocument.ui" line="517"/>
         <source>Stack</source>
         <translation>مكدّسة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="527"/>
+        <location filename="../src/PDFDocument.ui" line="525"/>
         <source>Tile</source>
         <translation>بلاط</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="535"/>
+        <location filename="../src/PDFDocument.ui" line="533"/>
         <source>Go to Source</source>
         <translation>اذهب إلى المصدر</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="538"/>
+        <location filename="../src/PDFDocument.ui" line="536"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="546"/>
+        <location filename="../src/PDFDocument.ui" line="544"/>
         <source>New from Template...</source>
         <translation>جديد من قالب...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="549"/>
+        <location filename="../src/PDFDocument.ui" line="547"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="560"/>
+        <location filename="../src/PDFDocument.ui" line="558"/>
         <source>Full Screen</source>
         <translation>ملء الشاشة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="563"/>
+        <location filename="../src/PDFDocument.ui" line="561"/>
         <source>Ctrl+Shift+F</source>
         <translation>Ctrl+Shift+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="581"/>
+        <location filename="../src/PDFDocument.ui" line="579"/>
         <source>Magnify</source>
         <translation>تكبير</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="593"/>
+        <location filename="../src/PDFDocument.ui" line="591"/>
         <source>Scroll</source>
         <translation>لف</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="605"/>
+        <location filename="../src/PDFDocument.ui" line="603"/>
         <source>Select Text</source>
         <translation>تحديد نص</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="617"/>
+        <location filename="../src/PDFDocument.ui" line="615"/>
         <source>Select Image</source>
         <translation>تحديد صورة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="622"/>
+        <location filename="../src/PDFDocument.ui" line="620"/>
         <source>Go to TeXworks home page</source>
         <translation>اذهب إلى صفحة TeXworks الرئيسية</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="627"/>
+        <location filename="../src/PDFDocument.ui" line="625"/>
         <source>Email to the mailing list</source>
         <translation>راسل القائمة البريدية</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="635"/>
+        <location filename="../src/PDFDocument.ui" line="633"/>
         <source>Side by Side</source>
         <translation>جنبا إلى جنب</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="640"/>
+        <location filename="../src/PDFDocument.ui" line="638"/>
         <source>Place on Left</source>
         <translation>ضعها يسارا</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="645"/>
+        <location filename="../src/PDFDocument.ui" line="643"/>
         <source>Place on Right</source>
         <translation>ضعها يمينا</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="194"/>
+        <location filename="../src/PDFDocument.ui" line="192"/>
         <source>Home</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>Home</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="209"/>
+        <location filename="../src/PDFDocument.ui" line="207"/>
         <source>PgUp</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>PgUp</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="224"/>
+        <location filename="../src/PDFDocument.ui" line="222"/>
         <source>PgDown</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>PgDown</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="239"/>
+        <location filename="../src/PDFDocument.ui" line="237"/>
         <source>End</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>End</translation>
@@ -543,12 +548,12 @@
 <context>
     <name>PDFWidget</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="788"/>
+        <location filename="../src/PDFDocument.cpp" line="809"/>
         <source>Go to Page</source>
         <translation>اذهب إلى الصفحة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="789"/>
+        <location filename="../src/PDFDocument.cpp" line="810"/>
         <source>Page number:</source>
         <translation>رقم الصفحة:</translation>
     </message>
@@ -576,6 +581,11 @@
         <location filename="../src/PDFDocument.cpp" line="194"/>
         <source>Fit to Window</source>
         <translation type="unfinished">لائم النافذة</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="520"/>
+        <source>Jump to Source</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1028,45 +1038,105 @@
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="163"/>
+        <location filename="../src/TWApp.cpp" line="178"/>
         <source>About %1</source>
         <translation>عنْ %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="177"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;&lt;small&gt;&lt;p&gt;&amp;#xA9; 2007-2008 Jonathan Kew&lt;br&gt;Version %2 (r.%3)&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; application framework by Trolltech ASA.&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.&lt;/small&gt;</source>
-        <translation>&lt;p&gt;%1 هو بيئة بسيطة لتحرير، وصفّ، ومعاينة ملفات TeX.&lt;/p&gt; &lt;small&gt;&lt;p&gt;حقوق النشر &amp;#xA9; ٢٠٠٧-٢٠٠٨ جوناثان كيو&lt;br&gt; 
+        <translation type="obsolete">&lt;p&gt;%1 هو بيئة بسيطة لتحرير، وصفّ، ومعاينة ملفات TeX.&lt;/p&gt; &lt;small&gt;&lt;p&gt;حقوق النشر &amp;#xA9; ٢٠٠٧-٢٠٠٨ جوناثان كيو&lt;br&gt; 
 الإصدارة %2 (م.%3)&lt;p&gt;يوزع وفق &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;رخصة جنو العمومية&lt;/a&gt;، الإصدارة٢.&lt;p dir=&quot;ltr&quot;&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; application framework by Trolltech ASA.&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="185"/>
+        <location filename="../src/TWApp.cpp" line="186"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
         <translation>تعذّر الوصول إلى &quot;%1&quot;؛ ربما المتصفح أو تطبيق البريد ليس مضبوطا؟</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="222"/>
+        <location filename="../src/TWApp.cpp" line="223"/>
         <source>Unable to create window</source>
         <translation>تعذّر إنشاء نافذة</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="224"/>
+        <location filename="../src/TWApp.cpp" line="225"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>هناك عطل كبير؛ لم يستطع %1 إنشاء نافذة مستند. سيغلق التطبيق الآن.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="260"/>
+        <location filename="../src/TWApp.cpp" line="261"/>
         <source>Open File</source>
         <translation type="unfinished">افتح ملفا</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="392"/>
+        <location filename="../src/TWApp.cpp" line="393"/>
         <source>No default binary directory found</source>
         <translation>لم يُعثر على مجلد ثنائيات مبدئي</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="395"/>
+        <location filename="../src/TWApp.cpp" line="396"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>لم يعثر على أي من المجلدات المحددة للتطبيقات المتعلقة بTeX.&lt;p&gt;&lt;small&gt;قبل تشغيل أي عملية ستحتاج لتحديد مجلد (أو مجلدات) الثنائيات لتوزيعة TeX لديك مستخدما لسان الصف الطباعي في حوار التفضيلات.</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="163"/>
+        <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="166"/>
+        <source>&lt;br&gt;Version %1 (r.%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="167"/>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="168"/>
+        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="169"/>
+        <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="170"/>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="171"/>
+        <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="172"/>
+        <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="173"/>
+        <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="174"/>
+        <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="174"/>
+        <source>[language name]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="174"/>
+        <source>[translator&apos;s name/email]</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -160,21 +160,22 @@ void TWApp::changeLanguage()
 
 void TWApp::about()
 {
-	QMessageBox::about(NULL, tr("About %1").arg(TEXWORKS_NAME),
-			tr("<p>%1 is a simple environment for editing, "
-			    "typesetting, and previewing TeX documents.</p>"
-				"<small>"
-				"<p>&#xA9; 2007-2008 Jonathan Kew"
-				"<br>Version %2 (r.%3)"
-				"<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2."
-				"<p><a href=\"http://trolltech.com/products/qt\">Qt4</a> application framework by Trolltech ASA."
-				"<br><a href=\"http://poppler.freedesktop.org/\">Poppler</a> PDF rendering library by Kristian H&#xF8;gsberg, Albert Astals Cid and others."
-				"<br><a href=\"http://hunspell.sourceforge.net/\">Hunspell</a> spell checker by L&#xE1;szl&#xF3; N&#xE9;meth."
-				"<br>Concept and resources from <a href=\"http://www.uoregon.edu/~koch/texshop/\">TeXShop</a> by Richard Koch."
-				"<br><a href=\"http://itexmac.sourceforge.net/SyncTeX.html\">SyncTeX</a> technology by J&#xE9;r&#xF4;me Laurens."
-				"<br>Some icons used are from the <a href=\"http://tango.freedesktop.org/\">Tango Desktop Project</a>."
-				"</small>"
-				).arg(TEXWORKS_NAME).arg(TEXWORKS_VERSION).arg(SVN_REVISION));
+	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(TEXWORKS_NAME);
+	aboutText += "<small>";
+	aboutText += "<p>&#xA9; 2007-2008 Jonathan Kew";
+	aboutText += tr("<br>Version %1 (r.%2)").arg(TEXWORKS_VERSION).arg(SVN_REVISION);
+	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2.");
+	aboutText += tr("<p><a href=\"http://trolltech.com/products/\">Qt4</a> application framework by Qt Software, a division of Nokia Corporation.");
+	aboutText += tr("<br><a href=\"http://poppler.freedesktop.org/\">Poppler</a> PDF rendering library by Kristian H&#xF8;gsberg, Albert Astals Cid and others.");
+	aboutText += tr("<br><a href=\"http://hunspell.sourceforge.net/\">Hunspell</a> spell checker by L&#xE1;szl&#xF3; N&#xE9;meth.");
+	aboutText += tr("<br>Concept and resources from <a href=\"http://www.uoregon.edu/~koch/texshop/\">TeXShop</a> by Richard Koch.");
+	aboutText += tr("<br><a href=\"http://itexmac.sourceforge.net/SyncTeX.html\">SyncTeX</a> technology by J&#xE9;r&#xF4;me Laurens.");
+	aboutText += tr("<br>Some icons used are from the <a href=\"http://tango.freedesktop.org/\">Tango Desktop Project</a>.");
+	QString trText = tr("<p>%1 translation kindly contributed by %2.").arg(tr("[language name]")).arg(tr("[translator's name/email]"));
+	if (!trText.contains("[language name]"))
+		aboutText += trText;	// omit this if it hasn't been translated!
+	aboutText += "</small>";
+	QMessageBox::about(NULL, tr("About %1").arg(TEXWORKS_NAME), aboutText);
 }
 
 void TWApp::openUrl(const QString& urlString)
