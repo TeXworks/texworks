@@ -138,6 +138,17 @@ void TWApp::init()
 	theAppInstance = this;
 }
 
+void TWApp::maybeQuit()
+{
+#ifdef Q_WS_MAC
+	setQuitOnLastWindowClosed(true);
+#endif
+	closeAllWindows();
+#ifdef Q_WS_MAC
+	setQuitOnLastWindowClosed(false);
+#endif
+}
+
 void TWApp::changeLanguage()
 {
 #ifdef Q_WS_MAC

@@ -1055,6 +1055,8 @@ PDFDocument::init()
 	connect(actionNew_from_Template, SIGNAL(triggered()), qApp, SLOT(newFromTemplate()));
 	connect(actionOpen, SIGNAL(triggered()), qApp, SLOT(open()));
 
+	connect(actionQuit_TeXworks, SIGNAL(triggered()), TWApp::instance(), SLOT(maybeQuit()));
+
 	connect(actionFirst_Page, SIGNAL(triggered()), pdfWidget, SLOT(goFirst()));
 	connect(actionPrevious_Page, SIGNAL(triggered()), pdfWidget, SLOT(goPrev()));
 	connect(actionNext_Page, SIGNAL(triggered()), pdfWidget, SLOT(goNext()));

@@ -208,6 +208,8 @@
     <addaction name="actionRevert_to_Saved" />
     <addaction name="separator" />
     <addaction name="actionRemove_Aux_Files" />
+    <addaction name="separator" />
+    <addaction name="actionQuit_TeXworks" />
    </widget>
    <widget class="QMenu" name="menuEdit" >
     <property name="title" >
@@ -979,6 +981,17 @@
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionQuit_TeXworks" >
+   <property name="text" >
+    <string>Quit TeXworks</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::QuitRole</enum>
    </property>
   </action>
  </widget>

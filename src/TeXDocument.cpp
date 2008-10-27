@@ -137,6 +137,8 @@ void TeXDocument::init()
 	connect(actionClose, SIGNAL(triggered()), this, SLOT(close()));
 
 	connect(actionRemove_Aux_Files, SIGNAL(triggered()), this, SLOT(removeAuxFiles()));
+
+	connect(actionQuit_TeXworks, SIGNAL(triggered()), TWApp::instance(), SLOT(maybeQuit()));
 	
 	connect(actionClear, SIGNAL(triggered()), this, SLOT(clear()));
 
