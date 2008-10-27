@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="nl">
+<defaultcodec></defaultcodec>
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -10,7 +11,7 @@
     <message>
         <location filename="../src/CompletingEdit.cpp" line="696"/>
         <source>Jump to PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Spring naar PDF</translation>
     </message>
 </context>
 <context>
@@ -299,7 +300,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="393"/>
         <source>Undo</source>
-        <translation>Maak ongedaan</translation>
+        <translation>Ongedaan maken</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="396"/>
@@ -309,7 +310,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="411"/>
         <source>Redo</source>
-        <translation>Herstel</translation>
+        <translation>Opnieuw uitvoeren</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="414"/>
@@ -319,7 +320,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="429"/>
         <source>Cut</source>
-        <translation>Knip</translation>
+        <translation>Knippen</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="432"/>
@@ -329,7 +330,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="447"/>
         <source>Copy</source>
-        <translation>Kopieer</translation>
+        <translation>Kopiëren</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="450"/>
@@ -339,7 +340,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="465"/>
         <source>Paste</source>
-        <translation>Plak</translation>
+        <translation>Plakken</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="468"/>
@@ -349,7 +350,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="479"/>
         <source>Clear</source>
-        <translation>Wis</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="482"/>
@@ -419,12 +420,12 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="603"/>
         <source>Select Text</source>
-        <translation>Selecteer tekst</translation>
+        <translation>Tekst selecteren</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="615"/>
         <source>Select Image</source>
-        <translation>Selecteer beeld</translation>
+        <translation>Beeld selecteren</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="620"/>
@@ -585,7 +586,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="520"/>
         <source>Jump to Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Spring naar tekst</translation>
     </message>
 </context>
 <context>
@@ -1065,7 +1066,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="261"/>
         <source>Open File</source>
-        <translation type="unfinished">Open bestand</translation>
+        <translation>Open bestand</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="393"/>
@@ -1080,62 +1081,62 @@
     <message>
         <location filename="../src/TWApp.cpp" line="163"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;%1 is een eenvoudige omgeving voor het bewerken, zetten en tonen van TeX documenten.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="166"/>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versie %1 (r.%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="167"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Verspreiding onder de &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versie 2.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="168"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; applicatie framework door Qt Software, een onderdeel van Nokia Corporation.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="169"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF library door Kristian H&amp;#xF8;gsberg, Albert Astals Cid en anderen.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="170"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spellingschecker door L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="171"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Concept en voorbeelden van &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; door Richard Koch.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="172"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; techniek door J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="173"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Sommige iconen zijn van het &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="174"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;%1 vertaling door %2.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="174"/>
         <source>[language name]</source>
-        <translation type="unfinished"></translation>
+        <translation>Nederlandse</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="174"/>
         <source>[translator&apos;s name/email]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;mailto:taco@luatex.org&quot;&gt;Taco Hoekwater&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1181,7 +1182,7 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="399"/>
         <source>Open File</source>
-        <translation type="unfinished">Open Bestand</translation>
+        <translation>Open Bestand</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="469"/>
@@ -1203,7 +1204,7 @@ Wilt u de wijzigingen opslaan?</translation>
     <message>
         <location filename="../src/TeXDocument.cpp" line="623"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>Wilt u alle wijzigingen in het bestand &quot;%1&quot; ongedaan maken en terug gaan naar de laatste bewaarde versie?</translation>
+        <translation>Wilt u alle wijzigingen in het bestand &quot;%1&quot; ongedaan maken en terug gaan naar de laatst opgeslagen versie?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="624"/>
@@ -1296,7 +1297,7 @@ Indien u doorgaat, zullen zij worden vervangen door standaard codes. Een alterna
     <message>
         <location filename="../src/TeXDocument.cpp" line="898"/>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation>Bestand &quot;%1&quot; bewaard (%2)</translation>
+        <translation>Bestand &quot;%1&quot; opgeslagen (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="899"/>
@@ -1547,7 +1548,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="469"/>
         <source>Save</source>
-        <translation>Bewaar</translation>
+        <translation>Opslaan</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="472"/>
@@ -1557,7 +1558,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="480"/>
         <source>Save As...</source>
-        <translation>Bewaar als...</translation>
+        <translation>Opslaan als...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="483"/>
@@ -1572,7 +1573,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="509"/>
         <source>Undo</source>
-        <translation>Maak ongedaan</translation>
+        <translation>Ongedaan maken</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="512"/>
@@ -1582,7 +1583,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="527"/>
         <source>Redo</source>
-        <translation>Herstel</translation>
+        <translation>Opnieuw uitvoeren</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="530"/>
@@ -1592,7 +1593,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="545"/>
         <source>Cut</source>
-        <translation>Knip</translation>
+        <translation>Knippen</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="548"/>
@@ -1602,7 +1603,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="563"/>
         <source>Copy</source>
-        <translation>Kopieer</translation>
+        <translation>Kopiëren</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="566"/>
@@ -1612,7 +1613,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="581"/>
         <source>Paste</source>
-        <translation>Plak</translation>
+        <translation>Plakken</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="584"/>
@@ -1622,7 +1623,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="595"/>
         <source>Clear</source>
-        <translation>Wis</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="610"/>
@@ -1702,7 +1703,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="703"/>
         <source>Select All</source>
-        <translation>Selecteer alles</translation>
+        <translation>Alles selecteren</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="706"/>
@@ -1827,7 +1828,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <location filename="../src/TeXDocument.ui" line="906"/>
         <source>Balance Delimiters</source>
-        <translation>Completeer begrenzers</translation>
+        <translation>Groepering selecteren</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="909"/>
