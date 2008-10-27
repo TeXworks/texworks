@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de_DE">
+<defaultcodec></defaultcodec>
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -10,7 +11,7 @@
     <message>
         <location filename="../src/CompletingEdit.cpp" line="696"/>
         <source>Jump to PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Springe zum PDF</translation>
     </message>
 </context>
 <context>
@@ -620,7 +621,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="520"/>
         <source>Jump to Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Springe zum Quelltext</translation>
     </message>
 </context>
 <context>
@@ -858,7 +859,7 @@
     <message>
         <location filename="../src/PrefsDialog.cpp" line="426"/>
         <source>English (built-in)</source>
-        <translation type="unfinished"></translation>
+        <translation>Englisch (eingebaut)</translation>
     </message>
 </context>
 <context>
@@ -1110,7 +1111,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="261"/>
         <source>Open File</source>
-        <translation type="unfinished">Datei öffnen</translation>
+        <translation>Datei öffnen</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="393"/>
@@ -1160,62 +1161,62 @@
     <message>
         <location filename="../src/TWApp.cpp" line="163"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;%1 ist eine einfache Umgebung zum Bearbeiten, Setzen und Betrachten von TeX-Dokumenten.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="166"/>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Version %1 (r.%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="167"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertrieb unter der &lt;a href=&quot;http://www.gnu.de/documents/gpl-2.0.de.html&quot;&gt;GNU General Public License&lt;/a&gt;, Version 2.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="168"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; Anwendungs-Rahmenwerk von Qt Software, eine Abteilung von Nokia.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="169"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF-Bibliothek von Kristian H&amp;#xF8;gsberg, Albert Astals Cid und anderen.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="170"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; Rechtschreibprüfung von L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="171"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Konzept und Hilfsmittel von &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; von Richard Koch.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="172"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt;-Technologie von J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="173"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Einige Bilder stammen vom &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="174"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;%1 Übersetzung beigesteuert von %2.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="174"/>
         <source>[language name]</source>
-        <translation type="unfinished"></translation>
+        <translation>Deutsche</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="174"/>
         <source>[translator&apos;s name/email]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;mailto:jcnengel@googlemail.com&quot;&gt;Johannes Engel&lt;/a&gt; und &lt;a href=&quot;mailto:st.loeffler@gmail.com&quot;&gt;Stefan Löffler&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -1261,7 +1262,7 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="399"/>
         <source>Open File</source>
-        <translation type="unfinished">Datei öffnen</translation>
+        <translation>Datei öffnen</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="469"/>
