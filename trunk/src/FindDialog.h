@@ -48,6 +48,7 @@ private slots:
 	void toggledRegexOption(bool checked);
 	void toggledSelectionOption(bool checked);
 	void checkRegex(const QString& str);
+	void setSearchText();
 
 private:
 	void init(QTextEdit *document);
@@ -76,6 +77,8 @@ private slots:
 	void checkRegex(const QString& str);
 	void clickedReplace();
 	void clickedReplaceAll();
+	void setSearchText();
+	void setReplaceText();
 
 private:
 	void init(QTextEdit *document);

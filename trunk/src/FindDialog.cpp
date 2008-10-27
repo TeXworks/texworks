@@ -29,6 +29,8 @@
 #include <QTextBlock>
 #include <QFileInfo>
 
+const int kMaxRecentStrings = 10;
+
 FindDialog::FindDialog(QTextEdit *parent)
 	: QDialog(parent)
 {
@@ -76,6 +78,25 @@ void FindDialog::init(QTextEdit *document)
 	checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
 	checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
 	checkBox_backwards->setEnabled(!findAll);
+	
+	QMenu *recentItemsMenu = new QMenu(this);
+	QStringList recentStrings = settings.value("recentSearchStrings").toStringList();
+	if (recentStrings.size() == 0)
+		recentItemsMenu->addAction(tr("No recent search strings"))->setEnabled(false);
+	else {
+		foreach (const QString& str, recentStrings)
+			connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setSearchText()));
+	}
+	recentSearches->setMenu(recentItemsMenu);
+}
+
+void FindDialog::setSearchText()
+{
+	QAction *act = qobject_cast<QAction*>(sender());
+	if (act != NULL) {
+		searchText->setText(act->text());
+		searchText->selectAll();
+	}
 }
 
 void FindDialog::toggledAllFilesOption(bool checked)
@@ -131,6 +152,13 @@ QDialog::DialogCode FindDialog::doFindDialog(QTextEdit *document)
 		QSettings settings;
 		QString str = dlg.searchText->text();
 		settings.setValue("searchText", str);
+		
+		QStringList recentStrings = settings.value("recentSearchStrings").toStringList();
+		recentStrings.removeAll(str);
+		recentStrings.prepend(str);
+		while (recentStrings.count() > kMaxRecentStrings)
+			recentStrings.removeLast();
+		settings.setValue("recentSearchStrings", recentStrings);
 
 		int flags = 0;
 		if (dlg.checkBox_case->isChecked())
@@ -202,6 +230,43 @@ void ReplaceDialog::init(QTextEdit *document)
 	checkBox_case->setChecked((flags & QTextDocument::FindCaseSensitively) != 0);
 	checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
 	checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
+
+	QMenu *recentItemsMenu = new QMenu(this);
+	QStringList recentStrings = settings.value("recentSearchStrings").toStringList();
+	if (recentStrings.size() == 0)
+		recentItemsMenu->addAction(tr("No recent search strings"))->setEnabled(false);
+	else
+		foreach (const QString& str, recentStrings)
+		connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setSearchText()));
+	recentSearches->setMenu(recentItemsMenu);
+
+	recentItemsMenu = new QMenu(this);
+	recentStrings = settings.value("recentReplaceStrings").toStringList();
+	if (recentStrings.size() == 0)
+		recentItemsMenu->addAction(tr("No recent replacement strings"))->setEnabled(false);
+	else {
+		foreach (const QString& str, recentStrings)
+			connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setReplaceText()));
+	}
+	recentReplacements->setMenu(recentItemsMenu);
+}
+
+void ReplaceDialog::setSearchText()
+{
+	QAction *act = qobject_cast<QAction*>(sender());
+	if (act != NULL) {
+		searchText->setText(act->text());
+		searchText->selectAll();
+	}
+}
+
+void ReplaceDialog::setReplaceText()
+{
+	QAction *act = qobject_cast<QAction*>(sender());
+	if (act != NULL) {
+		replaceText->setText(act->text());
+		replaceText->selectAll();
+	}
 }
 
 void ReplaceDialog::toggledAllFilesOption(bool checked)
@@ -262,9 +327,23 @@ ReplaceDialog::DialogCode ReplaceDialog::doReplaceDialog(QTextEdit *document)
 		QString str = dlg.searchText->text();
 		settings.setValue("searchText", str);
 		
+		QStringList recentStrings = settings.value("recentSearchStrings").toStringList();
+		recentStrings.removeAll(str);
+		recentStrings.prepend(str);
+		while (recentStrings.count() > kMaxRecentStrings)
+			recentStrings.removeLast();
+		settings.setValue("recentSearchStrings", recentStrings);
+		
 		str = dlg.replaceText->text();
 		settings.setValue("replaceText", str);
 
+		recentStrings = settings.value("recentReplaceStrings").toStringList();
+		recentStrings.removeAll(str);
+		recentStrings.prepend(str);
+		while (recentStrings.count() > kMaxRecentStrings)
+			recentStrings.removeLast();
+		settings.setValue("recentReplaceStrings", recentStrings);
+		
 		int flags = 0;
 		if (dlg.checkBox_case->isChecked())
 			flags |= QTextDocument::FindCaseSensitively;
