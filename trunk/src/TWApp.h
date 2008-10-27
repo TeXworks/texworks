@@ -118,6 +118,8 @@ public slots:
 	void writeToMailingList();
 
 	void applyTranslation(const QString& locale);
+	
+	void maybeQuit();
 
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu

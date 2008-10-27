@@ -53,6 +53,8 @@
     <addaction name="actionOpen_Recent" />
     <addaction name="separator" />
     <addaction name="actionClose" />
+    <addaction name="separator" />
+    <addaction name="actionQuit_TeXworks" />
    </widget>
    <widget class="QMenu" name="menuEdit" >
     <property name="title" >
@@ -641,6 +643,17 @@
   <action name="actionPlace_on_Right" >
    <property name="text" >
     <string>Place on Right</string>
+   </property>
+  </action>
+  <action name="actionQuit_TeXworks" >
+   <property name="text" >
+    <string>Quit TeXworks</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::QuitRole</enum>
    </property>
   </action>
  </widget>
