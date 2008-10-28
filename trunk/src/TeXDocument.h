@@ -170,12 +170,12 @@ private slots:
 	void placeOnRight();
 	void reloadIfChangedOnDisk();
 	void removeAuxFiles();
+	void setupFileWatcher();
 
 private:
 	void init();
 	bool maybeSave();
 	void clearFileWatcher();
-	void setupFileWatcher();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
 	QString readFile(const QString &fileName, QTextCodec **codecUsed);
 	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false);

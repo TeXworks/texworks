@@ -901,7 +901,7 @@ bool TeXDocument::saveFile(const QString &fileName)
 		QApplication::restoreOverrideCursor();
 	}
 	
-	setupFileWatcher();
+	QTimer::singleShot(0, this, SLOT(setupFileWatcher()));
 	return true;
 }
 
