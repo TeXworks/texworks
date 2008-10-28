@@ -752,8 +752,6 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		lastModified = QDateTime();
 	}
 	else {
-		QFileInfo info(fileName);
-		lastModified = info.lastModified();
 		setCurrentFile(fileName);
 		showPdfIfAvailable();
 		if (!inBackground)
@@ -763,10 +761,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 									.arg(TWUtils::strippedName(curFile))
 									.arg(QString::fromAscii(codec->name())),
 									kStatusMessageDuration);
-		const QStringList files = watcher->files();
-		if (files.count() > 0)
-			watcher->removePaths(files);
-		watcher->addPath(fileName);
+		setupFileWatcher();
 	}
 }
 
@@ -776,7 +771,7 @@ void TeXDocument::reloadIfChangedOnDisk()
 		return;
 	QDateTime fileModified = QFileInfo(curFile).lastModified();
 	if (fileModified.isValid() && fileModified != lastModified) {
-		watcher->removePaths(watcher->files()); // stop watching until next save or reload
+		clearFileWatcher(); // stop watching until next save or reload
 		if (textEdit->document()->isModified()) {
 			if (QMessageBox::warning(this, tr("File changed on disk"),
 									 tr("%1 has been modified by another program.\n\n"
@@ -881,15 +876,18 @@ bool TeXDocument::saveFile(const QString &fileName)
 		}
 	}
 
+	clearFileWatcher();
 	QFile file(fileName);
 	if (!file.open(QFile::WriteOnly | QFile::Text)) {
 		QMessageBox::warning(this, tr(TEXWORKS_NAME),
 							 tr("Cannot write file \"%1\":\n%2.")
 							 .arg(fileName)
 							 .arg(file.errorString()));
+		setupFileWatcher();
 		goto notSaved;
 	}
-	else {
+
+	{ // need the stream to be closed before we restore the file watcher
 		QApplication::setOverrideCursor(Qt::WaitCursor);
 		QTextStream out(&file);
 		if (codec != NULL)
@@ -902,16 +900,27 @@ bool TeXDocument::saveFile(const QString &fileName)
 									kStatusMessageDuration);
 		QApplication::restoreOverrideCursor();
 	}
-
-	fileInfo = QFileInfo(fileName);
-	lastModified = fileInfo.lastModified();
-	const QStringList files = watcher->files();
-	if (files.count() > 0)
-		watcher->removePaths(files);
-	watcher->addPath(fileName);
-
+	
+	setupFileWatcher();
 	return true;
 }
+
+void TeXDocument::clearFileWatcher()
+{
+	const QStringList files = watcher->files();
+	if (files.count() > 0)
+		watcher->removePaths(files);	
+}
+
+void TeXDocument::setupFileWatcher()
+{
+	clearFileWatcher();
+	if (!isUntitled) {
+		QFileInfo info(curFile);
+		lastModified = info.lastModified();
+		watcher->addPath(curFile);
+	}
+}	
 
 void TeXDocument::setCurrentFile(const QString &fileName)
 {
