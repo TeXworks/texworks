@@ -373,6 +373,10 @@ void PrefsDialog::initPathAndToolLists()
 	updateToolButtons();
 }
 
+const int kSystemLocaleIndex = 0;
+const int kEnglishLocaleIndex = 1;
+const int kFirstTranslationIndex = 2;
+
 QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 {
 	PrefsDialog dlg(NULL);
@@ -422,8 +426,10 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	}
 	
 	QString oldLocale = settings.value("locale").toString();
-	int oldLocaleIndex = 0;
-	dlg.localePopup->addItem(tr("English (built-in)"));
+	// System and English are predefined at index 0 and 1 (see constants above)
+	dlg.localePopup->addItem(tr("System default [%1]").arg(QLocale::languageToString(QLocale(QLocale::system().name()).language())));
+	dlg.localePopup->addItem("English");	// we don't localize locale names for now
+	int oldLocaleIndex = oldLocale.isEmpty() ? kSystemLocaleIndex : kEnglishLocaleIndex;
 	QStringList *trList = TWUtils::getTranslationList();
 	QStringList::ConstIterator iter;
 	for (iter = trList->constBegin(); iter != trList->constEnd(); ++iter) {
@@ -553,14 +559,25 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		settings.setValue("launchOption", launchOption);
 		
 		if (dlg.localePopup->currentIndex() != oldLocaleIndex) {
-			if (dlg.localePopup->currentIndex() < 1) { // delete the setting, if present
-				settings.remove("locale");
-				TWApp::instance()->applyTranslation(QString());
-			}
-			else {
-				QString locale = trList->at(dlg.localePopup->currentIndex() - 1);
-				settings.setValue("locale", locale);
-				TWApp::instance()->applyTranslation(locale);
+			switch (dlg.localePopup->currentIndex()) {
+				case kSystemLocaleIndex: // system locale
+					{
+						QString locale = QLocale::system().name();
+						TWApp::instance()->applyTranslation(locale);
+						settings.remove("locale");
+					}
+					break;
+				case kEnglishLocaleIndex: // built-in English
+					TWApp::instance()->applyTranslation(QString());
+					settings.setValue("locale", "en");
+					break;
+				default:
+					{
+						QString locale = trList->at(dlg.localePopup->currentIndex() - kFirstTranslationIndex);
+						TWApp::instance()->applyTranslation(locale);
+						settings.setValue("locale", locale);
+					}
+					break;
 			}
 		}
 		
