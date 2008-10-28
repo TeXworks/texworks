@@ -314,6 +314,7 @@ void TeXDocument::init()
 
 	watcher = new QFileSystemWatcher(this);
 	connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()));
+	connect(watcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()));
 	
 	docList.append(this);
 }
@@ -910,6 +911,9 @@ void TeXDocument::clearFileWatcher()
 	const QStringList files = watcher->files();
 	if (files.count() > 0)
 		watcher->removePaths(files);	
+	const QStringList dirs = watcher->directories();
+	if (dirs.count() > 0)
+		watcher->removePaths(dirs);	
 }
 
 void TeXDocument::setupFileWatcher()
@@ -919,6 +923,7 @@ void TeXDocument::setupFileWatcher()
 		QFileInfo info(curFile);
 		lastModified = info.lastModified();
 		watcher->addPath(curFile);
+		watcher->addPath(info.canonicalPath());
 	}
 }	
 
