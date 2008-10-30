@@ -2549,7 +2549,7 @@ synctex_scanner_t _synctex_scanner_new_with_contents_of_file(const char * name) 
 	(scanner->class[synctex_node_type_math]).scanner = scanner;
 	scanner->class[synctex_node_type_input] = synctex_class_input;
 	(scanner->class[synctex_node_type_input]).scanner = scanner;
-	SYNCTEX_FILE = gzopen(name,"r");
+	SYNCTEX_FILE = gzopen(name,"rb");
 	if(NULL == SYNCTEX_FILE) {
 		if(errno != ENOENT) {
 			fprintf(stderr,"SyncTeX: could not open %s, error %i\n",name,errno);
@@ -3595,9 +3595,9 @@ int _synctex_node_distance_to_point(synctex_point_t hitPoint, synctex_node_t nod
 
 inline static synctex_node_t _synctex_eq_deepest_container(synctex_point_t hitPoint,synctex_node_t node, synctex_bool_t visible) {
 	if(node) {
+		synctex_node_t result = NULL;
+		synctex_node_t child = NULL;
 		switch(node->class->type) {
-			synctex_node_t result = NULL;
-			synctex_node_t child = NULL;
 			case synctex_node_type_vbox:
 			case synctex_node_type_hbox:
 				/* test the deep nodes first */
@@ -3783,12 +3783,12 @@ inline static synctex_node_t __synctex_eq_closest_child(synctex_point_t hitPoint
 	if((node = SYNCTEX_CHILD(node))) {
 		do {
 			int distance = _synctex_node_distance_to_point(hitPoint,node,visible);
+			synctex_node_t candidate = NULL;
 			if(distance<=*distanceRef) {
 				*distanceRef = distance;
 				best_node = node;
 			}
 			switch(node->class->type) {
-				synctex_node_t candidate = NULL;
 				case synctex_node_type_vbox:
 				case synctex_node_type_hbox:
 					if((candidate = __synctex_eq_closest_child(hitPoint,node,distanceRef,visible))) {
@@ -3808,8 +3808,8 @@ inline static synctex_node_t _synctex_eq_closest_child(synctex_point_t hitPoint,
 				int best_distance = INT_MAX;
 				synctex_node_t best_node = __synctex_eq_closest_child(hitPoint,node,&best_distance,visible);
 				if((best_node)) {
+					synctex_node_t child = NULL;
 					switch(best_node->class->type) {
-						synctex_node_t child = NULL;
 						case synctex_node_type_vbox:
 						case synctex_node_type_hbox:
 							if((child = SYNCTEX_CHILD(best_node))) {
@@ -3888,10 +3888,10 @@ return_on_error2:
 		fprintf(stderr,"!  synctex_updater_new_with_output_file: Concatenation problem (can't add suffix '%s')\n",synctex_suffix);
 		goto return_on_error2;
 	}
-	if(NULL != (SYNCTEX_FILE = fopen(synctex,"r"))){
+	if(NULL != (SYNCTEX_FILE = fopen(synctex,"rb"))){
 		/* OK, the file exists */
 		fclose(SYNCTEX_FILE);
-		if(NULL == (SYNCTEX_FILE = (void *)fopen(synctex,"a"))) {
+		if(NULL == (SYNCTEX_FILE = (void *)fopen(synctex,"ab"))) {
 no_write_error:
 			fprintf(stderr,"!  synctex_updater_new_with_file: Can't append to %s",synctex);
 			goto return_on_error2;
@@ -3908,9 +3908,9 @@ return_updater:
 		fprintf(stderr,"!  synctex_scanner_new_with_output_file: Concatenation problem (can't add suffix '%s')\n",synctex_suffix_gz);
 		goto return_on_error2;
 	}
-	if(NULL != (SYNCTEX_FILE = gzopen(synctex,"r"))){
+	if(NULL != (SYNCTEX_FILE = gzopen(synctex,"rb"))){
 		gzclose(SYNCTEX_FILE);
-		if(NULL == (SYNCTEX_FILE = gzopen(synctex,"a"))) {
+		if(NULL == (SYNCTEX_FILE = gzopen(synctex,"ab"))) {
 			goto no_write_error;
 		}
 		SYNCTEX_NO_GZ = SYNCTEX_NO;
