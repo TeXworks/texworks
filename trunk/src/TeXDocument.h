@@ -215,6 +215,7 @@ private:
 
 	QComboBox *engine;
 	QProcess *process;
+	bool consoleWasHidden;
 
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;

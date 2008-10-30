@@ -61,8 +61,6 @@
 #include <windows.h>
 #endif
 
-const int kMinConsoleHeight = 160;
-
 QList<TeXDocument*> TeXDocument::docList;
 
 TeXDocument::TeXDocument()
@@ -1681,15 +1679,6 @@ void TeXDocument::typeset()
 		return;
 	}
 
-	if (rootFilePath != QFileInfo(curFile).canonicalFilePath()) {
-		TeXDocument* rootDoc = openDocument(rootFilePath, false, false);
-		if (rootDoc != NULL)
-			rootDoc->typeset();
-		else
-			statusBar()->showMessage(tr("Root document %1 not found").arg(rootFilePath), kStatusMessageDuration);
-		return;
-	}
-
 	Engine e = TWApp::instance()->getNamedEngine(engine->currentText());
 	if (e.program() == "") {
 		statusBar()->showMessage(tr("%1 is not properly configured").arg(engine->currentText()), kStatusMessageDuration);
@@ -1699,7 +1688,7 @@ void TeXDocument::typeset()
 	process = new QProcess(this);
 	updateTypesettingAction();
 	
-	process->setWorkingDirectory(fileInfo.canonicalPath());
+	process->setWorkingDirectory(fileInfo.canonicalPath());	// Note that fileInfo refers to the root file
 
 	QStringList binPaths = TWApp::instance()->getBinaryPaths();
 	QStringList env = QProcess::systemEnvironment();
@@ -1742,7 +1731,14 @@ void TeXDocument::typeset()
 	
 	if (foundCommand) {
 		textEdit_console->clear();
-		showConsole();
+		if (textEdit_console->isHidden()) {
+			consoleWasHidden = true;
+			showConsole();
+		}
+		else {
+			consoleWasHidden = false;
+			inputLine->show();
+		}
 		inputLine->setFocus(Qt::OtherFocusReason);
 		process->start(fileInfo.absoluteFilePath(), args);
 	}
@@ -1818,7 +1814,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	}
 
 	QSettings settings;
-	if (exitCode == 0 && settings.value("autoHideConsole", true).toBool())
+	if (consoleWasHidden && exitCode == 0 && settings.value("autoHideConsole", true).toBool())
 		hideConsole();
 	else
 		inputLine->hide();
@@ -1830,11 +1826,6 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 void TeXDocument::showConsole()
 {
-	QList<int> sizes = splitter->sizes();
-	int half = (sizes[0] + sizes[1]) / 2;
-	if (sizes[1] < kMinConsoleHeight)
-		sizes[1] = kMinConsoleHeight > half ? half : kMinConsoleHeight;
-	splitter->setSizes(sizes);
 	textEdit_console->show();
 	if (process != NULL)
 		inputLine->show();
