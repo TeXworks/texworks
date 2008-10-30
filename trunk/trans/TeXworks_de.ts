@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de_DE">
+<defaultcodec></defaultcodec>
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -101,7 +102,7 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="85"/>
         <source>No recent search strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine zuletzt verwendeten Suchausdrücke</translation>
     </message>
 </context>
 <context>
@@ -518,12 +519,12 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="650"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>TeXworks beenden</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="653"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -878,7 +879,7 @@
     <message>
         <location filename="../src/PrefsDialog.cpp" line="430"/>
         <source>System default [%1]</source>
-        <translation type="unfinished"></translation>
+        <translation>Systemstandard [%1]</translation>
     </message>
 </context>
 <context>
@@ -1034,12 +1035,12 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="237"/>
         <source>No recent search strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine zuletzt verwendeten Suchausdrücke</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="246"/>
         <source>No recent replacement strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine zuletzt verwendeten Ersetzungsausdrücke</translation>
     </message>
 </context>
 <context>
@@ -1999,12 +2000,12 @@ Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplat
     <message>
         <location filename="../src/TeXDocument.cpp" line="1680"/>
         <source>Root document %1 is not readable</source>
-        <translation>Wurzeldokument %1 ist nicht lesbar</translation>
+        <translation>Hauptdokument %1 ist nicht lesbar</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1689"/>
         <source>Root document %1 not found</source>
-        <translation>Wurzeldokument %1 nicht gefunden</translation>
+        <translation>Hauptdokument %1 nicht gefunden</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2004"/>
@@ -2034,12 +2035,12 @@ Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplat
     <message>
         <location filename="../src/TeXDocument.ui" line="988"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>TeXworks beenden</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="991"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>

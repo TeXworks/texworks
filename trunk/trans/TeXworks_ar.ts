@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ar">
+<defaultcodec></defaultcodec>
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -10,7 +11,7 @@
     <message>
         <location filename="../src/CompletingEdit.cpp" line="696"/>
         <source>Jump to PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>انتقل إلى بي دي إف</translation>
     </message>
 </context>
 <context>
@@ -18,27 +19,27 @@
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="42"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>احذف</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="66"/>
         <source>Unable to delete</source>
-        <translation type="unfinished"></translation>
+        <translation>تعذّر الحذف</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="67"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished"></translation>
+        <translation>تعذّر حذف بعض الملفات الثانوية. ربما لا تملك الصلاحية لحذفهم.</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.ui" line="16"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished"></translation>
+        <translation>أكّد الحذف</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.ui" line="25"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished"></translation>
+        <translation>الملفات الثانوية التي ستُحذف:</translation>
     </message>
 </context>
 <context>
@@ -101,7 +102,7 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="85"/>
         <source>No recent search strings</source>
-        <translation type="unfinished"></translation>
+        <translation>لا عبارات بحث حديثة</translation>
     </message>
 </context>
 <context>
@@ -114,12 +115,12 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1286"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>تعذّر تحميل الملف &quot;%1&quot;؛ ربما ليس ملف بي‌دي‌إف سليم.</translation>
+        <translation>تعذّر تحميل الملف &quot;%1&quot;؛ ربما ليس ملف بي دي إف سليم.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1295"/>
         <source>No SyncTeX data available</source>
-        <translation>لا توجد أي بيانات ‌SyncTeX</translation>
+        <translation>لا توجد أي بيانات  SyncTeX</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1297"/>
@@ -483,12 +484,12 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="650"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>اخرج من TeXworks</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="653"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
 </context>
 <context>
@@ -544,7 +545,7 @@
     <message>
         <location filename="../src/PDFDocks.cpp" line="160"/>
         <source>PDF Info</source>
-        <translation>معلومات بي‌دي‌إف</translation>
+        <translation>معلومات بي دي إف</translation>
     </message>
 </context>
 <context>
@@ -575,32 +576,32 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="183"/>
         <source>Zoom In</source>
-        <translation type="unfinished">قرّب</translation>
+        <translation>قرّب</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="185"/>
         <source>Zoom Out</source>
-        <translation type="unfinished">بعّد</translation>
+        <translation>بعّد</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="188"/>
         <source>Actual Size</source>
-        <translation type="unfinished">الحجم الحقيقي</translation>
+        <translation>الحجم الحقيقي</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="191"/>
         <source>Fit to Width</source>
-        <translation type="unfinished">لائم العرض</translation>
+        <translation>لائم العرض</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="194"/>
         <source>Fit to Window</source>
-        <translation type="unfinished">لائم النافذة</translation>
+        <translation>لائم النافذة</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="520"/>
         <source>Jump to Source</source>
-        <translation type="unfinished"></translation>
+        <translation>انتقل إلى المصدر</translation>
     </message>
 </context>
 <context>
@@ -828,7 +829,7 @@
     <message>
         <location filename="../src/PrefsDialog.cpp" line="430"/>
         <source>System default [%1]</source>
-        <translation type="unfinished"></translation>
+        <translation>افتراضي النظام [%1]</translation>
     </message>
 </context>
 <context>
@@ -876,7 +877,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="258"/>
         <source>PDF documents (*.pdf)</source>
-        <translation>مستندات بي‌دي‌إف (*.pdf)</translation>
+        <translation>مستندات بي دي إف (*.pdf)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="262"/>
@@ -954,12 +955,12 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="237"/>
         <source>No recent search strings</source>
-        <translation type="unfinished"></translation>
+        <translation>لا عبارات بحث حديثة</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="246"/>
         <source>No recent replacement strings</source>
-        <translation type="unfinished"></translation>
+        <translation>لا عبارات استبدال حديثة</translation>
     </message>
 </context>
 <context>
@@ -1091,7 +1092,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="272"/>
         <source>Open File</source>
-        <translation type="unfinished">افتح ملفا</translation>
+        <translation>افتح ملفا</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="404"/>
@@ -1106,62 +1107,62 @@
     <message>
         <location filename="../src/TWApp.cpp" line="174"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;%1 هو بيئة بسيطة لتحرير، وصفّ، ومعاينة ملفات TeX.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="177"/>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt; الإصدارة %1 (م.%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="178"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;يوزع وفق &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;رخصة جنو العمومية&lt;/a&gt;، الإصدارة٢.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="179"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;بنية التطبيقات &lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; من Qt Software، جزء من مؤسسة نوكيا.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="180"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;مكتبة &lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; لعرض PDF تأليف Kristian H&amp;#xF8;gsberg, Albert Astals Cid وآخرون.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="181"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;المدقق الإملائي &lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;هنسبل&lt;/a&gt; تأليف L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="182"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;أفكار وموارد من &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; تأليف Richard Koch.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="183"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;تقنية &lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; تأليف J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="184"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;بعض الأيقونات المستخدمة مأخوذة من &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;مشروع تانجو&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="185"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;الترجمة %1 ساهم بها %2.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="185"/>
         <source>[language name]</source>
-        <translation type="unfinished"></translation>
+        <translation>العربية</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="185"/>
         <source>[translator&apos;s name/email]</source>
-        <translation type="unfinished"></translation>
+        <translation>خالد حسني (khaledhosny@eglug.org)</translation>
     </message>
 </context>
 <context>
@@ -1207,7 +1208,7 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="402"/>
         <source>Open File</source>
-        <translation type="unfinished">افتح ملفا</translation>
+        <translation>افتح ملفا</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="472"/>
@@ -1878,66 +1879,70 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.cpp" line="837"/>
         <source>File changed on disk</source>
-        <translation type="unfinished"></translation>
+        <translation>تغيّر الملف على القرص</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="780"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
-        <translation type="unfinished"></translation>
+        <translation>تم تعديل %1 باستخدام برنامج خارجي آخر.
+
+أتريد تجاهل التغييرات الحالية وإعادة تحميل الملف من على القرص؟</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="840"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
-        <translation type="unfinished"></translation>
+        <translation>تم تعديل %1 باستخدام برنامج خارجي آخر.
+
+أتريد إكمال حفظ الملف، واستبدال النسخة الموجودة على القرص؟</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1680"/>
         <source>Root document %1 is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>المستند الجذر %1 غير مقروء</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1689"/>
         <source>Root document %1 not found</source>
-        <translation type="unfinished"></translation>
+        <translation>المستند الجذر %1 غير موجود</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2004"/>
         <source>No files found</source>
-        <translation type="unfinished"></translation>
+        <translation>لم يُعثر على أي ملفات</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2005"/>
         <source>No auxiliary files associated with this document at the moment.</source>
-        <translation type="unfinished"></translation>
+        <translation>لا توجد ملفات ثانوية مرتبطة بهذا المستند حاليا.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="969"/>
         <source>Replace Again</source>
-        <translation type="unfinished"></translation>
+        <translation>استبدل ثانيا</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="972"/>
         <source>Ctrl+Shift+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+R</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="980"/>
         <source>Remove Aux Files...</source>
-        <translation type="unfinished"></translation>
+        <translation>احذف الملفات الثانوية...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="988"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>اخرج من TeXworks</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="991"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
 </context>
 <context>
@@ -1966,7 +1971,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
     <message>
         <location filename="../src/PrefsDialog.cpp" line="704"/>
         <source>NewArgument</source>
-        <translation>معطى‌جديد</translation>
+        <translation>معطى جديد</translation>
     </message>
 </context>
 <context>
@@ -1994,7 +1999,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
     <message>
         <location filename="../src/ToolConfig.ui" line="124"/>
         <source>View PDF after running</source>
-        <translation>اعرض بي‌دي‌إف بعد التشغيل</translation>
+        <translation>اعرض بي دي إف بعد التشغيل</translation>
     </message>
 </context>
 </TS>
