@@ -810,11 +810,7 @@ void CompletingEdit::insertFromMimeData(const QMimeData *source)
 {
 	if (source->hasText()) {
 		QTextCursor curs = textCursor();
-		int offset = curs.selectionStart();
 		curs.insertText(source->text());
-		curs.setPosition(offset);
-		curs.setPosition(offset + source->text().length(), QTextCursor::KeepAnchor);
-		setTextCursor(curs);
 	}
 }
 
