@@ -1434,12 +1434,35 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 
 	QString	replacement = settings.value("replaceText").toString();
 	if (regex != NULL) {
-		QRegExp unicodeCode("\\\\x([0-9A-Fa-f]{4})");
-		while (replacement.indexOf(unicodeCode) >= 0) {
-			bool ok;
-			replacement.replace(unicodeCode.cap(0), (QChar)unicodeCode.cap(1).toUInt(&ok, 16));
+		QRegExp escapedChar("\\\\([nt\\\\]|x([0-9A-Fa-f]{4}))");
+		int index = -1;
+		while ((index = replacement.indexOf(escapedChar, index + 1)) >= 0) {
+			QChar ch;
+			if (escapedChar.cap(1).length() == 1) {
+				// single-char escape code newline/tab/backslash
+				ch = escapedChar.cap(1)[0];
+				switch (ch.unicode()) {
+					case 'n':
+						ch = '\n';
+						break;
+					case 't':
+						ch = '\t';
+						break;
+					case '\\':
+						ch = '\\';
+						break;
+					default:
+						// should not happen!
+						break;
+				}
+			}
+			else {
+				// Unicode char number \xHHHH
+				bool ok;
+				ch = (QChar)escapedChar.cap(2).toUInt(&ok, 16);
+			}
+			replacement.replace(index, escapedChar.matchedLength(), ch);
 		}
-		replacement = replacement.replace("\\t", "\t").replace("\\n", "\n").replace("\\\\", "\\");
 	}
 	
 	bool allFiles = (mode == ReplaceDialog::ReplaceAll) && settings.value("searchAllFiles").toBool();
