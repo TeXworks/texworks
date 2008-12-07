@@ -448,13 +448,14 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 	int end = textCursor().selectionEnd();
 	QTextEdit::keyPressEvent(e);
 	cursor = textCursor();
-	if (pos < end && !cursor.hasSelection()) { // collapsed selection
-		if (cursor.position() == end + 1)
-			pos = end;
-		cursor.setPosition(pos);
-		setTextCursor(cursor);
+	if (e->key() == Qt::Key_Left || e->key() == Qt::Key_Right) {
+		if (pos < end && !cursor.hasSelection()) { // collapsed selection
+			if (cursor.position() == end + 1)
+				pos = end;
+			cursor.setPosition(pos);
+			setTextCursor(cursor);
+		}
 	}
-	cursor = textCursor();
 	if ((e->modifiers() & Qt::ControlModifier) == 0) { // not a command key - maybe do brace matching
 		if (!cursor.hasSelection()) {
 			if (cursor.selectionStart() == pos + 1 || cursor.selectionStart() == pos - 1) {
