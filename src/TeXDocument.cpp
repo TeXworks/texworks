@@ -258,7 +258,7 @@ void TeXDocument::init()
 	options = CompletingEdit::autoIndentModes();
 	
 	QSignalMapper *indentMapper = new QSignalMapper(this);
-	connect(indentMapper, SIGNAL(mapped(int)), this, SLOT(setAutoIndentMode(int)));
+	connect(indentMapper, SIGNAL(mapped(int)), textEdit, SLOT(setAutoIndentMode(int)));
 	indentMapper->setMapping(actionAutoIndent_None, -1);
 	connect(actionAutoIndent_None, SIGNAL(triggered()), indentMapper, SLOT(map()));
 	
@@ -273,11 +273,35 @@ void TeXDocument::init()
 		indentMapper->setMapping(action, index);
 		if (opt == indentOption) {
 			action->setChecked(true);
-			setAutoIndentMode(index);
+			textEdit->setAutoIndentMode(index);
 		}
 		++index;
 	}
-	
+
+	QString quotesOption = settings.value("smartQuotes").toString();
+	options = CompletingEdit::smartQuotesModes();
+
+	QSignalMapper *quotesMapper = new QSignalMapper(this);
+	connect(quotesMapper, SIGNAL(mapped(int)), textEdit, SLOT(setSmartQuotesMode(int)));
+	quotesMapper->setMapping(actionSmartQuotes_None, -1);
+	connect(actionSmartQuotes_None, SIGNAL(triggered()), quotesMapper, SLOT(map()));
+
+	QActionGroup *quotesGroup = new QActionGroup(this);
+	quotesGroup->addAction(actionSmartQuotes_None);
+
+	index = 0;
+	foreach (const QString& opt, options) {
+		QAction *action = menuSmart_Quotes_Mode->addAction(opt, quotesMapper, SLOT(map()));
+		action->setCheckable(true);
+		quotesGroup->addAction(action);
+		quotesMapper->setMapping(action, index);
+		if (opt == quotesOption) {
+			action->setChecked(true);
+			textEdit->setSmartQuotesMode(index);
+		}
+		++index;
+	}
+
 	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
 
 	QSignalMapper *mapper = new QSignalMapper(this);
@@ -1292,11 +1316,6 @@ void TeXDocument::setSyntaxColoring(int index)
 	highlighter->setActiveIndex(index);
 }
 
-void TeXDocument::setAutoIndentMode(int index)
-{
-	textEdit->setAutoIndentMode(index);
-}
-
 void TeXDocument::doFindAgain(bool fromDialog)
 {
 	QSettings settings;
@@ -1590,6 +1609,7 @@ QTextCursor TeXDocument::doSearch(QTextDocument *theDoc, const QString& searchTe
 {
 	QTextCursor curs;
 	const QString& docText = theDoc->toPlainText();
+	
 	if ((flags & QTextDocument::FindBackward) != 0) {
 		if (regex != NULL) {
 			// this doesn't seem to match \n or even \x2029 for newline
@@ -1624,8 +1644,9 @@ QTextCursor TeXDocument::doSearch(QTextDocument *theDoc, const QString& searchTe
 				curs.setPosition(offset + regex->matchedLength(), QTextCursor::KeepAnchor);
 			}
 		}
-		else
+		else {
 			curs = theDoc->find(searchText, s, flags);
+		}
 		if (curs.selectionEnd() > e)
 			curs = QTextCursor();
 	}
@@ -1636,6 +1657,7 @@ void TeXDocument::copyToFind()
 {
 	if (textEdit->textCursor().hasSelection()) {
 		QString searchText = textEdit->textCursor().selectedText();
+		searchText.replace(QString(0x2029), "\n");
 		QSettings settings;
 		if (settings.value("searchRegex").toBool())
 			searchText = QRegExp::escape(searchText);
@@ -1647,6 +1669,7 @@ void TeXDocument::copyToReplace()
 {
 	if (textEdit->textCursor().hasSelection()) {
 		QString replaceText = textEdit->textCursor().selectedText();
+		replaceText.replace(QString(0x2029), "\n");
 		QSettings settings;
 		settings.setValue("replaceText", replaceText);
 	}

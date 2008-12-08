@@ -305,6 +305,13 @@
      <addaction name="actionSyntaxColoring_None" />
      <addaction name="separator" />
     </widget>
+    <widget class="QMenu" name="menuSmart_Quotes_Mode" >
+     <property name="title" >
+      <string>Smart Quotes</string>
+     </property>
+     <addaction name="actionSmartQuotes_None" />
+     <addaction name="separator" />
+    </widget>
     <addaction name="actionFont" />
     <addaction name="separator" />
     <addaction name="actionComment" />
@@ -315,6 +322,7 @@
     <addaction name="actionWrap_Lines" />
     <addaction name="menuSyntax_Coloring" />
     <addaction name="menuAuto_indent_Mode" />
+    <addaction name="menuSmart_Quotes_Mode" />
    </widget>
    <widget class="QMenu" name="menuHelp" >
     <property name="title" >
@@ -992,6 +1000,20 @@
    </property>
    <property name="menuRole" >
     <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionSmartQuotes_None" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>None</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
  </widget>

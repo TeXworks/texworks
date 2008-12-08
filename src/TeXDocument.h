@@ -141,7 +141,6 @@ private slots:
 	void balanceDelimiters();
 	void setWrapLines(bool wrap);
 	void setSyntaxColoring(int index);
-	void setAutoIndentMode(int index);
 	void copyToFind();
 	void copyToReplace();
 	void findSelection();
