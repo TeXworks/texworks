@@ -44,9 +44,10 @@
 #include <QTimer>
 
 CompletingEdit::CompletingEdit(QWidget *parent)
-	: QTextEdit(parent), 
-clickCount(0),
+	: QTextEdit(parent),
+	  clickCount(0),
 	  autoIndentMode(-1), prefixLength(0),
+	  smartQuotesMode(-1),
 	  c(NULL), cmpCursor(QTextCursor()),
 	  pHunspell(NULL), spellingCodec(NULL)
 {
@@ -63,6 +64,7 @@ clickCount(0),
 	}
 	
 	loadIndentModes();
+	loadSmartQuotesModes();
 	
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
 }
@@ -456,8 +458,13 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 			setTextCursor(cursor);
 		}
 	}
-	if ((e->modifiers() & Qt::ControlModifier) == 0) { // not a command key - maybe do brace matching
+	if ((e->modifiers() & Qt::ControlModifier) == 0) {
+		// not a command key - maybe do brace matching or smart quotes
 		if (!cursor.hasSelection()) {
+			if (cursor.selectionStart() == pos + 1) {
+				if (smartQuotesMode >= 0)
+					maybeSmartenQuote(cursor.position() - 1);
+			}
 			if (cursor.selectionStart() == pos + 1 || cursor.selectionStart() == pos - 1) {
 				if (cursor.selectionStart() == pos - 1) // we moved backward, set pos to look at the char we just passed over
 					--pos;
@@ -482,6 +489,96 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 			}
 		}
 	}	
+}
+
+void CompletingEdit::setSmartQuotesMode(int index)
+{
+	smartQuotesMode = (index >= 0 && index < quotesModes->count()) ? index : -1;
+}
+
+QStringList CompletingEdit::smartQuotesModes()
+{
+	loadSmartQuotesModes();
+	
+	QStringList modes;
+	foreach (const QuotesMode& mode, *quotesModes)
+		modes << mode.name;
+	return modes;
+}
+
+void CompletingEdit::loadSmartQuotesModes()
+{
+	if (quotesModes == NULL) {
+		QDir configDir(TWUtils::getLibraryPath("configuration"));
+		quotesModes = new QList<QuotesMode>;
+		QFile quotesModesFile(configDir.filePath("smart-quotes-modes.txt"));
+		if (quotesModesFile.open(QIODevice::ReadOnly)) {
+			QRegExp modeName("\\[([^]]+)\\]");
+			QRegExp quoteLine("([^ \\t])\\s+([^ \\t]+)\\s+([^ \\t]+)");
+			QuotesMode newMode;
+			while (1) {
+				QByteArray ba = quotesModesFile.readLine();
+				if (ba.size() == 0)
+					break;
+				if (ba[0] == '#' || ba[0] == '\n')
+					continue;
+				QString line = QString::fromUtf8(ba.data(), ba.size()).trimmed();
+				if (modeName.exactMatch(line)) {
+					if (newMode.mappings.count() > 0) {
+						quotesModes->append(newMode);
+						newMode.mappings.clear();
+					}
+					newMode.name = modeName.cap(1);
+					continue;
+				}
+				if (quoteLine.exactMatch(line) && newMode.name.length() > 0) {
+					QChar key = quoteLine.cap(1)[0];
+					const QString& open = quoteLine.cap(2);
+					const QString& close = quoteLine.cap(3);
+					newMode.mappings[key] = QuotePair(open,close);
+					continue;
+				}
+			}
+			if (newMode.mappings.count() > 0) {
+				quotesModes->append(newMode);
+			}
+		}
+	}
+}
+
+void CompletingEdit::maybeSmartenQuote(int offset)
+{
+	if (smartQuotesMode < 0 || smartQuotesMode >= quotesModes->count())
+		return;
+	const QuoteMapping& mappings = quotesModes->at(smartQuotesMode).mappings;
+
+	const QString& text = document()->toPlainText();
+	if (offset < 0 || offset >= text.length())
+		return;
+	QTextCursor cursor(document());
+	cursor.setPosition(offset);
+	cursor.setPosition(offset + 1, QTextCursor::KeepAnchor);
+
+	QChar keyChar = cursor.selectedText()[0];
+	QuoteMapping::const_iterator iter = mappings.find(keyChar);
+	if (iter == mappings.end())
+		return;
+	
+	if (offset == 0) {
+		cursor.insertText(iter.value().first);
+		return;
+	}
+	if (offset == text.length() - 1) {
+		cursor.insertText(iter.value().second);
+		return;
+	}
+	QChar prevChar = text[offset - 1];
+	QChar nextChar = text[offset + 1];
+	if (prevChar.isSpace()) {
+		cursor.insertText(iter.value().first);
+		return;
+	}
+	cursor.insertText(iter.value().second);
 }
 
 void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
@@ -835,3 +932,4 @@ QTextCharFormat	*CompletingEdit::braceMatchingFormat = NULL;
 QCompleter	*CompletingEdit::sharedCompleter = NULL;
 
 QList<CompletingEdit::IndentMode> *CompletingEdit::indentModes = NULL;
+QList<CompletingEdit::QuotesMode> *CompletingEdit::quotesModes = NULL;

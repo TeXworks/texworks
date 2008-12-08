@@ -23,6 +23,7 @@
 #define COMPLETING_EDIT_H
 
 #include <QTextEdit>
+#include <QHash>
 #include <QTimer>
 
 #include <hunspell.h>
@@ -43,10 +44,13 @@ public:
 
 	bool selectWord(QTextCursor& cursor);
 
-	void setAutoIndentMode(int index);
-
 	static QStringList autoIndentModes();
+	static QStringList smartQuotesModes();
 
+public slots:
+	void setAutoIndentMode(int index);
+	void setSmartQuotesMode(int index);
+	
 signals:
 	void syncClick(int);
 
@@ -83,6 +87,7 @@ private:
 	void handleReturn(QKeyEvent *e);
 	void handleBackspace(QKeyEvent *e);
 	void handleOtherKey(QKeyEvent *e);
+	void maybeSmartenQuote(int offset);
 
 	QTextCursor wordSelectionForPos(const QPoint& pos);
 	QTextCursor blockSelectionForPos(const QPoint& pos);
@@ -113,8 +118,19 @@ private:
 	};
 	static QList<IndentMode> *indentModes;
 	int autoIndentMode;
-
 	int prefixLength;
+
+    static void loadSmartQuotesModes();
+	
+	typedef QPair<QString,QString> QuotePair;
+	typedef QHash<QChar,QuotePair> QuoteMapping;
+	struct QuotesMode {
+		QString name;
+		QuoteMapping mappings;
+	};
+	static QList<QuotesMode> *quotesModes;
+	
+	int smartQuotesMode;
 
 	QCompleter *c;
 	QTextCursor cmpCursor;
