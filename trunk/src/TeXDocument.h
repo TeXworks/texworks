@@ -174,6 +174,7 @@ private slots:
 private:
 	void init();
 	bool maybeSave();
+	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
 	QString readFile(const QString &fileName, QTextCodec **codecUsed);
@@ -194,6 +195,7 @@ private:
 	void goToLine(int lineNo, int selStart = -1, int selEnd = -1);
 	void updateTypesettingAction();
 	void findRootFilePath();
+	const QString& getRootFilePath();
 	void maybeCenterSelection(int oldScrollValue = -1);
 	void showFloaters();
 	void presentResults(const QList<SearchResult>& results);
