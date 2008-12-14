@@ -640,6 +640,23 @@ bool TeXDocument::maybeSave()
 	return true;
 }
 
+bool TeXDocument::saveFilesHavingRoot(const QString& aRootFile)
+{
+	foreach (TeXDocument* doc, docList) {
+		if (doc->getRootFilePath() == aRootFile) {
+			if (doc->textEdit->document()->isModified() && !doc->save())
+				return false;
+		}
+	}
+	return true;
+}
+
+const QString& TeXDocument::getRootFilePath()
+{
+	findRootFilePath();
+	return rootFilePath;
+}
+
 void TeXDocument::revert()
 {
 	if (!isUntitled) {
@@ -1719,6 +1736,9 @@ void TeXDocument::typeset()
 		}
 
 	findRootFilePath();
+	if (!saveFilesHavingRoot(rootFilePath))
+		return;
+
 	QFileInfo fileInfo(rootFilePath);
 	if (!fileInfo.isReadable()) {
 		statusBar()->showMessage(tr("Root document %1 is not readable").arg(rootFilePath), kStatusMessageDuration);
