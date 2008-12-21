@@ -102,6 +102,7 @@ HEADERS	+=	src/TWApp.h \
 FORMS	+=	src/TeXDocument.ui \
 			src/PDFDocument.ui \
 			src/Find.ui \
+			src/PDFFind.ui \
 			src/Replace.ui \
 			src/SearchResults.ui \
 			src/PrefsDialog.ui \

@@ -15,16 +15,7 @@
   <property name="windowTitle" >
    <string>untitled.pdf[*]</string>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>58</y>
-     <width>800</width>
-     <height>522</height>
-    </rect>
-   </property>
-  </widget>
+  <widget class="QWidget" name="centralwidget" />
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
     <rect>
@@ -114,22 +105,22 @@
     </property>
     <addaction name="actionTypeset" />
    </widget>
+   <widget class="QMenu" name="menuSearch" >
+    <property name="title" >
+     <string>Search</string>
+    </property>
+    <addaction name="actionFind" />
+    <addaction name="actionFind_Again" />
+   </widget>
    <addaction name="menuFile" />
    <addaction name="menuEdit" />
+   <addaction name="menuSearch" />
    <addaction name="menuView" />
    <addaction name="menuTypeset" />
    <addaction name="menuWindow" />
    <addaction name="menuHelp" />
   </widget>
   <widget class="QStatusBar" name="statusbar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>580</y>
-     <width>800</width>
-     <height>20</height>
-    </rect>
-   </property>
    <property name="font" >
     <font>
      <pointsize>10</pointsize>
@@ -137,14 +128,6 @@
    </property>
   </widget>
   <widget class="QToolBar" name="toolBar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>22</y>
-     <width>800</width>
-     <height>36</height>
-    </rect>
-   </property>
    <property name="windowTitle" >
     <string>Toolbar</string>
    </property>
@@ -173,6 +156,8 @@
    <addaction name="separator" />
    <addaction name="actionMagnify" />
    <addaction name="actionScroll" />
+   <addaction name="separator" />
+   <addaction name="actionFind" />
   </widget>
   <action name="actionAbout_TW" >
    <property name="text" >
@@ -654,6 +639,32 @@
    </property>
    <property name="menuRole" >
     <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionFind" >
+   <property name="icon" >
+    <iconset resource="../res/resources.qrc" >
+     <normaloff>:/images/tango/edit-find.png</normaloff>:/images/tango/edit-find.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Find</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+F</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::WindowShortcut</enum>
+   </property>
+  </action>
+  <action name="actionFind_Again" >
+   <property name="text" >
+    <string>Find Again</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Shift+G</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::WindowShortcut</enum>
    </property>
   </action>
  </widget>

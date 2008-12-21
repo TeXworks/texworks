@@ -29,9 +29,11 @@
 #include "ui_Find.h"
 #include "ui_Replace.h"
 #include "ui_SearchResults.h"
+#include "ui_PDFFind.h"
 
 class TeXDocument;
 class QTextEdit;
+class PDFDocument;
 
 class FindDialog : public QDialog, private Ui::FindDialog
 {
@@ -52,6 +54,23 @@ private slots:
 
 private:
 	void init(QTextEdit *document);
+};
+
+class PDFFindDialog : public QDialog, private Ui::PDFFindDialog
+{
+	Q_OBJECT
+
+public:
+	PDFFindDialog(PDFDocument *document);
+
+	static DialogCode doFindDialog(PDFDocument *document);
+
+private slots:
+//	void toggledFindAllOption(bool checked);
+	void setSearchText();
+
+private:
+	void init(PDFDocument *document);
 };
 
 
@@ -97,6 +116,16 @@ public:
 	int selEnd;
 };
 
+class PDFSearchResult {
+public:
+	PDFSearchResult(const PDFDocument* pdfdoc = NULL, int page = -1, QRectF rect = QRectF())
+		: doc(pdfdoc), pageIdx(page), selRect(rect)
+		{ }
+		
+	const PDFDocument* doc;
+	int pageIdx;
+	QRectF selRect;
+};
 
 class SearchResults	: public QDockWidget, private Ui::SearchResults
 {

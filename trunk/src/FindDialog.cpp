@@ -21,6 +21,7 @@
 
 #include "FindDialog.h"
 #include "TeXDocument.h"
+#include "PDFDocument.h"
 
 #include <QSettings>
 #include <QPushButton>
@@ -235,9 +236,10 @@ void ReplaceDialog::init(QTextEdit *document)
 	QStringList recentStrings = settings.value("recentSearchStrings").toStringList();
 	if (recentStrings.size() == 0)
 		recentItemsMenu->addAction(tr("No recent search strings"))->setEnabled(false);
-	else
+	else {
 		foreach (const QString& str, recentStrings)
-		connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setSearchText()));
+			connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setSearchText()));
+	}
 	recentSearches->setMenu(recentItemsMenu);
 
 	recentItemsMenu = new QMenu(this);
@@ -442,3 +444,113 @@ void SearchResults::showSelectedEntry()
 	if (!fileName.isEmpty())
 		TeXDocument::openDocument(fileName, false, true, lineNo, selStart, selEnd);
 }
+
+PDFFindDialog::PDFFindDialog(PDFDocument *document)
+	: QDialog(document->widget())
+{
+	init(document);
+}
+
+void PDFFindDialog::init(PDFDocument *document)
+{
+	setupUi(this);
+
+	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Find"));
+/*
+	connect(checkBox_allFiles, SIGNAL(toggled(bool)), this, SLOT(toggledAllFilesOption(bool)));
+	connect(checkBox_findAll, SIGNAL(toggled(bool)), this, SLOT(toggledFindAllOption(bool)));
+	connect(checkBox_regex, SIGNAL(toggled(bool)), this, SLOT(toggledRegexOption(bool)));
+	connect(checkBox_selection, SIGNAL(toggled(bool)), this, SLOT(toggledSelectionOption(bool)));
+	connect(searchText, SIGNAL(textChanged(const QString&)), this, SLOT(checkRegex(const QString&)));
+*/
+	QSettings settings;
+	QString	str = settings.value("searchText").toString();
+	searchText->setText(str);
+	searchText->selectAll();
+	
+	checkBox_findAll->setEnabled(false);
+	bool findAll = false;
+/*
+	bool findAll = settings.value("searchFindAll").toBool();
+	checkBox_findAll->setChecked(findAll);
+*/
+	bool wrapOption = settings.value("searchWrap").toBool();
+	checkBox_wrap->setEnabled(!findAll);
+	checkBox_wrap->setChecked(wrapOption);
+
+	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value("searchFlags").toInt();
+	checkBox_case->setChecked((flags & QTextDocument::FindCaseSensitively) != 0);
+//	checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
+//	checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
+//	checkBox_backwards->setEnabled(!findAll);
+
+	// Searching backwards currently doesn't work
+	// Might be a bug in Poppler
+	checkBox_backwards->setEnabled(false);
+	
+	checkBox_sync->setChecked(settings.value("searchPdfSync").toBool());
+	checkBox_sync->setEnabled(document->hasSyncData());
+	
+	QMenu *recentItemsMenu = new QMenu(this);
+	QStringList recentStrings = settings.value("recentSearchStrings").toStringList();
+	if (recentStrings.size() == 0)
+		recentItemsMenu->addAction(tr("No recent search strings"))->setEnabled(false);
+	else {
+		foreach (const QString& str, recentStrings)
+			connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setSearchText()));
+	}
+	recentSearches->setMenu(recentItemsMenu);
+}
+
+QDialog::DialogCode PDFFindDialog::doFindDialog(PDFDocument *document)
+{
+	PDFFindDialog dlg(document);
+
+	dlg.show();
+	DialogCode	result = (DialogCode)dlg.exec();
+
+	if (result == Accepted) {
+		QSettings settings;
+		QString str = dlg.searchText->text();
+		settings.setValue("searchText", str);
+		
+		QStringList recentStrings = settings.value("recentSearchStrings").toStringList();
+		recentStrings.removeAll(str);
+		recentStrings.prepend(str);
+		while (recentStrings.count() > kMaxRecentStrings)
+			recentStrings.removeLast();
+		settings.setValue("recentSearchStrings", recentStrings);
+
+		QTextDocument::FindFlags oldFlags = (QTextDocument::FindFlags)settings.value("searchFlags").toInt();
+		int flags = 0;
+		if (dlg.checkBox_case->isChecked())
+			flags |= QTextDocument::FindCaseSensitively;
+
+		flags |= (oldFlags & QTextDocument::FindWholeWords);
+
+//		if (dlg.checkBox_backwards->isChecked())
+//			flags |= QTextDocument::FindBackward;
+		flags |= (oldFlags & QTextDocument::FindBackward);
+		
+		settings.setValue("searchFlags", (int)flags);
+
+//		settings.setValue("searchRegex", dlg.checkBox_regex->isChecked());
+		settings.setValue("searchWrap", dlg.checkBox_wrap->isChecked());
+//		settings.setValue("searchSelection", dlg.checkBox_selection->isChecked());
+		settings.setValue("searchFindAll", dlg.checkBox_findAll->isChecked());
+//		settings.setValue("searchAllFiles", dlg.checkBox_allFiles->isChecked());
+		settings.setValue("searchPdfSync", dlg.checkBox_sync->isChecked());
+	}
+
+	return result;
+}
+
+void PDFFindDialog::setSearchText()
+{
+	QAction *act = qobject_cast<QAction*>(sender());
+	if (act != NULL) {
+		searchText->setText(act->text());
+		searchText->selectAll();
+	}
+}
+

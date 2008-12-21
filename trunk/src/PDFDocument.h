@@ -30,6 +30,7 @@
 #include <QButtonGroup>
 #include <QPainterPath>
 
+#include "FindDialog.h"
 #include "poppler-qt4.h"
 #include "synctex_parser.h"
 
@@ -92,6 +93,8 @@ public:
 	void goToPage(int pageIndex);
 	void setHighlightPath(const QPainterPath& path);
 	void goToDestination(const QString& destName);
+	int getCurrentPageIndex() { return pageIndex; }
+	void reloadPage();
 
 private slots:
 	void goFirst();
@@ -140,7 +143,6 @@ protected:
 
 private:
 	void init();
-	void reloadPage();
 	void adjustSize();
 	void updateStatusBar();
 	void updateCursor();
@@ -223,6 +225,11 @@ public:
 		{
 			return document;
 		}
+	
+	PDFWidget *widget()
+		{
+			return pdfWidget;
+		}
 
 protected:
 	virtual void changeEvent(QEvent *event);
@@ -251,6 +258,8 @@ private slots:
 	void sideBySide();
 	void placeOnLeft();
 	void placeOnRight();
+	void doFindDialog();
+	void doFindAgain(bool newSearch = false);
 
 signals:
 	void reloaded();
@@ -283,6 +292,11 @@ private:
 	synctex_scanner_t scanner;
 
 	static QList<PDFDocument*> docList;
+	
+	PDFSearchResult lastSearchResult;
+	// stores the page idx a search was started on
+	// after wrapping the search will continue only up to this page
+	int firstSearchPage; 
 };
 
 #endif
