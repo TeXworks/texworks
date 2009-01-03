@@ -531,6 +531,11 @@ void PDFWidget::contextMenuEvent(QContextMenuEvent *event)
 	ctxZoomInAction->setEnabled(scaleFactor < kMaxScaleFactor);
 	ctxZoomOutAction->setEnabled(scaleFactor > kMinScaleFactor);
 	
+	if (usingTool == kMagnifier && magnifier) {
+		magnifier->close();
+		usingTool = kNone;
+	}
+
 	QAction *action = menu.exec(event->globalPos());
 
 	if (action == ctxZoomInAction)
