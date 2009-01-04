@@ -74,6 +74,8 @@ public:
 	void openUrl(const QString& urlString);
 
 	static TWApp *instance();
+	
+	QString getPortableLibPath() const { return portableLibPath; }
 
 #ifdef Q_WS_WIN
 	void createMessageTarget(QWidget* aWindow);
@@ -167,6 +169,7 @@ private:
 	QStringList *binaryPaths;
 	QList<Engine> *engineList;
 	int defaultEngineIndex;
+	QString portableLibPath;
 
 	QList<QTranslator*> translators;
 

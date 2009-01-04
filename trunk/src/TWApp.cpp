@@ -47,6 +47,8 @@
 #include <QUrl>
 #include <QDesktopServices>
 
+#define PORTABLE_FILE_NAME "texworks-portable.ini"
+
 const int kDefaultMaxRecentFiles = 10;
 
 TWApp *TWApp::theAppInstance = NULL;
@@ -71,6 +73,33 @@ void TWApp::init()
 	setOrganizationName("TUG");
 	setOrganizationDomain("tug.org");
 	setApplicationName(TEXWORKS_NAME);
+	
+	// <Check for portable mode>
+#ifdef Q_WS_MAC
+	QDir appDir(applicationDirPath() + "/../../.."); // move up to dir containing the .app package
+#else
+	QDir appDir(applicationDirPath());
+#endif
+	if (appDir.exists(PORTABLE_FILE_NAME)) {
+		QSettings portable(appDir.filePath(PORTABLE_FILE_NAME), QSettings::IniFormat);
+		if (portable.contains("inipath")) {
+			QDir iniPath(appDir.absolutePath());
+			if (iniPath.cd(portable.value("inipath").toString())) {
+				QSettings::setDefaultFormat(QSettings::IniFormat);
+				QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
+			}
+		}
+		if(portable.contains("libpath")) {
+			QDir libPath(appDir.absolutePath());
+			if(libPath.cd(portable.value("libpath").toString())) {
+				portableLibPath = libPath.absolutePath();
+			}
+		}
+	}
+	// </Check for portable mode>
+
+	// Required for TWUtils::getLibraryPath()
+	theAppInstance = this;
 
 	QSettings settings;
 	
@@ -135,7 +164,6 @@ void TWApp::init()
 	changeLanguage();
 #endif
 
-	theAppInstance = this;
 }
 
 void TWApp::maybeQuit()
