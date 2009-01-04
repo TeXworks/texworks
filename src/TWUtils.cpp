@@ -20,7 +20,7 @@
 */
 
 #include "TWUtils.h"
-
+#include "TWApp.h"
 #include "TeXDocument.h"
 #include "PDFDocument.h"
 
@@ -70,19 +70,26 @@ bool TWUtils::isPostscriptFile(const QString& fileName)
 
 const QString TWUtils::getLibraryPath(const QString& subdir)
 {
+	QString libPath;
+	
+	libPath = TWApp::instance()->getPortableLibPath();
+	if (!libPath.isEmpty()) {
+		libPath = QDir(libPath).absolutePath() + QDir::separator() + subdir;
+	}
+	else {
 #ifdef Q_WS_MAC
-	QString libPath(QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/" + subdir);
+		libPath = QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/" + subdir;
 #endif
 #ifdef Q_WS_X11
-	QString libPath;
-	if (subdir == "dictionaries")
-		libPath = "/usr/share/myspell/dicts";
-	else
-		libPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/" + subdir;
+		if (subdir == "dictionaries")
+			libPath = "/usr/share/myspell/dicts";
+		else
+			libPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/" + subdir;
 #endif
 #ifdef Q_WS_WIN
-	QString libPath(QDir::homePath() + "/" + TEXWORKS_NAME + "/" + subdir);
+		libPath = QDir::homePath() + "/" + TEXWORKS_NAME + "/" + subdir;
 #endif
+	}
 	// check if libPath exists
 	QFileInfo info(libPath);
 	if (!info.exists()) {
