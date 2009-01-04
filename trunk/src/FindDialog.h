@@ -35,6 +35,25 @@ class TeXDocument;
 class QTextEdit;
 class PDFDocument;
 
+class RecentStringsKeyFilter : public QObject
+{
+	Q_OBJECT
+	
+public:
+	RecentStringsKeyFilter(QObject *parent, const QStringList& stringList)
+		: QObject(parent), strings(stringList)
+			{}
+	
+	virtual ~RecentStringsKeyFilter()
+			{}
+	
+protected:
+	bool eventFilter(QObject *obj, QEvent *event);
+	void setRecentString(QObject *obj, int dir);
+
+	QStringList strings;
+};
+
 class FindDialog : public QDialog, private Ui::FindDialog
 {
 	Q_OBJECT

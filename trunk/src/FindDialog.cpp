@@ -29,6 +29,7 @@
 #include <QHeaderView>
 #include <QTextBlock>
 #include <QFileInfo>
+#include <QKeyEvent>
 
 const int kMaxRecentStrings = 10;
 
@@ -36,6 +37,51 @@ FindDialog::FindDialog(QTextEdit *parent)
 	: QDialog(parent)
 {
 	init(parent);
+}
+
+bool RecentStringsKeyFilter::eventFilter(QObject *obj, QEvent *event)
+{
+	if (event->type() == QEvent::KeyPress) {
+		QKeyEvent *e = static_cast<QKeyEvent*>(event);
+		Qt::KeyboardModifiers mods = e->modifiers();
+		if ((mods & Qt::ControlModifier) != Qt::NoModifier) {
+			if (e->key() == Qt::Key_Up) {
+				setRecentString(obj, -1);
+				return true;
+			}
+			if (e->key() == Qt::Key_Down) {
+				setRecentString(obj, 1);
+				return true;
+			}
+		}
+	}
+
+	// standard event processing
+	return QObject::eventFilter(obj, event);
+}
+
+void RecentStringsKeyFilter::setRecentString(QObject *obj, int dir)
+{
+	QLineEdit *lineEdit = qobject_cast<QLineEdit*>(obj);
+	if (!lineEdit)
+		return;
+	
+	if (strings.empty())
+		return;
+	
+	int index = strings.indexOf(lineEdit->text());
+	if (index == -1)
+		index = (dir == 1) ? 0 : strings.size() - 1;
+	else {
+		index += dir;
+		if (index < 0)
+			index = strings.size() - 1;
+		else if (index >= strings.size())
+			index = 0;
+	}
+	
+	lineEdit->setText(strings[index]);
+	lineEdit->selectAll();
 }
 
 void FindDialog::init(QTextEdit *document)
@@ -89,6 +135,7 @@ void FindDialog::init(QTextEdit *document)
 			connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setSearchText()));
 	}
 	recentSearches->setMenu(recentItemsMenu);
+	searchText->installEventFilter(new RecentStringsKeyFilter(this, recentStrings));
 }
 
 void FindDialog::setSearchText()
@@ -241,6 +288,7 @@ void ReplaceDialog::init(QTextEdit *document)
 			connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setSearchText()));
 	}
 	recentSearches->setMenu(recentItemsMenu);
+	searchText->installEventFilter(new RecentStringsKeyFilter(this, recentStrings));
 
 	recentItemsMenu = new QMenu(this);
 	recentStrings = settings.value("recentReplaceStrings").toStringList();
@@ -251,6 +299,7 @@ void ReplaceDialog::init(QTextEdit *document)
 			connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setReplaceText()));
 	}
 	recentReplacements->setMenu(recentItemsMenu);
+	replaceText->installEventFilter(new RecentStringsKeyFilter(this, recentStrings));
 }
 
 void ReplaceDialog::setSearchText()
@@ -500,6 +549,7 @@ void PDFFindDialog::init(PDFDocument *document)
 			connect(recentItemsMenu->addAction(str), SIGNAL(triggered()), this, SLOT(setSearchText()));
 	}
 	recentSearches->setMenu(recentItemsMenu);
+	searchText->installEventFilter(new RecentStringsKeyFilter(this, recentStrings));
 }
 
 QDialog::DialogCode PDFFindDialog::doFindDialog(PDFDocument *document)
