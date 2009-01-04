@@ -22,7 +22,7 @@
 // Based on code by Pino Toscano from Poppler / qt4 / Demos, released under GPL 2 or later
 
 #include "PDFDocks.h"
-
+#include "TWApp.h"
 #include "PDFDocument.h"
 
 #include <QTreeWidget>
@@ -30,10 +30,11 @@
 #include <QListWidget>
 #include <QTableWidget>
 
-PDFDock::PDFDock(const QString& title, PDFDocument *doc)
-	: QDockWidget(title, doc), document(doc), filled(false)
+PDFDock::PDFDock(PDFDocument *doc)
+	: QDockWidget("", doc), document(doc), filled(false)
 {
 	connect(this, SIGNAL(visibilityChanged(bool)), SLOT(myVisibilityChanged(bool)));
+	connect(TWApp::instance(), SIGNAL(updatedTranslators()), this, SLOT(changeLanguage()));
 }
 
 PDFDock::~PDFDock()
@@ -60,10 +61,16 @@ void PDFDock::pageChanged(int page)
 
 void PDFDock::myVisibilityChanged(bool visible)
 {
+	setWindowTitle(getTitle());
 	if (visible && document && !filled) {
 		fillInfo();
 		filled = true;
 	}
+}
+
+void PDFDock::changeLanguage()
+{
+	setWindowTitle(getTitle());
 }
 
 //////////////// OUTLINE ////////////////
@@ -95,7 +102,7 @@ static void fillToc(const QDomNode &parent, QTreeWidget *tree, QTreeWidgetItem *
 }
 
 PDFOutlineDock::PDFOutlineDock(PDFDocument *doc)
-	: PDFDock(tr("Contents"), doc)
+	: PDFDock(doc)
 {
 	tree = new PDFDockTreeWidget(this);
 	tree->setAlternatingRowColors(true);
@@ -106,6 +113,13 @@ PDFOutlineDock::PDFOutlineDock(PDFDocument *doc)
 
 PDFOutlineDock::~PDFOutlineDock()
 {
+}
+
+void PDFOutlineDock::changeLanguage()
+{
+	PDFDock::changeLanguage();
+	if (filled)
+		fillInfo();
 }
 
 void PDFOutlineDock::fillInfo()
@@ -157,7 +171,7 @@ QSize PDFDockTreeWidget::sizeHint() const
 //////////////// PDF INFO ////////////////
 
 PDFInfoDock::PDFInfoDock(PDFDocument *doc)
-	: PDFDock(tr("PDF Info"), doc)
+	: PDFDock(doc)
 {
 	list = new PDFDockListWidget(this);
 	list->setAlternatingRowColors(true);
@@ -216,14 +230,15 @@ QSize PDFDockListWidget::sizeHint() const
 //////////////// FONT LIST ////////////////
 
 PDFFontsDock::PDFFontsDock(PDFDocument *doc)
-	: PDFDock(tr("Fonts"), doc)
+	: PDFDock(doc)
+	, scannedFonts(false)
 {
 	table = new QTableWidget(this);
 	QFont f(table->font());
 	f.setPointSize(f.pointSize() * 4 / 5);
 	table->setFont(f);
 	table->setColumnCount(4);
-	table->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Type") << tr("Subset") << tr("File"));
+	setHorizontalHeaderLabels();
 	table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	table->setAlternatingRowColors(true);
@@ -239,11 +254,28 @@ PDFFontsDock::~PDFFontsDock()
 {
 }
 
+void PDFFontsDock::changeLanguage()
+{
+	PDFDock::changeLanguage();
+	setHorizontalHeaderLabels();
+	if (filled)
+		fillInfo();
+}
+
+void PDFFontsDock::setHorizontalHeaderLabels()
+{
+	if (table)
+		table->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Type") << tr("Subset") << tr("File"));
+}
+
 void PDFFontsDock::fillInfo()
 {
+	if (!scannedFonts) {
+		fonts = document->popplerDoc()->fonts();
+		scannedFonts = true;
+	}
 	table->clearContents();
 	table->setRowCount(0);
-	const QList<Poppler::FontInfo> fonts = document->popplerDoc()->fonts();
 	table->setRowCount(fonts.count());
 	int i = 0;
 	foreach (const Poppler::FontInfo &font, fonts) {
@@ -261,8 +293,17 @@ void PDFFontsDock::fillInfo()
 	table->resizeRowsToContents();
 }
 
+void PDFFontsDock::documentLoaded()
+{
+	scannedFonts = false;
+	fonts.clear();
+	PDFDock::documentLoaded();
+}
+
 void PDFFontsDock::documentClosed()
 {
+	scannedFonts = false;
+	fonts.clear();
 	table->clear();
 	table->setRowCount(0);
 	PDFDock::documentClosed();

@@ -27,6 +27,8 @@
 #include <QListWidget>
 #include <QScrollArea>
 
+#include "poppler-qt4.h"
+
 class PDFDocument;
 class QListWidget;
 class QTableWidget;
@@ -37,11 +39,10 @@ class PDFDock : public QDockWidget
 	Q_OBJECT
 
 public:
-	PDFDock(const QString& title, PDFDocument *doc = 0);
+	PDFDock(PDFDocument *doc = 0);
 	virtual ~PDFDock();
 
 	void setPage(int page);
-	void reloadPage();
 
 public slots:
 	virtual void documentLoaded();
@@ -50,14 +51,16 @@ public slots:
 
 protected:
 	virtual void fillInfo() = 0;
+	virtual QString getTitle() = 0;
 
 	PDFDocument *document;
+	bool filled;
 
 private slots:
 	void myVisibilityChanged(bool visible);
 
-private:
-	bool filled;
+protected slots:
+	virtual void changeLanguage();
 };
 
 
@@ -74,7 +77,11 @@ public slots:
 
 protected:
 	virtual void fillInfo();
+	virtual QString getTitle() { return tr("Contents"); }
 
+protected slots:
+	virtual void changeLanguage();
+	
 private slots:
 	void followTocSelection();
 
@@ -107,6 +114,7 @@ public slots:
 
 protected:
 	virtual void fillInfo();
+	virtual QString getTitle() { return tr("PDF Info"); }
 
 private:
 	QListWidget *list;
@@ -134,12 +142,20 @@ public:
 
 public slots:
 	virtual void documentClosed();
+	virtual void documentLoaded();
 
 protected:
 	virtual void fillInfo();
+	virtual QString getTitle() { return tr("Fonts"); }
+	void setHorizontalHeaderLabels();
+
+protected slots:
+	virtual void changeLanguage();
 
 private:
 	QTableWidget *table;
+	QList<Poppler::FontInfo> fonts;
+	bool scannedFonts;
 };
 
 
