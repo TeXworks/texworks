@@ -1806,6 +1806,7 @@ void TeXDocument::typeset()
 			inputLine->show();
 		}
 		inputLine->setFocus(Qt::OtherFocusReason);
+		showPdfWhenFinished = e.showPdf();
 		process->start(fileInfo.absoluteFilePath(), args);
 	}
 	else {
@@ -1869,13 +1870,16 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	if (exitStatus != QProcess::CrashExit) {
 		if (pdfDoc == NULL) {
-			showPdfIfAvailable();
-			if (pdfDoc != NULL)
-				pdfDoc->selectWindow();
+			if (showPdfWhenFinished) {
+				showPdfIfAvailable();
+				if (pdfDoc != NULL)
+					pdfDoc->selectWindow();
+			}
 		}
 		else {
-			pdfDoc->reload();
-			pdfDoc->selectWindow();
+			pdfDoc->reload(); // always reload if it is loaded, we don't want a stale window
+			if (showPdfWhenFinished)
+				pdfDoc->selectWindow();
 		}
 	}
 
