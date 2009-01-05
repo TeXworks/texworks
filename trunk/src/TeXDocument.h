@@ -217,6 +217,7 @@ private:
 	QComboBox *engine;
 	QProcess *process;
 	bool consoleWasHidden;
+	bool showPdfWhenFinished;
 
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
