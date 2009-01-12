@@ -15,6 +15,20 @@ $ ./texworks
 
 (Thanks to Dave Crossland for this.)
 
+=== Fedora 10 ===
+
+{{{
+$ sudo yum groupinstall x-software-development development-tools
+$ sudo yum install subversion poppler-devel poppler-qt4-devel qt-devel hunspell-devel dbus-devel
+$ svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
+$ cd texworks-read-only
+$ qmake-qt4
+$ make
+$ ./texworks
+}}}
+
+(Thanks to Dave Crossland for this.)
+
 === Ubuntu (Hardy) & Debian ===
 
 {{{
