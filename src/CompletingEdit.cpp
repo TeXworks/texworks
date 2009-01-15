@@ -586,10 +586,15 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 // usage:
 //   unmodified: next completion
 //   shift     : previous completion
-//   alt       : skip to next placeholder
-//   alt-shift : skip to previous placeholder
+//   ctl/alt       : skip to next placeholder (alt on Mac, ctl elsewhere)
+//   ctl/alt-shift : skip to previous placeholder
 
-	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::AltModifier) {
+#ifdef Q_WS_MAC
+	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::AltModifier)
+#else
+	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::ControlModifier)
+#endif
+	{
 		if (!find(QString(0x2022), (e->modifiers() & Qt::ShiftModifier)
 									? QTextDocument::FindBackward : (QTextDocument::FindFlags)0))
 			QApplication::beep();
