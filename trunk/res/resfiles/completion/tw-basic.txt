@@ -1,6 +1,6 @@
 %%!TEX encoding = UTF-8 Unicode
 xa:=\alpha
-xb:=\betav
+xb:=\beta
 xch:=\chi
 xd:=\delta
 xcd:=\Delta
