@@ -4,7 +4,7 @@ This page documents some helpful features included in the !TeXworks sources that
 
 ===Defining a root file===
 
-If you have your LaTeX code for one document distributed over several files this is for you. The problem is that only one document (the 'root document') contains all the commands necessary to be typeset (like `\documentclass` or `\begin{document}`). LaTeX will fail when run on any of the other files. To let !TeXworks know that is should run LaTeX on that root file instead of the current one put the following line in the beginning of the file:
+If you have your LaTeX code for one document distributed over several files this is for you. The problem is that only one document (the 'root document') contains all the commands necessary to be typeset (like `\documentclass` or `\begin{document}`). LaTeX will fail when run on any of the other files. To let !TeXworks know that it should run LaTeX on that root file instead of the current one put the following line in the beginning of the file:
 {{{
 % !TEX root = path/to/root_file.tex
 }}}
