@@ -33,7 +33,7 @@ For a complete list of supported encodings, please see the !TeXworks settings.
 
 ==Locating and customizing !TeXworks resources==
 
-!TeXworks comes with a lot of customziable configurations and templates, most notably [Code Completion], syntax highlighting and sectioning commands. All these are stored in plain text files in sub-directories of the !TeXworks' resource directory. Depending on your operating system this directory is located in different locations:
+!TeXworks comes with a lot of customziable configurations and templates, most notably [CodeCompletion], syntax highlighting and sectioning commands. All these are stored in plain text files in sub-directories of the !TeXworks' resource directory. Depending on your operating system this directory is located in different locations:
 
 || Windows XP    || `C:\Documents and Settings\<username>\TeXworks\` ||
 || Windows Vista || `C:\Users\<username>\TeXworks\` (?) ||
