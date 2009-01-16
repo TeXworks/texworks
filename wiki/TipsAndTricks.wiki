@@ -2,16 +2,16 @@
 
 This page documents some helpful features included in the !TeXworks sources that are not documented elsewhere.
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
-===Defining a root file===
+==Defining a root file==
 
 If you have your LaTeX code for one document distributed over several files this is for you. The problem is that only one document (the 'root document') contains all the commands necessary to be typeset (like `\documentclass` or `\begin{document}`). LaTeX will fail when run on any of the other files. To let !TeXworks know that it should run LaTeX on that root file instead of the current one put the following line in the beginning of the file:
 {{{
 % !TEX root = path/to/root_file.tex
 }}}
 
-===Setting the (La)TeX engine per file===
+==Setting the (La)TeX engine per file==
 
 If you have a file that has to be compiled with another than the standard (La)TeX program and you don't want to have to set the program by hand every time you open the file put the following line in the beginning of the file:
 {{{
@@ -19,7 +19,7 @@ If you have a file that has to be compiled with another than the standard (La)Te
 }}}
 Note that /your_program/ is the name you chose for the program in the settings, not the actual name of the executable.
 
-===Setting the file encoding per file===
+==Setting the file encoding per file==
 
 If you put the following line in the beginning of a file, !TeXworks will deal with special characters accordingly:
 {{{
@@ -27,11 +27,11 @@ If you put the following line in the beginning of a file, !TeXworks will deal wi
 }}}
 For a complete list of supported encodings, please see the !TeXworks settings.
 
-===Using SyncTeX===
+==Using SyncTeX==
 
 [http://itexmac.sourceforge.net/SyncTeX.html SyncTeX] by Jérôme Laurens provides a means for synchronization between input (i.e. (La)TeX) and output (i.e. pdf). You need a sufficiently new LaTeX engine to use its benefits (if your engine doesn't support it or its usage has been disabled you will see a note at the bottom of the preview window when you open a pdf). To use the synchronization, Ctrl-Click (Cmd-Click on Mac OS X) anywhere in your source file or the output to navigate to the corresponding place in the other window.
 
-===Locating and customizing !TeXworks resources===
+==Locating and customizing !TeXworks resources==
 
 !TeXworks comes with a lot of customziable configurations and templates, most notably [Code Completion], syntax highlighting and sectioning commands. All these are stored in plain text files in sub-directories of the !TeXworks' resource directory. Depending on your operating system this directory is located in different locations:
 
