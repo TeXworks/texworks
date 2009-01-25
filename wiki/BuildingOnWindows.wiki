@@ -1,5 +1,7 @@
 #summary Guide to building TeXworks on Windows XP using Microsoft Visual C++ 2005 Express Edition
 
+_Thanks to Stefan Löffler and Alain Delmotte for developing this guide._
+
 <wiki:toc max_depth="1" />  
 
 = Preface =
