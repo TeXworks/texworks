@@ -2,7 +2,7 @@
 
 Building !TeXworks on typical GNU/Linux systems should be fairly straightforward. You just need standard build tools (gcc, make, etc.), and the development files (not just runtime libraries) for Qt4, poppler, hunspell, and dbus. The exact set of packages needed will depend how your distribution arranges things; some examples are given here.
 
-For Windows users wanting to try a build, there is a [BuildingOnWindows separate page of notes] contributed by Stefan Löffler.
+For Windows users wanting to try a build, there is a [BuildingOnWindows separate page of notes] contributed by Stefan Löffler and Alain Delmotte.
 
 === Fedora 9 ===
 
