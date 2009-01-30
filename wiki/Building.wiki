@@ -44,4 +44,22 @@ $ ./texworks
 
 (I hope this is OK; have not checked on a completely virgin Ubuntu system, so it is possible I missed something in the dependencies.)
 
+
 Another option would be to use the [http://tug.org/pipermail/texworks/2008q3/000002.html Ubuntu package] announced by Martin Sievers, thus avoiding the need to compile from source.
+
+=== OpenSUSE 11.1 ===
+
+Reported by [http://code.google.com/u/msiniscalchi/ msiniscalchi]:
+
+Under OpenSUSE 11.1, I had to install the following devel packages:
+
+{{{
+gcc
+make
+hunspell-devel
+poppler-devel
+libqt4-devel
+libpoppler-qt4-devel
+}}}
+
+Issuing `qmake TeXworks.pro` and then `make` left me with a working binary.
