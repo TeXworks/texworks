@@ -161,6 +161,7 @@ void TeXDocument::init()
 
 	connect(actionTo_Uppercase, SIGNAL(triggered()), this, SLOT(toUppercase()));
 	connect(actionTo_Lowercase, SIGNAL(triggered()), this, SLOT(toLowercase()));
+	connect(actionToggle_Case, SIGNAL(triggered()), this, SLOT(toggleCase()));
 
 	connect(actionBalance_Delimiters, SIGNAL(triggered()), this, SLOT(balanceDelimiters()));
 
@@ -1285,6 +1286,19 @@ void TeXDocument::toUppercase()
 void TeXDocument::toLowercase()
 {
 	replaceSelection(textEdit->textCursor().selectedText().toLower());
+}
+
+void TeXDocument::toggleCase()
+{
+	QString theText = textEdit->textCursor().selectedText();
+	for (int i = 0; i < theText.length(); ++i) {
+		QCharRef ch = theText[i];
+		if (ch.isLower())
+			ch = ch.toUpper();
+		else
+			ch = ch.toLower();
+	}
+	replaceSelection(theText);
 }
 
 void TeXDocument::replaceSelection(const QString& newText)

@@ -228,6 +228,7 @@
      </property>
      <addaction name="actionTo_Uppercase" />
      <addaction name="actionTo_Lowercase" />
+     <addaction name="actionToggle_Case" />
     </widget>
     <addaction name="actionUndo" />
     <addaction name="actionRedo" />
@@ -902,6 +903,9 @@
    <property name="text" >
     <string>ALL UPPERCASE</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
   <action name="actionTo_Lowercase" >
    <property name="enabled" >
@@ -909,6 +913,9 @@
    </property>
    <property name="text" >
     <string>all lowercase</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <action name="actionBalance_Delimiters" >
@@ -1011,6 +1018,14 @@
    </property>
    <property name="text" >
     <string>None</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionToggle_Case" >
+   <property name="text" >
+    <string>Toggle Case</string>
    </property>
    <property name="menuRole" >
     <enum>QAction::NoRole</enum>
