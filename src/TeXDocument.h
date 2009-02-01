@@ -138,6 +138,7 @@ private slots:
 	void doUncomment();
 	void toUppercase();
 	void toLowercase();
+	void toggleCase();
 	void balanceDelimiters();
 	void setWrapLines(bool wrap);
 	void setSyntaxColoring(int index);
