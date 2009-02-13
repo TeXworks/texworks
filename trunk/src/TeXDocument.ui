@@ -1024,6 +1024,9 @@
    </property>
   </action>
   <action name="actionToggle_Case" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>Toggle Case</string>
    </property>
@@ -1239,6 +1242,22 @@
    <sender>textEdit</sender>
    <signal>copyAvailable(bool)</signal>
    <receiver>actionTo_Uppercase</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>389</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>textEdit</sender>
+   <signal>copyAvailable(bool)</signal>
+   <receiver>actionToggle_Case</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
