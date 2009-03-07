@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 
 	// first argument is the executable name, so we skip that
 	for (int i = 1; i < argc; ++i)
-		app.open(argv[i]);
+		app.open(QTextCodec::codecForLocale()->toUnicode(argv[i]));
 
 	QTimer::singleShot(1, &app, SLOT(launchAction()));
 
