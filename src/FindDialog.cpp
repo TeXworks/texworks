@@ -30,6 +30,9 @@
 #include <QTextBlock>
 #include <QFileInfo>
 #include <QKeyEvent>
+#if QT_VERSION >= 0x040400
+#include <QTextBoundaryFinder>
+#endif
 
 const int kMaxRecentStrings = 10;
 
@@ -421,6 +424,9 @@ SearchResults::SearchResults(QWidget* parent)
 	connect(table, SIGNAL(itemSelectionChanged()), this, SLOT(showSelectedEntry()));
 }
 
+#define MAXIMUM_CHARACTERS_BEFORE_SEARCH_RESULT 40
+#define MAXIMUM_CHARACTERS_AFTER_SEARCH_RESULT 80
+
 void SearchResults::presentResults(const QList<SearchResult>& results, QMainWindow* parent, bool singleFile)
 {
 	if (singleFile) {
@@ -443,7 +449,49 @@ void SearchResults::presentResults(const QList<SearchResult>& results, QMainWind
 		resultsWindow->table->setItem(i, 1, new QTableWidgetItem(QString::number(result.lineNo)));
 		resultsWindow->table->setItem(i, 2, new QTableWidgetItem(QString::number(result.selStart)));
 		resultsWindow->table->setItem(i, 3, new QTableWidgetItem(QString::number(result.selEnd)));
-		resultsWindow->table->setItem(i, 4, new QTableWidgetItem(result.doc->getLineText(result.lineNo)));
+
+		// Only show a limited number of characters before and after the
+		// specified search string to keep the results clear
+		bool truncateStart = true, truncateEnd = true;
+		int iStart, iEnd;
+		QString text = result.doc->getLineText(result.lineNo);
+		iStart = result.selStart - MAXIMUM_CHARACTERS_BEFORE_SEARCH_RESULT;
+		iEnd = result.selEnd + MAXIMUM_CHARACTERS_AFTER_SEARCH_RESULT;
+		if (iStart < 0) {
+			iStart = 0;
+			truncateStart = false;
+		}
+		if (iEnd > text.length()) {
+			iEnd = text.length();
+			truncateEnd = false;
+		}
+#if QT_VERSION >= 0x040400 // QTextBoundaryFinder is new in Qt 4.4
+		if (truncateStart || truncateEnd) {
+			// ensure the truncation happens on appropriate boundaries, not mid-cluster
+			QTextBoundaryFinder tbf(QTextBoundaryFinder::Grapheme, text);
+			if (truncateStart) {
+				tbf.setPosition(iStart);
+				if (!tbf.isAtBoundary()) {
+					tbf.toPreviousBoundary();
+					iStart = tbf.position();
+				}
+			}
+			if (truncateEnd) {
+				tbf.setPosition(iEnd);
+				if (!tbf.isAtBoundary()) {
+					tbf.toNextBoundary();
+					iEnd = tbf.position();
+				}
+			}
+		}
+#endif
+		text = text.mid(iStart, iEnd - iStart);
+		if (truncateStart)
+			text.prepend(tr("..."));
+		if (truncateEnd)
+			text.append(tr("..."));
+		resultsWindow->table->setItem(i, 4, new QTableWidgetItem(text));
+
 		++i;
 	}
 

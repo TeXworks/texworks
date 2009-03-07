@@ -23,6 +23,7 @@
 #include "TWVersion.h"
 
 #include <QTimer>
+#include <QTextCodec>
 
 #ifdef Q_WS_WIN
 BOOL CALLBACK enumThreadWindowProc(HWND hWnd, LPARAM /*lParam*/)
