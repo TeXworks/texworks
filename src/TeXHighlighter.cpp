@@ -69,7 +69,8 @@ void TeXHighlighter::highlightBlock(const QString &text)
 		while (index < text.length()) {
 			int firstIndex = INT_MAX, len;
 			const HighlightingRule* firstRule = NULL;
-			foreach (const HighlightingRule& rule, highlightingRules) {
+			for (int i = 0; i < highlightingRules.size(); ++i) {
+				HighlightingRule &rule = highlightingRules[i];
 				int foundIndex = text.indexOf(rule.pattern, index);
 				if (foundIndex >= 0 && foundIndex < firstIndex) {
 					firstIndex = foundIndex;
