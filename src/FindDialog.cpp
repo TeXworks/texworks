@@ -22,8 +22,8 @@
 #include "FindDialog.h"
 #include "TeXDocument.h"
 #include "PDFDocument.h"
+#include "TWApp.h"
 
-#include <QSettings>
 #include <QPushButton>
 #include <QTableWidget>
 #include <QHeaderView>
@@ -99,7 +99,7 @@ void FindDialog::init(QTextEdit *document)
 	connect(checkBox_selection, SIGNAL(toggled(bool)), this, SLOT(toggledSelectionOption(bool)));
 	connect(searchText, SIGNAL(textChanged(const QString&)), this, SLOT(checkRegex(const QString&)));
 
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	QString	str = settings.value("searchText").toString();
 	searchText->setText(str);
 	searchText->selectAll();
@@ -200,7 +200,7 @@ QDialog::DialogCode FindDialog::doFindDialog(QTextEdit *document)
 	DialogCode	result = (DialogCode)dlg.exec();
 	
 	if (result == Accepted) {
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		QString str = dlg.searchText->text();
 		settings.setValue("searchText", str);
 		
@@ -254,7 +254,7 @@ void ReplaceDialog::init(QTextEdit *document)
 	buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("Cancel"));
 	connect(buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(clicked()), this, SLOT(reject()));
 
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	QString	str = settings.value("searchText").toString();
 	searchText->setText(str);
 	searchText->selectAll();
@@ -377,7 +377,7 @@ ReplaceDialog::DialogCode ReplaceDialog::doReplaceDialog(QTextEdit *document)
 	if (result == 0)
 		return Cancel;
 	else {
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		QString str = dlg.searchText->text();
 		settings.setValue("searchText", str);
 		
@@ -497,6 +497,8 @@ void SearchResults::presentResults(const QList<SearchResult>& results, QMainWind
 
 	resultsWindow->table->setHorizontalHeaderLabels(QStringList() << tr("File") << tr("Line") << tr("Start") << tr("End") << tr("Text"));
 	resultsWindow->table->horizontalHeader()->setResizeMode(4, QHeaderView::Stretch);
+	resultsWindow->table->verticalHeader()->setDefaultSectionSize(10);
+	resultsWindow->table->verticalHeader()->setResizeMode(QHeaderView::Fixed);
 	resultsWindow->table->verticalHeader()->hide();
 	resultsWindow->table->setColumnHidden(2, true);
 	resultsWindow->table->setColumnHidden(3, true);
@@ -560,7 +562,7 @@ void PDFFindDialog::init(PDFDocument *document)
 	connect(checkBox_selection, SIGNAL(toggled(bool)), this, SLOT(toggledSelectionOption(bool)));
 	connect(searchText, SIGNAL(textChanged(const QString&)), this, SLOT(checkRegex(const QString&)));
 */
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	QString	str = settings.value("searchText").toString();
 	searchText->setText(str);
 	searchText->selectAll();
@@ -608,7 +610,7 @@ QDialog::DialogCode PDFFindDialog::doFindDialog(PDFDocument *document)
 	DialogCode	result = (DialogCode)dlg.exec();
 
 	if (result == Accepted) {
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		QString str = dlg.searchText->text();
 		settings.setValue("searchText", str);
 		

@@ -25,7 +25,6 @@
 #include "TeXHighlighter.h"
 #include "CompletingEdit.h"
 
-#include <QSettings>
 #include <QFontDatabase>
 #include <QTextCodec>
 #include <QSet>
@@ -394,7 +393,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	
 	dlg.language->addItems(*TWUtils::getDictionaryList());
 	
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	// initialize controls based on the current settings
 	
 	// General

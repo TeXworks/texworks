@@ -38,7 +38,6 @@
 #include <QInputDialog>
 #include <QDesktopWidget>
 #include <QClipboard>
-#include <QSettings>
 #include <QStringList>
 #include <QUrl>
 #include <QComboBox>
@@ -210,7 +209,7 @@ void TeXDocument::init()
 
 	connect(inputLine, SIGNAL(returnPressed()), this, SLOT(acceptInputLine()));
 
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
 	QFont font = textEdit->font();
@@ -420,7 +419,7 @@ void TeXDocument::open()
 	if (!(isUntitled && textEdit->document()->isEmpty() && !isWindowModified()))
 		options = QFileDialog::DontUseSheet;
 #endif
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	QString lastOpenDir = settings.value("openDialogDir").toString(); 
 	QStringList files = QFileDialog::getOpenFileNames(this, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
 	foreach(QString fileName, files){
@@ -987,7 +986,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
 
 	if (!isUntitled) {
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		QStringList files = settings.value("recentFileList").toStringList();
 		files.removeAll(fileName);
 		files.prepend(fileName);
@@ -1353,7 +1352,7 @@ void TeXDocument::setSyntaxColoring(int index)
 
 void TeXDocument::doFindAgain(bool fromDialog)
 {
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	QString	searchText = settings.value("searchText").toString();
 	if (searchText.isEmpty())
 		return;
@@ -1466,7 +1465,7 @@ void TeXDocument::doReplaceAgain()
 
 void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 {
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	
 	QString	searchText = settings.value("searchText").toString();
 	if (searchText.isEmpty())
@@ -1693,7 +1692,7 @@ void TeXDocument::copyToFind()
 	if (textEdit->textCursor().hasSelection()) {
 		QString searchText = textEdit->textCursor().selectedText();
 		searchText.replace(QString(0x2029), "\n");
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		if (settings.value("searchRegex").toBool())
 			searchText = QRegExp::escape(searchText);
 		settings.setValue("searchText", searchText);
@@ -1705,7 +1704,7 @@ void TeXDocument::copyToReplace()
 	if (textEdit->textCursor().hasSelection()) {
 		QString replaceText = textEdit->textCursor().selectedText();
 		replaceText.replace(QString(0x2029), "\n");
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		settings.setValue("replaceText", replaceText);
 	}
 }
@@ -1901,7 +1900,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 		}
 	}
 
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	if (consoleWasHidden && exitCode == 0 && settings.value("autoHideConsole", true).toBool())
 		hideConsole();
 	else
