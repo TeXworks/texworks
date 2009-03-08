@@ -59,6 +59,7 @@ TWApp::TWApp(int &argc, char **argv)
 	, binaryPaths(NULL)
 	, engineList(NULL)
 	, defaultEngineIndex(0)
+	, settingsFormat(QSettings::NativeFormat)
 #ifdef Q_WS_WIN
 	, messageTargetWindow(NULL)
 #endif
@@ -85,7 +86,7 @@ void TWApp::init()
 		if (portable.contains("inipath")) {
 			QDir iniPath(appDir.absolutePath());
 			if (iniPath.cd(portable.value("inipath").toString())) {
-				QSettings::setDefaultFormat(QSettings::IniFormat);
+				setSettingsFormat(QSettings::IniFormat);
 				QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
 			}
 		}
@@ -101,7 +102,7 @@ void TWApp::init()
 	// Required for TWUtils::getLibraryPath()
 	theAppInstance = this;
 
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	
 	QString locale = settings.value("locale", QLocale::system().name()).toString();
 	applyTranslation(locale);
@@ -240,7 +241,7 @@ void TWApp::launchAction()
 	if (TeXDocument::documentList().size() > 0 || PDFDocument::documentList().size() > 0)
 		return;
 
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	int launchOption = settings.value("launchOption", 1).toInt();
 	switch (launchOption) {
 		case 1: // Blank document
@@ -295,7 +296,7 @@ void TWApp::openRecentFile()
 
 void TWApp::open()
 {
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	QString lastOpenDir = settings.value("openDialogDir").toString();
 	QStringList files = QFileDialog::getOpenFileNames(NULL, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"));
 	foreach (QString fileName, files) {
@@ -340,7 +341,7 @@ void TWApp::setMaxRecentFiles(int value)
 	if (value != recentFilesLimit) {
 		recentFilesLimit = value;
 
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		settings.setValue("maxRecentFiles", value);
 
 		updateRecentFileActions();
@@ -440,7 +441,7 @@ const QStringList TWApp::getBinaryPaths()
 {
 	if (binaryPaths == NULL) {
 		binaryPaths = new QStringList;
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		if (settings.contains("binaryPaths"))
 			*binaryPaths = settings.value("binaryPaths").toStringList();
 		else
@@ -454,7 +455,7 @@ void TWApp::setBinaryPaths(const QStringList& paths)
 	if (binaryPaths == NULL)
 		binaryPaths = new QStringList;
 	*binaryPaths = paths;
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	settings.setValue("binaryPaths", paths);
 }
 
@@ -485,7 +486,7 @@ const QList<Engine> TWApp::getEngineList()
 {
 	if (engineList == NULL) {
 		engineList = new QList<Engine>;
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		int count = settings.beginReadArray("engines");
 		if (count > 0) {
 			for (int i = 0; i < count; ++i) {
@@ -511,7 +512,7 @@ void TWApp::setEngineList(const QList<Engine>& engines)
 	if (engineList == NULL)
 		engineList = new QList<Engine>;
 	*engineList = engines;
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	int i = settings.beginReadArray("engines");
 	settings.endArray();
 	settings.beginWriteArray("engines", engines.count());
@@ -550,7 +551,7 @@ void TWApp::setDefaultEngine(const QString& name)
 	int i;
 	for (i = 0; i < engines.count(); ++i)
 		if (engines[i].name() == name) {
-			QSettings settings;
+			QSETTINGS_OBJECT(settings);
 			settings.setValue("defaultEngine", name);
 			break;
 		}
@@ -586,7 +587,7 @@ void TWApp::setDefaultCodec(QTextCodec *codec)
 
 	if (codec != defaultCodec) {
 		defaultCodec = codec;
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		settings.setValue("defaultEncoding", codec->name());
 	}
 }

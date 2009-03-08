@@ -22,12 +22,12 @@
 #include "TemplateDialog.h"
 #include "TeXHighlighter.h"
 #include "TWUtils.h"
+#include "TWApp.h"
 
 #include <QDirModel>
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
-#include <QSettings>
 
 TemplateDialog::TemplateDialog()
 	: QDialog(NULL)
@@ -58,7 +58,7 @@ void TemplateDialog::init()
 	connect(treeView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
 			this, SLOT(selectionChanged(const QItemSelection&, const QItemSelection&)));
 
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	if (settings.value("syntaxColoring", true).toBool()) {
 		new TeXHighlighter(textEdit->document());
 	}

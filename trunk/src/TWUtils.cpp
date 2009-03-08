@@ -28,7 +28,6 @@
 #include <QString>
 #include <QMenu>
 #include <QAction>
-#include <QSettings>
 #include <QStringList>
 #include <QEvent>
 #include <QKeyEvent>
@@ -242,7 +241,7 @@ QStringList* TWUtils::filterList()
 {
 	 if (filters == NULL) {
 		filters = new QStringList;
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		if (settings.contains("fileNameFilters"))
 			*filters = settings.value("fileNameFilters").toStringList();
 		else
@@ -277,7 +276,7 @@ QString TWUtils::strippedName(const QString &fullFileName)
 
 void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu) /* static */
 {
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	QStringList files = settings.value("recentFileList").toStringList();
 	int numRecentFiles = files.size();
 

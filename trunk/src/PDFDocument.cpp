@@ -37,7 +37,6 @@
 #include <QScrollArea>
 #include <QStyle>
 #include <QDesktopWidget>
-#include <QSettings>
 #include <QScrollBar>
 #include <QRegion>
 #include <QVector>
@@ -126,7 +125,7 @@ void PDFMagnifier::paintEvent(QPaintEvent *event)
 
 void PDFMagnifier::resizeEvent(QResizeEvent * /*event*/)
 {
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	if (settings.value("circularMagnifier", kDefault_CircularMagnifier).toBool()) {
 		int side = qMin(width(), height());
 		QRegion maskedRegion(width() / 2 - side / 2, height() / 2 - side / 2, side, side, QRegion::Ellipse);
@@ -152,7 +151,7 @@ PDFWidget::PDFWidget()
 	, magnifier(NULL)
 	, usingTool(kNone)
 {
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	dpi = settings.value("previewResolution", QApplication::desktop()->logicalDpiX()).toInt();
 	
 	setBackgroundRole(QPalette::Base);
@@ -253,7 +252,7 @@ void PDFWidget::useMagnifier(const QMouseEvent *inEvent)
 {
 	if (!magnifier) {
 		magnifier = new PDFMagnifier(this, dpi);
-		QSettings settings;
+		QSETTINGS_OBJECT(settings);
 		int magnifierSize = settings.value("magnifierSize", kDefault_MagnifierSize).toInt();
 		if (magnifierSize <= 0 || magnifierSize > (int)(sizeof(magSizes) / sizeof(int)))
 			magnifierSize = kDefault_MagnifierSize;
@@ -1138,7 +1137,7 @@ PDFDocument::init()
 	connect(this, SIGNAL(reloaded()), dw, SLOT(documentLoaded()));
 	connect(pdfWidget, SIGNAL(changedPage(int)), dw, SLOT(pageChanged(int)));
 
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
 	TWUtils::zoomToHalfScreen(this, true);
@@ -1546,7 +1545,7 @@ void PDFDocument::doFindDialog()
 
 void PDFDocument::doFindAgain(bool newSearch /*= false*/)
 {
-	QSettings settings;
+	QSETTINGS_OBJECT(settings);
 	int pageIdx;
 	Poppler::Page *page;
 	Poppler::Page::SearchMode searchMode = Poppler::Page::CaseInsensitive;

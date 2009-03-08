@@ -25,6 +25,7 @@
 #include <QApplication>
 #include <QList>
 #include <QAction>
+#include <QSettings>
 
 #include "TWUtils.h"
 
@@ -42,6 +43,10 @@ const int kNewWindowOffset = 32;
 #define TW_HIDDEN_WINDOW_CLASS	TEXWORKS_NAME ":MessageTarget"
 #define TW_OPEN_FILE_MSG		(('T' << 8) + 'W')	// just a small sanity check for the receiver
 #endif
+
+#define QSETTINGS_OBJECT(s) \
+			QSettings s(TWApp::instance()->getSettingsFormat(), QSettings::UserScope, \
+						TWApp::instance()->organizationName(), TWApp::instance()->applicationName())
 
 class TWApp : public QApplication
 {
@@ -73,6 +78,9 @@ public:
 
 	void openUrl(const QString& urlString);
 
+	QSettings::Format getSettingsFormat() const { return settingsFormat; }
+	void setSettingsFormat(QSettings::Format fmt) { settingsFormat = fmt; }
+	
 	static TWApp *instance();
 	
 	QString getPortableLibPath() const { return portableLibPath; }
@@ -173,6 +181,8 @@ private:
 
 	QList<QTranslator*> translators;
 
+	QSettings::Format settingsFormat;
+	
 #ifdef Q_WS_WIN
 	HWND messageTargetWindow;
 #endif
