@@ -66,7 +66,6 @@ QList<TeXDocument*> TeXDocument::docList;
 TeXDocument::TeXDocument()
 {
 	init();
-	makeUntitled();
 	statusBar()->showMessage(tr("New document"), kStatusMessageDuration);
 }
 
@@ -100,6 +99,7 @@ void TeXDocument::init()
 
 	setContextMenuPolicy(Qt::NoContextMenu);
 
+	makeUntitled();
 	hideConsole();
 
 	lineNumberLabel = new QLabel();
@@ -1096,6 +1096,10 @@ void TeXDocument::placeOnRight()
 TeXDocument *TeXDocument::findDocument(const QString &fileName)
 {
 	QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath();
+	if (canonicalFilePath.isEmpty())
+		canonicalFilePath = fileName;
+			// file doesn't exist (probably from find-results in a new untitled doc),
+			// so just use the name as-is
 
 	foreach (QWidget *widget, qApp->topLevelWidgets()) {
 		TeXDocument *theDoc = qobject_cast<TeXDocument*>(widget);
