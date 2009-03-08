@@ -497,8 +497,7 @@ void SearchResults::presentResults(const QList<SearchResult>& results, QMainWind
 
 	resultsWindow->table->setHorizontalHeaderLabels(QStringList() << tr("File") << tr("Line") << tr("Start") << tr("End") << tr("Text"));
 	resultsWindow->table->horizontalHeader()->setResizeMode(4, QHeaderView::Stretch);
-	resultsWindow->table->verticalHeader()->setDefaultSectionSize(10);
-	resultsWindow->table->verticalHeader()->setResizeMode(QHeaderView::Fixed);
+	resultsWindow->table->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
 	resultsWindow->table->verticalHeader()->hide();
 	resultsWindow->table->setColumnHidden(2, true);
 	resultsWindow->table->setColumnHidden(3, true);
