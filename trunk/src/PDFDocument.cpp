@@ -58,6 +58,8 @@
 #define SYNCTEX_GZ_EXT	".synctex.gz"
 #define SYNCTEX_EXT		".synctex"
 
+#define ROUND(x) floor((x)+0.5)
+
 const qreal kMaxScaleFactor = 8.0;
 const qreal kMinScaleFactor = 0.125;
 
@@ -904,15 +906,15 @@ void PDFWidget::doZoom(const QPoint& clickPos, int dir) // dir = 1 for in, -1 fo
 	QPoint globalPos = mapToGlobal(clickPos);
 	if (dir > 0 && scaleFactor < kMaxScaleFactor) {
 		scaleFactor *= sqrt(2.0);
-		if (fabs(scaleFactor - round(scaleFactor)) < 0.01)
-			scaleFactor = round(scaleFactor);
+		if (fabs(scaleFactor - ROUND(scaleFactor)) < 0.01)
+			scaleFactor = ROUND(scaleFactor);
 		if (scaleFactor > kMaxScaleFactor)
 			scaleFactor = kMaxScaleFactor;
 	}
 	else if (dir < 0 && scaleFactor > kMinScaleFactor) {
 		scaleFactor /= sqrt(2.0);
-		if (fabs(scaleFactor - round(scaleFactor)) < 0.01)
-			scaleFactor = round(scaleFactor);
+		if (fabs(scaleFactor - ROUND(scaleFactor)) < 0.01)
+			scaleFactor = ROUND(scaleFactor);
 		if (scaleFactor < kMinScaleFactor)
 			scaleFactor = kMinScaleFactor;
 	}
@@ -1406,7 +1408,7 @@ void PDFDocument::showPage(int page)
 
 void PDFDocument::showScale(qreal scale)
 {
-	scaleLabel->setText(tr("%1%").arg(round(scale * 10000.0) / 100.0));
+	scaleLabel->setText(tr("%1%").arg(ROUND(scale * 10000.0) / 100.0));
 }
 
 void PDFDocument::retypeset()
