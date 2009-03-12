@@ -784,7 +784,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	tagListChanged = false;
 	textEdit->setPlainText(fileContents);
 	deferTagListChanges = false;
-	if (tagListChanged > 0)
+	if (tagListChanged)
 		emit tagListUpdated();
 	QApplication::restoreOverrideCursor();
 
