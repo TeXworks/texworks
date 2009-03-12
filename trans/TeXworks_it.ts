@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <defaultcodec></defaultcodec>
 <context>
     <name>CompletingEdit</name>
@@ -402,6 +404,73 @@
     <message>
         <source>Ctrl+Q</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished">Cerca</translation>
+    </message>
+    <message>
+        <source>Find</source>
+        <translation type="obsolete">Cerca successivo</translation>
+    </message>
+    <message>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find Again</source>
+        <translation type="unfinished">Cerca successivo</translation>
+    </message>
+    <message>
+        <source>Ctrl+Shift+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find...</source>
+        <translation type="unfinished">Cerca...</translation>
+    </message>
+</context>
+<context>
+    <name>PDFFindDialog</name>
+    <message>
+        <source>Find</source>
+        <translation type="unfinished">Cerca successivo</translation>
+    </message>
+    <message>
+        <source>No recent search strings</source>
+        <translation type="unfinished">Nessuna ricerca recente</translation>
+    </message>
+    <message>
+        <source>Find in PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find:</source>
+        <translation type="unfinished">Cerca:</translation>
+    </message>
+    <message>
+        <source>&amp;Wrap around</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find &amp;backwards</source>
+        <translation type="unfinished">Cerca  &amp;precedente</translation>
+    </message>
+    <message>
+        <source>Find &amp;all occurrences</source>
+        <translation type="unfinished">Cerca &amp;tutte le occorrenze</translation>
+    </message>
+    <message>
+        <source>&amp;Case sensitive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Sync to source</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -815,6 +884,10 @@
         <source>Search Results</source>
         <translation>Risultati della ricerca</translation>
     </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TWApp</name>
@@ -1035,7 +1108,7 @@ Sarà interpretato invece come %3 e potresti ottenere un testo non corretto.</tr
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>L&apos;encoding del testo %1 utilizzato in %2 non è supportato.<byte value="x9"/>
+        <translation>L&apos;encoding del testo %1 utilizzato in %2 non è supportato.	
 
 Sarà interpretato invece come %3 e potresti ottenere un testo non corretto.</translation>
     </message>
@@ -1508,28 +1581,36 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 
 Vuoi salvare le modifiche e sovrascrivere il file sul disco?</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Found %n occurrence(s)</source>
-        <translation>trovate %n occorrenze
+        <translation type="unfinished">
+            <numerusform>trovate %n occorrenze
+        </numerusform>
         </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>%n occurrence(s)</source>
-        <translation>%n occorrenze
+        <translation type="unfinished">
+            <numerusform>%n occorrenze
+        </numerusform>
         </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>%n documents</source>
-        <translation>%n documenti
+        <translation type="unfinished">
+            <numerusform>%n documenti
+        </numerusform>
         </translation>
     </message>
     <message>
         <source>Replaced %1 in %2</source>
         <translation>%1 sostituito con  %2</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>Replaced %n occurrence(s)</source>
-        <translation>Effettuate %n sostituzioni
+        <translation type="unfinished">
+            <numerusform>Effettuate %n sostituzioni
+        </numerusform>
         </translation>
     </message>
     <message>
@@ -1538,7 +1619,7 @@ Vuoi salvare le modifiche e sovrascrivere il file sul disco?</translation>
     </message>
     <message>
         <source>Root document %1 not found</source>
-        <translation>Il documento root &quot;%1&quot; non è stato trovato</translation>
+        <translation type="obsolete">Il documento root &quot;%1&quot; non è stato trovato</translation>
     </message>
     <message>
         <source>No files found</source>
@@ -1567,6 +1648,14 @@ Vuoi salvare le modifiche e sovrascrivere il file sul disco?</translation>
     <message>
         <source>Ctrl+Q</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Smart Quotes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle Case</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

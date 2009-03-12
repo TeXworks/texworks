@@ -21,6 +21,7 @@
 <file>resfiles/translations/qt_de.qm</file>
 <file>resfiles/translations/qt_fr.qm</file>
 <file>resfiles/translations/qt_nl.qm</file>
+<file>resfiles/translations/qt_ru.qm</file>
 <file alias="resfiles/translations/TeXworks_ar.qm">../trans/TeXworks_ar.qm</file>
 <file alias="resfiles/translations/TeXworks_de.qm">../trans/TeXworks_de.qm</file>
 <file alias="resfiles/translations/TeXworks_fr.qm">../trans/TeXworks_fr.qm</file>

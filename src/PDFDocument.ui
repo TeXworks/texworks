@@ -647,7 +647,7 @@
      <normaloff>:/images/tango/edit-find.png</normaloff>:/images/tango/edit-find.png</iconset>
    </property>
    <property name="text" >
-    <string>Find</string>
+    <string>Find...</string>
    </property>
    <property name="shortcut" >
     <string>Ctrl+F</string>
