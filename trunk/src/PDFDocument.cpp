@@ -1282,21 +1282,32 @@ void PDFDocument::reload()
 
 	document = Poppler::Document::load(curFile);
 	if (document != NULL) {
-		document->setRenderBackend(Poppler::Document::SplashBackend);
-		document->setRenderHint(Poppler::Document::Antialiasing);
-		document->setRenderHint(Poppler::Document::TextAntialiasing);
-//		globalParams->setScreenType(screenDispersed);
+		if (document->isLocked()) {
+			delete document;
+			document = NULL;
+			statusBar()->showMessage(tr("PDF file \"%1\" is locked; this is not currently supported.")
+									 .arg(TWUtils::strippedName(curFile)));
+			pdfWidget->hide();
+		}
+		else {
+			document->setRenderBackend(Poppler::Document::SplashBackend);
+			document->setRenderHint(Poppler::Document::Antialiasing);
+			document->setRenderHint(Poppler::Document::TextAntialiasing);
+//			globalParams->setScreenType(screenDispersed);
 
-		pdfWidget->setDocument(document);
-		pdfWidget->setFocus();
+			pdfWidget->setDocument(document);
+			pdfWidget->show();
+			pdfWidget->setFocus();
 
-		loadSyncData();
-		emit reloaded();
+			loadSyncData();
+			emit reloaded();
+		}
 	}
-	else
+	else {
 		statusBar()->showMessage(tr("Failed to load file \"%1\"; perhaps it is not a valid PDF document.")
 									.arg(TWUtils::strippedName(curFile)));
-
+		pdfWidget->hide();
+	}
 	QApplication::restoreOverrideCursor();
 }
 
@@ -1555,6 +1566,9 @@ void PDFDocument::doFindAgain(bool newSearch /*= false*/)
 	int deltaPage, firstPage, lastPage;
 	int run, runs;
 	bool backwards = false;
+
+	if (!document)
+		return;
 	
 	QString	searchText = settings.value("searchText").toString();
 	if (searchText.isEmpty())
