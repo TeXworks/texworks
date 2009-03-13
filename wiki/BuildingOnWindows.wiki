@@ -111,10 +111,6 @@ and replace them by
 	LIBS += C:/KDE/lib/zlib.lib
 }}}
 
-Because the Windows libraries don't seem to support the round() function, add the following line to the top of C:\texworks\texworks-read-only\src\PDFDocument.cpp
-{{{
-   #define round(x) ((fabs(ceil(x) - (x)) < fabs(floor(x) - (x))) ? ceil(x) : floor(x))
-}}}
 Then run
 {{{
 qmake -tp vc
