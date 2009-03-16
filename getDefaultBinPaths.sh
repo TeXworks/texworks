@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PATHFILE=./DefaultBinPaths.h
+PATHFILE=./src/DefaultBinaryPaths.h
 
 FOUNDTEX=0
 BINPATHS=":"
