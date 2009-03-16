@@ -175,6 +175,7 @@ private:
 	QTextCodec *defaultCodec;
 
 	QStringList *binaryPaths;
+	QStringList *defaultBinPaths;
 	QList<Engine> *engineList;
 	int defaultEngineIndex;
 	QString portableLibPath;

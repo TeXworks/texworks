@@ -29,6 +29,10 @@
 #include "TWVersion.h"
 #include "SvnRev.h"
 
+#ifndef Q_WS_WIN
+#include "DefaultBinaryPaths.h"
+#endif
+
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QString>
@@ -47,7 +51,7 @@
 #include <QUrl>
 #include <QDesktopServices>
 
-#define PORTABLE_FILE_NAME "texworks-portable.ini"
+#define SETUP_FILE_NAME "texworks-setup.ini"
 
 const int kDefaultMaxRecentFiles = 10;
 
@@ -57,6 +61,7 @@ TWApp::TWApp(int &argc, char **argv)
 	: QApplication(argc, argv)
 	, defaultCodec(NULL)
 	, binaryPaths(NULL)
+	, defaultBinPaths(NULL)
 	, engineList(NULL)
 	, defaultEngineIndex(0)
 	, settingsFormat(QSettings::NativeFormat)
@@ -81,8 +86,8 @@ void TWApp::init()
 #else
 	QDir appDir(applicationDirPath());
 #endif
-	if (appDir.exists(PORTABLE_FILE_NAME)) {
-		QSettings portable(appDir.filePath(PORTABLE_FILE_NAME), QSettings::IniFormat);
+	if (appDir.exists(SETUP_FILE_NAME)) {
+		QSettings portable(appDir.filePath(SETUP_FILE_NAME), QSettings::IniFormat);
 		if (portable.contains("inipath")) {
 			QDir iniPath(appDir.absolutePath());
 			if (iniPath.cd(portable.value("inipath").toString())) {
@@ -90,11 +95,15 @@ void TWApp::init()
 				QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
 			}
 		}
-		if(portable.contains("libpath")) {
+		if (portable.contains("libpath")) {
 			QDir libPath(appDir.absolutePath());
-			if(libPath.cd(portable.value("libpath").toString())) {
+			if (libPath.cd(portable.value("libpath").toString())) {
 				portableLibPath = libPath.absolutePath();
 			}
+		}
+		if (portable.contains("defaultbinpaths")) {
+			defaultBinPaths = new QStringList;
+			*defaultBinPaths = portable.value("defaultbinpaths").toStringList();
 		}
 	}
 	// </Check for portable mode>
@@ -404,26 +413,21 @@ void TWApp::setDefaultPaths()
 		binaryPaths = new QStringList;
 	else
 		binaryPaths->clear();
-	*binaryPaths
-#ifdef Q_WS_MAC
-		<< "/usr/texbin"
-		<< "/usr/local/bin"
-		<< "/usr/bin"
-#endif
-#ifdef Q_WS_X11
-		<< "/usr/local/texlive/2008/bin/i386-linux"	// FIXME: what about other *nix systems?
-		<< "/usr/local/texlive/2007/bin/i386-linux"
-		<< "/usr/local/bin"
-		<< "/usr/bin"
-#endif
+	if (defaultBinPaths)
+		*binaryPaths = *defaultBinPaths;
+	else {
 #ifdef Q_WS_WIN
-		<< "c:/texlive/2008/bin"
-		<< "c:/texlive/2007/bin"
-		<< "c:/w32tex/bin"
-		<< "c:/Program Files/MiKTeX 2.7/miktex/bin"
-		<< "c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
+		*binaryPaths
+			<< "c:/texlive/2009/bin"
+			<< "c:/texlive/2008/bin"
+			<< "c:/texlive/2007/bin"
+			<< "c:/w32tex/bin"
+			<< "c:/Program Files/MiKTeX 2.7/miktex/bin"
+			<< "c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
+#else
+		*binaryPaths = QString(DEFAULT_BIN_PATHS).split(':');
 #endif
-		;
+	}
 	for (int i = binaryPaths->count() - 1; i >= 0; --i) {
 		QDir dir(binaryPaths->at(i));
 		if (!dir.exists())

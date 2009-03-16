@@ -34,6 +34,10 @@ unix:!macx {
 
 QT			+=	xml
 
+unix {
+	system(bash ./getDefaultBinPaths.sh):warning("Unable to determine TeX path, guessing defaults")
+}
+
 macx {
 	INCLUDEPATH += /usr/local/include/poppler
 	INCLUDEPATH += /usr/local/include/poppler/qt4
