@@ -424,6 +424,7 @@ void TWApp::setDefaultPaths()
 			<< "c:/w32tex/bin"
 			<< "c:/Program Files/MiKTeX 2.7/miktex/bin"
 			<< "c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
+		;
 #else
 		*binaryPaths = QString(DEFAULT_BIN_PATHS).split(':');
 #endif
