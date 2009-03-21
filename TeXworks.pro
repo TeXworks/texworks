@@ -138,4 +138,6 @@ TRANSLATIONS	+=	trans/TeXworks_ar.ts \
 					trans/TeXworks_it.ts \
 					trans/TeXworks_nl.ts \
 					trans/TeXworks_ru.ts \
-					trans/TeXworks_tr.ts
+					trans/TeXworks_tr.ts \
+					trans/TeXworks_zh_CN.ts
+
