@@ -140,7 +140,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1417"/>
         <source>page %1 of %2</source>
-        <translation>页码 %1 of %2</translation>
+        <translation>第%1页　共%2页</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1422"/>
