@@ -820,12 +820,11 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 			if (spellResult == 0) {
 				char **suggestionList;
 				int count = Hunspell_suggest(pHunspell, &suggestionList, word.data());
-				menu->insertSeparator(menu->actions().first());
+				QAction *sep = menu->insertSeparator(menu->actions().first());
 				if (count == 0)
-					menu->insertAction(menu->actions().first(), new QAction(tr("No suggestions"), menu));
+					menu->insertAction(sep, new QAction(tr("No suggestions"), menu));
 				else {
 					QSignalMapper *mapper = new QSignalMapper(menu);
-					QAction* sep = menu->actions().first();
 					for (int i = 0; i < count; ++i) {
 						QString str = spellingCodec->toUnicode(suggestionList[i]);
 						act = new QAction(str, menu);
@@ -837,6 +836,13 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 					free(suggestionList);
 					connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(correction(const QString&)));
 				}
+				sep = menu->insertSeparator(menu->actions().first());
+//				QAction *add = new QAction(tr("Add to dictionary"), menu);
+//				connect(add, SIGNAL(triggered()), this, SLOT(addToDictionary()));
+//				menu->insertAction(sep, add);
+				QAction *ignore = new QAction(tr("Ignore word"), menu);
+				connect(ignore, SIGNAL(triggered()), this, SLOT(ignoreWord()));
+				menu->insertAction(sep, ignore);
 			}
 		}
 	}
@@ -859,6 +865,20 @@ void CompletingEdit::setAutoIndentMode(int index)
 void CompletingEdit::correction(const QString& suggestion)
 {
 	currentWord.insertText(suggestion);
+}
+
+void CompletingEdit::addToDictionary()
+{
+	// For this to be useful, we need to be able to store a user dictionary (per language).
+	// Prefer to switch to Enchant first, before looking into this further.
+}
+
+void CompletingEdit::ignoreWord()
+{
+	// note that this is not persistent after quitting TW
+	QByteArray word = spellingCodec->fromUnicode(currentWord.selectedText());
+	(void)Hunspell_add(pHunspell, word.data());
+	emit rehighlight();
 }
 
 void CompletingEdit::loadIndentModes()
