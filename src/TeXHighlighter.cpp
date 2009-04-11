@@ -50,7 +50,11 @@ void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, 
 	while (index < limit) {
 		int start, end;
 		if (TWUtils::findNextWord(text, index, start, end)) {
-			if (start < limit) {
+			if (start < index)
+				start = index;
+			if (end > limit)
+				end = limit;
+			if (start < end) {
 				QString word = text.mid(start, end - start);
 				int spellResult = Hunspell_spell(pHunspell, spellingCodec->fromUnicode(word).data());
 				if (spellResult == 0)

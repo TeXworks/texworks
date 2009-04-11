@@ -506,11 +506,11 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 
 	bool isControlSeq = false; // becomes true if we include an @ sign or a leading backslash
 	bool includesApos = false; // becomes true if we include an apostrophe
-	if (IS_WORD_FORMING(ch) || ch == '@' || ch == '\'' || ch == 0x2019) {
+	if (IS_WORD_FORMING(ch) || ch == '@' /* || ch == '\'' || ch == 0x2019 */) {
 		if (ch == '@')
 			isControlSeq = true;
-		else if (ch == '\'' || ch == 0x2019)
-			includesApos = true;
+		//else if (ch == '\'' || ch == 0x2019)
+		//	includesApos = true;
 		while (start > 0) {
 			--start;
 			ch = text.at(start);
