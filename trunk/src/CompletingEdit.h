@@ -53,6 +53,7 @@ public slots:
 	
 signals:
 	void syncClick(int);
+	void rehighlight();
 
 protected:
 	virtual void keyPressEvent(QKeyEvent *e);
@@ -71,6 +72,8 @@ protected:
 private slots:
 	void cursorPositionChangedSlot();
 	void correction(const QString& suggestion);
+	void addToDictionary();
+	void ignoreWord();
 	void resetExtraSelections();
 	void jumpToPdf();
 
