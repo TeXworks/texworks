@@ -15,6 +15,12 @@ for f in trans/TeXworks_*.qm; do
 	q=${QTDIR}/${f/TeXworks/qt}
 	if [ -e ${q} ]; then
 		cp ${q} res/resfiles/translations/
+    else
+        # no Qt-supplied file, check for a local qt_* file as well
+        q=trans/${f/TeXworks/qt}
+        if [ -e ${q} ]; then
+			cp ${q} res/resfiles/translations/
+		fi
 	fi
 done
 
