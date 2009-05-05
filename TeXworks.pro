@@ -100,6 +100,7 @@ HEADERS	+=	src/TWApp.h \
 			src/FindDialog.h \
 			src/PrefsDialog.h \
 			src/TemplateDialog.h \
+			src/HardWrapDialog.h \
 			src/ConfirmDelete.h \
 			src/synctex_parser.h
 
@@ -112,6 +113,7 @@ FORMS	+=	src/TeXDocument.ui \
 			src/PrefsDialog.ui \
 			src/ToolConfig.ui \
 			src/TemplateDialog.ui \
+			src/HardWrapDialog.ui \
 			src/ConfirmDelete.ui
 
 SOURCES	+=	src/main.cpp \
@@ -126,6 +128,7 @@ SOURCES	+=	src/main.cpp \
 			src/FindDialog.cpp \
 			src/PrefsDialog.cpp \
 			src/TemplateDialog.cpp \
+			src/HardWrapDialog.cpp \
 			src/ConfirmDelete.cpp \
 			src/synctex_parser.c
 

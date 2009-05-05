@@ -28,6 +28,7 @@
 #include "TWUtils.h"
 #include "PDFDocument.h"
 #include "ConfirmDelete.h"
+#include "HardWrapDialog.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -59,6 +60,8 @@
 #ifdef Q_WS_WIN
 #include <windows.h>
 #endif
+
+const int kHardWrapDefaultWidth = 64;
 
 QList<TeXDocument*> TeXDocument::docList;
 
@@ -158,6 +161,8 @@ void TeXDocument::init()
 	connect(actionComment, SIGNAL(triggered()), this, SLOT(doComment()));
 	connect(actionUncomment, SIGNAL(triggered()), this, SLOT(doUncomment()));
 
+	connect(actionHard_Wrap, SIGNAL(triggered()), this, SLOT(doHardWrapDialog()));
+	
 	connect(actionTo_Uppercase, SIGNAL(triggered()), this, SLOT(toUppercase()));
 	connect(actionTo_Lowercase, SIGNAL(triggered()), this, SLOT(toLowercase()));
 	connect(actionToggle_Case, SIGNAL(triggered()), this, SLOT(toggleCase()));
@@ -1340,6 +1345,116 @@ void TeXDocument::balanceDelimiters()
 	}
 	QApplication::beep();
 }
+
+void TeXDocument::doHardWrapDialog()
+{
+	HardWrapDialog dlg(this);
+	
+	dlg.show();
+	if (dlg.exec()) {
+		dlg.saveSettings();
+		doHardWrap(dlg.lineWidth(), dlg.rewrap());
+	}
+}
+
+void TeXDocument::doHardWrap(int lineWidth, bool rewrap)
+{
+	if (lineWidth == 0) { // use window width (approx)
+		// fudge this for now.... not accurate with proportional fonts, ignores tabs,....
+		QFontMetrics fm(textEdit->currentFont());
+		lineWidth = textEdit->width() / fm.averageCharWidth();
+	}
+	
+	QTextCursor cur = textEdit->textCursor();
+	if (!cur.hasSelection())
+		cur.select(QTextCursor::Document);
+		
+	int selStart = cur.selectionStart();
+	int selEnd = cur.selectionEnd();
+
+	cur.setPosition(selStart);
+	if (!cur.atBlockStart()) {
+		cur.movePosition(QTextCursor::StartOfBlock);
+		selStart = cur.position();
+	}
+	
+	cur.setPosition(selEnd);
+	if (!cur.atBlockStart()) {
+		cur.movePosition(QTextCursor::NextBlock);
+		selEnd = cur.position();
+	}
+
+	cur.setPosition(selStart);
+	cur.setPosition(selEnd, QTextCursor::KeepAnchor);
+	
+	QString oldText = cur.selectedText();
+	QRegExp breakPattern("\\s+");
+	QString newText;
+	
+	while (!oldText.isEmpty()) {
+		int eol = oldText.indexOf(QChar::ParagraphSeparator);
+		if (eol == -1)
+			eol = oldText.length();
+		else
+			eol += 1;
+		QString line = oldText.left(eol);
+		oldText.remove(0, eol);
+
+		if (rewrap && line.trimmed().length() > 0) {
+			while (!oldText.isEmpty()) {
+				eol = oldText.indexOf(QChar::ParagraphSeparator);
+				if (eol == -1)
+					eol = oldText.length();
+				QString nextLine = oldText.left(eol).trimmed();
+				if (nextLine.isEmpty())
+					break;
+				line = line.trimmed().append(QChar(' ')).append(nextLine);
+				oldText.remove(0, eol + 1);
+			}
+		}
+		
+		if (line.length() <= lineWidth) {
+			newText.append(line);
+			continue;
+		}
+
+		line = line.trimmed();
+		if (line.length() <= lineWidth) {
+			newText.append(line);
+			continue;
+		}
+
+		int curLength = 0;
+		while (!line.isEmpty()) {
+			int breakPoint = line.indexOf(breakPattern);
+			int matchLen = breakPattern.matchedLength();
+			if (breakPoint == -1) {
+				breakPoint = line.length();
+				matchLen = 0;
+			}
+			if (curLength > 0 && curLength + breakPoint >= lineWidth) {
+				newText.append(QChar::ParagraphSeparator);
+				curLength = 0;
+			}
+			if (curLength > 0) {
+				newText.append(QChar(' '));
+				curLength += 1;
+			}
+			newText.append(line.left(breakPoint));
+			curLength += breakPoint;
+			line.remove(0, breakPoint + matchLen);
+		}
+		newText.append(QChar::ParagraphSeparator);
+	}
+	
+	cur.insertText(newText);
+
+	selEnd = cur.position();
+	cur.setPosition(selStart);
+	cur.setPosition(selEnd, QTextCursor::KeepAnchor);
+	textEdit->setTextCursor(cur);
+}
+
 
 void TeXDocument::setWrapLines(bool wrap)
 {
