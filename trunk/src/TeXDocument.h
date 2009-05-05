@@ -140,6 +140,7 @@ private slots:
 	void toLowercase();
 	void toggleCase();
 	void balanceDelimiters();
+	void doHardWrapDialog();
 	void setWrapLines(bool wrap);
 	void setSyntaxColoring(int index);
 	void copyToFind();
@@ -186,6 +187,7 @@ private:
 	void prefixLines(const QString &prefix);
 	void unPrefixLines(const QString &prefix);
 	void replaceSelection(const QString& newText);
+	void doHardWrap(int lineWidth, bool rewrap);
 	void zoomToLeft(QWidget *otherWindow);
 	QTextCursor doSearch(QTextDocument *theDoc, const QString& searchText, const QRegExp *regex,
 						 QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
