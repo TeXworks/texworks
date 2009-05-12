@@ -47,6 +47,7 @@ class QToolBar;
 class QScrollArea;
 class TeXDocument;
 class QShortcut;
+class QFileSystemWatcher;
 
 class PDFMagnifier : public QLabel
 {
@@ -207,7 +208,6 @@ public:
 		{ return curFile; }
 
 	void zoomToRight(QWidget *otherWindow);
-	void reload();
 	void showScale(qreal scale);
 	void showPage(int page);
 	void setResolution(int res);
@@ -241,6 +241,7 @@ protected:
 public slots:
 	void selectWindow(bool activate = true);
 	void texClosed(QObject *obj);
+	void reload();
 	
 private slots:
 	void updateRecentFileActions();
@@ -260,6 +261,7 @@ private slots:
 	void placeOnRight();
 	void doFindDialog();
 	void doFindAgain(bool newSearch = false);
+	void reloadWhenIdle();
 
 signals:
 	void reloaded();
@@ -289,6 +291,9 @@ private:
 
 	QList<QWidget*> latentVisibleWidgets;
 
+	QFileSystemWatcher *watcher;
+	QTimer *reloadTimer;
+	
 	synctex_scanner_t scanner;
 
 	static QList<PDFDocument*> docList;

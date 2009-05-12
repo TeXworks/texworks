@@ -642,6 +642,22 @@ void TWApp::applyTranslation(const QString& locale)
 	emit updatedTranslators();
 }
 
+void TWApp::addToRecentFiles(const QString& fileName)
+{
+	QFileInfo info(fileName);
+	QString canonical = info.canonicalFilePath();
+	if (canonical.isEmpty())
+		return;
+
+	QSETTINGS_OBJECT(settings);
+	QStringList files = settings.value("recentFileList").toStringList();
+	files.removeAll(fileName);
+	files.prepend(fileName);
+	while (files.size() > maxRecentFiles())
+		files.removeLast();
+	settings.setValue("recentFileList", files);
+	updateRecentFileActions();
+}
 
 #ifdef Q_WS_WIN	// support for the Windows single-instance code
 #include <windows.h>
