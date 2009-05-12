@@ -57,7 +57,8 @@ public:
 
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
-
+	void addToRecentFiles(const QString& fileName);
+	
 	void setBinaryPaths(const QStringList& paths);
 	void setEngineList(const QList<Engine>& engines);
 

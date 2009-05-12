@@ -976,31 +976,22 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 {
 	static int sequenceNumber = 1;
 
-	isUntitled = fileName.isEmpty();
+	curFile = QFileInfo(fileName).canonicalFilePath();
+	isUntitled = curFile.isEmpty();
 	if (isUntitled) {
 		curFile = tr("untitled-%1.tex").arg(sequenceNumber++);
 		setWindowIcon(QIcon());
 	}
-	else {
-		curFile = QFileInfo(fileName).canonicalFilePath();
+	else
 		setWindowIcon(QIcon(":/images/images/texdoc.png"));
-	}
-	
+
 	textEdit->document()->setModified(false);
 	setWindowModified(false);
 
 	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
 
-	if (!isUntitled) {
-		QSETTINGS_OBJECT(settings);
-		QStringList files = settings.value("recentFileList").toStringList();
-		files.removeAll(fileName);
-		files.prepend(fileName);
-		while (files.size() > TWApp::instance()->maxRecentFiles())
-			files.removeLast();
-		settings.setValue("recentFileList", files);
-		TWApp::instance()->updateRecentFileActions();
-	}
+	if (!isUntitled)
+		TWApp::instance()->addToRecentFiles(curFile);
 	
 	actionRemove_Aux_Files->setEnabled(!isUntitled);
 	

@@ -47,6 +47,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QShortcut>
+#include <QFileSystemWatcher>
 #include <QDebug>
 
 #include <math.h>
@@ -991,7 +992,7 @@ QScrollArea* PDFWidget::getScrollArea()
 QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
-	: scanner(NULL)
+	: watcher(NULL), reloadTimer(NULL), scanner(NULL)
 {
 	init();
 	loadFile(fileName);
@@ -999,6 +1000,12 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 		stackUnder((QWidget*)texDoc);
 		actionSide_by_Side->setEnabled(true);
 		sourceDocList.append(texDoc);
+	}
+
+	if (texDoc == NULL) {
+		TWApp::instance()->addToRecentFiles(fileName);
+		watcher = new QFileSystemWatcher(this);
+		connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadWhenIdle()));
 	}
 }
 
@@ -1039,7 +1046,7 @@ PDFDocument::init()
 	statusBar()->addPermanentWidget(scaleLabel);
 	scaleLabel->setFrameStyle(QFrame::StyledPanel);
 	scaleLabel->setFont(statusBar()->font());
-
+	
 	pageLabel = new QLabel();
 	statusBar()->addPermanentWidget(pageLabel);
 	pageLabel->setFrameStyle(QFrame::StyledPanel);
@@ -1266,6 +1273,10 @@ void PDFDocument::loadFile(const QString &fileName)
 {
 	setCurrentFile(fileName);
 	reload();
+	if (watcher) {
+		watcher->removePaths(watcher->files()); // in case we ever load different files into the same widget
+		watcher->addPath(curFile);
+	}
 }
 
 void PDFDocument::reload()
@@ -1309,6 +1320,19 @@ void PDFDocument::reload()
 		pdfWidget->hide();
 	}
 	QApplication::restoreOverrideCursor();
+}
+
+void PDFDocument::reloadWhenIdle()
+{
+	if (reloadTimer)
+		reloadTimer->stop();
+	else {
+		reloadTimer = new QTimer(this);
+		reloadTimer->setSingleShot(true);
+		reloadTimer->setInterval(1000);
+		connect(reloadTimer, SIGNAL(timeout()), this, SLOT(reload()));
+	}
+	reloadTimer->start();
 }
 
 void PDFDocument::loadSyncData()
