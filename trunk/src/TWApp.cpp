@@ -438,7 +438,7 @@ void TWApp::setDefaultPaths()
 #ifndef Q_WS_MAC
 		// on OS X, this will be the path to {TW_APP_PACKAGE}/Contents/MacOS/
 		// which doesn't make any sense as a search dir for TeX binaries
-		binaryPaths.append(appDir.absolutePath());
+		binaryPaths->append(appDir.absolutePath());
 #endif
 		const char *envPath = getenv("PATH");
 		if (envPath != NULL)
