@@ -10,6 +10,11 @@
         <translation>لا اقتراحات</translation>
     </message>
     <message>
+        <location filename="../src/CompletingEdit.cpp" line="843"/>
+        <source>Ignore word</source>
+        <translation>تجاهل الكلمة</translation>
+    </message>
+    <message>
         <location filename="../src/CompletingEdit.cpp" line="808"/>
         <source>Jump to PDF</source>
         <translation>انتقل إلى بي دي إف</translation>
@@ -108,425 +113,457 @@
     </message>
 </context>
 <context>
+    <name>HardWrapDialog</name>
+    <message>
+        <location filename="../src/HardWrapDialog.ui" line="20"/>
+        <source>Hard Wrap</source>
+        <translation>لف قوي</translation>
+    </message>
+    <message>
+        <location filename="../src/HardWrapDialog.ui" line="35"/>
+        <source>Wrap lines to:</source>
+        <translation>لف السطور إلى:</translation>
+    </message>
+    <message>
+        <location filename="../src/HardWrapDialog.ui" line="44"/>
+        <source>Current window size</source>
+        <translation>عرض النافذة الحالي</translation>
+    </message>
+    <message>
+        <location filename="../src/HardWrapDialog.ui" line="51"/>
+        <source>Line length:</source>
+        <translation>طول السطر:</translation>
+    </message>
+    <message>
+        <location filename="../src/HardWrapDialog.ui" line="83"/>
+        <source>Re-wrap paragraphs</source>
+        <translation>أعد لف الفقرات</translation>
+    </message>
+</context>
+<context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1101"/>
-        <location filename="../src/PDFDocument.cpp" line="1153"/>
-        <location filename="../src/PDFDocument.ui" line="354"/>
+        <location filename="../src/PDFDocument.cpp" line="1108"/>
+        <location filename="../src/PDFDocument.cpp" line="1160"/>
+        <location filename="../src/PDFDocument.ui" line="355"/>
         <source>Open Recent</source>
         <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1288"/>
+        <location filename="../src/PDFDocument.cpp" line="1299"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="unfinished"></translation>
+        <translation>ملف PDF ‏&quot;%1&quot; موصد؛ هذا ليس مدعوما  الآن.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1307"/>
+        <location filename="../src/PDFDocument.cpp" line="1318"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>تعذّر تحميل الملف &quot;%1&quot;؛ ربما ليس ملف بي دي إف سليم.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1318"/>
+        <location filename="../src/PDFDocument.cpp" line="1342"/>
         <source>No SyncTeX data available</source>
         <translation>لا توجد أي بيانات  SyncTeX</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1320"/>
+        <location filename="../src/PDFDocument.cpp" line="1344"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1388"/>
+        <location filename="../src/PDFDocument.cpp" line="1412"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1417"/>
+        <location filename="../src/PDFDocument.cpp" line="1441"/>
         <source>page %1 of %2</source>
         <translation>صفحة %1 من %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1422"/>
+        <location filename="../src/PDFDocument.cpp" line="1446"/>
         <source>%1%</source>
         <translation>%1٪</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="16"/>
+        <location filename="../src/PDFDocument.ui" line="17"/>
         <source>untitled.pdf[*]</source>
         <translation>untitled.pdf[*]</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="30"/>
+        <location filename="../src/PDFDocument.ui" line="31"/>
         <source>Help</source>
         <translation>مساعدة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="39"/>
+        <location filename="../src/PDFDocument.ui" line="40"/>
         <source>File</source>
         <translation>ملف</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="52"/>
+        <location filename="../src/PDFDocument.ui" line="53"/>
         <source>Edit</source>
         <translation>تحرير</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="66"/>
+        <location filename="../src/PDFDocument.ui" line="67"/>
         <source>View</source>
         <translation>عرض</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="85"/>
+        <location filename="../src/PDFDocument.ui" line="86"/>
         <source>Window</source>
         <translation>نافذة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="89"/>
+        <location filename="../src/PDFDocument.ui" line="90"/>
         <source>Show</source>
         <translation>اعرض</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="104"/>
-        <location filename="../src/PDFDocument.ui" line="481"/>
+        <location filename="../src/PDFDocument.ui" line="105"/>
+        <location filename="../src/PDFDocument.ui" line="482"/>
         <source>Typeset</source>
         <translation>صُفّ</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="110"/>
+        <location filename="../src/PDFDocument.ui" line="111"/>
         <source>Search</source>
-        <translation type="unfinished">ابحث</translation>
+        <translation>ابحث</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="132"/>
+        <location filename="../src/PDFDocument.ui" line="133"/>
         <source>Toolbar</source>
         <translation>شريط الأدوات</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="164"/>
+        <location filename="../src/PDFDocument.ui" line="165"/>
         <source>About TeXworks...</source>
         <translation>عنْ TeXworks...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="176"/>
+        <location filename="../src/PDFDocument.ui" line="177"/>
         <source>First Page</source>
         <translation>الصفحة الأولى</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="191"/>
+        <location filename="../src/PDFDocument.ui" line="192"/>
         <source>Previous Page</source>
         <translation>الصفحة السابقة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="206"/>
+        <location filename="../src/PDFDocument.ui" line="207"/>
         <source>Next Page</source>
         <translation>الصفحة التالية</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="221"/>
+        <location filename="../src/PDFDocument.ui" line="222"/>
         <source>Last Page</source>
         <translation>الصفحة الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="232"/>
+        <location filename="../src/PDFDocument.ui" line="233"/>
         <source>Go to Page...</source>
         <translation>اذهب إلى صفحة...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="235"/>
+        <location filename="../src/PDFDocument.ui" line="668"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="247"/>
+        <location filename="../src/PDFDocument.ui" line="248"/>
         <source>Zoom In</source>
         <translation>قرّب</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="250"/>
+        <location filename="../src/PDFDocument.ui" line="236"/>
+        <source>Ctrl+J</source>
+        <translation>Ctrl+J</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="251"/>
         <source>Ctrl++</source>
         <translation>Ctrl++</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="262"/>
+        <location filename="../src/PDFDocument.ui" line="263"/>
         <source>Zoom Out</source>
         <translation>بعّد</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="265"/>
+        <location filename="../src/PDFDocument.ui" line="266"/>
         <source>Ctrl+-</source>
         <translation>Ctrl+-</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="280"/>
+        <location filename="../src/PDFDocument.ui" line="281"/>
         <source>Fit to Window</source>
         <translation>لائم النافذة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="283"/>
+        <location filename="../src/PDFDocument.ui" line="284"/>
         <source>Ctrl+3</source>
         <translation>Ctrl+3</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="295"/>
+        <location filename="../src/PDFDocument.ui" line="296"/>
         <source>Actual Size</source>
         <translation>الحجم الحقيقي</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="298"/>
+        <location filename="../src/PDFDocument.ui" line="299"/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="313"/>
+        <location filename="../src/PDFDocument.ui" line="314"/>
         <source>Fit to Width</source>
         <translation>لائم العرض</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="316"/>
+        <location filename="../src/PDFDocument.ui" line="317"/>
         <source>Ctrl+2</source>
         <translation>Ctrl+2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="328"/>
+        <location filename="../src/PDFDocument.ui" line="329"/>
         <source>New</source>
         <translation>جديد</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="331"/>
+        <location filename="../src/PDFDocument.ui" line="332"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="343"/>
+        <location filename="../src/PDFDocument.ui" line="344"/>
         <source>Open...</source>
         <translation>افتح...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="346"/>
+        <location filename="../src/PDFDocument.ui" line="347"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="362"/>
+        <location filename="../src/PDFDocument.ui" line="363"/>
         <source>Close</source>
         <translation>أغلق</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="365"/>
+        <location filename="../src/PDFDocument.ui" line="366"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="380"/>
+        <location filename="../src/PDFDocument.ui" line="381"/>
         <source>Undo</source>
         <translation>تراجع</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="383"/>
+        <location filename="../src/PDFDocument.ui" line="384"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="398"/>
+        <location filename="../src/PDFDocument.ui" line="399"/>
         <source>Redo</source>
         <translation>أعِد</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="401"/>
+        <location filename="../src/PDFDocument.ui" line="402"/>
         <source>Ctrl+Shift+Z</source>
         <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="416"/>
+        <location filename="../src/PDFDocument.ui" line="417"/>
         <source>Cut</source>
         <translation>قص</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="419"/>
+        <location filename="../src/PDFDocument.ui" line="420"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="434"/>
+        <location filename="../src/PDFDocument.ui" line="435"/>
         <source>Copy</source>
         <translation>انسخ</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="437"/>
+        <location filename="../src/PDFDocument.ui" line="438"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="452"/>
+        <location filename="../src/PDFDocument.ui" line="453"/>
         <source>Paste</source>
         <translation>الصق</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="455"/>
+        <location filename="../src/PDFDocument.ui" line="456"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="466"/>
+        <location filename="../src/PDFDocument.ui" line="467"/>
         <source>Clear</source>
         <translation>امسح</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="469"/>
+        <location filename="../src/PDFDocument.ui" line="470"/>
         <source>Ctrl+Backspace</source>
         <translation>Ctrl+Backspace</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="484"/>
+        <location filename="../src/PDFDocument.ui" line="485"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="496"/>
+        <location filename="../src/PDFDocument.ui" line="497"/>
         <source>Preferences...</source>
         <translation>التفضيلات...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="504"/>
+        <location filename="../src/PDFDocument.ui" line="505"/>
         <source>Stack</source>
         <translation>مكدّسة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="512"/>
+        <location filename="../src/PDFDocument.ui" line="513"/>
         <source>Tile</source>
         <translation>بلاط</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="520"/>
+        <location filename="../src/PDFDocument.ui" line="521"/>
         <source>Go to Source</source>
         <translation>اذهب إلى المصدر</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="523"/>
+        <location filename="../src/PDFDocument.ui" line="524"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="531"/>
+        <location filename="../src/PDFDocument.ui" line="532"/>
         <source>New from Template...</source>
         <translation>جديد من قالب...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="534"/>
+        <location filename="../src/PDFDocument.ui" line="535"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="545"/>
+        <location filename="../src/PDFDocument.ui" line="546"/>
         <source>Full Screen</source>
         <translation>ملء الشاشة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="548"/>
+        <location filename="../src/PDFDocument.ui" line="549"/>
         <source>Ctrl+Shift+F</source>
         <translation>Ctrl+Shift+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="566"/>
+        <location filename="../src/PDFDocument.ui" line="567"/>
         <source>Magnify</source>
         <translation>تكبير</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="578"/>
+        <location filename="../src/PDFDocument.ui" line="579"/>
         <source>Scroll</source>
         <translation>لف</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="590"/>
+        <location filename="../src/PDFDocument.ui" line="591"/>
         <source>Select Text</source>
         <translation>تحديد نص</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="602"/>
+        <location filename="../src/PDFDocument.ui" line="603"/>
         <source>Select Image</source>
         <translation>تحديد صورة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="607"/>
+        <location filename="../src/PDFDocument.ui" line="608"/>
         <source>Go to TeXworks home page</source>
         <translation>اذهب إلى صفحة TeXworks الرئيسية</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="612"/>
+        <location filename="../src/PDFDocument.ui" line="613"/>
         <source>Email to the mailing list</source>
         <translation>راسل القائمة البريدية</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="620"/>
+        <location filename="../src/PDFDocument.ui" line="621"/>
         <source>Side by Side</source>
         <translation>جنبا إلى جنب</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="625"/>
+        <location filename="../src/PDFDocument.ui" line="626"/>
         <source>Place on Left</source>
         <translation>ضعها يسارا</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="630"/>
+        <location filename="../src/PDFDocument.ui" line="631"/>
         <source>Place on Right</source>
         <translation>ضعها يمينا</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="650"/>
+        <location filename="../src/PDFDocument.ui" line="651"/>
         <source>Find...</source>
-        <translation type="unfinished">ابحث...</translation>
+        <translation>ابحث...</translation>
     </message>
     <message>
         <source>Find</source>
         <translation type="obsolete">ابحث</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="653"/>
+        <location filename="../src/PDFDocument.ui" line="654"/>
         <source>Ctrl+F</source>
-        <translation type="unfinished">Ctrl+F</translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="661"/>
+        <location filename="../src/PDFDocument.ui" line="665"/>
         <source>Find Again</source>
-        <translation type="unfinished">ابحث ثانية</translation>
+        <translation>ابحث ثانية</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="664"/>
         <source>Ctrl+Shift+G</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Ctrl+Shift+G</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="179"/>
+        <location filename="../src/PDFDocument.ui" line="180"/>
         <source>Home</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>Home</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="194"/>
+        <location filename="../src/PDFDocument.ui" line="195"/>
         <source>PgUp</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>PgUp</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="209"/>
+        <location filename="../src/PDFDocument.ui" line="210"/>
         <source>PgDown</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>PgDown</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="224"/>
+        <location filename="../src/PDFDocument.ui" line="225"/>
         <source>End</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>End</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="635"/>
+        <location filename="../src/PDFDocument.ui" line="636"/>
         <source>Quit TeXworks</source>
         <translation>اخرج من TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="638"/>
+        <location filename="../src/PDFDocument.ui" line="639"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
@@ -536,47 +573,47 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="556"/>
         <source>Find</source>
-        <translation type="unfinished">ابحث</translation>
+        <translation>ابحث</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="595"/>
         <source>No recent search strings</source>
-        <translation type="unfinished">لا عبارات بحث حديثة</translation>
+        <translation>لا عبارات بحث حديثة</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="22"/>
         <source>Find in PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>ابحث في ملف PDF</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="34"/>
         <source>Find:</source>
-        <translation type="unfinished">ابحث:</translation>
+        <translation>ابحث:</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="74"/>
         <source>&amp;Wrap around</source>
-        <translation type="unfinished">لف &amp;عبر المستند</translation>
+        <translation>لف &amp;عبر المستند</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="81"/>
         <source>Find &amp;backwards</source>
-        <translation type="unfinished">ابحث &amp;عكسيا</translation>
+        <translation>ابحث &amp;عكسيا</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="88"/>
         <source>Find &amp;all occurrences</source>
-        <translation type="unfinished">اعثر على &amp;كل التواجدات</translation>
+        <translation>اعثر على &amp;كل التواجدات</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="95"/>
         <source>&amp;Case sensitive</source>
-        <translation type="unfinished">&amp;حسّاس للأحرف الكبيرة والصغيرة</translation>
+        <translation>&amp;حسّاس للأحرف الكبيرة والصغيرة</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="102"/>
         <source>&amp;Sync to source</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;زامن مع المصدر</translation>
     </message>
 </context>
 <context>
@@ -651,42 +688,42 @@
 <context>
     <name>PDFWidget</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="817"/>
+        <location filename="../src/PDFDocument.cpp" line="818"/>
         <source>Go to Page</source>
         <translation>اذهب إلى الصفحة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="818"/>
+        <location filename="../src/PDFDocument.cpp" line="819"/>
         <source>Page number:</source>
         <translation>رقم الصفحة:</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="186"/>
+        <location filename="../src/PDFDocument.cpp" line="187"/>
         <source>Zoom In</source>
         <translation>قرّب</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="188"/>
+        <location filename="../src/PDFDocument.cpp" line="189"/>
         <source>Zoom Out</source>
         <translation>بعّد</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="191"/>
+        <location filename="../src/PDFDocument.cpp" line="192"/>
         <source>Actual Size</source>
         <translation>الحجم الحقيقي</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="194"/>
+        <location filename="../src/PDFDocument.cpp" line="195"/>
         <source>Fit to Width</source>
         <translation>لائم العرض</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="197"/>
+        <location filename="../src/PDFDocument.cpp" line="198"/>
         <source>Fit to Window</source>
         <translation>لائم النافذة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="523"/>
+        <location filename="../src/PDFDocument.cpp" line="524"/>
         <source>Jump to Source</source>
         <translation>انتقل إلى المصدر</translation>
     </message>
@@ -1063,7 +1100,7 @@
         <location filename="../src/FindDialog.cpp" line="490"/>
         <location filename="../src/FindDialog.cpp" line="492"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="498"/>
@@ -1099,81 +1136,81 @@
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="127"/>
-        <location filename="../src/TWApp.cpp" line="184"/>
+        <location filename="../src/TWApp.cpp" line="136"/>
+        <location filename="../src/TWApp.cpp" line="193"/>
         <source>File</source>
         <translation>ملف</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="129"/>
-        <location filename="../src/TWApp.cpp" line="185"/>
+        <location filename="../src/TWApp.cpp" line="138"/>
+        <location filename="../src/TWApp.cpp" line="194"/>
         <source>New</source>
         <translation>جديد</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="134"/>
-        <location filename="../src/TWApp.cpp" line="187"/>
+        <location filename="../src/TWApp.cpp" line="143"/>
+        <location filename="../src/TWApp.cpp" line="196"/>
         <source>New from Template...</source>
         <translation>جديد من قالب...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="138"/>
+        <location filename="../src/TWApp.cpp" line="147"/>
         <source>Preferences...</source>
         <translation>التفضيلات...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="143"/>
-        <location filename="../src/TWApp.cpp" line="189"/>
+        <location filename="../src/TWApp.cpp" line="152"/>
+        <location filename="../src/TWApp.cpp" line="198"/>
         <source>Open...</source>
         <translation>افتح...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="148"/>
-        <location filename="../src/TWApp.cpp" line="192"/>
+        <location filename="../src/TWApp.cpp" line="157"/>
+        <location filename="../src/TWApp.cpp" line="201"/>
         <source>Open Recent</source>
         <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="152"/>
-        <location filename="../src/TWApp.cpp" line="194"/>
+        <location filename="../src/TWApp.cpp" line="161"/>
+        <location filename="../src/TWApp.cpp" line="203"/>
         <source>Help</source>
         <translation>مساعدة</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="154"/>
-        <location filename="../src/TWApp.cpp" line="195"/>
+        <location filename="../src/TWApp.cpp" line="163"/>
+        <location filename="../src/TWApp.cpp" line="204"/>
         <source>About </source>
         <translation>عنْ</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="157"/>
-        <location filename="../src/TWApp.cpp" line="196"/>
+        <location filename="../src/TWApp.cpp" line="166"/>
+        <location filename="../src/TWApp.cpp" line="205"/>
         <source>Go to TeXworks home page</source>
         <translation>اذهب إلى صفحة TeXworks الرئيسية</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="160"/>
-        <location filename="../src/TWApp.cpp" line="197"/>
+        <location filename="../src/TWApp.cpp" line="169"/>
+        <location filename="../src/TWApp.cpp" line="206"/>
         <source>Email to the mailing list</source>
         <translation>راسل القائمة البريدية</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="186"/>
+        <location filename="../src/TWApp.cpp" line="195"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="188"/>
+        <location filename="../src/TWApp.cpp" line="197"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="190"/>
+        <location filename="../src/TWApp.cpp" line="199"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="218"/>
+        <location filename="../src/TWApp.cpp" line="227"/>
         <source>About %1</source>
         <translation>عنْ %1</translation>
     </message>
@@ -1183,92 +1220,92 @@
 الإصدارة %2 (م.%3)&lt;p&gt;يوزع وفق &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;رخصة جنو العمومية&lt;/a&gt;، الإصدارة٢.&lt;p dir=&quot;ltr&quot;&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; application framework by Trolltech ASA.&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="225"/>
+        <location filename="../src/TWApp.cpp" line="234"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
         <translation>تعذّر الوصول إلى &quot;%1&quot;؛ ربما المتصفح أو تطبيق البريد ليس مضبوطا؟</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="263"/>
+        <location filename="../src/TWApp.cpp" line="272"/>
         <source>Unable to create window</source>
         <translation>تعذّر إنشاء نافذة</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="264"/>
+        <location filename="../src/TWApp.cpp" line="273"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>هناك عطل كبير؛ لم يستطع %1 إنشاء نافذة مستند. سيغلق التطبيق الآن.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="301"/>
+        <location filename="../src/TWApp.cpp" line="310"/>
         <source>Open File</source>
         <translation>افتح ملفا</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="433"/>
+        <location filename="../src/TWApp.cpp" line="438"/>
         <source>No default binary directory found</source>
         <translation>لم يُعثر على مجلد ثنائيات مبدئي</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="434"/>
+        <location filename="../src/TWApp.cpp" line="439"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>لم يعثر على أي من المجلدات المحددة للتطبيقات المتعلقة بTeX.&lt;p&gt;&lt;small&gt;قبل تشغيل أي عملية ستحتاج لتحديد مجلد (أو مجلدات) الثنائيات لتوزيعة TeX لديك مستخدما لسان الصف الطباعي في حوار التفضيلات.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="203"/>
+        <location filename="../src/TWApp.cpp" line="212"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 هو بيئة بسيطة لتحرير، وصفّ، ومعاينة ملفات TeX.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="206"/>
+        <location filename="../src/TWApp.cpp" line="215"/>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
         <translation>&lt;br&gt; الإصدارة %1 (م.%2)</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="207"/>
+        <location filename="../src/TWApp.cpp" line="216"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
         <translation>&lt;p&gt;يوزع وفق &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;رخصة جنو العمومية&lt;/a&gt;، الإصدارة٢.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="208"/>
+        <location filename="../src/TWApp.cpp" line="217"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
         <translation>&lt;p&gt;بنية التطبيقات &lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; من Qt Software، جزء من مؤسسة نوكيا.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="209"/>
+        <location filename="../src/TWApp.cpp" line="218"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;مكتبة &lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; لعرض PDF تأليف Kristian H&amp;#xF8;gsberg, Albert Astals Cid وآخرون.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="210"/>
+        <location filename="../src/TWApp.cpp" line="219"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
         <translation>&lt;br&gt;المدقق الإملائي &lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;هنسبل&lt;/a&gt; تأليف L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="211"/>
+        <location filename="../src/TWApp.cpp" line="220"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation>&lt;br&gt;أفكار وموارد من &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; تأليف Richard Koch.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="212"/>
+        <location filename="../src/TWApp.cpp" line="221"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
         <translation>&lt;br&gt;تقنية &lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; تأليف J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="213"/>
+        <location filename="../src/TWApp.cpp" line="222"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
         <translation>&lt;br&gt;بعض الأيقونات المستخدمة مأخوذة من &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;مشروع تانجو&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="214"/>
+        <location filename="../src/TWApp.cpp" line="223"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
         <translation>&lt;p&gt;الترجمة %1 ساهم بها %2.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="214"/>
+        <location filename="../src/TWApp.cpp" line="223"/>
         <source>[language name]</source>
         <translation>العربية</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="214"/>
+        <location filename="../src/TWApp.cpp" line="223"/>
         <source>[translator&apos;s name/email]</source>
         <translation>خالد حسني (khaledhosny@eglug.org)</translation>
     </message>
@@ -1299,72 +1336,72 @@
 <context>
     <name>TeXDocument</name>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="68"/>
+        <location filename="../src/TeXDocument.cpp" line="71"/>
         <source>New document</source>
         <translation>مستند جديد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="181"/>
-        <location filename="../src/TeXDocument.cpp" line="349"/>
-        <location filename="../src/TeXDocument.ui" line="821"/>
+        <location filename="../src/TeXDocument.cpp" line="186"/>
+        <location filename="../src/TeXDocument.cpp" line="355"/>
+        <location filename="../src/TeXDocument.ui" line="792"/>
         <source>Open Recent</source>
         <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="315"/>
-        <location filename="../src/TeXDocument.ui" line="805"/>
-        <location filename="../src/TeXDocument.ui" line="968"/>
-        <location filename="../src/TeXDocument.ui" line="979"/>
-        <location filename="../src/TeXDocument.ui" line="1020"/>
+        <location filename="../src/TeXDocument.cpp" line="321"/>
+        <location filename="../src/TeXDocument.ui" line="776"/>
+        <location filename="../src/TeXDocument.ui" line="939"/>
+        <location filename="../src/TeXDocument.ui" line="950"/>
+        <location filename="../src/TeXDocument.ui" line="991"/>
         <source>None</source>
         <translation>لا شيء</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="424"/>
+        <location filename="../src/TeXDocument.cpp" line="430"/>
         <source>Open File</source>
         <translation>افتح ملفا</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="494"/>
+        <location filename="../src/TeXDocument.cpp" line="500"/>
         <source>Cannot close window while tool is running</source>
         <translation>لا يمكن غلق النافذة بينما تعمل الأداة</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="619"/>
+        <location filename="../src/TeXDocument.cpp" line="625"/>
         <source>Save File</source>
         <translation>احفظ الملف</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="631"/>
+        <location filename="../src/TeXDocument.cpp" line="637"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>لقد تغيّر المستند &quot;%1&quot;. أتريد حفظ تغييراتك؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="664"/>
+        <location filename="../src/TeXDocument.cpp" line="670"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>أتريد تجاهل كل التغييرات على المستند &quot;%1&quot;، واستعادة آخر نسخة محفوظة؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="666"/>
+        <location filename="../src/TeXDocument.cpp" line="672"/>
         <source>Revert</source>
         <translation>استعد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="744"/>
+        <location filename="../src/TeXDocument.cpp" line="750"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
         <translation>تعذّر قراءة الملف &quot;%1&quot;: 
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="757"/>
-        <location filename="../src/TeXDocument.cpp" line="897"/>
+        <location filename="../src/TeXDocument.cpp" line="763"/>
+        <location filename="../src/TeXDocument.cpp" line="903"/>
         <source>Unrecognized encoding</source>
         <translation>ترميز غير معروف</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="758"/>
+        <location filename="../src/TeXDocument.cpp" line="764"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1373,12 +1410,12 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 سيفسر كما لو كان %3 بدلا من هذا، ما قد ينتج عنه نص غير صحيح.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="800"/>
+        <location filename="../src/TeXDocument.cpp" line="806"/>
         <source>File &quot;%1&quot; loaded (%2)</source>
         <translation>حُمّل الملف &quot;%1&quot; (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="898"/>
+        <location filename="../src/TeXDocument.cpp" line="904"/>
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
@@ -1387,12 +1424,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 سيحفظ باستخدام %3 بدلا من هذا، ما قد ينتج عنه نص غير صحيح.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="909"/>
+        <location filename="../src/TeXDocument.cpp" line="915"/>
         <source>Text cannot be converted</source>
         <translation>تعذّر تحويل النص</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="910"/>
+        <location filename="../src/TeXDocument.cpp" line="916"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -1401,67 +1438,67 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 إذا أكملت، ستستبدل بالرموز الافتراضية. أو ربما قد ترغب في استخدام ترميز آخر (مثل UTF-8) لتفادي فقد البيانات.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="923"/>
+        <location filename="../src/TeXDocument.cpp" line="929"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
         <translation>تعذّر كتابة الملف &quot;%1&quot;: 
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="937"/>
+        <location filename="../src/TeXDocument.cpp" line="943"/>
         <source>File &quot;%1&quot; saved (%2)</source>
         <translation>حُفِظ الملف &quot;%1&quot; (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="939"/>
+        <location filename="../src/TeXDocument.cpp" line="945"/>
         <source>default encoding</source>
         <translation>الترميز الافتراضي</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="882"/>
+        <location filename="../src/TeXDocument.cpp" line="888"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>لم يُحفظ المستند &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="975"/>
+        <location filename="../src/TeXDocument.cpp" line="982"/>
         <source>untitled-%1.tex</source>
         <translation>untitled-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="986"/>
+        <location filename="../src/TeXDocument.cpp" line="991"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1061"/>
+        <location filename="../src/TeXDocument.cpp" line="1058"/>
         <source>Line %1 of %2; col %3</source>
         <translation>السطر %1 من %2؛ عمود %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1180"/>
+        <location filename="../src/TeXDocument.cpp" line="1177"/>
         <source>Go to Line</source>
         <translation>اذهب لسطر</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1181"/>
+        <location filename="../src/TeXDocument.cpp" line="1178"/>
         <source>Line number:</source>
         <translation>رقم السطر:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1368"/>
-        <location filename="../src/TeXDocument.cpp" line="1482"/>
+        <location filename="../src/TeXDocument.cpp" line="1475"/>
+        <location filename="../src/TeXDocument.cpp" line="1589"/>
         <source>Invalid regular expression</source>
         <translation>تعبير نمطي غير صحيح</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1414"/>
-        <location filename="../src/TeXDocument.cpp" line="1451"/>
-        <location filename="../src/TeXDocument.cpp" line="1560"/>
+        <location filename="../src/TeXDocument.cpp" line="1521"/>
+        <location filename="../src/TeXDocument.cpp" line="1558"/>
+        <location filename="../src/TeXDocument.cpp" line="1667"/>
         <source>Not found</source>
         <translation>غير موجود</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1751"/>
+        <location filename="../src/TeXDocument.cpp" line="1858"/>
         <source>Cannot process unsaved document</source>
         <translation>لا يمكن معالجة الملف دون حفظه</translation>
     </message>
@@ -1470,17 +1507,17 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation type="obsolete">الملف %1 غير مقروء</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1767"/>
+        <location filename="../src/TeXDocument.cpp" line="1874"/>
         <source>%1 is not properly configured</source>
         <translation>%1 ليس معدّا بشكل سليم</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1832"/>
+        <location filename="../src/TeXDocument.cpp" line="1939"/>
         <source>Unable to execute %1</source>
         <translation>تعذّر تنفيذ %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1833"/>
+        <location filename="../src/TeXDocument.cpp" line="1940"/>
         <source>The program &quot;%1&quot; was not found.
 
 Check configuration of the %2 tool and path settings in the Preferences dialog.</source>
@@ -1489,459 +1526,464 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
 راجع ضبط الأداة &quot;%2&quot; وإعدادات المسارات في حوار التفضيلات.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1919"/>
-        <location filename="../src/TeXDocument.ui" line="868"/>
+        <location filename="../src/TeXDocument.cpp" line="2026"/>
+        <location filename="../src/TeXDocument.ui" line="839"/>
         <source>Hide Output Panel</source>
         <translation>أخفِ لوحة الخرج</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1926"/>
+        <location filename="../src/TeXDocument.cpp" line="2033"/>
         <source>Show Output Panel</source>
         <translation>أظهر لوحة الخرْج</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1983"/>
+        <location filename="../src/TeXDocument.cpp" line="2090"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>اضبط المحرك ليكون &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1989"/>
+        <location filename="../src/TeXDocument.cpp" line="2096"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>المحرك &quot;%1&quot; غير موجود</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="16"/>
+        <location filename="../src/TeXDocument.ui" line="17"/>
         <source>untitled.tex[*]</source>
         <translation>untitled.tex[*]</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="198"/>
+        <location filename="../src/TeXDocument.ui" line="191"/>
         <source>File</source>
         <translation>ملف</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="216"/>
+        <location filename="../src/TeXDocument.ui" line="209"/>
         <source>Edit</source>
         <translation>تحرير</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="220"/>
+        <location filename="../src/TeXDocument.ui" line="213"/>
         <source>Spelling</source>
         <translation>الإملاء</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="227"/>
+        <location filename="../src/TeXDocument.ui" line="220"/>
         <source>Change Case</source>
         <translation>غيّر الحالة</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="250"/>
-        <location filename="../src/TeXDocument.ui" line="618"/>
+        <location filename="../src/TeXDocument.ui" line="243"/>
+        <location filename="../src/TeXDocument.ui" line="589"/>
         <source>Typeset</source>
         <translation>صُفّ</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="257"/>
+        <location filename="../src/TeXDocument.ui" line="250"/>
         <source>Window</source>
         <translation>نافذة</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="261"/>
+        <location filename="../src/TeXDocument.ui" line="254"/>
         <source>Show</source>
         <translation>اعرض</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="277"/>
+        <location filename="../src/TeXDocument.ui" line="270"/>
         <source>Search</source>
         <translation>ابحث</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="293"/>
+        <location filename="../src/TeXDocument.ui" line="286"/>
         <source>Format</source>
         <translation>تنسيق</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="297"/>
+        <location filename="../src/TeXDocument.ui" line="290"/>
         <source>Auto-indent Mode</source>
         <translation>طور الإزاحة التلقائية</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="304"/>
+        <location filename="../src/TeXDocument.ui" line="297"/>
         <source>Syntax Coloring</source>
         <translation>تلوين السياق</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="311"/>
+        <location filename="../src/TeXDocument.ui" line="304"/>
         <source>Smart Quotes</source>
-        <translation type="unfinished"></translation>
+        <translation>اقتباسات ذكية</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="330"/>
+        <location filename="../src/TeXDocument.ui" line="325"/>
         <source>Help</source>
         <translation>مساعدة</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="355"/>
+        <location filename="../src/TeXDocument.ui" line="342"/>
         <source>Typeset Toolbar</source>
         <translation>شريط أدوات الصف الطباعي</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="384"/>
+        <location filename="../src/TeXDocument.ui" line="363"/>
         <source>Edit Toolbar</source>
         <translation>شريط أدوات التحرير</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="436"/>
+        <location filename="../src/TeXDocument.ui" line="407"/>
         <source>New</source>
         <translation>جديد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="439"/>
+        <location filename="../src/TeXDocument.ui" line="410"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="451"/>
+        <location filename="../src/TeXDocument.ui" line="422"/>
         <source>Open...</source>
         <translation>افتح...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="454"/>
+        <location filename="../src/TeXDocument.ui" line="425"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="462"/>
+        <location filename="../src/TeXDocument.ui" line="433"/>
         <source>Close</source>
         <translation>أغلق</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="465"/>
+        <location filename="../src/TeXDocument.ui" line="436"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="480"/>
+        <location filename="../src/TeXDocument.ui" line="451"/>
         <source>Save</source>
         <translation>احفظ</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="483"/>
+        <location filename="../src/TeXDocument.ui" line="454"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="491"/>
+        <location filename="../src/TeXDocument.ui" line="462"/>
         <source>Save As...</source>
         <translation>احفظ باسم...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="494"/>
+        <location filename="../src/TeXDocument.ui" line="465"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="505"/>
+        <location filename="../src/TeXDocument.ui" line="476"/>
         <source>Revert to Saved</source>
         <translation>استعد المحفوظ</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="520"/>
+        <location filename="../src/TeXDocument.ui" line="491"/>
         <source>Undo</source>
         <translation>تراجع</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="523"/>
+        <location filename="../src/TeXDocument.ui" line="494"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="538"/>
+        <location filename="../src/TeXDocument.ui" line="509"/>
         <source>Redo</source>
         <translation>أعِد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="541"/>
+        <location filename="../src/TeXDocument.ui" line="512"/>
         <source>Ctrl+Shift+Z</source>
         <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="556"/>
+        <location filename="../src/TeXDocument.ui" line="527"/>
         <source>Cut</source>
         <translation>قص</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="559"/>
+        <location filename="../src/TeXDocument.ui" line="530"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="574"/>
+        <location filename="../src/TeXDocument.ui" line="545"/>
         <source>Copy</source>
         <translation>انسخ</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="577"/>
+        <location filename="../src/TeXDocument.ui" line="548"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="592"/>
+        <location filename="../src/TeXDocument.ui" line="563"/>
         <source>Paste</source>
         <translation>الصق</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="595"/>
+        <location filename="../src/TeXDocument.ui" line="566"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="606"/>
+        <location filename="../src/TeXDocument.ui" line="577"/>
         <source>Clear</source>
         <translation>امسح</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="621"/>
+        <location filename="../src/TeXDocument.ui" line="592"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="633"/>
+        <location filename="../src/TeXDocument.ui" line="604"/>
         <source>Find...</source>
         <translation>ابحث...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="636"/>
+        <location filename="../src/TeXDocument.ui" line="607"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="644"/>
+        <location filename="../src/TeXDocument.ui" line="615"/>
         <source>Find Again</source>
         <translation>ابحث ثانية</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="647"/>
+        <location filename="../src/TeXDocument.ui" line="618"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="659"/>
+        <location filename="../src/TeXDocument.ui" line="630"/>
         <source>Replace...</source>
         <translation>استبدل...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="662"/>
+        <location filename="../src/TeXDocument.ui" line="633"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="670"/>
+        <location filename="../src/TeXDocument.ui" line="641"/>
         <source>Copy to Find</source>
         <translation>انسخ إلى البحث</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="673"/>
+        <location filename="../src/TeXDocument.ui" line="644"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="681"/>
+        <location filename="../src/TeXDocument.ui" line="652"/>
         <source>Copy to Replace</source>
         <translation>انسخ إلى الاستبدال</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="684"/>
+        <location filename="../src/TeXDocument.ui" line="655"/>
         <source>Ctrl+Shift+E</source>
         <translation>Ctrl+Shift+E</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="692"/>
+        <location filename="../src/TeXDocument.ui" line="663"/>
         <source>Go to Line...</source>
         <translation>اذهب إلى السطر...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="695"/>
+        <location filename="../src/TeXDocument.ui" line="666"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="703"/>
+        <location filename="../src/TeXDocument.ui" line="674"/>
         <source>Find Selection</source>
         <translation>ابحث عن المحدد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="706"/>
+        <location filename="../src/TeXDocument.ui" line="677"/>
         <source>Ctrl+H</source>
         <translation>Ctrl+H</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="714"/>
+        <location filename="../src/TeXDocument.ui" line="685"/>
         <source>Select All</source>
         <translation>اختر الكل</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="717"/>
+        <location filename="../src/TeXDocument.ui" line="688"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="725"/>
+        <location filename="../src/TeXDocument.ui" line="696"/>
         <source>Font...</source>
         <translation>الخط...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="737"/>
+        <location filename="../src/TeXDocument.ui" line="708"/>
         <source>Indent</source>
         <translation>أزِح</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="740"/>
+        <location filename="../src/TeXDocument.ui" line="711"/>
         <source>Ctrl+]</source>
         <translation>Ctrl+]</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="752"/>
+        <location filename="../src/TeXDocument.ui" line="723"/>
         <source>Unindent</source>
         <translation>أرجِع</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="755"/>
+        <location filename="../src/TeXDocument.ui" line="726"/>
         <source>Ctrl+[</source>
         <translation>Ctrl+[</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="763"/>
+        <location filename="../src/TeXDocument.ui" line="734"/>
         <source>Comment</source>
         <translation>علّق</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="766"/>
+        <location filename="../src/TeXDocument.ui" line="737"/>
         <source>Ctrl+Shift+]</source>
         <translation>Ctrl+Shift+]</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="774"/>
+        <location filename="../src/TeXDocument.ui" line="745"/>
         <source>Uncomment</source>
         <translation>أزِل التعليق</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="777"/>
+        <location filename="../src/TeXDocument.ui" line="748"/>
         <source>Ctrl+Shift+[</source>
         <translation>Ctrl+Shift+[</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="791"/>
+        <location filename="../src/TeXDocument.ui" line="762"/>
         <source>Wrap Lines</source>
         <translation>لف السطور</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="813"/>
+        <location filename="../src/TeXDocument.ui" line="784"/>
         <source>About TeXworks...</source>
         <translation>عنْ TeXworks...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="829"/>
+        <location filename="../src/TeXDocument.ui" line="800"/>
         <source>Stack</source>
         <translation>مكدّسة</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="837"/>
+        <location filename="../src/TeXDocument.ui" line="808"/>
         <source>Tile</source>
         <translation>بلاط</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="849"/>
+        <location filename="../src/TeXDocument.ui" line="820"/>
         <source>Preferences...</source>
         <translation>التفضيلات...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="857"/>
+        <location filename="../src/TeXDocument.ui" line="828"/>
         <source>Go to Preview</source>
         <translation>اذهب إلى المعاينة</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="860"/>
+        <location filename="../src/TeXDocument.ui" line="831"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="871"/>
+        <location filename="../src/TeXDocument.ui" line="842"/>
         <source>Ctrl+\</source>
         <translation>Ctrl+\</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="879"/>
+        <location filename="../src/TeXDocument.ui" line="850"/>
         <source>New from Template...</source>
         <translation>جديد من قالب...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="882"/>
+        <location filename="../src/TeXDocument.ui" line="853"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="890"/>
+        <location filename="../src/TeXDocument.ui" line="861"/>
         <source>Show Selection</source>
         <translation>أظهر التحديد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="893"/>
+        <location filename="../src/TeXDocument.ui" line="864"/>
         <source>Ctrl+=</source>
         <translation>Ctrl+=</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="904"/>
+        <location filename="../src/TeXDocument.ui" line="875"/>
         <source>ALL UPPERCASE</source>
         <translation>ALL UPPERCASE</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="915"/>
+        <location filename="../src/TeXDocument.ui" line="886"/>
         <source>all lowercase</source>
         <translation>all lowercase</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="923"/>
+        <location filename="../src/TeXDocument.ui" line="894"/>
         <source>Balance Delimiters</source>
         <translation>وازِن المحددات</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="926"/>
+        <location filename="../src/TeXDocument.ui" line="897"/>
         <source>Ctrl+B</source>
         <translation>Ctrl+B</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="934"/>
+        <location filename="../src/TeXDocument.ui" line="905"/>
         <source>Go to TeXworks home page</source>
         <translation>اذهب إلى صفحة TeXworks الرئيسية</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="939"/>
+        <location filename="../src/TeXDocument.ui" line="910"/>
         <source>Email to the mailing list</source>
         <translation>راسل القائمة البريدية</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="947"/>
+        <location filename="../src/TeXDocument.ui" line="918"/>
         <source>Side by Side</source>
         <translation>جنبا إلى جنب</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="952"/>
+        <location filename="../src/TeXDocument.ui" line="923"/>
         <source>Place on Left</source>
         <translation>ضعها يسارا</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="957"/>
+        <location filename="../src/TeXDocument.ui" line="928"/>
         <source>Place on Right</source>
         <translation>ضعها يمينا</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1031"/>
+        <location filename="../src/TeXDocument.ui" line="1002"/>
         <source>Toggle Case</source>
-        <translation type="unfinished"></translation>
+        <translation>بدّل الحالة</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="1010"/>
+        <source>Hard Wrap...</source>
+        <translation>لف قوي...</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1418"/>
+        <location filename="../src/TeXDocument.cpp" line="1525"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>لم يُعثر على نتائج</numerusform>
@@ -1953,7 +1995,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1586"/>
+        <location filename="../src/TeXDocument.cpp" line="1693"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>لم يُستبدل أي شيء</numerusform>
@@ -1976,7 +2018,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1579"/>
+        <location filename="../src/TeXDocument.cpp" line="1686"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>لا شيء</numerusform>
@@ -1988,7 +2030,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1580"/>
+        <location filename="../src/TeXDocument.cpp" line="1687"/>
         <source>%n documents</source>
         <translation>
             <numerusform>لا شيء</numerusform>
@@ -2000,18 +2042,18 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1581"/>
+        <location filename="../src/TeXDocument.cpp" line="1688"/>
         <source>Replaced %1 in %2</source>
         <translation>استُبدِل %1 في %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="816"/>
-        <location filename="../src/TeXDocument.cpp" line="876"/>
+        <location filename="../src/TeXDocument.cpp" line="822"/>
+        <location filename="../src/TeXDocument.cpp" line="882"/>
         <source>File changed on disk</source>
         <translation>تغيّر الملف على القرص</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="817"/>
+        <location filename="../src/TeXDocument.cpp" line="823"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2020,7 +2062,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 أتريد تجاهل التغييرات الحالية وإعادة تحميل الملف من على القرص؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="877"/>
+        <location filename="../src/TeXDocument.cpp" line="883"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2029,7 +2071,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 أتريد إكمال حفظ الملف، واستبدال النسخة الموجودة على القرص؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1761"/>
+        <location filename="../src/TeXDocument.cpp" line="1868"/>
         <source>Root document %1 is not readable</source>
         <translation>المستند الجذر %1 غير مقروء</translation>
     </message>
@@ -2038,37 +2080,37 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <translation type="obsolete">المستند الجذر %1 غير موجود</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2082"/>
+        <location filename="../src/TeXDocument.cpp" line="2189"/>
         <source>No files found</source>
         <translation>لم يُعثر على أي ملفات</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2083"/>
+        <location filename="../src/TeXDocument.cpp" line="2190"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>لا توجد ملفات ثانوية مرتبطة بهذا المستند حاليا.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="984"/>
+        <location filename="../src/TeXDocument.ui" line="955"/>
         <source>Replace Again</source>
         <translation>استبدل ثانيا</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="987"/>
+        <location filename="../src/TeXDocument.ui" line="958"/>
         <source>Ctrl+Shift+R</source>
         <translation>Ctrl+Shift+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="995"/>
+        <location filename="../src/TeXDocument.ui" line="966"/>
         <source>Remove Aux Files...</source>
         <translation>احذف الملفات الثانوية...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1003"/>
+        <location filename="../src/TeXDocument.ui" line="974"/>
         <source>Quit TeXworks</source>
         <translation>اخرج من TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1006"/>
+        <location filename="../src/TeXDocument.ui" line="977"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
@@ -2076,7 +2118,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 <context>
     <name>TeXHighlighter</name>
     <message>
-        <location filename="../src/TeXHighlighter.cpp" line="172"/>
+        <location filename="../src/TeXHighlighter.cpp" line="176"/>
         <source>default</source>
         <translation>الافتراضي</translation>
     </message>
