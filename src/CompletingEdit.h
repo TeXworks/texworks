@@ -44,6 +44,10 @@ public:
 
 	bool selectWord(QTextCursor& cursor);
 
+	void setLineNumberDisplay(bool displayNumbers);
+	void lineNumberAreaPaintEvent(QPaintEvent *event);
+	int lineNumberAreaWidth();
+
 	static QStringList autoIndentModes();
 	static QStringList smartQuotesModes();
 
@@ -54,6 +58,7 @@ public slots:
 signals:
 	void syncClick(int);
 	void rehighlight();
+	void updateRequest(const QRect& rect, int dy);
 
 protected:
 	virtual void keyPressEvent(QKeyEvent *e);
@@ -68,7 +73,10 @@ protected:
 	virtual void timerEvent(QTimerEvent *e);
 	virtual bool canInsertFromMimeData(const QMimeData *source) const;
 	virtual void insertFromMimeData(const QMimeData *source);
-
+	virtual void resizeEvent(QResizeEvent *event);
+	virtual bool event(QEvent *event);	
+	virtual void scrollContentsBy(int dx, int dy);
+	
 private slots:
 	void cursorPositionChangedSlot();
 	void correction(const QString& suggestion);
@@ -76,7 +84,9 @@ private slots:
 	void ignoreWord();
 	void resetExtraSelections();
 	void jumpToPdf();
-
+	void updateLineNumberAreaWidth(int newBlockCount);
+	void updateLineNumberArea(const QRect&, int);
+	
 private:
 	void setCompleter(QCompleter *c);
 
@@ -148,10 +158,35 @@ private:
 
 	QTextCursor	currentCompletionRange;
 
+	QWidget *lineNumberArea;
+
 	static QTextCharFormat	*currentCompletionFormat;
 	static QTextCharFormat	*braceMatchingFormat;
+	static QTextCharFormat	*currentLineFormat;
 	
 	static QCompleter	*sharedCompleter;
+};
+
+class LineNumberArea : public QWidget
+{
+public:
+	LineNumberArea(CompletingEdit *e)
+		: QWidget(e)
+	{
+		editor = e;
+	}
+	
+	QSize sizeHint() const {
+		return QSize(editor->lineNumberAreaWidth(), 0);
+	}
+	
+protected:
+	void paintEvent(QPaintEvent *event) {
+		editor->lineNumberAreaPaintEvent(event);
+	}
+	
+private:
+	CompletingEdit *editor;
 };
 
 #endif // COMPLETING_EDIT_H

@@ -141,6 +141,7 @@ private slots:
 	void toggleCase();
 	void balanceDelimiters();
 	void doHardWrapDialog();
+	void setLineNumbers(bool displayNumbers);
 	void setWrapLines(bool wrap);
 	void setSyntaxColoring(int index);
 	void copyToFind();

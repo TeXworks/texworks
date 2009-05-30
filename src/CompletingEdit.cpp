@@ -42,6 +42,7 @@
 #include <QTextBlock>
 #include <QScrollBar>
 #include <QTimer>
+#include <QPainter>
 
 CompletingEdit::CompletingEdit(QWidget *parent)
 	: QTextEdit(parent),
@@ -58,15 +59,26 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 		loadCompletionFiles(sharedCompleter);
 
 		currentCompletionFormat = new QTextCharFormat;
-		currentCompletionFormat->setBackground(QColor("yellow").lighter(175));
+		currentCompletionFormat->setBackground(QColor("yellow").lighter(160));
 		braceMatchingFormat = new QTextCharFormat;
 		braceMatchingFormat->setBackground(QColor("orange"));
+		currentLineFormat = new QTextCharFormat;
+		currentLineFormat->setBackground(QColor("yellow").lighter(180));
+		currentLineFormat->setProperty(QTextFormat::FullWidthSelection, true);
 	}
 	
 	loadIndentModes();
 	loadSmartQuotesModes();
 	
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
+	connect(this, SIGNAL(selectionChanged()), this, SLOT(cursorPositionChangedSlot()));
+
+	lineNumberArea = new LineNumberArea(this);
+	
+	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
+	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
+
+	updateLineNumberAreaWidth(0);
 }
 
 CompletingEdit::~CompletingEdit()
@@ -90,8 +102,8 @@ void CompletingEdit::cursorPositionChangedSlot()
 		QTextCursor curs = textCursor();
 		if (curs.selectionStart() < currentCompletionRange.selectionStart() || curs.selectionEnd() >= currentCompletionRange.selectionEnd())
 			currentCompletionRange = QTextCursor();
-		resetExtraSelections();
 	}
+	resetExtraSelections();
 	prefixLength = 0;
 }
 
@@ -376,6 +388,12 @@ void CompletingEdit::focusInEvent(QFocusEvent *e)
 void CompletingEdit::resetExtraSelections()
 {
 	QList<ExtraSelection> selections;
+	if (!textCursor().hasSelection()) {
+		ExtraSelection sel;
+		sel.format = *currentLineFormat;
+		sel.cursor = textCursor();
+		selections.append(sel);
+	}
 	if (!currentCompletionRange.isNull()) {
 		ExtraSelection sel;
 		sel.cursor = currentCompletionRange;
@@ -951,8 +969,103 @@ bool CompletingEdit::canInsertFromMimeData(const QMimeData *source) const
 	return source->hasText();
 }
 
+// support for the line-number area
+// from Qt tutorial "Code Editor"
+
+void CompletingEdit::setLineNumberDisplay(bool displayNumbers)
+{
+	lineNumberArea->setVisible(displayNumbers);
+	updateLineNumberAreaWidth(0);
+}
+
+int CompletingEdit::lineNumberAreaWidth()
+{
+	int digits = 1;
+	int max = qMax(1, document()->blockCount());
+	while (max >= 10) {
+		max /= 10;
+		++digits;
+	}
+	
+	int space = 3 + fontMetrics().width(QLatin1Char('9')) * digits;
+	
+	return space;
+}
+
+void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
+{
+	setViewportMargins(lineNumberArea->isVisible() ? lineNumberAreaWidth() : 0, 0, 0, 0);
+}
+
+void CompletingEdit::updateLineNumberArea(const QRect &rect, int dy)
+{
+	if (dy)
+		lineNumberArea->scroll(0, dy);
+	else
+		lineNumberArea->update(0, rect.y(), lineNumberArea->width(), rect.height());
+	
+	if (rect.contains(viewport()->rect()))
+		updateLineNumberAreaWidth(0);
+}
+
+void CompletingEdit::resizeEvent(QResizeEvent *e)
+{
+	QTextEdit::resizeEvent(e);
+	
+	QRect cr = contentsRect();
+	lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
+}
+
+void CompletingEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
+{
+	QPainter painter(lineNumberArea);
+	painter.fillRect(event->rect(), Qt::lightGray);
+	
+//	QTextBlock block = firstVisibleBlock(); // only in QPlainTextEdit
+	QTextBlock block = document()->firstBlock();
+	
+	int blockNumber = block.blockNumber();
+	QAbstractTextDocumentLayout *layout = document()->documentLayout();
+	int top = layout->blockBoundingRect(block).top() - verticalScrollBar()->value();
+	int bottom = top + layout->blockBoundingRect(block).height();
+	
+	while (block.isValid() && top <= event->rect().bottom()) {
+		if (block.isVisible() && bottom >= event->rect().top()) {
+			QString number = QString::number(blockNumber + 1);
+			painter.drawText(0, top, lineNumberArea->width() - 1, fontMetrics().height(),
+							 Qt::AlignRight, number);
+		}
+		if (block == document()->lastBlock())
+			break;
+
+		block = block.next();
+		top = bottom;
+		bottom = top + (int)layout->blockBoundingRect(block).height();
+		++blockNumber;
+	}
+}
+
+bool CompletingEdit::event(QEvent *e)
+{
+	if (e->type() == QEvent::UpdateRequest) {
+		// should be limiting the rect to what actually needs updating
+		// but don't know how to get that from the event :(
+		emit updateRequest(viewport()->rect(), 0);
+	}
+	return QTextEdit::event(e);
+}
+
+void CompletingEdit::scrollContentsBy(int dx, int dy)
+{
+	if (dy != 0) {
+		emit updateRequest(viewport()->rect(), dy);
+	}
+	QTextEdit::scrollContentsBy(dx, dy);
+}
+
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = NULL;
 QTextCharFormat	*CompletingEdit::braceMatchingFormat = NULL;
+QTextCharFormat	*CompletingEdit::currentLineFormat = NULL;
 
 QCompleter	*CompletingEdit::sharedCompleter = NULL;
 

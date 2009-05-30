@@ -53,6 +53,14 @@
 
 #define SETUP_FILE_NAME "texworks-setup.ini"
 
+#ifdef Q_WS_WIN
+#define PATH_LIST_SEP   ';'
+#define EXE             ".exe"
+#else
+#define PATH_LIST_SEP   ':'
+#define EXE
+#endif
+
 const int kDefaultMaxRecentFiles = 10;
 
 TWApp *TWApp::theAppInstance = NULL;
@@ -86,17 +94,17 @@ void TWApp::init()
 #else
 	QDir appDir(applicationDirPath());
 #endif
+	QDir iniPath(appDir.absolutePath());
+	QDir libPath(appDir.absolutePath());
 	if (appDir.exists(SETUP_FILE_NAME)) {
 		QSettings portable(appDir.filePath(SETUP_FILE_NAME), QSettings::IniFormat);
 		if (portable.contains("inipath")) {
-			QDir iniPath(appDir.absolutePath());
 			if (iniPath.cd(portable.value("inipath").toString())) {
 				setSettingsFormat(QSettings::IniFormat);
 				QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
 			}
 		}
 		if (portable.contains("libpath")) {
-			QDir libPath(appDir.absolutePath());
 			if (libPath.cd(portable.value("libpath").toString())) {
 				portableLibPath = libPath.absolutePath();
 			}
@@ -105,6 +113,16 @@ void TWApp::init()
 			defaultBinPaths = new QStringList;
 			*defaultBinPaths = portable.value("defaultbinpaths").toStringList();
 		}
+	}
+	const char *envPath;
+	envPath = getenv("TW_INIPATH");
+	if (envPath != NULL && iniPath.cd(QString(envPath))) {
+		setSettingsFormat(QSettings::IniFormat);
+		QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
+	}
+	envPath = getenv("TW_LIBPATH");
+	if (envPath != NULL && libPath.cd(QString(envPath))) {
+		portableLibPath = libPath.absolutePath();
 	}
 	// </Check for portable mode>
 
@@ -409,6 +427,7 @@ bool TWApp::event(QEvent *event)
 
 void TWApp::setDefaultPaths()
 {
+	QDir appDir(applicationDirPath());
 	if (binaryPaths == NULL)
 		binaryPaths = new QStringList;
 	else
@@ -416,6 +435,16 @@ void TWApp::setDefaultPaths()
 	if (defaultBinPaths)
 		*binaryPaths = *defaultBinPaths;
 	else {
+#ifndef Q_WS_MAC
+		// on OS X, this will be the path to {TW_APP_PACKAGE}/Contents/MacOS/
+		// which doesn't make any sense as a search dir for TeX binaries
+		binaryPaths.append(appDir.absolutePath());
+#endif
+		const char *envPath = getenv("PATH");
+		if (envPath != NULL)
+			foreach (const QString& s, QString(envPath).split(PATH_LIST_SEP))
+			if (!binaryPaths->contains(s))
+				binaryPaths->append(s);
 #ifdef Q_WS_WIN
 		*binaryPaths
 			<< "c:/texlive/2009/bin"
@@ -426,7 +455,9 @@ void TWApp::setDefaultPaths()
 			<< "c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
 		;
 #else
-		*binaryPaths = QString(DEFAULT_BIN_PATHS).split(':');
+		foreach (const QString& s, QString(DEFAULT_BIN_PATHS).split(':'))
+			if (!binaryPaths->contains(s))
+				binaryPaths->append(s);
 #endif
 	}
 	for (int i = binaryPaths->count() - 1; i >= 0; --i) {
@@ -470,11 +501,6 @@ void TWApp::setDefaultEngineList()
 		engineList = new QList<Engine>;
 	else
 		engineList->clear();
-#ifdef Q_WS_WIN
-#define EXE ".exe"
-#else
-#define EXE
-#endif
 	*engineList
 		<< Engine("pdfTeX", "pdftex" EXE, QStringList("-synctex=1") << "$fullname", true)
 		<< Engine("pdfLaTeX", "pdflatex" EXE, QStringList("-synctex=1") << "$fullname", true)
