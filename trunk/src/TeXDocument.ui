@@ -313,6 +313,7 @@
     <addaction name="actionIndent"/>
     <addaction name="actionUnindent"/>
     <addaction name="separator"/>
+    <addaction name="actionLine_Numbers"/>
     <addaction name="actionWrap_Lines"/>
     <addaction name="actionHard_Wrap"/>
     <addaction name="separator"/>
@@ -1008,6 +1009,17 @@
   <action name="actionHard_Wrap">
    <property name="text">
     <string>Hard Wrap...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionLine_Numbers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Line Numbers</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

@@ -257,6 +257,7 @@ const int kDefault_ToolBarIcons = 2;
 const bool kDefault_ToolBarText = false;
 const int kDefault_SyntaxColoring = 0;
 const int kDefault_IndentMode = -1;
+const bool kDefault_LineNumbers = false;
 const bool kDefault_WrapLines = true;
 const int kDefault_TabWidth = 32;
 const bool kDefault_HideConsole = true;
@@ -458,6 +459,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.autoIndent->setCurrentIndex(settings.contains("autoIndent")
 							? 1 + indentModes.indexOf(settings.value("autoIndent").toString())
 							: 1 + kDefault_IndentMode);
+	dlg.lineNumbers->setChecked(settings.value("lineNumbers", kDefault_LineNumbers).toBool());
 	dlg.wrapLines->setChecked(settings.value("wrapLines", kDefault_WrapLines).toBool());
 	dlg.tabWidth->setValue(settings.value("tabWidth", kDefault_TabWidth).toInt());
 	QFontDatabase fdb;
@@ -583,6 +585,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		// Editor
 		settings.setValue("syntaxColoring", dlg.syntaxColoring->currentText());
 		settings.setValue("autoIndent", dlg.autoIndent->currentText());
+		settings.setValue("lineNumbers", dlg.lineNumbers->isChecked());
 		settings.setValue("wrapLines", dlg.wrapLines->isChecked());
 		settings.setValue("tabWidth", dlg.tabWidth->value());
 		font = QFont(dlg.editorFont->currentText());

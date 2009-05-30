@@ -233,6 +233,10 @@ void TeXDocument::init()
 	actionWrap_Lines->setChecked(b);
 	setWrapLines(b);
 
+	b = settings.value("lineNumbers", false).toBool();
+	actionLine_Numbers->setChecked(b);
+	setLineNumbers(b);
+	
 	highlighter = new TeXHighlighter(textEdit->document(), this);
 	connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
 
@@ -308,6 +312,7 @@ void TeXDocument::init()
 		++index;
 	}
 
+	connect(actionLine_Numbers, SIGNAL(triggered(bool)), this, SLOT(setLineNumbers(bool)));
 	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
 
 	QSignalMapper *mapper = new QSignalMapper(this);
@@ -1446,6 +1451,11 @@ void TeXDocument::doHardWrap(int lineWidth, bool rewrap)
 	textEdit->setTextCursor(cur);
 }
 
+
+void TeXDocument::setLineNumbers(bool displayNumbers)
+{
+	textEdit->setLineNumberDisplay(displayNumbers);
+}
 
 void TeXDocument::setWrapLines(bool wrap)
 {
