@@ -1021,24 +1021,23 @@ void CompletingEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
 	QPainter painter(lineNumberArea);
 	painter.fillRect(event->rect(), Qt::lightGray);
 	
-//	QTextBlock block = firstVisibleBlock(); // only in QPlainTextEdit
-	QTextBlock block = document()->firstBlock();
-	
-	int blockNumber = block.blockNumber();
+	QTextBlock block = document()->begin();
+	int blockNumber = 1;
+
 	QAbstractTextDocumentLayout *layout = document()->documentLayout();
 	int top = layout->blockBoundingRect(block).top() - verticalScrollBar()->value();
 	int bottom = top + layout->blockBoundingRect(block).height();
 	
 	while (block.isValid() && top <= event->rect().bottom()) {
-		if (block.isVisible() && bottom >= event->rect().top()) {
-			QString number = QString::number(blockNumber + 1);
+		if (bottom >= event->rect().top()) {
+			QString number = QString::number(blockNumber);
 			painter.drawText(0, top, lineNumberArea->width() - 1, fontMetrics().height(),
 							 Qt::AlignRight, number);
 		}
-		if (block == document()->lastBlock())
-			break;
 
 		block = block.next();
+		if (block == document()->end())
+			break;
 		top = bottom;
 		bottom = top + (int)layout->blockBoundingRect(block).height();
 		++blockNumber;
