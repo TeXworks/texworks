@@ -9,7 +9,7 @@ BINPATHS=":"
 appendPath()
 {
 	NEWPATH="$1"
-	if [[ "$BINPATHS" =~ ":$NEWPATH:" ]]; then
+	if [[ "$BINPATHS" == ":$NEWPATH:" ]]; then
 		echo $NEWPATH already present
 	else
 		# note that BINPATHS already ends with colon
