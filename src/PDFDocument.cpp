@@ -995,17 +995,19 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 	: watcher(NULL), reloadTimer(NULL), scanner(NULL)
 {
 	init();
-	loadFile(fileName);
-	if (texDoc != NULL) {
-		stackUnder((QWidget*)texDoc);
-		actionSide_by_Side->setEnabled(true);
-		sourceDocList.append(texDoc);
-	}
 
 	if (texDoc == NULL) {
 		TWApp::instance()->addToRecentFiles(fileName);
 		watcher = new QFileSystemWatcher(this);
 		connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadWhenIdle()));
+	}
+
+	loadFile(fileName);
+
+	if (texDoc != NULL) {
+		stackUnder((QWidget*)texDoc);
+		actionSide_by_Side->setEnabled(true);
+		sourceDocList.append(texDoc);
 	}
 }
 
