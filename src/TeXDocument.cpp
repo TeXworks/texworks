@@ -227,7 +227,9 @@ void TeXDocument::init()
 	}
 	font.setPointSize(font.pointSize() - 1);
 	inputLine->setFont(font);
+	inputLine->setLayoutDirection(Qt::LeftToRight);
 	textEdit_console->setFont(font);
+	textEdit_console->setLayoutDirection(Qt::LeftToRight);
 	
 	bool b = settings.value("wrapLines", true).toBool();
 	actionWrap_Lines->setChecked(b);
