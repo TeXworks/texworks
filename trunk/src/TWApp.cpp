@@ -434,17 +434,18 @@ void TWApp::setDefaultPaths()
 		binaryPaths->clear();
 	if (defaultBinPaths)
 		*binaryPaths = *defaultBinPaths;
-	else {
 #ifndef Q_WS_MAC
-		// on OS X, this will be the path to {TW_APP_PACKAGE}/Contents/MacOS/
-		// which doesn't make any sense as a search dir for TeX binaries
+	// on OS X, this will be the path to {TW_APP_PACKAGE}/Contents/MacOS/
+	// which doesn't make any sense as a search dir for TeX binaries
+	if (!binaryPaths->contains(appDir.absolutePath()))
 		binaryPaths->append(appDir.absolutePath());
 #endif
-		const char *envPath = getenv("PATH");
-		if (envPath != NULL)
-			foreach (const QString& s, QString(envPath).split(PATH_LIST_SEP))
-			if (!binaryPaths->contains(s))
-				binaryPaths->append(s);
+	const char *envPath = getenv("PATH");
+	if (envPath != NULL)
+		foreach (const QString& s, QString(envPath).split(PATH_LIST_SEP))
+		if (!binaryPaths->contains(s))
+			binaryPaths->append(s);
+	if (!defaultBinPaths) {
 #ifdef Q_WS_WIN
 		*binaryPaths
 			<< "c:/texlive/2009/bin"
