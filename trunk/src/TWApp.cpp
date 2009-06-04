@@ -111,7 +111,7 @@ void TWApp::init()
 		}
 		if (portable.contains("defaultbinpaths")) {
 			defaultBinPaths = new QStringList;
-			*defaultBinPaths = portable.value("defaultbinpaths").toStringList();
+			*defaultBinPaths = portable.value("defaultbinpaths").toString().split(PATH_LIST_SEP);
 		}
 	}
 	const char *envPath;
@@ -455,7 +455,7 @@ void TWApp::setDefaultPaths()
 			<< "c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
 		;
 #else
-		foreach (const QString& s, QString(DEFAULT_BIN_PATHS).split(':'))
+		foreach (const QString& s, QString(DEFAULT_BIN_PATHS).split(PATH_LIST_SEP))
 			if (!binaryPaths->contains(s))
 				binaryPaths->append(s);
 #endif
