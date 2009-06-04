@@ -1894,23 +1894,20 @@ void TeXDocument::typeset()
 
 	QStringList binPaths = TWApp::instance()->getBinaryPaths();
 	QStringList env = QProcess::systemEnvironment();
-	QStringListIterator iter(binPaths);
-	iter.toBack();
-	while (iter.hasPrevious()) {
-		QString path = QDir::toNativeSeparators(iter.previous());
-		env.replaceInStrings(QRegExp("^PATH=(.*)", Qt::CaseInsensitive), "PATH=" + path + PATH_SEPARATOR "\\1");
-	}
-	process->setEnvironment(env);
-	process->setProcessChannelMode(QProcess::MergedChannels);
-
-	QStringListIterator envIter(env);
+	QMutableStringListIterator envIter(env);
 	while (envIter.hasNext()) {
-		QString envVar = envIter.next();
+		QString& envVar = envIter.next();
 		if (envVar.startsWith("PATH=")) {
-			binPaths = envVar.mid(5).split(PATH_SEPARATOR, QString::SkipEmptyParts);
+			foreach (const QString& s, envVar.mid(5).split(PATH_SEPARATOR, QString::SkipEmptyParts))
+			if (!binPaths.contains(s))
+				binPaths.append(s);
+			envVar = "PATH=" + binPaths.join(PATH_SEPARATOR);
 			break;
 		}
 	}
+	
+	process->setEnvironment(env);
+	process->setProcessChannelMode(QProcess::MergedChannels);
 	
 	connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(processStandardOutput()));
 	connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
@@ -1949,10 +1946,11 @@ void TeXDocument::typeset()
 		process->deleteLater();
 		process = NULL;
 		QMessageBox::critical(this, tr("Unable to execute %1").arg(e.name()),
-								tr("The program \"%1\" was not found.\n\n"
-								"Check configuration of the %2 tool and path settings"
-								" in the Preferences dialog.").arg(e.program()).arg(e.name()),
-								QMessageBox::Cancel);
+							  "<p>" + tr("The program \"%1\" was not found.").arg(e.program()) +
+							  "<p><small>" + tr("Searched in directories:") +
+							  "<ul><li>" + binPaths.join("<li>") + "</ul></small>" +
+							  "<p>" + tr("Check configuration of the %1 tool and path settings in the Preferences dialog.").arg(e.name()),
+							  QMessageBox::Cancel);
 		updateTypesettingAction();
 	}
 }
