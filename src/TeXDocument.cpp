@@ -1892,16 +1892,21 @@ void TeXDocument::typeset()
 	
 	process->setWorkingDirectory(fileInfo.canonicalPath());	// Note that fileInfo refers to the root file
 
+#ifdef Q_WS_WIN
+#define PATH_CASE_SENSITIVE	Qt::CaseInsensitive
+#else
+#define PATH_CASE_SENSITIVE	Qt::CaseSensitive
+#endif
 	QStringList binPaths = TWApp::instance()->getBinaryPaths();
 	QStringList env = QProcess::systemEnvironment();
 	QMutableStringListIterator envIter(env);
 	while (envIter.hasNext()) {
 		QString& envVar = envIter.next();
-		if (envVar.startsWith("PATH=")) {
+		if (envVar.startsWith("PATH="), PATH_CASE_SENSITIVE) {
 			foreach (const QString& s, envVar.mid(5).split(PATH_SEPARATOR, QString::SkipEmptyParts))
 			if (!binPaths.contains(s))
 				binPaths.append(s);
-			envVar = "PATH=" + binPaths.join(PATH_SEPARATOR);
+			envVar = envVar.left(5) + binPaths.join(PATH_SEPARATOR);
 			break;
 		}
 	}
