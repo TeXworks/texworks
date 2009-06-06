@@ -1902,7 +1902,7 @@ void TeXDocument::typeset()
 	QMutableStringListIterator envIter(env);
 	while (envIter.hasNext()) {
 		QString& envVar = envIter.next();
-		if (envVar.startsWith("PATH="), PATH_CASE_SENSITIVE) {
+		if (envVar.startsWith("PATH=", PATH_CASE_SENSITIVE)) {
 			foreach (const QString& s, envVar.mid(5).split(PATH_SEPARATOR, QString::SkipEmptyParts))
 			if (!binPaths.contains(s))
 				binPaths.append(s);
