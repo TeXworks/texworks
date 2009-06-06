@@ -496,11 +496,7 @@ void TWApp::setBinaryPaths(const QStringList& paths)
 		binaryPaths = new QStringList;
 	*binaryPaths = paths;
 	QSETTINGS_OBJECT(settings);
-	// workaround for apparent bug writing an empty list to .ini format
-//	if (paths.isEmpty())
-//		settings.setValue("binaryPaths", "");
-//	else
-		settings.setValue("binaryPaths", paths);
+	settings.setValue("binaryPaths", paths);
 }
 
 void TWApp::setDefaultEngineList()
