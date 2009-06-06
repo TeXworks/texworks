@@ -479,8 +479,11 @@ const QStringList TWApp::getBinaryPaths()
 	if (binaryPaths == NULL) {
 		binaryPaths = new QStringList;
 		QSETTINGS_OBJECT(settings);
-		if (settings.contains("binaryPaths"))
-			*binaryPaths = settings.value("binaryPaths").toStringList();
+		if (settings.contains("binaryPaths")) {
+			// avoid an empty value becoming a list with an empty element; we want an empty list instead!
+			if (!settings.value("binaryPaths").toString().isEmpty())
+				*binaryPaths = settings.value("binaryPaths").toStringList();
+		}
 		else
 			setDefaultPaths();
 	}
@@ -493,7 +496,11 @@ void TWApp::setBinaryPaths(const QStringList& paths)
 		binaryPaths = new QStringList;
 	*binaryPaths = paths;
 	QSETTINGS_OBJECT(settings);
-	settings.setValue("binaryPaths", paths);
+	// workaround for apparent bug writing an empty list to .ini format
+//	if (paths.isEmpty())
+//		settings.setValue("binaryPaths", "");
+//	else
+		settings.setValue("binaryPaths", paths);
 }
 
 void TWApp::setDefaultEngineList()
