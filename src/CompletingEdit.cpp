@@ -78,6 +78,7 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
 	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
 
+	cursorPositionChangedSlot();
 	updateLineNumberAreaWidth(0);
 }
 

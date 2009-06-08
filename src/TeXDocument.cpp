@@ -397,6 +397,7 @@ void TeXDocument::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->selectWindow();
+	doc->textEdit->updateLineNumberAreaWidth(0);
 }
 
 void TeXDocument::newFromTemplate()
@@ -414,6 +415,7 @@ void TeXDocument::newFromTemplate()
 		if (doc != NULL) {
 			doc->makeUntitled();
 			doc->selectWindow();
+			doc->textEdit->updateLineNumberAreaWidth(0);
 		}
 	}
 }
@@ -816,6 +818,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 									kStatusMessageDuration);
 		setupFileWatcher();
 	}
+	textEdit->updateLineNumberAreaWidth(0);
 }
 
 void TeXDocument::reloadIfChangedOnDisk()

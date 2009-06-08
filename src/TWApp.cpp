@@ -300,6 +300,7 @@ void TWApp::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->show();
+	doc->editor()->updateLineNumberAreaWidth(0);
 }
 
 void TWApp::newFromTemplate()
@@ -310,6 +311,7 @@ void TWApp::newFromTemplate()
 		if (doc != NULL) {
 			doc->makeUntitled();
 			doc->selectWindow();
+			doc->editor()->updateLineNumberAreaWidth(0);
 		}
 	}
 }
