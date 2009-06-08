@@ -76,6 +76,8 @@ public:
 	QTextDocument* textDoc()
 		{ return textEdit->document(); }
 	QString getLineText(int lineNo) const;
+	CompletingEdit* editor()
+		{ return textEdit; }
 
 	PDFDocument* pdfDocument()
 		{ return pdfDoc; }

@@ -54,6 +54,7 @@ public:
 public slots:
 	void setAutoIndentMode(int index);
 	void setSmartQuotesMode(int index);
+	void updateLineNumberAreaWidth(int newBlockCount);
 	
 signals:
 	void syncClick(int);
@@ -84,7 +85,6 @@ private slots:
 	void ignoreWord();
 	void resetExtraSelections();
 	void jumpToPdf();
-	void updateLineNumberAreaWidth(int newBlockCount);
 	void updateLineNumberArea(const QRect&, int);
 	
 private:
