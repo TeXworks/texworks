@@ -995,7 +995,13 @@ int CompletingEdit::lineNumberAreaWidth()
 
 void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
 {
-	setViewportMargins(lineNumberArea->isVisible() ? lineNumberAreaWidth() : 0, 0, 0, 0);
+	if (lineNumberArea->isVisible()) {
+		setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
+		lineNumberArea->update();
+	}
+	else {
+		setViewportMargins(0, 0, 0, 0);
+	}
 }
 
 void CompletingEdit::updateLineNumberArea(const QRect &rect, int dy)
