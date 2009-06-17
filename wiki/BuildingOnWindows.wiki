@@ -1,5 +1,7 @@
 #summary Guide to building TeXworks on Windows XP using Microsoft Visual C++ 2005 Express Edition
 
+*Note:* VC++ 2005 EE is apparently no longer being distributed. It may be possible to adapt this procedure to work with the newer 2008 version, but this has not been verified and documented. An alternative is to use the gcc-based MinGW toolset; see the [BuildingOnWindowsMinGW] page for details.
+
 _Thanks to Stefan Löffler and Alain Delmotte for developing this guide._
 
 <wiki:toc max_depth="1" />  
