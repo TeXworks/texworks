@@ -635,6 +635,11 @@ bool TeXDocument::saveAs()
 	if (fileName.isEmpty())
 		return false;
 
+	if (fileName != curFile) {
+		// The pdf connection is no longer (necessarily) valid. Detach it for
+		// now (the correct connection will be reestablished on next typeset).
+		detachPdf();
+	}
 	return saveFile(fileName);
 }
 
@@ -850,10 +855,7 @@ void TeXDocument::showPdfIfAvailable()
 		return;
 	QFileInfo fi(rootFilePath);
 	QString pdfName = fi.canonicalPath() + "/" + fi.completeBaseName() + ".pdf";
-	if (pdfDoc != NULL) {
-		disconnect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
-		disconnect(this, SIGNAL(destroyed(QObject*)), pdfDoc, SLOT(texClosed(QObject*)));
-	}
+	detachPdf();
 	PDFDocument *existingPdf = PDFDocument::findDocument(pdfName);
 	if (existingPdf != NULL) {
 		if (pdfDoc != existingPdf) {
@@ -2317,4 +2319,13 @@ void TeXDocument::dropEvent(QDropEvent *event)
 	}
 	dragSavedCursor = QTextCursor();
 	event->accept();
+}
+
+void TeXDocument::detachPdf()
+{
+	if (pdfDoc != NULL) {
+		disconnect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
+		disconnect(this, SIGNAL(destroyed(QObject*)), pdfDoc, SLOT(texClosed(QObject*)));
+		pdfDoc = NULL;
+	}
 }
