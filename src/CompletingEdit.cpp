@@ -21,6 +21,7 @@
 
 #include "CompletingEdit.h"
 #include "TWUtils.h"
+#include "TWApp.h"
 
 #include <QCompleter>
 #include <QKeyEvent>
@@ -52,7 +53,7 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	  c(NULL), cmpCursor(QTextCursor()),
 	  pHunspell(NULL), spellingCodec(NULL)
 {
-	if (sharedCompleter == NULL) {
+	if (sharedCompleter == NULL) { // initialize shared (static) members
 		sharedCompleter = new QCompleter(qApp);
 		sharedCompleter->setCompletionMode(QCompleter::InlineCompletion);
 		sharedCompleter->setCaseSensitivity(Qt::CaseInsensitive);
@@ -65,6 +66,9 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 		currentLineFormat = new QTextCharFormat;
 		currentLineFormat->setBackground(QColor("yellow").lighter(180));
 		currentLineFormat->setProperty(QTextFormat::FullWidthSelection, true);
+
+		QSETTINGS_OBJECT(settings);
+		highlightCurrentLine = settings.value("highlightCurrentLine", true).toBool();
 	}
 	
 	loadIndentModes();
@@ -78,6 +82,8 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
 	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
 
+	connect(TWApp::instance(), SIGNAL(highlightLineOptionChanged()), this, SLOT(resetExtraSelections()));
+	
 	cursorPositionChangedSlot();
 	updateLineNumberAreaWidth(0);
 }
@@ -389,7 +395,7 @@ void CompletingEdit::focusInEvent(QFocusEvent *e)
 void CompletingEdit::resetExtraSelections()
 {
 	QList<ExtraSelection> selections;
-	if (!textCursor().hasSelection()) {
+	if (highlightCurrentLine && !textCursor().hasSelection()) {
 		ExtraSelection sel;
 		sel.format = *currentLineFormat;
 		sel.cursor = textCursor();
@@ -1069,9 +1075,18 @@ void CompletingEdit::scrollContentsBy(int dx, int dy)
 	QTextEdit::scrollContentsBy(dx, dy);
 }
 
+void CompletingEdit::setHighlightCurrentLine(bool highlight)
+{
+	if (highlight != highlightCurrentLine) {
+		highlightCurrentLine = highlight;
+		TWApp::instance()->emitHighlightLineOptionChanged();
+	}
+}
+
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = NULL;
 QTextCharFormat	*CompletingEdit::braceMatchingFormat = NULL;
 QTextCharFormat	*CompletingEdit::currentLineFormat = NULL;
+bool CompletingEdit::highlightCurrentLine = true;
 
 QCompleter	*CompletingEdit::sharedCompleter = NULL;
 
