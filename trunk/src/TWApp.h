@@ -58,6 +58,7 @@ public:
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
 	void addToRecentFiles(const QString& fileName);
+	void emitHighlightLineOptionChanged();
 	
 	void setBinaryPaths(const QStringList& paths);
 	void setEngineList(const QList<Engine>& engines);
@@ -147,6 +148,8 @@ signals:
 	void hideFloatersExcept(QWidget* theWindow);
 
 	void updatedTranslators();
+
+	void highlightLineOptionChanged();
 
 private slots:
 	void about();

@@ -261,6 +261,7 @@ const bool kDefault_LineNumbers = false;
 const bool kDefault_WrapLines = true;
 const int kDefault_TabWidth = 32;
 const bool kDefault_HideConsole = true;
+const bool kDefault_HighlightCurrentLine = true;
 
 void PrefsDialog::restoreDefaults()
 {
@@ -306,6 +307,7 @@ void PrefsDialog::restoreDefaults()
 			syntaxColoring->setCurrentIndex(kDefault_SyntaxColoring);
 			autoIndent->setCurrentIndex(kDefault_IndentMode);
 			encoding->setCurrentIndex(encoding->findText("UTF-8"));
+			highlightCurrentLine->setChecked(kDefault_HighlightCurrentLine);
 			break;
 	
 		case 2:
@@ -471,6 +473,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.editorFont->setCurrentIndex(fdb.families().indexOf(font.family()));
 	dlg.fontSize->setValue(font.pointSize());
 	dlg.encoding->setCurrentIndex(nameList.indexOf(TWApp::instance()->getDefaultCodec()->name()));
+	dlg.highlightCurrentLine->setChecked(settings.value("highlightCurrentLine", kDefault_HighlightCurrentLine).toBool());
 
 	QString defLang = settings.value("language", tr("None")).toString();
 	int i = dlg.language->findText(settings.value("language", tr("None")).toString());
@@ -593,6 +596,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		settings.setValue("font", font.toString());
 		TWApp::instance()->setDefaultCodec(QTextCodec::codecForName(dlg.encoding->currentText().toAscii()));
 		settings.setValue("language", dlg.language->currentText());
+		bool highlightLine = dlg.highlightCurrentLine->isChecked();
+		settings.setValue("highlightCurrentLine", highlightLine);
+		CompletingEdit::setHighlightCurrentLine(highlightLine);
 		
 		// Preview
 		int scaleOption = 1;
