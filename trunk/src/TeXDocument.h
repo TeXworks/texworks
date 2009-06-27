@@ -179,6 +179,7 @@ private slots:
 private:
 	void init();
 	bool maybeSave();
+	void detachPdf();
 	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
