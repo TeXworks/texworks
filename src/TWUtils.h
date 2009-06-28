@@ -105,6 +105,8 @@ public:
 	static const QString& includePostscriptCommand();
 	
 	static const QString& cleanupPatterns();
+	
+	static void installCustomShortcuts(QWidget * widget, bool recursive = true);
 
 private:
 	TWUtils();

@@ -1152,6 +1152,7 @@ PDFDocument::init()
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
 	TWUtils::zoomToHalfScreen(this, true);
+	TWUtils::installCustomShortcuts(this);
 }
 
 void PDFDocument::changeEvent(QEvent *event)
