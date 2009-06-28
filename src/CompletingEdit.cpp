@@ -44,6 +44,7 @@
 #include <QScrollBar>
 #include <QTimer>
 #include <QPainter>
+#include <QClipboard>
 
 CompletingEdit::CompletingEdit(QWidget *parent)
 	: QTextEdit(parent),
@@ -158,6 +159,7 @@ void CompletingEdit::mousePressEvent(QMouseEvent *e)
 
 	if (clickCount > 1) {
 		setTextCursor(curs);
+		setSelectionClipboard(curs);
 		mouseMode = dragSelecting;
 	}
 	dragStartCursor = curs;
@@ -247,6 +249,7 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 			curs.setPosition(start);
 			curs.setPosition(end, QTextCursor::KeepAnchor);
 			setTextCursor(curs);
+			setSelectionClipboard(curs);
 			if (scrollValue != -1)
 				verticalScrollBar()->setValue(scrollValue);
 			e->accept();
@@ -275,6 +278,7 @@ void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 			return;
 		case normalSelection:
 			setTextCursor(dragStartCursor);
+			setSelectionClipboard(dragStartCursor);
 			e->accept();
 			return;
 		case extendingSelection:
@@ -373,6 +377,18 @@ void CompletingEdit::mouseDoubleClickEvent(QMouseEvent *e)
 		QTextEdit::mouseDoubleClickEvent(e);
 	else
 		mousePressEvent(e); // don't like QTextEdit's selection behavior, so we try to improve it
+}
+
+void
+CompletingEdit::setSelectionClipboard(const QTextCursor& curs)
+{
+	if (!curs.hasSelection())
+		return;
+	QClipboard *c = QApplication::clipboard();
+	if (!c->supportsSelection())
+		return;
+	c->setText(curs.selectedText().replace(QChar(0x2019), QChar('\n')),
+		QClipboard::Selection);
 }
 
 void CompletingEdit::timerEvent(QTimerEvent *e)
