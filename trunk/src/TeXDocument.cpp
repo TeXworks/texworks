@@ -352,6 +352,8 @@ void TeXDocument::init()
 	connect(watcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()));
 	
 	docList.append(this);
+	
+	TWUtils::installCustomShortcuts(this);
 }
 
 void TeXDocument::changeEvent(QEvent *event)

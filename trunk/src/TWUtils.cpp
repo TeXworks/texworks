@@ -765,6 +765,38 @@ int TWUtils::findOpeningDelim(const QString& text, int pos)
 	return -1;
 }
 
+void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive)
+{
+	if (widget == NULL)
+		return;
+
+	QString filename = QDir(TWUtils::getLibraryPath("configuration")).absoluteFilePath("shortcuts.ini");
+
+	if (filename.isEmpty())
+		return;
+	
+	QSettings map(filename, QSettings::IniFormat);
+	if (map.status() != QSettings::NoError)
+		return;
+
+	QAction * act;
+	foreach (act, widget->actions()) {
+		if (act->objectName().isEmpty())
+			continue;
+		if (map.contains(act->objectName()))
+			act->setShortcut(QKeySequence(map.value(act->objectName()).toString()));
+	}
+	
+	if (recursive) {
+		QObject * obj;
+		foreach (obj, widget->children()) {
+			QWidget * child = qobject_cast<QWidget*>(obj);
+			if (child)
+				installCustomShortcuts(child);
+		}
+	}
+}
+
 #pragma mark === SelWinAction ===
 
 // action subclass used for dynamic window-selection items in the Window menu
