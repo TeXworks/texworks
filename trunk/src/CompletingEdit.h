@@ -104,6 +104,8 @@ private:
 	void handleOtherKey(QKeyEvent *e);
 	void maybeSmartenQuote(int offset);
 
+	void setSelectionClipboard(const QTextCursor& curs);
+
 	QTextCursor wordSelectionForPos(const QPoint& pos);
 	QTextCursor blockSelectionForPos(const QPoint& pos);
 	
