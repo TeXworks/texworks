@@ -44,9 +44,15 @@ const int kNewWindowOffset = 32;
 #define TW_OPEN_FILE_MSG		(('T' << 8) + 'W')	// just a small sanity check for the receiver
 #endif
 
+#ifdef Q_WS_MAC
+#define QSETTINGS_OBJECT(s) \
+			QSettings s(TWApp::instance()->getSettingsFormat(), QSettings::UserScope, \
+						TWApp::instance()->organizationDomain(), TWApp::instance()->applicationName())
+#else
 #define QSETTINGS_OBJECT(s) \
 			QSettings s(TWApp::instance()->getSettingsFormat(), QSettings::UserScope, \
 						TWApp::instance()->organizationName(), TWApp::instance()->applicationName())
+#endif
 
 class TWApp : public QApplication
 {
