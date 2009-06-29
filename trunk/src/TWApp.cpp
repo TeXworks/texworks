@@ -486,11 +486,8 @@ const QStringList TWApp::getBinaryPaths()
 	if (binaryPaths == NULL) {
 		binaryPaths = new QStringList;
 		QSETTINGS_OBJECT(settings);
-		if (settings.contains("binaryPaths")) {
-			// avoid an empty value becoming a list with an empty element; we want an empty list instead!
-			if (!settings.value("binaryPaths").toString().isEmpty())
-				*binaryPaths = settings.value("binaryPaths").toStringList();
-		}
+		if (settings.contains("binaryPaths"))
+			*binaryPaths = settings.value("binaryPaths").toStringList();
 		else
 			setDefaultPaths();
 	}
