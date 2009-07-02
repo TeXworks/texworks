@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="ko_KR">
-<defaultcodec></defaultcodec>
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -89,6 +88,29 @@
     <message>
         <source>(invalid)</source>
         <translation>(유효하지 않음)</translation>
+    </message>
+</context>
+<context>
+    <name>HardWrapDialog</name>
+    <message>
+        <source>Hard Wrap</source>
+        <translation>자동 줄 바꿈</translation>
+    </message>
+    <message>
+        <source>Wrap lines to:</source>
+        <translation>줄 바꿈 기준:</translation>
+    </message>
+    <message>
+        <source>Current window size</source>
+        <translation>현재 창 크기</translation>
+    </message>
+    <message>
+        <source>Line length:</source>
+        <translation>문자 갯수:</translation>
+    </message>
+    <message>
+        <source>Re-wrap paragraphs</source>
+        <translation>문단 재정렬</translation>
     </message>
 </context>
 <context>
@@ -422,7 +444,7 @@
         <translation>다시 찾기</translation>
     </message>
     <message>
-        <source>Ctrl+Shift+G</source>
+        <source>Ctrl+J</source>
         <translation></translation>
     </message>
 </context>
@@ -641,7 +663,7 @@
     </message>
     <message>
         <source>Wrap lines</source>
-        <translation>행 넘김</translation>
+        <translation>줄 넘김</translation>
     </message>
     <message>
         <source>Syntax coloring:</source>
@@ -738,6 +760,18 @@
     <message>
         <source>Auto-hide output panel unless errors occur</source>
         <translation>에러 없이 종료하면 콘솔 패널 자동 숨김</translation>
+    </message>
+    <message>
+        <source>Line numbers</source>
+        <translation>줄번호 표시</translation>
+    </message>
+    <message>
+        <source>Global editor options</source>
+        <translation>편집기 옵션</translation>
+    </message>
+    <message>
+        <source>Highlight current line</source>
+        <translation>현재 줄 강조</translation>
     </message>
 </context>
 <context>
@@ -1096,7 +1130,7 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
-        <translation>다른 프로그램이 %1을 변경하였습니다.
+        <translation>다른 프로그램이 %1 파일을 변경하였습니다.
 
 작업한 것을 버리고 디스크에서 파일을 읽어오겠습니까?</translation>
     </message>
@@ -1104,7 +1138,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
-        <translation>다른 프로그램이 %1을 변경하였습니다.
+        <translation>다른 프로그램이 %1 파일을 변경하였습니다.
 
 디스크의 파일을 덮어쓰게 되는데 그래도 저장하시겠습니까?</translation>
     </message>
@@ -1116,9 +1150,9 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>%2에 요청된 %1 인코딩은 지원되지 않는 인코딩입니다.
+        <translation>%2에서 요구한 %1 인코딩은 지원되지 않는 인코딩입니다.
 
-대신 %3 인코딩으로 읽겠습니다. 글자가 깨질 수 있습니다.</translation>
+대신 %3 인코딩으로 저장하겠습니다. 글자가 깨질 수 있습니다.</translation>
     </message>
     <message>
         <source>Text cannot be converted</source>
@@ -1160,11 +1194,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Go to Line</source>
-        <translation>행 찾아 가기</translation>
+        <translation>줄 찾아 가기</translation>
     </message>
     <message>
         <source>Line number:</source>
-        <translation>행 번호:</translation>
+        <translation>줄 번호:</translation>
     </message>
     <message>
         <source>Invalid regular expression</source>
@@ -1217,14 +1251,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Unable to execute %1</source>
         <translation>%1을 실행할 수 없습니다</translation>
-    </message>
-    <message>
-        <source>The program &quot;%1&quot; was not found.
-
-Check configuration of the %2 tool and path settings in the Preferences dialog.</source>
-        <translation>&quot;%1&quot; 프로그램을 찾을 수 없습니다.
-
-환경설정 대화상자에서 %2 도구와 경로 설정을 확인하세요.</translation>
     </message>
     <message>
         <source>Hide Output Panel</source>
@@ -1448,7 +1474,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>Go to Line...</source>
-        <translation>행 찾아 가기...</translation>
+        <translation>줄 찾아 가기...</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
@@ -1508,7 +1534,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>Wrap Lines</source>
-        <translation>행 넘김</translation>
+        <translation>줄 넘김</translation>
     </message>
     <message>
         <source>About TeXworks...</source>
@@ -1613,6 +1639,26 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <source>Toggle Case</source>
         <translation>대소문자 맞바꾸기</translation>
+    </message>
+    <message>
+        <source>The program &quot;%1&quot; was not found.</source>
+        <translation>&quot;%1&quot; 프로그램을 찾을 수 없습니다.</translation>
+    </message>
+    <message>
+        <source>Searched in directories:</source>
+        <translation>다음 디렉토리를 검색했습니다:</translation>
+    </message>
+    <message>
+        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
+        <translation>환경설정 대화상자에서 %1 도구와 경로 설정을 확인하세요.</translation>
+    </message>
+    <message>
+        <source>Hard Wrap...</source>
+        <translation>자동 줄 바꿈...</translation>
+    </message>
+    <message>
+        <source>Line Numbers</source>
+        <translation>줄번호 표시</translation>
     </message>
 </context>
 <context>
