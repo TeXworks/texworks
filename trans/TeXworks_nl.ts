@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="nl">
+<defaultcodec></defaultcodec>
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -83,7 +84,7 @@
     </message>
     <message>
         <source>No recent search strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen recente zoekteksten</translation>
     </message>
 </context>
 <context>
@@ -390,19 +391,19 @@
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>TeXworks afsluiten</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pdf bestand &quot;%1&quot; is geblokeerd; dit is niet ondersteund.</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Zoek</translation>
+        <translation>Zoek</translation>
     </message>
     <message>
         <source>Find</source>
@@ -410,58 +411,58 @@
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished">Ctrl+F</translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>Find Again</source>
-        <translation type="unfinished">Zoek nogmaals</translation>
+        <translation>Zoek nogmaals</translation>
     </message>
     <message>
         <source>Ctrl+Shift+G</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Find...</source>
-        <translation type="unfinished">Zoek...</translation>
+        <translation>Zoek...</translation>
     </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
     <message>
         <source>Find</source>
-        <translation type="unfinished">Zoeken</translation>
+        <translation>Zoeken</translation>
     </message>
     <message>
         <source>No recent search strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen recente zoekteksten</translation>
     </message>
     <message>
         <source>Find in PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoek in PDF</translation>
     </message>
     <message>
         <source>Find:</source>
-        <translation type="unfinished">Zoek:</translation>
+        <translation>Zoek:</translation>
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation type="unfinished">Ga &amp;rond</translation>
+        <translation>Ga &amp;rond</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation type="unfinished">Zoek &amp;achteruit</translation>
+        <translation>Zoek &amp;achteruit</translation>
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
-        <translation type="unfinished">Zoek alle &amp;voorkomens</translation>
+        <translation>Zoek alle &amp;voorkomens</translation>
     </message>
     <message>
         <source>&amp;Case sensitive</source>
-        <translation type="unfinished">Hoofdletter &amp;gevoelig</translation>
+        <translation>Hoofdletter &amp;gevoelig</translation>
     </message>
     <message>
         <source>&amp;Sync to source</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Spring naar tekst</translation>
     </message>
 </context>
 <context>
@@ -740,7 +741,7 @@
     </message>
     <message>
         <source>System default [%1]</source>
-        <translation type="unfinished"></translation>
+        <translation>Systeem standaard [%1]</translation>
     </message>
 </context>
 <context>
@@ -842,11 +843,11 @@
     </message>
     <message>
         <source>No recent search strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen recente zoekteksten</translation>
     </message>
     <message>
         <source>No recent replacement strings</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen recente vervangingsteksten</translation>
     </message>
 </context>
 <context>
@@ -877,7 +878,7 @@
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
 </context>
 <context>
@@ -1615,19 +1616,19 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>TeXworks afsluiten</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <source>Smart Quotes</source>
-        <translation type="unfinished"></translation>
+        <translation>Typografische citaattekens</translation>
     </message>
     <message>
         <source>Toggle Case</source>
-        <translation type="unfinished"></translation>
+        <translation>Verander Letters</translation>
     </message>
 </context>
 <context>
