@@ -1,131 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="tr">
+<TS version="2.0" language="sl_SI">
 <context>
     <name>CompletingEdit</name>
     <message>
         <source>Jump to PDF</source>
-        <translation>PDF&apos;e Atla</translation>
+        <translation>Skoči na PDF</translation>
     </message>
     <message>
         <source>No suggestions</source>
-        <translation>Öneri yok</translation>
+        <translation>Ni predlogov</translation>
     </message>
     <message>
         <source>Ignore word</source>
-        <translation>Kelimeyi yoksay</translation>
+        <translation>Prezri besedo</translation>
     </message>
 </context>
 <context>
     <name>ConfirmDelete</name>
     <message>
         <source>Delete</source>
-        <translation>Sil</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Unable to delete</source>
-        <translation>Silinemiyor</translation>
+        <translation>Ni mogoče izbrisati</translation>
     </message>
     <message>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation>Yardımcı dosyaların bir kısmı kaldırılamadı. Belki onları silmek için yetkiniz yoktur.</translation>
+        <translation>Nekaterih pomožnih datotek ni bilo mogoče odstraniti. Morda nimate ustreznih pravic.</translation>
     </message>
     <message>
         <source>Confirm file deletion</source>
-        <translation>Dosyanın silinmesini onaylayın</translation>
+        <translation>Potrdi izbris datoteke</translation>
     </message>
     <message>
         <source>Auxiliary files to be deleted:</source>
-        <translation>Silinecek yardımcı dosyalar:</translation>
+        <translation>Pomožne datoteke za brisanje:</translation>
     </message>
 </context>
 <context>
     <name>FindDialog</name>
     <message>
         <source>Find</source>
-        <translation>Bul</translation>
+        <translation>Išči</translation>
     </message>
     <message>
         <source>Find:</source>
-        <translation>Bul:</translation>
+        <translation>Išči:</translation>
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>&amp;Başa sarmala</translation>
+        <translatorcomment>?</translatorcomment>
+        <translation type="unfinished">Oblivanje</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>&amp;Geriye doğru bul</translation>
+        <translation>Išči nazaj</translation>
     </message>
     <message>
         <source>Search within &amp;selection</source>
-        <translation>&amp;Seçim içinde ara</translation>
+        <translation>Išči znotraj izbora</translation>
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
-        <translation>Geçen &amp;tüm yerlerde bul</translation>
+        <translatorcomment>pojavitve je čudna beseda - popravi</translatorcomment>
+        <translation>Najdi vse</translation>
     </message>
     <message>
         <source>Search all &amp;open files</source>
-        <translation>Tüm açık d&amp;osyalarda ara</translation>
+        <translation>Išči po vseh &amp;odprtih datotekah</translation>
     </message>
     <message>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;Büyük küçük harfe duyarlı</translation>
+        <translation>Razlikovanje med malimi in velikimi črkami</translation>
     </message>
     <message>
         <source>W&amp;hole words</source>
-        <translation>&amp;Tam kelimeler</translation>
+        <translation>Celotne besede</translation>
     </message>
     <message>
         <source>&amp;Regular expression</source>
-        <translation>&amp;Düzenli ifade</translation>
+        <translation>&amp;Regularni izrazi</translation>
     </message>
     <message>
         <source>No recent search strings</source>
-        <translation></translation>
+        <translation>Ni nedavnih iskalnih nizov</translation>
     </message>
     <message>
         <source>(invalid)</source>
-        <translation>(geçersiz)</translation>
+        <translation>(neveljavno)</translation>
     </message>
 </context>
 <context>
     <name>HardWrapDialog</name>
     <message>
         <source>Hard Wrap</source>
-        <translation>Sabit Sözcük Kaydırma</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Wrap lines to:</source>
-        <translation>Satır kaydırma uzunluğu:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Current window size</source>
-        <translation>Mevcut pencere boyutu</translation>
+        <translation>Trenutna velikost okna</translation>
     </message>
     <message>
         <source>Line length:</source>
-        <translation>Satır uzunluğu:</translation>
+        <translation>Dolžina vrstice:</translation>
     </message>
     <message>
         <source>Re-wrap paragraphs</source>
-        <translation>Paragrafları tekrar sarmala</translation>
+        <translation type="unfinished">Ponoven prelom vrstic v odstavkih</translation>
     </message>
 </context>
 <context>
     <name>PDFDocument</name>
     <message>
         <source>Open Recent</source>
-        <translation>Son Açılanı Aç</translation>
+        <translation type="unfinished">Nedavno odprti dokumenti</translation>
+    </message>
+    <message>
+        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
+        <translatorcomment>a ni bolje namigniti, kaj je potrebno narediti?</translatorcomment>
+        <translation type="unfinished">PDF datoteka &quot;%1&quot; je zaklenjena, kar trenutno ni podprto.</translation>
     </message>
     <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>&quot;%1&quot; dosyası açılamadı; belki geçerli bir PDF belgesi değildir.</translation>
+        <translation>Ni mogoče odpreti datoteke &quot;%1&quot;; morda ni veljaven PDF.</translation>
     </message>
     <message>
         <source>No SyncTeX data available</source>
-        <translation>Kullanılabilir SyncTeX verisi yok</translation>
+        <translation>Ni podatkov za sinhronizacijo (SyncTeX)</translation>
     </message>
     <message>
         <source>SyncTeX: &quot;%1&quot;</source>
@@ -137,7 +144,7 @@
     </message>
     <message>
         <source>page %1 of %2</source>
-        <translation>sayfa %1/%2</translation>
+        <translation>stran %1 od %2</translation>
     </message>
     <message>
         <source>%1%</source>
@@ -145,56 +152,60 @@
     </message>
     <message>
         <source>untitled.pdf[*]</source>
-        <translation>isimsiz.pdf[*]</translation>
+        <translation>neimenovana.pdf[*]</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Yardım</translation>
+        <translation>Pomoč</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Dosya</translation>
+        <translation>Datoteka</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Düzenle</translation>
+        <translation>Urejanje</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Görüntüle</translation>
+        <translation>Pogled</translation>
     </message>
     <message>
         <source>Window</source>
-        <translation>Pencere</translation>
+        <translation>Okno</translation>
     </message>
     <message>
         <source>Show</source>
-        <translation>Göster</translation>
+        <translation>Pokaži</translation>
     </message>
     <message>
         <source>Typeset</source>
-        <translation>Diz</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Išči</translation>
     </message>
     <message>
         <source>Toolbar</source>
-        <translation>Araç çubuğu</translation>
+        <translation>Orodja</translation>
     </message>
     <message>
         <source>About TeXworks...</source>
-        <translation>TeXworks Hakkında...</translation>
+        <translation>O programu TeXworks ...</translation>
     </message>
     <message>
         <source>First Page</source>
-        <translation>İlk Sayfa</translation>
+        <translation>Prva stran</translation>
     </message>
     <message>
         <source>Home</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>Home</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Previous Page</source>
-        <translation>Önceki Sayfa</translation>
+        <translation>Prejšnja stran</translation>
     </message>
     <message>
         <source>PgUp</source>
@@ -203,33 +214,33 @@
     </message>
     <message>
         <source>Next Page</source>
-        <translation>Sonraki Sayfa</translation>
+        <translation>Naslednja stran</translation>
     </message>
     <message>
         <source>PgDown</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>PgDown</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Last Page</source>
-        <translation>Son Sayfa</translation>
+        <translation>Zadnja stran</translation>
     </message>
     <message>
         <source>End</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>End</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Go to Page...</source>
-        <translation>Sayfaya Git...</translation>
+        <translation>Pojdi na stran ...</translation>
     </message>
     <message>
-        <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
+        <source>Ctrl+J</source>
+        <translation>Ctrl+J</translation>
     </message>
     <message>
         <source>Zoom In</source>
-        <translation>Yakınlaştır</translation>
+        <translation>Povečaj</translation>
     </message>
     <message>
         <source>Ctrl++</source>
@@ -237,7 +248,7 @@
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>Uzaklaştır</translation>
+        <translation>Pomanjšaj</translation>
     </message>
     <message>
         <source>Ctrl+-</source>
@@ -245,7 +256,7 @@
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation>Pencereye Sığdır</translation>
+        <translation>Prilagodi velikosti okna</translation>
     </message>
     <message>
         <source>Ctrl+3</source>
@@ -253,7 +264,7 @@
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>Gerçek Boyut</translation>
+        <translation>Dejanska velikost</translation>
     </message>
     <message>
         <source>Ctrl+1</source>
@@ -261,7 +272,7 @@
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>Genişliğe Sığdır</translation>
+        <translation>Prilagodi širini</translation>
     </message>
     <message>
         <source>Ctrl+2</source>
@@ -269,7 +280,7 @@
     </message>
     <message>
         <source>New</source>
-        <translation>Yeni</translation>
+        <translation>Nov dokument</translation>
     </message>
     <message>
         <source>Ctrl+N</source>
@@ -277,7 +288,7 @@
     </message>
     <message>
         <source>Open...</source>
-        <translation>Aç...</translation>
+        <translation>Odpri ...</translation>
     </message>
     <message>
         <source>Ctrl+O</source>
@@ -285,7 +296,7 @@
     </message>
     <message>
         <source>Close</source>
-        <translation>Kapat</translation>
+        <translation>Zapri</translation>
     </message>
     <message>
         <source>Ctrl+W</source>
@@ -293,7 +304,7 @@
     </message>
     <message>
         <source>Undo</source>
-        <translation>Geri Al</translation>
+        <translation>Razveljavi</translation>
     </message>
     <message>
         <source>Ctrl+Z</source>
@@ -301,7 +312,7 @@
     </message>
     <message>
         <source>Redo</source>
-        <translation>Tekrar yap</translation>
+        <translation>Ponovno uveljavi</translation>
     </message>
     <message>
         <source>Ctrl+Shift+Z</source>
@@ -309,7 +320,7 @@
     </message>
     <message>
         <source>Cut</source>
-        <translation>Kes</translation>
+        <translation>Izreži</translation>
     </message>
     <message>
         <source>Ctrl+X</source>
@@ -317,7 +328,7 @@
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopyala</translation>
+        <translation>Kopiraj</translation>
     </message>
     <message>
         <source>Ctrl+C</source>
@@ -325,7 +336,7 @@
     </message>
     <message>
         <source>Paste</source>
-        <translation>Yapıştır</translation>
+        <translation>Prilepi</translation>
     </message>
     <message>
         <source>Ctrl+V</source>
@@ -333,7 +344,7 @@
     </message>
     <message>
         <source>Clear</source>
-        <translation>Temizle</translation>
+        <translation>Počisti</translation>
     </message>
     <message>
         <source>Ctrl+Backspace</source>
@@ -345,19 +356,20 @@
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>Tercihler...</translation>
+        <translation>Nastavitve ...</translation>
     </message>
     <message>
         <source>Stack</source>
-        <translation>Üst üste</translation>
+        <translatorcomment>?</translatorcomment>
+        <translation type="unfinished">Sklad</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>Döşe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go to Source</source>
-        <translation>Kaynağa Git</translation>
+        <translation>Pojdi na izvorno kodo</translation>
     </message>
     <message>
         <source>Ctrl+&apos;</source>
@@ -365,7 +377,7 @@
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>Şablondan Yeni...</translation>
+        <translation>Nova datoteka iz predloge ...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -373,7 +385,7 @@
     </message>
     <message>
         <source>Full Screen</source>
-        <translation>Tam Ekran</translation>
+        <translation>Celozaslonski način</translation>
     </message>
     <message>
         <source>Ctrl+Shift+F</source>
@@ -381,59 +393,52 @@
     </message>
     <message>
         <source>Magnify</source>
-        <translation>Büyüt</translation>
+        <translation>Povečaj</translation>
     </message>
     <message>
         <source>Scroll</source>
-        <translation>Kaydır</translation>
+        <translatorcomment>drsenje/drsnik?</translatorcomment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select Text</source>
-        <translation>Metni Seç</translation>
+        <translation>Izberi besedilo</translation>
     </message>
     <message>
         <source>Select Image</source>
-        <translation>İmgeyi Seç</translation>
+        <translation>Izberi sliko</translation>
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>TeXworks ana sayfasına git</translation>
+        <translation>Pojdi na domačo stran za TeXworks</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
-        <translation>Posta listesine e-posta gönder</translation>
+        <translation>Pošlji elektronsko sporočilo na dopisni seznam</translation>
     </message>
     <message>
         <source>Side by Side</source>
-        <translation>Yan yana</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Place on Left</source>
-        <translation>Sola yerleştir</translation>
+        <translation>Postavi na levo</translation>
     </message>
     <message>
         <source>Place on Right</source>
-        <translation>Sağa Yerleştir</translation>
+        <translation>Postavi na desno</translation>
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation>TeXworks&apos;den çık</translation>
+        <translation>Izhod</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>&quot;%1&quot; PDF dosyası kilitli; bu henüz desteklenmiyor.</translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation>Ara</translation>
-    </message>
-    <message>
-        <source>Find</source>
-        <translation type="obsolete">Bul</translation>
+        <source>Find...</source>
+        <translation>Išči ...</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
@@ -441,277 +446,276 @@
     </message>
     <message>
         <source>Find Again</source>
-        <translation>Tekrar Bul</translation>
+        <translation>Ponovno išči</translation>
     </message>
     <message>
-        <source>Ctrl+Shift+G</source>
-        <translation type="obsolete">Ctrl+Shift+G</translation>
-    </message>
-    <message>
-        <source>Find...</source>
-        <translation>Bul...</translation>
-    </message>
-    <message>
-        <source>Ctrl+J</source>
-        <translation>Ctrl+J</translation>
+        <source>Ctrl+G</source>
+        <translation>Ctrl+G</translation>
     </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
     <message>
         <source>Find</source>
-        <translation>Bul</translation>
+        <translation>Išči</translation>
     </message>
     <message>
         <source>No recent search strings</source>
-        <translation>Son arama yok</translation>
+        <translation>Ni nedavnih iskalnih nizov</translation>
     </message>
     <message>
         <source>Find in PDF</source>
-        <translation>PDF içinde bul</translation>
+        <translation>Išči v  PDF-ju</translation>
     </message>
     <message>
         <source>Find:</source>
-        <translation>Bul:</translation>
+        <translation>Išči:</translation>
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>&amp;Başa sarmala</translation>
+        <translation type="unfinished">Oblivanje</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>&amp;Geriye doğru bul</translation>
+        <translation>Išči nazaj</translation>
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
-        <translation>Geçen &amp;tüm yerlerde bul</translation>
+        <translation>Najdi vse</translation>
     </message>
     <message>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;Büyük küçük harfe duyarlı</translation>
+        <translation>Razlikovanje med malimi in velikimi črkami</translation>
     </message>
     <message>
         <source>&amp;Sync to source</source>
-        <translation>&amp;Kaynağa Eşle</translation>
+        <translation>&amp;Sinhronizacija z izvorno kodo</translation>
     </message>
 </context>
 <context>
     <name>PDFFontsDock</name>
     <message>
-        <source>Fonts</source>
-        <translation>Fontlar</translation>
-    </message>
-    <message>
         <source>Name</source>
-        <translation>İsim</translation>
+        <translation>Ime</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Tip</translation>
+        <translatorcomment>lahko bi bil Tip</translatorcomment>
+        <translation>Vrsta</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>Altküme</translation>
+        <translatorcomment>najbrž misli, da je v dokumentu shranjen le del celotne pisave</translatorcomment>
+        <translation type="unfinished">Podmnožica</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Dosya</translation>
+        <translation>Datoteka</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation>[yok]</translation>
+        <translation type="unfinished">[brez]</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation>evet</translation>
+        <translation>da</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>hayır</translation>
+        <translation>ne</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation>[gömülü]</translation>
+        <translation type="unfinished">[vgrajena]</translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation>Pisave</translation>
     </message>
 </context>
 <context>
     <name>PDFInfoDock</name>
     <message>
         <source>PDF Info</source>
-        <translation>PDF Bilgisi</translation>
+        <translation>PDF info</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
-        <source>Contents</source>
-        <translation>İçindekiler</translation>
+        <source>No TOC</source>
+        <translation>Ni kazala</translation>
     </message>
     <message>
-        <source>No TOC</source>
-        <translation>İçindekiler Yok</translation>
+        <source>Contents</source>
+        <translation>Vsebina</translation>
     </message>
 </context>
 <context>
     <name>PDFWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation>Yakınlaştır</translation>
+        <translation>Povečaj</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>Uzaklaştır</translation>
+        <translation>Zmanjšaj</translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>Gerçek Boyut</translation>
+        <translation>Dejanska širina</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>Genişliğe Sığdır</translation>
+        <translation>Prilagodi širini</translation>
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation>Pencereye Sığdır</translation>
+        <translation>Prilagodi velikosti okna</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation>Kaynağa Atla</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation>Sayfaya Git</translation>
+        <translation>Pojdi na stran</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation>Sayfa no:</translation>
+        <translation>Stran št.:</translation>
     </message>
 </context>
 <context>
     <name>PrefsDialog</name>
     <message>
         <source>Choose Directory</source>
-        <translation>Dizin Seç</translation>
+        <translation>Izberi mapo</translation>
     </message>
     <message>
         <source>New Tool</source>
-        <translation>Yeni Araç</translation>
+        <translation>Novo orodje</translation>
     </message>
     <message>
         <source>System default [%1]</source>
-        <translation>Sistemde öntanımlı [%1]</translation>
+        <translation>Privzet sistemski [%1]</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation>Brez</translation>
     </message>
     <message>
         <source>TeXworks Preferences</source>
-        <translation>TeXworks Tercihleri</translation>
+        <translation>Nastavitve za TeXworks</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>Genel</translation>
+        <translation>Splošno</translation>
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>Araç çubuğu düğmeleri</translation>
+        <translation>Gumbi v orodni vrstici</translation>
     </message>
     <message>
         <source>Small icons</source>
-        <translation>Küçük simgeler</translation>
+        <translation>Majhne ikone</translation>
     </message>
     <message>
         <source>Medium icons</source>
-        <translation>Orta boy simgeler</translation>
+        <translation>Srednje velike ikone</translation>
     </message>
     <message>
         <source>Large icons</source>
-        <translation>Büyük simgeler</translation>
+        <translation>Velike ikone</translation>
     </message>
     <message>
         <source>Show text as well as icons</source>
-        <translation>Simgelerle birlikte metin de göster</translation>
+        <translation>Opis pod ikono</translation>
     </message>
     <message>
         <source>When launched, show</source>
-        <translation>Başlangıçta</translation>
+        <translation type="unfinished">Pokaži ob zagonu</translation>
     </message>
     <message>
         <source>New blank document</source>
-        <translation>Yeni boş belge göster</translation>
+        <translation>Nov prazen dokument</translation>
     </message>
     <message>
         <source>Template selection dialog</source>
-        <translation>Şablon seçim penceresini göster</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File Open dialog</source>
-        <translation>Dosya Aç penceresini göster</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>Arayüz dili:</translation>
+        <translation>Jezik up. vmesnika:</translation>
     </message>
     <message>
         <source>Editor</source>
-        <translation>Düzenleyici</translation>
+        <translation>Urejevalnik</translation>
     </message>
     <message>
         <source>Editor defaults</source>
-        <translation>Düzenleyici varsayılanları</translation>
+        <translation>Privzete nastavitve urejevalnika</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="unfinished"> pt</translation>
     </message>
     <message>
         <source>Tab width:</source>
-        <translation>Sekme genişliği:</translation>
+        <translation>Širina tabulatorja:</translation>
+    </message>
+    <message>
+        <source>Line numbers</source>
+        <translation>Številke vrstic</translation>
     </message>
     <message>
         <source>Wrap lines</source>
-        <translation>Sözcük kaydır</translation>
+        <translation>Prelom vrstic</translation>
     </message>
     <message>
         <source>Syntax coloring:</source>
-        <translation>Sentaks renklendirme:</translation>
+        <translation>Barvanje kode:</translation>
     </message>
     <message>
         <source>Auto-Indent mode:</source>
-        <translation>Otomatik girintileme kipi:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Spell-check language:</source>
-        <translation>Yazım denetimi dili:</translation>
+        <translation>Jezik črkovalnika:</translation>
     </message>
     <message>
         <source>Encoding:</source>
-        <translation>Kodlama:</translation>
+        <translation>Kodiranje:</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Önizleme</translation>
+        <translation>Predogled</translation>
     </message>
     <message>
         <source>Default scaling</source>
-        <translation>Öntanımlı ölçekleme</translation>
+        <translation>Privzeta velikost</translation>
     </message>
     <message>
         <source>Actual size</source>
-        <translation>Gerçek Boyut</translation>
+        <translation>Dejanska velikost</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>Genişliğe Sığdır</translation>
+        <translation>Prilagodi širini</translation>
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation>Pencereye Sığdır</translation>
+        <translation>Prilagodi velikosti okna</translation>
     </message>
     <message>
         <source>Fixed scale:</source>
-        <translation>Sabit ölçek:</translation>
+        <translatorcomment>lepši izraz za fiksna, poglej v wordu</translatorcomment>
+        <translation type="unfinished">Fiksna skala:</translation>
     </message>
     <message>
         <source> %</source>
@@ -719,247 +723,238 @@
     </message>
     <message>
         <source>Magnifying glass</source>
-        <translation>Büyüteç</translation>
+        <translation>Povečevalno steklo</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Küçük</translation>
+        <translation>Majhno</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Orta boy</translation>
+        <translation>Srednje</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation>Büyük</translation>
+        <translation>Veliko</translation>
     </message>
     <message>
         <source>Circular magnifier</source>
-        <translation>Yuvarlak büyüteç</translation>
+        <translation>Okroglo povečevalno steklo</translation>
     </message>
     <message>
         <source>Screen resolution:</source>
-        <translation>Ekran çözünürlüğü:</translation>
+        <translation type="unfinished">Resolucija zaslona:</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation>dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>Typesetting</source>
-        <translation>Dizgi</translation>
+        <translation>Stavljenje</translation>
     </message>
     <message>
         <source>Paths for TeX and related programs</source>
-        <translation>TeX ve ilgili programlar için aranacak yollar</translation>
+        <translation>Poti do TeX-a in ostalih sorodnih programov</translation>
     </message>
     <message>
         <source>Processing tools</source>
-        <translation>İşleme araçları</translation>
+        <translation type="unfinished">Orodja za procesiranje dokumentov</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>Düzenle...</translation>
+        <translation>Uredi ...</translation>
     </message>
     <message>
         <source>Default:</source>
-        <translation>Öntanımlı:</translation>
+        <translation>Privzeto:</translation>
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>Hata bulunmazsa çıktı panelini gizle</translation>
-    </message>
-    <message>
-        <source>Line numbers</source>
-        <translation>Satır numaraları</translation>
-    </message>
-    <message>
-        <source>Global editor options</source>
-        <translation>Genel editör seçenekleri</translation>
-    </message>
-    <message>
-        <source>Highlight current line</source>
-        <translation>Bulunulan satırı vurgula</translation>
+        <translation type="unfinished">Samodejno skrij ?, razen v primeru napake</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>TeX documents (*.tex)</source>
-        <translation>TeX belgeleri (*.tex)</translation>
+        <translation>TeX datoteke (*.tex)</translation>
     </message>
     <message>
         <source>LaTeX documents (*.ltx)</source>
-        <translation>LaTeX belgeleri (*.tex)</translation>
+        <translation>LaTeX datoteke (*.ltx)</translation>
     </message>
     <message>
         <source>BibTeX databases (*.bib)</source>
-        <translation>BibTeX veritabanları (*.bib)</translation>
+        <translatorcomment>ali samo datoteke</translatorcomment>
+        <translation>BibTeX baze (*.bib)</translation>
     </message>
     <message>
         <source>Style files (*.sty)</source>
-        <translation>Stil dosyaları (*.sty)</translation>
+        <translation>Datoteke slogov (*.sty)</translation>
     </message>
     <message>
         <source>Class files (*.cls)</source>
-        <translation>Sınıf dosyaları (*.cls)</translation>
+        <translation>Datoteke razredov (*.cls)</translation>
     </message>
     <message>
         <source>Documented macros (*.dtx)</source>
-        <translation>Belgelenmiş makrolar (*.dtx)</translation>
+        <translation>Makro ukazi z dokumentacijo (*.dtx)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation>Yardımcı dosyalar (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
+        <translation>Pomožne datoteke (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
         <source>Text files (*.txt)</source>
-        <translation>Metin dosyaları (*.txt)</translation>
+        <translation>Besedilne datototeke (*.txt)</translation>
     </message>
     <message>
         <source>PDF documents (*.pdf)</source>
-        <translation>PDF belgeleri (*.pdf)</translation>
+        <translation>PDF datoteke (*.pdf)</translation>
     </message>
     <message>
         <source>All files</source>
-        <translation>Tüm dosyalar</translation>
+        <translation>Vse datoteke</translation>
     </message>
 </context>
 <context>
     <name>ReplaceDialog</name>
     <message>
         <source>Replace</source>
-        <translation>Yer Değiştir</translation>
+        <translation>Zamenjaj</translation>
     </message>
     <message>
         <source>Replace All</source>
-        <translation>Tümünü yer değiştir</translation>
+        <translation>Zamenjaj vse</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Vazgeç</translation>
+        <translation>Prekliči</translation>
     </message>
     <message>
         <source>No recent search strings</source>
-        <translation>Son arama yok</translation>
+        <translation>Ni nedavnih iskalnih nizov</translation>
     </message>
     <message>
         <source>No recent replacement strings</source>
-        <translation>Son yer değiştirme yok</translation>
+        <translation>Ni nedavnih nizov za zamenjavo</translation>
     </message>
     <message>
         <source>(invalid)</source>
-        <translation>(geçersiz)</translation>
+        <translation>(neveljavno)</translation>
     </message>
     <message>
         <source>Replace:</source>
-        <translation>Yer değiştir:</translation>
+        <translation>Zamenjaj:</translation>
     </message>
     <message>
         <source>With:</source>
-        <translation>Bununla:</translation>
+        <translation>Z:</translation>
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>&amp;Başa sarmala</translation>
+        <translatorcomment>?</translatorcomment>
+        <translation type="unfinished">Oblivanje</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>Geriye doğru &amp;bul</translation>
+        <translation>Išči nazaj</translation>
     </message>
     <message>
         <source>Replace within &amp;selection</source>
-        <translation>&amp;Seçim içinde yer değiştir</translation>
+        <translation>Zamenjaj znotraj izbora</translation>
     </message>
     <message>
         <source>Replace in all &amp;open files</source>
-        <translation>Tüm açık d&amp;osyalarda yer değiştir</translation>
+        <translation>Zamenjaj znotraj vseh &amp;odprtih datotek</translation>
     </message>
     <message>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;Büyük küçük harfe duyarlı</translation>
+        <translation>Razlikovanje med malimi in velikimi črkami</translation>
     </message>
     <message>
         <source>W&amp;hole words</source>
-        <translation>&amp;Tam kelimeler</translation>
+        <translation>Celotne besede</translation>
     </message>
     <message>
         <source>&amp;Regular expression</source>
-        <translation>&amp;Düzenli ifade</translation>
+        <translation>&amp;Regularni izrazi</translation>
     </message>
 </context>
 <context>
     <name>SearchResults</name>
     <message>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
         <source>File</source>
-        <translation>Dosya</translation>
+        <translation>Datoteka</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Satır</translation>
+        <translation>Vrstica</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation>Başlangıç</translation>
+        <translation>Začetek</translation>
     </message>
     <message>
         <source>End</source>
-        <translation>Son</translation>
+        <translation>Konec</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Metin</translation>
+        <translation>Besedilo</translation>
     </message>
     <message>
         <source>Search Results</source>
-        <translation>Arama Sonuçları</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation>...</translation>
+        <translation>Rezultati iskanja</translation>
     </message>
 </context>
 <context>
     <name>TWApp</name>
     <message>
         <source>File</source>
-        <translation>Dosya</translation>
+        <translation>Datoteka</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Yeni</translation>
+        <translation type="unfinished">Nov dokument</translation>
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>Şablondan Yeni...</translation>
+        <translation type="unfinished">Nov dokument iz predloge ...</translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>Tercihler...</translation>
+        <translation>Nastavitve ...</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation>Aç...</translation>
+        <translation>Odpri ...</translation>
     </message>
     <message>
         <source>Open Recent</source>
-        <translation>Son Açılanı Aç</translation>
+        <translation>Nedavno odprti dokumenti</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Yardım</translation>
+        <translation>Pomoč</translation>
     </message>
     <message>
         <source>About </source>
-        <translation>Hakkında</translation>
+        <translatorcomment>???</translatorcomment>
+        <translation type="unfinished">O </translation>
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>TeXworks ana sayfasına git</translation>
+        <translation>Pojdi na domačo stran za TeXworks</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
-        <translation>Posta listesine e-posta gönder</translation>
+        <translation>Pošlji elektronsko sporočilo na dopisni seznam</translation>
     </message>
     <message>
         <source>Ctrl+N</source>
@@ -975,223 +970,231 @@
     </message>
     <message>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1, TeX belgelerini düzenleme, dizme ve önizleme için basit bir ortamdır.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1 je enostavno okolje za urejanje, stavljenje in ogled TeX-ovih dokumentov.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation>&lt;br&gt;Versiyon %1 (r.%2)</translation>
+        <translation>&lt;br&gt;Verzija %1 (r.%2)</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU Genel Kamu Lisansı&lt;/a&gt;nın 2. versiyonu ile dağıtılır.</translation>
+        <translation>&lt;p&gt;Distribucija programa pod licenco &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, verzija 2.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; uygulama çatısı bir Nokia Corporation bölümü olan Qt Software tarafından.</translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; programsko ogrodje, razvito pri Qt Software, ki je del Nokiine korporacije.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF bezeme kitaplığı Kristian H&amp;#xF8;gsberg, Albert Astals Cid ve diğerleri tarafından.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; knjižnica za delo s PDF datotekami, avtorji Kristian H&amp;#xF8;gsberg, Albert Astals Cid in ostalih.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; yazım denetleyicisi L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth tarafından.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; črkovalnik, avtor L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation>&lt;br&gt;Kavram ve kaynaklar Richard Koch tarafından &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt;&apos;dan.</translation>
+        <translation>&lt;br&gt;Koncept in rešitve iz programa &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt;, avtor Richard Koch.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; teknolojisi J&amp;#xE9;r&amp;#xF4;me Laurens tarafından.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; tehnologija, avtor J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation>&lt;br&gt;Kullanılan bazı simgeler &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Masaüstü Projesi&lt;/a&gt;&apos;nden.</translation>
+        <translation>&lt;br&gt;Nekatere ikone uporabljene iz &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation>&lt;p&gt;%1 tercümesi %2 tarafından eklendi.</translation>
+        <translatorcomment>sklon ne bo delal - popravi</translatorcomment>
+        <translation>&lt;p&gt;prevod v %1 prispeval %2.</translation>
     </message>
     <message>
         <source>[language name]</source>
-        <translation>Türkçe</translation>
+        <translation>[ime jezika]</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
-        <translation>Sertaç Ö. Yıldız &lt;sertacyildiz＠gmail.com&gt;</translation>
+        <translation>[ime/e-pošta prevajalca]</translation>
     </message>
     <message>
         <source>About %1</source>
-        <translation>%1 hakkında</translation>
+        <translation>O %1</translation>
     </message>
     <message>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation>&quot;%1&quot; erişilemiyor; belki web tarayıcınız veya e-posta uygulamanız uygun şekilde ayarlanmamıştır?</translation>
+        <translation>Ni mogoče dostopati do &quot;%1&quot;; morda brskalnik ali aplikacija za el. pošto nista prav skonfigurirana?</translation>
     </message>
     <message>
         <source>Unable to create window</source>
-        <translation>Pencere oluşturulamıyor</translation>
+        <translation>Ni mogoče ustvariti okna</translation>
     </message>
     <message>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
-        <translation>Bir şeyler fena halde yanlış; %1 bir belge penceresi oluşturamadı. Uygulama şimdi sonlandırılacak.</translation>
+        <translation>Nekaj je hudo narobe; aplikacija %1 ni mogla ustvariti okna z dokumentom, zato se bo končala.</translation>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Dosya Aç</translation>
+        <translation>Odpri datoteko</translation>
     </message>
     <message>
         <source>No default binary directory found</source>
-        <translation>Hiçbir öntanımlı ikili dizini bulunamadı</translation>
+        <translation>Nobeden od privzetih direktorijev s programi ni bil najden</translation>
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>TeX ile ilgili programlar için önceden tanımlanmış dizinlerin hiçbiri bulunamadı.&lt;p&gt;&lt;small&gt;Bir işlem çalıştırmak için Tercihler penceresindeki Dizgi sekmesinde TeX dağıtımınız için ikililer dizini (veya dizinleri) ayarlamanız gerekecek.</translation>
+        <translatorcomment>preveri ime, da prideš do nastavitev</translatorcomment>
+        <translation type="unfinished">Nobeden od predefiniranih direktorijev s TeX-ovimi programi ni bil najden.&lt;p&gt;&lt;small&gt;Da bi lahko poganjali katerikoli program, bosta najprej morali nastaviti direktorij(e) s programi vaše TeX-ove distribucije. Uporabite Stavljenje??? v nastavitvah.</translation>
     </message>
 </context>
 <context>
     <name>TagsDock</name>
     <message>
         <source>Tags</source>
-        <translation>Etiketler</translation>
+        <translatorcomment>Označevalci</translatorcomment>
+        <translation>Značke</translation>
     </message>
     <message>
         <source>Bookmarks</source>
-        <translation>Yer imleri</translation>
+        <translation>Zaznamki</translation>
     </message>
     <message>
         <source>Outline</source>
-        <translation>Ana hatlar</translation>
+        <translatorcomment>???</translatorcomment>
+        <translation type="unfinished">Obris</translation>
     </message>
     <message>
         <source>No tags</source>
-        <translation>Etiket yok</translation>
+        <translatorcomment>Kje se to uporablja?</translatorcomment>
+        <translation type="unfinished">Ni značk</translation>
     </message>
 </context>
 <context>
     <name>TeXDocument</name>
     <message>
         <source>New document</source>
-        <translation>Yeni belge</translation>
+        <translation>Nov dokument</translation>
     </message>
     <message>
         <source>Open Recent</source>
-        <translation>Son Açılanı Aç</translation>
+        <translation>Nedavno odprti dokumenti</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translatorcomment>?</translatorcomment>
+        <translation type="unfinished">Brez</translation>
     </message>
     <message>
         <source>Open File</source>
-        <translation>Dosya Aç</translation>
+        <translation>Odpri datoteko</translation>
     </message>
     <message>
         <source>Cannot close window while tool is running</source>
-        <translation>Araç çalışıyorken pencere kapatılamaz</translation>
+        <translation>Okna ni mogoče zapreti, dokler je orodje v teku</translation>
     </message>
     <message>
         <source>Save File</source>
-        <translation>Dosyayı Kaydet</translation>
+        <translation>Shrani datoteko</translation>
     </message>
     <message>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
-        <translation>&quot;%1&quot; belgesinde değişiklik yapılmış
-Değişikliklerinizi kaydetmek istiyor musunuz?</translation>
+        <translation>Dokument &quot;%1&quot; je bil spremenjen.
+Želite shraniti spremembe?</translation>
     </message>
     <message>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>&quot;%1&quot; belgesindeki tüm değişikliklerden vazgeçip, kaydedilmiş son versiyona geri dönmek istiyor musunuz?</translation>
+        <translation>Želite zavreči vse spremembe dokumenta &quot;%1&quot; in se vrniti na zadnjo shranjeno verzijo?</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation>Geri Dön</translation>
+        <translatorcomment>ni najbolje ... npr. vrni se na zadnje shranjeno stanje</translatorcomment>
+        <translation type="unfinished">Vrni se</translation>
     </message>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation>&quot;%1&quot; dosyası okunamıyor:￼
+        <translation>Ni mogoče prebrati datoteke &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
         <source>Unrecognized encoding</source>
-        <translation>Tanınmayan kodlama</translation>
+        <translation>Neprepoznano kodiranje</translation>
     </message>
     <message>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
-        <translation>%2&apos;de kullanılan %1 metin kodlaması desteklenmiyor.
+        <translation>Kodiranje besedila %1, uporabljeno v %2, ni podprto.
 
-Onun yerine, hatalı metne yol açabilecek olan %3 olarak yorumlanacak.</translation>
+Namesto tega bo uporabljeno kodiranje %3, zaradi česar se lahko nekateri znaki prikažejo narobe.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation>&quot;%1&quot; dosyası yüklendi (%2)</translation>
+        <translation>Datoteka &quot;%1&quot; naložena (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
-        <translation>Diskteki dosya değişti</translation>
+        <translation>Datoteka na disku spremenjena</translation>
     </message>
     <message>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
-        <translation>%1 başka bir program tarafından değiştirildi.￼
+        <translation>Datoteka %1 je bila spremenjena z drugim programom.
 
-Şu anki değişikliklerinizden vazgeçip, diskten tekrar yüklemek istiyor musunuz?</translation>
+Želite zavreči trenutne spremembe in ponovno naložiti datoteko z diska?</translation>
     </message>
     <message>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
-        <translation>%1 başka bir program tarafından değiştirildi.￼
+        <translation>Datoteka %1 je bila spremenjena z drugim programom.
 
-Diskteki versiyonun üzerine yazarak bu dosyayı kaydetmek istiyor musunuz?</translation>
+Želite nadaljevati s shranjevanjem datoteke in s tem povoziti verzijo na disku?</translation>
     </message>
     <message>
         <source>Document &quot;%1&quot; was not saved</source>
-        <translation>&quot;%1&quot; belgesi kaydedilmedi</translation>
+        <translation>Datoteka &quot;%1&quot; ni bila shranjena</translation>
     </message>
     <message>
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>%2 için istenen %1 metin kodlaması desteklenmiyor.
+        <translation>Kodiranje besedila %1, zahtevano za %2, ni podprto.
 
-Onun yerine, hatalı metne yol açabilecek olan %3 olarak kaydedilecek.</translation>
+Namesto tega bo pri shranjevanju uporabljeno kodiranje %3, zaradi česar se lahko nekateri znaki spremenijo.</translation>
     </message>
     <message>
         <source>Text cannot be converted</source>
-        <translation>Metin dönüştürülemedi</translation>
+        <translation>Pretvorba besedila ni mogoča</translation>
     </message>
     <message>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
-        <translation>Bu belgede %1 kodlaması ile gösterilemeyecek karakterler bulunuyor.
+        <translation>Dokument vsebuje znake, ki v kodiranju %1 niso podprti.
 
-Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, veri kaybını önlemek için (UTF-8 gibi) başka bir kodlama kullanmak isteyebilirsiniz.</translation>
+Če nadaljujete, bodo nepovratno zamenjani s privzetim znakom. Bolj priporočljivo bi bilo uporabiti drugačno kodiranje (npr. UTF-8), da bi se izognili izgubi podatkov.</translation>
     </message>
     <message>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation>&quot;%1&quot; dosyası yazılamıyor:￼
+        <translation>Ni mogoče pisati v datoteko &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation>&quot;%1&quot; dosyası kaydedildi (%2)</translation>
+        <translation>Datoteka &quot;%1&quot; shranjena (%2)</translation>
     </message>
     <message>
         <source>default encoding</source>
-        <translation>varsayılan kodlama</translation>
+        <translatorcomment>obstaja boljši izraz do kodiranja?</translatorcomment>
+        <translation>privzeto kodirinaje</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
-        <translation>isimsiz-%1.tex</translation>
+        <translation>neimenovana-%1.tex</translation>
     </message>
     <message>
         <source>%1[*] - %2</source>
@@ -1199,167 +1202,198 @@ Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, 
     </message>
     <message>
         <source>Line %1 of %2; col %3</source>
-        <translation>Satır %1/%2; sütun %3</translation>
+        <translation>vrstica %1 od %2; stolpec %3</translation>
     </message>
     <message>
         <source>Go to Line</source>
-        <translation>Satıra Git</translation>
+        <translation>Pojdi v vrstico</translation>
     </message>
     <message>
         <source>Line number:</source>
-        <translation>Satır no:</translation>
+        <translation>Št. vrstice:</translation>
     </message>
     <message>
         <source>Invalid regular expression</source>
-        <translation>Geçersiz düzenli ifade</translation>
+        <translation>Neveljaven regularen izraz</translation>
     </message>
     <message>
         <source>Not found</source>
-        <translation>Bulunamadı</translation>
+        <translatorcomment>ni najdeno - kateri sklon ?</translatorcomment>
+        <translation>Ni zadetkov</translation>
     </message>
     <message numerus="yes">
         <source>Found %n occurrence(s)</source>
         <translation>
-            <numerusform>%n yerde bulundu</numerusform>
-            <numerusform>%n yerde bulundu</numerusform>
+            <numerusform>Najden %n zadetek</numerusform>
+            <numerusform>Najdena %n zadetka</numerusform>
+            <numerusform>Najdeni %n zadetki</numerusform>
+            <numerusform>Najdenih %n zadetkov</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n occurrence(s)</source>
+        <translatorcomment>zadetek ali pojavitev?</translatorcomment>
         <translation>
-            <numerusform>%n yerde bulundu</numerusform>
-            <numerusform>%n yerde bulundu</numerusform>
+            <numerusform>%n zadetek</numerusform>
+            <numerusform>%n zadetka</numerusform>
+            <numerusform>%n zadetki</numerusform>
+            <numerusform>%n zadetkov</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n documents</source>
         <translation>
-            <numerusform>%n belge</numerusform>
-            <numerusform>%n belge</numerusform>
+            <numerusform>%n datoteka</numerusform>
+            <numerusform>%n datoteki</numerusform>
+            <numerusform>%n datoteke</numerusform>
+            <numerusform>%n datotek</numerusform>
         </translation>
     </message>
     <message>
         <source>Replaced %1 in %2</source>
-        <translation>%1/%2 yer değiştirildi</translation>
+        <translatorcomment>to je gotovo narobe</translatorcomment>
+        <translation type="unfinished">%1 zamenjan v %2</translation>
     </message>
     <message numerus="yes">
         <source>Replaced %n occurrence(s)</source>
-        <translation>
-            <numerusform>%n yerde değiştirildi</numerusform>
-            <numerusform>%n yerde değiştirildi</numerusform>
+        <translatorcomment>to je gotovo narobe</translatorcomment>
+        <translation type="unfinished">
+            <numerusform>%n zamenjava</numerusform>
+            <numerusform>%n zamenjavi</numerusform>
+            <numerusform>%n zamenjave</numerusform>
+            <numerusform>%n zamenjav</numerusform>
         </translation>
     </message>
     <message>
         <source>Cannot process unsaved document</source>
-        <translation>Kaydedilmemiş belge işlenemiyor</translation>
+        <translation>Neshranjenega dokumenta ni mogoče procesirati</translation>
     </message>
     <message>
         <source>Root document %1 is not readable</source>
-        <translation>Ana belge %1 okunabilir değil</translation>
+        <translatorcomment>preveri</translatorcomment>
+        <translation>Vrhnji dokument %1 ni berljiv</translation>
     </message>
     <message>
         <source>%1 is not properly configured</source>
-        <translation>%1 uygun şekilde ayarlanmamış</translation>
+        <translatorcomment>preveri</translatorcomment>
+        <translation type="unfinished">%1 ni prav nastavljen/o/a</translation>
     </message>
     <message>
         <source>Unable to execute %1</source>
-        <translation>%1 çalıştırılamıyor</translation>
+        <translation>Ni bilo mogoče izvesti %1</translation>
     </message>
     <message>
-        <source>The program &quot;%1&quot; was not found.
-
-Check configuration of the %2 tool and path settings in the Preferences dialog.</source>
-        <translation type="obsolete">&quot;%1&quot; programı bulunamadı.
-
-Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmasını kontrol edin.</translation>
+        <source>The program &quot;%1&quot; was not found.</source>
+        <translation>Program &quot;%1&quot; ni bil najden.</translation>
+    </message>
+    <message>
+        <source>Searched in directories:</source>
+        <translation>Prečesane so bile mape:</translation>
+    </message>
+    <message>
+        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
+        <translatorcomment>preveri - mislim, da ta opis ni dovolj</translatorcomment>
+        <translation>Preveri konfiguracijo orodja %1 in nastavitve poti v nastavitvah.</translation>
     </message>
     <message>
         <source>Hide Output Panel</source>
-        <translation>Çıktı Panelini Gizle</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show Output Panel</source>
-        <translation>Çıktı Panelini Göster</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
-        <translation>Araç olarak &quot;%1&quot; ayarla</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Engine &quot;%1&quot; not defined</source>
-        <translation>&quot;%1&quot; aracı tanımlı değil</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No files found</source>
-        <translation>Hiç dosya bulunamadı</translation>
+        <translation type="unfinished">Ni najdenih datotek</translation>
     </message>
     <message>
         <source>No auxiliary files associated with this document at the moment.</source>
-        <translation>Şu anda bu belge ile ilişkilendirilmiş hiçbir yardımcı dosya yok.</translation>
+        <translatorcomment>preveri - čuden prevod</translatorcomment>
+        <translation>Pomožne datoteke, ki bi pripadale temu dokumentu, ta hip ne obstajajo.</translation>
     </message>
     <message>
         <source>untitled.tex[*]</source>
-        <translation>isimsiz.tex[*]</translation>
+        <translation>neimenovana.tex[*]</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Dosya</translation>
+        <translation>Datoteka</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Düzenle</translation>
+        <translatorcomment>Uredi?</translatorcomment>
+        <translation type="unfinished">Urejanje</translation>
     </message>
     <message>
         <source>Spelling</source>
-        <translation>Yazım Denetimi</translation>
+        <translation>Črkovanje</translation>
     </message>
     <message>
         <source>Change Case</source>
-        <translation>Büyük küçük harf değiştir</translation>
+        <translation>Zamenjaj velike/male črke</translation>
     </message>
     <message>
         <source>Typeset</source>
-        <translation>Diz</translation>
+        <translatorcomment>Stavljenje?</translatorcomment>
+        <translation>Stavljenje</translation>
     </message>
     <message>
         <source>Window</source>
-        <translation>Pencere</translation>
+        <translation>Okno</translation>
     </message>
     <message>
         <source>Show</source>
-        <translation>Göster</translation>
+        <translatorcomment>Prikaži?</translatorcomment>
+        <translation>Pokaži</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>Ara</translation>
+        <translation>Išči</translation>
     </message>
     <message>
         <source>Format</source>
-        <translation>Biçim</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Auto-indent Mode</source>
-        <translation>Otomatik girintileme kipi</translation>
+        <translatorcomment>preveri</translatorcomment>
+        <translation type="unfinished">Samodejna poravnava</translation>
     </message>
     <message>
         <source>Syntax Coloring</source>
-        <translation>Sentaks renklendirme</translation>
+        <translation>Barvanje kode</translation>
+    </message>
+    <message>
+        <source>Smart Quotes</source>
+        <translation>Pametni narekovaji</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Yardım</translation>
+        <translation>Pomoč</translation>
     </message>
     <message>
         <source>Typeset Toolbar</source>
-        <translation>Dizgi Araç çubuğu</translation>
+        <translatorcomment>preveri - hecen prevod</translatorcomment>
+        <translation type="unfinished">Orodjarna za stavljenje</translation>
     </message>
     <message>
         <source>Edit Toolbar</source>
-        <translation>Araç çubuğunu düzenle</translation>
+        <translatorcomment>hecen prevod</translatorcomment>
+        <translation type="unfinished">Orodjarna za urejanje</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Yeni</translation>
+        <translatorcomment>??</translatorcomment>
+        <translation>Nov dokument</translation>
     </message>
     <message>
         <source>Ctrl+N</source>
@@ -1367,7 +1401,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Open...</source>
-        <translation>Aç...</translation>
+        <translation>Odpri ...</translation>
     </message>
     <message>
         <source>Ctrl+O</source>
@@ -1375,7 +1409,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Close</source>
-        <translation>Kapat</translation>
+        <translation>Zapri</translation>
     </message>
     <message>
         <source>Ctrl+W</source>
@@ -1383,7 +1417,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Save</source>
-        <translation>Kaydet</translation>
+        <translation>Shrani</translation>
     </message>
     <message>
         <source>Ctrl+S</source>
@@ -1391,7 +1425,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Save As...</source>
-        <translation>Farklı Kaydet...</translation>
+        <translation>Shrani kot ...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+S</source>
@@ -1399,11 +1433,11 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Revert to Saved</source>
-        <translation>Kaydedilene Geri Dön</translation>
+        <translation>Vrni na shranjeno</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Geri Al</translation>
+        <translation>Razveljavi</translation>
     </message>
     <message>
         <source>Ctrl+Z</source>
@@ -1411,7 +1445,8 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Redo</source>
-        <translation>Tekrar yap</translation>
+        <translatorcomment>?</translatorcomment>
+        <translation type="unfinished">Ponovno uveljavi</translation>
     </message>
     <message>
         <source>Ctrl+Shift+Z</source>
@@ -1419,7 +1454,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Cut</source>
-        <translation>Kes</translation>
+        <translation>Izreži</translation>
     </message>
     <message>
         <source>Ctrl+X</source>
@@ -1427,7 +1462,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopyala</translation>
+        <translation>Kopiraj</translation>
     </message>
     <message>
         <source>Ctrl+C</source>
@@ -1435,7 +1470,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Paste</source>
-        <translation>Yapıştır</translation>
+        <translation>Prilepi</translation>
     </message>
     <message>
         <source>Ctrl+V</source>
@@ -1443,7 +1478,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Clear</source>
-        <translation>Temizle</translation>
+        <translation>Počisti</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
@@ -1451,7 +1486,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Find...</source>
-        <translation>Bul...</translation>
+        <translation>Išči ...</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
@@ -1459,7 +1494,8 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Find Again</source>
-        <translation>Tekrar Bul</translation>
+        <translatorcomment>?</translatorcomment>
+        <translation type="unfinished">Najdi naslednje</translation>
     </message>
     <message>
         <source>Ctrl+G</source>
@@ -1467,7 +1503,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Replace...</source>
-        <translation>Yer Değiştir...</translation>
+        <translation>Zamenjaj ...</translation>
     </message>
     <message>
         <source>Ctrl+R</source>
@@ -1475,7 +1511,8 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Copy to Find</source>
-        <translation>Bulmak için Kopyala</translation>
+        <translatorcomment>?</translatorcomment>
+        <translation type="unfinished">Kopiraj v &apos;Išči&apos;</translation>
     </message>
     <message>
         <source>Ctrl+E</source>
@@ -1483,7 +1520,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Copy to Replace</source>
-        <translation>Yer Değiştirmek için Kopyala</translation>
+        <translation type="unfinished">Kopiraj v &apos;Zamenjaj&apos;</translation>
     </message>
     <message>
         <source>Ctrl+Shift+E</source>
@@ -1491,7 +1528,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Go to Line...</source>
-        <translation>Satıra Git...</translation>
+        <translation>Pojdi v vrstico ...</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
@@ -1499,7 +1536,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Find Selection</source>
-        <translation>Seçileni Bul</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Ctrl+H</source>
@@ -1507,7 +1544,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Select All</source>
-        <translation>Tümünü Seç</translation>
+        <translation>Izberi vse</translation>
     </message>
     <message>
         <source>Ctrl+A</source>
@@ -1515,11 +1552,12 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Font...</source>
-        <translation>Font...</translation>
+        <translation>Pisava ...</translation>
     </message>
     <message>
         <source>Indent</source>
-        <translation>Girintile</translation>
+        <translatorcomment>preveri v Word-u</translatorcomment>
+        <translation>Zamik v desno</translation>
     </message>
     <message>
         <source>Ctrl+]</source>
@@ -1527,7 +1565,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Unindent</source>
-        <translation>Girintilemeyi geri al</translation>
+        <translation>Zamik v levo</translation>
     </message>
     <message>
         <source>Ctrl+[</source>
@@ -1535,7 +1573,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Comment</source>
-        <translation>Açıklama</translation>
+        <translation>Komentar</translation>
     </message>
     <message>
         <source>Ctrl+Shift+]</source>
@@ -1543,7 +1581,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Uncomment</source>
-        <translation>Açıklama değil</translation>
+        <translation>Odkomentiraj</translation>
     </message>
     <message>
         <source>Ctrl+Shift+[</source>
@@ -1551,27 +1589,28 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Wrap Lines</source>
-        <translation>Sözcük Kaydır</translation>
+        <translation>Prelom vrstic</translation>
     </message>
     <message>
         <source>About TeXworks...</source>
-        <translation>TeXworks Hakkında...</translation>
+        <translation>O programu TeXworks ...</translation>
     </message>
     <message>
         <source>Stack</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>Döşe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>Tercihler...</translation>
+        <translation>Nastavitve ...</translation>
     </message>
     <message>
         <source>Go to Preview</source>
-        <translation>Önizlemeye Git</translation>
+        <translatorcomment>a je res predogled?</translatorcomment>
+        <translation>Pojdi na predogled</translation>
     </message>
     <message>
         <source>Ctrl+&apos;</source>
@@ -1583,7 +1622,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>Şablondan Yeni...</translation>
+        <translation>Nova datoteka iz predloge ...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -1591,7 +1630,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Show Selection</source>
-        <translation>Seçileni Göster</translation>
+        <translation>Pokaži izbor</translation>
     </message>
     <message>
         <source>Ctrl+=</source>
@@ -1599,15 +1638,16 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>ALL UPPERCASE</source>
-        <translation>TÜMÜ BÜYÜK HARF</translation>
+        <translation>VELIKE ČRKE</translation>
     </message>
     <message>
         <source>all lowercase</source>
-        <translation>tümü küçük harf</translation>
+        <translation>male črke</translation>
     </message>
     <message>
         <source>Balance Delimiters</source>
-        <translation>Ayraçları Dengele</translation>
+        <translatorcomment>izenačevanje</translatorcomment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Ctrl+B</source>
@@ -1615,27 +1655,27 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>TeXworks ana sayfasına git</translation>
+        <translation>Pojdi na domačo stran za TeXworks</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
-        <translation>Posta listesine e-posta gönder</translation>
+        <translation>Pošlji elektronsko sporočilo na dopisni seznam</translation>
     </message>
     <message>
         <source>Side by Side</source>
-        <translation>Yan yana</translation>
+        <translation>Drug ob drugem</translation>
     </message>
     <message>
         <source>Place on Left</source>
-        <translation>Sola yerleştir</translation>
+        <translation>Postavi na levo</translation>
     </message>
     <message>
         <source>Place on Right</source>
-        <translation>Sağa Yerleştir</translation>
+        <translation>Postavi na desno</translation>
     </message>
     <message>
         <source>Replace Again</source>
-        <translation>Tekrar Yer Değiştir</translation>
+        <translation>Ponovno zamenjaj</translation>
     </message>
     <message>
         <source>Ctrl+Shift+R</source>
@@ -1643,91 +1683,77 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Remove Aux Files...</source>
-        <translation>Yardımcı Dosyaları Sil...</translation>
+        <translation>Odstrani pomožne datoteke ...</translation>
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation>TeXworks&apos;den çık</translation>
+        <translation>Izhod</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <source>Smart Quotes</source>
-        <translation>Akıllı Tırnak işaretleri</translation>
-    </message>
-    <message>
         <source>Toggle Case</source>
-        <translation>Büyük küçük harf değiştir</translation>
+        <translation type="unfinished">Zamenjaj velike/male črke</translation>
     </message>
     <message>
         <source>Hard Wrap...</source>
-        <translation>Sabit Sözcük Kaydırma...</translation>
-    </message>
-    <message>
-        <source>The program &quot;%1&quot; was not found.</source>
-        <translation>&quot;%1&quot; programı bulunamadı.</translation>
-    </message>
-    <message>
-        <source>Searched in directories:</source>
-        <translation>Şu dizinlerde arandı:</translation>
-    </message>
-    <message>
-        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation>Tercihler penceresinden %1 aracının ayarlarını ve arama yolu yapılandırmasını kontrol edin.</translation>
+        <translatorcomment>hard/soft</translatorcomment>
+        <translation type="unfinished">Prelom vrstic ...</translation>
     </message>
     <message>
         <source>Line Numbers</source>
-        <translation>Satır Numaraları</translation>
+        <translation>Št. vrstic</translation>
     </message>
 </context>
 <context>
     <name>TeXHighlighter</name>
     <message>
         <source>default</source>
-        <translation>öntanımlı</translation>
+        <translation>privzeto</translation>
     </message>
 </context>
 <context>
     <name>TemplateDialog</name>
     <message>
         <source>New File using Template</source>
-        <translation>Şablon kullanarak Yeni Dosya</translation>
+        <translation>Uporabi predlogo za novo datoteko</translation>
     </message>
     <message>
         <source>Choose template for the new document:</source>
-        <translation>Yeni dosya için şablon seçin:</translation>
+        <translation>Izberi predlogo za novo datoteko:</translation>
     </message>
 </context>
 <context>
     <name>ToolConfig</name>
     <message>
         <source>NewArgument</source>
-        <translation>YeniArgüman</translation>
+        <translation>NovaOpcija</translation>
     </message>
 </context>
 <context>
     <name>ToolConfigDialog</name>
     <message>
         <source>Tool Configuration</source>
-        <translation>Araç Yapılandırması</translation>
+        <translatorcomment>s &quot;Tool&quot; je mišljen TeX, XeTeX, ...</translatorcomment>
+        <translation>Nastavitve orodja</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>İsim:</translation>
+        <translation>Ime:</translation>
     </message>
     <message>
         <source>Program:</source>
-        <translation>Önizleme:</translation>
+        <translation>Program:</translation>
     </message>
     <message>
         <source>Arguments:</source>
-        <translation>Argümanlar:</translation>
+        <translation>Opcije:</translation>
     </message>
     <message>
         <source>View PDF after running</source>
-        <translation>Çalıştırdıktan sonra PDF&apos;i göster</translation>
+        <translation>Po koncu odpri PDF</translation>
     </message>
 </context>
 </TS>
