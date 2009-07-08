@@ -32,7 +32,7 @@
     </message>
     <message>
         <source>Confirm file deletion</source>
-        <translation>Potrdi izbris datoteke</translation>
+        <translation>Potrjevanje izbrisa</translation>
     </message>
     <message>
         <source>Auxiliary files to be deleted:</source>
@@ -43,11 +43,11 @@
     <name>FindDialog</name>
     <message>
         <source>Find</source>
-        <translation>Išči</translation>
+        <translation>Najdi</translation>
     </message>
     <message>
         <source>Find:</source>
-        <translation>Išči:</translation>
+        <translation>Najdi:</translation>
     </message>
     <message>
         <source>&amp;Wrap around</source>
@@ -96,35 +96,35 @@
     <name>HardWrapDialog</name>
     <message>
         <source>Hard Wrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Prelom vrstic</translation>
     </message>
     <message>
         <source>Wrap lines to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prelom vrstic pri:</translation>
     </message>
     <message>
         <source>Current window size</source>
-        <translation>Trenutna velikost okna</translation>
+        <translation>Trenutni širini okna</translation>
     </message>
     <message>
         <source>Line length:</source>
-        <translation>Dolžina vrstice:</translation>
+        <translation>Dolžini vrstice:</translation>
     </message>
     <message>
         <source>Re-wrap paragraphs</source>
-        <translation type="unfinished">Ponoven prelom vrstic v odstavkih</translation>
+        <translation>Ponovno prelomi vrstice</translation>
     </message>
 </context>
 <context>
     <name>PDFDocument</name>
     <message>
         <source>Open Recent</source>
-        <translation type="unfinished">Nedavno odprti dokumenti</translation>
+        <translation>Nedavno odprti dokumenti</translation>
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
         <translatorcomment>a ni bolje namigniti, kaj je potrebno narediti?</translatorcomment>
-        <translation type="unfinished">PDF datoteka &quot;%1&quot; je zaklenjena, kar trenutno ni podprto.</translation>
+        <translation type="unfinished">PDF datoteka &quot;%1&quot; je zaklenjena; to trenutno ni podprto.</translation>
     </message>
     <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
@@ -180,11 +180,12 @@
     </message>
     <message>
         <source>Typeset</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>mali gumbek &quot;typeset&quot; v PDF dokumentu; lahko bi rekli &quot;stavi&quot;, a ne bodo razumeli, rada bi zapisala poženi, a se isti izraz pojavi v meniju</translatorcomment>
+        <translation>Stavljenje</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>Išči</translation>
+        <translation>Iskanje</translation>
     </message>
     <message>
         <source>Toolbar</source>
@@ -344,7 +345,7 @@
     </message>
     <message>
         <source>Clear</source>
-        <translation>Počisti</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Ctrl+Backspace</source>
@@ -361,15 +362,16 @@
     <message>
         <source>Stack</source>
         <translatorcomment>?</translatorcomment>
-        <translation type="unfinished">Sklad</translation>
+        <translation type="unfinished">Drugo za drugim</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tlakovanje</translation>
     </message>
     <message>
         <source>Go to Source</source>
-        <translation>Pojdi na izvorno kodo</translation>
+        <translatorcomment>manjka sicer &quot;pojdi na&quot;, a ne vem, če je to tako važno</translatorcomment>
+        <translation>Izvorna koda dokumenta</translation>
     </message>
     <message>
         <source>Ctrl+&apos;</source>
@@ -377,7 +379,7 @@
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>Nova datoteka iz predloge ...</translation>
+        <translation>Nov dokument po predlogi ...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -393,11 +395,12 @@
     </message>
     <message>
         <source>Magnify</source>
-        <translation>Povečaj</translation>
+        <translatorcomment>najprej sem prevedla v &quot;povečaj&quot;, vendar se zdi, da to poveča cel dokument; to je dejansko povečevalno steklo (kar je predolgo ime)</translatorcomment>
+        <translation>Lupa</translation>
     </message>
     <message>
         <source>Scroll</source>
-        <translatorcomment>drsenje/drsnik?</translatorcomment>
+        <translatorcomment>drsenje/drsnik? - to je tista rokica v PDF dokumentu</translatorcomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -418,15 +421,16 @@
     </message>
     <message>
         <source>Side by Side</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>nanaša se na razporeditev oken v programu</translatorcomment>
+        <translation>Drugo od drugem</translation>
     </message>
     <message>
         <source>Place on Left</source>
-        <translation>Postavi na levo</translation>
+        <translation>Premakni na levo</translation>
     </message>
     <message>
         <source>Place on Right</source>
-        <translation>Postavi na desno</translation>
+        <translation>Premakni na desno</translation>
     </message>
     <message>
         <source>Quit TeXworks</source>
@@ -438,7 +442,7 @@
     </message>
     <message>
         <source>Find...</source>
-        <translation>Išči ...</translation>
+        <translation>Najdi ...</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
@@ -506,7 +510,7 @@
     <message>
         <source>Subset</source>
         <translatorcomment>najbrž misli, da je v dokumentu shranjen le del celotne pisave</translatorcomment>
-        <translation type="unfinished">Podmnožica</translation>
+        <translation>Podmnožica</translation>
     </message>
     <message>
         <source>File</source>
@@ -514,7 +518,7 @@
     </message>
     <message>
         <source>[none]</source>
-        <translation type="unfinished">[brez]</translation>
+        <translation>[brez]</translation>
     </message>
     <message>
         <source>yes</source>
@@ -526,7 +530,7 @@
     </message>
     <message>
         <source>[embedded]</source>
-        <translation type="unfinished">[vgrajena]</translation>
+        <translation>[vgrajena]</translation>
     </message>
     <message>
         <source>Fonts</source>
@@ -634,19 +638,20 @@
     </message>
     <message>
         <source>When launched, show</source>
-        <translation type="unfinished">Pokaži ob zagonu</translation>
+        <translation>Ob zagonu programa</translation>
     </message>
     <message>
         <source>New blank document</source>
-        <translation>Nov prazen dokument</translation>
+        <translation>Odpri nov (prazen) dokument</translation>
     </message>
     <message>
         <source>Template selection dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberi predlogo za nov dokument</translation>
     </message>
     <message>
         <source>File Open dialog</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>to ni v redu (&quot;show file open dialog&quot;); dialog za odpiranje datoteke</translatorcomment>
+        <translation>Izberi (odpri) obstoječo datoteko</translation>
     </message>
     <message>
         <source>Interface locale:</source>
@@ -662,7 +667,7 @@
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Tab width:</source>
@@ -682,7 +687,7 @@
     </message>
     <message>
         <source>Auto-Indent mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Samodejna poravnava:</translation>
     </message>
     <message>
         <source>Spell-check language:</source>
@@ -715,7 +720,7 @@
     <message>
         <source>Fixed scale:</source>
         <translatorcomment>lepši izraz za fiksna, poglej v wordu</translatorcomment>
-        <translation type="unfinished">Fiksna skala:</translation>
+        <translation>Fiksna skala:</translation>
     </message>
     <message>
         <source> %</source>
@@ -739,11 +744,12 @@
     </message>
     <message>
         <source>Circular magnifier</source>
-        <translation>Okroglo povečevalno steklo</translation>
+        <translatorcomment>Okroglo povečevalno steklo</translatorcomment>
+        <translation>Okrogle oblike</translation>
     </message>
     <message>
         <source>Screen resolution:</source>
-        <translation type="unfinished">Resolucija zaslona:</translation>
+        <translation>Resolucija zaslona:</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -759,7 +765,7 @@
     </message>
     <message>
         <source>Processing tools</source>
-        <translation type="unfinished">Orodja za procesiranje dokumentov</translation>
+        <translation>Orodja za procesiranje dokumentov</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -771,7 +777,15 @@
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation type="unfinished">Samodejno skrij ?, razen v primeru napake</translation>
+        <translation type="unfinished">Če ni napak, po koncu skrij [output panel?]</translation>
+    </message>
+    <message>
+        <source>Global editor options</source>
+        <translation>Globalne nastavitve urejevalnika</translation>
+    </message>
+    <message>
+        <source>Highlight current line</source>
+        <translation>Poudari trenutno vrstico</translation>
     </message>
 </context>
 <context>
@@ -921,11 +935,11 @@
     </message>
     <message>
         <source>New</source>
-        <translation type="unfinished">Nov dokument</translation>
+        <translation>Nov dokument</translation>
     </message>
     <message>
         <source>New from Template...</source>
-        <translation type="unfinished">Nov dokument iz predloge ...</translation>
+        <translation>Nov dokument po predlogi ...</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -937,6 +951,7 @@
     </message>
     <message>
         <source>Open Recent</source>
+        <translatorcomment>malo prevajalske svobode</translatorcomment>
         <translation>Nedavno odprti dokumenti</translation>
     </message>
     <message>
@@ -945,12 +960,11 @@
     </message>
     <message>
         <source>About </source>
-        <translatorcomment>???</translatorcomment>
-        <translation type="unfinished">O </translation>
+        <translation>O </translation>
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>Pojdi na domačo stran za TeXworks</translation>
+        <translation>Pojdi na TeXworks-ovo domačo stran</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
@@ -986,7 +1000,7 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; knjižnica za delo s PDF datotekami, avtorji Kristian H&amp;#xF8;gsberg, Albert Astals Cid in ostalih.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; knjižnica za delo s PDF datotekami, avtorji Kristian H&amp;#xF8;gsberg, Albert Astals Cid in ostali.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
@@ -1007,15 +1021,16 @@
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
         <translatorcomment>sklon ne bo delal - popravi</translatorcomment>
-        <translation>&lt;p&gt;prevod v %1 prispeval %2.</translation>
+        <translation>&lt;p&gt;Prevod v %1: %2.</translation>
     </message>
     <message>
         <source>[language name]</source>
-        <translation>[ime jezika]</translation>
+        <translatorcomment>mora biti v pravem sklonu; upam, da se to uporablja na enem samem mestu</translatorcomment>
+        <translation>slovenščino</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
-        <translation>[ime/e-pošta prevajalca]</translation>
+        <translation>&lt;a href=&quot;mailto:mojca.miklavec.lists@gmail.com&quot;&gt;Mojca Miklavec&lt;/a&gt;</translation>
     </message>
     <message>
         <source>About %1</source>
@@ -1043,8 +1058,7 @@
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translatorcomment>preveri ime, da prideš do nastavitev</translatorcomment>
-        <translation type="unfinished">Nobeden od predefiniranih direktorijev s TeX-ovimi programi ni bil najden.&lt;p&gt;&lt;small&gt;Da bi lahko poganjali katerikoli program, bosta najprej morali nastaviti direktorij(e) s programi vaše TeX-ove distribucije. Uporabite Stavljenje??? v nastavitvah.</translation>
+        <translation>Nobeden od predefiniranih direktorijev s TeX-ovimi programi ni bil najden.&lt;p&gt;&lt;small&gt;Da bi lahko poganjali katerikoli program, boste najprej morali nastaviti direktorij(e), kjer se nahajajo programi vaše TeX distribucije (glejte Nastavitve/Stavljenje).</translation>
     </message>
 </context>
 <context>
@@ -1060,13 +1074,13 @@
     </message>
     <message>
         <source>Outline</source>
-        <translatorcomment>???</translatorcomment>
-        <translation type="unfinished">Obris</translation>
+        <translatorcomment>??? delitev po poglavjih</translatorcomment>
+        <translation>Oris poglavij</translation>
     </message>
     <message>
         <source>No tags</source>
         <translatorcomment>Kje se to uporablja?</translatorcomment>
-        <translation type="unfinished">Ni značk</translation>
+        <translation>Ni značk</translation>
     </message>
 </context>
 <context>
@@ -1077,12 +1091,11 @@
     </message>
     <message>
         <source>Open Recent</source>
-        <translation>Nedavno odprti dokumenti</translation>
+        <translation>Nedavno odprti</translation>
     </message>
     <message>
         <source>None</source>
-        <translatorcomment>?</translatorcomment>
-        <translation type="unfinished">Brez</translation>
+        <translation>Brez</translation>
     </message>
     <message>
         <source>Open File</source>
@@ -1109,7 +1122,7 @@ Do you want to save your changes?</source>
     <message>
         <source>Revert</source>
         <translatorcomment>ni najbolje ... npr. vrni se na zadnje shranjeno stanje</translatorcomment>
-        <translation type="unfinished">Vrni se</translation>
+        <translation type="unfinished">Vrni v staro stanje</translation>
     </message>
     <message>
         <source>Cannot read file &quot;%1&quot;:
@@ -1317,8 +1330,8 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>No auxiliary files associated with this document at the moment.</source>
-        <translatorcomment>preveri - čuden prevod</translatorcomment>
-        <translation>Pomožne datoteke, ki bi pripadale temu dokumentu, ta hip ne obstajajo.</translation>
+        <translatorcomment>preveri - čuden prevod (Pomožne datoteke, ki bi pripadale temu dokumentu, ta hip ne obstajajo.)</translatorcomment>
+        <translation>Pomožne datoteke za ta dokument ta hip ne obstajajo.</translation>
     </message>
     <message>
         <source>untitled.tex[*]</source>
@@ -1330,8 +1343,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Edit</source>
-        <translatorcomment>Uredi?</translatorcomment>
-        <translation type="unfinished">Urejanje</translation>
+        <translation>Urejanje</translation>
     </message>
     <message>
         <source>Spelling</source>
@@ -1343,7 +1355,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Typeset</source>
-        <translatorcomment>Stavljenje?</translatorcomment>
+        <translatorcomment>??? to se uporabi trikrat; pod ikono bi dala &quot;poženi&quot;, v meni pa &quot;stavljenje/poženi&quot;, a vmesnik tega še ne omogoča</translatorcomment>
         <translation>Stavljenje</translation>
     </message>
     <message>
@@ -1357,16 +1369,16 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Search</source>
-        <translation>Išči</translation>
+        <translation>Iskanje</translation>
     </message>
     <message>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Oblikovanje</translation>
     </message>
     <message>
         <source>Auto-indent Mode</source>
         <translatorcomment>preveri</translatorcomment>
-        <translation type="unfinished">Samodejna poravnava</translation>
+        <translation>Samodejno zamikanje</translation>
     </message>
     <message>
         <source>Syntax Coloring</source>
@@ -1382,13 +1394,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Typeset Toolbar</source>
-        <translatorcomment>preveri - hecen prevod</translatorcomment>
-        <translation type="unfinished">Orodjarna za stavljenje</translation>
+        <translation>Orodja za stavljenje</translation>
     </message>
     <message>
         <source>Edit Toolbar</source>
-        <translatorcomment>hecen prevod</translatorcomment>
-        <translation type="unfinished">Orodjarna za urejanje</translation>
+        <translation>Orodja za urejanje</translation>
     </message>
     <message>
         <source>New</source>
@@ -1478,7 +1488,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Clear</source>
-        <translation>Počisti</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
@@ -1486,7 +1496,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Find...</source>
-        <translation>Išči ...</translation>
+        <translation>Najdi ...</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
@@ -1495,7 +1505,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Find Again</source>
         <translatorcomment>?</translatorcomment>
-        <translation type="unfinished">Najdi naslednje</translation>
+        <translation>Ponovno najdi</translation>
     </message>
     <message>
         <source>Ctrl+G</source>
@@ -1512,7 +1522,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Copy to Find</source>
         <translatorcomment>?</translatorcomment>
-        <translation type="unfinished">Kopiraj v &apos;Išči&apos;</translation>
+        <translation type="unfinished">Kopiraj v &apos;Najdi&apos;</translation>
     </message>
     <message>
         <source>Ctrl+E</source>
@@ -1536,7 +1546,8 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Find Selection</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>išče niz, ki je pravkar označen</translatorcomment>
+        <translation>Najdi označeno</translation>
     </message>
     <message>
         <source>Ctrl+H</source>
@@ -1557,7 +1568,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Indent</source>
         <translatorcomment>preveri v Word-u</translatorcomment>
-        <translation>Zamik v desno</translation>
+        <translation>Zamakni v desno</translation>
     </message>
     <message>
         <source>Ctrl+]</source>
@@ -1565,7 +1576,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Unindent</source>
-        <translation>Zamik v levo</translation>
+        <translation>Zamakni v levo</translation>
     </message>
     <message>
         <source>Ctrl+[</source>
@@ -1573,7 +1584,8 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Comment</source>
-        <translation>Komentar</translation>
+        <translatorcomment>to je samostalnik</translatorcomment>
+        <translation>Zakomentiraj</translation>
     </message>
     <message>
         <source>Ctrl+Shift+]</source>
@@ -1597,11 +1609,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Stack</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Drugo za drugim</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tlakovanje</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -1610,7 +1622,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Go to Preview</source>
         <translatorcomment>a je res predogled?</translatorcomment>
-        <translation>Pojdi na predogled</translation>
+        <translation type="unfinished">Predogled dokumenta</translation>
     </message>
     <message>
         <source>Ctrl+&apos;</source>
@@ -1622,7 +1634,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>Nova datoteka iz predloge ...</translation>
+        <translation>Nov dokument po predlogi ...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -1655,7 +1667,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>Pojdi na domačo stran za TeXworks</translation>
+        <translation>Pojdi na TeXworks-ovo domačo stran</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
@@ -1663,15 +1675,16 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Side by Side</source>
-        <translation>Drug ob drugem</translation>
+        <translatorcomment>nanaša se na razporeditev oken (ko smo na izvorni kodi)</translatorcomment>
+        <translation>Drugo ob drugem</translation>
     </message>
     <message>
         <source>Place on Left</source>
-        <translation>Postavi na levo</translation>
+        <translation>Premakni na levo</translation>
     </message>
     <message>
         <source>Place on Right</source>
-        <translation>Postavi na desno</translation>
+        <translation>Premakni na desno</translation>
     </message>
     <message>
         <source>Replace Again</source>
@@ -1695,7 +1708,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Toggle Case</source>
-        <translation type="unfinished">Zamenjaj velike/male črke</translation>
+        <translation>Zamenjaj velike/male črke</translation>
     </message>
     <message>
         <source>Hard Wrap...</source>
@@ -1745,7 +1758,8 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Program:</source>
-        <translation>Program:</translation>
+        <translatorcomment>prej je bilo prevedeno v program, a se mi zdi ukaz bolje (to je ukaz, ki bi ga morali vtipkati v terminal)</translatorcomment>
+        <translation>Ukaz:</translation>
     </message>
     <message>
         <source>Arguments:</source>
