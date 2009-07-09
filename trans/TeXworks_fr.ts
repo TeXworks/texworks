@@ -52,7 +52,7 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="94"/>
         <source>Find</source>
-        <translation type="unfinished">Chercher vers le bas</translation>
+        <translation type="unfinished">Chercher</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="31"/>
@@ -62,7 +62,7 @@
     <message>
         <location filename="../src/Find.ui" line="71"/>
         <source>&amp;Wrap around</source>
-        <translation type="unfinished">Chercher dans tout le &amp;document</translation>
+        <translation type="unfinished">Recherche en &amp;boucle</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="78"/>
@@ -1066,7 +1066,7 @@
     <message>
         <location filename="../src/Replace.ui" line="107"/>
         <source>&amp;Wrap around</source>
-        <translation type="unfinished">Dans tout le &amp;document</translation>
+        <translation type="unfinished">Remplacement en &amp;boucle</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="114"/>
@@ -1262,7 +1262,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="233"/>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="unfinished">Version %1 (r.%2)</translation>
+        <translation type="unfinished">&lt;br&gt;Version %1 (r.%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="234"/>
@@ -1302,7 +1302,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="241"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation type="unfinished">&lt;p&gt;Traduction %1 (aimablement) fournie par %2.</translation>
+        <translation type="unfinished">&lt;p&gt;Traduction %1 aimablement fournie par %2.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="241"/>
