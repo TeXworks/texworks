@@ -102,7 +102,7 @@
    </widget>
    <widget class="QMenu" name="menuTypeset">
     <property name="title">
-     <string>Typeset</string>
+     <string comment="menu title">Typeset</string>
     </property>
     <addaction name="actionTypeset"/>
    </widget>
@@ -289,7 +289,7 @@
   </action>
   <action name="actionActual_Size">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
+    <iconset>
      <normaloff>:/images/images/actualsize.png</normaloff>:/images/images/actualsize.png</iconset>
    </property>
    <property name="text">
@@ -482,7 +482,7 @@
     <string>Typeset</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+T</string>
+    <string comment="action">Ctrl+T</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

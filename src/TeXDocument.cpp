@@ -561,7 +561,7 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 					QMimeData *data = new QMimeData();
 					data->setUrls(QList<QUrl>() << QUrl::fromLocalFile(curFile));
 					drag->setMimeData(data);
-					QPixmap dragIcon(":/images/images/texdoc.png");
+					QPixmap dragIcon(":/images/images/TeXworks-doc-48.png");
 					drag->setPixmap(dragIcon);
 					drag->setHotSpot(QPoint(dragIcon.width() - 5, 5));
 					drag->start(Qt::LinkAction | Qt::CopyAction);
@@ -571,7 +571,7 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 					connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(openAt(QAction*)));
 					QFileInfo info(curFile);
 					QAction *action = menu.addAction(info.fileName());
-					action->setIcon(QIcon(":/images/images/texdoc.png"));
+					action->setIcon(QIcon(":/images/images/TeXworks-doc.png"));
 					QStringList folders = info.absolutePath().split('/');
 					QStringListIterator it(folders);
 					it.toBack();
@@ -589,7 +589,14 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 						action->setIcon(icon);
 					}
 					QPoint pos(QCursor::pos().x() - 20, frameGeometry().y());
+#ifdef Q_WS_MAC
+					extern void qt_mac_set_menubar_icons(bool);
+					qt_mac_set_menubar_icons(true);
+#endif
 					menu.exec(pos);
+#ifdef Q_WS_MAC
+					qt_mac_set_menubar_icons(false);
+#endif
 				}
 				else {
 					event->ignore();
@@ -997,7 +1004,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 		setWindowIcon(QIcon());
 	}
 	else
-		setWindowIcon(QIcon(":/images/images/texdoc.png"));
+		setWindowIcon(QIcon(":/images/images/TeXworks-doc.png"));
 
 	textEdit->document()->setModified(false);
 	setWindowModified(false);

@@ -82,7 +82,7 @@ TWApp::TWApp(int &argc, char **argv)
 
 void TWApp::init()
 {
-	setWindowIcon(QIcon(":/images/images/appicon.png"));
+	setWindowIcon(QIcon(":/images/images/TeXworks.png"));
 
 	setOrganizationName("TUG");
 	setOrganizationDomain("tug.org");
