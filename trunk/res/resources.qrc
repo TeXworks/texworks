@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/images" >
-        <file>images/actualsize.png</file>
+        <file>images/TeXworks.png</file>
+        <file>images/TeXworks-doc.png</file>
+        <file>images/TeXworks-doc-48.png</file>
         <file>images/appicon.png</file>
         <file>tango/go-previous.png</file>
         <file>tango/go-down.png</file>

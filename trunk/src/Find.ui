@@ -1,101 +1,99 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>FindDialog</class>
- <widget class="QDialog" name="FindDialog" >
-  <property name="windowModality" >
+ <widget class="QDialog" name="FindDialog">
+  <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
-  <property name="geometry" >
+  <property name="geometry">
    <rect>
     <x>0</x>
-    <y>0</y>
+    <y>2</y>
     <width>476</width>
-    <height>212</height>
+    <height>208</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Find</string>
   </property>
-  <property name="modal" >
+  <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" >
-    <widget class="QLabel" name="label" >
-     <property name="text" >
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
       <string>Find:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="QLineEdit" name="searchText" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="searchText">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>1</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
     </widget>
    </item>
-   <item row="0" column="2" >
-    <widget class="QToolButton" name="recentSearches" >
-     <property name="maximumSize" >
+   <item row="0" column="2">
+    <widget class="QToolButton" name="recentSearches">
+     <property name="maximumSize">
       <size>
        <width>22</width>
        <height>22</height>
       </size>
      </property>
-     <property name="text" >
-      <string/>
-     </property>
-     <property name="popupMode" >
+     <property name="popupMode">
       <enum>QToolButton::InstantPopup</enum>
      </property>
-     <property name="arrowType" >
+     <property name="arrowType">
       <enum>Qt::DownArrow</enum>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" colspan="2" >
-    <layout class="QHBoxLayout" name="horizontalLayout" >
+   <item row="1" column="1" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QCheckBox" name="checkBox_wrap" >
-         <property name="text" >
+        <widget class="QCheckBox" name="checkBox_wrap">
+         <property name="text">
           <string>&amp;Wrap around</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_backwards" >
-         <property name="text" >
+        <widget class="QCheckBox" name="checkBox_backwards">
+         <property name="text">
           <string>Find &amp;backwards</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_selection" >
-         <property name="text" >
+        <widget class="QCheckBox" name="checkBox_selection">
+         <property name="text">
           <string>Search within &amp;selection</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_findAll" >
-         <property name="text" >
+        <widget class="QCheckBox" name="checkBox_findAll">
+         <property name="text">
           <string>Find &amp;all occurrences</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_allFiles" >
-         <property name="text" >
+        <widget class="QCheckBox" name="checkBox_allFiles">
+         <property name="text">
           <string>Search all &amp;open files</string>
          </property>
         </widget>
@@ -103,34 +101,34 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2" >
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QCheckBox" name="checkBox_case" >
-         <property name="text" >
+        <widget class="QCheckBox" name="checkBox_case">
+         <property name="text">
           <string>&amp;Case sensitive</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_words" >
-         <property name="text" >
+        <widget class="QCheckBox" name="checkBox_words">
+         <property name="text">
           <string>W&amp;hole words</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_regex" >
-         <property name="text" >
+        <widget class="QCheckBox" name="checkBox_regex">
+         <property name="text">
           <string>&amp;Regular expression</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer" >
-         <property name="orientation" >
+        <spacer name="verticalSpacer">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>38</height>
@@ -141,13 +139,13 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3" >
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>72</width>
            <height>31</height>
@@ -156,13 +154,13 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="regexStatus" >
-         <property name="palette" >
+        <widget class="QLabel" name="regexStatus">
+         <property name="palette">
           <palette>
            <active>
-            <colorrole role="WindowText" >
-             <brush brushstyle="SolidPattern" >
-              <color alpha="255" >
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
                <red>255</red>
                <green>0</green>
                <blue>0</blue>
@@ -171,9 +169,9 @@
             </colorrole>
            </active>
            <inactive>
-            <colorrole role="WindowText" >
-             <brush brushstyle="SolidPattern" >
-              <color alpha="255" >
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
                <red>255</red>
                <green>0</green>
                <blue>0</blue>
@@ -182,9 +180,9 @@
             </colorrole>
            </inactive>
            <disabled>
-            <colorrole role="WindowText" >
-             <brush brushstyle="SolidPattern" >
-              <color alpha="255" >
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
                <red>127</red>
                <green>127</green>
                <blue>127</blue>
@@ -197,11 +195,11 @@
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_2" >
-         <property name="orientation" >
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>38</height>
@@ -213,12 +211,12 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0" colspan="3" >
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+   <item row="2" column="0" colspan="3">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
+     <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
@@ -243,11 +241,11 @@
    <receiver>FindDialog</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -259,11 +257,11 @@
    <receiver>FindDialog</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>

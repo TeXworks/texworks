@@ -1030,7 +1030,7 @@ PDFDocument::init()
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
-	setWindowIcon(QIcon(":/images/images/pdfdoc.png"));
+	setWindowIcon(QIcon(":/images/images/TeXworks-doc.png"));
 	
 	setContextMenuPolicy(Qt::NoContextMenu);
 

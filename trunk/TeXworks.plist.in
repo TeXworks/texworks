@@ -12,7 +12,7 @@
 				<string>ltx</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>TeXworks.icns</string>
+			<string>TeXworks-doc.icns</string>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>text/plain</string>
@@ -30,7 +30,7 @@
 				<string>pdf</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>TeXworks.icns</string>
+			<string>TeXworks-doc.icns</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleTypeMIMETypes</key>
