@@ -1016,6 +1016,8 @@ PDFDocument::~PDFDocument()
 	if (scanner != NULL)
 		synctex_scanner_free(scanner);
 	docList.removeAll(this);
+	if (document)
+		delete document;
 }
 
 void
