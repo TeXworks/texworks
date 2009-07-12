@@ -1007,6 +1007,7 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 	if (texDoc != NULL) {
 		stackUnder((QWidget*)texDoc);
 		actionSide_by_Side->setEnabled(true);
+		actionGo_to_Source->setEnabled(true);
 		sourceDocList.append(texDoc);
 	}
 }
@@ -1171,8 +1172,11 @@ void PDFDocument::changeEvent(QEvent *event)
 
 void PDFDocument::linkToSource(TeXDocument *texDoc)
 {
-	if (texDoc != NULL && !sourceDocList.contains(texDoc))
-		sourceDocList.append(texDoc);
+	if (texDoc != NULL) {
+		if (!sourceDocList.contains(texDoc))
+			sourceDocList.append(texDoc);
+		actionGo_to_Source->setEnabled(true);
+	}
 }
 
 void PDFDocument::texClosed(QObject *obj)
@@ -1469,6 +1473,9 @@ void PDFDocument::goToSource()
 {
 	if (sourceDocList.count() > 0)
 		sourceDocList[0]->selectWindow();
+	else
+		// should not occur, the action is supposed to be disabled
+		actionGo_to_Source->setEnabled(false);
 }
 
 void PDFDocument::enablePageActions(int pageIndex)
