@@ -439,7 +439,7 @@ void TeXDocument::open()
 	QSETTINGS_OBJECT(settings);
 	QString lastOpenDir = settings.value("openDialogDir").toString(); 
 	QStringList files = QFileDialog::getOpenFileNames(this, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
-	foreach(QString fileName, files){
+	foreach (QString fileName, files) {
 		if (!fileName.isEmpty()) {
 			QFileInfo info(fileName);
 			settings.setValue("openDialogDir", info.canonicalPath());
@@ -857,36 +857,49 @@ void TeXDocument::reloadIfChangedOnDisk()
 	}
 }
 
-void TeXDocument::showPdfIfAvailable()
+// get expected name of the Preview file, and return whether it exists
+bool TeXDocument::getPreviewFileName(QString &pdfName)
 {
 	findRootFilePath();
 	if (rootFilePath == "")
-		return;
+		return false;
 	QFileInfo fi(rootFilePath);
-	QString pdfName = fi.canonicalPath() + "/" + fi.completeBaseName() + ".pdf";
+	pdfName = fi.canonicalPath() + "/" + fi.completeBaseName() + ".pdf";
+	fi.setFile(pdfName);
+	return fi.exists();
+}
+
+bool TeXDocument::showPdfIfAvailable()
+{
 	detachPdf();
-	PDFDocument *existingPdf = PDFDocument::findDocument(pdfName);
-	if (existingPdf != NULL) {
-		if (pdfDoc != existingPdf) {
+	actionSide_by_Side->setEnabled(false);
+	actionGo_to_Preview->setEnabled(false);
+
+	QString pdfName;
+	if (getPreviewFileName(pdfName)) {
+		PDFDocument *existingPdf = PDFDocument::findDocument(pdfName);
+		if (existingPdf != NULL) {
 			pdfDoc = existingPdf;
 			pdfDoc->reload();
 			pdfDoc->selectWindow();
 			pdfDoc->linkToSource(this);
 		}
-	}
-	else {
-		fi.setFile(pdfName);
-		if (fi.exists()) {
+		else {
 			pdfDoc = new PDFDocument(pdfName, this);
 			TWUtils::sideBySide(this, pdfDoc);
 			pdfDoc->show();
 		}
 	}
+
 	if (pdfDoc != NULL) {
 		actionSide_by_Side->setEnabled(true);
+		actionGo_to_Preview->setEnabled(true);
 		connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
 		connect(this, SIGNAL(destroyed(QObject*)), pdfDoc, SLOT(texClosed(QObject*)));
+		return true;
 	}
+	
+	return false;
 }
 
 void TeXDocument::pdfClosed()
@@ -2023,11 +2036,8 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	if (exitStatus != QProcess::CrashExit) {
 		if (pdfDoc == NULL) {
-			if (showPdfWhenFinished) {
-				showPdfIfAvailable();
-				if (pdfDoc != NULL)
-					pdfDoc->selectWindow();
-			}
+			if (showPdfWhenFinished && showPdfIfAvailable())
+				pdfDoc->selectWindow();
 		}
 		else {
 			pdfDoc->reload(); // always reload if it is loaded, we don't want a stale window
@@ -2094,6 +2104,17 @@ void TeXDocument::goToPreview()
 {
 	if (pdfDoc != NULL)
 		pdfDoc->selectWindow();
+	else {
+		if (!showPdfIfAvailable()) {
+			// This should only fail if the user has done something sneaky like closing the
+			// preview window and then renaming the PDF file, since we opened the source
+			// and checked that it exists (otherwise Go to Preview would have been disabled).
+			// We could issue a status-bar warning here but it's a pretty obscure case...
+			// for now just disable the command.
+			actionGo_to_Preview->setEnabled(false);
+			actionSide_by_Side->setEnabled(false);
+		}
+	}
 }
 
 void TeXDocument::syncClick(int lineNo)

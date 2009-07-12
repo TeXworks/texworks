@@ -825,6 +825,9 @@
    </property>
   </action>
   <action name="actionGo_to_Preview">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Go to Preview</string>
    </property>
