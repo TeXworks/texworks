@@ -187,7 +187,8 @@ private:
 	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
-	void showPdfIfAvailable();
+	bool getPreviewFileName(QString &pdfName);
+	bool showPdfIfAvailable();
 	void prefixLines(const QString &prefix);
 	void unPrefixLines(const QString &prefix);
 	void replaceSelection(const QString& newText);
