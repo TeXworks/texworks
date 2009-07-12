@@ -288,6 +288,7 @@ private:
 	QLabel *scaleLabel;
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
+	QShortcut *exitFullscreen;
 
 	QList<QWidget*> latentVisibleWidgets;
 

@@ -1151,6 +1151,8 @@ PDFDocument::init()
 	connect(this, SIGNAL(reloaded()), dw, SLOT(documentLoaded()));
 	connect(pdfWidget, SIGNAL(changedPage(int)), dw, SLOT(pageChanged(int)));
 
+	exitFullscreen = NULL;
+	
 	QSETTINGS_OBJECT(settings);
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
@@ -1512,6 +1514,7 @@ void PDFDocument::toggleFullScreen()
 		showNormal();
 		pdfWidget->restoreState();
 		actionFull_Screen->setChecked(false);
+		delete exitFullscreen;
 	}
 	else {
 		// entering full-screen mode
@@ -1521,6 +1524,7 @@ void PDFDocument::toggleFullScreen()
 		pdfWidget->saveState();
 		pdfWidget->fitWindow(true);
 		actionFull_Screen->setChecked(true);
+		exitFullscreen = new QShortcut(Qt::Key_Escape, this, SLOT(toggleFullScreen()));
 	}
 }
 
