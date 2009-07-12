@@ -1147,7 +1147,7 @@ PDFDocument::init()
 	dw = new PDFFontsDock(this);
 	dw->hide();
 	addDockWidget(Qt::BottomDockWidgetArea, dw);
-	menuShow->addAction(dw->toggleViewAction());\
+	menuShow->addAction(dw->toggleViewAction());
 	connect(this, SIGNAL(reloaded()), dw, SLOT(documentLoaded()));
 	connect(pdfWidget, SIGNAL(changedPage(int)), dw, SLOT(pageChanged(int)));
 
