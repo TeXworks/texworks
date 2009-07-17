@@ -44,6 +44,7 @@ macx {
 	INCLUDEPATH += /usr/local/include/hunspell
 
 	LIBS += -L/usr/local/lib
+	LIBS += -lpoppler
 	LIBS += -lpoppler-qt4
 	LIBS += -lhunspell-1.2
 
