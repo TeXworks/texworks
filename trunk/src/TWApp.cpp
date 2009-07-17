@@ -51,6 +51,11 @@
 #include <QUrl>
 #include <QDesktopServices>
 
+#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
+#include "poppler-config.h"
+#include "GlobalParams.h"
+#endif
+
 #define SETUP_FILE_NAME "texworks-setup.ini"
 
 #ifdef Q_WS_WIN
@@ -126,14 +131,18 @@ void TWApp::init()
 	}
 	// </Check for portable mode>
 
-#if defined(Q_WS_MAC) /*|| defined(Q_WS_WIN)*/ // NOTE: this requires a patched version of Poppler
+#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
+	// for Mac and Windows, support "local" poppler-data directory
+	// (requires patched poppler-qt4 lib to be effective,
+	// otherwise the GlobalParams gets overwritten when a
+	// document is opened)
 #ifdef Q_WS_MAC
 	QDir popplerDataDir(applicationDirPath() + "/../poppler-data");
 #else
 	QDir popplerDataDir(applicationDirPath() + "/poppler-data");
 #endif
 	if (popplerDataDir.exists()) {
-		Poppler::Document::setPopplerDataPath(popplerDataDir.canonicalPath().toUtf8().data());
+		globalParams = new GlobalParams(popplerDataDir.canonicalPath().toUtf8().data());
 	}
 #endif
 
