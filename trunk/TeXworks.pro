@@ -26,6 +26,9 @@ OBJECTS_DIR = ./obj
 UI_DIR      = ./ui
 RCC_DIR     = ./rcc
 
+# comment this out if poppler's xpdf headers are not available on the build system
+QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
+
 unix:!macx {
 	TARGET	=	texworks
 } else {

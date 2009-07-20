@@ -51,7 +51,7 @@
 #include <QUrl>
 #include <QDesktopServices>
 
-#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
+#if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN))
 #include "poppler-config.h"
 #include "GlobalParams.h"
 #endif
@@ -131,7 +131,7 @@ void TWApp::init()
 	}
 	// </Check for portable mode>
 
-#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
+#if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN))
 	// for Mac and Windows, support "local" poppler-data directory
 	// (requires patched poppler-qt4 lib to be effective,
 	// otherwise the GlobalParams gets overwritten when a
