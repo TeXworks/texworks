@@ -55,47 +55,47 @@
         <translation>Cerca</translation>
     </message>
     <message>
-        <location filename="../src/Find.ui" line="31"/>
+        <location filename="../src/Find.ui" line="32"/>
         <source>Find:</source>
         <translation>Cerca:</translation>
     </message>
     <message>
-        <location filename="../src/Find.ui" line="71"/>
+        <location filename="../src/Find.ui" line="69"/>
         <source>&amp;Wrap around</source>
-        <translation>Torna a l&apos;inici</translation>
+        <translation>Torna a l&apos;inici en acabar el fitxer</translation>
     </message>
     <message>
-        <location filename="../src/Find.ui" line="78"/>
+        <location filename="../src/Find.ui" line="76"/>
         <source>Find &amp;backwards</source>
-        <translation>Cerca enrere</translation>
+        <translation>Cerca endarrere</translation>
     </message>
     <message>
-        <location filename="../src/Find.ui" line="85"/>
+        <location filename="../src/Find.ui" line="83"/>
         <source>Search within &amp;selection</source>
         <translation>Cerca dins la selecció</translation>
     </message>
     <message>
-        <location filename="../src/Find.ui" line="92"/>
+        <location filename="../src/Find.ui" line="90"/>
         <source>Find &amp;all occurrences</source>
         <translation>Cerca totes les ocurrències</translation>
     </message>
     <message>
-        <location filename="../src/Find.ui" line="99"/>
+        <location filename="../src/Find.ui" line="97"/>
         <source>Search all &amp;open files</source>
         <translation>Cerca en tots els fitxers oberts</translation>
     </message>
     <message>
-        <location filename="../src/Find.ui" line="110"/>
+        <location filename="../src/Find.ui" line="108"/>
         <source>&amp;Case sensitive</source>
         <translation>Distingeix entre majúscules i minúscules</translation>
     </message>
     <message>
-        <location filename="../src/Find.ui" line="117"/>
+        <location filename="../src/Find.ui" line="115"/>
         <source>W&amp;hole words</source>
         <translation>Paraula completa</translation>
     </message>
     <message>
-        <location filename="../src/Find.ui" line="124"/>
+        <location filename="../src/Find.ui" line="122"/>
         <source>&amp;Regular expression</source>
         <translation>Expressió regular</translation>
     </message>
@@ -146,32 +146,32 @@
         <translation>Obri recent</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1324"/>
+        <location filename="../src/PDFDocument.cpp" line="1332"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>La càrrega del fitxer &quot;%1&quot; ha fallat, tal vegada no sigui un document PDF vàlid.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1347"/>
+        <location filename="../src/PDFDocument.cpp" line="1355"/>
         <source>No SyncTeX data available</source>
         <translation>No hi ha dades SyncTex disponibles</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1349"/>
+        <location filename="../src/PDFDocument.cpp" line="1357"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1417"/>
+        <location filename="../src/PDFDocument.cpp" line="1425"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1446"/>
+        <location filename="../src/PDFDocument.cpp" line="1454"/>
         <source>page %1 of %2</source>
         <translation>pàgina %1 de %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1451"/>
+        <location filename="../src/PDFDocument.cpp" line="1459"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="53"/>
         <source>Edit</source>
-        <translation>Edita</translation>
+        <translation>Edició</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="67"/>
@@ -213,7 +213,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="482"/>
         <source>Typeset</source>
-        <translation>Composa</translation>
+        <translation>Compon</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="111"/>
@@ -233,7 +233,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="177"/>
         <source>First Page</source>
-        <translation>Primera Página</translation>
+        <translation>Primera Pàgina</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="180"/>
@@ -255,7 +255,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="207"/>
         <source>Next Page</source>
-        <translation>Página següent</translation>
+        <translation>Pàgina següent</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="210"/>
@@ -266,7 +266,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="222"/>
         <source>Last Page</source>
-        <translation>Darrera página</translation>
+        <translation>Darrera pàgina</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="225"/>
@@ -277,10 +277,10 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="233"/>
         <source>Go to Page...</source>
-        <translation>Ves a página...</translation>
+        <translation>Ves a pàgina...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="668"/>
+        <location filename="../src/PDFDocument.ui" line="671"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
@@ -427,7 +427,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="485"/>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="497"/>
@@ -445,112 +445,112 @@
         <translation>Mosaic</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="521"/>
+        <location filename="../src/PDFDocument.ui" line="524"/>
         <source>Go to Source</source>
         <translation>Ves a font</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="524"/>
+        <location filename="../src/PDFDocument.ui" line="527"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="532"/>
+        <location filename="../src/PDFDocument.ui" line="535"/>
         <source>New from Template...</source>
         <translation>Nou des de plantilla...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="535"/>
+        <location filename="../src/PDFDocument.ui" line="538"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="546"/>
+        <location filename="../src/PDFDocument.ui" line="549"/>
         <source>Full Screen</source>
         <translation>Pantalla completa</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="549"/>
+        <location filename="../src/PDFDocument.ui" line="552"/>
         <source>Ctrl+Shift+F</source>
         <translation>Ctrl+Shift+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="567"/>
+        <location filename="../src/PDFDocument.ui" line="570"/>
         <source>Magnify</source>
         <translation>Magnifica</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="579"/>
+        <location filename="../src/PDFDocument.ui" line="582"/>
         <source>Scroll</source>
         <translation>Desplaça</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="591"/>
+        <location filename="../src/PDFDocument.ui" line="594"/>
         <source>Select Text</source>
         <translation>Selecciona text</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="603"/>
+        <location filename="../src/PDFDocument.ui" line="606"/>
         <source>Select Image</source>
         <translation>Selecciona imatge</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="608"/>
+        <location filename="../src/PDFDocument.ui" line="611"/>
         <source>Go to TeXworks home page</source>
-        <translation>Ves a la pàgina inicial de TeXworks </translation>
+        <translation>Ves a la pàgina d&apos;inici de TeXworks </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="613"/>
+        <location filename="../src/PDFDocument.ui" line="616"/>
         <source>Email to the mailing list</source>
         <translation>Envia correu a la llista de correu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="621"/>
+        <location filename="../src/PDFDocument.ui" line="624"/>
         <source>Side by Side</source>
         <translation>Una vora l&apos;altra</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="626"/>
+        <location filename="../src/PDFDocument.ui" line="629"/>
         <source>Place on Left</source>
         <translation>Situa a l&apos;esquerra</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="631"/>
+        <location filename="../src/PDFDocument.ui" line="634"/>
         <source>Place on Right</source>
         <translation>Situa a la dreta</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="636"/>
+        <location filename="../src/PDFDocument.ui" line="639"/>
         <source>Quit TeXworks</source>
         <translation>Surt de TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="639"/>
+        <location filename="../src/PDFDocument.ui" line="642"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="650"/>
         <source>Find</source>
-        <translation>Cerca</translation>
+        <translation type="obsolete">Cerca</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="654"/>
+        <location filename="../src/PDFDocument.ui" line="657"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="665"/>
+        <location filename="../src/PDFDocument.ui" line="668"/>
         <source>Find Again</source>
         <translation>Torna a cercar</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="664"/>
         <source>Ctrl+Shift+G</source>
-        <translation>Ctrl+Shift+G</translation>
+        <translation type="obsolete">Ctrl+Shift+G</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1305"/>
+        <location filename="../src/PDFDocument.cpp" line="1313"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
         <translation>El fitxer PDF &quot;%1&quot; està bloquejat; aquesta acció no està suportada actualment.</translation>
     </message>
@@ -560,9 +560,21 @@
         <translation>Ctrl+J</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="651"/>
+        <location filename="../src/PDFDocument.ui" line="654"/>
         <source>Find...</source>
         <translation>Cerca...</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="105"/>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation>Composició</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="485"/>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
+        <translation>Ctrl+T</translation>
     </message>
 </context>
 <context>
@@ -578,7 +590,7 @@
         <translation>No hi ha cadenes de cerca recents</translation>
     </message>
     <message>
-        <location filename="../src/PDFFind.ui" line="22"/>
+        <location filename="../src/PDFFind.ui" line="20"/>
         <source>Find in PDF</source>
         <translation>Cerca dins el PDF</translation>
     </message>
@@ -588,27 +600,27 @@
         <translation>Cerca:</translation>
     </message>
     <message>
-        <location filename="../src/PDFFind.ui" line="74"/>
+        <location filename="../src/PDFFind.ui" line="71"/>
         <source>&amp;Wrap around</source>
-        <translation>Ajusta</translation>
+        <translation>Torna a l&apos;inici en acabar el fitxer</translation>
     </message>
     <message>
-        <location filename="../src/PDFFind.ui" line="81"/>
+        <location filename="../src/PDFFind.ui" line="78"/>
         <source>Find &amp;backwards</source>
-        <translation>Cerca enrere</translation>
+        <translation>Cerca endarrere</translation>
     </message>
     <message>
-        <location filename="../src/PDFFind.ui" line="88"/>
+        <location filename="../src/PDFFind.ui" line="85"/>
         <source>Find &amp;all occurrences</source>
-        <translation>Creca totes les ocurrències</translation>
+        <translation>Cerca totes les ocurrències</translation>
     </message>
     <message>
-        <location filename="../src/PDFFind.ui" line="95"/>
+        <location filename="../src/PDFFind.ui" line="92"/>
         <source>&amp;Case sensitive</source>
         <translation>Distingeix minúscules i majúscules</translation>
     </message>
     <message>
-        <location filename="../src/PDFFind.ui" line="102"/>
+        <location filename="../src/PDFFind.ui" line="99"/>
         <source>&amp;Sync to source</source>
         <translation>Sincronitza amb la font</translation>
     </message>
@@ -815,7 +827,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="160"/>
         <source>Editor defaults</source>
-        <translation>Editor per defecte</translation>
+        <translation>Opcions per defecte de l&apos;editor</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="205"/>
@@ -1066,12 +1078,12 @@
     <message>
         <location filename="../src/Replace.ui" line="107"/>
         <source>&amp;Wrap around</source>
-        <translation>Ajusta</translation>
+        <translation>Torna a l&apos;inici en acabar el fitxer</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="114"/>
         <source>Find &amp;backwards</source>
-        <translation>Cerca enrere</translation>
+        <translation>Cerca endarrere</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="121"/>
@@ -1140,164 +1152,164 @@
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="211"/>
+        <location filename="../src/TWApp.cpp" line="222"/>
         <source>File</source>
         <translation>Fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="212"/>
+        <location filename="../src/TWApp.cpp" line="223"/>
         <source>New</source>
         <translation>Nou</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="214"/>
+        <location filename="../src/TWApp.cpp" line="225"/>
         <source>New from Template...</source>
         <translation>Nou des de plantilla...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="165"/>
+        <location filename="../src/TWApp.cpp" line="176"/>
         <source>Preferences...</source>
         <translation>preferències...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="216"/>
+        <location filename="../src/TWApp.cpp" line="227"/>
         <source>Open...</source>
         <translation>Obre...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="219"/>
+        <location filename="../src/TWApp.cpp" line="230"/>
         <source>Open Recent</source>
         <translation>Obre recent</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="221"/>
+        <location filename="../src/TWApp.cpp" line="232"/>
         <source>Help</source>
         <translation>Ajuda</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="222"/>
+        <location filename="../src/TWApp.cpp" line="233"/>
         <source>About </source>
         <translation>Quant a</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="223"/>
+        <location filename="../src/TWApp.cpp" line="234"/>
         <source>Go to TeXworks home page</source>
-        <translation>Ves a página inicial de TeXworks</translation>
+        <translation>Ves a pàgina d&apos;inici de TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="224"/>
+        <location filename="../src/TWApp.cpp" line="235"/>
         <source>Email to the mailing list</source>
         <translation>Envia correu electrònic a la llista de correu</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="213"/>
+        <location filename="../src/TWApp.cpp" line="224"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="215"/>
+        <location filename="../src/TWApp.cpp" line="226"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="217"/>
+        <location filename="../src/TWApp.cpp" line="228"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="230"/>
+        <location filename="../src/TWApp.cpp" line="241"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1 és un entorn senzill per editar, processar i visualitzar documents TeX.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1 és un entorn senzill per editar, compondre i visualitzar documents TeX.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="233"/>
+        <location filename="../src/TWApp.cpp" line="244"/>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
         <translation>&lt;br &gt;Versió %1 (r.%2)</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="234"/>
+        <location filename="../src/TWApp.cpp" line="245"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
         <translation>&lt;p&gt;Distribuït sota la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versió 2.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="235"/>
+        <location filename="../src/TWApp.cpp" line="246"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
         <translation>&lt;p&gt;Marc d&apos;aplicació &lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; de Qt Software, una divisió de Nokia Corporation.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="236"/>
+        <location filename="../src/TWApp.cpp" line="247"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;Biblioteca de renderització PDF &lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; de Kristian H&amp;#xF8;gsberg, Albert Astals Cid i altres.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="237"/>
+        <location filename="../src/TWApp.cpp" line="248"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
         <translation>&lt;br&gt;Corrector ortogràfic &lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; de L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="238"/>
+        <location filename="../src/TWApp.cpp" line="249"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation>&lt;br&gt;Concepte i recursos de &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; de Richard Koch.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="239"/>
+        <location filename="../src/TWApp.cpp" line="250"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
         <translation>&lt;br&gt;Tecnologia &lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; de J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="240"/>
+        <location filename="../src/TWApp.cpp" line="251"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
         <translation>&lt;br&gt;S&apos;usen algunes icones de &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="241"/>
+        <location filename="../src/TWApp.cpp" line="252"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
         <translation>&lt;p&gt;Traducció al %1 realitzada per %2.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="241"/>
+        <location filename="../src/TWApp.cpp" line="252"/>
         <source>[language name]</source>
         <translation>català</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="241"/>
+        <location filename="../src/TWApp.cpp" line="252"/>
         <source>[translator&apos;s name/email]</source>
         <translation>Ignasi Furió</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="245"/>
+        <location filename="../src/TWApp.cpp" line="256"/>
         <source>About %1</source>
         <translation>Quant a %1</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="253"/>
+        <location filename="../src/TWApp.cpp" line="264"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
         <translation>No puc accedir a &quot;%1&quot;; pot ser que el vostre navegador o aplicació de correu electrònic no estiguin configurats correctament?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="290"/>
+        <location filename="../src/TWApp.cpp" line="301"/>
         <source>Unable to create window</source>
         <translation>No puc crear la finestra</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="292"/>
+        <location filename="../src/TWApp.cpp" line="303"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Alguna cosa està malament; %1 no ha pogut crear una finestra de document. Surt de l&apos;aplicació.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="330"/>
+        <location filename="../src/TWApp.cpp" line="341"/>
         <source>Open File</source>
         <translation>Obre un fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="477"/>
+        <location filename="../src/TWApp.cpp" line="488"/>
         <source>No default binary directory found</source>
         <translation>No he trobat el directori de binaris per defecte</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="480"/>
+        <location filename="../src/TWApp.cpp" line="491"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>No puc trobar cap dels directoris predefinits de programes relacionats amb TeX. &lt;p&gt; &lt;small&gt; Per executar qualsevol procrés, cal que indiqui el directori (o directoris) dels binaris de la seva distribució TeX utilitzant l&apos;etiqueta Composició del diàleg de preferències.</translation>
+        <translation>No puc trobar cap dels directoris predefinits de programes relacionats amb TeX. &lt;p&gt; &lt;small&gt; Per executar qualsevol procrés, cal que indiqueu el directori (o directoris) dels binaris de la vostra distribució TeX utilitzant l&apos;etiqueta Composició del diàleg de preferències.</translation>
     </message>
 </context>
 <context>
@@ -1336,7 +1348,7 @@
         <translation>Obre recent</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="992"/>
+        <location filename="../src/TeXDocument.ui" line="995"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
@@ -1351,41 +1363,41 @@
         <translation>No puc tancar la finestra mentre l&apos;eina està en execució</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="636"/>
+        <location filename="../src/TeXDocument.cpp" line="643"/>
         <source>Save File</source>
         <translation>Desa el fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="655"/>
+        <location filename="../src/TeXDocument.cpp" line="662"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Ha modificat el document &quot;%1&quot;.
 Vol desar els canvis?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="687"/>
+        <location filename="../src/TeXDocument.cpp" line="694"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>Vol descartar tots els canvis en el document &quot;%1&quot; i tornar a la darrera versió desada?</translation>
+        <translation>Voleu descartar tots els canvis en el document &quot;%1&quot; i tornar a la darrera versió desada?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="688"/>
+        <location filename="../src/TeXDocument.cpp" line="695"/>
         <source>Revert</source>
         <translation>Reverteix</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="767"/>
+        <location filename="../src/TeXDocument.cpp" line="774"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
         <translation>No puc llegir el fitxer &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="917"/>
+        <location filename="../src/TeXDocument.cpp" line="937"/>
         <source>Unrecognized encoding</source>
         <translation>Codificació no reconeguda</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="782"/>
+        <location filename="../src/TeXDocument.cpp" line="789"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1394,17 +1406,17 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 S&apos;interpretarà com a %3, per tant pot generar un text incorrecte.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="823"/>
+        <location filename="../src/TeXDocument.cpp" line="830"/>
         <source>File &quot;%1&quot; loaded (%2)</source>
         <translation>Fitxer &quot;%1&quot; carregat (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="896"/>
+        <location filename="../src/TeXDocument.cpp" line="916"/>
         <source>File changed on disk</source>
         <translation>Fitxer modificat a disc</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="842"/>
+        <location filename="../src/TeXDocument.cpp" line="849"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -1413,7 +1425,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Voleu descartar els canvis i recuperar el fitxer de disc?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="899"/>
+        <location filename="../src/TeXDocument.cpp" line="919"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -1422,12 +1434,12 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Voleu guardar el fitxer, sobreescrivint la versió del disc?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="903"/>
+        <location filename="../src/TeXDocument.cpp" line="923"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>No s&apos;ha desat el document &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="920"/>
+        <location filename="../src/TeXDocument.cpp" line="940"/>
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
@@ -1436,12 +1448,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 Serà desat com a %3 i pot resultar en un text incorrecte.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="929"/>
+        <location filename="../src/TeXDocument.cpp" line="949"/>
         <source>Text cannot be converted</source>
         <translation>No puc convertir el text</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="933"/>
+        <location filename="../src/TeXDocument.cpp" line="953"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -1450,59 +1462,59 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 Si continuau, seran substituits per codis per defecte. Pot ser preferiu usar una codificació diferent (per exemple UTF-8) per evitar la pèrdua de dades.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="944"/>
+        <location filename="../src/TeXDocument.cpp" line="964"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
         <translation>No puc escriure el fitxer %1:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="958"/>
+        <location filename="../src/TeXDocument.cpp" line="978"/>
         <source>File &quot;%1&quot; saved (%2)</source>
         <translation>Fitxer &quot;%1&quot; desat (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="959"/>
+        <location filename="../src/TeXDocument.cpp" line="979"/>
         <source>default encoding</source>
         <translation>Codificació per defecte</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="996"/>
+        <location filename="../src/TeXDocument.cpp" line="1016"/>
         <source>untitled-%1.tex</source>
         <translation>sensetitol-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1005"/>
+        <location filename="../src/TeXDocument.cpp" line="1025"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1072"/>
+        <location filename="../src/TeXDocument.cpp" line="1092"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Línia %1 de %2; col %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1191"/>
+        <location filename="../src/TeXDocument.cpp" line="1211"/>
         <source>Go to Line</source>
         <translation>Ves a línia</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1192"/>
+        <location filename="../src/TeXDocument.cpp" line="1212"/>
         <source>Line number:</source>
         <translation>Línia:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1608"/>
+        <location filename="../src/TeXDocument.cpp" line="1628"/>
         <source>Invalid regular expression</source>
         <translation>Expressió regular no vàlida</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1686"/>
+        <location filename="../src/TeXDocument.cpp" line="1706"/>
         <source>Not found</source>
         <translation>No trobat</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1544"/>
+        <location filename="../src/TeXDocument.cpp" line="1564"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>Trobada %n ocurrència</numerusform>
@@ -1510,7 +1522,7 @@ Si continuau, seran substituits per codis per defecte. Pot ser preferiu usar una
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1705"/>
+        <location filename="../src/TeXDocument.cpp" line="1725"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n ocurrència</numerusform>
@@ -1518,7 +1530,7 @@ Si continuau, seran substituits per codis per defecte. Pot ser preferiu usar una
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1706"/>
+        <location filename="../src/TeXDocument.cpp" line="1726"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n document</numerusform>
@@ -1526,12 +1538,12 @@ Si continuau, seran substituits per codis per defecte. Pot ser preferiu usar una
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1707"/>
+        <location filename="../src/TeXDocument.cpp" line="1727"/>
         <source>Replaced %1 in %2</source>
         <translation>Substituit %1 a %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1712"/>
+        <location filename="../src/TeXDocument.cpp" line="1732"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>Substituïda %n occurència</numerusform>
@@ -1539,22 +1551,22 @@ Si continuau, seran substituits per codis per defecte. Pot ser preferiu usar una
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1877"/>
+        <location filename="../src/TeXDocument.cpp" line="1897"/>
         <source>Cannot process unsaved document</source>
         <translation>No puc processar un document sense desar</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1887"/>
+        <location filename="../src/TeXDocument.cpp" line="1907"/>
         <source>Root document %1 is not readable</source>
         <translation>No puc llegir el document arrel %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1893"/>
+        <location filename="../src/TeXDocument.cpp" line="1913"/>
         <source>%1 is not properly configured</source>
         <translation>%1 no està configurat adequadament</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1960"/>
+        <location filename="../src/TeXDocument.cpp" line="1980"/>
         <source>Unable to execute %1</source>
         <translation>No puc executar %1</translation>
     </message>
@@ -1568,32 +1580,32 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
 Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de preferències.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="840"/>
+        <location filename="../src/TeXDocument.ui" line="843"/>
         <source>Hide Output Panel</source>
         <translation>Oculta panell de sortida</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2055"/>
+        <location filename="../src/TeXDocument.cpp" line="2072"/>
         <source>Show Output Panel</source>
         <translation>Mostra panell de sortida</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2112"/>
+        <location filename="../src/TeXDocument.cpp" line="2140"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Fixa el mecanisme de procés a &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2118"/>
+        <location filename="../src/TeXDocument.cpp" line="2146"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>No s&apos;ha definit el mecanisme de procés &quot;%1&quot; </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2211"/>
+        <location filename="../src/TeXDocument.cpp" line="2239"/>
         <source>No files found</source>
         <translation>No puc trobar fitxers</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2212"/>
+        <location filename="../src/TeXDocument.cpp" line="2240"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Actualment no hi ha fitxers auxiliars associats a aquest document.</translation>
     </message>
@@ -1610,7 +1622,7 @@ Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de prefer�
     <message>
         <location filename="../src/TeXDocument.ui" line="209"/>
         <source>Edit</source>
-        <translation>Edita</translation>
+        <translation>Edició</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="213"/>
@@ -1625,7 +1637,7 @@ Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de prefer�
     <message>
         <location filename="../src/TeXDocument.ui" line="590"/>
         <source>Typeset</source>
-        <translation>Composa</translation>
+        <translation>Compon</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="250"/>
@@ -1780,7 +1792,7 @@ Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de prefer�
     <message>
         <location filename="../src/TeXDocument.ui" line="567"/>
         <source>Ctrl+V</source>
-        <translation type="unfinished">Ctrl+V</translation>
+        <translation>Ctrl+V</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="578"/>
@@ -1790,7 +1802,7 @@ Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de prefer�
     <message>
         <location filename="../src/TeXDocument.ui" line="593"/>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="605"/>
@@ -1943,139 +1955,151 @@ Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de prefer�
         <translation>Preferències...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="829"/>
+        <location filename="../src/TeXDocument.ui" line="832"/>
         <source>Go to Preview</source>
         <translation>Ves a Previsualització</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="832"/>
+        <location filename="../src/TeXDocument.ui" line="835"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="843"/>
+        <location filename="../src/TeXDocument.ui" line="846"/>
         <source>Ctrl+\</source>
         <translation>Ctrl+\</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="851"/>
+        <location filename="../src/TeXDocument.ui" line="854"/>
         <source>New from Template...</source>
         <translation>Nou des de plantilla...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="854"/>
+        <location filename="../src/TeXDocument.ui" line="857"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="862"/>
+        <location filename="../src/TeXDocument.ui" line="865"/>
         <source>Show Selection</source>
         <translation>Mostra selecció</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="865"/>
+        <location filename="../src/TeXDocument.ui" line="868"/>
         <source>Ctrl+=</source>
         <translation>Ctrl+=</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="876"/>
+        <location filename="../src/TeXDocument.ui" line="879"/>
         <source>ALL UPPERCASE</source>
         <translation>TOT EN MAJÚSCULES</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="887"/>
+        <location filename="../src/TeXDocument.ui" line="890"/>
         <source>all lowercase</source>
         <translation>tot en minúscules</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="895"/>
+        <location filename="../src/TeXDocument.ui" line="898"/>
         <source>Balance Delimiters</source>
         <translation>Aparella delimitadors</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="898"/>
+        <location filename="../src/TeXDocument.ui" line="901"/>
         <source>Ctrl+B</source>
         <translation>Ctrl+B</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="906"/>
+        <location filename="../src/TeXDocument.ui" line="909"/>
         <source>Go to TeXworks home page</source>
-        <translation>Ves a la página d&apos;inici de TeXworks</translation>
+        <translation>Ves a la pàgina d&apos;inici de TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="911"/>
+        <location filename="../src/TeXDocument.ui" line="914"/>
         <source>Email to the mailing list</source>
         <translation>Eniva un correu electrònic a la llista de correu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="919"/>
+        <location filename="../src/TeXDocument.ui" line="922"/>
         <source>Side by Side</source>
         <translation>Una vora l&apos;altra</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="924"/>
+        <location filename="../src/TeXDocument.ui" line="927"/>
         <source>Place on Left</source>
         <translation>Situa a l&apos;esquerra</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="929"/>
+        <location filename="../src/TeXDocument.ui" line="932"/>
         <source>Place on Right</source>
         <translation>Situa a la dreta</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="956"/>
+        <location filename="../src/TeXDocument.ui" line="959"/>
         <source>Replace Again</source>
         <translation>Torna a reemplaçar</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="959"/>
+        <location filename="../src/TeXDocument.ui" line="962"/>
         <source>Ctrl+Shift+R</source>
         <translation>Ctrl+Shift+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="967"/>
+        <location filename="../src/TeXDocument.ui" line="970"/>
         <source>Remove Aux Files...</source>
         <translation>Suprimieix fitxers auxiliars...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="975"/>
+        <location filename="../src/TeXDocument.ui" line="978"/>
         <source>Quit TeXworks</source>
         <translation>Surt de TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="978"/>
+        <location filename="../src/TeXDocument.ui" line="981"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished">Ctrl+Q</translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1003"/>
+        <location filename="../src/TeXDocument.ui" line="1006"/>
         <source>Toggle Case</source>
         <translation>Commuta majúscules i minúscules</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1961"/>
+        <location filename="../src/TeXDocument.cpp" line="1981"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>No s&apos;ha trobat el programa &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1963"/>
+        <location filename="../src/TeXDocument.cpp" line="1983"/>
         <source>Searched in directories:</source>
         <translation>Cercat en els directoris:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1964"/>
+        <location filename="../src/TeXDocument.cpp" line="1984"/>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
         <translation>Comprova els camins i la configuració de l&apos;eina %1 en el diàleg Preferències.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1011"/>
+        <location filename="../src/TeXDocument.ui" line="1014"/>
         <source>Hard Wrap...</source>
         <translation>Ajustat &quot;hard&quot;...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1022"/>
+        <location filename="../src/TeXDocument.ui" line="1025"/>
         <source>Line Numbers</source>
         <translation>Enumera línies</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="243"/>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation>Composició</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="593"/>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
+        <translation>Ctrl+T</translation>
     </message>
 </context>
 <context>
