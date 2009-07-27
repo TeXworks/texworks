@@ -223,6 +223,7 @@ void PDFWidget::windowResized()
 			fitWindow(true);
 			break;
 	}
+	update();
 }
 
 void PDFWidget::paintEvent(QPaintEvent *event)
