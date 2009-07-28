@@ -353,6 +353,7 @@ void TeXDocument::init()
 	
 	docList.append(this);
 	
+	TWApp::instance()->updateWindowMenus();
 	TWUtils::installCustomShortcuts(this);
 }
 
@@ -1044,6 +1045,7 @@ void TeXDocument::updateWindowMenu()
 
 void TeXDocument::updateEngineList()
 {
+	engine->disconnect(this);
 	while (menuRun->actions().count() > 2)
 		menuRun->removeAction(menuRun->actions().last());
 	while (engineActions->actions().count() > 0)
@@ -1054,11 +1056,13 @@ void TeXDocument::updateEngineList()
 		newAction->setCheckable(true);
 		menuRun->addAction(newAction);
 		engine->addItem(e.name());
-		if (e.name() == engineName) {
-			engine->setCurrentIndex(engine->count() - 1);
-			newAction->setChecked(true);
-		}
 	}
+	connect(engine, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(selectedEngine(const QString&)));
+	int index = engine->findText(engineName, Qt::MatchFixedString);
+	if (index < 0)
+		index = engine->findText(TWApp::instance()->getDefaultEngine().name(), Qt::MatchFixedString);
+	if (index >= 0)
+		engine->setCurrentIndex(index);
 }
 
 void TeXDocument::selectedEngine(QAction* engineAction) // sent by actions in menubar menu; update toolbar combo box
