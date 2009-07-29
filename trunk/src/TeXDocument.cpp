@@ -1976,6 +1976,7 @@ void TeXDocument::typeset()
 		}
 		inputLine->setFocus(Qt::OtherFocusReason);
 		showPdfWhenFinished = e.showPdf();
+		userInterrupt = false;
 		process->start(fileInfo.absoluteFilePath(), args);
 	}
 	else {
@@ -1994,6 +1995,7 @@ void TeXDocument::typeset()
 void TeXDocument::interrupt()
 {
 	if (process != NULL) {
+		userInterrupt = true;
 		process->kill();
 	}
 }
@@ -2028,7 +2030,10 @@ void TeXDocument::processStandardOutput()
 
 void TeXDocument::processError(QProcess::ProcessError /*error*/)
 {
-	textEdit_console->append(process->errorString());
+	if (userInterrupt)
+		textEdit_console->append(tr("Process interrupted by user"));
+	else
+		textEdit_console->append(process->errorString());
 	process->kill();
 	process->deleteLater();
 	process = NULL;
@@ -2051,7 +2056,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	}
 
 	QSETTINGS_OBJECT(settings);
-	if (consoleWasHidden && exitCode == 0 && settings.value("autoHideConsole", true).toBool())
+	if (consoleWasHidden && exitCode == 0 && exitStatus != QProcess::CrashExit && settings.value("autoHideConsole", true).toBool())
 		hideConsole();
 	else
 		inputLine->hide();
