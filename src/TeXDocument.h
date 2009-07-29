@@ -226,6 +226,7 @@ private:
 	QProcess *process;
 	bool consoleWasHidden;
 	bool showPdfWhenFinished;
+	bool userInterrupt;
 
 	QList<QAction*> recentFileActions;
 	QMenu *menuRecent;
