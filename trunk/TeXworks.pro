@@ -36,6 +36,7 @@ unix:!macx {
 }
 
 QT			+=	xml
+CONFIG		+=	rtti
 
 unix {
 	system(bash ./getDefaultBinPaths.sh):warning("Unable to determine TeX path, guessing defaults")
@@ -78,18 +79,19 @@ openbsd-g++ {
 	INCLUDEPATH	+= /usr/local/include/X11/qt4/QtDBus
 }
 
-win32 { # paths here are specific to my cross-compilation setup
-	INCLUDEPATH += z:/cross-tools/usr/local/include
-	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler
-	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler/qt4
-	INCLUDEPATH += z:/cross-tools/usr/local/include/hunspell
+win32 { # paths here are specific to my setup
+	INCLUDEPATH += /y/MinGW514/local/include
+	INCLUDEPATH += /y/MinGW514/local/include/poppler
+	INCLUDEPATH += /y/MinGW514/local/include/poppler/qt4
+	INCLUDEPATH += /y/MinGW514/local/include/hunspell
 
-	LIBS += -Lz:/cross-tools/usr/local/lib
+	LIBS += -L/y/MinGW514/local/lib
 	LIBS += -lpoppler-qt4
 	LIBS += -lpoppler
 	LIBS += -lfreetype
 	LIBS += -lhunspell-1.2
 	LIBS += -lz
+	LIBS += -lgdi32
 
 	RC_FILE = res/TeXworks.rc
 }
