@@ -148,6 +148,7 @@ TRANSLATIONS	+=	trans/TeXworks_ar.ts \
 					trans/TeXworks_de.ts \
 					trans/TeXworks_fr.ts \
 					trans/TeXworks_it.ts \
+					trans/TeXworks_ja.ts \
 					trans/TeXworks_ko.ts \
 					trans/TeXworks_nl.ts \
 					trans/TeXworks_ru.ts \
