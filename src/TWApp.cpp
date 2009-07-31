@@ -479,6 +479,8 @@ void TWApp::setDefaultPaths()
 			<< "c:/texlive/2008/bin"
 			<< "c:/texlive/2007/bin"
 			<< "c:/w32tex/bin"
+			<< "c:/Program Files/MiKTeX 2.8/miktex/bin"
+			<< "c:/Program Files (x86)/MiKTeX 2.8/miktex/bin"
 			<< "c:/Program Files/MiKTeX 2.7/miktex/bin"
 			<< "c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
 		;
