@@ -80,12 +80,12 @@ openbsd-g++ {
 }
 
 win32 { # paths here are specific to my setup
-	INCLUDEPATH += /y/MinGW514/local/include
-	INCLUDEPATH += /y/MinGW514/local/include/poppler
-	INCLUDEPATH += /y/MinGW514/local/include/poppler/qt4
-	INCLUDEPATH += /y/MinGW514/local/include/hunspell
+	INCLUDEPATH += c:/MinGW514/local/include
+	INCLUDEPATH += c:/MinGW514/local/include/poppler
+	INCLUDEPATH += c:/MinGW514/local/include/poppler/qt4
+	INCLUDEPATH += c:/MinGW514/local/include/hunspell
 
-	LIBS += -L/y/MinGW514/local/lib
+	LIBS += -Lc:/MinGW514/local/lib
 	LIBS += -lpoppler-qt4
 	LIBS += -lpoppler
 	LIBS += -lfreetype
