@@ -1168,6 +1168,8 @@ void PDFDocument::changeEvent(QEvent *event)
 		retranslateUi(this);
 		menuRecent->setTitle(tr("Open Recent"));
 		setWindowTitle(title);
+		if (pdfWidget)
+			pdfWidget->updateStatusBar();
 	}
 	else
 		QMainWindow::changeEvent(event);
