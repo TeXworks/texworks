@@ -96,6 +96,7 @@ public:
 	void goToDestination(const QString& destName);
 	int getCurrentPageIndex() { return pageIndex; }
 	void reloadPage();
+	void updateStatusBar();
 
 private slots:
 	void goFirst();
@@ -145,7 +146,6 @@ protected:
 private:
 	void init();
 	void adjustSize();
-	void updateStatusBar();
 	void updateCursor();
 	void updateCursor(const QPoint& pos);
 	void useMagnifier(const QMouseEvent *inEvent);
