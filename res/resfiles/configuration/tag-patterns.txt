@@ -16,8 +16,13 @@
 4	^\s*\\subsection\*?\s*(?:\[[^]]*\]\s*)?\{([^}]*)\}
 5	^\s*\\subsubsection\*?\s*(?:\[[^]]*\]\s*)?\{([^}]*)\}
 
-# Patterns for ConTeXt sectioning commands:
-# <FIXME>
+# Patterns for ConTeXt sectioning commands (unnumbered):
+# (numbered sections are similar to LaTeX)
+2	^\s*\\title\s*(?:\[[^]]*\]\s*)?\{([^}]*)\}
+3	^\s*\\subject\s*(?:\[[^]]*\]\s*)?\{([^}]*)\}
+4	^\s*\\subsubject\s*(?:\[[^]]*\]\s*)?\{([^}]*)\}
+5	^\s*\\subsubsubject\s*(?:\[[^]]*\]\s*)?\{([^}]*)\}
+6	^\s*\\subsubsubsubject\s*(?:\[[^]]*\]\s*)?\{([^}]*)\}
 
 # Tags with level = 0 are special bookmarks that are separate from the hierarchy
 # and collected in a separate flat list.
