@@ -547,6 +547,8 @@ const QList<Engine> TWApp::getEngineList()
 {
 	if (engineList == NULL) {
 		engineList = new QList<Engine>;
+		bool foundList = false;
+		// check for old engine list in Preferences
 		QSETTINGS_OBJECT(settings);
 		int count = settings.beginReadArray("engines");
 		if (count > 0) {
@@ -558,14 +560,56 @@ const QList<Engine> TWApp::getEngineList()
 				eng.setArguments(settings.value("arguments").toStringList());
 				eng.setShowPdf(settings.value("showPdf").toBool());
 				engineList->append(eng);
+				settings.remove("");
+			}
+			foundList = true;
+			saveEngineList();
+		}
+		settings.endArray();
+		settings.remove("engines");
+
+		if (!foundList) { // read engine list from config file
+			QDir configDir(TWUtils::getLibraryPath("configuration"));
+			QFile toolsFile(configDir.filePath("tools.ini"));
+			if (toolsFile.exists()) {
+				QSettings toolsSettings(toolsFile.fileName(), QSettings::IniFormat);
+				QStringList toolNames = toolsSettings.childGroups();
+				foreach (const QString& n, toolNames) {
+					toolsSettings.beginGroup(n);
+					Engine eng;
+					eng.setName(toolsSettings.value("name").toString());
+					eng.setProgram(toolsSettings.value("program").toString());
+					eng.setArguments(toolsSettings.value("arguments").toStringList());
+					eng.setShowPdf(toolsSettings.value("showPdf").toBool());
+					engineList->append(eng);
+					toolsSettings.endGroup();
+				}
+				foundList = true;
 			}
 		}
-		else
+
+		if (!foundList)
 			setDefaultEngineList();
-		settings.endArray();
 		setDefaultEngine(settings.value("defaultEngine").toString());
 	}
 	return *engineList;
+}
+
+void TWApp::saveEngineList()
+{
+	QDir configDir(TWUtils::getLibraryPath("configuration"));
+	QFile toolsFile(configDir.filePath("tools.ini"));
+	QSettings toolsSettings(toolsFile.fileName(), QSettings::IniFormat);
+	toolsSettings.clear();
+	int n = 0;
+	foreach (const Engine& e, *engineList) {
+		toolsSettings.beginGroup(QString("%1").arg(++n, 3, 10, QChar('0')));
+		toolsSettings.setValue("name", e.name());
+		toolsSettings.setValue("program", e.program());
+		toolsSettings.setValue("arguments", e.arguments());
+		toolsSettings.setValue("showPdf", e.showPdf());
+		toolsSettings.endGroup();
+	}
 }
 
 void TWApp::setEngineList(const QList<Engine>& engines)
@@ -573,23 +617,8 @@ void TWApp::setEngineList(const QList<Engine>& engines)
 	if (engineList == NULL)
 		engineList = new QList<Engine>;
 	*engineList = engines;
+	saveEngineList();
 	QSETTINGS_OBJECT(settings);
-	int i = settings.beginReadArray("engines");
-	settings.endArray();
-	settings.beginWriteArray("engines", engines.count());
-	while (i > engines.count()) {
-		settings.setArrayIndex(--i);
-		settings.remove("");
-	}
-	i = 0;
-	foreach (Engine eng, engines) {
-		settings.setArrayIndex(i++);
-		settings.setValue("name", eng.name());
-		settings.setValue("program", eng.program());
-		settings.setValue("arguments", eng.arguments());
-		settings.setValue("showPdf", eng.showPdf());
-	}
-	settings.endArray();
 	settings.setValue("defaultEngine", getDefaultEngine().name());
 	emit engineListChanged();
 }
@@ -624,7 +653,7 @@ void TWApp::setDefaultEngine(const QString& name)
 const Engine TWApp::getNamedEngine(const QString& name)
 {
 	const QList<Engine> engines = getEngineList();
-	foreach (Engine e, engines) {
+	foreach (const Engine& e, engines) {
 		if (e.name().compare(name, Qt::CaseInsensitive) == 0)
 			return e;
 	}

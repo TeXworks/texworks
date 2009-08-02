@@ -73,7 +73,8 @@ public:
 
 	const QStringList getBinaryPaths();
 	const QList<Engine> getEngineList();
-
+	void saveEngineList();
+	
 	const Engine getNamedEngine(const QString& name);
 	const Engine getDefaultEngine();
 	void setDefaultEngine(const QString& name);
