@@ -99,17 +99,18 @@ You get a fresh new copy of the latest !TeXworks code in the folder C:\texworks\
 
 In order to build !TeXworks you have to modify C:\texworks\texworks-read-only\!TeXworks.pro to reflect your local configuration. Find the lines reading
 {{{
-	INCLUDEPATH += z:/cross-tools/usr/local/include
-	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler
-	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler/qt4
-	INCLUDEPATH += z:/cross-tools/usr/local/include/hunspell
+	INCLUDEPATH += c:/MinGW514/local/include
+	INCLUDEPATH += c:/MinGW514/local/include/poppler
+	INCLUDEPATH += c:/MinGW514/local/include/poppler/qt4
+	INCLUDEPATH += c:/MinGW514/local/include/hunspell
 
-	LIBS += -Lz:/cross-tools/usr/local/lib
+	LIBS += -Lc:/MinGW514/local/lib
 	LIBS += -lpoppler-qt4
 	LIBS += -lpoppler
 	LIBS += -lfreetype
 	LIBS += -lhunspell-1.2
 	LIBS += -lz
+	LIBS += -lgdi32
 }}}
 and replace them by
 {{{
@@ -119,6 +120,14 @@ and replace them by
 	LIBS += -lpoppler-qt4
 	LIBS += -lhunspell-1.2
 }}}
+
+In addition, unless you are using a poppler installation that includes the xpdf compatibility headers (not provided by default poppler builds, this requires a configure option), you will need to find the line
+
+{{{
+QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
+}}}
+
+and comment it out by inserting `#` at the beginning. The result will be that !TeXworks will not automatically locate a poppler-data directory alongside the executable, but will need the poppler data files (for CJK font support) installed in a fixed system location that is dependent on the poppler library build.
 
 Then run
 {{{
