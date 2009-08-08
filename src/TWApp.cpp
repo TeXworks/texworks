@@ -270,22 +270,22 @@ void TWApp::about()
 	QMessageBox::about(NULL, tr("About %1").arg(TEXWORKS_NAME), aboutText);
 }
 
-void TWApp::openUrl(const QString& urlString)
+void TWApp::openUrl(const QUrl& url)
 {
-	if (!QDesktopServices::openUrl(QUrl(urlString)))
+	if (!QDesktopServices::openUrl(url))
 		QMessageBox::warning(NULL, TEXWORKS_NAME,
-					 tr("Unable to access \"%1\"; perhaps your browser or mail application is not properly configured?")
-						.arg(urlString));
+							 tr("Unable to access \"%1\"; perhaps your browser or mail application is not properly configured?")
+							 .arg(url.toString()));
 }
 
 void TWApp::goToHomePage()
 {
-	openUrl("http://texworks.org/");
+	openUrl(QUrl("http://texworks.org/"));
 }
 
 void TWApp::writeToMailingList()
 {
-	openUrl("mailto:texworks@tug.org?subject=message%20from%20TeXworks%20user");
+	openUrl(QUrl("mailto:texworks@tug.org?subject=message from TeXworks user"));
 }
 
 void TWApp::launchAction()
@@ -753,7 +753,7 @@ void TWApp::openHelpFile(const QString& helpDirName)
 {
 	QDir helpDir(helpDirName);
 	if (helpDir.exists("index.html"))
-		openUrl("file://" + helpDir.absoluteFilePath("index.html"));
+		openUrl(QUrl::fromLocalFile(helpDir.absoluteFilePath("index.html")));
 	else
 		QMessageBox::warning(NULL, TEXWORKS_NAME, tr("Unable to find help file."));
 }

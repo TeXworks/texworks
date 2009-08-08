@@ -431,7 +431,7 @@ void PDFWidget::doLink(const Poppler::Link *link)
 			{
 				const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
 				Q_ASSERT(browse != NULL);
-				TWApp::instance()->openUrl(browse->url());
+				TWApp::instance()->openUrl(QUrl(browse->url()));
 			}
 			break;
 		case Poppler::Link::Action:
