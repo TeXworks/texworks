@@ -30,10 +30,10 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout_TW"/>
-    <addaction name="separator"/>
     <addaction name="actionGoToHomePage"/>
     <addaction name="actionWriteToMailingList"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_TW"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -289,7 +289,7 @@
   </action>
   <action name="actionActual_Size">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/resources.qrc">
      <normaloff>:/images/images/actualsize.png</normaloff>:/images/images/actualsize.png</iconset>
    </property>
    <property name="text">

@@ -52,6 +52,8 @@ public:
 	static const QString getLibraryPath(const QString& subdir);
 	static void copyResources(const QDir& resDir, const QString& libPath);
 
+	static void insertHelpMenuItems(QMenu* helpMenu);
+
 	// return a sorted list of all the available text codecs
 	static QList<QTextCodec*> *findCodecs();
 
