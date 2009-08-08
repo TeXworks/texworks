@@ -135,6 +135,7 @@ public slots:
 
 	void goToHomePage();
 	void writeToMailingList();
+	void openHelpFile(const QString& helpDirName);
 
 	void applyTranslation(const QString& locale);
 	

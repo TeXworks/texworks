@@ -325,10 +325,10 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout_TW"/>
-    <addaction name="separator"/>
     <addaction name="actionGoToHomePage"/>
     <addaction name="actionWriteToMailingList"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_TW"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>

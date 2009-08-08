@@ -49,6 +49,7 @@
 #include <QShortcut>
 #include <QFileSystemWatcher>
 #include <QDebug>
+#include <QToolTip>
 
 #include <math.h>
 
@@ -635,6 +636,19 @@ void PDFWidget::updateCursor(const QPoint& pos)
 							pos.y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
 		if (link->linkArea().contains(scaledPos)) {
 			setCursor(Qt::PointingHandCursor);
+			if (link->linkType() == Poppler::Link::Browse) {
+				QPoint globalPos = mapToGlobal(pos);
+				const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
+				Q_ASSERT(browse != NULL);
+				QRectF r = link->linkArea();
+				r.setWidth(r.width() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
+				r.setHeight(r.height() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
+				r.moveLeft(r.left() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
+				r.moveTop(r.top() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
+				QRect rr = r.toRect().normalized();
+				rr.setTopLeft(mapToGlobal(rr.topLeft()));
+				QToolTip::showText(globalPos, browse->url(), this, rr);
+			}
 			return;
 		}
 	}
@@ -1157,6 +1171,8 @@ PDFDocument::init()
 	QSETTINGS_OBJECT(settings);
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
+	TWUtils::insertHelpMenuItems(menuHelp);
+	
 	TWUtils::zoomToHalfScreen(this, true);
 	TWUtils::installCustomShortcuts(this);
 }

@@ -353,6 +353,8 @@ void TeXDocument::init()
 	
 	docList.append(this);
 	
+	TWUtils::insertHelpMenuItems(menuHelp);
+	
 	TWApp::instance()->updateWindowMenus();
 	TWUtils::installCustomShortcuts(this);
 }
