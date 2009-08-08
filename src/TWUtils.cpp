@@ -921,10 +921,11 @@ bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 		QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
 		if ((keyEvent->modifiers() & Qt::ControlModifier) != 0) {
 			if (keyEvent->key() <= 0x0ff
-			 && keyEvent->key() != Qt::Key_Z
-			 && keyEvent->key() != Qt::Key_X
-			 && keyEvent->key() != Qt::Key_C
-			 && keyEvent->key() != Qt::Key_V)
+				&& keyEvent->key() != Qt::Key_Z
+				&& keyEvent->key() != Qt::Key_X
+				&& keyEvent->key() != Qt::Key_C
+				&& keyEvent->key() != Qt::Key_V
+				&& keyEvent->key() != Qt::Key_A)
 				return true;
 		}
 	}
