@@ -43,25 +43,26 @@ int main(int argc, char *argv[])
 		return 0;	// failure
 	if (GetLastError() == ERROR_ALREADY_EXISTS) {
 		// this is a second instance: bring the original instance to the top
-		HWND hWnd = FindWindowExA(HWND_MESSAGE, NULL, TW_HIDDEN_WINDOW_CLASS, NULL);
-		if (hWnd) {
-			// pull the app's (visible) windows to the foreground
-			DWORD thread = GetWindowThreadProcessId(hWnd, NULL);
-			(void)EnumThreadWindows(thread, &enumThreadWindowProc, 0);
-			// send each cmd-line arg as a WM_COPYDATA message to load a file
-			for (int i = 1; i < argc; ++i) {
-				COPYDATASTRUCT cds;
-				cds.dwData = TW_OPEN_FILE_MSG;
-				cds.cbData = strlen(argv[i]);
-				cds.lpData = argv[i];
-				SendMessage(hWnd, WM_COPYDATA, 0, (LPARAM)&cds);
+		for (int retry = 0; retry < 100; ++retry) {
+			HWND hWnd = FindWindowExA(HWND_MESSAGE, NULL, TW_HIDDEN_WINDOW_CLASS, NULL);
+			if (hWnd) {
+				// pull the app's (visible) windows to the foreground
+				DWORD thread = GetWindowThreadProcessId(hWnd, NULL);
+				(void)EnumThreadWindows(thread, &enumThreadWindowProc, 0);
+				// send each cmd-line arg as a WM_COPYDATA message to load a file
+				for (int i = 1; i < argc; ++i) {
+					COPYDATASTRUCT cds;
+					cds.dwData = TW_OPEN_FILE_MSG;
+					cds.cbData = strlen(argv[i]);
+					cds.lpData = argv[i];
+					SendMessageA(hWnd, WM_COPYDATA, 0, (LPARAM)&cds);
+				}
+				break;
 			}
+			// couldn't find the other instance; not ready yet?
+			// sleep for 50ms and then retry
+			Sleep(50);
 		}
-		/*
-		else {
-			something's wrong here.... decide what to do with the situation
-		}
-		*/
 		CloseHandle(hMutex);	// close our handle to the mutex
 		return 0;
 	}
