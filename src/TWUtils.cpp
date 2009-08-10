@@ -131,10 +131,9 @@ void TWUtils::copyResources(const QDir& resDir, const QString& libPath)
 	}
 }
 
-static bool
+static int
 insertItemIfPresent(QFileInfo& fi, QMenu* helpMenu, QAction* before, QSignalMapper* mapper, QString title)
 {
-	bool inserted = false;
 	QFileInfo indexFile(fi.absoluteFilePath(), "index.html");
 	if (indexFile.exists()) {
 		QFileInfo titlefileInfo(fi.absoluteFilePath(), "tw-help-title.txt");
@@ -149,9 +148,9 @@ insertItemIfPresent(QFileInfo& fi, QMenu* helpMenu, QAction* before, QSignalMapp
 		mapper->setMapping(action, fi.canonicalFilePath());
 		action->connect(action, SIGNAL(triggered()), mapper, SLOT(map()));
 		helpMenu->insertAction(before, action);
-		inserted = true;
+		return 1;
 	}
-	return inserted;
+	return 0;
 }
 
 void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
@@ -186,7 +185,7 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 		loc = QLocale::system().name();
 	
 	QDirIterator iter(helpDir);
-	bool inserted = false;
+	int inserted = 0;
 	while (iter.hasNext()) {
 		(void)iter.next();
 		if (!iter.fileInfo().isDir())
@@ -198,24 +197,24 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 		// try for localized content first
 		QFileInfo fi(subDir, loc);
 		if (fi.exists() && fi.isDir() && fi.isReadable()) {
-			inserted = insertItemIfPresent(fi, helpMenu, before, mapper, name);
+			inserted += insertItemIfPresent(fi, helpMenu, before, mapper, name);
 			continue;
 		}
 		fi.setFile(subDir.absolutePath() + "/" + loc.left(2));
 		if (fi.exists() && fi.isDir() && fi.isReadable()) {
-			inserted = insertItemIfPresent(fi, helpMenu, before, mapper, name);
+			inserted += insertItemIfPresent(fi, helpMenu, before, mapper, name);
 			continue;
 		}
 		fi.setFile(subDir.absolutePath() + "/en");
 		if (fi.exists() && fi.isDir() && fi.isReadable()) {
-			inserted = insertItemIfPresent(fi, helpMenu, before, mapper, name);
+			inserted += insertItemIfPresent(fi, helpMenu, before, mapper, name);
 			continue;
 		}
 		fi.setFile(subDir.absolutePath());
-		inserted = insertItemIfPresent(fi, helpMenu, before, mapper, name);
+		inserted += insertItemIfPresent(fi, helpMenu, before, mapper, name);
 	}
 
-	if (inserted) {
+	if (inserted > 0) {
 		QAction* sep = new QAction(helpMenu);
 		sep->setSeparator(true);
 		helpMenu->insertAction(before, sep);
