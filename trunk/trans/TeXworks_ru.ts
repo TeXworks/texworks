@@ -845,7 +845,7 @@
     <message>
         <location line="+60"/>
         <source>Wrap lines</source>
-        <translation>Разбивать на строки</translation>
+        <translation>Переносить строки</translation>
     </message>
     <message>
         <location line="+27"/>
