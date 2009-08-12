@@ -247,6 +247,7 @@ void TWApp::changeLanguage()
 	aboutAction->setText(tr("About " TEXWORKS_NAME "..."));
 	homePageAction->setText(tr("Go to TeXworks home page"));
 	mailingListAction->setText(tr("Email to the mailing list"));
+	TWUtils::insertHelpMenuItems(menuHelp);
 #endif
 }
 

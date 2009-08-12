@@ -159,11 +159,19 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	mapper->connect(mapper, SIGNAL(mapped(const QString&)), TWApp::instance(), SLOT(openHelpFile(const QString&)));
 
 	QAction* before = NULL;
-	foreach (QAction* a, helpMenu->actions()) {
-		if (a->menuRole() == QAction::AboutRole) {
-			before = a;
+	int i, firstSeparator = 0;
+	QList<QAction*> actions = helpMenu->actions();
+	for (i = 0; i < actions.count(); ++i) {
+		if (actions[i]->isSeparator() && !firstSeparator)
+			firstSeparator = i;
+		if (actions[i]->menuRole() == QAction::AboutRole) {
+			before = actions[i];
 			break;
 		}
+	}
+	while (--i > firstSeparator) {
+		helpMenu->removeAction(actions[i]);
+		delete actions[i];
 	}
 
 #ifdef Q_WS_MAC

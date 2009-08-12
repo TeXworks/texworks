@@ -1185,6 +1185,7 @@ void PDFDocument::changeEvent(QEvent *event)
 		QString title = windowTitle();
 		retranslateUi(this);
 		menuRecent->setTitle(tr("Open Recent"));
+		TWUtils::insertHelpMenuItems(menuHelp);
 		setWindowTitle(title);
 		if (pdfWidget)
 			pdfWidget->updateStatusBar();
