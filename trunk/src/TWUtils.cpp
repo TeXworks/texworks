@@ -172,7 +172,11 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	QDir helpDir(QCoreApplication::applicationDirPath() + "/texworks-help");
 #ifdef Q_WS_X11
 	if (!helpDir.exists())
-		helpDir.cd("/usr/local/share/texworks-help"); // TODO: set this from the makefile
+#ifdef TW_HELPPATH
+		helpDir.cd(TW_HELPPATH);
+#else
+		helpDir.cd("/usr/local/share/texworks-help");
+#endif // defined(TW_HELPPATH)
 #endif
 #endif
 	const char* helpPath = getenv("TW_HELPPATH");
