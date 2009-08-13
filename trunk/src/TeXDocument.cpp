@@ -1889,12 +1889,6 @@ void TeXDocument::zoomToLeft(QWidget *otherWindow)
 	setGeometry(screenRect);
 }
 
-#ifdef Q_WS_WIN
-#define PATH_SEPARATOR ";"
-#else
-#define PATH_SEPARATOR ":"
-#endif
-
 void TeXDocument::typeset()
 {
 	if (process)
@@ -1938,37 +1932,55 @@ void TeXDocument::typeset()
 	while (envIter.hasNext()) {
 		QString& envVar = envIter.next();
 		if (envVar.startsWith("PATH=", PATH_CASE_SENSITIVE)) {
-			foreach (const QString& s, envVar.mid(5).split(PATH_SEPARATOR, QString::SkipEmptyParts))
+			foreach (const QString& s, envVar.mid(5).split(QChar(PATH_LIST_SEP), QString::SkipEmptyParts))
 			if (!binPaths.contains(s))
 				binPaths.append(s);
-			envVar = envVar.left(5) + binPaths.join(PATH_SEPARATOR);
+			envVar = envVar.left(5) + binPaths.join(QChar(PATH_LIST_SEP));
 			break;
 		}
 	}
 	
-	process->setEnvironment(env);
-	process->setProcessChannelMode(QProcess::MergedChannels);
-	
-	connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(processStandardOutput()));
-	connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
-	connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
-
-	QStringList args = e.arguments();
-	args.replaceInStrings("$fullname", fileInfo.fileName());
-	args.replaceInStrings("$basename", fileInfo.completeBaseName());
-	args.replaceInStrings("$suffix", fileInfo.suffix());
-	args.replaceInStrings("$directory", fileInfo.absoluteDir().absolutePath());
-
 	bool foundCommand = false;
+	QFileInfo exeFileInfo;
 	QStringListIterator pathIter(binPaths);
 	while (pathIter.hasNext() && !foundCommand) {
 		QString path = pathIter.next();
-		fileInfo = QFileInfo(path, e.program());
-		if (fileInfo.exists())
+		exeFileInfo = QFileInfo(path, e.program());
+		if (exeFileInfo.exists())
 			foundCommand = true;
 	}
 	
 	if (foundCommand) {
+		QStringList args = e.arguments();
+		
+		// for old MikTeX versions: delete $synctexoption if it causes an error
+		static bool checkedForSynctex = false;
+		static bool synctexSupported = true;
+		if (!checkedForSynctex) {
+			QStringListIterator pi(binPaths);
+			QFileInfo chkFileInfo;
+			bool found = false;
+			while (pi.hasNext() && !found) {
+				QString path = pi.next();
+				chkFileInfo = QFileInfo(path, "pdftex" EXE);
+				if (chkFileInfo.exists())
+					found = true;
+			}
+			if (found) {
+				int result = QProcess::execute(chkFileInfo.absoluteFilePath(), QStringList() << "-synctex=1" << "-version");
+				synctexSupported = (result == 0);
+			}
+			checkedForSynctex = true;
+		}
+		if (!synctexSupported)
+			args.removeOne("$synctexoption");
+		
+		args.replaceInStrings("$synctexoption", "-synctex=1");
+		args.replaceInStrings("$fullname", fileInfo.fileName());
+		args.replaceInStrings("$basename", fileInfo.completeBaseName());
+		args.replaceInStrings("$suffix", fileInfo.suffix());
+		args.replaceInStrings("$directory", fileInfo.absoluteDir().absolutePath());
+		
 		textEdit_console->clear();
 		if (textEdit_console->isHidden()) {
 			consoleWasHidden = true;
@@ -1981,7 +1993,15 @@ void TeXDocument::typeset()
 		inputLine->setFocus(Qt::OtherFocusReason);
 		showPdfWhenFinished = e.showPdf();
 		userInterrupt = false;
-		process->start(fileInfo.absoluteFilePath(), args);
+
+		process->setEnvironment(env);
+		process->setProcessChannelMode(QProcess::MergedChannels);
+		
+		connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(processStandardOutput()));
+		connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
+		connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
+		
+		process->start(exeFileInfo.absoluteFilePath(), args);
 	}
 	else {
 		process->deleteLater();

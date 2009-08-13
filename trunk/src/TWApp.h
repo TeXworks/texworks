@@ -29,6 +29,14 @@
 
 #include "TWUtils.h"
 
+#ifdef Q_WS_WIN
+#define PATH_LIST_SEP   ';'
+#define EXE             ".exe"
+#else
+#define PATH_LIST_SEP   ':'
+#define EXE
+#endif
+
 class QString;
 class QMenu;
 class QMenuBar;
