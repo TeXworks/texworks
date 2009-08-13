@@ -425,8 +425,6 @@ void PDFWidget::doLink(const Poppler::Link *link)
 				goToDestination(go->destination());
 			}
 			break;
-		case Poppler::Link::Execute:
-			break;
 		case Poppler::Link::Browse:
 			{
 				const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
@@ -434,13 +432,18 @@ void PDFWidget::doLink(const Poppler::Link *link)
 				TWApp::instance()->openUrl(QUrl::fromEncoded(browse->url().toAscii()));
 			}
 			break;
-		case Poppler::Link::JavaScript:
-			break;
-		case Poppler::Link::Action:
-			break;
-		case Poppler::Link::Sound:
-			break;
-		case Poppler::Link::Movie:
+// unsupported link types:
+//		case Poppler::Link::Execute:
+//			break;
+//		case Poppler::Link::JavaScript:
+//			break;
+//		case Poppler::Link::Action:
+//			break;
+//		case Poppler::Link::Sound:
+//			break;
+//		case Poppler::Link::Movie:
+//			break;
+		default:
 			break;
 	}
 }
