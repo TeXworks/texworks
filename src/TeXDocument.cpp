@@ -1973,7 +1973,7 @@ void TeXDocument::typeset()
 			checkedForSynctex = true;
 		}
 		if (!synctexSupported)
-			args.removeOne("$synctexoption");
+			args.removeAll("$synctexoption");
 		
 		args.replaceInStrings("$synctexoption", "-synctex=1");
 		args.replaceInStrings("$fullname", fileInfo.fileName());
