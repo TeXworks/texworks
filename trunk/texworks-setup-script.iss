@@ -26,18 +26,36 @@ VersionInfoVersion=0.1.0.0
 WizardSmallImageFile=res\images\TeXworks-small.bmp
 
 [Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"
-;Name: "catalan"; MessagesFile: "compiler:Languages\Catalan.isl"
-;Name: "dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
-;Name: "french"; MessagesFile: "compiler:Languages\French.isl"
-Name: "german"; MessagesFile: "compiler:Languages\German.isl"
-;Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
-;Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
-;Name: "slovenian"; MessagesFile: "compiler:Languages\Slovenian.isl"
+Name: "en"; MessagesFile: "compiler:Default.isl"
+Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl"
+Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl"
+Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
+Name: "de"; MessagesFile: "compiler:Languages\German.isl"
+Name: "it"; MessagesFile: "compiler:Languages\Italian.isl"
+Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
+Name: "sl"; MessagesFile: "compiler:Languages\Slovenian.isl"
+; additional Inno Setup languages using contributed translations
+Name: "ar"; MessagesFile: "extra-setup-languages\Arabic-4-5.1.11.isl"
+Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimp-12-5.1.11.isl"
+Name: "ja"; MessagesFile: "extra-setup-languages\Japanese-5-5.1.11.isl"
+Name: "ko"; MessagesFile: "extra-setup-languages\Korean-5-5.1.11.isl"
+Name: "tr"; MessagesFile: "extra-setup-languages\Turkish-3-5.1.11.isl"
 
 [CustomMessages]
-CreateFileAssoc=Open the following file types with TeXworks by default:
-german.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
+en.CreateFileAssoc=Open the following file types with TeXworks by default:
+ca.CreateFileAssoc=
+nl.CreateFileAssoc=
+fr.CreateFileAssoc=Par défaut, ouvrir les types de fichiers suivants avec TeXworks:
+de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
+it.CreateFileAssoc=Impostare TeXworks come programma predefinito per i seguenti tipi di file:
+ru.CreateFileAssoc=
+sl.CreateFileAssoc=
+
+ar.CreateFileAssoc=
+zh_cn.CreateFileAssoc=
+ja.CreateFileAssoc=
+ko.CreateFileAssoc=
+tr.CreateFileAssoc=
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
@@ -68,4 +86,5 @@ Root: HKCR; Subkey: "TeXworksPDFFile\shell\open\command"; ValueType: string; Val
 
 [Run]
 Filename: "{app}\TeXworks.exe"; Description: "{cm:LaunchProgram,TeXworks}"; Flags: nowait postinstall skipifsilent
+
 
