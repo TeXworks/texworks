@@ -1,11 +1,11 @@
 ﻿; UTF-8 script for Inno Setup Unicode
 
 ; Definitions using Inno Setup Preprocessor
-#define APPNAME GetStringFileInfo("release/TeXworks.exe", PRODUCT_NAME)
-#define APPVERNAME GetStringFileInfo("release/TeXworks.exe", PRODUCT_VERSION)
+#define APPNAME      GetStringFileInfo("release/TeXworks.exe", PRODUCT_NAME)
+#define APPVERNAME   GetStringFileInfo("release/TeXworks.exe", PRODUCT_VERSION)
 #define APPPUBLISHER GetStringFileInfo("release/TeXworks.exe", COMPANY_NAME)
 #define APPCOPYRIGHT GetStringFileInfo("release/TeXworks.exe", LEGAL_COPYRIGHT)
-#define VERSIONINFO GetFileVersion("release/TeXworks.exe")
+#define VERSIONINFO  GetFileVersion("release/TeXworks.exe")
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -38,6 +38,7 @@ Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl"
 Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 Name: "it"; MessagesFile: "compiler:Languages\Italian.isl"
+Name: "pt"; MessagesFile: "compiler:Languages\Portuguese.isl"
 Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "sl"; MessagesFile: "compiler:Languages\Slovenian.isl"
 ; additional Inno Setup languages using contributed translations
@@ -54,6 +55,7 @@ nl.CreateFileAssoc=
 fr.CreateFileAssoc=Par défaut, ouvrir les types de fichiers suivants avec TeXworks:
 de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
 it.CreateFileAssoc=Impostare TeXworks come programma predefinito per i seguenti tipi di file:
+pt.CreateFileAssoc=
 ru.CreateFileAssoc=
 sl.CreateFileAssoc=
 
