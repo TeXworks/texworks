@@ -155,6 +155,7 @@ TRANSLATIONS	+=	trans/TeXworks_ar.ts \
 					trans/TeXworks_ja.ts \
 					trans/TeXworks_ko.ts \
 					trans/TeXworks_nl.ts \
+					trans/TeXworks_pt_BR.ts \
 					trans/TeXworks_ru.ts \
 					trans/TeXworks_sl.ts \
 					trans/TeXworks_tr.ts \
