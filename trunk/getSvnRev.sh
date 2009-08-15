@@ -11,6 +11,7 @@ REV=`svn info | fgrep Revision: | cut -d ' ' -f 2`
 if [ `svn status | grep -c "^[^?]"` == 0 ]; then
 	# make a new SvnRev.h file
 	echo "#define SVN_REVISION $REV" > src/SvnRev.h.new
+	echo "#define SVN_REVISION_STR \"$REV\"" >> src/SvnRev.h.new
 	# and check if it matches the existing one
 	diff src/SvnRev.h.new src/SvnRev.h > /dev/null
 	if [ $? == 0 ]; then
@@ -21,6 +22,7 @@ else
 	# if we have local modifications, we'll bump the revision number
 	REV=$((1+REV))
 	echo "#define SVN_REVISION $REV" > src/SvnRev.h.new
+	echo "#define SVN_REVISION_STR \"$REV\"" >> src/SvnRev.h.new
 fi
 
 # is there a new revision file?
