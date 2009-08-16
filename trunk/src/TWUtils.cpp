@@ -339,23 +339,14 @@ Hunhandle* TWUtils::getDictionary(const QString& language)
 	return h;
 }
 
-QStringList* TWUtils::filters = NULL;
+QStringList* TWUtils::filters;
 QStringList* TWUtils::filterList()
 {
-	 if (filters == NULL) {
-		filters = new QStringList;
-		QSETTINGS_OBJECT(settings);
-		if (settings.contains("fileNameFilters"))
-			*filters = settings.value("fileNameFilters").toStringList();
-		else
-			setDefaultFilters();
-	 }
-	 return filters;
+	return filters;
 }
 
 void TWUtils::setDefaultFilters()
 {
-	filters->clear();
 	*filters << QObject::tr("TeX documents (*.tex)");
 	*filters << QObject::tr("LaTeX documents (*.ltx)");
 	*filters << QObject::tr("BibTeX databases (*.bib)");
@@ -791,6 +782,8 @@ void TWUtils::readConfig()
 
 	sCleanupPatterns = "*.aux $jobname.log $jobname.lof $jobname.lot $jobname.toc";
 
+	filters = new QStringList;
+	
 	QFile configFile(configDir.filePath("texworks-config.txt"));
 	if (configFile.open(QIODevice::ReadOnly)) {
 		QRegExp keyVal("([-a-z]+):\\s*([^ \\t].+)");
@@ -834,9 +827,15 @@ void TWUtils::readConfig()
 					}
 					continue;
 				}
+				if (keyword == "file-open-filter") {
+					*filters << value;
+				}
 			}
 		}
 	}
+	
+	if (filters->count() == 0)
+		setDefaultFilters();
 }
 
 int TWUtils::balanceDelim(const QString& text, int pos, QChar delim, int direction)

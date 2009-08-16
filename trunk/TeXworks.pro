@@ -114,6 +114,8 @@ HEADERS	+=	src/TWApp.h \
 			src/TemplateDialog.h \
 			src/HardWrapDialog.h \
 			src/ConfirmDelete.h \
+			src/TWVersion.h \
+			src/SvnRev.h \
 			src/synctex_parser.h
 
 FORMS	+=	src/TeXDocument.ui \
