@@ -20,3 +20,16 @@ cleanup-patterns:	$jobname.mte $jobname.mlf $jobname.out $jobname.pdfsync
 cleanup-patterns:	$jobname.toc $jobname.ttt $jobname.wrm $jobname.xref
 cleanup-patterns:	$jobname.4ct $jobname.4tc
 
+# To override the built-in list of file types in the File/Open dialog,
+# uncomment and customize these entries:
+#
+# file-open-filter:	TeX documents (*.tex)
+# file-open-filter:	LaTeX documents (*.ltx)
+# file-open-filter:	BibTeX databases (*.bib)
+# file-open-filter:	Style files (*.sty)
+# file-open-filter:	Class files (*.cls)
+# file-open-filter:	Documented macros (*.dtx)
+# file-open-filter:	Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)
+# file-open-filter:	Text files (*.txt)
+# file-open-filter:	PDF documents (*.pdf)
+# file-open-filter:	All files (*.* *)
