@@ -512,12 +512,13 @@ TeXDocument* TeXDocument::openDocument(const QString &fileName, bool activate, b
 
 void TeXDocument::closeEvent(QCloseEvent *event)
 {
+/*
 	if (process != NULL) {
 		statusBar()->showMessage(tr("Cannot close window while tool is running"), kStatusMessageDuration);
 		event->ignore();
 		return;
 	}
-
+*/
 	if (maybeSave()) {
 		event->accept();
 		deleteLater();
