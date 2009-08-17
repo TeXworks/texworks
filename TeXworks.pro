@@ -116,7 +116,8 @@ HEADERS	+=	src/TWApp.h \
 			src/ConfirmDelete.h \
 			src/TWVersion.h \
 			src/SvnRev.h \
-			src/synctex_parser.h
+			src/synctex_parser.h \
+			src/synctex_parser_utils.h
 
 FORMS	+=	src/TeXDocument.ui \
 			src/PDFDocument.ui \
@@ -144,7 +145,8 @@ SOURCES	+=	src/main.cpp \
 			src/TemplateDialog.cpp \
 			src/HardWrapDialog.cpp \
 			src/ConfirmDelete.cpp \
-			src/synctex_parser.c
+			src/synctex_parser.c \
+			src/synctex_parser_utils.c
 
 RESOURCES	+=	res/resources.qrc \
 				res/resfiles.qrc

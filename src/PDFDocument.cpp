@@ -1375,7 +1375,7 @@ void PDFDocument::reloadWhenIdle()
 
 void PDFDocument::loadSyncData()
 {
-	scanner = synctex_scanner_new_with_output_file(curFile.toUtf8().data());
+	scanner = synctex_scanner_new_with_output_file(curFile.toUtf8().data(), NULL, 1);
 	if (scanner == NULL)
 		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
 	else {
