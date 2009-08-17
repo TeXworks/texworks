@@ -19,6 +19,7 @@
 <file>resfiles/templates/XeLaTeX documents/article-fontspec.tex</file>
 <file>resfiles/translations/qt_ar.qm</file>
 <file>resfiles/translations/qt_de.qm</file>
+<file>resfiles/translations/qt_es.qm</file>
 <file>resfiles/translations/qt_fr.qm</file>
 <file>resfiles/translations/qt_ja.qm</file>
 <file>resfiles/translations/qt_ko.qm</file>
@@ -28,6 +29,7 @@
 <file alias="resfiles/translations/TeXworks_ar.qm">../trans/TeXworks_ar.qm</file>
 <file alias="resfiles/translations/TeXworks_ca.qm">../trans/TeXworks_ca.qm</file>
 <file alias="resfiles/translations/TeXworks_de.qm">../trans/TeXworks_de.qm</file>
+<file alias="resfiles/translations/TeXworks_es.qm">../trans/TeXworks_es.qm</file>
 <file alias="resfiles/translations/TeXworks_fr.qm">../trans/TeXworks_fr.qm</file>
 <file alias="resfiles/translations/TeXworks_it.qm">../trans/TeXworks_it.qm</file>
 <file alias="resfiles/translations/TeXworks_ja.qm">../trans/TeXworks_ja.qm</file>
