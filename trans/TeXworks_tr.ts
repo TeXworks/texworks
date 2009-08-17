@@ -341,7 +341,7 @@
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -454,6 +454,16 @@
     <message>
         <source>Ctrl+J</source>
         <translation>Ctrl+J</translation>
+    </message>
+    <message>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation>Diz</translation>
+    </message>
+    <message>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
+        <translation>Ctrl+T</translation>
     </message>
 </context>
 <context>
@@ -1049,6 +1059,10 @@
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>TeX ile ilgili programlar için önceden tanımlanmış dizinlerin hiçbiri bulunamadı.&lt;p&gt;&lt;small&gt;Bir işlem çalıştırmak için Tercihler penceresindeki Dizgi sekmesinde TeX dağıtımınız için ikililer dizini (veya dizinleri) ayarlamanız gerekecek.</translation>
     </message>
+    <message>
+        <source>Unable to find help file.</source>
+        <translation>Yardım dosyası bulunamıyor.</translation>
+    </message>
 </context>
 <context>
     <name>TagsDock</name>
@@ -1221,20 +1235,17 @@ Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, 
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>%n yerde bulundu</numerusform>
-            <numerusform>%n yerde bulundu</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n yerde bulundu</numerusform>
-            <numerusform>%n yerde bulundu</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n documents</source>
         <translation>
-            <numerusform>%n belge</numerusform>
             <numerusform>%n belge</numerusform>
         </translation>
     </message>
@@ -1245,7 +1256,6 @@ Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, 
     <message numerus="yes">
         <source>Replaced %n occurrence(s)</source>
         <translation>
-            <numerusform>%n yerde değiştirildi</numerusform>
             <numerusform>%n yerde değiştirildi</numerusform>
         </translation>
     </message>
@@ -1355,7 +1365,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Edit Toolbar</source>
-        <translation>Araç çubuğunu düzenle</translation>
+        <translation>Düzenleme Araç Çubuğu</translation>
     </message>
     <message>
         <source>New</source>
@@ -1447,7 +1457,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
         <source>Find...</source>
@@ -1475,7 +1485,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Copy to Find</source>
-        <translation>Bulmak için Kopyala</translation>
+        <translation>Bul&apos;a Kopyala</translation>
     </message>
     <message>
         <source>Ctrl+E</source>
@@ -1483,7 +1493,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Copy to Replace</source>
-        <translation>Yer Değiştirmek için Kopyala</translation>
+        <translation>Yer Değiştir&apos;e Kopyala</translation>
     </message>
     <message>
         <source>Ctrl+Shift+E</source>
@@ -1535,7 +1545,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Comment</source>
-        <translation>Açıklama</translation>
+        <translation>Açıklama haline getir</translation>
     </message>
     <message>
         <source>Ctrl+Shift+]</source>
@@ -1543,7 +1553,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Uncomment</source>
-        <translation>Açıklama değil</translation>
+        <translation>Açıklama halini kaldır</translation>
     </message>
     <message>
         <source>Ctrl+Shift+[</source>
@@ -1559,7 +1569,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Stack</source>
-        <translation></translation>
+        <translation>Üst üste</translation>
     </message>
     <message>
         <source>Tile</source>
@@ -1680,6 +1690,20 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     <message>
         <source>Line Numbers</source>
         <translation>Satır Numaraları</translation>
+    </message>
+    <message>
+        <source>Process interrupted by user</source>
+        <translation>İşlem kullanıcı tarafından kesildi</translation>
+    </message>
+    <message>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation>Diz</translation>
+    </message>
+    <message>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
+        <translation>Ctrl+T</translation>
     </message>
 </context>
 <context>
