@@ -59,7 +59,7 @@ it.CreateFileAssoc=Impostare TeXworks come programma predefinito per i seguenti 
 pt_BR.CreateFileAssoc=
 ru.CreateFileAssoc=
 sl.CreateFileAssoc=
-es.CreateFileAssoc=
+es.CreateFileAssoc=Abrir los siguientes tipos de archivo con TeXworks por omisión:
 
 ar.CreateFileAssoc=
 zh_cn.CreateFileAssoc=默认使用 TeXworks 打开以下文件类型：

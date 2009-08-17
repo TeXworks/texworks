@@ -87,18 +87,18 @@
     </message>
     <message>
         <source>(invalid)</source>
-        <translation>(error)</translation>
+        <translation>(inválido)</translation>
     </message>
 </context>
 <context>
     <name>HardWrapDialog</name>
     <message>
         <source>Hard Wrap</source>
-        <translation>Separar líneas</translation>
+        <translation>Cortar líneas</translation>
     </message>
     <message>
         <source>Wrap lines to:</source>
-        <translation>Separar lineas en:</translation>
+        <translation>Cortar líneas en:</translation>
     </message>
     <message>
         <source>Current window size</source>
@@ -106,7 +106,7 @@
     </message>
     <message>
         <source>Line length:</source>
-        <translation>Longitud de línea:</translation>
+        <translation>Largo de la línea:</translation>
     </message>
     <message>
         <source>Re-wrap paragraphs</source>
@@ -689,11 +689,11 @@
     </message>
     <message>
         <source>Syntax coloring:</source>
-        <translation>Realce de sintaxis:</translation>
+        <translation>Resaltado de sintaxis:</translation>
     </message>
     <message>
         <source>Auto-Indent mode:</source>
-        <translation>Modo de sangría automática:</translation>
+        <translation>Modo de sangrado automático:</translation>
     </message>
     <message>
         <source>Spell-check language:</source>
@@ -989,7 +989,7 @@
     </message>
     <message>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1 es un simple recurso para editar, compilar y previsualizar documentos TeX.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1 es un simple recurso para editar, compilar y visualizar documentos TeX.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
@@ -997,7 +997,7 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;Se distribuye bajo la licencia &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versión segunda.</translation>
+        <translation>&lt;p&gt;Se distribuye bajo la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versión segunda.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
@@ -1005,11 +1005,11 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; biblioteca para el renderizado de PDF, obra de Kristian H&amp;#xF8;gsberg, Albert Astals Cid y colegas.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; es la biblioteca para el renderizado PDF, obra de Kristian H&amp;#xF8;gsberg, Albert Astals Cid y colegas.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; Corrector ortográfico creado por L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; es un corrector ortográfico creado por L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1021,11 +1021,11 @@
     </message>
     <message>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation>&lt;br&gt;Algunos íconos han sido tomados de &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
+        <translation>&lt;br&gt;Algunos íconos han sido tomados del &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation>&lt;p&gt;%1 traducción realizada por %2.</translation>
+        <translation>Traducción al &lt;p&gt;%1 realizada por %2.</translation>
     </message>
     <message>
         <source>[language name]</source>
@@ -1321,7 +1321,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Spelling</source>
-        <translation>Correción ortográfica</translation>
+        <translation>Ortografía</translation>
     </message>
     <message>
         <source>Change Case</source>
@@ -1349,7 +1349,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Auto-indent Mode</source>
-        <translation>Modo de sangría automática</translation>
+        <translation>Modo de sangrado automático</translation>
     </message>
     <message>
         <source>Syntax Coloring</source>
@@ -1357,7 +1357,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Smart Quotes</source>
-        <translation>Citas automáticas</translation>
+        <translation>Marcas automáticas</translation>
     </message>
     <message>
         <source>Help</source>
@@ -1529,7 +1529,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Indent</source>
-        <translation>Sangría</translation>
+        <translation>Poner sangría</translation>
     </message>
     <message>
         <source>Ctrl+]</source>
@@ -1545,7 +1545,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Comment</source>
-        <translation>Comentar</translation>
+        <translation>Incluir comentarios</translation>
     </message>
     <message>
         <source>Ctrl+Shift+]</source>
@@ -1569,11 +1569,11 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Stack</source>
-        <translation>Pila</translation>
+        <translation>Apilar</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>Distribuir</translation>
+        <translation>Mosaico</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -1581,7 +1581,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Go to Preview</source>
-        <translation>Pasar a Previsualización</translation>
+        <translation>A Previsualización</translation>
     </message>
     <message>
         <source>Ctrl+&apos;</source>
@@ -1601,7 +1601,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Show Selection</source>
-        <translation>Exhibir Selección</translation>
+        <translation>Mostrar Selección</translation>
     </message>
     <message>
         <source>Ctrl+=</source>
