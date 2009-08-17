@@ -41,6 +41,7 @@ Name: "it"; MessagesFile: "compiler:Languages\Italian.isl"
 Name: "pt_BR"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
 Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "sl"; MessagesFile: "compiler:Languages\Slovenian.isl"
+Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl"
 ; additional Inno Setup languages using contributed translations
 Name: "ar"; MessagesFile: "extra-setup-languages\Arabic-4-5.1.11.isl"
 Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimp-12-5.1.11.isl"
@@ -58,12 +59,13 @@ it.CreateFileAssoc=Impostare TeXworks come programma predefinito per i seguenti 
 pt_BR.CreateFileAssoc=
 ru.CreateFileAssoc=
 sl.CreateFileAssoc=
+es.CreateFileAssoc=
 
 ar.CreateFileAssoc=
 zh_cn.CreateFileAssoc=默认使用 TeXworks 打开以下文件类型：
 ja.CreateFileAssoc=
 ko.CreateFileAssoc=
-tr.CreateFileAssoc=
+tr.CreateFileAssoc=Aşağıdaki dosya türlerini öntanımlı olarak TeXworks ile aç:
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"

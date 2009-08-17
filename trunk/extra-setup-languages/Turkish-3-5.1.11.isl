@@ -292,7 +292,7 @@ UninstallDataCorrupted="%1" adlý dosya bozuk. . Kaldýrma programý çalýþtýrýlamad
 
 ; *** Uninstallation phase messages
 ConfirmDeleteSharedFileTitle=Paylaþýlan Dosya Kaldýrýlsýn Mý?
-ConfirmDeleteSharedFile2=Sistemde paylaþýlan bazý dosyalarýn artýk hiçbir program tarafýndan kullanýlmadýðýný belirtiyor. Kaldýr bu paylaþýlan dosyalarý silsin mi?%n%n Bu dosya bazý programlar tafarýndan kullanýlýyorsa ve silinmesini isterseniz, bu programalar düzgün çalýþmayabilir. Emin deðilseniz, Hayýr'a týklayýnýz. Dosyanýn sisteminizde durmasý hiçbir zarar vermez.
+ConfirmDeleteSharedFile2=Sistemde paylaþýlan bazý dosyalarýn artýk hiçbir program tarafýndan kullanýlmadýðýný belirtiyor. Kaldýr bu paylaþýlan dosyalarý silsin mi?%n%n Bu dosya bazý programlar tafarýndan kullanýlýyorsa ve silinmesini isterseniz, bu programlar düzgün çalýþmayabilir. Emin deðilseniz, Hayýr'a týklayýnýz. Dosyanýn sisteminizde durmasý hiçbir zarar vermez.
 SharedFileNameLabel=Dosya adý:
 SharedFileLocationLabel=Yol:
 WizardUninstalling=Kaldýrma Durumu
