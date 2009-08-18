@@ -2523,7 +2523,7 @@ int __synctex_scanner_open_with_output_file(const char *  output, char ** syncte
 		size_t size = 0;
 		const char * mode = "r";
 		/*  now create the synctex file name */
-		size = strlen(output)+strlen(synctex_suffix)+strlen(synctex_suffix_gz)+1;
+		size = strlen(output)+strlen(synctex_suffix)+strlen(synctex_suffix_gz)+3;
 		synctex_name = (char *)malloc(size);
 		if(NULL == synctex_name) {
 			_synctex_error("!  __synctex_scanner_open_with_output_file: Memory problem (1)\n");
@@ -2583,7 +2583,7 @@ return_on_error:
 				free(quoteless);
 				quoteless = NULL;
 			}
-			if(NULL == (the_file = gzopen(synctex_name,"r"))) {
+			if(NULL == (the_file = gzopen(synctex_name,mode))) {
 				/*  Could not open this file */
 				if(errno != ENOENT) {
 					/*  The file does exist, this is a lower lever error, I can't do anything. */
@@ -2599,7 +2599,7 @@ return_on_error:
 			if(rename(synctex_name,quoteless)) {
 				_synctex_error("!  __synctex_scanner_open_with_output_file: could not rename %s to %s, error %i\n",synctex_name,quoteless,errno);
 				/*	Reopen the file. */
-				if(NULL == (the_file = gzopen(synctex_name,"r"))) {
+				if(NULL == (the_file = gzopen(synctex_name,mode))) {
 					/*  Could not open this file */
 					if(errno != ENOENT) {
 						/*  The file does exist, this is a lower lever error, I can't do anything. */
@@ -2608,7 +2608,7 @@ return_on_error:
 					goto return_on_error;
 				}
 			} else {
-				if(NULL == (the_file = gzopen(quoteless,"r"))) {
+				if(NULL == (the_file = gzopen(quoteless,mode))) {
 					/*  Could not open this file */
 					if(errno != ENOENT) {
 						/*  The file does exist, this is a lower lever error, I can't do anything. */
@@ -4099,9 +4099,9 @@ return_updater:
 		_synctex_error("!  synctex_updater_new_with_output_file: Concatenation problem (can't add suffix '%s')\n",synctex_suffix_gz);
 		goto return_on_error2;
 	}
-	if(NULL != (SYNCTEX_FILE = gzopen(synctex,"r"))){
+	if(NULL != (SYNCTEX_FILE = gzopen(synctex,"rb"))){
 		gzclose(SYNCTEX_FILE);
-		if(NULL == (SYNCTEX_FILE = gzopen(synctex,"a"))) {
+		if(NULL == (SYNCTEX_FILE = gzopen(synctex,"ab"))) {
 			goto no_write_error;
 		}
 		SYNCTEX_NO_GZ = SYNCTEX_NO;
