@@ -93,6 +93,8 @@ Thu Jun 19 09:39:21 UTC 2008
 #include "synctex_parser.h"
 #include <synctex_parser_utils.h>
 
+static const char * synctex_io_modes[synctex_io_mode_append+2] = {"r","rb","a","ab"};
+
 /*  each synctex node has a class */
 typedef struct __synctex_class_t _synctex_class_t;
 typedef _synctex_class_t * synctex_class_t;
@@ -2481,6 +2483,8 @@ bail:
 	goto next_sheet;
 }
 
+int _synctex_open(const char * output, const char * build_directory, char ** synctex_name_ref, gzFile * file_ref, synctex_bool_t add_quotes, synctex_io_mode_t * io_modeRef);
+
 /*  Where the synctex scanner is created. */
 synctex_scanner_t synctex_scanner_new_with_output_file(const char * output, const char * build_directory, int parse) {
 	gzFile file = NULL;
@@ -2649,8 +2653,6 @@ return_on_error:
 #	undef the_file
 #	undef io_mode
 }
-
-int _synctex_open(const char * output, const char * build_directory, char ** synctex_name_ref, gzFile * file_ref, synctex_bool_t add_quotes, synctex_io_mode_t * io_modeRef);
 
 /*	Opens the ouput file, taking into account the eventual build_directory.
  *	0 on success, non 0 on error. */
@@ -4071,7 +4073,6 @@ struct __synctex_updater_t {
 synctex_updater_t synctex_updater_new_with_output_file(const char * output, const char * build_directory) {
 	synctex_updater_t updater = NULL;
 	char * synctex = NULL;
-	size_t size = 0;
 	synctex_io_mode_t io_mode = synctex_io_mode_read;
 	const char * mode;
 	/*  prepare the updater */
