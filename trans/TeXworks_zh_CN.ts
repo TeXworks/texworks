@@ -348,10 +348,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Ctrl+T</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Preferences...</source>
         <translation>选项</translation>
     </message>
@@ -445,6 +441,16 @@
     </message>
     <message>
         <source>Ctrl+J</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation>排版</translation>
+    </message>
+    <message>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
         <translation></translation>
     </message>
 </context>
@@ -1041,6 +1047,10 @@
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>没有找到 TeX 相关程序所在的预定义目录。&lt;p&gt;&lt;small&gt;为了运行任何处理程序，你需要在＜选项＞对话框的＜排版＞选项卡中设定 TeX 系统的二进制程序目录 (bin)。</translation>
     </message>
+    <message>
+        <source>Unable to find help file.</source>
+        <translation>无法找到帮助文件。</translation>
+    </message>
 </context>
 <context>
     <name>TagsDock</name>
@@ -1081,7 +1091,7 @@
     </message>
     <message>
         <source>Cannot close window while tool is running</source>
-        <translation>当有工具在运行时无法关闭窗口</translation>
+        <translation type="obsolete">当有工具在运行时无法关闭窗口</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1432,10 +1442,6 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <translation>清除</translation>
     </message>
     <message>
-        <source>Ctrl+T</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Find...</source>
         <translation>查找…</translation>
     </message>
@@ -1662,6 +1668,20 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <source>Line Numbers</source>
         <translation>行号</translation>
+    </message>
+    <message>
+        <source>Process interrupted by user</source>
+        <translation>用户中断了进程</translation>
+    </message>
+    <message>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation>排版</translation>
+    </message>
+    <message>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
+        <translation></translation>
     </message>
 </context>
 <context>
