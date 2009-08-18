@@ -28,7 +28,7 @@
     </message>
     <message>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation>Algunos archivos auxiliares no pueden ser eliminados. Probablemente no cuenta con permiso para hacerlo.</translation>
+        <translation>Algunos archivos auxiliares no pueden ser eliminados. Probablemente no cuenta con permiso necesario para hacerlo.</translation>
     </message>
     <message>
         <source>Confirm file deletion</source>
@@ -225,7 +225,7 @@
     </message>
     <message>
         <source>Go to Page...</source>
-        <translation>Ir a la página...</translation>
+        <translation>Saltar a la página...</translation>
     </message>
     <message>
         <source>Ctrl+G</source>
@@ -353,7 +353,7 @@
     </message>
     <message>
         <source>Tile</source>
-        <translation>Distribuir</translation>
+        <translation>Mosaico</translation>
     </message>
     <message>
         <source>Go to Source</source>
@@ -490,7 +490,7 @@
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>Buscar desde el comienzo</translation>
+        <translation>Buscar desde el principio</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
@@ -594,7 +594,7 @@
     </message>
     <message>
         <source>Go to Page</source>
-        <translation>Ir a la página</translation>
+        <translation>Saltar a la página</translation>
     </message>
     <message>
         <source>Page number:</source>
@@ -657,11 +657,11 @@
     </message>
     <message>
         <source>Template selection dialog</source>
-        <translation>Menú de selección de modelo</translation>
+        <translation>Menú para selección de modelo</translation>
     </message>
     <message>
         <source>File Open dialog</source>
-        <translation>Menú de selección de archivo</translation>
+        <translation>Menú para selección de archivo</translation>
     </message>
     <message>
         <source>Interface locale:</source>
@@ -761,7 +761,7 @@
     </message>
     <message>
         <source>Typesetting</source>
-        <translation>Compilando</translation>
+        <translation>Compilación</translation>
     </message>
     <message>
         <source>Paths for TeX and related programs</source>
@@ -808,7 +808,7 @@
     </message>
     <message>
         <source>BibTeX databases (*.bib)</source>
-        <translation>Bases de daotos BibTeX (*.bib)</translation>
+        <translation>Bases de datos BibTeX (*.bib)</translation>
     </message>
     <message>
         <source>Style files (*.sty)</source>
@@ -875,7 +875,7 @@
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>Desde el comienzo</translation>
+        <translation>Desde el principio</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
@@ -1025,11 +1025,11 @@
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation>Traducción al &lt;p&gt;%1 realizada por %2.</translation>
+        <translation>&lt;p&gt;Traducción al %1 realizada por %2.</translation>
     </message>
     <message>
         <source>[language name]</source>
-        <translation>Español</translation>
+        <translation>español</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
@@ -1107,11 +1107,11 @@
     </message>
     <message>
         <source>Cannot close window while tool is running</source>
-        <translation type="obsolete">No se puede cerrar ventana mientras la herramienta está en ejecución</translation>
+        <translation type="obsolete">No se puede cerrar esta ventana mientras la herramienta está en ejecución</translation>
     </message>
     <message>
         <source>Save File</source>
-        <translation>Salvar archivo</translation>
+        <translation>Guardar archivo</translation>
     </message>
     <message>
         <source>The document &quot;%1&quot; has been modified.
@@ -1121,7 +1121,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>Desea deshacer todos los cambios efectuados al documento &quot;%1&quot; y volver a la última versión conservada?</translation>
+        <translation>Desea descartar todos los cambios efectuados al documento &quot;%1&quot; y volver a la última versión conservada?</translation>
     </message>
     <message>
         <source>Revert</source>
@@ -1167,11 +1167,11 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
         <translation>%1 ha sido modificado por otro programa.
 
-¿Quiere seguir conservando este archivo y sobreescribir la versión en disco?</translation>
+¿Quiere conservar el presente archivo y sobreescribir la versión en disco?</translation>
     </message>
     <message>
         <source>Document &quot;%1&quot; was not saved</source>
-        <translation>El documento &quot;%1&quot; no ha sido salvado</translation>
+        <translation>El documento &quot;%1&quot; no ha sido guardado</translation>
     </message>
     <message>
         <source>The text encoding %1 requested for %2 is not supported.
@@ -1201,7 +1201,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation>Archivo &quot;%1&quot; salvado (%2)</translation>
+        <translation>Archivo &quot;%1&quot; guardado (%2)</translation>
     </message>
     <message>
         <source>default encoding</source>
@@ -1221,7 +1221,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Go to Line</source>
-        <translation>Ir a la línea</translation>
+        <translation>Saltar a la línea</translation>
     </message>
     <message>
         <source>Line number:</source>
@@ -1269,7 +1269,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Cannot process unsaved document</source>
-        <translation>Imposible procesar documento sin salvar</translation>
+        <translation>Imposible procesar documento sin guardar</translation>
     </message>
     <message>
         <source>Root document %1 is not readable</source>
@@ -1305,7 +1305,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>No auxiliary files associated with this document at the moment.</source>
-        <translation>Ningún archivo auxiliar asociado con este documento.</translation>
+        <translation>No hay ningún archivo auxiliar asociado con este documento.</translation>
     </message>
     <message>
         <source>untitled.tex[*]</source>
@@ -1397,7 +1397,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Save</source>
-        <translation>Salvar</translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <source>Ctrl+S</source>
@@ -1405,7 +1405,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Save As...</source>
-        <translation>Salvar como...</translation>
+        <translation>Guardar como...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+S</source>
@@ -1413,7 +1413,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Revert to Saved</source>
-        <translation>Recuperar versión salvada</translation>
+        <translation>Recuperar versión guardada</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -1581,7 +1581,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Go to Preview</source>
-        <translation>A Previsualización</translation>
+        <translation>Ir a Previsualización</translation>
     </message>
     <message>
         <source>Ctrl+&apos;</source>
@@ -1728,7 +1728,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     <name>ToolConfig</name>
     <message>
         <source>NewArgument</source>
-        <translation>NuevoParámetro</translation>
+        <translation>Nuevo Parámetro</translation>
     </message>
 </context>
 <context>
