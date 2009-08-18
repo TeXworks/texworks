@@ -113,8 +113,6 @@ typedef enum {
 	synctex_compress_mode_gz = 1
 } synctex_compress_mode_t;
 
-static const char * synctex_io_modes[synctex_io_mode_append+2] = {"r","rb","a","ab"};
-
 int _synctex_get_name(const char * output, const char * build_directory, char ** synctex_name_ref, synctex_compress_mode_t * compress_mode_ref);
 
 
