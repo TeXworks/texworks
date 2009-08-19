@@ -63,7 +63,7 @@ es.CreateFileAssoc=Abrir los siguientes tipos de archivo con TeXworks por omisi�
 
 ar.CreateFileAssoc=
 zh_cn.CreateFileAssoc=默认使用 TeXworks 打开以下文件类型：
-ja.CreateFileAssoc=
+ja.CreateFileAssoc=デフォルトで次の種類のファイルを TeXworks で開く:
 ko.CreateFileAssoc=
 tr.CreateFileAssoc=Aşağıdaki dosya türlerini öntanımlı olarak TeXworks ile aç:
 
