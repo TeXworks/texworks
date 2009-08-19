@@ -57,7 +57,7 @@ fr.CreateFileAssoc=Par défaut, ouvrir les types de fichiers suivants avec TeXwo
 de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
 it.CreateFileAssoc=Impostare TeXworks come programma predefinito per i seguenti tipi di file:
 pt_BR.CreateFileAssoc=
-ru.CreateFileAssoc=
+ru.CreateFileAssoc=Открывать следующие файлы по умолчанию в TeXworks:
 sl.CreateFileAssoc=Uporabi TeXworks za privzeto odpiranje datotek z naslednjimi končnicami:
 es.CreateFileAssoc=Abrir los siguientes tipos de archivo con TeXworks por omisión:
 
