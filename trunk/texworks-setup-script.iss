@@ -52,7 +52,7 @@ Name: "tr"; MessagesFile: "extra-setup-languages\Turkish-3-5.1.11.isl"
 [CustomMessages]
 en.CreateFileAssoc=Open the following file types with TeXworks by default:
 ca.CreateFileAssoc=Obre els següents tipus de fitxer amb TeXworks per defecte:
-nl.CreateFileAssoc=
+nl.CreateFileAssoc=Open de volgende bestandstypen standaard met TeXworks:
 fr.CreateFileAssoc=Par défaut, ouvrir les types de fichiers suivants avec TeXworks:
 de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
 it.CreateFileAssoc=Impostare TeXworks come programma predefinito per i seguenti tipi di file:
