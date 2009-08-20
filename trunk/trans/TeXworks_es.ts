@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>No suggestions</source>
-        <translation>Sin sugerencias</translation>
+        <translation>No hay sugerencias</translation>
     </message>
     <message>
         <source>Ignore word</source>
@@ -63,7 +63,7 @@
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
-        <translation>Hallar todas las ocurrencias</translation>
+        <translation>Hallar todos los casos</translation>
     </message>
     <message>
         <source>Search all &amp;open files</source>
@@ -71,11 +71,11 @@
     </message>
     <message>
         <source>&amp;Case sensitive</source>
-        <translation>Diferenciar mayúsculas</translation>
+        <translation>Diferenciar mayúsculas/minúsculas</translation>
     </message>
     <message>
         <source>W&amp;hole words</source>
-        <translation>Palabras exactas</translation>
+        <translation>Palabras completas</translation>
     </message>
     <message>
         <source>&amp;Regular expression</source>
@@ -106,7 +106,7 @@
     </message>
     <message>
         <source>Line length:</source>
-        <translation>Largo de la línea:</translation>
+        <translation>Tamaño de línea:</translation>
     </message>
     <message>
         <source>Re-wrap paragraphs</source>
@@ -233,7 +233,7 @@
     </message>
     <message>
         <source>Zoom In</source>
-        <translation>Aumentar</translation>
+        <translation>Ampliar</translation>
     </message>
     <message>
         <source>Ctrl++</source>
@@ -241,7 +241,7 @@
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>Disminuir</translation>
+        <translation>Reducir</translation>
     </message>
     <message>
         <source>Ctrl+-</source>
@@ -349,7 +349,7 @@
     </message>
     <message>
         <source>Stack</source>
-        <translation>Apilar</translation>
+        <translation>Cascada</translation>
     </message>
     <message>
         <source>Tile</source>
@@ -357,7 +357,7 @@
     </message>
     <message>
         <source>Go to Source</source>
-        <translation>Ver el código fuente</translation>
+        <translation>Código fuente</translation>
     </message>
     <message>
         <source>Ctrl+&apos;</source>
@@ -381,7 +381,7 @@
     </message>
     <message>
         <source>Magnify</source>
-        <translation>Aumentar</translation>
+        <translation>Ampliar</translation>
     </message>
     <message>
         <source>Scroll</source>
@@ -433,7 +433,7 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>Archivo PDF &quot;%1&quot; bloqueado; la operación no se puede efectuar.</translation>
+        <translation>Archivo PDF &quot;%1&quot; bloqueado; la operación no se pudo efectuar.</translation>
     </message>
     <message>
         <source>Find...</source>
@@ -494,11 +494,11 @@
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>Buscar hacia atrás</translation>
+        <translation>Retroceder</translation>
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
-        <translation>Hallar todas las ocurrencias</translation>
+        <translation>Hallar todos los casos</translation>
     </message>
     <message>
         <source>&amp;Case sensitive</source>
@@ -570,11 +570,11 @@
     <name>PDFWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation>Aumentar</translation>
+        <translation>Ampliar</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>Disminuir</translation>
+        <translation>Reducir</translation>
     </message>
     <message>
         <source>Actual Size</source>
@@ -590,7 +590,7 @@
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation>Ver el código fuente</translation>
+        <translation>Código fuente</translation>
     </message>
     <message>
         <source>Go to Page</source>
@@ -629,7 +629,7 @@
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>Botnes de la barra de herramientas</translation>
+        <translation>Botones de la barra de herramientas</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -649,7 +649,7 @@
     </message>
     <message>
         <source>When launched, show</source>
-        <translation>Al iniciar, exhibir</translation>
+        <translation>Al inicio, abrir</translation>
     </message>
     <message>
         <source>New blank document</source>
@@ -657,11 +657,11 @@
     </message>
     <message>
         <source>Template selection dialog</source>
-        <translation>Menú para selección de modelo</translation>
+        <translation>Caja de diálogo para seleccionar Modelo</translation>
     </message>
     <message>
         <source>File Open dialog</source>
-        <translation>Menú para selección de archivo</translation>
+        <translation>Caja de diálogo para seleccionar archivo</translation>
     </message>
     <message>
         <source>Interface locale:</source>
@@ -681,7 +681,7 @@
     </message>
     <message>
         <source>Tab width:</source>
-        <translation>Largo de Tab:</translation>
+        <translation>Tamaño de Tab:</translation>
     </message>
     <message>
         <source>Wrap lines</source>
@@ -753,7 +753,7 @@
     </message>
     <message>
         <source>Screen resolution:</source>
-        <translation>Resolución de panatalla:</translation>
+        <translation>Resolución de pantalla:</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -879,7 +879,7 @@
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>Buscar hacia atrás</translation>
+        <translation>Retroceder</translation>
     </message>
     <message>
         <source>Replace within &amp;selection</source>
@@ -891,11 +891,11 @@
     </message>
     <message>
         <source>&amp;Case sensitive</source>
-        <translation>Distinguir mayúsculas</translation>
+        <translation>Diferenciar mayúsculas/minúsculas</translation>
     </message>
     <message>
         <source>W&amp;hole words</source>
-        <translation>Palabras exactas</translation>
+        <translation>Palabras completas</translation>
     </message>
     <message>
         <source>&amp;Regular expression</source>
@@ -997,7 +997,7 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;Se distribuye bajo la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versión segunda.</translation>
+        <translation>&lt;p&gt;Se distribuye bajo la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versión 2.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
@@ -1238,14 +1238,14 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     <message numerus="yes">
         <source>Found %n occurrence(s)</source>
         <translation type="unfinished">
-            <numerusform>Se hallaron %n ocurrencias
+            <numerusform>Se hallaron %n casos
         </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n occurrence(s)</source>
         <translation type="unfinished">
-            <numerusform>%n ocurrencias
+            <numerusform>%n casos
         </numerusform>
         </translation>
     </message>
@@ -1263,7 +1263,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     <message numerus="yes">
         <source>Replaced %n occurrence(s)</source>
         <translation type="unfinished">
-            <numerusform>Reemplazada(s) %n ocurrencia(s)
+            <numerusform>Reemplazado(s) %n caso(s)
         </numerusform>
         </translation>
     </message>
@@ -1569,7 +1569,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Stack</source>
-        <translation>Apilar</translation>
+        <translation>Cascada</translation>
     </message>
     <message>
         <source>Tile</source>
