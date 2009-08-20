@@ -61,7 +61,7 @@ ru.CreateFileAssoc=Открывать следующие файлы по умо�
 sl.CreateFileAssoc=Uporabi TeXworks za privzeto odpiranje datotek z naslednjimi končnicami:
 es.CreateFileAssoc=Abrir los siguientes tipos de archivo con TeXworks por omisión:
 
-ar.CreateFileAssoc=
+ar.CreateFileAssoc=افتح أنواع الملفات التالية افتراضيا في TeXworks
 zh_cn.CreateFileAssoc=默认使用 TeXworks 打开以下文件类型：
 ja.CreateFileAssoc=デフォルトで次の種類のファイルを TeXworks で開く:
 ko.CreateFileAssoc=다음 파일 유형을 TeXworks로 열기:
