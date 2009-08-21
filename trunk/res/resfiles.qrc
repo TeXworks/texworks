@@ -28,6 +28,7 @@
 <file>resfiles/translations/qt_zh_CN.qm</file>
 <file alias="resfiles/translations/TeXworks_ar.qm">../trans/TeXworks_ar.qm</file>
 <file alias="resfiles/translations/TeXworks_ca.qm">../trans/TeXworks_ca.qm</file>
+<file alias="resfiles/translations/TeXworks_cs.qm">../trans/TeXworks_cs.qm</file>
 <file alias="resfiles/translations/TeXworks_de.qm">../trans/TeXworks_de.qm</file>
 <file alias="resfiles/translations/TeXworks_es.qm">../trans/TeXworks_es.qm</file>
 <file alias="resfiles/translations/TeXworks_fa.qm">../trans/TeXworks_fa.qm</file>

@@ -34,6 +34,7 @@ WizardSmallImageFile=res\images\TeXworks-small.bmp
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
 Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl"
+Name: "cs"; MessagesFile: "compiler:Languages\Czech.isl"
 Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl"
 Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"
@@ -47,11 +48,13 @@ Name: "ar"; MessagesFile: "extra-setup-languages\Arabic-4-5.1.11.isl"
 Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimp-12-5.1.11.isl"
 Name: "ja"; MessagesFile: "extra-setup-languages\Japanese-5-5.1.11.isl"
 Name: "ko"; MessagesFile: "extra-setup-languages\Korean-5-5.1.11.isl"
+Name: "fa"; MessagesFile: "extra-setup-languages\Farsi-2-5.1.11.isl"
 Name: "tr"; MessagesFile: "extra-setup-languages\Turkish-3-5.1.11.isl"
 
 [CustomMessages]
 en.CreateFileAssoc=Open the following file types with TeXworks by default:
 ca.CreateFileAssoc=Obre els següents tipus de fitxer amb TeXworks per defecte:
+cs.CreateFileAssoc=Nastavit TeXworks jako výchozí program pro otevírání následujících typů souborů:
 nl.CreateFileAssoc=Open de volgende bestandstypen standaard met TeXworks:
 fr.CreateFileAssoc=Par défaut, ouvrir les types de fichiers suivants avec TeXworks:
 de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
@@ -65,6 +68,7 @@ ar.CreateFileAssoc=افتح أنواع الملفات التالية افترا�
 zh_cn.CreateFileAssoc=默认使用 TeXworks 打开以下文件类型：
 ja.CreateFileAssoc=デフォルトで次の種類のファイルを TeXworks で開く:
 ko.CreateFileAssoc=다음 파일 유형을 TeXworks로 열기:
+fa.CreateFileAssoc=پرونده‌های از نوع زیر را به‌صورت پیش‌فرض با TeXworks باز کن:
 tr.CreateFileAssoc=Aşağıdaki dosya türlerini öntanımlı olarak TeXworks ile aç:
 
 [Tasks]
