@@ -31,10 +31,10 @@ $ ./texworks
 
 (Thanks to Dave Crossland for this.)
 
-=== Ubuntu (Hardy) & Debian ===
+=== Ubuntu (Hardy and later) & Debian ===
 
 {{{
-$ sudo aptitude install build-essential libpoppler-qt4-dev libhunspell-dev libdbus-1-dev
+$ sudo aptitude install build-essential subversion libpoppler-qt4-dev libhunspell-dev libdbus-1-dev
 $ svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
 $ cd texworks-read-only
 $ qmake-qt4
@@ -45,7 +45,7 @@ $ ./texworks
 (I hope this is OK; have not checked on a completely virgin Ubuntu system, so it is possible I missed something in the dependencies.)
 
 
-Another option would be to use the [http://tug.org/pipermail/texworks/2008q3/000002.html Ubuntu package] announced by Martin Sievers, thus avoiding the need to compile from source.
+Another option would be to use the [https://launchpad.net/~texworks/+archive/ppa Ubuntu package repository] announced by Stefan Löffler, thus avoiding the need to compile from source.
 
 === OpenSUSE 11.1 ===
 
