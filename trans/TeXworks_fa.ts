@@ -2,6 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fa_IR">
 <context>
+    <name>QApplication</name>
+    <message>
+        <source>QT_LAYOUT_DIRECTION</source>
+        <translation>RTL</translation>
+    </message>
+</context>
+<context>
     <name>CompletingEdit</name>
     <message>
         <source>Jump to PDF</source>
@@ -363,11 +370,11 @@
     </message>
     <message>
         <source>Stack</source>
-        <translation>پشته</translation>
+        <translation>نصف صفحه</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>کاشی</translation>
+        <translation>تمام صفحه</translation>
     </message>
     <message>
         <source>Go to Source</source>
@@ -665,7 +672,7 @@
     </message>
     <message>
         <source>Tab width:</source>
-        <translation>عرض تب:</translation>
+        <translation>عرض اتیکت:</translation>
     </message>
     <message>
         <source>Line numbers</source>
@@ -1056,7 +1063,7 @@
     <name>TagsDock</name>
     <message>
         <source>Tags</source>
-        <translation>تگ‌ها</translation>
+        <translation>اتیکت‌ها</translation>
     </message>
     <message>
         <source>Bookmarks</source>
@@ -1068,7 +1075,7 @@
     </message>
     <message>
         <source>No tags</source>
-        <translation>بدون تگ</translation>
+        <translation>بدون اتیکت</translation>
     </message>
 </context>
 <context>
@@ -1326,7 +1333,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Typeset</source>
         <comment>menu title</comment>
-        <translation>عنوان منو</translation>
+        <translation>حروف‌چین</translation>
     </message>
     <message>
         <source>Window</source>
@@ -1575,11 +1582,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Stack</source>
-        <translation>پشته</translation>
+        <translation>نصف صفحه</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>کاشی</translation>
+        <translation>تمام صفحه</translation>
     </message>
     <message>
         <source>Preferences...</source>
