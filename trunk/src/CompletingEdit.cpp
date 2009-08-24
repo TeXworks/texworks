@@ -82,6 +82,7 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	
 	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
 	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
+	connect(this, SIGNAL(textChanged()), lineNumberArea, SLOT(update()));
 
 	connect(TWApp::instance(), SIGNAL(highlightLineOptionChanged()), this, SLOT(resetExtraSelections()));
 	
