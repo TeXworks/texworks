@@ -27,6 +27,19 @@ If you put the following line in the beginning of a file, !TeXworks will deal wi
 }}}
 For a complete list of supported encodings, please see the !TeXworks settings.
 
+==Using the outline and bookmarks in source files==
+If you activate the menu item Windows -> Show -> Tags, you will get a sidebar that displays the outline of the current source document by automatically locating the \part, \section, ... commands. By clicking on any of the items in the tag tree, the cursor will be positioned at the corresponding code in the editor.
+
+_Note: This currently only works for LaTeX commands by default.
+
+_Note: To customize the recognized patterns, edit the file tag-patterns.txt in your !TeXworks resource directory)
+
+In addition to the automatically detected commands, you can add a custom bookmark by inserting the line
+{{{
+%: My bookmark label
+}}}
+into the source code at the appropriate location.
+
 ==Using SyncTeX==
 
 [http://itexmac.sourceforge.net/SyncTeX.html SyncTeX] by Jérôme Laurens provides a means for synchronization between input (i.e. (La)TeX) and output (i.e. pdf). You need a sufficiently new LaTeX engine to use its benefits (if your engine doesn't support it or its usage has been disabled you will see a note at the bottom of the preview window when you open a pdf). To use the synchronization, Ctrl-Click (Cmd-Click on Mac OS X) anywhere in your source file or the output to navigate to the corresponding place in the other window.
