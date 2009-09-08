@@ -32,7 +32,7 @@ If you activate the menu item Windows -> Show -> Tags, you will get a sidebar th
 
 _Note: This currently only works for LaTeX commands by default.
 
-_Note: To customize the recognized patterns, edit the file tag-patterns.txt in your !TeXworks resource directory)
+_Note: To customize the recognized patterns, edit the file tag-patterns.txt in your !TeXworks resource directory
 
 In addition to the automatically detected commands, you can add a custom bookmark by inserting the line
 {{{
