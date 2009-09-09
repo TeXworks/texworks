@@ -2016,6 +2016,12 @@ void TeXDocument::typeset()
 		connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
 		connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
 		
+		QString pdfName;
+		if (getPreviewFileName(pdfName))
+			oldPdfTime = QFileInfo(pdfName).lastModified();
+		else
+			oldPdfTime = QDateTime();
+		
 		process->start(exeFileInfo.absoluteFilePath(), args);
 	}
 	else {
@@ -2083,14 +2089,18 @@ void TeXDocument::processError(QProcess::ProcessError /*error*/)
 void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	if (exitStatus != QProcess::CrashExit) {
-		if (pdfDoc == NULL) {
-			if (showPdfWhenFinished && showPdfIfAvailable())
-				pdfDoc->selectWindow();
-		}
-		else {
-			pdfDoc->reload(); // always reload if it is loaded, we don't want a stale window
-			if (showPdfWhenFinished)
-				pdfDoc->selectWindow();
+		QString pdfName;
+		if (getPreviewFileName(pdfName) && QFileInfo(pdfName).lastModified() != oldPdfTime) {
+			// only open/refresh the PDF if it was changed by the typeset process
+			if (pdfDoc == NULL) {
+				if (showPdfWhenFinished && showPdfIfAvailable())
+					pdfDoc->selectWindow();
+			}
+			else {
+				pdfDoc->reload(); // always reload if it is loaded, we don't want a stale window
+				if (showPdfWhenFinished)
+					pdfDoc->selectWindow();
+			}
 		}
 	}
 
