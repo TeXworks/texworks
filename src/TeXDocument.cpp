@@ -1946,11 +1946,23 @@ void TeXDocument::typeset()
 	bool foundCommand = false;
 	QFileInfo exeFileInfo;
 	QStringListIterator pathIter(binPaths);
+#ifdef Q_WS_WIN
+	QStringList executableTypes = QStringList() << "exe" << "com" << "cmd" << "bat";
+#endif
 	while (pathIter.hasNext() && !foundCommand) {
 		QString path = pathIter.next();
 		exeFileInfo = QFileInfo(path, e.program());
-		if (exeFileInfo.exists())
-			foundCommand = true;
+		foundCommand = exeFileInfo.exists() && exeFileInfo.isExecutable();
+#ifdef Q_WS_WIN
+		// try adding common executable extensions, if one was not already present
+		if (!foundCommand && !executableTypes.contains(exeFileInfo.suffix())) {
+			QStringListIterator extensions(executableTypes);
+			while (extensions.hasNext() && !foundCommand) {
+				exeFileInfo = QFileInfo(path, e.program() + "." + extensions.next());
+				foundCommand = exeFileInfo.exists() && exeFileInfo.isExecutable();
+			}
+		}
+#endif
 	}
 	
 	if (foundCommand) {
