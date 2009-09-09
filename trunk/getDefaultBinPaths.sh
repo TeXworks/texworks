@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 PATHFILE=./src/DefaultBinaryPaths.h
 
