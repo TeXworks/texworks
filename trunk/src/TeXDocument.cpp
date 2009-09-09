@@ -829,10 +829,11 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	}
 	else {
 		setCurrentFile(fileName);
-		showPdfIfAvailable();
-		if (!inBackground)
+		if (!inBackground) {
+			showPdfIfAvailable();
 			selectWindow();
-		
+		}
+
 		statusBar()->showMessage(tr("File \"%1\" loaded (%2)")
 									.arg(TWUtils::strippedName(curFile))
 									.arg(QString::fromAscii(codec->name())),
