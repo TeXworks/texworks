@@ -9,12 +9,11 @@ BINPATHS=":"
 appendPath()
 {
 	NEWPATH="$1"
-	if [[ "$BINPATHS" == ":$NEWPATH:" ]]; then
-		echo $NEWPATH already present
-	else
-		# note that BINPATHS already ends with colon
-		BINPATHS="$BINPATHS$NEWPATH:"
-	fi
+	case "$BINPATHS" in
+		*:"$NEWPATH":*)	echo $NEWPATH already present;;
+		*)				# note that BINPATHS already ends with colon
+						BINPATHS="$BINPATHS$NEWPATH:";;
+	esac
 }
 
 # (1) try to find tex and ghostscript
