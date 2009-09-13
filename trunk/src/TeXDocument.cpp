@@ -647,10 +647,21 @@ bool TeXDocument::saveAs()
 #else
 	QFileDialog::Options	options = 0;
 #endif
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), curFile, TWUtils::filterList()->join(";;"), NULL, options);
+	QString selectedFilter;
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), curFile,
+													TWUtils::filterList()->join(";;"),
+													&selectedFilter, options);
 	if (fileName.isEmpty())
 		return false;
 
+	// add extension from the selected filter, if unique and not already present
+	QRegExp re("\\(\\*(\\.[^ ]+)\\)");
+	if (re.indexIn(selectedFilter) >= 0) {
+		QString ext = re.cap(1);
+		if (!fileName.endsWith(ext, Qt::CaseInsensitive) && !fileName.endsWith("."))
+			fileName.append(ext);
+	}
+	
 	if (fileName != curFile) {
 		// The pdf connection is no longer (necessarily) valid. Detach it for
 		// now (the correct connection will be reestablished on next typeset).
