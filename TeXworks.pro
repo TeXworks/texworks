@@ -39,7 +39,7 @@ QT			+=	xml
 CONFIG		+=	rtti
 
 unix {
-	system(bash ./getDefaultBinPaths.sh):warning("Unable to determine TeX path, guessing defaults")
+	system(./getDefaultBinPaths.sh):warning("Unable to determine TeX path, guessing defaults")
 }
 
 macx {
