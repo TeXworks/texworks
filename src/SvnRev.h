@@ -1,2 +1,2 @@
-#define SVN_REVISION 417
-#define SVN_REVISION_STR "417"
+#define SVN_REVISION 419
+#define SVN_REVISION_STR "419"
