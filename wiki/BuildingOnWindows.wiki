@@ -1,6 +1,8 @@
-#summary Guide to building TeXworks on Windows XP using Microsoft Visual C++ 2005 Express Edition
+#summary Guide to building TeXworks on Windows XP using Microsoft Visual C++ 2008 Express Edition
 
-*Note:* VC++ 2005 EE is apparently no longer being distributed. It may be possible to adapt this procedure to work with the newer 2008 version, but this has not been verified and documented. An alternative is to use the gcc-based MinGW toolset; see the [BuildingOnWindowsMinGW] page for details.
+*Note:* An open source alternative to this guide is to use the gcc-based MinGW toolset; see the [BuildingOnWindowsMinGW] page for details.
+
+*Note:* At the moment, KDE on Windows seems to distribute only 32 bit versions of the libraries. If you are running a 64 bit system, this guide probably won't work.
 
 _Thanks to Stefan Löffler and Alain Delmotte for developing this guide._
 
@@ -8,7 +10,7 @@ _Thanks to Stefan Löffler and Alain Delmotte for developing this guide._
 
 = Preface =
 
-This document describes a procedure for building !TeXworks on Windows XP using the (freely available) Microsoft Visual C++ 2005 Express Edition. It is by no means the only way possible and it doesn't anticipate and tackle all possible problems, either. If you run into any difficulties feel free to ask for help on the [http://tug.org/mailman/listinfo/texworks mailing list].
+This document describes a procedure for building !TeXworks on Windows XP using the (freely available) Microsoft Visual C++ 2008 Express Edition. It is by no means the only way possible and it doesn't anticipate and tackle all possible problems, either. If you run into any difficulties feel free to ask for help on the [http://tug.org/mailman/listinfo/texworks mailing list].
 
 _Note: This guide is designed for use with the English version on Windows XP. If you use another language the labels and some of the paths will be different._
 
@@ -16,7 +18,7 @@ _Note: This guide is designed for use with the English version on Windows XP. If
 
 The process described here has been sucessfully implemented using the following software. You may of course use other software, but then the described steps may have to be adapted in some places.
  * Windows XP (+SP3; Vista should work, too, but wasn't tested yet)
- * [http://www.microsoft.com/express/2005/ Visual C++ 2005 Express Edition (+SP1)] and the [http://www.microsoft.com/express/2005/platformsdk/default.aspx Platform SDK]<br>for building some required libraries and the program itself. For brevity this application will be referred to as MSVC in the rest of this document.<br>Note: This software is for free (as in "beer", not as in "speech"). To set it up properly first follow the [http://techbase.kde.org/Getting_Started/Build/KDE4/Windows/MS_Visual_Studio#Visual_Studio_2005_Express_Edition guide from the KDE on Windows project] and then the [http://www.microsoft.com/express/2005/platformsdk/default.aspx additional instructions by Microsoft]. See also the Q&A below.
+ * [http://www.microsoft.com/express/vc/ Visual C++ 2008 Express Edition (+SP1)]<br>for building some required libraries and the program itself. For brevity this application will be referred to as MSVC in the rest of this document.<br>Note: This software is for free (as in "beer", not as in "speech"). To set it up properly first follow the [http://techbase.kde.org/Getting_Started/Build/KDE4/Windows/MS_Visual_Studio#Visual_Studio_2008_SP1_Express_Edition guide from the KDE on Windows project].
  * [http://www.7-zip.org/ 7-Zip]<br>for opening tar.gz<br>Note: This software is for free (as in "beer", mostly also as in "speech")
  * [http://subversion.tigris.org/ Subversion]<br>for obtaining the !TeXworks source code<br>Note: This software is for free (as in "speech")
 _Note: You need administrator's privileges to install new software._
@@ -35,9 +37,9 @@ C:\texworks\texworks-read-only\ (TeXworks)
 for further information.
 
 Download and run the installer. Choose the following options when asked:
- * Installation Directory: Choose a path *not containing spaces or special characters* (this includes accented characters, umlauts, etc.; only use [http://en.wikipedia.org/wiki/ASCII ASCII]), i.e. C:\KDE
+ * Installation Directory: Choose a path *not containing spaces or special characters* (this includes accented characters, umlauts, etc.; only use [http://en.wikipedia.org/wiki/ASCII ASCII]), e.g. C:\KDE
  * Install Mode: Package Manager
- * Compiler Mode: MSVC
+ * Compiler Mode: MSVC 32Bit
 _Note: You need administrator's privileges to install some of the packages._
 
 Install the following packages and their dependencies (make sure that you
@@ -154,23 +156,20 @@ This guide is provided as-is in the hope that it's helpful. There is no guarante
 I already have the version X of the software/package Y installed. Do I really have to install it again as described in this guide?
  You don't necessarily have to. The full version of MSVC shouldn't be a problem. Other versions will, however (see below). Different versions of the KDE libraries could be a problem as well. This is especially true for different versions of Qt. All the packages of the KDE on Windows project fit together (are compiled by similar compilers and similar configurations, etc.). Mixing versions will most likely cause problems.
 
-Why do I have to use the (outdated) 2005 edition of MSVC and the Platform SDK?
- As stated above, all the libraries used by a program have to fit together. At the time of writing this guide, all libraries of the KDE on Windows project are built with MSVC 2005. This means they are linked against (=use) the version 8 of the C Runtime (CRT) libraries. These CRT libraries are (amongst other things) responsible for memory allocation, management and for freeing memory. Unfortunately, MSVC 2008 comes with the new version 9 of the CRT libraries which are incompatible with the earlier versions. Hence you can't use MSVC 2008 for linking !TeXworks with the KDE on Windows libraries. F6r additional information about CRT related issues read the [http://www.abisource.com/viewvc/enchant/trunk/msvc/Build.win32.readme?view=markup readme of the enchant library] and the pages referenced therein.<br>Because MSVC 2005 originally was not intended to enable the user to build full-fledged windows application all by itself the Platform SDK is needed in addition to MSVC (ignore the fact that it mentions Windows Server 2003).<br>If you insist on using MSVC 2008 nevertheless you have to build all libraries yourself. This is fairly easily accomplished for Qt (though the process takes a long time) but is tricky and currently not well supported for poppler and its dependecies.
-
 I really want to install the KDE on Windows packages into a folder containing spaces. Can't it be done?
  Yes, you can try. If everything works well and all settings are correct it should work on most systems. Some of the workarounds presented here won't work, however. So to be on the safe side installing to paths not containing spaces or special characters is recommended. If it doesn't work please try installing the packages to the recommended location before asking for help on the mailing list.
 
 When executing qmake I get errors similar to `WARNING: Unable to generate output for: c:/texworks/texworks/Makefile.Debug (TEMPLATE vcapp)`. What's wrong?
- This is most likely a problem with your Qt version(s) (see also the previous answer). Not all Qt versions have full support for MSVC. Make sure that the one you use (you shouldn't have more than one, anyway) has a C:\KDE\mkspecs\win32-msvc2005 directory. If it does make sure you have all your environmental variables set correctly. If all this doesn't help you can temporarily override the qmake file generation specification by executing
+ This is most likely a problem with your Qt version(s) (see also the previous answer). Not all Qt versions have full support for MSVC. Make sure that the one you use (you shouldn't have more than one, anyway) has a C:\KDE\mkspecs\win32-msvc2008 directory. If it does make sure you have all your environmental variables set correctly. If all this doesn't help you can temporarily override the qmake file generation specification by executing
 {{{
-qmake -tp vc -spec C:\KDE\mkspecs\win32-msvc2005
+qmake -tp vc -spec C:\KDE\mkspecs\win32-msvc2008
 }}}
 
 MSVC complains that it can't execute a subprogram or that a subprogram returns an error. Why?
  Make sure that you have installed Qt in a path MSVC can find. This includes setting the environmental variables correctly. If you have set the paths in PATH directly (rather than using %KDEDIRS%) make sure your path to Qt doesn't contain spaces or special characters.
 
 MSVC complains about linking errors/unresolved references. Why?
- Make sure that you have chosen the Release configuration during compilation (KDE on Windows doesn't provide debugging libraries). If you change the configuration you need choose *rebuild* for the whole project (just hitting build again isn't enough as the old stuff is still lurking in some files).<br>If you get errors regarding unresolved references make sure you followed this guide completely (setting all paths properly). Also make sure that you followed the [http://techbase.kde.org/Getting_Started/Build/KDE4/Windows/MS_Visual_Studio#Visual_Studio_2005_Express_Edition guide from the KDE on Windows project] and the [http://www.microsoft.com/express/2005/platformsdk/default.aspx steps for setting up the Platform SDK], in particular step 4.
+ Make sure that you have chosen the Release configuration during compilation (KDE on Windows doesn't provide debugging libraries). If you change the configuration you need choose *rebuild* for the whole project (just hitting build again isn't enough as the old stuff is still lurking in some files).<br>If you get errors regarding unresolved references make sure you followed this guide completely (setting all paths properly). Also make sure that you followed the [http://techbase.kde.org/Getting_Started/Build/KDE4/Windows/MS_Visual_Studio#Visual_Studio_2008_Express_Edition guide from the KDE on Windows project].
 
 When starting !TeXworks it complains about missing or incompatible dlls or simply crashes during start-up. What's wrong?
  This can be caused if !TeXworks doesn't find some required dlls at all or finds different versions of the dlls first. This can most notably be caused by MikTeX which includes some Qt dlls. First of all make sure you have your environmental variables set correctly. If this doesn't help copy the following dlls from C:\KDE\bin to C:\texworks\texworks-read-only\release:
