@@ -365,7 +365,7 @@
     </message>
     <message>
         <source>New from Template...</source>
-        <translation type="unfinished">Nuevo a partir de Modelo...</translation>
+        <translation type="unfinished">Nuevo a partir de Plantilla...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -405,7 +405,7 @@
     </message>
     <message>
         <source>Side by Side</source>
-        <translation type="unfinished">Lado о Lado</translation>
+        <translation type="unfinished">Lado a Lado</translation>
     </message>
     <message>
         <source>Place on Left</source>
@@ -657,11 +657,11 @@
     </message>
     <message>
         <source>Template selection dialog</source>
-        <translation type="unfinished">Caja de diálogo para seleccionar Modelo</translation>
+        <translation type="unfinished">Caja de diálogo para seleccionar Plantilla</translation>
     </message>
     <message>
         <source>File Open dialog</source>
-        <translation type="unfinished">Caja de diálogo para seleccionar archivo</translation>
+        <translation type="unfinished">Caja de diálogo para seleccionar Archivo</translation>
     </message>
     <message>
         <source>Interface locale:</source>
@@ -945,7 +945,7 @@
     </message>
     <message>
         <source>New from Template...</source>
-        <translation type="unfinished">Nuevo a partir de Modelo...</translation>
+        <translation type="unfinished">Nuevo a partir de Plantilla...</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -1581,7 +1581,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Go to Preview</source>
-        <translation type="unfinished">Ir a Previsualización</translation>
+        <translation type="unfinished">Previsualización</translation>
     </message>
     <message>
         <source>Ctrl+&apos;</source>
@@ -1593,7 +1593,7 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>New from Template...</source>
-        <translation type="unfinished">Nuevo a partir de Modelo...</translation>
+        <translation type="unfinished">Nuevo a partir de Plantilla...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -1717,11 +1717,11 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     <name>TemplateDialog</name>
     <message>
         <source>New File using Template</source>
-        <translation type="unfinished">Nuevo archivo a partir de Modelo</translation>
+        <translation type="unfinished">Nuevo archivo a partir de Plantilla</translation>
     </message>
     <message>
         <source>Choose template for the new document:</source>
-        <translation type="unfinished">Seleccionar Modelo para nuevo documento:</translation>
+        <translation type="unfinished">Seleccionar Plantilla para nuevo documento:</translation>
     </message>
 </context>
 <context>
