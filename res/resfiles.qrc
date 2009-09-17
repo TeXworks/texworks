@@ -24,6 +24,7 @@
 <file>resfiles/translations/qt_ja.qm</file>
 <file>resfiles/translations/qt_ko.qm</file>
 <file>resfiles/translations/qt_nl.qm</file>
+<file>resfiles/translations/qt_pl.qm</file>
 <file>resfiles/translations/qt_ru.qm</file>
 <file>resfiles/translations/qt_zh_CN.qm</file>
 <file alias="resfiles/translations/TeXworks_ar.qm">../trans/TeXworks_ar.qm</file>
@@ -37,6 +38,7 @@
 <file alias="resfiles/translations/TeXworks_ja.qm">../trans/TeXworks_ja.qm</file>
 <file alias="resfiles/translations/TeXworks_ko.qm">../trans/TeXworks_ko.qm</file>
 <file alias="resfiles/translations/TeXworks_nl.qm">../trans/TeXworks_nl.qm</file>
+<file alias="resfiles/translations/TeXworks_pl.qm">../trans/TeXworks_pl.qm</file>
 <file alias="resfiles/translations/TeXworks_pt_BR.qm">../trans/TeXworks_pt_BR.qm</file>
 <file alias="resfiles/translations/TeXworks_ru.qm">../trans/TeXworks_ru.qm</file>
 <file alias="resfiles/translations/TeXworks_sl.qm">../trans/TeXworks_sl.qm</file>
