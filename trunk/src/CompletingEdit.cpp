@@ -492,7 +492,9 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 	int end = textCursor().selectionEnd();
 	QTextEdit::keyPressEvent(e);
 	cursor = textCursor();
+	bool arrowKey = false;
 	if (e->key() == Qt::Key_Left || e->key() == Qt::Key_Right) {
+		arrowKey = true;
 		if (pos < end && !cursor.hasSelection()) { // collapsed selection
 			if (cursor.position() == end + 1)
 				pos = end;
@@ -503,7 +505,7 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 	if ((e->modifiers() & Qt::ControlModifier) == 0) {
 		// not a command key - maybe do brace matching or smart quotes
 		if (!cursor.hasSelection()) {
-			if (cursor.selectionStart() == pos + 1) {
+			if (!arrowKey && cursor.selectionStart() == pos + 1) {
 				if (smartQuotesMode >= 0)
 					maybeSmartenQuote(cursor.position() - 1);
 			}
