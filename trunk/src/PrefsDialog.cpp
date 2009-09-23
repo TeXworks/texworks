@@ -53,6 +53,7 @@ void PrefsDialog::init()
 	connect(pathRemove, SIGNAL(clicked()), this, SLOT(removePath()));
 
 	connect(toolList, SIGNAL(itemSelectionChanged()), this, SLOT(updateToolButtons()));
+	connect(toolList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(editTool(QListWidgetItem*)));
 	connect(toolUp, SIGNAL(clicked()), this, SLOT(moveToolUp()));
 	connect(toolDown, SIGNAL(clicked()), this, SLOT(moveToolDown()));
 	connect(toolAdd, SIGNAL(clicked()), this, SLOT(addTool()));
@@ -220,17 +221,21 @@ void PrefsDialog::removeTool()
 		}
 }
 
-void PrefsDialog::editTool()
+void PrefsDialog::editTool(QListWidgetItem* item)
 {
-	if (toolList->currentRow() > -1)
-		if (toolList->currentItem()->isSelected()) {
-			Engine e = engineList[toolList->currentRow()];
-			if (ToolConfig::doToolConfig(this, e) == QDialog::Accepted) {
-				engineList[toolList->currentRow()] = e;
-				toolList->currentItem()->setText(e.name());
-				toolsChanged = true;
-			}
+	int row = -1;
+	if (item)
+		row = toolList->row(item);
+	else if (toolList->currentRow() > -1 && toolList->currentItem()->isSelected())
+		row = toolList->currentRow();
+	if (row > -1) {
+		Engine e = engineList[toolList->currentRow()];
+		if (ToolConfig::doToolConfig(this, e) == QDialog::Accepted) {
+			engineList[toolList->currentRow()] = e;
+			toolList->currentItem()->setText(e.name());
+			toolsChanged = true;
 		}
+	}
 }
 
 void PrefsDialog::refreshDefaultTool()
@@ -713,6 +718,7 @@ void ToolConfig::addArg()
 	QListWidgetItem* item = arguments->item(arguments->count() - 1);
 	item->setFlags(item->flags() | Qt::ItemIsEditable);
 	arguments->setCurrentItem(item);
+	arguments->editItem(item);
 }
 
 void ToolConfig::removeArg()
