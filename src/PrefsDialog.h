@@ -30,6 +30,8 @@
 #include "ui_PrefsDialog.h"
 #include "ui_ToolConfig.h"
 
+class QListWidgetItem;
+
 class PrefsDialog : public QDialog, private Ui::PrefsDialog
 {
 	Q_OBJECT
@@ -55,7 +57,7 @@ private slots:
 	void moveToolDown();
 	void addTool();
 	void removeTool();
-	void editTool();
+	void editTool(QListWidgetItem* item = NULL);
 
 private:
 	void init();
