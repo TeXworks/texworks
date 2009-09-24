@@ -170,8 +170,7 @@ void TeXDocument::init()
 	connect(actionBalance_Delimiters, SIGNAL(triggered()), this, SLOT(balanceDelimiters()));
 
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
-	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), actionSave, SLOT(setEnabled(bool)));
-	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(maybeEnableRevert(bool)));
+	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(maybeEnableSaveAndRevert(bool)));
 	connect(textEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
@@ -718,8 +717,9 @@ void TeXDocument::revert()
 	}
 }
 
-void TeXDocument::maybeEnableRevert(bool modified)
+void TeXDocument::maybeEnableSaveAndRevert(bool modified)
 {
+	actionSave->setEnabled(modified || isUntitled);
 	actionRevert_to_Saved->setEnabled(modified && !isUntitled);
 }
 
@@ -852,6 +852,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		setupFileWatcher();
 	}
 	textEdit->updateLineNumberAreaWidth(0);
+	maybeEnableSaveAndRevert(false);
 }
 
 void TeXDocument::reloadIfChangedOnDisk()
