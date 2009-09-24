@@ -441,9 +441,6 @@
    </property>
   </action>
   <action name="actionSave">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="icon">
     <iconset resource="../res/resources.qrc">
      <normaloff>:/images/tango/document-save.png</normaloff>:/images/tango/document-save.png</iconset>

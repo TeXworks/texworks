@@ -124,7 +124,7 @@ private slots:
 	bool save();
 	bool saveAs();
 	void revert();
-	void maybeEnableRevert(bool modified);
+	void maybeEnableSaveAndRevert(bool modified);
 	void clear();
 	void clipboardChanged();
 	void doFontDialog();
