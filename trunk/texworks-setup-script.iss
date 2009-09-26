@@ -39,6 +39,7 @@ Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl"
 Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 Name: "it"; MessagesFile: "compiler:Languages\Italian.isl"
+Name: "pl"; MessagesFile: "compiler:Languages\Polish.isl"
 Name: "pt_BR"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
 Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "sl"; MessagesFile: "compiler:Languages\Slovenian.isl"
@@ -59,6 +60,7 @@ nl.CreateFileAssoc=Open de volgende bestandstypen standaard met TeXworks:
 fr.CreateFileAssoc=Par défaut, ouvrir les types de fichiers suivants avec TeXworks:
 de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
 it.CreateFileAssoc=Impostare TeXworks come programma predefinito per i seguenti tipi di file:
+pl.CreateFileAssoc=
 pt_BR.CreateFileAssoc=
 ru.CreateFileAssoc=Открывать следующие файлы по умолчанию в TeXworks:
 sl.CreateFileAssoc=Uporabi TeXworks za privzeto odpiranje datotek z naslednjimi končnicami:
