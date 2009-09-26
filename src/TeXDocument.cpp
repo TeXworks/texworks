@@ -1583,7 +1583,7 @@ void TeXDocument::doFindAgain(bool fromDialog)
 			statusBar()->showMessage(tr("Not found"), kStatusMessageDuration);
 		}
 		else {
-			SearchResults::presentResults(results, this, singleFile);
+			SearchResults::presentResults(searchText, results, this, singleFile);
 			statusBar()->showMessage(tr("Found %n occurrence(s)", "", results.count()), kStatusMessageDuration);
 		}
 	}
