@@ -427,7 +427,9 @@ SearchResults::SearchResults(QWidget* parent)
 #define MAXIMUM_CHARACTERS_BEFORE_SEARCH_RESULT 40
 #define MAXIMUM_CHARACTERS_AFTER_SEARCH_RESULT 80
 
-void SearchResults::presentResults(const QList<SearchResult>& results, QMainWindow* parent, bool singleFile)
+void SearchResults::presentResults(const QString& searchText,
+								   const QList<SearchResult>& results,
+								   QMainWindow* parent, bool singleFile)
 {
 	if (singleFile) {
 		// remove any existing results dock from this parent window
@@ -439,6 +441,7 @@ void SearchResults::presentResults(const QList<SearchResult>& results, QMainWind
 	}
 
 	SearchResults* resultsWindow = new SearchResults(parent);
+	resultsWindow->setWindowTitle(resultsWindow->windowTitle() + " - " + searchText);
 
 	resultsWindow->table->setRowCount(results.count());
 	int i = 0;
