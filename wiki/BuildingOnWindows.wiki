@@ -46,8 +46,8 @@ Install the following packages and their dependencies (make sure that you
 install both the *"bin" and the "devel"* packages where available):
  * jpeg, 
  * poppler-data, 
- * poppler-msvc, 
- * qt-msvc, 
+ * poppler-vc90, 
+ * qt-vc90, 
  * zlib
 _Note: Not all available servers provide all necessary packages. If the one you chose doesn't, choose another._
 
@@ -57,9 +57,7 @@ Add the KDEDIRS environment variable and adjust your path to include the KDE bin
 
 The hunspell library is required for spell checking and is not bundled with KDE on Windows. Hence you have to compile it yourself.
 
-Go to http://sourceforge.net/projects/hunspell/ and choose
- Download -> Browse all packages -> Hunspell
-from the navigation bar at the top.
+Go to http://sourceforge.net/projects/hunspell/ and select "View all files".
 
 Download the .tar.gz file (the win32.zip file only contains programs, no sources and no libraries).
 
@@ -72,10 +70,10 @@ Open hunspell-1.2.8/src/win_api/Hunspell.sln (the solution needs to be converted
 Two files are missing in the libhunspell project. Follow the next steps to add them:
  # Expand the libhunspell project in the solution explorer on the left hand side
  # Right-Click on the hunspell folder under the libhunspell project
- # Choose Add->Existing
- # Choose C:\texworks\hunspell-1.2.8\src\hunspell\replist.*
+ # Choose Add->Existing Item
+ # Choose C:\texworks\hunspell-1.2.8\src\hunspell\replist.`*`
 
-Since all other libraries are built in Release mode, hunspell should be built in that mode as well. To switch to that mode, choose Configuration Manager from the Build menu. In the popup window choose Release_dll as the active configuration and close the window.
+Since all other libraries are built in Release mode, hunspell should be built in that mode as well. To switch to that mode, choose Configuration Manager from the Build menu. In the popup window, choose Release_dll as the active configuration for libhunspell and close the window.
 
 Build libhunspell (i.e. by Right-Clicking on libhunspell in the solution explorer and choosing "Build")
 
@@ -92,17 +90,18 @@ You get a fresh new copy of the latest !TeXworks code in the folder C:\texworks\
 
 In order to build !TeXworks you have to modify C:\texworks\texworks-read-only\!TeXworks.pro to reflect your local configuration. Find the lines reading
 {{{
-	INCLUDEPATH += z:/cross-tools/usr/local/include
-	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler
-	INCLUDEPATH += z:/cross-tools/usr/local/include/poppler/qt4
-	INCLUDEPATH += z:/cross-tools/usr/local/include/hunspell
+	INCLUDEPATH += c:/MinGW514/local/include
+	INCLUDEPATH += c:/MinGW514/local/include/poppler
+	INCLUDEPATH += c:/MinGW514/local/include/poppler/qt4
+	INCLUDEPATH += c:/MinGW514/local/include/hunspell
 
-	LIBS += -Lz:/cross-tools/usr/local/lib
+	LIBS += -Lc:/MinGW514/local/lib
 	LIBS += -lpoppler-qt4
 	LIBS += -lpoppler
 	LIBS += -lfreetype
 	LIBS += -lhunspell-1.2
 	LIBS += -lz
+	LIBS += -lgdi32
 }}}
 and replace them by
 {{{
@@ -114,6 +113,11 @@ and replace them by
 	LIBS += C:/texworks/hunspell-1.2.8/src/win_api/Release_dll/libhunspell/libhunspell.lib
 	LIBS += C:/KDE/lib/zlib.lib
 }}}
+In addition, unless you are using a poppler installation that includes the xpdf compatibility headers (not provided by default poppler builds, this requires a configure option), you will need to find the line
+{{{
+QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
+}}}
+and comment it out by inserting # at the beginning. The result will be that TeXworks will not automatically locate a poppler-data directory alongside the executable, but will need the poppler data files (for CJK font support) installed in a fixed system location that is dependent on the poppler library build. 
 
 Then run
 {{{
