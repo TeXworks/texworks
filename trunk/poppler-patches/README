@@ -1,0 +1,11 @@
+texworks poppler-patches directory
+==================================
+
+The Windows and Mac OS X builds of texworks are created using a slightly patched
+version of poppler, to provide some added support for platform fonts (on OS X,
+and when building with mingw32 on Windows) and to allow the use of a "local"
+poppler-data directory as we cannot expect a system-wide poppler installation on
+these platforms.
+
+This directory contains the relevant patches, as used with poppler-0.12 for the
+TeXworks 0.2 release.
