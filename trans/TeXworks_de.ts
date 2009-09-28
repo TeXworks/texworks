@@ -215,7 +215,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="482"/>
         <source>Typeset</source>
-        <translation>Setze</translation>
+        <translation>Setzen</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="133"/>
@@ -1679,7 +1679,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="590"/>
         <source>Typeset</source>
-        <translation>Übersetzen</translation>
+        <translation>Setzen</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="250"/>
