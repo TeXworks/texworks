@@ -1933,8 +1933,16 @@ void TeXDocument::typeset()
 
 	process = new QProcess(this);
 	updateTypesettingAction();
-	
-	process->setWorkingDirectory(fileInfo.canonicalPath());	// Note that fileInfo refers to the root file
+
+	QString workingDir = fileInfo.canonicalPath();	// Note that fileInfo refers to the root file
+#ifdef Q_WS_WIN
+	// files in the root directory of the current drive have to be handled specially
+	// because QFileInfo::canonicalPath() returns a path without trailing slash
+	// (i.e., a bare drive letter)
+	if (workingDir.length() == 2 && workingDir.endsWith(':'))
+		workingDir.append('/');
+#endif
+	process->setWorkingDirectory(workingDir);
 
 #ifdef Q_WS_WIN
 #define PATH_CASE_SENSITIVE	Qt::CaseInsensitive
