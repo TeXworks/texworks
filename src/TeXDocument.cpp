@@ -2189,8 +2189,11 @@ void TeXDocument::goToPreview()
 
 void TeXDocument::syncClick(int lineNo)
 {
-	if (!isUntitled)
+	if (!isUntitled) {
+		// ensure that there is a pdf to receive our signal
+		goToPreview();
 		emit syncFromSource(curFile, lineNo);
+	}
 }
 
 void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*charsAdded*/)
