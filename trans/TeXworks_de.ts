@@ -441,7 +441,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="513"/>
         <source>Tile</source>
-        <translation>Anordnen</translation>
+        <translation>Kacheln</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="654"/>
