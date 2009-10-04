@@ -156,7 +156,7 @@
     </message>
     <message>
         <source>untitled.pdf[*]</source>
-        <translation>بی‌نام.pdf[*]</translation>
+        <translation type="unfinished">untitled.pdf[*]</translation>
     </message>
     <message>
         <source>Help</source>
@@ -382,7 +382,7 @@
     </message>
     <message>
         <source>Ctrl+&apos;</source>
-        <translation>Ctrl+&apos;</translation>
+        <translation type="unfinished">Ctrl+&apos;</translation>
     </message>
     <message>
         <source>New from Template...</source>
@@ -442,7 +442,7 @@
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation>Qtrl+Q</translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <source>Find...</source>
@@ -980,47 +980,47 @@
     </message>
     <message>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&#x202B;%1 محیطی ساده برای نگارش، حروف‌چینی، و نمایش مستندات تک است. &#x202C;&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;‫%1 محیطی ساده برای نگارش، حروف‌چینی، و نمایش مستندات تک است. ‬&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation>&lt;br&gt;&#x202B;نسخهٔ %1 (ب.%2&#x200F;)&#x202C;</translation>
+        <translation>&lt;br&gt;‫نسخهٔ %1 (ب.%2‏)‬</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt; انتشار‌یافته تحت &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; لیسانس عمومی گنو&lt;/a&gt;, نسخهٔ ۲.&#x200F;</translation>
+        <translation type="unfinished">&lt;p&gt; انتشار‌یافته تحت &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; اجازه‌نامهٔ عمومی گنو&lt;/a&gt;, نسخهٔ ۲.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/product/&quot;&gt;QT4&lt;/a&gt; application framework by QT Software, a division of Nokia Corporation.</translation>
+        <translation type="unfinished">&lt;p&gt;چهارچوب کاربری &lt;a href=&quot;http://trolltech.com/product/&quot;&gt;QT4&lt;/a&gt; توسط شرکت  QT , وابسته به شرکت نوکیا.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</translation>
+        <translation type="unfinished">&lt;br&gt;کتابخانهٔ مترجم پی‌دی‌اف &lt;a href=&quot;http.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; توسط Kristian H&amp;#xF8;gsberg, Albert Astals Cid و دیگران.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+        <translation type="unfinished">&lt;br&gt;غلط‌یاب&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; توسط L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation>&lt;br&gt;Concepts and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;Texshop&lt;/a&gt; by Richard Koch.</translation>
+        <translation type="unfinished">&lt;br&gt;مفاهیم و منابع از &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TexShop&lt;/a&gt; توسط Richard Koch.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://itemac.sourceforge.net/SyncTex.html&quot;&gt;SyncTex&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
+        <translation type="unfinished">&lt;br&gt;فناوری &lt;a href=&quot;http://itemac.sourceforge.net/SyncTex.html&quot;&gt;SyncTex&lt;/a&gt; توسط J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
+        <translation type="unfinished">&lt;br&gt;بعضی از آیکون‌های استفاده شده از پروژهٔ &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt; هستند.</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation>&lt;p&gt;&#x202B;%1 ارائهٔ ترجمه از %2&#x200F;.&#x202C;</translation>
+        <translation type="unfinished">&lt;p&gt; ارائهٔ ترجمهٔ ‫%1 از %2‏.</translation>
     </message>
     <message>
         <source>[language name]</source>
-        <translation>پارسی</translation>
+        <translation type="unfinished">فارسی</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
@@ -1200,7 +1200,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>untitled-%1.tex</source>
-        <translation>بی‌نام-%1.tex</translation>
+        <translation type="unfinished">untitled-%1.tex</translation>
     </message>
     <message>
         <source>%1[*] - %2</source>
@@ -1312,7 +1312,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>untitled.tex[*]</source>
-        <translation>بی‌نام.tex[*]</translation>
+        <translation type="unfinished">untitled.tex[*]</translation>
     </message>
     <message>
         <source>File</source>
@@ -1546,7 +1546,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+]</source>
-        <translation>Ctrl+J</translation>
+        <translation type="unfinished">Ctrl+]</translation>
     </message>
     <message>
         <source>Unindent</source>
@@ -1554,7 +1554,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+[</source>
-        <translation>Ctrl+[</translation>
+        <translation type="unfinished">Ctrl+[</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -1562,7 +1562,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+Shift+]</source>
-        <translation>Ctrl+Shift+J</translation>
+        <translation type="unfinished">Ctrl+Shift+]</translation>
     </message>
     <message>
         <source>Uncomment</source>
@@ -1570,7 +1570,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+Shift+[</source>
-        <translation>Ctrl+Shift+[</translation>
+        <translation type="unfinished">Ctrl+Shift+[</translation>
     </message>
     <message>
         <source>Wrap Lines</source>
@@ -1598,11 +1598,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+&apos;</source>
-        <translation>Ctrl+&apos;</translation>
+        <translation type="unfinished">Ctrl+&apos;</translation>
     </message>
     <message>
         <source>Ctrl+\</source>
-        <translation>Ctrl+\</translation>
+        <translation type="unfinished">Ctrl+\</translation>
     </message>
     <message>
         <source>New from Template...</source>
@@ -1618,7 +1618,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+=</source>
-        <translation>Ctrl+=</translation>
+        <translation type="unfinished">Ctrl+=</translation>
     </message>
     <message>
         <source>ALL UPPERCASE</source>
