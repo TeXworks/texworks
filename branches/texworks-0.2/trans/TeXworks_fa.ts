@@ -442,7 +442,7 @@
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation>Qtrl+Q</translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <source>Find...</source>
