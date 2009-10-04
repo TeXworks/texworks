@@ -22,7 +22,8 @@
 #ifndef PDFDocument_H
 #define PDFDocument_H
 
-#include <QMainWindow>
+#include "TWScriptable.h"
+
 #include <QImage>
 #include <QLabel>
 #include <QList>
@@ -190,7 +191,7 @@ private:
 };
 
 
-class PDFDocument : public QMainWindow, private Ui::PDFDocument
+class PDFDocument : public TWScriptable, private Ui::PDFDocument
 {
 	Q_OBJECT
 
@@ -242,6 +243,16 @@ public slots:
 	void selectWindow(bool activate = true);
 	void texClosed(QObject *obj);
 	void reload();
+	void retypeset();
+	void interrupt();
+	void sideBySide();
+	void placeOnLeft();
+	void placeOnRight();
+	void doFindDialog();
+	void doFindAgain(bool newSearch = false);
+	void goToSource();
+	void toggleFullScreen();
+	void syncFromSource(const QString& sourceFile, int lineNo);
 	
 private slots:
 	void updateRecentFileActions();
@@ -249,18 +260,8 @@ private slots:
 	void enablePageActions(int);
 	void enableZoomActions(qreal);
 	void adjustScaleActions(autoScaleOption);
-	void retypeset();
-	void interrupt();
-	void goToSource();
-	void toggleFullScreen();
 	void syncClick(int page, const QPointF& pos);
-	void syncFromSource(const QString& sourceFile, int lineNo);
 	void hideFloatersUnlessThis(QWidget* currWindow);
-	void sideBySide();
-	void placeOnLeft();
-	void placeOnRight();
-	void doFindDialog();
-	void doFindAgain(bool newSearch = false);
 	void reloadWhenIdle();
 
 signals:

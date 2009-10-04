@@ -35,7 +35,7 @@ unix:!macx {
 	TARGET	=	TeXworks
 }
 
-QT			+=	xml
+QT			+=	xml script scripttools
 CONFIG		+=	rtti
 
 unix {
@@ -103,6 +103,7 @@ win32 { # paths here are specific to my setup
 # Input
 HEADERS	+=	src/TWApp.h \
 			src/TWUtils.h \
+			src/TWScriptable.h \
 			src/TeXDocument.h \
 			src/CompletingEdit.h \
 			src/TeXHighlighter.h \
@@ -134,6 +135,7 @@ FORMS	+=	src/TeXDocument.ui \
 SOURCES	+=	src/main.cpp \
 			src/TWApp.cpp \
 			src/TWUtils.cpp \
+			src/TWScriptable.cpp \
 			src/TeXDocument.cpp \
 			src/CompletingEdit.cpp \
 			src/TeXHighlighter.cpp \
