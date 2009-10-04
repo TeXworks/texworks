@@ -841,6 +841,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	else {
 		setCurrentFile(fileName);
 		if (!inBackground) {
+			show(); // ensure window is shown before the PDF, if opening a new doc
 			showPdfIfAvailable();
 			selectWindow();
 		}
