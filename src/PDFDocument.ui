@@ -113,11 +113,21 @@
     <addaction name="actionFind"/>
     <addaction name="actionFind_Again"/>
    </widget>
+   <widget class="QMenu" name="menuScripts">
+    <property name="title">
+     <string>Scripts</string>
+    </property>
+    <addaction name="actionUpdate_Scripts"/>
+    <addaction name="actionManage_Scripts"/>
+    <addaction name="actionShow_Scripts_Folder"/>
+    <addaction name="separator"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuSearch"/>
    <addaction name="menuView"/>
    <addaction name="menuTypeset"/>
+   <addaction name="menuScripts"/>
    <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -672,6 +682,30 @@
    </property>
    <property name="shortcutContext">
     <enum>Qt::WindowShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionUpdate_Scripts">
+   <property name="text">
+    <string>Update Scripts</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionManage_Scripts">
+   <property name="text">
+    <string>Manage Scripts</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionShow_Scripts_Folder">
+   <property name="text">
+    <string>Show Scripts Folder</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

@@ -1176,10 +1176,14 @@ PDFDocument::init()
 	QSETTINGS_OBJECT(settings);
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
-	TWUtils::insertHelpMenuItems(menuHelp);
+	TWApp::instance()->updateWindowMenus();
 	
-	TWUtils::zoomToHalfScreen(this, true);
+	initScriptable(menuScripts, actionManage_Scripts, actionUpdate_Scripts, actionShow_Scripts_Folder);
+	
+	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);
+
+	TWUtils::zoomToHalfScreen(this, true);
 }
 
 void PDFDocument::changeEvent(QEvent *event)
