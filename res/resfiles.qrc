@@ -9,6 +9,10 @@
 <file>resfiles/configuration/syntax-patterns.txt</file>
 <file>resfiles/configuration/tag-patterns.txt</file>
 <file>resfiles/configuration/texworks-config.txt</file>
+<file>resfiles/scripts/latexErrors.js</file>
+<file>resfiles/scripts/makeBold.js</file>
+<file>resfiles/scripts/makeEmph.js</file>
+<file>resfiles/scripts/titlecase.js</file>
 <file>resfiles/templates/Basic LaTeX documents/article.tex</file>
 <file>resfiles/templates/Basic LaTeX documents/letter.tex</file>
 <file>resfiles/templates/Beamer presentations/conference-ornate-20min.en.tex</file>
