@@ -31,7 +31,9 @@
 #include <QStatusBar>
 #include <QtDebug>
 #include <QtScript>
+#if QT_VERSION >= 0x040500
 #include <QtScriptTools>
+#endif
 
 bool TWScript::setFile(QString filename)
 {
@@ -131,9 +133,11 @@ bool JSScript::run(QObject *context, QVariant& result) const
 	scriptFile.close();
 	
 	QScriptEngine engine;
+#if QT_VERSION >= 0x040500
 	QScriptEngineDebugger debugger;
 	debugger.attachTo(&engine);	
-	
+#endif
+
 	QScriptValue targetObject = engine.newQObject(context);
 	engine.globalObject().setProperty("target", targetObject);
 	
