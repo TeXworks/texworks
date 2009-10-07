@@ -51,6 +51,7 @@
 #include <QSignalMapper>
 #include <QDockWidget>
 #include <QTableView>
+#include <QHeaderView>
 #include <QStandardItemModel>
 #include <QAbstractButton>
 #include <QPushButton>
