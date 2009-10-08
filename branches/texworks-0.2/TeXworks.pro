@@ -83,7 +83,10 @@ openbsd-g++ {
 	INCLUDEPATH	+= /usr/local/include/X11/qt4/QtDBus
 }
 
-win32 { # paths here are specific to my setup
+win32 {
+	QTPLUGIN += qjpeg
+
+	# paths here are specific to my setup
 	INCLUDEPATH += c:/MinGW514/local/include
 	INCLUDEPATH += c:/MinGW514/local/include/poppler
 	INCLUDEPATH += c:/MinGW514/local/include/poppler/qt4
