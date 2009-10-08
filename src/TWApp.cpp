@@ -51,6 +51,11 @@
 #include <QUrl>
 #include <QDesktopServices>
 
+#ifdef Q_WS_WIN
+#include <QtPlugin>
+Q_IMPORT_PLUGIN(qjpeg)
+#endif
+
 #if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN))
 #include "poppler-config.h"
 #include "GlobalParams.h"
