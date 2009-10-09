@@ -1,0 +1,48 @@
+<RCC>
+<qresource>
+<file>resfiles/completion/tw-basic.txt</file>
+<file>resfiles/completion/tw-context.txt</file>
+<file>resfiles/completion/tw-latex.txt</file>
+<file>resfiles/configuration/auto-indent-patterns.txt</file>
+<file>resfiles/configuration/delimiter-pairs.txt</file>
+<file>resfiles/configuration/smart-quotes-modes.txt</file>
+<file>resfiles/configuration/syntax-patterns.txt</file>
+<file>resfiles/configuration/tag-patterns.txt</file>
+<file>resfiles/configuration/texworks-config.txt</file>
+<file>resfiles/templates/Basic LaTeX documents/article.tex</file>
+<file>resfiles/templates/Basic LaTeX documents/letter.tex</file>
+<file>resfiles/templates/Beamer presentations/conference-ornate-20min.en.tex</file>
+<file>resfiles/templates/Beamer presentations/generic-ornate-15min-45min.en.tex</file>
+<file>resfiles/templates/Beamer presentations/speaker_introduction-ornate-2min.en.tex</file>
+<file>resfiles/templates/More LaTeX classes/KOMA-letter.tex</file>
+<file>resfiles/templates/More LaTeX classes/memoir.tex</file>
+<file>resfiles/templates/XeLaTeX documents/article-fontspec.tex</file>
+<file>resfiles/translations/qt_ar.qm</file>
+<file>resfiles/translations/qt_de.qm</file>
+<file>resfiles/translations/qt_es.qm</file>
+<file>resfiles/translations/qt_fr.qm</file>
+<file>resfiles/translations/qt_ja.qm</file>
+<file>resfiles/translations/qt_ko.qm</file>
+<file>resfiles/translations/qt_nl.qm</file>
+<file>resfiles/translations/qt_pl.qm</file>
+<file>resfiles/translations/qt_ru.qm</file>
+<file>resfiles/translations/qt_zh_CN.qm</file>
+<file alias="resfiles/translations/TeXworks_ar.qm">../trans/TeXworks_ar.qm</file>
+<file alias="resfiles/translations/TeXworks_ca.qm">../trans/TeXworks_ca.qm</file>
+<file alias="resfiles/translations/TeXworks_cs.qm">../trans/TeXworks_cs.qm</file>
+<file alias="resfiles/translations/TeXworks_de.qm">../trans/TeXworks_de.qm</file>
+<file alias="resfiles/translations/TeXworks_es.qm">../trans/TeXworks_es.qm</file>
+<file alias="resfiles/translations/TeXworks_fa.qm">../trans/TeXworks_fa.qm</file>
+<file alias="resfiles/translations/TeXworks_fr.qm">../trans/TeXworks_fr.qm</file>
+<file alias="resfiles/translations/TeXworks_it.qm">../trans/TeXworks_it.qm</file>
+<file alias="resfiles/translations/TeXworks_ja.qm">../trans/TeXworks_ja.qm</file>
+<file alias="resfiles/translations/TeXworks_ko.qm">../trans/TeXworks_ko.qm</file>
+<file alias="resfiles/translations/TeXworks_nl.qm">../trans/TeXworks_nl.qm</file>
+<file alias="resfiles/translations/TeXworks_pl.qm">../trans/TeXworks_pl.qm</file>
+<file alias="resfiles/translations/TeXworks_pt_BR.qm">../trans/TeXworks_pt_BR.qm</file>
+<file alias="resfiles/translations/TeXworks_ru.qm">../trans/TeXworks_ru.qm</file>
+<file alias="resfiles/translations/TeXworks_sl.qm">../trans/TeXworks_sl.qm</file>
+<file alias="resfiles/translations/TeXworks_tr.qm">../trans/TeXworks_tr.qm</file>
+<file alias="resfiles/translations/TeXworks_zh_CN.qm">../trans/TeXworks_zh_CN.qm</file>
+</qresource>
+</RCC>
