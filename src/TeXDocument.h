@@ -22,8 +22,7 @@
 #ifndef TeXDocument_H
 #define TeXDocument_H
 
-#include "TWScriptable.h"
-
+#include <QMainWindow>
 #include <QList>
 #include <QRegExp>
 #include <QProcess>
@@ -48,7 +47,7 @@ class QFileSystemWatcher;
 class TeXHighlighter;
 class PDFDocument;
 
-class TeXDocument : public TWScriptable, private Ui::TeXDocument
+class TeXDocument : public QMainWindow, private Ui::TeXDocument
 {
 	Q_OBJECT
 
@@ -99,11 +98,6 @@ public:
 	const QList<Tag> getTags() const
 		{ return tags; }
 
-	Q_PROPERTY(QString selection READ selectedText STORED false);
-	Q_PROPERTY(int selectionStart READ selectionStart STORED false);
-	Q_PROPERTY(int selectionLength READ selectionLength STORED false);
-	Q_PROPERTY(QString consoleOutput READ consoleText STORED false);
-	
 signals:
 	void syncFromSource(const QString&, int);
 	void activatedWindow(QWidget*);
@@ -122,19 +116,24 @@ public slots:
 	void selectWindow(bool activate = true);
 	void typeset();
 	void interrupt();
+	
+private slots:
 	void newFile();
 	void newFromTemplate();
 	void open();
 	bool save();
 	bool saveAs();
 	void revert();
+	void maybeEnableSaveAndRevert(bool modified);
 	void clear();
+	void clipboardChanged();
 	void doFontDialog();
 	void doLineDialog();
 	void doFindDialog();
 	void doFindAgain(bool fromDialog = false);
 	void doReplaceDialog();
 	void doReplaceAgain();
+	void doReplace(ReplaceDialog::DialogCode mode);
 	void doIndent();
 	void doUnindent();
 	void doComment();
@@ -151,22 +150,6 @@ public slots:
 	void copyToReplace();
 	void findSelection();
 	void showSelection();
-	void toggleConsoleVisibility();
-	void goToPreview();
-	void syncClick(int lineNo);
-	void openAt(QAction *action);
-	void sideBySide();
-	void placeOnLeft();
-	void placeOnRight();
-	void removeAuxFiles();
-	void setLanguage(const QString& lang);
-	void selectRange(int start, int length = 0);
-	void insertText(const QString& text);
-	
-private slots:
-	void maybeEnableSaveAndRevert(bool modified);
-	void clipboardChanged();
-	void doReplace(ReplaceDialog::DialogCode mode);
 	void pdfClosed();
 	void updateRecentFileActions();
 	void updateWindowMenu();
@@ -176,15 +159,23 @@ private slots:
 	void processStandardOutput();
 	void processError(QProcess::ProcessError error);
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
+	void toggleConsoleVisibility();
 	void acceptInputLine();
+	void goToPreview();
+	void syncClick(int lineNo);
+	void openAt(QAction *action);
 	void selectedEngine(QAction* engineAction);
 	void selectedEngine(const QString& name);
 	void contentsChanged(int position, int charsRemoved, int charsAdded);
+	void setLanguage(const QString& lang);
 	void hideFloatersUnlessThis(QWidget* currWindow);
+	void sideBySide();
+	void placeOnLeft();
+	void placeOnRight();
 	void reloadIfChangedOnDisk();
+	void removeAuxFiles();
 	void setupFileWatcher();
-	void errorLineClicked(QTableWidgetItem* i);
-	
+
 private:
 	void init();
 	bool maybeSave();
@@ -207,7 +198,6 @@ private:
 						 QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
 	int doReplaceAll(const QString& searchText, QRegExp* regex, const QString& replacement,
 						QTextDocument::FindFlags flags, int rangeStart = -1, int rangeEnd = -1);
-	void executeAfterTypesetHooks();
 	void showConsole();
 	void hideConsole();
 	void goToLine(int lineNo, int selStart = -1, int selEnd = -1);
@@ -218,11 +208,6 @@ private:
 	void showFloaters();
 	void presentResults(const QList<SearchResult>& results);
 
-	QString selectedText() { return textCursor().selectedText(); }
-	int selectionStart() { return textCursor().selectionStart(); }
-	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
-	QString consoleText() { return textEdit_console->toPlainText(); }
-	
 	TeXHighlighter *highlighter;
 	PDFDocument *pdfDoc;
 

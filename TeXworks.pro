@@ -35,7 +35,7 @@ unix:!macx {
 	TARGET	=	TeXworks
 }
 
-QT			+=	xml script scripttools
+QT			+=	xml
 CONFIG		+=	rtti
 
 unix {
@@ -83,7 +83,10 @@ openbsd-g++ {
 	INCLUDEPATH	+= /usr/local/include/X11/qt4/QtDBus
 }
 
-win32 { # paths here are specific to my setup
+win32 {
+	QTPLUGIN += qjpeg
+
+	# paths here are specific to my setup
 	INCLUDEPATH += c:/MinGW514/local/include
 	INCLUDEPATH += c:/MinGW514/local/include/poppler
 	INCLUDEPATH += c:/MinGW514/local/include/poppler/qt4
@@ -103,7 +106,6 @@ win32 { # paths here are specific to my setup
 # Input
 HEADERS	+=	src/TWApp.h \
 			src/TWUtils.h \
-			src/TWScriptable.h \
 			src/TeXDocument.h \
 			src/CompletingEdit.h \
 			src/TeXHighlighter.h \
@@ -135,7 +137,6 @@ FORMS	+=	src/TeXDocument.ui \
 SOURCES	+=	src/main.cpp \
 			src/TWApp.cpp \
 			src/TWUtils.cpp \
-			src/TWScriptable.cpp \
 			src/TeXDocument.cpp \
 			src/CompletingEdit.cpp \
 			src/TeXHighlighter.cpp \
