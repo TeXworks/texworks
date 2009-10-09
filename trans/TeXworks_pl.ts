@@ -4,17 +4,17 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="850"/>
+        <location filename="../src/CompletingEdit.cpp" line="852"/>
         <source>Jump to PDF</source>
         <translation>Skocz do PDF</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="867"/>
+        <location filename="../src/CompletingEdit.cpp" line="869"/>
         <source>No suggestions</source>
         <translation>Brak podpowiedzi</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="885"/>
+        <location filename="../src/CompletingEdit.cpp" line="887"/>
         <source>Ignore word</source>
         <translation>Ignoruj słowo</translation>
     </message>
@@ -115,7 +115,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="20"/>
         <source>Hard Wrap</source>
-        <translation>Zawijanie wyrazów</translation>
+        <translation>Zawijanie wierszy</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="35"/>
@@ -141,49 +141,49 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../src/PDFDocument.ui" line="355"/>
+        <location filename="../src/PDFDocument.ui" line="365"/>
         <source>Open Recent</source>
-        <translation type="unfinished">Otwórz ostatnie</translation>
+        <translation>Otwórz ostatnie</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1338"/>
+        <location filename="../src/PDFDocument.cpp" line="1342"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="unfinished">Plik PDF &quot;%1&quot; jest zablokowany; Taka sytuacja obecnie nie jest obsługiwana.</translation>
+        <translation>Plik PDF &quot;%1&quot; jest zablokowany; Taka sytuacja obecnie nie jest obsługiwana.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1357"/>
+        <location filename="../src/PDFDocument.cpp" line="1361"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation type="unfinished">Nie udało się załadować pliku &quot;%1&quot;; prawdopodobnie nie jest to prawidłowy plik PDF.</translation>
+        <translation>Nie udało się załadować pliku &quot;%1&quot;; prawdopodobnie nie jest to prawidłowy plik PDF.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1380"/>
+        <location filename="../src/PDFDocument.cpp" line="1384"/>
         <source>No SyncTeX data available</source>
         <translation>Dane SyncTeX niedostępne</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1383"/>
+        <location filename="../src/PDFDocument.cpp" line="1387"/>
         <source>SyncTeX: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1454"/>
+        <location filename="../src/PDFDocument.cpp" line="1458"/>
         <source>%1[*] - %2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1483"/>
+        <location filename="../src/PDFDocument.cpp" line="1487"/>
         <source>page %1 of %2</source>
-        <translation type="unfinished">strona %1 z %2</translation>
+        <translation>strona %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1488"/>
+        <location filename="../src/PDFDocument.cpp" line="1492"/>
         <source>%1%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
         <source>untitled.pdf[*]</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="31"/>
@@ -213,7 +213,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="90"/>
         <source>Show</source>
-        <translation type="unfinished">Pokaż</translation>
+        <translation>Pokaż</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="105"/>
@@ -227,350 +227,370 @@
         <translation>Szukaj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="133"/>
+        <location filename="../src/PDFDocument.ui" line="143"/>
         <source>Toolbar</source>
-        <translation type="unfinished">Narzędzia</translation>
+        <translation>Narzędzia</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="165"/>
+        <location filename="../src/PDFDocument.ui" line="175"/>
         <source>About TeXworks...</source>
         <translation>O programie TeXworks...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="177"/>
+        <location filename="../src/PDFDocument.ui" line="187"/>
         <source>First Page</source>
         <translation>Pierwsza strona</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="180"/>
+        <location filename="../src/PDFDocument.ui" line="190"/>
         <source>Home</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="192"/>
+        <location filename="../src/PDFDocument.ui" line="202"/>
         <source>Previous Page</source>
         <translation>Poprzednia strona</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="195"/>
+        <location filename="../src/PDFDocument.ui" line="205"/>
         <source>PgUp</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="207"/>
+        <location filename="../src/PDFDocument.ui" line="217"/>
         <source>Next Page</source>
         <translation>Następna strona</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="210"/>
+        <location filename="../src/PDFDocument.ui" line="220"/>
         <source>PgDown</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="222"/>
+        <location filename="../src/PDFDocument.ui" line="232"/>
         <source>Last Page</source>
         <translation>Ostatnia strona</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="225"/>
+        <location filename="../src/PDFDocument.ui" line="235"/>
         <source>End</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="233"/>
+        <location filename="../src/PDFDocument.ui" line="243"/>
         <source>Go to Page...</source>
         <translation>Przejdź do strony...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="236"/>
+        <location filename="../src/PDFDocument.ui" line="246"/>
         <source>Ctrl+J</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="248"/>
+        <location filename="../src/PDFDocument.ui" line="258"/>
         <source>Zoom In</source>
         <translation>Powiększ</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="251"/>
+        <location filename="../src/PDFDocument.ui" line="261"/>
         <source>Ctrl++</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="263"/>
+        <location filename="../src/PDFDocument.ui" line="273"/>
         <source>Zoom Out</source>
         <translation>Pomniejsz</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="266"/>
+        <location filename="../src/PDFDocument.ui" line="276"/>
         <source>Ctrl+-</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="281"/>
+        <location filename="../src/PDFDocument.ui" line="291"/>
         <source>Fit to Window</source>
         <translation>Najlepsze dopasowanie</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="284"/>
+        <location filename="../src/PDFDocument.ui" line="294"/>
         <source>Ctrl+3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="296"/>
+        <location filename="../src/PDFDocument.ui" line="306"/>
         <source>Actual Size</source>
-        <translation type="unfinished">Widok normalny</translation>
+        <translation>Widok normalny</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="299"/>
+        <location filename="../src/PDFDocument.ui" line="309"/>
         <source>Ctrl+1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="314"/>
+        <location filename="../src/PDFDocument.ui" line="324"/>
         <source>Fit to Width</source>
         <translation>Dopasuj do szerokości</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="317"/>
+        <location filename="../src/PDFDocument.ui" line="327"/>
         <source>Ctrl+2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="329"/>
+        <location filename="../src/PDFDocument.ui" line="339"/>
         <source>New</source>
         <translation>Nowy</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="332"/>
+        <location filename="../src/PDFDocument.ui" line="342"/>
         <source>Ctrl+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="344"/>
+        <location filename="../src/PDFDocument.ui" line="354"/>
         <source>Open...</source>
         <translation>Otwórz...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="347"/>
+        <location filename="../src/PDFDocument.ui" line="357"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="363"/>
+        <location filename="../src/PDFDocument.ui" line="373"/>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="366"/>
+        <location filename="../src/PDFDocument.ui" line="376"/>
         <source>Ctrl+W</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="381"/>
+        <location filename="../src/PDFDocument.ui" line="391"/>
         <source>Undo</source>
-        <translation type="unfinished">Cofnij</translation>
+        <translation>Cofnij</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="384"/>
+        <location filename="../src/PDFDocument.ui" line="394"/>
         <source>Ctrl+Z</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="399"/>
+        <location filename="../src/PDFDocument.ui" line="409"/>
         <source>Redo</source>
-        <translation type="unfinished">Ponów</translation>
+        <translation>Ponów</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="402"/>
+        <location filename="../src/PDFDocument.ui" line="412"/>
         <source>Ctrl+Shift+Z</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="417"/>
+        <location filename="../src/PDFDocument.ui" line="427"/>
         <source>Cut</source>
         <translation>Wytnij</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="420"/>
+        <location filename="../src/PDFDocument.ui" line="430"/>
         <source>Ctrl+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="435"/>
+        <location filename="../src/PDFDocument.ui" line="445"/>
         <source>Copy</source>
         <translation>Kopiuj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="438"/>
+        <location filename="../src/PDFDocument.ui" line="448"/>
         <source>Ctrl+C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="453"/>
+        <location filename="../src/PDFDocument.ui" line="463"/>
         <source>Paste</source>
         <translation>Wklej</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="456"/>
+        <location filename="../src/PDFDocument.ui" line="466"/>
         <source>Ctrl+V</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="467"/>
+        <location filename="../src/PDFDocument.ui" line="477"/>
         <source>Clear</source>
         <translation>Wyczyść</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="470"/>
+        <location filename="../src/PDFDocument.ui" line="480"/>
         <source>Ctrl+Backspace</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="482"/>
+        <location filename="../src/PDFDocument.ui" line="492"/>
         <source>Typeset</source>
         <translation>Składaj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="485"/>
+        <location filename="../src/PDFDocument.ui" line="495"/>
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="497"/>
+        <location filename="../src/PDFDocument.ui" line="507"/>
         <source>Preferences...</source>
         <translation>Ustawienia...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="505"/>
+        <location filename="../src/PDFDocument.ui" line="515"/>
         <source>Stack</source>
-        <translation type="unfinished">Jedno na drugim</translation>
+        <translation>Jedno nad drugim</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="513"/>
+        <location filename="../src/PDFDocument.ui" line="523"/>
         <source>Tile</source>
-        <translation type="unfinished">Obok siebie</translation>
+        <translation>Obok siebie (kafelki)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="524"/>
+        <location filename="../src/PDFDocument.ui" line="534"/>
         <source>Go to Source</source>
-        <translation type="unfinished">Przejdź do źródła</translation>
+        <translation>Przejdź do źródła</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="527"/>
+        <location filename="../src/PDFDocument.ui" line="537"/>
         <source>Ctrl+&apos;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="535"/>
+        <location filename="../src/PDFDocument.ui" line="545"/>
         <source>New from Template...</source>
-        <translation type="unfinished">Nowy na podstawie szablonu...</translation>
+        <translation>Nowy na podstawie szablonu...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="538"/>
+        <location filename="../src/PDFDocument.ui" line="548"/>
         <source>Ctrl+Shift+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="549"/>
+        <location filename="../src/PDFDocument.ui" line="559"/>
         <source>Full Screen</source>
         <translation>Pełen ekran</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="552"/>
+        <location filename="../src/PDFDocument.ui" line="562"/>
         <source>Ctrl+Shift+F</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="570"/>
+        <location filename="../src/PDFDocument.ui" line="580"/>
         <source>Magnify</source>
         <translation>Powiększ</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="582"/>
+        <location filename="../src/PDFDocument.ui" line="592"/>
         <source>Scroll</source>
         <translation>Przewijaj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="594"/>
+        <location filename="../src/PDFDocument.ui" line="604"/>
         <source>Select Text</source>
         <translation>Zaznacz tekst</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="606"/>
-        <source>Select Image</source>
-        <translation type="unfinished">Zaznacz obraz</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="611"/>
-        <source>Go to TeXworks home page</source>
-        <translation type="unfinished">Przejdź do strony domowej projektu</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.ui" line="616"/>
+        <source>Select Image</source>
+        <translation>Zaznacz obraz</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="621"/>
+        <source>Go to TeXworks home page</source>
+        <translation>Przejdź do strony domowej projektu</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="626"/>
         <source>Email to the mailing list</source>
-        <translation type="unfinished">Pisz na listę dyskusyjną</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="624"/>
-        <source>Side by Side</source>
-        <translation type="unfinished">Obok siebie</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="629"/>
-        <source>Place on Left</source>
-        <translation type="unfinished">Umieść po lewej</translation>
+        <translation>Pisz na listę dyskusyjną</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="634"/>
-        <source>Place on Right</source>
-        <translation type="unfinished">Umieść po prawej</translation>
+        <source>Side by Side</source>
+        <translation>Obok siebie</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="639"/>
-        <source>Quit TeXworks</source>
-        <translation type="unfinished">Zakończ TeXworks</translation>
+        <source>Place on Left</source>
+        <translation>Umieść po lewej</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="642"/>
+        <location filename="../src/PDFDocument.ui" line="644"/>
+        <source>Place on Right</source>
+        <translation>Umieść po prawej</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="649"/>
+        <source>Quit TeXworks</source>
+        <translation>Zakończ TeXworks</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="652"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="654"/>
+        <location filename="../src/PDFDocument.ui" line="664"/>
         <source>Find...</source>
         <translation>Znajdź...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="657"/>
+        <location filename="../src/PDFDocument.ui" line="667"/>
         <source>Ctrl+F</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="668"/>
+        <location filename="../src/PDFDocument.ui" line="678"/>
         <source>Find Again</source>
         <translation>Znajdź następne</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="671"/>
+        <location filename="../src/PDFDocument.ui" line="681"/>
         <source>Ctrl+G</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="118"/>
+        <source>Scripts</source>
+        <translation>Skrypty</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="692"/>
+        <source>Update Scripts</source>
+        <translation>Uaktualnij skrypty</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="700"/>
+        <source>Manage Scripts</source>
+        <translation>Zarządzaj skryptami</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="708"/>
+        <source>Show Scripts Folder</source>
+        <translation>Pokaż kartotekę ze skryptami</translation>
     </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="559"/>
         <source>Find</source>
         <translation>Szukaj</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="595"/>
+        <location filename="../src/FindDialog.cpp" line="598"/>
         <source>No recent search strings</source>
         <translation>Brak podpowiedzi</translation>
     </message>
@@ -635,7 +655,7 @@
     <message>
         <location filename="../src/PDFDocks.cpp" line="283"/>
         <source>[none]</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="288"/>
@@ -671,12 +691,12 @@
     <message>
         <location filename="../src/PDFDocks.cpp" line="134"/>
         <source>No TOC</source>
-        <translation type="unfinished">Brak spisu</translation>
+        <translation>Brak spisu</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.h" line="80"/>
         <source>Contents</source>
-        <translation type="unfinished">Zawartość</translation>
+        <translation>Zawartość</translation>
     </message>
 </context>
 <context>
@@ -725,22 +745,22 @@
 <context>
     <name>PrefsDialog</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="129"/>
+        <location filename="../src/PrefsDialog.cpp" line="130"/>
         <source>Choose Directory</source>
         <translation>Wybierz kartotekę</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="202"/>
+        <location filename="../src/PrefsDialog.cpp" line="203"/>
         <source>New Tool</source>
         <translation>Nowe narzędzie</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="432"/>
+        <location filename="../src/PrefsDialog.cpp" line="442"/>
         <source>System default [%1]</source>
         <translation>Domyślny [%1]</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="377"/>
+        <location filename="../src/PrefsDialog.ui" line="416"/>
         <source>None</source>
         <translation>Brak</translation>
     </message>
@@ -757,7 +777,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="36"/>
         <source>Toolbar buttons</source>
-        <translation type="unfinished">Przyciski paska narzędzi</translation>
+        <translation>Przyciski paska narzędzi</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="42"/>
@@ -832,7 +852,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="258"/>
         <source>Wrap lines</source>
-        <translation>Zawijanie wyrazów</translation>
+        <translation>Zawijanie wierszy</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="285"/>
@@ -842,127 +862,132 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="324"/>
         <source>Auto-Indent mode:</source>
-        <translation type="unfinished">Automatyczne wcięcia:</translation>
+        <translation>Tryb automatycznego wcięcia:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="363"/>
+        <location filename="../src/PrefsDialog.ui" line="402"/>
         <source>Spell-check language:</source>
         <translation>Język słownika:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="402"/>
+        <location filename="../src/PrefsDialog.ui" line="441"/>
         <source>Encoding:</source>
         <translation>Kodowanie:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="437"/>
+        <location filename="../src/PrefsDialog.ui" line="476"/>
         <source>Global editor options</source>
         <translation>Globalne ustawienia edytora</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="443"/>
+        <location filename="../src/PrefsDialog.ui" line="482"/>
         <source>Highlight current line</source>
         <translation>Podświetlaj bieżący wiersz</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="470"/>
+        <location filename="../src/PrefsDialog.ui" line="509"/>
         <source>Preview</source>
         <translation>Przeglądanie</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="476"/>
+        <location filename="../src/PrefsDialog.ui" line="515"/>
         <source>Default scaling</source>
         <translation>Domyślne skalowania</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="484"/>
+        <location filename="../src/PrefsDialog.ui" line="523"/>
         <source>Actual size</source>
-        <translation type="unfinished">Widok normalny</translation>
+        <translation>Widok normalny</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="491"/>
+        <location filename="../src/PrefsDialog.ui" line="530"/>
         <source>Fit to Width</source>
         <translation>Dopasuj do szerokości</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="498"/>
+        <location filename="../src/PrefsDialog.ui" line="537"/>
         <source>Fit to Window</source>
         <translation>Najlepsze dopasowanie</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="509"/>
+        <location filename="../src/PrefsDialog.ui" line="548"/>
         <source>Fixed scale:</source>
         <translation>Ustalona skala:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="519"/>
+        <location filename="../src/PrefsDialog.ui" line="558"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="540"/>
+        <location filename="../src/PrefsDialog.ui" line="579"/>
         <source>Magnifying glass</source>
         <translation>Szkło powiększające</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="548"/>
+        <location filename="../src/PrefsDialog.ui" line="587"/>
         <source>Small</source>
         <translation>Małe</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="555"/>
+        <location filename="../src/PrefsDialog.ui" line="594"/>
         <source>Medium</source>
         <translation>Średnie</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="562"/>
+        <location filename="../src/PrefsDialog.ui" line="601"/>
         <source>Large</source>
         <translation>Duże</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="571"/>
+        <location filename="../src/PrefsDialog.ui" line="610"/>
         <source>Circular magnifier</source>
         <translation>Okrągłe szkło powiększające</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="599"/>
+        <location filename="../src/PrefsDialog.ui" line="638"/>
         <source>Screen resolution:</source>
         <translation>Rozdzielczość ekranu:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="609"/>
+        <location filename="../src/PrefsDialog.ui" line="648"/>
         <source> dpi</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="641"/>
+        <location filename="../src/PrefsDialog.ui" line="680"/>
         <source>Typesetting</source>
         <translation>Składanie</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="658"/>
+        <location filename="../src/PrefsDialog.ui" line="697"/>
         <source>Paths for TeX and related programs</source>
         <translation>Ścieżki do TeXa i programów pomocniczych</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="731"/>
+        <location filename="../src/PrefsDialog.ui" line="770"/>
         <source>Processing tools</source>
         <translation>Narzedzia przetwarzania</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="766"/>
+        <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>Edit...</source>
         <translation>Edytuj...</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="804"/>
+        <location filename="../src/PrefsDialog.ui" line="843"/>
         <source>Default:</source>
         <translation>Standardowe:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="828"/>
+        <location filename="../src/PrefsDialog.ui" line="867"/>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>Ukrywaj autiomatycznie okno logu, chyba że wystąpią błędy</translation>
+        <translation>Ukrywaj automatycznie panel wyjściowy, chyba że wystąpią błędy</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="363"/>
+        <source>Smart Quotes mode:</source>
+        <translation>Tryb sprytnych cudzysłowów:</translation>
     </message>
 </context>
 <context>
@@ -1033,22 +1058,22 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="254"/>
         <source>Cancel</source>
-        <translation type="unfinished">Zamknij</translation>
+        <translation>Zamknij</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="288"/>
         <source>No recent search strings</source>
-        <translation type="unfinished">Brak podpowiedzi</translation>
+        <translation>Brak podpowiedzi</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="299"/>
         <source>No recent replacement strings</source>
-        <translation type="unfinished">Brak podpowiedzi</translation>
+        <translation>Brak podpowiedzi</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="356"/>
         <source>(invalid)</source>
-        <translation type="unfinished">(błędny)</translation>
+        <translation>(błędny)</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="31"/>
@@ -1068,12 +1093,12 @@
     <message>
         <location filename="../src/Replace.ui" line="114"/>
         <source>Find &amp;backwards</source>
-        <translation type="unfinished">Wyszukiwanie wstecz</translation>
+        <translation>Wyszukiwanie wstecz</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="121"/>
         <source>Replace within &amp;selection</source>
-        <translation type="unfinished">Zamiana w zaznaczonym ob&amp;szarze</translation>
+        <translation>Zamiana w zaznaczonym ob&amp;szarze</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="128"/>
@@ -1083,12 +1108,12 @@
     <message>
         <location filename="../src/Replace.ui" line="139"/>
         <source>&amp;Case sensitive</source>
-        <translation type="unfinished">Rozróżnianie małych i wielkich liter</translation>
+        <translation>Rozróżnianie mały&amp;ch i wielkich liter</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="146"/>
         <source>W&amp;hole words</source>
-        <translation type="unfinished">Tylko całe wyrazy</translation>
+        <translation>Tylko całe wyrazy</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="153"/>
@@ -1099,32 +1124,32 @@
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="492"/>
+        <location filename="../src/FindDialog.cpp" line="495"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="498"/>
+        <location filename="../src/FindDialog.cpp" line="501"/>
         <source>File</source>
         <translation>Plik</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="498"/>
+        <location filename="../src/FindDialog.cpp" line="501"/>
         <source>Line</source>
         <translation>Wiersz</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="498"/>
+        <location filename="../src/FindDialog.cpp" line="501"/>
         <source>Start</source>
         <translation>Początek</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="498"/>
+        <location filename="../src/FindDialog.cpp" line="501"/>
         <source>End</source>
         <translation>Koniec</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="498"/>
+        <location filename="../src/FindDialog.cpp" line="501"/>
         <source>Text</source>
         <translation>Tekst</translation>
     </message>
@@ -1137,169 +1162,182 @@
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="228"/>
+        <location filename="../src/TWApp.cpp" line="230"/>
         <source>File</source>
         <translation>Plik</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="229"/>
+        <location filename="../src/TWApp.cpp" line="231"/>
         <source>New</source>
         <translation>Nowy</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="231"/>
+        <location filename="../src/TWApp.cpp" line="233"/>
         <source>New from Template...</source>
         <translation>Nowy na podstawie szablonu...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="177"/>
+        <location filename="../src/TWApp.cpp" line="179"/>
         <source>Preferences...</source>
         <translation>Ustawienia...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="233"/>
+        <location filename="../src/TWApp.cpp" line="235"/>
         <source>Open...</source>
         <translation>Otwórz...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="236"/>
+        <location filename="../src/TWApp.cpp" line="238"/>
         <source>Open Recent</source>
         <translation>Otwórz ostatnie</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="238"/>
+        <location filename="../src/TWApp.cpp" line="240"/>
         <source>Help</source>
         <translation>Pomoc</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="240"/>
+        <location filename="../src/TWApp.cpp" line="242"/>
         <source>Go to TeXworks home page</source>
         <translation>Przejdź do strony domowej projektu</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="241"/>
+        <location filename="../src/TWApp.cpp" line="243"/>
         <source>Email to the mailing list</source>
         <translation>Wyślij wiadomość na listę dyskusyjną</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="239"/>
+        <location filename="../src/TWApp.cpp" line="241"/>
         <source>About </source>
         <translation>O programie</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="230"/>
+        <location filename="../src/TWApp.cpp" line="232"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="232"/>
+        <location filename="../src/TWApp.cpp" line="234"/>
         <source>Ctrl+Shift+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="234"/>
+        <location filename="../src/TWApp.cpp" line="236"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="248"/>
+        <location filename="../src/TWApp.cpp" line="250"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;%1 to proste środowisko do edycji, składu oraz przeglądania dokumentów w TeXu.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="251"/>
-        <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="unfinished">&lt;br&gt;Wersja %1 (r.%2)</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="252"/>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="unfinished">&lt;p&gt;Rozpowszechniany zgodnie z &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, wersja 2.</translation>
+        <translation>&lt;p&gt;%1 to proste środowisko do edycji, składu oraz przeglądania dokumentów w TeXu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="253"/>
-        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="unfinished">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; środowisko programistyczne opracowane przez Qt Software, oddział Nokia Corporation.</translation>
+        <source>&lt;br&gt;Version %1 (r.%2)</source>
+        <translation>&lt;br&gt;Wersja %1 (r.%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="254"/>
-        <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation type="unfinished">&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; biblioteka rastrowania PDF opracowana przez Kristian H&amp;#xF8;gsberg, Albert Astals Cid i innych.</translation>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
+        <translation>&lt;p&gt;Rozpowszechniany zgodnie z &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, wersja 2.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="255"/>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; korektor pisowni autorstwa L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;metha.</translation>
+        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; środowisko programistyczne opracowane przez Qt Software, oddział Nokia Corporation.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="256"/>
-        <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation type="unfinished">&lt;br&gt;Pomysł i zasoby zaczerpnięte z programu &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; Richarda Kocha.</translation>
+        <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; biblioteka rastrowania PDF opracowana przez Kristian H&amp;#xF8;gsberg, Albert Astals Cid i innych.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="257"/>
-        <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation type="unfinished">&lt;br&gt;Technologia &lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; autorstwa J&amp;#xE9;r&amp;#xF4;me Laurensa.</translation>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; korektor pisowni autorstwa L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;metha.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="258"/>
-        <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation type="unfinished">&lt;br&gt;Niektóre ikony pochodzą z projektu &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop&lt;/a&gt;.</translation>
+        <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
+        <translation>&lt;br&gt;Pomysł i zasoby zaczerpnięte z programu &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; Richarda Kocha.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="259"/>
+        <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
+        <translation>&lt;br&gt;Technologia &lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; autorstwa J&amp;#xE9;r&amp;#xF4;me Laurensa.</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="260"/>
+        <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
+        <translation>&lt;br&gt;Niektóre ikony pochodzą z projektu &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="261"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
         <translation>&lt;p&gt;%1 tłumaczenie zaproponował %2.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="259"/>
+        <location filename="../src/TWApp.cpp" line="261"/>
         <source>[language name]</source>
-        <translation type="unfinished">Polskie</translation>
+        <translation>Polskie</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="259"/>
+        <location filename="../src/TWApp.cpp" line="261"/>
         <source>[translator&apos;s name/email]</source>
-        <translation type="unfinished">Wojciech Myszka (myszka@norka.eu.org)</translation>
+        <translation>Wojciech Myszka (myszka@norka.eu.org)</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="263"/>
+        <location filename="../src/TWApp.cpp" line="265"/>
         <source>About %1</source>
-        <translation type="unfinished">O %1</translation>
+        <translation>O %1</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="271"/>
+        <location filename="../src/TWApp.cpp" line="273"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation type="unfinished">Nie mogę otworzyć &quot;%1&quot;; prawdopodobnie źle skonfigurowana przeglądarka lub program pocztowy?</translation>
-    </message>
-    <message>
-        <location filename="../src/TWApp.cpp" line="308"/>
-        <source>Unable to create window</source>
-        <translation type="unfinished">Nie mogę utworzyć okna</translation>
+        <translation>Nie mogę otworzyć &quot;%1&quot;; prawdopodobnie źle skonfigurowana przeglądarka lub program pocztowy?</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="310"/>
-        <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
-        <translation type="unfinished">Ćoś poszło bardzo źle: %1 nie jest w stanie otworzyć okna z dokumentem. Aplikacja kończy pracę.</translation>
+        <source>Unable to create window</source>
+        <translation>Nie mogę utworzyć okna</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="348"/>
+        <location filename="../src/TWApp.cpp" line="312"/>
+        <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
+        <translation>Coś poszło bardzo źle; %1 nie jest w stanie otworzyć okna z dokumentem. Aplikacja kończy pracę.</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="351"/>
         <source>Open File</source>
         <translation>Otwórz plik</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="497"/>
-        <source>No default binary directory found</source>
-        <translation type="unfinished">Nie znaleziono domnyślnej kartoteki z binariami</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="500"/>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation type="unfinished">Żadna ze zdefiniowanych kartotek z środowiskiem TeXowym nie może być znaleziona.&lt;p&gt;&lt;small&gt; Aby uruchamiać programy musisz zdefiniować kartoteki z binariami oraz drzewo kartotek zych Twoją dystrybucję TeXa. Użyj zakłądki Skład w Ustawieniach programu. </translation>
+        <source>No default binary directory found</source>
+        <translation>Nie znaleziono domnyślnej kartoteki z binariami</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="751"/>
+        <location filename="../src/TWApp.cpp" line="503"/>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
+        <translation>Żadna ze zdefiniowanych kartotek z środowiskiem TeXowym nie może być znaleziona.&lt;p&gt;&lt;small&gt; Aby uruchamiać programy musisz zdefiniować kartoteki z binariami oraz drzewo kartotek zych Twoją dystrybucję TeXa. Użyj zakłądki Skład w Ustawieniach programu. </translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="754"/>
         <source>Unable to find help file.</source>
         <translation>Nie mogę znaleźć pliku pomocy.</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptable</name>
+    <message>
+        <location filename="../src/TWScriptable.cpp" line="282"/>
+        <source>unknown error</source>
+        <translation>nieznany błąd</translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptable.cpp" line="283"/>
+        <source>Script &quot;%1&quot;: %2</source>
+        <translation>Skrypt &quot;%1&quot;: %2</translation>
     </message>
 </context>
 <context>
@@ -1307,199 +1345,199 @@
     <message>
         <location filename="../src/TeXDocks.cpp" line="52"/>
         <source>Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Etykiety</translation>
     </message>
     <message>
         <location filename="../src/TeXDocks.cpp" line="75"/>
         <source>Bookmarks</source>
-        <translation type="unfinished">Zakładki</translation>
+        <translation>Zakładki</translation>
     </message>
     <message>
         <location filename="../src/TeXDocks.cpp" line="80"/>
         <source>Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>Konspekt</translation>
     </message>
     <message>
         <location filename="../src/TeXDocks.cpp" line="114"/>
         <source>No tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak etykiet</translation>
     </message>
 </context>
 <context>
     <name>TeXDocument</name>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="71"/>
+        <location filename="../src/TeXDocument.cpp" line="72"/>
         <source>New document</source>
         <translation>Nowy dokument</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="793"/>
+        <location filename="../src/TeXDocument.ui" line="780"/>
         <source>Open Recent</source>
         <translation>Otwórz ostatnie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="995"/>
+        <location filename="../src/TeXDocument.ui" line="982"/>
         <source>None</source>
-        <translation type="unfinished">Brak</translation>
+        <translation>Brak</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="447"/>
+        <location filename="../src/TeXDocument.cpp" line="451"/>
         <source>Open File</source>
         <translation>Otwórz plik</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="650"/>
+        <location filename="../src/TeXDocument.cpp" line="655"/>
         <source>Save File</source>
         <translation>Zapisz</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="669"/>
+        <location filename="../src/TeXDocument.cpp" line="684"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
-        <translation type="unfinished">Dokument &quot;%1&quot; został zmieniony.
+        <translation>Dokument &quot;%1&quot; został zmieniony.
 Czy chcesz zachowć zmiany?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="701"/>
+        <location filename="../src/TeXDocument.cpp" line="716"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation type="unfinished">Czy chcesz odrzucić wszystkie zmiany w dokumencie &quot;%1&quot; i powrócić do ostatnio zapisanej wersji?</translation>
+        <translation>Czy chcesz odrzucić wszystkie zmiany w dokumencie &quot;%1&quot; i powrócić do ostatnio zapisanej wersji?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="702"/>
+        <location filename="../src/TeXDocument.cpp" line="717"/>
         <source>Revert</source>
-        <translation type="unfinished">Odwróć zmiany</translation>
+        <translation>Odwróć zmiany</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="781"/>
+        <location filename="../src/TeXDocument.cpp" line="797"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation type="unfinished">Nie mogę odczytać pliku &quot;%1&quot;:
+        <translation>Nie mogę odczytać pliku &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="945"/>
+        <location filename="../src/TeXDocument.cpp" line="965"/>
         <source>Unrecognized encoding</source>
         <translation>Nierozpoznane kodowanie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="796"/>
+        <location filename="../src/TeXDocument.cpp" line="812"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
-        <translation type="unfinished">Kodowanie tekstu %1 znalezione w %2 nie jest obsługiwane.
+        <translation>Kodowanie tekstu %1 znalezione w %2 nie jest obsługiwane.
 
 Będzie ono interpretowane jako %3, co może spowodować błędy.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="838"/>
+        <location filename="../src/TeXDocument.cpp" line="855"/>
         <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation type="unfinished">Plik &quot;%1&quot; załadowany (%2)</translation>
+        <translation>Plik &quot;%1&quot; załadowany (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="924"/>
+        <location filename="../src/TeXDocument.cpp" line="944"/>
         <source>File changed on disk</source>
-        <translation type="unfinished">Plik uległ zmianie</translation>
+        <translation>Plik na dysku uległ zmianie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="857"/>
+        <location filename="../src/TeXDocument.cpp" line="877"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
-        <translation type="unfinished">%1 został zmodyfikowany przez inny program.
+        <translation>%1 został zmodyfikowany przez inny program.
 
 Czy chcesz załadować plik z dysku (i stracić wszystkie dokonane poprawki)?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="927"/>
+        <location filename="../src/TeXDocument.cpp" line="947"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
-        <translation type="unfinished">%1 został zmodyfikowany prze inny program.
+        <translation>%1 został zmodyfikowany prze inny program.
 
 Czy chcesz nadpisać zawartość pliku zachowując wykonane poprawki?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="931"/>
+        <location filename="../src/TeXDocument.cpp" line="951"/>
         <source>Document &quot;%1&quot; was not saved</source>
-        <translation type="unfinished">Dokument &quot;%1&quot; nie został zapisany</translation>
+        <translation>Dokument &quot;%1&quot; nie został zapisany</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="948"/>
+        <location filename="../src/TeXDocument.cpp" line="968"/>
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation type="unfinished">Kodowanie tekstu %1 wymagane dla %2 nie jest obsługiwane.
+        <translation>Kodowanie tekstu %1 wymagane dla %2 nie jest obsługiwane.
 
 Dokument będzie zachowany z użyciem kodowania %3, co może powodować błędy.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="957"/>
+        <location filename="../src/TeXDocument.cpp" line="977"/>
         <source>Text cannot be converted</source>
-        <translation type="unfinished">Tekst nie może być skonwertowany</translation>
+        <translation>Tekst nie może być skonwertowany</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="961"/>
+        <location filename="../src/TeXDocument.cpp" line="981"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
-        <translation type="unfinished">Dokument zawiera znaki, które nie mają reprezentacji w kodowaniu %1.
+        <translation>Dokument zawiera znaki, które nie mają reprezentacji w kodowaniu %1.
 
 Jeżeli będziesz kontynuował, zostaną one zastąpione znakami domyślnymi.
 Możesz też (jeżeli chcesz) użyć innego kodowania (na przykład UTF8) aby zapobiec utracie informacji.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="972"/>
+        <location filename="../src/TeXDocument.cpp" line="992"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation type="unfinished">Nie mogę zapisać pliku &quot;%1&quot;: %2.</translation>
+        <translation>Nie mogę zapisać pliku &quot;%1&quot;: %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="986"/>
+        <location filename="../src/TeXDocument.cpp" line="1006"/>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation type="unfinished">Plik &quot;%1&quot; zachowany (%2)</translation>
+        <translation>Plik &quot;%1&quot; zachowany (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="987"/>
+        <location filename="../src/TeXDocument.cpp" line="1007"/>
         <source>default encoding</source>
         <translation>kodowanie domyślne</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1024"/>
+        <location filename="../src/TeXDocument.cpp" line="1044"/>
         <source>untitled-%1.tex</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1033"/>
+        <location filename="../src/TeXDocument.cpp" line="1053"/>
         <source>%1[*] - %2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1103"/>
+        <location filename="../src/TeXDocument.cpp" line="1123"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Wiersz %1 z %2; znak %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1222"/>
+        <location filename="../src/TeXDocument.cpp" line="1242"/>
         <source>Go to Line</source>
         <translation>Przejdź do wiersza</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1223"/>
+        <location filename="../src/TeXDocument.cpp" line="1243"/>
         <source>Line number:</source>
         <translation>Wiersz:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1639"/>
+        <location filename="../src/TeXDocument.cpp" line="1672"/>
         <source>Invalid regular expression</source>
         <translation>Nieprawidłowe wyrażenie regularne</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1717"/>
+        <location filename="../src/TeXDocument.cpp" line="1750"/>
         <source>Not found</source>
         <translation>Nie znaleziono</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1575"/>
+        <location filename="../src/TeXDocument.cpp" line="1608"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>Znaleziono %n wystąpienie</numerusform>
@@ -1508,7 +1546,7 @@ Możesz też (jeżeli chcesz) użyć innego kodowania (na przykład UTF8) aby za
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1736"/>
+        <location filename="../src/TeXDocument.cpp" line="1769"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n wystąpienie</numerusform>
@@ -1517,7 +1555,7 @@ Możesz też (jeżeli chcesz) użyć innego kodowania (na przykład UTF8) aby za
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1737"/>
+        <location filename="../src/TeXDocument.cpp" line="1770"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n dokument</numerusform>
@@ -1526,12 +1564,12 @@ Możesz też (jeżeli chcesz) użyć innego kodowania (na przykład UTF8) aby za
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1738"/>
+        <location filename="../src/TeXDocument.cpp" line="1771"/>
         <source>Replaced %1 in %2</source>
         <translation>Zamieniono %1 w %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="1743"/>
+        <location filename="../src/TeXDocument.cpp" line="1776"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>Zamieniono %n wystąpienie</numerusform>
@@ -1540,546 +1578,571 @@ Możesz też (jeżeli chcesz) użyć innego kodowania (na przykład UTF8) aby za
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1902"/>
+        <location filename="../src/TeXDocument.cpp" line="1935"/>
         <source>Cannot process unsaved document</source>
-        <translation type="unfinished">Nie mogę przetwarzać niezapisanego dokumentu</translation>
+        <translation>Nie mogę przetwarzać niezapisanego dokumentu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1912"/>
+        <location filename="../src/TeXDocument.cpp" line="1945"/>
         <source>Root document %1 is not readable</source>
-        <translation type="unfinished">Dokument główny %1 nie może być odczytany</translation>
+        <translation>Dokument główny %1 nie może być odczytany</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1918"/>
+        <location filename="../src/TeXDocument.cpp" line="1951"/>
         <source>%1 is not properly configured</source>
-        <translation type="unfinished">%1 nie jest poprawnie skonfigurowany</translation>
+        <translation>%1 nie jest poprawnie skonfigurowany</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2030"/>
+        <location filename="../src/TeXDocument.cpp" line="2071"/>
         <source>Unable to execute %1</source>
-        <translation type="unfinished">Nie mogę wykonać %1</translation>
+        <translation>Nie mogę wykonać %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2031"/>
+        <location filename="../src/TeXDocument.cpp" line="2072"/>
         <source>The program &quot;%1&quot; was not found.</source>
-        <translation type="unfinished">Nie znaleziono programu &quot;%1&quot;.</translation>
+        <translation>Nie znaleziono programu &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2033"/>
+        <location filename="../src/TeXDocument.cpp" line="2074"/>
         <source>Searched in directories:</source>
-        <translation type="unfinished">Przeszukano w kartotekach:</translation>
+        <translation>Przeszukano w kartotekach:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2034"/>
+        <location filename="../src/TeXDocument.cpp" line="2075"/>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation type="unfinished">Sprawdż konfigurację narzędzia %1 i ustawienia ścieżki w Ustawieniach programu.</translation>
+        <translation>Sprawdż konfigurację narzędzia %1 i ustawienia ścieżki w Ustawieniach programu.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2079"/>
+        <location filename="../src/TeXDocument.cpp" line="2120"/>
         <source>Process interrupted by user</source>
-        <translation type="unfinished">Proces przerwany przez użytkownika</translation>
+        <translation>Proces przerwany przez użytkownika</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="843"/>
+        <location filename="../src/TeXDocument.ui" line="830"/>
         <source>Hide Output Panel</source>
-        <translation type="unfinished">Ukryj panel wyjściowy</translation>
+        <translation>Ukryj panel wyjściowy</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2130"/>
+        <location filename="../src/TeXDocument.cpp" line="2233"/>
         <source>Show Output Panel</source>
-        <translation type="unfinished">Pokaż panel wyjściowy</translation>
+        <translation>Pokaż panel wyjściowy</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2198"/>
+        <location filename="../src/TeXDocument.cpp" line="2304"/>
         <source>Set engine to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdefiniuj wariant jako &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2204"/>
+        <location filename="../src/TeXDocument.cpp" line="2310"/>
         <source>Engine &quot;%1&quot; not defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Wariant &quot;%1&quot; niezdefiniowany</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2297"/>
+        <location filename="../src/TeXDocument.cpp" line="2403"/>
         <source>No files found</source>
-        <translation type="unfinished">Nie znaleziono plików</translation>
+        <translation>Nie znaleziono plików</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2298"/>
+        <location filename="../src/TeXDocument.cpp" line="2404"/>
         <source>No auxiliary files associated with this document at the moment.</source>
-        <translation type="unfinished">W tej chwili nie ma plików pomocniczych związanych z tym dokumentem.</translation>
+        <translation>W tej chwili nie ma plików pomocniczych związanych z tym dokumentem.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="17"/>
         <source>untitled.tex[*]</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="191"/>
+        <location filename="../src/TeXDocument.ui" line="171"/>
         <source>File</source>
         <translation>Plik</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="209"/>
+        <location filename="../src/TeXDocument.ui" line="189"/>
         <source>Edit</source>
         <translation>Edytuj</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="213"/>
+        <location filename="../src/TeXDocument.ui" line="193"/>
         <source>Spelling</source>
         <translation>Słownik</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="220"/>
+        <location filename="../src/TeXDocument.ui" line="200"/>
         <source>Change Case</source>
-        <translation type="unfinished">Zmień wielkość liter</translation>
+        <translation>Zmień wielkość liter</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="243"/>
+        <location filename="../src/TeXDocument.ui" line="223"/>
         <source>Typeset</source>
         <comment>menu title</comment>
-        <translation type="unfinished">Składaj</translation>
+        <translation>Składaj</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="230"/>
+        <source>Window</source>
+        <translation>Okno</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="234"/>
+        <source>Show</source>
+        <translation>Pokaż</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="250"/>
-        <source>Window</source>
-        <translation type="unfinished">Okno</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="254"/>
-        <source>Show</source>
-        <translation type="unfinished">Pokaż</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="270"/>
         <source>Search</source>
         <translation>Znajdź</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="286"/>
+        <location filename="../src/TeXDocument.ui" line="266"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="290"/>
+        <location filename="../src/TeXDocument.ui" line="270"/>
         <source>Auto-indent Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb automatycznego wcięcia</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="297"/>
+        <location filename="../src/TeXDocument.ui" line="277"/>
         <source>Syntax Coloring</source>
         <translation>Kolorowanie składni</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="304"/>
+        <location filename="../src/TeXDocument.ui" line="284"/>
         <source>Smart Quotes</source>
         <translation>Sprytne cudzysłowy</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="326"/>
+        <location filename="../src/TeXDocument.ui" line="306"/>
         <source>Help</source>
         <translation>Pomoc</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="343"/>
+        <location filename="../src/TeXDocument.ui" line="333"/>
         <source>Typeset Toolbar</source>
-        <translation type="unfinished">Pasek skłądu</translation>
+        <translation>Pasek składu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="364"/>
+        <location filename="../src/TeXDocument.ui" line="354"/>
         <source>Edit Toolbar</source>
-        <translation type="unfinished">Pasek edycji</translation>
+        <translation>Pasek edycji</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="408"/>
+        <location filename="../src/TeXDocument.ui" line="398"/>
         <source>New</source>
         <translation>Nowy</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="411"/>
+        <location filename="../src/TeXDocument.ui" line="401"/>
         <source>Ctrl+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="423"/>
+        <location filename="../src/TeXDocument.ui" line="413"/>
         <source>Open...</source>
         <translation>Otwórz...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="426"/>
+        <location filename="../src/TeXDocument.ui" line="416"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="434"/>
+        <location filename="../src/TeXDocument.ui" line="424"/>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="437"/>
+        <location filename="../src/TeXDocument.ui" line="427"/>
         <source>Ctrl+W</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="452"/>
+        <location filename="../src/TeXDocument.ui" line="439"/>
         <source>Save</source>
         <translation>Zapisz</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="455"/>
+        <location filename="../src/TeXDocument.ui" line="442"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="463"/>
+        <location filename="../src/TeXDocument.ui" line="450"/>
         <source>Save As...</source>
         <translation>Zapisz jako...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="466"/>
+        <location filename="../src/TeXDocument.ui" line="453"/>
         <source>Ctrl+Shift+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="477"/>
+        <location filename="../src/TeXDocument.ui" line="464"/>
         <source>Revert to Saved</source>
         <translation>Powróć do wersji zapisanej na dysku</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="492"/>
+        <location filename="../src/TeXDocument.ui" line="479"/>
         <source>Undo</source>
         <translation>Cofnij</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="495"/>
+        <location filename="../src/TeXDocument.ui" line="482"/>
         <source>Ctrl+Z</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="510"/>
+        <location filename="../src/TeXDocument.ui" line="497"/>
         <source>Redo</source>
         <translation>Ponów</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="513"/>
+        <location filename="../src/TeXDocument.ui" line="500"/>
         <source>Ctrl+Shift+Z</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="528"/>
+        <location filename="../src/TeXDocument.ui" line="515"/>
         <source>Cut</source>
         <translation>Wytnij</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="531"/>
+        <location filename="../src/TeXDocument.ui" line="518"/>
         <source>Ctrl+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="546"/>
+        <location filename="../src/TeXDocument.ui" line="533"/>
         <source>Copy</source>
         <translation>Kopiuj</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="549"/>
+        <location filename="../src/TeXDocument.ui" line="536"/>
         <source>Ctrl+C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="564"/>
+        <location filename="../src/TeXDocument.ui" line="551"/>
         <source>Paste</source>
         <translation>Wklej</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="567"/>
+        <location filename="../src/TeXDocument.ui" line="554"/>
         <source>Ctrl+V</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="578"/>
+        <location filename="../src/TeXDocument.ui" line="565"/>
         <source>Clear</source>
         <translation>Wyczyść</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="590"/>
+        <location filename="../src/TeXDocument.ui" line="577"/>
         <source>Typeset</source>
         <translation>Składaj</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="593"/>
+        <location filename="../src/TeXDocument.ui" line="580"/>
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="605"/>
+        <location filename="../src/TeXDocument.ui" line="592"/>
         <source>Find...</source>
         <translation>Znajdź...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="608"/>
+        <location filename="../src/TeXDocument.ui" line="595"/>
         <source>Ctrl+F</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="616"/>
+        <location filename="../src/TeXDocument.ui" line="603"/>
         <source>Find Again</source>
         <translation>Znajdź następne</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="619"/>
+        <location filename="../src/TeXDocument.ui" line="606"/>
         <source>Ctrl+G</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="631"/>
+        <location filename="../src/TeXDocument.ui" line="618"/>
         <source>Replace...</source>
         <translation>Zamień...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="634"/>
+        <location filename="../src/TeXDocument.ui" line="621"/>
         <source>Ctrl+R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="642"/>
+        <location filename="../src/TeXDocument.ui" line="629"/>
         <source>Copy to Find</source>
-        <translation type="unfinished">Kopiuj do znajdź</translation>
+        <translation>Kopiuj do znajdź</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="645"/>
+        <location filename="../src/TeXDocument.ui" line="632"/>
         <source>Ctrl+E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="653"/>
+        <location filename="../src/TeXDocument.ui" line="640"/>
         <source>Copy to Replace</source>
-        <translation type="unfinished">Kopiuj do zamień</translation>
+        <translation>Kopiuj do zamień</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="656"/>
+        <location filename="../src/TeXDocument.ui" line="643"/>
         <source>Ctrl+Shift+E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="664"/>
+        <location filename="../src/TeXDocument.ui" line="651"/>
         <source>Go to Line...</source>
         <translation>Przejdź do wiersza...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="667"/>
+        <location filename="../src/TeXDocument.ui" line="654"/>
         <source>Ctrl+L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="675"/>
+        <location filename="../src/TeXDocument.ui" line="662"/>
         <source>Find Selection</source>
         <translation>Znajdź zaznaczone</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="678"/>
+        <location filename="../src/TeXDocument.ui" line="665"/>
         <source>Ctrl+H</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="686"/>
+        <location filename="../src/TeXDocument.ui" line="673"/>
         <source>Select All</source>
         <translation>Zaznacz wszystko</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="689"/>
+        <location filename="../src/TeXDocument.ui" line="676"/>
         <source>Ctrl+A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="697"/>
+        <location filename="../src/TeXDocument.ui" line="684"/>
         <source>Font...</source>
         <translation>Font...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="709"/>
+        <location filename="../src/TeXDocument.ui" line="696"/>
         <source>Indent</source>
         <translation>Wcięcie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="712"/>
+        <location filename="../src/TeXDocument.ui" line="699"/>
         <source>Ctrl+]</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="724"/>
+        <location filename="../src/TeXDocument.ui" line="711"/>
         <source>Unindent</source>
         <translation>Usuń wcięcie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="727"/>
+        <location filename="../src/TeXDocument.ui" line="714"/>
         <source>Ctrl+[</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="735"/>
+        <location filename="../src/TeXDocument.ui" line="722"/>
         <source>Comment</source>
         <translation>Komentarz</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="738"/>
+        <location filename="../src/TeXDocument.ui" line="725"/>
         <source>Ctrl+Shift+]</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="746"/>
+        <location filename="../src/TeXDocument.ui" line="733"/>
         <source>Uncomment</source>
         <translation>Odkomentuj</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="749"/>
+        <location filename="../src/TeXDocument.ui" line="736"/>
         <source>Ctrl+Shift+[</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="763"/>
+        <location filename="../src/TeXDocument.ui" line="750"/>
         <source>Wrap Lines</source>
-        <translation type="unfinished">Zawijanie wyrazów</translation>
+        <translation>Zawijanie wierszy</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="785"/>
+        <location filename="../src/TeXDocument.ui" line="772"/>
         <source>About TeXworks...</source>
         <translation>O programie TeXworks...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="801"/>
+        <location filename="../src/TeXDocument.ui" line="788"/>
         <source>Stack</source>
-        <translation type="unfinished">Jedno na drugim</translation>
+        <translation>Jedno na drugim</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="809"/>
+        <location filename="../src/TeXDocument.ui" line="796"/>
         <source>Tile</source>
-        <translation type="unfinished">Jedno obok drugiego</translation>
+        <translation>Obok siebie (kafelki)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="821"/>
+        <location filename="../src/TeXDocument.ui" line="808"/>
         <source>Preferences...</source>
         <translation>Ustawienia...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="832"/>
+        <location filename="../src/TeXDocument.ui" line="819"/>
         <source>Go to Preview</source>
-        <translation type="unfinished">Przejdź do podglądu</translation>
+        <translation>Przejdź do podglądu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="835"/>
+        <location filename="../src/TeXDocument.ui" line="822"/>
         <source>Ctrl+&apos;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="846"/>
+        <location filename="../src/TeXDocument.ui" line="833"/>
         <source>Ctrl+\</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="854"/>
+        <location filename="../src/TeXDocument.ui" line="841"/>
         <source>New from Template...</source>
-        <translation type="unfinished">Nowy na podstawie szablonu...</translation>
+        <translation>Nowy na podstawie szablonu...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="857"/>
+        <location filename="../src/TeXDocument.ui" line="844"/>
         <source>Ctrl+Shift+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="865"/>
+        <location filename="../src/TeXDocument.ui" line="852"/>
         <source>Show Selection</source>
         <translation>Pokaż zaznaczone</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="868"/>
+        <location filename="../src/TeXDocument.ui" line="855"/>
         <source>Ctrl+=</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="879"/>
+        <location filename="../src/TeXDocument.ui" line="866"/>
         <source>ALL UPPERCASE</source>
         <translation>WIELKIE LITERY</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="890"/>
+        <location filename="../src/TeXDocument.ui" line="877"/>
         <source>all lowercase</source>
         <translation>małe litery</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="898"/>
+        <location filename="../src/TeXDocument.ui" line="885"/>
         <source>Balance Delimiters</source>
-        <translation type="unfinished">Znajdź ogranicznik</translation>
+        <translation>Znajdź ogranicznik</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="901"/>
+        <location filename="../src/TeXDocument.ui" line="888"/>
         <source>Ctrl+B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="909"/>
+        <location filename="../src/TeXDocument.ui" line="896"/>
         <source>Go to TeXworks home page</source>
-        <translation type="unfinished">Przejdź do strony domowej projektu</translation>
+        <translation>Przejdź do strony domowej projektu</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="901"/>
+        <source>Email to the mailing list</source>
+        <translation>Napisz na listę dyskusyjną</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="909"/>
+        <source>Side by Side</source>
+        <translation>Obok siebie</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="914"/>
-        <source>Email to the mailing list</source>
-        <translation type="unfinished">Napisz na listę dyskusyjną</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="922"/>
-        <source>Side by Side</source>
-        <translation type="unfinished">bok siebie</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.ui" line="927"/>
         <source>Place on Left</source>
-        <translation type="unfinished">Umieść po lewej</translation>
+        <translation>Umieść po lewej</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="932"/>
+        <location filename="../src/TeXDocument.ui" line="919"/>
         <source>Place on Right</source>
-        <translation type="unfinished">Umieść po prawej</translation>
+        <translation>Umieść po prawej</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="959"/>
+        <location filename="../src/TeXDocument.ui" line="946"/>
         <source>Replace Again</source>
-        <translation type="unfinished">Zamień ponownie</translation>
+        <translation>Zamień ponownie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="962"/>
+        <location filename="../src/TeXDocument.ui" line="949"/>
         <source>Ctrl+Shift+R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="970"/>
+        <location filename="../src/TeXDocument.ui" line="957"/>
         <source>Remove Aux Files...</source>
         <translation>Usuń pliki pomocnicze...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="978"/>
+        <location filename="../src/TeXDocument.ui" line="965"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">Zakończ TeXworks</translation>
+        <translation>Zakończ TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="981"/>
+        <location filename="../src/TeXDocument.ui" line="968"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1006"/>
+        <location filename="../src/TeXDocument.ui" line="993"/>
         <source>Toggle Case</source>
-        <translation type="unfinished">Przełącz wielkość liter</translation>
+        <translation>Przełącz wielkość liter</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1014"/>
+        <location filename="../src/TeXDocument.ui" line="1001"/>
         <source>Hard Wrap...</source>
-        <translation type="unfinished">Zawijanie wyrazów...</translation>
+        <translation>Zawijanie wierszy...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1025"/>
+        <location filename="../src/TeXDocument.ui" line="1012"/>
         <source>Line Numbers</source>
-        <translation type="unfinished">Numerowanie wierszy</translation>
+        <translation>Numerowanie wierszy</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="67"/>
+        <source>Console output</source>
+        <translation>Informacje diagnostyczne</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="315"/>
+        <source>Scripts</source>
+        <translation>Skrypty</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="1020"/>
+        <source>Show Scripts Folder</source>
+        <translation>Pokaż kartotekę ze skryptami</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="1028"/>
+        <source>Update Scripts</source>
+        <translation>Uaktualnij skrypty</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="1036"/>
+        <source>Manage Scripts</source>
+        <translation>Zarządzaj skryptami</translation>
     </message>
 </context>
 <context>
@@ -2106,9 +2169,9 @@ Możesz też (jeżeli chcesz) użyć innego kodowania (na przykład UTF8) aby za
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="712"/>
+        <location filename="../src/PrefsDialog.cpp" line="726"/>
         <source>NewArgument</source>
-        <translation type="unfinished">Nowy argument</translation>
+        <translation>Nowy argument</translation>
     </message>
 </context>
 <context>
