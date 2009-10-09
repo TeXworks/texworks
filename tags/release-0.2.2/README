@@ -1,0 +1,44 @@
+License
+=======
+
+TeXworks is copyright (c) 2007-09 by Jonathan Kew.
+Distributed under the terms of the GNU General Public License, version 2 or (at your option) any later version.
+See the file COPYING for details.
+
+The SyncTeX code is copyright (c) 2008, 2009 by JŽr™me Laurens; see synctex_parser.c for license details.
+
+
+Building TeXworks
+=================
+
+Notes by Jonathan Kew, updated 2009-10-02
+
+To build TeXworks from source, you will need to install developer packages (or equivalent) for:
+
+ - Qt4 (4.5.2 is recommended, although the application may build with versions as old as 4.3.x. Note that on GNU/Linux, TeXworks may crash when changing the spell-checking language when using Qt 4.3.x. Updating to at least Qt 4.4.0 solves this.)
+   http://qt.nokia.com/downloads
+
+ - Poppler (using the latest stable release, currently 0.12, is strongly recommended, although versions as old as the 0.6 series should still work)
+   http://poppler.freedesktop.org/
+
+ - Hunspell (release 1.2.8 is recommended; earlier 1.2.x releases may be used, although support for some non-Latin-script languages may be lacking)
+   http://hunspell.sourceforge.net/
+
+ - libdbus (on X11-based platforms only; not used on Mac OS X or Windows)
+   http://dbus.freedesktop.org/
+
+along with their dependencies (such as Freetype, fontconfig, zlib, etc.) Details will depend on your platform. On Linux or similar systems, your package manager can probably provide all these.
+
+After installing the necessary libraries (and their headers), check the TeXworks.pro file and update paths as necessary; some of the paths currently in the project file are specific to one of my build machines.
+
+Once the project file is correct, run qmake to create a Makefile or Xcode project, and then run make or use Xcode to build the application. Do not run "qmake -pro" to recreate the .pro file, as it has been hand-edited.
+
+The current TeXworks prototype has been successfully built with
+ - Xcode (using gcc 4) on Mac OS X (built on 10.5, but should run on 10.4 or later)
+ - MinGW release 5.1.4 on Windows XP (also runs on Vista and Windows 7)
+ - gcc 4 on GNU/Linux, various BSDs, etc.
+Getting all the right libraries built and installed for the mingw32 build can be tricky. By slightly patching poppler 0.8.0, it is possible to build a version that does not depend on fontconfig (and thence on various other libraries), though it will then not work properly for PDFs with non-embedded fonts.
+
+To avoid having to build the poppler dependencies for Windows, you can get precompiled libraries from the KDE on Windows project.
+
+Further tips on building TeXworks from source are available on some of the wiki pages.
