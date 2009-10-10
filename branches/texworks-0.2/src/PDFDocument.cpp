@@ -206,6 +206,12 @@ PDFWidget::PDFWidget()
 	shortcutRight = new QShortcut(QKeySequence("Right"), this, SLOT(rightOrNext()));
 }
 
+PDFWidget::~PDFWidget()
+{
+	if (page)
+		delete page;
+}
+
 void PDFWidget::setDocument(Poppler::Document *doc)
 {
 	document = doc;
@@ -1130,7 +1136,7 @@ PDFDocument::init()
 	
 	connect(actionFind_Again, SIGNAL(triggered()), this, SLOT(doFindAgain()));
 
-	menuRecent = new QMenu(tr("Open Recent"));
+	menuRecent = new QMenu(tr("Open Recent"), this);
 	updateRecentFileActions();
 	menuFile->insertMenu(actionOpen_Recent, menuRecent);
 	menuFile->removeAction(actionOpen_Recent);
