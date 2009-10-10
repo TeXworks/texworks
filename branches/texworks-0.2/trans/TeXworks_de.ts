@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="de_DE">
-<defaultcodec></defaultcodec>
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -17,7 +16,7 @@
     <message>
         <location filename="../src/CompletingEdit.cpp" line="849"/>
         <source>Jump to PDF</source>
-        <translation>Springe zum PDF</translation>
+        <translation>Gehe zum PDF</translation>
     </message>
 </context>
 <context>
@@ -64,32 +63,32 @@
     <message>
         <location filename="../src/Find.ui" line="69"/>
         <source>&amp;Wrap around</source>
-        <translation>&amp;Umbrechen</translation>
+        <translation>Am Anfang &amp;fortfahren</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="76"/>
         <source>Find &amp;backwards</source>
-        <translation>Rüc&amp;kwärtssuche</translation>
+        <translation>Rüc&amp;kwärts</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="83"/>
         <source>Search within &amp;selection</source>
-        <translation>&amp;Suche in der Auswahl</translation>
+        <translation>&amp;Nur in der Auswahl</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="90"/>
         <source>Find &amp;all occurrences</source>
-        <translation>Suche &amp;alle</translation>
+        <translation>Finde &amp;alle</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="97"/>
         <source>Search all &amp;open files</source>
-        <translation>Suche in allen geöffneten &amp;Dateien</translation>
+        <translation>In allen geöffneten &amp;Dateien</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="108"/>
         <source>&amp;Case sensitive</source>
-        <translation>Beachte &amp;Groß-/Kleinschreibung</translation>
+        <translation>&amp;Groß-/Kleinschreibung beachten</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="115"/>
@@ -99,7 +98,8 @@
     <message>
         <location filename="../src/Find.ui" line="122"/>
         <source>&amp;Regular expression</source>
-        <translation>&amp;Reguläre Ausdrücke</translation>
+        <translatorcomment>&quot;Regular expression&quot; is a term which shouldn&apos;t be translated. The german &quot;Regulärer Ausdruck&quot; has a different connotation and the denotation will get lost in this context. This may be different in 10 years or so from now.</translatorcomment>
+        <translation>&amp;Regular Expression</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="191"/>
@@ -117,17 +117,17 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="20"/>
         <source>Hard Wrap</source>
-        <translation>Fixer Zeilenumbruch</translation>
+        <translation>Fester Zeilenumbruch</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="35"/>
         <source>Wrap lines to:</source>
-        <translation>Zeilen umbrechen an:</translation>
+        <translation>Zeilen umbrechen bei:</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="44"/>
         <source>Current window size</source>
-        <translation>Aktuelle Fensterbreite</translation>
+        <translation>Aktueller Fensterbreite</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="51"/>
@@ -239,7 +239,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="192"/>
         <source>Previous Page</source>
-        <translation>Vorige Seite</translation>
+        <translation>Vorhergehende Seite</translation>
     </message>
     <message>
         <source>Left</source>
@@ -307,7 +307,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="281"/>
         <source>Fit to Window</source>
-        <translation>In das Fenster einpassen</translation>
+        <translation>An Fenstergröße anpassen</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="284"/>
@@ -327,7 +327,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="314"/>
         <source>Fit to Width</source>
-        <translation>In Breite einpassen</translation>
+        <translation>An Fensterbreite anpassen</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="317"/>
@@ -431,7 +431,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="497"/>
         <source>Preferences...</source>
-        <translation>Einstellungen...</translation>
+        <translation>Einstellungen ...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="505"/>
@@ -490,7 +490,8 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="582"/>
         <source>Scroll</source>
-        <translation>Rollen</translation>
+        <translatorcomment>I think &quot;scroll&quot; is established in German. &quot;Rollen&quot; is a kind of a silly forced literal translation</translatorcomment>
+        <translation>Scroll</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="594"/>
@@ -599,7 +600,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1337"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>Die PDF Datei &quot;%1&quot; ist gesperrt; dies wird im Moment nicht unterstützt.</translation>
+        <translation>Die PDF-Datei &quot;%1&quot; ist gesperrt; momentan nicht verfügbar.</translation>
     </message>
 </context>
 <context>
@@ -627,22 +628,22 @@
     <message>
         <location filename="../src/PDFFind.ui" line="71"/>
         <source>&amp;Wrap around</source>
-        <translation>Am &amp;Anfang fortfahren, wenn das Ende erreicht ist</translation>
+        <translation>Am Anfang &amp;fortfahren</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="78"/>
         <source>Find &amp;backwards</source>
-        <translation>Rüc&amp;kwärtssuche</translation>
+        <translation>Rüc&amp;kwärts</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="85"/>
         <source>Find &amp;all occurrences</source>
-        <translation>Suche &amp;alle</translation>
+        <translation>Finde &amp;alle</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="92"/>
         <source>&amp;Case sensitive</source>
-        <translation>Beachte &amp;Groß-/Kleinschreibung</translation>
+        <translation>&amp;Groß-/Kleinschreibung beachten</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="99"/>
@@ -670,7 +671,8 @@
     <message>
         <location filename="../src/PDFDocks.cpp" line="268"/>
         <source>Subset</source>
-        <translation>Untermenge</translation>
+        <translatorcomment>fixed term</translatorcomment>
+        <translation>teilweise</translation>
     </message>
     <message>
         <location filename="../src/PDFDocks.cpp" line="268"/>
@@ -703,7 +705,8 @@
     <message>
         <location filename="../src/PDFDocks.h" line="117"/>
         <source>PDF Info</source>
-        <translation>PDF Information</translation>
+        <translatorcomment>In german composed words have a hyphen mark or are written together</translatorcomment>
+        <translation>PDF-Information</translation>
     </message>
 </context>
 <context>
@@ -729,7 +732,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="839"/>
         <source>Page number:</source>
-        <translation>Seitenzahl:</translation>
+        <translation>Seite:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="188"/>
@@ -749,17 +752,17 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="196"/>
         <source>Fit to Width</source>
-        <translation>Breite einpassen</translation>
+        <translation>An Fensterbreite anpassen</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="199"/>
         <source>Fit to Window</source>
-        <translation>Einpassen</translation>
+        <translation>An Fenstergröße anpassen</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="531"/>
         <source>Jump to Source</source>
-        <translation>Springe zum Quelltext</translation>
+        <translation>Gehe zum Quelltext</translation>
     </message>
 </context>
 <context>
@@ -786,7 +789,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="14"/>
         <source>TeXworks Preferences</source>
-        <translation>TeXworks Einstellungen</translation>
+        <translation>TeXworks-Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="30"/>
@@ -796,7 +799,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="36"/>
         <source>Toolbar buttons</source>
-        <translation>Knöpfe in der Werkzeugleiste</translation>
+        <translation>Buttons in der Werkzeugleiste</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="42"/>
@@ -806,7 +809,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="49"/>
         <source>Medium icons</source>
-        <translation>Mittlere Bilder</translation>
+        <translation>Mittelgroße Bilder</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="56"/>
@@ -821,7 +824,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="73"/>
         <source>When launched, show</source>
-        <translation>Zeige, wenn gestartet</translation>
+        <translation>Nach dem Start anzeigen</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="79"/>
@@ -850,7 +853,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="160"/>
         <source>Editor defaults</source>
-        <translation>Editor Standardeinstellungen</translation>
+        <translation>Standard-Editoreinstellungen</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="184"/>
@@ -875,12 +878,12 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="402"/>
         <source>Encoding:</source>
-        <translation>Kodierung:</translation>
+        <translation>Zeichenkodierung:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="363"/>
         <source>Spell-check language:</source>
-        <translation>Sprache der Rechtschreibprüfung:</translation>
+        <translation>Sprache für die Rechtschreibprüfung:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="238"/>
@@ -915,12 +918,12 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="491"/>
         <source>Fit to Width</source>
-        <translation>Breite einpassen</translation>
+        <translation>An Fensterbreite anpassen</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="498"/>
         <source>Fit to Window</source>
-        <translation>An das Fenster anpassen</translation>
+        <translation>An Fenstergröße anpassen</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="509"/>
@@ -985,7 +988,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="766"/>
         <source>Edit...</source>
-        <translation>Bearbeiten...</translation>
+        <translation>Bearbeiten ...</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="804"/>
@@ -995,12 +998,12 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="828"/>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>Verberge Ausgabe, wenn kein Fehler auftritt</translation>
+        <translation>Ausgabe verbergen, wenn kein Fehler auftritt</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="118"/>
         <source>Interface locale:</source>
-        <translation>Sprache der Oberfläche:</translation>
+        <translation>Programmsprache:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="285"/>
@@ -1027,17 +1030,17 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="350"/>
         <source>TeX documents (*.tex)</source>
-        <translation>TeX Dokument (*.tex)</translation>
+        <translation>TeX-Dokumente (*.tex)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="351"/>
         <source>LaTeX documents (*.ltx)</source>
-        <translation>LaTeX Dokumente (*.ltx)</translation>
+        <translation>LaTeX-Dokumente (*.ltx)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="352"/>
         <source>BibTeX databases (*.bib)</source>
-        <translation>BibTeX Datenbanken (*.bib)</translation>
+        <translation>BibTeX-Datenbanken (*.bib)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="353"/>
@@ -1067,7 +1070,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="358"/>
         <source>PDF documents (*.pdf)</source>
-        <translation>PDF Dokumente (*.pdf)</translation>
+        <translation>PDF-Dokumente (*.pdf)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="360"/>
@@ -1102,12 +1105,12 @@
     <message>
         <location filename="../src/Replace.ui" line="31"/>
         <source>Replace:</source>
-        <translation>Ersetzen:</translation>
+        <translation>Ersetze:</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="67"/>
         <source>With:</source>
-        <translation>Mit:</translation>
+        <translation>mit:</translation>
     </message>
     <message>
         <source>Wrap around</source>
@@ -1136,22 +1139,22 @@
     <message>
         <location filename="../src/Replace.ui" line="107"/>
         <source>&amp;Wrap around</source>
-        <translation>Am &amp;Anfang fortfahren, wenn das Ende erreicht ist</translation>
+        <translation>Am Anfang &amp;fortfahren</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="114"/>
         <source>Find &amp;backwards</source>
-        <translation>Rüc&amp;kwärts Suchen</translation>
+        <translation>Rüc&amp;kwärts</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="121"/>
         <source>Replace within &amp;selection</source>
-        <translation>In der &amp;Markierung ersetzen</translation>
+        <translation>Nur in der &amp;Auswahl</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="128"/>
         <source>Replace in all &amp;open files</source>
-        <translation>In allen geöffneten &amp;Dateien ersetzen</translation>
+        <translation>In allen geöffneten &amp;Dateien</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="139"/>
@@ -1166,7 +1169,8 @@
     <message>
         <location filename="../src/Replace.ui" line="153"/>
         <source>&amp;Regular expression</source>
-        <translation>&amp;Regulärer Ausruck</translation>
+        <translatorcomment>&quot;Regular expression&quot; is a term which shouldn&apos;t be translated. The german &quot;Regulärer Ausdruck&quot; has a different connotation and the denotation will get lost in this context. This may be different in 10 years or so from now.</translatorcomment>
+        <translation>&amp;Regular Expression</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="288"/>
@@ -1176,7 +1180,7 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="299"/>
         <source>No recent replacement strings</source>
-        <translation>Keine zuletzt verwendeten Ersetzungsausdrücke</translation>
+        <translation>Keine zuletzt verwendeten Ersetzungen</translation>
     </message>
 </context>
 <context>
@@ -1236,18 +1240,18 @@
         <location filename="../src/TWApp.cpp" line="173"/>
         <location filename="../src/TWApp.cpp" line="231"/>
         <source>New from Template...</source>
-        <translation>Neu aus Vorlage...</translation>
+        <translation>Neu aus Vorlage ...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="177"/>
         <source>Preferences...</source>
-        <translation>Einstellungen...</translation>
+        <translation>Einstellungen ...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="182"/>
         <location filename="../src/TWApp.cpp" line="233"/>
         <source>Open...</source>
-        <translation>Öffne...</translation>
+        <translation>Öffne ...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="187"/>
@@ -1265,7 +1269,7 @@
         <location filename="../src/TWApp.cpp" line="202"/>
         <location filename="../src/TWApp.cpp" line="239"/>
         <source>About </source>
-        <translation>Über</translation>
+        <translation>Über </translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="263"/>
@@ -1284,7 +1288,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="309"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
-        <translation>Irgendetwas ist ganz falsch; %1 konnte kein Dokumentfenster erzeugen. Die Anwendung wird sich jetzt beenden.</translation>
+        <translation>Irgendetwas ist völlig schief gelaufen; %1 konnte kein Dokumentfenster erzeugen. Die Anwendung schließt jetzt.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="348"/>
@@ -1294,18 +1298,19 @@
     <message>
         <location filename="../src/TWApp.cpp" line="497"/>
         <source>No default binary directory found</source>
-        <translation>Kein Standard-Binärverzeichnis gefunden</translation>
+        <translation>Kein Standard-Programm-Verzeichnis gefunden</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="498"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Keins der vordefinierten Verzeichnisse für TeX und verwandte Programme konnte gefunden werden.&lt;p&gt;&lt;small&gt;Um irgendeinen Prozess zu starten, müssen Sie das korrekte Binärverzeichnis (oder mehrere) Ihrer TeX-Distribution angeben im Einstellungs-Dialog unter &quot;Textsatz&quot;.</translation>
+        <translatorcomment>&quot;Binärverzeichnisse&quot; wow, a folder that is binary :)</translatorcomment>
+        <translation>Keines der vordefinierten Verzeichnisse für TeX und verwandte Programme konnte gefunden werden.&lt;p&gt;&lt;small&gt;Um einen Prozess zu starten müssen Sie die korrekten Programm-Verzeichnisse Ihrer TeX-Distribution angeben (Einstellungs-Dialog unter &quot;Textsatz&quot;).</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="193"/>
         <location filename="../src/TWApp.cpp" line="240"/>
         <source>Go to TeXworks home page</source>
-        <translation>Besuche die TeXworks Homepage</translation>
+        <translation>Geh auf die TeXworks Homepage</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="196"/>
@@ -1335,12 +1340,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="270"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation>Zugriff auf &apos;%1&apos; nicht möglich; vielleicht sind Ihr Browser oder Ihr Emailprogramm nicht richtig konfiguriert?</translation>
+        <translation>Zugriff auf &apos;%1&apos; nicht möglich; vielleicht ist Ihr Browser oder Ihr Emailprogramm nicht richtig konfiguriert?</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="248"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1 ist eine einfache Umgebung zum Bearbeiten, Setzen und Betrachten von TeX-Dokumenten.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1 ist eine einfache Umgebung zum Bearbeiten, Setzen und Darstellen von TeX-Dokumenten.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="251"/>
@@ -1355,7 +1360,8 @@
     <message>
         <location filename="../src/TWApp.cpp" line="253"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; Anwendungs-Rahmenwerk von Qt Software, eine Abteilung von Nokia.</translation>
+        <translatorcomment>fixed term (application framework)</translatorcomment>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; Application Framework von Qt Software, einer Abteilung von Nokia.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="254"/>
@@ -1390,12 +1396,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="259"/>
         <source>[language name]</source>
-        <translation>Deutsche</translation>
+        <translation>Deutsch</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="259"/>
         <source>[translator&apos;s name/email]</source>
-        <translation>&lt;a href=&quot;mailto:jcnengel@googlemail.com&quot;&gt;Johannes Engel&lt;/a&gt; und &lt;a href=&quot;mailto:st.loeffler@gmail.com&quot;&gt;Stefan Löffler&lt;/a&gt;</translation>
+        <translation>&lt;a href=&quot;mailto:jcnengel@googlemail.com&quot;&gt;Johannes Engel&lt;/a&gt;, &lt;a href=&quot;mailto:st.loeffler@gmail.com&quot;&gt;Stefan Löffler&lt;/a&gt; und &lt;a href=&quot;mailto:tomfloeren@mac.com&quot;&gt;Thomas Floeren&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="751"/>
@@ -1480,14 +1486,14 @@ Möchten Sie die Änderungen speichern?</translation>
         <location filename="../src/TeXDocument.cpp" line="792"/>
         <location filename="../src/TeXDocument.cpp" line="943"/>
         <source>Unrecognized encoding</source>
-        <translation>Unbekannte Kodierung</translation>
+        <translation>Unbekannte Zeichenkodierung</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="793"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
-        <translation>Die von %2 benutzte Kodierung %1 wird nicht unterstützt.
+        <translation>Die von %2 benutzte Zeichenkodierung %1 wird nicht unterstützt.
 Sie wird stattdessen als %3 interpretiert; das kann zu Fehlern im Text führen.</translation>
     </message>
     <message>
@@ -1500,7 +1506,7 @@ Sie wird stattdessen als %3 interpretiert; das kann zu Fehlern im Text führen.<
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>Die von %2 benutzte Kodierung %1 wird nicht unterstützt.
+        <translation>Die von %2 benutzte Zeichenkodierung %1 wird nicht unterstützt.
 Die Datei wird stattdessen als %3 gespeichert; das kann zu Fehlern im Text führen.</translation>
     </message>
     <message>
@@ -1513,8 +1519,8 @@ Die Datei wird stattdessen als %3 gespeichert; das kann zu Fehlern im Text führ
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
-        <translation>Dieses Dokument enthält Zeichen, die in der Kodierung %1 nicht dargestellt werden können.
-Wenn Sie fortfahren, werden sie mit Standardzeichen überschrieben. Alternativ können Sie eine andere Kodierung (bspw. UTF-8) verwenden, um Datenverlust vorzubeugen.</translation>
+        <translation>Dieses Dokument enthält Zeichen, die in der Zeichenkodierung %1 nicht dargestellt werden können.
+Wenn Sie fortfahren, wird der Text mit Standardzeichen überschrieben. Alternativ können Sie eine andere Zeichenkodierung (z.B. UTF-8) verwenden, um Datenverlust vorzubeugen.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="969"/>
@@ -1531,7 +1537,7 @@ Wenn Sie fortfahren, werden sie mit Standardzeichen überschrieben. Alternativ k
     <message>
         <location filename="../src/TeXDocument.cpp" line="985"/>
         <source>default encoding</source>
-        <translation>Standard-Kodierung</translation>
+        <translation>Standard-Zeichenkodierung</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2011"/>
@@ -1586,7 +1592,7 @@ Wenn Sie fortfahren, werden sie mit Standardzeichen überschrieben. Alternativ k
         <location filename="../src/TeXDocument.cpp" line="1523"/>
         <location filename="../src/TeXDocument.cpp" line="1637"/>
         <source>Invalid regular expression</source>
-        <translation>Ungültiger regulärer Ausdruck</translation>
+        <translation>Ungültige Regular Expression</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1569"/>
@@ -1839,7 +1845,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="1014"/>
         <source>Hard Wrap...</source>
-        <translation>Fixer Zeilenumbruch...</translation>
+        <translation>Fester Zeilenumbruch ...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1025"/>
@@ -2281,17 +2287,18 @@ Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplat
     <message>
         <location filename="../src/ToolConfig.ui" line="13"/>
         <source>Tool Configuration</source>
-        <translation>Konfiguration des Werkzeugs</translation>
+        <translation>Konfiguration Textsatz</translation>
     </message>
     <message>
         <location filename="../src/ToolConfig.ui" line="25"/>
         <source>Name:</source>
+        <translatorcomment>Datei</translatorcomment>
         <translation>Name:</translation>
     </message>
     <message>
         <location filename="../src/ToolConfig.ui" line="39"/>
         <source>Program:</source>
-        <translation>Programmdatei:</translation>
+        <translation>Befehl/Datei:</translation>
     </message>
     <message>
         <location filename="../src/ToolConfig.ui" line="53"/>
@@ -2301,7 +2308,7 @@ Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplat
     <message>
         <location filename="../src/ToolConfig.ui" line="124"/>
         <source>View PDF after running</source>
-        <translation>PDF anzeigen nach Beendigung</translation>
+        <translation>PDF nach Beendigung anzeigen</translation>
     </message>
 </context>
 </TS>
