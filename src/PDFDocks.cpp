@@ -129,6 +129,7 @@ void PDFOutlineDock::fillInfo()
 	if (toc) {
 		fillToc(*toc, tree, 0);
 		connect(tree, SIGNAL(itemSelectionChanged()), this, SLOT(followTocSelection()));
+		delete toc;
 	} else {
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(0, tr("No TOC"));

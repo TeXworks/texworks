@@ -19,7 +19,7 @@ BEGIN
         BLOCK "040904E4"
         BEGIN
             VALUE "CompanyName",      "TeX Users Group"
-            VALUE "FileDescription",  "Authoring environment for TeX documents"
+            VALUE "FileDescription",  "TeXworks editor & previewer"
             VALUE "FileVersion",      TEXWORKS_VERSION ".r" SVN_REVISION_STR
             VALUE "InternalName",     "TeXworks"
             VALUE "LegalCopyright",   "Copyright (c) 2007-2009 Jonathan Kew"
