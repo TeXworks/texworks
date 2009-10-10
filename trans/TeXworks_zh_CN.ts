@@ -649,7 +649,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>程序界面 locale：</translation>
+        <translation>程序界面语言：</translation>
     </message>
     <message>
         <source>Editor</source>
