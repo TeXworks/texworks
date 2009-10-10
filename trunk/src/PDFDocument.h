@@ -86,6 +86,8 @@ class PDFWidget : public QLabel
 
 public:
 	PDFWidget();
+	virtual ~PDFWidget();
+	
 	void setDocument(Poppler::Document *doc);
 
 	void saveState(); // used when toggling full screen mode

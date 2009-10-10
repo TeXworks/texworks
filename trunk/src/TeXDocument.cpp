@@ -183,7 +183,7 @@ void TeXDocument::init()
 
 	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(typeset()));
 
-	menuRecent = new QMenu(tr("Open Recent"));
+	menuRecent = new QMenu(tr("Open Recent"), this);
 	updateRecentFileActions();
 	menuFile->insertMenu(actionOpen_Recent, menuRecent);
 	menuFile->removeAction(actionOpen_Recent);
