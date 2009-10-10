@@ -453,6 +453,22 @@
         <comment>action</comment>
         <translation></translation>
     </message>
+    <message>
+        <source>Scripts</source>
+        <translation>脚本</translation>
+    </message>
+    <message>
+        <source>Update Scripts</source>
+        <translation>更新脚本</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>管理脚本</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>显示脚本文件夹</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -649,7 +665,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>程序界面 locale：</translation>
+        <translation>程序界面语言：</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -778,6 +794,10 @@
     <message>
         <source>Highlight current line</source>
         <translation>高亮显示当前行</translation>
+    </message>
+    <message>
+        <source>Smart Quotes mode:</source>
+        <translation>智能引号模式</translation>
     </message>
 </context>
 <context>
@@ -1050,6 +1070,17 @@
     <message>
         <source>Unable to find help file.</source>
         <translation>无法找到帮助文件。</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptable</name>
+    <message>
+        <source>unknown error</source>
+        <translation>未知错误</translation>
+    </message>
+    <message>
+        <source>Script &quot;%1&quot;: %2</source>
+        <translation>脚本 “%1”：%2</translation>
     </message>
 </context>
 <context>
@@ -1682,6 +1713,26 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation></translation>
+    </message>
+    <message>
+        <source>Console output</source>
+        <translation>控制台输出</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>脚本</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>显示脚本文件夹</translation>
+    </message>
+    <message>
+        <source>Update Scripts</source>
+        <translation>更新脚本</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>管理脚本</translation>
     </message>
 </context>
 <context>
