@@ -1,0 +1,80 @@
+diff --git a/poppler/GlobalParams.h b/poppler/GlobalParams.h
+index 7cb2ffc..f92ce41 100644
+--- a/poppler/GlobalParams.h
++++ b/poppler/GlobalParams.h
+@@ -33,8 +33,6 @@
+ #pragma interface
+ #endif
+ 
+-#include "config.h"
+-
+ #include <assert.h>
+ #include "poppler-config.h"
+ #include <stdio.h>
+diff --git a/qt4/src/poppler-document.cc b/qt4/src/poppler-document.cc
+index 877db52..2310c87 100644
+--- a/qt4/src/poppler-document.cc
++++ b/qt4/src/poppler-document.cc
+@@ -39,6 +39,7 @@
+ namespace Poppler {
+ 
+   int DocumentData::count = 0;
++  GBool DocumentData::ownGlobalParams = gFalse;
+ 
+   Document *Document::load(const QString &filePath, const QByteArray &ownerPassword,
+ 			   const QByteArray &userPassword)
+diff --git a/qt4/src/poppler-private.h b/qt4/src/poppler-private.h
+index acf3124..5d5c301 100644
+--- a/qt4/src/poppler-private.h
++++ b/qt4/src/poppler-private.h
+@@ -103,7 +103,11 @@ namespace Poppler {
+ 		
+ 		if ( count == 0 )
+ 		{
+-			globalParams = new GlobalParams();
++			if ( !globalParams )
++			{
++				globalParams = new GlobalParams();
++				ownGlobalParams = gTrue;
++			}
+ 			setErrorFunction(qt4ErrorFunction);
+ 		}
+ 		count ++;
+@@ -118,7 +122,15 @@ namespace Poppler {
+ 		delete m_fontInfoIterator;
+ 		
+ 		count --;
+-		if ( count == 0 ) delete globalParams;
++		if ( count == 0 )
++		{
++			if ( ownGlobalParams )
++			{
++				delete globalParams;
++				globalParams = NULL;
++				ownGlobalParams = gFalse;
++			}
++		}
+ 	}
+ 	
+ 	OutputDev *getOutputDev()
+@@ -204,6 +216,7 @@ namespace Poppler {
+ 	QColor paperColor;
+ 	int m_hints;
+ 	static int count;
++	static GBool ownGlobalParams;
+     };
+ 
+     class FontInfoData
+diff --git a/qt4/src/poppler-qt4.h b/qt4/src/poppler-qt4.h
+index fd384f5..4f5d639 100644
+--- a/qt4/src/poppler-qt4.h
++++ b/qt4/src/poppler-qt4.h
+@@ -1114,7 +1114,7 @@ QString subject = m_doc->info("Subject");
+ 	   Destructor.
+ 	*/
+ 	~Document();
+-  
++
+     private:
+ 	Q_DISABLE_COPY(Document)
+ 
