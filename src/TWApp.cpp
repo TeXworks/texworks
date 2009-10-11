@@ -51,6 +51,11 @@
 #include <QUrl>
 #include <QDesktopServices>
 
+#ifdef Q_WS_WIN
+#include <QtPlugin>
+Q_IMPORT_PLUGIN(qjpeg)
+#endif
+
 #if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN))
 #include "poppler-config.h"
 #include "GlobalParams.h"
@@ -154,8 +159,6 @@ void TWApp::init()
 		defaultCodec = QTextCodec::codecForName("UTF-8");
 
 	TWUtils::readConfig();
-
-	scriptManager.addScriptsInDirectory(TWUtils::getLibraryPath("scripts"));
 
 #ifdef Q_WS_MAC
 	setQuitOnLastWindowClosed(false);
@@ -752,22 +755,6 @@ void TWApp::openHelpFile(const QString& helpDirName)
 		openUrl(QUrl::fromLocalFile(helpDir.absoluteFilePath("index.html")));
 	else
 		QMessageBox::warning(NULL, TEXWORKS_NAME, tr("Unable to find help file."));
-}
-
-void TWApp::updateScriptsList()
-{
-	scriptManager.clear();
-	scriptManager.addScriptsInDirectory(TWUtils::getLibraryPath("scripts"));
-	foreach (QWidget *widget, QApplication::topLevelWidgets()) {
-		TWScriptable *scriptable = qobject_cast<TWScriptable*>(widget);
-		if (scriptable)
-			scriptable->updateScriptsMenu();
-	}
-}
-
-void TWApp::showScriptsFolder()
-{
-	QDesktopServices::openUrl(QUrl::fromLocalFile(TWUtils::getLibraryPath("scripts")));
 }
 
 #ifdef Q_WS_WIN	// support for the Windows single-instance code

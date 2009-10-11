@@ -28,7 +28,6 @@
 #include <QSettings>
 
 #include "TWUtils.h"
-#include "TWScriptable.h"
 
 #ifdef Q_WS_WIN
 #define PATH_LIST_SEP   ';'
@@ -103,8 +102,6 @@ public:
 	
 	QString getPortableLibPath() const { return portableLibPath; }
 
-	TWScriptManager& getScriptManager() { return scriptManager; }
-
 #ifdef Q_WS_WIN
 	void createMessageTarget(QWidget* aWindow);
 #endif
@@ -152,9 +149,6 @@ public slots:
 	
 	void maybeQuit();
 
-	void updateScriptsList();
-	void showScriptsFolder();
-	
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu
 	void recentFileActionsChanged();
@@ -213,8 +207,6 @@ private:
 #ifdef Q_WS_WIN
 	HWND messageTargetWindow;
 #endif
-
-	TWScriptManager scriptManager;
 
 	static TWApp *theAppInstance;
 };

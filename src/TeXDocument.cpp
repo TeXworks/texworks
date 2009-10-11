@@ -51,7 +51,6 @@
 #include <QSignalMapper>
 #include <QDockWidget>
 #include <QTableView>
-#include <QHeaderView>
 #include <QStandardItemModel>
 #include <QAbstractButton>
 #include <QPushButton>
@@ -354,11 +353,9 @@ void TeXDocument::init()
 	
 	docList.append(this);
 	
-	TWApp::instance()->updateWindowMenus();
-	
-	initScriptable(menuScripts, actionManage_Scripts, actionUpdate_Scripts, actionShow_Scripts_Folder);
-
 	TWUtils::insertHelpMenuItems(menuHelp);
+	
+	TWApp::instance()->updateWindowMenus();
 	TWUtils::installCustomShortcuts(this);
 }
 
@@ -408,7 +405,6 @@ void TeXDocument::newFile()
 	TeXDocument *doc = new TeXDocument;
 	doc->selectWindow();
 	doc->textEdit->updateLineNumberAreaWidth(0);
-	runHooks("newFile");
 }
 
 void TeXDocument::newFromTemplate()
@@ -427,7 +423,6 @@ void TeXDocument::newFromTemplate()
 			doc->makeUntitled();
 			doc->selectWindow();
 			doc->textEdit->updateLineNumberAreaWidth(0);
-			doc->runHooks("newFromTemplate");
 		}
 	}
 }
@@ -859,8 +854,6 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	}
 	textEdit->updateLineNumberAreaWidth(0);
 	maybeEnableSaveAndRevert(false);
-
-	runHooks("loadFile");
 }
 
 void TeXDocument::reloadIfChangedOnDisk()
@@ -1375,19 +1368,6 @@ void TeXDocument::replaceSelection(const QString& newText)
 	cursor.setPosition(start);
 	cursor.setPosition(end, QTextCursor::KeepAnchor);
 	textEdit->setTextCursor(cursor);
-}
-
-void TeXDocument::selectRange(int start, int length)
-{
-	QTextCursor c = textCursor();
-	c.setPosition(start);
-	c.setPosition(start + length, QTextCursor::KeepAnchor);
-	editor()->setTextCursor(c);
-}
-
-void TeXDocument::insertText(const QString& text)
-{
-	textCursor().insertText(text);
 }
 
 void TeXDocument::balanceDelimiters()
@@ -2038,7 +2018,7 @@ void TeXDocument::typeset()
 		args.replaceInStrings("$directory", fileInfo.absoluteDir().absolutePath());
 		
 		textEdit_console->clear();
-		if (consoleTabs->isHidden()) {
+		if (textEdit_console->isHidden()) {
 			consoleWasHidden = true;
 			showConsole();
 		}
@@ -2145,8 +2125,6 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 		}
 	}
 
-	executeAfterTypesetHooks();
-	
 	QSETTINGS_OBJECT(settings);
 	if (consoleWasHidden && exitCode == 0 && exitStatus != QProcess::CrashExit && settings.value("autoHideConsole", true).toBool())
 		hideConsole();
@@ -2158,69 +2136,9 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	updateTypesettingAction();
 }
 
-void TeXDocument::executeAfterTypesetHooks()
-{
-	for (int i = consoleTabs->count() - 1; i > 0; --i)
-		consoleTabs->removeTab(i);
-	
-	foreach (TWScript *s, TWApp::instance()->getScriptManager().getHookScripts("AfterTypeset")) {
-		QVariant result;
-		bool success = s->run(this, result);
-		if (success && !result.isNull()) {
-			if (result.type() == QVariant::List) {
-				const QVariantList list = result.toList();
-				int columns = 1;
-				QTableWidget *table = new QTableWidget(list.count(), columns, this);
-				table->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-				table->horizontalHeader()->setStretchLastSection(true);
-				table->horizontalHeader()->hide();
-				table->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-				table->setSelectionBehavior(QAbstractItemView::SelectRows);
-				table->setSelectionMode(QAbstractItemView::SingleSelection);
-				table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-				connect(table, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(errorLineClicked(QTableWidgetItem*)));
-				for (int i = 0; i < list.count(); ++i) {
-					const QVariant item = list.at(i);
-					if (item.type() == QVariant::List) {
-						const QVariantList rowList = item.toList();
-						if (rowList.count() > columns) {
-							columns = rowList.count();
-							table->setColumnCount(columns);
-						}
-						for (int j = 0; j < rowList.count(); ++j) {
-							table->setItem(i, j, new QTableWidgetItem(rowList.at(j).toString()));
-						}
-					}
-					else {
-						table->setItem(i, 0, new QTableWidgetItem(item.toString()));
-						table->setSpan(i, 0, 1, columns);
-					}
-				}
-				consoleTabs->addTab(table, s->getTitle());
-			}
-			else {
-				QTextEdit *textEdit = new QTextEdit(this);
-				textEdit->setPlainText(result.toString());
-				textEdit->setReadOnly(true);
-				consoleTabs->addTab(textEdit, s->getTitle());
-			}
-		}
-	}
-}
-
-void TeXDocument::errorLineClicked(QTableWidgetItem * i)
-{
-	QTableWidget * table = i->tableWidget();
-	int row = i->row();
-	QString filename = table->item(row, 0)->text();
-	int line = table->item(row, 1)->text().toInt();
-	
-	openDocument(QFileInfo(curFile).absoluteDir().filePath(filename), true, true, line);
-}
-
 void TeXDocument::showConsole()
 {
-	consoleTabs->show();
+	textEdit_console->show();
 	if (process != NULL)
 		inputLine->show();
 	actionShow_Hide_Console->setText(tr("Hide Output Panel"));
@@ -2228,14 +2146,14 @@ void TeXDocument::showConsole()
 
 void TeXDocument::hideConsole()
 {
-	consoleTabs->hide();
+	textEdit_console->hide();
 	inputLine->hide();
 	actionShow_Hide_Console->setText(tr("Show Output Panel"));
 }
 
 void TeXDocument::toggleConsoleVisibility()
 {
-	if (consoleTabs->isVisible())
+	if (textEdit_console->isVisible())
 		hideConsole();
 	else
 		showConsole();
