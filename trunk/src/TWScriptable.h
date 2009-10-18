@@ -27,6 +27,7 @@
 #include <QString>
 #include <QFileInfo>
 #include <QDir>
+#include <QProcess>
 
 class QMenu;
 class QAction;
@@ -135,6 +136,49 @@ private:
 	QMenu* scriptsMenu;
 	QSignalMapper* scriptMapper;
 	int staticScriptMenuItemCount;
+};
+
+
+class TWSystemCmd : public QProcess {
+	Q_OBJECT
+	
+public:
+	TWSystemCmd(QObject* parent, bool isOutputWanted = true)
+		: QProcess(parent), wantOutput(isOutputWanted) {}
+	virtual ~TWSystemCmd() {}
+	
+public slots:
+	void processError(QProcess::ProcessError error) {
+		if (wantOutput)
+			result = tr("ERROR: failure code %1").arg(error);
+		deleteLater();
+	}
+	void processFinished(int exitCode, QProcess::ExitStatus exitStatus) {
+		if (wantOutput) {
+			if (exitStatus == QProcess::NormalExit) {
+				if (bytesAvailable() > 0) {
+					QByteArray ba = readAllStandardOutput();
+					result += QString::fromLocal8Bit(ba);
+				}
+			}
+			else {
+				result = tr("ERROR: exit code %1").arg(exitCode);
+			}
+		}
+		deleteLater();
+	}
+	void processOutput() {
+		if (wantOutput && bytesAvailable() > 0) {
+			QByteArray ba = readAllStandardOutput();
+			result += QString::fromLocal8Bit(ba);
+		}
+	}
+
+	QString getResult() { return result; }
+	
+private:
+	bool wantOutput;
+	QString result;
 };
 
 #endif

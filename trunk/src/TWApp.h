@@ -78,8 +78,6 @@ public:
 	void setBinaryPaths(const QStringList& paths);
 	void setEngineList(const QList<Engine>& engines);
 
-	void open(const QString &fileName);
-
 	const QStringList getBinaryPaths();
 	const QList<Engine> getEngineList();
 	void saveEngineList();
@@ -154,6 +152,21 @@ public slots:
 
 	void updateScriptsList();
 	void showScriptsFolder();
+
+	void about();
+	void newFile();
+	void open();
+	void stackWindows();
+	void tileWindows();
+
+	QObject* openFile(const QString& fileName);
+
+	QString getOpenFileName();
+	QStringList getOpenFileNames();
+	QString getSaveFileName(const QString& defaultName);
+	
+	// for script access to arbitrary commands
+	QVariant system(const QString& cmdline, bool waitForResult = true);
 	
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu
@@ -173,17 +186,11 @@ signals:
 
 	void highlightLineOptionChanged();
 
-private slots:
-	void about();
-	void newFile();
+private slots:	
 	void newFromTemplate();
-	void open();
 	void openRecentFile();
 	void preferences();
 
-	void stackWindows();
-	void tileWindows();
-	
 	void syncFromSource(const QString& sourceFile, int lineNo);
 
 	void changeLanguage();

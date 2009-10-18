@@ -1626,7 +1626,7 @@ void PDFDocument::dropEvent(QDropEvent *event)
 		const QList<QUrl> urls = event->mimeData()->urls();
 		foreach (const QUrl& url, urls)
 			if (url.scheme() == "file")
-				TWApp::instance()->open(url.toLocalFile());
+				TWApp::instance()->openFile(url.toLocalFile());
 		event->acceptProposedAction();
 	}
 }

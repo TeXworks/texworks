@@ -86,6 +86,10 @@ void PrefsDialog::changedTabPanel(int index)
 		case 3: // Typesetting
 			binPathList->setFocus();
 			break;
+		case 4: // Script
+			if (page->focusWidget() != NULL)
+				page->focusWidget()->clearFocus();
+			break;
 	}
 }
 
@@ -359,6 +363,12 @@ void PrefsDialog::restoreDefaults()
 			pathsChanged = true;
 			toolsChanged = true;
 			break;
+
+		case 4:
+			// Scripts
+			allowSystemCommands->setChecked(false);
+			scriptDebugger->setChecked(false);
+			break;
 	}
 }
 
@@ -532,6 +542,13 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.initPathAndToolLists();
 	dlg.autoHideOutput->setChecked(settings.value("autoHideConsole", kDefault_HideConsole).toBool());
 
+	// Scripts
+	dlg.allowSystemCommands->setChecked(settings.value("allowSystemCommands", false).toBool());
+	dlg.scriptDebugger->setChecked(settings.value("scriptDebugger", false).toBool());
+#if QT_VERSION < 0x040500
+	dlg.scriptDebugger->setEnabled(false);
+#endif
+	
 	// Decide which tab to select initially
 	if (sCurrentTab == -1) {
 		if (parent && parent->inherits("TeXDocument"))
@@ -663,6 +680,10 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			TWApp::instance()->setEngineList(dlg.engineList);
 		TWApp::instance()->setDefaultEngine(dlg.defaultTool->currentText());
 		settings.setValue("autoHideConsole", dlg.autoHideOutput->isChecked());
+
+		// Scripts
+		settings.setValue("allowSystemCommands", dlg.allowSystemCommands->isChecked());
+		settings.setValue("scriptDebugger", dlg.scriptDebugger->isChecked());
 	}
 
 	return result;
