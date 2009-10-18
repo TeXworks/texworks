@@ -191,10 +191,18 @@ void TeXHighlighter::loadPatterns()
 				QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
 				if (parts.size() != 3)
 					continue;
-				QColor color(parts[0]);
-				if (color.isValid()) {
+				QStringList colors = parts[0].split(QChar('/'));
+				QColor fg, bg;
+				if (colors.size() <= 2) {
+					if (colors.size() == 2)
+						bg = QColor(colors[1]);
+					fg = QColor(colors[0]);
+				}
+				if (fg.isValid()) {
 					HighlightingRule rule;
-					rule.format.setForeground(color);
+					rule.format.setForeground(fg);
+					if (bg.isValid())
+						rule.format.setBackground(bg);
 					if (parts[1].compare("Y", Qt::CaseInsensitive) == 0) {
 						rule.spellCheck = true;
 						rule.spellFormat = rule.format;
