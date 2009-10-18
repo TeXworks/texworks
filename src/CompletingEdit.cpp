@@ -71,7 +71,7 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 		QSETTINGS_OBJECT(settings);
 		highlightCurrentLine = settings.value("highlightCurrentLine", true).toBool();
 	}
-	
+		
 	loadIndentModes();
 	loadSmartQuotesModes();
 	
