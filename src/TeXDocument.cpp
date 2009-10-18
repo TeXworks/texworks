@@ -453,7 +453,7 @@ void TeXDocument::open()
 		if (!fileName.isEmpty()) {
 			QFileInfo info(fileName);
 			settings.setValue("openDialogDir", info.canonicalPath());
-			TWApp::instance()->open(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
+			TWApp::instance()->openFile(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
 		}
 	}
 }
@@ -2467,7 +2467,7 @@ void TeXDocument::dropEvent(QDropEvent *event)
 				QString fileName = url.toLocalFile();
 				switch (action) {
 					case OPEN_FILE_IN_NEW_WINDOW:
-						TWApp::instance()->open(fileName);
+						TWApp::instance()->openFile(fileName);
 						break;
 
 					case INSERT_DOCUMENT_TEXT:

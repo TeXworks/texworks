@@ -133,18 +133,28 @@ bool JSScript::run(QObject *context, QVariant& result) const
 	scriptFile.close();
 	
 	QScriptEngine engine;
-#if QT_VERSION >= 0x040500
-	QScriptEngineDebugger debugger;
-	debugger.attachTo(&engine);	
-#endif
-
 	QScriptValue targetObject = engine.newQObject(context);
 	engine.globalObject().setProperty("target", targetObject);
 	
 	QScriptValue appObject = engine.newQObject(TWApp::instance());
 	engine.globalObject().setProperty("app", appObject);
 	
-	QScriptValue val = engine.evaluate(contents, m_Filename);
+	QScriptValue val;
+
+#if QT_VERSION >= 0x040500
+	QSETTINGS_OBJECT(settings);
+	if (settings.value("scriptDebugger", false).toBool()) {
+		QScriptEngineDebugger debugger;
+		debugger.attachTo(&engine);
+		val = engine.evaluate(contents, m_Filename);
+	}
+	else {
+		val = engine.evaluate(contents, m_Filename);
+	}
+#else
+	val = engine.evaluate(contents, m_Filename);
+#endif
+
 	if (engine.hasUncaughtException()) {
 		result = engine.uncaughtException().toString();
 		return false;
