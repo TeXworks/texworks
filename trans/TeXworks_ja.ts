@@ -453,6 +453,22 @@
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
+    <message>
+        <source>Scripts</source>
+        <translation>スクリプト</translation>
+    </message>
+    <message>
+        <source>Update Scripts</source>
+        <translation>スクリプトの更新</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>スクリプトの管理</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>スクリプトフォルダを開く</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -779,6 +795,10 @@
         <source>Auto-hide output panel unless errors occur</source>
         <translation>エラーがなければ、ログを表示しない</translation>
     </message>
+    <message>
+        <source>Smart Quotes mode:</source>
+        <translation>引用符の入力支援</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1047,6 +1067,21 @@
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>TeX関連プログラムがインストールされたディレクトリが見つかりません。&lt;p&gt;&lt;small&gt;プロセスを起動するためには、お使いのTeXディストリビューションに合わせたディレクトリ設定を[設定]-[タイプセット]ダイアログでおこなっておく必要があります</translation>
     </message>
+    <message>
+        <source>Unable to find help file.</source>
+        <translation>ヘルプファイルが見つかりません</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptable</name>
+    <message>
+        <source>unknown error</source>
+        <translation>不明なエラー</translation>
+    </message>
+    <message>
+        <source>Script &quot;%1&quot;: %2</source>
+        <translation>スクリプト &quot;%1&quot;: %2</translation>
+    </message>
 </context>
 <context>
     <name>TagsDock</name>
@@ -1087,7 +1122,7 @@
     </message>
     <message>
         <source>Cannot close window while tool is running</source>
-        <translation>処理が続いているため、ウィンドウを閉じることができません</translation>
+        <translation type="obsolete">処理が続いているため、ウィンドウを閉じることができません</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1670,6 +1705,30 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Line Numbers</source>
         <translation>行番号</translation>
+    </message>
+    <message>
+        <source>Process interrupted by user</source>
+        <translation>処理はユーザによって中断されました</translation>
+    </message>
+    <message>
+        <source>Console output</source>
+        <translation>ログの表示</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>スクリプト</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>スクリプトフォルダを開く</translation>
+    </message>
+    <message>
+        <source>Update Scripts</source>
+        <translation>スクリプトの更新</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>スクリプトの管理</translation>
     </message>
 </context>
 <context>
