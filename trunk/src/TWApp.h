@@ -253,7 +253,7 @@ public:
 	
 public slots:
 	Q_NOREPLY void openFile(const QString& fileName)
-		{ app->open(fileName); }
+		{ app->openFile(fileName); }
 	Q_NOREPLY void bringToFront()
 		{ app->bringToFront(); }
 };
