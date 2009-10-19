@@ -148,7 +148,7 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="+1133"/>
+        <location filename="../src/PDFDocument.cpp" line="+1139"/>
         <location line="+61"/>
         <location filename="../src/PDFDocument.ui" line="+365"/>
         <source>Open Recent</source>
@@ -645,7 +645,7 @@
 <context>
     <name>PDFFontsDock</name>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="+268"/>
+        <location filename="../src/PDFDocks.cpp" line="+269"/>
         <source>Name</source>
         <translation>Название</translation>
     </message>
@@ -715,7 +715,7 @@
 <context>
     <name>PDFWidget</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="-1153"/>
+        <location filename="../src/PDFDocument.cpp" line="-1159"/>
         <source>Zoom In</source>
         <translation>Увеличить</translation>
     </message>
@@ -740,7 +740,7 @@
         <translation>По размеру окна</translation>
     </message>
     <message>
-        <location line="+332"/>
+        <location line="+338"/>
         <source>Jump to Source</source>
         <translation>Перейти к исходному файлу</translation>
     </message>
@@ -758,7 +758,7 @@
 <context>
     <name>PrefsDialog</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="+130"/>
+        <location filename="../src/PrefsDialog.cpp" line="+134"/>
         <source>Choose Directory</source>
         <translation>Выберите директорию</translation>
     </message>
@@ -768,7 +768,7 @@
         <translation>Новый инструмент</translation>
     </message>
     <message>
-        <location line="+239"/>
+        <location line="+245"/>
         <source>System default [%1]</source>
         <translation>Язык системы [%1]</translation>
     </message>
@@ -994,7 +994,22 @@
         <translation>Автоматически скрывать панель вывода если нет ошибок</translation>
     </message>
     <message>
-        <location line="-629"/>
+        <location line="+8"/>
+        <source>Scripts</source>
+        <translation>Скрипты</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Enable QtScript debugger</source>
+        <translation>Включить отладчик QtScript</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Allow scripts to run system commands</source>
+        <translation>Разрешить скриптам запускать системные программы</translation>
+    </message>
+    <message>
+        <location line="-666"/>
         <source>Line numbers</source>
         <translation>Нумерация строк</translation>
     </message>
@@ -1339,11 +1354,17 @@
     </message>
     <message>
         <location line="+40"/>
+        <location line="+7"/>
         <source>Open File</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location line="+149"/>
+        <location line="+13"/>
+        <source>Save File</source>
+        <translation>Сохранить файл</translation>
+    </message>
+    <message>
+        <location line="+170"/>
         <source>No default binary directory found</source>
         <translation>Не найдена директория с программами, заданная по умолчанию</translation>
     </message>
@@ -1357,11 +1378,26 @@
         <source>Unable to find help file.</source>
         <translation>Невозможно найти файл справки.</translation>
     </message>
+    <message>
+        <location line="+33"/>
+        <source>Failed to execute system command: %1</source>
+        <translation>Не удалось выполнить системную команду: %1</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Error executing system command: %1</source>
+        <translation>Ошибка при выполнении системной команды: %1</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation>Запуск системных команд отключён (см. Настройки)</translation>
+    </message>
 </context>
 <context>
     <name>TWScriptable</name>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="+282"/>
+        <location filename="../src/TWScriptable.cpp" line="+292"/>
         <source>unknown error</source>
         <translation>неизвестная ошибка</translation>
     </message>
@@ -1369,6 +1405,19 @@
         <location line="+1"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Скрипт &quot;%1&quot;: %2</translation>
+    </message>
+</context>
+<context>
+    <name>TWSystemCmd</name>
+    <message>
+        <location filename="../src/TWScriptable.h" line="+153"/>
+        <source>ERROR: failure code %1</source>
+        <translation>ОШИБКА: сбой в коде %1</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>ERROR: exit code %1</source>
+        <translation>ОШИБКА: код завершения %1</translation>
     </message>
 </context>
 <context>
@@ -2217,7 +2266,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="+234"/>
+        <location filename="../src/PrefsDialog.cpp" line="+245"/>
         <source>NewArgument</source>
         <translation>НовыйПараметр</translation>
     </message>
