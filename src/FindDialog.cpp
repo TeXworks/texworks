@@ -441,7 +441,7 @@ void SearchResults::presentResults(const QString& searchText,
 	}
 
 	SearchResults* resultsWindow = new SearchResults(parent);
-	resultsWindow->setWindowTitle(resultsWindow->windowTitle() + " - " + searchText);
+	resultsWindow->setWindowTitle(tr("Search Results - %1 (%2 found)").arg(searchText).arg(results.length()));
 
 	resultsWindow->table->setRowCount(results.count());
 	int i = 0;
