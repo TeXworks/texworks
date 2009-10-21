@@ -1,0 +1,166 @@
+#summary Extending TeXworks with QtScript
+
+<wiki:toc max_depth="4" />
+
+The current development version of !TeXworks (v0.3) includes experimental support for using the !QtScript language to add functionality to the core program.
+
+!QtScript is based on the [http://www.ecma-international.org/publications/standards/Ecma-262.htm ECMAScript] scripting language. !JavaScript, as widely used in web applications, is also based on the ECMAScript standard, so !QtScript should feel familiar to those with !JavaScript experience. For an overview of ECMAScript, see the Qt [http://doc.trolltech.com/4.5/ecmascript.html ECMAScript reference], and/or tutorial materials such as [http://www.davidflanagan.com/javascript5/ JavaScript: The Definitive Guide].
+
+The following notes relate to the implementation of !QtScript within !TeXworks, but do not attempt to teach the language itself.
+
+All the information here is preliminary, and subject to change at any time during the development of the new features. Feedback is welcome via the [http://tug.org/mailman/listinfo/texworks mailing list].
+
+==Script files==
+
+Scripts for !TeXworks should be created as text files with the extension `.js` and placed in the `scripts` subdirectory of your !TeXworks resource folder (typically found within your home directory, exact location is platform-dependent). The first time !TeXworks 0.3 is launched, it will create the `scripts` folder if it does not already exist, and install a few example scripts there. If more examples are added in later releases, you will need to remove or rename the `scripts` folder in order for the new ones to be installed; the program will not modify an existing `scripts` folder.
+
+===Header===
+
+Every script file must start with a comment section that provides some basic metadata about the script, otherwise !TeXworks will not load the script at all. An example of the metadata section is:
+{{{
+// TeXworksScript
+// Title: Make Bold
+// Description: Encloses the current selection in \textbf{}
+// Author: Jonathan Kew
+// Version: 0.1
+// Date: 2009-08-31
+// Script-Type: standalone
+}}}
+The first line must have the keyword `TeXworksScript`, otherwise the script will be ignored. The `Title` is required and will appear as a menu item in the Scripts menu. The next four items are optional, purely for documentation purposes. Finally, there must be a `Script-Type` entry. This should be `standalone` for scripts that are designed to be run by the user, activated from the Scripts menu, or `hook` for scripts that !TeXworks will call automatically at certain times. (More on this below.) In the case of `hook` scripts, there is an additional field `Hook` that specifies when the script is to be used.
+
+(The metadata requirements, like everything about this feature, are subject to change as the scripting functionality evolves.)
+
+===Script program===
+
+Following the metadata comment, the script is simply a !QtScript program; it may define functions as needed, and has access to many objects and methods of the host application; see below.
+
+The return value of the script -- i.e. the value of its last statement -- is returned to !TeXworks and will be displayed (in the case of a standalone script) or used as appropriate depending on the calling context (for hook scripts). You can end the script with `undefined;` if necessary to ensure that no value is returned (e.g., if the last statement is a non-`void` method call, but you do not want to return its result).
+
+====The `target` (current document) object====
+
+Before executing a script, !TeXworks sets up a global object called `target` in the script's execution context. This object is the current document (either a source or PDF document) at the time the script was called. This object has many properties and methods that can be accessed by the script in order to examine and manipulate it. A few are shown in the example scripts; others can be discovered by breaking into the !QtScript debugger and inspecting the `target` object.
+
+====The `app` (application) object====
+
+In addition to the `target` object, !TeXworks also sets up a second global object called `app`. This object represents the actual !TeXworks application, and offers some application-wide properties and methods.
+
+==Accessing the !QtScript debugger==
+
+One way to begin exploring the possibilities of !QtScript is to turn on the script debugger (see Preferences/Scripts). Then you can insert a `debugger;` statement at the beginning of a script, and run the script; when it hits the `debugger;` statement it will break into the debugger, where you can explore the !TeXworks objects and see what properties and methods they have. (There will be *many* internal things that are not useful for scripting, and can be ignored; concentrate on the `target` and `app` objects to find useful functionality.)
+
+Once in the debugger, you can also single-step through your scripts to watch how variables change, etc., during execution.
+
+==Example scripts==
+
+A few examples of standalone scripts are shown here. For brevity, the metadata header is omitted; remember that !TeXworks will not actually load script files that lack a valid header.
+
+===Insert `\textbf{}` around the selection===
+
+A simple script to add markup to a selected range of text:
+
+{{{
+var txt = target.selection;
+var len = txt.length;
+target.insertText("\\textbf{" + txt + "}");
+target.selectRange(target.selectionStart - len - 1, len);
+}}}
+
+This uses the `target` object to modify a LaTeX source document being edited. `target.selection` is the currently-selected text (may be an empty string). The `insertText` method simply inserts its argument into the document, replacing the existing selection; this gives us the desired result.
+
+As a refinement, we then adjust the selection so that the original text is again selected, using the `selectRange` method, which takes an offset in the document and the length of text to be selected. This means that it is possible to apply several such scripts in succession to a selection, resulting in properly-nested markup.
+
+===Add or remove markup around the selection===
+
+Here is a more sophisticated version of the script to add `\textbf{...}` around selected text:
+
+{{{
+function addOrRemove(prefix, suffix) {
+  var txt = target.selection;
+  var len = txt.length;
+  var wrapped = prefix + txt + suffix;
+  var pos = target.selectionStart;
+  if (pos >= prefix.length) {
+    target.selectRange(pos - prefix.length, wrapped.length);
+    if (target.selection == wrapped) {
+      target.insertText(txt);
+      target.selectRange(pos - prefix.length, len);
+      return;
+    }
+    target.selectRange(pos, len);
+  }
+  target.insertText(wrapped);
+  target.selectRange(pos + prefix.length, len);
+  return;
+};
+
+if (target.objectName == "TeXDocument") {
+  addOrRemove("\\textbf{", "}");
+} else {
+  "This script only works in source document windows."
+}
+}}}
+
+This version checks if the text is already surrounded by `\textbf{...}`, and if so, removes instead of adding it. Thus, it will "toggle" the state of a selected fragment between bold and regular. It is also written using a generic function, to make it easier to create similar scripts for a variety of markup fragments; only the call to `addOrRemove` (and the metadata) need be updated.
+
+This script also checks that it is being run on a source document (!TeXworks object name `TeXDocument`) and returns an error message otherwise. The previous script should really make such a check too, as it does not make sense to run it on a PDF document. If it is used in the wrong context, the error message becomes the result of the script, and will be displayed in a dialog box by !TeXworks.
+
+===Convert selected text to Title Case===
+
+To show some more advanced string processing, this uses a !JavaScript `toTitleCase` method by David Gouch (from http://individed.com) to apply a titlecase transformation to selected text:
+
+{{{
+String.prototype.toTitleCase = function() {
+  return this.replace(/(\\?[\w&`'‘’"“.@:\/\{\(\[<>_]+-? *)/g, function(match, p1, index, title) {
+    if (index > 0 && title.charAt(index - 2) !== ":" &&
+        match.search(/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|t(he|o)|vs?\.?|via)[ \-]/i) > -1)
+      return match.toLowerCase();
+    if (title.substring(index - 1, index + 1).search(/['"_{(\[]/) > -1)
+      return match.charAt(0) + match.charAt(1).toUpperCase() + match.substr(2);
+    if (match.substr(1).search(/[A-Z]+|&|[\w]+[._][\w]+/) > -1 ||
+        title.substring(index - 1, index + 1).search(/[\])}]/) > -1)
+      return match;
+    return match.charAt(0).toUpperCase() + match.substr(1);
+  });
+};
+
+if (target.objectName == "TeXDocument") {
+  var txt = target.selection;
+  if (txt != "") {
+    var pos = target.selectionStart;
+    txt = txt.toTitleCase();
+    target.insertText(txt);
+    target.selectRange(pos, txt.length);
+  }
+} else {
+  "This script only works in source document windows."
+}
+}}}
+
+===Execute arbitrary system commands===
+
+Through the application object, scripts have the ability to execute arbitrary system commands. Here is an example "System Command" script:
+
+{{{
+var cmd = target.selection;
+if (cmd != "") {
+  var result = app.system(cmd);
+  if (result != null) {
+    target.insertText(result);
+  }
+}
+}}}
+
+This script reads the currently-selected text in the document, executes it as a system command, and then replaces the text with the output of the command. For example, enter:
+{{{
+Directory listing:
+ls -l
+}}}
+in a !TeXworks document, then select the line `ls -l` and execute this script (NB: Windows users will need to use `cmd /c dir` instead): the line will be replaced by a directory listing.
+
+This is both powerful and potentially dangerous: a malicious script could modify or delete your files, or do many other things. Therefore, to enable this capability, you need to turn on a preference setting; otherwise, any attempt to call `app.system()` will simply return an error message. By default, the `app.system()` call is disabled.
+
+(Note that you can use *Undo* to revert the effect of running this script in your document; and of course this is not really intended as a typical end-user script, but merely as an example of `app.system()`.)
+
+==Hook scripts==
+
+(to be added)
