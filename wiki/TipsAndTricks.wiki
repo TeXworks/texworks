@@ -51,7 +51,7 @@ into the source code at the appropriate location.
 || Windows XP    || `C:\Documents and Settings\<username>\TeXworks\` ||
 || Windows Vista || `C:\Users\<username>\TeXworks\` (?) ||
 || GNU/Linux     || `~/.TeXworks/` ||
-|| Mac OS X      || `~/Library/.TeXworks/` ||
+|| Mac OS X      || `~/Library/TeXworks/` ||
 
 _Note: These are the standard settings. If you use a non-English version of your operating system or if you have changed the system's configuration the path on your system may differ._
 
