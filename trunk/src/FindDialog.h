@@ -158,6 +158,8 @@ public:
 	
 private slots:
 	void showSelectedEntry();
+	void goToSource();
+	void goToSourceAndClose();
 };
 
 #endif
