@@ -30,6 +30,7 @@
 #include <QTextBlock>
 #include <QFileInfo>
 #include <QKeyEvent>
+#include <QShortcut>
 #if QT_VERSION >= 0x040400
 #include <QTextBoundaryFinder>
 #endif
@@ -422,6 +423,36 @@ SearchResults::SearchResults(QWidget* parent)
 {
 	setupUi(this);
 	connect(table, SIGNAL(itemSelectionChanged()), this, SLOT(showSelectedEntry()));
+	new QShortcut(Qt::Key_Escape, this, SLOT(goToSourceAndClose()), NULL, Qt::WidgetWithChildrenShortcut);
+	new QShortcut(Qt::Key_Return, this, SLOT(goToSource()), NULL, Qt::WidgetWithChildrenShortcut);
+}
+
+void SearchResults::goToSource()
+{
+	QList<QTableWidgetSelectionRange> ranges = table->selectedRanges();
+	if (ranges.count() == 0)
+		return;
+	int row = ranges.first().topRow();
+	QString fileName;
+	QTableWidgetItem* item = table->item(row, 0);
+	if (!item)
+		return;
+	fileName = item->toolTip();
+	
+	if (!fileName.isEmpty()) {
+		QWidget *theDoc = TeXDocument::openDocument(fileName);
+		if (theDoc) {
+			QTextEdit *editor = theDoc->findChild<QTextEdit*>("textEdit");
+			if (editor)
+				editor->setFocus();
+		}
+	}
+}
+
+void SearchResults::goToSourceAndClose()
+{
+	goToSource();
+	deleteLater();
 }
 
 #define MAXIMUM_CHARACTERS_BEFORE_SEARCH_RESULT 40
