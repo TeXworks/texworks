@@ -320,7 +320,7 @@ void TeXDocument::init()
 	QSignalMapper *mapper = new QSignalMapper(this);
 	connect(actionNone, SIGNAL(triggered()), mapper, SLOT(map()));
 	mapper->setMapping(actionNone, QString());
-	connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(setLanguage(const QString&)));
+	connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(setLangInternal(const QString&)));
 
 	QActionGroup *group = new QActionGroup(this);
 	group->addAction(actionNone);
@@ -376,8 +376,10 @@ void TeXDocument::changeEvent(QEvent *event)
 		QMainWindow::changeEvent(event);
 }
 
-void TeXDocument::setLanguage(const QString& lang)
+void TeXDocument::setLangInternal(const QString& lang)
 {
+	// called internally by the spelling menu actions;
+	// not for use from scripts as it won't update the menu
 	QTextCodec *spellingCodec;
 	pHunspell = TWUtils::getDictionary(lang);
 	if (pHunspell != NULL) {
@@ -389,6 +391,22 @@ void TeXDocument::setLanguage(const QString& lang)
 		spellingCodec = NULL;
 	textEdit->setSpellChecker(pHunspell, spellingCodec);
 	highlighter->setSpellChecker(pHunspell, spellingCodec);
+}
+
+void TeXDocument::setSpellcheckLanguage(const QString& lang)
+{
+	// this is called by the %!TEX spellcheck... line, or by scripts;
+	// it searches the menu for the given language code, and triggers it if available
+	if (menuSpelling) {
+		QAction *chosen = menuSpelling->actions()[0]; // default is None
+		foreach (QAction *act, menuSpelling->actions()) {
+			if (act->text() == lang) {
+				chosen = act;
+				break;
+			}
+		}
+		chosen->trigger();
+	}
 }
 
 void TeXDocument::clipboardChanged()
@@ -2290,11 +2308,14 @@ void TeXDocument::syncClick(int lineNo)
 void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*charsAdded*/)
 {
 	if (position < PEEK_LENGTH) {
+		int pos;
 		QTextCursor curs(textEdit->document());
 		curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
 		QString peekStr = curs.selectedText();
+		
+		/* Search for engine specification */
 		QRegExp re("% *!TEX +(?:TS-)?program *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
-		int pos = re.indexIn(peekStr);
+		pos = re.indexIn(peekStr);
 		if (pos > -1) {
 			QString name = re.cap(1).trimmed();
 			int index = engine->findText(name, Qt::MatchFixedString);
@@ -2309,6 +2330,14 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 			else {
 				statusBar()->showMessage(tr("Engine \"%1\" not defined").arg(name), kStatusMessageDuration);
 			}
+		}
+		
+		/* Search for spellcheck specification */
+		QRegExp reSpell("% *!TEX +spellcheck *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
+		pos = reSpell.indexIn(peekStr);
+		if (pos > -1) {
+			QString lang = reSpell.cap(1).trimmed();
+			setSpellcheckLanguage(lang);
 		}
 	}
 }
