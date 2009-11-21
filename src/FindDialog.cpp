@@ -423,8 +423,13 @@ SearchResults::SearchResults(QWidget* parent)
 {
 	setupUi(this);
 	connect(table, SIGNAL(itemSelectionChanged()), this, SLOT(showSelectedEntry()));
-	new QShortcut(Qt::Key_Escape, this, SLOT(goToSourceAndClose()), NULL, Qt::WidgetWithChildrenShortcut);
-	new QShortcut(Qt::Key_Return, this, SLOT(goToSource()), NULL, Qt::WidgetWithChildrenShortcut);
+	QShortcut *sc;
+	sc = new QShortcut(Qt::Key_Escape, table);
+	sc->setContext(Qt::WidgetShortcut);
+	connect(sc, SIGNAL(activated()), this, SLOT(goToSourceAndClose()));
+	sc = new QShortcut(Qt::Key_Return, table);
+	sc->setContext(Qt::WidgetShortcut);
+	connect(sc, SIGNAL(activated()), this, SLOT(goToSource()));
 }
 
 void SearchResults::goToSource()
@@ -472,7 +477,7 @@ void SearchResults::presentResults(const QString& searchText,
 	}
 
 	SearchResults* resultsWindow = new SearchResults(parent);
-	resultsWindow->setWindowTitle(tr("Search Results - %1 (%2 found)").arg(searchText).arg(results.length()));
+	resultsWindow->setWindowTitle(tr("Search Results - %1 (%2 found)").arg(searchText).arg(results.count()));
 
 	resultsWindow->table->setRowCount(results.count());
 	int i = 0;
