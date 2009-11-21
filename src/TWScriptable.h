@@ -120,7 +120,7 @@ public:
 	void updateScriptsMenu();
 
 public slots:
-	void runScript(QObject * script);
+	void runScript(QObject * script, TWScript::ScriptType scriptType = TWScript::ScriptStandalone);
 	void runHooks(const QString& hookName);
 	
 private slots:

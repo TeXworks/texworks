@@ -103,6 +103,7 @@ public:
 	Q_PROPERTY(int selectionStart READ selectionStart STORED false);
 	Q_PROPERTY(int selectionLength READ selectionLength STORED false);
 	Q_PROPERTY(QString consoleOutput READ consoleText STORED false);
+	Q_PROPERTY(QString text READ text STORED false);
 	
 signals:
 	void syncFromSource(const QString&, int);
@@ -223,6 +224,7 @@ private:
 	int selectionStart() { return textCursor().selectionStart(); }
 	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
 	QString consoleText() { return textEdit_console->toPlainText(); }
+	QString text() { return textEdit->toPlainText(); }
 	
 	TeXHighlighter *highlighter;
 	PDFDocument *pdfDoc;

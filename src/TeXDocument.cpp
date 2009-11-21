@@ -426,7 +426,7 @@ void TeXDocument::newFile()
 	TeXDocument *doc = new TeXDocument;
 	doc->selectWindow();
 	doc->textEdit->updateLineNumberAreaWidth(0);
-	runHooks("newFile");
+	runHooks("NewFile");
 }
 
 void TeXDocument::newFromTemplate()
@@ -445,7 +445,7 @@ void TeXDocument::newFromTemplate()
 			doc->makeUntitled();
 			doc->selectWindow();
 			doc->textEdit->updateLineNumberAreaWidth(0);
-			doc->runHooks("newFromTemplate");
+			doc->runHooks("NewFromTemplate");
 		}
 	}
 }
@@ -878,7 +878,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	textEdit->updateLineNumberAreaWidth(0);
 	maybeEnableSaveAndRevert(false);
 
-	runHooks("loadFile");
+	runHooks("LoadFile");
 }
 
 void TeXDocument::reloadIfChangedOnDisk()
