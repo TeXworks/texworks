@@ -27,6 +27,14 @@ If you put the following line in the beginning of a file, !TeXworks will deal wi
 }}}
 For a complete list of supported encodings, please see the !TeXworks settings.
 
+==Setting the spell checking language per file==
+
+If you put the following line in the beginning of a file, !TeXworks will set configure the spell checker for the corresponding language:
+{{{
+% !TEX spellcheck = language_tag
+}}}
+The language tag is typically a [http://en.wikipedia.org/wiki/IETF_language_tag IETF language tag], but may depend on your spell checking software and your installed dictionaries. For a complete list of supported tags on your system, please refer to the !TeXworks "Edit -> Spelling" menu.
+
 ==Using the outline and bookmarks in source files==
 If you activate the menu item Windows -> Show -> Tags, you will get a sidebar that displays the outline of the current source document by automatically locating the \part, \section, ... commands. By clicking on any of the items in the tag tree, the cursor will be positioned at the corresponding code in the editor.
 
