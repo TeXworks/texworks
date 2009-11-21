@@ -159,11 +159,12 @@ public slots:
 	void placeOnLeft();
 	void placeOnRight();
 	void removeAuxFiles();
-	void setLanguage(const QString& lang);
+	void setSpellcheckLanguage(const QString& lang);
 	void selectRange(int start, int length = 0);
 	void insertText(const QString& text);
 	
 private slots:
+	void setLangInternal(const QString& lang);
 	void maybeEnableSaveAndRevert(bool modified);
 	void clipboardChanged();
 	void doReplace(ReplaceDialog::DialogCode mode);
