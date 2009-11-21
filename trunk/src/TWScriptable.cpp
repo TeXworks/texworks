@@ -226,7 +226,7 @@ QList<TWScript*> TWScriptManager::getHookScripts(const QString& hook) const
 	QList<TWScript*> result;
 	
 	foreach (TWScript *script, m_Hooks) {
-		if (script->getHook() == hook) {
+		if (script->getHook().compare(hook, Qt::CaseInsensitive) == 0) {
 			result.append(script);
 		}
 	}
@@ -274,17 +274,20 @@ TWScriptable::updateScriptsMenu()
 }
 
 void
-TWScriptable::runScript(QObject* script)
+TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 {
 	TWScript * s = qobject_cast<TWScript*>(script);
-	if (!s || s->getType() != TWScript::ScriptStandalone)
+	if (!s || s->getType() != scriptType)
 		return;
 	
 	QVariant result;
 	bool success = s->run(this, result);
 	if (success) {
 		if (!result.isNull()) {
-			QMessageBox::information(this, "Script result", result.toString(), QMessageBox::Ok, QMessageBox::Ok);
+			if (scriptType == TWScript::ScriptHook)
+				statusBar()->showMessage(tr("Script \"%1\": %2").arg(s->getTitle()).arg(result.toString()), kStatusMessageDuration);
+			else
+				QMessageBox::information(this, "Script result", result.toString(), QMessageBox::Ok, QMessageBox::Ok);
 		}
 	}
 	else {
@@ -298,7 +301,7 @@ void
 TWScriptable::runHooks(const QString& hookName)
 {
 	foreach (TWScript *s, TWApp::instance()->getScriptManager().getHookScripts(hookName)) {
-		runScript(s);
+		runScript(s, TWScript::ScriptHook);
 	}
 }
 
