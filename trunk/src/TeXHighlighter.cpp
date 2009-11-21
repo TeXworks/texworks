@@ -191,29 +191,37 @@ void TeXHighlighter::loadPatterns()
 				QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
 				if (parts.size() != 3)
 					continue;
-				QStringList colors = parts[0].split(QChar('/'));
+				QStringList styles = parts[0].split(QChar(';'));
+				QStringList colors = styles[0].split(QChar('/'));
 				QColor fg, bg;
 				if (colors.size() <= 2) {
 					if (colors.size() == 2)
 						bg = QColor(colors[1]);
 					fg = QColor(colors[0]);
 				}
-				if (fg.isValid()) {
-					HighlightingRule rule;
+				HighlightingRule rule;
+				if (fg.isValid())
 					rule.format.setForeground(fg);
-					if (bg.isValid())
-						rule.format.setBackground(bg);
-					if (parts[1].compare("Y", Qt::CaseInsensitive) == 0) {
-						rule.spellCheck = true;
-						rule.spellFormat = rule.format;
-						rule.spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-					}
-					else
-						rule.spellCheck = false;
-					rule.pattern = QRegExp(parts[2]);
-					if (rule.pattern.isValid() && !rule.pattern.isEmpty())
-						spec.rules.append(rule);
+				if (bg.isValid())
+					rule.format.setBackground(bg);
+				if (styles.size() > 1) {
+					if (styles[1].contains('B'))
+						rule.format.setFontWeight(QFont::Bold);
+					if (styles[1].contains('I'))
+						rule.format.setFontItalic(true);
+					if (styles[1].contains('U'))
+						rule.format.setFontUnderline(true);
 				}
+				if (parts[1].compare("Y", Qt::CaseInsensitive) == 0) {
+					rule.spellCheck = true;
+					rule.spellFormat = rule.format;
+					rule.spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+				}
+				else
+					rule.spellCheck = false;
+				rule.pattern = QRegExp(parts[2]);
+				if (rule.pattern.isValid() && !rule.pattern.isEmpty())
+					spec.rules.append(rule);
 			}
 			if (spec.rules.count() > 0)
 				syntaxRules->append(spec);

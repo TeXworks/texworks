@@ -1,10 +1,25 @@
 # TeXworks: Patterns for syntax coloring
 
 # Each entry consists of three whitespace-separated fields:
-# <color> <spell?> <regex>
+# <style> <spell?> <regex>
 
-# <color> is a color name from the list defined in the SVG standard;
-# see http://www.w3.org/TR/SVG/types.html#ColorKeywords
+# <style> is a combination of color and style flags
+# Valid syntax:
+# <fgcolor>
+# <fgcolor>/<bgcolor>
+# ;<fontflags>
+# <fgcolor>;<fontflags>
+# <fgcolor>/<bgcolor>;<fontflags>
+#
+# The color fields <fgcolor> and <bgcolor> are either:
+# *) a color name from the list defined in the SVG standard;
+#    see http://www.w3.org/TR/SVG/types.html#ColorKeywords
+# *) a hexadecimal color value of the form #rrggbb
+#
+# The <fontflags> field is a combination of the letters
+# B (bold)
+# I (italic)
+# U (underlined)
 
 # <spell> is a flag controlling whether this style is subject to spell-checking;
 # "Y" or "y" for yes, "N" (or anything else, actually) for no.
