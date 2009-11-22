@@ -32,7 +32,8 @@
 #include <QMainWindow>
 #include <QToolBar>
 #include <QDesktopWidget>
-#include <QtAlgorithms>
+//#include <QtAlgorithms>
+#include <QMessageBox>
 
 PrefsDialog::PrefsDialog(QWidget *parent)
 	: QDialog(parent)
@@ -696,7 +697,7 @@ ToolConfig::ToolConfig(QWidget *parent)
 {
 	init();
 }
-	
+
 void ToolConfig::init()
 {
 	setupUi(this);
@@ -706,6 +707,23 @@ void ToolConfig::init()
 	connect(argDown, SIGNAL(clicked()), this, SLOT(moveArgDown()));
 	connect(argAdd, SIGNAL(clicked()), this, SLOT(addArg()));
 	connect(argRemove, SIGNAL(clicked()), this, SLOT(removeArg()));
+	connect(btnBrowseForProgram, SIGNAL(clicked()), this, SLOT(browseForProgram()));
+}
+
+void ToolConfig::browseForProgram()
+{
+	QFileInfo info(program->text());
+	QString str = QFileDialog::getOpenFileName(this, tr("Select program file"),
+											   info.exists() ? info.canonicalFilePath() : QString());
+	if (!str.isNull()) {
+		info.setFile(str);
+		if (!info.isExecutable()) {
+			QMessageBox::warning(this, tr("Invalid program"),
+								 tr("The file '%1' is not executable!").arg(info.fileName()));
+			return;
+		}
+		program->setText(info.canonicalFilePath());
+	}
 }
 
 void ToolConfig::updateArgButtons()
