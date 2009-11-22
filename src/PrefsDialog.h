@@ -88,6 +88,7 @@ private slots:
 	void moveArgDown();
 	void addArg();
 	void removeArg();
+	void browseForProgram();
 
 private:
 	void init();
