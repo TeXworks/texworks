@@ -1249,7 +1249,14 @@ void TeXDocument::maybeCenterSelection(int oldScrollValue)
 
 void TeXDocument::doFontDialog()
 {
-	textEdit->setFont(QFontDialog::getFont(0, textEdit->font()));
+	bool ok;
+	QFont font = QFontDialog::getFont(&ok, textEdit->font());
+	if (ok) {
+		textEdit->setFont(font);
+		font.setPointSize(font.pointSize() - 1);
+		textEdit_console->setFont(font);
+		inputLine->setFont(font);
+	}
 }
 
 void TeXDocument::doLineDialog()
