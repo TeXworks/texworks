@@ -136,7 +136,7 @@ on the command line from the C:\texworks\texworks-read-only directory. This crea
 {{{
 mingw32-make
 }}}
-This should give you a working release\TeXworks.exe.
+This should give you a working release\!TeXworks.exe.
 
 If you run into lots of error messages similar to
 {{{
@@ -151,6 +151,7 @@ refer to the Q&A section below.
 
 If you run into the error message
 {{{
+c:/mingw/bin/../lib/gcc/mingw32/4.4.0/../../../../mingw32/bin/ld.exe: cannot find -lQtScript
 }}}
 refer to the Q&A section below. 
 
