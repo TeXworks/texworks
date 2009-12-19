@@ -54,7 +54,7 @@
     <name>FindDialog</name>
     <message>
         <location filename="../src/Find.ui" line="+23"/>
-        <location filename="../src/FindDialog.cpp" line="+94"/>
+        <location filename="../src/FindDialog.cpp" line="+95"/>
         <source>Find</source>
         <translatorcomment>Загловок поискового окна</translatorcomment>
         <translation>Поиск</translation>
@@ -596,7 +596,7 @@
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="+368"/>
+        <location filename="../src/FindDialog.cpp" line="+403"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>
@@ -645,7 +645,7 @@
 <context>
     <name>PDFFontsDock</name>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="+269"/>
+        <location filename="../src/PDFDocks.cpp" line="+271"/>
         <source>Name</source>
         <translation>Название</translation>
     </message>
@@ -701,7 +701,7 @@
 <context>
     <name>PDFOutlineDock</name>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="-155"/>
+        <location filename="../src/PDFDocks.cpp" line="-157"/>
         <source>No TOC</source>
         <translation>Нет оглавления</translation>
     </message>
@@ -758,7 +758,7 @@
 <context>
     <name>PrefsDialog</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="+134"/>
+        <location filename="../src/PrefsDialog.cpp" line="+135"/>
         <source>Choose Directory</source>
         <translation>Выберите директорию</translation>
     </message>
@@ -1081,7 +1081,7 @@
 <context>
     <name>ReplaceDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="-348"/>
+        <location filename="../src/FindDialog.cpp" line="-383"/>
         <location filename="../src/Replace.ui" line="+22"/>
         <source>Replace</source>
         <translation>Заменить</translation>
@@ -1160,7 +1160,12 @@
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="+145"/>
+        <location filename="../src/FindDialog.cpp" line="+123"/>
+        <source>Search Results - %1 (%2 found)</source>
+        <translation>Результаты поиска - %1 (%2 найдено)</translation>
+    </message>
+    <message>
+        <location line="+57"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
@@ -1397,12 +1402,13 @@
 <context>
     <name>TWScriptable</name>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="+292"/>
+        <location filename="../src/TWScriptable.cpp" line="+295"/>
         <source>unknown error</source>
         <translation>неизвестная ошибка</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-7"/>
+        <location line="+8"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Скрипт &quot;%1&quot;: %2</translation>
     </message>
@@ -1467,7 +1473,7 @@
         <translation>Нет</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+141"/>
         <source>Open File</source>
         <translation>Открыть файл</translation>
     </message>
@@ -1609,7 +1615,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Строка %1 из %2; столбец %3</translation>
     </message>
     <message>
-        <location line="+119"/>
+        <location line="+126"/>
         <source>Go to Line</source>
         <translation>Перейти к строке</translation>
     </message>
@@ -1704,7 +1710,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Показать панель вывода</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+74"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Установить движок вёрстки на &quot;%1&quot;</translation>
     </message>
@@ -1714,7 +1720,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Движок вёрстки &quot;%1&quot; не определён</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+101"/>
         <source>No files found</source>
         <translation>Файлы не найдены</translation>
     </message>
@@ -2199,7 +2205,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Управление скриптами</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="-332"/>
+        <location filename="../src/TeXDocument.cpp" line="-343"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Программа &quot;%1&quot; не найдена.</translation>
     </message>
@@ -2266,7 +2272,22 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="+245"/>
+        <location filename="../src/PrefsDialog.cpp" line="+213"/>
+        <source>Select program file</source>
+        <translation>Выберите программу</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Invalid program</source>
+        <translation>Непригодная программа</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The file &apos;%1&apos; is not executable!</source>
+        <translation>Файл &apos;%1&apos; не является программой!</translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>NewArgument</source>
         <translation>НовыйПараметр</translation>
     </message>
@@ -2274,7 +2295,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 <context>
     <name>ToolConfigDialog</name>
     <message>
-        <location filename="../src/ToolConfig.ui" line="+13"/>
+        <location filename="../src/ToolConfig.ui" line="+14"/>
         <source>Tool Configuration</source>
         <translation>Настройка программы вёрстки</translation>
     </message>
@@ -2289,12 +2310,17 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Программа:</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+20"/>
+        <source>Browse...</source>
+        <translation>Обзор...</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Arguments:</source>
         <translation>Параметры:</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+81"/>
         <source>View PDF after running</source>
         <translation>Показать PDF после обработки</translation>
     </message>
