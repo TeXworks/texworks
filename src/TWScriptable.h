@@ -51,6 +51,7 @@ public:
 	QString getAuthor() const { return m_Author; }
 	QString getVersion() const { return m_Version; }
 	QString getHook() const { return m_Hook; }
+	QKeySequence getKeySequence() const { return m_KeySequence; }
 	
 	bool setFile(QString filename);
 
@@ -73,6 +74,7 @@ protected:
 	QString m_Author;
 	QString m_Version;
 	QString m_Hook;
+	QKeySequence m_KeySequence;
 };
 
 class JSScript : public TWScript

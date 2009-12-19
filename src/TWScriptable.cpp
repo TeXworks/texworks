@@ -100,6 +100,7 @@ bool JSScript::parseHeader()
 			else m_Type = ScriptUnknown;
 		}
 		else if (key == "Hook") m_Hook = value;
+		else if (key == "Shortcut") m_KeySequence = QKeySequence(value);
 	}
 	
 	return m_Type != ScriptUnknown && !m_Title.isEmpty();
@@ -268,6 +269,11 @@ TWScriptable::updateScriptsMenu()
 	
 	foreach (TWScript *s, TWApp::instance()->getScriptManager().getScripts()) {
 		QAction *a = scriptsMenu->addAction(s->getTitle());
+		if (!s->getKeySequence().isEmpty())
+		    a->setShortcut(s->getKeySequence());
+		// give the action an object name so it could possibly included in the
+		// customization process of keyboard shortcuts in the future
+		a->setObjectName(QString("Script: %1").arg(s->getTitle()));
 		scriptMapper->setMapping(a, s);
 		connect(a, SIGNAL(triggered()), scriptMapper, SLOT(map()));
 	}
