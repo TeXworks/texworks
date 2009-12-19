@@ -822,7 +822,9 @@ QString TeXDocument::readFile(const QString &fileName, QTextCodec **codecUsed)
 	// returns a null (not just empty) QString on failure
 {
 	QFile file(fileName);
-	if (!file.open(QFile::ReadOnly | QFile::Text)) {
+	// Not using QFile::Text because this prevents us reading "classic" Mac files
+	// with CR-only line endings. See issue #242.
+	if (!file.open(QFile::ReadOnly)) {
 		QMessageBox::warning(this, tr(TEXWORKS_NAME),
 							 tr("Cannot read file \"%1\":\n%2")
 							 .arg(fileName)
