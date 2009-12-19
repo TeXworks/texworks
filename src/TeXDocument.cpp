@@ -918,16 +918,14 @@ void TeXDocument::reloadIfChangedOnDisk()
 	// Get the block number and the offset in the block of the start of the
 	// selection
 	cur.setPosition(oldSelStart);
-	const QTextBlock& b1 = cur.block();
-	oldBlockStart = b1.blockNumber();
-	oldSelStart -= b1.position();
+	oldBlockStart = cur.blockNumber();
+	oldSelStart -= cur.block().position();
 
 	// Get the block number and the offset in the block of the end of the
 	// selection
 	cur.setPosition(oldSelEnd);
-	const QTextBlock& b2 = cur.block();
-	oldBlockEnd = b2.blockNumber();
-	oldSelEnd -= b2.position();
+	oldBlockEnd = cur.blockNumber();
+	oldSelEnd -= cur.block().position();
 
 	// Get the values of the scroll bars so we can later restore the view
 	if (textEdit->horizontalScrollBar())
