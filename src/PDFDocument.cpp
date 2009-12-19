@@ -1588,12 +1588,14 @@ void PDFDocument::updateTypesettingAction(bool processRunning)
 	if (processRunning) {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 		actionTypeset->setIcon(QIcon(":/images/tango/process-stop.png"));
+		actionTypeset->setText(tr("Abort typesetting"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
 		enableTypesetAction(true);
 	}
 	else {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
 		actionTypeset->setIcon(QIcon(":/images/images/runtool.png"));
+		actionTypeset->setText(tr("Typeset"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	}
 }
