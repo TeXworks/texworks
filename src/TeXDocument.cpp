@@ -465,7 +465,9 @@ void TeXDocument::open()
 		options = QFileDialog::DontUseSheet;
 #endif
 	QSETTINGS_OBJECT(settings);
-	QString lastOpenDir = settings.value("openDialogDir").toString(); 
+	QString lastOpenDir = settings.value("openDialogDir").toString();
+	if (lastOpenDir.isEmpty())
+		lastOpenDir = QDir::homePath();
 	QStringList files = QFileDialog::getOpenFileNames(this, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
 	foreach (QString fileName, files) {
 		if (!fileName.isEmpty()) {
@@ -670,7 +672,14 @@ bool TeXDocument::saveAs()
 	QFileDialog::Options	options = 0;
 #endif
 	QString selectedFilter;
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), curFile,
+
+	// for untitled docs, default to the last dir used, or $HOME if no saved value
+	QSETTINGS_OBJECT(settings);
+	QString lastSaveDir = settings.value("saveDialogDir").toString();
+	if (lastSaveDir.isEmpty())
+		lastSaveDir = QDir::homePath();
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+													isUntitled ? lastSaveDir + "/" + curFile : curFile,
 													TWUtils::filterList()->join(";;"),
 													&selectedFilter, options);
 	if (fileName.isEmpty())
@@ -689,6 +698,10 @@ bool TeXDocument::saveAs()
 		// now (the correct connection will be reestablished on next typeset).
 		detachPdf();
 	}
+
+	QFileInfo info(fileName);
+	settings.setValue("saveDialogDir", info.canonicalPath());
+	
 	return saveFile(fileName);
 }
 
