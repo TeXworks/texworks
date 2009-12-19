@@ -152,7 +152,6 @@ public slots:
 
 	void updateScriptsList();
 	void showScriptsFolder();
-	void launchFile(const QString& fileName); // launch file from the desktop with default app
 
 	void about();
 	void newFile();
@@ -168,6 +167,9 @@ public slots:
 	
 	// for script access to arbitrary commands
 	QVariant system(const QString& cmdline, bool waitForResult = true);
+
+	// launch file from the desktop with default app
+	QVariant launchFile(const QString& fileName, bool waitForResult = true);
 	
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu

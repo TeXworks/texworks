@@ -811,9 +811,14 @@ void TWApp::showScriptsFolder()
 	QDesktopServices::openUrl(QUrl::fromLocalFile(TWUtils::getLibraryPath("scripts")));
 }
 
-void TWApp::launchFile(const QString& fileName)
+QVariant TWApp::launchFile(const QString& fileName, bool waitForResult)
 {
-	QDesktopServices::openUrl(QUrl::fromLocalFile(fileName));
+	// first check if command execution is permitted
+	QSETTINGS_OBJECT(settings);
+	if (settings.value("allowSystemCommands", false).toBool())
+		return waitForResult ? QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)) : QVariant();
+	else
+		return waitForResult ? QVariant(tr("System command execution is disabled (see Preferences)")) : QVariant();
 }
 
 QVariant TWApp::system(const QString& cmdline, bool waitForResult)
