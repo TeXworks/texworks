@@ -33,6 +33,8 @@ unix:!macx {
 	TARGET	=	texworks
 } else {
 	TARGET	=	TeXworks
+    QMAKE_CXXFLAGS = -fexceptions
+    QMAKE_LFLAGS = -fexceptions
 }
 
 QT			+=	xml script scripttools
@@ -51,6 +53,7 @@ macx {
 	LIBS += -lpoppler
 	LIBS += -lpoppler-qt4
 	LIBS += -lhunspell-1.2
+	LIBS += -lgcc_eh
 
 	QMAKE_INFO_PLIST = TeXworks.plist
 
