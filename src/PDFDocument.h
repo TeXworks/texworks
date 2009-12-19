@@ -196,6 +196,7 @@ private:
 class PDFDocument : public TWScriptable, private Ui::PDFDocument
 {
 	Q_OBJECT
+    Q_PROPERTY(QString fileName READ fileName)
 
 public:
 	PDFDocument(const QString &fileName, TeXDocument *sourceDoc = NULL);

@@ -811,6 +811,11 @@ void TWApp::showScriptsFolder()
 	QDesktopServices::openUrl(QUrl::fromLocalFile(TWUtils::getLibraryPath("scripts")));
 }
 
+void TWApp::launchFile(const QString& fileName)
+{
+	QDesktopServices::openUrl(QUrl::fromLocalFile(fileName));
+}
+
 QVariant TWApp::system(const QString& cmdline, bool waitForResult)
 {
 	// first check if command execution is permitted

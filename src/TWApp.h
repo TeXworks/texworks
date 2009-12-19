@@ -152,6 +152,7 @@ public slots:
 
 	void updateScriptsList();
 	void showScriptsFolder();
+	void launchFile(const QString& fileName); // launch file from the desktop with default app
 
 	void about();
 	void newFile();
