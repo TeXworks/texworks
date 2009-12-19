@@ -677,7 +677,7 @@ bool TeXDocument::saveAs()
 		return false;
 
 	// add extension from the selected filter, if unique and not already present
-	QRegExp re("\\(\\*(\\.[^ ]+)\\)");
+	QRegExp re("\\(\\*(\\.[^ *]+)\\)");
 	if (re.indexIn(selectedFilter) >= 0) {
 		QString ext = re.cap(1);
 		if (!fileName.endsWith(ext, Qt::CaseInsensitive) && !fileName.endsWith("."))
@@ -811,7 +811,7 @@ QString TeXDocument::readFile(const QString &fileName, QTextCodec **codecUsed)
 	QFile file(fileName);
 	if (!file.open(QFile::ReadOnly | QFile::Text)) {
 		QMessageBox::warning(this, tr(TEXWORKS_NAME),
-							 tr("Cannot read file \"%1\":\n%2.")
+							 tr("Cannot read file \"%1\":\n%2")
 							 .arg(fileName)
 							 .arg(file.errorString()));
 		return QString();
@@ -1006,7 +1006,7 @@ bool TeXDocument::saveFile(const QString &fileName)
 	QFile file(fileName);
 	if (!file.open(QFile::WriteOnly | QFile::Text)) {
 		QMessageBox::warning(this, tr(TEXWORKS_NAME),
-							 tr("Cannot write file \"%1\":\n%2.")
+							 tr("Cannot write file \"%1\":\n%2")
 							 .arg(fileName)
 							 .arg(file.errorString()));
 		setupFileWatcher();
