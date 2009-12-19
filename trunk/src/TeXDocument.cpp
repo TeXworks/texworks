@@ -2116,6 +2116,7 @@ void TeXDocument::updateTypesettingAction()
 	if (process == NULL) {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
 		actionTypeset->setIcon(QIcon(":/images/images/runtool.png"));
+		actionTypeset->setText(tr("Typeset"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(typeset()));
 		if (pdfDoc != NULL)
 			pdfDoc->updateTypesettingAction(false);
@@ -2123,6 +2124,7 @@ void TeXDocument::updateTypesettingAction()
 	else {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(typeset()));
 		actionTypeset->setIcon(QIcon(":/images/tango/process-stop.png"));
+		actionTypeset->setText(tr("Abort typesetting"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
 		if (pdfDoc != NULL)
 			pdfDoc->updateTypesettingAction(true);
