@@ -885,22 +885,88 @@ void TeXDocument::reloadIfChangedOnDisk()
 {
 	if (isUntitled || !lastModified.isValid())
 		return;
+
 	QDateTime fileModified = QFileInfo(curFile).lastModified();
-	if (fileModified.isValid() && fileModified != lastModified) {
-		clearFileWatcher(); // stop watching until next save or reload
-		if (textEdit->document()->isModified()) {
-			if (QMessageBox::warning(this, tr("File changed on disk"),
-									 tr("%1 has been modified by another program.\n\n"
-										"Do you want to discard your current changes, and reload the file from disk?")
-									 .arg(curFile),
-									 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel) {
-				lastModified = QDateTime();	// invalidate the timestamp
-				return;
-			}
+	if (!fileModified.isValid() || fileModified == lastModified)
+		return;
+
+	clearFileWatcher(); // stop watching until next save or reload
+	if (textEdit->document()->isModified()) {
+		if (QMessageBox::warning(this, tr("File changed on disk"),
+								 tr("%1 has been modified by another program.\n\n"
+									"Do you want to discard your current changes, and reload the file from disk?")
+								 .arg(curFile),
+								 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel) {
+			lastModified = QDateTime();	// invalidate the timestamp
+			return;
 		}
-		// user chose to discard, or there were no local changes
-		loadFile(curFile, false, true);
 	}
+	// user chose to discard, or there were no local changes
+	// save the current cursor position
+	QTextCursor cur;
+	int oldSelStart, oldSelEnd, oldBlockStart, oldBlockEnd;
+	int xPos = 0, yPos = 0;
+	QString oldSel;
+
+	// Store the selection (note that oldSelStart == oldSelEnd if there is
+	// no selection)
+	cur = textEdit->textCursor();
+	oldSelStart = cur.selectionStart();
+	oldSelEnd = cur.selectionEnd();
+	oldSel = cur.selectedText();
+
+	// Get the block number and the offset in the block of the start of the
+	// selection
+	cur.setPosition(oldSelStart);
+	const QTextBlock& b1 = cur.block();
+	oldBlockStart = b1.blockNumber();
+	oldSelStart -= b1.position();
+
+	// Get the block number and the offset in the block of the end of the
+	// selection
+	cur.setPosition(oldSelEnd);
+	const QTextBlock& b2 = cur.block();
+	oldBlockEnd = b2.blockNumber();
+	oldSelEnd -= b2.position();
+
+	// Get the values of the scroll bars so we can later restore the view
+	if (textEdit->horizontalScrollBar())
+		xPos = textEdit->horizontalScrollBar()->value();
+	if (textEdit->verticalScrollBar())
+		yPos = textEdit->verticalScrollBar()->value();
+
+	// Reload the file from the disk
+	loadFile(curFile, false, true);
+
+	// restore the cursor position
+	cur = textEdit->textCursor();
+
+	// move the cursor to the beginning (this should actually be the case,
+	// but one never knows)
+	cur.setPosition(0);
+
+	// move the cursor to the starting block
+	cur.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, oldBlockStart);
+	cur.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
+	cur.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, oldSelStart);
+	
+	// move the cursor to the end block
+	cur.movePosition(QTextCursor::NextBlock, QTextCursor::KeepAnchor, oldBlockEnd - oldBlockStart);
+	cur.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
+	cur.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, oldSelEnd);
+	
+	// if the current selection doesn't match the stored selection, collapse
+	// to the beginning position
+	if (cur.selectedText() != oldSel)
+		cur.setPosition(cur.selectionStart());
+
+	textEdit->setTextCursor(cur);
+
+	// restore the view
+	if (textEdit->horizontalScrollBar())
+		textEdit->horizontalScrollBar()->setValue(xPos);
+	if (textEdit->verticalScrollBar())
+		textEdit->verticalScrollBar()->setValue(yPos);
 }
 
 // get expected name of the Preview file, and return whether it exists
