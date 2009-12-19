@@ -140,6 +140,7 @@ void TagsDock::followTagSelection()
 TeXDockTreeWidget::TeXDockTreeWidget(QWidget* parent)
 	: QTreeWidget(parent)
 {
+	setIndentation(10);
 }
 
 TeXDockTreeWidget::~TeXDockTreeWidget()
