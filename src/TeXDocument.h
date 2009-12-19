@@ -104,7 +104,8 @@ public:
 	Q_PROPERTY(int selectionLength READ selectionLength STORED false);
 	Q_PROPERTY(QString consoleOutput READ consoleText STORED false);
 	Q_PROPERTY(QString text READ text STORED false);
-	
+    Q_PROPERTY(QString fileName READ fileName);
+
 signals:
 	void syncFromSource(const QString&, int);
 	void activatedWindow(QWidget*);
