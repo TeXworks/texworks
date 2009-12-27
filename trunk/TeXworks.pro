@@ -156,7 +156,8 @@ SOURCES	+=	src/main.cpp \
 RESOURCES	+=	res/resources.qrc \
 				res/resfiles.qrc
 
-TRANSLATIONS	+=	trans/TeXworks_ar.ts \
+TRANSLATIONS	+=	trans/TeXworks_af.ts \
+					trans/TeXworks_ar.ts \
 					trans/TeXworks_ca.ts \
 					trans/TeXworks_cs.ts \
 					trans/TeXworks_de.ts \

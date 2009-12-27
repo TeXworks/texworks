@@ -5,6 +5,14 @@ PATHFILE=./src/DefaultBinaryPaths.h
 FOUNDTEX=0
 BINPATHS=":"
 
+if [ -x /usr/share/libtool/config.guess ]; then
+	PLATFORM=`/usr/share/libtool/config.guess`
+	ARCH=`echo $PLATFORM | sed 's/-.*//;s/i.86/i386/'`
+else
+	PLATFORM=`uname -s | tr A-Z a-z`
+	ARCH=`uname -m | tr A-Z a-z | sed 's/i.86/i386/'`
+fi
+
 # append a path to $BINPATHS unless already present
 appendPath()
 {
@@ -15,6 +23,11 @@ appendPath()
 						BINPATHS="$BINPATHS$NEWPATH:";;
 	esac
 }
+
+# (0) for Mac OS X, start with /usr/texbin
+case $PLATFORM in
+	*darwin*)	appendPath "/usr/texbin";;
+esac
 
 # (1) try to find tex and ghostscript
 
@@ -36,13 +49,6 @@ fi
 # (2) try to guess default TL path for the current system
 # (no idea how much of this actually works....)
 
-if [ -x /usr/share/libtool/config.guess ]; then
-	PLATFORM=`/usr/share/libtool/config.guess`
-	ARCH=`echo $PLATFORM | sed 's/-.*//;s/i.86/i386/'`
-else
-	PLATFORM=`uname -s | tr A-Z a-z`
-	ARCH=`uname -m | tr A-Z a-z | sed 's/i.86/i386/'`
-fi
 case $PLATFORM in
 	*aix*)		OS=aix;;
 	*cygwin*)	OS=cygwin;;
