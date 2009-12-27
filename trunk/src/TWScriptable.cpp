@@ -274,6 +274,7 @@ TWScriptable::updateScriptsMenu()
 		// give the action an object name so it could possibly included in the
 		// customization process of keyboard shortcuts in the future
 		a->setObjectName(QString("Script: %1").arg(s->getTitle()));
+		a->setStatusTip(s->getDescription());
 		scriptMapper->setMapping(a, s);
 		connect(a, SIGNAL(triggered()), scriptMapper, SLOT(map()));
 	}

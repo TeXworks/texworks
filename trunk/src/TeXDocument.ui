@@ -1032,6 +1032,9 @@
    </property>
   </action>
   <action name="actionManage_Scripts">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Manage Scripts</string>
    </property>
