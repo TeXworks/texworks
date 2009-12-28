@@ -332,6 +332,9 @@
    <property name="windowTitle">
     <string>Typeset Toolbar</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">padding:2px</string>
+   </property>
    <property name="allowedAreas">
     <set>Qt::LeftToolBarArea|Qt::TopToolBarArea</set>
    </property>
@@ -352,6 +355,9 @@
   <widget class="QToolBar" name="toolBar_edit">
    <property name="windowTitle">
     <string>Edit Toolbar</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">padding:2px</string>
    </property>
    <property name="allowedAreas">
     <set>Qt::LeftToolBarArea|Qt::TopToolBarArea</set>
