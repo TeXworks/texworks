@@ -54,6 +54,7 @@ macx {
 	LIBS += -lpoppler-qt4
 	LIBS += -lhunspell-1.2
 	LIBS += -lgcc_eh
+	LIBS += -lz
 
 	QMAKE_INFO_PLIST = TeXworks.plist
 
