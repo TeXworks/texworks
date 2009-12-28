@@ -1,5 +1,5 @@
 #	This is part of TeXworks, an environment for working with TeX documents
-#	Copyright (C) 2007-08  Jonathan Kew
+#	Copyright (C) 2007-09  Jonathan Kew
 #
 #	This program is free software; you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
@@ -45,6 +45,13 @@ unix {
 }
 
 macx {
+	QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.4u.sdk
+	QMAKE_MACOS_DEPLOYMENT_TARGET = 10.4
+# These settings don't seem to actually work for me with Xcode 3.2.1;
+# I have to change the gcc version manually in the project properties.
+	QMAKE_CC = gcc-4.0
+	QMAKE_CXX = g++-4.0
+
 	INCLUDEPATH += /usr/local/include/poppler
 	INCLUDEPATH += /usr/local/include/poppler/qt4
 	INCLUDEPATH += /usr/local/include/hunspell
