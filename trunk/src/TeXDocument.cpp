@@ -119,6 +119,9 @@ void TeXDocument::init()
 	engine = new QComboBox(this);
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
+#if defined(Q_WS_MAC) && (QT_VERSION >= 0x040600)
+	engine->setStyleSheet("padding:4px;");
+#endif
 	toolBar_run->addWidget(engine);
 	updateEngineList();
 	connect(engine, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(selectedEngine(const QString&)));
