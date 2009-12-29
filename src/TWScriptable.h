@@ -33,6 +33,30 @@ class QMenu;
 class QAction;
 class QSignalMapper;
 
+class TWScriptList : public QObject
+{
+	Q_OBJECT
+
+public:
+	TWScriptList()
+	{ }
+	
+	TWScriptList(const TWScriptList& orig)
+	: QObject(orig.parent())
+	, name(orig.name)
+	{ }
+	
+	TWScriptList(QObject* parent, const QString& str = QString())
+	: QObject(parent), name(str)
+	{ }
+	
+	const QString& getName() const { return name; }
+
+private:
+	QString name; // name of the folder/submenu
+	// scripts and subfolders are stored as children of the QObject
+};
+
 // must be derived from QObject to enable interaction with e.g. menus
 class TWScript : public QObject
 {
@@ -45,13 +69,14 @@ public:
 	virtual ~TWScript() { }
 	
 	ScriptType getType() const { return m_Type; }
-	QString getFilename() const { return m_Filename; }
-	QString getTitle() const { return m_Title; }
-	QString getDescription() const { return m_Description; }
-	QString getAuthor() const { return m_Author; }
-	QString getVersion() const { return m_Version; }
-	QString getHook() const { return m_Hook; }
-	QKeySequence getKeySequence() const { return m_KeySequence; }
+	const QString& getFilename() const { return m_Filename; }
+	const QString& getTitle() const { return m_Title; }
+	const QString& getDescription() const { return m_Description; }
+	const QString& getAuthor() const { return m_Author; }
+	const QString& getVersion() const { return m_Version; }
+	const QString& getHook() const { return m_Hook; }
+	const QString& getContext() const { return m_Context; }
+	const QKeySequence& getKeySequence() const { return m_KeySequence; }
 	
 	bool setFile(QString filename);
 
@@ -74,6 +99,7 @@ protected:
 	QString m_Author;
 	QString m_Version;
 	QString m_Hook;
+	QString m_Context;
 	QKeySequence m_KeySequence;
 };
 
@@ -94,18 +120,23 @@ class TWScriptManager
 {
 public:
 	TWScriptManager() { }
-	virtual ~TWScriptManager() { clear(); }
+	virtual ~TWScriptManager() { }
 	
-	bool addScript(TWScript* script);
-	int addScriptsInDirectory(const QDir& dir);
+	bool addScript(QObject* scriptList, TWScript* script);
+	int addScriptsInDirectory(const QDir& dir) {
+		return addScriptsInDirectory(&m_Scripts, dir);
+	}
 	void clear();
 	
-	QList<TWScript*> getScripts() const { return m_Scripts; }
+	TWScriptList* getScripts() { return &m_Scripts; }
 	QList<TWScript*> getHookScripts(const QString& hook) const;
+
+protected:
+	int addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir);
 	
 private:
-	QList<TWScript*> m_Scripts;
-	QList<TWScript*> m_Hooks;
+	TWScriptList m_Scripts; // hierarchical list of standalone scripts
+	TWScriptList m_Hooks; // flat list of hook scripts (not shown in menus)
 };
 
 
@@ -133,6 +164,8 @@ protected:
 						QAction* manageScriptsAction,
 						QAction* updateScriptsAction,
 						QAction* showScriptsFolderAction);
+
+	int addScriptsToMenu(QMenu *menu, TWScriptList *scripts);
 
 private:
 	QMenu* scriptsMenu;
