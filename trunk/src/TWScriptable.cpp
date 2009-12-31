@@ -35,26 +35,6 @@
 #include <QtScriptTools>
 #endif
 
-bool TWScript::setFile(QString filename)
-{
-	if (!QFile::exists(filename))
-		return false;
-	m_Filename = filename;
-	return parseHeader();
-}
-
-void TWScript::clearHeaderData()
-{
-	m_Type = ScriptUnknown;
-	m_Title = QString();
-	m_Description = QString();
-	m_Author = QString();
-	m_Version = QString();
-	m_Hook = QString();
-	m_Context = QString();
-	m_KeySequence = QKeySequence();
-}
-
 bool JSScript::parseHeader()
 {
 	QString line, key, value;
@@ -183,6 +163,8 @@ void TWScriptManager::clear()
 bool TWScriptManager::addScript(QObject* scriptList, TWScript* script)
 {
 	foreach (QObject* obj, scriptList->children()) {
+		printf("obj class = %s\n", obj->metaObject()->className());
+		printf("is a script? %d\n", obj->inherits("TWScript"));
 		TWScript *s = qobject_cast<TWScript*>(obj);
 		if (!s)
 			continue;
@@ -328,7 +310,7 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 			if (scriptType == TWScript::ScriptHook)
 				statusBar()->showMessage(tr("Script \"%1\": %2").arg(s->getTitle()).arg(result.toString()), kStatusMessageDuration);
 			else
-				QMessageBox::information(this, "Script result", result.toString(), QMessageBox::Ok, QMessageBox::Ok);
+				QMessageBox::information(this, tr("Script result"), result.toString(), QMessageBox::Ok, QMessageBox::Ok);
 		}
 	}
 	else {

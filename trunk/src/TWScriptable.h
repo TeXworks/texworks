@@ -22,6 +22,8 @@
 #ifndef TWScriptable_H
 #define TWScriptable_H
 
+#include "TWScript.h"
+
 #include <QMainWindow>
 #include <QList>
 #include <QString>
@@ -57,56 +59,11 @@ private:
 	// scripts and subfolders are stored as children of the QObject
 };
 
-// must be derived from QObject to enable interaction with e.g. menus
-class TWScript : public QObject
-{
-	Q_OBJECT
-	
-public:
-	enum ScriptType { ScriptUnknown, ScriptHook, ScriptStandalone };
-	enum ScriptLanguage { LanguageQtScript, LanguageLua };
-	
-	virtual ~TWScript() { }
-	
-	ScriptType getType() const { return m_Type; }
-	const QString& getFilename() const { return m_Filename; }
-	const QString& getTitle() const { return m_Title; }
-	const QString& getDescription() const { return m_Description; }
-	const QString& getAuthor() const { return m_Author; }
-	const QString& getVersion() const { return m_Version; }
-	const QString& getHook() const { return m_Hook; }
-	const QString& getContext() const { return m_Context; }
-	const QKeySequence& getKeySequence() const { return m_KeySequence; }
-	
-	bool setFile(QString filename);
-
-	virtual ScriptLanguage getLanguage() const = 0;
-	virtual bool parseHeader() = 0;
-	virtual bool run(QObject *context, QVariant& result) const = 0;
-	
-	bool operator==(const TWScript& s) const { return QFileInfo(m_Filename) == QFileInfo(s.m_Filename); }
-	
-protected:
-	TWScript(const QString& filename) : m_Filename(filename) { }
-	void clearHeaderData();
-	
-	QString m_Filename;
-	
-	ScriptType m_Type;
-	
-	QString m_Title;
-	QString m_Description;
-	QString m_Author;
-	QString m_Version;
-	QString m_Hook;
-	QString m_Context;
-	QKeySequence m_KeySequence;
-};
-
 class JSScript : public TWScript
 {
 	Q_OBJECT
-		
+	Q_INTERFACES(TWScript)
+	
 public:
 	JSScript(const QString& filename) : TWScript(filename) { }
 	
