@@ -115,6 +115,7 @@ win32 { # paths here are specific to my setup
 HEADERS	+=	src/TWApp.h \
 			src/TWUtils.h \
 			src/TWScriptable.h \
+			src/TWScript.h \
 			src/TeXDocument.h \
 			src/CompletingEdit.h \
 			src/TeXHighlighter.h \
@@ -147,6 +148,7 @@ SOURCES	+=	src/main.cpp \
 			src/TWApp.cpp \
 			src/TWUtils.cpp \
 			src/TWScriptable.cpp \
+			src/TWScript.cpp \
 			src/TeXDocument.cpp \
 			src/CompletingEdit.cpp \
 			src/TeXHighlighter.cpp \
