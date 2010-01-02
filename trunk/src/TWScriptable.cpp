@@ -113,7 +113,11 @@ void TWScriptManager::loadPlugins()
 		if (s)
 			scriptLanguages += s;
 	}
-	
+
+#ifdef TW_PLUGINPATH
+	// allow a hard-coded path for distro packagers
+	QDir pluginsDir = QDir(TW_PLUGINPATH);
+#else
 	// find the plugins directory, relative to the executable
 	QDir pluginsDir = QDir(qApp->applicationDirPath());
 #if defined(Q_OS_WIN)
@@ -127,6 +131,12 @@ void TWScriptManager::loadPlugins()
 	}
 #endif
 	pluginsDir.cd("plugins");
+#endif
+
+	// allow an env var to override the default plugin path
+	const char* pluginPath = getenv("TW_PLUGINPATH");
+	if (pluginPath != NULL)
+		pluginsDir.cd(QString(pluginPath));
 
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
 		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
@@ -135,7 +145,6 @@ void TWScriptManager::loadPlugins()
 		if (s)
 			scriptLanguages += s;
 	}
-	
 }
 
 void TWScriptManager::clear()

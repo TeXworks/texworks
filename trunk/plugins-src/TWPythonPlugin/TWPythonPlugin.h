@@ -22,13 +22,13 @@
 #ifndef TW_PYTHON_PLUGIN_H
 #define TW_PYTHON_PLUGIN_H
 
-#include "TWScript.h"
-
-#ifdef Q_WS_MAC
+#ifdef __APPLE__ // can't use Q_WS_MAC as it's not defined yet!
 #include <Python/Python.h>
 #else
 #include <Python.h>
 #endif
+
+#include "TWScript.h"
 
 #include <QMetaMethod>
 #include <QMetaProperty>

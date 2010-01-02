@@ -31,7 +31,7 @@ TARGET	=	TWLuaPlugin
 CONFIG		+=	rtti
 
 macx {
-	CONFIG	+= x86 # ppc
+	CONFIG	+= x86 ppc
 	LIBS	+= -L/usr/local/lib -llua
 	INCLUDEPATH += /usr/local/include
 }
