@@ -20,7 +20,7 @@ The process described here has been sucessfully implemented using the following 
 _Note: You need administrator's privileges to install new software._
 
 = Setting up MinGW and MSYS =
-Start by installing MinGW. For this, go to [http://www.mingw.org/] and click on "Downloads" on the right side. On the following page, click on the green "Download Now!" button (as of the time of writing this guide, this downloads "MinGW-5.1.6.exe"). Download the file to your hard disk and execute it. Download and install the following components:
+Start by installing MinGW. For this, go to [http://www.mingw.org/] and click on "Downloads" on the left side. On the following page, click on the green "Download Now!" button (as of the time of writing this guide, this downloads "MinGW-5.1.6.exe"). Download the file to your hard disk and execute it. Download and install the following components:
   * MinGW base tools
   * MinGW make
 In this guide, we'll assume you installed them in the folder C:\MinGW.
@@ -98,6 +98,7 @@ You get a fresh new copy of the latest !TeXworks code in the folder C:\texworks\
 
 In order to build !TeXworks you have to modify C:\texworks\texworks-read-only\!TeXworks.pro to reflect your local configuration. Find the lines reading
 {{{
+win32 { # paths here are specific to my setup
 	INCLUDEPATH += c:/MinGW514/local/include
 	INCLUDEPATH += c:/MinGW514/local/include/poppler
 	INCLUDEPATH += c:/MinGW514/local/include/poppler/qt4
@@ -110,14 +111,21 @@ In order to build !TeXworks you have to modify C:\texworks\texworks-read-only\!T
 	LIBS += -lhunspell-1.2
 	LIBS += -lz
 	LIBS += -lgdi32
+
+	RC_FILE = res/TeXworks.rc
+}
 }}}
 and replace them by
 {{{
+win32 {
 	INCLUDEPATH += C:/KDE/include/poppler/qt4
 	INCLUDEPATH += C:/texworks/hunspell-1.2.8/src/hunspell
 	LIBS += -LC:/texworks/hunspell-1.2.8/src/hunspell/.libs
 	LIBS += -lpoppler-qt4
 	LIBS += -lhunspell-1.2
+
+	RC_FILE = res/TeXworks.rc
+}
 }}}
 
 In addition, unless you are using a poppler installation that includes the xpdf compatibility headers (not provided by default poppler builds, this requires a configure option), you will need to find the line
@@ -173,13 +181,20 @@ mingw32-make clean
 == Building the Lua scripting plugin =
 In order to build the Lua scripting plugin, you need to get the Lua development files suitable for your build setup (mingw + gcc 4.x). The most easiest way to obtain them is from the [http://luaforge.net/frs/?group_id=110 Lua Binaries] page at !LuaForge. Download the file `lua*_Win32_mingw4_lib.zip` (`lua5_1_4_Win32_mingw4_lib.zip` at the time of writing) and extract it, e.g., to C:\texworks\lua5.1\. Then modify the file plugins-src\TWLuaPlugin\TWLuaPlugin.pro and replace the lines
 {{{
+win32 { # paths here are specific to my setup
 	INCLUDEPATH += c:/MinGW514/local/include
+
 	LIBS += -Lc:/MinGW514/local/lib
+	LIBS += -llua5.1
+}
 }}}
 by
 {{{
+win32 {
 	INCLUDEPATH += c:/texworks/lua5.1/include
 	LIBS += -Lc:/texworks/lua5.1
+	LIBS += -llua5.1
+}
 }}}
 Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWLuaPlugin subdirectory. This should leave you with the file plugins-src\TWLuaPlugin\release\libTWLuaPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins and copy the file libTWLuaPlugin.dll into it. Finally restart !TeXworks.
 
@@ -227,7 +242,7 @@ QMAKE_PRE_LINK = "fixQtLibs.bat"
  (Note: Instead of using the environmental variable %KDEDIRS% you could also write out the complete path, of course.)
 
 When starting !TeXworks, it crashes with some error message about `_ZN8QPainter9drawImageERK7QPointFRK6QImage`. What's wrong?
- This is caused by an incompatibility between the poppler library and the Qt library shipped with KDE on Windows. To get a working copy of the poppler library, go to [http://sourceforge.net/projects/kde-windows/] and there to Download -> Browse all Packages -> poppler and download the file poppler-mingw-`*`-bin.tar.bz2 (at the time of writing, this is poppler-mingw-0.10.6-bin.tar.bz2). From this archive, extract the file bin\libpoppler-qt4.dll to the texworks-read-only\release directory.
+ This is caused by an incompatibility between the poppler library and the Qt library shipped with KDE on Windows. To get a working copy of the poppler library, go to [http://sourceforge.net/projects/kde-windows/] and there click on "View all files". On the following page, open the folder named "poppler", and in it the folder with the latest version (0.12.2 at the time of writing). There, download the file poppler-mingw4-*-bin.tar.bz2 (at the time of writing, this is poppler-mingw4-0.12.2-bin.tar.bz2). From this archive, extract the file bin\libpoppler-qt4.dll to the texworks-read-only\release directory.
 
 Can I mix this compilation using MinGW with the compilation using MSVC?
  Yes, although it is strongly advisable to keep the files separate. In order to install the KDE on Windows libraries, you are even required to specify two different paths. For the rest, this is advisable as well. Other than that, there shouldn't be any conflict. Just make sure that the correct programs and libraries are used (check your KDELIBS and/or PATH environmental variable).
@@ -251,6 +266,8 @@ When starting !TeXworks, it complains about missing or incompatible dlls or simp
   * mingwm10.dll
   * !QtCore4.dll
   * !QtGui4.dll
+  * !QtScript4.dll
+  * !QtScriptTools4.dll
   * !QtXml4.dll
   * zlib1.dll
 
