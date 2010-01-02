@@ -88,6 +88,7 @@ unix:!macx { # on Unix-ish platforms we rely on pkgconfig, and use dbus
 	# Enclose the path in \\\" (which later gets expanded to \", which in turn
 	# gets expanded to " in the c++ code)
 	QMAKE_CXXFLAGS += -DTW_HELPPATH=\\\"/usr/local/share/texworks-help\\\"
+	QMAKE_CXXFLAGS += -DTW_PLUGINPATH=\\\"/usr/local/lib/texworks\\\"
 }
 
 linux-g++ {

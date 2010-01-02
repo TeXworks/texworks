@@ -43,14 +43,8 @@ macx {
 }
 
 unix:!macx { # on Unix-ish platforms we rely on pkgconfig
-	CONFIG		+= link_pkgconfig
-
-	QMAKE_CXXFLAGS += -DPy_UNICODE_WIDE
-	PKGCONFIG	+= python3
-
-#	QMAKE_CXXFLAGS += -DPYTHON2
-#	INCLUDEPATH	+= /usr/include/python2.6/
-#	LIBS		+= -lpython2.6
+	INCLUDEPATH	+= /usr/include/python2.6/
+	LIBS		+= -lpython2.6
 }
 
 win32 { # paths here are specific to my setup
