@@ -52,39 +52,22 @@ Another option would be to use the [https://launchpad.net/~texworks/+archive/ppa
 This assumes you have an up-to-date base system and are in the texworks-read-only directory.
 {{{
 $ sudo aptitude install liblua5.1-0-dev
-$ mkdir -p plugins
 $ cd plugins-src/TWLuaPlugin
 $ qmake-qt4
 $ make
-$ ln -sf ../plugins-src/TWLuaPlugin/libTWLuaPlugin.so ../../plugins/
+$ sudo mkdir -p /usr/local/lib/texworks
+$ sudo ln -sf $(pwd)/libTWLuaPlugin.so /usr/local/lib/texworks/
 }}}
 
 ==== The Python scripting plugin ====
 This assumes you have an up-to-date base system and are in the texworks-read-only directory.
-Start by opening the file plugins-src/TWPythonPlugin/TWPythonPlugin.pro and replace the lines
-{{{
-	QMAKE_CXXFLAGS += -DPy_UNICODE_WIDE
-	PKGCONFIG	+= python3
-
-#	QMAKE_CXXFLAGS += -DPYTHON2
-#	INCLUDEPATH	+= /usr/include/python2.6/
-#	LIBS		+= -lpython2.6
-}}}
-by
-{{{
-	QMAKE_CXXFLAGS	+= -DPYTHON2
-	INCLUDEPATH	+= /usr/include/python2.6/
-	LIBS		+= -lpython2.6
-}}}
-
-Then run
 {{{
 $ sudo aptitude install python2.6-dev
-$ mkdir -p plugins
 $ cd plugins-src/TWPythonPlugin
 $ qmake-qt4
 $ make
-$ ln -sf ../plugins-src/TWPythonPlugin/libTWPythonPlugin.so ../../plugins/
+$ sudo mkdir -p /usr/local/lib/texworks
+$ sudo ln -sf $(pwd)/libTWPythonPlugin.so /usr/local/lib/texworks/
 }}}
 
 === OpenSUSE 11.1 ===
