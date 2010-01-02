@@ -32,13 +32,23 @@ CONFIG		+=	rtti
 
 macx {
 	CONFIG	+= x86 ppc
+
+	QMAKE_MACOS_DEPLOYMENT_TARGET = 10.4
+# These settings don't seem to actually work for me with Xcode 3.2.1;
+# I have to change the gcc version manually in the project properties.
+#	QMAKE_CC = gcc-4.0
+#	QMAKE_CXX = g++-4.0
+
 	LIBS	+= -L/usr/local/lib -llua
 	INCLUDEPATH += /usr/local/include
 }
 
-unix:!macx { # on Unix-ish platforms we rely on pkgconfig, and use dbus
+unix:!macx { # on Unix-ish platforms we rely on pkgconfig
 	CONFIG		+= link_pkgconfig
 	PKGCONFIG	+= lua5.1
+
+	target.path	= /usr/local/lib/texworks
+	INSTALLS	+= target
 }
 
 win32 { # paths here are specific to my setup

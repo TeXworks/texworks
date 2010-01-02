@@ -226,8 +226,8 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 			genericArgs.append(QGenericArgument(strTypeName, arguments[j].data()));
 		}
 		// Fill up the list so we get the 10 values we need later on
-		for (; j < 10; ++j) genericArgs.append(QGenericArgument());
-		
+		for (; j < 10; ++j)
+			genericArgs.append(QGenericArgument());
 		
 		typeName = mm.typeName();
 		if (typeName.isEmpty()) {
@@ -246,17 +246,19 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 			retValArg = QGenericReturnArgument(mm.typeName(), retValBuffer);
 		}
 		
-		if (mm.invoke(obj, Qt::DirectConnection, retValArg,
-					  genericArgs[0],
-					  genericArgs[1],
-					  genericArgs[2],
-					  genericArgs[3],
-					  genericArgs[4],
-					  genericArgs[5],
-					  genericArgs[6],
-					  genericArgs[7],
-					  genericArgs[8],
-					  genericArgs[9])
+		if (mo->invokeMethod(obj, qPrintable(name),
+							 Qt::DirectConnection,
+							 retValArg,
+							 genericArgs[0],
+							 genericArgs[1],
+							 genericArgs[2],
+							 genericArgs[3],
+							 genericArgs[4],
+							 genericArgs[5],
+							 genericArgs[6],
+							 genericArgs[7],
+							 genericArgs[8],
+							 genericArgs[9])
 		   ) {
 			if (retValBuffer)
 				result = QVariant(QMetaType::type(mm.typeName()), retValBuffer);
