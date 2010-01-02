@@ -104,6 +104,7 @@ void TeXDocument::init()
 
 	makeUntitled();
 	hideConsole();
+	keepConsoleOpen = false;
 
 	lineNumberLabel = new QLabel();
 	statusBar()->addPermanentWidget(lineNumberLabel);
@@ -2146,11 +2147,10 @@ void TeXDocument::typeset()
 		
 		textEdit_console->clear();
 		if (consoleTabs->isHidden()) {
-			consoleWasHidden = true;
+			keepConsoleOpen = false;
 			showConsole();
 		}
 		else {
-			consoleWasHidden = false;
 			inputLine->show();
 		}
 		inputLine->setFocus(Qt::OtherFocusReason);
@@ -2257,7 +2257,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	executeAfterTypesetHooks();
 	
 	QSETTINGS_OBJECT(settings);
-	if (consoleWasHidden && exitCode == 0 && exitStatus != QProcess::CrashExit && settings.value("autoHideConsole", true).toBool())
+	if (!keepConsoleOpen && exitCode == 0 && exitStatus != QProcess::CrashExit && settings.value("autoHideConsole", true).toBool())
 		hideConsole();
 	else
 		inputLine->hide();
@@ -2327,6 +2327,8 @@ void TeXDocument::errorLineClicked(QTableWidgetItem * i)
 	openDocument(QFileInfo(curFile).absoluteDir().filePath(filename), true, true, line);
 }
 
+// showConsole() and hideConsole() are used internally to update the visibility;
+// they must NOT change the keepConsoleOpen setting that records user choice
 void TeXDocument::showConsole()
 {
 	consoleTabs->show();
@@ -2342,12 +2344,18 @@ void TeXDocument::hideConsole()
 	actionShow_Hide_Console->setText(tr("Show Output Panel"));
 }
 
+// this is connected to the user command, so remember the choice
+// for when typesetting finishes
 void TeXDocument::toggleConsoleVisibility()
 {
-	if (consoleTabs->isVisible())
+	if (consoleTabs->isVisible()) {
 		hideConsole();
-	else
+		keepConsoleOpen = false;
+	}
+	else {
 		showConsole();
+		keepConsoleOpen = true;
+	}
 }
 
 void TeXDocument::acceptInputLine()
