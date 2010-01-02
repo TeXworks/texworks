@@ -243,7 +243,7 @@ private:
 
 	QComboBox *engine;
 	QProcess *process;
-	bool consoleWasHidden;
+	bool keepConsoleOpen;
 	bool showPdfWhenFinished;
 	bool userInterrupt;
 	QDateTime oldPdfTime;
