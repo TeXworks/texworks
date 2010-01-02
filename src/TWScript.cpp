@@ -24,23 +24,9 @@
 #include <QMetaObject>
 #include <QMetaMethod>
 
-bool TWScript::setFile(const QString& filename)
-{
-	if (!QFile::exists(filename))
-		return false;
-	m_Filename = filename;
-	return parseHeader();
-}
-
-void TWScript::clearHeaderData() {
-	m_Type = ScriptUnknown;
-	m_Title = QString();
-	m_Description = QString();
-	m_Author = QString();
-	m_Version = QString();
-	m_Hook = QString();
-	m_Context = QString();
-	m_KeySequence = QKeySequence();
+TWScript::TWScript(TWScriptLanguageInterface *interface, const QString& fileName)
+	: m_Interface(interface), m_Filename(fileName), m_Type(ScriptUnknown)
+{	
 }
 
 bool TWScript::doParseHeader(const QString& beginComment, const QString& endComment,
@@ -106,8 +92,6 @@ bool TWScript::doParseHeader(const QString& beginComment, const QString& endComm
 bool TWScript::doParseHeader(const QStringList & lines)
 {
 	QString line, key, value;
-	
-	clearHeaderData();
 	
 	foreach (line, lines) {
 		key = line.section(':', 0, 0).trimmed();
@@ -217,7 +201,9 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 		// method
 		for (j = 0; j < arguments.count(); ++j) {
 			type = QMetaType::type(mm.parameterTypes()[j]);
-			if (!arguments[j].canConvert((QVariant::Type)type)) break;
+			int typeOfArg = (int)arguments[j].type();
+			if (typeOfArg != (int)type)
+				if (!arguments[j].canConvert((QVariant::Type)type)) break;
 		}
 		if (j < arguments.count()) continue;
 		
@@ -227,7 +213,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 			type = QMetaType::type(qPrintable(typeName));
 			
 			// allocate type name on the heap so it survives the method call
-			strTypeName = new char[typeName.size()];
+			strTypeName = new char[typeName.size() + 1];
 			strcpy(strTypeName, qPrintable(typeName));
 			
 			arguments[j].convert((QVariant::Type)type);

@@ -35,60 +35,6 @@
 #include <QtScriptTools>
 #endif
 
-bool JSScript::parseHeader()
-{
-	QString line, key, value;
-	QFile file(m_Filename);
-	
-	clearHeaderData();
-	
-	if (!file.exists() || !file.open(QIODevice::ReadOnly))
-		return false;
-	
-	// skip any empty lines
-	QTextStream s(&file);
-	while (!s.atEnd()) {
-		line = s.readLine().trimmed();
-		if (!line.isEmpty())
-			break;
-	}
-	
-	// is this a valid TW script?
-	if (!line.startsWith("//"))
-		return false;
-	line = line.mid(2).trimmed();
-	if (!line.startsWith("TeXworksScript"))
-		return false;
-	
-	// read the header lines
-	while (!s.atEnd()) {
-		line = s.readLine().trimmed();
-		
-		// have we reached the end?
-		if (!line.startsWith("//"))
-			break;
-		
-		line = line.mid(2).trimmed();
-		key = line.section(':', 0, 0).trimmed();
-		value = line.section(':', 1).trimmed();
-		
-		if (key == "Title") m_Title = value;
-		else if (key == "Description") m_Description = value;
-		else if (key == "Author") m_Author = value;
-		else if (key == "Version") m_Version = value;
-		else if (key == "Script-Type") {
-			if (value == "hook") m_Type = ScriptHook;
-			else if (value == "standalone") m_Type = ScriptStandalone;
-			else m_Type = ScriptUnknown;
-		}
-		else if (key == "Hook") m_Hook = value;
-		else if (key == "Context") m_Context = value;
-		else if (key == "Shortcut") m_KeySequence = QKeySequence(value);
-	}
-	
-	return m_Type != ScriptUnknown && !m_Title.isEmpty();
-}
-
 static
 QVariant convertValue(const QScriptValue& value)
 {
@@ -118,10 +64,10 @@ bool JSScript::run(QObject *context, QVariant& result) const
 	
 	QScriptEngine engine;
 	QScriptValue targetObject = engine.newQObject(context);
-	engine.globalObject().setProperty("target", targetObject);
+	engine.globalObject().setProperty("TWTarget", targetObject);
 	
 	QScriptValue appObject = engine.newQObject(TWApp::instance());
-	engine.globalObject().setProperty("app", appObject);
+	engine.globalObject().setProperty("TWApp", appObject);
 	
 	QScriptValue val;
 
@@ -151,6 +97,47 @@ bool JSScript::run(QObject *context, QVariant& result) const
 	}
 }
 
+TWScript* JSScriptInterface::newScript(const QString& fileName)
+{
+	return new JSScript(this, fileName);
+}
+
+void TWScriptManager::loadPlugins()
+{
+	// the JSScript interface isn't really a plugin, but provides the same interface
+	scriptLanguages += new JSScriptInterface();
+	
+	// get any static plugins
+	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
+		TWScriptLanguageInterface *s = qobject_cast<TWScriptLanguageInterface*>(plugin);
+		if (s)
+			scriptLanguages += s;
+	}
+	
+	// find the plugins directory, relative to the executable
+	QDir pluginsDir = QDir(qApp->applicationDirPath());
+#if defined(Q_OS_WIN)
+	if (pluginsDir.dirName().toLower() == "debug" || pluginsDir.dirName().toLower() == "release")
+		pluginsDir.cdUp();
+#elif defined(Q_OS_MAC)
+	if (pluginsDir.dirName() == "MacOS") {
+		pluginsDir.cdUp();
+		pluginsDir.cdUp();
+		pluginsDir.cdUp();
+	}
+#endif
+	pluginsDir.cd("plugins");
+
+	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
+		QObject *plugin = loader.instance();
+		TWScriptLanguageInterface *s = qobject_cast<TWScriptLanguageInterface*>(plugin);
+		if (s)
+			scriptLanguages += s;
+	}
+	
+}
+
 void TWScriptManager::clear()
 {
 	foreach (QObject *s, m_Scripts.children())
@@ -163,8 +150,6 @@ void TWScriptManager::clear()
 bool TWScriptManager::addScript(QObject* scriptList, TWScript* script)
 {
 	foreach (QObject* obj, scriptList->children()) {
-		printf("obj class = %s\n", obj->metaObject()->className());
-		printf("is a script? %d\n", obj->inherits("TWScript"));
 		TWScript *s = qobject_cast<TWScript*>(obj);
 		if (!s)
 			continue;
@@ -190,26 +175,33 @@ int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir&
 				++num;
 			continue;
 		}
+
 		QString suffix = info.suffix();
-		if (suffix == "js") {
-			TWScript *script = new JSScript(info.absoluteFilePath());
-			if (script && script->parseHeader()) {
-				if (script->getType() == TWScript::ScriptHook) {
-					if (!addScript(&m_Hooks, script))
+		foreach (TWScriptLanguageInterface* i, scriptLanguages) {
+			if (suffix != i->scriptFileSuffix())
+				continue;
+			TWScript *script = i->newScript(info.absoluteFilePath());
+			if (script) {
+				script->parseHeader();
+				switch (script->getType()) {
+					case TWScript::ScriptHook:
+						if (!addScript(&m_Hooks, script))
+							delete script;
+						break;
+
+					case TWScript::ScriptStandalone:
+						if (addScript(scriptList, script))
+							++num;
+						else
+							delete script;
+						break;
+					
+					default: // must be unknown/invalid
 						delete script;
-				}
-				else {
-					if (addScript(scriptList, script))
-						++num;
-					else
-						delete script;
+						break;
 				}
 			}
-			else
-				delete script;
-			continue;
 		}
-		// add other types of script here
 	}
 	
 	return num;

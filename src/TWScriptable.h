@@ -65,18 +65,34 @@ class JSScript : public TWScript
 	Q_INTERFACES(TWScript)
 	
 public:
-	JSScript(const QString& filename) : TWScript(filename) { }
-	
-	virtual ScriptLanguage getLanguage() const { return LanguageQtScript; }
-	
-	virtual bool parseHeader();
+	JSScript(TWScriptLanguageInterface* interface, const QString& filename) : TWScript(interface, filename) { }
+		
+	virtual bool parseHeader() { return doParseHeader("", "", "//"); };
 	virtual bool run(QObject *context, QVariant& result) const;
+};
+
+// for JSScript, we provide a plugin-like factory, but it's actually compiled
+// and linked directly with the main application (at least for now)
+class JSScriptInterface : public QObject, public TWScriptLanguageInterface
+{
+	Q_OBJECT
+	Q_INTERFACES(TWScriptLanguageInterface)
+	
+public:
+	JSScriptInterface() {};
+	virtual ~JSScriptInterface() {};
+
+	virtual TWScript* newScript(const QString& fileName);
+
+	virtual QString scriptLanguageName() { return QString("QtScript"); }
+	virtual QString scriptLanguageURL() { return QString("http://doc.trolltech.com/4.5/qtscript.html"); }
+	virtual QString scriptFileSuffix() { return QString("js"); }
 };
 
 class TWScriptManager
 {
 public:
-	TWScriptManager() { }
+	TWScriptManager() { loadPlugins(); }
 	virtual ~TWScriptManager() { }
 	
 	bool addScript(QObject* scriptList, TWScript* script);
@@ -90,12 +106,14 @@ public:
 
 protected:
 	int addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir);
+	void loadPlugins();
 	
 private:
 	TWScriptList m_Scripts; // hierarchical list of standalone scripts
 	TWScriptList m_Hooks; // flat list of hook scripts (not shown in menus)
-};
 
+	QList<TWScriptLanguageInterface*> scriptLanguages;
+};
 
 // parent class for document windows that handle a Scripts menu
 // (i.e. both the source and PDF window types)

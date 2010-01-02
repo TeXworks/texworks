@@ -21,6 +21,9 @@ TEMPLATE	=	app
 DEPENDPATH	+=	./src
 INCLUDEPATH	+=	./src
 
+SUBDIRS		+=	plugins-src/TWLuaPlugin
+SUBDIRS		+=	plugins-src/TWPythonPlugin
+
 MOC_DIR     = ./moc
 OBJECTS_DIR = ./obj
 UI_DIR      = ./ui
@@ -28,6 +31,11 @@ RCC_DIR     = ./rcc
 
 # comment this out if poppler's xpdf headers are not available on the build system
 QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
+
+# put all symbols in the dynamic symbol table to plugins can access them; if not
+# given, plugin loading may fail with a debug warning for some plugins
+# Note: only works for gnu compilers; need to check what flags to pass to other compilers
+QMAKE_LFLAGS += -Wl,--export-dynamic
 
 unix:!macx {
 	TARGET	=	texworks
