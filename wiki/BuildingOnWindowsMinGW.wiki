@@ -2,7 +2,7 @@
 
 _Thanks to Stefan Löffler, Alain Delmotte, Tomek, and Ignasi Furió for developing this guide._
 
-<wiki:toc max_depth="1" />  
+<wiki:toc max_depth="2" />  
 
 = Preface =
 
@@ -168,6 +168,20 @@ If this doesn't help (e.g. you get errors or the application doesn't start), try
 {{{
 mingw32-make clean
 }}}
+
+= Building plugins =
+== Building the Lua scripting plugin =
+In order to build the Lua scripting plugin, you need to get the Lua development files suitable for your build setup (mingw + gcc 4.x). The most easiest way to obtain them is from the [http://luaforge.net/frs/?group_id=110 Lua Binaries] page at !LuaForge. Download the file `lua*_Win32_mingw4_lib.zip` (`lua5_1_4_Win32_mingw4_lib.zip` at the time of writing) and extract it, e.g., to C:\texworks\lua5.1\. Then modify the file plugins-src\TWLuaPlugin\TWLuaPlugin.pro and replace the lines
+{{{
+	INCLUDEPATH += c:/MinGW514/local/include
+	LIBS += -Lc:/MinGW514/local/lib
+}}}
+by
+{{{
+	INCLUDEPATH += c:/texworks/lua5.1/include
+	LIBS += -Lc:/texworks/lua5.1
+}}}
+Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWLuaPlugin subdirectory. This should leave you with the file plugins-src\TWLuaPlugin\release\libTWLuaPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins and copy the file libTWLuaPlugin.dll into it. Finally restart !TeXworks.
 
 = Disclaimer =  
 This guide is provided as-is in the hope that it's helpful. There is no guarantee the described procedure will work on your system. Use at your own risk.
