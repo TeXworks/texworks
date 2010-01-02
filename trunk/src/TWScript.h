@@ -29,6 +29,8 @@
 #include <QStringList>
 #include <QVariant>
 
+class TWScriptLanguageInterface;
+
 /** \brief	Abstract base class for all Tw scripts
  *
  * \note This must be derived from QObject to enable interaction with e.g. menus
@@ -40,15 +42,9 @@ class TWScript : public QObject
 public:
 	/** \brief	Types of scripts */
 	enum ScriptType { 
-		ScriptUnknown,		///< unknown script
+		ScriptUnknown,		///< unknown or invalid script
 		ScriptHook,			///< hook, i.e. a script that is called automatically when the execution reaches a certain point
 		ScriptStandalone	///< standalone script, i.e. one that can be invoked by the user
-	};
-	/** \brief	Supported scripting languages */
-	enum ScriptLanguage {
-		LanguageQtScript,	///< QtScript (http://doc.trolltech.com/4.5/qtscript.html)
-		LanguageLua,		///< Lua (http://www.lua.org/)
-		LanguagePython		///< Python (http://www.python.org/)
 	};
 	
 	/** \brief	Destructor
@@ -56,6 +52,16 @@ public:
 	 * Does nothing
 	 */
 	virtual ~TWScript() { }
+	
+	/** \brief Parse the script header
+	 *
+	 * \note	This method must be implemented in derived classes.
+	 * \see	doParseHeader(QString, QString, QString, bool)
+	 * \see	doParseHeader(QStringList)
+	 * \return	\c true if successful, \c false if not (e.g. because the file
+	 * 			is no valid Tw script)
+	 */
+	virtual bool parseHeader() = 0;
 	
 	/** \brief	Get the type of the script
 	 *
@@ -116,32 +122,6 @@ public:
 	 */
 	const QKeySequence& getKeySequence() const { return m_KeySequence; }
 	
-	/** \brief	Set the file in which this script is stored
-	 *
-	 * \note	This method calls parseHeader() automatically if the specified
-	 * 			file exists.
-	 * \param	filename	the new filename
-	 * \return	\c true on success, \c false otherwise
-	 */
-	bool setFile(const QString& filename);
-	
-	/** \brief Get the scripting language
-	 *
-	 * \note	This method must be implemented in derived classes
-	 * \returns	the scripting language
-	 */
-	virtual ScriptLanguage getLanguage() const = 0;
-
-	/** \brief Parse the script header
-	 *
-	 * \note	This method must be implemented in derived classes.
-	 * \see	doParseHeader(QString, QString, QString, bool)
-	 * \see	doParseHeader(QStringList)
-	 * \return	\c true if successful, \c false if not (e.g. because the file
-	 * 			is no valid Tw script)
-	 */
-	virtual bool parseHeader() = 0;
-
 	/** \brief Run the script
 	 *
 	 * \param	context	the object from which the script was called; typically
@@ -160,23 +140,15 @@ public:
 	 * \return	\c true if *this == s, \c false otherwise
 	 */
 	bool operator==(const TWScript& s) const { return QFileInfo(m_Filename) == QFileInfo(s.m_Filename); }
-	
+
 protected:
 	/** \brief	Constructor
 	 *
-	 * Does nothing
+	 * Initializes a script object from the given file.
+	 * Does not invoke parseHeader(), so the script object may not actually be usable.
 	 */
-	TWScript() { }
+	TWScript(TWScriptLanguageInterface *interface, const QString& filename);
 
-	/** \brief	Constructor
-	 *
-	 * Sets the filename. Doesn't invoke setFile() or parseHeader().
-	 */
-	TWScript(const QString& filename) : m_Filename(filename) { }
-
-	/** \brief	Clears all header data */
-	void clearHeaderData();
-	
 	/** \brief	Convenience function to parse supported key:value pairs of the header
 	 *
 	 * Currently supported keys:
@@ -187,6 +159,7 @@ protected:
 	 * - Script-Type
 	 * - Hook
 	 * - Shortcut
+	 * - Context
 	 *
 	 * \param	lines	the lines containing unparsed key:value pairs (but
 	 * 					without any language-specific comment characters)
@@ -259,8 +232,9 @@ protected:
 	 */
 	static TWScript::MethodResult doCallMethod(QObject * obj, const QString& name, QVariantList & arguments, QVariant & result);
 	
+	TWScriptLanguageInterface * m_Interface; ///< pointer to the language interface for this script
 	QString m_Filename;	///< the name of the file the script is stored in
-	ScriptType m_Type;	///< the type of the script
+	ScriptType m_Type;	///< the type of the script (ScriptUnknown indicates invalid)
 	QString m_Title;	///< the title (e.g. for display in menus)
 	QString m_Description;	///< the description
 	QString m_Author;	///< the author's name
@@ -268,33 +242,64 @@ protected:
 	QString m_Hook;		///< the hook this script implements (if any)
 	QString m_Context;  ///< the main window class where this script can be used
 	QKeySequence m_KeySequence;	///< the keyboard shortcut associated with this script
+
+private:
+	/** \brief	Constructor
+	 *
+	 * Private, to prevent inadvertent use of the no-arg constructor.
+	 */
+	TWScript() { }
 };
 
 /** \brief	Interface all TW scripting plugins must implement */
-class TWScriptPluginInterface
+class TWScriptLanguageInterface
 {
 public:
 	/** \brief	Constructor
 	 *
 	 * Does nothing
 	 */
-	TWScriptPluginInterface() { }
+	TWScriptLanguageInterface() { }
 	
 	/** \brief	Destructor
 	 *
 	 * Does nothing
 	 */
-	virtual ~TWScriptPluginInterface() { }
+	virtual ~TWScriptLanguageInterface() { }
 	
 	/** \brief	Method to create a new script wrapper
 	 *
-	 * This method must be implemented in derived classes
-	 * \return	the script wrapper, cast to TWScript
+	 * This method must be implemented in derived classes;
+	 * it should create the script wrapper for the given file.
+	 * This method does NOT call parseHeader(), so until this
+	 * is done, the script is not necessarily valid.
+	 * \return	the script wrapper, or NULL if the file cannot be found
 	 */
-	virtual TWScript* newScript() = 0;
+	virtual TWScript* newScript(const QString& fileName) = 0;
+
+	/** \brief	Method to report the supported script language name
+	 *
+	 * This method must be implemented in derived classes
+	 * \return	the name of the scripting language
+	 */
+	virtual QString scriptLanguageName() = 0;
+
+	/** \brief	Method to report a URL for information on the script language
+	 *
+	 * This method must be implemented in derived classes
+	 * \return	a string with a URL for information about the language
+	 */
+	virtual QString scriptLanguageURL() = 0;
+
+	/** \brief	Method to report the supported script file extension
+	 *
+	 * This method must be implemented in derived classes
+	 * \return	the file extension required for scripts of this type
+	 */
+	virtual QString scriptFileSuffix() = 0;
 };
 
 Q_DECLARE_INTERFACE(TWScript, "org.tug.texworks.Script/0.3")
-Q_DECLARE_INTERFACE(TWScriptPluginInterface, "org.tug.texworks.ScriptPluginInterface/0.3")
+Q_DECLARE_INTERFACE(TWScriptLanguageInterface, "org.tug.texworks.ScriptLanguageInterface/0.3")
 
 #endif /* TWScript_H */
