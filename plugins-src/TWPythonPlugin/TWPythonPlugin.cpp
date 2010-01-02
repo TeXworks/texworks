@@ -364,8 +364,10 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 	int i;
 	QVariantList::const_iterator iList;
 	QVariantList list;
+#if QT_VERSION >= 0x040500
 	QVariantHash::const_iterator iHash;
 	QVariantHash hash;
+#endif
 	QVariantMap::const_iterator iMap;
 	QVariantMap map;
 	PyObject * pyList, * pyDict;
@@ -404,6 +406,7 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 				PyList_SetItem(pyList, i, PythonScript::VariantToPython(*iList));
 			}
 			return pyList;
+#if QT_VERSION >= 0x040500
 		case QVariant::Hash:
 			hash = v.toHash();
 			
@@ -412,6 +415,7 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 				PyDict_SetItemString(pyDict, qPrintable(iHash.key()), PythonScript::VariantToPython(iHash.value()));
 			}
 			return pyDict;
+#endif
 		case QVariant::Map:
 			map = v.toMap();
 			
@@ -434,7 +438,7 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 QVariant PythonScript::PythonToVariant(PyObject * o)
 {
 	QVariantList list;
-	QVariantHash hash;
+	QVariantMap map;
 	PyObject * key, * value;
 	Py_ssize_t i = 0;
 	QString str;
@@ -461,9 +465,9 @@ QVariant PythonScript::PythonToVariant(PyObject * o)
 	}
 	if (PyDict_Check(o)) {
 		while (PyDict_Next(o, &i, &key, &value)) {
-			hash.insert(PythonScript::PythonToVariant(key).toString(), PythonScript::PythonToVariant(value));
+			map.insert(PythonScript::PythonToVariant(key).toString(), PythonScript::PythonToVariant(value));
 		}
-		return hash;
+		return map;
 	}
 	// \TODO Complex numbers, byte arrays
 	PyErr_Format(PyExc_TypeError, qPrintable(tr("the python type %s is currently not supported")), o->ob_type->tp_name);

@@ -43,8 +43,14 @@ macx {
 }
 
 unix:!macx { # on Unix-ish platforms we rely on pkgconfig
+	# Python prior to 3.x doesn't register properly with pkg-config
 	INCLUDEPATH	+= /usr/include/python2.6/
 	LIBS		+= -lpython2.6
+
+	# uncomment these lines (and comment those above) to use Python 3
+#	CONFIG		+= link_pkgconfig
+#	QMAKE_CXXFLAGS	+= -DPy_UNICODE_WIDE
+#	PKGCONFIG	+= python3
 }
 
 win32 { # paths here are specific to my setup

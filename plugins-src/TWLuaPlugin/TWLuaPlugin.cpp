@@ -145,8 +145,10 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 	int i;
 	QVariantList::const_iterator iList;
 	QVariantList list;
+#if QT_VERSION >= 0x040500
 	QVariantHash::const_iterator iHash;
 	QVariantHash hash;
+#endif
 	QVariantMap::const_iterator iMap;
 	QVariantMap map;
 
@@ -181,6 +183,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 				lua_setfield(L, -2, qPrintable(QString("%1").arg(i)));
 			}
 			return 1;
+#if QT_VERSION >= 0x040500
 		case QVariant::Hash:
 			hash = v.toHash();
 			
@@ -190,6 +193,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 				lua_setfield(L, -2, qPrintable(iHash.key()));
 			}
 			return 1;
+#endif
 		case QVariant::Map:
 			map = v.toMap();
 			
@@ -330,9 +334,9 @@ int LuaScript::setProperty(lua_State * L)
 /*static*/
 QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwError /*= true*/)
 {
-	bool isArray = true, isHash = true;
+	bool isArray = true, isMap = true;
 	QVariantList vl;
-	QVariantHash vh;
+	QVariantMap vm;
 	int i, n, iMax;
 
 	if (!L) return QVariant();
@@ -366,16 +370,16 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 						if (lua_tonumber(L, -2) > iMax) iMax = lua_tonumber(L, -2);
 					}
 				}
-				if (isHash) {
+				if (isMap) {
 					// keys must be convertable to string
-					if (!lua_isstring(L, -2)) isHash = false;
+					if (!lua_isstring(L, -2)) isMap = false;
 					// some value types are not supported by QVariant
 					if (
 						lua_isfunction(L, -1) ||
 						lua_islightuserdata(L, -1) ||
 						lua_isthread(L, -1) ||
 						lua_isuserdata(L, -1)
-					) isHash = false;
+					) isMap = false;
 				}
 				lua_pop(L, 1);
 				++i;
@@ -390,22 +394,23 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 				}
 				return vl;
 			}
-			// we have no way to distinguish between QHash and QMap, so I
-			// arbitrarly chose the former
-			if (isHash) {
+			// use QMap here because Lua doesn't support multiple values for one
+			// key (those are converted to lists implicitly) and QVariantMap is
+			// backwards compatible
+			if (isMap) {
 				lua_pushnil(L);
 				while (lua_next(L, idx)) {
 					// duplicate the key. If we didn't, lua_tostring could
 					// convert it, thereby confusing lua_next later on
 					lua_pushvalue(L, -2);
-					vh.insert(lua_tostring(L, -1), LuaScript::getLuaStackValue(L, -2));
+					vm.insert(lua_tostring(L, -1), LuaScript::getLuaStackValue(L, -2));
 					lua_pop(L, 2);
 				}
-				return vh;
+				return vm;
 			}
 			
 			// deliberately no break here; if the table could not be converted
-			// to QList or QHash, we have to treat it as unsupported
+			// to QList or QMap, we have to treat it as unsupported
 		case LUA_TFUNCTION:
 		case LUA_TUSERDATA:
 		case LUA_TTHREAD:
