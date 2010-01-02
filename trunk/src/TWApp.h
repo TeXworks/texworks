@@ -181,7 +181,7 @@ signals:
 	// emitted when the engine list is changed from Preferences, so docs can update their menus
 	void engineListChanged();
 	
-	void syncPdf(const QString& sourceFile, int lineNo);
+	void syncPdf(const QString& sourceFile, int lineNo, bool activatePreview);
 
 	void hideFloatersExcept(QWidget* theWindow);
 
@@ -193,8 +193,6 @@ private slots:
 	void newFromTemplate();
 	void openRecentFile();
 	void preferences();
-
-	void syncFromSource(const QString& sourceFile, int lineNo);
 
 	void changeLanguage();
 

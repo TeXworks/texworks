@@ -74,6 +74,9 @@ const int kScroll = 2;
 const int kSelectText = 3;
 const int kSelectImage = 4;
 
+// duration of highlighting in PDF view (might make configurable?)
+const int kPDFHighlightDuration = 2000;
+
 #pragma mark === PDFMagnifier ===
 
 const int kMagFactor = 2;
@@ -204,6 +207,9 @@ PDFWidget::PDFWidget()
 	shortcutLeft = new QShortcut(QKeySequence("Left"), this, SLOT(leftOrPrev()));
 	shortcutDown = new QShortcut(QKeySequence("Down"), this, SLOT(downOrNext()));
 	shortcutRight = new QShortcut(QKeySequence("Right"), this, SLOT(rightOrNext()));
+
+	highlightRemover.setSingleShot(true);
+	connect(&highlightRemover, SIGNAL(timeout()), this, SLOT(clearHighlight()));
 }
 
 PDFWidget::~PDFWidget()
@@ -692,6 +698,7 @@ void PDFWidget::setResolution(int res)
 
 void PDFWidget::setHighlightPath(const QPainterPath& path)
 {
+	highlightRemover.stop();
 	highlightPath = path;
 	if (!path.isEmpty()) {
 		QScrollArea*	scrollArea = getScrollArea();
@@ -700,7 +707,15 @@ void PDFWidget::setHighlightPath(const QPainterPath& path)
 			scrollArea->ensureVisible((int)((r.left() + r.right()) / 2 * dpi / 72 * scaleFactor),
 										(int)((r.top() + r.bottom()) / 2 * dpi / 72 * scaleFactor));
 		}
+		if (kPDFHighlightDuration > 0)
+			highlightRemover.start(kPDFHighlightDuration);
 	}
+}
+
+void PDFWidget::clearHighlight()
+{
+	highlightPath = QPainterPath();
+	update();
 }
 
 void PDFWidget::reloadPage()
@@ -1151,7 +1166,7 @@ PDFDocument::init()
 
 	connect(this, SIGNAL(destroyed()), qApp, SLOT(updateWindowMenus()));
 
-	connect(qApp, SIGNAL(syncPdf(const QString&, int)), this, SLOT(syncFromSource(const QString&, int)));
+	connect(qApp, SIGNAL(syncPdf(const QString&, int, bool)), this, SLOT(syncFromSource(const QString&, int, bool)));
 
 	menuShow->addAction(toolBar->toggleViewAction());
 	menuShow->addSeparator();
@@ -1411,7 +1426,7 @@ void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 	}
 }
 
-void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo)
+void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, bool activatePreview)
 {
 	if (scanner == NULL)
 		return;
@@ -1453,7 +1468,8 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo)
 			path.setFillRule(Qt::WindingFill);
 			pdfWidget->setHighlightPath(path);
 			pdfWidget->update();
-			selectWindow();
+			if (activatePreview)
+				selectWindow();
 		}
 	}
 }

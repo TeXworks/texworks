@@ -30,6 +30,7 @@
 #include <QCursor>
 #include <QButtonGroup>
 #include <QPainterPath>
+#include <QTimer>
 
 #include "FindDialog.h"
 #include "poppler-qt4.h"
@@ -119,6 +120,8 @@ private slots:
 	void downOrNext();
 	void rightOrNext();
 
+	void clearHighlight();
+	
 public slots:
 	void windowResized();
 	void fitWindow(bool checked = true);
@@ -186,7 +189,8 @@ private:
 	int		usingTool;	// the tool actually being used in an ongoing mouse drag
 
 	QPainterPath	highlightPath;
-
+	QTimer highlightRemover;
+	
 	static QCursor	*magnifierCursor;
 	static QCursor	*zoomInCursor;
 	static QCursor	*zoomOutCursor;
@@ -255,7 +259,7 @@ public slots:
 	void doFindAgain(bool newSearch = false);
 	void goToSource();
 	void toggleFullScreen();
-	void syncFromSource(const QString& sourceFile, int lineNo);
+	void syncFromSource(const QString& sourceFile, int lineNo, bool activatePreview);
 	
 private slots:
 	void updateRecentFileActions();

@@ -180,7 +180,7 @@ void TeXDocument::init()
 	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(syncClick(int)), this, SLOT(syncClick(int)));
-	connect(this, SIGNAL(syncFromSource(const QString&, int)), qApp, SLOT(syncFromSource(const QString&, int)));
+	connect(this, SIGNAL(syncFromSource(const QString&, int, bool)), qApp, SIGNAL(syncPdf(const QString&, int, bool)));
 
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(clipboardChanged()));
 	clipboardChanged();
@@ -1222,6 +1222,8 @@ void TeXDocument::showCursorPosition()
 	int total = textEdit->document()->blockCount();
 	int col = cursor.position() - textEdit->document()->findBlock(cursor.selectionStart()).position();
 	lineNumberLabel->setText(tr("Line %1 of %2; col %3").arg(line).arg(total).arg(col));
+	if (actionAuto_Follow_Focus->isChecked())
+		emit syncFromSource(curFile, line, false);
 }
 
 void TeXDocument::selectWindow(bool activate)
@@ -2400,7 +2402,7 @@ void TeXDocument::syncClick(int lineNo)
 	if (!isUntitled) {
 		// ensure that there is a pdf to receive our signal
 		goToPreview();
-		emit syncFromSource(curFile, lineNo);
+		emit syncFromSource(curFile, lineNo, true);
 	}
 }
 

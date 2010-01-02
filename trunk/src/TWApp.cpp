@@ -702,11 +702,6 @@ const Engine TWApp::getNamedEngine(const QString& name)
 	return Engine();
 }
 
-void TWApp::syncFromSource(const QString& sourceFile, int lineNo)
-{
-	emit syncPdf(sourceFile, lineNo);
-}
-
 QTextCodec *TWApp::getDefaultCodec()
 {
 	return defaultCodec;
