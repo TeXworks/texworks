@@ -243,6 +243,7 @@
     <addaction name="actionPlace_on_Right"/>
     <addaction name="separator"/>
     <addaction name="actionGo_to_Preview"/>
+    <addaction name="actionAuto_Follow_Focus"/>
     <addaction name="actionShow_Hide_Console"/>
    </widget>
    <widget class="QMenu" name="menuSearch">
@@ -1043,6 +1044,20 @@
    </property>
    <property name="text">
     <string>Manage Scripts</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionAuto_Follow_Focus">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto-Follow Focus</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

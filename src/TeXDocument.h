@@ -107,7 +107,7 @@ public:
     Q_PROPERTY(QString fileName READ fileName);
 
 signals:
-	void syncFromSource(const QString&, int);
+	void syncFromSource(const QString&, int, bool);
 	void activatedWindow(QWidget*);
 	void tagListUpdated();
 
