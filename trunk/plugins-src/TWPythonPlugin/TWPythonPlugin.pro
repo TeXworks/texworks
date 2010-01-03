@@ -52,6 +52,8 @@ unix:!macx { # on Unix-ish platforms we should rely on pkgconfig
 #	QMAKE_CXXFLAGS	+= -DPy_UNICODE_WIDE
 #	PKGCONFIG	+= python3
 
+	QMAKE_CXXFLAGS	+= -fno-strict-aliasing
+
 	target.path	= /usr/local/lib/texworks
 	INSTALLS	+= target
 }

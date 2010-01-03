@@ -31,14 +31,14 @@
 typedef struct {
 	PyObject_HEAD
 	/* Type-specific fields go here. */
-	PyCObject * _TWcontext;	///< pointer to the QObject wrapped by this object
+	PyObject * _TWcontext;	///< pointer to the QObject wrapped by this object
 } pyQObject;
 
 /** \brief	Structure to hold data for the pyQObjectMethodObject wrapper */
 typedef struct {
 	PyObject_HEAD
 	/* Type-specific fields go here. */
-	PyCObject * _TWcontext;	///< pointer to the QObject the method wrapped by this object belongs to
+	PyObject * _TWcontext;	///< pointer to the QObject the method wrapped by this object belongs to
 	PyObject * _methodName;	///< string describing the method name wrapped by this object
 } pyQObjectMethodObject;
 static PyTypeObject pyQObjectType;
@@ -223,7 +223,7 @@ PyObject * PythonScript::QObjectToPython(QObject * o)
 	if (!obj) return NULL;
 	
 	obj = (pyQObject*)PyObject_Init((PyObject*)obj, &pyQObjectType);
-	obj->_TWcontext = (PyCObject*)PyCObject_FromVoidPtr(o, NULL);
+	obj->_TWcontext = PyCObject_FromVoidPtr(o, NULL);
 	return (PyObject*)obj;
 }
 
@@ -263,7 +263,7 @@ PyObject* PythonScript::getAttribute(PyObject * o, PyObject * attr_name)
 			pyMethod = PyObject_New(pyQObjectMethodObject, &pyQObjectMethodType);
 			pyMethod = (pyQObjectMethodObject*)PyObject_Init((PyObject*)pyMethod, &pyQObjectMethodType);
 			Py_INCREF(pyMethod);
-			pyMethod->_TWcontext = (PyCObject*)PyCObject_FromVoidPtr(obj, NULL);
+			pyMethod->_TWcontext = PyCObject_FromVoidPtr(obj, NULL);
 			Py_XINCREF(attr_name);
 			pyMethod->_methodName = (PyObject*)attr_name;
 			return (PyObject*)pyMethod;
@@ -378,14 +378,8 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 		case QVariant::Double:
 			return Py_BuildValue("d", v.toDouble());
 		case QVariant::Bool:
-			if (v.toBool()) {
-				Py_INCREF(Py_True);
-				return Py_True;
-			}
-			else {
-				Py_INCREF(Py_False);
-				return Py_False;
-			}
+			if (v.toBool()) Py_RETURN_TRUE;
+			else Py_RETURN_FALSE;
 		case QVariant::Int:
 			return Py_BuildValue("i", v.toInt());
 		case QVariant::LongLong:
@@ -480,13 +474,25 @@ bool PythonScript::asQString(PyObject * obj, QString & str)
 	PyObject * tmp;
 
 	// Get the parameters
+	// In Python 3.x, the PyString_* were replaced by PyBytes_*
+#if PY_MAJOR_VERSION < 3
+	if (PyString_Check(obj)) {
+		str = PyString_AsString(obj);
+		return true;
+	}
+#else
 	if (PyBytes_Check(obj)) {
 		str = PyBytes_AsString(obj);
 		return true;
 	}
-	else if (PyUnicode_Check(obj)) {
+#endif
+	if (PyUnicode_Check(obj)) {
 		tmp = PyUnicode_AsUTF8String(obj);
+#if PY_MAJOR_VERSION < 3
+		str = QString::fromUtf8(PyString_AsString(tmp));
+#else
 		str = QString::fromUtf8(PyBytes_AsString(tmp));
+#endif
 		Py_XDECREF(tmp);
 		return true;
 	}
