@@ -54,21 +54,34 @@ This assumes you have an up-to-date base system and are in the texworks-read-onl
 $ sudo aptitude install liblua5.1-0-dev
 $ cd plugins-src/TWLuaPlugin
 $ qmake-qt4
-$ make
-$ sudo mkdir -p /usr/local/lib/texworks
-$ sudo ln -sf $(pwd)/libTWLuaPlugin.so /usr/local/lib/texworks/
+$ make && sudo make install
 }}}
 
 ==== The Python scripting plugin ====
 This assumes you have an up-to-date base system and are in the texworks-read-only directory.
+On recent systems (e.g. Ubuntu Intrepid and later) run
 {{{
 $ sudo aptitude install python2.6-dev
 $ cd plugins-src/TWPythonPlugin
 $ qmake-qt4
-$ make
-$ sudo mkdir -p /usr/local/lib/texworks
-$ sudo ln -sf $(pwd)/libTWPythonPlugin.so /usr/local/lib/texworks/
+$ make && sudo make install
 }}}
+
+On older systems (e.g. Ubuntu Jaunty and below), only Python 2.5 is available. On those systems, open the file plugins-src/TWPythonPlugin/TWPythonPlugin.pro and replace the lines
+{{{
+unix:!macx { # on Unix-ish platforms we should rely on pkgconfig
+	# Python prior to 3.x doesn't register properly with pkg-config
+	INCLUDEPATH	+= /usr/include/python2.6/
+	LIBS		+= -lpython2.6
+}}}
+by
+{{{
+unix:!macx { # on Unix-ish platforms we should rely on pkgconfig
+	# Python prior to 3.x doesn't register properly with pkg-config
+	INCLUDEPATH	+= /usr/include/python2.5/
+	LIBS		+= -lpython2.5
+}}}
+Then run the same commands as above except for replacing `python2.6-dev` by `python2.5-dev`.
 
 === OpenSUSE 11.1 ===
 
