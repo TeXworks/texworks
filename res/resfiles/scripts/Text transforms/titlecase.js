@@ -2,8 +2,8 @@
 // Title: Title Case
 // Description: Converts the Current Selection to Title Case
 // Author: Jonathan Kew
-// Version: 0.1
-// Date: 2009-09-07
+// Version: 0.2
+// Date: 2010-01-02
 // Script-Type: standalone
 // Context: TeXDocument
 
@@ -36,28 +36,26 @@
    backslash to the word-finding regex, to protect TeX control words */
 
 String.prototype.toTitleCase = function() {
-    return this.replace(/(\\?[\w&`'ту"р.@:\/\{\(\[<>_]+-? *)/g, function(match, p1, index, title) {
-        if (index > 0 && title.charAt(index - 2) !== ":" &&
-        	match.search(/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|t(he|o)|vs?\.?|via)[ \-]/i) > -1)
-            return match.toLowerCase();
-        if (title.substring(index - 1, index + 1).search(/['"_{(\[]/) > -1)
-            return match.charAt(0) + match.charAt(1).toUpperCase() + match.substr(2);
-        if (match.substr(1).search(/[A-Z]+|&|[\w]+[._][\w]+/) > -1 || 
-        	title.substring(index - 1, index + 1).search(/[\])}]/) > -1)
-            return match;
-        return match.charAt(0).toUpperCase() + match.substr(1);
-    });
+  return this.replace(/(\\?[\w&`'ту"р.@:\/\{\(\[<>_]+-? *)/g, function(match, p1, index, title) {
+    if (index > 0 && title.charAt(index - 2) !== ":" &&
+        match.search(/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|t(he|o)|vs?\.?|via)[ \-]/i) > -1)
+      return match.toLowerCase();
+    if (title.substring(index - 1, index + 1).search(/['"_{(\[]/) > -1)
+      return match.charAt(0) + match.charAt(1).toUpperCase() + match.substr(2);
+    if (match.substr(1).search(/[A-Z]+|&|[\w]+[._][\w]+/) > -1 ||
+        title.substring(index - 1, index + 1).search(/[\])}]/) > -1)
+      return match;
+    return match.charAt(0).toUpperCase() + match.substr(1);
+  });
 };
 
 // thanks to David Gouch's function, the actual TW script is trivial:
-if (target.objectName == "TeXDocument") {
-  var txt = target.selection;
-  if (txt != "") {
-    var pos = target.selectionStart;
-    txt = txt.toTitleCase();
-    target.insertText(txt);
-    target.selectRange(pos, txt.length);
-  }
-} else {
-  "This script only works in source document windows."
+var txt = TWTarget.selection;
+if (txt != "") {
+  var pos = TWTarget.selectionStart;
+  txt = txt.toTitleCase();
+  TWTarget.insertText(txt);
+  TWTarget.selectRange(pos, txt.length);
 }
+
+undefined;
