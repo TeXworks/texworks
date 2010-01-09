@@ -99,17 +99,16 @@ public:
 	 */
 	virtual bool parseHeader() { return doParseHeader("", "", "#"); }
 	
+protected:
 	/** \brief Run the python script
 	 *
 	 * \note	Every python script is run in its own interpreter.
-	 * \param	context	the object from which the script was called; typically
-	 * 					a TeXDocument or PDFDocument instance
-	 * \param	result	variable to receive the result of the script execution;
-	 * 					in the case of an error, this typically contains an
-	 * 					error description
+	 *
+	 * \param	tw	the TW interface object, exposed to the script as the TW global
+     *
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool run(QObject *context, QVariant& result) const;
+	virtual bool execute(TWInterface *tw) const;
 	
 	/** \brief Handler for attribute requests on QObjects
 	 *
@@ -118,6 +117,7 @@ public:
 	 * \return	the python value on success, \c NULL if an error occured
 	 */
 	static PyObject* getAttribute(PyObject * o, PyObject * attr_name);
+
 	/** \brief Handler for setting attribute values on QObjects
 	 *
 	 * \param	o			the pyQObject for which to set the attribute value
@@ -126,6 +126,7 @@ public:
 	 * \return	0 on success, -1 if an error occured
 	 */
 	static int setAttribute(PyObject * o, PyObject * attr_name, PyObject * v);
+
 	/** \brief Handler for calling methods of QObjects
 	 *
 	 * \note	Calling by keywords is currently not supported
@@ -143,6 +144,7 @@ public:
 	 * \return	the pyQObject that can be used in python
 	 */
 	static PyObject * QObjectToPython(QObject * o);
+
 	/** \brief Convenience function to convert a QVariant to a python object
 	 *
 	 * \note	QObject* instances will be converted by QObjectToPython. Empty
@@ -153,6 +155,7 @@ public:
 	 * \return	the python object on success, \c NULL if an error occured
 	 */
 	static PyObject * VariantToPython(const QVariant & v);
+
 	/** \brief Convenience function to convert a python object to a QVariant
 	 *
 	 * \note	Python tuples and lists are converted to QList. pyQObject is not
@@ -163,7 +166,6 @@ public:
 	 */
 	static QVariant PythonToVariant(PyObject * o);
 
-protected:
 	/** \brief Register Tw-specific python types
 	 *
 	 * Registers pyQObject and pyQObjectMethodObject for use in python.
@@ -171,7 +173,8 @@ protected:
 	 * 					describing it
 	 * \return	\c true on succes, \c false otherwise
 	 */
-	bool registerPythonTypes(QVariant & result) const;
+	bool registerPythonTypes(QVariant * result) const;
+
 	/** \brief	Convenience function to convert a python object to a QString
 	 *
 	 * This function handles conversion of PyBytes and PyUnicode objects.

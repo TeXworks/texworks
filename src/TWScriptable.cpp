@@ -51,7 +51,7 @@ QVariant convertValue(const QScriptValue& value)
 		return value.toVariant();
 }
 
-bool JSScript::run(QObject *context, QVariant& result) const
+bool JSScript::execute(TWInterface *tw) const
 {
 	QFile scriptFile(m_Filename);
 	if (!scriptFile.open(QIODevice::ReadOnly)) {
@@ -63,11 +63,8 @@ bool JSScript::run(QObject *context, QVariant& result) const
 	scriptFile.close();
 	
 	QScriptEngine engine;
-	QScriptValue targetObject = engine.newQObject(context);
-	engine.globalObject().setProperty("TWTarget", targetObject);
-	
-	QScriptValue appObject = engine.newQObject(TWApp::instance());
-	engine.globalObject().setProperty("TWApp", appObject);
+	QScriptValue twObject = engine.newQObject(tw);
+	engine.globalObject().setProperty("TW", twObject);
 	
 	QScriptValue val;
 
@@ -86,12 +83,12 @@ bool JSScript::run(QObject *context, QVariant& result) const
 #endif
 
 	if (engine.hasUncaughtException()) {
-		result = engine.uncaughtException().toString();
+		tw->SetResult(engine.uncaughtException().toString());
 		return false;
 	}
 	else {
 		if (!val.isUndefined()) {
-			result = convertValue(val);
+			tw->SetResult(convertValue(val));
 		}
 		return true;
 	}
@@ -209,6 +206,7 @@ int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir&
 						delete script;
 						break;
 				}
+				break;
 			}
 		}
 	}

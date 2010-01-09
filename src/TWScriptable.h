@@ -65,10 +65,13 @@ class JSScript : public TWScript
 	Q_INTERFACES(TWScript)
 	
 public:
-	JSScript(TWScriptLanguageInterface* interface, const QString& filename) : TWScript(interface, filename) { }
+	JSScript(TWScriptLanguageInterface* interface, const QString& filename)
+		: TWScript(interface, filename) { }
 		
 	virtual bool parseHeader() { return doParseHeader("", "", "//"); };
-	virtual bool run(QObject *context, QVariant& result) const;
+
+protected:
+	virtual bool execute(TWInterface *tw) const;
 };
 
 // for JSScript, we provide a plugin-like factory, but it's actually compiled
