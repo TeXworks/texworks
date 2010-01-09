@@ -100,16 +100,14 @@ public:
 	 */
 	virtual bool parseHeader() { return doParseHeader("--[[", "]]", ""); }
 
+protected:
 	/** \brief Run the lua script
 	 *
-	 * \param	context	the object from which the script was called; typically
-	 * 					a TeXDocument or PDFDocument instance
-	 * \param	result	variable to receive the result of the script execution;
-	 * 					in the case of an error, this typically contains an
-	 * 					error description
+	 * \param	tw	the TW interface object, exposed to the script as the TW global
+	 *
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool run(QObject *context, QVariant& result) const;
+	virtual bool execute(TWInterface *tw) const;
 	
 	/** \brief Convenience function to wrap a QObject and push it onto the stack
 	 *
@@ -178,7 +176,6 @@ public:
 	 */
 	static int callMethod(lua_State * L);
 
-protected:
 	TWLuaPlugin * m_LuaPlugin;	///< pointer to the lua plugin holding the lua state
 };
 

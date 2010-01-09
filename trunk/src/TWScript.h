@@ -29,6 +29,34 @@
 #include <QStringList>
 #include <QVariant>
 
+class TWInterface : public QObject
+{
+	Q_OBJECT
+	
+    Q_PROPERTY(QObject* app READ GetApp);
+	Q_PROPERTY(QObject* target READ GetTarget);
+	Q_PROPERTY(QVariant* result READ GetResult);
+	
+public:
+	TWInterface(QObject* twapp, QObject* ctx, QVariant& res)
+		: m_app(twapp),
+		  m_target(ctx),
+		  m_result(res)
+	{ }
+
+	QObject* GetApp() { return m_app; }
+	QObject* GetTarget() { return m_target; }
+	QVariant* GetResult() { return &m_result; }
+	
+	void SetResult(QVariant rval)
+	{ m_result = rval; }
+	
+protected:
+	QObject* m_app;
+	QObject* m_target;
+	QVariant& m_result;
+};
+
 class TWScriptLanguageInterface;
 
 /** \brief	Abstract base class for all Tw scripts
@@ -122,7 +150,11 @@ public:
 	 */
 	const QKeySequence& getKeySequence() const { return m_KeySequence; }
 	
-	/** \brief Run the script
+	/** \brief Run the script (public method called from the TeXworks application).
+	 *
+	 * This method sets up the TW object that provides scripts with access to
+	 * objects and methods within the application; then it calls the language-specific
+	 * execute() method to actually run the script.
 	 *
 	 * \param	context	the object from which the script was called; typically
 	 * 					a TeXDocument or PDFDocument instance
@@ -131,7 +163,7 @@ public:
 	 * 					error description
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool run(QObject *context, QVariant& result) const = 0;
+	bool run(QObject *context, QVariant& result) const;
 	
 	/** \brief Check if two scripts are the same
 	 *
@@ -149,6 +181,17 @@ protected:
 	 */
 	TWScript(TWScriptLanguageInterface *interface, const QString& filename);
 
+	/** \brief  Execute the actual script
+	 *
+	 * Pure virtual method, to be implemented by each concrete TWScript subclass.
+	 * This is the method that actually execute the script.
+	 *
+	 * \param  tw  the "TW" object that provides the script with access to
+	 *             .target, .app, .result properties
+	 * \return     \c true on success, \c false if an error occurred.
+	 */
+	virtual bool execute(TWInterface* tw) const = 0;
+	
 	/** \brief	Convenience function to parse supported key:value pairs of the header
 	 *
 	 * Currently supported keys:
@@ -305,7 +348,7 @@ public:
 	virtual bool canHandleFile(const QFileInfo& fileInfo) = 0;
 };
 
-Q_DECLARE_INTERFACE(TWScript, "org.tug.texworks.Script/0.3")
+Q_DECLARE_INTERFACE(TWScript, "org.tug.texworks.Script/0.3.1")
 Q_DECLARE_INTERFACE(TWScriptLanguageInterface, "org.tug.texworks.ScriptLanguageInterface/0.3.1")
 
 #endif /* TWScript_H */

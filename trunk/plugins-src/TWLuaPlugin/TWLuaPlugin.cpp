@@ -52,34 +52,23 @@ TWScript* TWLuaPlugin::newScript(const QString& fileName)
 Q_EXPORT_PLUGIN2(TWLuaPlugin, TWLuaPlugin)
 
 
-bool LuaScript::run(QObject *context, QVariant& result) const
+bool LuaScript::execute(TWInterface *tw) const
 {
 	int status;
 	lua_State * L = m_LuaPlugin->getLuaState();
 
 	if (!L) return false;
 
-	// register the context for use in lua
-	if (!LuaScript::pushQObject(L, context, false)) {
-		result = tr("Could not register TWTarget");
+	// register the TW interface for use in lua
+	if (!LuaScript::pushQObject(L, tw, false)) {
+		tw->SetResult(tr("Could not register TW"));
 		return false;
 	}
-	lua_setglobal(L, "TWTarget");
-	
-	// register the app object for use in lua
-	if (!LuaScript::pushQObject(L, QCoreApplication::instance(), false)) {
-		result = tr("Could not register TWApp");
-		return false;
-	}
-	lua_setglobal(L, "TWApp");
-	
-	// register the global result variable
-	lua_pushnil(L);
-	lua_setglobal(L, "result");
+	lua_setglobal(L, "TW");
 	
 	status = luaL_loadfile(L, qPrintable(m_Filename));
 	if (status != 0) {
-		result = getLuaStackValue(L, -1, false).toString();
+		tw->SetResult(getLuaStackValue(L, -1, false).toString());
 		lua_pop(L, 1);
 		return false;
 	}
@@ -87,26 +76,16 @@ bool LuaScript::run(QObject *context, QVariant& result) const
 	// call the script
 	status = lua_pcall(L, 0, LUA_MULTRET, 0);
 	if (status != 0) {
-		result = getLuaStackValue(L, -1, false).toString();
+		tw->SetResult(getLuaStackValue(L, -1, false).toString());
 		lua_pop(L, 1);
 		return false;
 	}
 	
-	// see if we have a return value
-	lua_getglobal(L, "result");
-	if (!lua_isnil(L, -1)) {
-		result = getLuaStackValue(L, -1, false);
-	}
-	
-	// pop the return value from the stack
+	// pop the (ignored) return value from the stack
 	lua_pop(L, 1);
 
 	lua_pushnil(L);
-	lua_setglobal(L, "TWTarget");
-	lua_pushnil(L);
-	lua_setglobal(L, "TWApp");
-	lua_pushnil(L);
-	lua_setglobal(L, "result");
+	lua_setglobal(L, "TW");
 
 	return true;
 }

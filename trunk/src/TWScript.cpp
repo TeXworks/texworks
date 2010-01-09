@@ -20,13 +20,21 @@
 */
 
 #include "TWScript.h"
+
 #include <QTextStream>
 #include <QMetaObject>
 #include <QMetaMethod>
+#include <QApplication>
 
 TWScript::TWScript(TWScriptLanguageInterface *interface, const QString& fileName)
 	: m_Interface(interface), m_Filename(fileName), m_Type(ScriptUnknown)
 {	
+}
+
+bool TWScript::run(QObject *context, QVariant& result) const
+{
+	TWInterface tw(qApp, context, result);
+	return execute(&tw);
 }
 
 bool TWScript::doParseHeader(const QString& beginComment, const QString& endComment,

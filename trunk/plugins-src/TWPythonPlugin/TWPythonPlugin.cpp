@@ -78,7 +78,7 @@ TWScript* TWPythonPlugin::newScript(const QString& fileName)
 Q_EXPORT_PLUGIN2(TWPythonPlugin, TWPythonPlugin)
 
 
-bool PythonScript::run(QObject *context, QVariant& result) const
+bool PythonScript::execute(TWInterface *tw) const
 {
 	PyObject * tmp;
 	
@@ -96,28 +96,20 @@ bool PythonScript::run(QObject *context, QVariant& result) const
 	PyThreadState* interpreter = Py_NewInterpreter();
 
 	// Register the types
-	if (!registerPythonTypes(result)) {
+	if (!registerPythonTypes(tw->GetResult())) {
 		Py_EndInterpreter(interpreter);
 		return false;
 	}
 	
-	pyQObject * TWTarget, * TWApp;
+	pyQObject *TW;
 	
-	TWTarget = (pyQObject*)QObjectToPython(context);
-	if (!TWTarget) {
-		result = tr("Could not create TWTarget");
+	TW = (pyQObject*)QObjectToPython(tw);
+	if (!TW) {
+		tw->SetResult(tr("Could not create TW"));
 		Py_EndInterpreter(interpreter);
 		return false;
 	}
 	
-	TWApp = (pyQObject*)QObjectToPython(QCoreApplication::instance());
-	if (!TWApp) {
-		Py_XDECREF(TWTarget);
-		result = tr("Could not create TWApp");
-		Py_EndInterpreter(interpreter);
-		return false;
-	}
-
 	// Run the script
 	PyObject * globals, * locals;
 	globals = PyDict_New();
@@ -126,23 +118,17 @@ bool PythonScript::run(QObject *context, QVariant& result) const
 	// Create a dictionary of global variables
 	// without the __builtins__ module, nothing would work!
 	PyDict_SetItemString(globals, "__builtins__", PyEval_GetBuiltins());
-	PyDict_SetItemString(globals, "TWTarget", (PyObject*)TWTarget);
-	PyDict_SetItemString(globals, "TWApp", (PyObject*)TWApp);
+	PyDict_SetItemString(globals, "TW", (PyObject*)TW);
 
 	PyObject * ret = NULL;
 	
 	if (globals && locals)
 		ret = PyRun_String(qPrintable(contents), Py_file_input, globals, locals);
 	
-	if (PyDict_Contains(locals, Py_BuildValue("s", "result")) == 1) {
-		result = PythonScript::PythonToVariant(PyDict_GetItem(locals, Py_BuildValue("s", "result")));
-	}
-
 	Py_XDECREF(globals);
 	Py_XDECREF(locals);
 	Py_XDECREF(ret);
-	Py_XDECREF(TWTarget);
-	Py_XDECREF(TWApp);
+	Py_XDECREF(TW);
 
 	// Check for exceptions
 	if (PyErr_Occurred()) {
@@ -153,11 +139,11 @@ bool PythonScript::run(QObject *context, QVariant& result) const
 		QString errString;
 		if (!asQString(tmp, errString)) {
 			Py_XDECREF(tmp);
-			result = tr("Unknown error");
+			tw->SetResult(tr("Unknown error"));
 			return false;
 		}
 		Py_XDECREF(tmp);
-		result = errString;
+		tw->SetResult(errString);
 		
 		/////////////////////DEBUG
 		// This prints the python error in the usual python way to stdout
@@ -182,7 +168,7 @@ bool PythonScript::run(QObject *context, QVariant& result) const
 	return true;
 }
 
-bool PythonScript::registerPythonTypes(QVariant & result) const
+bool PythonScript::registerPythonTypes(QVariant * result) const
 {
 	// Register the Qobject wrapper
 	pyQObjectType.tp_name = "QObject";
@@ -194,7 +180,7 @@ bool PythonScript::registerPythonTypes(QVariant & result) const
 	pyQObjectType.tp_setattro = PythonScript::setAttribute;
 	
 	if (PyType_Ready(&pyQObjectType) < 0) {
-		result = "Could not register QObject wrapper";
+		*result = "Could not register QObject wrapper";
 		return false;
 	}
 
@@ -208,7 +194,7 @@ bool PythonScript::registerPythonTypes(QVariant & result) const
 	
 	
 	if (PyType_Ready(&pyQObjectMethodType) < 0) {
-		result = "Could not register QObject method wrapper";
+		*result = "Could not register QObject method wrapper";
 		return false;
 	}
 	return true;
