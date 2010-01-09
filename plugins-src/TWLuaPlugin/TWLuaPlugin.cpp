@@ -386,10 +386,19 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			}
 			if (n != iMax) isArray = false;
 			
-			if (isArray) {
-				for (i = 1; i <= n; ++i) {
-					lua_getfield(L, idx, qPrintable(QString("%1").arg(i)));
-					vl.append(LuaScript::getLuaStackValue(L, -1));
+			// Lua is picky about the correct type of index for accessing table
+			// members. Hence we can't simply retrieve the table items by index
+			// because they must only be _convertible_ to numbers, so 1 and "1"
+			// should be treated the same (though they are not by Lua). Since
+			// they keys need not be ordered when calling lua_next, we have to
+			// allocate the complete list first and overwrite the items as we
+			// get them.
+			if(isArray) {
+				for(i = 0; i < n; ++i) vl.append(QVariant());
+				
+				lua_pushnil(L);
+				while (lua_next(L, idx)) {
+					vl[(int)lua_tonumber(L, -2) - 1] = LuaScript::getLuaStackValue(L, -1);
 					lua_pop(L, 1);
 				}
 				return vl;
@@ -403,7 +412,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 					// duplicate the key. If we didn't, lua_tostring could
 					// convert it, thereby confusing lua_next later on
 					lua_pushvalue(L, -2);
-					vm.insert(lua_tostring(L, -1), LuaScript::getLuaStackValue(L, -2));
+					vm.insert(lua_tostring(L, -2), LuaScript::getLuaStackValue(L, -1));
 					lua_pop(L, 2);
 				}
 				return vm;
