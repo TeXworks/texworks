@@ -69,10 +69,9 @@ public:
 	 */
 	virtual QString scriptLanguageURL() { return QString("http://www.lua.org/"); }
 	
-    /** \brief Get the script file suffix
-	 * \return  a string with the expected suffix for script files
+    /** \brief  Return whether the given file is handled by this scripting language plugin
 	 */
-	virtual QString scriptFileSuffix() { return QString("lua"); }
+	virtual bool canHandleFile(const QFileInfo& fileInfo) { return fileInfo.suffix() == QString("lua"); }
 
 	lua_State * getLuaState() { return luaState; }
 	

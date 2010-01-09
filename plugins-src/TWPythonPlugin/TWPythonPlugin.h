@@ -73,10 +73,9 @@ public:
 	 */
 	virtual QString scriptLanguageURL() { return QString("http://www.python.org/"); }
 
-    /** \brief Get the script file suffix
-	 * \return  a string with the expected suffix for script files
+    /** \brief  Return whether the given file is handled by this scripting language plugin
 	 */
-	virtual QString scriptFileSuffix() { return QString("py"); }
+	virtual bool canHandleFile(const QFileInfo& fileInfo) { return fileInfo.suffix() == QString("py"); }
 };
 
 /** \brief Class for handling python scripts */

@@ -187,7 +187,7 @@ int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir&
 
 		QString suffix = info.suffix();
 		foreach (TWScriptLanguageInterface* i, scriptLanguages) {
-			if (suffix != i->scriptFileSuffix())
+			if (!i->canHandleFile(info))
 				continue;
 			TWScript *script = i->newScript(info.absoluteFilePath());
 			if (script) {
