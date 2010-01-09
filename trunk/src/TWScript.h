@@ -291,15 +291,21 @@ public:
 	 */
 	virtual QString scriptLanguageURL() = 0;
 
-	/** \brief	Method to report the supported script file extension
+	/** \brief	Report whether the given file is potentially a valid
+	 *          script file for this language.
+	 *
+	 * This method is not expected to actually validate the script file
+	 * (e.g., by fully parsing it, or even checking the headers); it
+	 * only serves to "claim" the file for use by this scripting language/
+	 * plugin rather than any others. It will typically just check the
+	 * filename extension.
 	 *
 	 * This method must be implemented in derived classes
-	 * \return	the file extension required for scripts of this type
 	 */
-	virtual QString scriptFileSuffix() = 0;
+	virtual bool canHandleFile(const QFileInfo& fileInfo) = 0;
 };
 
 Q_DECLARE_INTERFACE(TWScript, "org.tug.texworks.Script/0.3")
-Q_DECLARE_INTERFACE(TWScriptLanguageInterface, "org.tug.texworks.ScriptLanguageInterface/0.3")
+Q_DECLARE_INTERFACE(TWScriptLanguageInterface, "org.tug.texworks.ScriptLanguageInterface/0.3.1")
 
 #endif /* TWScript_H */
