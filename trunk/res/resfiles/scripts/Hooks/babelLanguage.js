@@ -2,8 +2,8 @@
 // Title: Babel language
 // Description: Looks for a Babel line to set the spell-check language
 // Author: Jonathan Kew
-// Version: 0.1
-// Date: 2009-11-21
+// Version: 0.3
+// Date: 2010-01-09
 // Script-Type: hook
 // Hook: LoadFile
 
@@ -38,10 +38,8 @@ spellingDict.slovene   = "sl_SL";
 spellingDict.swedish   = "sv_SV";
 
 // get the text from the document window
-txt = target.text;
+txt = TW.target.text;
 lines = txt.split('\n');
-
-result = undefined;
 
 // look for a babel line...
 for (i = 0; i < lines.length; ++i) {
@@ -50,8 +48,8 @@ for (i = 0; i < lines.length; ++i) {
   if (matched) {
     lang = matched[1];
     if (spellingDict[lang]) {
-      target.setSpellcheckLanguage(spellingDict[lang]);
-      result = "Set spell-check language to " + spellingDict[lang];
+      TW.target.setSpellcheckLanguage(spellingDict[lang]);
+      TW.result = "Set spell-check language to " + spellingDict[lang];
     }
     break;
   }
@@ -63,6 +61,3 @@ for (i = 0; i < lines.length; ++i) {
     break;
   }
 }
-
-result;
-

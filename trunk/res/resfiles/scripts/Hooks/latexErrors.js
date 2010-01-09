@@ -1,9 +1,9 @@
 // TeXworksScript
 // Title: LaTeX errors
 // Description: Looks for errors in the LaTeX terminal output
-// Author: Jonathan Kew
-// Version: 0.1
-// Date: 2009-06-14
+// Author: Jonathan Kew & Stefan Lšffler
+// Version: 0.3
+// Date: 2010-01-09
 // Script-Type: hook
 // Hook: AfterTypeset
 
@@ -14,10 +14,12 @@ parenRE = new RegExp("[()]");
 newFileRE = new RegExp("^\\(([\\./][^ )]+)");
 lineNumRE = new RegExp("^l\\.(\\d+)");
 badLineRE = new RegExp("^(?:Over|Under)full \\\\hbox.*at lines (\\d+)");
+warnLineRE = new RegExp("^(?:LaTeX|Package (?:.*)) Warning: .*");
+warnLineNumRE = new RegExp("on input line (\\d+).");
 result = [];
 
 // get the text from the standard console output
-txt = target.consoleOutput;
+txt = TW.target.consoleOutput;
 lines = txt.split('\n');
 
 curFile = undefined;
@@ -59,6 +61,25 @@ for (i = 0; i < lines.length; ++i) {
 		continue;
 	}
 
+	// check for other warnings
+	matched = warnLineRE.exec(line);
+	if (matched) {
+		var error = [];
+		error[0] = curFile;
+		error[1] = "?";
+		matched = warnLineNumRE.exec(line);
+		if (matched)
+			error[1] = matched[1];
+		error[2] = "";
+		while (line != "" && i < lines.length) {
+			error[2] += line;
+			i++;
+			line = lines[i];
+		}
+		result.push(error);
+		continue;
+	}
+
     // try to track beginning/ending of input files (flaky!)
 	pos = line.search(parenRE);
 	while (pos >= 0) {
@@ -92,9 +113,7 @@ for (i = 0; i < lines.length; ++i) {
 	}
 }
 
-// finally, return our result, or 'undefined' if nothing was found
-if (result.length == 0) {
-	result = undefined;
+// finally, return our result (if any)
+if (result.length > 0) {
+	TW.result = result;
 }
-
-result;
