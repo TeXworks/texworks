@@ -35,7 +35,7 @@ class TWInterface : public QObject
 	
     Q_PROPERTY(QObject* app READ GetApp);
 	Q_PROPERTY(QObject* target READ GetTarget);
-	Q_PROPERTY(QVariant* result READ GetResult);
+	Q_PROPERTY(QVariant result READ GetResult WRITE SetResult);
 	
 public:
 	TWInterface(QObject* twapp, QObject* ctx, QVariant& res)
@@ -46,10 +46,9 @@ public:
 
 	QObject* GetApp() { return m_app; }
 	QObject* GetTarget() { return m_target; }
-	QVariant* GetResult() { return &m_result; }
+	QVariant& GetResult() { return m_result; }
 	
-	void SetResult(QVariant rval)
-	{ m_result = rval; }
+	void SetResult(const QVariant& rval) { m_result = rval; }
 	
 protected:
 	QObject* m_app;
@@ -325,14 +324,14 @@ public:
 	 * This method must be implemented in derived classes
 	 * \return	the name of the scripting language
 	 */
-	virtual QString scriptLanguageName() = 0;
+	virtual QString scriptLanguageName() const = 0;
 
 	/** \brief	Method to report a URL for information on the script language
 	 *
 	 * This method must be implemented in derived classes
 	 * \return	a string with a URL for information about the language
 	 */
-	virtual QString scriptLanguageURL() = 0;
+	virtual QString scriptLanguageURL() const = 0;
 
 	/** \brief	Report whether the given file is potentially a valid
 	 *          script file for this language.
@@ -345,7 +344,7 @@ public:
 	 *
 	 * This method must be implemented in derived classes
 	 */
-	virtual bool canHandleFile(const QFileInfo& fileInfo) = 0;
+	virtual bool canHandleFile(const QFileInfo& fileInfo) const = 0;
 };
 
 Q_DECLARE_INTERFACE(TWScript, "org.tug.texworks.Script/0.3.1")

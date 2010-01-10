@@ -168,7 +168,7 @@ bool PythonScript::execute(TWInterface *tw) const
 	return true;
 }
 
-bool PythonScript::registerPythonTypes(QVariant * result) const
+bool PythonScript::registerPythonTypes(QVariant & errMsg) const
 {
 	// Register the Qobject wrapper
 	pyQObjectType.tp_name = "QObject";
@@ -180,7 +180,7 @@ bool PythonScript::registerPythonTypes(QVariant * result) const
 	pyQObjectType.tp_setattro = PythonScript::setAttribute;
 	
 	if (PyType_Ready(&pyQObjectType) < 0) {
-		*result = "Could not register QObject wrapper";
+		errMsg = "Could not register QObject wrapper";
 		return false;
 	}
 
@@ -194,7 +194,7 @@ bool PythonScript::registerPythonTypes(QVariant * result) const
 	
 	
 	if (PyType_Ready(&pyQObjectMethodType) < 0) {
-		*result = "Could not register QObject method wrapper";
+		errMsg = "Could not register QObject method wrapper";
 		return false;
 	}
 	return true;

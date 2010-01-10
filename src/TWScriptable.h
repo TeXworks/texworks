@@ -87,9 +87,9 @@ public:
 
 	virtual TWScript* newScript(const QString& fileName);
 
-	virtual QString scriptLanguageName() { return QString("QtScript"); }
-	virtual QString scriptLanguageURL() { return QString("http://doc.trolltech.com/4.5/qtscript.html"); }
-	virtual bool canHandleFile(const QFileInfo& fileInfo) { return fileInfo.suffix() == QString("js"); }
+	virtual QString scriptLanguageName() const { return QString("QtScript"); }
+	virtual QString scriptLanguageURL() const { return QString("http://doc.trolltech.com/4.5/qtscript.html"); }
+	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QString("js"); }
 };
 
 class TWScriptManager
@@ -106,6 +106,8 @@ public:
 	
 	TWScriptList* getScripts() { return &m_Scripts; }
 	QList<TWScript*> getHookScripts(const QString& hook) const;
+
+	const QList<TWScriptLanguageInterface*>& languages() const { return scriptLanguages; }
 
 protected:
 	int addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir);
@@ -136,9 +138,11 @@ public slots:
 	
 private slots:
 	void doManageScriptsDialog();
+	void doAboutScripts();
 
 protected:
 	void initScriptable(QMenu* scriptsMenu,
+						QAction* aboutScriptsAction,
 						QAction* manageScriptsAction,
 						QAction* updateScriptsAction,
 						QAction* showScriptsFolderAction);

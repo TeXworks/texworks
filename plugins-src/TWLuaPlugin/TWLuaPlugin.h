@@ -61,17 +61,17 @@ public:
 	 *
 	 * \return	the name of the scripting language
 	 */
-	virtual QString scriptLanguageName() { return QString("Lua"); }
+	virtual QString scriptLanguageName() const { return QString("Lua"); }
 	
 	/** \brief	Get a URL for information on the supported script language
 	 *
 	 * \return	a string with a URL for information about the language
 	 */
-	virtual QString scriptLanguageURL() { return QString("http://www.lua.org/"); }
+	virtual QString scriptLanguageURL() const { return QString("http://www.lua.org/"); }
 	
     /** \brief  Return whether the given file is handled by this scripting language plugin
 	 */
-	virtual bool canHandleFile(const QFileInfo& fileInfo) { return fileInfo.suffix() == QString("lua"); }
+	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QString("lua"); }
 
 	lua_State * getLuaState() { return luaState; }
 	

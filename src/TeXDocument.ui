@@ -315,6 +315,7 @@
     <property name="title">
      <string>Scripts</string>
     </property>
+    <addaction name="actionAbout_Scripts"/>
     <addaction name="actionUpdate_Scripts"/>
     <addaction name="actionManage_Scripts"/>
     <addaction name="actionShow_Scripts_Folder"/>
@@ -1058,6 +1059,14 @@
    </property>
    <property name="text">
     <string>Auto-Follow Focus</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionAbout_Scripts">
+   <property name="text">
+    <string>About Scripts...</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
