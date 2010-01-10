@@ -141,7 +141,7 @@
     </message>
     <message>
         <source>page %1 of %2</source>
-        <translation>第%1页　共%2页</translation>
+        <translation>页 %1/%2</translation>
     </message>
     <message>
         <source>%1%</source>
@@ -349,7 +349,7 @@
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>选项</translation>
+        <translation>首选项</translation>
     </message>
     <message>
         <source>Stack</source>
@@ -468,6 +468,10 @@
     <message>
         <source>Show Scripts Folder</source>
         <translation>显示脚本文件夹</translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation>中止排版</translation>
     </message>
 </context>
 <context>
@@ -621,7 +625,7 @@
     </message>
     <message>
         <source>TeXworks Preferences</source>
-        <translation>TeXworks 选项</translation>
+        <translation>TeXworks 首选项</translation>
     </message>
     <message>
         <source>General</source>
@@ -799,6 +803,18 @@
         <source>Smart Quotes mode:</source>
         <translation>智能引号模式</translation>
     </message>
+    <message>
+        <source>Scripts</source>
+        <translation>脚本</translation>
+    </message>
+    <message>
+        <source>Enable QtScript debugger</source>
+        <translation>启用 QtScript 调试器</translation>
+    </message>
+    <message>
+        <source>Allow scripts to run system commands</source>
+        <translation>允许脚本运行系统命令</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -936,6 +952,10 @@
         <source>Search Results</source>
         <translation>搜索结果</translation>
     </message>
+    <message>
+        <source>Search Results - %1 (%2 found)</source>
+        <translation>搜索结果 — %1（发现了 %2）</translation>
+    </message>
 </context>
 <context>
     <name>TWApp</name>
@@ -953,7 +973,7 @@
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>选项</translation>
+        <translation>首选项</translation>
     </message>
     <message>
         <source>Open...</source>
@@ -1033,7 +1053,7 @@
     </message>
     <message>
         <source>[language name]</source>
-        <translation>简体中文 (Chinese Simplified)</translation>
+        <translation>简体中文 (Simplified Chinese)</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
@@ -1065,11 +1085,27 @@
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>没有找到 TeX 相关程序所在的预定义目录。&lt;p&gt;&lt;small&gt;为了运行任何处理程序，你需要在＜选项＞对话框的＜排版＞选项卡中设定 TeX 系统的二进制程序目录 (bin)。</translation>
+        <translation>没有找到 TeX 相关程序所在的预定义目录。&lt;p&gt;&lt;small&gt;为了运行任何处理程序，你需要在＜首选项＞对话框的＜排版＞选项卡中设定 TeX 系统的二进制程序目录 (bin)。</translation>
     </message>
     <message>
         <source>Unable to find help file.</source>
         <translation>无法找到帮助文件。</translation>
+    </message>
+    <message>
+        <source>Save File</source>
+        <translation>保存文件</translation>
+    </message>
+    <message>
+        <source>Failed to execute system command: %1</source>
+        <translation>无法执行系统命令：%1</translation>
+    </message>
+    <message>
+        <source>Error executing system command: %1</source>
+        <translation>系统命令执行错误：%1</translation>
+    </message>
+    <message>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation>系统命令执行被禁止（见＜首选项＞）</translation>
     </message>
 </context>
 <context>
@@ -1081,6 +1117,21 @@
     <message>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>脚本 “%1”：%2</translation>
+    </message>
+    <message>
+        <source>Script result</source>
+        <translation>脚本执行结果</translation>
+    </message>
+</context>
+<context>
+    <name>TWSystemCmd</name>
+    <message>
+        <source>ERROR: failure code %1</source>
+        <translation>错误：失败返回值为 %1</translation>
+    </message>
+    <message>
+        <source>ERROR: exit code %1</source>
+        <translation>错误：退出返回值为 %1</translation>
     </message>
 </context>
 <context>
@@ -1145,7 +1196,7 @@ Do you want to save your changes?</source>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation>无法读入文件 &quot;%1&quot;:
+        <translation type="obsolete">无法读入文件 &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
@@ -1206,7 +1257,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation>无法写入文件 &quot;%1&quot;:
+        <translation type="obsolete">无法写入文件 &quot;%1&quot;:
 %2。</translation>
     </message>
     <message>
@@ -1227,7 +1278,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Line %1 of %2; col %3</source>
-        <translation>行 %1 of %2；列 %3</translation>
+        <translation>行 %1/%2；列 %3</translation>
     </message>
     <message>
         <source>Go to Line</source>
@@ -1590,7 +1641,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>选项</translation>
+        <translation>首选项</translation>
     </message>
     <message>
         <source>Go to Preview</source>
@@ -1694,7 +1745,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation>检查选项对话框中的  %1 的工具和路径设置。</translation>
+        <translation>检查＜首选项＞对话框中的  %1 的工具和路径设置。</translation>
     </message>
     <message>
         <source>Line Numbers</source>
@@ -1734,6 +1785,24 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <source>Manage Scripts</source>
         <translation>管理脚本</translation>
     </message>
+    <message>
+        <source>Cannot read file &quot;%1&quot;:
+%2</source>
+        <translation>无法读入文件 &quot;%1&quot;: %2</translation>
+    </message>
+    <message>
+        <source>Cannot write file &quot;%1&quot;:
+%2</source>
+        <translation>无法写入文件 &quot;%1&quot;: %2</translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation>中止排版</translation>
+    </message>
+    <message>
+        <source>Auto-Follow Focus</source>
+        <translation>自动跟踪焦点</translation>
+    </message>
 </context>
 <context>
     <name>TeXHighlighter</name>
@@ -1759,6 +1828,18 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <source>NewArgument</source>
         <translation>新参数</translation>
     </message>
+    <message>
+        <source>Select program file</source>
+        <translation>选择程序文件</translation>
+    </message>
+    <message>
+        <source>Invalid program</source>
+        <translation>无效程序</translation>
+    </message>
+    <message>
+        <source>The file &apos;%1&apos; is not executable!</source>
+        <translation>&quot;%1&quot; 是非可执行文件</translation>
+    </message>
 </context>
 <context>
     <name>ToolConfigDialog</name>
@@ -1781,6 +1862,10 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <source>View PDF after running</source>
         <translation>运行后查看 PDF 文件</translation>
+    </message>
+    <message>
+        <source>Browse...</source>
+        <translation>浏览...</translation>
     </message>
 </context>
 </TS>
