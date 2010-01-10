@@ -81,9 +81,6 @@ bool LuaScript::execute(TWInterface *tw) const
 		return false;
 	}
 	
-	// pop the (ignored) return value from the stack
-	lua_pop(L, 1);
-
 	lua_pushnil(L);
 	lua_setglobal(L, "TW");
 

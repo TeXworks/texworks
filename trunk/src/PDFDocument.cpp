@@ -1199,7 +1199,8 @@ PDFDocument::init()
 
 	TWApp::instance()->updateWindowMenus();
 	
-	initScriptable(menuScripts, actionManage_Scripts, actionUpdate_Scripts, actionShow_Scripts_Folder);
+	initScriptable(menuScripts, actionAbout_Scripts, actionManage_Scripts,
+				   actionUpdate_Scripts, actionShow_Scripts_Folder);
 	
 	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);

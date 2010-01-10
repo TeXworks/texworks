@@ -237,11 +237,13 @@ TWScriptable::TWScriptable()
 
 void
 TWScriptable::initScriptable(QMenu* theScriptsMenu,
+							 QAction* aboutScriptsAction,
 							 QAction* manageScriptsAction,
 							 QAction* updateScriptsAction,
 							 QAction* showScriptsFolderAction)
 {
 	scriptsMenu = theScriptsMenu;
+	connect(aboutScriptsAction, SIGNAL(triggered()), this, SLOT(doAboutScripts()));
 	connect(manageScriptsAction, SIGNAL(triggered()), this, SLOT(doManageScriptsDialog()));
 	connect(updateScriptsAction, SIGNAL(triggered()), TWApp::instance(), SLOT(updateScriptsList()));
 	connect(showScriptsFolderAction, SIGNAL(triggered()), TWApp::instance(), SLOT(showScriptsFolder()));
@@ -325,6 +327,29 @@ TWScriptable::runHooks(const QString& hookName)
 	foreach (TWScript *s, TWApp::instance()->getScriptManager().getHookScripts(hookName)) {
 		runScript(s, TWScript::ScriptHook);
 	}
+}
+
+void
+TWScriptable::doAboutScripts()
+{
+	QString scriptingLink = QString("<a href=\"%1\">%1</a>").arg("http://code.google.com/p/texworks/wiki/ScriptingTeXworks");
+	QString aboutText = "<p>";
+	aboutText += tr("Scripts may be used to add new commands to %1, "
+					"and to extend or modify its behavior.").arg(TEXWORKS_NAME);
+	aboutText += "</p><p><small>";
+	aboutText += tr("For more information on creating and using scripts, see %1</p>").arg(scriptingLink);
+	aboutText += "</small></p><p>";
+	aboutText += tr("Scripting languages currently available in this copy of %1:").arg(TEXWORKS_NAME);
+	aboutText += "</p><ul>";
+	foreach (const TWScriptLanguageInterface* i,
+			 TWApp::instance()->getScriptManager().languages()) {
+		aboutText += "<li><a href=\"";
+		aboutText += i->scriptLanguageURL();
+		aboutText += "\">";
+		aboutText += i->scriptLanguageName();
+		aboutText += "</a></li>";
+	}
+	QMessageBox::about(NULL, tr("About Scripts"), aboutText);
 }
 
 void

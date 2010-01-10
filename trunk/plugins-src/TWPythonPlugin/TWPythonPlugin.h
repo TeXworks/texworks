@@ -65,17 +65,17 @@ public:
 	 *
 	 * \return	the name of the scripting language
 	 */
-	virtual QString scriptLanguageName() { return QString("Python"); }
+	virtual QString scriptLanguageName() const { return QString("Python"); }
 
 	/** \brief	Get a URL for information on the supported script language
 	 *
 	 * \return	a string with a URL for information about the language
 	 */
-	virtual QString scriptLanguageURL() { return QString("http://www.python.org/"); }
+	virtual QString scriptLanguageURL() const { return QString("http://www.python.org/"); }
 
     /** \brief  Return whether the given file is handled by this scripting language plugin
 	 */
-	virtual bool canHandleFile(const QFileInfo& fileInfo) { return fileInfo.suffix() == QString("py"); }
+	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QString("py"); }
 };
 
 /** \brief Class for handling python scripts */
@@ -169,11 +169,11 @@ protected:
 	/** \brief Register Tw-specific python types
 	 *
 	 * Registers pyQObject and pyQObjectMethodObject for use in python.
-	 * \param	result	if an error occurs this variable receives a string
+	 * \param	errMsg	if an error occurs this variable receives a string
 	 * 					describing it
 	 * \return	\c true on succes, \c false otherwise
 	 */
-	bool registerPythonTypes(QVariant * result) const;
+	bool registerPythonTypes(QVariant & errMsg) const;
 
 	/** \brief	Convenience function to convert a python object to a QString
 	 *
