@@ -50,12 +50,12 @@ String.prototype.toTitleCase = function() {
 };
 
 // thanks to David Gouch's function, the actual TW script is trivial:
-var txt = TWTarget.selection;
+var txt = TW.target.selection;
 if (txt != "") {
-  var pos = TWTarget.selectionStart;
+  var pos = TW.target.selectionStart;
   txt = txt.toTitleCase();
-  TWTarget.insertText(txt);
-  TWTarget.selectRange(pos, txt.length);
+  TW.target.insertText(txt);
+  TW.target.selectRange(pos, txt.length);
 }
 
 undefined;
