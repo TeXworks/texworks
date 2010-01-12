@@ -23,7 +23,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>4</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_general">
       <attribute name="title">
@@ -202,7 +202,7 @@
             <item>
              <widget class="QSpinBox" name="tabWidth">
               <property name="suffix">
-               <string> pt</string>
+               <string> px</string>
               </property>
               <property name="minimum">
                <number>6</number>
