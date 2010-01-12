@@ -29,6 +29,7 @@
 #include "PDFDocument.h"
 #include "ConfirmDelete.h"
 #include "HardWrapDialog.h"
+#include "PrefsDialog.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -269,6 +270,9 @@ void TeXDocument::init()
 		}
 		++index;
 	}
+	
+	// kDefault_TabWidth is defined in PrefsDialog.h
+	textEdit->setTabStopWidth(settings.value("tabWidth", kDefault_TabWidth).toInt());
 	
 	QString indentOption = settings.value("autoIndent").toString();
 	options = CompletingEdit::autoIndentModes();

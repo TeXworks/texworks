@@ -262,18 +262,6 @@ void PrefsDialog::buttonClicked(QAbstractButton *whichButton)
 		restoreDefaults();
 }
 
-const int kDefault_LaunchOption = 1;
-const int kDefault_ToolBarIcons = 2;
-const bool kDefault_ToolBarText = false;
-const int kDefault_SyntaxColoring = 0;
-const int kDefault_IndentMode = -1;
-const int kDefault_QuotesMode = -1;
-const bool kDefault_LineNumbers = false;
-const bool kDefault_WrapLines = true;
-const int kDefault_TabWidth = 32;
-const bool kDefault_HideConsole = true;
-const bool kDefault_HighlightCurrentLine = true;
-
 void PrefsDialog::restoreDefaults()
 {
 	switch (tabWidget->currentIndex()) {
@@ -631,6 +619,14 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		bool highlightLine = dlg.highlightCurrentLine->isChecked();
 		settings.setValue("highlightCurrentLine", highlightLine);
 		CompletingEdit::setHighlightCurrentLine(highlightLine);
+		
+		// Since the tab width can't be set by any other means, forcibly update
+		// all windows now
+		foreach (QWidget* widget, TWApp::instance()->allWidgets()) {
+			QTextEdit* editor = qobject_cast<QTextEdit*>(widget);
+			if (editor)
+			    editor->setTabStopWidth(dlg.tabWidth->value());
+		}
 		
 		// Preview
 		int scaleOption = 1;
