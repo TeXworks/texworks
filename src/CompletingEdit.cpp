@@ -608,21 +608,46 @@ void CompletingEdit::maybeSmartenQuote(int offset)
 	if (iter == mappings.end())
 		return;
 	
-	if (offset == 0) {
-		cursor.insertText(iter.value().first);
+	cursor.insertText(offset == 0 || text[offset - 1].isSpace() ?
+					  iter.value().first : iter.value().second);
+}
+
+void CompletingEdit::smartenQuotes()
+{
+	if (smartQuotesMode < 0 || smartQuotesMode >= quotesModes->count())
 		return;
+	const QuoteMapping& mappings = quotesModes->at(smartQuotesMode).mappings;
+
+	const QString& text = document()->toPlainText();
+
+	QTextCursor curs = textCursor();
+	int selStart = curs.selectionStart();
+	int selEnd = curs.selectionEnd();
+	bool changed = false;
+	for (int offset = selEnd; offset > selStart; ) {
+		--offset;
+		QChar ch = text[offset];
+		QuoteMapping::const_iterator iter = mappings.find(ch);
+		if (iter == mappings.end())
+			continue;
+
+		if (!changed) {
+			curs.beginEditBlock();
+			changed = true;
+		}
+		curs.setPosition(offset, QTextCursor::MoveAnchor);
+		curs.setPosition(offset + 1, QTextCursor::KeepAnchor);
+		const QString& replacement((offset == 0 || text[offset - 1].isSpace()) ?
+								   iter.value().first : iter.value().second);
+		curs.insertText(replacement);
+		selEnd += replacement.length() - 1;
 	}
-	if (offset == text.length() - 1) {
-		cursor.insertText(iter.value().second);
-		return;
+	if (changed) {
+		curs.endEditBlock();
+		curs.setPosition(selStart, QTextCursor::MoveAnchor);
+		curs.setPosition(selEnd, QTextCursor::KeepAnchor);
+		setTextCursor(curs);
 	}
-	QChar prevChar = text[offset - 1];
-	QChar nextChar = text[offset + 1];
-	if (prevChar.isSpace()) {
-		cursor.insertText(iter.value().first);
-		return;
-	}
-	cursor.insertText(iter.value().second);
 }
 
 void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
