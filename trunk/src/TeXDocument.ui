@@ -286,6 +286,7 @@
      </property>
      <addaction name="actionSmartQuotes_None"/>
      <addaction name="separator"/>
+     <addaction name="actionApply_to_Selection"/>
     </widget>
     <addaction name="actionFont"/>
     <addaction name="separator"/>
@@ -1067,6 +1068,14 @@
   <action name="actionAbout_Scripts">
    <property name="text">
     <string>About Scripts...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionApply_to_Selection">
+   <property name="text">
+    <string>Apply to Selection</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

@@ -309,6 +309,7 @@ void TeXDocument::init()
 	QActionGroup *quotesGroup = new QActionGroup(this);
 	quotesGroup->addAction(actionSmartQuotes_None);
 
+	menuSmart_Quotes_Mode->removeAction(actionApply_to_Selection);
 	index = 0;
 	foreach (const QString& opt, options) {
 		QAction *action = menuSmart_Quotes_Mode->addAction(opt, quotesMapper, SLOT(map()));
@@ -321,6 +322,10 @@ void TeXDocument::init()
 		}
 		++index;
 	}
+	if (options.length() > 0)
+		menuSmart_Quotes_Mode->addSeparator();
+	menuSmart_Quotes_Mode->addAction(actionApply_to_Selection);
+	connect(actionApply_to_Selection, SIGNAL(triggered()), textEdit, SLOT(smartenQuotes()));
 
 	connect(actionLine_Numbers, SIGNAL(triggered(bool)), this, SLOT(setLineNumbers(bool)));
 	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));

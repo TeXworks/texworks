@@ -56,6 +56,7 @@ public:
 public slots:
 	void setAutoIndentMode(int index);
 	void setSmartQuotesMode(int index);
+	void smartenQuotes();
 	void updateLineNumberAreaWidth(int newBlockCount);
 	
 signals:
