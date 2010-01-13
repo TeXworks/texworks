@@ -322,7 +322,7 @@ void TeXDocument::init()
 		}
 		++index;
 	}
-	if (options.length() > 0)
+	if (options.size() > 0)
 		menuSmart_Quotes_Mode->addSeparator();
 	menuSmart_Quotes_Mode->addAction(actionApply_to_Selection);
 	connect(actionApply_to_Selection, SIGNAL(triggered()), textEdit, SLOT(smartenQuotes()));
