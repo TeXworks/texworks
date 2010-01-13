@@ -148,9 +148,9 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="+1139"/>
-        <location line="+61"/>
-        <location filename="../src/PDFDocument.ui" line="+365"/>
+        <location filename="../src/PDFDocument.cpp" line="+1154"/>
+        <location line="+62"/>
+        <location filename="../src/PDFDocument.ui" line="+369"/>
         <source>Open Recent</source>
         <translation>Последние файлы</translation>
     </message>
@@ -170,7 +170,7 @@
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+72"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
@@ -185,7 +185,7 @@
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="-348"/>
+        <location filename="../src/PDFDocument.ui" line="-352"/>
         <source>untitled.pdf[*]</source>
         <translation>безназвания.pdf[*]</translation>
     </message>
@@ -220,22 +220,23 @@
         <translation>Показать</translation>
     </message>
     <message>
-        <location line="+402"/>
+        <location filename="../src/PDFDocument.cpp" line="+100"/>
+        <location filename="../src/PDFDocument.ui" line="+406"/>
         <source>Typeset</source>
         <translation>Вёрстка</translation>
     </message>
     <message>
-        <location line="-381"/>
+        <location filename="../src/PDFDocument.ui" line="-385"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+33"/>
         <source>Toolbar</source>
         <translation>Панель инструментов</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+35"/>
         <source>About TeXworks...</source>
         <translation>О программе TeXworks...</translation>
     </message>
@@ -299,12 +300,12 @@
         <translation>Увеличить</translation>
     </message>
     <message>
-        <location line="-140"/>
+        <location line="-144"/>
         <source>Scripts</source>
         <translation>Скрипты</translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+147"/>
         <source>Ctrl++</source>
         <translation>Ctrl++</translation>
     </message>
@@ -556,7 +557,7 @@
         <translation>Обновление скриптов</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+11"/>
         <source>Manage Scripts</source>
         <translation>Управление скриптами</translation>
     </message>
@@ -566,23 +567,28 @@
         <translation>Просмотр папки со скриптами</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="-151"/>
+        <location line="+8"/>
+        <source>About Scripts...</source>
+        <translation>О скриптах...</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="-252"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
         <translation>PDF файл &quot;%1&quot; заблокирован; на данный момент операция не поддерживается.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="-44"/>
+        <location filename="../src/PDFDocument.ui" line="-55"/>
         <source>Find...</source>
         <translation>Найти...</translation>
     </message>
     <message>
-        <location line="-559"/>
+        <location line="-563"/>
         <source>Typeset</source>
         <comment>menu title</comment>
         <translation>Вёрстка</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+145"/>
         <source>Ctrl+J</source>
         <translation>Ctrl+J</translation>
     </message>
@@ -591,6 +597,11 @@
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation>Ctrl+T</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="+245"/>
+        <source>Abort typesetting</source>
+        <translation>Прервать вёрстку</translation>
     </message>
 </context>
 <context>
@@ -715,7 +726,7 @@
 <context>
     <name>PDFWidget</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="-1159"/>
+        <location filename="../src/PDFDocument.cpp" line="-1417"/>
         <source>Zoom In</source>
         <translation>Увеличить</translation>
     </message>
@@ -740,12 +751,12 @@
         <translation>По размеру окна</translation>
     </message>
     <message>
-        <location line="+338"/>
+        <location line="+341"/>
         <source>Jump to Source</source>
         <translation>Перейти к исходному файлу</translation>
     </message>
     <message>
-        <location line="+307"/>
+        <location line="+316"/>
         <source>Go to Page</source>
         <translation>Перейти к странице</translation>
     </message>
@@ -1379,12 +1390,12 @@
         <translation>Невозможно найти какую-либо из предопределённых директорий с TeX&apos;ом и сопутствующих программ.&lt;p&gt;&lt;small&gt;Чтобы запустить какой-либо процесс нужно установить путь к директории (директориям) с программами вашего TeX дистрибутива используя вкладку Вёрстка окна Настройки.</translation>
     </message>
     <message>
-        <location line="+253"/>
+        <location line="+248"/>
         <source>Unable to find help file.</source>
         <translation>Невозможно найти файл справки.</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+43"/>
         <source>Failed to execute system command: %1</source>
         <translation>Не удалось выполнить системную команду: %1</translation>
     </message>
@@ -1394,7 +1405,8 @@
         <translation>Ошибка при выполнении системной команды: %1</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-21"/>
+        <location line="+34"/>
         <source>System command execution is disabled (see Preferences)</source>
         <translation>Запуск системных команд отключён (см. Настройки)</translation>
     </message>
@@ -1402,12 +1414,37 @@
 <context>
     <name>TWScriptable</name>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="+295"/>
+        <location filename="../src/TWScriptable.cpp" line="+314"/>
+        <source>Script result</source>
+        <translation>Результат работы скрипта</translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>unknown error</source>
         <translation>неизвестная ошибка</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="+18"/>
+        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
+        <translation>Скрипты можно использовать чтобы добавить новые команды к %1 и расширить или изменить его действия.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
+        <translation>Подробнее о создании и использовании скриптов см. %1&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Scripting languages currently available in this copy of %1:</source>
+        <translation>Разновидности скриптовых языков доступных в текущей копии %1:</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>About Scripts</source>
+        <translation>О скриптах</translation>
+    </message>
+    <message>
+        <location line="-40"/>
         <location line="+8"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Скрипт &quot;%1&quot;: %2</translation>
@@ -1416,7 +1453,7 @@
 <context>
     <name>TWSystemCmd</name>
     <message>
-        <location filename="../src/TWScriptable.h" line="+153"/>
+        <location filename="../src/TWScriptable.h" line="+170"/>
         <source>ERROR: failure code %1</source>
         <translation>ОШИБКА: сбой в коде %1</translation>
     </message>
@@ -1457,14 +1494,14 @@
         <translation>Новый документ</translation>
     </message>
     <message>
-        <location line="+114"/>
-        <location line="+184"/>
-        <location filename="../src/TeXDocument.ui" line="+780"/>
+        <location line="+118"/>
+        <location line="+185"/>
+        <location filename="../src/TeXDocument.ui" line="+788"/>
         <source>Open Recent</source>
         <translation>Последние файлы</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-43"/>
         <location filename="../src/TeXDocument.ui" line="-16"/>
         <location line="+166"/>
         <location line="+11"/>
@@ -1473,7 +1510,7 @@
         <translation>Нет</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+144"/>
         <source>Open File</source>
         <translation>Открыть файл</translation>
     </message>
@@ -1482,12 +1519,12 @@
         <translation type="obsolete">Нельзя закрыть окно пока идёт обработка</translation>
     </message>
     <message>
-        <location line="+204"/>
+        <location line="+210"/>
         <source>Save File</source>
         <translation>Сохранить файл</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+32"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Документ &quot;%1&quot; был изменён.
@@ -1504,20 +1541,19 @@ Do you want to save your changes?</source>
         <translation>Отменить последние изменения</translation>
     </message>
     <message>
-        <location line="+79"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation>Ошибка при чтении файла &quot;%1&quot;:
+        <translation type="obsolete">Ошибка при чтении файла &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+156"/>
+        <location line="+94"/>
+        <location line="+220"/>
         <source>Unrecognized encoding</source>
         <translation>Неопознанная кодировка </translation>
     </message>
     <message>
-        <location line="-155"/>
+        <location line="-219"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1531,13 +1567,13 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation>Файл &quot;%1&quot; был загружен (%2)</translation>
     </message>
     <message>
-        <location line="+20"/>
-        <location line="+70"/>
+        <location line="+23"/>
+        <location line="+131"/>
         <source>File changed on disk</source>
         <translation>Файл на диске был изменён</translation>
     </message>
     <message>
-        <location line="-69"/>
+        <location line="-130"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -1546,7 +1582,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Вы хотите отбросить текущие изменения и загрузить файл с диска?</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+131"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -1583,11 +1619,24 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 Если вы продолжите они будут заменены на коды по умолчанию. Или же вы можете использовать другую кодировку (например UTF-8), чтобы избежать потерю данных.</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation>Ошибка при записи файла &quot;%1&quot;:
+        <translation type="obsolete">Ошибка при записи файла &quot;%1&quot;:
 %2.</translation>
+    </message>
+    <message>
+        <location line="-246"/>
+        <source>Cannot read file &quot;%1&quot;:
+%2</source>
+        <translation>Невозможно прочитать файл &quot;%1&quot;:
+%2</translation>
+    </message>
+    <message>
+        <location line="+259"/>
+        <source>Cannot write file &quot;%1&quot;:
+%2</source>
+        <translation>Невозможно записать файл &quot;%1&quot;:
+%2</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -1615,7 +1664,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Строка %1 из %2; столбец %3</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+128"/>
         <source>Go to Line</source>
         <translation>Перейти к строке</translation>
     </message>
@@ -1694,12 +1743,17 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>%1 не настроен должным образом</translation>
     </message>
     <message>
-        <location line="+120"/>
+        <location line="+119"/>
         <source>Unable to execute %1</source>
         <translation>Невозможно выполнить %1</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+31"/>
+        <source>Abort typesetting</source>
+        <translation>Прервать вёрстку</translation>
+    </message>
+    <message>
+        <location line="+128"/>
         <location filename="../src/TeXDocument.ui" line="-152"/>
         <source>Hide Output Panel</source>
         <translation>Скрыть панель вывода</translation>
@@ -1710,7 +1764,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Показать панель вывода</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+80"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Установить движок вёрстки на &quot;%1&quot;</translation>
     </message>
@@ -1730,7 +1784,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>В данный момент у документа нет связанных с ним вспомогательных файлов.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="-813"/>
+        <location filename="../src/TeXDocument.ui" line="-821"/>
         <source>untitled.tex[*]</source>
         <translation>безназвания.tex[*]</translation>
     </message>
@@ -1755,12 +1809,13 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Изменить регистр</translation>
     </message>
     <message>
-        <location line="+377"/>
+        <location filename="../src/TeXDocument.cpp" line="-331"/>
+        <location filename="../src/TeXDocument.ui" line="+385"/>
         <source>Typeset</source>
         <translation>Вёрстка</translation>
     </message>
     <message>
-        <location line="-347"/>
+        <location filename="../src/TeXDocument.ui" line="-355"/>
         <source>Window</source>
         <translation>Окно</translation>
     </message>
@@ -1775,7 +1830,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Показать</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
@@ -1810,17 +1865,17 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Скрипты</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>Typeset Toolbar</source>
         <translation>Панель вёрстки</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+24"/>
         <source>Edit Toolbar</source>
         <translation>Панель редактирования</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+47"/>
         <source>New</source>
         <translation>Новый</translation>
     </message>
@@ -2200,12 +2255,22 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Обновление скриптов</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+11"/>
         <source>Manage Scripts</source>
         <translation>Управление скриптами</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="-343"/>
+        <location line="+14"/>
+        <source>Auto-Follow Focus</source>
+        <translation>Автоматически менять фокус</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>About Scripts...</source>
+        <translation>О скриптах...</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="-22"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Программа &quot;%1&quot; не найдена.</translation>
     </message>
@@ -2221,18 +2286,18 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Проверьте настройки инструмента &quot;%1&quot; и папки поиска программ в окне Настройки.</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+47"/>
         <source>Process interrupted by user</source>
         <translation>Процесс прерван пользователем</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="-813"/>
+        <location filename="../src/TeXDocument.ui" line="-846"/>
         <source>Typeset</source>
         <comment>menu title</comment>
         <translation>Вёрстка</translation>
     </message>
     <message>
-        <location line="+357"/>
+        <location line="+365"/>
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation>Ctrl+T</translation>
