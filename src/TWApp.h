@@ -69,6 +69,7 @@ class TWApp : public QApplication
 
 public:
 	TWApp(int &argc, char **argv);
+	virtual ~TWApp();
 
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
@@ -222,11 +223,11 @@ private:
 
 	QSettings::Format settingsFormat;
 	
+	TWScriptManager *scriptManager;
+	
 #ifdef Q_WS_WIN
 	HWND messageTargetWindow;
 #endif
-
-	TWScriptManager *scriptManager;
 
 	static TWApp *theAppInstance;
 };

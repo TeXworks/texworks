@@ -70,11 +70,20 @@ TWApp::TWApp(int &argc, char **argv)
 	, engineList(NULL)
 	, defaultEngineIndex(0)
 	, settingsFormat(QSettings::NativeFormat)
+	, scriptManager(NULL)
 #ifdef Q_WS_WIN
 	, messageTargetWindow(NULL)
 #endif
 {
 	init();
+}
+
+TWApp::~TWApp()
+{
+	if (scriptManager) {
+		scriptManager->saveDisabledList();
+		delete scriptManager;
+	}
 }
 
 void TWApp::init()

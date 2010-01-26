@@ -32,6 +32,10 @@ QRect           ScriptManager::gGeometry;
 void ScriptManager::init()
 {
 	setupUi(this);
+	
+	hookTree->header()->hide();
+	standaloneTree->header()->hide();
+	
 	populateTree();
 	
 	connect(scriptTabs, SIGNAL(currentChanged(int)), this, SLOT(treeSelectionChanged()));
@@ -119,7 +123,7 @@ void ScriptManager::treeSelectionChanged()
 {
 	details->setPlainText("");
 
-	QTreeWidget * tree = scriptTabs->currentIndex() == 0 ? hookTree : standaloneTree;
+	QTreeWidget * tree = scriptTabs->currentWidget() == standaloneTab ? standaloneTree : hookTree;
 	QList<QTreeWidgetItem*> selection = tree->selectedItems();
 	if (selection.size() != 1)
 		return;
@@ -137,9 +141,9 @@ void ScriptManager::treeSelectionChanged()
 	addDetailsRow(rows, tr("Shortcut: "), s->getKeySequence().toString());
 	addDetailsRow(rows, tr("File: "), QFileInfo(s->getFilename()).fileName());
 	
-	const TWScriptLanguageInterface * interface = s->getScriptLanguageInterface();
-	QString url = interface->scriptLanguageURL();
-	QString str = interface->scriptLanguageName();
+	const TWScriptLanguageInterface * sli = s->getScriptLanguageInterface();
+	QString url = sli->scriptLanguageURL();
+	QString str = sli->scriptLanguageName();
 	if (!url.isEmpty())
 		str = "<a href=\"" + url + "\">" + str + "</a>";
 	addDetailsRow(rows, tr("Language: "), str);

@@ -96,7 +96,7 @@ class TWScriptManager
 {
 public:
 	TWScriptManager();
-	virtual ~TWScriptManager();
+	virtual ~TWScriptManager() {};
 	
 	bool addScript(QObject* scriptList, TWScript* script);
 	int addScriptsInDirectory(const QDir& dir, const QStringList& disabled) {
@@ -111,6 +111,7 @@ public:
 	const QList<TWScriptLanguageInterface*>& languages() const { return scriptLanguages; }
 
 	void loadScripts();
+	void saveDisabledList();
 
 protected:
 	int addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir,
