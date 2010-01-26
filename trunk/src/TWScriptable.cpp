@@ -106,20 +106,23 @@ TWScriptManager::TWScriptManager()
 	loadScripts();
 }
 
-TWScriptManager::~TWScriptManager()
+void
+TWScriptManager::saveDisabledList()
 {
 	QDir scriptRoot(TWUtils::getLibraryPath("scripts"));
 	QStringList disabled;
 
-	QList<TWScript*> scripts = m_Scripts.findChildren<TWScript*>();
-	foreach (TWScript* s, scripts) {
-		if (s->isEnabled())
+	QList<QObject*> list = m_Scripts.findChildren<QObject*>();
+	foreach (QObject* i, list) {
+		TWScript * s = qobject_cast<TWScript*>(i);
+		if (!s || s->isEnabled())
 			continue;
 		disabled << scriptRoot.relativeFilePath(s->getFilename());
 	}
-	scripts = m_Hooks.findChildren<TWScript*>();
-	foreach (TWScript* s, scripts) {
-		if (s->isEnabled())
+	list = m_Hooks.findChildren<QObject*>();
+	foreach (QObject* i, list) {
+		TWScript * s = qobject_cast<TWScript*>(i);
+		if (!s || s->isEnabled())
 			continue;
 		disabled << scriptRoot.relativeFilePath(s->getFilename());
 	}
