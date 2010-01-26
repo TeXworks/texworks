@@ -1,11 +1,10 @@
 // TeXworksScript
 // Title: Open in default viewer
+// Description: Attempts to open the PDF file using the system's default viewer
 // Author: Jonathan Kew
-// Version: 0.1
-// Date: 2009-12-19
+// Version: 0.2
+// Date: 2010-01-26
 // Script-Type: standalone
 // Context: PDFDocument
 
-app.launchFile(target.fileName);
-
-undefined; // don't return a result
+TW.app.launchFile(TW.target.fileName);
