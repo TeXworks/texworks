@@ -80,6 +80,18 @@ public:
 	 */
 	virtual ~TWScript() { }
 	
+	/** \brief  Return the enabled/disabled status of the script
+	 *
+	 * \return  \c true if script is enabled, \c false if disabled
+	 */
+	bool isEnabled() const { return m_Enabled; }
+	
+	/** \brief  Set the enabled/disabled status of the script
+	 *
+	 * \param  enable   the new enabled status to set on the script object
+	 */
+	void setEnabled(bool enable) { m_Enabled = enable; }
+	
 	/** \brief Parse the script header
 	 *
 	 * \note	This method must be implemented in derived classes.
@@ -148,6 +160,8 @@ public:
 	 * \return	the shortcut
 	 */
 	const QKeySequence& getKeySequence() const { return m_KeySequence; }
+	
+	const TWScriptLanguageInterface * getScriptLanguageInterface() const { return m_Interface; }
 	
 	/** \brief Run the script (public method called from the TeXworks application).
 	 *
@@ -285,6 +299,8 @@ protected:
 	QString m_Context;  ///< the main window class where this script can be used
 	QKeySequence m_KeySequence;	///< the keyboard shortcut associated with this script
 
+	bool m_Enabled; ///< whether this script is enabled (runtime property, not stored in the script itself)
+	
 private:
 	/** \brief	Constructor
 	 *
@@ -347,7 +363,7 @@ public:
 	virtual bool canHandleFile(const QFileInfo& fileInfo) const = 0;
 };
 
-Q_DECLARE_INTERFACE(TWScript, "org.tug.texworks.Script/0.3.1")
-Q_DECLARE_INTERFACE(TWScriptLanguageInterface, "org.tug.texworks.ScriptLanguageInterface/0.3.1")
+Q_DECLARE_INTERFACE(TWScript, "org.tug.texworks.Script/0.3.2")
+Q_DECLARE_INTERFACE(TWScriptLanguageInterface, "org.tug.texworks.ScriptLanguageInterface/0.3.2")
 
 #endif /* TWScript_H */

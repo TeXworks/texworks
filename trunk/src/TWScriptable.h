@@ -95,22 +95,26 @@ public:
 class TWScriptManager
 {
 public:
-	TWScriptManager() { loadPlugins(); }
-	virtual ~TWScriptManager() { }
+	TWScriptManager();
+	virtual ~TWScriptManager();
 	
 	bool addScript(QObject* scriptList, TWScript* script);
-	int addScriptsInDirectory(const QDir& dir) {
-		return addScriptsInDirectory(&m_Scripts, dir);
+	int addScriptsInDirectory(const QDir& dir, const QStringList& disabled) {
+		return addScriptsInDirectory(&m_Scripts, dir, disabled);
 	}
 	void clear();
-	
+		
 	TWScriptList* getScripts() { return &m_Scripts; }
+	TWScriptList* getHookScripts() { return &m_Hooks; }
 	QList<TWScript*> getHookScripts(const QString& hook) const;
 
 	const QList<TWScriptLanguageInterface*>& languages() const { return scriptLanguages; }
 
+	void loadScripts();
+
 protected:
-	int addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir);
+	int addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir,
+							  const QStringList& disabled);
 	void loadPlugins();
 	
 private:
@@ -130,14 +134,13 @@ public:
 	TWScriptable();
 	virtual ~TWScriptable() { }
 	
-	void updateScriptsMenu();
-
 public slots:
+	void updateScriptsMenu();
 	void runScript(QObject * script, TWScript::ScriptType scriptType = TWScript::ScriptStandalone);
 	void runHooks(const QString& hookName);
 	
 private slots:
-	void doManageScriptsDialog();
+	void doManageScripts();
 	void doAboutScripts();
 
 protected:
