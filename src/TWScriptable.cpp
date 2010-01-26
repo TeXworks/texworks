@@ -20,6 +20,7 @@
  */
 
 #include "TWScriptable.h"
+#include "ScriptManager.h"
 #include "TWApp.h"
 
 #include <QSignalMapper>
@@ -99,6 +100,34 @@ TWScript* JSScriptInterface::newScript(const QString& fileName)
 	return new JSScript(this, fileName);
 }
 
+TWScriptManager::TWScriptManager()
+{
+	loadPlugins();
+	loadScripts();
+}
+
+TWScriptManager::~TWScriptManager()
+{
+	QDir scriptRoot(TWUtils::getLibraryPath("scripts"));
+	QStringList disabled;
+
+	QList<TWScript*> scripts = m_Scripts.findChildren<TWScript*>();
+	foreach (TWScript* s, scripts) {
+		if (s->isEnabled())
+			continue;
+		disabled << scriptRoot.relativeFilePath(s->getFilename());
+	}
+	scripts = m_Hooks.findChildren<TWScript*>();
+	foreach (TWScript* s, scripts) {
+		if (s->isEnabled())
+			continue;
+		disabled << scriptRoot.relativeFilePath(s->getFilename());
+	}
+	
+	QSETTINGS_OBJECT(settings);
+	settings.setValue("disabledScripts", disabled);
+}
+
 void TWScriptManager::loadPlugins()
 {
 	// the JSScript interface isn't really a plugin, but provides the same interface
@@ -144,6 +173,19 @@ void TWScriptManager::loadPlugins()
 	}
 }
 
+void TWScriptManager::loadScripts()
+{
+	QSETTINGS_OBJECT(settings);
+	QStringList disabled = settings.value("disabledScripts", QStringList()).toStringList();
+	
+	// canonicalize the paths
+	QDir scriptsDir(TWUtils::getLibraryPath("scripts"));
+	for (int i = 0; i < disabled.size(); ++i)
+		disabled[i] = QFileInfo(scriptsDir.absoluteFilePath(disabled[i])).canonicalFilePath();
+	
+	addScriptsInDirectory(scriptsDir, disabled);
+}
+
 void TWScriptManager::clear()
 {
 	foreach (QObject *s, m_Scripts.children())
@@ -167,7 +209,8 @@ bool TWScriptManager::addScript(QObject* scriptList, TWScript* script)
 	return true;
 }
 
-int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir)
+int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir,
+										   const QStringList& disabled)
 {
 	int num = 0;
 	
@@ -175,7 +218,7 @@ int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir&
 			 dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Readable, QDir::DirsFirst)) {
 		if (info.isDir()) {
 			TWScriptList *sublist = new TWScriptList(scriptList, info.fileName());
-			if (addScriptsInDirectory(sublist, info.absoluteFilePath()) == 0)
+			if (addScriptsInDirectory(sublist, info.absoluteFilePath(), disabled) == 0)
 				delete sublist;
 			else
 				++num;
@@ -188,6 +231,8 @@ int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir&
 				continue;
 			TWScript *script = i->newScript(info.absoluteFilePath());
 			if (script) {
+				if (disabled.contains(info.canonicalFilePath()))
+					script->setEnabled(false);
 				script->parseHeader();
 				switch (script->getType()) {
 					case TWScript::ScriptHook:
@@ -222,6 +267,8 @@ QList<TWScript*> TWScriptManager::getHookScripts(const QString& hook) const
 		TWScript *script = qobject_cast<TWScript*>(obj);
 		if (!script)
 			continue;
+		if (!script->isEnabled())
+			continue;
 		if (script->getHook().compare(hook, Qt::CaseInsensitive) == 0)
 			result.append(script);
 	}
@@ -244,12 +291,14 @@ TWScriptable::initScriptable(QMenu* theScriptsMenu,
 {
 	scriptsMenu = theScriptsMenu;
 	connect(aboutScriptsAction, SIGNAL(triggered()), this, SLOT(doAboutScripts()));
-	connect(manageScriptsAction, SIGNAL(triggered()), this, SLOT(doManageScriptsDialog()));
+	connect(manageScriptsAction, SIGNAL(triggered()), this, SLOT(doManageScripts()));
 	connect(updateScriptsAction, SIGNAL(triggered()), TWApp::instance(), SLOT(updateScriptsList()));
 	connect(showScriptsFolderAction, SIGNAL(triggered()), TWApp::instance(), SLOT(showScriptsFolder()));
 	scriptMapper = new QSignalMapper(this);
 	connect(scriptMapper, SIGNAL(mapped(QObject*)), this, SLOT(runScript(QObject*)));
 	staticScriptMenuItemCount = scriptsMenu->actions().count();
+	
+	connect(qApp, SIGNAL(scriptListChanged()), this, SLOT(updateScriptsMenu()));
 	
 	updateScriptsMenu();
 }
@@ -257,13 +306,15 @@ TWScriptable::initScriptable(QMenu* theScriptsMenu,
 void
 TWScriptable::updateScriptsMenu()
 {
+	TWScriptManager * scriptManager = TWApp::instance()->getScriptManager();
+	
 	QList<QAction*> actions = scriptsMenu->actions();
 	for (int i = staticScriptMenuItemCount; i < actions.count(); ++i) {
 		scriptsMenu->removeAction(actions[i]);
 		delete actions[i];
 	}
 	
-	addScriptsToMenu(scriptsMenu, TWApp::instance()->getScriptManager().getScripts());
+	addScriptsToMenu(scriptsMenu, scriptManager->getScripts());
 }
 
 int
@@ -273,10 +324,14 @@ TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 	foreach (QObject *obj, scripts->children()) {
 		TWScript *script = qobject_cast<TWScript*>(obj);
 		if (script) {
+			if (!script->isEnabled())
+				continue;
 			if (script->getContext().isEmpty() || script->getContext() == metaObject()->className()) {
+				printf("Adding script: %s  enabled=%d\n", script->getTitle().toAscii().data(), script->isEnabled());
 				QAction *a = menu->addAction(script->getTitle());
 				if (!script->getKeySequence().isEmpty())
 					a->setShortcut(script->getKeySequence());
+//				a->setEnabled(script->isEnabled());
 				// give the action an object name so it could possibly included in the
 				// customization process of keyboard shortcuts in the future
 				a->setObjectName(QString("Script: %1").arg(script->getTitle()));
@@ -303,7 +358,10 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 	TWScript * s = qobject_cast<TWScript*>(script);
 	if (!s || s->getType() != scriptType)
 		return;
-	
+
+	if (!s->isEnabled())
+		return;
+
 	QVariant result;
 	bool success = s->run(this, result);
 	if (success) {
@@ -324,7 +382,7 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 void
 TWScriptable::runHooks(const QString& hookName)
 {
-	foreach (TWScript *s, TWApp::instance()->getScriptManager().getHookScripts(hookName)) {
+	foreach (TWScript *s, TWApp::instance()->getScriptManager()->getHookScripts(hookName)) {
 		runScript(s, TWScript::ScriptHook);
 	}
 }
@@ -342,7 +400,7 @@ TWScriptable::doAboutScripts()
 	aboutText += tr("Scripting languages currently available in this copy of %1:").arg(TEXWORKS_NAME);
 	aboutText += "</p><ul>";
 	foreach (const TWScriptLanguageInterface* i,
-			 TWApp::instance()->getScriptManager().languages()) {
+			 TWApp::instance()->getScriptManager()->languages()) {
 		aboutText += "<li><a href=\"";
 		aboutText += i->scriptLanguageURL();
 		aboutText += "\">";
@@ -353,6 +411,7 @@ TWScriptable::doAboutScripts()
 }
 
 void
-TWScriptable::doManageScriptsDialog()
+TWScriptable::doManageScripts()
 {
+	ScriptManager::showManageScripts();
 }

@@ -27,8 +27,8 @@
 #include <QApplication>
 
 TWScript::TWScript(TWScriptLanguageInterface *interface, const QString& fileName)
-	: m_Interface(interface), m_Filename(fileName), m_Type(ScriptUnknown)
-{	
+	: m_Interface(interface), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true)
+{
 }
 
 bool TWScript::run(QObject *context, QVariant& result) const

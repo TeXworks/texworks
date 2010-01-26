@@ -155,7 +155,7 @@ void TWApp::init()
 
 	TWUtils::readConfig();
 
-	scriptManager.addScriptsInDirectory(TWUtils::getLibraryPath("scripts"));
+	scriptManager = new TWScriptManager;
 
 #ifdef Q_WS_MAC
 	setQuitOnLastWindowClosed(false);
@@ -792,13 +792,10 @@ void TWApp::openHelpFile(const QString& helpDirName)
 
 void TWApp::updateScriptsList()
 {
-	scriptManager.clear();
-	scriptManager.addScriptsInDirectory(TWUtils::getLibraryPath("scripts"));
-	foreach (QWidget *widget, QApplication::topLevelWidgets()) {
-		TWScriptable *scriptable = qobject_cast<TWScriptable*>(widget);
-		if (scriptable)
-			scriptable->updateScriptsMenu();
-	}
+	scriptManager->clear();
+	scriptManager->loadScripts();
+
+	emit scriptListChanged();
 }
 
 void TWApp::showScriptsFolder()

@@ -2281,10 +2281,12 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 void TeXDocument::executeAfterTypesetHooks()
 {
+	TWScriptManager * scriptManager = TWApp::instance()->getScriptManager();
+
 	for (int i = consoleTabs->count() - 1; i > 0; --i)
 		consoleTabs->removeTab(i);
 	
-	foreach (TWScript *s, TWApp::instance()->getScriptManager().getHookScripts("AfterTypeset")) {
+	foreach (TWScript *s, scriptManager->getHookScripts("AfterTypeset")) {
 		QVariant result;
 		bool success = s->run(this, result);
 		if (success && !result.isNull()) {

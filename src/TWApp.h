@@ -101,7 +101,9 @@ public:
 	
 	QString getPortableLibPath() const { return portableLibPath; }
 
-	TWScriptManager& getScriptManager() { return scriptManager; }
+	TWScriptManager* getScriptManager() { return scriptManager; }
+
+	void updateScriptsMenus();
 
 #ifdef Q_WS_WIN
 	void createMessageTarget(QWidget* aWindow);
@@ -181,6 +183,8 @@ signals:
 	// emitted when the engine list is changed from Preferences, so docs can update their menus
 	void engineListChanged();
 	
+	void scriptListChanged();
+	
 	void syncPdf(const QString& sourceFile, int lineNo, bool activatePreview);
 
 	void hideFloatersExcept(QWidget* theWindow);
@@ -222,7 +226,7 @@ private:
 	HWND messageTargetWindow;
 #endif
 
-	TWScriptManager scriptManager;
+	TWScriptManager *scriptManager;
 
 	static TWApp *theAppInstance;
 };
