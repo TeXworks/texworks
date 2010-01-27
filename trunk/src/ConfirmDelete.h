@@ -40,6 +40,10 @@ public:
 	static void doConfirmDelete(const QDir& dir, const QStringList& fileList);
 
 private slots:
+	void doSelectAll();
+	void doSelectNone();
+	void doToggleSelection();
+	void setDeleteButtonEnabledStatus();
 
 private:
 	void init();
