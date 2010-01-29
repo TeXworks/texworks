@@ -20,7 +20,7 @@
     <name>ConfirmDelete</name>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Eliminar</translation>
+        <translation>Eliminar</translation>
     </message>
     <message>
         <source>Unable to delete</source>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Confirmar eliminación de archivo</translation>
+        <translation>Confirmar eliminación de archivo</translation>
     </message>
     <message>
         <source>Auxiliary files to be deleted:</source>
@@ -43,7 +43,7 @@
     <name>FindDialog</name>
     <message>
         <source>Find</source>
-        <translation type="unfinished">Buscar</translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <source>Find:</source>
@@ -90,6 +90,69 @@
         <translation type="unfinished">(inválido)</translation>
     </message>
 </context>
+<context>
+    <name>ScriptManager</name>
+    <message>
+        <location filename="../src/ScriptManager.cpp" line="+132"/>
+        <source>Name: </source>
+        <translation>Nombre: </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Context: </source>
+        <translation>Contexto: </translation>
+    </message>
+    <message>
+    <location line="+1"/>
+        <source>Description: </source>
+        <translation>Descripción: </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Author: </source>
+        <translation>Аutor: </translation>
+    </message>
+	<message>
+        <location line="+1"/>
+        <source>Version: </source>
+        <translation>Versión: </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Shortcut: </source>
+        <translation>Atajo: </translation>
+    </message>
+	<message>
+        <location line="+1"/>
+        <source>File: </source>
+        <translation>Archivo: </translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Language: </source>
+        <translation>Lenguaje: </translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Hook: </source>
+        <translation>Gancho: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManager.ui" line="+14"/>
+        <source>Manage Scripts</source>
+        <translation>Administrar Scripts</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Hook Scripts</source>
+        <translation>Scripts gancho</translation>
+    </message>
+	<message>
+        <location line="+22"/>
+        <source>Standalone Scripts</source>
+        <translation>Scripts autónomos</translation>
+    </message>
+</context>	
 <context>
     <name>HardWrapDialog</name>
     <message>
@@ -234,6 +297,10 @@
     <message>
         <source>Zoom In</source>
         <translation type="unfinished">Ampliar</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>Scripts</translation>
     </message>
     <message>
         <source>Ctrl++</source>
@@ -430,6 +497,38 @@
     <message>
         <source>Find Again</source>
         <translation type="unfinished">Continuar búsqueda</translation>
+    </message>
+    <message>
+        <source>Update Scripts</source>
+        <translation>Actualizar Scripts</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>Administrar Scripts</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>Carpeta de Scripts</translation>
+    </message>
+	<message>
+        <source>About Scripts...</source>
+        <translation>Acerca de Scripts...</translation>
+    </message>
+    <message>
+        <source>Auto-Follow Focus</source>
+        <translation>Sincronizar cursor</translation>
+    </message>
+    <message>
+        <source>Make Bold</source>
+        <translation>Convertir en negritas</translation>
+    </message>
+    <message>
+        <source>Make Emphasized</source>
+        <translation>Texto enfatizado</translation>
+    </message>
+    <message>
+        <source>Title Case</source>
+        <translation>Iniciales en mayúsculas</translation>
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
@@ -795,6 +894,22 @@
         <source>Highlight current line</source>
         <translation type="unfinished">Resaltar la línea actual</translation>
     </message>
+    <message>
+        <source>Smart Quotes mode:</source>
+        <translation type="unfinished">Modo de marcado automático:</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>Scripts</translation>
+    </message>
+    <message>
+        <source>Enable QtScript debugger</source>
+        <translation type="unfinished">Habilitar el depurador QtScript</translation>
+    </message>
+    <message>
+        <source>Allow scripts to run system commands</source>
+        <translation type="unfinished">Permitir que scripts ejecuten comandos del sistema</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -937,55 +1052,55 @@
     <name>TWApp</name>
     <message>
         <source>File</source>
-        <translation type="unfinished">Archivo</translation>
+        <translation>Archivo</translation>
     </message>
     <message>
         <source>New</source>
-        <translation type="unfinished">Nuevo</translation>
+        <translation>Nuevo</translation>
     </message>
     <message>
         <source>New from Template...</source>
-        <translation type="unfinished">Nuevo a partir de Plantilla...</translation>
+        <translation>Nuevo a partir de Plantilla...</translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation type="unfinished">Preferencias...</translation>
+        <translation>Preferencias...</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation type="unfinished">Abrir...</translation>
+        <translation>Abrir...</translation>
     </message>
     <message>
         <source>Open Recent</source>
-        <translation type="unfinished">Abrir reciente</translation>
+        <translation>Abrir reciente</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished">Ayuda</translation>
+        <translation>Ayuda</translation>
     </message>
     <message>
         <source>About </source>
-        <translation type="unfinished">Acerca de</translation>
+        <translation>Acerca de </translation>
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation type="unfinished">Visitar la página ofical de TeXworks</translation>
+        <translation>Visitar la página ofical de TeXworks</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
-        <translation type="unfinished">Escribir a la lista de usuarios</translation>
+        <translation>Escribir a la lista de usuarios</translation>
     </message>
     <message>
         <source>Ctrl+N</source>
-        <translation type="unfinished">Ctrl+N</translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
-        <translation type="unfinished">Ctrl+Shift+N</translation>
+        <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
         <source>Ctrl+O</source>
-        <translation type="unfinished">Ctrl+O</translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
@@ -1053,7 +1168,7 @@
     </message>
     <message>
         <source>Open File</source>
-        <translation type="unfinished">Abrir archivo</translation>
+        <translation>Abrir archivo</translation>
     </message>
     <message>
         <source>No default binary directory found</source>
@@ -1067,43 +1182,104 @@
         <source>Unable to find help file.</source>
         <translation type="unfinished">Imposible encontrar el archivo de ayuda.</translation>
     </message>
+    <message>
+        <source>Save File</source>
+        <translation>Guardar archivo</translation>
+    </message>
+    <message>
+        <source>Failed to execute system command: %1</source>
+        <translation>Falló la ejecución del comando de sistema: %1</translation>
+    </message>
+    <message>
+        <source>Error executing system command: %1</source>
+        <translation>Error de ejecución del comando de sistema: %1</translation>
+    </message>
+    <message>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation>La ejecución de comandos del sistema está deshabilitada (véase Preferencias)</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptable</name>
+    <message>
+        <location filename="../src/TWScriptable.cpp" line="+314"/>
+        <source>Script result</source>
+        <translation>Resultado del script</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>error desconocido</translation>
+    </message>
+    <message>
+        <source>Scripts may be used to add new commands to %1, and to extend or or modify its behavior.</source> 
+        <translation>Los Scripts pueden usarse para añadir nuevas instrucciones a %1, y así ampliar o modificar su función.</translation> 
+    </message>
+    <message>
+        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
+        <translation>Para mayor información acerca de la creación y el uso de Scripts, véase %1&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Scripting languages currently available in this copy of %1:</source>
+        <translation>Lenguajes de script disponibles en esta versión de %1:</translation>
+    </message>
+    <message>
+        <source>About Scripts</source>
+        <translation>Acerca de Scripts</translation>
+    </message>
+    <message>
+        <source>Script &quot;%1&quot;: %2</source>
+        <translation>Script &quot;%1&quot;: %2</translation>
+    </message>
+</context>
+<context>
+    <name>TWSystemCmd</name>
+    <message>
+	<location filename="../src/TWScriptable.h" line="+170"/>
+        <source>ERROR: failure code %1</source>
+        <translation>ERROR: falla en el código %1</translation>
+    </message>
+    <message>
+        <source>ERROR: exit code %1</source>
+        <translation>ERROR: salida del código %1</translation>
+    </message>
 </context>
 <context>
     <name>TagsDock</name>
     <message>
+	<location filename="../src/TeXDocks.cpp" line="+52"/>
         <source>Tags</source>
-        <translation type="unfinished">Etiquetas</translation>
+        <translation>Etiquetas</translation>
     </message>
     <message>
         <source>Bookmarks</source>
-        <translation type="unfinished">Marcadores</translation>
+        <translation>Marcadores</translation>
     </message>
     <message>
         <source>Outline</source>
-        <translation type="unfinished">Esquema</translation>
+        <translation>Esquema</translation>
     </message>
     <message>
         <source>No tags</source>
-        <translation type="unfinished">Sin etiquetas</translation>
+        <translation >Sin etiquetas</translation>
     </message>
 </context>
 <context>
     <name>TeXDocument</name>
     <message>
         <source>New document</source>
-        <translation type="unfinished">Nuevo documento</translation>
+        <translation>Nuevo documento</translation>
     </message>
     <message>
         <source>Open Recent</source>
-        <translation type="unfinished">Abrir reciente</translation>
+        <translation>Abrir reciente</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <source>Open File</source>
-        <translation type="unfinished">Abrir archivo</translation>
+        <translation>Abrir archivo</translation>
     </message>
     <message>
         <source>Cannot close window while tool is running</source>
@@ -1111,31 +1287,31 @@
     </message>
     <message>
         <source>Save File</source>
-        <translation type="unfinished">Guardar archivo</translation>
+        <translation>Guardar archivo</translation>
     </message>
     <message>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
-        <translation type="unfinished">El documento &quot;%1&quot; ha sido modificado.
+        <translation>El documento &quot;%1&quot; ha sido modificado. 
 ¿Desea conservar los cambios?</translation>
     </message>
     <message>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation type="unfinished">Desea descartar todos los cambios efectuados al documento &quot;%1&quot; y volver a la última versión conservada?</translation>
+        <translation>Desea descartar todos los cambios efectuados al documento &quot;%1&quot; y volver a la última versión conservada?</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished">Deshacer</translation>
+        <translation>Deshacer</translation>
     </message>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation type="unfinished">Error de lectura del archivo &quot;%1&quot;:
+        <translation>Error de lectura del archivo &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
         <source>Unrecognized encoding</source>
-        <translation type="unfinished">Codificación desconocida </translation>
+        <translation>Codificación desconocida </translation>
     </message>
     <message>
         <source>The text encoding %1 used in %2 is not supported.
@@ -1657,23 +1833,49 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">Salir de TeXworks</translation>
+        <translation>Salir de TeXworks</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation type="unfinished">Ctrl+Q</translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <source>Toggle Case</source>
-        <translation type="unfinished">Invertir caracteres</translation>
+        <translation>Invertir caracteres</translation>
+    </message>
+	<message>
+        <source>Show Scripts Folder</source>
+        <translation>Carpeta de Scripts</translation>
     </message>
     <message>
+        <source>Update Scripts</source>
+        <translation>Actualizar Scripts</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>Administrar Scripts</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Auto-Follow Focus</source>
+        <translation>Sincronizar cursor</translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation>Acerca de Scripts...</translation>
+    </message>
+	<message>
+        <source>Apply to Selection</source>
+        <translation>Aplicar a Selección</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="-22"/>
         <source>The program &quot;%1&quot; was not found.</source>
-        <translation type="unfinished">Programa &quot;%1&quot; no encontrado.</translation>
+        <translation>Programa &quot;%1&quot; no encontrado.</translation>
     </message>
     <message>
         <source>Searched in directories:</source>
-        <translation type="unfinished">Búsqueda en directorios:</translation>
+        <translation>Búsqueda en directorios:</translation>
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
@@ -1704,6 +1906,26 @@ Si desea continuar, estos símbolos serán reemplazados por los de la codificaci
     <message>
         <source>Ctrl+T</source>
         <translation type="obsolete">Ctrl+T</translation>
+    </message>
+    <message>
+        <source>Console output</source>
+        <translation type="unfinished">Panel de salida</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation type="unfinished">Scripts</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation type="unfinished">Carpeta de Scripts</translation>
+    </message>
+    <message>
+        <source>Update Scripts</source>
+        <translation type="unfinished">Actualizar Scripts</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>Administrar Scripts</translation>
     </message>
 </context>
 <context>
