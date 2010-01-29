@@ -4,7 +4,7 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="+852"/>
+        <location filename="../src/CompletingEdit.cpp" line="+877"/>
         <source>Jump to PDF</source>
         <translation>Перейти к PDF</translation>
     </message>
@@ -557,7 +557,7 @@
         <translation>Обновление скриптов</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+8"/>
         <source>Manage Scripts</source>
         <translation>Управление скриптами</translation>
     </message>
@@ -577,7 +577,7 @@
         <translation>PDF файл &quot;%1&quot; заблокирован; на данный момент операция не поддерживается.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="-55"/>
+        <location filename="../src/PDFDocument.ui" line="-52"/>
         <source>Find...</source>
         <translation>Найти...</translation>
     </message>
@@ -779,7 +779,7 @@
         <translation>Новый инструмент</translation>
     </message>
     <message>
-        <location line="+245"/>
+        <location line="+233"/>
         <source>System default [%1]</source>
         <translation>Язык системы [%1]</translation>
     </message>
@@ -865,17 +865,21 @@
     </message>
     <message>
         <location line="+24"/>
-        <location line="+21"/>
         <source> pt</source>
-        <translation>пт</translation>
+        <translation> пт</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="+14"/>
         <source>Tab width:</source>
         <translation>Величина Tab:</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+7"/>
+        <source> px</source>
+        <translation> пикс</translation>
+    </message>
+    <message>
+        <location line="+53"/>
         <source>Wrap lines</source>
         <translation>Переносить строки</translation>
     </message>
@@ -972,7 +976,7 @@
     <message>
         <location line="+10"/>
         <source> dpi</source>
-        <translation>dpi</translation>
+        <translation> дпи</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -1166,6 +1170,69 @@
         <location line="+7"/>
         <source>&amp;Regular expression</source>
         <translation>&amp;Регулярное выражение</translation>
+    </message>
+</context>
+<context>
+    <name>ScriptManager</name>
+    <message>
+        <location filename="../src/ScriptManager.cpp" line="+132"/>
+        <source>Name: </source>
+        <translation>Название: </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Context: </source>
+        <translation>Контекст: </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Description: </source>
+        <translation>Описание: </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Author: </source>
+        <translation>Автор: </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Version: </source>
+        <translation>Версия: </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Shortcut: </source>
+        <translation>Комбинация: </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>File: </source>
+        <translation>Файл: </translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Language: </source>
+        <translation>Язык: </translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Hook: </source>
+        <translation>Перехватчик: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManager.ui" line="+14"/>
+        <source>Manage Scripts</source>
+        <translation>Управление скриптами</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Hook Scripts</source>
+        <translation>Скрипты перехватчики</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Standalone Scripts</source>
+        <translation>Автономные скрипты</translation>
     </message>
 </context>
 <context>
@@ -1395,7 +1462,7 @@
         <translation>Невозможно найти файл справки.</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+40"/>
         <source>Failed to execute system command: %1</source>
         <translation>Не удалось выполнить системную команду: %1</translation>
     </message>
@@ -1414,7 +1481,7 @@
 <context>
     <name>TWScriptable</name>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="+314"/>
+        <location filename="../src/TWScriptable.cpp" line="+372"/>
         <source>Script result</source>
         <translation>Результат работы скрипта</translation>
     </message>
@@ -1453,7 +1520,7 @@
 <context>
     <name>TWSystemCmd</name>
     <message>
-        <location filename="../src/TWScriptable.h" line="+170"/>
+        <location filename="../src/TWScriptable.h" line="+173"/>
         <source>ERROR: failure code %1</source>
         <translation>ОШИБКА: сбой в коде %1</translation>
     </message>
@@ -1489,14 +1556,14 @@
 <context>
     <name>TeXDocument</name>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="+72"/>
+        <location filename="../src/TeXDocument.cpp" line="+73"/>
         <source>New document</source>
         <translation>Новый документ</translation>
     </message>
     <message>
         <location line="+118"/>
-        <location line="+185"/>
-        <location filename="../src/TeXDocument.ui" line="+788"/>
+        <location line="+193"/>
+        <location filename="../src/TeXDocument.ui" line="+789"/>
         <source>Open Recent</source>
         <translation>Последние файлы</translation>
     </message>
@@ -1753,7 +1820,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Прервать вёрстку</translation>
     </message>
     <message>
-        <location line="+128"/>
+        <location line="+130"/>
         <location filename="../src/TeXDocument.ui" line="-152"/>
         <source>Hide Output Panel</source>
         <translation>Скрыть панель вывода</translation>
@@ -1784,7 +1851,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>В данный момент у документа нет связанных с ним вспомогательных файлов.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="-821"/>
+        <location filename="../src/TeXDocument.ui" line="-822"/>
         <source>untitled.tex[*]</source>
         <translation>безназвания.tex[*]</translation>
     </message>
@@ -1809,13 +1876,13 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Изменить регистр</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="-331"/>
-        <location filename="../src/TeXDocument.ui" line="+385"/>
+        <location filename="../src/TeXDocument.cpp" line="-333"/>
+        <location filename="../src/TeXDocument.ui" line="+386"/>
         <source>Typeset</source>
         <translation>Вёрстка</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="-355"/>
+        <location filename="../src/TeXDocument.ui" line="-356"/>
         <source>Window</source>
         <translation>Окно</translation>
     </message>
@@ -1855,7 +1922,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Автоматические кавычки</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>Help</source>
         <translation>Справка</translation>
     </message>
@@ -2255,7 +2322,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Обновление скриптов</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+8"/>
         <source>Manage Scripts</source>
         <translation>Управление скриптами</translation>
     </message>
@@ -2268,6 +2335,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <location line="+8"/>
         <source>About Scripts...</source>
         <translation>О скриптах...</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Apply to Selection</source>
+        <translation>Применить к выделению</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="-22"/>
@@ -2291,13 +2363,13 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Процесс прерван пользователем</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="-846"/>
+        <location filename="../src/TeXDocument.ui" line="-852"/>
         <source>Typeset</source>
         <comment>menu title</comment>
         <translation>Вёрстка</translation>
     </message>
     <message>
-        <location line="+365"/>
+        <location line="+366"/>
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation>Ctrl+T</translation>
@@ -2337,7 +2409,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="+213"/>
+        <location filename="../src/PrefsDialog.cpp" line="+221"/>
         <source>Select program file</source>
         <translation>Выберите программу</translation>
     </message>
