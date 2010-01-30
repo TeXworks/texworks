@@ -25,6 +25,9 @@
 
 #include <QLabel>
 #include <QCloseEvent>
+#include <QHeaderView>
+#include <QDesktopServices>
+#include <QUrl>
 
 ScriptManager * ScriptManager::gManageScriptsWindow = NULL;
 QRect           ScriptManager::gGeometry;
@@ -41,8 +44,10 @@ void ScriptManager::init()
 	connect(scriptTabs, SIGNAL(currentChanged(int)), this, SLOT(treeSelectionChanged()));
 
 	connect(hookTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(treeItemClicked(QTreeWidgetItem *, int)));
+	connect(hookTree, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(treeItemActivated(QTreeWidgetItem *, int)));
 	connect(hookTree, SIGNAL(itemSelectionChanged()), this, SLOT(treeSelectionChanged()));
 	connect(standaloneTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(treeItemClicked(QTreeWidgetItem *, int)));
+	connect(standaloneTree, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(treeItemActivated(QTreeWidgetItem *, int)));
 	connect(standaloneTree, SIGNAL(itemSelectionChanged()), this, SLOT(treeSelectionChanged()));
 
 	connect(this, SIGNAL(scriptListChanged()), qApp, SIGNAL(scriptListChanged()));
@@ -119,6 +124,13 @@ void ScriptManager::treeItemClicked(QTreeWidgetItem * item, int /*column*/)
 	}
 }
 
+void ScriptManager::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
+{
+	TWScript * s = static_cast<TWScript*>(item->data(0, Qt::UserRole).value<void*>());
+	if (s)
+		QDesktopServices::openUrl(QUrl::fromLocalFile(s->getFilename()));
+}
+
 void ScriptManager::treeSelectionChanged()
 {
 	details->setPlainText("");
@@ -159,3 +171,4 @@ void ScriptManager::addDetailsRow(QString& html, const QString label, const QStr
 	if (!value.isEmpty())
 		html += "<tr><td>" + label + "</td><td>" + value + "</td></tr>";
 }
+
