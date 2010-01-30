@@ -43,6 +43,7 @@ signals:
 	
 private slots:
 	void treeItemClicked(QTreeWidgetItem * item, int column);
+	void treeItemActivated(QTreeWidgetItem * item, int column);
 	void treeSelectionChanged();
 
 private:
