@@ -36,10 +36,31 @@ Arguments: -e
 [X] View PDF after running
 }}}
 
-For other options, please refer to the manual coming with latexmk. Most noteable are the switches "-dvi", "-ps", and "-pdfps". Note that in all those cases, you must replace all occurences of "pdflatex" in the arguments by "latex".
+For other options, please refer to the manual coming with latexmk. Most notable are the switches "-dvi", "-ps", and "-pdfps". Note that in all those cases, you must replace all occurences of "pdflatex" in the arguments by "latex".
+
+== simpdftex ==
+simpdftex is a script for Linux/Mac that greatly simplifies the processes {la}tex -> dvips -> ps2pdf and {la}tex -> dvipdfm.
+
+In order to use simpdftex, you must have it installed (please refer to your TeX distribution for this). You can check if it is available on your system by running `simpdftex` from the command line, which should print some information about the program.
+
+To set up !TeXworks to use simpdftex, create a new typesetting tool using the configuration
+{{{
+Program:   simpdftex
+Arguments: latex
+           --extratexopts
+           $synctexoption
+           $fullname
+
+[X] View PDF after running
+}}}
+Replace "latex" by "tex" if you write plain TeX files. This executes the process latex -> dvips -> ps2pdf by default. For other options (e.g. for using an alternative to the ps2pdf distiller), please refer to the documentation fo simpdftex.
+
+_Thanks to Bruno Voisin for pointing out this script_
 
 == tex -> dvips -> ps2pdf ==
 This is usually required if you want to use !PSTricks. Consider using PGF/TikZ instead.
+
+_On Linux/Mac, please consider using simpdftex as described above._
 
 Configuring this workflow is not straight-forward. !TeXworks only supports running a single command at once, but you need to call "tex", "dvips", and ps2pdf. To be able to do that, you need to create a simple script, the content of which is platform dependent (see below). Then define a new typesetting tool using the following configuration:
 {{{
@@ -74,6 +95,8 @@ If "-synctex=1" causes problems, simply remove it.
 
 == latex -> dvips -> ps2pdf ==
 This is usually required if you want to use !PSTricks. Consider using PGF/TikZ instead.
+
+_On Linux/Mac, please consider using simpdftex as described above._
 
 Configuring this workflow is not straight-forward. !TeXworks only supports running a single command at once, but you need to call "latex", "dvips", and ps2pdf. To be able to do that, you need to create a simple script, the content of which is platform dependent (see below). Then define a new typesetting tool using the following configuration:
 {{{
