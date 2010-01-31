@@ -53,7 +53,8 @@ private:
 	
 	void populateTree();
 	void populateTree(QTreeWidget * tree, QTreeWidgetItem * parentItem, const TWScriptList * scripts);
-	
+	void setFolderCheckedState(QTreeWidgetItem * item);
+
 	void addDetailsRow(QString& html, const QString label, const QString value);
 	
 	static ScriptManager * gManageScriptsWindow;

@@ -90,6 +90,9 @@ void ScriptManager::populateTree()
 	standaloneTree->expandAll();
 }
 
+#define kScriptType (QTreeWidgetItem::UserType + 1)
+#define kFolderType (QTreeWidgetItem::UserType + 2)
+
 void ScriptManager::populateTree(QTreeWidget * tree, QTreeWidgetItem * parentItem, const TWScriptList * scripts)
 {
 	QTreeWidgetItem * item;
@@ -98,7 +101,7 @@ void ScriptManager::populateTree(QTreeWidget * tree, QTreeWidgetItem * parentIte
 		TWScript * script = qobject_cast<TWScript*>(obj);
 		if (script && script->getType() != TWScript::ScriptUnknown) {
 			QStringList strList(script->getTitle());
-			item = parentItem ? new QTreeWidgetItem(parentItem, strList) : new QTreeWidgetItem(tree, strList);
+			item = parentItem ? new QTreeWidgetItem(parentItem, strList, kScriptType) : new QTreeWidgetItem(tree, strList, kScriptType);
 			item->setData(0, Qt::UserRole, qVariantFromValue((void*)script));
 			item->setCheckState(0, script->isEnabled() ? Qt::Checked : Qt::Unchecked);
 			continue;
@@ -106,29 +109,58 @@ void ScriptManager::populateTree(QTreeWidget * tree, QTreeWidgetItem * parentIte
 		TWScriptList * list = qobject_cast<TWScriptList*>(obj);
 		if (list) {
 			QStringList strList(list->getName());
-			item = parentItem ? new QTreeWidgetItem(parentItem, strList) : new QTreeWidgetItem(tree, strList);
+			item = parentItem ? new QTreeWidgetItem(parentItem, strList, kFolderType) : new QTreeWidgetItem(tree, strList, kFolderType);
 			QFont f = item->font(0);
 			f.setBold(true);
 			item->setFont(0, f);
 			populateTree(NULL, item, list);
+			setFolderCheckedState(item);
 		}
 	}
 }
 
 void ScriptManager::treeItemClicked(QTreeWidgetItem * item, int /*column*/)
 {
-	TWScript * s = static_cast<TWScript*>(item->data(0, Qt::UserRole).value<void*>());
-	if (s) {
-		s->setEnabled(item->checkState(0) == Qt::Checked);
-		emit scriptListChanged();
+	if (item->type() == kScriptType) {
+		TWScript * s = static_cast<TWScript*>(item->data(0, Qt::UserRole).value<void*>());
+		if (s) {
+			s->setEnabled(item->checkState(0) == Qt::Checked);
+			setFolderCheckedState(item->parent());
+			emit scriptListChanged();
+		}
 	}
+	else if (item->type() == kFolderType) {
+		Qt::CheckState checked = item->checkState(0);
+		for (int i = 0; i < item->childCount(); ++i) {
+			item->child(i)->setCheckState(0, checked);
+			treeItemClicked(item->child(i), 0);
+		}
+	}
+}
+
+void ScriptManager::setFolderCheckedState(QTreeWidgetItem * item)
+{
+	if (!item || item->type() != kFolderType)
+		return;
+	bool anyChecked = false;
+	bool allChecked = true;
+	for (int i = 0; i < item->childCount(); ++i) {
+		if (item->child(i)->checkState(0) == Qt::Unchecked)
+			allChecked = false;
+		else
+			anyChecked = true;
+	}
+	item->setCheckState(0, allChecked ? Qt::Checked : anyChecked ? Qt::PartiallyChecked : Qt::Unchecked);
+	setFolderCheckedState(item->parent());
 }
 
 void ScriptManager::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 {
-	TWScript * s = static_cast<TWScript*>(item->data(0, Qt::UserRole).value<void*>());
-	if (s)
-		QDesktopServices::openUrl(QUrl::fromLocalFile(s->getFilename()));
+	if (item->type() == kScriptType) {
+		TWScript * s = static_cast<TWScript*>(item->data(0, Qt::UserRole).value<void*>());
+		if (s)
+			QDesktopServices::openUrl(QUrl::fromLocalFile(s->getFilename()));
+	}
 }
 
 void ScriptManager::treeSelectionChanged()
@@ -138,6 +170,9 @@ void ScriptManager::treeSelectionChanged()
 	QTreeWidget * tree = scriptTabs->currentWidget() == standaloneTab ? standaloneTree : hookTree;
 	QList<QTreeWidgetItem*> selection = tree->selectedItems();
 	if (selection.size() != 1)
+		return;
+	
+	if (selection[0]->type() != kScriptType)
 		return;
 	
 	TWScript * s = static_cast<TWScript*>(selection[0]->data(0, Qt::UserRole).value<void*>());
