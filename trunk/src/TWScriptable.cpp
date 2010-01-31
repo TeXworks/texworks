@@ -187,6 +187,8 @@ void TWScriptManager::loadScripts()
 		disabled[i] = QFileInfo(scriptsDir.absoluteFilePath(disabled[i])).canonicalFilePath();
 	
 	addScriptsInDirectory(scriptsDir, disabled);
+	
+	ScriptManager::refreshScriptList();
 }
 
 void TWScriptManager::clear()
