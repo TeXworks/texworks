@@ -145,9 +145,9 @@ void ScriptManager::setFolderCheckedState(QTreeWidgetItem * item)
 	bool anyChecked = false;
 	bool allChecked = true;
 	for (int i = 0; i < item->childCount(); ++i) {
-		if (item->child(i)->checkState(0) == Qt::Unchecked)
+		if (item->child(i)->checkState(0) != Qt::Checked)
 			allChecked = false;
-		else
+		if (item->child(i)->checkState(0) != Qt::Unchecked)
 			anyChecked = true;
 	}
 	item->setCheckState(0, allChecked ? Qt::Checked : anyChecked ? Qt::PartiallyChecked : Qt::Unchecked);
