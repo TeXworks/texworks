@@ -89,6 +89,7 @@ unix:!macx { # on Unix-ish platforms we rely on pkgconfig, and use dbus
 	# gets expanded to " in the c++ code)
 	QMAKE_CXXFLAGS += -DTW_HELPPATH=\\\"/usr/local/share/texworks-help\\\"
 	QMAKE_CXXFLAGS += -DTW_PLUGINPATH=\\\"/usr/local/lib/texworks\\\"
+	QMAKE_CXXFLAGS += -DTW_DICPATH=\\\"/usr/share/myspell/dicts\\\"
 }
 
 linux-g++ {

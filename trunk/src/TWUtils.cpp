@@ -40,6 +40,16 @@
 
 #pragma mark === TWUtils ===
 
+#ifdef Q_WS_X11
+// compile-time default paths - customize by defining in the .pro file
+#ifndef TW_DICPATH
+#define TW_DICPATH "/usr/share/myspell/dicts"
+#endif
+#ifndef TW_HELPPATH
+#define TW_HELPPATH "/usr/local/share/texworks-help"
+#endif
+#endif
+
 bool TWUtils::isPDFfile(const QString& fileName)
 {
 	QFile theFile(fileName);
@@ -81,8 +91,13 @@ const QString TWUtils::getLibraryPath(const QString& subdir)
 		libPath = QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/" + subdir;
 #endif
 #ifdef Q_WS_X11
-		if (subdir == "dictionaries")
-			libPath = "/usr/share/myspell/dicts";
+		if (subdir == "dictionaries") {
+			libPath = TW_DICPATH;
+			const char* dicPath = getenv("TW_DICPATH");
+			if (dicPath != NULL)
+				libPath = dicPath;
+			return libPath; // don't try to create the system dicts directory
+		}
 		else
 			libPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/" + subdir;
 #endif
@@ -180,11 +195,7 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	QDir helpDir(QCoreApplication::applicationDirPath() + "/texworks-help");
 #ifdef Q_WS_X11
 	if (!helpDir.exists())
-#ifdef TW_HELPPATH
 		helpDir.cd(TW_HELPPATH);
-#else
-		helpDir.cd("/usr/local/share/texworks-help");
-#endif // defined(TW_HELPPATH)
 #endif
 #endif
 	const char* helpPath = getenv("TW_HELPPATH");
