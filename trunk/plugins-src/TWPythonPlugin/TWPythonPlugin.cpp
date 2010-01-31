@@ -27,6 +27,17 @@
 #include <QStringList>
 #include <QTextStream>
 
+/* macros that may not be available in older python headers */
+#ifndef Py_RETURN_NONE
+#define Py_RETURN_NONE return Py_INCREF(Py_None), Py_None
+#endif
+#ifndef Py_RETURN_TRUE
+#define Py_RETURN_TRUE return Py_INCREF(Py_True), Py_True
+#endif
+#ifndef Py_RETURN_FALSE
+#define Py_RETURN_FALSE return Py_INCREF(Py_False), Py_False
+#endif
+
 /** \brief	Structure to hold data for the pyQObject wrapper */
 typedef struct {
 	PyObject_HEAD
@@ -420,7 +431,7 @@ QVariant PythonScript::PythonToVariant(PyObject * o)
 	QVariantList list;
 	QVariantMap map;
 	PyObject * key, * value;
-	Py_ssize_t i = 0;
+	int i = 0;
 	QString str;
 
 	// in Python 3.x, the PyInt_* were removed in favor of PyLong_*
