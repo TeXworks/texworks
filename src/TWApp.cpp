@@ -258,7 +258,7 @@ void TWApp::about()
 {
 	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(TEXWORKS_NAME);
 	aboutText += "<small>";
-	aboutText += "<p>&#xA9; 2007-2010 Jonathan Kew";
+	aboutText += "<p>&#xA9; 2007-2010 Jonathan Kew &amp; Stefan L&#xF6;ffler";
 	aboutText += tr("<br>Version %1 (r.%2)").arg(TEXWORKS_VERSION).arg(SVN_REVISION);
 	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2.");
 	aboutText += tr("<p><a href=\"http://trolltech.com/products/\">Qt4</a> application framework by Qt Software, a division of Nokia Corporation.");
