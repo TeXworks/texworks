@@ -74,6 +74,13 @@ void ScriptManager::showManageScripts()
 	gManageScriptsWindow->activateWindow();
 }
 
+/*static*/
+void ScriptManager::refreshScriptList()
+{
+	if (gManageScriptsWindow)
+		gManageScriptsWindow->populateTree();
+}
+
 void ScriptManager::populateTree()
 {
 	TWScriptManager * scriptManager = TWApp::instance()->getScriptManager();

@@ -34,6 +34,7 @@ class ScriptManager : public QWidget, private Ui::ScriptManager
 
 public:
 	static void showManageScripts();
+	static void refreshScriptList();
 
 protected:
 	virtual void closeEvent(QCloseEvent * event);
