@@ -99,8 +99,8 @@ public:
 	virtual ~TWScriptManager() {};
 	
 	bool addScript(QObject* scriptList, TWScript* script);
-	int addScriptsInDirectory(const QDir& dir, const QStringList& disabled) {
-		return addScriptsInDirectory(&m_Scripts, dir, disabled);
+	void addScriptsInDirectory(const QDir& dir, const QStringList& disabled) {
+		addScriptsInDirectory(&m_Scripts, &m_Hooks, dir, disabled);
 	}
 	void clear();
 		
@@ -114,13 +114,15 @@ public:
 	void saveDisabledList();
 
 protected:
-	int addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir,
-							  const QStringList& disabled);
+	void addScriptsInDirectory(TWScriptList *scriptList,
+							   TWScriptList *hookList,
+							   const QDir& dir,
+							   const QStringList& disabled);
 	void loadPlugins();
 	
 private:
 	TWScriptList m_Scripts; // hierarchical list of standalone scripts
-	TWScriptList m_Hooks; // flat list of hook scripts (not shown in menus)
+	TWScriptList m_Hooks; // hierarchical list of hook scripts
 
 	QList<TWScriptLanguageInterface*> scriptLanguages;
 };

@@ -212,23 +212,24 @@ bool TWScriptManager::addScript(QObject* scriptList, TWScript* script)
 	return true;
 }
 
-int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir& dir,
-										   const QStringList& disabled)
+void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
+											TWScriptList *hookList,
+											const QDir& dir,
+											const QStringList& disabled)
 {
-	int num = 0;
-	
 	foreach (const QFileInfo& info,
-			 dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Readable, QDir::DirsFirst)) {
+			 dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Readable, QDir::DirsLast)) {
 		if (info.isDir()) {
-			TWScriptList *sublist = new TWScriptList(scriptList, info.fileName());
-			if (addScriptsInDirectory(sublist, info.absoluteFilePath(), disabled) == 0)
-				delete sublist;
-			else
-				++num;
+			TWScriptList *subScriptList = new TWScriptList(scriptList, info.fileName());
+			TWScriptList *subHookList = new TWScriptList(hookList, info.fileName());
+			addScriptsInDirectory(subScriptList, subHookList, info.absoluteFilePath(), disabled);
+			if (subScriptList->children().isEmpty())
+				delete subScriptList;
+			if (subHookList->children().isEmpty())
+				delete subHookList;
 			continue;
 		}
 
-		QString suffix = info.suffix();
 		foreach (TWScriptLanguageInterface* i, scriptLanguages) {
 			if (!i->canHandleFile(info))
 				continue;
@@ -239,14 +240,12 @@ int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir&
 				script->parseHeader();
 				switch (script->getType()) {
 					case TWScript::ScriptHook:
-						if (!addScript(&m_Hooks, script))
+						if (!addScript(hookList, script))
 							delete script;
 						break;
 
 					case TWScript::ScriptStandalone:
-						if (addScript(scriptList, script))
-							++num;
-						else
+						if (!addScript(scriptList, script))
 							delete script;
 						break;
 					
@@ -258,15 +257,13 @@ int TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList, const QDir&
 			}
 		}
 	}
-	
-	return num;
 }
 
 QList<TWScript*> TWScriptManager::getHookScripts(const QString& hook) const
 {
 	QList<TWScript*> result;
 	
-	foreach (QObject *obj, m_Hooks.children()) {
+	foreach (QObject *obj, m_Hooks.findChildren<QObject*>()) {
 		TWScript *script = qobject_cast<TWScript*>(obj);
 		if (!script)
 			continue;
