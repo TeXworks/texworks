@@ -63,6 +63,14 @@
 #include <windows.h>
 #endif
 
+#define kLineEnd_Mask   0x00FF
+#define kLineEnd_LF     0x0000
+#define kLineEnd_CRLF   0x0001
+#define kLineEnd_CR     0x0002
+
+#define kLineEnd_Flags_Mask  0xFF00
+#define kLineEnd_Mixed       0x0100
+
 const int kHardWrapDefaultWidth = 64;
 
 QList<TeXDocument*> TeXDocument::docList;
@@ -87,12 +95,17 @@ TeXDocument::~TeXDocument()
 
 void TeXDocument::init()
 {
-	codec = NULL;
+	codec = TWApp::instance()->getDefaultCodec();
 	pdfDoc = NULL;
 	process = NULL;
 	highlighter = NULL;
 	pHunspell = NULL;
-
+#ifdef Q_WS_WIN
+	lineEndings = kLineEnd_CRLF;
+#else
+	lineEndings = kLineEnd_LF;
+#endif
+	
 	setupUi(this);
 #ifdef Q_WS_WIN
 	TWApp::instance()->createMessageTarget(this);
@@ -107,8 +120,21 @@ void TeXDocument::init()
 	hideConsole();
 	keepConsoleOpen = false;
 
-	lineNumberLabel = new QLabel();
-	statusBar()->addPermanentWidget(lineNumberLabel);
+	statusBar()->addPermanentWidget(lineEndingLabel = new QLabel());
+	lineEndingLabel->setFrameStyle(QFrame::StyledPanel);
+	lineEndingLabel->setFont(statusBar()->font());
+	lineEndingLabel->setContextMenuPolicy(Qt::CustomContextMenu);
+	connect(lineEndingLabel, SIGNAL(customContextMenuRequested(const QPoint)), this, SLOT(lineEndingPopup(const QPoint)));
+	showLineEndingSetting();
+	
+	statusBar()->addPermanentWidget(encodingLabel = new QLabel());
+	encodingLabel->setFrameStyle(QFrame::StyledPanel);
+	encodingLabel->setFont(statusBar()->font());
+	encodingLabel->setContextMenuPolicy(Qt::CustomContextMenu);
+	connect(encodingLabel, SIGNAL(customContextMenuRequested(const QPoint)), this, SLOT(encodingPopup(const QPoint)));
+	showEncodingSetting();
+	
+	statusBar()->addPermanentWidget(lineNumberLabel = new QLabel());
 	lineNumberLabel->setFrameStyle(QFrame::StyledPanel);
 	lineNumberLabel->setFont(statusBar()->font());
 	showCursorPosition();
@@ -805,7 +831,7 @@ static const char* texshopSynonyms[] = {
 QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName)
 {
 	// peek at the file for %!TEX encoding = ....
-	QRegExp re("% *!TEX +encoding *= *([^\\r\\n]+)[\\r\\n]", Qt::CaseInsensitive);
+	QRegExp re("% *!TEX +encoding *= *([^\\r\\n\\x2029]+)[\\r\\n\\x2029]", Qt::CaseInsensitive);
 	int pos = re.indexIn(peekStr);
 	QTextCodec *reqCodec = NULL;
 	if (pos > -1) {
@@ -830,11 +856,22 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 
 #define PEEK_LENGTH 1024
 
-QString TeXDocument::readFile(const QString &fileName, QTextCodec **codecUsed)
+QString TeXDocument::readFile(const QString &fileName,
+							  QTextCodec **codecUsed,
+							  int *lineEndings)
 	// reads the text from a file, after checking for %!TEX encoding.... metadata
 	// sets codecUsed to the QTextCodec used to read the text
 	// returns a null (not just empty) QString on failure
 {
+	if (lineEndings != NULL) {
+		// initialize to default for the platform
+#ifdef Q_WS_WIN
+		*lineEndings = kLineEnd_CRLF;
+#else
+		*lineEndings = kLineEnd_LF;
+#endif
+	}
+	
 	QFile file(fileName);
 	// Not using QFile::Text because this prevents us reading "classic" Mac files
 	// with CR-only line endings. See issue #242.
@@ -869,15 +906,39 @@ QString TeXDocument::readFile(const QString &fileName, QTextCodec **codecUsed)
 	else {
 		QTextStream in(&file);
 		in.setCodec(*codecUsed);
-		return in.readAll();
+		QString text = in.readAll();
+
+		if (lineEndings != NULL) {
+			if (text.contains("\r\n")) {
+				text.replace("\r\n", "\n");
+				*lineEndings = kLineEnd_CRLF;
+			}
+			else if (text.contains("\r") && !text.contains("\n")) {
+				text.replace("\r", "\n");
+				*lineEndings = kLineEnd_CR;
+			}
+			else
+				*lineEndings = kLineEnd_LF;
+
+			if (text.contains("\r")) {
+				text.replace("\r", "\n");
+				*lineEndings |= kLineEnd_Mixed;
+			}
+		}
+
+		return text;
 	}
 }
 
 void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBackground)
 {
-	QString fileContents = readFile(fileName, &codec);
+	QString fileContents = readFile(fileName, &codec, &lineEndings);
+	showLineEndingSetting();
+	showEncodingSetting();
+
 	if (fileContents.isNull())
 		return;
+
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	deferTagListChanges = true;
 	tagListChanged = false;
@@ -898,10 +959,8 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 			selectWindow();
 		}
 
-		statusBar()->showMessage(tr("File \"%1\" loaded (%2)")
-									.arg(TWUtils::strippedName(curFile))
-									.arg(QString::fromAscii(codec->name())),
-									kStatusMessageDuration);
+		statusBar()->showMessage(tr("File \"%1\" loaded").arg(TWUtils::strippedName(curFile)),
+								 kStatusMessageDuration);
 		setupFileWatcher();
 	}
 	textEdit->updateLineNumberAreaWidth(0);
@@ -1065,60 +1124,59 @@ bool TeXDocument::saveFile(const QString &fileName)
 		}
 	}
 	
-	bool hasMetadata;
-	QString reqName;
 	QString theText = textEdit->toPlainText();
-	QTextCodec *newCodec = scanForEncoding(theText.toAscii().left(PEEK_LENGTH), hasMetadata, reqName);
-
-	if (newCodec != NULL)
-		codec = newCodec;
-	else if (hasMetadata) {
-		if (QMessageBox::warning(this, tr("Unrecognized encoding"),
-				tr("The text encoding %1 requested for %2 is not supported.\n\n"
-				   "It will be saved as %3 instead, which may result in incorrect text.")
-					.arg(reqName)
-					.arg(fileName)
+	switch (lineEndings & kLineEnd_Mask) {
+		case kLineEnd_CR:
+			theText.replace("\n", "\r");
+			break;
+		case kLineEnd_LF:
+			break;
+		case kLineEnd_CRLF:
+			theText.replace("\n", "\r\n");
+			break;
+	}
+	
+	if (!codec)
+		codec = TWApp::instance()->getDefaultCodec();
+	if (!codec->canEncode(theText)) {
+		if (QMessageBox::warning(this, tr("Text cannot be converted"),
+				tr("This document contains characters that cannot be represented in the encoding %1.\n\n"
+				   "If you proceed, they will be replaced with default codes. "
+				   "Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.")
 					.arg(QString(codec->name())),
 				QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel)
 			goto notSaved;
 	}
-	
-	if (codec != NULL) {
-		if (!codec->canEncode(theText)) {
-			if (QMessageBox::warning(this, tr("Text cannot be converted"),
-					tr("This document contains characters that cannot be represented in the encoding %1.\n\n"
-					   "If you proceed, they will be replaced with default codes. "
-					   "Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.")
-						.arg(QString(codec->name())),
-					QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel)
-				goto notSaved;
-		}
-	}
 
 	clearFileWatcher();
-	QFile file(fileName);
-	if (!file.open(QFile::WriteOnly | QFile::Text)) {
-		QMessageBox::warning(this, tr(TEXWORKS_NAME),
-							 tr("Cannot write file \"%1\":\n%2")
-							 .arg(fileName)
-							 .arg(file.errorString()));
-		setupFileWatcher();
-		goto notSaved;
-	}
 
-	{ // need the stream to be closed before we restore the file watcher
+	{
+		QFile file(fileName);
+		if (!file.open(QFile::WriteOnly)) {
+			QMessageBox::warning(this, tr(TEXWORKS_NAME),
+								 tr("Cannot write file \"%1\":\n%2")
+								 .arg(fileName)
+								 .arg(file.errorString()));
+			setupFileWatcher();
+			goto notSaved;
+		}
+
 		QApplication::setOverrideCursor(Qt::WaitCursor);
-		QTextStream out(&file);
-		if (codec != NULL)
-			out.setCodec(codec);
-		out << theText;
-		setCurrentFile(fileName);
-		statusBar()->showMessage(tr("File \"%1\" saved (%2)")
-									.arg(TWUtils::strippedName(curFile))
-									.arg(codec ? QString::fromAscii(codec->name()) : tr("default encoding")),
-									kStatusMessageDuration);
+		if (file.write(codec->fromUnicode(theText)) == -1) {
+			QApplication::restoreOverrideCursor();
+			QMessageBox::warning(this, tr("Error writing file"),
+								 tr("An error may have occurred while saving the file. "
+									"You might like to save a copy in a different location."),
+								 QMessageBox::Ok);
+			goto notSaved;
+		}
 		QApplication::restoreOverrideCursor();
 	}
+
+	setCurrentFile(fileName);
+	statusBar()->showMessage(tr("File \"%1\" saved")
+								.arg(TWUtils::strippedName(curFile)),
+								kStatusMessageDuration);
 	
 	QTimer::singleShot(0, this, SLOT(setupFileWatcher()));
 	return true;
@@ -1234,6 +1292,68 @@ void TeXDocument::showCursorPosition()
 	lineNumberLabel->setText(tr("Line %1 of %2; col %3").arg(line).arg(total).arg(col));
 	if (actionAuto_Follow_Focus->isChecked())
 		emit syncFromSource(curFile, line, false);
+}
+
+void TeXDocument::showLineEndingSetting()
+{
+	QString lineEndStr;
+	switch (lineEndings & kLineEnd_Mask) {
+		case kLineEnd_LF:
+			lineEndStr = "LF";
+			break;
+		case kLineEnd_CRLF:
+			lineEndStr = "CRLF";
+			break;
+		case kLineEnd_CR:
+			lineEndStr = "CR";
+			break;
+	}
+	if ((lineEndings & kLineEnd_Mixed) != 0)
+		lineEndStr += "*";
+	lineEndingLabel->setText(lineEndStr);
+}
+
+void TeXDocument::lineEndingPopup(const QPoint loc)
+{
+	QMenu menu;
+	QAction *cr, *lf, *crlf;
+	menu.addAction(lf = new QAction("LF (Unix, Mac OS X)", &menu));
+	menu.addAction(crlf = new QAction("CRLF (Windows)", &menu));
+	menu.addAction(cr = new QAction("CR (Mac Classic)", &menu));
+	QAction *result = menu.exec(lineEndingLabel->mapToGlobal(loc));
+	int newSetting = (lineEndings & kLineEnd_Mask);
+	if (result == lf)
+		newSetting = kLineEnd_LF;
+	else if (result == crlf)
+		newSetting = kLineEnd_CRLF;
+	else if (result == cr)
+		newSetting = kLineEnd_CR;
+	if (newSetting != (lineEndings & kLineEnd_Mask)) {
+		lineEndings = newSetting;
+		showLineEndingSetting();
+		textEdit->document()->setModified();
+	}
+}
+
+void TeXDocument::showEncodingSetting()
+{
+	encodingLabel->setText(codec ? codec->name() : "");
+}
+
+void TeXDocument::encodingPopup(const QPoint loc)
+{
+	QMenu menu;
+	foreach (QTextCodec *codec, *TWUtils::findCodecs())
+		menu.addAction(new QAction(codec->name(), &menu));
+	QAction *result = menu.exec(encodingLabel->mapToGlobal(loc));
+	if (result) {
+		QTextCodec *newCodec = QTextCodec::codecForName(result->text().toAscii());
+		if (newCodec && newCodec != codec) {
+			codec = newCodec;
+			showEncodingSetting();
+			textEdit->document()->setModified();
+		}
+	}
 }
 
 void TeXDocument::selectWindow(bool activate)
@@ -2443,6 +2563,15 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 			else {
 				statusBar()->showMessage(tr("Engine \"%1\" not defined").arg(name), kStatusMessageDuration);
 			}
+		}
+		
+		/* Search for encoding specification */
+		bool hasMetadata;
+		QString reqName;
+		QTextCodec *newCodec = scanForEncoding(peekStr, hasMetadata, reqName);
+		if (newCodec != NULL) {
+			codec = newCodec;
+			showEncodingSetting();
 		}
 		
 		/* Search for spellcheck specification */

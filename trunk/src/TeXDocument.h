@@ -187,7 +187,9 @@ private slots:
 	void reloadIfChangedOnDisk();
 	void setupFileWatcher();
 	void errorLineClicked(QTableWidgetItem* i);
-	
+	void lineEndingPopup(const QPoint loc);
+	void encodingPopup(const QPoint loc);
+
 private:
 	void init();
 	bool maybeSave();
@@ -195,7 +197,7 @@ private:
 	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
-	QString readFile(const QString &fileName, QTextCodec **codecUsed);
+	QString readFile(const QString &fileName, QTextCodec **codecUsed, int *lineEndings = NULL);
 	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
@@ -220,7 +222,9 @@ private:
 	void maybeCenterSelection(int oldScrollValue = -1);
 	void showFloaters();
 	void presentResults(const QList<SearchResult>& results);
-
+	void showLineEndingSetting();
+	void showEncodingSetting();
+	
 	QString selectedText() { return textCursor().selectedText(); }
 	int selectionStart() { return textCursor().selectionStart(); }
 	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
@@ -231,12 +235,15 @@ private:
 	PDFDocument *pdfDoc;
 
 	QTextCodec *codec;
+	int lineEndings;
 	QString curFile;
 	QString rootFilePath;
 	bool isUntitled;
 	QDateTime lastModified;
 
 	QLabel *lineNumberLabel;
+	QLabel *encodingLabel;
+	QLabel *lineEndingLabel;
 
 	QActionGroup *engineActions;
 	QString engineName;
