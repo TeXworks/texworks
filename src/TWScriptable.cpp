@@ -152,9 +152,10 @@ void TWScriptManager::loadPlugins()
 #if defined(Q_OS_WIN)
 	if (pluginsDir.dirName().toLower() == "debug" || pluginsDir.dirName().toLower() == "release")
 		pluginsDir.cdUp();
-#elif defined(Q_OS_MAC)
-	if (pluginsDir.dirName() == "MacOS") {
+#elif defined(Q_OS_MAC) // "plugins" directory is alongside "MacOS" within the package's Contents dir
+	if (pluginsDir.dirName() == "MacOS")
 		pluginsDir.cdUp();
+	if (!pluginsDir.exists("plugins")) { // if not found, try for a dir alongside the .app package
 		pluginsDir.cdUp();
 		pluginsDir.cdUp();
 	}

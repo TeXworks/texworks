@@ -316,10 +316,16 @@
     <property name="title">
      <string>Scripts</string>
     </property>
-    <addaction name="actionAbout_Scripts"/>
-    <addaction name="actionUpdate_Scripts"/>
-    <addaction name="actionManage_Scripts"/>
-    <addaction name="actionShow_Scripts_Folder"/>
+    <widget class="QMenu" name="menuScripting_TeXworks">
+     <property name="title">
+      <string>Scripting TeXworks</string>
+     </property>
+     <addaction name="actionAbout_Scripts"/>
+     <addaction name="actionManage_Scripts"/>
+     <addaction name="actionUpdate_Scripts"/>
+     <addaction name="actionShow_Scripts_Folder"/>
+    </widget>
+    <addaction name="menuScripting_TeXworks"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="menuFile"/>
@@ -1034,7 +1040,7 @@
   </action>
   <action name="actionUpdate_Scripts">
    <property name="text">
-    <string>Update Scripts</string>
+    <string>Reload Script List</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
