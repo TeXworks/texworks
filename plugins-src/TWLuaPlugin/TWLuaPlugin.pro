@@ -56,7 +56,7 @@ win32 { # paths here are specific to my setup
 	INCLUDEPATH += c:/MinGW514/local/include
 
 	LIBS += -Lc:/MinGW514/local/lib
-	LIBS += -llua5.1
+	LIBS += -llua
 }
 
 

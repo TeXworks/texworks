@@ -61,8 +61,10 @@ unix:!macx { # on Unix-ish platforms we should rely on pkgconfig
 
 win32 { # paths here are specific to my setup
 	INCLUDEPATH += c:/MinGW514/local/include
+	INCLUDEPATH += c:/Python26/include
 
 	LIBS += -Lc:/MinGW514/local/lib
+	LIBS += -Lc:/Python26/libs -lpython26
 }
 
 
