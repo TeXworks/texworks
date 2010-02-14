@@ -47,8 +47,10 @@ bool TWScript::doParseHeader(const QString& beginComment, const QString& endComm
 	if (!file.exists() || !file.open(QIODevice::ReadOnly))
 		return false;
 	
-	// skip any empty lines
 	QTextStream s(&file);
+	s.setCodec("UTF-8");
+
+	// skip any empty lines
 	if (skipEmpty) {
 		while (!s.atEnd()) {
 			line = s.readLine().trimmed();
