@@ -36,6 +36,12 @@
 #include <QtScriptTools>
 #endif
 
+#ifdef STATIC_SCRIPTING_PLUGINS
+#include <QtPlugin>
+Q_IMPORT_PLUGIN(TWLuaPlugin)
+Q_IMPORT_PLUGIN(TWPythonPlugin)
+#endif
+
 static
 QVariant convertValue(const QScriptValue& value)
 {
