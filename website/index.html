@@ -13,9 +13,88 @@ td {
   text-align: center;
 }
 </style>
+<script type="text/javascript">
+var req;
+function loadXMLDoc(url) {
+	req = false;
+    // branch for native XMLHttpRequest object
+    if (window.XMLHttpRequest && !(window.ActiveXObject)) {
+    	try {
+			req = new XMLHttpRequest();
+        } catch(e) {
+			req = false;
+        }
+    // branch for IE/Windows ActiveX version
+    } else if (window.ActiveXObject) {
+       	try {
+        	req = new ActiveXObject("Msxml2.XMLHTTP");
+      	} catch(e) {
+        	try {
+          		req = new ActiveXObject("Microsoft.XMLHTTP");
+        	} catch(e) {
+          		req = false;
+        	}
+		}
+    }
+	if (req) {
+		req.onreadystatechange = processReqChange;
+		req.open("GET", url);
+		req.send(null);
+	}
+}
+
+function processReqChange() {
+    // only if req shows "loaded"
+    if (req.readyState == 4) {
+        // only if "OK"
+        if (req.status == 200) {
+            extractDownloads(req.responseText);
+        } else {
+        	//alert("failed to get the download list; status = " + req.status);
+        }
+    }
+}
+
+function extractDownloads(txt) {
+	var result = "";
+	var lines = txt.split('\n');
+	var collecting = false;
+	for (i = 0; i < lines.length; ++i) {
+		line = lines[i];
+		if (line.match("<div id=\"downloadbox\">")) {
+			collecting = true;
+		}
+		if (collecting) {
+			line = line.replace("float: right", "");
+			line = line.replace("<a href=\"downloads/list", "<p style=\"text-align:right;margin:0;\"><a href=\"http://code.google.com/p/texworks/downloads/list");
+			line = line.replace("Show all</a>", "Show all</a></p>");
+			line = line.replace("</a>", "</a><br/>");
+			result += line + "\n";
+			if (line.match("</div>")) {
+				break;
+			}
+		}
+	}
+    if (result != "") {
+		document.getElementById("downloads").innerHTML = result;
+	}
+}
+
+function getDownloadList() {
+	loadXMLDoc("http://code.google.com/p/texworks/")
+}
+</script>
 </head>
-<body>
-<div style="float: right; background-image: url(img/TeXworks256.png); height: 256px; width: 256px;">
+<body onload="getDownloadList()">
+<div style="float:right; background:#ddf8cc; margin: 5px;">
+<div style="background-image:url(img/TeXworks256.png); height:256px; width:256px;">
+</div>
+<div style="padding:10px;">
+<h3 style="text-align:center">TeXworks downloads</h3>
+<div id="downloads">
+<a href="http://code.google.com/p/texworks">Go to project page</a>
+</div>
+</div>
 </div>
 <h2>TeXworks<br><small>lowering the entry barrier to the TeX world</small></h2>
 <p><small><em>Jonathan Kew</em></small>
