@@ -196,7 +196,27 @@ win32 {
 	LIBS += -llua5.1
 }
 }}}
-Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWLuaPlugin subdirectory. This should leave you with the file plugins-src\TWLuaPlugin\release\libTWLuaPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins and copy the file libTWLuaPlugin.dll into it. Finally restart !TeXworks.
+Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWLuaPlugin subdirectory. This should leave you with the file plugins-src\TWLuaPlugin\release\libTWLuaPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins (if it doesn't exist) and copy the file libTWLuaPlugin.dll into it. Finally restart !TeXworks.
+
+== Building the Python scripting plugin =
+In order to build the Python scripting plugin, you need to get a working copy of Python. Downloaded it from [http://http://www.python.org/] and install it to, e.g., C:\Python26. Then modify the file plugins-src\TWPythonPlugin\TWPythonPlugin.pro and replace the lines
+{{{
+win32 { # paths here are specific to my setup
+	INCLUDEPATH += c:/MinGW514/local/include
+	INCLUDEPATH += c:/Python26/include
+
+	LIBS += -Lc:/MinGW514/local/lib
+	LIBS += -Lc:/Python26/libs -lpython26
+}
+}}}
+by
+{{{
+win32 {
+	INCLUDEPATH += c:/Python26/include
+	LIBS += -Lc:/Python26/libs -lpython26
+}
+}}}
+Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWPythonPlugin subdirectory. This should leave you with the file plugins-src\TWPythonPlugin\release\libTWPythonPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins (if it doesn't exist) and copy the file libTWPythonPlugin.dll into it. Finally restart !TeXworks.
 
 = Disclaimer =  
 This guide is provided as-is in the hope that it's helpful. There is no guarantee the described procedure will work on your system. Use at your own risk.
