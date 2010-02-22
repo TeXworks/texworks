@@ -38,6 +38,11 @@
 #define Py_RETURN_FALSE return Py_INCREF(Py_False), Py_False
 #endif
 
+/* Py_ssize_t is new in Python 2.5 */
+#if PY_VERSION_HEX < 0x02050000
+typedef int Py_ssize_t;
+#endif
+
 /** \brief	Structure to hold data for the pyQObject wrapper */
 typedef struct {
 	PyObject_HEAD
@@ -431,7 +436,7 @@ QVariant PythonScript::PythonToVariant(PyObject * o)
 	QVariantList list;
 	QVariantMap map;
 	PyObject * key, * value;
-	int i = 0;
+	Py_ssize_t i = 0;
 	QString str;
 
 	// in Python 3.x, the PyInt_* were removed in favor of PyLong_*
