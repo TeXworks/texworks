@@ -113,6 +113,9 @@ win32 { # paths here are specific to my setup
 	LIBS += -lgdi32
 
 	RC_FILE = res/TeXworks.rc
+
+	# for the Windows build, we use static plugins:
+	QMAKE_CXXFLAGS += -DSTATIC_SCRIPTING_PLUGINS
 }
 }}}
 and replace them by
@@ -125,6 +128,10 @@ win32 {
 	LIBS += -lhunspell-1.2
 
 	RC_FILE = res/TeXworks.rc
+
+
+	# for the Windows build, we use static plugins:
+#	QMAKE_CXXFLAGS += -DSTATIC_SCRIPTING_PLUGINS
 }
 }}}
 
@@ -192,8 +199,7 @@ by
 {{{
 win32 {
 	INCLUDEPATH += c:/texworks/lua5.1/include
-	LIBS += -Lc:/texworks/lua5.1
-	LIBS += -llua5.1
+	LIBS += -Lc:/texworks/lua5.1 -llua5.1
 }
 }}}
 Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWLuaPlugin subdirectory. This should leave you with the file plugins-src\TWLuaPlugin\release\libTWLuaPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins (if it doesn't exist) and copy the file libTWLuaPlugin.dll into it. Finally restart !TeXworks.
