@@ -33,7 +33,7 @@ bf:=\textbf{#INS#}
 bfd:=\bfseries
 bfig:=\begin{figure}#RET##INS##RET#\end{figure}•
 bfigo:=\begin{figure}[#INS#]#RET#•#RET#\end{figure}•
-bmult:=\begin{multiline}#RET##INS##RET#\end{multiline}•
+bmult:=\begin{multline}#RET##INS##RET#\end{multline}•
 bflalig:=\begin{flalign}#RET##INS##RET#\end{flalign}•
 bflaligs:=\begin{flalign*}#RET##INS##RET#\end{flalign*}•
 bfll:=\begin{flushleft}#RET##INS##RET#\end{flushleft}•
@@ -50,8 +50,8 @@ blett:=\begin{letter}{#INS#}#RET#•#RET#\end{letter}•
 blist:=\begin{list}{#INS#}{•}#RET#\item#RET#•#RET#\end{list}•
 bminp:=\begin{minipage}{#INS#}#RET#•#RET#\end{minipage}•
 bminpo:=\begin{minipage}[#INS#]{•}#RET#•#RET#\end{minipage}•
-bmult:=\begin{multiline}#RET##INS##RET#\end{multiline}•
-bmults:=\begin{multiline*}#RET##INS##RET#\end{multiline*}•
+bmult:=\begin{multline}#RET##INS##RET#\end{multline}•
+bmults:=\begin{multline*}#RET##INS##RET#\end{multline*}•
 botr:=\bottomrule#RET#
 bpict:=\begin{picture}#RET##INS##RET#\end{picture}•
 bpmat:=\begin{pmatrix}#RET##INS##RET#\end{pmatrix}•
@@ -286,8 +286,8 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \blist:=\begin{list}{#INS#}{•}#RET#\item#RET#•#RET#\end{list}•
 \bminp:=\begin{minipage}{#INS#}#RET#•#RET#\end{minipage}•
 \bminpo:=\begin{minipage}[#INS#]{•}#RET#•#RET#\end{minipage}•
-\bmult:=\begin{multiline}#RET##INS##RET#\end{multiline}•
-\bmults:=\begin{multiline*}#RET##INS##RET#\end{multiline*}•
+\bmult:=\begin{multline}#RET##INS##RET#\end{multline}•
+\bmults:=\begin{multline*}#RET##INS##RET#\end{multline*}•
 \bpict:=\begin{picture}#RET##INS##RET#\end{picture}•
 \bpmat:=\begin{pmatrix}#RET##INS##RET#\end{pmatrix}•
 \bquo:=\begin{quote}#RET##INS##RET#\end{quote}•
@@ -526,8 +526,8 @@ usepo:=\usepackage[#INS#]{•}#RET#
 {list}{#INS#}{•}#RET#\item#RET#•#RET#\end{list}•
 {minipage}{#INS#}#RET#•#RET#\end{minipage}•
 {minipage}[#INS#]{•}#RET#•#RET#\end{minipage}•
-{multiline}#RET##INS##RET#\end{multiline}•
-{multiline*}#RET##INS##RET#\end{multiline*}•
+{multline}#RET##INS##RET#\end{multline}•
+{multline*}#RET##INS##RET#\end{multline*}•
 {picture}#RET##INS##RET#\end{picture}•
 {pmatrix}#RET##INS##RET#\end{pmatrix}•
 {quotation}#RET##INS##RET#\end{quotation}•
