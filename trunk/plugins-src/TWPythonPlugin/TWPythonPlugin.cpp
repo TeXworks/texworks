@@ -104,10 +104,13 @@ bool PythonScript::execute(TWInterface *tw) const
 		// handle error
 		return false;
 	}
-	QTextStream stream(&scriptFile);
-	QString contents = stream.readAll();
+	QString contents = QString::fromUtf8(scriptFile.readAll());
 	scriptFile.close();
 
+	// Python seems to require Unix style line endings
+	if (contents.contains("\r"))
+		contents.replace(QRegExp("\r\n?"), "\n");
+	
 	// Create a separate sub-interpreter for this script
 	PyThreadState* interpreter = Py_NewInterpreter();
 

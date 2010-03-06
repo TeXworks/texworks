@@ -25,6 +25,7 @@
 #include <QMetaObject>
 #include <QMetaMethod>
 #include <QApplication>
+#include <QTextCodec>
 
 TWScript::TWScript(TWScriptLanguageInterface *interface, const QString& fileName)
 	: m_Interface(interface), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true)
@@ -47,54 +48,53 @@ bool TWScript::doParseHeader(const QString& beginComment, const QString& endComm
 	if (!file.exists() || !file.open(QIODevice::ReadOnly))
 		return false;
 	
-	QTextStream s(&file);
-	s.setCodec("UTF-8");
-
+	QTextCodec* codec = QTextCodec::codecForName("UTF-8");
+	if (!codec)
+		codec = QTextCodec::codecForLocale();
+	lines = codec->toUnicode(file.readAll()).split(QRegExp("\r\n|[\n\r]"));
+	file.close();
+	
 	// skip any empty lines
 	if (skipEmpty) {
-		while (!s.atEnd()) {
-			line = s.readLine().trimmed();
-			if (!line.isEmpty())
-				break;
-		}
+		while (!lines.isEmpty() && lines.first().isEmpty())
+			lines.removeFirst();
 	}
+	if (lines.isEmpty())
+		return false;
 	
 	// is this a valid TW script?
+	line = lines.takeFirst();
 	if (!beginComment.isEmpty()) {
-		if (!line.startsWith(beginComment)) {
-			file.close();
+		if (!line.startsWith(beginComment))
 			return false;
-		}
 		line = line.mid(beginComment.size()).trimmed();
 	}
 	else if (!Comment.isEmpty()) {
-		if (!line.startsWith(Comment)) {
-			file.close();
+		if (!line.startsWith(Comment))
 			return false;
-		}
 		line = line.mid(Comment.size()).trimmed();
 	}
-	if (!line.startsWith("TeXworksScript")) {
-		file.close();
+	if (!line.startsWith("TeXworksScript"))
 		return false;
-	}
 	
-	// read the header lines
-	while (!s.atEnd()) {
-		line = s.readLine().trimmed();
-		
-		if (skipEmpty && line.isEmpty()) continue;
-		
+	// scan to find the extent of the header lines
+	QStringList::iterator i;
+	for (i = lines.begin(); i != lines.end(); ++i) {
 		// have we reached the end?
-		if (!endComment.isEmpty()) {
-			if (line.startsWith(endComment)) break;
+		if (skipEmpty && i->isEmpty()) {
+			i = lines.erase(i);
+			--i;
+			continue;
 		}
-		else if (!line.startsWith(Comment))
+		if (!endComment.isEmpty()) {
+			if (i->startsWith(endComment))
+				break;
+		}
+		if (!i->startsWith(Comment))
 			break;
-		
-		lines.append(line.mid(Comment.size()).trimmed());
+		*i = i->mid(Comment.size()).trimmed();
 	}
-	file.close();
+	lines.erase(i, lines.end());
 	
 	return doParseHeader(lines);
 }
