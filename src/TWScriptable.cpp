@@ -336,7 +336,6 @@ TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 			if (!script->isEnabled())
 				continue;
 			if (script->getContext().isEmpty() || script->getContext() == metaObject()->className()) {
-				printf("Adding script: %s  enabled=%d\n", script->getTitle().toAscii().data(), script->isEnabled());
 				QAction *a = menu->addAction(script->getTitle());
 				if (!script->getKeySequence().isEmpty())
 					a->setShortcut(script->getKeySequence());

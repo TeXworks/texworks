@@ -1,7 +1,7 @@
-// TeXworksScript
+﻿// TeXworksScript
 // Title: LaTeX errors
 // Description: Looks for errors in the LaTeX terminal output
-// Author: Jonathan Kew & Stefan L�ffler
+// Author: Jonathan Kew & Stefan Löffler
 // Version: 0.3
 // Date: 2010-01-09
 // Script-Type: hook
