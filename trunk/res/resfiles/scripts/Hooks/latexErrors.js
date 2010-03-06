@@ -1,4 +1,4 @@
-﻿// TeXworksScript
+// TeXworksScript
 // Title: LaTeX errors
 // Description: Looks for errors in the LaTeX terminal output
 // Author: Jonathan Kew & Stefan Löffler
