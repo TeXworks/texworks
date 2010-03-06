@@ -441,7 +441,15 @@ void PDFWidget::doLink(const Poppler::Link *link)
 			{
 				const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
 				Q_ASSERT(browse != NULL);
-				TWApp::instance()->openUrl(QUrl::fromEncoded(browse->url().toAscii()));
+				QUrl url = QUrl::fromEncoded(browse->url().toAscii());
+				if (url.scheme() == "file") {
+					PDFDocument *doc = qobject_cast<PDFDocument*>(window());
+					if (doc) {
+						QFileInfo fi(QFileInfo(doc->fileName()).canonicalPath(), url.toLocalFile());
+						url = QUrl::fromLocalFile(fi.canonicalFilePath());
+					}
+				}
+				TWApp::instance()->openUrl(url);
 			}
 			break;
 // unsupported link types:
