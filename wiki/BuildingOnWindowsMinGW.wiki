@@ -2,11 +2,11 @@
 
 _Thanks to Stefan Löffler, Alain Delmotte, Tomek, and Ignasi Furió for developing this guide._
 
-<wiki:toc max_depth="2" />  
+<wiki:toc max_depth="2" />
 
 = Preface =
 
-This document describes a procedure for building !TeXworks on Windows XP using the (freely available) Minimalist Gnu for Windows (MinGW) suite together with the (also freely available) Minimal System (MSYS) command line system. It is by no means the only way possible and it doesn't anticipate and tackle all possible problems, either. If you run into any difficulties feel free to ask for help on the [http://tug.org/mailman/listinfo/texworks mailing list].
+This document describes a procedure for building !TeXworks on Windows XP using the (freely available) Minimalist Gnu for Windows (MinGW) suite together with the (also freely available) Minimal System (MSYS) command line system. It is by no means the only way possible and it doesn't anticipate and tackle all possible problems, either. If you run into any difficulties feel free to ask for help on the [http://tug.org/mailman/listinfo/texworks mailing list] <http://tug.org/mailman/listinfo/texworks>.
 
 _Note: This guide is designed for use with the English version on Windows XP. If you use another language the labels and some of the paths will be different._
 
@@ -14,9 +14,9 @@ _Note: This guide is designed for use with the English version on Windows XP. If
 
 The process described here has been sucessfully implemented using the following software. You may of course use other software, but then the described steps may have to be adapted in some places.
   * Windows XP (+SP3; Vista should work, too, but wasn't tested yet)
-  * [http://www.mingw.org/ MinGW and MSYS]<br>for building some required libraries and the program itself.<br>Note: This software is for free (as in "speech"). There are some installation notes in the next section.
-  * [http://www.7-zip.org/ 7-Zip]<br>>= 4.61 for opening tar.gz and tar.lzma<br>Note: This software is for free (as in "beer", mostly also as in "speech")
-  * [http://subversion.tigris.org/ Subversion]<br>for obtaining the !TeXworks source code<br>Note: This software is for free (as in "speech")
+  * [http://www.mingw.org/ MinGW and MSYS] <http://www.mingw.org/><br>for building some required libraries and the program itself.<br>Note: This software is for free (as in "speech"). There are some installation notes in the next section.
+  * [http://www.7-zip.org/ 7-Zip] <http://www.7-zip.org/><br>>= 4.61 for opening tar.gz and tar.lzma<br>Note: This software is for free (as in "beer", mostly also as in "speech")
+  * [http://subversion.tigris.org/ Subversion] <http://subversion.tigris.org/><br>for obtaining the !TeXworks source code<br>Note: This software is for free (as in "speech")
 _Note: You need administrator's privileges to install new software._
 
 = Setting up MinGW and MSYS =
@@ -25,9 +25,9 @@ Start by installing MinGW. For this, go to [http://www.mingw.org/] and click on 
   * MinGW make
 In this guide, we'll assume you installed them in the folder C:\MinGW.
 
-Then, return to http://www.mingw.org/ and click on "Downloads" again. On the following page, open the "GCC Version 4" folder and the "Current Release" folder inside. From there, download gcc-full-{{{*}}}-mingw32-bin-2.tar.lzma (gcc-full-4.4.0-mingw32-bin-2.tar.lzma at the time of writing). Open the contents with 7-zip and extract the folders to C:\MinGW, replacing existing files.
+Then, return to [http://www.mingw.org/] and click on "Downloads" again. On the following page, open the "GCC Version 4" folder and the "Current Release" folder inside. From there, download gcc-full-{{{*}}}-mingw32-bin-2.tar.lzma (gcc-full-4.4.0-mingw32-bin-2.tar.lzma at the time of writing). Open the contents with 7-zip and extract the folders to C:\MinGW, replacing existing files.
 
-To install MSYS, go to http://www.mingw.org/ again and click on "Downloads". This time, scroll down and open the folder "MSYS Base System". In it, open the folder containing the latest version of MSYS (as of the time of writing this guide, this is msys-1.0.11) and click on the file MSYS-{{{*}}}.exe (as of the time of writing this guide, this is MSYS-1.0.11.exe). Download the file to your hard disk and execute it. In this guide, we'll assume you installed MSYS to the folder C:\MSYS\1.0. You'll be asked for the path to MinGW during the install.
+To install MSYS, go to [http://www.mingw.org/] again and click on "Downloads". This time, scroll down and open the folder "MSYS Base System". In it, open the folder containing the latest version of MSYS (as of the time of writing this guide, this is msys-1.0.11) and click on the file MSYS-{{{*}}}.exe (as of the time of writing this guide, this is MSYS-1.0.11.exe). Download the file to your hard disk and execute it. In this guide, we'll assume you installed MSYS to the folder C:\MSYS\1.0. You'll be asked for the path to MinGW during the install.
 
 = Directory structure =
 
@@ -42,7 +42,7 @@ C:\texworks\texworks-read-only\ (TeXworks)
 
 = Obtaining the necessary libraries from KDE on Windows =
 
-!TeXworks depends on several external libraries, most notably Qt and Poppler. You can obtain most of the needed dependencies from [http://windows.kde.org/ the KDE on Windows project]. See their [http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps summary of steps] for further information.
+!TeXworks depends on several external libraries, most notably Qt and Poppler. You can obtain most of the needed dependencies from [http://windows.kde.org/ the KDE on Windows project] <http://windows.kde.org/>. See their [http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps summary of steps] <http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps> for further information.
 
 Download and run the installer. Choose the following options when asked:
   * Do *not* skip the basic settings page if asked
@@ -63,13 +63,13 @@ Install the following packages and their dependencies:
   * zlib (bin & devel)
 _Note: Not all available servers provide all necessary packages. If the one you chose doesn't, choose another._
 
-Add the KDEDIRS environment variable and adjust your path to include the KDE bin and lib directories according to the [http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps summary of steps required for installation of KDE on Windows]
+Add the KDEDIRS environment variable and adjust your path to include the KDE bin and lib directories according to the [http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps summary of steps required for installation of KDE on Windows] <http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps>. For more information about setting environment variables, see the Q&A below.
 
 = Downloading and building Hunspell =
 
 The hunspell library is required for spell checking and is not bundled with KDE on Windows. Hence you have to compile it yourself.
 
-Go to http://sourceforge.net/projects/hunspell/ and choose "View all files". On the next page, open the "Hunspell" folder and in it the folder with the latest version number (1.2.8 at the time of writing).
+Go to [http://sourceforge.net/projects/hunspell/] and choose "View all files". On the next page, open the "Hunspell" folder and in it the folder with the latest version number (1.2.8 at the time of writing).
 
 Download the .tar.gz file (the win32.zip file only contains programs, no sources and no libraries).
 
@@ -145,7 +145,7 @@ and comment it out by inserting `#` at the beginning. The result will be that !T
 
 Then run
 {{{
-qmake
+qmake -makefile -win32 TeXworks.pro
 }}}
 on the command line from the C:\texworks\texworks-read-only directory. This creates the files Makefile, Makefile.Debug, and Makefile.Release (maybe along with some additional files for internal purposes). To build !TeXworks, simply run
 {{{
@@ -186,7 +186,7 @@ mingw32-make clean
 
 = Building plugins =
 == Building the Lua scripting plugin =
-In order to build the Lua scripting plugin, you need to get the Lua development files suitable for your build setup (mingw + gcc 4.x). The most easiest way to obtain them is from the [http://luaforge.net/frs/?group_id=110 Lua Binaries] page at !LuaForge. Download the file `lua*_Win32_mingw4_lib.zip` (`lua5_1_4_Win32_mingw4_lib.zip` at the time of writing) and extract it, e.g., to C:\texworks\lua5.1\. Then modify the file plugins-src\TWLuaPlugin\TWLuaPlugin.pro and replace the lines
+In order to build the Lua scripting plugin, you need to get the Lua development files suitable for your build setup (mingw + gcc 4.x). The most easiest way to obtain them is from the [http://luaforge.net/frs/?group_id=110 Lua Binaries] <http://luaforge.net/frs/?group_id=110> page at !LuaForge. Download the file `lua*_Win32_mingw4_lib.zip` (`lua5_1_4_Win32_mingw4_lib.zip` at the time of writing) and extract it, e.g., to C:\texworks\lua5.1\. Then modify the file plugins-src\TWLuaPlugin\TWLuaPlugin.pro and replace the lines
 {{{
 win32 { # paths here are specific to my setup
 	INCLUDEPATH += c:/MinGW514/local/include
@@ -205,7 +205,7 @@ win32 {
 Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWLuaPlugin subdirectory. This should leave you with the file plugins-src\TWLuaPlugin\release\libTWLuaPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins (if it doesn't exist) and copy the file libTWLuaPlugin.dll into it. Finally restart !TeXworks.
 
 == Building the Python scripting plugin =
-In order to build the Python scripting plugin, you need to get a working copy of Python. Downloaded it from [http://http://www.python.org/] and install it to, e.g., C:\Python26. Then modify the file plugins-src\TWPythonPlugin\TWPythonPlugin.pro and replace the lines
+In order to build the Python scripting plugin, you need to get a working copy of Python. Downloaded it from [http://www.python.org/] and install it to, e.g., C:\Python26. Then modify the file plugins-src\TWPythonPlugin\TWPythonPlugin.pro and replace the lines
 {{{
 win32 { # paths here are specific to my setup
 	INCLUDEPATH += c:/MinGW514/local/include
@@ -228,6 +228,9 @@ Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWP
 This guide is provided as-is in the hope that it's helpful. There is no guarantee the described procedure will work on your system. Use at your own risk.
 
 = Q & A =
+
+How do I add/edit an environment variable?
+ Right-click on "My Computer" and select "Preferences". Select the "Advanced" tab and click on the button labeled "Environment variables". Note that if an environment variable contains a list of values (e.g. paths), the values are typically separated by a semicolon (";") character. 
 
 When running mingw32-make, Windows complains that this command is not recognized. Why?
  You need to add C:\MinGW\bin to your PATH environmental variable.
@@ -298,4 +301,4 @@ When starting !TeXworks, it complains about missing or incompatible dlls or simp
   * zlib1.dll
 
 I have a question not answered here. What shall I do?
- Ask the question on the [http://tug.org/mailman/listinfo/texworks mailing list].
+ Ask the question on the [http://tug.org/mailman/listinfo/texworks mailing list] <http://tug.org/mailman/listinfo/texworks>.
