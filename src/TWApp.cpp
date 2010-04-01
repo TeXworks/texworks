@@ -58,6 +58,8 @@
 
 #define SETUP_FILE_NAME "texworks-setup.ini"
 
+#define DEFAULT_ENGINE_NAME "pdfLaTeX"
+
 const int kDefaultMaxRecentFiles = 10;
 
 TWApp *TWApp::theAppInstance = NULL;
@@ -641,7 +643,7 @@ const QList<Engine> TWApp::getEngineList()
 
 		if (!foundList)
 			setDefaultEngineList();
-		setDefaultEngine(settings.value("defaultEngine").toString());
+		setDefaultEngine(settings.value("defaultEngine", DEFAULT_ENGINE_NAME).toString());
 	}
 	return *engineList;
 }
