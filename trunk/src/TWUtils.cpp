@@ -488,6 +488,27 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 	QRect r = desktop->availableGeometry(window);
 	int wDiff = window->frameGeometry().width() - window->width();
 	int hDiff = window->frameGeometry().height() - window->height();
+
+	if (hDiff == 0 && wDiff == 0) {
+		// window may not be decorated yet, so we don't know how large
+		// the title bar etc. is. Try to extrapolate from other top-level
+		// windows (if some are available). We assume that if either
+		// hDiff or wDiff is non-zero, we have found a decorated window
+		// and can use its values.
+		foreach (QWidget * widget, QApplication::topLevelWidgets()) {
+			hDiff = widget->frameGeometry().height() - widget->height();
+			wDiff = widget->frameGeometry().width() - widget->width();
+			if (hDiff != 0 || wDiff != 0)
+				break;
+		}
+		// If we still have no valid value for hDiff/wDiff, just guess
+		// (these values were determined on WinXP with default theme)
+		if (hDiff == 0 && wDiff == 0) {
+			hDiff = 34;
+			wDiff = 8;
+		}
+	}
+	
 	if (rhs) {
 		r.setLeft(r.left() + r.right() / 2);
 		window->move(r.left(), r.top());
@@ -502,8 +523,20 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 
 void TWUtils::sideBySide(QWidget *window1, QWidget *window2)
 {
-	zoomToHalfScreen(window1, false);
-	zoomToHalfScreen(window2, true);
+	QDesktopWidget *desktop = QApplication::desktop();
+
+	// if the windows reside on the same screen zoom each so that it occupies 
+	// half of that screen
+	if (desktop->screenNumber(window1) == desktop->screenNumber(window2)) {
+		zoomToHalfScreen(window1, false);
+		zoomToHalfScreen(window2, true);
+	}
+	// if the windows reside on different screens zoom each so that it uses
+	// its whole screen
+	else {
+		zoomToScreen(window1);
+		zoomToScreen(window2);
+	}
 }
 
 void TWUtils::tileWindowsInRect(const QWidgetList& windows, const QRect& bounds)
