@@ -225,7 +225,7 @@ private:
 	void showLineEndingSetting();
 	void showEncodingSetting();
 	
-	QString selectedText() { return textCursor().selectedText(); }
+	QString selectedText() { return textCursor().selectedText().replace(QChar(QChar::ParagraphSeparator), "\n"); }
 	int selectionStart() { return textCursor().selectionStart(); }
 	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
 	QString consoleText() { return textEdit_console->toPlainText(); }
