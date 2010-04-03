@@ -585,6 +585,8 @@ void TWApp::setDefaultEngineList()
 	else
 		engineList->clear();
 	*engineList
+		<< Engine("LaTeXmk", "latexmk" EXE, QStringList("-e") << 
+				  "$pdflatex=q/pdflatex -synctex=1 %O %S/" << "-pdf" << "$fullname", true)
 		<< Engine("pdfTeX", "pdftex" EXE, QStringList("$synctexoption") << "$fullname", true)
 		<< Engine("pdfLaTeX", "pdflatex" EXE, QStringList("$synctexoption") << "$fullname", true)
 		<< Engine("XeTeX", "xetex" EXE, QStringList("$synctexoption") << "$fullname", true)
