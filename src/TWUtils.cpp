@@ -496,16 +496,30 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 		// hDiff or wDiff is non-zero, we have found a decorated window
 		// and can use its values.
 		foreach (QWidget * widget, QApplication::topLevelWidgets()) {
+			if (!qobject_cast<QMainWindow*>(widget))
+				continue;
 			hDiff = widget->frameGeometry().height() - widget->height();
 			wDiff = widget->frameGeometry().width() - widget->width();
 			if (hDiff != 0 || wDiff != 0)
 				break;
 		}
-		// If we still have no valid value for hDiff/wDiff, just guess
-		// (these values were determined on WinXP with default theme)
 		if (hDiff == 0 && wDiff == 0) {
+			// Give the user the possibility to specify his own values by
+			// hacking the config files.
+			// (Note: this should only be necessary in some special cases, e.g.
+			// on X11 systems with special effects enabled)
+			QSETTINGS_OBJECT(settings);
+			wDiff = qMax(0, settings.value("windowWDiff", 0).toInt());
+			hDiff = qMax(0, settings.value("windowHDiff", 0).toInt());
+		}
+		// If we still have no valid value for hDiff/wDiff, just guess (on some
+		// platforms)
+		if (hDiff == 0 && wDiff == 0) {
+#ifdef Q_WS_WIN
+			// (these values were determined on WinXP with default theme)
 			hDiff = 34;
 			wDiff = 8;
+#endif
 		}
 	}
 	
