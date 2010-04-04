@@ -51,7 +51,18 @@ public:
 	void SetResult(const QVariant& rval) { m_result = rval; }
 
 public slots:
-	int strlen(const QString& str) { return str.length(); }
+	int strlen(const QString& str) const { return str.length(); }
+	QString platform() const {
+#ifdef Q_WS_MAC
+		return QString("MacOSX");
+#elif Q_WS_WIN
+		return QString("Windows");
+#elif Q_WS_X11
+		return QString("X11");
+#else
+		return QString("unknown");
+#endif
+	}
 	
 protected:
 	QObject* m_app;
