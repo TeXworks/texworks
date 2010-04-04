@@ -165,6 +165,7 @@ void TeXDocument::init()
 
 	connect(actionSave, SIGNAL(triggered()), this, SLOT(save()));
 	connect(actionSave_As, SIGNAL(triggered()), this, SLOT(saveAs()));
+	connect(actionSave_All, SIGNAL(triggered()), this, SLOT(saveAll()));
 	connect(actionRevert_to_Saved, SIGNAL(triggered()), this, SLOT(revert()));
 	connect(actionClose, SIGNAL(triggered()), this, SLOT(close()));
 
@@ -702,6 +703,19 @@ bool TeXDocument::save()
 		return saveAs();
 	else
 		return saveFile(curFile);
+}
+
+bool TeXDocument::saveAll()
+{
+	bool savedAll = true;
+	foreach (TeXDocument* doc, docList) {
+		if (doc->textEdit->document()->isModified()) {
+			if (!doc->save()) {
+				savedAll = false;
+			}
+		}
+	}
+	return savedAll;
 }
 
 bool TeXDocument::saveAs()

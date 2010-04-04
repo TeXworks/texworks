@@ -178,6 +178,7 @@
     <addaction name="actionClose"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
+    <addaction name="actionSave_All"/>
     <addaction name="actionRevert_to_Saved"/>
     <addaction name="separator"/>
     <addaction name="actionRemove_Aux_Files"/>
@@ -1079,6 +1080,17 @@
   <action name="actionApply_to_Selection">
    <property name="text">
     <string>Apply to Selection</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionSave_All">
+   <property name="text">
+    <string>Save All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+S</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
