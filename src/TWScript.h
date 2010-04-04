@@ -47,8 +47,11 @@ public:
 	QObject* GetApp() { return m_app; }
 	QObject* GetTarget() { return m_target; }
 	QVariant& GetResult() { return m_result; }
-	
+		
 	void SetResult(const QVariant& rval) { m_result = rval; }
+
+public slots:
+	int strlen(const QString& str) { return str.length(); }
 	
 protected:
 	QObject* m_app;

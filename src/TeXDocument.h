@@ -164,6 +164,7 @@ public slots:
 	void setSpellcheckLanguage(const QString& lang);
 	void selectRange(int start, int length = 0);
 	void insertText(const QString& text);
+	void selectAll() { textEdit->selectAll(); }
 	
 private slots:
 	void setLangInternal(const QString& lang);
