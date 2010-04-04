@@ -395,7 +395,11 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 			return Py_BuildValue("K", v.toULongLong());
 		case QVariant::Char:
 		case QVariant::String:
-			return Py_BuildValue("s", qPrintable(v.toString()));
+#ifdef Py_UNICODE_WIDE
+			return Py_BuildValue("u", v.toString().toUcs4().constData());
+#else
+			return Py_BuildValue("u", v.toString().constData());
+#endif
 		case QVariant::List:
 		case QVariant::StringList:
 			list = v.toList();
