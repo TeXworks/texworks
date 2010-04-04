@@ -128,6 +128,7 @@ public slots:
 	void newFromTemplate();
 	void open();
 	bool save();
+	bool saveAll();
 	bool saveAs();
 	void revert();
 	void clear();
