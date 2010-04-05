@@ -50,7 +50,6 @@
 #include <QTranslator>
 #include <QUrl>
 #include <QDesktopServices>
-#include <QHash>
 
 #if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN))
 #include "poppler-config.h"
@@ -786,7 +785,7 @@ void TWApp::applyTranslation(const QString& locale)
 	emit updatedTranslators();
 }
 
-void TWApp::addToRecentFiles(const QHash<QString,QVariant>& fileProperties)
+void TWApp::addToRecentFiles(const QMap<QString,QVariant>& fileProperties)
 {
 	QSETTINGS_OBJECT(settings);
 
@@ -797,7 +796,7 @@ void TWApp::addToRecentFiles(const QHash<QString,QVariant>& fileProperties)
 	QList<QVariant> fileList = settings.value("recentFiles").toList();
 	QList<QVariant>::iterator i = fileList.begin();
 	while (i != fileList.end()) {
-		QHash<QString,QVariant> h = i->toHash();
+		QMap<QString,QVariant> h = i->toMap();
 		if (h.value("path").toString() == fileName)
 			i = fileList.erase(i);
 		else
@@ -814,18 +813,18 @@ void TWApp::addToRecentFiles(const QHash<QString,QVariant>& fileProperties)
 	updateRecentFileActions();
 }
 
-QHash<QString,QVariant> TWApp::getFileProperties(const QString& path)
+QMap<QString,QVariant> TWApp::getFileProperties(const QString& path)
 {
 	QSETTINGS_OBJECT(settings);
 	QList<QVariant> fileList = settings.value("recentFiles").toList();
 	QList<QVariant>::iterator i = fileList.begin();
 	while (i != fileList.end()) {
-		QHash<QString,QVariant> h = i->toHash();
+		QMap<QString,QVariant> h = i->toMap();
 		if (h.value("path").toString() == path)
 			return h;
 		++i;
 	}
-	return QHash<QString,QVariant>();
+	return QMap<QString,QVariant>();
 }
 
 void TWApp::openHelpFile(const QString& helpDirName)

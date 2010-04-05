@@ -981,7 +981,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	maybeEnableSaveAndRevert(false);
 
 	bool autoPlace = true;
-	QHash<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+	QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
 	if (properties.contains("geometry")) {
 		restoreGeometry(properties.value("geometry").toByteArray());
 		autoPlace = false;
@@ -1280,7 +1280,7 @@ void TeXDocument::saveRecentFileInfo()
 	if (isUntitled)
 		return;
 	
-	QHash<QString,QVariant> fileProperties;
+	QMap<QString,QVariant> fileProperties;
 	fileProperties.insert("path", curFile);
 	fileProperties.insert("geometry", saveGeometry());
 	fileProperties.insert("state", saveState(kTeXWindowStateVersion));
