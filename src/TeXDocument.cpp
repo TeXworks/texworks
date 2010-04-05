@@ -977,7 +977,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	}
 
 	if (autoPlace)
-		TWUtils::sideBySide(this, pdfDoc);
+		sideBySide();
 	
 	show(); // ensure window is shown before the PDF, if opening a new doc
 	if (pdfDoc)
