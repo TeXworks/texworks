@@ -20,6 +20,7 @@
 */
 
 #include "TWLuaPlugin.h"
+#include "TWScriptAPI.h"
 
 #include <QCoreApplication>
 #include <QTextStream>
@@ -52,7 +53,7 @@ TWScript* TWLuaPlugin::newScript(const QString& fileName)
 Q_EXPORT_PLUGIN2(TWLuaPlugin, TWLuaPlugin)
 
 
-bool LuaScript::execute(TWInterface *tw) const
+bool LuaScript::execute(TWScriptAPI *tw) const
 {
 	int status;
 	lua_State * L = m_LuaPlugin->getLuaState();
