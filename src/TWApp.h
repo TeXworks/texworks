@@ -164,8 +164,8 @@ public slots:
 
 	QObject* openFile(const QString& fileName);
 
-	QString getOpenFileName();
-	QStringList getOpenFileNames();
+	QString getOpenFileName(QString selectedFilter = QString());
+	QStringList getOpenFileNames(QString selectedFilter = QString());
 	QString getSaveFileName(const QString& defaultName);
 	
 	// for script access to arbitrary commands
