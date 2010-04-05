@@ -149,6 +149,7 @@ void TeXDocument::init()
 	engine->setFocusPolicy(Qt::NoFocus);
 #if defined(Q_WS_MAC) && (QT_VERSION >= 0x040600)
 	engine->setStyleSheet("padding:4px;");
+	engine->setMinimumWidth(150);
 #endif
 	toolBar_run->addWidget(engine);
 	updateEngineList();
