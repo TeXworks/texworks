@@ -106,7 +106,11 @@ public slots:
 	QVariant getInt(QWidget* parent, const QString& title, const QString& label,
 					int value = 0, int min = -2147483647, int max = 2147483647, int step = 1) {
 		bool ok;
+#if QT_VERSION >= 0x040500
 		int i = QInputDialog::getInt(parent, title, label, value, min, max, step, &ok);
+#else
+		int i = QInputDialog::getInteger(parent, title, label, value, min, max, step, &ok);
+#endif
 		return ok ? QVariant(i) : QVariant();
 	}
 	QVariant getDouble(QWidget* parent, const QString& title, const QString& label,
