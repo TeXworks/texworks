@@ -136,6 +136,7 @@ HEADERS	+=	src/TWApp.h \
 			src/TWUtils.h \
 			src/TWScriptable.h \
 			src/TWScript.h \
+			src/TWScriptAPI.h \
 			src/TeXDocument.h \
 			src/CompletingEdit.h \
 			src/TeXHighlighter.h \
