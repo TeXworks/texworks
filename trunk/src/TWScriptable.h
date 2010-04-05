@@ -127,8 +127,8 @@ private:
 	QList<TWScriptLanguageInterface*> scriptLanguages;
 };
 
-// parent class for document windows that handle a Scripts menu
-// (i.e. both the source and PDF window types)
+// parent class for document windows (i.e. both the source and PDF window types);
+// handles the Scripts menu and other common functionality
 class TWScriptable : public QMainWindow
 {
 	Q_OBJECT
@@ -142,10 +142,16 @@ public slots:
 	void runScript(QObject * script, TWScript::ScriptType scriptType = TWScript::ScriptStandalone);
 	void runHooks(const QString& hookName);
 	
+	void selectWindow(bool activate = true);
+	void placeOnLeft();
+	void placeOnRight();
+
 private slots:
 	void doManageScripts();
 	void doAboutScripts();
-
+	
+	void hideFloatersUnlessThis(QWidget* currWindow);
+	
 protected:
 	void initScriptable(QMenu* scriptsMenu,
 						QAction* aboutScriptsAction,
@@ -155,10 +161,14 @@ protected:
 
 	int addScriptsToMenu(QMenu *menu, TWScriptList *scripts);
 
+	void showFloaters();
+
 private:
 	QMenu* scriptsMenu;
 	QSignalMapper* scriptMapper;
 	int staticScriptMenuItemCount;
+
+	QList<QWidget*> latentVisibleWidgets;
 };
 
 

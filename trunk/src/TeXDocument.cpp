@@ -595,34 +595,6 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 		event->ignore();
 }
 
-void TeXDocument::hideFloatersUnlessThis(QWidget* currWindow)
-{
-	TeXDocument* p = qobject_cast<TeXDocument*>(currWindow);
-	if (p == this)
-		return;
-	foreach (QObject* child, children()) {
-		QToolBar* tb = qobject_cast<QToolBar*>(child);
-		if (tb && tb->isVisible() && tb->isFloating()) {
-			latentVisibleWidgets.append(tb);
-			tb->hide();
-			continue;
-		}
-		QDockWidget* dw = qobject_cast<QDockWidget*>(child);
-		if (dw && dw->isVisible() && dw->isFloating()) {
-			latentVisibleWidgets.append(dw);
-			dw->hide();
-			continue;
-		}
-	}
-}
-
-void TeXDocument::showFloaters()
-{
-	foreach (QWidget* w, latentVisibleWidgets)
-		w->show();
-	latentVisibleWidgets.clear();
-}
-
 bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/qq/qq18-macfeatures.html
 {
 	switch (event->type()) {
@@ -1420,16 +1392,6 @@ void TeXDocument::encodingPopup(const QPoint loc)
 	}
 }
 
-void TeXDocument::selectWindow(bool activate)
-{
-	show();
-	raise();
-	if (activate)
-		activateWindow();
-	if (isMinimized())
-		showNormal();
-}
-
 void TeXDocument::sideBySide()
 {
 	if (pdfDoc != NULL) {
@@ -1439,16 +1401,6 @@ void TeXDocument::sideBySide()
 	}
 	else
 		placeOnLeft();
-}
-
-void TeXDocument::placeOnLeft()
-{
-	TWUtils::zoomToHalfScreen(this, false);
-}
-
-void TeXDocument::placeOnRight()
-{
-	TWUtils::zoomToHalfScreen(this, true);
 }
 
 TeXDocument *TeXDocument::findDocument(const QString &fileName)

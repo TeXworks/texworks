@@ -424,3 +424,51 @@ TWScriptable::doManageScripts()
 {
 	ScriptManager::showManageScripts();
 }
+
+void TWScriptable::hideFloatersUnlessThis(QWidget* currWindow)
+{
+	TWScriptable* p = qobject_cast<TWScriptable*>(currWindow);
+	if (p == this)
+		return;
+	foreach (QObject* child, children()) {
+		QToolBar* tb = qobject_cast<QToolBar*>(child);
+		if (tb && tb->isVisible() && tb->isFloating()) {
+			latentVisibleWidgets.append(tb);
+			tb->hide();
+			continue;
+		}
+		QDockWidget* dw = qobject_cast<QDockWidget*>(child);
+		if (dw && dw->isVisible() && dw->isFloating()) {
+			latentVisibleWidgets.append(dw);
+			dw->hide();
+			continue;
+		}
+	}
+}
+
+void TWScriptable::showFloaters()
+{
+	foreach (QWidget* w, latentVisibleWidgets)
+	w->show();
+	latentVisibleWidgets.clear();
+}
+
+void TWScriptable::placeOnLeft()
+{
+	TWUtils::zoomToHalfScreen(this, false);
+}
+
+void TWScriptable::placeOnRight()
+{
+	TWUtils::zoomToHalfScreen(this, true);
+}
+
+void TWScriptable::selectWindow(bool activate)
+{
+	show();
+	raise();
+	if (activate)
+		activateWindow();
+	if (isMinimized())
+		showNormal();
+}
