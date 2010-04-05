@@ -20,6 +20,7 @@
  */
 
 #include "TWScriptable.h"
+#include "TWScriptAPI.h"
 #include "ScriptManager.h"
 #include "TWApp.h"
 
@@ -58,7 +59,7 @@ QVariant convertValue(const QScriptValue& value)
 		return value.toVariant();
 }
 
-bool JSScript::execute(TWInterface *tw) const
+bool JSScript::execute(TWScriptAPI *tw) const
 {
 	QFile scriptFile(m_Filename);
 	if (!scriptFile.open(QIODevice::ReadOnly)) {

@@ -20,6 +20,7 @@
 */
 
 #include "TWScript.h"
+#include "TWScriptAPI.h"
 
 #include <QTextStream>
 #include <QMetaObject>
@@ -34,7 +35,7 @@ TWScript::TWScript(TWScriptLanguageInterface *interface, const QString& fileName
 
 bool TWScript::run(QObject *context, QVariant& result) const
 {
-	TWInterface tw(qApp, context, result);
+	TWScriptAPI tw(qApp, context, result);
 	return execute(&tw);
 }
 

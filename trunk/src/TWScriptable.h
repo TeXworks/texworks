@@ -71,7 +71,7 @@ public:
 	virtual bool parseHeader() { return doParseHeader("", "", "//"); };
 
 protected:
-	virtual bool execute(TWInterface *tw) const;
+	virtual bool execute(TWScriptAPI *tw) const;
 };
 
 // for JSScript, we provide a plugin-like factory, but it's actually compiled

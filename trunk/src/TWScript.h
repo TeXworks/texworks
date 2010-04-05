@@ -29,48 +29,8 @@
 #include <QStringList>
 #include <QVariant>
 
-class TWInterface : public QObject
-{
-	Q_OBJECT
-	
-    Q_PROPERTY(QObject* app READ GetApp);
-	Q_PROPERTY(QObject* target READ GetTarget);
-	Q_PROPERTY(QVariant result READ GetResult WRITE SetResult);
-	
-public:
-	TWInterface(QObject* twapp, QObject* ctx, QVariant& res)
-		: m_app(twapp),
-		  m_target(ctx),
-		  m_result(res)
-	{ }
-
-	QObject* GetApp() { return m_app; }
-	QObject* GetTarget() { return m_target; }
-	QVariant& GetResult() { return m_result; }
-		
-	void SetResult(const QVariant& rval) { m_result = rval; }
-
-public slots:
-	int strlen(const QString& str) const { return str.length(); }
-	QString platform() const {
-#if defined(Q_WS_MAC)
-		return QString("MacOSX");
-#elif defined(Q_WS_WIN)
-		return QString("Windows");
-#elif defined(Q_WS_X11)
-		return QString("X11");
-#else
-		return QString("unknown");
-#endif
-	}
-	
-protected:
-	QObject* m_app;
-	QObject* m_target;
-	QVariant& m_result;
-};
-
 class TWScriptLanguageInterface;
+class TWScriptAPI;
 
 /** \brief	Abstract base class for all Tw scripts
  *
@@ -217,7 +177,7 @@ protected:
 	 *             .target, .app, .result properties
 	 * \return     \c true on success, \c false if an error occurred.
 	 */
-	virtual bool execute(TWInterface* tw) const = 0;
+	virtual bool execute(TWScriptAPI* tw) const = 0;
 	
 	/** \brief	Convenience function to parse supported key:value pairs of the header
 	 *
