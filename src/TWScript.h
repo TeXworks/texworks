@@ -53,11 +53,11 @@ public:
 public slots:
 	int strlen(const QString& str) const { return str.length(); }
 	QString platform() const {
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC)
 		return QString("MacOSX");
-#elif Q_WS_WIN
+#elif defined(Q_WS_WIN)
 		return QString("Windows");
-#elif Q_WS_X11
+#elif defined(Q_WS_X11)
 		return QString("X11");
 #else
 		return QString("unknown");
