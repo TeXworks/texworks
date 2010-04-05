@@ -112,7 +112,7 @@ public slots:
 	QVariant getDouble(QWidget* parent, const QString& title, const QString& label,
 					   double value = 0, double min = -2147483647, double max = 2147483647, int decimals = 1) {
 		bool ok;
-		double d = QInputDialog::getInt(parent, title, label, value, min, max, decimals, &ok);
+		double d = QInputDialog::getDouble(parent, title, label, value, min, max, decimals, &ok);
 		return ok ? QVariant(d) : QVariant();
 	}
 	QVariant getItem(QWidget* parent, const QString& title, const QString& label,
