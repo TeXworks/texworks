@@ -382,7 +382,7 @@ QString TWUtils::strippedName(const QString &fullFileName)
 void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu) /* static */
 {
 	QSETTINGS_OBJECT(settings);
-	QStringList files = settings.value("recentFileList").toStringList();
+	QList<QVariant> files = settings.value("recentFiles").toList();
 	int numRecentFiles = files.size();
 
 	while (actions.size() < numRecentFiles) {
@@ -399,10 +399,16 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	}
 
 	for (int i = 0; i < numRecentFiles; ++i) {
-		QString text = TWUtils::strippedName(files[i]);
-		actions[i]->setText(text);
-		actions[i]->setData(files[i]);
-		actions[i]->setVisible(true);
+		QHash<QString,QVariant> h = files[i].toHash();
+		if (h.contains("path")) {
+			QString path = h.value("path").toString();
+			QString text = TWUtils::strippedName(path);
+			actions[i]->setText(text);
+			actions[i]->setData(path);
+			actions[i]->setVisible(true);
+		}
+		else
+			actions[i]->setVisible(false);
 	}
 }
 

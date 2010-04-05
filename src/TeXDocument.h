@@ -48,6 +48,8 @@ class QFileSystemWatcher;
 class TeXHighlighter;
 class PDFDocument;
 
+const int kTeXWindowStateVersion = 1; // increment this if we add toolbars/docks/etc
+
 class TeXDocument : public TWScriptable, private Ui::TeXDocument
 {
 	Q_OBJECT
@@ -79,6 +81,8 @@ public:
 	QString getLineText(int lineNo) const;
 	CompletingEdit* editor()
 		{ return textEdit; }
+	int selectionStart() { return textCursor().selectionStart(); }
+	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
 
 	PDFDocument* pdfDocument()
 		{ return pdfDoc; }
@@ -105,7 +109,7 @@ public:
 	Q_PROPERTY(QString consoleOutput READ consoleText STORED false);
 	Q_PROPERTY(QString text READ text STORED false);
     Q_PROPERTY(QString fileName READ fileName);
-
+	
 signals:
 	void syncFromSource(const QString&, int, bool);
 	void activatedWindow(QWidget*);
@@ -203,8 +207,9 @@ private:
 	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
+	void saveRecentFileInfo();
 	bool getPreviewFileName(QString &pdfName);
-	bool showPdfIfAvailable();
+	bool openPdfIfAvailable(bool show);
 	void prefixLines(const QString &prefix);
 	void unPrefixLines(const QString &prefix);
 	void replaceSelection(const QString& newText);
@@ -228,8 +233,6 @@ private:
 	void showEncodingSetting();
 	
 	QString selectedText() { return textCursor().selectedText().replace(QChar(QChar::ParagraphSeparator), "\n"); }
-	int selectionStart() { return textCursor().selectionStart(); }
-	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
 	QString consoleText() { return textEdit_console->toPlainText(); }
 	QString text() { return textEdit->toPlainText(); }
 	

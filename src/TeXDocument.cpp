@@ -588,6 +588,7 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 */
 	if (maybeSave()) {
 		event->accept();
+		saveRecentFileInfo();
 		deleteLater();
 	}
 	else
@@ -969,9 +970,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	else {
 		setCurrentFile(fileName);
 		if (!inBackground) {
-			show(); // ensure window is shown before the PDF, if opening a new doc
-			showPdfIfAvailable();
-			selectWindow();
+			openPdfIfAvailable(false);
 		}
 
 		statusBar()->showMessage(tr("File \"%1\" loaded").arg(TWUtils::strippedName(curFile)),
@@ -981,6 +980,41 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	textEdit->updateLineNumberAreaWidth(0);
 	maybeEnableSaveAndRevert(false);
 
+	bool autoPlace = true;
+	QHash<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+	if (properties.contains("geometry")) {
+		restoreGeometry(properties.value("geometry").toByteArray());
+		autoPlace = false;
+	}
+	if (properties.contains("state"))
+		restoreState(properties.value("state").toByteArray(), kTeXWindowStateVersion);
+
+	if (properties.contains("selStart")) {
+		QTextCursor c(textEdit->document());
+		c.setPosition(properties.value("selStart").toInt());
+		c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, properties.value("selLength", 0).toInt());
+		textEdit->setTextCursor(c);
+	}
+	if (pdfDoc) {
+		if (properties.contains("pdfgeometry")) {
+			pdfDoc->restoreGeometry(properties.value("pdfgeometry").toByteArray());
+			autoPlace = false;
+		}
+		if (properties.contains("pdfstate"))
+			pdfDoc->restoreState(properties.value("pdfstate").toByteArray(), kPDFWindowStateVersion);
+	}
+
+	if (autoPlace)
+		TWUtils::sideBySide(this, pdfDoc);
+	
+	show(); // ensure window is shown before the PDF, if opening a new doc
+	if (pdfDoc)
+		pdfDoc->show();
+
+	selectWindow();
+
+	saveRecentFileInfo();
+	
 	runHooks("LoadFile");
 }
 
@@ -1082,7 +1116,7 @@ bool TeXDocument::getPreviewFileName(QString &pdfName)
 	return fi.exists();
 }
 
-bool TeXDocument::showPdfIfAvailable()
+bool TeXDocument::openPdfIfAvailable(bool show)
 {
 	detachPdf();
 	actionSide_by_Side->setEnabled(false);
@@ -1099,8 +1133,8 @@ bool TeXDocument::showPdfIfAvailable()
 		}
 		else {
 			pdfDoc = new PDFDocument(pdfName, this);
-			TWUtils::sideBySide(this, pdfDoc);
-			pdfDoc->show();
+			if (show)
+				pdfDoc->show();
 		}
 	}
 
@@ -1236,12 +1270,27 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 
 	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
 
-	if (!isUntitled)
-		TWApp::instance()->addToRecentFiles(curFile);
-	
 	actionRemove_Aux_Files->setEnabled(!isUntitled);
 	
 	TWApp::instance()->updateWindowMenus();
+}
+
+void TeXDocument::saveRecentFileInfo()
+{
+	if (isUntitled)
+		return;
+	
+	QHash<QString,QVariant> fileProperties;
+	fileProperties.insert("path", curFile);
+	fileProperties.insert("geometry", saveGeometry());
+	fileProperties.insert("state", saveState(kTeXWindowStateVersion));
+	fileProperties.insert("selStart", selectionStart());
+	fileProperties.insert("selLength", selectionLength());
+	if (pdfDoc) {
+		fileProperties.insert("pdfgeometry", pdfDoc->saveGeometry());
+		fileProperties.insert("pdfstate", pdfDoc->saveState(kPDFWindowStateVersion));
+	}
+	TWApp::instance()->addToRecentFiles(fileProperties);
 }
 
 void TeXDocument::updateRecentFileActions()
@@ -2390,7 +2439,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 		if (getPreviewFileName(pdfName) && QFileInfo(pdfName).lastModified() != oldPdfTime) {
 			// only open/refresh the PDF if it was changed by the typeset process
 			if (pdfDoc == NULL) {
-				if (showPdfWhenFinished && showPdfIfAvailable())
+				if (showPdfWhenFinished && openPdfIfAvailable(true))
 					pdfDoc->selectWindow();
 			}
 			else {
@@ -2532,7 +2581,7 @@ void TeXDocument::goToPreview()
 	if (pdfDoc != NULL)
 		pdfDoc->selectWindow();
 	else {
-		if (!showPdfIfAvailable()) {
+		if (!openPdfIfAvailable(true)) {
 			// This should only fail if the user has done something sneaky like closing the
 			// preview window and then renaming the PDF file, since we opened the source
 			// and checked that it exists (otherwise Go to Preview would have been disabled).

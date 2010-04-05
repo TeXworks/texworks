@@ -73,8 +73,11 @@ public:
 
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
-	void addToRecentFiles(const QString& fileName);
+	void addToRecentFiles(const QHash<QString,QVariant>& fileProperties);
+
 	void emitHighlightLineOptionChanged();
+	
+	QHash<QString,QVariant> getFileProperties(const QString& path);
 	
 	void setBinaryPaths(const QStringList& paths);
 	void setEngineList(const QList<Engine>& engines);
