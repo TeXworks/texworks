@@ -125,7 +125,6 @@ protected:
 	virtual void dropEvent(QDropEvent *event);
 
 public slots:
-	void selectWindow(bool activate = true);
 	void typeset();
 	void interrupt();
 	void newFile();
@@ -163,8 +162,6 @@ public slots:
 	void syncClick(int lineNo);
 	void openAt(QAction *action);
 	void sideBySide();
-	void placeOnLeft();
-	void placeOnRight();
 	void removeAuxFiles();
 	void setSpellcheckLanguage(const QString& lang);
 	void selectRange(int start, int length = 0);
@@ -189,7 +186,6 @@ private slots:
 	void selectedEngine(QAction* engineAction);
 	void selectedEngine(const QString& name);
 	void contentsChanged(int position, int charsRemoved, int charsAdded);
-	void hideFloatersUnlessThis(QWidget* currWindow);
 	void reloadIfChangedOnDisk();
 	void setupFileWatcher();
 	void errorLineClicked(QTableWidgetItem* i);
@@ -227,7 +223,6 @@ private:
 	void findRootFilePath();
 	const QString& getRootFilePath();
 	void maybeCenterSelection(int oldScrollValue = -1);
-	void showFloaters();
 	void presentResults(const QList<SearchResult>& results);
 	void showLineEndingSetting();
 	void showEncodingSetting();
@@ -264,8 +259,6 @@ private:
 	QMenu *menuRecent;
 
 	Hunhandle *pHunspell;
-
-	QList<QWidget*> latentVisibleWidgets;
 
 	QFileSystemWatcher *watcher;
 	

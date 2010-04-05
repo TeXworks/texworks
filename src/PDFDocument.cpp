@@ -1267,16 +1267,6 @@ void PDFDocument::updateWindowMenu()
 	TWUtils::updateWindowMenu(this, menuWindow);
 }
 
-void PDFDocument::selectWindow(bool activate)
-{
-	show();
-	raise();
-	if (activate)
-		activateWindow();
-	if (isMinimized())
-		showNormal();
-}
-
 void PDFDocument::sideBySide()
 {
 	if (sourceDocList.count() > 0) {
@@ -1286,44 +1276,6 @@ void PDFDocument::sideBySide()
 	}
 	else
 		placeOnRight();
-}
-
-void PDFDocument::placeOnLeft()
-{
-	TWUtils::zoomToHalfScreen(this, false);
-}
-
-void PDFDocument::placeOnRight()
-{
-	TWUtils::zoomToHalfScreen(this, true);
-}
-
-void PDFDocument::hideFloatersUnlessThis(QWidget* currWindow)
-{
-	PDFDocument* p = qobject_cast<PDFDocument*>(currWindow);
-	if (p == this)
-		return;
-	foreach (QObject* child, children()) {
-		QToolBar* tb = qobject_cast<QToolBar*>(child);
-		if (tb && tb->isVisible() && tb->isFloating()) {
-			latentVisibleWidgets.append(tb);
-			tb->hide();
-			continue;
-		}
-		QDockWidget* dw = qobject_cast<QDockWidget*>(child);
-		if (dw && dw->isVisible() && dw->isFloating()) {
-			latentVisibleWidgets.append(dw);
-			dw->hide();
-			continue;
-		}
-	}
-}
-
-void PDFDocument::showFloaters()
-{
-	foreach (QWidget* w, latentVisibleWidgets)
-		w->show();
-	latentVisibleWidgets.clear();
 }
 
 bool PDFDocument::event(QEvent *event)
