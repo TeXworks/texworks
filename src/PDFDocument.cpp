@@ -40,7 +40,6 @@
 #include <QScrollBar>
 #include <QRegion>
 #include <QVector>
-#include <QHash>
 #include <QList>
 #include <QStack>
 #include <QInputDialog>
@@ -1053,7 +1052,7 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 
 	loadFile(fileName);
 
-	QHash<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+	QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
 	if (properties.contains("geometry"))
 		restoreGeometry(properties.value("geometry").toByteArray());
 	else
@@ -1351,7 +1350,7 @@ void PDFDocument::closeEvent(QCloseEvent *event)
 
 void PDFDocument::saveRecentFileInfo()
 {
-	QHash<QString,QVariant> fileProperties;
+	QMap<QString,QVariant> fileProperties;
 	fileProperties.insert("path", curFile);
 	fileProperties.insert("geometry", saveGeometry());
 	fileProperties.insert("state", saveState(kPDFWindowStateVersion));

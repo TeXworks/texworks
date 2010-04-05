@@ -26,7 +26,6 @@
 #include <QAction>
 #include <QString>
 #include <QList>
-#include <QHash>
 #include <QDir>
 #include <QMap>
 #include <QPair>

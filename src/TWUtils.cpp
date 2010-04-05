@@ -399,7 +399,7 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	}
 
 	for (int i = 0; i < numRecentFiles; ++i) {
-		QHash<QString,QVariant> h = files[i].toHash();
+		QMap<QString,QVariant> h = files[i].toMap();
 		if (h.contains("path")) {
 			QString path = h.value("path").toString();
 			QString text = TWUtils::strippedName(path);
