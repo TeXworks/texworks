@@ -1041,18 +1041,27 @@ QScrollArea* PDFWidget::getScrollArea()
 QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
-	: watcher(NULL), reloadTimer(NULL), scanner(NULL)
+	: watcher(NULL), reloadTimer(NULL), scanner(NULL), openedManually(false)
 {
 	init();
 
 	if (texDoc == NULL) {
-		TWApp::instance()->addToRecentFiles(fileName);
+		openedManually = true;
 		watcher = new QFileSystemWatcher(this);
 		connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadWhenIdle()));
 	}
 
 	loadFile(fileName);
 
+	QHash<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+	if (properties.contains("geometry"))
+		restoreGeometry(properties.value("geometry").toByteArray());
+	else
+		TWUtils::zoomToHalfScreen(this, true);
+
+	if (properties.contains("state"))
+		restoreState(properties.value("state").toByteArray(), kPDFWindowStateVersion);
+	
 	if (texDoc != NULL) {
 		stackUnder((QWidget*)texDoc);
 		actionSide_by_Side->setEnabled(true);
@@ -1212,8 +1221,6 @@ PDFDocument::init()
 	
 	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);
-
-	TWUtils::zoomToHalfScreen(this, true);
 }
 
 void PDFDocument::changeEvent(QEvent *event)
@@ -1336,7 +1343,19 @@ bool PDFDocument::event(QEvent *event)
 void PDFDocument::closeEvent(QCloseEvent *event)
 {
 	event->accept();
+	if (openedManually) {
+		saveRecentFileInfo();
+	}
 	deleteLater();
+}
+
+void PDFDocument::saveRecentFileInfo()
+{
+	QHash<QString,QVariant> fileProperties;
+	fileProperties.insert("path", curFile);
+	fileProperties.insert("geometry", saveGeometry());
+	fileProperties.insert("state", saveState(kPDFWindowStateVersion));
+	TWApp::instance()->addToRecentFiles(fileProperties);
 }
 
 void PDFDocument::loadFile(const QString &fileName)

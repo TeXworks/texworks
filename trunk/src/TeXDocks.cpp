@@ -51,6 +51,7 @@ void TeXDock::myVisibilityChanged(bool visible)
 TagsDock::TagsDock(TeXDocument *doc)
 	: TeXDock(tr("Tags"), doc)
 {
+	setObjectName("tags");
 	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 	tree = new TeXDockTreeWidget(this);
 	tree->header()->hide();

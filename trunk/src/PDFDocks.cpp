@@ -104,6 +104,7 @@ static void fillToc(const QDomNode &parent, QTreeWidget *tree, QTreeWidgetItem *
 PDFOutlineDock::PDFOutlineDock(PDFDocument *doc)
 	: PDFDock(doc)
 {
+	setObjectName("outline");
 	tree = new PDFDockTreeWidget(this);
 	tree->setAlternatingRowColors(true);
 	tree->header()->hide();
@@ -174,6 +175,7 @@ QSize PDFDockTreeWidget::sizeHint() const
 PDFInfoDock::PDFInfoDock(PDFDocument *doc)
 	: PDFDock(doc)
 {
+	setObjectName("pdfinfo");
 	list = new PDFDockListWidget(this);
 	list->setAlternatingRowColors(true);
 	setWidget(list);
@@ -234,6 +236,7 @@ PDFFontsDock::PDFFontsDock(PDFDocument *doc)
 	: PDFDock(doc)
 	, scannedFonts(false)
 {
+	setObjectName("fonts");
 	table = new QTableWidget(this);
 #ifdef Q_WS_MAC /* don't do this on windows, as the font ends up too small */
 	QFont f(table->font());

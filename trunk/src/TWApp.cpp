@@ -50,6 +50,7 @@
 #include <QTranslator>
 #include <QUrl>
 #include <QDesktopServices>
+#include <QHash>
 
 #if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN))
 #include "poppler-config.h"
@@ -60,7 +61,7 @@
 
 #define DEFAULT_ENGINE_NAME "pdfLaTeX"
 
-const int kDefaultMaxRecentFiles = 10;
+const int kDefaultMaxRecentFiles = 20;
 
 TWApp *TWApp::theAppInstance = NULL;
 
@@ -785,21 +786,46 @@ void TWApp::applyTranslation(const QString& locale)
 	emit updatedTranslators();
 }
 
-void TWApp::addToRecentFiles(const QString& fileName)
+void TWApp::addToRecentFiles(const QHash<QString,QVariant>& fileProperties)
 {
-	QFileInfo info(fileName);
-	QString canonical = info.canonicalFilePath();
-	if (canonical.isEmpty())
-		return;
-
 	QSETTINGS_OBJECT(settings);
-	QStringList files = settings.value("recentFileList").toStringList();
-	files.removeAll(fileName);
-	files.prepend(fileName);
-	while (files.size() > maxRecentFiles())
-		files.removeLast();
-	settings.setValue("recentFileList", files);
+
+	QString fileName = fileProperties.value("path").toString();
+	if (fileName.isEmpty())
+		return;
+	
+	QList<QVariant> fileList = settings.value("recentFiles").toList();
+	QList<QVariant>::iterator i = fileList.begin();
+	while (i != fileList.end()) {
+		QHash<QString,QVariant> h = i->toHash();
+		if (h.value("path").toString() == fileName)
+			i = fileList.erase(i);
+		else
+			++i;
+	}
+
+	fileList.prepend(fileProperties);
+
+	while (fileList.size() > maxRecentFiles())
+		fileList.removeLast();
+
+	settings.setValue("recentFiles", QVariant::fromValue(fileList));
+
 	updateRecentFileActions();
+}
+
+QHash<QString,QVariant> TWApp::getFileProperties(const QString& path)
+{
+	QSETTINGS_OBJECT(settings);
+	QList<QVariant> fileList = settings.value("recentFiles").toList();
+	QList<QVariant>::iterator i = fileList.begin();
+	while (i != fileList.end()) {
+		QHash<QString,QVariant> h = i->toHash();
+		if (h.value("path").toString() == path)
+			return h;
+		++i;
+	}
+	return QHash<QString,QVariant>();
 }
 
 void TWApp::openHelpFile(const QString& helpDirName)

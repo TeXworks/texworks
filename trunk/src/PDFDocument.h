@@ -43,6 +43,8 @@ const bool kDefault_CircularMagnifier = true;
 const int kDefault_PreviewScaleOption = 1;
 const int kDefault_PreviewScale = 200;
 
+const int kPDFWindowStateVersion = 1;
+
 class QAction;
 class QMenu;
 class QToolBar;
@@ -281,6 +283,7 @@ private:
 	void setCurrentFile(const QString &fileName);
 	void loadSyncData();
 	void showFloaters();
+	void saveRecentFileInfo();
 
 	QString curFile;
 	
@@ -305,6 +308,8 @@ private:
 	
 	synctex_scanner_t scanner;
 
+	bool openedManually;
+	
 	static QList<PDFDocument*> docList;
 	
 	PDFSearchResult lastSearchResult;
