@@ -108,7 +108,7 @@ protected:
      *
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool execute(TWInterface *tw) const;
+	virtual bool execute(TWScriptAPI *tw) const;
 	
 	/** \brief Handler for attribute requests on QObjects
 	 *

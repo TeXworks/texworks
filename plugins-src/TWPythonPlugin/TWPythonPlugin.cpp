@@ -20,6 +20,7 @@
 */
 
 #include "TWPythonPlugin.h"
+#include "TWScriptAPI.h"
 
 #include <QCoreApplication>
 #include <QtPlugin>
@@ -94,7 +95,7 @@ TWScript* TWPythonPlugin::newScript(const QString& fileName)
 Q_EXPORT_PLUGIN2(TWPythonPlugin, TWPythonPlugin)
 
 
-bool PythonScript::execute(TWInterface *tw) const
+bool PythonScript::execute(TWScriptAPI *tw) const
 {
 	PyObject * tmp;
 	

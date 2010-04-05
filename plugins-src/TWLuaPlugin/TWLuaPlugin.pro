@@ -62,7 +62,8 @@ win32 { # paths here are specific to my setup
 
 # Input
 HEADERS	+=	TWLuaPlugin.h \
-			../../src/TWScript.h
+			../../src/TWScript.h \
+			../../src/TWScriptAPI.h
 
 SOURCES	+=	TWLuaPlugin.cpp \
 			../../src/TWScript.cpp
