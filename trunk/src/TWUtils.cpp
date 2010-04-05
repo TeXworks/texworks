@@ -382,8 +382,31 @@ QString TWUtils::strippedName(const QString &fullFileName)
 void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu) /* static */
 {
 	QSETTINGS_OBJECT(settings);
-	QList<QVariant> files = settings.value("recentFiles").toList();
-	int numRecentFiles = files.size();
+	QStringList fileList;
+	if (settings.contains("recentFiles")) {
+		QList<QVariant> files = settings.value("recentFiles").toList();
+		foreach (const QVariant& v, files) {
+			QMap<QString,QVariant> map = v.toMap();
+			if (map.contains("path"))
+				fileList.append(map.value("path").toString());
+		}
+	}
+	else {
+		// check for an old "recentFilesList" entry, and migrate it
+		if (settings.contains("recentFileList")) {
+			fileList = settings.value("recentFileList").toStringList();
+			QList<QVariant> files;
+			foreach (const QString& path, fileList) {
+				QMap<QString,QVariant> map;
+				map.insert("path", path);
+				files.append(QVariant(map));
+			}
+			settings.remove("recentFileList");
+			settings.setValue("recentFiles", files);
+		}
+	}
+	
+	int numRecentFiles = fileList.size();
 
 	while (actions.size() < numRecentFiles) {
 		QAction *act = new QAction(parent);
@@ -399,16 +422,11 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	}
 
 	for (int i = 0; i < numRecentFiles; ++i) {
-		QMap<QString,QVariant> h = files[i].toMap();
-		if (h.contains("path")) {
-			QString path = h.value("path").toString();
-			QString text = TWUtils::strippedName(path);
-			actions[i]->setText(text);
-			actions[i]->setData(path);
-			actions[i]->setVisible(true);
-		}
-		else
-			actions[i]->setVisible(false);
+		QString path = fileList[i];
+		QString text = TWUtils::strippedName(path);
+		actions[i]->setText(text);
+		actions[i]->setData(path);
+		actions[i]->setVisible(true);
 	}
 }
 
