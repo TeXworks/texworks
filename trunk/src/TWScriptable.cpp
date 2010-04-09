@@ -31,6 +31,8 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QStatusBar>
+#include <QToolBar>
+#include <QDockWidget>
 #include <QtDebug>
 #include <QtScript>
 #if QT_VERSION >= 0x040500
