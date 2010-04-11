@@ -397,7 +397,10 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 		case QVariant::Char:
 		case QVariant::String:
 #ifdef Py_UNICODE_WIDE
-			return Py_BuildValue("u", v.toString().toUcs4().constData());
+			{
+				QVector<uint> tmp = v.toString().toUcs4();
+				return Py_BuildValue("u#", tmp.constData(), tmp.count());
+			}
 #else
 			return Py_BuildValue("u", v.toString().constData());
 #endif
