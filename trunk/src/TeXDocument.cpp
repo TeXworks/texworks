@@ -949,7 +949,6 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 								 kStatusMessageDuration);
 		setupFileWatcher();
 	}
-	textEdit->updateLineNumberAreaWidth(0);
 	maybeEnableSaveAndRevert(false);
 
 	bool autoPlace = true;
@@ -967,6 +966,18 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, properties.value("selLength", 0).toInt());
 		textEdit->setTextCursor(c);
 	}
+
+	if (properties.contains("quotesMode"))
+		setSmartQuotesMode(properties.value("quotesMode").toString());
+	if (properties.contains("indentMode"))
+		setAutoIndentMode(properties.value("indentMode").toString());
+	if (properties.contains("syntaxMode"))
+		setSyntaxColoringMode(properties.value("syntaxMode").toString());
+	if (properties.contains("wrapLines"))
+		setWrapLines(properties.value("wrapLines").toBool());
+	if (properties.contains("lineNumbers"))
+		setLineNumbers(properties.value("lineNumbers").toBool());
+	
 	if (pdfDoc) {
 		if (properties.contains("pdfgeometry")) {
 			pdfDoc->restoreGeometry(properties.value("pdfgeometry").toByteArray());
@@ -980,6 +991,8 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		sideBySide();
 	
 	show(); // ensure window is shown before the PDF, if opening a new doc
+	editor()->updateLineNumberAreaWidth(0);
+
 	if (pdfDoc)
 		pdfDoc->show();
 
@@ -1253,15 +1266,23 @@ void TeXDocument::saveRecentFileInfo()
 		return;
 	
 	QMap<QString,QVariant> fileProperties;
+
 	fileProperties.insert("path", curFile);
 	fileProperties.insert("geometry", saveGeometry());
 	fileProperties.insert("state", saveState(kTeXWindowStateVersion));
 	fileProperties.insert("selStart", selectionStart());
 	fileProperties.insert("selLength", selectionLength());
+	fileProperties.insert("quotesMode", textEdit->getQuotesMode());
+	fileProperties.insert("indentMode", textEdit->getIndentMode());
+	fileProperties.insert("syntaxMode", highlighter->getSyntaxMode());
+	fileProperties.insert("lineNumbers", textEdit->getLineNumbersVisible());
+	fileProperties.insert("wrapLines", textEdit->wordWrapMode() == QTextOption::WordWrap);
+
 	if (pdfDoc) {
 		fileProperties.insert("pdfgeometry", pdfDoc->saveGeometry());
 		fileProperties.insert("pdfstate", pdfDoc->saveState(kPDFWindowStateVersion));
 	}
+
 	TWApp::instance()->addToRecentFiles(fileProperties);
 }
 
@@ -1783,17 +1804,52 @@ void TeXDocument::doHardWrap(int lineWidth, bool rewrap)
 
 void TeXDocument::setLineNumbers(bool displayNumbers)
 {
+	actionLine_Numbers->setChecked(displayNumbers);
 	textEdit->setLineNumberDisplay(displayNumbers);
 }
 
 void TeXDocument::setWrapLines(bool wrap)
 {
+	actionWrap_Lines->setChecked(wrap);
 	textEdit->setWordWrapMode(wrap ? QTextOption::WordWrap : QTextOption::NoWrap);
 }
 
 void TeXDocument::setSyntaxColoring(int index)
 {
 	highlighter->setActiveIndex(index);
+}
+
+void TeXDocument::setSyntaxColoringMode(const QString& mode)
+{
+	QList<QAction*> actionList = menuSyntax_Coloring->actions();
+	for (int i = 0; i < actionList.count(); ++i) {
+		if (actionList[i]->isCheckable() && actionList[i]->text().compare(mode, Qt::CaseInsensitive) == 0) {
+			actionList[i]->trigger();
+			return;
+		}
+	}
+}
+
+void TeXDocument::setSmartQuotesMode(const QString& mode)
+{
+	QList<QAction*> actionList = menuSmart_Quotes_Mode->actions();
+	for (int i = 0; i < actionList.count(); ++i) {
+		if (actionList[i]->isCheckable() && actionList[i]->text().compare(mode, Qt::CaseInsensitive) == 0) {
+			actionList[i]->trigger();
+			return;
+		}
+	}
+}
+
+void TeXDocument::setAutoIndentMode(const QString& mode)
+{
+	QList<QAction*> actionList = menuAuto_indent_Mode->actions();
+	for (int i = 0; i < actionList.count(); ++i) {
+		if (actionList[i]->isCheckable() && actionList[i]->text().compare(mode, Qt::CaseInsensitive) == 0) {
+			actionList[i]->trigger();
+			return;
+		}
+	}
 }
 
 void TeXDocument::doFindAgain(bool fromDialog)
