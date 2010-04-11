@@ -130,6 +130,8 @@ void CompletingEdit::mousePressEvent(QMouseEvent *e)
 		return;
 	}
 
+	int proximityToPrev = (e->pos() - clickPos).manhattanLength();
+
 	mouseMode = normalSelection;
 	clickPos = e->pos();
 	if (e->modifiers() & Qt::ShiftModifier) {
@@ -139,7 +141,7 @@ void CompletingEdit::mousePressEvent(QMouseEvent *e)
 		return;
 	}
 
-	if (clickTimer.isActive() && (e->pos() - clickPos).manhattanLength() < qApp->startDragDistance())
+	if (clickTimer.isActive() && proximityToPrev < qApp->startDragDistance())
 		++clickCount;
 	else
 		clickCount = 1;
