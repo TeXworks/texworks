@@ -22,11 +22,14 @@
 #ifndef TWScriptAPI_H
 #define TWScriptAPI_H
 
+#include "TWScript.h"
+
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QProgressDialog>
 
 class TWScriptAPI : public QObject
 {
@@ -130,6 +133,15 @@ public slots:
 		bool ok;
 		QString s = QInputDialog::getText(parent, title, label, QLineEdit::Normal, text, &ok);
 		return ok ? QVariant(s) : QVariant();
+	}
+	
+	// Allow script to create a QProgressDialog
+	QVariant progressDialog(QWidget * parent) {
+		QProgressDialog * dlg = new QProgressDialog(parent);
+		connect(this, SIGNAL(destroyed(QObject*)), dlg, SLOT(deleteLater()));
+		dlg->setCancelButton(NULL);
+		dlg->show();
+		return QVariant::fromValue(qobject_cast<QWidget*>(dlg));
 	}
 	
 protected:
