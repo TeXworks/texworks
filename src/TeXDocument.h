@@ -167,6 +167,9 @@ public slots:
 	void selectRange(int start, int length = 0);
 	void insertText(const QString& text);
 	void selectAll() { textEdit->selectAll(); }
+	void setSmartQuotesMode(const QString& mode);
+	void setAutoIndentMode(const QString& mode);
+	void setSyntaxColoringMode(const QString& mode);
 	
 private slots:
 	void setLangInternal(const QString& lang);

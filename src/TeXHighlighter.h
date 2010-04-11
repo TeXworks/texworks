@@ -43,6 +43,10 @@ public:
 
 	void setSpellChecker(Hunhandle *h, QTextCodec *codec);
 
+	QString getSyntaxMode() const {
+		return highlightIndex < syntaxOptions().length() ? syntaxOptions().at(highlightIndex) : QString();
+	}
+	
 	static QStringList syntaxOptions();
 
 protected:

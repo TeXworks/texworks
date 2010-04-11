@@ -48,6 +48,17 @@ public:
 	void lineNumberAreaPaintEvent(QPaintEvent *event);
 	int lineNumberAreaWidth();
 
+	bool getLineNumbersVisible() const { return lineNumberArea->isVisible(); }
+
+	QString getIndentMode() const {
+		return autoIndentMode >= 0 && autoIndentMode < autoIndentModes().length() ?
+			autoIndentModes().at(autoIndentMode) : QString();
+	}
+	QString getQuotesMode() const {
+		return smartQuotesMode >= 0 && smartQuotesMode < smartQuotesModes().length() ?
+			smartQuotesModes().at(smartQuotesMode) : QString();
+	}
+	
 	static QStringList autoIndentModes();
 	static QStringList smartQuotesModes();
 	
