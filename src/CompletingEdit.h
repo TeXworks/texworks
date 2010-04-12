@@ -51,11 +51,11 @@ public:
 	bool getLineNumbersVisible() const { return lineNumberArea->isVisible(); }
 
 	QString getIndentMode() const {
-		return autoIndentMode >= 0 && autoIndentMode < autoIndentModes().length() ?
+		return autoIndentMode >= 0 && autoIndentMode < autoIndentModes().size() ?
 			autoIndentModes().at(autoIndentMode) : QString();
 	}
 	QString getQuotesMode() const {
-		return smartQuotesMode >= 0 && smartQuotesMode < smartQuotesModes().length() ?
+		return smartQuotesMode >= 0 && smartQuotesMode < smartQuotesModes().size() ?
 			smartQuotesModes().at(smartQuotesMode) : QString();
 	}
 	
