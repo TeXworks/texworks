@@ -159,8 +159,9 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 
 			lua_newtable(L);
 			for (i = 1, iList = list.begin(); iList != list.end(); ++iList, ++i) {
+				lua_pushnumber(L, i);
 				LuaScript::pushVariant(L, *iList);
-				lua_setfield(L, -2, qPrintable(QString("%1").arg(i)));
+				lua_settable(L, -3);
 			}
 			return 1;
 #if QT_VERSION >= 0x040500
