@@ -870,11 +870,16 @@ QVariant TWApp::system(const QString& cmdline, bool waitForResult)
 		connect(process, SIGNAL(error(QProcess::ProcessError)), process, SLOT(processError(QProcess::ProcessError)));
 		if (waitForResult) {
 			process->setProcessChannelMode(QProcess::MergedChannels);
-			process->start(cmdline);
+			process->start(cmdline);			
+			// make sure events (in particular GUI update events that should
+			// inform the user of the progress) are processed before we make a
+			// call that possibly blocks for a considerable amount of time
+			processEvents(QEventLoop::ExcludeUserInputEvents, 100);
 			if (!process->waitForStarted()) {
 				process->deleteLater();
 				return QVariant(tr("Failed to execute system command: %1").arg(cmdline));
 			}
+			processEvents(QEventLoop::ExcludeUserInputEvents, 100);
 			if (!process->waitForFinished()) {
 				process->deleteLater();
 				return QVariant(tr("Error executing system command: %1").arg(cmdline));
