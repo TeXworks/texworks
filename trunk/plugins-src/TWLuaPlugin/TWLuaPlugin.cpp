@@ -99,6 +99,9 @@ int LuaScript::pushQObject(lua_State * L, QObject * obj, const bool throwError /
 	// all call operations on object methods
 	if (lua_getmetatable(L, -1) == 0)
 		lua_newtable(L);
+
+	lua_pushlightuserdata(L, obj);
+	lua_setfield(L, -2, "__qobject");
 	
 	lua_pushlightuserdata(L, obj);
 	lua_pushcclosure(L, LuaScript::setProperty, 1);
@@ -181,8 +184,9 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 			}
 			return 1;
 		case QMetaType::QObjectStar:
-		case QMetaType::QWidgetStar:
 			return LuaScript::pushQObject(L, v.value<QObject*>(), throwError);
+		case QMetaType::QWidgetStar:
+			return LuaScript::pushQObject(L, qobject_cast<QObject*>(v.value<QWidget*>()), throwError);
 		default:
 			// Don't throw errors if we are not in protected mode in lua, i.e.
 			// if the call to this function originated from C code, not in response
@@ -328,6 +332,18 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 		case LUA_TSTRING:
 			return QVariant(QString::fromUtf8(lua_tostring(L, idx)));
 		case LUA_TTABLE:
+			// Check if we're dealing with a QObject* wrapper
+			if (lua_getmetatable(L, -1)) {
+				lua_pushstring(L, "__qobject");
+				lua_rawget(L, -2);
+				if (lua_islightuserdata(L, -1)) {
+					QObject * obj = (QObject*)lua_touserdata(L, -1);
+					lua_pop(L, 2);
+					return QVariant::fromValue(obj);
+				}
+				lua_pop(L, 2);
+			}
+			
 			// Special treatment for tables
 			// If all keys are in the form 1..n, we can convert it to a QList
 			

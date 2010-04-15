@@ -184,7 +184,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 	const QMetaObject * mo;
 	bool methodExists = false;
 	QList<QGenericArgument> genericArgs;
-	int type, i, j;
+	int type, typeOfArg, i, j;
 	QString typeName;
 	char * strTypeName;
 	QMetaMethod mm;
@@ -212,9 +212,13 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 		// method
 		for (j = 0; j < arguments.count(); ++j) {
 			type = QMetaType::type(mm.parameterTypes()[j]);
-			int typeOfArg = (int)arguments[j].type();
-			if (typeOfArg != (int)type)
-				if (!arguments[j].canConvert((QVariant::Type)type)) break;
+			typeOfArg = (int)arguments[j].type();
+			if (typeOfArg == (int)type) continue;
+			if (arguments[j].canConvert((QVariant::Type)type)) continue;
+			// QObject* and QWidget* may be convertible
+			if (typeOfArg == QMetaType::QWidgetStar && type == QMetaType::QObjectStar) continue;
+			if (typeOfArg == QMetaType::QObjectStar && type == QMetaType::QWidgetStar && qobject_cast<QWidget*>(arguments[j].value<QObject*>())) continue;
+			break;
 		}
 		if (j < arguments.count()) continue;
 		
@@ -222,13 +226,20 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 		for (j = 0; j < arguments.count() && j < 10; ++j) {
 			typeName = mm.parameterTypes()[j];
 			type = QMetaType::type(qPrintable(typeName));
+			typeOfArg = (int)arguments[j].type();
 			
 			// allocate type name on the heap so it survives the method call
 			strTypeName = new char[typeName.size() + 1];
 			strcpy(strTypeName, qPrintable(typeName));
 			
-			arguments[j].convert((QVariant::Type)type);
+			if (arguments[j].canConvert((QVariant::Type)type))
+				arguments[j].convert((QVariant::Type)type);
+			else if (typeOfArg == QMetaType::QWidgetStar && type == QMetaType::QObjectStar)
+				arguments[j] = QVariant::fromValue(qobject_cast<QObject*>(arguments[j].value<QWidget*>()));
+			else if (typeOfArg == QMetaType::QObjectStar && type == QMetaType::QWidgetStar && qobject_cast<QWidget*>(arguments[j].value<QObject*>()))
+				arguments[j] = QVariant::fromValue(qobject_cast<QWidget*>(arguments[j].value<QObject*>()));
 			// \TODO	handle failure during conversion
+			else { }
 			
 			// Note: This line is a hack!
 			// QVariant::data() is undocumented; QGenericArgument should not be
