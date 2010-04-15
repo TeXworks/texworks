@@ -342,7 +342,6 @@ PyObject * PythonScript::callMethod(PyObject * o, PyObject * pyArgs, PyObject * 
 	for (i = 0; i < PyTuple_Size(pyArgs); ++i) {
 		args.append(PythonScript::PythonToVariant(PyTuple_GetItem(pyArgs, i)));
 	}
-	
 	switch (doCallMethod(obj, methodName, args, result)) {
 		case Method_OK:
 			return PythonScript::VariantToPython(result);
@@ -432,8 +431,9 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 			}
 			return pyDict;
 		case QMetaType::QObjectStar:
-		case QMetaType::QWidgetStar:
 			return PythonScript::QObjectToPython(v.value<QObject*>());
+		case QMetaType::QWidgetStar:
+			return PythonScript::QObjectToPython(qobject_cast<QObject*>(v.value<QWidget*>()));
 		default:
 			PyErr_Format(PyExc_TypeError, qPrintable(tr("the type %s is currently not supported")), v.typeName());
 			return NULL;
@@ -475,6 +475,9 @@ QVariant PythonScript::PythonToVariant(PyObject * o)
 			map.insert(PythonScript::PythonToVariant(key).toString(), PythonScript::PythonToVariant(value));
 		}
 		return map;
+	}
+	if (PyObject_TypeCheck(o, &pyQObjectType)) {
+		return QVariant::fromValue((QObject*)PyCObject_AsVoidPtr(((pyQObject*)o)->_TWcontext));
 	}
 	// \TODO Complex numbers, byte arrays
 	PyErr_Format(PyExc_TypeError, qPrintable(tr("the python type %s is currently not supported")), o->ob_type->tp_name);
