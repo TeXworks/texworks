@@ -1,7 +1,7 @@
 // TeXworksScript
 // Title: Toggle Emphasized
 // Shortcut: Ctrl+Shift+I
-// Description: Encloses the current selection in \textem{}
+// Description: Encloses the current selection in \emph{}
 // Author: Jonathan Kew
 // Version: 0.3
 // Date: 2010-01-09
@@ -27,4 +27,4 @@ function addOrRemove(prefix, suffix) {
   return;
 };
 
-addOrRemove("\\textem{", "}");
+addOrRemove("\\emph{", "}");
