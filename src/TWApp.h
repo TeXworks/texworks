@@ -116,6 +116,8 @@ public:
 	void bringToFront();
 #endif
 
+	Q_INVOKABLE QList<QVariant> getOpenWindows() const;
+
 #ifdef Q_WS_MAC
 private:
 	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
