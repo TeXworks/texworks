@@ -32,6 +32,7 @@
 #include "ui_TeXDocument.h"
 
 #include "FindDialog.h"
+#include "TWApp.h"
 
 #include <hunspell.h>
 
@@ -92,6 +93,9 @@ public:
 	void goToTag(int index);
 	void tagsChanged();
 
+	bool isModified() const { return textEdit->document()->isModified(); }
+	void setModified(const bool m = true) { textEdit->document()->setModified(m); }
+
 	class Tag {
 	public:
 		QTextCursor	cursor;
@@ -109,6 +113,8 @@ public:
 	Q_PROPERTY(QString consoleOutput READ consoleText STORED false);
 	Q_PROPERTY(QString text READ text STORED false);
     Q_PROPERTY(QString fileName READ fileName);
+	Q_PROPERTY(bool untitled READ untitled STORED false);
+	Q_PROPERTY(bool modified READ isModified WRITE setModified STORED false);
 	
 signals:
 	void syncFromSource(const QString&, int, bool);
@@ -167,6 +173,10 @@ public slots:
 	void selectRange(int start, int length = 0);
 	void insertText(const QString& text);
 	void selectAll() { textEdit->selectAll(); }
+ 	void setWindowModified(bool modified) {
+		QMainWindow::setWindowModified(modified);
+		TWApp::instance()->updateWindowMenus();
+	}
 	void setSmartQuotesMode(const QString& mode);
 	void setAutoIndentMode(const QString& mode);
 	void setSyntaxColoringMode(const QString& mode);

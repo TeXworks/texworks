@@ -448,7 +448,13 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 		if (first && !menu->actions().isEmpty())
 			menu->addSeparator();
 		first = false;
-		SelWinAction *selWin = new SelWinAction(menu, texDoc->fileName());
+		QString label = texDoc->fileName();
+		SelWinAction *selWin = new SelWinAction(menu, label);
+		if (texDoc->isModified()) {
+			QFont f(selWin->font());
+			f.setItalic(true);
+			selWin->setFont(f);
+		}
 		if (texDoc == qobject_cast<TeXDocument*>(window)) {
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
