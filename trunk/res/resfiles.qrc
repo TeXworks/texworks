@@ -1,6 +1,7 @@
 <RCC>
 <qresource>
 <file>resfiles/completion/tw-basic.txt</file>
+<file>resfiles/completion/tw-beamer.txt</file>
 <file>resfiles/completion/tw-context.txt</file>
 <file>resfiles/completion/tw-latex.txt</file>
 <file>resfiles/configuration/auto-indent-patterns.txt</file>
