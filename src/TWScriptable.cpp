@@ -179,6 +179,12 @@ void TWScriptManager::loadPlugins()
 
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
 		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
+#if QT_VERSION >= 0x040400
+		// (At least) Python 2.6 requires the symbols in the secondary libraries
+		// to be put in the global scope if modules are imported that load
+		// additional shared libraries (e.g. datetime)
+		loader.setLoadHints(QLibrary::ExportExternalSymbolsHint);
+#endif
 		QObject *plugin = loader.instance();
 		TWScriptLanguageInterface *s = qobject_cast<TWScriptLanguageInterface*>(plugin);
 		if (s)
