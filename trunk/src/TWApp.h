@@ -26,6 +26,7 @@
 #include <QList>
 #include <QAction>
 #include <QSettings>
+#include <QClipboard>
 
 #include "TWUtils.h"
 #include "TWScriptable.h"
@@ -117,6 +118,19 @@ public:
 #endif
 
 	Q_INVOKABLE QList<QVariant> getOpenWindows() const;
+
+	Q_PROPERTY(QString clipboard READ clipboardText WRITE setClipboardText)
+
+	Q_INVOKABLE QString clipboardText(QClipboard::Mode mode = QClipboard::Clipboard) const {
+		return clipboard()->text(mode);
+	}
+
+	// USE CAREFULLY
+	// i.e., never put new text into the clipboard without notifying the user
+	Q_INVOKABLE void setClipboardText(const QString& str, QClipboard::Mode mode = QClipboard::Clipboard) {
+		clipboard()->setText(str, mode);
+	}
+
 
 #ifdef Q_WS_MAC
 private:
