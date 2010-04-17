@@ -737,11 +737,15 @@ bool TeXDocument::maybeSave()
 {
 	if (textEdit->document()->isModified()) {
 		QMessageBox::StandardButton ret;
-		ret = QMessageBox::warning(this, tr(TEXWORKS_NAME),
-					 tr("The document \"%1\" has been modified.\n"
-						"Do you want to save your changes?")
-						.arg(TWUtils::strippedName(curFile)),
-					 QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+		QMessageBox msgBox(QMessageBox::Warning, tr(TEXWORKS_NAME),
+						   tr("The document \"%1\" has been modified.\n"
+							  "Do you want to save your changes?")
+						   .arg(TWUtils::strippedName(curFile)),
+						   QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+						   this);
+		msgBox.button(QMessageBox::Discard)->setShortcut(QKeySequence(tr("Ctrl+D", "shortcut: Don't Save")));
+		msgBox.setWindowModality(Qt::WindowModal);
+		ret = (QMessageBox::StandardButton)msgBox.exec();
 		if (ret == QMessageBox::Save)
 			return save();
 		else if (ret == QMessageBox::Cancel)
@@ -774,7 +778,9 @@ void TeXDocument::revert()
 					tr("Do you want to discard all changes to the document \"%1\", and revert to the last saved version?")
 					   .arg(TWUtils::strippedName(curFile)), QMessageBox::Cancel, this);
 		QAbstractButton *revertButton = messageBox.addButton(tr("Revert"), QMessageBox::DestructiveRole);
+		revertButton->setShortcut(QKeySequence(tr("Ctrl+R", "shortcut: Revert")));
 		messageBox.setDefaultButton(QMessageBox::Cancel);
+		messageBox.setWindowModality(Qt::WindowModal);
 		messageBox.exec();
 		if (messageBox.clickedButton() == revertButton)
 			loadFile(curFile);
