@@ -177,10 +177,17 @@ class TWSystemCmd : public QProcess {
 	
 public:
 	TWSystemCmd(QObject* parent, bool isOutputWanted = true)
-		: QProcess(parent), wantOutput(isOutputWanted) {}
+		: QProcess(parent), wantOutput(isOutputWanted)
+	{
+		connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(processOutput()));
+		connect(this, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
+		connect(this, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
+	}
 	virtual ~TWSystemCmd() {}
 	
-public slots:
+	QString getResult() { return result; }
+	
+private slots:
 	void processError(QProcess::ProcessError error) {
 		if (wantOutput)
 			result = tr("ERROR: failure code %1").arg(error);
@@ -207,8 +214,6 @@ public slots:
 		}
 	}
 
-	QString getResult() { return result; }
-	
 private:
 	bool wantOutput;
 	QString result;
