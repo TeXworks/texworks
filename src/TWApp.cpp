@@ -56,6 +56,17 @@
 #include "GlobalParams.h"
 #endif
 
+#ifdef Q_WS_MAC
+#include <CoreServices/CoreServices.h>
+#endif
+
+#ifdef Q_WS_WIN
+#include <windows.h>
+#ifndef VER_SUITE_WH_SERVER /* not defined in my mingw system */
+#define VER_SUITE_WH_SERVER 0x00008000
+#endif
+#endif
+
 #define SETUP_FILE_NAME "texworks-setup.ini"
 
 #define DEFAULT_ENGINE_NAME "pdfLaTeX"
@@ -289,9 +300,148 @@ void TWApp::goToHomePage()
 	openUrl(QUrl("http://texworks.org/"));
 }
 
+#ifdef Q_WS_WIN
+/* based on MSDN sample code from http://msdn.microsoft.com/en-us/library/ms724429(VS.85).aspx */
+typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
+
+QString GetWindowsVersionString()
+{
+	OSVERSIONINFOEXA osvi;
+	SYSTEM_INFO si;
+	PGNSI pGNSI;
+	BOOL bOsVersionInfoEx;
+	QString result("(unknown version)");
+	
+	memset(&si, 0, sizeof(SYSTEM_INFO));
+	memset(&osvi, 0, sizeof(OSVERSIONINFOEXA));
+	
+	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXA);
+	if ( !(bOsVersionInfoEx = GetVersionExA ((OSVERSIONINFOA *) &osvi)) )
+		return result;
+	
+	// Call GetNativeSystemInfo if supported or GetSystemInfo otherwise.
+	pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo");
+	if (NULL != pGNSI)
+		pGNSI(&si);
+	else
+		GetSystemInfo(&si);
+	
+	if ( VER_PLATFORM_WIN32_NT == osvi.dwPlatformId && osvi.dwMajorVersion > 4 ) {
+		if ( osvi.dwMajorVersion == 6 ) {
+			if ( osvi.dwMinorVersion == 0 ) {
+				if ( osvi.wProductType == VER_NT_WORKSTATION )
+					result = "Vista";
+				else
+					result = "Server 2008";
+			}
+			else if ( osvi.dwMinorVersion == 1 ) {
+				if( osvi.wProductType == VER_NT_WORKSTATION )
+					result = "7";
+				else
+					result = "Server 2008 R2";
+			}
+		}
+		else if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2 ) {
+			if ( GetSystemMetrics(SM_SERVERR2) )
+				result = "Server 2003 R2";
+			else if ( osvi.wSuiteMask & VER_SUITE_STORAGE_SERVER )
+				result = "Storage Server 2003";
+			else if ( osvi.wSuiteMask & VER_SUITE_WH_SERVER )
+				result = "Home Server";
+			else if ( osvi.wProductType == VER_NT_WORKSTATION &&
+					si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64)
+				result = "XP Professional x64 Edition";
+			else
+				result = "Server 2003";
+		}
+		else if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1 ) {
+			result = "XP ";
+			if ( osvi.wSuiteMask & VER_SUITE_PERSONAL )
+				result += "Home Edition";
+			else
+				result += "Professional";
+		}
+		else if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 ) {
+			result = "2000 ";
+			
+			if ( osvi.wProductType == VER_NT_WORKSTATION ) {
+				result += "Professional";
+			}
+			else {
+				if ( osvi.wSuiteMask & VER_SUITE_DATACENTER )
+					result += "Datacenter Server";
+				else if ( osvi.wSuiteMask & VER_SUITE_ENTERPRISE )
+					result += "Advanced Server";
+				else
+					result += "Server";
+			}
+		}
+		
+		if ( strlen(osvi.szCSDVersion) > 0 ) {
+			result += " ";
+			result += osvi.szCSDVersion;
+		}
+		
+		if ( osvi.dwMajorVersion >= 6 ) {
+			if ( si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64 )
+				result += ", 64-bit";
+			else if (si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_INTEL )
+				result += ", 32-bit";
+		}
+	}
+	
+	return result;
+}
+#endif
+
 void TWApp::writeToMailingList()
 {
-	openUrl(QUrl("mailto:texworks@tug.org?subject=message from TeXworks user"));
+	// The strings here are deliberately NOT localizable!
+	QString address("texworks@tug.org");
+	QString subject("Message from TeXworks user");
+	QString body("\n\n----- configuration info -----\n");
+
+	body += "TeXworks version : " TEXWORKS_VERSION "r" SVN_REVISION_STR "\n";
+#ifdef Q_WS_MAC
+	body += "Install location : " + QDir(applicationDirPath() + "/../..").absolutePath() + "\n";
+#else
+	body += "Install location : " + applicationFilePath() + "\n";
+#endif
+	body += "Library path     : " + TWUtils::getLibraryPath(QString()) + "\n";
+
+	body += "Operating system : ";
+#ifdef Q_WS_WIN
+	body += "Windows " + GetWindowsVersionString() + "\n";
+#else
+#ifdef Q_WS_MAC
+#define UNAME_CMDLINE "uname -v"
+#else
+#define UNAME_CMDLINE "uname -a"
+#endif
+	QString unameResult("unknown");
+	TWSystemCmd unameCmd(this, true);
+	unameCmd.setProcessChannelMode(QProcess::MergedChannels);
+	unameCmd.start(UNAME_CMDLINE);			
+	if (unameCmd.waitForStarted(1000) && unameCmd.waitForFinished(1000))
+		unameResult = unameCmd.getResult().trimmed();
+#ifdef Q_WS_MAC
+	SInt32 major = 0, minor = 0, bugfix = 0;
+	Gestalt(gestaltSystemVersionMajor, &major);
+	Gestalt(gestaltSystemVersionMinor, &minor);
+	Gestalt(gestaltSystemVersionBugFix, &bugfix);
+	body += QString("Mac OS X %1.%2.%3").arg(major).arg(minor).arg(bugfix);
+	body += " (" + unameResult + ")\n";
+#else
+	body += unameResult + "\n";
+#endif
+#endif
+
+	body += "Qt4 version      : " QT_VERSION_STR " (build) / ";
+	body += qVersion();
+	body += " (runtime)\n";
+	body += "------------------------------\n";
+
+	openUrl(QUrl(QString("mailto:%1?subject=%2&body=%3").arg(address).arg(subject).arg(body)));
 }
 
 void TWApp::launchAction()
@@ -865,9 +1015,6 @@ QVariant TWApp::system(const QString& cmdline, bool waitForResult)
 	QSETTINGS_OBJECT(settings);
 	if (settings.value("allowSystemCommands", false).toBool()) {
 		TWSystemCmd *process = new TWSystemCmd(this, waitForResult);
-		connect(process, SIGNAL(readyReadStandardOutput()), process, SLOT(processOutput()));
-		connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), process, SLOT(processFinished(int, QProcess::ExitStatus)));
-		connect(process, SIGNAL(error(QProcess::ProcessError)), process, SLOT(processError(QProcess::ProcessError)));
 		if (waitForResult) {
 			process->setProcessChannelMode(QProcess::MergedChannels);
 			process->start(cmdline);			
