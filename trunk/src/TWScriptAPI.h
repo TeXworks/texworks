@@ -30,6 +30,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QProgressDialog>
+#include <QCoreApplication>
 
 class TWScriptAPI : public QObject
 {
@@ -133,6 +134,10 @@ public slots:
 		bool ok;
 		QString s = QInputDialog::getText(parent, title, label, QLineEdit::Normal, text, &ok);
 		return ok ? QVariant(s) : QVariant();
+	}
+	
+	void yield() {
+		QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
 	
 	// Allow script to create a QProgressDialog
