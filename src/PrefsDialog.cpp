@@ -365,7 +365,7 @@ void PrefsDialog::initPathAndToolLists()
 {
 	binPathList->clear();
 	toolList->clear();
-	binPathList->addItems(TWApp::instance()->getBinaryPaths());
+	binPathList->addItems(TWApp::instance()->getPrefsBinaryPaths());
 	engineList = TWApp::instance()->getEngineList();
 	foreach (Engine e, engineList) {
 		toolList->addItem(e.name());

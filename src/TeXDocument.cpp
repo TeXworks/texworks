@@ -2283,65 +2283,22 @@ void TeXDocument::typeset()
 #endif
 	process->setWorkingDirectory(workingDir);
 
-#ifdef Q_WS_WIN
-#define PATH_CASE_SENSITIVE	Qt::CaseInsensitive
-#else
-#define PATH_CASE_SENSITIVE	Qt::CaseSensitive
-#endif
-	QStringList binPaths = TWApp::instance()->getBinaryPaths();
 	QStringList env = QProcess::systemEnvironment();
-	QMutableStringListIterator envIter(env);
-	while (envIter.hasNext()) {
-		QString& envVar = envIter.next();
-		if (envVar.startsWith("PATH=", PATH_CASE_SENSITIVE)) {
-			foreach (const QString& s, envVar.mid(5).split(QChar(PATH_LIST_SEP), QString::SkipEmptyParts))
-			if (!binPaths.contains(s))
-				binPaths.append(s);
-			envVar = envVar.left(5) + binPaths.join(QChar(PATH_LIST_SEP));
-			break;
-		}
-	}
+	QStringList binPaths = TWApp::instance()->getBinaryPaths(env);
 	
 	bool foundCommand = false;
-	QFileInfo exeFileInfo;
-	QStringListIterator pathIter(binPaths);
-#ifdef Q_WS_WIN
-	QStringList executableTypes = QStringList() << "exe" << "com" << "cmd" << "bat";
-#endif
-	while (pathIter.hasNext() && !foundCommand) {
-		QString path = pathIter.next();
-		exeFileInfo = QFileInfo(path, e.program());
-		foundCommand = exeFileInfo.exists() && exeFileInfo.isExecutable();
-#ifdef Q_WS_WIN
-		// try adding common executable extensions, if one was not already present
-		if (!foundCommand && !executableTypes.contains(exeFileInfo.suffix())) {
-			QStringListIterator extensions(executableTypes);
-			while (extensions.hasNext() && !foundCommand) {
-				exeFileInfo = QFileInfo(path, e.program() + "." + extensions.next());
-				foundCommand = exeFileInfo.exists() && exeFileInfo.isExecutable();
-			}
-		}
-#endif
-	}
+	QString exeFilePath = TWApp::instance()->findProgram(e.program(), binPaths);
 	
-	if (foundCommand) {
+	if (!exeFilePath.isEmpty()) {
 		QStringList args = e.arguments();
 		
 		// for old MikTeX versions: delete $synctexoption if it causes an error
 		static bool checkedForSynctex = false;
 		static bool synctexSupported = true;
 		if (!checkedForSynctex) {
-			QStringListIterator pi(binPaths);
-			QFileInfo chkFileInfo;
-			bool found = false;
-			while (pi.hasNext() && !found) {
-				QString path = pi.next();
-				chkFileInfo = QFileInfo(path, "pdftex" EXE);
-				if (chkFileInfo.exists())
-					found = true;
-			}
-			if (found) {
-				int result = QProcess::execute(chkFileInfo.absoluteFilePath(), QStringList() << "-synctex=1" << "-version");
+			QString pdftex = TWApp::instance()->findProgram("pdftex", binPaths);
+			if (!pdftex.isEmpty()) {
+				int result = QProcess::execute(pdftex, QStringList() << "-synctex=1" << "-version");
 				synctexSupported = (result == 0);
 			}
 			checkedForSynctex = true;
@@ -2380,7 +2337,7 @@ void TeXDocument::typeset()
 		else
 			oldPdfTime = QDateTime();
 		
-		process->start(exeFileInfo.absoluteFilePath(), args);
+		process->start(exeFilePath, args);
 	}
 	else {
 		process->deleteLater();

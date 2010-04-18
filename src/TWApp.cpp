@@ -394,6 +394,56 @@ QString GetWindowsVersionString()
 }
 #endif
 
+const QStringList TWApp::getBinaryPaths(QStringList& systemEnvironment)
+{
+#ifdef Q_WS_WIN
+#define PATH_CASE_SENSITIVE	Qt::CaseInsensitive
+#else
+#define PATH_CASE_SENSITIVE	Qt::CaseSensitive
+#endif
+	QStringList binPaths = getPrefsBinaryPaths();
+	QMutableStringListIterator envIter(systemEnvironment);
+	while (envIter.hasNext()) {
+		QString& envVar = envIter.next();
+		if (envVar.startsWith("PATH=", PATH_CASE_SENSITIVE)) {
+			foreach (const QString& s, envVar.mid(5).split(QChar(PATH_LIST_SEP), QString::SkipEmptyParts)) {
+				if (!binPaths.contains(s)) {
+					binPaths.append(s);
+				}
+			}
+			envVar = envVar.left(5) + binPaths.join(QChar(PATH_LIST_SEP));
+			break;
+		}
+	}
+	return binPaths;
+}
+
+QString TWApp::findProgram(const QString& program, const QStringList& binPaths)
+{
+	QStringListIterator pathIter(binPaths);
+	bool found = false;
+	QFileInfo fileInfo;
+#ifdef Q_WS_WIN
+	QStringList executableTypes = QStringList() << "exe" << "com" << "cmd" << "bat";
+#endif
+	while (pathIter.hasNext() && !found) {
+		QString path = pathIter.next();
+		fileInfo = QFileInfo(path, program);
+		found = fileInfo.exists() && fileInfo.isExecutable();
+#ifdef Q_WS_WIN
+		// try adding common executable extensions, if one was not already present
+		if (!found && !executableTypes.contains(exeFileInfo.suffix())) {
+			QStringListIterator extensions(executableTypes);
+			while (extensions.hasNext() && !found) {
+				fileInfo = QFileInfo(path, program + "." + extensions.next());
+				found = fileInfo.exists() && fileInfo.isExecutable();
+			}
+		}
+#endif
+	}
+	return found ? fileInfo.canonicalFilePath() : QString();
+}
+
 void TWApp::writeToMailingList()
 {
 	// The strings here are deliberately NOT localizable!
@@ -409,6 +459,14 @@ void TWApp::writeToMailingList()
 #endif
 	body += "Library path     : " + TWUtils::getLibraryPath(QString()) + "\n";
 
+	QStringList sysEnv(QProcess::systemEnvironment());
+	const QStringList binPaths = getBinaryPaths(sysEnv);
+	QString pdftex = findProgram("pdftex", binPaths);
+	if (pdftex.isEmpty())
+		pdftex = "not found";
+	
+	body += "pdfTeX location  : " + pdftex + "\n";
+	
 	body += "Operating system : ";
 #ifdef Q_WS_WIN
 	body += "Windows " + GetWindowsVersionString() + "\n";
@@ -714,7 +772,7 @@ void TWApp::setDefaultPaths()
 	}
 }
 
-const QStringList TWApp::getBinaryPaths()
+const QStringList TWApp::getPrefsBinaryPaths()
 {
 	if (binaryPaths == NULL) {
 		binaryPaths = new QStringList;

@@ -83,7 +83,12 @@ public:
 	void setBinaryPaths(const QStringList& paths);
 	void setEngineList(const QList<Engine>& engines);
 
-	const QStringList getBinaryPaths();
+	const QStringList getBinaryPaths(QStringList& sysEnv);
+		// runtime paths, including $PATH;
+		// also modifies passed-in sysEnv to include paths from prefs
+	QString findProgram(const QString& program, const QStringList& binPaths);
+
+	const QStringList getPrefsBinaryPaths(); // only paths from prefs
 	const QList<Engine> getEngineList();
 	void saveEngineList();
 	
