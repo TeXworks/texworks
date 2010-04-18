@@ -10,7 +10,9 @@ One easy source of dictionaries is the !OpenOffice.org project, which uses the s
 
 = Installing =
 
-The dictionaries are installed in different locations depending on your platform:
+The dictionaries are installed in different locations depending on your platform.
+
+_Note: These paths apply to the default configuration of the versions distributed here. If you use !TeXworks as provided by a TeX distribution, the paths may differ. If you have version 0.3 or later, you can use "Scripts -> Scripting !TeXworks -> Show Scripts Folder" and navigate to the parent directory in the window that opens._
 
 == Windows ==
 
