@@ -56,6 +56,13 @@
 #include "GlobalParams.h"
 #endif
 
+#ifndef TW_BUILD_ID
+#define TW_BUILD_ID unknown build
+#endif
+#define STRINGIFY_2(s) #s
+#define STRINGIFY(s) STRINGIFY_2(s)
+#define TW_BUILD_ID_STR STRINGIFY(TW_BUILD_ID)
+
 #ifdef Q_WS_MAC
 #include <CoreServices/CoreServices.h>
 #endif
@@ -272,7 +279,7 @@ void TWApp::about()
 	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(TEXWORKS_NAME);
 	aboutText += "<small>";
 	aboutText += "<p>&#xA9; 2007-2010 Jonathan Kew &amp; Stefan L&#xF6;ffler";
-	aboutText += tr("<br>Version %1 (r.%2)").arg(TEXWORKS_VERSION).arg(SVN_REVISION);
+	aboutText += tr("<br>Version %1 r.%2 (%3)").arg(TEXWORKS_VERSION).arg(SVN_REVISION).arg(TW_BUILD_ID_STR);
 	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2.");
 	aboutText += tr("<p><a href=\"http://qt.nokia.com/\">Qt application framework</a> v%1 by Qt Software, a division of Nokia Corporation.").arg(qVersion());
 	aboutText += tr("<br><a href=\"http://poppler.freedesktop.org/\">Poppler</a> PDF rendering library by Kristian H&#xF8;gsberg, Albert Astals Cid and others.");
@@ -451,7 +458,7 @@ void TWApp::writeToMailingList()
 	QString subject("Message from TeXworks user");
 	QString body("\n\n----- configuration info -----\n");
 
-	body += "TeXworks version : " TEXWORKS_VERSION "r" SVN_REVISION_STR "\n";
+	body += "TeXworks version : " TEXWORKS_VERSION "r" SVN_REVISION_STR " (" TW_BUILD_ID_STR ")\n";
 #ifdef Q_WS_MAC
 	body += "Install location : " + QDir(applicationDirPath() + "/../..").absolutePath() + "\n";
 #else
