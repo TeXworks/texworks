@@ -29,20 +29,26 @@ OBJECTS_DIR = ./obj
 UI_DIR      = ./ui
 RCC_DIR     = ./rcc
 
+# packagers should override this to identify the source of the particular TeXworks build;
+# avoid spaces or other chars that would need quoting on the command line
+QMAKE_CXXFLAGS += -DTW_BUILD_ID=personal
+
 # comment this out if poppler's xpdf headers are not available on the build system
 QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
 
 # put all symbols in the dynamic symbol table to plugins can access them; if not
 # given, plugin loading may fail with a debug warning for some plugins
 # Note: only works for gnu compilers; need to check what flags to pass to other compilers
-QMAKE_LFLAGS += -Wl,--export-dynamic
+!macx {
+	QMAKE_LFLAGS += -Wl,--export-dynamic
+}
 
 unix:!macx {
 	TARGET	=	texworks
 } else {
 	TARGET	=	TeXworks
-    QMAKE_CXXFLAGS = -fexceptions
-    QMAKE_LFLAGS = -fexceptions
+    QMAKE_CXXFLAGS += -fexceptions
+    QMAKE_LFLAGS += -fexceptions
 }
 
 QT			+=	xml script scripttools
@@ -70,6 +76,7 @@ macx {
 	LIBS += -lhunspell-1.2
 	LIBS += -lgcc_eh
 	LIBS += -lz
+	LIBS += -framework CoreServices
 
 	QMAKE_INFO_PLIST = TeXworks.plist
 
