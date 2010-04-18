@@ -439,7 +439,7 @@ QString TWApp::findProgram(const QString& program, const QStringList& binPaths)
 		found = fileInfo.exists() && fileInfo.isExecutable();
 #ifdef Q_WS_WIN
 		// try adding common executable extensions, if one was not already present
-		if (!found && !executableTypes.contains(exeFileInfo.suffix())) {
+		if (!found && !executableTypes.contains(fileInfo.suffix())) {
 			QStringListIterator extensions(executableTypes);
 			while (extensions.hasNext() && !found) {
 				fileInfo = QFileInfo(path, program + "." + extensions.next());
