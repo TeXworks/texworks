@@ -57,6 +57,7 @@ Install the following packages and their dependencies:
   * jpeg (bin),
   * libpng (bin),
   * libxml2 (bin),
+  * openjpeg (bin),
   * poppler (bin & devel),
   * poppler-data (bin),
   * qt (bin & devel),
@@ -288,6 +289,7 @@ When starting !TeXworks, it complains about missing or incompatible dlls or simp
   * libfontconfig.dll
   * libfreetype.dll
   * iconv.dll
+  * libopenjpeg.dll
   * libpng12.dll
   * libpoppler-qt4.dll
   * libpoppler.dll
