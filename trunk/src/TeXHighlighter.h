@@ -44,7 +44,8 @@ public:
 	void setSpellChecker(Hunhandle *h, QTextCodec *codec);
 
 	QString getSyntaxMode() const {
-		return highlightIndex < syntaxOptions().size() ? syntaxOptions().at(highlightIndex) : QString();
+		return (highlightIndex >= 0 && highlightIndex < syntaxOptions().size())
+				? syntaxOptions().at(highlightIndex) : QString();
 	}
 	
 	static QStringList syntaxOptions();
