@@ -28,9 +28,6 @@
 #include <QString>
 #include <QVariant>
 #include <QMessageBox>
-#include <QInputDialog>
-#include <QProgressDialog>
-#include <QCoreApplication>
 
 class TWScriptAPI : public QObject
 {
@@ -41,115 +38,86 @@ class TWScriptAPI : public QObject
 	Q_PROPERTY(QVariant result READ GetResult WRITE SetResult);
 	
 public:
-	TWScriptAPI(QObject* twapp, QObject* ctx, QVariant& res)
-	: m_app(twapp),
-	m_target(ctx),
-	m_result(res)
-	{ }
+	TWScriptAPI(const TWScript* script, QObject* twapp, QObject* ctx, QVariant& res);
 	
+public:
 	QObject* GetApp() { return m_app; }
 	QObject* GetTarget() { return m_target; }
 	QVariant& GetResult() { return m_result; }
 	
-	void SetResult(const QVariant& rval) { m_result = rval; }
+	void SetResult(const QVariant& rval);
 	
-public slots:
 	// provide utility functions for scripts, implemented as methods on the TW object
 
 	// length of a string in UTF-16 code units, useful if script language uses a different encoding form
-	int strlen(const QString& str) const { return str.length(); }
+	Q_INVOKABLE
+	int strlen(const QString& str) const;
 	
 	// return the host platform name
-	QString platform() const {
-#if defined(Q_WS_MAC)
-		return QString("MacOSX");
-#elif defined(Q_WS_WIN)
-		return QString("Windows");
-#elif defined(Q_WS_X11)
-		return QString("X11");
-#else
-		return QString("unknown");
-#endif
-	}
+	Q_INVOKABLE
+	QString platform() const;
 
 	// QMessageBox functions to display alerts
+	Q_INVOKABLE
 	int information(QWidget* parent,
 					const QString& title, const QString& text,
 					int buttons = (int)QMessageBox::Ok,
-					int defaultButton = QMessageBox::NoButton) {
-		return (int)QMessageBox::information(parent, title, text,
-											 (QMessageBox::StandardButtons)buttons,
-											 (QMessageBox::StandardButton)defaultButton);
-	}
+					int defaultButton = QMessageBox::NoButton);
+	Q_INVOKABLE
 	int question(QWidget* parent,
 				 const QString& title, const QString& text,
 				 int buttons = (int)QMessageBox::Ok,
-				 int defaultButton = QMessageBox::NoButton) {
-		return (int)QMessageBox::question(parent, title, text,
-										  (QMessageBox::StandardButtons)buttons,
-										  (QMessageBox::StandardButton)defaultButton);
-	}
+				 int defaultButton = QMessageBox::NoButton);
+	Q_INVOKABLE
 	int warning(QWidget* parent,
 				const QString& title, const QString& text,
 				int buttons = (int)QMessageBox::Ok,
-				int defaultButton = QMessageBox::NoButton) {
-		return (int)QMessageBox::warning(parent, title, text,
-										 (QMessageBox::StandardButtons)buttons,
-										 (QMessageBox::StandardButton)defaultButton);
-	}
+				int defaultButton = QMessageBox::NoButton);
+	Q_INVOKABLE
 	int critical(QWidget* parent,
 				 const QString& title, const QString& text,
 				 int buttons = (int)QMessageBox::Ok,
-				 int defaultButton = QMessageBox::NoButton) {
-		return (int)QMessageBox::critical(parent, title, text,
-										  (QMessageBox::StandardButtons)buttons,
-										  (QMessageBox::StandardButton)defaultButton);
-	}
+				 int defaultButton = QMessageBox::NoButton);
 	
 	// QInputDialog functions
+	Q_INVOKABLE
 	QVariant getInt(QWidget* parent, const QString& title, const QString& label,
-					int value = 0, int min = -2147483647, int max = 2147483647, int step = 1) {
-		bool ok;
-#if QT_VERSION >= 0x040500
-		int i = QInputDialog::getInt(parent, title, label, value, min, max, step, &ok);
-#else
-		int i = QInputDialog::getInteger(parent, title, label, value, min, max, step, &ok);
-#endif
-		return ok ? QVariant(i) : QVariant();
-	}
+					int value = 0, int min = -2147483647, int max = 2147483647, int step = 1);
+	Q_INVOKABLE
 	QVariant getDouble(QWidget* parent, const QString& title, const QString& label,
-					   double value = 0, double min = -2147483647, double max = 2147483647, int decimals = 1) {
-		bool ok;
-		double d = QInputDialog::getDouble(parent, title, label, value, min, max, decimals, &ok);
-		return ok ? QVariant(d) : QVariant();
-	}
+					   double value = 0, double min = -2147483647, double max = 2147483647, int decimals = 1);
+	Q_INVOKABLE
 	QVariant getItem(QWidget* parent, const QString& title, const QString& label,
-					 const QStringList& items, int current = 0, bool editable = true) {
-		bool ok;
-		QString s = QInputDialog::getItem(parent, title, label, items, current, editable, &ok);
-		return ok ? QVariant(s) : QVariant();
-	}
+					 const QStringList& items, int current = 0, bool editable = true);
+	Q_INVOKABLE
 	QVariant getText(QWidget* parent, const QString& title, const QString& label,
-					 const QString& text = QString()) {
-		bool ok;
-		QString s = QInputDialog::getText(parent, title, label, QLineEdit::Normal, text, &ok);
-		return ok ? QVariant(s) : QVariant();
-	}
+					 const QString& text = QString());
 	
-	void yield() {
-		QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-	}
+	Q_INVOKABLE
+	void yield();
 	
 	// Allow script to create a QProgressDialog
-	QVariant progressDialog(QWidget * parent) {
-		QProgressDialog * dlg = new QProgressDialog(parent);
-		connect(this, SIGNAL(destroyed(QObject*)), dlg, SLOT(deleteLater()));
-		dlg->setCancelButton(NULL);
-		dlg->show();
-		return QVariant::fromValue(qobject_cast<QWidget*>(dlg));
-	}
+	Q_INVOKABLE
+	QVariant progressDialog(QWidget * parent);
 	
+	// functions to create windows from .ui data or files using QUiLoader
+	Q_INVOKABLE
+	QVariant createUIFromString(QString uiSpec, QWidget * parent = NULL);
+
+	Q_INVOKABLE
+	QVariant createUI(QString filename, QWidget * parent = NULL);
+	
+	// to find children of a widget
+	Q_INVOKABLE
+	QVariant findChildWidget(QWidget* parent, const QString& name);
+	
+	// to make connections among widgets (or other objects)
+	Q_INVOKABLE
+	void makeConnection(QObject* sender, QString signal, QObject* receiver, QString slot);
+	
+
 protected:
+	const TWScript* m_script;
 	QObject* m_app;
 	QObject* m_target;
 	QVariant& m_result;

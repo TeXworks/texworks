@@ -35,7 +35,7 @@ TWScript::TWScript(TWScriptLanguageInterface *interface, const QString& fileName
 
 bool TWScript::run(QObject *context, QVariant& result) const
 {
-	TWScriptAPI tw(qApp, context, result);
+	TWScriptAPI tw(this, qApp, context, result);
 	return execute(&tw);
 }
 
