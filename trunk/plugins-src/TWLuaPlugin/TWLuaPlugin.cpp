@@ -42,7 +42,8 @@ TWLuaPlugin::TWLuaPlugin()
 
 TWLuaPlugin::~TWLuaPlugin()
 {
-	if (luaState) lua_close(luaState);
+	if (luaState)
+		lua_close(luaState);
 }
 
 TWScript* TWLuaPlugin::newScript(const QString& fileName)
@@ -58,7 +59,8 @@ bool LuaScript::execute(TWScriptAPI *tw) const
 	int status;
 	lua_State * L = m_LuaPlugin->getLuaState();
 
-	if (!L) return false;
+	if (!L)
+		return false;
 
 	// register the TW interface for use in lua
 	if (!LuaScript::pushQObject(L, tw, false)) {
@@ -91,7 +93,10 @@ bool LuaScript::execute(TWScriptAPI *tw) const
 /*static*/
 int LuaScript::pushQObject(lua_State * L, QObject * obj, const bool throwError /*= true*/)
 {
-	if (!L || !obj) return 0;
+	Q_UNUSED(throwError)
+	
+	if (!L || !obj)
+		return 0;
 	
 	lua_newtable(L);
 
@@ -132,7 +137,8 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 	QVariantMap::const_iterator iMap;
 	QVariantMap map;
 
-	if (!L) return 0;
+	if (!L)
+		return 0;
 	if (v.isNull()) {
 		lua_pushnil(L);
 		return 1;
@@ -316,7 +322,7 @@ int LuaScript::setProperty(lua_State * L)
 /*static*/
 QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwError /*= true*/)
 {
-	bool isArray = true, isMap = true;
+	bool isArray = true, isMap = true, isQObject = false;
 	QVariantList vl;
 	QVariantMap vm;
 	int i, n, iMax;
@@ -333,24 +339,41 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 		case LUA_TSTRING:
 			return QVariant(QString::fromUtf8(lua_tostring(L, idx)));
 		case LUA_TTABLE:
+			// convert index to an absolute value since we'll be messing with
+			// the stack
+			if (idx < 0) idx += lua_gettop(L) + 1;
+			
 			// Check if we're dealing with a QObject* wrapper
-			if (lua_getmetatable(L, -1)) {
-				lua_pushstring(L, "__qobject");
-				lua_rawget(L, -2);
-				if (lua_islightuserdata(L, -1)) {
-					QObject * obj = (QObject*)lua_touserdata(L, -1);
-					lua_pop(L, 2);
-					return QVariant::fromValue(obj);
+			if (lua_getmetatable(L, idx)) {
+
+				i = lua_gettop(L);
+				lua_pushnil(L);
+				// see if the metatable contains the key "__qobject"; if it
+				// doesn't, trying to get it later could result in an error
+				while (lua_next(L, i)) {
+					lua_pop(L, 1); // pop the value (we don't need it)
+					if (!lua_isstring(L, -1))
+						continue;
+					lua_pushvalue(L, -1); // duplicate the key so we don't disturb lua_next
+					if (QString(lua_tostring(L, -1)) == "__qobject")
+						isQObject = true;
+					lua_pop(L, 1); // pop the duplicate key
 				}
-				lua_pop(L, 2);
+
+				if (isQObject) {
+					lua_getfield(L, -1, "__qobject");
+					if (lua_islightuserdata(L, -1)) {
+						QObject * obj = (QObject*)lua_touserdata(L, -1);
+						lua_pop(L, 2);
+						return QVariant::fromValue(obj);
+					}
+					lua_pop(L, 1);
+				}
+				lua_pop(L, 1); // pop the metatable
 			}
 			
 			// Special treatment for tables
 			// If all keys are in the form 1..n, we can convert it to a QList
-			
-			// convert index to an absolute value since we'll be messing with
-			// the stack
-			if (idx < 0) idx += lua_gettop(L) + 1;
 			
 			// taken from the lua reference of lua_next()
 			lua_pushnil(L);
@@ -358,27 +381,30 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			iMax = 0;
 			while (lua_next(L, idx)) {
 				if (isArray) {
-					if (!lua_isnumber(L, -2)) isArray = false;
+					if (!lua_isnumber(L, -2))
+						isArray = false;
 					else {
 						++n;
-						if (lua_tonumber(L, -2) > iMax) iMax = lua_tonumber(L, -2);
+						if (lua_tonumber(L, -2) > iMax)
+							iMax = lua_tonumber(L, -2);
 					}
 				}
 				if (isMap) {
 					// keys must be convertable to string
-					if (!lua_isstring(L, -2)) isMap = false;
+					if (!lua_isstring(L, -2))
+						isMap = false;
 					// some value types are not supported by QVariant
-					if (
-						lua_isfunction(L, -1) ||
+					if (lua_isfunction(L, -1) ||
 						lua_islightuserdata(L, -1) ||
 						lua_isthread(L, -1) ||
-						lua_isuserdata(L, -1)
-					) isMap = false;
+						lua_isuserdata(L, -1) )
+						isMap = false;
 				}
 				lua_pop(L, 1);
 				++i;
 			}
-			if (n != iMax) isArray = false;
+			if (n != iMax)
+				isArray = false;
 			
 			// Lua is picky about the correct type of index for accessing table
 			// members. Hence we can't simply retrieve the table items by index
@@ -387,8 +413,9 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			// they keys need not be ordered when calling lua_next, we have to
 			// allocate the complete list first and overwrite the items as we
 			// get them.
-			if(isArray) {
-				for(i = 0; i < n; ++i) vl.append(QVariant());
+			if (isArray) {
+				for (i = 0; i < n; ++i)
+					vl.append(QVariant());
 				
 				lua_pushnil(L);
 				while (lua_next(L, idx)) {
@@ -423,7 +450,8 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			// if the call to this function originated from C code, not in response
 			// to a lua request (e.g. during initialization or finalization) as that
 			// would crash Tw
-			if (throwError) luaL_error(L, qPrintable(tr("the lua type %s is currently not supported")), lua_typename(L, lua_type(L, idx)));
+			if (throwError)
+				luaL_error(L, qPrintable(tr("the lua type %s is currently not supported")), lua_typename(L, lua_type(L, idx)));
 	}
 	return QVariant();
 }
