@@ -258,6 +258,9 @@ PyObject* PythonScript::getAttribute(PyObject * o, PyObject * attr_name)
 		return NULL;
 	}
 	
+	if (propName.length() > 1 && propName.endsWith(QChar('_')))
+		propName.chop(1);
+	
 	switch (doGetProperty(obj, propName, result)) {
 		case Property_DoesNotExist:
 			PyErr_Format(PyExc_AttributeError, qPrintable(tr("getattr: object doesn't have property/method %s")), qPrintable(propName));
@@ -342,6 +345,8 @@ PyObject * PythonScript::callMethod(PyObject * o, PyObject * pyArgs, PyObject * 
 	for (i = 0; i < PyTuple_Size(pyArgs); ++i) {
 		args.append(PythonScript::PythonToVariant(PyTuple_GetItem(pyArgs, i)));
 	}
+	if (methodName.length() > 1 && methodName.endsWith(QChar('_')))
+		methodName.chop(1);
 	switch (doCallMethod(obj, methodName, args, result)) {
 		case Method_OK:
 			return PythonScript::VariantToPython(result);

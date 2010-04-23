@@ -28,7 +28,7 @@ OBJECTS_DIR = ./obj
 
 TARGET	=	TWPythonPlugin
 
-CONFIG		+=	rtti
+CONFIG		+=	rtti uitools
 
 macx {
 	CONFIG	+= x86 ppc
@@ -74,4 +74,5 @@ HEADERS	+=	TWPythonPlugin.h \
 			../../src/TWScriptAPI.h
 
 SOURCES	+=	TWPythonPlugin.cpp \
-			../../src/TWScript.cpp
+			../../src/TWScript.cpp \
+			../../src/TWScriptAPI.cpp

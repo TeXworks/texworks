@@ -28,7 +28,7 @@ OBJECTS_DIR = ./obj
 
 TARGET	=	TWLuaPlugin
 
-CONFIG		+=	rtti
+CONFIG		+=	rtti uitools
 
 macx {
 	CONFIG	+= x86 ppc
@@ -66,4 +66,6 @@ HEADERS	+=	TWLuaPlugin.h \
 			../../src/TWScriptAPI.h
 
 SOURCES	+=	TWLuaPlugin.cpp \
-			../../src/TWScript.cpp
+			../../src/TWScript.cpp \
+			../../src/TWScriptAPI.cpp
+

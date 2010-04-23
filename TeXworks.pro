@@ -52,7 +52,7 @@ unix:!macx {
 }
 
 QT			+=	xml script scripttools
-CONFIG		+=	rtti
+CONFIG		+=	rtti uitools
 
 unix {
 	system(./getDefaultBinPaths.sh):warning("Unable to determine TeX path, guessing defaults")
@@ -70,6 +70,7 @@ macx {
 	INCLUDEPATH += /usr/local/include/poppler/qt4
 	INCLUDEPATH += /usr/local/include/hunspell
 
+	LIBS += /usr/lib/libQtUiTools.a
 	LIBS += -L/usr/local/lib
 	LIBS += -lpoppler
 	LIBS += -lpoppler-qt4
@@ -179,6 +180,7 @@ SOURCES	+=	src/main.cpp \
 			src/TWUtils.cpp \
 			src/TWScriptable.cpp \
 			src/TWScript.cpp \
+			src/TWScriptAPI.cpp \
 			src/TeXDocument.cpp \
 			src/CompletingEdit.cpp \
 			src/TeXHighlighter.cpp \
