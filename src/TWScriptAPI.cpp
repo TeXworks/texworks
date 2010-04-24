@@ -144,16 +144,16 @@ void TWScriptAPI::yield()
 	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 }
 	
-QVariant TWScriptAPI::progressDialog(QWidget * parent)
+QWidget * TWScriptAPI::progressDialog(QWidget * parent)
 {
 	QProgressDialog * dlg = new QProgressDialog(parent);
 	connect(this, SIGNAL(destroyed(QObject*)), dlg, SLOT(deleteLater()));
 	dlg->setCancelButton(NULL);
 	dlg->show();
-	return QVariant::fromValue(qobject_cast<QWidget*>(dlg));
+	return dlg;
 }
 	
-QVariant TWScriptAPI::createUIFromString(QString uiSpec, QWidget * parent)
+QWidget * TWScriptAPI::createUIFromString(const QString& uiSpec, QWidget * parent)
 {
 	QByteArray ba(uiSpec.toUtf8());
 	QBuffer buffer(&ba);
@@ -161,30 +161,30 @@ QVariant TWScriptAPI::createUIFromString(QString uiSpec, QWidget * parent)
 	QWidget *widget = loader.load(&buffer, parent);
 	if (widget)
 		widget->show();
-	return QVariant::fromValue(qobject_cast<QWidget*>(widget));
+	return widget;
 }
 
-QVariant TWScriptAPI::createUI(QString filename, QWidget * parent)
+QWidget * TWScriptAPI::createUI(const QString& filename, QWidget * parent)
 {
 	QFileInfo fi(QFileInfo(m_script->getFilename()).absoluteDir(), filename);
 	if (!fi.isReadable())
-		return QVariant();
+		return NULL;
 	QFile file(fi.canonicalFilePath());
 	QUiLoader loader;
 	QWidget *widget = loader.load(&file, parent);
 	if (widget)
 		widget->show();
-	return QVariant::fromValue(qobject_cast<QWidget*>(widget));
+	return widget;
 }
 	
-QVariant TWScriptAPI::findChildWidget(QWidget* parent, const QString& name)
+QWidget * TWScriptAPI::findChildWidget(QWidget* parent, const QString& name)
 {
 	QWidget* child = parent->findChild<QWidget*>(name);
-	return QVariant::fromValue(child);
+	return child;
 }
 	
-void TWScriptAPI::makeConnection(QObject* sender, QString signal, QObject* receiver, QString slot)
+bool TWScriptAPI::makeConnection(QObject* sender, const QString& signal, QObject* receiver, const QString& slot)
 {
-	QObject::connect(sender, QString("2%1").arg(signal).toUtf8().data(),
-					 receiver, QString("1%1").arg(slot).toUtf8().data());
+	return QObject::connect(sender, QString("2%1").arg(signal).toUtf8().data(),
+							receiver, QString("1%1").arg(slot).toUtf8().data());
 }
