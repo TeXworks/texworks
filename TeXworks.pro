@@ -104,6 +104,8 @@ linux-g++ {
 	# Qt/dbus config on Debian is broken, hence the lines below
 	LIBS		+= -lQtDBus
 	INCLUDEPATH	+= /usr/include/qt4/QtDBus
+	# needed to link successfully on Fedora, apparently
+	LIBS		+= -lz
 }
 
 openbsd-g++ {
