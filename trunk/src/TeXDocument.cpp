@@ -2286,7 +2286,6 @@ void TeXDocument::typeset()
 	QStringList env = QProcess::systemEnvironment();
 	QStringList binPaths = TWApp::instance()->getBinaryPaths(env);
 	
-	bool foundCommand = false;
 	QString exeFilePath = TWApp::instance()->findProgram(e.program(), binPaths);
 	
 	if (!exeFilePath.isEmpty()) {
