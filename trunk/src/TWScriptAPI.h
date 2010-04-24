@@ -80,6 +80,8 @@ public:
 				 int defaultButton = QMessageBox::NoButton);
 	
 	// QInputDialog functions
+	// These return QVariant rather than simple types, so that they can return null
+	// to indicate that the dialog was cancelled.
 	Q_INVOKABLE
 	QVariant getInt(QWidget* parent, const QString& title, const QString& label,
 					int value = 0, int min = -2147483647, int max = 2147483647, int step = 1);
@@ -98,22 +100,22 @@ public:
 	
 	// Allow script to create a QProgressDialog
 	Q_INVOKABLE
-	QVariant progressDialog(QWidget * parent);
+	QWidget * progressDialog(QWidget * parent);
 	
 	// functions to create windows from .ui data or files using QUiLoader
 	Q_INVOKABLE
-	QVariant createUIFromString(QString uiSpec, QWidget * parent = NULL);
+	QWidget * createUIFromString(const QString& uiSpec, QWidget * parent = NULL);
 
 	Q_INVOKABLE
-	QVariant createUI(QString filename, QWidget * parent = NULL);
+	QWidget * createUI(const QString& filename, QWidget * parent = NULL);
 	
 	// to find children of a widget
 	Q_INVOKABLE
-	QVariant findChildWidget(QWidget* parent, const QString& name);
+	QWidget * findChildWidget(QWidget* parent, const QString& name);
 	
 	// to make connections among widgets (or other objects)
 	Q_INVOKABLE
-	void makeConnection(QObject* sender, QString signal, QObject* receiver, QString slot);
+	bool makeConnection(QObject* sender, const QString& signal, QObject* receiver, const QString& slot);
 	
 
 protected:
