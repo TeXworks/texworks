@@ -131,7 +131,8 @@ TWScript::PropertyResult TWScript::doGetProperty(const QObject * obj, const QStr
 	int iProp, i;
 	QMetaProperty prop;
 	
-	if (!obj || !(obj->metaObject())) return Property_Invalid;
+	if (!obj || !(obj->metaObject()))
+		return Property_Invalid;
 	
 	// Get the parameters
 	iProp = obj->metaObject()->indexOfProperty(qPrintable(name));
@@ -161,17 +162,20 @@ TWScript::PropertyResult TWScript::doSetProperty(QObject * obj, const QString& n
 	int iProp;
 	QMetaProperty prop;
 	
-	if (!obj || !(obj->metaObject())) return Property_Invalid;
+	if (!obj || !(obj->metaObject()))
+		return Property_Invalid;
 	
 	iProp = obj->metaObject()->indexOfProperty(qPrintable(name));
 	
 	// if we didn't find the property abort
-	if (iProp < 0) return Property_DoesNotExist;
+	if (iProp < 0)
+		return Property_DoesNotExist;
 	
 	prop = obj->metaObject()->property(iProp);
 	
 	// If we can't set the property's value, abort
-	if (!prop.isWritable()) return Property_NotWritable;
+	if (!prop.isWritable())
+		return Property_NotWritable;
 	
 	prop.write(obj, value);
 	return Property_OK;
@@ -192,35 +196,48 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 	void * retValBuffer = NULL;
 	TWScript::MethodResult status;
 	
-	if (!obj || !(obj->metaObject())) return Method_Invalid;
+	if (!obj || !(obj->metaObject()))
+		return Method_Invalid;
 	
 	mo = obj->metaObject();
 	
 	for (i = 0; i < mo->methodCount(); ++i) {
 		mm = mo->method(i);
 		// Check for the method name
-		if (!QString(mm.signature()).startsWith(name + "(")) continue;
+		if (!QString(mm.signature()).startsWith(name + "("))
+			continue;
 		// we can only call public methods
-		if (mm.access() != QMetaMethod::Public) continue;
+		if (mm.access() != QMetaMethod::Public)
+			continue;
 		
 		methodExists = true;
 		
 		// we need the correct number of arguments
-		if (mm.parameterTypes().count() != arguments.count()) continue;
+		if (mm.parameterTypes().count() != arguments.count())
+			continue;
 		
 		// Check if the given arguments are compatible with those taken by the
 		// method
 		for (j = 0; j < arguments.count(); ++j) {
+			// QVariant can be passed as-is
+			if (mm.parameterTypes()[j] == "QVariant")
+				continue;
+			
 			type = QMetaType::type(mm.parameterTypes()[j]);
 			typeOfArg = (int)arguments[j].type();
-			if (typeOfArg == (int)type) continue;
-			if (arguments[j].canConvert((QVariant::Type)type)) continue;
+			if (typeOfArg == (int)type)
+				continue;
+			if (arguments[j].canConvert((QVariant::Type)type))
+				continue;
 			// QObject* and QWidget* may be convertible
-			if (typeOfArg == QMetaType::QWidgetStar && type == QMetaType::QObjectStar) continue;
-			if (typeOfArg == QMetaType::QObjectStar && type == QMetaType::QWidgetStar && qobject_cast<QWidget*>(arguments[j].value<QObject*>())) continue;
+			if (typeOfArg == QMetaType::QWidgetStar && type == QMetaType::QObjectStar)
+				continue;
+			if (typeOfArg == QMetaType::QObjectStar && type == QMetaType::QWidgetStar && qobject_cast<QWidget*>(arguments[j].value<QObject*>()))
+				continue;
 			break;
 		}
-		if (j < arguments.count()) continue;
+		if (j < arguments.count())
+			continue;
 		
 		// Convert the arguments into QGenericArgument structures
 		for (j = 0; j < arguments.count() && j < 10; ++j) {
@@ -231,6 +248,11 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 			// allocate type name on the heap so it survives the method call
 			strTypeName = new char[typeName.size() + 1];
 			strcpy(strTypeName, qPrintable(typeName));
+			
+			if (typeName == "QVariant") {
+				genericArgs.append(QGenericArgument(strTypeName, &arguments[j]));
+				continue;
+			}
 			
 			if (arguments[j].canConvert((QVariant::Type)type))
 				arguments[j].convert((QVariant::Type)type);
@@ -290,9 +312,11 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 				result = QVariant();
 			status = Method_OK;
 		}
-		else status = Method_Failed;
+		else
+			status = Method_Failed;
 		
-		if (retValBuffer) QMetaType::destroy(QMetaType::type(mm.typeName()), retValBuffer);
+		if (retValBuffer)
+			QMetaType::destroy(QMetaType::type(mm.typeName()), retValBuffer);
 		
 		for (j = 0; j < arguments.count() && j < 10; ++j) {
 			// we pushed the data on the heap, we need to remove it from there
@@ -302,6 +326,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 		return status;
 	}
 	
-	if (methodExists) return Method_WrongArgs;
+	if (methodExists)
+		return Method_WrongArgs;
 	return Method_DoesNotExist;
 }
