@@ -202,6 +202,7 @@ by
 win32 {
 	INCLUDEPATH += c:/texworks/lua5.1/include
 	LIBS += -Lc:/texworks/lua5.1 -llua5.1
+	LIBS += -lQtUiTools
 }
 }}}
 Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWLuaPlugin subdirectory. This should leave you with the file plugins-src\TWLuaPlugin\release\libTWLuaPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins (if it doesn't exist) and copy the file libTWLuaPlugin.dll into it. Finally restart !TeXworks.
@@ -222,6 +223,7 @@ by
 win32 {
 	INCLUDEPATH += c:/Python26/include
 	LIBS += -Lc:/Python26/libs -lpython26
+	LIBS += -lQtUiTools
 }
 }}}
 Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWPythonPlugin subdirectory. This should leave you with the file plugins-src\TWPythonPlugin\release\libTWPythonPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins (if it doesn't exist) and copy the file libTWPythonPlugin.dll into it. Finally restart !TeXworks.
