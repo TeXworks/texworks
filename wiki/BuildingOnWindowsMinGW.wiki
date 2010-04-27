@@ -127,6 +127,7 @@ win32 {
 	LIBS += -LC:/texworks/hunspell-1.2.8/src/hunspell/.libs
 	LIBS += -lpoppler-qt4
 	LIBS += -lhunspell-1.2
+	LIBS += -lQtUiTools
 
 	RC_FILE = res/TeXworks.rc
 
