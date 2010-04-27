@@ -1,5 +1,7 @@
 #summary Guide to building TeXworks on Windows XP using Microsoft Visual C++ 2008 Express Edition
-
+----
+*This guide is outdated, please use [BuildingOnWindowsMinGW] instead. If that is not an option for you, please write to the mailing list for further help.*
+----
 *Note:* An open source alternative to this guide is to use the gcc-based MinGW toolset; see the [BuildingOnWindowsMinGW] page for details.
 
 *Note:* At the moment, KDE on Windows seems to distribute only 32 bit versions of the libraries. If you are running a 64 bit system, this guide probably won't work.
