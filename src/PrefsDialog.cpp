@@ -403,8 +403,22 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	QStringList quotesModes = CompletingEdit::smartQuotesModes();
 	dlg.smartQuotes->addItems(quotesModes);
 
-	dlg.language->addItems(*TWUtils::getDictionaryList());
+	foreach (const QString& dict, *TWUtils::getDictionaryList()) {
+		QString label;			// the label for the menu item
+		QLocale loc(dict);
 	
+		if (loc.language() == QLocale::C)
+			label = dict;
+		else {
+			label = QLocale::languageToString(loc.language());
+			QLocale::Country country = loc.country();
+			if (country != QLocale::AnyCountry)
+				label += " - " + QLocale::countryToString(country);
+			label += " (" + dict + ")";
+		}
+		dlg.language->addItem(label, dict);
+	}
+		
 	QSETTINGS_OBJECT(settings);
 	// initialize controls based on the current settings
 	
@@ -487,8 +501,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.encoding->setCurrentIndex(nameList.indexOf(TWApp::instance()->getDefaultCodec()->name()));
 	dlg.highlightCurrentLine->setChecked(settings.value("highlightCurrentLine", kDefault_HighlightCurrentLine).toBool());
 
-	QString defLang = settings.value("language", tr("None")).toString();
-	int i = dlg.language->findText(settings.value("language", tr("None")).toString());
+	QString defDict = settings.value("language", "None").toString();
+	int i = dlg.language->findData(defDict);
 	if (i >= 0)
 		dlg.language->setCurrentIndex(i);
 
@@ -615,7 +629,15 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		font.setPointSize(dlg.fontSize->value());
 		settings.setValue("font", font.toString());
 		TWApp::instance()->setDefaultCodec(QTextCodec::codecForName(dlg.encoding->currentText().toAscii()));
-		settings.setValue("language", dlg.language->currentText());
+		if (dlg.language->currentIndex() >= 0) {
+			QVariant data = dlg.language->itemData(dlg.language->currentIndex());
+			if (data.isValid())
+				settings.setValue("language", data);
+			else
+				settings.setValue("language", "None");
+		}
+		else
+			settings.setValue("language", "None");
 		bool highlightLine = dlg.highlightCurrentLine->isChecked();
 		settings.setValue("highlightCurrentLine", highlightLine);
 		CompletingEdit::setHighlightCurrentLine(highlightLine);
