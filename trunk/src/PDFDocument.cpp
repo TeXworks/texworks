@@ -382,6 +382,11 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 				}
 				break;
 			case kMagnifier:
+				// Ensure we stop using the tool before hiding the magnifier.
+				// Otherwise other events in the queue may be processed between
+				// "close()" and "usingTool=" that could show the magnifier
+				// again
+				usingTool = kNone;
 				magnifier->close();
 				break;
 		}
