@@ -36,13 +36,15 @@ class TWScriptAPI : public QObject
     Q_PROPERTY(QObject* app READ GetApp);
 	Q_PROPERTY(QObject* target READ GetTarget);
 	Q_PROPERTY(QVariant result READ GetResult WRITE SetResult);
+	Q_PROPERTY(QObject * script READ GetScript);
 	
 public:
-	TWScriptAPI(const TWScript* script, QObject* twapp, QObject* ctx, QVariant& res);
+	TWScriptAPI(TWScript* script, QObject* twapp, QObject* ctx, QVariant& res);
 	
 public:
 	QObject* GetApp() { return m_app; }
 	QObject* GetTarget() { return m_target; }
+	QObject* GetScript() { return m_script; }
 	QVariant& GetResult() { return m_result; }
 	
 	void SetResult(const QVariant& rval);
@@ -119,7 +121,7 @@ public:
 	
 
 protected:
-	const TWScript* m_script;
+	TWScript* m_script;
 	QObject* m_app;
 	QObject* m_target;
 	QVariant& m_result;

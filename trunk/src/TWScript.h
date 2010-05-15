@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QString>
 #include <QFileInfo>
+#include <QDateTime>
 #include <QKeySequence>
 #include <QStringList>
 #include <QVariant>
@@ -66,6 +67,12 @@ public:
 	 */
 	void setEnabled(bool enable) { m_Enabled = enable; }
 	
+	/** \brief	Determine if the file has changed on the disk since it was last parsed
+	 *
+	 * \return	\c true if it has changed, \c false otherwise
+	 */
+	bool hasChanged() const;
+	
 	/** \brief Parse the script header
 	 *
 	 * \note	This method must be implemented in derived classes.
@@ -84,7 +91,7 @@ public:
 
 	/** \brief	Get the filename of the script
 	 *
-	 * \return	the filename
+	 * \return	the absolute filename
 	 */
 	const QString& getFilename() const { return m_Filename; }
 
@@ -150,7 +157,7 @@ public:
 	 * 					error description
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	bool run(QObject *context, QVariant& result) const;
+	bool run(QObject *context, QVariant& result);
 	
 	/** \brief Check if two scripts are the same
 	 *
@@ -159,6 +166,11 @@ public:
 	 * \return	\c true if *this == s, \c false otherwise
 	 */
 	bool operator==(const TWScript& s) const { return QFileInfo(m_Filename) == QFileInfo(s.m_Filename); }
+
+	Q_INVOKABLE void setGlobal(const QString& key, const QVariant& val);
+	Q_INVOKABLE bool hasGlobal(const QString& key) const { return m_globals.contains(key); }
+	Q_INVOKABLE QVariant getGlobal(const QString& key) const { return m_globals[key]; }
+
 
 protected:
 	/** \brief	Constructor
@@ -274,6 +286,9 @@ protected:
 	QKeySequence m_KeySequence;	///< the keyboard shortcut associated with this script
 
 	bool m_Enabled; ///< whether this script is enabled (runtime property, not stored in the script itself)
+
+private slots:
+	void globalDestroyed(QObject * obj);
 	
 private:
 	/** \brief	Constructor
@@ -281,6 +296,11 @@ private:
 	 * Private, to prevent inadvertent use of the no-arg constructor.
 	 */
 	TWScript() { }
+	
+	QDateTime m_LastModified;	///< keeps track of the file modification time so we can detect changes
+	qint64	m_FileSize;	///< similar to m_LastModified
+ 	
+ 	QHash<QString, QVariant> m_globals;
 };
 
 /** \brief	Interface all TW scripting plugins must implement */

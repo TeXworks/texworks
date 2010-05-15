@@ -136,7 +136,10 @@ public:
 		clipboard()->setText(str, mode);
 	}
 
-
+	Q_INVOKABLE void setGlobal(const QString& key, const QVariant& val);
+	Q_INVOKABLE bool hasGlobal(const QString& key) const { return m_globals.contains(key); }
+	Q_INVOKABLE QVariant getGlobal(const QString& key) const { return m_globals[key]; }
+	
 #ifdef Q_WS_MAC
 private:
 	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
@@ -225,6 +228,8 @@ private slots:
 
 	void changeLanguage();
 
+	void globalDestroyed(QObject * obj);
+
 protected:
 	virtual bool event(QEvent *);
 
@@ -248,6 +253,8 @@ private:
 	QSettings::Format settingsFormat;
 	
 	TWScriptManager *scriptManager;
+
+ 	QHash<QString, QVariant> m_globals;
 	
 #ifdef Q_WS_WIN
 	HWND messageTargetWindow;
