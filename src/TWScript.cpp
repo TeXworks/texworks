@@ -29,14 +29,20 @@
 #include <QTextCodec>
 
 TWScript::TWScript(TWScriptLanguageInterface *interface, const QString& fileName)
-	: m_Interface(interface), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true)
+	: m_Interface(interface), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true), m_FileSize(0)
 {
 }
 
-bool TWScript::run(QObject *context, QVariant& result) const
+bool TWScript::run(QObject *context, QVariant& result)
 {
 	TWScriptAPI tw(this, qApp, context, result);
 	return execute(&tw);
+}
+
+bool TWScript::hasChanged() const
+{
+	QFileInfo fi(m_Filename);
+	return (fi.size() != m_FileSize || fi.lastModified() != m_LastModified);
 }
 
 bool TWScript::doParseHeader(const QString& beginComment, const QString& endComment,
@@ -103,6 +109,10 @@ bool TWScript::doParseHeader(const QString& beginComment, const QString& endComm
 bool TWScript::doParseHeader(const QStringList & lines)
 {
 	QString line, key, value;
+	QFileInfo fi(m_Filename);
+	
+	m_FileSize = fi.size();
+	m_LastModified = fi.lastModified();
 	
 	foreach (line, lines) {
 		key = line.section(':', 0, 0).trimmed();
@@ -253,7 +263,6 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 				genericArgs.append(QGenericArgument(strTypeName, &arguments[j]));
 				continue;
 			}
-			
 			if (arguments[j].canConvert((QVariant::Type)type))
 				arguments[j].convert((QVariant::Type)type);
 			else if (typeOfArg == QMetaType::QWidgetStar && type == QMetaType::QObjectStar)
@@ -330,3 +339,50 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 		return Method_WrongArgs;
 	return Method_DoesNotExist;
 }
+
+void TWScript::setGlobal(const QString& key, const QVariant& val)
+{
+	QVariant v = val;
+
+	if (key.isEmpty())
+		return;
+
+	// For objects on the heap make sure we are notified when their lifetimes
+	// end so that we can remove them from our hash accordingly
+	switch (val.type()) {
+		case QMetaType::QObjectStar:
+			connect(v.value<QObject*>(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
+			break;
+		case QMetaType::QWidgetStar:
+			connect((QWidget*)v.data(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
+			break;
+		default: break;
+	}
+	m_globals[key] = v;
+}
+
+void TWScript::globalDestroyed(QObject * obj)
+{
+	QHash<QString, QVariant>::iterator i = m_globals.begin();
+	
+	while (i != m_globals.end()) {
+		switch (i.value().type()) {
+			case QMetaType::QObjectStar:
+				if (i.value().value<QObject*>() == obj)
+					i = m_globals.erase(i);
+				else
+					++i;
+				break;
+			case QMetaType::QWidgetStar:
+				if (i.value().value<QWidget*>() == obj)
+					i = m_globals.erase(i);
+				else
+					++i;
+				break;
+			default:
+				++i;
+				break;
+		}
+	}
+}
+

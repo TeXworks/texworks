@@ -32,7 +32,7 @@
 #include <QBuffer>
 #include <QDir>
 
-TWScriptAPI::TWScriptAPI(const TWScript* script, QObject* twapp, QObject* ctx, QVariant& res)
+TWScriptAPI::TWScriptAPI(TWScript* script, QObject* twapp, QObject* ctx, QVariant& res)
 	: m_script(script),
 	  m_app(twapp),
 	  m_target(ctx),

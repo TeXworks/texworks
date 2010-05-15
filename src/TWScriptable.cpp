@@ -112,7 +112,7 @@ TWScript* JSScriptInterface::newScript(const QString& fileName)
 TWScriptManager::TWScriptManager()
 {
 	loadPlugins();
-	loadScripts();
+	reloadScripts();
 }
 
 void
@@ -192,20 +192,57 @@ void TWScriptManager::loadPlugins()
 	}
 }
 
-void TWScriptManager::loadScripts()
+void TWScriptManager::reloadScripts(bool forceAll /*= false*/)
 {
 	QSETTINGS_OBJECT(settings);
 	QStringList disabled = settings.value("disabledScripts", QStringList()).toStringList();
+	QStringList processed;
 	
 	// canonicalize the paths
 	QDir scriptsDir(TWUtils::getLibraryPath("scripts"));
 	for (int i = 0; i < disabled.size(); ++i)
 		disabled[i] = QFileInfo(scriptsDir.absoluteFilePath(disabled[i])).canonicalFilePath();
-	
-	addScriptsInDirectory(scriptsDir, disabled);
+
+	if (forceAll)
+		clear();
+
+	reloadScriptsInList(&m_Scripts, processed);
+	reloadScriptsInList(&m_Hooks, processed);
+
+	addScriptsInDirectory(scriptsDir, disabled, processed);
 	
 	ScriptManager::refreshScriptList();
 }
+
+void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & processed)
+{
+	foreach(QObject * item, list->children()) {
+		if (qobject_cast<TWScriptList*>(item))
+			reloadScriptsInList(qobject_cast<TWScriptList*>(item), processed);
+		else if(qobject_cast<TWScript*>(item)) {
+			TWScript * s = qobject_cast<TWScript*>(item);
+			if (s->hasChanged()) {
+				// File has been removed
+				if (!(QFileInfo(s->getFilename()).exists())) {
+					delete s;
+					continue;
+				}
+				// File has been changed - reparse; if an error occurs or the
+				// script type has changed treat it as if has been removed (and
+				// possibly re-add it later)
+				TWScript::ScriptType oldType = s->getType();
+				if (!s->parseHeader() || s->getType() != oldType) {
+					delete s;
+					continue;
+				}
+			}
+			processed << s->getFilename();
+		}
+		else {
+		} // should never happen
+	}
+}
+
 
 void TWScriptManager::clear()
 {
@@ -218,6 +255,8 @@ void TWScriptManager::clear()
 
 bool TWScriptManager::addScript(QObject* scriptList, TWScript* script)
 {
+	/// \TODO This no longer works since we introduced multiple levels of scripts
+/*
 	foreach (QObject* obj, scriptList->children()) {
 		TWScript *s = qobject_cast<TWScript*>(obj);
 		if (!s)
@@ -225,7 +264,7 @@ bool TWScriptManager::addScript(QObject* scriptList, TWScript* script)
 		if (*s == *script)
 			return false;
 	}
-	
+*/
 	script->setParent(scriptList);
 	return true;
 }
@@ -233,20 +272,24 @@ bool TWScriptManager::addScript(QObject* scriptList, TWScript* script)
 void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 											TWScriptList *hookList,
 											const QDir& dir,
-											const QStringList& disabled)
+											const QStringList& disabled,
+											const QStringList& ignore)
 {
 	foreach (const QFileInfo& info,
 			 dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Readable, QDir::DirsLast)) {
 		if (info.isDir()) {
 			TWScriptList *subScriptList = new TWScriptList(scriptList, info.fileName());
 			TWScriptList *subHookList = new TWScriptList(hookList, info.fileName());
-			addScriptsInDirectory(subScriptList, subHookList, info.absoluteFilePath(), disabled);
+			addScriptsInDirectory(subScriptList, subHookList, info.absoluteFilePath(), disabled, ignore);
 			if (subScriptList->children().isEmpty())
 				delete subScriptList;
 			if (subHookList->children().isEmpty())
 				delete subHookList;
 			continue;
 		}
+		
+		if (ignore.contains(info.absoluteFilePath()))
+			continue;
 
 		foreach (TWScriptLanguageInterface* i, scriptLanguages) {
 			if (!i->canHandleFile(info))
