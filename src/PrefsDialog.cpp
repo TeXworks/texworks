@@ -383,7 +383,7 @@ void PrefsDialog::initPathAndToolLists()
 
 const int kSystemLocaleIndex = 0;
 const int kEnglishLocaleIndex = 1;
-const int kFirstTranslationIndex = 2;
+const int kFirstTranslationIndex = 1;
 
 QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 {
@@ -453,7 +453,6 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	QString oldLocale = settings.value("locale").toString();
 	// System and English are predefined at index 0 and 1 (see constants above)
 	dlg.localePopup->addItem(tr("System default [%1]").arg(QLocale::languageToString(QLocale(QLocale::system().name()).language())));
-	dlg.localePopup->addItem("English");	// we don't localize locale names for now
 	int oldLocaleIndex = oldLocale.isEmpty() ? kSystemLocaleIndex : kEnglishLocaleIndex;
 	QStringList *trList = TWUtils::getTranslationList();
 	QStringList::ConstIterator iter;
@@ -603,10 +602,6 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 						TWApp::instance()->applyTranslation(locale);
 						settings.remove("locale");
 					}
-					break;
-				case kEnglishLocaleIndex: // built-in English
-					TWApp::instance()->applyTranslation(QString());
-					settings.setValue("locale", "en");
 					break;
 				default:
 					{

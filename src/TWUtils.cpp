@@ -303,6 +303,10 @@ QStringList* TWUtils::getTranslationList()
 			*translationList << locName;
 	}
 	
+	// English is always available, and it has to be the first item
+	translationList->removeAll("en");
+	translationList->prepend("en");
+	
 	return translationList;
 }
 
