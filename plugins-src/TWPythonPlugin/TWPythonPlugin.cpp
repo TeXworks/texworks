@@ -74,9 +74,6 @@ static void QObjectMethodDealloc(pyQObjectMethodObject * self) {
 
 TWPythonPlugin::TWPythonPlugin()
 {
-	// Base class constructor
-	QObject::QObject();
-	
 	// Initialize the python interpretor
 	Py_Initialize();
 }
@@ -328,6 +325,7 @@ int PythonScript::setAttribute(PyObject * o, PyObject * attr_name, PyObject * v)
 /*static*/
 PyObject * PythonScript::callMethod(PyObject * o, PyObject * pyArgs, PyObject * kw)
 {
+	Q_UNUSED(kw)
 	QObject * obj;
 	QString methodName;
 	QVariantList args;
