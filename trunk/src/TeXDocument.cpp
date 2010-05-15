@@ -366,14 +366,28 @@ void TeXDocument::init()
 	QActionGroup *group = new QActionGroup(this);
 	group->addAction(actionNone);
 
-	QString defLang = settings.value("language", tr("None")).toString();
-	foreach (QString lang, *TWUtils::getDictionaryList()) {
-		QAction *act = menuSpelling->addAction(lang);
+	QString defDict = settings.value("language", "None").toString();
+	foreach (const QString& dict, *TWUtils::getDictionaryList()) {
+		QAction *act;
+		QString label;
+		QLocale loc(dict);
+	
+		if (loc.language() == QLocale::C)
+			label = dict;
+		else {
+			label = QLocale::languageToString(loc.language());
+			QLocale::Country country = loc.country();
+			if (country != QLocale::AnyCountry)
+				label += " - " + QLocale::countryToString(country);
+			label += " (" + dict + ")";
+		}
+		act = menuSpelling->addAction(label);
+
 		act->setCheckable(true);
 		connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
-		mapper->setMapping(act, lang);
+		mapper->setMapping(act, dict);
 		group->addAction(act);
-		if (lang == defLang)
+		if (dict == defDict)
 			act->trigger();
 	}
 	
