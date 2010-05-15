@@ -132,7 +132,7 @@ protected:
 	 * \note	Calling by keywords is currently not supported
 	 * \param	o		the pyQObjectMethodObject to call
 	 * \param	pyArgs	python tuple of arguments
-	 * \param	kw		dictionary of key-value argument pairs
+	 * \param	kw		dictionary of key-value argument pairs (not supported)
 	 * \return	the return value of the method (PyNone for void functions) on
 	 * 			success, \c NULL if an error occured
 	 */

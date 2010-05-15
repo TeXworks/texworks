@@ -30,9 +30,6 @@
 
 TWLuaPlugin::TWLuaPlugin()
 {
-	// Base class constructor
-	QObject::QObject();
-	
 	// Initialize lua state
 	luaState = luaL_newstate();
 	if (luaState) {
