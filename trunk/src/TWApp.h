@@ -27,6 +27,8 @@
 #include <QAction>
 #include <QSettings>
 #include <QClipboard>
+#include <QVariant>
+#include <QHash>
 
 #include "TWUtils.h"
 #include "TWScriptable.h"

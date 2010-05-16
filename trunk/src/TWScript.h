@@ -29,6 +29,7 @@
 #include <QKeySequence>
 #include <QStringList>
 #include <QVariant>
+#include <QHash>
 
 class TWScriptLanguageInterface;
 class TWScriptAPI;
