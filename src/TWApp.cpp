@@ -56,13 +56,6 @@
 #include "GlobalParams.h"
 #endif
 
-#ifndef TW_BUILD_ID
-#define TW_BUILD_ID unknown build
-#endif
-#define STRINGIFY_2(s) #s
-#define STRINGIFY(s) STRINGIFY_2(s)
-#define TW_BUILD_ID_STR STRINGIFY(TW_BUILD_ID)
-
 #ifdef Q_WS_MAC
 #include <CoreServices/CoreServices.h>
 #endif
@@ -630,20 +623,22 @@ void TWApp::open()
 	}
 }
 
-QObject* TWApp::openFile(const QString &fileName)
+QObject* TWApp::openFile(const QString &fileName, int pos /* = 0 */)
 {
 	if (TWUtils::isPDFfile(fileName)) {
 		PDFDocument *doc = PDFDocument::findDocument(fileName);
 		if (doc == NULL)
 			doc = new PDFDocument(fileName);
 		if (doc != NULL) {
+			if (pos > 0)
+				doc->widget()->goToPage(pos - 1);
 			doc->selectWindow();
 			return doc;
 		}
 		return NULL;
 	}
 	else
-		return TeXDocument::openDocument(fileName);
+		return TeXDocument::openDocument(fileName, true, true, pos, 0, 0);
 }
 
 void TWApp::preferences()
@@ -1125,8 +1120,11 @@ LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 				const COPYDATASTRUCT* pcds = (const COPYDATASTRUCT*)lParam;
 				if (pcds->dwData == TW_OPEN_FILE_MSG) {
 					if (TWApp::instance() != NULL) {
-						QString fileName = QString::fromLocal8Bit((const char*)pcds->lpData, pcds->cbData);
-						TWApp::instance()->openFile(fileName);
+						QStringList data = QString::fromUtf8((const char*)pcds->lpData, pcds->cbData).split('\n');
+						if (data.size() == 1)
+							TWApp::instance()->openFile(data[0]);
+						else
+							TWApp::instance()->openFile(data[0], data[1].toInt());
 					}
 				}
 			}

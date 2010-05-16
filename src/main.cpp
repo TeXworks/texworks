@@ -21,6 +21,8 @@
 
 #include "TWApp.h"
 #include "TWVersion.h"
+#include "CommandlineParser.h"
+#include "SvnRev.h"
 
 #include <QTimer>
 #include <QTextCodec>
@@ -34,8 +36,59 @@ BOOL CALLBACK enumThreadWindowProc(HWND hWnd, LPARAM /*lParam*/)
 }
 #endif
 
+struct fileToOpenStruct{
+	QString filename;
+	int position;
+};
+
 int main(int argc, char *argv[])
 {
+	TWApp app(argc, argv);
+
+	CommandlineParser clp;
+	QList<fileToOpenStruct> filesToOpen;
+	fileToOpenStruct fileToOpen;
+	
+	clp.registerSwitch("help", "Display this message", "?");
+	clp.registerOption("position", "Open the following file at the given position (line or page)", "p");
+	clp.registerSwitch("version", "Display version information", "v");
+
+	int pos;
+	int numArgs = 0;
+	bool launchApp = true;
+	if (clp.parse()) {
+		int i, j;
+		while ((i = clp.getNextArgument()) >= 0) {
+			++numArgs;
+			pos = -1;
+			if ((j = clp.getPrevOption("position", i)) >= 0) {
+				pos = clp.at(j).value.toInt();
+				clp.at(j).processed = true;
+			}
+			CommandlineParser::CommandlineItem & item = clp.at(i);
+			item.processed = true;
+
+			fileToOpen.filename = item.value.toString();
+			fileToOpen.position = pos;
+			filesToOpen << fileToOpen;
+		}
+		if ((i = clp.getNextSwitch("version")) >= 0) {
+			if (numArgs == 0)
+				launchApp = false;
+			clp.at(i).processed = true;
+			QTextStream strm(stdout);
+			strm << QObject::tr("TeXworks %1r%2 (%3)\n").arg(TEXWORKS_VERSION).arg(SVN_REVISION_STR).arg(TW_BUILD_ID_STR);
+			strm.flush();
+		}
+		if ((i = clp.getNextSwitch("help")) >= 0) {
+			if (numArgs == 0)
+				launchApp = false;
+			clp.at(i).processed = true;
+			QTextStream strm(stdout);
+			clp.printUsage(strm);
+		}
+	}
+
 #ifdef Q_WS_WIN // single-instance code for Windows
 #define TW_MUTEX_NAME		"org.tug.texworks-" TEXWORKS_VERSION
 	HANDLE hMutex = CreateMutexA(NULL, FALSE, TW_MUTEX_NAME);
@@ -50,11 +103,11 @@ int main(int argc, char *argv[])
 				DWORD thread = GetWindowThreadProcessId(hWnd, NULL);
 				(void)EnumThreadWindows(thread, &enumThreadWindowProc, 0);
 				// send each cmd-line arg as a WM_COPYDATA message to load a file
-				for (int i = 1; i < argc; ++i) {
-					QFileInfo fi(QString::fromLocal8Bit(argv[i]));
+				foreach(fileToOpen, filesToOpen) {
+					QFileInfo fi(fileToOpen.filename);
 					if (!fi.exists())
 						continue;
-					QByteArray ba = fi.absoluteFilePath().toLocal8Bit();
+					QByteArray ba = fi.absoluteFilePath().toUtf8() + "\n" + QByteArray::number(fileToOpen.position);
 					COPYDATASTRUCT cds;
 					cds.dwData = TW_OPEN_FILE_MSG;
 					cds.cbData = ba.length();
@@ -72,18 +125,16 @@ int main(int argc, char *argv[])
 	}
 #endif
 
-	TWApp app(argc, argv);
-
 #ifdef Q_WS_X11
 	if (QDBusConnection::sessionBus().registerService(TW_SERVICE_NAME) == false) {
 		QDBusInterface	interface(TW_SERVICE_NAME, TW_APP_PATH, TW_INTERFACE_NAME);
 		if (interface.isValid()) {
 			interface.call("bringToFront");
-			for (int i = 1; i < argc; ++i) {
-				QFileInfo fi(QString::fromLocal8Bit(argv[i]));
+			foreach(fileToOpen, filesToOpen) {
+				QFileInfo fi(fileToOpen.filename);
 				if (!fi.exists())
 					continue;
-				interface.call("openFile", fi.absoluteFilePath());
+				interface.call("openFile", fi.absoluteFilePath(), fileToOpen.position);
 			}
 		}
 		return 0;
@@ -97,13 +148,15 @@ int main(int argc, char *argv[])
 	}
 #endif
 
-	// first argument is the executable name, so we skip that
-	for (int i = 1; i < argc; ++i)
-		app.openFile(QTextCodec::codecForLocale()->toUnicode(argv[i]));
+	int rval = 0;
+	if (launchApp) {
+		foreach (fileToOpen, filesToOpen) {
+			app.openFile(fileToOpen.filename, fileToOpen.position);
+		}
 
-	QTimer::singleShot(1, &app, SLOT(launchAction()));
-
-	int rval = app.exec();
+		QTimer::singleShot(1, &app, SLOT(launchAction()));
+		rval = app.exec();
+	}
 
 #ifdef Q_WS_WIN
 	CloseHandle(hMutex);

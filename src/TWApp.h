@@ -39,6 +39,13 @@
 #define EXE
 #endif
 
+#ifndef TW_BUILD_ID
+#define TW_BUILD_ID unknown build
+#endif
+#define STRINGIFY_2(s) #s
+#define STRINGIFY(s) STRINGIFY_2(s)
+#define TW_BUILD_ID_STR STRINGIFY(TW_BUILD_ID)
+
 class QString;
 class QMenu;
 class QMenuBar;
@@ -189,7 +196,7 @@ public slots:
 	void stackWindows();
 	void tileWindows();
 
-	QObject* openFile(const QString& fileName);
+	QObject* openFile(const QString& fileName, const int pos = -1);
 
 	QString getOpenFileName(QString selectedFilter = QString());
 	QStringList getOpenFileNames(QString selectedFilter = QString());
@@ -289,8 +296,8 @@ public:
 		{ }
 	
 public slots:
-	Q_NOREPLY void openFile(const QString& fileName)
-		{ app->openFile(fileName); }
+	Q_NOREPLY void openFile(const QString& fileName, const int position = -1)
+		{ app->openFile(fileName, position); }
 	Q_NOREPLY void bringToFront()
 		{ app->bringToFront(); }
 };

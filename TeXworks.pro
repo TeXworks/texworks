@@ -148,6 +148,7 @@ HEADERS	+=	src/TWApp.h \
 			src/TWScript.h \
 			src/TWScriptAPI.h \
 			src/TeXDocument.h \
+			src/CommandlineParser.h \
 			src/CompletingEdit.h \
 			src/TeXHighlighter.h \
 			src/TeXDocks.h \
@@ -184,6 +185,7 @@ SOURCES	+=	src/main.cpp \
 			src/TWScript.cpp \
 			src/TWScriptAPI.cpp \
 			src/TeXDocument.cpp \
+			src/CommandlineParser.cpp \
 			src/CompletingEdit.cpp \
 			src/TeXHighlighter.cpp \
 			src/TeXDocks.cpp \
