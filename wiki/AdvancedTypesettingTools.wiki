@@ -87,7 +87,7 @@ Create a file "tex-dvips-ps2pdf.sh" containing
 {{{
 #!/bin/sh
 
-tex -synctex=1 "%1.tex" && dvips "%1.dvi" && "%1.ps"
+tex -synctex=1 "$1.tex" && dvips "$1.dvi" && "$1.ps"
 }}}
 and make it executable (e.g. by running `chmod +x tex-dvips-ps2pdf.sh` from a terminal window).
 
@@ -123,7 +123,7 @@ Create a file "latex-dvips-ps2pdf.sh" containing
 {{{
 #!/bin/sh
 
-latex -synctex=1 "%1.tex" && dvips "%1.dvi" && ps2pdf "%1.ps"
+latex -synctex=1 "$1.tex" && dvips "$1.dvi" && ps2pdf "$1.ps"
 }}}
 and make it executable (e.g. by running `chmod +x latex-dvips-ps2pdf.sh` from a terminal window).
 
@@ -183,7 +183,7 @@ Create a file "tex-dvips.sh" containing
 {{{
 #!/bin/sh
 
-tex "%1.tex" && dvips "%1.dvi"
+tex "$1.tex" && dvips "$1.dvi"
 }}}
 and make it executable (e.g. by running `chmod +x tex-dvips.sh` from a terminal window).
 
@@ -211,7 +211,7 @@ Create a file "latex-dvips.sh" containing
 {{{
 #!/bin/sh
 
-latex "%1.tex" && dvips "%1.dvi"
+latex "$1.tex" && dvips "$1.dvi"
 }}}
 and make it executable (e.g. by running `chmod +x latex-dvips.sh` from a terminal window).
 
