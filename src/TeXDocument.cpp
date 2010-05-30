@@ -2302,6 +2302,11 @@ void TeXDocument::typeset()
 	
 	QString exeFilePath = TWApp::instance()->findProgram(e.program(), binPaths);
 	
+#ifndef Q_WS_MAC // not supported on OS X yet :(
+	// Add a (customized) TEXEDIT environment variable
+	env << QString("TEXEDIT=%1 --position=%%d %%s").arg(QCoreApplication::applicationFilePath());
+#endif
+	
 	if (!exeFilePath.isEmpty()) {
 		QStringList args = e.arguments();
 		
