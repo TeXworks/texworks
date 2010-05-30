@@ -93,6 +93,10 @@ TeXDocument::~TeXDocument()
 	updateWindowMenu();
 }
 
+static bool dictActionLessThan(const QAction * a1, const QAction * a2) {
+	return a1->text().toLower() < a2->text().toLower();
+}
+
 void TeXDocument::init()
 {
 	codec = TWApp::instance()->getDefaultCodec();
@@ -367,11 +371,18 @@ void TeXDocument::init()
 	group->addAction(actionNone);
 
 	QString defDict = settings.value("language", "None").toString();
-	foreach (const QString& dict, *TWUtils::getDictionaryList()) {
-		QAction *act;
-		QString label;
-		QLocale loc(dict);
 	
+	QList<QAction*> dictActions;
+	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
+		QAction *act;
+		QString dict, label;
+		QLocale loc;
+
+		foreach (dict, TWUtils::getDictionaryList()->values(dictKey)) {
+			loc = QLocale(dict);
+			if (loc.language() != QLocale::C) break;
+		}
+
 		if (loc.language() == QLocale::C)
 			label = dict;
 		else {
@@ -381,16 +392,20 @@ void TeXDocument::init()
 				label += " - " + QLocale::countryToString(country);
 			label += " (" + dict + ")";
 		}
-		act = menuSpelling->addAction(label);
 
+		act = new QAction(label, NULL);
 		act->setCheckable(true);
 		connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
 		mapper->setMapping(act, dict);
 		group->addAction(act);
-		if (dict == defDict)
+		if (TWUtils::getDictionaryList()->values(dictKey).contains(defDict))
 			act->trigger();
+		dictActions << act;
 	}
-	
+	qSort(dictActions.begin(), dictActions.end(), dictActionLessThan);
+	foreach (QAction* dictAction, dictActions)
+		menuSpelling->addAction(dictAction);
+
 	menuShow->addAction(toolBar_run->toggleViewAction());
 	menuShow->addAction(toolBar_edit->toggleViewAction());
 	menuShow->addSeparator();

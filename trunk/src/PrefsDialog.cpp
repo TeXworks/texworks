@@ -385,6 +385,13 @@ const int kSystemLocaleIndex = 0;
 const int kEnglishLocaleIndex = 1;
 const int kFirstTranslationIndex = 1;
 
+typedef QPair<QString, QString> DictPair;
+
+static bool dictPairLessThan(const DictPair& d1, const DictPair& d2)
+{
+	return d1.first.toLower() < d2.first.toLower();
+}
+
 QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 {
 	PrefsDialog dlg(NULL);
@@ -403,10 +410,16 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	QStringList quotesModes = CompletingEdit::smartQuotesModes();
 	dlg.smartQuotes->addItems(quotesModes);
 
-	foreach (const QString& dict, *TWUtils::getDictionaryList()) {
-		QString label;			// the label for the menu item
-		QLocale loc(dict);
-	
+	QList< DictPair > dictList;
+	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
+		QString dict, label;
+		QLocale loc;
+
+		foreach (dict, TWUtils::getDictionaryList()->values(dictKey)) {
+			loc = QLocale(dict);
+			if (loc.language() != QLocale::C) break;
+		}
+
 		if (loc.language() == QLocale::C)
 			label = dict;
 		else {
@@ -416,8 +429,12 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 				label += " - " + QLocale::countryToString(country);
 			label += " (" + dict + ")";
 		}
-		dlg.language->addItem(label, dict);
+
+		dictList << qMakePair(label, dict);
 	}
+	qSort(dictList.begin(), dictList.end(), dictPairLessThan);
+	foreach (const DictPair& dict, dictList)
+		dlg.language->addItem(dict.first, dict.second);
 		
 	QSETTINGS_OBJECT(settings);
 	// initialize controls based on the current settings
