@@ -310,20 +310,23 @@ QStringList* TWUtils::getTranslationList()
 	return translationList;
 }
 
-QStringList* TWUtils::dictionaryList = NULL;
+QHash<QString, QString>* TWUtils::dictionaryList = NULL;
 
-QStringList* TWUtils::getDictionaryList()
+QHash<QString, QString>* TWUtils::getDictionaryList(const bool forceReload /*= false*/)
 {
-	if (dictionaryList != NULL)
-		return dictionaryList;
+	if (dictionaryList != NULL) {
+		if (!forceReload)
+			return dictionaryList;
+		delete dictionaryList;
+	}
 
-	dictionaryList = new QStringList;
+	dictionaryList = new QHash<QString, QString>();
 	QDir dicDir(TWUtils::getLibraryPath("dictionaries"));
 	foreach (QFileInfo affFileInfo, dicDir.entryInfoList(QStringList("*.aff"),
 				QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
 		QFileInfo dicFileInfo(affFileInfo.dir(), affFileInfo.completeBaseName() + ".dic");
 		if (dicFileInfo.isReadable())
-			*dictionaryList << dicFileInfo.completeBaseName();
+			dictionaryList->insertMulti(affFileInfo.canonicalFilePath(), affFileInfo.completeBaseName());
 	}
 	
 	return dictionaryList;

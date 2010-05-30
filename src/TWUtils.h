@@ -61,7 +61,7 @@ public:
 	static QStringList *getTranslationList();
 	
 	// get list of available dictionaries
-	static QStringList *getDictionaryList();
+	static QHash<QString, QString> *getDictionaryList(const bool forceReload = false);
 	
 	// get dictionary for a given language
 	static Hunhandle *getDictionary(const QString& language);
@@ -113,9 +113,9 @@ public:
 private:
 	TWUtils();
 
-	static QList<QTextCodec*>	*codecList;
-	static QStringList			*dictionaryList;
-	static QStringList			*translationList;
+	static QList<QTextCodec*>		*codecList;
+	static QHash<QString, QString>	*dictionaryList;
+	static QStringList				*translationList;
 
 	static QHash<const QString,Hunhandle*>	*dictionaries;
 
