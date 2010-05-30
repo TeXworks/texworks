@@ -269,6 +269,17 @@ bool TWScriptManager::addScript(QObject* scriptList, TWScript* script)
 	return true;
 }
 
+static bool scriptListLessThan(const TWScriptList* l1, const TWScriptList* l2)
+{
+	return l1->getName().toLower() < l2->getName().toLower();
+}
+
+static bool scriptLessThan(const TWScript* s1, const TWScript* s2)
+{
+	return s1->getTitle().toLower() < s2->getTitle().toLower();
+}
+
+
 void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 											TWScriptList *hookList,
 											const QDir& dir,
@@ -318,6 +329,42 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 			}
 		}
 	}
+	
+	// perform custom sorting
+	// since QObject::children() is const, we have to work around that limitation
+	// by unsetting all parents first, sort, and finally reset parents in the
+	// correct order
+
+	QList<TWScriptList*> childLists; 
+	QList<TWScript*> childScripts;
+
+	// Note: we can't use QObject::findChildren here because it's recursive
+	const QObjectList& children = scriptList->children();
+	foreach (QObject *obj, children) {
+		if (TWScript *script = qobject_cast<TWScript*>(obj))
+			childScripts.append(script);
+		else if (TWScriptList *list = qobject_cast<TWScriptList*>(obj))
+			childLists.append(list);
+		else { // shouldn't happen
+		}
+	}
+	
+	// unset parents; this effectively removes the objects from
+	// scriptList->children()
+	foreach (TWScript* childScript, childScripts)
+		childScript->setParent(NULL);
+	foreach (TWScriptList* childList, childLists)
+		childList->setParent(NULL);
+	
+	// sort the sublists
+	qSort(childLists.begin(), childLists.end(), scriptListLessThan);
+	qSort(childScripts.begin(), childScripts.end(), scriptLessThan);
+	
+	// add the scripts again, one-by-one
+	foreach (TWScript* childScript, childScripts)
+		childScript->setParent(scriptList);
+	foreach (TWScriptList* childList, childLists)
+		childList->setParent(scriptList);
 }
 
 QList<TWScript*> TWScriptManager::getHookScripts(const QString& hook) const
