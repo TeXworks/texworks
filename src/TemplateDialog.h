@@ -44,6 +44,7 @@ public:
 
 private slots:
 	void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+	void itemActivated(const QModelIndex & index);
 	
 private:
 	void init();
