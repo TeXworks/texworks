@@ -750,7 +750,10 @@ bool TeXDocument::saveAs()
 			fileName.append(ext);
 	}
 	
-	if (fileName != curFile) {
+	if (fileName != curFile && pdfDoc) {
+		// For the pdf, it is as if it's source doc was closed
+		// Note that this may result in the pdf being closed!
+		pdfDoc->texClosed(this);
 		// The pdf connection is no longer (necessarily) valid. Detach it for
 		// now (the correct connection will be reestablished on next typeset).
 		detachPdf();
