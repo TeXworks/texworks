@@ -441,7 +441,7 @@ QString TWApp::findProgram(const QString& program, const QStringList& binPaths)
 		}
 #endif
 	}
-	return found ? fileInfo.absoluteFilePath() : QString();
+	return found ? fileInfo.canonicalFilePath() : QString();
 }
 
 void TWApp::writeToMailingList()
