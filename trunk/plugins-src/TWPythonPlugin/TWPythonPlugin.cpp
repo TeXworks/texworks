@@ -453,6 +453,8 @@ QVariant PythonScript::PythonToVariant(PyObject * o)
 	Py_ssize_t i = 0;
 	QString str;
 
+	if (o == Py_None)
+		return QVariant();
 	// in Python 3.x, the PyInt_* were removed in favor of PyLong_*
 #if PY_MAJOR_VERSION < 3
 	if (PyInt_Check(o)) return QVariant((int)PyInt_AsLong(o));
