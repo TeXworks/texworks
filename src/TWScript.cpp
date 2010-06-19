@@ -205,6 +205,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 	QGenericReturnArgument retValArg;
 	void * retValBuffer = NULL;
 	TWScript::MethodResult status;
+	void * myNullPtr = NULL;
 	
 	if (!obj || !(obj->metaObject()))
 		return Method_Invalid;
@@ -239,10 +240,13 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 				continue;
 			if (arguments[j].canConvert((QVariant::Type)type))
 				continue;
+			// allow invalid===NULL for pointers
+			if (typeOfArg == QVariant::Invalid && (type == QMetaType::QObjectStar || QMetaType::QWidgetStar))
+				continue;
 			// QObject* and QWidget* may be convertible
 			if (typeOfArg == QMetaType::QWidgetStar && type == QMetaType::QObjectStar)
 				continue;
-			if (typeOfArg == QMetaType::QObjectStar && type == QMetaType::QWidgetStar && qobject_cast<QWidget*>(arguments[j].value<QObject*>()))
+			if (typeOfArg == QMetaType::QObjectStar && type == QMetaType::QWidgetStar && (arguments[j].value<QObject*>() == NULL || qobject_cast<QWidget*>(arguments[j].value<QObject*>())))
 				continue;
 			break;
 		}
@@ -265,9 +269,13 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 			}
 			if (arguments[j].canConvert((QVariant::Type)type))
 				arguments[j].convert((QVariant::Type)type);
+			else if (typeOfArg == QVariant::Invalid && (type == QMetaType::QObjectStar || QMetaType::QWidgetStar)) {
+				genericArgs.append(QGenericArgument(strTypeName, &myNullPtr));
+				continue;
+			}
 			else if (typeOfArg == QMetaType::QWidgetStar && type == QMetaType::QObjectStar)
 				arguments[j] = QVariant::fromValue(qobject_cast<QObject*>(arguments[j].value<QWidget*>()));
-			else if (typeOfArg == QMetaType::QObjectStar && type == QMetaType::QWidgetStar && qobject_cast<QWidget*>(arguments[j].value<QObject*>()))
+			else if (typeOfArg == QMetaType::QObjectStar && type == QMetaType::QWidgetStar && (arguments[j].value<QObject*>() == NULL || qobject_cast<QWidget*>(arguments[j].value<QObject*>())))
 				arguments[j] = QVariant::fromValue(qobject_cast<QWidget*>(arguments[j].value<QObject*>()));
 			// \TODO	handle failure during conversion
 			else { }
