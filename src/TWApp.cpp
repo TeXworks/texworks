@@ -1062,7 +1062,10 @@ QVariant TWApp::launchFile(const QString& fileName, bool waitForResult)
 {
 	// first check if command execution is permitted
 	QSETTINGS_OBJECT(settings);
-	if (settings.value("allowSystemCommands", false).toBool())
+
+	// it's OK to "launch" a directory, as that doesn't normally execute anything
+	QFileInfo finfo(fileName);
+	if (finfo.isDir() || settings.value("allowSystemCommands", false).toBool())
 		return waitForResult ? QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)) : QVariant();
 	else
 		return waitForResult ? QVariant(tr("System command execution is disabled (see Preferences)")) : QVariant();
