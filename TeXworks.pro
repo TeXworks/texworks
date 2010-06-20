@@ -222,3 +222,20 @@ TRANSLATIONS	+=	trans/TeXworks_af.ts \
 					trans/TeXworks_tr.ts \
 					trans/TeXworks_zh_CN.ts
 
+unix:!macx { # installation on Unix-ish platforms
+	isEmpty(INSTALL_PREFIX):INSTALL_PREFIX = /usr/local
+	isEmpty(BIN_DIR):BIN_DIR = $$INSTALL_PREFIX/bin
+	isEmpty(DATA_DIR):DATA_DIR = $$INSTALL_PREFIX/share
+	isEmpty(TRANSLATIONS_DIR):TRANSLATIONS_DIR = $$DATA_DIR/texworks/translations
+	isEmpty(DOCS_DIR):DOCS_DIR = $$DATA_DIR/doc/texworks
+	isEmpty(ICON_DIR):ICON_DIR = $$DATA_DIR/pixmaps
+
+	target.path = $$BIN_DIR
+	documentation.files = COPYING README
+	documentation.path = $$DOCS_DIR
+	translation.files = trans/TeXworks_*.qm
+	translation.path = $$TRANSLATIONS_DIR
+	icon.files = res/images/TeXworks.png
+	icon.path = $$ICON_DIR
+	INSTALLS = target documentation translation icon
+}
