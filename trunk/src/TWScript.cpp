@@ -31,6 +31,9 @@
 TWScript::TWScript(TWScriptLanguageInterface *interface, const QString& fileName)
 	: m_Interface(interface), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true), m_FileSize(0)
 {
+	m_Codec = QTextCodec::codecForName("UTF-8");
+	if (!m_Codec)
+		m_Codec = QTextCodec::codecForLocale();
 }
 
 bool TWScript::run(QObject *context, QVariant& result)
@@ -51,62 +54,83 @@ bool TWScript::doParseHeader(const QString& beginComment, const QString& endComm
 	QFile file(m_Filename);
 	QStringList lines;
 	QString line;
-	
+	bool codecChanged = true;
+	bool success = false;
+	QTextCodec* codec;
+
 	if (!file.exists() || !file.open(QIODevice::ReadOnly))
 		return false;
 	
-	QTextCodec* codec = QTextCodec::codecForName("UTF-8");
-	if (!codec)
-		codec = QTextCodec::codecForLocale();
-	lines = codec->toUnicode(file.readAll()).split(QRegExp("\r\n|[\n\r]"));
-	file.close();
+	m_Codec = QTextCodec::codecForName("UTF-8");
+	if (!m_Codec)
+		m_Codec = QTextCodec::codecForLocale();
+
+	while (codecChanged) {
+		codec = m_Codec;
+		file.seek(0);
+		lines = codec->toUnicode(file.readAll()).split(QRegExp("\r\n|[\n\r]"));
 	
-	// skip any empty lines
-	if (skipEmpty) {
-		while (!lines.isEmpty() && lines.first().isEmpty())
-			lines.removeFirst();
-	}
-	if (lines.isEmpty())
-		return false;
-	
-	// is this a valid TW script?
-	line = lines.takeFirst();
-	if (!beginComment.isEmpty()) {
-		if (!line.startsWith(beginComment))
-			return false;
-		line = line.mid(beginComment.size()).trimmed();
-	}
-	else if (!Comment.isEmpty()) {
-		if (!line.startsWith(Comment))
-			return false;
-		line = line.mid(Comment.size()).trimmed();
-	}
-	if (!line.startsWith("TeXworksScript"))
-		return false;
-	
-	// scan to find the extent of the header lines
-	QStringList::iterator i;
-	for (i = lines.begin(); i != lines.end(); ++i) {
-		// have we reached the end?
-		if (skipEmpty && i->isEmpty()) {
-			i = lines.erase(i);
-			--i;
-			continue;
+		// skip any empty lines
+		if (skipEmpty) {
+			while (!lines.isEmpty() && lines.first().isEmpty())
+				lines.removeFirst();
 		}
-		if (!endComment.isEmpty()) {
-			if (i->startsWith(endComment))
+		if (lines.isEmpty())
+			break;
+	
+		// is this a valid TW script?
+		line = lines.takeFirst();
+		if (!beginComment.isEmpty()) {
+			if (!line.startsWith(beginComment))
+				break;
+			line = line.mid(beginComment.size()).trimmed();
+		}
+		else if (!Comment.isEmpty()) {
+			if (!line.startsWith(Comment))
+				break;
+			line = line.mid(Comment.size()).trimmed();
+		}
+		if (!line.startsWith("TeXworksScript"))
+			break;
+	
+		// scan to find the extent of the header lines
+		QStringList::iterator i;
+		for (i = lines.begin(); i != lines.end(); ++i) {
+			// have we reached the end?
+			if (skipEmpty && i->isEmpty()) {
+				i = lines.erase(i);
+				--i;
+				continue;
+			}
+			if (!endComment.isEmpty()) {
+				if (i->startsWith(endComment))
+					break;
+			}
+			if (!i->startsWith(Comment))
+				break;
+			*i = i->mid(Comment.size()).trimmed();
+		}
+		lines.erase(i, lines.end());
+		
+		codecChanged = false;
+		switch (doParseHeader(lines)) {
+			case ParseHeader_OK:
+				success = true;
+				break;
+			case ParseHeader_Failed:
+				success = false;
+				break;
+			case ParseHeader_CodecChanged:
+				codecChanged = true;
 				break;
 		}
-		if (!i->startsWith(Comment))
-			break;
-		*i = i->mid(Comment.size()).trimmed();
 	}
-	lines.erase(i, lines.end());
 	
-	return doParseHeader(lines);
+	file.close();
+	return success;
 }
 
-bool TWScript::doParseHeader(const QStringList & lines)
+TWScript::ParseHeaderResult TWScript::doParseHeader(const QStringList & lines)
 {
 	QString line, key, value;
 	QFileInfo fi(m_Filename);
@@ -130,9 +154,20 @@ bool TWScript::doParseHeader(const QStringList & lines)
 		else if (key == "Hook") m_Hook = value;
 		else if (key == "Context") m_Context = value;
 		else if (key == "Shortcut") m_KeySequence = QKeySequence(value);
+		else if (key == "Encoding") {
+			QTextCodec * codec = QTextCodec::codecForName(value.toUtf8());
+			if (codec) {
+				if (!m_Codec || codec->name() != m_Codec->name()) {
+					m_Codec = codec;
+					return ParseHeader_CodecChanged;
+				}
+			}
+		}
 	}
 	
-	return m_Type != ScriptUnknown && !m_Title.isEmpty();
+	if (m_Type != ScriptUnknown && !m_Title.isEmpty())
+		return ParseHeader_OK;
+	return ParseHeader_Failed;
 }
 
 /*static*/

@@ -102,7 +102,7 @@ bool PythonScript::execute(TWScriptAPI *tw) const
 		// handle error
 		return false;
 	}
-	QString contents = QString::fromUtf8(scriptFile.readAll());
+	QString contents = m_Codec->toUnicode(scriptFile.readAll());
 	scriptFile.close();
 
 	// Python seems to require Unix style line endings
