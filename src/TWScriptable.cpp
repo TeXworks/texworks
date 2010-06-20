@@ -69,6 +69,7 @@ bool JSScript::execute(TWScriptAPI *tw) const
 		return false;
 	}
 	QTextStream stream(&scriptFile);
+	stream.setCodec(m_Codec);
 	QString contents = stream.readAll();
 	scriptFile.close();
 	

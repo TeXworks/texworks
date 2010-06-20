@@ -30,6 +30,7 @@
 #include <QStringList>
 #include <QVariant>
 #include <QHash>
+#include <QTextCodec>
 
 class TWScriptLanguageInterface;
 class TWScriptAPI;
@@ -192,6 +193,12 @@ protected:
 	 */
 	virtual bool execute(TWScriptAPI* tw) const = 0;
 	
+	enum ParseHeaderResult {
+		ParseHeader_OK,
+		ParseHeader_Failed,
+		ParseHeader_CodecChanged
+	};
+	
 	/** \brief	Convenience function to parse supported key:value pairs of the header
 	 *
 	 * Currently supported keys:
@@ -208,7 +215,7 @@ protected:
 	 * 					without any language-specific comment characters)
 	 * \return	\c true if a title and type were found, \c false otherwise
 	 */
-	bool doParseHeader(const QStringList & lines);
+	TWScript::ParseHeaderResult doParseHeader(const QStringList & lines);
 
 	/** \brief	Convenience function to parse text-based script files
 	 *
@@ -287,6 +294,8 @@ protected:
 	QKeySequence m_KeySequence;	///< the keyboard shortcut associated with this script
 
 	bool m_Enabled; ///< whether this script is enabled (runtime property, not stored in the script itself)
+	
+	QTextCodec * m_Codec;
 
 private slots:
 	void globalDestroyed(QObject * obj);
