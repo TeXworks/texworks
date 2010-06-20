@@ -1,0 +1,14 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=TeXworks
+GenericName=(La)TeX Editor
+GenericName[ar]=محرر تخ
+Comment=Simple environment for editing, typesetting, and previewing TeX documents
+Comment[ar]=بيئة سهلة لتحرير وصف ومعاينة مستندات تخ
+Icon=TeXworks
+Exec=texworks %F
+MimeType=text/x-tex;application/pdf;
+Categories=Office;
+
