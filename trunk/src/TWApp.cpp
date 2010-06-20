@@ -441,7 +441,7 @@ QString TWApp::findProgram(const QString& program, const QStringList& binPaths)
 		}
 #endif
 	}
-	return found ? fileInfo.canonicalFilePath() : QString();
+	return found ? fileInfo.absoluteFilePath() : QString();
 }
 
 void TWApp::writeToMailingList()
@@ -464,6 +464,10 @@ void TWApp::writeToMailingList()
 	QString pdftex = findProgram("pdftex", binPaths);
 	if (pdftex.isEmpty())
 		pdftex = "not found";
+	else {
+		QFileInfo info(pdftex);
+		pdftex = info.canonicalFilePath();
+	}
 	
 	body += "pdfTeX location  : " + pdftex + "\n";
 	
