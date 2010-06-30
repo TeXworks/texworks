@@ -6,7 +6,7 @@
 
 .SH SYNOPSIS
 .B texworks
-[FILE]...
+[OPTIONS] [FILES]
 
 .SH DESCRIPTION
 .B TeXworks
@@ -15,6 +15,17 @@ is an environment for authoring TeX (LaTeX, ConTeXt, etc) documents, with a Unic
 It is inspired by Dick Koch's award-winning TeXShop program for Mac OS X, which has made quality typesetting through TeX accessible to a wider community of users, without a technical or intimidating face. The goal of
 .B TeXworks
 is to deliver a similarly integrated, easy-to-use environment for users on other platforms, especially GNU/Linux and Windows.
+
+.SH OPTIONS
+.TP
+.B --help, -?
+Display a short overview over all command line options
+.TP
+.B --position=, -p
+Open the next specified file at the given position (line or page)
+.TP
+.B --version, -v
+Display version information
 
 .SH ENVIRONMENT
 .TP
@@ -46,13 +57,13 @@ Setup file to override the location of the files mentioned above (e.g. for enabl
 
 .SH SEE ALSO
 .B TeXworks
-homepage : \%http://tug.org/texworks/
+homepage: \%http://tug.org/texworks/
 
 .B TeXworks
-development: http://code.google.com/p/texworks/
+development: \%http://code.google.com/p/texworks/
 
 .SH BUGS
 If you find a bug, please report it at \%http://code.google.com/p/texworks/issues/list
 
 .SH AUTHORS
-Jonathan Kew and others
+Jonathan Kew, Stefan Löffler, and others
