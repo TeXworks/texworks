@@ -201,9 +201,9 @@ private slots:
 	void contentsChanged(int position, int charsRemoved, int charsAdded);
 	void reloadIfChangedOnDisk();
 	void setupFileWatcher();
-	void errorLineClicked(QTableWidgetItem* i);
 	void lineEndingPopup(const QPoint loc);
 	void encodingPopup(const QPoint loc);
+	void anchorClicked(const QUrl& url);
 
 private:
 	void init();
