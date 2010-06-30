@@ -469,7 +469,7 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 	if (menuSpelling) {
 		QAction *chosen = menuSpelling->actions()[0]; // default is None
 		foreach (QAction *act, menuSpelling->actions()) {
-			if (act->text() == lang) {
+			if (act->text() == lang || act->text().contains("(" + lang + ")")) {
 				chosen = act;
 				break;
 			}
