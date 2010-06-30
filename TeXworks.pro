@@ -226,16 +226,19 @@ unix:!macx { # installation on Unix-ish platforms
 	isEmpty(INSTALL_PREFIX):INSTALL_PREFIX = /usr/local
 	isEmpty(BIN_DIR):BIN_DIR = $$INSTALL_PREFIX/bin
 	isEmpty(DATA_DIR):DATA_DIR = $$INSTALL_PREFIX/share
-	isEmpty(TRANSLATIONS_DIR):TRANSLATIONS_DIR = $$DATA_DIR/texworks/translations
 	isEmpty(DOCS_DIR):DOCS_DIR = $$DATA_DIR/doc/texworks
 	isEmpty(ICON_DIR):ICON_DIR = $$DATA_DIR/pixmaps
+	isEmpty(MAN_DIR):MAN_DIR = $$DATA_DIR/man/man1
+	isEmpty(DESKTOP_DIR):DESKTOP_DIR = $$DATA_DIR/applications
 
 	target.path = $$BIN_DIR
 	documentation.files = COPYING README
 	documentation.path = $$DOCS_DIR
-	translation.files = trans/TeXworks_*.qm
-	translation.path = $$TRANSLATIONS_DIR
 	icon.files = res/images/TeXworks.png
 	icon.path = $$ICON_DIR
-	INSTALLS = target documentation translation icon
+	man.files = man/texworks.1
+	man.path = $$MAN_DIR
+	desktop.files = texworks.desktop
+	desktop.path = $$DESKTOP_DIR
+	INSTALLS = target documentation icon man desktop
 }
