@@ -7,6 +7,7 @@ GenericName=(La)TeX Editor
 GenericName[ar]=محرر تخ
 Comment=Simple environment for editing, typesetting, and previewing TeX documents
 Comment[ar]=بيئة سهلة لتحرير وصف ومعاينة مستندات تخ
+Comment[de]=TeX Dokumente einfach bearbeiten, setzen und betrachten
 Icon=TeXworks
 Exec=texworks %F
 MimeType=text/x-tex;application/pdf;
