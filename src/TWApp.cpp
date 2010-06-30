@@ -158,6 +158,9 @@ void TWApp::init()
 	if (popplerDataDir.exists()) {
 		globalParams = new GlobalParams(popplerDataDir.canonicalPath().toUtf8().data());
 	}
+	else {
+		globalParams = new GlobalParams();
+	}
 #endif
 
 	// Required for TWUtils::getLibraryPath()
