@@ -51,12 +51,10 @@
 #include <QTextCodec>
 #include <QSignalMapper>
 #include <QDockWidget>
-#include <QTableView>
-#include <QHeaderView>
-#include <QStandardItemModel>
 #include <QAbstractButton>
 #include <QPushButton>
 #include <QFileSystemWatcher>
+#include <QTextBrowser>
 #include <QDebug>
 
 #ifdef Q_WS_WIN
@@ -2481,40 +2479,17 @@ void TeXDocument::executeAfterTypesetHooks()
 		QVariant result;
 		bool success = s->run(this, result);
 		if (success && !result.isNull()) {
-			if (result.type() == QVariant::List) {
-				const QVariantList list = result.toList();
-				int columns = 1;
-				QTableWidget *table = new QTableWidget(list.count(), columns, this);
-				table->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-				table->horizontalHeader()->setStretchLastSection(true);
-				table->horizontalHeader()->hide();
-				table->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-				table->setSelectionBehavior(QAbstractItemView::SelectRows);
-				table->setSelectionMode(QAbstractItemView::SingleSelection);
-				table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-				connect(table, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(errorLineClicked(QTableWidgetItem*)));
-				for (int i = 0; i < list.count(); ++i) {
-					const QVariant item = list.at(i);
-					if (item.type() == QVariant::List) {
-						const QVariantList rowList = item.toList();
-						if (rowList.count() > columns) {
-							columns = rowList.count();
-							table->setColumnCount(columns);
-						}
-						for (int j = 0; j < rowList.count(); ++j) {
-							table->setItem(i, j, new QTableWidgetItem(rowList.at(j).toString()));
-						}
-					}
-					else {
-						table->setItem(i, 0, new QTableWidgetItem(item.toString()));
-						table->setSpan(i, 0, 1, columns);
-					}
-				}
-				consoleTabs->addTab(table, s->getTitle());
+			QString res = result.toString();
+			if (res.startsWith("<html>", Qt::CaseInsensitive)) {
+				QTextBrowser *browser = new QTextBrowser(this);
+				browser->setOpenLinks(false);
+				connect(browser, SIGNAL(anchorClicked(const QUrl&)), this, SLOT(anchorClicked(const QUrl&)));
+				browser->setHtml(res);
+				consoleTabs->addTab(browser, s->getTitle());
 			}
 			else {
 				QTextEdit *textEdit = new QTextEdit(this);
-				textEdit->setPlainText(result.toString());
+				textEdit->setPlainText(res);
 				textEdit->setReadOnly(true);
 				consoleTabs->addTab(textEdit, s->getTitle());
 			}
@@ -2522,14 +2497,18 @@ void TeXDocument::executeAfterTypesetHooks()
 	}
 }
 
-void TeXDocument::errorLineClicked(QTableWidgetItem * i)
+void TeXDocument::anchorClicked(const QUrl& url)
 {
-	QTableWidget * table = i->tableWidget();
-	int row = i->row();
-	QString filename = table->item(row, 0)->text();
-	int line = table->item(row, 1)->text().toInt();
-	
-	openDocument(QFileInfo(curFile).absoluteDir().filePath(filename), true, true, line);
+	if (url.scheme() == "texworks") {
+		int line = 0;
+		if (url.hasFragment()) {
+			line = url.fragment().toLong();
+		}
+		openDocument(QFileInfo(curFile).absoluteDir().filePath(url.path()), true, true, line);
+	}
+	else {
+		TWApp::instance()->openUrl(url);
+	}
 }
 
 // showConsole() and hideConsole() are used internally to update the visibility;
