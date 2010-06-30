@@ -159,8 +159,12 @@ QWidget * TWScriptAPI::createUIFromString(const QString& uiSpec, QWidget * paren
 	QBuffer buffer(&ba);
 	QUiLoader loader;
 	QWidget *widget = loader.load(&buffer, parent);
-	if (widget)
+	if (widget) {
+		// ensure that the window is app-modal regardless of what flags might be set
+		//! \TODO revisit this when we get asynchronous scripting
+		widget->setWindowModality(Qt::ApplicationModal);
 		widget->show();
+	}
 	return widget;
 }
 
@@ -172,8 +176,12 @@ QWidget * TWScriptAPI::createUI(const QString& filename, QWidget * parent)
 	QFile file(fi.canonicalFilePath());
 	QUiLoader loader;
 	QWidget *widget = loader.load(&file, parent);
-	if (widget)
+	if (widget) {
+		// ensure that the window is app-modal regardless of what flags might be set
+		//! \TODO revisit this when we get asynchronous scripting
+		widget->setWindowModality(Qt::ApplicationModal);
 		widget->show();
+	}
 	return widget;
 }
 	
