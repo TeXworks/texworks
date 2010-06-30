@@ -876,6 +876,8 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = createStandardContextMenu();
 
+	QAction *defaultAction = NULL;
+
 	QAction *act = new QAction(tr("Jump to PDF"), menu);
 	act->setData(QVariant(cursorForPosition(event->pos()).blockNumber() + 1));
 	connect(act, SIGNAL(triggered()), this, SLOT(jumpToPdf()));
@@ -903,6 +905,8 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 						mapper->setMapping(act, str);
 						menu->insertAction(sep, act);
 						free(suggestionList[i]);
+						if (!defaultAction)
+							defaultAction = act;
 					}
 					free(suggestionList);
 					connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(correction(const QString&)));
@@ -918,7 +922,7 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 		}
 	}
 	
-	menu->exec(event->globalPos());
+	menu->exec(event->globalPos(), defaultAction);
 	delete menu;
 }
 
