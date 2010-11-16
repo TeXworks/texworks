@@ -120,6 +120,7 @@ signals:
 	void syncFromSource(const QString&, int, bool);
 	void activatedWindow(QWidget*);
 	void tagListUpdated();
+	void asyncFlashStatusBarMessage(const QString & msg, const int timeout = 0);
 
 protected:
 	virtual void changeEvent(QEvent *event);

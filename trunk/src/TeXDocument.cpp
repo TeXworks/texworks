@@ -304,6 +304,11 @@ void TeXDocument::init()
 	// kDefault_TabWidth is defined in PrefsDialog.h
 	textEdit->setTabStopWidth(settings.value("tabWidth", kDefault_TabWidth).toInt());
 	
+	// It is VITAL that this connection is queued! Calling showMessage directly
+	// from TeXDocument::contentsChanged would otherwise result in a seg fault
+	// (for whatever reason)
+	connect(this, SIGNAL(asyncFlashStatusBarMessage(QString, int)), statusBar(), SLOT(showMessage(QString, int)), Qt::QueuedConnection);
+	
 	QString indentOption = settings.value("autoIndent").toString();
 	options = CompletingEdit::autoIndentModes();
 	
@@ -2605,13 +2610,11 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 			if (index > -1) {
 				if (index != engine->currentIndex()) {
 					engine->setCurrentIndex(index);
-					statusBar()->showMessage(tr("Set engine to \"%1\"").arg(engine->currentText()), kStatusMessageDuration);
+					emit asyncFlashStatusBarMessage(tr("Set engine to \"%1\"").arg(engine->currentText()), kStatusMessageDuration);
 				}
-				else
-					statusBar()->clearMessage();
 			}
 			else {
-				statusBar()->showMessage(tr("Engine \"%1\" not defined").arg(name), kStatusMessageDuration);
+				emit asyncFlashStatusBarMessage(tr("Engine \"%1\" not defined").arg(name), kStatusMessageDuration);
 			}
 		}
 		
