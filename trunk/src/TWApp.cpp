@@ -572,24 +572,34 @@ void TWApp::openRecentFile()
 
 QStringList TWApp::getOpenFileNames(QString selectedFilter)
 {
+#ifdef Q_WS_WIN
+	QFileDialog::Options	options = QFileDialog::DontUseNativeDialog;
+#else
+	QFileDialog::Options	options = 0;
+#endif
 	QSETTINGS_OBJECT(settings);
 	QString lastOpenDir = settings.value("openDialogDir").toString();
 	QStringList filters = *TWUtils::filterList();
 	if (!selectedFilter.isNull() && !filters.contains(selectedFilter))
 		filters.prepend(selectedFilter);
 	return QFileDialog::getOpenFileNames(NULL, QString(tr("Open File")), lastOpenDir,
-										 filters.join(";;"), &selectedFilter);
+										 filters.join(";;"), &selectedFilter, options);
 }
 
 QString TWApp::getOpenFileName(QString selectedFilter)
 {
+#ifdef Q_WS_WIN
+	QFileDialog::Options	options = QFileDialog::DontUseNativeDialog;
+#else
+	QFileDialog::Options	options = 0;
+#endif
 	QSETTINGS_OBJECT(settings);
 	QString lastOpenDir = settings.value("openDialogDir").toString();
 	QStringList filters = *TWUtils::filterList();
 	if (!selectedFilter.isNull() && !filters.contains(selectedFilter))
 		filters.prepend(selectedFilter);
 	return QFileDialog::getOpenFileName(NULL, QString(tr("Open File")), lastOpenDir,
-										filters.join(";;"), &selectedFilter);
+										filters.join(";;"), &selectedFilter, options);
 }
 
 QString TWApp::getSaveFileName(const QString& defaultName)
