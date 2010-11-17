@@ -322,11 +322,11 @@ QHash<QString, QString>* TWUtils::getDictionaryList(const bool forceReload /*= f
 
 	dictionaryList = new QHash<QString, QString>();
 	QDir dicDir(TWUtils::getLibraryPath("dictionaries"));
-	foreach (QFileInfo affFileInfo, dicDir.entryInfoList(QStringList("*.aff"),
+	foreach (QFileInfo dicFileInfo, dicDir.entryInfoList(QStringList("*.dic"),
 				QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
-		QFileInfo dicFileInfo(affFileInfo.dir(), affFileInfo.completeBaseName() + ".dic");
-		if (dicFileInfo.isReadable())
-			dictionaryList->insertMulti(affFileInfo.canonicalFilePath(), affFileInfo.completeBaseName());
+		QFileInfo affFileInfo(dicFileInfo.dir(), dicFileInfo.completeBaseName() + ".aff");
+		if (affFileInfo.isReadable())
+			dictionaryList->insertMulti(dicFileInfo.canonicalFilePath(), dicFileInfo.completeBaseName());
 	}
 	
 	return dictionaryList;
