@@ -471,13 +471,28 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 {
 	// this is called by the %!TEX spellcheck... line, or by scripts;
 	// it searches the menu for the given language code, and triggers it if available
+	
+	// Determine all aliases for the specified lang
+	QList<QString> langAliases;
+	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
+		if(TWUtils::getDictionaryList()->values(dictKey).contains(lang))
+			langAliases += TWUtils::getDictionaryList()->values(dictKey);
+	}
+	langAliases.removeAll(lang);
+	langAliases.prepend(lang);
+	
+	bool found = false;
 	if (menuSpelling) {
 		QAction *chosen = menuSpelling->actions()[0]; // default is None
 		foreach (QAction *act, menuSpelling->actions()) {
-			if (act->text() == lang || act->text().contains("(" + lang + ")")) {
-				chosen = act;
-				break;
+			foreach(QString alias, langAliases) {
+				if (act->text() == alias || act->text().contains("(" + alias + ")")) {
+					chosen = act;
+					found = true;
+					break;
+				}
 			}
+			if(found) break;
 		}
 		chosen->trigger();
 	}
