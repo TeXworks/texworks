@@ -553,6 +553,9 @@ void TeXDocument::open()
 	if (!(isUntitled && textEdit->document()->isEmpty() && !isWindowModified()))
 		options = QFileDialog::DontUseSheet;
 #endif
+#ifdef Q_WS_WIN
+	options |= QFileDialog::DontUseNativeDialog;
+#endif
 	QSETTINGS_OBJECT(settings);
 	QString lastOpenDir = settings.value("openDialogDir").toString();
 	if (lastOpenDir.isEmpty())
