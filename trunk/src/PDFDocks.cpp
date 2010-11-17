@@ -105,6 +105,7 @@ PDFOutlineDock::PDFOutlineDock(PDFDocument *doc)
 	: PDFDock(doc)
 {
 	setObjectName("outline");
+	setWindowTitle(getTitle());
 	tree = new PDFDockTreeWidget(this);
 	tree->setAlternatingRowColors(true);
 	tree->header()->hide();
@@ -176,6 +177,7 @@ PDFInfoDock::PDFInfoDock(PDFDocument *doc)
 	: PDFDock(doc)
 {
 	setObjectName("pdfinfo");
+	setWindowTitle(getTitle());
 	list = new PDFDockListWidget(this);
 	list->setAlternatingRowColors(true);
 	setWidget(list);
@@ -237,6 +239,7 @@ PDFFontsDock::PDFFontsDock(PDFDocument *doc)
 	, scannedFonts(false)
 {
 	setObjectName("fonts");
+	setWindowTitle(getTitle());
 	table = new QTableWidget(this);
 #ifdef Q_WS_MAC /* don't do this on windows, as the font ends up too small */
 	QFont f(table->font());
