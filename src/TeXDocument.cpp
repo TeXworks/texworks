@@ -2448,7 +2448,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 		QString pdfName;
 		if (getPreviewFileName(pdfName) && QFileInfo(pdfName).lastModified() != oldPdfTime) {
 			// only open/refresh the PDF if it was changed by the typeset process
-			if (pdfDoc == NULL) {
+			if (pdfDoc == NULL || pdfName != pdfDoc->fileName()) {
 				if (showPdfWhenFinished && openPdfIfAvailable(true))
 					pdfDoc->selectWindow();
 			}
