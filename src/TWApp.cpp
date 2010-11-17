@@ -1262,3 +1262,9 @@ void TWApp::globalDestroyed(QObject * obj)
 		}
 	}
 }
+
+/*Q_INVOKABLE static*/
+int TWApp::getVersion()
+{
+	return (VER_MAJOR << 16) | (VER_MINOR << 8) | VER_BUGFIX;
+}
