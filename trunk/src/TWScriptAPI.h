@@ -58,6 +58,10 @@ public:
 	// return the host platform name
 	Q_INVOKABLE
 	QString platform() const;
+	
+	// return the Qt version Tw was built against (0xMMNNPP)
+	Q_INVOKABLE
+	int getQtVersion() const { return QT_VERSION; }
 
 	// QMessageBox functions to display alerts
 	Q_INVOKABLE

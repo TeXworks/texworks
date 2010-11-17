@@ -132,6 +132,10 @@ public:
 #endif
 
 	Q_INVOKABLE QList<QVariant> getOpenWindows() const;
+	
+	// return the version of Tw (0xMMNNPP)
+	Q_INVOKABLE
+	static int getVersion();
 
 	Q_PROPERTY(QString clipboard READ clipboardText WRITE setClipboardText)
 
