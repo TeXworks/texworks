@@ -290,8 +290,28 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 	foreach (const QFileInfo& info,
 			 dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Readable, QDir::DirsLast)) {
 		if (info.isDir()) {
-			TWScriptList *subScriptList = new TWScriptList(scriptList, info.fileName());
-			TWScriptList *subHookList = new TWScriptList(hookList, info.fileName());
+			// Only create a new sublist if a matching one doesn't already exist
+			TWScriptList *subScriptList = NULL;
+			// Note: Using children() returns a const list; findChildren does not
+			foreach(TWScriptList * l, scriptList->findChildren<TWScriptList*>()) {
+				if(l->getName() == info.fileName()) {
+					subScriptList = l;
+					break;
+				}
+			}
+			if(!subScriptList) subScriptList = new TWScriptList(scriptList, info.fileName());
+			
+			// Only create a new sublist if a matching one doesn't already exist
+			TWScriptList *subHookList = NULL;
+			// Note: Using children() returns a const list; findChildren does not
+			foreach(TWScriptList * l, hookList->findChildren<TWScriptList*>()) {
+				if(l->getName() == info.fileName()) {
+					subHookList = l;
+					break;
+				}
+			}
+			if(!subHookList) subHookList = new TWScriptList(hookList, info.fileName());
+			
 			addScriptsInDirectory(subScriptList, subHookList, info.absoluteFilePath(), disabled, ignore);
 			if (subScriptList->children().isEmpty())
 				delete subScriptList;
