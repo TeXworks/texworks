@@ -48,7 +48,7 @@
 	<key>CFBundleIconFile</key>
 	<string>TeXworks.icns</string>
 	<key>CFBundleGetInfoString</key>
-	<string>TeXworks version 0.3 (r.678)&#xA;(c) 2007-2010 Jonathan Kew&#xA;Released under GPL v2.0</string>
+	<string>TeXworks version 0.3 (r.679)&#xA;(c) 2007-2010 Jonathan Kew&#xA;Released under GPL v2.0</string>
 	<key>CFBundleExecutable</key>
 	<string>TeXworks</string>
 	<key>CFBundleIdentifier</key>
@@ -60,9 +60,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.3 (r.678)</string>
+	<string>0.3 (r.679)</string>
 	<key>CFBundleVersion</key>
-	<string>0.3 (r.678)</string>
+	<string>0.3 (r.679)</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 </dict>
