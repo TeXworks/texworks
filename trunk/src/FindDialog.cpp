@@ -423,13 +423,14 @@ SearchResults::SearchResults(QWidget* parent)
 {
 	setupUi(this);
 	connect(table, SIGNAL(itemSelectionChanged()), this, SLOT(showSelectedEntry()));
+	connect(table, SIGNAL(itemPressed(QTableWidgetItem*)), this, SLOT(showEntry(QTableWidgetItem*)));
 	QShortcut *sc;
 	sc = new QShortcut(Qt::Key_Escape, table);
 	sc->setContext(Qt::WidgetShortcut);
 	connect(sc, SIGNAL(activated()), this, SLOT(goToSourceAndClose()));
 	sc = new QShortcut(Qt::Key_Return, table);
 	sc->setContext(Qt::WidgetShortcut);
-	connect(sc, SIGNAL(activated()), this, SLOT(goToSource()));
+	connect(sc, SIGNAL(activated()), this, SLOT(showSelectedEntry()));
 }
 
 void SearchResults::goToSource()
@@ -559,20 +560,15 @@ void SearchResults::presentResults(const QString& searchText,
 	resultsWindow->show();
 }
 
-void SearchResults::showSelectedEntry()
+void SearchResults::showEntry(QTableWidgetItem * item)
 {
-	QList<QTableWidgetSelectionRange> ranges = table->selectedRanges();
-	if (ranges.count() == 0)
-		return;
-	int row = ranges.first().topRow();
-	QString fileName;
-	int	lineNo = 1;
-	QTableWidgetItem* item = table->item(row, 0);
 	if (!item)
 		return;
-	fileName = item->toolTip();
+	int row = item->row();
+	item = table->item(row, 0);
+	QString fileName = item->toolTip();
 	item = table->item(row, 1);
-	lineNo = item->text().toInt();
+	int lineNo = item->text().toInt();
 	item = table->item(row, 2);
 	int selStart = item->text().toInt();
 	item = table->item(row, 3);
@@ -580,6 +576,18 @@ void SearchResults::showSelectedEntry()
 
 	if (!fileName.isEmpty())
 		TeXDocument::openDocument(fileName, false, true, lineNo, selStart, selEnd);
+}
+
+void SearchResults::showSelectedEntry()
+{
+	QList<QTableWidgetSelectionRange> ranges = table->selectedRanges();
+	if (ranges.count() == 0)
+		return;
+	int row = ranges.first().topRow();
+	QTableWidgetItem* item = table->item(row, 0);
+	if (!item)
+		return;
+	showEntry(item);
 }
 
 PDFFindDialog::PDFFindDialog(PDFDocument *document)
