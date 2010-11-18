@@ -14,7 +14,9 @@
 # The color fields <fgcolor> and <bgcolor> are either:
 # *) a color name from the list defined in the SVG standard;
 #    see http://www.w3.org/TR/SVG/types.html#ColorKeywords
-# *) a hexadecimal color value of the form #rrggbb
+# *) a hexadecimal color value of the form #rrggbb; note that if this is used at
+#    the beginning of a line, a space " " must be added in front of it so the
+#    line is not interpreted as a comment (e.g., " #aabbcc" instead of "#aabbcc")
 #
 # The <fontflags> field is a combination of the letters
 # B (bold)
