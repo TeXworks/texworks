@@ -68,6 +68,8 @@ TagsDock::~TagsDock()
 void TagsDock::fillInfo()
 {
 	disconnect(tree, SIGNAL(itemSelectionChanged()), this, SLOT(followTagSelection()));
+	disconnect(tree, SIGNAL(itemActivated(QTreeWidgetItem*, int)), this, SLOT(followTagSelection()));
+	disconnect(tree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(followTagSelection()));
 	tree->clear();
 	const QList<TeXDocument::Tag>& tags = document->getTags();
 	if (tags.size() > 0) {
@@ -110,6 +112,8 @@ void TagsDock::fillInfo()
 			saveScrollValue = 0;
 		}
 		connect(tree, SIGNAL(itemSelectionChanged()), this, SLOT(followTagSelection()));
+		connect(tree, SIGNAL(itemActivated(QTreeWidgetItem*, int)), this, SLOT(followTagSelection()));
+		connect(tree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(followTagSelection()));
 	} else {
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(0, tr("No tags"));
