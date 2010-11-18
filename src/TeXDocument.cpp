@@ -2809,8 +2809,12 @@ void TeXDocument::dropEvent(QDropEvent *event)
 				QString fileName = url.toLocalFile();
 				switch (action) {
 					case OPEN_FILE_IN_NEW_WINDOW:
-						TWApp::instance()->openFile(fileName);
-						break;
+						if(!TWUtils::isImageFile(fileName)) {
+							TWApp::instance()->openFile(fileName);
+							break;
+						}
+						// for graphic files, fall through (there's no point in
+						// trying to open binary files as text
 
 					case INSERT_DOCUMENT_TEXT:
 						if (!TWUtils::isPDFfile(fileName) && !TWUtils::isImageFile(fileName) && !TWUtils::isPostscriptFile(fileName)) {
