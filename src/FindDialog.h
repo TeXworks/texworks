@@ -158,6 +158,7 @@ public:
 	
 private slots:
 	void showSelectedEntry();
+	void showEntry(QTableWidgetItem * item);
 	void goToSource();
 	void goToSourceAndClose();
 };
