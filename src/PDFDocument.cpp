@@ -1136,6 +1136,7 @@ PDFDocument::init()
 	connect(actionNew, SIGNAL(triggered()), qApp, SLOT(newFile()));
 	connect(actionNew_from_Template, SIGNAL(triggered()), qApp, SLOT(newFromTemplate()));
 	connect(actionOpen, SIGNAL(triggered()), qApp, SLOT(open()));
+	connect(actionPrintPdf, SIGNAL(triggered()), this, SLOT(print()));
 
 	connect(actionQuit_TeXworks, SIGNAL(triggered()), TWApp::instance(), SLOT(maybeQuit()));
 
@@ -1716,3 +1717,19 @@ void PDFDocument::doFindAgain(bool newSearch /*= false*/)
 	}
 }
 
+void PDFDocument::print()
+{
+	// Currently, printing is not supported in a reliable, cross-platform way
+	// Instead, offer to open the document in the system's default viewer
+	
+	QString msg = tr("Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.\n").arg(TEXWORKS_NAME);
+	msg += tr("Do you want to open the file in the default viewer for printing instead?");
+	msg += tr(" (remember to close it again to avoid access problems)");
+	
+	if(QMessageBox::information(this,
+		tr("Print Pdf..."), msg,
+		QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes
+	) {
+		QDesktopServices::openUrl(QUrl::fromLocalFile(curFile));
+	}
+}
