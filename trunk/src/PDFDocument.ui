@@ -44,6 +44,7 @@
     <addaction name="actionOpen"/>
     <addaction name="actionOpen_Recent"/>
     <addaction name="separator"/>
+    <addaction name="actionPrintPdf"/>
     <addaction name="actionClose"/>
     <addaction name="separator"/>
     <addaction name="actionQuit_TeXworks"/>
@@ -727,6 +728,14 @@
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionPrintPdf">
+   <property name="text">
+    <string>Print Pdf...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>

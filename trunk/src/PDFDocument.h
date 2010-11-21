@@ -259,6 +259,7 @@ public slots:
 	void goToSource();
 	void toggleFullScreen();
 	void syncFromSource(const QString& sourceFile, int lineNo, bool activatePreview);
+	void print();
 	
 private slots:
 	void updateRecentFileActions();
