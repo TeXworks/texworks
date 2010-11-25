@@ -21,6 +21,7 @@
 
 #include "TWScript.h"
 #include "TWScriptAPI.h"
+#include "ConfigurableApp.h"
 
 #include <QTextStream>
 #include <QMetaObject>
@@ -427,5 +428,16 @@ void TWScript::globalDestroyed(QObject * obj)
 				break;
 		}
 	}
+}
+
+
+bool TWScript::mayExecute(const QString& cmd, QObject * context)
+{
+	Q_UNUSED(cmd)
+	Q_UNUSED(context)
+	
+	// cmd may be a true command line, or a single file/directory to run or open
+	QSETTINGS_OBJECT(settings);
+	return settings.value("allowSystemCommands", false).toBool();
 }
 

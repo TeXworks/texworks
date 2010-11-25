@@ -32,6 +32,7 @@
 
 #include "TWUtils.h"
 #include "TWScriptable.h"
+#include "ConfigurableApp.h"
 
 #ifdef Q_WS_WIN
 #define PATH_LIST_SEP   ';'
@@ -63,17 +64,7 @@ const int kNewWindowOffset = 32;
 #define TW_OPEN_FILE_MSG		(('T' << 8) + 'W')	// just a small sanity check for the receiver
 #endif
 
-#ifdef Q_WS_MAC
-#define QSETTINGS_OBJECT(s) \
-			QSettings s(TWApp::instance()->getSettingsFormat(), QSettings::UserScope, \
-						TWApp::instance()->organizationDomain(), TWApp::instance()->applicationName())
-#else
-#define QSETTINGS_OBJECT(s) \
-			QSettings s(TWApp::instance()->getSettingsFormat(), QSettings::UserScope, \
-						TWApp::instance()->organizationName(), TWApp::instance()->applicationName())
-#endif
-
-class TWApp : public QApplication
+class TWApp : public ConfigurableApp
 {
 	Q_OBJECT
 
@@ -113,9 +104,6 @@ public:
 
 	void openUrl(const QUrl& url);
 
-	QSettings::Format getSettingsFormat() const { return settingsFormat; }
-	void setSettingsFormat(QSettings::Format fmt) { settingsFormat = fmt; }
-	
 	static TWApp *instance();
 	
 	QString getPortableLibPath() const { return portableLibPath; }
@@ -208,12 +196,6 @@ public slots:
 	QStringList getOpenFileNames(QString selectedFilter = QString());
 	QString getSaveFileName(const QString& defaultName);
 	
-	// for script access to arbitrary commands
-	QVariant system(const QString& cmdline, bool waitForResult = true);
-
-	// launch file from the desktop with default app
-	QVariant launchFile(const QString& fileName, bool waitForResult = true);
-	
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu
 	void recentFileActionsChanged();
@@ -262,8 +244,6 @@ private:
 	QString portableLibPath;
 
 	QList<QTranslator*> translators;
-
-	QSettings::Format settingsFormat;
 	
 	TWScriptManager *scriptManager;
 

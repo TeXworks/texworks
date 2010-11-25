@@ -20,6 +20,7 @@
 */
 
 #include "TWScriptAPI.h"
+#include "TWSystemCmd.h"
 
 #include <QObject>
 #include <QString>
@@ -31,6 +32,8 @@
 #include <QUiLoader>
 #include <QBuffer>
 #include <QDir>
+#include <QUrl>
+#include <QDesktopServices>
 
 TWScriptAPI::TWScriptAPI(TWScript* script, QObject* twapp, QObject* ctx, QVariant& res)
 	: m_script(script),
@@ -196,3 +199,58 @@ bool TWScriptAPI::makeConnection(QObject* sender, const QString& signal, QObject
 	return QObject::connect(sender, QString("2%1").arg(signal).toUtf8().data(),
 							receiver, QString("1%1").arg(slot).toUtf8().data());
 }
+
+
+QVariant TWScriptAPI::system(const QString& cmdline, bool waitForResult)
+{
+	// Paranoia
+	if(!m_script) return QVariant(tr("Internal error"));
+
+	if(m_script->mayExecute(cmdline, m_target)) {
+		TWSystemCmd *process = new TWSystemCmd(this, waitForResult);
+		if (waitForResult) {
+			process->setProcessChannelMode(QProcess::MergedChannels);
+			process->start(cmdline);
+			// make sure events (in particular GUI update events that should
+			// inform the user of the progress) are processed before we make a
+			// call that possibly blocks for a considerable amount of time
+			QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents, 100);
+			if (!process->waitForStarted()) {
+				process->deleteLater();
+				return QVariant(tr("Failed to execute system command: %1").arg(cmdline));
+			}
+			QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents, 100);
+			if (!process->waitForFinished()) {
+				process->deleteLater();
+				return QVariant(tr("Error executing system command: %1").arg(cmdline));
+			}
+			return QVariant(process->getResult());
+		}
+		else {
+			process->closeReadChannel(QProcess::StandardOutput);
+			process->closeReadChannel(QProcess::StandardError);
+			process->start(cmdline);
+			return QVariant();
+		}
+	}
+	else {
+		if (waitForResult) {
+			return QVariant(tr("System command execution is disabled (see Preferences)"));
+		}
+		// else result is null
+		return QVariant();
+	}
+}
+
+QVariant TWScriptAPI::launchFile(const QString& fileName, bool waitForResult)
+{
+	QFileInfo finfo(fileName);
+
+	// it's OK to "launch" a directory, as that doesn't normally execute anything
+	if (finfo.isDir() || (m_script && m_script->mayExecute(fileName, m_target)))
+		return waitForResult ? QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)) : QVariant();
+	else
+		return waitForResult ? QVariant(tr("System command execution is disabled (see Preferences)")) : QVariant();
+}
+
+

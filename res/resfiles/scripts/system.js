@@ -9,7 +9,7 @@
 
 var cmd = TW.target.selection;
 if (cmd != "") {
-  var result = TW.app.system(cmd);
+  var result = TW.system(cmd);
   if (result != null) {
     TW.target.insertText(result);
   }

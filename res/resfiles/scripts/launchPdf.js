@@ -7,4 +7,4 @@
 // Script-Type: standalone
 // Context: PDFDocument
 
-TW.app.launchFile(TW.target.fileName);
+TW.launchFile(TW.target.fileName);
