@@ -25,6 +25,7 @@
 #include "PDFDocument.h"
 #include "PrefsDialog.h"
 #include "TemplateDialog.h"
+#include "TWSystemCmd.h"
 
 #include "TWVersion.h"
 #include "SvnRev.h"
@@ -76,13 +77,12 @@ const int kDefaultMaxRecentFiles = 20;
 TWApp *TWApp::theAppInstance = NULL;
 
 TWApp::TWApp(int &argc, char **argv)
-	: QApplication(argc, argv)
+	: ConfigurableApp(argc, argv)
 	, defaultCodec(NULL)
 	, binaryPaths(NULL)
 	, defaultBinPaths(NULL)
 	, engineList(NULL)
 	, defaultEngineIndex(0)
-	, settingsFormat(QSettings::NativeFormat)
 	, scriptManager(NULL)
 #ifdef Q_WS_WIN
 	, messageTargetWindow(NULL)
@@ -1073,59 +1073,6 @@ void TWApp::updateScriptsList()
 void TWApp::showScriptsFolder()
 {
 	QDesktopServices::openUrl(QUrl::fromLocalFile(TWUtils::getLibraryPath("scripts")));
-}
-
-QVariant TWApp::launchFile(const QString& fileName, bool waitForResult)
-{
-	// first check if command execution is permitted
-	QSETTINGS_OBJECT(settings);
-
-	// it's OK to "launch" a directory, as that doesn't normally execute anything
-	QFileInfo finfo(fileName);
-	if (finfo.isDir() || settings.value("allowSystemCommands", false).toBool())
-		return waitForResult ? QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)) : QVariant();
-	else
-		return waitForResult ? QVariant(tr("System command execution is disabled (see Preferences)")) : QVariant();
-}
-
-QVariant TWApp::system(const QString& cmdline, bool waitForResult)
-{
-	// first check if command execution is permitted
-	QSETTINGS_OBJECT(settings);
-	if (settings.value("allowSystemCommands", false).toBool()) {
-		TWSystemCmd *process = new TWSystemCmd(this, waitForResult);
-		if (waitForResult) {
-			process->setProcessChannelMode(QProcess::MergedChannels);
-			process->start(cmdline);			
-			// make sure events (in particular GUI update events that should
-			// inform the user of the progress) are processed before we make a
-			// call that possibly blocks for a considerable amount of time
-			processEvents(QEventLoop::ExcludeUserInputEvents, 100);
-			if (!process->waitForStarted()) {
-				process->deleteLater();
-				return QVariant(tr("Failed to execute system command: %1").arg(cmdline));
-			}
-			processEvents(QEventLoop::ExcludeUserInputEvents, 100);
-			if (!process->waitForFinished()) {
-				process->deleteLater();
-				return QVariant(tr("Error executing system command: %1").arg(cmdline));
-			}
-			return QVariant(process->getResult());
-		}
-		else {
-			process->closeReadChannel(QProcess::StandardOutput);
-			process->closeReadChannel(QProcess::StandardError);
-			process->start(cmdline);
-			return QVariant();
-		}
-	}
-	else {
-		if (waitForResult) {
-			return QVariant(tr("System command execution is disabled (see Preferences)"));
-		}
-		// else result is null
-		return QVariant();
-	}
 }
 
 #ifdef Q_WS_WIN	// support for the Windows single-instance code

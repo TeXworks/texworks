@@ -163,7 +163,9 @@ HEADERS	+=	src/TWApp.h \
 			src/TWVersion.h \
 			src/SvnRev.h \
 			src/synctex_parser.h \
-			src/synctex_parser_utils.h
+			src/synctex_parser_utils.h \
+			src/ConfigurableApp.h \
+			src/TWSystemCmd.h
 
 FORMS	+=	src/TeXDocument.ui \
 			src/PDFDocument.ui \

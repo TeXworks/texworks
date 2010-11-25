@@ -173,6 +173,7 @@ public:
 	Q_INVOKABLE bool hasGlobal(const QString& key) const { return m_globals.contains(key); }
 	Q_INVOKABLE QVariant getGlobal(const QString& key) const { return m_globals[key]; }
 
+	bool mayExecute(const QString& cmd, QObject * context);
 
 protected:
 	/** \brief	Constructor

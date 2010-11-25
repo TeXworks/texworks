@@ -63,6 +63,14 @@ public:
 	Q_INVOKABLE
 	int getQtVersion() const { return QT_VERSION; }
 
+	// for script access to arbitrary commands
+	Q_INVOKABLE
+	QVariant system(const QString& cmdline, bool waitForResult = true);
+
+	// launch file from the desktop with default app
+	Q_INVOKABLE
+	QVariant launchFile(const QString& fileName, bool waitForResult = true);
+	
 	// QMessageBox functions to display alerts
 	Q_INVOKABLE
 	int information(QWidget* parent,
