@@ -114,6 +114,8 @@ public:
 
 #ifdef Q_WS_WIN
 	void createMessageTarget(QWidget* aWindow);
+	static QString GetWindowsVersionString();
+	static unsigned int GetWindowsVersion();
 #endif
 #ifdef Q_WS_X11
 	void bringToFront();
