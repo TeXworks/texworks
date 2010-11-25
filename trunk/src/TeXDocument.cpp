@@ -554,7 +554,7 @@ void TeXDocument::open()
 		options = QFileDialog::DontUseSheet;
 #endif
 #ifdef Q_WS_WIN
-	options |= QFileDialog::DontUseNativeDialog;
+	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QSETTINGS_OBJECT(settings);
 	QString lastOpenDir = settings.value("openDialogDir").toString();
@@ -744,10 +744,9 @@ bool TeXDocument::saveAll()
 
 bool TeXDocument::saveAs()
 {
-#ifdef Q_WS_WIN
-	QFileDialog::Options	options = QFileDialog::DontUseNativeDialog;
-#else
 	QFileDialog::Options	options = 0;
+#ifdef Q_WS_WIN
+	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QString selectedFilter;
 

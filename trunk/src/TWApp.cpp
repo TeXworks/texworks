@@ -307,7 +307,7 @@ void TWApp::goToHomePage()
 /* based on MSDN sample code from http://msdn.microsoft.com/en-us/library/ms724429(VS.85).aspx */
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
-QString GetWindowsVersionString()
+QString TWApp::GetWindowsVersionString()
 {
 	OSVERSIONINFOEXA osvi;
 	SYSTEM_INFO si;
@@ -394,6 +394,19 @@ QString GetWindowsVersionString()
 	}
 	
 	return result;
+}
+
+unsigned int TWApp::GetWindowsVersion()
+{
+	OSVERSIONINFOEXA osvi;
+	
+	memset(&osvi, 0, sizeof(OSVERSIONINFOEXA));
+	
+	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXA);
+	if ( !GetVersionExA ((OSVERSIONINFOA *) &osvi) )
+		return 0;
+	
+	return (osvi.dwMajorVersion << 24) | (osvi.dwMinorVersion << 16) | (osvi.wServicePackMajor << 8) | (osvi.wServicePackMinor << 0);
 }
 #endif
 
@@ -572,10 +585,9 @@ void TWApp::openRecentFile()
 
 QStringList TWApp::getOpenFileNames(QString selectedFilter)
 {
-#ifdef Q_WS_WIN
-	QFileDialog::Options	options = QFileDialog::DontUseNativeDialog;
-#else
 	QFileDialog::Options	options = 0;
+#ifdef Q_WS_WIN
+	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QSETTINGS_OBJECT(settings);
 	QString lastOpenDir = settings.value("openDialogDir").toString();
@@ -588,10 +600,9 @@ QStringList TWApp::getOpenFileNames(QString selectedFilter)
 
 QString TWApp::getOpenFileName(QString selectedFilter)
 {
-#ifdef Q_WS_WIN
-	QFileDialog::Options	options = QFileDialog::DontUseNativeDialog;
-#else
 	QFileDialog::Options	options = 0;
+#ifdef Q_WS_WIN
+	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QSETTINGS_OBJECT(settings);
 	QString lastOpenDir = settings.value("openDialogDir").toString();
@@ -604,10 +615,9 @@ QString TWApp::getOpenFileName(QString selectedFilter)
 
 QString TWApp::getSaveFileName(const QString& defaultName)
 {
-#ifdef Q_WS_WIN
-	QFileDialog::Options	options = QFileDialog::DontUseNativeDialog;
-#else
 	QFileDialog::Options	options = 0;
+#ifdef Q_WS_WIN
+	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QString selectedFilter;
 	if (!TWUtils::filterList()->isEmpty())
