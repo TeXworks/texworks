@@ -110,8 +110,6 @@ public:
 
 	TWScriptManager* getScriptManager() { return scriptManager; }
 
-	void updateScriptsMenus();
-
 #ifdef Q_WS_WIN
 	void createMessageTarget(QWidget* aWindow);
 	static QString GetWindowsVersionString();

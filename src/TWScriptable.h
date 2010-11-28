@@ -65,8 +65,8 @@ class JSScript : public TWScript
 	Q_INTERFACES(TWScript)
 	
 public:
-	JSScript(TWScriptLanguageInterface* interface, const QString& filename)
-		: TWScript(interface, filename) { }
+	JSScript(QObject * plugin, const QString& filename)
+		: TWScript(plugin, filename) { }
 		
 	virtual bool parseHeader() { return doParseHeader("", "", "//"); };
 
@@ -108,7 +108,7 @@ public:
 	TWScriptList* getHookScripts() { return &m_Hooks; }
 	QList<TWScript*> getHookScripts(const QString& hook) const;
 
-	const QList<TWScriptLanguageInterface*>& languages() const { return scriptLanguages; }
+	const QList<QObject*>& languages() const { return scriptLanguages; }
 
 	void reloadScripts(bool forceAll = false);
 	void saveDisabledList();
@@ -126,7 +126,7 @@ private:
 	TWScriptList m_Scripts; // hierarchical list of standalone scripts
 	TWScriptList m_Hooks; // hierarchical list of hook scripts
 
-	QList<TWScriptLanguageInterface*> scriptLanguages;
+	QList<QObject*> scriptLanguages;
 };
 
 // parent class for document windows (i.e. both the source and PDF window types);

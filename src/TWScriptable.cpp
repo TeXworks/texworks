@@ -148,9 +148,8 @@ void TWScriptManager::loadPlugins()
 	
 	// get any static plugins
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
-		TWScriptLanguageInterface *s = qobject_cast<TWScriptLanguageInterface*>(plugin);
-		if (s)
-			scriptLanguages += s;
+		if (qobject_cast<TWScriptLanguageInterface*>(plugin))
+			scriptLanguages += plugin;
 	}
 
 #ifdef TW_PLUGINPATH
@@ -187,9 +186,8 @@ void TWScriptManager::loadPlugins()
 		loader.setLoadHints(QLibrary::ExportExternalSymbolsHint);
 #endif
 		QObject *plugin = loader.instance();
-		TWScriptLanguageInterface *s = qobject_cast<TWScriptLanguageInterface*>(plugin);
-		if (s)
-			scriptLanguages += s;
+		if (qobject_cast<TWScriptLanguageInterface*>(plugin))
+			scriptLanguages += plugin;
 	}
 }
 
@@ -217,6 +215,9 @@ void TWScriptManager::reloadScripts(bool forceAll /*= false*/)
 
 void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & processed)
 {
+	QSETTINGS_OBJECT(settings);
+	bool enableScriptsPlugins = settings.value("enableScriptingPlugins", false).toBool();
+	
 	foreach(QObject * item, list->children()) {
 		if (qobject_cast<TWScriptList*>(item))
 			reloadScriptsInList(qobject_cast<TWScriptList*>(item), processed);
@@ -236,6 +237,11 @@ void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & pro
 					delete s;
 					continue;
 				}
+			}
+			if(!enableScriptsPlugins && !qobject_cast<const JSScriptInterface*>(s->getScriptLanguagePlugin())) {
+				// the plugin necessary to execute this scripts has been disabled
+				delete s;
+				continue;
 			}
 			processed << s->getFilename();
 		}
@@ -287,6 +293,9 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 											const QStringList& disabled,
 											const QStringList& ignore)
 {
+	QSETTINGS_OBJECT(settings);
+	bool scriptingPluginsEnabled = settings.value("enableScriptingPlugins", false).toBool();
+	
 	foreach (const QFileInfo& info,
 			 dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Readable, QDir::DirsLast)) {
 		if (info.isDir()) {
@@ -323,7 +332,11 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 		if (ignore.contains(info.absoluteFilePath()))
 			continue;
 
-		foreach (TWScriptLanguageInterface* i, scriptLanguages) {
+		foreach (QObject * plugin, scriptLanguages) {
+			TWScriptLanguageInterface * i = qobject_cast<TWScriptLanguageInterface*>(plugin);
+			if(!i) continue;
+			if(!scriptingPluginsEnabled && !qobject_cast<JSScriptInterface*>(plugin))
+				continue;
 			if (!i->canHandleFile(info))
 				continue;
 			TWScript *script = i->newScript(info.absoluteFilePath());
@@ -483,9 +496,15 @@ TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 void
 TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 {
+	QSETTINGS_OBJECT(settings);
+	
 	TWScript * s = qobject_cast<TWScript*>(script);
 	if (!s || s->getType() != scriptType)
 		return;
+
+	if(!settings.value("enableScriptingPlugins", false).toBool() &&
+		!qobject_cast<const JSScriptInterface*>(s->getScriptLanguagePlugin())
+	) return;
 
 	if (!s->isEnabled())
 		return;
@@ -527,8 +546,10 @@ TWScriptable::doAboutScripts()
 	aboutText += "</small></p><p>";
 	aboutText += tr("Scripting languages currently available in this copy of %1:").arg(TEXWORKS_NAME);
 	aboutText += "</p><ul>";
-	foreach (const TWScriptLanguageInterface* i,
+	foreach (const QObject * plugin,
 			 TWApp::instance()->getScriptManager()->languages()) {
+		const TWScriptLanguageInterface * i = qobject_cast<TWScriptLanguageInterface*>(plugin);
+		if(!i) continue;
 		aboutText += "<li><a href=\"";
 		aboutText += i->scriptLanguageURL();
 		aboutText += "\">";
