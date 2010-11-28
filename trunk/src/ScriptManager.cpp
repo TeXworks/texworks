@@ -195,12 +195,14 @@ void ScriptManager::treeSelectionChanged()
 	addDetailsRow(rows, tr("Shortcut: "), s->getKeySequence().toString());
 	addDetailsRow(rows, tr("File: "), QFileInfo(s->getFilename()).fileName());
 	
-	const TWScriptLanguageInterface * sli = s->getScriptLanguageInterface();
-	QString url = sli->scriptLanguageURL();
-	QString str = sli->scriptLanguageName();
-	if (!url.isEmpty())
-		str = "<a href=\"" + url + "\">" + str + "</a>";
-	addDetailsRow(rows, tr("Language: "), str);
+	const TWScriptLanguageInterface * sli = qobject_cast<TWScriptLanguageInterface*>(s->getScriptLanguagePlugin());
+	if(sli) {
+		QString url = sli->scriptLanguageURL();
+		QString str = sli->scriptLanguageName();
+		if (!url.isEmpty())
+			str = "<a href=\"" + url + "\">" + str + "</a>";
+		addDetailsRow(rows, tr("Language: "), str);
+	}
 
 	if (s->getType() == TWScript::ScriptHook)
 		addDetailsRow(rows, tr("Hook: "), s->getHook());

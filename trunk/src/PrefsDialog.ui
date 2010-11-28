@@ -876,33 +876,42 @@
       </attribute>
       <layout class="QVBoxLayout">
        <item>
-        <spacer>
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+        <widget class="QGroupBox" name="groupBox_9">
+         <property name="title">
+          <string>Security</string>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>10</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="scriptDebugger">
-         <property name="text">
-          <string>Enable QtScript debugger</string>
-         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QCheckBox" name="allowSystemCommands">
+            <property name="text">
+             <string>Allow scripts to run system commands</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="enableScriptingPlugins">
+            <property name="text">
+             <string>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="allowSystemCommands">
-         <property name="text">
-          <string>Allow scripts to run system commands</string>
+        <widget class="QGroupBox" name="groupBox_10">
+         <property name="title">
+          <string>Debugging</string>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QCheckBox" name="scriptDebugger">
+            <property name="text">
+             <string>Enable QtScript debugger</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -977,8 +986,6 @@
   <tabstop>toolRemove</tabstop>
   <tabstop>defaultTool</tabstop>
   <tabstop>autoHideOutput</tabstop>
-  <tabstop>scriptDebugger</tabstop>
-  <tabstop>allowSystemCommands</tabstop>
   <tabstop>buttonBox</tabstop>
   <tabstop>tabWidget</tabstop>
  </tabstops>

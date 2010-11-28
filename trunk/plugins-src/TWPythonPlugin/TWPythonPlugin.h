@@ -89,7 +89,7 @@ public:
 	 *
 	 * Does nothing
 	 */
-	PythonScript(TWScriptLanguageInterface *interface, const QString& fileName)
+	PythonScript(TWPythonPlugin * interface, const QString& fileName)
 		: TWScript(interface, fileName) { }
 	
 	/** \brief Parse the script header

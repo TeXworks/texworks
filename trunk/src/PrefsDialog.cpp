@@ -563,6 +563,10 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 
 	// Scripts
 	dlg.allowSystemCommands->setChecked(settings.value("allowSystemCommands", false).toBool());
+	dlg.enableScriptingPlugins->setChecked(settings.value("enableScriptingPlugins", false).toBool());
+	// there is always at least JSScriptInterface
+	if(TWApp::instance()->getScriptManager()->languages().size() <= 1)
+		dlg.enableScriptingPlugins->setEnabled(false);
 	dlg.scriptDebugger->setChecked(settings.value("scriptDebugger", false).toBool());
 #if QT_VERSION < 0x040500
 	dlg.scriptDebugger->setEnabled(false);
@@ -714,7 +718,11 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 
 		// Scripts
 		settings.setValue("allowSystemCommands", dlg.allowSystemCommands->isChecked());
+		settings.setValue("enableScriptingPlugins", dlg.enableScriptingPlugins->isChecked());
 		settings.setValue("scriptDebugger", dlg.scriptDebugger->isChecked());
+		// with changed settings, the availability of scripts may have changed
+		// (e.g., because of enabling/disabling the use of scripting plugins)
+		TWApp::instance()->updateScriptsList();
 	}
 
 	return result;

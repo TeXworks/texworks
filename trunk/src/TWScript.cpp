@@ -29,8 +29,8 @@
 #include <QApplication>
 #include <QTextCodec>
 
-TWScript::TWScript(TWScriptLanguageInterface *interface, const QString& fileName)
-	: m_Interface(interface), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true), m_FileSize(0)
+TWScript::TWScript(QObject * plugin, const QString& fileName)
+	: m_Plugin(plugin), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true), m_FileSize(0)
 {
 	m_Codec = QTextCodec::codecForName("UTF-8");
 	if (!m_Codec)
