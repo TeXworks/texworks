@@ -441,3 +441,10 @@ bool TWScript::mayExecute(const QString& cmd, QObject * context)
 	return settings.value("allowSystemCommands", false).toBool();
 }
 
+bool TWScript::mayWriteFile(const QString& filename) const
+{
+	Q_UNUSED(filename)
+	
+	QSETTINGS_OBJECT(settings);
+	return settings.value("allowScriptFileWriting", false).toBool();
+}

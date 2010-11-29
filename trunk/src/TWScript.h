@@ -174,6 +174,7 @@ public:
 	Q_INVOKABLE QVariant getGlobal(const QString& key) const { return m_globals[key]; }
 
 	bool mayExecute(const QString& cmd, QObject * context);
+	bool mayWriteFile(const QString& filename) const;
 
 protected:
 	/** \brief	Constructor
