@@ -2526,7 +2526,8 @@ void TeXDocument::anchorClicked(const QUrl& url)
 		if (url.hasFragment()) {
 			line = url.fragment().toLong();
 		}
-		openDocument(QFileInfo(curFile).absoluteDir().filePath(url.path()), true, true, line);
+		TeXDocument * target = openDocument(QFileInfo(getRootFilePath()).absoluteDir().filePath(url.path()), true, true, line);
+		if(target) target->textEdit->setFocus(Qt::OtherFocusReason);
 	}
 	else {
 		TWApp::instance()->openUrl(url);
