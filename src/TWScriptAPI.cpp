@@ -242,7 +242,7 @@ QVariant TWScriptAPI::system(const QString& cmdline, bool waitForResult)
 	}
 }
 
-QVariant TWScriptAPI::launchFile(const QString& fileName, bool waitForResult)
+QVariant TWScriptAPI::launchFile(const QString& fileName, bool waitForResult) const
 {
 	QFileInfo finfo(fileName);
 
