@@ -253,4 +253,19 @@ QVariant TWScriptAPI::launchFile(const QString& fileName, bool waitForResult)
 		return waitForResult ? QVariant(tr("System command execution is disabled (see Preferences)")) : QVariant();
 }
 
+//Q_INVOKABLE
+int TWScriptAPI::writeFile(const QString& filename, const QString& content) const
+{
+	if(!m_script->mayWriteFile(filename)) return TWScriptAPI::SystemAccess_PermissionDenied;
+	
+	QFile fout(filename);
+	qint64 numBytes = -1;
+	
+	if(!fout.open(QIODevice::WriteOnly | QIODevice::Text))
+		return TWScriptAPI::SystemAccess_Failed;
+	
+	numBytes = fout.write(content.toUtf8());
+	fout.close();
 
+	return (numBytes < 0 ? TWScriptAPI::SystemAccess_Failed : TWScriptAPI::SystemAccess_OK);
+}

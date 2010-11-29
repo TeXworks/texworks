@@ -562,6 +562,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.autoHideOutput->setChecked(settings.value("autoHideConsole", kDefault_HideConsole).toBool());
 
 	// Scripts
+	dlg.allowScriptFileWriting->setChecked(settings.value("allowScriptFileWriting", false).toBool());
 	dlg.allowSystemCommands->setChecked(settings.value("allowSystemCommands", false).toBool());
 	dlg.enableScriptingPlugins->setChecked(settings.value("enableScriptingPlugins", false).toBool());
 	// there is always at least JSScriptInterface
@@ -717,6 +718,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		settings.setValue("autoHideConsole", dlg.autoHideOutput->isChecked());
 
 		// Scripts
+		settings.setValue("allowScriptFileWriting", dlg.allowScriptFileWriting->isChecked());
 		settings.setValue("allowSystemCommands", dlg.allowSystemCommands->isChecked());
 		settings.setValue("enableScriptingPlugins", dlg.enableScriptingPlugins->isChecked());
 		settings.setValue("scriptDebugger", dlg.scriptDebugger->isChecked());

@@ -882,6 +882,13 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
+           <widget class="QCheckBox" name="allowScriptFileWriting">
+            <property name="text">
+             <string>Allow scripts to write files</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="allowSystemCommands">
             <property name="text">
              <string>Allow scripts to run system commands</string>

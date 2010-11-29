@@ -49,6 +49,12 @@ public:
 	
 	void SetResult(const QVariant& rval);
 	
+	enum SystemAccessResult {
+		SystemAccess_OK = 0,
+		SystemAccess_Failed,
+		SystemAccess_PermissionDenied
+	};
+	
 	// provide utility functions for scripts, implemented as methods on the TW object
 
 	// length of a string in UTF-16 code units, useful if script language uses a different encoding form
@@ -63,6 +69,7 @@ public:
 	Q_INVOKABLE
 	int getQtVersion() const { return QT_VERSION; }
 
+	// System access
 	// for script access to arbitrary commands
 	Q_INVOKABLE
 	QVariant system(const QString& cmdline, bool waitForResult = true);
@@ -70,6 +77,11 @@ public:
 	// launch file from the desktop with default app
 	Q_INVOKABLE
 	QVariant launchFile(const QString& fileName, bool waitForResult = true);
+	
+	// Return type is one of SystemAccessResult
+	// Content is written in text-mode in utf8 encoding
+	Q_INVOKABLE
+	int writeFile(const QString& filename, const QString& content) const;
 	
 	// QMessageBox functions to display alerts
 	Q_INVOKABLE
