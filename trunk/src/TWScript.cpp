@@ -431,7 +431,7 @@ void TWScript::globalDestroyed(QObject * obj)
 }
 
 
-bool TWScript::mayExecute(const QString& cmd, QObject * context)
+bool TWScript::mayExecute(const QString& cmd, QObject * context) const
 {
 	Q_UNUSED(cmd)
 	Q_UNUSED(context)

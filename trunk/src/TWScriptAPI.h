@@ -76,7 +76,7 @@ public:
 
 	// launch file from the desktop with default app
 	Q_INVOKABLE
-	QVariant launchFile(const QString& fileName, bool waitForResult = true);
+	QVariant launchFile(const QString& fileName, bool waitForResult = true) const;
 	
 	// Return type is one of SystemAccessResult
 	// Content is written in text-mode in utf8 encoding
