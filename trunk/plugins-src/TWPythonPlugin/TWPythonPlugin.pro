@@ -71,7 +71,9 @@ win32 { # paths here are specific to my setup
 # Input
 HEADERS	+=	TWPythonPlugin.h \
 			../../src/TWScript.h \
-			../../src/TWScriptAPI.h
+			../../src/TWScriptAPI.h \
+			../../src/ConfigurableApp.h \
+			../../src/TWSystemCmd.h
 
 SOURCES	+=	TWPythonPlugin.cpp \
 			../../src/TWScript.cpp \
