@@ -1598,27 +1598,31 @@ void TeXDocument::prefixLines(const QString &prefix)
 {
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.beginEditBlock();
+	// Get selection to work on
 	int selStart = cursor.selectionStart();
 	int selEnd = cursor.selectionEnd();
+	// extend selection to start and end at block boundaries (i.e., line breaks)
+	// this is reasonable since we work on full lines only
 	cursor.setPosition(selStart);
 	if (!cursor.atBlockStart()) {
 		cursor.movePosition(QTextCursor::StartOfBlock);
 		selStart = cursor.position();
 	}
 	cursor.setPosition(selEnd);
-	if (!cursor.atBlockStart() || selEnd == selStart) {
-		cursor.movePosition(QTextCursor::NextBlock);
+	if (!cursor.atBlockEnd()) {
+		cursor.movePosition(QTextCursor::EndOfBlock);
 		selEnd = cursor.position();
 	}
-	if (selEnd == selStart)
-		goto handle_end_of_doc;	// special case
-	while (cursor.position() > selStart) {
-		cursor.movePosition(QTextCursor::PreviousBlock);
-	handle_end_of_doc:
+	// prefix lines, starting at the end (because otherwise positions would
+	// change constantly). Operate as long as we're inside the selection, or
+	// until we cannot move back (i.e., we reached the beginning of the document)
+	cursor.movePosition(QTextCursor::StartOfBlock);
+	while(cursor.position() >= selStart) {
 		cursor.insertText(prefix);
-		cursor.movePosition(QTextCursor::StartOfBlock);
 		selEnd += prefix.length();
+		if(!cursor.movePosition(QTextCursor::PreviousBlock)) break;
 	}
+	// restore the (extended) selection
 	cursor.setPosition(selStart);
 	cursor.setPosition(selEnd, QTextCursor::KeepAnchor);
 	textEdit->setTextCursor(cursor);
@@ -1639,29 +1643,38 @@ void TeXDocument::unPrefixLines(const QString &prefix)
 {
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.beginEditBlock();
+	// Get selection to work on
 	int selStart = cursor.selectionStart();
 	int selEnd = cursor.selectionEnd();
+	// extend selection to start and end at block boundaries (i.e., line breaks)
+	// this is reasonable since we work on full lines only
 	cursor.setPosition(selStart);
 	if (!cursor.atBlockStart()) {
 		cursor.movePosition(QTextCursor::StartOfBlock);
 		selStart = cursor.position();
 	}
 	cursor.setPosition(selEnd);
-	if (!cursor.atBlockStart() || selEnd == selStart) {
-		cursor.movePosition(QTextCursor::NextBlock);
+	if (!cursor.atBlockEnd()) {
+		cursor.movePosition(QTextCursor::EndOfBlock);
 		selEnd = cursor.position();
 	}
-	while (cursor.position() > selStart) {
-		cursor.movePosition(QTextCursor::PreviousBlock);
-		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
-		QString		str = cursor.selectedText();
-		if (str == prefix) {
-			cursor.removeSelectedText();
-			selEnd -= prefix.length();
+	// unprefix lines, starting at the end (because otherwise positions would
+	// change constantly). Operate as long as we're inside the selection, or
+	// until we cannot move back (i.e., we reached the beginning of the document)
+	cursor.movePosition(QTextCursor::StartOfBlock);
+	while (cursor.position() >= selStart) {
+		int oldPos = cursor.position();
+		if(cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, prefix.size())) {
+			QString str = cursor.selectedText();
+			if (str == prefix) {
+				cursor.removeSelectedText();
+				selEnd -= prefix.length();
+			}
 		}
-		else
-			cursor.movePosition(QTextCursor::PreviousCharacter);
+		cursor.setPosition(oldPos);
+		if(!cursor.movePosition(QTextCursor::PreviousBlock)) break;
 	}
+	// restore the (extended) selection
 	cursor.setPosition(selStart);
 	cursor.setPosition(selEnd, QTextCursor::KeepAnchor);
 	textEdit->setTextCursor(cursor);
