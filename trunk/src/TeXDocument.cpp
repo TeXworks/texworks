@@ -1599,6 +1599,7 @@ void TeXDocument::prefixLines(const QString &prefix)
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.beginEditBlock();
 	// Get selection to work on
+	int cursorPos = cursor.position();
 	int selStart = cursor.selectionStart();
 	int selEnd = cursor.selectionEnd();
 	// extend selection to start and end at block boundaries (i.e., line breaks)
@@ -1610,6 +1611,12 @@ void TeXDocument::prefixLines(const QString &prefix)
 	}
 	cursor.setPosition(selEnd);
 	if (!cursor.atBlockEnd()) {
+		if(cursor.atBlockStart() && cursorPos != selEnd) {
+			// the selection ends right after an end-of-block, and the cursor
+			// is not there; thus, the block starting at selEnd doesn't belong
+			// to the selection and should not be prefixed
+			cursor.movePosition(QTextCursor::PreviousBlock);
+		}
 		cursor.movePosition(QTextCursor::EndOfBlock);
 		selEnd = cursor.position();
 	}
@@ -1644,6 +1651,7 @@ void TeXDocument::unPrefixLines(const QString &prefix)
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.beginEditBlock();
 	// Get selection to work on
+	int cursorPos = cursor.position();
 	int selStart = cursor.selectionStart();
 	int selEnd = cursor.selectionEnd();
 	// extend selection to start and end at block boundaries (i.e., line breaks)
@@ -1655,6 +1663,12 @@ void TeXDocument::unPrefixLines(const QString &prefix)
 	}
 	cursor.setPosition(selEnd);
 	if (!cursor.atBlockEnd()) {
+		if(cursor.atBlockStart() && cursorPos != selEnd) {
+			// the selection ends right after an end-of-block, and the cursor
+			// is not there; thus, the block starting at selEnd doesn't belong
+			// to the selection and should not be prefixed
+			cursor.movePosition(QTextCursor::PreviousBlock);
+		}
 		cursor.movePosition(QTextCursor::EndOfBlock);
 		selEnd = cursor.position();
 	}
