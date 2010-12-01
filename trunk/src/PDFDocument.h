@@ -196,6 +196,7 @@ private:
 	static QCursor	*magnifierCursor;
 	static QCursor	*zoomInCursor;
 	static QCursor	*zoomOutCursor;
+	static QCursor	*synctexCursor;
 };
 
 
