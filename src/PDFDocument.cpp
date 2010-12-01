@@ -76,6 +76,9 @@ const int kSelectImage = 4;
 // duration of highlighting in PDF view (might make configurable?)
 const int kPDFHighlightDuration = 2000;
 
+// mask of all modified keys we check against
+const int keyboardModifierMask = Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier;
+
 #pragma mark === PDFMagnifier ===
 
 const int kMagFactor = 2;
@@ -144,6 +147,7 @@ void PDFMagnifier::resizeEvent(QResizeEvent * /*event*/)
 QCursor *PDFWidget::magnifierCursor = NULL;
 QCursor *PDFWidget::zoomInCursor = NULL;
 QCursor *PDFWidget::zoomOutCursor = NULL;
+QCursor *PDFWidget::synctexCursor = NULL;
 
 PDFWidget::PDFWidget()
 	: QLabel()
@@ -185,6 +189,7 @@ PDFWidget::PDFWidget()
 		magnifierCursor = new QCursor(QPixmap(":/images/images/magnifiercursor.png"));
 		zoomInCursor = new QCursor(QPixmap(":/images/images/zoomincursor.png"));
 		zoomOutCursor = new QCursor(QPixmap(":/images/images/zoomoutcursor.png"));
+		synctexCursor = new QCursor(Qt::ArrowCursor);
 	}
 	
 	ctxZoomInAction = new QAction(tr("Zoom In"), this);
@@ -310,6 +315,7 @@ static Qt::KeyboardModifiers mouseDownModifiers;
 void PDFWidget::mousePressEvent(QMouseEvent *event)
 {
 	clickedLink = NULL;
+	bool handled = false;
 	
 	if (event->button() != Qt::LeftButton) {
 		QWidget::mousePressEvent(event);
@@ -317,35 +323,55 @@ void PDFWidget::mousePressEvent(QMouseEvent *event)
 	}
 
 	mouseDownModifiers = event->modifiers();
-	if (mouseDownModifiers & Qt::ControlModifier) {
+
+	// Modified behavior takes highest priority
+	if (!handled && (mouseDownModifiers & keyboardModifierMask) == Qt::ControlModifier) {
 		// ctrl key - this is a sync click, don't handle the mouseDown here
+		handled = true;
 	}
-	else {
-		// check for click in link
+	if (!handled && (mouseDownModifiers & keyboardModifierMask) == Qt::ShiftModifier) {
+		if(currentTool == kMagnifier) {
+			// do nothing - zoom in on mouseUp
+			handled = true;
+		}
+	}
+	if (!handled && (mouseDownModifiers & keyboardModifierMask) == Qt::AltModifier) {
+		if(currentTool == kMagnifier) {
+			// do nothing - zoom out on mouseUp
+			handled = true;
+		}
+	}
+	
+	// Context-specific behavior comes second
+	if(!handled && page) {
 		foreach (Poppler::Link* link, page->links()) {
 			// poppler's linkArea is relative to the page rect, it seems
 			QPointF scaledPos(event->pos().x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
 								event->pos().y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
 			if (link->linkArea().contains(scaledPos)) {
 				clickedLink = link;
+				// opening the link is handled in mouseReleaseEvent
+				handled = true;
 				break;
 			}
 		}
-		if (clickedLink == NULL) {
-			switch (currentTool) {
-				case kMagnifier:
-					if (mouseDownModifiers & (Qt::ShiftModifier | Qt::AltModifier))
-						; // do nothing - zoom in or out (on mouseUp)
-					else
-						useMagnifier(event);
-					break;
-				
-				case kScroll:
-					setCursor(Qt::ClosedHandCursor);
-					scrollClickPos = event->globalPos();
-					usingTool = kScroll;
-					break;
-			}
+	}
+	
+	// Default behavior has the lowest priority
+	if(!handled) {
+		switch (currentTool) {
+			case kMagnifier:
+				useMagnifier(event);
+				break;
+		
+			case kScroll:
+				setCursor(Qt::ClosedHandCursor);
+				scrollClickPos = event->globalPos();
+				usingTool = kScroll;
+				break;
+			
+			default:
+				break;
 		}
 	}
 	event->accept();
@@ -353,43 +379,53 @@ void PDFWidget::mousePressEvent(QMouseEvent *event)
 
 void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-	if (clickedLink != NULL) {
-		QPointF scaledPos(event->pos().x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
-							event->pos().y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
-		if (clickedLink->linkArea().contains(scaledPos)) {
-			doLink(clickedLink);
-		}
-	}
-	else {
-		switch (usingTool) {
-			case kNone:
+	switch (usingTool) {
+		case kMagnifier:
+			// Ensure we stop using the tool before hiding the magnifier.
+			// Otherwise other events in the queue may be processed between
+			// "close()" and "usingTool=" that could show the magnifier
+			// again
+			usingTool = kNone;
+			magnifier->close();
+			break;
+		
+		default:
+			Qt::KeyboardModifiers mods = event->modifiers();
+			// Modified behavior takes highest priority
+			if((mods & keyboardModifierMask) == Qt::ControlModifier) {
 				// Ctrl-click to sync
-				if (mouseDownModifiers & Qt::ControlModifier) {
-					if (event->modifiers() & Qt::ControlModifier) {
-						QPointF pagePos(event->pos().x() / scaleFactor * 72.0 / dpi,
-										event->pos().y() / scaleFactor * 72.0 / dpi);
-						emit syncClick(pageIndex, pagePos);
-					}
+				if ((mouseDownModifiers & keyboardModifierMask) == Qt::ControlModifier) {
+					QPointF pagePos(event->pos().x() / scaleFactor * 72.0 / dpi,
+									event->pos().y() / scaleFactor * 72.0 / dpi);
+					emit syncClick(pageIndex, pagePos);
+				}
+				break;
+			}
+			if((mods & keyboardModifierMask) == Qt::ShiftModifier) {
+				if(currentTool == kMagnifier) {
+					doZoom(event->pos(), 1);
 					break;
 				}
-				// check whether to zoom
-				if (currentTool == kMagnifier) {
-					Qt::KeyboardModifiers mods = QApplication::keyboardModifiers();
-					if (mods & Qt::AltModifier)
-						doZoom(event->pos(), -1);
-					else if (mods & Qt::ShiftModifier)
-						doZoom(event->pos(), 1);
+			}
+			if((mods & keyboardModifierMask) == Qt::AltModifier) {
+				if(currentTool == kMagnifier) {
+					doZoom(event->pos(), -1);
+					break;
 				}
-				break;
-			case kMagnifier:
-				// Ensure we stop using the tool before hiding the magnifier.
-				// Otherwise other events in the queue may be processed between
-				// "close()" and "usingTool=" that could show the magnifier
-				// again
-				usingTool = kNone;
-				magnifier->close();
-				break;
-		}
+			}
+
+			// Context-specific behavior comes second
+			if (clickedLink != NULL) {
+				QPointF scaledPos(event->pos().x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
+									event->pos().y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
+				if (clickedLink->linkArea().contains(scaledPos)) {
+					doLink(clickedLink);
+					break;
+				}
+			}
+
+			// Default behavior has the lowest priority
+			break;
 	}
 	clickedLink = NULL;
 	usingTool = kNone;
@@ -629,23 +665,68 @@ void PDFWidget::setTool(int tool)
 
 void PDFWidget::updateCursor()
 {
+	updateCursor(mapFromGlobal(QCursor::pos()));
+}
+
+void PDFWidget::updateCursor(const QPoint& pos)
+{
 	if (usingTool != kNone)
 		return;
 
+	// Modified behavior takes highest priority
+	Qt::KeyboardModifiers mods = QApplication::keyboardModifiers();
+
+	if((mods & keyboardModifierMask) == Qt::ControlModifier) {
+		setCursor(*synctexCursor);
+		return;
+	}
+	if((mods & keyboardModifierMask) == Qt::AltModifier) {
+		if(currentTool == kMagnifier) {
+			setCursor(*zoomOutCursor);
+			return;
+		}
+	}
+	if((mods & keyboardModifierMask) == Qt::ShiftModifier) {
+		if(currentTool == kMagnifier) {
+			setCursor(*zoomInCursor);
+			return;
+		}
+	}
+	
+	// Context-specific behavior comes second
+	if(page) {
+		// check for link
+		foreach (Poppler::Link* link, page->links()) {
+			// poppler's linkArea is relative to the page rect
+			QPointF scaledPos(pos.x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
+								pos.y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
+			if (link->linkArea().contains(scaledPos)) {
+				setCursor(Qt::PointingHandCursor);
+				if (link->linkType() == Poppler::Link::Browse) {
+					QPoint globalPos = mapToGlobal(pos);
+					const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
+					Q_ASSERT(browse != NULL);
+					QRectF r = link->linkArea();
+					r.setWidth(r.width() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
+					r.setHeight(r.height() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
+					r.moveLeft(r.left() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
+					r.moveTop(r.top() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
+					QRect rr = r.toRect().normalized();
+					rr.setTopLeft(mapToGlobal(rr.topLeft()));
+					QToolTip::showText(globalPos, browse->url(), this, rr);
+				}
+				return;
+			}
+		}
+	}
+
+	// Default behavior has the lowest priority
 	switch (currentTool) {
 		case kScroll:
 			setCursor(Qt::OpenHandCursor);
 			break;
 		case kMagnifier:
-			{
-				Qt::KeyboardModifiers mods = QApplication::keyboardModifiers();
-				if (mods & Qt::AltModifier)
-					setCursor(*zoomOutCursor);
-				else if (mods & Qt::ShiftModifier)
-					setCursor(*zoomInCursor);
-				else
-					setCursor(*magnifierCursor);
-			}
+			setCursor(*magnifierCursor);
 			break;
 		case kSelectText:
 			setCursor(Qt::IBeamCursor);
@@ -653,35 +734,10 @@ void PDFWidget::updateCursor()
 		case kSelectImage:
 			setCursor(Qt::CrossCursor);
 			break;
+		default:
+			setCursor(Qt::ArrowCursor);
+			break;
 	}
-}
-
-void PDFWidget::updateCursor(const QPoint& pos)
-{
-	// check for link
-	foreach (Poppler::Link* link, page->links()) {
-		// poppler's linkArea is relative to the page rect
-		QPointF scaledPos(pos.x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
-							pos.y() / scaleFactor / dpi * 72.0 / page->pageSizeF().height());
-		if (link->linkArea().contains(scaledPos)) {
-			setCursor(Qt::PointingHandCursor);
-			if (link->linkType() == Poppler::Link::Browse) {
-				QPoint globalPos = mapToGlobal(pos);
-				const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
-				Q_ASSERT(browse != NULL);
-				QRectF r = link->linkArea();
-				r.setWidth(r.width() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
-				r.setHeight(r.height() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
-				r.moveLeft(r.left() * scaleFactor * dpi / 72.0 * page->pageSizeF().width());
-				r.moveTop(r.top() * scaleFactor * dpi / 72.0 * page->pageSizeF().height());
-				QRect rr = r.toRect().normalized();
-				rr.setTopLeft(mapToGlobal(rr.topLeft()));
-				QToolTip::showText(globalPos, browse->url(), this, rr);
-			}
-			return;
-		}
-	}
-	updateCursor();
 }
 
 void PDFWidget::adjustSize()
