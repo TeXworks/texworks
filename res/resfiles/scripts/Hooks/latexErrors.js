@@ -2,8 +2,8 @@
 // Title: LaTeX errors
 // Description: Looks for errors in the LaTeX terminal output
 // Author: Jonathan Kew & Stefan Löffler
-// Version: 0.3
-// Date: 2010-01-09
+// Version: 0.4
+// Date: 2010-11-02
 // Script-Type: hook
 // Hook: AfterTypeset
 
@@ -11,12 +11,25 @@
 // Switching the engines to use the FILE:LINE-style error messages could help a lot.
 
 parenRE = new RegExp("[()]");
-newFileRE = new RegExp("^\\(([\\./][^ )]+)");
+// Should catch filenames of the following forms:
+// * ./abc, "./abc"
+// * /abc, "/abc"
+// * .\abc, ".\abc"
+// * C:\abc, "C:\abc"
+// * \\server\abc, "\\server\abc"
+// Caveats: filenames with escaped " or space in the filename don't work (correctly)
+newFileRE = new RegExp("^\\(\"?((?:\\./|/|.\\\\|[a-zA-Z]:\\\\|\\\\\\\\[^\\\" )]+\\\\)[^\" )]+)");
 lineNumRE = new RegExp("^l\\.(\\d+)");
 badLineRE = new RegExp("^(?:Over|Under)full \\\\hbox.*at lines (\\d+)");
 warnLineRE = new RegExp("^(?:LaTeX|Package (?:.*)) Warning: .*");
 warnLineNumRE = new RegExp("on input line (\\d+).");
-result = [];
+errors = [];
+warnings = [];
+infos = [];
+
+function trim (zeichenkette) {
+  return zeichenkette.replace (/^\s+/, '').replace (/\s+$/, '');
+}
 
 // get the text from the standard console output
 txt = TW.target.consoleOutput;
@@ -40,13 +53,13 @@ for (i = 0; i < lines.length; ++i) {
 		error[1] = 0;
 		while (++i < lines.length) {
 			line = lines[i];
+			if(trim(line) == '') break;
 			matched = lineNumRE.exec(line);
-			if (matched) {
+			if (matched)
 				error[1] = matched[1];
-				break;
-			}
+			error[2] += "\n" + line;
 		}
-		result.push(error);
+		errors.push(error);
 		continue;
 	}
 	
@@ -57,7 +70,7 @@ for (i = 0; i < lines.length; ++i) {
 		error[0] = curFile;
 		error[1] = matched[1];
 		error[2] = line;
-		result.push(error);
+		infos.push(error);
 		continue;
 	}
 
@@ -67,16 +80,17 @@ for (i = 0; i < lines.length; ++i) {
 		var error = [];
 		error[0] = curFile;
 		error[1] = "?";
-		matched = warnLineNumRE.exec(line);
+		error[2] = line;
+
+		while (++i < lines.length) {
+			line = lines[i];
+			if(line == '') break;
+			error[2] += "\n" + line;
+		}
+		matched = warnLineNumRE.exec(error[2].replace(/\n/, ""));
 		if (matched)
 			error[1] = matched[1];
-		error[2] = "";
-		while (line != "" && i < lines.length) {
-			error[2] += line;
-			i++;
-			line = lines[i];
-		}
-		result.push(error);
+		warnings.push(error);
 		continue;
 	}
 
@@ -113,7 +127,43 @@ for (i = 0; i < lines.length; ++i) {
 	}
 }
 
+function htmlize(str) {
+	var html = str;
+	html = html.replace(/&/g, "&amp;");
+	html = html.replace(/</g, "&lt;");
+	html = html.replace(/>/g, "&gt;");
+	html = html.replace(/\n /g, "\n&nbsp;");
+	html = html.replace(/  /g, "&nbsp;&nbsp;");
+	html = html.replace(/&nbsp; /g, "&nbsp;&nbsp;");
+	return html.replace(/\n/g, "<br />\n");
+	
+}
+
+function makeResultRow(data, color) {
+	var html = '';
+	var url = 'texworks:' + data[0] + (data[1] != '?' && data[1] != 0 ? '#' + data[1] : '');
+	html += '<tr>';
+	html += '<td width="10" style="background-color: ' + color + '"></td>';
+	html += '<td valign="top"><a href="' + url + '">' + data[0] + '</a></td>';
+	html += '<td valign="top">' + data[1] + '</td>';
+	html += '<td valign="top" style="font-family: monospace;">' + htmlize(data[2]) + '</td>';
+	html += '</tr>';
+	return html;
+}
+
 // finally, return our result (if any)
-if (result.length > 0) {
-	TW.result = result;
+if (errors.length > 0 || warnings.length > 0 || infos.length > 0) {
+	html  = '<html><body>';
+	html += '<table border="1" cellspacing="0" cellpadding="4">';
+
+	for(i = 0; i < errors.length; ++i)
+		html += makeResultRow(errors[i], 'red');
+	for(i = 0; i < warnings.length; ++i)
+		html += makeResultRow(warnings[i], 'yellow');
+	for(i = 0; i < infos.length; ++i)
+		html += makeResultRow(infos[i], '#8080ff');
+
+	html += "</table>";
+	html += "</body></html>";
+	TW.result = html;
 }
