@@ -1610,7 +1610,7 @@ void TeXDocument::prefixLines(const QString &prefix)
 		selStart = cursor.position();
 	}
 	cursor.setPosition(selEnd);
-	if (!cursor.atBlockEnd()) {
+	if (!cursor.atBlockEnd() || cursor.atBlockStart()) {
 		if(cursor.atBlockStart() && cursorPos != selEnd) {
 			// the selection ends right after an end-of-block, and the cursor
 			// is not there; thus, the block starting at selEnd doesn't belong
@@ -1662,7 +1662,7 @@ void TeXDocument::unPrefixLines(const QString &prefix)
 		selStart = cursor.position();
 	}
 	cursor.setPosition(selEnd);
-	if (!cursor.atBlockEnd()) {
+	if (!cursor.atBlockEnd() || cursor.atBlockStart()) {
 		if(cursor.atBlockStart() && cursorPos != selEnd) {
 			// the selection ends right after an end-of-block, and the cursor
 			// is not there; thus, the block starting at selEnd doesn't belong
