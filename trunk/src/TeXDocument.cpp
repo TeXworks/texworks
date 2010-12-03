@@ -422,8 +422,8 @@ void TeXDocument::init()
 	deferTagListChanges = false;
 
 	watcher = new QFileSystemWatcher(this);
-	connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()));
-	connect(watcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()));
+	connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()), Qt::QueuedConnection);
+	connect(watcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()), Qt::QueuedConnection);
 	
 	docList.append(this);
 	
@@ -1114,7 +1114,27 @@ void TeXDocument::reloadIfChangedOnDisk()
 		yPos = textEdit->verticalScrollBar()->value();
 
 	// Reload the file from the disk
-	loadFile(curFile, false, true);
+	// Note that the file may change again before the system watcher is enabled
+	// again, so we should catch that case (this sometimes occurs with version
+	// control systems during commits)
+	unsigned int i;
+	// Limit this to avoid infinite loops
+	for(i = 0; i < 10 && fileModified != lastModified; ++i) {
+		clearFileWatcher(); // stop watching until next save or reload
+		// Note that lastModified is updated in loadFile() after the file is
+		// actually loaded; this means that lastModified might actually refer to
+		// a version of the file that differs from the loaded content. The
+		// safest therefore is to update fileModified before invoking loadFile()
+		fileModified = QFileInfo(curFile).lastModified();
+		loadFile(curFile, false, true);
+	}
+	if(i == 10) { // the file has been changing constantly - give up and inform the user
+		QMessageBox::information(this, tr("File changed on disk"),
+								 tr("%1 is constantly being modified by another program.\n\n"
+									"Please use \"File > Revert to Saved\" manually when the external process has finished.")
+								 .arg(curFile),
+								 QMessageBox::Ok, QMessageBox::Ok);
+	}
 
 	// restore the cursor position
 	cur = textEdit->textCursor();
