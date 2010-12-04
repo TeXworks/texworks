@@ -432,7 +432,7 @@ void TWScript::globalDestroyed(QObject * obj)
 }
 
 
-bool TWScript::mayExecute(const QString& cmd, QObject * context) const
+bool TWScript::mayExecuteSystemCommand(const QString& cmd, QObject * context) const
 {
 	Q_UNUSED(cmd)
 	Q_UNUSED(context)
@@ -442,9 +442,10 @@ bool TWScript::mayExecute(const QString& cmd, QObject * context) const
 	return settings.value("allowSystemCommands", false).toBool();
 }
 
-bool TWScript::mayWriteFile(const QString& filename) const
+bool TWScript::mayWriteFile(const QString& filename, QObject * context) const
 {
 	Q_UNUSED(filename)
+	Q_UNUSED(context)
 	
 	QSETTINGS_OBJECT(settings);
 	return settings.value("allowScriptFileWriting", false).toBool();

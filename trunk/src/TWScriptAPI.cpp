@@ -206,7 +206,7 @@ QVariant TWScriptAPI::system(const QString& cmdline, bool waitForResult)
 	// Paranoia
 	if(!m_script) return QVariant(tr("Internal error"));
 
-	if(m_script->mayExecute(cmdline, m_target)) {
+	if(m_script->mayExecuteSystemCommand(cmdline, m_target)) {
 		TWSystemCmd *process = new TWSystemCmd(this, waitForResult);
 		if (waitForResult) {
 			process->setProcessChannelMode(QProcess::MergedChannels);
@@ -247,7 +247,7 @@ QVariant TWScriptAPI::launchFile(const QString& fileName, bool waitForResult) co
 	QFileInfo finfo(fileName);
 
 	// it's OK to "launch" a directory, as that doesn't normally execute anything
-	if (finfo.isDir() || (m_script && m_script->mayExecute(fileName, m_target)))
+	if (finfo.isDir() || (m_script && m_script->mayExecuteSystemCommand(fileName, m_target)))
 		return waitForResult ? QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)) : QVariant();
 	else
 		return waitForResult ? QVariant(tr("System command execution is disabled (see Preferences)")) : QVariant();
@@ -262,7 +262,7 @@ int TWScriptAPI::writeFile(const QString& filename, const QString& content) cons
 	QDir scriptDir(QFileInfo(m_script->getFilename()).dir());
 	QString path = scriptDir.absoluteFilePath(filename);
 
-	if(!m_script->mayWriteFile(path)) return TWScriptAPI::SystemAccess_PermissionDenied;
+	if(!m_script->mayWriteFile(path, m_target)) return TWScriptAPI::SystemAccess_PermissionDenied;
 	
 	QFile fout(path);
 	qint64 numBytes = -1;
