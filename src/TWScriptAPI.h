@@ -82,6 +82,13 @@ public:
 	// Content is written in text-mode in utf8 encoding
 	Q_INVOKABLE
 	int writeFile(const QString& filename, const QString& content) const;
+
+	// Return is a map with the fields:
+	// - "status" => one of SystemAccessResult
+	// - "result" => content of file (only if status=SystemAccess_OK)
+	// Content is read in text-mode in utf8 encoding
+	Q_INVOKABLE
+	QMap<QString, QVariant> readFile(const QString& filename) const;
 	
 	// QMessageBox functions to display alerts
 	Q_INVOKABLE

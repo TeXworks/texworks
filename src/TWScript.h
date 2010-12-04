@@ -175,6 +175,7 @@ public:
 
 	bool mayExecute(const QString& cmd, QObject * context) const;
 	bool mayWriteFile(const QString& filename) const;
+	bool mayReadFile(const QString& filename, QObject * context) const;
 
 protected:
 	/** \brief	Constructor
