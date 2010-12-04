@@ -119,6 +119,8 @@ public:
 	void bringToFront();
 #endif
 
+	QObject* openFile(const QString& fileName, const int pos = -1);
+
 	Q_INVOKABLE QList<QVariant> getOpenWindows() const;
 	
 	// return the version of Tw (0xMMNNPP)
@@ -189,8 +191,6 @@ public slots:
 	void open();
 	void stackWindows();
 	void tileWindows();
-
-	QObject* openFile(const QString& fileName, const int pos = -1);
 
 	QString getOpenFileName(QString selectedFilter = QString());
 	QStringList getOpenFileNames(QString selectedFilter = QString());
