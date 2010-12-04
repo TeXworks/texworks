@@ -275,3 +275,35 @@ int TWScriptAPI::writeFile(const QString& filename, const QString& content) cons
 
 	return (numBytes < 0 ? TWScriptAPI::SystemAccess_Failed : TWScriptAPI::SystemAccess_OK);
 }
+
+//Q_INVOKABLE
+QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
+{
+	// relative paths are taken to be relative to the folder containing the
+	// executing script's file
+	QMap<QString, QVariant> retVal;
+	
+	QFileInfo fi(filename);
+	QDir scriptDir(QFileInfo(m_script->getFilename()).dir());
+	QString path = scriptDir.absoluteFilePath(filename);
+
+	if(!m_script->mayReadFile(path, m_target)) {
+		retVal["status"] = TWScriptAPI::SystemAccess_PermissionDenied;
+		return retVal;
+	}
+	
+	QFile fin(path);
+	
+	if(!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		retVal["status"] = TWScriptAPI::SystemAccess_Failed;
+		return retVal;
+	}
+	
+	// with readAll, there's no way to detect an error during the actual read
+	retVal["result"] = QString::fromUtf8(fin.readAll().constData());
+	retVal["status"] = TWScriptAPI::SystemAccess_OK;
+	fin.close();
+
+	return retVal;
+}
+

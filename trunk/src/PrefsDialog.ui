@@ -882,6 +882,13 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
+           <widget class="QCheckBox" name="allowScriptFileReading">
+            <property name="text">
+             <string>Allow scripts to read all files (script and document files are always readable)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="allowScriptFileWriting">
             <property name="text">
              <string>Allow scripts to write files</string>
