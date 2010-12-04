@@ -256,9 +256,15 @@ QVariant TWScriptAPI::launchFile(const QString& fileName, bool waitForResult) co
 //Q_INVOKABLE
 int TWScriptAPI::writeFile(const QString& filename, const QString& content) const
 {
-	if(!m_script->mayWriteFile(filename)) return TWScriptAPI::SystemAccess_PermissionDenied;
+	// relative paths are taken to be relative to the folder containing the
+	// executing script's file
+	QFileInfo fi(filename);
+	QDir scriptDir(QFileInfo(m_script->getFilename()).dir());
+	QString path = scriptDir.absoluteFilePath(filename);
+
+	if(!m_script->mayWriteFile(path)) return TWScriptAPI::SystemAccess_PermissionDenied;
 	
-	QFile fout(filename);
+	QFile fout(path);
 	qint64 numBytes = -1;
 	
 	if(!fout.open(QIODevice::WriteOnly | QIODevice::Text))
