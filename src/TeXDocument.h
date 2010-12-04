@@ -113,6 +113,7 @@ public:
 	Q_PROPERTY(QString consoleOutput READ consoleText STORED false);
 	Q_PROPERTY(QString text READ text STORED false);
     Q_PROPERTY(QString fileName READ fileName);
+	Q_PROPERTY(QString rootFileName READ getRootFilePath STORED false);
 	Q_PROPERTY(bool untitled READ untitled STORED false);
 	Q_PROPERTY(bool modified READ isModified WRITE setModified STORED false);
 	
