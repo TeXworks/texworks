@@ -278,7 +278,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 			if (arguments[j].canConvert((QVariant::Type)type))
 				continue;
 			// allow invalid===NULL for pointers
-			if (typeOfArg == QVariant::Invalid && (type == QMetaType::QObjectStar || QMetaType::QWidgetStar))
+			if (typeOfArg == QVariant::Invalid && (type == QMetaType::QObjectStar || type == QMetaType::QWidgetStar))
 				continue;
 			// QObject* and QWidget* may be convertible
 			if (typeOfArg == QMetaType::QWidgetStar && type == QMetaType::QObjectStar)
@@ -306,7 +306,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 			}
 			if (arguments[j].canConvert((QVariant::Type)type))
 				arguments[j].convert((QVariant::Type)type);
-			else if (typeOfArg == QVariant::Invalid && (type == QMetaType::QObjectStar || QMetaType::QWidgetStar)) {
+			else if (typeOfArg == QVariant::Invalid && (type == QMetaType::QObjectStar || type == QMetaType::QWidgetStar)) {
 				genericArgs.append(QGenericArgument(strTypeName, &myNullPtr));
 				continue;
 			}
