@@ -201,13 +201,23 @@ bool TWScriptAPI::makeConnection(QObject* sender, const QString& signal, QObject
 }
 
 
-QVariant TWScriptAPI::system(const QString& cmdline, bool waitForResult)
+QMap<QString, QVariant> TWScriptAPI::system(const QString& cmdline, bool waitForResult)
 {
+	QMap<QString, QVariant> retVal;
+
+	retVal["status"] = SystemAccess_PermissionDenied;
+	retVal["result"] = QVariant();
+	retVal["message"] = QVariant();
+	retVal["output"] = QVariant();
+
 	// Paranoia
-	if(!m_script) return QVariant(tr("Internal error"));
+	if(!m_script) {
+		retVal["message"] = tr("Internal error");
+		return retVal;
+	}
 
 	if(m_script->mayExecuteSystemCommand(cmdline, m_target)) {
-		TWSystemCmd *process = new TWSystemCmd(this, waitForResult);
+		TWSystemCmd *process = new TWSystemCmd(this, waitForResult, !waitForResult);
 		if (waitForResult) {
 			process->setProcessChannelMode(QProcess::MergedChannels);
 			process->start(cmdline);
@@ -216,41 +226,57 @@ QVariant TWScriptAPI::system(const QString& cmdline, bool waitForResult)
 			// call that possibly blocks for a considerable amount of time
 			QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents, 100);
 			if (!process->waitForStarted()) {
+				retVal["status"] = SystemAccess_Failed;
+				retVal["message"] = tr("Failed to execute system command: %1").arg(cmdline);
 				process->deleteLater();
-				return QVariant(tr("Failed to execute system command: %1").arg(cmdline));
+				return retVal;
 			}
 			QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents, 100);
 			if (!process->waitForFinished()) {
+				retVal["status"] = SystemAccess_Failed;
+				retVal["result"] = process->exitCode();
+				retVal["output"] = process->getResult();
+				retVal["message"] = tr("Error executing system command: %1").arg(cmdline);
 				process->deleteLater();
-				return QVariant(tr("Error executing system command: %1").arg(cmdline));
+				return retVal;
 			}
-			return QVariant(process->getResult());
+			retVal["status"] = SystemAccess_OK;
+			retVal["result"] = process->exitCode();
+			retVal["output"] = process->getResult();
+			process->deleteLater();
 		}
 		else {
 			process->closeReadChannel(QProcess::StandardOutput);
 			process->closeReadChannel(QProcess::StandardError);
 			process->start(cmdline);
-			return QVariant();
+			retVal["status"] = SystemAccess_OK;
 		}
 	}
-	else {
-		if (waitForResult) {
-			return QVariant(tr("System command execution is disabled (see Preferences)"));
-		}
-		// else result is null
-		return QVariant();
-	}
+	else
+		retVal["message"] = tr("System command execution is disabled (see Preferences)");
+	return retVal;
 }
 
-QVariant TWScriptAPI::launchFile(const QString& fileName, bool waitForResult) const
+QMap<QString, QVariant> TWScriptAPI::launchFile(const QString& fileName) const
 {
 	QFileInfo finfo(fileName);
+	QMap<QString, QVariant> retVal;
+	
+	retVal["status"] = SystemAccess_PermissionDenied;
+	retVal["message"] = QVariant();
 
 	// it's OK to "launch" a directory, as that doesn't normally execute anything
-	if (finfo.isDir() || (m_script && m_script->mayExecuteSystemCommand(fileName, m_target)))
-		return waitForResult ? QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)) : QVariant();
+	if (finfo.isDir() || (m_script && m_script->mayExecuteSystemCommand(fileName, m_target))) {
+		if(QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)))
+			retVal["status"] = SystemAccess_OK;
+		else {
+			retVal["status"] = SystemAccess_Failed;
+			retVal["message"] = tr("\"%1\" could not be opened.").arg(fileName);
+		}
+	}
 	else
-		return waitForResult ? QVariant(tr("System command execution is disabled (see Preferences)")) : QVariant();
+		retVal["message"] = tr("System command execution is disabled (see Preferences)");
+	return retVal;
 }
 
 //Q_INVOKABLE
@@ -283,11 +309,16 @@ QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
 	// executing script's file
 	QMap<QString, QVariant> retVal;
 	
+	retVal["status"] = SystemAccess_PermissionDenied;
+	retVal["result"] = QVariant();
+	retVal["message"] = QVariant();
+
 	QFileInfo fi(filename);
 	QDir scriptDir(QFileInfo(m_script->getFilename()).dir());
 	QString path = scriptDir.absoluteFilePath(filename);
 
 	if(!m_script->mayReadFile(path, m_target)) {
+		retVal["message"] = tr("Reading all files is disabled (see Preferences)");
 		retVal["status"] = TWScriptAPI::SystemAccess_PermissionDenied;
 		return retVal;
 	}
@@ -295,6 +326,7 @@ QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
 	QFile fin(path);
 	
 	if(!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		retVal["message"] = tr("The file \"%1\" could not be opened for reading").arg(path);
 		retVal["status"] = TWScriptAPI::SystemAccess_Failed;
 		return retVal;
 	}
