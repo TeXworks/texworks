@@ -1225,3 +1225,46 @@ int TWApp::getVersion()
 {
 	return (VER_MAJOR << 16) | (VER_MINOR << 8) | VER_BUGFIX;
 }
+
+//Q_INVOKABLE
+QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, TWScriptAPI * scriptApi, const int pos /*= -1*/, const bool askUser /*= false*/)
+{
+	QSETTINGS_OBJECT(settings);
+	QMap<QString, QVariant> retVal;
+	QObject * doc = NULL;
+	TWScript * script;
+	QFileInfo fi(fileName);
+
+	retVal["status"] = TWScriptAPI::SystemAccess_PermissionDenied;
+
+	// for absolute paths and full reading permissions, we don't have to care
+	// about peculiarities of the script; in that case, this even succeeds
+	// if no valid scriptApi is passed; otherwise, we need to investigate further
+	if(fi.isRelative() || !settings.value("allowScriptFileReading", false).toBool()) {
+		if(!scriptApi) return retVal;
+		script = qobject_cast<TWScript*>(scriptApi->GetScript());
+		if(!script) return retVal; // this should never happen
+	
+		// relative paths are taken to be relative to the folder containing the
+		// executing script's file
+		QDir scriptDir(QFileInfo(script->getFilename()).dir());
+		QString path = scriptDir.absoluteFilePath(fileName);
+	
+		if(!script->mayReadFile(path, scriptApi->GetTarget())) {
+			// Possibly ask user to override the permissions
+			if(!askUser) return retVal;
+			if(QMessageBox::warning(qobject_cast<QWidget*>(scriptApi->GetTarget()), 
+				tr("Permission request"),
+				tr("The script \"%1\" is trying to open the file \"%2\" without sufficient permissions. Do you want to open the file?")\
+					.arg(script->getTitle()).arg(path),
+				QMessageBox::Yes | QMessageBox::No, QMessageBox::No
+			) != QMessageBox::Yes)
+				return retVal;
+		}
+	}
+	doc = openFile(fileName, pos);
+	retVal["result"] = QVariant::fromValue(doc);
+	retVal["status"] = (doc != NULL ? TWScriptAPI::SystemAccess_OK : TWScriptAPI::SystemAccess_Failed);
+	return retVal;
+}
+

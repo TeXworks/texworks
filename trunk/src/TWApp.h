@@ -33,6 +33,7 @@
 #include "TWUtils.h"
 #include "TWScriptable.h"
 #include "ConfigurableApp.h"
+#include "TWScriptAPI.h"
 
 #ifdef Q_WS_WIN
 #define PATH_LIST_SEP   ';'
@@ -120,6 +121,8 @@ public:
 #endif
 
 	QObject* openFile(const QString& fileName, const int pos = -1);
+	Q_INVOKABLE
+	QMap<QString, QVariant> openFileFromScript(const QString& fileName, TWScriptAPI * scriptApi, const int pos = -1, const bool askUser = false);
 
 	Q_INVOKABLE QList<QVariant> getOpenWindows() const;
 	
