@@ -343,7 +343,7 @@ void PDFWidget::mousePressEvent(QMouseEvent *event)
 	}
 	
 	// Context-specific behavior comes second
-	if(!handled && page) {
+	if (!handled && page) {
 		foreach (Poppler::Link* link, page->links()) {
 			// poppler's linkArea is relative to the page rect, it seems
 			QPointF scaledPos(event->pos().x() / scaleFactor / dpi * 72.0 / page->pageSizeF().width(),
@@ -358,7 +358,7 @@ void PDFWidget::mousePressEvent(QMouseEvent *event)
 	}
 	
 	// Default behavior has the lowest priority
-	if(!handled) {
+	if (!handled) {
 		switch (currentTool) {
 			case kMagnifier:
 				useMagnifier(event);
@@ -401,14 +401,14 @@ void PDFWidget::mouseReleaseEvent(QMouseEvent *event)
 				}
 				break;
 			}
-			if((mods & keyboardModifierMask) == Qt::ShiftModifier) {
-				if(currentTool == kMagnifier) {
+			if ((mods & keyboardModifierMask) == Qt::ShiftModifier) {
+				if (currentTool == kMagnifier) {
 					doZoom(event->pos(), 1);
 					break;
 				}
 			}
-			if((mods & keyboardModifierMask) == Qt::AltModifier) {
-				if(currentTool == kMagnifier) {
+			if ((mods & keyboardModifierMask) == Qt::AltModifier) {
+				if (currentTool == kMagnifier) {
 					doZoom(event->pos(), -1);
 					break;
 				}

@@ -211,12 +211,12 @@ QMap<QString, QVariant> TWScriptAPI::system(const QString& cmdline, bool waitFor
 	retVal["output"] = QVariant();
 
 	// Paranoia
-	if(!m_script) {
+	if (!m_script) {
 		retVal["message"] = tr("Internal error");
 		return retVal;
 	}
 
-	if(m_script->mayExecuteSystemCommand(cmdline, m_target)) {
+	if (m_script->mayExecuteSystemCommand(cmdline, m_target)) {
 		TWSystemCmd *process = new TWSystemCmd(this, waitForResult, !waitForResult);
 		if (waitForResult) {
 			process->setProcessChannelMode(QProcess::MergedChannels);
@@ -267,7 +267,7 @@ QMap<QString, QVariant> TWScriptAPI::launchFile(const QString& fileName) const
 
 	// it's OK to "launch" a directory, as that doesn't normally execute anything
 	if (finfo.isDir() || (m_script && m_script->mayExecuteSystemCommand(fileName, m_target))) {
-		if(QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)))
+		if (QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)))
 			retVal["status"] = SystemAccess_OK;
 		else {
 			retVal["status"] = SystemAccess_Failed;
@@ -288,12 +288,13 @@ int TWScriptAPI::writeFile(const QString& filename, const QString& content) cons
 	QDir scriptDir(QFileInfo(m_script->getFilename()).dir());
 	QString path = scriptDir.absoluteFilePath(filename);
 
-	if(!m_script->mayWriteFile(path, m_target)) return TWScriptAPI::SystemAccess_PermissionDenied;
+	if (!m_script->mayWriteFile(path, m_target))
+		return TWScriptAPI::SystemAccess_PermissionDenied;
 	
 	QFile fout(path);
 	qint64 numBytes = -1;
 	
-	if(!fout.open(QIODevice::WriteOnly | QIODevice::Text))
+	if (!fout.open(QIODevice::WriteOnly | QIODevice::Text))
 		return TWScriptAPI::SystemAccess_Failed;
 	
 	numBytes = fout.write(content.toUtf8());
@@ -317,7 +318,7 @@ QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
 	QDir scriptDir(QFileInfo(m_script->getFilename()).dir());
 	QString path = scriptDir.absoluteFilePath(filename);
 
-	if(!m_script->mayReadFile(path, m_target)) {
+	if (!m_script->mayReadFile(path, m_target)) {
 		retVal["message"] = tr("Reading all files is disabled (see Preferences)");
 		retVal["status"] = TWScriptAPI::SystemAccess_PermissionDenied;
 		return retVal;
@@ -325,7 +326,7 @@ QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
 	
 	QFile fin(path);
 	
-	if(!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
+	if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		retVal["message"] = tr("The file \"%1\" could not be opened for reading").arg(path);
 		retVal["status"] = TWScriptAPI::SystemAccess_Failed;
 		return retVal;

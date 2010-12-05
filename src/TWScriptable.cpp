@@ -221,7 +221,7 @@ void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & pro
 	foreach(QObject * item, list->children()) {
 		if (qobject_cast<TWScriptList*>(item))
 			reloadScriptsInList(qobject_cast<TWScriptList*>(item), processed);
-		else if(qobject_cast<TWScript*>(item)) {
+		else if (qobject_cast<TWScript*>(item)) {
 			TWScript * s = qobject_cast<TWScript*>(item);
 			if (s->hasChanged()) {
 				// File has been removed
@@ -238,7 +238,7 @@ void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & pro
 					continue;
 				}
 			}
-			if(!enableScriptsPlugins && !qobject_cast<const JSScriptInterface*>(s->getScriptLanguagePlugin())) {
+			if (!enableScriptsPlugins && !qobject_cast<const JSScriptInterface*>(s->getScriptLanguagePlugin())) {
 				// the plugin necessary to execute this scripts has been disabled
 				delete s;
 				continue;
@@ -302,8 +302,8 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 			// Only create a new sublist if a matching one doesn't already exist
 			TWScriptList *subScriptList = NULL;
 			// Note: Using children() returns a const list; findChildren does not
-			foreach(TWScriptList * l, scriptList->findChildren<TWScriptList*>()) {
-				if(l->getName() == info.fileName()) {
+			foreach (TWScriptList * l, scriptList->findChildren<TWScriptList*>()) {
+				if (l->getName() == info.fileName()) {
 					subScriptList = l;
 					break;
 				}
@@ -313,13 +313,14 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 			// Only create a new sublist if a matching one doesn't already exist
 			TWScriptList *subHookList = NULL;
 			// Note: Using children() returns a const list; findChildren does not
-			foreach(TWScriptList * l, hookList->findChildren<TWScriptList*>()) {
-				if(l->getName() == info.fileName()) {
+			foreach (TWScriptList * l, hookList->findChildren<TWScriptList*>()) {
+				if (l->getName() == info.fileName()) {
 					subHookList = l;
 					break;
 				}
 			}
-			if(!subHookList) subHookList = new TWScriptList(hookList, info.fileName());
+			if (!subHookList)
+				subHookList = new TWScriptList(hookList, info.fileName());
 			
 			addScriptsInDirectory(subScriptList, subHookList, info.absoluteFilePath(), disabled, ignore);
 			if (subScriptList->children().isEmpty())
@@ -334,8 +335,9 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 
 		foreach (QObject * plugin, scriptLanguages) {
 			TWScriptLanguageInterface * i = qobject_cast<TWScriptLanguageInterface*>(plugin);
-			if(!i) continue;
-			if(!scriptingPluginsEnabled && !qobject_cast<JSScriptInterface*>(plugin))
+			if (!i)
+				continue;
+			if (!scriptingPluginsEnabled && !qobject_cast<JSScriptInterface*>(plugin))
 				continue;
 			if (!i->canHandleFile(info))
 				continue;
@@ -502,7 +504,7 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 	if (!s || s->getType() != scriptType)
 		return;
 
-	if(!settings.value("enableScriptingPlugins", false).toBool() &&
+	if (!settings.value("enableScriptingPlugins", false).toBool() &&
 		!qobject_cast<const JSScriptInterface*>(s->getScriptLanguagePlugin())
 	) return;
 

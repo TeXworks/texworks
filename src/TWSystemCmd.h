@@ -60,7 +60,8 @@ private slots:
 	void processError(QProcess::ProcessError error) {
 		if (wantOutput)
 			result = tr("ERROR: failure code %1").arg(error);
-		if(deleteOnFinish) deleteLater();
+		if (deleteOnFinish)
+			deleteLater();
 	}
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 		finishedSuccessfully = (exitStatus == QProcess::NormalExit);
@@ -75,7 +76,8 @@ private slots:
 				result = tr("ERROR: exit code %1").arg(exitCode);
 			}
 		}
-		if(deleteOnFinish) deleteLater();
+		if (deleteOnFinish)
+			deleteLater();
 	}
 	void processOutput() {
 		if (wantOutput && bytesAvailable() > 0) {

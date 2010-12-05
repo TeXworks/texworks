@@ -1119,7 +1119,7 @@ void TeXDocument::reloadIfChangedOnDisk()
 	// control systems during commits)
 	unsigned int i;
 	// Limit this to avoid infinite loops
-	for(i = 0; i < 10 && fileModified != lastModified; ++i) {
+	for (i = 0; i < 10 && fileModified != lastModified; ++i) {
 		clearFileWatcher(); // stop watching until next save or reload
 		// Note that lastModified is updated in loadFile() after the file is
 		// actually loaded; this means that lastModified might actually refer to
@@ -1128,7 +1128,7 @@ void TeXDocument::reloadIfChangedOnDisk()
 		fileModified = QFileInfo(curFile).lastModified();
 		loadFile(curFile, false, true);
 	}
-	if(i == 10) { // the file has been changing constantly - give up and inform the user
+	if (i == 10) { // the file has been changing constantly - give up and inform the user
 		QMessageBox::information(this, tr("File changed on disk"),
 								 tr("%1 is constantly being modified by another program.\n\n"
 									"Please use \"File > Revert to Saved\" manually when the external process has finished.")
@@ -2556,7 +2556,8 @@ void TeXDocument::anchorClicked(const QUrl& url)
 			line = url.fragment().toLong();
 		}
 		TeXDocument * target = openDocument(QFileInfo(getRootFilePath()).absoluteDir().filePath(url.path()), true, true, line);
-		if(target) target->textEdit->setFocus(Qt::OtherFocusReason);
+		if (target)
+			target->textEdit->setFocus(Qt::OtherFocusReason);
 	}
 	else {
 		TWApp::instance()->openUrl(url);
