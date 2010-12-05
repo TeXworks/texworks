@@ -10,7 +10,10 @@
 var cmd = TW.target.selection;
 if (cmd != "") {
   var result = TW.system(cmd);
-  if (result != null) {
-    TW.target.insertText(result);
+  if (result.status == 0) {
+    TW.target.insertText(result.output);
+  }
+  else {
+    TW.target.insertText("ERROR: " + result.message);
   }
 }
