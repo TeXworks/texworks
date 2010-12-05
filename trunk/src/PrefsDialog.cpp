@@ -567,7 +567,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.allowSystemCommands->setChecked(settings.value("allowSystemCommands", false).toBool());
 	dlg.enableScriptingPlugins->setChecked(settings.value("enableScriptingPlugins", false).toBool());
 	// there is always at least JSScriptInterface
-	if(TWApp::instance()->getScriptManager()->languages().size() <= 1)
+	if (TWApp::instance()->getScriptManager()->languages().size() <= 1)
 		dlg.enableScriptingPlugins->setEnabled(false);
 	dlg.scriptDebugger->setChecked(settings.value("scriptDebugger", false).toBool());
 #if QT_VERSION < 0x040500
