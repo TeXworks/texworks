@@ -42,6 +42,13 @@ public:
 	
 	QString getResult() { return result; }
 	
+	// replacement of QProcess::waitForStarted()
+	// unlike the QProcess version, this returns true if the process has already
+	// finished when the function is called
+	bool waitForStarted(int msecs = 30000) {
+		return (QProcess::waitForStarted(msecs) || finishedSuccessfully);
+	}
+
 	// replacement of QProcess::waitForFinished()
 	// unlike the QProcess version, this returns true if the process has already
 	// finished when the function is called
