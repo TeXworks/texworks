@@ -30,8 +30,8 @@ class TWSystemCmd : public QProcess {
 	Q_OBJECT
 	
 public:
-	TWSystemCmd(QObject* parent, bool isOutputWanted = true)
-		: QProcess(parent), wantOutput(isOutputWanted)
+	TWSystemCmd(QObject* parent, const bool isOutputWanted = true, const bool runInBackground = false)
+		: QProcess(parent), wantOutput(isOutputWanted), deleteOnFinish(runInBackground)
 	{
 		connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(processOutput()));
 		connect(this, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
@@ -45,7 +45,7 @@ private slots:
 	void processError(QProcess::ProcessError error) {
 		if (wantOutput)
 			result = tr("ERROR: failure code %1").arg(error);
-		deleteLater();
+		if(deleteOnFinish) deleteLater();
 	}
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus) {
 		if (wantOutput) {
@@ -59,7 +59,7 @@ private slots:
 				result = tr("ERROR: exit code %1").arg(exitCode);
 			}
 		}
-		deleteLater();
+		if(deleteOnFinish) deleteLater();
 	}
 	void processOutput() {
 		if (wantOutput && bytesAvailable() > 0) {
@@ -70,6 +70,7 @@ private slots:
 
 private:
 	bool wantOutput;
+	bool deleteOnFinish;
 	QString result;
 };
 
