@@ -36,10 +36,18 @@ public:
 		connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(processOutput()));
 		connect(this, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
 		connect(this, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
+		finishedSuccessfully = false;
 	}
 	virtual ~TWSystemCmd() {}
 	
 	QString getResult() { return result; }
+	
+	// replacement of QProcess::waitForFinished()
+	// unlike the QProcess version, this returns true if the process has already
+	// finished when the function is called
+	bool waitForFinished(int msecs = 30000) {
+		return (QProcess::waitForFinished(msecs) || finishedSuccessfully);
+	}
 	
 private slots:
 	void processError(QProcess::ProcessError error) {
@@ -48,6 +56,7 @@ private slots:
 		if(deleteOnFinish) deleteLater();
 	}
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus) {
+		finishedSuccessfully = (exitStatus == QProcess::NormalExit);
 		if (wantOutput) {
 			if (exitStatus == QProcess::NormalExit) {
 				if (bytesAvailable() > 0) {
@@ -71,6 +80,7 @@ private slots:
 private:
 	bool wantOutput;
 	bool deleteOnFinish;
+	bool finishedSuccessfully;
 	QString result;
 };
 
