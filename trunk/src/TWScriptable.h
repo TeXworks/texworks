@@ -154,6 +154,8 @@ private slots:
 	
 	void hideFloatersUnlessThis(QWidget* currWindow);
 	
+	void scriptDeleted(QObject * obj);
+	
 protected:
 	void initScriptable(QMenu* scriptsMenu,
 						QAction* aboutScriptsAction,

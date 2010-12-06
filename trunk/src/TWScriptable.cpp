@@ -454,8 +454,9 @@ TWScriptable::updateScriptsMenu()
 	
 	QList<QAction*> actions = scriptsMenu->actions();
 	for (int i = staticScriptMenuItemCount; i < actions.count(); ++i) {
+		scriptMapper->removeMappings(actions[i]);
 		scriptsMenu->removeAction(actions[i]);
-		delete actions[i];
+		actions[i]->deleteLater();
 	}
 	
 	addScriptsToMenu(scriptsMenu, scriptManager->getScripts());
@@ -472,6 +473,7 @@ TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 				continue;
 			if (script->getContext().isEmpty() || script->getContext() == metaObject()->className()) {
 				QAction *a = menu->addAction(script->getTitle());
+				connect(script, SIGNAL(destroyed(QObject*)), this, SLOT(scriptDeleted(QObject*)));
 				if (!script->getKeySequence().isEmpty())
 					a->setShortcut(script->getKeySequence());
 //				a->setEnabled(script->isEnabled());
@@ -614,3 +616,18 @@ void TWScriptable::selectWindow(bool activate)
 	if (isMinimized())
 		showNormal();
 }
+
+void TWScriptable::scriptDeleted(QObject * obj)
+{
+	if (!obj || !scriptMapper)
+		return;
+	
+	QAction * a = qobject_cast<QAction*>(scriptMapper->mapping(obj));
+	if (!a)
+		return;
+	
+	// a script got deleted that we still have in the menu => remove it
+	scriptMapper->removeMappings(a);
+	scriptsMenu->removeAction(a);
+}
+
