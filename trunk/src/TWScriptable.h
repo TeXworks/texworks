@@ -154,6 +154,7 @@ private slots:
 	
 	void hideFloatersUnlessThis(QWidget* currWindow);
 	
+protected slots:
 	void scriptDeleted(QObject * obj);
 	
 protected:
@@ -164,6 +165,7 @@ protected:
 						QAction* showScriptsFolderAction);
 
 	int addScriptsToMenu(QMenu *menu, TWScriptList *scripts);
+	void removeScriptsFromMenu(QMenu *menu, int startIndex = 0);
 
 	void showFloaters();
 

@@ -452,14 +452,26 @@ TWScriptable::updateScriptsMenu()
 {
 	TWScriptManager * scriptManager = TWApp::instance()->getScriptManager();
 	
-	QList<QAction*> actions = scriptsMenu->actions();
-	for (int i = staticScriptMenuItemCount; i < actions.count(); ++i) {
+	removeScriptsFromMenu(scriptsMenu, staticScriptMenuItemCount);
+	addScriptsToMenu(scriptsMenu, scriptManager->getScripts());
+}
+
+void
+TWScriptable::removeScriptsFromMenu(QMenu *menu, int startIndex /*= 0*/)
+{
+	if (!menu)
+		return;
+	
+	QList<QAction*> actions = menu->actions();
+	for (int i = startIndex; i < actions.count(); ++i) {
+		// if this is a popup menu, make sure all its children are destroyed
+		// first, or else old QActions may still be floating around somewhere
+		if (actions[i]->menu())
+			removeScriptsFromMenu(actions[i]->menu());
 		scriptMapper->removeMappings(actions[i]);
 		scriptsMenu->removeAction(actions[i]);
 		actions[i]->deleteLater();
 	}
-	
-	addScriptsToMenu(scriptsMenu, scriptManager->getScripts());
 }
 
 int
