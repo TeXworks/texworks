@@ -1061,6 +1061,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	runHooks("LoadFile");
 }
 
+#define FILE_MODIFICATION_ACCURACY	1000	// in msec
 void TeXDocument::reloadIfChangedOnDisk()
 {
 	if (isUntitled || !lastModified.isValid())
@@ -1119,14 +1120,18 @@ void TeXDocument::reloadIfChangedOnDisk()
 	// control systems during commits)
 	unsigned int i;
 	// Limit this to avoid infinite loops
-	for (i = 0; i < 10 && fileModified != lastModified; ++i) {
+	for (i = 0; i < 10; ++i) {
 		clearFileWatcher(); // stop watching until next save or reload
-		// Note that lastModified is updated in loadFile() after the file is
-		// actually loaded; this means that lastModified might actually refer to
-		// a version of the file that differs from the loaded content. The
-		// safest therefore is to update fileModified before invoking loadFile()
-		fileModified = QFileInfo(curFile).lastModified();
+		// Only reload files at full seconds to avoid problems with limited
+		// accuracy of the file system modification timestamps (if the file changes
+		// twice in one second, the modification timestamp is not altered and we may
+		// miss the second change otherwise)
+		while (QFileInfo(curFile).lastModified().msecsTo(QDateTime::currentDateTime()) <= FILE_MODIFICATION_ACCURACY)
+			; // do nothing
 		loadFile(curFile, false, true);
+		// one final safety check - if the file has not changed, we can safely end this
+		if (QFileInfo(curFile).lastModified().msecsTo(QDateTime::currentDateTime()) > FILE_MODIFICATION_ACCURACY)
+			break;
 	}
 	if (i == 10) { // the file has been changing constantly - give up and inform the user
 		QMessageBox::information(this, tr("File changed on disk"),
