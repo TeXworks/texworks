@@ -1126,11 +1126,11 @@ void TeXDocument::reloadIfChangedOnDisk()
 		// accuracy of the file system modification timestamps (if the file changes
 		// twice in one second, the modification timestamp is not altered and we may
 		// miss the second change otherwise)
-		while (QFileInfo(curFile).lastModified().msecsTo(QDateTime::currentDateTime()) <= FILE_MODIFICATION_ACCURACY)
+		while (QDateTime::currentDateTime() <= QFileInfo(curFile).lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			; // do nothing
 		loadFile(curFile, false, true);
 		// one final safety check - if the file has not changed, we can safely end this
-		if (QFileInfo(curFile).lastModified().msecsTo(QDateTime::currentDateTime()) > FILE_MODIFICATION_ACCURACY)
+		if (QDateTime::currentDateTime() > QFileInfo(curFile).lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			break;
 	}
 	if (i == 10) { // the file has been changing constantly - give up and inform the user
