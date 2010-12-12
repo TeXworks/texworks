@@ -1,4 +1,3 @@
-#!/usr/bin/env xdg-open
 [Desktop Entry]
 Type=Application
 Version=1.0
@@ -11,5 +10,5 @@ Comment[de]=TeX Dokumente einfach bearbeiten, setzen und betrachten
 Icon=TeXworks
 Exec=texworks %F
 MimeType=text/x-tex;application/pdf;
-Categories=Office;
+Categories=Office;Qt;
 
