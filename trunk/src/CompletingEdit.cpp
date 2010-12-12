@@ -597,6 +597,7 @@ void CompletingEdit::maybeSmartenQuote(int offset)
 	if (smartQuotesMode < 0 || smartQuotesMode >= quotesModes->count())
 		return;
 	const QuoteMapping& mappings = quotesModes->at(smartQuotesMode).mappings;
+	QString replacement;
 
 	const QString& text = document()->toPlainText();
 	if (offset < 0 || offset >= text.length())
@@ -610,8 +611,21 @@ void CompletingEdit::maybeSmartenQuote(int offset)
 	if (iter == mappings.end())
 		return;
 	
-	cursor.insertText(offset == 0 || text[offset - 1].isSpace() ?
-					  iter.value().first : iter.value().second);
+	replacement = iter.value().second;
+	if (offset == 0) {
+		// always use opening quotes at the beginning of the document
+		replacement = iter.value().first;
+	}
+	else {
+		if (text[offset - 1].isSpace())
+			replacement = iter.value().first;
+		
+		// after opening brackets, also use opening quotes
+		if (text[offset - 1] == '{' || text[offset - 1] == '[' || text[offset - 1] == '(')
+			replacement = iter.value().first;
+	}
+	
+	cursor.insertText(replacement);
 }
 
 void CompletingEdit::smartenQuotes()
