@@ -621,7 +621,8 @@ QString TWApp::getSaveFileName(const QString& defaultName)
 #endif
 	QString selectedFilter;
 	if (!TWUtils::filterList()->isEmpty())
-		selectedFilter = TWUtils::filterList()->last();
+		selectedFilter = TWUtils::chooseDefaultFilter(defaultName, *(TWUtils::filterList()));
+		
 	QString fileName = QFileDialog::getSaveFileName(NULL, tr("Save File"), defaultName,
 													TWUtils::filterList()->join(";;"),
 													&selectedFilter, options);
