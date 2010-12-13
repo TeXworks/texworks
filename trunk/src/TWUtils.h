@@ -69,6 +69,7 @@ public:
 	// list of filename filters for the Open/Save dialogs
 	static QStringList* filterList();
 	static void setDefaultFilters();
+	static QString chooseDefaultFilter(const QString & filename, const QStringList & filters);
 
 	// perform the updates to a menu; used by the documents to update their own menus
 	static void updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu);

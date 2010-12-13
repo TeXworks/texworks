@@ -374,11 +374,28 @@ void TWUtils::setDefaultFilters()
 	*filters << QObject::tr("Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)");
 	*filters << QObject::tr("Text files (*.txt)");
 	*filters << QObject::tr("PDF documents (*.pdf)");
-#ifdef Q_WS_WIN
-	*filters << QObject::tr("All files") + " (*.*)";	// unfortunately this doesn't work nicely on OS X or X11
-#else
-	*filters << QObject::tr("All files") + " (*)";
-#endif
+	*filters << QObject::tr("All files") + " (*)"; // this must not be "*.*", which causes an extension ".*" to be added on some systems
+}
+
+/*static*/
+QString TWUtils::chooseDefaultFilter(const QString & filename, const QStringList & filters)
+{
+	QString extension = QFileInfo(filename).completeSuffix();
+
+	if (extension.isEmpty())
+		return filters[0];
+	
+	QRegExp re("\\*\\." + QRegExp::escape(extension));
+	foreach (QString filter, filters) {
+		// return filter if it corresponds to the given extension
+		// note that the extension must be the first one in the list to match;
+		// otherwise, the file dialog would replace the actual extension by the
+		// first one in the list, thereby altering it without cause
+		if (filter.contains(QString("(*.%1").arg(extension)))
+			return filter;
+	}
+	// if no filter matched, return the last one (which should be "All files")
+	return filters.last();
 }
 
 QString TWUtils::strippedName(const QString &fullFileName)

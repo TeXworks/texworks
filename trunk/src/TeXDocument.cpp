@@ -748,7 +748,7 @@ bool TeXDocument::saveAs()
 #ifdef Q_WS_WIN
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
-	QString selectedFilter;
+	QString selectedFilter = TWUtils::chooseDefaultFilter(curFile, *(TWUtils::filterList()));;
 
 	// for untitled docs, default to the last dir used, or $HOME if no saved value
 	QSETTINGS_OBJECT(settings);
@@ -761,6 +761,9 @@ bool TeXDocument::saveAs()
 													&selectedFilter, options);
 	if (fileName.isEmpty())
 		return false;
+
+	// save the old document in "Recent Files"
+	saveRecentFileInfo();
 
 	// add extension from the selected filter, if unique and not already present
 	QRegExp re("\\(\\*(\\.[^ *]+)\\)");
