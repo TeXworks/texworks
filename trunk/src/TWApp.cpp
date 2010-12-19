@@ -561,6 +561,7 @@ void TWApp::newFile()
 	TeXDocument *doc = new TeXDocument;
 	doc->show();
 	doc->editor()->updateLineNumberAreaWidth(0);
+	doc->runHooks("NewFile");
 }
 
 void TWApp::newFromTemplate()
@@ -572,6 +573,7 @@ void TWApp::newFromTemplate()
 			doc->makeUntitled();
 			doc->selectWindow();
 			doc->editor()->updateLineNumberAreaWidth(0);
+			doc->runHooks("NewFromTemplate");
 		}
 	}
 }

@@ -515,7 +515,7 @@ void TeXDocument::newFile()
 	TeXDocument *doc = new TeXDocument;
 	doc->selectWindow();
 	doc->textEdit->updateLineNumberAreaWidth(0);
-	runHooks("NewFile");
+	doc->runHooks("NewFile");
 }
 
 void TeXDocument::newFromTemplate()
