@@ -419,6 +419,33 @@ QList<TWScript*> TWScriptManager::getHookScripts(const QString& hook) const
 	return result;
 }
 
+bool
+TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result, TWScript::ScriptType scriptType)
+{
+	QSETTINGS_OBJECT(settings);
+	
+	TWScript * s = qobject_cast<TWScript*>(script);
+	if (!s || s->getType() != scriptType)
+		return false;
+
+	if (!settings.value("enableScriptingPlugins", false).toBool() &&
+		!qobject_cast<const JSScriptInterface*>(s->getScriptLanguagePlugin())
+	) return false;
+
+	if (!s->isEnabled())
+		return false;
+
+	return s->run(context, result);
+}
+
+void
+TWScriptManager::runHooks(const QString& hookName, QObject * context /*= NULL */)
+{
+	foreach (TWScript *s, getHookScripts(hookName)) {
+		runScript(s, context, TWScript::ScriptHook);
+	}
+}
+
 TWScriptable::TWScriptable()
 	: QMainWindow(),
 	  scriptsMenu(NULL),
@@ -512,21 +539,18 @@ TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 void
 TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 {
-	QSETTINGS_OBJECT(settings);
+	QVariant result;
 	
+	TWScriptManager * sm = TWApp::instance()->getScriptManager();
+	if (!sm)
+		return;
+
 	TWScript * s = qobject_cast<TWScript*>(script);
 	if (!s || s->getType() != scriptType)
 		return;
+	
+	bool success = sm->runScript(script, this, result, scriptType);
 
-	if (!settings.value("enableScriptingPlugins", false).toBool() &&
-		!qobject_cast<const JSScriptInterface*>(s->getScriptLanguagePlugin())
-	) return;
-
-	if (!s->isEnabled())
-		return;
-
-	QVariant result;
-	bool success = s->run(this, result);
 	if (success) {
 		if (!result.isNull()) {
 			if (scriptType == TWScript::ScriptHook)
@@ -546,6 +570,7 @@ void
 TWScriptable::runHooks(const QString& hookName)
 {
 	foreach (TWScript *s, TWApp::instance()->getScriptManager()->getHookScripts(hookName)) {
+		// Don't use TWScriptManager::runHooks here to get status bar messages
 		runScript(s, TWScript::ScriptHook);
 	}
 }

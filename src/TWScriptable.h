@@ -108,6 +108,14 @@ public:
 	TWScriptList* getHookScripts() { return &m_Hooks; }
 	QList<TWScript*> getHookScripts(const QString& hook) const;
 
+	bool runScript(QObject * script, QObject * context, QVariant & result, TWScript::ScriptType scriptType = TWScript::ScriptStandalone);
+	// Convenience overload if no result is required
+	bool runScript(QObject * script, QObject * context, TWScript::ScriptType scriptType = TWScript::ScriptStandalone) {
+		QVariant result;
+		return runScript(script, context, result, scriptType);
+	}
+	void runHooks(const QString& hookName, QObject * context = NULL);
+
 	const QList<QObject*>& languages() const { return scriptLanguages; }
 
 	void reloadScripts(bool forceAll = false);

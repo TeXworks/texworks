@@ -524,6 +524,8 @@ void TWApp::writeToMailingList()
 
 void TWApp::launchAction()
 {
+	scriptManager->runHooks("TeXworksLaunched");
+
 	if (TeXDocument::documentList().size() > 0 || PDFDocument::documentList().size() > 0)
 		return;
 
