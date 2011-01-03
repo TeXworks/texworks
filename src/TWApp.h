@@ -122,7 +122,7 @@ public:
 
 	QObject* openFile(const QString& fileName, const int pos = -1);
 	Q_INVOKABLE
-	QMap<QString, QVariant> openFileFromScript(const QString& fileName, TWScriptAPI * scriptApi, const int pos = -1, const bool askUser = false);
+	QMap<QString, QVariant> openFileFromScript(const QString& fileName, QObject * scriptApiObj, const int pos = -1, const bool askUser = false);
 
 	Q_INVOKABLE QList<QVariant> getOpenWindows() const;
 	

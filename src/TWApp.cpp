@@ -1232,13 +1232,14 @@ int TWApp::getVersion()
 }
 
 //Q_INVOKABLE
-QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, TWScriptAPI * scriptApi, const int pos /*= -1*/, const bool askUser /*= false*/)
+QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObject * scriptApiObj, const int pos /*= -1*/, const bool askUser /*= false*/)
 {
 	QSETTINGS_OBJECT(settings);
 	QMap<QString, QVariant> retVal;
 	QObject * doc = NULL;
 	TWScript * script;
 	QFileInfo fi(fileName);
+	TWScriptAPI * scriptApi = qobject_cast<TWScriptAPI*>(scriptApiObj);
 
 	retVal["status"] = TWScriptAPI::SystemAccess_PermissionDenied;
 
