@@ -37,6 +37,8 @@
 #include <QFile>
 #include <QDirIterator>
 #include <QSignalMapper>
+#include <QCryptographicHash>
+#include <QTextStream>
 
 #pragma mark === TWUtils ===
 
@@ -80,15 +82,12 @@ bool TWUtils::isPostscriptFile(const QString& fileName)
 
 const QString TWUtils::getLibraryPath(const QString& subdir)
 {
-	QString libPath;
+	QString libRootPath, libPath;
 	
-	libPath = TWApp::instance()->getPortableLibPath();
-	if (!libPath.isEmpty()) {
-		libPath = QDir(libPath).absolutePath() + QDir::separator() + subdir;
-	}
-	else {
+	libRootPath = TWApp::instance()->getPortableLibPath();
+	if (libRootPath.isEmpty()) {
 #ifdef Q_WS_MAC
-		libPath = QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/" + subdir;
+		libRootPath = QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/";
 #endif
 #ifdef Q_WS_X11
 		if (subdir == "dictionaries") {
@@ -96,54 +95,140 @@ const QString TWUtils::getLibraryPath(const QString& subdir)
 			const char* dicPath = getenv("TW_DICPATH");
 			if (dicPath != NULL)
 				libPath = dicPath;
-			return libPath; // don't try to create the system dicts directory
+			return libPath; // don't try to create/update the system dicts directory
 		}
 		else
-			libPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/" + subdir;
+			libRootPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/";
 #endif
 #ifdef Q_WS_WIN
-		libPath = QDir::homePath() + "/" + TEXWORKS_NAME + "/" + subdir;
+		libRootPath = QDir::homePath() + "/" + TEXWORKS_NAME + "/";
 #endif
 	}
-	// check if libPath exists
-	QFileInfo info(libPath);
-	if (!info.exists()) {
-		// create libPath
-		if (QDir::root().mkpath(libPath)) {
-			if (subdir != "translations") { // don't copy the built-in translations
-				QString cwd = QDir::currentPath();
-				if (QDir::setCurrent(libPath)) {
-					// copy default contents from app resources into the library dir
-					QDir resDir(":/resfiles/" + subdir);
-					copyResources(resDir, libPath);
-				}
-				QDir::setCurrent(cwd);
-			}
-		}
-	}
-	
+	libPath = QDir(libRootPath).absolutePath() + QDir::separator() + subdir;
+
+	updateLibraryResources(QDir(":/resfiles"), libRootPath, subdir);
 	return libPath;
 }
 
-void TWUtils::copyResources(const QDir& resDir, const QString& libPath)
+/*static*/
+void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRootDir, const QString& subdir)
 {
-	QDirIterator iter(resDir, QDirIterator::Subdirectories);
+	QDir srcDir(srcRootDir);
+	QDir destDir(destRootDir.absolutePath() + QDir::separator() + subdir);
+	
+	// make sure the library folder exists - even if the user deleted it;
+	// otherwise other parts of the program might fail
+	if (!destDir.exists())
+		QDir::root().mkpath(destDir.absolutePath());
+	
+	// sanity check
+	if (!srcDir.cd(subdir))
+		return;
+
+	if (subdir == "translations") // don't copy the built-in translations
+		return;
+	
+	FileVersionDatabase fvdb = FileVersionDatabase::load(destRootDir.absoluteFilePath("TwFileVersions.db"));
+	
+	QDirIterator iter(srcDir, QDirIterator::Subdirectories);
 	while (iter.hasNext()) {
 		(void)iter.next();
+		// Skip directories (they get created on-the-fly if required for copying files)
 		if (iter.fileInfo().isDir())
 			continue;
-		QString destPath = iter.fileInfo().canonicalPath();
-		destPath.replace(resDir.path(), libPath);
-		QFileInfo dest(destPath);
-		if (!dest.exists())
-			if (!QDir::root().mkpath(destPath))
+
+		QString srcPath = iter.fileInfo().filePath();
+		QString path = srcRootDir.relativeFilePath(srcPath);
+		QString destPath = destRootDir.filePath(path);
+		
+		// Check if the file is in the database
+		if (fvdb.hasFileRecord(destPath)) {
+			FileVersionDatabase::Record rec = fvdb.getFileRecord(destPath);
+			// If we can't update the file, don't bother with the rest of the
+			// code
+			if (rec.version >= SVN_REVISION)
 				continue;
-		if (QDir::setCurrent(destPath)) {
-			QFile srcFile(iter.fileInfo().canonicalFilePath());
-			srcFile.copy(iter.fileName());
-			QDir::setCurrent(libPath);
+			
+			// If the file no longer exists on the disk, the user has deleted it
+			// Hence we won't recreate it, but we keep the database record to
+			// remember that this file was deleted by the user
+			if (!QFileInfo(destPath).exists())
+				continue;
+			
+			QByteArray srcHash = FileVersionDatabase::hashForFile(srcPath);
+			QByteArray destHash = FileVersionDatabase::hashForFile(destPath);
+			// If the file was modified, don't do anything, either
+			if (destHash != rec.hash) {
+				// The only exception is if the file on the disk matches the
+				// new file we would have installed. In this case, we reassume
+				// ownership of it. (This is the case if the user deleted the
+				// file, but later wants to resurrect it by downloading the
+				// latest version from the internet)
+				if (destHash != srcHash)
+					continue;
+				fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+			}
+			else {
+				// The file matches the record in the database; update it
+				// (copying is only necessary if the contents has changed)
+				if (srcHash == destHash)
+					fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+				else {
+					// we have to remove the file first as QFile::copy doesn't
+					// overwrite existing files
+					QFile::remove(destPath);
+					if(QFile::copy(srcPath, destPath))
+						fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+				}
+			}
+		}
+		else {
+			QByteArray srcHash = FileVersionDatabase::hashForFile(srcPath);
+			// If the file is not in the database, we add it - unless a file
+			// with the name already exists
+			if (!QFileInfo(destPath).exists()) {
+				// We have to make sure the directory exists - otherwise copying
+				// might fail
+				destRootDir.mkpath(QFileInfo(destPath).path());
+				QFile(srcPath).copy(destPath);
+				fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+			}
+			else {
+				// If a file with that name already exists, we don't replace it
+				// If it happens to be identical with the version we would install
+				// we do take ownership, however, and register it in the
+				// database so that future updates are applied
+				QByteArray destHash = FileVersionDatabase::hashForFile(destPath);
+				if (srcHash == destHash)
+					fvdb.addFileRecord(destPath, destHash, SVN_REVISION);
+			}
 		}
 	}
+
+	// Now, remove all files that are unmodified on disk and were
+	// removed upstream
+	QMutableListIterator<FileVersionDatabase::Record> recIt(fvdb.getFileRecords());
+	while (recIt.hasNext()) {
+		const FileVersionDatabase::Record & rec = recIt.next();
+
+		QString destPath = rec.filePath.filePath();
+		QString path = destRootDir.relativeFilePath(destPath);
+		QString srcPath = srcRootDir.filePath(path);
+		
+		// If the source file still exists there is nothing to do here
+		if (QFileInfo(srcPath).exists())
+			continue;
+		
+		// If the source file no longer exists but the file on disk is up to
+		// date, remove it
+		if (rec.filePath.exists() && FileVersionDatabase::hashForFile(destPath) == rec.hash) {
+			QFile(destPath).remove();
+			recIt.remove();
+		}
+	}
+
+	// Finally, save the updated database
+	fvdb.save(destRootDir.absoluteFilePath("TwFileVersions.db"));
 }
 
 static int
@@ -1119,4 +1204,116 @@ void Engine::setArguments(const QStringList& arguments)
 void Engine::setShowPdf(bool showPdf)
 {
 	f_showPdf = showPdf;
+}
+
+/*static*/
+FileVersionDatabase FileVersionDatabase::load(const QString & path)
+{
+	QFile fin(path);
+	FileVersionDatabase retVal;
+	QDir rootDir(QFileInfo(path).absoluteDir());
+	
+	if (!fin.open(QIODevice::ReadOnly | QIODevice::Text))
+		return retVal;
+
+	QTextStream strm(&fin);
+	
+	while (!strm.atEnd()) {
+		FileVersionDatabase::Record rec;
+		QString line = strm.readLine().trimmed();
+		
+		// ignore comments
+		if (line.startsWith('#')) continue;
+		
+		rec.version = line.section(' ', 0, 0).toUInt();
+		rec.hash = QByteArray::fromHex(line.section(' ', 1, 1).toAscii());
+		rec.filePath = line.section(' ', 2).trimmed();
+		rec.filePath = rootDir.absoluteFilePath(rec.filePath.filePath());
+		retVal.m_records.append(rec);
+	}
+	
+	fin.close();
+	
+	return retVal;
+}
+
+bool FileVersionDatabase::save(const QString & path) const
+{
+	QFile fout(path);
+	QDir rootDir(QFileInfo(path).absoluteDir());
+	
+	if (!fout.open(QIODevice::WriteOnly | QIODevice::Text))
+		return false;
+	
+	QTextStream strm(&fout);
+
+	foreach (FileVersionDatabase::Record rec, m_records) {
+		QString filePath = rec.filePath.absoluteFilePath();
+		strm << rec.version << " " << rec.hash.toHex() << " " << rootDir.relativeFilePath(filePath) << endl;
+	}
+	
+	fout.close();
+	return true;
+}
+
+void FileVersionDatabase::addFileRecord(const QFileInfo & file, const QByteArray & md5Hash, const unsigned int version)
+{
+	// remove all existing entries for this file
+	QMutableListIterator<FileVersionDatabase::Record> it(m_records);
+	
+	while (it.hasNext()) {
+		const FileVersionDatabase::Record rec = it.next();
+		if (file.absoluteFilePath() == rec.filePath.absoluteFilePath()) {
+			it.remove();
+		}
+	}
+	
+	// add the new data
+	FileVersionDatabase::Record rec;
+	rec.filePath = file;
+	rec.version = version;
+	rec.hash = md5Hash;
+	m_records.append(rec);
+}
+
+bool FileVersionDatabase::hasFileRecord(const QFileInfo & file) const
+{
+	QListIterator<FileVersionDatabase::Record> it(m_records);
+	
+	while (it.hasNext()) {
+		const FileVersionDatabase::Record rec = it.next();
+		if (file == rec.filePath)
+			return true;
+	}
+	return false;
+}
+
+FileVersionDatabase::Record FileVersionDatabase::getFileRecord(const QFileInfo & file) const
+{
+	QListIterator<FileVersionDatabase::Record> it(m_records);
+	
+	while (it.hasNext()) {
+		const FileVersionDatabase::Record rec = it.next();
+		if (file == rec.filePath)
+			return rec;
+	}
+
+	FileVersionDatabase::Record retVal;
+	retVal.version = 0;
+	retVal.hash = QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e"); // hash for the zero-length string
+	return retVal;
+}
+
+/*static*/
+QByteArray FileVersionDatabase::hashForFile(const QString & path)
+{
+	QByteArray retVal = QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e"); // hash for the zero-length string;
+	QFile fin(path);
+	
+	if (!fin.open(QIODevice::ReadOnly))
+		return retVal;
+	
+	retVal = QCryptographicHash::hash(fin.readAll(), QCryptographicHash::Md5);
+	fin.close();
+	return retVal;
 }
