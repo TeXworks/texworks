@@ -22,7 +22,8 @@
 #ifndef TWUtils_H
 #define TWUtils_H
 
-#include <QDebug>
+#include "SvnRev.h"
+
 #include <QAction>
 #include <QString>
 #include <QList>
@@ -50,7 +51,7 @@ public:
 
 	// return the path to our "library" folder for resources like templates, completion lists, etc
 	static const QString getLibraryPath(const QString& subdir);
-	static void copyResources(const QDir& resDir, const QString& libPath);
+	static void updateLibraryResources(const QDir& srcRootDir, const QDir& destRootDir, const QString& libPath);
 
 	static void insertHelpMenuItems(QMenu* helpMenu);
 
@@ -183,6 +184,33 @@ private:
 	QString f_program;
 	QStringList f_arguments;
 	bool f_showPdf;
+};
+
+class FileVersionDatabase
+{
+public:
+	struct Record {
+		QFileInfo filePath;
+		unsigned int version;
+		QByteArray hash;
+	};
+	
+	FileVersionDatabase() { }
+	virtual ~FileVersionDatabase() { }
+
+	static QByteArray hashForFile(const QString & path);
+
+	static FileVersionDatabase load(const QString & path);
+	bool save(const QString & path) const;
+	
+	void addFileRecord(const QFileInfo & file, const QByteArray & hash, const unsigned int version);
+	bool hasFileRecord(const QFileInfo & file) const;
+	Record getFileRecord(const QFileInfo & file) const;
+	const QList<Record> & getFileRecords() const { return m_records; }
+	QList<Record> & getFileRecords() { return m_records; }
+	
+private:
+	QList<Record> m_records;
 };
 
 #endif
