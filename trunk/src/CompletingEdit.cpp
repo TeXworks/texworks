@@ -55,17 +55,24 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	  pHunspell(NULL), spellingCodec(NULL)
 {
 	if (sharedCompleter == NULL) { // initialize shared (static) members
+		qreal bgR, bgG, bgB;
+		qreal fgR, fgG, fgB;
+		
 		sharedCompleter = new QCompleter(qApp);
 		sharedCompleter->setCompletionMode(QCompleter::InlineCompletion);
 		sharedCompleter->setCaseSensitivity(Qt::CaseInsensitive);
 		loadCompletionFiles(sharedCompleter);
 
+		palette().color(QPalette::Active, QPalette::Base).getRgbF(&bgR, &bgG, &bgB);
+		palette().color(QPalette::Active, QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
+
 		currentCompletionFormat = new QTextCharFormat;
-		currentCompletionFormat->setBackground(QColor("yellow").lighter(160));
+		currentCompletionFormat->setBackground(QColor::fromRgbF(.75 * bgR + .25 * fgR, .75 * bgG + .25 * fgG, .75 * bgB + .25 * fgB));
 		braceMatchingFormat = new QTextCharFormat;
 		braceMatchingFormat->setBackground(QColor("orange"));
+
 		currentLineFormat = new QTextCharFormat;
-		currentLineFormat->setBackground(QColor("yellow").lighter(180));
+		currentLineFormat->setBackground(QColor::fromRgbF(.9 * bgR + .1 * fgR, .9 * bgG + .1 * fgG, .9 * bgB + .1 * fgB));
 		currentLineFormat->setProperty(QTextFormat::FullWidthSelection, true);
 
 		QSETTINGS_OBJECT(settings);
