@@ -38,6 +38,18 @@
         <source>Auxiliary files to be deleted:</source>
         <translation>삭제할 부수파일:</translation>
     </message>
+    <message>
+        <source>Select All</source>
+        <translation>모두 선택</translation>
+    </message>
+    <message>
+        <source>Select None</source>
+        <translation>선택 해제</translation>
+    </message>
+    <message>
+        <source>Toggle</source>
+        <translation>맞바꾸기</translation>
+    </message>
 </context>
 <context>
     <name>FindDialog</name>
@@ -173,7 +185,7 @@
     </message>
     <message>
         <source>Show</source>
-        <translation>보이기</translation>
+        <translation>보기</translation>
     </message>
     <message>
         <source>Typeset</source>
@@ -348,12 +360,8 @@
         <translation></translation>
     </message>
     <message>
-        <source>Ctrl+T</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Preferences...</source>
-        <translation>환경설정...</translation>
+        <translation>환경 설정...</translation>
     </message>
     <message>
         <source>Stack</source>
@@ -446,6 +454,66 @@
     <message>
         <source>Ctrl+J</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation>조판</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>스크립트</translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation>TeXworks 스크립트</translation>
+    </message>
+    <message>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation>스크립트 목록 다시 읽기</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>스크립트 관리</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>스크립트 폴더 보기</translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation>스크립트에 대하여...</translation>
+    </message>
+    <message>
+        <source>Print Pdf...</source>
+        <translation>PDF 인쇄...</translation>
+    </message>
+    <message>
+        <source>Ctrl+P</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation>조판 중단</translation>
+    </message>
+    <message>
+        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+</source>
+        <translation>아쉽게도 %1 현재 버전은 PDF 인쇄 기능이 없습니다.
+</translation>
+    </message>
+    <message>
+        <source>Do you want to open the file in the default viewer for printing instead?</source>
+        <translation>대신에 기본 뷰어 프로그램으로 열어 인쇄하시겠습니까?</translation>
+    </message>
+    <message>
+        <source> (remember to close it again to avoid access problems)</source>
+        <translation> (프로그램간 권한 충돌이 있을 수 있으므로 인쇄 후 뷰어를 닫아주세요)</translation>
     </message>
 </context>
 <context>
@@ -599,11 +667,11 @@
     </message>
     <message>
         <source>TeXworks Preferences</source>
-        <translation>TeXworks 환경설정</translation>
+        <translation>TeXworks 환경 설정</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>일반항목</translation>
+        <translation>일반</translation>
     </message>
     <message>
         <source>Toolbar buttons</source>
@@ -655,7 +723,7 @@
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation>포인트</translation>
     </message>
     <message>
         <source>Tab width:</source>
@@ -773,6 +841,46 @@
         <source>Highlight current line</source>
         <translation>현재 줄 강조</translation>
     </message>
+    <message>
+        <source> px</source>
+        <translation>픽셀</translation>
+    </message>
+    <message>
+        <source>Smart Quotes mode:</source>
+        <translation>똑똑한 인용부호 방식:</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>스크립트</translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation>보안</translation>
+    </message>
+    <message>
+        <source>Allow scripts to read all files (script and document files are always readable)</source>
+        <translation>모든 파일 읽기 허용 (스크립트 파일과 문서 파일은 항상 읽을 수 있음)</translation>
+    </message>
+    <message>
+        <source>Allow scripts to write files</source>
+        <translation>파일 쓰기 허용</translation>
+    </message>
+    <message>
+        <source>Allow scripts to run system commands</source>
+        <translation>시스템 명령 실행 허용</translation>
+    </message>
+    <message>
+        <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
+        <translation>다른 스크립트 언어의 플러그인 허용 (스크립트에 대한 제약을 우회할 가능성 있음)</translation>
+    </message>
+    <message>
+        <source>Debugging</source>
+        <translation>디버깅</translation>
+    </message>
+    <message>
+        <source>Enable QtScript debugger</source>
+        <translation>Qt스크립트 디버거 활성화</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -815,6 +923,11 @@
     <message>
         <source>All files</source>
         <translation>모든 파일</translation>
+    </message>
+    <message>
+        <source>TeXworks %1r%2 (%3)
+</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -881,6 +994,57 @@
     </message>
 </context>
 <context>
+    <name>ScriptManager</name>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>스크립트 관리</translation>
+    </message>
+    <message>
+        <source>Standalone Scripts</source>
+        <translation>독립형 스크립트</translation>
+    </message>
+    <message>
+        <source>Hook Scripts</source>
+        <translation>후킹형 스크립트</translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation>이름:</translation>
+    </message>
+    <message>
+        <source>Context: </source>
+        <translation>환경:</translation>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation>기능:</translation>
+    </message>
+    <message>
+        <source>Author: </source>
+        <translation>저자:</translation>
+    </message>
+    <message>
+        <source>Version: </source>
+        <translation>버전:</translation>
+    </message>
+    <message>
+        <source>Shortcut: </source>
+        <translation>단축키:</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>파일:</translation>
+    </message>
+    <message>
+        <source>Language: </source>
+        <translation>언어:</translation>
+    </message>
+    <message>
+        <source>Hook: </source>
+        <translation>후킹:</translation>
+    </message>
+</context>
+<context>
     <name>SearchResults</name>
     <message>
         <source>...</source>
@@ -910,6 +1074,10 @@
         <source>Search Results</source>
         <translation>찾기 결과</translation>
     </message>
+    <message>
+        <source>Search Results - %1 (%2 found)</source>
+        <translation>찾기 결과 - %1 (%2군데 발견)</translation>
+    </message>
 </context>
 <context>
     <name>TWApp</name>
@@ -927,7 +1095,7 @@
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>환경설정...</translation>
+        <translation>환경 설정...</translation>
     </message>
     <message>
         <source>Open...</source>
@@ -971,7 +1139,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation>&lt;br&gt;버전 %1 (r.%2)</translation>
+        <translation type="obsolete">&lt;br&gt;버전 %1 (r.%2)</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
@@ -979,7 +1147,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; 응용 프레임워크는 Nokia Corporation 소속의 Qt Software가 제공합니다.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; 응용 프레임워크는 Nokia Corporation 소속의 Qt Software가 제공합니다.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
@@ -995,7 +1163,7 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; 기술은 J&amp;#xE9;r&amp;#xF4;me Laurens가 제공하였습니다.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; 기술은 J&amp;#xE9;r&amp;#xF4;me Laurens가 제공했습니다.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
@@ -1003,7 +1171,7 @@
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation>&lt;p&gt;%1 번역은 %2이 제공하였습니다.</translation>
+        <translation>&lt;p&gt;%1 번역은 %2이 제공했습니다.</translation>
     </message>
     <message>
         <source>[language name]</source>
@@ -1011,7 +1179,7 @@
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
-        <translation>Dohyun Kim/nomos@ktug.or.kr</translation>
+        <translation>Dohyun Kim&amp;lt;nomos@ktug.or.kr&amp;gt;</translation>
     </message>
     <message>
         <source>About %1</source>
@@ -1039,7 +1207,104 @@
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>TeX 관련 프로그램의 경로를 찾을 수 없습니다.&lt;p&gt;&lt;small&gt;문서처리를 위해서는 TeX 배포판의 바이너리 디렉토리를 환경설정 대화상자의 문서처리 탭에서 설정해야 합니다.</translation>
+        <translation>TeX 관련 프로그램의 경로를 찾을 수 없습니다.&lt;p&gt;&lt;small&gt;문서처리를 위해서는 TeX 배포판의 바이너리 디렉토리를 환경 설정 대화상자의 문서처리 탭에서 설정해야 합니다.</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
+        <translation>&lt;br&gt;버전 %1 r.%2 (%3)</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt 응용 프레임워크&lt;/a&gt; v%1은(는) Nokia Corporation 소속의 Qt Software가 제공합니다.</translation>
+    </message>
+    <message>
+        <source>Save File</source>
+        <translation>파일 저장</translation>
+    </message>
+    <message>
+        <source>Unable to find help file.</source>
+        <translation>도움말 파일을 찾을 수 없습니다.</translation>
+    </message>
+    <message>
+        <source>Permission request</source>
+        <translation>권한 요청</translation>
+    </message>
+    <message>
+        <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
+        <translation>&quot;%1&quot; 스크립트가 &quot;%2&quot; 파일을 열고자 하지만 권한이 없습니다. 그래도 파일을 열겠습니까?</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptAPI</name>
+    <message>
+        <source>Internal error</source>
+        <translation>내부 오류</translation>
+    </message>
+    <message>
+        <source>Failed to execute system command: %1</source>
+        <translation>%1 시스템 명령 실행에 실패</translation>
+    </message>
+    <message>
+        <source>Error executing system command: %1</source>
+        <translation>%1 시스템 명령 실행에 오류 발생</translation>
+    </message>
+    <message>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation>시스템 명령 실행이 허용되지 않았습니다 (환경 설정을 확인하세요)</translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; could not be opened.</source>
+        <translation>&quot;%1&quot; 파일을 열 수 없습니다.</translation>
+    </message>
+    <message>
+        <source>Reading all files is disabled (see Preferences)</source>
+        <translation>모든 파일 읽기가 허용되지 않았습니다 (환경 설정을 확인하세요)</translation>
+    </message>
+    <message>
+        <source>The file &quot;%1&quot; could not be opened for reading</source>
+        <translation>&quot;%1&quot; 파일을 읽어들일 수 없음</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptable</name>
+    <message>
+        <source>Script &quot;%1&quot;: %2</source>
+        <translation>스크립트 &quot;%1&quot;: %2</translation>
+    </message>
+    <message>
+        <source>Script result</source>
+        <translation>스크립트 수행 결과</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>알 수 없는 오류</translation>
+    </message>
+    <message>
+        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
+        <translation>스크립트를 이용해서 %1에 새로운 명령을 더하거나 기능을 확장하고 변경할 수 있습니다.</translation>
+    </message>
+    <message>
+        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
+        <translation>스크립트의 작성과 이용에 대해 상세한 것은 이 사이트를 참조하세요: %1&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Scripting languages currently available in this copy of %1:</source>
+        <translation>설치된 %1에서 사용할 수 있는 스크립트 언어는 아래와 같습니다:</translation>
+    </message>
+    <message>
+        <source>About Scripts</source>
+        <translation>스크립트에 대하여</translation>
+    </message>
+</context>
+<context>
+    <name>TWSystemCmd</name>
+    <message>
+        <source>ERROR: failure code %1</source>
+        <translation>오류: 오류 코드 %1</translation>
+    </message>
+    <message>
+        <source>ERROR: exit code %1</source>
+        <translation>오류: 종료 코드 %1</translation>
     </message>
 </context>
 <context>
@@ -1081,7 +1346,7 @@
     </message>
     <message>
         <source>Cannot close window while tool is running</source>
-        <translation>도구 실행 중에는 창을 닫을 수 없습니다</translation>
+        <translation type="obsolete">도구 실행 중에는 창을 닫을 수 없습니다</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1103,7 +1368,7 @@ Do you want to save your changes?</source>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation>&quot;%1&quot; 파일을 열 수 없습니다:
+        <translation type="obsolete">&quot;%1&quot; 파일을 열 수 없습니다:
 %2.</translation>
     </message>
     <message>
@@ -1120,7 +1385,7 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
     </message>
     <message>
         <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation>&quot;%1&quot; 파일을 읽어들임 (%2)</translation>
+        <translation type="obsolete">&quot;%1&quot; 파일을 읽어들임 (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1130,7 +1395,7 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
-        <translation>다른 프로그램이 %1 파일을 변경하였습니다.
+        <translation>다른 프로그램이 %1 파일을 변경했습니다.
 
 작업한 것을 버리고 디스크에서 파일을 읽어오겠습니까?</translation>
     </message>
@@ -1138,7 +1403,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
-        <translation>다른 프로그램이 %1 파일을 변경하였습니다.
+        <translation>다른 프로그램이 %1 파일을 변경했습니다.
 
 디스크의 파일을 덮어쓰게 되는데 그래도 저장하시겠습니까?</translation>
     </message>
@@ -1150,7 +1415,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>%2에서 요구한 %1 인코딩은 지원되지 않는 인코딩입니다.
+        <translation type="obsolete">%2에서 요구한 %1 인코딩은 지원되지 않는 인코딩입니다.
 
 대신 %3 인코딩으로 저장하겠습니다. 글자가 깨질 수 있습니다.</translation>
     </message>
@@ -1169,16 +1434,16 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation>&quot;%1&quot; 파일을 저장할 수 없습니다:
+        <translation type="obsolete">&quot;%1&quot; 파일을 저장할 수 없습니다:
 %2.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation>&quot;%1&quot; 파일이 저장되었습니다 (%2)</translation>
+        <translation type="obsolete">&quot;%1&quot; 파일이 저장되었습니다 (%2)</translation>
     </message>
     <message>
         <source>default encoding</source>
-        <translation>기본 인코딩</translation>
+        <translation type="obsolete">기본 인코딩</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
@@ -1306,7 +1571,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Show</source>
-        <translation>보이기</translation>
+        <translation>보기</translation>
     </message>
     <message>
         <source>Search</source>
@@ -1318,7 +1583,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Auto-indent Mode</source>
-        <translation>자동 들여쓰기 방식</translation>
+        <translation>자동 들여쓰기</translation>
     </message>
     <message>
         <source>Syntax Coloring</source>
@@ -1427,10 +1692,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Clear</source>
         <translation>지우기</translation>
-    </message>
-    <message>
-        <source>Ctrl+T</source>
-        <translation></translation>
     </message>
     <message>
         <source>Find...</source>
@@ -1550,7 +1811,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>환경설정...</translation>
+        <translation>환경 설정...</translation>
     </message>
     <message>
         <source>Go to Preview</source>
@@ -1574,7 +1835,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Show Selection</source>
-        <translation>선택 영역 보이기</translation>
+        <translation>선택 영역 보기</translation>
     </message>
     <message>
         <source>Ctrl+=</source>
@@ -1650,7 +1911,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation>환경설정 대화상자에서 %1 도구와 경로 설정을 확인하세요.</translation>
+        <translation>환경 설정 대화상자에서 %1 도구와 경로 설정을 확인하세요.</translation>
     </message>
     <message>
         <source>Hard Wrap...</source>
@@ -1659,6 +1920,114 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Line Numbers</source>
         <translation>줄번호 표시</translation>
+    </message>
+    <message>
+        <source>Console output</source>
+        <translation>콘솔 출력</translation>
+    </message>
+    <message>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation>조판</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>스크립트</translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation>TeXworks 스크립트</translation>
+    </message>
+    <message>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>스크립트 폴더 보기</translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation>스크립트 목록 다시 읽기</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>스크립트 관리</translation>
+    </message>
+    <message>
+        <source>Auto-Follow Focus</source>
+        <translation>위치 자동 따라가기</translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation>스크립트에 대하여...</translation>
+    </message>
+    <message>
+        <source>Apply to Selection</source>
+        <translation>선택 영역에 적용</translation>
+    </message>
+    <message>
+        <source>Save All</source>
+        <translation>모두 저장</translation>
+    </message>
+    <message>
+        <source>Ctrl+Alt+S</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <comment>shortcut: Don&apos;t Save</comment>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Ctrl+R</source>
+        <comment>shortcut: Revert</comment>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Cannot read file &quot;%1&quot;:
+%2</source>
+        <translation>&quot;%1&quot; 파일을 읽을 수 없습니다:
+%2</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; loaded</source>
+        <translation>&quot;%1&quot; 파일을 읽어들임</translation>
+    </message>
+    <message>
+        <source>%1 is constantly being modified by another program.
+
+Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
+        <translation>다른 프로그램이 %1 파일을 변경하고 있습니다.
+
+외부 프로세스가 끝나면 수동으로 &quot;파일-&gt;저장된 버전으로 복구&quot;를 수행하세요.</translation>
+    </message>
+    <message>
+        <source>Cannot write file &quot;%1&quot;:
+%2</source>
+        <translation>&quot;%1&quot; 파일을 저장할 수 없습니다:
+%2</translation>
+    </message>
+    <message>
+        <source>Error writing file</source>
+        <translation>파일 저장 오류</translation>
+    </message>
+    <message>
+        <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
+        <translation>파일 저장 중에 오류가 발생했습니다. 다른 장소에 사본을 저장하시기 바랍니다.</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; saved</source>
+        <translation>&quot;%1&quot; 파일 저장됨</translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation>조판 중단</translation>
+    </message>
+    <message>
+        <source>Process interrupted by user</source>
+        <translation>사용자가 프로세스를 중단했습니다</translation>
     </message>
 </context>
 <context>
@@ -1685,6 +2054,18 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <source>NewArgument</source>
         <translation>새로운인자</translation>
     </message>
+    <message>
+        <source>Select program file</source>
+        <translation>프로그램 파일 선택</translation>
+    </message>
+    <message>
+        <source>Invalid program</source>
+        <translation>유효하지 않은 프로그램</translation>
+    </message>
+    <message>
+        <source>The file &apos;%1&apos; is not executable!</source>
+        <translation>&apos;%1&apos; 파일은 실행할 수 없습니다!</translation>
+    </message>
 </context>
 <context>
     <name>ToolConfigDialog</name>
@@ -1707,6 +2088,10 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>View PDF after running</source>
         <translation>문서처리 후 PDF 보기</translation>
+    </message>
+    <message>
+        <source>Browse...</source>
+        <translation>둘러보기...</translation>
     </message>
 </context>
 </TS>
