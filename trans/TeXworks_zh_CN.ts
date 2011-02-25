@@ -38,6 +38,18 @@
         <source>Auxiliary files to be deleted:</source>
         <translation>下列辅助文件将被删除：</translation>
     </message>
+    <message>
+        <source>Select All</source>
+        <translation>选择所有</translation>
+    </message>
+    <message>
+        <source>Select None</source>
+        <translation>选择无</translation>
+    </message>
+    <message>
+        <source>Toggle</source>
+        <translation>触发</translation>
+    </message>
 </context>
 <context>
     <name>FindDialog</name>
@@ -459,7 +471,7 @@
     </message>
     <message>
         <source>Update Scripts</source>
-        <translation>更新脚本</translation>
+        <translation type="obsolete">更新脚本</translation>
     </message>
     <message>
         <source>Manage Scripts</source>
@@ -472,6 +484,40 @@
     <message>
         <source>Abort typesetting</source>
         <translation>中止排版</translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation>TeXworks脚本</translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation>重载脚本列表</translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation>关于脚本...</translation>
+    </message>
+    <message>
+        <source>Print Pdf...</source>
+        <translation>打印 Pdf...</translation>
+    </message>
+    <message>
+        <source>Ctrl+P</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+</source>
+        <translation>很不幸，由于各种技术原因本版本 %1 无法打印 Pdf 文档。
+</translation>
+    </message>
+    <message>
+        <source>Do you want to open the file in the default viewer for printing instead?</source>
+        <translation>是否希望打开默认Pdf 查看器中的文件以打印？</translation>
+    </message>
+    <message>
+        <source> (remember to close it again to avoid access problems)</source>
+        <translation>（记住再一次关闭文档以避免出现访问问题）</translation>
     </message>
 </context>
 <context>
@@ -773,7 +819,7 @@
     </message>
     <message>
         <source>Processing tools</source>
-        <translation>处理工具？</translation>
+        <translation>处理工具</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -814,6 +860,30 @@
     <message>
         <source>Allow scripts to run system commands</source>
         <translation>允许脚本运行系统命令</translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation>像素</translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation>安全性</translation>
+    </message>
+    <message>
+        <source>Allow scripts to write files</source>
+        <translation>允许脚本写文件</translation>
+    </message>
+    <message>
+        <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
+        <translation>打开插件脚本语言</translation>
+    </message>
+    <message>
+        <source>Debugging</source>
+        <translation>调试</translation>
+    </message>
+    <message>
+        <source>Allow scripts to read all files (script and document files are always readable)</source>
+        <translation>允许脚本读取所有文件（脚本和文档文件始终可读）</translation>
     </message>
 </context>
 <context>
@@ -857,6 +927,11 @@
     <message>
         <source>All files</source>
         <translation>所有文件</translation>
+    </message>
+    <message>
+        <source>TeXworks %1r%2 (%3)
+</source>
+        <translation>TeXworks %1r%2 (%3)</translation>
     </message>
 </context>
 <context>
@@ -920,6 +995,57 @@
     <message>
         <source>&amp;Regular expression</source>
         <translation>使用正则表达式 (&amp;R)</translation>
+    </message>
+</context>
+<context>
+    <name>ScriptManager</name>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>管理脚本</translation>
+    </message>
+    <message>
+        <source>Standalone Scripts</source>
+        <translation>独立脚本</translation>
+    </message>
+    <message>
+        <source>Hook Scripts</source>
+        <translation>钩子脚本</translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation>名称：</translation>
+    </message>
+    <message>
+        <source>Context: </source>
+        <translation>上下文：</translation>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation>描诉：</translation>
+    </message>
+    <message>
+        <source>Author: </source>
+        <translation>作者：</translation>
+    </message>
+    <message>
+        <source>Version: </source>
+        <translation>版本：</translation>
+    </message>
+    <message>
+        <source>Shortcut: </source>
+        <translation>快捷键：</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>文件：</translation>
+    </message>
+    <message>
+        <source>Language: </source>
+        <translation>语言：</translation>
+    </message>
+    <message>
+        <source>Hook: </source>
+        <translation>钩子：</translation>
     </message>
 </context>
 <context>
@@ -1017,7 +1143,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation>&lt;br&gt; 版本 %1 (r.%2)</translation>
+        <translation type="obsolete">&lt;br&gt; 版本 %1 (r.%2)</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
@@ -1025,7 +1151,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; 应用程序框架由诺基亚公司子公司 Qt 软件 开发。</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; 应用程序框架由诺基亚公司子公司 Qt 软件 开发。</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
@@ -1081,7 +1207,7 @@
     </message>
     <message>
         <source>No default binary directory found</source>
-        <translation>没有发现默认的 bin 目录</translation>
+        <translation>没有发现默认的可执行程序（bin）目录</translation>
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
@@ -1097,15 +1223,62 @@
     </message>
     <message>
         <source>Failed to execute system command: %1</source>
-        <translation>无法执行系统命令：%1</translation>
+        <translation type="obsolete">无法执行系统命令：%1</translation>
     </message>
     <message>
         <source>Error executing system command: %1</source>
-        <translation>系统命令执行错误：%1</translation>
+        <translation type="obsolete">系统命令执行错误：%1</translation>
     </message>
     <message>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation>系统命令执行被禁止（见＜首选项＞）</translation>
+        <translation type="obsolete">系统命令执行被禁止（见＜首选项＞）</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
+        <translation>&lt;br&gt;版本 %1 r%2 (%3)</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt应用程序框架&lt;/a&gt;v%1 由Nokia公司子公司 Qt Software 开发。</translation>
+    </message>
+    <message>
+        <source>Permission request</source>
+        <translation>请求权限</translation>
+    </message>
+    <message>
+        <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
+        <translation>脚本 “%1&quot; 试图打开未授权文件 &quot;%2&quot;。你想打开此文件吗？</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptAPI</name>
+    <message>
+        <source>Internal error</source>
+        <translation>内部错误</translation>
+    </message>
+    <message>
+        <source>Failed to execute system command: %1</source>
+        <translation>系统命令运行失败：%1 </translation>
+    </message>
+    <message>
+        <source>Error executing system command: %1</source>
+        <translation>系统命令运行错误：%1</translation>
+    </message>
+    <message>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation>运行系统命令已被禁止（见＜首选项＞）</translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; could not be opened.</source>
+        <translation>&quot;%1&quot; 无法打开。</translation>
+    </message>
+    <message>
+        <source>Reading all files is disabled (see Preferences)</source>
+        <translation>禁止读取所有文件（见首选项）</translation>
+    </message>
+    <message>
+        <source>The file &quot;%1&quot; could not be opened for reading</source>
+        <translation>文件 &quot;%1&quot; 无法打开以便读取内容。</translation>
     </message>
 </context>
 <context>
@@ -1121,6 +1294,22 @@
     <message>
         <source>Script result</source>
         <translation>脚本执行结果</translation>
+    </message>
+    <message>
+        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
+        <translation>脚本可用于添加新的命令到 %1，以及拓展或修改命令。</translation>
+    </message>
+    <message>
+        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
+        <translation>关于创建和使用脚本的更多信息，参见 %1&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Scripting languages currently available in this copy of %1:</source>
+        <translation>当前 %1 副本中支持的脚本语言：</translation>
+    </message>
+    <message>
+        <source>About Scripts</source>
+        <translation>关于脚本</translation>
     </message>
 </context>
 <context>
@@ -1212,7 +1401,7 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
     </message>
     <message>
         <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation>文件 &quot;%1&quot; 加载了 (%2)</translation>
+        <translation type="obsolete">文件 &quot;%1&quot; 加载了 (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1240,7 +1429,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>&quot;%2&quot; 要求的文本编码 %1 不支持。
+        <translation type="obsolete">&quot;%2&quot; 要求的文本编码 %1 不支持。
 将使用 %3 替代，可能会导致不正确的文本。</translation>
     </message>
     <message>
@@ -1262,11 +1451,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation>文件 &quot;%1&quot; 已保存 (%2)</translation>
+        <translation type="obsolete">文件 &quot;%1&quot; 已保存 (%2)</translation>
     </message>
     <message>
         <source>default encoding</source>
-        <translation>默认编码</translation>
+        <translation type="obsolete">默认编码</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
@@ -1779,7 +1968,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>Update Scripts</source>
-        <translation>更新脚本</translation>
+        <translation type="obsolete">更新脚本</translation>
     </message>
     <message>
         <source>Manage Scripts</source>
@@ -1802,6 +1991,63 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <source>Auto-Follow Focus</source>
         <translation>自动跟踪焦点</translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation>TeXworks 脚本</translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation>重载脚本列表</translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation>关于脚本...</translation>
+    </message>
+    <message>
+        <source>Apply to Selection</source>
+        <translation>应用至选择内容</translation>
+    </message>
+    <message>
+        <source>Save All</source>
+        <translation>保存全部</translation>
+    </message>
+    <message>
+        <source>Ctrl+Alt+S</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <comment>shortcut: Don&apos;t Save</comment>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Ctrl+R</source>
+        <comment>shortcut: Revert</comment>
+        <translation></translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; loaded</source>
+        <translation>文件 &quot;%1&quot; 已加载</translation>
+    </message>
+    <message>
+        <source>Error writing file</source>
+        <translation>写文件错误</translation>
+    </message>
+    <message>
+        <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
+        <translation>保存文件时出错。你可以换个位置保存文件。</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; saved</source>
+        <translation>文件 &quot;%1&quot; 已保存</translation>
+    </message>
+    <message>
+        <source>%1 is constantly being modified by another program.
+
+Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
+        <translation>%1 经常被其它程序修改。
+请在外部程序完成后，手动执行“文件-&gt;恢复到已保存”命令重新载入%1。</translation>
     </message>
 </context>
 <context>
