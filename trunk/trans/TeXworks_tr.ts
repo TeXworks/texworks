@@ -38,6 +38,18 @@
         <source>Auxiliary files to be deleted:</source>
         <translation>Silinecek yardımcı dosyalar:</translation>
     </message>
+    <message>
+        <source>Select All</source>
+        <translation>Tümünü Seç</translation>
+    </message>
+    <message>
+        <source>Select None</source>
+        <translation>Hiçbirini Seçme</translation>
+    </message>
+    <message>
+        <source>Toggle</source>
+        <translation>Seçimi ter çevir</translation>
+    </message>
 </context>
 <context>
     <name>FindDialog</name>
@@ -465,6 +477,56 @@
         <comment>action</comment>
         <translation>Ctrl+T</translation>
     </message>
+    <message>
+        <source>Scripts</source>
+        <translation>Eklentiler</translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation>TeXworks Eklentileri</translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation>Eklenti Listesini Yenile</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>Eklentileri Yönet</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>Eklenti Klasörünü Göster</translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation>Eklentiler Hakkında...</translation>
+    </message>
+    <message>
+        <source>Print Pdf...</source>
+        <translation>Pdf Yazdır...</translation>
+    </message>
+    <message>
+        <source>Ctrl+P</source>
+        <translation>Ctrl+P</translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation>Dizgiyi durdur</translation>
+    </message>
+    <message>
+        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+</source>
+        <translation>Ne yazık ki bu %1 versiyonu Pdf dokümanlarını çeşitle teknik sebepler nedeniyle yazdıramıyor.
+</translation>
+    </message>
+    <message>
+        <source>Do you want to open the file in the default viewer for printing instead?</source>
+        <translation>Öntanımlı programla açarak oradan yazdırmak ister misiniz?</translation>
+    </message>
+    <message>
+        <source> (remember to close it again to avoid access problems)</source>
+        <translation> (erişim sorunlarını önlemek için tekrar kapatmayı unutmayın)</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -791,6 +853,46 @@
         <source>Highlight current line</source>
         <translation>Bulunulan satırı vurgula</translation>
     </message>
+    <message>
+        <source> px</source>
+        <translation> px</translation>
+    </message>
+    <message>
+        <source>Smart Quotes mode:</source>
+        <translation>Akıllı Tırnak işaretleri kipi:</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>Eklentiler</translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation>Güvenlik</translation>
+    </message>
+    <message>
+        <source>Allow scripts to read all files (script and document files are always readable)</source>
+        <translation>Eklentilerin tüm dosyaları okumasına izin ver (eklenti ve belge dosyaları her zaman okunabilir)</translation>
+    </message>
+    <message>
+        <source>Allow scripts to write files</source>
+        <translation>Eklentileri dosya yazmasına izin ver</translation>
+    </message>
+    <message>
+        <source>Allow scripts to run system commands</source>
+        <translation>Eklentilerin sistem komutu çalıştırmasına izin ver</translation>
+    </message>
+    <message>
+        <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
+        <translation>Eklenti dillerini etkinleştir (eklenti davranışındaki diğer kısıtlamaları kaldırabilir)</translation>
+    </message>
+    <message>
+        <source>Debugging</source>
+        <translation>Hata ayıklama</translation>
+    </message>
+    <message>
+        <source>Enable QtScript debugger</source>
+        <translation>QtScript hata ayıklayıcısını etkinleştir</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -833,6 +935,12 @@
     <message>
         <source>All files</source>
         <translation>Tüm dosyalar</translation>
+    </message>
+    <message>
+        <source>TeXworks %1r%2 (%3)
+</source>
+        <translation>TeXworks %1r%2 (%3)
+</translation>
     </message>
 </context>
 <context>
@@ -899,6 +1007,57 @@
     </message>
 </context>
 <context>
+    <name>ScriptManager</name>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>Eklentileri Yönet</translation>
+    </message>
+    <message>
+        <source>Standalone Scripts</source>
+        <translation>Bağımsız Eklentiler</translation>
+    </message>
+    <message>
+        <source>Hook Scripts</source>
+        <translation>Kanca Eklentiler</translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation>İsim: </translation>
+    </message>
+    <message>
+        <source>Context: </source>
+        <translation>Bağlam: </translation>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation>Açıklama: </translation>
+    </message>
+    <message>
+        <source>Author: </source>
+        <translation>Yazar: </translation>
+    </message>
+    <message>
+        <source>Version: </source>
+        <translation>Versiyon: </translation>
+    </message>
+    <message>
+        <source>Shortcut: </source>
+        <translation>Kısayol: </translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>Dosya: </translation>
+    </message>
+    <message>
+        <source>Language: </source>
+        <translation>Dil: </translation>
+    </message>
+    <message>
+        <source>Hook: </source>
+        <translation>Kanca: </translation>
+    </message>
+</context>
+<context>
     <name>SearchResults</name>
     <message>
         <source>File</source>
@@ -927,6 +1086,10 @@
     <message>
         <source>...</source>
         <translation>...</translation>
+    </message>
+    <message>
+        <source>Search Results - %1 (%2 found)</source>
+        <translation>Arama Sonuçları - %1 (%2 adet bulundu)</translation>
     </message>
 </context>
 <context>
@@ -989,7 +1152,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation>&lt;br&gt;Versiyon %1 (r.%2)</translation>
+        <translation type="obsolete">&lt;br&gt;Versiyon %1 (r.%2)</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
@@ -997,7 +1160,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; uygulama çatısı bir Nokia Corporation bölümü olan Qt Software tarafından.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; uygulama çatısı bir Nokia Corporation bölümü olan Qt Software tarafından.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
@@ -1063,6 +1226,99 @@
         <source>Unable to find help file.</source>
         <translation>Yardım dosyası bulunamıyor.</translation>
     </message>
+    <message>
+        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
+        <translation>&lt;br&gt;Versiyon %1 r.%2 (%3)</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt uygulama çatısı&lt;/a&gt; v%1 bir Nokia Corporation bölümü olan Qt Software tarafından.</translation>
+    </message>
+    <message>
+        <source>Save File</source>
+        <translation>Dosyayı Kaydet</translation>
+    </message>
+    <message>
+        <source>Permission request</source>
+        <translation>İzin isteği</translation>
+    </message>
+    <message>
+        <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
+        <translation>&quot;%1&quot; eklentisi &quot;%2&quot; dosyasını yeterli izin olmadan açmaya çalışıyor. Dosyayı açmak istiyor musunuz?</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptAPI</name>
+    <message>
+        <source>Internal error</source>
+        <translation>İç hata</translation>
+    </message>
+    <message>
+        <source>Failed to execute system command: %1</source>
+        <translation>Sistem komutu çalıştırılamadı: %1</translation>
+    </message>
+    <message>
+        <source>Error executing system command: %1</source>
+        <translation>Sistem komutu çalıştırılırken hata: %1</translation>
+    </message>
+    <message>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation>Sistem komutu çalıştırma etkin değil (bkz. Tercihler)</translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; could not be opened.</source>
+        <translation>&quot;%1&quot; açılamadı.</translation>
+    </message>
+    <message>
+        <source>Reading all files is disabled (see Preferences)</source>
+        <translation>Tüm dosyaları okuma etkin değil (bkz. Tercihler)</translation>
+    </message>
+    <message>
+        <source>The file &quot;%1&quot; could not be opened for reading</source>
+        <translation>&quot;%1&quot; dosyası okuma için açılamadı</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptable</name>
+    <message>
+        <source>Script &quot;%1&quot;: %2</source>
+        <translation>Eklenti &quot;%1&quot;: %2</translation>
+    </message>
+    <message>
+        <source>Script result</source>
+        <translation>Eklenti sonucu</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>bilinmeyen hata</translation>
+    </message>
+    <message>
+        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
+        <translation>Eklentiler kullanılarak %1&apos;e yeni komutlar eklenebilir, ve davranışı değiştirilebilir veya çeşitlendirilebilir.</translation>
+    </message>
+    <message>
+        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
+        <translation>Eklenti oluşturma ve kullanma hakkında daha fazla bilgi için, bkz. %1&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Scripting languages currently available in this copy of %1:</source>
+        <translation>Bu %1 kopyasında mevcut eklenti dilleri:</translation>
+    </message>
+    <message>
+        <source>About Scripts</source>
+        <translation>Eklentiler Hakkında</translation>
+    </message>
+</context>
+<context>
+    <name>TWSystemCmd</name>
+    <message>
+        <source>ERROR: failure code %1</source>
+        <translation>HATA: %1 hata kodu</translation>
+    </message>
+    <message>
+        <source>ERROR: exit code %1</source>
+        <translation>HATA: %1 çıkış kodu</translation>
+    </message>
 </context>
 <context>
     <name>TagsDock</name>
@@ -1103,7 +1359,7 @@
     </message>
     <message>
         <source>Cannot close window while tool is running</source>
-        <translation>Araç çalışıyorken pencere kapatılamaz</translation>
+        <translation type="obsolete">Araç çalışıyorken pencere kapatılamaz</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1126,7 +1382,7 @@ Değişikliklerinizi kaydetmek istiyor musunuz?</translation>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation>&quot;%1&quot; dosyası okunamıyor:￼
+        <translation type="obsolete">&quot;%1&quot; dosyası okunamıyor:￼
 %2.</translation>
     </message>
     <message>
@@ -1143,7 +1399,7 @@ Onun yerine, hatalı metne yol açabilecek olan %3 olarak yorumlanacak.</transla
     </message>
     <message>
         <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation>&quot;%1&quot; dosyası yüklendi (%2)</translation>
+        <translation type="obsolete">&quot;%1&quot; dosyası yüklendi (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1173,7 +1429,7 @@ Diskteki versiyonun üzerine yazarak bu dosyayı kaydetmek istiyor musunuz?</tra
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>%2 için istenen %1 metin kodlaması desteklenmiyor.
+        <translation type="obsolete">%2 için istenen %1 metin kodlaması desteklenmiyor.
 
 Onun yerine, hatalı metne yol açabilecek olan %3 olarak kaydedilecek.</translation>
     </message>
@@ -1192,16 +1448,16 @@ Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, 
     <message>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation>&quot;%1&quot; dosyası yazılamıyor:￼
+        <translation type="obsolete">&quot;%1&quot; dosyası yazılamıyor:￼
 %2.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation>&quot;%1&quot; dosyası kaydedildi (%2)</translation>
+        <translation type="obsolete">&quot;%1&quot; dosyası kaydedildi (%2)</translation>
     </message>
     <message>
         <source>default encoding</source>
-        <translation>varsayılan kodlama</translation>
+        <translation type="obsolete">varsayılan kodlama</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
@@ -1705,6 +1961,100 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
         <comment>action</comment>
         <translation>Ctrl+T</translation>
     </message>
+    <message>
+        <source>Console output</source>
+        <translation>Konsol çıktısı</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>Eklentiler</translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation>TeXworks Eklentileri</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>Eklenti Klasörünü Göster</translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation>Eklenti Listesini Yenile</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>Eklentileri Yönet</translation>
+    </message>
+    <message>
+        <source>Auto-Follow Focus</source>
+        <translation>Odak imleçi takip etsin</translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation>Eklentiler Hakkında...</translation>
+    </message>
+    <message>
+        <source>Apply to Selection</source>
+        <translation>Seçime Uygula</translation>
+    </message>
+    <message>
+        <source>Save All</source>
+        <translation>Tümünü Kaydet</translation>
+    </message>
+    <message>
+        <source>Ctrl+Alt+S</source>
+        <translation>Ctrl+Alt+S</translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <comment>shortcut: Don&apos;t Save</comment>
+        <translation>Ctrl+D</translation>
+    </message>
+    <message>
+        <source>Ctrl+R</source>
+        <comment>shortcut: Revert</comment>
+        <translation>Ctrl+R</translation>
+    </message>
+    <message>
+        <source>Cannot read file &quot;%1&quot;:
+%2</source>
+        <translation>&quot;%1&quot; dosyası okunamıyor:￼
+%2</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; loaded</source>
+        <translation>&quot;%1&quot; dosyası yüklendi</translation>
+    </message>
+    <message>
+        <source>%1 is constantly being modified by another program.
+
+Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
+        <translation>%1 başka bir program tarafından sürekli değiştiriliyor.
+
+Haricî süreç tamamlandığında lütfen &quot;Dosya -&gt; Kaydedilene Geri Dön&quot; kullanın.</translation>
+    </message>
+    <message>
+        <source>Cannot write file &quot;%1&quot;:
+%2</source>
+        <translation>&quot;%1&quot; dosyası yazılamıyor:￼
+%2</translation>
+    </message>
+    <message>
+        <source>Error writing file</source>
+        <translation>Dosya yazılırken hata</translation>
+    </message>
+    <message>
+        <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
+        <translation>Dosyayı kaydederken bir hata meydana gelmiş olabilir. Farklı bir konuma bir kopya kaydetmek isteyebilirsiniz.</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; saved</source>
+        <translation>&quot;%1&quot; dosyası kaydedildi</translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation>Dizgiyi durdur</translation>
+    </message>
 </context>
 <context>
     <name>TeXHighlighter</name>
@@ -1730,6 +2080,18 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
         <source>NewArgument</source>
         <translation>YeniArgüman</translation>
     </message>
+    <message>
+        <source>Select program file</source>
+        <translation>Program dosyası seçin</translation>
+    </message>
+    <message>
+        <source>Invalid program</source>
+        <translation>Geçersiz program</translation>
+    </message>
+    <message>
+        <source>The file &apos;%1&apos; is not executable!</source>
+        <translation>&apos;%1&apos; dosyası çalıştırılabilir değil!</translation>
+    </message>
 </context>
 <context>
     <name>ToolConfigDialog</name>
@@ -1752,6 +2114,10 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     <message>
         <source>View PDF after running</source>
         <translation>Çalıştırdıktan sonra PDF&apos;i göster</translation>
+    </message>
+    <message>
+        <source>Browse...</source>
+        <translation>Göz at...</translation>
     </message>
 </context>
 </TS>
