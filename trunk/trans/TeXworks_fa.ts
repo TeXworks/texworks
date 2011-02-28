@@ -2,13 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fa_IR">
 <context>
-    <name>QApplication</name>
-    <message>
-        <source>QT_LAYOUT_DIRECTION</source>
-        <translation>RTL</translation>
-    </message>
-</context>
-<context>
     <name>CompletingEdit</name>
     <message>
         <source>Jump to PDF</source>
@@ -45,16 +38,28 @@
         <source>Auxiliary files to be deleted:</source>
         <translation>پرونده‌های کمکی که حذف می‌شوند:</translation>
     </message>
+    <message>
+        <source>Select All</source>
+        <translation>انتخاب همه</translation>
+    </message>
+    <message>
+        <source>Select None</source>
+        <translation>انتخاب هیچ‌کدام</translation>
+    </message>
+    <message>
+        <source>Toggle</source>
+        <translation>جابجایی</translation>
+    </message>
 </context>
 <context>
     <name>FindDialog</name>
     <message>
         <source>Find</source>
-        <translation>یافتن</translation>
+        <translation>پیدا کن</translation>
     </message>
     <message>
         <source>Find:</source>
-        <translation>یافتن:</translation>
+        <translation>پیدا کن:</translation>
     </message>
     <message>
         <source>&amp;Wrap around</source>
@@ -62,7 +67,7 @@
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>یافتن &amp;عقب‌گرد</translation>
+        <translation>پیدا کردن &amp;عقب‌گرد</translation>
     </message>
     <message>
         <source>Search within &amp;selection</source>
@@ -70,7 +75,7 @@
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
-        <translation>یافتن &amp;تمام موارد</translation>
+        <translation>پیدا کردن &amp;تمام موارد</translation>
     </message>
     <message>
         <source>Search all &amp;open files</source>
@@ -156,7 +161,7 @@
     </message>
     <message>
         <source>untitled.pdf[*]</source>
-        <translation type="unfinished">untitled.pdf[*]</translation>
+        <translation>untitled.pdf[*]</translation>
     </message>
     <message>
         <source>Help</source>
@@ -382,7 +387,7 @@
     </message>
     <message>
         <source>Ctrl+&apos;</source>
-        <translation type="unfinished">Ctrl+&apos;</translation>
+        <translation>Ctrl+&apos;</translation>
     </message>
     <message>
         <source>New from Template...</source>
@@ -459,6 +464,56 @@
     <message>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>سند</translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation>سندسازی تک‌ورکس</translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation>بازخوانی لیست سندها</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>مدیریت سندها</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>نمایش پوشهٔ سندها</translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation>دربارهٔ سند...</translation>
+    </message>
+    <message>
+        <source>Print Pdf...</source>
+        <translation>چاپ پی‌دی‌اف...</translation>
+    </message>
+    <message>
+        <source>Ctrl+P</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation>لغو حروف‌چینی</translation>
+    </message>
+    <message>
+        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+</source>
+        <translation>به دلیل مشکلات تکنیکی، متأسفانه این ویراست از %1 قادر به چاپ پی‌دی‌اف نیست.
+</translation>
+    </message>
+    <message>
+        <source>Do you want to open the file in the default viewer for printing instead?</source>
+        <translation>برای چاپ، آیا می‌خواهید پرونده را در نمایشگر پیش‌فرض باز کنید؟</translation>
+    </message>
+    <message>
+        <source> (remember to close it again to avoid access problems)</source>
+        <translation>(به یاد داشته باشید که آن را برای عدم مشکلات دسترسی ببندید)</translation>
     </message>
 </context>
 <context>
@@ -786,6 +841,53 @@
         <source>Auto-hide output panel unless errors occur</source>
         <translation>پنهان‌کردن خودکار خروجی مگر خطا وجود داشته باشد</translation>
     </message>
+    <message>
+        <source> px</source>
+        <translation>px</translation>
+    </message>
+    <message>
+        <source>Smart Quotes mode:</source>
+        <translation>حالت نقل قول هوشمند:</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>سندها</translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation>امنیت</translation>
+    </message>
+    <message>
+        <source>Allow scripts to read all files (script and document files are always readable)</source>
+        <translation>اجازهٔ خواندن تمام پرونده‌ها به سندها (سندها و پرونده‌های عادی همیشه قابل خواندن هستند)</translation>
+    </message>
+    <message>
+        <source>Allow scripts to write files</source>
+        <translation>اجازهٔ نوشتن فایل‌ها به سندها</translation>
+    </message>
+    <message>
+        <source>Allow scripts to run system commands</source>
+        <translation>اجازهٔ اجرای فرمان‌های سیستم به سندها</translation>
+    </message>
+    <message>
+        <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
+        <translation>فعال‌سازی افزونهٔ زبان‌های سند (ممکن است محدودیت‌های دیگری بر رفتار سندها اعمال کند)</translation>
+    </message>
+    <message>
+        <source>Debugging</source>
+        <translation>اشکال زدایی</translation>
+    </message>
+    <message>
+        <source>Enable QtScript debugger</source>
+        <translation>فعال‌سازی اشکال‌زایی QtScript</translation>
+    </message>
+</context>
+<context>
+    <name>QApplication</name>
+    <message>
+        <source>QT_LAYOUT_DIRECTION</source>
+        <translation type="obsolete">RTL</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -828,6 +930,11 @@
     <message>
         <source>All files</source>
         <translation>همهٔ پرونده‌ها</translation>
+    </message>
+    <message>
+        <source>TeXworks %1r%2 (%3)
+</source>
+        <translation>تک‌ورکس %1 ب %2 (%3)</translation>
     </message>
 </context>
 <context>
@@ -894,6 +1001,57 @@
     </message>
 </context>
 <context>
+    <name>ScriptManager</name>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>مدیریت سندها</translation>
+    </message>
+    <message>
+        <source>Standalone Scripts</source>
+        <translation>سند مستقل</translation>
+    </message>
+    <message>
+        <source>Hook Scripts</source>
+        <translation>سند لنگری</translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation>نام:</translation>
+    </message>
+    <message>
+        <source>Context: </source>
+        <translation>متن:</translation>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation>توضیح:</translation>
+    </message>
+    <message>
+        <source>Author: </source>
+        <translation>نویسنده:</translation>
+    </message>
+    <message>
+        <source>Version: </source>
+        <translation>ویراست:</translation>
+    </message>
+    <message>
+        <source>Shortcut: </source>
+        <translation>میان‌بر:</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>پرونده:</translation>
+    </message>
+    <message>
+        <source>Language: </source>
+        <translation>زبان:</translation>
+    </message>
+    <message>
+        <source>Hook: </source>
+        <translation>لنگر:</translation>
+    </message>
+</context>
+<context>
     <name>SearchResults</name>
     <message>
         <source>...</source>
@@ -923,6 +1081,10 @@
         <source>Search Results</source>
         <translation>نتایج جستجو</translation>
     </message>
+    <message>
+        <source>Search Results - %1 (%2 found)</source>
+        <translation>نتایج جستجو - %1 (%2 پیدا شد)</translation>
+    </message>
 </context>
 <context>
     <name>TWApp</name>
@@ -944,11 +1106,11 @@
     </message>
     <message>
         <source>Open...</source>
-        <translation>بازکردن...</translation>
+        <translation>گشودن...</translation>
     </message>
     <message>
         <source>Open Recent</source>
-        <translation>بازکردن اخیر</translation>
+        <translation>گشودن اخیر</translation>
     </message>
     <message>
         <source>Help</source>
@@ -984,43 +1146,43 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation>&lt;br&gt;‫نسخهٔ %1 (ب.%2‏)‬</translation>
+        <translation type="obsolete">&lt;br&gt;‫نسخهٔ %1 (ب.%2‏)‬</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="unfinished">&lt;p&gt; انتشار‌یافته تحت &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; اجازه‌نامهٔ عمومی گنو&lt;/a&gt;, نسخهٔ ۲.</translation>
+        <translation>&lt;p&gt; انتشار‌یافته تحت &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; اجازه‌نامهٔ عمومی گنو&lt;/a&gt;, نسخهٔ ۲.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="unfinished">&lt;p&gt;چهارچوب کاربری &lt;a href=&quot;http://trolltech.com/product/&quot;&gt;QT4&lt;/a&gt; توسط شرکت  QT , وابسته به شرکت نوکیا.</translation>
+        <translation type="obsolete">&lt;p&gt;چهارچوب کاربری &lt;a href=&quot;http://trolltech.com/product/&quot;&gt;QT4&lt;/a&gt; توسط شرکت  QT , وابسته به شرکت نوکیا.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation type="unfinished">&lt;br&gt;کتابخانهٔ مترجم پی‌دی‌اف &lt;a href=&quot;http.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; توسط Kristian H&amp;#xF8;gsberg, Albert Astals Cid و دیگران.</translation>
+        <translation>&lt;br&gt;کتابخانهٔ مترجم پی‌دی‌اف &lt;a href=&quot;http.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; توسط Kristian H&amp;#xF8;gsberg, Albert Astals Cid و دیگران.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished">&lt;br&gt;غلط‌یاب&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; توسط L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+        <translation>&lt;br&gt;غلط‌یاب&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; توسط L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation type="unfinished">&lt;br&gt;مفاهیم و منابع از &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TexShop&lt;/a&gt; توسط Richard Koch.</translation>
+        <translation>&lt;br&gt;مفاهیم و منابع از &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TexShop&lt;/a&gt; توسط Richard Koch.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation type="unfinished">&lt;br&gt;فناوری &lt;a href=&quot;http://itemac.sourceforge.net/SyncTex.html&quot;&gt;SyncTex&lt;/a&gt; توسط J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
+        <translation>&lt;br&gt;فناوری &lt;a href=&quot;http://itemac.sourceforge.net/SyncTex.html&quot;&gt;SyncTex&lt;/a&gt; توسط J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation type="unfinished">&lt;br&gt;بعضی از آیکون‌های استفاده شده از پروژهٔ &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt; هستند.</translation>
+        <translation>&lt;br&gt;بعضی از آیکون‌های استفاده شده از پروژهٔ &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt; هستند.</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation type="unfinished">&lt;p&gt; ارائهٔ ترجمهٔ ‫%1 از %2‏.</translation>
+        <translation>&lt;p&gt; ارائهٔ ترجمهٔ ‫%1 از %2‏.</translation>
     </message>
     <message>
         <source>[language name]</source>
-        <translation type="unfinished">فارسی</translation>
+        <translation>فارسی</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
@@ -1057,6 +1219,99 @@
     <message>
         <source>Unable to find help file.</source>
         <translation>پروندهٔ کمکی یافت نشد.</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
+        <translation>&lt;br&gt;ویراست %1 ب.%2 (%3)</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;چهارچوب نرم‌افزاری Qt &lt;/a&gt; v%1 توسط  Qt Software, a division of Nokia Corporation.</translation>
+    </message>
+    <message>
+        <source>Save File</source>
+        <translation>ذخیرهٔ پرونده</translation>
+    </message>
+    <message>
+        <source>Permission request</source>
+        <translation>درخواست اجازه</translation>
+    </message>
+    <message>
+        <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
+        <translation>سند &quot;%1&quot;در حال گشودن پروندهٔ &quot;%2&quot; بدون اجازهٔ کافی است. آیا می‌خواهید پرونده را باز کنید؟</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptAPI</name>
+    <message>
+        <source>Internal error</source>
+        <translation>خطای داخلی</translation>
+    </message>
+    <message>
+        <source>Failed to execute system command: %1</source>
+        <translation>ناتوان در اجرای فرمان سیستم: %1</translation>
+    </message>
+    <message>
+        <source>Error executing system command: %1</source>
+        <translation>خطا در اجرای فرمان سیستم:%1</translation>
+    </message>
+    <message>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation>اجرای فرمان سیستم ناممکن است ( ترجیحات را ببینید)</translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; could not be opened.</source>
+        <translation>&quot;%1&quot; نمی‌تواند باز شود.</translation>
+    </message>
+    <message>
+        <source>Reading all files is disabled (see Preferences)</source>
+        <translation>خواندن تمامی پرونده‌ها ناممکن شده است (ترجیحات را ببینید)</translation>
+    </message>
+    <message>
+        <source>The file &quot;%1&quot; could not be opened for reading</source>
+        <translation>پروندهٔ &quot;%1&quot; را برای خواندن نمی‌تون گشود</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptable</name>
+    <message>
+        <source>Script &quot;%1&quot;: %2</source>
+        <translation>سند &quot;%1&quot;:%2</translation>
+    </message>
+    <message>
+        <source>Script result</source>
+        <translation>نتیجه سند</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation>خطای نامشخص</translation>
+    </message>
+    <message>
+        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
+        <translation>سند می‌تواند برای افزودن فرمان جدید به %1 ، یا گسترش و یا بهسازی آن مورد استفاده قرار گیرد.</translation>
+    </message>
+    <message>
+        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
+        <translation>برای اطلاعات بیشتر در مورد ایجاد و استفاده از سندها به %1 مراجعه شود &lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Scripting languages currently available in this copy of %1:</source>
+        <translation>زبان‌های سند در دسترس در این ویراست از %1:</translation>
+    </message>
+    <message>
+        <source>About Scripts</source>
+        <translation>دربارهٔ سند</translation>
+    </message>
+</context>
+<context>
+    <name>TWSystemCmd</name>
+    <message>
+        <source>ERROR: failure code %1</source>
+        <translation>خطا: کد شکست %1</translation>
+    </message>
+    <message>
+        <source>ERROR: exit code %1</source>
+        <translation>خطا: کد خروج %1</translation>
     </message>
 </context>
 <context>
@@ -1098,7 +1353,7 @@
     </message>
     <message>
         <source>Cannot close window while tool is running</source>
-        <translation>وقتی ابزار در حال اجراست پرونده نمی‌تواند بسته شود</translation>
+        <translation type="obsolete">وقتی ابزار در حال اجراست پرونده نمی‌تواند بسته شود</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1121,7 +1376,7 @@ Do you want to save your changes?</source>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation>ناتوان در خواندن پروندهٔ &quot;%1&quot;:
+        <translation type="obsolete">ناتوان در خواندن پروندهٔ &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
@@ -1138,7 +1393,7 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
     </message>
     <message>
         <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation>پروندهٔ &quot;%1&quot; بارگذاری شد (%2)</translation>
+        <translation type="obsolete">پروندهٔ &quot;%1&quot; بارگذاری شد (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1168,7 +1423,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>رمزینهٔ متنی %1 استفاده شده در %2 حمایت نمی‌شود.
+        <translation type="obsolete">رمزینهٔ متنی %1 استفاده شده در %2 حمایت نمی‌شود.
 
 به‌جای آن از %3 استفاده می‌شود، که ممکن است متن درست نمایش داده نشود.</translation>
     </message>
@@ -1187,20 +1442,20 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation>ناتوان از نوشتن پروندهٔ &quot;%1&quot;
+        <translation type="obsolete">ناتوان از نوشتن پروندهٔ &quot;%1&quot;
 %2.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation>پروندهٔ &quot;%1&quot; ذخیره شد (%2)</translation>
+        <translation type="obsolete">پروندهٔ &quot;%1&quot; ذخیره شد (%2)</translation>
     </message>
     <message>
         <source>default encoding</source>
-        <translation>رمزینهٔ پیش‌فرض</translation>
+        <translation type="obsolete">رمزینهٔ پیش‌فرض</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
-        <translation type="unfinished">untitled-%1.tex</translation>
+        <translation>untitled-%1.tex</translation>
     </message>
     <message>
         <source>%1[*] - %2</source>
@@ -1312,7 +1567,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>untitled.tex[*]</source>
-        <translation type="unfinished">untitled.tex[*]</translation>
+        <translation>untitled.tex[*]</translation>
     </message>
     <message>
         <source>File</source>
@@ -1546,7 +1801,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+]</source>
-        <translation type="unfinished">Ctrl+]</translation>
+        <translation>Ctrl+]</translation>
     </message>
     <message>
         <source>Unindent</source>
@@ -1554,7 +1809,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+[</source>
-        <translation type="unfinished">Ctrl+[</translation>
+        <translation>Ctrl+[</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -1562,7 +1817,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+Shift+]</source>
-        <translation type="unfinished">Ctrl+Shift+]</translation>
+        <translation>Ctrl+Shift+]</translation>
     </message>
     <message>
         <source>Uncomment</source>
@@ -1570,7 +1825,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+Shift+[</source>
-        <translation type="unfinished">Ctrl+Shift+[</translation>
+        <translation>Ctrl+Shift+[</translation>
     </message>
     <message>
         <source>Wrap Lines</source>
@@ -1598,11 +1853,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+&apos;</source>
-        <translation type="unfinished">Ctrl+&apos;</translation>
+        <translation>Ctrl+&apos;</translation>
     </message>
     <message>
         <source>Ctrl+\</source>
-        <translation type="unfinished">Ctrl+\</translation>
+        <translation>Ctrl+\</translation>
     </message>
     <message>
         <source>New from Template...</source>
@@ -1618,7 +1873,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Ctrl+=</source>
-        <translation type="unfinished">Ctrl+=</translation>
+        <translation>Ctrl+=</translation>
     </message>
     <message>
         <source>ALL UPPERCASE</source>
@@ -1688,6 +1943,100 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <source>Line Numbers</source>
         <translation>شمارهٔ خط‌ها</translation>
     </message>
+    <message>
+        <source>Console output</source>
+        <translation>پیشانه خروجی</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation>سندها</translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation>سندسازی تک‌ورکس</translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation>نمایش پوشهٔ سندها</translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation>بازخوانی لیست سندها</translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation>مدیریت سندها</translation>
+    </message>
+    <message>
+        <source>Auto-Follow Focus</source>
+        <translation>دنبالگر کانونی خودکار</translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation>دربارهٔ سند...</translation>
+    </message>
+    <message>
+        <source>Apply to Selection</source>
+        <translation>اعمال بر انتخاب شده</translation>
+    </message>
+    <message>
+        <source>Save All</source>
+        <translation>ذخیره همه</translation>
+    </message>
+    <message>
+        <source>Ctrl+Alt+S</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <comment>shortcut: Don&apos;t Save</comment>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Ctrl+R</source>
+        <comment>shortcut: Revert</comment>
+        <translation>Ctrl+R</translation>
+    </message>
+    <message>
+        <source>Cannot read file &quot;%1&quot;:
+%2</source>
+        <translation>ناتوان در خواندن پروندهٔ &quot;%1&quot;:
+%2</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; loaded</source>
+        <translation>پروندهٔ &quot;%1&quot; بارگذاری شد</translation>
+    </message>
+    <message>
+        <source>%1 is constantly being modified by another program.
+
+Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
+        <translation>%1 توسط برنامهٔ دیگری دائماً تغییر می‌یابد.
+
+بعد از پایان پردازش، لطفاً از «پرونده &gt; تغییر به ذخیره شده»  به صورت دستی استفاده کنید.</translation>
+    </message>
+    <message>
+        <source>Cannot write file &quot;%1&quot;:
+%2</source>
+        <translation>ناتوان از نوشتن پروندهٔ &quot;%1&quot;
+%2</translation>
+    </message>
+    <message>
+        <source>Error writing file</source>
+        <translation>خطا در نوشتن پرونده</translation>
+    </message>
+    <message>
+        <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
+        <translation>خطایی در هنگام نوشتن پرونده رخ داد. ممکن است بخواهید یک نسخه از پرونده را در مکانی دیگر ذخیره کنید.</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; saved</source>
+        <translation>پروندهٔ &quot;%1&quot; ذخیره شد</translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation>لغو حروف‌چینی</translation>
+    </message>
 </context>
 <context>
     <name>TeXHighlighter</name>
@@ -1713,6 +2062,18 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <source>NewArgument</source>
         <translation>گزینهٔ جدید</translation>
     </message>
+    <message>
+        <source>Select program file</source>
+        <translation>انتخاب پروندهٔ برنامه</translation>
+    </message>
+    <message>
+        <source>Invalid program</source>
+        <translation>برنامهٔ نامعتبر</translation>
+    </message>
+    <message>
+        <source>The file &apos;%1&apos; is not executable!</source>
+        <translation>پروندهٔ &apos;%1&apos; اجرایی نیست!</translation>
+    </message>
 </context>
 <context>
     <name>ToolConfigDialog</name>
@@ -1735,6 +2096,10 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>View PDF after running</source>
         <translation>مشاهدهٔ پی‌دی‌اف پس از اجرا</translation>
+    </message>
+    <message>
+        <source>Browse...</source>
+        <translation>ورق زدن (جستجو)...</translation>
     </message>
 </context>
 </TS>
