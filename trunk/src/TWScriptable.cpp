@@ -191,7 +191,7 @@ void TWScriptManager::loadPlugins()
 	}
 }
 
-void TWScriptManager::reloadScripts(bool forceAll /*= false*/)
+void TWScriptManager::reloadScripts(bool forceAll /* = false */)
 {
 	QSETTINGS_OBJECT(settings);
 	QStringList disabled = settings.value("disabledScripts", QStringList()).toStringList();
@@ -439,7 +439,7 @@ TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result
 }
 
 void
-TWScriptManager::runHooks(const QString& hookName, QObject * context /*= NULL */)
+TWScriptManager::runHooks(const QString& hookName, QObject * context /* = NULL */)
 {
 	foreach (TWScript *s, getHookScripts(hookName)) {
 		runScript(s, context, TWScript::ScriptHook);
@@ -484,7 +484,7 @@ TWScriptable::updateScriptsMenu()
 }
 
 void
-TWScriptable::removeScriptsFromMenu(QMenu *menu, int startIndex /*= 0*/)
+TWScriptable::removeScriptsFromMenu(QMenu *menu, int startIndex /* = 0 */)
 {
 	if (!menu)
 		return;

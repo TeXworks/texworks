@@ -101,7 +101,7 @@ void CommandlineParser::printUsage(QTextStream & stream)
 	stream.flush();
 }
 
-int CommandlineParser::getNextArgument(int index /*= -1*/, CommandlineGetItemFlags flags /*= GetFlag_Default*/) const
+int CommandlineParser::getNextArgument(int index /* = -1 */, CommandlineGetItemFlags flags /* = GetFlag_Default */) const
 {
 	for (++index; index < m_items.size(); ++index) {
 		if (m_items[index].type == Commandline_Argument) {
@@ -112,7 +112,7 @@ int CommandlineParser::getNextArgument(int index /*= -1*/, CommandlineGetItemFla
 	return -1;
 }
 
-int CommandlineParser::getPrevArgument(int index /*= -1*/, CommandlineGetItemFlags flags /*= GetFlag_Default*/) const
+int CommandlineParser::getPrevArgument(int index /* = -1 */, CommandlineGetItemFlags flags /* = GetFlag_Default */) const
 {
 	for (--index; index >= 0; --index) {
 		if (m_items[index].type == Commandline_Argument) {
@@ -124,9 +124,9 @@ int CommandlineParser::getPrevArgument(int index /*= -1*/, CommandlineGetItemFla
 }
 
 int CommandlineParser::getNextOption(
-	const QString longName /*= QString()*/,
-	int index /*= -1*/,
-	CommandlineGetItemFlags flags /*= GetFlag_Default*/
+	const QString longName /* = QString() */,
+	int index /* = -1 */,
+	CommandlineGetItemFlags flags /* = GetFlag_Default */
 ) const
 {
 	for (++index; index < m_items.size(); ++index) {
@@ -139,9 +139,9 @@ int CommandlineParser::getNextOption(
 }
 
 int CommandlineParser::getPrevOption(
-	const QString longName /*= QString()*/,
-	int index /*= -1*/,
-	CommandlineGetItemFlags flags /*= GetFlag_Default*/
+	const QString longName /* = QString() */,
+	int index /* = -1 */,
+	CommandlineGetItemFlags flags /* = GetFlag_Default */
 ) const
 {
 	for (--index; index >= 0; --index) {
@@ -154,9 +154,9 @@ int CommandlineParser::getPrevOption(
 }
 
 int CommandlineParser::getNextSwitch(
-	const QString longName /*= QString()*/,
-	int index /*= -1*/,
-	CommandlineGetItemFlags flags /*= GetFlag_Default*/
+	const QString longName /* = QString() */,
+	int index /* = -1 */,
+	CommandlineGetItemFlags flags /* = GetFlag_Default */
 ) const
 {
 	for (++index; index < m_items.size(); ++index) {
@@ -169,9 +169,9 @@ int CommandlineParser::getNextSwitch(
 }
 
 int CommandlineParser::getPrevSwitch(
-	const QString longName /*= QString()*/,
-	int index /*= -1*/,
-	CommandlineGetItemFlags flags /*= GetFlag_Default*/
+	const QString longName /* = QString() */,
+	int index /* = -1 */,
+	CommandlineGetItemFlags flags /* = GetFlag_Default */
 ) const
 {
 	for (--index; index >= 0; --index) {

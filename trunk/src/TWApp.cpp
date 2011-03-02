@@ -1232,7 +1232,7 @@ int TWApp::getVersion()
 }
 
 //Q_INVOKABLE
-QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObject * scriptApiObj, const int pos /*= -1*/, const bool askUser /*= false*/)
+QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObject * scriptApiObj, const int pos /* = -1 */, const bool askUser /* = false */)
 {
 	QSETTINGS_OBJECT(settings);
 	QMap<QString, QVariant> retVal;

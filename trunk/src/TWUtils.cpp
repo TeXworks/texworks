@@ -397,7 +397,7 @@ QStringList* TWUtils::getTranslationList()
 
 QHash<QString, QString>* TWUtils::dictionaryList = NULL;
 
-QHash<QString, QString>* TWUtils::getDictionaryList(const bool forceReload /*= false*/)
+QHash<QString, QString>* TWUtils::getDictionaryList(const bool forceReload /* = false */)
 {
 	if (dictionaryList != NULL) {
 		if (!forceReload)

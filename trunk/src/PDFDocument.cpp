@@ -1696,7 +1696,7 @@ void PDFDocument::doFindDialog()
 		doFindAgain(true);
 }
 
-void PDFDocument::doFindAgain(bool newSearch /*= false*/)
+void PDFDocument::doFindAgain(bool newSearch /* = false */)
 {
 	QSETTINGS_OBJECT(settings);
 	int pageIdx;
