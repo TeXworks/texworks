@@ -68,7 +68,7 @@ void *_synctex_malloc(size_t size);
 /*  This is used to log some informational message to the standard error stream.
  *  On Windows, the stderr stream is not exposed and another method is used.
  *	The return value is the number of characters printed.	*/
-int _synctex_error(char * reason,...);
+int _synctex_error(const char * reason,...);
 
 /*  strip the last extension of the given string, this string is modified!
  *  This function depends on the OS because the path separator may differ.
@@ -112,6 +112,8 @@ typedef enum {
 	synctex_compress_mode_none = 0,
 	synctex_compress_mode_gz = 1
 } synctex_compress_mode_t;
+
+static const char * synctex_io_modes[synctex_io_mode_append+2] = {"r","rb","a","ab"};
 
 int _synctex_get_name(const char * output, const char * build_directory, char ** synctex_name_ref, synctex_compress_mode_t * compress_mode_ref);
 
