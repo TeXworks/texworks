@@ -88,7 +88,7 @@ bool LuaScript::execute(TWScriptAPI *tw) const
 }
 
 /*static*/
-int LuaScript::pushQObject(lua_State * L, QObject * obj, const bool throwError /*= true*/)
+int LuaScript::pushQObject(lua_State * L, QObject * obj, const bool throwError /* = true */)
 {
 	Q_UNUSED(throwError)
 	
@@ -122,7 +122,7 @@ int LuaScript::pushQObject(lua_State * L, QObject * obj, const bool throwError /
 }
 
 /*static*/
-int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwError /*= true*/)
+int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwError /* = true */)
 {
 	int i;
 	QVariantList::const_iterator iList;
@@ -317,7 +317,7 @@ int LuaScript::setProperty(lua_State * L)
 }
 
 /*static*/
-QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwError /*= true*/)
+QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwError /* = true */)
 {
 	bool isArray = true, isMap = true, isQObject = false;
 	QVariantList vl;

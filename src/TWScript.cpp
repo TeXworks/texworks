@@ -51,7 +51,7 @@ bool TWScript::hasChanged() const
 }
 
 bool TWScript::doParseHeader(const QString& beginComment, const QString& endComment,
-							 const QString& Comment, bool skipEmpty /*=true*/)
+							 const QString& Comment, bool skipEmpty /* = true */)
 {
 	QFile file(m_Filename);
 	QStringList lines;
