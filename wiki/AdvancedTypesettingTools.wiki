@@ -3,7 +3,7 @@
 
 = Introduction =
 
-!TeXworks comes with a variety of typesetting engines preconfigured. Among them are pdfLaTeX, !ConTeXt, and XeLaTeX. In addition, some other tools such as BibTeX and !MakeIndex are included.
+!TeXworks comes with a variety of typesetting engines preconfigured. Among them are pdfLaTeX, !ConTeXt (MKII), and XeLaTeX. In addition, some other tools such as BibTeX and !MakeIndex are included.
 
 Some other workflows are not preconfigured, however. Most notably, the tools for producing .dvi or .ps files are not predefined. This page summarizes ways to set up these tools.
 
@@ -146,7 +146,7 @@ Arguments: $synctexoption
 === LaTeX ===
 Use the same configuration as for TeX, but use the program "latex" instead.
 
-=== !ConTeXt ===
+=== !ConTeXt (MKII) ===
 Use the following configuration:
 {{{
 Program:   texmfstart
@@ -215,7 +215,7 @@ latex "$1.tex" && dvips "$1.dvi"
 }}}
 and make it executable (e.g. by running `chmod +x latex-dvips.sh` from a terminal window).
 
-=== !ConTeXt ===
+=== !ConTeXt (MKII) ===
 Use the following configuration:
 {{{
 Program:   texmfstart
@@ -224,4 +224,16 @@ Arguments: texexec
            $fullname
 
 [ ] View PDF after running
+}}}
+
+= Other formats and tools =
+== !ConTeXt (MKIV) ==
+!ConTeXt MKIV is a new version of !ConTeXt that is actively developed. Thus, if you want to use !ConTeXt MKIV, you are well advised to constantly update your system - possibly through other channels than your distribution's package manager - to get the latest features and bug fixes.
+Use the following configuration for !ConTeXt MKIV:
+{{{
+Program:   context
+Arguments: --synctex
+           $fullname
+
+[X] View PDF after running
 }}}
