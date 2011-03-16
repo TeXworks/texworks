@@ -47,7 +47,6 @@
 #include <QUrl>
 #include <QShortcut>
 #include <QFileSystemWatcher>
-#include <QDebug>
 #include <QToolTip>
 
 #include <math.h>
