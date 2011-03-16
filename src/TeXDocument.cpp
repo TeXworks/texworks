@@ -455,7 +455,14 @@ void TeXDocument::setLangInternal(const QString& lang)
 	// called internally by the spelling menu actions;
 	// not for use from scripts as it won't update the menu
 	QTextCodec *spellingCodec;
+	Hunhandle* pOldHunspell = pHunspell;
 	pHunspell = TWUtils::getDictionary(lang);
+	// if the dictionary hasn't change, don't reset the spell checker as that
+	// can result in a serious delay for long documents
+	// NB: Don't delete the hunspell handles; the pointers are kept by TWUtils
+	if (pOldHunspell == pHunspell)
+		return;
+	
 	if (pHunspell != NULL) {
 		spellingCodec = QTextCodec::codecForName(Hunspell_get_dic_encoding(pHunspell));
 		if (spellingCodec == NULL)
