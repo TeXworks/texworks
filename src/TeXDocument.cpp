@@ -55,7 +55,6 @@
 #include <QPushButton>
 #include <QFileSystemWatcher>
 #include <QTextBrowser>
-#include <QDebug>
 
 #ifdef Q_WS_WIN
 #include <windows.h>
