@@ -212,6 +212,7 @@ TRANSLATIONS	+=	trans/TeXworks_af.ts \
 					trans/TeXworks_de.ts \
 					trans/TeXworks_es.ts \
 					trans/TeXworks_fa.ts \
+					trans/TeXworks_fo.ts \
 					trans/TeXworks_fr.ts \
 					trans/TeXworks_it.ts \
 					trans/TeXworks_ja.ts \
