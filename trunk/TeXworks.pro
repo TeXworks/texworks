@@ -91,7 +91,6 @@ unix:!macx { # on Unix-ish platforms we rely on pkgconfig, and use dbus
 	CONFIG		+= link_pkgconfig
 	PKGCONFIG	+= hunspell
 	PKGCONFIG	+= poppler-qt4
-	PKGCONFIG	+= dbus-1
 
 	# Enclose the path in \\\" (which later gets expanded to \", which in turn
 	# gets expanded to " in the c++ code)

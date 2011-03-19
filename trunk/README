@@ -24,9 +24,6 @@ To build TeXworks from source, you will need to install developer packages (or e
  - Hunspell (release 1.2.8 is recommended; earlier 1.2.x releases may be used, although support for some non-Latin-script languages may be lacking)
    http://hunspell.sourceforge.net/
 
- - libdbus (on X11-based platforms only; not used on Mac OS X or Windows)
-   http://dbus.freedesktop.org/
-
 along with their dependencies (such as Freetype, fontconfig, zlib, etc.) Details will depend on your platform. On Linux or similar systems, your package manager can probably provide all these.
 
 After installing the necessary libraries (and their headers), check the TeXworks.pro file and update paths as necessary; some of the paths currently in the project file are specific to one of my build machines.
