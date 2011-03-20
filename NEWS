@@ -1,0 +1,48 @@
+Release 0.4.0
+	* Scripting (QtScript, Lua, Python)
+	* New "Follow focus" mode (experimental)
+	* New %!TeX header (spellcheck)
+	* New "Save All" menu item
+	* New auto-completion file for the beamer class
+	* Support background color/font flags in syntax highlighting
+	* Save and restore window states for recent documents
+	* Implement a command line parser
+	* Automatically update resources when installing new releases
+
+	* Only display each language once in the sellchecker language selection
+	* Display human-readable names in addition to the ISO codes for the
+	  spellchecker language selection
+	* Implement "Smarten quotes" for a selection
+	* Preserve document view when reloading after external changes
+	* Handle different file encodings and line ending conventions and allow the
+	  user to change them
+	* Made pdfLaTeX the default on fresh installation
+	* Indicate a document's modification state in the windows menu
+	* Improve the "Email to mailing list" template
+	* Make "Highlight current line" color palette-aware (issue 467)
+	* Updated SyncTeX to 1.9
+	* Allow Esc and Return in the tags and search result windows
+	* Improve "Remove Auxiliary Files" dialog
+	* Fix handling of external file links in PDFs
+	* Numerous other bug fixes
+	
+	* [Win/*nix] Set TeXworks as the default editor when hitting 'e' after a
+	  TeX error
+	* [Win] Fix handling of "All Files" in the "Save As" dialog (issue 257)
+	
+
+Release 0.2.3 (TL'09 DVD release)
+	* Fix potential crash in Balance Delimiters
+	* Fix a few memory leaks (issue 212)
+	* Localization updates (Chinese, German, Italian, Polish)
+
+Release 0.2.2
+	* Bugfix to recognize jpeg image on windows
+
+Release 0.2.1
+	* Fixed order of taskbar buttons (issue 203)
+	* Fixed crash when opening a PDF file from the startup dialog (issue 207)
+	* Localization updates (Persian)
+
+Release 0.2.0
+	* Initial stable release
