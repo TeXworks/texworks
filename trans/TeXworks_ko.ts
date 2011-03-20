@@ -924,11 +924,6 @@
         <source>All files</source>
         <translation>모든 파일</translation>
     </message>
-    <message>
-        <source>TeXworks %1r%2 (%3)
-</source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>ReplaceDialog</name>
