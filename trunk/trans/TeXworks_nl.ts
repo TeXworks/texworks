@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="nl">
-<defaultcodec></defaultcodec>
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -11,6 +10,10 @@
     <message>
         <source>Jump to PDF</source>
         <translation>Spring naar PDF</translation>
+    </message>
+    <message>
+        <source>Ignore word</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -34,6 +37,18 @@
     <message>
         <source>Auxiliary files to be deleted:</source>
         <translation>Hulpbestanden ter verwijdering:</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation type="unfinished">Alles selecteren</translation>
+    </message>
+    <message>
+        <source>Select None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -85,6 +100,29 @@
     <message>
         <source>No recent search strings</source>
         <translation>Geen recente zoekteksten</translation>
+    </message>
+</context>
+<context>
+    <name>HardWrapDialog</name>
+    <message>
+        <source>Hard Wrap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wrap lines to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current window size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line length:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-wrap paragraphs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -295,7 +333,7 @@
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -418,12 +456,71 @@
         <translation>Zoek nogmaals</translation>
     </message>
     <message>
-        <source>Ctrl+Shift+G</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Find...</source>
         <translation>Zoek...</translation>
+    </message>
+    <message>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation type="unfinished">Typeset</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+J</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
+        <translation type="unfinished">Ctrl+T</translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print Pdf...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to open the file in the default viewer for printing instead?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (remember to close it again to avoid access problems)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -743,6 +840,58 @@
         <source>System default [%1]</source>
         <translation>Systeem standaard [%1]</translation>
     </message>
+    <message>
+        <source> px</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Smart Quotes mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global editor options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highlight current line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow scripts to read all files (script and document files are always readable)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow scripts to write files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow scripts to run system commands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Debugging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable QtScript debugger</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -851,6 +1000,57 @@
     </message>
 </context>
 <context>
+    <name>ScriptManager</name>
+    <message>
+        <source>Manage Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Standalone Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hook Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Context: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Author: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hook: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SearchResults</name>
     <message>
         <source>File</source>
@@ -879,6 +1079,10 @@
     <message>
         <source>...</source>
         <translation>...</translation>
+    </message>
+    <message>
+        <source>Search Results - %1 (%2 found)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -973,7 +1177,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation>&lt;br&gt;Versie %1 (r.%2)</translation>
+        <translation type="obsolete">&lt;br&gt;Versie %1 (r.%2)</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
@@ -981,7 +1185,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; applicatie framework door Qt Software, een onderdeel van Nokia Corporation.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; applicatie framework door Qt Software, een onderdeel van Nokia Corporation.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
@@ -1014,6 +1218,103 @@
     <message>
         <source>[translator&apos;s name/email]</source>
         <translation>&lt;a href=&quot;mailto:taco@luatex.org&quot;&gt;Taco Hoekwater&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File</source>
+        <translation type="unfinished">Bestand opslaan</translation>
+    </message>
+    <message>
+        <source>Unable to find help file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Permission request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptAPI</name>
+    <message>
+        <source>Internal error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to execute system command: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error executing system command: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; could not be opened.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading all files is disabled (see Preferences)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file &quot;%1&quot; could not be opened for reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptable</name>
+    <message>
+        <source>Script &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Script result</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripting languages currently available in this copy of %1:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TWSystemCmd</name>
+    <message>
+        <source>ERROR: failure code %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ERROR: exit code %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1055,7 +1356,7 @@
     </message>
     <message>
         <source>Cannot close window while tool is running</source>
-        <translation>Venster kan niet gesloten terwijl programma aktief is</translation>
+        <translation type="obsolete">Venster kan niet gesloten terwijl programma aktief is</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1078,7 +1379,7 @@ Wilt u de wijzigingen opslaan?</translation>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation>Kan bestand &quot;%1&quot; niet lezen:
+        <translation type="obsolete">Kan bestand &quot;%1&quot; niet lezen:
 %2.</translation>
     </message>
     <message>
@@ -1095,7 +1396,7 @@ Het zal behandeld worden als %3, wat kan resulteren in incorrecte tekst.</transl
     </message>
     <message>
         <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation>Bestand &quot;%1&quot; geladen (%2)</translation>
+        <translation type="obsolete">Bestand &quot;%1&quot; geladen (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1125,7 +1426,7 @@ Wilt u doorgaan met opslaan en het bestand op schijf overschrijven?</translation
         <source>The text encoding %1 requested for %2 is not supported.
 
 It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation>De tekst codering %1 voor %2 wordt niet ondersteund.
+        <translation type="obsolete">De tekst codering %1 voor %2 wordt niet ondersteund.
 
 Het bestand zal worden opgeslagen als %3, wat kan resulteren in incorrecte tekst.</translation>
     </message>
@@ -1144,15 +1445,15 @@ Indien u doorgaat, zullen zij worden vervangen door standaard codes. Een alterna
     <message>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation>Kan bestand &quot;%1&quot; niet schrijven:%2.</translation>
+        <translation type="obsolete">Kan bestand &quot;%1&quot; niet schrijven:%2.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved (%2)</source>
-        <translation>Bestand &quot;%1&quot; opgeslagen (%2)</translation>
+        <translation type="obsolete">Bestand &quot;%1&quot; opgeslagen (%2)</translation>
     </message>
     <message>
         <source>default encoding</source>
-        <translation>standaard codering</translation>
+        <translation type="obsolete">standaard codering</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
@@ -1238,7 +1539,7 @@ Indien u doorgaat, zullen zij worden vervangen door standaard codes. Een alterna
         <source>The program &quot;%1&quot; was not found.
 
 Check configuration of the %2 tool and path settings in the Preferences dialog.</source>
-        <translation>Het programma &quot;%1&quot; is niet gevonden.
+        <translation type="obsolete">Het programma &quot;%1&quot; is niet gevonden.
 
 Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeuren.</translation>
     </message>
@@ -1416,7 +1717,7 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
         <source>Find...</source>
@@ -1630,6 +1931,131 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
         <source>Toggle Case</source>
         <translation>Verander Letters</translation>
     </message>
+    <message>
+        <source>Console output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Typeset</source>
+        <comment>menu title</comment>
+        <translation type="unfinished">Typeset</translation>
+    </message>
+    <message>
+        <source>Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripting TeXworks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+T</source>
+        <comment>action</comment>
+        <translation type="unfinished">Ctrl+T</translation>
+    </message>
+    <message>
+        <source>Hard Wrap...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Scripts Folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload Script List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto-Follow Focus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <comment>shortcut: Don&apos;t Save</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+R</source>
+        <comment>shortcut: Revert</comment>
+        <translation type="unfinished">Ctrl+R</translation>
+    </message>
+    <message>
+        <source>Cannot read file &quot;%1&quot;:
+%2</source>
+        <translation type="unfinished">Kan bestand &quot;%1&quot; niet lezen:
+%2. {1&quot;?} {2?}</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is constantly being modified by another program.
+
+Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot write file &quot;%1&quot;:
+%2</source>
+        <translation type="unfinished">Kan bestand &quot;%1&quot; niet schrijven:%2. {1&quot;?} {2?}</translation>
+    </message>
+    <message>
+        <source>Error writing file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The program &quot;%1&quot; was not found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searched in directories:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort typesetting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Process interrupted by user</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TeXHighlighter</name>
@@ -1655,6 +2081,18 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
         <source>NewArgument</source>
         <translation>Nieuw argument</translation>
     </message>
+    <message>
+        <source>Select program file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid program</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file &apos;%1&apos; is not executable!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ToolConfigDialog</name>
@@ -1677,6 +2115,10 @@ Controleer de configuratie van commando %2 en de pad instellingen in de Voorkeur
     <message>
         <source>View PDF after running</source>
         <translation>Toon PDF na uitvoeren</translation>
+    </message>
+    <message>
+        <source>Browse...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -934,7 +934,7 @@
     <message>
         <source>TeXworks %1r%2 (%3)
 </source>
-        <translation>تک‌ورکس %1 ب %2 (%3)</translation>
+        <translation type="obsolete">تک‌ورکس %1 ب %2 (%3)</translation>
     </message>
 </context>
 <context>

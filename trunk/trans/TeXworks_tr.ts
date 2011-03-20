@@ -939,7 +939,7 @@
     <message>
         <source>TeXworks %1r%2 (%3)
 </source>
-        <translation>TeXworks %1r%2 (%3)
+        <translation type="obsolete">TeXworks %1r%2 (%3)
 </translation>
     </message>
 </context>

@@ -159,38 +159,38 @@
     <name>PDFDocument</name>
     <message>
         <location filename="../src/PDFDocument.ui" line="376"/>
-        <location filename="../src/PDFDocument.cpp" line="1232"/>
-        <location filename="../src/PDFDocument.cpp" line="1292"/>
+        <location filename="../src/PDFDocument.cpp" line="1231"/>
+        <location filename="../src/PDFDocument.cpp" line="1291"/>
         <source>Open Recent</source>
         <translation>Zuletzt geöffnet</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1446"/>
+        <location filename="../src/PDFDocument.cpp" line="1445"/>
         <source>No SyncTeX data available</source>
         <translation>Keine SyncTeX-Daten verfügbar</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1449"/>
+        <location filename="../src/PDFDocument.cpp" line="1448"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1521"/>
+        <location filename="../src/PDFDocument.cpp" line="1520"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1550"/>
+        <location filename="../src/PDFDocument.cpp" line="1549"/>
         <source>page %1 of %2</source>
         <translation>Seite %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1555"/>
+        <location filename="../src/PDFDocument.cpp" line="1554"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1648"/>
+        <location filename="../src/PDFDocument.cpp" line="1647"/>
         <source>Abort typesetting</source>
         <translation>Textsatz abbrechen</translation>
     </message>
@@ -199,18 +199,18 @@
         <translation type="obsolete">Diese Version von %1 kann aufgrund verschiedener technischer Gründe Pdf Dokumente leider nicht drucken.&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1781"/>
+        <location filename="../src/PDFDocument.cpp" line="1780"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Diese Version von %1 kann aufgrund verschiedener technischer Gründe leider keine Pdf Dokumente drucken.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1782"/>
+        <location filename="../src/PDFDocument.cpp" line="1781"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Wollen Sie die Datei stattdessen in Ihrem Pdf-Standardprogramm öffnen, um es von dort zu drucken?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1783"/>
+        <location filename="../src/PDFDocument.cpp" line="1782"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (bitte schließen Sie es nach dem Drucken wieder, um Zugriffsprobleme zu vermeiden)</translation>
     </message>
@@ -246,7 +246,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="503"/>
-        <location filename="../src/PDFDocument.cpp" line="1655"/>
+        <location filename="../src/PDFDocument.cpp" line="1654"/>
         <source>Typeset</source>
         <translation>Setzen</translation>
     </message>
@@ -458,7 +458,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="735"/>
-        <location filename="../src/PDFDocument.cpp" line="1786"/>
+        <location filename="../src/PDFDocument.cpp" line="1785"/>
         <source>Print Pdf...</source>
         <translation>Pdf drucken...</translation>
     </message>
@@ -558,7 +558,7 @@
         <translation>Bild auswählen</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1422"/>
+        <location filename="../src/PDFDocument.cpp" line="1421"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Konnte die Datei &apos;%1&apos; nicht laden; vielleicht handelt es sich nicht um ein gültiges PDF Dokument.</translation>
     </message>
@@ -648,7 +648,7 @@
         <translation>Weitersuchen</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1403"/>
+        <location filename="../src/PDFDocument.cpp" line="1402"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
         <translation>Die PDF-Datei &quot;%1&quot; ist gesperrt; momentan nicht verfügbar.</translation>
     </message>
@@ -775,42 +775,42 @@
 <context>
     <name>PDFWidget</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="927"/>
+        <location filename="../src/PDFDocument.cpp" line="926"/>
         <source>Go to Page</source>
         <translation>Gehe zu Seite</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="928"/>
+        <location filename="../src/PDFDocument.cpp" line="927"/>
         <source>Page number:</source>
         <translation>Seite:</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="195"/>
+        <location filename="../src/PDFDocument.cpp" line="194"/>
         <source>Zoom In</source>
         <translation>Vergrößern</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="197"/>
+        <location filename="../src/PDFDocument.cpp" line="196"/>
         <source>Zoom Out</source>
         <translation>Verkleinern</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="200"/>
+        <location filename="../src/PDFDocument.cpp" line="199"/>
         <source>Actual Size</source>
         <translation>Originalgröße</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="203"/>
+        <location filename="../src/PDFDocument.cpp" line="202"/>
         <source>Fit to Width</source>
         <translation>An Fensterbreite anpassen</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="206"/>
+        <location filename="../src/PDFDocument.cpp" line="205"/>
         <source>Fit to Window</source>
         <translation>An Fenstergröße anpassen</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="591"/>
+        <location filename="../src/PDFDocument.cpp" line="590"/>
         <source>Jump to Source</source>
         <translation>Gehe zum Quelltext</translation>
     </message>
@@ -1164,10 +1164,9 @@
         <translation>Alle Dateien</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="80"/>
         <source>TeXworks %1r%2 (%3)
 </source>
-        <translation>TeXworks %1r%2 (%3)</translation>
+        <translation type="obsolete">TeXworks %1r%2 (%3)</translation>
     </message>
 </context>
 <context>
@@ -1614,38 +1613,38 @@
 <context>
     <name>TWScriptable</name>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="557"/>
-        <location filename="../src/TWScriptable.cpp" line="565"/>
+        <location filename="../src/TWScriptable.cpp" line="556"/>
+        <location filename="../src/TWScriptable.cpp" line="564"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Skript &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="559"/>
+        <location filename="../src/TWScriptable.cpp" line="558"/>
         <source>Script result</source>
         <translation>Ergebnis des Skripts</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="564"/>
+        <location filename="../src/TWScriptable.cpp" line="563"/>
         <source>unknown error</source>
         <translation>unbekannter Fehler</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="583"/>
+        <location filename="../src/TWScriptable.cpp" line="582"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
         <translation>Skripte können verwendet werden, um neue Befehle zu %1 hinzuzufügen und um dessen Funktionalität zu erweitern oder zu verändern.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="586"/>
+        <location filename="../src/TWScriptable.cpp" line="585"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
         <translation>Siehe %1 für zusätzliche Informationen zum Erstellen und Verwenden von Skripten&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="588"/>
+        <location filename="../src/TWScriptable.cpp" line="587"/>
         <source>Scripting languages currently available in this copy of %1:</source>
         <translation>Skriptsprachen, die im Moment in dieser Installation von %1 verfügbar sind:</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="600"/>
+        <location filename="../src/TWScriptable.cpp" line="599"/>
         <source>About Scripts</source>
         <translation>Über Skripte...</translation>
     </message>
@@ -1689,14 +1688,14 @@
 <context>
     <name>TeXDocument</name>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="79"/>
+        <location filename="../src/TeXDocument.cpp" line="78"/>
         <source>New document</source>
         <translation>Neues Dokument</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="796"/>
-        <location filename="../src/TeXDocument.cpp" line="221"/>
-        <location filename="../src/TeXDocument.cpp" line="444"/>
+        <location filename="../src/TeXDocument.cpp" line="220"/>
+        <location filename="../src/TeXDocument.cpp" line="443"/>
         <source>Open Recent</source>
         <translation>Zuletzt geöffnet</translation>
     </message>
@@ -1709,17 +1708,17 @@
         <translation>Keine</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="563"/>
+        <location filename="../src/TeXDocument.cpp" line="569"/>
         <source>Open File</source>
         <translation>Datei öffnen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="758"/>
+        <location filename="../src/TeXDocument.cpp" line="764"/>
         <source>Save File</source>
         <translation>Datei speichern</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="796"/>
+        <location filename="../src/TeXDocument.cpp" line="802"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Das Dokument &quot;%1&quot; wurde geändert.
@@ -1731,12 +1730,12 @@ Möchten Sie die Änderungen speichern?</translation>
         <translation type="obsolete">Kann die Datei &quot;%1&quot; nicht lesen: %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="942"/>
+        <location filename="../src/TeXDocument.cpp" line="948"/>
         <source>Unrecognized encoding</source>
         <translation>Unbekannte Zeichenkodierung</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="943"/>
+        <location filename="../src/TeXDocument.cpp" line="949"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1755,12 +1754,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 Die Datei wird stattdessen als %3 gespeichert; das kann zu Fehlern im Text führen.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1262"/>
+        <location filename="../src/TeXDocument.cpp" line="1268"/>
         <source>Text cannot be converted</source>
         <translation>Der Text kann nicht konvertiert werden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1263"/>
+        <location filename="../src/TeXDocument.cpp" line="1269"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -1782,56 +1781,56 @@ Wenn Sie fortfahren, wird der Text mit Standardzeichen überschrieben. Alternati
         <translation type="obsolete">Standard-Zeichenkodierung</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2439"/>
+        <location filename="../src/TeXDocument.cpp" line="2445"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Das Programm &quot;%1&quot; wurde nicht gefunden.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2440"/>
+        <location filename="../src/TeXDocument.cpp" line="2446"/>
         <source>Searched in directories:</source>
         <translation>Verzeichnisse, die durchsucht wurden:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2442"/>
+        <location filename="../src/TeXDocument.cpp" line="2448"/>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
         <translation>Überprüfen Sie die Konfiguration und die Pfadeinstellungen des %1 Werkzeugs im Einstellungsdialog.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2489"/>
+        <location filename="../src/TeXDocument.cpp" line="2495"/>
         <source>Process interrupted by user</source>
         <translation>Der Prozess wurde vom Benutzer abgebrochen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1240"/>
+        <location filename="../src/TeXDocument.cpp" line="1246"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>Datei &quot;%1&quot; wurde nicht gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="801"/>
+        <location filename="../src/TeXDocument.cpp" line="807"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="836"/>
+        <location filename="../src/TeXDocument.cpp" line="842"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation type="unfinished">Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="929"/>
+        <location filename="../src/TeXDocument.cpp" line="935"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Kann die Datei &quot;%1&quot; nicht lesen:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1009"/>
+        <location filename="../src/TeXDocument.cpp" line="1015"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Datei &quot;%1&quot; geladen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1141"/>
+        <location filename="../src/TeXDocument.cpp" line="1147"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -1840,98 +1839,98 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Bitte verwenden Sie &quot;Datei &gt; Zurück zur gespeicherten Version&quot;, wenn das andere Programm fertig ist.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1277"/>
+        <location filename="../src/TeXDocument.cpp" line="1283"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Kann die Datei &quot;%1&quot; nicht schreiben:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1287"/>
+        <location filename="../src/TeXDocument.cpp" line="1293"/>
         <source>Error writing file</source>
         <translation>Fehler beim Speichern</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1288"/>
+        <location filename="../src/TeXDocument.cpp" line="1294"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>Beim Speichern der Datei könnte ein Fehler aufgetreten sein. Es wäre sinnvoll, eine Kopie an einem anderen Ort zu speichern.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1297"/>
+        <location filename="../src/TeXDocument.cpp" line="1303"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>Datei &quot;%1&quot; gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1333"/>
+        <location filename="../src/TeXDocument.cpp" line="1339"/>
         <source>untitled-%1.tex</source>
         <translation>Namenlos-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1342"/>
+        <location filename="../src/TeXDocument.cpp" line="1348"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1605"/>
+        <location filename="../src/TeXDocument.cpp" line="1611"/>
         <source>Go to Line</source>
         <translation>Gehe zu Zeile</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1606"/>
+        <location filename="../src/TeXDocument.cpp" line="1612"/>
         <source>Line number:</source>
         <translation>Zeilennummer:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1965"/>
-        <location filename="../src/TeXDocument.cpp" line="2079"/>
+        <location filename="../src/TeXDocument.cpp" line="1971"/>
+        <location filename="../src/TeXDocument.cpp" line="2085"/>
         <source>Invalid regular expression</source>
         <translation>Ungültige Regular Expression</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2011"/>
-        <location filename="../src/TeXDocument.cpp" line="2048"/>
-        <location filename="../src/TeXDocument.cpp" line="2157"/>
+        <location filename="../src/TeXDocument.cpp" line="2017"/>
+        <location filename="../src/TeXDocument.cpp" line="2054"/>
+        <location filename="../src/TeXDocument.cpp" line="2163"/>
         <source>Not found</source>
         <translation>Nicht gefunden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2342"/>
+        <location filename="../src/TeXDocument.cpp" line="2348"/>
         <source>Cannot process unsaved document</source>
         <translation>Das Dokument kann nicht gesetzt werden ohne zu speichern</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2358"/>
+        <location filename="../src/TeXDocument.cpp" line="2364"/>
         <source>%1 is not properly configured</source>
         <translation>%1 ist nicht korrekt konfiguriert</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2438"/>
+        <location filename="../src/TeXDocument.cpp" line="2444"/>
         <source>Unable to execute %1</source>
         <translation>Kann %1 nicht ausführen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2469"/>
+        <location filename="../src/TeXDocument.cpp" line="2475"/>
         <source>Abort typesetting</source>
         <translation>Textsatz abbrechen</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="846"/>
-        <location filename="../src/TeXDocument.cpp" line="2582"/>
+        <location filename="../src/TeXDocument.cpp" line="2588"/>
         <source>Hide Output Panel</source>
         <translation>Verstecke die Ausgabe</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2589"/>
+        <location filename="../src/TeXDocument.cpp" line="2595"/>
         <source>Show Output Panel</source>
         <translation>Zeige die Ausgabe</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2669"/>
+        <location filename="../src/TeXDocument.cpp" line="2675"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Verwende &quot;%1&quot; für die Übersetzung</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2673"/>
+        <location filename="../src/TeXDocument.cpp" line="2679"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>Program &quot;%1&quot; nicht definiert</translation>
     </message>
@@ -1962,7 +1961,7 @@ Bitte verwenden Sie &quot;Datei &gt; Zurück zur gespeicherten Version&quot;, we
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="593"/>
-        <location filename="../src/TeXDocument.cpp" line="2461"/>
+        <location filename="../src/TeXDocument.cpp" line="2467"/>
         <source>Typeset</source>
         <translation>Setzen</translation>
     </message>
@@ -2403,22 +2402,22 @@ Bitte verwenden Sie &quot;Datei &gt; Zurück zur gespeicherten Version&quot;, we
         <translation>Ctrl+B</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="833"/>
+        <location filename="../src/TeXDocument.cpp" line="839"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>Wollen Sie alle Änderungen des Dokuments &apos;%1&apos; verwerfen und zur letzten gespeicherten Version zurückkehren?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="835"/>
+        <location filename="../src/TeXDocument.cpp" line="841"/>
         <source>Revert</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1435"/>
+        <location filename="../src/TeXDocument.cpp" line="1441"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Zeile %1 von %2; Spalte %3</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2015"/>
+        <location filename="../src/TeXDocument.cpp" line="2021"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>%n Übereinstimmung gefunden</numerusform>
@@ -2426,7 +2425,7 @@ Bitte verwenden Sie &quot;Datei &gt; Zurück zur gespeicherten Version&quot;, we
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2176"/>
+        <location filename="../src/TeXDocument.cpp" line="2182"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n Übereinstimmung</numerusform>
@@ -2434,7 +2433,7 @@ Bitte verwenden Sie &quot;Datei &gt; Zurück zur gespeicherten Version&quot;, we
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2177"/>
+        <location filename="../src/TeXDocument.cpp" line="2183"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n Dokument</numerusform>
@@ -2442,12 +2441,12 @@ Bitte verwenden Sie &quot;Datei &gt; Zurück zur gespeicherten Version&quot;, we
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2178"/>
+        <location filename="../src/TeXDocument.cpp" line="2184"/>
         <source>Replaced %1 in %2</source>
         <translation>%1 in %2 ersetzt</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2183"/>
+        <location filename="../src/TeXDocument.cpp" line="2189"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>%n Übereinstimmung ersetzt</numerusform>
@@ -2485,14 +2484,14 @@ Bitte verwenden Sie &quot;Datei &gt; Zurück zur gespeicherten Version&quot;, we
         <translation>Rechts platzieren</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1079"/>
-        <location filename="../src/TeXDocument.cpp" line="1140"/>
-        <location filename="../src/TeXDocument.cpp" line="1234"/>
+        <location filename="../src/TeXDocument.cpp" line="1085"/>
+        <location filename="../src/TeXDocument.cpp" line="1146"/>
+        <location filename="../src/TeXDocument.cpp" line="1240"/>
         <source>File changed on disk</source>
         <translation>Die Datei wurde auf der Festplatte geändert</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1080"/>
+        <location filename="../src/TeXDocument.cpp" line="1086"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2501,7 +2500,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Wollen Sie Ihre aktuellen Änderungen verwerfen und die Datei von der Festplatte neu laden?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1235"/>
+        <location filename="../src/TeXDocument.cpp" line="1241"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2510,17 +2509,17 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplatte überschreiben?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2352"/>
+        <location filename="../src/TeXDocument.cpp" line="2358"/>
         <source>Root document %1 is not readable</source>
         <translation>Hauptdokument %1 ist nicht lesbar</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2783"/>
+        <location filename="../src/TeXDocument.cpp" line="2789"/>
         <source>No files found</source>
         <translation>Keine Dateien gefunden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2784"/>
+        <location filename="../src/TeXDocument.cpp" line="2790"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Im Moment sind keine Hilfsdateien mit diesem Dokument verbunden.</translation>
     </message>
