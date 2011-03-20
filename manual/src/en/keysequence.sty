@@ -1,0 +1,125 @@
+% !TEX root       = manual.tex
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{keysequence}[2010/07/05 v0.1]
+
+
+\RequirePackage{keystroke}
+\RequirePackage{ifthen}
+
+\makeatletter
+
+\newif\ifspecialtok
+
+\let\key@stroke=\keystroke
+
+%\def\my@style#1{\key@stroke{#1}}
+
+\def\keysequence#1{%
+\def\keystroke{\csname mystyle\endcsname}%
+%
+\let\KS@Cmd=\Cmd%
+\let\Cmd=\undefined%
+%
+\let\KS@Opt=\Opt%
+\let\Opt=\undefined%
+%
+\let\KS@Spacebar=\Spacebar%
+\let\Spacebar=\undefined%
+%
+\let\KS@BSpace=\BSpace%
+\let\BSpace=\undefined%
+%
+\let\KS@Tab=\Tab%
+\let\Tab=\undefined%
+%
+\let\KS@LMB=\LMB%
+\let\LMB=\undefined%
+%
+\let\KS@RMB=\RMB%
+\let\RMB=\undefined%
+%
+\let\result\@empty%
+\let\mystyle=\undefined%
+\def\tok{}%
+\mygetchars#1+\end %
+%
+\let\mystyle=\key@stroke%
+\let\Cmd=\KS@Cmd%
+\let\Opt=\KS@Opt%
+\let\Spacebar=\KS@Spacebar%
+\let\BSpace=\KS@BSpace%
+\let\Tab=\KS@Tab%
+\let\LMB=\KS@LMB%
+\let\RMB=\KS@RMB%
+%
+\result%
+}
+
+
+\def\mygetchars#1{%
+\ifx#1\end%
+	\let\next=\relax%
+\else%
+	\ifx#1+%
+		% Use this line to show '+' between items
+		%\ifx\result\@empty\edef\result{}\else\edef\result{\result+}\fi%
+%
+		% Use this line to not show '+' between items
+		\ifx\result\@empty\edef\result{}\fi%
+%		
+		\specialtokfalse%
+		\ifthenelse{\equal{\tok}{Enter}}{\specialtoktrue\def\tok{\noexpand\Enter}}{}%
+		\ifthenelse{\equal{\tok}{Del}}{\specialtoktrue\def\tok{\noexpand\Del}}{}%
+		\ifthenelse{\equal{\tok}{Ins}}{\specialtoktrue\def\tok{\noexpand\Ins}}{}%
+		\ifthenelse{\equal{\tok}{Esc}}{\specialtoktrue\def\tok{\noexpand\Esc}}{}%
+		\ifthenelse{\equal{\tok}{Shift}}{\specialtoktrue\def\tok{\noexpand\Shift}}{}%
+		\ifthenelse{\equal{\tok}{Ctrl}}{\specialtoktrue\def\tok{\noexpand\Ctrl}}{}%
+		\ifthenelse{\equal{\tok}{Home}}{\specialtoktrue\def\tok{\noexpand\Home}}{}%
+		\ifthenelse{\equal{\tok}{End}}{\specialtoktrue\def\tok{\noexpand\End}}{}%
+		\ifthenelse{\equal{\tok}{PgUp}}{\specialtoktrue\def\tok{\noexpand\PgUp}}{}%
+		\ifthenelse{\equal{\tok}{PgDown}}{\specialtoktrue\def\tok{\noexpand\PgDown}}{}%
+		\ifthenelse{\equal{\tok}{PrtSc}}{\specialtoktrue\def\tok{\noexpand\PrtSc}}{}%
+		\ifthenelse{\equal{\tok}{Scroll}}{\specialtoktrue\def\tok{\noexpand\Scroll}}{}%
+		\ifthenelse{\equal{\tok}{Break}}{\specialtoktrue\def\tok{\noexpand\Break}}{}%
+%		
+		\ifthenelse{\equal{\tok}{Return}}{\specialtoktrue\def\tok{\noexpand\Return}}{}%
+		\ifthenelse{\equal{\tok}{Alt}}{\specialtoktrue\def\tok{\noexpand\Alt}}{}%
+		\ifthenelse{\equal{\tok}{AltGr}}{\specialtoktrue\def\tok{\noexpand\AltGr}}{}%
+		\ifthenelse{\equal{\tok}{NumLock}}{\specialtoktrue\def\tok{\noexpand\NumLock}}{}%
+		\ifthenelse{\equal{\tok}{UArrow}}{\specialtoktrue\def\tok{\noexpand\UArrow}}{}%
+		\ifthenelse{\equal{\tok}{DArrow}}{\specialtoktrue\def\tok{\noexpand\DArrow}}{}%
+		\ifthenelse{\equal{\tok}{LArrow}}{\specialtoktrue\def\tok{\noexpand\LArrow}}{}%
+		\ifthenelse{\equal{\tok}{RArrow}}{\specialtoktrue\def\tok{\noexpand\RArrow}}{}%
+%
+		% Workarounds necessary because definitions don't contain simple text
+		\ifthenelse{\equal{\tok}{Spacebar}}{\specialtoktrue\def\tok{\csname Spacebar\endcsname}}{}%
+		\ifthenelse{\equal{\tok}{BSpace}}{\specialtoktrue\def\tok{\csname BSpace\endcsname}}{}%
+		\ifthenelse{\equal{\tok}{Tab}}{\specialtoktrue\def\tok{\csname Tab\endcsname}}{}%
+		\ifthenelse{\equal{\tok}{LMB}}{\specialtoktrue\def\tok{\csname LMB\endcsname}}{}%
+		\ifthenelse{\equal{\tok}{RMB}}{\specialtoktrue\def\tok{\csname RMB\endcsname}}{}%
+% 
+		% Custom addition for Mac
+		\ifthenelse{\equal{\tok}{Cmd}}{\specialtoktrue\def\tok{\csname Cmd\endcsname}}{}%
+		\ifthenelse{\equal{\tok}{Opt}}{\specialtoktrue\def\tok{\csname Opt\endcsname}}{}%
+	%
+	% Cmd key symbol: Saint John's Arms	
+	%	
+%
+		\ifspecialtok\else\edef\tok{\csname mystyle\endcsname{\tok}}\fi%
+%
+%				
+%		
+%		
+		% \csname expands to a command with the same meaning as \relax as long as not defined otherwise
+		\edef\result{\result\tok}%
+		\def\tok{}%
+	\else%
+		\edef\tok{\tok #1}%
+	\fi%
+	\let\next=\mygetchars%
+\fi%
+\next%
+}
+
+\makeatother

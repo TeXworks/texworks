@@ -1,0 +1,72 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manual.tex
+% !TEX spellcheck = en_US
+
+\chapter{Introduction}
+
+Donald E. Knuth\index{Knuth, Donald E.} decided to create a new typesetting system, which would be called {\TeX}\index{TeX@\TeX}, because there had been a change in the printing system used for the volumes of his book \emph{The Art of Computer Programming} and Knuth found the result of the new system awful.
+
+The goal of {\TeX} was then to have a system which would always produce the same documents independently of the actual machine they were processed on. Knuth also designed the \emph{Computer Modern} family of typefaces and the \METAFONT\index{METAFONT|textsf} language for font description.
+
+The work initiated in 1977 was finished (the languages were  ``frozen'') in 1989. {\TeX} and {\METAFONT} are not evolving any more except for minor bug fixes ({\TeX} versions are numbered following the decimals of $\pi$---now 3.1415926---and {\METAFONT} the decimals of the number ``e''---now 2.718281).
+
+{\TeX} provides basic tools (commands/instructions/``primitives'') to define typesetting; almost every detail has to be defined, but the language allows the creation of macros for repeatedly used constructs. So collections of macros are loaded through format files\index{files!format} (i.e., pre-compiled large macro collections).
+
+Knuth created an original default format (more or less 600 commands) which is called \emph{Plain \TeX\index{TeX@\TeX!Plain}}. This facilitates creating documents.
+
+The most widely used format is \LaTeX\index{TeX@\TeX!\LaTeX} (Leslie Lamport\index{Lamport, Leslie}, 1985), which provides more global commands and structures for documents (article, book,\dots) allowing easier and faster work, but sometimes with loss of flexibility due to the more or less rigid framework. But there are many other formats and {\TeX}-variants in use as well, such as \AmS-\TeX\index{TeX@\TeX!\AmS-\TeX}, \AmS-\LaTeX, \ConTeXt\index{TeX@\TeX!\ConTeXt}, or \XeTeX, each having specific goals and advantages (and drawbacks).
+
+To extend the format, one loads ``packages\index{packages}'' which are collections of macros specific to some aspect of typesetting.
+
+From its specification in the late 1970s, the {\TeX} family had to evolve until now, last version March 2008, to take into account the developments in the typesetting world outside {\TeX}.
+
+Some of the problems to answer were/are:
+\begin{itemize}
+	\item taking into account other languages with ``alphabets'' larger than the ASCII\footnote{``American Standard Code for Information Interchange'': a character encoding scheme including only Latin characters found in English, some common punctuation characters, and a few other symbols such as \% or \$} one or with non-Latin characters altogether,
+	\item having more fonts, there is not much variety in the fonts created with {\METAFONT} (few font creators use it),
+	\item creating documents in other formats than the normal DVI\footnote{``Device Independent'': format of files produced by {\TeX}},
+	\item using the rich possibilities of other typesetting systems and formats like PostScript and PDF,
+	\item having more calculation and scripting facilities,\dots
+\end{itemize}
+
+To answer these questions and others, many ``engines'' and programmes have been created around {\TeX}, including pdftex\index{TeX@\TeX!pdftex}, pdflatex, dvips\index{TeX@\TeX!dvips}, ps2pdf, and {\METAPOST}\index{METAPOST|textsf}, which opens the {\TeX} world to the possibilities of PostScript\index{PostScript} and PDF\index{PDF}. \XeTeX\index{TeX@\TeX!XeTeX} and \XeLaTeX to be able to use the ``normal'' fonts found on the different machines and to be able to cope with writing systems different from the left to right systems which originated in Europe (Latin and Cyrillic letters and associates)---right to left, vertically, pictograms,\dots Or LuaTeX\index{TeX@\TeX!LuaTeX} and LuaLaTeX to have a powerful scripting language.
+
+To use {\TeX} and the systems of its family, one has to create a ``source'' document\index{document!source} as {\TeX} is only a system to ``transform'' a source document into a (beautifully) typeset document. This source is a simple text with typesetting instructions and one needs a programme to create it: the editor\index{editor}.
+
+There are many editors able to create a {\TeX} source; some are general editors, others are specifically designed for {\TeX}: here \Tw\index{TeXworks@{\Tw}} comes in.
+\bigskip
+
+\textbf{\Tw} is a project to create a text editor for use with the {\TeX} family of tools; we will refer to these as \AllTeX. Instead of creating a new sophisticated program, equipped with multiple tool-bars to meet any need, {\Tw} provides a simple editor, offering at first sight only a limited set of tools for text editing as well as a single button and a menu to typeset a {\AllTeX} text.
+
+The idea to create the editor came to \emph{Jonathan Kew\index{Kew, Jonathan}}, the initiator and leader of the project, after a long period of reflection on the reasons why potential users tend to keep away from \AllTeX, as well as pondering the success of the \textbf{{\TeX}shop\index{TeXshop@{\TeX}shop}} editor on the Mac.
+
+Finally the goal was also to provide the same editor on many operating systems: {\Tw} currently runs on Linux, Mac OS X and Windows. The interface is always the same and the program offers the same functionality on all three platforms.
+
+After this introduction, the second section of this manual explains how to install the software. In the third section, we describe the interface and create a first document showing the basics of {\Tw}. In the forth and fifth section, the advanced tools provided by {\Tw} are presented; you should read these sections only after mastering the basic working of {\Tw}. These advanced tools allow much more effective working practices. The sixth section gives a brief introduction to scripting. This section focuses on using ready-made scripts, not on writing your own scripts (which is beyond the scope of this manual and will be presented elsewhere). After that, the seventh section in which some pointers to further information about {\Tw} and sources for help are compiled concludes the main part.
+
+Finally, the appendices provide additional information how {\Tw} can be customized, about the regular expression search/replace system, and how {\Tw} can be compiled from source. A short bibliography and an index conclude this manual.
+
+\section{Icons and style}
+
+Because a picture is often worth a thousand words, icons and special styling is used throughout this manual to avoid cumbersome paraphrases or mark specialties. Keyboard keys are usually depicted as \keystroke{A}, with the exception of a few special keys. These are:
+\keysequence{Shift}, \keysequence{PgUp}, \keysequence{PgDown}, \keysequence{Return} (return), \keysequence{UArrow}, \keysequence{DArrow}, \keysequence{LArrow}, \keysequence{RArrow}, \keysequence{Spacebar} (space), \keysequence{BSpace} (backspace), and \keysequence{Tab} (tab).
+
+In addition, mouse clicks are depicted as {\LMB} (left click) and {\RMB} (right click; on Mac OS X with a one-button mouse, this is usually available by holding down {\Ctrl} while clicking).
+
+Apart from input instructions, several passages throughout this manual are marked by special styling.
+
+\needspace{5\baselineskip}
+Information that is only valid or relevant for a particular operating system is marked like this:
+\begin{OSWindows}
+\noindent This only concerns you if you use Windows. \\
+Of course you can also read it if you use another operating system. \\
+It just will not be of much use to you.
+\end{OSWindows}
+
+\bigskip
+Code examples are set in a fixed-space, typewriter font, with lines above and below to set it apart from the rest of the text:
+\begin{verbExample}
+Hello \TeX-World!
+\end{verbExample}
+
+Closely related to this, chapter \ref{chap:first-steps} contains several tutorials, which are typeset just like the code examples above, but with an additional notebook icon next to it.

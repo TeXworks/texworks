@@ -1,0 +1,30 @@
+Introduction
+================================================================================
+
+This package contains the sources to typeset "A short manual for TeXworks".
+
+TeXworks is an open-source, cross-platform TeX editor designed to lower the
+entry barrier to the TeX world. See http://www.tug.org/texworks/ for more
+information.
+
+The actual sources for the document (together with further information,
+licensing details, etc.) are located in the src/<lang>/ folders to allow the
+manual to be translated.
+
+
+
+Typesetting
+================================================================================
+
+Assuming you have a GNU make compatible version of make installed, you can run
+  make
+(or alternatively the name of your version, e.g., mingw32-make) in this
+directory form the command line to build all pdf and html versions of the
+manual. Please note that this requires pdflatex & friends to be in your $PATH.
+For typesetting the html version, you additionally need ghostscript and the
+ImageMagick convert tools in your path. In addition, tidy is recommended.
+
+Note that not all parts of the makefiles are platform-independent and tested on
+other than GNU/Linux systems and may thus fail on your system. In the case your
+invocation doesn't produce a valid output, you can typeset the manual by
+manually running the proper commands, of course.

@@ -1,0 +1,130 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manual.tex
+% !TEX spellcheck = en_UK
+
+\chapter{Going further: Other tools}
+
+\section{SyncTeX'ing between source and preview}\index{SyncTeX}
+\label{sec.synctex}
+
+When you are reading a document in preview and see something to change, it is convenient to go immediately to the corresponding place in the source. To do that, hold down \keysequence{Ctrl} (Mac OS X: \keysequence{Cmd}) and click at the appropriate place in the preview window; the cursor will move and highlight the corresponding location in the source window. The same is true in the other direction: \keysequence{Ctrl+LMB} in the source will highlight the same line in the preview window.\footnote{It is also possible to use a right-click (\keysequence{RMB}) to open a context window and select ``jump to PDF'' or ``jump to source''.}
+
+% \path doesn't support accented characters
+% as a workaround, use \texttt
+\begin{OSWindows}
+Here a remark for users under Windows: this only works if \textbf{all} the names for folders/files/\dots do \textbf{not} have accented characters. If, for example, your document is in \texttt{C:{\textbackslash}Documents and Settings{\textbackslash}Propriétaire{\textbackslash}My Documents{\textbackslash}thesis} it will not work because of the \verb|é| in \texttt{Propriétaire}!
+\end{OSWindows}
+
+\section{Special comment strings}
+
+Special comments, at the very beginning of the files, can be used to manage two other aspects of the compilation.
+
+By default, {\Tw} uses the ``utf-8'' encoding\index{encoding!utf-8} for saving files, but some files could be saved in another encoding. Common ones are ``latin1''\index{encoding!latin1}, which is the dominant encoding on Windows when using western languages, and ``Apple Roman'' which is dominant on Mac OS.
+
+To set a different encoding\index{encoding} for a specific file one can put the following at the beginning of that file:\index{\verb+% "!TeX+!\verb+encoding+}
+\begin{verbExample}
+% !TeX encoding = latin1
+\end{verbExample}
+
+If we want to compile a file with another programme\index{programme!default} than the default {\TeX} or {\LaTeX}, we put at the beginning of the file:
+\index{\verb+% "!TeX+!\verb+program+}
+\begin{verbExample}
+% !TeX program = <the_programme>
+\end{verbExample}
+for example:
+\begin{verbExample}
+% !TeX program = xelatex
+\end{verbExample}
+
+Pay attention to this last instruction. You have to use the name of the programme here which should be used for the whole project, as the first encountered programme when starting typesetting is used (which is the one from the sub-document you are in). {\Tw} will use that programme, even if another name appears in the main document!
+
+When opening a document which contains a \verb+% !TeX program+
+line, the specified programme will become the one to use and its name will appear in the drop down menu in the toolbar; you can, however, override this by selecting a different one from the drop down list, if you want.
+
+In addition, you can set the spell checking language by a similar comment line:
+\index{\verb+% "!TeX+!\verb+spellcheck+}
+\begin{verbExample}
+% !TeX spellcheck = <language_code>
+\end{verbExample}
+The language codes available on your system are listed in parentheses in \menu{Edit}\submenu\menu{Spelling} next to the human-readable name of the language.
+
+\needspace{6\baselineskip}
+\section{Formatting the source for legibility}
+
+To facilitate legibility of the source, one can use indentation\index{editing!indentation} as programmers do:
+\begin{verbExample}
+\begin{itemize}
+    \item First element of the list;
+    \item second element;
+    \item last element:
+    \begin{itemize}      % beginning of a sub-list
+        \item first sub-element;
+        \item second sub-element.
+    \end{itemize}
+\end{itemize}
+\end{verbExample}
+
+This increases legibility, but works well only on short lines, without text wrapping; or if one chooses not to use text wrapping by unchecking \menu{Format}\submenu\menu{Wrap lines}\index{wrap lines!automatic}.
+
+The command \menu{Format}\submenu\menu{Indent} or the shortcut \keysequence{Ctrl+]} (Mac OS X: \keysequence{Cmd+]}) will indent the line, or the selected lines, by inserting a tab character. You can repeat the process to increase the indent. 
+
+To remove one level of indentation, use \menu{Format}\submenu\menu{Unindent} or the shortcut \keysequence{Ctrl+[} (\keysequence{Cmd+[} on Mac OS X).\footnote{See the modified shortcuts if your keyboard layout does not allow these actions.}
+
+As \textsl{indent} only indents the first part of very long (wrapped) lines, this is not very satisfactory in some cases. But one can ask {\Tw} to split a long line (longer than the width of the editing window) into short ones adding a hard coded line feed. \menu{Format}\submenu\menu{Hard Wrap...}\index{wrap lines!hard} opens a dialog box in which you can specify the width of the lines; you can also re-format lines which have already been split.
+
+\begin{center}
+\includegraphics[scale=.8]{screenshotHardWrapDlg}
+\end{center}
+
+\section{Showing the tags\index{tags}}
+
+When a document is becoming long and you want to move to a specific place (a chapter, a section, a subsection, \dots)\index{tags!structure} you normally need to scroll the editing window to find the desired location, or use the Find dialog if you remember a keyword in the chapter's title.
+
+To the same end, though a lot more comfortable, you can also use the structural information in the document to navigate the source: the menu item \menu{Window}\submenu\menu{Show}\submenu\menu{Tags} opens a panel showing the information detected by {\Tw}. Clicking on an item in the panel moves the cursor to the corresponding part in the source. That panel, like any other, can be resized by dragging its border.
+
+The same action is possible in the PDF window from \menu{Window}\submenu\menu{Show}\submenu\menu{Table of contents}\index{tags!table of contents}, but this only works if one has created structure tags in the PDF file using the package \verb|hyperref|.
+
+\section{Organising the windows\index{windows}}
+
+By default, the editor/source window opens on the left and the preview one on the right (when the corresponding PDF file exists), thus splitting the screen in two.
+
+You can change the position of the windows in the \menu{Window} menu. \submenu\menu{Stack} and \submenu\menu{Side by side} give the default effect if there is only one document open. If not, \submenu\menu{Stack} creates a mosaic with all the windows. The other options allow to place the windows for your convenience. It is also always possible to resize and move the windows manually, of course.
+
+For the preview you can change the way it is presented and of course the zoom\index{zoom} by \menu{View}\submenu\menu{Actual size}, \submenu\menu{Fit to width} and \submenu\menu{Fit to window}; you can also zoom in and out. Shortcuts exist for all these actions and are shown next to the menu items.
+
+\section{Cleaning the working folder}\index{cleaning folder}
+\label{sec:remove-aux-files}
+
+Very soon when one uses {\AllTeX}, one discovers that the working folder is cluttered by many files which have the name of the source file but different extensions: \path{.aux}, \path{.log}, \path{.toc}, \path{.lof}, \path{.lot}, \path{.bbl}, \dots
+
+All these are files needed by {\AllTeX} to be able to create the table of contents, lists of figures/tables, the bibliography, the cross references and, also very importantly, to keep track of what it did (in the \path{.log} file).
+
+Apart from the external files, images, pictures, \dots, the only files required are the \path{.tex} files, the sources of the document. One can erase all the others. Sometimes, this is even necessary when {\AllTeX} gets stuck after an error.
+
+This can be done using a {\Tw} command from the \menu{File} menu: \submenu\menu{Remove Aux files \dots}\index{cleaning folder!aux files}.
+
+When you use this command, a dialog box opens in which you can check/uncheck the files you want to remove.\footnote{The name of the main file is used to list the possible candidates for deletion.} The dialog box will only list files that actually exist in the foler; if you removed all these auxiliary files before, you get a message box saying that there is no file to remove at the moment.
+
+The list of auxilliary files which are taken into account is defined in the file \path{texworks-config.txt}\index{configuration!texworks-config.txt} in the \path{configuration} folder of the {\Tw} resources folder. You could add some if required.
+
+\section{Changing the configuration\index{configuration}}
+
+We have seen in section \ref{chap.installation} (on page \pageref{chap.installation}) that the first time you use {\Tw}, it creates a resource folder and also that it saves default preferences.
+
+It is possible to define a personal place where one wants the resource folder and the preferences. This can be handy when one wants a portable system (e.g., on an USB stick) or when one wants to easily access the templates or completion folders for modifications.
+
+For this, create a file \path{texworks-setup.ini}\index{configuration!texworks-setup.ini} in the programme folder in which you specify the path to the folder containing the completion, configuration, dictionaries,\dots folders and the configuration file (\path{texworks.ini}\index{configuration!texworks.ini}); there will be two lines:
+\begin{verbExample}
+inipath=C:/myfolder/TW_conf/
+libpath=C:/myfolder/TW_conf/
+\end{verbExample}
+
+\verb+inipath+\index{configuration!inipath} for the configuration file and \verb+libpath+\index{configuration!libpath} for the necessary folders. Here, \path{TW_conf} would replace the resource folder \path{TeXworks}. Note that the referenced folder (here \path{TW_conf}) should exist---it will not be created---, and that the \verb|/| is used even on Windows (instead of the common \verb+\+).
+
+If one wants to put the resource folder in the programme folder as a subfolder, one can use an instruction like \verb+inipath=./TW_conf/+; all relative paths are taken to be relatve to the {\Tw} programme folder (on Mac OS X, the folder containing the app package is used).
+
+One can also add a line\index{configuration!defaultbinpaths} like
+\begin{verbExample}
+defaultbinpaths=C:/Program Files/MiKTeX 2.7/miktex/bin
+\end{verbExample}
+to specify where the programmes of the {\TeX} distribution are located; but this instruction is not yet completely operational, especially under Windows.

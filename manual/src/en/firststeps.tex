@@ -1,0 +1,179 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manual.tex
+% !TEX spellcheck = en_UK
+
+\chapter{First steps}
+\label{chap:first-steps}
+
+Let's now see how to create a first document: for this you'll need to type some text in the editor window of {\Tw}. {\AllTeX} is \emph{not} a WYSIWYG\index{WYSIWYG}\footnote{\emph{What You See Is What You Get}.} software, so you'll have to type the text and the instructions for formatting it and you'll see the result only after ``typesetting'' the text. This looks a little bit dry, but one very quickly gets used to it and it is well worth the effort.
+
+\section{Interface summary}\index{interface}
+
+\newsavebox{\inlineimg}
+\savebox{\inlineimg}{\includegraphics[scale=.6]{toolbar1}\hspace{1em}}
+
+When one opens the editor, it shows a very sparse interface: a title bar, a menu bar, two small toolbars\index{toolbar}, a large typing zone (white) and, at the bottom, a status bar. We are in the \emph{source/editor\index{source/editor}} window. If you have already typeset the document previously, the resulting \path{.pdf} will be shown on the right hand side in the \emph{preview}\index{preview} window.
+\vspace{10pt}
+
+\savebox{\inlineimg}{\includegraphics[scale=.6]{toolbar1}\hspace{.5em}}
+%\begin{wrapfigure}[2]{l}{\widthof{\usebox{\inlineimg}}}
+\begin{wrapfigure}[2]{l}{90pt}
+\vspace*{-1em}
+\usebox{\inlineimg}
+\end{wrapfigure}
+\noindent The first toolbar has a button to typeset and an drop-down menu to choose the format for typesetting (we'll choose \verb+pdfLaTeX+). Knowing that the keyboard shortcut for typesetting is \keysequence{Ctrl+T} (Mac OS X: \keysequence{Cmd+T}) and that we almost never change the format, we could even hide this toolbar. The selection of a format for compiling can also be changed through the \menu{Typeset}\index{typeset} menu.
+\vspace{10pt}
+
+%\includegraphics[scale=.6]{toolbar2}\hspace{10pt}%
+\savebox{\inlineimg}{\includegraphics[scale=.6]{toolbar2}\hspace{.5em}}
+%\begin{wrapfigure}[2]{l}{\widthof{\usebox{\inlineimg}}}
+\begin{wrapfigure}[2]{l}{160pt}
+\vspace*{-1em}
+\usebox{\inlineimg}
+\end{wrapfigure}
+\noindent The second toolbar provides the standard functions: New document, Open, Save | Undo, Redo | Cut, Copy, Paste | Search, Replace.
+
+\begin{center}
+\includegraphics[width=\textwidth]{interface-summary}
+\end{center}
+
+\section{Creating a document}
+
+\subsection{Writing the document}
+
+As an example of the use of {\Tw}, we will work with \LaTeX\index{TeX@\TeX!\LaTeX}, but any other {\TeX} system is possible. In particular, if you need to use some special fonts\footnote{You can only use fonts {\AllTeX} knows, most of which are coming in packages included in your distribution. You cannot use your ``normal'' fonts, unfortunately. For more information, see for example \url{http://faq.tug.org/} and \url{http://www.tug.dk/FontCatalogue/}.}---a mandatory font for an official template, non-Latin alphabets, etc.---the {\XeTeX} system is very powerful.\footnote{See the bibliography for pointers to {\XeTeX} and \XeLaTeX.}
+
+Let's create now our first document\index{document!creation}. Enter the following text exactly as shown. To show some of the features of {\Tw}/{\LaTeX}, it is in French intentionally.
+
+\begin{example}
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage[frenchb]{babel}
+
+\title{Premier document}
+\author{Un TeXnicien}
+\date{}
+
+\begin{document}
+\maketitle
+
+Voici un texte accentué en français!
+
+\end{document}
+\end{example}
+
+Save the file in a folder for test documents (e.g., \path{<home>\TeXworks_tests}); call the file \path{first.tex}. Note that it should have a \path{.tex} extension\index{extension .tex}.
+
+\subsection{Typesetting the document and viewing it}
+
+Next we start typesetting\index{document!typesetting}\footnote{We also use the words ``compilation'' and ``to compile'' for the same action; indeed {\LaTeX} works on the source file to produce a \path{.pdf} output, so there is a compilation.} by clicking the green button \raisebox{-2pt}{\includegraphics{iconTypeset}}
+or by \keysequence{Ctrl+T}\index{Ctrl+T|texttt} (Mac OS X: \keysequence{Cmd+T}).
+
+A new panel opens between the typing area and the status bar: the \emph{output panel\index{output panel}}, labeled \emph{Log\index{log}}; everything {\LaTeX} is doing is displayed there\footnote{see page \pageref{fig:consoleOutput} for a picture of the panel}. When {\LaTeX} finishes this panel disappears (if there no error occurred) and a new window will appear; in this new window, the \emph{Preview window\index{preview window}}\index{document!previewing}, you can see a page with a title \foreignlanguage{frenchb}{``Premier document''} followed by the name of the author \foreignlanguage{frenchb}{``Un TeXnicien''}, both centred, the text
+\foreignlanguage{frenchb}{``Voici un texte accentué en français!''}, and a page number at the bottom centre.
+
+Notice that the mouse cursor is like a magnifier in the new window. If you press (and hold) the left button of the mouse you can see the text under the magnifier much bigger (it is a magnifier, isn't it!); you can move the magnifier and so inspect the text in detail.
+
+To go back to the source, you can just click in its window or better use \keysequence{Ctrl+'}\index{Ctrl+'|texttt} (Mac OS X \keysequence{Cmd+'}). This shortcut toggles between the two windows. See also section \ref{sec.synctex} to automatically move to a specific location in the output from the source or vice versa.
+
+\subsection{The work of \LaTeX}
+
+Let's shortly analyse the result to understand what \LaTeX{} did and why, now. Introductions and full tutorials can be found on the internet: see for example \emph{lshort}\footnote{\emph{The (Not So) Short Introduction to \LaTeXe}} which should be installed as part of your {\TeX} distribution, and is also available from CTAN\index{CTAN}.\footnote{\emph{Comprehensive TeX Archives Network}, a network of mirror servers of the central CTAN; there, one can find almost everything about {\TeX}, {\LaTeX}, and more: \url{http://www.ctan.org}}
+
+First, we ask to create a document of the \emph{article} class: this defines the global layout of the document.
+
+Next, we say that the input document (the source) is saved with the Unicode encoding \emph{utf-8\index{encoding!utf-8}\index{utf-8|see{encoding, utf-8}}} and that it may contain characters which are not present in the standard ASCII without accents. We also want to use an output encoding T1 (the modern {\TeX} encoding); we also want an \emph{A4} document and not the default \emph{US letter} size. Finally, we make it clear that the typography should follow the French rules using the \textbf{\textsf{babel}} package.\footnote{This influences, e.g., automatic hyphenation of words or the way punctuation characters are typeset} Those general instructions for the work are done by packages\index{packages} called with options.
+
+Lastly, we finish the declaration part of the document, the \emph{preamble}\index{preamble}, giving the title, the author, and the date of the document; here we specify no date.
+
+Next comes the body of the document, which describes the actual content, between the lines \verb+\begin{document}+ and \verb+\end{document}+ (these are {\LaTeX} commands).
+
+Let's do some experiments to show the effect of these instructions. For this, we put a \% in front of the instructions; the \% and everything after it will be considered as comment\index{comments}, which will be ignored by {\LaTeX}.\footnote{Notice that the comments are, by default (this can be changed), coloured red by {\Tw}, so we see them well.}
+
+Comment out the line \verb|\usepackage[utf8]{inputenc}|, and typeset the file. You should see that the accented characters are now displayed incorrectly in the preview window. If, in addition, you also comment out the line \verb|\usepackage[frenchb]{babel}|, {\LaTeX} will give an error. Just hit \Return to continue the typesetting.
+
+%Comment out the line \verb|\usepackage[utf8]{inputenc}|, and typeset the file. You should see that the accented characters are now incorrect in the preview window. If you now comment out the line \verb|\usepackage[frenchb]{babel}|, {\LaTeX} will give an error.  Just hit \Return to continue the typesetting.
+
+\needspace{3\baselineskip}
+After these experiments, let's modify the text as follows:
+\begin{example}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Petite démonstration}
+
+Voici un texte accentué en français!
+Suite du texte entré après avoir fait un retour chariot. Dans
+l'éditeur on peut demander un passage automatique à la ligne
+du texte saisi; mais le numéro de ligne n'est incrémenté que par un
+retour chariot.
+
+Nouvelle ligne en passant une ligne dans la source: c'est la
+manière d'indiquer un changement de paragraphe.
+
+\end{document}
+\end{example}
+Redo the previous experiments and observe the changes which appear.
+
+Note that entering only one carriage return doesn't create a new paragraph. In {\LaTeX}, one has to have an empty line for that. In {\Tw}, the line number of the source (on the right in the status bar) numbers the lines created with carriage return, not the wrapped lines.
+
+\section{And when errors occur?}\index{errors}
+
+When you create a document for typesetting with {\LaTeX}, you cannot avoid making mistakes: forgetting a closing brace or an \verb|\end{}| command to close an environment, using mathematical commands without switching to mathematical mode, etc. When you compile and there is an error, {\LaTeX} stops, giving you a chance to deal with the problem. This is shown by the stopping of the scrolling action in the output panel, and an error message being displayed, with {\LaTeX} waiting for an instruction to know what it should do. One sees the \emph{typing cursor\index{typing cursor}} in the line between the output panel and the status bar: the \emph{console bar\index{console bar}}.
+
+\begin{center}\label{fig:consoleOutput}
+\includegraphics{consoleOutput}
+\end{center}
+
+The error message is on many lines, for example like this:
+\smallskip
+
+\begin{verbExample}
+! Undefined control sequence.
+l.168 ... fermante ou d'une commande \veb
+                                         +\end{}+ de fermeture d'un...
+? 
+\end{verbExample}
+
+{\LaTeX} says that it doesn't recognize the command name, sometimes suggests to see the manual or to type \verb|h| (plus \Return) for help, points to the line number where it noticed the error\footnote{Unfortunately, this does not always have to be the place where the actual mistake was made in the sources. This is discussed later.} (here 168), and shows the place of the error at the cut of the line (here at \verb|\veb|). Finally, it shows that it waits for an action from us by displaying a single question mark.
+
+There are different possible actions:
+\begin{itemize}
+\item Type \Return and ask to continue as if nothing happened; sometimes this allows to finish compiling, but there will be an error in the result.
+\item Type \verb+h+\Return to ask for help; this help is not always clearer than the error message, but often gives a clue.
+\item Type \verb+i+\Return to tell {\LaTeX} that we will propose a replacement text. Enter the text followed by \Return; it will be used, beginning at the start of the error, but you should correct the source afterwards as {\LaTeX} never changes that.
+\item Type \verb+x+\Return to stop compilation. This is the traditional {\AllTeX} way to kill a typesetting process.
+
+We can also kill the typesetting by repeating the action used to start it: the green typesetting button will have changed to a red one with a white cross \raisebox{-2pt}{\includegraphics[scale=.8]{iconAbortTypesetting}}.
+By clicking on that button or by hitting \keysequence{Ctrl+T} (Mac OS X: \keysequence{Cmd+T}) again, the {\LaTeX} process is terminated. The output panel is still visible and so one can still see the error message.
+\end{itemize}
+
+You should note that sometimes an error appears far from its actual position. For example, when opening an environment but not closing it, {\LaTeX} doesn't see the error before it encounters another end of environment without closing of the first one. The error is often only picked up at the \verb|\end{document}| command, which shows that another environment was not closed!
+
+Sometimes, an error still occurs during subsequent runs of {\AllTeX} even after it was corrected in the document. This can happen because {\AllTeX} creates a number of intermediary files which can still contain the original, erroneous code. Therefore, it is advisable to remove those files after fixing an error. {\Tw} provides a command to facilitate this---see section \ref{sec:remove-aux-files}.
+
+To help you in finding and fixing error (at least if you are using {\LaTeX}), {\Tw} comes with a small script that extracts all errors, warnings, and other noteworthy messages from the console output and presents them to you in a simple, tabular form.
+
+\begin{center}\label{fig:errorParsingScript}
+\includegraphics{errorParsingScript}
+\end{center}
+
+Here, you see a list of {\LaTeX} messages, color-coded and sorted by severity. Red represents errors, yellow indicates warnings, and blue stands for over- and underfull box warnings. Next to the colour bar, you see the name of the file in which the error was detected. Next to that, you see the line number (if the script was able to determine that), as well as an excerpt from the console output telling you what the error was. Moreover, the filename is a link which will take you to the file (and, if a line number could be determined, also the line) where {\LaTeX} reported the error. Hopefully, you can quickly fix any errors that may occur this way.
+
+In case you are not using {\LaTeX}, this script may be of little use, particularly if the console output is formatted differently. In this case, you can simply disable the error parsing hook script (see section \ref{sec:installing-scripts}).
+
+\section{Changing {\Tw} parameters for convenience}
+\index{TeXworks@{\Tw}!parameters}
+
+If the default font\index{editor!font} of the editor doesn't suit you, it is possible to change it from \menu{Format}\submenu\menu{Font\ldots} by selecting a new one in the dialogue box which appears. This change will apply only to the current window, and until {\Tw} is restarted.
+
+From the \menu{Typeset} menu or from the drop-down on the \menu{Typesetting tool bar}, you can change the compilation format. Again this change will only be temporary and for the current document.
+
+To have permanent changes, you need to change the \emph{preferences\index{preferences}} through the \menu{Edit}\submenu\menu{Preferences\ldots} menu item, using the \menu{Editor} tab for the font and the \menu{Typesetting} tab for the compilation format: the default format is at the bottom of the tab.
+

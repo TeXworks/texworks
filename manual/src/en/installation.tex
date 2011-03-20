@@ -1,0 +1,69 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manual.tex
+% !TEX spellcheck = en_US
+
+\chapter{Installation}
+\index{installation}
+\label{chap.installation}
+
+\Tw{} is only a text editor; to be able to create documents with \AllTeX{} and to typeset them to PDF, we also need what is called a \emph{{\TeX} distribution}\index{TeX distribution@{\TeX} distribution}\index{TeX@\TeX!distribution|see {{\TeX} distribution}}. This is a collection of programs and other files which will be automatically called by {\Tw} during its work. Thus, you need to install a distribution: we will do that \emph{before} starting {\Tw} for the first time, as this way, {\Tw} will automatically find what it needs.
+
+\textbf{TeX~Live}\index{TeX distribution@{\TeX} distribution!TeX~Live} (\url{http://www.tug.org/texlive/}), a combination of teTeX, macTeX and XEmTeX, is available for all three operating systems (Linux, Mac OS X, Windows). The current version is TeX~Live 2010. Note that you need a reasonably recent version of TeX~Live (2008 or later at the time of writing) to use all features of {\Tw}.
+
+\begin{OSLinux}
+For Linux\index{TeX distribution@{\TeX} distribution!Linux}: most Linux distributions include a {\TeX} distribution, but it may not be installed by default and you will have to use the Linux package management tools to do that. As an alternative to TeX~Live, one can use \textbf{teTeX} (\url{http://www.tug.org/teTeX/}, a predecessor system to TeX~Live.
+\end{OSLinux}
+
+\begin{OSMac}
+For the Mac\index{TeX distribution@{\TeX} distribution!Mac}: \textbf{MacTeX}\index{TeX distribution@{\TeX} distribution!Mac!MacTeX}, a new distribution based on gwTeX and XeTeX, is available; see \url{http://www.tug.org/mactex/}.
+\end{OSMac}
+
+\begin{OSWindows}
+For Windows\index{TeX distribution@{\TeX} distribution!Windows}: a very popular distribution is \textbf{MiKTeX}\index{TeX distribution@{\TeX} distribution!Windows!MikTeX} (\url{http://www.miktex.org/}). MikTeX has an update programme, which has also been ported to Linux. You can also use the XEmTeX distribution (\url{http://www.xemtex.org/}).
+\end{OSWindows}
+
+\section{Under Windows}\index{installation!Windows}
+
+Most of the larger {\TeX} distributions already contain {\Tw} as a package. Sometimes, these versions even have some distribution-specific enhancements. So, the preferred way of installing {\Tw} on Windows is to use the package manager of your distribution. In this case, you can skip the next few paragraphs. Be sure to read the end of this section, though, as it provides important information about customizing {\Tw} to your needs.
+
+If you want to obtain an ``official'' version, obtain {\Tw} by downloading the setup from the {\Tw} web site \url{htp://tug.org/texworks/} after the installation of the {\TeX} distribution; you will find binaries for Windows at \url{http://code.google.com/p/texworks/downloads/list}.
+
+Simply install {\Tw} by running the setup file. During the installation, you will be asked where to install the program, if you want to create shortcuts, and if you want to always open \path{.tex} files with {\Tw}. There are reasonable default values that should work well for most users.
+
+If you want full control over how and where {\Tw} is put, you can also download the \path{.zip} archive from the website and unpack it wherever you like. Note that in this case, shortcuts and file associations must be created manually.
+
+\urldef{\TwRegistryPath}\path{\HKEY_USERS\S-...\Software\TUG\TeXworks}
+
+When you start {\Tw} for the first time, it creates a folder named \path{TeXworks}\index{folder!TeXworks}\index{folder!resource} in your home folder\footnote{on Windows XP, your home folder is \path{C:\Documents and Settings\<your name>}. On Windows Vista/7, your home folder is \path{C:\Users\<your name>}.}. This folder will contain some sub-folders for auto-completion\index{folder!auto-completion}, configuration\index{folder!configuration}, dictionaries\index{folder!dictionaries}, templates\index{folder!templates}, and interface translation/localisation\index{folder!translations} files---we will see these in more detail later.\footnote{{\Tw} will save its preferences in the registry:
+\TwRegistryPath. If this is erased, it will be recreated with default values at the next use.}
+
+NB. At the time of writing, if \path{<your name>} contains any non-ASCII characters (for example accented characters), some functions of {\Tw} may not work correctly. For example, the spell-checker and forward/reverse synchronization between the source and \path{.pdf} will be impaired.
+
+\section{Under Linux}\index{installation!Linux}
+
+Several common Linux distributions already have packages for {\Tw}. They are adequate for most users and facilitate installing {\Tw} considerably.
+
+If your Linux distribution does not provide recent, adequate packages, you need to build {\Tw} from source yourself, which is fairly easy on Linux. After the installation of the {\TeX} distribution, go to \url{http://code.google.com/p/texworks/wiki/Building} and follow the instructions suitable for your Linux distributions. Also see section \ref{sec.compiling}.
+
+Once the program is installed, start {\Tw}. The folders \path{.TeXworks}\index{folder!.TeXworks} and \path{.config/TUG}\index{folder!.config/TUG} will be created in your home directory.
+
+\section{Under Mac OS X}\index{installation!Mac}
+
+MacTeX 2010 already contains {\Tw} as a package. So, the preferred way of installing {\Tw} on Windows is to use the package manager of your distribution. In this case, you can skip the next few paragraphs. Be sure to read the end of this section, though, as it provides important information about customizing {\Tw} to your needs.
+
+If you want to obtain an ``official'' version, obtain {\Tw} by downloading the setup from the {\Tw} web site \url{htp://tug.org/texworks/} after the installation of the {\TeX} distribution; you will find binaries for the Mac at \url{http://code.google.com/p/texworks/downloads/list}.
+
+You need to get \path{TeXworks-Mac-0.3r567.zip}\footnote{Version at the time of writing this manual.} which contains everything you need.
+
+It is a standalone \texttt{.app} package that does not require any Qt files installed into \path{/Library/Frameworks}, or other libraries into \path{/usr/local/lib}. Just copy the \path{.app} anywhere you like and run it.
+
+On Mac OS X, the {\Tw} resource\index{folder!resource Mac} folder will be created in your \path{Library} folder (\path{~/Library/.TeXworks/}), inside your home directory. Preferences are stored in \path{~/Library/Preferences/org.tug.TeXworks.plist}
+which you can delete if you ever suspect it is causing problems.
+
+\section{Ready!}
+
+\urldef{\TwResourcePath}\path{<home>/TeXworks}
+
+Finally, some files may need to be added to the ``personal'' files that {\Tw} creates. As the exact location of these dependends on your platform, this will be referred to as \path{<home>/TeXworks}\index{folder!$\langle$home$\rangle$/TeXworks} or the \textbf{{\Tw} resource folder} later in this manual. On Linux, this is \path{~/.TeXworks}, on Windows XP it is \path{C:\Documents and Settings\<your name>\TeXworks}, on Windows Vista/7 it is \path{C:\Users\<your name>\TeXworks}, and on the Mac it is \path{~/Library/.TeXworks/}, 
+
+After installation and first run, have a look in the sub-folders of the {\Tw} resource folder and delete any \path{qt_temp.xxxx} files; they are temporary files left behind and could interfere with the normal ones, which are installed in the same folder, later on.

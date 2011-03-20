@@ -1,0 +1,110 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manual.tex
+% !TEX spellcheck = en_UK
+
+\chapter{Regular expressions}
+\label{sec:regexp}
+
+As {\Tw} is built on Qt4, the available regular expressions\index{regular expressions}---which are often referred to as \textbf{regexp}---are a subset of those found in Qt4. See the site of Qt4\footnote{\label{fn.regexpQt}\url{http://doc.trolltech.com/4.4/qregexp.html#details}---this section is based on the information provided there} for more information. It is possible to find other information about regexps on the net\footnote{see, for example, Wikipedia} or from books. But pay attention that not all systems (programming languages, editors, \dots) use the same set of instructions; there is no ``standard set'', unfortunately.
+
+\section{Introduction}\index{regular expressions!introduction}
+
+When searching and replacing, one has to define the text to be found. This can be the text itself (e.g., ``Abracadabra''), but often it is necessary to define the strings in a more generic and powerful way to avoid repeating the same operation many times with only small changes from one time to the next; if, for example, one wants to replace sequences of the letter \textbf{a} by ones of the letter \textbf{o}, but only those sequences of 3, 4, 5, 6 or 7 \textbf{a}; this would require repeating (and slightly adjusting) the find and replace procedure 5 times. Another example: replace all vowels by \textbf{§}---again, this would take 5 replace operations. Here come the regular expressions!
+
+A simple character (a or 9) represents itself. But a set of characters can be defined: \textbf{[aeiou]} will match any vowel, \textbf{[abcdef]} the letters \textbf{a}, \textbf{b}, \textbf{c}, \textbf{d}, \textbf{e}, and \textbf{f}; this last set can be shortened as \textbf{[a-f]} using ``\textbf{-}'' between the two ends of the range. This can even be combined: \textbf{[a-zA-Z0-9]} will match all letters and all numbers.
+
+To define a complementary set\footnote{A set of characters that are not allowed to occur for this regular expression to match the text}, one uses ``\textbf{\^{}}'': the caret negates the character set if it occurs at the beginning, i.e., immediately after the opening square bracket. \textbf{[\^{}abc]} matches anything except \textbf{a}, \textbf{b}, \textbf{c}.
+
+\section{Codes to represent special sets}\index{regular expressions!sets}
+
+When using regexps, one very often has to create a search expession which represents other strings in a generic way. If you are looking for a string which matches email addresses, for example, the letters and symbols will vary; still, you could search for any string which corresponds to the structure of an email address (\texttt{<text>@<text>.<text>}, roughly). To facilitate this, there are abbreviations to represent letters, figures, symbols, \dots 
+
+These codes replace and facilitate the definition of sets; for example, to instead of manually defining the set of digits \textbf{[0-9]}, one can use ``\textbf{\textbackslash{}d}''. The following table lists the replacement codes. \footnote{simplified from Qt4 at trolltech, see note \label{trollnext}\ref{fn.regexpQt}}
+\smallskip
+
+\noindent\begin{tabular}{Rp{113mm}}
+\toprule
+\multicolumn{1}{l}{Element} & Meaning\\
+\midrule
+\verb|c|  & Any character represents itself unless it has a special regexp meaning. Thus c matches the character c.\\
+\verb|\c| & A special character that follows a backslash matches the character itself except where mentioned below. For example, if you wished to match a literal caret at the beginning of a string you would write ``\verb|\^|''.\\
+\verb|\n| & This matches the ASCII line feed character (LF, Unix newline, used in {\Tw}).\\
+\verb|\r| & This matches the ASCII carriage return character (CR).\\
+\verb|\t| & This matches the ASCII horizontal tab character (HT).\\
+\verb|\v| & This matches the ASCII vertical tab character (VT; almost never used).\\
+\verb|\xhhhh| & This matches the Unicode character corresponding to the hexadecimal number hhhh (between 0x0000 and 0xFFFF). \verb|\0ooo| (i.e., zero-ooo) matches the ASCII/Latin-1 character corresponding to the octal number ooo (between 0 and 0377).\\
+\verb|.| (dot)  & This matches any character (including newline). So if you want to match the dot character iteself, you have to escape it with ``\verb|\.|''.\\
+\verb|\d|  & This matches a digit.\\
+\verb|\D|  & This matches a non-digit.\\
+\verb|\s|  & This matches a white space.\\
+\verb|\S|  & This matches a non-white space.\\
+\verb|\w|  & This matches a word character or ``\verb|_|'').\\
+\verb|\W|  & This matches a non-word character.\\
+\verb|\1|, \dots  & The n-th back-reference, e.g. \verb|\1|, \verb|\2|, etc.; used in the replacement string with capturing patterns---see below \\
+\bottomrule
+\end{tabular}
+\smallskip
+
+Using these abbreviations is better than describing the set, because the abbreviations remain valid in different alphabets.
+
+Pay attention that the end of line is often taken as a white space. Under {\Tw} the end of line is referred to by ``\verb|\n|''.
+
+\section{Repetition}
+\index{regular expressions!repetition}
+
+One doesn't work only on single letters, digits, symbols; most of the time, these are repeated (e.g., a number is a repetition of digits and symbols---in the right order).
+
+\needspace{2\baselineskip}
+To show the number of  repetitions, one uses a so called ``quantifier'': \textbf{a\{1,1\}} means at least one and only one \textbf{a}, \textbf{a\{3,7\}} means between at least 3 and at most 7 \textbf{a}; \textbf{\{1,1\}} is redundant, of course, so \textbf{a\{1,1\}} = \textbf{a}.
+
+This can be combined with the set notation: \textbf{[0-9]\{1,2\}} will correspond to at least one digit and at most two, the integer numbers between 0 and 99. But this will match any group of 1 or 2 digits within any arbitrary string (which may have a lot of text before and after the integer); if we want this to match only if the whole string constists \emph{entirely} of 1 or 2 digits (without any other characters preceding or following them), we can write the regular expression as \textbf{\^{}[0-9]\{1,2\}\$}; here, \textbf{\^{}} says that any match must start at the first character of the string, while the \textbf{\$} says that any match must end at the last character of the string, so the string can only be comprised of one or two digits (\textbf{\^{}} and \textbf{\$} are so-called ``assertions''---more on them later).
+
+Here is a table of quantifiers.\footnote{simplified from Qt4 at trolltech, see note \ref{fn.regexpQt}} E represents an arbitrary expression (letter, abbreviation, set).
+\smallskip
+
+\noindent\begin{tabular}{Rp{113mm}}
+\toprule
+\verb|E{n,m}| & Matches at least \textbf{n} occurrences of the expression and at most \textbf{m} occurrences of the expression.\\
+\verb|E{n}| & Matches exactly \textbf{n} occurrences of the expression. This is the same \textbf{E\{n,n\}} or as repeating the expression n times.\\
+\verb|E{n,}| & Matches at least \textbf{n} occurrences of the expression.\\
+\verb|E{,m}| & Matches at most \textbf{m} occurrences of the expression.\\
+\verb|E?| & Matches zero or one occurrence of E. This quantifier effectively means \emph{the expression is optional} (it may be present, but doesn't have to). It is the same as \textbf{E\{0,1\}}.\\
+\verb|E+| & Matches one or more occurrences of E. This is the same as \textbf{E\{1,\}}.\\
+\verb|E*| & Matches zero or more occurrences of E. This is the same as \textbf{E\{0,\}}. Beware, the \textbf{*} quantifier is often used by mistake instead of the \textbf{+} quantifier. Since it matches zero or more occurrences, it will match even if the expression is not present in the string.\\
+\bottomrule
+\end{tabular}
+\smallskip
+
+\section{Alternatives and assertions}
+\index{regular expressions!alternatives/assertions}
+
+When searching, it is often necessary to search for alternatives, e.g., apple, pear, or cherry, but not pineapple. To separate the alternatives, one uses \textbf{|}: apple|pear|cherry. But this will not prevent to find pineapple, so we have to specify that apple should be standalone, a whole word (as is often called in the search dialog boxes).
+
+To specify that a string should be considered standalone, we specify that it is surrounded by word separators/boundaries (begin/end of sentence, space), like \textbf{\textbackslash{}bapple\textbackslash{}b}. For our alternatives example we will \textbf{group} them by parentheses and add the boundaries \textbf{\textbackslash{}b(apple|pear|cherry)\textbackslash{}b}. Apart from \textbf{\textbackslash{}b} we have already seen \textbf{\^{}} and \textbf{\$} which mark the boundaries of the whole string.
+
+Here a table of the ``assertions'' which do not correspond to actual characters and will never be part of the result of a search. \footnote{simplified from Qt4 at trolltech, see note \ref{fn.regexpQt}}
+\smallskip
+
+\noindent\begin{tabular}{Rp{113mm}}
+\toprule
+\verb|^| & The caret signifies the beginning of the string. If you wish to match a literal \textbf{\^{}}, you must escape it by writing \verb|\^|\\
+\verb|$| & The dollar signifies the end of the string. If you wish to match a literal \textbf{\$}, you must escape it by writing \verb|\$|\\  
+\verb|\b| & A word boundary.\\
+\verb|\B| & A non-word boundary. This assertion is true wherever \verb|\b| is false.\\
+\verb|(?=E)| & Positive lookahead. This assertion is true if the expression \textbf{E} matches at this point.\\
+\verb|(?!E)| & Negative lookahead. This assertion is true if the expression \textbf{E} does not match at this point.\\
+\bottomrule
+\end{tabular}
+\smallskip
+
+Notice the different meanings of \textbf{\^{}} as assertion and as negation inside a character set!
+
+\section{Final notes}
+
+Using rexexp is very powerful, but also quite dangerous; you could change your text at unseen places and sometimes reverting to the previous situation is not possible entirely. If you immediately see the error, you can try \keysequence{Ctrl+Z}.
+
+Showing how to exploit the full power of regexp would require much more than this extremely short summary; in fact it would require a full manual on it own.
+
+Also note that there are some limits in the implementation of regexps in {\Tw}; in particular, the assertions (\^{} and \$) only consider the whole file, and there are no look-behind assertions.
+
+Finally, do not forget to ``tick'' the regexp option when using them in the \emph{Find} and \emph{Replace} dialogs and to un-tick the option when not using regexps.

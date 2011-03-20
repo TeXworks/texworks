@@ -1,0 +1,235 @@
+%!TEX root = manual.tex
+
+% requires the following fonts (TeXLive packages in parantheses)
+% ZapfChancery (zapfchan)
+
+\ProvidesPackage{manual}[2010/06/26 v0.1 Specialized class for the TeXworks manual]
+\NeedsTeXFormat{LaTeX2e}
+
+\RequirePackage{sectsty}
+\sectionfont{\raggedright}
+\subsectionfont{\raggedright}
+\subsubsectionfont{\raggedright} 
+
+\makeatletter
+\@ifpackageloaded{tex4ht}{
+	% These packages are used only if in tex4ht mode
+}{
+	% These packages are used only if NOT in tex4ht mode
+	\RequirePackage[Bjornstrup]{fncychap}
+	\RequirePackage{tocbibind}
+	\RequirePackage[unbalanced,totoc]{idxlayout}
+	\RequirePackage{footmisc}
+	\setlength{\footnotemargin}{.7em}
+	\setlength{\footnotesep}{0.1ex}
+
+  % Modified from fncychap package to align boxes of \chapter and \chapter*
+  \renewcommand{\DOTIS}[1]{%
+    \fboxsep=0pt
+    \settoheight{\py}{\CNoV 1}
+    \vskip\py
+    \vskip-20pt%
+    \colorbox[gray]{.85}{\rule{0pt}{40pt}\parbox[b]{\textwidth}{\hfill}}\\%
+    \nointerlineskip\raggedright%
+    \fboxsep=\myhi%
+    \vskip-1ex
+    \colorbox[gray]{.85}{\parbox[t]{\mylen}{\CTV\FmTi{#1}}}\par\nobreak%
+    \vskip 40\p@%
+  }
+
+}
+\makeatother
+
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{lmodern}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{needspace}
+
+\RequirePackage{color}
+\RequirePackage{graphicx}
+\graphicspath{{images/}}
+
+\RequirePackage[frenchb,english]{babel}
+\AtBeginDocument{\selectlanguage{english}}
+
+\RequirePackage{calc}
+\RequirePackage{keystroke}
+\RequirePackage{keysequence}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+
+\RequirePackage{upquote}
+
+%\newcommand{\Cmd}{\keystroke{Cmd}}
+\newcommand{\Cmd}{\keystroke{\includegraphics{MacCmdKey}}}
+\newcommand{\Opt}{\keystroke{\includegraphics{MacOptKey}}}
+\renewcommand{\Tab}{\keystroke{$\leftrightarrows$}}
+
+\newcommand{\LMB}{\raisebox{-3pt}{\includegraphics[height=13pt]{LMB}}}
+\newcommand{\RMB}{\raisebox{-3pt}{\includegraphics[height=13pt]{RMB}}}
+
+\newcommand{\menu}[1]{\emph{\textbf{#1}}}
+\newcommand{\submenu}{\hspace{0pt}\ensuremath{\to}}
+
+\newcommand{\DocumentCopyright}[1]{
+\vspace*{\stretch{1}}
+\begin{minipage}{.75\textwidth}
+#1
+\end{minipage}
+}
+
+\RequirePackage[obeyspaces,T1]{url}
+
+\RequirePackage{makeidx}
+\makeindex
+
+\makeatletter
+\def\ConTeXt{Con{\kern-.1em\TeX\kern-.075em}t}
+
+\def\XeTeX{\leavevmode
+  \setbox0=\hbox{X\lower.5ex
+  \hbox{\kern-.15em
+    \ifdim\fontdimen1\font=0pt
+      \reflectbox{E}%
+    \else % rotation is about the origin, so we need to adjust positioning
+      \XeTeXuseglyphmetrics=1
+      \setbox0=\hbox{E}\dimen0=\ht0 \advance\dimen0 by \dp0
+      \raise\dimen0\hbox{\rotatebox{180}{\box0}}%
+    \fi
+  }\kern-.1667em \TeX}%
+  \dp0=0pt \ht0=0pt \box0 }
+
+\def\XeLaTeX{\leavevmode
+  \setbox0=\hbox{X\lower.5ex
+  \hbox{\kern-.15em
+    \ifdim\fontdimen1\font=0pt
+      \reflectbox{E}%
+    \else % rotation is about the origin, so we need to adjust positioning
+      \XeTeXuseglyphmetrics=1
+      \setbox0=\hbox{E}\dimen0=\ht0 \advance\dimen0 by \dp0
+      \raise\dimen0\hbox{\rotatebox{180}{\box0}}%
+    \fi
+  }\kern-.1067em \LaTeX}%
+  \dp0=0pt \ht0=0pt \box0 }
+
+
+\newcommand*{\AllTeX}{%
+  (L%
+  \kern-.36em{%
+    \setbox0\hbox{T}%
+    \vbox to\ht0{%
+      \hbox{%
+        $\m@th$\csname S@\f@size\endcsname
+        \fontsize\sf@size\z@\math@fontsfalse\selectfont
+        A%
+      }%
+    \vss
+    }%
+  }%
+  \kern-.075em)\kern-.075em\TeX}
+\makeatother
+
+
+\newcommand{\Tw}{\texorpdfstring{{\TeX}\kern-.1em works}{TeXworks}}
+\newcommand{\METAFONT}{\textsf{METAFONT}}
+\newcommand{\METAPOST}{\textsf{METAPOST}}
+
+
+\RequirePackage{wrapfig}
+\RequirePackage{framed}
+\RequirePackage{fancyvrb}
+\RequirePackage{fancyhdr}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{longtable}
+
+
+\AtBeginDocument{\VerbatimFootnotes}
+
+\newcolumntype{P}{>{\ttfamily}p{30mm}}
+\newcolumntype{Q}{>{\ttfamily}p{60mm}}
+\newcolumntype{R}{>{\bfseries}p{15mm}}
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markright{\thechapter.\ #1}}
+\renewcommand{\sectionmark}[1]{}
+\lhead{\sffamily\nouppercase{\rightmark}}
+\chead{}
+\rhead{\sffamily\thepage}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand{\headrulewidth}{1pt}
+\setlength{\headheight}{14.5pt}
+
+
+
+\makeatletter
+\renewcommand{\maketitle}{\begin{titlepage}
+\vspace*{-2cm}
+\begin{flushright}
+\includegraphics[width=7cm]{TeXworks}
+\end{flushright}
+\vspace*{2cm}
+\begin{flushleft}
+\Huge \bfseries\@title
+\end{flushleft}
+\vspace*{-2ex}
+\rule{\textwidth}{3pt}
+\begin{flushright}
+\@author
+\vspace*{4cm}
+\includegraphics{title-quote}
+\end{flushright}
+%\hspace*{0.53\textwidth}
+%\parbox{0.47\textwidth}{
+%\textcolor[gray]{.4}{\LARGE
+%{\usefont{T1}{pzc}{b}{n}lowering the entry barrier to the}
+%{\itshape\TeX}
+%{\usefont{T1}{pzc}{b}{n}world}
+%}
+%}
+\end{titlepage}}
+\makeatother
+
+
+\DefineVerbatimEnvironment{verbExample}{Verbatim}{frame=lines,framesep=1ex,fontsize=\small}
+
+\reversemarginpar
+\newenvironment{example}{
+	\phantom{.}\vspace{-\baselineskip}\marginpar{
+		\raisebox{-2\baselineskip-\height}{\includegraphics[height=1cm]{example}}
+	}
+	\verbExample
+}{ 
+	\endverbExample
+}
+
+\definecolor{tango-Aluminium5}{rgb}{0.333333333333,0.341176470588,0.325490196078}
+
+\newlength{\OSLogoSize}
+\setlength{\OSLogoSize}{\baselineskip+8pt}
+
+\newlength{\OSLogoIndent}
+\setlength{\OSLogoIndent}{\parindent}%
+
+% Adapted from "framed" package
+\newcommand{\OSCommand}[1]{%
+  \vspace{-.75\baselineskip}%
+  \def\FrameCommand{%
+  	{\hspace{-8pt}\color{tango-Aluminium5}\vrule width 3pt \hspace{5pt}}%
+  }%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}%
+  \parbox[t][0pt]{0pt}{%
+    \hspace{-\OSLogoIndent}\hspace{-8pt}\hspace{-\OSLogoSize}%
+    \raisebox{-\height+12pt}{\includegraphics[height=\OSLogoSize]{#1}}%
+  }\par\vspace{-\baselineskip}\!\!%
+}
+\newcommand{\OSEndCommand}{\endMakeFramed\vspace{-10pt}}
+
+\newenvironment{OSLinux}{\OSCommand{Linux}}{\OSEndCommand}
+\newenvironment{OSMac}{\OSCommand{Mac}}{\OSEndCommand}
+\newenvironment{OSWindows}{\OSCommand{Windows}}{\OSEndCommand}
+
+\RequirePackage[pdfborder={0 0 0}]{hyperref}

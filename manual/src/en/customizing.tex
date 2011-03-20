@@ -1,0 +1,149 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manual.tex
+% !TEX spellcheck = en_GB
+
+\chapter{Customizing \Tw}
+
+\section{Syntax highlighting}
+
+Among its many other features, {\Tw} also include syntax highlighting\index{syntax highlighting}. This means that certain things like {\LaTeX} commands, environments, or comments are coloured, underlined, or highlighted in some other way. {\Tw} also provides the ability to switch between different highlighting schemes\footnote{Use \menu{Format}\submenu\menu{Syntax Coloring} to change the highlighting scheme for the current document, and \menu{Edit}\submenu{Preferences\dots}\submenu\menu{Editor}\submenu\menu{Syntax Coloring} to set the default one.}, and to define your own ones. This is useful if you often work with types of files for which no highlighting scheme is provided by default, or if you want to adjust the highlighting schemes to better match your system's colour scheme.
+
+To modify the highlighting schemes, you have to edit the plain-text file \path{<resources>/configuration/syntax-patterns.txt}. This file can contain any number of individual sections, each defining a single highlighting scheme to be displayed in the menu structure of {\Tw}. To define a section, just write the name enclosed in square brackets on a line of its own. Naturally, these names should not include the \verb|]| character. By default, the following two sections are defined:
+\begin{verbExample}
+[LaTeX]
+[ConTeXt]
+\end{verbExample}
+In addition, you can add comments to the file by starting a line with \verb|#|. Empty lines are ignored.
+
+Each section consists of an arbitrary number of styling rules. Each such instruction consists of three parts: a formatting instruction, a spell-check flag, and a regular expression\footnote{For some details on regular expressions, see \ref{sec:regexp}} defining what part of a text to match. These parts must all be on the same line, and separated by whitespaces (e.g., spaces or tabstop characters). Take for example the following line from the default \verb|LaTeX| section:
+\begin{verbExample}
+red    Y    %.*
+\end{verbExample}
+The first part, \verb|red|, defines the format (in this case, a red foreground colour is specified). The second part, \verb|Y|, defines that spellchecking should be enabled for text that matches this particular rule. Sometimes, it is useful to put \verb|N| here to disable spellchecking. For example, if spellchecking would be enabled for {\LaTeX} commands, most documents would be flooded with red underlines indicating misspelled words when in fact they are only special commands. Finally, the third part specifies that this rule should be applied to all text preceded by \verb|%|.
+
+Let us take a closer look at the three parts of each rule. In its most general form, the first part---the format instruction---looks like 
+\begin{verbExample}
+<foreground_colour>/<background_colour>;<fontflags>
+\end{verbExample}
+The \verb|<fontflags>| can be specified independent of the colours (note, though, that it must always be preceded by a \verb|;|). The background colour (together with the \verb|/|) can be omitted, but if you specify it, you also have to specify the foreground colour.
+
+Each colour can either be specified by an SVG name\footnote{See \url{http://www.w3.org/TR/SVG/types.html#ColorKeywords} for a list of valid names.} or by a hexadecimal value (\verb|#rrggbb|) similar as in web documents. The \verb|<fontflags>| can be any combination of the letter \verb|B| (bold), \verb|I| (italic), and \verb|U| (underlined).
+
+Examples of valid formatting instructions are:
+\begin{verbExample}
+red
+white/#000000
+;B
+blue;I
+#000000/#ffff00;U
+\end{verbExample}
+
+\section{Keyboard shortcuts}
+\label{sec.shortcuts}
+
+The use of keyboard shortcuts\index{keyboard shortcuts} greatly facilitates typing in and the management of the source and the preview. Their use is much more effective than the use of buttons for frequently-used actions.
+
+Below, you'll find the shortcuts for source and preview windows. Note that on Mac OS X, \verb|Ctrl| actually refers to the \emph{Command key}, which is the usual modifier for keyboard shortcuts. Although the keyboard shortcuts are specified with \verb|Ctrl|, this will appear as the \emph{Command-key} symbol in menus. (To refer to the actual \emph{Control key} on the Mac, the shortcut file should use the name \verb|Meta|).
+
+Note that the shortcuts listed below are the default shortcuts for the English interface of {\Tw}. Different languages may use different shortcuts.
+
+All the shortcuts can be redefined either to create new shortcuts or to modify the existing ones to match personal uses or change shortcuts not adapted to one particular keyboard layout. The list of possible actions\index{keyboard shortcuts!actions} to associate with shortcuts is given after the predefined shortcuts.
+
+To define your own shortcuts, put a file named \path{shortcuts.ini}\index{keyboard shortcuts!shortcuts.ini} in the \path{<resources>/configuration} folder, next to \path{auto-indent-patterns.txt}, \path{delimiter-pairs.txt}, \dots, \path{texworks-config.txt}.
+
+For example, this  file could contain:
+\begin{verbExample}
+actionHard_Wrap = Shift+F3
+actionLast_Page = Ctrl+End
+actionFirst_Page = Ctrl+Home
+actionWrap_Lines = F3
+actionLine_Numbers = F4
+actionBalance_Delimiters = F9
+\end{verbExample}
+
+The first line defines that using \keysequence{Shift+F3} should open the hardwrap dialogue box in the source window; the second (\keysequence{Ctrl+End}) should bring you to the last page and \keysequence{Ctrl+Home} (third line) should take you to the first page; with \keysequence{F3} you want to wrap/unwrap lines in the source, with \keysequence{F4} you will show/hide line numbers and with \keysequence{F9} you intend to select the text between corresponding delimiters in the source.
+
+\needspace{7\baselineskip}
+\subsection{Predefined shortcuts}\index{keyboard shortcuts!predefined}\index{shortcuts|see {keyboard shortcuts}}
+
+For working in the source window:
+\input shortcutsTeXDocument.tex
+
+\needspace{5\baselineskip}
+Moving the cursor (hold \keysequence{Shift} to select):
+\begin{longtable}{Pl}
+\toprule
+Shortcut & Action \\
+\midrule \endhead
+$\rightarrow$      & 1 character right \\
+Ctrl+$\rightarrow$ & 1 word right \\
+$\leftarrow$       & 1 character left \\
+Ctrl+$\leftarrow$  & 1 word left \\
+$\uparrow$         & 1 line up \\
+$\downarrow$       & 1 line down \\
+PgUp               & 1 screen up \\
+PgDown             & 1 screen down \\
+Home               & Begin of line \\
+Ctrl+Home          & Begin of document \\
+End                & End of line \\
+Ctrl+End           & End of document \\
+\bottomrule
+\end{longtable}
+
+For working in the preview window:
+\input shortcutsPDFDocument.tex
+
+\subsection{Actions listed alphabetically}
+\index{actions!alphabetically}
+\input{actionsAlphabetical.tex}
+
+\subsection{Actions listed by menu}
+\index{actions!by menu}
+
+For the source window:
+\input menuactionsTeXDocument.tex
+
+\bigskip
+For the preview window:
+\input menuactionsPDFDocument.tex
+
+\subsection{Other actions}
+In addition to the static actions listed above, there are also actions for scripts. These are dynamic in nature, as they are created on-the-fly for the available scripts (which may change when you install scripts, remove them, or change some settings). All of these actions are of the form \verb*|Script: <script_title>|, where \verb*|<script_title>| must be replaced appropriately. If you have a script that shows up as \verb|My Script|, for example, the corresponding action would be named \verb*|Script: My Script|.
+
+
+\section{Roots for completion}
+\index{auto-completion!roots}\index{completion|see {auto-completion}}
+\label{sec.autocompletion}
+
+We give here the keywords for auto-completion as they are supplied by {\Tw}. They are given in the files \path{tw-basic.txt}, \path{tw-context.txt} (initially empty) and \path{tw-latex.txt} in the \path{<resource>\completion} folder.
+
+We give them in three columns: the first two show the keywords, the third the {\AllTeX} code produced. In some cases there is only the code, this means that you can start to enter the {\AllTeX} code and try to complete it with \keysequence{Tab}.
+
+\newcommand{\AutoCompRet}{$\mathcal{R}$}
+\newcommand{\AutoCompIns}{$\mathcal{I}$}
+During completion, the system inserts line feeds and puts the cursor at the first place where one has to enter information to complete the typing. To represent the line feeds we used {\AutoCompRet} and {\AutoCompIns} for the input point. 
+
+\needspace{4\baselineskip}
+So, a line like ``\textbackslash begin\{abstract\}{\AutoCompRet}{\AutoCompIns}{\AutoCompRet}\textbackslash end\{abstract\}•'' should be interpreted as
+\begin{verbExample}
+\begin{abstract}
+
+\end{abstract}•
+\end{verbExample}
+with the cursor being position on the central, empty line.
+
+It is possible to see that the keywords have some pattern. The mathematical variables have a keyword starting with \verb|x|, when they are in a mathematical environment; when they are used alone in the text you add \verb|d| in front. For example, \verb|xa| and \verb|dxa| give \verb|\alpha|, if there is a capital there is a \verb|c|, as  \verb|xo| for \verb|\omega| and \verb|xco| for \verb|\Omega|. The keywords for environments start with \verb|b|: \verb|bali| for \verb|\begin{align}| (\verb|b| is a mnemonic for \verb|\begin|). When the environment has possible options, there is one or more \verb|o| added to the base name: \verb|bminp| gives \verb|\begin{minipage}{}...| while \verb|bminpo| gives \verb|\begin{minipage}[]{}...|.
+
+%\vspace{12pt}
+%
+Keywords defined in \path{tw-basic.txt}\index{auto-completion!tw-basic.txt} (defined in \TeX):
+%\input{tw-basic_fr.tex}
+\input{autocompletionBasic}
+
+\needspace{5\baselineskip}
+Keywords defined in \path{tw-latex.txt}\index{auto-completion!tw-latex.txt} (defined in \LaTeX):
+%\input{tw-latex_fr.tex}
+\input{autocompletionLatex}
+
+There are also environment codes (above) without \verb|\begin{| (which is itself a keyword); this allows to finish the environment name alone by \keysequence{Tab} if one started to input it manually.
+

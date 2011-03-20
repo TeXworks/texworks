@@ -1,0 +1,42 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manual.tex
+% !TEX spellcheck = en_GB
+
+\chapter{Advanced use: Scripting}\index{scripts}
+
+\section{Introduction to Scripting}
+
+All the functions and utilities described so far were built into {\Tw} by default. While some of them could be configured or customized to a certain extent, they are intended to suit the most common needs of a general audience. However, the {\TeX} world is very large and diverse. In order to enable users to address their special needs---from simply making some text bold to fulfilling special requirements for the next book or scientific paper you want to publish---, the core functionality of {\Tw} can be extended or modified by the use of scripts.
+
+Scripts are simple text files that you can open, read, or modify in any text editor (including {\Tw}, of course). They are written in a specific scripting language that is essentially a programming language. At the time of writing, {\Tw} supports QtScript\footnote{A scripting language similar to JavaScript provided by Qt.} (built-in), Lua (with a plugin), and Python (with a plugin). To see which scripting languages are available on your system, use the \menu{Scripts}\submenu\menu{Scripting {\Tw}}\submenu\menu{About Scripts\dots} menu item.
+
+Writing scripts\index{scripts!writing} is beyond the scope of this manual, but is documented elsewhere\footnote{See, for example, Paul Norman's page \url{http://twscript.paulanorman.com/docs/index.html}.}. Here, only the installation and usage of scripts will be discussed.
+
+{\Tw} distinguishes between two types of scripts: standalone scripts and hook scripts. The primary purpose of standalone scripts is to add new functionality to the program. If you need a new function, such as a command to make the selected text bold, a standalone script is the one to choose. These scripts get an item in the \menu{Scripts} menu, and you can run them simply by clicking on that menu item (or by using a keyboard shortcut, if the script provides one).
+
+Hook scripts, on the other hand, are meant to extend existing {\Tw} functions. They are hooked into the code at specific places, e.g., after the typeset process has finished or after a file was loaded, and can add or modify whatever {\Tw} is doing. One example for this would be a script that analyses a newly loaded file and sets the spell-checking language based on \verb+babel+ commands found in the document. Thus, hook scripts do not show up in the \menu{Scripts} menu but are instead run automatically when the {\Tw} function they modify is used.
+
+You can easily determine which type of script you have by opening the script file. Near the top of the file, you should find a line similar to
+\begin{verbExample}
+// Type: standalone
+\end{verbExample}
+Alternatively---once the script is installed---, you can use the dialogue available from \menu{Scripts}\submenu\menu{Scripting {\Tw}}\submenu\menu{Manage Scripts} to display this information.
+
+\section{Installing Scripts}\index{scripts!installing}
+\label{sec:installing-scripts}
+
+A word of caution first: do not install scripts from a source you do not trust! Before installing scripts, you should make sure that the file you are about to install indeed does what you expect. Scripts are very powerful---they can do almost everything a normal program can do. So while there are some security precautions built into {\Tw}, you should still be aware that scripts could potentially harm your computer and cause (among other things) crashes and data loss. In particular, scripts can read, create, and modify arbitrary files on your hard drive.
+
+That said, installing scripts is very simple. Script files are generally installed in \path{<resources>/scripts} or subdirectories of it. These subdirectories are shown as submenus of the \menu{Scripts} menu, so they can be used to group and categorize scripts. This is especially useful if you use many different scripts that would otherwise make the \menu{Scripts} menu very confusing. One easy way to open the \path{scripts} folder is the \menu{Scripts}\submenu\menu{Scripting {\Tw}}\submenu\menu{Show Scripts Folder} menu item.
+
+Since scripts are usually simple plain-text files, they do not come with fancy installers. To install them, simply copy or decompress (if archived, e.g., in a .zip file) the script file---and any other required files that you may have received---into \path{<resources>/scripts} or a subdirectory of it.
+
+After having installed a new script file, {\Tw} needs to become aware of it. It automatically scans for all scripts during start-up, so you could close all {\Tw} windows and restart the application. An alternative is provided by the \menu{Scripts}\submenu\menu{Scripting {\Tw}}\submenu\menu{Reload Script List} menu item which rescans all scripts without otherwise interfering with the program.
+
+You can also disable scripts (or whole directories of scripts) if you want to. This can be useful if you do not need some scripts for some time and do not want them to clutter the \menu{Scripts} menu, but do not want to uninstall them entirely. Or if you want to prevent hook scripts from being run automatically. To do this, open the ``Manage Scripts'' dialogue with the \menu{Scripts}\submenu\menu{Scripting {\Tw}}\submenu\menu{Manage Scripts}\index{scripts!managing} menu item. Simply uncheck the script you want to disable and it won't bother you again.
+
+\section{Using Scripts}\index{scripts!using}
+
+Using scripts is simple. Hook scripts are used automatically---you don't need to do anything. Standalone scripts show up in the \menu{Scripts} menu or one of its submenus. If you cannot find a script you are looking for, or if you find a script you do not know the purpose of, you can use the ``Manage Scripts'' dialogue to get additional information (like the author, a brief description, etc.) about it. 
+
+Some scripts need to run other programs on your system. One example would be a script that opens the pdf in the system's default previewer, e.g., for printing. Since running arbitrary commands can in some situations be particularly dangerous, this functionality is disabled by default. You will notice this when a dialogue pops up informing you of an error in the script, or a similar message is displayed in the status bar. To enable scripts to execute system commands, open the preferences dialogue via \menu{Edit}\submenu\menu{Preferences\dots}. There, go to the ``Scripts'' tab and check the ``Allow scripts to run system commands'' option. If you want to disable this function again later just uncheck the option. Note that this option applies equally to all scripts---there is currently no way to allow command execution only for some scripts.
