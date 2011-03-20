@@ -19,7 +19,37 @@
 	see <http://texworks.org/>.
 */
 
-#define VER_MAJOR			0
-#define VER_MINOR			5
-#define VER_BUGFIX			0
-#define TEXWORKS_VERSION	"0.5"
+#ifndef TemplateDialog_H
+#define TemplateDialog_H
+
+#include <QDialog>
+#include <QString>
+#include <QItemSelection>
+
+#include "TWUtils.h"
+
+#include "ui_TemplateDialog.h"
+
+class QDirModel;
+
+class TemplateDialog : public QDialog, private Ui::TemplateDialog
+{
+	Q_OBJECT
+
+public:
+	TemplateDialog();
+	virtual ~TemplateDialog();
+
+	static QString doTemplateDialog();
+
+private slots:
+	void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+	void itemActivated(const QModelIndex & index);
+	
+private:
+	void init();
+
+	QDirModel *model;
+};
+
+#endif

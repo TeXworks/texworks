@@ -19,7 +19,34 @@
 	see <http://texworks.org/>.
 */
 
-#define VER_MAJOR			0
-#define VER_MINOR			5
-#define VER_BUGFIX			0
-#define TEXWORKS_VERSION	"0.5"
+#ifndef ConfirmDelete_H
+#define ConfirmDelete_H
+
+#include <QDialog>
+#include <QStringList>
+
+#include "TWUtils.h"
+
+#include "ui_ConfirmDelete.h"
+
+class ConfirmDelete : public QDialog, private Ui::ConfirmDelete
+{
+	Q_OBJECT
+
+public:
+	ConfirmDelete(QWidget *parent = NULL);
+	virtual ~ConfirmDelete();
+
+	static void doConfirmDelete(const QDir& dir, const QStringList& fileList);
+
+private slots:
+	void doSelectAll();
+	void doSelectNone();
+	void doToggleSelection();
+	void setDeleteButtonEnabledStatus();
+
+private:
+	void init();
+};
+
+#endif

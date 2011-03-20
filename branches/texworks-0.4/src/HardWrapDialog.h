@@ -19,7 +19,35 @@
 	see <http://texworks.org/>.
 */
 
-#define VER_MAJOR			0
-#define VER_MINOR			5
-#define VER_BUGFIX			0
-#define TEXWORKS_VERSION	"0.5"
+#ifndef HardWrapDialog_H
+#define HardWrapDialog_H
+
+#include <QDialog>
+#include "ui_HardWrapDialog.h"
+
+const int kDefault_HardWrapWidth = 64;
+
+class HardWrapDialog : public QDialog, private Ui::HardWrapDialog
+{
+	Q_OBJECT
+
+public:
+	HardWrapDialog(QWidget *parent);
+
+	virtual ~HardWrapDialog() { }
+
+	unsigned int lineWidth() const { // returns 0 for current window size, or char count
+	    return radio_fixedLineLength->isChecked() ? spinbox_charCount->value() : 0;
+	}
+
+	bool rewrap() const { // whether to re-wrap paragraphs (fill lines)
+	    return checkbox_rewrap->isChecked();
+	}
+	
+	void saveSettings();
+
+protected:
+	void init();
+};
+
+#endif // !defined(HardWrapDialog_H)
