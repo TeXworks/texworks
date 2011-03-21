@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+
+<title>6 Advanced use: Scripting</title>
+<meta http-equiv="Content-Type" content=
+"text/html; charset=utf-8" />
+<meta name="generator" content=
+"TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content=
+"TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- info,2,imgdir:images/,sec-filename,next,index=2,url-enc,html -->
+<meta name="src" content="index.tex" />
+<meta name="date" content="2011-03-20 12:48:00" />
+<link rel="stylesheet" type="text/css" href="index.css" />
+<style type="text/css" xml:space="preserve">
+/*<![CDATA[*/
+ em.c1 {font-weight: bold}
+/*]]>*/
+</style>
+</head>
+
+<body>
+<!--l. 5-->
+
+<p class="noindent"></p>
+
+<div id="container">
+<!--l. 5-->
+
+<div class="crosslinks">
+<p class="noindent">[<a href="Beyondthismanual.html">next</a>]
+[<a href="GoingfurtherOthertools.html">prev</a>] [<a href=
+"GoingfurtherOthertools.html#tailGoingfurtherOthertools.html">prev-tail</a>]
+[<a href="#tailAdvanceduseScripting.html">tail</a>] [<a href=
+"index.html#AdvanceduseScripting.html">up</a>]</p>
+</div><!--l. 5-->
+
+<p class="indent"></p>
+
+<div class="chapternumber">
+6
+</div>
+
+<h1><a id="x35-380006" name="x35-380006"></a>Advanced use:
+Scripting</h1><a id="dx35-38001" name="dx35-38001"></a>
+
+<h3 class="sectionHead"><span class="titlemark">6.1</span> <a id=
+"x35-390006.1" name="x35-390006.1"></a>Introduction to
+Scripting</h3><!--l. 9-->
+
+<p class="noindent">All the functions and utilities described so
+far were built into T<sub>E</sub>Xworks by default. While some of
+them could be configured or customized to a certain extent, they
+are intended to suit the most common needs of a general audience.
+However, the T<sub>E</sub>X world is very large and diverse. In
+order to enable users to address their special needs—from simply
+making some text bold to fulfilling special requirements for the
+next book or scientific paper you want to publish—, the core
+functionality of T<sub>E</sub>Xworks can be extended or modified by
+the use of scripts. <!--l. 11--></p>
+
+<p class="indent">Scripts are simple text files that you can open,
+read, or modify in any text editor (including T<sub>E</sub>Xworks,
+of course). They are written in a specific scripting language that
+is essentially a programming language. At the time of writing,
+T<sub>E</sub>Xworks supports QtScript<span class=
+"footnote-mark"><a href="index36.html#fn1x7"><sup class=
+"textsuperscript">1</sup></a></span><a id="x35-39001f1" name=
+"x35-39001f1"></a> (built-in), Lua (with a plugin), and Python
+(with a plugin). To see which scripting languages are available on
+your system, use the <em class="c1">Scripts</em><span class=
+"lmsy-10x-x-120">→</span><em class="c1">Scripting
+T<sub>E</sub>Xworks</em><span class=
+"lmsy-10x-x-120">→</span><em class="c1">About Scripts…</em> menu
+item. <!--l. 13--></p>
+
+<p class="indent">Writing scripts<a id="dx35-39002" name=
+"dx35-39002"></a> is beyond the scope of this manual, but is
+documented elsewhere<span class="footnote-mark"><a href=
+"index37.html#fn2x7"><sup class=
+"textsuperscript">2</sup></a></span><a id="x35-39003f2" name=
+"x35-39003f2"></a>. Here, only the installation and usage of
+scripts will be discussed. <!--l. 15--></p>
+
+<p class="indent">T<sub>E</sub>Xworks distinguishes between two
+types of scripts: standalone scripts and hook scripts. The primary
+purpose of standalone scripts is to add new functionality to the
+program. If you need a new function, such as a command to make the
+selected text bold, a standalone script is the one to choose. These
+scripts get an item in the <em class="c1">Scripts</em> menu, and
+you can run them simply by clicking on that menu item (or by using
+a keyboard shortcut, if the script provides one). <!--l. 17--></p>
+
+<p class="indent">Hook scripts, on the other hand, are meant to
+extend existing T<sub>E</sub>Xworks functions. They are hooked into
+the code at specific places, e.g., after the typeset process has
+finished or after a file was loaded, and can add or modify whatever
+T<sub>E</sub>Xworks is doing. One example for this would be a
+script that analyses a newly loaded file and sets the
+spell-checking language based on <span class=
+"obeylines-h verb ec-lmtt-12">babel</span> commands found in the
+document. Thus, hook scripts do not show up in the <em class=
+"c1">Scripts</em> menu but are instead run automatically when the
+T<sub>E</sub>Xworks function they modify is used. <!--l. 19--></p>
+
+<p class="indent">You can easily determine which type of script you
+have by opening the script file. Near the top of the file, you
+should find a line similar to</p>
+
+<div class="fancyvrb" id="fancyvrb17">
+<a id="x35-39005r1" name="x35-39005r1"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;//</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;Type:</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;standalone</span>
+</div><!--l. 23-->
+
+<p class="noindent">Alternatively—once the script is installed—,
+you can use the dialogue available from <em class=
+"c1">Scripts</em><span class="lmsy-10x-x-120">→</span><em class=
+"c1">Scripting T<sub>E</sub>Xworks</em><span class=
+"lmsy-10x-x-120">→</span><em class="c1">Manage Scripts</em> to
+display this information.</p>
+
+<h3 class="sectionHead"><span class="titlemark">6.2</span> <a id=
+"x35-400006.2" name="x35-400006.2"></a>Installing
+Scripts</h3><a id="dx35-40001" name="dx35-40001"></a> <!--l. 28-->
+
+<p class="noindent">A word of caution first: do not install scripts
+from a source you do not trust! Before installing scripts, you
+should make sure that the file you are about to install indeed does
+what you expect. Scripts are very powerful—they can do almost
+everything a normal program can do. So while there are some
+security precautions built into T<sub>E</sub>Xworks, you should
+still be aware that scripts could potentially harm your computer
+and cause (among other things) crashes and data loss. In
+particular, scripts can read, create, and modify arbitrary files on
+your hard drive. <!--l. 30--></p>
+
+<p class="indent">That said, installing scripts is very simple.
+Script files are generally installed in <span class=
+"path">&lt;resources&gt;/scripts</span> or subdirectories of it.
+These subdirectories are shown as submenus of the <em class=
+"c1">Scripts</em> menu, so they can be used to group and categorize
+scripts. This is especially useful if you use many different
+scripts that would otherwise make the <em class="c1">Scripts</em>
+menu very confusing. One easy way to open the <span class=
+"path">scripts</span> folder is the <em class=
+"c1">Scripts</em><span class="lmsy-10x-x-120">→</span><em class=
+"c1">Scripting T<sub>E</sub>Xworks</em><span class=
+"lmsy-10x-x-120">→</span><em class="c1">Show Scripts Folder</em>
+menu item. <!--l. 32--></p>
+
+<p class="indent">Since scripts are usually simple plain-text
+files, they do not come with fancy installers. To install them,
+simply copy or decompress (if archived, e.g., in a .zip file) the
+script file—and any other required files that you may have
+received—into <span class="path">&lt;resources&gt;/scripts</span>
+or a subdirectory of it. <!--l. 34--></p>
+
+<p class="indent">After having installed a new script file,
+T<sub>E</sub>Xworks needs to become aware of it. It automatically
+scans for all scripts during start-up, so you could close all
+T<sub>E</sub>Xworks windows and restart the application. An
+alternative is provided by the <em class=
+"c1">Scripts</em><span class="lmsy-10x-x-120">→</span><em class=
+"c1">Scripting T<sub>E</sub>Xworks</em> <span class=
+"lmsy-10x-x-120">→</span><em class="c1">Reload Script List</em>
+menu item which rescans all scripts without otherwise interfering
+with the program. <!--l. 36--></p>
+
+<p class="indent">You can also disable scripts (or whole
+directories of scripts) if you want to. This can be useful if you
+do not need some scripts for some time and do not want them to
+clutter the <em class="c1">Scripts</em> menu, but do not want to
+uninstall them entirely. Or if you want to prevent hook scripts
+from being run automatically. To do this, open the “Manage Scripts”
+dialogue with the <em class="c1">Scripts</em><span class=
+"lmsy-10x-x-120">→</span><em class="c1">Scripting
+T<sub>E</sub>Xworks</em><span class=
+"lmsy-10x-x-120">→</span><em class="c1">Manage Scripts</em><a id=
+"dx35-40002" name="dx35-40002"></a> menu item. Simply uncheck the
+script you want to disable and it won’t bother you again. 
+<!--l. 38--></p>
+
+<p class="noindent"></p>
+
+<h3 class="sectionHead"><span class="titlemark">6.3</span> <a id=
+"x35-410006.3" name="x35-410006.3"></a>Using Scripts</h3><a id=
+"dx35-41001" name="dx35-41001"></a> <!--l. 40-->
+
+<p class="noindent">Using scripts is simple. Hook scripts are used
+automatically—you don’t need to do anything. Standalone scripts
+show up in the <em class="c1">Scripts</em> menu or one of its
+submenus. If you cannot find a script you are looking for, or if
+you find a script you do not know the purpose of, you can use the
+“Manage Scripts” dialogue to get additional information (like the
+author, a brief description, etc.) about it. <!--l. 42--></p>
+
+<p class="indent">Some scripts need to run other programs on your
+system. One example would be a script that opens the pdf in the
+system’s default previewer, e.g., for printing. Since running
+arbitrary commands can in some situations be particularly
+dangerous, this functionality is disabled by default. You will
+notice this when a dialogue pops up informing you of an error in
+the script, or a similar message is displayed in the status bar. To
+enable scripts to execute system commands, open the preferences
+dialogue via <em class="c1">Edit</em> <span class=
+"lmsy-10x-x-120">→</span><em class="c1">Preferences…</em>. There,
+go to the “Scripts” tab and check the “Allow scripts to run system
+commands” option. If you want to disable this function again later
+just uncheck the option. Note that this option applies equally to
+all scripts—there is currently no way to allow command execution
+only for some scripts. <!--l. 5--></p>
+
+<div class="crosslinks">
+<p class="noindent">[<a href="Beyondthismanual.html">next</a>]
+[<a href="GoingfurtherOthertools.html">prev</a>] [<a href=
+"GoingfurtherOthertools.html#tailGoingfurtherOthertools.html">prev-tail</a>]
+[<a href="AdvanceduseScripting.html">front</a>] [<a href=
+"index.html#AdvanceduseScripting.html">up</a>]</p>
+</div><!--l. 5-->
+
+<p class="indent"><a id="tailAdvanceduseScripting.html" name=
+"tailAdvanceduseScripting.html"></a></p>
+</div>
+</body>
+</html>
