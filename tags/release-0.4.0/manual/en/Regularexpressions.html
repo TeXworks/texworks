@@ -1,0 +1,759 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+
+<title>B Regular expressions</title>
+<meta http-equiv="Content-Type" content=
+"text/html; charset=utf-8" />
+<meta name="generator" content=
+"TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content=
+"TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- info,2,imgdir:images/,sec-filename,next,index=2,url-enc,html -->
+<meta name="src" content="index.tex" />
+<meta name="date" content="2011-03-20 12:48:00" />
+<link rel="stylesheet" type="text/css" href="index.css" />
+<style type="text/css" xml:space="preserve">
+/*<![CDATA[*/
+ tr.c14 {vertical-align:baseline;}
+ td.c13 {white-space:wrap; text-align:left;}
+ td.c12 {white-space:nowrap; text-align:left;}
+ div.c11 {white-space:nowrap; text-align:left;}
+/*]]>*/
+</style>
+</head>
+
+<body>
+<!--l. 5-->
+
+<p class="noindent"></p>
+
+<div id="container">
+<!--l. 5-->
+
+<div class="crosslinks">
+<p class="noindent">[<a href="CompilingTw.html">next</a>] [<a href=
+"CustomizingTw.html">prev</a>] [<a href=
+"CustomizingTw.html#tailCustomizingTw.html">prev-tail</a>]
+[<a href="#tailRegularexpressions.html">tail</a>] [<a href=
+"index.html#Regularexpressions.html">up</a>]</p>
+</div><!--l. 5-->
+
+<p class="indent"></p>
+
+<div class="chapternumber">
+B
+</div>
+
+<h1><a id="x43-51000B" name="x43-51000B"></a>Regular
+expressions</h1><!--l. 8-->
+
+<p class="indent">As T<sub>E</sub>Xworks is built on Qt4, the
+available regular expressions<a id="dx43-51001" name=
+"dx43-51001"></a>—which are often referred to as <b>regexp</b>—are
+a subset of those found in Qt4. See the site of Qt4<span class=
+"footnote-mark"><a href="index44.html#fn1x10"><sup class=
+"textsuperscript">1</sup></a></span><a id="x43-51002f1" name=
+"x43-51002f1"></a> for more information. It is possible to find
+other information about regexps on the net<span class=
+"footnote-mark"><a href="index45.html#fn2x10"><sup class=
+"textsuperscript">2</sup></a></span><a id="x43-51003f2" name=
+"x43-51003f2"></a> or from books. But pay attention that not all
+systems (programming languages, editors, …) use the same set of
+instructions; there is no “standard set”, unfortunately.</p>
+
+<h3 class="sectionHead"><span class="titlemark">B.1</span> <a id=
+"x43-52000B.1" name="x43-52000B.1"></a>Introduction</h3><a id=
+"dx43-52001" name="dx43-52001"></a> <!--l. 12-->
+
+<p class="noindent">When searching and replacing, one has to define
+the text to be found. This can be the text itself (e.g.,
+“Abracadabra”), but often it is necessary to define the strings in
+a more generic and powerful way to avoid repeating the same
+operation many times with only small changes from one time to the
+next; if, for example, one wants to replace sequences of the letter
+<b>a</b> by ones of the letter <b>o</b>, but only those sequences
+of 3, 4, 5, 6 or 7 <b>a</b>; this would require repeating (and
+slightly adjusting) the find and replace procedure 5 times. Another
+example: replace all vowels by <b>§</b>—again, this would take 5
+replace operations. Here come the regular expressions! 
+<!--l. 14--></p>
+
+<p class="indent">A simple character (a or 9) represents itself.
+But a set of characters can be defined: <b>[aeiou]</b> will match
+any vowel, <b>[abcdef]</b> the letters <b>a</b>, <b>b</b>,
+<b>c</b>, <b>d</b>, <b>e</b>, and <b>f</b>; this last set can be
+shortened as <b>[a-f]</b> using “<b>-</b>” between the two ends of
+the range. This can even be combined: <b>[a-zA-Z0-9]</b> will match
+all letters and all numbers. <!--l. 16--></p>
+
+<p class="indent">To define a complementary set<span class=
+"footnote-mark"><a href="index46.html#fn3x10"><sup class=
+"textsuperscript">3</sup></a></span><a id="x43-52002f3" name=
+"x43-52002f3"></a>, one uses “<b>^</b>”: the caret negates the
+character set if it occurs at the beginning, i.e., immediately
+after the opening square bracket. <b>[^abc]</b> matches anything
+except <b>a</b>, <b>b</b>, <b>c</b>.</p>
+
+<h3 class="sectionHead"><span class="titlemark">B.2</span> <a id=
+"x43-53000B.2" name="x43-53000B.2"></a>Codes to represent special
+sets</h3><a id="dx43-53001" name="dx43-53001"></a> <!--l. 20-->
+
+<p class="noindent">When using regexps, one very often has to
+create a search expession which represents other strings in a
+generic way. If you are looking for a string which matches email
+addresses, for example, the letters and symbols will vary; still,
+you could search for any string which corresponds to the structure
+of an email address
+(<tt>&lt;text&gt;@&lt;text&gt;.&lt;text&gt;</tt>, roughly). To
+facilitate this, there are abbreviations to represent letters,
+figures, symbols, … <!--l. 22--></p>
+
+<p class="indent">These codes replace and facilitate the definition
+of sets; for example, to instead of manually defining the set of
+digits <b>[0-9]</b>, one can use “<b>\d</b>”. The following table
+lists the replacement codes. <span class="footnote-mark"><a href=
+"index47.html#fn4x10"><sup class=
+"textsuperscript">4</sup></a></span><a id="x43-53002f4" name=
+"x43-53002f4"></a> <!--l. 25--></p>
+
+<p class="noindent"><!--tex4ht:inline--></p>
+
+<div class="tabular">
+<table id="TBL-9" class="tabular" cellspacing="0" cellpadding="0">
+<colgroup id="TBL-9-1g">
+<col id="TBL-9-1" />
+<col id="TBL-9-2" />
+</colgroup>
+
+<tr class="c14" id="TBL-9-1-">
+<td id="TBL-9-1-1" class="td11 c12">
+<div class="multicolumn c11">
+Element
+</div>
+</td>
+
+<td id="TBL-9-1-2" class="td11 c13">
+<!--l. 27-->
+
+<p class="noindent">Meaning</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-2-">
+<td id="TBL-9-2-1" class="td11 c13">
+<!--l. 29-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">c</span></p>
+</td>
+
+<td id="TBL-9-2-2" class="td11 c13">
+<!--l. 29-->
+
+<p class="noindent">Any character represents itself unless it has a
+special regexp meaning. Thus c matches the character c.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-3-">
+<td id="TBL-9-3-1" class="td11 c13">
+<!--l. 30-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\c</span></p>
+</td>
+
+<td id="TBL-9-3-2" class="td11 c13">
+<!--l. 30-->
+
+<p class="noindent">A special character that follows a backslash
+matches the character itself except where mentioned below. For
+example, if you wished to match a literal caret at the beginning of
+a string you would write “<span class=
+"obeylines-h verb ec-lmtt-12">\^</span>”.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-4-">
+<td id="TBL-9-4-1" class="td11 c13">
+<!--l. 31-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\n</span></p>
+</td>
+
+<td id="TBL-9-4-2" class="td11 c13">
+<!--l. 31-->
+
+<p class="noindent">This matches the ASCII line feed character (LF,
+Unix newline, used in T<sub>E</sub>Xworks).</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-5-">
+<td id="TBL-9-5-1" class="td11 c13">
+<!--l. 32-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\r</span></p>
+</td>
+
+<td id="TBL-9-5-2" class="td11 c13">
+<!--l. 32-->
+
+<p class="noindent">This matches the ASCII carriage return
+character (CR).</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-6-">
+<td id="TBL-9-6-1" class="td11 c13">
+<!--l. 33-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\t</span></p>
+</td>
+
+<td id="TBL-9-6-2" class="td11 c13">
+<!--l. 33-->
+
+<p class="noindent">This matches the ASCII horizontal tab character
+(HT).</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-7-">
+<td id="TBL-9-7-1" class="td11 c13">
+<!--l. 34-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\v</span></p>
+</td>
+
+<td id="TBL-9-7-2" class="td11 c13">
+<!--l. 34-->
+
+<p class="noindent">This matches the ASCII vertical tab character
+(VT; almost never used).</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-8-">
+<td id="TBL-9-8-1" class="td11 c13">
+<!--l. 35-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\xhhhh</span></p>
+</td>
+
+<td id="TBL-9-8-2" class="td11 c13">
+<!--l. 35-->
+
+<p class="noindent">This matches the Unicode character
+corresponding to the hexadecimal number hhhh (between 0x0000 and
+0xFFFF). <span class="obeylines-h verb ec-lmtt-12">\0ooo</span>
+(i.e., zero-ooo) matches the ASCII/Latin-1 character corresponding
+to the octal number ooo (between 0 and 0377).</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-9-">
+<td id="TBL-9-9-1" class="td11 c13">
+<!--l. 36-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">.</span> <span class=
+"ec-lmbx-12">(dot)</span></p>
+</td>
+
+<td id="TBL-9-9-2" class="td11 c13">
+<!--l. 36-->
+
+<p class="noindent">This matches any character (including newline).
+So if you want to match the dot character iteself, you have to
+escape it with “<span class=
+"obeylines-h verb ec-lmtt-12">\.</span>”.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-10-">
+<td id="TBL-9-10-1" class="td11 c13">
+<!--l. 37-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\d</span></p>
+</td>
+
+<td id="TBL-9-10-2" class="td11 c13">
+<!--l. 37-->
+
+<p class="noindent">This matches a digit.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-11-">
+<td id="TBL-9-11-1" class="td11 c13">
+<!--l. 38-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\D</span></p>
+</td>
+
+<td id="TBL-9-11-2" class="td11 c13">
+<!--l. 38-->
+
+<p class="noindent">This matches a non-digit.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-12-">
+<td id="TBL-9-12-1" class="td11 c13">
+<!--l. 39-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\s</span></p>
+</td>
+
+<td id="TBL-9-12-2" class="td11 c13">
+<!--l. 39-->
+
+<p class="noindent">This matches a white space.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-13-">
+<td id="TBL-9-13-1" class="td11 c13">
+<!--l. 40-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\S</span></p>
+</td>
+
+<td id="TBL-9-13-2" class="td11 c13">
+<!--l. 40-->
+
+<p class="noindent">This matches a non-white space.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-14-">
+<td id="TBL-9-14-1" class="td11 c13">
+<!--l. 41-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\w</span></p>
+</td>
+
+<td id="TBL-9-14-2" class="td11 c13">
+<!--l. 41-->
+
+<p class="noindent">This matches a word character or “<span class=
+"obeylines-h verb ec-lmtt-12">_</span>”).</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-15-">
+<td id="TBL-9-15-1" class="td11 c13">
+<!--l. 42-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\W</span></p>
+</td>
+
+<td id="TBL-9-15-2" class="td11 c13">
+<!--l. 42-->
+
+<p class="noindent">This matches a non-word character.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-16-">
+<td id="TBL-9-16-1" class="td11 c13">
+<!--l. 43-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\1</span><span class=
+"ec-lmbx-12">,</span> <span class="ec-lmbx-12">…</span></p>
+</td>
+
+<td id="TBL-9-16-2" class="td11 c13">
+<!--l. 43-->
+
+<p class="noindent">The n-th back-reference, e.g. <span class=
+"obeylines-h verb ec-lmtt-12">\1</span>, <span class=
+"obeylines-h verb ec-lmtt-12">\2</span>, etc.; used in the
+replacement string with capturing patterns—see below</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-9-17-">
+<td id="TBL-9-17-1" class="td11 c13"></td>
+</tr>
+</table>
+</div><!--l. 48-->
+
+<p class="indent">Using these abbreviations is better than
+describing the set, because the abbreviations remain valid in
+different alphabets. <!--l. 50--></p>
+
+<p class="indent">Pay attention that the end of line is often taken
+as a white space. Under T<sub>E</sub>Xworks the end of line is
+referred to by “<span class=
+"obeylines-h verb ec-lmtt-12">\n</span>”.</p>
+
+<h3 class="sectionHead"><span class="titlemark">B.3</span> <a id=
+"x43-54000B.3" name="x43-54000B.3"></a>Repetition</h3><a id=
+"dx43-54001" name="dx43-54001"></a> <!--l. 55-->
+
+<p class="noindent">One doesn’t work only on single letters,
+digits, symbols; most of the time, these are repeated (e.g., a
+number is a repetition of digits and symbols—in the right order). 
+<!--l. 58--></p>
+
+<p class="indent">To show the number of repetitions, one uses a so
+called “quantifier”: <b>a{1,1}</b> means at least one and only one
+<b>a</b>, <b>a{3,7}</b> means between at least 3 and at most 7
+<b>a</b>; <b>{1,1}</b> is redundant, of course, so <b>a{1,1}</b> =
+<b>a</b>. <!--l. 60--></p>
+
+<p class="indent">This can be combined with the set notation:
+<b>[0-9]{1,2}</b> will correspond to at least one digit and at most
+two, the integer numbers between 0 and 99. But this will match any
+group of 1 or 2 digits within any arbitrary string (which may have
+a lot of text before and after the integer); if we want this to
+match only if the whole string constists <em>entirely</em> of 1 or
+2 digits (without any other characters preceding or following
+them), we can write the regular expression as <b>^[0-9]{1,2}$</b>;
+here, <b>^</b> says that any match must start at the first
+character of the string, while the <b>$</b> says that any match
+must end at the last character of the string, so the string can
+only be comprised of one or two digits (<b>^</b> and <b>$</b> are
+so-called “assertions”—more on them later). <!--l. 62--></p>
+
+<p class="indent">Here is a table of quantifiers.<span class=
+"footnote-mark"><a href="index48.html#fn5x10"><sup class=
+"textsuperscript">5</sup></a></span><a id="x43-54002f5" name=
+"x43-54002f5"></a> E represents an arbitrary expression (letter,
+abbreviation, set). <!--l. 65--></p>
+
+<p class="noindent"><!--tex4ht:inline--></p>
+
+<div class="tabular">
+<table id="TBL-10" class="tabular" cellspacing="0" cellpadding="0">
+<colgroup id="TBL-10-1g">
+<col id="TBL-10-1" />
+<col id="TBL-10-2" />
+</colgroup>
+
+<tr class="c14" id="TBL-10-1-">
+<td id="TBL-10-1-1" class="td11 c13">
+<!--l. 67-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">E{n,m}</span></p>
+</td>
+
+<td id="TBL-10-1-2" class="td11 c13">
+<!--l. 67-->
+
+<p class="noindent">Matches at least <b>n</b> occurrences of the
+expression and at most <b>m</b> occurrences of the expression.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-10-2-">
+<td id="TBL-10-2-1" class="td11 c13">
+<!--l. 68-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">E{n}</span></p>
+</td>
+
+<td id="TBL-10-2-2" class="td11 c13">
+<!--l. 68-->
+
+<p class="noindent">Matches exactly <b>n</b> occurrences of the
+expression. This is the same <b>E{n,n}</b> or as repeating the
+expression n times.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-10-3-">
+<td id="TBL-10-3-1" class="td11 c13">
+<!--l. 69-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">E{n,}</span></p>
+</td>
+
+<td id="TBL-10-3-2" class="td11 c13">
+<!--l. 69-->
+
+<p class="noindent">Matches at least <b>n</b> occurrences of the
+expression.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-10-4-">
+<td id="TBL-10-4-1" class="td11 c13">
+<!--l. 70-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">E{,m}</span></p>
+</td>
+
+<td id="TBL-10-4-2" class="td11 c13">
+<!--l. 70-->
+
+<p class="noindent">Matches at most <b>m</b> occurrences of the
+expression.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-10-5-">
+<td id="TBL-10-5-1" class="td11 c13">
+<!--l. 71-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">E?</span></p>
+</td>
+
+<td id="TBL-10-5-2" class="td11 c13">
+<!--l. 71-->
+
+<p class="noindent">Matches zero or one occurrence of E. This
+quantifier effectively means <em>the expression is optional</em>
+(it may be present, but doesn’t have to). It is the same as
+<b>E{0,1}</b>.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-10-6-">
+<td id="TBL-10-6-1" class="td11 c13">
+<!--l. 72-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">E+</span></p>
+</td>
+
+<td id="TBL-10-6-2" class="td11 c13">
+<!--l. 72-->
+
+<p class="noindent">Matches one or more occurrences of E. This is
+the same as <b>E{1,}</b>.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-10-7-">
+<td id="TBL-10-7-1" class="td11 c13">
+<!--l. 73-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">E*</span></p>
+</td>
+
+<td id="TBL-10-7-2" class="td11 c13">
+<!--l. 73-->
+
+<p class="noindent">Matches zero or more occurrences of E. This is
+the same as <b>E{0,}</b>. Beware, the <b>*</b> quantifier is often
+used by mistake instead of the <b>+</b> quantifier. Since it
+matches zero or more occurrences, it will match even if the
+expression is not present in the string.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-10-8-">
+<td id="TBL-10-8-1" class="td11 c13"></td>
+</tr>
+</table>
+</div>
+
+<h3 class="sectionHead"><span class="titlemark">B.4</span> <a id=
+"x43-55000B.4" name="x43-55000B.4"></a>Alternatives and
+assertions</h3><a id="dx43-55001" name="dx43-55001"></a> 
+<!--l. 81-->
+
+<p class="noindent">When searching, it is often necessary to search
+for alternatives, e.g., apple, pear, or cherry, but not pineapple.
+To separate the alternatives, one uses <b>|</b>: apple|pear|cherry.
+But this will not prevent to find pineapple, so we have to specify
+that apple should be standalone, a whole word (as is often called
+in the search dialog boxes). <!--l. 83--></p>
+
+<p class="indent">To specify that a string should be considered
+standalone, we specify that it is surrounded by word
+separators/boundaries (begin/end of sentence, space), like
+<b>\bapple\b</b>. For our alternatives example we will <b>group</b>
+them by parentheses and add the boundaries
+<b>\b(apple|pear|cherry)\b</b>. Apart from <b>\b</b> we have
+already seen <b>^</b> and <b>$</b> which mark the boundaries of the
+whole string. <!--l. 85--></p>
+
+<p class="indent">Here a table of the “assertions” which do not
+correspond to actual characters and will never be part of the
+result of a search. <span class="footnote-mark"><a href=
+"index49.html#fn6x10"><sup class=
+"textsuperscript">6</sup></a></span><a id="x43-55002f6" name=
+"x43-55002f6"></a> <!--l. 88--></p>
+
+<p class="noindent"><!--tex4ht:inline--></p>
+
+<div class="tabular">
+<table id="TBL-11" class="tabular" cellspacing="0" cellpadding="0">
+<colgroup id="TBL-11-1g">
+<col id="TBL-11-1" />
+<col id="TBL-11-2" />
+</colgroup>
+
+<tr class="c14" id="TBL-11-1-">
+<td id="TBL-11-1-1" class="td11 c13">
+<!--l. 90-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">^</span></p>
+</td>
+
+<td id="TBL-11-1-2" class="td11 c13">
+<!--l. 90-->
+
+<p class="noindent">The caret signifies the beginning of the
+string. If you wish to match a literal <b>^</b>, you must escape it
+by writing <span class="obeylines-h verb ec-lmtt-12">\^</span></p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-11-2-">
+<td id="TBL-11-2-1" class="td11 c13">
+<!--l. 91-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">$</span></p>
+</td>
+
+<td id="TBL-11-2-2" class="td11 c13">
+<!--l. 91-->
+
+<p class="noindent">The dollar signifies the end of the string. If
+you wish to match a literal <b>$</b>, you must escape it by writing
+<span class="obeylines-h verb ec-lmtt-12">\$</span></p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-11-3-">
+<td id="TBL-11-3-1" class="td11 c13">
+<!--l. 92-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\b</span></p>
+</td>
+
+<td id="TBL-11-3-2" class="td11 c13">
+<!--l. 92-->
+
+<p class="noindent">A word boundary.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-11-4-">
+<td id="TBL-11-4-1" class="td11 c13">
+<!--l. 93-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">\B</span></p>
+</td>
+
+<td id="TBL-11-4-2" class="td11 c13">
+<!--l. 93-->
+
+<p class="noindent">A non-word boundary. This assertion is true
+wherever <span class="obeylines-h verb ec-lmtt-12">\b</span> is
+false.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-11-5-">
+<td id="TBL-11-5-1" class="td11 c13">
+<!--l. 94-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">(?=E)</span></p>
+</td>
+
+<td id="TBL-11-5-2" class="td11 c13">
+<!--l. 94-->
+
+<p class="noindent">Positive lookahead. This assertion is true if
+the expression <b>E</b> matches at this point.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-11-6-">
+<td id="TBL-11-6-1" class="td11 c13">
+<!--l. 95-->
+
+<p class="noindent"><span class=
+"obeylines-h verb ec-lmtt-12">(?!E)</span></p>
+</td>
+
+<td id="TBL-11-6-2" class="td11 c13">
+<!--l. 95-->
+
+<p class="noindent">Negative lookahead. This assertion is true if
+the expression <b>E</b> does not match at this point.</p>
+</td>
+</tr>
+
+<tr class="c14" id="TBL-11-7-">
+<td id="TBL-11-7-1" class="td11 c13"></td>
+</tr>
+</table>
+</div><!--l. 100-->
+
+<p class="indent">Notice the different meanings of <b>^</b> as
+assertion and as negation inside a character set!</p>
+
+<h3 class="sectionHead"><span class="titlemark">B.5</span> <a id=
+"x43-56000B.5" name="x43-56000B.5"></a>Final notes</h3>
+<!--l. 104-->
+
+<p class="noindent">Using rexexp is very powerful, but also quite
+dangerous; you could change your text at unseen places and
+sometimes reverting to the previous situation is not possible
+entirely. If you immediately see the error, you can try
+<span class="keystroke">Ctrl</span><span class=
+"keystroke">Z</span>. <!--l. 106--></p>
+
+<p class="indent">Showing how to exploit the full power of regexp
+would require much more than this extremely short summary; in fact
+it would require a full manual on it own. <!--l. 108--></p>
+
+<p class="indent">Also note that there are some limits in the
+implementation of regexps in T<sub>E</sub>Xworks; in particular,
+the assertions (^ and $) only consider the whole file, and there
+are no look-behind assertions. <!--l. 110--></p>
+
+<p class="indent">Finally, do not forget to “tick” the regexp
+option when using them in the <em>Find</em> and <em>Replace</em>
+dialogs and to un-tick the option when not using regexps. 
+<!--l. 5--></p>
+
+<div class="crosslinks">
+<p class="noindent">[<a href="CompilingTw.html">next</a>] [<a href=
+"CustomizingTw.html">prev</a>] [<a href=
+"CustomizingTw.html#tailCustomizingTw.html">prev-tail</a>]
+[<a href="Regularexpressions.html">front</a>] [<a href=
+"index.html#Regularexpressions.html">up</a>]</p>
+</div><!--l. 5-->
+
+<p class="indent"><a id="tailRegularexpressions.html" name=
+"tailRegularexpressions.html"></a></p>
+</div>
+</body>
+</html>

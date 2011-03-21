@@ -1,0 +1,733 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+
+<title>3 First steps</title>
+<meta http-equiv="Content-Type" content=
+"text/html; charset=utf-8" />
+<meta name="generator" content=
+"TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<meta name="originator" content=
+"TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" />
+<!-- info,2,imgdir:images/,sec-filename,next,index=2,url-enc,html -->
+<meta name="src" content="index.tex" />
+<meta name="date" content="2011-03-20 12:48:00" />
+<link rel="stylesheet" type="text/css" href="index.css" />
+<style type="text/css" xml:space="preserve">
+/*<![CDATA[*/
+ em.c8 {font-weight: bold}
+/*]]>*/
+</style>
+</head>
+
+<body>
+<!--l. 5-->
+
+<p class="noindent"></p>
+
+<div id="container">
+<!--l. 5-->
+
+<div class="crosslinks">
+<p class="noindent">[<a href=
+"GoingfurtherEditingtools.html">next</a>] [<a href=
+"Installation.html">prev</a>] [<a href=
+"Installation.html#tailInstallation.html">prev-tail</a>] [<a href=
+"#tailFirststeps.html">tail</a>] [<a href=
+"index.html#Firststeps.html">up</a>]</p>
+</div><!--l. 5-->
+
+<p class="indent"></p>
+
+<div class="chapternumber">
+3
+</div>
+
+<h1><a id="x11-90003" name="x11-90003"></a>First steps</h1>
+<!--l. 8-->
+
+<p class="indent">Let’s now see how to create a first document: for
+this you’ll need to type some text in the editor window of
+T<sub>E</sub>Xworks. (L<sup>A</sup>)T<sub>E</sub>X is <em>not</em>
+a WYSIWYG<a id="dx11-9001" name="dx11-9001"></a><span class=
+"footnote-mark"><a href="index12.html#fn1x4"><sup class=
+"textsuperscript">1</sup></a></span><a id="x11-9002f1" name=
+"x11-9002f1"></a> software, so you’ll have to type the text and the
+instructions for formatting it and you’ll see the result only after
+“typesetting” the text. This looks a little bit dry, but one very
+quickly gets used to it and it is well worth the effort.</p>
+
+<h3 class="sectionHead"><span class="titlemark">3.1</span> <a id=
+"x11-100003.1" name="x11-100003.1"></a>Interface summary</h3><a id=
+"dx11-10001" name="dx11-10001"></a> <!--l. 15-->
+
+<p class="noindent">When one opens the editor, it shows a very
+sparse interface: a title bar, a menu bar, two small toolbars<a id=
+"dx11-10002" name="dx11-10002"></a>, a large typing zone (white)
+and, at the bottom, a status bar. We are in the
+<em>source/editor<a id="dx11-10003" name="dx11-10003"></a></em>
+window. If you have already typeset the document previously, the
+resulting <span class="path">.pdf</span> will be shown on the right
+hand side in the <em>preview</em><a id="dx11-10004" name=
+"dx11-10004"></a> window.</p>
+
+<div class="wrapfig-l"><img src="images/toolbar1.png" alt=
+"pict" /></div><!--l. 24-->
+
+<p class="noindent">The first toolbar has a button to typeset and
+an drop-down menu to choose the format for typesetting (we’ll
+choose <span class="obeylines-h verb ec-lmtt-12">pdfLaTeX</span>).
+Knowing that the keyboard shortcut for typesetting is <span class=
+"keystroke">Ctrl</span><span class="keystroke">T</span> (Mac OS X:
+<span class="keystroke"><img src="images/MacCmdKey.png" alt=
+"pict" /></span><span class="keystroke">T</span>) and that we
+almost never change the format, we could even hide this toolbar.
+The selection of a format for compiling can also be changed through
+the <em class="c8">Typeset</em><a id="dx11-10005" name=
+"dx11-10005"></a> menu.</p>
+
+<div class="wrapfig-l"><img src="images/toolbar2.png" alt=
+"pict" /></div><!--l. 34-->
+
+<p class="noindent">The second toolbar provides the standard
+functions: New document, Open, Save | Undo, Redo | Cut, Copy, Paste
+| Search, Replace.</p>
+
+<div class="center">
+<!--l. 36-->
+
+<p class="noindent"><!--l. 37--></p>
+
+<p class="noindent"><img src="images/interface-summary.png" alt=
+"pict" /></p>
+</div><!--l. 40-->
+
+<p class="noindent"></p>
+
+<h3 class="sectionHead"><span class="titlemark">3.2</span> <a id=
+"x11-110003.2" name="x11-110003.2"></a>Creating a document</h3>
+<!--l. 42-->
+
+<p class="noindent"></p>
+
+<h4 class="subsectionHead"><span class="titlemark">3.2.1</span>
+<a id="x11-120003.2.1" name="x11-120003.2.1"></a>Writing the
+document</h4><!--l. 44-->
+
+<p class="noindent">As an example of the use of
+T<sub>E</sub>Xworks, we will work with
+L<sup>A</sup>T<sub>E</sub>X<a id="dx11-12001" name=
+"dx11-12001"></a>, but any other T<sub>E</sub>X system is possible.
+In particular, if you need to use some special fonts<span class=
+"footnote-mark"><a href="index13.html#fn2x4"><sup class=
+"textsuperscript">2</sup></a></span><a id="x11-12002f2" name=
+"x11-12002f2"></a>—a mandatory font for an official template,
+non-Latin alphabets, etc.—the X<sub>E</sub>T<sub>E</sub>X system is
+very powerful.<span class="footnote-mark"><a href=
+"index14.html#fn3x4"><sup class=
+"textsuperscript">3</sup></a></span><a id="x11-12003f3" name=
+"x11-12003f3"></a> <!--l. 46--></p>
+
+<p class="indent">Let’s create now our first document<a id=
+"dx11-12004" name="dx11-12004"></a>. Enter the following text
+exactly as shown. To show some of the features of
+T<sub>E</sub>Xworks/L<sup>A</sup>T<sub>E</sub>X, it is in French
+intentionally. <!--l. 48--></p>
+
+<p class="indent"></p>
+
+<div class="example fancyvrb" id="fancyvrb2">
+<a id="x11-12006r1" name="x11-12006r1"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\documentclass{article}</span><br class=
+"fancyvrb" />
+<a id="x11-12008r2" name="x11-12008r2"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-12010r3" name="x11-12010r3"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\usepackage[utf8]{inputenc}</span><br class="fancyvrb" />
+
+<a id="x11-12012r4" name="x11-12012r4"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\usepackage[T1]{fontenc}</span><br class=
+"fancyvrb" />
+<a id="x11-12014r5" name="x11-12014r5"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\usepackage{geometry}</span><br class=
+"fancyvrb" />
+<a id="x11-12016r6" name="x11-12016r6"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\geometry{a4paper}</span><br class=
+"fancyvrb" />
+<a id="x11-12018r7" name="x11-12018r7"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-12020r8" name="x11-12020r8"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\usepackage[frenchb]{babel}</span><br class="fancyvrb" />
+
+<a id="x11-12022r9" name="x11-12022r9"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-12024r10" name="x11-12024r10"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\title{Premier</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;document}</span><br class="fancyvrb" />
+<a id="x11-12026r11" name="x11-12026r11"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\author{Un</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;TeXnicien}</span><br class="fancyvrb" />
+<a id="x11-12028r12" name="x11-12028r12"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\date{}</span><br class="fancyvrb" />
+<a id="x11-12030r13" name="x11-12030r13"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-12032r14" name="x11-12032r14"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\begin{document}</span><br class=
+"fancyvrb" />
+<a id="x11-12034r15" name="x11-12034r15"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\maketitle</span><br class="fancyvrb" />
+<a id="x11-12036r16" name="x11-12036r16"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-12038r17" name="x11-12038r17"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;Voici</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;un</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;texte</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;accentu</span><span class=
+"ec-lmtt-10x-x-109">é</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;en</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;fran</span><span class=
+"ec-lmtt-10x-x-109">çais!</span><br class="fancyvrb" />
+<a id="x11-12040r18" name="x11-12040r18"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-12042r19" name="x11-12042r19"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\end{document}</span>
+</div><!--l. 70-->
+
+<p class="indent">Save the file in a folder for test documents
+(e.g., <span class="path">&lt;home&gt;\TeXworks_tests</span>); call
+the file <span class="path">first.tex</span>. Note that it should
+have a <span class="path">.tex</span> extension<a id="dx11-12043"
+name="dx11-12043"></a>.</p>
+
+<h4 class="subsectionHead"><span class="titlemark">3.2.2</span>
+<a id="x11-130003.2.2" name="x11-130003.2.2"></a>Typesetting the
+document and viewing it</h4><!--l. 74-->
+
+<p class="noindent">Next we start typesetting<a id="dx11-13001"
+name="dx11-13001"></a><span class="footnote-mark"><a href=
+"index15.html#fn4x4"><sup class=
+"textsuperscript">4</sup></a></span><a id="x11-13002f4" name=
+"x11-13002f4"></a> by clicking the green button <img src=
+"images/iconTypeset.png" alt="pict" /> or by <span class=
+"keystroke">Ctrl</span><span class="keystroke">T</span><a id=
+"dx11-13003" name="dx11-13003"></a> (Mac OS X: <span class=
+"keystroke"><img src="images/MacCmdKey.png" alt=
+"pict" /></span><span class="keystroke">T</span>). <!--l. 77--></p>
+
+<p class="indent">A new panel opens between the typing area and the
+status bar: the <em>output panel<a id="dx11-13004" name=
+"dx11-13004"></a></em>, labeled <em>Log<a id="dx11-13005" name=
+"dx11-13005"></a></em>; everything L<sup>A</sup>T<sub>E</sub>X is
+doing is displayed there<span class="footnote-mark"><a href=
+"index16.html#fn5x4"><sup class=
+"textsuperscript">5</sup></a></span><a id="x11-13006f5" name=
+"x11-13006f5"></a>. When L<sup>A</sup>T<sub>E</sub>X finishes this
+panel disappears (if there no error occurred) and a new window will
+appear; in this new window, the <em>Preview window<a id=
+"dx11-13007" name="dx11-13007"></a></em><a id="dx11-13008" name=
+"dx11-13008"></a>, you can see a page with a title “Premier
+document” followed by the name of the author “Un TeXnicien”, both
+centred, the text “Voici un texte accentué en français !”, and a
+page number at the bottom centre. <!--l. 80--></p>
+
+<p class="indent">Notice that the mouse cursor is like a magnifier
+in the new window. If you press (and hold) the left button of the
+mouse you can see the text under the magnifier much bigger (it is a
+magnifier, isn’t it!); you can move the magnifier and so inspect
+the text in detail. <!--l. 82--></p>
+
+<p class="indent">To go back to the source, you can just click in
+its window or better use <span class=
+"keystroke">Ctrl</span><span class="keystroke">’</span><a id=
+"dx11-13009" name="dx11-13009"></a> (Mac OS X <span class=
+"keystroke"><img src="images/MacCmdKey.png" alt=
+"pict" /></span><span class="keystroke">’</span>). This shortcut
+toggles between the two windows. See also section <a href=
+"GoingfurtherOthertools.html#x31-310005.1">5.1
+<!--tex4ht:ref: sec.synctex --></a> to automatically move to a
+specific location in the output from the source or vice versa.</p>
+
+<h4 class="subsectionHead"><span class="titlemark">3.2.3</span>
+<a id="x11-140003.2.3" name="x11-140003.2.3"></a>The work of
+L<sup>A</sup>T<sub>E</sub>X</h4><!--l. 86-->
+
+<p class="noindent">Let’s shortly analyse the result to understand
+what L<sup>A</sup>T<sub>E</sub>X did and why, now. Introductions
+and full tutorials can be found on the internet: see for example
+<em>lshort</em><span class="footnote-mark"><a href=
+"index17.html#fn6x4"><sup class=
+"textsuperscript">6</sup></a></span><a id="x11-14001f6" name=
+"x11-14001f6"></a> which should be installed as part of your
+T<sub>E</sub>X distribution, and is also available from CTAN<a id=
+"dx11-14002" name="dx11-14002"></a>.<span class=
+"footnote-mark"><a href="index18.html#fn7x4"><sup class=
+"textsuperscript">7</sup></a></span><a id="x11-14003f7" name=
+"x11-14003f7"></a> <!--l. 88--></p>
+
+<p class="indent">First, we ask to create a document of the
+<em>article</em> class: this defines the global layout of the
+document. <!--l. 90--></p>
+
+<p class="indent">Next, we say that the input document (the source)
+is saved with the Unicode encoding <em>utf-8<a id="dx11-14004"
+name="dx11-14004"></a><a id="dx11-14005" name=
+"dx11-14005"></a></em> and that it may contain characters which are
+not present in the standard ASCII without accents. We also want to
+use an output encoding T1 (the modern T<sub>E</sub>X encoding); we
+also want an <em>A4</em> document and not the default <em>US
+letter</em> size. Finally, we make it clear that the typography
+should follow the French rules using the <b><span class=
+"sansserif">babel</span></b> package.<span class=
+"footnote-mark"><a href="index19.html#fn8x4"><sup class=
+"textsuperscript">8</sup></a></span><a id="x11-14006f8" name=
+"x11-14006f8"></a> Those general instructions for the work are done
+by packages<a id="dx11-14007" name="dx11-14007"></a> called with
+options. <!--l. 92--></p>
+
+<p class="indent">Lastly, we finish the declaration part of the
+document, the <em>preamble</em><a id="dx11-14008" name=
+"dx11-14008"></a>, giving the title, the author, and the date of
+the document; here we specify no date. <!--l. 94--></p>
+
+<p class="indent">Next comes the body of the document, which
+describes the actual content, between the lines <span class=
+"obeylines-h verb ec-lmtt-12">\begin{document}</span> and
+<span class="obeylines-h verb ec-lmtt-12">\end{document}</span>
+(these are L<sup>A</sup>T<sub>E</sub>X commands). <!--l. 96--></p>
+
+<p class="indent">Let’s do some experiments to show the effect of
+these instructions. For this, we put a % in front of the
+instructions; the % and everything after it will be considered as
+comment<a id="dx11-14009" name="dx11-14009"></a>, which will be
+ignored by L<sup>A</sup>T<sub>E</sub>X.<span class=
+"footnote-mark"><a href="index20.html#fn9x4"><sup class=
+"textsuperscript">9</sup></a></span><a id="x11-14010f9" name=
+"x11-14010f9"></a> <!--l. 98--></p>
+
+<p class="indent">Comment out the line <span class=
+"obeylines-h verb ec-lmtt-12">\usepackage[utf8]{inputenc}</span>,
+and typeset the file. You should see that the accented characters
+are now displayed incorrectly in the preview window. If, in
+addition, you also comment out the line <span class=
+"obeylines-h verb ec-lmtt-12">\usepackage[frenchb]{babel}</span>,
+L<sup>A</sup>T<sub>E</sub>X will give an error. Just hit
+<span class="keystroke"><img src="images/index2x.png" alt="←'"
+class="hookleftarrow" /></span>to continue the typesetting. 
+<!--l. 103--></p>
+
+<p class="indent">After these experiments, let’s modify the text as
+follows:</p>
+
+<div class="example fancyvrb" id="fancyvrb3">
+<a id="x11-14012r1" name="x11-14012r1"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\begin{document}</span><br class=
+"fancyvrb" />
+<a id="x11-14014r2" name="x11-14014r2"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\maketitle</span><br class="fancyvrb" />
+<a id="x11-14016r3" name="x11-14016r3"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\tableofcontents</span><br class=
+"fancyvrb" />
+<a id="x11-14018r4" name="x11-14018r4"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-14020r5" name="x11-14020r5"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\section{Petite</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;d</span><span class=
+"ec-lmtt-10x-x-109">émonstration}</span><br class="fancyvrb" />
+<a id="x11-14022r6" name="x11-14022r6"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-14024r7" name="x11-14024r7"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;Voici</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;un</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;texte</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;accentu</span><span class=
+"ec-lmtt-10x-x-109">é</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;en</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;fran</span><span class=
+"ec-lmtt-10x-x-109">çais!</span><br class="fancyvrb" />
+<a id="x11-14026r8" name="x11-14026r8"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;Suite</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;du</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;texte</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;entr</span><span class=
+"ec-lmtt-10x-x-109">é</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;apr</span><span class=
+"ec-lmtt-10x-x-109">ès</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;avoir</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;fait</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;un</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;retour</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;chariot.</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;Dans</span><br class="fancyvrb" />
+<a id="x11-14028r9" name="x11-14028r9"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;l</span><span class=
+"ts1-lmtt10-x-x-109">’</span><span class=
+"ec-lmtt-10x-x-109">éditeur</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;on</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;peut</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;demander</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;un</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;passage</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;automatique</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">à</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;la</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;ligne</span><br class="fancyvrb" />
+<a id="x11-14030r10" name="x11-14030r10"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;du</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;texte</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;saisi;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;mais</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;le</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;num</span><span class=
+"ec-lmtt-10x-x-109">éro</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;de</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;ligne</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;n</span><span class=
+"ts1-lmtt10-x-x-109">’</span><span class=
+"ec-lmtt-10x-x-109">est</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;incr</span><span class=
+"ec-lmtt-10x-x-109">ément</span><span class=
+"ec-lmtt-10x-x-109">é</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;que</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;par</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;un</span><br class="fancyvrb" />
+<a id="x11-14032r11" name="x11-14032r11"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;retour</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;chariot.</span><br class="fancyvrb" />
+<a id="x11-14034r12" name="x11-14034r12"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-14036r13" name="x11-14036r13"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;Nouvelle</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;ligne</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;en</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;passant</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;une</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;ligne</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;dans</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;la</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;source:</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;c</span><span class=
+"ts1-lmtt10-x-x-109">’</span><span class=
+"ec-lmtt-10x-x-109">est</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;la</span><br class="fancyvrb" />
+<a id="x11-14038r14" name="x11-14038r14"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;mani</span><span class=
+"ec-lmtt-10x-x-109">ère</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;d</span><span class=
+"ts1-lmtt10-x-x-109">’</span><span class=
+"ec-lmtt-10x-x-109">indiquer</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;un</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;changement</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;de</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;paragraphe.</span><br class="fancyvrb" />
+<a id="x11-14040r15" name="x11-14040r15"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><br class="fancyvrb" />
+<a id="x11-14042r16" name="x11-14042r16"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\end{document}</span>
+</div>Redo the previous experiments and observe the changes which
+appear. <!--l. 124-->
+
+<p class="indent">Note that entering only one carriage return
+doesn’t create a new paragraph. In L<sup>A</sup>T<sub>E</sub>X, one
+has to have an empty line for that. In T<sub>E</sub>Xworks, the
+line number of the source (on the right in the status bar) numbers
+the lines created with carriage return, not the wrapped lines.</p>
+
+<h3 class="sectionHead"><span class="titlemark">3.3</span> <a id=
+"x11-150003.3" name="x11-150003.3"></a>And when errors
+occur?</h3><a id="dx11-15001" name="dx11-15001"></a> <!--l. 128-->
+
+<p class="noindent">When you create a document for typesetting with
+L<sup>A</sup>T<sub>E</sub>X, you cannot avoid making mistakes:
+forgetting a closing brace or an <span class=
+"obeylines-h verb ec-lmtt-12">\end{}</span> command to close an
+environment, using mathematical commands without switching to
+mathematical mode, etc. When you compile and there is an error,
+L<sup>A</sup>T<sub>E</sub>X stops, giving you a chance to deal with
+the problem. This is shown by the stopping of the scrolling action
+in the output panel, and an error message being displayed, with
+L<sup>A</sup>T<sub>E</sub>X waiting for an instruction to know what
+it should do. One sees the <em>typing cursor<a id="dx11-15002"
+name="dx11-15002"></a></em> in the line between the output panel
+and the status bar: the <em>console bar<a id="dx11-15003" name=
+"dx11-15003"></a></em>.</p>
+
+<div class="center">
+<!--l. 130-->
+
+<p class="noindent"><!--l. 131--></p>
+
+<p class="noindent"><img src="images/consoleOutput.png" alt=
+"pict" /></p>
+</div><!--l. 134-->
+
+<p class="indent">The error message is on many lines, for example
+like this: <!--l. 137--></p>
+
+<p class="indent"></p>
+
+<div class="fancyvrb" id="fancyvrb4">
+<a id="x11-15005r1" name="x11-15005r1"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;!</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;Undefined</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;control</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;sequence.</span><br class="fancyvrb" />
+<a id="x11-15007r2" name="x11-15007r2"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;l.168</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;...</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;fermante</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;ou</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;d</span><span class=
+"ts1-lmtt10-x-x-109">’</span><span class=
+"ec-lmtt-10x-x-109">une</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;commande</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;\veb</span><br class="fancyvrb" />
+<a id="x11-15009r3" name="x11-15009r3"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;+\end{}+</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;de</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;fermeture</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;d</span><span class=
+"ts1-lmtt10-x-x-109">’</span><span class=
+"ec-lmtt-10x-x-109">un...</span><br class="fancyvrb" />
+<a id="x11-15011r4" name="x11-15011r4"></a><span class=
+"ec-lmtt-10x-x-109">&nbsp;</span><span class=
+"ec-lmtt-10x-x-109">&nbsp;?</span>
+</div><!--l. 144-->
+
+<p class="indent">L<sup>A</sup>T<sub>E</sub>X says that it doesn’t
+recognize the command name, sometimes suggests to see the manual or
+to type <span class="obeylines-h verb ec-lmtt-12">h</span> (plus
+<span class="keystroke"><img src="images/index3x.png" alt="←'"
+class="hookleftarrow" /></span>) for help, points to the line
+number where it noticed the error<span class=
+"footnote-mark"><a href="index21.html#fn10x4"><sup class=
+"textsuperscript">10</sup></a></span><a id="x11-15012f10" name=
+"x11-15012f10"></a> (here 168), and shows the place of the error at
+the cut of the line (here at <span class=
+"obeylines-h verb ec-lmtt-12">\veb</span>). Finally, it shows that
+it waits for an action from us by displaying a single question
+mark. <!--l. 146--></p>
+
+<p class="indent">There are different possible actions:</p>
+
+<ul class="itemize1">
+<li class="itemize">Type <span class="keystroke"><img src=
+"images/index4x.png" alt="←'" class="hookleftarrow" /></span>and
+ask to continue as if nothing happened; sometimes this allows to
+finish compiling, but there will be an error in the result.</li>
+
+<li class="itemize">Type <span class=
+"obeylines-h verb ec-lmtt-12">h</span><span class=
+"keystroke"><img src="images/index5x.png" alt="←'" class=
+"hookleftarrow" /></span>to ask for help; this help is not always
+clearer than the error message, but often gives a clue.</li>
+
+<li class="itemize">Type <span class=
+"obeylines-h verb ec-lmtt-12">i</span><span class=
+"keystroke"><img src="images/index6x.png" alt="←'" class=
+"hookleftarrow" /></span>to tell L<sup>A</sup>T<sub>E</sub>X that
+we will propose a replacement text. Enter the text followed by
+<span class="keystroke"><img src="images/index7x.png" alt="←'"
+class="hookleftarrow" /></span>; it will be used, beginning at the
+start of the error, but you should correct the source afterwards as
+L<sup>A</sup>T<sub>E</sub>X never changes that.</li>
+
+<li class="itemize">Type <span class=
+"obeylines-h verb ec-lmtt-12">x</span><span class=
+"keystroke"><img src="images/index8x.png" alt="←'" class=
+"hookleftarrow" /></span>to stop compilation. This is the
+traditional (L<sup>A</sup>)T<sub>E</sub>X way to kill a typesetting
+process. <!--l. 153-->
+
+<p class="noindent">We can also kill the typesetting by repeating
+the action used to start it: the green typesetting button will have
+changed to a red one with a white cross <img src=
+"images/iconAbortTypesetting.png" alt="pict" />. By clicking on
+that button or by hitting <span class=
+"keystroke">Ctrl</span><span class="keystroke">T</span> (Mac OS X:
+<span class="keystroke"><img src="images/MacCmdKey.png" alt=
+"pict" /></span><span class="keystroke">T</span>) again, the
+L<sup>A</sup>T<sub>E</sub>X process is terminated. The output panel
+is still visible and so one can still see the error message.</p>
+</li>
+</ul><!--l. 157-->
+
+<p class="indent">You should note that sometimes an error appears
+far from its actual position. For example, when opening an
+environment but not closing it, L<sup>A</sup>T<sub>E</sub>X doesn’t
+see the error before it encounters another end of environment
+without closing of the first one. The error is often only picked up
+at the <span class=
+"obeylines-h verb ec-lmtt-12">\end{document}</span> command, which
+shows that another environment was not closed! <!--l. 159--></p>
+
+<p class="indent">Sometimes, an error still occurs during
+subsequent runs of (L<sup>A</sup>)T<sub>E</sub>X even after it was
+corrected in the document. This can happen because
+(L<sup>A</sup>)T<sub>E</sub>X creates a number of intermediary
+files which can still contain the original, erroneous code.
+Therefore, it is advisable to remove those files after fixing an
+error. T<sub>E</sub>Xworks provides a command to facilitate
+this—see section <a href=
+"GoingfurtherOthertools.html#x31-360005.6">5.6
+<!--tex4ht:ref: sec:remove-aux-files --></a>. <!--l. 161--></p>
+
+<p class="indent">To help you in finding and fixing error (at least
+if you are using L<sup>A</sup>T<sub>E</sub>X), T<sub>E</sub>Xworks
+comes with a small script that extracts all errors, warnings, and
+other noteworthy messages from the console output and presents them
+to you in a simple, tabular form.</p>
+
+<div class="center">
+<!--l. 163-->
+
+<p class="noindent"><!--l. 164--></p>
+
+<p class="noindent"><img src="images/errorParsingScript.png" alt=
+"pict" /></p>
+</div><!--l. 167-->
+
+<p class="indent">Here, you see a list of
+L<sup>A</sup>T<sub>E</sub>X messages, color-coded and sorted by
+severity. Red represents errors, yellow indicates warnings, and
+blue stands for over- and underfull box warnings. Next to the
+colour bar, you see the name of the file in which the error was
+detected. Next to that, you see the line number (if the script was
+able to determine that), as well as an excerpt from the console
+output telling you what the error was. Moreover, the filename is a
+link which will take you to the file (and, if a line number could
+be determined, also the line) where L<sup>A</sup>T<sub>E</sub>X
+reported the error. Hopefully, you can quickly fix any errors that
+may occur this way. <!--l. 169--></p>
+
+<p class="indent">In case you are not using
+L<sup>A</sup>T<sub>E</sub>X, this script may be of little use,
+particularly if the console output is formatted differently. In
+this case, you can simply disable the error parsing hook script
+(see section <a href="AdvanceduseScripting.html#x35-400006.2">6.2
+<!--tex4ht:ref: sec:installing-scripts --></a>).</p>
+
+<h3 class="sectionHead"><span class="titlemark">3.4</span> <a id=
+"x11-160003.4" name="x11-160003.4"></a>Changing T<sub>E</sub>Xworks
+parameters for convenience</h3><a id="dx11-16001" name=
+"dx11-16001"></a> <!--l. 174-->
+
+<p class="noindent">If the default font<a id="dx11-16002" name=
+"dx11-16002"></a> of the editor doesn’t suit you, it is possible to
+change it from <em class="c8">Format</em><span class=
+"lmsy-10x-x-120">→</span><em class="c8">Font…</em> by selecting a
+new one in the dialogue box which appears. This change will apply
+only to the current window, and until T<sub>E</sub>Xworks is
+restarted. <!--l. 176--></p>
+
+<p class="indent">From the <em class="c8">Typeset</em> menu or from
+the drop-down on the <em class="c8">Typesetting tool bar</em>, you
+can change the compilation format. Again this change will only be
+temporary and for the current document. <!--l. 178--></p>
+
+<p class="indent">To have permanent changes, you need to change the
+<em>preferences<a id="dx11-16003" name="dx11-16003"></a></em>
+through the <em class="c8">Edit</em><span class=
+"lmsy-10x-x-120">→</span><em class="c8">Preferences…</em> menu
+item, using the <em class="c8">Editor</em> tab for the font and the
+<em class="c8">Typesetting</em> tab for the compilation format: the
+default format is at the bottom of the tab. <!--l. 5--></p>
+
+<div class="crosslinks">
+<p class="noindent">[<a href=
+"GoingfurtherEditingtools.html">next</a>] [<a href=
+"Installation.html">prev</a>] [<a href=
+"Installation.html#tailInstallation.html">prev-tail</a>] [<a href=
+"Firststeps.html">front</a>] [<a href=
+"index.html#Firststeps.html">up</a>]</p>
+</div><!--l. 5-->
+
+<p class="indent"><a id="tailFirststeps.html" name=
+"tailFirststeps.html"></a></p>
+</div>
+</body>
+</html>
