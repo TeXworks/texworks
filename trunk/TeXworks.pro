@@ -36,6 +36,9 @@ QMAKE_CXXFLAGS += -DTW_BUILD_ID=personal
 # comment this out if poppler's xpdf headers are not available on the build system
 QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
 
+# maximum compression for resources (unless that only produces a 5% size decrease)
+QMAKE_RESOURCE_FLAGS += -threshold 5 -compress 9
+
 # put all symbols in the dynamic symbol table to plugins can access them; if not
 # given, plugin loading may fail with a debug warning for some plugins
 # Note: only works for gnu compilers; need to check what flags to pass to other compilers
