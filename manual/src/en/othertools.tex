@@ -103,9 +103,9 @@ Apart from the external files, images, pictures, \dots, the only files required 
 
 This can be done using a {\Tw} command from the \menu{File} menu: \submenu\menu{Remove Aux files \dots}\index{cleaning folder!aux files}.
 
-When you use this command, a dialog box opens in which you can check/uncheck the files you want to remove.\footnote{The name of the main file is used to list the possible candidates for deletion.} The dialog box will only list files that actually exist in the foler; if you removed all these auxiliary files before, you get a message box saying that there is no file to remove at the moment.
+When you use this command, a dialog box opens in which you can check/uncheck the files you want to remove.\footnote{The name of the main file is used to list the possible candidates for deletion.} The dialog box will only list files that actually exist in the folder; if you removed all these auxiliary files before, you get a message box saying that there is no file to remove at the moment.
 
-The list of auxilliary files which are taken into account is defined in the file \path{texworks-config.txt}\index{configuration!texworks-config.txt} in the \path{configuration} folder of the {\Tw} resources folder. You could add some if required.
+The list of auxiliary files which are taken into account is defined in the file \path{texworks-config.txt}\index{configuration!texworks-config.txt} in the \path{configuration} folder of the {\Tw} resources folder. You could add some if required.
 
 \section{Changing the configuration\index{configuration}}
 
@@ -121,7 +121,7 @@ libpath=C:/myfolder/TW_conf/
 
 \verb+inipath+\index{configuration!inipath} for the configuration file and \verb+libpath+\index{configuration!libpath} for the necessary folders. Here, \path{TW_conf} would replace the resource folder \path{TeXworks}. Note that the referenced folder (here \path{TW_conf}) should exist---it will not be created---, and that the \verb|/| is used even on Windows (instead of the common \verb+\+).
 
-If one wants to put the resource folder in the programme folder as a subfolder, one can use an instruction like \verb+inipath=./TW_conf/+; all relative paths are taken to be relatve to the {\Tw} programme folder (on Mac OS X, the folder containing the app package is used).
+If one wants to put the resource folder in the programme folder as a subfolder, one can use an instruction like \verb+inipath=./TW_conf/+; all relative paths are taken to be relative to the {\Tw} programme folder (on Mac OS X, the folder containing the app package is used).
 
 One can also add a line\index{configuration!defaultbinpaths} like
 \begin{verbExample}
