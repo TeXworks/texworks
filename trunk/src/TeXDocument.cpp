@@ -148,6 +148,7 @@ void TeXDocument::init()
 	engine = new QComboBox(this);
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
+	engine->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 #if defined(Q_WS_MAC) && (QT_VERSION >= 0x040600)
 	engine->setStyleSheet("padding:4px;");
 	engine->setMinimumWidth(150);
