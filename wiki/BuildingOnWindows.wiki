@@ -1,4 +1,5 @@
 #summary Guide to building TeXworks on Windows XP using Microsoft Visual C++ 2008 Express Edition
+#labels Deprecated
 ----
 *This guide is outdated, please use [BuildingOnWindowsMinGW] instead. If that is not an option for you, please write to the mailing list for further help.*
 ----
