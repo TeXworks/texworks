@@ -166,6 +166,7 @@ HEADERS	+=	src/TWApp.h \
 			src/SvnRev.h \
 			src/synctex_parser.h \
 			src/synctex_parser_utils.h \
+			src/ClickableLabel.h \
 			src/ConfigurableApp.h \
 			src/TWSystemCmd.h
 
