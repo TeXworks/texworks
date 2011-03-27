@@ -24,7 +24,7 @@ DefaultGroupName={#APPNAME}
 AllowNoIcons=yes
 LicenseFile=COPYING
 OutputBaseFilename={#APPNAME}-setup-v{#VERSIONINFO}
-SetupIconFile=res\images\TeXworks.ico
+SetupIconFile=res\images\TeXworks-setup.ico
 Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
@@ -53,6 +53,7 @@ Name: "fa"; MessagesFile: "extra-setup-languages\Farsi-2-5.1.11.isl"
 Name: "tr"; MessagesFile: "extra-setup-languages\Turkish-3-5.1.11.isl"
 
 [CustomMessages]
+ManualName=A short manual for TeXworks
 en.CreateFileAssoc=Open the following file types with TeXworks by default:
 ca.CreateFileAssoc=Obre els següents tipus de fitxer amb TeXworks per defecte:
 cs.CreateFileAssoc=Nastavit TeXworks jako výchozí program pro otevírání následujících typů souborů:
@@ -85,6 +86,7 @@ Source: "release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs creat
 [Icons]
 Name: "{group}\TeXworks"; Filename: "{app}\TeXworks.exe"
 Name: "{group}\{cm:ProgramOnTheWeb,TeXworks}"; Filename: "http://texworks.org/"
+Name: "{group}\{cm:ManualName}"; Filename: "{app}\texworks-help\TeXworks-manual\en\TeXworks-manual.pdf"
 Name: "{group}\{cm:UninstallProgram,TeXworks}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: desktopicon
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: quicklaunchicon
