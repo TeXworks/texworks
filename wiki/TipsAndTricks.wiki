@@ -1,4 +1,5 @@
 #summary Some tips for using TeXworks.
+#labels Featured
 
 This page documents some helpful features included in the !TeXworks sources that are not documented elsewhere.
 
