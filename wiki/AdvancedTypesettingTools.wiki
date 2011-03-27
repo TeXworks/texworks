@@ -1,4 +1,5 @@
 #summary How to add popular advanced typesetting engines to TeXworks
+#labels Featured
 <wiki:toc max_depth="3" />
 
 = Introduction =
