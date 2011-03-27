@@ -25,6 +25,7 @@
 #include "TWUtils.h"
 #include "PDFDocks.h"
 #include "FindDialog.h"
+#include "ClickableLabel.h"
 
 #include <QDockWidget>
 #include <QCloseEvent>
@@ -1168,11 +1169,14 @@ PDFDocument::init()
 	statusBar()->addPermanentWidget(scaleLabel);
 	scaleLabel->setFrameStyle(QFrame::StyledPanel);
 	scaleLabel->setFont(statusBar()->font());
+	scaleLabel->setContextMenuPolicy(Qt::CustomContextMenu);
+	connect(scaleLabel, SIGNAL(customContextMenuRequested(const QPoint)), this, SLOT(showScaleContextMenu(const QPoint)));
 	
-	pageLabel = new QLabel();
+	pageLabel = new ClickableLabel();
 	statusBar()->addPermanentWidget(pageLabel);
 	pageLabel->setFrameStyle(QFrame::StyledPanel);
 	pageLabel->setFont(statusBar()->font());
+	connect(pageLabel, SIGNAL(mouseDoubleClick(QMouseEvent*)), pdfWidget, SLOT(doPageDialog()));
 
 	scrollArea = new PDFScrollArea;
 	scrollArea->setBackgroundRole(QPalette::Dark);
@@ -1787,4 +1791,51 @@ void PDFDocument::print()
 	) {
 		QDesktopServices::openUrl(QUrl::fromLocalFile(curFile));
 	}
+}
+
+void PDFDocument::showScaleContextMenu(const QPoint pos)
+{
+	static QMenu * contextMenu = NULL;
+	static QSignalMapper * contextMenuMapper = NULL;
+	QAction * a;
+	
+	if (contextMenu == NULL) {
+		contextMenu = new QMenu(this);
+		contextMenuMapper = new QSignalMapper(this);
+		
+		contextMenu->addAction(actionFit_to_Width);
+		contextMenu->addAction(actionFit_to_Window);
+		contextMenu->addSeparator();
+		
+		a = contextMenu->addAction("200%");
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, "2");
+		a = contextMenu->addAction("150%");
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, "1.5");
+		// "100%" corresponds to "Actual Size", but we keep the numeric value
+		// here for consistency
+		a = contextMenu->addAction("100%");
+		a->setShortcut(actionActual_Size->shortcut());
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, "1");
+		a = contextMenu->addAction("75%");
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, ".75");
+		a = contextMenu->addAction("50%");
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, ".5");
+		
+		connect(contextMenuMapper, SIGNAL(mapped(const QString&)), this, SLOT(setScaleFromContextMenu(const QString&)));
+	}
+	
+	contextMenu->popup(scaleLabel->mapToGlobal(pos));
+}
+
+void PDFDocument::setScaleFromContextMenu(const QString & strZoom)
+{
+	bool conversionOK = false;
+	float zoom = strZoom.toFloat(&conversionOK);
+	if (pdfWidget && conversionOK)
+		pdfWidget->fixedScale(zoom);
 }
