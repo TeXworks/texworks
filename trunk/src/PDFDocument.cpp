@@ -49,6 +49,7 @@
 #include <QShortcut>
 #include <QFileSystemWatcher>
 #include <QToolTip>
+#include <QSignalMapper>
 
 #include <math.h>
 
