@@ -30,6 +30,7 @@
 #include <QDir>
 #include <QMap>
 #include <QPair>
+#include <QSettings>
 
 #include <hunspell.h>
 
@@ -110,7 +111,7 @@ public:
 	
 	static const QString& cleanupPatterns();
 	
-	static void installCustomShortcuts(QWidget * widget, bool recursive = true);
+	static void installCustomShortcuts(QWidget * widget, bool recursive = true, QSettings * map = NULL);
 
 private:
 	TWUtils();
