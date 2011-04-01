@@ -40,6 +40,8 @@
 #include <QCryptographicHash>
 #include <QTextStream>
 
+#include <QDebug>
+
 #pragma mark === TWUtils ===
 
 #ifdef Q_WS_X11
@@ -1064,26 +1066,32 @@ int TWUtils::findOpeningDelim(const QString& text, int pos)
 	return -1;
 }
 
-void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive)
+void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true */, QSettings * map /* = NULL */)
 {
+	bool deleteMap = false;
+	
 	if (widget == NULL)
 		return;
 
-	QString filename = QDir(TWUtils::getLibraryPath("configuration")).absoluteFilePath("shortcuts.ini");
+	if (!map) {
+		QString filename = QDir(TWUtils::getLibraryPath("configuration")).absoluteFilePath("shortcuts.ini");
+		if (filename.isEmpty() || !QFileInfo(filename).exists())
+			return;
 
-	if (filename.isEmpty())
-		return;
-	
-	QSettings map(filename, QSettings::IniFormat);
-	if (map.status() != QSettings::NoError)
-		return;
+		map = new QSettings(filename, QSettings::IniFormat);
+		if (map->status() != QSettings::NoError) {
+			delete map;
+			return;
+		}
+		deleteMap = true;
+	}
 
 	QAction * act;
 	foreach (act, widget->actions()) {
 		if (act->objectName().isEmpty())
 			continue;
-		if (map.contains(act->objectName()))
-			act->setShortcut(QKeySequence(map.value(act->objectName()).toString()));
+		if (map->contains(act->objectName()))
+			act->setShortcut(QKeySequence(map->value(act->objectName()).toString()));
 	}
 	
 	if (recursive) {
@@ -1091,9 +1099,12 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive)
 		foreach (obj, widget->children()) {
 			QWidget * child = qobject_cast<QWidget*>(obj);
 			if (child)
-				installCustomShortcuts(child);
+				installCustomShortcuts(child, true, map);
 		}
 	}
+	
+	if (deleteMap)
+		delete map;
 }
 
 #pragma mark === SelWinAction ===
