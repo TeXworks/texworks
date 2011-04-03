@@ -1,11 +1,11 @@
 ﻿; UTF-8 script for Inno Setup Unicode
 
 ; Definitions using Inno Setup Preprocessor
-#define APPNAME      GetStringFileInfo("release/TeXworks.exe", PRODUCT_NAME)
-#define APPVERNAME   GetStringFileInfo("release/TeXworks.exe", PRODUCT_VERSION)
-#define APPPUBLISHER GetStringFileInfo("release/TeXworks.exe", COMPANY_NAME)
-#define APPCOPYRIGHT GetStringFileInfo("release/TeXworks.exe", LEGAL_COPYRIGHT)
-#define VERSIONINFO  GetFileVersion("release/TeXworks.exe")
+#define APPNAME      GetStringFileInfo("..\release/TeXworks.exe", PRODUCT_NAME)
+#define APPVERNAME   GetStringFileInfo("..\release/TeXworks.exe", PRODUCT_VERSION)
+#define APPPUBLISHER GetStringFileInfo("..\release/TeXworks.exe", COMPANY_NAME)
+#define APPCOPYRIGHT GetStringFileInfo("..\release/TeXworks.exe", LEGAL_COPYRIGHT)
+#define VERSIONINFO  GetFileVersion("..\release/TeXworks.exe")
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -22,14 +22,14 @@ AppCopyright={#APPCOPYRIGHT}
 DefaultDirName={pf}\{#APPNAME}
 DefaultGroupName={#APPNAME}
 AllowNoIcons=yes
-LicenseFile=COPYING
+LicenseFile=..\COPYING
 OutputBaseFilename={#APPNAME}-setup-v{#VERSIONINFO}
-SetupIconFile=res\images\TeXworks-setup.ico
+SetupIconFile=..\res\images\TeXworks-setup.ico
 Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
 VersionInfoVersion={#VERSIONINFO}
-WizardSmallImageFile=res\images\TeXworks-small.bmp
+WizardSmallImageFile=..\res\images\TeXworks-small.bmp
 
 [Languages]
 Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl"
@@ -82,7 +82,7 @@ Name: "texfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.tex}"; Grou
 Name: "pdffileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.pdf}"; GroupDescription: "{cm:CreateFileAssoc}"; Flags: unchecked
 
 [Files]
-Source: "release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\TeXworks"; Filename: "{app}\TeXworks.exe"
