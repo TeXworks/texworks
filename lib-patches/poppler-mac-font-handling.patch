@@ -1,68 +1,52 @@
 diff --git a/configure.ac b/configure.ac
-index 11d16ee..df92c89 100644
+index 75f173b..6f7f96f 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -232,7 +232,59 @@ fi
- AC_SUBST(FREETYPE_CFLAGS)
- AC_SUBST(FREETYPE_LIBS)
+@@ -59,6 +59,9 @@ case "$host_os" in
+     create_shared_lib="-no-undefined"
+     auto_import_flags="-Wl,--enable-auto-import"
+   ;;
++  darwin*)
++    os_mac=yes
++  ;;
+ esac
  
--PKG_CHECK_MODULES(FONTCONFIG, fontconfig >= 2.0.0)
-+AC_ARG_ENABLE(fontconfig,
-+              AC_HELP_STRING([--disable-fontconfig],
-+                             [Disable FontConfig support.]),
-+              enable_fontconfig=$enableval,
-+              enable_fontconfig="yes")
-+AH_TEMPLATE([DISABLE_FONTCONFIG], [Disable FontConfig support.])
-+if test x$enable_fontconfig = xyes; then
-+    PKG_CHECK_MODULES(FONTCONFIG, fontconfig >= 2.0.0)
-+else
-+    AC_DEFINE(DISABLE_FONTCONFIG)
-+fi
-+
-+AC_ARG_ENABLE(mac-fonts,
-+              AC_HELP_STRING([--enable-mac-fonts],
-+                             [Use Mac system fonts when fonts are not embedded in the PDF.]),
-+              enable_mac_fonts=$enableval,
-+              enable_mac_fonts="no")
-+AH_TEMPLATE([ENABLE_MAC_FONTS], [Enable Mac font support.])
-+if test x$enable_mac_fonts = xyes; then
-+    KPSE_CHECK_FRAMEWORK([ApplicationServices], [ATSFontRef fontRef])
-+    if test x$kpse_cv_have_ApplicationServices = xyes; then
-+        AC_DEFINE(ENABLE_MAC_FONTS, 1, [Use Mac system fonts])
-+    else
-+        AC_MSG_WARN("Mac system font support is not available on this platform.")
-+        enable_mac_fonts="no"
-+    fi
-+fi
-+AM_CONDITIONAL(ENABLE_MAC_FONTS, test x$enable_mac_fonts = xyes)
-+
-+AC_ARG_ENABLE(windows-fonts,
-+              AC_HELP_STRING([--enable-windows-fonts],
-+                             [Use Windows system fonts when fonts are not embedded in the PDF.]),
-+              enable_windows_fonts=$enableval,
-+              enable_windows_fonts="no")
-+AH_TEMPLATE([ENABLE_WINDOWS_FONTS], [Enable Windows font support.])
-+if test x$enable_windows_fonts = xyes; then
-+    AC_TRY_LINK([
-+        #include <windows.h>
-+        #include <shlobj.h>
-+    ], [
-+        HMODULE hLib = LoadLibrary("shell32.dll");
-+        return 0;
-+    ],
-+    [ has_windows_api=yes ],
-+    [ has_windows_api=no ])
-+    if test x$has_windows_api = xyes; then
-+        AC_DEFINE(ENABLE_WINDOWS_FONTS, 1, [Use Windows system fonts])
-+    else
-+        AC_MSG_WARN("Windows font support is not available on this platform.")
-+        enable_windows_fonts="no"
-+    fi
-+fi
-+AM_CONDITIONAL(ENABLE_WINDOWS_FONTS, test x$enable_windows_fonts = xyes)
+ AC_SUBST(win32_libs)
+@@ -294,12 +297,15 @@ AC_SUBST(FREETYPE_LIBS)
  
- AC_ARG_ENABLE(splash-output,
-               AC_HELP_STRING([--disable-splash-output],
+ AC_MSG_CHECKING([which font configuration to use])
+ AC_ARG_WITH([font_configuration],
+-   [AS_HELP_STRING([--with-font-configuration=fontconfig|win32],
++   [AS_HELP_STRING([--with-font-configuration=fontconfig|win32|mac],
+                    [Select font configuration backend])],
+    [],
+    [if test x$os_win32 = xyes; then
+         # default to win32 on native Windows.
+         with_font_configuration=win32
++    elif test x$os_mac = xyes; then
++        # default to mac on native Mac.
++        with_font_configuration=mac
+     else
+         # default to fontconig everywhere else.
+         with_font_configuration=fontconfig
+@@ -315,6 +321,17 @@ case $with_font_configuration in
+      # Set the minimum required Internet Explorer version to 5.0
+      CPPFLAGS="$CPPFLAGS -D_WIN32_IE=0x0500"
+      ;;
++  mac)
++     AC_DEFINE([WITH_FONTCONFIGURATION_MAC],
++               [1],[Use Mac OS X font configuration backend])
++     KPSE_CHECK_FRAMEWORK([ApplicationServices], [ATSFontRef fontRef])
++     if test x$kpse_cv_have_ApplicationServices != xyes; then
++        AC_MSG_ERROR([invalid font configuration setting: mac
++           You do not seem to have the ApplicationServices framework
++           Please install it or set the font configuration method manually
++           (e.g., --with-font-configuration=fontconfig).])
++     fi
++  ;;
+   fontconfig)
+      AC_DEFINE([WITH_FONTCONFIGURATION_FONTCONFIG],
+                [1],[Use fontconfig font configuration backend])
 diff --git a/m4/mac-framework.m4 b/m4/mac-framework.m4
 new file mode 100644
 index 0000000..8a060ee
@@ -100,116 +84,74 @@ index 0000000..8a060ee
 +                 [Define to 1 if you have the Mac OS X $1 framework.])])[]dnl
 +]) # KPSE_CHECK_FRAMEWORK
 diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
-index 1cf7208..c47e6bc 100644
+index 4657c07..e2c7172 100644
 --- a/poppler/GlobalParams.cc
 +++ b/poppler/GlobalParams.cc
-@@ -556,11 +556,16 @@ GlobalParams::GlobalParams(const char *customPopplerDataDir)
-   UnicodeMap *map;
-   int i;
- 
--#ifndef _MSC_VER  
-+#ifndef DISABLE_FONTCONFIG
-   FcInit();
-   FCcfg = FcConfigGetCurrent();
+@@ -702,6 +702,10 @@ GlobalParams::GlobalParams(const char *customPopplerDataDir)
+   baseFontsInitialized = gFalse;
+   winFontList = NULL;
  #endif
- 
-+#ifdef ENABLE_MAC_FONTS
++#if WITH_FONTCONFIGURATION_MAC
 +  tempFontFiles = NULL;
 +  numTempFontFiles = 0;
 +#endif
-+
- #if MULTITHREADED
-   gInitMutex(&mutex);
-   gInitMutex(&unicodeMapCacheMutex);
-@@ -834,6 +839,13 @@ GlobalParams::~GlobalParams() {
-   deleteGooList(plugins, Plugin);
- #endif
  
-+#ifdef ENABLE_MAC_FONTS
+ #ifdef ENABLE_PLUGINS
+   plugins = new GooList();
+@@ -867,6 +871,12 @@ GlobalParams::~GlobalParams() {
+ #ifdef _WIN32
+   delete winFontList;
+ #endif
++#if WITH_FONTCONFIGURATION_MAC
 +  while (numTempFontFiles > 0) {
 +    --numTempFontFiles;
 +    unlink(tempFontFiles[numTempFontFiles]);
 +  }
 +#endif
-+
- #if MULTITHREADED
-   gDestroyMutex(&mutex);
-   gDestroyMutex(&unicodeMapCacheMutex);
-@@ -961,7 +973,7 @@ static GBool findModifier(const char *name, const char *modifier, const char **s
-   }
- }
+   deleteGooHash(psFonts, PSFontParam);
+   deleteGooList(psNamedFonts16, PSFontParam);
+   deleteGooList(psFonts16, PSFontParam);
+@@ -1231,6 +1241,9 @@ fin:
+ #if WITH_FONTCONFIGURATION_WIN32
+ #include "GlobalParamsWin.cc"
+ #endif
++#if WITH_FONTCONFIGURATION_MAC
++#include "GlobalParamsMac.cc"
++#endif
  
--#ifndef _MSC_VER
-+#ifndef DISABLE_FONTCONFIG
- static FcPattern *buildFcPattern(GfxFont *font)
- {
-   int weight = -1,
-@@ -1109,7 +1121,7 @@ static FcPattern *buildFcPattern(GfxFont *font)
- /* if you can't or don't want to use Fontconfig, you need to implement
-    this function for your platform. For Windows, it's in GlobalParamsWin.cc
- */
--#ifndef _MSC_VER
-+#ifndef DISABLE_FONTCONFIG
- DisplayFontParam *GlobalParams::getDisplayFont(GfxFont *font) {
-   DisplayFontParam *dfp;
-   FcPattern *p=0;
+ GBool GlobalParams::getPSExpandSmaller() {
+   GBool f;
 diff --git a/poppler/GlobalParams.h b/poppler/GlobalParams.h
-index 27a41cc..9a1492d 100644
+index 941a536..e7bc266 100644
 --- a/poppler/GlobalParams.h
 +++ b/poppler/GlobalParams.h
-@@ -34,10 +34,12 @@
- #pragma interface
- #endif
- 
-+#include "config.h"
-+
- #include <assert.h>
- #include "poppler-config.h"
- #include <stdio.h>
--#ifndef _MSC_VER
-+#ifndef DISABLE_FONTCONFIG
- #include <fontconfig/fontconfig.h>
- #endif
- #include "goo/gtypes.h"
-@@ -169,10 +171,14 @@ public:
- 
-   void setBaseDir(char *dir);
- 
--#ifdef _MSC_VER
-+#ifdef ENABLE_WINDOWS_FONTS
+@@ -173,6 +173,9 @@ public:
+ #if WITH_FONTCONFIGURATION_WIN32
    void setupBaseFonts(char *dir);
  #endif
- 
-+#ifdef ENABLE_MAC_FONTS
++#if WITH_FONTCONFIGURATION_MAC
 +  GBool loadPlatformFont(char * fontName);
 +#endif
-+
+ 
    //----- accessors
  
-   CharCode getMacRomanCharCode(char *charName);
-@@ -354,10 +360,15 @@ private:
-   UnicodeMapCache *unicodeMapCache;
-   CMapCache *cMapCache;
-   
--#ifndef _MSC_VER
-+#ifndef DISABLE_FONTCONFIG
-   FcConfig *FCcfg;
+@@ -308,6 +311,10 @@ private:
+   GBool baseFontsInitialized;
+   WinFontList *winFontList;	// system TrueType fonts
  #endif
- 
-+#ifdef ENABLE_MAC_FONTS
++#if WITH_FONTCONFIGURATION_MAC
 +  char **tempFontFiles;
 +  int numTempFontFiles;
 +#endif
-+
- #ifdef ENABLE_PLUGINS
-   GList *plugins;		// list of plugins [Plugin]
-   GList *securityHandlers;	// list of loaded security handlers
+   GBool psExpandSmaller;	// expand smaller pages to fill paper
+   GBool psShrinkLarger;		// shrink larger pages to fit paper
+   GBool psCenter;		// center pages on the paper
 diff --git a/poppler/GlobalParamsMac.cc b/poppler/GlobalParamsMac.cc
 new file mode 100644
-index 0000000..dd62956
+index 0000000..fdb10e7
 --- /dev/null
 +++ b/poppler/GlobalParamsMac.cc
-@@ -0,0 +1,288 @@
+@@ -0,0 +1,290 @@
 +//========================================================================
 +//
 +// GlobalParamsMac.cc
@@ -224,7 +166,9 @@ index 0000000..dd62956
 +//
 +//========================================================================
 +
++#ifndef PACKAGE_NAME
 +#include <config.h>
++#endif
 +
 +#ifdef USE_GCC_PRAGMAS
 +#pragma implementation
@@ -498,97 +442,19 @@ index 0000000..dd62956
 +  unlockGlobalParams;
 +  return dfp;
 +}
-diff --git a/poppler/GlobalParamsWin.cc b/poppler/GlobalParamsWin.cc
-index 015f0d3..264d13c 100644
---- a/poppler/GlobalParamsWin.cc
-+++ b/poppler/GlobalParamsWin.cc
-@@ -79,7 +79,8 @@ static struct {
-     {"Times-Italic",          "n021023l.pfb", "timesi.ttf"},
-     {"Times-Roman",           "n021003l.pfb", "times.ttf"},
-     // TODO: not sure if "wingding.ttf" is right
--    {"ZapfDingbats",          "d050000l.pfb", "wingding.ttf"},
-+// no, the symbol sets are quite different
-+    {"ZapfDingbats",          "d050000l.pfb", NULL},
- 
-     // those seem to be frequently accessed by PDF files and I kind of guess
-     // which font file do the refer to
-@@ -153,6 +154,11 @@ static struct {
- 
- #define FONTS_SUBDIR "\\fonts"
- 
-+/* mingw32 lacks this symbol, so add it here if necessary */
-+#ifndef SHGFP_TYPE_CURRENT
-+#define SHGFP_TYPE_CURRENT 0
-+#endif
-+
- static void GetWindowsFontDir(char *winFontDir, int cbWinFontDirLen)
- {
-     BOOL (__stdcall *SHGetSpecialFolderPathFunc)(HWND  hwndOwner,
-@@ -239,7 +245,7 @@ void GlobalParams::setupBaseFonts(char * dir)
-         if (displayFonts->lookup(fontName))
-             continue;
- 
--        if (dir) {
-+        if (dir && displayFontTab[i].t1FileName) {
-             GooString *fontPath = appendToPath(new GooString(dir), displayFontTab[i].t1FileName);
-             if (FileExists(fontPath->getCString())) {
-                 AddFont(displayFonts, fontName, fontPath, displayFontT1);
-@@ -274,10 +280,15 @@ DisplayFontParam *GlobalParams::getDisplayFont(GfxFont *font) {
-     DisplayFontParam *  dfp;
-     GooString *         fontName = font->getName();
-     char *              substFontName = NULL;
-+    char                appDir[MAX_PATH];
- 
-     if (!fontName) return NULL;
-     lockGlobalParams;
--    setupBaseFonts(NULL);
-+    if (::GetModuleFileName(0, appDir, MAX_PATH) > 0)
-+        setupBaseFonts(appendToPath(grabPath(appDir), "fonts")->getCString());
-+    else
-+        setupBaseFonts(NULL);
-+    
-     dfp = (DisplayFontParam *)displayFonts->lookup(fontName);
-     if (!dfp) {
-         substFontName = findSubstituteName(fontName->getCString());
-diff --git a/poppler/Makefile.am b/poppler/Makefile.am
-index ec79e31..a6c5ed6 100644
---- a/poppler/Makefile.am
-+++ b/poppler/Makefile.am
-@@ -280,5 +280,14 @@ libpoppler_la_SOURCES =		\
- 	Sound.cc		\
- 	XpdfPluginAPI.cc
- 
--EXTRA_DIST = gen-unicode-tables.py	\
--             GlobalParamsWin.cc
-+if ENABLE_MAC_FONTS
-+libpoppler_la_SOURCES += \
-+	GlobalParamsMac.cc
-+endif
-+
-+if ENABLE_WINDOWS_FONTS
-+libpoppler_la_SOURCES += \
-+	GlobalParamsWin.cc
-+endif
-+
-+EXTRA_DIST = gen-unicode-tables.py
 diff --git a/poppler/poppler-config.h.in b/poppler/poppler-config.h.in
-index 6a8ec60..a80cac1 100644
+index f2b70cc..d93bb13 100644
 --- a/poppler/poppler-config.h.in
 +++ b/poppler/poppler-config.h.in
-@@ -39,6 +39,16 @@
- #undef TEXTOUT_WORD_LIST
+@@ -44,6 +44,11 @@
+ #undef WITH_FONTCONFIGURATION_WIN32
  #endif
  
-+/* Disable FontConfig support. */
-+#ifndef DISABLE_FONTCONFIG
-+#undef DISABLE_FONTCONFIG
++/* Use mac font configuration backend */
++#ifndef WITH_FONTCONFIGURATION_MAC
++#undef WITH_FONTCONFIGURATION_MAC
 +#endif
 +
-+/* Use Mac system fonts */
-+#ifndef ENABLE_MAC_FONTS
-+#undef ENABLE_MAC_FONTS
-+#endif
-+
- // Also, there's a couple of preprocessor symbols in the header files
- // that are used but never defined: DISABLE_OUTLINE, DEBUG_MEM and
- 
+ /* Support for curl is compiled in. */
+ #ifndef POPPLER_HAS_CURL_SUPPORT
+ #undef POPPLER_HAS_CURL_SUPPORT

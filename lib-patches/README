@@ -1,4 +1,4 @@
-texworks lib-patches directory
+TeXworks lib-patches directory
 ==============================
 
 The Windows and Mac OS X builds of texworks are created using a slightly patched
@@ -10,13 +10,17 @@ version of some libraries, to fix some bugs or provide some additional features
 Poppler patches (poppler-*.patch)
 ---------------------------------
 The Windows and Mac OS X builds of texworks are created using a slightly patched
-version of poppler, to provide some added support for platform fonts (on OS X,
-and when building with mingw32 on Windows) and to allow the use of a "local"
-poppler-data directory as we cannot expect a system-wide poppler installation on
-these platforms.
+version of poppler, to provide some added support for platform fonts (on OS X)
+and to allow the use of a "local" poppler-data directory as we cannot expect a
+system-wide poppler installation on these platforms.
 
-This directory contains the relevant patches, as used with poppler-0.12 for the
-TeXworks 0.2 release.
+This directory contains the relevant patches, as used with poppler-0.16.4 for
+the TeXworks 0.4 release.
+ * poppler-qt4-globalparams.patch
+   Provides support for a "local" poppler-data.
+ * poppler-*-font-handling.patch
+   Adds/enhances font support for different platforms. (Only the patch relevant
+   for you platform is needed)
 
 
 
