@@ -1190,6 +1190,7 @@ PDFDocument::init()
 	document = NULL;
 	
 	connect(actionAbout_TW, SIGNAL(triggered()), qApp, SLOT(about()));
+	connect(actionSettings_and_Resources, SIGNAL(triggered()), qApp, SLOT(doResourcesDialog()));
 	connect(actionGoToHomePage, SIGNAL(triggered()), qApp, SLOT(goToHomePage()));
 	connect(actionWriteToMailingList, SIGNAL(triggered()), qApp, SLOT(writeToMailingList()));
 

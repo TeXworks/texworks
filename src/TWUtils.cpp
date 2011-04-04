@@ -40,8 +40,6 @@
 #include <QCryptographicHash>
 #include <QTextStream>
 
-#include <QDebug>
-
 #pragma mark === TWUtils ===
 
 #ifdef Q_WS_X11
@@ -82,7 +80,7 @@ bool TWUtils::isPostscriptFile(const QString& fileName)
 	return false;
 }
 
-const QString TWUtils::getLibraryPath(const QString& subdir)
+const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOnDisk /* = true */)
 {
 	QString libRootPath, libPath;
 	
@@ -108,7 +106,8 @@ const QString TWUtils::getLibraryPath(const QString& subdir)
 	}
 	libPath = QDir(libRootPath).absolutePath() + QDir::separator() + subdir;
 
-	updateLibraryResources(QDir(":/resfiles"), libRootPath, subdir);
+	if(updateOnDisk)
+		updateLibraryResources(QDir(":/resfiles"), libRootPath, subdir);
 	return libPath;
 }
 
@@ -118,15 +117,15 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 	QDir srcDir(srcRootDir);
 	QDir destDir(destRootDir.absolutePath() + QDir::separator() + subdir);
 	
+	// sanity check
+	if (!srcDir.cd(subdir))
+		return;
+	
 	// make sure the library folder exists - even if the user deleted it;
 	// otherwise other parts of the program might fail
 	if (!destDir.exists())
 		QDir::root().mkpath(destDir.absolutePath());
 	
-	// sanity check
-	if (!srcDir.cd(subdir))
-		return;
-
 	if (subdir == "translations") // don't copy the built-in translations
 		return;
 	
