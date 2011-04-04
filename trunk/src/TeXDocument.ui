@@ -310,6 +310,7 @@
     </property>
     <addaction name="actionGoToHomePage"/>
     <addaction name="actionWriteToMailingList"/>
+    <addaction name="actionSettings_and_Resources"/>
     <addaction name="separator"/>
     <addaction name="actionAbout_TW"/>
    </widget>
@@ -1094,6 +1095,14 @@
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionSettings_and_Resources">
+   <property name="text">
+    <string>Settings and Resources...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
    </property>
   </action>
  </widget>

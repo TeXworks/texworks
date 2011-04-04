@@ -29,6 +29,7 @@
 
 #include "TWVersion.h"
 #include "SvnRev.h"
+#include "ResourcesDialog.h"
 
 #ifndef Q_WS_WIN
 #include "DefaultBinaryPaths.h"
@@ -1275,5 +1276,10 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 	retVal["result"] = QVariant::fromValue(doc);
 	retVal["status"] = (doc != NULL ? TWScriptAPI::SystemAccess_OK : TWScriptAPI::SystemAccess_Failed);
 	return retVal;
+}
+
+void TWApp::doResourcesDialog() const
+{
+	ResourcesDialog::doResourcesDialog(NULL);
 }
 

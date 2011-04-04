@@ -163,6 +163,7 @@ void TeXDocument::init()
 	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 	connect(actionAbout_TW, SIGNAL(triggered()), qApp, SLOT(about()));
+	connect(actionSettings_and_Resources, SIGNAL(triggered()), qApp, SLOT(doResourcesDialog()));
 	connect(actionGoToHomePage, SIGNAL(triggered()), qApp, SLOT(goToHomePage()));
 	connect(actionWriteToMailingList, SIGNAL(triggered()), qApp, SLOT(writeToMailingList()));
 

@@ -190,6 +190,7 @@ public slots:
 	void showScriptsFolder();
 
 	void about();
+	void doResourcesDialog() const;
 	void newFile();
 	void open();
 	void stackWindows();
