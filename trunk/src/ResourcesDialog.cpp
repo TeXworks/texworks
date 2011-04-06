@@ -39,21 +39,29 @@ void ResourcesDialog::init()
 	if(ConfigurableApp::instance()->getSettingsFormat() == QSettings::NativeFormat)
 		locationOfSettings->setText(tr("Registry (%1)").arg(s.fileName()));
 	else
-		locationOfSettings->setText(QString("<a href=\"file://%1\">%1</a>").arg(s.fileName()));
+		locationOfSettings->setText(pathToLink(s.fileName()));
 #else
-	locationOfSettings->setText(QString("<a href=\"file://%1\">%1</a>").arg(s.fileName()));
+	locationOfSettings->setText(pathToLink(s.fileName()));
 #endif
 
-	locationOfResources->setText(QString("<a href=\"file://%1\">%1</a>").arg(TWUtils::getLibraryPath(QString(), false)));
+	locationOfResources->setText(pathToLink(TWUtils::getLibraryPath(QString(), false)));
 
-	connect(locationOfSettings, SIGNAL(linkActivated(const QString&)), this, SLOT(openLocation(const QString&)));
-	connect(locationOfResources, SIGNAL(linkActivated(const QString&)), this, SLOT(openLocation(const QString&)));
+	connect(locationOfSettings, SIGNAL(linkActivated(const QString&)), this, SLOT(openURL(const QString&)));
+	connect(locationOfResources, SIGNAL(linkActivated(const QString&)), this, SLOT(openURL(const QString&)));
 
 	adjustSize();
 
 // TODO: Implement Details (e.g., files that are versioned, ...)
 //	connect(labelDetails, SIGNAL(linkActivated(const QString&)), this, SLOT(toggleDetails()));
 //	toggleDetails();
+}
+
+// static
+QString ResourcesDialog::pathToLink(const QString & path)
+{
+	QFileInfo fi(path);
+	QString absPath = fi.absoluteFilePath();
+	return QString("<a href=\"%1\">%2</a>").arg(QUrl::fromLocalFile(absPath).toString()).arg(absPath);
 }
 
 /*

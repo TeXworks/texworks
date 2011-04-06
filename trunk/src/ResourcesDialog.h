@@ -41,10 +41,11 @@ public slots:
 //	void toggleDetails();
 
 private slots:
-	void openLocation(const QString& location) const { QDesktopServices::openUrl(QUrl(location)); }
+	void openURL(const QString& url) const { QDesktopServices::openUrl(QUrl(url)); }
 
 private:
 	void init();
+	static QString pathToLink(const QString & path);
 };
 
 
