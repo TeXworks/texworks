@@ -1292,7 +1292,7 @@ bool FileVersionDatabase::hasFileRecord(const QFileInfo & file) const
 	
 	while (it.hasNext()) {
 		const FileVersionDatabase::Record rec = it.next();
-		if (file == rec.filePath)
+		if (file.filePath() == rec.filePath.filePath())
 			return true;
 	}
 	return false;
