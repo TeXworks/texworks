@@ -8,6 +8,11 @@ BINPATHS=":"
 if [ -x /usr/share/libtool/config.guess ]; then
 	PLATFORM=`/usr/share/libtool/config.guess`
 	ARCH=`echo $PLATFORM | sed 's/-.*//;s/i.86/i386/'`
+# At least on Debian, Ubuntu, Gentoo and LFS, config.guess seems to be in a
+# subdirectory
+elif [ -x /usr/share/libtool/config/config.guess ]; then
+	PLATFORM=`/usr/share/libtool/config/config.guess`
+	ARCH=`echo $PLATFORM | sed 's/-.*//;s/i.86/i386/'`
 else
 	PLATFORM=`uname -s | tr A-Z a-z`
 	ARCH=`uname -m | tr A-Z a-z | sed 's/i.86/i386/'`
@@ -63,9 +68,24 @@ case $PLATFORM in
 	*)			OS=`echo $PLATFORM | sed 's/.*-//'`
 esac
 
+appendPath "/usr/local/texlive/2011/bin/$ARCH-$OS"
+appendPath "/usr/local/texlive/2010/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2009/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2008/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2007/bin/$ARCH-$OS"
+
+for TEXLIVEROOT in /usr/local/texlive/* /opt/texlive/*; do
+	# Check if this is really a folder (e.g., /opt/... might not exist)
+	if [ -d "$TEXLIVEROOT/bin/$ARCH-$OS" ]; then
+		# Check that this is of the form /texlive/1234
+		if [ -z `basename $TEXLIVEROOT | sed 's/[0-9]//g'` ]; then
+			# Paranoia: Make sure there actually is a bin/... subdirectory
+			if [ -d "$TEXLIVEROOT/bin/$ARCH-$OS" ]; then
+				appendPath "$TEXLIVEROOT/bin/$ARCH-$OS"
+			fi
+		fi
+	fi
+done
 
 # (3) append default paths that we should always check
 
