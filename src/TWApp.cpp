@@ -31,7 +31,9 @@
 #include "SvnRev.h"
 #include "ResourcesDialog.h"
 
-#ifndef Q_WS_WIN
+#ifdef Q_WS_WIN
+#include "DefaultBinaryPathsWin.h"
+#else
 #include "DefaultBinaryPaths.h"
 #endif
 
@@ -777,22 +779,10 @@ void TWApp::setDefaultPaths()
 		if (!binaryPaths->contains(s))
 			binaryPaths->append(s);
 	if (!defaultBinPaths) {
-#ifdef Q_WS_WIN
-		*binaryPaths
-			<< "c:/texlive/2009/bin"
-			<< "c:/texlive/2008/bin"
-			<< "c:/texlive/2007/bin"
-			<< "c:/w32tex/bin"
-			<< "c:/Program Files/MiKTeX 2.8/miktex/bin"
-			<< "c:/Program Files (x86)/MiKTeX 2.8/miktex/bin"
-			<< "c:/Program Files/MiKTeX 2.7/miktex/bin"
-			<< "c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
-		;
-#else
-		foreach (const QString& s, QString(DEFAULT_BIN_PATHS).split(PATH_LIST_SEP, QString::SkipEmptyParts))
+		foreach (const QString& s, QString(DEFAULT_BIN_PATHS).split(PATH_LIST_SEP, QString::SkipEmptyParts)) {
 			if (!binaryPaths->contains(s))
 				binaryPaths->append(s);
-#endif
+		}
 	}
 	for (int i = binaryPaths->count() - 1; i >= 0; --i) {
 		QDir dir(binaryPaths->at(i));
