@@ -64,11 +64,11 @@ ul.toc a {
 <h3>News</h3>
 
 <ul class="news">
-  <li>(Mar 2011) TeXworks 0.4.0 released.</li>
-  <li>(Oct 2009) TeXworks 0.2.3 released.</li>
-  <li>(Oct 2009) TeXworks 0.2.2 released.</li>
-  <li>(Oct 2009) TeXworks 0.2.1 released.</li>
-  <li>(Sep 2009) TeXworks 0.2.0 released.</li>
+  <li>(Mar 2011) TeXworks 0.4.0 released (<a href="#Getting_TeXworks">Get it</a> | <a href="#History_0.4.x">Changes</a>)</li>
+  <li>(Oct 2009) TeXworks 0.2.3 released</li>
+  <li>(Oct 2009) TeXworks 0.2.2 released</li>
+  <li>(Oct 2009) TeXworks 0.2.1 released</li>
+  <li>(Sep 2009) TeXworks 0.2.0 released (<a href="#History_0.2.x">Changes</a>)</li>
 </ul>
 
 <a name="Introduction"></a>
@@ -126,45 +126,7 @@ If no binaries are available for your platform, you can grab a copy of the <a hr
 
 <p>Odd-numbered series (0.1, 0.3, ...) are development series. Numerous snapshots are made available during the evolution of TeXworks, and feedback from those brave enough to use these experimental versions is greatly appreciated!</p>
 
-<h4>The 0.2.x stable release series</h4>
-<p>This series marks the initial release of TeXworks as a stable product. It includes:</p>
-<ul>
-<li>Simple GUI text editor
-  <ul>
-  <li>Unicode support using standard OpenType fonts</li>
-  <li>multi-level undo/redo</li>
-  <li>search &amp; replace, with (optional) regex support</li>
-  <li>comment/uncomment lines, etc.</li>
-  <li>TeX/LaTeX syntax coloring</li>
-  <li>auto-completion for easy insertion of common commands</li>
-  <li>spell-checking in the TeX source document</li>
-  <li>templates to provide a starting point for common document types</li>
-  <li>hard line-wrapping to facilitate the use of version control systems or sending the source files by email</li>
-  </ul>
-</li>
-
-<li>Ability to run TeX on the current document to generate PDF
-  <ul>
-  <li>extensible set of TeX commands (with pdftex, pdflatex, xelatex, context, etc. being preconfigured)</li>
-  <li>also support running BibTeX, Makeindex, etc.</li>
-  <li>terminal output appears in a “console” panel of the document window; automatically hidden if no errors occur</li>
-  <li>support “root document” metadata so “Typeset” works from an included file</li>
-  </ul>
-</li>
-
-<li>Preview window to view the output
-  <ul>
-  <li>anti-aliased PDF display</li>
-  <li>automatically opens when TeX finishes</li>
-  <li>auto-refresh when re-typesetting (stay at same page/view)</li>
-  <li>TeXShop-like “magnifying glass” feature to examine detail in the preview</li>
-  <li>one-click re-typesetting from either source or preview</li>
-  <li>text search in the PDF preview</li>
-  <li>source/preview synchronization based on Jérôme Laurens’ SyncTeX technology</li>
-  </ul>
-</li>
-</ul>
-
+<a name="History_0.4.x"></a>
 <h4>The 0.4.x stable release series</h4>
 <p>Apart from numerous fixes, improvements, and new features, this series has one major focus: scripting. Scripts allow users to easily customize and extend TeXworks. Current uses range from simple formatting over automation tasks to the implementation of new dialogs and auto-completion methods. Currently, the primary resource for scripts is <a href="http://code.google.com/p/texworks/issues/detail?id=261">Google Code</a>. For those interested in learning how to write scripts, Paul Norman has compiled some excellent <a href="http://twscript.paulanorman.com/docs/">documentations</a>.</p>
 
@@ -209,6 +171,46 @@ If no binaries are available for your platform, you can grab a copy of the <a hr
 </ul>
 
 <p>No new features or major code changes will be made in the 0.4.x series, but there may be new "point releases" as necessary to fix specific bugs.</p>
+
+<a name="History_0.2.x"></a>
+<h4>The 0.2.x stable release series</h4>
+<p>This series marks the initial release of TeXworks as a stable product. It includes:</p>
+<ul>
+<li>Simple GUI text editor
+  <ul>
+  <li>Unicode support using standard OpenType fonts</li>
+  <li>multi-level undo/redo</li>
+  <li>search &amp; replace, with (optional) regex support</li>
+  <li>comment/uncomment lines, etc.</li>
+  <li>TeX/LaTeX syntax coloring</li>
+  <li>auto-completion for easy insertion of common commands</li>
+  <li>spell-checking in the TeX source document</li>
+  <li>templates to provide a starting point for common document types</li>
+  <li>hard line-wrapping to facilitate the use of version control systems or sending the source files by email</li>
+  </ul>
+</li>
+
+<li>Ability to run TeX on the current document to generate PDF
+  <ul>
+  <li>extensible set of TeX commands (with pdftex, pdflatex, xelatex, context, etc. being preconfigured)</li>
+  <li>also support running BibTeX, Makeindex, etc.</li>
+  <li>terminal output appears in a “console” panel of the document window; automatically hidden if no errors occur</li>
+  <li>support “root document” metadata so “Typeset” works from an included file</li>
+  </ul>
+</li>
+
+<li>Preview window to view the output
+  <ul>
+  <li>anti-aliased PDF display</li>
+  <li>automatically opens when TeX finishes</li>
+  <li>auto-refresh when re-typesetting (stay at same page/view)</li>
+  <li>TeXShop-like “magnifying glass” feature to examine detail in the preview</li>
+  <li>one-click re-typesetting from either source or preview</li>
+  <li>text search in the PDF preview</li>
+  <li>source/preview synchronization based on Jérôme Laurens’ SyncTeX technology</li>
+  </ul>
+</li>
+</ul>
 
 <a name="Future_plans"></a>
 <h3>Future plans</h3>
