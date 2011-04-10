@@ -2387,7 +2387,11 @@ void TeXDocument::typeset()
 	
 #ifndef Q_WS_MAC // not supported on OS X yet :(
 	// Add a (customized) TEXEDIT environment variable
-	env << QString("TEXEDIT=%1 --position=%%d %%s").arg(QCoreApplication::applicationFilePath());
+	env << QString("TEXEDIT=%1 --position=%d %s").arg(QCoreApplication::applicationFilePath());
+	
+	#ifdef Q_WS_WIN // MiKTeX apparently uses it's own variable
+	env << QString("MIKTEX_EDITOR=%1 --position=%l \"%f\"").arg(QCoreApplication::applicationFilePath());
+	#endif
 #endif
 	
 	if (!exeFilePath.isEmpty()) {
