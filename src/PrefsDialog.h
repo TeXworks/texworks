@@ -39,7 +39,7 @@ const int kDefault_QuotesMode = -1;
 const bool kDefault_LineNumbers = false;
 const bool kDefault_WrapLines = true;
 const int kDefault_TabWidth = 32;
-const bool kDefault_HideConsole = true;
+const int kDefault_HideConsole = 1;
 const bool kDefault_HighlightCurrentLine = true;
 
 class QListWidgetItem;

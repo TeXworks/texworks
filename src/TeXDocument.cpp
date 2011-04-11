@@ -2529,7 +2529,28 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	executeAfterTypesetHooks();
 	
 	QSETTINGS_OBJECT(settings);
-	if (!keepConsoleOpen && exitCode == 0 && exitStatus != QProcess::CrashExit && settings.value("autoHideConsole", true).toBool())
+	
+	bool shouldHideConsole = false;
+	QVariant hideConsoleSetting = settings.value("autoHideConsole", kDefault_HideConsole);
+	// Backwards compatibility to Tw 0.4.0 and before
+	if (hideConsoleSetting.toString() == "true" || hideConsoleSetting.toString() == "false")
+		hideConsoleSetting = (hideConsoleSetting.toBool() ? kDefault_HideConsole : 0);
+
+	switch(hideConsoleSetting.toInt()) {
+		case 0: // Never hide console
+			shouldHideConsole = false;
+			break;
+		case 1: // Hide console automatically
+			shouldHideConsole = (!keepConsoleOpen && exitCode == 0 && exitStatus != QProcess::CrashExit);
+			break;
+		case 2: // Always hide console on success
+			shouldHideConsole = (exitCode == 0 && exitStatus != QProcess::CrashExit);
+			break;
+		default: // Should never happen
+			;
+	}
+	
+	if (shouldHideConsole)
 		hideConsole();
 	else
 		inputLine->hide();

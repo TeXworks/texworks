@@ -348,7 +348,7 @@ void PrefsDialog::restoreDefaults()
 			TWApp::instance()->setDefaultEngineList();
 			TWApp::instance()->setDefaultPaths();
 			initPathAndToolLists();
-			autoHideOutput->setChecked(kDefault_HideConsole);
+			autoHideOutput->setCurrentIndex(kDefault_HideConsole);
 			pathsChanged = true;
 			toolsChanged = true;
 			break;
@@ -559,7 +559,11 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	
 	// Typesetting
 	dlg.initPathAndToolLists();
-	dlg.autoHideOutput->setChecked(settings.value("autoHideConsole", kDefault_HideConsole).toBool());
+	QVariant hideConsoleSetting = settings.value("autoHideConsole", kDefault_HideConsole);
+	// Backwards compatibility to Tw 0.4.0 and before
+	if (hideConsoleSetting.toString() == "true" || hideConsoleSetting.toString() == "false")
+		hideConsoleSetting = (hideConsoleSetting.toBool() ? kDefault_HideConsole : 0);
+	dlg.autoHideOutput->setCurrentIndex(hideConsoleSetting.toInt());
 
 	// Scripts
 	dlg.allowScriptFileReading->setChecked(settings.value("allowScriptFileReading", false).toBool());
@@ -716,7 +720,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		if (dlg.toolsChanged)
 			TWApp::instance()->setEngineList(dlg.engineList);
 		TWApp::instance()->setDefaultEngine(dlg.defaultTool->currentText());
-		settings.setValue("autoHideConsole", dlg.autoHideOutput->isChecked());
+		settings.setValue("autoHideConsole", dlg.autoHideOutput->currentIndex());
 
 		// Scripts
 		settings.setValue("allowScriptFileReading", dlg.allowScriptFileReading->isChecked());
