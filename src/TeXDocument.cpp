@@ -2555,7 +2555,8 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	else
 		inputLine->hide();
 
-	process->deleteLater();
+	if (process) 
+		process->deleteLater();
 	process = NULL;
 	updateTypesettingAction();
 }
