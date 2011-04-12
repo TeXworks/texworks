@@ -515,6 +515,10 @@
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (프로그램간 권한 충돌이 있을 수 있으므로 인쇄 후 뷰어를 닫아주세요)</translation>
     </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -827,7 +831,7 @@
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>에러 없이 종료하면 콘솔 패널 자동 숨김</translation>
+        <translation type="obsolete">에러 없이 종료하면 콘솔 패널 자동 숨김</translation>
     </message>
     <message>
         <source>Line numbers</source>
@@ -880,6 +884,25 @@
     <message>
         <source>Enable QtScript debugger</source>
         <translation>Qt스크립트 디버거 활성화</translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On success</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -986,6 +1009,29 @@
     <message>
         <source>&amp;Regular expression</source>
         <translation>정규표현식(&amp;r)</translation>
+    </message>
+</context>
+<context>
+    <name>ResourcesDialog</name>
+    <message>
+        <source>TeXworks Settings and Resources</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Storage Locations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resources:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registry (%1)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1138,7 +1184,7 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2에 따릅니다.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2에 따릅니다.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
@@ -1227,6 +1273,10 @@
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>&quot;%1&quot; 스크립트가 &quot;%2&quot; 파일을 열고자 하지만 권한이 없습니다. 그래도 파일을 열겠습니까?</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2023,6 +2073,10 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     <message>
         <source>Process interrupted by user</source>
         <translation>사용자가 프로세스를 중단했습니다</translation>
+    </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

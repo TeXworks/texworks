@@ -522,6 +522,10 @@
         <source> (remember to close it again to avoid access problems)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -834,7 +838,7 @@
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>Verberg uitvoer venster automatisch na succesvol commando</translation>
+        <translation type="obsolete">Verberg uitvoer venster automatisch na succesvol commando</translation>
     </message>
     <message>
         <source>System default [%1]</source>
@@ -890,6 +894,25 @@
     </message>
     <message>
         <source>Enable QtScript debugger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On success</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -997,6 +1020,29 @@
     <message>
         <source>No recent replacement strings</source>
         <translation>Geen recente vervangingsteksten</translation>
+    </message>
+</context>
+<context>
+    <name>ResourcesDialog</name>
+    <message>
+        <source>TeXworks Settings and Resources</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Storage Locations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resources:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registry (%1)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1181,7 +1227,7 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;Verspreiding onder de &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versie 2.</translation>
+        <translation type="obsolete">&lt;p&gt;Verspreiding onder de &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versie 2.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
@@ -1241,6 +1287,10 @@
     </message>
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2054,6 +2104,10 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     </message>
     <message>
         <source>Process interrupted by user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings and Resources...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

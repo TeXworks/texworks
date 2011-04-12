@@ -534,6 +534,10 @@
         <source>Ctrl+T</source>
         <translation type="obsolete">Ctrl+T</translation>
     </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -854,7 +858,7 @@
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>Mantener oculto el panel de salida mientras no ocurran errores</translation>
+        <translation type="obsolete">Mantener oculto el panel de salida mientras no ocurran errores</translation>
     </message>
     <message>
         <source>Scripts</source>
@@ -899,6 +903,25 @@
     <message>
         <source>Highlight current line</source>
         <translation>Resaltar la línea actual</translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On success</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1015,6 +1038,29 @@
     <message>
         <source>&amp;Regular expression</source>
         <translation>&amp;Expresión regular</translation>
+    </message>
+</context>
+<context>
+    <name>ResourcesDialog</name>
+    <message>
+        <source>TeXworks Settings and Resources</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Storage Locations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resources:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registry (%1)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1167,7 +1213,7 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;Se distribuye bajo la licencia &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versión 2.</translation>
+        <translation type="obsolete">&lt;p&gt;Se distribuye bajo la licencia &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versión 2.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
@@ -1269,6 +1315,10 @@
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>El script &quot;%1&quot; está tratando de abrir el archivo &quot;%2&quot; sin contar con los permisos
 adecuados. ¿Quiere abrirlo de todos modos?</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2090,6 +2140,10 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     <message>
         <source>Ctrl+T</source>
         <translation type="obsolete">Ctrl+T</translation>
+    </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
