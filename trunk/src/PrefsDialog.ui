@@ -897,17 +897,17 @@
              </property>
              <item>
               <property name="text">
-               <string>Never</string>
+               <string extracomment="&quot;Hide output panel&quot; mode">Never</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>Automatically</string>
+               <string extracomment="&quot;Hide output panel&quot; mode">Automatically</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>On success</string>
+               <string extracomment="&quot;Hide output panel&quot; mode">On success</string>
               </property>
              </item>
             </widget>
