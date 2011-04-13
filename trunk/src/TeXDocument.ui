@@ -344,7 +344,7 @@
     <string>Typeset Toolbar</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">padding:2px</string>
+    <string notr="true">QToolButton { padding:2px; }</string>
    </property>
    <property name="allowedAreas">
     <set>Qt::LeftToolBarArea|Qt::TopToolBarArea</set>
@@ -368,7 +368,7 @@
     <string>Edit Toolbar</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">padding:2px</string>
+    <string notr="true">QToolButton { padding:2px; }</string>
    </property>
    <property name="allowedAreas">
     <set>Qt::LeftToolBarArea|Qt::TopToolBarArea</set>
