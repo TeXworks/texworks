@@ -214,8 +214,8 @@ private:
 	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
-	QString readFile(const QString &fileName, QTextCodec **codecUsed, int *lineEndings = NULL);
-	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false);
+	QString readFile(const QString &fileName, QTextCodec **codecUsed, int *lineEndings = NULL, QTextCodec * forceCodec = NULL);
+	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false, QTextCodec * forceCodec = NULL);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
 	void saveRecentFileInfo();

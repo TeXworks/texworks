@@ -915,7 +915,8 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 
 QString TeXDocument::readFile(const QString &fileName,
 							  QTextCodec **codecUsed,
-							  int *lineEndings)
+							  int *lineEndings,
+							  QTextCodec * forceCodec)
 	// reads the text from a file, after checking for %!TEX encoding.... metadata
 	// sets codecUsed to the QTextCodec used to read the text
 	// returns a null (not just empty) QString on failure
@@ -943,18 +944,22 @@ QString TeXDocument::readFile(const QString &fileName,
 	QString peekStr(file.peek(PEEK_LENGTH));
 	QString reqName;
 	bool hasMetadata;
-	*codecUsed = scanForEncoding(peekStr, hasMetadata, reqName);
-	if (*codecUsed == NULL) {
-		*codecUsed = TWApp::instance()->getDefaultCodec();
-		if (hasMetadata) {
-			if (QMessageBox::warning(this, tr("Unrecognized encoding"),
-					tr("The text encoding %1 used in %2 is not supported.\n\n"
-					   "It will be interpreted as %3 instead, which may result in incorrect text.")
-						.arg(reqName)
-						.arg(fileName)
-						.arg(QString::fromAscii((*codecUsed)->name())),
-					QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
-				return QString();
+	if (forceCodec)
+		*codecUsed = forceCodec;
+	else {
+		*codecUsed = scanForEncoding(peekStr, hasMetadata, reqName);
+		if (*codecUsed == NULL) {
+			*codecUsed = TWApp::instance()->getDefaultCodec();
+			if (hasMetadata) {
+				if (QMessageBox::warning(this, tr("Unrecognized encoding"),
+						tr("The text encoding %1 used in %2 is not supported.\n\n"
+						   "It will be interpreted as %3 instead, which may result in incorrect text.")
+							.arg(reqName)
+							.arg(fileName)
+							.arg(QString::fromAscii((*codecUsed)->name())),
+						QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
+					return QString();
+			}
 		}
 	}
 	
@@ -987,9 +992,9 @@ QString TeXDocument::readFile(const QString &fileName,
 	}
 }
 
-void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBackground)
+void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBackground, QTextCodec * forceCodec)
 {
-	QString fileContents = readFile(fileName, &codec, &lineEndings);
+	QString fileContents = readFile(fileName, &codec, &lineEndings, forceCodec);
 	showLineEndingSetting();
 	showEncodingSetting();
 
@@ -1494,15 +1499,44 @@ void TeXDocument::showEncodingSetting()
 void TeXDocument::encodingPopup(const QPoint loc)
 {
 	QMenu menu;
-	foreach (QTextCodec *codec, *TWUtils::findCodecs())
-		menu.addAction(new QAction(codec->name(), &menu));
+	QAction * reloadAction = new QAction(tr("Reload using selected encoding"), &menu);
+	QAction * a;
+	
+	if (!isUntitled) {
+		menu.addAction(reloadAction);
+		menu.addSeparator();
+	}
+	
+	foreach (QTextCodec *codec, *TWUtils::findCodecs()) {
+		a = new QAction(codec->name(), &menu);
+		a->setCheckable(true);
+		if (codec == this->codec)
+			a->setChecked(true);
+		menu.addAction(a);
+	}
 	QAction *result = menu.exec(encodingLabel->mapToGlobal(loc));
 	if (result) {
-		QTextCodec *newCodec = QTextCodec::codecForName(result->text().toAscii());
-		if (newCodec && newCodec != codec) {
-			codec = newCodec;
-			showEncodingSetting();
-			textEdit->document()->setModified();
+		if (result == reloadAction) {
+			if (textEdit->document()->isModified()) {
+				if (QMessageBox::warning(this, tr("Unsaved changes"),
+										 tr("The file you are trying to reload has unsaved changes.\n\n"
+											"Do you want to discard your current changes, and reload the file from disk with the encoding %1?")
+										 .arg(QString(codec->name())),
+										 QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No) {
+					return;
+				}
+			}
+			clearFileWatcher(); // stop watching until next save or reload
+			loadFile(curFile, false, true, codec);
+			; // FIXME
+		}
+		else {
+			QTextCodec *newCodec = QTextCodec::codecForName(result->text().toAscii());
+			if (newCodec && newCodec != codec) {
+				codec = newCodec;
+				showEncodingSetting();
+				textEdit->document()->setModified();
+			}
 		}
 	}
 }
