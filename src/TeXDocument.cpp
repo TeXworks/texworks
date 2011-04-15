@@ -1499,7 +1499,10 @@ void TeXDocument::showEncodingSetting()
 void TeXDocument::encodingPopup(const QPoint loc)
 {
 	QMenu menu;
+	//: Item in the encoding popup menu
 	QAction * reloadAction = new QAction(tr("Reload using selected encoding"), &menu);
+	//: Tooltip for "Reload using selected encoding"
+	reloadAction->setToolTip(tr("Reloads the current file with the encoding selected from this menu.\n\nThe selected encoding replaces the default one and overrides all \"%!TEX encoding\" lines."));
 	QAction * a;
 	
 	if (!isUntitled) {
