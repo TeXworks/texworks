@@ -4,17 +4,17 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="919"/>
+        <location filename="../src/CompletingEdit.cpp" line="918"/>
         <source>No suggestions</source>
         <translation type="unfinished">Pas de suggestion</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="902"/>
+        <location filename="../src/CompletingEdit.cpp" line="901"/>
         <source>Jump to PDF</source>
         <translation type="unfinished">Aller au PDF</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="939"/>
+        <location filename="../src/CompletingEdit.cpp" line="938"/>
         <source>Ignore word</source>
         <translation type="unfinished">Ignorer le mot</translation>
     </message>
@@ -956,119 +956,132 @@
         <translation type="unfinished">Encodage :</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="519"/>
+        <location filename="../src/PrefsDialog.ui" line="518"/>
+        <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="529"/>
         <source>Preview</source>
         <translation type="unfinished">Prévisualisation</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="525"/>
+        <location filename="../src/PrefsDialog.ui" line="535"/>
         <source>Default scaling</source>
         <translation type="unfinished">Échelle par défaut</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="533"/>
+        <location filename="../src/PrefsDialog.ui" line="543"/>
         <source>Actual size</source>
         <translation type="unfinished">Taille réelle</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="540"/>
+        <location filename="../src/PrefsDialog.ui" line="550"/>
         <source>Fit to Width</source>
         <translation type="unfinished">Ajuster à la largeur</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="547"/>
+        <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Fit to Window</source>
         <translation type="unfinished">Ajuster à la fenêtre</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="558"/>
+        <location filename="../src/PrefsDialog.ui" line="568"/>
         <source>Fixed scale:</source>
         <translation type="unfinished">Échelle fixe :</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="568"/>
+        <location filename="../src/PrefsDialog.ui" line="578"/>
         <source> %</source>
         <translation type="unfinished">%</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="589"/>
+        <location filename="../src/PrefsDialog.ui" line="599"/>
         <source>Magnifying glass</source>
         <translation type="unfinished">Loupe</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="597"/>
+        <location filename="../src/PrefsDialog.ui" line="607"/>
         <source>Small</source>
         <translation type="unfinished">Petit</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="604"/>
+        <location filename="../src/PrefsDialog.ui" line="614"/>
         <source>Medium</source>
         <translation type="unfinished">Moyen</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="611"/>
+        <location filename="../src/PrefsDialog.ui" line="621"/>
         <source>Large</source>
         <translation type="unfinished">Grand</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="620"/>
+        <location filename="../src/PrefsDialog.ui" line="630"/>
         <source>Circular magnifier</source>
         <translation type="unfinished">Loupe circulaire</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="648"/>
+        <location filename="../src/PrefsDialog.ui" line="658"/>
         <source>Screen resolution:</source>
         <translation type="unfinished">Résolution d&apos;écran :</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="658"/>
+        <location filename="../src/PrefsDialog.ui" line="668"/>
         <source> dpi</source>
         <translation type="unfinished"> dpi (points pp)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="690"/>
+        <location filename="../src/PrefsDialog.ui" line="700"/>
         <source>Typesetting</source>
         <translation type="unfinished">Composition</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="707"/>
+        <location filename="../src/PrefsDialog.ui" line="717"/>
         <source>Paths for TeX and related programs</source>
         <translation type="unfinished">Chemin vers TeX et programmes associés</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="780"/>
+        <location filename="../src/PrefsDialog.ui" line="790"/>
         <source>Processing tools</source>
         <translation type="unfinished">Outils de traitement</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="815"/>
+        <location filename="../src/PrefsDialog.ui" line="825"/>
         <source>Edit...</source>
         <translation type="unfinished">Éditer...</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="853"/>
+        <location filename="../src/PrefsDialog.ui" line="863"/>
         <source>Default:</source>
         <translation type="unfinished">Par défaut :</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="883"/>
+        <location filename="../src/PrefsDialog.ui" line="893"/>
         <source>Hide output panel:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="900"/>
+        <location filename="../src/PrefsDialog.ui" line="906"/>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="916"/>
         <source>Never</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="905"/>
+        <location filename="../src/PrefsDialog.ui" line="921"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="910"/>
+        <location filename="../src/PrefsDialog.ui" line="926"/>
         <source>On success</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
         <translation type="unfinished"></translation>
@@ -1078,42 +1091,42 @@
         <translation type="obsolete">Masquer automatiquement le panneau de sortie sauf erreur</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="936"/>
+        <location filename="../src/PrefsDialog.ui" line="952"/>
         <source>Scripts</source>
         <translation type="unfinished">Scripts</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="942"/>
+        <location filename="../src/PrefsDialog.ui" line="958"/>
         <source>Security</source>
         <translation type="unfinished">Sécurité</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="948"/>
+        <location filename="../src/PrefsDialog.ui" line="964"/>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
         <translation type="unfinished">Autoriser les scripts de lire tous les fichiers (un script et un fichier de document sont toujours lisibles)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="955"/>
+        <location filename="../src/PrefsDialog.ui" line="971"/>
         <source>Allow scripts to write files</source>
         <translation type="unfinished">Autoriser les scripts à écrire des fichiers</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="962"/>
+        <location filename="../src/PrefsDialog.ui" line="978"/>
         <source>Allow scripts to run system commands</source>
         <translation type="unfinished">Autoriser les scripts à exécuter des commandes système</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="969"/>
+        <location filename="../src/PrefsDialog.ui" line="985"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
         <translation type="unfinished">Activer les l angages de script (peut contourner d&apos;autres restrictions de comportement de script)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="979"/>
+        <location filename="../src/PrefsDialog.ui" line="995"/>
         <source>Debugging</source>
         <translation type="unfinished">Deboggage</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="985"/>
+        <location filename="../src/PrefsDialog.ui" line="1001"/>
         <source>Enable QtScript debugger</source>
         <translation type="unfinished">Activer le déboggeur QtScript</translation>
     </message>
@@ -1805,12 +1818,12 @@ Voulez-vous sauvegrader les changements ?</translation>
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="950"/>
+        <location filename="../src/TeXDocument.cpp" line="954"/>
         <source>Unrecognized encoding</source>
         <translation type="unfinished">Encodage non reconnu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="951"/>
+        <location filename="../src/TeXDocument.cpp" line="955"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1831,12 +1844,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 Il sera sauvegardé comme %3, ce qui peut produire un texte incorrect.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1270"/>
+        <location filename="../src/TeXDocument.cpp" line="1275"/>
         <source>Text cannot be converted</source>
         <translation type="unfinished">Le texte ne peut pas être converti</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1271"/>
+        <location filename="../src/TeXDocument.cpp" line="1276"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -1859,45 +1872,45 @@ Si vous continuez, ils seront remplacés par des codes par défaut. Comme autre 
         <translation type="obsolete">encodage par défaut</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1248"/>
+        <location filename="../src/TeXDocument.cpp" line="1253"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation type="unfinished">Le document &quot;%1&quot; n&apos;a pas été sauvegardé</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1341"/>
+        <location filename="../src/TeXDocument.cpp" line="1346"/>
         <source>untitled-%1.tex</source>
         <translation type="unfinished">sansnom-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1350"/>
+        <location filename="../src/TeXDocument.cpp" line="1355"/>
         <source>%1[*] - %2</source>
         <translation type="unfinished">%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1443"/>
+        <location filename="../src/TeXDocument.cpp" line="1448"/>
         <source>Line %1 of %2; col %3</source>
         <translation type="unfinished">Ligne %1 de %2 ; col %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1613"/>
+        <location filename="../src/TeXDocument.cpp" line="1650"/>
         <source>Go to Line</source>
         <translation type="unfinished">Aller à la Ligne</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1614"/>
+        <location filename="../src/TeXDocument.cpp" line="1651"/>
         <source>Line number:</source>
         <translation type="unfinished">Ligne numéro :</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1973"/>
-        <location filename="../src/TeXDocument.cpp" line="2087"/>
+        <location filename="../src/TeXDocument.cpp" line="2010"/>
+        <location filename="../src/TeXDocument.cpp" line="2124"/>
         <source>Invalid regular expression</source>
         <translation type="unfinished">Expression régulière incorrecte</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2019"/>
         <location filename="../src/TeXDocument.cpp" line="2056"/>
-        <location filename="../src/TeXDocument.cpp" line="2165"/>
+        <location filename="../src/TeXDocument.cpp" line="2093"/>
+        <location filename="../src/TeXDocument.cpp" line="2202"/>
         <source>Not found</source>
         <translation type="unfinished">Non trouvé</translation>
     </message>
@@ -1914,7 +1927,7 @@ Si vous continuez, ils seront remplacés par des codes par défaut. Comme autre 
         <translation type="obsolete">%1 occurence(s) remplacée(s)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2350"/>
+        <location filename="../src/TeXDocument.cpp" line="2387"/>
         <source>Cannot process unsaved document</source>
         <translation type="unfinished">Impossible de traiter un document non sauvegardé</translation>
     </message>
@@ -1923,12 +1936,12 @@ Si vous continuez, ils seront remplacés par des codes par défaut. Comme autre 
         <translation type="obsolete">Fichier %1 illisible</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2366"/>
+        <location filename="../src/TeXDocument.cpp" line="2403"/>
         <source>%1 is not properly configured</source>
         <translation type="unfinished">%1 n&apos;est configuré correctement</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2450"/>
+        <location filename="../src/TeXDocument.cpp" line="2487"/>
         <source>Unable to execute %1</source>
         <translation type="unfinished">Impossible d&apos;exécuter %1</translation>
     </message>
@@ -1942,22 +1955,22 @@ Vérifiez la configuration de l&apos;outil %2 et les paramètres de chemin dans 
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="847"/>
-        <location filename="../src/TeXDocument.cpp" line="2616"/>
+        <location filename="../src/TeXDocument.cpp" line="2653"/>
         <source>Hide Output Panel</source>
         <translation type="unfinished">Masquer le panneau de sortie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2623"/>
+        <location filename="../src/TeXDocument.cpp" line="2660"/>
         <source>Show Output Panel</source>
         <translation type="unfinished">Montrer le panneau de sortie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2703"/>
+        <location filename="../src/TeXDocument.cpp" line="2740"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation type="unfinished">Définir le moteur à &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2707"/>
+        <location filename="../src/TeXDocument.cpp" line="2744"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation type="unfinished">Le moteur &quot;%1&quot; n&apos;est pas défini</translation>
     </message>
@@ -1988,7 +2001,7 @@ Vérifiez la configuration de l&apos;outil %2 et les paramètres de chemin dans 
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="594"/>
-        <location filename="../src/TeXDocument.cpp" line="2473"/>
+        <location filename="../src/TeXDocument.cpp" line="2510"/>
         <source>Typeset</source>
         <translation type="unfinished">Composition</translation>
     </message>
@@ -2454,26 +2467,26 @@ Vérifiez la configuration de l&apos;outil %2 et les paramètres de chemin dans 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="937"/>
+        <location filename="../src/TeXDocument.cpp" line="938"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation type="unfinished">Impossible de lire le fichier &quot;%1&quot;:
 %2. {1&quot;?} {2?}</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1017"/>
+        <location filename="../src/TeXDocument.cpp" line="1022"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1087"/>
-        <location filename="../src/TeXDocument.cpp" line="1148"/>
-        <location filename="../src/TeXDocument.cpp" line="1242"/>
+        <location filename="../src/TeXDocument.cpp" line="1092"/>
+        <location filename="../src/TeXDocument.cpp" line="1153"/>
+        <location filename="../src/TeXDocument.cpp" line="1247"/>
         <source>File changed on disk</source>
         <translation type="unfinished">Fichier modifié sur le disque</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1088"/>
+        <location filename="../src/TeXDocument.cpp" line="1093"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2482,7 +2495,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Voulez-vous abandonner vos changements récents et recharger le fichier à partir du disque ?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1149"/>
+        <location filename="../src/TeXDocument.cpp" line="1154"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2491,7 +2504,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Veuillez utiliser manuellement &quot;Fichier &gt; Retour au fichier sauvegardé&quot; lorsque le processus externe a fini.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1243"/>
+        <location filename="../src/TeXDocument.cpp" line="1248"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2500,29 +2513,55 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le disque ?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1285"/>
+        <location filename="../src/TeXDocument.cpp" line="1290"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation type="unfinished">Impossible d&apos;écrire le fichier &quot;%1&quot;:
 %2. {1&quot;?} {2?}</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1295"/>
+        <location filename="../src/TeXDocument.cpp" line="1300"/>
         <source>Error writing file</source>
         <translation type="unfinished">Erreur d&apos;écriture de fichier</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1296"/>
+        <location filename="../src/TeXDocument.cpp" line="1301"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation type="unfinished">Une erreur est survenue lors de la sauvegarde du fichier. Vous pourriez sauvegarder une copie à un endroit différent.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1305"/>
+        <location filename="../src/TeXDocument.cpp" line="1310"/>
         <source>File &quot;%1&quot; saved</source>
         <translation type="unfinished">Fichier &quot;%1&quot; sauvegardé</translation>
     </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1503"/>
+        <source>Reload using selected encoding</source>
+        <extracomment>Item in the encoding popup menu</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1505"/>
+        <source>Reloads the current file with the encoding selected from this menu.
+
+The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
+        <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1524"/>
+        <source>Unsaved changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1525"/>
+        <source>The file you are trying to reload has unsaved changes.
+
+Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2023"/>
+        <location filename="../src/TeXDocument.cpp" line="2060"/>
         <source>Found %n occurrence(s)</source>
         <translation type="unfinished">
             <numerusform>%n occurence trouvée</numerusform>
@@ -2530,7 +2569,7 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2184"/>
+        <location filename="../src/TeXDocument.cpp" line="2221"/>
         <source>%n occurrence(s)</source>
         <translation type="unfinished">
             <numerusform>%n occurence</numerusform>
@@ -2538,7 +2577,7 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2185"/>
+        <location filename="../src/TeXDocument.cpp" line="2222"/>
         <source>%n documents</source>
         <translation type="unfinished">
             <numerusform>%n document</numerusform>
@@ -2546,12 +2585,12 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2186"/>
+        <location filename="../src/TeXDocument.cpp" line="2223"/>
         <source>Replaced %1 in %2</source>
         <translation type="unfinished">%1 remplacé dans %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2191"/>
+        <location filename="../src/TeXDocument.cpp" line="2228"/>
         <source>Replaced %n occurrence(s)</source>
         <translation type="unfinished">
             <numerusform>%n occurence remplacée</numerusform>
@@ -2559,17 +2598,17 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2360"/>
+        <location filename="../src/TeXDocument.cpp" line="2397"/>
         <source>Root document %1 is not readable</source>
         <translation type="unfinished">Le fichier racine %1 n&apos;est pas lisible</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2481"/>
+        <location filename="../src/TeXDocument.cpp" line="2518"/>
         <source>Abort typesetting</source>
         <translation type="unfinished">Arrêter la composition</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2501"/>
+        <location filename="../src/TeXDocument.cpp" line="2538"/>
         <source>Process interrupted by user</source>
         <translation type="unfinished">Processus arrêté par l&apos;utilisateur</translation>
     </message>
@@ -2578,12 +2617,12 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
         <translation type="obsolete">Le fichier racine %1 n&apos;a pas été trouvé</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2817"/>
+        <location filename="../src/TeXDocument.cpp" line="2854"/>
         <source>No files found</source>
         <translation type="unfinished">Aucun fichier trouvé</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2818"/>
+        <location filename="../src/TeXDocument.cpp" line="2855"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation type="unfinished">Aucun fichier auxiliaire associé à ce document pour le moment.</translation>
     </message>
@@ -2629,17 +2668,17 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
         <translation type="unfinished">Inverser la casse</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2451"/>
+        <location filename="../src/TeXDocument.cpp" line="2488"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation type="unfinished">Le programme &quot;%1&quot; n&apos;a pas été trouvé.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2452"/>
+        <location filename="../src/TeXDocument.cpp" line="2489"/>
         <source>Searched in directories:</source>
         <translation type="unfinished">Recherché dans les répertoires :</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2454"/>
+        <location filename="../src/TeXDocument.cpp" line="2491"/>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
         <translation type="unfinished">Vérifiez la configuration de l&apos;outil &quot;%1&quot; et les paramètres du chemin dans la boîte de dialogue Préférences.</translation>
     </message>
