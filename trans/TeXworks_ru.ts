@@ -4,7 +4,7 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="+902"/>
+        <location filename="../src/CompletingEdit.cpp" line="+901"/>
         <source>Jump to PDF</source>
         <translation>Перейти к PDF</translation>
     </message>
@@ -964,7 +964,12 @@
         <translation>Кодировка:</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+67"/>
+        <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>Preview</source>
         <translation>Просмотр</translation>
     </message>
@@ -1064,7 +1069,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+13"/>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Never</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
         <translation type="unfinished"></translation>
@@ -1126,7 +1139,7 @@
         <translation>Разрешить сценариям запускать системные программы</translation>
     </message>
     <message>
-        <location line="-714"/>
+        <location line="-730"/>
         <source>Line numbers</source>
         <translation>Нумерация строк</translation>
     </message>
@@ -1812,7 +1825,7 @@ Do you want to save your changes?</source>
 %2.</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+111"/>
         <source>Unrecognized encoding</source>
         <translation>Неопознанная кодировка </translation>
     </message>
@@ -1830,7 +1843,7 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation type="obsolete">Файл &quot;%1&quot; был загружен (%2)</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+137"/>
         <location line="+61"/>
         <location line="+94"/>
         <source>File changed on disk</source>
@@ -1888,14 +1901,14 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 %2.</translation>
     </message>
     <message>
-        <location line="-334"/>
+        <location line="-338"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Невозможно прочитать файл &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location line="+348"/>
+        <location line="+352"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Невозможно записать файл &quot;%1&quot;:
@@ -1910,14 +1923,14 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation type="obsolete">Кодировка по умолчанию</translation>
     </message>
     <message>
-        <location line="-441"/>
+        <location line="-446"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translatorcomment>комбинация клавиш: отменить изменения</translatorcomment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location line="+173"/>
+        <location line="+178"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Файл &quot;%1&quot; загружен</translation>
     </message>
@@ -1961,7 +1974,33 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>Строка %1 из %2; столбец %3</translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+55"/>
+        <source>Reload using selected encoding</source>
+        <extracomment>Item in the encoding popup menu</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Reloads the current file with the encoding selected from this menu.
+
+The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
+        <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Unsaved changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The file you are trying to reload has unsaved changes.
+
+Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+125"/>
         <source>Go to Line</source>
         <translation>Перейти к строке</translation>
     </message>

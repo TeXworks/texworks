@@ -4,17 +4,17 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="902"/>
+        <location filename="../src/CompletingEdit.cpp" line="901"/>
         <source>Jump to PDF</source>
         <translation>Přeskočit do PDF</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="919"/>
+        <location filename="../src/CompletingEdit.cpp" line="918"/>
         <source>No suggestions</source>
         <translation>Žádné návrhy</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="939"/>
+        <location filename="../src/CompletingEdit.cpp" line="938"/>
         <source>Ignore word</source>
         <translation>Ignorovat slovo</translation>
     </message>
@@ -965,119 +965,132 @@
         <translation>Zvýrazňovat aktuální řádek</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="519"/>
+        <location filename="../src/PrefsDialog.ui" line="518"/>
+        <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="529"/>
         <source>Preview</source>
         <translation>Náhled</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="525"/>
+        <location filename="../src/PrefsDialog.ui" line="535"/>
         <source>Default scaling</source>
         <translation>Výchozí zvětšení</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="533"/>
+        <location filename="../src/PrefsDialog.ui" line="543"/>
         <source>Actual size</source>
         <translation>Skutečná velikost</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="540"/>
+        <location filename="../src/PrefsDialog.ui" line="550"/>
         <source>Fit to Width</source>
         <translation>Přizpůsobit šířce okna</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="547"/>
+        <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Fit to Window</source>
         <translation>Přizpůsobit oknu</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="558"/>
+        <location filename="../src/PrefsDialog.ui" line="568"/>
         <source>Fixed scale:</source>
         <translation>Fixní zvětšení:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="568"/>
+        <location filename="../src/PrefsDialog.ui" line="578"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="589"/>
+        <location filename="../src/PrefsDialog.ui" line="599"/>
         <source>Magnifying glass</source>
         <translation>Lupa</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="597"/>
+        <location filename="../src/PrefsDialog.ui" line="607"/>
         <source>Small</source>
         <translation>Malá</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="604"/>
+        <location filename="../src/PrefsDialog.ui" line="614"/>
         <source>Medium</source>
         <translation>Střední</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="611"/>
+        <location filename="../src/PrefsDialog.ui" line="621"/>
         <source>Large</source>
         <translation>Velká</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="620"/>
+        <location filename="../src/PrefsDialog.ui" line="630"/>
         <source>Circular magnifier</source>
         <translation>Kulatý tvar</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="648"/>
+        <location filename="../src/PrefsDialog.ui" line="658"/>
         <source>Screen resolution:</source>
         <translation>Rozlišení obrazovky:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="658"/>
+        <location filename="../src/PrefsDialog.ui" line="668"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="690"/>
+        <location filename="../src/PrefsDialog.ui" line="700"/>
         <source>Typesetting</source>
         <translation>Sazba</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="707"/>
+        <location filename="../src/PrefsDialog.ui" line="717"/>
         <source>Paths for TeX and related programs</source>
         <translation>Cesty k TeXu a souvisejícím programům</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="780"/>
+        <location filename="../src/PrefsDialog.ui" line="790"/>
         <source>Processing tools</source>
         <translation>Nástroje pro překlad</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="815"/>
+        <location filename="../src/PrefsDialog.ui" line="825"/>
         <source>Edit...</source>
         <translation>Upravit...</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="853"/>
+        <location filename="../src/PrefsDialog.ui" line="863"/>
         <source>Default:</source>
         <translation>Výchozí:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="883"/>
+        <location filename="../src/PrefsDialog.ui" line="893"/>
         <source>Hide output panel:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="900"/>
+        <location filename="../src/PrefsDialog.ui" line="906"/>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="916"/>
         <source>Never</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="905"/>
+        <location filename="../src/PrefsDialog.ui" line="921"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="910"/>
+        <location filename="../src/PrefsDialog.ui" line="926"/>
         <source>On success</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
         <translation type="unfinished"></translation>
@@ -1087,42 +1100,42 @@
         <translation type="obsolete">Automaticky skrývat panel s výstupem, pokud nedojde k žádné chybě</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="936"/>
+        <location filename="../src/PrefsDialog.ui" line="952"/>
         <source>Scripts</source>
         <translation>Skripty</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="942"/>
+        <location filename="../src/PrefsDialog.ui" line="958"/>
         <source>Security</source>
         <translation>Zabezpečení</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="948"/>
+        <location filename="../src/PrefsDialog.ui" line="964"/>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
         <translation>Povolit skriptům číst všechny soubory (soubory skriptů a dokumentů jsou čitelné automaticky)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="955"/>
+        <location filename="../src/PrefsDialog.ui" line="971"/>
         <source>Allow scripts to write files</source>
         <translation>Povolit skriptům zapisovat soubory</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="962"/>
+        <location filename="../src/PrefsDialog.ui" line="978"/>
         <source>Allow scripts to run system commands</source>
         <translation>Povolit skriptům spouštět systémové příkazy</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="969"/>
+        <location filename="../src/PrefsDialog.ui" line="985"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
         <translation>Povolit dodatečné skriptovací jazyky (může vést k obejití některých omezení na chování skriptů)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="979"/>
+        <location filename="../src/PrefsDialog.ui" line="995"/>
         <source>Debugging</source>
         <translation>Ladění</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="985"/>
+        <location filename="../src/PrefsDialog.ui" line="1001"/>
         <source>Enable QtScript debugger</source>
         <translation>Povolit debugger QtScript</translation>
     </message>
@@ -1781,12 +1794,12 @@ Chcete své změny uložit?</translation>
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="950"/>
+        <location filename="../src/TeXDocument.cpp" line="954"/>
         <source>Unrecognized encoding</source>
         <translation>Neznámé kódování</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="951"/>
+        <location filename="../src/TeXDocument.cpp" line="955"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1799,14 +1812,14 @@ Místo toho bude použito kódování %3; výsledný text proto může obsahovat
         <translation type="obsolete">Soubor &quot;%1&quot; načten (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1087"/>
-        <location filename="../src/TeXDocument.cpp" line="1148"/>
-        <location filename="../src/TeXDocument.cpp" line="1242"/>
+        <location filename="../src/TeXDocument.cpp" line="1092"/>
+        <location filename="../src/TeXDocument.cpp" line="1153"/>
+        <location filename="../src/TeXDocument.cpp" line="1247"/>
         <source>File changed on disk</source>
         <translation>Dokument změněn na disku</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1088"/>
+        <location filename="../src/TeXDocument.cpp" line="1093"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -1815,7 +1828,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Chcete zahodit své aktuální změny a znovu načíst soubor z disku?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1243"/>
+        <location filename="../src/TeXDocument.cpp" line="1248"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -1824,7 +1837,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Chcete přesto soubor uložit a přepsat tak stávající verzi na disku?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1248"/>
+        <location filename="../src/TeXDocument.cpp" line="1253"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>Dokument &quot;%1&quot; nebyl uložen</translation>
     </message>
@@ -1837,12 +1850,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 Místo toho bude soubor uložen v kódování %3, což může způsobit chyby ve výsledném textu.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1270"/>
+        <location filename="../src/TeXDocument.cpp" line="1275"/>
         <source>Text cannot be converted</source>
         <translation>Text nelze zkonvertovat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1271"/>
+        <location filename="../src/TeXDocument.cpp" line="1276"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -1871,19 +1884,19 @@ Pokud se rozhodnete pokračovat, budou tyto nahrazeny výchozími kódy. V opač
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="937"/>
+        <location filename="../src/TeXDocument.cpp" line="938"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Nelze číst ze souboru &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1017"/>
+        <location filename="../src/TeXDocument.cpp" line="1022"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Soubor &quot;%1&quot; načten</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1149"/>
+        <location filename="../src/TeXDocument.cpp" line="1154"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -1892,67 +1905,93 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Použijte prosím &quot;Soubor &gt; Návrat k uložené verzi&quot;, jakmile externí program skončí.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1285"/>
+        <location filename="../src/TeXDocument.cpp" line="1290"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Nelze zapsat soubor &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1295"/>
+        <location filename="../src/TeXDocument.cpp" line="1300"/>
         <source>Error writing file</source>
         <translation>Chyba při zápisu souboru</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1296"/>
+        <location filename="../src/TeXDocument.cpp" line="1301"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>Při ukládání souboru došlo k chybě. Zkuste uložit kopii na jiném místě.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1305"/>
+        <location filename="../src/TeXDocument.cpp" line="1310"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>Soubor &quot;%1&quot; uložen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1341"/>
+        <location filename="../src/TeXDocument.cpp" line="1346"/>
         <source>untitled-%1.tex</source>
         <translation>bez_nazvu-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1350"/>
+        <location filename="../src/TeXDocument.cpp" line="1355"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1443"/>
+        <location filename="../src/TeXDocument.cpp" line="1448"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Řádek %1 z %2; sl. %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1613"/>
+        <location filename="../src/TeXDocument.cpp" line="1503"/>
+        <source>Reload using selected encoding</source>
+        <extracomment>Item in the encoding popup menu</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1505"/>
+        <source>Reloads the current file with the encoding selected from this menu.
+
+The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
+        <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1524"/>
+        <source>Unsaved changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1525"/>
+        <source>The file you are trying to reload has unsaved changes.
+
+Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1650"/>
         <source>Go to Line</source>
         <translation>Přejít na řádek</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1614"/>
+        <location filename="../src/TeXDocument.cpp" line="1651"/>
         <source>Line number:</source>
         <translation>Číslo řádku:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1973"/>
-        <location filename="../src/TeXDocument.cpp" line="2087"/>
+        <location filename="../src/TeXDocument.cpp" line="2010"/>
+        <location filename="../src/TeXDocument.cpp" line="2124"/>
         <source>Invalid regular expression</source>
         <translation>Neplatný regulární výraz</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2019"/>
         <location filename="../src/TeXDocument.cpp" line="2056"/>
-        <location filename="../src/TeXDocument.cpp" line="2165"/>
+        <location filename="../src/TeXDocument.cpp" line="2093"/>
+        <location filename="../src/TeXDocument.cpp" line="2202"/>
         <source>Not found</source>
         <translation>Nenalezeno</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2023"/>
+        <location filename="../src/TeXDocument.cpp" line="2060"/>
         <source>Found %n occurrence(s)</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -1962,7 +2001,7 @@ Použijte prosím &quot;Soubor &gt; Návrat k uložené verzi&quot;, jakmile ext
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2184"/>
+        <location filename="../src/TeXDocument.cpp" line="2221"/>
         <source>%n occurrence(s)</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -1972,7 +2011,7 @@ Použijte prosím &quot;Soubor &gt; Návrat k uložené verzi&quot;, jakmile ext
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2185"/>
+        <location filename="../src/TeXDocument.cpp" line="2222"/>
         <source>%n documents</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -1982,12 +2021,12 @@ Použijte prosím &quot;Soubor &gt; Návrat k uložené verzi&quot;, jakmile ext
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2186"/>
+        <location filename="../src/TeXDocument.cpp" line="2223"/>
         <source>Replaced %1 in %2</source>
         <translation>Nahrazeno %1 v %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2191"/>
+        <location filename="../src/TeXDocument.cpp" line="2228"/>
         <source>Replaced %n occurrence(s)</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -1997,78 +2036,78 @@ Použijte prosím &quot;Soubor &gt; Návrat k uložené verzi&quot;, jakmile ext
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2350"/>
+        <location filename="../src/TeXDocument.cpp" line="2387"/>
         <source>Cannot process unsaved document</source>
         <translation>Nelze zpracovat neuložený dokument</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2360"/>
+        <location filename="../src/TeXDocument.cpp" line="2397"/>
         <source>Root document %1 is not readable</source>
         <translation>Kořenový dokument %1 nelze otevřít</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2366"/>
+        <location filename="../src/TeXDocument.cpp" line="2403"/>
         <source>%1 is not properly configured</source>
         <translation>%1 není správně nakonfigurováno</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2450"/>
+        <location filename="../src/TeXDocument.cpp" line="2487"/>
         <source>Unable to execute %1</source>
         <translation>Nelze spustit %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2451"/>
+        <location filename="../src/TeXDocument.cpp" line="2488"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Program &quot;%1&quot; nebyl nalezen.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2452"/>
+        <location filename="../src/TeXDocument.cpp" line="2489"/>
         <source>Searched in directories:</source>
         <translation>Hledáno v adresářích:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2454"/>
+        <location filename="../src/TeXDocument.cpp" line="2491"/>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
         <translation>Zkontrolujte nastavení nástroje %1 a cesty v dialogu Nastavení.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2481"/>
+        <location filename="../src/TeXDocument.cpp" line="2518"/>
         <source>Abort typesetting</source>
         <translation>Zrušit sazbu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2501"/>
+        <location filename="../src/TeXDocument.cpp" line="2538"/>
         <source>Process interrupted by user</source>
         <translation>Proces přerušen uživatelem</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="847"/>
-        <location filename="../src/TeXDocument.cpp" line="2616"/>
+        <location filename="../src/TeXDocument.cpp" line="2653"/>
         <source>Hide Output Panel</source>
         <translation>Skrýt panel s výstupem</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2623"/>
+        <location filename="../src/TeXDocument.cpp" line="2660"/>
         <source>Show Output Panel</source>
         <translation>Zobrazit panel s výstupem</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2703"/>
+        <location filename="../src/TeXDocument.cpp" line="2740"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Nastavit překladač na &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2707"/>
+        <location filename="../src/TeXDocument.cpp" line="2744"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>Překladač &quot;%1&quot; není definován</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2817"/>
+        <location filename="../src/TeXDocument.cpp" line="2854"/>
         <source>No files found</source>
         <translation>Žádný soubor nenalezen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2818"/>
+        <location filename="../src/TeXDocument.cpp" line="2855"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Momentálně nejsou k tomuto dokumentu přidruženy žádné pomocné soubory.</translation>
     </message>
@@ -2280,7 +2319,7 @@ Použijte prosím &quot;Soubor &gt; Návrat k uložené verzi&quot;, jakmile ext
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="594"/>
-        <location filename="../src/TeXDocument.cpp" line="2473"/>
+        <location filename="../src/TeXDocument.cpp" line="2510"/>
         <source>Typeset</source>
         <translation>Vysázet</translation>
     </message>
