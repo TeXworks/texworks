@@ -121,23 +121,22 @@ void TeXDocument::init()
 	hideConsole();
 	keepConsoleOpen = false;
 
-	statusBar()->addPermanentWidget(lineEndingLabel = new QLabel());
+	statusBar()->addPermanentWidget(lineEndingLabel = new ClickableLabel());
 	lineEndingLabel->setFrameStyle(QFrame::StyledPanel);
 	lineEndingLabel->setFont(statusBar()->font());
-	lineEndingLabel->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(lineEndingLabel, SIGNAL(customContextMenuRequested(const QPoint)), this, SLOT(lineEndingPopup(const QPoint)));
+	connect(lineEndingLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(lineEndingLabelClick(QMouseEvent*)));
 	showLineEndingSetting();
 	
-	statusBar()->addPermanentWidget(encodingLabel = new QLabel());
+	statusBar()->addPermanentWidget(encodingLabel = new ClickableLabel());
 	encodingLabel->setFrameStyle(QFrame::StyledPanel);
 	encodingLabel->setFont(statusBar()->font());
-	encodingLabel->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(encodingLabel, SIGNAL(customContextMenuRequested(const QPoint)), this, SLOT(encodingPopup(const QPoint)));
+	connect(encodingLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(encodingLabelClick(QMouseEvent*)));
 	showEncodingSetting();
 	
-	statusBar()->addPermanentWidget(lineNumberLabel = new QLabel());
+	statusBar()->addPermanentWidget(lineNumberLabel = new ClickableLabel());
 	lineNumberLabel->setFrameStyle(QFrame::StyledPanel);
 	lineNumberLabel->setFont(statusBar()->font());
+	connect(lineNumberLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(doLineDialog()));
 	showCursorPosition();
 	
 	engineActions = new QActionGroup(this);

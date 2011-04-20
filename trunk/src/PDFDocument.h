@@ -31,6 +31,7 @@
 #include <QButtonGroup>
 #include <QPainterPath>
 #include <QTimer>
+#include <QMouseEvent>
 
 #include "FindDialog.h"
 #include "poppler-qt4.h"
@@ -270,6 +271,7 @@ private slots:
 	void adjustScaleActions(autoScaleOption);
 	void syncClick(int page, const QPointF& pos);
 	void reloadWhenIdle();
+	void scaleLabelClick(QMouseEvent * event) { showScaleContextMenu(event->pos()); }
 	void showScaleContextMenu(const QPoint pos);
 	void setScaleFromContextMenu(const QString & strZoom);
 

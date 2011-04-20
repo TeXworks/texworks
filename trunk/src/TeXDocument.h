@@ -33,6 +33,7 @@
 
 #include "FindDialog.h"
 #include "TWApp.h"
+#include "ClickableLabel.h"
 
 #include <hunspell.h>
 
@@ -205,6 +206,8 @@ private slots:
 	void setupFileWatcher();
 	void lineEndingPopup(const QPoint loc);
 	void encodingPopup(const QPoint loc);
+	void lineEndingLabelClick(QMouseEvent * event) { lineEndingPopup(event->pos()); }
+	void encodingLabelClick(QMouseEvent * event) { encodingPopup(event->pos()); }
 	void anchorClicked(const QUrl& url);
 
 private:
@@ -256,9 +259,9 @@ private:
 	bool isUntitled;
 	QDateTime lastModified;
 
-	QLabel *lineNumberLabel;
-	QLabel *encodingLabel;
-	QLabel *lineEndingLabel;
+	ClickableLabel *lineNumberLabel;
+	ClickableLabel *encodingLabel;
+	ClickableLabel *lineEndingLabel;
 
 	QActionGroup *engineActions;
 	QString engineName;

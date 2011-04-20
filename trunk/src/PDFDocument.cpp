@@ -1166,18 +1166,17 @@ PDFDocument::init()
 	connect(toolButtonGroup, SIGNAL(buttonClicked(int)), pdfWidget, SLOT(setTool(int)));
 	pdfWidget->setTool(kMagnifier);
 
-	scaleLabel = new QLabel();
+	scaleLabel = new ClickableLabel();
 	statusBar()->addPermanentWidget(scaleLabel);
 	scaleLabel->setFrameStyle(QFrame::StyledPanel);
 	scaleLabel->setFont(statusBar()->font());
-	scaleLabel->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(scaleLabel, SIGNAL(customContextMenuRequested(const QPoint)), this, SLOT(showScaleContextMenu(const QPoint)));
+	connect(scaleLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(scaleLabelClick(QMouseEvent*)));
 	
 	pageLabel = new ClickableLabel();
 	statusBar()->addPermanentWidget(pageLabel);
 	pageLabel->setFrameStyle(QFrame::StyledPanel);
 	pageLabel->setFont(statusBar()->font());
-	connect(pageLabel, SIGNAL(mouseDoubleClick(QMouseEvent*)), pdfWidget, SLOT(doPageDialog()));
+	connect(pageLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), pdfWidget, SLOT(doPageDialog()));
 
 	scrollArea = new PDFScrollArea;
 	scrollArea->setBackgroundRole(QPalette::Dark);
