@@ -158,65 +158,65 @@
     <name>PDFDocument</name>
     <message>
         <location filename="../src/PDFDocument.ui" line="377"/>
-        <location filename="../src/PDFDocument.cpp" line="1237"/>
-        <location filename="../src/PDFDocument.cpp" line="1297"/>
+        <location filename="../src/PDFDocument.cpp" line="1236"/>
+        <location filename="../src/PDFDocument.cpp" line="1296"/>
         <source>Open Recent</source>
         <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1408"/>
+        <location filename="../src/PDFDocument.cpp" line="1407"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
         <translation>ملف PDF ‏&quot;%1&quot; موصد؛ هذا ليس مدعوما  الآن.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1427"/>
+        <location filename="../src/PDFDocument.cpp" line="1426"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>تعذّر تحميل الملف &quot;%1&quot;؛ ربما ليس ملف بي دي إف سليم.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1451"/>
+        <location filename="../src/PDFDocument.cpp" line="1450"/>
         <source>No SyncTeX data available</source>
         <translation>لا توجد أي بيانات  SyncTeX</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1454"/>
+        <location filename="../src/PDFDocument.cpp" line="1453"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1526"/>
+        <location filename="../src/PDFDocument.cpp" line="1525"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1555"/>
+        <location filename="../src/PDFDocument.cpp" line="1554"/>
         <source>page %1 of %2</source>
         <translation>صفحة %1 من %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1560"/>
+        <location filename="../src/PDFDocument.cpp" line="1559"/>
         <source>%1%</source>
         <translation>%1٪</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1653"/>
+        <location filename="../src/PDFDocument.cpp" line="1652"/>
         <source>Abort typesetting</source>
         <translation>أوقِف الصَّف</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1786"/>
+        <location filename="../src/PDFDocument.cpp" line="1785"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>للأسف لا تستطيع إصدارة %1 هذه طبع مستندات PDF للعديد من الأسباب التقنية.
 </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1787"/>
+        <location filename="../src/PDFDocument.cpp" line="1786"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>أتريد فتح الملف في العارض المبدئي لطبعه؟</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1788"/>
+        <location filename="../src/PDFDocument.cpp" line="1787"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (لا تنس أن تغلق الملف لتفادي بعض المشاكل)</translation>
     </message>
@@ -257,7 +257,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="504"/>
-        <location filename="../src/PDFDocument.cpp" line="1660"/>
+        <location filename="../src/PDFDocument.cpp" line="1659"/>
         <source>Typeset</source>
         <translation>صُفّ</translation>
     </message>
@@ -495,7 +495,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="736"/>
-        <location filename="../src/PDFDocument.cpp" line="1791"/>
+        <location filename="../src/PDFDocument.cpp" line="1790"/>
         <source>Print Pdf...</source>
         <translation>اطبع الملف...</translation>
     </message>
@@ -507,7 +507,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="744"/>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>الإعدادات والموارد...</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
@@ -664,12 +664,12 @@
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="603"/>
+        <location filename="../src/FindDialog.cpp" line="633"/>
         <source>Find</source>
         <translation>ابحث</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="642"/>
+        <location filename="../src/FindDialog.cpp" line="672"/>
         <source>No recent search strings</source>
         <translation>لا عبارات بحث حديثة</translation>
     </message>
@@ -974,7 +974,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="518"/>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;em&gt;ملاحظة:&lt;/em&gt; هذه هي الإعدادات المبدئية. تغييرها لن يؤثر على النوافذ المفتوحة حاليا، لذا استخدم العناصر المناسبة من قائمة &amp;quot;تنسيق&amp;quot; إن كان هذا ما تريده.</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="529"/>
@@ -1074,7 +1074,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="893"/>
         <source>Hide output panel:</source>
-        <translation type="unfinished"></translation>
+        <translation>أخفِ لوحة الخرج:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="906"/>
@@ -1082,25 +1082,28 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;أبدا:&lt;/strong&gt; لا تخفِ لوحة الخرْج بعد الصفّ.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;تلقائيا:&lt;/strong&gt; أخفِ لوحة الخرْج بعد اكتمال الصفّ بنجاح إذا كانت مخفيّة قبلها.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;عند النجاح:&lt;/strong&gt; أخفِ لوحة الخرْج بعد اكتمال الصفّ بنجاح بغض النظر عن حالتها قبلها.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
         <source>Never</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>أبدًا</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="921"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>تلقائيا</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="926"/>
         <source>On success</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>عند النجاح</translation>
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
@@ -1295,27 +1298,27 @@
     <message>
         <location filename="../src/ResourcesDialog.ui" line="17"/>
         <source>TeXworks Settings and Resources</source>
-        <translation type="unfinished"></translation>
+        <translation>إعدادات وموارد TeXworks</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="23"/>
         <source>Storage Locations</source>
-        <translation type="unfinished"></translation>
+        <translation>أماكن الحفظ</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="41"/>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
+        <translation>الإعدادات:</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="61"/>
         <source>Resources:</source>
-        <translation type="unfinished"></translation>
+        <translation>الموارد:</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.cpp" line="40"/>
         <source>Registry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>المضبطة (%1)</translation>
     </message>
 </context>
 <context>
@@ -1384,38 +1387,38 @@
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="481"/>
+        <location filename="../src/FindDialog.cpp" line="487"/>
         <source>Search Results - %1 (%2 found)</source>
         <translation>نتائج البحث - %1 (عُثر على %2)</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="530"/>
-        <location filename="../src/FindDialog.cpp" line="532"/>
+        <location filename="../src/FindDialog.cpp" line="536"/>
+        <location filename="../src/FindDialog.cpp" line="538"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="538"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>File</source>
         <translation>الملف</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="538"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Line</source>
         <translation>السطر</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="538"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Start</source>
         <translation>البداية</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="538"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>End</source>
         <translation>النهاية</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="538"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Text</source>
         <translation>النص</translation>
     </message>
@@ -1509,7 +1512,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="282"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;يوزع وفق &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;رخصة جنو العمومية&lt;/a&gt;، الإصدارة ٢ أو أي إصدارة لاحقة (حسب اختيارك).</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="283"/>
@@ -1758,8 +1761,8 @@
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="797"/>
-        <location filename="../src/TeXDocument.cpp" line="222"/>
-        <location filename="../src/TeXDocument.cpp" line="445"/>
+        <location filename="../src/TeXDocument.cpp" line="221"/>
+        <location filename="../src/TeXDocument.cpp" line="444"/>
         <source>Open Recent</source>
         <translation>افتح الملفات الأخيرة</translation>
     </message>
@@ -1772,7 +1775,7 @@
         <translation>لا شيء</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="571"/>
+        <location filename="../src/TeXDocument.cpp" line="570"/>
         <source>Open File</source>
         <translation>افتح ملفا</translation>
     </message>
@@ -1781,23 +1784,23 @@
         <translation type="obsolete">لا يمكن غلق النافذة بينما تعمل الأداة</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="766"/>
+        <location filename="../src/TeXDocument.cpp" line="765"/>
         <source>Save File</source>
         <translation>احفظ الملف</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="804"/>
+        <location filename="../src/TeXDocument.cpp" line="803"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>لقد تغيّر المستند &quot;%1&quot;. أتريد حفظ تغييراتك؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="841"/>
+        <location filename="../src/TeXDocument.cpp" line="840"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>أتريد تجاهل كل التغييرات على المستند &quot;%1&quot;، واستعادة آخر نسخة محفوظة؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="843"/>
+        <location filename="../src/TeXDocument.cpp" line="842"/>
         <source>Revert</source>
         <translation>استعد</translation>
     </message>
@@ -1808,12 +1811,12 @@ Do you want to save your changes?</source>
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="954"/>
+        <location filename="../src/TeXDocument.cpp" line="953"/>
         <source>Unrecognized encoding</source>
         <translation>ترميز غير معروف</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="955"/>
+        <location filename="../src/TeXDocument.cpp" line="954"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1834,12 +1837,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 سيحفظ باستخدام %3 بدلا من هذا، ما قد ينتج عنه نص غير صحيح.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1275"/>
+        <location filename="../src/TeXDocument.cpp" line="1274"/>
         <source>Text cannot be converted</source>
         <translation>تعذّر تحويل النص</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1276"/>
+        <location filename="../src/TeXDocument.cpp" line="1275"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -1862,61 +1865,61 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation type="obsolete">الترميز الافتراضي</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2488"/>
+        <location filename="../src/TeXDocument.cpp" line="2487"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>لم يُعثر على البرنامج &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2489"/>
+        <location filename="../src/TeXDocument.cpp" line="2488"/>
         <source>Searched in directories:</source>
         <translation>المجلدات المبحوث فيها:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2491"/>
+        <location filename="../src/TeXDocument.cpp" line="2490"/>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
         <translation>تحقق من تضبيطات الأداة &quot;%1&quot; وإعدادات المسار في حوار التفضيلات.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2518"/>
+        <location filename="../src/TeXDocument.cpp" line="2517"/>
         <source>Abort typesetting</source>
         <translation>أوقِف الصَّف</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2538"/>
+        <location filename="../src/TeXDocument.cpp" line="2537"/>
         <source>Process interrupted by user</source>
         <translation>قاطع المستخدم العملية</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1253"/>
+        <location filename="../src/TeXDocument.cpp" line="1252"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>لم يُحفظ المستند &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="809"/>
+        <location filename="../src/TeXDocument.cpp" line="808"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="844"/>
+        <location filename="../src/TeXDocument.cpp" line="843"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="938"/>
+        <location filename="../src/TeXDocument.cpp" line="937"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>تعذّر قراءة الملف &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1022"/>
+        <location filename="../src/TeXDocument.cpp" line="1021"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>حُمّل الملف &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1154"/>
+        <location filename="../src/TeXDocument.cpp" line="1153"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -1925,93 +1928,97 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 من فضلك استخدم &quot;ملف &gt; استعد المحفوظ&quot; يدويا عندما ينتهي البرنامج الخارجي.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1290"/>
+        <location filename="../src/TeXDocument.cpp" line="1289"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>تعذّر كتابة الملف &quot;%1&quot;: 
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1300"/>
+        <location filename="../src/TeXDocument.cpp" line="1299"/>
         <source>Error writing file</source>
         <translation>عُطل أثناء كتابة الملف</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1301"/>
+        <location filename="../src/TeXDocument.cpp" line="1300"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>حدث عُطل أثناء حفظ الملف. قد تريد حفظ نسخة منه في مكان آخر.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1310"/>
+        <location filename="../src/TeXDocument.cpp" line="1309"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>حُفِظ الملف &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1346"/>
+        <location filename="../src/TeXDocument.cpp" line="1345"/>
         <source>untitled-%1.tex</source>
         <translation>untitled-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1355"/>
+        <location filename="../src/TeXDocument.cpp" line="1354"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1448"/>
+        <location filename="../src/TeXDocument.cpp" line="1447"/>
         <source>Line %1 of %2; col %3</source>
         <translation>السطر %1 من %2؛ عمود %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1503"/>
+        <location filename="../src/TeXDocument.cpp" line="1502"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>أعِد التحميل مستخدما الترميز المختار</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1505"/>
+        <location filename="../src/TeXDocument.cpp" line="1504"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>يعيد تحميل الملف باستخدام الترميز المختار من هذه القائمة.
+
+سيُؤخذ الترميز المختار بعين الاعتبار وليس الترميز المبدئي أو أي سطور ‪&quot;%!TEX encoding&quot;‬</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1523"/>
+        <source>Unsaved changes</source>
+        <translation>تغييرات غير محفوظة</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1524"/>
-        <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocument.cpp" line="1525"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>يحتوي الملف الذي تحاول إعادة تحميله على تغييرات غير محفوظة.
+
+أتريد تجاهل تغييراتك الحالية وتحميل الملف من القرص بترميز %1؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1650"/>
+        <location filename="../src/TeXDocument.cpp" line="1649"/>
         <source>Go to Line</source>
         <translation>اذهب لسطر</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1651"/>
+        <location filename="../src/TeXDocument.cpp" line="1650"/>
         <source>Line number:</source>
         <translation>رقم السطر:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2010"/>
-        <location filename="../src/TeXDocument.cpp" line="2124"/>
+        <location filename="../src/TeXDocument.cpp" line="2009"/>
+        <location filename="../src/TeXDocument.cpp" line="2123"/>
         <source>Invalid regular expression</source>
         <translation>تعبير نمطي غير صحيح</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2056"/>
-        <location filename="../src/TeXDocument.cpp" line="2093"/>
-        <location filename="../src/TeXDocument.cpp" line="2202"/>
+        <location filename="../src/TeXDocument.cpp" line="2055"/>
+        <location filename="../src/TeXDocument.cpp" line="2092"/>
+        <location filename="../src/TeXDocument.cpp" line="2201"/>
         <source>Not found</source>
         <translation>غير موجود</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2387"/>
+        <location filename="../src/TeXDocument.cpp" line="2386"/>
         <source>Cannot process unsaved document</source>
         <translation>لا يمكن معالجة الملف دون حفظه</translation>
     </message>
@@ -2020,12 +2027,12 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation type="obsolete">الملف %1 غير مقروء</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2403"/>
+        <location filename="../src/TeXDocument.cpp" line="2402"/>
         <source>%1 is not properly configured</source>
         <translation>%1 ليس معدّا بشكل سليم</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2487"/>
+        <location filename="../src/TeXDocument.cpp" line="2486"/>
         <source>Unable to execute %1</source>
         <translation>تعذّر تنفيذ %1</translation>
     </message>
@@ -2039,22 +2046,22 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="847"/>
-        <location filename="../src/TeXDocument.cpp" line="2653"/>
+        <location filename="../src/TeXDocument.cpp" line="2652"/>
         <source>Hide Output Panel</source>
         <translation>أخفِ لوحة الخرج</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2660"/>
+        <location filename="../src/TeXDocument.cpp" line="2659"/>
         <source>Show Output Panel</source>
         <translation>أظهر لوحة الخرْج</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2740"/>
+        <location filename="../src/TeXDocument.cpp" line="2739"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>اضبط المحرك ليكون &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2744"/>
+        <location filename="../src/TeXDocument.cpp" line="2743"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>المحرك &quot;%1&quot; غير موجود</translation>
     </message>
@@ -2085,7 +2092,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="594"/>
-        <location filename="../src/TeXDocument.cpp" line="2510"/>
+        <location filename="../src/TeXDocument.cpp" line="2509"/>
         <source>Typeset</source>
         <translation>صُفّ</translation>
     </message>
@@ -2568,10 +2575,10 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="1102"/>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>الإعدادات والموارد...</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2060"/>
+        <location filename="../src/TeXDocument.cpp" line="2059"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>لم يُعثر على نتائج</numerusform>
@@ -2583,7 +2590,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2228"/>
+        <location filename="../src/TeXDocument.cpp" line="2227"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>لم يُستبدل أي شيء</numerusform>
@@ -2606,7 +2613,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2221"/>
+        <location filename="../src/TeXDocument.cpp" line="2220"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>لا شيء</numerusform>
@@ -2618,7 +2625,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2222"/>
+        <location filename="../src/TeXDocument.cpp" line="2221"/>
         <source>%n documents</source>
         <translation>
             <numerusform>لا شيء</numerusform>
@@ -2630,19 +2637,19 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2223"/>
+        <location filename="../src/TeXDocument.cpp" line="2222"/>
         <source>Replaced %1 in %2</source>
         <translation>استُبدِل %1 في %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1092"/>
-        <location filename="../src/TeXDocument.cpp" line="1153"/>
-        <location filename="../src/TeXDocument.cpp" line="1247"/>
+        <location filename="../src/TeXDocument.cpp" line="1091"/>
+        <location filename="../src/TeXDocument.cpp" line="1152"/>
+        <location filename="../src/TeXDocument.cpp" line="1246"/>
         <source>File changed on disk</source>
         <translation>تغيّر الملف على القرص</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1093"/>
+        <location filename="../src/TeXDocument.cpp" line="1092"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2651,7 +2658,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 أتريد تجاهل التغييرات الحالية وإعادة تحميل الملف من على القرص؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1248"/>
+        <location filename="../src/TeXDocument.cpp" line="1247"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2660,7 +2667,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 أتريد إكمال حفظ الملف، واستبدال النسخة الموجودة على القرص؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2397"/>
+        <location filename="../src/TeXDocument.cpp" line="2396"/>
         <source>Root document %1 is not readable</source>
         <translation>المستند الجذر %1 غير مقروء</translation>
     </message>
@@ -2669,12 +2676,12 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <translation type="obsolete">المستند الجذر %1 غير موجود</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2854"/>
+        <location filename="../src/TeXDocument.cpp" line="2853"/>
         <source>No files found</source>
         <translation>لم يُعثر على أي ملفات</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2855"/>
+        <location filename="../src/TeXDocument.cpp" line="2854"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>لا توجد ملفات ثانوية مرتبطة بهذا المستند حاليا.</translation>
     </message>
