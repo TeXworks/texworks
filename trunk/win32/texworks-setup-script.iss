@@ -55,25 +55,27 @@ Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimp-12-5.1.11.isl"
 
 [CustomMessages]
 ManualName=A short manual for TeXworks
-en.CreateFileAssoc=Open the following file types with TeXworks by default:
-ca.CreateFileAssoc=Obre els següents tipus de fitxer amb TeXworks per defecte:
+ca.CreateFileAssoc=Obri el següents fitxers amb TeXworks per defecte:
 cs.CreateFileAssoc=Nastavit TeXworks jako výchozí program pro otevírání následujících typů souborů:
-nl.CreateFileAssoc=Open de volgende bestandstypen standaard met TeXworks:
-fr.CreateFileAssoc=Par défaut, ouvrir les types de fichiers suivants avec TeXworks:
 de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
-it.CreateFileAssoc=Impostare TeXworks come programma predefinito per i seguenti tipi di file:
-pl.CreateFileAssoc=
+en.CreateFileAssoc=Open the following file types with TeXworks by default:
+es.CreateFileAssoc=De manera predeterminada abrir los siguientes tipos de archivo con TeXworks:
+fr.CreateFileAssoc=Par défaut, ouvrir les types de fichiers suivants avec TeXworks:
+it.CreateFileAssoc=Apri di default i seguenti tipi di file con TeXworks:
+nl.CreateFileAssoc=Verbind de volgende bestandstypen met TeXworks:
+pl.CreateFileAssoc=Domyślnie otwieraj następujące typy plików za pomocą edytora TeXworks:
 pt_BR.CreateFileAssoc=
 ru.CreateFileAssoc=Открывать следующие файлы по умолчанию в TeXworks:
-sl.CreateFileAssoc=Uporabi TeXworks za privzeto odpiranje datotek z naslednjimi končnicami:
-es.CreateFileAssoc=Abrir los siguientes tipos de archivo con TeXworks por omisión:
+sl.CreateFileAssoc=Uporabi TeXworks za odpiranje naslednjih vrst datotek:
 
-ar.CreateFileAssoc=افتح أنواع الملفات التالية افتراضيا في TeXworks
-zh_cn.CreateFileAssoc=默认使用 TeXworks 打开以下文件类型：
+af.CreateFileAssoc=Maak by verstek die volgende lêertipes met TeXworks oop:
+ar.CreateFileAssoc=افتح أنواع الملفات التالية في TeXworks مبدئيا:
+fa.CreateFileAssoc=پرونده‌های از نوع زیر را به‌طور پیش‌فرض با تک‌ورکس بازکن:
+fo.CreateFileAssoc=Opna sum standard hesi fílusløg við TeXworks:
 ja.CreateFileAssoc=デフォルトで次の種類のファイルを TeXworks で開く:
-ko.CreateFileAssoc=다음 파일 유형을 TeXworks로 열기:
-fa.CreateFileAssoc=پرونده‌های از نوع زیر را به‌صورت پیش‌فرض با TeXworks باز کن:
+ko.CreateFileAssoc=다음 유형의 파일을 열 때 기본값으로 TeXworks를 이용합니다:
 tr.CreateFileAssoc=Aşağıdaki dosya türlerini öntanımlı olarak TeXworks ile aç:
+zh_cn.CreateFileAssoc=默认使用 TeXworks 打开以下文件类型：
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"

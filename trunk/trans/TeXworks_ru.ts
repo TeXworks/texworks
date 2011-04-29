@@ -164,7 +164,7 @@
     <name>PDFDocument</name>
     <message>
         <location filename="../src/PDFDocument.ui" line="+377"/>
-        <location filename="../src/PDFDocument.cpp" line="+1237"/>
+        <location filename="../src/PDFDocument.cpp" line="+1236"/>
         <location line="+60"/>
         <source>Open Recent</source>
         <translation>Последние файлы</translation>
@@ -664,7 +664,7 @@
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="+411"/>
+        <location filename="../src/FindDialog.cpp" line="+441"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>
@@ -783,7 +783,7 @@
 <context>
     <name>PDFWidget</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="-1457"/>
+        <location filename="../src/PDFDocument.cpp" line="-1456"/>
         <source>Zoom In</source>
         <translation>Увеличить</translation>
     </message>
@@ -1217,7 +1217,7 @@
     <name>ReplaceDialog</name>
     <message>
         <location filename="../src/Replace.ui" line="+22"/>
-        <location filename="../src/FindDialog.cpp" line="-391"/>
+        <location filename="../src/FindDialog.cpp" line="-421"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
@@ -1386,7 +1386,7 @@
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="+124"/>
+        <location filename="../src/FindDialog.cpp" line="+130"/>
         <source>Search Results - %1 (%2 found)</source>
         <translation>Результаты поиска - %1 (%2 найдено)</translation>
     </message>
@@ -1767,7 +1767,7 @@
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="+797"/>
-        <location filename="../src/TeXDocument.cpp" line="+144"/>
+        <location filename="../src/TeXDocument.cpp" line="+143"/>
         <location line="+223"/>
         <source>Open Recent</source>
         <translation>Последние файлы</translation>

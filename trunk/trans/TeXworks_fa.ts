@@ -63,7 +63,7 @@
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>&amp;پوشاندن</translation>
+        <translation>&amp;بسته‌بندی</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
@@ -83,7 +83,7 @@
     </message>
     <message>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;جساس به بزرگی و کوچکی حروف</translation>
+        <translation>&amp;حساس به بزرگی و کوچکی حروف</translation>
     </message>
     <message>
         <source>W&amp;hole words</source>
@@ -91,7 +91,7 @@
     </message>
     <message>
         <source>&amp;Regular expression</source>
-        <translation>&amp;عبارت منظم</translation>
+        <translation>عبارت من&amp;ظم</translation>
     </message>
     <message>
         <source>No recent search strings</source>
@@ -106,11 +106,11 @@
     <name>HardWrapDialog</name>
     <message>
         <source>Hard Wrap</source>
-        <translation>پوشاندن شدید</translation>
+        <translation>بسته‌بندی واقعی</translation>
     </message>
     <message>
         <source>Wrap lines to:</source>
-        <translation>خط‌ها را بپوشان به:</translation>
+        <translation>خط‌ها را بسته‌بندی کن به:</translation>
     </message>
     <message>
         <source>Current window size</source>
@@ -122,7 +122,7 @@
     </message>
     <message>
         <source>Re-wrap paragraphs</source>
-        <translation>بازپوشاندن پاراگراف‌ها</translation>
+        <translation>بسته‌بندی جدید پاراگراف‌ها</translation>
     </message>
 </context>
 <context>
@@ -211,7 +211,7 @@
     <message>
         <source>Home</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>خانه</translation>
+        <translation>Home</translation>
     </message>
     <message>
         <source>Previous Page</source>
@@ -220,7 +220,7 @@
     <message>
         <source>PgUp</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>صفحهٔ بالا</translation>
+        <translation>PgUp</translation>
     </message>
     <message>
         <source>Next Page</source>
@@ -229,7 +229,7 @@
     <message>
         <source>PgDown</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>صفحهٔ پایین</translation>
+        <translation>PgDown</translation>
     </message>
     <message>
         <source>Last Page</source>
@@ -238,7 +238,7 @@
     <message>
         <source>End</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>پایان</translation>
+        <translation>End</translation>
     </message>
     <message>
         <source>Go to Page...</source>
@@ -262,7 +262,7 @@
     </message>
     <message>
         <source>Ctrl+-</source>
-        <translation>Ctrl--</translation>
+        <translation>Ctrl+-</translation>
     </message>
     <message>
         <source>Fit to Window</source>
@@ -517,7 +517,7 @@
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>تنظیمات و منابع...</translation>
     </message>
 </context>
 <context>
@@ -540,7 +540,7 @@
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>&amp;پوشاندن</translation>
+        <translation>&amp;بسته‌بندی پیرامون</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
@@ -556,7 +556,7 @@
     </message>
     <message>
         <source>&amp;Sync to source</source>
-        <translation>&amp;همگام به منبع</translation>
+        <translation>هم&amp;گام به منبع</translation>
     </message>
 </context>
 <context>
@@ -887,33 +887,36 @@
     </message>
     <message>
         <source>Hide output panel:</source>
-        <translation type="unfinished"></translation>
+        <translation>پنل خروجی را پنهان کن:</translation>
     </message>
     <message>
         <source>Never</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>هیچگاه</translation>
     </message>
     <message>
         <source>Automatically</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>خودکار</translation>
     </message>
     <message>
         <source>On success</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>در صورت موفقیت</translation>
     </message>
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;em&gt;توجه:&lt;/em&gt; اینها تنظیمات پیش‌فرض هستند. تغییر آنها بر پنجره‌های باز اثر نمی‌گذارد.  برای دستیابی، گزینهٔ متناظر را از منوی &amp;quot;شمایل&amp;quot; انتخاب کنید.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه بعد از حروفچینی پنل خروجی را مخفی نکن.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; بعد از حروفچینی موفقیت‌آمیز، پنل خروجی را مخفی کن: اما فقط موقعی که از پیش مخفی بوده باشد.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;در صورت موفقیت‌آمیز بودن:&lt;/strong&gt;پنل خروجی را بعد از حروفچینی موفقیت‌آمیز مخفی کن؛ مستقل از اینکه از قبل چگونه بوده است.&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -1007,7 +1010,7 @@
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>&amp;پوشاندن</translation>
+        <translation>&amp;بسته‌بندی واقعی</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
@@ -1031,30 +1034,30 @@
     </message>
     <message>
         <source>&amp;Regular expression</source>
-        <translation>&amp;عبارت منظم</translation>
+        <translation>عبارت م&amp;نظم</translation>
     </message>
 </context>
 <context>
     <name>ResourcesDialog</name>
     <message>
         <source>TeXworks Settings and Resources</source>
-        <translation type="unfinished"></translation>
+        <translation>تنظیمات و منابع تک‌ورکس</translation>
     </message>
     <message>
         <source>Storage Locations</source>
-        <translation type="unfinished"></translation>
+        <translation>محل ذخیره</translation>
     </message>
     <message>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
+        <translation>تنظیمات:</translation>
     </message>
     <message>
         <source>Resources:</source>
-        <translation type="unfinished"></translation>
+        <translation>منابع:</translation>
     </message>
     <message>
         <source>Registry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>دفتر ثبت (%1)</translation>
     </message>
 </context>
 <context>
@@ -1199,7 +1202,7 @@
     </message>
     <message>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;‫%1 محیطی ساده برای نگارش، حروف‌چینی، و نمایش مستندات تک است. ‬&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;‏‫%1 محیطی ساده برای نگارش، حروف‌چینی، و نمایش مستندات تک است. ‬&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
@@ -1299,7 +1302,7 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt; انتشار‌یافته تحت &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; اجازه‌نامهٔ عمومی گنو&lt;/a&gt;, نسخهٔ ۲ یا نسخه‌های جدیدتر .</translation>
     </message>
 </context>
 <context>
@@ -1330,7 +1333,7 @@
     </message>
     <message>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation>پروندهٔ &quot;%1&quot; را برای خواندن نمی‌تون گشود</translation>
+        <translation>پروندهٔ &quot;%1&quot; را برای خواندن نمی‌توان گشود</translation>
     </message>
 </context>
 <context>
@@ -1387,7 +1390,7 @@
     </message>
     <message>
         <source>Outline</source>
-        <translation>کلیت</translation>
+        <translation>طرح کلی</translation>
     </message>
     <message>
         <source>No tags</source>
@@ -1544,20 +1547,23 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message numerus="yes">
         <source>Found %n occurrence(s)</source>
-        <translation>
-            <numerusform>%n% مورد پیدا شد</numerusform>
+        <translation type="unfinished">
+            <numerusform>%n% مورد پیدا شد
+        </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n occurrence(s)</source>
-        <translation>
-            <numerusform>%n مورد</numerusform>
+        <translation type="unfinished">
+            <numerusform>%n مورد
+        </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n documents</source>
-        <translation>
-            <numerusform>%n مستند</numerusform>
+        <translation type="unfinished">
+            <numerusform>%n مستند
+        </numerusform>
         </translation>
     </message>
     <message>
@@ -1566,8 +1572,9 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message numerus="yes">
         <source>Replaced %n occurrence(s)</source>
-        <translation>
-            <numerusform>جایگزینی %n مورد</numerusform>
+        <translation type="unfinished">
+            <numerusform>جایگزینی %n مورد
+        </numerusform>
         </translation>
     </message>
     <message>
@@ -1998,7 +2005,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Hard Wrap...</source>
-        <translation>پوشاندن شدید...</translation>
+        <translation>بسته‌بندی واقعی...</translation>
     </message>
     <message>
         <source>Line Numbers</source>
@@ -2100,29 +2107,33 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>تنظیمات و منابع...</translation>
     </message>
     <message>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>بازخوانی بر اساس رمزینهٔ انتخاب شده</translation>
     </message>
     <message>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation> بازخوانی پروندهٔ جاری با رمزینهٔ انتخاب‌شده از این منو.
+
+ رمزینهٔ انتخاب‌شده جایگزین رمزینهٔ پیش‌فرض شد  &quot;%!TEX encoding&quot; خطوط.</translation>
     </message>
     <message>
         <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
+        <translation>تغییرات ذخیره‌نشده</translation>
     </message>
     <message>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>پرونده‌ای را که می‌خواهید بازخوانی کنید دارای تغییرات ذخیره نشده است.
+
+آیا می‌خواهید تغییرات جاری را دوربریزید، و پرونده را با رمزینهٔ %1 از دیسک بازخوانی کنید؟</translation>
     </message>
 </context>
 <context>
