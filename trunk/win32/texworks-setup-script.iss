@@ -60,7 +60,7 @@ cs.CreateFileAssoc=Nastavit TeXworks jako výchozí program pro otevírání ná
 de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
 en.CreateFileAssoc=Open the following file types with TeXworks by default:
 es.CreateFileAssoc=De manera predeterminada abrir los siguientes tipos de archivo con TeXworks:
-fr.CreateFileAssoc=Par défaut, ouvrir les types de fichiers suivants avec TeXworks:
+fr.CreateFileAssoc=Ouvrir par défaut les types de fichiers suivant avec TeXworks:
 it.CreateFileAssoc=Apri di default i seguenti tipi di file con TeXworks:
 nl.CreateFileAssoc=Verbind de volgende bestandstypen met TeXworks:
 pl.CreateFileAssoc=Domyślnie otwieraj następujące typy plików za pomocą edytora TeXworks:
@@ -75,7 +75,7 @@ fo.CreateFileAssoc=Opna sum standard hesi fílusløg við TeXworks:
 ja.CreateFileAssoc=デフォルトで次の種類のファイルを TeXworks で開く:
 ko.CreateFileAssoc=다음 유형의 파일을 열 때 기본값으로 TeXworks를 이용합니다:
 tr.CreateFileAssoc=Aşağıdaki dosya türlerini öntanımlı olarak TeXworks ile aç:
-zh_cn.CreateFileAssoc=默认使用 TeXworks 打开以下文件类型：
+zh_cn.CreateFileAssoc=默认使用 TeXworks 打开下列文件类型：
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"

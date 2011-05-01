@@ -474,7 +474,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="728"/>
         <source>About Scripts...</source>
-        <translation type="unfinished">À des Scripts...</translation>
+        <translation type="unfinished">À propos des Scripts...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="736"/>
@@ -490,7 +490,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="744"/>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paramètres et ressources...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="519"/>
@@ -913,7 +913,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="194"/>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation type="unfinished"> pt</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="208"/>
@@ -923,7 +923,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="215"/>
         <source> px</source>
-        <translation type="unfinished">px</translation>
+        <translation type="unfinished"> px</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="268"/>
@@ -958,7 +958,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="518"/>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;em&gt;Note :&lt;/em&gt; Ce sont des paramètres par défaut. Y apporter des changements ne va pas affecter les fenêtres déjà ouvertes. Utilisez les items correspondants dans le menu &amp;quot;Format&amp;quot; pour obtenir cela.</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="529"/>
@@ -993,7 +993,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="578"/>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation type="unfinished"> %</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="599"/>
@@ -1058,7 +1058,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="893"/>
         <source>Hide output panel:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Masquer le panneau de sortie :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="906"/>
@@ -1066,25 +1066,27 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;strong&gt;Jamais :&lt;/strong&gt; Ne jamais masquer le panneau de sortie après composition.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatiquement :&lt;/strong&gt; Masquer le panneau de sortie après une composition réussie, mais seulement s&apos;il était masqué auparavant.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Après réussite :&lt;/strong&gt; Masquer le panneau de sortie après une composition réussie, quel que soit son état précédent.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
         <source>Never</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jamais</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="921"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Automatiquement</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="926"/>
         <source>On success</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Après réussite</translation>
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
@@ -1103,7 +1105,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="964"/>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
-        <translation type="unfinished">Autoriser les scripts de lire tous les fichiers (un script et un fichier de document sont toujours lisibles)</translation>
+        <translation type="unfinished">Autoriser les scripts à lire tous les fichiers (un script et un fichier de document sont toujours lisibles)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="971"/>
@@ -1299,27 +1301,27 @@
     <message>
         <location filename="../src/ResourcesDialog.ui" line="17"/>
         <source>TeXworks Settings and Resources</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paramètres et ressources TeXworks</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="23"/>
         <source>Storage Locations</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Endroits de stockage</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="41"/>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paramètres :</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="61"/>
         <source>Resources:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ressources :</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.cpp" line="40"/>
         <source>Registry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Registre (%1)</translation>
     </message>
 </context>
 <context>
@@ -1342,47 +1344,47 @@
     <message>
         <location filename="../src/ScriptManager.cpp" line="190"/>
         <source>Name: </source>
-        <translation type="unfinished">Nom :</translation>
+        <translation type="unfinished">Nom : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="191"/>
         <source>Context: </source>
-        <translation type="unfinished">Contexte :</translation>
+        <translation type="unfinished">Contexte : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="192"/>
         <source>Description: </source>
-        <translation type="unfinished">Description :</translation>
+        <translation type="unfinished">Description : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="193"/>
         <source>Author: </source>
-        <translation type="unfinished">Auteur :</translation>
+        <translation type="unfinished">Auteur : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="194"/>
         <source>Version: </source>
-        <translation type="unfinished">Version :</translation>
+        <translation type="unfinished">Version : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="195"/>
         <source>Shortcut: </source>
-        <translation type="unfinished">Raccourci :</translation>
+        <translation type="unfinished">Raccourci : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="196"/>
         <source>File: </source>
-        <translation type="unfinished">Fichier :</translation>
+        <translation type="unfinished">Fichier : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="204"/>
         <source>Language: </source>
-        <translation type="unfinished">Langue :</translation>
+        <translation type="unfinished">Langue : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="208"/>
         <source>Hook: </source>
-        <translation type="unfinished">Lien :</translation>
+        <translation type="unfinished">Lien : </translation>
     </message>
 </context>
 <context>
@@ -1476,12 +1478,12 @@
         <location filename="../src/TWApp.cpp" line="232"/>
         <location filename="../src/TWApp.cpp" line="269"/>
         <source>About </source>
-        <translation type="unfinished">À propos</translation>
+        <translation type="unfinished">À propos </translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="282"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;Distribué sous la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 ou (suivant votre option) toute version ultérieure.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="1069"/>
@@ -1558,7 +1560,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="793"/>
         <source>No default binary directory found</source>
-        <translation type="unfinished">Aucun dossier par défaut de binaires n&apos;a été trouvé </translation>
+        <translation type="unfinished">Aucun dossier par défaut de binaires n&apos;a été trouvé</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="794"/>
@@ -2349,7 +2351,7 @@ Vérifiez la configuration de l&apos;outil %2 et les paramètres de chemin dans 
     <message>
         <location filename="../src/TeXDocument.ui" line="858"/>
         <source>New from Template...</source>
-        <translation type="unfinished">Nouveau à partir d&apos;un modèle...</translation>
+        <translation type="unfinished">Nouveau à partir d&apos;un Modèle...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="861"/>
@@ -2454,7 +2456,7 @@ Vérifiez la configuration de l&apos;outil %2 et les paramètres de chemin dans 
     <message>
         <location filename="../src/TeXDocument.ui" line="1102"/>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paramètres et Ressources...</translation>
     </message>
     <message>
         <source>Right to Left</source>
@@ -2470,13 +2472,13 @@ Vérifiez la configuration de l&apos;outil %2 et les paramètres de chemin dans 
         <location filename="../src/TeXDocument.cpp" line="937"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
-        <translation type="unfinished">Impossible de lire le fichier &quot;%1&quot;:
-%2. {1&quot;?} {2?}</translation>
+        <translation type="unfinished">Impossible de lire le fichier &quot;%1&quot; :
+%2</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1021"/>
         <source>File &quot;%1&quot; loaded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fichier &quot;%1&quot; chargé</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1091"/>
@@ -2499,9 +2501,9 @@ Voulez-vous abandonner vos changements récents et recharger le fichier à parti
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
-        <translation type="unfinished">%1 est constament modifié par un autre programme.
+        <translation type="unfinished">%1 est continuellement modifié par un autre programme.
 
-Veuillez utiliser manuellement &quot;Fichier &gt; Retour au fichier sauvegardé&quot; lorsque le processus externe a fini.</translation>
+Veuillez utiliser manuellement &quot;Fichier &gt; Retour au fichier sauvegardé&quot; lorsque le processus externe est terminé.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1247"/>
@@ -2517,7 +2519,7 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation type="unfinished">Impossible d&apos;écrire le fichier &quot;%1&quot;:
-%2. {1&quot;?} {2?}</translation>
+%2</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1299"/>
@@ -2538,7 +2540,7 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
         <location filename="../src/TeXDocument.cpp" line="1502"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Recharger en utilisant l&apos;encodage sélectionné</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1504"/>
@@ -2546,19 +2548,23 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Recharge le fichier en cours avec l&apos;encodage sélectionné à partir de ce menu.
+
+L&apos;encodage sélectionné remplace celui par défaut et outrepasse toutes les lignes &quot;%!TeX encoding&quot;.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1523"/>
         <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Changements non sauvegardés</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1524"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Le fichier que vous essayez de recharger a des changements non sauvegardés.
+
+Voulez-vous abandonner vos changements actuels et recharger le fichier à partir du disque avec l&apos;encodage %1 ?</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/TeXDocument.cpp" line="2059"/>
@@ -2706,7 +2712,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TemplateDialog.ui" line="13"/>
         <source>New File using Template</source>
-        <translation type="unfinished">Nouveau fichier d&apos;après un modèle</translation>
+        <translation type="unfinished">Nouveau fichier d&apos;après un Modèle</translation>
     </message>
     <message>
         <location filename="../src/TemplateDialog.ui" line="25"/>
