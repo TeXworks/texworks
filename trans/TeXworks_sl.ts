@@ -521,7 +521,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="744"/>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nastavitve in viri ...</translation>
     </message>
     <message>
         <source>Update Scripts</source>
@@ -978,7 +978,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="518"/>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;em&gt;Opomba:&lt;/em&gt; To so zgolj privzete nastavitve, zato spremembe ne bodo vidne na že odprtih oknih. Če želite spremeniti obstoječa okna, v meniju izberite pripadajočo nastavitev v stolpcu &amp;quot;Oblika&amp;quot;.</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="529"/>
@@ -1081,7 +1081,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="893"/>
         <source>Hide output panel:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skrij izpis (log):</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="906"/>
@@ -1089,25 +1089,28 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;strong&gt;Nikoli:&lt;/strong&gt; Nikoli ne skrij izpisa.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Samodejno:&lt;/strong&gt; Skrij izpis po uspešnem stavljenju, vendar le, če je bil skrit že pred njim.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Ob uspešnem stavljenju:&lt;/strong&gt; Skrij izpis po uspešnem stavljenju, neglede na to, ali je bil pred tem prikazan.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
         <source>Never</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Nikoli</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="921"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Samodejno</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="926"/>
         <source>On success</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ob uspešnem stavljenju</translation>
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
@@ -1309,27 +1312,38 @@
     <message>
         <location filename="../src/ResourcesDialog.ui" line="17"/>
         <source>TeXworks Settings and Resources</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">TeXworks-ove nastavitve in viri</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="23"/>
         <source>Storage Locations</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>This describes where things are stored/saved/can be found on the hard disk. Usually, this will refer to directories, except for the specialty &quot;Registry&quot; (see below).</translatorcomment>
+        <translation type="unfinished">Kam se shranijo</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="41"/>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nastavitve:</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="61"/>
         <source>Resources:</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Viri;
+
+Resources are additional files such as auto-completion files, syntax
+highlighting patterns, auto-indent definitions, scripts, etc. All these
+are files that the advanced user can customize if needed, but that
+should work well out of the box, too. The name is not really mandatory,
+so you can use whatever name would fit such files best - if possible,
+however, I&apos;d ask you to use something that comes close to the English
+word, simply because that will make recognizing it in English
+documentation and web pages much easier for users.</translatorcomment>
+        <translation type="unfinished">Konf. datoteke:</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.cpp" line="40"/>
         <source>Registry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Register (%1)</translation>
     </message>
 </context>
 <context>
@@ -1542,7 +1556,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="282"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;Distribuiran pod licenco &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, verzija 2 ali (po želji) katerakoli poznejša verzija.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="283"/>
@@ -1754,7 +1768,7 @@
         <location filename="../src/TWSystemCmd.h" line="76"/>
         <source>ERROR: exit code %1</source>
         <translatorcomment>popravi; statusna koda</translatorcomment>
-        <translation type="unfinished">NAPAKA:izhodna koda %1</translation>
+        <translation type="unfinished">NAPAKA: izhodna koda %1</translation>
     </message>
 </context>
 <context>
@@ -2004,7 +2018,7 @@ Prosimo uporabite &quot;Datoteka &gt; Vrni na shranjeno&quot;, ko se zunanji pro
         <location filename="../src/TeXDocument.cpp" line="1502"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ponovno naloži dokument z izbrano kodno tabelo</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1504"/>
@@ -2012,19 +2026,23 @@ Prosimo uporabite &quot;Datoteka &gt; Vrni na shranjeno&quot;, ko se zunanji pro
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ponovno naloži datoteko s kodno tabelo, ki je bila izbrana v tem meniju.
+
+Izbrana kodna tabela nadomesti privzeto in se ne ozira na vsebino vrstice &quot;%!TEX encoding&quot;.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1523"/>
         <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neshranjene spremembe</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1524"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Datoteka, ki jo želite ponovno naložiti, vsebuje spremembe, ki jih niste shranili.
+
+Želite prezreti trenutne spremembe in ponovno naložiti datoteko z diska pod kodno tabelo %1?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1649"/>
@@ -2241,6 +2259,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.ui" line="268"/>
         <source>Format</source>
+        <translatorcomment>The term &quot;Format&quot; appears somewhere else as well: if you change this one, please change both.</translatorcomment>
         <translation>Oblika</translation>
     </message>
     <message>
@@ -2698,7 +2717,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.ui" line="1067"/>
         <source>Auto-Follow Focus</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Samodejno prilagajaj fokus v obeh oknih</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1075"/>
@@ -2723,7 +2742,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.ui" line="1102"/>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nastavitve in konfiguracijske datoteke ...</translation>
     </message>
     <message>
         <source>Update Scripts</source>
