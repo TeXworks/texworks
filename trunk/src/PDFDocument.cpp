@@ -1152,7 +1152,15 @@ PDFDocument::init()
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
-	setWindowIcon(QIcon(":/images/images/TeXworks-doc.png"));
+
+	QIcon winIcon;
+#ifdef Q_WS_X11
+	// The Compiz window manager doesn't seem to support icons larger than
+	// 128x128, so we add a suitable one first
+	winIcon.addFile(":/images/images/TeXworks-doc-128.png");
+#endif
+	winIcon.addFile(":/images/images/TeXworks-doc.png");
+	setWindowIcon(winIcon);
 	
 	setContextMenuPolicy(Qt::NoContextMenu);
 

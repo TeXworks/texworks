@@ -104,8 +104,15 @@ TWApp::~TWApp()
 
 void TWApp::init()
 {
-	setWindowIcon(QIcon(":/images/images/TeXworks.png"));
-
+	QIcon appIcon;
+#ifdef Q_WS_X11
+	// The Compiz window manager doesn't seem to support icons larger than
+	// 128x128, so we add a suitable one first
+	appIcon.addFile(":/images/images/TeXworks-128.png");
+#endif
+	appIcon.addFile(":/images/images/TeXworks.png");
+	setWindowIcon(appIcon);
+	
 	setOrganizationName("TUG");
 	setOrganizationDomain("tug.org");
 	setApplicationName(TEXWORKS_NAME);
