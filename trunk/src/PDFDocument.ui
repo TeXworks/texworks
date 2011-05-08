@@ -586,7 +586,7 @@
    </property>
    <property name="icon">
     <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/zoomin.png</normaloff>:/images/images/zoomin.png</iconset>
+     <normaloff>:/images/images/zoom.png</normaloff>:/images/images/zoom.png</iconset>
    </property>
    <property name="text">
     <string>Magnify</string>
