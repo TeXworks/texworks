@@ -37,13 +37,15 @@ When one opens the editor, it shows a very sparse interface: a title bar, a menu
 \includegraphics[width=\textwidth]{interface-summary}
 \end{center}
 
+Even though they are not looking like real buttons, the widgets in the status bar can be clicked. The widgets showing the current position (line or page, respectively), for example, open a dialog to enter a line or page to jump to when clicked. The other widgets typically open contextual menus where some settings can be changed.
+
 \section{Creating a document}
 
 \subsection{Writing the document}
 
 As an example of the use of {\Tw}, we will work with \LaTeX\index{TeX@\TeX!\LaTeX}, but any other {\TeX} system is possible. In particular, if you need to use some special fonts\footnote{You can only use fonts {\AllTeX} knows, most of which are coming in packages included in your distribution. You cannot use your ``normal'' fonts, unfortunately. For more information, see for example \url{http://faq.tug.org/} and \url{http://www.tug.dk/FontCatalogue/}.}---a mandatory font for an official template, non-Latin alphabets, etc.---the {\XeTeX} system is very powerful.\footnote{See the bibliography for pointers to {\XeTeX} and \XeLaTeX.}
 
-Let's create now our first document\index{document!creation}. Enter the following text exactly as shown. To show some of the features of {\Tw}/{\LaTeX}, it is in French intentionally.
+Let's create our first document\index{document!creation} now. Enter the following text exactly as shown. To show some of the features of {\Tw}/{\LaTeX}, it is in French intentionally.
 
 \begin{example}
 \documentclass{article}
@@ -125,11 +127,13 @@ Note that entering only one carriage return doesn't create a new paragraph. In {
 
 \section{And when errors occur?}\index{errors}
 
-When you create a document for typesetting with {\LaTeX}, you cannot avoid making mistakes: forgetting a closing brace or an \verb|\end{}| command to close an environment, using mathematical commands without switching to mathematical mode, etc. When you compile and there is an error, {\LaTeX} stops, giving you a chance to deal with the problem. This is shown by the stopping of the scrolling action in the output panel, and an error message being displayed, with {\LaTeX} waiting for an instruction to know what it should do. One sees the \emph{typing cursor\index{typing cursor}} in the line between the output panel and the status bar: the \emph{console bar\index{console bar}}.
+When you create a document for typesetting with {\LaTeX}, you cannot avoid making mistakes: forgetting a closing brace or an \verb|\end{}| to close an environment, using mathematical commands without switching to mathematical mode, etc. When you compile and there is an error, {\LaTeX} stops, giving you a chance to deal with the problem. This is shown by the stopping of the scrolling action in the output panel, and an error message being displayed, with {\LaTeX} waiting for an instruction to know what it should do.
 
 \begin{center}\label{fig:consoleOutput}
 \includegraphics{consoleOutput}
 \end{center}
+
+One sees the \emph{typing cursor\index{typing cursor}} in the line between the output panel and the status bar: the \emph{console bar\index{console bar}}.
 
 The error message is on many lines, for example like this:
 \smallskip
@@ -157,6 +161,8 @@ By clicking on that button or by hitting \keysequence{Ctrl+T} (Mac OS X: \keyseq
 You should note that sometimes an error appears far from its actual position. For example, when opening an environment but not closing it, {\LaTeX} doesn't see the error before it encounters another end of environment without closing of the first one. The error is often only picked up at the \verb|\end{document}| command, which shows that another environment was not closed!
 
 Sometimes, an error still occurs during subsequent runs of {\AllTeX} even after it was corrected in the document. This can happen because {\AllTeX} creates a number of intermediary files which can still contain the original, erroneous code. Therefore, it is advisable to remove those files after fixing an error. {\Tw} provides a command to facilitate this---see section \ref{sec:remove-aux-files}.
+
+After an error occurred, the output panel remains open---even after consecutive typesetting runs---to help you fix the problem (which can sometimes take several attempts and restarts of {\AllTeX}). Once all problems are solved, you can close the panel by the \menu{Windows}\submenu\menu{Hide Output Panel}\index{output panel!hide} menu item. As an alternative, you can also configure to output panel to hide automatically as soon as the typesetting process finishes successfully by setting \menu{Edit}\submenu\menu{Preferences\dots}\submenu\menu{Typesetting}\submenu\menu{Hide output panel} to \emph{On success}. Since one can easily overlook other problems in the document (e.g., undefined references) that do not cause {\AllTeX} to fail, this option is only recommended to expert users.
 
 To help you in finding and fixing error (at least if you are using {\LaTeX}), {\Tw} comes with a small script that extracts all errors, warnings, and other noteworthy messages from the console output and presents them to you in a simple, tabular form.
 

@@ -7,7 +7,7 @@
 \section{SyncTeX'ing between source and preview}\index{SyncTeX}
 \label{sec.synctex}
 
-When you are reading a document in preview and see something to change, it is convenient to go immediately to the corresponding place in the source. To do that, hold down \keysequence{Ctrl} (Mac OS X: \keysequence{Cmd}) and click at the appropriate place in the preview window; the cursor will move and highlight the corresponding location in the source window. The same is true in the other direction: \keysequence{Ctrl+LMB} in the source will highlight the same line in the preview window.\footnote{It is also possible to use a right-click (\keysequence{RMB}) to open a context window and select ``jump to PDF'' or ``jump to source''.}
+When you are reading a document in the preview window and see something to change, it is convenient to go immediately to the corresponding place in the source. To do so, hold down \keysequence{Ctrl} (Mac OS X: \keysequence{Cmd}) and click at the appropriate place in the preview; the cursor will move and highlight the corresponding location in the source window. The same is true in the other direction: \keysequence{Ctrl+LMB} in the source will highlight the same line in the preview window.\footnote{It is also possible to use a right-click (\keysequence{RMB}) to open a context window and select ``jump to PDF'' or ``jump to source''.}
 
 % \path doesn't support accented characters
 % as a workaround, use \texttt
@@ -19,12 +19,16 @@ Here a remark for users under Windows: this only works if \textbf{all} the names
 
 Special comments, at the very beginning of the files, can be used to manage two other aspects of the compilation.
 
-By default, {\Tw} uses the ``utf-8'' encoding\index{encoding!utf-8} for saving files, but some files could be saved in another encoding. Common ones are ``latin1''\index{encoding!latin1}, which is the dominant encoding on Windows when using western languages, and ``Apple Roman'' which is dominant on Mac OS.
+By default, {\Tw} uses the ``utf-8'' encoding\index{encoding!utf-8} for loading and saving files, but some files could be saved in another encoding. Common ones are ``latin1''\index{encoding!latin1}, which is the dominant encoding on Windows when using western languages, and ``Apple Roman'' which is dominant on Mac OS.
 
 To set a different encoding\index{encoding} for a specific file one can put the following at the beginning of that file:\index{\verb+% "!TeX+!\verb+encoding+}
 \begin{verbExample}
 % !TeX encoding = latin1
 \end{verbExample}
+
+Note that without this line, you must tell {\Tw} the correct encoding manually. Otherwise, your data could be corrupted! To override {\Tw}'s default choice of encoding, use the menu that appears when you click on the editor window's middle status bar widget.
+
+If you opened a file in {\Tw} that was not saved as utf-8 but is lacking the \verb+% !TeX encoding+ line, it might be displayed with (some) weird characters. In that case, you can specify the correct encoding via the status bar widget menu in the same way, but it is \emph{imperative} that you then use \menu{Reload using selected encoding} from the same menu! This forces {\Tw} to open the document again with the encoding you selected, the weird characters should be replaced by normal ones, and only then it is safe to continue to work normally. To avoid having to repeat this procedure each time you open this file, you should either switch to utf-8 for saving it in the future or add a proper \verb+% !TeX encoding+ line.
 
 If we want to compile a file with another programme\index{programme!default} than the default {\TeX} or {\LaTeX}, we put at the beginning of the file:
 \index{\verb+% "!TeX+!\verb+program+}
@@ -41,6 +45,7 @@ Pay attention to this last instruction. You have to use the name of the programm
 When opening a document which contains a \verb+% !TeX program+
 line, the specified programme will become the one to use and its name will appear in the drop down menu in the toolbar; you can, however, override this by selecting a different one from the drop down list, if you want.
 
+\needspace{3\baselineskip}
 In addition, you can set the spell checking language by a similar comment line:
 \index{\verb+% "!TeX+!\verb+spellcheck+}
 \begin{verbExample}
@@ -66,15 +71,15 @@ To facilitate legibility of the source, one can use indentation\index{editing!in
 
 This increases legibility, but works well only on short lines, without text wrapping; or if one chooses not to use text wrapping by unchecking \menu{Format}\submenu\menu{Wrap lines}\index{wrap lines!automatic}.
 
-The command \menu{Format}\submenu\menu{Indent} or the shortcut \keysequence{Ctrl+]} (Mac OS X: \keysequence{Cmd+]}) will indent the line, or the selected lines, by inserting a tab character. You can repeat the process to increase the indent. 
+The command \menu{Format}\submenu\menu{Indent} or the shortcut \keysequence{Ctrl+]} (Mac OS~X: \keysequence{Cmd+]}) will indent the line, or the selected lines, by inserting a tab character. You can repeat the process to increase the indent. 
 
 To remove one level of indentation, use \menu{Format}\submenu\menu{Unindent} or the shortcut \keysequence{Ctrl+[} (\keysequence{Cmd+[} on Mac OS X).\footnote{See the modified shortcuts if your keyboard layout does not allow these actions.}
 
 As \textsl{indent} only indents the first part of very long (wrapped) lines, this is not very satisfactory in some cases. But one can ask {\Tw} to split a long line (longer than the width of the editing window) into short ones adding a hard coded line feed. \menu{Format}\submenu\menu{Hard Wrap...}\index{wrap lines!hard} opens a dialog box in which you can specify the width of the lines; you can also re-format lines which have already been split.
-
-\begin{center}
-\includegraphics[scale=.8]{screenshotHardWrapDlg}
-\end{center}
+%
+%\begin{center}
+%\includegraphics[scale=.8]{screenshotHardWrapDlg}
+%\end{center}
 
 \section{Showing the tags\index{tags}}
 
@@ -101,7 +106,7 @@ All these are files needed by {\AllTeX} to be able to create the table of conten
 
 Apart from the external files, images, pictures, \dots, the only files required are the \path{.tex} files, the sources of the document. One can erase all the others. Sometimes, this is even necessary when {\AllTeX} gets stuck after an error.
 
-This can be done using a {\Tw} command from the \menu{File} menu: \submenu\menu{Remove Aux files \dots}\index{cleaning folder!aux files}.
+This can be done using a {\Tw} command from the \menu{File} menu with the \submenu\menu{Remove Aux files\dots}\index{cleaning folder!aux files} item.
 
 When you use this command, a dialog box opens in which you can check/uncheck the files you want to remove.\footnote{The name of the main file is used to list the possible candidates for deletion.} The dialog box will only list files that actually exist in the folder; if you removed all these auxiliary files before, you get a message box saying that there is no file to remove at the moment.
 

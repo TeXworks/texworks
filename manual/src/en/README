@@ -22,15 +22,15 @@ distribution such as:
 Make sure you have the following required LaTeX packages installed:
 	amsmath, amssymb, array, babel, booktabs, calc, color, fancyhdr, fancyvrb,
 	fncychap, fontenc, footmisc, framed, graphicx, hyperref, idxlayout,
-	inputenc, keystroke, lmodern, longtable, makeidx, needspace, sectsty,
-	tocbibind, upquote, url, wrapfig,
+	inputenc, keystroke, lmodern, longtable, makeidx, microtype, needspace,
+	sectsty, tocbibind, upquote, url, wrapfig,
 and the ZapfChancery font.
 
 When using TeXLive, these can be installed by running
 	tlmgr install amsfonts amsmath babel booktabs fancyhdr fancyvrb fncychap \
 	              footmisc framed graphics hyperref idxlayout keystroke latex \
-	              lm needspace sectsty tocbibind tools upquote url wrapfig \
-	              zapfchan
+	              lm microtype needspace sectsty tocbibind tools upquote url \
+	              wrapfig zapfchan
 from the command line.
 
 If you intend to typeset in the HTML format, you also need tex4ht.

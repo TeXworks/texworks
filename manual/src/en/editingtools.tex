@@ -12,12 +12,12 @@ Most documents you will create will use the same instructions in the preamble, t
 
 Use \menu{File}\submenu\menu{New from template\ldots} or \keysequence{Ctrl+Shift+N} (Mac OS X: \keysequence{Cmd+Shift+N}). A dialogue box opens to allow you to select one of the templates. After selecting one and pressing \verb|OK|, a document is created and you can start to work.
 
-If you want to create a personal template, you just have to create a suitable document with everything you always want to do (and perhaps marking places to fill in the rest) and save it as a \path{.tex} file in the \path{<home>\TeXworks\templates} folder, or a sub-folder of it, if you wish.
+If you want to create a personal template, you just have to create a suitable document with everything you always want to do (and perhaps marking places to fill in the rest) and save it as a \path{.tex} file in the \path{<resources>\templates} folder, or a sub-folder of it, if you wish.
 
 \section{Creating a project using several source files}\index{project}
 
-When the source becomes long, it is sometimes difficult to navigate and maintain it. Then, it is useful to split the source in different smaller files: one file will be the main document, with the preamble and the \verb|document| environment, as well as calls to the ``sub-documents''.\footnote{Called by the commands
-\verb|\input{}| or \verb|\include{}|, see {\LaTeX} manuals for more information.}
+When the source becomes long, it is sometimes difficult to navigate and maintain it. In that case, it is useful to split the source into different smaller files: one file will be the main document, with the preamble and the \verb|document| environment, as well as calls to the ``sub-documents''\footnote{Called by the commands
+\verb|\input{}| or \verb|\include{}|, see {\LaTeX} manuals for more information.}, which could in turn contain separate chapters, for example.
 
 But there might be a problem if you want to start typesetting/compilation in a sub-document: as there is neither a preamble nor a \verb|document| environment there, {\LaTeX} will stop immediately with an error.
 
@@ -40,7 +40,7 @@ You can turn on automatic spell-checking\index{spell-checking} of your source do
 
 During typing, every word the spell-checker considers wrong is underlined by a red wavy line. A right-click on the word opens a contextual menu in which there are some replacement suggestions. Click on the desired word to make the replacement.
 
-Before using the spell-checker, you need to install dictionaries in the right folder of {\Tw}: \path{<home>\TeXworks\dictionaries}.
+Before using the spell-checker, you need to install dictionaries in the right folder of {\Tw}: \path{<resources>\dictionaries}.
 
 \begin{OSLinux}
 On Linux, the dictionaries are usually taken from the folder \path{/usr/share/myspell/dicts}---the default path for myspell dictionaries. Note, though, that the maintainer of your {\Tw} package may have changed this to reflect the file system layout of your Linux distribution. You can override this default by setting the \verb+TW_DICPATH+ environment variable before running {\Tw}.
