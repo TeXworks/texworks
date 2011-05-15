@@ -1102,7 +1102,7 @@
     <string>Settings and Resources...</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::ApplicationSpecificRole</enum>
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
  </widget>
