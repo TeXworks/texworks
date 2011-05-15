@@ -743,6 +743,9 @@
    <property name="text">
     <string>Settings and Resources...</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
   </action>
  </widget>
  <resources>
