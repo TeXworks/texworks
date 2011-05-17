@@ -158,65 +158,65 @@
     <name>PDFDocument</name>
     <message>
         <location filename="../src/PDFDocument.ui" line="377"/>
-        <location filename="../src/PDFDocument.cpp" line="1236"/>
-        <location filename="../src/PDFDocument.cpp" line="1296"/>
+        <location filename="../src/PDFDocument.cpp" line="1244"/>
+        <location filename="../src/PDFDocument.cpp" line="1304"/>
         <source>Open Recent</source>
         <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1407"/>
+        <location filename="../src/PDFDocument.cpp" line="1415"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
         <translation>ملف PDF ‏&quot;%1&quot; موصد؛ هذا ليس مدعوما  الآن.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1426"/>
+        <location filename="../src/PDFDocument.cpp" line="1434"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>تعذّر تحميل الملف &quot;%1&quot;؛ ربما ليس ملف بي دي إف سليم.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1450"/>
+        <location filename="../src/PDFDocument.cpp" line="1458"/>
         <source>No SyncTeX data available</source>
         <translation>لا توجد أي بيانات  SyncTeX</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1453"/>
+        <location filename="../src/PDFDocument.cpp" line="1461"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1525"/>
+        <location filename="../src/PDFDocument.cpp" line="1533"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1554"/>
+        <location filename="../src/PDFDocument.cpp" line="1562"/>
         <source>page %1 of %2</source>
         <translation>صفحة %1 من %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1559"/>
+        <location filename="../src/PDFDocument.cpp" line="1567"/>
         <source>%1%</source>
         <translation>%1٪</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1652"/>
+        <location filename="../src/PDFDocument.cpp" line="1660"/>
         <source>Abort typesetting</source>
         <translation>أوقِف الصَّف</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1785"/>
+        <location filename="../src/PDFDocument.cpp" line="1793"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>للأسف لا تستطيع إصدارة %1 هذه طبع مستندات PDF للعديد من الأسباب التقنية.
 </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1786"/>
+        <location filename="../src/PDFDocument.cpp" line="1794"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>أتريد فتح الملف في العارض المبدئي لطبعه؟</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1787"/>
+        <location filename="../src/PDFDocument.cpp" line="1795"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (لا تنس أن تغلق الملف لتفادي بعض المشاكل)</translation>
     </message>
@@ -257,7 +257,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="504"/>
-        <location filename="../src/PDFDocument.cpp" line="1659"/>
+        <location filename="../src/PDFDocument.cpp" line="1667"/>
         <source>Typeset</source>
         <translation>صُفّ</translation>
     </message>
@@ -495,7 +495,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="736"/>
-        <location filename="../src/PDFDocument.cpp" line="1790"/>
+        <location filename="../src/PDFDocument.cpp" line="1798"/>
         <source>Print Pdf...</source>
         <translation>اطبع الملف...</translation>
     </message>
@@ -1431,96 +1431,96 @@
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="196"/>
-        <location filename="../src/TWApp.cpp" line="258"/>
+        <location filename="../src/TWApp.cpp" line="203"/>
+        <location filename="../src/TWApp.cpp" line="265"/>
         <source>File</source>
         <translation>ملف</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="198"/>
-        <location filename="../src/TWApp.cpp" line="259"/>
+        <location filename="../src/TWApp.cpp" line="205"/>
+        <location filename="../src/TWApp.cpp" line="266"/>
         <source>New</source>
         <translation>جديد</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="203"/>
-        <location filename="../src/TWApp.cpp" line="261"/>
+        <location filename="../src/TWApp.cpp" line="210"/>
+        <location filename="../src/TWApp.cpp" line="268"/>
         <source>New from Template...</source>
         <translation>جديد من قالب...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="207"/>
+        <location filename="../src/TWApp.cpp" line="214"/>
         <source>Preferences...</source>
         <translation>التفضيلات...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="212"/>
-        <location filename="../src/TWApp.cpp" line="263"/>
+        <location filename="../src/TWApp.cpp" line="219"/>
+        <location filename="../src/TWApp.cpp" line="270"/>
         <source>Open...</source>
         <translation>افتح...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="217"/>
-        <location filename="../src/TWApp.cpp" line="266"/>
+        <location filename="../src/TWApp.cpp" line="224"/>
+        <location filename="../src/TWApp.cpp" line="273"/>
         <source>Open Recent</source>
         <translation>افتح الملفات الأخيرة</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="221"/>
-        <location filename="../src/TWApp.cpp" line="268"/>
+        <location filename="../src/TWApp.cpp" line="228"/>
+        <location filename="../src/TWApp.cpp" line="275"/>
         <source>Help</source>
         <translation>مساعدة</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="232"/>
-        <location filename="../src/TWApp.cpp" line="269"/>
+        <location filename="../src/TWApp.cpp" line="239"/>
+        <location filename="../src/TWApp.cpp" line="276"/>
         <source>About </source>
         <translation>عنْ</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="223"/>
-        <location filename="../src/TWApp.cpp" line="270"/>
+        <location filename="../src/TWApp.cpp" line="230"/>
+        <location filename="../src/TWApp.cpp" line="277"/>
         <source>Go to TeXworks home page</source>
         <translation>اذهب إلى صفحة TeXworks الرئيسية</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="226"/>
-        <location filename="../src/TWApp.cpp" line="271"/>
+        <location filename="../src/TWApp.cpp" line="233"/>
+        <location filename="../src/TWApp.cpp" line="278"/>
         <source>Email to the mailing list</source>
         <translation>راسل القائمة البريدية</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="260"/>
+        <location filename="../src/TWApp.cpp" line="267"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="262"/>
+        <location filename="../src/TWApp.cpp" line="269"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="264"/>
+        <location filename="../src/TWApp.cpp" line="271"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="281"/>
+        <location filename="../src/TWApp.cpp" line="288"/>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
         <translation>&lt;br&gt;الإصدارة %1 م.%2 (%3)</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="282"/>
+        <location filename="../src/TWApp.cpp" line="289"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;يوزع وفق &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;رخصة جنو العمومية&lt;/a&gt;، الإصدارة ٢ أو أي إصدارة لاحقة (حسب اختيارك).</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="283"/>
+        <location filename="../src/TWApp.cpp" line="290"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
         <translation>&lt;p&gt;بنية التطبيقات &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt4&lt;/a&gt; من Qt Software، جزء من مؤسسة نوكيا.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="293"/>
+        <location filename="../src/TWApp.cpp" line="300"/>
         <source>About %1</source>
         <translation>عنْ %1</translation>
     </message>
@@ -1530,38 +1530,38 @@
 الإصدارة %2 (م.%3)&lt;p&gt;يوزع وفق &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;رخصة جنو العمومية&lt;/a&gt;، الإصدارة٢.&lt;p dir=&quot;ltr&quot;&gt;&lt;a href=&quot;http://trolltech.com/products/qt&quot;&gt;Qt4&lt;/a&gt; application framework by Trolltech ASA.&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="300"/>
+        <location filename="../src/TWApp.cpp" line="307"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
         <translation>تعذّر الوصول إلى &quot;%1&quot;؛ ربما المتصفح أو تطبيق البريد ليس مضبوطا؟</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="554"/>
+        <location filename="../src/TWApp.cpp" line="561"/>
         <source>Unable to create window</source>
         <translation>تعذّر إنشاء نافذة</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="555"/>
+        <location filename="../src/TWApp.cpp" line="562"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>هناك عطل كبير؛ لم يستطع %1 إنشاء نافذة مستند. سيغلق التطبيق الآن.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="604"/>
-        <location filename="../src/TWApp.cpp" line="619"/>
+        <location filename="../src/TWApp.cpp" line="611"/>
+        <location filename="../src/TWApp.cpp" line="626"/>
         <source>Open File</source>
         <translation>افتح ملفا</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="793"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
         <source>No default binary directory found</source>
         <translation>لم يُعثر على مجلد ثنائيات مبدئي</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="794"/>
+        <location filename="../src/TWApp.cpp" line="801"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>لم يعثر على أي من المجلدات المحددة للتطبيقات المتعلقة بTeX.&lt;p&gt;&lt;small&gt;قبل تشغيل أي عملية ستحتاج لتحديد مجلد (أو مجلدات) الثنائيات لتوزيعة TeX لديك مستخدما لسان الصف الطباعي في حوار التفضيلات.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="278"/>
+        <location filename="../src/TWApp.cpp" line="285"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 هو بيئة بسيطة لتحرير، وصفّ، ومعاينة ملفات TeX.&lt;/p&gt;</translation>
     </message>
@@ -1578,62 +1578,62 @@
         <translation type="obsolete">&lt;p&gt;بنية التطبيقات &lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; من Qt Software، جزء من مؤسسة نوكيا.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="284"/>
+        <location filename="../src/TWApp.cpp" line="291"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;مكتبة &lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; لعرض PDF تأليف Kristian H&amp;#xF8;gsberg, Albert Astals Cid وآخرون.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="285"/>
+        <location filename="../src/TWApp.cpp" line="292"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
         <translation>&lt;br&gt;المدقق الإملائي &lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;هنسبل&lt;/a&gt; تأليف L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="286"/>
+        <location filename="../src/TWApp.cpp" line="293"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation>&lt;br&gt;أفكار وموارد من &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; تأليف Richard Koch.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="287"/>
+        <location filename="../src/TWApp.cpp" line="294"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
         <translation>&lt;br&gt;تقنية &lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; تأليف J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="288"/>
+        <location filename="../src/TWApp.cpp" line="295"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
         <translation>&lt;br&gt;بعض الأيقونات المستخدمة مأخوذة من &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;مشروع تانجو&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="289"/>
+        <location filename="../src/TWApp.cpp" line="296"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
         <translation>&lt;p&gt;الترجمة %1 ساهم بها %2.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="289"/>
+        <location filename="../src/TWApp.cpp" line="296"/>
         <source>[language name]</source>
         <translation>العربية</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="289"/>
+        <location filename="../src/TWApp.cpp" line="296"/>
         <source>[translator&apos;s name/email]</source>
         <translation>خالد حسني (khaledhosny@eglug.org)</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="633"/>
+        <location filename="../src/TWApp.cpp" line="640"/>
         <source>Save File</source>
         <translation>احفظ الملف</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1069"/>
+        <location filename="../src/TWApp.cpp" line="1077"/>
         <source>Unable to find help file.</source>
         <translation>تعذّر العثور على ملف المساعدة.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1257"/>
+        <location filename="../src/TWApp.cpp" line="1265"/>
         <source>Permission request</source>
         <translation>طلب بالإذن</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1258"/>
+        <location filename="../src/TWApp.cpp" line="1266"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>يحاول البريمج &quot;%1&quot; فتح الملف &quot;%2&quot; لكن ليست له الصلاحيات الكافية. أتأذن بفتح هذا الملف؟</translation>
     </message>
@@ -1865,27 +1865,27 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation type="obsolete">الترميز الافتراضي</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2487"/>
+        <location filename="../src/TeXDocument.cpp" line="2495"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>لم يُعثر على البرنامج &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2488"/>
+        <location filename="../src/TeXDocument.cpp" line="2496"/>
         <source>Searched in directories:</source>
         <translation>المجلدات المبحوث فيها:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2490"/>
+        <location filename="../src/TeXDocument.cpp" line="2498"/>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
         <translation>تحقق من تضبيطات الأداة &quot;%1&quot; وإعدادات المسار في حوار التفضيلات.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2517"/>
+        <location filename="../src/TeXDocument.cpp" line="2525"/>
         <source>Abort typesetting</source>
         <translation>أوقِف الصَّف</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2537"/>
+        <location filename="../src/TeXDocument.cpp" line="2545"/>
         <source>Process interrupted by user</source>
         <translation>قاطع المستخدم العملية</translation>
     </message>
@@ -1955,23 +1955,23 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>untitled-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1354"/>
+        <location filename="../src/TeXDocument.cpp" line="1362"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1447"/>
+        <location filename="../src/TeXDocument.cpp" line="1455"/>
         <source>Line %1 of %2; col %3</source>
         <translation>السطر %1 من %2؛ عمود %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1502"/>
+        <location filename="../src/TeXDocument.cpp" line="1510"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>أعِد التحميل مستخدما الترميز المختار</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1504"/>
+        <location filename="../src/TeXDocument.cpp" line="1512"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -1981,12 +1981,12 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 سيُؤخذ الترميز المختار بعين الاعتبار وليس الترميز المبدئي أو أي سطور ‪&quot;%!TEX encoding&quot;‬</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1523"/>
+        <location filename="../src/TeXDocument.cpp" line="1531"/>
         <source>Unsaved changes</source>
         <translation>تغييرات غير محفوظة</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1524"/>
+        <location filename="../src/TeXDocument.cpp" line="1532"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -1995,30 +1995,30 @@ Do you want to discard your current changes, and reload the file from disk with 
 أتريد تجاهل تغييراتك الحالية وتحميل الملف من القرص بترميز %1؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1649"/>
+        <location filename="../src/TeXDocument.cpp" line="1657"/>
         <source>Go to Line</source>
         <translation>اذهب لسطر</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1650"/>
+        <location filename="../src/TeXDocument.cpp" line="1658"/>
         <source>Line number:</source>
         <translation>رقم السطر:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2009"/>
-        <location filename="../src/TeXDocument.cpp" line="2123"/>
+        <location filename="../src/TeXDocument.cpp" line="2017"/>
+        <location filename="../src/TeXDocument.cpp" line="2131"/>
         <source>Invalid regular expression</source>
         <translation>تعبير نمطي غير صحيح</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2055"/>
-        <location filename="../src/TeXDocument.cpp" line="2092"/>
-        <location filename="../src/TeXDocument.cpp" line="2201"/>
+        <location filename="../src/TeXDocument.cpp" line="2063"/>
+        <location filename="../src/TeXDocument.cpp" line="2100"/>
+        <location filename="../src/TeXDocument.cpp" line="2209"/>
         <source>Not found</source>
         <translation>غير موجود</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2386"/>
+        <location filename="../src/TeXDocument.cpp" line="2394"/>
         <source>Cannot process unsaved document</source>
         <translation>لا يمكن معالجة الملف دون حفظه</translation>
     </message>
@@ -2027,12 +2027,12 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation type="obsolete">الملف %1 غير مقروء</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2402"/>
+        <location filename="../src/TeXDocument.cpp" line="2410"/>
         <source>%1 is not properly configured</source>
         <translation>%1 ليس معدّا بشكل سليم</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2486"/>
+        <location filename="../src/TeXDocument.cpp" line="2494"/>
         <source>Unable to execute %1</source>
         <translation>تعذّر تنفيذ %1</translation>
     </message>
@@ -2046,22 +2046,22 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="847"/>
-        <location filename="../src/TeXDocument.cpp" line="2652"/>
+        <location filename="../src/TeXDocument.cpp" line="2660"/>
         <source>Hide Output Panel</source>
         <translation>أخفِ لوحة الخرج</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2659"/>
+        <location filename="../src/TeXDocument.cpp" line="2667"/>
         <source>Show Output Panel</source>
         <translation>أظهر لوحة الخرْج</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2739"/>
+        <location filename="../src/TeXDocument.cpp" line="2747"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>اضبط المحرك ليكون &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2743"/>
+        <location filename="../src/TeXDocument.cpp" line="2751"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>المحرك &quot;%1&quot; غير موجود</translation>
     </message>
@@ -2092,7 +2092,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="594"/>
-        <location filename="../src/TeXDocument.cpp" line="2509"/>
+        <location filename="../src/TeXDocument.cpp" line="2517"/>
         <source>Typeset</source>
         <translation>صُفّ</translation>
     </message>
@@ -2578,7 +2578,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <translation>الإعدادات والموارد...</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2059"/>
+        <location filename="../src/TeXDocument.cpp" line="2067"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>لم يُعثر على نتائج</numerusform>
@@ -2590,7 +2590,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2227"/>
+        <location filename="../src/TeXDocument.cpp" line="2235"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>لم يُستبدل أي شيء</numerusform>
@@ -2613,7 +2613,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2220"/>
+        <location filename="../src/TeXDocument.cpp" line="2228"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>لا شيء</numerusform>
@@ -2625,7 +2625,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2221"/>
+        <location filename="../src/TeXDocument.cpp" line="2229"/>
         <source>%n documents</source>
         <translation>
             <numerusform>لا شيء</numerusform>
@@ -2637,7 +2637,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2222"/>
+        <location filename="../src/TeXDocument.cpp" line="2230"/>
         <source>Replaced %1 in %2</source>
         <translation>استُبدِل %1 في %2</translation>
     </message>
@@ -2667,7 +2667,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 أتريد إكمال حفظ الملف، واستبدال النسخة الموجودة على القرص؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2396"/>
+        <location filename="../src/TeXDocument.cpp" line="2404"/>
         <source>Root document %1 is not readable</source>
         <translation>المستند الجذر %1 غير مقروء</translation>
     </message>
@@ -2676,12 +2676,12 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <translation type="obsolete">المستند الجذر %1 غير موجود</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2853"/>
+        <location filename="../src/TeXDocument.cpp" line="2861"/>
         <source>No files found</source>
         <translation>لم يُعثر على أي ملفات</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2854"/>
+        <location filename="../src/TeXDocument.cpp" line="2862"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>لا توجد ملفات ثانوية مرتبطة بهذا المستند حاليا.</translation>
     </message>
