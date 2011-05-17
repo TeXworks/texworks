@@ -164,7 +164,7 @@
     <name>PDFDocument</name>
     <message>
         <location filename="../src/PDFDocument.ui" line="+377"/>
-        <location filename="../src/PDFDocument.cpp" line="+1236"/>
+        <location filename="../src/PDFDocument.cpp" line="+1244"/>
         <location line="+60"/>
         <source>Open Recent</source>
         <translation>Последние файлы</translation>
@@ -607,7 +607,7 @@
     <message>
         <location line="+5"/>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки и ресурсы...</translation>
     </message>
     <message>
         <source>Update Scripts</source>
@@ -783,7 +783,7 @@
 <context>
     <name>PDFWidget</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="-1456"/>
+        <location filename="../src/PDFDocument.cpp" line="-1464"/>
         <source>Zoom In</source>
         <translation>Увеличить</translation>
     </message>
@@ -966,7 +966,7 @@
     <message>
         <location line="+67"/>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;em&gt;Замечание:&lt;/em&gt; это параметры по умолчанию. Их изменение не скажется на уже открытых окнах. Используйте для этого соответствующие пункты в меню «Формат».</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1066,7 +1066,7 @@
     <message>
         <location line="+30"/>
         <source>Hide output panel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрыть панель вывода:</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1074,25 +1074,28 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Никогда:&lt;/strong&gt; никогда не скрывать панель вывода после вёрстки.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Автоматически:&lt;/strong&gt; скрывать панель вывода после успешной вёрстки, но только если она была скрыта до этого.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;В случае успеха:&lt;/strong&gt; скрывать панель вывода после успешной вёрстки, независимо от предыдущей настройки.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Never</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Никогда</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>On success</source>
         <extracomment>&quot;Hide output panel&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>В случае успеха</translation>
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
@@ -1297,27 +1300,27 @@
     <message>
         <location filename="../src/ResourcesDialog.ui" line="+17"/>
         <source>TeXworks Settings and Resources</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки и ресурсы TeXworks</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Storage Locations</source>
-        <translation type="unfinished"></translation>
+        <translation>Размещение</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки:</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Resources:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ресурсы:</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.cpp" line="+40"/>
         <source>Registry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Реестр (%1)</translation>
     </message>
 </context>
 <context>
@@ -1430,7 +1433,7 @@
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="+196"/>
+        <location filename="../src/TWApp.cpp" line="+203"/>
         <location line="+62"/>
         <source>File</source>
         <translation>Файл</translation>
@@ -1528,7 +1531,7 @@
     <message>
         <location line="+1"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Распространяется по лицензии &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, вторая редакция или (по вашему усмотрению) любую последующую редакцию.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1617,7 +1620,7 @@
         <translation>Невозможно найти какую-либо из предопределённых директорий с TeX&apos;ом и сопутствующих программ.&lt;p&gt;&lt;small&gt;Чтобы запустить какой-либо процесс нужно установить путь к директории (директориям) с программами вашего TeX дистрибутива используя вкладку Вёрстка окна Настройки.</translation>
     </message>
     <message>
-        <location line="+275"/>
+        <location line="+276"/>
         <source>Unable to find help file.</source>
         <translation>Невозможно найти файл справки.</translation>
     </message>
@@ -1964,7 +1967,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>безназвания-%1.tex</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+17"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
@@ -1977,7 +1980,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <location line="+55"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Открыть заново использую выбранную кодировку</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1985,19 +1988,21 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Открыть текущий документ заново в выбранной кодировке.\n\nВыбранная кодировка заменит кодировку по умолчанию и все строки «%! TEX encoding».</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Несохранённые изменения</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл который вы открываете заново содержит не сохранённые изменения.
+
+Отбросить текущие изменения и открыть файл заново с диска в кодировке %1?</translation>
     </message>
     <message>
         <location line="+125"/>
@@ -2608,7 +2613,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location line="+8"/>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки и ресурсы...</translation>
     </message>
     <message>
         <source>Update Scripts</source>
