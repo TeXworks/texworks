@@ -10,6 +10,9 @@
 			<array>
 				<string>tex</string>
 				<string>ltx</string>
+				<string>sty</string>
+				<string>cls</string>
+				<string>dtx</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>TeXworks-doc.icns</string>

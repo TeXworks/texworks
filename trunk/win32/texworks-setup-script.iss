@@ -81,6 +81,10 @@ zh_cn.CreateFileAssoc=默认使用 TeXworks 打开下列文件类型：
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "texfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.tex}"; GroupDescription: "{cm:CreateFileAssoc}"
+Name: "ltxfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.ltx}"; GroupDescription: "{cm:CreateFileAssoc}"
+Name: "styfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.sty}"; GroupDescription: "{cm:CreateFileAssoc}"
+Name: "clsfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.cls}"; GroupDescription: "{cm:CreateFileAssoc}"
+Name: "dtxfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.dtx}"; GroupDescription: "{cm:CreateFileAssoc}"
 Name: "pdffileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.pdf}"; GroupDescription: "{cm:CreateFileAssoc}"; Flags: unchecked
 
 [Files]
@@ -96,11 +100,37 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\TeXworks"; Filenam
 
 [Registry]
 Root: HKCR; Subkey: ".tex"; ValueType: string; ValueName: ""; ValueData: "TeXworksTeXFile"; Flags: uninsdeletevalue; Tasks: texfileassoc
+Root: HKCR; Subkey: ".tex"; ValueType: string; ValueName: "Content Type"; ValueData: "text/x-tex"; Flags: uninsdeletevalue; Tasks: texfileassoc
 Root: HKCR; Subkey: "TeXworksTeXFile"; ValueType: string; ValueName: ""; ValueData: "(La)TeX File"; Flags: uninsdeletekey; Tasks: texfileassoc
 Root: HKCR; Subkey: "TeXworksTeXFile\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\TeXworks.exe,1"; Tasks: texfileassoc
 Root: HKCR; Subkey: "TeXworksTeXFile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\TeXworks.exe"" ""%1"""; Tasks: texfileassoc
 
+Root: HKCR; Subkey: ".ltx"; ValueType: string; ValueName: ""; ValueData: "TeXworksTeXFile"; Flags: uninsdeletevalue; Tasks: ltxfileassoc
+Root: HKCR; Subkey: ".ltx"; ValueType: string; ValueName: "Content Type"; ValueData: "text/x-tex"; Flags: uninsdeletevalue; Tasks: ltxfileassoc
+Root: HKCR; Subkey: "TeXworksTeXFile"; ValueType: string; ValueName: ""; ValueData: "(La)TeX File"; Flags: uninsdeletekey; Tasks: ltxfileassoc
+Root: HKCR; Subkey: "TeXworksTeXFile\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\TeXworks.exe,1"; Tasks: ltxfileassoc
+Root: HKCR; Subkey: "TeXworksTeXFile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\TeXworks.exe"" ""%1"""; Tasks: ltxfileassoc
+
+Root: HKCR; Subkey: ".sty"; ValueType: string; ValueName: ""; ValueData: "TeXworksStyFile"; Flags: uninsdeletevalue; Tasks: styfileassoc
+Root: HKCR; Subkey: ".sty"; ValueType: string; ValueName: "Content Type"; ValueData: "text/x-tex"; Flags: uninsdeletevalue; Tasks: styfileassoc
+Root: HKCR; Subkey: "TeXworksStyFile"; ValueType: string; ValueName: ""; ValueData: "(La)TeX Style File"; Flags: uninsdeletekey; Tasks: styfileassoc
+Root: HKCR; Subkey: "TeXworksStyFile\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\TeXworks.exe,1"; Tasks: styfileassoc
+Root: HKCR; Subkey: "TeXworksStyFile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\TeXworks.exe"" ""%1"""; Tasks: styfileassoc
+
+Root: HKCR; Subkey: ".cls"; ValueType: string; ValueName: ""; ValueData: "TeXworksClsFile"; Flags: uninsdeletevalue; Tasks: clsfileassoc
+Root: HKCR; Subkey: ".cls"; ValueType: string; ValueName: "Content Type"; ValueData: "text/x-tex"; Flags: uninsdeletevalue; Tasks: clsfileassoc
+Root: HKCR; Subkey: "TeXworksClsFile"; ValueType: string; ValueName: ""; ValueData: "(La)TeX Class File"; Flags: uninsdeletekey; Tasks: clsfileassoc
+Root: HKCR; Subkey: "TeXworksClsFile\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\TeXworks.exe,1"; Tasks: clsfileassoc
+Root: HKCR; Subkey: "TeXworksClsFile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\TeXworks.exe"" ""%1"""; Tasks: clsfileassoc
+
+Root: HKCR; Subkey: ".dtx"; ValueType: string; ValueName: ""; ValueData: "TeXworksDtxFile"; Flags: uninsdeletevalue; Tasks: dtxfileassoc
+Root: HKCR; Subkey: ".dtx"; ValueType: string; ValueName: "Content Type"; ValueData: "text/x-tex"; Flags: uninsdeletevalue; Tasks: dtxfileassoc
+Root: HKCR; Subkey: "TeXworksDtxFile"; ValueType: string; ValueName: ""; ValueData: "Documented (La)TeX File"; Flags: uninsdeletekey; Tasks: dtxfileassoc
+Root: HKCR; Subkey: "TeXworksDtxFile\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\TeXworks.exe,1"; Tasks: dtxfileassoc
+Root: HKCR; Subkey: "TeXworksDtxFile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\TeXworks.exe"" ""%1"""; Tasks: dtxfileassoc
+
 Root: HKCR; Subkey: ".pdf"; ValueType: string; ValueName: ""; ValueData: "TeXworksPDFFile"; Flags: uninsdeletevalue; Tasks: pdffileassoc
+Root: HKCR; Subkey: ".pdf"; ValueType: string; ValueName: "Content Type"; ValueData: "application/pdf"; Flags: uninsdeletevalue; Tasks: pdffileassoc
 Root: HKCR; Subkey: "TeXworksPDFFile"; ValueType: string; ValueName: ""; ValueData: "Portable Document Format"; Flags: uninsdeletekey; Tasks: pdffileassoc
 Root: HKCR; Subkey: "TeXworksPDFFile\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\TeXworks.exe,1"; Tasks: pdffileassoc
 Root: HKCR; Subkey: "TeXworksPDFFile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\TeXworks.exe"" ""%1"""; Tasks: pdffileassoc
