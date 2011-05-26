@@ -93,8 +93,10 @@ tricky.
 To avoid having to build the poppler dependencies for Windows, you can get
 precompiled libraries from the KDE on Windows project.
 
+On the Mac, required libraries can be obtained, e.g., using Homebrew.
+
 Further tips on building TeXworks from source are available on some of the wiki
 pages:
  - http://code.google.com/p/texworks/wiki/Building
  - http://code.google.com/p/texworks/wiki/BuildingOnWindowsMinGW
- - http://code.google.com/p/texworks/issues/detail?id=107
+ - http://code.google.com/p/texworks/wiki/BuildingOnMacOSXHomebrew
