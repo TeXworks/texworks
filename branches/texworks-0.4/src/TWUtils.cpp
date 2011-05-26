@@ -80,7 +80,7 @@ bool TWUtils::isPostscriptFile(const QString& fileName)
 	return false;
 }
 
-const QString TWUtils::getLibraryPath(const QString& subdir)
+const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOnDisk /* = true */)
 {
 	QString libRootPath, libPath;
 	
@@ -106,7 +106,8 @@ const QString TWUtils::getLibraryPath(const QString& subdir)
 	}
 	libPath = QDir(libRootPath).absolutePath() + QDir::separator() + subdir;
 
-	updateLibraryResources(QDir(":/resfiles"), libRootPath, subdir);
+	if(updateOnDisk)
+		updateLibraryResources(QDir(":/resfiles"), libRootPath, subdir);
 	return libPath;
 }
 
@@ -116,15 +117,15 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 	QDir srcDir(srcRootDir);
 	QDir destDir(destRootDir.absolutePath() + QDir::separator() + subdir);
 	
+	// sanity check
+	if (!srcDir.cd(subdir))
+		return;
+	
 	// make sure the library folder exists - even if the user deleted it;
 	// otherwise other parts of the program might fail
 	if (!destDir.exists())
 		QDir::root().mkpath(destDir.absolutePath());
 	
-	// sanity check
-	if (!srcDir.cd(subdir))
-		return;
-
 	if (subdir == "translations") // don't copy the built-in translations
 		return;
 	
@@ -1064,26 +1065,32 @@ int TWUtils::findOpeningDelim(const QString& text, int pos)
 	return -1;
 }
 
-void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive)
+void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true */, QSettings * map /* = NULL */)
 {
+	bool deleteMap = false;
+	
 	if (widget == NULL)
 		return;
 
-	QString filename = QDir(TWUtils::getLibraryPath("configuration")).absoluteFilePath("shortcuts.ini");
+	if (!map) {
+		QString filename = QDir(TWUtils::getLibraryPath("configuration")).absoluteFilePath("shortcuts.ini");
+		if (filename.isEmpty() || !QFileInfo(filename).exists())
+			return;
 
-	if (filename.isEmpty())
-		return;
-	
-	QSettings map(filename, QSettings::IniFormat);
-	if (map.status() != QSettings::NoError)
-		return;
+		map = new QSettings(filename, QSettings::IniFormat);
+		if (map->status() != QSettings::NoError) {
+			delete map;
+			return;
+		}
+		deleteMap = true;
+	}
 
 	QAction * act;
 	foreach (act, widget->actions()) {
 		if (act->objectName().isEmpty())
 			continue;
-		if (map.contains(act->objectName()))
-			act->setShortcut(QKeySequence(map.value(act->objectName()).toString()));
+		if (map->contains(act->objectName()))
+			act->setShortcut(QKeySequence(map->value(act->objectName()).toString()));
 	}
 	
 	if (recursive) {
@@ -1091,9 +1098,12 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive)
 		foreach (obj, widget->children()) {
 			QWidget * child = qobject_cast<QWidget*>(obj);
 			if (child)
-				installCustomShortcuts(child);
+				installCustomShortcuts(child, true, map);
 		}
 	}
+	
+	if (deleteMap)
+		delete map;
 }
 
 #pragma mark === SelWinAction ===
@@ -1282,7 +1292,7 @@ bool FileVersionDatabase::hasFileRecord(const QFileInfo & file) const
 	
 	while (it.hasNext()) {
 		const FileVersionDatabase::Record rec = it.next();
-		if (file == rec.filePath)
+		if (file.filePath() == rec.filePath.filePath())
 			return true;
 	}
 	return false;

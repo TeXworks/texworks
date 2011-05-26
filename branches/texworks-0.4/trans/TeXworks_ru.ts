@@ -4,7 +4,7 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="+902"/>
+        <location filename="../src/CompletingEdit.cpp" line="+901"/>
         <source>Jump to PDF</source>
         <translation>Перейти к PDF</translation>
     </message>
@@ -163,8 +163,8 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../src/PDFDocument.ui" line="+376"/>
-        <location filename="../src/PDFDocument.cpp" line="+1231"/>
+        <location filename="../src/PDFDocument.ui" line="+377"/>
+        <location filename="../src/PDFDocument.cpp" line="+1244"/>
         <location line="+60"/>
         <source>Open Recent</source>
         <translation>Последние файлы</translation>
@@ -217,7 +217,7 @@
         <translation> (незабудьте закрыть его во избежании проблем с доступом к файлу)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="-359"/>
+        <location filename="../src/PDFDocument.ui" line="-360"/>
         <source>untitled.pdf[*]</source>
         <translation>безназвания.pdf[*]</translation>
     </message>
@@ -227,7 +227,7 @@
         <translation>Справка</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
@@ -605,11 +605,16 @@
         <translation>Ctrl+P</translation>
     </message>
     <message>
+        <location line="+5"/>
+        <source>Settings and Resources...</source>
+        <translation>Настройки и ресурсы...</translation>
+    </message>
+    <message>
         <source>Update Scripts</source>
         <translation type="obsolete">Обновление скриптов</translation>
     </message>
     <message>
-        <location line="-27"/>
+        <location line="-32"/>
         <source>Manage Scripts</source>
         <translation>Управление сценариями</translation>
     </message>
@@ -659,7 +664,7 @@
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="+411"/>
+        <location filename="../src/FindDialog.cpp" line="+441"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>
@@ -778,7 +783,7 @@
 <context>
     <name>PDFWidget</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="-1453"/>
+        <location filename="../src/PDFDocument.cpp" line="-1464"/>
         <source>Zoom In</source>
         <translation>Увеличить</translation>
     </message>
@@ -836,7 +841,7 @@
         <translation>Язык системы [%1]</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="+299"/>
+        <location filename="../src/PrefsDialog.ui" line="+309"/>
         <location line="+39"/>
         <location line="+39"/>
         <location line="+39"/>
@@ -844,12 +849,12 @@
         <translation>Нет</translation>
     </message>
     <message>
-        <location line="-402"/>
+        <location line="-412"/>
         <source>TeXworks Preferences</source>
         <translation>Настройки TeXworks</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+26"/>
         <source>General</source>
         <translation>Общие</translation>
     </message>
@@ -959,7 +964,12 @@
         <translation>Кодировка:</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+67"/>
+        <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
+        <translation>&lt;em&gt;Замечание:&lt;/em&gt; это параметры по умолчанию. Их изменение не скажется на уже открытых окнах. Используйте для этого соответствующие пункты в меню «Формат».</translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>Preview</source>
         <translation>Просмотр</translation>
     </message>
@@ -1054,12 +1064,45 @@
         <translation>По умолчанию:</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <source>Auto-hide output panel unless errors occur</source>
-        <translation>Автоматически скрывать панель вывода если нет ошибок</translation>
+        <location line="+30"/>
+        <source>Hide output panel:</source>
+        <translation>Скрыть панель вывода:</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+13"/>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation>&lt;p&gt;&lt;strong&gt;Никогда:&lt;/strong&gt; никогда не скрывать панель вывода после вёрстки.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Автоматически:&lt;/strong&gt; скрывать панель вывода после успешной вёрстки, но только если она была скрыта до этого.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;В случае успеха:&lt;/strong&gt; скрывать панель вывода после успешной вёрстки, независимо от предыдущей настройки.&lt;/p&gt;
+</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Never</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>Никогда</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Automatically</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>Автоматически</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>On success</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>В случае успеха</translation>
+    </message>
+    <message>
+        <source>Auto-hide output panel unless errors occur</source>
+        <translation type="obsolete">Автоматически скрывать панель вывода если нет ошибок</translation>
+    </message>
+    <message>
+        <location line="+26"/>
         <source>Scripts</source>
         <translation>Сценарии</translation>
     </message>
@@ -1099,7 +1142,7 @@
         <translation>Разрешить сценариям запускать системные программы</translation>
     </message>
     <message>
-        <location line="-663"/>
+        <location line="-730"/>
         <source>Line numbers</source>
         <translation>Нумерация строк</translation>
     </message>
@@ -1117,7 +1160,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/TWUtils.cpp" line="+453"/>
+        <location filename="../src/TWUtils.cpp" line="+454"/>
         <source>TeX documents (*.tex)</source>
         <translation>Документы TeX (*.tex)</translation>
     </message>
@@ -1177,7 +1220,7 @@
     <name>ReplaceDialog</name>
     <message>
         <location filename="../src/Replace.ui" line="+22"/>
-        <location filename="../src/FindDialog.cpp" line="-391"/>
+        <location filename="../src/FindDialog.cpp" line="-421"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
@@ -1253,6 +1296,34 @@
     </message>
 </context>
 <context>
+    <name>ResourcesDialog</name>
+    <message>
+        <location filename="../src/ResourcesDialog.ui" line="+17"/>
+        <source>TeXworks Settings and Resources</source>
+        <translation>Настройки и ресурсы TeXworks</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Storage Locations</source>
+        <translation>Размещение</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Settings:</source>
+        <translation>Настройки:</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Resources:</source>
+        <translation>Ресурсы:</translation>
+    </message>
+    <message>
+        <location filename="../src/ResourcesDialog.cpp" line="+40"/>
+        <source>Registry (%1)</source>
+        <translation>Реестр (%1)</translation>
+    </message>
+</context>
+<context>
     <name>ScriptManager</name>
     <message>
         <location filename="../src/ScriptManager.cpp" line="+190"/>
@@ -1318,7 +1389,7 @@
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="+124"/>
+        <location filename="../src/FindDialog.cpp" line="+130"/>
         <source>Search Results - %1 (%2 found)</source>
         <translation>Результаты поиска - %1 (%2 найдено)</translation>
     </message>
@@ -1362,7 +1433,7 @@
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="+193"/>
+        <location filename="../src/TWApp.cpp" line="+203"/>
         <location line="+62"/>
         <source>File</source>
         <translation>Файл</translation>
@@ -1445,21 +1516,25 @@
         <translation type="obsolete">&lt;br&gt;Версия %1 (r.%2)</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;Распространяется по лицензии &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, вторая редакция.</translation>
+        <translation type="obsolete">&lt;p&gt;Распространяется по лицензии &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, вторая редакция.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
         <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; набор библиотек от Qt Software, подразделения Nokia Corporation.</translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="+3"/>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
         <translation>&lt;br&gt;Версия %1 r.%2 (%3)</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation>&lt;p&gt;Распространяется по лицензии &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, вторая редакция или (по вашему усмотрению) любую последующую редакцию.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
         <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Инфраструктура приложений Qt&lt;/a&gt; вер%1 от Qt Software, подразделения Nokia Corporation.</translation>
     </message>
@@ -1535,7 +1610,7 @@
         <translation>Сохранить файл</translation>
     </message>
     <message>
-        <location line="+172"/>
+        <location line="+160"/>
         <source>No default binary directory found</source>
         <translation>Не найдена директория с программами, заданная по умолчанию</translation>
     </message>
@@ -1545,7 +1620,7 @@
         <translation>Невозможно найти какую-либо из предопределённых директорий с TeX&apos;ом и сопутствующих программ.&lt;p&gt;&lt;small&gt;Чтобы запустить какой-либо процесс нужно установить путь к директории (директориям) с программами вашего TeX дистрибутива используя вкладку Вёрстка окна Настройки.</translation>
     </message>
     <message>
-        <location line="+275"/>
+        <location line="+276"/>
         <source>Unable to find help file.</source>
         <translation>Невозможно найти файл справки.</translation>
     </message>
@@ -1694,8 +1769,8 @@
         <translation>Новый документ</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="+796"/>
-        <location filename="../src/TeXDocument.cpp" line="+142"/>
+        <location filename="../src/TeXDocument.ui" line="+797"/>
+        <location filename="../src/TeXDocument.cpp" line="+143"/>
         <location line="+223"/>
         <source>Open Recent</source>
         <translation>Последние файлы</translation>
@@ -1753,7 +1828,7 @@ Do you want to save your changes?</source>
 %2.</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+111"/>
         <source>Unrecognized encoding</source>
         <translation>Неопознанная кодировка </translation>
     </message>
@@ -1771,7 +1846,7 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation type="obsolete">Файл &quot;%1&quot; был загружен (%2)</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+137"/>
         <location line="+61"/>
         <location line="+94"/>
         <source>File changed on disk</source>
@@ -1829,14 +1904,14 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 %2.</translation>
     </message>
     <message>
-        <location line="-334"/>
+        <location line="-338"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Невозможно прочитать файл &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location line="+348"/>
+        <location line="+352"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Невозможно записать файл &quot;%1&quot;:
@@ -1851,14 +1926,14 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation type="obsolete">Кодировка по умолчанию</translation>
     </message>
     <message>
-        <location line="-441"/>
+        <location line="-446"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translatorcomment>комбинация клавиш: отменить изменения</translatorcomment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location line="+173"/>
+        <location line="+178"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Файл &quot;%1&quot; загружен</translation>
     </message>
@@ -1892,7 +1967,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>безназвания-%1.tex</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+17"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
@@ -1902,7 +1977,35 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>Строка %1 из %2; столбец %3</translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+55"/>
+        <source>Reload using selected encoding</source>
+        <extracomment>Item in the encoding popup menu</extracomment>
+        <translation>Открыть заново использую выбранную кодировку</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Reloads the current file with the encoding selected from this menu.
+
+The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
+        <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
+        <translation>Открыть текущий документ заново в выбранной кодировке.\n\nВыбранная кодировка заменит кодировку по умолчанию и все строки «%! TEX encoding».</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Unsaved changes</source>
+        <translation>Несохранённые изменения</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The file you are trying to reload has unsaved changes.
+
+Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
+        <translation>Файл который вы открываете заново содержит не сохранённые изменения.
+
+Отбросить текущие изменения и открыть файл заново с диска в кодировке %1?</translation>
+    </message>
+    <message>
+        <location line="+125"/>
         <source>Go to Line</source>
         <translation>Перейти к строке</translation>
     </message>
@@ -1981,7 +2084,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>%1 не настроен должным образом</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+84"/>
         <source>Unable to execute %1</source>
         <translation>Невозможно выполнить %1</translation>
     </message>
@@ -1992,7 +2095,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="-152"/>
-        <location filename="../src/TeXDocument.cpp" line="+113"/>
+        <location filename="../src/TeXDocument.cpp" line="+135"/>
         <source>Hide Output Panel</source>
         <translation>Скрыть панель вывода</translation>
     </message>
@@ -2022,7 +2125,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>В данный момент у документа нет связанных с ним вспомогательных файлов.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="-829"/>
+        <location filename="../src/TeXDocument.ui" line="-830"/>
         <source>untitled.tex[*]</source>
         <translation>безназвания.tex[*]</translation>
     </message>
@@ -2047,13 +2150,13 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>Изменить регистр</translation>
     </message>
     <message>
-        <location line="+392"/>
-        <location filename="../src/TeXDocument.cpp" line="-323"/>
+        <location line="+393"/>
+        <location filename="../src/TeXDocument.cpp" line="-345"/>
         <source>Typeset</source>
         <translation>Вёрстка</translation>
     </message>
     <message>
-        <location line="-362"/>
+        <location line="-363"/>
         <source>Window</source>
         <translation>Окно</translation>
     </message>
@@ -2098,7 +2201,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>Справка</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>Scripts</source>
         <translation>Сценарии</translation>
     </message>
@@ -2508,11 +2611,16 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>Ctrl+Alt+S</translation>
     </message>
     <message>
+        <location line="+8"/>
+        <source>Settings and Resources...</source>
+        <translation>Настройки и ресурсы...</translation>
+    </message>
+    <message>
         <source>Update Scripts</source>
         <translation type="obsolete">Обновление скриптов</translation>
     </message>
     <message>
-        <location line="-41"/>
+        <location line="-49"/>
         <source>Manage Scripts</source>
         <translation>Управление сценариями</translation>
     </message>
@@ -2553,13 +2661,13 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>Процесс прерван пользователем</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="-858"/>
+        <location filename="../src/TeXDocument.ui" line="-859"/>
         <source>Typeset</source>
         <comment>menu title</comment>
         <translation>Вёрстка</translation>
     </message>
     <message>
-        <location line="+372"/>
+        <location line="+373"/>
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation>Ctrl+T</translation>
@@ -2578,7 +2686,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 <context>
     <name>TeXHighlighter</name>
     <message>
-        <location filename="../src/TeXHighlighter.cpp" line="+176"/>
+        <location filename="../src/TeXHighlighter.cpp" line="+180"/>
         <source>default</source>
         <translation>По умолчанию</translation>
     </message>
@@ -2599,7 +2707,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="+286"/>
+        <location filename="../src/PrefsDialog.cpp" line="+290"/>
         <source>Select program file</source>
         <translation>Выберите программу</translation>
     </message>

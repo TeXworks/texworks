@@ -424,13 +424,19 @@ SearchResults::SearchResults(QWidget* parent)
 	setupUi(this);
 	connect(table, SIGNAL(itemSelectionChanged()), this, SLOT(showSelectedEntry()));
 	connect(table, SIGNAL(itemPressed(QTableWidgetItem*)), this, SLOT(showEntry(QTableWidgetItem*)));
+	connect(table, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(goToSource()));
 	QShortcut *sc;
 	sc = new QShortcut(Qt::Key_Escape, table);
 	sc->setContext(Qt::WidgetShortcut);
 	connect(sc, SIGNAL(activated()), this, SLOT(goToSourceAndClose()));
-	sc = new QShortcut(Qt::Key_Return, table);
-	sc->setContext(Qt::WidgetShortcut);
-	connect(sc, SIGNAL(activated()), this, SLOT(showSelectedEntry()));
+	
+	TeXDocument * texDoc = qobject_cast<TeXDocument*>(parent);
+	if (texDoc) {
+		editorModifiedPalette = editorOriginalPalette = texDoc->palette();
+		editorModifiedPalette.setColor(QPalette::Highlight, editorOriginalPalette.color(QPalette::Active, QPalette::Highlight));
+		editorModifiedPalette.setColor(QPalette::HighlightedText, editorOriginalPalette.color(QPalette::Active, QPalette::HighlightedText));
+	}
+	connect(TWApp::instance(), SIGNAL(focusChanged(QWidget*,QWidget*)), this, SLOT(focusChanged(QWidget*,QWidget*)));
 }
 
 void SearchResults::goToSource()
@@ -588,6 +594,30 @@ void SearchResults::showSelectedEntry()
 	if (!item)
 		return;
 	showEntry(item);
+}
+
+void SearchResults::focusChanged(QWidget * old, QWidget * now)
+{
+	bool previouslyFocused, nowFocused;
+	TeXDocument * texDoc = qobject_cast<TeXDocument*>(parent());
+
+	if (!texDoc)
+		return;
+
+	if (old == NULL)
+		previouslyFocused = false;
+	else
+		previouslyFocused = isAncestorOf(old);
+
+	if (now == NULL)
+		nowFocused = false;
+	else
+		nowFocused = isAncestorOf(now);
+
+	if (!previouslyFocused && nowFocused)
+		texDoc->editor()->setPalette(editorModifiedPalette);
+	if (previouslyFocused && !nowFocused)
+		texDoc->editor()->setPalette(editorOriginalPalette);
 }
 
 PDFFindDialog::PDFFindDialog(PDFDocument *document)

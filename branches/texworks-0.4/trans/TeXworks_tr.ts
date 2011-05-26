@@ -48,7 +48,7 @@
     </message>
     <message>
         <source>Toggle</source>
-        <translation>Seçimi ter çevir</translation>
+        <translation>Seçimi ters çevir</translation>
     </message>
 </context>
 <context>
@@ -527,6 +527,10 @@
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (erişim sorunlarını önlemek için tekrar kapatmayı unutmayın)</translation>
     </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation>Ayarlar ve Kaynaklar...</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -839,7 +843,7 @@
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>Hata bulunmazsa çıktı panelini gizle</translation>
+        <translation type="obsolete">Hata bulunmazsa çıktı panelini gizle</translation>
     </message>
     <message>
         <source>Line numbers</source>
@@ -875,7 +879,7 @@
     </message>
     <message>
         <source>Allow scripts to write files</source>
-        <translation>Eklentileri dosya yazmasına izin ver</translation>
+        <translation>Eklentilerin dosya yazmasına izin ver</translation>
     </message>
     <message>
         <source>Allow scripts to run system commands</source>
@@ -892,6 +896,39 @@
     <message>
         <source>Enable QtScript debugger</source>
         <translation>QtScript hata ayıklayıcısını etkinleştir</translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation>Çıktı panelini gizle:</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>Hiçbir zaman</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>Otomatik olarak</translation>
+    </message>
+    <message>
+        <source>On success</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>Hata yoksa</translation>
+    </message>
+    <message>
+        <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
+        <translation>&lt;em&gt;Not:&lt;/em&gt; Bunlar öntanımlı ayarlardır. Yapılacak değişiklikler halen açık olan pencereleri etkilemez. O amaçla &amp;quot;Biçim&amp;quot; menüsündeki ilgili seçenekleri kullanın.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation>&lt;p&gt;&lt;strong&gt;Hiçbir zaman:&lt;/strong&gt; Dizgi sonrası çıktı panelini hiçbir zaman gizleme.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Otomatik olarak:&lt;/strong&gt; Dizgi başarılı ise çıktı panelini eğer önceden zaten gizli ise gizle.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Hata yoksa:&lt;/strong&gt; Dizgi başarılı ise çıktı panelini önceki durumunu dikkate almaksızın gizle.&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -1004,6 +1041,29 @@
     <message>
         <source>&amp;Regular expression</source>
         <translation>&amp;Düzenli ifade</translation>
+    </message>
+</context>
+<context>
+    <name>ResourcesDialog</name>
+    <message>
+        <source>TeXworks Settings and Resources</source>
+        <translation>TeXworks Ayarları ve Kaynaklar</translation>
+    </message>
+    <message>
+        <source>Storage Locations</source>
+        <translation>Depolama Yerleri</translation>
+    </message>
+    <message>
+        <source>Settings:</source>
+        <translation>Ayarlar:</translation>
+    </message>
+    <message>
+        <source>Resources:</source>
+        <translation>Kaynaklar:</translation>
+    </message>
+    <message>
+        <source>Registry (%1)</source>
+        <translation>Kütük (%1)</translation>
     </message>
 </context>
 <context>
@@ -1156,7 +1216,7 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU Genel Kamu Lisansı&lt;/a&gt;nın 2. versiyonu ile dağıtılır.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU Genel Kamu Lisansı&lt;/a&gt;nın 2. versiyonu ile dağıtılır.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
@@ -1245,6 +1305,10 @@
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>&quot;%1&quot; eklentisi &quot;%2&quot; dosyasını yeterli izin olmadan açmaya çalışıyor. Dosyayı açmak istiyor musunuz?</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU Genel Kamu Lisansı&lt;/a&gt;&apos;nın 2. sürümü veya (isteğinize göre) daha sonraki bir sürümü altında dağıtılır.</translation>
     </message>
 </context>
 <context>
@@ -2054,6 +2118,36 @@ Haricî süreç tamamlandığında lütfen &quot;Dosya -&gt; Kaydedilene Geri D�
     <message>
         <source>Abort typesetting</source>
         <translation>Dizgiyi durdur</translation>
+    </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation>Ayarlar ve Kaynaklar...</translation>
+    </message>
+    <message>
+        <source>Reload using selected encoding</source>
+        <extracomment>Item in the encoding popup menu</extracomment>
+        <translation>Seçili kodlama ile tekrar yükle</translation>
+    </message>
+    <message>
+        <source>Reloads the current file with the encoding selected from this menu.
+
+The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
+        <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
+        <translation>Mevcut dosyayı bu menüden seçilecek kodlama ile tekrar yükler.
+
+Seçili kodlama öntanımlının yerine geçer ve tüm &quot;%!TEX encoding&quot; satırlarını geçersiz kılar.</translation>
+    </message>
+    <message>
+        <source>Unsaved changes</source>
+        <translation>Kaydedilmemiş değişiklikler</translation>
+    </message>
+    <message>
+        <source>The file you are trying to reload has unsaved changes.
+
+Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
+        <translation>Tekrar yüklemeye çalıştığınız dosyada kaydedilmemiş değişiklikler var.
+
+Mevcut değişikliklerinizi gözardı etmek, ve dosyayı diskten %1 kodlaması ile tekrar yüklemek istiyor musunuz?</translation>
     </message>
 </context>
 <context>

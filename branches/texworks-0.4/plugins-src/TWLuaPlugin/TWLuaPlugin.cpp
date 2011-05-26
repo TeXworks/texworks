@@ -141,7 +141,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 		return 1;
 	}
 	
-	switch (v.type()) {
+	switch ((QMetaType::Type)v.type()) {
 		case QVariant::Bool:
 			lua_pushboolean(L, v.toBool());
 			return 1;

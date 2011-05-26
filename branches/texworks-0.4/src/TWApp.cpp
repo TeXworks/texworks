@@ -29,8 +29,11 @@
 
 #include "TWVersion.h"
 #include "SvnRev.h"
+#include "ResourcesDialog.h"
 
-#ifndef Q_WS_WIN
+#ifdef Q_WS_WIN
+#include "DefaultBinaryPathsWin.h"
+#else
 #include "DefaultBinaryPaths.h"
 #endif
 
@@ -101,8 +104,15 @@ TWApp::~TWApp()
 
 void TWApp::init()
 {
-	setWindowIcon(QIcon(":/images/images/TeXworks.png"));
-
+	QIcon appIcon;
+#ifdef Q_WS_X11
+	// The Compiz window manager doesn't seem to support icons larger than
+	// 128x128, so we add a suitable one first
+	appIcon.addFile(":/images/images/TeXworks-128.png");
+#endif
+	appIcon.addFile(":/images/images/TeXworks.png");
+	setWindowIcon(appIcon);
+	
 	setOrganizationName("TUG");
 	setOrganizationDomain("tug.org");
 	setApplicationName(TEXWORKS_NAME);
@@ -276,7 +286,7 @@ void TWApp::about()
 	aboutText += "<small>";
 	aboutText += "<p>&#xA9; 2007-2011  Jonathan Kew, Stefan L&#xF6;ffler";
 	aboutText += tr("<br>Version %1 r.%2 (%3)").arg(TEXWORKS_VERSION).arg(SVN_REVISION).arg(TW_BUILD_ID_STR);
-	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2.");
+	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2 or (at your option) any later version.");
 	aboutText += tr("<p><a href=\"http://qt.nokia.com/\">Qt application framework</a> v%1 by Qt Software, a division of Nokia Corporation.").arg(qVersion());
 	aboutText += tr("<br><a href=\"http://poppler.freedesktop.org/\">Poppler</a> PDF rendering library by Kristian H&#xF8;gsberg, Albert Astals Cid and others.");
 	aboutText += tr("<br><a href=\"http://hunspell.sourceforge.net/\">Hunspell</a> spell checker by L&#xE1;szl&#xF3; N&#xE9;meth.");
@@ -776,22 +786,10 @@ void TWApp::setDefaultPaths()
 		if (!binaryPaths->contains(s))
 			binaryPaths->append(s);
 	if (!defaultBinPaths) {
-#ifdef Q_WS_WIN
-		*binaryPaths
-			<< "c:/texlive/2009/bin"
-			<< "c:/texlive/2008/bin"
-			<< "c:/texlive/2007/bin"
-			<< "c:/w32tex/bin"
-			<< "c:/Program Files/MiKTeX 2.8/miktex/bin"
-			<< "c:/Program Files (x86)/MiKTeX 2.8/miktex/bin"
-			<< "c:/Program Files/MiKTeX 2.7/miktex/bin"
-			<< "c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
-		;
-#else
-		foreach (const QString& s, QString(DEFAULT_BIN_PATHS).split(PATH_LIST_SEP, QString::SkipEmptyParts))
+		foreach (const QString& s, QString(DEFAULT_BIN_PATHS).split(PATH_LIST_SEP, QString::SkipEmptyParts)) {
 			if (!binaryPaths->contains(s))
 				binaryPaths->append(s);
-#endif
+		}
 	}
 	for (int i = binaryPaths->count() - 1; i >= 0; --i) {
 		QDir dir(binaryPaths->at(i));
@@ -841,8 +839,9 @@ void TWApp::setDefaultEngineList()
 		<< Engine("pdfLaTeX", "pdflatex" EXE, QStringList("$synctexoption") << "$fullname", true)
 		<< Engine("XeTeX", "xetex" EXE, QStringList("$synctexoption") << "$fullname", true)
 		<< Engine("XeLaTeX", "xelatex" EXE, QStringList("$synctexoption") << "$fullname", true)
-		<< Engine("ConTeXt (MKII)", "texmfstart" EXE, QStringList("texexec") << "--synctex" << "$fullname", true)
-		<< Engine("XeConTeXt (MKII)", "texmfstart" EXE, QStringList("texexec") << "--xtx" << "--synctex" << "$fullname", true)
+		<< Engine("ConTeXt (LuaTeX)", "context" EXE, QStringList("--synctex") << "$fullname", true)
+		<< Engine("ConTeXt (pdfTeX)", "texexec" EXE, QStringList("--synctex") << "$fullname", true)
+		<< Engine("ConTeXt (XeTeX)", "texexec" EXE, QStringList("--synctex") << "--xtx" << "$fullname", true)
 		<< Engine("BibTeX", "bibtex" EXE, QStringList("$basename"), false)
 		<< Engine("MakeIndex", "makeindex" EXE, QStringList("$basename"), false);
 	defaultEngineIndex = 1;
@@ -1188,7 +1187,7 @@ void TWApp::setGlobal(const QString& key, const QVariant& val)
 	
 	// For objects on the heap make sure we are notified when their lifetimes
 	// end so that we can remove them from our hash accordingly
-	switch (val.type()) {
+	switch ((QMetaType::Type)val.type()) {
 		case QMetaType::QObjectStar:
 			connect(v.value<QObject*>(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
 			break;
@@ -1205,7 +1204,7 @@ void TWApp::globalDestroyed(QObject * obj)
 	QHash<QString, QVariant>::iterator i = m_globals.begin();
 	
 	while (i != m_globals.end()) {
-		switch (i.value().type()) {
+		switch ((QMetaType::Type)i.value().type()) {
 			case QMetaType::QObjectStar:
 				if (i.value().value<QObject*>() == obj)
 					i = m_globals.erase(i);
@@ -1275,5 +1274,10 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 	retVal["result"] = QVariant::fromValue(doc);
 	retVal["status"] = (doc != NULL ? TWScriptAPI::SystemAccess_OK : TWScriptAPI::SystemAccess_Failed);
 	return retVal;
+}
+
+void TWApp::doResourcesDialog() const
+{
+	ResourcesDialog::doResourcesDialog(NULL);
 }
 

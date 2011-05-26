@@ -515,6 +515,10 @@
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (프로그램간 권한 충돌이 있을 수 있으므로 인쇄 후 뷰어를 닫아주세요)</translation>
     </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation>설정과 자원...</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -827,7 +831,7 @@
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>에러 없이 종료하면 콘솔 패널 자동 숨김</translation>
+        <translation type="obsolete">에러 없이 종료하면 콘솔 패널 자동 숨김</translation>
     </message>
     <message>
         <source>Line numbers</source>
@@ -880,6 +884,39 @@
     <message>
         <source>Enable QtScript debugger</source>
         <translation>Qt스크립트 디버거 활성화</translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation>콘솔 패널 숨기기:</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>안 함</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>자동으로</translation>
+    </message>
+    <message>
+        <source>On success</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>성공하면</translation>
+    </message>
+    <message>
+        <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
+        <translation>&lt;em&gt;주의:&lt;/em&gt; 이곳에서는 기본값을 설정합니다. 이미 열려 있는 창에는 효과가 없습니다. 열려 있는 창에 적용하려면 &amp;quot;모양&amp;quot; 메뉴 아래의 항목들을 이용하세요.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation>&lt;p&gt;&lt;strong&gt;안 함:&lt;/strong&gt; 조판이 끝나도 콘솔 패널을 닫지 않습니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;자동으로:&lt;/strong&gt; 조판이 성공하면 콘솔 패널을 닫습니다. 단, 컴파일 시작시 닫혀 있었어야 합니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;성공하면:&lt;/strong&gt; 조판이 성공하면 콘솔 패널을 닫습니다. 컴파일 시작시 닫혀 있었는지 불문합니다.&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -986,6 +1023,29 @@
     <message>
         <source>&amp;Regular expression</source>
         <translation>정규표현식(&amp;r)</translation>
+    </message>
+</context>
+<context>
+    <name>ResourcesDialog</name>
+    <message>
+        <source>TeXworks Settings and Resources</source>
+        <translation>TeXworks 설정과 자원</translation>
+    </message>
+    <message>
+        <source>Storage Locations</source>
+        <translation>저장 위치</translation>
+    </message>
+    <message>
+        <source>Settings:</source>
+        <translation>설정:</translation>
+    </message>
+    <message>
+        <source>Resources:</source>
+        <translation>자원:</translation>
+    </message>
+    <message>
+        <source>Registry (%1)</source>
+        <translation>레지스트리 (%1)</translation>
     </message>
 </context>
 <context>
@@ -1138,7 +1198,7 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2에 따릅니다.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2에 따릅니다.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
@@ -1227,6 +1287,10 @@
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>&quot;%1&quot; 스크립트가 &quot;%2&quot; 파일을 열고자 하지만 권한이 없습니다. 그래도 파일을 열겠습니까?</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU 일반 공중 허가서&lt;/a&gt; 제2판 또는 이후 버전들 중에서 라이선스를 선택하실 수 있습니다.</translation>
     </message>
 </context>
 <context>
@@ -2023,6 +2087,36 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     <message>
         <source>Process interrupted by user</source>
         <translation>사용자가 프로세스를 중단했습니다</translation>
+    </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation>설정과 자원...</translation>
+    </message>
+    <message>
+        <source>Reload using selected encoding</source>
+        <extracomment>Item in the encoding popup menu</extracomment>
+        <translation>선택된 인코딩을 써서 다시 읽기</translation>
+    </message>
+    <message>
+        <source>Reloads the current file with the encoding selected from this menu.
+
+The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
+        <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
+        <translation>현재 파일의 인코딩을 메뉴에서 선택한 것으로 바꿉니다.
+
+기본값이나 &quot;%!TEX-encoding&quot; 줄은 무시되고 선택된 인코딩을 적용합니다.</translation>
+    </message>
+    <message>
+        <source>Unsaved changes</source>
+        <translation>변경사항이 저장되지 않음</translation>
+    </message>
+    <message>
+        <source>The file you are trying to reload has unsaved changes.
+
+Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
+        <translation>다시 읽어들이려는 파일의 일부 변경사항이 저장되지 않았습니다.
+
+변경사항을 버리고 새로운 인코딩 %1(으)로 다시 불러오겠습니까?</translation>
     </message>
 </context>
 <context>

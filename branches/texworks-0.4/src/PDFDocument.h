@@ -31,6 +31,7 @@
 #include <QButtonGroup>
 #include <QPainterPath>
 #include <QTimer>
+#include <QMouseEvent>
 
 #include "FindDialog.h"
 #include "poppler-qt4.h"
@@ -111,8 +112,6 @@ private slots:
 	void goLast();
 	void doPageDialog();
 	
-	void fixedScale(qreal scale = 1.0);
-	void fitWidth(bool checked = true);
 	void zoomIn();
 	void zoomOut();
 	void jumpToSource();
@@ -126,6 +125,8 @@ private slots:
 	
 public slots:
 	void windowResized();
+	void fixedScale(qreal scale = 1.0);
+	void fitWidth(bool checked = true);
 	void fitWindow(bool checked = true);
 	void setTool(int tool);
 
@@ -270,6 +271,9 @@ private slots:
 	void adjustScaleActions(autoScaleOption);
 	void syncClick(int page, const QPointF& pos);
 	void reloadWhenIdle();
+	void scaleLabelClick(QMouseEvent * event) { showScaleContextMenu(event->pos()); }
+	void showScaleContextMenu(const QPoint pos);
+	void setScaleFromContextMenu(const QString & strZoom);
 
 signals:
 	void reloaded();

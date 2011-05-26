@@ -1,0 +1,22 @@
+TeXworks testcases directory
+============================
+
+This directory contains testcases that can be used to check certain
+functionalities of the program.
+
+
+base14-fonts.pdf / base14-fonts.png
+   This file checks that the standard PDF fonts (base 14 fonts) are rendered
+   correctly even if not embedded (every PDF viewer must support this).
+   To test, simply open base14-fonts.pdf and compare the render output with
+   base14-fonts.png
+
+poppler-data.pdf / poppler-data.png
+   This file checks that poppler-data is picked up correctly. This is needed to
+   correctly display certain CJK documents
+   To test, simply open poppler-data.pdf and compare the render output with
+   poppler-data.png
+   
+   Disclaimer: This file is provided as-is for the sole purpose of testing CJK
+   font rendering under fair-use terms. It is a one page subset of the file
+   originally retrieved from https://bugs.launchpad.net/ubuntu/+source/xpdf-chinese-traditional/+bug/200446/comments/14

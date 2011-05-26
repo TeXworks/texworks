@@ -394,7 +394,7 @@ void TWScript::setGlobal(const QString& key, const QVariant& val)
 
 	// For objects on the heap make sure we are notified when their lifetimes
 	// end so that we can remove them from our hash accordingly
-	switch (val.type()) {
+	switch ((QMetaType::Type)val.type()) {
 		case QMetaType::QObjectStar:
 			connect(v.value<QObject*>(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
 			break;
@@ -411,7 +411,7 @@ void TWScript::globalDestroyed(QObject * obj)
 	QHash<QString, QVariant>::iterator i = m_globals.begin();
 	
 	while (i != m_globals.end()) {
-		switch (i.value().type()) {
+		switch ((QMetaType::Type)i.value().type()) {
 			case QMetaType::QObjectStar:
 				if (i.value().value<QObject*>() == obj)
 					i = m_globals.erase(i);

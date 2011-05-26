@@ -10,6 +10,9 @@
 			<array>
 				<string>tex</string>
 				<string>ltx</string>
+				<string>sty</string>
+				<string>cls</string>
+				<string>dtx</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>TeXworks-doc.icns</string>
@@ -48,7 +51,7 @@
 	<key>CFBundleIconFile</key>
 	<string>TeXworks.icns</string>
 	<key>CFBundleGetInfoString</key>
-	<string>TeXworks version 0.4.0 (r.758)&#xA;(C) 2007-2011 Jonathan Kew, Stefan L&#xF6;ffler&#xA;Released under GPL (v2.0 or later)</string>
+	<string>TeXworks version 0.4.0 (r.823)&#xA;(C) 2007-2011 Jonathan Kew, Stefan L&#xF6;ffler&#xA;Released under GPL (v2.0 or later)</string>
 	<key>CFBundleExecutable</key>
 	<string>TeXworks</string>
 	<key>CFBundleIdentifier</key>
@@ -60,9 +63,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.4.0 (r.758)</string>
+	<string>0.4.0 (r.823)</string>
 	<key>CFBundleVersion</key>
-	<string>0.4.0 (r.758)</string>
+	<string>0.4.0 (r.823)</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 </dict>

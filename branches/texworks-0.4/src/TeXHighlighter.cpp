@@ -137,15 +137,19 @@ void TeXHighlighter::highlightBlock(const QString &text)
 
 void TeXHighlighter::setActiveIndex(int index)
 {
+	int oldIndex = highlightIndex;
 	highlightIndex = (index >= 0 && index < syntaxRules->count()) ? index : -1;
-	rehighlight();
+	if (oldIndex != highlightIndex)
+		rehighlight();
 }
 
 void TeXHighlighter::setSpellChecker(Hunhandle* h, QTextCodec* codec)
 {
-	pHunspell = h;
-	spellingCodec = codec;
-	rehighlight();
+	if (pHunspell != h || spellingCodec != codec) {
+		pHunspell = h;
+		spellingCodec = codec;
+		rehighlight();
+	}
 }
 
 QStringList TeXHighlighter::syntaxOptions()

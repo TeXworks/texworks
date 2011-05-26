@@ -33,6 +33,7 @@
 
 #include "FindDialog.h"
 #include "TWApp.h"
+#include "ClickableLabel.h"
 
 #include <hunspell.h>
 
@@ -205,6 +206,8 @@ private slots:
 	void setupFileWatcher();
 	void lineEndingPopup(const QPoint loc);
 	void encodingPopup(const QPoint loc);
+	void lineEndingLabelClick(QMouseEvent * event) { lineEndingPopup(event->pos()); }
+	void encodingLabelClick(QMouseEvent * event) { encodingPopup(event->pos()); }
 	void anchorClicked(const QUrl& url);
 
 private:
@@ -214,8 +217,8 @@ private:
 	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
-	QString readFile(const QString &fileName, QTextCodec **codecUsed, int *lineEndings = NULL);
-	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false);
+	QString readFile(const QString &fileName, QTextCodec **codecUsed, int *lineEndings = NULL, QTextCodec * forceCodec = NULL);
+	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false, QTextCodec * forceCodec = NULL);
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
 	void saveRecentFileInfo();
@@ -256,9 +259,9 @@ private:
 	bool isUntitled;
 	QDateTime lastModified;
 
-	QLabel *lineNumberLabel;
-	QLabel *encodingLabel;
-	QLabel *lineEndingLabel;
+	ClickableLabel *lineNumberLabel;
+	ClickableLabel *encodingLabel;
+	ClickableLabel *lineEndingLabel;
 
 	QActionGroup *engineActions;
 	QString engineName;
