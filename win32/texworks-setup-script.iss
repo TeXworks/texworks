@@ -71,11 +71,12 @@ sl.CreateFileAssoc=Uporabi TeXworks za odpiranje naslednjih vrst datotek:
 af.CreateFileAssoc=Maak by verstek die volgende lêertipes met TeXworks oop:
 ar.CreateFileAssoc=افتح أنواع الملفات التالية في TeXworks مبدئيا:
 fa.CreateFileAssoc=پرونده‌های از نوع زیر را به‌طور پیش‌فرض با تک‌ورکس بازکن:
-fo.CreateFileAssoc=Opna sum standard hesi fílusløg við TeXworks:
 ja.CreateFileAssoc=デフォルトで次の種類のファイルを TeXworks で開く:
 ko.CreateFileAssoc=다음 유형의 파일을 열 때 기본값으로 TeXworks를 이용합니다:
 tr.CreateFileAssoc=Aşağıdaki dosya türlerini öntanımlı olarak TeXworks ile aç:
 zh_cn.CreateFileAssoc=默认使用 TeXworks 打开下列文件类型：
+; Inno Setup doesn't support Faroese (yet)
+; fo.CreateFileAssoc=Opna sum standard hesi fílusløg við TeXworks:
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
