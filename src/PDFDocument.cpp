@@ -25,6 +25,7 @@
 #include "TWUtils.h"
 #include "PDFDocks.h"
 #include "FindDialog.h"
+#include "ClickableLabel.h"
 
 #include <QDockWidget>
 #include <QCloseEvent>
@@ -48,6 +49,7 @@
 #include <QShortcut>
 #include <QFileSystemWatcher>
 #include <QToolTip>
+#include <QSignalMapper>
 
 #include <math.h>
 
@@ -1150,7 +1152,15 @@ PDFDocument::init()
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
-	setWindowIcon(QIcon(":/images/images/TeXworks-doc.png"));
+
+	QIcon winIcon;
+#ifdef Q_WS_X11
+	// The Compiz window manager doesn't seem to support icons larger than
+	// 128x128, so we add a suitable one first
+	winIcon.addFile(":/images/images/TeXworks-doc-128.png");
+#endif
+	winIcon.addFile(":/images/images/TeXworks-doc.png");
+	setWindowIcon(winIcon);
 	
 	setContextMenuPolicy(Qt::NoContextMenu);
 
@@ -1164,15 +1174,17 @@ PDFDocument::init()
 	connect(toolButtonGroup, SIGNAL(buttonClicked(int)), pdfWidget, SLOT(setTool(int)));
 	pdfWidget->setTool(kMagnifier);
 
-	scaleLabel = new QLabel();
+	scaleLabel = new ClickableLabel();
 	statusBar()->addPermanentWidget(scaleLabel);
 	scaleLabel->setFrameStyle(QFrame::StyledPanel);
 	scaleLabel->setFont(statusBar()->font());
+	connect(scaleLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(scaleLabelClick(QMouseEvent*)));
 	
-	pageLabel = new QLabel();
+	pageLabel = new ClickableLabel();
 	statusBar()->addPermanentWidget(pageLabel);
 	pageLabel->setFrameStyle(QFrame::StyledPanel);
 	pageLabel->setFont(statusBar()->font());
+	connect(pageLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), pdfWidget, SLOT(doPageDialog()));
 
 	scrollArea = new PDFScrollArea;
 	scrollArea->setBackgroundRole(QPalette::Dark);
@@ -1185,6 +1197,7 @@ PDFDocument::init()
 	document = NULL;
 	
 	connect(actionAbout_TW, SIGNAL(triggered()), qApp, SLOT(about()));
+	connect(actionSettings_and_Resources, SIGNAL(triggered()), qApp, SLOT(doResourcesDialog()));
 	connect(actionGoToHomePage, SIGNAL(triggered()), qApp, SLOT(goToHomePage()));
 	connect(actionWriteToMailingList, SIGNAL(triggered()), qApp, SLOT(writeToMailingList()));
 
@@ -1787,4 +1800,51 @@ void PDFDocument::print()
 	) {
 		QDesktopServices::openUrl(QUrl::fromLocalFile(curFile));
 	}
+}
+
+void PDFDocument::showScaleContextMenu(const QPoint pos)
+{
+	static QMenu * contextMenu = NULL;
+	static QSignalMapper * contextMenuMapper = NULL;
+	QAction * a;
+	
+	if (contextMenu == NULL) {
+		contextMenu = new QMenu(this);
+		contextMenuMapper = new QSignalMapper(this);
+		
+		contextMenu->addAction(actionFit_to_Width);
+		contextMenu->addAction(actionFit_to_Window);
+		contextMenu->addSeparator();
+		
+		a = contextMenu->addAction("200%");
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, "2");
+		a = contextMenu->addAction("150%");
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, "1.5");
+		// "100%" corresponds to "Actual Size", but we keep the numeric value
+		// here for consistency
+		a = contextMenu->addAction("100%");
+		a->setShortcut(actionActual_Size->shortcut());
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, "1");
+		a = contextMenu->addAction("75%");
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, ".75");
+		a = contextMenu->addAction("50%");
+		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
+		contextMenuMapper->setMapping(a, ".5");
+		
+		connect(contextMenuMapper, SIGNAL(mapped(const QString&)), this, SLOT(setScaleFromContextMenu(const QString&)));
+	}
+	
+	contextMenu->popup(scaleLabel->mapToGlobal(pos));
+}
+
+void PDFDocument::setScaleFromContextMenu(const QString & strZoom)
+{
+	bool conversionOK = false;
+	float zoom = strZoom.toFloat(&conversionOK);
+	if (pdfWidget && conversionOK)
+		pdfWidget->fixedScale(zoom);
 }

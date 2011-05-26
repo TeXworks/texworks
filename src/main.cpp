@@ -130,9 +130,9 @@ There is NO WARRANTY, to the extent permitted by law.\n\n");
 	}
 #endif
 
-#ifdef Q_WS_X11
+#ifdef QT_DBUS_LIB
 	if (QDBusConnection::sessionBus().registerService(TW_SERVICE_NAME) == false) {
-		QDBusInterface	interface(TW_SERVICE_NAME, TW_APP_PATH, TW_INTERFACE_NAME);
+		QDBusInterface interface(TW_SERVICE_NAME, TW_APP_PATH, TW_INTERFACE_NAME);
 		if (interface.isValid()) {
 			interface.call("bringToFront");
 			foreach(fileToOpen, filesToOpen) {
@@ -141,8 +141,15 @@ There is NO WARRANTY, to the extent permitted by law.\n\n");
 					continue;
 				interface.call("openFile", fi.absoluteFilePath(), fileToOpen.position);
 			}
+			return 0;
 		}
-		return 0;
+		else {
+			// We could not register the service, but couldn't connect to an
+			// already registered one, either. This can mean that something is
+			// seriously wrong, we've met some race condition, or the dbus
+			// service is not running. Let's assume the best (dbus not running)
+			// and continue as a multiple-instance app instead
+		}
 	}
 
 	new TWAdaptor(&app);
@@ -151,7 +158,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\n");
 		// and continue as a multiple-instance app instead
 		(void)QDBusConnection::sessionBus().unregisterService(TW_SERVICE_NAME);
 	}
-#endif
+#endif // defined(QT_DBUS_LIB)
 
 	int rval = 0;
 	if (launchApp) {

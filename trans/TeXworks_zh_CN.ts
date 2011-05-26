@@ -28,15 +28,15 @@
     </message>
     <message>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation>有些辅助文件无法移除。可能因为你没有足够的权限删除它们。</translation>
+        <translation>有些辅助文件无法移除。可能因为您没有足够的权限删除它们。</translation>
     </message>
     <message>
         <source>Confirm file deletion</source>
-        <translation>是否确认删除？</translation>
+        <translation>确认要删除的文件</translation>
     </message>
     <message>
         <source>Auxiliary files to be deleted:</source>
-        <translation>下列辅助文件将被删除：</translation>
+        <translation>要删除的辅助文件：</translation>
     </message>
     <message>
         <source>Select All</source>
@@ -44,11 +44,11 @@
     </message>
     <message>
         <source>Select None</source>
-        <translation>选择无</translation>
+        <translation>清除选择</translation>
     </message>
     <message>
         <source>Toggle</source>
-        <translation>触发</translation>
+        <translation>切换选择状态</translation>
     </message>
 </context>
 <context>
@@ -71,11 +71,11 @@
     </message>
     <message>
         <source>Search within &amp;selection</source>
-        <translation>在选择区域中查找 (&amp;s)</translation>
+        <translation>在所选区域中查找 (&amp;s)</translation>
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
-        <translation>查找所有出现字串 (&amp;a)</translation>
+        <translation>查找所有匹配字串 (&amp;a)</translation>
     </message>
     <message>
         <source>Search all &amp;open files</source>
@@ -106,7 +106,7 @@
     <name>HardWrapDialog</name>
     <message>
         <source>Hard Wrap</source>
-        <translation>强制换行？</translation>
+        <translation>硬换行</translation>
     </message>
     <message>
         <source>Wrap lines to:</source>
@@ -122,7 +122,7 @@
     </message>
     <message>
         <source>Re-wrap paragraphs</source>
-        <translation>重新对段落换行?</translation>
+        <translation>重新对段落执行换行操作</translation>
     </message>
 </context>
 <context>
@@ -133,11 +133,11 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>PDF 文件 &quot;%1&quot;被锁定了；这一功能现在不支持。</translation>
+        <translation>PDF 文件“%1”被锁定了；这一功能现在不支持。</translation>
     </message>
     <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>无法加载文件 &quot;%1&quot;；可能它不是一个有效的 PDF 文档。</translation>
+        <translation>无法加载文件“%1”；可能它不是一个有效的 PDF 文档。</translation>
     </message>
     <message>
         <source>No SyncTeX data available</source>
@@ -145,7 +145,7 @@
     </message>
     <message>
         <source>SyncTeX: &quot;%1&quot;</source>
-        <translation>SyncTeX: &quot;%1&quot;</translation>
+        <translation>SyncTeX：“%1”</translation>
     </message>
     <message>
         <source>%1[*] - %2</source>
@@ -361,7 +361,7 @@
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>首选项</translation>
+        <translation>首选项...</translation>
     </message>
     <message>
         <source>Stack</source>
@@ -381,7 +381,7 @@
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>从模板新建</translation>
+        <translation>从模板新建...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -470,10 +470,6 @@
         <translation>脚本</translation>
     </message>
     <message>
-        <source>Update Scripts</source>
-        <translation type="obsolete">更新脚本</translation>
-    </message>
-    <message>
         <source>Manage Scripts</source>
         <translation>管理脚本</translation>
     </message>
@@ -508,16 +504,20 @@
     <message>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
-        <translation>很不幸，由于各种技术原因本版本 %1 无法打印 Pdf 文档。
+        <translation>很不幸，由于各种技术原因本版本 %1 无法打印 PDF 文档。
 </translation>
     </message>
     <message>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
-        <translation>是否希望打开默认Pdf 查看器中的文件以打印？</translation>
+        <translation>是否使用默认 PDF 阅读器打开文件以便于打印？</translation>
     </message>
     <message>
         <source> (remember to close it again to avoid access problems)</source>
-        <translation>（记住再一次关闭文档以避免出现访问问题）</translation>
+        <translation>（记住关闭文档以避免文件访问问题）</translation>
+    </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation>配置与资源...</translation>
     </message>
 </context>
 <context>
@@ -563,7 +563,7 @@
     <name>PDFFontsDock</name>
     <message>
         <source>Name</source>
-        <translation>名称:</translation>
+        <translation>名称</translation>
     </message>
     <message>
         <source>Type</source>
@@ -648,7 +648,7 @@
     </message>
     <message>
         <source>Page number:</source>
-        <translation>页码</translation>
+        <translation>页码：</translation>
     </message>
 </context>
 <context>
@@ -803,7 +803,7 @@
     </message>
     <message>
         <source>Screen resolution:</source>
-        <translation>屏幕分辨率</translation>
+        <translation>屏幕分辨率：</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -830,10 +830,6 @@
         <translation>默认：</translation>
     </message>
     <message>
-        <source>Auto-hide output panel unless errors occur</source>
-        <translation>自动隐藏输出面板，除非发生了错误</translation>
-    </message>
-    <message>
         <source>Line numbers</source>
         <translation>行号</translation>
     </message>
@@ -847,7 +843,7 @@
     </message>
     <message>
         <source>Smart Quotes mode:</source>
-        <translation>智能引号模式</translation>
+        <translation>智能引号模式：</translation>
     </message>
     <message>
         <source>Scripts</source>
@@ -875,7 +871,7 @@
     </message>
     <message>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation>打开插件脚本语言</translation>
+        <translation>启用插件脚本语言（可以避开对脚本行为的其它限制）</translation>
     </message>
     <message>
         <source>Debugging</source>
@@ -884,6 +880,38 @@
     <message>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
         <translation>允许脚本读取所有文件（脚本和文档文件始终可读）</translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation>隐藏输出面板：</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>排版后始终显示输出面板</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>自动</translation>
+    </message>
+    <message>
+        <source>On success</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>排版成功后隐藏输出面板</translation>
+    </message>
+    <message>
+        <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
+        <translation>注：以上为默认设置。改变它们不会影响现有已打开窗口。可以通过修改“格式”菜单中的对应菜单项来改变现有窗口的设定。</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation>&lt;p&gt;排版后&lt;strong&gt;始终&lt;/strong&gt;显示输出面板。&lt;/p&gt;
+&lt;p&gt;排版成功后&lt;strong&gt;保持&lt;/strong&gt;输出面板原始显示状态。&lt;/p&gt;
+&lt;p&gt;排版&lt;strong&gt;成功&lt;/strong&gt;后始终隐藏输出面板。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -927,11 +955,6 @@
     <message>
         <source>All files</source>
         <translation>所有文件</translation>
-    </message>
-    <message>
-        <source>TeXworks %1r%2 (%3)
-</source>
-        <translation type="obsolete">TeXworks %1r%2 (%3)</translation>
     </message>
 </context>
 <context>
@@ -998,6 +1021,29 @@
     </message>
 </context>
 <context>
+    <name>ResourcesDialog</name>
+    <message>
+        <source>TeXworks Settings and Resources</source>
+        <translation>TeXworks 配置与资源</translation>
+    </message>
+    <message>
+        <source>Storage Locations</source>
+        <translation>存储位置</translation>
+    </message>
+    <message>
+        <source>Settings:</source>
+        <translation>配置：</translation>
+    </message>
+    <message>
+        <source>Resources:</source>
+        <translation>资源：</translation>
+    </message>
+    <message>
+        <source>Registry (%1)</source>
+        <translation>注册表（%1）</translation>
+    </message>
+</context>
+<context>
     <name>ScriptManager</name>
     <message>
         <source>Manage Scripts</source>
@@ -1052,7 +1098,7 @@
     <name>SearchResults</name>
     <message>
         <source>...</source>
-        <translation>…</translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>File</source>
@@ -1095,11 +1141,11 @@
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>从模板新建</translation>
+        <translation>从模板新建...</translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>首选项</translation>
+        <translation>首选项...</translation>
     </message>
     <message>
         <source>Open...</source>
@@ -1142,18 +1188,6 @@
         <translation>&lt;p&gt;%1 是一个用于编辑、排版和预览 TeX 文档的简洁集成环境。&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="obsolete">&lt;br&gt; 版本 %1 (r.%2)</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;在 &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU 通用公共许可证 (GPL, version 2)&lt;/a&gt; 下分发。</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; 应用程序框架由诺基亚公司子公司 Qt 软件 开发。</translation>
-    </message>
-    <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF 渲染库由 Kristian H&amp;#xF8;gsberg, Albert Astals Cid 及其他人开发。</translation>
     </message>
@@ -1171,7 +1205,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation>&lt;br&gt;使用的一些图标来源于 &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango 桌面项目&lt;/a&gt;。</translation>
+        <translation>&lt;br&gt;使用的一些图标来源于&lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango 桌面项目&lt;/a&gt;。</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
@@ -1191,7 +1225,7 @@
     </message>
     <message>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation>无法访问 &quot;%1&quot;；或许你的浏览器或邮件客户端程序没有设置正确？</translation>
+        <translation>无法访问“%1”；或许您的浏览器或邮件客户端程序没有设置正确？</translation>
     </message>
     <message>
         <source>Unable to create window</source>
@@ -1199,7 +1233,7 @@
     </message>
     <message>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
-        <translation>有什么地方出错了；%1 无法创建文档窗口. 程序现在就会退出。</translation>
+        <translation>有什么地方出错了；%1 无法创建文档窗口。程序现在将会退出。</translation>
     </message>
     <message>
         <source>Open File</source>
@@ -1207,11 +1241,11 @@
     </message>
     <message>
         <source>No default binary directory found</source>
-        <translation>没有发现默认的可执行程序（bin）目录</translation>
+        <translation>没有找到默认的可执行程序（bin）目录</translation>
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>没有找到 TeX 相关程序所在的预定义目录。&lt;p&gt;&lt;small&gt;为了运行任何处理程序，你需要在＜首选项＞对话框的＜排版＞选项卡中设定 TeX 系统的二进制程序目录 (bin)。</translation>
+        <translation>没有找到 TeX 相关程序所在的预定义目录。&lt;p&gt;&lt;small&gt;为了运行任何处理程序，您需要在＜首选项＞对话框的＜排版＞选项卡中设定 TeX 系统的二进制程序目录 (bin)。</translation>
     </message>
     <message>
         <source>Unable to find help file.</source>
@@ -1220,18 +1254,6 @@
     <message>
         <source>Save File</source>
         <translation>保存文件</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">无法执行系统命令：%1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">系统命令执行错误：%1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">系统命令执行被禁止（见＜首选项＞）</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
@@ -1247,7 +1269,11 @@
     </message>
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
-        <translation>脚本 “%1&quot; 试图打开未授权文件 &quot;%2&quot;。你想打开此文件吗？</translation>
+        <translation>脚本“%1”试图打开未授权文件“%2”。您想打开此文件吗？</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation>在 GNU 通用公共许可证（版本2）条款下分发，或根据您的个人选择选用任一后续版本。</translation>
     </message>
 </context>
 <context>
@@ -1270,7 +1296,7 @@
     </message>
     <message>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation>&quot;%1&quot; 无法打开。</translation>
+        <translation>“%1”无法打开。</translation>
     </message>
     <message>
         <source>Reading all files is disabled (see Preferences)</source>
@@ -1278,7 +1304,7 @@
     </message>
     <message>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation>文件 &quot;%1&quot; 无法打开以便读取内容。</translation>
+        <translation>无法打开文件“%1”以便读取内容</translation>
     </message>
 </context>
 <context>
@@ -1289,7 +1315,7 @@
     </message>
     <message>
         <source>Script &quot;%1&quot;: %2</source>
-        <translation>脚本 “%1”：%2</translation>
+        <translation>脚本“%1”：%2</translation>
     </message>
     <message>
         <source>Script result</source>
@@ -1361,32 +1387,22 @@
         <translation>打开文件</translation>
     </message>
     <message>
-        <source>Cannot close window while tool is running</source>
-        <translation type="obsolete">当有工具在运行时无法关闭窗口</translation>
-    </message>
-    <message>
         <source>Save File</source>
         <translation>保存文件</translation>
     </message>
     <message>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
-        <translation>文档 &quot;%1&quot; 被修改了。
-你想保存修改么？</translation>
+        <translation>文档“%1”被修改了。
+您想保存修改吗？</translation>
     </message>
     <message>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>是否放弃所有对文档 &quot;%1&quot; 的修改，并恢复到上一次保存的版本？</translation>
+        <translation>是否放弃所有对文档“%1”的修改，并恢复到上一次保存的版本？</translation>
     </message>
     <message>
         <source>Revert</source>
         <translation>恢复</translation>
-    </message>
-    <message>
-        <source>Cannot read file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">无法读入文件 &quot;%1&quot;:
-%2.</translation>
     </message>
     <message>
         <source>Unrecognized encoding</source>
@@ -1396,12 +1412,8 @@ Do you want to save your changes?</source>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
-        <translation>&quot;%2&quot; 中使用的文本编码 %1 不支持。
+        <translation>“%2”中使用的文本编码 %1 不支持。
 将使用 %3 替代，可能会导致不正确的文本。</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation type="obsolete">文件 &quot;%1&quot; 加载了 (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1412,25 +1424,18 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 
 Do you want to discard your current changes, and reload the file from disk?</source>
         <translation>%1 已被其它程序修改。
-你想放弃当前所做修改并重新载入磁盘上的文件么？</translation>
+您想放弃当前所做修改并重新载入磁盘上的文件吗？</translation>
     </message>
     <message>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
         <translation>%1 已被其它程序修改。
-你想继续保存本文件，覆盖磁盘上的版本么？</translation>
+您想继续以保存本文件，并覆盖磁盘上的版本吗？</translation>
     </message>
     <message>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>文档 %1 没有保存</translation>
-    </message>
-    <message>
-        <source>The text encoding %1 requested for %2 is not supported.
-
-It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation type="obsolete">&quot;%2&quot; 要求的文本编码 %1 不支持。
-将使用 %3 替代，可能会导致不正确的文本。</translation>
     </message>
     <message>
         <source>Text cannot be converted</source>
@@ -1441,21 +1446,7 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
         <translation>此文档包含编码 %1 无法描述的字符。
-如果继续进行，将使用默认代码替换。或者，你可能希望使用另一种编码（如 UTF-8）来避免丢失数据。</translation>
-    </message>
-    <message>
-        <source>Cannot write file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">无法写入文件 &quot;%1&quot;:
-%2。</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; saved (%2)</source>
-        <translation type="obsolete">文件 &quot;%1&quot; 已保存 (%2)</translation>
-    </message>
-    <message>
-        <source>default encoding</source>
-        <translation type="obsolete">默认编码</translation>
+如果继续进行，将使用默认代码替换。或者，您可能希望使用另一种编码（如 UTF-8）来避免丢失数据。</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
@@ -1530,13 +1521,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>无法执行 %1</translation>
     </message>
     <message>
-        <source>The program &quot;%1&quot; was not found.
-
-Check configuration of the %2 tool and path settings in the Preferences dialog.</source>
-        <translation type="obsolete">程序 &quot;%1&quot; 找不到。
-到＜选项＞对话框中检查工具 %2 的配置和路径设置。</translation>
-    </message>
-    <message>
         <source>Hide Output Panel</source>
         <translation>隐藏 输出 面板</translation>
     </message>
@@ -1546,11 +1530,11 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
-        <translation>将处理引擎设为 &quot;%1&quot;</translation>
+        <translation>将处理引擎设为“%1”</translation>
     </message>
     <message>
         <source>Engine &quot;%1&quot; not defined</source>
-        <translation>处理引擎 &quot;%1&quot; 未定义</translation>
+        <translation>处理引擎“%1”未定义</translation>
     </message>
     <message>
         <source>No files found</source>
@@ -1830,7 +1814,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>首选项</translation>
+        <translation>首选项...</translation>
     </message>
     <message>
         <source>Go to Preview</source>
@@ -1846,7 +1830,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>从模板新建</translation>
+        <translation>从模板新建...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -1906,7 +1890,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>Remove Aux Files...</source>
-        <translation>删除辅助文件</translation>
+        <translation>删除辅助文件...</translation>
     </message>
     <message>
         <source>Quit TeXworks</source>
@@ -1922,11 +1906,11 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>Hard Wrap...</source>
-        <translation>硬换行</translation>
+        <translation>硬换行...</translation>
     </message>
     <message>
         <source>The program &quot;%1&quot; was not found.</source>
-        <translation>程序 &quot;%1&quot; 无法找到。</translation>
+        <translation>程序“%1”无法找到。</translation>
     </message>
     <message>
         <source>Searched in directories:</source>
@@ -1967,22 +1951,20 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <translation>显示脚本文件夹</translation>
     </message>
     <message>
-        <source>Update Scripts</source>
-        <translation type="obsolete">更新脚本</translation>
-    </message>
-    <message>
         <source>Manage Scripts</source>
         <translation>管理脚本</translation>
     </message>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
-        <translation>无法读入文件 &quot;%1&quot;: %2</translation>
+        <translation>无法读入文件“%1”：
+%2</translation>
     </message>
     <message>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
-        <translation>无法写入文件 &quot;%1&quot;: %2</translation>
+        <translation>无法写入文件“%1”：
+%2</translation>
     </message>
     <message>
         <source>Abort typesetting</source>
@@ -2028,7 +2010,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>File &quot;%1&quot; loaded</source>
-        <translation>文件 &quot;%1&quot; 已加载</translation>
+        <translation>文件“%1”已加载</translation>
     </message>
     <message>
         <source>Error writing file</source>
@@ -2036,18 +2018,47 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     </message>
     <message>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
-        <translation>保存文件时出错。你可以换个位置保存文件。</translation>
+        <translation>保存文件时出错。您可以换个位置保存文件。</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved</source>
-        <translation>文件 &quot;%1&quot; 已保存</translation>
+        <translation>文件“%1”已保存</translation>
     </message>
     <message>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
         <translation>%1 经常被其它程序修改。
-请在外部程序完成后，手动执行“文件-&gt;恢复到已保存”命令重新载入%1。</translation>
+请在外部程序完成后，手动执行“文件-&gt;恢复到已保存”命令重新载入。</translation>
+    </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation>TeXworks 配置与资源 ...</translation>
+    </message>
+    <message>
+        <source>Reload using selected encoding</source>
+        <extracomment>Item in the encoding popup menu</extracomment>
+        <translation>使用所选编码重载文档</translation>
+    </message>
+    <message>
+        <source>Unsaved changes</source>
+        <translation>未保存的改动</translation>
+    </message>
+    <message>
+        <source>The file you are trying to reload has unsaved changes.
+
+Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
+        <translation>试图重载的文件有改动未保存。
+
+您想放弃这些改动并重新使用编码 %1 载入磁盘上的文件吗？</translation>
+    </message>
+    <message>
+        <source>Reloads the current file with the encoding selected from this menu.
+
+The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
+        <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
+        <translation>根据本菜单中所选编码重新载入当前文件。
+所选编码会替代默认编码格式并会忽略所有“%!TEX-encoding”行。</translation>
     </message>
 </context>
 <context>
@@ -2061,11 +2072,11 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     <name>TemplateDialog</name>
     <message>
         <source>New File using Template</source>
-        <translation>使用模板创建新文档</translation>
+        <translation>从模板创建新文档</translation>
     </message>
     <message>
         <source>Choose template for the new document:</source>
-        <translation>为新文档选择模板</translation>
+        <translation>为新文档选择模板：</translation>
     </message>
 </context>
 <context>
@@ -2084,14 +2095,14 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     </message>
     <message>
         <source>The file &apos;%1&apos; is not executable!</source>
-        <translation>&quot;%1&quot; 是非可执行文件</translation>
+        <translation>“%1”不是可执行文件!</translation>
     </message>
 </context>
 <context>
     <name>ToolConfigDialog</name>
     <message>
         <source>Tool Configuration</source>
-        <translation>配置工具</translation>
+        <translation>工具配置</translation>
     </message>
     <message>
         <source>Name:</source>

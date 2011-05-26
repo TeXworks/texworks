@@ -23,6 +23,7 @@ bcenumo:=\begin{compactenum}[#INS#]#RET#\item#RET#•#RET#\end{compactenum}•
 bcitem:=\begin{compactitem}#RET#\item#RET##INS##RET#\end{compactitem}•
 bcitemo:=\begin{compactitem}[#INS#]#RET#\item#RET#•#RET#\end{compactitem}•
 bdes:=\begin{description}#RET#\item[#INS#]#RET#•#RET#\end{description}•
+bdoc:=\begin{document}#RET##RET##INS##RET##RET#\end{document}
 benu:=\begin{enumerate}#RET#\item#RET##INS##RET#\end{enumerate}•
 benuo:=\begin{enumerate}[#INS#]#RET#\item#RET#•#RET#\end{enumerate}•
 bequ:=\begin{equation}#RET##INS##RET#\end{equation}•
@@ -260,6 +261,7 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \bcitem:=\begin{compactitem}#RET#\item#RET##INS##RET#\end{compactitem}•
 \bcitemo:=\begin{compactitem}[#INS#]#RET#\item#RET#•#RET#\end{compactitem}•
 \bdes:=\begin{description}#RET#\item[#INS#]#RET#•#RET#\end{description}•
+\bdoc:=\begin{document}#RET##RET##INS##RET##RET#\end{document}
 \benu:=\begin{enumerate}#RET#\item#RET##INS##RET#\end{enumerate}•
 \benuo:=\begin{enumerate}[#INS#]#RET#\item#RET#•#RET#\end{enumerate}•
 \bequ:=\begin{equation}#RET##INS##RET#\end{equation}•
@@ -503,6 +505,7 @@ usepo:=\usepackage[#INS#]{•}#RET#
 {cases}#RET##INS##RET#\end{cases}•
 {center}#RET##INS##RET#\end{center}•
 {description}#RET#\item[#INS#]#RET#•#RET#\end{description}•
+{document}#RET##RET##INS##RET##RET#\end{document}
 {enumerate}#RET#\item#RET##INS##RET#\end{enumerate}•
 {enumerate}[#INS#]#RET#\item#RET#•#RET#\end{enumerate}•
 {equation}#RET##INS##RET#\end{equation}•

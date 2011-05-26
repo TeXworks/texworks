@@ -534,6 +534,10 @@
         <source>Ctrl+T</source>
         <translation type="obsolete">Ctrl+T</translation>
     </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation>Configuración y Recursos ...</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -738,7 +742,7 @@
     </message>
     <message>
         <source>Editor defaults</source>
-        <translation>Valores por omisión para el editor</translation>
+        <translation>Valores predeterminados del editor</translation>
     </message>
     <message>
         <source> pt</source>
@@ -782,7 +786,7 @@
     </message>
     <message>
         <source>Default scaling</source>
-        <translation>Escala por omisión</translation>
+        <translation>Escala predeterminada</translation>
     </message>
     <message>
         <source>Actual size</source>
@@ -850,11 +854,11 @@
     </message>
     <message>
         <source>Default:</source>
-        <translation>Por omisión:</translation>
+        <translation>Predeterminada:</translation>
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>Mantener oculto el panel de salida mientras no ocurran errores</translation>
+        <translation type="obsolete">Mantener oculto el panel de salida mientras no ocurran errores</translation>
     </message>
     <message>
         <source>Scripts</source>
@@ -899,6 +903,39 @@
     <message>
         <source>Highlight current line</source>
         <translation>Resaltar la línea actual</translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation>Ocultar panel de salida:</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>Nunca</translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>Automáticamente</translation>
+    </message>
+    <message>
+        <source>On success</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation>En caso de éxito</translation>
+    </message>
+    <message>
+        <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
+        <translation>&lt;em&gt;Nota:&lt;/em&gt; Estos son los valores predeterminados de la configuración. Los cambios que realice en ellos ahora no afectarán las ventanas que ya están abiertas. Válgase de los elementos correspondientes en el menú &amp;quot;Formato&amp;quot; para conseguir dicho propósito.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation>&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt; No ocultar nunca el panel de salida después de cada compilación.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automáticamente:&lt;/strong&gt; Ocultar el panel de salida luego de que la compilación haya sido fructífera, pero sólo si antes éste había permanecido oculto.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;En caso de éxito:&lt;/strong&gt; Ocultar el panel de salida luego de que la compilación haya ocurrido sin problemas, independientemente de su estado anterior.&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -1018,6 +1055,29 @@
     </message>
 </context>
 <context>
+    <name>ResourcesDialog</name>
+    <message>
+        <source>TeXworks Settings and Resources</source>
+        <translation>TeXworks: Configuración y Recursos</translation>
+    </message>
+    <message>
+        <source>Storage Locations</source>
+        <translation>Localización</translation>
+    </message>
+    <message>
+        <source>Settings:</source>
+        <translation>Configuración:</translation>
+    </message>
+    <message>
+        <source>Resources:</source>
+        <translation>Recursos:</translation>
+    </message>
+    <message>
+        <source>Registry (%1)</source>
+        <translation>Registro (%1)</translation>
+    </message>
+</context>
+<context>
     <name>ScriptManager</name>
     <message>
         <source>Name: </source>
@@ -1072,7 +1132,7 @@
     <name>SearchResults</name>
     <message>
         <source>Search Results - %1 (%2 found)</source>
-        <translation>Resultados de la búsqueda - %1 (%2 найдено)</translation>
+        <translation>Resultados de la búsqueda - %1 (%2 encontrados)</translation>
     </message>
     <message>
         <source>File</source>
@@ -1167,7 +1227,7 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation>&lt;p&gt;Se distribuye bajo la licencia &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versión 2.</translation>
+        <translation type="obsolete">&lt;p&gt;Se distribuye amparado por la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;Licencia Pública General de GNU&lt;/a&gt;, versión 2.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
@@ -1219,7 +1279,7 @@
     </message>
     <message>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation>Imposible acceder a &quot;%1&quot;;  verifique la configuración de su navegador o cliente de correos.</translation>
+        <translation>Imposible acceder a &quot;%1&quot;; verifique la configuración de su navegador o cliente de correos.</translation>
     </message>
     <message>
         <source>Unable to create window</source>
@@ -1239,7 +1299,7 @@
     </message>
     <message>
         <source>No default binary directory found</source>
-        <translation>No se encontró el directorio con lo binarios por omisión</translation>
+        <translation>No se encontró el directorio predeterminado con lo binarios</translation>
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
@@ -1251,7 +1311,7 @@
     </message>
     <message>
         <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Ha falado la ejecución del comando de sistema: %1</translation>
+        <translation type="obsolete">Ha fallado la ejecución del comando de sistema: %1</translation>
     </message>
     <message>
         <source>Error executing system command: %1</source>
@@ -1269,6 +1329,10 @@
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>El script &quot;%1&quot; está tratando de abrir el archivo &quot;%2&quot; sin contar con los permisos
 adecuados. ¿Quiere abrirlo de todos modos?</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation>&lt;p&gt;Se distribuye protegido por la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt; Licencia Pública General de GNU &lt;/a&gt;, versión 2 o (a su elección) cualquier versión posterior.</translation>
     </message>
 </context>
 <context>
@@ -1472,7 +1536,7 @@ Se utilizará %3, lo cual puede dar como resultado un texto incorrecto.</transla
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
         <translation>Este documento contiene símbolos que no pueden ser representados en la codificación %1.
 
-Si desea continuar, esos símbolos serán reemplazados por los de la codificación por omisión. Una alternativa consiste en utilizar otro código (por ejemplo, UTF-8) para evitar la pérdida de información.</translation>
+Si desea continuar, esos símbolos serán reemplazados por los de la codificación predeterminada. Una alternativa consiste en utilizar otro código (por ejemplo, UTF-8) para evitar la pérdida de información.</translation>
     </message>
     <message>
         <source>Cannot write file &quot;%1&quot;:
@@ -1498,7 +1562,7 @@ Si desea continuar, esos símbolos serán reemplazados por los de la codificaci�
     </message>
     <message>
         <source>default encoding</source>
-        <translation type="obsolete">Codificación por omisión</translation>
+        <translation type="obsolete">Codificación predeterminada</translation>
     </message>
     <message>
         <source>Ctrl+R</source>
@@ -2091,12 +2155,43 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
         <source>Ctrl+T</source>
         <translation type="obsolete">Ctrl+T</translation>
     </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation>Configuración y Recursos ...</translation>
+    </message>
+    <message>
+        <source>Reload using selected encoding</source>
+        <extracomment>Item in the encoding popup menu</extracomment>
+        <translation>Reabrir utilizando la codificación seleccionada</translation>
+    </message>
+    <message>
+        <source>Reloads the current file with the encoding selected from this menu.
+
+The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
+        <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
+        <translation>Reabrir el archivo actual con la codificación seleccionada en este menú.
+
+La codificación seleccionada reemplaza la predeterminada y anula todas las líneas &quot;%!TEX encoding&quot;.
+</translation>
+    </message>
+    <message>
+        <source>Unsaved changes</source>
+        <translation>Cambios sin guardar</translation>
+    </message>
+    <message>
+        <source>The file you are trying to reload has unsaved changes.
+
+Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
+        <translation>El archivo que intenta reabrir tiene cambios que aún no han sido guardados.
+
+¿Desea descartar los cambios efectuados en el archivo y volver a abrirlo desde el disco, ahora con la codificación% 1?</translation>
+    </message>
 </context>
 <context>
     <name>TeXHighlighter</name>
     <message>
         <source>default</source>
-        <translation>Por omisión</translation>
+        <translation>estándar</translation>
     </message>
 </context>
 <context>

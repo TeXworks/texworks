@@ -39,6 +39,17 @@
 #define Py_RETURN_FALSE return Py_INCREF(Py_False), Py_False
 #endif
 
+/* To encapsulate C pointers, PyCObject was replaced by PyCapsule in Python 3.2 */
+#if PY_VERSION_HEX < 0x03020000
+	#define ENCAPSULATE_C_POINTER(ptr) PyCObject_FromVoidPtr((ptr), NULL)
+	#define IS_ENCAPSULATED_C_POINTER(obj) PyCObject_Check((obj))
+	#define GET_ENCAPSULATED_C_POINTER(obj) PyCObject_AsVoidPtr((obj))
+#else
+	#define ENCAPSULATE_C_POINTER(ptr) PyCapsule_New((ptr), NULL, NULL)
+	#define IS_ENCAPSULATED_C_POINTER(obj) PyCapsule_CheckExact((obj))
+	#define GET_ENCAPSULATED_C_POINTER(obj) PyCapsule_GetPointer((obj), NULL)
+#endif
+
 /* Py_ssize_t is new in Python 2.5 */
 #if PY_VERSION_HEX < 0x02050000
 typedef int Py_ssize_t;
@@ -226,7 +237,7 @@ PyObject * PythonScript::QObjectToPython(QObject * o)
 	if (!obj) return NULL;
 	
 	obj = (pyQObject*)PyObject_Init((PyObject*)obj, &pyQObjectType);
-	obj->_TWcontext = PyCObject_FromVoidPtr(o, NULL);
+	obj->_TWcontext = ENCAPSULATE_C_POINTER(o);
 	return (PyObject*)obj;
 }
 
@@ -244,11 +255,11 @@ PyObject* PythonScript::getAttribute(PyObject * o, PyObject * attr_name)
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("getattr: not a valid TW object")));
 		return NULL;
 	}
-	if (!PyCObject_Check(((pyQObject*)o)->_TWcontext)) {
+	if (!IS_ENCAPSULATED_C_POINTER(((pyQObject*)o)->_TWcontext)) {
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("getattr: not a valid TW object")));
 		return NULL;
 	}
-	obj = (QObject*)PyCObject_AsVoidPtr((PyObject*)(((pyQObject*)o)->_TWcontext));
+	obj = (QObject*)GET_ENCAPSULATED_C_POINTER((PyObject*)(((pyQObject*)o)->_TWcontext));
 	
 	if (!asQString(attr_name, propName)) {
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("getattr: invalid property name")));
@@ -269,7 +280,7 @@ PyObject* PythonScript::getAttribute(PyObject * o, PyObject * attr_name)
 			pyMethod = PyObject_New(pyQObjectMethodObject, &pyQObjectMethodType);
 			pyMethod = (pyQObjectMethodObject*)PyObject_Init((PyObject*)pyMethod, &pyQObjectMethodType);
 			Py_INCREF(pyMethod);
-			pyMethod->_TWcontext = PyCObject_FromVoidPtr(obj, NULL);
+			pyMethod->_TWcontext = ENCAPSULATE_C_POINTER(obj);
 			Py_XINCREF(attr_name);
 			pyMethod->_methodName = (PyObject*)attr_name;
 			return (PyObject*)pyMethod;
@@ -294,11 +305,11 @@ int PythonScript::setAttribute(PyObject * o, PyObject * attr_name, PyObject * v)
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("setattr: not a valid TW object")));
 		return -1;
 	}
-	if (!PyCObject_Check(((pyQObject*)o)->_TWcontext)) {
+	if (!IS_ENCAPSULATED_C_POINTER(((pyQObject*)o)->_TWcontext)) {
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("setattr: not a valid TW object")));
 		return -1;
 	}
-	obj = (QObject*)PyCObject_AsVoidPtr((PyObject*)(((pyQObject*)o)->_TWcontext));
+	obj = (QObject*)GET_ENCAPSULATED_C_POINTER((PyObject*)(((pyQObject*)o)->_TWcontext));
 
 	// Get the parameters
 	if (!asQString(attr_name, propName)) {
@@ -333,7 +344,7 @@ PyObject * PythonScript::callMethod(PyObject * o, PyObject * pyArgs, PyObject * 
 	int i;
 	
 	// Get the QObject* we operate on
-	obj = (QObject*)PyCObject_AsVoidPtr((PyObject*)(((pyQObjectMethodObject*)o)->_TWcontext));
+	obj = (QObject*)GET_ENCAPSULATED_C_POINTER((PyObject*)(((pyQObjectMethodObject*)o)->_TWcontext));
 
 	if (!asQString((PyObject*)(((pyQObjectMethodObject*)o)->_methodName), methodName)) {
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("call: invalid method name")));
@@ -382,7 +393,7 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 
 	if (v.isNull()) Py_RETURN_NONE;
 
-	switch (v.type()) {
+	switch ((QMetaType::Type)v.type()) {
 		case QVariant::Double:
 			return Py_BuildValue("d", v.toDouble());
 		case QVariant::Bool:
@@ -482,7 +493,7 @@ QVariant PythonScript::PythonToVariant(PyObject * o)
 		return map;
 	}
 	if (PyObject_TypeCheck(o, &pyQObjectType)) {
-		return QVariant::fromValue((QObject*)PyCObject_AsVoidPtr(((pyQObject*)o)->_TWcontext));
+		return QVariant::fromValue((QObject*)GET_ENCAPSULATED_C_POINTER(((pyQObject*)o)->_TWcontext));
 	}
 	// \TODO Complex numbers, byte arrays
 	PyErr_Format(PyExc_TypeError, qPrintable(tr("the python type %s is currently not supported")), o->ob_type->tp_name);

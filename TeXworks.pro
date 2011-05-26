@@ -36,6 +36,12 @@ QMAKE_CXXFLAGS += -DTW_BUILD_ID=personal
 # comment this out if poppler's xpdf headers are not available on the build system
 QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
 
+# maximum compression for resources (unless that only produces a 5% size decrease)
+QMAKE_RESOURCE_FLAGS += -threshold 5 -compress 9
+
+# avoid warnings about "#pragma mark" on non-Mac/non-XCode systems
+QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
+
 # put all symbols in the dynamic symbol table to plugins can access them; if not
 # given, plugin loading may fail with a debug warning for some plugins
 # Note: only works for gnu compilers; need to check what flags to pass to other compilers
@@ -91,6 +97,7 @@ unix:!macx { # on Unix-ish platforms we rely on pkgconfig, and use dbus
 	CONFIG		+= link_pkgconfig
 	PKGCONFIG	+= hunspell
 	PKGCONFIG	+= poppler-qt4
+	PKGCONFIG	+= zlib
 
 	# Enclose the path in \\\" (which later gets expanded to \", which in turn
 	# gets expanded to " in the c++ code)
@@ -103,8 +110,6 @@ linux-g++ {
 	# Qt/dbus config on Debian is broken, hence the lines below
 	LIBS		+= -lQtDBus
 	INCLUDEPATH	+= /usr/include/qt4/QtDBus
-	# needed to link successfully on Fedora, apparently
-	LIBS		+= -lz
 }
 
 openbsd-g++ {
@@ -157,12 +162,14 @@ HEADERS	+=	src/TWApp.h \
 			src/PrefsDialog.h \
 			src/TemplateDialog.h \
 			src/HardWrapDialog.h \
+			src/ResourcesDialog.h \
 			src/ScriptManager.h \
 			src/ConfirmDelete.h \
 			src/TWVersion.h \
 			src/SvnRev.h \
 			src/synctex_parser.h \
 			src/synctex_parser_utils.h \
+			src/ClickableLabel.h \
 			src/ConfigurableApp.h \
 			src/TWSystemCmd.h
 
@@ -176,6 +183,7 @@ FORMS	+=	src/TeXDocument.ui \
 			src/ToolConfig.ui \
 			src/TemplateDialog.ui \
 			src/HardWrapDialog.ui \
+			src/ResourcesDialog.ui \
 			src/ScriptManager.ui \
 			src/ConfirmDelete.ui
 
@@ -196,6 +204,7 @@ SOURCES	+=	src/main.cpp \
 			src/PrefsDialog.cpp \
 			src/TemplateDialog.cpp \
 			src/HardWrapDialog.cpp \
+			src/ResourcesDialog.cpp \
 			src/ScriptManager.cpp \
 			src/ConfirmDelete.cpp \
 			src/synctex_parser.c \

@@ -310,6 +310,7 @@
     </property>
     <addaction name="actionGoToHomePage"/>
     <addaction name="actionWriteToMailingList"/>
+    <addaction name="actionSettings_and_Resources"/>
     <addaction name="separator"/>
     <addaction name="actionAbout_TW"/>
    </widget>
@@ -343,7 +344,7 @@
     <string>Typeset Toolbar</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">padding:2px</string>
+    <string notr="true">QToolButton { padding:2px; }</string>
    </property>
    <property name="allowedAreas">
     <set>Qt::LeftToolBarArea|Qt::TopToolBarArea</set>
@@ -367,7 +368,7 @@
     <string>Edit Toolbar</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">padding:2px</string>
+    <string notr="true">QToolButton { padding:2px; }</string>
    </property>
    <property name="allowedAreas">
     <set>Qt::LeftToolBarArea|Qt::TopToolBarArea</set>
@@ -1091,6 +1092,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+S</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionSettings_and_Resources">
+   <property name="text">
+    <string>Settings and Resources...</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

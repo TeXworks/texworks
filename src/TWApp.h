@@ -190,6 +190,7 @@ public slots:
 	void showScriptsFolder();
 
 	void about();
+	void doResourcesDialog() const;
 	void newFile();
 	void open();
 	void stackWindows();
@@ -264,7 +265,7 @@ inline TWApp *TWApp::instance()
 	return theAppInstance;
 }
 
-#ifdef Q_WS_X11
+#ifdef QT_DBUS_LIB
 #include <QtDBus>
 
 #define TW_SERVICE_NAME 	"org.tug.texworks.application"
@@ -290,7 +291,7 @@ public slots:
 	Q_NOREPLY void bringToFront()
 		{ app->bringToFront(); }
 };
-#endif	// Q_WS_X11
+#endif	// defined(QT_DBUS_LIB)
 
 #endif	// TWApp_H
 

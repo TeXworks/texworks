@@ -146,7 +146,7 @@ public:
 	QRectF selRect;
 };
 
-class SearchResults	: public QDockWidget, private Ui::SearchResults
+class SearchResults : public QDockWidget, private Ui::SearchResults
 {
 	Q_OBJECT
 	
@@ -155,12 +155,18 @@ public:
 							   QMainWindow* parent, bool singleFile);
 	
 	SearchResults(QWidget* parent);
-	
+
+protected slots:
+	void focusChanged(QWidget * old, QWidget * now);
+
 private slots:
 	void showSelectedEntry();
 	void showEntry(QTableWidgetItem * item);
 	void goToSource();
 	void goToSourceAndClose();
+
+private:
+	QPalette editorOriginalPalette, editorModifiedPalette;
 };
 
 #endif

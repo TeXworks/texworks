@@ -518,6 +518,10 @@
         <source> (remember to close it again to avoid access problems)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -842,7 +846,7 @@
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
-        <translation>エラーがなければ、ログを表示しない</translation>
+        <translation type="obsolete">エラーがなければ、ログを表示しない</translation>
     </message>
     <message>
         <source>Smart Quotes mode:</source>
@@ -882,6 +886,36 @@
     </message>
     <message>
         <source>Enable QtScript debugger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On success</source>
+        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -989,6 +1023,29 @@
     <message>
         <source>&amp;Regular expression</source>
         <translation>正規表現(&amp;R)</translation>
+    </message>
+</context>
+<context>
+    <name>ResourcesDialog</name>
+    <message>
+        <source>TeXworks Settings and Resources</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Storage Locations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resources:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registry (%1)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1140,10 +1197,6 @@
         <translation type="obsolete">&lt;br&gt;バージョン %1 (r.%2)</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation></translation>
     </message>
@@ -1225,6 +1278,10 @@
     </message>
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2021,6 +2078,32 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     </message>
     <message>
         <source>Abort typesetting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings and Resources...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload using selected encoding</source>
+        <extracomment>Item in the encoding popup menu</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reloads the current file with the encoding selected from this menu.
+
+The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
+        <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unsaved changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file you are trying to reload has unsaved changes.
+
+Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

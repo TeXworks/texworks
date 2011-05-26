@@ -1,0 +1,103 @@
+Introduction
+============
+
+This file describes do's and don'ts, good practices, and requirements when
+packaging TeXworks.
+
+When you have read this far, you are probably interested in packaging TeXworks.
+First of all, thank you for your commitment, it is very welcome. Before you
+start, however, you should check that no packages for the system you intend to
+target exist already. Currently, packages for Windows and Ubuntu are provided by
+the project maintainers, and packages for several other Linux distributions have
+been contributed by members of the community.
+
+If you package TeXworks successfully, please drop by the mailing list and tell
+us about it :).
+
+
+General guidelines
+==================
+
+This section describes how TeXworks should be packaged. It does not deal with
+the building process itself, however (see the README and
+http://code.google.com/p/texworks/w/list for some more information on that).
+Instead, it deals with the principal decisions.
+
+ * TeXworks consists of the core program and plugins. If possibly, the plugins
+   should be made available separately (unless noted otherwise). The are to be
+   considered optional (Debian policy: they are suggested, not recommended,
+   meaning that running TeXworks without them is perfectly reasonable).
+
+ * All plugins that can be built should be built.
+
+ * Stable releases feature a copy of the manual. Like the plugins, this should
+   be packaged, preferably as a separate, optional package (Debian policy: a
+   suggested package).
+
+ * It is strongly recommended to distribute TeXworks with the poppler encoding
+   data as well as the 14 PDF base fonts or suitable (i.e., metrically
+   equivalent) replacements. On Linux, these are typically provided by the
+   system and/or packages which the TeXworks package should depend on. Note that
+   this is not a strict dependence, as TeXworks will run without poppler-data or
+   the base-14 fonts, but some files may not be displayed correctly (Debian
+   policy: the packages are recommended, meaning that they are found on all but
+   the most unusual systems). Note that when providing poppler-data and/or fonts
+   yourself in the package, you most likely will need to patch the poppler
+   library itself as well.
+   See below for further information on this issue and how to test proper
+   functionality.
+
+
+Poppler
+=======
+
+As mentioned in the guidelines, there are several intricacies concerning the
+poppler library.
+
+In order to properly display PDF files without embedded fonts - and to conform
+to the PDF standard - TeXworks package must ensure that the base 14 fonts are
+available on the system. The preferable way to do that is to pull in system
+packages and/or use alternative fonts found on the system. The remaining files
+can be obtained, e.g., from http://www.ctan.org/tex-archive/fonts/urw/base35
+(note that those fonts have been renamed according to
+http://www.tug.org/fontname/html/URW-fonts.html which must be undone as poppler
+expects the original filenames). The following pfb files are needed:
+d050000l.pfb, n019003l.pfb, n019004l.pfb, n019023l.pfb, n019024l.pfb,
+n021003l.pfb, n021004l.pfb, n021023l.pfb, n021024l.pfb, n022003l.pfb,
+n022004l.pfb, n022023l.pfb, n022024l.pfb, s050000l.pfb.
+
+If you provide the base 14 fonts yourself, you need to make sure poppler picks
+them up. To achieve that, you most likely will need to patch poppler
+accordingly. See lib-patches/poppler-win32-font-handling.patch for an example
+for poppler-0.16 on Windows.
+
+To check if the fonts are picked up correctly, use the base14-fonts testcase
+from http://texworks.googlecode.com/svn/trunk/testcases/.
+
+Moreover, the poppler library needs the poppler-data from
+http://poppler.freedesktop.org/ (this particularly affects displaying CJK
+documents). By default, TeXworks looks for a folder named "poppler-data"
+alongside the main application on Windows and Mac (see src/TWApp.cpp -
+TWApp::init()). It only sets this directory once while starting up, however, so
+you need ensure poppler doesn't mess with it by building poppler with the
+lib-patches/poppler-qt4-globalparams.patch patch.
+
+To check if poppler-data is picked up properly, use the poppler-data testcase
+from http://texworks.googlecode.com/svn/trunk/testcases/.
+
+
+Other libraries and patches
+===========================
+
+ * Qt 4.7.0 and 4.7.1 have a bug crashing TeXworks occasionally when using the
+   "Highlight current line" feature together with "Wrap Lines" due to a memory
+   overflow. Use lib-patches/qt-4_7-qpathclipper.patch to fix that.
+
+
+Further information and help
+============================
+
+Homepage:     http://www.tug.org/texworks/
+Development:  http://code.google.com/p/texworks/
+Bugs:         http://code.google.com/p/texworks/issues/list
+Mailing list: http://tug.org/mailman/listinfo/texworks

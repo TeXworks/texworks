@@ -32,6 +32,7 @@
     </property>
     <addaction name="actionGoToHomePage"/>
     <addaction name="actionWriteToMailingList"/>
+    <addaction name="actionSettings_and_Resources"/>
     <addaction name="separator"/>
     <addaction name="actionAbout_TW"/>
    </widget>
@@ -151,7 +152,7 @@
     <string>Toolbar</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">padding:2px</string>
+    <string notr="true">QToolButton { padding:2px; }</string>
    </property>
    <property name="iconSize">
     <size>
@@ -585,7 +586,7 @@
    </property>
    <property name="icon">
     <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/zoomin.png</normaloff>:/images/images/zoomin.png</iconset>
+     <normaloff>:/images/images/zoom.png</normaloff>:/images/images/zoom.png</iconset>
    </property>
    <property name="text">
     <string>Magnify</string>
@@ -736,6 +737,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionSettings_and_Resources">
+   <property name="text">
+    <string>Settings and Resources...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
  </widget>

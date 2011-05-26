@@ -30,6 +30,11 @@ TARGET	=	TWPythonPlugin
 
 CONFIG		+=	rtti uitools
 
+# Some code in Python breaks strict aliasing rules
+# This flag tells the compiler not to assume it in the first place, thereby
+# avoiding warnings and possible future errors
+QMAKE_CXXFLAGS	+= -fno-strict-aliasing
+
 macx {
 	CONFIG	+= x86 ppc
 
@@ -52,8 +57,6 @@ unix:!macx { # on Unix-ish platforms we should rely on pkgconfig
 #	CONFIG		+= link_pkgconfig
 #	QMAKE_CXXFLAGS	+= -DPy_UNICODE_WIDE
 #	PKGCONFIG	+= python3
-
-	QMAKE_CXXFLAGS	+= -fno-strict-aliasing
 
 	target.path	= /usr/local/lib/texworks
 	INSTALLS	+= target

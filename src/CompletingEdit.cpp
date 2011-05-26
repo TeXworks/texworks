@@ -116,8 +116,7 @@ void CompletingEdit::cursorPositionChangedSlot()
 	setCompleter(NULL);
 	if (!currentCompletionRange.isNull()) {
 		QTextCursor curs = textCursor();
-		if (curs.selectionStart() < currentCompletionRange.selectionStart() || curs.selectionEnd() >= currentCompletionRange.selectionEnd())
-			currentCompletionRange = QTextCursor();
+		currentCompletionRange = QTextCursor();
 	}
 	resetExtraSelections();
 	prefixLength = 0;

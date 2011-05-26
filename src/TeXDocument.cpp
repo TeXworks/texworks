@@ -121,23 +121,22 @@ void TeXDocument::init()
 	hideConsole();
 	keepConsoleOpen = false;
 
-	statusBar()->addPermanentWidget(lineEndingLabel = new QLabel());
+	statusBar()->addPermanentWidget(lineEndingLabel = new ClickableLabel());
 	lineEndingLabel->setFrameStyle(QFrame::StyledPanel);
 	lineEndingLabel->setFont(statusBar()->font());
-	lineEndingLabel->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(lineEndingLabel, SIGNAL(customContextMenuRequested(const QPoint)), this, SLOT(lineEndingPopup(const QPoint)));
+	connect(lineEndingLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(lineEndingLabelClick(QMouseEvent*)));
 	showLineEndingSetting();
 	
-	statusBar()->addPermanentWidget(encodingLabel = new QLabel());
+	statusBar()->addPermanentWidget(encodingLabel = new ClickableLabel());
 	encodingLabel->setFrameStyle(QFrame::StyledPanel);
 	encodingLabel->setFont(statusBar()->font());
-	encodingLabel->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(encodingLabel, SIGNAL(customContextMenuRequested(const QPoint)), this, SLOT(encodingPopup(const QPoint)));
+	connect(encodingLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(encodingLabelClick(QMouseEvent*)));
 	showEncodingSetting();
 	
-	statusBar()->addPermanentWidget(lineNumberLabel = new QLabel());
+	statusBar()->addPermanentWidget(lineNumberLabel = new ClickableLabel());
 	lineNumberLabel->setFrameStyle(QFrame::StyledPanel);
 	lineNumberLabel->setFont(statusBar()->font());
+	connect(lineNumberLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(doLineDialog()));
 	showCursorPosition();
 	
 	engineActions = new QActionGroup(this);
@@ -148,6 +147,7 @@ void TeXDocument::init()
 	engine = new QComboBox(this);
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
+	engine->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 #if defined(Q_WS_MAC) && (QT_VERSION >= 0x040600)
 	engine->setStyleSheet("padding:4px;");
 	engine->setMinimumWidth(150);
@@ -162,6 +162,7 @@ void TeXDocument::init()
 	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 	connect(actionAbout_TW, SIGNAL(triggered()), qApp, SLOT(about()));
+	connect(actionSettings_and_Resources, SIGNAL(triggered()), qApp, SLOT(doResourcesDialog()));
 	connect(actionGoToHomePage, SIGNAL(triggered()), qApp, SLOT(goToHomePage()));
 	connect(actionWriteToMailingList, SIGNAL(triggered()), qApp, SLOT(writeToMailingList()));
 
@@ -913,7 +914,8 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 
 QString TeXDocument::readFile(const QString &fileName,
 							  QTextCodec **codecUsed,
-							  int *lineEndings)
+							  int *lineEndings,
+							  QTextCodec * forceCodec)
 	// reads the text from a file, after checking for %!TEX encoding.... metadata
 	// sets codecUsed to the QTextCodec used to read the text
 	// returns a null (not just empty) QString on failure
@@ -941,18 +943,22 @@ QString TeXDocument::readFile(const QString &fileName,
 	QString peekStr(file.peek(PEEK_LENGTH));
 	QString reqName;
 	bool hasMetadata;
-	*codecUsed = scanForEncoding(peekStr, hasMetadata, reqName);
-	if (*codecUsed == NULL) {
-		*codecUsed = TWApp::instance()->getDefaultCodec();
-		if (hasMetadata) {
-			if (QMessageBox::warning(this, tr("Unrecognized encoding"),
-					tr("The text encoding %1 used in %2 is not supported.\n\n"
-					   "It will be interpreted as %3 instead, which may result in incorrect text.")
-						.arg(reqName)
-						.arg(fileName)
-						.arg(QString::fromAscii((*codecUsed)->name())),
-					QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
-				return QString();
+	if (forceCodec)
+		*codecUsed = forceCodec;
+	else {
+		*codecUsed = scanForEncoding(peekStr, hasMetadata, reqName);
+		if (*codecUsed == NULL) {
+			*codecUsed = TWApp::instance()->getDefaultCodec();
+			if (hasMetadata) {
+				if (QMessageBox::warning(this, tr("Unrecognized encoding"),
+						tr("The text encoding %1 used in %2 is not supported.\n\n"
+						   "It will be interpreted as %3 instead, which may result in incorrect text.")
+							.arg(reqName)
+							.arg(fileName)
+							.arg(QString::fromAscii((*codecUsed)->name())),
+						QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
+					return QString();
+			}
 		}
 	}
 	
@@ -985,9 +991,9 @@ QString TeXDocument::readFile(const QString &fileName,
 	}
 }
 
-void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBackground)
+void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBackground, QTextCodec * forceCodec)
 {
-	QString fileContents = readFile(fileName, &codec, &lineEndings);
+	QString fileContents = readFile(fileName, &codec, &lineEndings, forceCodec);
 	showLineEndingSetting();
 	showEncodingSetting();
 
@@ -1337,10 +1343,18 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	isUntitled = curFile.isEmpty();
 	if (isUntitled) {
 		curFile = tr("untitled-%1.tex").arg(sequenceNumber++);
-		setWindowIcon(QIcon());
+		setWindowIcon(QApplication::windowIcon());
 	}
-	else
-		setWindowIcon(QIcon(":/images/images/TeXworks-doc.png"));
+	else {
+		QIcon winIcon;
+#ifdef Q_WS_X11
+		// The Compiz window manager doesn't seem to support icons larger than
+		// 128x128, so we add a suitable one first
+		winIcon.addFile(":/images/images/TeXworks-doc-128.png");
+#endif
+		winIcon.addFile(":/images/images/TeXworks-doc.png");
+		setWindowIcon(winIcon);
+	}
 
 	textEdit->document()->setModified(false);
 	setWindowModified(false);
@@ -1492,15 +1506,47 @@ void TeXDocument::showEncodingSetting()
 void TeXDocument::encodingPopup(const QPoint loc)
 {
 	QMenu menu;
-	foreach (QTextCodec *codec, *TWUtils::findCodecs())
-		menu.addAction(new QAction(codec->name(), &menu));
+	//: Item in the encoding popup menu
+	QAction * reloadAction = new QAction(tr("Reload using selected encoding"), &menu);
+	//: Tooltip for "Reload using selected encoding"
+	reloadAction->setToolTip(tr("Reloads the current file with the encoding selected from this menu.\n\nThe selected encoding replaces the default one and overrides all \"%!TEX encoding\" lines."));
+	QAction * a;
+	
+	if (!isUntitled) {
+		menu.addAction(reloadAction);
+		menu.addSeparator();
+	}
+	
+	foreach (QTextCodec *codec, *TWUtils::findCodecs()) {
+		a = new QAction(codec->name(), &menu);
+		a->setCheckable(true);
+		if (codec == this->codec)
+			a->setChecked(true);
+		menu.addAction(a);
+	}
 	QAction *result = menu.exec(encodingLabel->mapToGlobal(loc));
 	if (result) {
-		QTextCodec *newCodec = QTextCodec::codecForName(result->text().toAscii());
-		if (newCodec && newCodec != codec) {
-			codec = newCodec;
-			showEncodingSetting();
-			textEdit->document()->setModified();
+		if (result == reloadAction) {
+			if (textEdit->document()->isModified()) {
+				if (QMessageBox::warning(this, tr("Unsaved changes"),
+										 tr("The file you are trying to reload has unsaved changes.\n\n"
+											"Do you want to discard your current changes, and reload the file from disk with the encoding %1?")
+										 .arg(QString(codec->name())),
+										 QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No) {
+					return;
+				}
+			}
+			clearFileWatcher(); // stop watching until next save or reload
+			loadFile(curFile, false, true, codec);
+			; // FIXME
+		}
+		else {
+			QTextCodec *newCodec = QTextCodec::codecForName(result->text().toAscii());
+			if (newCodec && newCodec != codec) {
+				codec = newCodec;
+				showEncodingSetting();
+				textEdit->document()->setModified();
+			}
 		}
 	}
 }
@@ -2385,7 +2431,11 @@ void TeXDocument::typeset()
 	
 #ifndef Q_WS_MAC // not supported on OS X yet :(
 	// Add a (customized) TEXEDIT environment variable
-	env << QString("TEXEDIT=%1 --position=%%d %%s").arg(QCoreApplication::applicationFilePath());
+	env << QString("TEXEDIT=%1 --position=%d %s").arg(QCoreApplication::applicationFilePath());
+	
+	#ifdef Q_WS_WIN // MiKTeX apparently uses it's own variable
+	env << QString("MIKTEX_EDITOR=%1 --position=%l \"%f\"").arg(QCoreApplication::applicationFilePath());
+	#endif
 #endif
 	
 	if (!exeFilePath.isEmpty()) {
@@ -2523,12 +2573,34 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	executeAfterTypesetHooks();
 	
 	QSETTINGS_OBJECT(settings);
-	if (!keepConsoleOpen && exitCode == 0 && exitStatus != QProcess::CrashExit && settings.value("autoHideConsole", true).toBool())
+	
+	bool shouldHideConsole = false;
+	QVariant hideConsoleSetting = settings.value("autoHideConsole", kDefault_HideConsole);
+	// Backwards compatibility to Tw 0.4.0 and before
+	if (hideConsoleSetting.toString() == "true" || hideConsoleSetting.toString() == "false")
+		hideConsoleSetting = (hideConsoleSetting.toBool() ? kDefault_HideConsole : 0);
+
+	switch(hideConsoleSetting.toInt()) {
+		case 0: // Never hide console
+			shouldHideConsole = false;
+			break;
+		case 1: // Hide console automatically
+			shouldHideConsole = (!keepConsoleOpen && exitCode == 0 && exitStatus != QProcess::CrashExit);
+			break;
+		case 2: // Always hide console on success
+			shouldHideConsole = (exitCode == 0 && exitStatus != QProcess::CrashExit);
+			break;
+		default: // Should never happen
+			;
+	}
+	
+	if (shouldHideConsole)
 		hideConsole();
 	else
 		inputLine->hide();
 
-	process->deleteLater();
+	if (process) 
+		process->deleteLater();
 	process = NULL;
 	updateTypesettingAction();
 }
