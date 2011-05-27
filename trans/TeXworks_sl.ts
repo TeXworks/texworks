@@ -1119,7 +1119,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="952"/>
         <source>Scripts</source>
-        <translation></translation>
+        <translation>Skripte</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="958"/>

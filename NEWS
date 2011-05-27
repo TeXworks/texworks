@@ -1,4 +1,35 @@
-Release 0.4.0
+Release 0.4.1 (TL'11 RC) [May 2011]
+	* Add option to always close the output panel after sucessful typesetting
+	  (regardless of its previous state)
+	* Invoke "Goto page" and "Goto line" from the status bar widgets
+	* Implement pdf zoom menu from the status bar widget
+	* Allow to reload a file with selectable encoding
+	* Implement "Help > Settings and Resources..." for easy access, in
+	  particular to customizable resources
+	* Speed up program start-up
+	* Add \begin{document} to the auto-completion
+	
+	* Work around the almost invisible highlighting when searching with the
+	  "Find all occurences" option
+	* Improve highlighting of auto-completed text
+	* Let typeset combobox adjust size dynamically
+	* Remove the "+" from the zoom tool icon in the PDF preview
+	* Reduce size of packages
+	* Fix handling of non-existent files in automatic resource updates
+	* Fix handling of TEXEDIT environment variable; add support for the
+	  MIKTEX_EDITOR environment variable
+
+	* [Win] Add installer icon
+	* [Win] Add shortcut to manual to the start menu during setup
+	* [Win] Fix cropping of tooltips
+	* [*nix] Fix invisible icons in application switcher with compiz
+	* Fix several compile time and runtime warnings
+	* Rename default ConTeXt tools
+	* Add more extensions for associating files with TeXworks
+	* Add support for Python 3.2
+	* Clean up unused code & files
+
+Release 0.4.0 [March 2011]
 	* Scripting (QtScript, Lua, Python)
 	* New "Follow focus" mode (experimental)
 	* New %!TeX header (spellcheck)
@@ -29,7 +60,6 @@ Release 0.4.0
 	* [Win/*nix] Set TeXworks as the default editor when hitting 'e' after a
 	  TeX error
 	* [Win] Fix handling of "All Files" in the "Save As" dialog (issue 257)
-	
 
 Release 0.2.3 (TL'09 DVD release)
 	* Fix potential crash in Balance Delimiters
