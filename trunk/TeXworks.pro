@@ -29,10 +29,6 @@ OBJECTS_DIR = ./obj
 UI_DIR      = ./ui
 RCC_DIR     = ./rcc
 
-# packagers should override this to identify the source of the particular TeXworks build;
-# avoid spaces or other chars that would need quoting on the command line
-QMAKE_CXXFLAGS += -DTW_BUILD_ID=personal
-
 # comment this out if poppler's xpdf headers are not available on the build system
 QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
 
@@ -61,6 +57,11 @@ unix:!macx {
     QMAKE_CXXFLAGS += -fexceptions
     QMAKE_LFLAGS += -fexceptions
 }
+
+# packagers should override this to identify the source of the particular TeXworks build;
+# avoid spaces or other chars that would need quoting on the command line
+isEmpty(TW_BUILD_ID):TW_BUILD_ID = personal
+QMAKE_CXXFLAGS += -DTW_BUILD_ID=$$TW_BUILD_ID
 
 QT			+=	xml script scripttools
 CONFIG		+=	rtti uitools
