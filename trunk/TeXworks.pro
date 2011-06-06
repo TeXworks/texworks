@@ -51,6 +51,11 @@ QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 
 unix:!macx {
 	TARGET	=	texworks
+	isEmpty(INSTALL_PREFIX):INSTALL_PREFIX = /usr/local
+	isEmpty(DATA_DIR):DATA_DIR = $$INSTALL_PREFIX/share
+	isEmpty(TW_HELPPATH):TW_HELPPATH = $$DATA_DIR/texworks-help
+	isEmpty(TW_PLUGINPATH):TW_PLUGINPATH = $$INSTALL_PREFIX/lib/texworks
+	isEmpty(TW_DICPATH):TW_DICPATH = /usr/share/myspell/dicts
 } else {
 	TARGET	=	TeXworks
     QMAKE_CXXFLAGS += -fexceptions
@@ -101,9 +106,9 @@ unix:!macx { # on Unix-ish platforms we rely on pkgconfig, and use dbus
 
 	# Enclose the path in \\\" (which later gets expanded to \", which in turn
 	# gets expanded to " in the c++ code)
-	QMAKE_CXXFLAGS += -DTW_HELPPATH=\\\"/usr/local/share/texworks-help\\\"
-	QMAKE_CXXFLAGS += -DTW_PLUGINPATH=\\\"/usr/local/lib/texworks\\\"
-	QMAKE_CXXFLAGS += -DTW_DICPATH=\\\"/usr/share/myspell/dicts\\\"
+	QMAKE_CXXFLAGS += -DTW_HELPPATH=\\\"$$TW_HELPPATH\\\"
+	QMAKE_CXXFLAGS += -DTW_PLUGINPATH=\\\"$$TW_PLUGINPATH\\\"
+	QMAKE_CXXFLAGS += -DTW_DICPATH=\\\"$$TW_DICPATH\\\"
 }
 
 linux-g++ {
@@ -234,22 +239,22 @@ TRANSLATIONS	+=	trans/TeXworks_af.ts \
 					trans/TeXworks_zh_CN.ts
 
 unix:!macx { # installation on Unix-ish platforms
-	isEmpty(INSTALL_PREFIX):INSTALL_PREFIX = /usr/local
 	isEmpty(BIN_DIR):BIN_DIR = $$INSTALL_PREFIX/bin
-	isEmpty(DATA_DIR):DATA_DIR = $$INSTALL_PREFIX/share
 	isEmpty(DOCS_DIR):DOCS_DIR = $$DATA_DIR/doc/texworks
 	isEmpty(ICON_DIR):ICON_DIR = $$DATA_DIR/pixmaps
 	isEmpty(MAN_DIR):MAN_DIR = $$DATA_DIR/man/man1
 	isEmpty(DESKTOP_DIR):DESKTOP_DIR = $$DATA_DIR/applications
 
 	target.path = $$BIN_DIR
-	documentation.files = COPYING README
+	documentation.files = COPYING README NEWS
 	documentation.path = $$DOCS_DIR
+	manual.files = manual/*
+	manual.path = $$TW_HELPPATH
 	icon.files = res/images/TeXworks.png
 	icon.path = $$ICON_DIR
 	man.files = man/texworks.1
 	man.path = $$MAN_DIR
 	desktop.files = texworks.desktop
 	desktop.path = $$DESKTOP_DIR
-	INSTALLS = target documentation icon man desktop
+	INSTALLS = target documentation manual icon man desktop
 }
