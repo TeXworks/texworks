@@ -1389,7 +1389,7 @@ void PDFDocument::loadFile(const QString &fileName)
 	reload();
 	if (watcher) {
 		const QStringList files = watcher->files();
-		if (files.isEmpty())
+		if (!files.isEmpty())
 			watcher->removePaths(files); // in case we ever load different files into the same widget
 		watcher->addPath(curFile);
 	}
