@@ -58,7 +58,9 @@ unix:!macx { # on Unix-ish platforms we should rely on pkgconfig
 #	QMAKE_CXXFLAGS	+= -DPy_UNICODE_WIDE
 #	PKGCONFIG	+= python3
 
-	target.path	= /usr/local/lib/texworks
+	isEmpty(INSTALL_PREFIX):INSTALL_PREFIX = /usr/local
+	isEmpty(TW_PLUGINPATH):TW_PLUGINPATH = $$INSTALL_PREFIX/lib/texworks
+	target.path	= $$TW_PLUGINPATH
 	INSTALLS	+= target
 }
 
