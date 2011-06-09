@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 7e5e07e..df2b5b2 100644
+index 8d8cf83..f144ddf 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -45,15 +45,20 @@ set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
@@ -51,7 +51,7 @@ index 5d27156..3a65771 100644
  /* #undef X_DISPLAY_MISSING */
  
 diff --git a/configure.ac b/configure.ac
-index 6525203..030cc30 100644
+index 471f909..f7a9783 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -59,6 +59,9 @@ case "$host_os" in
@@ -198,7 +198,7 @@ index 941a536..e7bc266 100644
    GBool psShrinkLarger;		// shrink larger pages to fit paper
    GBool psCenter;		// center pages on the paper
 diff --git a/poppler/GlobalParamsMac.cc b/poppler/GlobalParamsMac.cc
-index e69de29..373021e 100644
+index e69de29..ce3cf81 100644
 --- a/poppler/GlobalParamsMac.cc
 +++ b/poppler/GlobalParamsMac.cc
 @@ -0,0 +1,297 @@
@@ -295,7 +295,7 @@ index e69de29..373021e 100644
 +
 +  // Currently support only TrueType fonts: check for presence of 'glyf' table
 +  // TODO: what about OpenType/CFF? DisplayFontParam doesn't seem to allow for this
-+#define TAG(a,b,c,d) (UInt32)((a)<<24) | (UInt32)((b)<<16) | (UInt32)((c)<<8) | (UInt32)(d)
++#define TAG(a,b,c,d) ( (UInt32)((a)<<24) | (UInt32)((b)<<16) | (UInt32)((c)<<8) | (UInt32)(d) )
 +
 +  ByteCount tableSize;
 +  if (ATSFontGetTable(fontRef, TAG('g','l','y','f'), 0, 0, NULL, &tableSize) != noErr ||
@@ -349,8 +349,8 @@ index e69de29..373021e 100644
 +  struct sfntHeader * header = (struct sfntHeader *) new Byte[headerSize];
 +  ATSFontGetTableDirectory(fontRef, headerSize, (Byte *) header, &headerSize);
 +
-+#define READ16(x) (UInt16)(((UInt8*)&(x))[0]<<8) + (UInt16)((UInt8*)&(x))[1]
-+#define READ32(x) (UInt32)(((UInt8*)&(x))[0]<<24) + (UInt32)(((UInt8*)&(x))[1]<<16) + (UInt32)(((UInt8*)&(x))[2]<<8) + (UInt32)((UInt8*)&(x))[3]
++#define READ16(x) ( (UInt16)(((UInt8*)&(x))[0]<<8) + (UInt16)((UInt8*)&(x))[1] )
++#define READ32(x) ( (UInt32)(((UInt8*)&(x))[0]<<24) + (UInt32)(((UInt8*)&(x))[1]<<16) + (UInt32)(((UInt8*)&(x))[2]<<8) + (UInt32)((UInt8*)&(x))[3] )
 +
 +  UInt32 version = READ32(header->version);
 +  if (version != 0x00010000 &&
