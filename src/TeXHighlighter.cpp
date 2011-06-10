@@ -148,7 +148,7 @@ void TeXHighlighter::setSpellChecker(Hunhandle* h, QTextCodec* codec)
 	if (pHunspell != h || spellingCodec != codec) {
 		pHunspell = h;
 		spellingCodec = codec;
-		rehighlight();
+		QTimer::singleShot(1, this, SLOT(rehighlight()));
 	}
 }
 
