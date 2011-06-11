@@ -140,7 +140,7 @@ void TeXHighlighter::setActiveIndex(int index)
 	int oldIndex = highlightIndex;
 	highlightIndex = (index >= 0 && index < syntaxRules->count()) ? index : -1;
 	if (oldIndex != highlightIndex)
-		rehighlight();
+		QTimer::singleShot(1, this, SLOT(rehighlight()));
 }
 
 void TeXHighlighter::setSpellChecker(Hunhandle* h, QTextCodec* codec)

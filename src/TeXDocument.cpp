@@ -275,7 +275,7 @@ void TeXDocument::init()
 	setLineNumbers(b);
 	
 	highlighter = new TeXHighlighter(textEdit->document(), this);
-	connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
+	connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()), Qt::QueuedConnection);
 
 	QString syntaxOption = settings.value("syntaxColoring").toString();
 	QStringList options = TeXHighlighter::syntaxOptions();
