@@ -1064,7 +1064,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		sideBySide();
 	
 	show(); // ensure window is shown before the PDF, if opening a new doc
-	editor()->updateLineNumberAreaWidth(0);
+	QTimer::singleShot(1, editor(), SLOT(updateLineNumberAreaWidth()));
 
 	if (pdfDoc)
 		pdfDoc->show();
