@@ -295,8 +295,7 @@ void TeXDocument::init()
 		syntaxGroup->addAction(action);
 		syntaxMapper->setMapping(action, index);
 		if (opt == syntaxOption) {
-			action->setChecked(true);
-			setSyntaxColoring(index);
+			QTimer::singleShot(1, action, SLOT(trigger()));
 		}
 		++index;
 	}
@@ -402,7 +401,7 @@ void TeXDocument::init()
 		mapper->setMapping(act, dict);
 		group->addAction(act);
 		if (TWUtils::getDictionaryList()->values(dictKey).contains(defDict))
-			act->trigger();
+			QTimer::singleShot(1, act, SLOT(trigger()));
 		dictActions << act;
 	}
 	qSort(dictActions.begin(), dictActions.end(), dictActionLessThan);
@@ -501,7 +500,7 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 			}
 			if(found) break;
 		}
-		chosen->trigger();
+		QTimer::singleShot(1, chosen, SLOT(trigger()));
 	}
 }
 
@@ -1050,6 +1049,9 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		setWrapLines(properties.value("wrapLines").toBool());
 	if (properties.contains("lineNumbers"))
 		setLineNumbers(properties.value("lineNumbers").toBool());
+	
+	qDebug() << properties.value("syntaxMode").toString();
+	
 	
 	if (pdfDoc) {
 		if (properties.contains("pdfgeometry")) {
@@ -1971,7 +1973,7 @@ void TeXDocument::setSyntaxColoringMode(const QString& mode)
 	QList<QAction*> actionList = menuSyntax_Coloring->actions();
 	for (int i = 0; i < actionList.count(); ++i) {
 		if (actionList[i]->isCheckable() && actionList[i]->text().compare(mode, Qt::CaseInsensitive) == 0) {
-			actionList[i]->trigger();
+			QTimer::singleShot(1, actionList[i], SLOT(trigger()));
 			return;
 		}
 	}
