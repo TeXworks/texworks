@@ -287,6 +287,8 @@ void TeXDocument::init()
 
 	QActionGroup *syntaxGroup = new QActionGroup(this);
 	syntaxGroup->addAction(actionSyntaxColoring_None);
+	if (syntaxOption == "")
+		QTimer::singleShot(1, actionSyntaxColoring_None, SLOT(trigger()));
 
 	int index = 0;
 	foreach (const QString& opt, options) {
@@ -1049,9 +1051,6 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		setWrapLines(properties.value("wrapLines").toBool());
 	if (properties.contains("lineNumbers"))
 		setLineNumbers(properties.value("lineNumbers").toBool());
-	
-	qDebug() << properties.value("syntaxMode").toString();
-	
 	
 	if (pdfDoc) {
 		if (properties.contains("pdfgeometry")) {
@@ -1971,6 +1970,11 @@ void TeXDocument::setSyntaxColoring(int index)
 void TeXDocument::setSyntaxColoringMode(const QString& mode)
 {
 	QList<QAction*> actionList = menuSyntax_Coloring->actions();
+	
+	if (mode == "") {
+		QTimer::singleShot(1, actionSyntaxColoring_None, SLOT(trigger()));
+		return;
+	}
 	for (int i = 0; i < actionList.count(); ++i) {
 		if (actionList[i]->isCheckable() && actionList[i]->text().compare(mode, Qt::CaseInsensitive) == 0) {
 			QTimer::singleShot(1, actionList[i], SLOT(trigger()));
