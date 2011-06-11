@@ -521,7 +521,7 @@ void TeXDocument::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->selectWindow();
-	doc->textEdit->updateLineNumberAreaWidth(0);
+	QTimer::singleShot(1, doc->textEdit, SLOT(updateLineNumberAreaWidth()));
 	doc->runHooks("NewFile");
 }
 
@@ -540,7 +540,7 @@ void TeXDocument::newFromTemplate()
 		if (doc != NULL) {
 			doc->makeUntitled();
 			doc->selectWindow();
-			doc->textEdit->updateLineNumberAreaWidth(0);
+			QTimer::singleShot(1, doc->textEdit, SLOT(updateLineNumberAreaWidth()));
 			doc->runHooks("NewFromTemplate");
 		}
 	}
