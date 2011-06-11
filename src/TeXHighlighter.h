@@ -25,6 +25,7 @@
 #include <QSyntaxHighlighter>
 
 #include <QTextCharFormat>
+#include <QMutex>
 
 #include <hunspell.h>
 
@@ -86,6 +87,8 @@ private:
 
 	Hunhandle	*pHunspell;
 	QTextCodec	*spellingCodec;
+	
+	QMutex mutex;
 };
 
 #endif
