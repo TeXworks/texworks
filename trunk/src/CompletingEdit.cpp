@@ -691,8 +691,18 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 			QApplication::beep();
 		return;
 	}
+
+	// if we are at the beginning of the line (i.e., only whitespaces before a
+	// caret cursor), insert a tab (for indentation) instead of doing completion
+	bool atLineStart = false;
+	cmpCursor = textCursor();
+	if (cmpCursor.selectionEnd() == cmpCursor.selectionStart()) {
+		cmpCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
+		if(cmpCursor.selectedText().trimmed().isEmpty())
+			atLineStart = true;
+	}
 	
-	if (c == NULL) {
+	if (c == NULL && !atLineStart) {
 		cmpCursor = textCursor();
 		if (!selectWord(cmpCursor) && textCursor().selectionStart() > 0) {
 			cmpCursor.setPosition(textCursor().selectionStart() - 1);
@@ -723,7 +733,7 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 					cmpCursor.setPosition(start - 1);
 					cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
 				}
-			}			
+			}
 		}
 		
 		while (1) {
