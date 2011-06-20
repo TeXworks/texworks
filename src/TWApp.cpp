@@ -572,7 +572,7 @@ void TWApp::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->show();
-	QTimer::singleShot(1, doc->editor(), SLOT(updateLineNumberAreaWidth()));
+	doc->editor()->updateLineNumberAreaWidth(0);
 	doc->runHooks("NewFile");
 }
 
@@ -584,7 +584,7 @@ void TWApp::newFromTemplate()
 		if (doc != NULL) {
 			doc->makeUntitled();
 			doc->selectWindow();
-			QTimer::singleShot(1, doc->editor(), SLOT(updateLineNumberAreaWidth()));
+			doc->editor()->updateLineNumberAreaWidth(0);
 			doc->runHooks("NewFromTemplate");
 		}
 	}

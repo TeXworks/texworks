@@ -40,7 +40,6 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
 	, pHunspell(NULL)
 	, spellingCodec(NULL)
 {
-	QMutexLocker locker(&mutex);
 	loadPatterns();
 	spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
 	spellFormat.setUnderlineColor(Qt::red);
@@ -68,7 +67,6 @@ void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, 
 
 void TeXHighlighter::highlightBlock(const QString &text)
 {
-	QMutexLocker locker(&mutex);
 	int index = 0;
 	if (highlightIndex >= 0 && highlightIndex < syntaxRules->count()) {
 		QList<HighlightingRule>& highlightingRules = (*syntaxRules)[highlightIndex].rules;
@@ -139,17 +137,15 @@ void TeXHighlighter::highlightBlock(const QString &text)
 
 void TeXHighlighter::setActiveIndex(int index)
 {
-	QMutexLocker locker(&mutex);
 	int oldIndex = highlightIndex;
 	highlightIndex = (index >= 0 && index < syntaxRules->count()) ? index : -1;
 	if (oldIndex != highlightIndex)
-		QTimer::singleShot(1, this, SLOT(rehighlight()));
+		rehighlight();
 }
 
 void TeXHighlighter::setSpellChecker(Hunhandle* h, QTextCodec* codec)
 {
 	if (pHunspell != h || spellingCodec != codec) {
-		QMutexLocker locker(&mutex);
 		pHunspell = h;
 		spellingCodec = codec;
 		QTimer::singleShot(1, this, SLOT(rehighlight()));

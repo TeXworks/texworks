@@ -87,14 +87,14 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 
 	lineNumberArea = new LineNumberArea(this);
 	
-	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)), Qt::QueuedConnection);
+	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
 	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
 	connect(this, SIGNAL(textChanged()), lineNumberArea, SLOT(update()));
 
 	connect(TWApp::instance(), SIGNAL(highlightLineOptionChanged()), this, SLOT(resetExtraSelections()));
 	
 	cursorPositionChangedSlot();
-	updateLineNumberAreaWidth();
+	updateLineNumberAreaWidth(0);
 }
 
 CompletingEdit::~CompletingEdit()
@@ -1067,7 +1067,7 @@ bool CompletingEdit::canInsertFromMimeData(const QMimeData *source) const
 void CompletingEdit::setLineNumberDisplay(bool displayNumbers)
 {
 	lineNumberArea->setVisible(displayNumbers);
-	QTimer::singleShot(1, this, SLOT(updateLineNumberAreaWidth()));
+	updateLineNumberAreaWidth(0);
 }
 
 int CompletingEdit::lineNumberAreaWidth()
@@ -1084,7 +1084,7 @@ int CompletingEdit::lineNumberAreaWidth()
 	return space;
 }
 
-void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount = 0 */)
+void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
 {
 	if (lineNumberArea->isVisible()) {
 		setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
@@ -1103,7 +1103,7 @@ void CompletingEdit::updateLineNumberArea(const QRect &rect, int dy)
 		lineNumberArea->update(0, rect.y(), lineNumberArea->width(), rect.height());
 	
 	if (rect.contains(viewport()->rect()))
-		QTimer::singleShot(1, this, SLOT(updateLineNumberAreaWidth()));
+		updateLineNumberAreaWidth(0);
 }
 
 void CompletingEdit::resizeEvent(QResizeEvent *e)
