@@ -275,7 +275,7 @@ void TeXDocument::init()
 	setLineNumbers(b);
 	
 	highlighter = new TeXHighlighter(textEdit->document(), this);
-	connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()), Qt::QueuedConnection);
+	connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
 
 	QString syntaxOption = settings.value("syntaxColoring").toString();
 	QStringList options = TeXHighlighter::syntaxOptions();
@@ -297,7 +297,8 @@ void TeXDocument::init()
 		syntaxGroup->addAction(action);
 		syntaxMapper->setMapping(action, index);
 		if (opt == syntaxOption) {
-			QTimer::singleShot(1, action, SLOT(trigger()));
+			action->setChecked(true);
+			setSyntaxColoring(index);
 		}
 		++index;
 	}
@@ -403,7 +404,7 @@ void TeXDocument::init()
 		mapper->setMapping(act, dict);
 		group->addAction(act);
 		if (TWUtils::getDictionaryList()->values(dictKey).contains(defDict))
-			QTimer::singleShot(1, act, SLOT(trigger()));
+			act->trigger();
 		dictActions << act;
 	}
 	qSort(dictActions.begin(), dictActions.end(), dictActionLessThan);
@@ -502,7 +503,7 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 			}
 			if(found) break;
 		}
-		QTimer::singleShot(1, chosen, SLOT(trigger()));
+		chosen->trigger();
 	}
 }
 
@@ -522,7 +523,7 @@ void TeXDocument::newFile()
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->selectWindow();
-	QTimer::singleShot(1, doc->textEdit, SLOT(updateLineNumberAreaWidth()));
+	doc->textEdit->updateLineNumberAreaWidth(0);
 	doc->runHooks("NewFile");
 }
 
@@ -541,7 +542,7 @@ void TeXDocument::newFromTemplate()
 		if (doc != NULL) {
 			doc->makeUntitled();
 			doc->selectWindow();
-			QTimer::singleShot(1, doc->textEdit, SLOT(updateLineNumberAreaWidth()));
+			doc->textEdit->updateLineNumberAreaWidth(0);
 			doc->runHooks("NewFromTemplate");
 		}
 	}
@@ -1002,6 +1003,13 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		return;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
+
+	// Ensure the window is shown early (before setPlainText()).
+	// - this ensures it is shown before the PDF (if opening a new doc)
+	// - this avoids problems during layouting (which can be broken if the
+	//   geometry, highlighting, ... is changed before the window is shown)
+	show();
+
 	deferTagListChanges = true;
 	tagListChanged = false;
 	textEdit->setPlainText(fileContents);
@@ -1064,8 +1072,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	if (autoPlace)
 		sideBySide();
 	
-	show(); // ensure window is shown before the PDF, if opening a new doc
-	QTimer::singleShot(1, editor(), SLOT(updateLineNumberAreaWidth()));
+	editor()->updateLineNumberAreaWidth(0);
 
 	if (pdfDoc)
 		pdfDoc->show();
@@ -1977,7 +1984,7 @@ void TeXDocument::setSyntaxColoringMode(const QString& mode)
 	}
 	for (int i = 0; i < actionList.count(); ++i) {
 		if (actionList[i]->isCheckable() && actionList[i]->text().compare(mode, Qt::CaseInsensitive) == 0) {
-			QTimer::singleShot(1, actionList[i], SLOT(trigger()));
+			actionList[i]->trigger();
 			return;
 		}
 	}
