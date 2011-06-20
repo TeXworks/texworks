@@ -77,6 +77,7 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 
 		QSETTINGS_OBJECT(settings);
 		highlightCurrentLine = settings.value("highlightCurrentLine", true).toBool();
+		autocompleteEnabled = settings.value("autocompleteEnabled", true).toBool();
 	}
 		
 	loadIndentModes();
@@ -439,7 +440,7 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 {
 	// Shortcut key for command completion
 	bool isShortcut = (e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab);
-	if (isShortcut) {
+	if (isShortcut && autocompleteEnabled) {
 		handleCompletionShortcut(e);
 		return;
 	}
@@ -1168,10 +1169,18 @@ void CompletingEdit::setHighlightCurrentLine(bool highlight)
 	}
 }
 
+void CompletingEdit::setAutocompleteEnabled(bool autocomplete)
+{
+	if (autocomplete != autocompleteEnabled) {
+    autocompleteEnabled = autocomplete;
+	}
+}
+
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = NULL;
 QTextCharFormat	*CompletingEdit::braceMatchingFormat = NULL;
 QTextCharFormat	*CompletingEdit::currentLineFormat = NULL;
 bool CompletingEdit::highlightCurrentLine = true;
+bool CompletingEdit::autocompleteEnabled = true;
 
 QCompleter	*CompletingEdit::sharedCompleter = NULL;
 
