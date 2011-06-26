@@ -48,7 +48,9 @@ unix:!macx { # on Unix-ish platforms we rely on pkgconfig
 	CONFIG		+= link_pkgconfig
 	PKGCONFIG	+= lua5.1
 
-	target.path	= /usr/local/lib/texworks
+	isEmpty(INSTALL_PREFIX):INSTALL_PREFIX = /usr/local
+	isEmpty(TW_PLUGINPATH):TW_PLUGINPATH = $$INSTALL_PREFIX/lib/texworks
+	target.path	= $$TW_PLUGINPATH
 	INSTALLS	+= target
 }
 
