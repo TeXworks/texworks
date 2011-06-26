@@ -77,6 +77,7 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 
 		QSETTINGS_OBJECT(settings);
 		highlightCurrentLine = settings.value("highlightCurrentLine", true).toBool();
+		autocompleteEnabled = settings.value("autocompleteEnabled", true).toBool();
 	}
 		
 	loadIndentModes();
@@ -439,7 +440,7 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 {
 	// Shortcut key for command completion
 	bool isShortcut = (e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab);
-	if (isShortcut) {
+	if (isShortcut && autocompleteEnabled) {
 		handleCompletionShortcut(e);
 		return;
 	}
@@ -691,8 +692,18 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 			QApplication::beep();
 		return;
 	}
+
+	// if we are at the beginning of the line (i.e., only whitespaces before a
+	// caret cursor), insert a tab (for indentation) instead of doing completion
+	bool atLineStart = false;
+	cmpCursor = textCursor();
+	if (cmpCursor.selectionEnd() == cmpCursor.selectionStart()) {
+		cmpCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
+		if(cmpCursor.selectedText().trimmed().isEmpty())
+			atLineStart = true;
+	}
 	
-	if (c == NULL) {
+	if (c == NULL && !atLineStart) {
 		cmpCursor = textCursor();
 		if (!selectWord(cmpCursor) && textCursor().selectionStart() > 0) {
 			cmpCursor.setPosition(textCursor().selectionStart() - 1);
@@ -723,7 +734,7 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 					cmpCursor.setPosition(start - 1);
 					cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
 				}
-			}			
+			}
 		}
 		
 		while (1) {
@@ -1158,10 +1169,18 @@ void CompletingEdit::setHighlightCurrentLine(bool highlight)
 	}
 }
 
+void CompletingEdit::setAutocompleteEnabled(bool autocomplete)
+{
+	if (autocomplete != autocompleteEnabled) {
+    autocompleteEnabled = autocomplete;
+	}
+}
+
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = NULL;
 QTextCharFormat	*CompletingEdit::braceMatchingFormat = NULL;
 QTextCharFormat	*CompletingEdit::currentLineFormat = NULL;
 bool CompletingEdit::highlightCurrentLine = true;
+bool CompletingEdit::autocompleteEnabled = true;
 
 QCompleter	*CompletingEdit::sharedCompleter = NULL;
 
