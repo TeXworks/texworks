@@ -1999,6 +1999,10 @@ void TeXDocument::setSmartQuotesMode(const QString& mode)
 			return;
 		}
 	}
+	if (mode.isEmpty()) {
+		actionSmartQuotes_None->trigger();
+		return;
+	}
 }
 
 void TeXDocument::setAutoIndentMode(const QString& mode)
@@ -2009,6 +2013,10 @@ void TeXDocument::setAutoIndentMode(const QString& mode)
 			actionList[i]->trigger();
 			return;
 		}
+	}
+	if (mode.isEmpty()) {
+		actionAutoIndent_None->trigger();
+		return;
 	}
 }
 
