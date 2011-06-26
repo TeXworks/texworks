@@ -5,6 +5,7 @@ Release 0.4.2 (TL'11 RC) [June 2011]
 	* Respect per-file setting "None" for syntax highlighting, smart quotes, and
 	  auto indent
 	
+	* Update SyncTeX to version 1.16
 	* Allow to disable autocompletion by editing the configuration file
 	* Fix runtime warning about empty file watchers
 	* Enhance Mac patches for poppler
