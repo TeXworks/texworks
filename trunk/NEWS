@@ -1,3 +1,16 @@
+Release 0.4.2 (TL'11 RC) [June 2011]
+	* Work around layout issues with Qt 4.7.2 that caused TeXworks to crash
+	  sometimes
+	* Fix autocompletion at the beginning of a line
+	* Respect per-file setting "None" for syntax highlighting, smart quotes, and
+	  auto indent
+	
+	* Update SyncTeX to version 1.16
+	* Allow to disable autocompletion by editing the configuration file
+	* Fix runtime warning about empty file watchers
+	* Enhance Mac patches for poppler
+	* Improve installation and packaging routines
+
 Release 0.4.1 (TL'11 RC) [May 2011]
 	* Add option to always close the output panel after sucessful typesetting
 	  (regardless of its previous state)
