@@ -1,0 +1,18 @@
+TeXworks win32/ directory
+=========================
+
+This directory contains files and folders that are useful and/or necessary only
+on Windows.
+
+texworks-setup-script.iss
+   Inno-Setup script to build an installer; run from the TeXworks top directory
+
+extra-setup-languages/
+   Additional, third-party translations needed for building the installer
+
+fonts/
+   Windows by default does not provide (subsitutes for) all base 14 fonts that
+   every PDF viewer must support. The fonts/ directory contains the rest of the
+   type1 fonts. Copy this folder into the installation directory (i.e., the one
+   that contains TeXworks.exe)
+
