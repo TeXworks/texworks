@@ -696,10 +696,10 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 	// if we are at the beginning of the line (i.e., only whitespaces before a
 	// caret cursor), insert a tab (for indentation) instead of doing completion
 	bool atLineStart = false;
-	cmpCursor = textCursor();
-	if (cmpCursor.selectionEnd() == cmpCursor.selectionStart()) {
-		cmpCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
-		if(cmpCursor.selectedText().trimmed().isEmpty())
+	QTextCursor lineStartCursor = textCursor();
+	if (lineStartCursor.selectionEnd() == lineStartCursor.selectionStart()) {
+		lineStartCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
+		if(lineStartCursor.selectedText().trimmed().isEmpty())
 			atLineStart = true;
 	}
 	
