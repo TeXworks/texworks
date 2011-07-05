@@ -1009,6 +1009,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	// - this avoids problems during layouting (which can be broken if the
 	//   geometry, highlighting, ... is changed before the window is shown)
 	show();
+	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
 	deferTagListChanges = true;
 	tagListChanged = false;
