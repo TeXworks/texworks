@@ -226,22 +226,3 @@ Arguments: texexec
 
 [ ] View PDF after running
 }}}
-
-= Other formats and tools =
-== !ConTeXt (MKIV) ==
-!ConTeXt MKIV is a new version of !ConTeXt that is actively developed. Thus, if you want to use !ConTeXt MKIV, you are well advised to constantly update your system - possibly through other channels than your distribution's package manager - to get the latest features and bug fixes.
-
-The preferred way of using !ConTeXt MKIV in !TeXworks is to use the customized configuration distributed with the former. To run it, execute
-{{{
-mtxrun --script texworks --start
-}}}
-on a command line (you will need to make sure mtxrun finds !TeXworks by putting it into the $PATH environment variable).
-
-If you still want to use !ConTeXt MKIV with your normal !TeXworks installation, use the following configuration:
-{{{
-Program:   context
-Arguments: --synctex
-           $fullname
-
-[X] View PDF after running
-}}}
