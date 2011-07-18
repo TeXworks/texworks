@@ -46,7 +46,7 @@ brew install pkg-config
 brew install cmake
 brew install qt
 brew install hunspell
-brew install --with-qt4 poppler
+brew install poppler --with-qt4 --enable-xpdf-headers
 }}}
 _Warning: Some of these will take a long time to finish. Especially Qt is quite large (several 100s of MB), so make sure you have a good internet connection and (up to) a couple of hours. The good thing is that each installation should run without requiring any input from you.
 
