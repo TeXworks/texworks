@@ -11,9 +11,9 @@ SET(GUI_TYPE)
 SET(QTCONF_DIR bin)
 
 IF ( APPLE )
+  # Set GUI type to a .app bundle, gather icon files and add core system
+  # frameworks to the library link list.
   SET(GUI_TYPE MACOSX_BUNDLE)
-  SET(MACOSX_BUNDLE_INFO_PLIST ${TeXworks_SOURCE_DIR}/TeXworks.plist)
-  SET(MACOSX_BUNDLE_ICON_FILE ${TeXworks_SOURCE_DIR}/TeXworks.icns)
 
   SET(TeXworks_LIBS ${TeXworks_LIBS} "-framework CoreServices")
 
@@ -76,6 +76,23 @@ ADD_EXECUTABLE( TeXworks ${GUI_TYPE}
 
 # Specify libraries for linking.
 TARGET_LINK_LIBRARIES( TeXworks ${TeXworks_LIBS} )
+
+IF (APPLE)
+  # Generate Info.plist and set .app bundle properties.
+  SET(VER ${CPACK_PACKAGE_VERSION})
+  SET(REV ${TeXworks_SVN_REV})
+  CONFIGURE_FILE(${TeXworks_SOURCE_DIR}/TeXworks.plist.in
+    ${TeXworks_SOURCE_DIR}/TeXworks.plist
+    @ONLY
+  )
+
+  SET_TARGET_PROPERTIES( TeXworks PROPERTIES
+    MACOSX_BUNDLE_INFO_PLIST
+      ${TeXworks_SOURCE_DIR}/TeXworks.plist
+  )
+
+ENDIF ()
+
 
 INSTALL( TARGETS TeXworks
   RUNTIME DESTINATION bin
