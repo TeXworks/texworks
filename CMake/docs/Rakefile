@@ -18,7 +18,7 @@ CMAKE_FILES = Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
 task :docs do
   system 'rocco',
     '--language=cmake',
-    "--output=#{DOC_DIR + 'html'}",
+    "--output=#{DOC_DIR + 'html' + 'docs'}",
     "--template=#{DOC_DIR + 'layout.mustache'}",
     *CMAKE_FILES
 end
