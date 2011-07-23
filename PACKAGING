@@ -7,9 +7,9 @@ packaging TeXworks.
 When you have read this far, you are probably interested in packaging TeXworks.
 First of all, thank you for your commitment, it is very welcome. Before you
 start, however, you should check that no packages for the system you intend to
-target exist already. Currently, packages for Windows and Ubuntu are provided by
-the project maintainers, and packages for several other Linux distributions have
-been contributed by members of the community.
+target exist already. Currently, packages for Windows, Mac OS X, and Ubuntu are
+provided by the project maintainers, and packages for several other Linux
+distributions have been contributed by members of the community.
 
 If you package TeXworks successfully, please drop by the mailing list and tell
 us about it :).
@@ -19,9 +19,10 @@ General guidelines
 ==================
 
 This section describes how TeXworks should be packaged. It does not deal with
-the building process itself, however (see the README and
-http://code.google.com/p/texworks/w/list for some more information on that).
-Instead, it deals with the principal decisions.
+the building process itself, however. Building in general is documented in the
+README and on http://code.google.com/p/texworks/w/list, while special
+considerations concerning packaging are discussed in the following sections.
+This section deals with the principal decisions.
 
  * TeXworks consists of the core program and plugins. If possibly, the plugins
    should be made available separately (unless noted otherwise). The are to be
@@ -46,6 +47,55 @@ Instead, it deals with the principal decisions.
    library itself as well.
    See below for further information on this issue and how to test proper
    functionality.
+
+
+Building specialties
+====================
+When building TeXworks for packaging, you will probably face special
+requirements, like installing in special locations to suit your packaging
+process. This section discusses where and how such modifications to the default
+behavior can be implemented.
+
+The TeXworks build process supports several variables that can be set when
+invoking qmake. To set a variable VAR1=abc and VAR2=xyz, invoke qmake as
+    qmake-qt4 'VAR1=abc' 'VAR2=xyz' TeXworks.pro
+
+The most important variable you must always set is TW_BUILD_ID. This ID should
+uniquely identify the build process (who built it, for what platform, etc.) so
+that packaging-related problems that are reported to the general mailing list
+can be passed on to you, the packager.
+
+In addition, several directory variables can be set on *nix (on Windows and the
+Mac, packages are self-contained and don't usually install into (separate)
+system directories):
+    INSTALL_PREFIX   base prefix [/usr/local]
+    BIN_DIR          path to install the main program [INSTALL_PREFIX/bin]
+    TW_PLUGINPATH    path to install plugins [INSTALL_PREFIX/lib/texworks]
+    DATA_DIR         base prefix for data files [INSTALL_PREFIX/share]
+    TW_HELPPATH      path to install help files [DATA_DIR/texworks-help]
+    TW_DICPATH       path to look for spell checking files (dictionaries)
+                     [/usr/share/myspell/dicts]
+    DOCS_DIR         path to install general docs (README, NEWS, COPYING)
+                     [DATA_DIR/doc/texworks]
+    ICON_DIR         path to install icons [DATA_DIR/pixmaps]
+    MAN_DIR          path to install man files [DATA_DIR/man/man1]
+    DESKTOP_DIR      path to install .desktop files [DATA_DIR/applications]
+Note that generated Makefiles still honor the INSTALL_ROOT= directive to take
+INSTALL_PREFIX as a relative path under INSTALL_ROOT as opposed to an absolute
+path.
+
+Apart from these variables, qmake is controlled primarily by TeXworks.pro and
+similar .pro files in subdirectories. These contain all definitions and settings
+that you may need to change under special circumstances. E.g., they contain
+directives for finding and linking libraries that may need adjustment to suit
+your needs.
+
+Apart from that, the only line you should need to pay attention to is
+    QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
+which needs to be commented if you don't have the xpdf headers provided by
+poppler. This entails that no custom poppler data will be supported (used on
+Windows and the Mac; requires a customized build of the poppler library - see
+below) and therefore is not recommended.
 
 
 Poppler
