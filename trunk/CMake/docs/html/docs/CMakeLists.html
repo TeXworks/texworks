@@ -12,7 +12,27 @@
   <!-- Navbar -->
   <div id="fadeout"></div>
   <div id="flybar">
-    <a id="title" href="#top">CMakeLists.txt</a>
+    <a id="title" href="#top"><h1>CMakeLists.txt</h1></a>
+
+    <div class="navigation about">
+      <div class="button">
+        About
+      </div>
+      <div class="contents">
+        <p>This documentation was built using Ryan Tomayko's <strong>Rocco</strong> tool:</p>
+        <a href="http://rtomayko.github.com/rocco">rtomayko.github.com/rocco</a>
+
+        <p>Which is based on <strong>Docco</strong> by Jeremy Ashkenas:</p>
+        <a href="http://jashkenas.github.com/docco">jashkenas.github.com/docco</a>
+
+        <p>The code from this navigation bar was borrowed from the <strong>CoffeeScript</strong> project, also by Jeremy:</p>
+        <a href="http://jashkenas.github.com/coffee-script">jashkenas.github.com/coffee-script</a>
+
+        <p>The templates used to create this page may be found on GitHub:</p>
+        <a href="http://github.com/Sharpie/TeXworks/tree/master/CMake/docs">github.com/Sharpie/TeXworks</a>
+
+      </div>
+    </div>
 
     <div class="navigation toc">
       <div class="button">
@@ -41,10 +61,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr id='section-1'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-1">&#182;</a>
+          <span class="bookmark" id="section-1"></span>
         </div>
         <p>Top-level build file for <a href="http://code.google.com/p/texworks">TeXworks</a>, a simple editor for TeX and friends.</p>
 
@@ -88,10 +109,11 @@ future developers and maintainers.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-Setup_and_User_Options'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Setup_and_User_Options">&#182;</a>
+          <span class="bookmark" id="section-Setup_and_User_Options"></span>
         </div>
         <h1>Setup and User Options</h1>
       </td>
@@ -99,10 +121,11 @@ future developers and maintainers.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-3'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
+          <span class="bookmark" id="section-3"></span>
         </div>
         <p>Set project name.</p>
       </td>
@@ -110,10 +133,11 @@ future developers and maintainers.</p>
         <div class='highlight'><pre><span class="nb">PROJECT</span><span class="p">(</span><span class="s">TeXworks</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-4'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-4">&#182;</a>
+          <span class="bookmark" id="section-4"></span>
         </div>
         <p>We require CMake v2.8 or greater because it is the first version that
 provides support for certain parts of Qt, such as the ScriptTools.</p>
@@ -123,38 +147,33 @@ provides support for certain parts of Qt, such as the ScriptTools.</p>
 <span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_COLOR_MAKEFILE</span> <span class="s">ON</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-5'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
+          <span class="bookmark" id="section-5"></span>
         </div>
         <p>Always add the current source and binary directories to the header include
 path when compiling.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_INCLUDE_CURRENT_DIR</span> <span class="s">ON</span><span class="p">)</span></pre></div>
-      </td>
-    </tr>
-    <tr id='section-6'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-6">&#182;</a>
-        </div>
-        <p>This message is probably superfluous.</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">APPLE</span> <span class="p">)</span>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_INCLUDE_CURRENT_DIR</span> <span class="s">ON</span><span class="p">)</span>
+
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">WIN32</span> <span class="p">)</span>
   <span class="nb">MESSAGE</span><span class="p">(</span> <span class="s">WARNING</span>
-    <span class="s2">&quot;This CMake build process has only been tested on Mac OS X.&quot;</span>
-    <span class="s2">&quot;\nIt may not work on other systems, but patches are welcome!&quot;</span>
+    <span class="s2">&quot;The CMake build system has only been tested on Mac OS X and Linux.&quot;</span>
+    <span class="s2">&quot;\nIt probably won&#39;t work on Windows. Patches containing fixes are&quot;</span>
+    <span class="s2">&quot;\nwelcomed at:&quot;</span>
+    <span class="s2">&quot;\n  https://github.com/Sharpie/TeXworks&quot;</span>
   <span class="p">)</span>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Determine_Version_Numbers'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Determine_Version_Numbers">&#182;</a>
+          <span class="bookmark" id="section-Determine_Version_Numbers"></span>
         </div>
         <h2>Determine Version Numbers</h2>
       </td>
@@ -162,10 +181,11 @@ path when compiling.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
+          <a class="pilcrow" href="#section-7">&#182;</a>
+          <span class="bookmark" id="section-7"></span>
         </div>
         <p>The values recovered here are used in the filenames of packaged builds and
 influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
@@ -174,10 +194,11 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
+          <a class="pilcrow" href="#section-8">&#182;</a>
+          <span class="bookmark" id="section-8"></span>
         </div>
         <p>Recover canonical (x.y.z) version number from <code>src/TWVersion.h</code>.</p>
       </td>
@@ -191,10 +212,11 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
 <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_VERSION</span> <span class="o">${</span><span class="nv">TeXworks_VER_MAJOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">TeXworks_VER_MINOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">TeXworks_VER_PATCH</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-10'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-10">&#182;</a>
+          <a class="pilcrow" href="#section-9">&#182;</a>
+          <span class="bookmark" id="section-9"></span>
         </div>
         <p>Recover SVN revision from <code>src/SvnRev.h</code>.</p>
       </td>
@@ -203,10 +225,11 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
 <span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_SVN_REV</span> <span class="o">${</span><span class="nv">TeXworks_SVN_REV</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Declare_Project_Options'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Declare_Project_Options">&#182;</a>
+          <span class="bookmark" id="section-Declare_Project_Options"></span>
         </div>
         <h2>Declare Project Options</h2>
       </td>
@@ -214,10 +237,11 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-12'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-12">&#182;</a>
+          <a class="pilcrow" href="#section-11">&#182;</a>
+          <span class="bookmark" id="section-11"></span>
         </div>
         <p>These are options that users can set at configure-time to determine how the
 application is built and what functionalities it will have. Here we declare
@@ -227,10 +251,11 @@ these options by setting default values.</p>
         <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">TW_BUILD_ID</span> <span class="s2">&quot;personal&quot;</span> <span class="s">CACHE</span> <span class="s">STRING</span> <span class="s2">&quot;A distribution-specific identifier for TeXworks&quot;</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-13'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-13">&#182;</a>
+          <a class="pilcrow" href="#section-12">&#182;</a>
+          <span class="bookmark" id="section-12"></span>
         </div>
         <p>On UNIX, CMake installs to <code>/usr/local</code> by default. However, Mac users
 will probably find <code>/Applications</code> a more convenient default.</p>
@@ -241,10 +266,11 @@ will probably find <code>/Applications</code> a more convenient default.</p>
 <span class="nb">ENDIF</span><span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-14'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-14">&#182;</a>
+          <a class="pilcrow" href="#section-13">&#182;</a>
+          <span class="bookmark" id="section-13"></span>
         </div>
         <p>Do an optimized release build by default</p>
       </td>
@@ -254,10 +280,11 @@ will probably find <code>/Applications</code> a more convenient default.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-15'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-15">&#182;</a>
+          <a class="pilcrow" href="#section-14">&#182;</a>
+          <span class="bookmark" id="section-14"></span>
         </div>
         <p>Options controlling the creation of scripting language plugins.</p>
       </td>
@@ -266,10 +293,11 @@ will probably find <code>/Applications</code> a more convenient default.</p>
 <span class="nb">OPTION</span><span class="p">(</span><span class="s">WITH_PYTHON</span> <span class="s2">&quot;Build TeXworks Python plugin?&quot;</span> <span class="s">ON</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-16'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-16">&#182;</a>
+          <a class="pilcrow" href="#section-15">&#182;</a>
+          <span class="bookmark" id="section-15"></span>
         </div>
         <p>On OS X we default to linking against the Python libraries provided by Apple
 even if other Pythons are available. This helps when building
@@ -282,10 +310,11 @@ link against whatever Python they wish for a personal build.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Dependency_Configuration'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Dependency_Configuration">&#182;</a>
+          <span class="bookmark" id="section-Dependency_Configuration"></span>
         </div>
         <h1>Dependency Configuration</h1>
       </td>
@@ -293,10 +322,11 @@ link against whatever Python they wish for a personal build.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-18'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-18">&#182;</a>
+          <a class="pilcrow" href="#section-17">&#182;</a>
+          <span class="bookmark" id="section-17"></span>
         </div>
         <p>Make the contents of <code>CMake/Modules</code> available. Among other things, this
 directory contains scripts that locate project components such as Poppler.</p>
@@ -305,10 +335,11 @@ directory contains scripts that locate project components such as Poppler.</p>
         <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_MODULE_PATH</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/CMake/Modules</span> <span class="o">${</span><span class="nv">CMAKE_MODULE_PATH</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-19'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-19">&#182;</a>
+          <a class="pilcrow" href="#section-18">&#182;</a>
+          <span class="bookmark" id="section-18"></span>
         </div>
         <p>Declare Qt libraries required by this project.</p>
       </td>
@@ -327,10 +358,11 @@ directory contains scripts that locate project components such as Poppler.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-20'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-20">&#182;</a>
+          <a class="pilcrow" href="#section-19">&#182;</a>
+          <span class="bookmark" id="section-19"></span>
         </div>
         <p>Locate Qt. <code>INCLUDE(UseQt4)</code> brings in a set of macros that helps us deal
 with Qt-specific tasks such as compiling resources or running <code>moc</code>.</p>
@@ -344,10 +376,11 @@ with Qt-specific tasks such as compiling resources or running <code>moc</code>.<
 <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Poppler</span> <span class="s">REQUIRED</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-21'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-21">&#182;</a>
+          <a class="pilcrow" href="#section-20">&#182;</a>
+          <span class="bookmark" id="section-20"></span>
         </div>
         <p>The only thing Poppler should need is the location of the include directories
 in order to access header files. The library loader should be able to find
@@ -359,10 +392,11 @@ libfontconfig on standard search paths.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-22'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-22">&#182;</a>
+          <a class="pilcrow" href="#section-21">&#182;</a>
+          <span class="bookmark" id="section-21"></span>
         </div>
         <p>Aggregate library names and include directories into variables for easy
 access.</p>
@@ -388,10 +422,11 @@ access.</p>
 <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Configure_Optional_Dependencies'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Configure_Optional_Dependencies">&#182;</a>
+          <span class="bookmark" id="section-Configure_Optional_Dependencies"></span>
         </div>
         <h2>Configure Optional Dependencies</h2>
       </td>
@@ -399,10 +434,11 @@ access.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-24'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-24">&#182;</a>
+          <a class="pilcrow" href="#section-23">&#182;</a>
+          <span class="bookmark" id="section-23"></span>
         </div>
         <p>CMake 2.8 has separate find scripts for Lua 5.1 and Lua 5.0. We assume that
 the most recent Lua version is installed.</p>
@@ -422,10 +458,11 @@ the most recent Lua version is installed.</p>
   <span class="nb">ELSE</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-25'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-25">&#182;</a>
+          <a class="pilcrow" href="#section-24">&#182;</a>
+          <span class="bookmark" id="section-24"></span>
         </div>
         <p><strong>NOTE</strong> For some reason, FindPythonLibs.cmake always seems to default to
 <code>/System/Library/Frameworks/Python.framework/Headers</code> as the include path
@@ -437,10 +474,11 @@ on OS X.</p>
 <span class="nb">ENDIF</span><span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Update_Header_Templates'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Update_Header_Templates">&#182;</a>
+          <span class="bookmark" id="section-Update_Header_Templates"></span>
         </div>
         <h2>Update Header Templates</h2>
       </td>
@@ -448,10 +486,11 @@ on OS X.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-27'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-27">&#182;</a>
+          <a class="pilcrow" href="#section-26">&#182;</a>
+          <span class="bookmark" id="section-26"></span>
         </div>
         <p>Some header files contain components that must be dynamically generated. For
 example, <code>getDefaultBinPaths.sh</code> is a script that tries to figure out the
@@ -470,10 +509,11 @@ appropriate path to TeX binaries on UNIX-like systems.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Building'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Building">&#182;</a>
+          <span class="bookmark" id="section-Building"></span>
         </div>
         <h1>Building</h1>
       </td>
@@ -481,10 +521,11 @@ appropriate path to TeX binaries on UNIX-like systems.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-Build_main_TeXworks_application'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Build_main_TeXworks_application">&#182;</a>
+          <span class="bookmark" id="section-Build_main_TeXworks_application"></span>
         </div>
         <h2>Build main TeXworks application</h2>
       </td>
@@ -492,10 +533,11 @@ appropriate path to TeX binaries on UNIX-like systems.</p>
         <div class='highlight'><pre><span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="s">src</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Build_Plugins'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Build_Plugins">&#182;</a>
+          <span class="bookmark" id="section-Build_Plugins"></span>
         </div>
         <h2>Build Plugins</h2>
       </td>
@@ -503,10 +545,11 @@ appropriate path to TeX binaries on UNIX-like systems.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-31'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-31">&#182;</a>
+          <a class="pilcrow" href="#section-30">&#182;</a>
+          <span class="bookmark" id="section-30"></span>
         </div>
         <p>Set the plugin installation path. This is a good default for UNIX-like
 systems, but is not appropriate for Windows.</p>
@@ -515,10 +558,11 @@ systems, but is not appropriate for Windows.</p>
         <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_PLUGIN_DIR</span> <span class="s">lib</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-32'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-32">&#182;</a>
+          <a class="pilcrow" href="#section-31">&#182;</a>
+          <span class="bookmark" id="section-31"></span>
         </div>
         <p>On OS X, the plugins should live inside the application bundle.</p>
       </td>
@@ -528,10 +572,11 @@ systems, but is not appropriate for Windows.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-33'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-33">&#182;</a>
+          <a class="pilcrow" href="#section-32">&#182;</a>
+          <span class="bookmark" id="section-32"></span>
         </div>
         <p>Build scripting language plugins if the required libraries are available.</p>
       </td>
@@ -545,10 +590,11 @@ systems, but is not appropriate for Windows.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Packaging'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Packaging">&#182;</a>
+          <span class="bookmark" id="section-Packaging"></span>
         </div>
         <h1>Packaging</h1>
       </td>
@@ -556,10 +602,11 @@ systems, but is not appropriate for Windows.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-35'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-35">&#182;</a>
+          <a class="pilcrow" href="#section-34">&#182;</a>
+          <span class="bookmark" id="section-34"></span>
         </div>
         <p>This section is responsible for executing all tasks that run when a user
 invokes <code>cpack</code> or <code>make package</code> after executing their platform&rsquo;s equivalent
@@ -577,10 +624,11 @@ file.</p></li>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-36'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-36">&#182;</a>
+          <a class="pilcrow" href="#section-35">&#182;</a>
+          <span class="bookmark" id="section-35"></span>
         </div>
         <p>Gather all libraries related to Qt plugins used by TeXworks so that they can
 be bundled into packages.</p>
@@ -598,10 +646,11 @@ be bundled into packages.</p>
 <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-37'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-37">&#182;</a>
+          <a class="pilcrow" href="#section-36">&#182;</a>
+          <span class="bookmark" id="section-36"></span>
         </div>
         <p>The file <code>cmake/packaging/CMakeLists.txt</code> controls the execution of tasks
 specific to preparing binaries for packaging on a given platform. This script
@@ -613,10 +662,11 @@ before it has been created&hellip;</p>
         <div class='highlight'><pre><span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmake/packaging</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-38'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-38">&#182;</a>
+          <a class="pilcrow" href="#section-37">&#182;</a>
+          <span class="bookmark" id="section-37"></span>
         </div>
         <p>Set CPack variables.</p>
       </td>
@@ -630,10 +680,11 @@ before it has been created&hellip;</p>
 <span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_FILE_NAME</span> <span class="s2">&quot;${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}&quot;</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-39'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-39">&#182;</a>
+          <a class="pilcrow" href="#section-38">&#182;</a>
+          <span class="bookmark" id="section-38"></span>
         </div>
         <p>Configure Drag N' Drop installer.</p>
       </td>
@@ -644,10 +695,11 @@ before it has been created&hellip;</p>
   <span class="nb">SET</span><span class="p">(</span> <span class="s">CPACK_DMG_BACKGROUND_IMAGE</span> <span class="s2">&quot;${MAC_PACK_BITS}/texworks_dmg_background.png&quot;</span> <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-40'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-40">&#182;</a>
+          <a class="pilcrow" href="#section-39">&#182;</a>
+          <span class="bookmark" id="section-39"></span>
         </div>
         <p>Configure an AppleScript for applying a nice window layout to Drag N' Drop disk
 image.</p>
@@ -662,10 +714,11 @@ image.</p>
 <span class="nb">INCLUDE</span><span class="p">(</span><span class="s">CPack</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Summary'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Summary">&#182;</a>
+          <span class="bookmark" id="section-Summary"></span>
         </div>
         <h1>Summary</h1>
       </td>
@@ -673,10 +726,11 @@ image.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-42'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-42">&#182;</a>
+          <a class="pilcrow" href="#section-41">&#182;</a>
+          <span class="bookmark" id="section-41"></span>
         </div>
         <p>This section displays a nice configuration summary for the user.</p>
       </td>
@@ -684,10 +738,11 @@ image.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-43'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-43">&#182;</a>
+          <a class="pilcrow" href="#section-42">&#182;</a>
+          <span class="bookmark" id="section-42"></span>
         </div>
         <p>These macros borrowed from the Poppler CMake scripts. They add some nice
 formatting to configuration info.</p>
@@ -715,10 +770,11 @@ formatting to configuration info.</p>
 <span class="nb">ENDMACRO</span><span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-44'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-44">&#182;</a>
+          <a class="pilcrow" href="#section-43">&#182;</a>
+          <span class="bookmark" id="section-43"></span>
         </div>
         <p>Print out configuration summary.</p>
 

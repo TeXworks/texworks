@@ -12,7 +12,27 @@
   <!-- Navbar -->
   <div id="fadeout"></div>
   <div id="flybar">
-    <a id="title" href="#top">src/CMakeLists.txt</a>
+    <a id="title" href="#top"><h1>src/CMakeLists.txt</h1></a>
+
+    <div class="navigation about">
+      <div class="button">
+        About
+      </div>
+      <div class="contents">
+        <p>This documentation was built using Ryan Tomayko's <strong>Rocco</strong> tool:</p>
+        <a href="http://rtomayko.github.com/rocco">rtomayko.github.com/rocco</a>
+
+        <p>Which is based on <strong>Docco</strong> by Jeremy Ashkenas:</p>
+        <a href="http://jashkenas.github.com/docco">jashkenas.github.com/docco</a>
+
+        <p>The code from this navigation bar was borrowed from the <strong>CoffeeScript</strong> project, also by Jeremy:</p>
+        <a href="http://jashkenas.github.com/coffee-script">jashkenas.github.com/coffee-script</a>
+
+        <p>The templates used to create this page may be found on GitHub:</p>
+        <a href="http://github.com/Sharpie/TeXworks/tree/master/CMake/docs">github.com/Sharpie/TeXworks</a>
+
+      </div>
+    </div>
 
     <div class="navigation toc">
       <div class="button">
@@ -41,10 +61,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr id='section-Build_TeXworks'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Build_TeXworks">&#182;</a>
+          <span class="bookmark" id="section-Build_TeXworks"></span>
         </div>
         <h1>Build TeXworks</h1>
       </td>
@@ -52,10 +73,11 @@
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-Collect_Source_Files'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Collect_Source_Files">&#182;</a>
+          <span class="bookmark" id="section-Collect_Source_Files"></span>
         </div>
         <h2>Collect Source Files</h2>
       </td>
@@ -63,10 +85,11 @@
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-3'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
+          <span class="bookmark" id="section-3"></span>
         </div>
         <p><strong>NOTE:</strong> <em>A <code>GLOB</code> operation is quick, but may not be appropriate. It may be
 better to maintain an explicit list of source files. Particularly, adding a
@@ -82,10 +105,11 @@ to remember to re-run <code>cmake</code> if a source file is added.</em></p>
 <span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_TRANS</span>      <span class="s2">&quot;${TeXworks_SOURCE_DIR}/trans/*.ts&quot;</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-4'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-4">&#182;</a>
+          <span class="bookmark" id="section-4"></span>
         </div>
         <p>These source files along with the <code>.moc</code> files generated from some headers
 form the TeXworks scripting API. We export them to variables in the
@@ -108,10 +132,11 @@ build processes of the scripting language plugins.</p>
 <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-App_Setup'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-App_Setup">&#182;</a>
+          <span class="bookmark" id="section-App_Setup"></span>
         </div>
         <h2>App Setup</h2>
       </td>
@@ -119,10 +144,11 @@ build processes of the scripting language plugins.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-6'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-6">&#182;</a>
+          <span class="bookmark" id="section-6"></span>
         </div>
         <p>On OS X, set GUI type to an <code>.app</code> bundle, gather icon files and add core system
 frameworks to the library link list.</p>
@@ -141,10 +167,11 @@ frameworks to the library link list.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-7'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
+          <span class="bookmark" id="section-7"></span>
         </div>
         <p><strong>WARNING:</strong> <em>Windows is untested</em></p>
       </td>
@@ -154,10 +181,11 @@ frameworks to the library link list.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-8">&#182;</a>
+          <span class="bookmark" id="section-8"></span>
         </div>
         <p>Make sure the compiler can find include files.</p>
       </td>
@@ -165,10 +193,11 @@ frameworks to the library link list.</p>
         <div class='highlight'><pre><span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">TeXworks_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-9">&#182;</a>
+          <span class="bookmark" id="section-9"></span>
         </div>
         <p>Make sure the compiler can find library files.</p>
       </td>
@@ -178,10 +207,11 @@ frameworks to the library link list.</p>
 <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DTW_BUILD_ID=</span><span class="o">${</span><span class="nv">TW_BUILD_ID</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-10'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-10">&#182;</a>
+          <span class="bookmark" id="section-10"></span>
         </div>
         <p>Poppler supports XPDF API calls?</p>
       </td>
@@ -192,10 +222,11 @@ frameworks to the library link list.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Qt-Specific_Source_Code_Processing'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Qt-Specific_Source_Code_Processing">&#182;</a>
+          <span class="bookmark" id="section-Qt-Specific_Source_Code_Processing"></span>
         </div>
         <h2>Qt-Specific Source Code Processing</h2>
       </td>
@@ -203,10 +234,11 @@ frameworks to the library link list.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-12'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-12">&#182;</a>
+          <span class="bookmark" id="section-12"></span>
         </div>
         <p>Run moc on header files.</p>
       </td>
@@ -214,10 +246,11 @@ frameworks to the library link list.</p>
         <div class='highlight'><pre><span class="err">QT4_WRAP_CPP(TEXWORKS_GEN_MOC</span> <span class="err">${TEXWORKS_MOC_HDRS})</span></pre></div>
       </td>
     </tr>
-    <tr id='section-13'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-13">&#182;</a>
+          <span class="bookmark" id="section-13"></span>
         </div>
         <p>Run uic on user interface files.</p>
       </td>
@@ -225,10 +258,11 @@ frameworks to the library link list.</p>
         <div class='highlight'><pre><span class="err">QT4_WRAP_UI(TEXWORKS_GEN_UI</span> <span class="err">${TEXWORKS_UIS})</span></pre></div>
       </td>
     </tr>
-    <tr id='section-14'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-14">&#182;</a>
+          <span class="bookmark" id="section-14"></span>
         </div>
         <p>Run rcc on reasource files.</p>
       </td>
@@ -236,10 +270,11 @@ frameworks to the library link list.</p>
         <div class='highlight'><pre><span class="err">QT4_ADD_RESOURCES(TEXWORKS_GEN_RCS</span> <span class="err">${TEXWORKS_RCS})</span></pre></div>
       </td>
     </tr>
-    <tr id='section-15'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-15">&#182;</a>
+          <span class="bookmark" id="section-15"></span>
         </div>
         <p>Prep language translations.</p>
       </td>
@@ -253,10 +288,11 @@ frameworks to the library link list.</p>
 <span class="nb">ENDIF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="s">OR</span> <span class="s">NOT</span> <span class="s">UNIX</span> <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Compilation'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Compilation">&#182;</a>
+          <span class="bookmark" id="section-Compilation"></span>
         </div>
         <h2>Compilation</h2>
       </td>
@@ -264,10 +300,11 @@ frameworks to the library link list.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-17'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-17">&#182;</a>
+          <span class="bookmark" id="section-17"></span>
         </div>
         <p>Build the executible.</p>
       </td>
@@ -279,10 +316,11 @@ frameworks to the library link list.</p>
 <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-18'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-18">&#182;</a>
+          <span class="bookmark" id="section-18"></span>
         </div>
         <p>Specify libraries to be linked to TeXworks.</p>
       </td>
@@ -290,10 +328,11 @@ frameworks to the library link list.</p>
         <div class='highlight'><pre><span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span> <span class="o">${</span><span class="nv">EXE_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">TeXworks_LIBS</span><span class="o">}</span> <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-19'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-19">&#182;</a>
+          <span class="bookmark" id="section-19"></span>
         </div>
         <p>For OS X, generate <code>Info.plist</code> and add it to the <code>.app</code> bundle.</p>
       </td>
@@ -313,10 +352,11 @@ frameworks to the library link list.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Installation'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Installation">&#182;</a>
+          <span class="bookmark" id="section-Installation"></span>
         </div>
         <h2>Installation</h2>
       </td>
@@ -327,10 +367,11 @@ frameworks to the library link list.</p>
 <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-21'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-21">&#182;</a>
+          <span class="bookmark" id="section-21"></span>
         </div>
         <p>On OS X, ensure there is always a <code>qt.conf</code> file as all hell will break loose
 if one isn&rsquo;t there.  This may need to be customized for use on non-Apple
