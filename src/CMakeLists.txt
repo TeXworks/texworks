@@ -63,11 +63,9 @@ IF (POPPLER_HAS_XPDF)
   ADD_DEFINITIONS( -DHAVE_POPPLER_XPDF_HEADERS )
 ENDIF ()
 
-IF ( APPLE )
-  # For some reason, QT4_WRAP_CPP may neglect to define Q_WS_MAC when running
-  # Qt tools such as `moc`. This causes unwanted D-Bus dependencies to slip in.
-  ADD_DEFINITIONS( -DQ_WS_MAC )
-ENDIF ()
+
+# Qt-Specific source code processing
+# ----------------------------------
 
 # Run moc on header files.
 QT4_WRAP_CPP(TEXWORKS_GEN_MOC ${TEXWORKS_MOC_HDRS})
@@ -78,9 +76,6 @@ QT4_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
 # Prep language translations.
 QT4_ADD_TRANSLATION(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS})
 
-IF (APPLE)
-  REMOVE_DEFINITIONS( -DQ_WS_MAC )
-ENDIF ()
 
 IF ( APPLE OR NOT UNIX )
   SET(EXE_NAME TeXworks)
