@@ -3,23 +3,35 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
   <title>{{ url }}</title>
-  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+  <link rel="stylesheet" href="http://sharpie.github.com/TeXworks/resources/docs.css">
 </head>
 <body>
 <div id='container'>
   <div id="background"></div>
-  {{#sources?}}
-  <div id="jump_to">
-    Jump To &hellip;
-    <div id="jump_wrapper">
-      <div id="jump_page">
+
+  <!-- Navbar -->
+  <div id="fadeout"></div>
+  <div id="flybar">
+    <a id="title" href="#top">{{ file }}</a>
+
+    {{#sources?}}
+    <div class="navigation toc">
+      <div class="button">
+        Browse Source
+      </div>
+      <div class="contents menu">
         {{#sources}}
           <a class="source" href="{{ url }}">{{ path }}</a>
         {{/sources}}
       </div>
     </div>
+    {{/sources?}}
+    <div id="error" style="display:none;"></div>
   </div>
-  {{/sources?}}
+
+  <!-- Content -->
+  <span class="bookmark" id="top"></span>
+
   <table cellspacing=0 cellpadding=0>
   <thead>
     <tr>
@@ -43,4 +55,30 @@
     {{/sections}}
   </table>
 </div>
+
+  <!-- Navbar Scripting -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    var closeMenus;
+    closeMenus = function() {
+      return $('.navigation.active').removeClass('active');
+    };
+    $('.navigation').click(function(e) {
+      if (e.target.tagName.toLowerCase() === 'a') {
+        return;
+      }
+      if ($(e.target).closest('.repl_wrapper').length) {
+        return false;
+      }
+      if ($(this).hasClass('active')) {
+        closeMenus();
+      } else {
+        closeMenus();
+        $(this).addClass('active');
+      }
+      return false;
+    });
+  </script>
+
 </body>
+</html>

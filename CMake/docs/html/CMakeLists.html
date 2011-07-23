@@ -3,23 +3,36 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
   <title></title>
-  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+  <link rel="stylesheet" href="http://sharpie.github.com/TeXworks/resources/docs.css">
 </head>
 <body>
 <div id='container'>
   <div id="background"></div>
-  <div id="jump_to">
-    Jump To &hellip;
-    <div id="jump_wrapper">
-      <div id="jump_page">
+
+  <!-- Navbar -->
+  <div id="fadeout"></div>
+  <div id="flybar">
+    <a id="title" href="#top">CMakeLists.txt</a>
+
+    <div class="navigation toc">
+      <div class="button">
+        Browse Source
+      </div>
+      <div class="contents menu">
           <a class="source" href="CMake/packaging/CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
+          <a class="source" href="CMake/packaging/mac/MacPackagingTasks.cmake.html">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
           <a class="source" href="CMakeLists.html">CMakeLists.txt</a>
           <a class="source" href="plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
           <a class="source" href="plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
           <a class="source" href="src/CMakeLists.html">src/CMakeLists.txt</a>
       </div>
     </div>
+    <div id="error" style="display:none;"></div>
   </div>
+
+  <!-- Content -->
+  <span class="bookmark" id="top"></span>
+
   <table cellspacing=0 cellpadding=0>
   <thead>
     <tr>
@@ -37,19 +50,22 @@
 
 <p>This buildsystem uses <a href="http://www.cmake.org">CMake</a> and consists of the following files:</p>
 
-<pre><code>TeXworks
-├── CMakeLists.txt
-├── src
-│   └── CMakeLists.txt
-├── plugins-src
-│   ├── TWLuaPlugin
-│   │   └── CMakeLists.txt
-│   └── TWPythonPlugin
-│       └── CMakeLists.txt
-└── CMake
-    └── packaging
-        └── CMakeListst.txt
-</code></pre>
+<pre>
+  TeXworks
+  ├── <a href="CMakeLists.html">CMakeLists.txt</a>
+  ├── src
+  │   └── <a href="src/CMakeLists.html">CMakeLists.txt</a>
+  ├── plugins-src
+  │   ├── TWLuaPlugin
+  │   │   └── <a href="plugins-src/TWLuaPlugin/CMakeLists.html">CMakeLists.txt</a>
+  │   └── TWPythonPlugin
+  │       └── <a href="plugins-src/TWPythonPlugin/CMakeLists.html">CMakeLists.txt</a>
+  └── CMake
+      └── packaging
+          ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.html</a>
+          └── mac
+              └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.cmake.in</a>
+</pre>
 
 <p>Using CMake as a buildsystem offers some nice advantages:</p>
 
@@ -62,7 +78,6 @@ TeXworks app for release after it has been built. CPack can generate
 Drag N' Drop installers for the Mac, Nullsoft installers for Windows and
 <code>.deb</code> or <code>.rpm</code> packages for Linux.</p></li>
 </ul>
-
 
 <p>Comments in the CMake files follow <a href="http://daringfireball.net/projects/markdown/">Markdown</a> formatting conventions.
 This convention allows the <code>CMakeLists.txt</code> files to be passed through a tool
@@ -113,6 +128,18 @@ provides support for certain parts of Qt, such as the ScriptTools.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
+        <p>Always add the current source and binary directories to the header include
+path when compiling.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_INCLUDE_CURRENT_DIR</span> <span class="s">ON</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
         <p>This message is probably superfluous.</p>
       </td>
       <td class=code>
@@ -135,10 +162,10 @@ provides support for certain parts of Qt, such as the ScriptTools.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-7'>
+    <tr id='section-8'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-7">&#182;</a>
+          <a class="pilcrow" href="#section-8">&#182;</a>
         </div>
         <p>The values recovered here are used in the filenames of packaged builds and
 influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
@@ -147,10 +174,10 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr id='section-9'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
+          <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
         <p>Recover canonical (x.y.z) version number from <code>src/TWVersion.h</code>.</p>
       </td>
@@ -161,21 +188,7 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
 <span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_VER_MINOR</span> <span class="o">${</span><span class="nv">TeXworks_VER_MINOR</span><span class="o">}</span><span class="p">)</span>
 <span class="nb">FILE</span><span class="p">(</span><span class="s">STRINGS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/TWVersion.h</span> <span class="s">TeXworks_VER_PATCH</span> <span class="s">REGEX</span> <span class="s2">&quot;VER_BUGFIX&quot;</span><span class="p">)</span>
 <span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_VER_PATCH</span> <span class="o">${</span><span class="nv">TeXworks_VER_PATCH</span><span class="o">}</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_VERSION</span> <span class="o">${</span><span class="nv">TeXworks_VER_MAJOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">TeXworks_VER_MINOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">TeXworks_VER_PATCH</span><span class="o">}</span><span class="p">)</span>
-<span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;TeXworks Version: ${TeXworks_VERSION}&quot;</span><span class="p">)</span></pre></div>
-      </td>
-    </tr>
-    <tr id='section-9'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
-        </div>
-        <p>Recover SVN revision from <code>src/SvnRev.h</code>.</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre><span class="nb">FILE</span><span class="p">(</span><span class="s">STRINGS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/SvnRev.h</span> <span class="s">TeXworks_SVN_REV</span> <span class="s">LIMIT_COUNT</span> <span class="s">1</span><span class="p">)</span>
-<span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_SVN_REV</span> <span class="o">${</span><span class="nv">TeXworks_SVN_REV</span><span class="o">}</span><span class="p">)</span>
-<span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;TeXworks SVN Revision: ${TeXworks_SVN_REV}&quot;</span><span class="p">)</span></pre></div>
+<span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_VERSION</span> <span class="o">${</span><span class="nv">TeXworks_VER_MAJOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">TeXworks_VER_MINOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">TeXworks_VER_PATCH</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr id='section-10'>
@@ -183,13 +196,11 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-10">&#182;</a>
         </div>
-        <p>Recover GIT revision: first 7 digets of the current Git SHA. Currently, this
-is only used in the filenames of packaged releases. If this CMake buildsystem
-ever gets merged back into the main SVN repository, this code can be removed.</p>
+        <p>Recover SVN revision from <code>src/SvnRev.h</code>.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="s">git</span> <span class="s">log</span> <span class="s">HEAD</span> <span class="s">-1</span> <span class="s">--pretty=%h</span> <span class="s">OUTPUT_VARIABLE</span> <span class="s">TeXworks_GIT_REV</span> <span class="s">OUTPUT_STRIP_TRAILING_WHITESPACE</span><span class="p">)</span>
-<span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;TeXworks Git Revision: ${TeXworks_GIT_REV}&quot;</span><span class="p">)</span></pre></div>
+        <div class='highlight'><pre><span class="nb">FILE</span><span class="p">(</span><span class="s">STRINGS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/SvnRev.h</span> <span class="s">TeXworks_SVN_REV</span> <span class="s">LIMIT_COUNT</span> <span class="s">1</span><span class="p">)</span>
+<span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_SVN_REV</span> <span class="o">${</span><span class="nv">TeXworks_SVN_REV</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr id='section-Declare_Project_Options'>
@@ -251,8 +262,8 @@ will probably find <code>/Applications</code> a more convenient default.</p>
         <p>Options controlling the creation of scripting language plugins.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">WITH_LUA</span> <span class="s">TRUE</span> <span class="s">CACHE</span> <span class="s">BOOL</span> <span class="s2">&quot;Build TeXworks Lua plugin?&quot;</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">WITH_PYTHON</span> <span class="s">TRUE</span> <span class="s">CACHE</span> <span class="s">BOOL</span> <span class="s2">&quot;Build TeXworks Python plugin?&quot;</span><span class="p">)</span></pre></div>
+        <div class='highlight'><pre><span class="nb">OPTION</span><span class="p">(</span><span class="s">WITH_LUA</span> <span class="s2">&quot;Build TeXworks Lua plugin?&quot;</span> <span class="s">ON</span><span class="p">)</span>
+<span class="nb">OPTION</span><span class="p">(</span><span class="s">WITH_PYTHON</span> <span class="s2">&quot;Build TeXworks Python plugin?&quot;</span> <span class="s">ON</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr id='section-16'>
@@ -267,7 +278,7 @@ link against whatever Python they wish for a personal build.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
-  <span class="nb">SET</span><span class="p">(</span><span class="s">USE_SYSTEM_PYTHON</span> <span class="s">TRUE</span> <span class="s">CACHE</span> <span class="s">BOOL</span> <span class="s2">&quot;Link against Python Framework distributed with OS X&quot;</span><span class="p">)</span>
+  <span class="nb">OPTION</span><span class="p">(</span><span class="s">USE_SYSTEM_PYTHON</span> <span class="s2">&quot;Link against Python Framework distributed with OS X?&quot;</span> <span class="s">ON</span><span class="p">)</span>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
@@ -616,7 +627,7 @@ before it has been created&hellip;</p>
 <span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_VERSION</span> <span class="o">${</span><span class="nv">TeXworks_VERSION</span><span class="o">}</span><span class="p">)</span>
 
 <span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_NAME</span> <span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_FILE_NAME</span> <span class="s2">&quot;${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}-${TeXworks_GIT_REV}&quot;</span><span class="p">)</span></pre></div>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_FILE_NAME</span> <span class="s2">&quot;${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}&quot;</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr id='section-39'>
@@ -640,7 +651,6 @@ before it has been created&hellip;</p>
         </div>
         <p>Configure an AppleScript for applying a nice window layout to Drag N' Drop disk
 image.</p>
-
       </td>
       <td class=code>
         <div class='highlight'><pre>  <span class="nb">CONFIGURE_FILE</span><span class="p">(</span> <span class="o">${</span><span class="nv">MAC_PACK_BITS</span><span class="o">}</span><span class="s">/set_dmg_layout.scpt.in</span>
@@ -652,6 +662,114 @@ image.</p>
 <span class="nb">INCLUDE</span><span class="p">(</span><span class="s">CPack</span><span class="p">)</span></pre></div>
       </td>
     </tr>
+    <tr id='section-Summary'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Summary">&#182;</a>
+        </div>
+        <h1>Summary</h1>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-42'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-42">&#182;</a>
+        </div>
+        <p>This section displays a nice configuration summary for the user.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-43'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-43">&#182;</a>
+        </div>
+        <p>These macros borrowed from the Poppler CMake scripts. They add some nice
+formatting to configuration info.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">MACRO</span><span class="p">(</span><span class="s">CONFIG_INFO</span> <span class="s">what</span> <span class="s">value</span><span class="p">)</span>
+  <span class="nb">STRING</span><span class="p">(</span><span class="s">LENGTH</span> <span class="o">${</span><span class="nv">what</span><span class="o">}</span> <span class="s">length_what</span><span class="p">)</span>
+  <span class="nb">MATH</span><span class="p">(</span><span class="s">EXPR</span> <span class="s">left_char</span> <span class="s2">&quot;35 - ${length_what}&quot;</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">blanks</span><span class="p">)</span>
+  <span class="nb">FOREACH</span><span class="p">(</span><span class="s">_i</span> <span class="s">RANGE</span> <span class="s">1</span> <span class="o">${</span><span class="nv">left_char</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">blanks</span> <span class="s2">&quot;${blanks} &quot;</span><span class="p">)</span>
+  <span class="nb">ENDFOREACH</span><span class="p">()</span>
+
+  <span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;  ${what}:${blanks} ${value}&quot;</span><span class="p">)</span>
+<span class="nb">ENDMACRO</span><span class="p">()</span>
+
+<span class="nb">MACRO</span><span class="p">(</span><span class="s">CONFIG_YESNO</span> <span class="s">what</span> <span class="s">enabled</span><span class="p">)</span>
+  <span class="nb">IF</span><span class="p">(</span><span class="o">${</span><span class="nv">enabled</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">enabled_string</span> <span class="s2">&quot;yes&quot;</span><span class="p">)</span>
+  <span class="nb">ELSE</span><span class="p">(</span><span class="o">${</span><span class="nv">enabled</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">enabled_string</span> <span class="s2">&quot;no&quot;</span><span class="p">)</span>
+  <span class="nb">ENDIF</span><span class="p">()</span>
+
+  <span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;${what}&quot;</span> <span class="s2">&quot;${enabled_string}&quot;</span><span class="p">)</span>
+<span class="nb">ENDMACRO</span><span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-44'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-44">&#182;</a>
+        </div>
+        <p>Print out configuration summary.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;TeXworks has been configured:\n&quot;</span><span class="p">)</span>
+
+<span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;Version&quot;</span> <span class="o">${</span><span class="nv">TeXworks_VERSION</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;SVN Revision&quot;</span> <span class="o">${</span><span class="nv">TeXworks_SVN_REV</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;Build ID&quot;</span> <span class="o">${</span><span class="nv">TW_BUILD_ID</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;Compiler optimization&quot;</span> <span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="nb">CONFIG_YESNO</span><span class="p">(</span><span class="s2">&quot;Lua scripting plugin&quot;</span> <span class="s">LUA51_FOUND</span><span class="p">)</span>
+<span class="nb">CONFIG_YESNO</span><span class="p">(</span><span class="s2">&quot;Python scripting plugin&quot;</span> <span class="s">PYTHONLIBS_FOUND</span><span class="p">)</span>
+<span class="nb">IF</span><span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">CONFIG_YESNO</span><span class="p">(</span><span class="s2">&quot;  OS X system python&quot;</span> <span class="s">USE_SYSTEM_PYTHON</span><span class="p">)</span>
+<span class="nb">ENDIF</span><span class="p">()</span>
+<span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;  TeXworks will be installed to:&quot;</span><span class="p">)</span>
+<span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;      ${CMAKE_INSTALL_PREFIX}&quot;</span><span class="p">)</span>
+<span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
   </table>
 </div>
+
+  <!-- Navbar Scripting -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    var closeMenus;
+    closeMenus = function() {
+      return $('.navigation.active').removeClass('active');
+    };
+    $('.navigation').click(function(e) {
+      if (e.target.tagName.toLowerCase() === 'a') {
+        return;
+      }
+      if ($(e.target).closest('.repl_wrapper').length) {
+        return false;
+      }
+      if ($(this).hasClass('active')) {
+        closeMenus();
+      } else {
+        closeMenus();
+        $(this).addClass('active');
+      }
+      return false;
+    });
+  </script>
+
 </body>
+</html>

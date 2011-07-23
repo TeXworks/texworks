@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title></title>
+  <link rel="stylesheet" href="http://sharpie.github.com/TeXworks/resources/docs.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+
+  <!-- Navbar -->
+  <div id="fadeout"></div>
+  <div id="flybar">
+    <a id="title" href="#top">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
+
+    <div class="navigation toc">
+      <div class="button">
+        Browse Source
+      </div>
+      <div class="contents menu">
+          <a class="source" href="../CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
+          <a class="source" href="MacPackagingTasks.cmake.html">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
+          <a class="source" href="../../../CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="../../../plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
+          <a class="source" href="../../../plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
+          <a class="source" href="../../../src/CMakeLists.html">src/CMakeLists.txt</a>
+      </div>
+    </div>
+    <div id="error" style="display:none;"></div>
+  </div>
+
+  <!-- Content -->
+  <span class="bookmark" id="top"></span>
+
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>CMake/packaging/mac/MacPackagingTasks.cmake.in</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>OS X packaging tasks</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>This file is processed by <code>CONFIGURE_FILE</code> in <code>../CMakeLists.txt</code> which inserts
+values for <code>@VARIABLE@</code> declarations. This is done to import values for some
+variables that would otherwise be undefined when CPack is running.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">PROJECT_NAME</span> <span class="s">@PROJECT_NAME@</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">PROJECT_SOURCE_DIR</span> <span class="s">@PROJECT_SOURCE_DIR@</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">PROJECT_BINARY_DIR</span> <span class="s">@PROJECT_BINARY_DIR@</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_LIB_DIRS</span> <span class="s">@TeXworks_LIB_DIRS@</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_SHARED_LIBRARY_SUFFIX</span> <span class="s">@CMAKE_SHARED_LIBRARY_SUFFIX@</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">QT_PLUGINS</span> <span class="s">@QT_PLUGINS@</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>This <code>IF</code> statement ensures that the following commands are executed only when
+CPack is running&mdash;-i.e. when a user executes <code>make package</code> but not <code>make install</code></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span> <span class="s">MATCHES</span> <span class="s">.*/_CPack_Packages/.*</span> <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Download_and_install_Poppler_data'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Download_and_install_Poppler_data">&#182;</a>
+        </div>
+        <h2>Download and install Poppler data</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4.tar.gz</span> <span class="p">)</span>
+    <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Downloading Poppler data files&quot;</span><span class="p">)</span>
+    <span class="nb">FILE</span><span class="p">(</span><span class="s">DOWNLOAD</span> <span class="s2">&quot;http://poppler.freedesktop.org/poppler-data-0.4.4.tar.gz&quot;</span>
+      <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4.tar.gz</span>
+      <span class="s">EXPECTED_MD5</span> <span class="s">f3a1afa9218386b50ffd262c00b35b31</span>
+      <span class="s">SHOW_PROGRESS</span>
+    <span class="p">)</span>
+  <span class="nb">ENDIF</span> <span class="p">()</span>
+
+  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4</span> <span class="p">)</span>
+    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="s">tar</span> <span class="s">xzf</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4.tar.gz</span>
+      <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span>
+    <span class="p">)</span>
+  <span class="nb">ENDIF</span> <span class="p">()</span>
+
+  <span class="nb">FILE</span><span class="p">(</span><span class="s">INSTALL</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4/</span>
+    <span class="s">DESTINATION</span> <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/poppler-data</span>
+    <span class="s">PATTERN</span> <span class="s">CMakeLists.txt</span> <span class="s">EXCLUDE</span>
+    <span class="s">PATTERN</span> <span class="s">Makefile</span> <span class="s">EXCLUDE</span>
+  <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Download_and_install_TeXworks_manual'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Download_and_install_TeXworks_manual">&#182;</a>
+        </div>
+        <h2>Download and install TeXworks manual</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual-html-r814.zip</span> <span class="p">)</span>
+    <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Downloading TeXworks HTML manual&quot;</span><span class="p">)</span>
+    <span class="nb">FILE</span><span class="p">(</span><span class="s">DOWNLOAD</span> <span class="s2">&quot;http://texworks.googlecode.com/files/TeXworks-manual-html-r814.zip&quot;</span>
+      <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual-html-r814.zip</span>
+      <span class="s">EXPECTED_MD5</span> <span class="s">2894969a6ac4bba31953264e04553717</span>
+      <span class="s">SHOW_PROGRESS</span>
+    <span class="p">)</span>
+  <span class="nb">ENDIF</span> <span class="p">()</span>
+
+  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual</span> <span class="p">)</span>
+    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="s">unzip</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual-html-r814.zip</span>
+      <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span>
+    <span class="p">)</span>
+  <span class="nb">ENDIF</span> <span class="p">()</span>
+
+  <span class="nb">FILE</span><span class="p">(</span><span class="s">INSTALL</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual</span>
+    <span class="s">DESTINATION</span> <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/texworks-help/</span>
+  <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Copy_all_runtime_dependencies_and_rewrite_loader_paths'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Copy_all_runtime_dependencies_and_rewrite_loader_paths">&#182;</a>
+        </div>
+        <h2>Copy all runtime dependencies and rewrite loader paths</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p>Bring in <code>DeployQt4</code> a CMake module taken from the Charm application:</p>
+
+<p><a href="https://github.com/KDAB/Charm">https://github.com/KDAB/Charm</a></p>
+
+<p>This module offers the <code>FIXUP_QT4_BUNDLE</code> function which wraps
+<code>FIXUP_BUNDLE</code> from CMake&rsquo;s <code>BundleUtilities</code> module and extends it with
+additional Qt4-specific goodies&mdash;-such as installing Qt4 plugins.</p>
+
+<p><code>FIXUP_BUNDLE</code> is a wonderful function that examines an executable, finds
+all non-system libraries it depends on, copies them into the <code>.app</code> bundle
+and then re-writes the necessary loader paths.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_MODULE_PATH</span> <span class="s">@CMAKE_MODULE_PATH@</span><span class="p">)</span>
+  <span class="nb">INCLUDE</span><span class="p">(</span><span class="s">DeployQt4</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-8'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-8">&#182;</a>
+        </div>
+        <p>Gather all TeXworks Plugin libraries.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TeXworks_PLUGINS</span>
+    <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/PlugIns/*</span><span class="o">${</span><span class="nv">CMAKE_SHARED_LIBRARY_SUFFIX</span><span class="o">}</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-9'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-9">&#182;</a>
+        </div>
+        <p>If <code>BU_CHMOD_BUNDLE_ITEMS</code> is not set, <code>install_name_tool</code> will fail to
+re-write some loader paths due to insufficiant permissions.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">SET</span><span class="p">(</span><span class="s">BU_CHMOD_BUNDLE_ITEMS</span> <span class="s">ON</span><span class="p">)</span>
+
+  <span class="err">FIXUP_QT4_BUNDLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app</span> <span class="err">&quot;${QT_PLUGINS}&quot;</span> <span class="err">&quot;${TeXworks_PLUGINS}&quot;</span> <span class="err">&quot;${TeXworks_LIB_DIRS}&quot;)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Remove_unecessary_architectures_from_universal_binaries'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Remove_unecessary_architectures_from_universal_binaries">&#182;</a>
+        </div>
+        <h2>Remove unecessary architectures from universal binaries</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-11'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-11">&#182;</a>
+        </div>
+        <p>Some libraries copied from the OS X system, such as X11 libraries, may
+contain up to 4 different architectures. Here we will iterate over these
+libraries and use <code>lipo</code> to strip out un-needed architectures.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-12'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-12">&#182;</a>
+        </div>
+        <p>Another useful function from <code>BundleUtilities</code>.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">GET_BUNDLE_MAIN_EXECUTABLE</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app</span> <span class="s">APP_MAIN</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-13'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-13">&#182;</a>
+        </div>
+        <p>We look at the TeXworks binary that was built rather than consulting the
+value of the <code>CMAKE_OSX_ARCHITECTURES</code> because if the user did not set
+<code>CMAKE_OSX_ARCHITECTURES</code>, then the variable will be an empty string and the
+format of the resulting binary will depend on the versions of OS X and
+XCode.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Reducing the size of bundled libraries.&quot;</span><span class="p">)</span>
+  <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Scanning architectures of: ${APP_MAIN}&quot;</span><span class="p">)</span>
+  <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-14'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-14">&#182;</a>
+        </div>
+        <p><code>lipo -info</code> returns a list of the form:</p>
+
+<pre><code>&lt;is universal binary?&gt;: &lt;program name&gt;: &lt;list of architectures&gt;
+</code></pre>
+
+<p>Piping this output to <code>cut -d : -f 3-</code> allows us to extract just the list
+of architectures.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="s">COMMAND</span> <span class="s">lipo</span> <span class="s">-info</span> <span class="o">${</span><span class="nv">APP_MAIN</span><span class="o">}</span>
+    <span class="s">COMMAND</span> <span class="s">cut</span> <span class="s">-d</span> <span class="s">:</span> <span class="s">-f</span> <span class="s">3-</span>
+    <span class="s">OUTPUT_VARIABLE</span> <span class="s">APP_ARCHS</span>
+  <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-15'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-15">&#182;</a>
+        </div>
+        <p>Strip leading and trailing whitespace.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">STRING</span><span class="p">(</span><span class="s">STRIP</span> <span class="o">${</span><span class="nv">APP_ARCHS</span><span class="o">}</span> <span class="s">APP_ARCHS</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-16'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-16">&#182;</a>
+        </div>
+        <p>Convert spaces to semicolons so CMake will interpret the string as a list.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">STRING</span><span class="p">(</span><span class="s">REPLACE</span> <span class="s2">&quot; &quot;</span> <span class="s2">&quot;;&quot;</span> <span class="s">APP_ARCHS</span> <span class="o">${</span><span class="nv">APP_ARCHS</span><span class="o">}</span><span class="p">)</span>
+
+  <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Will reduce bundled libraries to: ${APP_ARCHS}&quot;</span><span class="p">)</span>
+
+  <span class="nb">FOREACH</span><span class="p">(</span><span class="s">ARCH</span> <span class="s">IN</span> <span class="s">LISTS</span> <span class="s">APP_ARCHS</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">ARCHS_TO_EXTRACT</span> <span class="s2">&quot;${ARCHS_TO_EXTRACT} -extract ${ARCH}&quot;</span><span class="p">)</span>
+  <span class="nb">ENDFOREACH</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-17'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-17">&#182;</a>
+        </div>
+        <p><strong>NOTE:</strong> This will not process any dylibs from Frameworks copied by
+<code>FIXUP_BUNDLE</code>, hence it may not touch any of the Qt libraries. Something to
+fix in the future.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">BUNDLED_DYLIBS</span>
+    <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/MacOS/*</span><span class="o">${</span><span class="nv">CMAKE_SHARED_LIBRARY_SUFFIX</span><span class="o">}</span><span class="p">)</span>
+
+  <span class="nb">FOREACH</span><span class="p">(</span><span class="s">DYLIB</span> <span class="s">IN</span> <span class="s">LISTS</span> <span class="s">BUNDLED_DYLIBS</span><span class="p">)</span>
+    <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Processing included library: ${DYLIB}&quot;</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-18'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-18">&#182;</a>
+        </div>
+        <p><code>lipo</code> is very very anal about how arguments get passed to it. So we
+execute through bash to side-step the issue.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="s">bash</span> <span class="s">-c</span> <span class="s2">&quot;lipo ${ARCHS_TO_EXTRACT} ${DYLIB} -output ${DYLIB}&quot;</span><span class="p">)</span>
+  <span class="nb">ENDFOREACH</span> <span class="p">()</span>
+
+  <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Finished stripping architectures from bundled libraries.&quot;</span><span class="p">)</span>
+
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+  <!-- Navbar Scripting -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    var closeMenus;
+    closeMenus = function() {
+      return $('.navigation.active').removeClass('active');
+    };
+    $('.navigation').click(function(e) {
+      if (e.target.tagName.toLowerCase() === 'a') {
+        return;
+      }
+      if ($(e.target).closest('.repl_wrapper').length) {
+        return false;
+      }
+      if ($(this).hasClass('active')) {
+        closeMenus();
+      } else {
+        closeMenus();
+        $(this).addClass('active');
+      }
+      return false;
+    });
+  </script>
+
+</body>
+</html>

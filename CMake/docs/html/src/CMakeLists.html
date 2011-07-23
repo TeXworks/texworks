@@ -3,23 +3,36 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
   <title></title>
-  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+  <link rel="stylesheet" href="http://sharpie.github.com/TeXworks/resources/docs.css">
 </head>
 <body>
 <div id='container'>
   <div id="background"></div>
-  <div id="jump_to">
-    Jump To &hellip;
-    <div id="jump_wrapper">
-      <div id="jump_page">
+
+  <!-- Navbar -->
+  <div id="fadeout"></div>
+  <div id="flybar">
+    <a id="title" href="#top">src/CMakeLists.txt</a>
+
+    <div class="navigation toc">
+      <div class="button">
+        Browse Source
+      </div>
+      <div class="contents menu">
           <a class="source" href="../CMake/packaging/CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
+          <a class="source" href="../CMake/packaging/mac/MacPackagingTasks.cmake.html">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
           <a class="source" href="../CMakeLists.html">CMakeLists.txt</a>
           <a class="source" href="../plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
           <a class="source" href="../plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
           <a class="source" href="CMakeLists.html">src/CMakeLists.txt</a>
       </div>
     </div>
+    <div id="error" style="display:none;"></div>
   </div>
+
+  <!-- Content -->
+  <span class="bookmark" id="top"></span>
+
   <table cellspacing=0 cellpadding=0>
   <thead>
     <tr>
@@ -149,11 +162,7 @@ frameworks to the library link list.</p>
         <p>Make sure the compiler can find include files.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span>
-  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span>
-  <span class="o">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span>
-  <span class="o">${</span><span class="nv">TeXworks_INCLUDE_DIRS</span><span class="o">}</span>
-<span class="p">)</span></pre></div>
+        <div class='highlight'><pre><span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">TeXworks_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr id='section-9'>
@@ -164,7 +173,7 @@ frameworks to the library link list.</p>
         <p>Make sure the compiler can find library files.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">LINK_DIRECTORIES</span><span class="p">(</span> <span class="o">${</span><span class="nv">TeXworks_LIB_DIRS</span><span class="o">}</span> <span class="p">)</span>
+        <div class='highlight'><pre><span class="nb">LINK_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">TeXworks_LIB_DIRS</span><span class="o">}</span><span class="p">)</span>
 
 <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DTW_BUILD_ID=</span><span class="o">${</span><span class="nv">TW_BUILD_ID</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
@@ -179,7 +188,7 @@ frameworks to the library link list.</p>
       <td class=code>
         <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span><span class="s">POPPLER_HAS_XPDF</span><span class="p">)</span>
   <span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">POPPLER_XPDF_INCLUDE_DIR</span><span class="o">}</span><span class="p">)</span>
-  <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span> <span class="s">-DHAVE_POPPLER_XPDF_HEADERS</span> <span class="p">)</span>
+  <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DHAVE_POPPLER_XPDF_HEADERS</span><span class="p">)</span>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
@@ -349,4 +358,30 @@ systems.</p>
     </tr>
   </table>
 </div>
+
+  <!-- Navbar Scripting -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    var closeMenus;
+    closeMenus = function() {
+      return $('.navigation.active').removeClass('active');
+    };
+    $('.navigation').click(function(e) {
+      if (e.target.tagName.toLowerCase() === 'a') {
+        return;
+      }
+      if ($(e.target).closest('.repl_wrapper').length) {
+        return false;
+      }
+      if ($(this).hasClass('active')) {
+        closeMenus();
+      } else {
+        closeMenus();
+        $(this).addClass('active');
+      }
+      return false;
+    });
+  </script>
+
 </body>
+</html>
