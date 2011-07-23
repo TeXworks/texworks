@@ -73,12 +73,10 @@ STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_MINOR ${TeXworks_VER_MINOR})
 FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/TWVersion.h TeXworks_VER_PATCH REGEX "VER_BUGFIX")
 STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_PATCH ${TeXworks_VER_PATCH})
 SET(TeXworks_VERSION ${TeXworks_VER_MAJOR}.${TeXworks_VER_MINOR}.${TeXworks_VER_PATCH})
-MESSAGE(STATUS "TeXworks Version: ${TeXworks_VERSION}")
 
 # Recover SVN revision from `src/SvnRev.h`.
 FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/SvnRev.h TeXworks_SVN_REV LIMIT_COUNT 1)
 STRING(REGEX MATCH "([0-9]+)" TeXworks_SVN_REV ${TeXworks_SVN_REV})
-MESSAGE(STATUS "TeXworks SVN Revision: ${TeXworks_SVN_REV}")
 
 # Recover GIT revision: first 7 digets of the current Git SHA. Currently, this
 # is only used in the filenames of packaged releases. If this CMake buildsystem
@@ -307,4 +305,54 @@ IF ( APPLE )
 ENDIF ()
 
 INCLUDE(CPack)
+
+
+# Summary
+# =======
+
+# This section displays a nice configuration summary for the user.
+
+# These macros borrowed from the Poppler CMake scripts. They add some nice
+# formatting to configuration info.
+MACRO(CONFIG_INFO what value)
+  STRING(LENGTH ${what} length_what)
+  MATH(EXPR left_char "35 - ${length_what}")
+  SET(blanks)
+  FOREACH(_i RANGE 1 ${left_char})
+    SET(blanks "${blanks} ")
+  ENDFOREACH()
+
+  MESSAGE("  ${what}:${blanks} ${value}")
+ENDMACRO()
+
+MACRO(CONFIG_YESNO what enabled)
+  IF(${enabled})
+    SET(enabled_string "yes")
+  ELSE(${enabled})
+    SET(enabled_string "no")
+  ENDIF()
+
+  CONFIG_INFO("${what}" "${enabled_string}")
+ENDMACRO()
+
+# Print out configuration summary.
+MESSAGE("TeXworks has been configured:\n")
+
+CONFIG_INFO("Version" ${TeXworks_VERSION})
+CONFIG_INFO("SVN Revision" ${TeXworks_SVN_REV})
+CONFIG_INFO("Build ID" ${TW_BUILD_ID})
+CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
+MESSAGE("")
+
+CONFIG_YESNO("Lua scripting plugin" LUA51_FOUND)
+CONFIG_YESNO("Python scripting plugin" PYTHONLIBS_FOUND)
+IF( APPLE )
+  CONFIG_YESNO("  OS X system python" USE_SYSTEM_PYTHON)
+ENDIF()
+MESSAGE("")
+
+MESSAGE("  TeXworks will be installed to:")
+MESSAGE("      ${CMAKE_INSTALL_PREFIX}")
+MESSAGE("")
+
 
