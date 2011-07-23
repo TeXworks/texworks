@@ -12,10 +12,6 @@
 #   - TeXworks-specific patches are applied to help Qt apps find the
 #     poppler-data directory.
 #
-#   - Poppler is patched to use native OS X libraries for font handling instead
-#     of Fontconfig. This removes any dependencies on the presence of X11
-#     fonts.
-#
 #   - Poppler is configured to use as few dependencies as possible. This
 #     reduces the number of dylibs that must be added to TeXworks.app when it
 #     is packaged for distribution.
@@ -41,7 +37,6 @@ class Poppler < Formula
     {
       :p1 => [
         TEXWORKS_PATCH_DIR + 'poppler-qt4-globalparams.patch',
-        TEXWORKS_PATCH_DIR + 'poppler-mac-font-handling.patch',
         TEXWORKS_PATCH_DIR + 'poppler-bogus-memory-allocation-fix.patch',
         TEXWORKS_PATCH_DIR + 'poppler-fix-cmake-install-names-for-homebrew.patch'
       ]
