@@ -12,7 +12,27 @@
   <!-- Navbar -->
   <div id="fadeout"></div>
   <div id="flybar">
-    <a id="title" href="#top">CMake/packaging/CMakeLists.txt</a>
+    <a id="title" href="#top"><h1>CMake/packaging/CMakeLists.txt</h1></a>
+
+    <div class="navigation about">
+      <div class="button">
+        About
+      </div>
+      <div class="contents">
+        <p>This documentation was built using Ryan Tomayko's <strong>Rocco</strong> tool:</p>
+        <a href="http://rtomayko.github.com/rocco">rtomayko.github.com/rocco</a>
+
+        <p>Which is based on <strong>Docco</strong> by Jeremy Ashkenas:</p>
+        <a href="http://jashkenas.github.com/docco">jashkenas.github.com/docco</a>
+
+        <p>The code from this navigation bar was borrowed from the <strong>CoffeeScript</strong> project, also by Jeremy:</p>
+        <a href="http://jashkenas.github.com/coffee-script">jashkenas.github.com/coffee-script</a>
+
+        <p>The templates used to create this page may be found on GitHub:</p>
+        <a href="http://github.com/Sharpie/TeXworks/tree/master/CMake/docs">github.com/Sharpie/TeXworks</a>
+
+      </div>
+    </div>
 
     <div class="navigation toc">
       <div class="button">
@@ -41,10 +61,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr id='section-Packaging_Tasks'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Packaging_Tasks">&#182;</a>
+          <span class="bookmark" id="section-Packaging_Tasks"></span>
         </div>
         <h1>Packaging Tasks</h1>
       </td>
@@ -52,10 +73,11 @@
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-2'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-2">&#182;</a>
+          <span class="bookmark" id="section-2"></span>
         </div>
         <p>Create a CMake script containing packaging tasks specific to Apple. All
 variables of the form <code>@VARIABLE@</code> will be replaced, while variables of the
@@ -71,10 +93,11 @@ form <code>${VARIABLE}</code> will be left untouched.</p>
 <span class="nb">ELSE</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-3'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
+          <span class="bookmark" id="section-3"></span>
         </div>
         <p>Create a dummy script for other platforms.</p>
       </td>
@@ -83,10 +106,11 @@ form <code>${VARIABLE}</code> will be left untouched.</p>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-4'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-4">&#182;</a>
+          <span class="bookmark" id="section-4"></span>
         </div>
         <p>Execute the packaging tasks. <code>INSTALL(SCRIPT &hellip;)</code> is used so that these tasks
 executing during <code>make install</code> rather than <code>make</code> or <code>cmake</code>.</p>

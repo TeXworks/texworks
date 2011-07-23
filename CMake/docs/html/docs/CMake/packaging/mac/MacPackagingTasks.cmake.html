@@ -12,7 +12,27 @@
   <!-- Navbar -->
   <div id="fadeout"></div>
   <div id="flybar">
-    <a id="title" href="#top">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
+    <a id="title" href="#top"><h1>CMake/packaging/mac/MacPackagingTasks.cmake.in</h1></a>
+
+    <div class="navigation about">
+      <div class="button">
+        About
+      </div>
+      <div class="contents">
+        <p>This documentation was built using Ryan Tomayko's <strong>Rocco</strong> tool:</p>
+        <a href="http://rtomayko.github.com/rocco">rtomayko.github.com/rocco</a>
+
+        <p>Which is based on <strong>Docco</strong> by Jeremy Ashkenas:</p>
+        <a href="http://jashkenas.github.com/docco">jashkenas.github.com/docco</a>
+
+        <p>The code from this navigation bar was borrowed from the <strong>CoffeeScript</strong> project, also by Jeremy:</p>
+        <a href="http://jashkenas.github.com/coffee-script">jashkenas.github.com/coffee-script</a>
+
+        <p>The templates used to create this page may be found on GitHub:</p>
+        <a href="http://github.com/Sharpie/TeXworks/tree/master/CMake/docs">github.com/Sharpie/TeXworks</a>
+
+      </div>
+    </div>
 
     <div class="navigation toc">
       <div class="button">
@@ -41,10 +61,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr id='section-1'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-1">&#182;</a>
+          <span class="bookmark" id="section-1"></span>
         </div>
         <p>OS X packaging tasks</p>
       </td>
@@ -52,10 +73,11 @@
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-2'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-2">&#182;</a>
+          <span class="bookmark" id="section-2"></span>
         </div>
         <p>This file is processed by <code>CONFIGURE_FILE</code> in <code>../CMakeLists.txt</code> which inserts
 values for <code>@VARIABLE@</code> declarations. This is done to import values for some
@@ -70,10 +92,11 @@ variables that would otherwise be undefined when CPack is running.</p>
 <span class="nb">SET</span><span class="p">(</span><span class="s">QT_PLUGINS</span> <span class="s">@QT_PLUGINS@</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-3'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
+          <span class="bookmark" id="section-3"></span>
         </div>
         <p>This <code>IF</code> statement ensures that the following commands are executed only when
 CPack is running&mdash;-i.e. when a user executes <code>make package</code> but not <code>make install</code></p>
@@ -82,10 +105,11 @@ CPack is running&mdash;-i.e. when a user executes <code>make package</code> but 
         <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span> <span class="s">MATCHES</span> <span class="s">.*/_CPack_Packages/.*</span> <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Download_and_install_Poppler_data'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Download_and_install_Poppler_data">&#182;</a>
+          <span class="bookmark" id="section-Download_and_install_Poppler_data"></span>
         </div>
         <h2>Download and install Poppler data</h2>
       </td>
@@ -112,10 +136,11 @@ CPack is running&mdash;-i.e. when a user executes <code>make package</code> but 
   <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Download_and_install_TeXworks_manual'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Download_and_install_TeXworks_manual">&#182;</a>
+          <span class="bookmark" id="section-Download_and_install_TeXworks_manual"></span>
         </div>
         <h2>Download and install TeXworks manual</h2>
       </td>
@@ -140,10 +165,11 @@ CPack is running&mdash;-i.e. when a user executes <code>make package</code> but 
   <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Copy_all_runtime_dependencies_and_rewrite_loader_paths'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Copy_all_runtime_dependencies_and_rewrite_loader_paths">&#182;</a>
+          <span class="bookmark" id="section-Copy_all_runtime_dependencies_and_rewrite_loader_paths"></span>
         </div>
         <h2>Copy all runtime dependencies and rewrite loader paths</h2>
       </td>
@@ -151,10 +177,11 @@ CPack is running&mdash;-i.e. when a user executes <code>make package</code> but 
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-7'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
+          <span class="bookmark" id="section-7"></span>
         </div>
         <p>Bring in <code>DeployQt4</code> a CMake module taken from the Charm application:</p>
 
@@ -173,10 +200,11 @@ and then re-writes the necessary loader paths.</p>
   <span class="nb">INCLUDE</span><span class="p">(</span><span class="s">DeployQt4</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-8">&#182;</a>
+          <span class="bookmark" id="section-8"></span>
         </div>
         <p>Gather all TeXworks Plugin libraries.</p>
       </td>
@@ -185,10 +213,11 @@ and then re-writes the necessary loader paths.</p>
     <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/PlugIns/*</span><span class="o">${</span><span class="nv">CMAKE_SHARED_LIBRARY_SUFFIX</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-9">&#182;</a>
+          <span class="bookmark" id="section-9"></span>
         </div>
         <p>If <code>BU_CHMOD_BUNDLE_ITEMS</code> is not set, <code>install_name_tool</code> will fail to
 re-write some loader paths due to insufficiant permissions.</p>
@@ -199,10 +228,11 @@ re-write some loader paths due to insufficiant permissions.</p>
   <span class="err">FIXUP_QT4_BUNDLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app</span> <span class="err">&quot;${QT_PLUGINS}&quot;</span> <span class="err">&quot;${TeXworks_PLUGINS}&quot;</span> <span class="err">&quot;${TeXworks_LIB_DIRS}&quot;)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-Remove_unecessary_architectures_from_universal_binaries'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Remove_unecessary_architectures_from_universal_binaries">&#182;</a>
+          <span class="bookmark" id="section-Remove_unecessary_architectures_from_universal_binaries"></span>
         </div>
         <h2>Remove unecessary architectures from universal binaries</h2>
       </td>
@@ -210,10 +240,11 @@ re-write some loader paths due to insufficiant permissions.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-11'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-11">&#182;</a>
+          <span class="bookmark" id="section-11"></span>
         </div>
         <p>Some libraries copied from the OS X system, such as X11 libraries, may
 contain up to 4 different architectures. Here we will iterate over these
@@ -223,10 +254,11 @@ libraries and use <code>lipo</code> to strip out un-needed architectures.</p>
         <div class='highlight'><pre></pre></div>
       </td>
     </tr>
-    <tr id='section-12'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-12">&#182;</a>
+          <span class="bookmark" id="section-12"></span>
         </div>
         <p>Another useful function from <code>BundleUtilities</code>.</p>
       </td>
@@ -234,10 +266,11 @@ libraries and use <code>lipo</code> to strip out un-needed architectures.</p>
         <div class='highlight'><pre>  <span class="nb">GET_BUNDLE_MAIN_EXECUTABLE</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app</span> <span class="s">APP_MAIN</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-13'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-13">&#182;</a>
+          <span class="bookmark" id="section-13"></span>
         </div>
         <p>We look at the TeXworks binary that was built rather than consulting the
 value of the <code>CMAKE_OSX_ARCHITECTURES</code> because if the user did not set
@@ -251,10 +284,11 @@ XCode.</p>
   <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span></pre></div>
       </td>
     </tr>
-    <tr id='section-14'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-14">&#182;</a>
+          <span class="bookmark" id="section-14"></span>
         </div>
         <p><code>lipo -info</code> returns a list of the form:</p>
 
@@ -271,10 +305,11 @@ of architectures.</p>
   <span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-15'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-15">&#182;</a>
+          <span class="bookmark" id="section-15"></span>
         </div>
         <p>Strip leading and trailing whitespace.</p>
       </td>
@@ -282,10 +317,11 @@ of architectures.</p>
         <div class='highlight'><pre>  <span class="nb">STRING</span><span class="p">(</span><span class="s">STRIP</span> <span class="o">${</span><span class="nv">APP_ARCHS</span><span class="o">}</span> <span class="s">APP_ARCHS</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-16'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-16">&#182;</a>
+          <span class="bookmark" id="section-16"></span>
         </div>
         <p>Convert spaces to semicolons so CMake will interpret the string as a list.</p>
       </td>
@@ -299,10 +335,11 @@ of architectures.</p>
   <span class="nb">ENDFOREACH</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
-    <tr id='section-17'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-17">&#182;</a>
+          <span class="bookmark" id="section-17"></span>
         </div>
         <p><strong>NOTE:</strong> This will not process any dylibs from Frameworks copied by
 <code>FIXUP_BUNDLE</code>, hence it may not touch any of the Qt libraries. Something to
@@ -316,10 +353,11 @@ fix in the future.</p>
     <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Processing included library: ${DYLIB}&quot;</span><span class="p">)</span></pre></div>
       </td>
     </tr>
-    <tr id='section-18'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-18">&#182;</a>
+          <span class="bookmark" id="section-18"></span>
         </div>
         <p><code>lipo</code> is very very anal about how arguments get passed to it. So we
 execute through bash to side-step the issue.</p>
