@@ -1,7 +1,7 @@
 # - Try to find Poppler and Poppler-Qt4
 # Once done this will define
 #
-#  POPPLER_FOUND - system has Poppler
+#  POPPLER_FOUND - system has Poppler and Poppler-Qt4
 #  POPPLER_HAS_XPDF - A boolean indicating if Poppler XPDF headers are available
 #  POPPLER_NEEDS_FONTCONFIG - A boolean indicating if libpoppler depends on libfontconfig
 #  POPPLER_XPDF_INCLUDE_DIR - the include directory for Poppler XPDF headers
@@ -25,8 +25,8 @@ endif ( POPPLER_LIBRARIES )
 if( NOT WIN32 )
   find_package(PkgConfig)
 
-  pkg_check_modules(POPPLER_PKG poppler)
-  pkg_check_modules(POPPLER_QT4_PKG poppler-qt4)
+  pkg_check_modules(POPPLER_PKG QUIET poppler)
+  pkg_check_modules(POPPLER_QT4_PKG QUIET poppler-qt4)
 endif( NOT WIN32 )
 
 # Check for Poppler XPDF headers (optional)
@@ -64,9 +64,6 @@ FIND_LIBRARY(POPPLER_LIBRARIES NAMES poppler ${POPPLER_PKG_LIBRARIES}
 )
 IF ( NOT(POPPLER_LIBRARIES) )
   MESSAGE(STATUS "Could not find libpoppler." )
-  SET(POPPLER_FOUND FALSE)
-ELSE ()
-  SET(POPPLER_FOUND TRUE)
 ENDIF ()
 
 # Scan poppler libraries for dependencies on Fontconfig
@@ -111,8 +108,7 @@ LIST(APPEND POPPLER_LIBRARIES ${POPPLER_QT4_LIBRARIES})
 
 
 include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Poppler DEFAULT_MSG POPPLER_LIBRARIES )
-FIND_PACKAGE_HANDLE_STANDARD_ARGS("Poppler Qt4 Headers" DEFAULT_MSG POPPLER_QT4_INCLUDE_DIR )
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(Poppler DEFAULT_MSG POPPLER_LIBRARIES POPPLER_QT4_INCLUDE_DIR )
 
 
 # show the POPPLER_(XPDF/QT4)_INCLUDE_DIR and POPPLER_LIBRARIES variables only in the advanced view
