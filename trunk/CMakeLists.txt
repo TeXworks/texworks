@@ -163,7 +163,7 @@ ADD_SUBDIRECTORY(src)
 SET(TeXworks_PLUGIN_DIR lib)
 
 IF ( APPLE )
-  SET(TeXworks_PLUGIN_DIR ${PROJECT_NAME}.app/Contents/plugins)
+  SET(TeXworks_PLUGIN_DIR ${PROJECT_NAME}.app/Contents/PlugIns)
 ENDIF ()
 
 

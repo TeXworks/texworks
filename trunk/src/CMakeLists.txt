@@ -24,51 +24,19 @@ SET(TeXworks_SCRIPT_API_H
 )
 
 
-# Determine which type of app to make.
-SET(GUI_TYPE)
-SET(QTCONF_DIR bin)
-
+# Platform-specific app setup and source code.
 IF ( APPLE )
   # Set GUI type to a .app bundle, gather icon files and add core system
   # frameworks to the library link list.
   SET(GUI_TYPE MACOSX_BUNDLE)
 
-  SET(TeXworks_LIBS ${TeXworks_LIBS} "-framework CoreServices")
+  LIST(APPEND TeXworks_LIBS  "-framework CoreServices")
 
   FILE(GLOB TeXworks_APP_ICONS ${TeXworks_SOURCE_DIR}/*.icns)
   SET_SOURCE_FILES_PROPERTIES( ${TeXworks_APP_ICONS}
     PROPERTIES
       MACOSX_PACKAGE_LOCATION Resources
   )
-
-  SET(QTCONF_DIR ${PROJECT_NAME}.app/Contents/Resources)
-
-  # Download and install Poppler data. This probably needs to be done for
-  # Windows as well.
-  #
-  # NOTE: Is this the right place to execute this step? Seems like something
-  # that only needs to be done if CPack is creating a redistributable app.
-  IF ( NOT EXISTS ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4.tar.gz )
-    MESSAGE(STATUS "Downloading Poppler data files")
-    FILE(DOWNLOAD "http://poppler.freedesktop.org/poppler-data-0.4.4.tar.gz"
-      ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4.tar.gz
-      EXPECTED_MD5 "f3a1afa9218386b50ffd262c00b35b31"
-      SHOW_PROGRESS
-    )
-  ENDIF ()
-
-  IF ( NOT EXISTS ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4 )
-    EXECUTE_PROCESS(COMMAND tar xzf ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4.tar.gz
-      WORKING_DIRECTORY ${TeXworks_SOURCE_DIR}
-    )
-  ENDIF ()
-
-  INSTALL(DIRECTORY ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4/
-    DESTINATION ${PROJECT_NAME}.app/Contents/poppler-data
-    PATTERN "CMakeLists.txt" EXCLUDE
-    PATTERN "Makefile" EXCLUDE
-  )
-
 ENDIF ()
 
 IF ( WIN32 )
@@ -128,6 +96,7 @@ ADD_EXECUTABLE( ${EXE_NAME} ${GUI_TYPE}
 # Specify libraries for linking.
 TARGET_LINK_LIBRARIES( ${EXE_NAME} ${TeXworks_LIBS} )
 
+# Specify custom
 IF (APPLE)
   # Generate Info.plist and set .app bundle properties.
   SET(VER ${TeXworks_VERSION})
@@ -150,16 +119,22 @@ INSTALL( TARGETS ${EXE_NAME}
   BUNDLE DESTINATION . COMPONENT
 )
 
-# Write a blank qt.conf file as all hell will break loose if one isn't there.
-# This may need to be customized for use on non-Apple systems.
-#
-# Protip: If there are wierd errors like "Qt libraries loaded twice" or "looking
-# for a tablet device", then something may have gone pear shaped with qt.conf
-INSTALL( CODE
-  "
-  FILE(WRITE \"\${CMAKE_INSTALL_PREFIX}/${QTCONF_DIR}/qt.conf\"
-    \"[Paths]\nPlugins = plugins\"
-  )
-  "
-)
+# Platform-specific installation tasks
+IF ( APPLE )
+  # Write a blank qt.conf file as all hell will break loose if one isn't there.
+  # This may need to be customized for use on non-Apple systems.
+  #
+  # Protip: If there are wierd errors like "Qt libraries loaded twice" or
+  # "looking for a tablet device", then something may have gone pear shaped
+  # with qt.conf
+  SET(QTCONF_DIR ${PROJECT_NAME}.app/Contents/Resources)
+  SET(QTCONF_CONTENTS "[Paths]\nPlugins = PlugIns")
 
+  INSTALL( CODE
+    "
+    FILE(WRITE \"\${CMAKE_INSTALL_PREFIX}/${QTCONF_DIR}/qt.conf\"
+      \"${QTCONF_CONTENTS}\"
+    )
+    "
+  )
+ENDIF()
