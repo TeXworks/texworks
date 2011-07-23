@@ -12,6 +12,10 @@
 #   - TeXworks-specific patches are applied to help Qt apps find the
 #     poppler-data directory.
 #
+#   - Poppler is patched to use native OS X libraries for font handling instead
+#     of Fontconfig. This removes any dependencies on the presence of X11
+#     fonts.
+#
 #   - Poppler is configured to use as few dependencies as possible. This
 #     reduces the number of dylibs that must be added to TeXworks.app when it
 #     is packaged for distribution.
@@ -26,9 +30,9 @@ class PopplerData < Formula
 end
 
 class Poppler < Formula
-  url 'http://poppler.freedesktop.org/poppler-0.16.5.tar.gz'
+  url 'http://poppler.freedesktop.org/poppler-0.16.6.tar.gz'
   homepage 'http://poppler.freedesktop.org/'
-  md5 '2b6e0c26b77a943df3b9bb02d67ca236'
+  md5 '592a564fb7075a845f75321ed6425424'
 
   depends_on 'pkg-config' => :build
   depends_on "qt" if ARGV.include? "--with-qt4"
@@ -36,8 +40,9 @@ class Poppler < Formula
   def patches
     {
       :p1 => [
-        DATA,
-        TEXWORKS_PATCH_DIR + 'poppler-qt4-globalparams.patch'
+        TEXWORKS_PATCH_DIR + 'poppler-qt4-globalparams.patch',
+        TEXWORKS_PATCH_DIR + 'poppler-mac-font-handling.patch',
+        TEXWORKS_PATCH_DIR + 'poppler-bogus-memory-allocation-fix.patch'
       ]
     }
   end
@@ -50,25 +55,40 @@ class Poppler < Formula
   end
 
   def install
-    if ARGV.include? "--with-qt4"
-      qt4Flags = `pkg-config QtCore --libs` + `pkg-config QtGui --libs`
-      qt4Flags.gsub!("\n","")
-      ENV['POPPLER_QT4_CFLAGS'] = qt4Flags
-    end
+    cmake_args = std_cmake_parameters.split
 
-    args = ["--disable-dependency-tracking", "--prefix=#{prefix}"]
-    args << "--disable-poppler-qt4" unless ARGV.include? "--with-qt4"
-    args << "--enable-xpdf-headers" if ARGV.include? "--enable-xpdf-headers"
-
-    # TeXworks-specific additions to minimize library dependencies
-    args.concat [
-      '--disable-libpng',
-      '--disable-libjpeg',
-      '--disable-cms'
+    # Save time by not building tests
+    cmake_args.concat [
+      '-DBUILD_CPP_TESTS=OFF',
+      '-DBUILD_GTK_TESTS=OFF',
+      '-DBUILD_QT3_TESTS=OFF',
+      '-DBUILD_QT4_TESTS=OFF'
     ]
 
-    system "./configure", *args
-    system "make install"
+    cmake_args << "-DWITH_Qt4=OFF" unless ARGV.include? "--with-qt4"
+    cmake_args << "-DENABLE_XPDF_HEADERS=ON" if ARGV.include? "--enable-xpdf-headers"
+
+    # TeXworks-specific additions to minimize library dependencies
+    cmake_args.concat [
+      '-DENABLE_ABIWORD=OFF',
+      '-DENABLE_CPP=OFF',
+      '-DENABLE_LCMS=OFF',
+      '-DENABLE_LIBCURL=OFF',
+      '-DENABLE_LIBOPENJPEG=OFF',
+      '-DENABLE_SPLASH=ON', # Required
+      '-DENABLE_UTILS=OFF',
+      '-DENABLE_ZLIB=OFF',
+      '-DWITH_Cairo=OFF',
+      '-DWITH_JPEG=OFF',
+      '-DWITH_PNG=OFF',
+      '-DWITH_Qt3=OFF'
+    ]
+
+    Dir.mkdir 'build'
+    Dir.chdir 'build' do
+      system 'cmake', '..', *cmake_args
+      system "make install"
+    end
 
     # Install poppler font data.
     PopplerData.new.brew do
@@ -76,18 +96,3 @@ class Poppler < Formula
     end
   end
 end
-
-# fix location of fontconfig, http://www.mail-archive.com/poppler@lists.freedesktop.org/msg03837.html
-__END__
---- a/cpp/Makefile.in	2010-07-08 20:57:56.000000000 +0200
-+++ b/cpp/Makefile.in	2010-08-06 11:11:27.000000000 +0200
-@@ -375,7 +375,8 @@
- INCLUDES = \
- 	-I$(top_srcdir)				\
- 	-I$(top_srcdir)/goo			\
--	-I$(top_srcdir)/poppler
-+	-I$(top_srcdir)/poppler \
-+	$(FONTCONFIG_CFLAGS)
- 
- SUBDIRS = . tests
- poppler_includedir = $(includedir)/poppler/cpp
