@@ -80,30 +80,36 @@ ENDIF ()
 FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
 INCLUDE(UseQt4)
 
-FIND_PACKAGE(Fontconfig REQUIRED)
+FIND_PACKAGE(ZLIB REQUIRED)
 FIND_PACKAGE(Hunspell REQUIRED)
 FIND_PACKAGE(Poppler REQUIRED)
-FIND_PACKAGE(ZLIB REQUIRED)
+
+IF ( POPPLER_NEEDS_FONTCONFIG )
+  # The only thing poppler should need is the location of the include
+  # directories. The library loader should be able to find libfontconfig on
+  # standard search paths.
+  FIND_PACKAGE(Fontconfig REQUIRED)
+ENDIF ()
 
 # Collect information on required include and library files.
 SET(TeXworks_INCLUDE_DIRS
   ${QT_INCLUDE_DIR}
   ${HUNSPELL_INCLUDE_DIR}
   ${POPPLER_QT4_INCLUDE_DIR}
-  ${FONTCONFIG_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
 )
+IF ( POPPLER_NEEDS_FONTCONFIG )
+  LIST(APPEND TeXworks_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
+ENDIF ()
 
 SET(TeXworks_LIB_DIRS
   ${QT_LIBRARY_DIRS}
   ${HUNSPELL_LIBRARY_DIRS}
-  ${FONTCONFIG_LIBRARY_DIRS}
 )
 
 SET(TeXworks_LIBS
   ${QT_LIBRARIES}
   ${POPPLER_LIBRARIES}
-  ${FONTCONFIG_LIBRARIES}
   ${HUNSPELL_LIBRARIES}
   ${ZLIB_LIBRARIES}
 )
