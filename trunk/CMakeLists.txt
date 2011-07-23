@@ -1,5 +1,9 @@
+#===============================================================================
+#                                Project Info
+#===============================================================================
+PROJECT(TeXworks)
 # Support for certain parts of Qt, such as the Script Tools, was only added in
-# v.2.8
+# CMake v.2.8
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 SET(CMAKE_COLOR_MAKEFILE ON)
 
@@ -10,22 +14,18 @@ IF ( NOT APPLE )
   )
 ENDIF ()
 
-# Project name.
-PROJECT(TeXworks)
+# Version Numbers
+# ---------------
 
+# Canonical version number
 FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/TWVersion.h TeXworks_VER_MAJOR REGEX "VER_MAJOR")
 STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_MAJOR ${TeXworks_VER_MAJOR})
 FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/TWVersion.h TeXworks_VER_MINOR REGEX "VER_MINOR")
 STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_MINOR ${TeXworks_VER_MINOR})
 FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/TWVersion.h TeXworks_VER_PATCH REGEX "VER_BUGFIX")
 STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_PATCH ${TeXworks_VER_PATCH})
-MESSAGE(STATUS "TeXworks Major version: ${TeXworks_VER_MAJOR}.${TeXworks_VER_MINOR}.${TeXworks_VER_PATCH}")
-
-# Canonical version number
-SET(CPACK_PACKAGE_VERSION_MAJOR "${TeXworks_VER_MAJOR}")
-SET(CPACK_PACKAGE_VERSION_MINOR "${TeXworks_VER_MINOR}")
-SET(CPACK_PACKAGE_VERSION_PATCH "${TeXworks_VER_PATCH}")
-SET(CPACK_PACKAGE_VERSION ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH})
+SET(TeXworks_VERSION ${TeXworks_VER_MAJOR}.${TeXworks_VER_MINOR}.${TeXworks_VER_PATCH})
+MESSAGE(STATUS "TeXworks Major version: ${TeXworks_VERSION}")
 
 # SVN revision
 FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/SvnRev.h TeXworks_SVN_REV LIMIT_COUNT 1)
@@ -38,39 +38,44 @@ MESSAGE(STATUS "TeXworks SVN Revision: ${TeXworks_SVN_REV}")
 EXECUTE_PROCESS(COMMAND git describe --always OUTPUT_VARIABLE TeXworks_GIT_REV OUTPUT_STRIP_TRAILING_WHITESPACE)
 MESSAGE(STATUS "TeXworks Git Revision: ${TeXworks_GIT_REV}")
 
+# Project Options
+# ---------------
 
+IF( APPLE AND CMAKE_INSTALL_PREFIX MATCHES "/usr/local" )
+  # CMake chooses /usr/local by default, but Mac users probably want things to
+  # install in /Applications
+  SET( CMAKE_INSTALL_PREFIX "/Applications" )
+ENDIF()
+
+
+#===============================================================================
+#                                Configuration
+#===============================================================================
 # Contains CMake scripts that help locate required components
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/Modules ${CMAKE_MODULE_PATH})
 
-# State which parts of Qt4 are required.
-SET(QT_USE_QTSCRIPT TRUE)
-SET(QT_USE_QTSCRIPTTOOLS TRUE)
-SET(QT_USE_QTXML TRUE)
-SET(QT_USE_QTUITOOLS TRUE)
+# Find required packages.
+SET (QT_COMPONENTS
+    QtCore
+    QtGui
+    QtUiTools
+    QtScript
+    QtScriptTools
+    QtXML
+)
+
 IF ( UNIX )
-  SET(QT_USE_QTDBUS TRUE)
+  LIST(APPEND QT_COMPONENTS QtDbus)
 ENDIF ()
 
-# Find required packages.
-FIND_PACKAGE( Qt4 REQUIRED )
-INCLUDE(${QT_USE_FILE})
+FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+INCLUDE(UseQt4)
 
 FIND_PACKAGE(Fontconfig REQUIRED)
 FIND_PACKAGE(Hunspell REQUIRED)
 FIND_PACKAGE(Poppler REQUIRED)
 FIND_PACKAGE(PopplerQT4 REQUIRED)
 FIND_PACKAGE(ZLIB REQUIRED)
-
-IF ( UNIX )
-  IF ( NOT EXISTS ${TeXworks_SOURCE_DIR}/src/DefaultBinaryPaths.h )
-    MESSAGE(STATUS "Generating DefaultBinaryPaths.h")
-
-    EXECUTE_PROCESS(
-      COMMAND ${TeXworks_SOURCE_DIR}/getDefaultBinPaths.sh
-      WORKING_DIRECTORY ${TeXworks_SOURCE_DIR}
-    )
-  ENDIF ()
-ENDIF ()
 
 # Collect information on required include and library files.
 SET(TeXworks_INCLUDE_DIRS
@@ -98,11 +103,37 @@ SET(TeXworks_LIBS
   ${ZLIB_LIBRARIES}
 )
 
+# Configure Template Files
+# ------------------------
+IF ( UNIX )
+  IF ( NOT EXISTS ${TeXworks_SOURCE_DIR}/src/DefaultBinaryPaths.h )
+    MESSAGE(STATUS "Generating DefaultBinaryPaths.h")
 
-# Build TeXworks
+    EXECUTE_PROCESS(
+      COMMAND ${TeXworks_SOURCE_DIR}/getDefaultBinPaths.sh
+      WORKING_DIRECTORY ${TeXworks_SOURCE_DIR}
+    )
+  ENDIF ()
+ENDIF ()
+
+
+#===============================================================================
+#                                  Building
+#===============================================================================
+
+# Build  main TeXworks app
 ADD_SUBDIRECTORY(src)
 
-# Post-build processing and packaging tasks
+
+#===============================================================================
+#                                  Packaging
+#===============================================================================
+
+SET(CPACK_PACKAGE_VERSION_MAJOR ${TeXworks_VER_MAJOR})
+SET(CPACK_PACKAGE_VERSION_MINOR ${TeXworks_VER_MINOR})
+SET(CPACK_PACKAGE_VERSION_PATCH ${TeXworks_VER_PATCH})
+SET(CPACK_PACKAGE_VERSION ${TeXworks_VERSION})
+
 SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}-${TeXworks_GIT_REV}")
 SET(CPACK_STRIP_FILES ON)
