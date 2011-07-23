@@ -41,10 +41,11 @@
   </thead>
   <tbody>
     {{#sections}}
-    <tr id='section-{{ section_id }}'>
+    <tr>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-{{ section_id }}">&#182;</a>
+          <span class="bookmark" id="section-{{ section_id }}"></span>
         </div>
         {{{ docs }}}
       </td>
