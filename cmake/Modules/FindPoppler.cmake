@@ -2,18 +2,19 @@
 # Once done this will define
 #
 #  POPPLER_FOUND - system has Poppler
-#  POPPLER_INCLUDE_DIR - the Poppler include directory
 #  POPPLER_XPDF_INCLUDE_DIR - the include directory for Poppler XPDF headers
 #  POPPLER_LIBRARIES - Link these to use Poppler
+# Note: the Poppler include directory is currently not needed by TeXworks
+#
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 #
 
 
-if ( POPPLER_INCLUDE_DIR AND POPPLER_LIBRARIES )
+if ( POPPLER_LIBRARIES )
    # in cache already
    SET(Poppler_FIND_QUIETLY TRUE)
-endif ( POPPLER_INCLUDE_DIR AND POPPLER_LIBRARIES )
+endif ( POPPLER_LIBRARIES )
 
 # use pkg-config to get the directories and then use these values
 # in the FIND_PATH() and FIND_LIBRARY() calls
@@ -44,15 +45,6 @@ ELSE( NOT(POPPLER_XPDF_INCLUDE_DIR) )
 
 ENDIF( NOT(POPPLER_XPDF_INCLUDE_DIR) )
 
-
-FIND_PATH(POPPLER_INCLUDE_DIR NAMES cpp/poppler-version.h
-  PATHS
-  /usr/include
-  /usr/local/include
-  ${POPPLER_INCLUDE_DIRS}
-  PATH_SUFFIXES poppler
-)
-
 FIND_LIBRARY(POPPLER_LIBRARIES NAMES poppler
   PATHS
   /usr/lib
@@ -64,5 +56,5 @@ include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(Poppler DEFAULT_MSG POPPLER_LIBRARIES )
 
 # show the POPPLER_(XPDF)INCLUDE_DIR and POPPLER_LIBRARIES variables only in the advanced view
-MARK_AS_ADVANCED(POPPLER_INCLUDE_DIR POPPLER_XPDF_INCLUDE_DIR POPPLER_LIBRARIES)
+MARK_AS_ADVANCED(POPPLER_XPDF_INCLUDE_DIR POPPLER_LIBRARIES)
 
