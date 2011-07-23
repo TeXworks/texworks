@@ -107,15 +107,15 @@ IF ( NOT CMAKE_BUILD_TYPE )
 ENDIF ()
 
 # Options controlling the creation of scripting language plugins.
-SET(WITH_LUA TRUE CACHE BOOL "Build TeXworks Lua plugin?")
-SET(WITH_PYTHON TRUE CACHE BOOL "Build TeXworks Python plugin?")
+OPTION(WITH_LUA "Build TeXworks Lua plugin?" ON)
+OPTION(WITH_PYTHON "Build TeXworks Python plugin?" ON)
 
 # On OS X we default to linking against the Python libraries provided by Apple
 # even if other Pythons are available. This helps when building
 # re-distributable `.app` packages. By disabling this option, a Mac user can
 # link against whatever Python they wish for a personal build.
 IF ( APPLE )
-  SET(USE_SYSTEM_PYTHON TRUE CACHE BOOL "Link against Python Framework distributed with OS X")
+  OPTION(USE_SYSTEM_PYTHON "Link against Python Framework distributed with OS X?" ON)
 ENDIF ()
 
 
