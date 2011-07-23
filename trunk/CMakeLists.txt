@@ -78,11 +78,6 @@ SET(TeXworks_VERSION ${TeXworks_VER_MAJOR}.${TeXworks_VER_MINOR}.${TeXworks_VER_
 FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/SvnRev.h TeXworks_SVN_REV LIMIT_COUNT 1)
 STRING(REGEX MATCH "([0-9]+)" TeXworks_SVN_REV ${TeXworks_SVN_REV})
 
-# Recover GIT revision: first 7 digets of the current Git SHA. Currently, this
-# is only used in the filenames of packaged releases. If this CMake buildsystem
-# ever gets merged back into the main SVN repository, this code can be removed.
-EXECUTE_PROCESS(COMMAND git log HEAD -1 --pretty=%h OUTPUT_VARIABLE TeXworks_GIT_REV OUTPUT_STRIP_TRAILING_WHITESPACE)
-MESSAGE(STATUS "TeXworks Git Revision: ${TeXworks_GIT_REV}")
 
 # Declare Project Options
 # -----------------------
@@ -288,7 +283,7 @@ SET(CPACK_PACKAGE_VERSION_PATCH ${TeXworks_VER_PATCH})
 SET(CPACK_PACKAGE_VERSION ${TeXworks_VERSION})
 
 SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}-${TeXworks_GIT_REV}")
+SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}")
 
 # Configure Drag N' Drop installer.
 IF ( APPLE )
