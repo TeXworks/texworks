@@ -35,7 +35,7 @@ MESSAGE(STATUS "TeXworks SVN Revision: ${TeXworks_SVN_REV}")
 # GIT revision---in case I upgrade the build script and make new binaries
 # before the SVN revision advances. This could be removed if the CMake build
 # process is ever imported into the main SVN repo.
-EXECUTE_PROCESS(COMMAND git describe --always OUTPUT_VARIABLE TeXworks_GIT_REV OUTPUT_STRIP_TRAILING_WHITESPACE)
+EXECUTE_PROCESS(COMMAND git log HEAD -1 --pretty=%h OUTPUT_VARIABLE TeXworks_GIT_REV OUTPUT_STRIP_TRAILING_WHITESPACE)
 MESSAGE(STATUS "TeXworks Git Revision: ${TeXworks_GIT_REV}")
 
 # Project Options
