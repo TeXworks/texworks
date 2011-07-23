@@ -4,6 +4,10 @@ Building !TeXworks on typical GNU/Linux systems should be fairly straightforward
 
 For Windows users wanting to try a build, see the page about installing and [BuildingOnWindowsMinGW using the MinGW tools on WinXP] (preferred) or the page about [BuildingOnWindows using Visual C++ 2008]. Thanks to Stefan Löffler, Alain Delmotte, and Tomek for researching and documenting these Windows build procedures.
 
+For Mac users, see the page about [BuildingOnMacOSXHomebrew building on Mac OS X using Homebrew]. Thanks to Charlie Sharpsteen for researching and documenting this Mac OS X build procedure.
+
+If you not only want to build !TeXworks, but also package it to share with others, have a look at the file [http://code.google.com/p/texworks/source/browse/trunk/PACKAGING PACKAGING] in the source tree.
+
 === Fedora 9 ===
 
 {{{
