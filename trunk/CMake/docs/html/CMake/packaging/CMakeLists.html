@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title></title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
+          <a class="source" href="../../CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="../../plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
+          <a class="source" href="../../plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
+          <a class="source" href="../../src/CMakeLists.html">src/CMakeLists.txt</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>CMake/packaging/CMakeLists.txt</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-Packaging_Tasks'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Packaging_Tasks">&#182;</a>
+        </div>
+        <h1>Packaging Tasks</h1>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Create a CMake script containing packaging tasks specific to Apple. All
+variables of the form <code>@VARIABLE@</code> will be replaced, while variables of the
+form <code>${VARIABLE}</code> will be left untouched.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">CONFIGURE_FILE</span><span class="p">(</span>
+    <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmake/packaging/mac/MacPackagingTasks.cmake.in</span>
+    <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/CPackPackagingTasks.cmake</span>
+    <span class="s">@ONLY</span>
+  <span class="p">)</span>
+<span class="nb">ELSE</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Create a dummy script for other platforms.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">FILE</span><span class="p">(</span><span class="s">WRITE</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/CPackPackagingTasks.cmake</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>Execute the packaging tasks. <code>INSTALL(SCRIPT ...)</code> is used so that these tasks
+executing during <code>make install</code> rather than <code>make</code> or <code>cmake</code>.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">INSTALL</span><span class="p">(</span><span class="s">SCRIPT</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/CPackPackagingTasks.cmake</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

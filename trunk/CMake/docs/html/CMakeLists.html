@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title></title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="CMake/packaging/CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
+          <a class="source" href="CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
+          <a class="source" href="plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
+          <a class="source" href="src/CMakeLists.html">src/CMakeLists.txt</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>CMakeLists.txt</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        <p>Top-level build file for <a href="http://code.google.com/p/texworks">TeXworks</a>, a simple editor for TeX and friends.</p>
+
+<p>This buildsystem uses <a href="http://www.cmake.org">CMake</a> and consists of the following files:</p>
+
+<pre><code>TeXworks
+├── CMakeLists.txt
+├── src
+│   └── CMakeLists.txt
+├── plugins-src
+│   ├── TWLuaPlugin
+│   │   └── CMakeLists.txt
+│   └── TWPythonPlugin
+│       └── CMakeLists.txt
+└── CMake
+    └── packaging
+        └── CMakeListst.txt
+</code></pre>
+
+<p>Using CMake as a buildsystem offers some nice advantages:</p>
+
+<ul>
+<li><p>Supports component discovery and configuration for all three major
+operating systems and can set TeXworks up to be built using GNU
+Makefiles, XCode or Visual Studio.</p></li>
+<li><p>Includes CPack, a tool which simplifies the task of packaging the
+TeXworks app for release after it has been built. CPack can generate
+Drag N' Drop installers for the Mac, Nullsoft installers for Windows and
+<code>.deb</code> or <code>.rpm</code> packages for Linux.</p></li>
+</ul>
+
+
+<p>Comments in the CMake files follow <a href="http://daringfireball.net/projects/markdown/">Markdown</a> formatting conventions.
+This convention allows the <code>CMakeLists.txt</code> files to be passed through a tool
+such as <a href="http://jashkenas.github.com/docco">Docco</a> to create a nicely annotated README for the benefit of
+future developers and maintainers.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Setup_and_User_Options'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Setup_and_User_Options">&#182;</a>
+        </div>
+        <h1>Setup and User Options</h1>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Set project name.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">PROJECT</span><span class="p">(</span><span class="s">TeXworks</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>We require CMake v2.8 or greater because it is the first version that
+provides support for certain parts of Qt, such as the ScriptTools.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_COLOR_MAKEFILE</span> <span class="s">ON</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>This message is probably superfluous.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">MESSAGE</span><span class="p">(</span> <span class="s">WARNING</span>
+    <span class="s2">&quot;This CMake build process has only been tested on Mac OS X.&quot;</span>
+    <span class="s2">&quot;\nIt may not work on other systems, but patches are welcome!&quot;</span>
+  <span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Determine_Version_Numbers'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Determine_Version_Numbers">&#182;</a>
+        </div>
+        <h2>Determine Version Numbers</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p>The values recovered here are used in the filenames of packaged builds and
+influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-8'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-8">&#182;</a>
+        </div>
+        <p>Recover canonical (x.y.z) version number from <code>src/TWVersion.h</code>.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">FILE</span><span class="p">(</span><span class="s">STRINGS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/TWVersion.h</span> <span class="s">TeXworks_VER_MAJOR</span> <span class="s">REGEX</span> <span class="s2">&quot;VER_MAJOR&quot;</span><span class="p">)</span>
+<span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_VER_MAJOR</span> <span class="o">${</span><span class="nv">TeXworks_VER_MAJOR</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">STRINGS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/TWVersion.h</span> <span class="s">TeXworks_VER_MINOR</span> <span class="s">REGEX</span> <span class="s2">&quot;VER_MINOR&quot;</span><span class="p">)</span>
+<span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_VER_MINOR</span> <span class="o">${</span><span class="nv">TeXworks_VER_MINOR</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">STRINGS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/TWVersion.h</span> <span class="s">TeXworks_VER_PATCH</span> <span class="s">REGEX</span> <span class="s2">&quot;VER_BUGFIX&quot;</span><span class="p">)</span>
+<span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_VER_PATCH</span> <span class="o">${</span><span class="nv">TeXworks_VER_PATCH</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_VERSION</span> <span class="o">${</span><span class="nv">TeXworks_VER_MAJOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">TeXworks_VER_MINOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">TeXworks_VER_PATCH</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;TeXworks Version: ${TeXworks_VERSION}&quot;</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-9'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-9">&#182;</a>
+        </div>
+        <p>Recover SVN revision from <code>src/SvnRev.h</code>.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">FILE</span><span class="p">(</span><span class="s">STRINGS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/SvnRev.h</span> <span class="s">TeXworks_SVN_REV</span> <span class="s">LIMIT_COUNT</span> <span class="s">1</span><span class="p">)</span>
+<span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_SVN_REV</span> <span class="o">${</span><span class="nv">TeXworks_SVN_REV</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;TeXworks SVN Revision: ${TeXworks_SVN_REV}&quot;</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-10'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-10">&#182;</a>
+        </div>
+        <p>Recover GIT revision: first 7 digets of the current Git SHA. Currently, this
+is only used in the filenames of packaged releases. If this CMake buildsystem
+ever gets merged back into the main SVN repository, this code can be removed.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="s">git</span> <span class="s">log</span> <span class="s">HEAD</span> <span class="s">-1</span> <span class="s">--pretty=%h</span> <span class="s">OUTPUT_VARIABLE</span> <span class="s">TeXworks_GIT_REV</span> <span class="s">OUTPUT_STRIP_TRAILING_WHITESPACE</span><span class="p">)</span>
+<span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;TeXworks Git Revision: ${TeXworks_GIT_REV}&quot;</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Declare_Project_Options'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Declare_Project_Options">&#182;</a>
+        </div>
+        <h2>Declare Project Options</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-12'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-12">&#182;</a>
+        </div>
+        <p>These are options that users can set at configure-time to determine how the
+application is built and what functionalities it will have. Here we declare
+these options by setting default values.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">TW_BUILD_ID</span> <span class="s2">&quot;personal&quot;</span> <span class="s">CACHE</span> <span class="s">STRING</span> <span class="s2">&quot;A distribution-specific identifier for TeXworks&quot;</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-13'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-13">&#182;</a>
+        </div>
+        <p>On UNIX, CMake installs to <code>/usr/local</code> by default. However, Mac users
+will probably find <code>/Applications</code> a more convenient default.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span><span class="p">(</span> <span class="s">APPLE</span> <span class="s">AND</span> <span class="s">CMAKE_INSTALL_PREFIX</span> <span class="s">MATCHES</span> <span class="s2">&quot;/usr/local&quot;</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span> <span class="s">CMAKE_INSTALL_PREFIX</span> <span class="s2">&quot;/Applications&quot;</span> <span class="p">)</span>
+<span class="nb">ENDIF</span><span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-14'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-14">&#182;</a>
+        </div>
+        <p>Do an optimized release build by default</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">CMAKE_BUILD_TYPE</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_BUILD_TYPE</span> <span class="s2">&quot;Release&quot;</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-15'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-15">&#182;</a>
+        </div>
+        <p>Options controlling the creation of scripting language plugins.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">WITH_LUA</span> <span class="s">TRUE</span> <span class="s">CACHE</span> <span class="s">BOOL</span> <span class="s2">&quot;Build TeXworks Lua plugin?&quot;</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">WITH_PYTHON</span> <span class="s">TRUE</span> <span class="s">CACHE</span> <span class="s">BOOL</span> <span class="s2">&quot;Build TeXworks Python plugin?&quot;</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-16'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-16">&#182;</a>
+        </div>
+        <p>On OS X we default to linking against the Python libraries provided by Apple
+even if other Pythons are available. This helps when building
+re-distributable <code>.app</code> packages. By disabling this option, a Mac user can
+link against whatever Python they wish for a personal build.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">USE_SYSTEM_PYTHON</span> <span class="s">TRUE</span> <span class="s">CACHE</span> <span class="s">BOOL</span> <span class="s2">&quot;Link against Python Framework distributed with OS X&quot;</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Dependency_Configuration'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Dependency_Configuration">&#182;</a>
+        </div>
+        <h1>Dependency Configuration</h1>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-18'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-18">&#182;</a>
+        </div>
+        <p>Make the contents of <code>CMake/Modules</code> available. Among other things, this
+directory contains scripts that locate project components such as Poppler.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_MODULE_PATH</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/CMake/Modules</span> <span class="o">${</span><span class="nv">CMAKE_MODULE_PATH</span><span class="o">}</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-19'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-19">&#182;</a>
+        </div>
+        <p>Declare Qt libraries required by this project.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span> <span class="p">(</span><span class="s">QT_COMPONENTS</span>
+    <span class="s">QtCore</span>
+    <span class="s">QtGui</span>
+    <span class="s">QtUiTools</span>
+    <span class="s">QtScript</span>
+    <span class="s">QtScriptTools</span>
+    <span class="s">QtXML</span>
+<span class="p">)</span>
+
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">UNIX</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">LIST</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">QT_COMPONENTS</span> <span class="s">QtDbus</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-20'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-20">&#182;</a>
+        </div>
+        <p>Locate Qt. <code>INCLUDE(UseQt4)</code> brings in a set of macros that helps us deal
+with Qt-specific tasks such as compiling resources or running <code>moc</code>.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Qt4</span> <span class="s">COMPONENTS</span> <span class="o">${</span><span class="nv">QT_COMPONENTS</span><span class="o">}</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">INCLUDE</span><span class="p">(</span><span class="s">UseQt4</span><span class="p">)</span>
+
+<span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">ZLIB</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Hunspell</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Poppler</span> <span class="s">REQUIRED</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-21'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-21">&#182;</a>
+        </div>
+        <p>The only thing Poppler should need is the location of the include directories
+in order to access header files. The library loader should be able to find
+libfontconfig on standard search paths.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">POPPLER_NEEDS_FONTCONFIG</span> <span class="p">)</span>
+  <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Fontconfig</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-22'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-22">&#182;</a>
+        </div>
+        <p>Aggregate library names and include directories into variables for easy
+access.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_INCLUDE_DIRS</span>
+  <span class="o">${</span><span class="nv">QT_INCLUDE_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">HUNSPELL_INCLUDE_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">POPPLER_QT4_INCLUDE_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">ZLIB_INCLUDE_DIR</span><span class="o">}</span>
+<span class="p">)</span>
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">POPPLER_NEEDS_FONTCONFIG</span> <span class="p">)</span>
+  <span class="nb">LIST</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">TeXworks_INCLUDE_DIRS</span> <span class="o">${</span><span class="nv">FONTCONFIG_INCLUDE_DIR</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span>
+
+<span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_LIB_DIRS</span> <span class="o">${</span><span class="nv">QT_LIBRARY_DIR</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_LIBS</span>
+  <span class="o">${</span><span class="nv">QT_LIBRARIES</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">POPPLER_LIBRARIES</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">HUNSPELL_LIBRARIES</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">ZLIB_LIBRARIES</span><span class="o">}</span>
+<span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Configure_Optional_Dependencies'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Configure_Optional_Dependencies">&#182;</a>
+        </div>
+        <h2>Configure Optional Dependencies</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-24'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-24">&#182;</a>
+        </div>
+        <p>CMake 2.8 has separate find scripts for Lua 5.1 and Lua 5.0. We assume that
+the most recent Lua version is installed.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">WITH_LUA</span> <span class="p">)</span>
+  <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Lua51</span><span class="p">)</span>
+<span class="nb">ENDIF</span><span class="p">()</span>
+
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">WITH_PYTHON</span> <span class="p">)</span>
+  <span class="nb">IF</span> <span class="p">(</span> <span class="s">USE_SYSTEM_PYTHON</span> <span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">PYTHON_LIBRARIES</span> <span class="s2">&quot;-F/System/Library/Frameworks -framework Python&quot;</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Python library.&quot;</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">PYTHON_INCLUDE_DIR</span> <span class="s2">&quot;/System/Library/Framework/Python.framework/Headers&quot;</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Python framework.&quot;</span><span class="p">)</span>
+    <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">PYTHON_LIBRARIES</span><span class="p">)</span>
+    <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">PYTHON_INCLUDE_DIR</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">PYTHONLIBS_FOUND</span> <span class="s">TRUE</span><span class="p">)</span>
+  <span class="nb">ELSE</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-25'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-25">&#182;</a>
+        </div>
+        <p><strong>NOTE</strong> For some reason, FindPythonLibs.cmake always seems to default to
+<code>/System/Library/Frameworks/Python.framework/Headers</code> as the include path
+on OS X.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">PythonLibs</span><span class="p">)</span>
+  <span class="nb">ENDIF</span> <span class="p">()</span>
+<span class="nb">ENDIF</span><span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Update_Header_Templates'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Update_Header_Templates">&#182;</a>
+        </div>
+        <h2>Update Header Templates</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-27'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-27">&#182;</a>
+        </div>
+        <p>Some header files contain components that must be dynamically generated. For
+example, <code>getDefaultBinPaths.sh</code> is a script that tries to figure out the
+appropriate path to TeX binaries on UNIX-like systems.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">UNIX</span> <span class="p">)</span>
+  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/DefaultBinaryPaths.h</span> <span class="p">)</span>
+    <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Generating DefaultBinaryPaths.h&quot;</span><span class="p">)</span>
+
+    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span>
+      <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/getDefaultBinPaths.sh</span>
+      <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span>
+    <span class="p">)</span>
+  <span class="nb">ENDIF</span> <span class="p">()</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Building'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Building">&#182;</a>
+        </div>
+        <h1>Building</h1>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Build_main_TeXworks_application'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Build_main_TeXworks_application">&#182;</a>
+        </div>
+        <h2>Build main TeXworks application</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="s">src</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Build_Plugins'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Build_Plugins">&#182;</a>
+        </div>
+        <h2>Build Plugins</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-31'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-31">&#182;</a>
+        </div>
+        <p>Set the plugin installation path. This is a good default for UNIX-like
+systems, but is not appropriate for Windows.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_PLUGIN_DIR</span> <span class="s">lib</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-32'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-32">&#182;</a>
+        </div>
+        <p>On OS X, the plugins should live inside the application bundle.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_PLUGIN_DIR</span> <span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/PlugIns</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-33'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-33">&#182;</a>
+        </div>
+        <p>Build scripting language plugins if the required libraries are available.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">LUA51_FOUND</span> <span class="p">)</span>
+  <span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/plugins-src/TWLuaPlugin</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span>
+
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">PYTHONLIBS_FOUND</span> <span class="p">)</span>
+  <span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/plugins-src/TWPythonPlugin</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Packaging'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Packaging">&#182;</a>
+        </div>
+        <h1>Packaging</h1>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-35'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-35">&#182;</a>
+        </div>
+        <p>This section is responsible for executing all tasks that run when a user
+invokes <code>cpack</code> or <code>make package</code> after executing their platform&rsquo;s equivalent
+of of <code>make</code>. The packaging tasks are responsible for two things:</p>
+
+<ul>
+<li><p>Applying transformations to the compiled binaries such that they can be
+distributed to another machine.</p></li>
+<li><p>Gathering all binaries and libraries and packaging them into an archive
+suitable for distribution such as a Windows installer or Mac disk image
+file.</p></li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-36'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-36">&#182;</a>
+        </div>
+        <p>Gather all libraries related to Qt plugins used by TeXworks so that they can
+be bundled into packages.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">QT_PLUGINS</span>
+  <span class="o">${</span><span class="nv">QT_QTACCESSIBLEWIDGETS_PLUGIN_RELEASE</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">QT_QCNCODECS_PLUGIN_RELEASE</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">QT_QJPCODECS_PLUGIN_RELEASE</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">QT_QKRCODECS_PLUGIN_RELEASE</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">QT_QTWCODECS_PLUGIN_RELEASE</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">QT_QGIF_PLUGIN_RELEASE</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">QT_QJPEG_PLUGIN_RELEASE</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">QT_QTIFF_PLUGIN_RELEASE</span><span class="o">}</span>
+<span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-37'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-37">&#182;</a>
+        </div>
+        <p>The file <code>cmake/packaging/CMakeLists.txt</code> controls the execution of tasks
+specific to preparing binaries for packaging on a given platform. This script
+is invoked via <code>ADD_SUBDIRECTORY</code> so that it executes after TeXworks and its
+components are built and installed. You cannot fixup an application bundle
+before it has been created&hellip;</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmake/packaging</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-38'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-38">&#182;</a>
+        </div>
+        <p>Set CPack variables.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_VERSION_MAJOR</span> <span class="o">${</span><span class="nv">TeXworks_VER_MAJOR</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_VERSION_MINOR</span> <span class="o">${</span><span class="nv">TeXworks_VER_MINOR</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_VERSION_PATCH</span> <span class="o">${</span><span class="nv">TeXworks_VER_PATCH</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_VERSION</span> <span class="o">${</span><span class="nv">TeXworks_VERSION</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_NAME</span> <span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_FILE_NAME</span> <span class="s2">&quot;${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}-${TeXworks_GIT_REV}&quot;</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-39'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-39">&#182;</a>
+        </div>
+        <p>Configure Drag N' Drop installer.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">MAC_PACK_BITS</span> <span class="s2">&quot;${CMAKE_SOURCE_DIR}/cmake/packaging/mac&quot;</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_GENERATOR</span> <span class="s">DragNDrop</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span> <span class="s">CPACK_DMG_BACKGROUND_IMAGE</span> <span class="s2">&quot;${MAC_PACK_BITS}/texworks_dmg_background.png&quot;</span> <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-40'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-40">&#182;</a>
+        </div>
+        <p>Configure an AppleScript for applying a nice window layout to Drag N' Drop disk
+image.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">CONFIGURE_FILE</span><span class="p">(</span> <span class="o">${</span><span class="nv">MAC_PACK_BITS</span><span class="o">}</span><span class="s">/set_dmg_layout.scpt.in</span>
+    <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/set_dmg_layout.scpt</span>
+    <span class="s">@ONLY</span>
+  <span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span>
+
+<span class="nb">INCLUDE</span><span class="p">(</span><span class="s">CPack</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

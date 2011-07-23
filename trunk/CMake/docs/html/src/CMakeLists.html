@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title></title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="../CMake/packaging/CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
+          <a class="source" href="../CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="../plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
+          <a class="source" href="../plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
+          <a class="source" href="CMakeLists.html">src/CMakeLists.txt</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>src/CMakeLists.txt</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-Build_TeXworks'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Build_TeXworks">&#182;</a>
+        </div>
+        <h1>Build TeXworks</h1>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Collect_Source_Files'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Collect_Source_Files">&#182;</a>
+        </div>
+        <h2>Collect Source Files</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p><strong>NOTE:</strong> <em>A <code>GLOB</code> operation is quick, but may not be appropriate. It may be
+better to maintain an explicit list of source files. Particularly, adding a
+new file to an explicit list will cause CMake to automatically reconfigure
+the next time <code>make</code> is invoked. When <code>GLOB</code> is used, the developer will have
+to remember to re-run <code>cmake</code> if a source file is added.</em></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_SRCS</span>       <span class="s2">&quot;*.cpp&quot;</span> <span class="s2">&quot;*.c&quot;</span><span class="p">)</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_MOC_HDRS</span>   <span class="s2">&quot;*.h&quot;</span><span class="p">)</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_UIS</span>        <span class="s2">&quot;*.ui&quot;</span><span class="p">)</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_RCS</span>        <span class="s2">&quot;${TeXworks_SOURCE_DIR}/res/*.qrc&quot;</span><span class="p">)</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_TRANS</span>      <span class="s2">&quot;${TeXworks_SOURCE_DIR}/trans/*.ts&quot;</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>These source files along with the <code>.moc</code> files generated from some headers
+form the TeXworks scripting API. We export them to variables in the
+<code>PARENT_SCOPE</code> (top level CMake file) so that they will be available to the
+build processes of the scripting language plugins.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_SCRIPT_API</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TWScript.cpp</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TWScriptAPI.cpp</span>
+  <span class="s">PARENT_SCOPE</span>
+<span class="p">)</span>
+
+<span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_SCRIPT_API_H</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TWScript.h</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TWScriptAPI.h</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TWSystemCmd.h</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/ConfigurableApp.h</span>
+  <span class="s">PARENT_SCOPE</span>
+<span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-App_Setup'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-App_Setup">&#182;</a>
+        </div>
+        <h2>App Setup</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
+        <p>On OS X, set GUI type to an <code>.app</code> bundle, gather icon files and add core system
+frameworks to the library link list.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">GUI_TYPE</span> <span class="s">MACOSX_BUNDLE</span><span class="p">)</span>
+
+  <span class="nb">LIST</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">TeXworks_LIBS</span>  <span class="s2">&quot;-framework CoreServices&quot;</span><span class="p">)</span>
+
+  <span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TeXworks_APP_ICONS</span> <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/*.icns</span><span class="p">)</span>
+  <span class="nb">SET_SOURCE_FILES_PROPERTIES</span><span class="p">(</span> <span class="o">${</span><span class="nv">TeXworks_APP_ICONS</span><span class="o">}</span>
+    <span class="s">PROPERTIES</span>
+      <span class="s">MACOSX_PACKAGE_LOCATION</span> <span class="s">Resources</span>
+  <span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p><strong>WARNING:</strong> <em>Windows is untested</em></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">WIN32</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">GUI_TYPE</span> <span class="s">WIN32</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-8'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-8">&#182;</a>
+        </div>
+        <p>Make sure the compiler can find include files.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">TeXworks_INCLUDE_DIRS</span><span class="o">}</span>
+<span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-9'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-9">&#182;</a>
+        </div>
+        <p>Make sure the compiler can find library files.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">LINK_DIRECTORIES</span><span class="p">(</span> <span class="o">${</span><span class="nv">TeXworks_LIB_DIRS</span><span class="o">}</span> <span class="p">)</span>
+
+<span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DTW_BUILD_ID=</span><span class="o">${</span><span class="nv">TW_BUILD_ID</span><span class="o">}</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-10'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-10">&#182;</a>
+        </div>
+        <p>Poppler supports XPDF API calls?</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span><span class="s">POPPLER_HAS_XPDF</span><span class="p">)</span>
+  <span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">POPPLER_XPDF_INCLUDE_DIR</span><span class="o">}</span><span class="p">)</span>
+  <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span> <span class="s">-DHAVE_POPPLER_XPDF_HEADERS</span> <span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Qt-Specific_Source_Code_Processing'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Qt-Specific_Source_Code_Processing">&#182;</a>
+        </div>
+        <h2>Qt-Specific Source Code Processing</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-12'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-12">&#182;</a>
+        </div>
+        <p>Run moc on header files.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">QT4_WRAP_CPP(TEXWORKS_GEN_MOC</span> <span class="err">${TEXWORKS_MOC_HDRS})</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-13'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-13">&#182;</a>
+        </div>
+        <p>Run uic on user interface files.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">QT4_WRAP_UI(TEXWORKS_GEN_UI</span> <span class="err">${TEXWORKS_UIS})</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-14'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-14">&#182;</a>
+        </div>
+        <p>Run rcc on reasource files.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">QT4_ADD_RESOURCES(TEXWORKS_GEN_RCS</span> <span class="err">${TEXWORKS_RCS})</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-15'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-15">&#182;</a>
+        </div>
+        <p>Prep language translations.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">QT4_ADD_TRANSLATION(TEXWORKS_GEN_TRANS</span> <span class="err">${TEXWORKS_TRANS})</span>
+
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="s">OR</span> <span class="s">NOT</span> <span class="s">UNIX</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">EXE_NAME</span> <span class="s">TeXworks</span><span class="p">)</span>
+<span class="nb">ELSE</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="s">OR</span> <span class="s">NOT</span> <span class="s">UNIX</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">EXE_NAME</span> <span class="s">texworks</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="s">OR</span> <span class="s">NOT</span> <span class="s">UNIX</span> <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Compilation'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Compilation">&#182;</a>
+        </div>
+        <h2>Compilation</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-17'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-17">&#182;</a>
+        </div>
+        <p>Build the executible.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">ADD_EXECUTABLE</span><span class="p">(</span> <span class="o">${</span><span class="nv">EXE_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">GUI_TYPE</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">TEXWORKS_SRCS</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">TEXWORKS_GEN_MOC</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_GEN_UI</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_GEN_RCS</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_GEN_TRANS</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">TeXworks_APP_ICONS</span><span class="o">}</span>
+<span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-18'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-18">&#182;</a>
+        </div>
+        <p>Specify libraries to be linked to TeXworks.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span> <span class="o">${</span><span class="nv">EXE_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">TeXworks_LIBS</span><span class="o">}</span> <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-19'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-19">&#182;</a>
+        </div>
+        <p>For OS X, generate <code>Info.plist</code> and add it to the <code>.app</code> bundle.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span><span class="s">APPLE</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">VER</span> <span class="o">${</span><span class="nv">TeXworks_VERSION</span><span class="o">}</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">REV</span> <span class="o">${</span><span class="nv">TeXworks_SVN_REV</span><span class="o">}</span><span class="p">)</span>
+  <span class="nb">CONFIGURE_FILE</span><span class="p">(</span><span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks.plist.in</span>
+    <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks.plist</span>
+    <span class="s">@ONLY</span>
+  <span class="p">)</span>
+
+  <span class="nb">SET_TARGET_PROPERTIES</span><span class="p">(</span> <span class="s">TeXworks</span> <span class="s">PROPERTIES</span>
+    <span class="s">MACOSX_BUNDLE_INFO_PLIST</span>
+      <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks.plist</span>
+  <span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Installation'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Installation">&#182;</a>
+        </div>
+        <h2>Installation</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">INSTALL</span><span class="p">(</span> <span class="s">TARGETS</span> <span class="o">${</span><span class="nv">EXE_NAME</span><span class="o">}</span>
+  <span class="s">RUNTIME</span> <span class="s">DESTINATION</span> <span class="s">bin</span> <span class="s">COMPONENT</span>
+  <span class="s">BUNDLE</span> <span class="s">DESTINATION</span> <span class="s">.</span> <span class="s">COMPONENT</span>
+<span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-21'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-21">&#182;</a>
+        </div>
+        <p>On OS X, ensure there is always a <code>qt.conf</code> file as all hell will break loose
+if one isn&rsquo;t there.  This may need to be customized for use on non-Apple
+systems.</p>
+
+<p>Protip: If there are wierd errors like &ldquo;Qt libraries loaded twice&rdquo; or
+&ldquo;looking for a tablet device&rdquo;, then something may have gone pear shaped with
+<code>qt.conf</code>.</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">QTCONF_DIR</span> <span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/Resources</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">QTCONF_CONTENTS</span> <span class="s2">&quot;[Paths]\nPlugins = PlugIns&quot;</span><span class="p">)</span>
+
+  <span class="nb">INSTALL</span><span class="p">(</span> <span class="s">CODE</span>
+    <span class="s2">&quot;</span>
+<span class="s2">    FILE(WRITE \&quot;</span><span class="s">\${CMAKE_INSTALL_PREFIX}/${QTCONF_DIR}/qt.conf\&quot;</span>
+      <span class="s">\&quot;${QTCONF_CONTENTS}\&quot;</span>
+    <span class="p">)</span>
+    <span class="err">&quot;</span>
+  <span class="err">)</span>
+<span class="nb">ENDIF</span><span class="p">()</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
