@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title></title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="../../CMake/packaging/CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
+          <a class="source" href="../../CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
+          <a class="source" href="../TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
+          <a class="source" href="../../src/CMakeLists.html">src/CMakeLists.txt</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>plugins-src/TWLuaPlugin/CMakeLists.txt</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-Build_Lua_Plugin'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Build_Lua_Plugin">&#182;</a>
+        </div>
+        <h1>Build Lua Plugin</h1>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/src</span>
+  <span class="o">${</span><span class="nv">QT_INCLUDE_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">LUA_INCLUDE_DIR</span><span class="o">}</span>
+<span class="p">)</span>
+
+<span class="nb">LINK_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">QT_LIBRARY_DIR</span><span class="o">}</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p><strong>NOTE:</strong> <em>Re-moccing headers from the main source directory that have
+already been mocced during the build of the main program seems redundant, but
+I&rsquo;m not wise enough in the ways of Qt and CMake to figure out a good
+alternative.</em></p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">QT4_WRAP_CPP(LUA_PLUGIN_MOC</span> <span class="err">${TeXworks_SCRIPT_API_H}</span> <span class="err">TWLuaPlugin.h)</span>
+
+<span class="nb">ADD_LIBRARY</span><span class="p">(</span><span class="s">TWLuaPlugin</span> <span class="s">SHARED</span>
+  <span class="s">TWLuaPlugin.cpp</span>
+  <span class="o">${</span><span class="nv">TeXworks_SCRIPT_API</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">LUA_PLUGIN_MOC</span><span class="o">}</span>
+<span class="p">)</span>
+<span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span><span class="s">TWLuaPlugin</span> <span class="o">${</span><span class="nv">QT_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">LUA_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">INSTALL</span><span class="p">(</span><span class="s">TARGETS</span> <span class="s">TWLuaPlugin</span>
+  <span class="s">LIBRARY</span> <span class="s">DESTINATION</span> <span class="o">${</span><span class="nv">TeXworks_PLUGIN_DIR</span><span class="o">}</span>
+<span class="p">)</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
