@@ -6,6 +6,7 @@
 SET(PROJECT_SOURCE_DIR @PROJECT_SOURCE_DIR@)
 SET(PROJECT_NAME @PROJECT_NAME@)
 SET(TeXworks_LIB_DIRS @TeXworks_LIB_DIRS@)
+SET(CMAKE_SHARED_LIBRARY_SUFFIX @CMAKE_SHARED_LIBRARY_SUFFIX@)
 
 # This IF statement ensures that the following commands are executed only when
 # CPack is running---i.e. when a user executes `make package` but not `make install`
@@ -34,6 +35,7 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
     PATTERN Makefile EXCLUDE
   )
 
+
   # Copy all runtime dependencies and rewrite loader paths
   # ------------------------------------------------------
 
@@ -52,6 +54,62 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   SET(BU_CHMOD_BUNDLE_ITEMS ON)
 
   FIXUP_BUNDLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app ${TeXworks_PLUGINS} ${TeXworks_LIB_DIRS})
+
+
+  # Remove unecessary architectures from universal binaries
+  # -------------------------------------------------------
+
+  # Some libraries copied from the OS X system, such as X11 libraries, may
+  # contain up to 4 different architectures. Here we will iterate over these
+  # libraries and use `lipo` to strip out un-needed architectures.
+
+  # Another useful function from BundleUtilities
+  GET_BUNDLE_MAIN_EXECUTABLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app APP_MAIN)
+
+  # We look at the TeXworks binary that was built rather than consulting the
+  # value of the CMAKE_OSX_ARCHITECTURES because if the user did not set
+  # CMAKE_OSX_ARCHITECTURES, then the variable will be an empty string and the
+  # format of the resulting binary will depend on the versions of OS X and
+  # XCode.
+  MESSAGE(STATUS "Reducing the size of bundled libraries.")
+  MESSAGE(STATUS "Scanning architectures of: ${APP_MAIN}")
+  EXECUTE_PROCESS(
+    # `lipo -info` returns a list of the form:
+    #
+    #    <is universal binary?>: <program name>: <list of architectures>
+    #
+    # Piping this output to `cut -d : -f 3-` allows us to extract just the list
+    # of architectures.
+    COMMAND lipo -info ${APP_MAIN}
+    COMMAND cut -d : -f 3-
+    OUTPUT_VARIABLE APP_ARCHS
+  )
+
+  # Strip leading and trailing whitespace
+  STRING(STRIP ${APP_ARCHS} APP_ARCHS)
+  # Convert spaces to semicolons so CMake will interpret it as a list
+  STRING(REPLACE " " ";" APP_ARCHS ${APP_ARCHS})
+
+  MESSAGE(STATUS "Will reduce bundled libraries to: ${APP_ARCHS}")
+
+  FOREACH(ARCH IN LISTS APP_ARCHS)
+    SET(ARCHS_TO_EXTRACT "${ARCHS_TO_EXTRACT} -extract ${ARCH}")
+  ENDFOREACH ()
+
+  # NOTE: This will not process any dylibs from Frameworks copied by
+  # FIXUP_BUNDLE, hence it may not touch any of the Qt libraries. Something to
+  # fix in the future.
+  file(GLOB BUNDLED_DYLIBS
+    ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/MacOS/*${CMAKE_SHARED_LIBRARY_SUFFIX})
+
+  FOREACH(DYLIB IN LISTS BUNDLED_DYLIBS)
+    MESSAGE(STATUS "Processing included library: ${DYLIB}")
+    # `lipo` is very very anal about how arguments get passed to it. So we
+    # execute through bash to side-step the issue.
+    EXECUTE_PROCESS(COMMAND bash -c "lipo ${ARCHS_TO_EXTRACT} ${DYLIB} -output ${DYLIB}")
+  ENDFOREACH ()
+
+  MESSAGE(STATUS "Finished stripping architectures from bundled libraries.")
 
 ENDIF ()
 
