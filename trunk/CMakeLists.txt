@@ -49,6 +49,13 @@ ENDIF()
 
 SET(WITH_LUA TRUE CACHE BOOL "Build TeXworks Lua plugin?")
 
+SET(WITH_PYTHON TRUE CACHE BOOL "Build TeXworks Python plugin?")
+IF ( APPLE )
+  # Reccomended for build re-distributable .app packages. For personal builds,
+  # use whatever Python you wish.
+  SET(USE_SYSTEM_PYTHON TRUE CACHE BOOL "Link against Python Framework distributed with OS X")
+ENDIF ()
+
 
 #===============================================================================
 #                                Configuration
@@ -113,6 +120,21 @@ IF ( WITH_LUA )
   FIND_PACKAGE(Lua51)
 ENDIF()
 
+IF ( WITH_PYTHON )
+  IF ( USE_SYSTEM_PYTHON )
+    SET(PYTHON_LIBRARIES "-F/System/Library/Frameworks -framework Python" CACHE PATH "Python library.")
+    SET(PYTHON_INCLUDE_DIR "/System/Library/Framework/Python.framework/Headers" CACHE PATH "Python framework.")
+    MARK_AS_ADVANCED(PYTHON_LIBRARIES)
+    MARK_AS_ADVANCED(PYTHON_INCLUDE_DIR)
+    SET(PYTHONLIBS_FOUND TRUE)
+  ELSE ()
+    # For some reason, FindPythonLibs.cmake always seems to default to
+    # /System/Library/Frameworks/Python.framework/Headers as the include path
+    # on OS X.
+    FIND_PACKAGE(PythonLibs)
+  ENDIF ()
+ENDIF()
+
 # Configure Template Files
 # ------------------------
 IF ( UNIX )
@@ -149,6 +171,10 @@ ENDIF ()
 # Script Plugins
 IF ( LUA51_FOUND )
   ADD_SUBDIRECTORY(${TeXworks_SOURCE_DIR}/plugins-src/TWLuaPlugin)
+ENDIF ()
+
+IF ( PYTHONLIBS_FOUND )
+  ADD_SUBDIRECTORY(${TeXworks_SOURCE_DIR}/plugins-src/TWPythonPlugin)
 ENDIF ()
 
 
