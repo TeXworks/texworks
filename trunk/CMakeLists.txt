@@ -49,6 +49,11 @@ IF( APPLE AND CMAKE_INSTALL_PREFIX MATCHES "/usr/local" )
   SET( CMAKE_INSTALL_PREFIX "/Applications" )
 ENDIF()
 
+IF ( NOT CMAKE_BUILD_TYPE )
+  # Do an optimized release build by default
+  SET(CMAKE_BUILD_TYPE "Release")
+ENDIF ()
+
 SET(WITH_LUA TRUE CACHE BOOL "Build TeXworks Lua plugin?")
 
 SET(WITH_PYTHON TRUE CACHE BOOL "Build TeXworks Python plugin?")
