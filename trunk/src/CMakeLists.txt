@@ -25,6 +25,8 @@ SET(TeXworks_SCRIPT_API_H
 
 
 # Platform-specific app setup and source code.
+ADD_DEFINITIONS(-DTW_BUILD_ID=${TW_BUILD_ID})
+
 IF ( APPLE )
   # Set GUI type to a .app bundle, gather icon files and add core system
   # frameworks to the library link list.
