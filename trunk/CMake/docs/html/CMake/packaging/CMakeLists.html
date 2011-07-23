@@ -3,23 +3,36 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
   <title></title>
-  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+  <link rel="stylesheet" href="http://sharpie.github.com/TeXworks/resources/docs.css">
 </head>
 <body>
 <div id='container'>
   <div id="background"></div>
-  <div id="jump_to">
-    Jump To &hellip;
-    <div id="jump_wrapper">
-      <div id="jump_page">
+
+  <!-- Navbar -->
+  <div id="fadeout"></div>
+  <div id="flybar">
+    <a id="title" href="#top">CMake/packaging/CMakeLists.txt</a>
+
+    <div class="navigation toc">
+      <div class="button">
+        Browse Source
+      </div>
+      <div class="contents menu">
           <a class="source" href="CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
+          <a class="source" href="mac/MacPackagingTasks.cmake.html">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
           <a class="source" href="../../CMakeLists.html">CMakeLists.txt</a>
           <a class="source" href="../../plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
           <a class="source" href="../../plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
           <a class="source" href="../../src/CMakeLists.html">src/CMakeLists.txt</a>
       </div>
     </div>
+    <div id="error" style="display:none;"></div>
   </div>
+
+  <!-- Content -->
+  <span class="bookmark" id="top"></span>
+
   <table cellspacing=0 cellpadding=0>
   <thead>
     <tr>
@@ -75,7 +88,7 @@ form <code>${VARIABLE}</code> will be left untouched.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-4">&#182;</a>
         </div>
-        <p>Execute the packaging tasks. <code>INSTALL(SCRIPT ...)</code> is used so that these tasks
+        <p>Execute the packaging tasks. <code>INSTALL(SCRIPT &hellip;)</code> is used so that these tasks
 executing during <code>make install</code> rather than <code>make</code> or <code>cmake</code>.</p>
 
       </td>
@@ -85,4 +98,30 @@ executing during <code>make install</code> rather than <code>make</code> or <cod
     </tr>
   </table>
 </div>
+
+  <!-- Navbar Scripting -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    var closeMenus;
+    closeMenus = function() {
+      return $('.navigation.active').removeClass('active');
+    };
+    $('.navigation').click(function(e) {
+      if (e.target.tagName.toLowerCase() === 'a') {
+        return;
+      }
+      if ($(e.target).closest('.repl_wrapper').length) {
+        return false;
+      }
+      if ($(this).hasClass('active')) {
+        closeMenus();
+      } else {
+        closeMenus();
+        $(this).addClass('active');
+      }
+      return false;
+    });
+  </script>
+
 </body>
+</html>
