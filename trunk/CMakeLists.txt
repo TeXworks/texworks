@@ -183,6 +183,11 @@ ENDIF ()
 #                                  Packaging
 #===============================================================================
 
+# cmake/packaging/CMakeLists.txt contains packaging-specifc tasks. These are
+# invoked via ADD_SUBDIRECTORY so that they execute after TeXworks and its
+# plugins are built.
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/cmake/packaging)
+
 SET(CPACK_PACKAGE_VERSION_MAJOR ${TeXworks_VER_MAJOR})
 SET(CPACK_PACKAGE_VERSION_MINOR ${TeXworks_VER_MINOR})
 SET(CPACK_PACKAGE_VERSION_PATCH ${TeXworks_VER_PATCH})
@@ -192,13 +197,6 @@ SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}-${TeXworks_GIT_REV}")
 
 IF ( APPLE )
-  # Nice way would be to put this in cmake/Modules with a descriptive filename
-  # like MacBundler.cmake. However, it has to be brought in using
-  # ADD_SUBDIRECTORY so that the INSTALL() directives are triggered after the
-  # TeXworks `src` directory is processed. Otherwise, CMake tries to run
-  # install_name_tool on a .app that hasn't been created yet.
-  ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/cmake/packaging/mac)
-
   SET(CPACK_GENERATOR DragNDrop)
 ENDIF ()
 
