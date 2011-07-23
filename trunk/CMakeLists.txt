@@ -41,7 +41,7 @@ MESSAGE(STATUS "TeXworks Git Revision: ${TeXworks_GIT_REV}")
 # Project Options
 # ---------------
 
-SET(TW_BUILD_ID "unknown build" CACHE STRING "A distribution-specific identifier for TeXworks")
+SET(TW_BUILD_ID "personal" CACHE STRING "A distribution-specific identifier for TeXworks")
 
 IF( APPLE AND CMAKE_INSTALL_PREFIX MATCHES "/usr/local" )
   # CMake chooses /usr/local by default, but Mac users probably want things to
