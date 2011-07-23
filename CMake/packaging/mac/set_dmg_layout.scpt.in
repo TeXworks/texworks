@@ -26,10 +26,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *)
+-- Clean up if a previous run of this script aborted
+do shell script "if [ -f tw_tmp.dmg ]; then rm tw_tmp.dmg; fi"
 
 -- Make package DMG writable and mount it
-do shell script "hdiutil convert -format UDRW -o tw.dmg @CPACK_PACKAGE_FILE_NAME@.dmg"
-do shell script "hdiutil attach tw.dmg"
+do shell script "hdiutil convert -format UDRW -o tw_tmp.dmg @CPACK_PACKAGE_FILE_NAME@.dmg"
+do shell script "hdiutil attach tw_tmp.dmg"
 do shell script "touch /Volumes/@CPACK_PACKAGE_FILE_NAME@/.DS_Store"
 do shell script "chmod +w /Volumes/@CPACK_PACKAGE_FILE_NAME@/.DS_Store"
 do shell script "SetFile -a -v /Volumes/@CPACK_PACKAGE_FILE_NAME@/background.png"
@@ -68,7 +70,7 @@ tell application "Finder"
     set position of item "TeXworks.app" to {102, 158}
 
     open
-      set the bounds of the container window to {50, 100, 465, 395}
+      set the bounds of the container window to {50, 100, 450, 400}
       set background picture of the icon view options of container window to file "background.png"
       update without registering applications
     close
@@ -84,6 +86,6 @@ do shell script "SetFile -a -V /Volumes/@CPACK_PACKAGE_FILE_NAME@/background.png
 do shell script "chmod -w /Volumes/@CPACK_PACKAGE_FILE_NAME@/.DS_Store"
 do shell script "hdiutil detach /Volumes/@CPACK_PACKAGE_FILE_NAME@"
 do shell script "rm @CPACK_PACKAGE_FILE_NAME@.dmg"
-do shell script "hdiutil convert -format UDBZ -imagekey zlib-level=9 -o @CPACK_PACKAGE_FILE_NAME@.dmg tw.dmg"
-do shell script "rm tw.dmg"
+do shell script "hdiutil convert -format UDBZ -imagekey zlib-level=9 -o @CPACK_PACKAGE_FILE_NAME@.dmg tw_tmp.dmg"
+do shell script "rm tw_tmp.dmg"
 
