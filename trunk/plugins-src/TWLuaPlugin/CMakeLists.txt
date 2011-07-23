@@ -7,7 +7,7 @@ INCLUDE_DIRECTORIES(
   ${LUA_INCLUDE_DIR}
 )
 
-LINK_DIRECTORIES(${QT_LIBRARY_DIRS})
+LINK_DIRECTORIES(${QT_LIBRARY_DIR})
 
 # Re-moccing headers from the main source directory that have already been
 # mocced during the build of the main program seems redundant, but I'm not wise
