@@ -293,10 +293,17 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 											const QStringList& ignore)
 {
 	QSETTINGS_OBJECT(settings);
+	QFileInfo info;
 	bool scriptingPluginsEnabled = settings.value("enableScriptingPlugins", false).toBool();
 	
-	foreach (const QFileInfo& info,
+	foreach (const QFileInfo& constInfo,
 			 dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Readable, QDir::DirsLast)) {
+		// Get a non-const copy in case we need to resolve symlinks later on
+		info = constInfo;
+		// Should not happen, unless we're dealing with an invalid symlink
+		if (!info.exists())
+			continue;
+		
 		if (info.isDir()) {
 			// Only create a new sublist if a matching one doesn't already exist
 			TWScriptList *subScriptList = NULL;
@@ -328,6 +335,15 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 				delete subHookList;
 			continue;
 		}
+		
+		// not a directory
+
+		// resolve symlinks
+		while (info.isSymLink())
+			info = QFileInfo(info.symLinkTarget());
+		// sanity check (should be caught already at the start of the loop)
+		if (!info.exists())
+			continue;
 		
 		if (ignore.contains(info.absoluteFilePath()))
 			continue;
