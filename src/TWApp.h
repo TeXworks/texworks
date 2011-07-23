@@ -191,7 +191,7 @@ public slots:
 
 	void about();
 	void doResourcesDialog() const;
-	void newFile();
+	QObject * newFile() const;
 	void open();
 	void stackWindows();
 	void tileWindows();
@@ -221,7 +221,7 @@ signals:
 	void highlightLineOptionChanged();
 
 private slots:	
-	void newFromTemplate();
+	QObject * newFromTemplate() const;
 	void openRecentFile();
 	void preferences();
 

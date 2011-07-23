@@ -568,15 +568,16 @@ void TWApp::launchAction()
 #endif
 }
 
-void TWApp::newFile()
+QObject * TWApp::newFile() const
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->show();
 	doc->editor()->updateLineNumberAreaWidth(0);
 	doc->runHooks("NewFile");
+	return doc;
 }
 
-void TWApp::newFromTemplate()
+QObject * TWApp::newFromTemplate() const
 {
 	QString templateName = TemplateDialog::doTemplateDialog();
 	if (!templateName.isEmpty()) {
@@ -586,8 +587,10 @@ void TWApp::newFromTemplate()
 			doc->selectWindow();
 			doc->editor()->updateLineNumberAreaWidth(0);
 			doc->runHooks("NewFromTemplate");
+			return doc;
 		}
 	}
+	return NULL;
 }
 
 void TWApp::openRecentFile()
