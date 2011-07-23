@@ -191,6 +191,17 @@ ENDIF ()
 # cmake/packaging/CMakeLists.txt contains packaging-specifc tasks. These are
 # invoked via ADD_SUBDIRECTORY so that they execute after TeXworks and its
 # plugins are built.
+SET(QT_PLUGINS
+  ${QT_QTACCESSIBLEWIDGETS_PLUGIN_RELEASE}
+  ${QT_QCNCODECS_PLUGIN_RELEASE}
+  ${QT_QJPCODECS_PLUGIN_RELEASE}
+  ${QT_QKRCODECS_PLUGIN_RELEASE}
+  ${QT_QTWCODECS_PLUGIN_RELEASE}
+  ${QT_QGIF_PLUGIN_RELEASE}
+  ${QT_QJPEG_PLUGIN_RELEASE}
+  ${QT_QTIFF_PLUGIN_RELEASE}
+)
+
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/cmake/packaging)
 
 SET(CPACK_PACKAGE_VERSION_MAJOR ${TeXworks_VER_MAJOR})
