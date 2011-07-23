@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>{{ url }}</title>
+  <link rel="stylesheet" href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  {{#sources?}}
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+        {{#sources}}
+          <a class="source" href="{{ url }}">{{ path }}</a>
+        {{/sources}}
+      </div>
+    </div>
+  </div>
+  {{/sources?}}
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>{{ file }}</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#sections}}
+    <tr id='section-{{ section_id }}'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-{{ section_id }}">&#182;</a>
+        </div>
+        {{{ docs }}}
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>{{{ code }}}</pre></div>
+      </td>
+    </tr>
+    {{/sections}}
+  </table>
+</div>
+</body>
