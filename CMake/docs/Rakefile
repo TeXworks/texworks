@@ -12,7 +12,7 @@ ROOT_DIR = DOC_DIR.join '../..'
 Dir.chdir ROOT_DIR
 
 # Gather all CMake files
-CMAKE_FILES = Dir['**/CMakeLists.txt']
+CMAKE_FILES = Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
 
 # Generate documentation from comments in CMake files
 task :docs do
@@ -22,6 +22,9 @@ task :docs do
     "--template=#{DOC_DIR + 'layout.mustache'}",
     *CMAKE_FILES
 end
+
+# Make doc generation the default task
+task :default => :docs
 
 # Generate documentation and then view it
 task :view => [:docs] do
