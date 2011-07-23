@@ -55,11 +55,12 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 # path when compiling.
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# This message is probably superfluous.
-IF ( NOT APPLE )
+IF ( WIN32 )
   MESSAGE( WARNING
-    "This CMake build process has only been tested on Mac OS X."
-    "\nIt may not work on other systems, but patches are welcome!"
+    "The CMake build system has only been tested on Mac OS X and Linux."
+    "\nIt probably won't work on Windows. Patches containing fixes are"
+    "\nwelcomed at:"
+    "\n  https://github.com/Sharpie/TeXworks"
   )
 ENDIF ()
 
