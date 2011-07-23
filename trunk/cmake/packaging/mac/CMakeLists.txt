@@ -7,10 +7,14 @@ INSTALL( CODE
   "
   INCLUDE(BundleUtilities)
 
-  # If this is not set, install_name_tool will fail to re-write some loader paths
-  # due to insufficiant permissions.
+  # Gather all Plugin libraries
+  file(GLOB  QTPLUGINS
+    \"\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/plugins/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+
+  # If BU_CHMOD_BUNDLE_ITEMS is not set, install_name_tool will fail to
+  # re-write some loader paths due to insufficiant permissions.
   SET(BU_CHMOD_BUNDLE_ITEMS ON)
-  FIXUP_BUNDLE(\"\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app\" \"\" ${TeXworks_LIB_DIRS})
+  FIXUP_BUNDLE(\"\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app\" \"\${QTPLUGINS}\" ${TeXworks_LIB_DIRS})
   "
 )
 

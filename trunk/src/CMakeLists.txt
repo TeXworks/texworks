@@ -5,6 +5,24 @@ FILE(GLOB TEXWORKS_UIS        "*.ui")
 FILE(GLOB TEXWORKS_RCS        "${TeXworks_SOURCE_DIR}/res/*.qrc")
 FILE(GLOB TEXWORKS_TRANS      "${TeXworks_SOURCE_DIR}/trans/*.ts")
 
+# These source files along with the moc files generated from some headers
+# for the TeXworks scripting API. We export them to variables in the
+# PARENT_SCOPE so that they will be available to the build processes of the
+# scripting language plugins.
+SET(TeXworks_SCRIPT_API
+  ${CMAKE_CURRENT_SOURCE_DIR}/TWScript.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/TWScriptAPI.cpp
+  PARENT_SCOPE
+)
+
+SET(TeXworks_SCRIPT_API_H
+  ${CMAKE_CURRENT_SOURCE_DIR}/TWScript.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/TWScriptAPI.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/TWSystemCmd.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/ConfigurableApp.h
+  PARENT_SCOPE
+)
+
 
 # Determine which type of app to make.
 SET(GUI_TYPE)
@@ -101,17 +119,20 @@ ENDIF ()
 
 
 INSTALL( TARGETS ${EXE_NAME}
-  RUNTIME DESTINATION bin
-  BUNDLE DESTINATION .
+  RUNTIME DESTINATION bin COMPONENT
+  BUNDLE DESTINATION . COMPONENT
 )
 
 # Write a blank qt.conf file as all hell will break loose if one isn't there.
-# Once support for scripting plugins is added, this may need to be done
-# elsewhere.
+# This may need to be customized for use on non-Apple systems.
 #
 # Protip: If there are wierd errors like "Qt libraries loaded twice" or "looking
 # for a tablet device", then something may have gone pear shaped with qt.conf
 INSTALL( CODE
-  "FILE(WRITE \"\${CMAKE_INSTALL_PREFIX}/${QTCONF_DIR}/qt.conf\" \"\")"
+  "
+  FILE(WRITE \"\${CMAKE_INSTALL_PREFIX}/${QTCONF_DIR}/qt.conf\"
+    \"[Paths]\nPlugins = plugins\"
+  )
+  "
 )
 

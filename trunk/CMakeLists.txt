@@ -47,6 +47,8 @@ IF( APPLE AND CMAKE_INSTALL_PREFIX MATCHES "/usr/local" )
   SET( CMAKE_INSTALL_PREFIX "/Applications" )
 ENDIF()
 
+SET(WITH_LUA TRUE CACHE BOOL "Build TeXworks Lua plugin?")
+
 
 #===============================================================================
 #                                Configuration
@@ -103,6 +105,14 @@ SET(TeXworks_LIBS
   ${ZLIB_LIBRARIES}
 )
 
+# Configure Optional Dependencies
+# -------------------------------
+IF ( WITH_LUA )
+  # CMake 2.8 has seperate find scripts for Lua 5.1 and Lua 5.0. Going with the
+  # most recent one for now.
+  FIND_PACKAGE(Lua51)
+ENDIF()
+
 # Configure Template Files
 # ------------------------
 IF ( UNIX )
@@ -122,7 +132,24 @@ ENDIF ()
 #===============================================================================
 
 # Build  main TeXworks app
+# ------------------------
 ADD_SUBDIRECTORY(src)
+
+# Build Plugins
+# -------------
+
+# Default install path for UNIX-like systems. Definitely not appropriate for Windows.
+SET(TeXworks_PLUGIN_DIR lib)
+
+IF ( APPLE )
+  SET(TeXworks_PLUGIN_DIR ${PROJECT_NAME}.app/Contents/plugins)
+ENDIF ()
+
+
+# Script Plugins
+IF ( LUA51_FOUND )
+  ADD_SUBDIRECTORY(${TeXworks_SOURCE_DIR}/plugins-src/TWLuaPlugin)
+ENDIF ()
 
 
 #===============================================================================
@@ -136,7 +163,6 @@ SET(CPACK_PACKAGE_VERSION ${TeXworks_VERSION})
 
 SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}-${TeXworks_GIT_REV}")
-SET(CPACK_STRIP_FILES ON)
 
 IF ( APPLE )
   # Nice way would be to put this in cmake/Modules with a descriptive filename
