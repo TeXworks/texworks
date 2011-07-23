@@ -67,15 +67,21 @@ IF (APPLE)
   REMOVE_DEFINITIONS( -DQ_WS_MAC )
 ENDIF ()
 
+IF ( APPLE OR NOT UNIX )
+  SET(EXE_NAME TeXworks)
+ELSE ( APPLE OR NOT UNIX )
+  SET(EXE_NAME texworks)
+ENDIF ( APPLE OR NOT UNIX )
+
 # Build the executible.
-ADD_EXECUTABLE( TeXworks ${GUI_TYPE}
+ADD_EXECUTABLE( ${EXE_NAME} ${GUI_TYPE}
   ${TEXWORKS_SRCS}
   ${TEXWORKS_GEN_MOC} ${TEXWORKS_GEN_UI} ${TEXWORKS_GEN_RCS} ${TEXWORKS_GEN_TRANS}
   ${TeXworks_APP_ICONS}
 )
 
 # Specify libraries for linking.
-TARGET_LINK_LIBRARIES( TeXworks ${TeXworks_LIBS} )
+TARGET_LINK_LIBRARIES( ${EXE_NAME} ${TeXworks_LIBS} )
 
 IF (APPLE)
   # Generate Info.plist and set .app bundle properties.
@@ -94,7 +100,7 @@ IF (APPLE)
 ENDIF ()
 
 
-INSTALL( TARGETS TeXworks
+INSTALL( TARGETS ${EXE_NAME}
   RUNTIME DESTINATION bin
   BUNDLE DESTINATION .
 )
