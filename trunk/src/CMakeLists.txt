@@ -42,6 +42,33 @@ IF ( APPLE )
   )
 
   SET(QTCONF_DIR ${PROJECT_NAME}.app/Contents/Resources)
+
+  # Download and install Poppler data. This probably needs to be done for
+  # Windows as well.
+  #
+  # NOTE: Is this the right place to execute this step? Seems like something
+  # that only needs to be done if CPack is creating a redistributable app.
+  IF ( NOT EXISTS ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4.tar.gz )
+    MESSAGE(STATUS "Downloading Poppler data files")
+    FILE(DOWNLOAD "http://poppler.freedesktop.org/poppler-data-0.4.4.tar.gz"
+      ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4.tar.gz
+      EXPECTED_MD5 "f3a1afa9218386b50ffd262c00b35b31"
+      SHOW_PROGRESS
+    )
+  ENDIF ()
+
+  IF ( NOT EXISTS ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4 )
+    EXECUTE_PROCESS(COMMAND tar xzf ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4.tar.gz
+      WORKING_DIRECTORY ${TeXworks_SOURCE_DIR}
+    )
+  ENDIF ()
+
+  INSTALL(DIRECTORY ${TeXworks_SOURCE_DIR}/poppler-data-0.4.4/
+    DESTINATION ${PROJECT_NAME}.app/Contents/poppler-data
+    PATTERN "CMakeLists.txt" EXCLUDE
+    PATTERN "Makefile" EXCLUDE
+  )
+
 ENDIF ()
 
 IF ( WIN32 )
