@@ -47,6 +47,9 @@ PROJECT(TeXworks)
 # provides support for certain parts of Qt, such as the ScriptTools.
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 SET(CMAKE_COLOR_MAKEFILE ON)
+# Always add the current source and binary directories to the header include
+# path when compiling.
+SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # This message is probably superfluous.
 IF ( NOT APPLE )
