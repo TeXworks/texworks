@@ -53,7 +53,7 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   # re-write some loader paths due to insufficiant permissions.
   SET(BU_CHMOD_BUNDLE_ITEMS ON)
 
-  FIXUP_BUNDLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app ${TeXworks_PLUGINS} ${TeXworks_LIB_DIRS})
+  FIXUP_BUNDLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app "${TeXworks_PLUGINS}" "${TeXworks_LIB_DIRS}")
 
 
   # Remove unecessary architectures from universal binaries
