@@ -5,19 +5,25 @@ FILE(GLOB TEXWORKS_UIS        "*.ui")
 FILE(GLOB TEXWORKS_RCS        "${TeXworks_SOURCE_DIR}/res/*.qrc")
 FILE(GLOB TEXWORKS_TRANS      "${TeXworks_SOURCE_DIR}/trans/*.ts")
 
+
 # Determine which type of app to make.
 SET(GUI_TYPE)
+SET(QTCONF_DIR bin)
 
 IF ( APPLE )
   SET(GUI_TYPE MACOSX_BUNDLE)
   SET(MACOSX_BUNDLE_INFO_PLIST ${TeXworks_SOURCE_DIR}/TeXworks.plist)
   SET(MACOSX_BUNDLE_ICON_FILE ${TeXworks_SOURCE_DIR}/TeXworks.icns)
-  SET(QT_LIBRARIES ${QT_LIBRARIES} "-framework CoreServices")
+
+  SET(TeXworks_LIBS ${TeXworks_LIBS} "-framework CoreServices")
+
   FILE(GLOB TeXworks_APP_ICONS ${TeXworks_SOURCE_DIR}/*.icns)
   SET_SOURCE_FILES_PROPERTIES( ${TeXworks_APP_ICONS}
     PROPERTIES
       MACOSX_PACKAGE_LOCATION Resources
   )
+
+  SET(QTCONF_DIR ${PROJECT_NAME}.app/Contents/Resources)
 ENDIF ()
 
 IF ( WIN32 )
@@ -30,21 +36,11 @@ ENDIF ()
 INCLUDE_DIRECTORIES(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
-  ${QT_INCLUDE_DIR}
-  ${HUNSPELL_INCLUDE_DIR}
-  ${POPPLER_INCLUDE_DIR}
-  ${POPPLERQT4_INCLUDE_DIR}
-  ${FONTCONFIG_INCLUDE_DIR}
-  ${ZLIB_INCLUDE_DIR}
+  ${TeXworks_INCLUDE_DIRS}
 )
 
 # Make sure the compiler can find library files.
-LINK_DIRECTORIES(
-  ${HUNSPELL_LIBRARY_DIRS}
-  ${POPPLER_LIBRARY_DIRS}
-  ${POPPLERQT4_LIBRARY_DIRS}
-  ${FONTCONFIG_LIBRARY_DIRS}
-)
+LINK_DIRECTORIES( ${TeXworks_LIB_DIRS} )
 
 # Poppler XPDF Support?
 IF (POPPLER_HAS_XPDF)
@@ -79,14 +75,20 @@ ADD_EXECUTABLE( TeXworks ${GUI_TYPE}
 )
 
 # Specify libraries for linking.
-TARGET_LINK_LIBRARIES( TeXworks
-  ${QT_LIBRARIES}
-  ${POPPLER_LIBRARIES} ${POPPLERQT4_LIBRARIES} ${FONTCONFIG_LIBRARIES}
-  ${HUNSPELL_LIBRARIES}
-  ${ZLIB_LIBRARIES}
-)
+TARGET_LINK_LIBRARIES( TeXworks ${TeXworks_LIBS} )
 
 INSTALL( TARGETS TeXworks
   RUNTIME DESTINATION bin
   BUNDLE DESTINATION .
 )
+
+# Write a blank qt.conf file as all hell will break loose if one isn't there.
+# Once support for scripting plugins is added, this may need to be done
+# elsewhere.
+#
+# Protip: If there are wierd errors like "Qt libraries loaded twice" or "looking
+# for a tablet device", then something may have gone pear shaped with qt.conf
+INSTALL( CODE
+  "FILE(WRITE \"\${CMAKE_INSTALL_PREFIX}/${QTCONF_DIR}/qt.conf\" \"\")"
+)
+
