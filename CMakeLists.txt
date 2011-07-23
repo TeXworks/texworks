@@ -188,9 +188,7 @@ ENDIF ()
 #                                  Packaging
 #===============================================================================
 
-# cmake/packaging/CMakeLists.txt contains packaging-specifc tasks. These are
-# invoked via ADD_SUBDIRECTORY so that they execute after TeXworks and its
-# plugins are built.
+# Gather Qt plugin libraries that need to be installed
 SET(QT_PLUGINS
   ${QT_QTACCESSIBLEWIDGETS_PLUGIN_RELEASE}
   ${QT_QCNCODECS_PLUGIN_RELEASE}
@@ -202,8 +200,12 @@ SET(QT_PLUGINS
   ${QT_QTIFF_PLUGIN_RELEASE}
 )
 
+# cmake/packaging/CMakeLists.txt contains packaging-specifc tasks. These are
+# invoked via ADD_SUBDIRECTORY so that they execute after TeXworks and its
+# plugins are built.
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/cmake/packaging)
 
+# Set CPack variables
 SET(CPACK_PACKAGE_VERSION_MAJOR ${TeXworks_VER_MAJOR})
 SET(CPACK_PACKAGE_VERSION_MINOR ${TeXworks_VER_MINOR})
 SET(CPACK_PACKAGE_VERSION_PATCH ${TeXworks_VER_PATCH})
@@ -213,7 +215,16 @@ SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}-${TeXworks_GIT_REV}")
 
 IF ( APPLE )
+  # Configure Drag N' Drop installer
+  SET(MAC_PACK_BITS "${CMAKE_SOURCE_DIR}/cmake/packaging/mac")
   SET(CPACK_GENERATOR DragNDrop)
+  SET( CPACK_DMG_BACKGROUND_IMAGE "${MAC_PACK_BITS}/texworks_dmg_background.png" )
+
+  # Create script for applying window layout to Drag N' Drop installer
+  CONFIGURE_FILE( ${MAC_PACK_BITS}/set_dmg_layout.scpt.in
+    ${PROJECT_BINARY_DIR}/set_dmg_layout.scpt
+    @ONLY
+  )
 ENDIF ()
 
 INCLUDE(CPack)

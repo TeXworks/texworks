@@ -3,8 +3,9 @@
 # This file is processed by CONFIGURE_FILE in ../CMakeLists.txt which inserts
 # values for @VARIABLE@ declarations. This is done to import values for some
 # variables that would otherwise be undefined when CPack is running.
-SET(PROJECT_SOURCE_DIR @PROJECT_SOURCE_DIR@)
 SET(PROJECT_NAME @PROJECT_NAME@)
+SET(PROJECT_SOURCE_DIR @PROJECT_SOURCE_DIR@)
+SET(PROJECT_BINARY_DIR @PROJECT_BINARY_DIR@)
 SET(TeXworks_LIB_DIRS @TeXworks_LIB_DIRS@)
 SET(CMAKE_SHARED_LIBRARY_SUFFIX @CMAKE_SHARED_LIBRARY_SUFFIX@)
 SET(QT_PLUGINS @QT_PLUGINS@)
