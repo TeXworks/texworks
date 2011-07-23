@@ -2,18 +2,22 @@
 #
 # This buildsystem uses [CMake][cmake] and consists of the following files:
 #
-#     TeXworks
-#     ├── CMakeLists.txt
-#     ├── src
-#     │   └── CMakeLists.txt
-#     ├── plugins-src
-#     │   ├── TWLuaPlugin
-#     │   │   └── CMakeLists.txt
-#     │   └── TWPythonPlugin
-#     │       └── CMakeLists.txt
-#     └── CMake
-#         └── packaging
-#             └── CMakeListst.txt
+# <pre>
+#   TeXworks
+#   ├── <a href="CMakeLists.html">CMakeLists.txt</a>
+#   ├── src
+#   │   └── <a href="src/CMakeLists.html">CMakeLists.txt</a>
+#   ├── plugins-src
+#   │   ├── TWLuaPlugin
+#   │   │   └── <a href="plugins-src/TWLuaPlugin/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── TWPythonPlugin
+#   │       └── <a href="plugins-src/TWPythonPlugin/CMakeLists.html">CMakeLists.txt</a>
+#   └── CMake
+#       └── packaging
+#           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.html</a>
+#           └── mac
+#               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.cmake.in</a>
+# </pre>
 #
 # Using CMake as a buildsystem offers some nice advantages:
 #

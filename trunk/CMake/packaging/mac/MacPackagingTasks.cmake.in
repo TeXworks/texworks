@@ -1,7 +1,7 @@
 # OS X packaging tasks
 
-# This file is processed by CONFIGURE_FILE in ../CMakeLists.txt which inserts
-# values for @VARIABLE@ declarations. This is done to import values for some
+# This file is processed by `CONFIGURE_FILE` in `../CMakeLists.txt` which inserts
+# values for `@VARIABLE@` declarations. This is done to import values for some
 # variables that would otherwise be undefined when CPack is running.
 SET(PROJECT_NAME @PROJECT_NAME@)
 SET(PROJECT_SOURCE_DIR @PROJECT_SOURCE_DIR@)
@@ -10,7 +10,7 @@ SET(TeXworks_LIB_DIRS @TeXworks_LIB_DIRS@)
 SET(CMAKE_SHARED_LIBRARY_SUFFIX @CMAKE_SHARED_LIBRARY_SUFFIX@)
 SET(QT_PLUGINS @QT_PLUGINS@)
 
-# This IF statement ensures that the following commands are executed only when
+# This `IF` statement ensures that the following commands are executed only when
 # CPack is running---i.e. when a user executes `make package` but not `make install`
 IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
 
@@ -63,18 +63,25 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   # Copy all runtime dependencies and rewrite loader paths
   # ------------------------------------------------------
 
-  # FIXUP_BUNDLE is a wonderful function provided by CMake's BundleUtilities
-  # that examines an executable, finds all non-system libraries it depends
-  # on, copies them into the .app and then re-writes the necessary loader
-  # paths.
+  # Bring in `DeployQt4` a CMake module taken from the Charm application:
+  #
+  #   <https://github.com/KDAB/Charm>
+  #
+  # This module offers the `FIXUP_QT4_BUNDLE` function which wraps
+  # `FIXUP_BUNDLE` from CMake's `BundleUtilities` module and extends it with
+  # additional Qt4-specific goodies---such as installing Qt4 plugins.
+  #
+  # `FIXUP_BUNDLE` is a wonderful function that examines an executable, finds
+  # all non-system libraries it depends on, copies them into the `.app` bundle
+  # and then re-writes the necessary loader paths.
   SET(CMAKE_MODULE_PATH @CMAKE_MODULE_PATH@)
   INCLUDE(DeployQt4)
 
-  # Gather all TeXworks Plugin libraries
-  file(GLOB TeXworks_PLUGINS
+  # Gather all TeXworks Plugin libraries.
+  FILE(GLOB TeXworks_PLUGINS
     ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/PlugIns/*${CMAKE_SHARED_LIBRARY_SUFFIX})
 
-  # If BU_CHMOD_BUNDLE_ITEMS is not set, install_name_tool will fail to
+  # If `BU_CHMOD_BUNDLE_ITEMS` is not set, `install_name_tool` will fail to
   # re-write some loader paths due to insufficiant permissions.
   SET(BU_CHMOD_BUNDLE_ITEMS ON)
 
@@ -88,12 +95,12 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   # contain up to 4 different architectures. Here we will iterate over these
   # libraries and use `lipo` to strip out un-needed architectures.
 
-  # Another useful function from BundleUtilities
+  # Another useful function from `BundleUtilities`.
   GET_BUNDLE_MAIN_EXECUTABLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app APP_MAIN)
 
   # We look at the TeXworks binary that was built rather than consulting the
-  # value of the CMAKE_OSX_ARCHITECTURES because if the user did not set
-  # CMAKE_OSX_ARCHITECTURES, then the variable will be an empty string and the
+  # value of the `CMAKE_OSX_ARCHITECTURES` because if the user did not set
+  # `CMAKE_OSX_ARCHITECTURES`, then the variable will be an empty string and the
   # format of the resulting binary will depend on the versions of OS X and
   # XCode.
   MESSAGE(STATUS "Reducing the size of bundled libraries.")
@@ -101,7 +108,7 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   EXECUTE_PROCESS(
     # `lipo -info` returns a list of the form:
     #
-    #    <is universal binary?>: <program name>: <list of architectures>
+    #     <is universal binary?>: <program name>: <list of architectures>
     #
     # Piping this output to `cut -d : -f 3-` allows us to extract just the list
     # of architectures.
@@ -110,9 +117,9 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
     OUTPUT_VARIABLE APP_ARCHS
   )
 
-  # Strip leading and trailing whitespace
+  # Strip leading and trailing whitespace.
   STRING(STRIP ${APP_ARCHS} APP_ARCHS)
-  # Convert spaces to semicolons so CMake will interpret it as a list
+  # Convert spaces to semicolons so CMake will interpret the string as a list.
   STRING(REPLACE " " ";" APP_ARCHS ${APP_ARCHS})
 
   MESSAGE(STATUS "Will reduce bundled libraries to: ${APP_ARCHS}")
@@ -121,10 +128,10 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
     SET(ARCHS_TO_EXTRACT "${ARCHS_TO_EXTRACT} -extract ${ARCH}")
   ENDFOREACH ()
 
-  # NOTE: This will not process any dylibs from Frameworks copied by
-  # FIXUP_BUNDLE, hence it may not touch any of the Qt libraries. Something to
+  # __NOTE:__ This will not process any dylibs from Frameworks copied by
+  # `FIXUP_BUNDLE`, hence it may not touch any of the Qt libraries. Something to
   # fix in the future.
-  file(GLOB BUNDLED_DYLIBS
+  FILE(GLOB BUNDLED_DYLIBS
     ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/MacOS/*${CMAKE_SHARED_LIBRARY_SUFFIX})
 
   FOREACH(DYLIB IN LISTS BUNDLED_DYLIBS)
