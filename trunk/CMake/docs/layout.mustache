@@ -12,7 +12,27 @@
   <!-- Navbar -->
   <div id="fadeout"></div>
   <div id="flybar">
-    <a id="title" href="#top">{{ file }}</a>
+    <a id="title" href="#top"><h1>{{ file }}</h1></a>
+
+    <div class="navigation about">
+      <div class="button">
+        About
+      </div>
+      <div class="contents">
+        <p>This documentation was built using Ryan Tomayko's <strong>Rocco</strong> tool:</p>
+        <a href="http://rtomayko.github.com/rocco">rtomayko.github.com/rocco</a>
+
+        <p>Which is based on <strong>Docco</strong> by Jeremy Ashkenas:</p>
+        <a href="http://jashkenas.github.com/docco">jashkenas.github.com/docco</a>
+
+        <p>The code from this navigation bar was borrowed from the <strong>CoffeeScript</strong> project, also by Jeremy:</p>
+        <a href="http://jashkenas.github.com/coffee-script">jashkenas.github.com/coffee-script</a>
+
+        <p>The templates used to create this page may be found on GitHub:</p>
+        <a href="http://github.com/Sharpie/TeXworks/tree/master/CMake/docs">github.com/Sharpie/TeXworks</a>
+
+      </div>
+    </div>
 
     {{#sources?}}
     <div class="navigation toc">

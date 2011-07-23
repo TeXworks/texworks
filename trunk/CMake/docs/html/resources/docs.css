@@ -107,9 +107,9 @@ table td {
   position: fixed;
   z-index: 100;
   height: 50px;
-  min-width: 490px;
+  min-width: 600px;
   left: 40px; right: 40px; top: 25px;
-  padding-left: 252px;
+  padding-left: 250px;
   background: #eee;
   background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#dadada));
   background: -moz-linear-gradient(top, #f8f8f8, #dadada);
@@ -124,13 +124,14 @@ table td {
   #title {
     height: 50px;
     line-height: 50px;
-    font-size: 2em;
-    font-weight: bold;
     text-decoration: none;
     top: 0px; left: 10px;
-    padding: 0 20px;
-    display: block;
+    padding: 0px;
     position: absolute;
+  }
+  #title h1 {
+    margin: 0px;
+    display: inline;
   }
   #error {
     position: absolute;
@@ -150,19 +151,21 @@ table td {
   }
   .navigation {
     height: 30px;
-    font-size: 11px;
     line-height: 30px;
     text-transform: uppercase;
     position: relative;
-    float: right;
     padding: 0px 20px;
-    margin-right: 175px;
     margin-top: 10px;
     border: 1px solid #aaa;
     cursor: pointer;
   }
+    .navigation.about {
+      float: right;
+      margin-right: 260px;
+    }
     .navigation.toc {
-      border-left-width: 1px;
+      float: right;
+      margin-right: 30px;
     }
     .navigation:hover,
     .navigation.active {
@@ -178,6 +181,11 @@ table td {
       }
     .navigation .button {
       font-weight: bold;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
     }
       .navigation .button::selection {
         background: transparent;
@@ -187,43 +195,49 @@ table td {
       position: absolute;
       background: #fff;
       opacity: 0.97;
-      top: 41px; left: 0;
+      top: 40px; left: 0;
       padding: 5px 0;
       margin-left: -1px;
       border: 1px solid #aaa;
+      border-top: 0;
       -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+      -webkit-border-top-left-radius: 0; -moz-border-radius-topleft: 0; border-top-left-radius: 0;
+      -webkit-border-top-right-radius: 0; -moz-border-radius-topright: 0; border-top-right-radius: 0;
       -webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.2);
       -moz-box-shadow: 0 3px 5px rgba(0,0,0,0.2);
       box-shadow: 0 3px 5px rgba(0,0,0,0.2);
     }
-      .navigation .contents a {
+      .navigation .contents p {
+        width: 335px;
         display: block;
-        width: 290px;
         text-transform: none;
-        text-decoration: none;
-        height: 12px;
-        line-height: 12px;
+        margin: 0px;
         padding: 4px 10px;
         border: 1px solid transparent;
         border-left: 0; border-right: 0;
       }
-        .navigation .contents a:hover {
+      .navigation.about .contents a {
+        display: block;
+        text-transform: none;
+        padding: 4px 20px;
+        border: 1px solid transparent;
+        border-left: 0; border-right: 0;
+      }
+      .navigation .contents.menu a {
+        display: block;
+        text-transform: none;
+        text-decoration: none;
+        padding: 4px 10px;
+        border: 1px solid transparent;
+        border-left: 0; border-right: 0;
+      }
+        .navigation .contents.menu a:hover {
           border-color: #ddd;
           background: #eee;
         }
       .navigation.active .contents {
         display: block;
       }
-      .navigation .contents.menu {
-        border-top: 0;
-        -webkit-border-top-left-radius: 0; -moz-border-radius-topleft: 0; border-top-left-radius: 0;
-        -webkit-border-top-right-radius: 0; -moz-border-radius-topright: 0; border-top-right-radius: 0;
-      }
-        .navigation .toc .minibutton {
-          top: 10px; right: 10px;
-          width: 40px;
-          text-transform: none;
-        }
 
 /*---------------------- Syntax Highlighting -----------------------------*/
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
