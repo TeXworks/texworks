@@ -274,12 +274,12 @@ SET(QT_PLUGINS
   ${QT_QTIFF_PLUGIN_RELEASE}
 )
 
-# The file `cmake/packaging/CMakeLists.txt` controls the execution of tasks
+# The file `CMake/packaging/CMakeLists.txt` controls the execution of tasks
 # specific to preparing binaries for packaging on a given platform. This script
 # is invoked via `ADD_SUBDIRECTORY` so that it executes after TeXworks and its
 # components are built and installed. You cannot fixup an application bundle
 # before it has been created...
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/cmake/packaging)
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/CMake/packaging)
 
 # Set CPack variables.
 SET(CPACK_PACKAGE_VERSION_MAJOR ${TeXworks_VER_MAJOR})
