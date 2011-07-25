@@ -73,8 +73,6 @@
 
 #define SETUP_FILE_NAME "texworks-setup.ini"
 
-#define DEFAULT_ENGINE_NAME "pdfLaTeX"
-
 const int kDefaultMaxRecentFiles = 20;
 
 TWApp *TWApp::theAppInstance = NULL;
@@ -948,14 +946,27 @@ void TWApp::setDefaultEngine(const QString& name)
 {
 	const QList<Engine> engines = getEngineList();
 	int i;
-	for (i = 0; i < engines.count(); ++i)
+	for (i = 0; i < engines.count(); ++i) {
 		if (engines[i].name() == name) {
 			QSETTINGS_OBJECT(settings);
 			settings.setValue("defaultEngine", name);
 			break;
 		}
+	}
+	// If the engine was not found (e.g., if it has been deleted)
+	// try the DEFAULT_ENGINE_NAME instead (should not happen, unless the config
+	// was edited manually (or by an updater, copy/paste'ing, etc.)
+	if (i == engines.count() && name != DEFAULT_ENGINE_NAME) {
+		for (i = 0; i < engines.count(); ++i) {
+			if (engines[i].name() == DEFAULT_ENGINE_NAME) 
+				break;
+		}
+	}
+	// if neither the passed engine name nor DEFAULT_ENGINE_NAME was found,
+	// fall back to selecting the first engine
 	if (i == engines.count())
 		i = 0;
+
 	defaultEngineIndex = i;
 }
 
