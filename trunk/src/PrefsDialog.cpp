@@ -246,14 +246,23 @@ void PrefsDialog::editTool(QListWidgetItem* item)
 void PrefsDialog::refreshDefaultTool()
 {
 	QString val;
+	int toolIndex = -1, defaultIndex = -1;
+	
 	if (defaultTool->count() > 0)
 		val = defaultTool->currentText();
 	defaultTool->clear();
 	foreach (Engine e, engineList) {
 		defaultTool->addItem(e.name());
 		if (e.name() == val)
-			defaultTool->setCurrentIndex(defaultTool->count() - 1);
+			toolIndex = defaultTool->count() - 1;
+		if (e.name() == DEFAULT_ENGINE_NAME)
+			defaultIndex = defaultTool->count() - 1;
 	}
+	
+	if (toolIndex >= 0)
+		defaultTool->setCurrentIndex(toolIndex);
+	else if (defaultIndex >= 0)
+		defaultTool->setCurrentIndex(defaultIndex);
 }
 
 void PrefsDialog::buttonClicked(QAbstractButton *whichButton)

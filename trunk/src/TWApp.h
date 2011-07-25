@@ -50,6 +50,8 @@
 #define STRINGIFY(s) STRINGIFY_2(s)
 #define TW_BUILD_ID_STR STRINGIFY(TW_BUILD_ID)
 
+#define DEFAULT_ENGINE_NAME "pdfLaTeX"
+
 class QString;
 class QMenu;
 class QMenuBar;
