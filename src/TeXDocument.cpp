@@ -638,13 +638,15 @@ TeXDocument* TeXDocument::openDocument(const QString &fileName, bool activate, b
 
 void TeXDocument::closeEvent(QCloseEvent *event)
 {
-/*
 	if (process != NULL) {
-		statusBar()->showMessage(tr("Cannot close window while tool is running"), kStatusMessageDuration);
-		event->ignore();
-		return;
+		if (QMessageBox::question(this, tr("Abort typesetting?"), tr("A typesetting process is still running and must be stopped before closing this window.\nDo you want to stop it now?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::No) {
+			event->ignore();
+			return;
+		}
+		else
+			interrupt();
 	}
-*/
+
 	if (maybeSave()) {
 		event->accept();
 		saveRecentFileInfo();
