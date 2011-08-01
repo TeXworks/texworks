@@ -2517,12 +2517,22 @@ void TeXDocument::typeset()
 	else {
 		process->deleteLater();
 		process = NULL;
-		QMessageBox::critical(this, tr("Unable to execute %1").arg(e.name()),
-							  "<p>" + tr("The program \"%1\" was not found.").arg(e.program()) +
-							  "<p><small>" + tr("Searched in directories:") +
-							  "<ul><li>" + binPaths.join("<li>") + "</ul></small>" +
-							  "<p>" + tr("Check configuration of the %1 tool and path settings in the Preferences dialog.").arg(e.name()),
-							  QMessageBox::Cancel);
+		QMessageBox msgBox(QMessageBox::Critical, tr("Unable to execute %1").arg(e.name()),
+							  "<p>" + tr("The program \"%1\" was not found.").arg(e.program()) + "</p>" +
+#if defined(Q_WS_WIN)
+							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> or <a href=\"http://miktex.org/\">MiKTeX</a> installed on your system to typeset your document.") + "</p>" +
+#elif defined(Q_WS_MAC)
+							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://www.tug.org/mactex/\">MacTeX</a> installed on your system to typeset your document.") + "</p>" +
+#else
+							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.") + "</p>" +
+#endif
+							  "<p>" + tr("When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -> Preferences -> Typesetting.") + "</p>",
+							  QMessageBox::Cancel, this);
+		msgBox.setDetailedText(
+							  tr("Searched in directories:") + "\n" +
+							  " * " + binPaths.join("\n * ") + "\n" +
+							  tr("Check the configuration of the %1 tool and the path settings in the Preferences dialog.").arg(e.name()));
+		msgBox.exec();
 		updateTypesettingAction();
 	}
 }
