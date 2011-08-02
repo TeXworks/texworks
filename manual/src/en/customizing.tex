@@ -27,7 +27,7 @@ Let us take a closer look at the three parts of each rule. In its most general f
 \end{verbExample}
 The \verb|<fontflags>| can be specified independent of the colours (note, though, that it must always be preceded by a \verb|;|). The background colour (together with the \verb|/|) can be omitted, but if you specify it, you also have to specify the foreground colour.
 
-Each colour can either be specified by an SVG name\footnote{See \url{http://www.w3.org/TR/SVG/types.html#ColorKeywords} for a list of valid names.} or by a hexadecimal value (\verb|#rrggbb|) similar as in web documents. The \verb|<fontflags>| can be any combination of the letter \verb|B| (bold), \verb|I| (italic), and \verb|U| (underlined).
+Each colour can either be specified by an SVG name\footnote{See \url{http://www.w3.org/TR/SVG/types.html#ColorKeywords} for a list of valid names.} or by a hexadecimal value (\verb|#rrggbb|\footnote{Because \verb|#| is also used to mark comments if given as the first character of a line, you need to add a space, tab, or similar before specifying a hexadecimal foreground color.}) similar as in web documents. The \verb|<fontflags>| can be any combination of the letter \verb|B| (bold), \verb|I| (italic), and \verb|U| (underlined).
 
 Examples of valid formatting instructions are:
 \begin{verbExample}
@@ -35,7 +35,7 @@ red
 white/#000000
 ;B
 blue;I
-#000000/#ffff00;U
+ #000000/#ffff00;U
 \end{verbExample}
 
 \section{Keyboard shortcuts}
