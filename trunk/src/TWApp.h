@@ -78,6 +78,7 @@ public:
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
 	void addToRecentFiles(const QMap<QString,QVariant>& fileProperties);
+	void clearRecentFiles();
 
 	void emitHighlightLineOptionChanged();
 	
