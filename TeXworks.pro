@@ -15,7 +15,7 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #	For links to further information, or to contact the author,
-#	see <http://texworks.org/>.
+#	see <http://www.tug.org/texworks/>.
 
 TEMPLATE	=	app
 DEPENDPATH	+=	./src
