@@ -16,7 +16,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	see <http://www.tug.org/texworks/>.
 */
 
 #include "TWApp.h"
@@ -308,7 +308,7 @@ void TWApp::openUrl(const QUrl& url)
 
 void TWApp::goToHomePage()
 {
-	openUrl(QUrl("http://texworks.org/"));
+	openUrl(QUrl("http://www.tug.org/texworks/"));
 }
 
 #ifdef Q_WS_WIN
