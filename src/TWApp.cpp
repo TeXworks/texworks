@@ -1069,6 +1069,14 @@ void TWApp::addToRecentFiles(const QMap<QString,QVariant>& fileProperties)
 	updateRecentFileActions();
 }
 
+void TWApp::clearRecentFiles()
+{
+	QSETTINGS_OBJECT(settings);
+	QList<QVariant> fileList;
+	settings.setValue("recentFiles", QVariant::fromValue(fileList));
+	updateRecentFileActions();
+}
+
 QMap<QString,QVariant> TWApp::getFileProperties(const QString& path)
 {
 	QSETTINGS_OBJECT(settings);

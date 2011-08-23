@@ -489,7 +489,7 @@ QString TWUtils::strippedName(const QString &fullFileName)
 	return QFileInfo(fullFileName).fileName();
 }
 
-void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu) /* static */
+void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu, QAction * clearAction) /* static */
 {
 	QSETTINGS_OBJECT(settings);
 	QStringList fileList;
@@ -517,13 +517,18 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	}
 	
 	int numRecentFiles = fileList.size();
+	
+	foreach(QAction * sep, menu->actions()) {
+		if (sep->isSeparator())
+			delete sep;
+	}
 
 	while (actions.size() < numRecentFiles) {
 		QAction *act = new QAction(parent);
 		act->setVisible(false);
 		QObject::connect(act, SIGNAL(triggered()), qApp, SLOT(openRecentFile()));
 		actions.append(act);
-		menu->addAction(act);
+		menu->insertAction(clearAction, act);
 	}
 
 	while (actions.size() > numRecentFiles) {
@@ -538,6 +543,11 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 		actions[i]->setData(path);
 		actions[i]->setVisible(true);
 	}
+	
+	if (numRecentFiles > 0)
+		menu->insertSeparator(clearAction);
+	if (clearAction)
+		clearAction->setEnabled(numRecentFiles > 0);
 }
 
 void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */

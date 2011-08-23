@@ -33,6 +33,7 @@
 #include <QTimer>
 #include <QMouseEvent>
 
+#include "TWApp.h"
 #include "FindDialog.h"
 #include "poppler-qt4.h"
 #include "synctex_parser.h"
@@ -265,6 +266,7 @@ public slots:
 	
 private slots:
 	void updateRecentFileActions();
+	void clearRecentFiles() { TWApp::instance()->clearRecentFiles(); }
 	void updateWindowMenu();
 	void enablePageActions(int);
 	void enableZoomActions(qreal);
@@ -299,7 +301,6 @@ private:
 	QLabel *pageLabel;
 	QLabel *scaleLabel;
 	QList<QAction*> recentFileActions;
-	QMenu *menuRecent;
 	QShortcut *exitFullscreen;
 
 	QFileSystemWatcher *watcher;
