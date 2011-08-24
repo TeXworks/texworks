@@ -2590,18 +2590,23 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	if (exitStatus != QProcess::CrashExit) {
 		QString pdfName;
-		if (getPreviewFileName(pdfName) && QFileInfo(pdfName).lastModified() != oldPdfTime) {
-			// only open/refresh the PDF if it was changed by the typeset process
-			if (pdfDoc == NULL || pdfName != pdfDoc->fileName()) {
-				if (showPdfWhenFinished && openPdfIfAvailable(true))
-					pdfDoc->selectWindow();
-			}
-			else {
-				pdfDoc->reload(); // always reload if it is loaded, we don't want a stale window
-				if (showPdfWhenFinished)
-					pdfDoc->selectWindow();
+		if (getPreviewFileName(pdfName)) {
+			actionGo_to_Preview->setEnabled(true);
+			if (QFileInfo(pdfName).lastModified() != oldPdfTime) {
+				// only open/refresh the PDF if it was changed by the typeset process
+				if (pdfDoc == NULL || pdfName != pdfDoc->fileName()) {
+					if (showPdfWhenFinished && openPdfIfAvailable(true))
+						pdfDoc->selectWindow();
+				}
+				else {
+					pdfDoc->reload(); // always reload if it is loaded, we don't want a stale window
+					if (showPdfWhenFinished)
+						pdfDoc->selectWindow();
+				}
 			}
 		}
+		else
+			actionGo_to_Preview->setEnabled(true);
 	}
 
 	executeAfterTypesetHooks();
