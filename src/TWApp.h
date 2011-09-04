@@ -161,6 +161,7 @@ private:
 	QAction *actionPreferences;
 
 	QMenu *menuRecent;
+	QAction *actionClear_Recent_Files;
 	QList<QAction*> recentFileActions;
 
 	QMenu *menuHelp;
