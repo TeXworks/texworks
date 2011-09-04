@@ -222,6 +222,7 @@ void TWApp::init()
 	menuRecent = new QMenu(tr("Open Recent"));
 	actionClear_Recent_Files = menuRecent->addAction(tr("Clear Recent Files"));
 	actionClear_Recent_Files->setEnabled(false);
+	connect(actionClear_Recent_Files, SIGNAL(triggered()), this, SLOT(clearRecentFiles()));
 	updateRecentFileActions();
 	menuFile->addMenu(menuRecent);
 
