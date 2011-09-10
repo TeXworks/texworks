@@ -538,6 +538,10 @@
         <source>Settings and Resources...</source>
         <translation>Configuración y Recursos ...</translation>
     </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation>Limpiar lista de archivos recientes</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -1334,6 +1338,10 @@ adecuados. ¿Quiere abrirlo de todos modos?</translation>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;Se distribuye protegido por la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt; Licencia Pública General de GNU &lt;/a&gt;, versión 2 o (a su elección) cualquier versión posterior.</translation>
     </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation>Limpiar lista de archivos recientes</translation>
+    </message>
 </context>
 <context>
     <name>TWScriptAPI</name>
@@ -2127,7 +2135,7 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation>Verifique la configuración de la herramienta &quot;%1&quot; así como la carpeta de los archivos usando la ventana Preferencias.</translation>
+        <translation type="obsolete">Verifique la configuración de la herramienta &quot;%1&quot; así como la carpeta de los archivos usando la ventana Preferencias.</translation>
     </message>
     <message>
         <source>Process interrupted by user</source>
@@ -2182,9 +2190,44 @@ La codificación seleccionada reemplaza la predeterminada y anula todas las lín
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation>El archivo que intenta reabrir tiene cambios que aún no han sido guardados.
+        <translation>El archivo que intenta reabrir ha sufrido cambios que aún no se han guardado.
 
-¿Desea descartar los cambios efectuados en el archivo y volver a abrirlo desde el disco, ahora con la codificación% 1?</translation>
+¿Desea descartar los cambios efectuados en el archivo y volver a abrirlo desde el disco, ahora con la codificación %1?</translation>
+    </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation>Limpiar lista de archivos recientes</translation>
+    </message>
+    <message>
+        <source>Abort typesetting?</source>
+        <translation>¿Interrumpir la compilación?</translation>
+    </message>
+    <message>
+        <source>A typesetting process is still running and must be stopped before closing this window.
+Do you want to stop it now?</source>
+        <translation>El proceso de compilación que sigue corriendo tendría que ser detenido antes de cerrar esta ventana.
+¿Quiere interrumpirlo ahora?</translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>Necesita tener instalada una &lt;b&gt;distribución TeX&lt;/b&gt; como &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;
+o &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; en su sistema para compilar el documento.</translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>Necesita tener instalada una &lt;b&gt;distribución TeX&lt;/b&gt; como &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; en su sistema para compilar el documento.</translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
+        <translation>Necesita tener instalada una &lt;b&gt;distribución TeX&lt;/b&gt; como &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; en su sistema para compilar el documento. Para la mayoría de los sistemas operativos existe una distribución TeX como paquete precompilado.</translation>
+    </message>
+    <message>
+        <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
+        <translation>Si ya cuenta con una distribución TeX debidamente instalada, puede que falte indicarle a TeXworks, mediante Editar -&gt; Preferencias -&gt; Compilación, donde localizarla exactamente.</translation>
+    </message>
+    <message>
+        <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
+        <translation>Revise la configuración de la herramienta %1, así como la &quot;Localizacion de TeX y programas relativos&quot; en la pestaña Preferencias.</translation>
     </message>
 </context>
 <context>
