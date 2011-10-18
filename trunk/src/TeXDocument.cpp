@@ -568,8 +568,6 @@ void TeXDocument::open()
 	QStringList files = QFileDialog::getOpenFileNames(this, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
 	foreach (QString fileName, files) {
 		if (!fileName.isEmpty()) {
-			QFileInfo info(fileName);
-			settings.setValue("openDialogDir", info.canonicalPath());
 			TWApp::instance()->openFile(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
 		}
 	}
@@ -1025,6 +1023,12 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		if (!inBackground) {
 			openPdfIfAvailable(false);
 		}
+		// set openDialogDir after openPdfIfAvailable as we want the .tex file's
+		// path to end up in that variable (which might be touched/changed when
+		// loading the pdf
+		QSETTINGS_OBJECT(settings);
+		QFileInfo info(fileName);
+		settings.setValue("openDialogDir", info.canonicalPath());
 
 		statusBar()->showMessage(tr("File \"%1\" loaded").arg(TWUtils::strippedName(curFile)),
 								 kStatusMessageDuration);
