@@ -1099,6 +1099,7 @@ QScrollArea* PDFWidget::getScrollArea()
 
 #pragma mark === PDFDocument ===
 
+// TODO: This is seemingly unused---verify && remove
 QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
@@ -1382,6 +1383,10 @@ void PDFDocument::saveRecentFileInfo()
 void PDFDocument::loadFile(const QString &fileName)
 {
 	setCurrentFile(fileName);
+	QSETTINGS_OBJECT(settings);
+	QFileInfo info(fileName);
+	settings.setValue("openDialogDir", info.canonicalPath());
+
 	reload();
 	if (watcher) {
 		const QStringList files = watcher->files();
