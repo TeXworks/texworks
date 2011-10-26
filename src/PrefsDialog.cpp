@@ -317,6 +317,7 @@ void PrefsDialog::restoreDefaults()
 			smartQuotes->setCurrentIndex(kDefault_QuotesMode);
 			encoding->setCurrentIndex(encoding->findText("UTF-8"));
 			highlightCurrentLine->setChecked(kDefault_HighlightCurrentLine);
+			autocompleteEnabled->setChecked(kDefault_AutocompleteEnabled);
 			break;
 	
 		case 2:
@@ -525,6 +526,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.fontSize->setValue(font.pointSize());
 	dlg.encoding->setCurrentIndex(nameList.indexOf(TWApp::instance()->getDefaultCodec()->name()));
 	dlg.highlightCurrentLine->setChecked(settings.value("highlightCurrentLine", kDefault_HighlightCurrentLine).toBool());
+	dlg.autocompleteEnabled->setChecked(settings.value("autocompleteEnabled", kDefault_AutocompleteEnabled).toBool());
 
 	QString defDict = settings.value("language", "None").toString();
 	int i = dlg.language->findData(defDict);
@@ -672,7 +674,11 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		bool highlightLine = dlg.highlightCurrentLine->isChecked();
 		settings.setValue("highlightCurrentLine", highlightLine);
 		CompletingEdit::setHighlightCurrentLine(highlightLine);
-		
+
+		bool autocompleteEnabled = dlg.autocompleteEnabled->isChecked();
+		settings.setValue("autocompleteEnabled", autocompleteEnabled);
+		CompletingEdit::setAutocompleteEnabled(autocompleteEnabled);
+
 		// Since the tab width can't be set by any other means, forcibly update
 		// all windows now
 		foreach (QWidget* widget, TWApp::instance()->allWidgets()) {
