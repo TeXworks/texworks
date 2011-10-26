@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>541</width>
-    <height>511</height>
+    <width>676</width>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -490,6 +490,16 @@
            <widget class="QCheckBox" name="highlightCurrentLine">
             <property name="text">
              <string>Highlight current line</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="autocompleteEnabled">
+            <property name="text">
+             <string>Enable autocompletion</string>
             </property>
             <property name="checked">
              <bool>true</bool>
