@@ -529,7 +529,7 @@ void TWApp::writeToMailingList()
 	body += " (runtime)\n";
 	body += "------------------------------\n";
 
-	openUrl(QUrl(QString("mailto:%1?&body=%3").arg(address).arg(body)));
+	openUrl(QUrl(QString("mailto:%1?body=%3").arg(address).arg(body)));
 }
 
 void TWApp::launchAction()
