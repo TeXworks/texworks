@@ -5,7 +5,7 @@
 #
 # To install Poppler using this formula:
 #
-#     brew install --with-qt4 --enable-xpdf-headers path/to/this/poppler.rb
+#     brew install path/to/this/poppler.rb
 #
 # Changes compared to Homebrew's standard Poppler formula:
 #
@@ -21,17 +21,18 @@ TEXWORKS_PATCH_DIR = TEXWORKS_SOURCE_DIR + 'lib-patches'
 require 'formula'
 
 class PopplerData < Formula
-  url 'http://poppler.freedesktop.org/poppler-data-0.4.4.tar.gz'
-  md5 'f3a1afa9218386b50ffd262c00b35b31'
+  url 'http://poppler.freedesktop.org/poppler-data-0.4.5.tar.gz'
+  md5 '448dd7c5077570e340340706cef931aa'
 end
 
 class Poppler < Formula
-  url 'http://poppler.freedesktop.org/poppler-0.16.7.tar.gz'
-  homepage 'http://poppler.freedesktop.org/'
-  md5 '3afa28e3c8c4f06b0fbca3c91e06394e'
+  url 'http://poppler.freedesktop.org/poppler-0.18.1.tar.gz'
+  homepage 'http://poppler.freedesktop.org'
+  md5 'd30e883a27423c936ef338ce1d967e2d'
+  version '0.18.1-texworks'
 
   depends_on 'pkg-config' => :build
-  depends_on "qt" if ARGV.include? "--with-qt4"
+  depends_on 'qt'
 
   def patches
     {
@@ -43,14 +44,8 @@ class Poppler < Formula
     }
   end
 
-  def options
-    [
-      ["--with-qt4", "Include Qt4 support (which compiles all of Qt4!)"],
-      ["--enable-xpdf-headers", "Also install XPDF headers."]
-    ]
-  end
-
   def install
+    ENV.x11
     cmake_args = std_cmake_parameters.split
 
     # Save time by not building tests
@@ -61,10 +56,13 @@ class Poppler < Formula
       '-DBUILD_QT4_TESTS=OFF'
     ]
 
-    cmake_args << "-DWITH_Qt4=OFF" unless ARGV.include? "--with-qt4"
-    cmake_args << "-DENABLE_XPDF_HEADERS=ON" if ARGV.include? "--enable-xpdf-headers"
+    # Components required by TeXworks.
+    cmake_args.concat [
+      '-DWITH_Qt4=YES',
+      '-DENABLE_XPDF_HEADERS=YES'
+    ]
 
-    # TeXworks-specific additions to minimize library dependencies
+    # Minimize library dependencies for TeXworks
     cmake_args.concat [
       '-DENABLE_ABIWORD=OFF',
       '-DENABLE_CPP=OFF',
