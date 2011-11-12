@@ -18,20 +18,20 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   # ---------------------------------
   IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/poppler-data-0.4.4.tar.gz )
     MESSAGE(STATUS "Downloading Poppler data files")
-    FILE(DOWNLOAD "http://poppler.freedesktop.org/poppler-data-0.4.4.tar.gz"
-      ${PROJECT_SOURCE_DIR}/poppler-data-0.4.4.tar.gz
-      EXPECTED_MD5 f3a1afa9218386b50ffd262c00b35b31
+    FILE(DOWNLOAD "http://poppler.freedesktop.org/poppler-data-0.4.5.tar.gz"
+      ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5.tar.gz
+      EXPECTED_MD5 448dd7c5077570e340340706cef931aa
       SHOW_PROGRESS
     )
   ENDIF ()
 
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/poppler-data-0.4.4 )
-    EXECUTE_PROCESS(COMMAND tar xzf ${PROJECT_SOURCE_DIR}/poppler-data-0.4.4.tar.gz
+  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5 )
+    EXECUTE_PROCESS(COMMAND tar xzf ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5.tar.gz
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     )
   ENDIF ()
 
-  FILE(INSTALL ${PROJECT_SOURCE_DIR}/poppler-data-0.4.4/
+  FILE(INSTALL ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5/
     DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/poppler-data
     PATTERN CMakeLists.txt EXCLUDE
     PATTERN Makefile EXCLUDE
