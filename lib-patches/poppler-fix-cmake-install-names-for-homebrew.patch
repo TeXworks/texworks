@@ -1,25 +1,25 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index f144ddf..54c9ceb 100644
+index 5614238..dbcf436 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -377,7 +377,7 @@ add_library(poppler STATIC ${poppler_SRCS})
+@@ -351,7 +351,7 @@ add_library(poppler STATIC ${poppler_SRCS})
  else(MSVC)
  add_library(poppler SHARED ${poppler_SRCS})
  endif(MSVC)
--set_target_properties(poppler PROPERTIES VERSION 13.0.0 SOVERSION 13)
+-set_target_properties(poppler PROPERTIES VERSION 19.0.0 SOVERSION 19)
 +set_target_properties(poppler PROPERTIES INSTALL_NAME_DIR ${CMAKE_INSTALL_PREFIX}/lib)
  target_link_libraries(poppler ${poppler_LIBS})
  target_link_libraries(poppler LINK_INTERFACE_LIBRARIES "")
  install(TARGETS poppler RUNTIME DESTINATION bin LIBRARY DESTINATION lib${LIB_SUFFIX} ARCHIVE DESTINATION lib${LIB_SUFFIX})
 diff --git a/qt4/src/CMakeLists.txt b/qt4/src/CMakeLists.txt
-index 479e6ad..7d06a9d 100644
+index 8ce8ff4..7d06a9d 100644
 --- a/qt4/src/CMakeLists.txt
 +++ b/qt4/src/CMakeLists.txt
 @@ -29,7 +29,7 @@ set(poppler_qt4_SRCS
  )
  qt4_automoc(${poppler_qt4_SRCS})
  add_library(poppler-qt4 SHARED ${poppler_qt4_SRCS})
--set_target_properties(poppler-qt4 PROPERTIES VERSION 3.4.0 SOVERSION 3)
+-set_target_properties(poppler-qt4 PROPERTIES VERSION 3.7.0 SOVERSION 3)
 +set_target_properties(poppler-qt4 PROPERTIES INSTALL_NAME_DIR ${CMAKE_INSTALL_PREFIX}/lib)
  target_link_libraries(poppler-qt4 poppler ${QT4_QTCORE_LIBRARY} ${QT4_QTGUI_LIBRARY} ${QT4_QTXML_LIBRARY})
  if(MSVC)
