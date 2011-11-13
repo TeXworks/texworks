@@ -567,7 +567,7 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 	bool success = sm->runScript(script, this, result, scriptType);
 
 	if (success) {
-		if (!result.isNull()) {
+		if (!result.isNull() and !result.toString().isEmpty()) {
 			if (scriptType == TWScript::ScriptHook)
 				statusBar()->showMessage(tr("Script \"%1\": %2").arg(s->getTitle()).arg(result.toString()), kStatusMessageDuration);
 			else
