@@ -475,7 +475,7 @@ void TWApp::writeToMailingList()
 {
 	// The strings here are deliberately NOT localizable!
 	QString address("texworks@tug.org");
-	QString body("Instructions:\n-) Please write your message in English (it's in your own best interest; otherwise, many people will not be able to understand it and therefore will not answer).\n\n-) Please type something meaningful in the subject line.\n\n-) If you are having a problem, please describe it step-by-step in detail.\n\n-) After reading, please delete these instructions (up to the \"configuration info\" below which we may need to find the source of problems).\n\n\n\n----- configuration info -----\n");
+	QString body("Thank you for taking the time to write an email to the TeXworks mailing list. Please read the instructions below carefully as following them will greatly facilitate the communication.\n\nInstructions:\n-) Please write your message in English (it's in your own best interest; otherwise, many people will not be able to understand it and therefore will not answer).\n\n-) Please type something meaningful in the subject line.\n\n-) If you are having a problem, please describe it step-by-step in detail.\n\n-) After reading, please delete these instructions (up to the \"configuration info\" below which we may need to find the source of problems).\n\n\n\n----- configuration info -----\n");
 
 	body += "TeXworks version : " TEXWORKS_VERSION "r" SVN_REVISION_STR " (" TW_BUILD_ID_STR ")\n";
 #ifdef Q_WS_MAC
@@ -529,7 +529,11 @@ void TWApp::writeToMailingList()
 	body += " (runtime)\n";
 	body += "------------------------------\n";
 
-	openUrl(QUrl(QString("mailto:%1?body=%3").arg(address).arg(body)));
+#ifdef Q_WS_WIN
+	body.replace('\n', "\r\n");
+#endif
+
+	openUrl(QUrl(QString("mailto:%1?subject=&body=%2").arg(address).arg(body)));
 }
 
 void TWApp::launchAction()
