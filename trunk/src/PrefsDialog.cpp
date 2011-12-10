@@ -133,8 +133,9 @@ void PrefsDialog::movePathDown()
 void PrefsDialog::addPath()
 {
 	QString dir = QFileDialog::getExistingDirectory(this, tr("Choose Directory"),
-					 "/usr", 0 /*QFileDialog::DontUseNativeDialog*/
-								/*QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks*/);
+					 "/usr", /*0*/ /*QFileDialog::DontUseNativeDialog*/
+								QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	// remove the trailing / (if any)
 	dir = QDir::fromNativeSeparators(dir);
 #ifdef Q_WS_WIN
 	if (dir.length() > 2)
