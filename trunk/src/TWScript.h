@@ -50,7 +50,13 @@ public:
 		ScriptHook,			///< hook, i.e. a script that is called automatically when the execution reaches a certain point
 		ScriptStandalone	///< standalone script, i.e. one that can be invoked by the user
 	};
-	
+
+	Q_PROPERTY(QString fileName READ getFilename);
+	Q_PROPERTY(QString title READ getTitle);
+	Q_PROPERTY(QString description READ getDescription);
+	Q_PROPERTY(QString author READ getAuthor);
+	Q_PROPERTY(QString version READ getVersion);
+
 	/** \brief	Destructor
 	 *
 	 * Does nothing
