@@ -519,6 +519,10 @@
         <source>Settings and Resources...</source>
         <translation>配置与资源...</translation>
     </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -913,6 +917,10 @@
 &lt;p&gt;排版成功后&lt;strong&gt;保持&lt;/strong&gt;输出面板原始显示状态。&lt;/p&gt;
 &lt;p&gt;排版&lt;strong&gt;成功&lt;/strong&gt;后始终隐藏输出面板。&lt;/p&gt;</translation>
     </message>
+    <message>
+        <source>Enable autocompletion</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -942,7 +950,7 @@
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation>辅助文件 (*.aux *.toc *.lot *.nav *.out *.snm *.ind *.idx *.bbl *.blg *.log)</translation>
+        <translation type="obsolete">辅助文件 (*.aux *.toc *.lot *.nav *.out *.snm *.ind *.idx *.bbl *.blg *.log)</translation>
     </message>
     <message>
         <source>Text files (*.txt)</source>
@@ -955,6 +963,14 @@
     <message>
         <source>All files</source>
         <translation>所有文件</translation>
+    </message>
+    <message>
+        <source>Log files (*.log)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1274,6 +1290,10 @@
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>在 GNU 通用公共许可证（版本2）条款下分发，或根据您的个人选择选用任一后续版本。</translation>
+    </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1918,7 +1938,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation>检查＜首选项＞对话框中的  %1 的工具和路径设置。</translation>
+        <translation type="obsolete">检查＜首选项＞对话框中的  %1 的工具和路径设置。</translation>
     </message>
     <message>
         <source>Line Numbers</source>
@@ -2059,6 +2079,39 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
         <translation>根据本菜单中所选编码重新载入当前文件。
 所选编码会替代默认编码格式并会忽略所有“%!TEX-encoding”行。</translation>
+    </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort typesetting?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A typesetting process is still running and must be stopped before closing this window.
+Do you want to stop it now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
