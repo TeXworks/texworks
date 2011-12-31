@@ -941,6 +941,10 @@
 &lt;p&gt;&lt;strong&gt;En caso de éxito:&lt;/strong&gt; Ocultar el panel de salida luego de que la compilación haya ocurrido sin problemas, independientemente de su estado anterior.&lt;/p&gt;
 </translation>
     </message>
+    <message>
+        <source>Enable autocompletion</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -970,7 +974,7 @@
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation>Archivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
+        <translation type="obsolete">Archivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
         <source>Text files (*.txt)</source>
@@ -993,6 +997,14 @@
         <source>TeXworks %1r%2 (%3)
 </source>
         <translation type="obsolete">TeXworks %1r%2 (%3)</translation>
+    </message>
+    <message>
+        <source>Log files (*.log)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -531,6 +531,10 @@
         <source>Settings and Resources...</source>
         <translation>Ayarlar ve Kaynaklar...</translation>
     </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -930,6 +934,10 @@
 &lt;p&gt;&lt;strong&gt;Hata yoksa:&lt;/strong&gt; Dizgi başarılı ise çıktı panelini önceki durumunu dikkate almaksızın gizle.&lt;/p&gt;
 </translation>
     </message>
+    <message>
+        <source>Enable autocompletion</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -959,7 +967,7 @@
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation>Yardımcı dosyalar (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
+        <translation type="obsolete">Yardımcı dosyalar (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
         <source>Text files (*.txt)</source>
@@ -978,6 +986,14 @@
 </source>
         <translation type="obsolete">TeXworks %1r%2 (%3)
 </translation>
+    </message>
+    <message>
+        <source>Log files (*.log)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1309,6 +1325,10 @@
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU Genel Kamu Lisansı&lt;/a&gt;&apos;nın 2. sürümü veya (isteğinize göre) daha sonraki bir sürümü altında dağıtılır.</translation>
+    </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2005,7 +2025,7 @@ Tercihler penceresinden %2 aracının ayarlarını ve arama yolu yapılandırmas
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation>Tercihler penceresinden %1 aracının ayarlarını ve arama yolu yapılandırmasını kontrol edin.</translation>
+        <translation type="obsolete">Tercihler penceresinden %1 aracının ayarlarını ve arama yolu yapılandırmasını kontrol edin.</translation>
     </message>
     <message>
         <source>Line Numbers</source>
@@ -2148,6 +2168,39 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation>Tekrar yüklemeye çalıştığınız dosyada kaydedilmemiş değişiklikler var.
 
 Mevcut değişikliklerinizi gözardı etmek, ve dosyayı diskten %1 kodlaması ile tekrar yüklemek istiyor musunuz?</translation>
+    </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort typesetting?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A typesetting process is still running and must be stopped before closing this window.
+Do you want to stop it now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

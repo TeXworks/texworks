@@ -527,6 +527,10 @@
         <source>Settings and Resources...</source>
         <translation>Instellingen en Hulpbestanden...</translation>
     </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -929,6 +933,10 @@
 &lt;p&gt;&lt;strong&gt;Automatisch:&lt;/strong&gt; Onderdruk het uitvoerscherm na een geslaagde typeset run, maar alleen als het al onderdrukt was.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Na succes:&lt;/strong&gt; Onderdruk het uitvoerscherm na een geslaagde typeset run, ongeacht eerdere status.&lt;/p&gt;</translation>
     </message>
+    <message>
+        <source>Enable autocompletion</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -958,7 +966,7 @@
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation>Hulpbestanden  (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
+        <translation type="obsolete">Hulpbestanden  (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
         <source>Text files (*.txt)</source>
@@ -971,6 +979,14 @@
     <message>
         <source>All files</source>
         <translation>Alle bestanden</translation>
+    </message>
+    <message>
+        <source>Log files (*.log)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1307,6 +1323,10 @@
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;Verspreid onder de &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versie 2 of (naar vrije keuze) een latere versie. 
 </translation>
+    </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2114,7 +2134,7 @@ Gebruik &quot;Bestand &gt; Terug naar opgeslagen versie&quot; handmatig als het 
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation>Controleer de configuratie van de %1 tool-en-pad instellingen in de Instellingen dialoog.</translation>
+        <translation type="obsolete">Controleer de configuratie van de %1 tool-en-pad instellingen in de Instellingen dialoog.</translation>
     </message>
     <message>
         <source>Abort typesetting</source>
@@ -2153,6 +2173,39 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation>Het bestand dat u probeert te herladen heeft onbewaarde veranderingen.
 
 Wilt U uw veranderingen weggooien en het bestand herladen van de schijf met de codering %1?</translation>
+    </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort typesetting?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A typesetting process is still running and must be stopped before closing this window.
+Do you want to stop it now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
