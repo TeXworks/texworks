@@ -1,0 +1,51 @@
+div.get_tw_box table.gadget {
+	margin-left: auto;
+}
+div.get_tw_box table.gadget iframe {
+	display: none !important;
+}
+div.get_tw_box table.gadget td {
+	padding: 0px;
+}
+div.get_tw_box {
+	width: 34ex;
+	clear: right;
+	float: right;
+	margin-top: 2ex;
+	display: none;
+}
+#tw_downloads {
+	background-color: #eeeeec;
+	min-height: 32px;
+
+	padding: 4px 4px 4px 44px;
+
+	font-family: sans-serif;
+
+	border: 3px solid #000080;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+#tw_downloads .link {
+	background-image: url(img/getTw.png);
+	background-repeat: no-repeat;
+	margin-left: -40px;
+	padding: 5px 0px 0px 40px;
+	overflow: visible;
+	min-height: 27px;
+
+	display: block;
+	text-decoration: none;
+	font-weight: bold;
+	color: #000080;
+}
+#tw_downloads .info {
+	font-size: 75%;
+	font-weight: normal;
+}
+#tw_downloads .other_ways {
+	margin-top: 1ex;
+	font-size: 75%;
+}
+

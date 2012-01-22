@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+	<ModulePrefs title="" /> 
+	<Content type="html">
+	<![CDATA[
+		<script type="text/javascript">
+			var downloads = [];
+
+			function arrayContains(haystack, needle) {
+				"use strict";
+				var i;
+				for (i = 0; i < haystack.length; i += 1) {
+					if (haystack[i] === needle) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			function Download() {
+				"use strict";
+				this.url = "";
+				this.summary = "";
+				this.labels = [];
+				this.size = "";
+				this.type = "";
+				this.opsys = "";
+			}
+
+			function getDownloads(html) {
+				"use strict";
+				var response, rows, row, cols, labels, i, j, d;
+
+				response = html;
+
+				response = response.substr(response.search(/(<table.+id="resultstable"[^>]*>)/) + RegExp.$1.length);
+				response = response.substr(0, response.search(/<\/table>/));
+				response = response.replace(/\s*<\/?tbody[^>]*>\s*/g, "");
+				response = response.replace(/\r?\n/g, "");
+				response = response.replace(/\s*<tr[^>]*>\s*/g, "");
+				response = response.replace(/\s*<\/tr>\s*/g, "\n");
+
+				// first row is header, last row is empty
+				rows = response.split("\n");
+
+				rows.shift();
+				rows.pop();
+
+				downloads = [];
+				for (i = 0; i < rows.length; i += 1) {
+					row = rows[i].replace(/\s*<td[^>]*>\s*/g, "");
+					row = row.replace(/\s*<\/td>\s*/g, "\n");
+					cols = row.split("\n");
+
+					// cols: empty, url, summary+labels, size, type (=source), opsys, empty, ""
+					if (cols.length !== 8) {
+						continue;
+					}
+
+					d = new Download();
+					if (cols[0].match(/<a href="([^"]+)"[^>]*>/)) { d.url = RegExp.$1; }
+					if (cols[1].match(/<a href="([^"]+)"[^>]*>/)) { d.detailsUrl = RegExp.$1; }
+					if (cols[2].match(/<a[^>]*>\s*([^>]+)\s*<\/a>/)) { d.summary = RegExp.$1; }
+					if (cols[3].match(/<a[^>]*>\s*(.+)\s*<\/a>/)) { d.size = RegExp.$1; }
+					if (cols[4].match(/<a[^>]*>\s*(.+)\s*<\/a>/) && RegExp.$1 !== "----") { d.type = RegExp.$1.replace(/\s*$/, ""); }
+					if (cols[5].match(/<a[^>]*>\s*(.+)\s*<\/a>/) && RegExp.$1 !== "----") { d.opsys = RegExp.$1.replace(/\s*$/, ""); }
+
+					labels = cols[2].match(/<a[^>]+class="label"[^>]*>\s*([^>]+)\s*<\/a>/g);
+					if (labels) {
+						for (j = 0; j < labels.length; j += 1) {
+							labels[j] = labels[j].replace(/<a[^>]+class="label"[^>]*>\s*([^>]+)\s*<\/a>/, "$1");
+						}
+						d.labels = labels;
+					}
+
+					downloads[downloads.length] = d;
+				}
+			}
+
+			function response(obj) {
+				"use strict";
+				getDownloads(obj.text);
+				top.postMessage(JSON.stringify(downloads), "*");
+			}
+
+			function getHtml() {
+				"use strict";
+				var params = {};
+				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+				gadgets.io.makeRequest("http://code.google.com/p/texworks/downloads/list?colspec=Filename+Summary+Size+Type+Opsys", response, params);
+			}
+
+			gadgets.util.registerOnLoadHandler(getHtml);
+		</script>
+	]]>
+	</Content> 
+</Module>
