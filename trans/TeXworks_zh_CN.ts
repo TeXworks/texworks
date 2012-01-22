@@ -521,7 +521,7 @@
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>清除近期文件</translation>
     </message>
 </context>
 <context>
@@ -679,7 +679,7 @@
     </message>
     <message>
         <source>General</source>
-        <translation>一般</translation>
+        <translation>常规</translation>
     </message>
     <message>
         <source>Toolbar buttons</source>
@@ -727,7 +727,7 @@
     </message>
     <message>
         <source>Editor defaults</source>
-        <translation>编辑器默认</translation>
+        <translation>编辑器默认配置</translation>
     </message>
     <message>
         <source> pt</source>
@@ -919,7 +919,7 @@
     </message>
     <message>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>启用自动补全</translation>
     </message>
 </context>
 <context>
@@ -966,11 +966,11 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>日志文件（*.log）</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>辅助文件（*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl）</translation>
     </message>
 </context>
 <context>
@@ -1169,7 +1169,7 @@
     </message>
     <message>
         <source>Open Recent</source>
-        <translation>打开最近的文件</translation>
+        <translation>打开近期使用的文件</translation>
     </message>
     <message>
         <source>Help</source>
@@ -1293,7 +1293,7 @@
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>清除近期文件</translation>
     </message>
 </context>
 <context>
@@ -2082,36 +2082,36 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>清除近期文件</translation>
     </message>
     <message>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>终止排版？</translation>
     </message>
     <message>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>排版进程仍在运行，关闭此窗口前必须停止。你想停止它吗？</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;http://www.tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;或&lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;。</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;。</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;http://www.tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;，大多数系统都可以获得一份现成的此类 TeX 发行版。</translation>
     </message>
     <message>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>在已安装 TeX 发行版的情况下，你可以在【编辑】-&gt;【首选项】-&gt;【排版】中进行设置通知 TeXworks 其路径。</translation>
     </message>
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>检查首选项对话框工具 %1 的配置和路径设置。</translation>
     </message>
 </context>
 <context>
