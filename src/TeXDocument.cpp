@@ -56,6 +56,7 @@
 #include <QFileSystemWatcher>
 #include <QTextBrowser>
 #include <QAbstractTextDocumentLayout>
+#include <QDebug>
 
 #ifdef Q_WS_WIN
 #include <windows.h>
