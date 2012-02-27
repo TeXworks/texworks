@@ -55,6 +55,7 @@
 #include <QPushButton>
 #include <QFileSystemWatcher>
 #include <QTextBrowser>
+#include <QAbstractTextDocumentLayout>
 
 #ifdef Q_WS_WIN
 #include <windows.h>
@@ -1000,6 +1001,13 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
+	deferTagListChanges = true;
+	tagListChanged = false;
+	textEdit->setPlainText(fileContents);
+	deferTagListChanges = false;
+	if (tagListChanged)
+		emit tagListUpdated();
+
 	// Ensure the window is shown early (before setPlainText()).
 	// - this ensures it is shown before the PDF (if opening a new doc)
 	// - this avoids problems during layouting (which can be broken if the
@@ -1007,12 +1015,40 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	show();
 	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	deferTagListChanges = true;
-	tagListChanged = false;
-	textEdit->setPlainText(fileContents);
-	deferTagListChanges = false;
-	if (tagListChanged)
-		emit tagListUpdated();
+	{
+		// Try to work around QTBUG-20354
+		// It seems that adding additionalFormats (as is done automatically on
+		// setPlainText() by the syntax highlighter) can disturb the layouting
+		// process, leaving some blocks with size zero. This causes the
+		// corresponding lines to "disappear" and can even crash the application
+		// in connection with the "highlight current line" feature.
+		QTextDocument * doc = textEdit->document();
+		Q_ASSERT(doc != NULL);
+		QAbstractTextDocumentLayout * docLayout = doc->documentLayout();
+		Q_ASSERT(docLayout != NULL);
+
+		int tries;
+		for (tries = 0; tries < 10; ++tries) {
+			bool isLayoutOK = true;
+			for (QTextBlock b = doc->firstBlock(); b.isValid(); b = b.next()) {
+				if (docLayout->	blockBoundingRect(b).isEmpty()) {
+					isLayoutOK = false;
+					break;
+				}
+			}
+			if (isLayoutOK) break;
+			// Re-setting the document content naturally triggers a relayout
+			// (also a rehighlight). Note that layouting only works sensibly
+			// once show() was called, or else there is no valid widget geometry
+			// to act as bounding box.
+			doc->setPlainText(doc->toPlainText());
+		}
+		if (tries == 10) {
+			qDebug() << "WARNING: Qt could not layout the document correctly.";
+			qDebug() << "         Please resize the window manually to work around that.";
+		}
+	}
+
 	QApplication::restoreOverrideCursor();
 
 	if (asTemplate) {
