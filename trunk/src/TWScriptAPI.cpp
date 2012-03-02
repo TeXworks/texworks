@@ -340,3 +340,14 @@ QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
 	return retVal;
 }
 
+int TWScriptAPI::fileExists(const QString& filename) const
+{
+	QFileInfo fi(filename);
+	QDir scriptDir(QFileInfo(m_script->getFilename()).dir());
+	QString path = scriptDir.absoluteFilePath(filename);
+
+	if (!m_script->mayReadFile(path, m_target))
+		return SystemAccess_PermissionDenied;
+	return (QFileInfo(path).exists() ? SystemAccess_OK : SystemAccess_Failed);
+}
+

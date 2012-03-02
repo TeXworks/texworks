@@ -100,6 +100,11 @@ public:
 	// Content is read in text-mode in utf8 encoding
 	Q_INVOKABLE
 	QMap<QString, QVariant> readFile(const QString& filename) const;
+
+	// Returns one of one of SystemAccessResult
+	// Can be (ab)used to check folders, too
+	Q_INVOKABLE
+	int fileExists(const QString& filename) const;
 	
 	// QMessageBox functions to display alerts
 	Q_INVOKABLE
