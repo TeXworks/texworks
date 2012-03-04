@@ -166,6 +166,15 @@ public:
 	Q_INVOKABLE
 	bool makeConnection(QObject* sender, const QString& signal, QObject* receiver, const QString& slot);
 	
+	//////////////// Wrapper around selected TWUtils functions ////////////////
+	// Returns a map of the type "language code => array(filenames)"
+	// "filenames" are paths to *.dic files associated with the respective
+	// language.
+	// Note: forceReload only reloads the list of available dictionaries; it
+	// doesn't actually reinitialize the spell checker
+	Q_INVOKABLE
+	QMap<QString, QVariant> getDictionaryList(const bool forceReload = false);
+	//////////////// Wrapper around selected TWUtils functions ////////////////
 
 protected:
 	TWScript* m_script;
