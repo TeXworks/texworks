@@ -40,6 +40,8 @@
 #include <QCryptographicHash>
 #include <QTextStream>
 
+#include <hunspell.h>
+
 #pragma mark === TWUtils ===
 
 #ifdef Q_WS_X11
@@ -415,6 +417,7 @@ QHash<QString, QString>* TWUtils::getDictionaryList(const bool forceReload /* = 
 			dictionaryList->insertMulti(dicFileInfo.canonicalFilePath(), dicFileInfo.completeBaseName());
 	}
 	
+	TWApp::instance()->notifyDictionaryListChanged();
 	return dictionaryList;
 }
 
@@ -441,6 +444,31 @@ Hunhandle* TWUtils::getDictionary(const QString& language)
 		(*dictionaries)[language] = h;
 	}
 	return h;
+}
+
+QString TWUtils::getLanguageForDictionary(const Hunhandle * pHunspell)
+{
+	if (!pHunspell || !dictionaries)
+		return QString();
+	
+	for (QHash<const QString,Hunhandle*>::const_iterator it = dictionaries->begin(); it != dictionaries->end(); ++it) {
+		if (it.value() == pHunspell)
+			return it.key();
+	}
+	return QString();
+}
+
+void TWUtils::clearDictionaries()
+{
+	if (!dictionaries)
+		return;
+	
+	for (QHash<const QString,Hunhandle*>::iterator it = dictionaries->begin(); it != dictionaries->end(); ++it) {
+		if (it.value())
+			Hunspell_destroy(it.value());
+	}
+	delete dictionaries;
+	dictionaries = NULL;
 }
 
 QStringList* TWUtils::filters;

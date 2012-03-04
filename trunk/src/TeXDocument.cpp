@@ -366,49 +366,16 @@ void TeXDocument::init()
 	connect(actionLine_Numbers, SIGNAL(triggered(bool)), this, SLOT(setLineNumbers(bool)));
 	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
 
-	QSignalMapper *mapper = new QSignalMapper(this);
-	connect(actionNone, SIGNAL(triggered()), mapper, SLOT(map()));
-	mapper->setMapping(actionNone, QString());
-	connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(setLangInternal(const QString&)));
+	connect(actionNone, SIGNAL(triggered()), &dictSignalMapper, SLOT(map()));
+	dictSignalMapper.setMapping(actionNone, QString());
+	connect(&dictSignalMapper, SIGNAL(mapped(const QString&)), this, SLOT(setLangInternal(const QString&)));
 
 	QActionGroup *group = new QActionGroup(this);
 	group->addAction(actionNone);
 
-	QString defDict = settings.value("language", "None").toString();
-	
-	QList<QAction*> dictActions;
-	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
-		QAction *act;
-		QString dict, label;
-		QLocale loc;
-
-		foreach (dict, TWUtils::getDictionaryList()->values(dictKey)) {
-			loc = QLocale(dict);
-			if (loc.language() != QLocale::C) break;
-		}
-
-		if (loc.language() == QLocale::C)
-			label = dict;
-		else {
-			label = QLocale::languageToString(loc.language());
-			QLocale::Country country = loc.country();
-			if (country != QLocale::AnyCountry)
-				label += " - " + QLocale::countryToString(country);
-			label += " (" + dict + ")";
-		}
-
-		act = new QAction(label, NULL);
-		act->setCheckable(true);
-		connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
-		mapper->setMapping(act, dict);
-		group->addAction(act);
-		if (TWUtils::getDictionaryList()->values(dictKey).contains(defDict))
-			act->trigger();
-		dictActions << act;
-	}
-	qSort(dictActions.begin(), dictActions.end(), dictActionLessThan);
-	foreach (QAction* dictAction, dictActions)
-		menuSpelling->addAction(dictAction);
+	reloadSpellcheckerMenu();
+	setSpellcheckLanguage(settings.value("language").toString());
+	connect(TWApp::instance(), SIGNAL(dictionaryListChanged()), this, SLOT(reloadSpellcheckerMenu()));
 
 	menuShow->addAction(toolBar_run->toggleViewAction());
 	menuShow->addAction(toolBar_edit->toggleViewAction());
@@ -503,6 +470,67 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 		}
 		chosen->trigger();
 	}
+}
+
+QString TeXDocument::spellcheckLanguage() const
+{
+	return TWUtils::getLanguageForDictionary(pHunspell);
+}
+
+void TeXDocument::reloadSpellcheckerMenu()
+{
+	Q_ASSERT(menuSpelling != NULL);
+	Q_ASSERT(menuSpelling->actions().size() > 0);
+	
+	QActionGroup * group = menuSpelling->actions()[0]->actionGroup();
+	Q_ASSERT(group != NULL);
+	
+	// Remove all but the first menu item ("None") from the action group
+	int i = 0;
+	QString oldSelected;
+	foreach (QAction * act, group->actions()) {
+		if (act->isChecked())
+			oldSelected = act->text();
+		if (i > 0) {
+			group->removeAction(act);
+			act->deleteLater();
+		}
+		++i;
+	}
+	
+	QList<QAction*> dictActions;
+	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
+		QAction *act;
+		QString dict, label;
+		QLocale loc;
+
+		foreach (dict, TWUtils::getDictionaryList()->values(dictKey)) {
+			loc = QLocale(dict);
+			if (loc.language() != QLocale::C) break;
+		}
+
+		if (loc.language() == QLocale::C)
+			label = dict;
+		else {
+			label = QLocale::languageToString(loc.language());
+			QLocale::Country country = loc.country();
+			if (country != QLocale::AnyCountry)
+				label += " - " + QLocale::countryToString(country);
+			label += " (" + dict + ")";
+		}
+
+		act = new QAction(label, NULL);
+		act->setCheckable(true);
+		if (!oldSelected.isEmpty() && label == oldSelected)
+			act->setChecked(true);
+		connect(act, SIGNAL(triggered()), &dictSignalMapper, SLOT(map()));
+		dictSignalMapper.setMapping(act, dict);
+		group->addAction(act);
+		dictActions << act;
+	}
+	qSort(dictActions.begin(), dictActions.end(), dictActionLessThan);
+	foreach (QAction* dictAction, dictActions)
+		menuSpelling->addAction(dictAction);
 }
 
 void TeXDocument::clipboardChanged()

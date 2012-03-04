@@ -32,14 +32,13 @@
 #include <QPair>
 #include <QSettings>
 
-#include <hunspell.h>
-
 #define TEXWORKS_NAME "TeXworks" /* app name, for use in menus, messages, etc */
 
 class QMainWindow;
 class QCompleter;
 class TeXDocument;
 class PDFDocument;
+struct Hunhandle;
 
 // static utility methods
 class TWUtils
@@ -67,6 +66,13 @@ public:
 	
 	// get dictionary for a given language
 	static Hunhandle *getDictionary(const QString& language);
+	// get language for a given dictionary
+	static QString getLanguageForDictionary(const Hunhandle * pHunspell);
+	// deallocates all dictionaries
+	// WARNING: Don't call this while some window is using a dictionary (holds a
+	// Hunhandle*) as that window won't be notified; deactivate spell checking
+	// in all windows first (see TWApp::reloadSpellchecker())
+	static void clearDictionaries();
 
 	// list of filename filters for the Open/Save dialogs
 	static QStringList* filterList();

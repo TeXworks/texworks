@@ -88,8 +88,8 @@ public:
 	void setEngineList(const QList<Engine>& engines);
 
 	const QStringList getBinaryPaths(QStringList& sysEnv);
-		// runtime paths, including $PATH;
-		// also modifies passed-in sysEnv to include paths from prefs
+	// runtime paths, including $PATH;
+	// also modifies passed-in sysEnv to include paths from prefs
 	QString findProgram(const QString& program, const QStringList& binPaths);
 
 	const QStringList getPrefsBinaryPaths(); // only paths from prefs
@@ -113,6 +113,8 @@ public:
 	QString getPortableLibPath() const { return portableLibPath; }
 
 	TWScriptManager* getScriptManager() { return scriptManager; }
+	
+	void notifyDictionaryListChanged() const { emit dictionaryListChanged(); }
 
 #ifdef Q_WS_WIN
 	void createMessageTarget(QWidget* aWindow);
@@ -177,6 +179,8 @@ public slots:
 	// called by windows when they open/close/change name
 	void updateWindowMenus();
 
+	void reloadSpellchecker();
+
 	// called once when the app is first launched
 	void launchAction();
 
@@ -216,6 +220,10 @@ signals:
 	
 	void scriptListChanged();
 	
+	// emitted when TWUtils::getDictionaryList reloads the dictionary list;
+	// windows can connect to it to rebuild, e.g., a spellchecking menu
+	void dictionaryListChanged() const;
+	
 	void syncPdf(const QString& sourceFile, int lineNo, bool activatePreview);
 
 	void hideFloatersExcept(QWidget* theWindow);
@@ -224,7 +232,7 @@ signals:
 
 	void highlightLineOptionChanged();
 
-private slots:	
+private slots:
 	QObject * newFromTemplate() const;
 	void openRecentFile();
 	void preferences();

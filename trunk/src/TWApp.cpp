@@ -1311,3 +1311,27 @@ void TWApp::doResourcesDialog() const
 	ResourcesDialog::doResourcesDialog(NULL);
 }
 
+void TWApp::reloadSpellchecker()
+{
+	// save the current language and deactivate the spell checker for all open
+	// TeXDocument windows
+	QHash<TeXDocument*, QString> oldLangs;
+	foreach (QWidget *widget, QApplication::topLevelWidgets()) {
+		TeXDocument * texDoc = qobject_cast<TeXDocument*>(widget);
+		if (texDoc) {
+			oldLangs[texDoc] = texDoc->spellcheckLanguage();
+			texDoc->setSpellcheckLanguage(QString());
+		}
+	}
+	
+	// reset dictionaries (getDictionaryList(true) automatically updates all
+	// spell checker menus)
+	TWUtils::clearDictionaries();
+	TWUtils::getDictionaryList(true);
+	
+	// reenable spell checker
+	for (QHash<TeXDocument*, QString>::iterator it = oldLangs.begin(); it != oldLangs.end(); ++it) {
+		it.key()->setSpellcheckLanguage(it.value());
+	}
+}
+

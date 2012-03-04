@@ -28,6 +28,7 @@
 #include <QRegExp>
 #include <QProcess>
 #include <QDateTime>
+#include <QSignalMapper>
 
 #include "ui_TeXDocument.h"
 
@@ -85,6 +86,8 @@ public:
 		{ return textEdit; }
 	int selectionStart() { return textCursor().selectionStart(); }
 	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
+	
+	QString spellcheckLanguage() const;
 
 	PDFDocument* pdfDocument()
 		{ return pdfDoc; }
@@ -117,6 +120,7 @@ public:
 	Q_PROPERTY(QString rootFileName READ getRootFilePath STORED false);
 	Q_PROPERTY(bool untitled READ untitled STORED false);
 	Q_PROPERTY(bool modified READ isModified WRITE setModified STORED false);
+	Q_PROPERTY(QString spellcheckLanguage READ spellcheckLanguage WRITE setSpellcheckLanguage STORED false);
 	
 signals:
 	void syncFromSource(const QString&, int, bool);
@@ -173,6 +177,7 @@ public slots:
 	void sideBySide();
 	void removeAuxFiles();
 	void setSpellcheckLanguage(const QString& lang);
+	void reloadSpellcheckerMenu();
 	void selectRange(int start, int length = 0);
 	void insertText(const QString& text);
 	void selectAll() { textEdit->selectAll(); }
@@ -266,6 +271,8 @@ private:
 
 	QActionGroup *engineActions;
 	QString engineName;
+	
+	QSignalMapper dictSignalMapper;
 
 	QComboBox *engine;
 	QProcess *process;
