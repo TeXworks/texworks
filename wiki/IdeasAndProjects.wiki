@@ -94,5 +94,5 @@ Currently, scripts in !TeXworks only support a very linear control flow: once th
 
  * Difficulty: challenging
  * Time: long
- * Prerequisites: C++, Qt, QtScript/JavaScript, Lua
+ * Prerequisites: C++, Qt, !QtScript/!JavaScript, Lua
  * Related issues: issue 317, issue 369
