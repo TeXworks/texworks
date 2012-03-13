@@ -2273,26 +2273,34 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 		rangeEnd = searchRange.selectionEnd();
 	}
 	else {
-		if (searchWrap) {
-			searchRange.select(QTextCursor::Document);
-			rangeStart = searchRange.selectionStart();
+		// Note: searchWrap is handled separately below
+		if ((flags & QTextDocument::FindBackward) != 0) {
+			rangeStart = 0;
 			rangeEnd = searchRange.selectionEnd();
 		}
 		else {
-			if ((flags & QTextDocument::FindBackward) != 0) {
-				rangeStart = 0;
-				rangeEnd = searchRange.selectionEnd();
-			}
-			else {
-				rangeStart = searchRange.selectionStart();
-				searchRange.select(QTextCursor::Document);
-				rangeEnd = searchRange.selectionEnd();
-			}
+			rangeStart = searchRange.selectionStart();
+			searchRange.select(QTextCursor::Document);
+			rangeEnd = searchRange.selectionEnd();
 		}
 	}
 	
 	if (mode == ReplaceDialog::ReplaceOne) {
 		QTextCursor curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+		if (curs.isNull() && searchWrap) {
+			// If we haven't found anything and wrapping is enabled, try again
+			// with a "wrapped" search range
+			if ((flags & QTextDocument::FindBackward) != 0) {
+				rangeStart = rangeEnd;
+				searchRange.select(QTextCursor::Document);
+				rangeEnd = searchRange.selectionEnd();
+			}
+			else {
+				rangeEnd = rangeStart;
+				rangeStart = 0;
+			}
+			curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+		}
 		if (curs.isNull()) {
 			qApp->beep();
 			statusBar()->showMessage(tr("Not found"), kStatusMessageDuration);
@@ -2320,6 +2328,13 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 			statusBar()->showMessage(message, kStatusMessageDuration);
 		}
 		else {
+			if (!searchSel) {
+				// If we are not searching within a selection, we implicitly
+				// search the whole document with ReplaceAll
+				searchRange.select(QTextCursor::Document);
+				rangeStart = searchRange.selectionStart();
+				rangeEnd = searchRange.selectionEnd();
+			}
 			int replacements = doReplaceAll(searchText, regex, replacement, flags, rangeStart, rangeEnd);
 			statusBar()->showMessage(tr("Replaced %n occurrence(s)", "", replacements), kStatusMessageDuration);
 		}
