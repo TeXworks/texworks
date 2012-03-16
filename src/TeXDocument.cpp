@@ -56,7 +56,6 @@
 #include <QFileSystemWatcher>
 #include <QTextBrowser>
 #include <QAbstractTextDocumentLayout>
-#include <QDebug>
 
 #ifdef Q_WS_WIN
 #include <windows.h>
@@ -1071,10 +1070,10 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 			// once show() was called, or else there is no valid widget geometry
 			// to act as bounding box.
 			doc->setPlainText(doc->toPlainText());
+			QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 		}
-		if (tries == 10) {
-			qDebug() << "WARNING: Qt could not layout the document correctly.";
-			qDebug() << "         Please resize the window manually to work around that.";
+		if (tries >= 10) {
+			QMessageBox::warning(this, tr("Layout Problem"), tr("A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:\n -) Turn syntax highlighting off and on\n -) Turn line numbers off and on\n -) Resize the window\n\nWe are sorry for the inconvenience."));
 		}
 	}
 
