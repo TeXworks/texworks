@@ -2779,14 +2779,14 @@ void TeXDocument::showConsole()
 	consoleTabs->show();
 	if (process != NULL)
 		inputLine->show();
-	actionShow_Hide_Console->setText(tr("Hide Output Panel"));
+	actionShow_Hide_Console->setText(tr("Hide Console Output"));
 }
 
 void TeXDocument::hideConsole()
 {
 	consoleTabs->hide();
 	inputLine->hide();
-	actionShow_Hide_Console->setText(tr("Show Output Panel"));
+	actionShow_Hide_Console->setText(tr("Show Console Output"));
 }
 
 // this is connected to the user command, so remember the choice
