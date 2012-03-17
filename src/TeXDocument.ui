@@ -842,7 +842,7 @@
   </action>
   <action name="actionShow_Hide_Console">
    <property name="text">
-    <string>Hide Output Panel</string>
+    <string>Hide Console Output</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+\</string>

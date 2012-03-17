@@ -900,7 +900,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Hide output panel:</string>
+              <string>Hide console output:</string>
              </property>
             </widget>
            </item>
@@ -913,9 +913,9 @@
               </sizepolicy>
              </property>
              <property name="toolTip">
-              <string>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+              <string>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </string>
              </property>
              <property name="currentIndex">
@@ -923,17 +923,17 @@
              </property>
              <item>
               <property name="text">
-               <string extracomment="&quot;Hide output panel&quot; mode">Never</string>
+               <string extracomment="&quot;Hide console output&quot; mode">Never</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string extracomment="&quot;Hide output panel&quot; mode">Automatically</string>
+               <string extracomment="&quot;Hide console output&quot; mode">Automatically</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string extracomment="&quot;Hide output panel&quot; mode">On success</string>
+               <string extracomment="&quot;Hide console output&quot; mode">On success</string>
               </property>
              </item>
             </widget>
