@@ -2445,9 +2445,23 @@ void TeXDocument::copyToFind()
 		QString searchText = textEdit->textCursor().selectedText();
 		searchText.replace(QString(0x2029), "\n");
 		QSETTINGS_OBJECT(settings);
-		if (settings.value("searchRegex").toBool())
-			searchText = QRegExp::escape(searchText);
-		settings.setValue("searchText", searchText);
+		// Note: To search for multi-line strings, we currently need regex
+		// enabled (since we only have a single search line). If it was not
+		// enabled, we also need to ensure that the replaceText is escaped
+		// properly
+		bool isMultiLine = searchText.contains("\n");
+		if (isMultiLine && !settings.value("searchRegex").toBool()) {
+			settings.setValue("searchRegex", true);
+			settings.setValue("replaceText", QRegExp::escape(settings.value("replaceText").toString()));
+		}
+		if (settings.value("searchRegex").toBool()) {
+			if (isMultiLine)
+				settings.setValue("searchText", QRegExp::escape(searchText).replace("\n", "\\n"));
+			else
+				settings.setValue("searchText", QRegExp::escape(searchText));
+		}
+		else
+			settings.setValue("searchText", searchText);
 	}
 }
 
@@ -2457,7 +2471,22 @@ void TeXDocument::copyToReplace()
 		QString replaceText = textEdit->textCursor().selectedText();
 		replaceText.replace(QString(0x2029), "\n");
 		QSETTINGS_OBJECT(settings);
-		settings.setValue("replaceText", replaceText);
+		// Note: To do multi-line replacements, we currently need regex enabled
+		// (since we only have a single replace line). If it was not enabled, we
+		// also need to ensure that the searchText is escaped properly
+		bool isMultiLine = replaceText.contains("\n");
+		if (isMultiLine && !settings.value("searchRegex").toBool()) {
+			settings.setValue("searchRegex", true);
+			settings.setValue("searchText", QRegExp::escape(settings.value("searchText").toString()));
+		}
+		if (settings.value("searchRegex").toBool()) {
+			if (isMultiLine)
+				settings.setValue("replaceText", QRegExp::escape(replaceText).replace("\n", "\\n"));
+			else
+				settings.setValue("replaceText", QRegExp::escape(replaceText));
+		}
+		else
+			settings.setValue("replaceText", replaceText);
 	}
 }
 
