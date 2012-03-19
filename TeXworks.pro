@@ -25,7 +25,8 @@ SUBDIRS		+=	plugins-src/TWLuaPlugin
 SUBDIRS		+=	plugins-src/TWPythonPlugin
 
 MOC_DIR     = ./moc
-OBJECTS_DIR = ./obj
+# NOTE: BSD make fails if OBJECTS_DIR = ./obj (or rather if a directory obj exists at all; see issue 76)
+OBJECTS_DIR = ./objs
 UI_DIR      = ./ui
 RCC_DIR     = ./rcc
 
