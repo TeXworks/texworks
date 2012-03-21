@@ -1088,16 +1088,27 @@
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
-        <source>Hide output panel:</source>
-        <translation type="unfinished">Skrij izpis (log):</translation>
+        <source>Hide console output:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation type="obsolete">Skrij izpis (log):</translation>
+    </message>
+    <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished">&lt;p&gt;&lt;strong&gt;Nikoli:&lt;/strong&gt; Nikoli ne skrij izpisa.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Nikoli:&lt;/strong&gt; Nikoli ne skrij izpisa.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Samodejno:&lt;/strong&gt; Skrij izpis po uspešnem stavljenju, vendar le, če je bil skrit že pred njim.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Ob uspešnem stavljenju:&lt;/strong&gt; Skrij izpis po uspešnem stavljenju, neglede na to, ali je bil pred tem prikazan.&lt;/p&gt;
 </translation>
@@ -1105,19 +1116,19 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="926"/>
         <source>Never</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Nikoli</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="931"/>
         <source>Automatically</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Samodejno</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="936"/>
         <source>On success</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation type="unfinished">Ob uspešnem stavljenju</translation>
     </message>
     <message>
@@ -1178,43 +1189,43 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/TWUtils.cpp" line="454"/>
+        <location filename="../src/TWUtils.cpp" line="482"/>
         <source>TeX documents (*.tex)</source>
         <translation>TeX datoteke (*.tex)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="455"/>
+        <location filename="../src/TWUtils.cpp" line="483"/>
         <source>LaTeX documents (*.ltx)</source>
         <translation>LaTeX datoteke (*.ltx)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="456"/>
+        <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="457"/>
+        <location filename="../src/TWUtils.cpp" line="485"/>
         <source>BibTeX databases (*.bib)</source>
         <translatorcomment>ali samo datoteke</translatorcomment>
         <translation>BibTeX baze (*.bib)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="458"/>
+        <location filename="../src/TWUtils.cpp" line="486"/>
         <source>Style files (*.sty)</source>
         <translation>Datoteke slogov (*.sty)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="459"/>
+        <location filename="../src/TWUtils.cpp" line="487"/>
         <source>Class files (*.cls)</source>
         <translation>Datoteke razredov (*.cls)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="460"/>
+        <location filename="../src/TWUtils.cpp" line="488"/>
         <source>Documented macros (*.dtx)</source>
         <translation>Makro ukazi z dokumentacijo (*.dtx)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="461"/>
+        <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1223,17 +1234,17 @@
         <translation type="obsolete">Pomožne datoteke (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="462"/>
+        <location filename="../src/TWUtils.cpp" line="490"/>
         <source>Text files (*.txt)</source>
         <translation>Besedilne datototeke (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="463"/>
+        <location filename="../src/TWUtils.cpp" line="491"/>
         <source>PDF documents (*.pdf)</source>
         <translation>PDF datoteke (*.pdf)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="464"/>
+        <location filename="../src/TWUtils.cpp" line="492"/>
         <source>All files</source>
         <translation>Vse datoteke</translation>
     </message>
@@ -1701,39 +1712,39 @@ documentation and web pages much easier for users.</translatorcomment>
 <context>
     <name>TWScriptAPI</name>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="215"/>
+        <location filename="../src/TWScriptAPI.cpp" line="216"/>
         <source>Internal error</source>
         <translation type="unfinished">Napaka v programu</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="230"/>
+        <location filename="../src/TWScriptAPI.cpp" line="231"/>
         <source>Failed to execute system command: %1</source>
         <translation type="unfinished">Ni bilo mogoče izvesti ukaza: %1</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="239"/>
+        <location filename="../src/TWScriptAPI.cpp" line="240"/>
         <source>Error executing system command: %1</source>
         <translation type="unfinished">Napaka pri izvajanju ukaza: %1</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="256"/>
-        <location filename="../src/TWScriptAPI.cpp" line="278"/>
+        <location filename="../src/TWScriptAPI.cpp" line="257"/>
+        <location filename="../src/TWScriptAPI.cpp" line="279"/>
         <source>System command execution is disabled (see Preferences)</source>
         <translation type="unfinished">Izvajanje sistemskih ukazov je onemogočeno (preverite nastavitve programa)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="274"/>
+        <location filename="../src/TWScriptAPI.cpp" line="275"/>
         <source>&quot;%1&quot; could not be opened.</source>
         <translation type="unfinished">Ni bilo mogoče odpreti datoteke &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="322"/>
+        <location filename="../src/TWScriptAPI.cpp" line="323"/>
         <source>Reading all files is disabled (see Preferences)</source>
         <translatorcomment>TODO</translatorcomment>
         <translation type="unfinished">Branje vseh datotek je onemogočeno (preverite nastavitve programa)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="330"/>
+        <location filename="../src/TWScriptAPI.cpp" line="331"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
         <translation>Datoteke &quot;%1&quot; ni bilo mogoče odpreti za branje</translation>
     </message>
@@ -1822,7 +1833,7 @@ documentation and web pages much easier for users.</translatorcomment>
 <context>
     <name>TeXDocument</name>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="78"/>
+        <location filename="../src/TeXDocument.cpp" line="79"/>
         <source>New document</source>
         <translation>Nov dokument</translation>
     </message>
@@ -1841,7 +1852,7 @@ documentation and web pages much easier for users.</translatorcomment>
         <translation>Brez</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="568"/>
+        <location filename="../src/TeXDocument.cpp" line="597"/>
         <source>Open File</source>
         <translation>Odpri datoteko</translation>
     </message>
@@ -1850,30 +1861,30 @@ documentation and web pages much easier for users.</translatorcomment>
         <translation type="obsolete">Okna ni mogoče zapreti, dokler je orodje v teku</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="763"/>
+        <location filename="../src/TeXDocument.cpp" line="792"/>
         <source>Save File</source>
         <translation>Shrani datoteko</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="801"/>
+        <location filename="../src/TeXDocument.cpp" line="830"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Dokument &quot;%1&quot; je bil spremenjen.
 Želite shraniti spremembe?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="806"/>
+        <location filename="../src/TeXDocument.cpp" line="835"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="838"/>
+        <location filename="../src/TeXDocument.cpp" line="867"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>Želite zavreči vse spremembe dokumenta &quot;%1&quot; in se vrniti na zadnjo shranjeno verzijo?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="840"/>
+        <location filename="../src/TeXDocument.cpp" line="869"/>
         <source>Revert</source>
         <translatorcomment>ni najbolje ... npr. vrni se na zadnje shranjeno stanje</translatorcomment>
         <translation type="unfinished">Vrni na shranjeno</translation>
@@ -1885,12 +1896,12 @@ Do you want to save your changes?</source>
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="951"/>
+        <location filename="../src/TeXDocument.cpp" line="980"/>
         <source>Unrecognized encoding</source>
         <translation>Neprepoznano kodiranje</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="952"/>
+        <location filename="../src/TeXDocument.cpp" line="981"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1903,14 +1914,14 @@ Namesto tega bo uporabljeno kodiranje %3, zaradi česar se lahko nekateri znaki 
         <translation type="obsolete">Datoteka &quot;%1&quot; naložena (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1102"/>
-        <location filename="../src/TeXDocument.cpp" line="1163"/>
-        <location filename="../src/TeXDocument.cpp" line="1257"/>
+        <location filename="../src/TeXDocument.cpp" line="1166"/>
+        <location filename="../src/TeXDocument.cpp" line="1227"/>
+        <location filename="../src/TeXDocument.cpp" line="1321"/>
         <source>File changed on disk</source>
         <translation>Datoteka na disku spremenjena</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1103"/>
+        <location filename="../src/TeXDocument.cpp" line="1167"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -1919,7 +1930,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Želite zavreči trenutne spremembe in ponovno naložiti datoteko z diska?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1258"/>
+        <location filename="../src/TeXDocument.cpp" line="1322"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -1928,7 +1939,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Želite nadaljevati s shranjevanjem datoteke in s tem povoziti verzijo na disku?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1263"/>
+        <location filename="../src/TeXDocument.cpp" line="1327"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>Datoteka &quot;%1&quot; ni bila shranjena</translation>
     </message>
@@ -1941,12 +1952,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 Namesto tega bo pri shranjevanju uporabljeno kodiranje %3, zaradi česar se lahko nekateri znaki spremenijo.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1285"/>
+        <location filename="../src/TeXDocument.cpp" line="1349"/>
         <source>Text cannot be converted</source>
         <translation>Pretvorba besedila ni mogoča</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1286"/>
+        <location filename="../src/TeXDocument.cpp" line="1350"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -1961,14 +1972,14 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="935"/>
+        <location filename="../src/TeXDocument.cpp" line="964"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Ni mogoče prebrati datoteke &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1300"/>
+        <location filename="../src/TeXDocument.cpp" line="1364"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Ni mogoče pisati v datoteko &quot;%1&quot;:
@@ -1984,29 +1995,44 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation type="obsolete">privzeto kodirinaje</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="636"/>
+        <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>Abort typesetting?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="636"/>
+        <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="841"/>
+        <location filename="../src/TeXDocument.cpp" line="870"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1033"/>
+        <location filename="../src/TeXDocument.cpp" line="1076"/>
+        <source>Layout Problem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1076"/>
+        <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
+ -) Turn syntax highlighting off and on
+ -) Turn line numbers off and on
+ -) Resize the window
+
+We are sorry for the inconvenience.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1097"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Datoteka &quot;%1&quot; naložena</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1164"/>
+        <location filename="../src/TeXDocument.cpp" line="1228"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2016,43 +2042,43 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Prosimo uporabite &quot;Datoteka &gt; Vrni na shranjeno&quot;, ko se zunanji program konča.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1310"/>
+        <location filename="../src/TeXDocument.cpp" line="1374"/>
         <source>Error writing file</source>
         <translation>Napaka med zapisovanjem datoteke</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1311"/>
+        <location filename="../src/TeXDocument.cpp" line="1375"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation type="unfinished">Med zapisovanjem datoteke je prišlo do napake. Poskusite lahko shraniti njeno kopijo na drugo lokacijo.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1320"/>
+        <location filename="../src/TeXDocument.cpp" line="1384"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>Datoteka &quot;%1&quot; shranjena</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1356"/>
+        <location filename="../src/TeXDocument.cpp" line="1420"/>
         <source>untitled-%1.tex</source>
         <translation>neimenovana-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1373"/>
+        <location filename="../src/TeXDocument.cpp" line="1437"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1466"/>
+        <location filename="../src/TeXDocument.cpp" line="1530"/>
         <source>Line %1 of %2; col %3</source>
         <translation>vrstica %1 od %2; stolpec %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1521"/>
+        <location filename="../src/TeXDocument.cpp" line="1585"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation type="unfinished">Ponovno naloži dokument z izbrano kodno tabelo</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1523"/>
+        <location filename="../src/TeXDocument.cpp" line="1587"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2062,12 +2088,12 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 Izbrana kodna tabela nadomesti privzeto in se ne ozira na vsebino vrstice &quot;%!TEX encoding&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1542"/>
+        <location filename="../src/TeXDocument.cpp" line="1606"/>
         <source>Unsaved changes</source>
         <translation type="unfinished">Neshranjene spremembe</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1543"/>
+        <location filename="../src/TeXDocument.cpp" line="1607"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2076,31 +2102,31 @@ Do you want to discard your current changes, and reload the file from disk with 
 Želite prezreti trenutne spremembe in ponovno naložiti datoteko z diska pod kodno tabelo %1?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1668"/>
+        <location filename="../src/TeXDocument.cpp" line="1732"/>
         <source>Go to Line</source>
         <translation>Pojdi v vrstico</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1669"/>
+        <location filename="../src/TeXDocument.cpp" line="1733"/>
         <source>Line number:</source>
         <translation>Št. vrstice:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2041"/>
-        <location filename="../src/TeXDocument.cpp" line="2155"/>
+        <location filename="../src/TeXDocument.cpp" line="2105"/>
+        <location filename="../src/TeXDocument.cpp" line="2219"/>
         <source>Invalid regular expression</source>
         <translation>Neveljaven regularen izraz</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2087"/>
-        <location filename="../src/TeXDocument.cpp" line="2124"/>
-        <location filename="../src/TeXDocument.cpp" line="2233"/>
+        <location filename="../src/TeXDocument.cpp" line="2151"/>
+        <location filename="../src/TeXDocument.cpp" line="2188"/>
+        <location filename="../src/TeXDocument.cpp" line="2305"/>
         <source>Not found</source>
         <translatorcomment>ni najdeno - kateri sklon ?</translatorcomment>
         <translation>Ni zadetkov</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2091"/>
+        <location filename="../src/TeXDocument.cpp" line="2155"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>Najden %n zadetek</numerusform>
@@ -2110,7 +2136,7 @@ Do you want to discard your current changes, and reload the file from disk with 
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2252"/>
+        <location filename="../src/TeXDocument.cpp" line="2324"/>
         <source>%n occurrence(s)</source>
         <translatorcomment>zadetek ali pojavitev?</translatorcomment>
         <translation>
@@ -2121,7 +2147,7 @@ Do you want to discard your current changes, and reload the file from disk with 
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2253"/>
+        <location filename="../src/TeXDocument.cpp" line="2325"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n datoteki</numerusform>
@@ -2131,13 +2157,13 @@ Do you want to discard your current changes, and reload the file from disk with 
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2254"/>
+        <location filename="../src/TeXDocument.cpp" line="2326"/>
         <source>Replaced %1 in %2</source>
         <translatorcomment>npr: 5 zamenjav v 2 dokumentih</translatorcomment>
         <translation>%1 v %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2259"/>
+        <location filename="../src/TeXDocument.cpp" line="2338"/>
         <source>Replaced %n occurrence(s)</source>
         <translatorcomment>to je gotovo narobe</translatorcomment>
         <translation>
@@ -2148,60 +2174,65 @@ Do you want to discard your current changes, and reload the file from disk with 
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2418"/>
+        <location filename="../src/TeXDocument.cpp" line="2526"/>
         <source>Cannot process unsaved document</source>
         <translation>Neshranjenega dokumenta ni mogoče procesirati</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2428"/>
+        <location filename="../src/TeXDocument.cpp" line="2536"/>
         <source>Root document %1 is not readable</source>
         <translatorcomment>preveri</translatorcomment>
         <translation>Vrhnji dokument %1 ni berljiv</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2434"/>
+        <location filename="../src/TeXDocument.cpp" line="2542"/>
         <source>%1 is not properly configured</source>
         <translatorcomment>preveri</translatorcomment>
         <translation type="unfinished">Program %1 je napačno nastavljen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2522"/>
+        <location filename="../src/TeXDocument.cpp" line="2630"/>
         <source>Unable to execute %1</source>
         <translation>Ni bilo mogoče izvesti %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2523"/>
+        <location filename="../src/TeXDocument.cpp" line="2631"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Program &quot;%1&quot; ni bil najden.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2525"/>
+        <location filename="../src/TeXDocument.cpp" line="2633"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2527"/>
+        <location filename="../src/TeXDocument.cpp" line="2635"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2529"/>
+        <location filename="../src/TeXDocument.cpp" line="2637"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2531"/>
+        <location filename="../src/TeXDocument.cpp" line="2639"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2534"/>
+        <location filename="../src/TeXDocument.cpp" line="2642"/>
         <source>Searched in directories:</source>
         <translation>Prečesane so bile mape:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2536"/>
+        <location filename="../src/TeXDocument.cpp" line="2644"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="2818"/>
+        <source>Show Console Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2210,43 +2241,40 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation type="obsolete">Preveri konfiguracijo orodja %1 in nastavitve poti v nastavitvah.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2563"/>
+        <location filename="../src/TeXDocument.cpp" line="2671"/>
         <source>Abort typesetting</source>
         <translation>Prekini stavljenje</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2583"/>
+        <location filename="../src/TeXDocument.cpp" line="2691"/>
         <source>Process interrupted by user</source>
         <translation>Uporabnik je prekinil proces</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="845"/>
-        <location filename="../src/TeXDocument.cpp" line="2703"/>
         <source>Hide Output Panel</source>
-        <translation>Skrij izpis (log)</translation>
+        <translation type="obsolete">Skrij izpis (log)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2710"/>
         <source>Show Output Panel</source>
-        <translation>Pokaži izpis (log)</translation>
+        <translation type="obsolete">Pokaži izpis (log)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2790"/>
+        <location filename="../src/TeXDocument.cpp" line="2898"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation type="unfinished">Program za stavljenje: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2794"/>
+        <location filename="../src/TeXDocument.cpp" line="2902"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation type="unfinished">Program &quot;%1&quot; ni prepoznan (ni definiran)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2904"/>
+        <location filename="../src/TeXDocument.cpp" line="3012"/>
         <source>No files found</source>
         <translation>Ni najdenih datotek</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2905"/>
+        <location filename="../src/TeXDocument.cpp" line="3013"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translatorcomment>preveri - čuden prevod (Pomožne datoteke, ki bi pripadale temu dokumentu, ta hip ne obstajajo.)</translatorcomment>
         <translation type="unfinished">Trenutne ni nobene pomožne datoteke za ta dokument.</translation>
@@ -2278,7 +2306,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="600"/>
-        <location filename="../src/TeXDocument.cpp" line="2555"/>
+        <location filename="../src/TeXDocument.cpp" line="2663"/>
         <source>Typeset</source>
         <translatorcomment>??? to se uporabi trikrat; pod ikono bi dala &quot;poženi&quot;, v meni pa &quot;stavljenje/poženi&quot;, a vmesnik tega še ne omogoča</translatorcomment>
         <translation>Poženi</translation>
@@ -2645,6 +2673,12 @@ Do you want to discard your current changes, and reload the file from disk with 
         <location filename="../src/TeXDocument.ui" line="837"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="845"/>
+        <location filename="../src/TeXDocument.cpp" line="2811"/>
+        <source>Hide Console Output</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="848"/>
