@@ -1065,16 +1065,30 @@
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
-        <source>Hide output panel:</source>
-        <translation>Verstecke die Ausgabe:</translation>
+        <source>Hide console output:</source>
+        <translation>Konsolenausgabe schließen:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation>&lt;p&gt;&lt;strong&gt;Nie:&lt;/strong&gt; Die Konsolenausgabe des Textsatzprogrammes wird nie geschlossen.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatisch:&lt;/strong&gt;&lt;/p&gt; Nach erfolgreicher Beendigung des Textsatzprogrammes wird dessen Konsolenausgabe geschlossen, aber nur, wenn sie zuvor geschlossen war.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bei Erfolg:&lt;/strong&gt;&lt;/p&gt; Nach erfolgreicher Beendigung des Textsatzprogrammes wird dessen Ausgabe geschlossen, unabhängig davon, ob sie zuvor geschlossen war.&lt;/p&gt;
+</translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation type="obsolete">Verstecke die Ausgabe:</translation>
+    </message>
+    <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;&lt;strong&gt;Nie:&lt;/strong&gt; Die Ausgabe des Textsatzprogrammes wird nie versteckt.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Nie:&lt;/strong&gt; Die Ausgabe des Textsatzprogrammes wird nie versteckt.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatisch:&lt;/strong&gt;&lt;/p&gt; Nach erfolgreicher Beendigung des Textsatzprogrammes wird dessen Ausgabe versteckt, aber nur, wenn sie zuvor versteckt war.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Bei Erfolg:&lt;/strong&gt;&lt;/p&gt; Nach erfolgreicher Beendigung des Textsatzprogrammes wird dessen Ausgabe versteckt, unabhängig davon, ob sie zuvor versteckt war.&lt;/p&gt;
 </translation>
@@ -1082,19 +1096,19 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="926"/>
         <source>Never</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Nie</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="931"/>
         <source>Automatically</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Automatisch</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="936"/>
         <source>On success</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Bei Erfolg</translation>
     </message>
     <message>
@@ -1165,42 +1179,42 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/TWUtils.cpp" line="454"/>
+        <location filename="../src/TWUtils.cpp" line="482"/>
         <source>TeX documents (*.tex)</source>
         <translation>TeX-Dokumente (*.tex)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="455"/>
+        <location filename="../src/TWUtils.cpp" line="483"/>
         <source>LaTeX documents (*.ltx)</source>
         <translation>LaTeX-Dokumente (*.ltx)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="456"/>
+        <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log)</source>
         <translation>Protokolldateien (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="457"/>
+        <location filename="../src/TWUtils.cpp" line="485"/>
         <source>BibTeX databases (*.bib)</source>
         <translation>BibTeX-Datenbanken (*.bib)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="458"/>
+        <location filename="../src/TWUtils.cpp" line="486"/>
         <source>Style files (*.sty)</source>
         <translation>Stildateien (*.sty)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="459"/>
+        <location filename="../src/TWUtils.cpp" line="487"/>
         <source>Class files (*.cls)</source>
         <translation>Klassendateien (*.cls)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="460"/>
+        <location filename="../src/TWUtils.cpp" line="488"/>
         <source>Documented macros (*.dtx)</source>
         <translation>Dokumentierte Makros (*.dtx)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="461"/>
+        <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
         <translation>Hilfsdateien (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
@@ -1209,17 +1223,17 @@
         <translation type="obsolete">Hilfsdateien (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="462"/>
+        <location filename="../src/TWUtils.cpp" line="490"/>
         <source>Text files (*.txt)</source>
         <translation>Textdateien (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="463"/>
+        <location filename="../src/TWUtils.cpp" line="491"/>
         <source>PDF documents (*.pdf)</source>
         <translation>PDF-Dokumente (*.pdf)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="464"/>
+        <location filename="../src/TWUtils.cpp" line="492"/>
         <source>All files</source>
         <translation>Alle Dateien</translation>
     </message>
@@ -1671,38 +1685,38 @@
 <context>
     <name>TWScriptAPI</name>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="215"/>
+        <location filename="../src/TWScriptAPI.cpp" line="216"/>
         <source>Internal error</source>
         <translation>Interner Fehler</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="230"/>
+        <location filename="../src/TWScriptAPI.cpp" line="231"/>
         <source>Failed to execute system command: %1</source>
         <translation>Der folgende Systembefehl konnte nicht ausgeführt werden: %1</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="239"/>
+        <location filename="../src/TWScriptAPI.cpp" line="240"/>
         <source>Error executing system command: %1</source>
         <translation>Es trat ein Fehler beim Ausführen des folgenden Systembefehls auf: %1</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="256"/>
-        <location filename="../src/TWScriptAPI.cpp" line="278"/>
+        <location filename="../src/TWScriptAPI.cpp" line="257"/>
+        <location filename="../src/TWScriptAPI.cpp" line="279"/>
         <source>System command execution is disabled (see Preferences)</source>
         <translation>Das Ausführen von Systembefehlen ist deaktiviert (siehe Einstellungen)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="274"/>
+        <location filename="../src/TWScriptAPI.cpp" line="275"/>
         <source>&quot;%1&quot; could not be opened.</source>
         <translation>&quot;%1&quot; konnte nicht geöffnet werden.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="322"/>
+        <location filename="../src/TWScriptAPI.cpp" line="323"/>
         <source>Reading all files is disabled (see Preferences)</source>
         <translation>Das Lesen von Dateien ist deaktiviert (siehe Einstellungen)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="330"/>
+        <location filename="../src/TWScriptAPI.cpp" line="331"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
         <translation>Die Datei &quot;%1&quot; konnte nicht zum Lesen geöffnet werden</translation>
     </message>
@@ -1785,7 +1799,7 @@
 <context>
     <name>TeXDocument</name>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="78"/>
+        <location filename="../src/TeXDocument.cpp" line="79"/>
         <source>New document</source>
         <translation>Neues Dokument</translation>
     </message>
@@ -1803,17 +1817,17 @@
         <translation>Keine</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="568"/>
+        <location filename="../src/TeXDocument.cpp" line="597"/>
         <source>Open File</source>
         <translation>Datei öffnen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="763"/>
+        <location filename="../src/TeXDocument.cpp" line="792"/>
         <source>Save File</source>
         <translation>Datei speichern</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="801"/>
+        <location filename="../src/TeXDocument.cpp" line="830"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Das Dokument &quot;%1&quot; wurde geändert.
@@ -1825,12 +1839,12 @@ Möchten Sie die Änderungen speichern?</translation>
         <translation type="obsolete">Kann die Datei &quot;%1&quot; nicht lesen: %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="951"/>
+        <location filename="../src/TeXDocument.cpp" line="980"/>
         <source>Unrecognized encoding</source>
         <translation>Unbekannte Zeichenkodierung</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="952"/>
+        <location filename="../src/TeXDocument.cpp" line="981"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1849,12 +1863,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 Die Datei wird stattdessen als %3 gespeichert; das kann zu Fehlern im Text führen.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1285"/>
+        <location filename="../src/TeXDocument.cpp" line="1349"/>
         <source>Text cannot be converted</source>
         <translation>Der Text kann nicht konvertiert werden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1286"/>
+        <location filename="../src/TeXDocument.cpp" line="1350"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -1876,12 +1890,12 @@ Wenn Sie fortfahren, wird der Text mit Standardzeichen überschrieben. Alternati
         <translation type="obsolete">Standard-Zeichenkodierung</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2523"/>
+        <location filename="../src/TeXDocument.cpp" line="2631"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Das Programm &quot;%1&quot; wurde nicht gefunden.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2534"/>
+        <location filename="../src/TeXDocument.cpp" line="2642"/>
         <source>Searched in directories:</source>
         <translation>Verzeichnisse, die durchsucht wurden:</translation>
     </message>
@@ -1890,53 +1904,73 @@ Wenn Sie fortfahren, wird der Text mit Standardzeichen überschrieben. Alternati
         <translation type="obsolete">Überprüfen Sie die Konfiguration und die Pfadeinstellungen des %1 Werkzeugs im Einstellungsdialog.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2583"/>
+        <location filename="../src/TeXDocument.cpp" line="2691"/>
         <source>Process interrupted by user</source>
         <translation>Der Prozess wurde vom Benutzer abgebrochen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1263"/>
+        <location filename="../src/TeXDocument.cpp" line="1327"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>Datei &quot;%1&quot; wurde nicht gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="636"/>
+        <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>Abort typesetting?</source>
         <translation>Textsatz abbrechen?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="636"/>
+        <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation>Ein Textsatzprozess läuft gerade und muss gestoppt werden, bevor dieses Fenster geschlossen wird.
 Wollen Sie den Prozess jetzt stoppen?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="806"/>
+        <location filename="../src/TeXDocument.cpp" line="835"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="841"/>
+        <location filename="../src/TeXDocument.cpp" line="870"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="935"/>
+        <location filename="../src/TeXDocument.cpp" line="964"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Kann die Datei &quot;%1&quot; nicht lesen:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1033"/>
+        <location filename="../src/TeXDocument.cpp" line="1076"/>
+        <source>Layout Problem</source>
+        <translation>Layoutproblem</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1076"/>
+        <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
+ -) Turn syntax highlighting off and on
+ -) Turn line numbers off and on
+ -) Resize the window
+
+We are sorry for the inconvenience.</source>
+        <translation>Beim Layout des Dokuments im Editor trat ein Problem auf. Die Ursache dafür ist ein Fehler im Qt Framework, auf dem TeXworks basiert, und kann unter gewissen Umständen zum Absturz von TeXworks führen. Die Symptome dieses Problems sind überlappende oder nicht angezeigte Zeilen. Bitte versuchen Sie einen der folgenden Wege um das Problem zu umgehen:
+ -) Schalten Sie die Syntax-Hervorhebung aus und wieder ein
+ -) Schalten Sie Zeilennummern aus und wieder ein
+ -) Ändern Sie die Größe des Fensters
+
+Wir bitten für diese Unannehmlichkeit um Entschuldigung.</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="1097"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Datei &quot;%1&quot; geladen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1164"/>
+        <location filename="../src/TeXDocument.cpp" line="1228"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -1945,45 +1979,45 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Bitte verwenden Sie &quot;Datei &gt; Zurück zur gespeicherten Version&quot;, wenn das andere Programm fertig ist.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1300"/>
+        <location filename="../src/TeXDocument.cpp" line="1364"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Kann die Datei &quot;%1&quot; nicht schreiben:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1310"/>
+        <location filename="../src/TeXDocument.cpp" line="1374"/>
         <source>Error writing file</source>
         <translation>Fehler beim Speichern</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1311"/>
+        <location filename="../src/TeXDocument.cpp" line="1375"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>Beim Speichern der Datei könnte ein Fehler aufgetreten sein. Es wäre sinnvoll, eine Kopie an einem anderen Ort zu speichern.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1320"/>
+        <location filename="../src/TeXDocument.cpp" line="1384"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>Datei &quot;%1&quot; gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1356"/>
+        <location filename="../src/TeXDocument.cpp" line="1420"/>
         <source>untitled-%1.tex</source>
         <translation>Namenlos-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1373"/>
+        <location filename="../src/TeXDocument.cpp" line="1437"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1521"/>
+        <location filename="../src/TeXDocument.cpp" line="1585"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>Unter Verwendung der ausgewählten Kodierung neu laden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1523"/>
+        <location filename="../src/TeXDocument.cpp" line="1587"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -1993,12 +2027,12 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 Die gewählte Kodierung ersetzt dabei die Standardkodierung; alle &quot;%!TEX encoding&quot; Zeilen werden ignoriert.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1542"/>
+        <location filename="../src/TeXDocument.cpp" line="1606"/>
         <source>Unsaved changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1543"/>
+        <location filename="../src/TeXDocument.cpp" line="1607"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2007,91 +2041,88 @@ Do you want to discard your current changes, and reload the file from disk with 
 Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodierung %1 neu laden?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1668"/>
+        <location filename="../src/TeXDocument.cpp" line="1732"/>
         <source>Go to Line</source>
         <translation>Gehe zu Zeile</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1669"/>
+        <location filename="../src/TeXDocument.cpp" line="1733"/>
         <source>Line number:</source>
         <translation>Zeilennummer:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2041"/>
-        <location filename="../src/TeXDocument.cpp" line="2155"/>
+        <location filename="../src/TeXDocument.cpp" line="2105"/>
+        <location filename="../src/TeXDocument.cpp" line="2219"/>
         <source>Invalid regular expression</source>
         <translation>Ungültige Regular Expression</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2087"/>
-        <location filename="../src/TeXDocument.cpp" line="2124"/>
-        <location filename="../src/TeXDocument.cpp" line="2233"/>
+        <location filename="../src/TeXDocument.cpp" line="2151"/>
+        <location filename="../src/TeXDocument.cpp" line="2188"/>
+        <location filename="../src/TeXDocument.cpp" line="2305"/>
         <source>Not found</source>
         <translation>Nicht gefunden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2418"/>
+        <location filename="../src/TeXDocument.cpp" line="2526"/>
         <source>Cannot process unsaved document</source>
         <translation>Das Dokument kann nicht gesetzt werden ohne zu speichern</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2434"/>
+        <location filename="../src/TeXDocument.cpp" line="2542"/>
         <source>%1 is not properly configured</source>
         <translation>%1 ist nicht korrekt konfiguriert</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2522"/>
+        <location filename="../src/TeXDocument.cpp" line="2630"/>
         <source>Unable to execute %1</source>
         <translation>Kann %1 nicht ausführen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2525"/>
+        <location filename="../src/TeXDocument.cpp" line="2633"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Sie müssen eine &lt;b&gt;TeX Distribution&lt;/b&gt; wie z.B. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; oder &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; auf Ihrem System installiert haben, um Ihr Dokument setzen zu können.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2527"/>
+        <location filename="../src/TeXDocument.cpp" line="2635"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Sie müssen eine &lt;b&gt;TeX Distribution&lt;/b&gt; wie z.B. &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; auf Ihrem System installiert haben, um Ihr Dokument setzen zu können.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2529"/>
+        <location filename="../src/TeXDocument.cpp" line="2637"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>Sie müssen eine &lt;b&gt;TeX Distribution&lt;/b&gt; wie z.B. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; auf Ihrem System installiert haben, um Ihr Dokument setzen zu können. Auf den meisten Systemen steht eine TeX Distribution in der Paketverwaltung zu Verfügung.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2531"/>
+        <location filename="../src/TeXDocument.cpp" line="2639"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>Wenn Sie eine TeX Distribution installiert haben, müssen Sie möglicherweise noch TeXworks über Bearbeiten -&gt; Einstellungen... -&gt; Textsatz mitteilen, wo sie zu finden ist.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2536"/>
+        <location filename="../src/TeXDocument.cpp" line="2644"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>Überprüfen Sie die Konfiguration des Werkzeugs &quot;%1&quot; und die Pfadeinstellungen im Dialog &quot;Einstellungen&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2563"/>
+        <location filename="../src/TeXDocument.cpp" line="2671"/>
         <source>Abort typesetting</source>
         <translation>Textsatz abbrechen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="845"/>
-        <location filename="../src/TeXDocument.cpp" line="2703"/>
         <source>Hide Output Panel</source>
-        <translation>Verstecke die Ausgabe</translation>
+        <translation type="obsolete">Verstecke die Ausgabe</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2710"/>
         <source>Show Output Panel</source>
-        <translation>Zeige die Ausgabe</translation>
+        <translation type="obsolete">Zeige die Ausgabe</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2790"/>
+        <location filename="../src/TeXDocument.cpp" line="2898"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Verwende &quot;%1&quot; für die Übersetzung</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2794"/>
+        <location filename="../src/TeXDocument.cpp" line="2902"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>Program &quot;%1&quot; nicht definiert</translation>
     </message>
@@ -2122,7 +2153,7 @@ Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodier
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="600"/>
-        <location filename="../src/TeXDocument.cpp" line="2555"/>
+        <location filename="../src/TeXDocument.cpp" line="2663"/>
         <source>Typeset</source>
         <translation>Setzen</translation>
     </message>
@@ -2291,6 +2322,12 @@ Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodier
         <location filename="../src/TeXDocument.ui" line="588"/>
         <source>Clear</source>
         <translation>Löschen</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.ui" line="845"/>
+        <location filename="../src/TeXDocument.cpp" line="2811"/>
+        <source>Hide Console Output</source>
+        <translation>Konsolenausgabe schließen</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1035"/>
@@ -2573,22 +2610,22 @@ Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodier
         <translation>Ctrl+B</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="838"/>
+        <location filename="../src/TeXDocument.cpp" line="867"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>Wollen Sie alle Änderungen des Dokuments &apos;%1&apos; verwerfen und zur letzten gespeicherten Version zurückkehren?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="840"/>
+        <location filename="../src/TeXDocument.cpp" line="869"/>
         <source>Revert</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1466"/>
+        <location filename="../src/TeXDocument.cpp" line="1530"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Zeile %1 von %2; Spalte %3</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2091"/>
+        <location filename="../src/TeXDocument.cpp" line="2155"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>%n Übereinstimmung gefunden</numerusform>
@@ -2596,7 +2633,7 @@ Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodier
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2252"/>
+        <location filename="../src/TeXDocument.cpp" line="2324"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n Übereinstimmung</numerusform>
@@ -2604,7 +2641,7 @@ Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodier
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2253"/>
+        <location filename="../src/TeXDocument.cpp" line="2325"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n Dokument</numerusform>
@@ -2612,12 +2649,12 @@ Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodier
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2254"/>
+        <location filename="../src/TeXDocument.cpp" line="2326"/>
         <source>Replaced %1 in %2</source>
         <translation>%1 in %2 ersetzt</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2259"/>
+        <location filename="../src/TeXDocument.cpp" line="2338"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>%n Übereinstimmung ersetzt</numerusform>
@@ -2655,14 +2692,14 @@ Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodier
         <translation>Rechts platzieren</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1102"/>
-        <location filename="../src/TeXDocument.cpp" line="1163"/>
-        <location filename="../src/TeXDocument.cpp" line="1257"/>
+        <location filename="../src/TeXDocument.cpp" line="1166"/>
+        <location filename="../src/TeXDocument.cpp" line="1227"/>
+        <location filename="../src/TeXDocument.cpp" line="1321"/>
         <source>File changed on disk</source>
         <translation>Die Datei wurde auf der Festplatte geändert</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1103"/>
+        <location filename="../src/TeXDocument.cpp" line="1167"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2671,7 +2708,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Wollen Sie Ihre aktuellen Änderungen verwerfen und die Datei von der Festplatte neu laden?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1258"/>
+        <location filename="../src/TeXDocument.cpp" line="1322"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2680,17 +2717,22 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplatte überschreiben?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2428"/>
+        <location filename="../src/TeXDocument.cpp" line="2536"/>
         <source>Root document %1 is not readable</source>
         <translation>Hauptdokument %1 ist nicht lesbar</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2904"/>
+        <location filename="../src/TeXDocument.cpp" line="2818"/>
+        <source>Show Console Output</source>
+        <translation>Konsolenausgabe anzeigen</translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocument.cpp" line="3012"/>
         <source>No files found</source>
         <translation>Keine Dateien gefunden</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2905"/>
+        <location filename="../src/TeXDocument.cpp" line="3013"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Im Moment sind keine Hilfsdateien mit diesem Dokument verbunden.</translation>
     </message>

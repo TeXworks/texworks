@@ -910,21 +910,21 @@
     </message>
     <message>
         <source>Hide output panel:</source>
-        <translation>Ocultar panel de salida:</translation>
+        <translation type="obsolete">Ocultar panel de salida:</translation>
     </message>
     <message>
         <source>Never</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Nunca</translation>
     </message>
     <message>
         <source>Automatically</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Automáticamente</translation>
     </message>
     <message>
         <source>On success</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>En caso de éxito</translation>
     </message>
     <message>
@@ -936,13 +936,24 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt; No ocultar nunca el panel de salida después de cada compilación.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt; No ocultar nunca el panel de salida después de cada compilación.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automáticamente:&lt;/strong&gt; Ocultar el panel de salida luego de que la compilación haya sido fructífera, pero sólo si antes éste había permanecido oculto.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;En caso de éxito:&lt;/strong&gt; Ocultar el panel de salida luego de que la compilación haya ocurrido sin problemas, independientemente de su estado anterior.&lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Enable autocompletion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide console output:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1695,11 +1706,11 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     </message>
     <message>
         <source>Hide Output Panel</source>
-        <translation>Ocultar panel de salida</translation>
+        <translation type="obsolete">Ocultar panel de salida</translation>
     </message>
     <message>
         <source>Show Output Panel</source>
-        <translation>Mostrar panel de salida</translation>
+        <translation type="obsolete">Mostrar panel de salida</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
@@ -2240,6 +2251,27 @@ o &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; en su sistema pa
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>Revise la configuración de la herramienta %1, así como la &quot;Localizacion de TeX y programas relativos&quot; en la pestaña Preferencias.</translation>
+    </message>
+    <message>
+        <source>Hide Console Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layout Problem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
+ -) Turn syntax highlighting off and on
+ -) Turn line numbers off and on
+ -) Resize the window
+
+We are sorry for the inconvenience.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Console Output</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

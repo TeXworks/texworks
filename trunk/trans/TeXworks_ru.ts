@@ -861,33 +861,33 @@
     </message>
     <message>
         <source>Hide output panel:</source>
-        <translation>Скрытие панели вывода:</translation>
+        <translation type="obsolete">Скрытие панели вывода:</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;&lt;strong&gt;Никогда:&lt;/strong&gt; никогда не скрывать панель вывода после вёрстки.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Никогда:&lt;/strong&gt; никогда не скрывать панель вывода после вёрстки.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Автоматически:&lt;/strong&gt; скрывать панель вывода после успешной вёрстки, но только если она была скрыта до этого.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;В случае успеха:&lt;/strong&gt; скрывать панель вывода после успешной вёрстки, независимо от предыдущего состояния.&lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Never</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translatorcomment>Режим «скрытия панели вывода»</translatorcomment>
         <translation>Никогда</translation>
     </message>
     <message>
         <source>Automatically</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translatorcomment>Режим «скрытия панели вывода»</translatorcomment>
         <translation>Автоматически</translation>
     </message>
     <message>
         <source>On success</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translatorcomment>Режим «скрытия панели вывода»</translatorcomment>
         <translation>В случае успеха</translation>
     </message>
@@ -942,6 +942,17 @@
     <message>
         <source>Enable autocompletion</source>
         <translation>Автодополнения</translation>
+    </message>
+    <message>
+        <source>Hide console output:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1753,11 +1764,11 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <source>Hide Output Panel</source>
-        <translation>Скрыть панель вывода</translation>
+        <translation type="obsolete">Скрыть панель вывода</translation>
     </message>
     <message>
         <source>Show Output Panel</source>
-        <translation>Показать панель вывода</translation>
+        <translation type="obsolete">Показать панель вывода</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
@@ -2225,6 +2236,27 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <source>Line Numbers</source>
         <translation>Номера строк</translation>
+    </message>
+    <message>
+        <source>Hide Console Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layout Problem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
+ -) Turn syntax highlighting off and on
+ -) Turn line numbers off and on
+ -) Resize the window
+
+We are sorry for the inconvenience.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Console Output</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
