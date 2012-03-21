@@ -1075,8 +1075,8 @@
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
         <translation>&lt;p&gt;&lt;strong&gt;Nie:&lt;/strong&gt; Die Konsolenausgabe des Textsatzprogrammes wird nie geschlossen.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automatisch:&lt;/strong&gt;&lt;/p&gt; Nach erfolgreicher Beendigung des Textsatzprogrammes wird dessen Konsolenausgabe geschlossen, aber nur, wenn sie zuvor geschlossen war.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Bei Erfolg:&lt;/strong&gt;&lt;/p&gt; Nach erfolgreicher Beendigung des Textsatzprogrammes wird dessen Ausgabe geschlossen, unabhängig davon, ob sie zuvor geschlossen war.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatisch:&lt;/strong&gt; Nach erfolgreicher Beendigung des Textsatzprogrammes wird dessen Konsolenausgabe geschlossen, aber nur, wenn sie zuvor geschlossen war.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bei Erfolg:&lt;/strong&gt; Nach erfolgreicher Beendigung des Textsatzprogrammes wird dessen Ausgabe geschlossen, unabhängig davon, ob sie zuvor geschlossen war.&lt;/p&gt;
 </translation>
     </message>
     <message>
