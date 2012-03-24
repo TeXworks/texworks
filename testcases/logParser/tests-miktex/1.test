@@ -1,0 +1,97 @@
+[
+  {"Severity":2,"File":"C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.tex","Row":"16","Description":"Undefined control sequence.\nl.16 \\frenchspacin"},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.tex","Row":"32","Description":"LaTeX Font Warning: Font shape `T1/cmss/bx/sc' undefined using `T1/cmss/bx/n' instead on input line 32."},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.tex","Row":"32","Description":"LaTeX Warning: Reference `sec:fake' on page 1 undefined on input line 32."},
+  {"Severity":2,"File":"C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.tex","Row":"35","Description":"Undefined control sequence.\nl.35 \\bigski"},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.tex","Row":"38","Description":"LaTeX Warning: Reference `sec:inexistentsectionwithlonglabel' on page 1 undefined on input line 38."},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.tex","Row":0,"Description":"LaTeX Font Warning: Some font shapes were not available, defaults substituted."},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.tex","Row":0,"Description":"LaTeX Warning: There were undefined references."}
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
+entering extended mode
+
+(C:\Users\Antonio\Dati\Università\Magistrale\Sicurezza\Progetto\project-erinye
+s\doc\relazione.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrartcl.cls"
+Document Class: scrartcl 2011/06/16 v3.09a KOMA-Script document class (article)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrkbase.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrbase.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrlfile.sty"
+Package scrlfile, 2011/03/09 v3.09 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))) ("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\tocbasic.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrsize10pt.clo")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\typearea.sty"
+Package typearea, 2011/06/16 v3.09a KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+)) ("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu")
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu")
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu")))
+! Undefined control sequence.
+l.16 \frenchspacin
+                  
+
+(C:\Users\Antonio\Dati\Università\Magistrale\Sicurezza\Progetto\project-erinye
+s\doc\relazione.aux) ("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1cmss.fd")
+
+LaTeX Font Warning: Font shape `T1/cmss/bx/sc' undefined
+(Font)              using `T1/cmss/bx/n' instead on input line 32.
+
+
+LaTeX Warning: Reference `sec:fake' on page 1 undefined on input line 32.
+
+
+(C:\Users\Antonio\Dati\Università\Magistrale\Sicurezza\Progetto\project-erinye
+s\doc\relazione.toc)
+! Undefined control sequence.
+l.35 \bigski
+            
+
+LaTeX Warning: Reference `sec:inexistentsectionwithlonglabel' on page 1 undefin
+ed on input line 38.
+
+[1{C:/Users/Antonio/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+[2]
+(C:\Users\Antonio\Dati\Università\Magistrale\Sicurezza\Progetto\project-erinye
+s\doc\relazione.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+ )
+(see the transcript file for additional information) <C:\Users\Antonio\AppData\
+Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk> <C:\Users\Anto
+nio\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecsx1000.pk> <C
+:\Users\Antonio\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecb
+x1000.pk> <C:\Users\Antonio\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\e
+c\dpi600\ecrm1440.pk> <C:\Users\Antonio\AppData\Local\MiKTeX\2.9\fonts\pk\ljfou
+r\jknappen\ec\dpi600\ecsx1440.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
+10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on relazione.pdf (2 pages, 74048 bytes).
+SyncTeX written on relazione.synctex.gz.
+Transcript written on relazione.log.

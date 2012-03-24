@@ -1,0 +1,95 @@
+[
+  {"Severity":2,"File":"./relazione.tex","Row":"16","Description":"Undefined control sequence.\nl.16 \\frenchspacin"},
+  {"Severity":1,"File":"./relazione.tex","Row":"32","Description":"LaTeX Font Warning: Font shape `T1/cmss/bx/sc' undefined using `T1/cmss/bx/n' instead on input line 32."},
+  {"Severity":1,"File":"./relazione.tex","Row":"32","Description":"LaTeX Warning: Reference `sec:fake' on page 1 undefined on input line 32."},
+  {"Severity":2,"File":"./relazione.tex","Row":"35","Description":"Undefined control sequence.\nl.35 \\bigski"},
+  {"Severity":1,"File":"./relazione.tex","Row":"38","Description":"LaTeX Warning: Reference `sec:inexistentsectionwithlonglabel' on page 1 undefined on input line 38."},
+  {"Severity":1,"File":"./relazione.tex","Row":0,"Description":"LaTeX Font Warning: Some font shapes were not available, defaults substituted."},
+  {"Severity":1,"File":"./relazione.tex","Row":0,"Description":"LaTeX Warning: There were undefined references."}
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011)
+ restricted \write18 enabled.
+entering extended mode
+(./relazione.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
+ icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
+iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
+ lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
+ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
+ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
+.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrartcl.cls
+Document Class: scrartcl 2011/06/16 v3.09a KOMA-Script document class (article)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrkbase.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrbase.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package scrlfile, 2011/03/09 v3.09 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))) (/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/tocbasic.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrsize10pt.clo)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/typearea.sty
+Package typearea, 2011/06/16 v3.09a KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+)) (/usr/local/texlive/2011/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/utf8.def
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/omsenc.dfu)))
+! Undefined control sequence.
+l.16 \frenchspacin
+                  
+(./relazione.aux) (/usr/local/texlive/2011/texmf-dist/tex/latex/base/t1cmss.fd)
+
+
+LaTeX Font Warning: Font shape `T1/cmss/bx/sc' undefined
+(Font)              using `T1/cmss/bx/n' instead on input line 32.
+
+
+LaTeX Warning: Reference `sec:fake' on page 1 undefined on input line 32.
+
+(./relazione.toc)
+! Undefined control sequence.
+l.35 \bigski
+            
+
+LaTeX Warning: Reference `sec:inexistentsectionwithlonglabel' on page 1 undefin
+ed on input line 38.
+
+[1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+[2] (./relazione.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+ )
+(see the transcript file for additional information){/usr/local/texlive/2011/te
+xmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2011/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2011/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2011/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2011/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2011/texmf-dist
+/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2011/texmf-dist/f
+onts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2011/texmf-dist/fon
+ts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2011/texmf-dist/fonts
+/type1/public/cm-super/sfsx1000.pfb></usr/local/texlive/2011/texmf-dist/fonts/t
+ype1/public/cm-super/sfsx1440.pfb>
+Output written on relazione.pdf (2 pages, 108840 bytes).
+SyncTeX written on relazione.synctex.gz.
+Transcript written on relazione.log.
+

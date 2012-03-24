@@ -1,0 +1,90 @@
+[
+  {"Severity":2,"File":"C:\\Program Files\\MiKTeX 2.9\\tex\\latex\\memoir\\memoir.cls","Row":"733",
+   "Description":"Class memoir Error: The `extrafontsizes' option is required to use \n(memoir)              the `30pt' option.\n\nSee the memoir class documentation for explanation.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.733 ...   {The 17pt option will be used instead}"},
+  {"Severity":0,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova1.tex","Row":"12",
+   "Description":"Overfull \\hbox (74.63379pt too wide) in paragraph at lines 12--13\n[]\\T1/cmtt/m/n/17.28 L'output di una funzione hash ha una dimensione prefissata"},
+  {"Severity":0,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova1.tex","Row":"14",
+   "Description":"Overfull \\hbox (30.87154pt too wide) in paragraph at lines 14--15\n[]\\T1/cmtt/m/n/17.28 È che è l'output $\\OML/cmm/m/it/17.28 di$ \\T1/cmtt/m/n/17.28 una \\T1/cmtt/m/n/10 funzione \\T1/cmtt/m/n/17.28 hash che ha la \\T1/cmtt/m/n/14.4 dimensione"},
+  {"Severity":0,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova1.tex","Row":"16",
+   "Description":"Overfull \\hbox (39.95386pt too wide) in paragraph at lines 16--17\n[]\\T1/cmtt/m/n/17.28 Nunc sed pede. Praesent vitae lectus. Praesent neque"},
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
+entering extended mode
+(C:\Users\Antonio\AppData\Local\Temp\Prova1.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\memoir\memoir.cls"
+Document Class: memoir 2011/03/06 v3.6j configurable book, report, article docu
+ment class
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty")
+======================================================================
+pdflatex.exe: Cannot start MiKTeX package manager.
+pdflatex.exe: Data: Sintassi non valida.
+
+======================================================================
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\misc\etex.sty")
+
+! Class memoir Error: The `extrafontsizes' option is required to use 
+(memoir)              the `30pt' option.
+
+See the memoir class documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.733 ...   {The 17pt option will be used instead}
+                                                  
+("C:\Program Files\MiKTeX 2.9\tex\latex\memoir\mem17.clo")
+("C:\Program Files\MiKTeX 2.9\tex\latex\memoir\mempatch.sty"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu")
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu")
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu")))
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg")
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\italian.ldf"
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def")))
+("C:\Program Files\MiKTeX 2.9\tex\latex\lipsum\lipsum.sty")
+(C:\Users\Antonio\AppData\Local\Temp\Prova1.aux)
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1cmtt.fd")
+Overfull \hbox (74.63379pt too wide) in paragraph at lines 12--13
+[]\T1/cmtt/m/n/17.28 L'output di una funzione hash ha una dimensione prefissata
+ 
+
+Overfull \hbox (30.87154pt too wide) in paragraph at lines 14--15
+[]\T1/cmtt/m/n/17.28 È che è l'output $\OML/cmm/m/it/17.28 di$ \T1/cmtt/m/n/17.
+28 una \T1/cmtt/m/n/10 funzione \T1/cmtt/m/n/17.28 hash che ha la \T1/cmtt/m/n/
+14.4 dimensione
+
+Overfull \hbox (39.95386pt too wide) in paragraph at lines 16--17
+[]\T1/cmtt/m/n/17.28 Nunc sed pede. Praesent vitae lectus. Praesent neque
+[1{C:/Users/Antonio/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(C:\Users\Antonio\AppData\Local\Temp\Prova1.aux) )
+(see the transcript file for additional information) <C:\Users\Antonio\AppData\
+Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1440.pk> <C:\Users\Anto
+nio\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk> <C
+:\Users\Antonio\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ect
+t1728.pk> <C:\Users\Antonio\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\e
+c\dpi600\ecrm1728.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmmi12.pfb>
+Output written on Prova1.pdf (1 page, 27541 bytes).
+SyncTeX written on Prova1.synctex.gz.
+Transcript written on Prova1.log.

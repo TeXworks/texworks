@@ -11,7 +11,7 @@
 <file>resfiles/configuration/tag-patterns.txt</file>
 <file>resfiles/configuration/texworks-config.txt</file>
 <file>resfiles/scripts/Hooks/babelLanguage.js</file>
-<file>resfiles/scripts/Hooks/latexErrors.js</file>
+<file>resfiles/scripts/Hooks/logParser.js</file>
 <file>resfiles/scripts/LaTeX styles/toggleBold.js</file>
 <file>resfiles/scripts/LaTeX styles/toggleEmph.js</file>
 <file>resfiles/scripts/launchPdf.js</file>

@@ -1,0 +1,41 @@
+[
+  {
+    "Severity":2,
+    "File":"./a file containing spaces.tex",
+    "Row":"2",
+    "Description":"A simple error.\nl.2 \\errmessage{A simple error}"
+  }
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011)
+ restricted \write18 enabled.
+entering extended mode
+(./a file containing spaces.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
+ icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
+iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
+ lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
+ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
+ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
+.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/size10.clo))
+! A simple error.
+l.2 \errmessage{A simple error}
+                               
+No file "a file containing spaces".aux.
+[1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./a file containing spaces.aux) )
+(see the transcript file for additional information)</usr/local/texlive/2011/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on "a file containing spaces.pdf" (1 page, 10952 bytes).
+SyncTeX written on "a file containing spaces.synctex.gz"
+Transcript written on "a file containing spaces.log".
+
