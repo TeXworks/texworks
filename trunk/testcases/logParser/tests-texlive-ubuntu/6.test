@@ -1,0 +1,75 @@
+[
+  {
+    "Severity":2,"File":"./many-files-on-a-single-line2.tex","Row":"5",
+    "Description":"File started in the middle of a line (2).\nl.5 ...e{File started in the middle of a line (2)}"
+  },
+  {
+    "Severity":2,"File":"./many-files-on-a-single-line4444444.tex","Row":"5",
+    "Description":"File started in the middle of a line terminates at eol (4).\nl.5 ...the middle of a line terminates at eol (4)}"
+  },
+  {
+    "Severity":2,"File":"./many-files-on-a-single-line3.tex","Row":"6",
+    "Description":"File started in the middle of a line (3).\nl.6 ...e{File started in the middle of a line (3)}"
+  },
+  {
+    "Severity":2,"File":"./many-files-on-a-single-line66666666.tex","Row":"5",
+    "Description":"A line break is inserted before this file (6).\nl.5 ...ine break is inserted before this file (6)}"
+  },
+  {
+    "Severity":2,"File":"./many-files-on-a-single-line5.tex","Row":"6",
+    "Description":"File started in the middle of a line (5).\nl.6 ...e{File started in the middle of a line (5)}"
+  }
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011)
+ restricted \write18 enabled.
+entering extended mode
+(./many-files-on-a-single-line.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
+ icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
+iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
+ lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
+ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
+ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
+.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/filecontents/filecontents.sty)
+
+
+
+
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/size10.clo))
+(./many-files-on-a-single-line.aux) (./many-files-on-a-single-line2.tex
+! File started in the middle of a line (2).
+l.5 ...e{File started in the middle of a line (2)}
+                                                  
+) (./many-files-on-a-single-line3.tex (./many-files-on-a-single-line4444444.tex
+! File started in the middle of a line terminates at eol (4).
+l.5 ...the middle of a line terminates at eol (4)}
+                                                  
+)
+! File started in the middle of a line (3).
+l.6 ...e{File started in the middle of a line (3)}
+                                                  
+) (./many-files-on-a-single-line5.tex
+(./many-files-on-a-single-line66666666.tex
+! A line break is inserted before this file (6).
+l.5 ...ine break is inserted before this file (6)}
+                                                  
+)
+! File started in the middle of a line (5).
+l.6 ...e{File started in the middle of a line (5)}
+                                                  
+) (./many-files-on-a-single-line.aux) )
+(see the transcript file for additional information)
+No pages of output.
+Transcript written on many-files-on-a-single-line.log.
+

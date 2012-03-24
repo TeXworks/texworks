@@ -1,0 +1,32 @@
+[
+  {
+    "Severity":2,
+    "File":"./another-very-very-long-filename.aux",
+    "Row":"3",
+    "Description":"LaTeX Error: Missing \\begin{document}.\n\nSee the LaTeX manual or LaTeX Companion for explanation.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.3 A\n     BC"
+  }
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011)
+ restricted \write18 enabled.
+entering extended mode
+(./a-very-very-long-filename.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, basque, french, german, ngerman, swiss
+german, loaded.
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/size10.clo))
+(./a-very-very-long-filename.aux (./another-very-very-long-filename.aux
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3 A
+     BC
+? 
+Der Prozess wurde vom Benutzer abgebrochen
