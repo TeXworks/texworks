@@ -79,45 +79,45 @@
         <location filename="../src/Find.ui" line="69"/>
         <source>&amp;Wrap around</source>
         <translatorcomment>We need some more space for the sentence</translatorcomment>
-        <translation>Torna a l&apos;inici en acabar el fitxer</translation>
+        <translation>Torna a l&apos;&amp;inici en acabar el fitxer</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="76"/>
         <source>Find &amp;backwards</source>
-        <translation>Cerca endarrere</translation>
+        <translation>Cerca &amp;endarrere</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="83"/>
         <source>Search within &amp;selection</source>
-        <translation>Cerca dins la selecció</translation>
+        <translation>Cerca dins la &amp;selecció</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="90"/>
         <source>Find &amp;all occurrences</source>
         <translatorcomment>We need some more space for the sentence</translatorcomment>
-        <translation>Cerca totes les ocurrències</translation>
+        <translation>Cerca &amp;totes les ocurrències</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="97"/>
         <source>Search all &amp;open files</source>
         <translatorcomment>We need some more space for the sentence</translatorcomment>
-        <translation>Cerca en tots els fitxers oberts</translation>
+        <translation>Cerca en tots els &amp;fitxers oberts</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="108"/>
         <source>&amp;Case sensitive</source>
         <translatorcomment>We need some more space for the sentence</translatorcomment>
-        <translation>Distingeix majúscules i minúscules</translation>
+        <translation>Distingeix &amp;majúscules i minúscules</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="115"/>
         <source>W&amp;hole words</source>
-        <translation>Paraules completes</translation>
+        <translation>Paraules &amp;completes</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="122"/>
         <source>&amp;Regular expression</source>
-        <translation>Expressió regular</translation>
+        <translation>Expressió &amp;regular</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="136"/>
@@ -515,7 +515,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="753"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Buida llista fitxers recents</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
@@ -692,27 +692,27 @@
     <message>
         <location filename="../src/PDFFind.ui" line="71"/>
         <source>&amp;Wrap around</source>
-        <translation>Torna a l&apos;inici en acabar el fitxer</translation>
+        <translation>Torna a l&apos;&amp;inici en acabar el fitxer</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="78"/>
         <source>Find &amp;backwards</source>
-        <translation>Cerca endarrere</translation>
+        <translation>Cerca &amp;endarrere</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="85"/>
         <source>Find &amp;all occurrences</source>
-        <translation>Cerca totes les ocurrències</translation>
+        <translation>Cerca &amp;totes les ocurrències</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="92"/>
         <source>&amp;Case sensitive</source>
-        <translation>Distingeix minúscules i majúscules</translation>
+        <translation>Distingeix &amp;minúscules i majúscules</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="99"/>
         <source>&amp;Sync to source</source>
-        <translation>Sincronitza amb la font</translation>
+        <translation>&amp;Sincronitza amb la font</translation>
     </message>
 </context>
 <context>
@@ -970,7 +970,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="502"/>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Permet autocompletat</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="528"/>
@@ -1075,7 +1075,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Amaga sortida de consola:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
@@ -1083,7 +1083,9 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Mai:&lt;/strong&gt; Mai amaguis la sortida de consola deprés de la composició.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automàticament:&lt;/strong&gt; Amaga el panell de sortida de consola després d&apos;una composició amb éxit, però sols si estava amagada prèviament.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;En cas d&apos;èxit:&lt;/strong&gt; Amaga el panell de sortida de consola després d&apos;una composició amb éxit, amb independència del seu estat anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Hide output panel:</source>
@@ -1192,7 +1194,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxers Log (*.log)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1217,7 +1219,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxers auxiliars (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
@@ -1290,37 +1292,37 @@
     <message>
         <location filename="../src/Replace.ui" line="107"/>
         <source>&amp;Wrap around</source>
-        <translation>Torna a l&apos;inici en acabar el fitxer</translation>
+        <translation>Torna a l&apos;&amp;inici en acabar el fitxer</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="114"/>
         <source>Find &amp;backwards</source>
-        <translation>Cerca endarrere</translation>
+        <translation>Cerca &amp;endarrere</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="121"/>
         <source>Replace within &amp;selection</source>
-        <translation>Reemplaça dins la selecció</translation>
+        <translation>Reemplaça dins la &amp;selecció</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="128"/>
         <source>Replace in all &amp;open files</source>
-        <translation>Reemplaça en tots el fitxers obert</translation>
+        <translation>Reemplaça en tots el &amp;fitxers obert</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="139"/>
         <source>&amp;Case sensitive</source>
-        <translation>Distingeix minúcules i majúscules</translation>
+        <translation>Distingeix &amp;minúcules i majúscules</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="146"/>
         <source>W&amp;hole words</source>
-        <translation>Paraules completes</translation>
+        <translation>Paraules &amp;completes</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="153"/>
         <source>&amp;Regular expression</source>
-        <translation>Expressió regular</translation>
+        <translation>Expressió &amp;regular</translation>
     </message>
 </context>
 <context>
@@ -1499,7 +1501,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="223"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Buida llista fitxers recents</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="229"/>
@@ -1933,13 +1935,14 @@ Si continuau, seran substituits per codis per defecte. Pot ser preferiu usar una
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>Avort la composició?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Un procés de composició està encara en execució i s&apos;ha d&apos;aturar abans de tancar la finestra.
+Vol que l&apos;aturi ara?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="870"/>
@@ -1956,7 +1959,7 @@ Do you want to stop it now?</source>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>Problema de compaginació</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
@@ -1966,7 +1969,12 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;ha produït un error de compaginació durant la càrrega del document a l&apos;editor. És degut a un problema amb Qt i pot causar que TeXworks falli en determinades circumstàncies. Els símptomes d&apos;aquest problema són línies ocultes o superposades. Per intentar resoldre&apos;l, si us plau provi una de les opcions:
+ -) Activar o desactivar el destacat de sintaxi
+ -) Mostrar o ocultar els nombre de línia
+ -) Modificar la mida de la finestra
+
+Disculpi els inconvenients.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1097"/>
@@ -2087,7 +2095,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         <translation>
             <numerusform>%n ocurrència</numerusform>
             <numerusform>%n ocurrències</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n ocurrències</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -2096,7 +2104,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         <translation>
             <numerusform>%n document</numerusform>
             <numerusform>%n documents</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n documents</numerusform>
         </translation>
     </message>
     <message>
@@ -2110,7 +2118,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         <translation>
             <numerusform>Substituïda %n occurència</numerusform>
             <numerusform>Substituïdes %n occurències</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Substituïdes %n occurències</numerusform>
         </translation>
     </message>
     <message>
@@ -2136,27 +2144,27 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
     <message>
         <location filename="../src/TeXDocument.cpp" line="2633"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Necessita una &lt;b&gt;distribució TeX&lt;/b&gt; com &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; o &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; instal·lada en el seu sistema per compondre el document.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2635"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Necessita una &lt;b&gt;distribució TeX&lt;/b&gt; com &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; instal·lada en el seu sistema per compondre el document.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2637"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>Necessita una &lt;b&gt;distribució TeX&lt;/b&gt; com &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; instal·lada en el seu sistema per compondre el document.En la majoria de sistemes la distribució TeX està disponible en forma de paquest precompilat.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2639"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quna s&apos;ha instal·lat una distribució TeX, pot ser calgui indicar a TeXworks on trobar-la a Edició -&gt; Preferències -&gt; Composició.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2644"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprovi la configuració de l&apos;eina %1 i dels camins en el diàleg de Preferències.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2671"/>
@@ -2166,7 +2174,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
     <message>
         <location filename="../src/TeXDocument.cpp" line="2818"/>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra sortida de consola</translation>
     </message>
     <message>
         <source>The program &quot;%1&quot; was not found.
@@ -2578,7 +2586,7 @@ Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de prefer�
         <location filename="../src/TeXDocument.ui" line="845"/>
         <location filename="../src/TeXDocument.cpp" line="2811"/>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Amaga sortida de consola</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="848"/>
@@ -2728,7 +2736,7 @@ Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de prefer�
     <message>
         <location filename="../src/TeXDocument.ui" line="1111"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Buida llista fitxers recents</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2631"/>

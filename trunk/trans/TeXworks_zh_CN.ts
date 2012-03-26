@@ -886,10 +886,6 @@
         <translation>允许脚本读取所有文件（脚本和文档文件始终可读）</translation>
     </message>
     <message>
-        <source>Hide output panel:</source>
-        <translation type="obsolete">隐藏输出面板：</translation>
-    </message>
-    <message>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>排版后始终显示输出面板</translation>
@@ -909,28 +905,21 @@
         <translation>注：以上为默认设置。改变它们不会影响现有已打开窗口。可以通过修改“格式”菜单中的对应菜单项来改变现有窗口的设定。</translation>
     </message>
     <message>
-        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
-</source>
-        <translation type="obsolete">&lt;p&gt;排版后&lt;strong&gt;始终&lt;/strong&gt;显示输出面板。&lt;/p&gt;
-&lt;p&gt;排版成功后&lt;strong&gt;保持&lt;/strong&gt;输出面板原始显示状态。&lt;/p&gt;
-&lt;p&gt;排版&lt;strong&gt;成功&lt;/strong&gt;后始终隐藏输出面板。&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Enable autocompletion</source>
         <translation>启用自动补全</translation>
     </message>
     <message>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>隐藏控制台输出：</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;始终隐藏：&lt;/strong&gt;排版后始终隐藏控制台输出面板。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;自动：&lt;/strong&gt;排版完成后控制台输出面板还原回之前状态&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;排版完成后隐藏：&lt;/strong&gt;排版完成后始终隐藏控制台输出面板。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -958,10 +947,6 @@
     <message>
         <source>Documented macros (*.dtx)</source>
         <translation>文档化 宏源文件 (*.dtx)</translation>
-    </message>
-    <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation type="obsolete">辅助文件 (*.aux *.toc *.lot *.nav *.out *.snm *.ind *.idx *.bbl *.blg *.log)</translation>
     </message>
     <message>
         <source>Text files (*.txt)</source>
@@ -1354,7 +1339,7 @@
     </message>
     <message>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation>脚本可用于添加新的命令到 %1，以及拓展或修改命令。</translation>
+        <translation type="unfinished">脚本可用于添加新的命令到 %1，以及扩展或修改命令。</translation>
     </message>
     <message>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
@@ -1550,14 +1535,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Unable to execute %1</source>
         <translation>无法执行 %1</translation>
-    </message>
-    <message>
-        <source>Hide Output Panel</source>
-        <translation type="obsolete">隐藏 输出 面板</translation>
-    </message>
-    <message>
-        <source>Show Output Panel</source>
-        <translation type="obsolete">显示 输出 面板</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
@@ -1948,10 +1925,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>在目录中搜索：</translation>
     </message>
     <message>
-        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation type="obsolete">检查＜首选项＞对话框中的  %1 的工具和路径设置。</translation>
-    </message>
-    <message>
         <source>Line Numbers</source>
         <translation>行号</translation>
     </message>
@@ -2126,11 +2099,11 @@ Do you want to stop it now?</source>
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>隐藏控制台输出</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>排版问题</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2139,11 +2112,16 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>编辑器显示当前文档时出现问题，表现为行隐藏和行重叠。这是由于底层Qt框架的问题，在某些情况下会导致TeXworks崩溃。请尝试以下措施以解决这一问题：
+-&gt; 关闭语法高亮显示并重新打开
+-&gt; 关闭行号并重新打开
+-&gt; 调整窗口大小
+
+不便之处请谅解。</translation>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>显示控制台输出</translation>
     </message>
 </context>
 <context>

@@ -614,7 +614,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="753"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyczyść ostatnie</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="126"/>
@@ -964,7 +964,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="502"/>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz autouzupełnianie</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="528"/>
@@ -1069,7 +1069,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj informacje diagnostyczne:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
@@ -1077,7 +1077,10 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Nigdy:&lt;/strong&gt; Nigdy nie ukrywaj informacji diagnostycznych po zakończeniu składu.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Ukryj informacje diagnostyczne po pomyślnym składzie, ale tylko wtedy, gdy poprzednio były ukryte.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Ukryj informacje diagnostyczne po pomyślnym składzie, niezaleznie od poprzedniego stanu.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
@@ -1180,7 +1183,8 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Pliki log (*.log)</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1205,7 +1209,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki pomocnicze (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
@@ -1485,7 +1489,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="223"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyczyść ostatnie</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="229"/>
@@ -1617,7 +1621,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="808"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Żadna ze zdefiniowanych kartotek z środowiskiem TeXowym nie może być znaleziona.&lt;p&gt;&lt;small&gt; Aby uruchamiać programy musisz zdefiniować kartoteki z binariami oraz drzewo kartotek zych Twoją dystrybucję TeXa. Użyj zakłądki Skład w Ustawieniach programu. </translation>
+        <translation>Żadna ze zdefiniowanych kartotek z środowiskiem TeXowym nie może być znaleziona.&lt;p&gt;&lt;small&gt; Aby uruchamiać programy musisz zdefiniować kartoteki z binariami oraz drzewo kartotek zawierających Twoją dystrybucję TeXa. Użyj zakładki Skład w Ustawieniach programu. </translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="1107"/>
@@ -1810,13 +1814,14 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>Przerwać skład?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Proces składu ciągle trwa i musi być przerwany przed zamknięciem tego okna.
+Czy chcesz go przerwać teraz?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="792"/>
@@ -1945,7 +1950,7 @@ Możesz też (jeżeli chcesz) użyć innego kodowania (na przykład UTF8) aby za
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>Problem z wyświetleniem tekstu</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
@@ -1955,7 +1960,12 @@ Możesz też (jeżeli chcesz) użyć innego kodowania (na przykład UTF8) aby za
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wystąpił problem podczas wyświetlania tekstu załadowanego do edytora. Jest to spowodowane problemem używanej wersji środowiska Qt i w pewnych sytuacjach może powodować awarię edytora TeXworks. Objawem problemu są niewidoczne lub nakładające się na siebie linie. Aby usunąć problem spróbuj wykonać jedną z czynności:
+ -) Włącz i wyłącz podświetlanie składni.
+ -) Włącz i wyłącz numerowanie linii.
+ -) Zmień rozmiary okna.
+
+Przepraszamy za niedogodności.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1228"/>
@@ -2103,22 +2113,22 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
     <message>
         <location filename="../src/TeXDocument.cpp" line="2633"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Będziesz potrzebował &lt;b&gt;dystrybucję TeXa,&lt;/b&gt; na przykład &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; lub &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; zainstalowaną na twoim komputerzez aby złożyć jakiś dokument.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2635"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Będziesz potrzebował &lt;b&gt;dystrybucję TeXa,&lt;/b&gt; na przykład &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; zainstalowaną na twoim komputerze aby złożyć jakiś dokument.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2637"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>Będziesz potrzebował &lt;b&gt;dystrybucję TeXa,&lt;/b&gt; na przykład &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; zainstalowaną na twoim komputerze aby złożyć jakiś dokument. Na większości systemów system TeX dostępny jest jako gotowy pakiet.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2639"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Po zainstalowaniu oprogramowania musisz wskazać gdzie TeXworks maże je znaleźć: Edytuj -&gt; Ustawienia -&gt; Składanie.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2642"/>
@@ -2128,7 +2138,7 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
     <message>
         <location filename="../src/TeXDocument.cpp" line="2818"/>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż informacje diagnostyczne</translation>
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
@@ -2534,7 +2544,7 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
         <location filename="../src/TeXDocument.ui" line="845"/>
         <location filename="../src/TeXDocument.cpp" line="2811"/>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj informacje diagnostyczne</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="848"/>
@@ -2664,7 +2674,7 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
     <message>
         <location filename="../src/TeXDocument.ui" line="1111"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyczyść ostatnie</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="67"/>
@@ -2726,7 +2736,7 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
     <message>
         <location filename="../src/TeXDocument.cpp" line="2644"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdź konfigurację narzędzia %1 oraz zadeklarowane ścieżki w oknie Ustawienia.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2671"/>
