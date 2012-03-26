@@ -524,7 +524,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="753"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Počisti nedavne datoteke</translation>
     </message>
     <message>
         <source>Update Scripts</source>
@@ -981,7 +981,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="502"/>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Omogoči samodejno dopolnjevanje besed</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="528"/>
@@ -1089,7 +1089,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skrij dnevnik:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
@@ -1097,7 +1097,9 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;strong&gt;Nikoli:&lt;/strong&gt; Nikoli ne skrij dnevnika po stavljenju.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Samodejno:&lt;/strong&gt; Po uspešnem stavljenju skrij dnevnik, a le, če je bil skrit že pred tem.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Po uspešnem stavljenju:&lt;/strong&gt; Po uspešnem stavljenju vedno skrij dnevnik, ne glede na to, ali je bil prej prikazan.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Hide output panel:</source>
@@ -1201,7 +1203,8 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>POPRAVI</translatorcomment>
+        <translation type="unfinished">Log datoteke (*.log)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1227,7 +1230,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomožne datoteke (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
@@ -1523,7 +1526,7 @@ documentation and web pages much easier for users.</translatorcomment>
     <message>
         <location filename="../src/TWApp.cpp" line="223"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Počisti nedavne datoteke</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="229"/>
@@ -1997,13 +2000,13 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>Prekini stavljenje?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stavljenje še poteka in ga je potrebno pred zapiranje okna prekiniti . Ga želite prekiniti takoj?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="870"/>
@@ -2014,7 +2017,8 @@ Do you want to stop it now?</source>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Poskusi najti boljši prevod</translatorcomment>
+        <translation type="unfinished">Težave s programom</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
@@ -2024,7 +2028,12 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prišlo je do napake med izrisovanjem dokumenta v urejevalniku. Za to je kriv hrošč v Qt-ju in lahko v določenih primerih vodi do sesutja TeXworksa. Simptomi težave so skrite ali prekrivajoče se črte. Za odpravo težave lahko poskusite naslednje:
+ -) Vklopite in izklopite barvanje kode
+ -) Vklopite in izklopite številčenje vrstic
+ -) Spremenite velikost okna
+
+Oproščamo se za neprijetnosti.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1097"/>
@@ -2203,22 +2212,22 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.cpp" line="2633"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Za stavljenje dokumentov potrebujete eno od &lt;b&gt;distribucij TeX-a&lt;/b&gt;, kot npr. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; ali &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2635"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Za stavljenje dokumentov potrebujete eno od &lt;b&gt;distribucij TeX-a&lt;/b&gt;, kot npr. &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2637"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Za stavljenje dokumentov potrebujete eno od &lt;b&gt;distribucij TeX-a&lt;/b&gt;, kot npr. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;. Za večino sistemov je TeX Live na voljo v že preveni obliki.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2639"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Po namestitvi distribucije TeX-a boste morda morali TeXworks-u nastaviti pot do izvedljivih datotek v meniju Uredi -&gt; Nastavitve -&gt; Stavljenje.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2642"/>
@@ -2228,12 +2237,12 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.cpp" line="2644"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">V nastavitvah preverite nastavitev orodja %1 in vrednost spremenljivke PATH.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2818"/>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pokaži dnevnik</translation>
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
@@ -2678,7 +2687,7 @@ Do you want to discard your current changes, and reload the file from disk with 
         <location filename="../src/TeXDocument.ui" line="845"/>
         <location filename="../src/TeXDocument.cpp" line="2811"/>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skrij dnevnik</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="848"/>
@@ -2836,7 +2845,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.ui" line="1111"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Počisti nedavne datoteke</translation>
     </message>
     <message>
         <source>Update Scripts</source>

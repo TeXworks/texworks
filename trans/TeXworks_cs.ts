@@ -649,7 +649,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="753"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyčistit nedávnou historii</translation>
     </message>
 </context>
 <context>
@@ -970,7 +970,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="502"/>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Povolit automatické doplňování</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="528"/>
@@ -1075,7 +1075,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrýt výstup na konzoli:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
@@ -1083,7 +1083,9 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Nikdy:&lt;/strong&gt; Nikdy po sazbě neskrývat panel s výstupem na konzoli.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automaticky:&lt;/strong&gt; Skrývat panel s výstupem na konzoli po úspěšné sazbě, ale pouze jen byl-li skryt i předtím.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Při úspěchu:&lt;/strong&gt; Skrývat panel s výstupem na konzoli po úspěšné sazbě bez ohledu na předchozí stav.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Hide output panel:</source>
@@ -1176,7 +1178,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>Protokolovací soubory (*.log)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1201,7 +1203,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomocné soubory (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
@@ -1483,7 +1485,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="223"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyčistit nedávnou historii</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="229"/>
@@ -1795,13 +1797,14 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit sazbu?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Proces sazby stále běží a před zavřením tohoto okna je třeba jej ukončit.
+Chcete jej ukončit nyní?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="792"/>
@@ -1937,7 +1940,7 @@ Pokud se rozhodnete pokračovat, budou tyto nahrazeny výchozími kódy. V opač
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>Vykreslovací problém</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
@@ -1947,7 +1950,12 @@ Pokud se rozhodnete pokračovat, budou tyto nahrazeny výchozími kódy. V opač
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>Při vykreslování načteného dokumentu v editoru došlo k problémům. Ty jsou způsobeny chybou v použité knihovně Qt a za určitých okolností mohou vést k pádu TeXworks. Tyto problémy se projevují překrývajícími se anebo chybějícími řádky. Pro jejich odstranění zkuste:
+ -) vypnout a zapnout zvýrazňování syntaxe;
+ -) vypnout a zapnout číslování řádků;
+ -) změnit velikost okna.
+
+Za tuto nepříjemnost se omlouváme.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1097"/>
@@ -2126,22 +2134,22 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
     <message>
         <location filename="../src/TeXDocument.cpp" line="2633"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pro vysázení vašeho dokumentu potřebujete mít nainstalovánu distribuci TeXu, jako např. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; nebo &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2635"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pro vysázení vašeho dokumentu potřebujete mít nainstalovánu distribuci TeXu, jako např. &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2637"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pro vysázení vašeho dokumentu potřebujete mít nainstalovánu distribuci TeXu, jako např. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;. TeXové distribuce jsou dostupné pro většinu systémů ve formě předkompilovaných balíčků.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2639"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jakmile je distribuce TeXu nainstalována, je možné, že bude třeba nastavit cestu k ní v Úpravy -&gt; Nastavení... -&gt; Sazba.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2642"/>
@@ -2151,12 +2159,12 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
     <message>
         <location filename="../src/TeXDocument.cpp" line="2644"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zkontrolujte nastavení nástroje %1 a cesty v dialogu Nastavení.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2818"/>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit výstup na konzoli</translation>
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
@@ -2582,7 +2590,7 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         <location filename="../src/TeXDocument.ui" line="845"/>
         <location filename="../src/TeXDocument.cpp" line="2811"/>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrýt výstup na konzoli</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="848"/>
@@ -2742,7 +2750,7 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
     <message>
         <location filename="../src/TeXDocument.ui" line="1111"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyčistit nedávnou historii</translation>
     </message>
 </context>
 <context>
