@@ -2,8 +2,8 @@
 // Title: Errors, warnings, badboxes
 // Description: Looks for errors, warnings or badboxes in the LaTeX terminal output
 // Author: Jonathan Kew, Stefan Löffler, Antonio Macrì, Henrik Skov Midtiby
-// Version: 0.8.1
-// Date: 2012-03-23
+// Version: 0.8.2
+// Date: 2012-03-26
 // Script-Type: hook
 // Hook: AfterTypeset
 
@@ -26,7 +26,7 @@
 // Should be set equal to the environment variable max_print_line
 const max_print_line = 79;
 
-// String.trim() and String.trimLeft() were introduced in Qt 4.7
+// String.trim(Left|Right)? were introduced in Qt 4.7
 if(typeof(String.prototype.trim) == "undefined")
 {
   String.prototype.trim = (function() {
@@ -73,6 +73,8 @@ Result.Equals = function(a, b)
 // Constructor
 function LogParser()
 {
+  var that = this;
+
   this.Patterns = [
     {
       // This pattern is similar to the next one: this reads another
@@ -132,6 +134,11 @@ function LogParser()
       Callback: function(m, f) {
         return new Result(Severity.BadBox, f, m[2], m[1] + m[3].replace(/\n/g, '') + m[4].trimRight());
       }
+    },
+    {
+      // At last, we check for a rerun of LaTeX caused by some Latexmk's rule
+      Regex: new RegExp("^Latexmk: applying rule"),
+      Callback: function() { that.Results = []; }
     }
   ];
 
@@ -205,9 +212,8 @@ LogParser.prototype.Parse = function(output, rootFileName)
         }
       } while (lookahead);
     }
-
-    this.CheckForRerunOfLatex(output);
   }
+
   this.WarnAuxFiles();
 }
 
@@ -243,6 +249,9 @@ LogParser.MatchNewFile = (function()
   const EXISTS = 0;
   const MAYEXIST = 2;
   const DOESNTEXIST = 1;
+  if (typeof(TW.fileExists) == "undefined") {
+    TW.fileExists = function() { return MAYEXIST; };
+  }
   // The algorithm works as follows.
   // If the path starts with a quote ("), we are on MiKTeX and the path contains spaces.
   // We just have to read until the next \".
@@ -333,20 +342,9 @@ LogParser.MatchNewFile = (function()
 })();
 
 
-LogParser.prototype.CheckForRerunOfLatex = (function()
-{
-  var latexmkApplyingRule = new RegExp("^Latexmk: applying rule \'(.*)\'");
-  return function(output) {
-    if (latexmkApplyingRule.exec(output)) {
-      this.Results = [];
-    }
-  };
-})();
-
-
 LogParser.prototype.WarnAuxFiles = function()
 {
-  for (var i = this.Results.length-1; i > 0; i--) {
+  for (var i = this.Results.length-1; i >= 0; i--) {
     if (this.Results[i].Description.indexOf("File ended while scanning use of") > -1) {
       if (TW.question(null, "", "While typesetting, a corrupt .aux " +
         "file from a previous run was detected. You should remove " +

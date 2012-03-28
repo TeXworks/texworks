@@ -158,37 +158,3 @@ else {
   TW.warning(null, "", "Cannot load script \"logParser.js\"!");
 }
 undefined;
-
-/*
- * Error in a file with a short name (e.g., 'test.tex')
- * Error in a file with a long name (too long for a single line) (e.g., 'a-very-very-long-file-name-to-ensure-latex-error-messages-are-broken-across-lines.tex')
- * Error in a file with spaces (e.g., 'test file.tex')
- * Error in a file with quotation marks (e.g., 'test "file".tex')
- * Error in a file with contained braces (e.g., 'test (file).tex')
-*/
-
-
-/*
-Output for TL on WinXP:
-----------------------------------------
-entering extended mode
-(./test.tex
-LaTeX2e <2011/06/27>
-----------------------------------------
-entering extended mode
-
-(./a-very-very-long-file-name-to-ensure-latex-error-messages-are-broken-across-
-lines.tex
-LaTeX2e <2011/06/27>
-----------------------------------------
-entering extended mode
-(./test file.tex
-LaTeX2e <2011/06/27>
-----------------------------------------
-" character disallowed in file names
-----------------------------------------
-entering extended mode
-(./test (file).tex
-LaTeX2e <2011/06/27>
-----------------------------------------
-*/
