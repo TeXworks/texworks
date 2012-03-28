@@ -529,7 +529,7 @@
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Schoon recente bestanden op</translation>
     </message>
 </context>
 <context>
@@ -935,18 +935,20 @@
     </message>
     <message>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch aanvullen inschakelen</translation>
     </message>
     <message>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verberg console uitvoer:</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Nooit:&lt;/strong&gt; Onderdruk het console uitvoerscherm nooit.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatisch:&lt;/strong&gt; Verberg het console uitvoerscherm na een geslaagde typeset run, maar alleen als het al onderdrukt was.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Na succes:&lt;/strong&gt; Onderdruk het console uitvoerscherm na een geslaagde typeset run, ongeacht de eerdere toestand.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -993,11 +995,11 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>Log bestanden (*.log)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hulpbestanden (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
 </context>
 <context>
@@ -1337,7 +1339,7 @@
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Schoon recente bestanden op</translation>
     </message>
 </context>
 <context>
@@ -1356,7 +1358,7 @@
     </message>
     <message>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation>Systeemcommando&apos;s zijn uitgeschakeld (zie Instellingen)</translation>
+        <translation>Systeemcommando&apos;s zijn uitgeschakeld (zie Voorkeuren)</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be opened.</source>
@@ -1364,7 +1366,7 @@
     </message>
     <message>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation>Algemene bestanden lezen is uitgeschakeld (zie Instellingen)</translation>
+        <translation>Algemene bestanden lezen is uitgeschakeld (zie Voorkeuren)</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
@@ -2187,44 +2189,45 @@ Wilt U uw veranderingen weggooien en het bestand herladen van de schijf met de c
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Schoon recente bestanden op</translation>
     </message>
     <message>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>Typesetten afbreken?</translation>
     </message>
     <message>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Een typeset run loopt nog steeds en moet worden afgebroken voordat dit scherm sluit.
+Wil je het typesetten nu afbreken?</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je moet een  &lt;b&gt;TeX distributie&lt;/b&gt; zoals &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; of &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; geinstalleerd hebben op je systeem om je document te kunnen typesetten.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je moet een  &lt;b&gt;TeX distributie&lt;/b&gt; zoals &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; geinstalleerd hebben op je systeem om je document te kunnen typesetten.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je moet een  &lt;b&gt;TeX distributie&lt;/b&gt; zoals  &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; geinstalleerd hebben op je systeem om je document te kunnen typesetten. Op de meeste systemen is zo&apos;n TeX distributie beschikbaar als kant en klare package.</translation>
     </message>
     <message>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Als een TeX distributie is geinstalleerd moet je wellicht TeXWorks vertellen waar die zich bevindt via Bewerk -&gt; Voorkeuren -&gt; Typesetting.</translation>
     </message>
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Controleer de configuratie van de %1 tool-en-pad instellingen in de Voorkeuren dialoog.</translation>
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Verberg console uitvoer</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout probleem</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2233,11 +2236,16 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>Een probleem trad op tijdens het tonen van het geladen document in de editor. Dit wordt veroorzaakt door een probleem in het onderliggende Qt framework en kan er onder bepaalde omstandigheden voor zorgen dat  TeXworks crasht. De symptomen van dit probleem zijn verborgen of overlappende regels. Probeer een van de volgende acties om het probleem te omzeilen:
+ -) Zet syntax highlighting uit en weer aan
+ -) Zet regelnummers uit en weer aan
+ -) Verander de grootte van het scherm
+
+Het spijt ons van het ongemak.</translation>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon console uitvoer</translation>
     </message>
 </context>
 <context>

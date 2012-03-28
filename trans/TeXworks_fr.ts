@@ -1066,7 +1066,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Masquer la console de sortie:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
@@ -1074,7 +1074,10 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;strong&gt;Jamais :&lt;/strong&gt; Ne jamais masquer la console de sortie après composition.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automaticement :&lt;/strong&gt; Masquer la console de sortie après une composition réussie, mais uniquement si elle était masquée auparavant.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Après réussite :&lt;/strong&gt; Masquer la console de sortie après une composition réusssie, quel que soit son état préalable.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Hide output panel:</source>
@@ -2375,7 +2378,7 @@ Vérifiez la configuration de l&apos;outil %2 et les paramètres de chemin dans 
         <location filename="../src/TeXDocument.ui" line="845"/>
         <location filename="../src/TeXDocument.cpp" line="2811"/>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Masquer la console de sortie</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="848"/>
@@ -2529,7 +2532,7 @@ Voulez l&apos;arrêter maintenant ?</translation>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Problème de Mise en forme</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
@@ -2539,7 +2542,12 @@ Voulez l&apos;arrêter maintenant ?</translation>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Un problème est survenu lors de la mise en forme du document dans l&apos;éditeur. Ceci est causé par un problème de la structure du système Qt sous-jacent et peut provoquer l&apos;arêt de TeXworks sous certaines circonstances. Les symptômes de ce problème sont des lignes masquées ou se superposant. Pour contourner cela, veuillez essayer une des solutions suivantes : 
+ -) Désactivez puis réactivez la mise en évidence de la syntaxe
+ -) Désactivez puis réactivez la numérotation des lignes
+ -) Redimensionnez votre fenêtre
+
+Nous sommmes désolés pour cet inconvénient.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1097"/>
@@ -2712,7 +2720,7 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
     <message>
         <location filename="../src/TeXDocument.cpp" line="2818"/>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Montrer la Console de Sortie</translation>
     </message>
     <message>
         <source>Root document %1 not found</source>

@@ -521,7 +521,7 @@
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>최근 목록 지우기</translation>
     </message>
 </context>
 <context>
@@ -924,18 +924,21 @@
     </message>
     <message>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>자동완성 기능 사용</translation>
     </message>
     <message>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>콘솔 출력 숨기기:</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;안 함:&lt;/strong&gt; 조판이 끝나도 콘솔 출력 패널을 닫지 않습니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;자동으로:&lt;/strong&gt; 조판이 성공하면 콘솔 출력 패널을 닫습니다. 단, 컴파일 시작시 닫혀 있었어야 합니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;성공하면:&lt;/strong&gt; 조판이 성공하면 콘솔 출력 패널을 닫습니다. 컴파일 시작시 닫혀 있었는지 불문합니다.&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -982,11 +985,11 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>로그 파일 (*.log)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>부수 파일 (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
 </context>
 <context>
@@ -1321,7 +1324,7 @@
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>최근 목록 지우기</translation>
     </message>
 </context>
 <context>
@@ -2151,44 +2154,44 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>최근 목록 지우기</translation>
     </message>
     <message>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>조판을 중단할까요?</translation>
     </message>
     <message>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>조판이 진행 중입니다. 창을 닫기 전에 중단해야 합니다. 지금 조판을 중단할까요?</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>문서를 조판하기 위해서는 &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;나 &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; 같은   &lt;b&gt;텍배포판&lt;/b&gt;이 설치돼 있어야 합니다.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>문서를 조판하기 위해서는 &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; 같은 &lt;b&gt;텍배포판&lt;/b&gt;이 설치돼 있어야 합니다.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>문서를 조판하기 위해서는 &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; 같은 &lt;b&gt;텍배포판&lt;/b&gt;이 설치돼 있어야 합니다. 텍배포판은 완성된 패키지 형태로 제공되는 것이 보통입니다.</translation>
     </message>
     <message>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>텍배포판이 설치돼 있다면 TeXworks의 편집 -&gt; 환경 설정 -&gt; 문서처리 탭에서 그 경로를 지정할 필요가 있습니다.</translation>
     </message>
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>환경 설정 대화상자에서 %1 도구와 경로 설정을 확인하세요.</translation>
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>콘솔 출력 숨기기</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>레이아웃 문제</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2197,11 +2200,16 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>불러온 문서를 편집기에 레이아웃하는 데 문제가 발생했습니다. Qt 프레임워크에서 발생한 문제로서 TeXworks가 죽는 원인이 될 수도 있습니다. 증상은 일부 행이 보이지 않거나 겹쳐 보이는 것입니다. 이 문제를 피하려면 다음 중 하나를 시도하십시오:
+ -) 문법 강조를 껐다가 켭니다
+ -) 줄 번호 표시를 껐다가 켭니다
+ -) 창 크기를 조절합니다
+
+불편을 드려 죄송합니다.</translation>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>콘솔 출력 보기</translation>
     </message>
 </context>
 <context>

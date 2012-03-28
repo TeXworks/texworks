@@ -594,7 +594,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="753"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Strika nýggjar fílur</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1416"/>
@@ -956,7 +956,8 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="502"/>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>There is no special Faroese word for autocompletion right now, but I will come up with one and correct the translation.</translatorcomment>
+        <translation>Virkja autocompletion</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="528"/>
@@ -1061,7 +1062,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjal úttak frá konsolli:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
@@ -1069,7 +1070,9 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Aldri:&lt;/strong&gt; Fjal aldri skíggjan við konsollúttaki aftaná seting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Sjálvvirkandi:&lt;/strong&gt; Fjal skíggjan við konsollúttaki aftaná at seting er liðug, men bara um skíggin fjal fjaldur frammanundan.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Fjal skíggjan við konsollúttaki aftaná at seting er liðug, uttan mun til um skíggin var fjaldur ella ikki.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Hide output panel:</source>
@@ -1177,7 +1180,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>Loggfílur (*.log)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1202,7 +1205,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hjálparfílur (*.aux *.toc *.lot *.lof *.nac *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
@@ -1483,7 +1486,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="223"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Strika nýggjar fílur</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="229"/>
@@ -2126,12 +2129,12 @@
         <location filename="../src/TeXDocument.ui" line="845"/>
         <location filename="../src/TeXDocument.cpp" line="2811"/>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjal konsollúttak</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1111"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Strika nýggjar fílur</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="175"/>
@@ -2335,13 +2338,14 @@
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>Steðga seting?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Setingin koyrir enn, og má steðgast áðrenn gluggin verður latin aftur.
+Vilt tú steðga setingini nú?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="792"/>
@@ -2400,7 +2404,7 @@ Tað verður tolkað sum %3 í staðin, sum kann føra til skeivan tekst.</trans
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>Trupulleiki við uppsetingini</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
@@ -2410,7 +2414,12 @@ Tað verður tolkað sum %3 í staðin, sum kann føra til skeivan tekst.</trans
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trupult var at seta tað innlisna skjalið upp í ritlinum. Hetta kemst av einum trupulleika við Qt-strukturinum, sum TeXworks byggir á, og kann tað fáa TeXworks at krassja undir ávísum umstøðum. Trupulleikin vísir seg við at reglur eru fjaldar ella liggja omaná hvørjari aðrari. Royn eitt av hesum, fyri at sleppa undan trupulleikanum:
+ -) Óvirkja og virkja hálýsing av syntaksi.
+ -) Óvirkja og virkja reglunummur
+ -) Broyt støddina á glugganum
+
+Vit eru kedd av hesum brekinum.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1097"/>
@@ -2624,22 +2633,22 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
     <message>
         <location filename="../src/TeXDocument.cpp" line="2633"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tú mást hava eina útgávu av &lt;b&gt;TeX&lt;/b&gt; á telduni, so sum &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; ella &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2635"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tú mást hava eina útgávu av &lt;b&gt;TeX&lt;/b&gt; á telduni, so sum &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;, fyri at seta skjalið.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2637"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tú mást hava eina útgávu av &lt;b&gt;TeX&lt;/b&gt; á telduni, so sum &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;, fyri at seta skjalið. Ein pakki við TeX er tøkur til flestu skipanir.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2639"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tá ein útgáva av TeX er løgd á telduna, kann vera neyðugt at siga TeXworks, hvar hon er, við at trýsta á Rætta -&gt; Ásetingar -&gt; Seting.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2642"/>
@@ -2649,12 +2658,12 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
     <message>
         <location filename="../src/TeXDocument.cpp" line="2644"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanna, hvussu tólið %1 er sett up og hvussu leiðin er sett upp á skíggjamyndini Ásetingar.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2818"/>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Vís konsollúttak</translation>
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
