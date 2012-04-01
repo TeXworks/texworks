@@ -34,7 +34,7 @@
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="71"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation>Sommige van die hulplêers kan nie verwyder word nie. Miskien het u nie toestemming om hulle te skrap nie.</translation>
+        <translation>Sommige van die hulplêers kan nie verwyder word nie. Miskien het jy nie toestemming om hulle te skrap nie.</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.ui" line="17"/>
@@ -490,7 +490,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="753"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak onlangse leêrs skoon</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="710"/>
@@ -964,12 +964,12 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="502"/>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak autovoltooing moontlik</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="528"/>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation>&lt;em&gt;Nota:&lt;/em&gt; Hierdie is verstekinstellings. Vensters wat reeds oop is sal nie beïnvloed word indien u hulle verander nie. Om dit te doen moet u die relevante items in die &amp;quot;Formatteer&amp;quot; kieslys verander.</translation>
+        <translation>&lt;em&gt;Nota:&lt;/em&gt; Hierdie is verstekinstellings. Vensters wat reeds oop is sal nie beïnvloed word indien jy hulle verander nie. Om dit te doen moet jy die relevante items in die &amp;quot;Formatteer&amp;quot; kieslys verander.</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="539"/>
@@ -1069,7 +1069,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verberg konsoolafvoer:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
@@ -1077,7 +1077,10 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Nooit:&lt;/strong&gt; Moet nooit die konsoolafvoerpaneel na lettersetting verberg nie.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automaties:&lt;/strong&gt; Verberg die konsoolafvoerpaneel na suksesvolle lettersetting, maar slegs as die vantevore verberg was.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Verberg die konsoolafvoerpaneel na suksesvolle lettersetting, sonder om op die vorige toestand te let.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Hide output panel:</source>
@@ -1175,7 +1178,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>Loglêers (*log)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1200,7 +1203,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hulplêers (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
@@ -1494,7 +1497,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="223"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak onlangse leêrs skoon</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="234"/>
@@ -1540,7 +1543,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation>Geen toegang tot &quot;%1&quot; nie; is u blaaier of eposprogram nie dalk verkeerd ingestel nie?</translation>
+        <translation>Geen toegang tot &quot;%1&quot; nie; is jou blaaier of eposprogram nie dalk verkeerd ingestel nie?</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="565"/>
@@ -1571,7 +1574,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="808"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Geeneen van die gedefinieerde vakkies vir TeX-verwante programme is gevind nie. &lt;p&gt;&lt;small&gt;Om &apos;n proses te kan uitvoer moet u die program-bevattende vakkie(s) in u TeX-distribusie instel in die Lettersetgedeelte van die Voorkeure.</translation>
+        <translation>Geeneen van die gedefinieerde vakkies vir TeX-verwante programme is gevind nie. &lt;p&gt;&lt;small&gt;Om &apos;n proses te kan uitvoer moet jy die program-bevattende vakkie(s) in jou TeX-distribusie instel in die Lettersetgedeelte van die Voorkeure.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="286"/>
@@ -1787,7 +1790,7 @@
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Die dokument &quot;%1&quot; is gemodifiseer.
-Wil u die veranderings stoor?</translation>
+Wil jy die veranderings stoor?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="835"/>
@@ -1798,7 +1801,7 @@ Wil u die veranderings stoor?</translation>
     <message>
         <location filename="../src/TeXDocument.cpp" line="867"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>Wil u alle wysigings in dokument &quot;%1&quot; ongedaan maak en teruggaan na die laaste gestoorde weergawe?</translation>
+        <translation>Wil jy alle wysigings in dokument &quot;%1&quot; ongedaan maak en teruggaan na die laaste gestoorde weergawe?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="869"/>
@@ -1833,7 +1836,7 @@ Dit sal geïnterpreteer word as %3, wat kan lei tot foutiewe teks.</translation>
 Do you want to discard your current changes, and reload the file from disk?</source>
         <translation>%1 is gewysig deur &apos;n ander program.
 
-Wil u die wysigings ongedaan maak, en die lêer vanaf die skyf herlaai?</translation>
+Wil jy die wysigings ongedaan maak, en die lêer vanaf die skyf herlaai?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1322"/>
@@ -1842,7 +1845,7 @@ Wil u die wysigings ongedaan maak, en die lêer vanaf die skyf herlaai?</transla
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
         <translation>%1 is gewysig deur &apos;n ander program.
 
-Wil u voortgaan om die lêer te stoor en dus oor die weergawe op die skyf skryf?</translation>
+Wil jy voortgaan om die lêer te stoor en dus oor die weergawe op die skyf skryf?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1327"/>
@@ -1861,7 +1864,7 @@ Wil u voortgaan om die lêer te stoor en dus oor die weergawe op die skyf skryf?
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
         <translation>Hierdie dokument bevat karakters wat nie in enkodering %1 weergegee kan word nie.
 
-Indien u voortgaan, sal hulle deur standaard kodes vervang word. Om dataverlies te voorkom kan u as alternatief &apos;n ander enkodering (soos UTF-8) gebruik.</translation>
+Indien jy voortgaan, sal hulle deur standaard kodes vervang word. Om dataverlies te voorkom kan jy as alternatief &apos;n ander enkodering (soos UTF-8) gebruik.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="964"/>
@@ -1886,18 +1889,19 @@ Indien u voortgaan, sal hulle deur standaard kodes vervang word. Om dataverlies 
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>Staak lettersetproses?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;n Lettersetproses loop nog en moet beeindig word voordat hierdie venster toegemaak word.
+Wil jy dit nou stop?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitlegprobleem</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
@@ -1907,7 +1911,12 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Daar was &apos;n probleem tydens die uitleg van die gelaaide dokument in die redigeerder. Dit word veroorsaak deur &apos;n probleem in die onderliggend Qt raamwerk en kan TeXworks onder sekere omstandighede laat faal. Die simptome van hierdie probleem is verborge of oorvleuelende reëls. Om dit te vermy, probeer asseblief een van die volgende:
+ -) Skakel sintaks-inkleuring af en aan
+ -) Skakel reëlnommers af en aan
+ -) Verander die venstergrootte
+
+Ons maak verskoning vir die ongerief.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1097"/>
@@ -1965,9 +1974,9 @@ Gebruik asseblief &quot;Lêer &gt; Terug na gestoorde weergawe&quot; handmatig w
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation>Herlaai die huidige lêer met die enkodering wat uit hierdie lys gekies is.
+        <translation type="unfinished">Herlaai die huidige lêer met die enkodering wat uit hierdie lys gekies is.
 
-Die geselekteerde enkodering vervang die verstekkeuse en hef alle &quot;%!TEX encoding&quot; lyne op.</translation>
+Die geselekteerde enkodering vervang die verstekkeuse en hef alle &quot;%!TEX encoding&quot; reëls op.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1606"/>
@@ -1979,9 +1988,9 @@ Die geselekteerde enkodering vervang die verstekkeuse en hef alle &quot;%!TEX en
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation>Die lêer wat u probeer herlaai het ongestoorde veranderings.
+        <translation>Die lêer wat jy probeer herlaai het ongestoorde veranderings.
 
-Wil u  u huidige veranderings ignoreer en die lêer vanaf die skyf lees met enkodering %1?</translation>
+Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met enkodering %1?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1732"/>
@@ -2061,22 +2070,22 @@ Wil u  u huidige veranderings ignoreer en die lêer vanaf die skyf lees met enko
     <message>
         <location filename="../src/TeXDocument.cpp" line="2633"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Om jou dokument te letterset moet jy &apos;n &lt;b&gt;TeX distribusie&lt;/b&gt; soos &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; of &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; op jou stelsel geïnstalleer hê.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2635"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Om jou dokument te letterset moet jy &apos;n &lt;b&gt;TeX distribusie&lt;/b&gt; soos &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; op jou stelsel geïnstalleer hê.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2637"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>Om jou dokument te letterset moet jy &apos;n &lt;b&gt;TeX distribusie&lt;/b&gt; soos &lt;a href=&quot;http://www.tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; op jou stelsel geïnstalleer hê. So &apos;n TeX distribusie is op meeste stelsels as &apos;n voorafgeboude pakket beskikbaar.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2639"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wanneer &apos;n TeX distribusie geïnstalleer word mag dit nodig wees om TeXworks te laat weet waar om dit te vind in Redigeer -&gt; Voorkeure -&gt; Lettersetting.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2642"/>
@@ -2086,12 +2095,12 @@ Wil u  u huidige veranderings ignoreer en die lêer vanaf die skyf lees met enko
     <message>
         <location filename="../src/TeXDocument.cpp" line="2644"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontroleer die konfigurasie van die %1 nutsprogram en die padopstellings in die Voorkeure dialoog.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2818"/>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertoon konsoolafvoer</translation>
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
@@ -2516,7 +2525,7 @@ Wil u  u huidige veranderings ignoreer en die lêer vanaf die skyf lees met enko
         <location filename="../src/TeXDocument.ui" line="845"/>
         <location filename="../src/TeXDocument.cpp" line="2811"/>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Verberg konsoolafvoer</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="848"/>
@@ -2651,7 +2660,7 @@ Wil u  u huidige veranderings ignoreer en die lêer vanaf die skyf lees met enko
     <message>
         <location filename="../src/TeXDocument.ui" line="1111"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak Onlangse leêrs skoon</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1051"/>

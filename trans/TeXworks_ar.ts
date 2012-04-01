@@ -164,7 +164,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1416"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>ملف PDF ‏&quot;%1&quot; موصد؛ هذا ليس مدعوما  الآن.</translation>
+        <translation>ملف PDF ‏&quot;%1&quot; موصد؛ هذا ليس مدعوما الآن.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1435"/>
@@ -510,7 +510,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="753"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>امسح قائمة الملفات الأخيرة</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
@@ -977,7 +977,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="502"/>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>فعّل الإكمال التلقائي</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="528"/>
@@ -1082,7 +1082,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="903"/>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>أخفِ خرج الطرفية:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="916"/>
@@ -1090,7 +1090,10 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;أبدا:&lt;/strong&gt; لا تخفِ لوحة الخرْج بعد الصفّ.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;تلقائيا:&lt;/strong&gt; أخفِ لوحة الخرْج بعد اكتمال الصفّ بنجاح إذا كانت مخفيّة قبلها.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;عند النجاح:&lt;/strong&gt; أخفِ لوحة الخرْج بعد اكتمال الصفّ بنجاح بغض النظر عن حالتها قبلها.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Hide output panel:</source>
@@ -1179,42 +1182,42 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="482"/>
         <source>TeX documents (*.tex)</source>
-        <translation>مستندات TeX (*.tex)</translation>
+        <translation>مستندات تخ (‪*.tex‬)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="483"/>
         <source>LaTeX documents (*.ltx)</source>
-        <translation>مستندات LaTeX (*.ltx)</translation>
+        <translation>مستندات لاتك (‪*.ltx‬)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>ملفات السجل (‪*.log‬)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
         <source>BibTeX databases (*.bib)</source>
-        <translation>قواعد بيانات BibTeX (*.bib)</translation>
+        <translation>قواعد بيانات ببتخ (‪*.bib‬)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="486"/>
         <source>Style files (*.sty)</source>
-        <translation>ملفات الطرز (*.sty)</translation>
+        <translation>ملفات الطرز (‪*.sty‬)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="487"/>
         <source>Class files (*.cls)</source>
-        <translation>ملفات الأصناف (*.cls)</translation>
+        <translation>ملفات الأصناف (‪*.cls‬)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="488"/>
         <source>Documented macros (*.dtx)</source>
-        <translation>الماكروهات الموثّقة (*.dtx)</translation>
+        <translation>الماكروهات الموثّقة (‪*.dtx‬)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>الملفات المساعدة ‪(*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)‬</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
@@ -1223,12 +1226,12 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="490"/>
         <source>Text files (*.txt)</source>
-        <translation>ملفات النصوص (*.txt)</translation>
+        <translation>ملفات النصوص (‪*.txt‬)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="491"/>
         <source>PDF documents (*.pdf)</source>
-        <translation>مستندات بي دي إف (*.pdf)</translation>
+        <translation>مستندات بي دي إف (‪*.pdf‬)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="492"/>
@@ -1369,47 +1372,47 @@
     <message>
         <location filename="../src/ScriptManager.cpp" line="190"/>
         <source>Name: </source>
-        <translation>الاسم:</translation>
+        <translation>الاسم: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="191"/>
         <source>Context: </source>
-        <translation>السياق:</translation>
+        <translation>السياق: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="192"/>
         <source>Description: </source>
-        <translation>الوصف:</translation>
+        <translation>الوصف: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="193"/>
         <source>Author: </source>
-        <translation>المؤلف:</translation>
+        <translation>المؤلف: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="194"/>
         <source>Version: </source>
-        <translation>الإصدارة:</translation>
+        <translation>الإصدارة: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="195"/>
         <source>Shortcut: </source>
-        <translation>الاختصار:</translation>
+        <translation>الاختصار: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="196"/>
         <source>File: </source>
-        <translation>الملف:</translation>
+        <translation>الملف: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="204"/>
         <source>Language: </source>
-        <translation>اللغة:</translation>
+        <translation>اللغة: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="208"/>
         <source>Hook: </source>
-        <translation>الرابط:</translation>
+        <translation>الرابط: </translation>
     </message>
 </context>
 <context>
@@ -1503,7 +1506,7 @@
         <location filename="../src/TWApp.cpp" line="240"/>
         <location filename="../src/TWApp.cpp" line="277"/>
         <source>About </source>
-        <translation>عنْ</translation>
+        <translation>عنْ </translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="231"/>
@@ -1514,7 +1517,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="223"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>امسح قائمة الملفات الأخيرة</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="234"/>
@@ -1550,7 +1553,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="291"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;بنية التطبيقات &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt4&lt;/a&gt; من Qt Software، جزء من مؤسسة نوكيا.</translation>
+        <translation>&lt;p&gt;بنية التطبيقات &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt v%1&lt;/a&gt; من Qt Software، جزء من شركة نوكيا.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="301"/>
@@ -1823,7 +1826,8 @@
         <location filename="../src/TeXDocument.cpp" line="830"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
-        <translation>لقد تغيّر المستند &quot;%1&quot;. أتريد حفظ تغييراتك؟</translation>
+        <translation>لقد تغيّر المستند &quot;%1&quot;.
+أتريد حفظ تغييراتك؟</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="867"/>
@@ -1903,22 +1907,22 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <location filename="../src/TeXDocument.cpp" line="2633"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>تحتاج إلى تثبيت &lt;b&gt;توزيعة&lt;/b&gt; تخ مثل &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; أو &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; على جهازك لصف المستند.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2635"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>تحتاج إلى تثبيت &lt;b&gt;توزيعة&lt;/b&gt; تخ مثل &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; على جهازك لصف المستند.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2637"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>تحتاج إلى تثبيت &lt;b&gt;توزيعة&lt;/b&gt; تخ مثل &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; على جهازك لصف المستند. تتوفر على أغلب الأنظمة في حزم جاهزة.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2639"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>بعد تثبيت توزيعة تخ قد تحتاج إلى إخبار TeXworks أين يجدها من تحرير ← التفضيلات ← الصف.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2642"/>
@@ -1947,13 +1951,14 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>أأوقِف الصَّف؟</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="665"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>ما زالت عملية الصف تعمل ويجب إيقافها قبل غلق هذه النافذة.
+أتريد إيقافها الآن؟</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="835"/>
@@ -1977,7 +1982,7 @@ Do you want to stop it now?</source>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>مشكلة في التنسيق</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1076"/>
@@ -1987,7 +1992,12 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>حدثت مشكلة أثناء تنسيق الملف المحمل في المحرّر، سببها مشكلة في مكتبة Qt التي وقد تتسبب في تعطل TeXworks في بعض الأحيان. يمكن أن تجرب أحد الحلول التالية لتجاوز هذه المشكلة:
+ -) عطّل ثم فعّل تلوين السياق
+ -) عطّل ثم فعّل ترقيم الأسطر
+ -) غيّر حجم النافذة
+
+نأسف للإزعاج.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1097"/>
@@ -2007,7 +2017,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <location filename="../src/TeXDocument.cpp" line="1364"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
-        <translation>تعذّر كتابة الملف &quot;%1&quot;: 
+        <translation>تعذّر كتابة الملف &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
@@ -2054,7 +2064,7 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
         <translation>يعيد تحميل الملف باستخدام الترميز المختار من هذه القائمة.
 
-سيُؤخذ الترميز المختار بعين الاعتبار وليس الترميز المبدئي أو أي سطور ‪&quot;%!TEX encoding&quot;‬</translation>
+سيُؤخذ الترميز المختار بعين الاعتبار وليس الترميز المبدئي أو أي سطور ‪‪&quot;%!TEX ‬encoding&quot;‬.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1606"/>
@@ -2101,12 +2111,12 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.cpp" line="2644"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>تحقق من تضبيطات الأداة %1 وإعدادات المسار في حوار التفضيلات.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2818"/>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>أظهر خرج الطرفية</translation>
     </message>
     <message>
         <source>File %1 is not readable</source>
@@ -2534,7 +2544,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <location filename="../src/TeXDocument.ui" line="845"/>
         <location filename="../src/TeXDocument.cpp" line="2811"/>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>أخفِ خرج الطرفية</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="848"/>
@@ -2669,7 +2679,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
     <message>
         <location filename="../src/TeXDocument.ui" line="1111"/>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>امسح قائمة الملفات الأخيرة</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/TeXDocument.cpp" line="2155"/>
@@ -2747,7 +2757,7 @@ Check configuration of the %2 tool and path settings in the Preferences dialog.<
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
-        <translation>تم تعديل %1 باستخدام برنامج خارجي آخر.
+        <translation>عُدّل %1 باستخدام برنامج خارجي آخر.
 
 أتريد تجاهل التغييرات الحالية وإعادة تحميل الملف من على القرص؟</translation>
     </message>
@@ -2756,7 +2766,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
-        <translation>تم تعديل %1 باستخدام برنامج خارجي آخر.
+        <translation>عُدّل %1 باستخدام برنامج خارجي آخر.
 
 أتريد إكمال حفظ الملف، واستبدال النسخة الموجودة على القرص؟</translation>
     </message>
