@@ -2883,7 +2883,14 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 	if (position < PEEK_LENGTH) {
 		int pos;
 		QTextCursor curs(textEdit->document());
+		// (begin|end)EditBlock() is a workaround for QTBUG-24718 that causes
+		// movePosition() to crash the program under some circumstances.
+		// Since we don't change any text in the edit block, it should be a noop
+		// in the context of undo/redo.
+		curs.beginEditBlock();
 		curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
+		curs.endEditBlock();
+		
 		QString peekStr = curs.selectedText();
 		
 		/* Search for engine specification */
