@@ -40,15 +40,15 @@
     </message>
     <message>
         <source>Select All</source>
-        <translation type="unfinished">全て選択</translation>
+        <translation>全て選択</translation>
     </message>
     <message>
         <source>Select None</source>
-        <translation type="unfinished"></translation>
+        <translation>選択解除</translation>
     </message>
     <message>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>切り替え</translation>
     </message>
 </context>
 <context>
@@ -483,48 +483,48 @@
     </message>
     <message>
         <source>Scripting TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>TeXworksスクリプト</translation>
     </message>
     <message>
         <source>Reload Script List</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプト一覧の更新</translation>
     </message>
     <message>
         <source>About Scripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプトについて</translation>
     </message>
     <message>
         <source>Print Pdf...</source>
-        <translation type="unfinished"></translation>
+        <translation>PDFを印刷する</translation>
     </message>
     <message>
         <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Abort typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>タイプセットの中止</translation>
     </message>
     <message>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>このバージョンの %1 では、技術的な課題からPDFの印刷はできません</translation>
     </message>
     <message>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>印刷するために、システムデフォルトのPDFビューアでファイルを開きますか?</translation>
     </message>
     <message>
         <source> (remember to close it again to avoid access problems)</source>
-        <translation type="unfinished"></translation>
+        <translation> (アクセス権の問題を避けるため、印刷終了後はビューアを閉じてください)</translation>
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>設定ファイルについて</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>最近開いたファイル一覧のクリア</translation>
     </message>
 </context>
 <context>
@@ -858,73 +858,75 @@
     </message>
     <message>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Scripts</source>
-        <translation type="unfinished">スクリプト</translation>
+        <translation>スクリプト</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation type="unfinished"></translation>
+        <translation>セキュリティ</translation>
     </message>
     <message>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプトに全てのファイルの読み込みを許可する (スクリプトと文書ファイルが常に読み込み可能になります)</translation>
     </message>
     <message>
         <source>Allow scripts to write files</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプトにファイルへの書き込みを許可する</translation>
     </message>
     <message>
         <source>Allow scripts to run system commands</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプトにシステムコマンドの実行を許可する</translation>
     </message>
     <message>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation type="unfinished"></translation>
+        <translation>言語プラグインを有効にする (これにより、スクリプトのいくつかの制限を回避できます)</translation>
     </message>
     <message>
         <source>Debugging</source>
-        <translation type="unfinished"></translation>
+        <translation>デバッグ</translation>
     </message>
     <message>
         <source>Enable QtScript debugger</source>
-        <translation type="unfinished"></translation>
+        <translation>QtScriptデバッガを有効にする</translation>
     </message>
     <message>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>表示する</translation>
     </message>
     <message>
         <source>Automatically</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>自動で隠す</translation>
     </message>
     <message>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">成功時に隠す</translation>
     </message>
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;em&gt;注意:&lt;/em&gt; これはデフォルトの設定です。設定を変更しても、すでに開いているウィンドウには影響しません。既存のウィンドウの設定を変更するには、&amp;quot;フォーマット&amp;quot; メニューから設定をおこなってください</translation>
     </message>
     <message>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>自動補完を有効にする</translation>
     </message>
     <message>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>コンソール出力を表示しない</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;strong&gt;表示する:&lt;/strong&gt; タイプセット終了後、コンソールを閉じません&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;自動で隠す:&lt;/strong&gt; 事前にコンソールが表示していなければ、タイプセット完了時にコンソールを閉じます&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;成功時に隠す:&lt;/strong&gt; 事前の状態を問わず、タイプセット完了時にコンソールを閉じます&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -971,11 +973,11 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>ログファイル (*.log)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>補助ファイル (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
 </context>
 <context>
@@ -1045,74 +1047,74 @@
     <name>ResourcesDialog</name>
     <message>
         <source>TeXworks Settings and Resources</source>
-        <translation type="unfinished"></translation>
+        <translation>TeXworks設定ファイルの場所</translation>
     </message>
     <message>
         <source>Storage Locations</source>
-        <translation type="unfinished"></translation>
+        <translation>設定ファイルの場所</translation>
     </message>
     <message>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
+        <translation>設定ファイル:</translation>
     </message>
     <message>
         <source>Resources:</source>
-        <translation type="unfinished"></translation>
+        <translation>データ格納先:</translation>
     </message>
     <message>
         <source>Registry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>レジストリ (%1)</translation>
     </message>
 </context>
 <context>
     <name>ScriptManager</name>
     <message>
         <source>Manage Scripts</source>
-        <translation type="unfinished">スクリプトの管理</translation>
+        <translation>スクリプトの管理</translation>
     </message>
     <message>
         <source>Standalone Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>単独動作するスクリプト</translation>
     </message>
     <message>
         <source>Hook Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>TeX入出力をフックするスクリプト</translation>
     </message>
     <message>
         <source>Name: </source>
-        <translation type="unfinished"></translation>
+        <translation>名前: </translation>
     </message>
     <message>
         <source>Context: </source>
-        <translation type="unfinished"></translation>
+        <translation>使用法: </translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>説明: </translation>
     </message>
     <message>
         <source>Author: </source>
-        <translation type="unfinished"></translation>
+        <translation>作者: </translation>
     </message>
     <message>
         <source>Version: </source>
-        <translation type="unfinished"></translation>
+        <translation>バージョン: </translation>
     </message>
     <message>
         <source>Shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>ショートカット: </translation>
     </message>
     <message>
         <source>File: </source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル: </translation>
     </message>
     <message>
         <source>Language: </source>
-        <translation type="unfinished"></translation>
+        <translation>言語: </translation>
     </message>
     <message>
         <source>Hook: </source>
-        <translation type="unfinished"></translation>
+        <translation>フック: </translation>
     </message>
 </context>
 <context>
@@ -1147,7 +1149,7 @@
     </message>
     <message>
         <source>Search Results - %1 (%2 found)</source>
-        <translation type="unfinished"></translation>
+        <translation>検索結果 - %1 (%2 件見つかりました)</translation>
     </message>
 </context>
 <context>
@@ -1234,7 +1236,7 @@
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation>&lt;p&gt;%1の翻訳は%2によってなされました</translation>
+        <translation>&lt;p&gt;%1の翻訳は%2がおこないました。</translation>
     </message>
     <message>
         <source>[language name]</source>
@@ -1278,62 +1280,62 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;バージョン: %1 r.%2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Save File</source>
-        <translation type="unfinished">ファイルの保存</translation>
+        <translation>ファイルの保存</translation>
     </message>
     <message>
         <source>Permission request</source>
-        <translation type="unfinished"></translation>
+        <translation>アクセス権の要求</translation>
     </message>
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプト &quot;%1&quot; はファイル &quot;%2&quot; を開くことができませんでした。アクセス権を確認してください。ファイルを開きますか?</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>最近開いたファイル一覧のクリア</translation>
     </message>
 </context>
 <context>
     <name>TWScriptAPI</name>
     <message>
         <source>Internal error</source>
-        <translation type="unfinished"></translation>
+        <translation>内部エラー</translation>
     </message>
     <message>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>システムコマンド %1 を実行できませんでした</translation>
     </message>
     <message>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>システムコマンド %1 の実行時エラー</translation>
     </message>
     <message>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished"></translation>
+        <translation>システムコマンドの実行は許可されていません (設定を確認してください)</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; が開けません</translation>
     </message>
     <message>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished"></translation>
+        <translation>全てのファイルの読み込み許可がありません (設定を確認してください)</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル &quot;%1&quot; を読み込むことができません</translation>
     </message>
 </context>
 <context>
@@ -1348,34 +1350,34 @@
     </message>
     <message>
         <source>Script result</source>
-        <translation type="unfinished"></translation>
+        <translation>実行結果</translation>
     </message>
     <message>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 に新しい機能を追加するまたは機能を拡張するためのスクリプトです</translation>
     </message>
     <message>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプトについて詳しくは %1 をご覧ください&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="unfinished"></translation>
+        <translation>このバージョンの%1 では、以下の言語が利用できます:</translation>
     </message>
     <message>
         <source>About Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプトについて</translation>
     </message>
 </context>
 <context>
     <name>TWSystemCmd</name>
     <message>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>エラーコード: %1</translation>
     </message>
     <message>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>終了コード: %1</translation>
     </message>
 </context>
 <context>
@@ -1525,7 +1527,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Line %1 of %2; col %3</source>
-        <translation>%2の%1行目、%3列目</translation>
+        <translation type="unfinished">全%2行の%1行目、%3文字目</translation>
     </message>
     <message>
         <source>Go to Line</source>
@@ -1999,7 +2001,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Line Numbers</source>
-        <translation>行番号</translation>
+        <translation>行番号表示</translation>
     </message>
     <message>
         <source>Process interrupted by user</source>
@@ -2027,145 +2029,153 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Scripting TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>TeXworksスクリプト</translation>
     </message>
     <message>
         <source>Reload Script List</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプト一覧の更新</translation>
     </message>
     <message>
         <source>Auto-Follow Focus</source>
-        <translation type="unfinished"></translation>
+        <translation>マウスフォーカスを追従する</translation>
     </message>
     <message>
         <source>About Scripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプトについて</translation>
     </message>
     <message>
         <source>Apply to Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>選択範囲に適用する</translation>
     </message>
     <message>
         <source>Save All</source>
-        <translation type="unfinished"></translation>
+        <translation>すべて保存</translation>
     </message>
     <message>
         <source>Ctrl+Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
-        <translation type="unfinished">ファイル&quot;%1&quot;が開けません: %2 {1&quot;?} {2?}</translation>
+        <translation>ファイル&quot;%1&quot;が開けません:
+%2</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル &quot;%1&quot; が読み込まれました</translation>
     </message>
     <message>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル%1は他のプログラムによって変更されました。
+
+外部プロセスを終了させ、&quot;ファイル － 保存した内容を取り消す&quot; を手動で適用してください</translation>
     </message>
     <message>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
-        <translation type="unfinished">ファイル&quot;%1&quot;に書き込めません:
-%2 {1&quot;?} {2?}</translation>
+        <translation>ファイル&quot;%1&quot;に書き込めません:
+%2</translation>
     </message>
     <message>
         <source>Error writing file</source>
-        <translation type="unfinished"></translation>
+        <translation>書き込みエラー</translation>
     </message>
     <message>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルを保存する際にエラーが発生しました。別の場所に保存したほうがよいかもしれません</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; が保存されました</translation>
     </message>
     <message>
         <source>Abort typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>タイプセットの中止</translation>
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>設定の管理</translation>
     </message>
     <message>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>選択した文字コードで再読み込みする</translation>
     </message>
     <message>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>選択した文字コードで現在のファイルを再読み込みします
+
+選択した文字コードでデフォルト設定及び &quot;%!TEX encoding&quot; 行の設定は上書きされます</translation>
     </message>
     <message>
         <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
+        <translation>未保存の変更</translation>
     </message>
     <message>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>再読み込みしようとしているファイルには未保存の変更があります
+
+変更点を保存せずに、ディスクから選択した文字コード %1 でファイルを再読み込みしますか?</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>最近開いたファイル一覧のクリア</translation>
     </message>
     <message>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>タイプセットを中止しますか?</translation>
     </message>
     <message>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>タイプセットを実行中です。ウィンドウを閉じる前に、タイプセットのプロセスを停止させる必要があります。停止させますか?</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>MikTeX is not so popular. Then URL changed to Japanese famous distribution.</translatorcomment>
+        <translation>適切な&lt;b&gt;TeXディストリビューション&lt;/b&gt;を導入してください。タイプセットをおこなうには&lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;や&lt;a href=&quot;http://w32tex.org/&quot;&gt;W32TeX&lt;/a&gt;がシステムにインストールされている必要があります。</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>適切な&lt;b&gt;TeXディストリビューション&lt;/b&gt;を導入してください。タイプセットをおこなうには&lt;a href=&quot;http://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;等がシステムにインストールされている必要があります。</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>適切な&lt;b&gt;TeXディストリビューション&lt;/b&gt;を導入してください。タイプセットをおこなうには&lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;等がシステムにインストールされている必要があります。多くのシステムで、TeXディストリビューションをパッケージ管理システムから導入可能です。</translation>
     </message>
     <message>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>TeXディストリビューションを導入したら、そのパスをTeXworksの[編集] - [設定] - [タイプセット]で指定してください。</translation>
     </message>
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>設定ダイアログで %1 の設定と、パスの指定を確認してください</translation>
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>コンソール出力を表示しない</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>レイアウトの問題</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2174,11 +2184,16 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>エディタでファイルを読み込み、表示する際に問題が発生しました。これはQtフレームワークに起因する問題で、TeXworksは特定の状況でクラッシュすることがあります。問題の原因は、見えないあるいは帰された行にあります。暫定的な解決法として、以下のいずれかを試してみてください。
+ -) 構文の色付けを有効または無効にする
+ -) 行番号表示を有効または無効にする
+ -) ウィンドウサイズを変更する
+
+ご不便をおかけして申し訳ありません。</translation>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>コンソール出力を表示する</translation>
     </message>
 </context>
 <context>
@@ -2207,15 +2222,15 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Select program file</source>
-        <translation type="unfinished"></translation>
+        <translation>プログラムの選択</translation>
     </message>
     <message>
         <source>Invalid program</source>
-        <translation type="unfinished"></translation>
+        <translation>不明なプログラム</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; is not executable!</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル &apos;%1&apos; を実行することができません!</translation>
     </message>
 </context>
 <context>
@@ -2242,7 +2257,7 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>参照...</translation>
     </message>
 </context>
 </TS>
