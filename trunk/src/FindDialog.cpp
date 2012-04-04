@@ -643,6 +643,9 @@ void PDFFindDialog::init(PDFDocument *document)
 	searchText->setText(str);
 	searchText->selectAll();
 	
+	// if findAll is enabled, revisit the saving of settings in
+	// PDFFindDialog::doFindDialog (and enable saving findAll if it's reasonable
+	// to override the setting (also for searches in the editor))
 	checkBox_findAll->setEnabled(false);
 	bool findAll = false;
 /*
@@ -713,7 +716,7 @@ QDialog::DialogCode PDFFindDialog::doFindDialog(PDFDocument *document)
 //		settings.setValue("searchRegex", dlg.checkBox_regex->isChecked());
 		settings.setValue("searchWrap", dlg.checkBox_wrap->isChecked());
 //		settings.setValue("searchSelection", dlg.checkBox_selection->isChecked());
-		settings.setValue("searchFindAll", dlg.checkBox_findAll->isChecked());
+//		settings.setValue("searchFindAll", dlg.checkBox_findAll->isChecked());
 //		settings.setValue("searchAllFiles", dlg.checkBox_allFiles->isChecked());
 		settings.setValue("searchPdfSync", dlg.checkBox_sync->isChecked());
 	}
