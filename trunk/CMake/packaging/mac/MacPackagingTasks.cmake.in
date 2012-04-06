@@ -40,17 +40,18 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
 
   # Download and install TeXworks manual
   # ------------------------------------
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r814.zip )
+  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r959.zip )
     MESSAGE(STATUS "Downloading TeXworks HTML manual")
-    FILE(DOWNLOAD "http://texworks.googlecode.com/files/TeXworks-manual-html-r814.zip"
-      ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r814.zip
-      EXPECTED_MD5 2894969a6ac4bba31953264e04553717
+    FILE(DOWNLOAD
+      "http://texworks.googlecode.com/files/TeXworks-manual-html-r959.zip"
+      ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r959.zip
+      EXPECTED_MD5 2071e3c2fc6b6fdb57bca0484abdd35a
       SHOW_PROGRESS
     )
   ENDIF ()
 
   IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/TeXworks-manual )
-    EXECUTE_PROCESS(COMMAND unzip ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r814.zip
+    EXECUTE_PROCESS(COMMAND unzip ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r959.zip
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     )
   ENDIF ()
