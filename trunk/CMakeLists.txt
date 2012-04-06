@@ -234,6 +234,11 @@ SET(TeXworks_PLUGIN_DIR lib)
 # On OS X, the plugins should live inside the application bundle.
 IF ( APPLE )
   SET(TeXworks_PLUGIN_DIR ${PROJECT_NAME}.app/Contents/PlugIns)
+  # Plugins are build as shared libraries that contain undefined symbols.
+  # Pass `-undefined dynamic_lookup` so that the Apple linker does not
+  # freak out about this.
+  SET(CMAKE_MODULE_LINKER_FLAGS
+    "${CMAKE_MODULE_LINKER_FLAGS_INIT} $ENV{LDFLAGS} -undefined dynamic_lookup")
 ENDIF ()
 
 
