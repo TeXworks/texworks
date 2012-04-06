@@ -79,7 +79,7 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
 
   # Gather all TeXworks Plugin libraries.
   FILE(GLOB TeXworks_PLUGINS
-    ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/PlugIns/*${CMAKE_SHARED_LIBRARY_SUFFIX})
+    ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/PlugIns/*${CMAKE_SHARED_MODULE_SUFFIX})
 
   # If `BU_CHMOD_BUNDLE_ITEMS` is not set, `install_name_tool` will fail to
   # re-write some loader paths due to insufficiant permissions.
