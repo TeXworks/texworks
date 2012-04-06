@@ -26,10 +26,10 @@ class PopplerData < Formula
 end
 
 class Poppler < Formula
-  url 'http://poppler.freedesktop.org/poppler-0.18.1.tar.gz'
+  url 'http://poppler.freedesktop.org/poppler-0.18.4.tar.gz'
   homepage 'http://poppler.freedesktop.org'
-  md5 'd30e883a27423c936ef338ce1d967e2d'
-  version '0.18.1-texworks'
+  md5 '12658f3308597e57f3faff538cc73baf'
+  version '0.18.4-texworks'
 
   depends_on 'pkg-config' => :build
   depends_on 'qt'
