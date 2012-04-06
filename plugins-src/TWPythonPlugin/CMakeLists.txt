@@ -15,7 +15,7 @@ LINK_DIRECTORIES(${QT_LIBRARY_DIR})
 # alternative._
 QT4_WRAP_CPP(PYTHON_PLUGIN_MOC ${TeXworks_SCRIPT_API_H} TWPythonPlugin.h)
 
-ADD_LIBRARY(TWPythonPlugin SHARED
+ADD_LIBRARY(TWPythonPlugin MODULE
   TWPythonPlugin.cpp
   ${TeXworks_SCRIPT_API}
   ${PYTHON_PLUGIN_MOC}
