@@ -874,15 +874,17 @@
     </message>
     <message>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
-        <translation>Permitir a los scripts leer todos los archivos (los archivos, tanto del script como del documento, pueden leerse siempre)</translation>
+        <translation>Permitir a los scripts leer todos los archivos 
+	(que tanto el script como el documento se pueden leer)</translation>
     </message>
     <message>
         <source>Allow scripts to write files</source>
-        <translation>Permitir a los scripts escribir en archivos</translation>
+        <translation>Permitir a los scripts escribir en los archivos</translation>
     </message>
     <message>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation>Habilitar lenguajes de script mediante módulos plugin (puede eludir otras restricciones sobre el comportamiento de los scripts)</translation>
+        <translation>Habilitar lenguajes de script mediante módulos plugin 
+	(puede eludir otras restricciones sobre el comportamiento de los scripts)</translation>
     </message>
     <message>
         <source>Debugging</source>
@@ -894,7 +896,7 @@
     </message>
     <message>
         <source>Allow scripts to run system commands</source>
-        <translation>Permitir que scripts ejecuten comandos del sistema</translation>
+        <translation>Autorizar que los scripts ejecuten comandos del sistema</translation>
     </message>
     <message>
         <source>Line numbers</source>
@@ -943,18 +945,24 @@
     </message>
     <message>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar autocompletado</translation>
     </message>
     <message>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar panel de salida:</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt;No ocultar nunca el panel de salida después de cada compilación.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Automáticamente:&lt;/strong&gt;Efectuada la compilación correctamente, ocultar el panel de salida 
+sólo si éste había estado oculto antes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;En caso de éxito:&lt;/strong&gt;Si la compilación ocurre sin contratiempos, ocultar el panel de salida 
+sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1011,11 +1019,12 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Archivos Log (*.log)</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
 </context>
 <context>
@@ -2254,11 +2263,11 @@ o &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; en su sistema pa
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar panel de salida</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de diseño</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2267,17 +2276,28 @@ o &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; en su sistema pa
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Se produjo un problema a la hora de desplegar el documento en el editor.
+Este error obedece a un problema con Qt que puede causar que TeXworks 
+deje de funcionar en ciertas circunstancias. Los síntomas de este problema 
+se muestran como líneas ocultas o sobrepuestas.
+Para sortear este problema, realice alguna de las siguientes acciones:
+  -) Active y desactive el resaltado de sintaxis
+  -) Active y desactive la numeración de líneas
+  -) Cambie el tamaño de la ventana
+
+Ofrecemos disculpas por las molestias ocasionadas.</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar panel de salida</translation>
     </message>
 </context>
 <context>
     <name>TeXHighlighter</name>
     <message>
         <source>default</source>
+        <translatorcomment>estándar</translatorcomment>
         <translation>estándar</translation>
     </message>
 </context>
