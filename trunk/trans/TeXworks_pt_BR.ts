@@ -40,15 +40,15 @@
     </message>
     <message>
         <source>Select All</source>
-        <translation type="unfinished">Selecionar Tudo</translation>
+        <translation>Selecionar Tudo</translation>
     </message>
     <message>
         <source>Select None</source>
-        <translation type="unfinished"></translation>
+        <translation>Remover Seleções</translation>
     </message>
     <message>
         <source>Toggle</source>
-        <translation type="unfinished"></translation>
+        <translation>Inverter</translation>
     </message>
 </context>
 <context>
@@ -467,60 +467,61 @@
     </message>
     <message>
         <source>Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripts</translation>
     </message>
     <message>
         <source>Scripting TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>Controlando o TeXworks com scripts</translation>
     </message>
     <message>
         <source>Reload Script List</source>
-        <translation type="unfinished"></translation>
+        <translation>Reler a Lista de Scripts</translation>
     </message>
     <message>
         <source>Manage Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerenciar Scripts</translation>
     </message>
     <message>
         <source>Show Scripts Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibir Pasta de Scripts</translation>
     </message>
     <message>
         <source>About Scripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobre os Scripts...</translation>
     </message>
     <message>
         <source>Print Pdf...</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimir PDF...</translation>
     </message>
     <message>
         <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <source>Abort typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Abortar preparação</translation>
     </message>
     <message>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Infelizmente, esta versão do %1 não pode imprimir documentos PDF por várias razões técnicas.
+</translation>
     </message>
     <message>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Você quer abrir o arquivo no visualizador padrão para imprimir, em vez disso?</translation>
     </message>
     <message>
         <source> (remember to close it again to avoid access problems)</source>
-        <translation type="unfinished"></translation>
+        <translation>(lembre-se de fechá-lo novamente para evitar problemas de acesso)</translation>
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurações e Recursos...</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar Arquivos Recentes</translation>
     </message>
 </context>
 <context>
@@ -850,77 +851,79 @@
     </message>
     <message>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation> ppp</translation>
     </message>
     <message>
         <source>Smart Quotes mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de Aspas Inteligentes:</translation>
     </message>
     <message>
         <source>Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripts</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation type="unfinished"></translation>
+        <translation>Segurança</translation>
     </message>
     <message>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir que os scripts leiam todos os arquivos (os scripts e os arquivos de documento sempre são legíveis)</translation>
     </message>
     <message>
         <source>Allow scripts to write files</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir que os scripts escrevam arquivos</translation>
     </message>
     <message>
         <source>Allow scripts to run system commands</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir que os scripts executem comandos de sistema</translation>
     </message>
     <message>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar linguagens de programação de plug-ins (poderá ignorar outras restrições no comportamento dos scripts)</translation>
     </message>
     <message>
         <source>Debugging</source>
-        <translation type="unfinished"></translation>
+        <translation>Depuração</translation>
     </message>
     <message>
         <source>Enable QtScript debugger</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar o depurador QtScript</translation>
     </message>
     <message>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Nunca</translation>
     </message>
     <message>
         <source>Automatically</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Automaticamente</translation>
     </message>
     <message>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Se bem sucedido</translation>
     </message>
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;em&gt;Nota:&lt;/em&gt; Estas são configurações padrão. Mudanças nelas não afetarão as janelas que já estão abertas. Use os respectivos itens no menu &amp;quot;Formatar&amp;quot; para isso.</translation>
     </message>
     <message>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar dicas</translation>
     </message>
     <message>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar a saída do console:</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt; Nunca ocultar a painel de saída do console depois da compilação.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automaticamente:&lt;/strong&gt; Ocultar o painel de saída do console depois de uma compilação bem sucedida, mas somente se estava oculto antes.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Se Bem Sucedido:&lt;/strong&gt; Ocultar o painel de saída do console depois de uma compilação bem sucedida, desconsiderando o estado anterior.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -967,11 +970,11 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivos de log (*.log)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
 </context>
 <context>
@@ -1041,74 +1044,74 @@
     <name>ResourcesDialog</name>
     <message>
         <source>TeXworks Settings and Resources</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurações e Recursos do TeXworks</translation>
     </message>
     <message>
         <source>Storage Locations</source>
-        <translation type="unfinished"></translation>
+        <translation>Locais de Armazenamento</translation>
     </message>
     <message>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurações:</translation>
     </message>
     <message>
         <source>Resources:</source>
-        <translation type="unfinished"></translation>
+        <translation>Recursos:</translation>
     </message>
     <message>
         <source>Registry (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Registro (%1)</translation>
     </message>
 </context>
 <context>
     <name>ScriptManager</name>
     <message>
         <source>Manage Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerenciar scripts</translation>
     </message>
     <message>
         <source>Standalone Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripts Isolados</translation>
     </message>
     <message>
         <source>Hook Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Vincular Scripts</translation>
     </message>
     <message>
         <source>Name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Nome:</translation>
     </message>
     <message>
         <source>Context: </source>
-        <translation type="unfinished"></translation>
+        <translation>Contexto:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Descrição:</translation>
     </message>
     <message>
         <source>Author: </source>
-        <translation type="unfinished"></translation>
+        <translation>Autor:</translation>
     </message>
     <message>
         <source>Version: </source>
-        <translation type="unfinished"></translation>
+        <translation>Versão:</translation>
     </message>
     <message>
         <source>Shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>Atalho:</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivo:</translation>
     </message>
     <message>
         <source>Language: </source>
-        <translation type="unfinished"></translation>
+        <translation>Língua:</translation>
     </message>
     <message>
         <source>Hook: </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1143,7 +1146,7 @@
     </message>
     <message>
         <source>Search Results - %1 (%2 found)</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultados da Busca - %1 (%2 encontrado)</translation>
     </message>
 </context>
 <context>
@@ -1282,104 +1285,104 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versão %1 r %2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Estrutura de aplicativos Qt&lt;/a&gt; v%1 by Qt Software, uma divisão da Nokia Corporation.</translation>
     </message>
     <message>
         <source>Save File</source>
-        <translation type="unfinished">Salvar o arquivo</translation>
+        <translation>Salvar o arquivo</translation>
     </message>
     <message>
         <source>Permission request</source>
-        <translation type="unfinished"></translation>
+        <translation>Pedido de permissão</translation>
     </message>
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
-        <translation type="unfinished"></translation>
+        <translation>O script &quot;%1&quot; está tentando abrir o arquivo &quot;%2&quot; sem permissões suficientes. Você deseja abrir o arquivo?</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Distribuído sob a &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versão 2 ou (se preferir) qualquer versão posterior.</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar Arquivos Recentes</translation>
     </message>
 </context>
 <context>
     <name>TWScriptAPI</name>
     <message>
         <source>Internal error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro interno</translation>
     </message>
     <message>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou ao executar o comando de sistema %1</translation>
     </message>
     <message>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro ao executar o comando de sistema %1</translation>
     </message>
     <message>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished"></translation>
+        <translation>Desabilitada a execução de comandos de sistema (ver Preferências)</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; não pôde ser aberto.</translation>
     </message>
     <message>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished"></translation>
+        <translation>Desabilitada a leitura de qualquer arquivo (ver Preferências)</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished"></translation>
+        <translation>O arquivo &quot;%1&quot; não pôde ser aberto para leitura</translation>
     </message>
 </context>
 <context>
     <name>TWScriptable</name>
     <message>
         <source>Script &quot;%1&quot;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Script &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>Script result</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultado do script</translation>
     </message>
     <message>
         <source>unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>erro desconhecido</translation>
     </message>
     <message>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripts podem ser usados para adicionar novos comandos ao %1 e para extender ou modificar seu comportamento.</translation>
     </message>
     <message>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Para mais informações sobre a criação e uso de scripts, veja %1&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linguagens de script atualmente disponíveis nesta cópia do %1:</translation>
     </message>
     <message>
         <source>About Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobre os Scripts</translation>
     </message>
 </context>
 <context>
     <name>TWSystemCmd</name>
     <message>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ERRO: código de falha %1</translation>
     </message>
     <message>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ERRO: código de saída %1</translation>
     </message>
 </context>
 <context>
@@ -2017,162 +2020,169 @@ Se você continuar, eles serão substituídos por códigos-padrão. Em vez disso
     </message>
     <message>
         <source>Console output</source>
-        <translation type="unfinished"></translation>
+        <translation>Saída do console</translation>
     </message>
     <message>
         <source>Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripts</translation>
     </message>
     <message>
         <source>Scripting TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>Controlando o TeXworks com scripts</translation>
     </message>
     <message>
         <source>Show Scripts Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibir Pasta de Scripts</translation>
     </message>
     <message>
         <source>Reload Script List</source>
-        <translation type="unfinished"></translation>
+        <translation>Reler a Lista de Scripts</translation>
     </message>
     <message>
         <source>Manage Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerenciar Scripts</translation>
     </message>
     <message>
         <source>Auto-Follow Focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Foco Automático</translation>
     </message>
     <message>
         <source>About Scripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobre os Scripts...</translation>
     </message>
     <message>
         <source>Apply to Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar à Seleção</translation>
     </message>
     <message>
         <source>Save All</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvar Tudo</translation>
     </message>
     <message>
         <source>Ctrl+Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Alt+S</translation>
     </message>
     <message>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+D</translation>
     </message>
     <message>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
-        <translation type="unfinished">Impossível ler arquivo &quot;%1&quot;:
-%2. {1&quot;?} {2?}</translation>
+        <translation>Impossível ler arquivo &quot;%1&quot;:
+%2</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivo &quot;%1&quot; aberto</translation>
     </message>
     <message>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 está sendo constantemente modificado por outro programa.
+
+Por favor use &quot;Arquivo &gt; Reverter para o Salvo&quot; manualmente quando o processo externo estiver terminado.</translation>
     </message>
     <message>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
-        <translation type="unfinished">Impossível gravar arquivo &quot;%1&quot;:
-%2. {1&quot;?} {2?}</translation>
+        <translation>Impossível gravar arquivo &quot;%1&quot;:
+%2</translation>
     </message>
     <message>
         <source>Error writing file</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro ao escrever o arquivo</translation>
     </message>
     <message>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
-        <translation type="unfinished"></translation>
+        <translation>Um erro pode ter acontecido ao salvar o arquivo. Você pode desejar salvar uma cópia em local diferente.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivo &quot;%1&quot; salvo</translation>
     </message>
     <message>
         <source>Abort typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Abortar preparação</translation>
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurações e Recursos...</translation>
     </message>
     <message>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Reabrir usando a codificação selecionada</translation>
     </message>
     <message>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Reabre o arquivo atual com a codificação selecionada neste menu.
+
+A codificação selecionada substitui a padrão e sobrescreve todas as &quot;%!TEX encoding&quot; lines.</translation>
     </message>
     <message>
         <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Mudanças não foram salvas</translation>
     </message>
     <message>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>O arquivo que você está tentando reabrir tem mudanças não salvas.
+
+Você gostaria de descartar suas mudanças atuais e reabrir o arquivo do disco com a codificação %1?</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar a lista de arquivos recentes</translation>
     </message>
     <message>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>Abortar a compilação?</translation>
     </message>
     <message>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Um processo de compilação ainda está sendo executado e deve ser parado antes de fechar esta janela.
+Você quer interrompê-lo agora?</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Você precisa que uma &lt;b&gt;distribuição do TeX&lt;/b&gt; &amp;mdash; tal como a &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; ou a &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; &amp;mdash; esteja instalada em seu sistema para poder compilar seu documento.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Você precisa que uma &lt;b&gt;distribuição do TeX&lt;/b&gt; &amp;mdash; tal como a &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; &amp;mdash; esteja instalada em seu sistema para poder compilar seu documento.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>Você precisa que uma &lt;b&gt;distribuição do TeX&lt;/b&gt; &amp;mdash; tal como a &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; &amp;mdash; esteja instalada em seu sistema para poder compilar seu documento. Na maior parte dos sistemas operações ela estará disponível como um pacote precompilado.</translation>
     </message>
     <message>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quando uma distribuição TeX for instalada, você pode ter que informar ao TeXworks onde encontrá-la em Editar -&gt; Preferências -&gt; Compilação.</translation>
     </message>
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verifique a configuração da ferramenta %1 e as configurações de caminhos no diálogo de Preferências.</translation>
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar a Saída do Console</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>Problema de exibição</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2181,11 +2191,17 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>This translation is not very literal, but it is not fuzzy. I always try to let the texto flow nicely, instead of translating literaly.</translatorcomment>
+        <translation>Ocorreu um problema ao dispor o documento carregado no editor. Isto é causado por um problema nas fundações da biblioteca QT e pode fazer com que o TeXworks trave em certas situações. Os sintomas deste problema são linhas ocultas ou sobrepostas. Para resolver isto, favor tentar uma das seguintes opções:
+-) Habilite e desabilite o realce de sintaxe
+-) Habilite e desabilite a numeração de linhas
+-) Redimensione a janela
+
+Lamentamos a inconveniência.</translation>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibir Saída do Console</translation>
     </message>
 </context>
 <context>
@@ -2214,15 +2230,15 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Select program file</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolher arquivo de programa</translation>
     </message>
     <message>
         <source>Invalid program</source>
-        <translation type="unfinished"></translation>
+        <translation>Programa inválido</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; is not executable!</source>
-        <translation type="unfinished"></translation>
+        <translation>O arquvo &apos;%1&apos; não é executável!</translation>
     </message>
 </context>
 <context>
@@ -2249,7 +2265,7 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Navegar...</translation>
     </message>
 </context>
 </TS>
