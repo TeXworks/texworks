@@ -301,7 +301,7 @@ QTextCursor CompletingEdit::blockSelectionForPos(const QPoint& pos)
 {
 	QTextCursor curs = cursorForPosition(pos);
 	curs.setPosition(curs.block().position());
-	curs.setPosition(curs.block().position() + curs.block().length(), QTextCursor::KeepAnchor);
+	curs.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
 	return curs;
 }
 
