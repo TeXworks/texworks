@@ -24,7 +24,7 @@ CONFIG		+=	plugin
 INCLUDEPATH	+=	../../src/
 
 MOC_DIR     = ./moc
-OBJECTS_DIR = ./obj
+OBJECTS_DIR = ./objs
 
 TARGET	=	TWLuaPlugin
 
