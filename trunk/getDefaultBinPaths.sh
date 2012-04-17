@@ -22,6 +22,12 @@ fi
 appendPath()
 {
 	NEWPATH="$1"
+	# Don't append common system directories here (they are added elsewhere)
+	# to ensure that they are always at the end of the list
+	if [ "$NEWPATH" = "/usr/bin" -o "$NEWPATH" = "/usr/local/bin" ]; then
+		echo "$NEWPATH ignored"
+		return
+	fi
 	case "$BINPATHS" in
 		*:"$NEWPATH":*)	echo $NEWPATH already present;;
 		*)				# note that BINPATHS already ends with colon
@@ -89,8 +95,7 @@ done
 
 # (3) append default paths that we should always check
 
-appendPath "/usr/local/bin"
-appendPath "/usr/bin"
+BINPATHS="$BINPATHS/usr/local/bin:/usr/bin"
 
 # strip leading and trailing colons from the list
 BINPATHS=`echo $BINPATHS | sed 's/^://;s/:$//'`
