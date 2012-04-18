@@ -176,6 +176,7 @@ public:
 	bool operator==(const TWScript& s) const { return QFileInfo(m_Filename) == QFileInfo(s.m_Filename); }
 
 	Q_INVOKABLE void setGlobal(const QString& key, const QVariant& val);
+	Q_INVOKABLE void unsetGlobal(const QString& key) { m_globals.remove(key); }
 	Q_INVOKABLE bool hasGlobal(const QString& key) const { return m_globals.contains(key); }
 	Q_INVOKABLE QVariant getGlobal(const QString& key) const { return m_globals[key]; }
 
