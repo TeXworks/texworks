@@ -29,13 +29,13 @@ Mailing list: http://tug.org/mailman/listinfo/texworks
 License
 =======
 
-TeXworks is copyright (C) 2007-2011 by Jonathan Kew and Stefan Löffler.
-Distributed under the terms of the GNU General Public License, version 2 or (at
-your option) any later version.
+TeXworks is copyright (C) 2007-2012 by Jonathan Kew, Stefan Löffler, and Charlie
+Sharpsteen. Distributed under the terms of the GNU General Public License,
+version 2 or (at your option) any later version.
 See the file COPYING for details.
 
 The SyncTeX code is copyright (c) 2008-2011 by Jérôme Laurens; see
-synctex_parser.c for license details.
+src/synctex_parser.c for license details.
 
 
 Building TeXworks
