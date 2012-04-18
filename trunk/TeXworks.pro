@@ -1,5 +1,5 @@
 #	This is part of TeXworks, an environment for working with TeX documents
-#	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+#	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 #
 #	This program is free software; you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
 #	You should have received a copy of the GNU General Public License
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#	For links to further information, or to contact the author,
+#	For links to further information, or to contact the authors,
 #	see <http://www.tug.org/texworks/>.
 
 TEMPLATE	=	app
