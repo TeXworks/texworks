@@ -4,9 +4,9 @@
 #  HUNSPELL_FOUND - system has Hunspell
 #  HUNSPELL_INCLUDE_DIR - the Hunspell include directory
 #  HUNSPELL_LIBRARIES - Link these to use Hunspell
-# Redistribution and use is allowed according to the terms of the BSD license.
-# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 #
+# Redistribution and use of this file is allowed according to the terms of the
+# MIT license. For details see the file COPYING-CMAKE-MODULES.
 
 
 if ( HUNSPELL_INCLUDE_DIR AND HUNSPELL_LIBRARIES )
