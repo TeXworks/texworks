@@ -275,7 +275,6 @@ void TeXDocument::init()
 	highlighter = new TeXHighlighter(textEdit->document(), this);
 	connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
 
-	QString syntaxOption = settings.value("syntaxColoring").toString();
 	QStringList options = TeXHighlighter::syntaxOptions();
 
 	QSignalMapper *syntaxMapper = new QSignalMapper(this);
@@ -285,8 +284,6 @@ void TeXDocument::init()
 
 	QActionGroup *syntaxGroup = new QActionGroup(this);
 	syntaxGroup->addAction(actionSyntaxColoring_None);
-	if (syntaxOption == "")
-		QTimer::singleShot(1, actionSyntaxColoring_None, SLOT(trigger()));
 
 	int index = 0;
 	foreach (const QString& opt, options) {
@@ -294,12 +291,14 @@ void TeXDocument::init()
 		action->setCheckable(true);
 		syntaxGroup->addAction(action);
 		syntaxMapper->setMapping(action, index);
-		if (opt == syntaxOption) {
-			action->setChecked(true);
-			setSyntaxColoring(index);
-		}
 		++index;
 	}
+	// FIXME: This does not respect kDefault_SyntaxColoring defined in
+	// PrefsDialog.h. ATM, that is irrelevant because kDefault_SyntaxColoring = 0
+	// corresponds to None (i.e., ""). In the future, this may change, though.
+	// However, it would require some additional logic here (e.g., handling the
+	// case that kDefault_SyntaxColoring points to an invalid index).
+	setSyntaxColoringMode(settings.value("syntaxColoring").toString());
 	
 	// kDefault_TabWidth is defined in PrefsDialog.h
 	textEdit->setTabStopWidth(settings.value("tabWidth", kDefault_TabWidth).toInt());
@@ -2046,7 +2045,8 @@ void TeXDocument::setSyntaxColoringMode(const QString& mode)
 	QList<QAction*> actionList = menuSyntax_Coloring->actions();
 	
 	if (mode == "") {
-		QTimer::singleShot(1, actionSyntaxColoring_None, SLOT(trigger()));
+		Q_ASSERT(actionSyntaxColoring != NULL);
+		actionSyntaxColoring_None->trigger();
 		return;
 	}
 	for (int i = 0; i < actionList.count(); ++i) {
