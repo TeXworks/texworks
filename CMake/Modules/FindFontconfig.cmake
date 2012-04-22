@@ -4,9 +4,9 @@
 #  FONTCONFIG_FOUND - system has Fontconfig
 #  FONTCONFIG_INCLUDE_DIR - the Fontconfig include directory
 #  FONTCONFIG_LIBRARIES - Link these to use Fontconfig
-# Redistribution and use is allowed according to the terms of the BSD license.
-# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 #
+# Redistribution and use of this file is allowed according to the terms of the
+# MIT license. For details see the file COPYING-CMAKE-MODULES.
 
 
 if ( FONTCONFIG_INCLUDE_DIR AND FONTCONFIG_LIBRARIES )

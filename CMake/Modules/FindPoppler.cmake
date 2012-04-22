@@ -11,9 +11,8 @@
 #
 # Note: the Poppler-cpp include directory is currently not needed by TeXworks
 #
-# Redistribution and use is allowed according to the terms of the BSD license.
-# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
-#
+# Redistribution and use of this file is allowed according to the terms of the
+# MIT license. For details see the file COPYING-CMAKE-MODULES.
 
 if ( POPPLER_LIBRARIES )
    # in cache already
