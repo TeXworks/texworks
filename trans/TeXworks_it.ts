@@ -1470,11 +1470,11 @@ Vuoi salvare i cambiamenti?</translation>
     </message>
     <message>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>Vuoi annullare tutte le modifiche al documento &quot;%1&quot;, e ritornare all&apos;ultima versione salvata?</translation>
+        <translation>Vuoi annullare tutte le modifiche al documento &quot;%1&quot;, e ripristinare l&apos;ultima versione salvata?</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation>Annulla</translation>
+        <translation>Ripristina</translation>
     </message>
     <message>
         <source>Cannot read file &quot;%1&quot;:
