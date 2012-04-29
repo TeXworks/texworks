@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #include "FindDialog.h"
@@ -643,6 +643,9 @@ void PDFFindDialog::init(PDFDocument *document)
 	searchText->setText(str);
 	searchText->selectAll();
 	
+	// if findAll is enabled, revisit the saving of settings in
+	// PDFFindDialog::doFindDialog (and enable saving findAll if it's reasonable
+	// to override the setting (also for searches in the editor))
 	checkBox_findAll->setEnabled(false);
 	bool findAll = false;
 /*
@@ -713,7 +716,7 @@ QDialog::DialogCode PDFFindDialog::doFindDialog(PDFDocument *document)
 //		settings.setValue("searchRegex", dlg.checkBox_regex->isChecked());
 		settings.setValue("searchWrap", dlg.checkBox_wrap->isChecked());
 //		settings.setValue("searchSelection", dlg.checkBox_selection->isChecked());
-		settings.setValue("searchFindAll", dlg.checkBox_findAll->isChecked());
+//		settings.setValue("searchFindAll", dlg.checkBox_findAll->isChecked());
 //		settings.setValue("searchAllFiles", dlg.checkBox_allFiles->isChecked());
 		settings.setValue("searchPdfSync", dlg.checkBox_sync->isChecked());
 	}

@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,12 +15,13 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #include "TWScriptAPI.h"
 #include "TWSystemCmd.h"
+#include "TWUtils.h"
 
 #include <QObject>
 #include <QString>
@@ -339,4 +340,32 @@ QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
 
 	return retVal;
 }
+
+int TWScriptAPI::fileExists(const QString& filename) const
+{
+	QFileInfo fi(filename);
+	QDir scriptDir(QFileInfo(m_script->getFilename()).dir());
+	QString path = scriptDir.absoluteFilePath(filename);
+
+	if (!m_script->mayReadFile(path, m_target))
+		return SystemAccess_PermissionDenied;
+	return (QFileInfo(path).exists() ? SystemAccess_OK : SystemAccess_Failed);
+}
+
+//////////////// Wrapper around selected TWUtils functions ////////////////
+Q_INVOKABLE
+QMap<QString, QVariant> TWScriptAPI::getDictionaryList(const bool forceReload /* = false */)
+{
+	QMap<QString, QVariant> retVal;
+	const QHash<QString, QString> * h = TWUtils::getDictionaryList(forceReload);
+	for (QHash<QString, QString>::const_iterator it = h->begin(); it != h->end(); ++it) {
+		if (!retVal.contains(it.value()))
+			retVal[it.value()] = QVariant::fromValue((QList<QVariant>() << it.key()));
+		else
+			retVal[it.value()] = (retVal[it.value()].toList() << it.key());
+	}
+	
+	return retVal;
+}
+//////////////// Wrapper around selected TWUtils functions ////////////////
 

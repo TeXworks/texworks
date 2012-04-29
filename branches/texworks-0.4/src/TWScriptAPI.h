@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #ifndef TWScriptAPI_H
@@ -100,6 +100,11 @@ public:
 	// Content is read in text-mode in utf8 encoding
 	Q_INVOKABLE
 	QMap<QString, QVariant> readFile(const QString& filename) const;
+
+	// Returns one of one of SystemAccessResult
+	// Can be (ab)used to check folders, too
+	Q_INVOKABLE
+	int fileExists(const QString& filename) const;
 	
 	// QMessageBox functions to display alerts
 	Q_INVOKABLE
@@ -161,6 +166,15 @@ public:
 	Q_INVOKABLE
 	bool makeConnection(QObject* sender, const QString& signal, QObject* receiver, const QString& slot);
 	
+	//////////////// Wrapper around selected TWUtils functions ////////////////
+	// Returns a map of the type "language code => array(filenames)"
+	// "filenames" are paths to *.dic files associated with the respective
+	// language.
+	// Note: forceReload only reloads the list of available dictionaries; it
+	// doesn't actually reinitialize the spell checker
+	Q_INVOKABLE
+	QMap<QString, QVariant> getDictionaryList(const bool forceReload = false);
+	//////////////// Wrapper around selected TWUtils functions ////////////////
 
 protected:
 	TWScript* m_script;

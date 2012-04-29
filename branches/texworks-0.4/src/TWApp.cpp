@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #include "TWApp.h"
@@ -72,8 +72,6 @@
 #endif
 
 #define SETUP_FILE_NAME "texworks-setup.ini"
-
-#define DEFAULT_ENGINE_NAME "pdfLaTeX"
 
 const int kDefaultMaxRecentFiles = 20;
 
@@ -222,6 +220,9 @@ void TWApp::init()
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 
 	menuRecent = new QMenu(tr("Open Recent"));
+	actionClear_Recent_Files = menuRecent->addAction(tr("Clear Recent Files"));
+	actionClear_Recent_Files->setEnabled(false);
+	connect(actionClear_Recent_Files, SIGNAL(triggered()), this, SLOT(clearRecentFiles()));
 	updateRecentFileActions();
 	menuFile->addMenu(menuRecent);
 
@@ -284,7 +285,7 @@ void TWApp::about()
 {
 	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(TEXWORKS_NAME);
 	aboutText += "<small>";
-	aboutText += "<p>&#xA9; 2007-2011  Jonathan Kew, Stefan L&#xF6;ffler";
+	aboutText += "<p>&#xA9; 2007-2012  Jonathan Kew, Stefan L&#xF6;ffler, Charlie Sharpsteen";
 	aboutText += tr("<br>Version %1 r.%2 (%3)").arg(TEXWORKS_VERSION).arg(SVN_REVISION).arg(TW_BUILD_ID_STR);
 	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2 or (at your option) any later version.");
 	aboutText += tr("<p><a href=\"http://qt.nokia.com/\">Qt application framework</a> v%1 by Qt Software, a division of Nokia Corporation.").arg(qVersion());
@@ -310,7 +311,7 @@ void TWApp::openUrl(const QUrl& url)
 
 void TWApp::goToHomePage()
 {
-	openUrl(QUrl("http://texworks.org/"));
+	openUrl(QUrl("http://www.tug.org/texworks/"));
 }
 
 #ifdef Q_WS_WIN
@@ -474,8 +475,7 @@ void TWApp::writeToMailingList()
 {
 	// The strings here are deliberately NOT localizable!
 	QString address("texworks@tug.org");
-	QString subject("Message from TeXworks user");
-	QString body("\n\n----- configuration info -----\n");
+	QString body("Thank you for taking the time to write an email to the TeXworks mailing list. Please read the instructions below carefully as following them will greatly facilitate the communication.\n\nInstructions:\n-) Please write your message in English (it's in your own best interest; otherwise, many people will not be able to understand it and therefore will not answer).\n\n-) Please type something meaningful in the subject line.\n\n-) If you are having a problem, please describe it step-by-step in detail.\n\n-) After reading, please delete these instructions (up to the \"configuration info\" below which we may need to find the source of problems).\n\n\n\n----- configuration info -----\n");
 
 	body += "TeXworks version : " TEXWORKS_VERSION "r" SVN_REVISION_STR " (" TW_BUILD_ID_STR ")\n";
 #ifdef Q_WS_MAC
@@ -529,7 +529,11 @@ void TWApp::writeToMailingList()
 	body += " (runtime)\n";
 	body += "------------------------------\n";
 
-	openUrl(QUrl(QString("mailto:%1?subject=%2&body=%3").arg(address).arg(subject).arg(body)));
+#ifdef Q_WS_WIN
+	body.replace('\n', "\r\n");
+#endif
+
+	openUrl(QUrl(QString("mailto:%1?subject=&body=%2").arg(address).arg(body)));
 }
 
 void TWApp::launchAction()
@@ -568,15 +572,16 @@ void TWApp::launchAction()
 #endif
 }
 
-void TWApp::newFile()
+QObject * TWApp::newFile() const
 {
 	TeXDocument *doc = new TeXDocument;
 	doc->show();
 	doc->editor()->updateLineNumberAreaWidth(0);
 	doc->runHooks("NewFile");
+	return doc;
 }
 
-void TWApp::newFromTemplate()
+QObject * TWApp::newFromTemplate() const
 {
 	QString templateName = TemplateDialog::doTemplateDialog();
 	if (!templateName.isEmpty()) {
@@ -586,8 +591,10 @@ void TWApp::newFromTemplate()
 			doc->selectWindow();
 			doc->editor()->updateLineNumberAreaWidth(0);
 			doc->runHooks("NewFromTemplate");
+			return doc;
 		}
 	}
+	return NULL;
 }
 
 void TWApp::openRecentFile()
@@ -718,7 +725,7 @@ void TWApp::setMaxRecentFiles(int value)
 void TWApp::updateRecentFileActions()
 {
 #ifdef Q_WS_MAC
-	TWUtils::updateRecentFileActions(this, recentFileActions, menuRecent);	
+	TWUtils::updateRecentFileActions(this, recentFileActions, menuRecent, actionClear_Recent_Files);
 #endif
 	emit recentFileActionsChanged();
 }
@@ -833,10 +840,12 @@ void TWApp::setDefaultEngineList()
 	else
 		engineList->clear();
 	*engineList
-		<< Engine("LaTeXmk", "latexmk" EXE, QStringList("-e") << 
-				  "$pdflatex=q/pdflatex -synctex=1 %O %S/" << "-pdf" << "$fullname", true)
+//		<< Engine("LaTeXmk", "latexmk" EXE, QStringList("-e") << 
+//				  "$pdflatex=q/pdflatex -synctex=1 %O %S/" << "-pdf" << "$fullname", true)
 		<< Engine("pdfTeX", "pdftex" EXE, QStringList("$synctexoption") << "$fullname", true)
 		<< Engine("pdfLaTeX", "pdflatex" EXE, QStringList("$synctexoption") << "$fullname", true)
+		<< Engine("LuaTeX", "luatex" EXE, QStringList("$synctexoption") << "$fullname", true)
+		<< Engine("LuaLaTeX", "lualatex" EXE, QStringList("$synctexoption") << "$fullname", true)
 		<< Engine("XeTeX", "xetex" EXE, QStringList("$synctexoption") << "$fullname", true)
 		<< Engine("XeLaTeX", "xelatex" EXE, QStringList("$synctexoption") << "$fullname", true)
 		<< Engine("ConTeXt (LuaTeX)", "context" EXE, QStringList("--synctex") << "$fullname", true)
@@ -943,14 +952,27 @@ void TWApp::setDefaultEngine(const QString& name)
 {
 	const QList<Engine> engines = getEngineList();
 	int i;
-	for (i = 0; i < engines.count(); ++i)
+	for (i = 0; i < engines.count(); ++i) {
 		if (engines[i].name() == name) {
 			QSETTINGS_OBJECT(settings);
 			settings.setValue("defaultEngine", name);
 			break;
 		}
+	}
+	// If the engine was not found (e.g., if it has been deleted)
+	// try the DEFAULT_ENGINE_NAME instead (should not happen, unless the config
+	// was edited manually (or by an updater, copy/paste'ing, etc.)
+	if (i == engines.count() && name != DEFAULT_ENGINE_NAME) {
+		for (i = 0; i < engines.count(); ++i) {
+			if (engines[i].name() == DEFAULT_ENGINE_NAME) 
+				break;
+		}
+	}
+	// if neither the passed engine name nor DEFAULT_ENGINE_NAME was found,
+	// fall back to selecting the first engine
 	if (i == engines.count())
 		i = 0;
+
 	defaultEngineIndex = i;
 }
 
@@ -1051,6 +1073,14 @@ void TWApp::addToRecentFiles(const QMap<QString,QVariant>& fileProperties)
 
 	settings.setValue("recentFiles", QVariant::fromValue(fileList));
 
+	updateRecentFileActions();
+}
+
+void TWApp::clearRecentFiles()
+{
+	QSETTINGS_OBJECT(settings);
+	QList<QVariant> fileList;
+	settings.setValue("recentFiles", QVariant::fromValue(fileList));
 	updateRecentFileActions();
 }
 
@@ -1279,5 +1309,29 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 void TWApp::doResourcesDialog() const
 {
 	ResourcesDialog::doResourcesDialog(NULL);
+}
+
+void TWApp::reloadSpellchecker()
+{
+	// save the current language and deactivate the spell checker for all open
+	// TeXDocument windows
+	QHash<TeXDocument*, QString> oldLangs;
+	foreach (QWidget *widget, QApplication::topLevelWidgets()) {
+		TeXDocument * texDoc = qobject_cast<TeXDocument*>(widget);
+		if (texDoc) {
+			oldLangs[texDoc] = texDoc->spellcheckLanguage();
+			texDoc->setSpellcheckLanguage(QString());
+		}
+	}
+	
+	// reset dictionaries (getDictionaryList(true) automatically updates all
+	// spell checker menus)
+	TWUtils::clearDictionaries();
+	TWUtils::getDictionaryList(true);
+	
+	// reenable spell checker
+	for (QHash<TeXDocument*, QString>::iterator it = oldLangs.begin(); it != oldLangs.end(); ++it) {
+		it.key()->setSpellcheckLanguage(it.value());
+	}
 }
 

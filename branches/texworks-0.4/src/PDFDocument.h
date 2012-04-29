@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #ifndef PDFDocument_H
@@ -33,6 +33,7 @@
 #include <QTimer>
 #include <QMouseEvent>
 
+#include "TWApp.h"
 #include "FindDialog.h"
 #include "poppler-qt4.h"
 #include "synctex_parser.h"
@@ -265,6 +266,7 @@ public slots:
 	
 private slots:
 	void updateRecentFileActions();
+	void clearRecentFiles() { TWApp::instance()->clearRecentFiles(); }
 	void updateWindowMenu();
 	void enablePageActions(int);
 	void enableZoomActions(qreal);
@@ -299,7 +301,6 @@ private:
 	QLabel *pageLabel;
 	QLabel *scaleLabel;
 	QList<QAction*> recentFileActions;
-	QMenu *menuRecent;
 	QShortcut *exitFullscreen;
 
 	QFileSystemWatcher *watcher;

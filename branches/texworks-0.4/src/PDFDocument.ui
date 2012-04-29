@@ -40,10 +40,16 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuOpen_Recent">
+     <property name="title">
+      <string>Open Recent</string>
+     </property>
+     <addaction name="actionClear_Recent_Files"/>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionNew_from_Template"/>
     <addaction name="actionOpen"/>
-    <addaction name="actionOpen_Recent"/>
+    <addaction name="menuOpen_Recent"/>
     <addaction name="separator"/>
     <addaction name="actionPrintPdf"/>
     <addaction name="actionClose"/>
@@ -367,14 +373,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::NoRole</enum>
-   </property>
-  </action>
-  <action name="actionOpen_Recent">
-   <property name="text">
-    <string>Open Recent</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -745,6 +743,14 @@
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionClear_Recent_Files">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Clear Recent Files</string>
    </property>
   </action>
  </widget>

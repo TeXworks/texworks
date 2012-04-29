@@ -538,6 +538,10 @@
         <source>Settings and Resources...</source>
         <translation>Configuración y Recursos ...</translation>
     </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation>Limpiar lista de archivos recientes</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -870,15 +874,17 @@
     </message>
     <message>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
-        <translation>Permitir a los scripts leer todos los archivos (los archivos, tanto del script como del documento, pueden leerse siempre)</translation>
+        <translation>Permitir a los scripts leer todos los archivos 
+	(que tanto el script como el documento se pueden leer)</translation>
     </message>
     <message>
         <source>Allow scripts to write files</source>
-        <translation>Permitir a los scripts escribir en archivos</translation>
+        <translation>Permitir a los scripts escribir en los archivos</translation>
     </message>
     <message>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation>Habilitar lenguajes de script mediante módulos plugin (puede eludir otras restricciones sobre el comportamiento de los scripts)</translation>
+        <translation>Habilitar lenguajes de script mediante módulos plugin 
+	(puede eludir otras restricciones sobre el comportamiento de los scripts)</translation>
     </message>
     <message>
         <source>Debugging</source>
@@ -890,7 +896,7 @@
     </message>
     <message>
         <source>Allow scripts to run system commands</source>
-        <translation>Permitir que scripts ejecuten comandos del sistema</translation>
+        <translation>Autorizar que los scripts ejecuten comandos del sistema</translation>
     </message>
     <message>
         <source>Line numbers</source>
@@ -906,21 +912,21 @@
     </message>
     <message>
         <source>Hide output panel:</source>
-        <translation>Ocultar panel de salida:</translation>
+        <translation type="obsolete">Ocultar panel de salida:</translation>
     </message>
     <message>
         <source>Never</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Nunca</translation>
     </message>
     <message>
         <source>Automatically</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Automáticamente</translation>
     </message>
     <message>
         <source>On success</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>En caso de éxito</translation>
     </message>
     <message>
@@ -932,10 +938,31 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt; No ocultar nunca el panel de salida después de cada compilación.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt; No ocultar nunca el panel de salida después de cada compilación.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automáticamente:&lt;/strong&gt; Ocultar el panel de salida luego de que la compilación haya sido fructífera, pero sólo si antes éste había permanecido oculto.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;En caso de éxito:&lt;/strong&gt; Ocultar el panel de salida luego de que la compilación haya ocurrido sin problemas, independientemente de su estado anterior.&lt;/p&gt;
 </translation>
+    </message>
+    <message>
+        <source>Enable autocompletion</source>
+        <translation>Activar autocompletado</translation>
+    </message>
+    <message>
+        <source>Hide console output:</source>
+        <translation>Ocultar panel de salida:</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation>&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt;No ocultar nunca el panel de salida después de cada compilación.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Automáticamente:&lt;/strong&gt;Efectuada la compilación correctamente, ocultar el panel de salida 
+sólo si éste había estado oculto antes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;En caso de éxito:&lt;/strong&gt;Si la compilación ocurre sin contratiempos, ocultar el panel de salida 
+sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -966,7 +993,7 @@
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation>Archivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
+        <translation type="obsolete">Archivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
         <source>Text files (*.txt)</source>
@@ -989,6 +1016,15 @@
         <source>TeXworks %1r%2 (%3)
 </source>
         <translation type="obsolete">TeXworks %1r%2 (%3)</translation>
+    </message>
+    <message>
+        <source>Log files (*.log)</source>
+        <translatorcomment>Archivos Log (*.log)</translatorcomment>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation>Archivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
 </context>
 <context>
@@ -1334,6 +1370,10 @@ adecuados. ¿Quiere abrirlo de todos modos?</translation>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;Se distribuye protegido por la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt; Licencia Pública General de GNU &lt;/a&gt;, versión 2 o (a su elección) cualquier versión posterior.</translation>
     </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation>Limpiar lista de archivos recientes</translation>
+    </message>
 </context>
 <context>
     <name>TWScriptAPI</name>
@@ -1675,11 +1715,11 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     </message>
     <message>
         <source>Hide Output Panel</source>
-        <translation>Ocultar panel de salida</translation>
+        <translation type="obsolete">Ocultar panel de salida</translation>
     </message>
     <message>
         <source>Show Output Panel</source>
-        <translation>Mostrar panel de salida</translation>
+        <translation type="obsolete">Mostrar panel de salida</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
@@ -2127,7 +2167,7 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation>Verifique la configuración de la herramienta &quot;%1&quot; así como la carpeta de los archivos usando la ventana Preferencias.</translation>
+        <translation type="obsolete">Verifique la configuración de la herramienta &quot;%1&quot; así como la carpeta de los archivos usando la ventana Preferencias.</translation>
     </message>
     <message>
         <source>Process interrupted by user</source>
@@ -2182,15 +2222,82 @@ La codificación seleccionada reemplaza la predeterminada y anula todas las lín
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation>El archivo que intenta reabrir tiene cambios que aún no han sido guardados.
+        <translation>El archivo que intenta reabrir ha sufrido cambios que aún no se han guardado.
 
-¿Desea descartar los cambios efectuados en el archivo y volver a abrirlo desde el disco, ahora con la codificación% 1?</translation>
+¿Desea descartar los cambios efectuados en el archivo y volver a abrirlo desde el disco, ahora con la codificación %1?</translation>
+    </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation>Limpiar lista de archivos recientes</translation>
+    </message>
+    <message>
+        <source>Abort typesetting?</source>
+        <translation>¿Interrumpir la compilación?</translation>
+    </message>
+    <message>
+        <source>A typesetting process is still running and must be stopped before closing this window.
+Do you want to stop it now?</source>
+        <translation>El proceso de compilación que sigue corriendo tendría que ser detenido antes de cerrar esta ventana.
+¿Quiere interrumpirlo ahora?</translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>Necesita tener instalada una &lt;b&gt;distribución TeX&lt;/b&gt; como &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;
+o &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; en su sistema para compilar el documento.</translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>Necesita tener instalada una &lt;b&gt;distribución TeX&lt;/b&gt; como &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; en su sistema para compilar el documento.</translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
+        <translation>Necesita tener instalada una &lt;b&gt;distribución TeX&lt;/b&gt; como &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; en su sistema para compilar el documento. Para la mayoría de los sistemas operativos existe una distribución TeX como paquete precompilado.</translation>
+    </message>
+    <message>
+        <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
+        <translation>Si ya cuenta con una distribución TeX debidamente instalada, puede que falte indicarle a TeXworks, mediante Editar -&gt; Preferencias -&gt; Compilación, donde localizarla exactamente.</translation>
+    </message>
+    <message>
+        <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
+        <translation>Revise la configuración de la herramienta %1, así como la &quot;Localizacion de TeX y programas relativos&quot; en la pestaña Preferencias.</translation>
+    </message>
+    <message>
+        <source>Hide Console Output</source>
+        <translation>Ocultar panel de salida</translation>
+    </message>
+    <message>
+        <source>Layout Problem</source>
+        <translation>Error de diseño</translation>
+    </message>
+    <message>
+        <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
+ -) Turn syntax highlighting off and on
+ -) Turn line numbers off and on
+ -) Resize the window
+
+We are sorry for the inconvenience.</source>
+        <translatorcomment>Se produjo un problema a la hora de desplegar el documento en el editor.
+Este error obedece a un problema con Qt que puede causar que TeXworks 
+deje de funcionar en ciertas circunstancias. Los síntomas de este problema 
+se muestran como líneas ocultas o sobrepuestas.
+Para sortear este problema, realice alguna de las siguientes acciones:
+  -) Active y desactive el resaltado de sintaxis
+  -) Active y desactive la numeración de líneas
+  -) Cambie el tamaño de la ventana
+
+Ofrecemos disculpas por las molestias ocasionadas.</translatorcomment>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Show Console Output</source>
+        <translation>Mostrar panel de salida</translation>
     </message>
 </context>
 <context>
     <name>TeXHighlighter</name>
     <message>
         <source>default</source>
+        <translatorcomment>estándar</translatorcomment>
         <translation>estándar</translation>
     </message>
 </context>

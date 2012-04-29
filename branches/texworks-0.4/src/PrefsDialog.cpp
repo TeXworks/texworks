@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #include "PrefsDialog.h"
@@ -133,8 +133,9 @@ void PrefsDialog::movePathDown()
 void PrefsDialog::addPath()
 {
 	QString dir = QFileDialog::getExistingDirectory(this, tr("Choose Directory"),
-					 "/usr", 0 /*QFileDialog::DontUseNativeDialog*/
-								/*QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks*/);
+					 "/usr", /*0*/ /*QFileDialog::DontUseNativeDialog*/
+								QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	// remove the trailing / (if any)
 	dir = QDir::fromNativeSeparators(dir);
 #ifdef Q_WS_WIN
 	if (dir.length() > 2)
@@ -246,14 +247,23 @@ void PrefsDialog::editTool(QListWidgetItem* item)
 void PrefsDialog::refreshDefaultTool()
 {
 	QString val;
+	int toolIndex = -1, defaultIndex = -1;
+	
 	if (defaultTool->count() > 0)
 		val = defaultTool->currentText();
 	defaultTool->clear();
 	foreach (Engine e, engineList) {
 		defaultTool->addItem(e.name());
 		if (e.name() == val)
-			defaultTool->setCurrentIndex(defaultTool->count() - 1);
+			toolIndex = defaultTool->count() - 1;
+		if (e.name() == DEFAULT_ENGINE_NAME)
+			defaultIndex = defaultTool->count() - 1;
 	}
+	
+	if (toolIndex >= 0)
+		defaultTool->setCurrentIndex(toolIndex);
+	else if (defaultIndex >= 0)
+		defaultTool->setCurrentIndex(defaultIndex);
 }
 
 void PrefsDialog::buttonClicked(QAbstractButton *whichButton)
@@ -308,6 +318,7 @@ void PrefsDialog::restoreDefaults()
 			smartQuotes->setCurrentIndex(kDefault_QuotesMode);
 			encoding->setCurrentIndex(encoding->findText("UTF-8"));
 			highlightCurrentLine->setChecked(kDefault_HighlightCurrentLine);
+			autocompleteEnabled->setChecked(kDefault_AutocompleteEnabled);
 			break;
 	
 		case 2:
@@ -516,6 +527,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.fontSize->setValue(font.pointSize());
 	dlg.encoding->setCurrentIndex(nameList.indexOf(TWApp::instance()->getDefaultCodec()->name()));
 	dlg.highlightCurrentLine->setChecked(settings.value("highlightCurrentLine", kDefault_HighlightCurrentLine).toBool());
+	dlg.autocompleteEnabled->setChecked(settings.value("autocompleteEnabled", kDefault_AutocompleteEnabled).toBool());
 
 	QString defDict = settings.value("language", "None").toString();
 	int i = dlg.language->findData(defDict);
@@ -663,7 +675,11 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		bool highlightLine = dlg.highlightCurrentLine->isChecked();
 		settings.setValue("highlightCurrentLine", highlightLine);
 		CompletingEdit::setHighlightCurrentLine(highlightLine);
-		
+
+		bool autocompleteEnabled = dlg.autocompleteEnabled->isChecked();
+		settings.setValue("autocompleteEnabled", autocompleteEnabled);
+		CompletingEdit::setAutocompleteEnabled(autocompleteEnabled);
+
 		// Since the tab width can't be set by any other means, forcibly update
 		// all windows now
 		foreach (QWidget* widget, TWApp::instance()->allWidgets()) {

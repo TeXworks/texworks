@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #include "TeXDocument.h"
@@ -55,6 +55,7 @@
 #include <QPushButton>
 #include <QFileSystemWatcher>
 #include <QTextBrowser>
+#include <QAbstractTextDocumentLayout>
 
 #ifdef Q_WS_WIN
 #include <windows.h>
@@ -218,13 +219,10 @@ void TeXDocument::init()
 
 	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(typeset()));
 
-	menuRecent = new QMenu(tr("Open Recent"), this);
 	updateRecentFileActions();
-	menuFile->insertMenu(actionOpen_Recent, menuRecent);
-	menuFile->removeAction(actionOpen_Recent);
-
 	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
 	connect(qApp, SIGNAL(windowListChanged()), this, SLOT(updateWindowMenu()));
+	connect(actionClear_Recent_Files, SIGNAL(triggered()), this, SLOT(clearRecentFiles()));
 	
 	connect(qApp, SIGNAL(hideFloatersExcept(QWidget*)), this, SLOT(hideFloatersUnlessThis(QWidget*)));
 	connect(this, SIGNAL(activatedWindow(QWidget*)), qApp, SLOT(activatedWindow(QWidget*)));
@@ -277,7 +275,6 @@ void TeXDocument::init()
 	highlighter = new TeXHighlighter(textEdit->document(), this);
 	connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
 
-	QString syntaxOption = settings.value("syntaxColoring").toString();
 	QStringList options = TeXHighlighter::syntaxOptions();
 
 	QSignalMapper *syntaxMapper = new QSignalMapper(this);
@@ -287,8 +284,6 @@ void TeXDocument::init()
 
 	QActionGroup *syntaxGroup = new QActionGroup(this);
 	syntaxGroup->addAction(actionSyntaxColoring_None);
-	if (syntaxOption == "")
-		QTimer::singleShot(1, actionSyntaxColoring_None, SLOT(trigger()));
 
 	int index = 0;
 	foreach (const QString& opt, options) {
@@ -296,12 +291,14 @@ void TeXDocument::init()
 		action->setCheckable(true);
 		syntaxGroup->addAction(action);
 		syntaxMapper->setMapping(action, index);
-		if (opt == syntaxOption) {
-			action->setChecked(true);
-			setSyntaxColoring(index);
-		}
 		++index;
 	}
+	// FIXME: This does not respect kDefault_SyntaxColoring defined in
+	// PrefsDialog.h. ATM, that is irrelevant because kDefault_SyntaxColoring = 0
+	// corresponds to None (i.e., ""). In the future, this may change, though.
+	// However, it would require some additional logic here (e.g., handling the
+	// case that kDefault_SyntaxColoring points to an invalid index).
+	setSyntaxColoringMode(settings.value("syntaxColoring").toString());
 	
 	// kDefault_TabWidth is defined in PrefsDialog.h
 	textEdit->setTabStopWidth(settings.value("tabWidth", kDefault_TabWidth).toInt());
@@ -367,49 +364,16 @@ void TeXDocument::init()
 	connect(actionLine_Numbers, SIGNAL(triggered(bool)), this, SLOT(setLineNumbers(bool)));
 	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
 
-	QSignalMapper *mapper = new QSignalMapper(this);
-	connect(actionNone, SIGNAL(triggered()), mapper, SLOT(map()));
-	mapper->setMapping(actionNone, QString());
-	connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(setLangInternal(const QString&)));
+	connect(actionNone, SIGNAL(triggered()), &dictSignalMapper, SLOT(map()));
+	dictSignalMapper.setMapping(actionNone, QString());
+	connect(&dictSignalMapper, SIGNAL(mapped(const QString&)), this, SLOT(setLangInternal(const QString&)));
 
 	QActionGroup *group = new QActionGroup(this);
 	group->addAction(actionNone);
 
-	QString defDict = settings.value("language", "None").toString();
-	
-	QList<QAction*> dictActions;
-	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
-		QAction *act;
-		QString dict, label;
-		QLocale loc;
-
-		foreach (dict, TWUtils::getDictionaryList()->values(dictKey)) {
-			loc = QLocale(dict);
-			if (loc.language() != QLocale::C) break;
-		}
-
-		if (loc.language() == QLocale::C)
-			label = dict;
-		else {
-			label = QLocale::languageToString(loc.language());
-			QLocale::Country country = loc.country();
-			if (country != QLocale::AnyCountry)
-				label += " - " + QLocale::countryToString(country);
-			label += " (" + dict + ")";
-		}
-
-		act = new QAction(label, NULL);
-		act->setCheckable(true);
-		connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
-		mapper->setMapping(act, dict);
-		group->addAction(act);
-		if (TWUtils::getDictionaryList()->values(dictKey).contains(defDict))
-			act->trigger();
-		dictActions << act;
-	}
-	qSort(dictActions.begin(), dictActions.end(), dictActionLessThan);
-	foreach (QAction* dictAction, dictActions)
-		menuSpelling->addAction(dictAction);
+	reloadSpellcheckerMenu();
+	setSpellcheckLanguage(settings.value("language").toString());
+	connect(TWApp::instance(), SIGNAL(dictionaryListChanged()), this, SLOT(reloadSpellcheckerMenu()));
 
 	menuShow->addAction(toolBar_run->toggleViewAction());
 	menuShow->addAction(toolBar_edit->toggleViewAction());
@@ -443,7 +407,6 @@ void TeXDocument::changeEvent(QEvent *event)
 	if (event->type() == QEvent::LanguageChange) {
 		QString title = windowTitle();
 		retranslateUi(this);
-		menuRecent->setTitle(tr("Open Recent"));
 		TWUtils::insertHelpMenuItems(menuHelp);
 		setWindowTitle(title);
 		showCursorPosition();
@@ -505,6 +468,67 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 		}
 		chosen->trigger();
 	}
+}
+
+QString TeXDocument::spellcheckLanguage() const
+{
+	return TWUtils::getLanguageForDictionary(pHunspell);
+}
+
+void TeXDocument::reloadSpellcheckerMenu()
+{
+	Q_ASSERT(menuSpelling != NULL);
+	Q_ASSERT(menuSpelling->actions().size() > 0);
+	
+	QActionGroup * group = menuSpelling->actions()[0]->actionGroup();
+	Q_ASSERT(group != NULL);
+	
+	// Remove all but the first menu item ("None") from the action group
+	int i = 0;
+	QString oldSelected;
+	foreach (QAction * act, group->actions()) {
+		if (act->isChecked())
+			oldSelected = act->text();
+		if (i > 0) {
+			group->removeAction(act);
+			act->deleteLater();
+		}
+		++i;
+	}
+	
+	QList<QAction*> dictActions;
+	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
+		QAction *act;
+		QString dict, label;
+		QLocale loc;
+
+		foreach (dict, TWUtils::getDictionaryList()->values(dictKey)) {
+			loc = QLocale(dict);
+			if (loc.language() != QLocale::C) break;
+		}
+
+		if (loc.language() == QLocale::C)
+			label = dict;
+		else {
+			label = QLocale::languageToString(loc.language());
+			QLocale::Country country = loc.country();
+			if (country != QLocale::AnyCountry)
+				label += " - " + QLocale::countryToString(country);
+			label += " (" + dict + ")";
+		}
+
+		act = new QAction(label, NULL);
+		act->setCheckable(true);
+		if (!oldSelected.isEmpty() && label == oldSelected)
+			act->setChecked(true);
+		connect(act, SIGNAL(triggered()), &dictSignalMapper, SLOT(map()));
+		dictSignalMapper.setMapping(act, dict);
+		group->addAction(act);
+		dictActions << act;
+	}
+	qSort(dictActions.begin(), dictActions.end(), dictActionLessThan);
+	foreach (QAction* dictAction, dictActions)
+		menuSpelling->addAction(dictAction);
 }
 
 void TeXDocument::clipboardChanged()
@@ -572,8 +596,6 @@ void TeXDocument::open()
 	QStringList files = QFileDialog::getOpenFileNames(this, QString(tr("Open File")), lastOpenDir, TWUtils::filterList()->join(";;"), NULL, options);
 	foreach (QString fileName, files) {
 		if (!fileName.isEmpty()) {
-			QFileInfo info(fileName);
-			settings.setValue("openDialogDir", info.canonicalPath());
 			TWApp::instance()->openFile(fileName); // not TeXDocument::open() - give the app a chance to open as PDF
 		}
 	}
@@ -638,13 +660,15 @@ TeXDocument* TeXDocument::openDocument(const QString &fileName, bool activate, b
 
 void TeXDocument::closeEvent(QCloseEvent *event)
 {
-/*
 	if (process != NULL) {
-		statusBar()->showMessage(tr("Cannot close window while tool is running"), kStatusMessageDuration);
-		event->ignore();
-		return;
+		if (QMessageBox::question(this, tr("Abort typesetting?"), tr("A typesetting process is still running and must be stopped before closing this window.\nDo you want to stop it now?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::No) {
+			event->ignore();
+			return;
+		}
+		else
+			interrupt();
 	}
-*/
+
 	if (maybeSave()) {
 		event->accept();
 		saveRecentFileInfo();
@@ -1004,18 +1028,54 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	// Ensure the window is shown early (before setPlainText()).
-	// - this ensures it is shown before the PDF (if opening a new doc)
-	// - this avoids problems during layouting (which can be broken if the
-	//   geometry, highlighting, ... is changed before the window is shown)
-	show();
-
 	deferTagListChanges = true;
 	tagListChanged = false;
 	textEdit->setPlainText(fileContents);
 	deferTagListChanges = false;
 	if (tagListChanged)
 		emit tagListUpdated();
+
+	// Ensure the window is shown early (before setPlainText()).
+	// - this ensures it is shown before the PDF (if opening a new doc)
+	// - this avoids problems during layouting (which can be broken if the
+	//   geometry, highlighting, ... is changed before the window is shown)
+	show();
+	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+
+	{
+		// Try to work around QTBUG-20354
+		// It seems that adding additionalFormats (as is done automatically on
+		// setPlainText() by the syntax highlighter) can disturb the layouting
+		// process, leaving some blocks with size zero. This causes the
+		// corresponding lines to "disappear" and can even crash the application
+		// in connection with the "highlight current line" feature.
+		QTextDocument * doc = textEdit->document();
+		Q_ASSERT(doc != NULL);
+		QAbstractTextDocumentLayout * docLayout = doc->documentLayout();
+		Q_ASSERT(docLayout != NULL);
+
+		int tries;
+		for (tries = 0; tries < 10; ++tries) {
+			bool isLayoutOK = true;
+			for (QTextBlock b = doc->firstBlock(); b.isValid(); b = b.next()) {
+				if (docLayout->	blockBoundingRect(b).isEmpty()) {
+					isLayoutOK = false;
+					break;
+				}
+			}
+			if (isLayoutOK) break;
+			// Re-setting the document content naturally triggers a relayout
+			// (also a rehighlight). Note that layouting only works sensibly
+			// once show() was called, or else there is no valid widget geometry
+			// to act as bounding box.
+			doc->setPlainText(doc->toPlainText());
+			QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+		}
+		if (tries >= 10) {
+			QMessageBox::warning(this, tr("Layout Problem"), tr("A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:\n -) Turn syntax highlighting off and on\n -) Turn line numbers off and on\n -) Resize the window\n\nWe are sorry for the inconvenience."));
+		}
+	}
+
 	QApplication::restoreOverrideCursor();
 
 	if (asTemplate) {
@@ -1026,6 +1086,12 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		if (!inBackground) {
 			openPdfIfAvailable(false);
 		}
+		// set openDialogDir after openPdfIfAvailable as we want the .tex file's
+		// path to end up in that variable (which might be touched/changed when
+		// loading the pdf
+		QSETTINGS_OBJECT(settings);
+		QFileInfo info(fileName);
+		settings.setValue("openDialogDir", info.canonicalPath());
 
 		statusBar()->showMessage(tr("File \"%1\" loaded").arg(TWUtils::strippedName(curFile)),
 								 kStatusMessageDuration);
@@ -1402,7 +1468,7 @@ void TeXDocument::saveRecentFileInfo()
 
 void TeXDocument::updateRecentFileActions()
 {
-	TWUtils::updateRecentFileActions(this, recentFileActions, menuRecent);
+	TWUtils::updateRecentFileActions(this, recentFileActions, menuOpen_Recent, actionClear_Recent_Files);
 }
 
 void TeXDocument::updateWindowMenu()
@@ -1979,7 +2045,8 @@ void TeXDocument::setSyntaxColoringMode(const QString& mode)
 	QList<QAction*> actionList = menuSyntax_Coloring->actions();
 	
 	if (mode == "") {
-		QTimer::singleShot(1, actionSyntaxColoring_None, SLOT(trigger()));
+		Q_ASSERT(actionSyntaxColoring != NULL);
+		actionSyntaxColoring_None->trigger();
 		return;
 	}
 	for (int i = 0; i < actionList.count(); ++i) {
@@ -2205,26 +2272,34 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 		rangeEnd = searchRange.selectionEnd();
 	}
 	else {
-		if (searchWrap) {
-			searchRange.select(QTextCursor::Document);
-			rangeStart = searchRange.selectionStart();
+		// Note: searchWrap is handled separately below
+		if ((flags & QTextDocument::FindBackward) != 0) {
+			rangeStart = 0;
 			rangeEnd = searchRange.selectionEnd();
 		}
 		else {
-			if ((flags & QTextDocument::FindBackward) != 0) {
-				rangeStart = 0;
-				rangeEnd = searchRange.selectionEnd();
-			}
-			else {
-				rangeStart = searchRange.selectionStart();
-				searchRange.select(QTextCursor::Document);
-				rangeEnd = searchRange.selectionEnd();
-			}
+			rangeStart = searchRange.selectionStart();
+			searchRange.select(QTextCursor::Document);
+			rangeEnd = searchRange.selectionEnd();
 		}
 	}
 	
 	if (mode == ReplaceDialog::ReplaceOne) {
 		QTextCursor curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+		if (curs.isNull() && searchWrap) {
+			// If we haven't found anything and wrapping is enabled, try again
+			// with a "wrapped" search range
+			if ((flags & QTextDocument::FindBackward) != 0) {
+				rangeStart = rangeEnd;
+				searchRange.select(QTextCursor::Document);
+				rangeEnd = searchRange.selectionEnd();
+			}
+			else {
+				rangeEnd = rangeStart;
+				rangeStart = 0;
+			}
+			curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+		}
 		if (curs.isNull()) {
 			qApp->beep();
 			statusBar()->showMessage(tr("Not found"), kStatusMessageDuration);
@@ -2252,6 +2327,13 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 			statusBar()->showMessage(message, kStatusMessageDuration);
 		}
 		else {
+			if (!searchSel) {
+				// If we are not searching within a selection, we implicitly
+				// search the whole document with ReplaceAll
+				searchRange.select(QTextCursor::Document);
+				rangeStart = searchRange.selectionStart();
+				rangeEnd = searchRange.selectionEnd();
+			}
 			int replacements = doReplaceAll(searchText, regex, replacement, flags, rangeStart, rangeEnd);
 			statusBar()->showMessage(tr("Replaced %n occurrence(s)", "", replacements), kStatusMessageDuration);
 		}
@@ -2363,9 +2445,23 @@ void TeXDocument::copyToFind()
 		QString searchText = textEdit->textCursor().selectedText();
 		searchText.replace(QString(0x2029), "\n");
 		QSETTINGS_OBJECT(settings);
-		if (settings.value("searchRegex").toBool())
-			searchText = QRegExp::escape(searchText);
-		settings.setValue("searchText", searchText);
+		// Note: To search for multi-line strings, we currently need regex
+		// enabled (since we only have a single search line). If it was not
+		// enabled, we also need to ensure that the replaceText is escaped
+		// properly
+		bool isMultiLine = searchText.contains("\n");
+		if (isMultiLine && !settings.value("searchRegex").toBool()) {
+			settings.setValue("searchRegex", true);
+			settings.setValue("replaceText", QRegExp::escape(settings.value("replaceText").toString()));
+		}
+		if (settings.value("searchRegex").toBool()) {
+			if (isMultiLine)
+				settings.setValue("searchText", QRegExp::escape(searchText).replace("\n", "\\n"));
+			else
+				settings.setValue("searchText", QRegExp::escape(searchText));
+		}
+		else
+			settings.setValue("searchText", searchText);
 	}
 }
 
@@ -2375,7 +2471,22 @@ void TeXDocument::copyToReplace()
 		QString replaceText = textEdit->textCursor().selectedText();
 		replaceText.replace(QString(0x2029), "\n");
 		QSETTINGS_OBJECT(settings);
-		settings.setValue("replaceText", replaceText);
+		// Note: To do multi-line replacements, we currently need regex enabled
+		// (since we only have a single replace line). If it was not enabled, we
+		// also need to ensure that the searchText is escaped properly
+		bool isMultiLine = replaceText.contains("\n");
+		if (isMultiLine && !settings.value("searchRegex").toBool()) {
+			settings.setValue("searchRegex", true);
+			settings.setValue("searchText", QRegExp::escape(settings.value("searchText").toString()));
+		}
+		if (settings.value("searchRegex").toBool()) {
+			if (isMultiLine)
+				settings.setValue("replaceText", QRegExp::escape(replaceText).replace("\n", "\\n"));
+			else
+				settings.setValue("replaceText", QRegExp::escape(replaceText));
+		}
+		else
+			settings.setValue("replaceText", replaceText);
 	}
 }
 
@@ -2490,6 +2601,10 @@ void TeXDocument::typeset()
 		else {
 			inputLine->show();
 		}
+		// ensure the window is visible - otherwise we can't see the output
+		// panel (and the typeset process appears to hang in case of an error)
+		raise();
+		
 		inputLine->setFocus(Qt::OtherFocusReason);
 		showPdfWhenFinished = e.showPdf();
 		userInterrupt = false;
@@ -2512,12 +2627,22 @@ void TeXDocument::typeset()
 	else {
 		process->deleteLater();
 		process = NULL;
-		QMessageBox::critical(this, tr("Unable to execute %1").arg(e.name()),
-							  "<p>" + tr("The program \"%1\" was not found.").arg(e.program()) +
-							  "<p><small>" + tr("Searched in directories:") +
-							  "<ul><li>" + binPaths.join("<li>") + "</ul></small>" +
-							  "<p>" + tr("Check configuration of the %1 tool and path settings in the Preferences dialog.").arg(e.name()),
-							  QMessageBox::Cancel);
+		QMessageBox msgBox(QMessageBox::Critical, tr("Unable to execute %1").arg(e.name()),
+							  "<p>" + tr("The program \"%1\" was not found.").arg(e.program()) + "</p>" +
+#if defined(Q_WS_WIN)
+							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> or <a href=\"http://miktex.org/\">MiKTeX</a> installed on your system to typeset your document.") + "</p>" +
+#elif defined(Q_WS_MAC)
+							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://www.tug.org/mactex/\">MacTeX</a> installed on your system to typeset your document.") + "</p>" +
+#else
+							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.") + "</p>" +
+#endif
+							  "<p>" + tr("When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -> Preferences -> Typesetting.") + "</p>",
+							  QMessageBox::Cancel, this);
+		msgBox.setDetailedText(
+							  tr("Searched in directories:") + "\n" +
+							  " * " + binPaths.join("\n * ") + "\n" +
+							  tr("Check the configuration of the %1 tool and the path settings in the Preferences dialog.").arg(e.name()));
+		msgBox.exec();
 		updateTypesettingAction();
 	}
 }
@@ -2577,18 +2702,23 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	if (exitStatus != QProcess::CrashExit) {
 		QString pdfName;
-		if (getPreviewFileName(pdfName) && QFileInfo(pdfName).lastModified() != oldPdfTime) {
-			// only open/refresh the PDF if it was changed by the typeset process
-			if (pdfDoc == NULL || pdfName != pdfDoc->fileName()) {
-				if (showPdfWhenFinished && openPdfIfAvailable(true))
-					pdfDoc->selectWindow();
-			}
-			else {
-				pdfDoc->reload(); // always reload if it is loaded, we don't want a stale window
-				if (showPdfWhenFinished)
-					pdfDoc->selectWindow();
+		if (getPreviewFileName(pdfName)) {
+			actionGo_to_Preview->setEnabled(true);
+			if (QFileInfo(pdfName).lastModified() != oldPdfTime) {
+				// only open/refresh the PDF if it was changed by the typeset process
+				if (pdfDoc == NULL || pdfName != pdfDoc->fileName()) {
+					if (showPdfWhenFinished && openPdfIfAvailable(true))
+						pdfDoc->selectWindow();
+				}
+				else {
+					pdfDoc->reload(); // always reload if it is loaded, we don't want a stale window
+					if (showPdfWhenFinished)
+						pdfDoc->selectWindow();
+				}
 			}
 		}
+		else
+			actionGo_to_Preview->setEnabled(true);
 	}
 
 	executeAfterTypesetHooks();
@@ -2678,14 +2808,14 @@ void TeXDocument::showConsole()
 	consoleTabs->show();
 	if (process != NULL)
 		inputLine->show();
-	actionShow_Hide_Console->setText(tr("Hide Output Panel"));
+	actionShow_Hide_Console->setText(tr("Hide Console Output"));
 }
 
 void TeXDocument::hideConsole()
 {
 	consoleTabs->hide();
 	inputLine->hide();
-	actionShow_Hide_Console->setText(tr("Show Output Panel"));
+	actionShow_Hide_Console->setText(tr("Show Console Output"));
 }
 
 // this is connected to the user command, so remember the choice
@@ -2753,7 +2883,14 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 	if (position < PEEK_LENGTH) {
 		int pos;
 		QTextCursor curs(textEdit->document());
+		// (begin|end)EditBlock() is a workaround for QTBUG-24718 that causes
+		// movePosition() to crash the program under some circumstances.
+		// Since we don't change any text in the edit block, it should be a noop
+		// in the context of undo/redo.
+		curs.beginEditBlock();
 		curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
+		curs.endEditBlock();
+		
 		QString peekStr = curs.selectedText();
 		
 		/* Search for engine specification */

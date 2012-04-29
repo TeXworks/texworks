@@ -1,0 +1,60 @@
+[
+  {"Severity":1,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-this-path\\inside-this-folder\\test.tex","Row":0,
+   "Description":"LaTeX Warning: Overwriting file `./newfile.tex'."},
+  {"Severity":2,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-this-path\\inside-this-folder\\newfile.tex","Row":"6",
+   "Description":"Fake error.\nl.6 \\errmessage{Fake error}"},
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
+entering extended mode
+
+(C:\Users\Antonio\AppData\Local\Temp\inside-this-path\inside-this-folder\test.t
+ex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\filecontents\filecontents.sty")
+
+LaTeX Warning: Overwriting file `./newfile.tex'.
+
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\book.cls"
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\bk10.clo"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\misc\etex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\lipsum\lipsum.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg")
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\italian.ldf"
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def")))
+(C:\Users\Antonio\AppData\Local\Temp\inside-this-path\inside-this-folder\test.a
+ux) ("C:\Program Files\MiKTeX 2.9\tex\generic\babel\lgrcmr.fd")
+Underfull \vbox (badness 2698) has occurred while \output is active [1{C:/Users
+/Antonio/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(C:\Users\Antonio\AppData\Local\Temp\inside-this-path\inside-this-folder\newfil
+e.tex [2] [3]
+! Fake error.
+l.6 \errmessage{Fake error}
+                           
+)
+Underfull \vbox (badness 2698) has occurred while \output is active [4]
+[5]
+(C:\Users\Antonio\AppData\Local\Temp\inside-this-path\inside-this-folder\test.a
+ux) )
+(see the transcript file for additional information)<C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on test.pdf (5 pages, 32004 bytes).
+SyncTeX written on test.synctex.gz.
+Transcript written on test.log.
