@@ -1,3 +1,34 @@
+Release 0.4.4 (TL'12) [April 2012]
+	* Fix crash caused by Qt when adding lines at the beginning of a document
+	* Fix search/replace for multi-line strings
+	* Work around layout issues which cause lines to disappear
+	* Fix building with BSD make
+	* Fix block selection of last paragraph
+	* Fix overwrite of "Find all occurrences" option
+
+	* Improve "Unable to execute..." error dialog
+	* Rename "Show/Hide Output Panel" to "Show/Hide Console Output" in the menu
+	  and the preferences dialog
+	* Remove subject and add instructions to body of the "email to mailinglist"
+	* Bring the window running TeX to the top at the beginning of typesetting to
+	  ensure that the console output is visible
+	* Allow symlinks and display only folders in "path for programs" in the
+	  preferences dialog
+	* Add "Clear Recent Files" to "Open Recent" menu
+	* Add an autocompletion entry to the preferences dialog
+	* Add Lua(La)TeX to the default tools (and drop LaTeXmk by default)
+	* Add an option to open log files
+	* Add CMake support (experimental)
+	* Update SyncTeX to version 1.17
+	* Update URLs to http://www.tug.org/texworks/
+
+	* Some enhancements to functions available to scripting
+	* Avoid showing an empty message box for script results
+	* Resolve symlinks when looking for scripts
+	* Expose the scripts' titles, authors, filenames, etc. to scripting
+	* Update/improve scripts: open pdf in default viewer, derive spellchecking
+	  language from babel package, log parser
+
 Release 0.4.3 (TL'11) [June 2011]
 	* Fix bug in autocompletion that could cause data loss
 
