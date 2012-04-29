@@ -1,0 +1,55 @@
+[
+  {
+    "Severity":2,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-path\\plot-f(x).tex","Row":"17",
+    "Description":"File with balanced parens.\nl.17 \\errmessage{File with balanced parens}"
+  },
+  {
+    "Severity":2,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-path\\(how-to-)complicate-your-life.tex","Row":"5",
+    "Description":"Isn't it?.\nl.5 \\errmessage{Isn't it?}"
+  },
+  {
+    "Severity":2,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-path\\how-to-complicate-your-life-(and-mine!).tex","Row":"5",
+    "Description":"Yes, it is.\nl.5 \\errmessage{Yes, it is}"
+  }
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
+entering extended mode
+(C:\Users\Antonio\AppData\Local\Temp\inside-path\plot-f(x).tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\filecontents\filecontents.sty")
+
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"))
+(C:\Users\Antonio\AppData\Local\Temp\inside-path\plot-f(x).aux)
+! File with balanced parens.
+l.17 \errmessage{File with balanced parens}
+                                           
+
+(C:\Users\Antonio\AppData\Local\Temp\inside-path\(how-to-)complicate-your-life.
+tex
+! Isn't it?.
+l.5 \errmessage{Isn't it?}
+                          
+)
+(C:\Users\Antonio\AppData\Local\Temp\inside-path\how-to-complicate-your-life-(a
+nd-mine!).tex
+! Yes, it is.
+l.5 \errmessage{Yes, it is}
+                           
+) (C:\Users\Antonio\AppData\Local\Temp\inside-path\plot-f(x).aux) )
+(see the transcript file for additional information)
+No pages of output.
+Transcript written on plot-f(x).log.

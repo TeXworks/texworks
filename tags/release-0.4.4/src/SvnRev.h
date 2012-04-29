@@ -1,0 +1,2 @@
+#define SVN_REVISION 1003
+#define SVN_REVISION_STR "1003"

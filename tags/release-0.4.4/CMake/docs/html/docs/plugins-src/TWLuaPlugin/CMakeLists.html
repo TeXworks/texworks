@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title></title>
+  <link rel="stylesheet" href="http://sharpie.github.com/TeXworks/resources/docs.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+
+  <!-- Navbar -->
+  <div id="fadeout"></div>
+  <div id="flybar">
+    <a id="title" href="#top"><h1>plugins-src/TWLuaPlugin/CMakeLists.txt</h1></a>
+
+    <div class="navigation about">
+      <div class="button">
+        About
+      </div>
+      <div class="contents">
+        <p>This documentation was built using Ryan Tomayko's <strong>Rocco</strong> tool:</p>
+        <a href="http://rtomayko.github.com/rocco">rtomayko.github.com/rocco</a>
+
+        <p>Which is based on <strong>Docco</strong> by Jeremy Ashkenas:</p>
+        <a href="http://jashkenas.github.com/docco">jashkenas.github.com/docco</a>
+
+        <p>The code from this navigation bar was borrowed from the <strong>CoffeeScript</strong> project, also by Jeremy:</p>
+        <a href="http://jashkenas.github.com/coffee-script">jashkenas.github.com/coffee-script</a>
+
+        <p>The templates used to create this page may be found on GitHub:</p>
+        <a href="http://github.com/Sharpie/TeXworks/tree/master/CMake/docs">github.com/Sharpie/TeXworks</a>
+
+      </div>
+    </div>
+
+    <div class="navigation toc">
+      <div class="button">
+        Browse Source
+      </div>
+      <div class="contents menu">
+          <a class="source" href="../../CMake/packaging/CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
+          <a class="source" href="../../CMake/packaging/mac/MacPackagingTasks.cmake.html">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
+          <a class="source" href="../../CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
+          <a class="source" href="../TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
+          <a class="source" href="../../src/CMakeLists.html">src/CMakeLists.txt</a>
+      </div>
+    </div>
+    <div id="error" style="display:none;"></div>
+  </div>
+
+  <!-- Content -->
+  <span class="bookmark" id="top"></span>
+
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>plugins-src/TWLuaPlugin/CMakeLists.txt</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Build_Lua_Plugin">&#182;</a>
+          <span class="bookmark" id="section-Build_Lua_Plugin"></span>
+        </div>
+        <h1>Build Lua Plugin</h1>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span>
+  <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/src</span>
+  <span class="o">${</span><span class="nv">QT_INCLUDE_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">LUA_INCLUDE_DIR</span><span class="o">}</span>
+<span class="p">)</span>
+
+<span class="nb">LINK_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">QT_LIBRARY_DIR</span><span class="o">}</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+          <span class="bookmark" id="section-2"></span>
+        </div>
+        <p><strong>NOTE:</strong> <em>Re-moccing headers from the main source directory that have
+already been mocced during the build of the main program seems redundant, but
+I&rsquo;m not wise enough in the ways of Qt and CMake to figure out a good
+alternative.</em></p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="err">QT4_WRAP_CPP(LUA_PLUGIN_MOC</span> <span class="err">${TeXworks_SCRIPT_API_H}</span> <span class="err">TWLuaPlugin.h)</span>
+
+<span class="nb">ADD_LIBRARY</span><span class="p">(</span><span class="s">TWLuaPlugin</span> <span class="s">SHARED</span>
+  <span class="s">TWLuaPlugin.cpp</span>
+  <span class="o">${</span><span class="nv">TeXworks_SCRIPT_API</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">LUA_PLUGIN_MOC</span><span class="o">}</span>
+<span class="p">)</span>
+<span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span><span class="s">TWLuaPlugin</span> <span class="o">${</span><span class="nv">QT_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">LUA_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">INSTALL</span><span class="p">(</span><span class="s">TARGETS</span> <span class="s">TWLuaPlugin</span>
+  <span class="s">LIBRARY</span> <span class="s">DESTINATION</span> <span class="o">${</span><span class="nv">TeXworks_PLUGIN_DIR</span><span class="o">}</span>
+<span class="p">)</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+  <!-- Navbar Scripting -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    var closeMenus;
+    closeMenus = function() {
+      return $('.navigation.active').removeClass('active');
+    };
+    $('.navigation').click(function(e) {
+      if (e.target.tagName.toLowerCase() === 'a') {
+        return;
+      }
+      if ($(e.target).closest('.repl_wrapper').length) {
+        return false;
+      }
+      if ($(this).hasClass('active')) {
+        closeMenus();
+      } else {
+        closeMenus();
+        $(this).addClass('active');
+      }
+      return false;
+    });
+  </script>
+
+</body>
+</html>
