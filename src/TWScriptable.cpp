@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #include "TWScriptable.h"
@@ -293,10 +293,17 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 											const QStringList& ignore)
 {
 	QSETTINGS_OBJECT(settings);
+	QFileInfo info;
 	bool scriptingPluginsEnabled = settings.value("enableScriptingPlugins", false).toBool();
 	
-	foreach (const QFileInfo& info,
+	foreach (const QFileInfo& constInfo,
 			 dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Readable, QDir::DirsLast)) {
+		// Get a non-const copy in case we need to resolve symlinks later on
+		info = constInfo;
+		// Should not happen, unless we're dealing with an invalid symlink
+		if (!info.exists())
+			continue;
+		
 		if (info.isDir()) {
 			// Only create a new sublist if a matching one doesn't already exist
 			TWScriptList *subScriptList = NULL;
@@ -328,6 +335,15 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 				delete subHookList;
 			continue;
 		}
+		
+		// not a directory
+
+		// resolve symlinks
+		while (info.isSymLink())
+			info = QFileInfo(info.symLinkTarget());
+		// sanity check (should be caught already at the start of the loop)
+		if (!info.exists())
+			continue;
 		
 		if (ignore.contains(info.absoluteFilePath()))
 			continue;
@@ -551,7 +567,7 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 	bool success = sm->runScript(script, this, result, scriptType);
 
 	if (success) {
-		if (!result.isNull()) {
+		if (!result.isNull() and !result.toString().isEmpty()) {
 			if (scriptType == TWScript::ScriptHook)
 				statusBar()->showMessage(tr("Script \"%1\": %2").arg(s->getTitle()).arg(result.toString()), kStatusMessageDuration);
 			else

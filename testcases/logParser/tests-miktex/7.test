@@ -1,0 +1,43 @@
+[
+  {
+    "Severity":2,
+    "File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\a-very-very-long-file-name-to-ensure-latex-error-messages-are-broken-across-lines.tex",
+    "Row":"2",
+    "Description":"A simple error.\nl.2 \\errmessage{A simple error}"
+  }
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
+entering extended mode
+
+(C:\Users\Antonio\AppData\Local\Temp\a-very-very-long-file-name-to-ensure-latex
+-error-messages-are-broken-across-lines.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"))
+! A simple error.
+l.2 \errmessage{A simple error}
+                               
+No file a-very-very-long-file-name-to-ensure-latex-error-messages-are-broken-ac
+ross-lines.aux.
+[1{C:/Users/Antonio/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(C:\Users\Antonio\AppData\Local\Temp\a-very-very-long-file-name-to-ensure-latex
+-error-messages-are-broken-across-lines.aux) )
+(see the transcript file for additional information)<C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on a-very-very-long-file-name-to-ensure-latex-error-messages-are
+-broken-across-lines.pdf (1 page, 11418 bytes).
+SyncTeX written on a-very-very-long-file-name-to-ensure-latex-error-messages-are-broken-across-lines.synctex.gz.
+Transcript written on a-very-very-long-file-name-to-ensure-latex-error-messages
+-are-broken-across-lines.log.

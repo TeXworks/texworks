@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #include "PDFDocument.h"
@@ -1099,6 +1099,7 @@ QScrollArea* PDFWidget::getScrollArea()
 
 #pragma mark === PDFDocument ===
 
+// TODO: This is seemingly unused---verify && remove
 QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
@@ -1241,13 +1242,10 @@ PDFDocument::init()
 	
 	connect(actionFind_Again, SIGNAL(triggered()), this, SLOT(doFindAgain()));
 
-	menuRecent = new QMenu(tr("Open Recent"), this);
 	updateRecentFileActions();
-	menuFile->insertMenu(actionOpen_Recent, menuRecent);
-	menuFile->removeAction(actionOpen_Recent);
-
 	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
 	connect(qApp, SIGNAL(windowListChanged()), this, SLOT(updateWindowMenu()));
+	connect(actionClear_Recent_Files, SIGNAL(triggered()), this, SLOT(clearRecentFiles()));
 
 	connect(qApp, SIGNAL(hideFloatersExcept(QWidget*)), this, SLOT(hideFloatersUnlessThis(QWidget*)));
 	connect(this, SIGNAL(activatedWindow(QWidget*)), qApp, SLOT(activatedWindow(QWidget*)));
@@ -1301,7 +1299,6 @@ void PDFDocument::changeEvent(QEvent *event)
 	if (event->type() == QEvent::LanguageChange) {
 		QString title = windowTitle();
 		retranslateUi(this);
-		menuRecent->setTitle(tr("Open Recent"));
 		TWUtils::insertHelpMenuItems(menuHelp);
 		setWindowTitle(title);
 		if (pdfWidget)
@@ -1333,7 +1330,7 @@ void PDFDocument::texClosed(QObject *obj)
 
 void PDFDocument::updateRecentFileActions()
 {
-	TWUtils::updateRecentFileActions(this, recentFileActions, menuRecent);
+	TWUtils::updateRecentFileActions(this, recentFileActions, menuOpen_Recent, actionClear_Recent_Files);
 }
 
 void PDFDocument::updateWindowMenu()
@@ -1386,6 +1383,10 @@ void PDFDocument::saveRecentFileInfo()
 void PDFDocument::loadFile(const QString &fileName)
 {
 	setCurrentFile(fileName);
+	QSETTINGS_OBJECT(settings);
+	QFileInfo info(fileName);
+	settings.setValue("openDialogDir", info.canonicalPath());
+
 	reload();
 	if (watcher) {
 		const QStringList files = watcher->files();

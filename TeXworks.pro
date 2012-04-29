@@ -1,5 +1,5 @@
 #	This is part of TeXworks, an environment for working with TeX documents
-#	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+#	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 #
 #	This program is free software; you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
@@ -14,8 +14,8 @@
 #	You should have received a copy of the GNU General Public License
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#	For links to further information, or to contact the author,
-#	see <http://texworks.org/>.
+#	For links to further information, or to contact the authors,
+#	see <http://www.tug.org/texworks/>.
 
 TEMPLATE	=	app
 DEPENDPATH	+=	./src
@@ -25,7 +25,8 @@ SUBDIRS		+=	plugins-src/TWLuaPlugin
 SUBDIRS		+=	plugins-src/TWPythonPlugin
 
 MOC_DIR     = ./moc
-OBJECTS_DIR = ./obj
+# NOTE: BSD make fails if OBJECTS_DIR = ./obj (or rather if a directory obj exists at all; see issue 76)
+OBJECTS_DIR = ./objs
 UI_DIR      = ./ui
 RCC_DIR     = ./rcc
 

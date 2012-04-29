@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #ifndef TeXDocument_H
@@ -28,6 +28,7 @@
 #include <QRegExp>
 #include <QProcess>
 #include <QDateTime>
+#include <QSignalMapper>
 
 #include "ui_TeXDocument.h"
 
@@ -85,6 +86,8 @@ public:
 		{ return textEdit; }
 	int selectionStart() { return textCursor().selectionStart(); }
 	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
+	
+	QString spellcheckLanguage() const;
 
 	PDFDocument* pdfDocument()
 		{ return pdfDoc; }
@@ -117,6 +120,7 @@ public:
 	Q_PROPERTY(QString rootFileName READ getRootFilePath STORED false);
 	Q_PROPERTY(bool untitled READ untitled STORED false);
 	Q_PROPERTY(bool modified READ isModified WRITE setModified STORED false);
+	Q_PROPERTY(QString spellcheckLanguage READ spellcheckLanguage WRITE setSpellcheckLanguage STORED false);
 	
 signals:
 	void syncFromSource(const QString&, int, bool);
@@ -173,6 +177,7 @@ public slots:
 	void sideBySide();
 	void removeAuxFiles();
 	void setSpellcheckLanguage(const QString& lang);
+	void reloadSpellcheckerMenu();
 	void selectRange(int start, int length = 0);
 	void insertText(const QString& text);
 	void selectAll() { textEdit->selectAll(); }
@@ -191,6 +196,7 @@ private slots:
 	void doReplace(ReplaceDialog::DialogCode mode);
 	void pdfClosed();
 	void updateRecentFileActions();
+	void clearRecentFiles() { TWApp::instance()->clearRecentFiles(); }
 	void updateWindowMenu();
 	void updateEngineList();
 	void showCursorPosition();
@@ -265,6 +271,8 @@ private:
 
 	QActionGroup *engineActions;
 	QString engineName;
+	
+	QSignalMapper dictSignalMapper;
 
 	QComboBox *engine;
 	QProcess *process;
@@ -274,7 +282,6 @@ private:
 	QDateTime oldPdfTime;
 
 	QList<QAction*> recentFileActions;
-	QMenu *menuRecent;
 
 	Hunhandle *pHunspell;
 

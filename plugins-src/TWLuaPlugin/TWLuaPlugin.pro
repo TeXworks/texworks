@@ -15,7 +15,7 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #	For links to further information, or to contact the author,
-#	see <http://texworks.org/>.
+#	see <http://www.tug.org/texworks/>.
 
 TEMPLATE	=	lib
 CONFIG		+=	plugin
@@ -24,7 +24,7 @@ CONFIG		+=	plugin
 INCLUDEPATH	+=	../../src/
 
 MOC_DIR     = ./moc
-OBJECTS_DIR = ./obj
+OBJECTS_DIR = ./objs
 
 TARGET	=	TWLuaPlugin
 

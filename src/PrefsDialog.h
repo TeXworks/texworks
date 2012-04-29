@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #ifndef PrefsDialog_H
@@ -41,6 +41,7 @@ const bool kDefault_WrapLines = true;
 const int kDefault_TabWidth = 32;
 const int kDefault_HideConsole = 1;
 const bool kDefault_HighlightCurrentLine = true;
+const bool kDefault_AutocompleteEnabled = true;
 
 class QListWidgetItem;
 

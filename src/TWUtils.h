@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 #ifndef TWUtils_H
@@ -32,14 +32,13 @@
 #include <QPair>
 #include <QSettings>
 
-#include <hunspell.h>
-
 #define TEXWORKS_NAME "TeXworks" /* app name, for use in menus, messages, etc */
 
 class QMainWindow;
 class QCompleter;
 class TeXDocument;
 class PDFDocument;
+struct Hunhandle;
 
 // static utility methods
 class TWUtils
@@ -67,6 +66,13 @@ public:
 	
 	// get dictionary for a given language
 	static Hunhandle *getDictionary(const QString& language);
+	// get language for a given dictionary
+	static QString getLanguageForDictionary(const Hunhandle * pHunspell);
+	// deallocates all dictionaries
+	// WARNING: Don't call this while some window is using a dictionary (holds a
+	// Hunhandle*) as that window won't be notified; deactivate spell checking
+	// in all windows first (see TWApp::reloadSpellchecker())
+	static void clearDictionaries();
 
 	// list of filename filters for the Open/Save dialogs
 	static QStringList* filterList();
@@ -74,7 +80,7 @@ public:
 	static QString chooseDefaultFilter(const QString & filename, const QStringList & filters);
 
 	// perform the updates to a menu; used by the documents to update their own menus
-	static void updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu);
+	static void updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu, QAction * clearAction);
 
 	// update the SelWinActions in a menu, used by the documents
 	static void updateWindowMenu(QWidget *window, QMenu *menu);

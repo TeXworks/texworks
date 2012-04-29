@@ -530,6 +530,10 @@
         <source>Settings and Resources...</source>
         <translation>Preferenze e Risorse...</translation>
     </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -903,21 +907,21 @@
     </message>
     <message>
         <source>Hide output panel:</source>
-        <translation>Nascondi il pannello di output:</translation>
+        <translation type="obsolete">Nascondi il pannello di output:</translation>
     </message>
     <message>
         <source>Never</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Mai</translation>
     </message>
     <message>
         <source>Automatically</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Automaticamente</translation>
     </message>
     <message>
         <source>On success</source>
-        <extracomment>&quot;Hide output panel&quot; mode</extracomment>
+        <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>In caso di successo</translation>
     </message>
     <message>
@@ -929,10 +933,25 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;&lt;strong&gt;Mai:&lt;/strong&gt; non nascondere mai il pannello di output dopo la composizione.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Mai:&lt;/strong&gt; non nascondere mai il pannello di output dopo la composizione.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automaticamente:&lt;/strong&gt; nascondi il pannello di output in caso di successo della composizione, ma solo se era già nascosto.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;In caso di successo:&lt;/strong&gt; nascondi il pannello di otutput qualunque fosse il suo stato precedente.&lt;/p&gt;
 </translation>
+    </message>
+    <message>
+        <source>Enable autocompletion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide console output:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -963,7 +982,7 @@
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation>File ausiliari (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
+        <translation type="obsolete">File ausiliari (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
         <source>Text files (*.txt)</source>
@@ -976,6 +995,14 @@
     <message>
         <source>All files</source>
         <translation>Tutti i file</translation>
+    </message>
+    <message>
+        <source>Log files (*.log)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1312,6 +1339,10 @@
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;Distribuito sotto la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versione 2 o (a vostra opzione) successive.</translation>
     </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TWScriptAPI</name>
@@ -1439,11 +1470,11 @@ Vuoi salvare i cambiamenti?</translation>
     </message>
     <message>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>Vuoi annullare tutte le modifiche al documento &quot;%1&quot;, e ritornare all&apos;ultima versione salvata?</translation>
+        <translation>Vuoi annullare tutte le modifiche al documento &quot;%1&quot;, e ripristinare l&apos;ultima versione salvata?</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation>Annulla</translation>
+        <translation>Ripristina</translation>
     </message>
     <message>
         <source>Cannot read file &quot;%1&quot;:
@@ -1569,11 +1600,11 @@ Verifica la configurazione dello strumento %2 e il percorso nella finestra di di
     </message>
     <message>
         <source>Hide Output Panel</source>
-        <translation>Nascondi il pannello di output</translation>
+        <translation type="obsolete">Nascondi il pannello di output</translation>
     </message>
     <message>
         <source>Show Output Panel</source>
-        <translation>Mostra il pannello di output</translation>
+        <translation type="obsolete">Mostra il pannello di output</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
@@ -2025,7 +2056,7 @@ Vuoi salvare le modifiche e sovrascrivere il file sul disco?</translation>
     </message>
     <message>
         <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation>Controlla la configurazione dello strumento %1 e il percorso indicato nelle Preferenze.</translation>
+        <translation type="obsolete">Controlla la configurazione dello strumento %1 e il percorso indicato nelle Preferenze.</translation>
     </message>
     <message>
         <source>Typeset</source>
@@ -2172,6 +2203,60 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation>Il file che stai cercando di ricaricare contiene modifiche non salvate.
 
 Vuoi abbandonare le modifiche correnti e ricaricare il file dal disco usando l&apos;encoding %1?</translation>
+    </message>
+    <message>
+        <source>Clear Recent Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort typesetting?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A typesetting process is still running and must be stopped before closing this window.
+Do you want to stop it now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Console Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layout Problem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
+ -) Turn syntax highlighting off and on
+ -) Turn line numbers off and on
+ -) Resize the window
+
+We are sorry for the inconvenience.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Console Output</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

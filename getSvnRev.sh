@@ -6,7 +6,7 @@
 svn update
 
 # get the current revision number
-REV=`svn info | fgrep Revision: | cut -d ' ' -f 2`
+REV=`LANG=C svn info | fgrep Revision: | cut -d ' ' -f 2`
 
 if [ `svn status | grep -c "^[^?]"` == 0 ]; then
 	# make a new SvnRev.h file

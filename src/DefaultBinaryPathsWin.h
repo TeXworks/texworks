@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2011  Jonathan Kew, Stefan Löffler
+	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,9 +15,9 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-	For links to further information, or to contact the author,
-	see <http://texworks.org/>.
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
 */
 
 // Default paths to TeX binaries on Windows, for TeXworks
-#define DEFAULT_BIN_PATHS "c:/texlive/2011/bin;c:/texlive/2010/bin;c:/texlive/2009/bin;c:/texlive/2008/bin;c:/texlive/2007/bin;c:/w32tex/bin;c:/Program Files/MiKTeX 2.9/miktex/bin;c:/Program Files (x86)/MiKTeX 2.9/miktex/bin;c:/Program Files/MiKTeX 2.8/miktex/bin;c:/Program Files (x86)/MiKTeX 2.8/miktex/bin;c:/Program Files/MiKTeX 2.7/miktex/bin;c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"
+#define DEFAULT_BIN_PATHS "c:/texlive/2012/bin;c:/texlive/2011/bin;c:/texlive/2010/bin;c:/texlive/2009/bin;c:/texlive/2008/bin;c:/texlive/2007/bin;c:/w32tex/bin;c:/Program Files/MiKTeX 3.0/miktex/bin;c:/Program Files (x86)/MiKTeX 3.0/miktex/bin;c:/Program Files/MiKTeX 2.9/miktex/bin;c:/Program Files (x86)/MiKTeX 2.9/miktex/bin;c:/Program Files/MiKTeX 2.8/miktex/bin;c:/Program Files (x86)/MiKTeX 2.8/miktex/bin;c:/Program Files/MiKTeX 2.7/miktex/bin;c:/Program Files (x86)/MiKTeX 2.7/miktex/bin"

@@ -1,0 +1,109 @@
+[
+  {"Severity":2,"File":"./relazione.tex","Row":"2","Description":"A simple error.\nl.2 \\errmessage{A simple error}"},
+  {"Severity":2,"File":"./relazione.tex","Row":"3","Description":"First line.\n\nExtra.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.3 ...rror{other lines}{First line}{Extra.}{On H}"},
+  {"Severity":1,"File":"./relazione.tex","Row":"4","Description":"LaTeX Warning: A warning with line number on input line 4."},
+  {"Severity":1,"File":"./relazione.tex","Row":0,"Description":"LaTeX Warning: A warning without line number."},
+  {"Severity":2,"File":"./relazione.tex","Row":"13","Description":"Class FakeClass Error: This Error spans over multiple lines\n(FakeClass)              just to see if the fake item (FakeClass) is\n(FakeClass)              matched.\n\nSee the FakeClass class documentation for explanation.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.13 }"},
+  {"Severity":1,"File":"./relazione.tex","Row":"13","Description":"Class FakeClass Warning: This Warning spans over multiple lines just to see if the fake item (FakeClass) is matched on input line 13."},
+  {"Severity":1,"File":"./relazione.tex","Row":0,"Description":"Class FakeClass Warning: This WarningNoLine spans over multiple lines just to see if the fake item (FakeClass) is matched."},
+  {"Severity":2,"File":"./relazione.tex","Row":"13","Description":"Package FakePackage Error: This Error spans over multiple lines\n(FakePackage)                just to see if the fake item (FakePackage) is\n(FakePackage)                matched.\n\nSee the FakePackage package documentation for explanation.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.13 }"},
+  {"Severity":1,"File":"./relazione.tex","Row":"13","Description":"Package FakePackage Warning: This Warning spans over multiple lines just to see if the fake item (FakePackage) is matched on input line 13."},
+  {"Severity":1,"File":"./relazione.tex","Row":0,"Description":"Package FakePackage Warning: This WarningNoLine spans over multiple lines just to see if the fake item (FakePackage) is matched."},
+  {"Severity":2,"File":undefined,"Row":0,"Description":"LaTeX Error: Missing \\begin{document}."},
+  {"Severity":2,"File":undefined,"Row":0,"Description":"Emergency stop."},
+  {"Severity":2,"File":undefined,"Row":0,"Description":"==> Fatal error occurred, no output PDF file produced!"}
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011)
+ restricted \write18 enabled.
+entering extended mode
+(./relazione.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
+ icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
+iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
+ lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
+ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
+ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
+.
+
+! A simple error.
+l.2 \errmessage{A simple error}
+                               
+
+! First line.
+
+Extra.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3 ...rror{other lines}{First line}{Extra.}{On H}
+                                                  
+
+LaTeX Warning: A warning with line number on input line 4.
+
+
+LaTeX Warning: A warning without line number.
+
+
+! Class FakeClass Error: This Error spans over multiple lines
+(FakeClass)              just to see if the fake item (FakeClass) is
+(FakeClass)              matched.
+
+See the FakeClass class documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 }
+      
+
+Class FakeClass Warning: This Warning spans over multiple lines
+(FakeClass)              just to see if the fake item (FakeClass) is
+(FakeClass)              matched on input line 13.
+
+
+Class FakeClass Warning: This WarningNoLine spans over multiple lines
+(FakeClass)              just to see if the fake item (FakeClass) is
+(FakeClass)              matched.
+
+
+! Package FakePackage Error: This Error spans over multiple lines
+(FakePackage)                just to see if the fake item (FakePackage) is
+(FakePackage)                matched.
+
+See the FakePackage package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 }
+      
+
+Package FakePackage Warning: This Warning spans over multiple lines
+(FakePackage)                just to see if the fake item (FakePackage) is
+(FakePackage)                matched on input line 13.
+
+
+Package FakePackage Warning: This WarningNoLine spans over multiple lines
+(FakePackage)                just to see if the fake item (FakePackage) is
+(FakePackage)                matched.
+
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> relazione.tex -
+                   -interaction nonstopmode
+! Emergency stop.
+<*> relazione.tex --interaction nonstopmode
+                                           
+!  ==> Fatal error occurred, no output PDF file produced!
+Transcript written on relazione.log.
+
