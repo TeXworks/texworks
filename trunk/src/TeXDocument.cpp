@@ -2045,7 +2045,7 @@ void TeXDocument::setSyntaxColoringMode(const QString& mode)
 	QList<QAction*> actionList = menuSyntax_Coloring->actions();
 	
 	if (mode == "") {
-		Q_ASSERT(actionSyntaxColoring != NULL);
+		Q_ASSERT(actionSyntaxColoring_None != NULL);
 		actionSyntaxColoring_None->trigger();
 		return;
 	}
