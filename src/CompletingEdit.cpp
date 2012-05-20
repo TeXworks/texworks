@@ -87,6 +87,12 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	connect(this, SIGNAL(selectionChanged()), this, SLOT(cursorPositionChangedSlot()));
 
 	lineNumberArea = new LineNumberArea(this);
+	{
+		qreal bgR, bgG, bgB, fgR, fgG, fgB;
+		palette().color(QPalette::Window).getRgbF(&bgR, &bgG, &bgB);
+		palette().color(QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
+		lineNumberArea->setBgColor(QColor::fromRgbF(0.75 * bgR + 0.25 * fgR, 0.75 * bgG + 0.25 * fgG, 0.75 * bgB + 0.25 * fgB));
+	}
 	
 	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
 	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
@@ -1085,6 +1091,11 @@ int CompletingEdit::lineNumberAreaWidth()
 	return space;
 }
 
+bool CompletingEdit::getLineNumbersVisible() const
+{
+	return lineNumberArea->isVisible();
+}
+
 void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
 {
 	if (lineNumberArea->isVisible()) {
@@ -1117,8 +1128,10 @@ void CompletingEdit::resizeEvent(QResizeEvent *e)
 
 void CompletingEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
+	Q_ASSERT(lineNumberArea != NULL);
+
 	QPainter painter(lineNumberArea);
-	painter.fillRect(event->rect(), Qt::lightGray);
+	painter.fillRect(event->rect(), lineNumberArea->bgColor());
 	
 	QTextBlock block = document()->begin();
 	int blockNumber = 1;
