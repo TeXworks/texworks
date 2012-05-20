@@ -31,6 +31,7 @@
 class QCompleter;
 class QStandardItemModel;
 class QTextCodec;
+class LineNumberArea;
 
 class CompletingEdit : public QTextEdit
 {
@@ -48,7 +49,7 @@ public:
 	void lineNumberAreaPaintEvent(QPaintEvent *event);
 	int lineNumberAreaWidth();
 
-	bool getLineNumbersVisible() const { return lineNumberArea->isVisible(); }
+	bool getLineNumbersVisible() const;
 
 	QString getIndentMode() const {
 		return autoIndentMode >= 0 && autoIndentMode < autoIndentModes().size() ?
@@ -175,7 +176,7 @@ private:
 
 	QTextCursor	currentCompletionRange;
 
-	QWidget *lineNumberArea;
+	LineNumberArea *lineNumberArea;
 
 	static QTextCharFormat	*currentCompletionFormat;
 	static QTextCharFormat	*braceMatchingFormat;
@@ -200,6 +201,9 @@ public:
 		return QSize(editor->lineNumberAreaWidth(), 0);
 	}
 	
+	QColor bgColor() const { return _bgColor; }
+	void setBgColor(const QColor color) { _bgColor = color; }
+	
 protected:
 	void paintEvent(QPaintEvent *event) {
 		editor->lineNumberAreaPaintEvent(event);
@@ -207,6 +211,7 @@ protected:
 	
 private:
 	CompletingEdit *editor;
+	QColor _bgColor;
 };
 
 #endif // COMPLETING_EDIT_H
