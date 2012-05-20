@@ -104,6 +104,8 @@ private slots:
 	void updateLineNumberArea(const QRect&, int);
 	
 private:
+	void updateColors();
+
 	void setCompleter(QCompleter *c);
 
 	void showCompletion(const QString& completion, int insOffset = -1);
