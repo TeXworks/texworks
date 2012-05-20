@@ -55,25 +55,14 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	  pHunspell(NULL), spellingCodec(NULL)
 {
 	if (sharedCompleter == NULL) { // initialize shared (static) members
-		qreal bgR, bgG, bgB;
-		qreal fgR, fgG, fgB;
-		
 		sharedCompleter = new QCompleter(qApp);
 		sharedCompleter->setCompletionMode(QCompleter::InlineCompletion);
 		sharedCompleter->setCaseSensitivity(Qt::CaseInsensitive);
 		loadCompletionFiles(sharedCompleter);
 
-		palette().color(QPalette::Active, QPalette::Base).getRgbF(&bgR, &bgG, &bgB);
-		palette().color(QPalette::Active, QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
-
 		currentCompletionFormat = new QTextCharFormat;
-		currentCompletionFormat->setBackground(QColor::fromRgbF(.75 * bgR + .25 * fgR, .75 * bgG + .25 * fgG, .75 * bgB + .25 * fgB));
 		braceMatchingFormat = new QTextCharFormat;
-		braceMatchingFormat->setBackground(QColor("orange"));
-
 		currentLineFormat = new QTextCharFormat;
-		currentLineFormat->setBackground(QColor::fromRgbF(.9 * bgR + .1 * fgR, .9 * bgG + .1 * fgG, .9 * bgB + .1 * fgB));
-		currentLineFormat->setProperty(QTextFormat::FullWidthSelection, true);
 
 		QSETTINGS_OBJECT(settings);
 		highlightCurrentLine = settings.value("highlightCurrentLine", true).toBool();
@@ -87,12 +76,6 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	connect(this, SIGNAL(selectionChanged()), this, SLOT(cursorPositionChangedSlot()));
 
 	lineNumberArea = new LineNumberArea(this);
-	{
-		qreal bgR, bgG, bgB, fgR, fgG, fgB;
-		palette().color(QPalette::Window).getRgbF(&bgR, &bgG, &bgB);
-		palette().color(QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
-		lineNumberArea->setBgColor(QColor::fromRgbF(0.75 * bgR + 0.25 * fgR, 0.75 * bgG + 0.25 * fgG, 0.75 * bgB + 0.25 * fgB));
-	}
 	
 	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
 	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
@@ -102,6 +85,31 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	
 	cursorPositionChangedSlot();
 	updateLineNumberAreaWidth(0);
+	updateColors();
+}
+
+void CompletingEdit::updateColors()
+{
+	Q_ASSERT(currentCompletionFormat != NULL);
+	Q_ASSERT(braceMatchingFormat != NULL);
+	Q_ASSERT(currentLineFormat != NULL);
+	Q_ASSERT(lineNumberArea != NULL);
+
+	qreal bgR, bgG, bgB;
+	qreal fgR, fgG, fgB;
+
+	palette().color(QPalette::Active, QPalette::Base).getRgbF(&bgR, &bgG, &bgB);
+	palette().color(QPalette::Active, QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
+
+	currentCompletionFormat->setBackground(QColor::fromRgbF(.75 * bgR + .25 * fgR, .75 * bgG + .25 * fgG, .75 * bgB + .25 * fgB));
+	braceMatchingFormat->setBackground(QColor("orange"));
+
+	currentLineFormat->setBackground(QColor::fromRgbF(.9 * bgR + .1 * fgR, .9 * bgG + .1 * fgG, .9 * bgB + .1 * fgB));
+	currentLineFormat->setProperty(QTextFormat::FullWidthSelection, true);
+
+	palette().color(QPalette::Window).getRgbF(&bgR, &bgG, &bgB);
+	palette().color(QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
+	lineNumberArea->setBgColor(QColor::fromRgbF(0.75 * bgR + 0.25 * fgR, 0.75 * bgG + 0.25 * fgG, 0.75 * bgB + 0.25 * fgB));
 }
 
 CompletingEdit::~CompletingEdit()
@@ -1163,6 +1171,10 @@ bool CompletingEdit::event(QEvent *e)
 		// but don't know how to get that from the event :(
 		emit updateRequest(viewport()->rect(), 0);
 	}
+	// Alternatively, we could use QEvent::ApplicationPaletteChange if we'd
+	// derive the colors from the application's palette
+	if (e->type() == QEvent::PaletteChange)
+		updateColors();
 	return QTextEdit::event(e);
 }
 
