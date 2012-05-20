@@ -30,6 +30,7 @@
 #include "TWVersion.h"
 #include "SvnRev.h"
 #include "ResourcesDialog.h"
+#include "TWTextCodecs.h"
 
 #ifdef Q_WS_WIN
 #include "DefaultBinaryPathsWin.h"
@@ -102,6 +103,8 @@ TWApp::~TWApp()
 
 void TWApp::init()
 {
+	customTextCodecs << new MacCentralEurRomanCodec();
+
 	QIcon appIcon;
 #ifdef Q_WS_X11
 	// The Compiz window manager doesn't seem to support icons larger than

@@ -173,6 +173,7 @@ HEADERS	+=	src/TWApp.h \
 			src/ScriptManager.h \
 			src/ConfirmDelete.h \
 			src/TWVersion.h \
+			src/TWTextCodecs.h \
 			src/SvnRev.h \
 			src/synctex_parser.h \
 			src/synctex_parser_utils.h \
@@ -210,6 +211,7 @@ SOURCES	+=	src/main.cpp \
 			src/FindDialog.cpp \
 			src/PrefsDialog.cpp \
 			src/TemplateDialog.cpp \
+			src/TWTextCodecs.cpp \
 			src/HardWrapDialog.cpp \
 			src/ResourcesDialog.cpp \
 			src/ScriptManager.cpp \
