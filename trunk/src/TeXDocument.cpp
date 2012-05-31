@@ -121,6 +121,7 @@ void TeXDocument::init()
 	makeUntitled();
 	hideConsole();
 	keepConsoleOpen = false;
+	connect(consoleTabs, SIGNAL(requestClose()), actionShow_Hide_Console, SLOT(trigger()));
 
 	statusBar()->addPermanentWidget(lineEndingLabel = new ClickableLabel());
 	lineEndingLabel->setFrameStyle(QFrame::StyledPanel);

@@ -171,6 +171,7 @@ HEADERS	+=	src/TWApp.h \
 			src/HardWrapDialog.h \
 			src/ResourcesDialog.h \
 			src/ScriptManager.h \
+			src/ClosableTabWidget.h \
 			src/ConfirmDelete.h \
 			src/TWVersion.h \
 			src/TWTextCodecs.h \
@@ -202,6 +203,7 @@ SOURCES	+=	src/main.cpp \
 			src/TWScript.cpp \
 			src/TWScriptAPI.cpp \
 			src/TeXDocument.cpp \
+			src/ClosableTabWidget.cpp \
 			src/CommandlineParser.cpp \
 			src/CompletingEdit.cpp \
 			src/TeXHighlighter.cpp \
