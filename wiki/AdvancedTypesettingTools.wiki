@@ -226,3 +226,32 @@ Arguments: texexec
 
 [ ] View PDF after running
 }}}
+
+= Other tools =
+
+== !MetaPost ==
+!MetaPost can be used to create vector graphics based on plain text source files. One such source file can contain several drawings which !MetaPost puts in specially named files. In order to preview them in !TeXworks, you need to create a simple script, the content of which is platform dependent (see below). Running that script requires the open-source [http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/ pdftk] program.
+
+Once you have created the script, define a new typesetting tool using the following configuration:
+{{{
+Program:   <path to your script goes here>
+Arguments: $basename
+           $suffix
+
+[X] View PDF after running
+}}}
+
+==== Windows ====
+Create a file "!MetaPost4TeXworks.bat" containing
+{{{
+@mptopdf "%1.%2" && pdftk "%1"-*.pdf output "%1.pdf"
+}}}
+
+==== Linux/Mac ====
+Create a file "!MetaPost4TeXworks.sh" containing
+{{{
+#!/bin/sh
+
+mptopdf "$1.$2" && pdftk "$1"-*.pdf output "$1.pdf"
+}}}
+and make it executable (e.g. by running `chmod +x MetaPost4TeXworks.sh` from a terminal window).
