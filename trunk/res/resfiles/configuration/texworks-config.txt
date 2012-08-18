@@ -25,11 +25,13 @@ cleanup-patterns:	$jobname.4ct $jobname.4tc
 #
 # file-open-filter:	TeX documents (*.tex)
 # file-open-filter:	LaTeX documents (*.ltx)
+# file-open-filter:	Log files (*.log *.blg)
 # file-open-filter:	BibTeX databases (*.bib)
 # file-open-filter:	Style files (*.sty)
 # file-open-filter:	Class files (*.cls)
 # file-open-filter:	Documented macros (*.dtx)
-# file-open-filter:	Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)
+# file-open-filter:	Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)
 # file-open-filter:	Text files (*.txt)
 # file-open-filter:	PDF documents (*.pdf)
-# file-open-filter:	All files (*.* *)
+# file-open-filter:	All files (*)
+
