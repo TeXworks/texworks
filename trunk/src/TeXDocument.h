@@ -259,6 +259,10 @@ private:
 	PDFDocument *pdfDoc;
 
 	QTextCodec *codec;
+	// When using the UTF-8 codec, byte order marks (BOMs) are ignored during 
+	// reading and not produced when writing. To keep them in files that have
+	// them, we need to keep track of them ourselves.
+	bool utf8BOM;
 	int lineEndings;
 	QString curFile;
 	QString rootFilePath;
