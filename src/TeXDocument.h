@@ -112,17 +112,17 @@ public:
 	const QList<Tag> getTags() const
 		{ return tags; }
 
-	Q_PROPERTY(int cursorPosition READ cursorPosition STORED false);
-	Q_PROPERTY(QString selection READ selectedText STORED false);
-	Q_PROPERTY(int selectionStart READ selectionStart STORED false);
-	Q_PROPERTY(int selectionLength READ selectionLength STORED false);
-	Q_PROPERTY(QString consoleOutput READ consoleText STORED false);
-	Q_PROPERTY(QString text READ text STORED false);
-    Q_PROPERTY(QString fileName READ fileName);
-	Q_PROPERTY(QString rootFileName READ getRootFilePath STORED false);
-	Q_PROPERTY(bool untitled READ untitled STORED false);
-	Q_PROPERTY(bool modified READ isModified WRITE setModified STORED false);
-	Q_PROPERTY(QString spellcheckLanguage READ spellcheckLanguage WRITE setSpellcheckLanguage STORED false);
+	Q_PROPERTY(int cursorPosition READ cursorPosition STORED false)
+	Q_PROPERTY(QString selection READ selectedText STORED false)
+	Q_PROPERTY(int selectionStart READ selectionStart STORED false)
+	Q_PROPERTY(int selectionLength READ selectionLength STORED false)
+	Q_PROPERTY(QString consoleOutput READ consoleText STORED false)
+	Q_PROPERTY(QString text READ text STORED false)
+    Q_PROPERTY(QString fileName READ fileName)
+	Q_PROPERTY(QString rootFileName READ getRootFilePath STORED false)
+	Q_PROPERTY(bool untitled READ untitled STORED false)
+	Q_PROPERTY(bool modified READ isModified WRITE setModified STORED false)
+	Q_PROPERTY(QString spellcheckLanguage READ spellcheckLanguage WRITE setSpellcheckLanguage STORED false)
 	
 signals:
 	void syncFromSource(const QString&, int, bool);

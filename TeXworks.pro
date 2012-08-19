@@ -36,6 +36,10 @@ QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
 # maximum compression for resources (unless that only produces a 5% size decrease)
 QMAKE_RESOURCE_FLAGS += -threshold 5 -compress 9
 
+# turn on advanced warnings to check code quality
+# (Note: Qt's own header files produce lots of "long long" warnings, so we disable those)
+QMAKE_CXXFLAGS_WARN_ON += -Wall -pedantic -ansi -Wno-long-long
+
 # avoid warnings about "#pragma mark" on non-Mac/non-XCode systems
 QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 

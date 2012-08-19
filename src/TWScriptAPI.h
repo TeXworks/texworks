@@ -33,10 +33,10 @@ class TWScriptAPI : public QObject
 {
 	Q_OBJECT
 	
-    Q_PROPERTY(QObject* app READ GetApp);
-	Q_PROPERTY(QObject* target READ GetTarget);
-	Q_PROPERTY(QVariant result READ GetResult WRITE SetResult);
-	Q_PROPERTY(QObject * script READ GetScript);
+    Q_PROPERTY(QObject* app READ GetApp)
+	Q_PROPERTY(QObject* target READ GetTarget)
+	Q_PROPERTY(QVariant result READ GetResult WRITE SetResult)
+	Q_PROPERTY(QObject * script READ GetScript)
 	
 public:
 	TWScriptAPI(TWScript* script, QObject* twapp, QObject* ctx, QVariant& res);
