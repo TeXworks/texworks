@@ -77,15 +77,16 @@ public:
 		{ return isUntitled; }
 	QString fileName() const
 		{ return curFile; }
-	QTextCursor textCursor()
+	QTextCursor textCursor() const
 		{ return textEdit->textCursor(); }
 	QTextDocument* textDoc()
 		{ return textEdit->document(); }
 	QString getLineText(int lineNo) const;
 	CompletingEdit* editor()
 		{ return textEdit; }
-	int selectionStart() { return textCursor().selectionStart(); }
-	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
+	int cursorPosition() const { return textCursor().position(); }
+	int selectionStart() const { return textCursor().selectionStart(); }
+	int selectionLength() const { return textCursor().selectionEnd() - textCursor().selectionStart(); }
 	
 	QString spellcheckLanguage() const;
 
@@ -111,6 +112,7 @@ public:
 	const QList<Tag> getTags() const
 		{ return tags; }
 
+	Q_PROPERTY(int cursorPosition READ cursorPosition STORED false);
 	Q_PROPERTY(QString selection READ selectedText STORED false);
 	Q_PROPERTY(int selectionStart READ selectionStart STORED false);
 	Q_PROPERTY(int selectionLength READ selectionLength STORED false);
