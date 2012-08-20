@@ -38,6 +38,7 @@
   "C:\\Program Files\\MiKTeX 2.9\\tex\\latex\\memoir\\memoir.cls",
   "C:\\Program Files\\MiKTeX 2.9\\tex\\latex\\memoir\\mempatch.sty",
   "C:\\Program Files\\MiKTeX 2.9\\tex\\latex\\misc\\etex.sty",
+  "C:\\Program Files\\MiKTeX 2.9\\tex\\latex\\base\\minimal.cls",
   "C:\\Qt\\più-file-in-una-riga2.tex",
   "C:\\Qt\\più-file-in-una-riga44444444444.tex",
   "C:\\Qt\\più-file-in-una-riga5.tex",
@@ -85,5 +86,7 @@
   "C:\\Users\\Antonio\\AppData\\Local\\Temp\\very-long-filename-that-ends-the-line.tex",
   "C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.aux",
   "C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.tex",
-  "C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.toc"
+  "C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.toc",
+  "C:/Users/Mark/Documents/untitled-3.tex",
+  "C:\\Users\\Mark\\Documents\\untitled-3.aux"
 ]
