@@ -2,8 +2,8 @@
 // Title: Errors, warnings, badboxes
 // Description: Looks for errors, warnings or badboxes in the LaTeX terminal output
 // Author: Jonathan Kew, Stefan Löffler, Antonio Macrì, Henrik Skov Midtiby
-// Version: 0.8.2
-// Date: 2012-03-26
+// Version: 0.8.3
+// Date: 2012-08-21
 // Script-Type: hook
 // Hook: AfterTypeset
 
@@ -129,10 +129,24 @@ function LogParser()
       }
     },
     {
-      // This pattern recognizes badboxes on one, two or more lines.
-      Regex: new RegExp("^((?:Under|Over)full \\\\[hv]box\\s*\\([^)]+\\) in paragraph at lines (\\d+)--\\d+\n)((?:.{" + max_print_line + "}\n)*)(.+)"),
+      // This pattern recognizes badboxes in paragraphs with context given on one, two or more lines.
+      Regex: new RegExp("^((?:Under|Over)full \\\\hbox\\s*\\([^)]+\\) in paragraph at lines (\\d+)--\\d+\n)((?:.{" + max_print_line + "}\n)*)(.+)"),
       Callback: function(m, f) {
         return new Result(Severity.BadBox, f, m[2], m[1] + m[3].replace(/\n/g, '') + m[4].trimRight());
+      }
+    },
+    {
+      // This pattern recognizes badboxes without context, but with line numbers
+      Regex: new RegExp("^(?:Under|Over)full \\\\[hv]box\\s*\\([^)]+\\) (?:detected at line (\\d+)|in alignment at lines (\\d+)--\\d+)\n"),
+      Callback: function(m, f) {
+        return new Result(Severity.BadBox, f, m[1], m[0].trimRight());
+      }
+    },
+    {
+      // This pattern recognizes badboxes without context and line numbers
+      Regex: new RegExp("^(?:Under|Over)full \\\\[hv]box\\s*\\([^)]+\\) has occurred while \\\\output is active\n"),
+      Callback: function(m, f) {
+        return new Result(Severity.BadBox, f, 0, m[0].trimRight());
       }
     },
     {

@@ -17,6 +17,7 @@
   "./relazione.aux",
   "./relazione.tex",
   "./relazione.toc",
+  "./10.tex",
   "/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii",
   "/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/etexcmds.sty",
   "/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifluatex.sty",
