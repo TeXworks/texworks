@@ -1,0 +1,100 @@
+[
+  {
+    "Severity":Severity.Error,"File":"F:\\Antonio\\Università\\Magistrale\\Sicurezza\\appunti-sicurezza\\anthosthesis.cls","Row":"110",
+    "Description":"LaTeX Error: Missing \\begin{document}.\n\nSee the LaTeX manual or LaTeX Companion for explanation.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.110 \\PassOptionsToPackage[pa\n                              ss]{geometry}"
+  }
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
+entering extended mode
+
+(F:\Antonio\Università\Magistrale\Sicurezza\appunti-sicurezza\wrong-continued.
+tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+
+(F:\Antonio\Università\Magistrale\Sicurezza\appunti-sicurezza\anthosthesis.cls
+Document Class: anthosthesis 2012/02/22 v0.4b A document class based on the Cla
+ssicThesis style
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrbook.cls"
+Document Class: scrbook 2012/03/08 v3.10a KOMA-Script document class (book)
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrkbase.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrbase.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrlfile.sty"
+Package scrlfile, 2011/03/09 v3.09 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))) ("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\tocbasic.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\fleqn.clo")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrsize10pt.clo")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\typearea.sty"
+Package typearea, 2012/03/08 v3.10a KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+))
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.110 \PassOptionsToPackage[pa
+                              ss]{geometry}
+("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg")
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\dvipsnam.def"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\mathpazo.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\bera\beramono.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\microtype.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\microtype.cfg"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\textcase\textcase.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\titlesec\titlesec.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\titlesec\ttlkeys.def")
+("C:\Program Files\MiKTeX 2.9\tex\latex\tocloft\tocloft.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\carlisle\remreset.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrpage2.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrtime.sty"))
+(F:\Antonio\Università\Magistrale\Sicurezza\appunti-sicurezza\wrong-continued.
+aux) ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pplj.fd")
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\mt-ppl.cfg")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pplx.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omlzplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omszplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omxzplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1zplm.fd") [1{C:/Users/Antonio
+/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(F:\Antonio\Università\Magistrale\Sicurezza\appunti-sicurezza\wrong-continued.
+aux) )
+(\end occurred when \iffalse on line 231 was incomplete)
+(see the transcript file for additional information){C:/Program Files/MiKTeX 2.
+9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/fpl/fp
+lrc8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/base35/uplr8a.pfb>
+Output written on wrong-continued.pdf (1 page, 25441 bytes).
+SyncTeX written on wrong-continued.synctex.gz.
+Transcript written on wrong-continued.log.

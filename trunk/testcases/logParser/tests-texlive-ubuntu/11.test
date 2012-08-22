@@ -1,0 +1,142 @@
+[
+  {
+    "Severity":Severity.Warning,"File":"./prova.tex","Row":0,
+    "Description":"LaTeX Warning: Overwriting file `./rightname.sty'."
+  },
+  {
+    "Severity":Severity.Warning,"File":"./rightname.sty","Row":0,
+    "Description":"LaTeX Warning: You have requested package `rightname', but the package provides `wrongname'."
+  },
+  {
+    "Severity":Severity.Warning,"File":"./prova.tex","Row":"19",
+    "Description":"Package natbib Warning: Citation `rabin:primality' on page 1 undefined on input line 19."
+  },
+  {
+    "Severity":Severity.Warning,"File":"./prova.tex","Row":"21",
+    "Description":"Package natbib Warning: Citation `biham-shamir:differential' on page 1 undefined on input line 21."
+  },
+  {
+    "Severity":Severity.Warning,"File":"./prova.tex","Row":"23",
+    "Description":"LaTeX Warning: Hyper reference `matsui:differential-cryptanalysis' on page 1 undefined for bookmark destination page on input line 23."
+  },
+  {
+    "Severity":Severity.Warning,"File":"./prova.tex","Row":0,
+    "Description":"Package natbib Warning: There were undefined citations."
+  },
+  {
+    "Severity":Severity.Warning,"File":"./prova.tex","Row":0,
+    "Description":"LaTeX Warning: There were undefined references."
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011)
+ restricted \write18 enabled.
+entering extended mode
+(./prova.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
+ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
+rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
+kurmanji, lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nyn
+orsk, polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbia
+nc, slovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorb
+ian, welsh, loaded.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/filecontents/filecontents.sty)
+
+LaTeX Warning: Overwriting file `./rightname.sty'.
+
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/size10.clo))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/utf8.def
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/omsenc.dfu)))
+(/usr/local/texlive/2011/texmf-dist/tex/generic/babel/babel.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/babel/italian.ldf
+(/usr/local/texlive/2011/texmf-dist/tex/generic/babel/babel.def)))
+(./rightname.sty
+
+LaTeX Warning: You have requested package `rightname',
+               but the package provides `wrongname'.
+
+) (/usr/local/texlive/2011/texmf-dist/tex/latex/lipsum/lipsum.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/natbib/natbib.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/url/url.sty))
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/bookmark.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/bkm-pdftex.def))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/interfaces/interfaces-bookmark.st
+y (/usr/local/texlive/2011/texmf-dist/tex/latex/interfaces/interfaces-base.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/etex-pkg/etex.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/usr/local/texlive/2011/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.c
+ode.tex)))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package scrlfile, 2011/03/09 v3.09 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/interfaces/interfaces-etoolbox.st
+y)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/interfaces/interfaces-scrlfile.st
+y)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/interfaces/interfaces-pgfkeys.sty
+) (/usr/local/texlive/2011/texmf-dist/tex/latex/interfaces/interfaces-tikz.sty)
+ (/usr/local/texlive/2011/texmf-dist/tex/latex/interfaces/interfaces-umrand.sty
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/interfaces/interfaces-hyperref.st
+y)) (./prova.aux)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+
+Package natbib Warning: Citation `rabin:primality' on page 1 undefined on input
+ line 19.
+
+
+Package natbib Warning: Citation `biham-shamir:differential' on page 1 undefine
+d on input line 21.
+
+
+LaTeX Warning: Hyper reference `matsui:differential-cryptanalysis' on page 1 un
+defined 
+               for bookmark destination page  on input line 23.
+
+
+Package natbib Warning: There were undefined citations.
+
+[1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./prova.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ){/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></
+usr/local/texlive/2011/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on prova.pdf (1 page, 14137 bytes).
+SyncTeX written on prova.synctex.gz.
+Transcript written on prova.log.
+
