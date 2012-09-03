@@ -15,13 +15,13 @@ _Note: The paths given below apply to the default configuration of the versions 
 
 == Windows ==
 
-To find the correct folder, use "Help -> Settings and Resources...", navigate to the "Resources" folder given there, and finally put the spelling dictionaries in the `dictionaries` folder.
+To find the correct folder, use "Help -> Settings and Resources...", navigate to the "Resources" folder given there, and finally put the spelling dictionaries in the `dictionaries` folder (if it doesn't exist, create it).
 
 By default, the !TeXworks resources directory should be located in your "user profile" directory, typically `C:\Documents and Settings\Your Name\`. This is automatically created the first time you run !TeXworks, and some default resources are copied there. There should be a `dictionaries` subdirectory, but it is initially empty. Place the `*.dic` and `*.aff` files there, and then re-start !TeXworks.
 
 == Mac OS X ==
 
-To find the correct folder, use "Help -> Settings and Resources...", navigate to the "Resources" folder given there, and finally put the spelling dictionaries in the `dictionaries` folder.
+To find the correct folder, use "Help -> Settings and Resources...", navigate to the "Resources" folder given there, and finally put the spelling dictionaries in the `dictionaries` folder (if it doesn't exist, create it).
 
 By default, the !TeXworks resources folder should be located inside the Library folder of your Home (user) folder. This is automatically created the first time you run !TeXworks, and some default resources are copied there. There should be a `dictionaries` subdirectory, but it is initially empty. Place the `*.dic` and `*.aff` files there, and then re-start !TeXworks.
 
