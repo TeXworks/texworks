@@ -1018,13 +1018,16 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
         <translation type="obsolete">TeXworks %1r%2 (%3)</translation>
     </message>
     <message>
-        <source>Log files (*.log)</source>
-        <translatorcomment>Archivos Log (*.log)</translatorcomment>
-        <translation></translation>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="obsolete">Archivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation>Archivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+        <source>Log files (*.log *.blg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
