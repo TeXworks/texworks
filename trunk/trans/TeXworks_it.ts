@@ -532,7 +532,7 @@
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina file recenti</translation>
     </message>
 </context>
 <context>
@@ -754,7 +754,7 @@
     </message>
     <message>
         <source>Auto-Indent mode:</source>
-        <translation>Modalità indentazione automatica:</translation>
+        <translation>Modalità rientro automatico:</translation>
     </message>
     <message>
         <source>Spell-check language:</source>
@@ -940,18 +940,21 @@
     </message>
     <message>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita autocompletamento</translation>
     </message>
     <message>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi output console:</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;Mai:&lt;/strong&gt; Non nascondere mai il pannello di output dopo la composizione.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automaticamente:&lt;/strong&gt; Nascondi il pannello di output dopo l&apos;esito positivo della composizione  solo se era già nascosto prima.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Esito positivo:&lt;/strong&gt; Nascondi il pannello di output dopo l&apos;esito positivo della composizione.&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -998,10 +1001,18 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Log file (*.log)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="obsolete">File ausiliari (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+    </message>
+    <message>
+        <source>Log files (*.log *.blg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1341,7 +1352,7 @@
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina file recenti</translation>
     </message>
 </context>
 <context>
@@ -1608,11 +1619,11 @@ Verifica la configurazione dello strumento %2 e il percorso nella finestra di di
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
-        <translation>Engine da usare &quot;%1&quot;</translation>
+        <translation>Formato da usare &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Engine &quot;%1&quot; not defined</source>
-        <translation>Engine &quot;%1&quot; non definito</translation>
+        <translation>Formato &quot;%1&quot; non definito</translation>
     </message>
     <message>
         <source>untitled.tex[*]</source>
@@ -1656,7 +1667,7 @@ Verifica la configurazione dello strumento %2 e il percorso nella finestra di di
     </message>
     <message>
         <source>Auto-indent Mode</source>
-        <translation>Indentazione automatica</translation>
+        <translation>Rientro automatico</translation>
     </message>
     <message>
         <source>Syntax Coloring</source>
@@ -1832,7 +1843,7 @@ Verifica la configurazione dello strumento %2 e il percorso nella finestra di di
     </message>
     <message>
         <source>Indent</source>
-        <translation>Indenta</translation>
+        <translation>Rientra</translation>
     </message>
     <message>
         <source>Ctrl+]</source>
@@ -1840,7 +1851,7 @@ Verifica la configurazione dello strumento %2 e il percorso nella finestra di di
     </message>
     <message>
         <source>Unindent</source>
-        <translation>Elimina indentazione</translation>
+        <translation>Elimina rientro</translation>
     </message>
     <message>
         <source>Ctrl+[</source>
@@ -2206,44 +2217,45 @@ Vuoi abbandonare le modifiche correnti e ricaricare il file dal disco usando l&a
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminare i file recenti</translation>
     </message>
     <message>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>Interrompi composizione?</translation>
     </message>
     <message>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>E&apos; in corso un processo di compisizione e dovrà essere interrotto prima di chiudere questa finestra.
+Sei sicuro di voler interrompere adesso?</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Occorre una &lt;b&gt;distribuzione TeX&lt;/b&gt; come &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installata sul tuo sistema per avviare la composizione del documento.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Occorre una &lt;b&gt;distribuzione TeX&lt;/b&gt; come &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installata sul tuo sistema per avviare la composizione del documento.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>Occorre una &lt;b&gt;distribuzione TeX&lt;/b&gt; come &lt;a &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;&gt; installata sul tuo sistema per avviare la composizione del documento. In molti sistemi una distribuzione TeX è disponibile come pacchetto precompilato.</translation>
     </message>
     <message>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quando una ditribuzione TeX è installata nel sistema devi dire a TeXworks dove trovarla in Modifica -&gt; Preferenze -&gt; Composizione.</translation>
     </message>
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Controlla configurazione e percorso del programma %1 nella finestra di dialogo Preferenze. </translation>
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi il pannello di output</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>Problema di layout</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2252,11 +2264,16 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore durante la disposizione del documento nell&apos;editor. Questo è causato da un problema del framework Qt e in qualche caso può causare il crash di TeXworks. I sintomi di questo errore sono righe nascoste o sovrapposte. Per cercare di risolvere prova a:
+ -) attivare/disattivare l&apos;evidenziazione della sintassi
+ -) attivare/disattivare i numeri di riga
+ -) ridimensionare la finestra
+
+Ci dispiace per l&apos;inconveniente.</translation>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra il pannello di output</translation>
     </message>
 </context>
 <context>

@@ -993,11 +993,11 @@
         <translation type="obsolete">تک‌ورکس %1 ب %2 (%3)</translation>
     </message>
     <message>
-        <source>Log files (*.log)</source>
+        <source>Log files (*.log *.blg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
