@@ -36,17 +36,17 @@ Further, with MiKTeX, the call to a sub-document \verb|\input{name.tex}| should 
 
 \section{Spell-checking}
 
-You can turn on automatic spell-checking\index{spell-checking} of your source document from \menu{Edit}\submenu\menu{Spelling}\submenu\menu{<language>}.
+You can turn on automatic spell-checking\index{spell-checking} of your source document from \menu{Edit}\submenu\menu{Spelling}\submenu\menu{<language>}. It is also possible to ask {\Tw} to enable spell-checking by default by setting a dictionary in \menu{Edit}\submenu\menu{Preferences\dots}\submenu\menu{Editor}\submenu\menu{Spell-check language}.
 
 During typing, every word the spell-checker considers wrong is underlined by a red wavy line. A right-click on the word opens a contextual menu in which there are some replacement suggestions. Click on the desired word to make the replacement.
 
-Before using the spell-checker, you need to install dictionaries in the right folder of {\Tw}: \path{<resources>\dictionaries}.
+Before using the spell-checker, you need to install dictionaries in the right folder of {\Tw}: \path{<resources>\dictionaries}. The \path{<resources>} folder can be accessed easily via \menu{Help}\submenu\menu{Settings and Resources\dots}.
 
 \begin{OSLinux}
 On Linux, the dictionaries are usually taken from the folder \path{/usr/share/myspell/dicts}---the default path for myspell dictionaries. Note, though, that the maintainer of your {\Tw} package may have changed this to reflect the file system layout of your Linux distribution. You can override this default by setting the \verb+TW_DICPATH+ environment variable before running {\Tw}.
 \end{OSLinux}
 
-One can use the available dictionaries for OpenOffice.org and other free software;\footnote{See, for example, \url{http://lingucomponent.openoffice.org/download_dictionary.html}.} if you have Mozilla Thunderbird with spell-checking, you can copy its \path{.aff} and \path{.dic} files\index{spell-checking!.aff files}\index{spell-checking!.dic files} as well, for example. It is possible to ask {\Tw} to enable spell-checking by default by setting a dictionary in \menu{Edit}\submenu\menu{Preferences\dots}\submenu\menu{Editor}\submenu\menu{Spell-check language}.
+One can use the available dictionaries for OpenOffice.org and other free software;\footnote{See, for example, \url{http://extensions.services.openoffice.org/dictionary}. The \path{.oxt} files can be renamed to \path{.zip} and then uncompressed to find the required \path{.dic} and \path{.aff} files.} if you have Mozilla Thunderbird with spell-checking, you can copy its \path{.aff} and \path{.dic} files\index{spell-checking!.aff files}\index{spell-checking!.dic files} as well, for example.
 
 \section{Search and replace}
 \index{editing!search/replace}\index{search/replace|see {editing}}
