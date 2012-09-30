@@ -2,8 +2,8 @@
 // Title: Errors, warnings, badboxes
 // Description: Looks for errors, warnings or badboxes in the LaTeX terminal output
 // Author: Jonathan Kew, Stefan Löffler, Antonio Macrì, Henrik Skov Midtiby
-// Version: 0.8.3
-// Date: 2012-08-21
+// Version: 0.8.4
+// Date: 2012-09-25
 // Script-Type: hook
 // Hook: AfterTypeset
 
@@ -131,9 +131,9 @@ function LogParser()
     },
     {
       // This pattern recognizes badboxes in paragraphs with context given on one, two or more lines.
-      Regex: new RegExp("^((?:Under|Over)full \\\\hbox\\s*\\([^)]+\\) in paragraph at lines (\\d+)--\\d+\n)((?:.{" + max_print_line + "}\n)*)(.+)"),
+      Regex: new RegExp("^((?:Under|Over)full \\\\hbox\\s*\\([^)]+\\) in paragraph at lines (\\d+)--\\d+\n)((?:.{" + max_print_line + "}\n)*)(.*)"),
       Callback: function(m, f) {
-        return new Result(Severity.BadBox, f, m[2], m[1] + m[3].replace(/\n/g, '') + m[4].trimRight());
+        return new Result(Severity.BadBox, f, m[2], (m[1] + m[3].replace(/\n/g, '') + m[4]).trimRight());
       }
     },
     {
