@@ -16,12 +16,12 @@ html :
 	@$(MAKE) -C html
 
 manual.pdf : manual.ind *.tex *.sty images/*.pdf images/*.png
-	@pdflatex manual
-	@pdflatex manual
-	@pdflatex $(SYNCTEX) manual
+	@lualatex manual
+	@lualatex manual
+	@lualatex $(SYNCTEX) manual
 	
 manual.ind : *.tex *.sty
-	@pdflatex manual
+	@lualatex manual
 	@makeindex manual
 
 clean :
