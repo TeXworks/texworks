@@ -1,0 +1,72 @@
+[
+  {
+    "Severity":Severity.Warning,"File":"/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrreprt.cls","Row":0,
+    "Description":"Class scrreprt Warning: You've used obsolete option `tablecaptionabove'. Usage of this option indicates an old document and changes compatibility level using `captions=tableheading,version=first'. If you don't want this, you should simply replace usage of option `tablecaptionabove' by `captions=tableheading'."
+  },
+  {
+    "Severity":Severity.Warning,"File":"./captions=tableheading.tex","Row":"8",
+    "Description":"Package natbib Warning: Citation `einstein' on page 1 undefined on input line 8."
+  },
+  {
+    "Severity":Severity.Warning,"File":"./captions=tableheading.tex","Row":0,
+    "Description":"Package natbib Warning: There were undefined citations."
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011)
+ restricted \write18 enabled.
+entering extended mode
+(./captions=tableheading.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
+ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
+rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
+kurmanji, lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nyn
+orsk, polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbia
+nc, slovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorb
+ian, welsh, loaded.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrreprt.cls
+Document Class: scrreprt 2012/03/08 v3.10a KOMA-Script document class (report)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrkbase.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrbase.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package scrlfile, 2011/03/09 v3.09 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))) (/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/tocbasic.sty)
+
+Class scrreprt Warning: You've used obsolete option `tablecaptionabove'.
+(scrreprt)              Usage of this option indicates an old document and
+(scrreprt)              changes compatibility level using
+(scrreprt)              `captions=tableheading,version=first'.
+(scrreprt)              If you don't want this, you should simply replace
+(scrreprt)              usage of option `tablecaptionabove' by `captions=tableh
+eading'.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrsize11pt.clo)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/typearea.sty
+Package typearea, 2012/03/08 v3.10a KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+)) (/usr/local/texlive/2011/texmf-dist/tex/latex/natbib/natbib.sty)
+(./captions=tableheading.aux)
+
+Package natbib Warning: Citation `einstein' on page 1 undefined on input line 8
+.
+
+
+Package natbib Warning: There were undefined citations.
+
+[1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./captions=tableheading.aux) )</usr/local/texlive/2011/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr10.pfb>
+Output written on captions=tableheading.pdf (1 page, 17062 bytes).
+SyncTeX written on captions=tableheading.synctex.gz.
+Transcript written on captions=tableheading.log.

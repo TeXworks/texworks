@@ -89,6 +89,7 @@
   "C:\\Users\\Antonio\\Dati\\Università\\Magistrale\\Sicurezza\\Progetto\\project-erinyes\\doc\\relazione.toc",
   "C:/Users/Mark/Documents/untitled-3.tex",
   "C:/Users/Mark/Documents/untitled.tex",
+  "C:/Users/Mark/Documents/bug.tex",
   "C:\\Users\\Mark\\Documents\\untitled-3.aux",
   "F:\\Antonio\\Università\\Magistrale\\Sicurezza\\appunti-sicurezza\\anthosthesis.cls",
 ]

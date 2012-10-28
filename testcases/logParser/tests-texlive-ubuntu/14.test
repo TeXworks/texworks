@@ -1,0 +1,94 @@
+[
+  {
+    "Severity":Severity.Warning,"File":"../../anthosthesis.cls","Row":0,
+    "Description":"LaTeX Warning: You have requested document class `../../anthosthesis', but the document class provides `anthosthesis'."
+  },
+  {
+    "Severity":Severity.Error,"File":"./anthosthesis-example.tex","Row":"8",
+    "Description":"Undefined control sequence.\nl.8 \\lipsm"
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011)
+ restricted \write18 enabled.
+entering extended mode
+(./anthosthesis-example.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
+ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
+rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
+kurmanji, lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nyn
+orsk, polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbia
+nc, slovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorb
+ian, welsh, loaded.
+
+(../../anthosthesis.cls
+
+LaTeX Warning: You have requested document class `../../anthosthesis',
+               but the document class provides `anthosthesis'.
+
+Document Class: anthosthesis 2012/10/12 v0.5 A document class based on the Clas
+sicThesis style
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrbook.cls
+Document Class: scrbook 2012/03/08 v3.10a KOMA-Script document class (book)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrkbase.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrbase.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package scrlfile, 2011/03/09 v3.09 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))) (/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/tocbasic.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/fleqn.clo)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrsize10pt.clo)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/typearea.sty
+Package typearea, 2012/03/08 v3.10a KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+)) (/usr/local/texlive/2011/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifluatex.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/color.cfg)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ltxcmds.sty))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/dvipsnam.def))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/psnfss/mathpazo.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/bera/beramono.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/textcase/textcase.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/titlesec/titlesec.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tocloft/tocloft.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/carlisle/remreset.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrhack.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrpage2.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrtime.sty))
+(./anthosthesis-example.aux)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/psnfss/ot1pplj.fd)
+(/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2011/texmf-dist/tex/latex/microtype/mt-ppl.cfg)
+! Undefined control sequence.
+l.8 \lipsm
+          
+(/usr/local/texlive/2011/texmf-dist/tex/latex/psnfss/ot1pplx.fd)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/psnfss/omlzplm.fd)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/psnfss/omszplm.fd)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/psnfss/omxzplm.fd)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/psnfss/ot1zplm.fd) [1{/usr/local/
+texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./anthosthesis-example.aux) )
+(see the transcript file for additional information){/usr/local/texlive/2011/te
+xmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2011/texmf-dist/fonts/
+type1/public/fpl/fplrc8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/ur
+w/palatino/uplr8a.pfb>
+Output written on anthosthesis-example.pdf (1 page, 12868 bytes).
+SyncTeX written on anthosthesis-example.synctex.gz.
+Transcript written on anthosthesis-example.log.
+
