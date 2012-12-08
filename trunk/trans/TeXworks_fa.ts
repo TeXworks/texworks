@@ -95,7 +95,7 @@
     </message>
     <message>
         <source>No recent search strings</source>
-        <translation>فاقد رشتهٔ جستجوی اخیر</translation>
+        <translation>بدون رشتهٔ جستجوی اخیر</translation>
     </message>
     <message>
         <source>(invalid)</source>
@@ -122,7 +122,7 @@
     </message>
     <message>
         <source>Re-wrap paragraphs</source>
-        <translation>بسته‌بندی جدید پاراگراف‌ها</translation>
+        <translation>بسته‌بندی تازه پاراگراف‌ها</translation>
     </message>
 </context>
 <context>
@@ -137,7 +137,7 @@
     </message>
     <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>ناموفق در بازگذاری پروندهٔ &quot;%1&quot;؛ شاید مستند پی‌دی‌اف معتبری نیست.</translation>
+        <translation>ناموفق در بازگذاری پروندهٔ &quot;%1&quot;؛ شاید نوشتار پی‌دی‌اف معتبری نیست.</translation>
     </message>
     <message>
         <source>No SyncTeX data available</source>
@@ -153,7 +153,7 @@
     </message>
     <message>
         <source>page %1 of %2</source>
-        <translation>صفحهٔ %1 از %2</translation>
+        <translation>برگهٔ %1 از %2</translation>
     </message>
     <message>
         <source>%1%</source>
@@ -206,7 +206,7 @@
     </message>
     <message>
         <source>First Page</source>
-        <translation>صفحهٔ اول</translation>
+        <translation>برگهٔ اول</translation>
     </message>
     <message>
         <source>Home</source>
@@ -215,7 +215,7 @@
     </message>
     <message>
         <source>Previous Page</source>
-        <translation>صفحهٔ قبل</translation>
+        <translation>برگهٔ قبل</translation>
     </message>
     <message>
         <source>PgUp</source>
@@ -224,7 +224,7 @@
     </message>
     <message>
         <source>Next Page</source>
-        <translation>صفحهٔ بعد</translation>
+        <translation>برگهٔ بعد</translation>
     </message>
     <message>
         <source>PgDown</source>
@@ -233,7 +233,7 @@
     </message>
     <message>
         <source>Last Page</source>
-        <translation>صفحهٔ آخر</translation>
+        <translation>برگهٔ آخر</translation>
     </message>
     <message>
         <source>End</source>
@@ -242,7 +242,7 @@
     </message>
     <message>
         <source>Go to Page...</source>
-        <translation>برو به صفحهٔ ...</translation>
+        <translation>برو به برگهٔ ...</translation>
     </message>
     <message>
         <source>Ctrl+J</source>
@@ -290,7 +290,7 @@
     </message>
     <message>
         <source>New</source>
-        <translation>جدید</translation>
+        <translation>تازه</translation>
     </message>
     <message>
         <source>Ctrl+N</source>
@@ -338,7 +338,7 @@
     </message>
     <message>
         <source>Copy</source>
-        <translation>نسخه‌برداری</translation>
+        <translation>کپی</translation>
     </message>
     <message>
         <source>Ctrl+C</source>
@@ -375,11 +375,11 @@
     </message>
     <message>
         <source>Stack</source>
-        <translation>نصف صفحه</translation>
+        <translation>پشته</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>تمام صفحه</translation>
+        <translation>کاشی‌بندی</translation>
     </message>
     <message>
         <source>Go to Source</source>
@@ -391,7 +391,7 @@
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>جدید از الگو...</translation>
+        <translation>تازه از الگو...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -399,7 +399,7 @@
     </message>
     <message>
         <source>Full Screen</source>
-        <translation>تمام‌صفحه</translation>
+        <translation>صفحه‌گستر</translation>
     </message>
     <message>
         <source>Ctrl+Shift+F</source>
@@ -423,7 +423,7 @@
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>برو به صفحهٔ خانگی تک‌ورکس</translation>
+        <translation>برو به برگهٔ خانگی تک‌ورکس</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
@@ -521,7 +521,7 @@
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>پاک‌‌کردن پرونده‌های اخیر</translation>
     </message>
 </context>
 <context>
@@ -648,7 +648,7 @@
     </message>
     <message>
         <source>Go to Page</source>
-        <translation>برو به صفحهٔ</translation>
+        <translation>برو به برگهٔ</translation>
     </message>
     <message>
         <source>Page number:</source>
@@ -663,7 +663,7 @@
     </message>
     <message>
         <source>New Tool</source>
-        <translation>ابزار جدید</translation>
+        <translation>ابزار تازه</translation>
     </message>
     <message>
         <source>System default [%1]</source>
@@ -707,7 +707,7 @@
     </message>
     <message>
         <source>New blank document</source>
-        <translation>مستند خالی جدید</translation>
+        <translation>نوشتار خالی تازه</translation>
     </message>
     <message>
         <source>Template selection dialog</source>
@@ -917,25 +917,28 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه بعد از حروفچینی پنل خروجی را مخفی نکن.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; بعد از حروفچینی موفقیت‌آمیز، پنل خروجی را مخفی کن: اما فقط موقعی که از پیش مخفی بوده باشد.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;در صورت موفقیت‌آمیز بودن:&lt;/strong&gt;پنل خروجی را بعد از حروفچینی موفقیت‌آمیز مخفی کن؛ مستقل از اینکه از قبل چگونه بوده است.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه بعد از حروفچینی پنل خروجی را پنهان نکن.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; بعد از حروفچینی موفقیت‌آمیز، پنل خروجی را پنهان کن: اما تنها زمانی که از پیش پنهان بوده باشد.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;در صورت موفقیت‌آمیز بودن:&lt;/strong&gt;پنل خروجی را بعد از حروفچینی موفقیت‌آمیز پنهان کن؛ مستقل از اینکه از قبل چگونه بوده است.&lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Enable autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>پویا‌سازی تکمیل خودکار</translation>
     </message>
     <message>
         <source>Hide console output:</source>
-        <translation type="unfinished"></translation>
+        <translation>پنهان‌سازی پیشانهٔ خروجی:</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه پنل پیشانهٔ خروجی را بعد از حروف‌چینی پنهان نکن.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; پنل پیشانهٔ خروجی را پس از حروف‌چینی موفق پنهان کن، اما تنها زمانی که پیش از آن پنهان باشد.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;در صورت موفقیت:&lt;/strong&gt; پنل پیشانهٔ خروجی را پس از حروف‌چینی موفق بدون توجه به وضعیت قبلی، پنهان کن.&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -949,15 +952,15 @@
     <name>QObject</name>
     <message>
         <source>TeX documents (*.tex)</source>
-        <translation>مستندات تک (*.tex)</translation>
+        <translation>نوشتارهای تک (*.tex)</translation>
     </message>
     <message>
         <source>LaTeX documents (*.ltx)</source>
-        <translation>مستندات لاتک (*.ltx)</translation>
+        <translation>نوشتارهای لاتک (*.ltx)</translation>
     </message>
     <message>
         <source>BibTeX databases (*.bib)</source>
-        <translation>پایگاه بایب‌تک (*.bib)</translation>
+        <translation>پایگاه بیب‌تک (*.bib)</translation>
     </message>
     <message>
         <source>Style files (*.sty)</source>
@@ -981,7 +984,7 @@
     </message>
     <message>
         <source>PDF documents (*.pdf)</source>
-        <translation>مستندات پی‌دی‌اف (*.pdf)</translation>
+        <translation>نوشتارها پی‌دی‌اف (*.pdf)</translation>
     </message>
     <message>
         <source>All files</source>
@@ -991,6 +994,14 @@
         <source>TeXworks %1r%2 (%3)
 </source>
         <translation type="obsolete">تک‌ورکس %1 ب %2 (%3)</translation>
+    </message>
+    <message>
+        <source>Log files (*.log)</source>
+        <translation type="obsolete">پرونده‌های لاگ (*.log)</translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="obsolete">پرونده‌های کمکی (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
@@ -1181,11 +1192,11 @@
     </message>
     <message>
         <source>New</source>
-        <translation>جدید</translation>
+        <translation>تازه</translation>
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>جدید از الگو...</translation>
+        <translation>تازه از الگو...</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -1205,7 +1216,7 @@
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>برو به صفحهٔ خانگی تک‌ورکس</translation>
+        <translation>برو به برگهٔ خانگی تک‌ورکس</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
@@ -1229,7 +1240,7 @@
     </message>
     <message>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;‏‫%1 محیطی ساده برای نگارش، حروف‌چینی، و نمایش مستندات تک است. ‬&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;‏‫%1 محیطی ساده برای نگارش، حروف‌چینی، و نمایش نوشتارهای تک است. ‬&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
@@ -1289,7 +1300,7 @@
     </message>
     <message>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
-        <translation>چیزی به‌شدت غلط است، %1 نتوانست پنجرهٔ مستند را بسازد. نرم‌افزار کاربردی خارج می‌شود.</translation>
+        <translation>چیزی به‌شدت غلط است، %1 نتوانست پنجرهٔ نوشتار را بسازد. نرم‌افزار کاربردی خارج می‌شود.</translation>
     </message>
     <message>
         <source>Open File</source>
@@ -1329,11 +1340,11 @@
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation>&lt;p&gt; انتشار‌یافته تحت &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; اجازه‌نامهٔ عمومی گنو&lt;/a&gt;, نسخهٔ ۲ یا نسخه‌های جدیدتر .</translation>
+        <translation>&lt;p&gt; انتشار‌یافته تحت &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; اجازه‌نامهٔ عمومی گنو&lt;/a&gt;, نسخهٔ ۲ یا نسخه‌های تازه‌تر .</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>پاک‌کردن پرونده‌های اخیر</translation>
     </message>
 </context>
 <context>
@@ -1383,7 +1394,7 @@
     </message>
     <message>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation>سند می‌تواند برای افزودن فرمان جدید به %1 ، یا گسترش و یا بهسازی آن مورد استفاده قرار گیرد.</translation>
+        <translation>سند می‌تواند برای افزودن فرمان تازه به %1 ، یا گسترش و یا بهسازی آن مورد استفاده قرار گیرد.</translation>
     </message>
     <message>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
@@ -1432,7 +1443,7 @@
     <name>TeXDocument</name>
     <message>
         <source>New document</source>
-        <translation>مستند جدید</translation>
+        <translation>نوشتار تازه</translation>
     </message>
     <message>
         <source>Open Recent</source>
@@ -1457,12 +1468,12 @@
     <message>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
-        <translation>مستند &quot;%1&quot; اصلاح شده است.
+        <translation>نوشتار &quot;%1&quot; اصلاح شده است.
 آیا می‌خواهید تغییرات را ذخیره کنید؟</translation>
     </message>
     <message>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>آیا می‌خواهید تمام تغییرات مستند &quot;%1&quot; را دور بیندازید، و به آخرین نسخهٔ ذخیره‌شده برگردید؟</translation>
+        <translation>آیا می‌خواهید تمام تغییرات نوشتار &quot;%1&quot; را دور بیندازید، و به آخرین نسخهٔ ذخیره‌شده برگردید؟</translation>
     </message>
     <message>
         <source>Revert</source>
@@ -1512,7 +1523,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
     </message>
     <message>
         <source>Document &quot;%1&quot; was not saved</source>
-        <translation>مستند &quot;%1&quot; ذخیره نشده است</translation>
+        <translation>نوشتار &quot;%1&quot; ذخیره نشده است</translation>
     </message>
     <message>
         <source>The text encoding %1 requested for %2 is not supported.
@@ -1530,7 +1541,7 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
-        <translation>این مستند شامل کاراکترهایی است که در رمزینهٔ %1 قابل نمایش نیست.
+        <translation>این نوشتار شامل کاراکترهایی است که در رمزینهٔ %1 قابل نمایش نیست.
 
 اگر ادامه دهید، این کاراکترها با مقادیر رمزینهٔ پیش‌فرض جایگزین می‌شوند. به‌جای این کار ممکن است بخواهید از رمزینهٔ دیگری مانند UTF-8 استفاده کنید تا اطلاعات از دست نروند.</translation>
     </message>
@@ -1578,22 +1589,22 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message numerus="yes">
         <source>Found %n occurrence(s)</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>%n% مورد پیدا شد
         </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n occurrence(s)</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>%n مورد
         </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n documents</source>
-        <translation type="unfinished">
-            <numerusform>%n مستند
+        <translation>
+            <numerusform>%n نوشتار
         </numerusform>
         </translation>
     </message>
@@ -1603,18 +1614,18 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message numerus="yes">
         <source>Replaced %n occurrence(s)</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>جایگزینی %n مورد
         </numerusform>
         </translation>
     </message>
     <message>
         <source>Cannot process unsaved document</source>
-        <translation>مستند ذخیره نشده قابل اجرا نیست</translation>
+        <translation>نوشتار ذخیره نشده قابل اجرا نیست</translation>
     </message>
     <message>
         <source>Root document %1 is not readable</source>
-        <translation>مستند ریشهٔ %1 قابل خواندن نیست</translation>
+        <translation>نوشتار ریشهٔ %1 قابل خواندن نیست</translation>
     </message>
     <message>
         <source>%1 is not properly configured</source>
@@ -1646,7 +1657,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Show Output Panel</source>
-        <translation type="obsolete">پنل خروجی را ظاهر کن</translation>
+        <translation type="obsolete">پنل خروجی را نمایش بده</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
@@ -1662,7 +1673,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>No auxiliary files associated with this document at the moment.</source>
-        <translation>هیچ پروندهٔ کمکی مربوط با این مستند در حال حاضر پیدا نشد.</translation>
+        <translation>هیچ پروندهٔ کمکی مربوط با این نوشتار در حال حاضر پیدا نشد.</translation>
     </message>
     <message>
         <source>untitled.tex[*]</source>
@@ -1731,7 +1742,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>New</source>
-        <translation>جدید</translation>
+        <translation>تازه</translation>
     </message>
     <message>
         <source>Ctrl+N</source>
@@ -1799,7 +1810,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Copy</source>
-        <translation>نسخه‌برداری</translation>
+        <translation>کپی</translation>
     </message>
     <message>
         <source>Ctrl+C</source>
@@ -1936,11 +1947,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Stack</source>
-        <translation>نصف صفحه</translation>
+        <translation>پشته</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>تمام صفحه</translation>
+        <translation>صفحه‌گستر</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -1960,7 +1971,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>جدید از الگو...</translation>
+        <translation>تازه از الگو...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -1992,7 +2003,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>برو به صفحهٔ خانگی تک‌ورکس</translation>
+        <translation>برو به برگهٔ خانگی تک‌ورکس</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
@@ -2126,7 +2137,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     </message>
     <message>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
-        <translation>خطایی در هنگام نوشتن پرونده رخ داد. ممکن است بخواهید یک نسخه از پرونده را در مکانی دیگر ذخیره کنید.</translation>
+        <translation>خطایی در هنگام نوشتن پرونده رخ داد. ممکن است بخواهید یک کپی از پرونده را در مکانی دیگر ذخیره کنید.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved</source>
@@ -2168,44 +2179,44 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation type="unfinished"></translation>
+        <translation>پاک‌کردن پرونده‌های اخیر</translation>
     </message>
     <message>
         <source>Abort typesetting?</source>
-        <translation type="unfinished"></translation>
+        <translation>نادیده‌گرفتن حروف‌چینی؟</translation>
     </message>
     <message>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation type="unfinished"></translation>
+        <translation>یک فرایند حروف‌چینی هنوز در حال اجراست و قبل از بستن پنجره باید بایستد. آیا می‌خواهید آن را بایستانید؟</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>نیاز است که یک &lt;b&gt;توزیع تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو &lt;/a&gt; یا &lt;a href=&quot;http://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; روی سیستم شما نصب باشد.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>نیاز است که یک &lt;b&gt;توزیع تک&lt;/b&gt; مانند &lt;&lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;مک‌تک&lt;/a&gt; روی سیستم شما نصب باشد.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation type="unfinished"></translation>
+        <translation>نیاز است که یک &lt;b&gt;توزیع تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو &lt;/a&gt; یا روی سیستم شما نصب باشد. روی بیشتر سیستم‌ها چنین توزیعی به صورت بستهٔ پیش‌پردازش‌شده وجود دارد.</translation>
     </message>
     <message>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation type="unfinished"></translation>
+        <translation>وقتی که یک توزیع تک روی سیستم نصب شد ممکن است نیاز باشد که به تک‌ورکس بگویید کجا آن را بیابد در ویرایش -&gt; ترجیح‌ها -&gt; حروف‌چینی.</translation>
     </message>
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>تنظیمات ابزار و مسیر %1 را در گفتگوی ترجیحات بررسی کنید.</translation>
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>پنهان‌سازی پیشانهٔ خروجی</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation type="unfinished"></translation>
+        <translation>پرسش چهارچوب</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2214,11 +2225,16 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished"></translation>
+        <translation>مشکلی در قالب‌بندی نوشتار هنگام نمایش در ویرایشگر پدید آمد. این مشکل به خاطر ایرادی در چهارچوب زمینهٔ QT پدید آمد و ممکن است در شرایطی باعث درهم شکستن تک‌ورکس شود. دلیل این مشکل خط‌های پنهان یا هم‌پوشان است. برای برطرف کردن مشکل لطفاً یکی از کارهای زیر را انجام دهید:
+-) رنگ‌آمیزی نحوی را پویا و ناپویا کنید
+-)نمایش شمارهٔ خط‌ها را پویا و ناپویا کنید
+-) پنجره را تغییر اندازه دهید
+
+به خاطر مشکل پدید آمده پوزش می‌خواهیم.</translation>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation type="unfinished"></translation>
+        <translation>نمایش پیشانهٔ خروجی</translation>
     </message>
 </context>
 <context>
@@ -2232,18 +2248,18 @@ We are sorry for the inconvenience.</source>
     <name>TemplateDialog</name>
     <message>
         <source>New File using Template</source>
-        <translation>پروندهٔ جدید با استفاده از الگو</translation>
+        <translation>پروندهٔ تازه با استفاده از الگو</translation>
     </message>
     <message>
         <source>Choose template for the new document:</source>
-        <translation>الگوی پروندهٔ جدید را انتخاب کنید:</translation>
+        <translation>الگوی پروندهٔ تازه را انتخاب کنید:</translation>
     </message>
 </context>
 <context>
     <name>ToolConfig</name>
     <message>
         <source>NewArgument</source>
-        <translation>گزینهٔ جدید</translation>
+        <translation>گزینهٔ تازه</translation>
     </message>
     <message>
         <source>Select program file</source>
