@@ -302,6 +302,7 @@ void PrefsDialog::restoreDefaults()
 			}
 			blankDocument->setChecked(true);
 			localePopup->setCurrentIndex(0);
+			openPDFwithTeX->setChecked(true);
 			break;
 
 		case 1:
@@ -477,6 +478,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			dlg.openDialog->setChecked(true);
 			break;
 	}
+	dlg.openPDFwithTeX->setChecked(settings.value("openPDFwithTeX", true).toBool());
 	
 	QString oldLocale = settings.value("locale").toString();
 	// System and English are predefined at index 0 and 1 (see constants above)
@@ -632,6 +634,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		else if (dlg.openDialog->isChecked())
 			launchOption = 3;
 		settings.setValue("launchOption", launchOption);
+		
+		settings.setValue("openPDFwithTeX", dlg.openPDFwithTeX->isChecked());
 		
 		if (dlg.localePopup->currentIndex() != oldLocaleIndex) {
 			switch (dlg.localePopup->currentIndex()) {
