@@ -22,6 +22,7 @@
 #include "TWScript.h"
 #include "TWScriptAPI.h"
 #include "ConfigurableApp.h"
+#include "PrefsDialog.h"
 
 #include <QTextStream>
 #include <QMetaObject>
@@ -458,7 +459,7 @@ bool TWScript::mayReadFile(const QString& filename, QObject * context) const
 	QVariant targetFile;
 	QDir targetDir;
 	
-	if (settings.value("allowScriptFileReading", false).toBool())
+	if (settings.value("allowScriptFileReading", kDefault_AllowScriptFileReading).toBool())
 		return true;
 	
 	// even if global reading is disallowed, some exceptions may apply
