@@ -1094,7 +1094,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	else {
 		QSETTINGS_OBJECT(settings);
 		setCurrentFile(fileName);
-		if (!inBackground && settings.value("openPDFwithTeX", true).toBool()) {
+		if (!inBackground && settings.value("openPDFwithTeX", kDefault_OpenPDFwithTeX).toBool()) {
 			openPdfIfAvailable(false);
 			// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
 			// automatically.
