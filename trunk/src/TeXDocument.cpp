@@ -1092,14 +1092,20 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		lastModified = QDateTime();
 	}
 	else {
+		QSETTINGS_OBJECT(settings);
 		setCurrentFile(fileName);
-		if (!inBackground) {
+		if (!inBackground && settings.value("openPDFwithTeX", true).toBool()) {
 			openPdfIfAvailable(false);
+			// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
+			// automatically.
+		}
+		else {
+			QString previewFileName;
+			actionGo_to_Preview->setEnabled(getPreviewFileName(previewFileName));
 		}
 		// set openDialogDir after openPdfIfAvailable as we want the .tex file's
 		// path to end up in that variable (which might be touched/changed when
 		// loading the pdf
-		QSETTINGS_OBJECT(settings);
 		QFileInfo info(fileName);
 		settings.setValue("openDialogDir", info.canonicalPath());
 

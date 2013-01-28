@@ -30,54 +30,85 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_general">
       <attribute name="title">
        <string>General</string>
       </attribute>
       <layout class="QGridLayout">
-       <item row="0" column="0" rowspan="2">
-        <widget class="QGroupBox" name="groupBox">
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox_11">
          <property name="title">
-          <string>Toolbar buttons</string>
+          <string>Interface</string>
          </property>
-         <layout class="QVBoxLayout">
-          <item>
-           <widget class="QRadioButton" name="smallIcons">
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_12">
             <property name="text">
-             <string>Small icons</string>
+             <string>Locale:</string>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QRadioButton" name="mediumIcons">
-            <property name="text">
-             <string>Medium icons</string>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="localePopup">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maxVisibleItems">
+             <number>20</number>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QRadioButton" name="largeIcons">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_13">
             <property name="text">
-             <string>Large icons</string>
+             <string>Toolbar buttons:</string>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QCheckBox" name="showText">
-            <property name="text">
-             <string>Show text as well as icons</string>
-            </property>
-           </widget>
+          <item row="1" column="1">
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QRadioButton" name="smallIcons">
+              <property name="text">
+               <string>Small icons</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="mediumIcons">
+              <property name="text">
+               <string>Medium icons</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="largeIcons">
+              <property name="text">
+               <string>Large icons</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="showText">
+              <property name="text">
+               <string>Show text as well as icons</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
        </item>
-       <item row="0" column="1" colspan="2">
+       <item row="2" column="0">
         <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
           <string>When launched, show</string>
@@ -104,45 +135,28 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="openPDFwithTeX">
+            <property name="text">
+             <string>Open corresponding PDF preview with TeX files</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
-       <item row="1" column="2" rowspan="3">
-        <spacer>
+       <item row="1" column="1">
+        <spacer name="horizontalSpacer_9">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>111</width>
-           <height>311</height>
+           <width>0</width>
+           <height>0</height>
           </size>
          </property>
         </spacer>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <layout class="QHBoxLayout">
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Interface locale:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="localePopup">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="maxVisibleItems">
-            <number>20</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </item>
        <item row="3" column="0">
         <spacer>
@@ -151,8 +165,8 @@
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>242</width>
-           <height>271</height>
+           <width>0</width>
+           <height>0</height>
           </size>
          </property>
         </spacer>
@@ -1035,6 +1049,8 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>localePopup</tabstop>
   <tabstop>smallIcons</tabstop>
   <tabstop>mediumIcons</tabstop>
   <tabstop>largeIcons</tabstop>
@@ -1042,7 +1058,7 @@
   <tabstop>blankDocument</tabstop>
   <tabstop>templateDialog</tabstop>
   <tabstop>openDialog</tabstop>
-  <tabstop>localePopup</tabstop>
+  <tabstop>openPDFwithTeX</tabstop>
   <tabstop>editorFont</tabstop>
   <tabstop>fontSize</tabstop>
   <tabstop>tabWidth</tabstop>
@@ -1054,6 +1070,7 @@
   <tabstop>language</tabstop>
   <tabstop>encoding</tabstop>
   <tabstop>highlightCurrentLine</tabstop>
+  <tabstop>autocompleteEnabled</tabstop>
   <tabstop>actualSize</tabstop>
   <tabstop>fitWidth</tabstop>
   <tabstop>fitWindow</tabstop>
@@ -1077,13 +1094,12 @@
   <tabstop>toolRemove</tabstop>
   <tabstop>defaultTool</tabstop>
   <tabstop>autoHideOutput</tabstop>
-  <tabstop>buttonBox</tabstop>
-  <tabstop>tabWidget</tabstop>
   <tabstop>allowScriptFileReading</tabstop>
   <tabstop>allowScriptFileWriting</tabstop>
   <tabstop>allowSystemCommands</tabstop>
   <tabstop>enableScriptingPlugins</tabstop>
   <tabstop>scriptDebugger</tabstop>
+  <tabstop>buttonBox</tabstop>
  </tabstops>
  <resources>
   <include location="../res/resources.qrc"/>
