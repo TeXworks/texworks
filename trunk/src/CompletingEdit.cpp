@@ -222,17 +222,41 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 					if (action != Qt::IgnoreAction) {
 						dropCursor.setPosition(droppedOffset);
 						dropCursor.setPosition(droppedOffset + droppedLength, QTextCursor::KeepAnchor);
-						if (action == Qt::MoveAction && (this == drag->target() || this->isAncestorOf(drag->target()))) {
-							if (droppedOffset >= sourceStart && droppedOffset <= sourceEnd) {
+						if (action == Qt::MoveAction) {
+							// If we successfully completed a "Move" action, we
+							// need to make sure that the source text is removed
+							// (inserting the text in the target has already
+							// been completed at this point)
+							bool insideWindow = (drag->target() && (this == drag->target() || this->isAncestorOf(drag->target())));
+							bool insideSelection = (insideWindow && droppedOffset >= sourceStart && droppedOffset <= sourceEnd);
+							if (insideSelection) {
+								// The text was dropped into the same window at
+								// an overlapping position.
+								// First, remove everything that is left from
+								// the source text *after* the inserted text
+								// (note that every position after droppedOffset
+								// needs to be translated by droppedLength)
 								source.setPosition(droppedOffset + droppedLength);
 								source.setPosition(sourceEnd + droppedLength, QTextCursor::KeepAnchor);
 								source.removeSelectedText();
+								// Second, remove everything that is left from
+								// the source text *before* the inserted text
 								source.setPosition(sourceStart);
 								source.setPosition(droppedOffset, QTextCursor::KeepAnchor);
 								source.removeSelectedText();
 							}
-							else
+							else {
+								// Otherwise, simply remove the source text
 								source.removeSelectedText();
+							}
+							
+							if (!insideWindow) {
+								// The selection was moved to a different window,
+								// so dropCursor has no sensible data here. Thus,
+								// we collapse the cursor to where the selection
+								// was before the move action.
+								dropCursor.setPosition(sourceStart);
+							}
 						}
 					}
 					textCursor().endEditBlock();
