@@ -20,6 +20,7 @@
 */
 
 #include "PrefsDialog.h"
+#include "DefaultPrefs.h"
 #include "TWApp.h"
 #include "PDFDocument.h"
 #include "TeXHighlighter.h"

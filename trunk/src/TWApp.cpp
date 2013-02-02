@@ -24,6 +24,7 @@
 #include "TeXDocument.h"
 #include "PDFDocument.h"
 #include "PrefsDialog.h"
+#include "DefaultPrefs.h"
 #include "TemplateDialog.h"
 #include "TWSystemCmd.h"
 

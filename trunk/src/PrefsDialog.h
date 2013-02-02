@@ -30,27 +30,6 @@
 #include "ui_PrefsDialog.h"
 #include "ui_ToolConfig.h"
 
-const int kDefault_LaunchOption = 1;
-const int kDefault_ToolBarIcons = 2;
-const bool kDefault_ToolBarText = false;
-const int kDefault_Locale = 0;
-const bool kDefault_OpenPDFwithTeX = true;
-const int kDefault_SyntaxColoring = 0;
-const int kDefault_IndentMode = 0;
-const int kDefault_QuotesMode = 0;
-const int kDefault_SpellcheckLanguage = 0;
-const bool kDefault_LineNumbers = false;
-const bool kDefault_WrapLines = true;
-const int kDefault_TabWidth = 32;
-const int kDefault_HideConsole = 1;
-const bool kDefault_HighlightCurrentLine = true;
-const bool kDefault_AutocompleteEnabled = true;
-const bool kDefault_AllowScriptFileReading = false;
-const bool kDefault_AllowScriptFileWriting = false;
-const bool kDefault_EnableScriptingPlugins = false;
-const bool kDefault_AllowSystemCommands = false;
-const bool kDefault_ScriptDebugger = false;
-
 class QListWidgetItem;
 
 class PrefsDialog : public QDialog, private Ui::PrefsDialog

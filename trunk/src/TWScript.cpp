@@ -22,7 +22,7 @@
 #include "TWScript.h"
 #include "TWScriptAPI.h"
 #include "ConfigurableApp.h"
-#include "PrefsDialog.h"
+#include "DefaultPrefs.h"
 
 #include <QTextStream>
 #include <QMetaObject>
