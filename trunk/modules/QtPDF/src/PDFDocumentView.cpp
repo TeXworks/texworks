@@ -747,6 +747,11 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const QRectF vi
   if (!rect.isValid())
     return;
 
+  if (_pageMode == PageMode_SinglePage) {
+    _pdf_scene->showOnePage(page);
+    maybeUpdateSceneRect();
+  }
+
   if (mayZoom) {
     fitInView(rect, Qt::KeepAspectRatio);
     _zoomLevel = transform().m11();
