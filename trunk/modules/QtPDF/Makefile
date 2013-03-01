@@ -29,7 +29,7 @@ clean :
 	rm -f pdf_viewer $(OBJS) icons.cpp
 
 docs :
-	cd docs && rake
+	cd docs && rake docs
 
 .PHONY: all clean docs
 
