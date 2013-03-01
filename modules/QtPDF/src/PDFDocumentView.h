@@ -153,11 +153,13 @@ public:
   // setPosition())
   void prepareToShow();
 
-  QPixmap dropShadow() const;
+  QPixmap& dropShadow();
 
 protected:
   void wheelEvent(QWheelEvent * event) { event->ignore(); }
   void paintEvent(QPaintEvent * event);
+  
+  QPixmap _dropShadow;
 };
 
 // Cannot use QGraphicsGridLayout and similar classes for pages because it only
