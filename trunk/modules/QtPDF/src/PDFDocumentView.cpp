@@ -1264,7 +1264,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 #endif
 
     QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
-    QImage *renderedPage = NULL;
+    QSharedPointer<QImage> renderedPage;
     
     int i, imin, imax;
     int j, jmin, jmax;
@@ -1289,25 +1289,14 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
         // avoid doign extra work outside the page
         QRect tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         tile &= pageRect;
-        // See if a copy of the required page render currently exists in the
-        // cache.
-        //
-        // FIXME: The cache still owns the returned pointer---this means it may
-        // decide to delete the object *before* we paint it. Find some way to
-        // guard against this.
-        //
-        // Perhaps store `QSharedPointer<QImage>` instead of `QImage` in the
-        // cache? Then the image won't disappear as long as there is one shared
-        // pointer still in existance.
         renderedPage = _page->getTileImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile);
-        if ( renderedPage ) {
-          // we don't want a finished render thread to change our image while we
-          // draw it
-          _page->document()->pageCache().lock();
-          // renderedPage as returned from getTileImage should always be valid!
+        // we don't want a finished render thread to change our image while we
+        // draw it
+        _page->document()->pageCache().lock();
+        // renderedPage as returned from getTileImage _should_ always be valid
+        if ( renderedPage )
           painter->drawImage(tile.topLeft(), *renderedPage);
-          _page->document()->pageCache().unlock();
-        }
+        _page->document()->pageCache().unlock();
 #ifdef DEBUG
         painter->drawRect(tile);
 #endif
