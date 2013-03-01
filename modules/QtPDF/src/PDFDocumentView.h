@@ -15,7 +15,6 @@
 #define PDFDocumentView_H
 
 #include <QtGui/QtGui>
-#include <poppler/qt4/poppler-qt4.h>
 
 #include <PDFBackend.h>
 
