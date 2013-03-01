@@ -1,6 +1,7 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
   <qresource>
+    <file>icons/hand.png</file>
     <file>icons/magnifiercursor.png</file>
     <file>icons/zoom.png</file>
     <file>icons/zoomin.png</file>

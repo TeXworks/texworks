@@ -58,6 +58,8 @@ public slots:
   void setOneColContPageMode() { setPageMode(PageMode_OneColumnContinuous); }
   void setTwoColContPageMode() { setPageMode(PageMode_TwoColumnContinuous); }
   void setMouseMode(const MouseMode newMode);
+  void setMouseModeMagnify() { setMouseMode(MouseMode_MagnifyingGlass); }
+  void setMouseModePan() { setMouseMode(MouseMode_Move); }
   void setMagnifierShape(const MagnifierShape shape);
   void setMagnifierSize(const int size);
 
