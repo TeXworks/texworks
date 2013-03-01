@@ -309,6 +309,12 @@ void Page::asyncRenderToImage(QObject *listener, double xres, double yres, QRect
   _parent->processingThread().requestRenderPage(this, listener, xres, yres, render_box, cache);
 }
 
+bool higherResolutionThan(const PDFPageTile & t1, const PDFPageTile & t2)
+{
+  // Note: We silently assume that xres and yres behave the same way
+  return t1.xres > t2.xres;
+}
+
 QImage* Page::getTileImage(QObject * listener, const double xres, const double yres, QRect render_box /* = QRect() */)
 {
   // If the render_box is empty, use the whole page
@@ -343,6 +349,59 @@ QImage* Page::getTileImage(QObject * listener, const double xres, const double y
       delete retVal;
       return getCachedImage(xres, yres, render_box);
     }
+    
+    // Look through the cache to find tiles we can reuse (by scaling) for our
+    // dummy tile
+    // TODO: Benchmark this. If it is actualy too slow (i.e., just keeping the
+    // rendered image from popping up due to the write lock we hold) disable it
+    {
+      QList<PDFPageTile> tiles = _parent->pageCache().keys();
+      for (QList<PDFPageTile>::iterator it = tiles.begin(); it != tiles.end(); ) {
+        if (it->page_num != pageNum()) {
+          it = tiles.erase(it);
+          continue;
+        }
+        // See if it->render_box intersects with render_box (after proper scaling)
+        QRect scaledRect = QTransform::fromScale(xres / it->xres, yres / it->yres).mapRect(it->render_box);
+        if (!scaledRect.intersects(render_box)) {
+          it = tiles.erase(it);
+          continue;
+        }
+        ++it;
+      }
+      // Sort the remaining tiles by size, high-res first
+      qSort(tiles.begin(), tiles.end(), higherResolutionThan);
+      // Finally, crop, scale and paint each image until the whole area is
+      // filled or no images are left in the list
+      QPainterPath clipPath;
+      clipPath.addRect(0, 0, render_box.width(), render_box.height());
+      foreach (PDFPageTile tile, tiles) {
+        QImage * tileImg = _parent->pageCache().object(tile);
+        if (!tileImg)
+          continue;
+
+        // cropRect is the part of `tile` that overlaps the tile-to-paint (after
+        // proper scaling).
+        // paintRect is the part `tile` fills of the area we paint to (after
+        // proper scaling).
+        QRect cropRect = QTransform::fromScale(tile.xres / xres, tile.yres / yres).mapRect(render_box).intersected(tile.render_box).translated(-tile.render_box.left(), -tile.render_box.top());
+        QRect paintRect = QTransform::fromScale(xres / tile.xres, yres / tile.yres).mapRect(tile.render_box).intersected(render_box).translated(-render_box.left(), -render_box.top());
+
+        // Get the actual image and paint it onto the dummy tile
+        QImage tmp(tileImg->copy(cropRect).scaled(paintRect.size()));
+        p.setClipPath(clipPath);
+        p.drawImage(paintRect.topLeft(), tmp);
+
+        // Confine the clipping path to the part we have not painted to yet.
+        QPainterPath pp;
+        pp.addRect(paintRect);
+        clipPath = clipPath.subtracted(pp);
+        if (clipPath.isEmpty())
+          break;
+      }
+    }
+
+    // Add the dummy tile to the cache
     _parent->pageCache().insert(PDFPageTile(xres, yres, render_box, _n), retVal);
     _parent->pageCache().lock.unlock();
     return retVal;
