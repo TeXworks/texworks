@@ -476,12 +476,18 @@ void MeasureLine::setLine(QLineF line)
 void MeasureLine::updateMeasurement()
 {
   Q_ASSERT(_measureBox != NULL);
-  
-  // Length of the measurement line in pt (i.e., 1/72.27 inch)
+
   // Note: we use LaTeX units here, i.e., 1 pt = 1/72.27 in (as opposed to the
   // pdf unit 1 pt = 1/72 in, which in this context is called 1 bp); see
   // http://en.wikibooks.org/wiki/LaTeX/Useful_Measurement_Macros
-  float length = line().length() / 1.00375;
+  
+  // NOTE: The view internally uses coordinates scaled by DPI/72 (owing to the
+  // PDF convention of 1 in = 72 pt). We have to undo that scaling here to get
+  // physical units.
+  float dx = line().dx() / QApplication::desktop()->physicalDpiX();
+  float dy = line().dy() / QApplication::desktop()->physicalDpiY();
+  // length: Length of the measurement line in pt (i.e., 1/72.27 inch)
+  float length = 72.27 * qSqrt(dx * dx + dy * dy);
   
   int idx = _measureBox->currentIndex();
   _measureBox->clear();
