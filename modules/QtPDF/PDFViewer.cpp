@@ -162,7 +162,10 @@ void PageCounter::setCurrentPage(int page){
 }
 
 void PageCounter::refreshText() {
-  setText(tr("Page %1 of %2").arg(currentPage).arg(lastPage));
+  if (lastPage > 0 && currentPage > 0 && currentPage <= lastPage)
+    setText(tr("Page %1 of %2").arg(currentPage).arg(lastPage));
+  else
+    setText(QString::fromAscii(""));
   update();
 }
 
