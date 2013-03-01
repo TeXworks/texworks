@@ -991,6 +991,12 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
   if (_page && !_page->thumbnail().isNull())
     _temporaryPage = QPixmap::fromImage(_page->thumbnail()).scaled(_pageSize.toSize());
   _renderedPage = QPixmap(_pageSize.toSize());
+
+  // So we get information during paint events about what portion of the page
+  // is visible.
+  //
+  // NOTE: This flag needs Qt 4.6 or newer.
+  setFlags(QGraphicsItem::ItemUsesExtendedStyleOption);
 }
 
 QRectF PDFPageGraphicsItem::boundingRect() const { return QRectF(QPointF(0.0, 0.0), _pageSize); }
@@ -1004,6 +1010,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // Really, there is an X scaling factor and a Y scaling factor, but we assume
   // that the X scaling factor is equal to the Y scaling factor.
   qreal scaleFactor = painter->transform().m11();
+  QTransform scaleT = QTransform::fromScale(scaleFactor, scaleFactor);
   PDFDocumentScene * docScene = qobject_cast<PDFDocumentScene*>(scene());
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
@@ -1033,28 +1040,38 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   }
 
   if ( _zoomLevel != scaleFactor ) {
-#ifdef DEBUG
-    stopwatch.start();
-#endif
-    painter->save();
-    painter->setTransform(QTransform::fromScale(scaleFactor, scaleFactor));
-
     int i,j;
-    QRect pageRect = painter->transform().mapRect(boundingRect()).toAlignedRect(), pageTile;
+    // We apply a scale-only transformation to the bounding box to get the new
+    // page dimensions at the new DPI. The `QRectF` is converted to a `QRect`
+    // by `toAlignedRect` so that we can work in pixels.
+    QRect pageRect = scaleT.mapRect(boundingRect()).toAlignedRect(), pageTile;
 
     _nTile_x = pageRect.width() / TILE_SIZE + 1;
     _nTile_y = pageRect.height() / TILE_SIZE + 1;
 
+    // TODO:
+    //
+    // There is really no reason to destroy this vector and re-initialize it
+    // every time the page scale changes. Really, no reason to even store the
+    // vector---to figure out a tile's dimensions, we only need four pieces of
+    // information regardless of the zoom level:
+    //
+    //   - The number of rows and columns in the tile map
+    //   - The i,j location of a tile
+    //   - The dimensions of a full tile
+    //   - The dimensions of the bottom right tile.
     _tilemap.resize( _nTile_x * _nTile_y );
 
-    // The bottom right tile may have a width and height that are smaller.
+    // The bottom right tile may have a width and height that are smaller---so
+    // we intersect it with the scaled bounding box to get the dimensions. The
+    // width and height of this tile serve as a prototype for other tiles along
+    // clipped edges.
     pageTile = QRect((_nTile_x - 1) * TILE_SIZE, (_nTile_y - 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE) & pageRect;
 
-    // All tiles that do not lie along the bottme or right edges of the page
+    // All tiles that do not lie along the bottom or right edges of the page
     // will be full size.
     for( i = 0; i < _nTile_y; ++i ) {
       for( j = 0; j < _nTile_x; ++j ) {
-        qDebug() << "Pushing tile: " << i * _nTile_x + j;
         _tilemap[i * _nTile_x + j] = QRect(j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
         if( i == (_nTile_y - 1) && j == (_nTile_x - 1) ) {
@@ -1071,34 +1088,47 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       }
     }
 
-    painter->restore();
-
-#ifdef DEBUG
-    qDebug() << "Took: " << stopwatch.elapsed() << " miliseconds to create tile map";
-    qDebug() << "Tile map has: " << _nTile_x * _nTile_y << " tiles";
-#endif
-
-    _renderedPage = QPixmap::fromImage(_page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor));
     _zoomLevel = scaleFactor;
   }
 
-  // The transformation matrix of the `painter` object contains information
-  // such as the current zoom level of the widget viewing this PDF page. We use
-  // this matrix to position the page and then reset the transformation matrix
-  // to an identity matrix as the page image has already been resized during
-  // rendering.
+  QImage renderedPage;
   painter->save();
-    QTransform myT = painter->transform();
-    myT.setMatrix(1, myT.m12(), myT.m13(), myT.m21(), 1, myT.m23(), myT.m31(), myT.m32(), myT.m33());
-    painter->setTransform(myT);
+    // Clip to the exposed rectangle to prevent unnecessary drawing operations.
+    // This can provide up to a 50% speedup depending on the size of the tile.
+    painter->setClipRect(option->exposedRect);
 
-    painter->drawPixmap(QPoint(0,0), _renderedPage);
+    // The transformation matrix of the `painter` object contains information
+    // such as the current zoom level of the widget viewing this PDF page. We
+    // throw away the scaling information because that has already been
+    // applied during page rendering.
+    QTransform pageT = painter->transform();
+    pageT.setMatrix( 1, pageT.m12(), pageT.m13(),
+                     pageT.m21(), 1, pageT.m23(),
+                     pageT.m31(), pageT.m32(), pageT.m33() );
+    painter->setTransform(pageT);
 
+#ifdef DEBUG
+    // Pen style used to draw the outline of each tile for debugging purposes.
     QPen tilePen(Qt::darkGray);
     tilePen.setStyle(Qt::DashDotLine);
     painter->setPen(tilePen);
-    foreach ( QRect aTile, _tilemap ) {
-      painter->drawRect(aTile);
+#endif
+
+    QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
+    foreach( QRect tile, _tilemap ) {
+      if( not tile.intersects(visibleRect) )
+        continue;
+#ifdef DEBUG
+      stopwatch.start();
+#endif
+      // TODO: This needs to be threaded and cached.
+      renderedPage = _page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor,
+          tile.x(), tile.y(), tile.width(), tile.height());
+      painter->drawImage(tile.topLeft(), renderedPage);
+#ifdef DEBUG
+      qDebug() << "Rendered and painted tile in: " << stopwatch.elapsed() << " milliseconds";
+      painter->drawRect(tile);
+#endif
     }
   painter->restore();
 }
