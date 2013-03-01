@@ -1,9 +1,30 @@
+/**
+ * Copyright 2011 Charlie Sharpsteen
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ */
 #include "PDFView.h"
 
-PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent) : super(parent), page(a_page), dirty(true) {
-  dpiX = QApplication::desktop()->physicalDpiX();
-  dpiY = QApplication::desktop()->physicalDpiY();
 
+// PDFPageGraphicsItem
+// ===================
+
+// This class descends from `QGraphicsPixmapItem` and is responsible for
+// rendering `Poppler::Page` objects.
+PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent) : super(parent),
+  page(a_page),
+  dirty(true),
+  dpiX(QApplication::desktop()->physicalDpiX()),
+  dpiY(QApplication::desktop()->physicalDpiY())
+{
   // Create an empty pixmap that is the same size as the PDF page. This
   // allows us to dielay the rendering of pages until they actually come into
   // view which saves time.
@@ -14,7 +35,7 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
   setPixmap(QPixmap(pageSize.toSize()));
 }
 
-void PDFPageGraphicsItem::paint( QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
   // If this `PDFPageGraphicsItem` is still using the empty `QPixmap` it was
   // constructed with, `dirty` will be `true`. We replace the empty pixmap
   // with a rendered image of the page.
@@ -37,6 +58,11 @@ void PDFPageGraphicsItem::paint( QPainter *painter, const QStyleOptionGraphicsIt
 }
 
 
+// PDFDocumentView
+// ===============
+
+// This class descends from `QGraphicsView` and is responsible for controlling
+// and displaying the contents of a `Poppler::Document` using a `QGraphicsScene`.
 PDFDocumentView::PDFDocumentView(Poppler::Document *a_doc, QWidget *parent) : super(new QGraphicsScene, parent),
   doc(a_doc)
 {
@@ -44,7 +70,7 @@ PDFDocumentView::PDFDocumentView(Poppler::Document *a_doc, QWidget *parent) : su
   setAlignment(Qt::AlignCenter);
   setFocusPolicy(Qt::StrongFocus);
 
-  // **TODO:** _Investigate the Arthur backent for native Qt rendering._
+  // **TODO:** _Investigate the Arthur backend for native Qt rendering._
   doc->setRenderBackend(Poppler::Document::SplashBackend);
   // Make things look pretty.
   doc->setRenderHint(Poppler::Document::Antialiasing);
