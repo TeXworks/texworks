@@ -8,6 +8,7 @@ hand.png:                Derived from scalable/hand.svg
 lock.png:                Derived from scalable/Emblem-readonly.svg
 logo.png:                Derived from scalable/logo.svg
 magnifiercursor.png:     Derived from zoom.png
+measure.png:             Derived from scalable/Measure.svg
 pagemode-continuous.png: Derived from scalable/pagemode.svg
 pagemode-single.png:     Derived from scalable/pagemode.svg
 pagemode-twocols.png:    Derived from scalable/pagemode.svg
@@ -22,6 +23,7 @@ In scalable/
 ------------
 hand.svg:            Derived Qt (/tools/designer/src/components/formeditor/images/cursors)
 logo.svg:            Hand-made using FreeSerif font
+Measure.svg:         Tango (http://commons.wikimedia.org/w/index.php?title=File:Measure.svg&oldid=8397207)
 page.svg:            Derived from CodeTangoSet (http://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
 pagemode.svg:        Derived from page.svg
 Window-new.svg:      Tango (http://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764)

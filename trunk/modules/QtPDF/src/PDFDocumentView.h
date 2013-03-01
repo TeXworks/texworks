@@ -51,7 +51,7 @@ class PDFDocumentView : public QGraphicsView {
 
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
-  enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom };
+  enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom, MouseMode_Measure };
   enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions, Dock_Annotations };
 
   PDFDocumentView(QWidget *parent = 0);
@@ -94,6 +94,7 @@ public slots:
   void setMouseModeMagnifyingGlass() { setMouseMode(MouseMode_MagnifyingGlass); }
   void setMouseModeMove() { setMouseMode(MouseMode_Move); }
   void setMouseModeMarqueeZoom() { setMouseMode(MouseMode_MarqueeZoom); }
+  void setMouseModeMeasure() { setMouseMode(MouseMode_Measure); }
   void setMagnifierShape(const DocumentTool::MagnifyingGlass::MagnifierShape shape);
   void setMagnifierSize(const int size);
   void setUseGrayScale(const bool grayScale = true) { _useGrayScale = grayScale; }

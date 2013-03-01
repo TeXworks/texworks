@@ -79,6 +79,7 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   registerTool(new DocumentTool::MarqueeZoom(this));
   registerTool(new DocumentTool::Move(this));
   registerTool(new DocumentTool::ContextClick(this));
+  registerTool(new DocumentTool::Measure(this));
 
   // We deliberately set the mouse mode to a different value above so we can
   // call setMouseMode (which bails out if the mouse mode is not changed), which
@@ -424,6 +425,11 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
     case MouseMode_MagnifyingGlass:
       armTool(DocumentTool::AbstractTool::Tool_MagnifyingGlass);
       _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_MagnifyingGlass);
+      break;
+      
+    case MouseMode_Measure:
+      armTool(DocumentTool::AbstractTool::Tool_Measure);
+      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_Measure);
       break;
   }
 
