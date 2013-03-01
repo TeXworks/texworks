@@ -291,7 +291,6 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
   // Propagate link signals so that the outside world doesn't have to care about
   // our internal implementation (document/view structure, etc.)
   switch (action->type()) {
-    // FIXME: Implement remote gotos
     case PDFAction::ActionTypeGoTo:
       {
         const PDFGotoAction * actionGoto = static_cast<const PDFGotoAction*>(action);

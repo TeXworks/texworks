@@ -365,11 +365,6 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
   if (listener) {
     // Render asyncronously, but add a dummy image to the cache first and return
     // that in the end
-    // FIXME: Derive the temporary image by scaling existing images in the cache
-    // in some sophisticated way
-
-    // Note: The devil never sleeps; a render can have added an image to the
-    // cache in the meantime which obviously we don't want to overwrite
     // Note: Start the rendering in the background before constructing the image
     // to take advantage of multi-core CPUs. Since we hold the write lock here
     // there's nothing to worry about
