@@ -15,7 +15,10 @@
 #include <QtGui/QtGui>
 #include <poppler/qt4/poppler-qt4.h>
 
+// Forward declare classes defined in this header.
 class PDFDocumentScene;
+class PDFPageGraphicsItem;
+class PDFLinkGraphicsItem;
 
 class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
@@ -85,7 +88,12 @@ private:
 };
 
 
-class PDFPageGraphicsItem : public QGraphicsPixmapItem {
+// Also inherits QObject in order to access SIGNALS/SLOTS for `QFutureWatcher`.
+// A little hokey. Should probably inherit `QGraphicsObject` and be a
+// completely custom implementation.
+class PDFPageGraphicsItem : public QObject, public QGraphicsPixmapItem
+{
+  Q_OBJECT
   typedef QGraphicsPixmapItem Super;
 
   // To spare the need for a destructor
@@ -94,7 +102,10 @@ class PDFPageGraphicsItem : public QGraphicsPixmapItem {
   double dpiX;
   double dpiY;
 
-  bool dirty;
+  bool linksLoaded;
+  QFutureWatcher< QList<PDFLinkGraphicsItem *> >  *linkGenerator;
+
+  QTransform pageScale;
   qreal zoomLevel;
 
 public:
@@ -116,7 +127,10 @@ private:
   // copy that C++ newbies may not expect.
   Q_DISABLE_COPY(PDFPageGraphicsItem)
 
-  void createLinks(QList<Poppler::Link *> links);
+  QList<PDFLinkGraphicsItem *> loadLinks(QList<Poppler::Link *> links);
+
+private slots:
+  void addLinks();
 };
 
 
