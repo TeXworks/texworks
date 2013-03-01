@@ -245,10 +245,10 @@ public:
   virtual QSizeF pageSizeF()=0;
 
   virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false)=0;
-  virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false)=0;
+  virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
   virtual QList<Poppler::Link *> loadLinks()=0;
-  virtual void asyncLoadLinks(QObject *listener)=0;
+  virtual void asyncLoadLinks(QObject *listener);
 
   QImage *getCachedImage(double xres, double yres, QRect render_box = QRect());
 

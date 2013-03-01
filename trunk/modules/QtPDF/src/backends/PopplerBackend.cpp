@@ -84,11 +84,6 @@ QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box, bo
   return renderedPage;
 }
 
-void PopplerPage::asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box, bool cache)
-{
-  _parent->processingThread().requestRenderPage(this, listener, xres, yres, render_box, cache);
-}
-
 QList<Poppler::Link *> PopplerPage::loadLinks()
 {
   QList<Poppler::Link *> links;
@@ -100,10 +95,6 @@ QList<Poppler::Link *> PopplerPage::loadLinks()
   return links;
 }
 
-void PopplerPage::asyncLoadLinks(QObject *listener)
-{
-  _parent->processingThread().requestLoadLinks(this, listener);
-}
 
 // vim: set sw=2 ts=2 et
 

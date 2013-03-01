@@ -232,6 +232,16 @@ QImage *Page::getCachedImage(double xres, double yres, QRect render_box)
   return _parent->pageCache().object(PDFPageTile(xres, yres, render_box, _n));
 }
 
+void Page::asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box, bool cache)
+{
+  _parent->processingThread().requestRenderPage(this, listener, xres, yres, render_box, cache);
+}
+
+void Page::asyncLoadLinks(QObject *listener)
+{
+  _parent->processingThread().requestLoadLinks(this, listener);
+}
+
 
 // vim: set sw=2 ts=2 et
 
