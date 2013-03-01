@@ -6,6 +6,14 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   QtPDF::PDFDocumentWidget *docWidget = new QtPDF::PDFDocumentWidget(this);
   connect(this, SIGNAL(switchInterfaceLocale(QLocale)), docWidget, SLOT(switchInterfaceLocale(QLocale)));
 
+#ifdef USE_MUPDF
+  docWidget->setDefaultBackend(QString::fromAscii("mupdf"));
+#elif USE_POPPLER
+  docWidget->setDefaultBackend(QString::fromAscii("poppler-qt4"));
+#else
+  #error At least one backend is required
+#endif
+
   if (!pdf_doc.isEmpty() && docWidget)
     docWidget->load(pdf_doc);
   docWidget->goFirst();

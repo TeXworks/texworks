@@ -18,10 +18,21 @@ namespace QtPDF {
 PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = NULL */)
 : PDFDocumentView(parent)
 {
+#ifdef USE_MUPDF
+  _backends.append(new MuPDFBackend());
+#endif
+#ifdef USE_POPPLER
+  _backends.append(new PopplerQt4Backend());
+#endif
 }
 
 PDFDocumentWidget::~PDFDocumentWidget()
 {
+  foreach(BackendInterface * bi, _backends) {
+    if (!bi)
+      continue;
+    bi->deleteLater();
+  }
 }
 
 // Loads the file specified by filename. If this succeeds, the new file is
@@ -29,6 +40,7 @@ PDFDocumentWidget::~PDFDocumentWidget()
 // is returned
 bool PDFDocumentWidget::load(const QString &filename)
 {
+/*
   // *TODO*: If more than one backend is available, maybe let users set their
   //          preferred one
 #ifdef USE_MUPDF
@@ -38,6 +50,14 @@ bool PDFDocumentWidget::load(const QString &filename)
 #else
   #error Either the Poppler or the MuPDF backend is required
 #endif
+*/
+  QSharedPointer<QtPDF::Backend::Document> a_pdf_doc;
+  foreach(BackendInterface * bi, _backends) {
+    if (bi && bi->canHandleFile(filename))
+      a_pdf_doc = bi->newDocument(filename);
+    if (a_pdf_doc)
+      break;
+  }
 
   if (!a_pdf_doc || !a_pdf_doc->isValid())
     return false;
@@ -51,5 +71,36 @@ bool PDFDocumentWidget::load(const QString &filename)
   setScene(_scene);
   return true;
 }
+
+QStringList PDFDocumentWidget::backends() const
+{
+  QStringList retVal;
+  foreach (BackendInterface * bi, _backends) {
+    if (bi)
+      continue;
+    retVal << bi->name();
+  }
+  return retVal;
+}
+
+QString PDFDocumentWidget::defaultBackend() const
+{
+  if (_backends.size() == 0)
+    return QString();
+  return _backends[0]->name();
+}
+
+void PDFDocumentWidget::setDefaultBackend(const QString & backend)
+{
+  int i;
+  for (i = 0; i < _backends.size(); ++i) {
+    if (_backends[i]->name() == backend)
+      break;
+  }
+  if (i < _backends.size()) {
+    _backends.move(i, 0);
+  }
+}
+
 
 } // namespace QtPDF

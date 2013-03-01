@@ -30,10 +30,15 @@ public:
   bool watchForDocumentChangesOnDisk() const { return _scene->watchForDocumentChangesOnDisk(); }
   void setWatchForDocumentChangesOnDisk(const bool doWatch = true) { _scene->setWatchForDocumentChangesOnDisk(doWatch); }
 
+  QStringList backends() const;
+  QString defaultBackend() const;
+  void setDefaultBackend(const QString & backend);
+
   // *TODO*: Possibly add some way to describe/choose/change the PDF backend used
 
 protected:
   QSharedPointer<QtPDF::PDFDocumentScene> _scene;
+  QList<BackendInterface*> _backends;
 };
 
 } // namespace QtPDF

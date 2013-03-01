@@ -613,7 +613,19 @@ public:
 
 } // namespace Backend
 
+class BackendInterface : public QObject
+{
+  Q_OBJECT
+public:
+  virtual ~BackendInterface() { }
+  virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) = 0;
+  virtual QString name() const = 0;
+  virtual bool canHandleFile(const QString & fileName) = 0;
+};
+
 } // namespace QtPDF
+
+Q_DECLARE_INTERFACE(QtPDF::BackendInterface, "org.tug.QtPDF/1.0")
 
 // Backend Implementations
 // =======================
