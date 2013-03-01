@@ -117,7 +117,6 @@ TODO
  - ~~Don't show mouse cursor while using the magnifier~~ __DONE__
 
 ### Wishlist
- - Provide a grayscale mode
  - Speed up magnifier; in Tw, it seems much more responsive. This might be due
    to using centerOn in PDFDocumentMagnifierView::setPosition but needs closer
    investigation
@@ -137,6 +136,7 @@ TODO
    - transition support?
  - save page as image
  - selecting (and copying/saving) text & images (subject to permissions)
+ - ~~Provide a grayscale mode~~ __DONE__
  - ~~Implement text search for PDF files.~~ __DONE__
  - ~~Hitting PgUp at top of document or PgDn at bottom moves to the right~~
    __DONE__

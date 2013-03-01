@@ -45,6 +45,7 @@ class PDFDocumentView : public QGraphicsView {
   QList<QGraphicsItem *> _searchResults;
   QFutureWatcher< QList<SearchResult> > _searchResultWatcher;
   int _currentSearchResult;
+  bool _useGrayScale;
 
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
@@ -60,6 +61,7 @@ public:
   int lastPage();
   PageMode pageMode() const { return _pageMode; }
   qreal zoomLevel() const { return _zoomLevel; }
+  bool useGrayScale() const { return _useGrayScale; }
 
   // The ownership of the returned pointers is transferred to the caller (i.e.,
   // he has to destroy them, unless the `parent` widget does that automatically)
@@ -91,6 +93,7 @@ public slots:
   void setMouseModeMarqueeZoom() { setMouseMode(MouseMode_MarqueeZoom); }
   void setMagnifierShape(const MagnifierShape shape);
   void setMagnifierSize(const int size);
+  void setUseGrayScale(const bool grayScale = true) { _useGrayScale = grayScale; }
 
   void zoomBy(qreal zoomFactor);
   void zoomIn();
@@ -416,6 +419,8 @@ class PDFPageGraphicsItem : public QGraphicsObject
   friend class PageProcessingRenderPageRequest;
   friend class PageProcessingLoadLinksRequest;
   friend class PDFPageLayout;
+
+  static void imageToGrayScale(QImage & img);
 
 public:
 
