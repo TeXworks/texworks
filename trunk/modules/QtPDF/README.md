@@ -93,6 +93,7 @@ TODO
    correct, all the moving of objects is superfluous as well.
  - Turn PDFViewer into a more general test case (loading of arbitrary files,
    etc.)
+ - Implement text search for PDF files.
 
 ### Wishlist
  - annotations (popup window)
@@ -103,3 +104,4 @@ TODO
  - Improve handling of several concurrent versions (magnifications) of the same
    page (currently: "normal" and "magnified" versions); simplify code, remove
    redundancy, etc.
+ - Printing.
