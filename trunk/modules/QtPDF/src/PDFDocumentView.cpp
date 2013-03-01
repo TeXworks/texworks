@@ -2436,6 +2436,8 @@ PDFToCInfoWidget::~PDFToCInfoWidget()
 void PDFToCInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
   Q_ASSERT(_tree != NULL);
+  Q_ASSERT(!doc.isNull());
+
   const PDFToC data = doc->toc();
   clear();
   recursiveAddTreeItems(data, _tree->invisibleRootItem());
@@ -2444,15 +2446,23 @@ void PDFToCInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 void PDFToCInfoWidget::clear()
 {
   Q_ASSERT(_tree != NULL);
+  // make sure that no item is (and can be) selected while we clear the tree
+  // (otherwise clearing it could trigger (numerous) itemSelectionChanged signals)
+  _tree->setSelectionMode(QAbstractItemView::NoSelection);
   recursiveClearTreeItems(_tree->invisibleRootItem());
+  _tree->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
 void PDFToCInfoWidget::itemSelectionChanged()
 {
   Q_ASSERT(_tree != NULL);
-  // Since the ToC QTreeWidget is in single selection mode, the first element is
-  // the only one.
-  QTreeWidgetItem * item = _tree->selectedItems().first();
+  // Since the ToC QTreeWidget is in single selection mode, we can only get zero
+  // or one selected item(s)
+  
+  QList<QTreeWidgetItem *> selectedItems = _tree->selectedItems();
+  if (selectedItems.count() == 0)
+    return;
+  QTreeWidgetItem * item = selectedItems.first();
   Q_ASSERT(item != NULL);
   // TODO: It might be better to register PDFAction with the QMetaType framework
   // instead of doing casts with (void*).
