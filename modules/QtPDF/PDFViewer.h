@@ -13,21 +13,24 @@ private slots:
 };
 
 
-class SearchWidget : public QWidget
+class SearchLineEdit : public QLineEdit
 {
   Q_OBJECT
 
-  QLineEdit *_input;
-  QPushButton *_searchButton;
-
 public:
-  SearchWidget(QWidget *parent = 0, Qt::WindowFlags f = 0);
+  SearchLineEdit(QWidget *parent = 0);
 
-public slots:
-  void searchActivated();
+protected:
+  void resizeEvent(QResizeEvent *);
+
+private:
+  QToolButton *nextResultButton, *previousResultButton, *clearButton;
 
 signals:
   void searchRequested(QString searchText);
+
+private slots:
+  void prepareSearch();
 
 };
 
