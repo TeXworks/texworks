@@ -7,11 +7,14 @@ CC = g++
 
 all: pdf_viewer
 
-pdf_viewer: PDFDocumentView.o moc_PDFDocumentView.o PDFViewer.o moc_PDFViewer.o main.cpp
+pdf_viewer: PDFDocumentView.o moc_PDFDocumentView.o PDFViewer.o moc_PDFViewer.o main.cpp icons.cpp
 	$(CC) -g -O0 \
 	  $(addprefix -I,$(inc_dirs)) $(addprefix -l,$(libs)) \
 		$(qt_files) \
 	  -o pdf_viewer $^
+
+icons.cpp : icons.qrc
+	rcc -o $@ $^
 
 moc_PDFDocumentView.cpp : PDFDocumentView.h
 	moc PDFDocumentView.h > moc_PDFDocumentView.cpp
