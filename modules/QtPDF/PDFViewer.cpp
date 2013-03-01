@@ -15,8 +15,8 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   ZoomTracker *zoomWdgt = new ZoomTracker(this);
   QToolBar *toolBar = new QToolBar(this);
 
-  toolBar->addAction(QIcon(":/icons/zoomin.png"), "Zoom In", docView, SLOT(zoomIn()));
-  toolBar->addAction(QIcon(":/icons/zoomout.png"), "Zoom Out", docView, SLOT(zoomOut()));
+  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomin.png")), tr("Zoom In"), docView, SLOT(zoomIn()));
+  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomout.png")), tr("Zoom Out"), docView, SLOT(zoomOut()));
   toolBar->addSeparator();
   toolBar->addAction(tr("Single"), docView, SLOT(setSinglePageMode()));
   toolBar->addAction(tr("1Col Cont"), docView, SLOT(setOneColContPageMode()));
@@ -52,7 +52,7 @@ void PageCounter::setCurrentPage(int page){
 }
 
 void PageCounter::refreshText() {
-  setText(QString("Page %1 of %2").arg(currentPage).arg(lastPage));
+  setText(tr("Page %1 of %2").arg(currentPage).arg(lastPage));
   update();
 }
 
@@ -69,7 +69,7 @@ void ZoomTracker::setZoom(qreal newZoom){
 }
 
 void ZoomTracker::refreshText() {
-  setText(QString("Zoom %1%").arg(zoom * 100));
+  setText(tr("Zoom %1%").arg(zoom * 100));
   update();
 }
 

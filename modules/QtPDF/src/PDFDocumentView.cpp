@@ -1023,10 +1023,10 @@ void PDFPageProcessingThread::run()
       QString jobDesc;
       switch (workItem->type()) {
         case PageProcessingRequest::LoadLinks:
-          jobDesc = "loading links";
+          jobDesc = QString::fromUtf8("loading links");
           break;
         case PageProcessingRequest::PageRendering:
-          jobDesc = "rendering page";
+          jobDesc = QString::fromUtf8("rendering page");
           break;
       }
       qDebug() << "finished " << jobDesc << "; time elapsed:" << _renderTimer.elapsed() << " ms";
