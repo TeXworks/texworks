@@ -115,6 +115,8 @@ public:
   // setPosition())
   void prepareToShow();
 
+  QPixmap dropShadow() const;
+
 protected:
   void wheelEvent(QWheelEvent * event) { event->ignore(); }
   void paintEvent(QPaintEvent * event);

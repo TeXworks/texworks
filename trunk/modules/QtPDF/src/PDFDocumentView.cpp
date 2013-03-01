@@ -239,6 +239,15 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
     _currentPage = nextCurrentPage;
     emit changedPage(_currentPage);
   }
+
+  // Draw a drop shadow
+  if (_magnifier && _magnifier->isVisible()) {
+    QPainter p(viewport());
+    QPixmap dropShadow(_magnifier->dropShadow());
+    QRect r(QPoint(0, 0), dropShadow.size());
+    r.moveCenter(_magnifier->geometry().center());
+    p.drawPixmap(r.topLeft(), dropShadow);
+  }
 }
 
 // **TODO:**
@@ -303,6 +312,7 @@ void PDFDocumentView::mousePressEvent(QMouseEvent * event)
         _magnifier->prepareToShow();
         _magnifier->setPosition(event->pos());
         _magnifier->show();
+        viewport()->update();
       }
       break;
     default:
@@ -323,8 +333,10 @@ void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
 
   switch (_mouseMode) {
     case MouseMode_MagnifyingGlass:
-      if (_magnifier && _magnifier->isVisible())
+      if (_magnifier && _magnifier->isVisible()) {
         _magnifier->setPosition(event->pos());
+        viewport()->update();
+      }
       break;
     default:
       // Nothing to do
@@ -343,8 +355,10 @@ void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
 
   switch (_mouseMode) {
     case MouseMode_MagnifyingGlass:
-      if (_magnifier && _magnifier->isVisible())
+      if (_magnifier && _magnifier->isVisible()) {
         _magnifier->hide();
+        viewport()->update();
+      }
       break;
     default:
       // Nothing to do
@@ -463,15 +477,17 @@ void PDFDocumentMagnifierView::paintEvent(QPaintEvent * event)
   Super::paintEvent(event);
 
   // Draw our custom border
-  // Note that QGraphicsView is not derived from QWidget, so we can't say
-  // QPainter(this)
+  // Note that QGraphicsView is derived from QAbstractScrollArea, but we are not
+  // asked to paint on that but on the widget it contains. Therefore, we can't
+  // just say QPainter(this)
   QPainter painter(viewport());
-  QPen pen(QPalette().color(backgroundRole()));
-  pen.setWidth(2);
 
-  // Adjust the rectangle so we draw only inside the window region
+  painter.setRenderHint(QPainter::Antialiasing);
+  
+  QPen pen(Qt::gray);
+  pen.setWidth(2);
+  
   QRect rect(this->rect());
-  rect.adjust(pen.width() / 2, pen.width() / 2, -pen.width() / 2, -pen.width() / 2);
 
   painter.setPen(pen);
   switch(_shape) {
@@ -479,9 +495,108 @@ void PDFDocumentMagnifierView::paintEvent(QPaintEvent * event)
       painter.drawRect(rect);
       break;
     case PDFDocumentView::Magnifier_Circle:
+      // Ensure we're drawing where we should, regardless how the window system
+      // handles masks
+      painter.setClipRegion(mask());
+      // **TODO:** It seems to be necessary to adjust the window rect by one pixel
+      // to draw an evenly wide border; is there a better way?
+      rect.adjust(1, 1, 0, 0);
       painter.drawEllipse(rect);
       break;
   }
+
+  // **Note:** We don't/can't draw the drop-shadow here. The reason is that we
+  // rely on Super::paintEvent to do the actual rendering, which constructs its
+  // own QPainter so we can't do clipping. Resetting the mask is no option,
+  // either, as that may trigger an update (recursion!).
+  // Alternatively, we could fill the border with the background from the
+  // underlying window. But _parent_view->render() no option, because it
+  // requires QWidget::DrawChildren (apparently the QGraphicsItems are
+  // implemented as child widgets) which would cause a recursion again (the
+  // magnifier is also a child widget!). Calling scene()->render() is no option,
+  // either, because then render requests for unmagnified images would originate
+  // from here, which would break the current implementation of
+  // PDFPageGraphicsItem::paint().
+  // Instead, drop-shadows are drawn in PDFDocumentView::paintEvent(), invoking
+  // PDFDocumentMagnifierView::dropShadow().
+}
+
+// Modelled after http://labs.qt.nokia.com/2009/10/07/magnifying-glass
+QPixmap PDFDocumentMagnifierView::dropShadow() const
+{
+  int padding = 10;
+  QPixmap retVal(width() + 2 * padding, height() + 2 * padding);
+
+  retVal.fill(Qt::transparent);
+
+  switch(_shape) {
+    case PDFDocumentView::Magnifier_Rectangle:
+      {
+        QPainterPath path;
+        QRectF boundingRect(retVal.rect().adjusted(0, 0, -1, -1));
+        QLinearGradient gradient(boundingRect.center(), QPointF(0.0, boundingRect.center().y()));
+        gradient.setSpread(QGradient::ReflectSpread);
+        QGradientStops stops;
+        QColor color(Qt::black);
+        color.setAlpha(64);
+        stops.append(QGradientStop(1.0 - padding * 2.0 / retVal.width(), color));
+        color.setAlpha(0);
+        stops.append(QGradientStop(1.0, color));
+
+        QPainter shadow(&retVal);
+        shadow.setRenderHint(QPainter::Antialiasing);
+
+        // paint horizontal gradient
+        gradient.setStops(stops);
+
+        path = QPainterPath();
+        path.moveTo(boundingRect.topLeft());
+        path.lineTo(boundingRect.topLeft() + QPointF(padding, padding));
+        path.lineTo(boundingRect.bottomRight() + QPointF(-padding, -padding));
+        path.lineTo(boundingRect.bottomRight());
+        path.lineTo(boundingRect.topRight());
+        path.lineTo(boundingRect.topRight() + QPointF(-padding, padding));
+        path.lineTo(boundingRect.bottomLeft() + QPointF(padding, -padding));
+        path.lineTo(boundingRect.bottomLeft());
+        path.closeSubpath();
+
+        shadow.fillPath(path, gradient);
+
+        // paint vertical gradient
+        stops[0].first = 1.0 - padding * 2.0 / retVal.height();
+        gradient.setStops(stops);
+
+        path = QPainterPath();
+        path.moveTo(boundingRect.topLeft());
+        path.lineTo(boundingRect.topLeft() + QPointF(padding, padding));
+        path.lineTo(boundingRect.bottomRight() + QPointF(-padding, -padding));
+        path.lineTo(boundingRect.bottomRight());
+        path.lineTo(boundingRect.bottomLeft());
+        path.lineTo(boundingRect.bottomLeft() + QPointF(padding, -padding));
+        path.lineTo(boundingRect.topRight() + QPointF(-padding, padding));
+        path.lineTo(boundingRect.topRight());
+        path.closeSubpath();
+
+        gradient.setFinalStop(QPointF(QRectF(retVal.rect()).center().x(), 0.0));
+        shadow.fillPath(path, gradient);
+      }
+      break;
+    case PDFDocumentView::Magnifier_Circle:
+      {
+        QRadialGradient gradient(QRectF(retVal.rect()).center(), retVal.width() / 2.0, QRectF(retVal.rect()).center());
+        QColor color(Qt::black);
+        color.setAlpha(0);
+        gradient.setColorAt(1.0, color);
+        color.setAlpha(64);
+        gradient.setColorAt(1.0 - padding * 2.0 / retVal.width(), color);
+        
+        QPainter shadow(&retVal);
+        shadow.setRenderHint(QPainter::Antialiasing);
+        shadow.fillRect(retVal.rect(), gradient);
+      }
+      break;
+  }
+  return retVal;
 }
 
 
