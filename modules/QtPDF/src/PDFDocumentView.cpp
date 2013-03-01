@@ -91,15 +91,21 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
     // a View that would ignore page jumps that other scenes would respond to._
     connect(_pdf_scene.data(), SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
     connect(_pdf_scene.data(), SIGNAL(pdfActionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
+    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<Document>)), this, SIGNAL(changedDocument(const QSharedPointer<Document>)));
   }
   else
     _lastPage = -1;
+  
+  // ensure the zoom is reset if we load a new document
+  zoom100();
 
   // Ensure search result list is empty in case we are switching from another
   // scene.
   _searchResults.clear();
-  // FIXME: emit some kind of signal to notify other components the scene has
-  // changed (e.g., page number display, dock widgets, etc.)
+  if (_pdf_scene)
+    emit changedDocument(_pdf_scene->document());
+  else
+    emit changedDocument(QSharedPointer<Document>());
 }
 int PDFDocumentView::currentPage() { return _currentPage; }
 int PDFDocumentView::lastPage()    { return _lastPage; }
@@ -195,7 +201,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
   if (_pdf_scene) {
     if (_pdf_scene->document())
       infoWidget->initFromDocument(_pdf_scene->document());
-    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<Document>)), infoWidget, SLOT(initFromDocument(const QSharedPointer<Document>)));
+    connect(this, SIGNAL(changedDocument(const QSharedPointer<Document>)), infoWidget, SLOT(initFromDocument(const QSharedPointer<Document>)));
   }
   dock->setWindowTitle(infoWidget->windowTitle());
 
@@ -330,6 +336,26 @@ void PDFDocumentView::zoomFitWidth()
 
   // We reset the scaling factors to (1,1) and then scaled both by the same
   // factor so the zoom level should be equal to the x scale.
+  _zoomLevel = transform().m11();
+  emit changedZoom(_zoomLevel);
+}
+
+void PDFDocumentView::zoom100()
+{
+  // Reset zoom level to 100%
+
+  // Reset the view scale to 1:1.
+  QRectF unity = matrix().mapRect(QRectF(0, 0, 1, 1));
+  if (unity.isEmpty())
+      return;
+
+  // Set the transformation anchor to AnchorViewCenter so we always zoom out of
+  // the center of the view (rather than out of the upper left corner)
+  QGraphicsView::ViewportAnchor anchor = transformationAnchor();
+  setTransformationAnchor(QGraphicsView::AnchorViewCenter);
+  scale(1 / unity.width(), 1 / unity.height());
+  setTransformationAnchor(anchor);
+
   _zoomLevel = transform().m11();
   emit changedZoom(_zoomLevel);
 }
@@ -2548,9 +2574,11 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   // The "Other" group box
   _other = groupBox = new QGroupBox(PDFDocumentView::trUtf8("Other"), this);
   layout = new QFormLayout(groupBox);
+  // Hide the "Other" group box unless it has something to display
+  _other->setVisible(false);
 
   // Note: Items are added to the "Other" box dynamically in
-  // setMetaDataFromDocument()
+  // initFromDocument()
 
   groupBox->setLayout(layout);
   vLayout->addWidget(groupBox);
@@ -2589,8 +2617,11 @@ void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
   // Remove any items there may be
   while (layout->count() > 0) {
     QLayoutItem * child = layout->takeAt(0);
-    if (child)
+    if (child) {
+      if (child->widget())
+        child->widget()->deleteLater();
       delete child;
+    }
   }
   QMap<QString, QString>::const_iterator it;
   for (it = doc->metaDataOther().constBegin(); it != doc->metaDataOther().constEnd(); ++it) {
@@ -2598,6 +2629,8 @@ void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
     l->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
     layout->addRow(it.key(), l);
   }
+  // Hide the "Other" group box unless it has something to display
+  _other->setVisible(layout->count() > 0);
 }
 
 void PDFMetaDataInfoWidget::clear()
@@ -2843,6 +2876,7 @@ void PDFAnnotationsInfoWidget::initFromDocument(const QSharedPointer<Document> d
     _annotWatcher.waitForFinished();
   }
 
+  clear();
   _annotWatcher.setFuture(QtConcurrent::mapped(pages, PDFAnnotationsInfoWidget::loadAnnotations));
 }
 

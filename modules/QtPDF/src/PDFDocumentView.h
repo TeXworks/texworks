@@ -130,6 +130,7 @@ public slots:
   void zoomToRect(QRectF a_rect);
   void zoomFitWindow();
   void zoomFitWidth();
+  void zoom100();
 
   void search(QString searchText);
   void nextSearchResult();
@@ -139,6 +140,9 @@ public slots:
 signals:
   void changedPage(int pageNum);
   void changedZoom(qreal zoomLevel);
+  // emitted, e.g., if a new document was loaded, or if the existing document
+  // has changed (e.g., if it was unlocked)
+  void changedDocument(const QSharedPointer<Document> newDoc);
 
   void searchProgressChanged(int percent, int occurrences);
 

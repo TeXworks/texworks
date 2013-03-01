@@ -1,7 +1,17 @@
 #include <QtGui/QtGui>
+#include "PDFDocumentView.h"
+
+class PageCounter;
+class ZoomTracker;
+class SearchLineEdit;
 
 class PDFViewer : public QMainWindow {
   Q_OBJECT
+
+  PageCounter * _counter;
+  ZoomTracker * _zoomWdgt;
+  SearchLineEdit * _search;
+  QToolBar * _toolBar;
 
 public:
   PDFViewer(const QString pdf_doc = QString(), QWidget *parent = 0, Qt::WindowFlags flags = 0);
@@ -14,6 +24,7 @@ private slots:
   void openPdf(QString filename, int page, bool newWindow) const;
   void syncFromPdf(const int page, const QPointF pos);
   void searchProgressChanged(int percent, int occurrences);
+  void documentChanged(const QSharedPointer<Document> newDoc);
 };
 
 
