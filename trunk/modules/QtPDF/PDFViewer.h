@@ -4,7 +4,10 @@ class PDFViewer : public QMainWindow {
   Q_OBJECT
 
 public:
-  PDFViewer(QString pdf_doc, QWidget *parent = 0, Qt::WindowFlags flags = 0);
+  PDFViewer(const QString pdf_doc = QString(), QWidget *parent = 0, Qt::WindowFlags flags = 0);
+
+public slots:
+  void open();
 
 private slots:
   void openUrl(const QUrl url) const;
