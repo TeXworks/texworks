@@ -12,14 +12,14 @@
  * more details.
  */
 
-// NOTE: `PopplerBackend.h` is included via `PDFBackend.h`
+// NOTE: `PopplerQt4Backend.h` is included via `PDFBackend.h`
 #include <PDFBackend.h>
 
 namespace QtPDF {
 
 namespace Backend {
 
-namespace Poppler {
+namespace PopplerQt4 {
 
 // TODO: Find a better place to put this
 PDFDestination toPDFDestination(const ::Poppler::Document * doc, const ::Poppler::LinkDestination & dest)
@@ -112,7 +112,7 @@ void convertAnnotation(Annotation::AbstractAnnotation * dest, const ::Poppler::A
     flags |= Annotation::AbstractAnnotation::Annotation_Locked;
   if (src->flags() & ::Poppler::Annotation::ToggleHidingOnMouse)
     flags |= Annotation::AbstractAnnotation::Annotation_ToggleNoView;
-  
+
   if (dest->isMarkup()) {
     Annotation::Markup * annot = static_cast<Annotation::Markup*>(dest);
     annot->setAuthor(src->author());
@@ -130,7 +130,7 @@ Document::Document(QString fileName):
   _fontsLoaded(false)
 {
 #ifdef DEBUG
-//  qDebug() << "Poppler::Document::Document(" << fileName << ")";
+//  qDebug() << "PopplerQt4::Document::Document(" << fileName << ")";
 #endif
   parseDocument();
 }
@@ -138,7 +138,7 @@ Document::Document(QString fileName):
 Document::~Document()
 {
 #ifdef DEBUG
-//  qDebug() << "Poppler::Document::~Document()";
+//  qDebug() << "PopplerQt4::Document::~Document()";
 #endif
   clearPages();
 }
@@ -241,7 +241,7 @@ void Document::parseDocument()
   // converted to a string representation properly.
   _meta_trapped = Trapped_Unknown;
     metaKeys.removeAll(QString::fromUtf8("Trapped"));
-  
+
   foreach (QString key, metaKeys)
     _meta_other[key] = _poppler_doc->info(key);
 }
@@ -368,7 +368,7 @@ QList<PDFFontInfo> Document::fonts() const
   QList<PDFFontInfo> & fonts = const_cast<QList<PDFFontInfo>&>(_fonts);
   bool & fontsLoaded = const_cast<bool&>(_fontsLoaded);
   fontsLoaded = true;
-  
+
   foreach(::Poppler::FontInfo popplerFontInfo, _poppler_doc->fonts()) {
     PDFFontInfo fi;
     if (popplerFontInfo.isEmbedded())
@@ -501,7 +501,7 @@ QImage Page::renderToImage(double xres, double yres, QRect render_box, bool cach
 
   {
     // Rendering pages is not thread safe.
-    QMutexLocker popplerDocLock(static_cast<Backend::Poppler::Document *>(_parent)->_poppler_docLock);
+    QMutexLocker popplerDocLock(static_cast<Backend::PopplerQt4::Document *>(_parent)->_poppler_docLock);
     if( render_box.isNull() ) {
       // A null QRect has a width and height of 0 --- we will tell Poppler to render the whole
       // page.
@@ -545,7 +545,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
   QList< ::Poppler::Annotation *> popplerAnnots;
   {
     // Loading links is not thread safe.
-    QMutexLocker popplerDocLock(static_cast<Backend::Poppler::Document *>(_parent)->_poppler_docLock);
+    QMutexLocker popplerDocLock(static_cast<Backend::PopplerQt4::Document *>(_parent)->_poppler_docLock);
     popplerLinks = _poppler_page->links();
     popplerAnnots = _poppler_page->annotations();
   }
@@ -584,7 +584,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
     }
 
     link->setRect(denormalize.mapRect(popplerLink->linkArea()));
-    
+
     switch (popplerLink->linkType()) {
       case ::Poppler::Link::Goto:
         {
@@ -643,7 +643,7 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
     return _annotations;
 
   _annotationsLoaded = true;
-  
+
   QList< ::Poppler::Annotation *> popplerAnnots;
   {
     // Loading annotations is not thread safe.
@@ -825,7 +825,7 @@ void Page::loadTransitionData()
         _transition->setMotion(Transition::AbstractTransition::Motion_Outward);
       }
     }
-  }  
+  }
 }
 
 QList< Backend::Page::Box > Page::boxes()
@@ -833,7 +833,7 @@ QList< Backend::Page::Box > Page::boxes()
   QReadLocker pageLocker(_pageLock);
   Q_ASSERT(_poppler_page != NULL);
   QList< Backend::Page::Box > retVal;
- 
+
   foreach (::Poppler::TextBox * popplerTextBox, _poppler_page->textList()) {
     if (!popplerTextBox)
       continue;
@@ -876,11 +876,10 @@ QString Page::selectedText(const QList<QPolygonF> & selection)
   return retVal;
 }
 
-} // namespace Poppler
+} // namespace PopplerQt4
 
 } // namespace Backend
 
 } // namespace QtPDF
 
 // vim: set sw=2 ts=2 et
-

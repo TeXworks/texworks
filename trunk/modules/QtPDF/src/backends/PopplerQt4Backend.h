@@ -28,7 +28,7 @@ namespace QtPDF {
 
 namespace Backend {
 
-namespace Poppler {
+namespace PopplerQt4 {
 
 class Document;
 class Page;
@@ -91,7 +91,7 @@ class Page: public Backend::Page
 
 protected:
   Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock);
-  
+
 public:
   ~Page();
 
@@ -103,11 +103,11 @@ public:
   QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations();
   QList< Backend::Page::Box > boxes();
   QString selectedText(const QList<QPolygonF> & selection);
-  
+
   QList<Backend::SearchResult> search(QString searchText);
 };
 
-} // namespace Poppler
+} // namespace PopplerQt4
 
 } // namespace Backend
 
@@ -120,7 +120,7 @@ public:
   virtual ~PopplerQt4Backend() { }
 
   virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) {
-    return QSharedPointer<Backend::Document>(new Backend::Poppler::Document(fileName));
+    return QSharedPointer<Backend::Document>(new Backend::PopplerQt4::Document(fileName));
   }
 
   virtual QString name() const { return QString::fromAscii("poppler-qt4"); }
@@ -131,4 +131,3 @@ public:
 
 #endif // End header guard
 // vim: set sw=2 ts=2 et
-

@@ -21,7 +21,7 @@ PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = NULL */)
 #ifdef USE_MUPDF
   _backends.append(new MuPDFBackend());
 #endif
-#ifdef USE_POPPLER
+#ifdef USE_POPPLERQT4
   _backends.append(new PopplerQt4Backend());
 #endif
 }
@@ -40,17 +40,6 @@ PDFDocumentWidget::~PDFDocumentWidget()
 // is returned
 bool PDFDocumentWidget::load(const QString &filename)
 {
-/*
-  // *TODO*: If more than one backend is available, maybe let users set their
-  //          preferred one
-#ifdef USE_MUPDF
-  QSharedPointer<QtPDF::Backend::Document> a_pdf_doc(new QtPDF::Backend::MuPDF::Document(filename));
-#elif USE_POPPLER
-  QSharedPointer<QtPDF::Backend::Document> a_pdf_doc(new QtPDF::Backend::Poppler::Document(filename));
-#else
-  #error Either the Poppler or the MuPDF backend is required
-#endif
-*/
   QSharedPointer<QtPDF::Backend::Document> a_pdf_doc;
   foreach(BackendInterface * bi, _backends) {
     if (bi && bi->canHandleFile(filename))

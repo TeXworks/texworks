@@ -10,7 +10,7 @@ SOURCES = \
 "src/PDFTransitions.cpp" \
 "src/PDFActions.cpp" \
 "src/PDFAnnotations.cpp" \
-"src/backends/PopplerBackend.cpp" \
+"src/backends/PopplerQt4Backend.cpp" \
 "src/backends/MuPDFBackend.cpp" \
 "src/PDFDocumentView.h" \
 "src/PDFDocumentWidget.h" \
@@ -19,7 +19,7 @@ SOURCES = \
 "src/PDFTransitions.h" \
 "src/PDFActions.h" \
 "src/PDFAnnotations.h" \
-"src/backends/PopplerBackend.h" \
+"src/backends/PopplerQt4Backend.h" \
 "src/backends/MuPDFBackend.h"
 
 TRANSLATIONS = \
