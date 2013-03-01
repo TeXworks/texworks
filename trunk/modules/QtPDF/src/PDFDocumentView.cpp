@@ -233,6 +233,7 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
   _toolAccessors.clear();
   _toolAccessors[Qt::ControlModifier + Qt::LeftButton] = Tool_ContextClick;
   _toolAccessors[Qt::NoModifier + Qt::RightButton] = Tool_ContextMenu;
+  _toolAccessors[Qt::NoModifier + Qt::MiddleButton] = Tool_Move;
   _toolAccessors[Qt::ShiftModifier + Qt::LeftButton] = Tool_ZoomIn;
   _toolAccessors[Qt::AltModifier + Qt::LeftButton] = Tool_ZoomOut;
   // Other tools: Tool_MagnifyingGlass, Tool_MarqueeZoom, Tool_Move
@@ -240,19 +241,16 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
   disarmTool(_armedTool);
   switch (newMode) {
     case MouseMode_Move:
-      setDragMode(QGraphicsView::ScrollHandDrag);
       armTool(Tool_Move);
       _toolAccessors[Qt::NoModifier + Qt::LeftButton] = Tool_Move;
       break;
 
     case MouseMode_MarqueeZoom:
-      setDragMode(QGraphicsView::NoDrag);
       armTool(Tool_MarqueeZoom);
       _toolAccessors[Qt::NoModifier + Qt::LeftButton] = Tool_MarqueeZoom;
       break;
 
     case MouseMode_MagnifyingGlass:
-      setDragMode(QGraphicsView::NoDrag);
       armTool(Tool_MagnifyingGlass);
       _toolAccessors[Qt::NoModifier + Qt::LeftButton] = Tool_MagnifyingGlass;
       break;
@@ -504,6 +502,19 @@ void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
         viewport()->update();
       }
       break;
+
+    case Tool_Move:
+      // Adapted from <qt>/src/gui/graphicsview/qgraphicsview.cpp @ QGraphicsView::mouseMoveEvent
+      {
+        QScrollBar *hBar = horizontalScrollBar();
+        QScrollBar *vBar = verticalScrollBar();
+        QPoint delta = event->pos() - _movePosition;
+        hBar->setValue(hBar->value() - delta.x());
+        vBar->setValue(vBar->value() - delta.y());
+        _movePosition = event->pos();
+      }
+      break;
+
     default:
       // Nothing to do
       break;
@@ -519,7 +530,11 @@ void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
   // mouse tracking we only receive this event if the current widget has grabbed
   // the mouse (i.e., after a mousePressEvent)
 
-  Tool t = _toolAccessors.value(event->buttons() | event->button() | event->modifiers(), Tool_None);
+  Qt::MouseButtons buttons = event->buttons();
+  if (buttons == Qt::NoButton)
+    buttons |= Qt::LeftButton;
+
+  Tool t = _toolAccessors.value(buttons | event->modifiers(), Tool_None);
   if (_armedTool != t) {
     disarmTool(_armedTool);
     armTool(t);
@@ -596,6 +611,16 @@ void PDFDocumentView::startTool(const Tool tool, QMouseEvent * event)
       _rubberBand->show();
       event->accept();
       break;
+    case Tool_Move:
+      // The ideal way to implement the move tool would be to set `dragMode` to
+      // `QGraphicsView::ScrollHandDrag` and use the built-in functionality.
+      // However, that does work only with the left mouse button.
+      //
+      // So... we have to do this ourselves.
+      viewport()->setCursor(Qt::ClosedHandCursor);
+      _movePosition = event->pos();
+      event->accept();
+      break;
     case Tool_MagnifyingGlass:
       _magnifier->prepareToShow();
       _magnifier->setPosition(event->pos());
@@ -628,6 +653,17 @@ void PDFDocumentView::finishTool(const Tool tool, QMouseEvent * event)
         _magnifier->hide();
         viewport()->update();
         event->accept();
+      }
+      break;
+      
+    case Tool_Move:
+      // TODO: Disarming and rearming the current tool is a hack to get the
+      // cursor right if the move tool was accessed through non-standard ways
+      // (e.g., using the middle mouse button)
+      {
+        Tool armedTool = _armedTool;
+        disarmTool(armedTool);
+        armTool(armedTool);
       }
       break;
 
@@ -667,6 +703,17 @@ void PDFDocumentView::abortTool(const Tool tool)
       if (_rubberBand->isVisible()) {
         _rubberBand->hide();
         _rubberBand->setGeometry(QRect());
+      }
+      break;
+      
+    case Tool_Move:
+      // TODO: Disarming and rearming the current tool is a hack to get the
+      // cursor right if the move tool was accessed through non-standard ways
+      // (e.g., using the middle mouse button)
+      {
+        Tool armedTool = _armedTool;
+        disarmTool(armedTool);
+        armTool(armedTool);
       }
       break;
 

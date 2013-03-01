@@ -36,6 +36,7 @@ class PDFDocumentView : public QGraphicsView {
 
   QRubberBand *_rubberBand;
   QPoint _rubberBandOrigin;
+  QPoint _movePosition;
 
   qreal _zoomLevel;
   int _currentPage, _lastPage;
