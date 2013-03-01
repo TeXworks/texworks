@@ -43,7 +43,8 @@ Page *PopplerDocument::page(int at){ return new PopplerPage(this, at); }
 // Page Class
 // ==========
 PopplerPage::PopplerPage(PopplerDocument *parent, int at):
-  Super(parent, at)
+  Super(parent, at),
+  _linksLoaded(false)
 {
   _poppler_page = QSharedPointer<Poppler::Page>(static_cast<PopplerDocument *>(_parent)->_poppler_doc->page(at));
 }
@@ -84,9 +85,12 @@ QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box, bo
   return renderedPage;
 }
 
-QList<PDFLinkAnnotation *> PopplerPage::loadLinks()
+QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
 {
-  QList<PDFLinkAnnotation *> links;
+  if (_linksLoaded)
+    return _links;
+
+  _linksLoaded = true;
   // Loading links is not thread safe.
   QMutexLocker docLock(static_cast<PopplerDocument *>(_parent)->_doc_lock);
   QList<Poppler::Link *> popplerLinks = _poppler_page->links();
@@ -96,7 +100,7 @@ QList<PDFLinkAnnotation *> PopplerPage::loadLinks()
   // Convert poppler links to PDFLinkAnnotations
   // Note: 
   foreach (Poppler::Link * popplerLink, popplerLinks) {
-    PDFLinkAnnotation * link = new PDFLinkAnnotation();
+    QSharedPointer<PDFLinkAnnotation> link(new PDFLinkAnnotation);
     link->setRect(popplerLink->linkArea());
     link->setPage(this);
     
@@ -135,7 +139,7 @@ QList<PDFLinkAnnotation *> PopplerPage::loadLinks()
       case Poppler::Link::Movie:
       case Poppler::Link::JavaScript:
         // We don't handle these types yet
-        delete link;
+        link.clear();
         continue;
     }
 
@@ -163,9 +167,9 @@ QList<PDFLinkAnnotation *> PopplerPage::loadLinks()
       // TODO: Does Poppler provide an easy interface to all quadPoints?
       break;
     }
-    links << link;
+    _links << link;
   }
-  return links;
+  return _links;
 }
 
 
