@@ -365,10 +365,9 @@ void PDFDocumentView::search(QString searchText)
     qDebug() << "Document has : " << results.size() << " occurances of the search string. Search took: " << stopwatch.elapsed() << " milliseconds";
 #endif
 
-    // FIXME:
-    // The brush used for highlighting should be defined at global scope to
-    // remove the need for re-creating it on each function call. Should also be
-    // configurable via a settings object.
+    // FIXME: The brush used for highlighting should be defined at global scope
+    // to remove the need for re-creating it on each function call. Should also
+    // be configurable via a settings object.
     QColor fillColor(Qt::yellow);
     fillColor.setAlphaF(0.6);
     QBrush highlightBrush(fillColor);
@@ -1604,9 +1603,6 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_lin
   // The link area is expressed in "normalized page coordinates", i.e.  values
   // in the range [0, 1]. The transformation matrix of this item will have to
   // be adjusted so that links will show up correctly in a graphics view.
-  // FIXME: the link rectangle __should__ be given in pdf coordinates (as that
-  // is the fundamental, implementation-agnostic, standardized coordinate
-  // system)
   setRect(_link->rect());
 
   // Allows links to provide a context-specific cursor when the mouse is
