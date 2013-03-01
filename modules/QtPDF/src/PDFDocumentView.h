@@ -43,6 +43,7 @@ class PDFDocumentView : public QGraphicsView {
 
   QString _searchString;
   QList<QGraphicsItem *> _searchResults;
+  QFutureWatcher< QList<SearchResult> > _searchResultWatcher;
   int _currentSearchResult;
 
 public:
@@ -53,6 +54,7 @@ public:
   enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions };
 
   PDFDocumentView(QWidget *parent = 0);
+  ~PDFDocumentView();
   void setScene(QSharedPointer<PDFDocumentScene> a_scene);
   int currentPage();
   int lastPage();
@@ -106,6 +108,8 @@ signals:
   void changedPage(int pageNum);
   void changedZoom(qreal zoomLevel);
 
+  void searchProgressChanged(int percent, int occurrences);
+
   void requestOpenUrl(const QUrl url);
   void requestExecuteCommand(QString command);
   void requestOpenPdf(QString filename, int page, bool newWindow);
@@ -142,6 +146,8 @@ protected slots:
   void goToPage(const PDFPageGraphicsItem * page, const QRectF view, const bool mayZoom = false);
   void goToPage(const PDFPageGraphicsItem * page, const int alignment = Qt::AlignLeft | Qt::AlignTop);
   void goToPage(const PDFPageGraphicsItem * page, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
+  void searchResultReady(int index);
+  void searchProgressValueChanged(int progressValue);
 
 private:
   PageMode _pageMode;

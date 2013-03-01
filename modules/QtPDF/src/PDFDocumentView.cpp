@@ -51,8 +51,16 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   // call setMouseMode (which bails out if the mouse mode is not changed), which
   // in turn sets up other variables such as _toolAccessors
   setMouseMode(MouseMode_MagnifyingGlass);
+  
+  connect(&_searchResultWatcher, SIGNAL(resultReadyAt(int)), this, SLOT(searchResultReady(int)));
+  connect(&_searchResultWatcher, SIGNAL(progressValueChanged(int)), this, SLOT(searchProgressValueChanged(int)));
 }
 
+PDFDocumentView::~PDFDocumentView()
+{
+  if (!_searchResultWatcher.isFinished())
+    _searchResultWatcher.cancel();
+}
 
 // Accessors
 // ---------
@@ -369,46 +377,51 @@ void PDFDocumentView::search(QString searchText)
   if ( not _pdf_scene )
     return;
 
-  if ( searchText != _searchString ) {
-    clearSearchResults();
+  // If `searchText` is the same as for the last search, focus on the next 
+  // search result.
+  // Note: The primary use case for this is hitting `Enter` several times in the
+  // search box to go to the next result.
+  // On the other hand, with this there is no easy way to abort a long-running
+  // search (e.g., in a large document) and restarting it in another part by
+  // simply going there and hitting `Enter` again. As a workaround, one can
+  // change the search text in that case (e.g., to something meaningless and
+  // then back again to abort the previous search and restart at the new
+  // location).
+  if (searchText == _searchString) {
+    nextSearchResult();
+    return;
+  }
+  
+  clearSearchResults();
 
-#ifdef DEBUG
-    // Test search.
-    qDebug() << "Searching for: " << searchText;
-    stopwatch.start();
-#endif
-    QList<SearchResult> results = _pdf_scene->document()->search(searchText, _currentPage);
-#ifdef DEBUG
-    qDebug() << "Document has : " << results.size() << " occurances of the search string. Search took: " << stopwatch.elapsed() << " milliseconds";
-#endif
-
-    // FIXME: The brush used for highlighting should be defined at global scope
-    // to remove the need for re-creating it on each function call. Should also
-    // be configurable via a settings object.
-    QColor fillColor(Qt::yellow);
-    fillColor.setAlphaF(0.6);
-    QBrush highlightBrush(fillColor);
-
-    foreach( SearchResult result, results ) {
-      PDFPageGraphicsItem *page = qgraphicsitem_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(result.pageNum));
-
-      // This causes the page to take ownership of the highlight item which applies
-      // necessary transformations and adds the item to the scene.
-      QGraphicsRectItem *highlightItem = new QGraphicsRectItem(result.bbox, page);
-
-      highlightItem->setBrush(highlightBrush);
-      highlightItem->setPen(Qt::NoPen);
-      highlightItem->setTransform(page->pointScale());
-
-      _searchResults << highlightItem;
-    }
-
-    _searchString = searchText;
-    _currentSearchResult = 0;
+  // Construct a list of requests that can be passed to QtConcurrent::mapped()
+  QList<SearchRequest> requests;
+  int i;
+  for (i = _currentPage; i < _lastPage; ++i) {
+    SearchRequest request;
+    request.doc = _pdf_scene->document();
+    request.pageNum = i;
+    request.searchString = searchText;
+    requests << request;
+  }
+  for (i = 0; i < _currentPage; ++i) {
+    SearchRequest request;
+    request.doc = _pdf_scene->document();
+    request.pageNum = i;
+    request.searchString = searchText;
+    requests << request;
+  }
+  
+  // If another search is still running, cancel it---after all, the user wants
+  // to perform a new search
+  if (!_searchResultWatcher.isFinished()) {
+    _searchResultWatcher.cancel();
+    _searchResultWatcher.waitForFinished();
   }
 
-  // Center view on first search result.
-  nextSearchResult();
+  _currentSearchResult = -1;
+  _searchString = searchText;
+  _searchResultWatcher.setFuture(QtConcurrent::mapped(requests, Page::search));
 }
 
 void PDFDocumentView::nextSearchResult()
@@ -451,6 +464,45 @@ void PDFDocumentView::clearSearchResults()
 
 // Protected Slots
 // --------------
+void PDFDocumentView::searchResultReady(int index)
+{
+  // FIXME: The brush used for highlighting should be defined at global scope
+  // to remove the need for re-creating it on each function call. Should also
+  // be configurable via a settings object.
+  QColor fillColor(Qt::yellow);
+  fillColor.setAlphaF(0.6);
+  QBrush highlightBrush(fillColor);
+
+  // Convert the search result to highlight boxes
+  foreach( SearchResult result, _searchResultWatcher.future().resultAt(index) ) {
+    PDFPageGraphicsItem *page = qgraphicsitem_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(result.pageNum));
+    if (!page)
+      continue;
+
+    // This causes the page to take ownership of the highlight item which applies
+    // necessary transformations and adds the item to the scene.
+    QGraphicsRectItem *highlightItem = new QGraphicsRectItem(result.bbox, page);
+
+    highlightItem->setBrush(highlightBrush);
+    highlightItem->setPen(Qt::NoPen);
+    highlightItem->setTransform(page->pointScale());
+
+    _searchResults << highlightItem;
+  }
+  
+  // If this is the first result that becomes available in a new search, center
+  // on the first result
+  if (_currentSearchResult == -1)
+    nextSearchResult();
+}
+
+void PDFDocumentView::searchProgressValueChanged(int progressValue)
+{
+  // Inform the rest of the world of our progress (in %, and how many
+  // occurrences were found so far)
+  emit searchProgressChanged(100 * (progressValue - _searchResultWatcher.progressMinimum()) / (_searchResultWatcher.progressMaximum() - _searchResultWatcher.progressMinimum()), _searchResults.count());
+}
+
 void PDFDocumentView::maybeUpdateSceneRect() {
   if (!_pdf_scene || _pageMode != PageMode_SinglePage)
     return;
