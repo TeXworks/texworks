@@ -1,0 +1,11 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource>
+    <file>icons/magnifiercursor.png</file>
+    <file>icons/zoom.png</file>
+    <file>icons/zoomin.png</file>
+    <file>icons/zoomincursor.png</file>
+    <file>icons/zoomout.png</file>
+    <file>icons/zoomoutcursor.png</file>
+  </qresource>
+</RCC>

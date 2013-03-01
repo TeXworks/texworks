@@ -11,8 +11,8 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   ZoomTracker *zoomWdgt = new ZoomTracker(this);
   QToolBar *toolBar = new QToolBar(this);
 
-  toolBar->addAction("Zoom In", docView, SLOT(zoomIn()));
-  toolBar->addAction("Zoom Out", docView, SLOT(zoomOut()));
+  toolBar->addAction(QIcon(":/icons/zoomin.png"), "Zoom In", docView, SLOT(zoomIn()));
+  toolBar->addAction(QIcon(":/icons/zoomout.png"), "Zoom Out", docView, SLOT(zoomOut()));
   counter->setLastPage(docView->lastPage());
   connect(docView, SIGNAL(changedPage(int)), counter, SLOT(setCurrentPage(int)));
   connect(docView, SIGNAL(changedZoom(qreal)), zoomWdgt, SLOT(setZoom(qreal)));
