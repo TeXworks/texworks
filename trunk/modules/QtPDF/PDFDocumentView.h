@@ -40,6 +40,22 @@ private:
 };
 
 
+class PDFLinkGraphicsItem : public QGraphicsRectItem {
+  typedef QGraphicsRectItem super;
+
+public:
+  PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent = 0);
+
+protected:
+  void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+  void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+
+private:
+  // Parent class has no copy constructor.
+  Q_DISABLE_COPY(PDFLinkGraphicsItem)
+};
+
+
 class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
   typedef QGraphicsView super;
