@@ -232,12 +232,30 @@ public:
 // object for a `QCache`.
 uint qHash(const PDFPageTile &tile);
 
-// TODO: May need a full subclass to do things like return the nearest image if
-// a specific resolution is not available.
-class PDFPageCache : public QCache<PDFPageTile, QImage>
+// This class is thread-safe
+class PDFPageCache : protected QCache<PDFPageTile, QImage>
 {
 public:
-  QReadWriteLock lock;
+  PDFPageCache() { }
+  virtual ~PDFPageCache() { }
+
+  // Note: Each image has a cost of 1
+  int maxSize() const { return maxCost(); }
+  void setMaxSize(const int num) { setMaxCost(num); }
+
+  // Returns the image under the key `tile` or NULL if it doesn't exist
+  QImage * getImage(const PDFPageTile & tile) const;
+  // Returns the pointer to the image in the cache under they key `tile` after
+  // the insertion. If overwrite == true, this will always be image, otherwise
+  // it can be different
+  QImage * setImage(const PDFPageTile & tile, QImage * image, const bool overwrite = true);
+  
+  void lock() const { _lock.lockForRead(); }
+  void unlock() const { _lock.unlock(); }
+
+  QList<PDFPageTile> tiles() const { return keys(); }
+protected:
+  mutable QReadWriteLock _lock;
 };
 
 // FIXME: the program segfaults if the page is destroyed while a page processing

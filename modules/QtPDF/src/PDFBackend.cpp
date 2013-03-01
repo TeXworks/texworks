@@ -235,6 +235,40 @@ uint qHash(const PDFPageTile &tile)
   return qHash(hash_string);
 }
 
+QImage * PDFPageCache::getImage(const PDFPageTile & tile) const
+{
+  _lock.lockForRead();
+  QImage * retVal = object(tile);
+  _lock.unlock();
+  return retVal;
+}
+
+QImage * PDFPageCache::setImage(const PDFPageTile & tile, QImage * image, const bool overwrite /* = true */)
+{
+  _lock.lockForWrite();
+  QImage * retVal = object(tile);
+  // If the key is not in the cache yet add it. Otherwise overwrite the cached
+  // image but leave the pointer intact as that can be held/used elsewhere
+  if (!retVal) {
+    insert(tile, image, (image ? image->byteCount() : 0));
+    retVal = image;
+  }
+  else if(overwrite) {
+    // TODO: overwriting an image with a different one can change its size (and
+    // therefore its cost in the cache). There doesn't seem to be a method to
+    // hande that in QCache, though, and since we only use one tile size this
+    // shouldn't pose a problem.
+    if (image)
+      *(object(tile)) = *image;
+    else {
+      insert(tile, NULL, 0);
+      retVal = NULL;
+    }
+  }
+  _lock.unlock();
+  return retVal;
+}
+
 
 // PDF ABCs
 // ========
@@ -249,7 +283,7 @@ Document::Document(QString fileName):
   //
   // NOTE: The application seems to exceed 1 GB---usage plateaus at around 2GB. No idea why. Perhaps freed
   // blocks are not garbage collected?? Perhaps my math is off??
-  _pageCache.setMaxCost(1024 * 1024 * 1024);
+  _pageCache.setMaxSize(1024 * 1024 * 1024);
 }
 
 Document::~Document()
@@ -297,11 +331,7 @@ int Page::pageNum() { return _n; }
 
 QImage *Page::getCachedImage(double xres, double yres, QRect render_box)
 {
-  QImage * retVal;
-  _parent->pageCache().lock.lockForRead();
-  retVal = _parent->pageCache().object(PDFPageTile(xres, yres, render_box, _n));
-  _parent->pageCache().lock.unlock();
-  return retVal;
+  return _parent->pageCache().getImage(PDFPageTile(xres, yres, render_box, _n));
 }
 
 void Page::asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box, bool cache)
@@ -337,25 +367,18 @@ QImage* Page::getTileImage(QObject * listener, const double xres, const double y
     // Note: Start the rendering in the background before constructing the image
     // to take advantage of multi-core CPUs. Since we hold the write lock here
     // there's nothing to worry about
-    _parent->pageCache().lock.lockForWrite();
     asyncRenderToImage(listener, xres, yres, render_box, true);
 
-    retVal = new QImage(render_box.width(), render_box.height(), QImage::Format_ARGB32);
-    QPainter p(retVal);
-    p.fillRect(retVal->rect(), *pageDummyBrush);
+    QImage * tmpImg = new QImage(render_box.width(), render_box.height(), QImage::Format_ARGB32);
+    QPainter p(tmpImg);
+    p.fillRect(tmpImg->rect(), *pageDummyBrush);
 
-    if (_parent->pageCache().contains(PDFPageTile(xres, yres, render_box, _n))) {
-      _parent->pageCache().lock.unlock();
-      delete retVal;
-      return getCachedImage(xres, yres, render_box);
-    }
-    
     // Look through the cache to find tiles we can reuse (by scaling) for our
     // dummy tile
     // TODO: Benchmark this. If it is actualy too slow (i.e., just keeping the
     // rendered image from popping up due to the write lock we hold) disable it
     {
-      QList<PDFPageTile> tiles = _parent->pageCache().keys();
+      QList<PDFPageTile> tiles = _parent->pageCache().tiles();
       for (QList<PDFPageTile>::iterator it = tiles.begin(); it != tiles.end(); ) {
         if (it->page_num != pageNum()) {
           it = tiles.erase(it);
@@ -376,7 +399,7 @@ QImage* Page::getTileImage(QObject * listener, const double xres, const double y
       QPainterPath clipPath;
       clipPath.addRect(0, 0, render_box.width(), render_box.height());
       foreach (PDFPageTile tile, tiles) {
-        QImage * tileImg = _parent->pageCache().object(tile);
+        QImage * tileImg = _parent->pageCache().getImage(tile);
         if (!tileImg)
           continue;
 
@@ -400,10 +423,16 @@ QImage* Page::getTileImage(QObject * listener, const double xres, const double y
           break;
       }
     }
+    // stop painting or else we couldn't (possibly) delete tmpImg below
+    p.end();
 
     // Add the dummy tile to the cache
-    _parent->pageCache().insert(PDFPageTile(xres, yres, render_box, _n), retVal);
-    _parent->pageCache().lock.unlock();
+    // Note: In the meantime the asynchronous rendering could have finished and
+    // insert the final image in the cache---we must handle that case and delete
+    // our temporary image
+    retVal = _parent->pageCache().setImage(PDFPageTile(xres, yres, render_box, _n), tmpImg, false);
+    if (retVal != tmpImg)
+      delete tmpImg;
     return retVal;
   }
   else {
