@@ -265,6 +265,10 @@ PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
   _doc(a_doc),
   docMutex(new QMutex)
 {
+  // We need to register a QList<PDFLinkGraphicsItem *> meta-type so we can
+  // pass it through inter-thread (i.e., queued) connections
+  qRegisterMetaType< QList<PDFLinkGraphicsItem *> >();
+
   // **TODO:** _Investigate the Arthur backend for native Qt rendering._
   _doc->setRenderBackend(Poppler::Document::SplashBackend);
   // Make things look pretty.
@@ -405,11 +409,6 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
   _pageIsRendering(false),
   _zoomLevel(0.0)
 {
-  // The `_linkGenerator` is used to monitor asynchronous generation of
-  // `PDFLinkGraphicsItem` objects associated with the links on this page.
-  _linkGenerator = new QFutureWatcher< QList<PDFLinkGraphicsItem *> >(this);
-  connect(_linkGenerator, SIGNAL(finished()), this, SLOT(addLinks()));
-
   // Create an empty pixmap that is the same size as the PDF page. This
   // allows us to delay the rendering of pages until they actually come into
   // view yet still know what the page size is.
@@ -435,15 +434,22 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // Really, there is an X scaling factor and a Y scaling factor, but we assume
   // that the X scaling factor is equal to the Y scaling factor.
   qreal scaleFactor = painter->transform().m11();
+  PDFDocumentScene * docScene = qobject_cast<PDFDocumentScene*>(scene());
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
   // `_linksLoaded` will be `false`. We then load all of the links on the page.
   if ( not _linksLoaded )
   {
-    // If this page has links, we generate `PDFLinkGraphicsItems` in a separate
-    // thread. The `_linkGenerator` will emit a `finished` signal when
-    // generation is complete.
-    _linkGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::loadLinks));
+    if (docScene) {
+      // Connect the rendering thread's signal to this object to receive
+      // notifications of finished pages
+      // **TODO:** If we ever reassign pages to other scenes, revisit this!
+      // Right now, we don't disconnect from the old scene (to ensure we receive
+      // late pageReady messages and those don't vanish into nirvana)
+      PageProcessingLoadLinksRequest * request = docScene->processingThread().requestLoadLinks(this);
+      if (request)
+        connect(request, SIGNAL(linksReady(QList<PDFLinkGraphicsItem *>)), this, SLOT(addLinks(QList<PDFLinkGraphicsItem *>)));
+    }
 
     _linksLoaded = true;
 
@@ -461,14 +467,13 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     // signal, this boolean is cleared.
     _pageIsRendering = true;
 
-    PDFDocumentScene * docScene = qobject_cast<PDFDocumentScene*>(scene());
     if (docScene) {
       // Connect the rendering thread's signal to this object to receive
       // notifications of finished pages
       // **TODO:** If we ever reassign pages to other scenes, revisit this!
       // Right now, we don't disconnect from the old scene (to ensure we receive
       // late pageReady messages and those don't vanish into nirvana)
-      PageProcessingRenderPageRequest * request = docScene->renderingThread().requestRender(this, scaleFactor);
+      PageProcessingRenderPageRequest * request = docScene->processingThread().requestRenderPage(this, scaleFactor);
       if (request)
         connect(request, SIGNAL(pageImageReady(qreal, QImage)), this, SLOT(updateRenderedPage(qreal, QImage)));
     }
@@ -507,50 +512,14 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 }
 
 
-// Asynchronous Link Generation
-// ----------------------------
-
-// This function generates `PDFLinkGraphicsItem` objects. It is intended to be
-// called asynchronously and so does not set parentage for the objects it
-// generates --- this task is left to the `addLinks` method so that all the
-// links are added and rendered in a synchronous operation.
-QList<PDFLinkGraphicsItem *> PDFPageGraphicsItem::loadLinks()
-{
-  // **TODO:**
-  //
-  //   * _Comment on how `pageScale` works and is used._
-
-  // We need to acquire a mutex from `PDFDocumentScene` as accessing page data,
-  // such as reading link lists or rendering page images is not thread safe
-  // among pages objects created from the same document object.
-  QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(scene())->docMutex);
-    QList<Poppler::Link *> links = _page->links();
-  docLock.unlock();
-
-  QList<PDFLinkGraphicsItem *> linkList;
-  if( links.empty() ) return linkList;
-
-  PDFLinkGraphicsItem *linkItem;
-
-  foreach( Poppler::Link *link, links )
-  {
-    linkItem = new PDFLinkGraphicsItem(link);
-    linkItem->setTransform(_pageScale);
-
-    linkList.append(linkItem);
-  }
-
-  return linkList;
-}
-
 // This method causes the `PDFPageGraphicsItem` to take ownership of
 // asynchronously generated `PDFLinkGraphicsItem` objects. Calling
 // `setParentItem` causes the link objects to be added to the scene that owns
 // the page object. `update` is then called to ensure all links are drawn at
 // once.
-void PDFPageGraphicsItem::addLinks()
+void PDFPageGraphicsItem::addLinks(QList<PDFLinkGraphicsItem *> links)
 {
-  foreach( PDFLinkGraphicsItem *item, _linkGenerator->result() ) item->setParentItem(this);
+  foreach( PDFLinkGraphicsItem *item, links ) item->setParentItem(this);
 
   update();
 }
@@ -709,12 +678,12 @@ PDFLinkEvent::PDFLinkEvent(int a_page) : Super(LinkEvent), pageNum(a_page) {}
 // filter out these events.
 QEvent::Type PDFLinkEvent::LinkEvent = static_cast<QEvent::Type>( QEvent::registerEventType() );
 
-PDFPageRenderingThread::PDFPageRenderingThread() :
+PDFPageProcessingThread::PDFPageProcessingThread() :
 _quit(false)
 {
 }
 
-PDFPageRenderingThread::~PDFPageRenderingThread()
+PDFPageProcessingThread::~PDFPageProcessingThread()
 {
   _mutex.lock();
   _quit = true;
@@ -723,7 +692,7 @@ PDFPageRenderingThread::~PDFPageRenderingThread()
   wait();
 }
 
-PageProcessingRenderPageRequest * PDFPageRenderingThread::requestRender(PDFPageGraphicsItem * page, qreal scaleFactor)
+PageProcessingRenderPageRequest * PDFPageProcessingThread::requestRenderPage(PDFPageGraphicsItem * page, qreal scaleFactor)
 {
   int i;
   PageProcessingRenderPageRequest * workItem = new PageProcessingRenderPageRequest(page, scaleFactor);
@@ -755,7 +724,37 @@ PageProcessingRenderPageRequest * PDFPageRenderingThread::requestRender(PDFPageG
   return workItem;
 }
 
-void PDFPageRenderingThread::run()
+PageProcessingLoadLinksRequest* PDFPageProcessingThread::requestLoadLinks(PDFPageGraphicsItem * page)
+{
+  int i;
+  PageProcessingLoadLinksRequest * workItem = new PageProcessingLoadLinksRequest(page);
+
+  QMutexLocker locker(&(this->_mutex));
+  // remove any instances of the given graphics item before adding it to avoid
+  // rendering it several times
+  for (i = _workStack.size() - 1; i >= 0; --i) {
+    if (_workStack[i]->page == page && _workStack[i]->type() == PageProcessingRequest::LoadLinks) {
+      // Using deleteLater() doesn't work because we have no event queue in this
+      // thread. However, since the object is still on the stack, it is still
+      // sleeping and directly deleting it should therefore be safe.
+      delete _workStack[i];
+      _workStack.remove(i);
+    }
+  }
+
+  _workStack.push(workItem);
+  locker.unlock();
+
+  qDebug() << "new 'load links' request added to stack; now has" << _workStack.size() << "items";
+
+  if (!isRunning())
+    start();
+  else
+    _waitCondition.wakeOne();
+  return workItem;
+}
+
+void PDFPageProcessingThread::run()
 {
   PageProcessingRequest * workItem;
 
@@ -1099,6 +1098,47 @@ bool PageProcessingRenderPageRequest::execute()
   emit pageImageReady(scaleFactor, pageImage);
   return true;
 }
+
+// Asynchronous Link Generation
+// ----------------------------
+
+// This function generates `PDFLinkGraphicsItem` objects. It is intended to be
+// called asynchronously and so does not set parentage for the objects it
+// generates --- this task is left to the `addLinks` method so that all the
+// links are added and rendered in a synchronous operation.
+bool PageProcessingLoadLinksRequest::execute()
+{
+  if (!page || !qobject_cast<PDFDocumentScene *>(page->scene()) || !page->_page)
+    return false;
+
+  // **TODO:**
+  //
+  //   * _Comment on how `pageScale` works and is used._
+
+  // We need to acquire a mutex from `PDFDocumentScene` as accessing page data,
+  // such as reading link lists or rendering page images is not thread safe
+  // among pages objects created from the same document object.
+  QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(page->scene())->docMutex);
+    QList<Poppler::Link *> links = page->_page->links();
+  docLock.unlock();
+
+  QList<PDFLinkGraphicsItem *> linkList;
+  if( !links.isEmpty() ) {
+    PDFLinkGraphicsItem *linkItem;
+
+    foreach( Poppler::Link *link, links )
+    {
+      linkItem = new PDFLinkGraphicsItem(link);
+      linkItem->setTransform(page->_pageScale);
+
+      linkList.append(linkItem);
+    }
+  }
+
+  emit linksReady(linkList);
+  return true;
+}
+
 
 // vim: set sw=2 ts=2 et
 

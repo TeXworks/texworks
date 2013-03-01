@@ -76,7 +76,7 @@ private:
 class PageProcessingRequest : public QObject
 {
   Q_OBJECT
-  friend class PDFPageRenderingThread;
+  friend class PDFPageProcessingThread;
 
   // Protect c'tor and execute() so we can't access them except in derived
   // classes and friends
@@ -87,7 +87,7 @@ protected:
   virtual bool execute() = 0;
 
 public:
-  enum Type { PageRendering };
+  enum Type { PageRendering, LoadLinks };
 
   virtual ~PageProcessingRequest() { }
   virtual Type type() = 0;
@@ -98,7 +98,7 @@ public:
 class PageProcessingRenderPageRequest : public PageProcessingRequest
 {
   Q_OBJECT
-  friend class PDFPageRenderingThread;
+  friend class PDFPageProcessingThread;
 
   // Protect c'tor and execute() so we can't access them except in derived
   // classes and friends
@@ -115,18 +115,37 @@ signals:
   void pageImageReady(qreal, QImage);
 };
 
+class PageProcessingLoadLinksRequest : public PageProcessingRequest
+{
+  Q_OBJECT
+  friend class PDFPageProcessingThread;
+
+  // Protect c'tor and execute() so we can't access them except in derived
+  // classes and friends
+protected:
+  PageProcessingLoadLinksRequest(PDFPageGraphicsItem * page) : PageProcessingRequest(page) { }
+  virtual bool execute();
+
+public:
+  virtual Type type() { return LoadLinks; }
+
+signals:
+  void linksReady(QList<PDFLinkGraphicsItem *>);
+};
+
 
 // Class to perform (possibly) lengthy operations on pages in the background
 // Modelled after the "Blocking Fortune Client Example" in the Qt docs
 // (http://doc.qt.nokia.com/stable/network-blockingfortuneclient.html)
-class PDFPageRenderingThread : public QThread
+class PDFPageProcessingThread : public QThread
 {
   Q_OBJECT
 public:
-  PDFPageRenderingThread();
-  virtual ~PDFPageRenderingThread();
+  PDFPageProcessingThread();
+  virtual ~PDFPageProcessingThread();
 
-  PageProcessingRenderPageRequest* requestRender(PDFPageGraphicsItem * page, qreal scaleFactor);
+  PageProcessingRenderPageRequest* requestRenderPage(PDFPageGraphicsItem * page, qreal scaleFactor);
+  PageProcessingLoadLinksRequest* requestLoadLinks(PDFPageGraphicsItem * page);
 
 protected:
   virtual void run();
@@ -198,7 +217,7 @@ class PDFDocumentScene : public QGraphicsScene {
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> _pages;
   int _lastPage;
-  PDFPageRenderingThread _renderingThread;
+  PDFPageProcessingThread _processingThread;
   PDFPageLayout _pageLayout;
 
 public:
@@ -206,7 +225,7 @@ public:
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   int pageNumAt(const QPolygonF &polygon);
-  PDFPageRenderingThread& renderingThread() { return _renderingThread; }
+  PDFPageProcessingThread& processingThread() { return _processingThread; }
   PDFPageLayout& pageLayout() { return _pageLayout; }
 
   void showOnePage(const int pageIdx) const;
@@ -251,14 +270,13 @@ class PDFPageGraphicsItem : public QObject, public QGraphicsItem
   QSizeF _pageSize;
 
   bool _linksLoaded;
-  QFutureWatcher< QList<PDFLinkGraphicsItem *> > *_linkGenerator;
-
   bool _pageIsRendering;
 
   QTransform _pageScale;
   qreal _zoomLevel;
 
   friend class PageProcessingRenderPageRequest;
+  friend class PageProcessingLoadLinksRequest;
   friend class PDFPageLayout;
 
 public:
@@ -280,10 +298,8 @@ private:
   // Parent has no copy constructor.
   Q_DISABLE_COPY(PDFPageGraphicsItem)
 
-  QList<PDFLinkGraphicsItem *> loadLinks();
-
 private slots:
-  void addLinks();
+  void addLinks(QList<PDFLinkGraphicsItem *> links);
   void updateRenderedPage(qreal scaleFactor, QImage pageImage);
 };
 
@@ -311,6 +327,9 @@ private:
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFLinkGraphicsItem)
 };
+// We need to declare a QList<PDFLinkGraphicsItem *> meta-type so we can
+// pass it through inter-thread (i.e., queued) connections
+Q_DECLARE_METATYPE(QList<PDFLinkGraphicsItem *>)
 
 
 class PDFLinkEvent : public QEvent {
