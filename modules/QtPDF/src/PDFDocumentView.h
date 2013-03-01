@@ -24,6 +24,7 @@ class PDFPageGraphicsItem;
 class PDFLinkGraphicsItem;
 class PDFDocumentMagnifierView;
 class PDFActionEvent;
+class PDFToCDockWidget;
 
 const int TILE_SIZE=1024;
 
@@ -53,6 +54,8 @@ public:
   int lastPage();
   PageMode pageMode() const { return _pageMode; }
   qreal zoomLevel() const { return _zoomLevel; }
+
+  PDFToCDockWidget* tocDockWidget(QWidget * parent);
 
 public slots:
   void goPrev();
@@ -162,6 +165,24 @@ protected:
   QPixmap _dropShadow;
 };
 
+class PDFToCDockWidget : public QDockWidget
+{
+  Q_OBJECT
+public:
+  PDFToCDockWidget(QWidget * parent);
+  virtual ~PDFToCDockWidget();
+  
+  void setToCData(const PDFToC data);
+signals:
+  void actionTriggered(const PDFAction*);
+private slots:
+  void itemSelectionChanged();
+private:
+  void clearTree();
+  static void recursiveAddTreeItems(const QList<PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem);
+  static void recursiveClearTreeItems(QTreeWidgetItem * parent);
+};
+
 // Cannot use QGraphicsGridLayout and similar classes for pages because it only
 // works for QGraphicsLayoutItem (i.e., QGraphicsWidget)
 class PDFPageLayout : public QObject {
@@ -240,6 +261,8 @@ public:
   void showAllPages() const;
 
   int lastPage();
+
+  const QSharedPointer<Document> document() const { return _doc; }
 
 signals:
   void pageChangeRequested(int pageNum);

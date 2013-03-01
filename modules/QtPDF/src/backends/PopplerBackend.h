@@ -33,6 +33,8 @@ class PopplerDocument: public Document
 
   QSharedPointer<Poppler::Document> _poppler_doc;
 
+  void recursiveConvertToC(QList<PDFToCItem> & items, QDomNode node) const;
+
 protected:
   // Poppler is not threadsafe, so some operations need to be serialized with a
   // mutex.
@@ -43,7 +45,7 @@ public:
   ~PopplerDocument();
 
   Page *page(int at);
-
+  PDFToC toc() const;
 };
 
 

@@ -47,6 +47,9 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   statusBar()->addWidget(zoomWdgt);
   addToolBar(toolBar);
   setCentralWidget(docView);
+  
+  QDockWidget * toc = docView->tocDockWidget(this);
+  addDockWidget(Qt::LeftDockWidgetArea, toc);
 }
 
 void PDFViewer::openUrl(const QUrl url) const
