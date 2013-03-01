@@ -1231,10 +1231,18 @@ void PDFPageLayout::continuousModeRelayout() {
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
     if (!it->page || !it->page->_page)
       continue;
-    // Center page in allotted space (in case we stumble over pages of different
-    // sizes, e.g., landscape pages, etc.)
+    // If we have more than one column, right-align the left-most column and
+    // left-align the right-most column to avoid large space between columns
+    // In all other cases, center the page in allotted space (in case we
+    // stumble over pages of different sizes, e.g., landscape pages, etc.)
     pageSize = it->page->_page->pageSizeF();
-    x = 0.5 * (colOffsets[it->col + 1] + colOffsets[it->col] - _xSpacing - pageSize.width() * page->_dpiX / 72.);
+    if (_numCols > 1 && it->col == 0)
+      x = colOffsets[it->col + 1] - _xSpacing - pageSize.width() * page->_dpiX / 72.;
+    else if (_numCols > 1 && it->col == _numCols - 1)
+      x = colOffsets[it->col];
+    else
+      x = 0.5 * (colOffsets[it->col + 1] + colOffsets[it->col] - _xSpacing - pageSize.width() * page->_dpiX / 72.);
+    // Always center the page vertically
     y = 0.5 * (rowOffsets[it->row + 1] + rowOffsets[it->row] - _ySpacing - pageSize.height() * page->_dpiY / 72.);
     it->page->setPos(x, y);
   }
