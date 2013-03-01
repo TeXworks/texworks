@@ -74,6 +74,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_MetaData, this));
   tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_Fonts, this));
   tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_Permissions, this));
+  tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_Annotations, this));
   toc->raise();
 }
 

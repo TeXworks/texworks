@@ -17,6 +17,20 @@
 // Annotations
 // =================
 
+PDFMarkupAnnotation::~PDFMarkupAnnotation()
+{
+  if (_popup)
+    delete _popup;
+}
+
+void PDFMarkupAnnotation::setPopup(PDFPopupAnnotation * popup)
+{
+  if (_popup)
+    delete _popup;
+  _popup = popup;
+}
+
+
 PDFLinkAnnotation::~PDFLinkAnnotation()
 {
   if (_actionOnActivation)

@@ -24,6 +24,7 @@
 #include <QColor>
 
 class Page;
+class PDFPopupAnnotation;
 
 // ABC for annotations
 // Modelled after sec. 8.4.1 of the PDF 1.7 specifications
@@ -61,6 +62,7 @@ public:
   virtual ~PDFAnnotation() { }
 
   virtual AnnotationType type() const = 0;
+  virtual bool isMarkup() const { return false; }
   
   // Declare all the getter/setter methods virtual so derived classes can
   // override them
@@ -94,11 +96,49 @@ protected:
   QColor _color;
   // ??? _structParent;
   // ??? _optContent;
-
-  // TODO: Additional members for Markup annotations (see pdf specs)---possibly
-  // add a PDFMarkupAnnotation class derived from PDFAnnotation?
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(PDFAnnotation::AnnotationFlags)
+
+// Markup Annotation are:
+// Text, FreeText, Line, Square, Circle, Polygon, PolyLine, Highlight, Underline
+// Squiggly, StrikeOut, Stamp, Caret, Ink, FileAttachment, Sound
+class PDFMarkupAnnotation : public PDFAnnotation
+{
+public:
+  PDFMarkupAnnotation() : PDFAnnotation(), _popup(NULL) { }
+  virtual ~PDFMarkupAnnotation();
+
+  virtual bool isMarkup() const { return true; }
+
+  virtual QString title() const { return _title; }
+  // Synonym for title(), but easier to read
+  virtual QString author() const { return _title; }
+  virtual QString richContents() const { return (!_richContents.isEmpty() ? _richContents : _contents); }
+  virtual QDateTime creationDate() const { return _creationDate; }
+  virtual QString subject() const { return _subject; }
+  virtual PDFPopupAnnotation * popup() const { return _popup; }
+
+  virtual void setTitle(const QString title) { _title = title; }
+  // Synonym for setTitle(), but easier to read
+  virtual void setAuthor(const QString author) { _title = author; }
+  virtual void setRichContents(const QString contents) { _richContents = contents; }
+  virtual void setCreationDate(const QDateTime timestamp) { _creationDate = timestamp; }
+  virtual void setSubject(const QString subject) { _subject = subject; }
+  // Note: the PDFMarkupAnnotation takes ownership of `popup`
+  virtual void setPopup(PDFPopupAnnotation * popup);
+
+protected:
+  QString _title; // optional; since PDF 1.1; by convention identifies the annotation author
+  PDFPopupAnnotation * _popup;
+  // float _opacity;
+  QString _richContents; // optional; since PDF 1.5; may contain some HTML tags
+  QDateTime _creationDate; // optional; since PDF 1.5
+  // PDFAnnotation * _inReplyTo;
+  // enum _replyType;
+  QString _subject; // optional; since PDF 1.5
+  // enum/int _intent;
+  // _externalData; // currently only Markup3D
+};
 
 class PDFLinkAnnotation : public PDFAnnotation
 {
@@ -128,6 +168,80 @@ private:
   QPolygonF _quadPoints;
   PDFAction * _actionOnActivation;
 };
+
+class PDFTextAnnotation : public PDFMarkupAnnotation
+{
+public:
+  AnnotationType type() const { return AnnotationTypeText; }
+private:
+  bool _open;
+  QString _iconName;
+  QString _state;
+  QString _stateModel;
+};
+
+class PDFFreeTextAnnotation : public PDFMarkupAnnotation
+{
+public:
+  AnnotationType type() const { return AnnotationTypeFreeText; }
+  // TODO: members
+};
+
+class PDFCaretAnnotation : public PDFMarkupAnnotation
+{
+public:
+  AnnotationType type() const { return AnnotationTypeCaret; }
+private:
+  QRectF _rectDiff;
+  // enum _symbol;
+};
+
+class PDFPopupAnnotation : public PDFAnnotation
+{
+public:
+  AnnotationType type() const { return AnnotationTypePopup; }
+  
+  PDFMarkupAnnotation * parent() { return _parent; }
+  bool isOpen() const { return _open; }
+  
+  void setParent(PDFMarkupAnnotation * parent) { _parent = parent; }
+  void setOpen(const bool open = true) { _open = open; }
+  
+private:
+  PDFMarkupAnnotation * _parent;
+  bool _open;
+};
+
+class PDFHighlightAnnotation : public PDFMarkupAnnotation
+{
+public:
+  AnnotationType type() const { return AnnotationTypeHighlight; }
+  // TODO: members
+};
+
+class PDFUnderlineAnnotation : public PDFMarkupAnnotation
+{
+public:
+  AnnotationType type() const { return AnnotationTypeUnderline; }
+  // TODO: members
+};
+
+class PDFSquigglyAnnotation : public PDFMarkupAnnotation
+{
+public:
+  AnnotationType type() const { return AnnotationTypeSquiggly; }
+  // TODO: members
+};
+
+class PDFStrikeOutAnnotation : public PDFMarkupAnnotation
+{
+public:
+  AnnotationType type() const { return AnnotationTypeStrikeOut; }
+  // TODO: members
+};
+
+// Line, Square, Circle, Polygon, PolyLine, Stamp, Ink, FileAttachment, Sound
+
 
 #endif // End header guard
 // vim: set sw=2 ts=2 et

@@ -506,6 +506,7 @@ public:
   // the result.
   QSharedPointer<QImage> getTileImage(QObject * listener, const double xres, const double yres, QRect render_box = QRect());
 
+  virtual QList< QSharedPointer<PDFAnnotation> > loadAnnotations() { return QList< QSharedPointer<PDFAnnotation> >(); }
 
   // Searches the page for the given text string and returns a list of boxes
   // that contain that text.

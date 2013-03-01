@@ -52,7 +52,7 @@ public:
   enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom };
   enum Tool { Tool_None, Tool_MagnifyingGlass, Tool_ZoomIn, Tool_ZoomOut, Tool_MarqueeZoom, Tool_Move, Tool_ContextMenu, Tool_ContextClick };
   enum MagnifierShape { Magnifier_Rectangle, Magnifier_Circle };
-  enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions };
+  enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions, Dock_Annotations };
 
   PDFDocumentView(QWidget *parent = 0);
   ~PDFDocumentView();
@@ -289,6 +289,25 @@ private:
   QLabel * _form;
 };
 
+class PDFAnnotationsInfoWidget : public PDFDocumentInfoWidget
+{
+  Q_OBJECT
+
+  QFutureWatcher< QList< QSharedPointer<PDFAnnotation> > > _annotWatcher;
+  QTableWidget * _table;
+
+  static QList< QSharedPointer<PDFAnnotation> > loadAnnotations(QSharedPointer<Page> page);
+
+public:
+  PDFAnnotationsInfoWidget(QWidget * parent);
+  virtual ~PDFAnnotationsInfoWidget() { }
+    
+protected slots:
+  void initFromDocument(const QSharedPointer<Document> doc);
+  void clear();
+  void annotationsReady(int index);
+};
+
 // Cannot use QGraphicsGridLayout and similar classes for pages because it only
 // works for QGraphicsLayoutItem (i.e., QGraphicsWidget)
 class PDFPageLayout : public QObject {
@@ -412,6 +431,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
   QSizeF _pageSize;
 
   bool _linksLoaded;
+  bool _annotationsLoaded;
 
   QTransform _pageScale, _pointScale;
   qreal _zoomLevel;
@@ -460,7 +480,7 @@ private:
 
 private slots:
   void addLinks(QList< QSharedPointer<PDFLinkAnnotation> > links);
-
+  void addAnnotations(QList< QSharedPointer<PDFAnnotation> > annotations);
 };
 
 // FIXME: Should be turned into a QGraphicsPolygonItem
@@ -491,6 +511,35 @@ private:
 // pass it through inter-thread (i.e., queued) connections
 Q_DECLARE_METATYPE(QList<PDFLinkGraphicsItem *>)
 
+
+// FIXME: Should be turned into a QGraphicsPolygonItem
+class PDFMarkupAnnotationGraphicsItem : public QGraphicsRectItem {
+  typedef QGraphicsRectItem Super;
+
+  QSharedPointer<PDFMarkupAnnotation> _annot;
+  bool _activated;
+  QWidget * _popup;
+
+public:
+  PDFMarkupAnnotationGraphicsItem(QSharedPointer<PDFMarkupAnnotation> annot, QGraphicsItem *parent = 0);
+  // See concerns in `PDFPageGraphicsItem` for why this feels fragile.
+  enum { Type = UserType + 3 };
+  int type() const;
+
+protected:
+  void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+  void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+
+  void mousePressEvent(QGraphicsSceneMouseEvent *event);
+  void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+private:
+  // Parent class has no copy constructor.
+  Q_DISABLE_COPY(PDFMarkupAnnotationGraphicsItem)
+};
+// We need to declare a QList<PDFLinkGraphicsItem *> meta-type so we can
+// pass it through inter-thread (i.e., queued) connections
+Q_DECLARE_METATYPE(QList<PDFMarkupAnnotationGraphicsItem *>)
 
 class PDFActionEvent : public QEvent {
   typedef QEvent Super;

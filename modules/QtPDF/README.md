@@ -126,7 +126,8 @@ TODO
  - rulers (in main window, and attached to magnifying glass)
  - or measuring tool
  - Split view???
- - Provide additional info, e.g. through QDockWidget. Annotations, thumbnails (?).
+ - Provide additional info, e.g. through QDockWidget. ~~Annotations,~~
+   thumbnails (?). __STARTED__
  - Printing.
  - Derive zoom icons from Tango instead of from Qt
  - Presentation mode

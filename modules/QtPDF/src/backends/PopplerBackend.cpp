@@ -105,6 +105,12 @@ void convertAnnotation(PDFAnnotation * dest, const Poppler::Annotation * src, Pa
     flags |= PDFAnnotation::Annotation_Locked;
   if (src->flags() & Poppler::Annotation::ToggleHidingOnMouse)
     flags |= PDFAnnotation::Annotation_ToggleNoView;
+  
+  if (dest->isMarkup()) {
+    PDFMarkupAnnotation * annot = static_cast<PDFMarkupAnnotation*>(dest);
+    annot->setAuthor(src->author());
+    annot->setCreationDate(src->creationDate());
+  }
 }
 
 
@@ -385,7 +391,8 @@ bool PopplerDocument::unlock(const QString password)
 // ==========
 PopplerPage::PopplerPage(PopplerDocument *parent, int at):
   Super(parent, at),
-  _linksLoaded(false)
+  _linksLoaded(false),
+  _annotationsLoaded(false)
 {
   _poppler_page = QSharedPointer<Poppler::Page>(static_cast<PopplerDocument *>(_parent)->_poppler_doc->page(at));
 }
@@ -513,6 +520,80 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
     _links << link;
   }
   return _links;
+}
+
+QList< QSharedPointer<PDFAnnotation> > PopplerPage::loadAnnotations()
+{
+  if (_annotationsLoaded)
+    return _annotations;
+
+  _annotationsLoaded = true;
+  if (!_poppler_page)
+    return _annotations;
+  
+  // Loading annotations is not thread safe.
+  QMutexLocker docLock(static_cast<PopplerDocument *>(_parent)->_doc_lock);
+  QList<Poppler::Annotation *> popplerAnnots = _poppler_page->annotations();
+  docLock.unlock();
+
+  foreach(Poppler::Annotation * popplerAnnot, popplerAnnots) {
+    if (!popplerAnnot)
+      continue;
+    switch (popplerAnnot->subType()) {
+      case Poppler::Annotation::AText:
+      {
+        PDFTextAnnotation * annot = new PDFTextAnnotation();
+        convertAnnotation(annot, popplerAnnot, this);
+        _annotations << QSharedPointer<PDFAnnotation>(annot);
+        break;
+      }
+      case Poppler::Annotation::ACaret:
+      {
+        PDFCaretAnnotation * annot = new PDFCaretAnnotation();
+        convertAnnotation(annot, popplerAnnot, this);
+        _annotations << QSharedPointer<PDFAnnotation>(annot);
+        break;
+      }
+      case Poppler::Annotation::AHighlight:
+      {
+        Poppler::HighlightAnnotation * popplerHighlight = static_cast<Poppler::HighlightAnnotation*>(popplerAnnot);
+        switch (popplerHighlight->highlightType()) {
+          case Poppler::HighlightAnnotation::Highlight:
+          {
+            PDFHighlightAnnotation * annot = new PDFHighlightAnnotation();
+            convertAnnotation(annot, popplerAnnot, this);
+            _annotations << QSharedPointer<PDFAnnotation>(annot);
+            break;
+          }
+          case Poppler::HighlightAnnotation::Squiggly:
+          {
+            PDFSquigglyAnnotation * annot = new PDFSquigglyAnnotation();
+            convertAnnotation(annot, popplerAnnot, this);
+            _annotations << QSharedPointer<PDFAnnotation>(annot);
+            break;
+          }
+          case Poppler::HighlightAnnotation::Underline:
+          {
+            PDFUnderlineAnnotation * annot = new PDFUnderlineAnnotation();
+            convertAnnotation(annot, popplerAnnot, this);
+            _annotations << QSharedPointer<PDFAnnotation>(annot);
+            break;
+          }
+          case Poppler::HighlightAnnotation::StrikeOut:
+          {
+            PDFStrikeOutAnnotation * annot = new PDFStrikeOutAnnotation();
+            convertAnnotation(annot, popplerAnnot, this);
+            _annotations << QSharedPointer<PDFAnnotation>(annot);
+            break;
+          }
+        }
+        break;
+      }
+      default:
+        break;
+    }
+  }
+  return _annotations;
 }
 
 QList<SearchResult> PopplerPage::search(QString searchText)
