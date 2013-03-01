@@ -38,6 +38,8 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   // case, `goFirst()` or `goToPage(0)` will fail because the view will think
   // it is already looking at page 0.
   _currentPage = -1;
+  
+  setMouseMode(MouseMode_Move);
 }
 
 
@@ -149,6 +151,22 @@ void PDFDocumentView::zoomOut()
   _zoomLevel *= 2.0/3.0;
   this->scale(2.0/3.0, 2.0/3.0);
   emit changedZoom(_zoomLevel);
+}
+
+void PDFDocumentView::setMouseMode(const MouseMode newMode)
+{
+  if (_mouseMode == newMode)
+    return;
+
+  if (_mouseMode == MouseMode_Move)
+    setDragMode(QGraphicsView::ScrollHandDrag);
+
+  switch (newMode) {
+    case MouseMode_Move:
+      setDragMode(QGraphicsView::ScrollHandDrag);
+      break;
+  }
+  _mouseMode = newMode;
 }
 
 // Protected Slots
