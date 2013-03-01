@@ -73,6 +73,12 @@ public:
 
   int lastPage();
 
+signals:
+  void pageChangeRequested(int pageNum);
+
+protected:
+  bool event(QEvent* event);
+
 private:
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFDocumentScene)
@@ -134,4 +140,14 @@ protected:
 private:
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFLinkGraphicsItem)
+};
+
+
+class PDFLinkEvent : public QEvent {
+  typedef QEvent Super;
+
+public:
+  PDFLinkEvent(int a_page);
+  static QEvent::Type LinkEvent;
+  const int pageNum;
 };
