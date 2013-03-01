@@ -784,23 +784,15 @@ QPixmap PDFDocumentMagnifierView::dropShadow() const
 // accesses the Poppler document pointed to by `*a_doc` while the scene child
 // items are executing tasks, we can produce a segfault. Because of this, the
 // mutex may need to be held at a higher level.
-PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, Document *a_pdf_doc, QObject *parent):
+PDFDocumentScene::PDFDocumentScene(Document *a_doc, QObject *parent):
   Super(parent),
-  _doc(a_doc),
-  _pdf_doc(a_pdf_doc),
-  docMutex(new QMutex)
+  _doc(a_doc)
 {
   // We need to register a QList<PDFLinkGraphicsItem *> meta-type so we can
   // pass it through inter-thread (i.e., queued) connections
   qRegisterMetaType< QList<PDFLinkGraphicsItem *> >();
 
-  // **TODO:** _Investigate the Arthur backend for native Qt rendering._
-  _doc->setRenderBackend(Poppler::Document::SplashBackend);
-  // Make things look pretty.
-  _doc->setRenderHint(Poppler::Document::Antialiasing);
-  _doc->setRenderHint(Poppler::Document::TextAntialiasing);
-
-  _lastPage = _pdf_doc->numPages();
+  _lastPage = _doc->numPages();
 
   connect(&_pageLayout, SIGNAL(layoutChanged(const QRectF)), this, SLOT(pageLayoutChanged(const QRectF)));
 
@@ -811,7 +803,7 @@ PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, Document *a_pdf_doc
 
   for (i = 0; i < _lastPage; ++i)
   {
-    pagePtr = new PDFPageGraphicsItem(_doc->page(i), _pdf_doc->page(i));
+    pagePtr = new PDFPageGraphicsItem(_doc->page(i));
     _pages.append(pagePtr);
     addItem(pagePtr);
     _pageLayout.addPage(pagePtr);
@@ -969,10 +961,9 @@ void PDFDocumentScene::showAllPages() const
 
 // This class descends from `QGraphicsObject` and implements the on-screen
 // representation of `Poppler::Page` objects.
-PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, Page *a_pdf_page, QGraphicsItem *parent):
+PDFPageGraphicsItem::PDFPageGraphicsItem(Page *a_page, QGraphicsItem *parent):
   Super(parent),
   _page(a_page),
-  _pdf_page(a_pdf_page),
   _dpiX(QApplication::desktop()->physicalDpiX()),
   _dpiY(QApplication::desktop()->physicalDpiY()),
 
@@ -989,9 +980,6 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, Page *a_pdf_page
   _pageSize.setHeight(_pageSize.height() * _dpiY / 72.0);
 
   _pageScale = QTransform::fromScale(_pageSize.width(), _pageSize.height());
-  // If we have a thumbnail image, use that as temporary image
-  if (_page && !_page->thumbnail().isNull())
-    _temporaryPage = QPixmap::fromImage(_page->thumbnail()).scaled(_pageSize.toSize());
   _renderedPage = QPixmap(_pageSize.toSize());
 
   // So we get information during paint events about what portion of the page
@@ -1019,7 +1007,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // `_linksLoaded` will be `false`. We then load all of the links on the page.
   if ( not _linksLoaded )
   {
-    _pdf_page->asyncLoadLinks(this);
+    _page->asyncLoadLinks(this);
     _linksLoaded = true;
 
     // This is a hack to give a nice white fill to pages that have not been
@@ -1110,7 +1098,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       stopwatch.start();
 #endif
       // TODO: This needs to be threaded and cached.
-      renderedPage = _pdf_page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor,
+      renderedPage = _page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor,
           tile.x(), tile.y(), tile.width(), tile.height());
       painter->drawImage(tile.topLeft(), renderedPage);
 #ifdef DEBUG

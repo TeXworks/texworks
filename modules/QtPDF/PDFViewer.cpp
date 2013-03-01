@@ -4,9 +4,8 @@
 PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   QMainWindow(parent, flags)
 {
-  Poppler::Document *pdf = Poppler::Document::load(pdf_doc);
   Document *a_pdf_doc = new PopplerDocument(pdf_doc);
-  PDFDocumentScene *docScene = new PDFDocumentScene(pdf, a_pdf_doc, this);
+  PDFDocumentScene *docScene = new PDFDocumentScene(a_pdf_doc, this);
   PDFDocumentView *docView = new PDFDocumentView(this);
 
   docView->setScene(docScene);

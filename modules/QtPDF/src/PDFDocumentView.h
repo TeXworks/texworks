@@ -196,8 +196,7 @@ class PDFDocumentScene : public QGraphicsScene
   Q_OBJECT
   typedef QGraphicsScene Super;
 
-  const std::auto_ptr<Poppler::Document> _doc;
-  const QSharedPointer<Document> _pdf_doc;
+  const QSharedPointer<Document> _doc;
 
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> _pages;
@@ -206,7 +205,8 @@ class PDFDocumentScene : public QGraphicsScene
   void handleLinkEvent(const PDFLinkEvent * link_event);
 
 public:
-  PDFDocumentScene(Poppler::Document *a_doc, Document *a_pdf_doc, QObject *parent = 0);
+  PDFDocumentScene(Document *a_doc, QObject *parent = 0);
+
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   QGraphicsItem* pageAt(const int idx);
@@ -218,8 +218,6 @@ public:
   void showAllPages() const;
 
   int lastPage();
-  // Poppler is *NOT* thread safe :(
-  QMutex *docMutex;
 
 signals:
   void pageChangeRequested(int pageNum);
@@ -249,12 +247,13 @@ class PDFPageGraphicsItem : public QGraphicsObject
   Q_OBJECT
   typedef QGraphicsObject Super;
 
-  Poppler::Page *_page;
-  QSharedPointer<Page> _pdf_page;
+  QSharedPointer<Page> _page;
+
   QPixmap _renderedPage;
   QPixmap _temporaryPage;
   QPixmap _magnifiedPage;
   QPixmap _temporaryMagnifiedPage;
+
   double _dpiX;
   double _dpiY;
   QSizeF _pageSize;
@@ -274,7 +273,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
 
 public:
 
-  PDFPageGraphicsItem(Poppler::Page *a_page, Page *a_pdf_page, QGraphicsItem *parent = 0);
+  PDFPageGraphicsItem(Page *a_page, QGraphicsItem *parent = 0);
 
   // This seems fragile as it assumes no other code declaring a custom graphics
   // item will choose the same ID for it's object types. Unfortunately, there
