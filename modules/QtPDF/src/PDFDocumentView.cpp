@@ -488,8 +488,13 @@ int PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
 {
   QList<QGraphicsItem*> p(pages(polygon));
   if (p.isEmpty())
-	return -1;
+    return -1;
   return _pages.indexOf(p.first());
+}
+
+int PDFDocumentScene::pageNumFor(PDFPageGraphicsItem * const graphicsItem) const
+{
+  return _pages.indexOf(graphicsItem);
 }
 
 int PDFDocumentScene::lastPage() { return _lastPage; }
@@ -1002,7 +1007,7 @@ PageProcessingRenderPageRequest * PDFPageProcessingThread::requestRenderPage(PDF
   _workStack.push(workItem);
   locker.unlock();
 #ifdef DEBUG
-  qDebug() << "new render request added to stack; now has" << _workStack.size() << "items";
+  qDebug() << "new render request for page" << qobject_cast<PDFDocumentScene*>(page->scene())->pageNumFor(page) << "added to stack; now has" << _workStack.size() << "items";
 #endif
 
   if (!isRunning())
@@ -1033,7 +1038,7 @@ PageProcessingLoadLinksRequest* PDFPageProcessingThread::requestLoadLinks(PDFPag
   _workStack.push(workItem);
   locker.unlock();
 #ifdef DEBUG
-  qDebug() << "new 'load links' request added to stack; now has" << _workStack.size() << "items";
+  qDebug() << "new 'load links' request for page" << qobject_cast<PDFDocumentScene*>(page->scene())->pageNumFor(page) << "added to stack; now has" << _workStack.size() << "items";
 #endif
 
   if (!isRunning())
@@ -1069,7 +1074,7 @@ void PDFPageProcessingThread::run()
           jobDesc = QString::fromUtf8("rendering page");
           break;
       }
-      qDebug() << "finished " << jobDesc << "; time elapsed:" << _renderTimer.elapsed() << " ms";
+      qDebug() << "finished " << jobDesc << "for page" << qobject_cast<PDFDocumentScene*>(workItem->page->scene())->pageNumFor(workItem->page) << "; time elapsed:" << _renderTimer.elapsed() << "ms";
 #endif
 
       // Delete the work item as it has fulfilled its purpose
