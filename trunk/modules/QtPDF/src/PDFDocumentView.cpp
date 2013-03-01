@@ -31,12 +31,10 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
   _pdf_scene(NULL),
   _useGrayScale(false),
-  _rubberBandOrigin(),
   _zoomLevel(1.0),
   _pageMode(PageMode_OneColumnContinuous),
   _mouseMode(MouseMode_Move),
-  _armedTool(Tool_None),
-  _activeTool(Tool_None)
+  _armedTool(NULL)
 {
   setBackgroundRole(QPalette::Dark);
   setAlignment(Qt::AlignCenter);
@@ -46,8 +44,14 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   // case, `goFirst()` or `goToPage(0)` will fail because the view will think
   // it is already looking at page 0.
   _currentPage = -1;
-  _magnifier = new PDFDocumentMagnifierView(this);
-  _rubberBand = new QRubberBand(QRubberBand::Rectangle, viewport());
+
+  registerTool(new PDFDocumentToolZoomIn(this));
+  registerTool(new PDFDocumentToolZoomOut(this));
+  registerTool(new PDFDocumentToolMagnifyingGlass(this));
+  registerTool(new PDFDocumentToolMarqueeZoom(this));
+  registerTool(new PDFDocumentToolMove(this));
+  registerTool(new PDFDocumentToolContextClick(this));
+
   // We deliberately set the mouse mode to a different value above so we can
   // call setMouseMode (which bails out if the mouse mode is not changed), which
   // in turn sets up other variables such as _toolAccessors
@@ -337,28 +341,29 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
 
   // TODO: eventually make _toolAccessors configurable
   _toolAccessors.clear();
-  _toolAccessors[Qt::ControlModifier + Qt::LeftButton] = Tool_ContextClick;
-  _toolAccessors[Qt::NoModifier + Qt::RightButton] = Tool_ContextMenu;
-  _toolAccessors[Qt::NoModifier + Qt::MiddleButton] = Tool_Move;
-  _toolAccessors[Qt::ShiftModifier + Qt::LeftButton] = Tool_ZoomIn;
-  _toolAccessors[Qt::AltModifier + Qt::LeftButton] = Tool_ZoomOut;
+  _toolAccessors[Qt::ControlModifier + Qt::LeftButton] = getToolByType(PDFDocumentTool::Tool_ContextClick);
+  _toolAccessors[Qt::NoModifier + Qt::RightButton] = getToolByType(PDFDocumentTool::Tool_ContextMenu);
+  _toolAccessors[Qt::NoModifier + Qt::MiddleButton] = getToolByType(PDFDocumentTool::Tool_Move);
+  _toolAccessors[Qt::ShiftModifier + Qt::LeftButton] = getToolByType(PDFDocumentTool::Tool_ZoomIn);
+  _toolAccessors[Qt::AltModifier + Qt::LeftButton] = getToolByType(PDFDocumentTool::Tool_ZoomOut);
   // Other tools: Tool_MagnifyingGlass, Tool_MarqueeZoom, Tool_Move
 
-  disarmTool(_armedTool);
+  disarmTool();
+
   switch (newMode) {
     case MouseMode_Move:
-      armTool(Tool_Move);
-      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = Tool_Move;
+      armTool(PDFDocumentTool::Tool_Move);
+      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(PDFDocumentTool::Tool_Move);
       break;
 
     case MouseMode_MarqueeZoom:
-      armTool(Tool_MarqueeZoom);
-      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = Tool_MarqueeZoom;
+      armTool(PDFDocumentTool::Tool_MarqueeZoom);
+      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(PDFDocumentTool::Tool_MarqueeZoom);
       break;
 
     case MouseMode_MagnifyingGlass:
-      armTool(Tool_MagnifyingGlass);
-      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = Tool_MagnifyingGlass;
+      armTool(PDFDocumentTool::Tool_MagnifyingGlass);
+      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(PDFDocumentTool::Tool_MagnifyingGlass);
       break;
   }
 
@@ -367,14 +372,16 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
 
 void PDFDocumentView::setMagnifierShape(const MagnifierShape shape)
 {
-  if (_magnifier)
-    _magnifier->setShape(shape);
+  PDFDocumentToolMagnifyingGlass * magnifier = static_cast<PDFDocumentToolMagnifyingGlass*>(getToolByType(PDFDocumentTool::Tool_MagnifyingGlass));
+  if (magnifier)
+    magnifier->setMagnifierShape(shape);
 }
 
 void PDFDocumentView::setMagnifierSize(const int size)
 {
-  if (_magnifier)
-    _magnifier->setSize(size);
+  PDFDocumentToolMagnifyingGlass * magnifier = static_cast<PDFDocumentToolMagnifyingGlass*>(getToolByType(PDFDocumentTool::Tool_MagnifyingGlass));
+  if (magnifier)
+    magnifier->setMagnifierSize(size);
 }
 
 void PDFDocumentView::search(QString searchText)
@@ -516,6 +523,16 @@ void PDFDocumentView::maybeUpdateSceneRect() {
   // bars. In single page mode, this must be the rect of the current page
   // **TODO:** Safeguard
   setSceneRect(_pdf_scene->pageAt(_currentPage)->sceneBoundingRect());
+}
+
+void PDFDocumentView::maybeArmTool(uint modifiers)
+{
+  // Arms the tool corresponding to `modifiers` if one is available. 
+  PDFDocumentTool * t = _toolAccessors.value(modifiers, NULL);
+  if (t != _armedTool) {
+    disarmTool();
+    armTool(t);
+  }
 }
 
 void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int alignment /* = Qt::AlignLeft | Qt::AlignTop */)
@@ -741,6 +758,35 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
   }
 }
 
+void PDFDocumentView::registerTool(PDFDocumentTool * tool)
+{
+  int i;
+  
+  if (!tool)
+    return;
+
+  // Remove any identical tools
+  for (i = 0; i < _tools.size(); ++i) {
+    if (_tools[i] && *_tools[i] == *tool) {
+      delete _tools[i];
+      _tools.remove(i);
+      --i;
+    }
+  }
+  // Add the new tool
+  _tools.append(tool);
+}
+
+PDFDocumentTool* PDFDocumentView::getToolByType(const PDFDocumentTool::Type type)
+{
+  foreach(PDFDocumentTool * tool, _tools) {
+    if (tool && tool->type() == type)
+      return tool;
+  }
+  return NULL;
+}
+
+
 
 // Event Handlers
 // --------------
@@ -766,30 +812,21 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
     }
   }
 
-  // Draw a drop shadow
-  if (_magnifier && _magnifier->isVisible()) {
-    QPainter p(viewport());
-    QPixmap& dropShadow(_magnifier->dropShadow());
-    QRect r(QPoint(0, 0), dropShadow.size());
-    r.moveCenter(_magnifier->geometry().center());
-    p.drawPixmap(r.topLeft(), dropShadow);
-  }
+  if (_armedTool)
+    _armedTool->paintEvent(event);
 }
 
 void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 {
+  // FIXME: No moving while tools are active?
   switch ( event->key() )
   {
     case Qt::Key_Home:
-      if (_activeTool != Tool_None)
-        break;
       goFirst();
       event->accept();
       break;
 
     case Qt::Key_End:
-      if (_activeTool != Tool_None)
-        break;
       goLast();
       event->accept();
       break;
@@ -800,10 +837,6 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Down:
     case Qt::Key_Left:
     case Qt::Key_Right:
-      // Don't scroll the view while a tool, such as the magnifier, is active.
-      if (_activeTool != Tool_None)
-        break;
-
       // Check to see if we need to jump to the next page in single page mode.
       if ( pageMode() == PageMode_SinglePage ) {
         int scrollStep, scrollPos = verticalScrollBar()->value();
@@ -842,24 +875,25 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
       Super::keyPressEvent(event);
       break;
   }
-  Tool t = _toolAccessors.value(Qt::LeftButton + event->modifiers(), Tool_None);
-  if (_activeTool != t)
-    abortTool(_activeTool);
-  if (_armedTool != t) {
-    disarmTool(_armedTool);
-    armTool(t);
-  }
+  // If we have an armed tool, pass the event on to it
+  // Note: by default, PDFDocumentTool::keyPressEvent() calls maybeArmTool() if
+  // it doesn't handle the event
+  if (_armedTool)
+    _armedTool->keyPressEvent(event);
+  // If there is no currently armed tool, maybe we can arm one now
+  else
+    maybeArmTool(Qt::LeftButton + event->modifiers());
 }
 
 void PDFDocumentView::keyReleaseEvent(QKeyEvent *event)
 {
-  Tool t = _toolAccessors.value(Qt::LeftButton + event->modifiers(), Tool_None);
-  if (_activeTool != t)
-    abortTool(_activeTool);
-  if (_armedTool != t) {
-    disarmTool(_armedTool);
-    armTool(t);
-  }
+  // If we have an armed tool, pass the event on to it
+  // Note: by default, PDFDocumentTool::keyReleaseEvent() calls maybeArmTool() if
+  // it doesn't handle the event
+  if(_armedTool)
+    _armedTool->keyReleaseEvent(event);
+  else
+    maybeArmTool(Qt::LeftButton + event->modifiers());
 }
 
 void PDFDocumentView::mousePressEvent(QMouseEvent * event)
@@ -871,14 +905,18 @@ void PDFDocumentView::mousePressEvent(QMouseEvent * event)
   if (event->isAccepted())
     return;
 
-  Tool t = _toolAccessors.value(event->buttons() | event->modifiers(), Tool_None);
-  if (_armedTool != t) {
-    disarmTool(_armedTool);
-    armTool(t);
-  }
-  if (t != _activeTool)
-    abortTool(_activeTool);
-  startTool(t, event);
+  PDFDocumentTool * oldArmed = _armedTool;
+  
+  if(_armedTool)
+    _armedTool->mousePressEvent(event);
+  else
+    maybeArmTool(event->buttons() | event->modifiers());
+
+  // This mouse event may have armed a new tool (either explicitly, or because
+  // the previously armed tool passed it on to maybeArmTool). In that case, we
+  // need to pass it on to the newly armed tool
+  if (_armedTool && _armedTool != oldArmed)
+    _armedTool->mousePressEvent(event);
 }
 
 void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
@@ -889,37 +927,14 @@ void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
   Qt::MouseButtons buttons = event->buttons();
   if (buttons == Qt::NoButton)
     buttons = Qt::LeftButton;
-  Tool t = _toolAccessors.value(buttons | event->modifiers(), Tool_None);
-  // TODO: This can possibly be simplified by checking if any buttons are
-  // pressed...
+
+  PDFDocumentTool * t = _toolAccessors.value(buttons | event->modifiers(), NULL);
   if (_armedTool != t) {
-    disarmTool(_armedTool);
+    disarmTool();
     armTool(t);
   }
-  if (t != _activeTool)
-    abortTool(_activeTool);
-
-  if (_activeTool == Tool_MarqueeZoom) {
-    // Some shortcut values.
-    QPoint o = _rubberBandOrigin, p = event->pos();
-
-    if ( not event->buttons() == Qt::LeftButton ) {
-      // The user somehow let go of the left button without us recieving an
-      // event. Abort the zoom operation.
-      _rubberBand->setGeometry(QRect());
-      _rubberBand->hide();
-    } else if ( (o - p).manhattanLength() > QApplication::startDragDistance() ) {
-      // Update rubber band Geometry.
-      _rubberBand->setGeometry(QRect(
-        QPoint(qMin(o.x(),p.x()), qMin(o.y(), p.y())),
-        QPoint(qMax(o.x(),p.x()), qMax(o.y(), p.y()))
-      ));
-
-      event->accept();
-      return;
-    }
-  }
-
+  if(_armedTool)
+    _armedTool->mouseMoveEvent(event);
   Super::mouseMoveEvent(event);
 
   // We don't check for event->isAccepted() here; for one, this always seems to
@@ -927,31 +942,6 @@ void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
   // mouse tracking we only receive this event if the current widget has grabbed
   // the mouse (i.e., after a mousePressEvent and before the corresponding
   // mouseReleaseEvent)
-
-  switch (_activeTool) {
-    case Tool_MagnifyingGlass:
-      if (_magnifier && _magnifier->isVisible()) {
-        _magnifier->setPosition(event->pos());
-        viewport()->update();
-      }
-      break;
-
-    case Tool_Move:
-      // Adapted from <qt>/src/gui/graphicsview/qgraphicsview.cpp @ QGraphicsView::mouseMoveEvent
-      {
-        QScrollBar *hBar = horizontalScrollBar();
-        QScrollBar *vBar = verticalScrollBar();
-        QPoint delta = event->pos() - _movePosition;
-        hBar->setValue(hBar->value() - delta.x());
-        vBar->setValue(vBar->value() - delta.y());
-        _movePosition = event->pos();
-      }
-      break;
-
-    default:
-      // Nothing to do
-      break;
-  }
 }
 
 void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
@@ -967,15 +957,13 @@ void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
   if (buttons == Qt::NoButton)
     buttons |= Qt::LeftButton;
 
-  Tool t = _toolAccessors.value(buttons | event->modifiers(), Tool_None);
+  PDFDocumentTool * t = _toolAccessors.value(buttons | event->modifiers(), NULL);
   if (_armedTool != t) {
-    disarmTool(_armedTool);
+    disarmTool();
     armTool(t);
   }
-  if (t != _activeTool)
-    abortTool(_activeTool);
-  else
-    finishTool(_activeTool, event);
+  if(_armedTool)
+    _armedTool->mouseReleaseEvent(event);
 }
 
 void PDFDocumentView::wheelEvent(QWheelEvent * event)
@@ -1017,186 +1005,377 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
   Super::wheelEvent(event);
 }
 
-void PDFDocumentView::armTool(const Tool tool)
+void PDFDocumentView::armTool(const PDFDocumentTool::Type toolType)
+{
+  armTool(getToolByType(toolType));
+}
+
+void PDFDocumentView::armTool(PDFDocumentTool * tool)
 {
   if (_armedTool == tool)
     return;
-
-  // FIXME: Create cursors only once
-  // FIXME: Should separate cursors from the rest of the viewer resources
-  switch (tool) {
-    case Tool_MagnifyingGlass:
-      viewport()->setCursor(QCursor(QPixmap(QString::fromUtf8(":/icons/magnifiercursor.png"))));
-      break;
-    case Tool_ZoomIn:
-      viewport()->setCursor(QCursor(QPixmap(QString::fromUtf8(":/icons/zoomincursor.png"))));
-      break;
-    case Tool_ZoomOut:
-      viewport()->setCursor(QCursor(QPixmap(QString::fromUtf8(":/icons/zoomoutcursor.png"))));
-      break;
-    case Tool_Move:
-      viewport()->setCursor(Qt::OpenHandCursor);
-      break;
-    // FIXME: Mouse cursor for marquee zoom
-    case Tool_MarqueeZoom:
-      viewport()->setCursor(Qt::CrossCursor);
-      break;
-    default:
-      viewport()->unsetCursor();
-      break;
-  }
+  if (_armedTool)
+    disarmTool();
+  if (tool)
+    tool->arm();
   _armedTool = tool;
 }
 
-void PDFDocumentView::startTool(const Tool tool, QMouseEvent * event)
+void PDFDocumentView::disarmTool()
 {
-  switch (tool) {
-    case Tool_MarqueeZoom:
-      // The ideal way to implement marquee zoom would be to set `dragMode` to
-      // `QGraphicsView::RubberBandDrag` and use the rubber band selector
-      // built-in to `QGraphicsView`. However, there is no way to do this and
-      // prevent graphics items, such as links, from responding to the
-      // mouse---hence no way to start a zoom over a link. Calling
-      // `setInteractive(false)` keeps the view from propagating mouse events to
-      // the scene, but it also disables `QGraphicsView::RubberBandDrag`.
-      //
-      // So... we have to do this ourselves.
-      _rubberBandOrigin = event->pos();
-      _rubberBand->setGeometry(QRect());
-      _rubberBand->show();
-      event->accept();
-      break;
-    case Tool_Move:
-      // The ideal way to implement the move tool would be to set `dragMode` to
-      // `QGraphicsView::ScrollHandDrag` and use the built-in functionality.
-      // However, that does work only with the left mouse button.
-      //
-      // So... we have to do this ourselves.
-      viewport()->setCursor(Qt::ClosedHandCursor);
-      _movePosition = event->pos();
-      event->accept();
-      break;
-    case Tool_MagnifyingGlass:
-      _magnifier->prepareToShow();
-      _magnifier->setPosition(event->pos());
-      _magnifier->show();
-
-      // Hide the cursor while the magnifier is active, but save a reference to
-      // the current value so that it can be restored later.
-      _hiddenCursor = viewport()->cursor();
-      viewport()->setCursor(Qt::BlankCursor);
-
-      viewport()->update();
-      event->accept();
-      break;
-    default:
-      // Nothing to do
-      break;
-  }
-  _activeTool = tool;
+  if (!_armedTool)
+    return;
+  _armedTool->disarm();
+  _armedTool = NULL;
 }
 
-void PDFDocumentView::finishTool(const Tool tool, QMouseEvent * event)
-{
-  switch (tool) {
-    case Tool_MarqueeZoom:
-      if (_rubberBand->isVisible()) {
-        QRectF zoomRect = mapToScene(_rubberBand->geometry()).boundingRect();
-        _rubberBand->hide();
-        _rubberBand->setGeometry(QRect());
-        zoomToRect(zoomRect);
-        event->accept();
-      }
-      break;
 
-    case Tool_MagnifyingGlass:
-      if (_magnifier && _magnifier->isVisible()) {
-        _magnifier->hide();
-        viewport()->setCursor(_hiddenCursor);
-        viewport()->update();
-        event->accept();
-      }
-      break;
-
-    case Tool_Move:
-      // TODO: Disarming and rearming the current tool is a hack to get the
-      // cursor right if the move tool was accessed through non-standard ways
-      // (e.g., using the middle mouse button)
-      {
-        Tool armedTool = _armedTool;
-        disarmTool(armedTool);
-        armTool(armedTool);
-      }
-      break;
-
-    case Tool_ZoomIn:
-      zoomIn();
-      event->accept();
-      break;
-
-    case Tool_ZoomOut:
-      zoomOut();
-      event->accept();
-      break;
-
-    case Tool_ContextClick:
-      {
-        QPointF pos(mapToScene(event->pos()));
-        QGraphicsItem * item = scene()->itemAt(pos);
-        if (!item || item->type() != PDFPageGraphicsItem::Type)
-          break;
-        PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(item);
-        emit contextClick(pageItem->page()->pageNum(), pageItem->mapToPage(pageItem->mapFromScene(pos)));
-        event->accept();
-      }
-      break;
-
-    default:
-      // Nothing to do
-      break;
-  }
-  _activeTool = Tool_None;
+// PDFDocumentTool
+// ========================
+//
+void PDFDocumentTool::arm() {
+  Q_ASSERT(_parent != NULL);
+  _parent->setCursor(_cursor);
+}
+void PDFDocumentTool::disarm() {
+  Q_ASSERT(_parent != NULL);
+  _parent->unsetCursor();
 }
 
-void PDFDocumentView::abortTool(const Tool tool)
+void PDFDocumentTool::keyPressEvent(QKeyEvent *event)
 {
-  switch (tool) {
-    case Tool_MarqueeZoom:
-      if (_rubberBand->isVisible()) {
-        _rubberBand->hide();
-        _rubberBand->setGeometry(QRect());
-      }
-      break;
-      
-    case Tool_Move:
-      // TODO: Disarming and rearming the current tool is a hack to get the
-      // cursor right if the move tool was accessed through non-standard ways
-      // (e.g., using the middle mouse button)
-      {
-        Tool armedTool = _armedTool;
-        disarmTool(armedTool);
-        armTool(armedTool);
-      }
-      break;
-
-    case Tool_MagnifyingGlass:
-      if (_magnifier && _magnifier->isVisible()) {
-        _magnifier->hide();
-        viewport()->setCursor(_hiddenCursor);
-        viewport()->update();
-      }
-      break;
-    default:
-      // Nothing to do
-      break;
-  }
-  _activeTool = Tool_None;
+  if (_parent)
+    _parent->maybeArmTool(Qt::LeftButton + event->modifiers());
 }
 
-void PDFDocumentView::disarmTool(const Tool tool)
+void PDFDocumentTool::keyReleaseEvent(QKeyEvent *event)
 {
-  viewport()->unsetCursor();
-  _armedTool = Tool_None;
+  if (_parent)
+    _parent->maybeArmTool(Qt::LeftButton + event->modifiers());
+}
+
+void PDFDocumentTool::mousePressEvent(QMouseEvent * event)
+{
+  if (_parent)
+    _parent->maybeArmTool(event->buttons() | event->modifiers());
+}
+
+void PDFDocumentTool::mouseReleaseEvent(QMouseEvent * event)
+{
+  // If the last mouse button was released, we arm the tool corresponding to the
+  // left mouse button by default
+  Qt::MouseButtons buttons = event->buttons();
+  if (buttons == Qt::NoButton)
+    buttons |= Qt::LeftButton;
+
+  if (_parent)
+    _parent->maybeArmTool(buttons | event->modifiers());
+}
+
+
+// PDFDocumentToolZoomIn
+// ========================
+//
+PDFDocumentToolZoomIn::PDFDocumentToolZoomIn(PDFDocumentView * parent)
+: PDFDocumentTool(parent),
+  _started(false)
+{
+  _cursor = QCursor(QPixmap(QString::fromUtf8(":/icons/zoomincursor.png")));
+}
+
+void PDFDocumentToolZoomIn::mousePressEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+  
+  if (!event)
+    return;
+  _started = (event->buttons() == Qt::LeftButton && event->button() == Qt::LeftButton);
+  if (_started)
+    _startPos = event->pos();
+}
+
+void PDFDocumentToolZoomIn::mouseReleaseEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+
+  if (!event || !_started)
+    return;
+  if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton) {
+    QPoint offset = event->pos() - _startPos;
+    if (offset.manhattanLength() <  QApplication::startDragDistance())
+      _parent->zoomIn();
+  }
+  _started = false;
+}
+
+// PDFDocumentToolZoomOut
+// ========================
+//
+PDFDocumentToolZoomOut::PDFDocumentToolZoomOut(PDFDocumentView * parent)
+: PDFDocumentTool(parent),
+  _started(false)
+{
+  _cursor = QCursor(QPixmap(QString::fromUtf8(":/icons/zoomoutcursor.png")));
+}
+
+void PDFDocumentToolZoomOut::mousePressEvent(QMouseEvent * event)
+{
+  if (!event)
+    return;
+  _started = (event->buttons() == Qt::LeftButton && event->button() == Qt::LeftButton);
+  if (_started)
+    _startPos = event->pos();
+}
+
+void PDFDocumentToolZoomOut::mouseReleaseEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+
+  if (!event || !_started)
+    return;
+  if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton) {
+    QPoint offset = event->pos() - _startPos;
+    if (offset.manhattanLength() <  QApplication::startDragDistance())
+      _parent->zoomOut();
+  }
+  _started = false;
+}
+
+
+// PDFDocumentToolMagnifyingGlass
+// ==============================
+//
+PDFDocumentToolMagnifyingGlass::PDFDocumentToolMagnifyingGlass(PDFDocumentView * parent) : 
+  PDFDocumentTool(parent)
+{
+  _magnifier = new PDFDocumentMagnifierView(parent);
+  _cursor = QCursor(QPixmap(QString::fromUtf8(":/icons/magnifiercursor.png")));
+}
+
+void PDFDocumentToolMagnifyingGlass::setMagnifierShape(const PDFDocumentView::MagnifierShape shape)
+{
+  Q_ASSERT(_magnifier != NULL);
+  _magnifier->setShape(shape);
+}
+
+void PDFDocumentToolMagnifyingGlass::setMagnifierSize(const int size)
+{
+  Q_ASSERT(_magnifier != NULL);
+  _magnifier->setSize(size);
+}
+
+void PDFDocumentToolMagnifyingGlass::mousePressEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_magnifier != NULL);
+  if (!event)
+    return;
+  _started = (event->buttons() == Qt::LeftButton && event->button() == Qt::LeftButton);
+
+  if (_started) {
+    _magnifier->prepareToShow();
+    _magnifier->setPosition(event->pos());
+  }
+  _magnifier->setVisible(_started);
+
+  // Ensure an update of the viewport so that the drop shadow is painted
+  // correctly
+  QRect r(QPoint(0, 0), _magnifier->dropShadow().size());
+  r.moveCenter(_magnifier->geometry().center());
+  _parent->viewport()->update(r);
+}
+
+void PDFDocumentToolMagnifyingGlass::mouseMoveEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_magnifier != NULL);
+  Q_ASSERT(_parent != NULL);
+
+  if (!event || !_started)
+    return;
+
+  // Only update the portion of the viewport (possibly) obscured by the
+  // magnifying glass and its shadow.
+  QRect r(QPoint(0, 0), _magnifier->dropShadow().size());
+  r.moveCenter(_magnifier->geometry().center());
+  _parent->viewport()->update(r);
+
+  _magnifier->setPosition(event->pos());
+}
+
+void PDFDocumentToolMagnifyingGlass::mouseReleaseEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_magnifier != NULL);
+
+  if (!event || !_started)
+    return;
+  if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton) {
+    _magnifier->hide();
+    _started = false;
+    // Force an update of the viewport so that the drop shadow is hidden
+    QRect r(QPoint(0, 0), _magnifier->dropShadow().size());
+    r.moveCenter(_magnifier->geometry().center());
+    _parent->viewport()->update(r);
+  }
+}
+
+void PDFDocumentToolMagnifyingGlass::paintEvent(QPaintEvent * event)
+{
+  Q_ASSERT(_magnifier != NULL);
+  Q_ASSERT(_parent != NULL);
+
+  if (!_started)
+    return;
+
+  // Draw a drop shadow
+  QPainter p(_parent->viewport());
+  QPixmap& dropShadow(_magnifier->dropShadow());
+  QRect r(QPoint(0, 0), dropShadow.size());
+  r.moveCenter(_magnifier->geometry().center());
+  p.drawPixmap(r.topLeft(), dropShadow);
+}
+
+
+// PDFDocumentToolMarqueeZoom
+// ==========================
+//
+PDFDocumentToolMarqueeZoom::PDFDocumentToolMarqueeZoom(PDFDocumentView * parent) :
+  PDFDocumentTool(parent)
+{
+  Q_ASSERT(_parent);
+  _rubberBand = new QRubberBand(QRubberBand::Rectangle, _parent->viewport());
+  _cursor = QCursor(Qt::CrossCursor);
+}
+
+void PDFDocumentToolMarqueeZoom::mousePressEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+  Q_ASSERT(_rubberBand != NULL);
+  
+  if (!event)
+    return;
+  _started = (event->buttons() == Qt::LeftButton && event->button() == Qt::LeftButton);
+  if (_started) {
+    _startPos = event->pos();
+    _rubberBand->setGeometry(QRect());
+    _rubberBand->show();
+  }
+}
+
+void PDFDocumentToolMarqueeZoom::mouseMoveEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_rubberBand != NULL);
+
+  QPoint o = _startPos, p = event->pos();
+
+  if (event->buttons() != Qt::LeftButton ) {
+    // The user somehow let go of the left button without us recieving an
+    // event. Abort the zoom operation.
+    _rubberBand->setGeometry(QRect());
+    _rubberBand->hide();
+  } else if ( (o - p).manhattanLength() > QApplication::startDragDistance() ) {
+    // Update rubber band Geometry.
+    _rubberBand->setGeometry(QRect(
+      QPoint(qMin(o.x(),p.x()), qMin(o.y(), p.y())),
+      QPoint(qMax(o.x(),p.x()), qMax(o.y(), p.y()))
+    ));
+  }
+}
+
+void PDFDocumentToolMarqueeZoom::mouseReleaseEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+
+  if (!event || !_started)
+    return;
+  if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton) {
+    QRectF zoomRect = _parent->mapToScene(_rubberBand->geometry()).boundingRect();
+    _rubberBand->hide();
+    _rubberBand->setGeometry(QRect());
+    _parent->zoomToRect(zoomRect);
+  }
+  _started = false;
+}
+
+
+// PDFDocumentToolMove
+// ===================
+//
+PDFDocumentToolMove::PDFDocumentToolMove(PDFDocumentView * parent) :
+  PDFDocumentTool(parent)
+{
+  _cursor = QCursor(Qt::OpenHandCursor);
+  _closedHandCursor = QCursor(Qt::ClosedHandCursor);
+}
+
+void PDFDocumentToolMove::mousePressEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+  
+  if (!event)
+    return;
+  _started = (event->buttons() == Qt::LeftButton && event->button() == Qt::LeftButton);
+  if (_started) {
+    _parent->setCursor(_closedHandCursor);
+    _oldPos = event->pos();
+  }
+}
+
+void PDFDocumentToolMove::mouseMoveEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+
+  if (!_started || !event)
+    return;
+
+  // Adapted from <qt>/src/gui/graphicsview/qgraphicsview.cpp @ QGraphicsView::mouseMoveEvent
+  QScrollBar *hBar = _parent->horizontalScrollBar();
+  QScrollBar *vBar = _parent->verticalScrollBar();
+  QPoint delta = event->pos() - _oldPos;
+  hBar->setValue(hBar->value() - delta.x());
+  vBar->setValue(vBar->value() - delta.y());
+  _oldPos = event->pos();
+}
+
+void PDFDocumentToolMove::mouseReleaseEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+
+  if (!event || !_started)
+    return;
+  if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton)
+    _parent->setCursor(_cursor);
+
+  _started = false;
+}
+
+
+// PDFDocumentToolContextClick
+// ===========================
+//
+void PDFDocumentToolContextClick::mousePressEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+  
+  if (!event)
+    return;
+  _started = (event->buttons() == Qt::LeftButton && event->button() == Qt::LeftButton);
+}
+
+void PDFDocumentToolContextClick::mouseReleaseEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+
+  if (!event || !_started)
+    return;
+
+  _started = false;
+  if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton) {
+    QPointF pos(_parent->mapToScene(event->pos()));
+    QGraphicsItem * item = _parent->scene()->itemAt(pos);
+    if (!item || item->type() != PDFPageGraphicsItem::Type)
+      return;
+    PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(item);
+    _parent->triggerContextClick(pageItem->page()->pageNum(), pageItem->mapToPage(pageItem->mapFromScene(pos)));
+  }
 }
 
 
