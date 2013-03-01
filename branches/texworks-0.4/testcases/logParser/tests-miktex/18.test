@@ -1,8 +1,20 @@
 [
-  {"Severity":1,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-this-path\\inside-this-folder\\test.tex","Row":0,
-   "Description":"LaTeX Warning: Overwriting file `./newfile.tex'."},
-  {"Severity":2,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-this-path\\inside-this-folder\\newfile.tex","Row":"6",
-   "Description":"Fake error.\nl.6 \\errmessage{Fake error}"},
+  {
+    "Severity":Severity.Warning,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-this-path\\inside-this-folder\\test.tex","Row":0,
+   "Description":"LaTeX Warning: Overwriting file `./newfile.tex'."
+  },
+  {
+    "Severity":Severity.BadBox,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-this-path\\inside-this-folder\\test.tex","Row":0,
+   "Description":"Underfull \\vbox (badness 2698) has occurred while \\output is active"
+  },
+  {
+    "Severity":Severity.Error,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-this-path\\inside-this-folder\\newfile.tex","Row":"6",
+   "Description":"Fake error.\nl.6 \\errmessage{Fake error}"
+  },
+  {
+    "Severity":Severity.BadBox,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\inside-this-path\\inside-this-folder\\test.tex","Row":0,
+   "Description":"Underfull \\vbox (badness 2698) has occurred while \\output is active"
+  },
 ]
 -----BEGIN OUTPUT BLOCK-----
 This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)

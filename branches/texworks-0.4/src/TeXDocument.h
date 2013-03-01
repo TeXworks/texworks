@@ -77,15 +77,16 @@ public:
 		{ return isUntitled; }
 	QString fileName() const
 		{ return curFile; }
-	QTextCursor textCursor()
+	QTextCursor textCursor() const
 		{ return textEdit->textCursor(); }
 	QTextDocument* textDoc()
 		{ return textEdit->document(); }
 	QString getLineText(int lineNo) const;
 	CompletingEdit* editor()
 		{ return textEdit; }
-	int selectionStart() { return textCursor().selectionStart(); }
-	int selectionLength() { return textCursor().selectionEnd() - textCursor().selectionStart(); }
+	int cursorPosition() const { return textCursor().position(); }
+	int selectionStart() const { return textCursor().selectionStart(); }
+	int selectionLength() const { return textCursor().selectionEnd() - textCursor().selectionStart(); }
 	
 	QString spellcheckLanguage() const;
 
@@ -111,16 +112,17 @@ public:
 	const QList<Tag> getTags() const
 		{ return tags; }
 
-	Q_PROPERTY(QString selection READ selectedText STORED false);
-	Q_PROPERTY(int selectionStart READ selectionStart STORED false);
-	Q_PROPERTY(int selectionLength READ selectionLength STORED false);
-	Q_PROPERTY(QString consoleOutput READ consoleText STORED false);
-	Q_PROPERTY(QString text READ text STORED false);
-    Q_PROPERTY(QString fileName READ fileName);
-	Q_PROPERTY(QString rootFileName READ getRootFilePath STORED false);
-	Q_PROPERTY(bool untitled READ untitled STORED false);
-	Q_PROPERTY(bool modified READ isModified WRITE setModified STORED false);
-	Q_PROPERTY(QString spellcheckLanguage READ spellcheckLanguage WRITE setSpellcheckLanguage STORED false);
+	Q_PROPERTY(int cursorPosition READ cursorPosition STORED false)
+	Q_PROPERTY(QString selection READ selectedText STORED false)
+	Q_PROPERTY(int selectionStart READ selectionStart STORED false)
+	Q_PROPERTY(int selectionLength READ selectionLength STORED false)
+	Q_PROPERTY(QString consoleOutput READ consoleText STORED false)
+	Q_PROPERTY(QString text READ text STORED false)
+    Q_PROPERTY(QString fileName READ fileName)
+	Q_PROPERTY(QString rootFileName READ getRootFilePath STORED false)
+	Q_PROPERTY(bool untitled READ untitled STORED false)
+	Q_PROPERTY(bool modified READ isModified WRITE setModified STORED false)
+	Q_PROPERTY(QString spellcheckLanguage READ spellcheckLanguage WRITE setSpellcheckLanguage STORED false)
 	
 signals:
 	void syncFromSource(const QString&, int, bool);
@@ -259,6 +261,10 @@ private:
 	PDFDocument *pdfDoc;
 
 	QTextCodec *codec;
+	// When using the UTF-8 codec, byte order marks (BOMs) are ignored during 
+	// reading and not produced when writing. To keep them in files that have
+	// them, we need to keep track of them ourselves.
+	bool utf8BOM;
 	int lineEndings;
 	QString curFile;
 	QString rootFilePath;

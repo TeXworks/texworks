@@ -29,7 +29,7 @@
 #include "PDFDocument.h"
 #include "ConfirmDelete.h"
 #include "HardWrapDialog.h"
-#include "PrefsDialog.h"
+#include "DefaultPrefs.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -102,6 +102,7 @@ void TeXDocument::init()
 	process = NULL;
 	highlighter = NULL;
 	pHunspell = NULL;
+	utf8BOM = false;
 #ifdef Q_WS_WIN
 	lineEndings = kLineEnd_CRLF;
 #else
@@ -121,6 +122,7 @@ void TeXDocument::init()
 	makeUntitled();
 	hideConsole();
 	keepConsoleOpen = false;
+	connect(consoleTabs, SIGNAL(requestClose()), actionShow_Hide_Console, SLOT(trigger()));
 
 	statusBar()->addPermanentWidget(lineEndingLabel = new ClickableLabel());
 	lineEndingLabel->setFrameStyle(QFrame::StyledPanel);
@@ -294,13 +296,13 @@ void TeXDocument::init()
 		++index;
 	}
 	// FIXME: This does not respect kDefault_SyntaxColoring defined in
-	// PrefsDialog.h. ATM, that is irrelevant because kDefault_SyntaxColoring = 0
+	// DefaultPrefs.h. ATM, that is irrelevant because kDefault_SyntaxColoring = 0
 	// corresponds to None (i.e., ""). In the future, this may change, though.
 	// However, it would require some additional logic here (e.g., handling the
 	// case that kDefault_SyntaxColoring points to an invalid index).
 	setSyntaxColoringMode(settings.value("syntaxColoring").toString());
 	
-	// kDefault_TabWidth is defined in PrefsDialog.h
+	// kDefault_TabWidth is defined in DefaultPrefs.h
 	textEdit->setTabStopWidth(settings.value("tabWidth", kDefault_TabWidth).toInt());
 	
 	// It is VITAL that this connection is queued! Calling showMessage directly
@@ -955,6 +957,7 @@ QString TeXDocument::readFile(const QString &fileName,
 #endif
 	}
 	
+	utf8BOM = false;
 	QFile file(fileName);
 	// Not using QFile::Text because this prevents us reading "classic" Mac files
 	// with CR-only line endings. See issue #242.
@@ -966,13 +969,14 @@ QString TeXDocument::readFile(const QString &fileName,
 		return QString();
 	}
 
-	QString peekStr(file.peek(PEEK_LENGTH));
+	QByteArray peekBytes(file.peek(PEEK_LENGTH));
+	
 	QString reqName;
 	bool hasMetadata;
 	if (forceCodec)
 		*codecUsed = forceCodec;
 	else {
-		*codecUsed = scanForEncoding(peekStr, hasMetadata, reqName);
+		*codecUsed = scanForEncoding(QString::fromUtf8(peekBytes), hasMetadata, reqName);
 		if (*codecUsed == NULL) {
 			*codecUsed = TWApp::instance()->getDefaultCodec();
 			if (hasMetadata) {
@@ -987,6 +991,12 @@ QString TeXDocument::readFile(const QString &fileName,
 			}
 		}
 	}
+
+	// When using the UTF-8 codec (mib = 106), byte order marks (BOMs) are
+	// ignored during reading and not produced when writing. To keep them in
+	// files that have them, we need to check for them ourselves.
+	if ((*codecUsed)->mibEnum() == 106 && peekBytes.size() >= 3 && peekBytes[0] == '\xEF' && peekBytes[1] == '\xBB' && peekBytes[2] == '\xBF')
+		utf8BOM = true;
 	
 	if (file.atEnd())
 		return QString("");
@@ -1082,14 +1092,20 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		lastModified = QDateTime();
 	}
 	else {
+		QSETTINGS_OBJECT(settings);
 		setCurrentFile(fileName);
-		if (!inBackground) {
+		if (!inBackground && settings.value("openPDFwithTeX", kDefault_OpenPDFwithTeX).toBool()) {
 			openPdfIfAvailable(false);
+			// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
+			// automatically.
+		}
+		else {
+			QString previewFileName;
+			actionGo_to_Preview->setEnabled(getPreviewFileName(previewFileName));
 		}
 		// set openDialogDir after openPdfIfAvailable as we want the .tex file's
 		// path to end up in that variable (which might be touched/changed when
 		// loading the pdf
-		QSETTINGS_OBJECT(settings);
 		QFileInfo info(fileName);
 		settings.setValue("openDialogDir", info.canonicalPath());
 
@@ -1368,6 +1384,13 @@ bool TeXDocument::saveFile(const QString &fileName)
 		}
 
 		QApplication::setOverrideCursor(Qt::WaitCursor);
+		
+		// When using the UTF-8 codec (mib = 106), byte order marks (BOMs) are
+		// ignored during reading and not produced when writing. To keep them in
+		// files that have them, we need to write them ourselves.
+		if (codec->mibEnum() == 106 && utf8BOM)
+			file.write("\xEF\xBB\xBF");
+		
 		if (file.write(codec->fromUnicode(theText)) == -1) {
 			QApplication::restoreOverrideCursor();
 			QMessageBox::warning(this, tr("Error writing file"),
@@ -2045,7 +2068,7 @@ void TeXDocument::setSyntaxColoringMode(const QString& mode)
 	QList<QAction*> actionList = menuSyntax_Coloring->actions();
 	
 	if (mode == "") {
-		Q_ASSERT(actionSyntaxColoring != NULL);
+		Q_ASSERT(actionSyntaxColoring_None != NULL);
 		actionSyntaxColoring_None->trigger();
 		return;
 	}

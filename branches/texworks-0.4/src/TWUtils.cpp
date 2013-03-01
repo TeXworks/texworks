@@ -481,12 +481,12 @@ void TWUtils::setDefaultFilters()
 {
 	*filters << QObject::tr("TeX documents (*.tex)");
 	*filters << QObject::tr("LaTeX documents (*.ltx)");
-	*filters << QObject::tr("Log files (*.log)");
+	*filters << QObject::tr("Log files (*.log *.blg)");
 	*filters << QObject::tr("BibTeX databases (*.bib)");
 	*filters << QObject::tr("Style files (*.sty)");
 	*filters << QObject::tr("Class files (*.cls)");
 	*filters << QObject::tr("Documented macros (*.dtx)");
-	*filters << QObject::tr("Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)");
+	*filters << QObject::tr("Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)");
 	*filters << QObject::tr("Text files (*.txt)");
 	*filters << QObject::tr("PDF documents (*.pdf)");
 	*filters << QObject::tr("All files") + " (*)"; // this must not be "*.*", which causes an extension ".*" to be added on some systems

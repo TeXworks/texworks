@@ -55,25 +55,14 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	  pHunspell(NULL), spellingCodec(NULL)
 {
 	if (sharedCompleter == NULL) { // initialize shared (static) members
-		qreal bgR, bgG, bgB;
-		qreal fgR, fgG, fgB;
-		
 		sharedCompleter = new QCompleter(qApp);
 		sharedCompleter->setCompletionMode(QCompleter::InlineCompletion);
 		sharedCompleter->setCaseSensitivity(Qt::CaseInsensitive);
 		loadCompletionFiles(sharedCompleter);
 
-		palette().color(QPalette::Active, QPalette::Base).getRgbF(&bgR, &bgG, &bgB);
-		palette().color(QPalette::Active, QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
-
 		currentCompletionFormat = new QTextCharFormat;
-		currentCompletionFormat->setBackground(QColor::fromRgbF(.75 * bgR + .25 * fgR, .75 * bgG + .25 * fgG, .75 * bgB + .25 * fgB));
 		braceMatchingFormat = new QTextCharFormat;
-		braceMatchingFormat->setBackground(QColor("orange"));
-
 		currentLineFormat = new QTextCharFormat;
-		currentLineFormat->setBackground(QColor::fromRgbF(.9 * bgR + .1 * fgR, .9 * bgG + .1 * fgG, .9 * bgB + .1 * fgB));
-		currentLineFormat->setProperty(QTextFormat::FullWidthSelection, true);
 
 		QSETTINGS_OBJECT(settings);
 		highlightCurrentLine = settings.value("highlightCurrentLine", true).toBool();
@@ -96,6 +85,31 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 	
 	cursorPositionChangedSlot();
 	updateLineNumberAreaWidth(0);
+	updateColors();
+}
+
+void CompletingEdit::updateColors()
+{
+	Q_ASSERT(currentCompletionFormat != NULL);
+	Q_ASSERT(braceMatchingFormat != NULL);
+	Q_ASSERT(currentLineFormat != NULL);
+	Q_ASSERT(lineNumberArea != NULL);
+
+	qreal bgR, bgG, bgB;
+	qreal fgR, fgG, fgB;
+
+	palette().color(QPalette::Active, QPalette::Base).getRgbF(&bgR, &bgG, &bgB);
+	palette().color(QPalette::Active, QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
+
+	currentCompletionFormat->setBackground(QColor::fromRgbF(.75 * bgR + .25 * fgR, .75 * bgG + .25 * fgG, .75 * bgB + .25 * fgB));
+	braceMatchingFormat->setBackground(QColor("orange"));
+
+	currentLineFormat->setBackground(QColor::fromRgbF(.9 * bgR + .1 * fgR, .9 * bgG + .1 * fgG, .9 * bgB + .1 * fgB));
+	currentLineFormat->setProperty(QTextFormat::FullWidthSelection, true);
+
+	palette().color(QPalette::Window).getRgbF(&bgR, &bgG, &bgB);
+	palette().color(QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
+	lineNumberArea->setBgColor(QColor::fromRgbF(0.75 * bgR + 0.25 * fgR, 0.75 * bgG + 0.25 * fgG, 0.75 * bgB + 0.25 * fgB));
 }
 
 CompletingEdit::~CompletingEdit()
@@ -208,17 +222,41 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 					if (action != Qt::IgnoreAction) {
 						dropCursor.setPosition(droppedOffset);
 						dropCursor.setPosition(droppedOffset + droppedLength, QTextCursor::KeepAnchor);
-						if (action == Qt::MoveAction && (this == drag->target() || this->isAncestorOf(drag->target()))) {
-							if (droppedOffset >= sourceStart && droppedOffset <= sourceEnd) {
+						if (action == Qt::MoveAction) {
+							// If we successfully completed a "Move" action, we
+							// need to make sure that the source text is removed
+							// (inserting the text in the target has already
+							// been completed at this point)
+							bool insideWindow = (drag->target() && (this == drag->target() || this->isAncestorOf(drag->target())));
+							bool insideSelection = (insideWindow && droppedOffset >= sourceStart && droppedOffset <= sourceEnd);
+							if (insideSelection) {
+								// The text was dropped into the same window at
+								// an overlapping position.
+								// First, remove everything that is left from
+								// the source text *after* the inserted text
+								// (note that every position after droppedOffset
+								// needs to be translated by droppedLength)
 								source.setPosition(droppedOffset + droppedLength);
 								source.setPosition(sourceEnd + droppedLength, QTextCursor::KeepAnchor);
 								source.removeSelectedText();
+								// Second, remove everything that is left from
+								// the source text *before* the inserted text
 								source.setPosition(sourceStart);
 								source.setPosition(droppedOffset, QTextCursor::KeepAnchor);
 								source.removeSelectedText();
 							}
-							else
+							else {
+								// Otherwise, simply remove the source text
 								source.removeSelectedText();
+							}
+							
+							if (!insideWindow) {
+								// The selection was moved to a different window,
+								// so dropCursor has no sensible data here. Thus,
+								// we collapse the cursor to where the selection
+								// was before the move action.
+								dropCursor.setPosition(sourceStart);
+							}
 						}
 					}
 					textCursor().endEditBlock();
@@ -1085,6 +1123,11 @@ int CompletingEdit::lineNumberAreaWidth()
 	return space;
 }
 
+bool CompletingEdit::getLineNumbersVisible() const
+{
+	return lineNumberArea->isVisible();
+}
+
 void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
 {
 	if (lineNumberArea->isVisible()) {
@@ -1117,8 +1160,10 @@ void CompletingEdit::resizeEvent(QResizeEvent *e)
 
 void CompletingEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
+	Q_ASSERT(lineNumberArea != NULL);
+
 	QPainter painter(lineNumberArea);
-	painter.fillRect(event->rect(), Qt::lightGray);
+	painter.fillRect(event->rect(), lineNumberArea->bgColor());
 	
 	QTextBlock block = document()->begin();
 	int blockNumber = 1;
@@ -1150,6 +1195,10 @@ bool CompletingEdit::event(QEvent *e)
 		// but don't know how to get that from the event :(
 		emit updateRequest(viewport()->rect(), 0);
 	}
+	// Alternatively, we could use QEvent::ApplicationPaletteChange if we'd
+	// derive the colors from the application's palette
+	if (e->type() == QEvent::PaletteChange)
+		updateColors();
 	return QTextEdit::event(e);
 }
 

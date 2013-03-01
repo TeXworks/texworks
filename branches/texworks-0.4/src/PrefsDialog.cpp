@@ -20,6 +20,7 @@
 */
 
 #include "PrefsDialog.h"
+#include "DefaultPrefs.h"
 #include "TWApp.h"
 #include "PDFDocument.h"
 #include "TeXHighlighter.h"
@@ -291,6 +292,7 @@ void PrefsDialog::restoreDefaults()
 			showText->setChecked(kDefault_ToolBarText);
 			switch (kDefault_LaunchOption) {
 				case 1:
+				default:
 					blankDocument->setChecked(true);
 					break;
 				case 2:
@@ -300,8 +302,8 @@ void PrefsDialog::restoreDefaults()
 					openDialog->setChecked(true);
 					break;
 			}
-			blankDocument->setChecked(true);
-			localePopup->setCurrentIndex(0);
+			localePopup->setCurrentIndex(kDefault_Locale);
+			openPDFwithTeX->setChecked(kDefault_OpenPDFwithTeX);
 			break;
 
 		case 1:
@@ -312,10 +314,12 @@ void PrefsDialog::restoreDefaults()
 				fontSize->setValue(font.pointSize());
 			}
 			tabWidth->setValue(kDefault_TabWidth);
+			lineNumbers->setChecked(kDefault_LineNumbers);
 			wrapLines->setChecked(kDefault_WrapLines);
 			syntaxColoring->setCurrentIndex(kDefault_SyntaxColoring);
 			autoIndent->setCurrentIndex(kDefault_IndentMode);
 			smartQuotes->setCurrentIndex(kDefault_QuotesMode);
+			language->setCurrentIndex(kDefault_SpellcheckLanguage);
 			encoding->setCurrentIndex(encoding->findText("UTF-8"));
 			highlightCurrentLine->setChecked(kDefault_HighlightCurrentLine);
 			autocompleteEnabled->setChecked(kDefault_AutocompleteEnabled);
@@ -366,8 +370,11 @@ void PrefsDialog::restoreDefaults()
 
 		case 4:
 			// Scripts
-			allowSystemCommands->setChecked(false);
-			scriptDebugger->setChecked(false);
+			allowScriptFileReading->setChecked(kDefault_AllowScriptFileReading);
+			allowScriptFileWriting->setChecked(kDefault_AllowScriptFileWriting);
+			enableScriptingPlugins->setChecked(kDefault_EnableScriptingPlugins);
+			allowSystemCommands->setChecked(kDefault_AllowSystemCommands);
+			scriptDebugger->setChecked(kDefault_ScriptDebugger);
 			break;
 	}
 }
@@ -477,6 +484,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			dlg.openDialog->setChecked(true);
 			break;
 	}
+	dlg.openPDFwithTeX->setChecked(settings.value("openPDFwithTeX", kDefault_OpenPDFwithTeX).toBool());
 	
 	QString oldLocale = settings.value("locale").toString();
 	// System and English are predefined at index 0 and 1 (see constants above)
@@ -578,14 +586,14 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.autoHideOutput->setCurrentIndex(hideConsoleSetting.toInt());
 
 	// Scripts
-	dlg.allowScriptFileReading->setChecked(settings.value("allowScriptFileReading", false).toBool());
-	dlg.allowScriptFileWriting->setChecked(settings.value("allowScriptFileWriting", false).toBool());
-	dlg.allowSystemCommands->setChecked(settings.value("allowSystemCommands", false).toBool());
-	dlg.enableScriptingPlugins->setChecked(settings.value("enableScriptingPlugins", false).toBool());
+	dlg.allowScriptFileReading->setChecked(settings.value("allowScriptFileReading", kDefault_AllowScriptFileReading).toBool());
+	dlg.allowScriptFileWriting->setChecked(settings.value("allowScriptFileWriting", kDefault_AllowScriptFileWriting).toBool());
+	dlg.allowSystemCommands->setChecked(settings.value("allowSystemCommands", kDefault_AllowSystemCommands).toBool());
+	dlg.enableScriptingPlugins->setChecked(settings.value("enableScriptingPlugins", kDefault_EnableScriptingPlugins).toBool());
 	// there is always at least JSScriptInterface
 	if (TWApp::instance()->getScriptManager()->languages().size() <= 1)
 		dlg.enableScriptingPlugins->setEnabled(false);
-	dlg.scriptDebugger->setChecked(settings.value("scriptDebugger", false).toBool());
+	dlg.scriptDebugger->setChecked(settings.value("scriptDebugger", kDefault_ScriptDebugger).toBool());
 #if QT_VERSION < 0x040500
 	dlg.scriptDebugger->setEnabled(false);
 #endif
@@ -632,6 +640,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		else if (dlg.openDialog->isChecked())
 			launchOption = 3;
 		settings.setValue("launchOption", launchOption);
+		
+		settings.setValue("openPDFwithTeX", dlg.openPDFwithTeX->isChecked());
 		
 		if (dlg.localePopup->currentIndex() != oldLocaleIndex) {
 			switch (dlg.localePopup->currentIndex()) {

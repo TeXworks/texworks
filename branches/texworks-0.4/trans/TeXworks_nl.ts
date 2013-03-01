@@ -995,11 +995,19 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation>Log bestanden (*.log)</translation>
+        <translation type="obsolete">Log bestanden (*.log)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation>Hulpbestanden (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+        <translation type="obsolete">Hulpbestanden (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+    </message>
+    <message>
+        <source>Log files (*.log *.blg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
