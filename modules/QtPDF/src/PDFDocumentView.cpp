@@ -540,8 +540,8 @@ void PDFDocumentView::moveTopLeftTo(const QPointF scenePos) {
 PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = 0 */) :
   Super(parent),
   _parent_view(parent),
-  _zoomFactor(2.0),
   _zoomLevel(1.0),
+  _zoomFactor(2.0),
   _shape(PDFDocumentView::Magnifier_Circle),
   _size(300)
 {
@@ -999,7 +999,6 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // that the X scaling factor is equal to the Y scaling factor.
   qreal scaleFactor = painter->transform().m11();
   QTransform scaleT = QTransform::fromScale(scaleFactor, scaleFactor);
-  PDFDocumentScene * docScene = qobject_cast<PDFDocumentScene*>(scene());
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
   // `_linksLoaded` will be `false`. We then load all of the links on the page.
