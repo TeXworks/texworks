@@ -784,9 +784,10 @@ QPixmap PDFDocumentMagnifierView::dropShadow() const
 // accesses the Poppler document pointed to by `*a_doc` while the scene child
 // items are executing tasks, we can produce a segfault. Because of this, the
 // mutex may need to be held at a higher level.
-PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
+PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, Document *a_pdf_doc, QObject *parent):
   Super(parent),
   _doc(a_doc),
+  _pdf_doc(a_pdf_doc),
   docMutex(new QMutex)
 {
   // We need to register a QList<PDFLinkGraphicsItem *> meta-type so we can
