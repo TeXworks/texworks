@@ -662,6 +662,12 @@ void PDFDocumentView::startTool(const Tool tool, QMouseEvent * event)
       _magnifier->prepareToShow();
       _magnifier->setPosition(event->pos());
       _magnifier->show();
+
+      // Hide the cursor while the magnifier is active, but save a reference to
+      // the current value so that it can be restored later.
+      _hiddenCursor = viewport()->cursor();
+      viewport()->setCursor(Qt::BlankCursor);
+
       viewport()->update();
       event->accept();
       break;
@@ -688,11 +694,12 @@ void PDFDocumentView::finishTool(const Tool tool, QMouseEvent * event)
     case Tool_MagnifyingGlass:
       if (_magnifier && _magnifier->isVisible()) {
         _magnifier->hide();
+        viewport()->setCursor(_hiddenCursor);
         viewport()->update();
         event->accept();
       }
       break;
-      
+
     case Tool_Move:
       // TODO: Disarming and rearming the current tool is a hack to get the
       // cursor right if the move tool was accessed through non-standard ways

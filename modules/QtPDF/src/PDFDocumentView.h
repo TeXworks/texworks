@@ -118,6 +118,7 @@ protected slots:
 private:
   PageMode _pageMode;
   MouseMode _mouseMode;
+  QCursor _hiddenCursor;
   Tool _armedTool;
   Tool _activeTool;
   // Note: the uint key can be any combination of Qt::MouseButton and
