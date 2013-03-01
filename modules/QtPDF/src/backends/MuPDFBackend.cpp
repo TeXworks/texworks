@@ -337,6 +337,14 @@ QList< QSharedPointer<PDFLinkAnnotation> > MuPDFPage::loadLinks()
   return _links;
 }
 
+QList<QRectF> MuPDFPage::search(QString searchText)
+{
+  // FIXME: Currently unimplemented and always returns an empty list.
+  QList<QRectF> results;
+
+  return results;
+}
+
 
 // vim: set sw=2 ts=2 et
 
