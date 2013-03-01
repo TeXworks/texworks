@@ -15,11 +15,10 @@ endif ( MUPDF_LIBRARIES )
 
 # use pkg-config to get the directories and then use these values
 # in the FIND_PATH() and FIND_LIBRARY() calls
-if( NOT WIN32 )
-  find_package(PkgConfig)
-
+find_package(PkgConfig)
+if( PKG_CONFIG_FOUND )
   pkg_check_modules(MUPDF_PKG QUIET mupdf)
-endif( NOT WIN32 )
+endif( PKG_CONFIG_FOUND )
 
 
 # Find libmupdf, libfitz and associated header files (Required)

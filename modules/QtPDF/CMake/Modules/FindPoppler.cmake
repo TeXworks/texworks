@@ -22,12 +22,11 @@ endif ( POPPLER_LIBRARIES )
 
 # use pkg-config to get the directories and then use these values
 # in the FIND_PATH() and FIND_LIBRARY() calls
-if( NOT WIN32 )
-  find_package(PkgConfig)
-
+find_package(PkgConfig)
+if( PKG_CONFIG_FOUND )
   pkg_check_modules(POPPLER_PKG QUIET poppler)
   pkg_check_modules(POPPLER_QT4_PKG QUIET poppler-qt4)
-endif( NOT WIN32 )
+endif( PKG_CONFIG_FOUND )
 
 # Check for Poppler XPDF headers (optional)
 FIND_PATH(POPPLER_XPDF_INCLUDE_DIR NAMES poppler-config.h
@@ -104,8 +103,10 @@ MARK_AS_ADVANCED(POPPLER_QT4_LIBRARIES)
 IF ( NOT(POPPLER_QT4_LIBRARIES) )
   MESSAGE(STATUS "Could not find libpoppler-qt4." )
 ENDIF ()
-LIST(APPEND POPPLER_LIBRARIES ${POPPLER_QT4_LIBRARIES})
 
+# Prepend poppler-qt4 library---in case of static linking, poppler-qt4 must come
+# first
+LIST(INSERT POPPLER_LIBRARIES 0 ${POPPLER_QT4_LIBRARIES})
 
 include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(Poppler DEFAULT_MSG POPPLER_LIBRARIES POPPLER_QT4_INCLUDE_DIR )
