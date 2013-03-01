@@ -64,7 +64,9 @@ class PopplerPage: public Page
 {
   typedef Page Super;
   QSharedPointer<Poppler::Page> _poppler_page;
+  QList< QSharedPointer<PDFAnnotation> > _annotations;
   QList< QSharedPointer<PDFLinkAnnotation> > _links;
+  bool _annotationsLoaded;
   bool _linksLoaded;
 
 public:
@@ -76,6 +78,7 @@ public:
   QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
   QList< QSharedPointer<PDFLinkAnnotation> > loadLinks();
+  QList< QSharedPointer<PDFAnnotation> > loadAnnotations();
 
   QList<SearchResult> search(QString searchText);
 };

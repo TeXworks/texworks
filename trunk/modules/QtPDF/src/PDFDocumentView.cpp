@@ -176,6 +176,10 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
     case Dock_Permissions:
       infoWidget = new PDFPermissionsInfoWidget(dock);
       break;
+    case Dock_Annotations:
+      infoWidget = new PDFAnnotationsInfoWidget(dock);
+      // FIXME: possibility to jump to selected/activated annotation
+      break;
     default:
       infoWidget = NULL;
       break;
@@ -1681,6 +1685,7 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(QSharedPointer<Page> a_page, QGraphicsI
   _dpiY(QApplication::desktop()->physicalDpiY()),
 
   _linksLoaded(false),
+  _annotationsLoaded(false),
   _zoomLevel(0.0)
 {
   // Create an empty pixmap that is the same size as the PDF page. This
@@ -1737,6 +1742,12 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   {
     _page->asyncLoadLinks(this);
     _linksLoaded = true;
+  }
+  
+  if (!_annotationsLoaded) {
+    // FIXME: Load annotations asynchronously?
+    addAnnotations(_page->loadAnnotations());
+    _annotationsLoaded = true;
   }
 
   if ( _zoomLevel != scaleFactor )
@@ -1897,6 +1908,29 @@ void PDFPageGraphicsItem::addLinks(QList< QSharedPointer<PDFLinkAnnotation> > li
   update();
 }
 
+void PDFPageGraphicsItem::addAnnotations(QList< QSharedPointer<PDFAnnotation> > annotations)
+{
+  PDFMarkupAnnotationGraphicsItem *markupAnnotItem;
+#ifdef DEBUG
+  stopwatch.start();
+#endif
+  foreach( QSharedPointer<PDFAnnotation> annot, annotations ){
+    // We currently only handle popups
+    if (!annot->isMarkup())
+      continue;
+    QSharedPointer<PDFMarkupAnnotation> markupAnnot = annot.staticCast<PDFMarkupAnnotation>();
+    markupAnnotItem = new PDFMarkupAnnotationGraphicsItem(markupAnnot);
+    // Map the link from pdf coordinates to scene coordinates
+    markupAnnotItem->setTransform(QTransform::fromTranslate(0, _pageSize.height()).scale(_dpiX / 72., -_dpiY / 72.));
+    markupAnnotItem->setParentItem(this);
+  }
+#ifdef DEBUG
+  qDebug() << "Added annotations in: " << stopwatch.elapsed() << " milliseconds";
+#endif
+
+  update();
+}
+
 
 // PDFLinkGraphicsItem
 // ===================
@@ -2018,6 +2052,152 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
   _activated = false;
 }
 
+
+// PDFMarkupAnnotationGraphicsItem
+// ===============================
+
+// This class descends from `QGraphicsRectItem` and serves the following
+// functions:
+//
+//    * Provides easy access to the on-screen geometry of a markup annotation.
+//
+//    * Handles tasks such as cursor changes on mouse hover and link activation
+//      on mouse clicks.
+//
+//    * Displays note popups if necessary
+PDFMarkupAnnotationGraphicsItem::PDFMarkupAnnotationGraphicsItem(QSharedPointer<PDFMarkupAnnotation> annot, QGraphicsItem *parent):
+  Super(parent),
+  _annot(annot),
+  _popup(NULL),
+  _activated(false)
+{
+  // The area is expressed in "normalized page coordinates", i.e.  values
+  // in the range [0, 1]. The transformation matrix of this item will have to
+  // be adjusted so that links will show up correctly in a graphics view.
+  setRect(_annot->rect());
+
+  // Allows annotations to provide a context-specific cursor when the mouse is
+  // hovering over them.
+  //
+  // **NOTE:** _Requires Qt 4.4 or newer._
+  setAcceptHoverEvents(true);
+
+  // Only left-clicks will trigger the popup (if any).
+  setAcceptedMouseButtons(annot->popup() ? Qt::LeftButton : Qt::NoButton);
+
+#ifdef DEBUG
+  // **TODO:**
+  // _Currently for debugging purposes only so that the annotation area can be
+  // determined visually, but might make a nice option._
+  setPen(QPen(Qt::blue));
+#else
+  // Perhaps there is a way to not draw the outline at all? Might be more
+  // efficient...
+  setPen(QPen(Qt::transparent));
+#endif
+
+  QString tooltip(annot->richContents());
+  // If the text is not already split into paragraphs, we do that here to ensure
+  // proper line folding in the tooltip and hence to avoid very wide tooltips.
+  if (tooltip.indexOf(QString::fromAscii("<p>")) < 0)
+    tooltip = QString::fromAscii("<p>%1</p>").arg(tooltip.replace('\n', QString::fromAscii("</p>\n<p>")));
+  setToolTip(tooltip);
+}
+
+int PDFMarkupAnnotationGraphicsItem::type() const { return Type; }
+
+// Event Handlers
+// --------------
+
+// Swap cursor during hover events.
+void PDFMarkupAnnotationGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+  if (_annot->popup())
+    setCursor(Qt::PointingHandCursor);
+}
+
+void PDFMarkupAnnotationGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+  if (_annot->popup())
+    unsetCursor();
+}
+
+// Respond to clicks. Limited to left-clicks by `setAcceptedMouseButtons` in
+// this object's constructor.
+void PDFMarkupAnnotationGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+  // Actually opening the popup is handled during a `mouseReleaseEvent` --- but
+  // only if the `_activated` flag is `true`.
+  _activated = true;
+}
+
+void PDFMarkupAnnotationGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+  Q_ASSERT(event != NULL);
+
+  if (!_activated)
+    return;
+  _activated = false;
+  
+  if (!contains(event->pos()) || !_annot)
+    return;
+
+  // Find widget that received this mouse event in the first place
+  // Note: according to the Qt docs, QApplication::widgetAt() can be slow. But
+  // we don't care here, as this is called only once.
+  QWidget * sender = QApplication::widgetAt(event->screenPos());
+
+  if (!sender || !qobject_cast<PDFDocumentView*>(sender->parent()))
+    return;
+  
+  if (_popup) {
+    if (_popup->isVisible())
+      _popup->hide();
+    else {
+      _popup->move(sender->mapFromGlobal(event->screenPos()));
+      _popup->show();
+      _popup->raise();
+      _popup->setFocus();
+    }
+    return;
+  }
+  
+  _popup = new QWidget(sender);
+  
+  QStringList styles;
+  if (_annot->color().isValid()) {
+    QColor c(_annot->color());
+    styles << QString::fromUtf8(".QWidget { background-color: %1; }").arg(c.name());
+    if (qGray(c.rgb()) >= 100)
+      styles << QString::fromUtf8(".QWidget, .QLabel { color: black; }");
+    else
+      styles << QString::fromUtf8(".QWidget, .QLabel { color: white; }");
+  }
+  else {
+    styles << QString::fromUtf8(".QWidget { background-color: %1; }").arg(QApplication::palette().color(QPalette::Window).name());
+      styles << QString::fromUtf8(".QWidget, .QLabel { color: %1; }").arg(QApplication::palette().color(QPalette::Text).name());
+  }
+  _popup->setStyleSheet(styles.join(QString::fromAscii("\n")));
+  QGridLayout * layout = new QGridLayout(_popup);
+  layout->setContentsMargins(2, 2, 2, 5);
+
+  QLabel * subject = new QLabel(QString::fromUtf8("<b>%1</b>").arg(_annot->subject()), _popup);
+  layout->addWidget(subject, 0, 0, 1, -1);
+  QLabel * author = new QLabel(_annot->author(), _popup);
+  layout->addWidget(author, 1, 0, 1, 1);
+  QLabel * date = new QLabel(_annot->creationDate().toString(Qt::DefaultLocaleLongDate), _popup);
+  layout->addWidget(date, 1, 1, 1, 1, Qt::AlignRight);
+  QTextEdit * content = new QTextEdit(_annot->richContents(), _popup);
+  content->setEnabled(false);
+  layout->addWidget(content, 2, 0, 1, -1);
+
+  _popup->setLayout(layout);
+  _popup->move(sender->mapFromGlobal(event->screenPos()));
+  _popup->show();
+  // FIXME: Make popup closable, movable; position it properly (also upon 
+  // zooming!), give some visible indication to which annotation it belongs.
+  // (Probably turn it into a subclass of QWidget, too).
+}
 
 // PDFToCInfoWidget
 // ============
@@ -2430,6 +2610,98 @@ void PDFPermissionsInfoWidget::clear()
   _form->setText(PDFDocumentView::trUtf8("Denied"));
 }
 
+
+// PDFAnnotationsInfoWidget
+// ============
+PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Annotations"))
+{
+  QVBoxLayout * layout = new QVBoxLayout(this);
+  layout->setContentsMargins(0, 0, 0, 0);
+  _table = new QTableWidget(this);
+
+#ifdef Q_WS_MAC /* don't do this on windows, as the font ends up too small */
+  QFont f(_table->font());
+  f.setPointSize(f.pointSize() - 2);
+  _table->setFont(f);
+#endif
+  _table->setColumnCount(4);
+  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Page") << PDFDocumentView::trUtf8("Subject") << PDFDocumentView::trUtf8("Author") << PDFDocumentView::trUtf8("Contents"));
+  _table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+  _table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  _table->setAlternatingRowColors(true);
+  _table->setShowGrid(false);
+  _table->setSelectionBehavior(QAbstractItemView::SelectRows);
+  _table->verticalHeader()->hide();
+  _table->horizontalHeader()->setStretchLastSection(true);
+  _table->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+
+  layout->addWidget(_table);
+  setLayout(layout);
+  
+  connect(&_annotWatcher, SIGNAL(resultReadyAt(int)), this, SLOT(annotationsReady(int)));
+}
+
+void PDFAnnotationsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
+{
+  if (!doc)
+    return;
+
+  QList< QSharedPointer<Page> > pages;
+  int i;
+  for (i = 0; i < doc->numPages(); ++i) {
+    QSharedPointer<Page> page = doc->page(i);
+    if (page)
+      pages << page;
+  }
+  
+  // If another search is still running, cancel it---after all, the user wants
+  // to perform a new search
+  if (!_annotWatcher.isFinished()) {
+    _annotWatcher.cancel();
+    _annotWatcher.waitForFinished();
+  }
+
+  _annotWatcher.setFuture(QtConcurrent::mapped(pages, PDFAnnotationsInfoWidget::loadAnnotations));
+}
+
+//static
+QList< QSharedPointer<PDFAnnotation> > PDFAnnotationsInfoWidget::loadAnnotations(QSharedPointer<Page> page)
+{
+  if (!page)
+    return QList< QSharedPointer<PDFAnnotation> >();
+  return page->loadAnnotations();
+}
+
+void PDFAnnotationsInfoWidget::annotationsReady(int index)
+{
+  Q_ASSERT(_table != NULL);
+  int i;
+  
+  i = _table->rowCount();
+  _table->setRowCount(i + _annotWatcher.resultAt(index).count());
+
+
+  foreach(QSharedPointer<PDFAnnotation> pdfAnnot, _annotWatcher.resultAt(index)) {
+    // we only use valid markup annotation here
+    if (!pdfAnnot || !pdfAnnot->isMarkup())
+      continue;
+    PDFMarkupAnnotation * annot = static_cast<PDFMarkupAnnotation*>(pdfAnnot.data());
+    if (annot->page())
+      _table->setItem(i, 0, new QTableWidgetItem(QString::number(annot->page()->pageNum() + 1)));
+    _table->setItem(i, 1, new QTableWidgetItem(annot->subject()));
+    _table->setItem(i, 2, new QTableWidgetItem(annot->author()));
+    _table->setItem(i, 3, new QTableWidgetItem(annot->contents()));
+    ++i;
+  }
+  _table->setRowCount(i);
+}
+
+void PDFAnnotationsInfoWidget::clear()
+{
+  _table->clearContents();
+  _table->setRowCount(0);
+}
 
 // PDFActionEvent
 // ============
