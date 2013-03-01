@@ -43,6 +43,7 @@ class PDFDocumentView : public QGraphicsView {
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
   enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom };
+  enum Tool { Tool_None, Tool_MagnifyingGlass, Tool_ZoomIn, Tool_ZoomOut, Tool_MarqueeZoom, Tool_Move, Tool_ContextMenu, Tool_ContextClick };
   enum MagnifierShape { Magnifier_Rectangle, Magnifier_Circle };
 
   PDFDocumentView(QWidget *parent = 0);
@@ -83,15 +84,30 @@ signals:
   void requestOpenUrl(const QUrl url);
   void requestExecuteCommand(QString command);
   void requestOpenPdf(QString filename, int page);
+  void contextClick(const int page, const QPointF pos);
 
 protected:
   // Keep track of the current page by overloading the widget paint event.
   void paintEvent(QPaintEvent *event);
   void keyPressEvent(QKeyEvent *event);
+  void keyReleaseEvent(QKeyEvent *event);
   void mousePressEvent(QMouseEvent * event);
   void mouseMoveEvent(QMouseEvent * event);
   void mouseReleaseEvent(QMouseEvent * event);
   void moveTopLeftTo(const QPointF scenePos);
+  
+  // Prepare to use a tool, e.g., by changing the mouse cursor; usually called
+  // when the modifier keys are right so that a mousePressEvent of the left
+  // mouse button will trigger startTool
+  void armTool(const Tool tool);
+  // Start using a tool - typically called from mousePressEvent
+  void startTool(const Tool tool, QMouseEvent * event);
+  // Finish using a tool - typically called from mouseReleaseEvent
+  void finishTool(const Tool tool, QMouseEvent * event);
+  // Abort using a tool - typically called from key*Event
+  void abortTool(const Tool tool);
+  // Counterpart to armTool; provided mainly for symmetry
+  void disarmTool(const Tool tool);
 
 protected slots:
   void maybeUpdateSceneRect();
@@ -100,6 +116,11 @@ protected slots:
 private:
   PageMode _pageMode;
   MouseMode _mouseMode;
+  Tool _armedTool;
+  Tool _activeTool;
+  // Note: the uint key can be any combination of Qt::MouseButton and
+  // Qt::KeyboardModifier (which use disjunct number ranges)
+  QMap<uint, Tool> _toolAccessors;
   // Never try to set a vanilla QGraphicsScene, always use a PDFGraphicsScene.
   void setScene(QGraphicsScene *scene);
   // Parent class has no copy constructor.
@@ -276,6 +297,8 @@ public:
   void paint( QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
   virtual QRectF boundingRect() const;
+
+  QSharedPointer<Page> page() const { return _page; }
 
   // Maps the point _point_ from the page's coordinate system (in pt) to this
   // item's coordinate system - chain with mapToScene and related methods to get

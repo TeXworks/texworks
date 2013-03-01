@@ -8,6 +8,7 @@ public:
 
 private slots:
   void openUrl(const QUrl url) const;
+  void syncFromPdf(const int page, const QPointF pos);
 };
 
 
