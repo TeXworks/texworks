@@ -32,6 +32,7 @@ class PDFDocumentView : public QGraphicsView {
 
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
+  enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move };
 
   PDFDocumentView(QWidget *parent = 0);
   void setScene(PDFDocumentScene *a_scene);
@@ -49,6 +50,7 @@ public slots:
   void setSinglePageMode() { setPageMode(PageMode_SinglePage); }
   void setOneColContPageMode() { setPageMode(PageMode_OneColumnContinuous); }
   void setTwoColContPageMode() { setPageMode(PageMode_TwoColumnContinuous); }
+  void setMouseMode(const MouseMode newMode);
 
   void zoomIn();
   void zoomOut();
@@ -68,10 +70,10 @@ protected slots:
 
 private:
   PageMode _pageMode;
+  MouseMode _mouseMode;
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFDocumentView)
 };
-
 
 class PageProcessingRequest : public QObject
 {
