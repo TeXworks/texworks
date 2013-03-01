@@ -30,8 +30,8 @@ static bool isPageItem(const QGraphicsItem *item) { return ( item->type() == PDF
 PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
   _pdf_scene(NULL),
-  _useGrayScale(false),
   _zoomLevel(1.0),
+  _useGrayScale(false),
   _pageMode(PageMode_OneColumnContinuous),
   _mouseMode(MouseMode_Move),
   _armedTool(NULL)
@@ -1643,7 +1643,6 @@ void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
 {
   if (!action_event || !action_event->action)
     return;
-  const PDFAction * action = action_event->action;
 
   switch (action_event->action->type() )
   {
@@ -1780,7 +1779,7 @@ void PDFDocumentScene::reinitializeScene()
     QVBoxLayout * layout = new QVBoxLayout();
 
     QLabel * lockIcon = new QLabel(_unlockWidget);
-    lockIcon->setPixmap(QPixmap(":/icons/lock.png"));
+    lockIcon->setPixmap(QPixmap(QString::fromUtf8(":/icons/lock.png")));
     QLabel * lockText = new QLabel(tr("This document is locked. You need a password to open it."), _unlockWidget);
     QPushButton * lockButton = new QPushButton(tr("Unlock"), _unlockWidget);
 
@@ -2247,8 +2246,8 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 PDFMarkupAnnotationGraphicsItem::PDFMarkupAnnotationGraphicsItem(QSharedPointer<PDFMarkupAnnotation> annot, QGraphicsItem *parent):
   Super(parent),
   _annot(annot),
-  _popup(NULL),
-  _activated(false)
+  _activated(false),
+  _popup(NULL)
 {
   // The area is expressed in "normalized page coordinates", i.e.  values
   // in the range [0, 1]. The transformation matrix of this item will have to
@@ -2279,7 +2278,7 @@ PDFMarkupAnnotationGraphicsItem::PDFMarkupAnnotationGraphicsItem(QSharedPointer<
   // If the text is not already split into paragraphs, we do that here to ensure
   // proper line folding in the tooltip and hence to avoid very wide tooltips.
   if (tooltip.indexOf(QString::fromAscii("<p>")) < 0)
-    tooltip = QString::fromAscii("<p>%1</p>").arg(tooltip.replace('\n', QString::fromAscii("</p>\n<p>")));
+    tooltip = QString::fromAscii("<p>%1</p>").arg(tooltip.replace(QChar::fromAscii('\n'), QString::fromAscii("</p>\n<p>")));
   setToolTip(tooltip);
 }
 

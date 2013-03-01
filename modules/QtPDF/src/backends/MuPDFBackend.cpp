@@ -288,9 +288,9 @@ void initPDFAnnotation(PDFAnnotation * annot, Page * page, fz_obj * src)
     return;
   
   annot->setRect(toRectF(fz_dict_gets(src, keyRect)));
-  annot->setContents(fz_to_str_buf(fz_dict_gets(src, keyContents)));
-  annot->setName(fz_to_str_buf(fz_dict_gets(src, keyNM)));
-  annot->setLastModified(fromPDFDate(fz_to_str_buf(fz_dict_gets(src, keyM))));
+  annot->setContents(QString::fromUtf8(fz_to_str_buf(fz_dict_gets(src, keyContents))));
+  annot->setName(QString::fromUtf8(fz_to_str_buf(fz_dict_gets(src, keyNM))));
+  annot->setLastModified(fromPDFDate(QString::fromUtf8(fz_to_str_buf(fz_dict_gets(src, keyM)))));
   annot->setColor(toColor(fz_dict_gets(src, keyC)));
   annot->flags() = QFlags<PDFAnnotation::AnnotationFlags>(fz_to_int(fz_dict_gets(src, keyF)));
 }
@@ -326,10 +326,10 @@ void initPDFMarkupAnnotation(PDFMarkupAnnotation * annot, Page * page, fz_obj * 
   if (!fz_is_dict(src))
     return;
 
-  annot->setTitle(fz_to_str_buf(fz_dict_gets(src, keyT)));
-  annot->setRichContents(fz_to_str_buf(fz_dict_gets(src, keyRC)));
-  annot->setCreationDate(fromPDFDate(fz_to_str_buf(fz_dict_gets(src, keyCreationDate))));
-  annot->setSubject(fz_to_str_buf(fz_dict_gets(src, keySubj)));
+  annot->setTitle(QString::fromUtf8(fz_to_str_buf(fz_dict_gets(src, keyT))));
+  annot->setRichContents(QString::fromUtf8(fz_to_str_buf(fz_dict_gets(src, keyRC))));
+  annot->setCreationDate(fromPDFDate(QString::fromUtf8(fz_to_str_buf(fz_dict_gets(src, keyCreationDate)))));
+  annot->setSubject(QString::fromUtf8(fz_to_str_buf(fz_dict_gets(src, keySubj))));
 
   annot->setPopup(toPDFPopupAnnotation(annot, fz_dict_gets(src, keyPopup)));
 }
@@ -358,8 +358,8 @@ public:
 // ==============
 MuPDFDocument::MuPDFDocument(QString fileName):
   Super(fileName),
-  _glyph_cache(fz_new_glyph_cache()),
-  _mupdf_data(NULL)
+  _mupdf_data(NULL),
+  _glyph_cache(fz_new_glyph_cache())
 {
   _fileName = fileName;
   reload();
@@ -597,7 +597,7 @@ QList<PDFFontInfo> MuPDFDocument::fonts() const
         if (QString::fromAscii(fz_to_name(fz_dict_gets(_mupdf_data->table[i].obj, typeKey))) != QString::fromUtf8("Font"))
           continue;
 
-        QString subtype = fz_to_name(fz_dict_gets(_mupdf_data->table[i].obj, subtypeKey));
+        QString subtype = QString::fromUtf8(fz_to_name(fz_dict_gets(_mupdf_data->table[i].obj, subtypeKey)));
 
         // Type0 fonts have no info we need right now---all relevant data is in
         // its descendant, which again is a dict of type /Font
@@ -627,7 +627,7 @@ QList<PDFFontInfo> MuPDFDocument::fonts() const
             else {
               fz_obj * ff = fz_dict_gets(desc, fontfile3Key);
               if (fz_is_dict(ff)) {
-                QString ffSubtype = fz_to_name(fz_dict_gets(ff, subtypeKey));
+                QString ffSubtype = QString::fromUtf8(fz_to_name(fz_dict_gets(ff, subtypeKey)));
                 if (ffSubtype == QString::fromUtf8("Type1C"))
                   fi.setFontProgramType(PDFFontInfo::ProgramType_Type1CFF);
                 else if (ffSubtype == QString::fromUtf8("CIDFontType0C"))
@@ -923,7 +923,6 @@ QList< QSharedPointer<PDFAnnotation> > MuPDFPage::loadAnnotations()
   MuPDFLocaleResetter lr;
   static char keyType[] = "Type";
   static char keySubtype[] = "Subtype";
-  static char keyPopup[] = "Popup";
 
   if (_annotationsLoaded)
     return _annotations;
@@ -996,7 +995,7 @@ QList<SearchResult> MuPDFPage::search(QString searchText)
   fz_text_span * page_text, * span;
   fz_device * dev;
   QString text;
-  int i, j, k, spanStart;
+  int i, j, spanStart;
 
   // Use MuPDF transformations to get the text box coordinates right already
   // during fz_execute_display_list().
@@ -1021,7 +1020,7 @@ QList<SearchResult> MuPDFPage::search(QString searchText)
     for (i = 0; i < span->len; ++i)
       text.append(span->text[i].c);
     if (span->eol)
-      text.append('\n');
+      text.append(QChar::fromAscii('\n'));
   }
 
   // Perform the actual search and extract box information

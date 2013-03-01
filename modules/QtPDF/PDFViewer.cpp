@@ -188,23 +188,23 @@ SearchLineEdit::SearchLineEdit(QWidget *parent):
   previousResultButton = new QToolButton(this);
   previousResultButton->setIcon(style()->standardIcon(QStyle::SP_ArrowLeft));
   previousResultButton->setCursor(Qt::ArrowCursor);
-  previousResultButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
+  previousResultButton->setStyleSheet(QString::fromUtf8("QToolButton { border: none; padding: 0px; }"));
   connect(previousResultButton, SIGNAL(clicked()), this, SLOT(handlePreviousResult()));
 
   nextResultButton = new QToolButton(this);
   nextResultButton->setIcon(style()->standardIcon(QStyle::SP_ArrowRight));
   nextResultButton->setCursor(Qt::ArrowCursor);
-  nextResultButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
+  nextResultButton->setStyleSheet(QString::fromUtf8("QToolButton { border: none; padding: 0px; }"));
   connect(nextResultButton, SIGNAL(clicked()), this, SLOT(handleNextResult()));
 
   clearButton = new QToolButton(this);
   clearButton->setIcon(style()->standardIcon(QStyle::SP_TitleBarCloseButton));
   clearButton->setCursor(Qt::ArrowCursor);
-  clearButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
+  clearButton->setStyleSheet(QString::fromUtf8("QToolButton { border: none; padding: 0px; }"));
   connect(clearButton, SIGNAL(clicked()), this, SLOT(clearSearch()));
 
   int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
-  setStyleSheet(QString("QLineEdit { padding-right: %1px; } ").arg(
+  setStyleSheet(QString::fromUtf8("QLineEdit { padding-right: %1px; } ").arg(
       nextResultButton->sizeHint().width() +
       previousResultButton->sizeHint().width() +
       clearButton->sizeHint().width() + frameWidth + 1));

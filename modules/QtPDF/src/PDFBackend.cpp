@@ -168,7 +168,6 @@ PDFPageProcessingThread::~PDFPageProcessingThread()
 
 void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * request)
 {
-  int i;
 
   if (!request)
     return;
@@ -187,6 +186,7 @@ void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * r
   // avoid processing it several times
   // **TODO:** Could it be that we require several concurrent versions of the
   //           same page?
+  int i;
   for (i = _workStack.size() - 1; i >= 0; --i) {
     if (*(_workStack[i]) == *request) {
       // Using deleteLater() doesn't work because we have no event queue in this
