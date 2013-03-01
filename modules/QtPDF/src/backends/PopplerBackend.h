@@ -21,6 +21,7 @@
 #ifndef PopplerBackend_H
 #define PopplerBackend_H
 
+#include "PDFBackend.h"
 #include <poppler/qt4/poppler-qt4.h>
 
 namespace QtPDF {
@@ -109,6 +110,22 @@ public:
 } // namespace Poppler
 
 } // namespace Backend
+
+class PopplerQt4Backend : public BackendInterface
+{
+  Q_OBJECT
+  Q_INTERFACES(QtPDF::BackendInterface)
+public:
+  PopplerQt4Backend() { }
+  virtual ~PopplerQt4Backend() { }
+
+  virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) {
+    return QSharedPointer<Backend::Document>(new Backend::Poppler::Document(fileName));
+  }
+
+  virtual QString name() const { return QString::fromAscii("poppler-qt4"); }
+  virtual bool canHandleFile(const QString & fileName) { return QFileInfo(fileName).suffix() == QString::fromAscii("pdf"); }
+};
 
 } // namespace QtPDF
 

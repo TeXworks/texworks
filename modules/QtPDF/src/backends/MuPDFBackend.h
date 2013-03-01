@@ -21,6 +21,8 @@
 #ifndef MuPDFBackend_H
 #define MuPDFBackend_H
 
+#include "PDFBackend.h"
+
 extern "C"
 {
 #include <fitz.h>
@@ -126,6 +128,22 @@ public:
 } // namespace MuPDF
 
 } // namespace Backend
+
+class MuPDFBackend : public BackendInterface
+{
+  Q_OBJECT
+  Q_INTERFACES(QtPDF::BackendInterface)
+public:
+  MuPDFBackend() { }
+  virtual ~MuPDFBackend() { }
+
+  virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) {
+    return QSharedPointer<Backend::Document>(new Backend::MuPDF::Document(fileName));
+  }
+
+  virtual QString name() const { return QString::fromAscii("mupdf"); }
+  virtual bool canHandleFile(const QString & fileName) { return QFileInfo(fileName).suffix() == QString::fromAscii("pdf"); }
+};
 
 } // namespace QtPDF
 
