@@ -1247,10 +1247,10 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
         if ( renderedPage ) {
           // we don't want a finished render thread to change our image while we
           // draw it
-          _page->document()->pageCache().lock.lockForRead();
+          _page->document()->pageCache().lock();
           // renderedPage as returned from getTileImage should always be valid!
           painter->drawImage(tile.topLeft(), *renderedPage);
-          _page->document()->pageCache().lock.unlock();
+          _page->document()->pageCache().unlock();
         }
 #ifdef DEBUG
         painter->drawRect(tile);

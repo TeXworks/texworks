@@ -53,8 +53,6 @@ TODO
  - possibility to abort render requests when page moves out of view (is there a
    way to avoid going through all pages at each scroll event?)
  - Program segfaults if a page is destroyed while a render request is active
- - Program occasionally segfaults when displaying a page - probably due to
-   serialization problems in the cache
 
 ### Wishlist
  - annotations (popup window)
