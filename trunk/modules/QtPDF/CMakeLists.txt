@@ -54,7 +54,10 @@ SET (QT_COMPONENTS
 
 # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
 # with Qt-specific tasks such as compiling resources or running `moc`.
-FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+#
+# Qt 4.6.0 or newer is required for many pieces of functionality used in the
+# code.
+FIND_PACKAGE(Qt4 4.6.0 COMPONENTS ${QT_COMPONENTS} REQUIRED)
 INCLUDE(UseQt4)
 
 FIND_PACKAGE(ZLIB REQUIRED)
