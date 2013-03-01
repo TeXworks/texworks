@@ -7,7 +7,7 @@ CC = g++
 
 all: pdf_viewer
 
-pdf_viewer: PDFDocumentView.o moc_PDFDocumentView.o PDFViewer.o moc_PDFViewer.o poppler_viewer.cpp
+pdf_viewer: PDFDocumentView.o moc_PDFDocumentView.o PDFViewer.o moc_PDFViewer.o main.cpp
 	$(CC) -g -O0 \
 	  $(addprefix -I,$(inc_dirs)) $(addprefix -l,$(libs)) \
 		$(qt_files) \
