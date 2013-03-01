@@ -5,7 +5,11 @@
     <file>icons/fitwidth.png</file>
     <file>icons/fitwindow.png</file>
     <file>icons/hand.png</file>
+    <file>icons/logo.png</file>
     <file>icons/magnifiercursor.png</file>
+    <file>icons/pagemode-continuous.png</file>
+    <file>icons/pagemode-single.png</file>
+    <file>icons/pagemode-twocols.png</file>
     <file>icons/zoom.png</file>
     <file>icons/zoomin.png</file>
     <file>icons/zoomincursor.png</file>
