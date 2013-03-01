@@ -28,6 +28,21 @@ following components are required:
   - poppler and poppler-qt4
 
 
+Building on Windows
+===================
+
+Windows builds can be accomplished using MinGW, MSYS and CMake. Assuming Qt is
+installed and Freetype and Poppler have been built and installed to
+`/c/opt/texworks`, the following steps can be invoked from a MSYS shell to
+build the project:
+
+    mkdir build
+    cd build
+    cmake .. -G "MSYS Makefiles" -DCMAKE_PREFIX_PATH=/c/opt/texworks
+
+    make
+
+
 TODO
 ====
 ### Required
