@@ -1449,6 +1449,18 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
     retranslateUi();
   }
   
+  // We must not respond to a QFileSystemWatcher::timeout() signal directly as
+  // file operations need not be atomic. I.e., QFileSystemWatcher could fire
+  // several times between the begging of a change to the file and its
+  // completion. Hence, we use a timer to delay the call to reloadDocument(). If
+  // the QFileSystemWatcher fires several times, the timer gets restarted every
+  // time.
+  _reloadTimer.setSingleShot(true);
+  _reloadTimer.setInterval(100);
+  connect(&_reloadTimer, SIGNAL(timeout()), this, SLOT(reloadDocument()));
+  connect(&_fileWatcher, SIGNAL(fileChanged(const QString &)), &_reloadTimer, SLOT(start()));
+  setWatchForDocumentChangesOnDisk(true);
+
   reinitializeScene();
 }
 
@@ -1624,6 +1636,9 @@ void PDFDocumentScene::pageLayoutChanged(const QRectF& sceneRect)
 void PDFDocumentScene::reinitializeScene()
 {
   clear();
+  _pages.clear();
+  _pageLayout.clearPages();
+
   _lastPage = _doc->numPages();
   if (_doc->isLocked()) {
     // FIXME: Deactivate "normal" user interaction, e.g., zooming, panning, etc.
@@ -1644,6 +1659,17 @@ void PDFDocumentScene::reinitializeScene()
     }
     _pageLayout.relayout();
   }
+}
+
+void PDFDocumentScene::reloadDocument()
+{
+  // If the file referenced by the document no longer exists, do nothing
+  if(!QFile::exists(_doc->fileName()))
+    return;
+
+  _doc->reload();
+  reinitializeScene();
+  emit documentChanged(_doc.toWeakRef());
 }
 
 
@@ -1682,6 +1708,17 @@ void PDFDocumentScene::showAllPages() const
   }
 }
 
+void PDFDocumentScene::setWatchForDocumentChangesOnDisk(const bool doWatch /* = true */)
+{
+  if (_fileWatcher.files().size() > 0)
+    _fileWatcher.removePaths(_fileWatcher.files());
+  if (doWatch) {
+    _fileWatcher.addPath(_doc->fileName());
+#ifdef DEBUG
+    qDebug() << "Watching" << _doc->fileName();
+#endif
+  }
+}
 
 // PDFPageGraphicsItem
 // ===================

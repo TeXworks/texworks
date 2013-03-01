@@ -66,10 +66,10 @@ TODO
  - context menu
  - Highlighting! (to show syncing destination, search results, etc.)
  - Port scripting-related functions from Tw (if any)
- - Possibility to reload current file (e.g., if it changed on disk); note that
+ - ~~Possibility to reload current file (e.g., if it changed on disk); note that
    this requires some reconsideration of memory management, as Page object
    could change, which would have to be propagated upwards to every object
-   holding a pointer to them (e.g., PDFPageGraphicsItem)
+   holding a pointer to them (e.g., PDFPageGraphicsItem)~~ __DONE__
  - ~~Add a PDFDocumentWidget, derived from PDFDocumentView, which encapsulates the
    scene and provides, e.g., a load() function for ease of use (similar to what
    Qt does, see QTreeView vs. QTreeWidget)~~ __DONE__
