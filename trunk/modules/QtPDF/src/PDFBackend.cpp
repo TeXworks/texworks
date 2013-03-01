@@ -12,19 +12,14 @@
  * more details.
  */
 
-
 #include <PDFBackend.h>
-
-
-// Custom Event Types
-// ==================
-
-QEvent::Type PDFLinksLoadedEvent::LinksLoadedEvent = static_cast<QEvent::Type>( QEvent::registerEventType() );
 
 
 // Backend Rendering
 // =================
-
+// The `PDFPageProcessingThread` is a thread that processes background jobs.
+// Each job is represented by a subclass of `PageProcessingRequest` and
+// contains an `execute` method that performs the actual work.
 PDFPageProcessingThread::PDFPageProcessingThread() :
 _quit(false)
 {
@@ -39,9 +34,9 @@ PDFPageProcessingThread::~PDFPageProcessingThread()
   wait();
 }
 
-void PDFPageProcessingThread::requestRenderPage(Page *page, QObject *listener, qreal scaleFactor)
+void PDFPageProcessingThread::requestRenderPage(Page *page, QObject *listener, double xres, double yres, QRect render_box)
 {
-  addPageProcessingRequest(new PageProcessingRenderPageRequest(page, listener, scaleFactor));
+  addPageProcessingRequest(new PageProcessingRenderPageRequest(page, listener, xres, yres, render_box));
 }
 
 void PDFPageProcessingThread::requestLoadLinks(Page *page, QObject *listener)
@@ -118,7 +113,7 @@ void PDFPageProcessingThread::run()
           jobDesc = QString::fromUtf8("rendering page");
           break;
       }
-      qDebug() << "finished " << jobDesc << "for page" << workItem->page->pageNum();
+      qDebug() << "finished " << jobDesc << "for page" << workItem->page->pageNum() << ". Time elapsed: " << _renderTimer.elapsed() << " ms.";
 #endif
 
       // Delete the work item as it has fulfilled its purpose
@@ -144,94 +139,38 @@ void PDFPageProcessingThread::run()
 }
 
 
-PageProcessingRenderPageRequest::PageProcessingRenderPageRequest(Page *page, QObject *listener, qreal scaleFactor) :
-  PageProcessingRequest(page, listener),
-  scaleFactor(scaleFactor)
-{
-}
+// Asynchronous Page Operations
+// ----------------------------
+//
+// The `execute` functions here are called by the processing theread to perform
+// background jobs such as page rendering or link loading. This alows the GUI
+// thread to stay unblocked and responsive. The results of background jobs are
+// posted as events to a `listener` which can be any subclass of `QObject`. The
+// `listener` will need a custom `event` function that is capable of picking up
+// on these events.
+
+
+// ### Custom Event Types
+// These are the events posted by `execute` functions.
+const QEvent::Type PDFPageRenderedEvent::PageRenderedEvent = static_cast<QEvent::Type>( QEvent::registerEventType() );
+const QEvent::Type PDFLinksLoadedEvent::LinksLoadedEvent = static_cast<QEvent::Type>( QEvent::registerEventType() );
 
 bool PageProcessingRenderPageRequest::execute()
 {
-  // Set up to report failure. All objects that recieve the `pageImageReady`
-  // signal emitted by this class should check to see that the QImage passed is
-  // not empty using `QImage.isNull`. if it is empty, that means the render
-  // failed or the request decided to abort.
-  bool doRender = true;
-  QImage pageImage = QImage();
-
   // FIXME:
   // Aborting renders doesn't really work right now---the backend knows nothing
   // about the PDF scenes.
+  //
+  // Idea: Perhaps allow page render requests to provide a pointer to a function
+  // that returns a `bool` value indicating if the request is still valid? Then
+  // the `PDFPageGraphicsItem` could have a function that indicates if the item
+  // is anywhere near a viewport.
+  QImage rendered_page = page->renderToImage(xres, yres, render_box);
+  QCoreApplication::postEvent(listener, new PDFPageRenderedEvent(xres, yres, render_box, rendered_page));
 
-  //PDFDocumentScene *pageScene = qobject_cast<PDFDocumentScene *>(page->scene());
-  //QPointF pageCenter, viewCenter;
-  //// The render tolerance is used to control the maximum distance from the
-  //// center of the viewport at which pages will render.
-  //qreal pageHeight, pageDistance, RENDER_TOLERANCE = 5.0;
-
-  //if (!page || !qobject_cast<PDFDocumentScene *>(page->scene()) || !page->_page)
-    //goto renderReport; // Reports failure.
-
-  //// Check to see that the page is visible by at least one of the views
-  //// observing the scene. If not, skip rendering.
-  ////
-  //// **TODO:**
-  ////
-  //// Should this logic be executed at a higher level? Perhaps by the rendering
-  //// thread before it decides to process a request? Two problems with this:
-  ////
-  ////   - Most objects expect to recieve some sort of signal after submitting
-  ////     a job and these signals are emitted in the `execute` function.
-  ////
-  ////   - The `PDFPageGraphicsItem` sets `_linksLoaded` to `true` after
-  ////     the load request, not when the results are recieved.
-  ////
-  //// This wont work for single page layout modes because the pages are all
-  //// stacked on top of each other, so it always returns true. Need a better
-  //// check for this case.
-  //pageCenter = page->sceneBoundingRect().center();
-  //pageHeight = page->sceneBoundingRect().height();
-
-  //foreach ( QGraphicsView *view, pageScene->views() )
-  //{
-    //if ( view->isHidden() )
-      //continue; // Go to the next iteration if a view is not visible to the user.
-
-    //viewCenter = view->mapToScene(view->rect()).boundingRect().center();
-    //pageDistance = QLineF(pageCenter, viewCenter).length();
-    //// If the distance between the center of the page and the center of the
-    //// viewport is less than a certain multiple of the page height, we will
-    //// render the page.
-    //if ( pageDistance < pageHeight * RENDER_TOLERANCE ) {
-      //doRender = true;
-      //break;
-    //}
-  //}
-
-  if ( doRender )
-    // FIXME: Just using the scale factor is not right. Should probably pass
-    // DPI into this function instead. This is a hack to allow compilation
-    // because _dpiX and _dpiY are currently unavailable. Fix this when async
-    // page rendering is re-implemented.
-    //
-    // pageImage = page->renderToImage(page->_dpiX * scaleFactor, page->_dpiY * scaleFactor);
-    pageImage = page->renderToImage(scaleFactor, scaleFactor);
-
-renderReport:
-  // FIXME: Replace the signal with an event that can be recieved by any
-  // `QObject`
-  emit pageImageReady(scaleFactor, pageImage);
-  return doRender;
+  return true;
 }
 
-
-// Asynchronous Link Generation
-// ----------------------------
-
-// This function generates `PDFLinkGraphicsItem` objects. It is intended to be
-// called asynchronously and so does not set parentage for the objects it
-// generates --- this task is left to the `addLinks` method so that all the
-// links are added and rendered in a synchronous operation.
 bool PageProcessingLoadLinksRequest::execute()
 {
   QCoreApplication::postEvent(listener, new PDFLinksLoadedEvent(page->loadLinks()));
@@ -239,9 +178,11 @@ bool PageProcessingLoadLinksRequest::execute()
 }
 
 
-// Document Class
-// ==============
+// PDF ABCs
+// ========
 
+// Document Class
+// --------------
 Document::Document(QString fileName):
   _numPages(-1)
 {
@@ -256,7 +197,7 @@ PDFPageProcessingThread &Document::processingThread() { return _processingThread
 
 
 // Page Class
-// ==========
+// ----------
 Page::Page(Document *parent, int at):
   _parent(parent),
   _n(at)

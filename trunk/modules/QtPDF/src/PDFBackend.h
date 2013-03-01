@@ -23,11 +23,11 @@
 // Backend Rendering
 // =================
 
-// FIXME: Forward-declaring these classes is a hack that allows the threaded
-// rendering code to live in PDFBackend. Clean up and fix.
 class Page;
 class Document;
-// FIXME: Loading the Poppler Qt4 headers here to gain access to Link class in
+
+// FIXME:
+// Loading the Poppler Qt4 headers here to gain access to Link class in
 // order to test the rendering thread. We need a link class of our own.
 #include <poppler/qt4/poppler-qt4.h>
 
@@ -64,16 +64,40 @@ class PageProcessingRenderPageRequest : public PageProcessingRequest
   // Protect c'tor and execute() so we can't access them except in derived
   // classes and friends
 protected:
-  PageProcessingRenderPageRequest(Page *page, QObject *listener, qreal scaleFactor);
+  PageProcessingRenderPageRequest(Page *page, QObject *listener, double xres, double yres, QRect render_box = QRect()) :
+    PageProcessingRequest(page, listener),
+    xres(xres), yres(yres),
+    render_box(render_box)
+  {}
+
   bool execute();
 
 public:
   Type type() { return PageRendering; }
 
-  qreal scaleFactor;
+  double xres, yres;
+  QRect render_box;
 
-signals:
-  void pageImageReady(qreal, QImage);
+};
+
+
+class PDFPageRenderedEvent : public QEvent
+{
+
+public:
+  PDFPageRenderedEvent(double xres, double yres, QRect render_rect, QImage rendered_page):
+    QEvent(PageRenderedEvent),
+    xres(xres), yres(yres),
+    render_rect(render_rect),
+    rendered_page(rendered_page)
+  {}
+
+  static const QEvent::Type PageRenderedEvent;
+
+  const double xres, yres;
+  const QRect render_rect;
+  const QImage rendered_page;
+
 };
 
 
@@ -96,12 +120,17 @@ public:
 
 class PDFLinksLoadedEvent : public QEvent
 {
-  typedef QEvent Super;
 
 public:
-  PDFLinksLoadedEvent(const QList<Poppler::Link *> links): Super(LinksLoadedEvent), links(links) {}
-  static QEvent::Type LinksLoadedEvent;
+  PDFLinksLoadedEvent(const QList<Poppler::Link *> links):
+    QEvent(LinksLoadedEvent),
+    links(links)
+  {}
+
+  static const QEvent::Type LinksLoadedEvent;
+
   const QList<Poppler::Link *> links;
+
 };
 
 
@@ -111,18 +140,17 @@ public:
 class PDFPageProcessingThread : public QThread
 {
   Q_OBJECT
+
 public:
   PDFPageProcessingThread();
   virtual ~PDFPageProcessingThread();
 
-  void requestRenderPage(Page *page, QObject *listener, qreal scaleFactor);
+  void requestRenderPage(Page *page, QObject *listener, double xres, double yres, QRect render_box = QRect());
   void requestLoadLinks(Page *page, QObject *listener);
 
   // add a processing request to the work stack
   // Note: request must have been created on the heap and must be in the scope
   // of this thread; use requestRenderPage() and requestLoadLinks() for that
-  // Note: this must be separate from the request...() methods to allow the
-  // calling thread some late initialization (e.g., connecting to signals)
   void addPageProcessingRequest(PageProcessingRequest * request);
 
 protected:
@@ -136,6 +164,7 @@ private:
 #ifdef DEBUG
   QTime _renderTimer;
 #endif
+
 };
 
 
@@ -179,7 +208,8 @@ public:
   int pageNum();
   virtual QSizeF pageSizeF()=0;
 
-  virtual QImage renderToImage(double xres, double yres, int x=-1, int y=-1, int width=-1, int height=-1)=0;
+  virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect())=0;
+  virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect())=0;
 
   virtual QList<Poppler::Link *> loadLinks()=0;
   virtual void asyncLoadLinks(QObject *listener)=0;

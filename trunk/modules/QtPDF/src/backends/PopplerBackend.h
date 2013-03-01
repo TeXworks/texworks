@@ -58,8 +58,11 @@ public:
 
   QSizeF pageSizeF();
 
-  QImage renderToImage(double xres, double yres, int x = -1, int y = -1, int width = -1, int height = -1);
+  QImage renderToImage(double xres, double yres, QRect render_box = QRect());
+  void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect());
 
+  // FIXME: This should return a list of object inherting from an abstract base
+  // class for Links.
   QList<Poppler::Link *> loadLinks();
   void asyncLoadLinks(QObject *listener);
 
