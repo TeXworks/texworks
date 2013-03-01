@@ -30,11 +30,23 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   counter->setLastPage(docView->lastPage());
   connect(docView, SIGNAL(changedPage(int)), counter, SLOT(setCurrentPage(int)));
   connect(docView, SIGNAL(changedZoom(qreal)), zoomWdgt, SLOT(setZoom(qreal)));
+  connect(docView, SIGNAL(requestOpenUrl(const QUrl)), this, SLOT(openUrl(const QUrl)));
 
   statusBar()->addPermanentWidget(counter);
   statusBar()->addWidget(zoomWdgt);
   addToolBar(toolBar);
   setCentralWidget(docView);
+}
+
+void PDFViewer::openUrl(const QUrl url) const
+{
+  // **FIXME:** _We don't handle this yet!_
+  if( url.scheme() == QString::fromUtf8("file") )
+    return;
+
+  // **TODO:**
+  // `openUrl` can fail and that needs to be handled._
+  QDesktopServices::openUrl(url);
 }
 
 

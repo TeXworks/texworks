@@ -6,6 +6,8 @@ class PDFViewer : public QMainWindow {
 public:
   PDFViewer(QString pdf_doc, QWidget *parent = 0, Qt::WindowFlags flags = 0);
 
+private slots:
+  void openUrl(const QUrl url) const;
 };
 
 

@@ -23,6 +23,7 @@ class PDFDocumentScene;
 class PDFPageGraphicsItem;
 class PDFLinkGraphicsItem;
 class PDFDocumentMagnifierView;
+class PDFLinkEvent;
 
 class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
@@ -70,6 +71,10 @@ signals:
   void changedPage(int pageNum);
   void changedZoom(qreal zoomLevel);
 
+  void requestOpenUrl(const QUrl url);
+  void requestExecuteCommand(QString command, QString parameters);
+  void requestOpenPdf(QString filename, int page);
+
 protected:
   // Keep track of the current page by overloading the widget paint event.
   void paintEvent(QPaintEvent *event);
@@ -81,6 +86,7 @@ protected:
 
 protected slots:
   void maybeUpdateSceneRect();
+  void pdfLinkActivated(const Poppler::Link * link);
 
 private:
   PageMode _pageMode;
@@ -278,6 +284,7 @@ class PDFDocumentScene : public QGraphicsScene {
   int _lastPage;
   PDFPageProcessingThread _processingThread;
   PDFPageLayout _pageLayout;
+  void handleLinkEvent(const PDFLinkEvent * link_event);
 
 public:
   PDFDocumentScene(Poppler::Document *a_doc, QObject *parent = 0);
@@ -299,6 +306,7 @@ public:
 signals:
   void pageChangeRequested(int pageNum);
   void pageLayoutChanged();
+  void pdfLinkActivated(const Poppler::Link * link);
 
 protected:
   bool event(QEvent* event);
@@ -400,9 +408,9 @@ class PDFLinkEvent : public QEvent {
   typedef QEvent Super;
 
 public:
-  PDFLinkEvent(int a_page);
+  PDFLinkEvent(const Poppler::Link * link);
   static QEvent::Type LinkEvent;
-  const int pageNum;
+  const Poppler::Link * link;
 };
 
 #endif // End header include guard
