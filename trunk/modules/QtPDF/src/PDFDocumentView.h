@@ -31,10 +31,14 @@ class PDFDocumentView : public QGraphicsView {
   int _currentPage, _lastPage;
 
 public:
+  // **TODO:** Implement SinglePage mode
+  enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
+
   PDFDocumentView(QWidget *parent = 0);
   void setScene(PDFDocumentScene *a_scene);
   int currentPage();
   int lastPage();
+  PageMode pageMode() const { return _pageMode; }
 
 public slots:
   void goPrev();
@@ -42,6 +46,10 @@ public slots:
   void goFirst();
   void goLast();
   void goToPage(int pageNum);
+  void setPageMode(PageMode pageMode);
+  void setSinglePageMode() { setPageMode(PageMode_SinglePage); }
+  void setOneColContPageMode() { setPageMode(PageMode_OneColumnContinuous); }
+  void setTwoColContPageMode() { setPageMode(PageMode_TwoColumnContinuous); }
 
   void zoomIn();
   void zoomOut();
@@ -56,6 +64,7 @@ protected:
   void keyPressEvent(QKeyEvent *event);
 
 private:
+  PageMode _pageMode;
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFDocumentView)
 };
@@ -90,6 +99,51 @@ private:
   bool _quit;
 };
 
+// Cannot use QGraphicsGridLayout and similar classes for pages because it only
+// works for QGraphicsLayoutItem (i.e., QGraphicsWidget)
+class PDFPageGridLayout : public QObject {
+  Q_OBJECT
+  struct LayoutItem {
+    PDFPageGraphicsItem * page;
+    int row;
+    int col;
+  };
+
+  QList<LayoutItem> _layoutItems;
+  int _numCols;
+  int _firstCol;
+  qreal _xSpacing; // spacing in pixel @ zoom=1
+  qreal _ySpacing;
+  
+public:
+  PDFPageGridLayout();
+  virtual ~PDFPageGridLayout() { }
+  int columnCount() const { return _numCols; }
+  int firstColumn() const { return _firstCol; }
+  int xSpacing() const { return _xSpacing; }
+  int ySpacing() const { return _ySpacing; }
+
+  void setColumnCount(const int numCols);
+  void setColumnCount(const int numCols, const int firstCol);
+  void setFirstColumn(const int firstCol);
+  void setXSpacing(const qreal xSpacing);
+  void setYSpacing(const qreal ySpacing);
+  int rowCount() const;
+  
+  void addPage(PDFPageGraphicsItem * page);
+  void removePage(PDFPageGraphicsItem * page);
+  void insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem * before = NULL);
+  
+public slots:
+  void relayout();
+
+signals:
+  void layoutChanged();
+  
+private:
+  void rearrange();
+};
+
 
 class PDFDocumentScene : public QGraphicsScene {
   Q_OBJECT
@@ -101,6 +155,7 @@ class PDFDocumentScene : public QGraphicsScene {
   QList<QGraphicsItem*> _pages;
   int _lastPage;
   PDFPageRenderingThread _renderingThread;
+  PDFPageGridLayout _pageLayout;
 
 public:
   PDFDocumentScene(Poppler::Document *a_doc, QObject *parent = 0);
@@ -108,6 +163,7 @@ public:
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   int pageNumAt(const QPolygonF &polygon);
   PDFPageRenderingThread& renderingThread() { return _renderingThread; }
+  PDFPageGridLayout& pageLayout() { return _pageLayout; }
 
   int lastPage();
   // Poppler is *NOT* thread safe :(
@@ -150,6 +206,7 @@ class PDFPageGraphicsItem : public QObject, public QGraphicsPixmapItem
   PDFPageRenderingThread * _connectedRenderingThread;
   
   friend class PDFPageRenderingThread;
+  friend class PDFPageGridLayout;
 
 public:
 
