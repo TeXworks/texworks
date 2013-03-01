@@ -68,7 +68,6 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
   // _May want to consider not doing this by default. It is conceivable to have
   // a View that would ignore page jumps that other scenes would respond to._
   connect(a_scene, SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
-  connect(this, SIGNAL(changedPage(int)), this, SLOT(maybeUpdateSceneRect()));
   connect(_pdf_scene, SIGNAL(pdfActionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
 }
 int PDFDocumentView::currentPage() { return _currentPage; }
@@ -126,29 +125,47 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
 
 // Public Slots
 // ------------
-// **FIXME:**
-// `goPrev` and `goNext` should not (necessarily) center on top of
-// page. This is especially true in single page mode where `goPrev` should
-// probably center on the bottom of the previous page.
-void PDFDocumentView::goPrev()  { goToPage(_currentPage - 1); }
+
+void PDFDocumentView::goPrev()  { goToPage(_currentPage - 1, false); }
 void PDFDocumentView::goNext()  { goToPage(_currentPage + 1); }
 void PDFDocumentView::goFirst() { goToPage(0); }
 void PDFDocumentView::goLast()  { goToPage(_lastPage - 1); }
 
-// **TODO:** _Overload this function to take `PDFPageGraphicsItem` as a
-// parameter?_
-void PDFDocumentView::goToPage(int pageNum)
+// `goToPage` will shift the view to a different page. If the `centerOnTop`
+// parameter is `true` (the default), than the view will ensure the top left
+// corner of the page is visible. Otherwise, the bottom left corner will be
+// used.
+//
+// **TODO:**
+//
+//   - Be more flexible about centering. Perhaps allow a point in page
+//     coordinates to be passed in along with the choice of top/bottom. This
+//     could be useful for jumping to a page and centering on a search result
+//     or link anchor.
+//
+//   - Overload this function to take `PDFPageGraphicsItem` as a parameter?
+void PDFDocumentView::goToPage(int pageNum, bool centerOnTop /* = true */)
 {
+  if (!_pdf_scene || _pdf_scene->pages().size() <= pageNum || !_pdf_scene->pageAt(pageNum))
+    return;
   // We silently ignore any invalid page numbers.
   if ( (pageNum >= 0) && (pageNum < _lastPage) && (pageNum != _currentPage) )
   {
-    if (!_pdf_scene || _pdf_scene->pages().size() <= pageNum || !_pdf_scene->pageAt(pageNum))
-      return;
-    moveTopLeftTo(_pdf_scene->pageAt(pageNum)->pos());
+    if (_pageMode == PageMode_SinglePage) {
+      _pdf_scene->showOnePage(pageNum);
+      maybeUpdateSceneRect();
+    }
+
+    QRectF pageRect = _pdf_scene->pageAt(pageNum)->sceneBoundingRect();
+
+    // **TODO:** Investigate why this approach doesn't work during startup if
+    // the margin is set to 0
+    if (centerOnTop)
+      ensureVisible(pageRect.left(), pageRect.top(), 1, 1);
+    else
+      ensureVisible(pageRect.left(), pageRect.bottom(), 1, 1);
 
     _currentPage = pageNum;
-    if (_pageMode == PageMode_SinglePage && _pdf_scene)
-      _pdf_scene->showOnePage(_currentPage);
     emit changedPage(_currentPage);
   }
 }
@@ -579,8 +596,7 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
   } else if ( pageMode() == PageMode_SinglePage ) {
 
     // In single page mode we need to flip to the next page if the scroll bar
-    // is a the top or bottom of it's range. `maybeUpdateSceneRect` should be
-    // triggered by the page change signal emitted during `goNext` and `goPrev`
+    // is a the top or bottom of it's range.`
     int scrollPos = verticalScrollBar()->value();
     if ( delta < 0 && scrollPos == verticalScrollBar()->maximum() ) {
       goNext();
@@ -778,18 +794,6 @@ void PDFDocumentView::disarmTool(const Tool tool)
 {
   viewport()->unsetCursor();
   _armedTool = Tool_None;
-}
-
-
-// Other
-// -----
-void PDFDocumentView::moveTopLeftTo(const QPointF scenePos) {
-  QRectF r(mapToScene(viewport()->rect()).boundingRect());
-  r.moveTopLeft(scenePos);
-  
-  // **TODO:** Investigate why this approach doesn't work during startup if
-  // the margin is set to 0
-  ensureVisible(r, 1, 1);
 }
 
 

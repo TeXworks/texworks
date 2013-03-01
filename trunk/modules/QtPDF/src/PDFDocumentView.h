@@ -59,7 +59,7 @@ public slots:
   void goNext();
   void goFirst();
   void goLast();
-  void goToPage(int pageNum);
+  void goToPage(int pageNum, bool centerOnTop = true);
   void setPageMode(PageMode pageMode);
   void setSinglePageMode() { setPageMode(PageMode_SinglePage); }
   void setOneColContPageMode() { setPageMode(PageMode_OneColumnContinuous); }
@@ -96,8 +96,7 @@ protected:
   void mouseMoveEvent(QMouseEvent * event);
   void mouseReleaseEvent(QMouseEvent * event);
   void wheelEvent(QWheelEvent * event);
-  void moveTopLeftTo(const QPointF scenePos);
-  
+
   // Prepare to use a tool, e.g., by changing the mouse cursor; usually called
   // when the modifier keys are right so that a mousePressEvent of the left
   // mouse button will trigger startTool
