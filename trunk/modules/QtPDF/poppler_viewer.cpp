@@ -74,6 +74,12 @@ public:
     setAlignment(Qt::AlignCenter);
     setFocusPolicy(Qt::StrongFocus);
 
+    // **TODO:** _Investigate the Arthur backent for native Qt rendering._
+    doc->setRenderBackend(Poppler::Document::SplashBackend);
+    // Make things look pretty.
+    doc->setRenderHint(Poppler::Document::Antialiasing);
+    doc->setRenderHint(Poppler::Document::TextAntialiasing);
+
     _lastPage = doc->numPages();
 
     // Create a `PDFPageGraphicsItem` for each page in the PDF document to the
