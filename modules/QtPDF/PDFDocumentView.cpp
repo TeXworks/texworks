@@ -324,6 +324,10 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     linkGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::loadLinks));
 
     linksLoaded = true;
+
+    // This is a hack to give a nice default look to pages that have not been
+    // rendered. Would be nice to replace this with a "loading page".
+    renderedPage.fill();
   }
 
   // We look at the zoom level and render a new page if the zoom has changed or
@@ -342,19 +346,31 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     zoomLevel = scaleFactor;
   }
 
-  // The transformation matrix of the `painter` object contains information
-  // such as the current zoom level of the widget viewing this PDF page. We use
-  // this matrix to position the page and then reset the transformation matrix
-  // to an identity matrix as the page image has already been resized during
-  // rendering.
+  //// The transformation matrix of the `painter` object contains information
+  //// such as the current zoom level of the widget viewing this PDF page. We use
+  //// this matrix to position the page and then reset the transformation matrix
+  //// to an identity matrix as the page image has already been resized during
+  //// rendering.
   QPointF origin = painter->transform().map(offset());
-  painter->setTransform(QTransform());
 
   // This part is modified from the `paint` method of `QGraphicsPixmapItem`.
   painter->setRenderHint(QPainter::SmoothPixmapTransform,
     (transformationMode() == Qt::SmoothTransformation));
 
-  painter->drawPixmap(origin, renderedPage);
+  if ( pageIsRendering ) {
+    // A resized page is still rendering, so we "blow up" our current page and
+    // render that.
+    //
+    // **TODO:** _The performance of this degrades heavily at high zoom levels.
+    // Mostly due to the use of `scaled` on the pixmap. Find a more efficient
+    // way to scale._
+    QSizeF scaledSize = painter->transform().mapRect(boundingRect()).size();
+    painter->setTransform(QTransform());
+    painter->drawPixmap(origin, renderedPage.scaled(scaledSize.toSize()));
+  } else {
+    painter->setTransform(QTransform());
+    painter->drawPixmap(origin, renderedPage);
+  }
 }
 
 
