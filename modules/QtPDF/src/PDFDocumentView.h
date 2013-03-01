@@ -34,7 +34,7 @@ class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
   typedef QGraphicsView Super;
 
-  PDFDocumentScene *_pdf_scene;
+  QSharedPointer<PDFDocumentScene> _pdf_scene;
   PDFDocumentMagnifierView * _magnifier;
 
   QRubberBand *_rubberBand;
@@ -55,7 +55,7 @@ public:
   enum MagnifierShape { Magnifier_Rectangle, Magnifier_Circle };
 
   PDFDocumentView(QWidget *parent = 0);
-  void setScene(PDFDocumentScene *a_scene);
+  void setScene(QSharedPointer<PDFDocumentScene> a_scene);
   int currentPage();
   int lastPage();
   PageMode pageMode() const { return _pageMode; }

@@ -56,15 +56,16 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
 
 // Accessors
 // ---------
-void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
+void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
 {
   // FIXME: Make setScene(QGraphicsScene*) (from parent class) invisible to the
   // outside world
-  Super::setScene(a_scene);
+  Super::setScene(a_scene.data());
 
   // disconnect us from the old scene (if any)
   if (_pdf_scene) {
-    disconnect(_pdf_scene, 0, this, 0);
+    disconnect(_pdf_scene.data(), 0, this, 0);
+    _pdf_scene.clear();
   }
 
   _pdf_scene = a_scene;
@@ -75,8 +76,8 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
     // **TODO:**
     // _May want to consider not doing this by default. It is conceivable to have
     // a View that would ignore page jumps that other scenes would respond to._
-    connect(_pdf_scene, SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
-    connect(_pdf_scene, SIGNAL(pdfActionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
+    connect(_pdf_scene.data(), SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
+    connect(_pdf_scene.data(), SIGNAL(pdfActionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
   }
   else
     _lastPage = -1;
