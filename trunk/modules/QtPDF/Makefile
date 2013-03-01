@@ -1,6 +1,8 @@
 CXX ?= g++
 
 CXXFLAGS := -g -O0 -I. -I./src $(shell pkg-config freetype2 poppler poppler-qt4 QtCore QtGui QtXml --cflags)
+# Debugging output?
+CXXFLAGS += -DDEBUG
 LDFLAGS := $(shell pkg-config freetype2 poppler poppler-qt4 QtCore QtGui QtXml --libs)
 
 VPATH = src

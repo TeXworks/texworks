@@ -12,8 +12,9 @@
  * more details.
  */
 #include "PDFDocumentView.h"
-#include <iostream>
+#ifdef DEBUG
 #include <QDebug>
+#endif
 
 // Some utility functions.
 //
@@ -799,10 +800,12 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
   // Only left-clicks will trigger the link.
   setAcceptedMouseButtons(Qt::LeftButton);
 
+#ifdef DEBUG
   // **TODO:**
-  // _Intended to be for debugging purposes only so that the link area can be
-  // determined visually_
+  // _Currently for debugging purposes only so that the link area can be
+  // determined visually, but might make a nice option._
   setPen(QPen(Qt::red));
+#endif
 }
 
 int PDFLinkGraphicsItem::type() const { return Type; }
@@ -933,8 +936,9 @@ PageProcessingRenderPageRequest * PDFPageProcessingThread::requestRenderPage(PDF
 
   _workStack.push(workItem);
   locker.unlock();
-
+#ifdef DEBUG
   qDebug() << "new render request added to stack; now has" << _workStack.size() << "items";
+#endif
 
   if (!isRunning())
     start();
@@ -963,8 +967,9 @@ PageProcessingLoadLinksRequest* PDFPageProcessingThread::requestLoadLinks(PDFPag
 
   _workStack.push(workItem);
   locker.unlock();
-
+#ifdef DEBUG
   qDebug() << "new 'load links' request added to stack; now has" << _workStack.size() << "items";
+#endif
 
   if (!isRunning())
     start();
@@ -984,7 +989,9 @@ void PDFPageProcessingThread::run()
       workItem = _workStack.pop();
       _mutex.unlock();
 
+#ifdef DEBUG
       qDebug() << "processing work item; remaining items:" << _workStack.size();
+#endif
       workItem->execute();
 
       // Delete the work item as it has fulfilled its purpose
@@ -998,9 +1005,13 @@ void PDFPageProcessingThread::run()
       _mutex.lock();
     }
     else {
+#ifdef DEBUG
       qDebug() << "going to sleep";
+#endif
       _waitCondition.wait(&_mutex);
+#ifdef DEBUG
       qDebug() << "waking up";
+#endif
     }
   }
 }
