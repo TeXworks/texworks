@@ -438,9 +438,12 @@ public:
 // =======================
 // These provide library-specific concrete impelemntations of the abstract base
 // classes defined here.
-#include <backends/PopplerBackend.h> // Invokes GPL v2 License
+#ifdef USE_POPPLER
+#include <backends/PopplerBackend.h> // Invokes GPL v2+ License
+#endif
+#ifdef USE_MUPDF
 #include <backends/MuPDFBackend.h>   // Invokes GPL v3 License
-
+#endif
 
 #endif // End header guard
 // vim: set sw=2 ts=2 et
