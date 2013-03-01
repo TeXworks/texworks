@@ -14,6 +14,7 @@
 #include "PDFDocumentView.h"
 #ifdef DEBUG
 #include <QDebug>
+QTime stopwatch;
 #endif
 
 // Some utility functions.
@@ -1032,6 +1033,28 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   }
 
   if ( _zoomLevel != scaleFactor ) {
+#ifdef DEBUG
+    stopwatch.start();
+#endif
+    int i,j;
+    _tilemap.clear();
+
+    QRect pageRect = painter->transform().mapRect(boundingRect()).toAlignedRect(), pageTile;
+    _nTile_x = pageRect.width() / TILE_SIZE + 1;
+    _nTile_y = pageRect.height() / TILE_SIZE + 1;
+
+    _tilemap.reserve( _nTile_x * _nTile_y );
+
+    for ( i = 0; i < _nTile_y; ++i ) {
+      for ( j = 0; j < _nTile_x; ++j ) {
+        _tilemap.append(new QRect(j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE));
+      }
+    }
+#ifdef DEBUG
+    qDebug() << "Took: " << stopwatch.elapsed() << " miliseconds to create tile map";
+    qDebug() << "Tile map has: " << _nTile_x * _nTile_y << " tiles";
+#endif
+
     _renderedPage = QPixmap::fromImage(_page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor));
     _zoomLevel = scaleFactor;
   }
@@ -1041,9 +1064,20 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // this matrix to position the page and then reset the transformation matrix
   // to an identity matrix as the page image has already been resized during
   // rendering.
-  QPointF origin = painter->transform().map(QPointF(0.0, 0.0));
-  painter->setTransform(QTransform());
-  painter->drawPixmap(origin, _renderedPage);
+  painter->save();
+    QTransform myT = painter->transform();
+    myT.setMatrix(1, myT.m12(), myT.m13(), myT.m21(), 1, myT.m23(), myT.m31(), myT.m32(), myT.m33());
+    painter->setTransform(myT);
+
+    painter->drawPixmap(QPoint(0,0), _renderedPage);
+
+    QPen tilePen(Qt::darkGray);
+    tilePen.setStyle(Qt::DashDotLine);
+    painter->setPen(tilePen);
+    foreach ( QRect *aTile, _tilemap ) {
+      painter->drawRect(*aTile);
+    }
+  painter->restore();
 }
 
 

@@ -25,6 +25,8 @@ class PDFLinkGraphicsItem;
 class PDFDocumentMagnifierView;
 class PDFLinkEvent;
 
+const int TILE_SIZE=1024;
+
 class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
   typedef QGraphicsView Super;
@@ -353,6 +355,9 @@ class PDFPageGraphicsItem : public QGraphicsObject
 
   QTransform _pageScale;
   qreal _zoomLevel, _magnifiedZoomLevel;
+
+  QList<QRect*> _tilemap;
+  int _nTile_x, _nTile_y;
 
   friend class PageProcessingRenderPageRequest;
   friend class PageProcessingLoadLinksRequest;
