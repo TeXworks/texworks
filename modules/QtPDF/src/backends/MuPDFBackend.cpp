@@ -15,6 +15,10 @@
 // NOTE: `MuPDFBackend.h` is included via `PDFBackend.h`
 #include <PDFBackend.h>
 
+#ifdef HAVE_LOCALE_H
+#include <locale.h>
+#endif // defined(HAVE_LOCALE_H)
+
 QRectF toRectF(const fz_rect r)
 {
   return QRectF(QPointF(r.x0, r.y0), QPointF(r.x1, r.y1));
@@ -227,6 +231,24 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
 
 #endif
 
+// Modeled after the idea behind QMutexLocker, i.e., the class sets LC_NUMERIC
+// to "C" in the contructor and resets the original setting in the destructor
+#ifdef HAVE_LOCALE_H
+class MuPDFLocaleResetter
+{
+  char * _locale;
+public:
+  MuPDFLocaleResetter() { _locale = setlocale(LC_NUMERIC, NULL); setlocale(LC_NUMERIC, "C"); }
+  ~MuPDFLocaleResetter() { setlocale(LC_NUMERIC, _locale); }
+};
+#else
+class MuPDFLocaleResetter
+{
+public:
+  MuPDFLocaleResetter() { }
+};
+#endif // defined(HAVE_LOCALE_H)
+
 
 // Document Class
 // ==============
@@ -251,6 +273,8 @@ MuPDFDocument::~MuPDFDocument()
 
 void MuPDFDocument::reload()
 {
+  MuPDFLocaleResetter lr;
+
   if (_mupdf_data) {
     pdf_free_xref(_mupdf_data);
     _mupdf_data = NULL;
@@ -352,6 +376,8 @@ QSharedPointer<Page> MuPDFDocument::page(int at)
 
 void MuPDFDocument::loadMetaData()
 {
+  MuPDFLocaleResetter lr;
+
   char infoName[] = "Info"; // required because fz_dict_gets is not prototyped to take const char *
 
   if (isLocked())
@@ -414,6 +440,8 @@ void MuPDFDocument::loadMetaData()
 
 PDFDestination MuPDFDocument::resolveDestination(const PDFDestination & namedDestination) const
 {
+  MuPDFLocaleResetter lr;
+
   Q_ASSERT(_mupdf_data != NULL);
   
   // TODO: Test this method
@@ -433,6 +461,8 @@ PDFDestination MuPDFDocument::resolveDestination(const PDFDestination & namedDes
 
 QList<PDFFontInfo> MuPDFDocument::fonts() const
 {
+  MuPDFLocaleResetter lr;
+
   int i;
   char typeKey[] = "Type";
   char subtypeKey[] = "Subtype";
@@ -597,6 +627,8 @@ void MuPDFDocument::recursiveConvertToC(QList<PDFToCItem> & items, pdf_outline *
 
 PDFToC MuPDFDocument::toc() const
 {
+  MuPDFLocaleResetter lr;
+
   PDFToC retVal;
 
   if (!_mupdf_data)
@@ -636,6 +668,8 @@ MuPDFPage::MuPDFPage(MuPDFDocument *parent, int at):
   Super(parent, at),
   _linksLoaded(false)
 {
+  MuPDFLocaleResetter lr;
+
   pdf_page *page_data;
   pdf_load_page(&page_data, parent->_mupdf_data, _n);
 
@@ -719,6 +753,8 @@ QImage MuPDFPage::renderToImage(double xres, double yres, QRect render_box, bool
 
 QList< QSharedPointer<PDFLinkAnnotation> > MuPDFPage::loadLinks()
 {
+  MuPDFLocaleResetter lr;
+
   if (_linksLoaded)
     return _links;
 
