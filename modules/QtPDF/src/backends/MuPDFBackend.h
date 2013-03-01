@@ -110,6 +110,8 @@ public:
   QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations();
 
   QList<SearchResult> search(QString searchText);
+  virtual QList<Backend::Page::Box> boxes();
+  virtual QString selectedText(const QList<QPolygonF> & selection);
 };
 
 } // namespace MuPDF

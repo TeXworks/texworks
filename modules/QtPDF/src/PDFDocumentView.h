@@ -51,7 +51,7 @@ class PDFDocumentView : public QGraphicsView {
 
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous, PageMode_Presentation };
-  enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom, MouseMode_Measure };
+  enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom, MouseMode_Measure, MouseMode_Select };
   enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions, Dock_Annotations };
 
   PDFDocumentView(QWidget *parent = 0);
@@ -96,6 +96,7 @@ public slots:
   void setMouseModeMove() { setMouseMode(MouseMode_Move); }
   void setMouseModeMarqueeZoom() { setMouseMode(MouseMode_MarqueeZoom); }
   void setMouseModeMeasure() { setMouseMode(MouseMode_Measure); }
+  void setMouseModeSelect() { setMouseMode(MouseMode_Select); }
   void setMagnifierShape(const DocumentTool::MagnifyingGlass::MagnifierShape shape);
   void setMagnifierSize(const int size);
   void setUseGrayScale(const bool grayScale = true) { _useGrayScale = grayScale; }
@@ -411,7 +412,9 @@ public:
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   QGraphicsItem* pageAt(const int idx);
+  QGraphicsItem* pageAt(const QPointF &pt);
   int pageNumAt(const QPolygonF &polygon);
+  int pageNumAt(const QPointF &pt);
   int pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const;
   PDFPageLayout& pageLayout() { return _pageLayout; }
 

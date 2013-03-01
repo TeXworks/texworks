@@ -638,6 +638,398 @@ void Measure::keyReleaseEvent(QKeyEvent *event)
     AbstractTool::keyReleaseEvent(event);
 }
 
+// Select
+// ========================
+//
+
+// distanceFromRect() computes the Manhatten distance between a point and a
+// rectangle. If the point is inside (or on the border of) the rectangle, the
+// function returns 0. Otherwise, it returns the smallest Manhatten distance of
+// pt to any point on the border of the rectangle.
+inline double distanceFromRect(const QPointF & pt, const QRectF & rect) {
+  double dx, dy;
+  if (pt.x() < rect.left())
+    dx = rect.left() - pt.x();
+  else if (pt.x() > rect.right())
+    dx = pt.x() - rect.right();
+  else
+    dx = 0;
+  if (pt.y() < rect.top())
+    dy = rect.top() - pt.y();
+  else if (pt.y() > rect.bottom())
+    dy = pt.y() - rect.bottom();
+  else
+    dy = 0;
+  return dx + dy;
+}
+
+Select::Select(PDFDocumentView * parent) :
+  AbstractTool(parent),
+  _highlightPath(NULL),
+  _mouseMode(MouseMode_None),
+  _rubberBand(NULL),
+  _pageNum(-1)
+{
+  // We default to the cross cursor. Only when over a text box we change to the
+  // IBeam cursor
+  _cursor = QCursor(Qt::CrossCursor);
+  // Default to the system highlighting color, with alpha set to 50% (since we
+  // simply superimpose the selection on the page images)
+  _highlightColor = QApplication::palette().color(QPalette::Highlight);
+  _highlightColor.setAlpha(128);
+}
+
+Select::~Select()
+{
+  if (_highlightPath)
+    delete _highlightPath;
+  if (_rubberBand)
+    delete _rubberBand;
+}
+
+void Select::disarm()
+{
+  AbstractTool::disarm();
+  resetBoxes();
+}
+
+void Select::mousePressEvent(QMouseEvent * event)
+{
+  Q_ASSERT(_parent != NULL);
+  
+  // We only handle the left mouse button
+  if (event->buttons() != Qt::LeftButton) {
+   AbstractTool::mousePressEvent(event);
+    return;
+  }
+  
+  PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
+  Q_ASSERT(scene != NULL);
+
+  // get the number of the page the mouse is currently over; if the mouse is
+  // not over any page (e.g., it's between pages), there's nothing left to do
+  // here
+  int pageNum = scene->pageNumAt(_parent->mapToScene(event->pos()));
+  if (pageNum < 0)
+    return;
+
+  PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
+  Q_ASSERT(pageGraphicsItem != NULL);
+  
+  // Create the highlight path to visualize selections in the scene
+  // Note: it will be parented to the page it belongs to later on
+  if (!_highlightPath) {
+    _highlightPath = new QGraphicsPathItem(NULL, _parent->scene());
+    _highlightPath->setBrush(QBrush(_highlightColor));
+    _highlightPath->setPen(QPen(Qt::transparent));
+  }
+  // Clear any previous selection
+  _highlightPath->setPath(QPainterPath());
+
+  _startPos = event->pos();
+  // Set the mouse mode. Note that _cursorOverBox is updated dynamically in
+  // mouseMoveEvent()
+  _mouseMode = (_cursorOverBox ? MouseMode_TextSelect : MouseMode_MarqueeSelect);
+
+  if (_mouseMode == MouseMode_MarqueeSelect) {
+    // Create the rubber band widget if it doesn't exist and show it
+    if (!_rubberBand)
+      _rubberBand = new QRubberBand(QRubberBand::Rectangle, _parent->viewport());
+    _rubberBand->setGeometry(QRect(_startPos, _startPos));
+    _rubberBand->show();
+  }
+  else if (_mouseMode == MouseMode_TextSelect) {
+    // Find the box the mouse cursor is over
+    QPointF curPdfCoords = pageGraphicsItem->pointScale().inverted().map(pageGraphicsItem->mapFromScene(_parent->mapToScene(event->pos())));
+    for (_startBox = 0; _startBox < _boxes.size() && !_boxes[_startBox].boundingBox.contains(curPdfCoords); ++_startBox) ;
+    // If we didn't find the box, something went wrong; bail out
+    if (_startBox >= _boxes.size())
+      _mouseMode = MouseMode_None;
+    else {
+      // Find the subbox the cursor is over (if any)
+      for (_startSubbox = 0; _startSubbox < _boxes[_startBox].subBoxes.size() && !_boxes[_startBox].subBoxes[_startSubbox].boundingBox.contains(curPdfCoords); ++_startSubbox) ;
+      if (_startSubbox >= _boxes[_startBox].subBoxes.size())
+        _startSubbox = 0;
+    }
+  }
+}
+
+void Select::mouseMoveEvent(QMouseEvent *event)
+{
+  Q_ASSERT(_parent != NULL);
+  PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
+  Q_ASSERT(scene != NULL);
+  Q_ASSERT(!scene->document().isNull());
+
+  // Check if the mouse cursor is over a page. If not, we bail out and keep the
+  // last "valid" state.
+  int pageNum = scene->pageNumAt(_parent->mapToScene(event->pos()));
+  if (pageNum < 0)
+    return;
+  
+  // If we are not currently selecting and the mouse moved to a different page,
+  // reset our boxes data
+  // Note: If we are currently selecting, we tick to the original page
+  //       regardless where the mouse is
+  if (_mouseMode == MouseMode_None && pageNum != _pageNum)
+    resetBoxes(pageNum);
+  
+  PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
+  Q_ASSERT(pageGraphicsItem != NULL);
+  
+  QSharedPointer<Backend::Page> page = scene->document()->page(pageNum);
+  if (page.isNull())
+    return;
+
+  QTransform toView = pageGraphicsItem->pointScale();
+
+  // Boxes are given in pdf units (bp), whereas screen coordinates are given in
+  // (scaled) pixels; here, we transform the screen coordinates, rather than
+  // transforming each box
+  QPointF curPdfCoords = pageGraphicsItem->pointScale().inverted().map(pageGraphicsItem->mapFromScene(_parent->mapToScene(event->pos())));
+
+  switch (_mouseMode) {
+  case MouseMode_None:
+  default:
+  {
+    // Check if the cursor is over a box (in which case we use text select mode)
+    // or not (in which case we use marquee select mode)
+    _cursorOverBox = false;
+    foreach(Backend::Page::Box b, _boxes) {
+      if (b.boundingBox.contains(curPdfCoords)) {
+        _cursorOverBox = true;
+        break;
+      }
+    }
+    _parent->viewport()->setCursor(_cursorOverBox ? Qt::IBeamCursor : Qt::CrossCursor);
+    break;
+  }
+  case MouseMode_MarqueeSelect:
+  {
+    if (!_highlightPath || _boxes.size() == 0)
+      break;
+    if (_rubberBand)
+      _rubberBand->setGeometry(QRect(_startPos, event->pos()));
+    // Get the selection rect in pdf coords (bp)
+    QPointF startPdfCoords = pageGraphicsItem->pointScale().inverted().map(pageGraphicsItem->mapFromScene(_parent->mapToScene(_startPos)));
+    QRectF marqueeRect(startPdfCoords, curPdfCoords);
+    QPainterPath highlightPath;
+    // Note: Below, we cannot just use highlightPath.addRect(); in the case of
+    // overlapping pdf boxes, this would create gaps due to the winding fill
+    // rule. This in turn does not look good and may also prevent
+    // Backend::Page::selectedText() from catching all selected boxes
+    foreach(Backend::Page::Box b, _boxes) {
+      // Note: If b.boundingBox is fully contained in the marqueeRect, add it
+      // without iterating over the subboxes. Otherwise, add all intersected
+      // subboxes
+      if (marqueeRect.intersects(b.boundingBox)) {
+        if (b.subBoxes.isEmpty() || marqueeRect.contains(b.boundingBox)) {
+          QPainterPath pp;
+          pp.addRect(toView.mapRect(b.boundingBox));
+          highlightPath |= pp;
+        }          
+        else {
+          foreach(Backend::Page::Box sb, b.subBoxes) {
+            if (marqueeRect.intersects(sb.boundingBox)) {
+              QPainterPath pp;
+              pp.addRect(toView.mapRect(sb.boundingBox));
+              highlightPath |= pp;
+            }
+          }
+        }
+      }
+    }
+    _highlightPath->setPath(highlightPath);
+    break;
+  }
+  case MouseMode_TextSelect:
+  {
+    if (!_highlightPath || _boxes.size() == 0)
+      break;
+    
+    // Find the box (and subbox therein) that is closest to the current mouse
+    // position
+    int i, j, endBox, endSubbox;
+    double minDist = -1;
+    for (i = 0; i < _boxes.size(); ++i) {
+      double dist = distanceFromRect(curPdfCoords, _boxes[i].boundingBox);
+      if (minDist < -.5 || dist < minDist) {
+        endBox = i;
+        minDist = dist;
+      }
+    }
+    minDist = -1;
+    endSubbox = 0;
+    for (i = 0; i < _boxes[endBox].subBoxes.size(); ++i) {
+      double dist = distanceFromRect(curPdfCoords, _boxes[endBox].subBoxes[i].boundingBox);
+      if (minDist < -.5 || dist < minDist) {
+        endSubbox = i;
+        minDist = dist;
+      }
+    }
+    
+    // Ensure startBox <= endBox and (startSubbox <= endSubbox in case of
+    // equality)
+    int startBox = _startBox;
+    int startSubbox = _startSubbox;
+    if (startBox > endBox) {
+      startBox = endBox;
+      startSubbox = endSubbox;
+      endBox = _startBox;
+      endSubbox = _startSubbox;
+    }
+    else if (startBox == endBox && startSubbox > endSubbox) {
+      startSubbox = endSubbox;
+      endSubbox = _startSubbox;
+    }
+    
+    QPainterPath highlightPath;
+    // Note: Below, we cannot just use highlightPath.addRect(); in the case of
+    // overlapping pdf boxes, this would create gaps due to the winding fill
+    // rule. This in turn does not look good and may also prevent
+    // Backend::Page::selectedText() from catching all selected boxes
+    for (i = startBox; i <= endBox; ++i) {
+      // Iterate over subboxes in the case that not the whole box might be
+      // selected
+      if ((i == startBox || i == endBox) && _boxes[i].subBoxes.size() > 0) {
+        for (j = 0; j < _boxes[i].subBoxes.size(); ++j) {
+          if ((i == startBox && j < startSubbox) || (i == endBox && j > endSubbox))
+            continue;
+          QPainterPath pp;
+          pp.addRect(toView.mapRect(_boxes[i].subBoxes[j].boundingBox));
+          highlightPath |= pp;
+        }
+      }
+      else {
+        QPainterPath pp;
+        pp.addRect(toView.mapRect(_boxes[i].boundingBox));
+        highlightPath |= pp;
+      }
+    }
+    _highlightPath->setPath(highlightPath);
+    _highlightPath->setParentItem(pageGraphicsItem);
+    break;
+  }
+  }
+}
+
+void Select::mouseReleaseEvent(QMouseEvent * event)
+{
+  // We only handle the left mouse button
+  if (event->buttons() != Qt::NoButton || event->button() != Qt::LeftButton) {
+   AbstractTool::mouseReleaseEvent(event);
+    return;
+  }
+  _mouseMode = MouseMode_None;
+  if (_rubberBand)
+    _rubberBand->hide();
+}
+
+void Select::keyPressEvent(QKeyEvent *event)
+{
+  Q_ASSERT(event != NULL);
+
+  if (event->matches(QKeySequence::Copy) && _highlightPath) {
+    // We only handle "copy" (Ctrl+C) here
+    if (!_highlightPath->path().isEmpty()) {
+      Q_ASSERT(_parent != NULL);
+      PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
+      Q_ASSERT(scene != NULL);
+      Q_ASSERT(!scene->document().isNull());
+      if (scene->document()->permissions().testFlag(Backend::Document::Permission_Extract)) {
+        // We only copy text if we are allowed to do so
+          
+        QSharedPointer<Backend::Page> page = scene->document()->page(_pageNum);
+        if (page.isNull())
+          return;
+      
+        PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(_pageNum));
+        Q_ASSERT(pageGraphicsItem != NULL);
+      
+        QTransform fromView = pageGraphicsItem->pointScale().inverted();
+        QString textToCopy = page->selectedText(_highlightPath->path().toFillPolygons(fromView));
+        // If the text is empty (e.g., there is no valid selection or the backend
+        // doesn't (properly) support selectedText()) we don't overwrite the
+        // clipboard
+        if (!textToCopy.isEmpty()) {
+          Q_ASSERT(QApplication::clipboard() != NULL);
+          QApplication::clipboard()->setText(textToCopy);
+        }
+      }
+      else {
+        // Inform the user that extracting text is not allowed
+        // TODO: Add hint to unlock document w/ password, once we allow to
+        // provide a password to an unlocked document (i.e., one which we can
+        // display, but for which we don't have author's privileges)
+        QMessageBox::information(_parent, PDFDocumentView::trUtf8("Insufficient permission"), PDFDocumentView::trUtf8("Text extraction is not allowed for this document."));
+      }
+    }
+  }
+}
+
+void Select::resetBoxes(const int pageNum /* = -1 */)
+{
+  _pageNum = pageNum;
+  _boxes.clear();
+#ifdef DEBUG
+  // In debug builds, remove any previously shown (selectable) boxes
+  foreach(QGraphicsRectItem * rectItem, _displayBoxes) {
+    if (!rectItem)
+      continue;
+    delete rectItem;
+  }
+  _displayBoxes.clear();
+#endif
+  
+  Q_ASSERT(_parent != NULL);
+  PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
+  Q_ASSERT(scene != NULL);
+  Q_ASSERT(!scene->document().isNull());
+  
+  QSharedPointer<Backend::Page> page = scene->document()->page(pageNum);
+  if (page.isNull())
+    return;
+
+  PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
+  Q_ASSERT(pageGraphicsItem != NULL);
+  
+  _boxes = page->boxes();
+#ifdef DEBUG
+  // In debug builds, show all selectable boxes
+  QTransform toView = pageGraphicsItem->pointScale();  
+  foreach(Backend::Page::Box b, _boxes) {
+    QGraphicsRectItem * rectItem;
+    if (b.subBoxes.isEmpty()) {
+      rectItem = scene->addRect(toView.mapRect(b.boundingBox), QPen(_highlightColor));
+      rectItem->setParentItem(pageGraphicsItem);
+      _displayBoxes << rectItem;
+    }
+    else {
+      foreach(Backend::Page::Box sb, b.subBoxes) {
+        rectItem = scene->addRect(toView.mapRect(sb.boundingBox), QPen(_highlightColor));
+        rectItem->setParentItem(pageGraphicsItem);
+        _displayBoxes << rectItem;
+      }
+    }
+  }
+#endif // DEBUG
+}
+
+void Select::setHighlightColor(const QColor & color)
+{
+  _highlightColor = color;
+  if (_highlightPath)
+    _highlightPath->setBrush(color);
+
+#ifdef DEBUG
+  // In debug builds, update the display of selectable boxes
+  foreach (QGraphicsRectItem * b, _displayBoxes) {
+    if (!b)
+      continue;
+    b->setPen(color);
+  }
+#endif
+}
 
 } // namespace DocumentTool
 } // namespace QtPDF

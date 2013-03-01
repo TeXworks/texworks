@@ -24,6 +24,8 @@
 #include <QGraphicsLineItem>
 #include <QGraphicsProxyWidget>
 
+#include "PDFBackend.h"
+
 #ifdef DEBUG
   #include <QDebug>
 #endif
@@ -39,7 +41,7 @@ class AbstractTool
 {
   friend class QtPDF::PDFDocumentView;
 public:
-  enum Type { Tool_None, Tool_MagnifyingGlass, Tool_ZoomIn, Tool_ZoomOut, Tool_MarqueeZoom, Tool_Move, Tool_ContextMenu, Tool_ContextClick, Tool_Measure };
+  enum Type { Tool_None, Tool_MagnifyingGlass, Tool_ZoomIn, Tool_ZoomOut, Tool_MarqueeZoom, Tool_Move, Tool_ContextMenu, Tool_ContextClick, Tool_Measure, Tool_Select };
   AbstractTool(PDFDocumentView * parent) : _parent(parent), _cursor(QCursor(Qt::ArrowCursor)) { }
   virtual ~AbstractTool() { }
   
@@ -229,6 +231,64 @@ protected:
   MeasureLine * _measureLine;
   bool _started;
   QPoint _startPos;
+};
+
+// Text selection tool
+// Supports:
+// - "line based" selection (i.e., selects all boxes from the box the mouse
+//   press event occured over to the closest box to the mouse when it was
+//   released (or the current position if the mouse button is still pressed);
+//   relies on the ordering of boxes in the pdf file
+// - marquee selection (selects all boxes inside a rectangle drawn by the user
+// - Ctrl+C to copy selected text (if supported by backend)
+//
+// FIXME: When the document (or the current page) is changed, resetBoxes()
+//        should be called to ensure we don't work with the wrong boxes
+// TODO: Marquee selection is slow for large rectangles
+// TODO: Handle selections spanning multiple pages
+// TODO: possibly load boxes asynchronously
+// TODO: possibly support Ctrl+A to select all, etc.
+// TODO: possibly support image selection (like in Adobe Reader), e.g. using a
+//       keyboard modifier
+// TODO: when the application/widget loses focus, the highlight color should
+//       (temporarily) be switched to QPalette::Inactive/QPalette::Highlight
+// TOOO: when scrolling (e.g., with the mouse wheel) to a new page but not
+//       moving the mouse, the boxes information is not updated
+class Select : public AbstractTool
+{
+public:
+  Select(PDFDocumentView * parent);
+  virtual ~Select();
+  virtual Type type() const { return Tool_Select; }
+  
+  QColor highlightColor() const { return _highlightColor; }
+  void setHighlightColor(const QColor & color);
+protected:
+  virtual void disarm();
+  virtual void mousePressEvent(QMouseEvent * event);
+  virtual void mouseMoveEvent(QMouseEvent *event);
+  virtual void mouseReleaseEvent(QMouseEvent * event);
+  virtual void keyPressEvent(QKeyEvent *event);
+
+  void resetBoxes(const int pageNum = -1);
+  
+  // The mouse mode depends on whether the LMB is pressed, and where/how it was
+  // pressed initially (e.g., over a box, over a free area, etc.)
+  enum MouseMode { MouseMode_None, MouseMode_MarqueeSelect, MouseMode_TextSelect, MouseMode_ImageSelect };
+
+  bool _cursorOverBox;
+  QPoint _startPos;
+  QGraphicsPathItem * _highlightPath;
+  MouseMode _mouseMode;
+  QRubberBand * _rubberBand;
+  QColor _highlightColor;
+
+  int _pageNum;
+  QList<Backend::Page::Box> _boxes;
+  int _startBox, _startSubbox;
+#ifdef DEBUG
+  QList<QGraphicsRectItem*> _displayBoxes;
+#endif
 };
 
 } // namepsace DocumentTool

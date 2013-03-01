@@ -1169,6 +1169,109 @@ void Page::loadTransitionData()
   }
 }
 
+QList<Backend::Page::Box> Page::boxes()
+{
+  QList<Backend::Page::Box> retVal;
+  if (!_mupdf_page)
+    return retVal;
+  
+  fz_text_span * textSpan = fz_new_text_span();
+  if (!textSpan)
+    return retVal;
+  
+  // Use MuPDF transformations to get the text box coordinates right already
+  // during fz_execute_display_list().
+  fz_matrix render_trans = fz_identity;
+  render_trans = fz_concat(render_trans, fz_translate(0, -_bbox.y1));
+  render_trans = fz_concat(render_trans, fz_scale(1, -1));
+  render_trans = fz_concat(render_trans, fz_rotate(_rotate));
+
+  fz_device * textDevice = fz_new_text_device(textSpan);
+  if (!textDevice) {
+    fz_free_text_span(textSpan);
+    return retVal;
+  }
+  fz_execute_display_list(_mupdf_page, textDevice, render_trans, fz_infinite_bbox);
+  fz_free_device(textDevice);
+
+  fz_text_span * span = textSpan;
+  Backend::Page::Box b;
+  while (span) {
+    for (int i = 0; i < span->len; ++i) {
+      Backend::Page::Box sb;
+      sb.boundingBox = toRectF(span->text[i].bbox);
+      b.subBoxes << sb;
+    }
+    if (span->eol) {
+      b.boundingBox = QRectF();
+      foreach (Backend::Page::Box sb, b.subBoxes)
+        b.boundingBox |= sb.boundingBox;
+      retVal << b;
+      b.subBoxes.clear();
+    }
+    span = span->next;
+  }
+
+  fz_free_text_span(textSpan);
+  
+  return retVal;
+}
+
+inline bool polygonContains(const QPolygonF & poly, const QRectF & rect)
+{
+  QRectF r = poly.intersected(rect).boundingRect();
+  
+  return (qAbs(r.width() * r.height() - rect.width() * rect.height()) < 1e-6);
+}
+
+QString Page::selectedText(const QList<QPolygonF> & selection)
+{
+  QString retVal;
+  if (!_mupdf_page)
+    return retVal;
+  
+  fz_text_span * textSpan = fz_new_text_span();
+  if (!textSpan)
+    return retVal;
+  
+  fz_device * textDevice = fz_new_text_device(textSpan);
+  if (!textDevice) {
+    fz_free_text_span(textSpan);
+    return retVal;
+  }
+
+  // Use MuPDF transformations to get the text box coordinates right already
+  // during fz_execute_display_list().
+  fz_matrix render_trans = fz_identity;
+  render_trans = fz_concat(render_trans, fz_translate(0, -_bbox.y1));
+  render_trans = fz_concat(render_trans, fz_scale(1, -1));
+  render_trans = fz_concat(render_trans, fz_rotate(_rotate));
+
+  fz_execute_display_list(_mupdf_page, textDevice, render_trans, fz_infinite_bbox);
+  fz_free_device(textDevice);
+
+  fz_text_span * span = textSpan;
+  Backend::Page::Box b;
+  
+  while (span) {
+    for (int i = 0; i < span->len; ++i) {
+      QRectF charRect = toRectF(span->text[i].bbox);
+      foreach (QPolygonF poly, selection) {
+        if (polygonContains(poly, charRect)) {
+          retVal.append(span->text[i].c);
+          break;
+        }
+      }
+    }
+    if (span->eol)
+      retVal.append(QChar::fromAscii('\n'));
+    span = span->next;
+  }
+
+  fz_free_text_span(textSpan);
+  
+  return retVal.trimmed();
+}
 
 } // namespace MuPDF
 

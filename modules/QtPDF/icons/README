@@ -13,6 +13,7 @@ pagemode-continuous.png: Derived from scalable/pagemode.svg
 pagemode-single.png:     Derived from scalable/pagemode.svg
 pagemode-twocols.png:    Derived from scalable/pagemode.svg
 pagemode-present.png:    Derived from scalable/X-office-presentation.svg
+select-text.png:         Derived from scalable/text-select.svg
 zoom.png:                Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
 zoomin.png:              Qt (/tools/assistant/tools/assistant/images/mac)
 zoomincursor.png:        Derived from zoomin.png
@@ -22,11 +23,13 @@ zoom-select.png:         Derived from scalable/zoom.svg
 
 In scalable/
 ------------
+Format-text-normal.svg:    Tango (http://commons.wikimedia.org/w/index.php?title=File:Format-text-normal.svg&oldid=46717347)
 hand.svg:                  Derived Qt (/tools/designer/src/components/formeditor/images/cursors)
 logo.svg:                  Hand-made using FreeSerif font
 Measure.svg:               Tango (http://commons.wikimedia.org/w/index.php?title=File:Measure.svg&oldid=8397207)
 page.svg:                  Derived from CodeTangoSet (http://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
 pagemode.svg:              Derived from page.svg
+select-text.svg:           Derived from Format-text-normal.svg
 Window-new.svg:            Tango (http://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764)
 zoom.svg                   Derived from Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
 zoom-fit.svg:              Derived from page.svg and Window-new.svg

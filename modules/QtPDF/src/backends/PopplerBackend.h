@@ -90,7 +90,9 @@ public:
 
   QList< QSharedPointer<Annotation::Link> > loadLinks();
   QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations();
-
+  QList< Backend::Page::Box > boxes();
+  QString selectedText(const QList<QPolygonF> & selection);
+  
   QList<Backend::SearchResult> search(QString searchText);
 };
 

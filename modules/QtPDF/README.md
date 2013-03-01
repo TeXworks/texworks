@@ -139,8 +139,9 @@ TODO
    - ~~must render all pages completely before switching to them~~ __DONE__
    - full screen
    - ~~transition support?~~ __DONE__
- - save page as image
- - selecting (and copying/saving) text & images (subject to permissions)
+ - save page as image (subject to permissions)
+ - ~~selecting (and copying) text (subject to permissions)~~ __DONE
+ - selecting (and copying/saving) images (subject to permissions)
  - ~~Provide a grayscale mode~~ __DONE__
  - ~~Implement text search for PDF files.~~ __DONE__
  - ~~Hitting PgUp at top of document or PgDn at bottom moves to the right~~
