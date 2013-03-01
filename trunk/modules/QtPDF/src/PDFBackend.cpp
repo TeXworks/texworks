@@ -459,6 +459,7 @@ QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage *
 Document::Document(QString fileName):
   _numPages(-1),
   _fileName(fileName),
+  _meta_trapped(Trapped_Unknown),
   _docLock(new QReadWriteLock(QReadWriteLock::Recursive))
 {
   Q_ASSERT(_docLock != NULL);
