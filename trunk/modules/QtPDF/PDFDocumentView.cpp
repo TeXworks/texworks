@@ -112,7 +112,9 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 // This class descends from `QGraphicsRectItem` and serves as the on-screen
 // representation of a PDF hyperlink area.
 PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent) :
-  super(parent)
+  super(parent),
+  _link(a_link),
+  activated(false)
 {
   // The link area is expressed in "normalized page coordinates", i.e. values
   // in the range [0, 1]. The transformation matrix of this item will have to
@@ -125,12 +127,15 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
   // **NOTE:** Requires Qt 4.4 or newer.
   setAcceptHoverEvents(true);
 
+  // Only left-clicks will trigger the link.
+  setAcceptedMouseButtons(Qt::LeftButton);
+
   // Mainly for debugging purposes so that we can see where links are placed on
   // a page.
   setPen(QPen(Qt::red));
 }
 
-// Deal with hover events.
+// Respond to hover events.
 void PDFLinkGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   setCursor(Qt::PointingHandCursor);
@@ -139,6 +144,75 @@ void PDFLinkGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 void PDFLinkGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
   unsetCursor();
+}
+
+// Respond to clicks. Limited to left-clicks by `setAcceptedMouseButtons` in
+// this object's constructor.
+void PDFLinkGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+  // Actually opening the link is handled during a `mouseReleaseEvent` --- but
+  // only if the `activated` flag is `true`.
+  activated = true;
+}
+
+
+
+void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+  // Check that this link was "activated" (mouse press occurred within the link
+  // bounding box) and that the mouse release also occurred within the bounding
+  // box.
+  if ( (not activated) || (not contains(event->pos())) ) {
+    activated = false;
+    return;
+  }
+
+  switch ( _link->linkType() ) {
+
+    case Poppler::Link::Goto:
+    {
+      const Poppler::LinkGoto *target = dynamic_cast<const Poppler::LinkGoto*>(_link);
+      Q_ASSERT(target != NULL);
+
+      // **FIXME:** _We don't handle this yet!_
+      if ( target->isExternal() ) break;
+
+      // Jump by page number. Links reckon page numbers starting with 1 so we
+      // subtract to conform with 0-based indexing used by C++.
+      const int destPage = target->destination().pageNumber() - 1;
+
+      // Don't actually jump as that requires some logic in other classes that
+      // hasn't been implemented yet. Just display a little dialog showing the
+      // page that would be jumped to.
+      //
+      // **TODO:** _Implement an actual change of page._
+      QDialog *alert = new QDialog(0, Qt::Popup);
+      QHBoxLayout *layout = new QHBoxLayout(alert);
+      QTimer *timeout = new QTimer(alert);
+
+      layout->addWidget(new QLabel(QString("Link to page %1").arg(destPage)));
+      alert->setLayout(layout);
+
+      QObject::connect(timeout, SIGNAL(timeout()), alert, SLOT(accept()));
+      alert->show();
+      timeout->start(1000);
+      break;
+    }
+
+    default:
+      // Unsupported link types:
+      //
+      //     Poppler::Link::None
+      //     Poppler::Link::Browse
+      //     Poppler::Link::Execute
+      //     Poppler::Link::JavaScript
+      //     Poppler::Link::Action
+      //     Poppler::Link::Sound
+      //     Poppler::Link::Movie
+      break;
+  }
+
+  activated = false;
 }
 
 
