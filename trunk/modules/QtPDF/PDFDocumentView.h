@@ -55,15 +55,20 @@ public:
   ~PDFDocumentView();
   int currentPage();
   int lastPage();
-  void goToPage(int pageNum);
 
 public slots:
+  void goPrev();
+  void goNext();
+  void goFirst();
+  void goLast();
+  void goToPage(int pageNum);
+
   void zoomIn();
   void zoomOut();
 
 signals:
-  void changedPage(int);
-  void changedZoom(qreal);
+  void changedPage(int pageNum);
+  void changedZoom(qreal zoomLevel);
 
 protected:
   // Keep track of the current page by overloading the widget paint event.
