@@ -120,7 +120,10 @@ void AbstractInPlaceTransition::start(const QImage & imgStart, const QImage & im
 
 QImage AbstractInPlaceTransition::getImage()
 {
-  // FIXME: type and size checks
+  Q_ASSERT(_imgStart.size() == _imgEnd.size() && _imgStart.size() == _mask.size());
+  Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
+  Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
+  Q_ASSERT(_mask.format() == QImage::Format_Indexed8);
 
   QImage retVal(_imgStart.size(), QImage::Format_ARGB32);
   
@@ -411,6 +414,10 @@ void Fly::start(const QImage & imgStart, const QImage & imgEnd)
 
 QImage Fly::getImage()
 {
+  Q_ASSERT(_imgStart.size() == _imgEnd.size());
+  Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
+  Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
+
   QImage retVal = QImage(_imgEnd.size(), QImage::Format_ARGB32);
   int i, j;
   int offset;
@@ -524,6 +531,10 @@ QImage Fly::getImage()
 
 QImage Push::getImage()
 {
+  Q_ASSERT(_imgStart.size() == _imgEnd.size());
+  Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
+  Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
+
   QImage retVal = QImage(_imgEnd.size(), QImage::Format_ARGB32);
   int i, j;
   int edge;
@@ -572,6 +583,10 @@ QImage Push::getImage()
 
 QImage Cover::getImage()
 {
+  Q_ASSERT(_imgStart.size() == _imgEnd.size());
+  Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
+  Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
+
   QImage retVal = QImage(_imgEnd.size(), QImage::Format_ARGB32);
   int i, j;
   int edge;
@@ -620,6 +635,10 @@ QImage Cover::getImage()
 
 QImage Uncover::getImage()
 {
+  Q_ASSERT(_imgStart.size() == _imgEnd.size());
+  Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
+  Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
+
   QImage retVal = QImage(_imgEnd.size(), QImage::Format_ARGB32);
   int i, j;
   int edge;
@@ -668,6 +687,10 @@ QImage Uncover::getImage()
 
 QImage Fade::getImage()
 {
+  Q_ASSERT(_imgStart.size() == _imgEnd.size());
+  Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
+  Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
+
   QImage retVal = QImage(_imgEnd.size(), QImage::Format_ARGB32);
   int i;
   int f = (int)(255 * getFracTime());
