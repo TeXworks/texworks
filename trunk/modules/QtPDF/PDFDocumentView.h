@@ -62,6 +62,7 @@ private:
 class PDFDocumentScene : public QGraphicsScene {
   Q_OBJECT
   typedef QGraphicsScene Super;
+
   const std::auto_ptr<Poppler::Document> doc;
 
   // This may change to a `QSet` in the future
@@ -75,6 +76,8 @@ public:
   int pageNumAt(const QPolygonF &polygon);
 
   int lastPage();
+  // Poppler is *NOT* thread safe :(
+  QMutex *docMutex;
 
 signals:
   void pageChangeRequested(int pageNum);
@@ -96,14 +99,16 @@ class PDFPageGraphicsItem : public QObject, public QGraphicsPixmapItem
   Q_OBJECT
   typedef QGraphicsPixmapItem Super;
 
-  // To spare the need for a destructor
-  const std::auto_ptr<Poppler::Page> page;
+  Poppler::Page *page;
   QPixmap renderedPage;
   double dpiX;
   double dpiY;
 
   bool linksLoaded;
-  QFutureWatcher< QList<PDFLinkGraphicsItem *> >  *linkGenerator;
+  QFutureWatcher< QList<PDFLinkGraphicsItem *> > *linkGenerator;
+
+  bool pageIsRendering;
+  QFutureWatcher<QImage> *pageImageGenerator;
 
   QTransform pageScale;
   qreal zoomLevel;
@@ -127,10 +132,12 @@ private:
   // copy that C++ newbies may not expect.
   Q_DISABLE_COPY(PDFPageGraphicsItem)
 
-  QList<PDFLinkGraphicsItem *> loadLinks(QList<Poppler::Link *> links);
+  QList<PDFLinkGraphicsItem *> loadLinks();
+  QImage renderPage(qreal scaleFactor);
 
 private slots:
   void addLinks();
+  void updateRenderedPage();
 };
 
 
