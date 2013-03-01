@@ -68,6 +68,7 @@ public:
   QDockWidget * tocDockWidget(QWidget * parent);
   QDockWidget * metaDataDockWidget(QWidget * parent);
   QDockWidget * fontsDockWidget(QWidget * parent);
+  QDockWidget * permissionsDockWidget(QWidget * parent);
 
 public slots:
   void goPrev();
@@ -234,6 +235,22 @@ public:
   void setFontsDataFromDocument(const QSharedPointer<Document> doc);
 private:
   QTableWidget * _table;
+};
+
+class PDFPermissionsDockWidget : public QDockWidget
+{
+  Q_OBJECT
+public:
+  PDFPermissionsDockWidget(QWidget * parent);
+  virtual ~PDFPermissionsDockWidget() { }
+  
+  void initFromDocument(const QSharedPointer<Document> doc);
+private:
+  QLabel * _print;
+  QLabel * _modify;
+  QLabel * _extract;
+  QLabel * _addNotes;
+  QLabel * _form;
 };
 
 // Cannot use QGraphicsGridLayout and similar classes for pages because it only

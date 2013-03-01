@@ -621,6 +621,16 @@ class Document
 
 public:
   enum TrappedState { Trapped_Unknown, Trapped_True, Trapped_False };
+  enum Permission { Permission_Print = 0x0004,
+                    Permission_Change = 0x0008,
+                    Permission_Extract = 0x0010, // text and graphics
+                    Permission_Annotate = 0x0020, // Also includes filling forms
+                    Permission_FillForm = 0x0100,
+                    Permission_ExtractForAccessibility = 0x0200,
+                    Permission_Assemble = 0x0400,
+                    Permission_PrintHighRes = 0x0800
+                  };
+  Q_DECLARE_FLAGS(Permissions, Permission)
 
   Document(QString fileName);
   virtual ~Document();
@@ -633,6 +643,9 @@ public:
   virtual PDFDestination resolveDestination(const PDFDestination & namedDestination) const {
     return (namedDestination.isExplicit() ? namedDestination : PDFDestination());
   }
+
+  QFlags<Permissions> permissions() const { return _permissions; }
+  QFlags<Permissions>& permissions() { return _permissions; }
 
   virtual bool isValid() const = 0;
 
@@ -670,6 +683,7 @@ protected:
   PDFPageProcessingThread _processingThread;
   PDFPageCache _pageCache;
   QVector< QSharedPointer<Page> > _pages;
+  QFlags<Permissions> _permissions;
 
   QString _meta_title;
   QString _meta_author;

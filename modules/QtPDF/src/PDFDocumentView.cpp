@@ -169,6 +169,13 @@ QDockWidget * PDFDocumentView::fontsDockWidget(QWidget * parent)
   return dock;
 }
   
+QDockWidget * PDFDocumentView::permissionsDockWidget(QWidget * parent)
+{
+  PDFPermissionsDockWidget * dock = new PDFPermissionsDockWidget(parent);
+  if (_pdf_scene && _pdf_scene->document())
+    dock->initFromDocument(_pdf_scene->document());
+  return dock;
+}
 
 // Public Slots
 // ------------
@@ -2005,6 +2012,85 @@ void PDFFontsDockWidget::setFontsDataFromDocument(const QSharedPointer<Document>
   _table->resizeColumnsToContents();
   _table->resizeRowsToContents();
   _table->sortItems(0);
+}
+
+
+// PDFPermissionsDockWidget
+// ============
+PDFPermissionsDockWidget::PDFPermissionsDockWidget(QWidget * parent) : 
+  QDockWidget(PDFDocumentView::trUtf8("Permissions"), parent)
+{
+  // scrollArea ... the central widget of the QDockWidget
+  // w ... the central widget of scrollArea
+  // layout ... lays out the widgets in w
+  QScrollArea * scrollArea = new QScrollArea(this);
+  scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  QWidget * w = new QWidget(scrollArea);
+  QFormLayout * layout = new QFormLayout(w);
+
+  // We want the layout to set the size of w (which should encompass all child
+  // widgets completely, since we in turn put it into scrollArea to handle
+  // oversized children
+  layout->setSizeConstraint(QLayout::SetFixedSize);
+
+  _print = new QLabel(w);
+  layout->addRow(PDFDocumentView::trUtf8("Printing:"), _print);
+  _modify = new QLabel(w);
+  layout->addRow(PDFDocumentView::trUtf8("Modifications:"), _modify);
+  _extract = new QLabel(w);
+  layout->addRow(PDFDocumentView::trUtf8("Extraction:"), _extract);
+  _addNotes = new QLabel(w);
+  layout->addRow(PDFDocumentView::trUtf8("Annotation:"), _addNotes);
+  _form = new QLabel(w);
+  layout->addRow(PDFDocumentView::trUtf8("Filling forms:"), _form);
+
+  w->setLayout(layout);
+  scrollArea->setWidget(w);
+  setWidget(scrollArea);
+}
+
+void PDFPermissionsDockWidget::initFromDocument(const QSharedPointer<Document> doc)
+{
+  if (!doc)
+    return;
+  
+  QFlags<Document::Permissions> & perm = doc->permissions();
+  
+  if (perm.testFlag(Document::Permission_Print)) {
+    if (perm.testFlag(Document::Permission_PrintHighRes))
+      _print->setText(PDFDocumentView::trUtf8("Allowed"));
+    else
+      _print->setText(PDFDocumentView::trUtf8("Low resolution only"));
+  }
+  else
+    _print->setText(PDFDocumentView::trUtf8("Denied"));
+
+  _modify->setToolTip(QString());
+  if (perm.testFlag(Document::Permission_Change))
+    _modify->setText(PDFDocumentView::trUtf8("Allowed"));
+  else if (perm.testFlag(Document::Permission_Assemble)) {
+    _modify->setText(PDFDocumentView::trUtf8("Assembling only"));
+    _modify->setToolTip(PDFDocumentView::trUtf8("Insert, rotate, or delete pages and create bookmarks or thumbnail images"));
+  }
+  else
+    _modify->setText(PDFDocumentView::trUtf8("Denied"));
+
+  if (perm.testFlag(Document::Permission_Extract))
+    _extract->setText(PDFDocumentView::trUtf8("Allowed"));
+  else if (perm.testFlag(Document::Permission_ExtractForAccessibility))
+    _extract->setText(PDFDocumentView::trUtf8("Accessibility support only"));
+  else
+    _extract->setText(PDFDocumentView::trUtf8("Denied"));
+
+  if (perm.testFlag(Document::Permission_Annotate))
+    _addNotes->setText(PDFDocumentView::trUtf8("Allowed"));
+  else
+    _addNotes->setText(PDFDocumentView::trUtf8("Denied"));
+
+  if (perm.testFlag(Document::Permission_FillForm))
+    _form->setText(PDFDocumentView::trUtf8("Allowed"));
+  else
+    _form->setText(PDFDocumentView::trUtf8("Denied"));
 }
 
 

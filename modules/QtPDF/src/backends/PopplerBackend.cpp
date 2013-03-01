@@ -85,6 +85,27 @@ PopplerDocument::PopplerDocument(QString fileName):
   if (!_poppler_doc)
     return;
 
+  // Permissions
+  // TODO: Check if this mapping from Poppler flags to our flags is correct
+  if (_poppler_doc->okToAddNotes())
+    _permissions |= Permission_Annotate;
+  if (_poppler_doc->okToAssemble())
+    _permissions |= Permission_Assemble;
+  if (_poppler_doc->okToChange())
+    _permissions |= Permission_Change;
+  if (_poppler_doc->okToCopy())
+    _permissions |= Permission_Extract;
+  if (_poppler_doc->okToCreateFormFields())
+    _permissions |= Permission_Annotate;
+  if (_poppler_doc->okToExtractForAccessibility())
+    _permissions |= Permission_ExtractForAccessibility;
+  if (_poppler_doc->okToFillForm())
+    _permissions |= Permission_FillForm;
+  if (_poppler_doc->okToPrint())
+    _permissions |= Permission_Print;
+  if (_poppler_doc->okToPrintHighRes())
+    _permissions |= Permission_PrintHighRes;
+
   _numPages = _poppler_doc->numPages();
 
   // **TODO:**
