@@ -87,10 +87,11 @@ TODO
    holding a pointer to them (e.g., PDFPageGraphicsItem)
  - Make program translatable; this probably entails creating a (dummy) Qt .pro
    file so we can use the normal Qt linguist approach
- - Clicking on an item in the ToC that lies after the current viewport position
+ - ~~Clicking on an item in the ToC that lies after the current viewport position
    moves the view such that a small band of the page in question is visible at
    the bottom of the screen---but we should see that page fill the entire screen
-   Note: this only applies of no viewport setting is associated with the toc item
+   Note: this only applies of no viewport setting is associated with the toc
+   item~~ __DONE__
  - ~~Fix MuPDF when using non-English numeric locale~~ __DONE__
  - ~~Icons (add icons for page modes, make marquee zoom icon consistent with
    other icons)~~ __DONE__
@@ -121,7 +122,6 @@ TODO
  - Speed up magnifier; in Tw, it seems much more responsive. This might be due
    to using centerOn in PDFDocumentMagnifierView::setPosition but needs closer
    investigation
- - Hitting PgUp at top of document or PgDn at bottom moves to the right
  - annotations (popup window)
  - make the magnifying glass a top-level window (so it can extend outside the
    main view's window boundaries) (requested by Reinhard Kotucha)
@@ -138,3 +138,5 @@ TODO
    - transition support?
  - save page as image
  - selecting (and copying/saving) text & images (subject to permissions)
+ - ~~Hitting PgUp at top of document or PgDn at bottom moves to the right~~
+   __DONE__
