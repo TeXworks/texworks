@@ -143,30 +143,22 @@ void PDFDocumentView::goToPage(int pageNum)
   }
 }
 
-
-void PDFDocumentView::zoomIn()
+void PDFDocumentView::zoomBy(qreal zoomFactor)
 {
-  _zoomLevel *= 3.0/2.0;
-  // Set the transformation anchor to AnchorViewCenter so we always zoom into
-  // the center of the view (rather than into the upper left corner)
-  QGraphicsView::ViewportAnchor anchor = transformationAnchor();
-  setTransformationAnchor(QGraphicsView::AnchorViewCenter);
-  this->scale(3.0/2.0, 3.0/2.0);
-  setTransformationAnchor(anchor);
-  emit changedZoom(_zoomLevel);
-}
-
-void PDFDocumentView::zoomOut()
-{
-  _zoomLevel *= 2.0/3.0;
+  _zoomLevel *= zoomFactor;
   // Set the transformation anchor to AnchorViewCenter so we always zoom out of
   // the center of the view (rather than out of the upper left corner)
   QGraphicsView::ViewportAnchor anchor = transformationAnchor();
   setTransformationAnchor(QGraphicsView::AnchorViewCenter);
-  this->scale(2.0/3.0, 2.0/3.0);
+  this->scale(zoomFactor, zoomFactor);
   setTransformationAnchor(anchor);
+
   emit changedZoom(_zoomLevel);
 }
+
+void PDFDocumentView::zoomIn() { zoomBy(3.0/2.0); }
+void PDFDocumentView::zoomOut() { zoomBy(2.0/3.0); }
+
 
 void PDFDocumentView::setMouseMode(const MouseMode newMode)
 {
