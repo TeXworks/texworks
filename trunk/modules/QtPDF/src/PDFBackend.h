@@ -146,7 +146,6 @@ protected:
 
 class PDFPageTile
 {
-
 public:
   // TODO:
   // We may want an application-wide cache instead of a document-specific cache
@@ -167,6 +166,9 @@ public:
     return (xres == other.xres && yres == other.yres && render_box == other.render_box && page_num == other.page_num);
   }
 
+#ifdef DEBUG
+  operator QString() const;
+#endif
 };
 // Need a hash function in order to allow `PDFPageTile` to be used as a key
 // object for a `QCache`.
