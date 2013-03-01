@@ -127,12 +127,34 @@ PDFDocumentView::~PDFDocumentView() {
   delete this->scene();
 }
 
+
+// Accessors
+// ---------
 int PDFDocumentView::currentPage() {
   return _currentPage;
 }
 
 int PDFDocumentView::lastPage() {
   return _lastPage;
+}
+
+
+// Public Slots
+// ------------
+void PDFDocumentView::goPrev() {
+  goToPage(_currentPage - 1);
+}
+
+void PDFDocumentView::goNext() {
+  goToPage(_currentPage + 1);
+}
+
+void PDFDocumentView::goFirst() {
+  goToPage(0);
+}
+
+void PDFDocumentView::goLast() {
+  goToPage(_lastPage - 1);
 }
 
 // **TODO:** _Overload this function to take `PDFPageGraphicsItem` as a
@@ -146,6 +168,7 @@ void PDFDocumentView::goToPage(int pageNum) {
   }
 }
 
+
 void PDFDocumentView::zoomIn() {
   zoomLevel *= 3.0/2.0;
   this->scale(3.0/2.0, 3.0/2.0);
@@ -157,6 +180,10 @@ void PDFDocumentView::zoomOut() {
   this->scale(2.0/3.0, 2.0/3.0);
   emit changedZoom(zoomLevel);
 }
+
+
+// Event Handlers
+// --------------
 
 // Keep track of the current page by overloading the widget paint event.
 void PDFDocumentView::paintEvent(QPaintEvent *event) {
@@ -171,10 +198,10 @@ void PDFDocumentView::paintEvent(QPaintEvent *event) {
   // _If graphics objects other than `PDFPageGraphicsItem` are ever added to
   // the `GraphicsScene` managed by `PDFDocumentView` (such as annotations,
   // form elements, etc), it may be wise to ensure this selection only
-  // considers `PDFPagegraphicsItem` objects.
+  // considers `PDFPagegraphicsItem` objects._
   //
-  // A way to do this may be to call `toSet` on both `pages` and the result
-  // of `items` and then take the first item of a set intersection.
+  // _A way to do this may be to call `toSet` on both `pages` and the result
+  // of `items` and then take the first item of a set intersection._
   QRect pageBbox = viewport()->rect();
   pageBbox.setHeight(0.5 * pageBbox.height());
   int nextCurrentPage = pages.indexOf(items(pageBbox).first());
@@ -186,53 +213,32 @@ void PDFDocumentView::paintEvent(QPaintEvent *event) {
 
 }
 
-// Very "dumb" attempt at keypress handling.
-//
 // **TODO:**
 //
-//   * _Scroll events need to be captured and `currentPage` adjusted
-//     accordingly._
-//
-//   * _Should pageUp/pageDown be implemented in terms of signals/slots and
-//     let some parent widget worry about delegating Page Up/PageDown/other
-//     keypresses?_
+//   * _Should we let some parent widget worry about delegating Page
+//     Up/PageDown/other keypresses?_
 void PDFDocumentView::keyPressEvent(QKeyEvent *event) {
 
-  if (
-    (event->key() == Qt::Key_Home) &&
-    (_currentPage != 0)
-  ) {
+  switch ( event->key() ) {
 
-    goToPage(0);
-    event->accept();
+    case Qt::Key_PageUp:
+      goPrev();
+      break;
 
-  } else if(
-    (event->key() == Qt::Key_End) &&
-    (_currentPage != _lastPage)
-  ) {
+    case Qt::Key_PageDown:
+      goNext();
+      break;
 
-    goToPage(_lastPage - 1);
-    event->accept();
+    case Qt::Key_Home:
+      goFirst();
+      break;
 
-  } else if(
-    (event->key() == Qt::Key_PageDown) &&
-    (_currentPage < _lastPage)
-  ) {
+    case Qt::Key_End:
+      goLast();
+      break;
 
-    goToPage(_currentPage + 1);
-    event->accept();
-
-  } else if (
-    (event->key() == Qt::Key_PageUp) &&
-    (_currentPage > 0)
-  ) {
-
-    goToPage(_currentPage - 1);
-    event->accept();
-
-  } else  {
-
-    super::keyPressEvent(event);
+    default:
+      super::keyPressEvent(event);
 
   }
 
