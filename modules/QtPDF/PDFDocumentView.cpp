@@ -12,7 +12,172 @@
  * more details.
  */
 #include "PDFDocumentView.h"
-#include <iostream>
+
+
+// PDFDocumentView
+// ===============
+
+// This class descends from `QGraphicsView` and is responsible for controlling
+// and displaying the contents of a `Poppler::Document` using a `QGraphicsScene`.
+//
+// **TODO:**
+// _This class basically comes with a built-in `QGraphicsScene` unlike a
+// traditional `QGraphicsView` where the scenes can be swapped around. Should
+// we disable the `setScene` function by declaring it `private`? Does it make
+// sense to tightly couple a scene to this class?_
+PDFDocumentView::PDFDocumentView(Poppler::Document *a_doc, QWidget *parent):
+  Super(parent),
+  doc(a_doc),
+  zoomLevel(1.0)
+{
+  setScene(new QGraphicsScene(this));
+
+  setBackgroundRole(QPalette::Dark);
+  setAlignment(Qt::AlignCenter);
+  setFocusPolicy(Qt::StrongFocus);
+
+  // **TODO:** _Investigate the Arthur backend for native Qt rendering._
+  doc->setRenderBackend(Poppler::Document::SplashBackend);
+  // Make things look pretty.
+  doc->setRenderHint(Poppler::Document::Antialiasing);
+  doc->setRenderHint(Poppler::Document::TextAntialiasing);
+
+  _lastPage = doc->numPages();
+
+  // Create a `PDFPageGraphicsItem` for each page in the PDF document to the
+  // `QGraphicsScene` controlled by this object. The Y-coordinate of each
+  // page is automatically shifted such that it will appear 10px below the
+  // previous page.
+  int i;
+  float offY = 0.0;
+  PDFPageGraphicsItem *pagePtr;
+
+  for (i = 0; i < _lastPage; ++i)
+  {
+    pagePtr = new PDFPageGraphicsItem(doc->page(i));
+    pagePtr->setPos(0.0, offY);
+
+    pages.append(pagePtr);
+    scene()->addItem(pagePtr);
+
+    offY += pagePtr->pixmap().height() + 10.0;
+  }
+
+  // Automatically center on the first page in the PDF document.
+  goToPage(0);
+}
+
+
+// Accessors
+// ---------
+int PDFDocumentView::currentPage() { return _currentPage; }
+int PDFDocumentView::lastPage()    { return _lastPage; }
+
+
+// Public Slots
+// ------------
+void PDFDocumentView::goPrev()  { goToPage(_currentPage - 1); }
+void PDFDocumentView::goNext()  { goToPage(_currentPage + 1); }
+void PDFDocumentView::goFirst() { goToPage(0); }
+void PDFDocumentView::goLast()  { goToPage(_lastPage - 1); }
+
+// **TODO:** _Overload this function to take `PDFPageGraphicsItem` as a
+// parameter?_
+void PDFDocumentView::goToPage(int pageNum)
+{
+  // We silently ignore any invalid page numbers.
+  if ( (pageNum >= 0) && (pageNum < _lastPage) && (pageNum != _currentPage) )
+  {
+    centerOn(pages.at(pageNum));
+    _currentPage = pageNum;
+    emit changedPage(_currentPage);
+  }
+}
+
+
+void PDFDocumentView::zoomIn()
+{
+  zoomLevel *= 3.0/2.0;
+  this->scale(3.0/2.0, 3.0/2.0);
+  emit changedZoom(zoomLevel);
+}
+
+void PDFDocumentView::zoomOut()
+{
+  zoomLevel *= 2.0/3.0;
+  this->scale(2.0/3.0, 2.0/3.0);
+  emit changedZoom(zoomLevel);
+}
+
+
+// Event Handlers
+// --------------
+
+// Keep track of the current page by overloading the widget paint event.
+void PDFDocumentView::paintEvent(QPaintEvent *event)
+{
+  Super::paintEvent(event);
+
+  // After `QGraphicsView` has taken care of updates to this widget, find the
+  // currently displayed page. We do this by grabbing all items that are
+  // currently within the bounds of the viewport's top half. We take the
+  // first item found to be the "current page".
+  //
+  // **NOTE:**
+  // _If graphics objects other than `PDFPageGraphicsItem` are ever added to
+  // the `GraphicsScene` managed by `PDFDocumentView` (such as annotations,
+  // form elements, etc), it may be wise to ensure this selection only
+  // considers `PDFPagegraphicsItem` objects._
+  //
+  // _A way to do this may be to call `toSet` on both `pages` and the result
+  // of `items` and then take the first item of a set intersection._
+  QRect pageBbox = viewport()->rect();
+  pageBbox.setHeight(0.5 * pageBbox.height());
+  int nextCurrentPage = pages.indexOf(items(pageBbox).first());
+
+  if ( nextCurrentPage != _currentPage )
+  {
+    _currentPage = nextCurrentPage;
+    emit changedPage(_currentPage);
+  }
+
+}
+
+// **TODO:**
+//
+//   * _Should we let some parent widget worry about delegating Page
+//     Up/PageDown/other keypresses?_
+void PDFDocumentView::keyPressEvent(QKeyEvent *event)
+{
+  switch ( event->key() )
+  {
+
+    case Qt::Key_PageUp:
+      goPrev();
+      event->accept();
+      break;
+
+    case Qt::Key_PageDown:
+      goNext();
+      event->accept();
+      break;
+
+    case Qt::Key_Home:
+      goFirst();
+      event->accept();
+      break;
+
+    case Qt::Key_End:
+      goLast();
+      event->accept();
+      break;
+
+    default:
+      Super::keyPressEvent(event);
+      break;
+
+  }
+}
 
 
 // PDFPageGraphicsItem
@@ -20,7 +185,20 @@
 
 // This class descends from `QGraphicsPixmapItem` and is responsible for
 // rendering `Poppler::Page` objects.
-PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent) : super(parent),
+//
+// **TODO:**
+// Currently the `pixmap` member inherited from `QGraphicsPixmapItem` is left
+// blank since it determines this object's size and other geometric properties.
+// The actual PDF pages are rendered to a new `QPixmap` object called
+// `renderedPage`. This is a hack.
+//
+// `PDFPageGraphicsItem` should probably be re-implemented as a subclass of
+// `QGraphicsItem` with custom methods for accessing geometry info.
+// `QGraphicsObject` is another potential parent class and may be useful if
+// images are ever rendered in a background thread as it provides support for
+// `SIGNAL`/`SLOT` mechanics.
+PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent):
+  Super(parent),
   page(a_page),
   dpiX(QApplication::desktop()->physicalDpiX()),
   dpiY(QApplication::desktop()->physicalDpiY()),
@@ -29,8 +207,8 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
   zoomLevel(0.0)
 {
   // Create an empty pixmap that is the same size as the PDF page. This
-  // allows us to dielay the rendering of pages until they actually come into
-  // view which saves time.
+  // allows us to delay the rendering of pages until they actually come into
+  // view yet still know what the page size is.
   QSizeF pageSize = page->pageSizeF() / 72.0;
   pageSize.setHeight(pageSize.height() * dpiY);
   pageSize.setWidth(pageSize.width() * dpiX);
@@ -38,29 +216,28 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
   setPixmap(QPixmap(pageSize.toSize()));
 }
 
-void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+// An overloaded paint method allows us to render the contents of
+// `Poppler::Page` objects to `QImage` objects which are then stored inside the
+// `PDFPageGraphicsItem` object using a `QPixmap`.
+//
+// **TODO:**
+// _Page rendering and link loading should be handed off to a worker thread so
+// that the GUI stays responsive._
+void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
   // Really, there is an X scaling factor and a Y scaling factor, but we assume
   // that the X scaling factor is equal to the Y scaling factor.
   qreal scaleFactor = painter->transform().m11();
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
-  // `dirty` will be `true`. We render the page and load all of its links.
-  //
-  // **TODO:** _The rendering and link loading should be handed off to a worker
-  // thread so that the GUI stays responsive._
-  if ( dirty ) {
-    QRect bbox = painter->transform().mapRect(pixmap().rect());
-
-    // We render to a new member named `renderedPage` rather than `pixmap`
-    // because the properties of `pixmap` are used to calculate a bunch of size
-    // and positioning information in methods inherited from
-    // `QGraphicsPixmapItem`.
-    renderedPage = QPixmap::fromImage(page->renderToImage(dpiX * scaleFactor, dpiY * scaleFactor,
-      0, 0, bbox.width(), bbox.height()));
-
+  // `dirty` will be `true`. We load all of the links on the page.
+  if ( dirty )
+  {
     // **TODO:**
+    //
     //   * _Comment on how exactly this transformation is valid._
-    //   * _Is this the best place to handle transformations?._
+    //   * _Is this the best place to handle link <-> Qt graphics
+    //     transformations?._
     QTransform pageTransform = QTransform::fromScale(pixmap().rect().width(), pixmap().rect().height());
     PDFLinkGraphicsItem *linkBox;
     foreach(Poppler::Link *link, page->links()) {
@@ -71,19 +248,20 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     // **NOTE:**
     // _An update currently required to ensure links are drawn when the page
     // scrolls into view. This can probably be altered if the link creation is ever
-    // shoved into a seperate thread._
+    // shoved into a separate thread._
     update();
-
-    zoomLevel = scaleFactor;
-    dirty = false;
   }
 
-  // We also look at the zoom level and render a new page if it has changed.
-  //
-  // **TODO:** _This operation should be seperated out into a method._
-  if ( zoomLevel != scaleFactor ) {
+  // We look at the zoom level and render a new page if it has changed or has
+  // not been set yet.
+  if ( zoomLevel != scaleFactor )
+  {
     QRect bbox = painter->transform().mapRect(pixmap().rect());
 
+    // We render to a new member named `renderedPage` rather than `pixmap`
+    // because the properties of `pixmap` are used to calculate a bunch of size
+    // and other geometric attributes in methods inherited from
+    // `QGraphicsPixmapItem`.
     renderedPage = QPixmap::fromImage(page->renderToImage(dpiX * scaleFactor, dpiY * scaleFactor,
       0, 0, bbox.width(), bbox.height()));
 
@@ -109,33 +287,44 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 // PDFLinkGraphicsItem
 // ===================
 
-// This class descends from `QGraphicsRectItem` and serves as the on-screen
-// representation of a PDF hyperlink area.
-PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent) :
-  super(parent),
+// This class descends from `QGraphicsRectItem` and serves the following
+// functions:
+//
+//    * Provides easy access to the on-screen geometry of a hyperlink area.
+//
+//    * Handles tasks such as cursor changes on mouse hover and link activation
+//      on mouse clicks.
+PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent):
+  Super(parent),
   _link(a_link),
   activated(false)
 {
-  // The link area is expressed in "normalized page coordinates", i.e. values
-  // in the range [0, 1]. The transformation matrix of this item will have to
-  // be adjusted so that links will show up correctly in a graphics view.
-  setRect(a_link->linkArea());
+  // Poppler expresses the link area in "normalized page coordinates", i.e.
+  // values in the range [0, 1]. The transformation matrix of this item will
+  // have to be adjusted so that links will show up correctly in a graphics
+  // view.
+  setRect(_link->linkArea());
 
   // Allows links to provide a context-specific cursor when the mouse is
   // hovering over them.
   //
-  // **NOTE:** Requires Qt 4.4 or newer.
+  // **NOTE:** _Requires Qt 4.4 or newer._
   setAcceptHoverEvents(true);
 
   // Only left-clicks will trigger the link.
   setAcceptedMouseButtons(Qt::LeftButton);
 
-  // Mainly for debugging purposes so that we can see where links are placed on
-  // a page.
+  // **TODO:**
+  // _Intended to be for debugging purposes only so that the link area can be
+  // determined visually_
   setPen(QPen(Qt::red));
 }
 
-// Respond to hover events.
+
+// Event Handlers
+// --------------
+
+// Swap cursor during hover events.
 void PDFLinkGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   setCursor(Qt::PointingHandCursor);
@@ -155,19 +344,20 @@ void PDFLinkGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
   activated = true;
 }
 
-
-
+// The real nitty-gritty of link activation happens in here.
 void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
   // Check that this link was "activated" (mouse press occurred within the link
   // bounding box) and that the mouse release also occurred within the bounding
   // box.
-  if ( (not activated) || (not contains(event->pos())) ) {
+  if ( (not activated) || (not contains(event->pos())) )
+  {
     activated = false;
     return;
   }
 
-  switch ( _link->linkType() ) {
+  switch ( _link->linkType() )
+  {
 
     case Poppler::Link::Goto:
     {
@@ -179,6 +369,11 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
       // Jump by page number. Links reckon page numbers starting with 1 so we
       // subtract to conform with 0-based indexing used by C++.
+      //
+      // **NOTE:**
+      // _There are a many details that are not being considered, such as
+      // centering on a specific anchor point and possibly changing the zoom
+      // level rather than just focusing on the center of the target page._
       const int destPage = target->destination().pageNumber() - 1;
 
       // Don't actually jump as that requires some logic in other classes that
@@ -199,185 +394,18 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
       break;
     }
 
+    // Unsupported link types:
+    //
+    //     Poppler::Link::None
+    //     Poppler::Link::Browse
+    //     Poppler::Link::Execute
+    //     Poppler::Link::JavaScript
+    //     Poppler::Link::Action
+    //     Poppler::Link::Sound
+    //     Poppler::Link::Movie
     default:
-      // Unsupported link types:
-      //
-      //     Poppler::Link::None
-      //     Poppler::Link::Browse
-      //     Poppler::Link::Execute
-      //     Poppler::Link::JavaScript
-      //     Poppler::Link::Action
-      //     Poppler::Link::Sound
-      //     Poppler::Link::Movie
       break;
   }
 
   activated = false;
-}
-
-
-// PDFDocumentView
-// ===============
-
-// This class descends from `QGraphicsView` and is responsible for controlling
-// and displaying the contents of a `Poppler::Document` using a `QGraphicsScene`.
-PDFDocumentView::PDFDocumentView(Poppler::Document *a_doc, QWidget *parent) : super(new QGraphicsScene, parent),
-  doc(a_doc),
-  zoomLevel(1.0)
-{
-  setBackgroundRole(QPalette::Dark);
-  setAlignment(Qt::AlignCenter);
-  setFocusPolicy(Qt::StrongFocus);
-
-  // **TODO:** _Investigate the Arthur backend for native Qt rendering._
-  doc->setRenderBackend(Poppler::Document::SplashBackend);
-  // Make things look pretty.
-  doc->setRenderHint(Poppler::Document::Antialiasing);
-  doc->setRenderHint(Poppler::Document::TextAntialiasing);
-
-  _lastPage = doc->numPages();
-
-  // Create a `PDFPageGraphicsItem` for each page in the PDF document to the
-  // `QGraphicsScene` controlled by this object. The Y-coordinate of each
-  // page is automatically shifted such that it will appear 10px below the
-  // previous page.
-  //
-  // **TODO:** _Should the Y-shift be sensitive to zoom levels?_
-  int i;
-  float offY = 0.0;
-  PDFPageGraphicsItem *pagePtr;
-
-  for (i = 0; i < _lastPage; ++i) {
-    pagePtr = new PDFPageGraphicsItem(doc->page(i));
-    pagePtr->setPos(0.0, offY);
-
-    pages.append(pagePtr);
-    scene()->addItem(pagePtr);
-
-    offY += pagePtr->pixmap().height() + 10.0;
-  }
-
-  // Automatically center on the first page in the PDF document.
-  goToPage(0);
-}
-
-PDFDocumentView::~PDFDocumentView() {
-  delete this->scene();
-}
-
-
-// Accessors
-// ---------
-int PDFDocumentView::currentPage() {
-  return _currentPage;
-}
-
-int PDFDocumentView::lastPage() {
-  return _lastPage;
-}
-
-
-// Public Slots
-// ------------
-void PDFDocumentView::goPrev() {
-  goToPage(_currentPage - 1);
-}
-
-void PDFDocumentView::goNext() {
-  goToPage(_currentPage + 1);
-}
-
-void PDFDocumentView::goFirst() {
-  goToPage(0);
-}
-
-void PDFDocumentView::goLast() {
-  goToPage(_lastPage - 1);
-}
-
-// **TODO:** _Overload this function to take `PDFPageGraphicsItem` as a
-// parameter?_
-void PDFDocumentView::goToPage(int pageNum) {
-  // We silently ignore any invalid page numbers.
-  if ( (pageNum >= 0) && (pageNum < _lastPage) && (pageNum != _currentPage) ) {
-    centerOn(pages.at(pageNum));
-    _currentPage = pageNum;
-    emit changedPage(_currentPage);
-  }
-}
-
-
-void PDFDocumentView::zoomIn() {
-  zoomLevel *= 3.0/2.0;
-  this->scale(3.0/2.0, 3.0/2.0);
-  emit changedZoom(zoomLevel);
-}
-
-void PDFDocumentView::zoomOut() {
-  zoomLevel *= 2.0/3.0;
-  this->scale(2.0/3.0, 2.0/3.0);
-  emit changedZoom(zoomLevel);
-}
-
-
-// Event Handlers
-// --------------
-
-// Keep track of the current page by overloading the widget paint event.
-void PDFDocumentView::paintEvent(QPaintEvent *event) {
-  super::paintEvent(event);
-
-  // After `QGraphicsView` has taken care of updates to this widget, find the
-  // currently displayed page. We do this by grabbing all items that are
-  // currently within the bounds of the viewport's top half. We take the
-  // first item found to be the "current page".
-  //
-  // **NOTE:**
-  // _If graphics objects other than `PDFPageGraphicsItem` are ever added to
-  // the `GraphicsScene` managed by `PDFDocumentView` (such as annotations,
-  // form elements, etc), it may be wise to ensure this selection only
-  // considers `PDFPagegraphicsItem` objects._
-  //
-  // _A way to do this may be to call `toSet` on both `pages` and the result
-  // of `items` and then take the first item of a set intersection._
-  QRect pageBbox = viewport()->rect();
-  pageBbox.setHeight(0.5 * pageBbox.height());
-  int nextCurrentPage = pages.indexOf(items(pageBbox).first());
-
-  if (nextCurrentPage != _currentPage) {
-    _currentPage = nextCurrentPage;
-    emit changedPage(_currentPage);
-  }
-
-}
-
-// **TODO:**
-//
-//   * _Should we let some parent widget worry about delegating Page
-//     Up/PageDown/other keypresses?_
-void PDFDocumentView::keyPressEvent(QKeyEvent *event) {
-
-  switch ( event->key() ) {
-
-    case Qt::Key_PageUp:
-      goPrev();
-      break;
-
-    case Qt::Key_PageDown:
-      goNext();
-      break;
-
-    case Qt::Key_Home:
-      goFirst();
-      break;
-
-    case Qt::Key_End:
-      goLast();
-      break;
-
-    default:
-      super::keyPressEvent(event);
-
-  }
-
 }
