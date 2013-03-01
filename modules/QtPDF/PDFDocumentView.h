@@ -42,6 +42,9 @@ private:
 
 class PDFLinkGraphicsItem : public QGraphicsRectItem {
   typedef QGraphicsRectItem super;
+  Poppler::Link *_link;
+
+  bool activated;
 
 public:
   PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent = 0);
@@ -49,6 +52,9 @@ public:
 protected:
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
   void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+
+  void mousePressEvent(QGraphicsSceneMouseEvent *event);
+  void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
   // Parent class has no copy constructor.
