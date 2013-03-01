@@ -25,5 +25,8 @@ moc_%.cpp: %.h
 clean :
 	git clean -fdx
 
-.PHONY: all clean
+docs :
+	cd docs && rake
+
+.PHONY: all clean docs
 
