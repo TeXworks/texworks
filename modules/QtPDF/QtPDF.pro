@@ -4,12 +4,14 @@ error("This file is not intended for building QtPDF. Please use CMake instead. S
 
 SOURCES = \
 "src/PDFDocumentView.cpp" \
+"src/PDFDocumentTools.cpp" \
 "src/PDFBackend.cpp" \
 "src/PDFActions.cpp" \
 "src/PDFAnnotations.cpp" \
 "src/backends/PopplerBackend.cpp" \
 "src/backends/MuPDFBackend.cpp" \
 "src/PDFDocumentView.h" \
+"src/PDFDocumentTools.h" \
 "src/PDFBackend.h" \
 "src/PDFActions.h" \
 "src/PDFAnnotations.h" \

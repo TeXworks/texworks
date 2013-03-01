@@ -178,6 +178,7 @@ ENDIF()
 # -------
 SET(QTPDF_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentView.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFActions.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFAnnotations.cpp
@@ -185,6 +186,7 @@ SET(QTPDF_SRCS
 
 SET(QTPDF_MOC_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentView.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFActions.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFAnnotations.h
