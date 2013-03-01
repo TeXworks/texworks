@@ -121,7 +121,8 @@ void convertAnnotation(PDFAnnotation * dest, const Poppler::Annotation * src, Pa
 PopplerDocument::PopplerDocument(QString fileName):
   Super(fileName),
   _poppler_doc(Poppler::Document::load(fileName)),
-  _doc_lock(new QMutex())
+  _doc_lock(new QMutex()),
+  _fontsLoaded(false)
 {
   parseDocument();
 }
@@ -293,10 +294,18 @@ PDFToC PopplerDocument::toc() const
 
 QList<PDFFontInfo> PopplerDocument::fonts() const
 {
-  QList<PDFFontInfo> retVal;
-  if (!_poppler_doc || isLocked())
-    return retVal;
+  if (_fontsLoaded)
+    return _fonts;
 
+  if (!_poppler_doc || isLocked())
+    return QList<PDFFontInfo>();
+
+  // Since Poppler::Document::fonts() is extremely slow, we need to cache the
+  // result. Since this function is declared const, we need to const_cast.
+  QList<PDFFontInfo> & fonts = const_cast<QList<PDFFontInfo>&>(_fonts);
+  bool & fontsLoaded = const_cast<bool&>(_fontsLoaded);
+  fontsLoaded = true;
+  
   foreach(Poppler::FontInfo popplerFontInfo, _poppler_doc->fonts()) {
     PDFFontInfo fi;
     if (popplerFontInfo.isEmbedded())
@@ -365,9 +374,9 @@ QList<PDFFontInfo> PopplerDocument::fonts() const
       default:
         continue;
     }
-    retVal << fi;
+    fonts << fi;
   }
-  return retVal;
+  return _fonts;
 }
 
 bool PopplerDocument::unlock(const QString password)

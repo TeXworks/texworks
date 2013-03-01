@@ -41,6 +41,8 @@ protected:
   // Poppler is not threadsafe, so some operations need to be serialized with a
   // mutex.
   QMutex *_doc_lock;
+  QList<PDFFontInfo> _fonts;
+  bool _fontsLoaded;
 
 public:
   PopplerDocument(QString fileName);
