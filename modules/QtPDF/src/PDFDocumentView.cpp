@@ -357,35 +357,10 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   }
 }
 
-// **TODO:**
-//
-//   * _Should we let some parent widget worry about delegating Page
-//     Up/PageDown/other keypresses?_
-// **FIXME:** Handle mouseWheel/Key_Up/Key_Down events at the edge of pages in
-// single page mode
 void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 {
   switch ( event->key() )
   {
-    case Qt::Key_PageUp:
-    case Qt::Key_PageDown:
-    {
-      if (_activeTool != Tool_None)
-        break;
-      QRectF viewRect = mapToScene(rect()).boundingRect();
-      QPointF viewCenter = viewRect.center();
-
-      if ( event->key() == Qt::Key_PageUp ) {
-        viewCenter.setY(viewCenter.y() - viewRect.height());
-      } else {
-        viewCenter.setY(viewCenter.y() + viewRect.height());
-      }
-
-      centerOn(viewCenter);
-      event->accept();
-      break;
-    }
-
     case Qt::Key_Home:
       if (_activeTool != Tool_None)
         break;
@@ -400,15 +375,50 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
       event->accept();
       break;
 
+    case Qt::Key_PageUp:
+    case Qt::Key_PageDown:
     case Qt::Key_Up:
     case Qt::Key_Down:
     case Qt::Key_Left:
     case Qt::Key_Right:
+      // Don't scroll the view while a tool, such as the magnifier, is active.
       if (_activeTool != Tool_None)
         break;
-      // Deliberate fall-through; we only override the arrow keys if a tool is
-      // currently in use, to prevent the QAbstractScrollArea base class from
-      // translating the view 
+
+      // Check to see if we need to jump to the next page in single page mode.
+      if ( pageMode() == PageMode_SinglePage ) {
+        int scrollStep, scrollPos = verticalScrollBar()->value();
+
+        if ( event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown )
+          scrollStep = verticalScrollBar()->pageStep();
+        else
+          scrollStep = verticalScrollBar()->singleStep();
+
+
+        // Take no action on the first and last page so that PageUp/Down can
+        // move the view right up to the page boundary.
+        if (
+          (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_Up) &&
+          (scrollPos - scrollStep) <= verticalScrollBar()->minimum() &&
+          _currentPage > 0
+        ) {
+          goPrev();
+          event->accept();
+          break;
+        } else if (
+          (event->key() == Qt::Key_PageDown || event->key() == Qt::Key_Down) &&
+          (scrollPos + scrollStep) >= verticalScrollBar()->maximum() &&
+          _currentPage < _lastPage
+        ) {
+          goNext();
+          event->accept();
+          break;
+        }
+      }
+
+      // Deliberate fall-through; we only override the movement keys if a tool is
+      // currently in use or the view is in single page mode and the movement
+      // would cross a page boundary.
     default:
       Super::keyPressEvent(event);
       break;
