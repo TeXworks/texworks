@@ -126,6 +126,11 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
   
   // ensure the zoom is reset if we load a new document
   zoom100();
+  
+  // Ensure we're at the top left corner (we need to set _currentPage to -1 to
+  // ensure goFirst() actually does anything even if _currentPage == 0 before.
+  _currentPage = -1;
+  goFirst();
 
   // Ensure search result list is empty in case we are switching from another
   // scene.
