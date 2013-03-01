@@ -106,6 +106,9 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   _pageMode = pageMode;
   _pdf_scene->pageLayout().relayout();
 
+  // We might need to update the scene rect (when switching to single page mode)
+  maybeUpdateSceneRect();
+
   // Restore the view from before as good as possible
   viewRect.translate(_pdf_scene->pageAt(_currentPage)->pos());
   ensureVisible(viewRect, 0, 0);
