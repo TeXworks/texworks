@@ -42,6 +42,8 @@ PDFViewer.o : PDFViewer.cpp
 		$(qt_files) \
 	  -c PDFViewer.cpp
 
+clean :
+	git clean -fdx
 
-.PHONY: viewer
+.PHONY: all clean
 
