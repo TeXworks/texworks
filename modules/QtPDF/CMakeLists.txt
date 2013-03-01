@@ -49,6 +49,7 @@ LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules)
 SET (QT_COMPONENTS
   QtCore
   QtGui
+  QtXML
 )
 
 # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
