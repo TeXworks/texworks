@@ -524,23 +524,23 @@ void PDFDocumentView::armTool(const Tool tool)
   // FIXME: Should separate cursors from the rest of the viewer resources
   switch (tool) {
     case Tool_MagnifyingGlass:
-      setCursor(QCursor(QPixmap(QString::fromUtf8(":/icons/magnifiercursor.png"))));
+      viewport()->setCursor(QCursor(QPixmap(QString::fromUtf8(":/icons/magnifiercursor.png"))));
       break;
     case Tool_ZoomIn:
-      setCursor(QCursor(QPixmap(QString::fromUtf8(":/icons/zoomincursor.png"))));
+      viewport()->setCursor(QCursor(QPixmap(QString::fromUtf8(":/icons/zoomincursor.png"))));
       break;
     case Tool_ZoomOut:
-      setCursor(QCursor(QPixmap(QString::fromUtf8(":/icons/zoomoutcursor.png"))));
+      viewport()->setCursor(QCursor(QPixmap(QString::fromUtf8(":/icons/zoomoutcursor.png"))));
       break;
     case Tool_Move:
-      setCursor(Qt::OpenHandCursor);
+      viewport()->setCursor(Qt::OpenHandCursor);
       break;
     // FIXME: Mouse cursor for marquee zoom
     case Tool_MarqueeZoom:
-      setCursor(Qt::CrossCursor);
+      viewport()->setCursor(Qt::CrossCursor);
       break;
     default:
-      setCursor(Qt::ArrowCursor);
+      viewport()->unsetCursor();
       break;
   }
   _armedTool = tool;
@@ -653,7 +653,7 @@ void PDFDocumentView::abortTool(const Tool tool)
 
 void PDFDocumentView::disarmTool(const Tool tool)
 {
-  setCursor(Qt::ArrowCursor);
+  viewport()->unsetCursor();
   _armedTool = Tool_None;
 }
 
