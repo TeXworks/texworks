@@ -1160,6 +1160,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // that the X scaling factor is equal to the Y scaling factor.
   qreal scaleFactor = painter->transform().m11();
   QTransform scaleT = QTransform::fromScale(scaleFactor, scaleFactor);
+  QRect pageRect = scaleT.mapRect(boundingRect()).toAlignedRect(), pageTile;
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
   // `_linksLoaded` will be `false`. We then load all of the links on the page.
@@ -1170,53 +1171,18 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   }
 
   if ( _zoomLevel != scaleFactor ) {
-    int i,j;
     // We apply a scale-only transformation to the bounding box to get the new
     // page dimensions at the new DPI. The `QRectF` is converted to a `QRect`
     // by `toAlignedRect` so that we can work in pixels.
-    QRect pageRect = scaleT.mapRect(boundingRect()).toAlignedRect(), pageTile;
 
-    _nTile_x = pageRect.width() / TILE_SIZE + 1;
-    _nTile_y = pageRect.height() / TILE_SIZE + 1;
-
-    // TODO:
-    //
-    // There is really no reason to destroy this vector and re-initialize it
-    // every time the page scale changes. Really, no reason to even store the
-    // vector---to figure out a tile's dimensions, we only need four pieces of
-    // information regardless of the zoom level:
-    //
-    //   - The number of rows and columns in the tile map
-    //   - The i,j location of a tile
-    //   - The dimensions of a full tile
-    //   - The dimensions of the bottom right tile.
-    _tilemap.resize( _nTile_x * _nTile_y );
-
-    // The bottom right tile may have a width and height that are smaller---so
-    // we intersect it with the scaled bounding box to get the dimensions. The
-    // width and height of this tile serve as a prototype for other tiles along
-    // clipped edges.
-    pageTile = QRect((_nTile_x - 1) * TILE_SIZE, (_nTile_y - 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE) & pageRect;
-
-    // All tiles that do not lie along the bottom or right edges of the page
-    // will be full size.
-    for( i = 0; i < _nTile_y; ++i ) {
-      for( j = 0; j < _nTile_x; ++j ) {
-        _tilemap[i * _nTile_x + j] = QRect(j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-
-        if( i == (_nTile_y - 1) && j == (_nTile_x - 1) ) {
-          // Last row and column will be the bottom right tile.
-          _tilemap[i * _nTile_x + j] = pageTile;
-        } else if ( i == (_nTile_y - 1) ) {
-          // Last row will have the same height as the bottom right tile.
-          _tilemap[i * _nTile_x + j].setHeight(pageTile.height());
-        } else if ( j == (_nTile_x - 1) ) {
-          // Last column will have the same width as the bottom right tile.
-          _tilemap[i * _nTile_x + j].setWidth(pageTile.width());
-        }
-
-      }
-    }
+    if (pageRect.width() % TILE_SIZE == 0)
+      _nTile_x = pageRect.width() / TILE_SIZE;
+    else
+      _nTile_x = pageRect.width() / TILE_SIZE + 1;
+    if (pageRect.height() % TILE_SIZE == 0)
+      _nTile_y = pageRect.height() / TILE_SIZE;
+    else
+      _nTile_y = pageRect.height() / TILE_SIZE + 1;
 
     _zoomLevel = scaleFactor;
   }
@@ -1229,12 +1195,10 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     // The transformation matrix of the `painter` object contains information
     // such as the current zoom level of the widget viewing this PDF page. We
     // throw away the scaling information because that has already been
-    // applied during page rendering.
+    // applied during page rendering. (Note: we don't support rotation/skewing,
+    // so we only care about the translational part)
     QTransform pageT = painter->transform();
-    pageT.setMatrix( 1, pageT.m12(), pageT.m13(),
-                     pageT.m21(), 1, pageT.m23(),
-                     pageT.m31(), pageT.m32(), pageT.m33() );
-    painter->setTransform(pageT);
+    painter->setTransform(QTransform::fromTranslate(pageT.dx(), pageT.dy()));
 
 #ifdef DEBUG
     // Pen style used to draw the outline of each tile for debugging purposes.
@@ -1245,41 +1209,61 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
     QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
     QImage *renderedPage = NULL;
+    
+    int i, imin, imax;
+    int j, jmin, jmax;
+    
+    imin = (visibleRect.left() - pageRect.left()) / TILE_SIZE;
+    imax = (visibleRect.right() - pageRect.left());
+    if (imax % TILE_SIZE == 0)
+      imax /= TILE_SIZE;
+    else
+      imax = imax / TILE_SIZE + 1;
+
+    jmin = (visibleRect.top() - pageRect.top()) / TILE_SIZE;
+    jmax = (visibleRect.bottom() - pageRect.top());
+    if (jmax % TILE_SIZE == 0)
+      jmax /= TILE_SIZE;
+    else
+      jmax = jmax / TILE_SIZE + 1;
 
     // FIXME: speed up tile lookup by not iterating over all tiles but only over
     // those possibly inside the exposedRect
-    foreach( QRect tile, _tilemap ) {
-      if( not tile.intersects(visibleRect) )
-        continue;
-
-      // See if a copy of the required page render currently exists in the
-      // cache.
-      //
-      // FIXME: The cache still owns the returned pointer---this means it may
-      // decide to delete the object *before* we paint it. Find some way to
-      // guard against this.
-      //
-      // Perhaps store `QSharedPointer<QImage>` instead of `QImage` in the
-      // cache? Then the image won't disappear as long as there is one shared
-      // pointer still in existance.
-      renderedPage = _page->getCachedImage(_dpiX * scaleFactor, _dpiY * scaleFactor, tile);
-      if ( renderedPage == NULL ) {
-        // If the page does not exist, we request a background render with
-        // cached results (caching is triggered by the `true` value).
+    for (j = jmin; j <= jmax; ++j) {
+      for (i = imin; i <= imax; ++i) {
+        // Construct the tile to paint. Intersect it with the page rect to
+        // avoid doign extra work outside the page
+        QRect tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        tile &= pageRect;
+        // See if a copy of the required page render currently exists in the
+        // cache.
         //
-        // FIXME: Perhaps there should be a method that renders and caches, but
-        // does not post an event that contains the rendered image?
+        // FIXME: The cache still owns the returned pointer---this means it may
+        // decide to delete the object *before* we paint it. Find some way to
+        // guard against this.
         //
-        // FIXME: Find something useful to render when no image is
-        // returned---perhaps a scaled up version of a lower resolution image.
-        _page->asyncRenderToImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile, true);
-      } else {
-        // We got a page back from the cache.
-        painter->drawImage(tile.topLeft(), *renderedPage);
-      }
+        // Perhaps store `QSharedPointer<QImage>` instead of `QImage` in the
+        // cache? Then the image won't disappear as long as there is one shared
+        // pointer still in existance.
+        renderedPage = _page->getCachedImage(_dpiX * scaleFactor, _dpiY * scaleFactor, tile);
+        if ( renderedPage == NULL ) {
+          // If the page does not exist, we request a background render with
+          // cached results (caching is triggered by the `true` value).
+          //
+          // FIXME: Perhaps there should be a method that renders and caches, but
+          // does not post an event that contains the rendered image?
+          //
+          // FIXME: Find something useful to render when no image is
+          // returned---perhaps a scaled up version of a lower resolution image.
+          _page->asyncRenderToImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile, true);
+        } else {
+          // We got a page back from the cache.
+          painter->drawImage(tile.topLeft(), *renderedPage);
+        }
 #ifdef DEBUG
-      painter->drawRect(tile);
+        painter->drawRect(tile);
 #endif
+      }
     }
 
   painter->restore();
