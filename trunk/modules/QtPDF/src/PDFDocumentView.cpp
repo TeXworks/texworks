@@ -29,6 +29,7 @@ static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGr
 // and displaying the contents of a `Document` using a `QGraphicsScene`.
 PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
+  _pdf_scene(NULL),
   _rubberBandOrigin(),
   _zoomLevel(1.0),
   _pageMode(PageMode_OneColumnContinuous),
@@ -319,6 +320,22 @@ void PDFDocumentView::setMagnifierSize(const int size)
   if (_magnifier)
     _magnifier->setSize(size);
 }
+
+void PDFDocumentView::search(QString searchText)
+{
+  if ( not _pdf_scene )
+    return;
+#ifdef DEBUG
+  // Test search.
+  qDebug() << "Searching for: " << searchText;
+  stopwatch.start();
+#endif
+  QList<QRectF> results = _pdf_scene->document()->search(searchText, _currentPage);
+#ifdef DEBUG
+  qDebug() << "Document has : " << results.size() << " occurances of the search string. Search took: " << stopwatch.elapsed() << " milliseconds";
+#endif
+}
+
 
 // Protected Slots
 // --------------
@@ -1104,13 +1121,6 @@ PDFDocumentScene::PDFDocumentScene(Document *a_doc, QObject *parent):
     _pageLayout.addPage(pagePtr);
   }
   _pageLayout.relayout();
-
-#ifdef DEBUG
-  // Test search.
-  stopwatch.start();
-  QList<QRectF> results = _doc->search(QString::fromAscii("till"), 4);
-  qDebug() << "Document has : " << results.size() << " occurances of the test string. Search took: " << stopwatch.elapsed() << " milliseconds";
-#endif
 }
 
 void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
@@ -1154,6 +1164,7 @@ void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
 // Accessors
 // ---------
 
+QSharedPointer<Document> PDFDocumentScene::document() { return QSharedPointer<Document>(_doc); }
 QList<QGraphicsItem*> PDFDocumentScene::pages() { return _pages; };
 
 // Overloaded method that returns all page objects inside a given rectangular

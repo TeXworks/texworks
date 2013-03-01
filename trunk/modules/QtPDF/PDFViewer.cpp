@@ -48,6 +48,7 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
 
   toolBar->addSeparator();
   toolBar->addWidget(search);
+  connect(search, SIGNAL(searchRequested(QString)), docView, SLOT(search(QString)));
 
   statusBar()->addPermanentWidget(counter);
   statusBar()->addWidget(zoomWdgt);
@@ -136,10 +137,16 @@ SearchWidget::SearchWidget(QWidget *parent, Qt::WindowFlags f) : QWidget(parent,
   layout()->addWidget(_searchButton);
 
   connect(_searchButton, SIGNAL(clicked()), this, SLOT(searchActivated()));
+  connect(_input, SIGNAL(returnPressed()), this, SLOT(searchActivated()));
 
 }
 
-void SearchWidget::searchActivated() { emit(searchRequested(_input->text())); }
+void SearchWidget::searchActivated() {
+  if( _input->text().isEmpty() )
+    return;
+
+  emit(searchRequested(_input->text()));
+}
 
 
 // vim: set sw=2 ts=2 et

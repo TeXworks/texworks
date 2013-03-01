@@ -27,7 +27,7 @@ public slots:
   void searchActivated();
 
 signals:
-  void searchRequested(QString search_text);
+  void searchRequested(QString searchText);
 
 };
 
