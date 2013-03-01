@@ -62,6 +62,9 @@ build the project:
 TODO
 ====
 ### Required
+ - Ensure temporary "rendering" images are always replaced. Thought this was
+   fixed by e9c7be11df5bfe507585fea889e8b588b4431fff, but the bug is still
+   present.
  - Fix FIXMEs
  - context menu
  - Highlighting! (to show syncing destination, search results, etc.)
