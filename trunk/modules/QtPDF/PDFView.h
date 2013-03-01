@@ -41,6 +41,7 @@ class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
   typedef QGraphicsView super;
   const std::auto_ptr<Poppler::Document> doc;
+  qreal zoomLevel;
 
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> pages;
@@ -53,8 +54,13 @@ public:
   int lastPage();
   void goToPage(int pageNum);
 
+public slots:
+  void zoomIn();
+  void zoomOut();
+
 signals:
   void changedPage(int);
+  void changedZoom(qreal);
 
 protected:
   // Keep track of the current page by overloading the widget paint event.
@@ -84,6 +90,22 @@ public:
 public slots:
   void setLastPage(int page);
   void setCurrentPage(int page);
+
+private:
+  void refreshText();
+};
+
+
+class ZoomTracker : public QLabel {
+  Q_OBJECT
+  typedef QLabel super;
+  qreal zoom;
+
+public:
+  ZoomTracker(QWidget *parent = 0, Qt::WindowFlags f = 0);
+
+public slots:
+  void setZoom(qreal newZoom);
 
 private:
   void refreshText();

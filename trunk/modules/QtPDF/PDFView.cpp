@@ -12,6 +12,7 @@
  * more details.
  */
 #include "PDFView.h"
+#include <iostream>
 
 
 // PDFPageGraphicsItem
@@ -64,7 +65,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 // This class descends from `QGraphicsView` and is responsible for controlling
 // and displaying the contents of a `Poppler::Document` using a `QGraphicsScene`.
 PDFDocumentView::PDFDocumentView(Poppler::Document *a_doc, QWidget *parent) : super(new QGraphicsScene, parent),
-  doc(a_doc)
+  doc(a_doc),
+  zoomLevel(1.0)
 {
   setBackgroundRole(QPalette::Dark);
   setAlignment(Qt::AlignCenter);
@@ -123,6 +125,18 @@ void PDFDocumentView::goToPage(int pageNum) {
     _currentPage = pageNum;
     emit changedPage(_currentPage);
   }
+}
+
+void PDFDocumentView::zoomIn() {
+  zoomLevel *= 3.0/2.0;
+  this->scale(3.0/2.0, 3.0/2.0);
+  emit changedZoom(zoomLevel);
+}
+
+void PDFDocumentView::zoomOut() {
+  zoomLevel *= 2.0/3.0;
+  this->scale(2.0/3.0, 2.0/3.0);
+  emit changedZoom(zoomLevel);
 }
 
 // Keep track of the current page by overloading the widget paint event.
@@ -227,5 +241,22 @@ void PageCounter::setCurrentPage(int page){
 
 void PageCounter::refreshText() {
   setText(QString("Page %1 of %2").arg(currentPage).arg(lastPage));
+  update();
+}
+
+
+ZoomTracker::ZoomTracker(QWidget *parent, Qt::WindowFlags f) : super(parent, f),
+  zoom(1.0)
+{
+  refreshText();
+}
+
+void ZoomTracker::setZoom(qreal newZoom){
+  zoom = newZoom;
+  refreshText();
+}
+
+void ZoomTracker::refreshText() {
+  setText(QString("Zoom %1%").arg(zoom * 100));
   update();
 }
