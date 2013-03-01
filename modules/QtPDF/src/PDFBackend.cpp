@@ -429,9 +429,19 @@ QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage *
 
 // Document Class
 // --------------
+//
+// This class is thread-safe. Data access is governed by the QReadWriteLock
+// _docLock.
 Document::Document(QString fileName):
-  _numPages(-1)
+  _numPages(-1),
+  _docLock(new QReadWriteLock(QReadWriteLock::Recursive))
 {
+  Q_ASSERT(_docLock != NULL);
+
+#ifdef DEBUG
+  qDebug() << "Document::Document(" << fileName << ")";
+#endif
+
   // Set cache for rendered pages to be 1GB. This is enough for 256 RGBA tiles
   // (1024 x 1024 pixels x 4 bytes per pixel).
   //
@@ -442,14 +452,20 @@ Document::Document(QString fileName):
 
 Document::~Document()
 {
+#ifdef DEBUG
+  qDebug() << "Document::~Document()";
+#endif
+  QWriteLocker docLocker(_docLock.data());
+  clearPages();
 }
 
-int Document::numPages() { return _numPages; }
-PDFPageProcessingThread &Document::processingThread() { return _processingThread; }
-PDFPageCache &Document::pageCache() { return _pageCache; }
+int Document::numPages() { QReadLocker docLocker(_docLock.data()); return _numPages; }
+PDFPageProcessingThread &Document::processingThread() { QReadLocker docLocker(_docLock.data()); return _processingThread; }
+PDFPageCache &Document::pageCache() { QReadLocker docLocker(_docLock.data()); return _pageCache; }
 
 QList<SearchResult> Document::search(QString searchText, int startPage)
 {
+  QReadLocker docLocker(_docLock.data());
   QList<SearchResult> results;
   int i;
 
@@ -458,18 +474,46 @@ QList<SearchResult> Document::search(QString searchText, int startPage)
   for (i = 0; i < startPage; ++i)
     results << page(i)->search(searchText);
 
-
   return results;
 }
 
+void Document::clearPages()
+{
+  QWriteLocker docLocker(_docLock.data());
+  foreach(QSharedPointer<Page> page, _pages) {
+    if (page.isNull())
+      continue;
+    page->detachFromParent();
+  }
+  // Note: clear() releases all QSharedPointer to pages, thereby destroying them
+  // (if they are not used elsewhere)
+  _pages.clear();
+}
 
 // Page Class
 // ----------
-Page::Page(Document *parent, int at):
+//
+// This class is thread-safe. Data access is governed by the QReadWriteLock
+// _pageLock. When accessing the parent document directly (i.e., not via public
+// member functions), the QSharedPointer<QReadWriteLock> _docLock must also be
+// acquired. Note that if _docLock and _pageLock are to be acquired, _docLock
+// must be acquired first.
+// Note that the Page may exist in a detached state, i.e., _parent == NULL. This
+// is typically the case when the document discarded the page object but some
+// other object (typically in another thread) still holds a QSharedPointer to it.
+Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
   _parent(parent),
   _n(at),
-  _transition(NULL)
+  _transition(NULL),
+  _pageLock(new QReadWriteLock(QReadWriteLock::Recursive)),
+  _docLock(docLock)
 {
+  Q_ASSERT(_pageLock);
+
+#ifdef DEBUG
+//  qDebug() << "Page::Page(" << parent << ", " << at << ")";
+#endif
+
   if (!pageDummyBrush) {
     pageDummyBrush = new QBrush();
 
@@ -494,17 +538,34 @@ Page::Page(Document *parent, int at):
 
 Page::~Page()
 {
+#ifdef DEBUG
+//  qDebug() << "Page::~Page()";
+#endif
 }
 
-int Page::pageNum() { return _n; }
+int Page::pageNum() { QReadLocker pageLocker(_pageLock); return _n; }
+
+void Page::detachFromParent()
+{
+  QWriteLocker pageLocker(_pageLock);
+  _parent = NULL;
+}
 
 QSharedPointer<QImage> Page::getCachedImage(double xres, double yres, QRect render_box)
 {
+  QReadLocker docLocker(_docLock.data());
+  QReadLocker pageLocker(_pageLock);
+  if (!_parent)
+    return QSharedPointer<QImage>();
   return _parent->pageCache().getImage(PDFPageTile(xres, yres, render_box, _n));
 }
 
 void Page::asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box, bool cache)
 {
+  QReadLocker docLocker(_docLock.data());
+  QReadLocker pageLocker(_pageLock);
+  if (!_parent)
+    return;
   _parent->processingThread().addPageProcessingRequest(new PageProcessingRenderPageRequest(this, listener, xres, yres, render_box, cache));
 }
 
@@ -516,6 +577,9 @@ bool higherResolutionThan(const PDFPageTile & t1, const PDFPageTile & t2)
 
 QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres, const double yres, QRect render_box /* = QRect() */)
 {
+  QReadLocker docLocker(_docLock.data());
+  QReadLocker pageLocker(_pageLock);
+
   // If the render_box is empty, use the whole page
   if (render_box.isNull())
     render_box = QRectF(0, 0, pageSizeF().width() * xres / 72., pageSizeF().height() * yres / 72.).toAlignedRect();
@@ -541,7 +605,7 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
     // dummy tile
     // TODO: Benchmark this. If it is actualy too slow (i.e., just keeping the
     // rendered image from popping up due to the write lock we hold) disable it
-    {
+    if (_parent) {
       QList<PDFPageTile> tiles = _parent->pageCache().tiles();
       for (QList<PDFPageTile>::iterator it = tiles.begin(); it != tiles.end(); ) {
         if (it->page_num != pageNum()) {
@@ -607,6 +671,10 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
 
 void Page::asyncLoadLinks(QObject *listener)
 {
+  QReadLocker docLocker(_docLock.data());
+  QReadLocker pageLocker(_pageLock);
+  if (!_parent)
+    return;
   _parent->processingThread().addPageProcessingRequest(new PageProcessingLoadLinksRequest(this, listener));
 }
 
