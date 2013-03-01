@@ -183,7 +183,7 @@ public:
   ActionType type() const { return ActionTypeURI; }
   PDFAction * clone() const { return new PDFURIAction(*this); }
 
-  // FIXME: handle _isMap (see PDF 1.7 specs)
+  // TODO: handle _isMap (see PDF 1.7 specs)
   QUrl url() const { return _url; }
 
 private:
@@ -419,12 +419,6 @@ protected:
   mutable QReadWriteLock _lock;
 };
 
-// FIXME: the program segfaults if the page is destroyed while a page processing
-// request is executed. Note that using QSharedPointer doesn't help here as
-// processing requests are usually initiated from the Page object in question
-// which can only create a new QSharedPointer object which would interfere with
-// QSharedPointer held by other objects (but inaccessible to the Page in
-// question - see documentation of QSharedPointer)
 class PageProcessingRequest : public QObject
 {
   Q_OBJECT
@@ -708,7 +702,6 @@ public:
   virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false)=0;
   virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
-  // FIXME: take care that the links are destroyed - maybe use QSharedPointer?
   virtual QList< QSharedPointer<PDFLinkAnnotation> > loadLinks() = 0;
   virtual void asyncLoadLinks(QObject *listener);
 
