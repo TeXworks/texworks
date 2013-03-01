@@ -224,27 +224,23 @@ class PageProcessingRenderPageRequest : public PageProcessingRequest
   Q_OBJECT
   friend class PDFPageProcessingThread;
 
-  // Protect c'tor and execute() so we can't access them except in derived
-  // classes and friends
-protected:
+public:
   PageProcessingRenderPageRequest(Page *page, QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false) :
     PageProcessingRequest(page, listener),
     xres(xres), yres(yres),
     render_box(render_box),
     cache(cache)
   {}
-
-  bool execute();
-
-public:
   Type type() const { return PageRendering; }
-  
+
   virtual bool operator==(const PageProcessingRequest & r) const;
+
+protected:
+  bool execute();
 
   double xres, yres;
   QRect render_box;
   bool cache;
-
 };
 
 
@@ -273,15 +269,12 @@ class PageProcessingLoadLinksRequest : public PageProcessingRequest
   Q_OBJECT
   friend class PDFPageProcessingThread;
 
-  // Protect c'tor and execute() so we can't access them except in derived
-  // classes and friends
-protected:
-  PageProcessingLoadLinksRequest(Page *page, QObject *listener) : PageProcessingRequest(page, listener) { }
-  bool execute();
-
 public:
+  PageProcessingLoadLinksRequest(Page *page, QObject *listener) : PageProcessingRequest(page, listener) { }
   Type type() const { return LoadLinks; }
 
+protected:
+  bool execute();
 };
 
 
@@ -311,9 +304,6 @@ class PDFPageProcessingThread : public QThread
 public:
   PDFPageProcessingThread();
   virtual ~PDFPageProcessingThread();
-
-  void requestRenderPage(Page *page, QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
-  void requestLoadLinks(Page *page, QObject *listener);
 
   // add a processing request to the work stack
   // Note: request must have been created on the heap and must be in the scope
