@@ -23,6 +23,8 @@
   #include <QDebug>
 #endif
 
+namespace QtPDF {
+
 class Document;
 
 
@@ -154,6 +156,7 @@ private:
   bool _newWindow;
 };
 
+} // namespace QtPDF
 
 #endif // End header guard
 // vim: set sw=2 ts=2 et

@@ -14,6 +14,8 @@
 #include <PDFActions.h>
 #include <PDFBackend.h>
 
+namespace QtPDF {
+
 QRectF PDFDestination::viewport(const Document * doc, const QRectF oldViewport, const float oldZoom) const
 {
   QRectF retVal = oldViewport;
@@ -128,6 +130,8 @@ QRectF PDFDestination::viewport(const Document * doc, const QRectF oldViewport, 
     return dbg.space();
   }
 #endif // defined(DEBUG)
+
+} // namespace QtPDF
 
 // vim: set sw=2 ts=2 et
 

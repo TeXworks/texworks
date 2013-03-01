@@ -15,6 +15,8 @@
 // NOTE: `PopplerBackend.h` is included via `PDFBackend.h`
 #include <PDFBackend.h>
 
+namespace QtPDF {
+
 // TODO: Find a better place to put this
 PDFDestination toPDFDestination(const Poppler::Document * doc, const Poppler::LinkDestination & dest)
 {
@@ -623,6 +625,7 @@ QList<SearchResult> PopplerPage::search(QString searchText)
   return results;
 }
 
+} // namespace QtPDF
 
 // vim: set sw=2 ts=2 et
 

@@ -18,6 +18,8 @@
 
 #include <PDFBackend.h>
 
+namespace QtPDF {
+
 // Forward declare classes defined in this header.
 class PDFDocumentScene;
 class PDFPageGraphicsItem;
@@ -142,7 +144,7 @@ signals:
   void changedZoom(qreal zoomLevel);
   // emitted, e.g., if a new document was loaded, or if the existing document
   // has changed (e.g., if it was unlocked)
-  void changedDocument(const QSharedPointer<Document> newDoc);
+  void changedDocument(const QSharedPointer<QtPDF::Document> newDoc);
 
   void searchProgressChanged(int percent, int occurrences);
 
@@ -174,7 +176,7 @@ protected:
 protected slots:
   void maybeUpdateSceneRect();
   void maybeArmTool(uint modifiers);
-  void pdfActionTriggered(const PDFAction * action);
+  void pdfActionTriggered(const QtPDF::PDFAction * action);
   // Note: view specifies which part of the page should be visible and must
   // therefore be given in page coordinates
   void goToPage(const PDFPageGraphicsItem * page, const QRectF view, const bool mayZoom = false);
@@ -340,7 +342,7 @@ public:
   // If the widget has a fixed size, it should not be resized (it can, e.g., be
   // put into a QScrollArea instead).
 protected slots:
-  virtual void initFromDocument(const QSharedPointer<Document> doc) = 0;
+  virtual void initFromDocument(const QSharedPointer<QtPDF::Document> doc) = 0;
   virtual void clear() = 0;
 };
 
@@ -352,10 +354,10 @@ public:
   virtual ~PDFToCInfoWidget();
 
 protected slots:
-  void initFromDocument(const QSharedPointer<Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
 signals:
-  void actionTriggered(const PDFAction*);
+  void actionTriggered(const QtPDF::PDFAction*);
 private slots:
   void itemSelectionChanged();
 private:
@@ -372,7 +374,7 @@ public:
   virtual ~PDFMetaDataInfoWidget() { }
   
 protected slots:
-  void initFromDocument(const QSharedPointer<Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
 private:
   QLabel * _title;
@@ -395,7 +397,7 @@ public:
   virtual ~PDFFontsInfoWidget() { }
   
 protected slots:
-  void initFromDocument(const QSharedPointer<Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
 private:
   QTableWidget * _table;
@@ -409,7 +411,7 @@ public:
   virtual ~PDFPermissionsInfoWidget() { }
   
 protected slots:
-  void initFromDocument(const QSharedPointer<Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
 private:
   QLabel * _print;
@@ -433,7 +435,7 @@ public:
   virtual ~PDFAnnotationsInfoWidget() { }
     
 protected slots:
-  void initFromDocument(const QSharedPointer<Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
   void annotationsReady(int index);
 };
@@ -524,8 +526,8 @@ public:
 signals:
   void pageChangeRequested(int pageNum);
   void pageLayoutChanged();
-  void pdfActionTriggered(const PDFAction * action);
-  void documentChanged(const QSharedPointer<Document> doc);
+  void pdfActionTriggered(const QtPDF::PDFAction * action);
+  void documentChanged(const QSharedPointer<QtPDF::Document> doc);
 
 public slots:
   void doUnlockDialog();
@@ -637,9 +639,6 @@ private:
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFLinkGraphicsItem)
 };
-// We need to declare a QList<PDFLinkGraphicsItem *> meta-type so we can
-// pass it through inter-thread (i.e., queued) connections
-Q_DECLARE_METATYPE(QList<PDFLinkGraphicsItem *>)
 
 
 // FIXME: Should be turned into a QGraphicsPolygonItem
@@ -667,9 +666,6 @@ private:
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFMarkupAnnotationGraphicsItem)
 };
-// We need to declare a QList<PDFLinkGraphicsItem *> meta-type so we can
-// pass it through inter-thread (i.e., queued) connections
-Q_DECLARE_METATYPE(QList<PDFMarkupAnnotationGraphicsItem *>)
 
 class PDFActionEvent : public QEvent {
   typedef QEvent Super;
@@ -679,6 +675,19 @@ public:
   static QEvent::Type ActionEvent;
   const PDFAction * action;
 };
+
+} // namespace QtPDF
+
+// Note: Q_DECLARE_METATYPE must be specified _outside_ any namespace
+// declaration (according to Qt docs)
+
+// We need to declare a QList<PDFLinkGraphicsItem *> meta-type so we can
+// pass it through inter-thread (i.e., queued) connections
+Q_DECLARE_METATYPE(QList<QtPDF::PDFLinkGraphicsItem *>)
+// We need to declare a QList<PDFMarkupAnnotationGraphicsItem *> meta-type so we can
+// pass it through inter-thread (i.e., queued) connections
+Q_DECLARE_METATYPE(QList<QtPDF::PDFMarkupAnnotationGraphicsItem *>)
+
 
 #endif // End header include guard
 

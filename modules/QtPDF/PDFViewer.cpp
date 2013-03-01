@@ -4,14 +4,14 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   QMainWindow(parent, flags)
 {
 #ifdef USE_MUPDF
-  Document *a_pdf_doc = new MuPDFDocument(pdf_doc);
+  QtPDF::Document *a_pdf_doc = new QtPDF::MuPDFDocument(pdf_doc);
 #elif USE_POPPLER
-  Document *a_pdf_doc = new PopplerDocument(pdf_doc);
+  QtPDF::Document *a_pdf_doc = new QtPDF::PopplerDocument(pdf_doc);
 #else
   #error Either the Poppler or the MuPDF backend is required
 #endif
 
-  PDFDocumentView *docView = new PDFDocumentView(this);
+  QtPDF::PDFDocumentView *docView = new QtPDF::PDFDocumentView(this);
 
   if (a_pdf_doc) {
     // Note: Don't pass `this` (or any other QObject*) as parent to the new
@@ -19,7 +19,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
     // parent, thereby bypassing the QSharedPointer mechanism. docScene will be
     // freed automagically when the last QSharedPointer pointing to it will be
     // destroyed.
-    QSharedPointer<PDFDocumentScene> docScene(new PDFDocumentScene(a_pdf_doc));
+    QSharedPointer<QtPDF::PDFDocumentScene> docScene(new QtPDF::PDFDocumentScene(a_pdf_doc));
     docView->setScene(docScene);
   }
   docView->goFirst();
@@ -54,7 +54,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   connect(docView, SIGNAL(requestOpenPdf(QString, int, bool)), this, SLOT(openPdf(QString, int, bool)));
   connect(docView, SIGNAL(contextClick(const int, const QPointF)), this, SLOT(syncFromPdf(const int, const QPointF)));
   connect(docView, SIGNAL(searchProgressChanged(int, int)), this, SLOT(searchProgressChanged(int, int)));
-  connect(docView, SIGNAL(changedDocument(const QSharedPointer<Document>)), this, SLOT(documentChanged(const QSharedPointer<Document>)));
+  connect(docView, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Document>)), this, SLOT(documentChanged(const QSharedPointer<QtPDF::Document>)));
 
   _toolBar->addSeparator();
   _toolBar->addWidget(_search);
@@ -68,12 +68,12 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   addToolBar(_toolBar);
   setCentralWidget(docView);
   
-  QDockWidget * toc = docView->dockWidget(PDFDocumentView::Dock_TableOfContents, this);
+  QDockWidget * toc = docView->dockWidget(QtPDF::PDFDocumentView::Dock_TableOfContents, this);
   addDockWidget(Qt::LeftDockWidgetArea, toc);
-  tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_MetaData, this));
-  tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_Fonts, this));
-  tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_Permissions, this));
-  tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_Annotations, this));
+  tabifyDockWidget(toc, docView->dockWidget(QtPDF::PDFDocumentView::Dock_MetaData, this));
+  tabifyDockWidget(toc, docView->dockWidget(QtPDF::PDFDocumentView::Dock_Fonts, this));
+  tabifyDockWidget(toc, docView->dockWidget(QtPDF::PDFDocumentView::Dock_Permissions, this));
+  tabifyDockWidget(toc, docView->dockWidget(QtPDF::PDFDocumentView::Dock_Annotations, this));
   toc->raise();
 }
 
@@ -83,13 +83,13 @@ void PDFViewer::open()
   if (pdf_doc.isEmpty())
     return;
 
-  PDFDocumentView * docView = qobject_cast<PDFDocumentView*>(centralWidget());
+  QtPDF::PDFDocumentView * docView = qobject_cast<QtPDF::PDFDocumentView*>(centralWidget());
   Q_ASSERT(docView != NULL);
 
 #ifdef USE_MUPDF
-  Document *a_pdf_doc = new MuPDFDocument(pdf_doc);
+  QtPDF::Document *a_pdf_doc = new QtPDF::MuPDFDocument(pdf_doc);
 #elif USE_POPPLER
-  Document *a_pdf_doc = new PopplerDocument(pdf_doc);
+  QtPDF::Document *a_pdf_doc = new QtPDF::PopplerDocument(pdf_doc);
 #else
   #error Either the Poppler or the MuPDF backend is required
 #endif
@@ -100,16 +100,16 @@ void PDFViewer::open()
     // parent, thereby bypassing the QSharedPointer mechanism. docScene will be
     // freed automagically when the last QSharedPointer pointing to it will be
     // destroyed.
-    QSharedPointer<PDFDocumentScene> docScene(new PDFDocumentScene(a_pdf_doc));
+    QSharedPointer<QtPDF::PDFDocumentScene> docScene(new QtPDF::PDFDocumentScene(a_pdf_doc));
     docView->setScene(docScene);
     // FIXME: Reset, e.g., zoom (in case the old document was at a large zoom
     // factor)
   }
   else
-    docView->setScene(QSharedPointer<PDFDocumentScene>());
+    docView->setScene(QSharedPointer<QtPDF::PDFDocumentScene>());
 }
 
-void PDFViewer::documentChanged(const QSharedPointer<Document> newDoc)
+void PDFViewer::documentChanged(const QSharedPointer<QtPDF::Document> newDoc)
 {
   if (_counter)
     _counter->setLastPage(newDoc->numPages());

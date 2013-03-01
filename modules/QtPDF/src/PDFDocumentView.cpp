@@ -12,6 +12,9 @@
  * more details.
  */
 #include "PDFDocumentView.h"
+
+namespace QtPDF {
+
 #ifdef DEBUG
 #include <QDebug>
 QTime stopwatch;
@@ -90,8 +93,8 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
     // _May want to consider not doing this by default. It is conceivable to have
     // a View that would ignore page jumps that other scenes would respond to._
     connect(_pdf_scene.data(), SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
-    connect(_pdf_scene.data(), SIGNAL(pdfActionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
-    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<Document>)), this, SIGNAL(changedDocument(const QSharedPointer<Document>)));
+    connect(_pdf_scene.data(), SIGNAL(pdfActionTriggered(const QtPDF::PDFAction*)), this, SLOT(pdfActionTriggered(const QtPDF::PDFAction*)));
+    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<QtPDF::Document>)), this, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Document>)));
   }
   else
     _lastPage = -1;
@@ -173,7 +176,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
     case Dock_TableOfContents:
     {
       PDFToCInfoWidget * tocWidget = new PDFToCInfoWidget(dock);
-      connect(tocWidget, SIGNAL(actionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
+      connect(tocWidget, SIGNAL(actionTriggered(const QtPDF::PDFAction*)), this, SLOT(pdfActionTriggered(const QtPDF::PDFAction*)));
       infoWidget = tocWidget;
       break;
     }
@@ -201,7 +204,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
   if (_pdf_scene) {
     if (_pdf_scene->document())
       infoWidget->initFromDocument(_pdf_scene->document());
-    connect(this, SIGNAL(changedDocument(const QSharedPointer<Document>)), infoWidget, SLOT(initFromDocument(const QSharedPointer<Document>)));
+    connect(this, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Document>)), infoWidget, SLOT(initFromDocument(const QSharedPointer<QtPDF::Document>)));
   }
   dock->setWindowTitle(infoWidget->windowTitle());
 
@@ -2526,19 +2529,19 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   layout = new QFormLayout(groupBox);
 
   _title = new QLabel(groupBox);
-  _title->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  _title->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
   layout->addRow(PDFDocumentView::trUtf8("Title:"), _title);
 
   _author = new QLabel(groupBox);
-  _author->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  _author->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
   layout->addRow(PDFDocumentView::trUtf8("Author:"), _author);
 
   _subject = new QLabel(groupBox);
-  _subject->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  _subject->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
   layout->addRow(PDFDocumentView::trUtf8("Subject:"), _subject);
 
   _keywords = new QLabel(groupBox);
-  _keywords->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  _keywords->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
   layout->addRow(PDFDocumentView::trUtf8("Keywords:"), _keywords);
 
   groupBox->setLayout(layout);
@@ -2549,23 +2552,23 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   layout = new QFormLayout(groupBox);
 
   _creator = new QLabel(groupBox);
-  _creator->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  _creator->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
   layout->addRow(PDFDocumentView::trUtf8("Creator:"), _creator);
 
   _producer = new QLabel(groupBox);
-  _producer->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  _producer->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
   layout->addRow(PDFDocumentView::trUtf8("Producer:"), _producer);
 
   _creationDate = new QLabel(groupBox);
-  _creationDate->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  _creationDate->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
   layout->addRow(PDFDocumentView::trUtf8("Creation date:"), _creationDate);
 
   _modDate = new QLabel(groupBox);
-  _modDate->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  _modDate->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
   layout->addRow(PDFDocumentView::trUtf8("Modification date:"), _modDate);
 
   _trapped = new QLabel(groupBox);
-  _trapped->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  _trapped->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
   layout->addRow(PDFDocumentView::trUtf8("Trapped:"), _trapped);
 
   groupBox->setLayout(layout);
@@ -2626,7 +2629,7 @@ void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
   QMap<QString, QString>::const_iterator it;
   for (it = doc->metaDataOther().constBegin(); it != doc->metaDataOther().constEnd(); ++it) {
     QLabel * l = new QLabel(it.value(), _other);
-    l->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+    l->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
     layout->addRow(it.key(), l);
   }
   // Hide the "Other" group box unless it has something to display
@@ -3220,6 +3223,7 @@ void PDFPageLayout::rearrange() {
   }
 }
 
+} // namespace QtPDF
 
 // vim: set sw=2 ts=2 et
 
