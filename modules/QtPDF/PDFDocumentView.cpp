@@ -275,9 +275,14 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
   dpiX(QApplication::desktop()->physicalDpiX()),
   dpiY(QApplication::desktop()->physicalDpiY()),
 
-  dirty(true),
+  linksLoaded(false),
   zoomLevel(0.0)
 {
+  // The `linkGenerator` is used to monitor asynchronous generation of
+  // `PDFLinkGraphicsItem` objects associated with the links on this page.
+  linkGenerator = new QFutureWatcher< QList<PDFLinkGraphicsItem *> >(this);
+  connect(linkGenerator, SIGNAL(finished()), this, SLOT(addLinks()));
+
   // Create an empty pixmap that is the same size as the PDF page. This
   // allows us to delay the rendering of pages until they actually come into
   // view yet still know what the page size is.
@@ -285,6 +290,7 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
   pageSize.setHeight(pageSize.height() * dpiY);
   pageSize.setWidth(pageSize.width() * dpiX);
 
+  pageScale = QTransform::fromScale(pageSize.width(), pageSize.height());
   setPixmap(QPixmap(pageSize.toSize()));
 }
 
@@ -304,17 +310,17 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   qreal scaleFactor = painter->transform().m11();
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
-  // `dirty` will be `true`. We load all of the links on the page.
-  if ( dirty )
+  // `linksLoaded` will be `false`. We then load all of the links on the page.
+  if ( not linksLoaded )
   {
-    createLinks(page->links());
-    dirty = false;
+    QList<Poppler::Link *> links = page->links();
 
-    // **NOTE:**
-    // _An update currently required to ensure links are drawn when the page
-    // scrolls into view. This can probably be altered if the link creation is ever
-    // shoved into a separate thread._
-    update();
+    // If this page has links, we generate `PDFLinkGraphicsItems` in a separate
+    // thread. The `linkGenerator` will emit a `finished` signal when
+    // generation is complete.
+    if ( not links.empty() ) linkGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::loadLinks, links));
+
+    linksLoaded = true;
   }
 
   // We look at the zoom level and render a new page if it has changed or has
@@ -349,20 +355,42 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 }
 
 
-void PDFPageGraphicsItem::createLinks(QList<Poppler::Link *> links) {
+// Asynchronous Link Generation
+// ----------------------------
+
+// This function generates `PDFLinkGraphicsItem` objects. It is intended to be
+// called asynchronously and so does not set parentage for the objects it
+// generates --- this task is left to the `addLinks` method so that all the
+// links are added and rendered in a synchronous operation.
+QList<PDFLinkGraphicsItem *> PDFPageGraphicsItem::loadLinks(QList<Poppler::Link *> links)
+{
   // **TODO:**
   //
-  //   * _Comment on how `pageTransform` works and is used._
-  //
-  //   * _Is this the best place to handle link <-> Qt graphics
-  //     transformations?._
-  QTransform pageTransform = QTransform::fromScale(pixmap().rect().width(), pixmap().rect().height());
-  PDFLinkGraphicsItem *linkBox;
-  foreach(Poppler::Link *link, links)
+  //   * _Comment on how `pageScale` works and is used._
+  QList<PDFLinkGraphicsItem *> linkList;
+  PDFLinkGraphicsItem *linkItem;
+
+  foreach( Poppler::Link *link, links )
   {
-    linkBox = new PDFLinkGraphicsItem(link, this);
-    linkBox->setTransform(pageTransform);
+    linkItem = new PDFLinkGraphicsItem(link);
+    linkItem->setTransform(pageScale);
+
+    linkList.append(linkItem);
   }
+
+  return linkList;
+}
+
+// This method causes the `PDFPageGraphicsItem` to take ownership of
+// asynchronously generated `PDFLinkGraphicsItem` objects. Calling
+// `setParentItem` causes the link objects to be added to the scene that owns
+// the page object. `update` is then called to ensure all links are drawn at
+// once.
+void PDFPageGraphicsItem::addLinks()
+{
+  foreach( PDFLinkGraphicsItem *item, linkGenerator->result() ) item->setParentItem(this);
+
+  update();
 }
 
 
