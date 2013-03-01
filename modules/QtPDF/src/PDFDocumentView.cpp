@@ -805,6 +805,10 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
   // _Currently for debugging purposes only so that the link area can be
   // determined visually, but might make a nice option._
   setPen(QPen(Qt::red));
+#else
+  // Perhaps there is a way to not draw the outline at all? Might be more
+  // efficient...
+  setPen(QPen(Qt::transparent));
 #endif
 }
 
@@ -991,6 +995,7 @@ void PDFPageProcessingThread::run()
 
 #ifdef DEBUG
       qDebug() << "processing work item; remaining items:" << _workStack.size();
+
 #endif
       workItem->execute();
 
