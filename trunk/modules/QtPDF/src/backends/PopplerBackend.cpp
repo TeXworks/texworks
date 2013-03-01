@@ -359,16 +359,17 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
   QList<Poppler::Annotation *> popplerAnnots = _poppler_page->annotations();
   docLock.unlock();
 
+  // Note: Poppler gives the linkArea in normalized coordinates, i.e., in the
+  // range of 0..1, with y=0 at the top. We use pdf coordinates internally, so
+  // we need to transform things accordingly.
+  QTransform denormalize = QTransform::fromScale(pageSizeF().width(), -pageSizeF().height()).translate(0,  -1);
+
   // Convert poppler links to PDFLinkAnnotations
-  // Note: 
   foreach (Poppler::Link * popplerLink, popplerLinks) {
     QSharedPointer<PDFLinkAnnotation> link(new PDFLinkAnnotation);
-    link->setRect(popplerLink->linkArea());
+    link->setRect(denormalize.mapRect(popplerLink->linkArea()));
     link->setPage(this);
     
-    // FIXME: Actional action/destination
-    //setActionOnActivation(PDFAction * const action);
-    //setDestination(PDFDestination * const destination);
     switch (popplerLink->linkType()) {
       case Poppler::Link::Goto:
         {

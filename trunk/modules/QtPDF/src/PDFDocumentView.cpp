@@ -1574,7 +1574,8 @@ void PDFPageGraphicsItem::addLinks(QList< QSharedPointer<PDFLinkAnnotation> > li
 #endif
   foreach( QSharedPointer<PDFLinkAnnotation> link, links ){
     linkItem = new PDFLinkGraphicsItem(link);
-    linkItem->setTransform(_pageScale);
+    // Map the link from pdf coordinates to scene coordinates
+    linkItem->setTransform(QTransform::fromTranslate(0, _pageSize.height()).scale(_dpiX / 72., -_dpiY / 72.));
     linkItem->setParentItem(this);
   }
 #ifdef DEBUG

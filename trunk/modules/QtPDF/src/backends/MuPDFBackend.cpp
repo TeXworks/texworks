@@ -622,10 +622,6 @@ QList< QSharedPointer<PDFLinkAnnotation> > MuPDFPage::loadLinks()
   pdf_xref * xref = static_cast<MuPDFDocument*>(_parent)->_mupdf_data;
   Q_ASSERT(xref != NULL);
 
-  // FIXME: PDFLinkGraphicsItem erroneously requires coordinates to be
-  // normalized to [0..1].
-  QTransform normalize = QTransform::fromScale(1. / _size.width(), -1. / _size.height()).translate(0, -_size.height());
-
   _linksLoaded = true;
   pdf_page * page;
   if (pdf_load_page(&page, xref, _n) != fz_okay)
@@ -637,7 +633,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > MuPDFPage::loadLinks()
 
   while (mupdfLink) {
     QSharedPointer<PDFLinkAnnotation> link(new PDFLinkAnnotation);
-    link->setRect(normalize.mapRect(toRectF(mupdfLink->rect)));
+    link->setRect(toRectF(mupdfLink->rect));
     link->setPage(this);
     // FIXME: Initialize all other properties of PDFLinkAnnotation, such as
     // border, color, quadPoints, etc.

@@ -90,7 +90,7 @@ public:
   virtual void setColor(const QColor color) { _color = color; }
 
 protected:
-  QRectF _rect; // required
+  QRectF _rect; // required, in pdf coordinates
   QString _contents; // optional
   Page * _page; // optional; since PDF 1.3
   QString _name; // optional; since PDF 1.4
