@@ -25,6 +25,7 @@ class PDFLinkGraphicsItem;
 class PDFDocumentMagnifierView;
 class PDFActionEvent;
 class PDFToCDockWidget;
+class PDFMetaDataDockWidget;
 
 const int TILE_SIZE=1024;
 
@@ -56,6 +57,7 @@ public:
   qreal zoomLevel() const { return _zoomLevel; }
 
   PDFToCDockWidget* tocDockWidget(QWidget * parent);
+  PDFMetaDataDockWidget * metaDataDockWidget(QWidget * parent);
 
 public slots:
   void goPrev();
@@ -181,6 +183,27 @@ private:
   void clearTree();
   static void recursiveAddTreeItems(const QList<PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem);
   static void recursiveClearTreeItems(QTreeWidgetItem * parent);
+};
+
+class PDFMetaDataDockWidget : public QDockWidget
+{
+  Q_OBJECT
+public:
+  PDFMetaDataDockWidget(QWidget * parent);
+  virtual ~PDFMetaDataDockWidget() { }
+  
+  void setMetaDataFromDocument(const QSharedPointer<Document> doc);
+private:
+  QLabel * _title;
+  QLabel * _author;
+  QLabel * _subject;
+  QLabel * _keywords;
+  QLabel * _creator;
+  QLabel * _producer;
+  QLabel * _creationDate;
+  QLabel * _modDate;
+  QLabel * _trapped;
+  QGroupBox * _other;
 };
 
 // Cannot use QGraphicsGridLayout and similar classes for pages because it only
