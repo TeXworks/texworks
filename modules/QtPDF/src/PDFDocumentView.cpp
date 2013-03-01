@@ -65,7 +65,7 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
   // a View that would ignore page jumps that other scenes would respond to._
   connect(a_scene, SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
   connect(this, SIGNAL(changedPage(int)), this, SLOT(maybeUpdateSceneRect()));
-  connect(_pdf_scene, SIGNAL(pdfLinkActivated(const Poppler::Link*)), this, SLOT(pdfLinkActivated(const Poppler::Link*)));
+  connect(_pdf_scene, SIGNAL(pdfActionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
 }
 int PDFDocumentView::currentPage() { return _currentPage; }
 int PDFDocumentView::lastPage()    { return _lastPage; }
@@ -269,43 +269,40 @@ void PDFDocumentView::maybeUpdateSceneRect() {
   setSceneRect(_pdf_scene->pageAt(_currentPage)->sceneBoundingRect());
 }
 
-void PDFDocumentView::pdfLinkActivated(const Poppler::Link * link)
+void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
 {
-  if (!link)
+  if (!action)
     return;
 
   // Propagate link signals so that the outside world doesn't have to care about
-  // our internal implementation (document/view structure, poppler, etc.)
-  switch (link->linkType())
-  {
-    case Poppler::Link::Goto:
-    {
-      const Poppler::LinkGoto *linkGoto = static_cast<const Poppler::LinkGoto*>(link);
-      Q_ASSERT( linkGoto != NULL );
-      emit requestOpenPdf(linkGoto->fileName(), linkGoto->destination().pageNumber());
-      return;
-    }
-    case Poppler::Link::Browse:
-    {
-      const Poppler::LinkBrowse *linkBrowse = static_cast<const Poppler::LinkBrowse*>(link);
-      Q_ASSERT( linkBrowse != NULL );
-      emit requestOpenUrl(QUrl::fromEncoded(linkBrowse->url().toAscii()));
-      return;
-    }
-    case Poppler::Link::Execute:
-    {
-      const Poppler::LinkExecute *linkExecute = static_cast<const Poppler::LinkExecute*>(link);
-      Q_ASSERT( linkExecute != NULL );
-      emit requestExecuteCommand(linkExecute->fileName(), linkExecute->parameters());
-      return;
-    }
+  // our internal implementation (document/view structure, etc.)
+  switch (action->type()) {
+    // FIXME: Implement remote gotos
+/*    case PDFAction::ActionTypeGoTo:
+      {
+        PDFGotoAction * actionGoto = static_cast<PDFGotoAction*>(action);
+        emit requestOpenPdf(linkGoto->fileName(), linkGoto->destination().pageNumber());
+      }
+      break;
+*/    case PDFAction::ActionTypeURI:
+      {
+        const PDFURIAction * actionURI = static_cast<const PDFURIAction*>(action);
+        emit requestOpenUrl(actionURI->url());
+      }
+      break;
+    case PDFAction::ActionTypeLaunch:
+      {
+        const PDFLaunchAction * actionLaunch = static_cast<const PDFLaunchAction*>(action);
+        emit requestExecuteCommand(actionLaunch->command());
+      }
+      break;
     // **TODO:**
-    // We don't handle Link::Action yet, but the ActionTypes Quit, Presentation,
+    // We don't handle other actions yet, but the ActionTypes Quit, Presentation,
     // EndPresentation, Find, GoToPage, Close, and Print should be propagated to
     // the outside world
-    case Poppler::Link::Action:
     default:
-      return;
+      // All other link types are currently not supported
+      break;
   }
 }
 
@@ -811,50 +808,39 @@ PDFDocumentScene::PDFDocumentScene(Document *a_doc, QObject *parent):
   _pageLayout.relayout();
 }
 
-void PDFDocumentScene::handleLinkEvent(const PDFLinkEvent * link_event)
+void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
 {
-  if (!link_event)
+  if (!action_event || !action_event->action)
     return;
+  const PDFAction * action = action_event->action;
 
-  switch ( link_event->link->linkType() )
+  switch (action_event->action->type() )
   {
-    case Poppler::Link::Goto:
-    {
-      const Poppler::LinkGoto *linkGoto = static_cast<const Poppler::LinkGoto*>(link_event->link);
-      Q_ASSERT( linkGoto != NULL );
-
-      // We don't handle external links here - this is the responsibility of
-      // some other component of the app
-      if ( linkGoto->isExternal() ) break;
-
-      // Jump by page number. Links reckon page numbers starting with 1 so we
-      // subtract to conform with 0-based indexing used by C++.
-      //
-      // **NOTE:**
-      // _There are many details that are not being considered, such as
-      // centering on a specific anchor point and possibly changing the zoom
-      // level rather than just focusing on the center of the target page._
-      emit pageChangeRequested(linkGoto->destination().pageNumber() - 1);
-      return;
-    }
-    // Unsupported link types that we silently ignore (as they are of no
-    // relevance outside the viewer)
-    case Poppler::Link::None:
-    case Poppler::Link::JavaScript:
-    case Poppler::Link::Sound:
-    case Poppler::Link::Movie:
-      return;
+    case PDFAction::ActionTypeGoTo:
+      {
+        const PDFGotoAction * actionGoto = static_cast<const PDFGotoAction*>(action);
+        // Jump by page number.
+        //
+        // **NOTE:**
+        // _There are many details that are not being considered, such as
+        // centering on a specific anchor point and possibly changing the zoom
+        // level rather than just focusing on the center of the target page._
+        emit pageChangeRequested(actionGoto->destination().page());
+        return;
+      }
+      break;
     // Link types that we don't handle here but that may be of interest
     // elsewhere
-    case Poppler::Link::Browse:
-    case Poppler::Link::Execute:
-    case Poppler::Link::Action:
-    default:
+    case PDFAction::ActionTypeURI:
+    case PDFAction::ActionTypeLaunch:
       break;
+    default:
+      // All other link types are currently not supported
+      return;
   }
   // Translate into a signal that can be handled by some other part of the
   // program, such as a `PDFDocumentView`.
-  emit pdfLinkActivated(link_event->link);
+  emit pdfActionTriggered(action_event->action);
 }
 
 
@@ -910,13 +896,13 @@ int PDFDocumentScene::lastPage() { return _lastPage; }
 // to the rest of the program.
 bool PDFDocumentScene::event(QEvent *event)
 {
-  if ( event->type() == PDFLinkEvent::LinkEvent )
+  if ( event->type() == PDFActionEvent::ActionEvent )
   {
     event->accept();
-    // Cast to a pointer for `PDFLinkEvent` so that we can access the `pageNum`
+    // Cast to a pointer for `PDFActionEvent` so that we can access the `pageNum`
     // field.
-    const PDFLinkEvent *link_event = static_cast<const PDFLinkEvent*>(event);
-    handleLinkEvent(link_event);
+    const PDFActionEvent *action_event = static_cast<const PDFActionEvent*>(event);
+    handleActionEvent(action_event);
     return true;
   }
 
@@ -1161,13 +1147,13 @@ bool PDFPageGraphicsItem::event(QEvent *event)
 // `setParentItem` causes the link objects to be added to the scene that owns
 // the page object. `update` is then called to ensure all links are drawn at
 // once.
-void PDFPageGraphicsItem::addLinks(QList<Poppler::Link *> links)
+void PDFPageGraphicsItem::addLinks(QList<PDFLinkAnnotation *> links)
 {
   PDFLinkGraphicsItem *linkItem;
 #ifdef DEBUG
   stopwatch.start();
 #endif
-  foreach( Poppler::Link *link, links ){
+  foreach( PDFLinkAnnotation *link, links ){
     linkItem = new PDFLinkGraphicsItem(link);
     linkItem->setTransform(_pageScale);
     linkItem->setParentItem(this);
@@ -1190,7 +1176,7 @@ void PDFPageGraphicsItem::addLinks(QList<Poppler::Link *> links)
 //
 //    * Handles tasks such as cursor changes on mouse hover and link activation
 //      on mouse clicks.
-PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent):
+PDFLinkGraphicsItem::PDFLinkGraphicsItem(PDFLinkAnnotation *a_link, QGraphicsItem *parent):
   Super(parent),
   _link(a_link),
   _activated(false)
@@ -1199,7 +1185,7 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
   // values in the range [0, 1]. The transformation matrix of this item will
   // have to be adjusted so that links will show up correctly in a graphics
   // view.
-  setRect(_link->linkArea());
+  setRect(_link->rect());
 
   // Allows links to provide a context-specific cursor when the mouse is
   // hovering over them.
@@ -1221,44 +1207,37 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
   setPen(QPen(Qt::transparent));
 #endif
 
-  // Set some meaningful tooltip to inform the user what the link does
-  // Using <p>...</p> ensures the tooltip text is interpreted as rich text
-  // and thus is wrapping sensibly to avoid over-long lines.
-  // Using PDFDocumentView::trUtf8 avoids having to explicitly derive
-  // PDFLinkGraphicsItem explicily from QObject and puts all translatable
-  // strings into the same context.
-  switch(_link->linkType()) {
-    case Poppler::Link::Goto:
-      Poppler::LinkGoto * linkGoto;
-      linkGoto = static_cast<Poppler::LinkGoto*>(_link);
-      if (!linkGoto->isExternal())
-        setToolTip(PDFDocumentView::trUtf8("<p>Goto page %1</p>").arg(linkGoto->destination().pageNumber()));
-      else
-        //: Example: "Goto page 5 of abc.pdf"
-        setToolTip(PDFDocumentView::trUtf8("<p>Goto page %1 of %2</p>").arg(linkGoto->destination().pageNumber()).arg(linkGoto->fileName()));
-      break;
-    case Poppler::Link::Execute:
-      Poppler::LinkExecute * linkExecute;
-      linkExecute = static_cast<Poppler::LinkExecute*>(_link);
-      if (linkExecute->parameters().isEmpty())
-        setToolTip(PDFDocumentView::trUtf8("<p>Execute `%1`</p>"));
-      else
-        //: Example: "Execute `ls -1`"
-        setToolTip(PDFDocumentView::trUtf8("<p>Execute `%1 %2`</p>"));
-      break;
-    case Poppler::Link::Browse:
-      Poppler::LinkBrowse * linkBrowse;
-      linkBrowse = static_cast<Poppler::LinkBrowse*>(_link);
-      setToolTip(QString::fromUtf8("<p>%1</p>").arg(linkBrowse->url()));
-      break;
-      // Unsupported link types
-//    case Poppler::Link::Action:
-//    case Poppler::Link::Sound:
-//    case Poppler::Link::Movie:
-//    case Poppler::Link::JavaScript:
-//    case Poppler::Link::None:
-    default:
-      break;
+  PDFAction * action = _link->actionOnActivation();
+  if (action) {
+    // Set some meaningful tooltip to inform the user what the link does
+    // Using <p>...</p> ensures the tooltip text is interpreted as rich text
+    // and thus is wrapping sensibly to avoid over-long lines.
+    // Using PDFDocumentView::trUtf8 avoids having to explicitly derive
+    // PDFLinkGraphicsItem explicily from QObject and puts all translatable
+    // strings into the same context.
+    switch(action->type()) {
+      case PDFAction::ActionTypeGoTo:
+        {
+          PDFGotoAction * actionGoto = static_cast<PDFGotoAction*>(action);
+          setToolTip(PDFDocumentView::trUtf8("<p>Goto page %1</p>").arg(actionGoto->destination().page()));
+        }
+        break;
+      case PDFAction::ActionTypeURI:
+        {
+          PDFURIAction * actionURI = static_cast<PDFURIAction*>(action);
+          setToolTip(QString::fromUtf8("<p>%1</p>").arg(actionURI->url().toString()));
+        }
+        break;
+      case PDFAction::ActionTypeLaunch:
+        {
+          PDFLaunchAction * actionLaunch = static_cast<PDFLaunchAction*>(action);
+          setToolTip(PDFDocumentView::trUtf8("<p>Execute `%1`</p>").arg(actionLaunch->command()));
+        }
+        break;
+      default:
+        // All other link types are currently not supported
+        break;
+    }
   }
 }
 
@@ -1303,21 +1282,22 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
   // it further, notifying objects, such as `PDFDocumentView`, that may want to
   // take action via a `SIGNAL`.
   // **TODO:** Wouldn't a direct call be more efficient?
-  QCoreApplication::postEvent(scene(), new PDFLinkEvent(_link));
+  if (_link && _link->actionOnActivation())
+    QCoreApplication::postEvent(scene(), new PDFActionEvent(_link->actionOnActivation()));
   _activated = false;
 }
 
 
-// PDFLinkEvent
+// PDFActionEvent
 // ============
 
 // A PDF Link event is generated when a link is clicked and contains the page
 // number of the link target.
-PDFLinkEvent::PDFLinkEvent(const Poppler::Link * link) : Super(LinkEvent), link(link) {}
+PDFActionEvent::PDFActionEvent(const PDFAction * action) : Super(ActionEvent), action(action) {}
 
-// Obtain a unique ID for `PDFLinkEvent` that can be used by event handlers to
+// Obtain a unique ID for `PDFActionEvent` that can be used by event handlers to
 // filter out these events.
-QEvent::Type PDFLinkEvent::LinkEvent = static_cast<QEvent::Type>( QEvent::registerEventType() );
+QEvent::Type PDFActionEvent::ActionEvent = static_cast<QEvent::Type>( QEvent::registerEventType() );
 
 
 PDFPageLayout::PDFPageLayout() :

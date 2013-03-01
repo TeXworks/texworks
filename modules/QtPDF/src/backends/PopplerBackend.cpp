@@ -84,14 +84,87 @@ QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box, bo
   return renderedPage;
 }
 
-QList<Poppler::Link *> PopplerPage::loadLinks()
+QList<PDFLinkAnnotation *> PopplerPage::loadLinks()
 {
-  QList<Poppler::Link *> links;
+  QList<PDFLinkAnnotation *> links;
   // Loading links is not thread safe.
   QMutexLocker docLock(static_cast<PopplerDocument *>(_parent)->_doc_lock);
-    links = _poppler_page->links();
+  QList<Poppler::Link *> popplerLinks = _poppler_page->links();
+  QList<Poppler::Annotation *> popplerAnnots = _poppler_page->annotations();
   docLock.unlock();
 
+  // Convert poppler links to PDFLinkAnnotations
+  // Note: 
+  foreach (Poppler::Link * popplerLink, popplerLinks) {
+    PDFLinkAnnotation * link = new PDFLinkAnnotation();
+    link->setRect(popplerLink->linkArea());
+    link->setPage(this);
+    
+    // FIXME: Actional action/destination
+    //setActionOnActivation(PDFAction * const action);
+    //setDestination(PDFDestination * const destination);
+    switch (popplerLink->linkType()) {
+      case Poppler::Link::Goto:
+        {
+          Poppler::LinkGoto * popplerGoto = static_cast<Poppler::LinkGoto *>(popplerLink);
+          if (!popplerGoto->isExternal()) {
+            PDFDestination dest(popplerGoto->destination().pageNumber() - 1);
+            // FIXME: Convert viewport, zoom, fitting, etc.
+            link->setActionOnActivation(new PDFGotoAction(dest));
+          }
+          else {
+            // FIXME: Implement remote GoTo action
+          }
+        }
+        break;
+      case Poppler::Link::Execute:
+        {
+          Poppler::LinkExecute * popplerExecute = static_cast<Poppler::LinkExecute *>(popplerLink);
+          if (popplerExecute->parameters().isEmpty())
+            link->setActionOnActivation(new PDFLaunchAction(popplerExecute->fileName()));
+          else
+            link->setActionOnActivation(new PDFLaunchAction(QString::fromUtf8("%1 %2").arg(popplerExecute->fileName()).arg(popplerExecute->parameters())));
+        }
+        break;
+      case Poppler::Link::Browse:
+        link->setActionOnActivation(new PDFURIAction(static_cast<Poppler::LinkBrowse*>(popplerLink)->url()));
+        break;
+      case Poppler::Link::Action:
+      case Poppler::Link::None:
+      case Poppler::Link::Sound:
+      case Poppler::Link::Movie:
+      case Poppler::Link::JavaScript:
+        // We don't handle these types yet
+        delete link;
+        continue;
+    }
+
+    
+    // Look up the corresponding Poppler::LinkAnnotation object
+    // Note: Poppler::LinkAnnotation::linkDestionation() [sic] doesn't reliably
+    // return a Poppler::Link*. Therefore, we have to find the correct
+    // annotation object ourselves. Note, though, that boundary() and rect()
+    // don't seem to correspond exactly (i.e., they are neither (necessarily)
+    // equal, nor does one (necessarily) contain the other.
+    // TODO: Can we have the situation that we get more than one matching
+    // annotations out of this?
+    foreach (Poppler::Annotation * popplerAnnot, popplerAnnots) {
+      if (!popplerAnnot || popplerAnnot->subType() != Poppler::Annotation::ALink || !popplerAnnot->boundary().intersects(link->rect()))
+        continue;
+      Poppler::LinkAnnotation * popplerLinkAnnot = static_cast<Poppler::LinkAnnotation *>(popplerAnnot);
+      link->setContents(popplerLinkAnnot->contents());
+      link->setName(popplerLinkAnnot->uniqueName());
+      link->setLastModified(popplerLinkAnnot->modificationDate().toString(Qt::ISODate));
+      // TODO: Does poppler provide the color anywhere?
+      // FIXME: Convert flags
+
+      // Note: Poppler::LinkAnnotation::HighlightMode is identical to PDFLinkAnnotation::HighlightingMode
+      link->setHighlightingMode((PDFLinkAnnotation::HighlightingMode)popplerLinkAnnot->linkHighlightMode());
+      // TODO: Does Poppler provide an easy interface to all quadPoints?
+      break;
+    }
+    links << link;
+  }
   return links;
 }
 

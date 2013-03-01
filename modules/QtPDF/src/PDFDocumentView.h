@@ -24,7 +24,7 @@ class PDFDocumentScene;
 class PDFPageGraphicsItem;
 class PDFLinkGraphicsItem;
 class PDFDocumentMagnifierView;
-class PDFLinkEvent;
+class PDFActionEvent;
 
 const int TILE_SIZE=1024;
 
@@ -83,7 +83,7 @@ signals:
   void changedZoom(qreal zoomLevel);
 
   void requestOpenUrl(const QUrl url);
-  void requestExecuteCommand(QString command, QString parameters);
+  void requestExecuteCommand(QString command);
   void requestOpenPdf(QString filename, int page);
 
 protected:
@@ -97,7 +97,7 @@ protected:
 
 protected slots:
   void maybeUpdateSceneRect();
-  void pdfLinkActivated(const Poppler::Link * link);
+  void pdfActionTriggered(const PDFAction * action);
 
 private:
   PageMode _pageMode;
@@ -201,7 +201,7 @@ class PDFDocumentScene : public QGraphicsScene
   QList<QGraphicsItem*> _pages;
   int _lastPage;
   PDFPageLayout _pageLayout;
-  void handleLinkEvent(const PDFLinkEvent * link_event);
+  void handleActionEvent(const PDFActionEvent * action_event);
 
 public:
   PDFDocumentScene(Document *a_doc, QObject *parent = 0);
@@ -221,7 +221,7 @@ public:
 signals:
   void pageChangeRequested(int pageNum);
   void pageLayoutChanged();
-  void pdfLinkActivated(const Poppler::Link * link);
+  void pdfActionTriggered(const PDFAction * action);
 
 protected:
   bool event(QEvent* event);
@@ -287,19 +287,19 @@ private:
   Q_DISABLE_COPY(PDFPageGraphicsItem)
 
 private slots:
-  void addLinks(QList<Poppler::Link *> links);
+  void addLinks(QList<PDFLinkAnnotation *> links);
 
 };
 
-
+// FIXME: Should be turned into a QGraphicsPolygonItem
 class PDFLinkGraphicsItem : public QGraphicsRectItem {
   typedef QGraphicsRectItem Super;
 
-  Poppler::Link *_link;
+  PDFLinkAnnotation *_link;
   bool _activated;
 
 public:
-  PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent = 0);
+  PDFLinkGraphicsItem(PDFLinkAnnotation *a_link, QGraphicsItem *parent = 0);
   // See concerns in `PDFPageGraphicsItem` for why this feels fragile.
   enum { Type = UserType + 2 };
   int type() const;
@@ -320,13 +320,13 @@ private:
 Q_DECLARE_METATYPE(QList<PDFLinkGraphicsItem *>)
 
 
-class PDFLinkEvent : public QEvent {
+class PDFActionEvent : public QEvent {
   typedef QEvent Super;
 
 public:
-  PDFLinkEvent(const Poppler::Link * link);
-  static QEvent::Type LinkEvent;
-  const Poppler::Link * link;
+  PDFActionEvent(const PDFAction * action);
+  static QEvent::Type ActionEvent;
+  const PDFAction * action;
 };
 
 #endif // End header include guard
