@@ -208,6 +208,7 @@ class PDFPageGraphicsItem : public QObject, public QGraphicsPixmapItem
 
   Poppler::Page *_page;
   QPixmap _renderedPage;
+  QPixmap _temporaryPage;
   double _dpiX;
   double _dpiY;
 
