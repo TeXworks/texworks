@@ -133,6 +133,9 @@ protected:
 protected slots:
   void maybeUpdateSceneRect();
   void pdfActionTriggered(const PDFAction * action);
+  // Note: view specifies which part of the page should be visible and must
+  // therefore be given in scene coordinates
+  void goToPage(const PDFPageGraphicsItem * page, const QRectF view, const bool mayZoom = false);
 
 private:
   PageMode _pageMode;
@@ -380,11 +383,11 @@ public:
   // Maps the point _point_ from the page's coordinate system (in pt) to this
   // item's coordinate system - chain with mapToScene and related methods to get
   // coordinates in other systems
-  QPointF mapFromPage(const QPointF & point);
+  QPointF mapFromPage(const QPointF & point) const;
   // Maps the point _point_ from the item's coordinate system to the page's
   // coordinate system (in pt) - chain with mapFromScene and related methods to
   // convert from coordinates in other systems
-  QPointF mapToPage(const QPointF & point);
+  QPointF mapToPage(const QPointF & point) const;
 
   QTransform pageScale() { return _pageScale; }
   QTransform pointScale() { return _pointScale; }

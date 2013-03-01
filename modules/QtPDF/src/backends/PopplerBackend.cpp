@@ -16,10 +16,60 @@
 #include <PDFBackend.h>
 
 // TODO: Find a better place to put this
-PDFDestination toPDFDestination(const Poppler::LinkDestination & dest)
+PDFDestination toPDFDestination(const Poppler::Document * doc, const Poppler::LinkDestination & dest)
 {
+  if (!dest.destinationName().isEmpty())
+    return PDFDestination(dest.destinationName());
+
+  // Coordinates in LinkDestination are in the range of 0..1, which does not
+  // comply with the pdf specs---so we have to convert them back
+  float w = 1., h = 1.;
+  if (doc) {
+    Poppler::Page * p = doc->page(dest.pageNumber() - 1);
+    if (p) {
+      w = p->pageSizeF().width();
+      h = p->pageSizeF().height();
+    }
+  }
+
   PDFDestination retVal(dest.pageNumber() - 1);
-  // FIXME: viewport, zoom, fitting, etc.
+  // Note: Poppler seems to give coordinates in a vertically mirrored coordinate
+  // system, i.e., y=0 corresponds to the top of the page. This does not
+  // comply with the pdf page coordinate system, which has y=0 at the bottom. So
+  // we need to compensate for that.
+  switch (dest.kind()) {
+    case Poppler::LinkDestination::destXYZ:
+      retVal.setType(PDFDestination::Destination_XYZ);
+      retVal.setRect(QRectF((dest.isChangeLeft() ? dest.left() * w : -1), (dest.isChangeTop() ? (1 - dest.top()) * h : -1), -1, -1));
+      retVal.setZoom((dest.isChangeZoom() ? dest.zoom() : -1));
+      break;
+    case Poppler::LinkDestination::destFit:
+      retVal.setType(PDFDestination::Destination_Fit);
+      break;
+    case Poppler::LinkDestination::destFitH:
+      retVal.setType(PDFDestination::Destination_FitH);
+      retVal.setRect(QRectF(-1, (dest.isChangeTop() ? (1 - dest.top()) * h : -1), -1, -1));
+      break;
+    case Poppler::LinkDestination::destFitV:
+      retVal.setType(PDFDestination::Destination_FitV);
+      retVal.setRect(QRectF((dest.isChangeLeft() ? dest.left() * w : -1), -1, -1, -1));
+      break;
+    case Poppler::LinkDestination::destFitR:
+      retVal.setType(PDFDestination::Destination_FitR);
+      retVal.setRect(QRectF(QPointF(dest.left() * w, (1 - dest.top()) * h), QPointF(dest.right() * w, dest.bottom() * h)));
+      break;
+    case Poppler::LinkDestination::destFitB:
+      retVal.setType(PDFDestination::Destination_FitB);
+      break;
+    case Poppler::LinkDestination::destFitBH:
+      retVal.setType(PDFDestination::Destination_FitBH);
+      retVal.setRect(QRectF(-1, (dest.isChangeTop() ? (1 - dest.top()) * h : -1), -1, -1));
+      break;
+    case Poppler::LinkDestination::destFitBV:
+      retVal.setType(PDFDestination::Destination_FitBV);
+      retVal.setRect(QRectF((dest.isChangeLeft() ? dest.left() * w : -1), -1, -1, -1));
+      break;
+  }
   return retVal;
 }
 
@@ -105,6 +155,21 @@ QSharedPointer<Page> PopplerDocument::page(int at)
   return QSharedPointer<Page>(_pages[at]);
 }
 
+PDFDestination PopplerDocument::resolveDestination(const PDFDestination & namedDestination) const
+{
+  Q_ASSERT(!_poppler_doc.isNull());
+
+  // If namedDestination is not a named destination at all, simply return a copy
+  if (namedDestination.isExplicit())
+    return namedDestination;
+
+  // If the destination could not be resolved, return an invalid object
+  Poppler::LinkDestination * dest = _poppler_doc->linkDestination(namedDestination.destinationName());
+  if (!dest)
+    return PDFDestination();
+  return toPDFDestination(_poppler_doc.data(), *dest);
+}
+
 void PopplerDocument::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode node) const
 {
   while (!node.isNull()) {
@@ -117,16 +182,11 @@ void PopplerDocument::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode no
     PDFGotoAction * action = NULL;
     QString val = attributes.namedItem(QString::fromUtf8("Destination")).nodeValue();
     if (!val.isEmpty())
-      action = new PDFGotoAction(toPDFDestination(Poppler::LinkDestination(val)));
+      action = new PDFGotoAction(toPDFDestination(_poppler_doc.data(), Poppler::LinkDestination(val)));
     else {
       val = attributes.namedItem(QString::fromUtf8("DestinationName")).nodeValue();
-      if (!val.isEmpty() && _poppler_doc) {
-        Poppler::LinkDestination * dest = _poppler_doc->linkDestination(val);
-        if (dest) {
-          action = new PDFGotoAction(toPDFDestination(*dest));
-          delete dest;
-        }
-      }
+      if (!val.isEmpty())
+        action = new PDFGotoAction(PDFDestination(val));
     }
 
     val = attributes.namedItem(QString::fromUtf8("ExternalFileName")).nodeValue();
@@ -308,7 +368,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
       case Poppler::Link::Goto:
         {
           Poppler::LinkGoto * popplerGoto = static_cast<Poppler::LinkGoto *>(popplerLink);
-          PDFGotoAction * action = new PDFGotoAction(toPDFDestination(popplerGoto->destination()));
+          PDFGotoAction * action = new PDFGotoAction(toPDFDestination(static_cast<PopplerDocument *>(_parent)->_poppler_doc.data(), popplerGoto->destination()));
           if (popplerGoto->isExternal()) {
             // TODO: Verify that Poppler::LinkGoto only refers to pdf files
             // (for other file types we would need PDFLaunchAction)
