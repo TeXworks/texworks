@@ -266,7 +266,7 @@ void PDFDocumentView::maybeUpdateSceneRect() {
   // Set the scene rect of the view, i.e., the rect accessible via the scroll
   // bars. In single page mode, this must be the rect of the current page
   // **TODO:** Safeguard
-  setSceneRect(QTransform::fromScale(10,10).mapRect(_pdf_scene->pageAt(_currentPage)->sceneBoundingRect()));
+  setSceneRect(_pdf_scene->pageAt(_currentPage)->sceneBoundingRect());
 }
 
 void PDFDocumentView::pdfLinkActivated(const Poppler::Link * link)
@@ -1130,6 +1130,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       painter->drawRect(tile);
 #endif
     }
+
   painter->restore();
 }
 
