@@ -12,6 +12,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
 #endif
 
   QtPDF::PDFDocumentView *docView = new QtPDF::PDFDocumentView(this);
+  connect(this, SIGNAL(switchInterfaceLocale(QLocale)), docView, SLOT(switchInterfaceLocale(QLocale)));
 
   if (a_pdf_doc) {
     // Note: Don't pass `this` (or any other QObject*) as parent to the new
@@ -57,6 +58,12 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   connect(docView, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Document>)), this, SLOT(documentChanged(const QSharedPointer<QtPDF::Document>)));
 
   _toolBar->addSeparator();
+#ifdef DEBUG
+  // FIXME: Remove this
+  _toolBar->addAction(QString::fromUtf8("en"), this, SLOT(setEnglishLocale()));
+  _toolBar->addAction(QString::fromUtf8("de"), this, SLOT(setGermanLocale()));
+  _toolBar->addSeparator();
+#endif
   _toolBar->addWidget(_search);
   connect(_search, SIGNAL(searchRequested(QString)), docView, SLOT(search(QString)));
   connect(_search, SIGNAL(gotoNextResult()), docView, SLOT(nextSearchResult()));

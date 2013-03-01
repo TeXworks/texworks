@@ -437,7 +437,7 @@ Page::Page(Document *parent, int at):
     p.begin(&brushTex);
     p.fillRect(brushTex.rect(), Qt::white);
     p.setPen(Qt::lightGray);
-    p.drawText(brushTex.rect(), Qt::AlignCenter | Qt::AlignVCenter | Qt::TextSingleLine, QApplication::tr("rendering page"), &textRect);
+    p.drawText(brushTex.rect(), Qt::AlignCenter | Qt::AlignVCenter | Qt::TextSingleLine, QCoreApplication::translate("QtPDF::PDFDocumentScene", "rendering page"), &textRect);
     p.end();
     textRect.adjust(-textRect.width() * .05, -textRect.height() * .1, textRect.width() * .05, textRect.height() * .1);
     brushTex = brushTex.copy(textRect.toAlignedRect());

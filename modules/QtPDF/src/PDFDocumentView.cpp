@@ -27,6 +27,8 @@ static bool isPageItem(const QGraphicsItem *item) { return ( item->type() == PDF
 
 // PDFDocumentView
 // ===============
+QTranslator * PDFDocumentView::_translator = NULL;
+QString PDFDocumentView::_translatorLanguage;
 
 // This class descends from `QGraphicsView` and is responsible for controlling
 // and displaying the contents of a `Document` using a `QGraphicsScene`.
@@ -39,6 +41,10 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   _mouseMode(MouseMode_Move),
   _armedTool(NULL)
 {
+  // FIXME: Allow to initialize with a specific language (in case the
+  // application uses a custom locale and switchInterfaceLocale() has not been
+  // called, yet (e.g., this is the first instance of PDFDocumentView that is
+  // created))
   setBackgroundRole(QPalette::Dark);
   setAlignment(Qt::AlignCenter);
   setFocusPolicy(Qt::StrongFocus);
@@ -207,6 +213,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
     connect(this, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Document>)), infoWidget, SLOT(initFromDocument(const QSharedPointer<QtPDF::Document>)));
   }
   dock->setWindowTitle(infoWidget->windowTitle());
+  connect(infoWidget, SIGNAL(windowTitleChanged(const QString &)), dock, SLOT(setWindowTitle(const QString &)));
 
   // We don't want docks to (need to) take up a lot of space. If the infoWidget
   // can't shrink, we thus put it into a scroll area that can
@@ -787,6 +794,34 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
   }
 }
 
+void PDFDocumentView::switchInterfaceLocale(const QLocale & newLocale)
+{
+  // TODO: Allow for a custom directory for .qm files (i.e., one in the
+  // filesystem, instead of the embedded resources)
+  // Avoid (re-)installing the same translator multiple times (e.g., if several
+  // PDFDocumentView objects are used in the same application simultaneously
+  if (_translatorLanguage == newLocale.name())
+    return;
+
+  // Remove the old translator (if any)
+  if (_translator) {
+    QApplication::instance()->removeTranslator(_translator);
+    _translator->deleteLater();
+    _translator = NULL;
+  }
+  
+  _translatorLanguage = newLocale.name();
+  
+  _translator = new QTranslator();
+  if (_translator->load(QString::fromUtf8("QtPDF_%1").arg(newLocale.name()), QString::fromUtf8(":/trans")))
+    QApplication::instance()->installTranslator(_translator);
+  else {
+    _translator->deleteLater();
+    _translator = NULL;
+  }
+}
+
+
 void PDFDocumentView::registerTool(PDFDocumentTool * tool)
 {
   int i;
@@ -1032,6 +1067,15 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
   }
 
   Super::wheelEvent(event);
+}
+
+void PDFDocumentView::changeEvent(QEvent * event)
+{
+  if (event && event->type() == QEvent::LanguageChange) {
+    if (_pdf_scene)
+      _pdf_scene->retranslateUi();
+  }
+  Super::changeEvent(event);
 }
 
 void PDFDocumentView::armTool(const PDFDocumentTool::Type toolType)
@@ -1668,6 +1712,31 @@ PDFDocumentScene::PDFDocumentScene(Document *a_doc, QObject *parent):
 
   connect(&_pageLayout, SIGNAL(layoutChanged(const QRectF)), this, SLOT(pageLayoutChanged(const QRectF)));
 
+  // Initialize the unlock widget
+  {
+    _unlockWidget = new QWidget();
+    QVBoxLayout * layout = new QVBoxLayout();
+  
+    _unlockWidgetLockIcon = new QLabel(_unlockWidget);
+    _unlockWidgetLockIcon->setPixmap(QPixmap(QString::fromUtf8(":/icons/lock.png")));
+    _unlockWidgetLockText = new QLabel(_unlockWidget);
+    _unlockWidgetUnlockButton = new QPushButton(_unlockWidget);
+    
+    connect(_unlockWidgetUnlockButton, SIGNAL(clicked()), this, SLOT(doUnlockDialog()));
+  
+    layout->addWidget(_unlockWidgetLockIcon);
+    layout->addWidget(_unlockWidgetLockText);
+    layout->addSpacing(20);
+    layout->addWidget(_unlockWidgetUnlockButton);
+  
+    layout->setAlignment(_unlockWidgetLockIcon, Qt::AlignHCenter);
+    layout->setAlignment(_unlockWidgetLockText, Qt::AlignHCenter);
+    layout->setAlignment(_unlockWidgetUnlockButton, Qt::AlignHCenter);
+  
+    _unlockWidget->setLayout(layout);
+    retranslateUi();
+  }
+  
   reinitializeScene();
 }
 
@@ -1793,6 +1862,27 @@ void PDFDocumentScene::doUnlockDialog()
   }
 }
 
+void PDFDocumentScene::retranslateUi()
+{
+  _unlockWidgetLockText->setText(trUtf8("This document is locked. You need a password to open it."));
+  _unlockWidgetUnlockButton->setText(trUtf8("Unlock"));
+  
+  foreach (QGraphicsItem * i, items()) {
+    if (!i)
+      continue;
+    switch (i->type()) {
+    case PDFLinkGraphicsItem::Type:
+    {
+      PDFLinkGraphicsItem * gi = static_cast<PDFLinkGraphicsItem*>(i);
+      gi->retranslateUi();
+    }
+      break;
+    default:
+      break;
+    }
+  }
+}
+
 // Protected Slots
 // --------------
 void PDFDocumentScene::pageLayoutChanged(const QRectF& sceneRect)
@@ -1807,26 +1897,6 @@ void PDFDocumentScene::reinitializeScene()
   _lastPage = _doc->numPages();
   if (_doc->isLocked()) {
     // FIXME: Deactivate "normal" user interaction, e.g., zooming, panning, etc.
-    QWidget * _unlockWidget = new QWidget();
-    QVBoxLayout * layout = new QVBoxLayout();
-
-    QLabel * lockIcon = new QLabel(_unlockWidget);
-    lockIcon->setPixmap(QPixmap(QString::fromUtf8(":/icons/lock.png")));
-    QLabel * lockText = new QLabel(tr("This document is locked. You need a password to open it."), _unlockWidget);
-    QPushButton * lockButton = new QPushButton(tr("Unlock"), _unlockWidget);
-
-    connect(lockButton, SIGNAL(clicked()), this, SLOT(doUnlockDialog()));
-
-    layout->addWidget(lockIcon);
-    layout->addWidget(lockText);
-    layout->addSpacing(20);
-    layout->addWidget(lockButton);
-
-    layout->setAlignment(lockIcon, Qt::AlignHCenter);
-    layout->setAlignment(lockText, Qt::AlignHCenter);
-    layout->setAlignment(lockButton, Qt::AlignHCenter);
-
-    _unlockWidget->setLayout(layout);
     addWidget(_unlockWidget);
   }
   else {
@@ -2182,6 +2252,13 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_lin
   setPen(QPen(Qt::transparent));
 #endif
 
+  retranslateUi();
+}
+
+int PDFLinkGraphicsItem::type() const { return Type; }
+
+void PDFLinkGraphicsItem::retranslateUi()
+{
   PDFAction * action = _link->actionOnActivation();
   if (action) {
     // Set some meaningful tooltip to inform the user what the link does
@@ -2194,7 +2271,7 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_lin
       case PDFAction::ActionTypeGoTo:
         {
           PDFGotoAction * actionGoto = static_cast<PDFGotoAction*>(action);
-          setToolTip(PDFDocumentView::trUtf8("<p>Goto page %1</p>").arg(actionGoto->destination().page() + 1));
+          setToolTip(QString::fromUtf8("<p>") + PDFDocumentView::trUtf8("Goto page %1").arg(actionGoto->destination().page() + 1) + QString::fromUtf8("</p>"));
         }
         break;
       case PDFAction::ActionTypeURI:
@@ -2206,7 +2283,7 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_lin
       case PDFAction::ActionTypeLaunch:
         {
           PDFLaunchAction * actionLaunch = static_cast<PDFLaunchAction*>(action);
-          setToolTip(PDFDocumentView::trUtf8("<p>Execute `%1`</p>").arg(actionLaunch->command()));
+          setToolTip(QString::fromUtf8("<p>") + PDFDocumentView::trUtf8("Execute `%1`").arg(actionLaunch->command()) + QString::fromUtf8("</p>"));
         }
         break;
       default:
@@ -2215,8 +2292,6 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_lin
     }
   }
 }
-
-int PDFLinkGraphicsItem::type() const { return Type; }
 
 // Event Handlers
 // --------------
@@ -2409,6 +2484,24 @@ void PDFMarkupAnnotationGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent
   // (Probably turn it into a subclass of QWidget, too).
 }
 
+
+// PDFDocumentInfoWidget
+// =====================
+
+void PDFDocumentInfoWidget::setWindowTitle(const QString & windowTitle)
+{
+  QWidget::setWindowTitle(windowTitle);
+  emit windowTitleChanged(windowTitle);
+}
+
+void PDFDocumentInfoWidget::changeEvent(QEvent * event)
+{
+  if (event && event->type() == QEvent::LanguageChange)
+    retranslateUi();
+  QWidget::changeEvent(event);
+}
+
+
 // PDFToCInfoWidget
 // ============
 
@@ -2428,6 +2521,11 @@ PDFToCInfoWidget::PDFToCInfoWidget(QWidget * parent) :
   setLayout(layout);
 }
 
+void PDFToCInfoWidget::retranslateUi()
+{
+  setWindowTitle(PDFDocumentView::trUtf8("Table of Contents"));
+}
+
 PDFToCInfoWidget::~PDFToCInfoWidget()
 {
   clear();
@@ -2438,6 +2536,8 @@ void PDFToCInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
   Q_ASSERT(_tree != NULL);
   Q_ASSERT(!doc.isNull());
 
+  PDFDocumentInfoWidget::initFromDocument(doc);
+  
   const PDFToC data = doc->toc();
   clear();
   recursiveAddTreeItems(data, _tree->invisibleRootItem());
@@ -2524,7 +2624,6 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   // vLayout ... lays out the group boxes in w
   // layout ... lays out the actual data widgets in groupBox
   QVBoxLayout * vLayout = new QVBoxLayout(this);
-  QGroupBox * groupBox;
   QFormLayout * layout;
 
   // We want the vLayout to set the size of w (which should encompass all child
@@ -2534,86 +2633,103 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   // Set margins to 0 as space is very limited in the sidebar
   vLayout->setContentsMargins(0, 0, 0, 0);
 
+  // NOTE: The labels are initialized in retranslteUi() below
   // The "Document" group box
-  groupBox = new QGroupBox(PDFDocumentView::trUtf8("Document"), this);
-  layout = new QFormLayout(groupBox);
+  _documentGroup = new QGroupBox(this);
+  layout = new QFormLayout(_documentGroup);
 
-  _title = new QLabel(groupBox);
+  _titleLabel = new QLabel(_documentGroup);
+  _title = new QLabel(_documentGroup);
   _title->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
-  layout->addRow(PDFDocumentView::trUtf8("Title:"), _title);
+  layout->addRow(_titleLabel, _title);
 
-  _author = new QLabel(groupBox);
+  _authorLabel = new QLabel(_documentGroup);
+  _author = new QLabel(_documentGroup);
   _author->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
-  layout->addRow(PDFDocumentView::trUtf8("Author:"), _author);
+  layout->addRow(_authorLabel, _author);
 
-  _subject = new QLabel(groupBox);
+  _subjectLabel = new QLabel(_documentGroup);
+  _subject = new QLabel(_documentGroup);
   _subject->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
-  layout->addRow(PDFDocumentView::trUtf8("Subject:"), _subject);
+  layout->addRow(_subjectLabel, _subject);
 
-  _keywords = new QLabel(groupBox);
+  _keywordsLabel = new QLabel(_documentGroup);
+  _keywords = new QLabel(_documentGroup);
   _keywords->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
-  layout->addRow(PDFDocumentView::trUtf8("Keywords:"), _keywords);
-
-  groupBox->setLayout(layout);
-  vLayout->addWidget(groupBox);
+  layout->addRow(_keywordsLabel, _keywords);
+  
+  _documentGroup->setLayout(layout);
+  vLayout->addWidget(_documentGroup);
 
   // The "Processing" group box
-  groupBox = new QGroupBox(PDFDocumentView::trUtf8("Processing"), this);
-  layout = new QFormLayout(groupBox);
+  _processingGroup = new QGroupBox(PDFDocumentView::trUtf8("Processing"), this);
+  layout = new QFormLayout(_processingGroup);
 
-  _creator = new QLabel(groupBox);
+  _creatorLabel = new QLabel(_processingGroup);
+  _creator = new QLabel(_processingGroup);
   _creator->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
-  layout->addRow(PDFDocumentView::trUtf8("Creator:"), _creator);
+  layout->addRow(_creatorLabel, _creator);
 
-  _producer = new QLabel(groupBox);
+  _producerLabel = new QLabel(_processingGroup);
+  _producer = new QLabel(_processingGroup);
   _producer->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
-  layout->addRow(PDFDocumentView::trUtf8("Producer:"), _producer);
+  layout->addRow(_producerLabel, _producer);
 
-  _creationDate = new QLabel(groupBox);
+  _creationDateLabel = new QLabel(_processingGroup);
+  _creationDate = new QLabel(_processingGroup);
   _creationDate->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
-  layout->addRow(PDFDocumentView::trUtf8("Creation date:"), _creationDate);
+  layout->addRow(_creationDateLabel, _creationDate);
 
-  _modDate = new QLabel(groupBox);
+  _modDateLabel = new QLabel(_processingGroup);
+  _modDate = new QLabel(_processingGroup);
   _modDate->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
-  layout->addRow(PDFDocumentView::trUtf8("Modification date:"), _modDate);
+  layout->addRow(_modDateLabel, _modDate);
 
-  _trapped = new QLabel(groupBox);
+  _trappedLabel = new QLabel(_processingGroup);
+  _trapped = new QLabel(_processingGroup);
   _trapped->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
-  layout->addRow(PDFDocumentView::trUtf8("Trapped:"), _trapped);
+  layout->addRow(_trappedLabel, _trapped);
 
-  groupBox->setLayout(layout);
-  vLayout->addWidget(groupBox);
+  _processingGroup->setLayout(layout);
+  vLayout->addWidget(_processingGroup);
 
   // The "Other" group box
-  _other = groupBox = new QGroupBox(PDFDocumentView::trUtf8("Other"), this);
-  layout = new QFormLayout(groupBox);
+  _otherGroup = new QGroupBox(PDFDocumentView::trUtf8("Other"), this);
+  layout = new QFormLayout(_otherGroup);
   // Hide the "Other" group box unless it has something to display
-  _other->setVisible(false);
+  _otherGroup->setVisible(false);
 
   // Note: Items are added to the "Other" box dynamically in
   // initFromDocument()
 
-  groupBox->setLayout(layout);
-  vLayout->addWidget(groupBox);
+  _otherGroup->setLayout(layout);
+  vLayout->addWidget(_otherGroup);
 
   setLayout(vLayout);
+  retranslateUi();
 }
 
 void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
-  if (!doc) {
+  PDFDocumentInfoWidget::initFromDocument(doc);
+  reload();
+}
+
+void PDFMetaDataInfoWidget::reload()
+{
+  if (!_doc) {
     clear();
     return;
   }
-  _title->setText(doc->title());
-  _author->setText(doc->author());
-  _subject->setText(doc->subject());
-  _keywords->setText(doc->keywords());
-  _creator->setText(doc->creator());
-  _producer->setText(doc->producer());
-  _creationDate->setText(doc->creationDate().toString(Qt::DefaultLocaleLongDate));
-  _modDate->setText(doc->modDate().toString(Qt::DefaultLocaleLongDate));
-  switch (doc->trapped()) {
+  _title->setText(_doc->title());
+  _author->setText(_doc->author());
+  _subject->setText(_doc->subject());
+  _keywords->setText(_doc->keywords());
+  _creator->setText(_doc->creator());
+  _producer->setText(_doc->producer());
+  _creationDate->setText(_doc->creationDate().toString(Qt::DefaultLocaleLongDate));
+  _modDate->setText(_doc->modDate().toString(Qt::DefaultLocaleLongDate));
+  switch (_doc->trapped()) {
     case Document::Trapped_True:
       _trapped->setText(PDFDocumentView::trUtf8("Yes"));
       break;
@@ -2624,7 +2740,7 @@ void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
       _trapped->setText(PDFDocumentView::trUtf8("Unknown"));
       break;
   }
-  QFormLayout * layout = qobject_cast<QFormLayout*>(_other->layout());
+  QFormLayout * layout = qobject_cast<QFormLayout*>(_otherGroup->layout());
   Q_ASSERT(layout != NULL);
 
   // Remove any items there may be
@@ -2637,13 +2753,13 @@ void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
     }
   }
   QMap<QString, QString>::const_iterator it;
-  for (it = doc->metaDataOther().constBegin(); it != doc->metaDataOther().constEnd(); ++it) {
-    QLabel * l = new QLabel(it.value(), _other);
+  for (it = _doc->metaDataOther().constBegin(); it != _doc->metaDataOther().constEnd(); ++it) {
+    QLabel * l = new QLabel(it.value(), _otherGroup);
     l->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
     layout->addRow(it.key(), l);
   }
   // Hide the "Other" group box unless it has something to display
-  _other->setVisible(layout->count() > 0);
+  _otherGroup->setVisible(layout->count() > 0);
 }
 
 void PDFMetaDataInfoWidget::clear()
@@ -2657,7 +2773,7 @@ void PDFMetaDataInfoWidget::clear()
   _creationDate->setText(QString());
   _modDate->setText(QString());
   _trapped->setText(PDFDocumentView::trUtf8("Unknown"));
-  QFormLayout * layout = qobject_cast<QFormLayout*>(_other->layout());
+  QFormLayout * layout = qobject_cast<QFormLayout*>(_otherGroup->layout());
   Q_ASSERT(layout != NULL);
 
   // Remove any items there may be
@@ -2667,6 +2783,29 @@ void PDFMetaDataInfoWidget::clear()
       delete child;
   }
 }
+
+void PDFMetaDataInfoWidget::retranslateUi()
+{
+  setWindowTitle(PDFDocumentView::trUtf8("Meta Data"));
+  
+  _documentGroup->setTitle(PDFDocumentView::trUtf8("Document"));
+  _titleLabel->setText(PDFDocumentView::trUtf8("Title:"));
+  _authorLabel->setText(PDFDocumentView::trUtf8("Author:"));
+  _subjectLabel->setText(PDFDocumentView::trUtf8("Subject:"));
+  _keywordsLabel->setText(PDFDocumentView::trUtf8("Keywords:"));
+  
+  _processingGroup->setTitle(PDFDocumentView::trUtf8("Processing"));
+  _creatorLabel->setText(PDFDocumentView::trUtf8("Creator:"));
+  _producerLabel->setText(PDFDocumentView::trUtf8("Producer:"));
+  _creationDateLabel->setText(PDFDocumentView::trUtf8("Creation date:"));
+  _modDateLabel->setText(PDFDocumentView::trUtf8("Modification date:"));
+  _trappedLabel->setText(PDFDocumentView::trUtf8("Trapped:"));
+
+  _otherGroup->setTitle(PDFDocumentView::trUtf8("Other"));
+  
+  reload();
+}
+
 
 // PDFFontsInfoWidget
 // ============
@@ -2683,7 +2822,6 @@ PDFFontsInfoWidget::PDFFontsInfoWidget(QWidget * parent) :
   _table->setFont(f);
 #endif
   _table->setColumnCount(4);
-  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Name") << PDFDocumentView::trUtf8("Type") << PDFDocumentView::trUtf8("Subset") << PDFDocumentView::trUtf8("Source"));
   _table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
   _table->setEditTriggers(QAbstractItemView::NoEditTriggers);
   _table->setAlternatingRowColors(true);
@@ -2695,17 +2833,24 @@ PDFFontsInfoWidget::PDFFontsInfoWidget(QWidget * parent) :
 
   layout->addWidget(_table);
   setLayout(layout);
+  retranslateUi();
 }
 
 void PDFFontsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
+  PDFDocumentInfoWidget::initFromDocument(doc);
+  reload();
+}
+
+void PDFFontsInfoWidget::reload()
+{
   Q_ASSERT(_table != NULL);
 
   clear();
-  if (!doc)
+  if (!_doc)
     return;
 
-  QList<PDFFontInfo> fonts = doc->fonts();
+  QList<PDFFontInfo> fonts = _doc->fonts();
   _table->setRowCount(fonts.count());
 
   int i = 0;
@@ -2749,8 +2894,17 @@ void PDFFontsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 
 void PDFFontsInfoWidget::clear()
 {
+  Q_ASSERT(_table != NULL);
   _table->clearContents();
   _table->setRowCount(0);
+}
+
+void PDFFontsInfoWidget::retranslateUi()
+{
+  Q_ASSERT(_table != NULL);
+  setWindowTitle(PDFDocumentView::trUtf8("Fonts"));
+  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Name") << PDFDocumentView::trUtf8("Type") << PDFDocumentView::trUtf8("Subset") << PDFDocumentView::trUtf8("Source"));  
+  reload();
 }
 
 
@@ -2767,29 +2921,41 @@ PDFPermissionsInfoWidget::PDFPermissionsInfoWidget(QWidget * parent) :
   // widgets completely, since we in turn put it into scrollArea to handle
   // oversized children
   layout->setSizeConstraint(QLayout::SetFixedSize);
-
+  
+  _printLabel = new QLabel(this);
   _print = new QLabel(this);
-  layout->addRow(PDFDocumentView::trUtf8("Printing:"), _print);
+  layout->addRow(_printLabel, _print);
+  _modifyLabel = new QLabel(this);
   _modify = new QLabel(this);
-  layout->addRow(PDFDocumentView::trUtf8("Modifications:"), _modify);
+  layout->addRow(_modifyLabel, _modify);
+  _extractLabel = new QLabel(this);
   _extract = new QLabel(this);
-  layout->addRow(PDFDocumentView::trUtf8("Extraction:"), _extract);
+  layout->addRow(_extractLabel, _extract);
+  _addNotesLabel = new QLabel(this);
   _addNotes = new QLabel(this);
-  layout->addRow(PDFDocumentView::trUtf8("Annotation:"), _addNotes);
+  layout->addRow(_addNotesLabel, _addNotes);
+  _formLabel = new QLabel(this);
   _form = new QLabel(this);
-  layout->addRow(PDFDocumentView::trUtf8("Filling forms:"), _form);
+  layout->addRow(_formLabel, _form);
 
   setLayout(layout);
+  retranslateUi();
 }
 
 void PDFPermissionsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
-  if (!doc) {
+  PDFDocumentInfoWidget::initFromDocument(doc);
+  reload();
+}
+
+void PDFPermissionsInfoWidget::reload()
+{
+  if (!_doc) {
     clear();
     return;
   }
   
-  QFlags<Document::Permissions> & perm = doc->permissions();
+  QFlags<Document::Permissions> & perm = _doc->permissions();
   
   if (perm.testFlag(Document::Permission_Print)) {
     if (perm.testFlag(Document::Permission_PrintHighRes))
@@ -2837,6 +3003,18 @@ void PDFPermissionsInfoWidget::clear()
   _form->setText(PDFDocumentView::trUtf8("Denied"));
 }
 
+void PDFPermissionsInfoWidget::retranslateUi()
+{
+  setWindowTitle(PDFDocumentView::trUtf8("Permissions"));
+
+  _printLabel->setText(PDFDocumentView::trUtf8("Printing:"));
+  _modifyLabel->setText(PDFDocumentView::trUtf8("Modifications:"));
+  _extractLabel->setText(PDFDocumentView::trUtf8("Extraction:"));
+  _addNotesLabel->setText(PDFDocumentView::trUtf8("Annotation:"));
+  _formLabel->setText(PDFDocumentView::trUtf8("Filling forms:"));
+  reload();
+}
+
 
 // PDFAnnotationsInfoWidget
 // ============
@@ -2853,7 +3031,6 @@ PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
   _table->setFont(f);
 #endif
   _table->setColumnCount(4);
-  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Page") << PDFDocumentView::trUtf8("Subject") << PDFDocumentView::trUtf8("Author") << PDFDocumentView::trUtf8("Contents"));
   _table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
   _table->setEditTriggers(QAbstractItemView::NoEditTriggers);
   _table->setAlternatingRowColors(true);
@@ -2867,6 +3044,7 @@ PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
   setLayout(layout);
   
   connect(&_annotWatcher, SIGNAL(resultReadyAt(int)), this, SLOT(annotationsReady(int)));
+  retranslateUi();
 }
 
 void PDFAnnotationsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
@@ -2930,6 +3108,13 @@ void PDFAnnotationsInfoWidget::clear()
   _table->clearContents();
   _table->setRowCount(0);
 }
+
+void PDFAnnotationsInfoWidget::retranslateUi()
+{
+  setWindowTitle(PDFDocumentView::trUtf8("Annotations"));
+  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Page") << PDFDocumentView::trUtf8("Subject") << PDFDocumentView::trUtf8("Author") << PDFDocumentView::trUtf8("Contents"));
+}
+
 
 // PDFActionEvent
 // ============
