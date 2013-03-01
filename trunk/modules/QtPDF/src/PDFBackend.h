@@ -123,7 +123,7 @@ class PDFAction
 {
 public:
   enum ActionType {
-    ActionTypeGoTo, ActionTypeGoToR, ActionTypeGoToE, ActionTypeLaunch,
+    ActionTypeGoTo, /*ActionTypeGoToR,*/ ActionTypeGoToE, ActionTypeLaunch,
     ActionTypeThread, ActionTypeURI, ActionTypeSound, ActionTypeMovie,
     ActionTypeHide, ActionTypeNamed, ActionTypeSubmitForm, ActionTypeResetForm,
     ActionTypeImportData, ActionTypeJavaScript, ActionTypeSetOCGState,
@@ -151,13 +151,23 @@ class PDFGotoAction : public PDFAction
 {
 public:
   ActionType type() const { return ActionTypeGoTo; }
-  PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination) { }
+  PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination), _isRemote(false), _openInNewWindow(true) { }
 
   PDFDestination destination() const { return _destination; }
+  bool isRemote() const { return _isRemote; }
+  QString filename() const { return _filename; }
+  bool openInNewWindow() const { return _openInNewWindow; }
+
   void setDestination(const PDFDestination destination) { _destination = destination; }
+  void setRemote(const bool remote = true) { _isRemote = remote; }
+  void setFilename(const QString filename) { _filename = filename; }
+  void setOpenInNewWindow(const bool openInNewWindow = true) { _openInNewWindow = openInNewWindow; }
 
 private:
   PDFDestination _destination;
+  bool _isRemote;
+  QString _filename; // relevent only if _isRemote == true; should always refer to a PDF document (for other files, use PDFLaunchAction)
+  bool _openInNewWindow; // relevent only if _isRemote == true
 };
 
 class PDFLaunchAction : public PDFAction

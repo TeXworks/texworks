@@ -110,14 +110,16 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
       case Poppler::Link::Goto:
         {
           Poppler::LinkGoto * popplerGoto = static_cast<Poppler::LinkGoto *>(popplerLink);
-          if (!popplerGoto->isExternal()) {
-            PDFDestination dest(popplerGoto->destination().pageNumber() - 1);
-            // FIXME: Convert viewport, zoom, fitting, etc.
-            link->setActionOnActivation(new PDFGotoAction(dest));
+          PDFDestination dest(popplerGoto->destination().pageNumber() - 1);
+          // FIXME: Convert viewport, zoom, fitting, etc.
+          PDFGotoAction * action = new PDFGotoAction(dest);
+          if (popplerGoto->isExternal()) {
+            // TODO: Verify that Poppler::LinkGoto only refers to pdf files
+            // (for other file types we would need PDFLaunchAction)
+            action->setRemote();
+            action->setFilename(popplerGoto->fileName());
           }
-          else {
-            // FIXME: Implement remote GoTo action
-          }
+          link->setActionOnActivation(action);
         }
         break;
       case Poppler::Link::Execute:

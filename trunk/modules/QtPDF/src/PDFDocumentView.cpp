@@ -292,13 +292,15 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
   // our internal implementation (document/view structure, etc.)
   switch (action->type()) {
     // FIXME: Implement remote gotos
-/*    case PDFAction::ActionTypeGoTo:
+    case PDFAction::ActionTypeGoTo:
       {
-        PDFGotoAction * actionGoto = static_cast<PDFGotoAction*>(action);
-        emit requestOpenPdf(linkGoto->fileName(), linkGoto->destination().pageNumber());
+        const PDFGotoAction * actionGoto = static_cast<const PDFGotoAction*>(action);
+        // TODO: Possibly handle other properties of destination() (e.g.,
+        // viewport settings, zoom level, etc.)
+        emit requestOpenPdf(actionGoto->filename(), actionGoto->destination().page(), actionGoto->openInNewWindow());
       }
       break;
-*/    case PDFAction::ActionTypeURI:
+    case PDFAction::ActionTypeURI:
       {
         const PDFURIAction * actionURI = static_cast<const PDFURIAction*>(action);
         emit requestOpenUrl(actionURI->url());
@@ -1033,14 +1035,16 @@ void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
     case PDFAction::ActionTypeGoTo:
       {
         const PDFGotoAction * actionGoto = static_cast<const PDFGotoAction*>(action);
-        // Jump by page number.
-        //
-        // **NOTE:**
-        // _There are many details that are not being considered, such as
-        // centering on a specific anchor point and possibly changing the zoom
-        // level rather than just focusing on the center of the target page._
-        emit pageChangeRequested(actionGoto->destination().page());
-        return;
+        if (!actionGoto->isRemote()) {
+          // Jump by page number.
+          //
+          // **NOTE:**
+          // _There are many details that are not being considered, such as
+          // centering on a specific anchor point and possibly changing the zoom
+          // level rather than just focusing on the center of the target page._
+          emit pageChangeRequested(actionGoto->destination().page());
+          return;
+        }
       }
       break;
     // Link types that we don't handle here but that may be of interest

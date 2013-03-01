@@ -31,12 +31,13 @@ following components are required:
 TODO
 ====
 ### Required
+ - Fix FIXMEs
  - ~~GotoPage should not center on page~~ __DONE__
  - ~~zoom/hand tools~~ __DONE__
  - ~~ctrl+mousewheel should zoom~~ __DONE__
  - ~~maquee zoom (requested by Philip Taylor)~~ __DONE__
  - context menu
- - Flesh out link support
+ - ~~Flesh out link support~~ __DONE__
  - ~~Add some loading indicators so that users know something is happening in the
    background when pages are blank or blurry~~ __DONE__
  - scrolling beyond edge at single page mode (mouse wheel/up/down)
