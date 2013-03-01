@@ -962,11 +962,11 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     case Poppler::Link::Goto:
     {
-      const Poppler::LinkGoto *target = dynamic_cast<const Poppler::LinkGoto*>(_link);
-      Q_ASSERT(target != NULL);
+      const Poppler::LinkGoto *linkGoto = reinterpret_cast<Poppler::LinkGoto*>(_link);
+      Q_ASSERT( linkGoto != NULL );
 
       // **FIXME:** _We don't handle this yet!_
-      if ( target->isExternal() ) break;
+      if ( linkGoto->isExternal() ) break;
 
       // Jump by page number. Links reckon page numbers starting with 1 so we
       // subtract to conform with 0-based indexing used by C++.
@@ -975,7 +975,7 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
       // _There are many details that are not being considered, such as
       // centering on a specific anchor point and possibly changing the zoom
       // level rather than just focusing on the center of the target page._
-      const int destPage = target->destination().pageNumber() - 1;
+      const int destPage = linkGoto->destination().pageNumber() - 1;
 
       // Post an event to the parent scene. The scene then takes care of
       // notifying objects, such as `PDFDocumentView`, that may want to take
@@ -984,10 +984,31 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
       break;
     }
 
+    case Poppler::Link::Browse:
+    {
+      const Poppler::LinkBrowse *linkBrowse = reinterpret_cast<Poppler::LinkBrowse*>(_link);
+      Q_ASSERT( linkBrowse != NULL );
+
+      const QUrl url = QUrl::fromEncoded(linkBrowse->url().toAscii());
+
+      // **FIXME:** _We don't handle this yet!_
+      if( url.scheme() == QString::fromUtf8("file") )
+        break;
+
+
+      // **TODO:**
+      // _Should a graphics item really be making this sort of decision about
+      // how to respond to a URL? It may be better to post some sort of event
+      // and let code outside of the graphics view deal with the situation.
+      //
+      // In any case, `openUrl` can fail and that needs to be handled._
+      QDesktopServices::openUrl(url);
+      break;
+    }
+
     // Unsupported link types:
     //
     //     Poppler::Link::None
-    //     Poppler::Link::Browse
     //     Poppler::Link::Execute
     //     Poppler::Link::JavaScript
     //     Poppler::Link::Action
