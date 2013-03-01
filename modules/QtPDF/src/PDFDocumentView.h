@@ -63,6 +63,9 @@ protected:
   void paintEvent(QPaintEvent *event);
   void keyPressEvent(QKeyEvent *event);
 
+protected slots:
+  void pageLayoutChanged();
+
 private:
   PageMode _pageMode;
   // Parent class has no copy constructor.
@@ -138,7 +141,7 @@ public slots:
   void relayout();
 
 signals:
-  void layoutChanged();
+  void layoutChanged(const QRectF sceneRect);
   
 private:
   void rearrange();
@@ -171,9 +174,13 @@ public:
 
 signals:
   void pageChangeRequested(int pageNum);
+  void pageLayoutChanged();
 
 protected:
   bool event(QEvent* event);
+
+protected slots:
+  void pageLayoutChanged(const QRectF& sceneRect);
 
 private:
   // Parent has no copy constructor, so this class shouldn't either. Also, we

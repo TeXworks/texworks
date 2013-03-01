@@ -57,6 +57,7 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
   // _May want to consider not doing this by default. It is conceivable to have
   // a View that would ignore page jumps that other scenes would respond to._
   connect(a_scene, SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
+  connect(a_scene, SIGNAL(pageLayoutChanged()), this, SLOT(pageLayoutChanged()));
 }
 int PDFDocumentView::currentPage() { return _currentPage; }
 int PDFDocumentView::lastPage()    { return _lastPage; }
@@ -116,6 +117,9 @@ void PDFDocumentView::zoomOut()
   emit changedZoom(_zoomLevel);
 }
 
+// Protected Slots
+// --------------
+void PDFDocumentView::pageLayoutChanged() { goToPage(currentPage()); }
 
 // Event Handlers
 // --------------
@@ -214,14 +218,11 @@ PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
   _doc->setRenderHint(Poppler::Document::TextAntialiasing);
 
   _lastPage = _doc->numPages();
+  
+  connect(&_pageLayout, SIGNAL(layoutChanged(const QRectF)), this, SLOT(pageLayoutChanged(const QRectF)));
 
-  // Create a `PDFPageGraphicsItem` for each page in the PDF document.  The
-  // Y-coordinate of each page is shifted such that it will appear 10px below
-  // the previous page.
-  //
-  // **TODO:** _Investigate things such as `QGraphicsGridLayout` that may take
-  // care of offset for us and make it easy to extend to 2-up or multipage
-  // views._
+  // Create a `PDFPageGraphicsItem` for each page in the PDF document and let
+  // them be layed out by a `PDFPageGridLayout` instance.
   int i;
   PDFPageGraphicsItem *pagePtr;
 
@@ -289,6 +290,15 @@ bool PDFDocumentScene::event(QEvent *event)
 
   return Super::event(event);
 }
+
+// Protected Slots
+// --------------
+void PDFDocumentScene::pageLayoutChanged(const QRectF& sceneRect)
+{
+  setSceneRect(sceneRect);
+  emit pageLayoutChanged();
+}
+
 
 // PDFPageGraphicsItem
 // ===================
@@ -845,6 +855,11 @@ void PDFPageGridLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsIt
   }
 }
 
+// Relayout the pages on the canvas
+// **TODO:** Accessing Poppler::Page::pageSizeF() doesn't seem to pose a
+// threading problem; at least it can be done while rendering in the background
+// without acquiring the docMutex.
+// Maybe we should use a QReadWriteLock instead of docMutex?
 void PDFPageGridLayout::relayout() {
   // Create arrays to hold offsets and make sure that they have
   // sufficient space (to avoid moving the data around in memory)
@@ -854,6 +869,7 @@ void PDFPageGridLayout::relayout() {
   QList<LayoutItem>::iterator it;
   PDFPageGraphicsItem * page;
   QSizeF pageSize;
+  QRectF sceneRect;
 
   // First, fill the offsets with the respective widths and heights
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
@@ -881,12 +897,15 @@ void PDFPageGridLayout::relayout() {
     // Center page in allotted space (in case we stumble over pages of different
     // sizes, e.g., landscape pages, etc.)
     pageSize = it->page->_page->pageSizeF();
-    x = 0.5 * (colOffsets[it->col + 1] + colOffsets[it->col] - _xSpacing - pageSize.width());
-    y = 0.5 * (rowOffsets[it->row + 1] + rowOffsets[it->row] - _ySpacing - pageSize.height());
+    x = 0.5 * (colOffsets[it->col + 1] + colOffsets[it->col] - _xSpacing - pageSize.width() * page->_dpiX / 72.);
+    y = 0.5 * (rowOffsets[it->row + 1] + rowOffsets[it->row] - _ySpacing - pageSize.height() * page->_dpiY / 72.);
     it->page->setPos(x, y);
   }
   
-  emit layoutChanged();
+  // leave some space around the pages (note that the space on the right/bottom
+  // is already included in the corresponding Offset values)
+  sceneRect.setRect(-_xSpacing, -_ySpacing, colOffsets[_numCols] + _xSpacing, rowOffsets[rowCount()] + _ySpacing);
+  emit layoutChanged(sceneRect);
 }
 
 void PDFPageGridLayout::rearrange() {
