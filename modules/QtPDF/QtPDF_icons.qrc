@@ -1,0 +1,9 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource>
+    <file>icons/lock.png</file>
+    <file>icons/magnifiercursor.png</file>
+    <file>icons/zoomincursor.png</file>
+    <file>icons/zoomoutcursor.png</file>
+  </qresource>
+</RCC>
