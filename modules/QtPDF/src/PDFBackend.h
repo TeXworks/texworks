@@ -634,8 +634,8 @@ Q_DECLARE_INTERFACE(QtPDF::BackendInterface, "org.tug.QtPDF/1.0")
 // NOTE: The backend implementations must be included _outside_ the namespace,
 // as that could otherwise interfere with other header files (e.g., those of
 // poppler-qt4)
-#ifdef USE_POPPLER
-#include <backends/PopplerBackend.h> // Invokes GPL v2+ License
+#ifdef USE_POPPLERQT4
+#include <backends/PopplerQt4Backend.h> // Invokes GPL v2+ License
 #endif
 #ifdef USE_MUPDF
 #include <backends/MuPDFBackend.h>   // Invokes GPL v3 License

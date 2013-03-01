@@ -8,7 +8,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
 
 #ifdef USE_MUPDF
   docWidget->setDefaultBackend(QString::fromAscii("mupdf"));
-#elif USE_POPPLER
+#elif USE_POPPLERQT4
   docWidget->setDefaultBackend(QString::fromAscii("poppler-qt4"));
 #else
   #error At least one backend is required
@@ -71,7 +71,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   statusBar()->addWidget(_zoomWdgt);
   addToolBar(_toolBar);
   setCentralWidget(docWidget);
-  
+
   QDockWidget * toc = docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_TableOfContents, this);
   addDockWidget(Qt::LeftDockWidgetArea, toc);
   tabifyDockWidget(toc, docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_MetaData, this));

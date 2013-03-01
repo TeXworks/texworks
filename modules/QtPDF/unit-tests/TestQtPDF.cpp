@@ -9,7 +9,7 @@ void TestQtPDF::loadDocs()
 {
 #ifdef USE_MUPDF
   QtPDF::MuPDFBackend backend;
-#elif USE_POPPLER
+#elif USE_POPPLERQT4
   QtPDF::PopplerQt4Backend backend;
 #else
   #error Must specify one backend
@@ -78,7 +78,7 @@ void TestQtPDF::numPages()
 {
   QFETCH(pDoc, doc);
   QFETCH(int, expected);
-#ifdef USE_POPPLER
+#ifdef USE_POPPLERQT4
   QEXPECT_FAIL("base14-locked", "poppler-qt4 doesn't report page numbers for locked documents", Continue);
 #endif
   QCOMPARE(doc->numPages(), expected);
@@ -127,7 +127,7 @@ void TestQtPDF::page()
 
     QVERIFY(!page.isNull());
     QVERIFY(page->pageNum() == i);
-#ifdef USE_POPPLER
+#ifdef USE_POPPLERQT4
     QEXPECT_FAIL("base14-locked", "poppler-qt4 doesn't report page sizes for locked documents", Continue);
 #endif
     QCOMPARE(page->pageSizeF(), pageSize);
@@ -301,7 +301,7 @@ void TestQtPDF::metaDataTrapped()
 {
     QFETCH(pDoc, doc);
     QFETCH(int, expected);
-#ifdef USE_POPPLER
+#ifdef USE_POPPLERQT4
     QEXPECT_FAIL("pgfmanual", "poppler-qt4 doesn't handle trapping properly", Continue);
 #endif
     QCOMPARE((int)doc->trapped(), expected);
