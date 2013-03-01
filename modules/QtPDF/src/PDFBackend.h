@@ -591,7 +591,7 @@ public:
   PDFPageProcessingThread& processingThread();
   PDFPageCache& pageCache();
 
-  virtual Page *page(int at)=0;
+  virtual QSharedPointer<Page> page(int at)=0;
   // Override in derived class if it provides access to the document outline
   // strutures of the pdf file.
   virtual PDFToC toc() const { return PDFToC(); }
@@ -614,6 +614,7 @@ protected:
   int _numPages;
   PDFPageProcessingThread _processingThread;
   PDFPageCache _pageCache;
+  QVector< QSharedPointer<Page> > _pages;
 
   QString _meta_title;
   QString _meta_author;

@@ -47,7 +47,7 @@ public:
   MuPDFDocument(QString fileName);
   ~MuPDFDocument();
 
-  Page *page(int at);
+  QSharedPointer<Page> page(int at);
   QList<PDFFontInfo> fonts() const;
 };
 

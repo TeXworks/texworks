@@ -91,7 +91,19 @@ PopplerDocument::~PopplerDocument()
 {
 }
 
-Page *PopplerDocument::page(int at){ return new PopplerPage(this, at); }
+QSharedPointer<Page> PopplerDocument::page(int at)
+{
+  // FIXME: Come up with something to deal with a zero-page PDF.
+  assert(_numPages != 0);
+
+  if( _pages.isEmpty() )
+    _pages.resize(_numPages);
+
+  if( _pages[at].isNull() )
+    _pages[at] = QSharedPointer<Page>(new PopplerPage(this, at));
+
+  return QSharedPointer<Page>(_pages[at]);
+}
 
 void PopplerDocument::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode node) const
 {

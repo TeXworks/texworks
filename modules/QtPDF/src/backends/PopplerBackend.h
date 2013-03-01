@@ -44,7 +44,7 @@ public:
   PopplerDocument(QString fileName);
   ~PopplerDocument();
 
-  Page *page(int at);
+  QSharedPointer<Page> page(int at);
   PDFToC toc() const;
   QList<PDFFontInfo> fonts() const;
 };
