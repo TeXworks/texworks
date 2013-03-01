@@ -66,7 +66,7 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
 {
   if (!_pdf_scene || pageMode == _pageMode)
     return;
-  
+
   switch (pageMode) {
 //    case PageMode_SinglePage:
 //      break;
@@ -273,7 +273,7 @@ int PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
 {
   QList<QGraphicsItem*> p(pages(polygon));
   if (p.isEmpty())
-  	return -1;
+	return -1;
   return _pages.indexOf(p.first());
 }
 
@@ -655,10 +655,10 @@ void PDFPageRenderingThread::requestRender(PDFPageGraphicsItem * page, qreal sca
 {
   int i;
   StackItem workItem;
-  
+
   workItem.page = page;
   workItem.scaleFactor = scaleFactor;
-  
+
   QMutexLocker(&(this->_mutex));
   // remove any instances of the given graphics item before adding it to avoid
   // rendering it several times
@@ -668,7 +668,7 @@ void PDFPageRenderingThread::requestRender(PDFPageGraphicsItem * page, qreal sca
     if (_workStack[i].page == page)
       _workStack.remove(i);
   }
-  
+
   _workStack.push(workItem);
 
   qDebug() << "new request added to stack; now has" << _workStack.size() << "items";
@@ -682,16 +682,16 @@ void PDFPageRenderingThread::requestRender(PDFPageGraphicsItem * page, qreal sca
 void PDFPageRenderingThread::run()
 {
   StackItem workItem;
-  
+
   _mutex.lock();
   while (!_quit) {
     // mutex must be locked at start of loop
     if (_workStack.size() > 0) {
       workItem = _workStack.pop();
       _mutex.unlock();
-      
+
       qDebug() << "starting to render; remaining items:" << _workStack.size();
-      
+
       if (workItem.page && workItem.page->_page && qobject_cast<PDFDocumentScene *>(workItem.page->scene())) {
         QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(workItem.page->scene())->docMutex);
         QImage pageImage = workItem.page->_page->renderToImage(workItem.page->_dpiX * workItem.scaleFactor, workItem.page->_dpiY * workItem.scaleFactor);
@@ -720,7 +720,7 @@ void PDFPageGridLayout::setColumnCount(const int numCols) {
   // We need at least one column
   if (numCols <= 0)
     return;
-  
+
   _numCols = numCols;
   // Make sure the first column is still valid
   if (_firstCol >= _numCols)
@@ -732,9 +732,9 @@ void PDFPageGridLayout::setColumnCount(const int numCols, const int firstCol) {
   // We need at least one column
   if (numCols <= 0)
     return;
-  
+
   _numCols = numCols;
-  
+
   if (firstCol < 0)
     _firstCol = 0;
   else if (firstCol >= _numCols)
@@ -776,10 +776,10 @@ int PDFPageGridLayout::rowCount() const {
 
 void PDFPageGridLayout::addPage(PDFPageGraphicsItem * page) {
   LayoutItem item;
-  
+
   if (!page)
     return;
-  
+
   item.page = page;
   if (_layoutItems.isEmpty()) {
     item.row = 0;
@@ -812,13 +812,13 @@ void PDFPageGridLayout::removePage(PDFPageGraphicsItem * page) {
       break;
     }
   }
-  
+
   // Then, rearrange the pages behind it (no call to rearrange() to save time
   // by not going over the unchanged pages in front of the removed one)
   for (; it != _layoutItems.end(); ++it) {
     it->row = row;
     it->col = col;
-    
+
     ++col;
     if (col >= _numCols) {
       col = 0;
@@ -831,7 +831,7 @@ void PDFPageGridLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsIt
   QList<LayoutItem>::iterator it;
   int row, col;
   LayoutItem item;
-  
+
   item.page = page;
 
   // **TODO:** Decide what to do with pages that are in the list multiple times
@@ -852,13 +852,13 @@ void PDFPageGridLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsIt
     addPage(page);
     return;
   }
-  
+
   // Then, rearrange the pages starting from the inserted one (no call to
   // rearrange() to save time by not going over the unchanged pages)
   for (; it != _layoutItems.end(); ++it) {
     it->row = row;
     it->col = col;
-    
+
     ++col;
     if (col >= _numCols) {
       col = 0;
@@ -889,19 +889,19 @@ void PDFPageGridLayout::relayout() {
       continue;
     page = it->page;
     pageSize = page->_page->pageSizeF();
-    
+
     if (colOffsets[it->col + 1] < pageSize.width() * page->_dpiX / 72.)
       colOffsets[it->col + 1] = pageSize.width() * page->_dpiX / 72.;
     if (rowOffsets[it->row + 1] < pageSize.height() * page->_dpiY / 72.)
       rowOffsets[it->row + 1] = pageSize.height() * page->_dpiY / 72.;
   }
-  
+
   // Next, calculate cumulative offsets (including spacing)
   for (i = 1; i <= _numCols; ++i)
     colOffsets[i] += colOffsets[i - 1] + _xSpacing;
   for (i = 1; i <= rowCount(); ++i)
     rowOffsets[i] += rowOffsets[i - 1] + _ySpacing;
-  
+
   // Finally, position pages
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
     if (!it->page || !it->page->_page)
@@ -913,7 +913,7 @@ void PDFPageGridLayout::relayout() {
     y = 0.5 * (rowOffsets[it->row + 1] + rowOffsets[it->row] - _ySpacing - pageSize.height() * page->_dpiY / 72.);
     it->page->setPos(x, y);
   }
-  
+
   // leave some space around the pages (note that the space on the right/bottom
   // is already included in the corresponding Offset values)
   sceneRect.setRect(-_xSpacing, -_ySpacing, colOffsets[_numCols] + _xSpacing, rowOffsets[rowCount()] + _ySpacing);
@@ -923,13 +923,13 @@ void PDFPageGridLayout::relayout() {
 void PDFPageGridLayout::rearrange() {
   QList<LayoutItem>::iterator it;
   int row, col;
-  
+
   row = 0;
   col = _firstCol;
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
     it->row = row;
     it->col = col;
-    
+
     ++col;
     if (col >= _numCols) {
       col = 0;
