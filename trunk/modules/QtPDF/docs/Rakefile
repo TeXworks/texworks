@@ -1,0 +1,37 @@
+# Simple Rakefile for generating documentation from the CMake buildsystem using
+# Rocco:
+#
+#    http://rtomayko.github.com/rocco
+#
+require 'pathname'
+require 'rocco/tasks' # Not used, but serves as a good test that Rocco is installed
+
+# Run everything from the project root directory
+DOC_DIR = Pathname.new(__FILE__).realpath.dirname
+ROOT_DIR = DOC_DIR.join '..'
+Dir.chdir ROOT_DIR
+
+# Gather all source code files
+SOURCE_FILES = Dir['src/*.cpp']
+
+# Generate documentation from comments
+task :docs do
+  system 'rocco',
+    "--output=#{DOC_DIR + 'html' + 'docs'}",
+    "--template=#{DOC_DIR + 'layout.mustache'}",
+    *SOURCE_FILES
+
+  puts <<-EOS
+Done generating documentation, index page available at:
+  #{DOC_DIR + 'html' + 'index.html'}
+  EOS
+end
+
+# Make doc generation the default task
+task :default => :docs
+
+# Generate documentation and then view it. Launching a viewer currently assumes
+# OS X. For Linux `xdg-open` would be used and `start` on Windows.
+task :view => [:docs] do
+  exec "open #{DOC_DIR + 'html' + 'index.html'}"
+end
