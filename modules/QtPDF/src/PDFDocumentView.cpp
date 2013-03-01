@@ -559,20 +559,8 @@ void PDFDocumentScene::showAllPages() const
 // PDFPageGraphicsItem
 // ===================
 
-// This class descends from `QGraphicsPixmapItem` and is responsible for
-// rendering `Poppler::Page` objects.
-//
-// **TODO:**
-// Currently the `pixmap` member inherited from `QGraphicsPixmapItem` is left
-// blank since it determines this object's size and other geometric properties.
-// The actual PDF pages are rendered to a new `QPixmap` object called
-// `_renderedPage`. This is a hack.
-//
-// `PDFPageGraphicsItem` should probably be re-implemented as a subclass of
-// `QGraphicsItem` with custom methods for accessing geometry info.
-// `QGraphicsObject` is another potential parent class and may be useful if
-// images are ever rendered in a background thread as it provides support for
-// `SIGNAL`/`SLOT` mechanics.
+// This class descends from `QGraphicsObject` and implements the on-screen
+// representation of `Poppler::Page` objects.
 PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent):
   Super(parent),
   _page(a_page),
