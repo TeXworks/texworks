@@ -74,7 +74,7 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   // after changing the mode
   // **TODO:** Safeguard
   QRectF viewRect(mapToScene(viewport()->rect()).boundingRect());
-  viewRect.translate(-_pdf_scene->pages().at(_currentPage)->pos());
+  viewRect.translate(-_pdf_scene->pageAt(_currentPage)->pos());
 
   // **TODO:** Avoid relayouting everything twice when switching from SinglePage
   // to TwoColumnContinuous (once by setContinuous(), and a second time by
@@ -107,7 +107,7 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   _pdf_scene->pageLayout().relayout();
 
   // Restore the view from before as good as possible
-  viewRect.translate(_pdf_scene->pages().at(_currentPage)->pos());
+  viewRect.translate(_pdf_scene->pageAt(_currentPage)->pos());
   ensureVisible(viewRect, 0, 0);
 }
 
@@ -127,9 +127,9 @@ void PDFDocumentView::goToPage(int pageNum)
   // We silently ignore any invalid page numbers.
   if ( (pageNum >= 0) && (pageNum < _lastPage) && (pageNum != _currentPage) )
   {
-    if (!_pdf_scene || _pdf_scene->pages().size() <= pageNum || !_pdf_scene->pages().at(pageNum))
+    if (!_pdf_scene || _pdf_scene->pages().size() <= pageNum || !_pdf_scene->pageAt(pageNum))
       return;
-    moveTopLeftTo(_pdf_scene->pages().at(pageNum)->pos());
+    moveTopLeftTo(_pdf_scene->pageAt(pageNum)->pos());
 
     _currentPage = pageNum;
     if (_pageMode == PageMode_SinglePage && _pdf_scene)
@@ -188,7 +188,7 @@ void PDFDocumentView::maybeUpdateSceneRect() {
   // Set the scene rect of the view, i.e., the rect accessible via the scroll
   // bars. In single page mode, this must be the rect of the current page
   // **TODO:** Safeguard
-  setSceneRect(_pdf_scene->pages().at(_currentPage)->sceneBoundingRect());
+  setSceneRect(_pdf_scene->pageAt(_currentPage)->sceneBoundingRect());
 }
 
 // Event Handlers
@@ -446,6 +446,15 @@ QList<QGraphicsItem*> PDFDocumentScene::pages(const QPolygonF &polygon)
 
   return pageList;
 };
+
+// Convenience function to avoid moving the complete list of pages around
+// between functions if only one page is needed
+QGraphicsItem* PDFDocumentScene::pageAt(const int idx)
+{
+  if (idx < 0 || idx >= _pages.size())
+    return NULL;
+  return _pages[idx];
+}
 
 // This is a convenience function for returning the page number of the first
 // page item inside a given area of the scene. If no page is in the specified
