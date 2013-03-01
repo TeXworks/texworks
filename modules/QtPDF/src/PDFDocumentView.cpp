@@ -60,20 +60,29 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
 {
   Super::setScene(a_scene);
 
+  // disconnect us from the old scene (if any)
+  if (_pdf_scene) {
+    disconnect(_pdf_scene, 0, this, 0);
+  }
+
   _pdf_scene = a_scene;
-  _lastPage = a_scene->lastPage();
+  if (a_scene) {
+    _lastPage = _pdf_scene->lastPage();
+    // Respond to page jumps requested by the `PDFDocumentScene`.
+    //
+    // **TODO:**
+    // _May want to consider not doing this by default. It is conceivable to have
+    // a View that would ignore page jumps that other scenes would respond to._
+    connect(_pdf_scene, SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
+    connect(_pdf_scene, SIGNAL(pdfActionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
+  }
+  else
+    _lastPage = -1;
 
   // Ensure search result list is empty in case we are switching from another
   // scene.
   _searchResults.clear();
 
-  // Respond to page jumps requested by the `PDFDocumentScene`.
-  //
-  // **TODO:**
-  // _May want to consider not doing this by default. It is conceivable to have
-  // a View that would ignore page jumps that other scenes would respond to._
-  connect(a_scene, SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
-  connect(_pdf_scene, SIGNAL(pdfActionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
 }
 int PDFDocumentView::currentPage() { return _currentPage; }
 int PDFDocumentView::lastPage()    { return _lastPage; }
@@ -240,6 +249,9 @@ void PDFDocumentView::zoomToRect(QRectF a_rect)
 
 void PDFDocumentView::zoomFitWindow()
 {
+  if (!scene())
+    return;
+
   // Curious fact: This function will end up producing a different zoom level depending on if
   // it zooms out or in. But the implementation of `fitInView` in the Qt source
   // is pretty solid---I can't think of a better way to do it.
@@ -535,14 +547,16 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   // currently displayed page. We do this by grabbing all items that are
   // currently within the bounds of the viewport's top half. We take the
   // first item found to be the "current page".
-  QRect pageBbox = viewport()->rect();
-  pageBbox.setHeight(0.5 * pageBbox.height());
-  int nextCurrentPage = _pdf_scene->pageNumAt(mapToScene(pageBbox));
+  if (_pdf_scene) {
+    QRect pageBbox = viewport()->rect();
+    pageBbox.setHeight(0.5 * pageBbox.height());
+    int nextCurrentPage = _pdf_scene->pageNumAt(mapToScene(pageBbox));
 
-  if ( nextCurrentPage != _currentPage && nextCurrentPage >= 0 && nextCurrentPage < _lastPage )
-  {
-    _currentPage = nextCurrentPage;
-    emit changedPage(_currentPage);
+    if ( nextCurrentPage != _currentPage && nextCurrentPage >= 0 && nextCurrentPage < _lastPage )
+    {
+      _currentPage = nextCurrentPage;
+      emit changedPage(_currentPage);
+    }
   }
 
   // Draw a drop shadow
