@@ -44,6 +44,8 @@ public:
   PopplerDocument(QString fileName);
   ~PopplerDocument();
 
+  bool isValid() const { return (_poppler_doc != NULL); }
+
   QSharedPointer<Page> page(int at);
   PDFDestination resolveDestination(const PDFDestination & namedDestination) const;
 

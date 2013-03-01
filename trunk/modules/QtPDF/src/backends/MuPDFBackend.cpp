@@ -232,12 +232,18 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
 // ==============
 MuPDFDocument::MuPDFDocument(QString fileName):
   Super(fileName),
-  _glyph_cache(fz_new_glyph_cache())
+  _glyph_cache(fz_new_glyph_cache()),
+  _mupdf_data(NULL)
 {
   // NOTE: The next two calls can fail---we need to check for that
   fz_stream *pdf_file = fz_open_file(fileName.toLocal8Bit().data());
+  if (!pdf_file)
+    return;
   pdf_open_xref_with_stream(&_mupdf_data, pdf_file, NULL);
   fz_close(pdf_file);
+
+  if (!_mupdf_data)
+    return;
 
   // NOTE: This can also fail.
   pdf_load_page_tree(_mupdf_data);
