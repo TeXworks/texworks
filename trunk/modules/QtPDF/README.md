@@ -40,8 +40,8 @@ TODO
  - Add some loading indicators so that users know something is happening in the
    background when pages are blank or blurry
  - scrolling beyond edge at single page mode (mouse wheel/up/down)
- - disallow keyboard events in document view while magnifier is shown (otherwise
-   one could scroll the canvas without properly adjusting the magnifier)
+ - ~~disallow keyboard events in document view while magnifier is shown (otherwise
+   one could scroll the canvas without properly adjusting the magnifier)~~ __DONE__
  - ~~SyncTeX with signals and slots~~ __DONE__ (actually invoking SyncTeX must
    be implemented separate from the viewer)
  - ~~fit to width/page/~~ __DONE__
