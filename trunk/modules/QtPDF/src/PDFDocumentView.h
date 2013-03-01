@@ -352,7 +352,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
 
 public:
 
-  PDFPageGraphicsItem(Page *a_page, QGraphicsItem *parent = 0);
+  PDFPageGraphicsItem(QSharedPointer<Page> a_page, QGraphicsItem *parent = 0);
 
   // This seems fragile as it assumes no other code declaring a custom graphics
   // item will choose the same ID for it's object types. Unfortunately, there
