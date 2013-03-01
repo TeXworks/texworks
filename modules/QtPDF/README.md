@@ -93,15 +93,30 @@ TODO
    correct, all the moving of objects is superfluous as well.
  - Turn PDFViewer into a more general test case (loading of arbitrary files,
    etc.)
+ - Provide additional info, e.g. through QDockWidget. Required: toc, pdf info,
+   fonts. Recommended: annotations, thumbnails (?).
  - Implement text search for PDF files.
+ - Port scripting-related functions from Tw (if any)
+ - Icons (add icons for page modes, make marquee zoom icon consistent with other
+   icons)
+ - Don't show mouse cursor while using the magnifier
+ - Handling of encrypted/password protected files (this needs to be handled
+   during loading; I haven't checked this code, but Tw crashed for some time
+   with such documents)
+ - Possibility to load different file easily (e.g., through a load() method)
+ - Possibility to reload current file (e.g., if it changed on disk)
 
 ### Wishlist
+ - Speed up magnifier; in Tw, it seems much more responsive. This might be due
+   to using centerOn in PDFDocumentMagnifierView::setPosition but needs closer
+   investigation
+ - Hitting PgUp at top of document or PgDn at bottom moves to the right
  - annotations (popup window)
  - make the magnifying glass a top-level window (so it can extend outside the
    main view's window boundaries) (requested by Reinhard Kotucha)
  - rulers (in main window, and attached to magnifying glass)
  - Split view???
- - Improve handling of several concurrent versions (magnifications) of the same
+ - ~~Improve handling of several concurrent versions (magnifications) of the same
    page (currently: "normal" and "magnified" versions); simplify code, remove
-   redundancy, etc.
+   redundancy, etc.~~ __OBSOLETE__
  - Printing.
