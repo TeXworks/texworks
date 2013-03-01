@@ -1260,23 +1260,10 @@ void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
 
   switch (action_event->action->type() )
   {
-    case PDFAction::ActionTypeGoTo:
-      {
-        const PDFGotoAction * actionGoto = static_cast<const PDFGotoAction*>(action);
-        if (!actionGoto->isRemote()) {
-          // Jump by page number.
-          //
-          // **NOTE:**
-          // _There are many details that are not being considered, such as
-          // centering on a specific anchor point and possibly changing the zoom
-          // level rather than just focusing on the center of the target page._
-          emit pageChangeRequested(actionGoto->destination().page());
-          return;
-        }
-      }
-      break;
     // Link types that we don't handle here but that may be of interest
-    // elsewhere
+    // elsewhere (note: ActionGoto will be handled by
+    // PDFDocumentView::pdfActionTriggered)
+    case PDFAction::ActionTypeGoTo:
     case PDFAction::ActionTypeURI:
     case PDFAction::ActionTypeLaunch:
       break;
