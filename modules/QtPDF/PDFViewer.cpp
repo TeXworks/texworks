@@ -6,9 +6,10 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
 {
 #ifdef USE_MUPDF
   Document *a_pdf_doc = new MuPDFDocument(pdf_doc);
-#else
-  // Assumes Poppler
+#elif USE_POPPLER
   Document *a_pdf_doc = new PopplerDocument(pdf_doc);
+#else
+  #error Either the Poppler or the MuPDF backend is required
 #endif
 
   PDFDocumentScene *docScene = new PDFDocumentScene(a_pdf_doc, this);
