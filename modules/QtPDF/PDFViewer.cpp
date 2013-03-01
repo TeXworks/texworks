@@ -40,9 +40,9 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   toolBar->addAction(QIcon(QString::fromUtf8(":/icons/fitwindow.png")), tr("Fit to Window"), docView, SLOT(zoomFitWindow()));
 
   toolBar->addSeparator();
-  toolBar->addAction(tr("Single"), docView, SLOT(setSinglePageMode()));
-  toolBar->addAction(tr("1Col Cont"), docView, SLOT(setOneColContPageMode()));
-  toolBar->addAction(tr("2Col Cont"), docView, SLOT(setTwoColContPageMode()));
+  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-single.png")), tr("Single Page Mode"), docView, SLOT(setSinglePageMode()));
+  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-continuous.png")), tr("One Column Continuous Page Mode"), docView, SLOT(setOneColContPageMode()));
+  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-twocols.png")), tr("Two Columns Continuous Page Mode"), docView, SLOT(setTwoColContPageMode()));
 
   toolBar->addSeparator();
   toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom.png")), tr("Magnify"), docView, SLOT(setMouseModeMagnifyingGlass()));

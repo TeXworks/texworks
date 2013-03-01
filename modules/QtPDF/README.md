@@ -75,8 +75,6 @@ TODO
    correct, all the moving of objects is superfluous as well.
  - Implement text search for PDF files.
  - Port scripting-related functions from Tw (if any)
- - Icons (add icons for page modes, make marquee zoom icon consistent with other
-   icons)
  - Handling of encrypted/password protected files (this needs to be handled
    during loading; accessing some functions (e.g., for rendering) in a locked
    document crashes the program)
@@ -87,6 +85,8 @@ TODO
  - Clicking on an item in the ToC that lies after the current viewport position
    moves the view such that a small band of the page in question is visible at
    the bottom of the screen---but we should see that page fill the entire screen
+ - ~~Icons (add icons for page modes, make marquee zoom icon consistent with
+   other icons)~~ __DONE__
  - ~~Turn PDFViewer into a more general test case (loading of arbitrary files,
    etc.)~~ __DONE__
  - ~~Program segfaults if a page is destroyed while a render request is active~~
@@ -122,3 +122,5 @@ TODO
  - Split view???
  - Provide additional info, e.g. through QDockWidget. Annotations, thumbnails (?).
  - Printing.
+ - Derive zoom icons from Tango instead of from Qt
+
