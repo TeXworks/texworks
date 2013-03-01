@@ -235,7 +235,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
       break;
     case Dock_Annotations:
       infoWidget = new PDFAnnotationsInfoWidget(dock);
-      // FIXME: possibility to jump to selected/activated annotation
+      // TODO: possibility to jump to selected/activated annotation
       break;
     default:
       infoWidget = NULL;
@@ -697,9 +697,6 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int align
     
     if (page->page()->transition()) {
       page->page()->transition()->reset();
-      // FIXME: oldPage and page could have different xres,yres values (in case
-      // they have different size, since we implicitly need fit-to-window in
-      // presentation mode)
       // Setting listener = NULL in calls to getTileImage to force synchronous
       // rendering
       if (oldPage)
@@ -1567,8 +1564,6 @@ void PDFDocumentScene::doUnlockDialog()
       // to documentChanged() will receive the new doc, but the scene itself
       // will not have changed, yet.
       QTimer::singleShot(1, this, SLOT(reinitializeScene()));
-      // FIXME: Other parts of the program should connect to documentChanged
-      // to update data (e.g., dock widgets, page number status bar widget, ...)
       emit documentChanged(_doc);
     }
     else
@@ -2237,7 +2232,7 @@ void PDFMarkupAnnotationGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent
   _popup->setLayout(layout);
   _popup->move(sender->mapFromGlobal(event->screenPos()));
   _popup->show();
-  // FIXME: Make popup closable, movable; position it properly (also upon 
+  // TODO: Make popup closable, movable; position it properly (also upon 
   // zooming!), give some visible indication to which annotation it belongs.
   // (Probably turn it into a subclass of QWidget, too).
 }
@@ -2346,8 +2341,7 @@ void PDFToCInfoWidget::recursiveAddTreeItems(const QList<Backend::PDFToCItem> & 
     // having to use (void*).
     if (tocItem.action())
       treeItem->setData(0, Qt::UserRole, QVariant::fromValue((void*)tocItem.action()->clone()));
-
-    // FIXME: page numbers in col 2, goto actions, etc.
+    // TODO: maybe display page numbers in col 2?
 
     if (!tocItem.children().isEmpty())
       recursiveAddTreeItems(tocItem.children(), treeItem);

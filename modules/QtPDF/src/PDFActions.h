@@ -152,7 +152,7 @@ public:
   QString command() const { return _command; }
   void setCommand(const QString command) { _command = command; }
 
-  // FIXME: handle newWindow, implement OS-specific extensions
+  // TODO: handle newWindow, implement OS-specific extensions
 private:
   QString _command;
   bool _newWindow;

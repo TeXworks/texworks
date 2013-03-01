@@ -112,8 +112,6 @@ void PDFViewer::open()
     // destroyed.
     QSharedPointer<QtPDF::PDFDocumentScene> docScene(new QtPDF::PDFDocumentScene(a_pdf_doc));
     docView->setScene(docScene);
-    // FIXME: Reset, e.g., zoom (in case the old document was at a large zoom
-    // factor)
   }
   else
     docView->setScene(QSharedPointer<QtPDF::PDFDocumentScene>());
