@@ -31,7 +31,6 @@ class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
   typedef QGraphicsView Super;
 
-  // **TODO:** _Replace with an overloaded `scene` method._
   PDFDocumentScene *_pdf_scene;
   PDFDocumentMagnifierView * _magnifier;
 

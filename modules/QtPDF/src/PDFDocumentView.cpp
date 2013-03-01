@@ -26,7 +26,7 @@ static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGr
 // ===============
 
 // This class descends from `QGraphicsView` and is responsible for controlling
-// and displaying the contents of a `Poppler::Document` using a `QGraphicsScene`.
+// and displaying the contents of a `Document` using a `QGraphicsScene`.
 PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
   _rubberBandOrigin(),
@@ -53,9 +53,7 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
 {
   Super::setScene(a_scene);
 
-  // **TODO:** _Replace with an overloaded `scene` method._
   _pdf_scene = a_scene;
-
   _lastPage = a_scene->lastPage();
 
   // Respond to page jumps requested by the `PDFDocumentScene`.
@@ -319,15 +317,6 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   // currently displayed page. We do this by grabbing all items that are
   // currently within the bounds of the viewport's top half. We take the
   // first item found to be the "current page".
-  //
-  // **NOTE:**
-  // _If graphics objects other than `PDFPageGraphicsItem` are ever added to
-  // the `GraphicsScene` managed by `PDFDocumentView` (such as annotations,
-  // form elements, etc), it may be wise to ensure this selection only
-  // considers `PDFPagegraphicsItem` objects._
-  //
-  // _A way to do this may be to call `toSet` on both `pages` and the result
-  // of `items` and then take the first item of a set intersection._
   QRect pageBbox = viewport()->rect();
   pageBbox.setHeight(0.5 * pageBbox.height());
   int nextCurrentPage = _pdf_scene->pageNumAt(mapToScene(pageBbox));
@@ -772,15 +761,6 @@ QPixmap PDFDocumentMagnifierView::dropShadow() const
 // A large canvas that manages the layout of QGraphicsItem subclasses. The
 // primary items we are concerned with are PDFPageGraphicsItem and
 // PDFLinkGraphicsItem.
-//
-// The scene also holds a mutex which is used to serialize calls by child items
-// (mostly PDFGraphicsPage) to the Poppler library as Poppler is not thread
-// safe.
-//
-// This system may need to be re-worked because if another function somewhere
-// accesses the Poppler document pointed to by `*a_doc` while the scene child
-// items are executing tasks, we can produce a segfault. Because of this, the
-// mutex may need to be held at a higher level.
 PDFDocumentScene::PDFDocumentScene(Document *a_doc, QObject *parent):
   Super(parent),
   _doc(a_doc)
@@ -946,7 +926,7 @@ void PDFDocumentScene::showAllPages() const
 // ===================
 
 // This class descends from `QGraphicsObject` and implements the on-screen
-// representation of `Poppler::Page` objects.
+// representation of `Page` objects.
 PDFPageGraphicsItem::PDFPageGraphicsItem(Page *a_page, QGraphicsItem *parent):
   Super(parent),
   _page(a_page),
@@ -976,9 +956,8 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Page *a_page, QGraphicsItem *parent):
 QRectF PDFPageGraphicsItem::boundingRect() const { return QRectF(QPointF(0.0, 0.0), _pageSize); }
 int PDFPageGraphicsItem::type() const { return Type; }
 
-// An overloaded paint method allows us to render the contents of
-// `Poppler::Page` objects to `QImage` objects which are then stored inside the
-// `PDFPageGraphicsItem` object using a `QPixmap`.
+// An overloaded paint method allows us to handle rendering via asynchronous
+// calls to backend functions.
 void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
   // Really, there is an X scaling factor and a Y scaling factor, but we assume
@@ -1144,8 +1123,9 @@ bool PDFPageGraphicsItem::event(QEvent *event)
   return Super::event(event);
 }
 
-// This method causes the `PDFPageGraphicsItem` to take ownership of
-// asynchronously generated `PDFLinkGraphicsItem` objects. Calling
+// This method causes the `PDFPageGraphicsItem` to create `PDFLinkGraphicsItem`
+// objects for a list of asynchronously generated `PDFLinkAnnotation` objects.
+// The page item also takes ownership the objects created.  Calling
 // `setParentItem` causes the link objects to be added to the scene that owns
 // the page object. `update` is then called to ensure all links are drawn at
 // once.
@@ -1183,10 +1163,9 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_lin
   _link(a_link),
   _activated(false)
 {
-  // Poppler expresses the link area in "normalized page coordinates", i.e.
-  // values in the range [0, 1]. The transformation matrix of this item will
-  // have to be adjusted so that links will show up correctly in a graphics
-  // view.
+  // The link area is expressed in "normalized page coordinates", i.e.  values
+  // in the range [0, 1]. The transformation matrix of this item will have to
+  // be adjusted so that links will show up correctly in a graphics view.
   setRect(_link->rect());
 
   // Allows links to provide a context-specific cursor when the mouse is
@@ -1478,10 +1457,6 @@ void PDFPageLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem *
 }
 
 // Relayout the pages on the canvas
-// **TODO:** Accessing Poppler::Page::pageSizeF() doesn't seem to pose a
-// threading problem; at least it can be done while rendering in the background
-// without acquiring the docMutex.
-// Maybe we should use a QReadWriteLock instead of docMutex?
 void PDFPageLayout::relayout() {
   if (_isContinuous)
     continuousModeRelayout();
@@ -1490,10 +1465,6 @@ void PDFPageLayout::relayout() {
 }
 
 // Relayout the pages on the canvas in continuous mode
-// **TODO:** Accessing Poppler::Page::pageSizeF() doesn't seem to pose a
-// threading problem; at least it can be done while rendering in the background
-// without acquiring the docMutex.
-// Maybe we should use a QReadWriteLock instead of docMutex?
 void PDFPageLayout::continuousModeRelayout() {
   // Create arrays to hold offsets and make sure that they have
   // sufficient space (to avoid moving the data around in memory)
@@ -1525,7 +1496,7 @@ void PDFPageLayout::continuousModeRelayout() {
     rowOffsets[i] += rowOffsets[i - 1] + _ySpacing;
 
   // Finally, position pages
-  // **TODO:** Figure out why this loop causes some noticable lag when switching
+  // **TODO:** Figure out why this loop causes some noticeable lag when switching
   // from SinglePage to continuous mode in a large document (but not when
   // switching between separate continuous modes)
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
@@ -1554,10 +1525,6 @@ void PDFPageLayout::continuousModeRelayout() {
 }
 
 // Relayout the pages on the canvas in single page mode
-// **TODO:** Accessing Poppler::Page::pageSizeF() doesn't seem to pose a
-// threading problem; at least it can be done while rendering in the background
-// without acquiring the docMutex.
-// Maybe we should use a QReadWriteLock instead of docMutex?
 void PDFPageLayout::singlePageModeRelayout()
 {
   qreal width, height, maxWidth = 0.0, maxHeight = 0.0;
