@@ -66,9 +66,6 @@ TODO
  - context menu
  - Highlighting! (to show syncing destination, search results, etc.)
  - Port scripting-related functions from Tw (if any)
- - Handling of encrypted/password protected files (this needs to be handled
-   during loading; accessing some functions (e.g., for rendering) in a locked
-   document crashes the program)
  - Add a PDFDocumentWidget, derived from PDFDocumentView, which encapsulates the
    scene and provides, e.g., a load() function for ease of use (similar to what
    Qt does, see QTreeView vs. QTreeWidget)
@@ -79,6 +76,9 @@ TODO
  - Make program translatable; this probably entails creating a (dummy) Qt .pro
    file so we can use the normal Qt linguist approach
  - Properly namespace the code
+ - ~~Handling of encrypted/password protected files (this needs to be handled
+   during loading; accessing some functions (e.g., for rendering) in a locked
+   document crashes the program)~~ __DONE__
  - ~~Ensure temporary "rendering" images are always replaced. Thought this was
    fixed by e9c7be11df5bfe507585fea889e8b588b4431fff, but the bug is still
    present.~~ __DONE__
