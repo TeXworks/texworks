@@ -91,6 +91,7 @@ TODO
    moves the view such that a small band of the page in question is visible at
    the bottom of the screen---but we should see that page fill the entire screen
    Note: this only applies of no viewport setting is associated with the toc item
+ - ~~Fix MuPDF when using non-English numeric locale~~ __DONE__
  - ~~Icons (add icons for page modes, make marquee zoom icon consistent with
    other icons)~~ __DONE__
  - ~~Turn PDFViewer into a more general test case (loading of arbitrary files,

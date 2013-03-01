@@ -121,6 +121,16 @@ IF( WITH_MUPDF )
   # resolved. At least, this is the case with the MinGW linker.
   SET(QTPDF_LIBS ${MUPDF_LIBRARIES} ${QTPDF_LIBS})
 
+  # setlocale() is necessary for the MuPDF backend (at least for locales not
+  # using '.' as a decimal point)
+  INCLUDE( CheckIncludeFiles )
+  INCLUDE( CheckFunctionExists )
+  CHECK_INCLUDE_FILES(locale.h HAVE_LOCALE_H)
+  CHECK_FUNCTION_EXISTS(setlocale HAVE_SETLOCALE)
+  IF( HAVE_LOCALE_H AND HAVE_SETLOCALE )
+    ADD_DEFINITIONS(-DHAVE_LOCALE_H)
+  ENDIF()
+
 ENDIF()
 
 
