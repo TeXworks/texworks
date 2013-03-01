@@ -159,6 +159,54 @@ void PDFDocumentView::zoomBy(qreal zoomFactor)
 void PDFDocumentView::zoomIn() { zoomBy(3.0/2.0); }
 void PDFDocumentView::zoomOut() { zoomBy(2.0/3.0); }
 
+void PDFDocumentView::zoomFitWindow()
+{
+  // Curious fact: This function will end up producing a different zoom level depending on if
+  // it zooms out or in. But the implementation of `fitInView` in the Qt source
+  // is pretty solid---I can't think of a better way to do it.
+  fitInView(_pdf_scene->pageAt(_currentPage), Qt::KeepAspectRatio);
+
+  // Since we passed `Qt::KeepAspectRatio` to `fitInView` both x and y scaling
+  // factors were changed by the same amount. So we'll just take the x scale to
+  // be the new `_zoomLevel`.
+  _zoomLevel = transform().m11();
+  emit changedZoom(_zoomLevel);
+}
+
+
+// `zoomFitWidth` is basically a re-worked version of `QGraphicsView::fitInView`.
+void PDFDocumentView::zoomFitWidth()
+{
+  if ( !scene() || rect().isNull() )
+      return;
+
+  QGraphicsItem *currentPage = _pdf_scene->pageAt(_currentPage);
+  // Store current y position so we can center on it later.
+  qreal ypos = mapToScene(viewport()->rect()).boundingRect().center().y();
+
+  // Reset the view scale to 1:1.
+  QRectF unity = matrix().mapRect(QRectF(0, 0, 1, 1));
+  if (unity.isEmpty())
+      return;
+  scale(1 / unity.width(), 1 / unity.height());
+
+  // Find the x scaling ratio to fit the page to the view width.
+  int margin = 2;
+  QRectF viewRect = viewport()->rect().adjusted(margin, margin, -margin, -margin);
+  if (viewRect.isEmpty())
+      return;
+  qreal xratio = viewRect.width() / currentPage->sceneBoundingRect().width();
+
+  scale(xratio, xratio);
+  // Focus on the horizontal center of the page and set the vertical position
+  // to the previous y position.
+  centerOn(QPointF(currentPage->sceneBoundingRect().center().x(), ypos));
+
+  // We reset the scaling factors to (1,1) and then scaled both by the same
+  // factor so the zoom level should be equal to the x scale.
+  _zoomLevel = transform().m11();
+  emit changedZoom(_zoomLevel);
+}
 
 void PDFDocumentView::setMouseMode(const MouseMode newMode)
 {

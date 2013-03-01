@@ -31,7 +31,7 @@ following components are required:
 TODO
 ====
 ### Required
- - ~~GotoPage should not center on page~~ __Done__
+ - ~~GotoPage should not center on page~~ __DONE__
  - zoom/hand tools
  - ctrl+mousewheel should zoom
  - maquee zoom (requested by Philip Taylor)
@@ -43,7 +43,7 @@ TODO
  - disallow keyboard events in document view while magnifier is shown (otherwise
    one could scroll the canvas without properly adjusting the magnifier)
  - SyncTeX with signals and slots
- - fit to width/page/...
+ - ~~fit to width/page/~~ __DONE__
  - Highlighting! (to show syncing destination, search results, etc.)
  - ~~PgDn should scroll one viewport height~~ __DONE__
  - ~~draw frame around magnifying glass (requested by Reinhard Kotucha)~~ __DONE__
@@ -56,7 +56,7 @@ TODO
  - annotations (popup window)
  - rulers (in main window, and attached to magnifying glass)
  - ~~possibility to abort render requests when page moves out of view (is there a
-   way to avoid going through all pages at each scroll event?)~~ __Done__
+   way to avoid going through all pages at each scroll event?)~~ __DONE__
  - Split view???
  - Improve handling of several concurrent versions (magnifications) of the same
    page (currently: "normal" and "magnified" versions); simplify code, remove
