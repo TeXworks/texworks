@@ -1035,11 +1035,13 @@ void PDFDocumentView::disarmTool()
 //
 void PDFDocumentTool::arm() {
   Q_ASSERT(_parent != NULL);
-  _parent->setCursor(_cursor);
+  if (_parent->viewport())
+    _parent->viewport()->setCursor(_cursor);
 }
 void PDFDocumentTool::disarm() {
   Q_ASSERT(_parent != NULL);
-  _parent->unsetCursor();
+  if (_parent->viewport())
+    _parent->viewport()->unsetCursor();
 }
 
 void PDFDocumentTool::keyPressEvent(QKeyEvent *event)
@@ -1314,7 +1316,8 @@ void PDFDocumentToolMove::mousePressEvent(QMouseEvent * event)
     return;
   _started = (event->buttons() == Qt::LeftButton && event->button() == Qt::LeftButton);
   if (_started) {
-    _parent->setCursor(_closedHandCursor);
+    if (_parent->viewport())
+      _parent->viewport()->setCursor(_closedHandCursor);
     _oldPos = event->pos();
   }
 }
@@ -1342,8 +1345,8 @@ void PDFDocumentToolMove::mouseReleaseEvent(QMouseEvent * event)
   if (!event || !_started)
     return;
   if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton)
-    _parent->setCursor(_cursor);
-
+    if (_parent->viewport())
+      _parent->viewport()->setCursor(_cursor);
   _started = false;
 }
 
