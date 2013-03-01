@@ -12,7 +12,12 @@
  * more details.
  */
 #include "PDFDocumentView.h"
+#include <iostream>
 
+// Some utility functions.
+//
+// **TODO:** _Find a better place to put these._
+static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGraphicsItem::Type ); }
 
 // PDFDocumentView
 // ===============
@@ -109,7 +114,7 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   // of `items` and then take the first item of a set intersection._
   QRect pageBbox = viewport()->rect();
   pageBbox.setHeight(0.5 * pageBbox.height());
-  int nextCurrentPage = pdf_scene->pages().indexOf(items(pageBbox).first());
+  int nextCurrentPage = pdf_scene->pageNumAt(mapToScene(pageBbox));
 
   if ( nextCurrentPage != _currentPage )
   {
@@ -198,6 +203,26 @@ PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
 // ---------
 
 QList<QGraphicsItem*> PDFDocumentScene::pages() { return _pages; };
+
+// Overloaded method that returns all page objects inside a given rectangular
+// area. First, `items` is used to grab all items inside the rectangle. This
+// list is then filtered by item type so that it contains only references to
+// `PDFPageGraphicsItem` objects.
+QList<QGraphicsItem*> PDFDocumentScene::pages(const QPolygonF &polygon)
+{
+  QList<QGraphicsItem*> pageList = items(polygon);
+  QtConcurrent::blockingFilter(pageList, isPageItem);
+
+  return pageList;
+};
+
+// This is a convenience function for returning the page number of the first
+// page item inside a given area of the scene.
+int PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
+{
+  return _pages.indexOf(pages(polygon).first());
+}
+
 int PDFDocumentScene::lastPage() { return _lastPage; }
 
 
@@ -236,6 +261,8 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
 
   setPixmap(QPixmap(pageSize.toSize()));
 }
+
+int PDFPageGraphicsItem::type() const { return Type; }
 
 // An overloaded paint method allows us to render the contents of
 // `Poppler::Page` objects to `QImage` objects which are then stored inside the
@@ -342,6 +369,7 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
   setPen(QPen(Qt::red));
 }
 
+int PDFLinkGraphicsItem::type() const { return Type; }
 
 // Event Handlers
 // --------------
