@@ -55,6 +55,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   connect(docView, SIGNAL(requestOpenUrl(const QUrl)), this, SLOT(openUrl(const QUrl)));
   connect(docView, SIGNAL(requestOpenPdf(QString, int, bool)), this, SLOT(openPdf(QString, int, bool)));
   connect(docView, SIGNAL(contextClick(const int, const QPointF)), this, SLOT(syncFromPdf(const int, const QPointF)));
+  connect(docView, SIGNAL(searchProgressChanged(int, int)), this, SLOT(searchProgressChanged(int, int)));
 
   toolBar->addSeparator();
   toolBar->addWidget(search);
@@ -106,6 +107,11 @@ void PDFViewer::open()
   }
   else
     docView->setScene(QSharedPointer<PDFDocumentScene>());
+}
+
+void PDFViewer::searchProgressChanged(int percent, int occurrences)
+{
+  statusBar()->showMessage(tr("%1% of the document searched (%2 occurrences found)").arg(percent).arg(occurrences));
 }
 
 void PDFViewer::openUrl(const QUrl url) const

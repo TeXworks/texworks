@@ -540,6 +540,17 @@ void Page::asyncLoadLinks(QObject *listener)
   _parent->processingThread().addPageProcessingRequest(new PageProcessingLoadLinksRequest(this, listener));
 }
 
+//static
+QList<SearchResult> Page::search(SearchRequest request)
+{
+  if (request.doc.isNull())
+    return QList<SearchResult>();
+  QSharedPointer<Page> page = request.doc->page(request.pageNum);
+  if (page.isNull())
+    return QList<SearchResult>();
+  return page->search(request.searchString);
+}
+
 
 // vim: set sw=2 ts=2 et
 

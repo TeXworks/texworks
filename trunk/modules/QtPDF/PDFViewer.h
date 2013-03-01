@@ -13,6 +13,7 @@ private slots:
   void openUrl(const QUrl url) const;
   void openPdf(QString filename, int page, bool newWindow) const;
   void syncFromPdf(const int page, const QPointF pos);
+  void searchProgressChanged(int percent, int occurrences);
 };
 
 

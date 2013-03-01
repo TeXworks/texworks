@@ -365,6 +365,13 @@ protected:
 
 typedef QList<PDFToCItem> PDFToC;
 
+struct  SearchRequest
+{
+  QSharedPointer<Document> doc;
+  int pageNum;
+  QString searchString;
+};
+
 struct  SearchResult
 {
   int pageNum;
@@ -514,6 +521,8 @@ public:
   // This is very tricky to do in C++. God I miss Python and its `itertools`
   // library.
   virtual QList<SearchResult> search(QString searchText) = 0;
+
+  static QList<SearchResult> search(SearchRequest request);
 };
 
 

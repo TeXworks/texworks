@@ -67,7 +67,6 @@ TODO
  - Highlighting! (to show syncing destination, search results, etc.)
  - possibility to abort render requests when page moves out of view (is there a
    way to avoid going through all pages at each scroll event?)
- - Implement text search for PDF files.
  - Port scripting-related functions from Tw (if any)
  - Handling of encrypted/password protected files (this needs to be handled
    during loading; accessing some functions (e.g., for rendering) in a locked
@@ -138,5 +137,6 @@ TODO
    - transition support?
  - save page as image
  - selecting (and copying/saving) text & images (subject to permissions)
+ - ~~Implement text search for PDF files.~~ __DONE__
  - ~~Hitting PgUp at top of document or PgDn at bottom moves to the right~~
    __DONE__
