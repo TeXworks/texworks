@@ -89,6 +89,8 @@ public slots:
   void zoomFitWindow();
   void zoomFitWidth();
 
+  void search(QString searchText);
+
 signals:
   void changedPage(int pageNum);
   void changedZoom(qreal zoomLevel);
@@ -291,6 +293,7 @@ class PDFDocumentScene : public QGraphicsScene
 public:
   PDFDocumentScene(Document *a_doc, QObject *parent = 0);
 
+  QSharedPointer<Document> document();
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   QGraphicsItem* pageAt(const int idx);
