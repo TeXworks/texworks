@@ -46,6 +46,7 @@ public:
 
   Page *page(int at);
   PDFToC toc() const;
+  QList<PDFFontInfo> fonts() const;
 };
 
 

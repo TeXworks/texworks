@@ -226,6 +226,103 @@ private:
   PDFAction * _actionOnActivation;
 };
 
+class PDFFontDescriptor
+{
+public:
+  enum FontStretch { FontStretch_UltraCondensed, FontStretch_ExtraCondensed, \
+                     FontStretch_Condensed, FontStretch_SemiCondensed, \
+                     FontStretch_Normal, FontStretch_SemiExpanded, \
+                     FontStretch_Expanded, FontStretch_ExtraExpanded, \
+                     FontStretch_UltraExpanded };
+  enum Flag { Flag_FixedPitch = 0x01, Flag_Serif = 0x02, Flag_Symbolic = 0x04, \
+              Flag_Script = 0x08, Flag_Nonsymbolic = 0x20, Flag_Italic = 0x40, \
+              Flag_AllCap = 0x10000, Flag_SmallCap = 0x20000, \
+              Flag_ForceBold = 0x40000 };
+  Q_DECLARE_FLAGS(Flags, Flag)
+
+  PDFFontDescriptor(const QString fontName = QString());
+  virtual ~PDFFontDescriptor() { }
+
+  bool isSubset() const;
+
+  QString name() const { return _name; }
+  // pureName() removes the subset tag
+  QString pureName() const;
+  // TODO: Accessor methods for all other properties
+
+protected:
+  // From pdf specs
+  QString _name;
+  QString _family;
+  enum FontStretch _stretch;
+  int _weight;
+  Flags _flags;
+  QRectF _bbox;
+  float _italicAngle;
+  float _ascent;
+  float _descent;
+  float _leading;
+  float _capHeight;
+  float _xHeight;
+  float _stemV;
+  float _stemH;
+  float _avgWidth;
+  float _maxWidth;
+  float _missingWidth;
+  QString _charSet;
+
+  // From pdf specs for CID fonts only
+  // _style
+  // _lang
+  // _fD
+  // _CIDSet
+};
+
+// Note: This is a hack, but since all the information (with the exception of
+// the type of font) we use (and that is provided by poppler) is encapsulated in
+// PDFFontDescriptor, there is no use right now to completely implement all the
+// different font structures
+class PDFFontInfo
+{
+public:
+  enum FontType { FontType_Type0, FontType_Type1, FontType_MMType1, \
+                  FontType_Type3, FontType_TrueType };
+  enum CIDFontType { CIDFont_None, CIDFont_Type0, CIDFont_Type2 };
+  enum FontProgramType { ProgramType_None, ProgramType_Type1, \
+                         ProgramType_TrueType, ProgramType_Type1CFF, \
+                         ProgramType_CIDCFF, ProgramType_OpenType };
+  
+  PDFFontInfo() { };
+  virtual ~PDFFontInfo() { };
+  
+  FontType fontType() const { return _fontType; }
+  CIDFontType CIDType() const { return _CIDType; }
+  FontProgramType fontProgramType() const { return _fontProgramType; }
+  PDFFontDescriptor descriptor() const { return _descriptor; }
+  // returns the path to the file used for rendering this font, or an invalid
+  // QFileInfo for embedded fonts
+  QFileInfo fileName() const { return _substitutionFile; }
+
+  bool isSubset() const { return _descriptor.isSubset(); }
+  bool isEmbedded() const { return !_substitutionFile.exists(); }
+
+  // TODO: Implement some advanced logic; e.g., non-embedded fonts have no font
+  // program type
+  void setFontType(const FontType fontType) { _fontType = fontType; }
+  void setCIDType(const CIDFontType CIDType) { _CIDType = CIDType; }
+  void setFontProgramType(const FontProgramType programType) { _fontProgramType = programType; }
+  void setDescriptor(const PDFFontDescriptor descriptor) { _descriptor = descriptor; }
+  void setFileName(const QFileInfo file) { _substitutionFile = file; }
+
+protected:
+  PDFFontDescriptor _descriptor;
+  QFileInfo _substitutionFile;
+  FontType _fontType;
+  CIDFontType _CIDType;
+  FontProgramType _fontProgramType;
+};
+
+
 class PDFPageTile
 {
 
@@ -493,6 +590,7 @@ public:
   // Override in derived class if it provides access to the document outline
   // strutures of the pdf file.
   virtual PDFToC toc() const { return PDFToC(); }
+  virtual QList<PDFFontInfo> fonts() const { return QList<PDFFontInfo>(); }
 
   // <metadata>
   QString title() const { return _meta_title; }

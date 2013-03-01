@@ -26,6 +26,7 @@ class PDFDocumentMagnifierView;
 class PDFActionEvent;
 class PDFToCDockWidget;
 class PDFMetaDataDockWidget;
+class PDFFontsDockWidget;
 
 const int TILE_SIZE=1024;
 
@@ -56,8 +57,11 @@ public:
   PageMode pageMode() const { return _pageMode; }
   qreal zoomLevel() const { return _zoomLevel; }
 
+  // FIXME: These should probably return QDockWidget* to the internals-agnostic
+  // outside world
   PDFToCDockWidget* tocDockWidget(QWidget * parent);
   PDFMetaDataDockWidget * metaDataDockWidget(QWidget * parent);
+  PDFFontsDockWidget * fontsDockWidget(QWidget * parent);
 
 public slots:
   void goPrev();
@@ -204,6 +208,18 @@ private:
   QLabel * _modDate;
   QLabel * _trapped;
   QGroupBox * _other;
+};
+
+class PDFFontsDockWidget : public QDockWidget
+{
+  Q_OBJECT
+public:
+  PDFFontsDockWidget(QWidget * parent);
+  virtual ~PDFFontsDockWidget() { }
+  
+  void setFontsDataFromDocument(const QSharedPointer<Document> doc);
+private:
+  QTableWidget * _table;
 };
 
 // Cannot use QGraphicsGridLayout and similar classes for pages because it only

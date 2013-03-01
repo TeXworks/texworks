@@ -84,6 +84,8 @@ QDateTime fromPDFDate(QString pdfDate)
   return QDateTime(date, time, Qt::UTC).addSecs(sign * (hourOffset * 3600 + minuteOffset * 60)).toLocalTime();
 }
 
+// Annotations
+// =================
 
 PDFLinkAnnotation::~PDFLinkAnnotation()
 {
@@ -110,6 +112,49 @@ void PDFLinkAnnotation::setActionOnActivation(PDFAction * const action)
     delete _actionOnActivation;
   _actionOnActivation = action;
 }
+
+// Fonts
+// =================
+
+PDFFontDescriptor::PDFFontDescriptor(const QString fontName /* = QString() */) :
+  _name(fontName),
+  _stretch(FontStretch_Normal),
+  _weight(400),
+  _italicAngle(0),
+  _ascent(0),
+  _descent(0),
+  _leading(0),
+  _capHeight(0),
+  _xHeight(0),
+  _stemV(0),
+  _stemH(0),
+  _avgWidth(0),
+  _maxWidth(0),
+  _missingWidth(0)
+{
+}
+
+bool PDFFontDescriptor::isSubset() const
+{
+  // Subset fonts have a tag of 6 upper-case letters, followed by a '+',
+  // prefixed to the font name
+  if (_name.length() < 7 || _name[6] != QChar::fromAscii('+'))
+    return false;
+  for (int i = 0; i < 6; ++i) {
+    if (!_name[i].isUpper())
+      return false;
+  }
+  return true;
+}
+
+QString PDFFontDescriptor::pureName() const
+{
+  if (!isSubset())
+    return _name;
+  else
+    return _name.mid(7);
+}
+
 
 // Backend Rendering
 // =================

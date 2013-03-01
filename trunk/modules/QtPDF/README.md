@@ -76,8 +76,6 @@ TODO
    correct, all the moving of objects is superfluous as well.
  - Turn PDFViewer into a more general test case (loading of arbitrary files,
    etc.)
- - Provide additional info, e.g. through QDockWidget. Required: toc, pdf info,
-   fonts. Recommended: annotations, thumbnails (?).
  - Implement text search for PDF files.
  - Port scripting-related functions from Tw (if any)
  - Icons (add icons for page modes, make marquee zoom icon consistent with other
@@ -115,4 +113,5 @@ TODO
    main view's window boundaries) (requested by Reinhard Kotucha)
  - rulers (in main window, and attached to magnifying glass)
  - Split view???
+ - Provide additional info, e.g. through QDockWidget. Annotations, thumbnails (?).
  - Printing.

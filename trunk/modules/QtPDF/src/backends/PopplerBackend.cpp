@@ -147,6 +147,81 @@ PDFToC PopplerDocument::toc() const
   return retVal;
 }
 
+QList<PDFFontInfo> PopplerDocument::fonts() const
+{
+  QList<PDFFontInfo> retVal;
+  if (!_poppler_doc)
+    return retVal;
+
+  foreach(Poppler::FontInfo popplerFontInfo, _poppler_doc->fonts()) {
+    PDFFontInfo fi;
+    fi.setFileName(popplerFontInfo.file());
+    fi.setDescriptor(PDFFontDescriptor(popplerFontInfo.name()));
+
+    switch (popplerFontInfo.type()) {
+      case Poppler::FontInfo::Type1:
+        fi.setFontType(PDFFontInfo::FontType_Type1);
+        fi.setCIDType(PDFFontInfo::CIDFont_None);
+        fi.setFontProgramType(PDFFontInfo::ProgramType_Type1);
+        break;
+      case Poppler::FontInfo::Type1C:
+        fi.setFontType(PDFFontInfo::FontType_Type1);
+        fi.setCIDType(PDFFontInfo::CIDFont_None);
+        fi.setFontProgramType(PDFFontInfo::ProgramType_Type1CFF);
+        break;
+      case Poppler::FontInfo::Type1COT:
+        fi.setFontType(PDFFontInfo::FontType_Type1);
+        fi.setCIDType(PDFFontInfo::CIDFont_None);
+        fi.setFontProgramType(PDFFontInfo::ProgramType_OpenType); // speculation
+        break;
+      case Poppler::FontInfo::Type3:
+        fi.setFontType(PDFFontInfo::FontType_Type3);
+        fi.setCIDType(PDFFontInfo::CIDFont_None);
+        fi.setFontProgramType(PDFFontInfo::ProgramType_None); // probably wrong!
+        break;
+      case Poppler::FontInfo::TrueType:
+        fi.setFontType(PDFFontInfo::FontType_TrueType);
+        fi.setCIDType(PDFFontInfo::CIDFont_None);
+        fi.setFontProgramType(PDFFontInfo::ProgramType_TrueType);
+        break;
+      case Poppler::FontInfo::TrueTypeOT:
+        fi.setFontType(PDFFontInfo::FontType_TrueType);
+        fi.setCIDType(PDFFontInfo::CIDFont_None);
+        fi.setFontProgramType(PDFFontInfo::ProgramType_OpenType);
+        break;
+      case Poppler::FontInfo::CIDType0:
+        fi.setFontType(PDFFontInfo::FontType_Type0);
+        fi.setCIDType(PDFFontInfo::CIDFont_Type0);
+        fi.setFontProgramType(PDFFontInfo::ProgramType_None); // probably wrong!
+        break;
+      case Poppler::FontInfo::CIDType0C:
+        fi.setFontType(PDFFontInfo::FontType_Type0);
+        fi.setCIDType(PDFFontInfo::CIDFont_Type0);
+        fi.setFontProgramType(PDFFontInfo::ProgramType_CIDCFF);
+        break;
+      case Poppler::FontInfo::CIDType0COT:
+        fi.setFontType(PDFFontInfo::FontType_Type0);
+        fi.setCIDType(PDFFontInfo::CIDFont_Type0);
+        fi.setFontProgramType(PDFFontInfo::ProgramType_OpenType);
+        break;
+      case Poppler::FontInfo::CIDTrueType:
+        fi.setFontType(PDFFontInfo::FontType_Type0);
+        fi.setCIDType(PDFFontInfo::CIDFont_Type2); // speculation
+        fi.setFontProgramType(PDFFontInfo::ProgramType_TrueType);
+        break;
+      case Poppler::FontInfo::CIDTrueTypeOT:
+        fi.setFontType(PDFFontInfo::FontType_Type0);
+        fi.setCIDType(PDFFontInfo::CIDFont_Type2); // speculation
+        fi.setFontProgramType(PDFFontInfo::ProgramType_OpenType);
+        break;
+      case Poppler::FontInfo::unknown:
+      default:
+        continue;
+    }
+    retVal << fi;
+  }
+  return retVal;
+}
 
 // Page Class
 // ==========
