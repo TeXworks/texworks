@@ -3,7 +3,8 @@ CXX ?= g++
 CXXFLAGS := -g -O0 -I. -I./src $(shell pkg-config freetype2 poppler poppler-qt4 QtCore QtGui QtXml --cflags)
 LDFLAGS := $(shell pkg-config freetype2 poppler poppler-qt4 QtCore QtGui QtXml --libs)
 
-SRCS := $(wildcard *.cpp) $(wildcard ./src/*.cpp)
+# Gather all *.cpp files, except for icons.cpp
+SRCS := $(subst icons.cpp,,$(wildcard *.cpp) $(wildcard ./src/*.cpp))
 MOC_SRCS := $(patsubst %.h,moc_%.cpp,$(wildcard *.h)) $(patsubst src/%.h,src/moc_%.cpp,$(wildcard src/*.h))
 
 all: pdf_viewer
