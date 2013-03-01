@@ -13,11 +13,13 @@
  */
 
 
-// FIXME: Including `PDFDocumentView.h` instead of `PDFBackend.h` to ease the
-// migration of the worker thread into the backend. This needs to be cleaned up
-// so that the only header file necessary is `PDFBackend.h`
-// #include <PDFBackend.h>
-#include <PDFDocumentView.h> // Also includes PDFBackend.h
+#include <PDFBackend.h>
+
+
+// Custom Event Types
+// ==================
+
+QEvent::Type PDFLinksLoadedEvent::LinksLoadedEvent = static_cast<QEvent::Type>( QEvent::registerEventType() );
 
 
 // Backend Rendering
@@ -37,14 +39,14 @@ PDFPageProcessingThread::~PDFPageProcessingThread()
   wait();
 }
 
-PageProcessingRenderPageRequest *PDFPageProcessingThread::requestRenderPage(PDFPageGraphicsItem * page, qreal scaleFactor) const
+void PDFPageProcessingThread::requestRenderPage(Page *page, QObject *listener, qreal scaleFactor)
 {
-  return new PageProcessingRenderPageRequest(page, scaleFactor);
+  addPageProcessingRequest(new PageProcessingRenderPageRequest(page, listener, scaleFactor));
 }
 
-PageProcessingLoadLinksRequest *PDFPageProcessingThread::requestLoadLinks(PDFPageGraphicsItem * page) const
+void PDFPageProcessingThread::requestLoadLinks(Page *page, QObject *listener)
 {
-  return new PageProcessingLoadLinksRequest(page);
+  addPageProcessingRequest(new PageProcessingLoadLinksRequest(page, listener));
 }
 
 void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * request)
@@ -81,7 +83,7 @@ void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * r
       jobDesc = QString::fromUtf8("rendering page request");
       break;
   }
-  qDebug() << "new" << jobDesc << "for page" << qobject_cast<PDFDocumentScene*>(request->page->scene())->pageNumFor(request->page) << "added to stack; now has" << _workStack.size() << "items";
+  qDebug() << "new" << jobDesc << "for page" << request->page->pageNum();
 #endif
 
   if (!isRunning())
@@ -116,7 +118,7 @@ void PDFPageProcessingThread::run()
           jobDesc = QString::fromUtf8("rendering page");
           break;
       }
-      qDebug() << "finished " << jobDesc << "for page" << qobject_cast<PDFDocumentScene*>(workItem->page->scene())->pageNumFor(workItem->page) << "; time elapsed:" << _renderTimer.elapsed() << "ms";
+      qDebug() << "finished " << jobDesc << "for page" << workItem->page->pageNum();
 #endif
 
       // Delete the work item as it has fulfilled its purpose
@@ -142,8 +144,8 @@ void PDFPageProcessingThread::run()
 }
 
 
-PageProcessingRenderPageRequest::PageProcessingRenderPageRequest(PDFPageGraphicsItem * page, qreal scaleFactor) :
-  PageProcessingRequest(page),
+PageProcessingRenderPageRequest::PageProcessingRenderPageRequest(Page *page, QObject *listener, qreal scaleFactor) :
+  PageProcessingRequest(page, listener),
   scaleFactor(scaleFactor)
 {
 }
@@ -154,60 +156,70 @@ bool PageProcessingRenderPageRequest::execute()
   // signal emitted by this class should check to see that the QImage passed is
   // not empty using `QImage.isNull`. if it is empty, that means the render
   // failed or the request decided to abort.
-  bool doRender = false;
+  bool doRender = true;
   QImage pageImage = QImage();
-  PDFDocumentScene *pageScene = qobject_cast<PDFDocumentScene *>(page->scene());
-  QPointF pageCenter, viewCenter;
-  // The render tolerance is used to control the maximum distance from the
-  // center of the viewport at which pages will render.
-  qreal pageHeight, pageDistance, RENDER_TOLERANCE = 5.0;
 
-  if (!page || !qobject_cast<PDFDocumentScene *>(page->scene()) || !page->_page)
-    goto renderReport; // Reports failure.
+  // FIXME:
+  // Aborting renders doesn't really work right now---the backend knows nothing
+  // about the PDF scenes.
 
-  // Check to see that the page is visible by at least one of the views
-  // observing the scene. If not, skip rendering.
-  //
-  // **TODO:**
-  //
-  // Should this logic be executed at a higher level? Perhaps by the rendering
-  // thread before it decides to process a request? Two problems with this:
-  //
-  //   - Most objects expect to recieve some sort of signal after submitting
-  //     a job and these signals are emitted in the `execute` function.
-  //
-  //   - The `PDFPageGraphicsItem` sets `_linksLoaded` to `true` after
-  //     the load request, not when the results are recieved.
-  //
-  // This wont work for single page layout modes because the pages are all
-  // stacked on top of each other, so it always returns true. Need a better
-  // check for this case.
-  pageCenter = page->sceneBoundingRect().center();
-  pageHeight = page->sceneBoundingRect().height();
+  //PDFDocumentScene *pageScene = qobject_cast<PDFDocumentScene *>(page->scene());
+  //QPointF pageCenter, viewCenter;
+  //// The render tolerance is used to control the maximum distance from the
+  //// center of the viewport at which pages will render.
+  //qreal pageHeight, pageDistance, RENDER_TOLERANCE = 5.0;
 
-  foreach ( QGraphicsView *view, pageScene->views() )
-  {
-    if ( view->isHidden() )
-      continue; // Go to the next iteration if a view is not visible to the user.
+  //if (!page || !qobject_cast<PDFDocumentScene *>(page->scene()) || !page->_page)
+    //goto renderReport; // Reports failure.
 
-    viewCenter = view->mapToScene(view->rect()).boundingRect().center();
-    pageDistance = QLineF(pageCenter, viewCenter).length();
-    // If the distance between the center of the page and the center of the
-    // viewport is less than a certain multiple of the page height, we will
-    // render the page.
-    if ( pageDistance < pageHeight * RENDER_TOLERANCE ) {
-      doRender = true;
-      break;
-    }
-  }
+  //// Check to see that the page is visible by at least one of the views
+  //// observing the scene. If not, skip rendering.
+  ////
+  //// **TODO:**
+  ////
+  //// Should this logic be executed at a higher level? Perhaps by the rendering
+  //// thread before it decides to process a request? Two problems with this:
+  ////
+  ////   - Most objects expect to recieve some sort of signal after submitting
+  ////     a job and these signals are emitted in the `execute` function.
+  ////
+  ////   - The `PDFPageGraphicsItem` sets `_linksLoaded` to `true` after
+  ////     the load request, not when the results are recieved.
+  ////
+  //// This wont work for single page layout modes because the pages are all
+  //// stacked on top of each other, so it always returns true. Need a better
+  //// check for this case.
+  //pageCenter = page->sceneBoundingRect().center();
+  //pageHeight = page->sceneBoundingRect().height();
 
-  if ( doRender ) {
-    QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(page->scene())->docMutex);
-    pageImage = page->_page->renderToImage(page->_dpiX * scaleFactor, page->_dpiY * scaleFactor);
-    docLock.unlock();
-  }
+  //foreach ( QGraphicsView *view, pageScene->views() )
+  //{
+    //if ( view->isHidden() )
+      //continue; // Go to the next iteration if a view is not visible to the user.
+
+    //viewCenter = view->mapToScene(view->rect()).boundingRect().center();
+    //pageDistance = QLineF(pageCenter, viewCenter).length();
+    //// If the distance between the center of the page and the center of the
+    //// viewport is less than a certain multiple of the page height, we will
+    //// render the page.
+    //if ( pageDistance < pageHeight * RENDER_TOLERANCE ) {
+      //doRender = true;
+      //break;
+    //}
+  //}
+
+  if ( doRender )
+    // FIXME: Just using the scale factor is not right. Should probably pass
+    // DPI into this function instead. This is a hack to allow compilation
+    // because _dpiX and _dpiY are currently unavailable. Fix this when async
+    // page rendering is re-implemented.
+    //
+    // pageImage = page->renderToImage(page->_dpiX * scaleFactor, page->_dpiY * scaleFactor);
+    pageImage = page->renderToImage(scaleFactor, scaleFactor);
 
 renderReport:
+  // FIXME: Replace the signal with an event that can be recieved by any
+  // `QObject`
   emit pageImageReady(scaleFactor, pageImage);
   return doRender;
 }
@@ -222,34 +234,7 @@ renderReport:
 // links are added and rendered in a synchronous operation.
 bool PageProcessingLoadLinksRequest::execute()
 {
-  if (!page || !qobject_cast<PDFDocumentScene *>(page->scene()) || !page->_page)
-    return false;
-
-  // **TODO:**
-  //
-  //   * _Comment on how `pageScale` works and is used._
-
-  // We need to acquire a mutex from `PDFDocumentScene` as accessing page data,
-  // such as reading link lists or rendering page images is not thread safe
-  // among pages objects created from the same document object.
-  QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(page->scene())->docMutex);
-    QList<Poppler::Link *> links = page->_page->links();
-  docLock.unlock();
-
-  QList<PDFLinkGraphicsItem *> linkList;
-  if( !links.isEmpty() ) {
-    PDFLinkGraphicsItem *linkItem;
-
-    foreach( Poppler::Link *link, links )
-    {
-      linkItem = new PDFLinkGraphicsItem(link);
-      linkItem->setTransform(page->_pageScale);
-
-      linkList.append(linkItem);
-    }
-  }
-
-  emit linksReady(linkList);
+  QCoreApplication::postEvent(listener, new PDFLinksLoadedEvent(page->loadLinks()));
   return true;
 }
 
@@ -267,11 +252,13 @@ Document::~Document()
 }
 
 int Document::numPages() { return _numPages; }
+PDFPageProcessingThread &Document::processingThread() { return _processingThread; }
 
 
 // Page Class
 // ==========
 Page::Page(Document *parent, int at):
+  _parent(parent),
   _n(at)
 {
 }

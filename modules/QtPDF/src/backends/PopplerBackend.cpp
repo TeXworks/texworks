@@ -43,10 +43,9 @@ Page *PopplerDocument::page(int at){ return new PopplerPage(this, at); }
 // Page Class
 // ==========
 PopplerPage::PopplerPage(PopplerDocument *parent, int at):
-  Super(parent, at),
-  _parent(parent),
-  _poppler_page(_parent->_poppler_doc->page(at))
+  Super(parent, at)
 {
+  _poppler_page = QSharedPointer<Poppler::Page>(reinterpret_cast<PopplerDocument *>(_parent)->_poppler_doc->page(at));
 }
 
 PopplerPage::~PopplerPage()
@@ -60,13 +59,28 @@ QImage PopplerPage::renderToImage(double xres, double yres, int x, int y, int wi
   QImage renderedPage;
 
   // Rendering pages is not thread safe.
-  QMutexLocker docLock(_parent->_doc_lock);
+  QMutexLocker docLock(reinterpret_cast<PopplerDocument *>(_parent)->_doc_lock);
     renderedPage = _poppler_page->renderToImage(xres, yres, x, y, width, height);
   docLock.unlock();
 
   return renderedPage;
 }
 
+QList<Poppler::Link *> PopplerPage::loadLinks()
+{
+  QList<Poppler::Link *> links;
+  // Loading links is not thread safe.
+  QMutexLocker docLock(reinterpret_cast<PopplerDocument *>(_parent)->_doc_lock);
+    links = _poppler_page->links();
+  docLock.unlock();
+
+  return links;
+}
+
+void PopplerPage::asyncLoadLinks(QObject *listener)
+{
+  _parent->processingThread().requestLoadLinks(this, listener);
+}
 
 // vim: set sw=2 ts=2 et
 

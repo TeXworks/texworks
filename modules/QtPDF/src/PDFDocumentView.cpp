@@ -1019,21 +1019,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // `_linksLoaded` will be `false`. We then load all of the links on the page.
   if ( not _linksLoaded )
   {
-    if (docScene) {
-      // Connect the request object's signal to this object to receive a
-      // notification when the result is available.
-      // Note: We don't need to disconnect, as that is handled by Qt
-      // automatically when the request object is destroyed later on
-      // Note: addWorkItem must be separate, as otherwise the processing might
-      // finish before we have actually finished initialization (i.e.,
-      // finished connecting to the signal)
-      PageProcessingLoadLinksRequest * request = docScene->processingThread().requestLoadLinks(this);
-      if (request) {
-        connect(request, SIGNAL(linksReady(QList<PDFLinkGraphicsItem *>)), this, SLOT(addLinks(QList<PDFLinkGraphicsItem *>)));
-        docScene->processingThread().addPageProcessingRequest(request);
-      }
-    }
-
+    _pdf_page->asyncLoadLinks(this);
     _linksLoaded = true;
 
     // This is a hack to give a nice white fill to pages that have not been
@@ -1136,15 +1122,40 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   painter->restore();
 }
 
+// Event Handlers
+// --------------
+bool PDFPageGraphicsItem::event(QEvent *event)
+{
+  if ( event->type() == PDFLinksLoadedEvent::LinksLoadedEvent )
+  {
+    event->accept();
+    // Cast to a `PDFLinksLoaded` event so we can access the links.
+    const PDFLinksLoadedEvent *links_loaded_event = reinterpret_cast<const PDFLinksLoadedEvent*>(event);
+    addLinks(links_loaded_event->links);
+    return true;
+  }
+
+}
 
 // This method causes the `PDFPageGraphicsItem` to take ownership of
 // asynchronously generated `PDFLinkGraphicsItem` objects. Calling
 // `setParentItem` causes the link objects to be added to the scene that owns
 // the page object. `update` is then called to ensure all links are drawn at
 // once.
-void PDFPageGraphicsItem::addLinks(QList<PDFLinkGraphicsItem *> links)
+void PDFPageGraphicsItem::addLinks(QList<Poppler::Link *> links)
 {
-  foreach( PDFLinkGraphicsItem *item, links ) item->setParentItem(this);
+  PDFLinkGraphicsItem *linkItem;
+#ifdef DEBUG
+  stopwatch.start();
+#endif
+  foreach( Poppler::Link *link, links ){
+    linkItem = new PDFLinkGraphicsItem(link);
+    linkItem->setTransform(_pageScale);
+    linkItem->setParentItem(this);
+  }
+#ifdef DEBUG
+  qDebug() << "Added links in: " << stopwatch.elapsed() << " milliseconds";
+#endif
 
   update();
 }
