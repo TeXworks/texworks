@@ -24,6 +24,11 @@ QRectF toRectF(const fz_rect r)
   return QRectF(QPointF(r.x0, r.y0), QPointF(r.x1, r.y1));
 }
 
+QRectF toRectF(const fz_bbox r)
+{
+  return QRectF(QPointF(r.x0, r.y0), QPointF(r.x1, r.y1));
+}
+
 // TODO: Find a better place to put this
 PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
 {
@@ -817,7 +822,73 @@ QList<SearchResult> MuPDFPage::search(QString searchText)
 {
   // FIXME: Currently unimplemented and always returns an empty list.
   QList<SearchResult> results;
+  fz_text_span * page_text, * span;
+  fz_device * dev;
+  QString text;
+  int i, j, k, spanStart;
 
+  // Use MuPDF transformations to get the text box coordinates right already
+  // during fz_execute_display_list().
+  fz_matrix render_trans = fz_identity;
+  render_trans = fz_concat(render_trans, fz_translate(0, -_bbox.y1));
+  render_trans = fz_concat(render_trans, fz_scale(1, -1));
+  render_trans = fz_concat(render_trans, fz_rotate(_rotate));
+
+  if (!_mupdf_page)
+    return results;
+
+  // Extract text from page
+  page_text = fz_new_text_span();
+  dev = fz_new_text_device(page_text);
+  fz_execute_display_list(_mupdf_page, dev, render_trans, fz_infinite_bbox);
+  fz_free_device(dev);
+
+  // Convert fz_text_spans to QString
+  // TODO: Decide what to do about the space MuPDF prepends and appends to each
+  // line (at least for the base14-fonts.pdf test case).
+  for (span = page_text; span != NULL; span = span->next) {
+    for (i = 0; i < span->len; ++i)
+      text.append(span->text[i].c);
+    if (span->eol)
+      text.append('\n');
+  }
+
+  // Perform the actual search and extract box information
+  i = 0;
+  spanStart = 0;
+  span = page_text;
+  while ((i = text.indexOf(searchText, i, Qt::CaseInsensitive)) >= 0) {
+    // Search for the text span(s) the string is coming from. Note: Because we
+    // are doing a forward search only, we don't need to reset `span` or
+    // `spanStart`.
+    for (; span != NULL; span = span->next) {
+      if (i < spanStart + span->len)
+        break;
+      spanStart += span->len;
+      if (span->eol)
+        ++spanStart;
+    }
+    if (!span)
+      break;
+
+    SearchResult result;
+    result.pageNum = pageNum();
+    for (j = 0; j < searchText.length(); ++j) {
+      while (span && i + j >= spanStart + span->len) {
+        spanStart += span->len;
+        if (span->eol)
+          ++spanStart;
+        span = span->next;
+      }
+      result.bbox |= toRectF(span->text[i + j - spanStart].bbox);
+    }
+    results << result;
+
+    // Offset `i` so we don't find the same match over and over again    
+    i += searchText.length();
+  }
+
+  fz_free_text_span(page_text);
   return results;
 }
 
