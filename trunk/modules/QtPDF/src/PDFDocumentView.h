@@ -355,9 +355,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
   bool _linksLoaded;
 
   QTransform _pageScale, _pointScale;
-  qreal _zoomLevel, _magnifiedZoomLevel;
-
-  int _nTile_x, _nTile_y;
+  qreal _zoomLevel;
 
   friend class PageProcessingRenderPageRequest;
   friend class PageProcessingLoadLinksRequest;
