@@ -30,6 +30,9 @@ MuPDFDocument::MuPDFDocument(QString fileName):
   pdf_load_page_tree(_mupdf_data);
 
   _numPages = pdf_count_pages(_mupdf_data);
+
+
+  loadMetaData();
 }
 
 MuPDFDocument::~MuPDFDocument()
@@ -44,6 +47,63 @@ MuPDFDocument::~MuPDFDocument()
 
 Page *MuPDFDocument::page(int at){ return new MuPDFPage(this, at); }
 
+void MuPDFDocument::loadMetaData()
+{
+  char infoName[] = "Info"; // required because fz_dict_gets is not prototyped to take const char *
+
+  // Note: fz_is_dict(NULL)===0, i.e., it doesn't crash
+  if (!fz_is_dict(_mupdf_data->trailer))
+    return;
+  fz_obj * info = fz_dict_gets(_mupdf_data->trailer, infoName);
+  if (fz_is_dict(info)) { // the `Info` entry is optional
+    for (int i = 0; i < fz_dict_len(info); ++i) {
+      // TODO: Check if fromAscii always gives correct results (the pdf specs
+      // allow for arbitrary 8bit characters - fromAscii can handle them, but
+      // can be codec dependent (see Qt docs)
+      // Note: fz_to_name returns an internal pointer that must not be freed
+      QString key = QString::fromAscii(fz_to_name(fz_dict_get_key(info, i)));
+      // Handle standard keys
+      if (key == QString::fromUtf8("Trapped")) {
+        // TODO: Check if fromAscii always gives correct results (the pdf specs
+        // allow for arbitrary 8bit characters - fromAscii can handle them, but
+        // can be codec dependent (see Qt docs)
+        QString val = QString::fromAscii(fz_to_name(fz_dict_get_val(info, i)));
+        if (val == QString::fromUtf8("True"))
+          _meta_trapped = Trapped_True;
+        else if (val == QString::fromUtf8("False"))
+          _meta_trapped = Trapped_False;
+        else
+          _meta_trapped = Trapped_Unknown;
+      }
+      else {
+        // TODO: Check if fromAscii always gives correct results (the pdf specs
+        // allow for arbitrary 8bit characters - fromAscii can handle them, but
+        // can be codec dependent (see Qt docs)
+        QString val = QString::fromAscii(fz_to_str_buf(fz_dict_get_val(info, i)));
+        if (key == QString::fromUtf8("Title"))
+          _meta_title = val;
+        else if (key == QString::fromUtf8("Author"))
+          _meta_author = val;
+        else if (key == QString::fromUtf8("Subject"))
+          _meta_subject = val;
+        else if (key == QString::fromUtf8("Keywords"))
+          _meta_keywords = val;
+        else if (key == QString::fromUtf8("Creator"))
+          _meta_creator = val;
+        else if (key == QString::fromUtf8("Producer"))
+          _meta_producer = val;
+        else if (key == QString::fromUtf8("CreationDate"))
+          _meta_creationDate = fromPDFDate(val);
+        else if (key == QString::fromUtf8("ModDate"))
+          _meta_modDate = fromPDFDate(val);
+        else
+          _meta_other[key] = val;
+      }
+    }
+  }
+  // FIXME: Implement metadata stream handling (which should probably override
+  // the data in the `Info` dictionary
+}
 
 // Page Class
 // ==========
