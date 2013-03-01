@@ -29,6 +29,8 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
     return PDFDestination();
   if (fz_is_name(dest))
     return PDFDestination(QString::fromAscii(fz_to_name(dest)));
+  if (fz_is_string(dest))
+    return PDFDestination(QString::fromAscii(fz_to_str_buf(dest)));
 
   if (fz_is_array(dest)) {
     // Structure of pdf_link->dest:
@@ -326,6 +328,25 @@ void MuPDFDocument::loadMetaData()
   }
   // FIXME: Implement metadata stream handling (which should probably override
   // the data in the `Info` dictionary
+}
+
+PDFDestination MuPDFDocument::resolveDestination(const PDFDestination & namedDestination) const
+{
+  Q_ASSERT(_mupdf_data != NULL);
+  
+  // TODO: Test this method
+
+  // If namedDestination is not a named destination at all, simply return a copy
+  if (namedDestination.isExplicit())
+    return namedDestination;
+
+  fz_obj * name = fz_new_name(namedDestination.destinationName().toUtf8().data());
+  // Note: Ideally, we would use resolve_dest, but that is not declared
+  // officially in mupdf.h, only in <mupdf>/pdf/pdf_annot.c
+  //fz_obj * dest = resolve_dest(_mupdf_data, name)
+  fz_obj * dest = pdf_lookup_dest(_mupdf_data, name);
+  fz_drop_obj(name);
+  return toPDFDestination(_mupdf_data, dest);
 }
 
 QList<PDFFontInfo> MuPDFDocument::fonts() const
