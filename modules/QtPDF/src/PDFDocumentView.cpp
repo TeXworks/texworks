@@ -956,6 +956,20 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Page *a_page, QGraphicsItem *parent):
 QRectF PDFPageGraphicsItem::boundingRect() const { return QRectF(QPointF(0.0, 0.0), _pageSize); }
 int PDFPageGraphicsItem::type() const { return Type; }
 
+QPointF PDFPageGraphicsItem::mapFromPage(const QPointF & point)
+{
+  // item coordinates are in pixels
+  return QPointF(_pageSize.width() * point.x() / _page->pageSizeF().width(), \
+    _pageSize.height() * (1.0 - point.y() / _page->pageSizeF().height()));
+}
+
+QPointF PDFPageGraphicsItem::mapToPage(const QPointF & point)
+{
+  // item coordinates are in pixels
+  return QPointF(_page->pageSizeF().width() * point.x() / _pageSize.width(), \
+    _page->pageSizeF().height() * (1.0 - point.y() / _pageSize.height()));
+}
+
 // An overloaded paint method allows us to handle rendering via asynchronous
 // calls to backend functions.
 void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

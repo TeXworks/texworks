@@ -277,6 +277,15 @@ public:
 
   virtual QRectF boundingRect() const;
 
+  // Maps the point _point_ from the page's coordinate system (in pt) to this
+  // item's coordinate system - chain with mapToScene and related methods to get
+  // coordinates in other systems
+  QPointF mapFromPage(const QPointF & point);
+  // Maps the point _point_ from the item's coordinate system to the page's
+  // coordinate system (in pt) - chain with mapFromScene and related methods to
+  // convert from coordinates in other systems
+  QPointF mapToPage(const QPointF & point);
+
 protected:
   bool event(QEvent *event);
 
