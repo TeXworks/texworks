@@ -66,8 +66,8 @@ public:
   bool unlock(const QString password);
   void reload();
 
-  QSharedPointer<Backend::Page> page(int at);
-  QSharedPointer<Backend::Page> page(int at) const;
+  QWeakPointer<Backend::Page> page(int at);
+  QWeakPointer<Backend::Page> page(int at) const;
   PDFDestination resolveDestination(const PDFDestination & namedDestination) const;
 
   PDFToC toc() const;

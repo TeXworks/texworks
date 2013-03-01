@@ -125,7 +125,7 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
     // a View that would ignore page jumps that other scenes would respond to._
     connect(_pdf_scene.data(), SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
     connect(_pdf_scene.data(), SIGNAL(pdfActionTriggered(const QtPDF::PDFAction*)), this, SLOT(pdfActionTriggered(const QtPDF::PDFAction*)));
-    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<QtPDF::Backend::Document>)), this, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Backend::Document>)));
+    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)), this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)));
   }
   else
     _lastPage = -1;
@@ -253,7 +253,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
   if (_pdf_scene) {
     if (_pdf_scene->document())
       infoWidget->initFromDocument(_pdf_scene->document());
-    connect(this, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Backend::Document>)), infoWidget, SLOT(initFromDocument(const QSharedPointer<QtPDF::Backend::Document>)));
+    connect(this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), infoWidget, SLOT(initFromDocument(const QWeakPointer<QtPDF::Backend::Document>)));
   }
   dock->setWindowTitle(infoWidget->windowTitle());
   connect(infoWidget, SIGNAL(windowTitleChanged(const QString &)), dock, SLOT(setWindowTitle(const QString &)));
@@ -704,13 +704,16 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int align
     zoomFitWindow();
     double xres = QApplication::desktop()->physicalDpiX() * _zoomLevel;
     double yres = QApplication::desktop()->physicalDpiY() * _zoomLevel;
+    QSharedPointer<Backend::Page> backendPage(page->page().toStrongRef());
     
-    if (page->page()->transition()) {
-      page->page()->transition()->reset();
+    if (backendPage && backendPage->transition()) {
+      backendPage->transition()->reset();
       // Setting listener = NULL in calls to getTileImage to force synchronous
       // rendering
-      if (oldPage)
-        page->page()->transition()->start(*(oldPage->page()->getTileImage(NULL, oldXres, oldYres)), *(page->page()->getTileImage(NULL, xres, yres)));
+      if (oldPage) {
+        QSharedPointer<Backend::Page> oldBackendPage(oldPage->page().toStrongRef());
+        backendPage->transition()->start(*(oldBackendPage->getTileImage(NULL, oldXres, oldYres)), *(backendPage->getTileImage(NULL, xres, yres)));
+      }
     }
   }
   emit changedPage(_currentPage);
@@ -813,8 +816,8 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const QRectF vi
       centerOn(rect.center());
   }
 
-  if (_currentPage != page->page()->pageNum()) {
-    _currentPage = page->page()->pageNum();
+  if (_currentPage != page->pageNum()) {
+    _currentPage = page->pageNum();
     emit changedPage(_currentPage);
   }
 }
@@ -844,7 +847,10 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
           PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(_currentPage));
           Q_ASSERT(pageItem != NULL);
           
-          PDFDestination dest = _pdf_scene->document()->resolveDestination(actionGoto->destination());
+          QSharedPointer<Backend::Document> doc(_pdf_scene->document().toStrongRef());
+          if (!doc)
+            break;
+          PDFDestination dest = doc->resolveDestination(actionGoto->destination());
           if (!dest.isValid() || !dest.isExplicit())
             break;
 
@@ -854,7 +860,7 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
           oldViewport = QRectF(pageItem->mapToPage(oldViewport.topLeft()), \
                                pageItem->mapToPage(oldViewport.bottomRight()));
           // Calculate the new viewport (in page coordinates)
-          QRectF view(dest.viewport(_pdf_scene->document().data(), oldViewport, _zoomLevel));
+          QRectF view(dest.viewport(doc.data(), oldViewport, _zoomLevel));
 
           goToPage(static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(dest.page())), view, true);
         }
@@ -1407,7 +1413,7 @@ QPixmap& PDFDocumentMagnifierView::dropShadow()
 // A large canvas that manages the layout of QGraphicsItem subclasses. The
 // primary items we are concerned with are PDFPageGraphicsItem and
 // PDFLinkGraphicsItem.
-PDFDocumentScene::PDFDocumentScene(Backend::Document *a_doc, QObject *parent):
+PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent):
   Super(parent),
   _doc(a_doc)
 {
@@ -1473,7 +1479,7 @@ void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
 // Accessors
 // ---------
 
-QSharedPointer<Backend::Document> PDFDocumentScene::document() { return QSharedPointer<Backend::Document>(_doc); }
+QWeakPointer<Backend::Document> PDFDocumentScene::document() { return _doc.toWeakRef(); }
 QList<QGraphicsItem*> PDFDocumentScene::pages() { return _pages; };
 
 // Overloaded method that returns all page objects inside a given rectangular
@@ -1682,35 +1688,40 @@ void PDFDocumentScene::showAllPages() const
 
 // This class descends from `QGraphicsObject` and implements the on-screen
 // representation of `Page` objects.
-PDFPageGraphicsItem::PDFPageGraphicsItem(QSharedPointer<Backend::Page> a_page, QGraphicsItem *parent):
+PDFPageGraphicsItem::PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, QGraphicsItem *parent):
   Super(parent),
   _page(a_page),
   _dpiX(QApplication::desktop()->physicalDpiX()),
   _dpiY(QApplication::desktop()->physicalDpiY()),
 
+  _pageNum(-1),
   _linksLoaded(false),
   _annotationsLoaded(false),
   _zoomLevel(0.0)
 {
-  // Create an empty pixmap that is the same size as the PDF page. This
-  // allows us to delay the rendering of pages until they actually come into
-  // view yet still know what the page size is.
-  _pageSize = _page->pageSizeF();
-  _pageSize.setWidth(_pageSize.width() * _dpiX / 72.0);
-  _pageSize.setHeight(_pageSize.height() * _dpiY / 72.0);
-
-  // `_pageScale` holds a transformation matrix that can map between normalized
-  // page coordinates (in the range 0...1) and the coordinate system for this
-  // graphics item. `_pointScale` is similar, except it maps from coordinates
-  // expressed in pixels at a resolution of 72 dpi.
-  _pageScale = QTransform::fromScale(_pageSize.width(), _pageSize.height());
-  _pointScale = QTransform::fromScale(_dpiX / 72.0, _dpiY / 72.0);
-
   // So we get information during paint events about what portion of the page
   // is visible.
   //
   // NOTE: This flag needs Qt 4.6 or newer.
   setFlags(QGraphicsItem::ItemUsesExtendedStyleOption);
+
+  QSharedPointer<Backend::Page> page(_page.toStrongRef());
+  if (page) {
+    _pageNum = page->pageNum();
+    // Create an empty pixmap that is the same size as the PDF page. This
+    // allows us to delay the rendering of pages until they actually come into
+    // view yet still know what the page size is.
+    _pageSize = page->pageSizeF();
+    _pageSize.setWidth(_pageSize.width() * _dpiX / 72.0);
+    _pageSize.setHeight(_pageSize.height() * _dpiY / 72.0);
+
+    // `_pageScale` holds a transformation matrix that can map between normalized
+    // page coordinates (in the range 0...1) and the coordinate system for this
+    // graphics item. `_pointScale` is similar, except it maps from coordinates
+    // expressed in pixels at a resolution of 72 dpi.
+    _pageScale = QTransform::fromScale(_pageSize.width(), _pageSize.height());
+    _pointScale = QTransform::fromScale(_dpiX / 72.0, _dpiY / 72.0);
+  }
 }
 
 QRectF PDFPageGraphicsItem::boundingRect() const { return QRectF(QPointF(0.0, 0.0), _pageSize); }
@@ -1718,16 +1729,22 @@ int PDFPageGraphicsItem::type() const { return Type; }
 
 QPointF PDFPageGraphicsItem::mapFromPage(const QPointF & point) const
 {
+  QSharedPointer<Backend::Page> page(_page.toStrongRef());
+  if (!page)
+    return QPointF();
   // item coordinates are in pixels
-  return QPointF(_pageSize.width() * point.x() / _page->pageSizeF().width(), \
-    _pageSize.height() * (1.0 - point.y() / _page->pageSizeF().height()));
+  return QPointF(_pageSize.width() * point.x() / page->pageSizeF().width(), \
+    _pageSize.height() * (1.0 - point.y() / page->pageSizeF().height()));
 }
 
 QPointF PDFPageGraphicsItem::mapToPage(const QPointF & point) const
 {
+  QSharedPointer<Backend::Page> page(_page.toStrongRef());
+  if (!page)
+    return QPointF();
   // item coordinates are in pixels
-  return QPointF(_page->pageSizeF().width() * point.x() / _pageSize.width(), \
-    _page->pageSizeF().height() * (1.0 - point.y() / _pageSize.height()));
+  return QPointF(page->pageSizeF().width() * point.x() / _pageSize.width(), \
+    page->pageSizeF().height() * (1.0 - point.y() / _pageSize.height()));
 }
 
 // An overloaded paint method allows us to handle rendering via asynchronous
@@ -1739,19 +1756,23 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   qreal scaleFactor = painter->transform().m11();
   QTransform scaleT = QTransform::fromScale(scaleFactor, scaleFactor);
   QRect pageRect = scaleT.mapRect(boundingRect()).toAlignedRect(), pageTile;
+  QSharedPointer<Backend::Page> page(_page.toStrongRef());
   QSharedPointer<QImage> renderedPage;
+
+  if (!page)
+    return;
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
   // `_linksLoaded` will be `false`. We then load all of the links on the page.
   if ( not _linksLoaded )
   {
-    _page->asyncLoadLinks(this);
+    page->asyncLoadLinks(this);
     _linksLoaded = true;
   }
   
   if (!_annotationsLoaded) {
     // FIXME: Load annotations asynchronously?
-    addAnnotations(_page->loadAnnotations());
+    addAnnotations(page->loadAnnotations());
     _annotationsLoaded = true;
   }
 
@@ -1775,7 +1796,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     // so we only care about the translational part)
     QTransform pageT = painter->transform();
     painter->setTransform(QTransform::fromTranslate(pageT.dx(), pageT.dy()));
-    if (_page && _page->transition() && _page->transition()->isRunning()) {
+    if (page->transition() && page->transition()->isRunning()) {
       // Get and draw the current frame of the transition
       // NOTE: In the (unlikely) case that the two pages we are transitioning
       // between are not the same size, the frame image will be padded to
@@ -1785,7 +1806,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       // no other items visible below it).
       // NOTE: Don't use QRect::center() here to align the respective centers as
       // round-off errors can introduce a shift of +-1px.
-      QImage img(_page->transition()->getImage());
+      QImage img(page->transition()->getImage());
       QPoint offset((pageRect.width() - img.width()) / 2, (pageRect.height() - img.height()) / 2);
       painter->drawImage(offset, img);
       // Trigger an update as soon as possible (without recursion) to proceed
@@ -1798,7 +1819,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       // render the whole page synchronously (we don't want "rendering" to show
       // up during presentations, and we don't need tiles as we always display
       // the full page, anyway).
-      renderedPage = _page->getTileImage(NULL, _dpiX * scaleFactor, _dpiY * scaleFactor);      
+      renderedPage = page->getTileImage(NULL, _dpiX * scaleFactor, _dpiY * scaleFactor);
       if (renderedPage)
         painter->drawImage(QPoint(0, 0), *renderedPage);
     }
@@ -1858,10 +1879,10 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
             useGrayScale = true;
         }
 
-        renderedPage = _page->getTileImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile);
+        renderedPage = page->getTileImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile);
         // we don't want a finished render thread to change our image while we
         // draw it
-        _page->document()->pageCache().lock();
+        page->document()->pageCache().lock();
         // renderedPage as returned from getTileImage _should_ always be valid
         if ( renderedPage ) {
           if (useGrayScale) {
@@ -1874,7 +1895,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
           else
             painter->drawImage(tile.topLeft(), *renderedPage);
         }
-        _page->document()->pageCache().unlock();
+        page->document()->pageCache().unlock();
 #ifdef DEBUG
         painter->drawRect(tile);
 #endif
@@ -2299,16 +2320,18 @@ PDFToCInfoWidget::~PDFToCInfoWidget()
   clear();
 }
   
-void PDFToCInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
+void PDFToCInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> newDoc)
 {
   Q_ASSERT(_tree != NULL);
-  Q_ASSERT(!doc.isNull());
 
-  PDFDocumentInfoWidget::initFromDocument(doc);
+  PDFDocumentInfoWidget::initFromDocument(newDoc);
   
-  const Backend::PDFToC data = doc->toc();
   clear();
-  recursiveAddTreeItems(data, _tree->invisibleRootItem());
+  QSharedPointer<Backend::Document> doc(newDoc.toStrongRef());
+  if (doc) {
+    const Backend::PDFToC data = doc->toc();
+    recursiveAddTreeItems(data, _tree->invisibleRootItem());
+  }
 }
 
 void PDFToCInfoWidget::clear()
@@ -2476,7 +2499,7 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   retranslateUi();
 }
 
-void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
+void PDFMetaDataInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> doc)
 {
   PDFDocumentInfoWidget::initFromDocument(doc);
   reload();
@@ -2484,19 +2507,20 @@ void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Backend::Docum
 
 void PDFMetaDataInfoWidget::reload()
 {
-  if (!_doc) {
+  QSharedPointer<Backend::Document> doc(_doc.toStrongRef());
+  if (!doc) {
     clear();
     return;
   }
-  _title->setText(_doc->title());
-  _author->setText(_doc->author());
-  _subject->setText(_doc->subject());
-  _keywords->setText(_doc->keywords());
-  _creator->setText(_doc->creator());
-  _producer->setText(_doc->producer());
-  _creationDate->setText(_doc->creationDate().toString(Qt::DefaultLocaleLongDate));
-  _modDate->setText(_doc->modDate().toString(Qt::DefaultLocaleLongDate));
-  switch (_doc->trapped()) {
+  _title->setText(doc->title());
+  _author->setText(doc->author());
+  _subject->setText(doc->subject());
+  _keywords->setText(doc->keywords());
+  _creator->setText(doc->creator());
+  _producer->setText(doc->producer());
+  _creationDate->setText(doc->creationDate().toString(Qt::DefaultLocaleLongDate));
+  _modDate->setText(doc->modDate().toString(Qt::DefaultLocaleLongDate));
+  switch (doc->trapped()) {
     case Backend::Document::Trapped_True:
       _trapped->setText(PDFDocumentView::trUtf8("Yes"));
       break;
@@ -2520,7 +2544,7 @@ void PDFMetaDataInfoWidget::reload()
     }
   }
   QMap<QString, QString>::const_iterator it;
-  for (it = _doc->metaDataOther().constBegin(); it != _doc->metaDataOther().constEnd(); ++it) {
+  for (it = doc->metaDataOther().constBegin(); it != doc->metaDataOther().constEnd(); ++it) {
     QLabel * l = new QLabel(it.value(), _otherGroup);
     l->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
     layout->addRow(it.key(), l);
@@ -2603,7 +2627,7 @@ PDFFontsInfoWidget::PDFFontsInfoWidget(QWidget * parent) :
   retranslateUi();
 }
 
-void PDFFontsInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
+void PDFFontsInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> doc)
 {
   PDFDocumentInfoWidget::initFromDocument(doc);
   reload();
@@ -2614,10 +2638,11 @@ void PDFFontsInfoWidget::reload()
   Q_ASSERT(_table != NULL);
 
   clear();
-  if (!_doc)
+  QSharedPointer<Backend::Document> doc(_doc.toStrongRef());
+  if (!doc)
     return;
 
-  QList<Backend::PDFFontInfo> fonts = _doc->fonts();
+  QList<Backend::PDFFontInfo> fonts = doc->fonts();
   _table->setRowCount(fonts.count());
 
   int i = 0;
@@ -2709,7 +2734,7 @@ PDFPermissionsInfoWidget::PDFPermissionsInfoWidget(QWidget * parent) :
   retranslateUi();
 }
 
-void PDFPermissionsInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
+void PDFPermissionsInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> doc)
 {
   PDFDocumentInfoWidget::initFromDocument(doc);
   reload();
@@ -2717,12 +2742,13 @@ void PDFPermissionsInfoWidget::initFromDocument(const QSharedPointer<Backend::Do
 
 void PDFPermissionsInfoWidget::reload()
 {
-  if (!_doc) {
+  QSharedPointer<Backend::Document> doc(_doc.toStrongRef());
+  if (!doc) {
     clear();
     return;
   }
   
-  QFlags<Backend::Document::Permissions> & perm = _doc->permissions();
+  QFlags<Backend::Document::Permissions> & perm = doc->permissions();
   
   if (perm.testFlag(Backend::Document::Permission_Print)) {
     if (perm.testFlag(Backend::Document::Permission_PrintHighRes))
@@ -2814,15 +2840,16 @@ PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
   retranslateUi();
 }
 
-void PDFAnnotationsInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
+void PDFAnnotationsInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> newDoc)
 {
+  QSharedPointer<Backend::Document> doc(newDoc.toStrongRef());
   if (!doc)
     return;
 
-  QList< QSharedPointer<Backend::Page> > pages;
+  QList< QWeakPointer<Backend::Page> > pages;
   int i;
   for (i = 0; i < doc->numPages(); ++i) {
-    QSharedPointer<Backend::Page> page = doc->page(i);
+    QWeakPointer<Backend::Page> page = doc->page(i);
     if (page)
       pages << page;
   }
@@ -2839,8 +2866,9 @@ void PDFAnnotationsInfoWidget::initFromDocument(const QSharedPointer<Backend::Do
 }
 
 //static
-QList< QSharedPointer<Annotation::AbstractAnnotation> > PDFAnnotationsInfoWidget::loadAnnotations(QSharedPointer<Backend::Page> page)
+QList< QSharedPointer<Annotation::AbstractAnnotation> > PDFAnnotationsInfoWidget::loadAnnotations(QWeakPointer<Backend::Page> thePage)
 {
+  QSharedPointer<Backend::Page> page(thePage.toStrongRef());
   if (!page)
     return QList< QSharedPointer<Annotation::AbstractAnnotation> >();
   return page->loadAnnotations();
@@ -2860,8 +2888,9 @@ void PDFAnnotationsInfoWidget::annotationsReady(int index)
     if (!pdfAnnot || !pdfAnnot->isMarkup())
       continue;
     Annotation::Markup * annot = static_cast<Annotation::Markup*>(pdfAnnot.data());
-    if (annot->page())
-      _table->setItem(i, 0, new QTableWidgetItem(QString::number(annot->page()->pageNum() + 1)));
+    QSharedPointer<Backend::Page> page(annot->page().toStrongRef());
+    if (page)
+      _table->setItem(i, 0, new QTableWidgetItem(QString::number(page->pageNum() + 1)));
     _table->setItem(i, 1, new QTableWidgetItem(annot->subject()));
     _table->setItem(i, 2, new QTableWidgetItem(annot->author()));
     _table->setItem(i, 3, new QTableWidgetItem(annot->contents()));
@@ -3086,21 +3115,19 @@ void PDFPageLayout::continuousModeRelayout() {
   int i;
   qreal x, y;
   QList<LayoutItem>::iterator it;
-  PDFPageGraphicsItem * page;
   QSizeF pageSize;
   QRectF sceneRect;
 
   // First, fill the offsets with the respective widths and heights
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
-    if (!it->page || !it->page->_page)
+    if (!it->page)
       continue;
-    page = it->page;
-    pageSize = page->_page->pageSizeF();
+    pageSize = it->page->pageSizeF();
 
-    if (colOffsets[it->col + 1] < pageSize.width() * page->_dpiX / 72.)
-      colOffsets[it->col + 1] = pageSize.width() * page->_dpiX / 72.;
-    if (rowOffsets[it->row + 1] < pageSize.height() * page->_dpiY / 72.)
-      rowOffsets[it->row + 1] = pageSize.height() * page->_dpiY / 72.;
+    if (colOffsets[it->col + 1] < pageSize.width())
+      colOffsets[it->col + 1] = pageSize.width();
+    if (rowOffsets[it->row + 1] < pageSize.height())
+      rowOffsets[it->row + 1] = pageSize.height();
   }
 
   // Next, calculate cumulative offsets (including spacing)
@@ -3114,21 +3141,21 @@ void PDFPageLayout::continuousModeRelayout() {
   // from SinglePage to continuous mode in a large document (but not when
   // switching between separate continuous modes)
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
-    if (!it->page || !it->page->_page)
+    if (!it->page)
       continue;
     // If we have more than one column, right-align the left-most column and
     // left-align the right-most column to avoid large space between columns
     // In all other cases, center the page in allotted space (in case we
     // stumble over pages of different sizes, e.g., landscape pages, etc.)
-    pageSize = it->page->_page->pageSizeF();
+    pageSize = it->page->pageSizeF();
     if (_numCols > 1 && it->col == 0)
-      x = colOffsets[it->col + 1] - _xSpacing - pageSize.width() * page->_dpiX / 72.;
+      x = colOffsets[it->col + 1] - _xSpacing - pageSize.width();
     else if (_numCols > 1 && it->col == _numCols - 1)
       x = colOffsets[it->col];
     else
-      x = 0.5 * (colOffsets[it->col + 1] + colOffsets[it->col] - _xSpacing - pageSize.width() * page->_dpiX / 72.);
+      x = 0.5 * (colOffsets[it->col + 1] + colOffsets[it->col] - _xSpacing - pageSize.width());
     // Always center the page vertically
-    y = 0.5 * (rowOffsets[it->row + 1] + rowOffsets[it->row] - _ySpacing - pageSize.height() * page->_dpiY / 72.);
+    y = 0.5 * (rowOffsets[it->row + 1] + rowOffsets[it->row] - _ySpacing - pageSize.height());
     it->page->setPos(x, y);
   }
 
@@ -3143,24 +3170,22 @@ void PDFPageLayout::singlePageModeRelayout()
 {
   qreal width, height, maxWidth = 0.0, maxHeight = 0.0;
   QList<LayoutItem>::iterator it;
-  PDFPageGraphicsItem * page;
   QSizeF pageSize;
   QRectF sceneRect;
 
   // We lay out all pages such that their center is in the origin (since only
   // one page is visible at any time, this is no problem)
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
-    if (!it->page || !it->page->_page)
+    if (!it->page)
       continue;
-    page = it->page;
-    pageSize = page->_page->pageSizeF();
-    width = pageSize.width() * page->_dpiX / 72.;
-    height = pageSize.height() * page->_dpiY / 72.;
+    pageSize = it->page->pageSizeF();
+    width = pageSize.width();
+    height = pageSize.height();
     if (width > maxWidth)
       maxWidth = width;
     if (height > maxHeight)
       maxHeight = height;
-    page->setPos(-width / 2., -height / 2.);
+    it->page->setPos(-width / 2., -height / 2.);
   }
 
   sceneRect.setRect(-maxWidth / 2., -maxHeight / 2., maxWidth, maxHeight);

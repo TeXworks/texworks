@@ -32,19 +32,15 @@ bool PDFDocumentWidget::load(const QString &filename)
   // *TODO*: If more than one backend is available, maybe let users set their
   //          preferred one
 #ifdef USE_MUPDF
-  QtPDF::Backend::Document *a_pdf_doc = new QtPDF::Backend::MuPDF::Document(filename);
+  QSharedPointer<QtPDF::Backend::Document> a_pdf_doc(new QtPDF::Backend::MuPDF::Document(filename));
 #elif USE_POPPLER
-  QtPDF::Backend::Document *a_pdf_doc = new QtPDF::Backend::Poppler::Document(filename);
+  QSharedPointer<QtPDF::Backend::Document> a_pdf_doc(new QtPDF::Backend::Poppler::Document(filename));
 #else
   #error Either the Poppler or the MuPDF backend is required
 #endif
 
-  if (!a_pdf_doc)
+  if (!a_pdf_doc || !a_pdf_doc->isValid())
     return false;
-  if (!a_pdf_doc->isValid()) {
-    delete a_pdf_doc;
-    return false;
-  }
 
   // Note: Don't pass `this` (or any other QObject*) as parent to the new
   // PDFDocumentScene as that would cause docScene to be destroyed with its

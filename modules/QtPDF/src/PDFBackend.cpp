@@ -469,10 +469,18 @@ QList<SearchResult> Document::search(QString searchText, int startPage)
   QList<SearchResult> results;
   int i;
 
-  for (i = startPage; i < _numPages; ++i)
-    results << page(i)->search(searchText);
-  for (i = 0; i < startPage; ++i)
-    results << page(i)->search(searchText);
+  for (i = startPage; i < _numPages; ++i) {
+    QSharedPointer<Page> page(_pages[i]);
+    if (!page)
+      continue;
+    results << page->search(searchText);
+  }
+  for (i = 0; i < startPage; ++i) {
+    QSharedPointer<Page> page(_pages[i]);
+    if (!page)
+      continue;
+    results << page->search(searchText);
+  }
 
   return results;
 }
@@ -539,7 +547,7 @@ Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
 Page::~Page()
 {
 #ifdef DEBUG
-//  qDebug() << "Page::~Page()";
+//  qDebug() << "Page::~Page(" << _n << ")";
 #endif
 }
 
@@ -681,10 +689,11 @@ void Page::asyncLoadLinks(QObject *listener)
 //static
 QList<SearchResult> Page::executeSearch(SearchRequest request)
 {
-  if (request.doc.isNull())
+  QSharedPointer<Document> doc(request.doc.toStrongRef());
+  if (!doc)
     return QList<SearchResult>();
-  QSharedPointer<Page> page = request.doc->page(request.pageNum);
-  if (page.isNull())
+  QSharedPointer<Page> page = doc->page(request.pageNum).toStrongRef();
+  if (!page)
     return QList<SearchResult>();
   return page->search(request.searchString);
 }

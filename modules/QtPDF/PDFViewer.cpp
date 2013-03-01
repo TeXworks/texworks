@@ -44,7 +44,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   connect(docWidget, SIGNAL(requestOpenPdf(QString, int, bool)), this, SLOT(openPdf(QString, int, bool)));
   connect(docWidget, SIGNAL(contextClick(const int, const QPointF)), this, SLOT(syncFromPdf(const int, const QPointF)));
   connect(docWidget, SIGNAL(searchProgressChanged(int, int)), this, SLOT(searchProgressChanged(int, int)));
-  connect(docWidget, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Backend::Document>)), this, SLOT(documentChanged(const QSharedPointer<QtPDF::Backend::Document>)));
+  connect(docWidget, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)));
 
   _toolBar->addSeparator();
 #ifdef DEBUG
@@ -84,10 +84,12 @@ void PDFViewer::open()
   docWidget->load(pdf_doc);
 }
 
-void PDFViewer::documentChanged(const QSharedPointer<QtPDF::Backend::Document> newDoc)
+void PDFViewer::documentChanged(const QWeakPointer<QtPDF::Backend::Document> newDoc)
 {
-  if (_counter)
-    _counter->setLastPage(newDoc->numPages());
+  if (_counter) {
+    QSharedPointer<QtPDF::Backend::Document> doc(newDoc.toStrongRef());
+    _counter->setLastPage(doc->numPages());
+  }
 }
 
 void PDFViewer::searchProgressChanged(int percent, int occurrences)

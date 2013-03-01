@@ -142,7 +142,7 @@ TODO
    - full screen
    - ~~transition support?~~ __DONE__
  - save page as image (subject to permissions)
- - ~~selecting (and copying) text (subject to permissions)~~ __DONE
+ - ~~selecting (and copying) text (subject to permissions)~~ __DONE__
  - selecting (and copying/saving) images (subject to permissions)
  - ~~Provide a grayscale mode~~ __DONE__
  - ~~Implement text search for PDF files.~~ __DONE__

@@ -364,7 +364,7 @@ void ContextClick::mouseReleaseEvent(QMouseEvent * event)
     if (!item || item->type() != PDFPageGraphicsItem::Type)
       return;
     PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(item);
-    _parent->triggerContextClick(pageItem->page()->pageNum(), pageItem->mapToPage(pageItem->mapFromScene(pos)));
+    _parent->triggerContextClick(pageItem->pageNum(), pageItem->mapToPage(pageItem->mapFromScene(pos)));
   }
 }
 
@@ -776,10 +776,6 @@ void Select::mouseMoveEvent(QMouseEvent *event)
   
   PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
   Q_ASSERT(pageGraphicsItem != NULL);
-  
-  QSharedPointer<Backend::Page> page = scene->document()->page(pageNum);
-  if (page.isNull())
-    return;
 
   QTransform toView = pageGraphicsItem->pointScale();
 
@@ -935,11 +931,13 @@ void Select::keyPressEvent(QKeyEvent *event)
       Q_ASSERT(_parent != NULL);
       PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
       Q_ASSERT(scene != NULL);
-      Q_ASSERT(!scene->document().isNull());
-      if (scene->document()->permissions().testFlag(Backend::Document::Permission_Extract)) {
+      QSharedPointer<Backend::Document> doc(scene->document().toStrongRef());
+      if (!doc)
+        return;
+      if (doc->permissions().testFlag(Backend::Document::Permission_Extract)) {
         // We only copy text if we are allowed to do so
           
-        QSharedPointer<Backend::Page> page = scene->document()->page(_pageNum);
+        QSharedPointer<Backend::Page> page(doc->page(_pageNum).toStrongRef());
         if (page.isNull())
           return;
       
@@ -984,9 +982,11 @@ void Select::resetBoxes(const int pageNum /* = -1 */)
   Q_ASSERT(_parent != NULL);
   PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
   Q_ASSERT(scene != NULL);
-  Q_ASSERT(!scene->document().isNull());
+  QSharedPointer<Backend::Document> doc(scene->document().toStrongRef());
+  if (!doc)
+    return;
   
-  QSharedPointer<Backend::Page> page = scene->document()->page(pageNum);
+  QSharedPointer<Backend::Page> page(doc->page(pageNum).toStrongRef());
   if (page.isNull())
     return;
 

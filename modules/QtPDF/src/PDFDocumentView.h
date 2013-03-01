@@ -119,7 +119,7 @@ signals:
   void changedZoom(qreal zoomLevel);
   // emitted, e.g., if a new document was loaded, or if the existing document
   // has changed (e.g., if it was unlocked)
-  void changedDocument(const QSharedPointer<QtPDF::Backend::Document> newDoc);
+  void changedDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
 
   void searchProgressChanged(int percent, int occurrences);
 
@@ -227,14 +227,14 @@ public slots:
 signals:
   void windowTitleChanged(const QString &);
 protected slots:
-  virtual void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc) { _doc = doc; }
+  virtual void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc) { _doc = doc; }
   virtual void retranslateUi() { };
   virtual void clear() = 0;
 protected:
   virtual void changeEvent(QEvent * event);
   // we need to keep a reference to the document to allow dynamic lookup of data
   // (e.g., when retranslating the widget)
-  QSharedPointer<QtPDF::Backend::Document> _doc;
+  QWeakPointer<QtPDF::Backend::Document> _doc;
 };
 
 class PDFToCInfoWidget : public PDFDocumentInfoWidget
@@ -245,7 +245,7 @@ public:
   virtual ~PDFToCInfoWidget();
 
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
+  void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
   void clear();
   virtual void retranslateUi();
 signals:
@@ -266,7 +266,7 @@ public:
   virtual ~PDFMetaDataInfoWidget() { }
   
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
+  void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc);
   void clear();
   virtual void retranslateUi();
   void reload();
@@ -293,7 +293,7 @@ public:
   virtual ~PDFFontsInfoWidget() { }
   
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
+  void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc);
   void clear();
   virtual void retranslateUi();
   void reload();
@@ -309,7 +309,7 @@ public:
   virtual ~PDFPermissionsInfoWidget() { }
   
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
+  void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc);
   void clear();
   virtual void retranslateUi();
   void reload();
@@ -328,14 +328,14 @@ class PDFAnnotationsInfoWidget : public PDFDocumentInfoWidget
   QFutureWatcher< QList< QSharedPointer<Annotation::AbstractAnnotation> > > _annotWatcher;
   QTableWidget * _table;
 
-  static QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations(QSharedPointer<Backend::Page> page);
+  static QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations(QWeakPointer<Backend::Page> thePage);
 
 public:
   PDFAnnotationsInfoWidget(QWidget * parent);
   virtual ~PDFAnnotationsInfoWidget() { }
     
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
+  void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
   void clear();
   virtual void retranslateUi();
   void annotationsReady(int index);
@@ -406,9 +406,9 @@ class PDFDocumentScene : public QGraphicsScene
   void handleActionEvent(const PDFActionEvent * action_event);
 
 public:
-  PDFDocumentScene(Backend::Document *a_doc, QObject *parent = 0);
+  PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent = 0);
 
-  QSharedPointer<Backend::Document> document();
+  QWeakPointer<Backend::Document> document();
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   QGraphicsItem* pageAt(const int idx);
@@ -424,13 +424,13 @@ public:
 
   int lastPage();
 
-  const QSharedPointer<Backend::Document> document() const { return _doc; }
+  const QWeakPointer<Backend::Document> document() const { return _doc.toWeakRef(); }
 
 signals:
   void pageChangeRequested(int pageNum);
   void pageLayoutChanged();
   void pdfActionTriggered(const QtPDF::PDFAction * action);
-  void documentChanged(const QSharedPointer<QtPDF::Backend::Document> doc);
+  void documentChanged(const QWeakPointer<QtPDF::Backend::Document> doc);
 
 public slots:
   void doUnlockDialog();
@@ -464,11 +464,13 @@ class PDFPageGraphicsItem : public QGraphicsObject
   Q_OBJECT
   typedef QGraphicsObject Super;
 
-  QSharedPointer<Backend::Page> _page;
+  QWeakPointer<Backend::Page> _page;
 
   double _dpiX;
   double _dpiY;
+  // the nominal (i.e., unmagnified) page size in pixel
   QSizeF _pageSize;
+  int _pageNum;
 
   bool _linksLoaded;
   bool _annotationsLoaded;
@@ -478,13 +480,13 @@ class PDFPageGraphicsItem : public QGraphicsObject
 
   friend class PageProcessingRenderPageRequest;
   friend class PageProcessingLoadLinksRequest;
-  friend class PDFPageLayout;
+//  friend class PDFPageLayout;
 
   static void imageToGrayScale(QImage & img);
 
 public:
 
-  PDFPageGraphicsItem(QSharedPointer<Backend::Page> a_page, QGraphicsItem *parent = 0);
+  PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, QGraphicsItem *parent = 0);
 
   // This seems fragile as it assumes no other code declaring a custom graphics
   // item will choose the same ID for it's object types. Unfortunately, there
@@ -497,7 +499,7 @@ public:
 
   virtual QRectF boundingRect() const;
 
-  QSharedPointer<Backend::Page> page() const { return _page; }
+  QWeakPointer<Backend::Page> page() const { return _page; }
 
   // Maps the point _point_ from the page's coordinate system (in pt) to this
   // item's coordinate system - chain with mapToScene and related methods to get
@@ -510,6 +512,10 @@ public:
 
   QTransform pageScale() { return _pageScale; }
   QTransform pointScale() { return _pointScale; }
+
+  // get the nominal (i.e., unmagnified) page size in pixel
+  QSizeF pageSizeF() const { return _pageSize; }
+  int pageNum() const { return _pageNum; }
 
 protected:
   bool event(QEvent *event);
