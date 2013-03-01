@@ -126,7 +126,10 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
 
 // Public Slots
 // ------------
-// **TODO:** goPrev() and goNext() should not (necessarily) center on top of page
+// **FIXME:**
+// `goPrev` and `goNext` should not (necessarily) center on top of
+// page. This is especially true in single page mode where `goPrev` should
+// probably center on the bottom of the previous page.
 void PDFDocumentView::goPrev()  { goToPage(_currentPage - 1); }
 void PDFDocumentView::goNext()  { goToPage(_currentPage + 1); }
 void PDFDocumentView::goFirst() { goToPage(0); }
@@ -358,7 +361,7 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
 //
 //   * _Should we let some parent widget worry about delegating Page
 //     Up/PageDown/other keypresses?_
-// **TODO:** Handle mouseWheel/Key_Up/Key_Down events at the edge of pages in
+// **FIXME:** Handle mouseWheel/Key_Up/Key_Down events at the edge of pages in
 // single page mode
 void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 {
@@ -548,18 +551,41 @@ void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
 
 void PDFDocumentView::wheelEvent(QWheelEvent * event)
 {
-  // TODO: Possibly make the Ctrl modifier configurable?
-  // TODO: According to Qt docs, the delta() is not necessarily the same for all
-  // mice. Decide if we want to enforce the same step size regardless of the
-  // resolution of the mouse wheel sensor
+  int delta = event->delta();
+
   if (event->orientation() == Qt::Vertical && event->buttons() == Qt::NoButton && event->modifiers() == Qt::ControlModifier) {
-    if (event->delta() > 0)
+
+    // TODO: Possibly make the Ctrl modifier configurable?
+    // TODO: According to Qt docs, the delta() is not necessarily the same for all
+    // mice. Decide if we want to enforce the same step size regardless of the
+    // resolution of the mouse wheel sensor
+    if ( delta > 0 )
       zoomIn();
-    else if (event->delta() < 0)
+    else if ( delta < 0 )
       zoomOut();
     event->accept();
     return;
+
+  } else if ( pageMode() == PageMode_SinglePage ) {
+
+    // In single page mode we need to flip to the next page if the scroll bar
+    // is a the top or bottom of it's range. `maybeUpdateSceneRect` should be
+    // triggered by the page change signal emitted during `goNext` and `goPrev`
+    int scrollPos = verticalScrollBar()->value();
+    if ( delta < 0 && scrollPos == verticalScrollBar()->maximum() ) {
+      goNext();
+
+      event->accept();
+      return;
+    } else if ( delta > 0 && scrollPos == verticalScrollBar()->minimum() ) {
+      goPrev();
+
+      event->accept();
+      return;
+    }
+
   }
+
   Super::wheelEvent(event);
 }
 
