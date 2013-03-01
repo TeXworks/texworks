@@ -17,6 +17,7 @@
 #include <QtGui/QtGui>
 
 #include <PDFBackend.h>
+#include <PDFDocumentTools.h>
 
 namespace QtPDF {
 
@@ -27,34 +28,6 @@ class PDFLinkGraphicsItem;
 class PDFDocumentMagnifierView;
 class PDFActionEvent;
 class PDFDocumentView;
-
-class PDFDocumentTool
-{
-  friend class PDFDocumentView;
-public:
-  enum Type { Tool_None, Tool_MagnifyingGlass, Tool_ZoomIn, Tool_ZoomOut, Tool_MarqueeZoom, Tool_Move, Tool_ContextMenu, Tool_ContextClick };
-  PDFDocumentTool(PDFDocumentView * parent) : _parent(parent), _cursor(QCursor(Qt::ArrowCursor)) { }
-  virtual ~PDFDocumentTool() { }
-  
-  virtual Type type() const { return Tool_None; }
-  virtual bool operator==(const PDFDocumentTool & o) { return (type() == o.type()); }
-protected:
-  virtual void arm();
-  virtual void disarm();
-
-  // By default, key events will call the parent view's maybeArmTool(). Derived
-  // classes that rely on key events can override this behavior to handle
-  // certain key events itself.
-  virtual void keyPressEvent(QKeyEvent *event);
-  virtual void keyReleaseEvent(QKeyEvent *event);
-  virtual void mousePressEvent(QMouseEvent * event);
-  virtual void mouseMoveEvent(QMouseEvent * event) { }
-  virtual void mouseReleaseEvent(QMouseEvent * event);
-  virtual void paintEvent(QPaintEvent * event) { }
-
-  PDFDocumentView * _parent;
-  QCursor _cursor;
-};
 
 
 const int TILE_SIZE=1024;
@@ -74,12 +47,11 @@ class PDFDocumentView : public QGraphicsView {
   int _currentSearchResult;
   bool _useGrayScale;
 
-  friend class PDFDocumentTool;
+  friend class DocumentTool::AbstractTool;
 
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
   enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom };
-  enum MagnifierShape { Magnifier_Rectangle, Magnifier_Circle };
   enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions, Dock_Annotations };
 
   PDFDocumentView(QWidget *parent = 0);
@@ -97,7 +69,7 @@ public:
   // the table of contents will change this view)
   QDockWidget * dockWidget(const Dock type, QWidget * parent = NULL);
   
-  PDFDocumentTool * armedTool() const { return _armedTool; }
+  DocumentTool::AbstractTool * armedTool() const { return _armedTool; }
   void triggerContextClick(const int page, const QPointF pos) { emit contextClick(page, pos); }
 
 public slots:
@@ -122,7 +94,7 @@ public slots:
   void setMouseModeMagnifyingGlass() { setMouseMode(MouseMode_MagnifyingGlass); }
   void setMouseModeMove() { setMouseMode(MouseMode_Move); }
   void setMouseModeMarqueeZoom() { setMouseMode(MouseMode_MarqueeZoom); }
-  void setMagnifierShape(const MagnifierShape shape);
+  void setMagnifierShape(const DocumentTool::MagnifyingGlass::MagnifierShape shape);
   void setMagnifierSize(const int size);
   void setUseGrayScale(const bool grayScale = true) { _useGrayScale = grayScale; }
 
@@ -166,12 +138,12 @@ protected:
   
   // Maybe this will become public later on
   // Ownership of tool is transferred to PDFDocumentView
-  void registerTool(PDFDocumentTool * tool);
+  void registerTool(DocumentTool::AbstractTool * tool);
 
-  PDFDocumentTool* getToolByType(const PDFDocumentTool::Type type);
+  DocumentTool::AbstractTool * getToolByType(const DocumentTool::AbstractTool::Type type);
 
-  void armTool(const PDFDocumentTool::Type toolType);
-  void armTool(PDFDocumentTool * tool);
+  void armTool(const DocumentTool::AbstractTool::Type toolType);
+  void armTool(DocumentTool::AbstractTool * tool);
   void disarmTool();
 
 protected slots:
@@ -191,9 +163,9 @@ private:
   PageMode _pageMode;
   MouseMode _mouseMode;
   QCursor _hiddenCursor;
-  QVector<PDFDocumentTool*> _tools;
-  PDFDocumentTool * _armedTool;
-  QMap<uint, PDFDocumentTool*> _toolAccessors;
+  QVector<DocumentTool::AbstractTool*> _tools;
+  DocumentTool::AbstractTool * _armedTool;
+  QMap<uint, DocumentTool::AbstractTool*> _toolAccessors;
   
   static QTranslator * _translator;
   static QString _translatorLanguage;
@@ -211,7 +183,7 @@ class PDFDocumentMagnifierView : public QGraphicsView {
   PDFDocumentView * _parent_view;
   qreal _zoomLevel, _zoomFactor;
 
-  PDFDocumentView::MagnifierShape _shape;
+  DocumentTool::MagnifyingGlass::MagnifierShape _shape;
   int _size;
 
 public:
@@ -219,7 +191,7 @@ public:
   // the zoom factor multiplies the parent view's _zoomLevel
   void setZoomFactor(const qreal zoomFactor);
   void setPosition(const QPoint pos);
-  void setShape(const PDFDocumentView::MagnifierShape shape);
+  void setShape(const DocumentTool::MagnifyingGlass::MagnifierShape shape);
   void setSize(const int size);
   // ensures all settings are in sync with the parent view
   // make sure you call it before calling show()!
@@ -237,105 +209,6 @@ protected:
   QPixmap _dropShadow;
 };
 
-class PDFDocumentToolZoomIn : public PDFDocumentTool
-{
-public:
-  PDFDocumentToolZoomIn(PDFDocumentView * parent);
-  virtual Type type() const { return Tool_ZoomIn; }
-protected:
-  virtual void arm() { PDFDocumentTool::arm(); _started = false; }
-  virtual void disarm() { PDFDocumentTool::disarm(); _started = false; }
-
-  virtual void mousePressEvent(QMouseEvent * event);
-  virtual void mouseReleaseEvent(QMouseEvent * event);
-  QPoint _startPos;
-  bool _started;
-};
-
-class PDFDocumentToolZoomOut : public PDFDocumentTool
-{
-public:
-  PDFDocumentToolZoomOut(PDFDocumentView * parent);
-  virtual Type type() const { return Tool_ZoomOut; }
-protected:
-  virtual void arm() { PDFDocumentTool::arm(); _started = false; }
-  virtual void disarm() { PDFDocumentTool::disarm(); _started = false; }
-
-  virtual void mousePressEvent(QMouseEvent * event);
-  virtual void mouseReleaseEvent(QMouseEvent * event);
-  QPoint _startPos;
-  bool _started;
-};
-
-class PDFDocumentToolMagnifyingGlass : public PDFDocumentTool
-{
-public:
-  PDFDocumentToolMagnifyingGlass(PDFDocumentView * parent);
-  virtual Type type() const { return Tool_MagnifyingGlass; }
-  PDFDocumentMagnifierView * magnifier() { return _magnifier; }
-
-  void setMagnifierShape(const PDFDocumentView::MagnifierShape shape);
-  void setMagnifierSize(const int size);
-
-protected:
-  virtual void arm() { PDFDocumentTool::arm(); _started = false; }
-  virtual void disarm() { PDFDocumentTool::disarm(); _started = false; }
-
-  virtual void mousePressEvent(QMouseEvent * event);
-  virtual void mouseMoveEvent(QMouseEvent * event);
-  virtual void mouseReleaseEvent(QMouseEvent * event);
-  virtual void paintEvent(QPaintEvent * event);
-
-  PDFDocumentMagnifierView * _magnifier;
-  bool _started;
-};
-
-class PDFDocumentToolMarqueeZoom : public PDFDocumentTool
-{
-public:
-  PDFDocumentToolMarqueeZoom(PDFDocumentView * parent);
-  virtual Type type() const { return Tool_MarqueeZoom; }
-protected:
-  virtual void arm() { PDFDocumentTool::arm(); _started = false; }
-  virtual void disarm() { PDFDocumentTool::disarm(); _started = false; }
-
-  virtual void mousePressEvent(QMouseEvent * event);
-  virtual void mouseMoveEvent(QMouseEvent * event);
-  virtual void mouseReleaseEvent(QMouseEvent * event);
-
-  bool _started;
-  QPoint _startPos;
-  QRubberBand * _rubberBand;
-};
-
-class PDFDocumentToolMove : public PDFDocumentTool
-{
-public:
-  PDFDocumentToolMove(PDFDocumentView * parent);
-  virtual Type type() const { return Tool_Move; }
-protected:
-  virtual void arm() { PDFDocumentTool::arm(); _started = false; }
-  virtual void disarm() { PDFDocumentTool::disarm(); _started = false; }
-
-  virtual void mousePressEvent(QMouseEvent * event);
-  virtual void mouseMoveEvent(QMouseEvent * event);
-  virtual void mouseReleaseEvent(QMouseEvent * event);
-
-  bool _started;
-  QPoint _oldPos;
-  QCursor _closedHandCursor;
-};
-
-class PDFDocumentToolContextClick : public PDFDocumentTool
-{
-public:
-  PDFDocumentToolContextClick(PDFDocumentView * parent) : PDFDocumentTool(parent) { }
-  virtual Type type() const { return Tool_ContextClick; }
-protected:
-  virtual void mousePressEvent(QMouseEvent * event);
-  virtual void mouseReleaseEvent(QMouseEvent * event);
-  bool _started;
-};
 
 class PDFDocumentInfoWidget : public QWidget
 {
