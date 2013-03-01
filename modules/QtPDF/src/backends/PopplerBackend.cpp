@@ -75,6 +75,7 @@ QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box, bo
   docLock.unlock();
 
   if( cache ) {
+    _parent->pageCache().lock.lockForWrite();
     PDFPageTile key(xres, yres, render_box, _n);
     // Don't cache a page if an entry already exists---it will cause the old
     // entry to be deleted which can invalidate some pointers.
@@ -83,6 +84,7 @@ QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box, bo
       // the image in bytes as the cost.
       _parent->pageCache().insert(key, new QImage(renderedPage.copy()), renderedPage.byteCount());
     }
+    _parent->pageCache().lock.unlock();
   }
 
   return renderedPage;

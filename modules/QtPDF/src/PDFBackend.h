@@ -234,7 +234,11 @@ uint qHash(const PDFPageTile &tile);
 
 // TODO: May need a full subclass to do things like return the nearest image if
 // a specific resolution is not available.
-typedef QCache<PDFPageTile, QImage> PDFPageCache;
+class PDFPageCache : public QCache<PDFPageTile, QImage>
+{
+public:
+  QReadWriteLock lock;
+};
 
 // FIXME: the program segfaults if the page is destroyed while a page processing
 // request is executed. Note that using QSharedPointer doesn't help here as
