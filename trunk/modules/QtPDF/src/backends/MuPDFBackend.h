@@ -48,7 +48,7 @@ public:
   ~MuPDFDocument();
 
   Page *page(int at);
-
+  QList<PDFFontInfo> fonts() const;
 };
 
 

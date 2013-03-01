@@ -155,7 +155,10 @@ QList<PDFFontInfo> PopplerDocument::fonts() const
 
   foreach(Poppler::FontInfo popplerFontInfo, _poppler_doc->fonts()) {
     PDFFontInfo fi;
-    fi.setFileName(popplerFontInfo.file());
+    if (popplerFontInfo.isEmbedded())
+      fi.setSource(PDFFontInfo::Source_Embedded);
+    else
+      fi.setFileName(popplerFontInfo.file());
     fi.setDescriptor(PDFFontDescriptor(popplerFontInfo.name()));
 
     switch (popplerFontInfo.type()) {

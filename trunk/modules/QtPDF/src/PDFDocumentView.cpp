@@ -1803,7 +1803,7 @@ PDFFontsDockWidget::PDFFontsDockWidget(QWidget * parent) :
   _table->setFont(f);
 #endif
   _table->setColumnCount(4);
-  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Name") << PDFDocumentView::trUtf8("Type") << PDFDocumentView::trUtf8("Subset") << PDFDocumentView::trUtf8("File"));
+  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Name") << PDFDocumentView::trUtf8("Type") << PDFDocumentView::trUtf8("Subset") << PDFDocumentView::trUtf8("Source"));
   _table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
   _table->setEditTriggers(QAbstractItemView::NoEditTriggers);
   _table->setAlternatingRowColors(true);
@@ -1848,7 +1848,17 @@ void PDFFontsDockWidget::setFontsDataFromDocument(const QSharedPointer<Document>
         break;
     }
     _table->setItem(i, 2, new QTableWidgetItem(font.isSubset() ? PDFDocumentView::trUtf8("yes") : PDFDocumentView::trUtf8("no")));
-    _table->setItem(i, 3, new QTableWidgetItem(font.isEmbedded() ? PDFDocumentView::trUtf8("[embedded]") : font.fileName().canonicalFilePath()));
+    switch (font.source()) {
+      case PDFFontInfo::Source_Embedded:
+        _table->setItem(i, 3, new QTableWidgetItem(PDFDocumentView::trUtf8("[embedded]")));
+        break;
+      case PDFFontInfo::Source_Builtin:
+        _table->setItem(i, 3, new QTableWidgetItem(PDFDocumentView::trUtf8("[builtin]")));
+        break;
+      case PDFFontInfo::Source_File:
+        _table->setItem(i, 3, new QTableWidgetItem(font.fileName().canonicalFilePath()));
+        break;
+    }
     ++i;
   }
   _table->resizeColumnsToContents();
