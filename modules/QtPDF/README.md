@@ -32,9 +32,9 @@ TODO
 ====
 ### Required
  - ~~GotoPage should not center on page~~ __DONE__
- - zoom/hand tools
+ - ~~zoom/hand tools~~ __DONE__
  - ctrl+mousewheel should zoom
- - maquee zoom (requested by Philip Taylor)
+ - ~~maquee zoom (requested by Philip Taylor)~~ __DONE__
  - context menu
  - Flesh out link support
  - Add some loading indicators so that users know something is happening in the
