@@ -144,37 +144,55 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   ensureVisible(viewRect, 0, 0);
 }
 
-PDFDocumentInfoDock * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* = NULL */)
+QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* = NULL */)
 {
-  PDFDocumentInfoDock * dock;
+  QDockWidget * dock = new QDockWidget(QString(), parent);
+  Q_ASSERT(dock != NULL);
+
+  PDFDocumentInfoWidget * infoWidget;
   switch (type) {
     case Dock_TableOfContents:
     {
-      PDFToCDockWidget * tocDock = new PDFToCDockWidget(parent);
-      connect(tocDock, SIGNAL(actionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
-      dock = tocDock;
+      PDFToCInfoWidget * tocWidget = new PDFToCInfoWidget(dock);
+      connect(tocWidget, SIGNAL(actionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
+      infoWidget = tocWidget;
       break;
     }
     case Dock_MetaData:
-      dock = new PDFMetaDataDockWidget(parent);
+      infoWidget = new PDFMetaDataInfoWidget(dock);
       break;
     case Dock_Fonts:
-      dock = new PDFFontsDockWidget(parent);
+      infoWidget = new PDFFontsInfoWidget(dock);
       break;
     case Dock_Permissions:
-      dock = new PDFPermissionsDockWidget(parent);
+      infoWidget = new PDFPermissionsInfoWidget(dock);
       break;
     default:
-      dock = NULL;
+      infoWidget = NULL;
       break;
   }
-  if (!dock)
+  if (!infoWidget) {
+    dock->deleteLater();
     return NULL;
-  if (_pdf_scene) {
-    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<Document>)), dock, SLOT(initFromDocument(const QSharedPointer<Document>)));
-    if (_pdf_scene->document())
-      dock->initFromDocument(_pdf_scene->document());
   }
+  if (_pdf_scene) {
+    if (_pdf_scene->document())
+      infoWidget->initFromDocument(_pdf_scene->document());
+    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<Document>)), infoWidget, SLOT(initFromDocument(const QSharedPointer<Document>)));
+  }
+  dock->setWindowTitle(infoWidget->windowTitle());
+
+  // We don't want docks to (need to) take up a lot of space. If the infoWidget
+  // can't shrink, we thus put it into a scroll area that can
+  if (!(infoWidget->sizePolicy().horizontalPolicy() & QSizePolicy::ShrinkFlag) || \
+      !(infoWidget->sizePolicy().verticalPolicy() & QSizePolicy::ShrinkFlag)) {
+    QScrollArea * scrollArea = new QScrollArea(dock);
+    scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    scrollArea->setWidget(infoWidget);
+    dock->setWidget(scrollArea);
+  }
+  else
+    dock->setWidget(infoWidget);
   return dock;
 }
 
@@ -1781,44 +1799,50 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 }
 
 
-// PDFToCDockWidget
+// PDFToCInfoWidget
 // ============
 
-PDFToCDockWidget::PDFToCDockWidget(QWidget * parent) :
-  PDFDocumentInfoDock(PDFDocumentView::trUtf8("Table of Contents"), parent)
+PDFToCInfoWidget::PDFToCInfoWidget(QWidget * parent) :
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Table of Contents"))
 {
-  QTreeWidget * tree = new QTreeWidget(this);
-  tree->setAlternatingRowColors(true);
-  tree->setHeaderHidden(true);
-  tree->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-  connect(tree, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));
-  setWidget(tree);
+  QVBoxLayout * layout = new QVBoxLayout(this);
+  layout->setContentsMargins(0, 0, 0, 0);
+
+  _tree = new QTreeWidget(this);
+  _tree->setAlternatingRowColors(true);
+  _tree->setHeaderHidden(true);
+  _tree->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+  connect(_tree, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));
+
+  layout->addWidget(_tree);
+  setLayout(layout);
 }
 
-PDFToCDockWidget::~PDFToCDockWidget()
+PDFToCInfoWidget::~PDFToCInfoWidget()
 {
-  clearTree();
+  clear();
 }
   
-void PDFToCDockWidget::initFromDocument(const QSharedPointer<Document> doc)
+void PDFToCInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
+  Q_ASSERT(_tree != NULL);
   const PDFToC data = doc->toc();
-  QTreeWidget * tree = qobject_cast<QTreeWidget*>(widget());
-  if (!tree)
-    return;
-  clearTree();
-  recursiveAddTreeItems(data, tree->invisibleRootItem());
+  clear();
+  recursiveAddTreeItems(data, _tree->invisibleRootItem());
 }
 
-void PDFToCDockWidget::itemSelectionChanged()
+void PDFToCInfoWidget::clear()
 {
-  QTreeWidget * tree = qobject_cast<QTreeWidget*>(widget());
-  if (!tree || tree->selectedItems().isEmpty())
-    return;
-  
+  Q_ASSERT(_tree != NULL);
+  recursiveClearTreeItems(_tree->invisibleRootItem());
+}
+
+void PDFToCInfoWidget::itemSelectionChanged()
+{
+  Q_ASSERT(_tree != NULL);
   // Since the ToC QTreeWidget is in single selection mode, the first element is
   // the only one.
-  QTreeWidgetItem * item = tree->selectedItems().first();
+  QTreeWidgetItem * item = _tree->selectedItems().first();
   Q_ASSERT(item != NULL);
   // TODO: It might be better to register PDFAction with the QMetaType framework
   // instead of doing casts with (void*).
@@ -1827,17 +1851,8 @@ void PDFToCDockWidget::itemSelectionChanged()
     emit actionTriggered(action);
 }
 
-void PDFToCDockWidget::clearTree()
-{
-  QTreeWidget * tree = qobject_cast<QTreeWidget*>(widget());
-  if (!tree)
-    return;
-
-  recursiveClearTreeItems(tree->invisibleRootItem());
-}
-
 //static
-void PDFToCDockWidget::recursiveAddTreeItems(const QList<PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem)
+void PDFToCInfoWidget::recursiveAddTreeItems(const QList<PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem)
 {
   foreach (const PDFToCItem & tocItem, tocItems) {
     QTreeWidgetItem * treeItem = new QTreeWidgetItem(parentTreeItem, QStringList(tocItem.label()));
@@ -1862,7 +1877,7 @@ void PDFToCDockWidget::recursiveAddTreeItems(const QList<PDFToCItem> & tocItems,
 }
 
 //static
-void PDFToCDockWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
+void PDFToCInfoWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
 {
   Q_ASSERT(parent != NULL);
   while (parent->childCount() > 0) {
@@ -1877,20 +1892,18 @@ void PDFToCDockWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
 }
 
 
-// PDFMetaDataDockWidget
+// PDFMetaDataInfoWidget
 // ============
-PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) : 
-  PDFDocumentInfoDock(PDFDocumentView::trUtf8("Meta Data"), parent)
+PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) : 
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Meta Data"))
 {
+  setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
   // scrollArea ... the central widget of the QDockWidget
   // w ... the central widget of scrollArea
   // groupBox ... one (of many) group box in w
   // vLayout ... lays out the group boxes in w
   // layout ... lays out the actual data widgets in groupBox
-  QScrollArea * scrollArea = new QScrollArea(this);
-  scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  QWidget * w = new QWidget(scrollArea);
-  QVBoxLayout * vLayout = new QVBoxLayout(w);
+  QVBoxLayout * vLayout = new QVBoxLayout(this);
   QGroupBox * groupBox;
   QFormLayout * layout;
 
@@ -1902,7 +1915,7 @@ PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) :
   vLayout->setContentsMargins(0, 0, 0, 0);
 
   // The "Document" group box
-  groupBox = new QGroupBox(PDFDocumentView::trUtf8("Document"), w);
+  groupBox = new QGroupBox(PDFDocumentView::trUtf8("Document"), this);
   layout = new QFormLayout(groupBox);
 
   _title = new QLabel(groupBox);
@@ -1925,7 +1938,7 @@ PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) :
   vLayout->addWidget(groupBox);
 
   // The "Processing" group box
-  groupBox = new QGroupBox(PDFDocumentView::trUtf8("Processing"), w);
+  groupBox = new QGroupBox(PDFDocumentView::trUtf8("Processing"), this);
   layout = new QFormLayout(groupBox);
 
   _creator = new QLabel(groupBox);
@@ -1952,7 +1965,7 @@ PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) :
   vLayout->addWidget(groupBox);
 
   // The "Other" group box
-  _other = groupBox = new QGroupBox(PDFDocumentView::trUtf8("Other"), w);
+  _other = groupBox = new QGroupBox(PDFDocumentView::trUtf8("Other"), this);
   layout = new QFormLayout(groupBox);
 
   // Note: Items are added to the "Other" box dynamically in
@@ -1961,16 +1974,15 @@ PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) :
   groupBox->setLayout(layout);
   vLayout->addWidget(groupBox);
 
-
-  w->setLayout(vLayout);
-  scrollArea->setWidget(w);
-  setWidget(scrollArea);
+  setLayout(vLayout);
 }
 
-void PDFMetaDataDockWidget::initFromDocument(const QSharedPointer<Document> doc)
+void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
-  if (!doc)
+  if (!doc) {
+    clear();
     return;
+  }
   _title->setText(doc->title());
   _author->setText(doc->author());
   _subject->setText(doc->subject());
@@ -1991,27 +2003,51 @@ void PDFMetaDataDockWidget::initFromDocument(const QSharedPointer<Document> doc)
       break;
   }
   QFormLayout * layout = qobject_cast<QFormLayout*>(_other->layout());
-  if (layout) {
-    // Remove any items there may be
-    while (layout->count() > 0) {
-      QLayoutItem * child = layout->takeAt(0);
-      if (child)
-        delete child;
-    }
-    QMap<QString, QString>::const_iterator it;
-    for (it = doc->metaDataOther().constBegin(); it != doc->metaDataOther().constEnd(); ++it) {
-      QLabel * l = new QLabel(it.value(), _other);
-      l->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-      layout->addRow(it.key(), l);
-    }
+  Q_ASSERT(layout != NULL);
+
+  // Remove any items there may be
+  while (layout->count() > 0) {
+    QLayoutItem * child = layout->takeAt(0);
+    if (child)
+      delete child;
+  }
+  QMap<QString, QString>::const_iterator it;
+  for (it = doc->metaDataOther().constBegin(); it != doc->metaDataOther().constEnd(); ++it) {
+    QLabel * l = new QLabel(it.value(), _other);
+    l->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+    layout->addRow(it.key(), l);
   }
 }
 
-// PDFFontsDockWidget
-// ============
-PDFFontsDockWidget::PDFFontsDockWidget(QWidget * parent) :
-  PDFDocumentInfoDock(PDFDocumentView::trUtf8("Fonts"), parent)
+void PDFMetaDataInfoWidget::clear()
 {
+  _title->setText(QString());
+  _author->setText(QString());
+  _subject->setText(QString());
+  _keywords->setText(QString());
+  _creator->setText(QString());
+  _producer->setText(QString());
+  _creationDate->setText(QString());
+  _modDate->setText(QString());
+  _trapped->setText(PDFDocumentView::trUtf8("Unknown"));
+  QFormLayout * layout = qobject_cast<QFormLayout*>(_other->layout());
+  Q_ASSERT(layout != NULL);
+
+  // Remove any items there may be
+  while (layout->count() > 0) {
+    QLayoutItem * child = layout->takeAt(0);
+    if (child)
+      delete child;
+  }
+}
+
+// PDFFontsInfoWidget
+// ============
+PDFFontsInfoWidget::PDFFontsInfoWidget(QWidget * parent) :
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Fonts"))
+{
+  QVBoxLayout * layout = new QVBoxLayout(this);
+  layout->setContentsMargins(0, 0, 0, 0);
   _table = new QTableWidget(this);
 
 #ifdef Q_WS_MAC /* don't do this on windows, as the font ends up too small */
@@ -2030,14 +2066,15 @@ PDFFontsDockWidget::PDFFontsDockWidget(QWidget * parent) :
   _table->horizontalHeader()->setStretchLastSection(true);
   _table->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
 
-  setWidget(_table);
+  layout->addWidget(_table);
+  setLayout(layout);
 }
 
-void PDFFontsDockWidget::initFromDocument(const QSharedPointer<Document> doc)
+void PDFFontsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
   Q_ASSERT(_table != NULL);
 
-  _table->clearContents();
+  clear();
   if (!doc)
     return;
 
@@ -2083,45 +2120,47 @@ void PDFFontsDockWidget::initFromDocument(const QSharedPointer<Document> doc)
   _table->sortItems(0);
 }
 
-
-// PDFPermissionsDockWidget
-// ============
-PDFPermissionsDockWidget::PDFPermissionsDockWidget(QWidget * parent) : 
-  PDFDocumentInfoDock(PDFDocumentView::trUtf8("Permissions"), parent)
+void PDFFontsInfoWidget::clear()
 {
-  // scrollArea ... the central widget of the QDockWidget
-  // w ... the central widget of scrollArea
+  _table->clearContents();
+  _table->setRowCount(0);
+}
+
+
+// PDFPermissionsInfoWidget
+// ============
+PDFPermissionsInfoWidget::PDFPermissionsInfoWidget(QWidget * parent) : 
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Permissions"))
+{
+  setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
   // layout ... lays out the widgets in w
-  QScrollArea * scrollArea = new QScrollArea(this);
-  scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  QWidget * w = new QWidget(scrollArea);
-  QFormLayout * layout = new QFormLayout(w);
+  QFormLayout * layout = new QFormLayout(this);
 
   // We want the layout to set the size of w (which should encompass all child
   // widgets completely, since we in turn put it into scrollArea to handle
   // oversized children
   layout->setSizeConstraint(QLayout::SetFixedSize);
 
-  _print = new QLabel(w);
+  _print = new QLabel(this);
   layout->addRow(PDFDocumentView::trUtf8("Printing:"), _print);
-  _modify = new QLabel(w);
+  _modify = new QLabel(this);
   layout->addRow(PDFDocumentView::trUtf8("Modifications:"), _modify);
-  _extract = new QLabel(w);
+  _extract = new QLabel(this);
   layout->addRow(PDFDocumentView::trUtf8("Extraction:"), _extract);
-  _addNotes = new QLabel(w);
+  _addNotes = new QLabel(this);
   layout->addRow(PDFDocumentView::trUtf8("Annotation:"), _addNotes);
-  _form = new QLabel(w);
+  _form = new QLabel(this);
   layout->addRow(PDFDocumentView::trUtf8("Filling forms:"), _form);
 
-  w->setLayout(layout);
-  scrollArea->setWidget(w);
-  setWidget(scrollArea);
+  setLayout(layout);
 }
 
-void PDFPermissionsDockWidget::initFromDocument(const QSharedPointer<Document> doc)
+void PDFPermissionsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
-  if (!doc)
+  if (!doc) {
+    clear();
     return;
+  }
   
   QFlags<Document::Permissions> & perm = doc->permissions();
   
@@ -2160,6 +2199,15 @@ void PDFPermissionsDockWidget::initFromDocument(const QSharedPointer<Document> d
     _form->setText(PDFDocumentView::trUtf8("Allowed"));
   else
     _form->setText(PDFDocumentView::trUtf8("Denied"));
+}
+
+void PDFPermissionsInfoWidget::clear()
+{
+  _print->setText(PDFDocumentView::trUtf8("Denied"));
+  _modify->setText(PDFDocumentView::trUtf8("Denied"));
+  _extract->setText(PDFDocumentView::trUtf8("Denied"));
+  _addNotes->setText(PDFDocumentView::trUtf8("Denied"));
+  _form->setText(PDFDocumentView::trUtf8("Denied"));
 }
 
 

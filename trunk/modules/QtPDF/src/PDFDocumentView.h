@@ -24,7 +24,6 @@ class PDFPageGraphicsItem;
 class PDFLinkGraphicsItem;
 class PDFDocumentMagnifierView;
 class PDFActionEvent;
-class PDFDocumentInfoDock;
 
 const int TILE_SIZE=1024;
 
@@ -64,7 +63,7 @@ public:
   // he has to destroy them, unless the `parent` widget does that automatically)
   // They are fully wired to this PDFDocumentView (e.g., clicking on entries in
   // the table of contents will change this view)
-  PDFDocumentInfoDock * dockWidget(const Dock type, QWidget * parent = NULL);
+  QDockWidget * dockWidget(const Dock type, QWidget * parent = NULL);
 
 public slots:
   void goPrev();
@@ -182,43 +181,50 @@ protected:
   QPixmap _dropShadow;
 };
 
-class PDFDocumentInfoDock : public QDockWidget
+class PDFDocumentInfoWidget : public QWidget
 {
   Q_OBJECT
   friend class PDFDocumentView;
 public:
-  PDFDocumentInfoDock(const QString & title, QWidget * parent = NULL) : QDockWidget(title, parent) { }
-  virtual ~PDFDocumentInfoDock() { }
+  PDFDocumentInfoWidget(QWidget * parent = NULL, const QString & title = QString()) : QWidget(parent) { setWindowTitle(title); }
+  virtual ~PDFDocumentInfoWidget() { }
+  // If the widget has a fixed size, it should not be resized (it can, e.g., be
+  // put into a QScrollArea instead).
 protected slots:
   virtual void initFromDocument(const QSharedPointer<Document> doc) = 0;
+  virtual void clear() = 0;
 };
 
-class PDFToCDockWidget : public PDFDocumentInfoDock
+class PDFToCInfoWidget : public PDFDocumentInfoWidget
 {
   Q_OBJECT
 public:
-  PDFToCDockWidget(QWidget * parent);
-  virtual ~PDFToCDockWidget();
-  
+  PDFToCInfoWidget(QWidget * parent);
+  virtual ~PDFToCInfoWidget();
+
+protected slots:
   void initFromDocument(const QSharedPointer<Document> doc);
+  void clear();
 signals:
   void actionTriggered(const PDFAction*);
 private slots:
   void itemSelectionChanged();
 private:
-  void clearTree();
   static void recursiveAddTreeItems(const QList<PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem);
   static void recursiveClearTreeItems(QTreeWidgetItem * parent);
+  QTreeWidget * _tree;
 };
 
-class PDFMetaDataDockWidget : public PDFDocumentInfoDock
+class PDFMetaDataInfoWidget : public PDFDocumentInfoWidget
 {
   Q_OBJECT
 public:
-  PDFMetaDataDockWidget(QWidget * parent);
-  virtual ~PDFMetaDataDockWidget() { }
+  PDFMetaDataInfoWidget(QWidget * parent);
+  virtual ~PDFMetaDataInfoWidget() { }
   
+protected slots:
   void initFromDocument(const QSharedPointer<Document> doc);
+  void clear();
 private:
   QLabel * _title;
   QLabel * _author;
@@ -232,26 +238,30 @@ private:
   QGroupBox * _other;
 };
 
-class PDFFontsDockWidget : public PDFDocumentInfoDock
+class PDFFontsInfoWidget : public PDFDocumentInfoWidget
 {
   Q_OBJECT
 public:
-  PDFFontsDockWidget(QWidget * parent);
-  virtual ~PDFFontsDockWidget() { }
+  PDFFontsInfoWidget(QWidget * parent);
+  virtual ~PDFFontsInfoWidget() { }
   
+protected slots:
   void initFromDocument(const QSharedPointer<Document> doc);
+  void clear();
 private:
   QTableWidget * _table;
 };
 
-class PDFPermissionsDockWidget : public PDFDocumentInfoDock
+class PDFPermissionsInfoWidget : public PDFDocumentInfoWidget
 {
   Q_OBJECT
 public:
-  PDFPermissionsDockWidget(QWidget * parent);
-  virtual ~PDFPermissionsDockWidget() { }
+  PDFPermissionsInfoWidget(QWidget * parent);
+  virtual ~PDFPermissionsInfoWidget() { }
   
+protected slots:
   void initFromDocument(const QSharedPointer<Document> doc);
+  void clear();
 private:
   QLabel * _print;
   QLabel * _modify;
