@@ -1156,7 +1156,6 @@ QPointF PDFPageGraphicsItem::mapToPage(const QPointF & point)
 // calls to backend functions.
 void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-qDebug() << "[INF] PDFPageGraphicsItem::paint()";
   // Really, there is an X scaling factor and a Y scaling factor, but we assume
   // that the X scaling factor is equal to the Y scaling factor.
   qreal scaleFactor = painter->transform().m11();
@@ -1244,20 +1243,14 @@ qDebug() << "[INF] PDFPageGraphicsItem::paint()";
         // Perhaps store `QSharedPointer<QImage>` instead of `QImage` in the
         // cache? Then the image won't disappear as long as there is one shared
         // pointer still in existance.
-        renderedPage = _page->getCachedImage(_dpiX * scaleFactor, _dpiY * scaleFactor, tile);
-        if ( renderedPage == NULL ) {
-          // If the page does not exist, we request a background render with
-          // cached results (caching is triggered by the `true` value).
-          //
-          // FIXME: Perhaps there should be a method that renders and caches, but
-          // does not post an event that contains the rendered image?
-          //
-          // FIXME: Find something useful to render when no image is
-          // returned---perhaps a scaled up version of a lower resolution image.
-          _page->asyncRenderToImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile, true);
-        } else {
-          // We got a page back from the cache.
+        renderedPage = _page->getTileImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile);
+        if ( renderedPage ) {
+          // we don't want a finished render thread to change our image while we
+          // draw it
+          _page->document()->pageCache().lock.lockForRead();
+          // renderedPage as returned from getTileImage should always be valid!
           painter->drawImage(tile.topLeft(), *renderedPage);
+          _page->document()->pageCache().lock.unlock();
         }
 #ifdef DEBUG
         painter->drawRect(tile);

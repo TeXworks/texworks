@@ -429,6 +429,8 @@ public:
 
   int pageNum();
   virtual QSizeF pageSizeF()=0;
+  
+  Document * document() { return _parent; }
 
   virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false)=0;
   virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
@@ -438,7 +440,12 @@ public:
   virtual void asyncLoadLinks(QObject *listener);
 
   QImage *getCachedImage(double xres, double yres, QRect render_box = QRect());
-
+  // Returns either a cached image (if it exists), or triggers a render request.
+  // If listener != NULL, this is an asynchronous render request and the method
+  // returns a dummy image (which is added to the cache to speed up future
+  // requests). Otherwise, the method renders the page synchronously and returns
+  // the result.
+  QImage* getTileImage(QObject * listener, const double xres, const double yres, QRect render_box = QRect());
 };
 
 
