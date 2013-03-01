@@ -28,6 +28,9 @@
 class Page;
 class Document;
 
+// TODO: Find a better place to put this
+QDateTime fromPDFDate(QString pdfDate);
+
 
 // FIXME: Annotations and Actions should probably be moved to separate files
 
@@ -74,7 +77,7 @@ public:
   virtual QString contents() const { return _contents; }
   virtual Page * page() const { return _page; }
   virtual QString name() const { return _name; }
-  virtual QString lastModified() const { return _lastModified; }
+  virtual QDateTime lastModified() const { return _lastModified; }
   virtual QFlags<AnnotationFlags> flags() const { return _flags; }
   virtual QFlags<AnnotationFlags>& flags() { return _flags; }  
   virtual QColor color() const { return _color; }
@@ -83,7 +86,7 @@ public:
   virtual void setContents(const QString contents) { _contents = contents; }
   virtual void setPage(Page * page) { _page = page; }
   virtual void setName(const QString name) { _name = name; }
-  virtual void setLastModified(const QString lastModified) { _lastModified = lastModified; }
+  virtual void setLastModified(const QDateTime lastModified) { _lastModified = lastModified; }
   virtual void setColor(const QColor color) { _color = color; }
 
 protected:
@@ -91,7 +94,7 @@ protected:
   QString _contents; // optional
   Page * _page; // optional; since PDF 1.3
   QString _name; // optional; since PDF 1.4
-  QString _lastModified; // optional; since PDF 1.1
+  QDateTime _lastModified; // optional; since PDF 1.1
   // TODO: _flags, _appearance, _appearanceState, _border, _structParent, _optContent
   QFlags<AnnotationFlags> _flags;
   // QList<???> _appearance;
@@ -476,12 +479,9 @@ class Document
 {
   friend class Page;
 
-protected:
-  int _numPages;
-  PDFPageProcessingThread _processingThread;
-  PDFPageCache _pageCache;
-
 public:
+  enum TrappedState { Trapped_Unknown, Trapped_True, Trapped_False };
+
   Document(QString fileName);
   virtual ~Document();
 
@@ -493,6 +493,35 @@ public:
   // Override in derived class if it provides access to the document outline
   // strutures of the pdf file.
   virtual PDFToC toc() const { return PDFToC(); }
+
+  // <metadata>
+  QString title() const { return _meta_title; }
+  QString author() const { return _meta_author; }
+  QString subject() const { return _meta_subject; }
+  QString keywords() const { return _meta_keywords; }
+  QString creator() const { return _meta_creator; }
+  QString producer() const { return _meta_producer; }
+  QDateTime creationDate() const { return _meta_creationDate; }
+  QDateTime modDate() const { return _meta_modDate; }
+  TrappedState trapped() const { return _meta_trapped; }
+  QMap<QString, QString> metaDataOther() const { return _meta_other; }
+  // </metadata>
+
+protected:
+  int _numPages;
+  PDFPageProcessingThread _processingThread;
+  PDFPageCache _pageCache;
+
+  QString _meta_title;
+  QString _meta_author;
+  QString _meta_subject;
+  QString _meta_keywords;
+  QString _meta_creator;
+  QString _meta_producer;
+  QDateTime _meta_creationDate;
+  QDateTime _meta_modDate;
+  TrappedState _meta_trapped;
+  QMap<QString, QString> _meta_other;
 };
 
 class Page
