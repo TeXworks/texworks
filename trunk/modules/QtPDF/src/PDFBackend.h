@@ -109,17 +109,54 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(PDFAnnotation::AnnotationFlags)
 class PDFDestination
 {
 public:
-  PDFDestination(const int page = -1) : _page(page) { }
+  enum Type { Destination_XYZ, Destination_Fit, Destination_FitH, \
+              Destination_FitV, Destination_FitR, Destination_FitB, \
+              Destination_FitBH, Destination_FitBV };
+  PDFDestination(const int page = -1) : _page(page), _type(Destination_XYZ), _rect(QRectF(-1, -1, -1, -1)), _zoom(-1) { }
+  PDFDestination(const QString destinationName) : _destinationName(destinationName) { }
 
-  bool isValid() const { return _page >= 0; }
+  bool isValid() const { return _page >= 0 || !_destinationName.isEmpty(); }
+  // If the destination is not explicit (i.e., it is a named destination), use
+  // Document::resolveDestination() to resolve (this must be done just-in-time
+  // in case it refers to another document, or the name-to-destination mapping
+  // has changed since the PDFDestination object was constructed.
+  bool isExplicit() const { return _destinationName.isEmpty() && _page >= 0; }
 
   int page() const { return _page; }
+  Type type() const { return _type; }
+  QString destinationName() const { return _destinationName; }
+  float zoom() const { return _zoom; }
+  float top() const { return _rect.top(); }
+  float left() const { return _rect.left(); }
+  QRectF rect() const { return _rect; }
+
+  // Returns the new viewport in the new page's coordinate system
+  // Note: the returned viewport may have a different aspect ratio than
+  // oldViewport. In that case, it view should be centered around the returned
+  // rect.
+  // Params:
+  //  - oldViewport: viewport in old page's coordinate system
+  //  - oldZoom
+  QRectF viewport(const Document * doc, const QRectF oldViewport, const float oldZoom) const;
+  
   void setPage(const int page) { _page = page; }
+  void setType(const Type type) { _type = type; }
+  void setZoom(const float zoom) { _zoom = zoom; }
+  void setRect(const QRectF rect) { _rect = rect; }
+  void setDestinationName(const QString destinationName) { _destinationName = destinationName; }
 
 private:
   int _page;
-  // FIXME: viewport, zoom, fitting, etc.
+  Type _type;
+  QString _destinationName;
+  QRectF _rect; // depending on _type, only some of the components might be significant
+  float _zoom;
 };
+
+#ifdef DEBUG
+  QDebug operator<<(QDebug dbg, const PDFDestination & dest);
+#endif
+
 
 // TODO: Possibly merge ActionTypeGoTo, ActionTypeGoToR, ActionTypeGoToE
 class PDFAction
@@ -599,6 +636,10 @@ public:
   PDFPageCache& pageCache();
 
   virtual QSharedPointer<Page> page(int at)=0;
+  virtual PDFDestination resolveDestination(const PDFDestination & namedDestination) const {
+    return (namedDestination.isExplicit() ? namedDestination : PDFDestination());
+  }
+
   // Override in derived class if it provides access to the document outline
   // strutures of the pdf file.
   virtual PDFToC toc() const { return PDFToC(); }
