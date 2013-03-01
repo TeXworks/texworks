@@ -107,6 +107,9 @@ public:
   // called before setPosition as well (as it adjusts the region accessible in
   // setPosition())
   void prepareToShow();
+
+protected:
+  void wheelEvent(QWheelEvent * event) { event->ignore(); }
 };
 
 class PageProcessingRequest : public QObject
