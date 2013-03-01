@@ -411,6 +411,20 @@ int Document::numPages() { return _numPages; }
 PDFPageProcessingThread &Document::processingThread() { return _processingThread; }
 PDFPageCache &Document::pageCache() { return _pageCache; }
 
+QList<QRectF> Document::search(QString searchText, int startPage)
+{
+  QList<QRectF> results;
+  int i;
+
+  for (i = startPage; i < _numPages; ++i)
+    results << page(i)->search(searchText);
+  for (i = 0; i < startPage; ++i)
+    results << page(i)->search(searchText);
+
+
+  return results;
+}
+
 
 // Page Class
 // ----------
