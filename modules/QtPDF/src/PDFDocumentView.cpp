@@ -1097,9 +1097,31 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 #ifdef DEBUG
       stopwatch.start();
 #endif
-      // FIXME: This needs to be threaded and cached.
-      QImage renderedPage = _page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor, tile);
-      painter->drawImage(tile.topLeft(), renderedPage);
+      // See if a copy of the required page render currently exists in the
+      // cache.
+      //
+      // FIXME: The cache still owns the returned pointer---this means it may
+      // decide to delete the object *before* we paint it. Find some way to
+      // guard against this.
+      //
+      // Perhaps store `QSharedPointer<QImage>` instead of `QImage` in the
+      // cache? Then the image won't disappear as long as there is one shared
+      // pointer still in existance.
+      QImage *renderedPage = _page->getCachedImage(_dpiX * scaleFactor, _dpiY * scaleFactor, tile);
+      if ( renderedPage == NULL ) {
+        // If the page does not exist, we request a background render with
+        // cached results (caching is triggered by the `true` value).
+        //
+        // FIXME: Perhaps there should be a method that renders and caches, but
+        // does not post an event that contains the rendered image?
+        //
+        // FIXME: Find something useful to render when no image is
+        // returned---perhaps a scaled up version of a lower resolution image.
+        _page->asyncRenderToImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile, true);
+      } else {
+        // We got a page back from the cache.
+        painter->drawImage(tile.topLeft(), *renderedPage);
+      }
 #ifdef DEBUG
       qDebug() << "Rendered and painted tile in: " << stopwatch.elapsed() << " milliseconds";
       painter->drawRect(tile);
@@ -1126,7 +1148,13 @@ bool PDFPageGraphicsItem::event(QEvent *event)
   } else if( event->type() == PDFPageRenderedEvent::PageRenderedEvent ) {
     event->accept();
 
-    qDebug() << "Recieved a page render event!";
+    // FIXME: We're sort of misusing the render event here---it contains a copy
+    // of the image data that we never touch. The assumption is that the page
+    // cache now has new data, so we call `update` to trigger a repaint which
+    // fetches stuff from the cache.
+    //
+    // Perhaps there should be a separate event for when the cache is updated.
+    update();
 
     return true;
   }

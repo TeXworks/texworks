@@ -58,8 +58,8 @@ public:
 
   QSizeF pageSizeF();
 
-  QImage renderToImage(double xres, double yres, QRect render_box = QRect());
-  void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect());
+  QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false);
+  void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
   // FIXME: This should return a list of object inherting from an abstract base
   // class for Links.
