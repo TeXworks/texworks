@@ -20,7 +20,9 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
 
   PageCounter *counter = new PageCounter(this->statusBar());
   ZoomTracker *zoomWdgt = new ZoomTracker(this);
+  SearchWidget *search = new SearchWidget(this);
   QToolBar *toolBar = new QToolBar(this);
+
 
   toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomin.png")), tr("Zoom In"), docView, SLOT(zoomIn()));
   toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomout.png")), tr("Zoom Out"), docView, SLOT(zoomOut()));
@@ -43,6 +45,9 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   connect(docView, SIGNAL(requestOpenUrl(const QUrl)), this, SLOT(openUrl(const QUrl)));
   connect(docView, SIGNAL(requestOpenPdf(QString, int, bool)), this, SLOT(openPdf(QString, int, bool)));
   connect(docView, SIGNAL(contextClick(const int, const QPointF)), this, SLOT(syncFromPdf(const int, const QPointF)));
+
+  toolBar->addSeparator();
+  toolBar->addWidget(search);
 
   statusBar()->addPermanentWidget(counter);
   statusBar()->addWidget(zoomWdgt);
@@ -118,5 +123,23 @@ void ZoomTracker::refreshText() {
   setText(tr("Zoom %1%").arg(zoom * 100));
   update();
 }
+
+
+SearchWidget::SearchWidget(QWidget *parent, Qt::WindowFlags f) : QWidget(parent, f)
+{
+  setLayout(new QHBoxLayout());
+
+  _input = new QLineEdit(this);
+  _searchButton = new QPushButton(QString::fromAscii("Search"), this);
+
+  layout()->addWidget(_input);
+  layout()->addWidget(_searchButton);
+
+  connect(_searchButton, SIGNAL(clicked()), this, SLOT(searchActivated()));
+
+}
+
+void SearchWidget::searchActivated() { emit(searchRequested(_input->text())); }
+
 
 // vim: set sw=2 ts=2 et

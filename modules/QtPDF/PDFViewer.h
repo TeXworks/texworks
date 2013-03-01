@@ -13,6 +13,25 @@ private slots:
 };
 
 
+class SearchWidget : public QWidget
+{
+  Q_OBJECT
+
+  QLineEdit *_input;
+  QPushButton *_searchButton;
+
+public:
+  SearchWidget(QWidget *parent = 0, Qt::WindowFlags f = 0);
+
+public slots:
+  void searchActivated();
+
+signals:
+  void searchRequested(QString search_text);
+
+};
+
+
 class PageCounter : public QLabel {
   Q_OBJECT
   typedef QLabel super;
