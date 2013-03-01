@@ -68,6 +68,12 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   if (!_pdf_scene || pageMode == _pageMode)
     return;
 
+  // Save the current view relative to the current page so we can restore it
+  // after changing the mode
+  // **TODO:** Safeguard
+  QRectF viewRect(mapToScene(viewport()->rect()).boundingRect());
+  viewRect.translate(-_pdf_scene->pages().at(_currentPage)->pos());
+
   // **TODO:** Avoid relayouting everything twice when switching from SinglePage
   // to TwoColumnContinuous (once by setContinuous(), and a second time by
   // setColumnCount() below)
@@ -97,6 +103,10 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   }
   _pageMode = pageMode;
   _pdf_scene->pageLayout().relayout();
+
+  // Restore the view from before as good as possible
+  viewRect.translate(_pdf_scene->pages().at(_currentPage)->pos());
+  ensureVisible(viewRect, 0, 0);
 }
 
 
