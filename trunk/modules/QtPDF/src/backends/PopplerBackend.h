@@ -44,16 +44,21 @@ class Document: public Backend::Document
 protected:
   // Poppler is not threadsafe, so some operations need to be serialized with a
   // mutex.
-  QMutex *_doc_lock;
+  QMutex * _poppler_docLock;
   QList<PDFFontInfo> _fonts;
   bool _fontsLoaded;
+
+  // The following two methods are not thread-safe because they don't acquire a
+  // read lock. This is to enable methods that have a write lock to use them.
+  bool _isValid() const { return (_poppler_doc != NULL); }
+  bool _isLocked() const { return (_poppler_doc ? _poppler_doc->isLocked() : false); }
 
 public:
   Document(QString fileName);
   ~Document();
 
-  bool isValid() const { return (_poppler_doc != NULL); }
-  bool isLocked() const { return (_poppler_doc ? _poppler_doc->isLocked() : false); }
+  bool isValid() const { QReadLocker docLocker(_docLock.data()); return _isValid(); }
+  bool isLocked() const { QReadLocker docLocker(_docLock.data()); return _isLocked(); }
 
   bool unlock(const QString password);
 
@@ -71,6 +76,8 @@ private:
 
 class Page: public Backend::Page
 {
+  friend class Document;
+
   typedef Backend::Page Super;
   QSharedPointer< ::Poppler::Page > _poppler_page;
   QList< QSharedPointer<Annotation::AbstractAnnotation> > _annotations;
@@ -79,9 +86,11 @@ class Page: public Backend::Page
   bool _linksLoaded;
 
   void loadTransitionData();
+
+protected:
+  Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock);
   
 public:
-  Page(Document *parent, int at);
   ~Page();
 
   QSizeF pageSizeF() const;

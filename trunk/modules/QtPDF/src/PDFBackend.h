@@ -25,6 +25,8 @@
 #include <QCache>
 #include <QMutex>
 #include <QReadWriteLock>
+#include <QReadLocker>
+#include <QWriteLocker>
 #include <QWaitCondition>
 #include <QEvent>
 #include <QMap>
@@ -405,6 +407,7 @@ struct SearchResult
 // TODO: Should this class be derived from QObject to emit signals (e.g., 
 // documentChanged() after reload, unlocking, etc.)?
 
+// This class is thread-safe. See implementation for internals.
 class Document
 {
   friend class Page;
@@ -425,23 +428,34 @@ public:
   Document(QString fileName);
   virtual ~Document();
 
+  // Uses doc-read-lock
   int numPages();
+  // Uses doc-read-lock
   PDFPageProcessingThread& processingThread();
+  // Uses doc-read-lock
   PDFPageCache& pageCache();
 
+  // Uses doc-read-lock and may use doc-write-lock
   virtual QSharedPointer<Page> page(int at) = 0;
+  // Uses doc-read-lock
   virtual QSharedPointer<Page> page(int at) const = 0;
   virtual PDFDestination resolveDestination(const PDFDestination & namedDestination) const {
     return (namedDestination.isExplicit() ? namedDestination : PDFDestination());
   }
 
-  QFlags<Permissions> permissions() const { return _permissions; }
-  QFlags<Permissions>& permissions() { return _permissions; }
 
+  // Uses doc-read-lock
+  QFlags<Permissions> permissions() const { QReadLocker docLocker(_docLock.data()); return _permissions; }
+  // Uses doc-read-lock
+  QFlags<Permissions>& permissions() { QReadLocker docLocker(_docLock.data()); return _permissions; }
+  
+  // Uses doc-read-lock
   virtual bool isValid() const = 0;
+  // Uses doc-read-lock
   virtual bool isLocked() const = 0;
 
   // Returns `true` if unlocking was successful and `false` otherwise.  
+  // Uses doc-read-lock and may use doc-write-lock
   virtual bool unlock(const QString password) = 0;
 
   // Override in derived class if it provides access to the document outline
@@ -450,16 +464,16 @@ public:
   virtual QList<PDFFontInfo> fonts() const { return QList<PDFFontInfo>(); }
 
   // <metadata>
-  QString title() const { return _meta_title; }
-  QString author() const { return _meta_author; }
-  QString subject() const { return _meta_subject; }
-  QString keywords() const { return _meta_keywords; }
-  QString creator() const { return _meta_creator; }
-  QString producer() const { return _meta_producer; }
-  QDateTime creationDate() const { return _meta_creationDate; }
-  QDateTime modDate() const { return _meta_modDate; }
-  TrappedState trapped() const { return _meta_trapped; }
-  QMap<QString, QString> metaDataOther() const { return _meta_other; }
+  QString title() const { QReadLocker docLocker(_docLock.data()); return _meta_title; }
+  QString author() const { QReadLocker docLocker(_docLock.data()); return _meta_author; }
+  QString subject() const { QReadLocker docLocker(_docLock.data()); return _meta_subject; }
+  QString keywords() const { QReadLocker docLocker(_docLock.data()); return _meta_keywords; }
+  QString creator() const { QReadLocker docLocker(_docLock.data()); return _meta_creator; }
+  QString producer() const { QReadLocker docLocker(_docLock.data()); return _meta_producer; }
+  QDateTime creationDate() const { QReadLocker docLocker(_docLock.data()); return _meta_creationDate; }
+  QDateTime modDate() const { QReadLocker docLocker(_docLock.data()); return _meta_modDate; }
+  TrappedState trapped() const { QReadLocker docLocker(_docLock.data()); return _meta_trapped; }
+  QMap<QString, QString> metaDataOther() const { QReadLocker docLocker(_docLock.data()); return _meta_other; }
   // </metadata>
 
   // Searches the entire document for the given string and returns a list of
@@ -474,6 +488,8 @@ public:
   virtual QList<SearchResult> search(QString searchText, int startPage=0);
 
 protected:
+  virtual void clearPages();
+
   int _numPages;
   PDFPageProcessingThread _processingThread;
   PDFPageCache _pageCache;
@@ -492,15 +508,33 @@ protected:
   QDateTime _meta_modDate;
   TrappedState _meta_trapped;
   QMap<QString, QString> _meta_other;
+  QSharedPointer<QReadWriteLock> _docLock;
 };
 
+// This class is thread-safe. See implementation for internals.
 class Page
 {
+  friend class Document;
 
 protected:
   Document *_parent;
   const int _n;
   Transition::AbstractTransition * _transition;
+  QReadWriteLock * _pageLock;
+  const QSharedPointer<QReadWriteLock> _docLock;
+
+  // Getter for derived classes (that are not friends of Document)
+  QSharedPointer<QReadWriteLock> docLock() const { return _docLock; }
+  // The caller must hold a doc-lock. Uses a page-write-lock.
+  virtual void detachFromParent();
+
+  Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock);
+
+  // Uses doc-read-lock and page-read-lock.
+  QSharedPointer<QImage> getCachedImage(double xres, double yres, QRect render_box = QRect());
+
+  // Uses doc-read-lock and page-read-lock.
+  virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
 public:
   // Class to encapsulate boxes, e.g., for selecting
@@ -510,19 +544,15 @@ public:
     QList<Box> subBoxes;
   };
   
-  Page(Document *parent, int at);
   virtual ~Page();
 
+  Document * document() { QReadLocker pageLocker(_pageLock); return _parent; }
   int pageNum();
   virtual QSizeF pageSizeF() const = 0;
-  Transition::AbstractTransition * transition() { return _transition; }
-
-  Document * document() { return _parent; }
-
-  virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false)=0;
-  virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
+  Transition::AbstractTransition * transition() { QReadLocker pageLocker(_pageLock); return _transition; }
 
   virtual QList< QSharedPointer<Annotation::Link> > loadLinks() = 0;
+  // Uses doc-read-lock and page-read-lock.
   virtual void asyncLoadLinks(QObject *listener);
   
   // Returns a list of boxes (e.g., for the purpose of selecting text)
@@ -538,12 +568,15 @@ public:
   // The `selection` polygons must be in pdf coords (i.e., in bp)
   virtual QString selectedText(const QList<QPolygonF> & selection) { return QString(); }
 
-  QSharedPointer<QImage> getCachedImage(double xres, double yres, QRect render_box = QRect());
+  // Uses page-read-lock and doc-read-lock.
+  virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) = 0;
+
   // Returns either a cached image (if it exists), or triggers a render request.
   // If listener != NULL, this is an asynchronous render request and the method
   // returns a dummy image (which is added to the cache to speed up future
   // requests). Otherwise, the method renders the page synchronously and returns
   // the result.
+  // Uses page-read-lock and doc-read-lock.
   QSharedPointer<QImage> getTileImage(QObject * listener, const double xres, const double yres, QRect render_box = QRect());
 
   virtual QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations() { return QList< QSharedPointer<Annotation::AbstractAnnotation> >(); }
