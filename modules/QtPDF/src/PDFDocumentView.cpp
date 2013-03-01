@@ -831,6 +831,46 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
   // efficient...
   setPen(QPen(Qt::transparent));
 #endif
+
+  // Set some meaningful tooltip to inform the user what the link does
+  // Using <p>...</p> ensures the tooltip text is interpreted as rich text
+  // and thus is wrapping sensibly to avoid over-long lines.
+  // Using PDFDocumentView::trUtf8 avoids having to explicitly derive
+  // PDFLinkGraphicsItem explicily from QObject and puts all translatable
+  // strings into the same context.
+  switch(_link->linkType()) {
+    case Poppler::Link::Goto:
+      Poppler::LinkGoto * linkGoto;
+      linkGoto = reinterpret_cast<Poppler::LinkGoto*>(_link);
+      if (!linkGoto->isExternal())
+        setToolTip(PDFDocumentView::trUtf8("<p>Goto page %1</p>").arg(linkGoto->destination().pageNumber()));
+      else
+        //: Example: "Goto page 5 of abc.pdf"
+        setToolTip(PDFDocumentView::trUtf8("<p>Goto page %1 of %2</p>").arg(linkGoto->destination().pageNumber()).arg(linkGoto->fileName()));
+      break;
+    case Poppler::Link::Execute:
+      Poppler::LinkExecute * linkExecute;
+      linkExecute = reinterpret_cast<Poppler::LinkExecute*>(_link);
+      if (linkExecute->parameters().isEmpty())
+        setToolTip(PDFDocumentView::trUtf8("<p>Execute `%1`</p>"));
+      else
+        //: Example: "Execute `ls -1`"
+        setToolTip(PDFDocumentView::trUtf8("<p>Execute `%1 %2`</p>"));
+      break;
+    case Poppler::Link::Browse:
+      Poppler::LinkBrowse * linkBrowse;
+      linkBrowse = reinterpret_cast<Poppler::LinkBrowse*>(_link);
+      setToolTip(QString::fromUtf8("<p>%1</p>").arg(linkBrowse->url()));
+      break;
+      // Unsupported link types
+//    case Poppler::Link::Action:
+//    case Poppler::Link::Sound:
+//    case Poppler::Link::Movie:
+//    case Poppler::Link::JavaScript:
+//    case Poppler::Link::None:
+    default:
+      break;
+  }
 }
 
 int PDFLinkGraphicsItem::type() const { return Type; }
