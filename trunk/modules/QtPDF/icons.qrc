@@ -10,5 +10,6 @@
     <file>icons/zoomincursor.png</file>
     <file>icons/zoomout.png</file>
     <file>icons/zoomoutcursor.png</file>
+    <file>icons/zoom-select.png</file>
   </qresource>
 </RCC>

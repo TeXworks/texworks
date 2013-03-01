@@ -33,12 +33,15 @@ class PDFDocumentView : public QGraphicsView {
   PDFDocumentScene *_pdf_scene;
   PDFDocumentMagnifierView * _magnifier;
 
+  QRubberBand *_rubberBand;
+  QPoint _rubberBandOrigin;
+
   qreal _zoomLevel;
   int _currentPage, _lastPage;
 
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
-  enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move };
+  enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom };
   enum MagnifierShape { Magnifier_Rectangle, Magnifier_Circle };
 
   PDFDocumentView(QWidget *parent = 0);
@@ -59,14 +62,16 @@ public slots:
   void setOneColContPageMode() { setPageMode(PageMode_OneColumnContinuous); }
   void setTwoColContPageMode() { setPageMode(PageMode_TwoColumnContinuous); }
   void setMouseMode(const MouseMode newMode);
-  void setMouseModeMagnify() { setMouseMode(MouseMode_MagnifyingGlass); }
-  void setMouseModePan() { setMouseMode(MouseMode_Move); }
+  void setMouseModeMagnifyingGlass() { setMouseMode(MouseMode_MagnifyingGlass); }
+  void setMouseModeMove() { setMouseMode(MouseMode_Move); }
+  void setMouseModeMarqueeZoom() { setMouseMode(MouseMode_MarqueeZoom); }
   void setMagnifierShape(const MagnifierShape shape);
   void setMagnifierSize(const int size);
 
   void zoomBy(qreal zoomFactor);
   void zoomIn();
   void zoomOut();
+  void zoomToRect(QRectF a_rect);
   void zoomFitWindow();
   void zoomFitWidth();
 

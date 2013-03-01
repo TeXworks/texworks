@@ -28,6 +28,7 @@ static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGr
 // and displaying the contents of a `Poppler::Document` using a `QGraphicsScene`.
 PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
+  _rubberBandOrigin(),
   _zoomLevel(1.0),
   _pageMode(PageMode_OneColumnContinuous),
   _mouseMode(MouseMode_MagnifyingGlass)
@@ -41,6 +42,7 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   // it is already looking at page 0.
   _currentPage = -1;
   _magnifier = new PDFDocumentMagnifierView(this);
+  _rubberBand = new QRubberBand(QRubberBand::Rectangle, viewport());
 }
 
 
@@ -159,6 +161,18 @@ void PDFDocumentView::zoomBy(qreal zoomFactor)
 void PDFDocumentView::zoomIn() { zoomBy(3.0/2.0); }
 void PDFDocumentView::zoomOut() { zoomBy(2.0/3.0); }
 
+void PDFDocumentView::zoomToRect(QRectF a_rect)
+{
+  // NOTE: The argument, `a_rect`, is assumed to be in _scene coordinates_.
+  fitInView(a_rect, Qt::KeepAspectRatio);
+
+  // Since we passed `Qt::KeepAspectRatio` to `fitInView` both x and y scaling
+  // factors were changed by the same amount. So we'll just take the x scale to
+  // be the new `_zoomLevel`.
+  _zoomLevel = transform().m11();
+  emit changedZoom(_zoomLevel);
+}
+
 void PDFDocumentView::zoomFitWindow()
 {
   // Curious fact: This function will end up producing a different zoom level depending on if
@@ -166,9 +180,6 @@ void PDFDocumentView::zoomFitWindow()
   // is pretty solid---I can't think of a better way to do it.
   fitInView(_pdf_scene->pageAt(_currentPage), Qt::KeepAspectRatio);
 
-  // Since we passed `Qt::KeepAspectRatio` to `fitInView` both x and y scaling
-  // factors were changed by the same amount. So we'll just take the x scale to
-  // be the new `_zoomLevel`.
   _zoomLevel = transform().m11();
   emit changedZoom(_zoomLevel);
 }
@@ -216,10 +227,17 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
   switch (newMode) {
     case MouseMode_Move:
       setDragMode(QGraphicsView::ScrollHandDrag);
+      setCursor(Qt::OpenHandCursor);
+      break;
+
+    case MouseMode_MarqueeZoom:
+      setDragMode(QGraphicsView::NoDrag);
+      setCursor(Qt::CrossCursor);
       break;
 
     case MouseMode_MagnifyingGlass:
       setDragMode(QGraphicsView::NoDrag);
+      setCursor(Qt::ArrowCursor);
       break;
   }
 
@@ -379,6 +397,25 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 
 void PDFDocumentView::mousePressEvent(QMouseEvent * event)
 {
+
+  if ( _mouseMode == MouseMode_MarqueeZoom && event->buttons() == Qt::LeftButton ) {
+    // The ideal way to implement marquee zoom would be to set `dragMode` to
+    // `QGraphicsView::RubberBandDrag` and use the rubber band selector
+    // built-in to `QGraphicsView`. However, there is no way to do this and
+    // prevent graphics items, such as links, from responding to the
+    // mouse---hence no way to start a zoom over a link. Calling
+    // `setInteractive(false)` keeps the view from propagating mouse events to
+    // the scene, but it also disables `QGraphicsView::RubberBandDrag`.
+    //
+    // So... we have to do this ourselves.
+    _rubberBandOrigin = event->pos();
+    _rubberBand->setGeometry(QRect());
+    _rubberBand->show();
+
+    event->accept();
+    return;
+  }
+
   Super::mousePressEvent(event);
 
   // Don't do anything if the event was handled elsewhere (e.g., by a
@@ -405,6 +442,28 @@ void PDFDocumentView::mousePressEvent(QMouseEvent * event)
 
 void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
 {
+
+  if ( _mouseMode == MouseMode_MarqueeZoom && _rubberBand->isVisible() ) {
+    // Some shortcut values.
+    QPoint o = _rubberBandOrigin, p = event->pos();
+
+    if ( not event->buttons() == Qt::LeftButton ) {
+      // The user somehow let go of the left button without us recieving an
+      // event. Abort the zoom operation.
+      _rubberBand->setGeometry(QRect());
+      _rubberBand->hide();
+    } else if ( (o - p).manhattanLength() > QApplication::startDragDistance() ) {
+      // Update rubber band Geometry.
+      _rubberBand->setGeometry(QRect(
+        QPoint(qMin(o.x(),p.x()), qMin(o.y(), p.y())),
+        QPoint(qMax(o.x(),p.x()), qMax(o.y(), p.y()))
+      ));
+
+      event->accept();
+      return;
+    }
+  }
+
   Super::mouseMoveEvent(event);
 
   // We don't check for event->isAccepted() here; for one, this always seems to
@@ -428,6 +487,19 @@ void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
 
 void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
 {
+
+  if ( _mouseMode == MouseMode_MarqueeZoom && _rubberBand->isVisible() ) {
+    QRectF zoomRect = mapToScene(_rubberBand->geometry()).boundingRect();
+
+    _rubberBand->hide();
+    _rubberBand->setGeometry(QRect());
+
+    zoomToRect(zoomRect);
+
+    event->accept();
+    return;
+  }
+
   Super::mouseReleaseEvent(event);
 
   // We don't check for event->isAccepted() here; for one, this always seems to
