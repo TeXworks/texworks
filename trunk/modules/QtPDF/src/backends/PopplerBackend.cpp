@@ -41,6 +41,50 @@ PopplerDocument::PopplerDocument(QString fileName):
   // Make things look pretty.
   _poppler_doc->setRenderHint(Poppler::Document::Antialiasing);
   _poppler_doc->setRenderHint(Poppler::Document::TextAntialiasing);
+
+  // Load meta data
+  QStringList metaKeys = _poppler_doc->infoKeys();
+  if (metaKeys.contains(QString::fromUtf8("Title"))) {
+    _meta_title = _poppler_doc->info(QString::fromUtf8("Title"));
+    metaKeys.removeAll(QString::fromUtf8("Title"));
+  }
+  if (metaKeys.contains(QString::fromUtf8("Author"))) {
+    _meta_author = _poppler_doc->info(QString::fromUtf8("Author"));
+    metaKeys.removeAll(QString::fromUtf8("Author"));
+  }
+  if (metaKeys.contains(QString::fromUtf8("Subject"))) {
+    _meta_subject = _poppler_doc->info(QString::fromUtf8("Subject"));
+    metaKeys.removeAll(QString::fromUtf8("Subject"));
+  }
+  if (metaKeys.contains(QString::fromUtf8("Keywords"))) {
+    _meta_keywords = _poppler_doc->info(QString::fromUtf8("Keywords"));
+    metaKeys.removeAll(QString::fromUtf8("Keywords"));
+  }
+  if (metaKeys.contains(QString::fromUtf8("Creator"))) {
+    _meta_creator = _poppler_doc->info(QString::fromUtf8("Creator"));
+    metaKeys.removeAll(QString::fromUtf8("Creator"));
+  }
+  if (metaKeys.contains(QString::fromUtf8("Producer"))) {
+    _meta_producer = _poppler_doc->info(QString::fromUtf8("Producer"));
+    metaKeys.removeAll(QString::fromUtf8("Producer"));
+  }
+  if (metaKeys.contains(QString::fromUtf8("CreationDate"))) {
+    _meta_creationDate = fromPDFDate(_poppler_doc->info(QString::fromUtf8("CreationDate")));
+    metaKeys.removeAll(QString::fromUtf8("CreationDate"));
+  }
+  if (metaKeys.contains(QString::fromUtf8("ModDate"))) {
+    _meta_modDate = fromPDFDate(_poppler_doc->info(QString::fromUtf8("ModDate")));
+    metaKeys.removeAll(QString::fromUtf8("ModDate"));
+  }
+
+  // Note: Poppler doesn't handle the meta data key "Trapped" correctly, as that
+  // has a value of type `name` (/True, /False, or /Unknown) which doesn't get
+  // converted to a string representation properly.
+  _meta_trapped = Trapped_Unknown;
+    metaKeys.removeAll(QString::fromUtf8("Trapped"));
+  
+  foreach (QString key, metaKeys)
+    _meta_other[key] = _poppler_doc->info(key);
 }
 
 PopplerDocument::~PopplerDocument()
@@ -221,7 +265,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
       Poppler::LinkAnnotation * popplerLinkAnnot = static_cast<Poppler::LinkAnnotation *>(popplerAnnot);
       link->setContents(popplerLinkAnnot->contents());
       link->setName(popplerLinkAnnot->uniqueName());
-      link->setLastModified(popplerLinkAnnot->modificationDate().toString(Qt::ISODate));
+      link->setLastModified(popplerLinkAnnot->modificationDate());
       // TODO: Does poppler provide the color anywhere?
       // FIXME: Convert flags
 
