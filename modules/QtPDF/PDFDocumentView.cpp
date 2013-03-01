@@ -43,12 +43,12 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // that the X scaling factor is equal to the Y scaling factor.
   qreal scaleFactor = painter->transform().m11();
 
-  // If this `PDFPageGraphicsItem` is still using the empty `QPixmap` it was
-  // constructed with, `dirty` will be `true`. We replace the empty pixmap
-  // with a rendered image of the page.
+  // If this is the first time this `PDFPageGraphicsItem` has come into view,
+  // `dirty` will be `true`. We render the page and load all of its links.
   //
-  // We also look at the zoom level and render a new page if it has changed.
-  if ( dirty || (zoomLevel != scaleFactor) ) {
+  // **TODO:** _The rendering and link loading should be handed off to a worker
+  // thread so that the GUI stays responsive._
+  if ( dirty ) {
     QRect bbox = painter->transform().mapRect(pixmap().rect());
 
     // We render to a new member named `renderedPage` rather than `pixmap`
@@ -58,8 +58,36 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     renderedPage = QPixmap::fromImage(page->renderToImage(dpiX * scaleFactor, dpiY * scaleFactor,
       0, 0, bbox.width(), bbox.height()));
 
+    // **TODO:**
+    //   * _Comment on how exactly this transformation is valid._
+    //   * _Is this the best place to handle transformations?._
+    QTransform pageTransform = QTransform::fromScale(pixmap().rect().width(), pixmap().rect().height());
+    PDFLinkGraphicsItem *linkBox;
+    foreach(Poppler::Link *link, page->links()) {
+      linkBox = new PDFLinkGraphicsItem(link, this);
+      linkBox->setTransform(pageTransform);
+    }
+
+    // **NOTE:**
+    // _An update currently required to ensure links are drawn when the page
+    // scrolls into view. This can probably be altered if the link creation is ever
+    // shoved into a seperate thread._
+    update();
+
     zoomLevel = scaleFactor;
-    if( dirty ) dirty = false;
+    dirty = false;
+  }
+
+  // We also look at the zoom level and render a new page if it has changed.
+  //
+  // **TODO:** _This operation should be seperated out into a method._
+  if ( zoomLevel != scaleFactor ) {
+    QRect bbox = painter->transform().mapRect(pixmap().rect());
+
+    renderedPage = QPixmap::fromImage(page->renderToImage(dpiX * scaleFactor, dpiY * scaleFactor,
+      0, 0, bbox.width(), bbox.height()));
+
+    zoomLevel = scaleFactor;
   }
 
   // The transformation matrix of the `painter` object contains information
@@ -75,6 +103,42 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     (transformationMode() == Qt::SmoothTransformation));
 
   painter->drawPixmap(origin, renderedPage);
+}
+
+
+// PDFLinkGraphicsItem
+// ===================
+
+// This class descends from `QGraphicsRectItem` and serves as the on-screen
+// representation of a PDF hyperlink area.
+PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent) :
+  super(parent)
+{
+  // The link area is expressed in "normalized page coordinates", i.e. values
+  // in the range [0, 1]. The transformation matrix of this item will have to
+  // be adjusted so that links will show up correctly in a graphics view.
+  setRect(a_link->linkArea());
+
+  // Allows links to provide a context-specific cursor when the mouse is
+  // hovering over them.
+  //
+  // **NOTE:** Requires Qt 4.4 or newer.
+  setAcceptHoverEvents(true);
+
+  // Mainly for debugging purposes so that we can see where links are placed on
+  // a page.
+  setPen(QPen(Qt::red));
+}
+
+// Deal with hover events.
+void PDFLinkGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+  setCursor(Qt::PointingHandCursor);
+}
+
+void PDFLinkGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+  unsetCursor();
 }
 
 
