@@ -1271,6 +1271,14 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Page *a_page, QGraphicsItem *parent):
   //
   // NOTE: This flag needs Qt 4.6 or newer.
   setFlags(QGraphicsItem::ItemUsesExtendedStyleOption);
+
+#ifdef DEBUG
+  // Test search.
+  if ( _page->pageNum() == 1) {
+    QList<QRectF> results = _page->search(QString::fromAscii("till"));
+    qDebug() << "Page 1 has : " << results.size() << " occurances of the test string.";
+  }
+#endif
 }
 
 QRectF PDFPageGraphicsItem::boundingRect() const { return QRectF(QPointF(0.0, 0.0), _pageSize); }

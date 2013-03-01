@@ -77,6 +77,8 @@ public:
   QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
   QList< QSharedPointer<PDFLinkAnnotation> > loadLinks();
+
+  QList<QRectF> search(QString searchText);
 };
 
 
