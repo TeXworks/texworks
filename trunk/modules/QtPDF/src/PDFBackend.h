@@ -236,7 +236,12 @@ uint qHash(const PDFPageTile &tile);
 // a specific resolution is not available.
 typedef QCache<PDFPageTile, QImage> PDFPageCache;
 
-
+// FIXME: the program segfaults if the page is destroyed while a page processing
+// request is executed. Note that using QSharedPointer doesn't help here as
+// processing requests are usually initiated from the Page object in question
+// which can only create a new QSharedPointer object which would interfere with
+// QSharedPointer held by other objects (but inaccessible to the Page in
+// question - see documentation of QSharedPointer)
 class PageProcessingRequest : public QObject
 {
   Q_OBJECT
@@ -393,7 +398,7 @@ protected:
 
 public:
   Document(QString fileName);
-  ~Document();
+  virtual ~Document();
 
   int numPages();
   PDFPageProcessingThread& processingThread();
@@ -412,7 +417,7 @@ protected:
 
 public:
   Page(Document *parent, int at);
-  ~Page();
+  virtual ~Page();
 
   int pageNum();
   virtual QSizeF pageSizeF()=0;
