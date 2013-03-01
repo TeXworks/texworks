@@ -30,6 +30,7 @@ static bool isPageItem(const QGraphicsItem *item) { return ( item->type() == PDF
 PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
   _pdf_scene(NULL),
+  _useGrayScale(false),
   _rubberBandOrigin(),
   _zoomLevel(1.0),
   _pageMode(PageMode_OneColumnContinuous),
@@ -1742,63 +1743,101 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     _zoomLevel = scaleFactor;
 
   painter->save();
-    // Clip to the exposed rectangle to prevent unnecessary drawing operations.
-    // This can provide up to a 50% speedup depending on the size of the tile.
-    painter->setClipRect(option->exposedRect);
+  // Clip to the exposed rectangle to prevent unnecessary drawing operations.
+  // This can provide up to a 50% speedup depending on the size of the tile.
+  painter->setClipRect(option->exposedRect);
 
-    // The transformation matrix of the `painter` object contains information
-    // such as the current zoom level of the widget viewing this PDF page. We
-    // throw away the scaling information because that has already been
-    // applied during page rendering. (Note: we don't support rotation/skewing,
-    // so we only care about the translational part)
-    QTransform pageT = painter->transform();
-    painter->setTransform(QTransform::fromTranslate(pageT.dx(), pageT.dy()));
+  // The transformation matrix of the `painter` object contains information
+  // such as the current zoom level of the widget viewing this PDF page. We
+  // throw away the scaling information because that has already been
+  // applied during page rendering. (Note: we don't support rotation/skewing,
+  // so we only care about the translational part)
+  QTransform pageT = painter->transform();
+  painter->setTransform(QTransform::fromTranslate(pageT.dx(), pageT.dy()));
 
 #ifdef DEBUG
-    // Pen style used to draw the outline of each tile for debugging purposes.
-    QPen tilePen(Qt::darkGray);
-    tilePen.setStyle(Qt::DashDotLine);
-    painter->setPen(tilePen);
+  // Pen style used to draw the outline of each tile for debugging purposes.
+  QPen tilePen(Qt::darkGray);
+  tilePen.setStyle(Qt::DashDotLine);
+  painter->setPen(tilePen);
 #endif
 
-    QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
-    QSharedPointer<QImage> renderedPage;
+  QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
+  QSharedPointer<QImage> renderedPage;
 
-    int i, imin, imax;
-    int j, jmin, jmax;
+  int i, imin, imax;
+  int j, jmin, jmax;
 
-    imin = (visibleRect.left() - pageRect.left()) / TILE_SIZE;
-    imax = (visibleRect.right() - pageRect.left());
-    if (imax % TILE_SIZE == 0)
-      imax /= TILE_SIZE;
-    else
-      imax = imax / TILE_SIZE + 1;
+  imin = (visibleRect.left() - pageRect.left()) / TILE_SIZE;
+  imax = (visibleRect.right() - pageRect.left());
+  if (imax % TILE_SIZE == 0)
+    imax /= TILE_SIZE;
+  else
+    imax = imax / TILE_SIZE + 1;
 
-    jmin = (visibleRect.top() - pageRect.top()) / TILE_SIZE;
-    jmax = (visibleRect.bottom() - pageRect.top());
-    if (jmax % TILE_SIZE == 0)
-      jmax /= TILE_SIZE;
-    else
-      jmax = jmax / TILE_SIZE + 1;
+  jmin = (visibleRect.top() - pageRect.top()) / TILE_SIZE;
+  jmax = (visibleRect.bottom() - pageRect.top());
+  if (jmax % TILE_SIZE == 0)
+    jmax /= TILE_SIZE;
+  else
+    jmax = jmax / TILE_SIZE + 1;
 
-    for (j = jmin; j < jmax; ++j) {
-      for (i = imin; i < imax; ++i) {
-        QRect tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-        renderedPage = _page->getTileImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile);
-        // we don't want a finished render thread to change our image while we
-        // draw it
-        _page->document()->pageCache().lock();
-        // renderedPage as returned from getTileImage _should_ always be valid
-        if ( renderedPage )
-          painter->drawImage(tile.topLeft(), *renderedPage);
-        _page->document()->pageCache().unlock();
-#ifdef DEBUG
-        painter->drawRect(tile);
-#endif
+  for (j = jmin; j < jmax; ++j) {
+    for (i = imin; i < imax; ++i) {
+      QRect tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+      bool useGrayScale = false;
+      // If we are rendering a PDFDocumentView that has `useGrayScale` set
+      // respect that setting.
+      PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()) : NULL);
+      if (view && view->useGrayScale())
+        useGrayScale = true;
+      // If we are rendering a PDFDocumentMagnifierView who's parent
+      // PDFDocumentView has `useGrayScale` set respect that setting.
+      else if (widget && widget->parent() && widget->parent()->parent()) {
+        PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()->parent()) : NULL);
+        if (view && view->useGrayScale())
+          useGrayScale = true;
       }
-    }
 
+      renderedPage = _page->getTileImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile);
+      // we don't want a finished render thread to change our image while we
+      // draw it
+      _page->document()->pageCache().lock();
+      // renderedPage as returned from getTileImage _should_ always be valid
+      if ( renderedPage ) {
+        if (useGrayScale) {
+          // In gray scale mode, we need to obtain a deep copy of the rendered
+          // page image to avoid altering the cached (color) image
+          QImage postProcessed = renderedPage->copy();
+          imageToGrayScale(postProcessed);
+          painter->drawImage(tile.topLeft(), postProcessed);
+        }
+        else
+          painter->drawImage(tile.topLeft(), *renderedPage);
+      }
+      _page->document()->pageCache().unlock();
+#ifdef DEBUG
+      painter->drawRect(tile);
+#endif
+    }
+  }
   painter->restore();
+}
+
+//static
+void PDFPageGraphicsItem::imageToGrayScale(QImage & img)
+{
+  // Casting to QRgb* only works for 32bit images
+  Q_ASSERT(img.depth() == 32);
+  QRgb * data = (QRgb*)img.scanLine(0);
+  int i, gray;
+  for (i = 0; i < img.byteCount() / 4; ++i) {
+    // Qt formula (qGray()): 0.34375 * r + 0.5 * g + 0.15625 * b
+    // MuPDF formula (rgb_to_gray()): r * 0.3f + g * 0.59f + b * 0.11f;
+    gray = qGray(data[i]);
+    data[i] = qRgba(gray, gray, gray, qAlpha(data[i]));
+  }
 }
 
 // Event Handlers
