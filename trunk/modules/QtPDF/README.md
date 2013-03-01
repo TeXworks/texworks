@@ -42,7 +42,8 @@ TODO
  - scrolling beyond edge at single page mode (mouse wheel/up/down)
  - disallow keyboard events in document view while magnifier is shown (otherwise
    one could scroll the canvas without properly adjusting the magnifier)
- - SyncTeX with signals and slots
+ - ~~SyncTeX with signals and slots~~ __DONE__ (actually invoking SyncTeX must
+   be implemented separate from the viewer)
  - ~~fit to width/page/~~ __DONE__
  - Highlighting! (to show syncing destination, search results, etc.)
  - ~~PgDn should scroll one viewport height~~ __DONE__
