@@ -1,0 +1,4 @@
+*.o
+icons.cpp
+pdf_viewer
+
