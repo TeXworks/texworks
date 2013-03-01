@@ -49,6 +49,8 @@ public:
   MuPDFDocument(QString fileName);
   ~MuPDFDocument();
 
+  bool isValid() const { return (_mupdf_data != NULL); }
+
   QSharedPointer<Page> page(int at);
   PDFDestination resolveDestination(const PDFDestination & namedDestination) const;
 

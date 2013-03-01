@@ -640,6 +640,8 @@ public:
     return (namedDestination.isExplicit() ? namedDestination : PDFDestination());
   }
 
+  virtual bool isValid() const = 0;
+
   // Override in derived class if it provides access to the document outline
   // strutures of the pdf file.
   virtual PDFToC toc() const { return PDFToC(); }

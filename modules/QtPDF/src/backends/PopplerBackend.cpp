@@ -82,6 +82,9 @@ PopplerDocument::PopplerDocument(QString fileName):
   _poppler_doc(Poppler::Document::load(fileName)),
   _doc_lock(new QMutex())
 {
+  if (!_poppler_doc)
+    return;
+
   _numPages = _poppler_doc->numPages();
 
   // **TODO:**
