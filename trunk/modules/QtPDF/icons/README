@@ -12,6 +12,7 @@ measure.png:             Derived from scalable/Measure.svg
 pagemode-continuous.png: Derived from scalable/pagemode.svg
 pagemode-single.png:     Derived from scalable/pagemode.svg
 pagemode-twocols.png:    Derived from scalable/pagemode.svg
+pagemode-present.png:    Derived from scalable/X-office-presentation.svg
 zoom.png:                Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
 zoomin.png:              Qt (/tools/assistant/tools/assistant/images/mac)
 zoomincursor.png:        Derived from zoomin.png
@@ -21,15 +22,16 @@ zoom-select.png:         Derived from scalable/zoom.svg
 
 In scalable/
 ------------
-hand.svg:            Derived Qt (/tools/designer/src/components/formeditor/images/cursors)
-logo.svg:            Hand-made using FreeSerif font
-Measure.svg:         Tango (http://commons.wikimedia.org/w/index.php?title=File:Measure.svg&oldid=8397207)
-page.svg:            Derived from CodeTangoSet (http://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
-pagemode.svg:        Derived from page.svg
-Window-new.svg:      Tango (http://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764)
-zoom.svg             Derived from Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
-zoom-fit.svg:        Derived from page.svg and Window-new.svg
-Emblem-readonly.svg: Tango (http://commons.wikimedia.org/w/index.php?title=File:Emblem-readonly.svg&oldid=57074301)
+hand.svg:                  Derived Qt (/tools/designer/src/components/formeditor/images/cursors)
+logo.svg:                  Hand-made using FreeSerif font
+Measure.svg:               Tango (http://commons.wikimedia.org/w/index.php?title=File:Measure.svg&oldid=8397207)
+page.svg:                  Derived from CodeTangoSet (http://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+pagemode.svg:              Derived from page.svg
+Window-new.svg:            Tango (http://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764)
+zoom.svg                   Derived from Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
+zoom-fit.svg:              Derived from page.svg and Window-new.svg
+Emblem-readonly.svg:       Tango (http://commons.wikimedia.org/w/index.php?title=File:Emblem-readonly.svg&oldid=57074301)
+X-office-presentation.svg: Tango (http://commons.wikimedia.org/w/index.php?title=File:X-office-presentation.svg&oldid=57074316)
 
 
 Qt icons are under both the GPLv3 and LGPLv2.1

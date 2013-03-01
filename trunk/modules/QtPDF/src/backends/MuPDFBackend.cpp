@@ -797,6 +797,8 @@ Page::Page(Document *parent, int at):
 
   fz_free_device(dev);
   pdf_free_page(page_data);
+  
+  loadTransitionData();
 }
 
 Page::~Page()
@@ -1070,6 +1072,96 @@ QList<SearchResult> Page::search(QString searchText)
   fz_free_text_span(page_text);
   return results;
 }
+
+void Page::loadTransitionData()
+{
+  static char keyTrans[] = "Trans";
+  static char keyS[] = "S";
+  static char keyD[] = "D";
+  static char keyDm[] = "Dm";
+  static char keyM[] = "M";
+  static char keyDi[] = "Di";
+  // TODO: SS, B keys
+  fz_obj * trans, * tmp;
+ 
+  // NOTE: That data is not available in the pdf_page struct - we need to parse
+  // the fz_obj ourselves
+  Q_ASSERT(_parent != NULL);
+  pdf_xref * xref = static_cast<Document*>(_parent)->_mupdf_data;
+  Q_ASSERT(xref != NULL);
+  Q_ASSERT(xref->page_len >= _n);
+  
+  fz_obj * page = xref->page_objs[_n];
+  Q_ASSERT(page != NULL);
+  
+  if (_transition) {
+    delete _transition;
+    _transition = NULL;
+  }
+  
+  trans = fz_dict_gets(page, keyTrans);
+  if (!trans)
+    return;
+  tmp = fz_dict_gets(trans, keyS);
+  if (!tmp)
+    return;
+  QString style = QString::fromAscii(fz_to_name(tmp));
+  if (style == QString::fromAscii("Split"))
+    _transition = new Transition::Split();
+  else if (style == QString::fromAscii("Blinds"))
+    _transition = new Transition::Blinds();
+  else if (style == QString::fromAscii("Box"))
+    _transition = new Transition::Box();
+  else if (style == QString::fromAscii("Wipe"))
+    _transition = new Transition::Wipe();
+  else if (style == QString::fromAscii("Dissolve"))
+    _transition = new Transition::Dissolve();
+  else if (style == QString::fromAscii("Glitter"))
+    _transition = new Transition::Glitter();
+  else if (style == QString::fromAscii("R"))
+    _transition = new Transition::Replace();
+  else if (style == QString::fromAscii("Fly"))
+    _transition = new Transition::Fly();
+  else if (style == QString::fromAscii("Push"))
+    _transition = new Transition::Push();
+  else if (style == QString::fromAscii("Cover"))
+    _transition = new Transition::Cover();
+  else if (style == QString::fromAscii("Uncover"))
+    _transition = new Transition::Uncover();
+  else if (style == QString::fromAscii("Fade"))
+    _transition = new Transition::Fade();
+  if (!_transition)
+    return;
+  
+  tmp = fz_dict_gets(trans, keyD);
+  if (tmp)
+    _transition->setDuration(fz_to_real(tmp));
+  tmp = fz_dict_gets(trans, keyDm);
+  if (tmp && (style == QString::fromAscii("Split") || style == QString::fromAscii("Blinds"))) {
+    if (QString::fromAscii(fz_to_name(tmp)) == QString::fromAscii("V"))
+      _transition->setDirection(90);
+    else
+      _transition->setDirection(0);
+  }
+  tmp = fz_dict_gets(trans, keyM);
+  if (tmp && (style == QString::fromAscii("Split") || style == QString::fromAscii("Box") || style == QString::fromAscii("Fly"))) {
+    if (QString::fromAscii(fz_to_name(tmp)) == QString::fromAscii("O"))
+      _transition->setMotion(Transition::AbstractTransition::Motion_Outward);
+    else
+      _transition->setMotion(Transition::AbstractTransition::Motion_Inward);
+  }
+  tmp = fz_dict_gets(trans, keyDi);
+  if (tmp && (style == QString::fromAscii("Wipe") || style == QString::fromAscii("Glitter") || 
+              style == QString::fromAscii("Fly") || style == QString::fromAscii("Cover") || 
+              style == QString::fromAscii("Uncover") || style == QString::fromAscii("Push"))) {
+    if (fz_is_name(tmp)) {
+      // TODO: Di == /None
+    }
+    else
+      _transition->setDirection(fz_to_int(tmp));
+  }
+}
+
 
 } // namespace MuPDF
 

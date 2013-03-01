@@ -410,6 +410,7 @@ Page::Page(Document *parent, int at):
   _linksLoaded(false)
 {
   _poppler_page = QSharedPointer< ::Poppler::Page >(static_cast<Document *>(_parent)->_poppler_doc->page(at));
+  loadTransitionData();
 }
 
 Page::~Page()
@@ -636,6 +637,88 @@ QList<SearchResult> Page::search(QString searchText)
   docLock.unlock();
 
   return results;
+}
+
+void Page::loadTransitionData()
+{
+  Q_ASSERT(!_poppler_page.isNull());
+  // Transition
+  ::Poppler::PageTransition * poppler_trans = _poppler_page->transition();
+  if (poppler_trans) {
+    switch (poppler_trans->type()) {
+    case ::Poppler::PageTransition::Split:
+      _transition = new Transition::Split();
+      switch (poppler_trans->alignment()) {
+        case ::Poppler::PageTransition::Horizontal:
+        default:
+          _transition->setDirection(0);
+          break;
+        case ::Poppler::PageTransition::Vertical:
+          _transition->setDirection(90);
+          break;
+      }
+      break;
+    case ::Poppler::PageTransition::Blinds:
+      _transition = new Transition::Blinds();
+      switch (poppler_trans->alignment()) {
+        case ::Poppler::PageTransition::Horizontal:
+        default:
+          _transition->setDirection(0);
+          break;
+        case ::Poppler::PageTransition::Vertical:
+          _transition->setDirection(90);
+          break;
+      }
+      break;
+    case ::Poppler::PageTransition::Box:
+      _transition = new Transition::Box();
+      break;
+    case ::Poppler::PageTransition::Wipe:
+      _transition = new Transition::Wipe();
+      _transition->setDirection(poppler_trans->angle());
+      break;
+    case ::Poppler::PageTransition::Dissolve:
+      _transition = new Transition::Dissolve();
+      break;
+    case ::Poppler::PageTransition::Glitter:
+      _transition = new Transition::Glitter();
+      _transition->setDirection(poppler_trans->angle());
+      break;
+    case ::Poppler::PageTransition::Replace:
+      _transition = new Transition::Replace();
+      break;
+    case ::Poppler::PageTransition::Fly:
+      _transition = new Transition::Fly();
+      _transition->setDirection(poppler_trans->angle());
+      break;
+    case ::Poppler::PageTransition::Push:
+      _transition = new Transition::Push();
+      _transition->setDirection(poppler_trans->angle());
+      break;
+    case ::Poppler::PageTransition::Cover:
+      _transition = new Transition::Cover();
+      _transition->setDirection(poppler_trans->angle());
+      break;
+    case ::Poppler::PageTransition::Uncover:
+      _transition = new Transition::Uncover();
+      _transition->setDirection(poppler_trans->angle());
+      break;
+    case ::Poppler::PageTransition::Fade:
+      _transition = new Transition::Fade();
+      break;
+    }
+    if (_transition) {
+      _transition->setDuration(poppler_trans->duration());
+      switch (poppler_trans->direction()) {
+      case ::Poppler::PageTransition::Inward:
+      default:
+        _transition->setMotion(Transition::AbstractTransition::Motion_Inward);
+        break;
+      case ::Poppler::PageTransition::Outward:
+        _transition->setMotion(Transition::AbstractTransition::Motion_Outward);
+      }
+    }
+  }  
 }
 
 } // namespace Poppler

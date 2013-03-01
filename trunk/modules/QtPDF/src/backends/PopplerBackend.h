@@ -77,6 +77,8 @@ class Page: public Backend::Page
   bool _annotationsLoaded;
   bool _linksLoaded;
 
+  void loadTransitionData();
+  
 public:
   Page(Document *parent, int at);
   ~Page();

@@ -134,11 +134,11 @@ TODO
    thumbnails (?). __STARTED__
  - Printing.
  - Derive zoom icons from Tango instead of from Qt
- - Presentation mode
-   - should display all pages in fit-to-window mode
-   - must render all pages completely before switching to them
+ - Presentation mode __STARTED__
+   - ~~should display all pages in fit-to-window mode~~ __DONE__
+   - ~~must render all pages completely before switching to them~~ __DONE__
    - full screen
-   - transition support?
+   - ~~transition support?~~ __DONE__
  - save page as image
  - selecting (and copying/saving) text & images (subject to permissions)
  - ~~Provide a grayscale mode~~ __DONE__
