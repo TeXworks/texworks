@@ -534,9 +534,23 @@ void PDFDocumentMagnifierView::setShape(const PDFDocumentView::MagnifierShape sh
   switch (shape) {
     case PDFDocumentView::Magnifier_Rectangle:
       clearMask();
+#ifdef Q_WS_MAC
+      // On OS X there is a bug that affects masking of QAbstractScrollArea and
+      // its subclasses:
+      //
+      //   https://bugreports.qt.nokia.com/browse/QTBUG-7150
+      //
+      // The fix is to explicitly mask the viewport. As of Qt 4.7.4, this bug
+      // is still present.
+      viewport()->clearMask();
+#endif
       break;
     case PDFDocumentView::Magnifier_Circle:
       setMask(QRegion(rect(), QRegion::Ellipse));
+#ifdef Q_WS_MAC
+      // Hack to fix QTBUG-7150
+      viewport()->setMask(QRegion(rect(), QRegion::Ellipse));
+#endif
       break;
   }
 }
