@@ -1,4 +1,27 @@
 #include "PDFViewer.h"
+#include "PDFDocumentView.h"
+
+PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
+  QMainWindow(parent, flags)
+{
+  Poppler::Document *pdf = Poppler::Document::load(pdf_doc);
+  PDFDocumentView *docView = new PDFDocumentView(pdf, this);
+
+  PageCounter *counter = new PageCounter(this->statusBar());
+  ZoomTracker *zoomWdgt = new ZoomTracker(this);
+  QToolBar *toolBar = new QToolBar(this);
+
+  toolBar->addAction("Zoom In", docView, SLOT(zoomIn()));
+  toolBar->addAction("Zoom Out", docView, SLOT(zoomOut()));
+  counter->setLastPage(docView->lastPage());
+  connect(docView, SIGNAL(changedPage(int)), counter, SLOT(setCurrentPage(int)));
+  connect(docView, SIGNAL(changedZoom(qreal)), zoomWdgt, SLOT(setZoom(qreal)));
+
+  statusBar()->addPermanentWidget(counter);
+  statusBar()->addWidget(zoomWdgt);
+  addToolBar(toolBar);
+  setCentralWidget(docView);
+}
 
 
 PageCounter::PageCounter(QWidget *parent, Qt::WindowFlags f) : super(parent, f),

@@ -1,5 +1,12 @@
 #include <QtGui/QtGui>
-#include <poppler/qt4/poppler-qt4.h>
+
+class PDFViewer : public QMainWindow {
+  Q_OBJECT
+
+public:
+  PDFViewer(QString pdf_doc, QWidget *parent = 0, Qt::WindowFlags flags = 0);
+
+};
 
 
 class PageCounter : public QLabel {
