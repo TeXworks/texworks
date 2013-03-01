@@ -64,7 +64,7 @@ class PDFDocumentView : public QGraphicsView {
 
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> pages;
-  int currentPage, lastPage;
+  int _currentPage, _lastPage;
 
 public:
   PDFDocumentView(Poppler::Document *a_doc, QWidget *parent = 0) : super(new QGraphicsScene, parent),
@@ -74,7 +74,7 @@ public:
     setAlignment(Qt::AlignCenter);
     setFocusPolicy(Qt::StrongFocus);
 
-    lastPage = doc->numPages();
+    _lastPage = doc->numPages();
 
     // Create a `PDFPageGraphicsItem` for each page in the PDF document to the
     // `QGraphicsScene` controlled by this object. The Y-coordinate of each
@@ -86,7 +86,7 @@ public:
     float offY = 0.0;
     PDFPageGraphicsItem *pagePtr;
 
-    for (i = 0; i < lastPage; ++i) {
+    for (i = 0; i < _lastPage; ++i) {
       pagePtr = new PDFPageGraphicsItem(doc->page(i));
       pagePtr->setPos(0.0, offY);
 
@@ -97,16 +97,31 @@ public:
     }
 
     // Automatically center on the first page in the PDF document.
-    //
-    // **TODO:** _Should probably be a seperate method. Like `firstPage` or
-    // something._
-    centerOn(pages.first());
-    currentPage = 0;
+    goToPage(0);
   }
 
   ~PDFDocumentView() {
     delete this->scene();
   }
+
+  int currentPage() {
+    return _currentPage;
+  }
+
+  int lastPage() {
+    return _lastPage;
+  }
+
+  // **TODO:** _Overload this function to take `PDFPageGraphicsItem` as a
+  // parameter?_
+  void goToPage(int pageNum) {
+    // We silently ignore any invalid page numbers.
+    if ( (pageNum >= 0) && (pageNum < _lastPage) && (pageNum != _currentPage) ) {
+      centerOn(pages.at(pageNum));
+      _currentPage = pageNum;
+    }
+  }
+
 
 protected:
 
@@ -131,8 +146,8 @@ protected:
     pageBbox.setHeight(0.5 * pageBbox.height());
     int nextCurrentPage = pages.indexOf(items(pageBbox).first());
 
-    if (nextCurrentPage != currentPage) {
-      currentPage = nextCurrentPage;
+    if (nextCurrentPage != _currentPage) {
+      _currentPage = nextCurrentPage;
       // **TODO:** _Should probably also emit a "Current page changed" event._
     }
 
@@ -152,38 +167,34 @@ protected:
 
     if (
       (event->key() == Qt::Key_Home) &&
-      (currentPage != 0)
+      (_currentPage != 0)
     ) {
 
-      currentPage = 0;
-      centerOn(pages.first());
+      goToPage(0);
       event->accept();
 
     } else if(
       (event->key() == Qt::Key_End) &&
-      (currentPage != lastPage)
+      (_currentPage != _lastPage)
     ) {
 
-      currentPage = lastPage;
-      centerOn(pages.last());
+      goToPage(_lastPage - 1);
       event->accept();
 
     } else if(
       (event->key() == Qt::Key_PageDown) &&
-      (currentPage < lastPage)
+      (_currentPage < _lastPage)
     ) {
 
-      ++currentPage;
-      centerOn(pages.at(currentPage));
+      goToPage(_currentPage + 1);
       event->accept();
 
     } else if (
       (event->key() == Qt::Key_PageUp) &&
-      (currentPage > 0)
+      (_currentPage > 0)
     ) {
 
-      --currentPage;
-      centerOn(pages.at(currentPage));
+      goToPage(_currentPage - 1);
       event->accept();
 
     } else  {
