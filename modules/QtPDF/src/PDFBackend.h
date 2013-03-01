@@ -248,6 +248,8 @@ public:
   QString name() const { return _name; }
   // pureName() removes the subset tag
   QString pureName() const;
+
+  void setName(const QString name) { _name = name; }
   // TODO: Accessor methods for all other properties
 
 protected:
@@ -291,6 +293,7 @@ public:
   enum FontProgramType { ProgramType_None, ProgramType_Type1, \
                          ProgramType_TrueType, ProgramType_Type1CFF, \
                          ProgramType_CIDCFF, ProgramType_OpenType };
+  enum FontSource { Source_Embedded, Source_File, Source_Builtin };
   
   PDFFontInfo() { };
   virtual ~PDFFontInfo() { };
@@ -304,7 +307,7 @@ public:
   QFileInfo fileName() const { return _substitutionFile; }
 
   bool isSubset() const { return _descriptor.isSubset(); }
-  bool isEmbedded() const { return !_substitutionFile.exists(); }
+  FontSource source() const { return _source; }
 
   // TODO: Implement some advanced logic; e.g., non-embedded fonts have no font
   // program type
@@ -312,9 +315,11 @@ public:
   void setCIDType(const CIDFontType CIDType) { _CIDType = CIDType; }
   void setFontProgramType(const FontProgramType programType) { _fontProgramType = programType; }
   void setDescriptor(const PDFFontDescriptor descriptor) { _descriptor = descriptor; }
-  void setFileName(const QFileInfo file) { _substitutionFile = file; }
+  void setFileName(const QFileInfo file) { _source = Source_File; _substitutionFile = file; }
+  void setSource(const FontSource source) { _source = source; }
 
 protected:
+  FontSource _source;
   PDFFontDescriptor _descriptor;
   QFileInfo _substitutionFile;
   FontType _fontType;
