@@ -115,6 +115,8 @@ private:
   // hold some information in an `auto_ptr` which does interesting things on
   // copy that C++ newbies may not expect.
   Q_DISABLE_COPY(PDFPageGraphicsItem)
+
+  void createLinks(QList<Poppler::Link *> links);
 };
 
 
