@@ -1018,15 +1018,7 @@ void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
   // Note: to avoid reverting to _armed == Tool_None when moving the mouse
   // without pressing any button, we arm the default tool (corresponding to the
   // left mouse button) instead in that case
-  Qt::MouseButtons buttons = event->buttons();
-  if (buttons == Qt::NoButton)
-    buttons = Qt::LeftButton;
 
-  DocumentTool::AbstractTool * t = _toolAccessors.value(buttons | event->modifiers(), NULL);
-  if (_armedTool != t) {
-    disarmTool();
-    armTool(t);
-  }
   if(_armedTool)
     _armedTool->mouseMoveEvent(event);
   Super::mouseMoveEvent(event);
@@ -1047,17 +1039,10 @@ void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
   // mouse tracking we only receive this event if the current widget has grabbed
   // the mouse (i.e., after a mousePressEvent)
 
-  Qt::MouseButtons buttons = event->buttons();
-  if (buttons == Qt::NoButton)
-    buttons |= Qt::LeftButton;
-
-  DocumentTool::AbstractTool * t = _toolAccessors.value(buttons | event->modifiers(), NULL);
-  if (_armedTool != t) {
-    disarmTool();
-    armTool(t);
-  }
   if(_armedTool)
     _armedTool->mouseReleaseEvent(event);
+  else
+    maybeArmTool(event->buttons() | event->modifiers());
 }
 
 void PDFDocumentView::wheelEvent(QWheelEvent * event)
