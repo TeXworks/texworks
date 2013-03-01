@@ -14,6 +14,8 @@
 #include <PDFAnnotations.h>
 #include <PDFBackend.h>
 
+namespace QtPDF {
+
 // Annotations
 // =================
 
@@ -57,6 +59,7 @@ void PDFLinkAnnotation::setActionOnActivation(PDFAction * const action)
   _actionOnActivation = action;
 }
 
+} // namespace QtPDF
 
 // vim: set sw=2 ts=2 et
 

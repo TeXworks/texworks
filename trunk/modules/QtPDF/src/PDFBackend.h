@@ -27,6 +27,7 @@
 #include <QWaitCondition>
 #include <QEvent>
 
+namespace QtPDF {
 
 // Backend Rendering
 // =================
@@ -536,11 +537,15 @@ public:
   static QList<SearchResult> search(SearchRequest request);
 };
 
+} // namespace QtPDF
 
 // Backend Implementations
 // =======================
 // These provide library-specific concrete impelemntations of the abstract base
 // classes defined here.
+// NOTE: The backend implementations must be included _outside_ the namespace,
+// as that could otherwise interfere with other header files (e.g., those of
+// poppler-qt4)
 #ifdef USE_POPPLER
 #include <backends/PopplerBackend.h> // Invokes GPL v2+ License
 #endif

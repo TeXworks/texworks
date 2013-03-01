@@ -16,6 +16,8 @@
 #include <QPainter>
 #include <QApplication>
 
+namespace QtPDF {
+
 // TODO: Find a better place to put this
 QBrush * pageDummyBrush = NULL;
 
@@ -574,6 +576,7 @@ QList<SearchResult> Page::search(SearchRequest request)
   return page->search(request.searchString);
 }
 
+} // namespace QtPDF
 
 // vim: set sw=2 ts=2 et
 

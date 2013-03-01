@@ -19,6 +19,8 @@
 #include <locale.h>
 #endif // defined(HAVE_LOCALE_H)
 
+namespace QtPDF {
+
 QRectF toRectF(const fz_rect r)
 {
   return QRectF(QPointF(r.x0, r.y0), QPointF(r.x1, r.y1));
@@ -1062,6 +1064,7 @@ QList<SearchResult> MuPDFPage::search(QString searchText)
   return results;
 }
 
+} // namespace QtPDF
 
 // vim: set sw=2 ts=2 et
 

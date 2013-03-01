@@ -27,6 +27,8 @@ extern "C"
 #include <mupdf.h>
 }
 
+namespace QtPDF {
+
 class MuPDFDocument;
 class MuPDFPage;
 
@@ -103,6 +105,7 @@ public:
   QList<SearchResult> search(QString searchText);
 };
 
+} // namespace QtPDF
 
 #endif // End header guard
 // vim: set sw=2 ts=2 et

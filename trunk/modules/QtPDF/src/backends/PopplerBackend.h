@@ -23,6 +23,8 @@
 
 #include <poppler/qt4/poppler-qt4.h>
 
+namespace QtPDF {
+
 class PopplerDocument;
 class PopplerPage;
 
@@ -83,6 +85,7 @@ public:
   QList<SearchResult> search(QString searchText);
 };
 
+} // namespace QtPDF
 
 #endif // End header guard
 // vim: set sw=2 ts=2 et

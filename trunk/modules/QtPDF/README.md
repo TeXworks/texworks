@@ -75,7 +75,7 @@ TODO
    holding a pointer to them (e.g., PDFPageGraphicsItem)
  - Make program translatable; this probably entails creating a (dummy) Qt .pro
    file so we can use the normal Qt linguist approach
- - Properly namespace the code
+ - ~~Properly namespace the code~~ __DONE__
  - ~~Handling of encrypted/password protected files (this needs to be handled
    during loading; accessing some functions (e.g., for rendering) in a locked
    document crashes the program)~~ __DONE__

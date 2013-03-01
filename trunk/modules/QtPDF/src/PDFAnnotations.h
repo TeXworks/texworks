@@ -23,6 +23,8 @@
 #include <QFlags>
 #include <QColor>
 
+namespace QtPDF {
+
 class Page;
 class PDFPopupAnnotation;
 
@@ -242,6 +244,7 @@ public:
 
 // Line, Square, Circle, Polygon, PolyLine, Stamp, Ink, FileAttachment, Sound
 
+} // namespace QtPDF
 
 #endif // End header guard
 // vim: set sw=2 ts=2 et
