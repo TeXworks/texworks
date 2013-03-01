@@ -128,10 +128,17 @@ PDFToCDockWidget* PDFDocumentView::tocDockWidget(QWidget * parent)
   connect(dock, SIGNAL(actionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
   if (_pdf_scene && _pdf_scene->document())
     dock->setToCData(_pdf_scene->document()->toc());
-
   return dock;
 }
 
+PDFMetaDataDockWidget * PDFDocumentView::metaDataDockWidget(QWidget * parent)
+{
+  PDFMetaDataDockWidget * dock = new PDFMetaDataDockWidget(parent);
+  if (_pdf_scene && _pdf_scene->document())
+    dock->setMetaDataFromDocument(_pdf_scene->document());
+  return dock;
+}
+  
 
 // Public Slots
 // ------------
@@ -1637,6 +1644,135 @@ void PDFToCDockWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
       delete action;
     parent->removeChild(item);
     delete item;
+  }
+}
+
+
+// PDFMetaDataDockWidget
+// ============
+PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) : 
+  QDockWidget(PDFDocumentView::trUtf8("Meta Data"), parent)
+{
+  // scrollArea ... the central widget of the QDockWidget
+  // w ... the central widget of scrollArea
+  // groupBox ... one (of many) group box in w
+  // vLayout ... lays out the group boxes in w
+  // layout ... lays out the actual data widgets in groupBox
+  QScrollArea * scrollArea = new QScrollArea(this);
+  scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  QWidget * w = new QWidget(scrollArea);
+  QVBoxLayout * vLayout = new QVBoxLayout(w);
+  QGroupBox * groupBox;
+  QFormLayout * layout;
+
+  // We want the vLayout to set the size of w (which should encompass all child
+  // widgets completely, since we in turn put it into scrollArea to handle
+  // oversized children
+  vLayout->setSizeConstraint(QLayout::SetFixedSize);
+  // Set margins to 0 as space is very limited in the sidebar
+  vLayout->setContentsMargins(0, 0, 0, 0);
+
+  // The "Document" group box
+  groupBox = new QGroupBox(PDFDocumentView::trUtf8("Document"), w);
+  layout = new QFormLayout(groupBox);
+
+  _title = new QLabel(groupBox);
+  _title->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(trUtf8("Title:"), _title);
+
+  _author = new QLabel(groupBox);
+  _author->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(trUtf8("Author:"), _author);
+
+  _subject = new QLabel(groupBox);
+  _subject->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(trUtf8("Subject:"), _subject);
+
+  _keywords = new QLabel(groupBox);
+  _keywords->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(trUtf8("Keywords:"), _keywords);
+
+  groupBox->setLayout(layout);
+  vLayout->addWidget(groupBox);
+
+  // The "Processing" group box
+  groupBox = new QGroupBox(PDFDocumentView::trUtf8("Processing"), w);
+  layout = new QFormLayout(groupBox);
+
+  _creator = new QLabel(groupBox);
+  _creator->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(trUtf8("Creator:"), _creator);
+
+  _producer = new QLabel(groupBox);
+  _producer->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(trUtf8("Producer:"), _producer);
+
+  _creationDate = new QLabel(groupBox);
+  _creationDate->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(trUtf8("Creation date:"), _creationDate);
+
+  _modDate = new QLabel(groupBox);
+  _modDate->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(trUtf8("Modification date:"), _modDate);
+
+  _trapped = new QLabel(groupBox);
+  _trapped->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(trUtf8("Trapped:"), _trapped);
+
+  groupBox->setLayout(layout);
+  vLayout->addWidget(groupBox);
+
+  // The "Other" group box
+  _other = groupBox = new QGroupBox(PDFDocumentView::trUtf8("Other"), w);
+  layout = new QFormLayout(groupBox);
+
+  // Note: Items are added to the "Other" box dynamically in
+  // setMetaDataFromDocument()
+
+  groupBox->setLayout(layout);
+  vLayout->addWidget(groupBox);
+
+
+  w->setLayout(vLayout);
+  scrollArea->setWidget(w);
+  setWidget(scrollArea);
+}
+
+void PDFMetaDataDockWidget::setMetaDataFromDocument(const QSharedPointer<Document> doc)
+{
+  if (!doc)
+    return;
+  _title->setText(doc->title());
+  _author->setText(doc->author());
+  _subject->setText(doc->subject());
+  _keywords->setText(doc->keywords());
+  _creator->setText(doc->creator());
+  _producer->setText(doc->producer());
+  _creationDate->setText(doc->creationDate().toString(Qt::DefaultLocaleLongDate));
+  _modDate->setText(doc->modDate().toString(Qt::DefaultLocaleLongDate));
+  switch (doc->trapped()) {
+    case Document::Trapped_True:
+      _trapped->setText(trUtf8("Yes"));
+      break;
+    case Document::Trapped_False:
+      _trapped->setText(trUtf8("No"));
+      break;
+    default:
+      _trapped->setText(trUtf8("Unknown"));
+      break;
+  }
+  QFormLayout * layout = qobject_cast<QFormLayout*>(_other->layout());
+  if (layout) {
+    // Remove any items there may be
+    QLayoutItem *child;
+    while ((child = layout->takeAt(0)) != 0)
+      delete child;
+    QMap<QString, QString>::const_iterator it;
+    for (it = doc->metaDataOther().constBegin(); it != doc->metaDataOther().constEnd(); ++it) {
+      QLabel * l = new QLabel(it.value(), _other);
+      l->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+      layout->addRow(it.key(), l);
+    }
   }
 }
 
