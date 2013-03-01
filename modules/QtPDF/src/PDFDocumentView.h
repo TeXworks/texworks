@@ -67,6 +67,8 @@ public slots:
   void zoomBy(qreal zoomFactor);
   void zoomIn();
   void zoomOut();
+  void zoomFitWindow();
+  void zoomFitWidth();
 
 signals:
   void changedPage(int pageNum);

@@ -1,6 +1,8 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
   <qresource>
+    <file>icons/fitwidth.png</file>
+    <file>icons/fitwindow.png</file>
     <file>icons/hand.png</file>
     <file>icons/magnifiercursor.png</file>
     <file>icons/zoom.png</file>
