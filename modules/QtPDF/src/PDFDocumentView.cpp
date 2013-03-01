@@ -1025,7 +1025,6 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     _zoomLevel = scaleFactor;
   }
 
-  QImage renderedPage;
   painter->save();
     // Clip to the exposed rectangle to prevent unnecessary drawing operations.
     // This can provide up to a 50% speedup depending on the size of the tile.
@@ -1049,14 +1048,14 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 #endif
 
     QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
+    QImage *renderedPage = NULL;
+
     // FIXME: speed up tile lookup by not iterating over all tiles but only over
     // those possibly inside the exposedRect
     foreach( QRect tile, _tilemap ) {
       if( not tile.intersects(visibleRect) )
         continue;
-#ifdef DEBUG
-      stopwatch.start();
-#endif
+
       // See if a copy of the required page render currently exists in the
       // cache.
       //
@@ -1067,7 +1066,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       // Perhaps store `QSharedPointer<QImage>` instead of `QImage` in the
       // cache? Then the image won't disappear as long as there is one shared
       // pointer still in existance.
-      QImage *renderedPage = _page->getCachedImage(_dpiX * scaleFactor, _dpiY * scaleFactor, tile);
+      renderedPage = _page->getCachedImage(_dpiX * scaleFactor, _dpiY * scaleFactor, tile);
       if ( renderedPage == NULL ) {
         // If the page does not exist, we request a background render with
         // cached results (caching is triggered by the `true` value).
@@ -1083,7 +1082,6 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
         painter->drawImage(tile.topLeft(), *renderedPage);
       }
 #ifdef DEBUG
-      qDebug() << "Rendered and painted tile in: " << stopwatch.elapsed() << " milliseconds";
       painter->drawRect(tile);
 #endif
     }
