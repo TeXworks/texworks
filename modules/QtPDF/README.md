@@ -46,7 +46,7 @@ TODO
  - fit to width/page/...
  - Highlighting! (to show syncing destination, search results, etc.)
  - ~~PgDn should scroll one viewport height~~ __DONE__
- - draw frame around magnifying glass (requested by Reinhard Kotucha)
+ - ~~draw frame around magnifying glass (requested by Reinhard Kotucha)~~ __DONE__
  - make the magnifying glass a top-level window (so it can extend outside the
    main view's window boundaries) (requested by Reinhard Kotucha)
  - Comment on how `pageScale` works and is used
