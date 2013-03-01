@@ -378,7 +378,7 @@ void PDFDocumentView::nextSearchResult()
   if ( not _pdf_scene || _searchResults.empty() )
     return;
 
-  if ( _currentSearchResult + 1 >= _searchResults.size() )
+  if ( (_currentSearchResult + 1) >= _searchResults.size() )
     _currentSearchResult = 0;
   else
     ++_currentSearchResult;
@@ -391,10 +391,10 @@ void PDFDocumentView::previousSearchResult()
   if ( not _pdf_scene || _searchResults.empty() )
     return;
 
-  if ( (_currentSearchResult - 2) < 0 )
+  if ( (_currentSearchResult - 1) < 0 )
     _currentSearchResult = _searchResults.size() - 1;
   else
-    _currentSearchResult -= 2;
+    --_currentSearchResult;
 
   centerOn(_searchResults[_currentSearchResult]);
 }
