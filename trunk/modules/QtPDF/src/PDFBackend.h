@@ -26,6 +26,7 @@
 #include <QReadWriteLock>
 #include <QWaitCondition>
 #include <QEvent>
+#include <QMap>
 
 namespace QtPDF {
 
