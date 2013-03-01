@@ -25,6 +25,15 @@ private slots:
   void syncFromPdf(const int page, const QPointF pos);
   void searchProgressChanged(int percent, int occurrences);
   void documentChanged(const QSharedPointer<QtPDF::Document> newDoc);
+  
+#ifdef DEBUG
+  // FIXME: Remove this
+  void setGermanLocale() { emit switchInterfaceLocale(QLocale(QLocale::German)); }
+  void setEnglishLocale() { emit switchInterfaceLocale(QLocale(QLocale::C)); }
+#endif
+
+signals:
+  void switchInterfaceLocale(const QLocale & newLocale);
 };
 
 

@@ -73,8 +73,8 @@ TODO
    this requires some reconsideration of memory management, as Page object
    could change, which would have to be propagated upwards to every object
    holding a pointer to them (e.g., PDFPageGraphicsItem)
- - Make program translatable; this probably entails creating a (dummy) Qt .pro
-   file so we can use the normal Qt linguist approach
+ - ~~Make program translatable; this probably entails creating a (dummy) Qt .pro
+   file so we can use the normal Qt linguist approach~~ __DONE__
  - ~~Properly namespace the code~~ __DONE__
  - ~~Handling of encrypted/password protected files (this needs to be handled
    during loading; accessing some functions (e.g., for rendering) in a locked

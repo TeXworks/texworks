@@ -162,6 +162,7 @@ protected:
   void mouseMoveEvent(QMouseEvent * event);
   void mouseReleaseEvent(QMouseEvent * event);
   void wheelEvent(QWheelEvent * event);
+  void changeEvent(QEvent * event);
   
   // Maybe this will become public later on
   // Ownership of tool is transferred to PDFDocumentView
@@ -184,6 +185,7 @@ protected slots:
   void goToPage(const PDFPageGraphicsItem * page, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
   void searchResultReady(int index);
   void searchProgressValueChanged(int progressValue);
+  void switchInterfaceLocale(const QLocale & newLocale);
 
 private:
   PageMode _pageMode;
@@ -192,6 +194,9 @@ private:
   QVector<PDFDocumentTool*> _tools;
   PDFDocumentTool * _armedTool;
   QMap<uint, PDFDocumentTool*> _toolAccessors;
+  
+  static QTranslator * _translator;
+  static QString _translatorLanguage;
 
   // Never try to set a vanilla QGraphicsScene, always use a PDFGraphicsScene.
   void setScene(QGraphicsScene *scene);
@@ -341,9 +346,19 @@ public:
   virtual ~PDFDocumentInfoWidget() { }
   // If the widget has a fixed size, it should not be resized (it can, e.g., be
   // put into a QScrollArea instead).
+public slots:
+  void setWindowTitle(const QString & windowTitle);
+signals:
+  void windowTitleChanged(const QString &);
 protected slots:
-  virtual void initFromDocument(const QSharedPointer<QtPDF::Document> doc) = 0;
+  virtual void initFromDocument(const QSharedPointer<QtPDF::Document> doc) { _doc = doc; }
+  virtual void retranslateUi() { };
   virtual void clear() = 0;
+protected:
+  virtual void changeEvent(QEvent * event);
+  // we need to keep a reference to the document to allow dynamic lookup of data
+  // (e.g., when retranslating the widget)
+  QSharedPointer<QtPDF::Document> _doc;
 };
 
 class PDFToCInfoWidget : public PDFDocumentInfoWidget
@@ -356,6 +371,7 @@ public:
 protected slots:
   void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
+  virtual void retranslateUi();
 signals:
   void actionTriggered(const QtPDF::PDFAction*);
 private slots:
@@ -376,17 +392,21 @@ public:
 protected slots:
   void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
+  virtual void retranslateUi();
+  void reload();
 private:
-  QLabel * _title;
-  QLabel * _author;
-  QLabel * _subject;
-  QLabel * _keywords;
-  QLabel * _creator;
-  QLabel * _producer;
-  QLabel * _creationDate;
-  QLabel * _modDate;
-  QLabel * _trapped;
-  QGroupBox * _other;
+  QGroupBox * _documentGroup;
+  QLabel * _title, * _titleLabel;
+  QLabel * _author, * _authorLabel;
+  QLabel * _subject, * _subjectLabel;
+  QLabel * _keywords, * _keywordsLabel;
+  QGroupBox * _processingGroup;
+  QLabel * _creator, * _creatorLabel;
+  QLabel * _producer, * _producerLabel;
+  QLabel * _creationDate, * _creationDateLabel;
+  QLabel * _modDate, * _modDateLabel;
+  QLabel * _trapped, * _trappedLabel;
+  QGroupBox * _otherGroup;
 };
 
 class PDFFontsInfoWidget : public PDFDocumentInfoWidget
@@ -399,6 +419,8 @@ public:
 protected slots:
   void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
+  virtual void retranslateUi();
+  void reload();
 private:
   QTableWidget * _table;
 };
@@ -413,12 +435,14 @@ public:
 protected slots:
   void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
+  virtual void retranslateUi();
+  void reload();
 private:
-  QLabel * _print;
-  QLabel * _modify;
-  QLabel * _extract;
-  QLabel * _addNotes;
-  QLabel * _form;
+  QLabel * _print, * _printLabel;
+  QLabel * _modify, * _modifyLabel;
+  QLabel * _extract, * _extractLabel;
+  QLabel * _addNotes, * _addNotesLabel;
+  QLabel * _form, * _formLabel;
 };
 
 class PDFAnnotationsInfoWidget : public PDFDocumentInfoWidget
@@ -437,6 +461,7 @@ public:
 protected slots:
   void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
   void clear();
+  virtual void retranslateUi();
   void annotationsReady(int index);
 };
 
@@ -531,6 +556,7 @@ signals:
 
 public slots:
   void doUnlockDialog();
+  void retranslateUi();
 
 protected slots:
   void pageLayoutChanged(const QRectF& sceneRect);
@@ -538,6 +564,10 @@ protected slots:
 
 protected:
   bool event(QEvent* event);
+  
+  QWidget * _unlockWidget;
+  QLabel * _unlockWidgetLockText, * _unlockWidgetLockIcon;
+  QPushButton * _unlockWidgetUnlockButton;
 
 private:
   // Parent has no copy constructor, so this class shouldn't either. Also, we
@@ -627,6 +657,7 @@ public:
   // See concerns in `PDFPageGraphicsItem` for why this feels fragile.
   enum { Type = UserType + 2 };
   int type() const;
+  void retranslateUi();
 
 protected:
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
