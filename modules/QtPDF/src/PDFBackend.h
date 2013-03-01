@@ -79,7 +79,7 @@ public:
   virtual QString name() const { return _name; }
   virtual QDateTime lastModified() const { return _lastModified; }
   virtual QFlags<AnnotationFlags> flags() const { return _flags; }
-  virtual QFlags<AnnotationFlags>& flags() { return _flags; }  
+  virtual QFlags<AnnotationFlags>& flags() { return _flags; }
   virtual QColor color() const { return _color; }
 
   virtual void setRect(const QRectF rect) { _rect = rect; }
@@ -95,7 +95,7 @@ protected:
   Page * _page; // optional; since PDF 1.3
   QString _name; // optional; since PDF 1.4
   QDateTime _lastModified; // optional; since PDF 1.1
-  // TODO: _flags, _appearance, _appearanceState, _border, _structParent, _optContent
+  // TODO: _appearance, _appearanceState, _border, _structParent, _optContent
   QFlags<AnnotationFlags> _flags;
   // QList<???> _appearance;
   // ??? _appearanceState;
@@ -103,6 +103,9 @@ protected:
   QColor _color;
   // ??? _structParent;
   // ??? _optContent;
+
+  // TODO: Additional members for Markup annotations (see pdf specs)---possibly
+  // add a PDFMarkupAnnotation class derived from PDFAnnotation?
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(PDFAnnotation::AnnotationFlags)
 
@@ -717,7 +720,7 @@ public:
   virtual ~Page();
 
   int pageNum();
-  virtual QSizeF pageSizeF()=0;
+  virtual QSizeF pageSizeF() const = 0;
 
   Document * document() { return _parent; }
 
