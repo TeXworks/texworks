@@ -45,7 +45,7 @@ TODO
  - SyncTeX with signals and slots
  - fit to width/page/...
  - Highlighting! (to show syncing destination, search results, etc.)
- - PgDn should scroll one viewport height
+ - ~~PgDn should scroll one viewport height~~ __DONE__
  - draw frame around magnifying glass (requested by Reinhard Kotucha)
  - make the magnifying glass a top-level window (so it can extend outside the
    main view's window boundaries) (requested by Reinhard Kotucha)
@@ -56,7 +56,7 @@ TODO
  - annotations (popup window)
  - rulers (in main window, and attached to magnifying glass)
  - ~~possibility to abort render requests when page moves out of view (is there a
-   way to avoid going through all pages at each scroll event?) __Done__
+   way to avoid going through all pages at each scroll event?)~~ __Done__
  - Split view???
  - Improve handling of several concurrent versions (magnifications) of the same
    page (currently: "normal" and "magnified" versions); simplify code, remove

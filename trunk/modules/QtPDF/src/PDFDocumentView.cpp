@@ -251,14 +251,21 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
   {
 
     case Qt::Key_PageUp:
-      goPrev();
-      event->accept();
-      break;
-
     case Qt::Key_PageDown:
-      goNext();
+    {
+      QRectF viewRect = mapToScene(rect()).boundingRect();
+      QPointF viewCenter = viewRect.center();
+
+      if ( event->key() == Qt::Key_PageUp ) {
+        viewCenter.setY(viewCenter.y() - viewRect.height());
+      } else {
+        viewCenter.setY(viewCenter.y() + viewRect.height());
+      }
+
+      centerOn(viewCenter);
       event->accept();
       break;
+    }
 
     case Qt::Key_Home:
       goFirst();
