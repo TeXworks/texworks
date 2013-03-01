@@ -257,6 +257,7 @@ public:
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   QGraphicsItem* pageAt(const int idx);
   int pageNumAt(const QPolygonF &polygon);
+  int pageNumFor(PDFPageGraphicsItem * const graphicsItem) const;
   PDFPageProcessingThread& processingThread() { return _processingThread; }
   PDFPageLayout& pageLayout() { return _pageLayout; }
 
