@@ -20,7 +20,7 @@ QTime stopwatch;
 // Some utility functions.
 //
 // **TODO:** _Find a better place to put these._
-static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGraphicsItem::Type ); }
+static bool isPageItem(const QGraphicsItem *item) { return ( item->type() == PDFPageGraphicsItem::Type ); }
 
 // PDFDocumentView
 // ===============
@@ -199,54 +199,38 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
 // Public Slots
 // ------------
 
-void PDFDocumentView::goPrev()  { goToPage(_currentPage - 1, false); }
-void PDFDocumentView::goNext()  { goToPage(_currentPage + 1); }
+void PDFDocumentView::goPrev()  { goToPage(_currentPage - 1, Qt::AlignBottom); }
+void PDFDocumentView::goNext()  { goToPage(_currentPage + 1, Qt::AlignTop); }
 void PDFDocumentView::goFirst() { goToPage(0); }
 void PDFDocumentView::goLast()  { goToPage(_lastPage - 1); }
 
-// `goToPage` will shift the view to a different page. If the `centerOnTop`
-// parameter is `true` (the default), than the view will ensure the top left
-// corner of the page is visible. Otherwise, the bottom left corner will be
-// used.
-//
-// **TODO:**
-//
-//   - Be more flexible about centering. Perhaps allow a point in page
-//     coordinates to be passed in along with the choice of top/bottom. This
-//     could be useful for jumping to a page and centering on a search result
-//     or link anchor.
-//
-//   - Overload this function to take `PDFPageGraphicsItem` as a parameter?
-void PDFDocumentView::goToPage(int pageNum, bool centerOnTop /* = true */)
+
+// `goToPage` will shift the view to a different page. If the `alignment`
+// parameter is `Qt::AlignLeft | Qt::AlignTop` (the default), the view will
+// ensure the top left corner of the page is visible and aligned with the top
+// left corner of the viewport (if possible). Other alignments can be used in
+// the same way. If `alignment` for a direction is not set the view will
+// show the same portion of the new page as it did before with the old page.
+void PDFDocumentView::goToPage(const int pageNum, const int alignment /* = Qt::AlignLeft | Qt::AlignTop */)
 {
-  if (!_pdf_scene || _pdf_scene->pages().size() <= pageNum || !_pdf_scene->pageAt(pageNum))
-    return;
   // We silently ignore any invalid page numbers.
-  if ( (pageNum >= 0) && (pageNum < _lastPage) && (pageNum != _currentPage) )
-  {
-    if (_pageMode == PageMode_SinglePage) {
-      _pdf_scene->showOnePage(pageNum);
-      maybeUpdateSceneRect();
-    }
+  if (!_pdf_scene || pageNum < 0 || pageNum >= _lastPage)
+    return;
+  if (pageNum == _currentPage)
+    return;
 
-    QRectF pageRect = _pdf_scene->pageAt(pageNum)->sceneBoundingRect();
+  goToPage((const PDFPageGraphicsItem*)_pdf_scene->pageAt(pageNum), alignment);
+}
 
-    // **TODO:** Investigate why this approach doesn't work during startup if
-    // the margin is set to 0
-    // FIXME: ensureVisible only does what the name suggests: it ensures that
-    // the given point is visible. This means that centerOnTop does not do what
-    // it suggests if we come from above, as ensureVisible will only move the
-    // top left corner of the page into view, i.e., to the bottom border. To
-    // test, see comment in pdfActionTriggered(). Possibly use
-    // goToPage(PDFPageGraphicsItem*, QRectF, bool) entirely?
-    if (centerOnTop)
-      ensureVisible(pageRect.left(), pageRect.top(), 1, 1);
-    else
-      ensureVisible(pageRect.left(), pageRect.bottom(), 1, 1);
+void PDFDocumentView::goToPage(const int pageNum, const QPointF anchor, const int alignment /* = Qt::AlignHCenter | Qt::AlignVCenter */)
+{
+  // We silently ignore any invalid page numbers.
+  if (!_pdf_scene || pageNum < 0 || pageNum >= _lastPage)
+    return;
+  if (pageNum == _currentPage)
+    return;
 
-    _currentPage = pageNum;
-    emit changedPage(_currentPage);
-  }
+  goToPage((const PDFPageGraphicsItem*)_pdf_scene->pageAt(pageNum), anchor, alignment);
 }
 
 void PDFDocumentView::zoomBy(qreal zoomFactor)
@@ -477,6 +461,139 @@ void PDFDocumentView::maybeUpdateSceneRect() {
   setSceneRect(_pdf_scene->pageAt(_currentPage)->sceneBoundingRect());
 }
 
+void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int alignment /* = Qt::AlignLeft | Qt::AlignTop */)
+{
+  int pageNum;
+
+  if (!_pdf_scene || !page || !isPageItem(page))
+    return;
+  pageNum = _pdf_scene->pageNumFor(page);
+  if (pageNum == _currentPage)
+    return;
+
+  QRectF viewRect(mapToScene(QRect(QPoint(0, 0), viewport()->size())).boundingRect());
+
+  // Note: This function must work if oldPage == NULL (e.g., during start up)
+  PDFPageGraphicsItem *oldPage = (PDFPageGraphicsItem*)_pdf_scene->pageAt(_currentPage);
+  if (oldPage && isPageItem(oldPage))
+    viewRect = oldPage->mapRectFromScene(viewRect);
+  else {
+    // If we don't have an oldPage for whatever reason (e.g., during start up)
+    // we default to the top left corner of newPage instead
+    viewRect = page->mapRectFromScene(viewRect);
+    viewRect.moveTopLeft(QPointF(0, 0));
+  }
+
+  switch (alignment & Qt::AlignHorizontal_Mask) {
+    case Qt::AlignLeft:
+      viewRect.moveLeft(page->boundingRect().left());
+      break;
+    case Qt::AlignRight:
+      viewRect.moveRight(page->boundingRect().right());
+      break;
+    case Qt::AlignHCenter:
+      viewRect.moveCenter(QPointF(page->boundingRect().center().x(), viewRect.center().y()));
+      break;
+    default:
+      // without (valid) alignment, we don't do anything
+      break;
+  }
+  switch (alignment & Qt::AlignVertical_Mask) {
+    case Qt::AlignTop:
+      viewRect.moveTop(page->boundingRect().top());
+      break;
+    case Qt::AlignBottom:
+      viewRect.moveBottom(page->boundingRect().bottom());
+      break;
+    case Qt::AlignVCenter:
+      viewRect.moveCenter(QPointF(viewRect.center().x(), page->boundingRect().center().y()));
+      break;
+    default:
+      // without (valid) alignment, we don't do anything
+      break;
+  }
+
+  if (_pageMode == PageMode_SinglePage) {
+    _pdf_scene->showOnePage(page);
+    maybeUpdateSceneRect();
+  }
+
+  viewRect = page->mapRectToScene(viewRect);
+  // Note: ensureVisible seems to have a small glitch. Even if the passed
+  // `viewRect` is identical, the result may depend on the view's previous state
+  // if the margins are not -1. However, -1 margins don't work during the
+  // initialization when the viewport doesn't have its final size yet (for
+  // whatever reasons, the end result is a view centered on the scene).
+  // So we use centerOn for now which should give the same result since
+  // viewRect has the same size as the viewport.
+//  ensureVisible(viewRect, -1, -1);
+  centerOn(viewRect.center());
+
+  _currentPage = pageNum;
+  emit changedPage(_currentPage);
+}
+
+// TODO: Test
+void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const QPointF anchor, const int alignment /* = Qt::AlignHCenter | Qt::AlignVCenter */)
+{
+  int pageNum;
+
+  if (!_pdf_scene || !page || !isPageItem(page))
+    return;
+  pageNum = _pdf_scene->pageNumFor(page);
+  if (pageNum == _currentPage)
+    return;
+
+  QRectF viewRect(mapToScene(QRect(QPoint(0, 0), viewport()->size())).boundingRect());
+
+  // Transform to item coordinates
+  viewRect = page->mapRectFromScene(viewRect);
+
+  switch (alignment & Qt::AlignHorizontal_Mask) {
+    case Qt::AlignLeft:
+      viewRect.moveLeft(anchor.x());
+      break;
+    case Qt::AlignRight:
+      viewRect.moveRight(anchor.x());
+      break;
+    case Qt::AlignHCenter:
+    default:
+      viewRect.moveCenter(QPointF(anchor.x(), viewRect.center().y()));
+      break;
+  }
+  switch (alignment & Qt::AlignVertical_Mask) {
+    case Qt::AlignTop:
+      viewRect.moveTop(anchor.y());
+      break;
+    case Qt::AlignBottom:
+      viewRect.moveBottom(anchor.y());
+      break;
+    case Qt::AlignVCenter:
+    default:
+      viewRect.moveCenter(QPointF(viewRect.center().x(), anchor.y()));
+      break;
+  }
+
+  if (_pageMode == PageMode_SinglePage) {
+    _pdf_scene->showOnePage(page);
+    maybeUpdateSceneRect();
+  }
+
+  viewRect = page->mapRectToScene(viewRect);
+  // Note: ensureVisible seems to have a small glitch. Even if the passed
+  // `viewRect` is identical, the result may depend on the view's previous state
+  // if the margins are not -1. However, -1 margins don't work during the
+  // initialization when the viewport doesn't have its final size yet (for
+  // whatever reasons, the end result is a view centered on the scene).
+  // So we use centerOn for now which should give the same result since
+  // viewRect has the same size as the viewport.
+//  ensureVisible(viewRect, -1, -1);
+  centerOn(viewRect.center());
+
+  _currentPage = pageNum;
+  emit changedPage(_currentPage);
+}
+
 void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const QRectF view, const bool mayZoom /* = false */)
 {
   if (!page || page->page().isNull())
@@ -541,9 +658,6 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
           // Calculate the new viewport (in page coordinates)
           QRectF view(dest.viewport(_pdf_scene->document().data(), oldViewport, _zoomLevel));
 
-          // FIXME: Activate the following line to debug the centerOnTop
-          // behavior of goToPage(int, bool)
-//          goToPage(dest.page());
           goToPage(static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(dest.page())), view, true);
         }
       }
@@ -1352,9 +1466,13 @@ int PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
   return _pages.indexOf(p.first());
 }
 
-int PDFDocumentScene::pageNumFor(PDFPageGraphicsItem * const graphicsItem) const
+int PDFDocumentScene::pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const
 {
-  return _pages.indexOf(graphicsItem);
+  // Note: since we store QGraphicsItem* in _pages, we need to remove the const
+  // or else indexOf() complains during compilation. Since we don't do anything
+  // with the pointer, this should be safe to do while still remaining the
+  // const'ness of `graphicsItem`, however.
+  return _pages.indexOf(const_cast<PDFPageGraphicsItem * const>(graphicsItem));
 }
 
 int PDFDocumentScene::lastPage() { return _lastPage; }
@@ -1472,6 +1590,17 @@ void PDFDocumentScene::showOnePage(const int pageIdx) const
     if (!isPageItem(_pages[i]))
       continue;
     _pages[i]->setVisible(i == pageIdx);
+  }
+}
+
+void PDFDocumentScene::showOnePage(const PDFPageGraphicsItem * page) const
+{
+  int i;
+
+  for (i = 0; i < _pages.size(); ++i) {
+    if (!isPageItem(_pages[i]))
+      continue;
+    _pages[i]->setVisible(_pages[i] == page);
   }
 }
 

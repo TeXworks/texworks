@@ -70,7 +70,15 @@ public slots:
   void goNext();
   void goFirst();
   void goLast();
-  void goToPage(int pageNum, bool centerOnTop = true);
+  // `alignment` can be (a combination of) 0, Qt::AlignLeft, Qt::AlignRight,
+  // Qt::AlignHCenter, Qt::AlignTop, Qt::AlignBottom, Qt::AlignVCenter.
+  // 0 corresponds to no alignment, i.e., the view will change so that the
+  // rectangle of page pageNum closest to the original viewport rect is visible.
+  void goToPage(const int pageNum, const int alignment = Qt::AlignLeft | Qt::AlignTop);
+  // Similar to the one above, but view is aligned at `anchor`. Note that the
+  // default alignment is centering here, which is also used if `alignment` == 0.
+  // `anchor` must be given in item coordinates
+  void goToPage(const int pageNum, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
   void setPageMode(PageMode pageMode);
   void setSinglePageMode() { setPageMode(PageMode_SinglePage); }
   void setOneColContPageMode() { setPageMode(PageMode_OneColumnContinuous); }
@@ -130,8 +138,10 @@ protected slots:
   void maybeUpdateSceneRect();
   void pdfActionTriggered(const PDFAction * action);
   // Note: view specifies which part of the page should be visible and must
-  // therefore be given in scene coordinates
+  // therefore be given in page coordinates
   void goToPage(const PDFPageGraphicsItem * page, const QRectF view, const bool mayZoom = false);
+  void goToPage(const PDFPageGraphicsItem * page, const int alignment = Qt::AlignLeft | Qt::AlignTop);
+  void goToPage(const PDFPageGraphicsItem * page, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
 
 private:
   PageMode _pageMode;
@@ -342,10 +352,11 @@ public:
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   QGraphicsItem* pageAt(const int idx);
   int pageNumAt(const QPolygonF &polygon);
-  int pageNumFor(PDFPageGraphicsItem * const graphicsItem) const;
+  int pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const;
   PDFPageLayout& pageLayout() { return _pageLayout; }
 
   void showOnePage(const int pageIdx) const;
+  void showOnePage(const PDFPageGraphicsItem * page) const;
   void showAllPages() const;
 
   int lastPage();
