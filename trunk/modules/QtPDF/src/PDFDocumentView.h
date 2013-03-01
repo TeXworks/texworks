@@ -73,7 +73,50 @@ private:
 };
 
 
-// Class to render pages in the background
+class PageProcessingRequest : public QObject
+{
+  Q_OBJECT
+  friend class PDFPageRenderingThread;
+
+  // Protect c'tor and execute() so we can't access them except in derived
+  // classes and friends
+protected:
+  PageProcessingRequest(PDFPageGraphicsItem * page) : page(page) { }
+  // Should perform whatever processing it is designed to do
+  // Returns true if finished successfully, false otherwise
+  virtual bool execute() = 0;
+
+public:
+  enum Type { PageRendering };
+
+  virtual ~PageProcessingRequest() { }
+  virtual Type type() = 0;
+  
+  PDFPageGraphicsItem * page;
+};
+
+class PageProcessingRenderPageRequest : public PageProcessingRequest
+{
+  Q_OBJECT
+  friend class PDFPageRenderingThread;
+
+  // Protect c'tor and execute() so we can't access them except in derived
+  // classes and friends
+protected:
+  PageProcessingRenderPageRequest(PDFPageGraphicsItem * page, qreal scaleFactor);
+  virtual bool execute();
+
+public:
+  virtual Type type() { return PageRendering; }
+
+  qreal scaleFactor;
+
+signals:
+  void pageImageReady(qreal, QImage);
+};
+
+
+// Class to perform (possibly) lengthy operations on pages in the background
 // Modelled after the "Blocking Fortune Client Example" in the Qt docs
 // (http://doc.qt.nokia.com/stable/network-blockingfortuneclient.html)
 class PDFPageRenderingThread : public QThread
@@ -83,20 +126,13 @@ public:
   PDFPageRenderingThread();
   virtual ~PDFPageRenderingThread();
 
-  void requestRender(PDFPageGraphicsItem * page, qreal scaleFactor);
-
-signals:
-  void pageReady(PDFPageGraphicsItem *, qreal, QImage);
+  PageProcessingRenderPageRequest* requestRender(PDFPageGraphicsItem * page, qreal scaleFactor);
 
 protected:
   virtual void run();
 
 private:
-  struct StackItem {
-    PDFPageGraphicsItem * page;
-    qreal scaleFactor;
-  };
-  QStack<StackItem> _workStack;
+  QStack<PageProcessingRequest*> _workStack;
   QMutex _mutex;
   QWaitCondition _waitCondition;
   bool _quit;
@@ -221,9 +257,8 @@ class PDFPageGraphicsItem : public QObject, public QGraphicsItem
 
   QTransform _pageScale;
   qreal _zoomLevel;
-  PDFPageRenderingThread * _connectedRenderingThread;
 
-  friend class PDFPageRenderingThread;
+  friend class PageProcessingRenderPageRequest;
   friend class PDFPageLayout;
 
 public:
@@ -249,7 +284,7 @@ private:
 
 private slots:
   void addLinks();
-  void maybeUpdateRenderedPage(PDFPageGraphicsItem * page, qreal scaleFactor, QImage pageImage);
+  void updateRenderedPage(qreal scaleFactor, QImage pageImage);
 };
 
 

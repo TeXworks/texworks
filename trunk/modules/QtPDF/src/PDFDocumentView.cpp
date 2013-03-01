@@ -403,8 +403,7 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
 
   _linksLoaded(false),
   _pageIsRendering(false),
-  _zoomLevel(0.0),
-  _connectedRenderingThread(NULL)
+  _zoomLevel(0.0)
 {
   // The `_linkGenerator` is used to monitor asynchronous generation of
   // `PDFLinkGraphicsItem` objects associated with the links on this page.
@@ -469,10 +468,9 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       // **TODO:** If we ever reassign pages to other scenes, revisit this!
       // Right now, we don't disconnect from the old scene (to ensure we receive
       // late pageReady messages and those don't vanish into nirvana)
-      if (_connectedRenderingThread != &(docScene->renderingThread())) {
-        connect(&(docScene->renderingThread()), SIGNAL(pageReady(PDFPageGraphicsItem *, qreal, QImage)), this, SLOT(maybeUpdateRenderedPage(PDFPageGraphicsItem *, qreal, QImage)));
-      }
-      docScene->renderingThread().requestRender(this, scaleFactor);
+      PageProcessingRenderPageRequest * request = docScene->renderingThread().requestRender(this, scaleFactor);
+      if (request)
+        connect(request, SIGNAL(pageImageReady(qreal, QImage)), this, SLOT(updateRenderedPage(qreal, QImage)));
     }
 
     _zoomLevel = scaleFactor;
@@ -561,11 +559,8 @@ void PDFPageGraphicsItem::addLinks()
 // Asynchronous Page Rendering
 // ---------------------------
 
-void PDFPageGraphicsItem::maybeUpdateRenderedPage(PDFPageGraphicsItem * page, qreal scaleFactor, QImage pageImage)
+void PDFPageGraphicsItem::updateRenderedPage(qreal scaleFactor, QImage pageImage)
 {
-  if (page != this)
-    return;
-
   // We store the rendered page in a new member named `renderedPage` rather
   // than the `pixmap` member inherited from `QGraphicsPixmapItem`. This is
   // because the size of `pixmap` is used to calculate a bunch of geometric
@@ -728,37 +723,41 @@ PDFPageRenderingThread::~PDFPageRenderingThread()
   wait();
 }
 
-void PDFPageRenderingThread::requestRender(PDFPageGraphicsItem * page, qreal scaleFactor)
+PageProcessingRenderPageRequest * PDFPageRenderingThread::requestRender(PDFPageGraphicsItem * page, qreal scaleFactor)
 {
   int i;
-  StackItem workItem;
+  PageProcessingRenderPageRequest * workItem = new PageProcessingRenderPageRequest(page, scaleFactor);
 
-  workItem.page = page;
-  workItem.scaleFactor = scaleFactor;
-
-  QMutexLocker(&(this->_mutex));
+  QMutexLocker locker(&(this->_mutex));
   // remove any instances of the given graphics item before adding it to avoid
   // rendering it several times
   // **TODO:** Could it be that we require several concurrent versions of the
   //           same page?
   for (i = _workStack.size() - 1; i >= 0; --i) {
-    if (_workStack[i].page == page)
+    if (_workStack[i]->page == page && _workStack[i]->type() == PageProcessingRequest::PageRendering) {
+      // Using deleteLater() doesn't work because we have no event queue in this
+      // thread. However, since the object is still on the stack, it is still
+      // sleeping and directly deleting it should therefore be safe.
+      delete _workStack[i];
       _workStack.remove(i);
+    }
   }
 
   _workStack.push(workItem);
+  locker.unlock();
 
-  qDebug() << "new request added to stack; now has" << _workStack.size() << "items";
+  qDebug() << "new render request added to stack; now has" << _workStack.size() << "items";
 
   if (!isRunning())
     start();
   else
     _waitCondition.wakeOne();
+  return workItem;
 }
 
 void PDFPageRenderingThread::run()
 {
-  StackItem workItem;
+  PageProcessingRequest * workItem;
 
   _mutex.lock();
   while (!_quit) {
@@ -767,14 +766,17 @@ void PDFPageRenderingThread::run()
       workItem = _workStack.pop();
       _mutex.unlock();
 
-      qDebug() << "starting to render; remaining items:" << _workStack.size();
+      qDebug() << "processing work item; remaining items:" << _workStack.size();
+      workItem->execute();
 
-      if (workItem.page && workItem.page->_page && qobject_cast<PDFDocumentScene *>(workItem.page->scene())) {
-        QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(workItem.page->scene())->docMutex);
-        QImage pageImage = workItem.page->_page->renderToImage(workItem.page->_dpiX * workItem.scaleFactor, workItem.page->_dpiY * workItem.scaleFactor);
-        docLock.unlock();
-        emit pageReady(workItem.page, workItem.scaleFactor, pageImage);
-      }
+      // Delete the work item as it has fulfilled its purpose
+      // Note that we can't delete it here or we might risk that some emitted
+      // signals are invalidated; to ensure they reach their destination, we
+      // need to call deleteLater(), which requires and event queue; thus, we
+      // first move it to the main processing thread
+      workItem->moveToThread(QApplication::instance()->thread());
+      workItem->deleteLater();
+
       _mutex.lock();
     }
     else {
@@ -1077,6 +1079,25 @@ void PDFPageLayout::rearrange() {
       ++row;
     }
   }
+}
+
+PageProcessingRenderPageRequest::PageProcessingRenderPageRequest(PDFPageGraphicsItem * page, qreal scaleFactor) :
+  PageProcessingRequest(page),
+  scaleFactor(scaleFactor)
+{
+}
+
+bool PageProcessingRenderPageRequest::execute()
+{
+  if (!page || !qobject_cast<PDFDocumentScene *>(page->scene()) || !page->_page)
+    return false;
+
+  QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(page->scene())->docMutex);
+  QImage pageImage = page->_page->renderToImage(page->_dpiX * scaleFactor, page->_dpiY * scaleFactor);
+  docLock.unlock();
+  
+  emit pageImageReady(scaleFactor, pageImage);
+  return true;
 }
 
 // vim: set sw=2 ts=2 et
