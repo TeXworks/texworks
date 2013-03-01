@@ -27,12 +27,28 @@ IF ( NOT CMAKE_BUILD_TYPE )
   SET(CMAKE_BUILD_TYPE "Debug")
 ENDIF ()
 
-OPTION(WITH_POPPLER "Build Poppler backend" ON)
+# By default, we build a shared lib...
+IF ( NOT DEFINED BUILD_SHARED_LIBS )
+  SET(BUILD_SHARED_LIBS ON)
+ENDIF ()
+
+# ...with poppler...
+IF ( NOT DEFINED WITH_POPPLER )
+  SET(WITH_POPPLER ON)
+ENDIF ()
+
+# ...but without MuPDF
+IF ( NOT DEFINED WITH_MUPDF )
+  SET(WITH_MUPDF OFF)
+ENDIF ()
+
+OPTION(WITH_POPPLER "Build Poppler backend" ${WITH_POPPLER})
 # MuPDF backend is a bit immature, so we don't bother with it by default right
 # now.
-OPTION(WITH_MUPDF "Build MuPDF backend" OFF)
+OPTION(WITH_MUPDF "Build MuPDF backend" ${WITH_MUPDF})
 
 
+OPTION(BUILD_SHARED_LIBS "Build shared library" ${BUILD_SHARED_LIBS})
 
 # Dependency Configuration
 # ========================
@@ -81,7 +97,10 @@ IF( WITH_POPPLER )
 
   FIND_PACKAGE(Poppler REQUIRED)
   LIST(APPEND QTPDF_INCLUDE_DIRS ${POPPLER_QT4_INCLUDE_DIR})
-  LIST(APPEND QTPDF_LIBS ${POPPLER_LIBRARIES})
+  # In case poppler is linked statically, its libs have to be given to the
+  # linker **first** for some strange reason or symbols won't be properly
+  # resolved. At least, this is the case with the MinGW linker.
+  SET(QTPDF_LIBS ${POPPLER_LIBRARIES} ${QTPDF_LIBS})
 
   # The only thing Poppler should need is the location of the include
   # directories in order to access header files. The library loader should be
@@ -187,7 +206,7 @@ ENDIF()
 
 QT4_WRAP_CPP(QTPDF_MOC ${QTPDF_MOC_HDRS})
 
-ADD_LIBRARY(qtpdf SHARED
+ADD_LIBRARY(qtpdf
   ${QTPDF_SRCS}
   ${QTPDF_MOC}
 )
@@ -298,6 +317,7 @@ message("")
 
 CONFIG_YESNO("Poppler backend" WITH_POPPLER)
 CONFIG_YESNO("MuPDF backend" WITH_MUPDF)
+CONFIG_YESNO("Shared library" BUILD_SHARED_LIBS)
 
 message("")
 message("  Project will be installed to:")
