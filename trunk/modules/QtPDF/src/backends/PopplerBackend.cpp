@@ -97,7 +97,7 @@ void convertAnnotation(PDFAnnotation * dest, const Poppler::Annotation * src, Pa
     flags |= PDFAnnotation::Annotation_NoZoom;
   if (src->flags() & Poppler::Annotation::FixedRotation)
     flags |= PDFAnnotation::Annotation_NoRotate;
-  if (src->flags() & Poppler::Annotation::DenyPrint == 0)
+  if ((src->flags() & Poppler::Annotation::DenyPrint) == 0)
     flags |= PDFAnnotation::Annotation_Print;
   if (src->flags() & Poppler::Annotation::DenyWrite)
     flags |= PDFAnnotation::Annotation_ReadOnly;
@@ -391,8 +391,8 @@ bool PopplerDocument::unlock(const QString password)
 // ==========
 PopplerPage::PopplerPage(PopplerDocument *parent, int at):
   Super(parent, at),
-  _linksLoaded(false),
-  _annotationsLoaded(false)
+  _annotationsLoaded(false),
+  _linksLoaded(false)
 {
   _poppler_page = QSharedPointer<Poppler::Page>(static_cast<PopplerDocument *>(_parent)->_poppler_doc->page(at));
 }
