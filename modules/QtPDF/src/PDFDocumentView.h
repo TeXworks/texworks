@@ -356,7 +356,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
   QTransform _pageScale;
   qreal _zoomLevel, _magnifiedZoomLevel;
 
-  QList<QRect*> _tilemap;
+  QVector<QRect> _tilemap;
   int _nTile_x, _nTile_y;
 
   friend class PageProcessingRenderPageRequest;
