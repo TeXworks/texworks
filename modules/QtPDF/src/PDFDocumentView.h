@@ -11,6 +11,9 @@
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
  * more details.
  */
+#ifndef PDFDocumentView_H
+#define PDFDocumentView_H
+
 #include <memory>
 #include <QtGui/QtGui>
 #include <poppler/qt4/poppler-qt4.h>
@@ -394,5 +397,7 @@ public:
   static QEvent::Type LinkEvent;
   const int pageNum;
 };
+
+#endif // End header include guard
 
 // vim: set sw=2 ts=2 et
