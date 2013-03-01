@@ -1236,6 +1236,9 @@ qDebug() << "[INF] PDFPageGraphicsItem::paint()";
         // avoid doign extra work outside the page
         QRect tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         tile &= pageRect;
+        // don't process empty tiles
+        if (tile.isNull())
+          continue;
         // See if a copy of the required page render currently exists in the
         // cache.
         //
