@@ -1036,20 +1036,43 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 #ifdef DEBUG
     stopwatch.start();
 #endif
-    int i,j;
-    _tilemap.clear();
+    painter->save();
+    painter->setTransform(QTransform::fromScale(scaleFactor, scaleFactor));
 
+    int i,j;
     QRect pageRect = painter->transform().mapRect(boundingRect()).toAlignedRect(), pageTile;
+
     _nTile_x = pageRect.width() / TILE_SIZE + 1;
     _nTile_y = pageRect.height() / TILE_SIZE + 1;
 
-    _tilemap.reserve( _nTile_x * _nTile_y );
+    _tilemap.resize( _nTile_x * _nTile_y );
 
-    for ( i = 0; i < _nTile_y; ++i ) {
-      for ( j = 0; j < _nTile_x; ++j ) {
-        _tilemap.append(new QRect(j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE));
+    // The bottom right tile may have a width and height that are smaller.
+    pageTile = QRect((_nTile_x - 1) * TILE_SIZE, (_nTile_y - 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE) & pageRect;
+
+    // All tiles that do not lie along the bottme or right edges of the page
+    // will be full size.
+    for( i = 0; i < _nTile_y; ++i ) {
+      for( j = 0; j < _nTile_x; ++j ) {
+        qDebug() << "Pushing tile: " << i * _nTile_x + j;
+        _tilemap[i * _nTile_x + j] = QRect(j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+        if( i == (_nTile_y - 1) && j == (_nTile_x - 1) ) {
+          // Last row and column will be the bottom right tile.
+          _tilemap[i * _nTile_x + j] = pageTile;
+        } else if ( i == (_nTile_y - 1) ) {
+          // Last row will have the same height as the bottom right tile.
+          _tilemap[i * _nTile_x + j].setHeight(pageTile.height());
+        } else if ( j == (_nTile_x - 1) ) {
+          // Last column will have the same width as the bottom right tile.
+          _tilemap[i * _nTile_x + j].setWidth(pageTile.width());
+        }
+
       }
     }
+
+    painter->restore();
+
 #ifdef DEBUG
     qDebug() << "Took: " << stopwatch.elapsed() << " miliseconds to create tile map";
     qDebug() << "Tile map has: " << _nTile_x * _nTile_y << " tiles";
@@ -1074,8 +1097,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     QPen tilePen(Qt::darkGray);
     tilePen.setStyle(Qt::DashDotLine);
     painter->setPen(tilePen);
-    foreach ( QRect *aTile, _tilemap ) {
-      painter->drawRect(*aTile);
+    foreach ( QRect aTile, _tilemap ) {
+      painter->drawRect(aTile);
     }
   painter->restore();
 }
