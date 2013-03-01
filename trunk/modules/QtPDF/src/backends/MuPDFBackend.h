@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2011-2012  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -86,8 +86,8 @@ class MuPDFPage: public Page
   QSizeF _size;
   qreal _rotate;
 
-  QList< QSharedPointer<PDFAnnotation> > _annotations;
-  QList< QSharedPointer<PDFLinkAnnotation> > _links;
+  QList< QSharedPointer<Annotation::AbstractAnnotation> > _annotations;
+  QList< QSharedPointer<Annotation::Link> > _links;
   bool _annotationsLoaded;
   bool _linksLoaded;
 
@@ -99,8 +99,8 @@ public:
 
   QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
-  QList< QSharedPointer<PDFLinkAnnotation> > loadLinks();
-  QList< QSharedPointer<PDFAnnotation> > loadAnnotations();
+  QList< QSharedPointer<Annotation::Link> > loadLinks();
+  QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations();
 
   QList<SearchResult> search(QString searchText);
 };

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2011-2012  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -1841,13 +1841,13 @@ bool PDFPageGraphicsItem::event(QEvent *event)
 // `setParentItem` causes the link objects to be added to the scene that owns
 // the page object. `update` is then called to ensure all links are drawn at
 // once.
-void PDFPageGraphicsItem::addLinks(QList< QSharedPointer<PDFLinkAnnotation> > links)
+void PDFPageGraphicsItem::addLinks(QList< QSharedPointer<Annotation::Link> > links)
 {
   PDFLinkGraphicsItem *linkItem;
 #ifdef DEBUG
   stopwatch.start();
 #endif
-  foreach( QSharedPointer<PDFLinkAnnotation> link, links ){
+  foreach( QSharedPointer<Annotation::Link> link, links ){
     linkItem = new PDFLinkGraphicsItem(link);
     // Map the link from pdf coordinates to scene coordinates
     linkItem->setTransform(QTransform::fromTranslate(0, _pageSize.height()).scale(_dpiX / 72., -_dpiY / 72.));
@@ -1860,17 +1860,17 @@ void PDFPageGraphicsItem::addLinks(QList< QSharedPointer<PDFLinkAnnotation> > li
   update();
 }
 
-void PDFPageGraphicsItem::addAnnotations(QList< QSharedPointer<PDFAnnotation> > annotations)
+void PDFPageGraphicsItem::addAnnotations(QList< QSharedPointer<Annotation::AbstractAnnotation> > annotations)
 {
   PDFMarkupAnnotationGraphicsItem *markupAnnotItem;
 #ifdef DEBUG
   stopwatch.start();
 #endif
-  foreach( QSharedPointer<PDFAnnotation> annot, annotations ){
+  foreach( QSharedPointer<Annotation::AbstractAnnotation> annot, annotations ){
     // We currently only handle popups
     if (!annot->isMarkup())
       continue;
-    QSharedPointer<PDFMarkupAnnotation> markupAnnot = annot.staticCast<PDFMarkupAnnotation>();
+    QSharedPointer<Annotation::Markup> markupAnnot = annot.staticCast<Annotation::Markup>();
     markupAnnotItem = new PDFMarkupAnnotationGraphicsItem(markupAnnot);
     // Map the link from pdf coordinates to scene coordinates
     markupAnnotItem->setTransform(QTransform::fromTranslate(0, _pageSize.height()).scale(_dpiX / 72., -_dpiY / 72.));
@@ -1894,7 +1894,7 @@ void PDFPageGraphicsItem::addAnnotations(QList< QSharedPointer<PDFAnnotation> > 
 //
 //    * Handles tasks such as cursor changes on mouse hover and link activation
 //      on mouse clicks.
-PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_link, QGraphicsItem *parent):
+PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<Annotation::Link> a_link, QGraphicsItem *parent):
   Super(parent),
   _link(a_link),
   _activated(false)
@@ -2022,7 +2022,7 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 //      on mouse clicks.
 //
 //    * Displays note popups if necessary
-PDFMarkupAnnotationGraphicsItem::PDFMarkupAnnotationGraphicsItem(QSharedPointer<PDFMarkupAnnotation> annot, QGraphicsItem *parent):
+PDFMarkupAnnotationGraphicsItem::PDFMarkupAnnotationGraphicsItem(QSharedPointer<Annotation::Markup> annot, QGraphicsItem *parent):
   Super(parent),
   _annot(annot),
   _activated(false),
@@ -2312,22 +2312,22 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
 
   _titleLabel = new QLabel(_documentGroup);
   _title = new QLabel(_documentGroup);
-  _title->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+  _title->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_titleLabel, _title);
 
   _authorLabel = new QLabel(_documentGroup);
   _author = new QLabel(_documentGroup);
-  _author->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+  _author->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_authorLabel, _author);
 
   _subjectLabel = new QLabel(_documentGroup);
   _subject = new QLabel(_documentGroup);
-  _subject->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+  _subject->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_subjectLabel, _subject);
 
   _keywordsLabel = new QLabel(_documentGroup);
   _keywords = new QLabel(_documentGroup);
-  _keywords->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+  _keywords->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_keywordsLabel, _keywords);
   
   _documentGroup->setLayout(layout);
@@ -2339,27 +2339,27 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
 
   _creatorLabel = new QLabel(_processingGroup);
   _creator = new QLabel(_processingGroup);
-  _creator->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+  _creator->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_creatorLabel, _creator);
 
   _producerLabel = new QLabel(_processingGroup);
   _producer = new QLabel(_processingGroup);
-  _producer->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+  _producer->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_producerLabel, _producer);
 
   _creationDateLabel = new QLabel(_processingGroup);
   _creationDate = new QLabel(_processingGroup);
-  _creationDate->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+  _creationDate->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_creationDateLabel, _creationDate);
 
   _modDateLabel = new QLabel(_processingGroup);
   _modDate = new QLabel(_processingGroup);
-  _modDate->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+  _modDate->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_modDateLabel, _modDate);
 
   _trappedLabel = new QLabel(_processingGroup);
   _trapped = new QLabel(_processingGroup);
-  _trapped->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+  _trapped->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_trappedLabel, _trapped);
 
   _processingGroup->setLayout(layout);
@@ -2427,7 +2427,7 @@ void PDFMetaDataInfoWidget::reload()
   QMap<QString, QString>::const_iterator it;
   for (it = _doc->metaDataOther().constBegin(); it != _doc->metaDataOther().constEnd(); ++it) {
     QLabel * l = new QLabel(it.value(), _otherGroup);
-    l->setTextInteractionFlags((Qt::TextInteractionFlag)(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard));
+    l->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
     layout->addRow(it.key(), l);
   }
   // Hide the "Other" group box unless it has something to display
@@ -2744,10 +2744,10 @@ void PDFAnnotationsInfoWidget::initFromDocument(const QSharedPointer<Document> d
 }
 
 //static
-QList< QSharedPointer<PDFAnnotation> > PDFAnnotationsInfoWidget::loadAnnotations(QSharedPointer<Page> page)
+QList< QSharedPointer<Annotation::AbstractAnnotation> > PDFAnnotationsInfoWidget::loadAnnotations(QSharedPointer<Page> page)
 {
   if (!page)
-    return QList< QSharedPointer<PDFAnnotation> >();
+    return QList< QSharedPointer<Annotation::AbstractAnnotation> >();
   return page->loadAnnotations();
 }
 
@@ -2760,11 +2760,11 @@ void PDFAnnotationsInfoWidget::annotationsReady(int index)
   _table->setRowCount(i + _annotWatcher.resultAt(index).count());
 
 
-  foreach(QSharedPointer<PDFAnnotation> pdfAnnot, _annotWatcher.resultAt(index)) {
+  foreach(QSharedPointer<Annotation::AbstractAnnotation> pdfAnnot, _annotWatcher.resultAt(index)) {
     // we only use valid markup annotation here
     if (!pdfAnnot || !pdfAnnot->isMarkup())
       continue;
-    PDFMarkupAnnotation * annot = static_cast<PDFMarkupAnnotation*>(pdfAnnot.data());
+    Annotation::Markup * annot = static_cast<Annotation::Markup*>(pdfAnnot.data());
     if (annot->page())
       _table->setItem(i, 0, new QTableWidgetItem(QString::number(annot->page()->pageNum() + 1)));
     _table->setItem(i, 1, new QTableWidgetItem(annot->subject()));

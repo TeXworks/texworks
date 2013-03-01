@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011  Stefan Löffler
+ * Copyright (C) 2012  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -26,11 +26,14 @@
 namespace QtPDF {
 
 class Page;
-class PDFPopupAnnotation;
+
+namespace Annotation {
+
+class Popup;
 
 // ABC for annotations
 // Modelled after sec. 8.4.1 of the PDF 1.7 specifications
-class PDFAnnotation
+class AbstractAnnotation
 {
 public:
   enum AnnotationFlag {
@@ -60,8 +63,8 @@ public:
     AnnotationType3D
   };
   
-  PDFAnnotation() : _page(NULL) { }
-  virtual ~PDFAnnotation() { }
+  AbstractAnnotation() : _page(NULL) { }
+  virtual ~AbstractAnnotation() { }
 
   virtual AnnotationType type() const = 0;
   virtual bool isMarkup() const { return false; }
@@ -99,16 +102,16 @@ protected:
   // ??? _structParent;
   // ??? _optContent;
 };
-Q_DECLARE_OPERATORS_FOR_FLAGS(PDFAnnotation::AnnotationFlags)
+Q_DECLARE_OPERATORS_FOR_FLAGS(AbstractAnnotation::AnnotationFlags)
 
 // Markup Annotation are:
 // Text, FreeText, Line, Square, Circle, Polygon, PolyLine, Highlight, Underline
 // Squiggly, StrikeOut, Stamp, Caret, Ink, FileAttachment, Sound
-class PDFMarkupAnnotation : public PDFAnnotation
+class Markup : public AbstractAnnotation
 {
 public:
-  PDFMarkupAnnotation() : PDFAnnotation(), _popup(NULL) { }
-  virtual ~PDFMarkupAnnotation();
+  Markup() : AbstractAnnotation(), _popup(NULL) { }
+  virtual ~Markup();
 
   virtual bool isMarkup() const { return true; }
 
@@ -118,7 +121,7 @@ public:
   virtual QString richContents() const { return (!_richContents.isEmpty() ? _richContents : _contents); }
   virtual QDateTime creationDate() const { return _creationDate; }
   virtual QString subject() const { return _subject; }
-  virtual PDFPopupAnnotation * popup() const { return _popup; }
+  virtual Popup * popup() const { return _popup; }
 
   virtual void setTitle(const QString title) { _title = title; }
   // Synonym for setTitle(), but easier to read
@@ -126,29 +129,29 @@ public:
   virtual void setRichContents(const QString contents) { _richContents = contents; }
   virtual void setCreationDate(const QDateTime timestamp) { _creationDate = timestamp; }
   virtual void setSubject(const QString subject) { _subject = subject; }
-  // Note: the PDFMarkupAnnotation takes ownership of `popup`
-  virtual void setPopup(PDFPopupAnnotation * popup);
+  // Note: the Markup takes ownership of `popup`
+  virtual void setPopup(Popup * popup);
 
 protected:
   QString _title; // optional; since PDF 1.1; by convention identifies the annotation author
-  PDFPopupAnnotation * _popup;
+  Popup * _popup;
   // float _opacity;
   QString _richContents; // optional; since PDF 1.5; may contain some HTML tags
   QDateTime _creationDate; // optional; since PDF 1.5
-  // PDFAnnotation * _inReplyTo;
+  // AbstractAnnotation * _inReplyTo;
   // enum _replyType;
   QString _subject; // optional; since PDF 1.5
   // enum/int _intent;
   // _externalData; // currently only Markup3D
 };
 
-class PDFLinkAnnotation : public PDFAnnotation
+class Link : public AbstractAnnotation
 {
 public:
   enum HighlightingMode { HighlightingNone, HighlightingInvert, HighlightingOutline, HighlightingPush };
 
-  PDFLinkAnnotation() : PDFAnnotation(), _actionOnActivation(NULL) { }
-  virtual ~PDFLinkAnnotation();
+  Link() : AbstractAnnotation(), _actionOnActivation(NULL) { }
+  virtual ~Link();
   
   AnnotationType type() const { return AnnotationTypeLink; };
 
@@ -158,7 +161,7 @@ public:
 
   void setHighlightingMode(const HighlightingMode mode) { _highlightingMode = mode; }
   void setQuadPoints(const QPolygonF quadPoints) { _quadPoints = quadPoints; }
-  // Note: PDFLinkAnnotation takes ownership of PDFAction pointers
+  // Note: Link takes ownership of PDFAction pointers
   void setActionOnActivation(PDFAction * const action);
 
 private:
@@ -171,7 +174,7 @@ private:
   PDFAction * _actionOnActivation;
 };
 
-class PDFTextAnnotation : public PDFMarkupAnnotation
+class Text : public Markup
 {
 public:
   AnnotationType type() const { return AnnotationTypeText; }
@@ -182,14 +185,14 @@ private:
   QString _stateModel;
 };
 
-class PDFFreeTextAnnotation : public PDFMarkupAnnotation
+class FreeText : public Markup
 {
 public:
   AnnotationType type() const { return AnnotationTypeFreeText; }
   // TODO: members
 };
 
-class PDFCaretAnnotation : public PDFMarkupAnnotation
+class Caret : public Markup
 {
 public:
   AnnotationType type() const { return AnnotationTypeCaret; }
@@ -198,44 +201,44 @@ private:
   // enum _symbol;
 };
 
-class PDFPopupAnnotation : public PDFAnnotation
+class Popup : public AbstractAnnotation
 {
 public:
   AnnotationType type() const { return AnnotationTypePopup; }
   
-  PDFMarkupAnnotation * parent() { return _parent; }
+  Markup * parent() { return _parent; }
   bool isOpen() const { return _open; }
   
-  void setParent(PDFMarkupAnnotation * parent) { _parent = parent; }
+  void setParent(Markup * parent) { _parent = parent; }
   void setOpen(const bool open = true) { _open = open; }
   
 private:
-  PDFMarkupAnnotation * _parent;
+  Markup * _parent;
   bool _open;
 };
 
-class PDFHighlightAnnotation : public PDFMarkupAnnotation
+class Highlight : public Markup
 {
 public:
   AnnotationType type() const { return AnnotationTypeHighlight; }
   // TODO: members
 };
 
-class PDFUnderlineAnnotation : public PDFMarkupAnnotation
+class Underline: public Markup
 {
 public:
   AnnotationType type() const { return AnnotationTypeUnderline; }
   // TODO: members
 };
 
-class PDFSquigglyAnnotation : public PDFMarkupAnnotation
+class Squiggly: public Markup
 {
 public:
   AnnotationType type() const { return AnnotationTypeSquiggly; }
   // TODO: members
 };
 
-class PDFStrikeOutAnnotation : public PDFMarkupAnnotation
+class StrikeOut: public Markup
 {
 public:
   AnnotationType type() const { return AnnotationTypeStrikeOut; }
@@ -243,6 +246,8 @@ public:
 };
 
 // Line, Square, Circle, Polygon, PolyLine, Stamp, Ink, FileAttachment, Sound
+
+} // namespace Annotation
 
 } // namespace QtPDF
 

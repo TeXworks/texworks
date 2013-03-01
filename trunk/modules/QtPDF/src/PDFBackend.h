@@ -293,14 +293,14 @@ class PDFLinksLoadedEvent : public QEvent
 {
 
 public:
-  PDFLinksLoadedEvent(const QList< QSharedPointer<PDFLinkAnnotation> > links):
+  PDFLinksLoadedEvent(const QList< QSharedPointer<Annotation::Link> > links):
     QEvent(LinksLoadedEvent),
     links(links)
   {}
 
   static const QEvent::Type LinksLoadedEvent;
 
-  const QList< QSharedPointer<PDFLinkAnnotation> > links;
+  const QList< QSharedPointer<Annotation::Link> > links;
 
 };
 
@@ -507,7 +507,7 @@ public:
   virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false)=0;
   virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
-  virtual QList< QSharedPointer<PDFLinkAnnotation> > loadLinks() = 0;
+  virtual QList< QSharedPointer<Annotation::Link> > loadLinks() = 0;
   virtual void asyncLoadLinks(QObject *listener);
 
   QSharedPointer<QImage> getCachedImage(double xres, double yres, QRect render_box = QRect());
@@ -518,7 +518,7 @@ public:
   // the result.
   QSharedPointer<QImage> getTileImage(QObject * listener, const double xres, const double yres, QRect render_box = QRect());
 
-  virtual QList< QSharedPointer<PDFAnnotation> > loadAnnotations() { return QList< QSharedPointer<PDFAnnotation> >(); }
+  virtual QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations() { return QList< QSharedPointer<Annotation::AbstractAnnotation> >(); }
 
   // Searches the page for the given text string and returns a list of boxes
   // that contain that text.

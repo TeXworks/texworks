@@ -16,16 +16,18 @@
 
 namespace QtPDF {
 
+namespace Annotation {
+
 // Annotations
 // =================
 
-PDFMarkupAnnotation::~PDFMarkupAnnotation()
+Markup::~Markup()
 {
   if (_popup)
     delete _popup;
 }
 
-void PDFMarkupAnnotation::setPopup(PDFPopupAnnotation * popup)
+void Markup::setPopup(Popup * popup)
 {
   if (_popup)
     delete _popup;
@@ -33,13 +35,13 @@ void PDFMarkupAnnotation::setPopup(PDFPopupAnnotation * popup)
 }
 
 
-PDFLinkAnnotation::~PDFLinkAnnotation()
+Link::~Link()
 {
   if (_actionOnActivation)
     delete _actionOnActivation;
 }
 
-QPolygonF PDFLinkAnnotation::quadPoints() const
+QPolygonF Link::quadPoints() const
 {
   if (_quadPoints.isEmpty())
     return QPolygonF(rect());
@@ -52,12 +54,14 @@ QPolygonF PDFLinkAnnotation::quadPoints() const
   return _quadPoints;
 }
 
-void PDFLinkAnnotation::setActionOnActivation(PDFAction * const action)
+void Link::setActionOnActivation(PDFAction * const action)
 {
   if (_actionOnActivation)
     delete _actionOnActivation;
   _actionOnActivation = action;
 }
+
+} // namespace Annotation
 
 } // namespace QtPDF
 
