@@ -83,7 +83,7 @@ void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * r
   // **TODO:** Could it be that we require several concurrent versions of the
   //           same page?
   for (i = _workStack.size() - 1; i >= 0; --i) {
-    if (_workStack[i]->page == request->page && _workStack[i]->type() == request->type()) {
+    if (*(_workStack[i]) == *request) {
       // Using deleteLater() doesn't work because we have no event queue in this
       // thread. However, since the object is still on the stack, it is still
       // sleeping and directly deleting it should therefore be safe.
@@ -98,13 +98,17 @@ void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * r
   QString jobDesc;
   switch (request->type()) {
     case PageProcessingRequest::LoadLinks:
-      jobDesc = QString::fromUtf8("loading links request");
+      {
+        qDebug() << "new 'loading links request' for page" << request->page->pageNum();
+      }
       break;
     case PageProcessingRequest::PageRendering:
-      jobDesc = QString::fromUtf8("rendering page request");
+      {
+        PageProcessingRenderPageRequest * r = static_cast<PageProcessingRenderPageRequest*>(request);
+        qDebug() << "new 'rendering page request' for page" << request->page->pageNum() << "and tile" << r->render_box;
+      }
       break;
   }
-  qDebug() << "new" << jobDesc << "for page" << request->page->pageNum();
 #endif
 
   if (!isRunning())
@@ -175,6 +179,20 @@ void PDFPageProcessingThread::run()
 // `listener` will need a custom `event` function that is capable of picking up
 // on these events.
 
+bool PageProcessingRequest::operator==(const PageProcessingRequest & r) const
+{
+  // TODO: Should we care about the listener here as well?
+  return (type() == r.type() && page == r.page);
+}
+
+bool PageProcessingRenderPageRequest::operator==(const PageProcessingRequest & r) const
+{
+  if (r.type() != PageRendering)
+    return false;
+  const PageProcessingRenderPageRequest * rr = static_cast<const PageProcessingRenderPageRequest*>(&r);
+  // TODO: Should we care about the listener here as well?
+  return (xres == rr->xres && yres == rr->yres && render_box == rr->render_box && cache == rr->cache);
+}
 
 // ### Custom Event Types
 // These are the events posted by `execute` functions.

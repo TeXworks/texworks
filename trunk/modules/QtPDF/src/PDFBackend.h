@@ -259,10 +259,12 @@ public:
   enum Type { PageRendering, LoadLinks };
 
   virtual ~PageProcessingRequest() { }
-  virtual Type type() = 0;
+  virtual Type type() const = 0;
 
   Page *page;
   QObject *listener;
+  
+  virtual bool operator==(const PageProcessingRequest & r) const;
 };
 
 
@@ -284,7 +286,9 @@ protected:
   bool execute();
 
 public:
-  Type type() { return PageRendering; }
+  Type type() const { return PageRendering; }
+  
+  virtual bool operator==(const PageProcessingRequest & r) const;
 
   double xres, yres;
   QRect render_box;
@@ -325,7 +329,7 @@ protected:
   bool execute();
 
 public:
-  Type type() { return LoadLinks; }
+  Type type() const { return LoadLinks; }
 
 };
 
