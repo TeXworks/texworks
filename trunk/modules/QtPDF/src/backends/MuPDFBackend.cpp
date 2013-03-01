@@ -21,6 +21,10 @@
 
 namespace QtPDF {
 
+namespace Backend {
+
+namespace MuPDF {
+
 QRectF toRectF(const fz_rect r)
 {
   return QRectF(QPointF(r.x0, r.y0), QPointF(r.x1, r.y1));
@@ -272,7 +276,7 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
 
 
 // TODO: Find a better place to put this
-void initPDFAnnotation(Annotation::AbstractAnnotation * annot, Page * page, fz_obj * src)
+void initPDFAnnotation(Annotation::AbstractAnnotation * annot, Backend::Page * page, fz_obj * src)
 {
   static char keyRect[] = "Rect";
   static char keyContents[] = "Contents";
@@ -358,7 +362,7 @@ public:
 
 // Document Class
 // ==============
-MuPDFDocument::MuPDFDocument(QString fileName):
+Document::Document(QString fileName):
   Super(fileName),
   _mupdf_data(NULL),
   _glyph_cache(fz_new_glyph_cache())
@@ -367,7 +371,7 @@ MuPDFDocument::MuPDFDocument(QString fileName):
   reload();
 }
 
-MuPDFDocument::~MuPDFDocument()
+Document::~Document()
 {
   if( _mupdf_data ){
     pdf_free_xref(_mupdf_data);
@@ -377,7 +381,7 @@ MuPDFDocument::~MuPDFDocument()
   fz_free_glyph_cache(_glyph_cache);
 }
 
-void MuPDFDocument::reload()
+void Document::reload()
 {
   MuPDFLocaleResetter lr;
 
@@ -465,21 +469,21 @@ void MuPDFDocument::reload()
   loadMetaData();
 }
 
-QSharedPointer<Page> MuPDFDocument::page(int at)
+QSharedPointer<Backend::Page> Document::page(int at)
 {
   if (at < 0 || at >= _numPages)
-    return QSharedPointer<Page>();
+    return QSharedPointer<Backend::Page>();
 
   if( _pages.isEmpty() )
     _pages.resize(_numPages);
 
   if( _pages[at].isNull() )
-    _pages[at] = QSharedPointer<Page>(new MuPDFPage(this, at));
+    _pages[at] = QSharedPointer<Backend::Page>(new Page(this, at));
 
-  return QSharedPointer<Page>(_pages[at]);
+  return QSharedPointer<Backend::Page>(_pages[at]);
 }
 
-void MuPDFDocument::loadMetaData()
+void Document::loadMetaData()
 {
   MuPDFLocaleResetter lr;
 
@@ -543,7 +547,7 @@ void MuPDFDocument::loadMetaData()
   // the data in the `Info` dictionary
 }
 
-PDFDestination MuPDFDocument::resolveDestination(const PDFDestination & namedDestination) const
+PDFDestination Document::resolveDestination(const PDFDestination & namedDestination) const
 {
   MuPDFLocaleResetter lr;
 
@@ -564,7 +568,7 @@ PDFDestination MuPDFDocument::resolveDestination(const PDFDestination & namedDes
   return toPDFDestination(_mupdf_data, dest);
 }
 
-QList<PDFFontInfo> MuPDFDocument::fonts() const
+QList<PDFFontInfo> Document::fonts() const
 {
   MuPDFLocaleResetter lr;
 
@@ -707,7 +711,7 @@ QList<PDFFontInfo> MuPDFDocument::fonts() const
   return retVal;
 }
 
-void MuPDFDocument::recursiveConvertToC(QList<PDFToCItem> & items, pdf_outline * node) const
+void Document::recursiveConvertToC(QList<PDFToCItem> & items, pdf_outline * node) const
 {
   while (node && node->title) {
     // TODO: It seems that this works, at least for pdfs produced with pdflatex
@@ -730,7 +734,7 @@ void MuPDFDocument::recursiveConvertToC(QList<PDFToCItem> & items, pdf_outline *
   }
 }
 
-PDFToC MuPDFDocument::toc() const
+PDFToC Document::toc() const
 {
   MuPDFLocaleResetter lr;
 
@@ -747,7 +751,7 @@ PDFToC MuPDFDocument::toc() const
   return retVal;
 }
 
-bool MuPDFDocument::unlock(const QString password)
+bool Document::unlock(const QString password)
 {
   if (!_mupdf_data)
     return false;
@@ -769,7 +773,7 @@ bool MuPDFDocument::unlock(const QString password)
 
 // Page Class
 // ==========
-MuPDFPage::MuPDFPage(MuPDFDocument *parent, int at):
+Page::Page(Document *parent, int at):
   Super(parent, at),
   _annotationsLoaded(false),
   _linksLoaded(false)
@@ -795,16 +799,16 @@ MuPDFPage::MuPDFPage(MuPDFDocument *parent, int at):
   pdf_free_page(page_data);
 }
 
-MuPDFPage::~MuPDFPage()
+Page::~Page()
 {
   if( _mupdf_page )
     fz_free_display_list(_mupdf_page);
   _mupdf_page = NULL;
 }
 
-QSizeF MuPDFPage::pageSizeF() const { return _size; }
+QSizeF Page::pageSizeF() const { return _size; }
 
-QImage MuPDFPage::renderToImage(double xres, double yres, QRect render_box, bool cache)
+QImage Page::renderToImage(double xres, double yres, QRect render_box, bool cache)
 {
   // Set up the transformation matrix for the page. Really, we just start with
   // an identity matrix and scale it using the xres, yres inputs.
@@ -835,7 +839,7 @@ QImage MuPDFPage::renderToImage(double xres, double yres, QRect render_box, bool
   fz_pixmap *mu_image = fz_new_pixmap_with_rect(fz_device_bgr, render_bbox);
   // Flush to white.
   fz_clear_pixmap_with_color(mu_image, 255);
-  fz_device *renderer = fz_new_draw_device(static_cast<MuPDFDocument *>(_parent)->_glyph_cache, mu_image);
+  fz_device *renderer = fz_new_draw_device(static_cast<Document *>(_parent)->_glyph_cache, mu_image);
 
   // Actually render the page.
   fz_execute_display_list(_mupdf_page, renderer, render_trans, render_bbox);
@@ -860,7 +864,7 @@ QImage MuPDFPage::renderToImage(double xres, double yres, QRect render_box, bool
   return renderedPage;
 }
 
-QList< QSharedPointer<Annotation::Link> > MuPDFPage::loadLinks()
+QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
 {
   MuPDFLocaleResetter lr;
 
@@ -868,7 +872,7 @@ QList< QSharedPointer<Annotation::Link> > MuPDFPage::loadLinks()
     return _links;
 
   Q_ASSERT(_parent != NULL);
-  pdf_xref * xref = static_cast<MuPDFDocument*>(_parent)->_mupdf_data;
+  pdf_xref * xref = static_cast<Document*>(_parent)->_mupdf_data;
   Q_ASSERT(xref != NULL);
 
   _linksLoaded = true;
@@ -923,7 +927,7 @@ QList< QSharedPointer<Annotation::Link> > MuPDFPage::loadLinks()
   return _links;
 }
 
-QList< QSharedPointer<Annotation::AbstractAnnotation> > MuPDFPage::loadAnnotations()
+QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
 {
   MuPDFLocaleResetter lr;
   static char keyType[] = "Type";
@@ -933,7 +937,7 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > MuPDFPage::loadAnnotatio
     return _annotations;
 
   Q_ASSERT(_parent != NULL);
-  pdf_xref * xref = static_cast<MuPDFDocument*>(_parent)->_mupdf_data;
+  pdf_xref * xref = static_cast<Document*>(_parent)->_mupdf_data;
   Q_ASSERT(xref != NULL);
 
   _annotationsLoaded = true;
@@ -993,7 +997,7 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > MuPDFPage::loadAnnotatio
   return _annotations;
 }
 
-QList<SearchResult> MuPDFPage::search(QString searchText)
+QList<SearchResult> Page::search(QString searchText)
 {
   // FIXME: Currently unimplemented and always returns an empty list.
   QList<SearchResult> results;
@@ -1066,6 +1070,10 @@ QList<SearchResult> MuPDFPage::search(QString searchText)
   fz_free_text_span(page_text);
   return results;
 }
+
+} // namespace MuPDF
+
+} // namespace Backend
 
 } // namespace QtPDF
 

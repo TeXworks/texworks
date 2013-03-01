@@ -43,7 +43,7 @@ class PDFDocumentView : public QGraphicsView {
 
   QString _searchString;
   QList<QGraphicsItem *> _searchResults;
-  QFutureWatcher< QList<SearchResult> > _searchResultWatcher;
+  QFutureWatcher< QList<Backend::SearchResult> > _searchResultWatcher;
   int _currentSearchResult;
   bool _useGrayScale;
 
@@ -116,7 +116,7 @@ signals:
   void changedZoom(qreal zoomLevel);
   // emitted, e.g., if a new document was loaded, or if the existing document
   // has changed (e.g., if it was unlocked)
-  void changedDocument(const QSharedPointer<QtPDF::Document> newDoc);
+  void changedDocument(const QSharedPointer<QtPDF::Backend::Document> newDoc);
 
   void searchProgressChanged(int percent, int occurrences);
 
@@ -224,14 +224,14 @@ public slots:
 signals:
   void windowTitleChanged(const QString &);
 protected slots:
-  virtual void initFromDocument(const QSharedPointer<QtPDF::Document> doc) { _doc = doc; }
+  virtual void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc) { _doc = doc; }
   virtual void retranslateUi() { };
   virtual void clear() = 0;
 protected:
   virtual void changeEvent(QEvent * event);
   // we need to keep a reference to the document to allow dynamic lookup of data
   // (e.g., when retranslating the widget)
-  QSharedPointer<QtPDF::Document> _doc;
+  QSharedPointer<QtPDF::Backend::Document> _doc;
 };
 
 class PDFToCInfoWidget : public PDFDocumentInfoWidget
@@ -242,7 +242,7 @@ public:
   virtual ~PDFToCInfoWidget();
 
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
   void clear();
   virtual void retranslateUi();
 signals:
@@ -250,7 +250,7 @@ signals:
 private slots:
   void itemSelectionChanged();
 private:
-  static void recursiveAddTreeItems(const QList<PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem);
+  static void recursiveAddTreeItems(const QList<Backend::PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem);
   static void recursiveClearTreeItems(QTreeWidgetItem * parent);
   QTreeWidget * _tree;
 };
@@ -263,7 +263,7 @@ public:
   virtual ~PDFMetaDataInfoWidget() { }
   
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
   void clear();
   virtual void retranslateUi();
   void reload();
@@ -290,7 +290,7 @@ public:
   virtual ~PDFFontsInfoWidget() { }
   
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
   void clear();
   virtual void retranslateUi();
   void reload();
@@ -306,7 +306,7 @@ public:
   virtual ~PDFPermissionsInfoWidget() { }
   
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
   void clear();
   virtual void retranslateUi();
   void reload();
@@ -325,14 +325,14 @@ class PDFAnnotationsInfoWidget : public PDFDocumentInfoWidget
   QFutureWatcher< QList< QSharedPointer<Annotation::AbstractAnnotation> > > _annotWatcher;
   QTableWidget * _table;
 
-  static QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations(QSharedPointer<Page> page);
+  static QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations(QSharedPointer<Backend::Page> page);
 
 public:
   PDFAnnotationsInfoWidget(QWidget * parent);
   virtual ~PDFAnnotationsInfoWidget() { }
     
 protected slots:
-  void initFromDocument(const QSharedPointer<QtPDF::Document> doc);
+  void initFromDocument(const QSharedPointer<QtPDF::Backend::Document> doc);
   void clear();
   virtual void retranslateUi();
   void annotationsReady(int index);
@@ -394,7 +394,7 @@ class PDFDocumentScene : public QGraphicsScene
   Q_OBJECT
   typedef QGraphicsScene Super;
 
-  const QSharedPointer<Document> _doc;
+  const QSharedPointer<Backend::Document> _doc;
 
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> _pages;
@@ -403,9 +403,9 @@ class PDFDocumentScene : public QGraphicsScene
   void handleActionEvent(const PDFActionEvent * action_event);
 
 public:
-  PDFDocumentScene(Document *a_doc, QObject *parent = 0);
+  PDFDocumentScene(Backend::Document *a_doc, QObject *parent = 0);
 
-  QSharedPointer<Document> document();
+  QSharedPointer<Backend::Document> document();
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   QGraphicsItem* pageAt(const int idx);
@@ -419,13 +419,13 @@ public:
 
   int lastPage();
 
-  const QSharedPointer<Document> document() const { return _doc; }
+  const QSharedPointer<Backend::Document> document() const { return _doc; }
 
 signals:
   void pageChangeRequested(int pageNum);
   void pageLayoutChanged();
   void pdfActionTriggered(const QtPDF::PDFAction * action);
-  void documentChanged(const QSharedPointer<QtPDF::Document> doc);
+  void documentChanged(const QSharedPointer<QtPDF::Backend::Document> doc);
 
 public slots:
   void doUnlockDialog();
@@ -459,7 +459,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
   Q_OBJECT
   typedef QGraphicsObject Super;
 
-  QSharedPointer<Page> _page;
+  QSharedPointer<Backend::Page> _page;
 
   double _dpiX;
   double _dpiY;
@@ -479,7 +479,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
 
 public:
 
-  PDFPageGraphicsItem(QSharedPointer<Page> a_page, QGraphicsItem *parent = 0);
+  PDFPageGraphicsItem(QSharedPointer<Backend::Page> a_page, QGraphicsItem *parent = 0);
 
   // This seems fragile as it assumes no other code declaring a custom graphics
   // item will choose the same ID for it's object types. Unfortunately, there
@@ -492,7 +492,7 @@ public:
 
   virtual QRectF boundingRect() const;
 
-  QSharedPointer<Page> page() const { return _page; }
+  QSharedPointer<Backend::Page> page() const { return _page; }
 
   // Maps the point _point_ from the page's coordinate system (in pt) to this
   // item's coordinate system - chain with mapToScene and related methods to get

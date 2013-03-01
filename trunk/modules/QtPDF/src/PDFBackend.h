@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2011-2012  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -29,6 +29,8 @@
 #include <QMap>
 
 namespace QtPDF {
+
+namespace Backend {
 
 // Backend Rendering
 // =================
@@ -377,14 +379,14 @@ protected:
 
 typedef QList<PDFToCItem> PDFToC;
 
-struct  SearchRequest
+struct SearchRequest
 {
   QSharedPointer<Document> doc;
   int pageNum;
   QString searchString;
 };
 
-struct  SearchResult
+struct SearchResult
 {
   int pageNum;
   QRectF bbox;
@@ -537,6 +539,8 @@ public:
 
   static QList<SearchResult> search(SearchRequest request);
 };
+
+} // namespace Backend
 
 } // namespace QtPDF
 
