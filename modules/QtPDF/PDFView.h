@@ -20,9 +20,12 @@ class PDFPageGraphicsItem : public QGraphicsPixmapItem {
   typedef QGraphicsPixmapItem super;
   // To spare the need for a destructor
   const std::auto_ptr<Poppler::Page> page;
-  bool dirty;
+  QPixmap renderedPage;
   double dpiX;
   double dpiY;
+
+  bool dirty;
+  qreal zoomLevel;
 
 public:
 

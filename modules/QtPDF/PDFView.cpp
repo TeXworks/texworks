@@ -22,9 +22,11 @@
 // rendering `Poppler::Page` objects.
 PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent) : super(parent),
   page(a_page),
-  dirty(true),
   dpiX(QApplication::desktop()->physicalDpiX()),
-  dpiY(QApplication::desktop()->physicalDpiY())
+  dpiY(QApplication::desktop()->physicalDpiY()),
+
+  dirty(true),
+  zoomLevel(0.0)
 {
   // Create an empty pixmap that is the same size as the PDF page. This
   // allows us to dielay the rendering of pages until they actually come into
@@ -37,25 +39,42 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
 }
 
 void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+  // Really, there is an X scaling factor and a Y scaling factor, but we assume
+  // that the X scaling factor is equal to the Y scaling factor.
+  qreal scaleFactor = painter->transform().m11();
+
   // If this `PDFPageGraphicsItem` is still using the empty `QPixmap` it was
   // constructed with, `dirty` will be `true`. We replace the empty pixmap
   // with a rendered image of the page.
-  if ( this->dirty ) {
-    // `convertFromImage` was previously part of the Qt3 API and was
-    // forward-ported to Qt 4 in version 4.7. Supposidly more efficient than
-    // using `QPixmap::fromImage` as it does not involve constructing a new
-    // QPixmap.
-    //
-    // If the performance hit is not outrageous, may want to consider
-    // downgrading to `QPixmap::fromImage` in order to support more versions
-    // of Qt 4.x.
-    this->pixmap().convertFromImage(this->page->renderToImage(dpiX, dpiY));
-    this->dirty = false;
+  //
+  // We also look at the zoom level and render a new page if it has changed.
+  if ( dirty || (zoomLevel != scaleFactor) ) {
+    QRect bbox = painter->transform().mapRect(pixmap().rect());
+
+    // We render to a new member named `renderedPage` rather than `pixmap`
+    // because the properties of `pixmap` are used to calculate a bunch of size
+    // and positioning information in methods inherited from
+    // `QGraphicsPixmapItem`.
+    renderedPage = QPixmap::fromImage(page->renderToImage(dpiX * scaleFactor, dpiY * scaleFactor,
+      0, 0, bbox.width(), bbox.height()));
+
+    zoomLevel = scaleFactor;
+    if( dirty ) dirty = false;
   }
 
-  // After checking if page image needs to be rendered, punt call back to the
-  // `paint` method of `QGraphicsPixmapItem`.
-  super::paint(painter, option, widget);
+  // The transformation matrix of the `painter` object contains information
+  // such as the current zoom level of the widget viewing this PDF page. We use
+  // this matrix to position the page and then reset the transformation matrix
+  // to an identity matrix as the page image has already been resized during
+  // rendering.
+  QPointF origin = painter->transform().map(offset());
+  painter->setTransform(QTransform());
+
+  // This part is modified from the `paint` method of `QGraphicsPixmapItem`.
+  painter->setRenderHint(QPainter::SmoothPixmapTransform,
+    (transformationMode() == Qt::SmoothTransformation));
+
+  painter->drawPixmap(origin, renderedPage);
 }
 
 
