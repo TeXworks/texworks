@@ -813,8 +813,9 @@ QImage MuPDFPage::renderToImage(double xres, double yres, QRect render_box, bool
   render_trans = fz_concat(render_trans, fz_scale(xres/72.0, -yres/72.0));
   render_trans = fz_concat(render_trans, fz_rotate(_rotate));
 
-
+#ifdef DEBUG
   qDebug() << "Page bbox is: (" << _bbox.x0 << "," << _bbox.y0 << "|" << _bbox.x1 << "," << _bbox.y1 << ")";
+#endif
 
   fz_bbox render_bbox;
   if ( not render_box.isNull() ) {
@@ -826,7 +827,9 @@ QImage MuPDFPage::renderToImage(double xres, double yres, QRect render_box, bool
     render_bbox = fz_round_rect(fz_transform_rect(render_trans, _bbox));
   }
 
+#ifdef DEBUG
   qDebug() << "Render bbox is: (" << render_bbox.x0 << "," << render_bbox.y0 << "|" << render_bbox.x1 << "," << render_bbox.y1 << ")";
+#endif
 
   // NOTE: Using fz_device_bgr or fz_device_rbg may depend on platform endianness.
   fz_pixmap *mu_image = fz_new_pixmap_with_rect(fz_device_bgr, render_bbox);
