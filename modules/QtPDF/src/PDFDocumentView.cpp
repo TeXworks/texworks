@@ -138,6 +138,14 @@ PDFMetaDataDockWidget * PDFDocumentView::metaDataDockWidget(QWidget * parent)
     dock->setMetaDataFromDocument(_pdf_scene->document());
   return dock;
 }
+
+PDFFontsDockWidget * PDFDocumentView::fontsDockWidget(QWidget * parent)
+{
+  PDFFontsDockWidget * dock = new PDFFontsDockWidget(parent);
+  if (_pdf_scene && _pdf_scene->document())
+    dock->setFontsDataFromDocument(_pdf_scene->document());
+  return dock;
+}
   
 
 // Public Slots
@@ -1678,19 +1686,19 @@ PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) :
 
   _title = new QLabel(groupBox);
   _title->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-  layout->addRow(trUtf8("Title:"), _title);
+  layout->addRow(PDFDocumentView::trUtf8("Title:"), _title);
 
   _author = new QLabel(groupBox);
   _author->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-  layout->addRow(trUtf8("Author:"), _author);
+  layout->addRow(PDFDocumentView::trUtf8("Author:"), _author);
 
   _subject = new QLabel(groupBox);
   _subject->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-  layout->addRow(trUtf8("Subject:"), _subject);
+  layout->addRow(PDFDocumentView::trUtf8("Subject:"), _subject);
 
   _keywords = new QLabel(groupBox);
   _keywords->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-  layout->addRow(trUtf8("Keywords:"), _keywords);
+  layout->addRow(PDFDocumentView::trUtf8("Keywords:"), _keywords);
 
   groupBox->setLayout(layout);
   vLayout->addWidget(groupBox);
@@ -1701,23 +1709,23 @@ PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) :
 
   _creator = new QLabel(groupBox);
   _creator->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-  layout->addRow(trUtf8("Creator:"), _creator);
+  layout->addRow(PDFDocumentView::trUtf8("Creator:"), _creator);
 
   _producer = new QLabel(groupBox);
   _producer->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-  layout->addRow(trUtf8("Producer:"), _producer);
+  layout->addRow(PDFDocumentView::trUtf8("Producer:"), _producer);
 
   _creationDate = new QLabel(groupBox);
   _creationDate->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-  layout->addRow(trUtf8("Creation date:"), _creationDate);
+  layout->addRow(PDFDocumentView::trUtf8("Creation date:"), _creationDate);
 
   _modDate = new QLabel(groupBox);
   _modDate->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-  layout->addRow(trUtf8("Modification date:"), _modDate);
+  layout->addRow(PDFDocumentView::trUtf8("Modification date:"), _modDate);
 
   _trapped = new QLabel(groupBox);
   _trapped->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
-  layout->addRow(trUtf8("Trapped:"), _trapped);
+  layout->addRow(PDFDocumentView::trUtf8("Trapped:"), _trapped);
 
   groupBox->setLayout(layout);
   vLayout->addWidget(groupBox);
@@ -1752,21 +1760,23 @@ void PDFMetaDataDockWidget::setMetaDataFromDocument(const QSharedPointer<Documen
   _modDate->setText(doc->modDate().toString(Qt::DefaultLocaleLongDate));
   switch (doc->trapped()) {
     case Document::Trapped_True:
-      _trapped->setText(trUtf8("Yes"));
+      _trapped->setText(PDFDocumentView::trUtf8("Yes"));
       break;
     case Document::Trapped_False:
-      _trapped->setText(trUtf8("No"));
+      _trapped->setText(PDFDocumentView::trUtf8("No"));
       break;
     default:
-      _trapped->setText(trUtf8("Unknown"));
+      _trapped->setText(PDFDocumentView::trUtf8("Unknown"));
       break;
   }
   QFormLayout * layout = qobject_cast<QFormLayout*>(_other->layout());
   if (layout) {
     // Remove any items there may be
-    QLayoutItem *child;
-    while ((child = layout->takeAt(0)) != 0)
-      delete child;
+    while (layout->count() > 0) {
+      QLayoutItem * child = layout->takeAt(0);
+      if (child)
+        delete child;
+    }
     QMap<QString, QString>::const_iterator it;
     for (it = doc->metaDataOther().constBegin(); it != doc->metaDataOther().constEnd(); ++it) {
       QLabel * l = new QLabel(it.value(), _other);
@@ -1774,6 +1784,72 @@ void PDFMetaDataDockWidget::setMetaDataFromDocument(const QSharedPointer<Documen
       layout->addRow(it.key(), l);
     }
   }
+}
+
+// PDFFontsDockWidget
+// ============
+PDFFontsDockWidget::PDFFontsDockWidget(QWidget * parent) :
+  QDockWidget(PDFDocumentView::trUtf8("Fonts"), parent)
+{
+  _table = new QTableWidget(this);
+
+#ifdef Q_WS_MAC /* don't do this on windows, as the font ends up too small */
+  QFont f(_table->font());
+  f.setPointSize(f.pointSize() - 2);
+  _table->setFont(f);
+#endif
+  _table->setColumnCount(4);
+  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Name") << PDFDocumentView::trUtf8("Type") << PDFDocumentView::trUtf8("Subset") << PDFDocumentView::trUtf8("File"));
+  _table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+  _table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  _table->setAlternatingRowColors(true);
+  _table->setShowGrid(false);
+  _table->setSelectionBehavior(QAbstractItemView::SelectRows);
+  _table->verticalHeader()->hide();
+  _table->horizontalHeader()->setStretchLastSection(true);
+  _table->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+
+  setWidget(_table);
+}
+
+void PDFFontsDockWidget::setFontsDataFromDocument(const QSharedPointer<Document> doc)
+{
+  Q_ASSERT(_table != NULL);
+
+  _table->clearContents();
+  if (!doc)
+    return;
+
+  QList<PDFFontInfo> fonts = doc->fonts();
+  _table->setRowCount(fonts.count());
+
+  int i = 0;
+  foreach (PDFFontInfo font, fonts) {
+    _table->setItem(i, 0, new QTableWidgetItem(font.descriptor().pureName()));
+    switch (font.fontType()) {
+      case PDFFontInfo::FontType_Type0:
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 0")));
+        break;
+      case PDFFontInfo::FontType_Type1:
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 1")));
+        break;
+      case PDFFontInfo::FontType_MMType1:
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 1 (multiple master)")));
+        break;
+      case PDFFontInfo::FontType_Type3:
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 3")));
+        break;
+      case PDFFontInfo::FontType_TrueType:
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("TrueType")));
+        break;
+    }
+    _table->setItem(i, 2, new QTableWidgetItem(font.isSubset() ? PDFDocumentView::trUtf8("yes") : PDFDocumentView::trUtf8("no")));
+    _table->setItem(i, 3, new QTableWidgetItem(font.isEmbedded() ? PDFDocumentView::trUtf8("[embedded]") : font.fileName().canonicalFilePath()));
+    ++i;
+  }
+  _table->resizeColumnsToContents();
+  _table->resizeRowsToContents();
+  _table->sortItems(0);
 }
 
 
