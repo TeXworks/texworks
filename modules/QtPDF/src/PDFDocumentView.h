@@ -25,9 +25,9 @@ class PDFDocumentView : public QGraphicsView {
   typedef QGraphicsView Super;
 
   // **TODO:** _Replace with an overloaded `scene` method._
-  PDFDocumentScene *pdf_scene;
+  PDFDocumentScene *_pdf_scene;
 
-  qreal zoomLevel;
+  qreal _zoomLevel;
   int _currentPage, _lastPage;
 
 public:
@@ -65,7 +65,7 @@ class PDFDocumentScene : public QGraphicsScene {
   Q_OBJECT
   typedef QGraphicsScene Super;
 
-  const std::auto_ptr<Poppler::Document> doc;
+  const std::auto_ptr<Poppler::Document> _doc;
 
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> _pages;
@@ -103,19 +103,19 @@ class PDFPageGraphicsItem : public QObject, public QGraphicsPixmapItem
   Q_OBJECT
   typedef QGraphicsPixmapItem Super;
 
-  Poppler::Page *page;
-  QPixmap renderedPage;
-  double dpiX;
-  double dpiY;
+  Poppler::Page *_page;
+  QPixmap _renderedPage;
+  double _dpiX;
+  double _dpiY;
 
-  bool linksLoaded;
-  QFutureWatcher< QList<PDFLinkGraphicsItem *> > *linkGenerator;
+  bool _linksLoaded;
+  QFutureWatcher< QList<PDFLinkGraphicsItem *> > *_linkGenerator;
 
-  bool pageIsRendering;
-  QFutureWatcher<QImage> *pageImageGenerator;
+  bool _pageIsRendering;
+  QFutureWatcher<QImage> *_pageImageGenerator;
 
-  QTransform pageScale;
-  qreal zoomLevel;
+  QTransform _pageScale;
+  qreal _zoomLevel;
 
 public:
 
@@ -145,9 +145,9 @@ private slots:
 
 class PDFLinkGraphicsItem : public QGraphicsRectItem {
   typedef QGraphicsRectItem Super;
-  Poppler::Link *_link;
 
-  bool activated;
+  Poppler::Link *_link;
+  bool _activated;
 
 public:
   PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent = 0);
