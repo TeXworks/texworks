@@ -168,7 +168,8 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 // ================
 PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
   Super(parent),
-  doc(a_doc)
+  doc(a_doc),
+  docMutex(new QMutex)
 {
   // **TODO:** _Investigate the Arthur backend for native Qt rendering._
   doc->setRenderBackend(Poppler::Document::SplashBackend);
@@ -276,12 +277,19 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
   dpiY(QApplication::desktop()->physicalDpiY()),
 
   linksLoaded(false),
+  pageIsRendering(false),
   zoomLevel(0.0)
 {
   // The `linkGenerator` is used to monitor asynchronous generation of
   // `PDFLinkGraphicsItem` objects associated with the links on this page.
   linkGenerator = new QFutureWatcher< QList<PDFLinkGraphicsItem *> >(this);
   connect(linkGenerator, SIGNAL(finished()), this, SLOT(addLinks()));
+
+  // The `pageImageGenerator` monitors asynchronous rendering jobs. Both
+  // generator objects must acquire the same mutex from `PDFDocumentScene` as
+  // Poppler is not thread safe.
+  pageImageGenerator = new QFutureWatcher<QImage>(this);
+  connect(pageImageGenerator, SIGNAL(finished()), this, SLOT(updateRenderedPage()));
 
   // Create an empty pixmap that is the same size as the PDF page. This
   // allows us to delay the rendering of pages until they actually come into
@@ -292,6 +300,7 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
 
   pageScale = QTransform::fromScale(pageSize.width(), pageSize.height());
   setPixmap(QPixmap(pageSize.toSize()));
+  renderedPage = QPixmap(pageSize.toSize());
 }
 
 int PDFPageGraphicsItem::type() const { return Type; }
@@ -299,10 +308,6 @@ int PDFPageGraphicsItem::type() const { return Type; }
 // An overloaded paint method allows us to render the contents of
 // `Poppler::Page` objects to `QImage` objects which are then stored inside the
 // `PDFPageGraphicsItem` object using a `QPixmap`.
-//
-// **TODO:**
-// _Page rendering and link loading should be handed off to a worker thread so
-// that the GUI stays responsive._
 void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
   // Really, there is an X scaling factor and a Y scaling factor, but we assume
@@ -313,28 +318,26 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // `linksLoaded` will be `false`. We then load all of the links on the page.
   if ( not linksLoaded )
   {
-    QList<Poppler::Link *> links = page->links();
-
     // If this page has links, we generate `PDFLinkGraphicsItems` in a separate
     // thread. The `linkGenerator` will emit a `finished` signal when
     // generation is complete.
-    if ( not links.empty() ) linkGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::loadLinks, links));
+    linkGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::loadLinks));
 
     linksLoaded = true;
   }
 
-  // We look at the zoom level and render a new page if it has changed or has
-  // not been set yet.
-  if ( zoomLevel != scaleFactor )
+  // We look at the zoom level and render a new page if the zoom has changed or
+  // still has the value of `0.0` set by the constructor.
+  if ( (zoomLevel != scaleFactor) && not pageIsRendering )
   {
-    QRect bbox = painter->transform().mapRect(pixmap().rect());
+    // Dispatch page rendering to a new thread so that the GUI stays
+    // responsive.
+    pageImageGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::renderPage, scaleFactor));
 
-    // We render to a new member named `renderedPage` rather than `pixmap`
-    // because the properties of `pixmap` are used to calculate a bunch of size
-    // and other geometric attributes in methods inherited from
-    // `QGraphicsPixmapItem`.
-    renderedPage = QPixmap::fromImage(page->renderToImage(dpiX * scaleFactor, dpiY * scaleFactor,
-      0, 0, bbox.width(), bbox.height()));
+    // Indicate that a render is in progress so that subsequent paint events
+    // won't trigger a re-render. Once `pageImageGenerator` emits a `finished`
+    // signal, this boolean is cleared.
+    pageIsRendering = true;
 
     zoomLevel = scaleFactor;
   }
@@ -362,12 +365,22 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 // called asynchronously and so does not set parentage for the objects it
 // generates --- this task is left to the `addLinks` method so that all the
 // links are added and rendered in a synchronous operation.
-QList<PDFLinkGraphicsItem *> PDFPageGraphicsItem::loadLinks(QList<Poppler::Link *> links)
+QList<PDFLinkGraphicsItem *> PDFPageGraphicsItem::loadLinks()
 {
   // **TODO:**
   //
   //   * _Comment on how `pageScale` works and is used._
+
+  // We need to acquire a mutex from `PDFDocumentScene` as accessing page data,
+  // such as reading link lists or rendering page images is not thread safe
+  // among pages objects created from the same document object.
+  QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(scene())->docMutex);
+    QList<Poppler::Link *> links = page->links();
+  docLock.unlock();
+
   QList<PDFLinkGraphicsItem *> linkList;
+  if( links.empty() ) return linkList;
+
   PDFLinkGraphicsItem *linkItem;
 
   foreach( Poppler::Link *link, links )
@@ -390,6 +403,36 @@ void PDFPageGraphicsItem::addLinks()
 {
   foreach( PDFLinkGraphicsItem *item, linkGenerator->result() ) item->setParentItem(this);
 
+  update();
+}
+
+
+// Asynchronous Page Rendering
+// ---------------------------
+
+QImage PDFPageGraphicsItem::renderPage(qreal scaleFactor)
+{
+  // Rendering is not thread safe!
+  QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(scene())->docMutex);
+    QImage pageRender = page->renderToImage(dpiX * scaleFactor, dpiY * scaleFactor);
+  docLock.unlock();
+
+  return pageRender;
+}
+
+void PDFPageGraphicsItem::updateRenderedPage()
+{
+  // We store the rendered page in a new member named `renderedPage` rather
+  // than the `pixmap` member inherited from `QGraphicsPixmapItem`. This is
+  // because the size of `pixmap` is used to calculate a bunch of geometric
+  // attributes for `QGraphicsPixmapItem`. When the page is re-rendered, we
+  // just want to increase the resolution, not affect the geometry of the item
+  // in the graphics scene.
+  renderedPage = QPixmap::fromImage(pageImageGenerator->result());
+
+  // Indicate that page rendering has completed and this item needs to be
+  // re-drawn.
+  pageIsRendering = false;
   update();
 }
 
