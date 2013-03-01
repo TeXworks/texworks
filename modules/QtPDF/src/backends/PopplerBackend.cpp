@@ -54,16 +54,28 @@ PopplerPage::~PopplerPage()
 
 QSizeF PopplerPage::pageSizeF() { return _poppler_page->pageSizeF(); }
 
-QImage PopplerPage::renderToImage(double xres, double yres, int x, int y, int width, int height)
+QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box)
 {
   QImage renderedPage;
 
   // Rendering pages is not thread safe.
   QMutexLocker docLock(reinterpret_cast<PopplerDocument *>(_parent)->_doc_lock);
-    renderedPage = _poppler_page->renderToImage(xres, yres, x, y, width, height);
+    if( render_box.isNull() ) {
+      // A null QRect has a width and height of 0 --- we will tell Poppler to render the whole
+      // page.
+      renderedPage = _poppler_page->renderToImage(xres, yres);
+    } else {
+      renderedPage = _poppler_page->renderToImage(xres, yres,
+          render_box.x(), render_box.y(), render_box.width(), render_box.height());
+    }
   docLock.unlock();
 
   return renderedPage;
+}
+
+void PopplerPage::asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box)
+{
+  _parent->processingThread().requestRenderPage(this, listener, xres, yres, render_box);
 }
 
 QList<Poppler::Link *> PopplerPage::loadLinks()

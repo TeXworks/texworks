@@ -1097,9 +1097,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 #ifdef DEBUG
       stopwatch.start();
 #endif
-      // TODO: This needs to be threaded and cached.
-      renderedPage = _page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor,
-          tile.x(), tile.y(), tile.width(), tile.height());
+      // FIXME: This needs to be threaded and cached.
+      QImage renderedPage = _page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor, tile);
       painter->drawImage(tile.topLeft(), renderedPage);
 #ifdef DEBUG
       qDebug() << "Rendered and painted tile in: " << stopwatch.elapsed() << " milliseconds";
@@ -1114,15 +1113,26 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 // --------------
 bool PDFPageGraphicsItem::event(QEvent *event)
 {
-  if ( event->type() == PDFLinksLoadedEvent::LinksLoadedEvent )
-  {
+  // Look for callbacks from asynchronous page operations.
+  if( event->type() == PDFLinksLoadedEvent::LinksLoadedEvent ) {
     event->accept();
+
     // Cast to a `PDFLinksLoaded` event so we can access the links.
     const PDFLinksLoadedEvent *links_loaded_event = reinterpret_cast<const PDFLinksLoadedEvent*>(event);
     addLinks(links_loaded_event->links);
+
+    return true;
+
+  } else if( event->type() == PDFPageRenderedEvent::PageRenderedEvent ) {
+    event->accept();
+
+    qDebug() << "Recieved a page render event!";
+
     return true;
   }
 
+  // Otherwise, pass event to default handler.
+  return Super::event(event);
 }
 
 // This method causes the `PDFPageGraphicsItem` to take ownership of
