@@ -68,3 +68,6 @@ void ZoomTracker::refreshText() {
   setText(QString("Zoom %1%").arg(zoom * 100));
   update();
 }
+
+// vim: set sw=2 ts=2 et
+
