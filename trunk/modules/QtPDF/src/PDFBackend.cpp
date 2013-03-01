@@ -34,9 +34,9 @@ PDFPageProcessingThread::~PDFPageProcessingThread()
   wait();
 }
 
-void PDFPageProcessingThread::requestRenderPage(Page *page, QObject *listener, double xres, double yres, QRect render_box)
+void PDFPageProcessingThread::requestRenderPage(Page *page, QObject *listener, double xres, double yres, QRect render_box, bool cache)
 {
-  addPageProcessingRequest(new PageProcessingRenderPageRequest(page, listener, xres, yres, render_box));
+  addPageProcessingRequest(new PageProcessingRenderPageRequest(page, listener, xres, yres, render_box, cache));
 }
 
 void PDFPageProcessingThread::requestLoadLinks(Page *page, QObject *listener)
@@ -165,7 +165,7 @@ bool PageProcessingRenderPageRequest::execute()
   // that returns a `bool` value indicating if the request is still valid? Then
   // the `PDFPageGraphicsItem` could have a function that indicates if the item
   // is anywhere near a viewport.
-  QImage rendered_page = page->renderToImage(xres, yres, render_box);
+  QImage rendered_page = page->renderToImage(xres, yres, render_box, cache);
   QCoreApplication::postEvent(listener, new PDFPageRenderedEvent(xres, yres, render_box, rendered_page));
 
   return true;
@@ -177,6 +177,16 @@ bool PageProcessingLoadLinksRequest::execute()
   return true;
 }
 
+// ### Cache for Rendered Images
+uint qHash(const PDFPageTile &tile)
+{
+  // FIXME: This is a horrible, horrible hash function, but it is a good quick and dirty
+  // implementation. Should come up with something that executes faster.
+  QByteArray hash_string;
+  QDataStream(&hash_string, QIODevice::WriteOnly) << tile.xres << tile.yres << tile.render_box << tile.page_num;
+  return qHash(hash_string);
+}
+
 
 // PDF ABCs
 // ========
@@ -186,6 +196,12 @@ bool PageProcessingLoadLinksRequest::execute()
 Document::Document(QString fileName):
   _numPages(-1)
 {
+  // Set cache for rendered pages to be 1GB. This is enough for 256 RGBA tiles
+  // (1024 x 1024 pixels x 4 bytes per pixel).
+  //
+  // NOTE: The application seems to exceed 1 GB---usage plateaus at around 2GB. No idea why. Perhaps freed
+  // blocks are not garbage collected?? Perhaps my math is off??
+  _pageCache.setMaxCost(1024 * 1024 * 1024);
 }
 
 Document::~Document()
@@ -194,6 +210,7 @@ Document::~Document()
 
 int Document::numPages() { return _numPages; }
 PDFPageProcessingThread &Document::processingThread() { return _processingThread; }
+PDFPageCache &Document::pageCache() { return _pageCache; }
 
 
 // Page Class
@@ -209,6 +226,11 @@ Page::~Page()
 }
 
 int Page::pageNum() { return _n; }
+
+QImage *Page::getCachedImage(double xres, double yres, QRect render_box)
+{
+  return _parent->pageCache().object(PDFPageTile(xres, yres, render_box, _n));
+}
 
 
 // vim: set sw=2 ts=2 et

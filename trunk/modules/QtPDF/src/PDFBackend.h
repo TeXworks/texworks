@@ -31,6 +31,38 @@ class Document;
 // order to test the rendering thread. We need a link class of our own.
 #include <poppler/qt4/poppler-qt4.h>
 
+class PDFPageTile
+{
+
+public:
+  // TODO:
+  // We may want an application-wide cache instead of a document-specific cache
+  // to keep memory usage down. This may require an additional piece of
+  // information---the document that the page belongs to.
+  PDFPageTile(double xres, double yres, QRect render_box, int page_num):
+    xres(xres), yres(yres),
+    render_box(render_box),
+    page_num(page_num)
+  {}
+
+  double xres, yres;
+  QRect render_box;
+  int page_num;
+
+  bool operator==(const PDFPageTile &other) const
+  {
+    return (xres == other.xres && yres == other.yres && render_box == other.render_box && page_num == other.page_num);
+  }
+
+};
+// Need a hash function in order to allow `PDFPageTile` to be used as a key
+// object for a `QCache`.
+uint qHash(const PDFPageTile &tile);
+
+// TODO: May need a full subclass to do things like return the nearest image if
+// a specific resolution is not available.
+typedef QCache<PDFPageTile, QImage> PDFPageCache;
+
 
 class PageProcessingRequest : public QObject
 {
@@ -64,10 +96,11 @@ class PageProcessingRenderPageRequest : public PageProcessingRequest
   // Protect c'tor and execute() so we can't access them except in derived
   // classes and friends
 protected:
-  PageProcessingRenderPageRequest(Page *page, QObject *listener, double xres, double yres, QRect render_box = QRect()) :
+  PageProcessingRenderPageRequest(Page *page, QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false) :
     PageProcessingRequest(page, listener),
     xres(xres), yres(yres),
-    render_box(render_box)
+    render_box(render_box),
+    cache(cache)
   {}
 
   bool execute();
@@ -77,6 +110,7 @@ public:
 
   double xres, yres;
   QRect render_box;
+  bool cache;
 
 };
 
@@ -145,7 +179,7 @@ public:
   PDFPageProcessingThread();
   virtual ~PDFPageProcessingThread();
 
-  void requestRenderPage(Page *page, QObject *listener, double xres, double yres, QRect render_box = QRect());
+  void requestRenderPage(Page *page, QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
   void requestLoadLinks(Page *page, QObject *listener);
 
   // add a processing request to the work stack
@@ -182,6 +216,7 @@ class Document
 protected:
   int _numPages;
   PDFPageProcessingThread _processingThread;
+  PDFPageCache _pageCache;
 
 public:
   Document(QString fileName);
@@ -189,6 +224,7 @@ public:
 
   int numPages();
   PDFPageProcessingThread& processingThread();
+  PDFPageCache& pageCache();
 
   virtual Page *page(int at)=0;
 
@@ -208,11 +244,13 @@ public:
   int pageNum();
   virtual QSizeF pageSizeF()=0;
 
-  virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect())=0;
-  virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect())=0;
+  virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false)=0;
+  virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false)=0;
 
   virtual QList<Poppler::Link *> loadLinks()=0;
   virtual void asyncLoadLinks(QObject *listener)=0;
+
+  QImage *getCachedImage(double xres, double yres, QRect render_box = QRect());
 
 };
 
