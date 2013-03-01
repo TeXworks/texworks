@@ -33,8 +33,6 @@ QRectF PDFDestination::viewport(const Backend::Document * doc, const QRectF oldV
   // TODO: We use values < 0 to reflect pdf (null) values (i.e., invalid values
   // for top, left, zoom that are to be ignored). Check if negative values are
   // indeed impossible/not allowed.
-  // FIXME: Below, we const_cast doc because Document::page is non-const. Should
-  // it be?
   // FIXME: Consistency between retVal < oldViewport and retVal >= oldViewport
   switch (_type) {
     case Destination_XYZ:
@@ -52,7 +50,7 @@ QRectF PDFDestination::viewport(const Backend::Document * doc, const QRectF oldV
     {
       if (!doc)
         break;
-      QSharedPointer<Backend::Page> p(const_cast<Backend::Document*>(doc)->page(_page));
+      QSharedPointer<Backend::Page> p(doc->page(_page));
       if (!p)
         break;
       retVal = QRectF(QPointF(0, 0), p->pageSizeF());
@@ -63,7 +61,7 @@ QRectF PDFDestination::viewport(const Backend::Document * doc, const QRectF oldV
     {
       if (!doc)
         break;
-      QSharedPointer<Backend::Page> p(const_cast<Backend::Document*>(doc)->page(_page));
+      QSharedPointer<Backend::Page> p(doc->page(_page));
       if (!p)
         break;
       float aspectRatio = oldViewport.width() / oldViewport.height();
@@ -75,7 +73,7 @@ QRectF PDFDestination::viewport(const Backend::Document * doc, const QRectF oldV
     {
       if (!doc)
         break;
-      QSharedPointer<Backend::Page> p(const_cast<Backend::Document*>(doc)->page(_page));
+      QSharedPointer<Backend::Page> p(doc->page(_page));
       if (!p)
         break;
       float aspectRatio = oldViewport.width() / oldViewport.height();

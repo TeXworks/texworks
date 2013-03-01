@@ -230,6 +230,14 @@ QSharedPointer<Backend::Page> Document::page(int at)
   return QSharedPointer<Backend::Page>(_pages[at]);
 }
 
+QSharedPointer<Backend::Page> Document::page(int at) const
+{
+  if (at < 0 || at >= _numPages || at >= _pages.size())
+    return QSharedPointer<Backend::Page>();
+
+  return QSharedPointer<Backend::Page>(_pages[at]);
+}
+
 PDFDestination Document::resolveDestination(const PDFDestination & namedDestination) const
 {
   Q_ASSERT(!_poppler_doc.isNull());
