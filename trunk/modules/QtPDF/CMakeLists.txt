@@ -27,6 +27,11 @@ IF ( NOT CMAKE_BUILD_TYPE )
   SET(CMAKE_BUILD_TYPE "Debug")
 ENDIF ()
 
+OPTION(WITH_POPPLER "Build Poppler backend" ON)
+# MuPDF backend is a bit immature, so we don't bother with it by default right
+# now.
+OPTION(WITH_MUPDF "Build MuPDF backend" OFF)
+
 
 
 # Dependency Configuration
@@ -36,12 +41,15 @@ ENDIF ()
 # directory contains scripts that locate project components such as Poppler.
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules)
 
+
+# Core Components
+# ---------------
+
 # Declare Qt libraries required by this project.
 SET (QT_COMPONENTS
   QtCore
   QtGui
 )
-
 
 # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
 # with Qt-specific tasks such as compiling resources or running `moc`.
@@ -49,32 +57,67 @@ FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
 INCLUDE(UseQt4)
 
 FIND_PACKAGE(ZLIB REQUIRED)
-FIND_PACKAGE(Poppler REQUIRED)
-
-# The only thing Poppler should need is the location of the include directories
-# in order to access header files. The library loader should be able to find
-# libfontconfig on standard search paths.
-IF ( POPPLER_NEEDS_FONTCONFIG )
-  FIND_PACKAGE(Fontconfig REQUIRED)
-ENDIF ()
 
 # Aggregate library names and include directories into variables for easy
 # access.
 SET(QTPDF_INCLUDE_DIRS
   ${QT_INCLUDE_DIR}
-  ${HUNSPELL_INCLUDE_DIR}
-  ${POPPLER_QT4_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
 )
-IF ( POPPLER_NEEDS_FONTCONFIG )
-  LIST(APPEND QTPDF_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
-ENDIF ()
 
 SET(QTPDF_LIBS
   ${QT_LIBRARIES}
-  ${POPPLER_LIBRARIES}
   ${ZLIB_LIBRARIES}
 )
+
+
+# Backend Components
+# ------------------
+IF( WITH_POPPLER )
+
+  FIND_PACKAGE(Poppler REQUIRED)
+  LIST(APPEND QTPDF_INCLUDE_DIRS ${POPPLER_QT4_INCLUDE_DIR})
+  LIST(APPEND QTPDF_LIBS ${POPPLER_LIBRARIES})
+
+  # The only thing Poppler should need is the location of the include
+  # directories in order to access header files. The library loader should be
+  # able to find libfontconfig on standard search paths.
+  IF ( POPPLER_NEEDS_FONTCONFIG )
+    FIND_PACKAGE(Fontconfig REQUIRED)
+    LIST(APPEND QTPDF_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
+  ENDIF ()
+
+ENDIF()
+
+IF( WITH_MUPDF )
+
+  FIND_PACKAGE(JPEG REQUIRED)
+  FIND_PACKAGE(Freetype REQUIRED)
+  FIND_PACKAGE(JBig2Dec REQUIRED)
+  FIND_PACKAGE(OpenJPEG REQUIRED)
+  FIND_PACKAGE(MuPDF REQUIRED)
+
+  LIST(APPEND QTPDF_INCLUDE_DIRS
+    ${JPEG_INCLUDE_DIR}
+    ${FREETYPE_INCLUDE_DIR}
+    ${JBIG2DEC_INCLUDE_DIR}
+    ${OPENJPEG_INCLUDE_DIR}
+    ${MUPDF_INCLUDE_DIR}
+  )
+
+  LIST(APPEND QTPDF_LIBS
+    ${JPEG_LIBRARIES}
+    ${FREETYPE_LIBRARIES}
+    ${JBIG2DEC_LIBRARIES}
+    ${OPENJPEG_LIBRARIES}
+  )
+
+  # Since the MuPDF libraries are static libs, they have to be given to the
+  # linker **first** for some strange reason or symbols won't be properly
+  # resolved. At least, this is the case with the MinGW linker.
+  SET(QTPDF_LIBS ${MUPDF_LIBRARIES} ${QTPDF_LIBS})
+
+ENDIF()
 
 
 # Update Header Templates
@@ -102,16 +145,26 @@ ENDIF()
 SET(QTPDF_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentView.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerBackend.cpp
-  #  ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/MuPDFBackend.cpp
 )
 
 SET(QTPDF_MOC_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentView.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerBackend.h
-  #  ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/MuPDFBackend.h
 )
+
+SET(QTPDF_FLAGS "")
+
+IF( WITH_POPPLER )
+  LIST(APPEND QTPDF_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerBackend.cpp)
+  LIST(APPEND QTPDF_MOC_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerBackend.h)
+  SET(QTPDF_FLAGS "${QTPDF_FLAGS} -DUSE_POPPLER")
+ENDIF()
+
+IF( WITH_MUPDF )
+  LIST(APPEND QTPDF_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/MuPDFBackend.cpp)
+  LIST(APPEND QTPDF_MOC_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/MuPDFBackend.h)
+  SET(QTPDF_FLAGS "${QTPDF_FLAGS} -DUSE_MUPDF")
+ENDIF()
 
 QT4_WRAP_CPP(QTPDF_MOC ${QTPDF_MOC_HDRS})
 
@@ -120,15 +173,19 @@ ADD_LIBRARY(qtpdf SHARED
   ${QTPDF_MOC}
 )
 
-SET_TARGET_PROPERTIES(qtpdf PROPERTIES
-  COMPILE_FLAGS -DUSE_POPPLER
-)
-
 TARGET_LINK_LIBRARIES(qtpdf ${QTPDF_LIBS})
 
+SET_TARGET_PROPERTIES(qtpdf PROPERTIES
+  COMPILE_FLAGS ${QTPDF_FLAGS}
+)
 
-# Viewer
-# ------
+
+
+# Viewers
+# -------
+
+# Both viewers use a common set of source code files. Preprocessor definitions
+# toggle the backend-sensitive bits.
 SET(PDFVIEWER_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/PDFViewer.cpp
@@ -145,17 +202,40 @@ SET(PDFVIEWER_RCS
 QT4_ADD_RESOURCES(PDFVIEWER_RESOURCES ${PDFVIEWER_RCS})
 QT4_WRAP_CPP(PDFVIEWER_MOC ${PDFVIEWER_MOC_HDRS})
 
-ADD_EXECUTABLE(pdf_viewer
-  ${PDFVIEWER_SRCS}
-  ${PDFVIEWER_MOC} ${PDFVIEWER_RESOURCES}
-)
 
-SET_TARGET_PROPERTIES(pdf_viewer PROPERTIES
-  COMPILE_FLAGS -DUSE_POPPLER
-)
+IF( WITH_POPPLER )
 
-TARGET_LINK_LIBRARIES(pdf_viewer qtpdf)
+  ADD_EXECUTABLE(poppler_viewer
+    ${PDFVIEWER_SRCS}
+    ${PDFVIEWER_MOC} ${PDFVIEWER_RESOURCES}
+  )
 
+  # NOTE:
+  # Setting properties on a target sets those properties on all source files
+  # that are built to create that target. Other targets can re-use the sources
+  # and build with different flags. Pretty handy.
+  SET_TARGET_PROPERTIES(poppler_viewer PROPERTIES
+    COMPILE_FLAGS -DUSE_POPPLER
+  )
+
+  TARGET_LINK_LIBRARIES(poppler_viewer qtpdf)
+
+ENDIF()
+
+IF( WITH_MUPDF )
+
+  ADD_EXECUTABLE(mupdf_viewer
+    ${PDFVIEWER_SRCS}
+    ${PDFVIEWER_MOC} ${PDFVIEWER_RESOURCES}
+  )
+
+  SET_TARGET_PROPERTIES(mupdf_viewer PROPERTIES
+    COMPILE_FLAGS -DUSE_MUPDF
+  )
+
+  TARGET_LINK_LIBRARIES(mupdf_viewer qtpdf)
+
+ENDIF()
 
 
 # Packaging
@@ -197,7 +277,8 @@ CONFIG_INFO("Version" ${PROJECT_VERSION})
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
 message("")
 
-CONFIG_YESNO("Poppler backend" POPPLER_FOUND)
+CONFIG_YESNO("Poppler backend" WITH_POPPLER)
+CONFIG_YESNO("MuPDF backend" WITH_MUPDF)
 
 message("")
 message("  Project will be installed to:")

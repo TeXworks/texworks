@@ -3,12 +3,12 @@ Experimental Multi-Page PDF Viewer
 
 This branch contains an work-in-progress PDF viewer that is intended to replace
 the `PDFWidget` class in `src/PDFDocument.cpp`. Only the files in `src` are
-intended to be merged into the TeXworks tree---everything else is just a test
-app that streamlines the prototyping process.
+intended to be merged into the TeXworks tree---everything else is part of test
+apps that streamline the prototyping process.
 
-The test app is called `pdf_viewer` and upon launching, it uses the classes
-contained in the `src` folder to display a copy of the PGF manual. The PGF
-manual was chosen as a test case because:
+Upon launching, the test app uses the classes contained in the `src` folder to
+display a copy of the PGF manual. The PGF manual was chosen as a test case
+because:
 
   - It was produced by TeX.
   - It is extensively cross-referenced with hyperlinks.
@@ -19,20 +19,36 @@ manual was chosen as a test case because:
 Things Needed to Build
 ======================
 
-A simple Makefile is used to build the test app called `pdf_viewer`. The
-following components are required:
+CMake is used to build a library containing the rendering code and test apps
+that use different backends.
 
-  - pkg-config
+The following libraries are required by all targets:
+
   - qt
+  - zlib
   - freetype2
+
+For the Poppler backend, the following components are needed:
+
   - poppler and poppler-qt4
+
+For the MuPDF backend, the following components are needed:
+
+  - jpeg
+  - openjpeg
+  - jbig2dec
+  - mupdf
+
+By default, CMake will look for Poppler and produce the `poppler_viewer`
+executable. To enable MuPDF and the `mupdf_viewer`, add `-DWITH_MUDPF=YES` to
+the options passed to `cmake`.
 
 
 Building on Windows
 ===================
 
 Windows builds can be accomplished using MinGW, MSYS and CMake. Assuming Qt is
-installed and Freetype and Poppler have been built and installed to
+installed and the required dependencies have been built and installed to
 `/c/opt/texworks`, the following steps can be invoked from a MSYS shell to
 build the project:
 
