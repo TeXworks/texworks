@@ -18,6 +18,8 @@
 #include <QtGui/QtGui>
 #include <poppler/qt4/poppler-qt4.h>
 
+#include <PDFBackend.h>
+
 // Forward declare classes defined in this header.
 class PDFDocumentScene;
 class PDFPageGraphicsItem;
@@ -283,11 +285,13 @@ private:
 };
 
 
-class PDFDocumentScene : public QGraphicsScene {
+class PDFDocumentScene : public QGraphicsScene
+{
   Q_OBJECT
   typedef QGraphicsScene Super;
 
   const std::auto_ptr<Poppler::Document> _doc;
+  const QSharedPointer<Document> _pdf_doc;
 
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> _pages;
@@ -297,7 +301,7 @@ class PDFDocumentScene : public QGraphicsScene {
   void handleLinkEvent(const PDFLinkEvent * link_event);
 
 public:
-  PDFDocumentScene(Poppler::Document *a_doc, QObject *parent = 0);
+  PDFDocumentScene(Poppler::Document *a_doc, Document *a_pdf_doc, QObject *parent = 0);
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   QGraphicsItem* pageAt(const int idx);
