@@ -8,8 +8,6 @@ TODO (required fixes/features/enhancements):
  - Add some loading indicators so that users know something is happening in the
    background when pages are blank or blurry
  - scrolling beyond edge at single page mode (mouse wheel/up/down)
- - disallow mouse-wheel events in magnifier (otherwise one could scroll the
-   magnified image with the mouse wheel)
  - disallow keyboard events in document view while magnifier is shown (otherwise
    one could scroll the canvas without properly adjusting the magnifier)
  - Sync signal
