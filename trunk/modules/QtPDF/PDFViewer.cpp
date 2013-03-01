@@ -26,7 +26,6 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   toolBar->addAction(tr("2Col Cont"), docView, SLOT(setTwoColContPageMode()));
 
   toolBar->addSeparator();
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom.png")), tr("Magnify"), docView, SLOT(setMouseModeMagnifyingGlass()));
   toolBar->addAction(QIcon(QString::fromUtf8(":/icons/hand.png")), tr("Pan"), docView, SLOT(setMouseModeMove()));
   toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom-select.png")), tr("Marquee Zoom"), docView, SLOT(setMouseModeMarqueeZoom()));
 
@@ -39,6 +38,14 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   statusBar()->addWidget(zoomWdgt);
   addToolBar(toolBar);
   setCentralWidget(docView);
+
+  // For tiling experiments, page mode is locked to single page and
+  // move/marquee zoom are the only available actions.
+  //
+  // NOTE: Make sure the maginifier _is never engaged_ undefined bahvior will
+  // result.
+  docView->setSinglePageMode();
+  docView->setMouseModeMove();
 }
 
 void PDFViewer::openUrl(const QUrl url) const
