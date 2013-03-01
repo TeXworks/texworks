@@ -1407,8 +1407,7 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(QSharedPointer<Page> a_page, QGraphicsI
   _dpiY(QApplication::desktop()->physicalDpiY()),
 
   _linksLoaded(false),
-  _zoomLevel(0.0),
-  _magnifiedZoomLevel(0.0)
+  _zoomLevel(0.0)
 {
   // Create an empty pixmap that is the same size as the PDF page. This
   // allows us to delay the rendering of pages until they actually come into
@@ -1466,22 +1465,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     _linksLoaded = true;
   }
 
-  if ( _zoomLevel != scaleFactor ) {
-    // We apply a scale-only transformation to the bounding box to get the new
-    // page dimensions at the new DPI. The `QRectF` is converted to a `QRect`
-    // by `toAlignedRect` so that we can work in pixels.
-
-    if (pageRect.width() % TILE_SIZE == 0)
-      _nTile_x = pageRect.width() / TILE_SIZE;
-    else
-      _nTile_x = pageRect.width() / TILE_SIZE + 1;
-    if (pageRect.height() % TILE_SIZE == 0)
-      _nTile_y = pageRect.height() / TILE_SIZE;
-    else
-      _nTile_y = pageRect.height() / TILE_SIZE + 1;
-
+  if ( _zoomLevel != scaleFactor )
     _zoomLevel = scaleFactor;
-  }
 
   painter->save();
     // Clip to the exposed rectangle to prevent unnecessary drawing operations.
@@ -1505,10 +1490,10 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
     QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
     QSharedPointer<QImage> renderedPage;
-    
+
     int i, imin, imax;
     int j, jmin, jmax;
-    
+
     imin = (visibleRect.left() - pageRect.left()) / TILE_SIZE;
     imax = (visibleRect.right() - pageRect.left());
     if (imax % TILE_SIZE == 0)
@@ -1525,10 +1510,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
     for (j = jmin; j < jmax; ++j) {
       for (i = imin; i < imax; ++i) {
-        // Construct the tile to paint. Intersect it with the page rect to
-        // avoid doign extra work outside the page
         QRect tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-        tile &= pageRect;
         renderedPage = _page->getTileImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile);
         // we don't want a finished render thread to change our image while we
         // draw it
