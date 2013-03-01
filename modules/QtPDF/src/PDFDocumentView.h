@@ -23,16 +23,16 @@ class PDFLinkGraphicsItem;
 class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
   typedef QGraphicsView Super;
-  // Hack. The view should not own a scene---this makes it difficult to have
-  // multiple views that observe the same scene (such as a detaild page view
-  // and a zoomed-out sidebar view).
+
+  // **TODO:** _Replace with an overloaded `scene` method._
   PDFDocumentScene *pdf_scene;
 
   qreal zoomLevel;
   int _currentPage, _lastPage;
 
 public:
-  PDFDocumentView(Poppler::Document *a_doc, QWidget *parent = 0);
+  PDFDocumentView(QWidget *parent = 0);
+  void setScene(PDFDocumentScene *a_scene);
   int currentPage();
   int lastPage();
 

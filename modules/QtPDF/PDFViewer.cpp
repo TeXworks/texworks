@@ -5,7 +5,11 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   QMainWindow(parent, flags)
 {
   Poppler::Document *pdf = Poppler::Document::load(pdf_doc);
-  PDFDocumentView *docView = new PDFDocumentView(pdf, this);
+  PDFDocumentScene *docScene = new PDFDocumentScene(pdf, this);
+  PDFDocumentView *docView = new PDFDocumentView(this);
+
+  docView->setScene(docScene);
+  docView->goFirst();
 
   PageCounter *counter = new PageCounter(this->statusBar());
   ZoomTracker *zoomWdgt = new ZoomTracker(this);
