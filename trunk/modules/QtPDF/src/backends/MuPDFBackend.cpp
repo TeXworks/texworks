@@ -352,7 +352,7 @@ QList<PDFFontInfo> MuPDFDocument::fonts() const
     switch (_mupdf_data->table[i].type) {
       case 'o':
       case 'n':
-        {
+      {
         if (!fz_is_dict(_mupdf_data->table[i].obj))
           continue;
         if (QString::fromAscii(fz_to_name(fz_dict_gets(_mupdf_data->table[i].obj, typeKey))) != QString::fromUtf8("Font"))
@@ -450,8 +450,8 @@ QList<PDFFontInfo> MuPDFDocument::fonts() const
         }
 
         retVal << fi;
-        }
         break;
+      }
       case 0:
       case 'f':
       default:
@@ -466,6 +466,38 @@ QList<PDFFontInfo> MuPDFDocument::fonts() const
   return retVal;
 }
 
+void MuPDFDocument::recursiveConvertToC(QList<PDFToCItem> & items, pdf_outline * node) const
+{
+  while (node && node->title) {
+    // TODO: It seems that this works, at least for pdfs produced with pdflatex
+    // using either utf8 or latin1 encoding (and the approrpriate inputenc
+    // package). Is this valid generally?
+    PDFToCItem item(QString::fromUtf8(node->title));
+    item.setOpen(node->count > 0);
+
+    if (node->link && (node->link->kind == PDF_LINK_GOTO || node->link->kind == PDF_LINK_NAMED)) {
+      Q_ASSERT(_mupdf_data != NULL);
+      item.setAction(new PDFGotoAction(toPDFDestination(_mupdf_data, node->link->dest)));
+    }
+
+    recursiveConvertToC(item.children(), node->child);
+
+    // NOTE: pdf_outline doesn't include color or flags; we could go through the
+    // pdf ourselves to get to them, but for now we simply don't support them
+    items << item;
+    node = node->next;
+  }
+}
+
+PDFToC MuPDFDocument::toc() const
+{
+  Q_ASSERT(_mupdf_data != NULL);
+  PDFToC retVal;
+  pdf_outline * outline = pdf_load_outline(_mupdf_data);
+  recursiveConvertToC(retVal, outline);
+  pdf_free_outline(outline);
+  return retVal;
+}
 
 // Page Class
 // ==========
@@ -581,7 +613,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > MuPDFPage::loadLinks()
     link->setRect(normalize.mapRect(toRectF(mupdfLink->rect)));
     link->setPage(this);
     // FIXME: Initialize all other properties of PDFLinkAnnotation, such as
-    // color, quadPoints, etc.
+    // border, color, quadPoints, etc.
 
     switch (mupdfLink->kind) {
       case PDF_LINK_NAMED:
