@@ -62,7 +62,7 @@ public:
 
   // FIXME: This should return a list of object inherting from an abstract base
   // class for Links.
-  QList<Poppler::Link *> loadLinks();
+  QList<PDFLinkAnnotation *> loadLinks();
 
 };
 

@@ -15,6 +15,32 @@
 #include <PDFBackend.h>
 
 
+PDFLinkAnnotation::~PDFLinkAnnotation()
+{
+  if (_actionOnActivation)
+    delete _actionOnActivation;
+}
+
+QPolygonF PDFLinkAnnotation::quadPoints() const
+{
+  if (_quadPoints.isEmpty())
+    return QPolygonF(rect());
+  // The PDF specs (1.7) state that: "QuadPoints should be ignored if any
+  // coordinate in the array lies outside the region specified by Rect."
+  foreach (QPointF p, _quadPoints) {
+    if (!rect().contains(p))
+      return QPolygonF(rect());
+  }
+  return _quadPoints;
+}
+
+void PDFLinkAnnotation::setActionOnActivation(PDFAction * const action)
+{
+  if (_actionOnActivation)
+    delete _actionOnActivation;
+  _actionOnActivation = action;
+}
+
 // Backend Rendering
 // =================
 // The `PDFPageProcessingThread` is a thread that processes background jobs.
