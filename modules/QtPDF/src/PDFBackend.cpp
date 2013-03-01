@@ -235,23 +235,28 @@ uint qHash(const PDFPageTile &tile)
   return qHash(hash_string);
 }
 
-QImage * PDFPageCache::getImage(const PDFPageTile & tile) const
+QSharedPointer<QImage> PDFPageCache::getImage(const PDFPageTile & tile) const
 {
   _lock.lockForRead();
-  QImage * retVal = object(tile);
+  QSharedPointer<QImage> * retVal = object(tile);
   _lock.unlock();
-  return retVal;
+  if (retVal)
+    return *retVal;
+  return QSharedPointer<QImage>();
 }
 
-QImage * PDFPageCache::setImage(const PDFPageTile & tile, QImage * image, const bool overwrite /* = true */)
+QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage * image, const bool overwrite /* = true */)
 {
   _lock.lockForWrite();
-  QImage * retVal = object(tile);
+  QSharedPointer<QImage> retVal;
+  if (contains(tile))
+    retVal = *object(tile);
   // If the key is not in the cache yet add it. Otherwise overwrite the cached
   // image but leave the pointer intact as that can be held/used elsewhere
   if (!retVal) {
-    insert(tile, image, (image ? image->byteCount() : 0));
-    retVal = image;
+    QSharedPointer<QImage> * toInsert = new QSharedPointer<QImage>(image);
+    insert(tile, toInsert, (image ? image->byteCount() : 0));
+    retVal = *toInsert;
   }
   else if(overwrite) {
     // TODO: overwriting an image with a different one can change its size (and
@@ -259,10 +264,11 @@ QImage * PDFPageCache::setImage(const PDFPageTile & tile, QImage * image, const 
     // hande that in QCache, though, and since we only use one tile size this
     // shouldn't pose a problem.
     if (image)
-      *(object(tile)) = *image;
+      *retVal = *image;
     else {
-      insert(tile, NULL, 0);
-      retVal = NULL;
+      QSharedPointer<QImage> * toInsert = new QSharedPointer<QImage>;
+      insert(tile, toInsert, 0);
+      retVal = *toInsert;
     }
   }
   _lock.unlock();
@@ -329,7 +335,7 @@ Page::~Page()
 
 int Page::pageNum() { return _n; }
 
-QImage *Page::getCachedImage(double xres, double yres, QRect render_box)
+QSharedPointer<QImage> Page::getCachedImage(double xres, double yres, QRect render_box)
 {
   return _parent->pageCache().getImage(PDFPageTile(xres, yres, render_box, _n));
 }
@@ -345,14 +351,14 @@ bool higherResolutionThan(const PDFPageTile & t1, const PDFPageTile & t2)
   return t1.xres > t2.xres;
 }
 
-QImage* Page::getTileImage(QObject * listener, const double xres, const double yres, QRect render_box /* = QRect() */)
+QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres, const double yres, QRect render_box /* = QRect() */)
 {
   // If the render_box is empty, use the whole page
   if (render_box.isNull())
     render_box = QRectF(0, 0, pageSizeF().width() * xres / 72., pageSizeF().height() * yres / 72.).toAlignedRect();
 
   // If the tile is cached, return it
-  QImage * retVal = getCachedImage(xres, yres, render_box);
+  QSharedPointer<QImage> retVal = getCachedImage(xres, yres, render_box);
   if (retVal)
     return retVal;
 
@@ -399,7 +405,7 @@ QImage* Page::getTileImage(QObject * listener, const double xres, const double y
       QPainterPath clipPath;
       clipPath.addRect(0, 0, render_box.width(), render_box.height());
       foreach (PDFPageTile tile, tiles) {
-        QImage * tileImg = _parent->pageCache().getImage(tile);
+        QSharedPointer<QImage> tileImg = _parent->pageCache().getImage(tile);
         if (!tileImg)
           continue;
 
