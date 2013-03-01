@@ -40,6 +40,7 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   connect(docView, SIGNAL(changedPage(int)), counter, SLOT(setCurrentPage(int)));
   connect(docView, SIGNAL(changedZoom(qreal)), zoomWdgt, SLOT(setZoom(qreal)));
   connect(docView, SIGNAL(requestOpenUrl(const QUrl)), this, SLOT(openUrl(const QUrl)));
+  connect(docView, SIGNAL(requestOpenPdf(QString, int, bool)), this, SLOT(openPdf(QString, int, bool)));
   connect(docView, SIGNAL(contextClick(const int, const QPointF)), this, SLOT(syncFromPdf(const int, const QPointF)));
 
   statusBar()->addPermanentWidget(counter);
@@ -57,6 +58,11 @@ void PDFViewer::openUrl(const QUrl url) const
   // **TODO:**
   // `openUrl` can fail and that needs to be handled._
   QDesktopServices::openUrl(url);
+}
+
+void PDFViewer::openPdf(QString filename, int page, bool newWindow) const
+{
+  qDebug() << "Open PDF" << filename << "on page" << (page + 1) << "(in new window =" << newWindow << ")";
 }
 
 void PDFViewer::syncFromPdf(const int page, const QPointF pos)

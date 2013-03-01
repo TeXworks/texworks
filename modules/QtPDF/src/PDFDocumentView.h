@@ -84,7 +84,7 @@ signals:
 
   void requestOpenUrl(const QUrl url);
   void requestExecuteCommand(QString command);
-  void requestOpenPdf(QString filename, int page);
+  void requestOpenPdf(QString filename, int page, bool newWindow);
   void contextClick(const int page, const QPointF pos);
 
 protected:
