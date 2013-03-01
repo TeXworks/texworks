@@ -17,6 +17,7 @@
 static void initResources()
 {
   Q_INIT_RESOURCE(QtPDF_trans);
+  Q_INIT_RESOURCE(QtPDF_icons);
 }
 
 namespace QtPDF {
