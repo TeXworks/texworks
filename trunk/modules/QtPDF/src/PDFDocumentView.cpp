@@ -27,9 +27,10 @@ static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGr
 //
 // **TODO:**
 // _This class basically comes with a built-in `QGraphicsScene` unlike a
-// traditional `QGraphicsView` where the scenes can be swapped around. Should
-// we disable the `setScene` function by declaring it `private`? Does it make
-// sense to tightly couple a scene to this class?_
+// traditional `QGraphicsView` where the scenes can be swapped around.
+//
+// This is not the best way to do things as it makes it difficult to have
+// multiple views that observe the same scene._
 PDFDocumentView::PDFDocumentView(Poppler::Document *a_doc, QWidget *parent):
   Super(parent),
   zoomLevel(1.0)
@@ -166,6 +167,19 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 
 // PDFDocumentScene
 // ================
+//
+// A large canvas that manages the layout of QGraphicsItem subclasses. The
+// primary items we are concerned with are PDFPageGraphicsItem and
+// PDFLinkGraphicsItem.
+//
+// The scene also holds a mutex which is used to serialize calls by child items
+// (mostly PDFGraphicsPage) to the Poppler library as Poppler is not thread
+// safe.
+//
+// This system may need to be re-worked because if another function somewhere
+// accesses the Poppler document pointed to by `*a_doc` while the scene child
+// items are executing tasks, we can produce a segfault. Because of this, the
+// mutex may need to be held at a higher level.
 PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
   Super(parent),
   doc(a_doc),
@@ -325,8 +339,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
     linksLoaded = true;
 
-    // This is a hack to give a nice default look to pages that have not been
-    // rendered. Would be nice to replace this with a "loading page".
+    // This is a hack to give a nice white fill to pages that have not been
+    // rendered. Would be nice to replace this with a "loading page" graphic.
     renderedPage.fill();
   }
 
@@ -346,11 +360,11 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     zoomLevel = scaleFactor;
   }
 
-  //// The transformation matrix of the `painter` object contains information
-  //// such as the current zoom level of the widget viewing this PDF page. We use
-  //// this matrix to position the page and then reset the transformation matrix
-  //// to an identity matrix as the page image has already been resized during
-  //// rendering.
+  // The transformation matrix of the `painter` object contains information
+  // such as the current zoom level of the widget viewing this PDF page. We use
+  // this matrix to position the page and then reset the transformation matrix
+  // to an identity matrix as the page image has already been resized during
+  // rendering.
   QPointF origin = painter->transform().map(offset());
 
   // This part is modified from the `paint` method of `QGraphicsPixmapItem`.
@@ -358,8 +372,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     (transformationMode() == Qt::SmoothTransformation));
 
   if ( pageIsRendering ) {
-    // A resized page is still rendering, so we "blow up" our current page and
-    // render that.
+    // A new resized page is still rendering, so we "blow up" our current
+    // render and paint that.
     //
     // **TODO:** _The performance of this degrades heavily at high zoom levels.
     // Mostly due to the use of `scaled` on the pixmap. Find a more efficient

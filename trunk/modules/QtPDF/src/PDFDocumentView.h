@@ -23,7 +23,9 @@ class PDFLinkGraphicsItem;
 class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
   typedef QGraphicsView Super;
-  // Bit of a hack.
+  // Hack. The view should not own a scene---this makes it difficult to have
+  // multiple views that observe the same scene (such as a detaild page view
+  // and a zoomed-out sidebar view).
   PDFDocumentScene *pdf_scene;
 
   qreal zoomLevel;
@@ -86,7 +88,9 @@ protected:
   bool event(QEvent* event);
 
 private:
-  // Parent class has no copy constructor.
+  // Parent has no copy constructor, so this class shouldn't either. Also, we
+  // hold some information in an `auto_ptr` which does interesting things on
+  // copy that C++ newbies may not expect.
   Q_DISABLE_COPY(PDFDocumentScene)
 };
 
@@ -127,9 +131,7 @@ public:
   void paint( QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 private:
-  // Parent has no copy constructor, so this class shouldn't either. Also, we
-  // hold some information in an `auto_ptr` which does interesting things on
-  // copy that C++ newbies may not expect.
+  // Parent has no copy constructor.
   Q_DISABLE_COPY(PDFPageGraphicsItem)
 
   QList<PDFLinkGraphicsItem *> loadLinks();
