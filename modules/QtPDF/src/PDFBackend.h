@@ -536,8 +536,7 @@ public:
   // This is very tricky to do in C++. God I miss Python and its `itertools`
   // library.
   virtual QList<SearchResult> search(QString searchText) = 0;
-
-  static QList<SearchResult> search(SearchRequest request);
+  static QList<SearchResult> executeSearch(SearchRequest request);
 };
 
 } // namespace Backend
