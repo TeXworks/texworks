@@ -65,10 +65,18 @@ TODO
  - ~~PgDn should scroll one viewport height~~ __DONE__
  - ~~draw frame around magnifying glass (requested by Reinhard Kotucha)~~ __DONE__
  - Comment on how `pageScale` works and is used
- - Control memory usage through caching and zoom throttling
+ - ~~Control memory usage through caching and zoom throttling~~ __DONE__
  - possibility to abort render requests when page moves out of view (is there a
    way to avoid going through all pages at each scroll event?)
  - Program segfaults if a page is destroyed while a render request is active
+ - Possibly simplify page processing request generation. Rational: Right now,
+   requestLoadLinks, requestRenderPage, and addPageProcessingRequest are all
+   called from the main thread, if I understood threading correctly.
+   Consequently, the page processing request object should live in the main
+   thread as well (but is accessed only from the worked thread). If that is
+   correct, all the moving of objects is superfluous as well.
+ - Turn PDFViewer into a more general test case (loading of arbitrary files,
+   etc.)
 
 ### Wishlist
  - annotations (popup window)
