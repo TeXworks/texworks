@@ -99,7 +99,7 @@ TODO
  - Port scripting-related functions from Tw (if any)
  - Icons (add icons for page modes, make marquee zoom icon consistent with other
    icons)
- - Don't show mouse cursor while using the magnifier
+ - ~~Don't show mouse cursor while using the magnifier~~ __DONE__
  - Handling of encrypted/password protected files (this needs to be handled
    during loading; I haven't checked this code, but Tw crashed for some time
    with such documents)
