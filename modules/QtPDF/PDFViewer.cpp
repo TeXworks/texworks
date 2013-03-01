@@ -52,6 +52,7 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   addDockWidget(Qt::LeftDockWidgetArea, toc);
   tabifyDockWidget(toc, docView->metaDataDockWidget(this));
   tabifyDockWidget(toc, docView->fontsDockWidget(this));
+  toc->raise();
 }
 
 void PDFViewer::openUrl(const QUrl url) const

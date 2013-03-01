@@ -122,7 +122,11 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   ensureVisible(viewRect, 0, 0);
 }
 
-PDFToCDockWidget* PDFDocumentView::tocDockWidget(QWidget * parent)
+// TODO: These could possibly be simplified if all dock widgets were derived
+// from a common ancestral class (which provides an overrideable
+// setDataFromDocument method). Question is: can we assure that we never need
+// anything else?
+QDockWidget * PDFDocumentView::tocDockWidget(QWidget * parent)
 {
   PDFToCDockWidget * dock = new PDFToCDockWidget(parent);
   connect(dock, SIGNAL(actionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
@@ -131,7 +135,7 @@ PDFToCDockWidget* PDFDocumentView::tocDockWidget(QWidget * parent)
   return dock;
 }
 
-PDFMetaDataDockWidget * PDFDocumentView::metaDataDockWidget(QWidget * parent)
+QDockWidget * PDFDocumentView::metaDataDockWidget(QWidget * parent)
 {
   PDFMetaDataDockWidget * dock = new PDFMetaDataDockWidget(parent);
   if (_pdf_scene && _pdf_scene->document())
@@ -139,7 +143,7 @@ PDFMetaDataDockWidget * PDFDocumentView::metaDataDockWidget(QWidget * parent)
   return dock;
 }
 
-PDFFontsDockWidget * PDFDocumentView::fontsDockWidget(QWidget * parent)
+QDockWidget * PDFDocumentView::fontsDockWidget(QWidget * parent)
 {
   PDFFontsDockWidget * dock = new PDFFontsDockWidget(parent);
   if (_pdf_scene && _pdf_scene->document())

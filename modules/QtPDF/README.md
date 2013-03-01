@@ -85,6 +85,9 @@ TODO
    with such documents)
  - Possibility to load different file easily (e.g., through a load() method)
  - Possibility to reload current file (e.g., if it changed on disk)
+ - Clicking on an item in the ToC that lies after the current viewport position
+   moves the view such that a small band of the page in question is visible at
+   the bottom of the screen---but we should see that page fill the entire screen
  - ~~GotoPage should not center on page~~ __DONE__
  - ~~zoom/hand tools~~ __DONE__
  - ~~ctrl+mousewheel should zoom~~ __DONE__

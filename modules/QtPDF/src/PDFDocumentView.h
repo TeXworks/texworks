@@ -57,11 +57,13 @@ public:
   PageMode pageMode() const { return _pageMode; }
   qreal zoomLevel() const { return _zoomLevel; }
 
-  // FIXME: These should probably return QDockWidget* to the internals-agnostic
-  // outside world
-  PDFToCDockWidget* tocDockWidget(QWidget * parent);
-  PDFMetaDataDockWidget * metaDataDockWidget(QWidget * parent);
-  PDFFontsDockWidget * fontsDockWidget(QWidget * parent);
+  // The ownership of the returned pointers is transferred to the caller (i.e.,
+  // he has to destroy them, unless the `parent` widget does that automatically)
+  // They are fully wired to this PDFDocumentView (e.g., clicking on entries in
+  // the table of contents will change this view)
+  QDockWidget * tocDockWidget(QWidget * parent);
+  QDockWidget * metaDataDockWidget(QWidget * parent);
+  QDockWidget * fontsDockWidget(QWidget * parent);
 
 public slots:
   void goPrev();
