@@ -128,7 +128,7 @@ TODO
  - make the magnifying glass a top-level window (so it can extend outside the
    main view's window boundaries) (requested by Reinhard Kotucha)
  - rulers (in main window, and attached to magnifying glass)
- - or measuring tool
+ - or ~~measuring tool~~ __DONE__
  - Split view???
  - Provide additional info, e.g. through QDockWidget. ~~Annotations,~~
    thumbnails (?). __STARTED__
