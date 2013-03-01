@@ -172,9 +172,8 @@ void PopplerDocument::parseDocument()
 
 QSharedPointer<Page> PopplerDocument::page(int at)
 {
-  // FIXME: Come up with something to deal with a zero-page PDF.
-  // FIXME: Check if `at` is a valid index
-  Q_ASSERT(_numPages != 0);
+  if (at < 0 || at >= _numPages)
+    return QSharedPointer<Page>();
 
   if( _pages.isEmpty() )
     _pages.resize(_numPages);
