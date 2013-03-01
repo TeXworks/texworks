@@ -15,6 +15,217 @@
 // NOTE: `MuPDFBackend.h` is included via `PDFBackend.h`
 #include <PDFBackend.h>
 
+QRectF toRectF(const fz_rect r)
+{
+  return QRectF(QPointF(r.x0, r.y0), QPointF(r.x1, r.y1));
+}
+
+// TODO: Find a better place to put this
+PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
+{
+  PDFDestination retVal;
+
+  if (!dest)
+    return PDFDestination();
+  if (fz_is_name(dest))
+    return PDFDestination(QString::fromAscii(fz_to_name(dest)));
+
+  if (fz_is_array(dest)) {
+    // Structure of pdf_link->dest:
+    // array w/ >= 2 entries:
+    //  - dict which can be passed to pdf_find_page_number
+    //  - name: /XYZ, /FIT, ...
+    //  - numbers or nulls as required by /XYZ, /FIT, ...
+    // TODO: How do external links look like? Or are remote gotos not
+    // included in pdf_link structures? Do we need to go through all
+    // annotations, then?
+    // TODO: Check other types than /XYZ
+    if (fz_array_len(dest) < 2)
+      return PDFDestination();
+
+    fz_obj * obj;
+
+    obj = fz_array_get(dest, 0);
+    if (fz_is_int(obj))
+      retVal.setPage(fz_to_int(obj));
+    else if (fz_is_dict(obj))
+      retVal.setPage(pdf_find_page_number(xref, obj));
+    else
+      return PDFDestination();
+
+    if (!fz_is_name(fz_array_get(dest, 1)))
+      return PDFDestination();
+    QString type = QString::fromAscii(fz_to_name(fz_array_get(dest, 1)));
+    float left, top, bottom, right, zoom;
+
+    // /XYZ left top zoom 
+    if (type == QString::fromUtf8("XYZ")) {
+      if (fz_array_len(dest) != 5)
+        return PDFDestination();
+      obj = fz_array_get(dest, 2);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        left = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        left = -1;
+      else
+        return PDFDestination();
+      obj = fz_array_get(dest, 3);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        top = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        top = -1;
+      else
+        return PDFDestination();
+      obj = fz_array_get(dest, 4);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        zoom = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        zoom = -1;
+      else
+        return PDFDestination();
+      retVal.setType(PDFDestination::Destination_XYZ);
+      retVal.setRect(QRectF(QPointF(left, top), QPointF(-1, -1)));
+      retVal.setZoom(zoom);
+    }
+    // /Fit
+    else if (type == QString::fromUtf8("Fit")) {
+      if (fz_array_len(dest) != 2)
+        return PDFDestination();
+      retVal.setType(PDFDestination::Destination_Fit);
+    }
+    // /FitH top
+    else if (type == QString::fromUtf8("FitH")) {
+      if (fz_array_len(dest) != 3)
+        return PDFDestination();
+      obj = fz_array_get(dest, 2);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        top = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        top = -1;
+      else
+        return PDFDestination();
+      retVal.setType(PDFDestination::Destination_FitH);
+      retVal.setRect(QRectF(QPointF(-1, top), QPointF(-1, -1)));
+    }
+    // /FitV left
+    else if (type == QString::fromUtf8("FitV")) {
+      if (fz_array_len(dest) != 3)
+        return PDFDestination();
+      obj = fz_array_get(dest, 2);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        left = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        left = -1;
+      else
+        return PDFDestination();
+      retVal.setType(PDFDestination::Destination_FitV);
+      retVal.setRect(QRectF(QPointF(left, -1), QPointF(-1, -1)));
+    }
+    // /FitR left bottom right top
+    if (type == QString::fromUtf8("FitR")) {
+      if (fz_array_len(dest) != 6)
+        return PDFDestination();
+      obj = fz_array_get(dest, 2);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        left = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        left = -1;
+      else
+        return PDFDestination();
+      obj = fz_array_get(dest, 3);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        bottom = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        bottom = -1;
+      else
+        return PDFDestination();
+      obj = fz_array_get(dest, 4);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        right = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        right = -1;
+      else
+        return PDFDestination();
+      obj = fz_array_get(dest, 5);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        top = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        top = -1;
+      else
+        return PDFDestination();
+      retVal.setType(PDFDestination::Destination_FitR);
+      retVal.setRect(QRectF(QPointF(left, top), QPointF(right, bottom)));
+      retVal.setZoom(zoom);
+    }
+    // /FitB
+    else if (type == QString::fromUtf8("FitB")) {
+      if (fz_array_len(dest) != 2)
+        return PDFDestination();
+      retVal.setType(PDFDestination::Destination_FitB);
+    }
+    // /FitBH top
+    else if (type == QString::fromUtf8("FitBH")) {
+      if (fz_array_len(dest) != 3)
+        return PDFDestination();
+      obj = fz_array_get(dest, 2);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        top = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        top = -1;
+      else
+        return PDFDestination();
+      retVal.setType(PDFDestination::Destination_FitBH);
+      retVal.setRect(QRectF(QPointF(-1, top), QPointF(-1, -1)));
+    }
+    // /FitBV left
+    else if (type == QString::fromUtf8("FitBV")) {
+      if (fz_array_len(dest) != 3)
+        return PDFDestination();
+      obj = fz_array_get(dest, 2);
+      if (fz_is_real(obj) || fz_is_int(obj))
+        left = fz_to_real(obj);
+      else if (fz_is_null(obj))
+        left = -1;
+      else
+        return PDFDestination();
+      retVal.setType(PDFDestination::Destination_FitBV);
+      retVal.setRect(QRectF(QPointF(left, -1), QPointF(-1, -1)));
+    }
+
+    return retVal;
+  }
+
+  return PDFDestination();
+}
+
+#ifdef DEBUG
+  const char * fz_type(fz_obj *obj) {
+    if (!obj)
+      return "(NULL)";
+    if (fz_is_null(obj))
+      return "null";
+    if (fz_is_bool(obj))
+      return "bool";
+    if (fz_is_int(obj))
+      return "int";
+    if (fz_is_real(obj))
+      return "real";
+    if (fz_is_name(obj))
+      return "name";
+    if (fz_is_string(obj))
+      return "string";
+    if (fz_is_array(obj))
+      return "array";
+    if (fz_is_dict(obj))
+      return "dict";
+    if (fz_is_indirect(obj))
+      return "reference";
+    return "(unknown)";
+  }
+
+#endif
+
+
 // Document Class
 // ==============
 MuPDFDocument::MuPDFDocument(QString fileName):
@@ -345,7 +556,66 @@ QImage MuPDFPage::renderToImage(double xres, double yres, QRect render_box, bool
 
 QList< QSharedPointer<PDFLinkAnnotation> > MuPDFPage::loadLinks()
 {
-  // FIXME: This always returns an empty list. Needs a proper implementation.
+  if (_linksLoaded)
+    return _links;
+
+  Q_ASSERT(_parent != NULL);
+  pdf_xref * xref = static_cast<MuPDFDocument*>(_parent)->_mupdf_data;
+  Q_ASSERT(xref != NULL);
+
+  // FIXME: PDFLinkGraphicsItem erroneously requires coordinates to be
+  // normalized to [0..1].
+  QTransform normalize = QTransform::fromScale(1. / _size.width(), -1. / _size.height()).translate(0, -_size.height());
+
+  _linksLoaded = true;
+  pdf_page * page;
+  if (pdf_load_page(&page, xref, _n) != fz_okay)
+    return _links;
+
+  if (!page)
+    return _links;
+  pdf_link * mupdfLink = page->links;
+
+  while (mupdfLink) {
+    QSharedPointer<PDFLinkAnnotation> link(new PDFLinkAnnotation);
+    link->setRect(normalize.mapRect(toRectF(mupdfLink->rect)));
+    link->setPage(this);
+    // FIXME: Initialize all other properties of PDFLinkAnnotation, such as
+    // color, quadPoints, etc.
+
+    switch (mupdfLink->kind) {
+      case PDF_LINK_NAMED:
+      case PDF_LINK_GOTO:
+        link->setActionOnActivation(new PDFGotoAction(toPDFDestination(xref, mupdfLink->dest)));
+        break;
+      case PDF_LINK_URI:
+        // TODO: Check if MuPDF indeed always returns properly encoded URLs
+        link->setActionOnActivation(new PDFURIAction(QUrl::fromEncoded(fz_to_str_buf(mupdfLink->dest))));
+        break;
+      case PDF_LINK_LAUNCH:
+        // TODO: Check if fromLocal8Bit works in all cases. The pdf specs say
+        // that "[file specs] are stored as bytes and are passed to the
+        // operating system without interpretation or conversion of any sort."
+        // Since we have no influence on how strings are treated in process
+        // creation, we cannot fully comply with this. However, it seems that
+        // (at least in Qt 4.7.2):
+        //  - on Unix/Mac, QFile::encodeName is used; Qt docs say that "this
+        //    function converts fileName to the local 8-bit encoding determined
+        //    by the user's locale".
+        //  - on Win, full utf16 is used
+        link->setActionOnActivation(new PDFLaunchAction(QString::fromLocal8Bit(fz_to_str_buf(mupdfLink->dest))));
+        break;
+      case PDF_LINK_ACTION:
+        // we don't handle this yet
+        link.clear();
+        break;
+    }
+    if (link)
+      _links << link;
+    mupdfLink = mupdfLink->next;
+  }
+
+  pdf_free_page(page);
   return _links;
 }
 
