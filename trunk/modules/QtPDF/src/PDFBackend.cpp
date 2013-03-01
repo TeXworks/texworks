@@ -84,6 +84,22 @@ QDateTime fromPDFDate(QString pdfDate)
   return QDateTime(date, time, Qt::UTC).addSecs(sign * (hourOffset * 3600 + minuteOffset * 60)).toLocalTime();
 }
 
+#ifdef DEBUG
+void PDFPageProcessingThread::dumpWorkStack(const QStack<PageProcessingRequest*> & ws)
+{
+  int i;
+  QStringList strList;
+  for (i = 0; i < ws.size(); ++i) {
+    PageProcessingRequest * request = ws[i];
+    if (!request)
+      strList << QString::fromUtf8("NULL");
+    else {
+      strList << *request;
+    }
+  }
+  qDebug() << strList;
+}
+#endif
 
 
 
@@ -162,6 +178,11 @@ void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * r
   Q_ASSERT(request->thread() == QApplication::instance()->thread());
 
   QMutexLocker locker(&(this->_mutex));
+  // Note: Commenting the "remove identical requests in the stack" code for now.
+  // This should be handled by the caching routine elsewhere automatically. If
+  // in doubt, it's better to render a tile twice than to not render it at all
+  // (thereby leaving the dummy image in the cache indefinitely)
+/*
   // remove any instances of the given request type before adding the new one to
   // avoid processing it several times
   // **TODO:** Could it be that we require several concurrent versions of the
@@ -175,26 +196,14 @@ void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * r
       _workStack.remove(i);
     }
   }
+*/
 
   _workStack.push(request);
-  locker.unlock();
 #ifdef DEBUG
-  QString jobDesc;
-  switch (request->type()) {
-    case PageProcessingRequest::LoadLinks:
-      {
-        qDebug() << "new 'loading links request' for page" << request->page->pageNum();
-      }
-      break;
-    case PageProcessingRequest::PageRendering:
-      {
-        PageProcessingRenderPageRequest * r = static_cast<PageProcessingRenderPageRequest*>(request);
-        qDebug() << "new 'rendering page request' for page" << request->page->pageNum() << "and tile" << r->render_box;
-      }
-      break;
-  }
+  qDebug() << "new request:" << *request;
 #endif
 
+  locker.unlock();
   if (!isRunning())
     start();
   else
@@ -213,7 +222,7 @@ void PDFPageProcessingThread::run()
       _mutex.unlock();
 
 #ifdef DEBUG
-      qDebug() << "processing work item; remaining items:" << _workStack.size();
+      qDebug() << "processing work item" << *workItem << "; remaining items:" << _workStack.size();
       _renderTimer.start();
 #endif
       workItem->execute();
@@ -271,12 +280,19 @@ bool PageProcessingRequest::operator==(const PageProcessingRequest & r) const
 
 bool PageProcessingRenderPageRequest::operator==(const PageProcessingRequest & r) const
 {
-  if (r.type() != PageRendering)
+  if (!PageProcessingRequest::operator==(r))
     return false;
   const PageProcessingRenderPageRequest * rr = static_cast<const PageProcessingRenderPageRequest*>(&r);
   // TODO: Should we care about the listener here as well?
   return (xres == rr->xres && yres == rr->yres && render_box == rr->render_box && cache == rr->cache);
 }
+
+#ifdef DEBUG
+PageProcessingRenderPageRequest::operator QString() const
+{
+  return QString::fromUtf8("RP:%1.%2_%3").arg(page->pageNum()).arg(render_box.topLeft().x()).arg(render_box.topLeft().y());
+}
+#endif
 
 // ### Custom Event Types
 // These are the events posted by `execute` functions.
@@ -303,6 +319,13 @@ bool PageProcessingLoadLinksRequest::execute()
   QCoreApplication::postEvent(listener, new PDFLinksLoadedEvent(page->loadLinks()));
   return true;
 }
+
+#ifdef DEBUG
+PageProcessingLoadLinksRequest::operator QString() const
+{
+  return QString::fromUtf8("LL:%1").arg(page->pageNum());
+}
+#endif
 
 // ### Cache for Rendered Images
 uint qHash(const PDFPageTile &tile)
