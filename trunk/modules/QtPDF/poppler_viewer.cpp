@@ -138,7 +138,7 @@ protected:
 
   }
 
-  // Very "dumb" first cut at pageup/page down handling.
+  // Very "dumb" attempt at keypress handling.
   //
   // **TODO:**
   //
@@ -150,7 +150,25 @@ protected:
   //     keypresses?_
   void keyPressEvent(QKeyEvent *event) {
 
-    if(
+    if (
+      (event->key() == Qt::Key_Home) &&
+      (currentPage != 0)
+    ) {
+
+      currentPage = 0;
+      centerOn(pages.first());
+      event->accept();
+
+    } else if(
+      (event->key() == Qt::Key_End) &&
+      (currentPage != lastPage)
+    ) {
+
+      currentPage = lastPage;
+      centerOn(pages.last());
+      event->accept();
+
+    } else if(
       (event->key() == Qt::Key_PageDown) &&
       (currentPage < lastPage)
     ) {
