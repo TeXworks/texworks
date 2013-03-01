@@ -68,6 +68,9 @@ class PDFDocumentScene : public QGraphicsScene {
 public:
   PDFDocumentScene(Poppler::Document *a_doc, QObject *parent = 0);
   QList<QGraphicsItem*> pages();
+  QList<QGraphicsItem*> pages(const QPolygonF &polygon);
+  int pageNumAt(const QPolygonF &polygon);
+
   int lastPage();
 
 private:
@@ -78,6 +81,7 @@ private:
 
 class PDFPageGraphicsItem : public QGraphicsPixmapItem {
   typedef QGraphicsPixmapItem Super;
+
   // To spare the need for a destructor
   const std::auto_ptr<Poppler::Page> page;
   QPixmap renderedPage;
@@ -90,6 +94,14 @@ class PDFPageGraphicsItem : public QGraphicsPixmapItem {
 public:
 
   PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent = 0);
+
+  // This seems fragile as it assumes no other code declaring a custom graphics
+  // item will choose the same ID for it's object types. Unfortunately, there
+  // appears to be no equivalent of `registerEventType` for `QGraphicsItem`
+  // subclasses.
+  enum { Type = UserType + 1 };
+  int type() const;
+
   void paint( QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 private:
@@ -108,6 +120,9 @@ class PDFLinkGraphicsItem : public QGraphicsRectItem {
 
 public:
   PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent = 0);
+  // See concerns in `PDFPageGraphicsItem` for why this feels fragile.
+  enum { Type = UserType + 2 };
+  int type() const;
 
 protected:
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
