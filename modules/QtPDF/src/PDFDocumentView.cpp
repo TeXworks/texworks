@@ -1009,6 +1009,9 @@ void PDFPageLayout::continuousModeRelayout() {
     rowOffsets[i] += rowOffsets[i - 1] + _ySpacing;
 
   // Finally, position pages
+  // **TODO:** Figure out why this loop causes some noticable lag when switching
+  // from SinglePage to continuous mode in a large document (but not when
+  // switching between separate continuous modes)
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
     if (!it->page || !it->page->_page)
       continue;
