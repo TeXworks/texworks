@@ -16,55 +16,9 @@
 #include <poppler/qt4/poppler-qt4.h>
 
 
-class PDFPageGraphicsItem : public QGraphicsPixmapItem {
-  typedef QGraphicsPixmapItem super;
-  // To spare the need for a destructor
-  const std::auto_ptr<Poppler::Page> page;
-  QPixmap renderedPage;
-  double dpiX;
-  double dpiY;
-
-  bool dirty;
-  qreal zoomLevel;
-
-public:
-
-  PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent = 0);
-  void paint( QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-private:
-  // Parent has no copy constructor, so this class shouldn't either. Also, we
-  // hold some information in an `auto_ptr` which does interesting things on
-  // copy that C++ newbies may not expect.
-  Q_DISABLE_COPY(PDFPageGraphicsItem)
-};
-
-
-class PDFLinkGraphicsItem : public QGraphicsRectItem {
-  typedef QGraphicsRectItem super;
-  Poppler::Link *_link;
-
-  bool activated;
-
-public:
-  PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent = 0);
-
-protected:
-  void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
-  void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
-
-  void mousePressEvent(QGraphicsSceneMouseEvent *event);
-  void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-
-private:
-  // Parent class has no copy constructor.
-  Q_DISABLE_COPY(PDFLinkGraphicsItem)
-};
-
-
 class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
-  typedef QGraphicsView super;
+  typedef QGraphicsView Super;
   const std::auto_ptr<Poppler::Document> doc;
   qreal zoomLevel;
 
@@ -74,7 +28,6 @@ class PDFDocumentView : public QGraphicsView {
 
 public:
   PDFDocumentView(Poppler::Document *a_doc, QWidget *parent = 0);
-  ~PDFDocumentView();
   int currentPage();
   int lastPage();
 
@@ -100,10 +53,50 @@ protected:
 private:
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFDocumentView)
+};
 
-  // **TODO:**
-  // _This class basically comes with a built-in `QGraphicsScene` unlike a
-  // traditional `QGraphicsView` where the scenes can be swapped around. Should
-  // we disable the `setScene` function by declaring it `private`? Does it make
-  // sense to have different graphics scenes?_
+
+class PDFPageGraphicsItem : public QGraphicsPixmapItem {
+  typedef QGraphicsPixmapItem Super;
+  // To spare the need for a destructor
+  const std::auto_ptr<Poppler::Page> page;
+  QPixmap renderedPage;
+  double dpiX;
+  double dpiY;
+
+  bool dirty;
+  qreal zoomLevel;
+
+public:
+
+  PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent = 0);
+  void paint( QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+private:
+  // Parent has no copy constructor, so this class shouldn't either. Also, we
+  // hold some information in an `auto_ptr` which does interesting things on
+  // copy that C++ newbies may not expect.
+  Q_DISABLE_COPY(PDFPageGraphicsItem)
+};
+
+
+class PDFLinkGraphicsItem : public QGraphicsRectItem {
+  typedef QGraphicsRectItem Super;
+  Poppler::Link *_link;
+
+  bool activated;
+
+public:
+  PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent = 0);
+
+protected:
+  void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+  void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+
+  void mousePressEvent(QGraphicsSceneMouseEvent *event);
+  void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+private:
+  // Parent class has no copy constructor.
+  Q_DISABLE_COPY(PDFLinkGraphicsItem)
 };
