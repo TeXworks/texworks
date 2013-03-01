@@ -50,6 +50,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/hand.png")), tr("Pan"), docView, SLOT(setMouseModeMove()));
   _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom-select.png")), tr("Marquee Zoom"), docView, SLOT(setMouseModeMarqueeZoom()));
   _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/measure.png")), tr("Measure"), docView, SLOT(setMouseModeMeasure()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/select-text.png")), tr("Select"), docView, SLOT(setMouseModeSelect()));
 
   _counter->setLastPage(docView->lastPage());
   connect(docView, SIGNAL(changedPage(int)), _counter, SLOT(setCurrentPage(int)));

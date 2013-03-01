@@ -80,7 +80,12 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   registerTool(new DocumentTool::Move(this));
   registerTool(new DocumentTool::ContextClick(this));
   registerTool(new DocumentTool::Measure(this));
+  registerTool(new DocumentTool::Select(this));
 
+  // Some tools (e.g., the Select tool) may need to be informed of mouse events
+  // (e.g., mouseMoveEvent) when armed, even before a mouse button is pressed
+  viewport()->setMouseTracking(true);
+  
   // We deliberately set the mouse mode to a different value above so we can
   // call setMouseMode (which bails out if the mouse mode is not changed), which
   // in turn sets up other variables such as _toolAccessors
@@ -443,6 +448,11 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
     case MouseMode_Measure:
       armTool(DocumentTool::AbstractTool::Tool_Measure);
       _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_Measure);
+      break;
+      
+    case MouseMode_Select:
+      armTool(DocumentTool::AbstractTool::Tool_Select);
+      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_Select);
       break;
   }
 
@@ -1063,29 +1073,14 @@ void PDFDocumentView::mousePressEvent(QMouseEvent * event)
 
 void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
 {
-  // Note: to avoid reverting to _armed == Tool_None when moving the mouse
-  // without pressing any button, we arm the default tool (corresponding to the
-  // left mouse button) instead in that case
-
   if(_armedTool)
     _armedTool->mouseMoveEvent(event);
   Super::mouseMoveEvent(event);
-
-  // We don't check for event->isAccepted() here; for one, this always seems to
-  // return true (for whatever reason), but more importantly, without enabling
-  // mouse tracking we only receive this event if the current widget has grabbed
-  // the mouse (i.e., after a mousePressEvent and before the corresponding
-  // mouseReleaseEvent)
 }
 
 void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
 {
   Super::mouseReleaseEvent(event);
-
-  // We don't check for event->isAccepted() here; for one, this always seems to
-  // return true (for whatever reason), but more importantly, without enabling
-  // mouse tracking we only receive this event if the current widget has grabbed
-  // the mouse (i.e., after a mousePressEvent)
 
   if(_armedTool)
     _armedTool->mouseReleaseEvent(event);
@@ -1502,6 +1497,19 @@ QGraphicsItem* PDFDocumentScene::pageAt(const int idx)
   return _pages[idx];
 }
 
+// Overloaded method that returns all page objects at a given point. First,
+// `items` is used to grab all items at the point. This list is then filtered by
+// item type so that it contains only references to `PDFPageGraphicsItem` objects.
+QGraphicsItem* PDFDocumentScene::pageAt(const QPointF &pt)
+{
+  QList<QGraphicsItem*> pageList = items(pt);
+  QtConcurrent::blockingFilter(pageList, isPageItem);
+
+  if (pageList.isEmpty())
+    return NULL;
+  return pageList[0];
+}
+
 // This is a convenience function for returning the page number of the first
 // page item inside a given area of the scene. If no page is in the specified
 // area, -1 is returned.
@@ -1511,6 +1519,13 @@ int PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
   if (p.isEmpty())
     return -1;
   return _pages.indexOf(p.first());
+}
+
+// This is a convenience function for returning the page number of the first
+// page item at a given point. If no page is in the specified area, -1 is returned.
+int PDFDocumentScene::pageNumAt(const QPointF &pt)
+{
+  return _pages.indexOf(pageAt(pt));
 }
 
 int PDFDocumentScene::pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const

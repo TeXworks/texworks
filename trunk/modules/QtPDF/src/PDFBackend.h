@@ -503,6 +503,13 @@ protected:
   Transition::AbstractTransition * _transition;
 
 public:
+  // Class to encapsulate boxes, e.g., for selecting
+  class Box {
+  public:
+    QRectF boundingBox;
+    QList<Box> subBoxes;
+  };
+  
   Page(Document *parent, int at);
   virtual ~Page();
 
@@ -517,6 +524,19 @@ public:
 
   virtual QList< QSharedPointer<Annotation::Link> > loadLinks() = 0;
   virtual void asyncLoadLinks(QObject *listener);
+  
+  // Returns a list of boxes (e.g., for the purpose of selecting text)
+  // Box rectangles are in pdf coordinates (i.e., bp)
+  // The backend may return big boxes comprised of subboxes (e.g., words made up
+  // of characters) to speed up hit calculations. Only one level of subboxes is
+  // currently supported. The big box boundingBox must completely encompass all
+  // subBoxes' boundingBoxes.
+  virtual QList<Box> boxes() { return QList<Box>(); }
+  // Return selected text
+  // The returned text should contain all characters inside (at least) one of
+  // the `selection` polygons.
+  // The `selection` polygons must be in pdf coords (i.e., in bp)
+  virtual QString selectedText(const QList<QPolygonF> & selection) { return QString(); }
 
   QSharedPointer<QImage> getCachedImage(double xres, double yres, QRect render_box = QRect());
   // Returns either a cached image (if it exists), or triggers a render request.

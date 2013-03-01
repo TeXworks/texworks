@@ -729,6 +729,52 @@ void Page::loadTransitionData()
   }  
 }
 
+QList< Backend::Page::Box > Page::boxes()
+{
+  Q_ASSERT(_poppler_page != NULL);
+  QList< Backend::Page::Box > retVal;
+ 
+  foreach (::Poppler::TextBox * popplerTextBox, _poppler_page->textList()) {
+    if (!popplerTextBox)
+      continue;
+    Backend::Page::Box box;
+    box.boundingBox = popplerTextBox->boundingBox();
+    for (int i = 0; i < popplerTextBox->text().length(); ++i) {
+      Backend::Page::Box subBox;
+      subBox.boundingBox = popplerTextBox->charBoundingBox(i);
+      box.subBoxes << subBox;
+    }
+    retVal << box;
+  }
+  return retVal;
+}
+
+QString Page::selectedText(const QList<QPolygonF> & selection)
+{
+  // FIXME: Properly implement selectedText() with poppler
+  // Since poppler doesn't provide a reliable way to extract the text inside (a
+  // list of) polygons, we bail out for now
+  return QString();
+  
+  Q_ASSERT(_poppler_page != NULL);
+  // Using the bounding rects of the selection polygons is almost
+  // certainly wrong! However, poppler-qt4 doesn't offer any alternative AFAICS
+  // (except for positioning each char in the string manually).
+  // Since poppler doesn't add any space glyphs, the selection will contain a
+  // list of words. Hence, by iterating over them, we get a list of words with
+  // no whitespace inbetween
+  QString retVal;
+  foreach (QPolygonF poly, selection) {
+    QRectF boundingRect = poly.boundingRect();
+    // Poppler returns the entire page text if an empty rect is given. We don't
+    // want that here
+    if (boundingRect.isEmpty())
+      continue;
+    retVal.append(_poppler_page->text(boundingRect));
+  }
+  return retVal;
+}
+
 } // namespace Poppler
 
 } // namespace Backend
