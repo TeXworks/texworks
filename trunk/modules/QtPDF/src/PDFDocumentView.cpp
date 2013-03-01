@@ -447,16 +447,6 @@ void PDFPageGraphicsItem::addLinks()
 // Asynchronous Page Rendering
 // ---------------------------
 
-QImage PDFPageGraphicsItem::renderPage(qreal scaleFactor)
-{
-  // Rendering is not thread safe!
-  QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(scene())->docMutex);
-    QImage pageRender = _page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor);
-  docLock.unlock();
-
-  return pageRender;
-}
-
 void PDFPageGraphicsItem::maybeUpdateRenderedPage(PDFPageGraphicsItem * page, qreal scaleFactor, QImage pageImage)
 {
   if (page != this)
