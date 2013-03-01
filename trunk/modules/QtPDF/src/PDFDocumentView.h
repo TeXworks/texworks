@@ -44,6 +44,8 @@ class PDFDocumentView : public QGraphicsView {
   qreal _zoomLevel;
   int _currentPage, _lastPage;
 
+  QString _searchString;
+
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
   enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom };
@@ -286,6 +288,7 @@ class PDFDocumentScene : public QGraphicsScene
 
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> _pages;
+  QList<QGraphicsItem*> _highlights;
   int _lastPage;
   PDFPageLayout _pageLayout;
   void handleActionEvent(const PDFActionEvent * action_event);
@@ -313,11 +316,15 @@ signals:
   void pageLayoutChanged();
   void pdfActionTriggered(const PDFAction * action);
 
-protected:
-  bool event(QEvent* event);
+public slots:
+  void highlight(int pageNum, QRectF bbox);
+  void clearHighlights();
 
 protected slots:
   void pageLayoutChanged(const QRectF& sceneRect);
+
+protected:
+  bool event(QEvent* event);
 
 private:
   // Parent has no copy constructor, so this class shouldn't either. Also, we
@@ -344,7 +351,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
 
   bool _linksLoaded;
 
-  QTransform _pageScale;
+  QTransform _pageScale, _pointScale;
   qreal _zoomLevel, _magnifiedZoomLevel;
 
   int _nTile_x, _nTile_y;
@@ -378,6 +385,9 @@ public:
   // coordinate system (in pt) - chain with mapFromScene and related methods to
   // convert from coordinates in other systems
   QPointF mapToPage(const QPointF & point);
+
+  QTransform pageScale() { return _pageScale; }
+  QTransform pointScale() { return _pointScale; }
 
 protected:
   bool event(QEvent *event);
