@@ -346,7 +346,7 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   // Draw a drop shadow
   if (_magnifier && _magnifier->isVisible()) {
     QPainter p(viewport());
-    QPixmap dropShadow(_magnifier->dropShadow());
+    QPixmap& dropShadow(_magnifier->dropShadow());
     QRect r(QPoint(0, 0), dropShadow.size());
     r.moveCenter(_magnifier->geometry().center());
     p.drawPixmap(r.topLeft(), dropShadow);
@@ -841,6 +841,7 @@ void PDFDocumentMagnifierView::setShape(const PDFDocumentView::MagnifierShape sh
 #endif
       break;
   }
+  _dropShadow = QPixmap();
 }
 
 void PDFDocumentMagnifierView::setSize(const int size)
@@ -854,6 +855,7 @@ void PDFDocumentMagnifierView::setSize(const int size)
       setFixedSize(size, size);
       break;
   }
+  _dropShadow = QPixmap();
 }
 
 void PDFDocumentMagnifierView::paintEvent(QPaintEvent * event)
@@ -906,28 +908,31 @@ void PDFDocumentMagnifierView::paintEvent(QPaintEvent * event)
 }
 
 // Modelled after http://labs.qt.nokia.com/2009/10/07/magnifying-glass
-QPixmap PDFDocumentMagnifierView::dropShadow() const
+QPixmap& PDFDocumentMagnifierView::dropShadow()
 {
-  int padding = 10;
-  QPixmap retVal(width() + 2 * padding, height() + 2 * padding);
+  if (!_dropShadow.isNull())
+    return _dropShadow;
 
-  retVal.fill(Qt::transparent);
+  int padding = 10;
+  _dropShadow = QPixmap(width() + 2 * padding, height() + 2 * padding);
+
+  _dropShadow.fill(Qt::transparent);
 
   switch(_shape) {
     case PDFDocumentView::Magnifier_Rectangle:
       {
         QPainterPath path;
-        QRectF boundingRect(retVal.rect().adjusted(0, 0, -1, -1));
+        QRectF boundingRect(_dropShadow.rect().adjusted(0, 0, -1, -1));
         QLinearGradient gradient(boundingRect.center(), QPointF(0.0, boundingRect.center().y()));
         gradient.setSpread(QGradient::ReflectSpread);
         QGradientStops stops;
         QColor color(Qt::black);
         color.setAlpha(64);
-        stops.append(QGradientStop(1.0 - padding * 2.0 / retVal.width(), color));
+        stops.append(QGradientStop(1.0 - padding * 2.0 / _dropShadow.width(), color));
         color.setAlpha(0);
         stops.append(QGradientStop(1.0, color));
 
-        QPainter shadow(&retVal);
+        QPainter shadow(&_dropShadow);
         shadow.setRenderHint(QPainter::Antialiasing);
 
         // paint horizontal gradient
@@ -947,7 +952,7 @@ QPixmap PDFDocumentMagnifierView::dropShadow() const
         shadow.fillPath(path, gradient);
 
         // paint vertical gradient
-        stops[0].first = 1.0 - padding * 2.0 / retVal.height();
+        stops[0].first = 1.0 - padding * 2.0 / _dropShadow.height();
         gradient.setStops(stops);
 
         path = QPainterPath();
@@ -961,26 +966,26 @@ QPixmap PDFDocumentMagnifierView::dropShadow() const
         path.lineTo(boundingRect.topRight());
         path.closeSubpath();
 
-        gradient.setFinalStop(QPointF(QRectF(retVal.rect()).center().x(), 0.0));
+        gradient.setFinalStop(QPointF(QRectF(_dropShadow.rect()).center().x(), 0.0));
         shadow.fillPath(path, gradient);
       }
       break;
     case PDFDocumentView::Magnifier_Circle:
       {
-        QRadialGradient gradient(QRectF(retVal.rect()).center(), retVal.width() / 2.0, QRectF(retVal.rect()).center());
+        QRadialGradient gradient(QRectF(_dropShadow.rect()).center(), _dropShadow.width() / 2.0, QRectF(_dropShadow.rect()).center());
         QColor color(Qt::black);
         color.setAlpha(0);
         gradient.setColorAt(1.0, color);
         color.setAlpha(64);
-        gradient.setColorAt(1.0 - padding * 2.0 / retVal.width(), color);
+        gradient.setColorAt(1.0 - padding * 2.0 / _dropShadow.width(), color);
         
-        QPainter shadow(&retVal);
+        QPainter shadow(&_dropShadow);
         shadow.setRenderHint(QPainter::Antialiasing);
-        shadow.fillRect(retVal.rect(), gradient);
+        shadow.fillRect(_dropShadow.rect(), gradient);
       }
       break;
   }
-  return retVal;
+  return _dropShadow;
 }
 
 
