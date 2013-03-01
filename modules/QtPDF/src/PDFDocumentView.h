@@ -62,6 +62,7 @@ protected:
   // Keep track of the current page by overloading the widget paint event.
   void paintEvent(QPaintEvent *event);
   void keyPressEvent(QKeyEvent *event);
+  void moveTopLeftTo(const QPointF scenePos);
 
 protected slots:
   void pageLayoutChanged();

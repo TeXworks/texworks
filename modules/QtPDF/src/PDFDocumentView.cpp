@@ -96,7 +96,10 @@ void PDFDocumentView::goToPage(int pageNum)
   // We silently ignore any invalid page numbers.
   if ( (pageNum >= 0) && (pageNum < _lastPage) && (pageNum != _currentPage) )
   {
-    centerOn(_pdf_scene->pages().at(pageNum));
+    if (!_pdf_scene || _pdf_scene->pages().size() <= pageNum || !_pdf_scene->pages().at(pageNum))
+      return;
+    moveTopLeftTo(_pdf_scene->pages().at(pageNum)->pos());
+
     _currentPage = pageNum;
     emit changedPage(_currentPage);
   }
@@ -151,7 +154,6 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
     _currentPage = nextCurrentPage;
     emit changedPage(_currentPage);
   }
-
 }
 
 // **TODO:**
@@ -190,6 +192,16 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
   }
 }
 
+// Other
+// -----
+void PDFDocumentView::moveTopLeftTo(const QPointF scenePos) {
+  QRectF r(mapToScene(viewport()->rect()).boundingRect());
+  r.moveTopLeft(scenePos);
+  
+  // **TODO:** Investigate why this approach doesn't work during startup if
+  // the margin is set to 0
+  ensureVisible(r, 1, 1);
+}
 
 // PDFDocumentScene
 // ================
