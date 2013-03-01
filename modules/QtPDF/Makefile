@@ -1,11 +1,10 @@
 CXX ?= g++
 
-CXXFLAGS := -g -O0 -I. $(shell pkg-config freetype2 poppler poppler-qt4 QtCore QtGui QtXml --cflags)
+CXXFLAGS := -g -O0 -I. -I./src $(shell pkg-config freetype2 poppler poppler-qt4 QtCore QtGui QtXml --cflags)
 LDFLAGS := $(shell pkg-config freetype2 poppler poppler-qt4 QtCore QtGui QtXml --libs)
 
-SRCS := $(wildcard *.cpp)
-MOC_HDRS := $(wildcard *.h)
-MOC_SRCS := $(addprefix moc_,$(MOC_HDRS:.h=.cpp))
+SRCS := $(wildcard *.cpp) $(wildcard ./src/*.cpp)
+MOC_SRCS := $(patsubst %.h,moc_%.cpp,$(wildcard *.h)) $(patsubst src/%.h,src/moc_%.cpp,$(wildcard src/*.h))
 
 all: pdf_viewer
 
@@ -16,10 +15,10 @@ icons.cpp : icons.qrc
 	rcc -o $@ $<
 
 moc_%.cpp: %.h
-	moc $< > $@
+	cd `dirname $<` && moc `basename $<` > `basename $@`
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $<
+	cd `dirname $<` && $(CXX) $(CXXFLAGS) -c `basename $<`
 
 clean :
 	git clean -fdx
