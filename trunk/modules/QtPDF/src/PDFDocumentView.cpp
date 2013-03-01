@@ -13,7 +13,24 @@
  */
 #include "PDFDocumentView.h"
 
+// This has to be outside the namespace (according to Qt docs)
+static void initResources()
+{
+  Q_INIT_RESOURCE(QtPDF_trans);
+}
+
 namespace QtPDF {
+
+// In static builds, we need to explicitly initialize the resources
+// (translations).
+// NOTE: In shared builds, this doesn't seem to hurt.
+class ResourceInitializer
+{
+public:
+  // Call out-of-namespace function in constructor
+  ResourceInitializer() { ::initResources(); }
+};
+ResourceInitializer _resourceInitializer;
 
 #ifdef DEBUG
 #include <QDebug>
@@ -41,6 +58,7 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   _mouseMode(MouseMode_Move),
   _armedTool(NULL)
 {
+  initResources();
   // FIXME: Allow to initialize with a specific language (in case the
   // application uses a custom locale and switchInterfaceLocale() has not been
   // called, yet (e.g., this is the first instance of PDFDocumentView that is
