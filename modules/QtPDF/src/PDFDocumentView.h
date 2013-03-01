@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2011-2012  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -322,10 +322,10 @@ class PDFAnnotationsInfoWidget : public PDFDocumentInfoWidget
 {
   Q_OBJECT
 
-  QFutureWatcher< QList< QSharedPointer<PDFAnnotation> > > _annotWatcher;
+  QFutureWatcher< QList< QSharedPointer<Annotation::AbstractAnnotation> > > _annotWatcher;
   QTableWidget * _table;
 
-  static QList< QSharedPointer<PDFAnnotation> > loadAnnotations(QSharedPointer<Page> page);
+  static QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations(QSharedPointer<Page> page);
 
 public:
   PDFAnnotationsInfoWidget(QWidget * parent);
@@ -514,19 +514,19 @@ private:
   Q_DISABLE_COPY(PDFPageGraphicsItem)
 
 private slots:
-  void addLinks(QList< QSharedPointer<PDFLinkAnnotation> > links);
-  void addAnnotations(QList< QSharedPointer<PDFAnnotation> > annotations);
+  void addLinks(QList< QSharedPointer<Annotation::Link> > links);
+  void addAnnotations(QList< QSharedPointer<Annotation::AbstractAnnotation> > annotations);
 };
 
 // FIXME: Should be turned into a QGraphicsPolygonItem
 class PDFLinkGraphicsItem : public QGraphicsRectItem {
   typedef QGraphicsRectItem Super;
 
-  QSharedPointer<PDFLinkAnnotation> _link;
+  QSharedPointer<Annotation::Link> _link;
   bool _activated;
 
 public:
-  PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_link, QGraphicsItem *parent = 0);
+  PDFLinkGraphicsItem(QSharedPointer<Annotation::Link> a_link, QGraphicsItem *parent = 0);
   // See concerns in `PDFPageGraphicsItem` for why this feels fragile.
   enum { Type = UserType + 2 };
   int type() const;
@@ -549,12 +549,12 @@ private:
 class PDFMarkupAnnotationGraphicsItem : public QGraphicsRectItem {
   typedef QGraphicsRectItem Super;
 
-  QSharedPointer<PDFMarkupAnnotation> _annot;
+  QSharedPointer<Annotation::Markup> _annot;
   bool _activated;
   QWidget * _popup;
 
 public:
-  PDFMarkupAnnotationGraphicsItem(QSharedPointer<PDFMarkupAnnotation> annot, QGraphicsItem *parent = 0);
+  PDFMarkupAnnotationGraphicsItem(QSharedPointer<Annotation::Markup> annot, QGraphicsItem *parent = 0);
   // See concerns in `PDFPageGraphicsItem` for why this feels fragile.
   enum { Type = UserType + 3 };
   int type() const;

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2011-2012  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -75,7 +75,7 @@ PDFDestination toPDFDestination(const Poppler::Document * doc, const Poppler::Li
   return retVal;
 }
 
-void convertAnnotation(PDFAnnotation * dest, const Poppler::Annotation * src, Page * page)
+void convertAnnotation(Annotation::AbstractAnnotation * dest, const Poppler::Annotation * src, Page * page)
 {
   if (!dest || !src || !page)
     return;
@@ -91,25 +91,25 @@ void convertAnnotation(PDFAnnotation * dest, const Poppler::Annotation * src, Pa
   // TODO: Does poppler provide the color anywhere?
   // dest->setColor();
 
-  QFlags<PDFAnnotation::AnnotationFlags>& flags = dest->flags();
-  flags = QFlags<PDFAnnotation::AnnotationFlags>();
+  QFlags<Annotation::AbstractAnnotation::AnnotationFlags>& flags = dest->flags();
+  flags = QFlags<Annotation::AbstractAnnotation::AnnotationFlags>();
   if (src->flags() & Poppler::Annotation::Hidden)
-    flags |= PDFAnnotation::Annotation_Hidden;
+    flags |= Annotation::AbstractAnnotation::Annotation_Hidden;
   if (src->flags() & Poppler::Annotation::FixedSize)
-    flags |= PDFAnnotation::Annotation_NoZoom;
+    flags |= Annotation::AbstractAnnotation::Annotation_NoZoom;
   if (src->flags() & Poppler::Annotation::FixedRotation)
-    flags |= PDFAnnotation::Annotation_NoRotate;
+    flags |= Annotation::AbstractAnnotation::Annotation_NoRotate;
   if ((src->flags() & Poppler::Annotation::DenyPrint) == 0)
-    flags |= PDFAnnotation::Annotation_Print;
+    flags |= Annotation::AbstractAnnotation::Annotation_Print;
   if (src->flags() & Poppler::Annotation::DenyWrite)
-    flags |= PDFAnnotation::Annotation_ReadOnly;
+    flags |= Annotation::AbstractAnnotation::Annotation_ReadOnly;
   if (src->flags() & Poppler::Annotation::DenyDelete)
-    flags |= PDFAnnotation::Annotation_Locked;
+    flags |= Annotation::AbstractAnnotation::Annotation_Locked;
   if (src->flags() & Poppler::Annotation::ToggleHidingOnMouse)
-    flags |= PDFAnnotation::Annotation_ToggleNoView;
+    flags |= Annotation::AbstractAnnotation::Annotation_ToggleNoView;
   
   if (dest->isMarkup()) {
-    PDFMarkupAnnotation * annot = static_cast<PDFMarkupAnnotation*>(dest);
+    Annotation::Markup * annot = static_cast<Annotation::Markup*>(dest);
     annot->setAuthor(src->author());
     annot->setCreationDate(src->creationDate());
   }
@@ -446,7 +446,7 @@ QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box, bo
   return renderedPage;
 }
 
-QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
+QList< QSharedPointer<Annotation::Link> > PopplerPage::loadLinks()
 {
   if (_linksLoaded)
     return _links;
@@ -465,7 +465,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
 
   // Convert poppler links to PDFLinkAnnotations
   foreach (Poppler::Link * popplerLink, popplerLinks) {
-    QSharedPointer<PDFLinkAnnotation> link(new PDFLinkAnnotation);
+    QSharedPointer<Annotation::Link> link(new Annotation::Link);
 
     // Look up the corresponding Poppler::LinkAnnotation object. Do this first
     // so the general annotation settings can be overridden by more specific
@@ -485,7 +485,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
       convertAnnotation(link.data(), popplerLinkAnnot, this);
       // TODO: Does Poppler provide an easy interface to all quadPoints?
       // Note: Poppler::LinkAnnotation::HighlightMode is identical to PDFLinkAnnotation::HighlightingMode
-      link->setHighlightingMode((PDFLinkAnnotation::HighlightingMode)popplerLinkAnnot->linkHighlightMode());
+      link->setHighlightingMode((Annotation::Link::HighlightingMode)popplerLinkAnnot->linkHighlightMode());
       break;
     }
 
@@ -533,7 +533,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
   return _links;
 }
 
-QList< QSharedPointer<PDFAnnotation> > PopplerPage::loadAnnotations()
+QList< QSharedPointer<Annotation::AbstractAnnotation> > PopplerPage::loadAnnotations()
 {
   if (_annotationsLoaded)
     return _annotations;
@@ -553,16 +553,16 @@ QList< QSharedPointer<PDFAnnotation> > PopplerPage::loadAnnotations()
     switch (popplerAnnot->subType()) {
       case Poppler::Annotation::AText:
       {
-        PDFTextAnnotation * annot = new PDFTextAnnotation();
+        Annotation::Text * annot = new Annotation::Text();
         convertAnnotation(annot, popplerAnnot, this);
-        _annotations << QSharedPointer<PDFAnnotation>(annot);
+        _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
         break;
       }
       case Poppler::Annotation::ACaret:
       {
-        PDFCaretAnnotation * annot = new PDFCaretAnnotation();
+        Annotation::Caret * annot = new Annotation::Caret();
         convertAnnotation(annot, popplerAnnot, this);
-        _annotations << QSharedPointer<PDFAnnotation>(annot);
+        _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
         break;
       }
       case Poppler::Annotation::AHighlight:
@@ -571,30 +571,30 @@ QList< QSharedPointer<PDFAnnotation> > PopplerPage::loadAnnotations()
         switch (popplerHighlight->highlightType()) {
           case Poppler::HighlightAnnotation::Highlight:
           {
-            PDFHighlightAnnotation * annot = new PDFHighlightAnnotation();
+            Annotation::Highlight * annot = new Annotation::Highlight();
             convertAnnotation(annot, popplerAnnot, this);
-            _annotations << QSharedPointer<PDFAnnotation>(annot);
+            _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
             break;
           }
           case Poppler::HighlightAnnotation::Squiggly:
           {
-            PDFSquigglyAnnotation * annot = new PDFSquigglyAnnotation();
+            Annotation::Squiggly * annot = new Annotation::Squiggly();
             convertAnnotation(annot, popplerAnnot, this);
-            _annotations << QSharedPointer<PDFAnnotation>(annot);
+            _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
             break;
           }
           case Poppler::HighlightAnnotation::Underline:
           {
-            PDFUnderlineAnnotation * annot = new PDFUnderlineAnnotation();
+            Annotation::Underline * annot = new Annotation::Underline();
             convertAnnotation(annot, popplerAnnot, this);
-            _annotations << QSharedPointer<PDFAnnotation>(annot);
+            _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
             break;
           }
           case Poppler::HighlightAnnotation::StrikeOut:
           {
-            PDFStrikeOutAnnotation * annot = new PDFStrikeOutAnnotation();
+            Annotation::StrikeOut * annot = new Annotation::StrikeOut();
             convertAnnotation(annot, popplerAnnot, this);
-            _annotations << QSharedPointer<PDFAnnotation>(annot);
+            _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
             break;
           }
         }

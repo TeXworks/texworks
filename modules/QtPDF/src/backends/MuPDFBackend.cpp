@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2011-2012  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -272,7 +272,7 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
 
 
 // TODO: Find a better place to put this
-void initPDFAnnotation(PDFAnnotation * annot, Page * page, fz_obj * src)
+void initPDFAnnotation(Annotation::AbstractAnnotation * annot, Page * page, fz_obj * src)
 {
   static char keyRect[] = "Rect";
   static char keyContents[] = "Contents";
@@ -294,17 +294,17 @@ void initPDFAnnotation(PDFAnnotation * annot, Page * page, fz_obj * src)
   annot->setName(QString::fromUtf8(fz_to_str_buf(fz_dict_gets(src, keyNM))));
   annot->setLastModified(fromPDFDate(QString::fromUtf8(fz_to_str_buf(fz_dict_gets(src, keyM)))));
   annot->setColor(toColor(fz_dict_gets(src, keyC)));
-  annot->flags() = QFlags<PDFAnnotation::AnnotationFlags>(fz_to_int(fz_dict_gets(src, keyF)));
+  annot->flags() = QFlags<Annotation::AbstractAnnotation::AnnotationFlags>(fz_to_int(fz_dict_gets(src, keyF)));
 }
 
-PDFPopupAnnotation * toPDFPopupAnnotation(PDFMarkupAnnotation * parent, fz_obj * src)
+Annotation::Popup * toPDFPopupAnnotation(Annotation::Markup * parent, fz_obj * src)
 {
   static char keyOpen[] = "Open";
 
   if (!fz_is_dict(src))
     return NULL;
 
-  PDFPopupAnnotation * retVal = new PDFPopupAnnotation();
+  Annotation::Popup * retVal = new Annotation::Popup();
 
   initPDFAnnotation(retVal, parent->page(), src);
   retVal->setParent(parent);
@@ -312,7 +312,7 @@ PDFPopupAnnotation * toPDFPopupAnnotation(PDFMarkupAnnotation * parent, fz_obj *
   return retVal;
 }
 
-void initPDFMarkupAnnotation(PDFMarkupAnnotation * annot, Page * page, fz_obj * src)
+void initPDFMarkupAnnotation(Annotation::Markup * annot, Page * page, fz_obj * src)
 {
   static char keyT[] = "T";
   static char keyRC[] = "RC";
@@ -860,7 +860,7 @@ QImage MuPDFPage::renderToImage(double xres, double yres, QRect render_box, bool
   return renderedPage;
 }
 
-QList< QSharedPointer<PDFLinkAnnotation> > MuPDFPage::loadLinks()
+QList< QSharedPointer<Annotation::Link> > MuPDFPage::loadLinks()
 {
   MuPDFLocaleResetter lr;
 
@@ -881,7 +881,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > MuPDFPage::loadLinks()
   pdf_link * mupdfLink = page->links;
 
   while (mupdfLink) {
-    QSharedPointer<PDFLinkAnnotation> link(new PDFLinkAnnotation);
+    QSharedPointer<Annotation::Link> link(new Annotation::Link);
     link->setRect(toRectF(mupdfLink->rect));
     link->setPage(this);
     // FIXME: Initialize all other properties of PDFLinkAnnotation, such as
@@ -923,7 +923,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > MuPDFPage::loadLinks()
   return _links;
 }
 
-QList< QSharedPointer<PDFAnnotation> > MuPDFPage::loadAnnotations()
+QList< QSharedPointer<Annotation::AbstractAnnotation> > MuPDFPage::loadAnnotations()
 {
   MuPDFLocaleResetter lr;
   static char keyType[] = "Type";
@@ -953,39 +953,39 @@ QList< QSharedPointer<PDFAnnotation> > MuPDFPage::loadAnnotations()
 
     QString subtype = QString::fromAscii(fz_to_name(fz_dict_gets(mupdfAnnot->obj, keySubtype)));
     if (subtype == QString::fromAscii("Text")) {
-      PDFTextAnnotation * annot = new PDFTextAnnotation();
+      Annotation::Text * annot = new Annotation::Text();
       initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
-      _annotations << QSharedPointer<PDFAnnotation>(annot);
+      _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("FreeText")) {
-      PDFFreeTextAnnotation * annot = new PDFFreeTextAnnotation();
+      Annotation::FreeText * annot = new Annotation::FreeText();
       initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
-      _annotations << QSharedPointer<PDFAnnotation>(annot);
+      _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("Caret")) {
-      PDFCaretAnnotation * annot = new PDFCaretAnnotation();
+      Annotation::Caret * annot = new Annotation::Caret();
       initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
-      _annotations << QSharedPointer<PDFAnnotation>(annot);
+      _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("Highlight")) {
-      PDFHighlightAnnotation * annot = new PDFHighlightAnnotation();
+      Annotation::Highlight * annot = new Annotation::Highlight();
       initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
-      _annotations << QSharedPointer<PDFAnnotation>(annot);
+      _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("Underline")) {
-      PDFUnderlineAnnotation * annot = new PDFUnderlineAnnotation();
+      Annotation::Underline * annot = new Annotation::Underline();
       initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
-      _annotations << QSharedPointer<PDFAnnotation>(annot);
+      _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("Squiggly")) {
-      PDFSquigglyAnnotation * annot = new PDFSquigglyAnnotation();
+      Annotation::Squiggly * annot = new Annotation::Squiggly();
       initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
-      _annotations << QSharedPointer<PDFAnnotation>(annot);
+      _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("StrikeOut")) {
-      PDFStrikeOutAnnotation * annot = new PDFStrikeOutAnnotation();
+      Annotation::StrikeOut * annot = new Annotation::StrikeOut();
       initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
-      _annotations << QSharedPointer<PDFAnnotation>(annot);
+      _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     // TODO: Other annotation types (do we need Link annotations here?)
     mupdfAnnot = mupdfAnnot->next;
