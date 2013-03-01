@@ -1,5 +1,5 @@
 #include <QtGui/QtGui>
-#include "PDFDocumentView.h"
+#include "PDFDocumentWidget.h"
 
 class PageCounter;
 class ZoomTracker;
