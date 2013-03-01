@@ -7,10 +7,11 @@ LDFLAGS := $(shell pkg-config freetype2 poppler poppler-qt4 QtCore QtGui QtXml -
 
 VPATH = src
 SRCS := main.cpp PDFViewer.cpp moc_PDFViewer.cpp PDFDocumentView.cpp moc_PDFDocumentView.cpp
+OBJS = $(SRCS:.cpp=.o)
 
 all: pdf_viewer
 
-pdf_viewer: $(SRCS:.cpp=.o) icons.cpp
+pdf_viewer: $(OBJS) icons.cpp
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o pdf_viewer $^
 
 %.cpp : %.qrc
@@ -23,7 +24,7 @@ moc_%.cpp: %.h
 	$(CXX) $(CXXFLAGS) -c $<
 
 clean :
-	git clean -fdx
+	rm -f pdf_viewer $(OBJS) icons.cpp
 
 docs :
 	cd docs && rake
