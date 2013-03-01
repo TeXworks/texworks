@@ -604,14 +604,18 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   if ( not _linksLoaded )
   {
     if (docScene) {
-      // Connect the rendering thread's signal to this object to receive
-      // notifications of finished pages
-      // **TODO:** If we ever reassign pages to other scenes, revisit this!
-      // Right now, we don't disconnect from the old scene (to ensure we receive
-      // late pageReady messages and those don't vanish into nirvana)
+      // Connect the request object's signal to this object to receive a
+      // notification when the result is available.
+      // Note: We don't need to disconnect, as that is handled by Qt
+      // automatically when the request object is destroyed later on
+      // Note: addWorkItem must be separate, as otherwise the processing might
+      // finish before we have actually finished initialization (i.e.,
+      // finished connecting to the signal)
       PageProcessingLoadLinksRequest * request = docScene->processingThread().requestLoadLinks(this);
-      if (request)
+      if (request) {
         connect(request, SIGNAL(linksReady(QList<PDFLinkGraphicsItem *>)), this, SLOT(addLinks(QList<PDFLinkGraphicsItem *>)));
+        docScene->processingThread().addPageProcessingRequest(request);
+      }
     }
 
     _linksLoaded = true;
@@ -641,14 +645,17 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       _pageIsRendering = true;
 
       if (docScene) {
-        // Connect the rendering thread's signal to this object to receive
-        // notifications of finished pages
-        // **TODO:** If we ever reassign pages to other scenes, revisit this!
-        // Right now, we don't disconnect from the old scene (to ensure we receive
-        // late pageReady messages and those don't vanish into nirvana)
+        // Connect the request object's signal to this object to receive a
+        // notification when the finished page is available.
+        // Note: We don't need to disconnect, as that is handled by Qt
+        // automatically when the request object is destroyed later on
+        // Note: addWorkItem must be separate, as otherwise the processing might
+        // finish before we have actually finished initialization (i.e.,
+        // finished connecting to the signal)
         PageProcessingRenderPageRequest * request = docScene->processingThread().requestRenderPage(this, scaleFactor);
         if (request) {
           connect(request, SIGNAL(pageImageReady(qreal, QImage)), this, SLOT(updateMagnifiedPage(qreal, QImage)));
+          docScene->processingThread().addPageProcessingRequest(request);
         }
       }
 
@@ -687,14 +694,17 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       _pageIsRendering = true;
 
       if (docScene) {
-        // Connect the rendering thread's signal to this object to receive
-        // notifications of finished pages
-        // **TODO:** If we ever reassign pages to other scenes, revisit this!
-        // Right now, we don't disconnect from the old scene (to ensure we receive
-        // late pageReady messages and those don't vanish into nirvana)
+        // Connect the request object's signal to this object to receive a
+        // notification when the finished page is available.
+        // Note: We don't need to disconnect, as that is handled by Qt
+        // automatically when the request object is destroyed later on
+        // Note: addWorkItem must be separate, as otherwise the processing might
+        // finish before we have actually finished initialization (i.e.,
+        // finished connecting to the signal)
         PageProcessingRenderPageRequest * request = docScene->processingThread().requestRenderPage(this, scaleFactor);
         if (request) {
           connect(request, SIGNAL(pageImageReady(qreal, QImage)), this, SLOT(updateRenderedPage(qreal, QImage)));
+          docScene->processingThread().addPageProcessingRequest(request);
         }
       }
 
@@ -972,18 +982,30 @@ PDFPageProcessingThread::~PDFPageProcessingThread()
   wait();
 }
 
-PageProcessingRenderPageRequest * PDFPageProcessingThread::requestRenderPage(PDFPageGraphicsItem * page, qreal scaleFactor)
+PageProcessingRenderPageRequest * PDFPageProcessingThread::requestRenderPage(PDFPageGraphicsItem * page, qreal scaleFactor) const
+{
+  return new PageProcessingRenderPageRequest(page, scaleFactor);
+}
+
+PageProcessingLoadLinksRequest* PDFPageProcessingThread::requestLoadLinks(PDFPageGraphicsItem * page) const
+{
+  return new PageProcessingLoadLinksRequest(page);
+}
+
+void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * request)
 {
   int i;
-  PageProcessingRenderPageRequest * workItem = new PageProcessingRenderPageRequest(page, scaleFactor);
+
+  if (!request)
+    return;
 
   QMutexLocker locker(&(this->_mutex));
-  // remove any instances of the given graphics item before adding it to avoid
-  // rendering it several times
+  // remove any instances of the given request type before adding the new one to
+  // avoid processing it several times
   // **TODO:** Could it be that we require several concurrent versions of the
   //           same page?
   for (i = _workStack.size() - 1; i >= 0; --i) {
-    if (_workStack[i]->page == page && _workStack[i]->type() == PageProcessingRequest::PageRendering) {
+    if (_workStack[i]->page == request->page && _workStack[i]->type() == request->type()) {
       // Using deleteLater() doesn't work because we have no event queue in this
       // thread. However, since the object is still on the stack, it is still
       // sleeping and directly deleting it should therefore be safe.
@@ -992,48 +1014,25 @@ PageProcessingRenderPageRequest * PDFPageProcessingThread::requestRenderPage(PDF
     }
   }
 
-  _workStack.push(workItem);
+  _workStack.push(request);
   locker.unlock();
 #ifdef DEBUG
-  qDebug() << "new render request for page" << qobject_cast<PDFDocumentScene*>(page->scene())->pageNumFor(page) << "added to stack; now has" << _workStack.size() << "items";
-#endif
-
-  if (!isRunning())
-    start();
-  else
-    _waitCondition.wakeOne();
-  return workItem;
-}
-
-PageProcessingLoadLinksRequest* PDFPageProcessingThread::requestLoadLinks(PDFPageGraphicsItem * page)
-{
-  int i;
-  PageProcessingLoadLinksRequest * workItem = new PageProcessingLoadLinksRequest(page);
-
-  QMutexLocker locker(&(this->_mutex));
-  // remove any instances of the given graphics item before adding it to avoid
-  // rendering it several times
-  for (i = _workStack.size() - 1; i >= 0; --i) {
-    if (_workStack[i]->page == page && _workStack[i]->type() == PageProcessingRequest::LoadLinks) {
-      // Using deleteLater() doesn't work because we have no event queue in this
-      // thread. However, since the object is still on the stack, it is still
-      // sleeping and directly deleting it should therefore be safe.
-      delete _workStack[i];
-      _workStack.remove(i);
-    }
+  QString jobDesc;
+  switch (request->type()) {
+    case PageProcessingRequest::LoadLinks:
+      jobDesc = QString::fromUtf8("loading links request");
+      break;
+    case PageProcessingRequest::PageRendering:
+      jobDesc = QString::fromUtf8("rendering page request");
+      break;
   }
-
-  _workStack.push(workItem);
-  locker.unlock();
-#ifdef DEBUG
-  qDebug() << "new 'load links' request for page" << qobject_cast<PDFDocumentScene*>(page->scene())->pageNumFor(page) << "added to stack; now has" << _workStack.size() << "items";
+  qDebug() << "new" << jobDesc << "for page" << qobject_cast<PDFDocumentScene*>(request->page->scene())->pageNumFor(request->page) << "added to stack; now has" << _workStack.size() << "items";
 #endif
 
   if (!isRunning())
     start();
   else
     _waitCondition.wakeOne();
-  return workItem;
 }
 
 void PDFPageProcessingThread::run()

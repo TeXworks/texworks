@@ -172,8 +172,15 @@ public:
   PDFPageProcessingThread();
   virtual ~PDFPageProcessingThread();
 
-  PageProcessingRenderPageRequest* requestRenderPage(PDFPageGraphicsItem * page, qreal scaleFactor);
-  PageProcessingLoadLinksRequest* requestLoadLinks(PDFPageGraphicsItem * page);
+  PageProcessingRenderPageRequest* requestRenderPage(PDFPageGraphicsItem * page, const qreal scaleFactor) const;
+  PageProcessingLoadLinksRequest* requestLoadLinks(PDFPageGraphicsItem * page) const;
+
+  // add a processing request to the work stack
+  // Note: request must have been created on the heap and must be in the scope
+  // of this thread; use requestRenderPage() and requestLoadLinks() for that
+  // Note: this must be separate from the request...() methods to allow the
+  // calling thread some late initialization (e.g., connecting to signals)
+  void addPageProcessingRequest(PageProcessingRequest * request);
 
 protected:
   virtual void run();
