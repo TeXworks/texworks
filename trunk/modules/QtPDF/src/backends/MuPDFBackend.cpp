@@ -235,40 +235,8 @@ MuPDFDocument::MuPDFDocument(QString fileName):
   _glyph_cache(fz_new_glyph_cache()),
   _mupdf_data(NULL)
 {
-  fz_stream *pdf_file = fz_open_file(fileName.toLocal8Bit().data());
-  if (!pdf_file)
-    return;
-  pdf_open_xref_with_stream(&_mupdf_data, pdf_file, NULL);
-  fz_close(pdf_file);
-
-  if (!_mupdf_data)
-    return;
-
-  // Permissions
-  if (pdf_has_permission(_mupdf_data, PDF_PERM_PRINT))
-    _permissions |= Permission_Print;
-  if (pdf_has_permission(_mupdf_data, PDF_PERM_CHANGE))
-    _permissions |= Permission_Change;
-  if (pdf_has_permission(_mupdf_data, PDF_PERM_COPY))
-    _permissions |= Permission_Extract;
-  if (pdf_has_permission(_mupdf_data, PDF_PERM_NOTES))
-    _permissions |= Permission_Annotate;
-  if (pdf_has_permission(_mupdf_data, PDF_PERM_FILL_FORM))
-    _permissions |= Permission_FillForm;
-  if (pdf_has_permission(_mupdf_data, PDF_PERM_ACCESSIBILITY))
-    _permissions |= Permission_ExtractForAccessibility;
-  if (pdf_has_permission(_mupdf_data, PDF_PERM_ASSEMBLE))
-    _permissions |= Permission_Assemble;
-  if (pdf_has_permission(_mupdf_data, PDF_PERM_HIGH_RES_PRINT))
-    _permissions |= Permission_PrintHighRes;
-
-  // NOTE: This can also fail.
-  pdf_load_page_tree(_mupdf_data);
-
-  _numPages = pdf_count_pages(_mupdf_data);
-
-
-  loadMetaData();
+  _fileName = fileName;
+  reload();
 }
 
 MuPDFDocument::~MuPDFDocument()
@@ -281,9 +249,96 @@ MuPDFDocument::~MuPDFDocument()
   fz_free_glyph_cache(_glyph_cache);
 }
 
+void MuPDFDocument::reload()
+{
+  if (_mupdf_data) {
+    pdf_free_xref(_mupdf_data);
+    _mupdf_data = NULL;
+  }
+
+  fz_stream *pdf_file = fz_open_file(_fileName.toLocal8Bit().data());
+  if (!pdf_file)
+    return;
+  pdf_open_xref_with_stream(&_mupdf_data, pdf_file, NULL);
+  fz_close(pdf_file);
+
+  if (!_mupdf_data)
+    return;
+
+  // Permission level determination works as follows:
+  // 1) If there is no `crypt` dictionary, there is no security set, and
+  //    consequently we have full permissions (i.e., owner level)
+  // 2) If there is a `crypt` dictionary and we have a password to try, do that.
+  //    Note: MuPDF currently doesn't provide any way to distinguish user from
+  //    owner password, so to be on the safe side we always assume the lower
+  //    (i.e. user) permission level
+  // 3) If we have `crypt` but no password, see if that is enough for user level
+  // 4) Otherwise, the document is locked
+  if (!_mupdf_data->crypt)
+    _permissionLevel = PermissionLevel_Owner;
+  else if (!_password.isEmpty()) {
+    // TODO: Check if toUtf8 makes sense
+    // TODO: Revisit this once MuPDF tells us the permission level we have
+    if (pdf_authenticate_password(_mupdf_data, _password.toUtf8().data()))
+      _permissionLevel = PermissionLevel_User;
+    else
+      _permissionLevel = PermissionLevel_Locked;
+  }
+  else if (!pdf_needs_password(_mupdf_data))
+    _permissionLevel = PermissionLevel_User;
+  else
+    _permissionLevel = PermissionLevel_Locked;
+
+  // Permissions
+  // - at `Locked` level, we have no permissions
+  // - at `User` level, we take the permissions from MuPDF
+  // - at `Owner` level, we assume full permissions (note that pdf_has_permission
+  //   doesn't distinguish between user and owner level)
+  switch (_permissionLevel) {
+    case PermissionLevel_Locked:
+      _permissions = QFlags<Permissions>();
+      break;
+    case PermissionLevel_User:
+      _permissions = QFlags<Permissions>();
+      if (pdf_has_permission(_mupdf_data, PDF_PERM_PRINT))
+        _permissions |= Permission_Print;
+      if (pdf_has_permission(_mupdf_data, PDF_PERM_CHANGE))
+        _permissions |= Permission_Change;
+      if (pdf_has_permission(_mupdf_data, PDF_PERM_COPY))
+        _permissions |= Permission_Extract;
+      if (pdf_has_permission(_mupdf_data, PDF_PERM_NOTES))
+        _permissions |= Permission_Annotate;
+      if (pdf_has_permission(_mupdf_data, PDF_PERM_FILL_FORM))
+        _permissions |= Permission_FillForm;
+      if (pdf_has_permission(_mupdf_data, PDF_PERM_ACCESSIBILITY))
+        _permissions |= Permission_ExtractForAccessibility;
+      if (pdf_has_permission(_mupdf_data, PDF_PERM_ASSEMBLE))
+        _permissions |= Permission_Assemble;
+      if (pdf_has_permission(_mupdf_data, PDF_PERM_HIGH_RES_PRINT))
+        _permissions |= Permission_PrintHighRes;
+      break;
+    case PermissionLevel_Owner:
+      _permissions = QFlags<Permissions>(Permission_Print | \
+                                         Permission_Change | \
+                                         Permission_Extract | \
+                                         Permission_Annotate | \
+                                         Permission_FillForm | \
+                                         Permission_ExtractForAccessibility | \
+                                         Permission_Assemble | \
+                                         Permission_PrintHighRes);
+      break;
+  }
+
+  // NOTE: This can also fail.
+  pdf_load_page_tree(_mupdf_data);
+  _numPages = pdf_count_pages(_mupdf_data);
+  loadMetaData();
+}
+
 QSharedPointer<Page> MuPDFDocument::page(int at)
 {
   // FIXME: Come up with something to deal with a zero-page PDF.
+  // FIXME: Check if `at` is a valid index
   assert(_numPages != 0);
 
   if( _pages.isEmpty() )
@@ -299,6 +354,10 @@ void MuPDFDocument::loadMetaData()
 {
   char infoName[] = "Info"; // required because fz_dict_gets is not prototyped to take const char *
 
+  if (isLocked())
+    return;
+
+  // TODO: Handle encrypted meta data
   // Note: fz_is_dict(NULL)===0, i.e., it doesn't crash
   if (!fz_is_dict(_mupdf_data->trailer))
     return;
@@ -385,6 +444,9 @@ QList<PDFFontInfo> MuPDFDocument::fonts() const
   char fontfile2Key[] = "FontFile2";
   char fontfile3Key[] = "FontFile3";
   QList<PDFFontInfo> retVal;
+
+  if (!_mupdf_data)
+    return retVal;
 
 #ifdef DEBUG
   QTime timer;
@@ -535,13 +597,38 @@ void MuPDFDocument::recursiveConvertToC(QList<PDFToCItem> & items, pdf_outline *
 
 PDFToC MuPDFDocument::toc() const
 {
-  Q_ASSERT(_mupdf_data != NULL);
   PDFToC retVal;
+
+  if (!_mupdf_data)
+    return retVal;
+
   pdf_outline * outline = pdf_load_outline(_mupdf_data);
-  recursiveConvertToC(retVal, outline);
-  pdf_free_outline(outline);
+  if (outline) {
+    recursiveConvertToC(retVal, outline);
+    pdf_free_outline(outline);
+  }
   return retVal;
 }
+
+bool MuPDFDocument::unlock(const QString password)
+{
+  if (!_mupdf_data)
+    return false;
+
+  // Note: we try unlocking regardless of what isLocked() returns as the user
+  // might want to unlock a document with the owner's password when user level
+  // access is already granted.
+  // TODO: Check if toUtf8 makes sense
+  bool success = pdf_authenticate_password(_mupdf_data, password.toUtf8().data());
+
+  if (success)
+    _password = password;
+  // Note: Reload in any case as pdf_authenticate_password can even relock the
+  // document (which reload() undoes)
+  reload();
+  return success;
+}
+
 
 // Page Class
 // ==========

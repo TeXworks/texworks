@@ -339,9 +339,14 @@ signals:
   void pageChangeRequested(int pageNum);
   void pageLayoutChanged();
   void pdfActionTriggered(const PDFAction * action);
+  void documentChanged(const QSharedPointer<Document> doc);
+
+public slots:
+  void doUnlockDialog();
 
 protected slots:
   void pageLayoutChanged(const QRectF& sceneRect);
+  void reinitializeScene();
 
 protected:
   bool event(QEvent* event);

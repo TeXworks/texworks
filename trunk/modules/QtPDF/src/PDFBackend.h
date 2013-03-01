@@ -614,6 +614,8 @@ struct  SearchResult
 // documents. Having a set of abstract classes allows tools like GUI viewers to
 // be written that are agnostic to the library that provides the actual PDF
 // implementation: Poppler, MuPDF, etc.
+// TODO: Should this class be derived from QObject to emit signals (e.g., 
+// documentChanged() after reload, unlocking, etc.)?
 
 class Document
 {
@@ -648,6 +650,10 @@ public:
   QFlags<Permissions>& permissions() { return _permissions; }
 
   virtual bool isValid() const = 0;
+  virtual bool isLocked() const = 0;
+
+  // Returns `true` if unlocking was successful and `false` otherwise.  
+  virtual bool unlock(const QString password) = 0;
 
   // Override in derived class if it provides access to the document outline
   // strutures of the pdf file.
@@ -684,6 +690,8 @@ protected:
   PDFPageCache _pageCache;
   QVector< QSharedPointer<Page> > _pages;
   QFlags<Permissions> _permissions;
+
+  QString _fileName;
 
   QString _meta_title;
   QString _meta_author;

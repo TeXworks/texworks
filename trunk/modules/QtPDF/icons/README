@@ -5,6 +5,7 @@ document-open.png:       Tango (http://commons.wikimedia.org/w/index.php?title=F
 fitwidth.png:            Derived from scalable/zoom-fit.svg
 fitwindow.png:           Derived from scalable/zoom-fit.svg
 hand.png:                Derived from scalable/hand.svg
+lock.png:                Derived from scalable/Emblem-readonly.svg
 logo.png:                Derived from scalable/logo.svg
 magnifiercursor.png:     Derived from zoom.png
 pagemode-continuous.png: Derived from scalable/pagemode.svg
@@ -19,14 +20,14 @@ zoom-select.png:         Derived from scalable/zoom.svg
 
 In scalable/
 ------------
-hand.svg:       Derived Qt (/tools/designer/src/components/formeditor/images/cursors)
-logo.svg:       Hand-made using FreeSerif font
-page.svg:       Derived from CodeTangoSet (http://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
-pagemode.svg:   Derived from page.svg
-Window-new.svg: Tango (http://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764)
-zoom.svg        Derived from Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
-zoom-fit.svg:   Derived from page.svg and Window-new.svg
-
+hand.svg:            Derived Qt (/tools/designer/src/components/formeditor/images/cursors)
+logo.svg:            Hand-made using FreeSerif font
+page.svg:            Derived from CodeTangoSet (http://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+pagemode.svg:        Derived from page.svg
+Window-new.svg:      Tango (http://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764)
+zoom.svg             Derived from Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
+zoom-fit.svg:        Derived from page.svg and Window-new.svg
+Emblem-readonly.svg: Tango (http://commons.wikimedia.org/w/index.php?title=File:Emblem-readonly.svg&oldid=57074301)
 
 
 Qt icons are under both the GPLv3 and LGPLv2.1

@@ -45,12 +45,18 @@ public:
   ~PopplerDocument();
 
   bool isValid() const { return (_poppler_doc != NULL); }
+  bool isLocked() const { return (_poppler_doc ? _poppler_doc->isLocked() : false); }
+
+  bool unlock(const QString password);
 
   QSharedPointer<Page> page(int at);
   PDFDestination resolveDestination(const PDFDestination & namedDestination) const;
 
   PDFToC toc() const;
   QList<PDFFontInfo> fonts() const;
+
+private:
+  void parseDocument();
 };
 
 

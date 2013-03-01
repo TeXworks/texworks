@@ -96,11 +96,15 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   if (!_pdf_scene || pageMode == _pageMode)
     return;
 
+  QGraphicsItem *currentPage = _pdf_scene->pageAt(_currentPage);
+  if (!currentPage)
+    return;
+
   // Save the current view relative to the current page so we can restore it
   // after changing the mode
   // **TODO:** Safeguard
   QRectF viewRect(mapToScene(viewport()->rect()).boundingRect());
-  viewRect.translate(-_pdf_scene->pageAt(_currentPage)->pos());
+  viewRect.translate(-currentPage->pos());
 
   // **TODO:** Avoid relayouting everything twice when switching from SinglePage
   // to TwoColumnContinuous (once by setContinuous(), and a second time by
@@ -263,10 +267,14 @@ void PDFDocumentView::zoomFitWindow()
   if (!scene())
     return;
 
+  QGraphicsItem *currentPage = _pdf_scene->pageAt(_currentPage);
+  if (!currentPage)
+    return;
+
   // Curious fact: This function will end up producing a different zoom level depending on if
   // it zooms out or in. But the implementation of `fitInView` in the Qt source
   // is pretty solid---I can't think of a better way to do it.
-  fitInView(_pdf_scene->pageAt(_currentPage), Qt::KeepAspectRatio);
+  fitInView(currentPage, Qt::KeepAspectRatio);
 
   _zoomLevel = transform().m11();
   emit changedZoom(_zoomLevel);
@@ -280,6 +288,9 @@ void PDFDocumentView::zoomFitWidth()
       return;
 
   QGraphicsItem *currentPage = _pdf_scene->pageAt(_currentPage);
+  if (!currentPage)
+    return;
+  
   // Store current y position so we can center on it later.
   qreal ypos = mapToScene(viewport()->rect()).boundingRect().center().y();
 
@@ -1253,27 +1264,14 @@ PDFDocumentScene::PDFDocumentScene(Document *a_doc, QObject *parent):
   Super(parent),
   _doc(a_doc)
 {
+  Q_ASSERT(a_doc != NULL);
   // We need to register a QList<PDFLinkGraphicsItem *> meta-type so we can
   // pass it through inter-thread (i.e., queued) connections
   qRegisterMetaType< QList<PDFLinkGraphicsItem *> >();
 
-  _lastPage = _doc->numPages();
-
   connect(&_pageLayout, SIGNAL(layoutChanged(const QRectF)), this, SLOT(pageLayoutChanged(const QRectF)));
 
-  // Create a `PDFPageGraphicsItem` for each page in the PDF document and let
-  // them be layed out by a `PDFPageLayout` instance.
-  int i;
-  PDFPageGraphicsItem *pagePtr;
-
-  for (i = 0; i < _lastPage; ++i)
-  {
-    pagePtr = new PDFPageGraphicsItem(_doc->page(i));
-    _pages.append(pagePtr);
-    addItem(pagePtr);
-    _pageLayout.addPage(pagePtr);
-  }
-  _pageLayout.relayout();
+  reinitializeScene();
 }
 
 void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
@@ -1367,6 +1365,33 @@ bool PDFDocumentScene::event(QEvent *event)
   return Super::event(event);
 }
 
+// Public Slots
+// --------------
+void PDFDocumentScene::doUnlockDialog()
+{
+  Q_ASSERT(!_doc.isNull());
+
+  bool ok;
+  // TODO: Maybe use some parent for QInputDialog (and QMessageBox below)
+  // instead of NULL?
+  QString password = QInputDialog::getText(NULL, trUtf8("Unlock PDF"), trUtf8("Please enter the password to unlock the PDF"), QLineEdit::Password, QString(), &ok);
+  if (ok) {
+    if (_doc->unlock(password)) {
+      // FIXME: the program crashes in the QGraphicsView::mouseReleaseEvent
+      // handler (presumably from clicking the "Unlock" button) when
+      // reinitializeScene() is called immediately. To work around this, delay
+      // it until control returns to the event queue. Problem: slots connected
+      // to documentChanged() will receive the new doc, but the scene itself
+      // will not have changed, yet.
+      QTimer::singleShot(1, this, SLOT(reinitializeScene()));
+      // FIXME: Other parts of the program should connect to documentChanged
+      // to update data (e.g., dock widgets, page number status bar widget, ...)
+      emit documentChanged(_doc);
+    }
+    else
+      QMessageBox::information(NULL, trUtf8("Incorrect password"), trUtf8("The password you entered was incorrect."));
+  }
+}
 
 // Protected Slots
 // --------------
@@ -1375,6 +1400,52 @@ void PDFDocumentScene::pageLayoutChanged(const QRectF& sceneRect)
   setSceneRect(sceneRect);
   emit pageLayoutChanged();
 }
+
+void PDFDocumentScene::reinitializeScene()
+{
+  clear();
+  _lastPage = _doc->numPages();
+  if (_doc->isLocked()) {
+    // FIXME: Deactivate "normal" user interaction, e.g., zooming, panning, etc.
+    QWidget * _unlockWidget = new QWidget();
+    QVBoxLayout * layout = new QVBoxLayout();
+
+    QLabel * lockIcon = new QLabel(_unlockWidget);
+    lockIcon->setPixmap(QPixmap(":/icons/lock.png"));
+    QLabel * lockText = new QLabel(tr("This document is locked. You need a password to open it."), _unlockWidget);
+    QPushButton * lockButton = new QPushButton(tr("Unlock"), _unlockWidget);
+
+    connect(lockButton, SIGNAL(clicked()), this, SLOT(doUnlockDialog()));
+
+    layout->addWidget(lockIcon);
+    layout->addWidget(lockText);
+    layout->addSpacing(20);
+    layout->addWidget(lockButton);
+
+    layout->setAlignment(lockIcon, Qt::AlignHCenter);
+    layout->setAlignment(lockText, Qt::AlignHCenter);
+    layout->setAlignment(lockButton, Qt::AlignHCenter);
+
+    _unlockWidget->setLayout(layout);
+    addWidget(_unlockWidget);
+  }
+  else {
+    // Create a `PDFPageGraphicsItem` for each page in the PDF document and let
+    // them be layed out by a `PDFPageLayout` instance.
+    int i;
+    PDFPageGraphicsItem *pagePtr;
+
+    for (i = 0; i < _lastPage; ++i)
+    {
+      pagePtr = new PDFPageGraphicsItem(_doc->page(i));
+      _pages.append(pagePtr);
+      addItem(pagePtr);
+      _pageLayout.addPage(pagePtr);
+    }
+    _pageLayout.relayout();
+  }
+}
+
 
 // Other
 // -----
