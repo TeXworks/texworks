@@ -414,15 +414,18 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
   // Create an empty pixmap that is the same size as the PDF page. This
   // allows us to delay the rendering of pages until they actually come into
   // view yet still know what the page size is.
-  QSizeF pageSize = _page->pageSizeF() / 72.0;
-  pageSize.setHeight(pageSize.height() * _dpiY);
-  pageSize.setWidth(pageSize.width() * _dpiX);
+  _pageSize = _page->pageSizeF();
+  _pageSize.setWidth(_pageSize.width() * _dpiX / 72.0);
+  _pageSize.setHeight(_pageSize.height() * _dpiY / 72.0);
 
-  _pageScale = QTransform::fromScale(pageSize.width(), pageSize.height());
-  setPixmap(QPixmap(pageSize.toSize()));
-  _renderedPage = QPixmap(pageSize.toSize());
+  _pageScale = QTransform::fromScale(_pageSize.width(), _pageSize.height());
+  // If we have a thumbnail image, use that as temporary image
+  if (_page && !_page->thumbnail().isNull())
+    _temporaryPage = QPixmap::fromImage(_page->thumbnail()).scaled(_pageSize.toSize());
+  _renderedPage = QPixmap(_pageSize.toSize());
 }
 
+QRectF PDFPageGraphicsItem::boundingRect() const { return QRectF(QPointF(0.0, 0.0), _pageSize); }
 int PDFPageGraphicsItem::type() const { return Type; }
 
 // An overloaded paint method allows us to render the contents of
@@ -480,11 +483,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // this matrix to position the page and then reset the transformation matrix
   // to an identity matrix as the page image has already been resized during
   // rendering.
-  QPointF origin = painter->transform().map(offset());
-
-  // This part is modified from the `paint` method of `QGraphicsPixmapItem`.
-  painter->setRenderHint(QPainter::SmoothPixmapTransform,
-    (transformationMode() == Qt::SmoothTransformation));
+  QPointF origin = painter->transform().map(QPointF(0.0, 0.0));
 
   if ( _pageIsRendering ) {
     // A new resized page is still rendering, so we "blow up" our current

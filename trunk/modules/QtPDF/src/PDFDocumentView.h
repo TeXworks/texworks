@@ -199,18 +199,20 @@ private:
 
 
 // Also inherits QObject in order to access SIGNALS/SLOTS for `QFutureWatcher`.
-// A little hokey. Should probably inherit `QGraphicsObject` and be a
-// completely custom implementation.
-class PDFPageGraphicsItem : public QObject, public QGraphicsPixmapItem
+// In the future, this should probably inherit `QGraphicsObject` directly, but
+// since that was introduced only in Qt 4.6 it would break compilation on older
+// systems for now
+class PDFPageGraphicsItem : public QObject, public QGraphicsItem
 {
   Q_OBJECT
-  typedef QGraphicsPixmapItem Super;
+  typedef QGraphicsItem Super;
 
   Poppler::Page *_page;
   QPixmap _renderedPage;
   QPixmap _temporaryPage;
   double _dpiX;
   double _dpiY;
+  QSizeF _pageSize;
 
   bool _linksLoaded;
   QFutureWatcher< QList<PDFLinkGraphicsItem *> > *_linkGenerator;
@@ -236,6 +238,8 @@ public:
   int type() const;
 
   void paint( QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+  virtual QRectF boundingRect() const;
 
 private:
   // Parent has no copy constructor.
