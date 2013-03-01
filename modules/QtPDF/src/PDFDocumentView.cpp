@@ -27,7 +27,8 @@ static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGr
 // and displaying the contents of a `Poppler::Document` using a `QGraphicsScene`.
 PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
-  _zoomLevel(1.0)
+  _zoomLevel(1.0),
+  _pageMode(PageMode_OneColumnContinuous)
 {
   setBackgroundRole(QPalette::Dark);
   setAlignment(Qt::AlignCenter);
@@ -57,7 +58,7 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
   // _May want to consider not doing this by default. It is conceivable to have
   // a View that would ignore page jumps that other scenes would respond to._
   connect(a_scene, SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
-  connect(a_scene, SIGNAL(pageLayoutChanged()), this, SLOT(pageLayoutChanged()));
+  connect(this, SIGNAL(changedPage(int)), this, SLOT(maybeUpdateSceneRect()));
 }
 int PDFDocumentView::currentPage() { return _currentPage; }
 int PDFDocumentView::lastPage()    { return _lastPage; }
@@ -67,13 +68,30 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   if (!_pdf_scene || pageMode == _pageMode)
     return;
 
+  // **TODO:** Avoid relayouting everything twice when switching from SinglePage
+  // to TwoColumnContinuous (once by setContinuous(), and a second time by
+  // setColumnCount() below)
   switch (pageMode) {
-//    case PageMode_SinglePage:
-//      break;
+    case PageMode_SinglePage:
+      _pdf_scene->showOnePage(_currentPage);
+      _pdf_scene->pageLayout().setContinuous(false);
+      break;
     case PageMode_OneColumnContinuous:
+      if (_pageMode == PageMode_SinglePage) {
+        _pdf_scene->pageLayout().setContinuous(true);
+        _pdf_scene->showAllPages();
+        // Reset the scene rect; causes it the encompass the whole scene
+        setSceneRect(QRectF());
+      }
       _pdf_scene->pageLayout().setColumnCount(1, 0);
       break;
     case PageMode_TwoColumnContinuous:
+      if (_pageMode == PageMode_SinglePage) {
+        _pdf_scene->pageLayout().setContinuous(true);
+        _pdf_scene->showAllPages();
+        // Reset the scene rect; causes it the encompass the whole scene
+        setSceneRect(QRectF());
+      }
       _pdf_scene->pageLayout().setColumnCount(2, 1);
       break;
   }
@@ -84,6 +102,7 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
 
 // Public Slots
 // ------------
+// **TODO:** goPrev() and goNext() should not (necessarily) center on top of page
 void PDFDocumentView::goPrev()  { goToPage(_currentPage - 1); }
 void PDFDocumentView::goNext()  { goToPage(_currentPage + 1); }
 void PDFDocumentView::goFirst() { goToPage(0); }
@@ -101,6 +120,8 @@ void PDFDocumentView::goToPage(int pageNum)
     moveTopLeftTo(_pdf_scene->pages().at(pageNum)->pos());
 
     _currentPage = pageNum;
+    if (_pageMode == PageMode_SinglePage && _pdf_scene)
+      _pdf_scene->showOnePage(_currentPage);
     emit changedPage(_currentPage);
   }
 }
@@ -122,7 +143,15 @@ void PDFDocumentView::zoomOut()
 
 // Protected Slots
 // --------------
-void PDFDocumentView::pageLayoutChanged() { goToPage(currentPage()); }
+void PDFDocumentView::maybeUpdateSceneRect() {
+  if (!_pdf_scene || _pageMode != PageMode_SinglePage)
+    return;
+
+  // Set the scene rect of the view, i.e., the rect accessible via the scroll
+  // bars. In single page mode, this must be the rect of the current page
+  // **TODO:** Safeguard
+  setSceneRect(_pdf_scene->pages().at(_currentPage)->sceneBoundingRect());
+}
 
 // Event Handlers
 // --------------
@@ -160,6 +189,8 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
 //
 //   * _Should we let some parent widget worry about delegating Page
 //     Up/PageDown/other keypresses?_
+// **TODO:** Handle mouseWheel/Key_Up/Key_Down events at the edge of pages in
+// single page mode
 void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 {
   switch ( event->key() )
@@ -191,6 +222,7 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 
   }
 }
+
 
 // Other
 // -----
@@ -234,7 +266,7 @@ PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
   connect(&_pageLayout, SIGNAL(layoutChanged(const QRectF)), this, SLOT(pageLayoutChanged(const QRectF)));
 
   // Create a `PDFPageGraphicsItem` for each page in the PDF document and let
-  // them be layed out by a `PDFPageGridLayout` instance.
+  // them be layed out by a `PDFPageLayout` instance.
   int i;
   PDFPageGraphicsItem *pagePtr;
 
@@ -309,6 +341,30 @@ void PDFDocumentScene::pageLayoutChanged(const QRectF& sceneRect)
 {
   setSceneRect(sceneRect);
   emit pageLayoutChanged();
+}
+
+// Other
+// -----
+void PDFDocumentScene::showOnePage(const int pageIdx) const
+{
+  int i;
+
+  for (i = 0; i < _pages.size(); ++i) {
+    if (!isPageItem(_pages[i]))
+      continue;
+    _pages[i]->setVisible(i == pageIdx);
+  }
+}
+
+void PDFDocumentScene::showAllPages() const
+{
+  int i;
+
+  for (i = 0; i < _pages.size(); ++i) {
+    if (!isPageItem(_pages[i]))
+      continue;
+    _pages[i]->setVisible(true);
+  }
 }
 
 
@@ -708,17 +764,18 @@ void PDFPageRenderingThread::run()
   }
 }
 
-PDFPageGridLayout::PDFPageGridLayout() :
+PDFPageLayout::PDFPageLayout() :
 _numCols(1),
 _firstCol(0),
 _xSpacing(10),
-_ySpacing(10)
+_ySpacing(10),
+_isContinuous(true)
 {
 }
 
-void PDFPageGridLayout::setColumnCount(const int numCols) {
-  // We need at least one column
-  if (numCols <= 0)
+void PDFPageLayout::setColumnCount(const int numCols) {
+  // We need at least one column, and we only handle changes
+  if (numCols <= 0 || numCols == _numCols)
     return;
 
   _numCols = numCols;
@@ -728,9 +785,9 @@ void PDFPageGridLayout::setColumnCount(const int numCols) {
   rearrange();
 }
 
-void PDFPageGridLayout::setColumnCount(const int numCols, const int firstCol) {
-  // We need at least one column
-  if (numCols <= 0)
+void PDFPageLayout::setColumnCount(const int numCols, const int firstCol) {
+  // We need at least one column, and we only handle changes
+  if (numCols <= 0 || (numCols == _numCols && firstCol == _firstCol))
     return;
 
   _numCols = numCols;
@@ -744,7 +801,11 @@ void PDFPageGridLayout::setColumnCount(const int numCols, const int firstCol) {
   rearrange();
 }
 
-void PDFPageGridLayout::setFirstColumn(const int firstCol) {
+void PDFPageLayout::setFirstColumn(const int firstCol) {
+  // We only handle changes
+  if (firstCol == _firstCol)
+    return;
+
   if (firstCol < 0)
     _firstCol = 0;
   else if (firstCol >= _numCols)
@@ -754,27 +815,38 @@ void PDFPageGridLayout::setFirstColumn(const int firstCol) {
   rearrange();
 }
 
-void PDFPageGridLayout::setXSpacing(const qreal xSpacing) {
+void PDFPageLayout::setXSpacing(const qreal xSpacing) {
   if (xSpacing > 0)
     _xSpacing = xSpacing;
   else
     _xSpacing = 0.;
 }
 
-void PDFPageGridLayout::setYSpacing(const qreal ySpacing) {
+void PDFPageLayout::setYSpacing(const qreal ySpacing) {
   if (ySpacing > 0)
     _ySpacing = ySpacing;
   else
     _ySpacing = 0.;
 }
 
-int PDFPageGridLayout::rowCount() const {
+void PDFPageLayout::setContinuous(const bool continuous /* = true */)
+{
+  if (continuous == _isContinuous)
+    return;
+  _isContinuous = continuous;
+  if (!_isContinuous)
+    setColumnCount(1, 0);
+    // setColumnCount() calls relayout automatically
+  else relayout();
+}
+
+int PDFPageLayout::rowCount() const {
   if (_layoutItems.isEmpty())
     return 0;
   return _layoutItems.last().row + 1;
 }
 
-void PDFPageGridLayout::addPage(PDFPageGraphicsItem * page) {
+void PDFPageLayout::addPage(PDFPageGraphicsItem * page) {
   LayoutItem item;
 
   if (!page)
@@ -796,7 +868,7 @@ void PDFPageGridLayout::addPage(PDFPageGraphicsItem * page) {
   _layoutItems.append(item);
 }
 
-void PDFPageGridLayout::removePage(PDFPageGraphicsItem * page) {
+void PDFPageLayout::removePage(PDFPageGraphicsItem * page) {
   QList<LayoutItem>::iterator it;
   int row, col;
 
@@ -827,7 +899,7 @@ void PDFPageGridLayout::removePage(PDFPageGraphicsItem * page) {
   }
 }
 
-void PDFPageGridLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem * before /* = NULL */) {
+void PDFPageLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem * before /* = NULL */) {
   QList<LayoutItem>::iterator it;
   int row, col;
   LayoutItem item;
@@ -872,7 +944,19 @@ void PDFPageGridLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsIt
 // threading problem; at least it can be done while rendering in the background
 // without acquiring the docMutex.
 // Maybe we should use a QReadWriteLock instead of docMutex?
-void PDFPageGridLayout::relayout() {
+void PDFPageLayout::relayout() {
+  if (_isContinuous)
+    continuousModeRelayout();
+  else
+    singlePageModeRelayout();
+}
+
+// Relayout the pages on the canvas in continuous mode
+// **TODO:** Accessing Poppler::Page::pageSizeF() doesn't seem to pose a
+// threading problem; at least it can be done while rendering in the background
+// without acquiring the docMutex.
+// Maybe we should use a QReadWriteLock instead of docMutex?
+void PDFPageLayout::continuousModeRelayout() {
   // Create arrays to hold offsets and make sure that they have
   // sufficient space (to avoid moving the data around in memory)
   QVector<qreal> colOffsets(_numCols + 1, 0), rowOffsets(rowCount() + 1, 0);
@@ -920,7 +1004,40 @@ void PDFPageGridLayout::relayout() {
   emit layoutChanged(sceneRect);
 }
 
-void PDFPageGridLayout::rearrange() {
+// Relayout the pages on the canvas in single page mode
+// **TODO:** Accessing Poppler::Page::pageSizeF() doesn't seem to pose a
+// threading problem; at least it can be done while rendering in the background
+// without acquiring the docMutex.
+// Maybe we should use a QReadWriteLock instead of docMutex?
+void PDFPageLayout::singlePageModeRelayout()
+{
+  qreal width, height, maxWidth = 0.0, maxHeight = 0.0;
+  QList<LayoutItem>::iterator it;
+  PDFPageGraphicsItem * page;
+  QSizeF pageSize;
+  QRectF sceneRect;
+
+  // We lay out all pages such that their center is in the origin (since only
+  // one page is visible at any time, this is no problem)
+  for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
+    if (!it->page || !it->page->_page)
+      continue;
+    page = it->page;
+    pageSize = page->_page->pageSizeF();
+    width = pageSize.width() * page->_dpiX / 72.;
+    height = pageSize.height() * page->_dpiY / 72.;
+    if (width > maxWidth)
+      maxWidth = width;
+    if (height > maxHeight)
+      maxHeight = height;
+    page->setPos(-width / 2., -height / 2.);
+  }
+
+  sceneRect.setRect(-maxWidth / 2., -maxHeight / 2., maxWidth, maxHeight);
+  emit layoutChanged(sceneRect);
+}
+
+void PDFPageLayout::rearrange() {
   QList<LayoutItem>::iterator it;
   int row, col;
 

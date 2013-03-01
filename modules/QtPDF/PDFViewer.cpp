@@ -18,7 +18,7 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   toolBar->addAction(QIcon(":/icons/zoomin.png"), "Zoom In", docView, SLOT(zoomIn()));
   toolBar->addAction(QIcon(":/icons/zoomout.png"), "Zoom Out", docView, SLOT(zoomOut()));
   toolBar->addSeparator();
-//  toolBar->addAction(tr("Single"), docView, SLOT(setSinglePageMode()));
+  toolBar->addAction(tr("Single"), docView, SLOT(setSinglePageMode()));
   toolBar->addAction(tr("1Col Cont"), docView, SLOT(setOneColContPageMode()));
   toolBar->addAction(tr("2Col Cont"), docView, SLOT(setTwoColContPageMode()));
   counter->setLastPage(docView->lastPage());
