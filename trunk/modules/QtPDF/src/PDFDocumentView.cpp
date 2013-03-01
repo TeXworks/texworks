@@ -1640,7 +1640,7 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_lin
       case PDFAction::ActionTypeGoTo:
         {
           PDFGotoAction * actionGoto = static_cast<PDFGotoAction*>(action);
-          setToolTip(PDFDocumentView::trUtf8("<p>Goto page %1</p>").arg(actionGoto->destination().page()));
+          setToolTip(PDFDocumentView::trUtf8("<p>Goto page %1</p>").arg(actionGoto->destination().page() + 1));
         }
         break;
       case PDFAction::ActionTypeURI:
@@ -1778,7 +1778,8 @@ void PDFToCDockWidget::recursiveAddTreeItems(const QList<PDFToCItem> & tocItems,
     treeItem->setExpanded(tocItem.isOpen());
     // TODO: It might be better to register PDFAction via QMetaType to avoid
     // having to use (void*).
-    treeItem->setData(0, Qt::UserRole, QVariant::fromValue((void*)tocItem.action()->clone()));
+    if (tocItem.action())
+      treeItem->setData(0, Qt::UserRole, QVariant::fromValue((void*)tocItem.action()->clone()));
 
     // FIXME: page numbers in col 2, goto actions, etc.
 
