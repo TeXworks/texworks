@@ -438,7 +438,8 @@ public:
 // =======================
 // These provide library-specific concrete impelemntations of the abstract base
 // classes defined here.
-#include <backends/PopplerBackend.h>
+#include <backends/PopplerBackend.h> // Invokes GPL v2 License
+#include <backends/MuPDFBackend.h>   // Invokes GPL v3 License
 
 
 #endif // End header guard
