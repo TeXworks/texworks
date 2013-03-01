@@ -24,14 +24,7 @@ static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGr
 
 // This class descends from `QGraphicsView` and is responsible for controlling
 // and displaying the contents of a `Poppler::Document` using a `QGraphicsScene`.
-//
-// **TODO:**
-// _This class basically comes with a built-in `QGraphicsScene` unlike a
-// traditional `QGraphicsView` where the scenes can be swapped around.
-//
-// This is not the best way to do things as it makes it difficult to have
-// multiple views that observe the same scene._
-PDFDocumentView::PDFDocumentView(Poppler::Document *a_doc, QWidget *parent):
+PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
   zoomLevel(1.0)
 {
@@ -39,22 +32,31 @@ PDFDocumentView::PDFDocumentView(Poppler::Document *a_doc, QWidget *parent):
   setAlignment(Qt::AlignCenter);
   setFocusPolicy(Qt::StrongFocus);
 
-  // Having `pdf_scene` as a class member is a bit of a hack. Should probably
-  // override or overload the `scene` method.
-  pdf_scene = new PDFDocumentScene(a_doc, this);
-  setScene(pdf_scene);
-  _lastPage = pdf_scene->lastPage();
-
-  // Respond to page jumps requested by the `PDFDocumentScene`.
-  connect(pdf_scene, SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
-
-  // Automatically center on the first page in the PDF document.
-  goToPage(0);
+  // If _currentPage is not set to -1, the compiler may default to 0. In that
+  // case, `goFirst()` or `goToPage(0)` will fail because the view will think
+  // it is already looking at page 0.
+  _currentPage = -1;
 }
 
 
 // Accessors
 // ---------
+void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
+{
+  Super::setScene(a_scene);
+
+  // **TODO:** _Replace with an overloaded `scene` method._
+  pdf_scene = a_scene;
+
+  _lastPage = a_scene->lastPage();
+
+  // Respond to page jumps requested by the `PDFDocumentScene`.
+  //
+  // **TODO:**
+  // _May want to consider not doing this by default. It is conceivable to have
+  // a View that would ignore page jumps that other scenes would respond to._
+  connect(a_scene, SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
+}
 int PDFDocumentView::currentPage() { return _currentPage; }
 int PDFDocumentView::lastPage()    { return _lastPage; }
 
