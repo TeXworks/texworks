@@ -15,6 +15,16 @@
 // NOTE: `PopplerBackend.h` is included via `PDFBackend.h`
 #include <PDFBackend.h>
 
+// TODO: Find a better place to put this
+PDFDestination toPDFDestination(const Poppler::LinkDestination & dest)
+{
+  PDFDestination retVal(dest.pageNumber() - 1);
+  // FIXME: viewport, zoom, fitting, etc.
+  return retVal;
+}
+
+
+
 // Document Class
 // ==============
 PopplerDocument::PopplerDocument(QString fileName):
@@ -38,6 +48,60 @@ PopplerDocument::~PopplerDocument()
 }
 
 Page *PopplerDocument::page(int at){ return new PopplerPage(this, at); }
+
+void PopplerDocument::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode node) const
+{
+  while (!node.isNull()) {
+    PDFToCItem newItem(node.nodeName());
+
+    QDomNamedNodeMap attributes = node.attributes();
+    newItem.setOpen(attributes.namedItem(QString::fromUtf8("Open")).nodeValue() == QString::fromUtf8("true"));
+    // Note: color and flags are not supported by poppler
+
+    PDFGotoAction * action = NULL;
+    QString val = attributes.namedItem(QString::fromUtf8("Destination")).nodeValue();
+    if (!val.isEmpty())
+      action = new PDFGotoAction(toPDFDestination(Poppler::LinkDestination(val)));
+    else {
+      val = attributes.namedItem(QString::fromUtf8("DestinationName")).nodeValue();
+      if (!val.isEmpty() && _poppler_doc) {
+        Poppler::LinkDestination * dest = _poppler_doc->linkDestination(val);
+        if (dest) {
+          action = new PDFGotoAction(toPDFDestination(*dest));
+          delete dest;
+        }
+      }
+    }
+
+    val = attributes.namedItem(QString::fromUtf8("ExternalFileName")).nodeValue();
+    if (action) {
+      action->setOpenInNewWindow(false);
+      if (!val.isEmpty()) {
+        action->setRemote();
+        action->setFilename(val);
+      }
+    }
+    newItem.setAction(action);
+
+    recursiveConvertToC(newItem.children(), node.firstChild());
+    items << newItem;
+    node = node.nextSibling();
+  }
+}
+
+PDFToC PopplerDocument::toc() const
+{
+  PDFToC retVal;
+  if (!_poppler_doc)
+    return retVal;
+
+  QDomDocument * toc = _poppler_doc->toc();
+  if (!toc)
+    return retVal;
+  recursiveConvertToC(retVal, toc->firstChild());
+  delete toc;
+  return retVal;
+}
 
 
 // Page Class
@@ -110,9 +174,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
       case Poppler::Link::Goto:
         {
           Poppler::LinkGoto * popplerGoto = static_cast<Poppler::LinkGoto *>(popplerLink);
-          PDFDestination dest(popplerGoto->destination().pageNumber() - 1);
-          // FIXME: Convert viewport, zoom, fitting, etc.
-          PDFGotoAction * action = new PDFGotoAction(dest);
+          PDFGotoAction * action = new PDFGotoAction(toPDFDestination(popplerGoto->destination()));
           if (popplerGoto->isExternal()) {
             // TODO: Verify that Poppler::LinkGoto only refers to pdf files
             // (for other file types we would need PDFLaunchAction)

@@ -122,6 +122,16 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   ensureVisible(viewRect, 0, 0);
 }
 
+PDFToCDockWidget* PDFDocumentView::tocDockWidget(QWidget * parent)
+{
+  PDFToCDockWidget * dock = new PDFToCDockWidget(parent);
+  connect(dock, SIGNAL(actionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
+  if (_pdf_scene && _pdf_scene->document())
+    dock->setToCData(_pdf_scene->document()->toc());
+
+  return dock;
+}
+
 
 // Public Slots
 // ------------
@@ -316,7 +326,13 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
         const PDFGotoAction * actionGoto = static_cast<const PDFGotoAction*>(action);
         // TODO: Possibly handle other properties of destination() (e.g.,
         // viewport settings, zoom level, etc.)
-        emit requestOpenPdf(actionGoto->filename(), actionGoto->destination().page(), actionGoto->openInNewWindow());
+        // Note: if this action requires us to open other files (possible
+        // security issue) or to create a new window, we need to propagate this
+        // up the hierarchy. Otherwise we can handle it ourselves here.
+        if (actionGoto->isRemote() || actionGoto->openInNewWindow())
+          emit requestOpenPdf(actionGoto->filename(), actionGoto->destination().page(), actionGoto->openInNewWindow());
+        else
+          goToPage(actionGoto->destination().page());
       }
       break;
     case PDFAction::ActionTypeURI:
@@ -1528,6 +1544,100 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
   if (_link && _link->actionOnActivation())
     QCoreApplication::postEvent(scene(), new PDFActionEvent(_link->actionOnActivation()));
   _activated = false;
+}
+
+
+// PDFToCDockWidget
+// ============
+
+PDFToCDockWidget::PDFToCDockWidget(QWidget * parent) :
+  QDockWidget(PDFDocumentView::trUtf8("Table of Contents"), parent)
+{
+  QTreeWidget * tree = new QTreeWidget(this);
+  tree->setAlternatingRowColors(true);
+  tree->setHeaderHidden(true);
+  tree->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+  connect(tree, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));
+  setWidget(tree);
+}
+
+PDFToCDockWidget::~PDFToCDockWidget()
+{
+  clearTree();
+}
+  
+void PDFToCDockWidget::setToCData(const PDFToC data)
+{
+  QTreeWidget * tree = qobject_cast<QTreeWidget*>(widget());
+  if (!tree)
+    return;
+  clearTree();
+  recursiveAddTreeItems(data, tree->invisibleRootItem());
+}
+
+void PDFToCDockWidget::itemSelectionChanged()
+{
+  QTreeWidget * tree = qobject_cast<QTreeWidget*>(widget());
+  if (!tree || tree->selectedItems().isEmpty())
+    return;
+  
+  // Since the ToC QTreeWidget is in single selection mode, the first element is
+  // the only one.
+  QTreeWidgetItem * item = tree->selectedItems().first();
+  Q_ASSERT(item != NULL);
+  // TODO: It might be better to register PDFAction with the QMetaType framework
+  // instead of doing casts with (void*).
+  PDFAction * action = (PDFAction*)item->data(0, Qt::UserRole).value<void*>();
+  if (action)
+    emit actionTriggered(action);
+}
+
+void PDFToCDockWidget::clearTree()
+{
+  QTreeWidget * tree = qobject_cast<QTreeWidget*>(widget());
+  if (!tree)
+    return;
+
+  recursiveClearTreeItems(tree->invisibleRootItem());
+}
+
+//static
+void PDFToCDockWidget::recursiveAddTreeItems(const QList<PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem)
+{
+  foreach (const PDFToCItem & tocItem, tocItems) {
+    QTreeWidgetItem * treeItem = new QTreeWidgetItem(parentTreeItem, QStringList(tocItem.label()));
+    treeItem->setForeground(0, tocItem.color());
+    if (tocItem.flags()) {
+      QFont font = treeItem->font(0);
+      font.setBold(tocItem.flags().testFlag(PDFToCItem::Flag_Bold));
+      font.setItalic(tocItem.flags().testFlag(PDFToCItem::Flag_Bold));
+      treeItem->setFont(0, font);
+    }
+    treeItem->setExpanded(tocItem.isOpen());
+    // TODO: It might be better to register PDFAction via QMetaType to avoid
+    // having to use (void*).
+    treeItem->setData(0, Qt::UserRole, QVariant::fromValue((void*)tocItem.action()->clone()));
+
+    // FIXME: page numbers in col 2, goto actions, etc.
+
+    if (!tocItem.children().isEmpty())
+      recursiveAddTreeItems(tocItem.children(), treeItem);
+  }
+}
+
+//static
+void PDFToCDockWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
+{
+  Q_ASSERT(parent != NULL);
+  while (parent->childCount() > 0) {
+    QTreeWidgetItem * item = parent->child(0);
+    recursiveClearTreeItems(item);
+    PDFAction * action = (PDFAction*)item->data(0, Qt::UserRole).value<void*>();
+    if (action)
+      delete action;
+    parent->removeChild(item);
+    delete item;
+  }
 }
 
 

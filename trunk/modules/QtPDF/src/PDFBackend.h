@@ -131,14 +131,18 @@ public:
   };
 
   virtual ActionType type() const = 0;
+  virtual PDFAction * clone() const = 0;
 };
 
 class PDFURIAction : public PDFAction
 {
 public:
-  ActionType type() const { return ActionTypeURI; }
   PDFURIAction(const QUrl url) : _url(url), _isMap(false) { }
+  PDFURIAction(const PDFURIAction & a) : _url(a._url), _isMap(a._isMap) { }
   
+  ActionType type() const { return ActionTypeURI; }
+  PDFAction * clone() const { return new PDFURIAction(*this); }
+
   // FIXME: handle _isMap (see PDF 1.7 specs)
   QUrl url() const { return _url; }
 
@@ -150,8 +154,11 @@ private:
 class PDFGotoAction : public PDFAction
 {
 public:
-  ActionType type() const { return ActionTypeGoTo; }
   PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination), _isRemote(false), _openInNewWindow(true) { }
+  PDFGotoAction(const PDFGotoAction & a) : _destination(a._destination), _isRemote(a._isRemote), _filename(a._filename), _openInNewWindow(a._openInNewWindow) { }
+
+  ActionType type() const { return ActionTypeGoTo; }
+  PDFAction * clone() const { return new PDFGotoAction(*this); }
 
   PDFDestination destination() const { return _destination; }
   bool isRemote() const { return _isRemote; }
@@ -173,8 +180,10 @@ private:
 class PDFLaunchAction : public PDFAction
 {
 public:
-  ActionType type() const { return ActionTypeLaunch; }
   PDFLaunchAction(const QString command) : _command(command) { }
+
+  ActionType type() const { return ActionTypeLaunch; }
+  PDFAction * clone() const { return new PDFLaunchAction(*this); }
   
   QString command() const { return _command; }
   void setCommand(const QString command) { _command = command; }
@@ -415,6 +424,46 @@ private:
 
 };
 
+class PDFToCItem
+{
+public:
+  enum PDFToCItemFlag { Flag_Italic = 0x1, Flag_Bold = 0x2 };
+  Q_DECLARE_FLAGS(PDFToCItemFlags, PDFToCItemFlag)
+
+  PDFToCItem(const QString label = QString()) : _label(label), _isOpen(false), _action(NULL) { }
+  PDFToCItem(const PDFToCItem & o) : _label(o._label), _isOpen(o._isOpen), _color(o._color), _children(o._children), _flags(o._flags) {
+    _action = (o._action ? o._action->clone() : NULL);
+  }
+  virtual ~PDFToCItem() { if (_action) delete _action; }
+
+  QString label() const { return _label; }
+  bool isOpen() const { return _isOpen; }
+  PDFAction * action() const { return _action; }
+  QColor color() const { return _color; }
+  const QList<PDFToCItem> & children() const { return _children; }
+  QList<PDFToCItem> & children() { return _children; }
+  PDFToCItemFlags flags() const { return _flags; }
+  PDFToCItemFlags & flags() { return _flags; }
+  
+  void setLabel(const QString label) { _label = label; }
+  void setOpen(const bool isOpen = true) { _isOpen = isOpen; }
+  void setAction(PDFAction * action) {
+    if (_action)
+      delete _action;
+    _action = action;
+  }
+  void setColor(const QColor color) { _color = color; }
+
+protected:
+  QString _label;
+  bool _isOpen; // derived from the sign of the `Count` member of the outline item dictionary
+  PDFAction * _action; // if the `Dest` member of the outline item dictionary is set, it must be converted to a PDFGotoAction
+  QColor _color;
+  QList<PDFToCItem> _children;
+  PDFToCItemFlags _flags;
+};
+
+typedef QList<PDFToCItem> PDFToC;
 
 // PDF ABCs
 // ========
@@ -441,7 +490,9 @@ public:
   PDFPageCache& pageCache();
 
   virtual Page *page(int at)=0;
-
+  // Override in derived class if it provides access to the document outline
+  // strutures of the pdf file.
+  virtual PDFToC toc() const { return PDFToC(); }
 };
 
 class Page
