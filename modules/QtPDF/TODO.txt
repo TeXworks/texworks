@@ -5,7 +5,6 @@ TODO (required fixes/features/enhancements):
  - maquee zoom (requested by Philip Taylor)
  - context menu
  - Flesh out link support
- - Tooltips on links (ensure they are line-broken sensibly - requested by Arno Trautmann - see https://github.com/alt/tex-overview/blob/d9f27338d9c694fe14240aff150a048a086ba2ec/tex-overview.pdf?raw=true)
  - Add some loading indicators so that users know something is happening in the background when pages are blank or blurry
  - scrolling beyond edge at single page mode (mouse wheel/up/down)
  - round magnifying glass
