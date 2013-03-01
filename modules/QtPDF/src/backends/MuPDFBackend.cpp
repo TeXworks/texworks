@@ -483,6 +483,14 @@ QSharedPointer<Backend::Page> Document::page(int at)
   return QSharedPointer<Backend::Page>(_pages[at]);
 }
 
+QSharedPointer<Backend::Page> Document::page(int at) const
+{
+  if (at < 0 || at >= _numPages || at >= _pages.size())
+    return QSharedPointer<Backend::Page>();
+
+  return QSharedPointer<Backend::Page>(_pages[at]);
+}
+
 void Document::loadMetaData()
 {
   MuPDFLocaleResetter lr;

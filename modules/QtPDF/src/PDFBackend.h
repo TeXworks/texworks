@@ -427,7 +427,8 @@ public:
   PDFPageProcessingThread& processingThread();
   PDFPageCache& pageCache();
 
-  virtual QSharedPointer<Page> page(int at)=0;
+  virtual QSharedPointer<Page> page(int at) = 0;
+  virtual QSharedPointer<Page> page(int at) const = 0;
   virtual PDFDestination resolveDestination(const PDFDestination & namedDestination) const {
     return (namedDestination.isExplicit() ? namedDestination : PDFDestination());
   }
