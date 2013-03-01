@@ -61,6 +61,9 @@ private:
 class PDFDocumentView : public QGraphicsView {
   typedef QGraphicsView super;
   const std::auto_ptr<Poppler::Document> doc;
+
+  // This may change to a `QSet` in the future
+  QList<QGraphicsItem*> pages;
   int currentPage, lastPage;
 
 public:
@@ -78,9 +81,6 @@ public:
     // page is automatically shifted such that it will appear 10px below the
     // previous page.
     //
-    // **TODO:** _Should these be packed together into a `QGraphicsItemGroup`
-    // for easy access/removal?_
-    //
     // **TODO:** _Should the Y-shift be sensitive to zoom levels?_
     int i;
     float offY = 0.0;
@@ -88,9 +88,11 @@ public:
 
     for (i = 0; i < lastPage; ++i) {
       pagePtr = new PDFPageGraphicsItem(doc->page(i));
+      pagePtr->setPos(0.0, offY);
+
+      pages.append(pagePtr);
       scene()->addItem(pagePtr);
 
-      pagePtr->setPos(0.0, offY);
       offY += pagePtr->pixmap().height() + 10.0;
     }
 
@@ -98,8 +100,7 @@ public:
     //
     // **TODO:** _Should probably be a seperate method. Like `firstPage` or
     // something._
-    QGraphicsItem *firstPage = scene()->items(Qt::AscendingOrder).first();
-    centerOn(firstPage);
+    centerOn(pages.first());
     currentPage = 0;
   }
 
@@ -108,6 +109,35 @@ public:
   }
 
 protected:
+
+  // Keep track of the current page by overloading the widget paint event.
+  void paintEvent(QPaintEvent *event) {
+    super::paintEvent(event);
+
+    // After `QGraphicsView` has taken care of updates to this widget, find the
+    // currently displayed page. We do this by grabbing all items that are
+    // currently within the bounds of the viewport's top half. We take the
+    // first item found to be the "current page".
+    //
+    // **NOTE:**
+    // _If graphics objects other than `PDFPageGraphicsItem` are ever added to
+    // the `GraphicsScene` managed by `PDFDocumentView` (such as annotations,
+    // form elements, etc), it may be wise to ensure this selection only
+    // considers `PDFPagegraphicsItem` objects.
+    //
+    // A way to do this may be to call `toSet` on both `pages` and the result
+    // of `items` and then take the first item of a set intersection.
+    QRect pageBbox = viewport()->rect();
+    pageBbox.setHeight(0.5 * pageBbox.height());
+    int nextCurrentPage = pages.indexOf(items(pageBbox).first());
+
+    if (nextCurrentPage != currentPage) {
+      currentPage = nextCurrentPage;
+      // **TODO:** _Should probably also emit a "Current page changed" event._
+    }
+
+  }
+
   // Very "dumb" first cut at pageup/page down handling.
   //
   // **TODO:**
@@ -119,7 +149,6 @@ protected:
   //     let some parent widget worry about delegating Page Up/PageDown/other
   //     keypresses?_
   void keyPressEvent(QKeyEvent *event) {
-    QGraphicsItem *targetPage;
 
     if(
       (event->key() == Qt::Key_PageDown) &&
@@ -127,8 +156,7 @@ protected:
     ) {
 
       ++currentPage;
-      targetPage = scene()->items(Qt::AscendingOrder)[currentPage];
-      centerOn(targetPage);
+      centerOn(pages.at(currentPage));
       event->accept();
 
     } else if (
@@ -137,8 +165,7 @@ protected:
     ) {
 
       --currentPage;
-      targetPage = scene()->items(Qt::AscendingOrder)[currentPage];
-      centerOn(targetPage);
+      centerOn(pages.at(currentPage));
       event->accept();
 
     } else  {
