@@ -117,6 +117,7 @@ public:
 
 protected:
   void wheelEvent(QWheelEvent * event) { event->ignore(); }
+  void paintEvent(QPaintEvent * event);
 };
 
 class PageProcessingRequest : public QObject
