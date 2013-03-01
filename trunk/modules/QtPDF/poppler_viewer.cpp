@@ -61,6 +61,7 @@ private:
 class PDFDocumentView : public QGraphicsView {
   typedef QGraphicsView super;
   const std::auto_ptr<Poppler::Document> doc;
+  int currentPage, lastPage;
 
 public:
   PDFDocumentView(Poppler::Document *a_doc, QWidget *parent = 0) : super(new QGraphicsScene, parent),
@@ -68,6 +69,9 @@ public:
   {
     setBackgroundRole(QPalette::Dark);
     setAlignment(Qt::AlignCenter);
+    setFocusPolicy(Qt::StrongFocus);
+
+    lastPage = doc->numPages();
 
     // Create a `PDFPageGraphicsItem` for each page in the PDF document to the
     // `QGraphicsScene` controlled by this object. The Y-coordinate of each
@@ -82,7 +86,7 @@ public:
     float offY = 0.0;
     PDFPageGraphicsItem *pagePtr;
 
-    for (i = 0; i < doc->numPages(); ++i) {
+    for (i = 0; i < lastPage; ++i) {
       pagePtr = new PDFPageGraphicsItem(doc->page(i));
       scene()->addItem(pagePtr);
 
@@ -94,12 +98,55 @@ public:
     //
     // **TODO:** _Should probably be a seperate method. Like `firstPage` or
     // something._
-    QGraphicsItem *firstPage = items()[0];
-    centerOn(firstPage->boundingRect().center());
+    QGraphicsItem *firstPage = scene()->items(Qt::AscendingOrder).first();
+    centerOn(firstPage);
+    currentPage = 0;
   }
 
   ~PDFDocumentView() {
     delete this->scene();
+  }
+
+protected:
+  // Very "dumb" first cut at pageup/page down handling.
+  //
+  // **TODO:**
+  //
+  //   * _Scroll events need to be captured and `currentPage` adjusted
+  //     accordingly._
+  //
+  //   * _Should pageUp/pageDown be implemented in terms of signals/slots and
+  //     let some parent widget worry about delegating Page Up/PageDown/other
+  //     keypresses?_
+  void keyPressEvent(QKeyEvent *event) {
+    QGraphicsItem *targetPage;
+
+    if(
+      (event->key() == Qt::Key_PageDown) &&
+      (currentPage < lastPage)
+    ) {
+
+      ++currentPage;
+      targetPage = scene()->items(Qt::AscendingOrder)[currentPage];
+      centerOn(targetPage);
+      event->accept();
+
+    } else if (
+      (event->key() == Qt::Key_PageUp) &&
+      (currentPage > 0)
+    ) {
+
+      --currentPage;
+      targetPage = scene()->items(Qt::AscendingOrder)[currentPage];
+      centerOn(targetPage);
+      event->accept();
+
+    } else  {
+
+      super::keyPressEvent(event);
+
+    }
+
   }
 
 private:
