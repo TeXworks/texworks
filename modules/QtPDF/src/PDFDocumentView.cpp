@@ -368,6 +368,8 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_PageUp:
     case Qt::Key_PageDown:
     {
+      if (_activeTool != Tool_None)
+        break;
       QRectF viewRect = mapToScene(rect()).boundingRect();
       QPointF viewCenter = viewRect.center();
 
@@ -383,15 +385,28 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
     }
 
     case Qt::Key_Home:
+      if (_activeTool != Tool_None)
+        break;
       goFirst();
       event->accept();
       break;
 
     case Qt::Key_End:
+      if (_activeTool != Tool_None)
+        break;
       goLast();
       event->accept();
       break;
 
+    case Qt::Key_Up:
+    case Qt::Key_Down:
+    case Qt::Key_Left:
+    case Qt::Key_Right:
+      if (_activeTool != Tool_None)
+        break;
+      // Deliberate fall-through; we only override the arrow keys if a tool is
+      // currently in use, to prevent the QAbstractScrollArea base class from
+      // translating the view 
     default:
       Super::keyPressEvent(event);
       break;
