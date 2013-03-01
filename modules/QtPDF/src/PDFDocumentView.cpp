@@ -58,6 +58,8 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
 // ---------
 void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
 {
+  // FIXME: Make setScene(QGraphicsScene*) (from parent class) invisible to the
+  // outside world
   Super::setScene(a_scene);
 
   // disconnect us from the old scene (if any)
@@ -82,7 +84,8 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
   // Ensure search result list is empty in case we are switching from another
   // scene.
   _searchResults.clear();
-
+  // FIXME: emit some kind of signal to notify other components the scene has
+  // changed (e.g., page number display, dock widgets, etc.)
 }
 int PDFDocumentView::currentPage() { return _currentPage; }
 int PDFDocumentView::lastPage()    { return _lastPage; }

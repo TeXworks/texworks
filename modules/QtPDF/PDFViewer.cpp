@@ -1,7 +1,7 @@
 #include "PDFViewer.h"
 #include "PDFDocumentView.h"
 
-PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
+PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   QMainWindow(parent, flags)
 {
 #ifdef USE_MUPDF
@@ -12,10 +12,12 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   #error Either the Poppler or the MuPDF backend is required
 #endif
 
-  PDFDocumentScene *docScene = new PDFDocumentScene(a_pdf_doc, this);
   PDFDocumentView *docView = new PDFDocumentView(this);
 
-  docView->setScene(docScene);
+  if (a_pdf_doc) {
+    PDFDocumentScene *docScene = new PDFDocumentScene(a_pdf_doc, this);
+    docView->setScene(docScene);
+  }
   docView->goFirst();
 
   PageCounter *counter = new PageCounter(this->statusBar());
@@ -23,6 +25,9 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   SearchLineEdit *search = new SearchLineEdit(this);
   QToolBar *toolBar = new QToolBar(this);
 
+
+  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/document-open.png")), tr("Open..."), this, SLOT(open()));
+  toolBar->addSeparator();
 
   toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomin.png")), tr("Zoom In"), docView, SLOT(zoomIn()));
   toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomout.png")), tr("Zoom Out"), docView, SLOT(zoomOut()));
@@ -63,6 +68,32 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   tabifyDockWidget(toc, docView->metaDataDockWidget(this));
   tabifyDockWidget(toc, docView->fontsDockWidget(this));
   toc->raise();
+}
+
+void PDFViewer::open()
+{
+  QString pdf_doc = QFileDialog::getOpenFileName(this, tr("Open PDF Document"), QString(), tr("PDF documents (*.pdf)"));
+  if (pdf_doc.isEmpty())
+    return;
+
+  PDFDocumentView * docView = qobject_cast<PDFDocumentView*>(centralWidget());
+  Q_ASSERT(docView != NULL);
+
+#ifdef USE_MUPDF
+  Document *a_pdf_doc = new MuPDFDocument(pdf_doc);
+#elif USE_POPPLER
+  Document *a_pdf_doc = new PopplerDocument(pdf_doc);
+#else
+  #error Either the Poppler or the MuPDF backend is required
+#endif
+
+  if (a_pdf_doc && a_pdf_doc->isValid()) {
+    // FIXME: Destroy old scene if necessary; use QSharedPointer for that
+    PDFDocumentScene * docScene = new PDFDocumentScene(a_pdf_doc, this);
+    docView->setScene(docScene);
+  }
+  else
+    docView->setScene((PDFDocumentScene*)NULL);
 }
 
 void PDFViewer::openUrl(const QUrl url) const
