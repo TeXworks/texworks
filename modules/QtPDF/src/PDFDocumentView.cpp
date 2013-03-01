@@ -800,8 +800,8 @@ PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, Document *a_pdf_doc
   _doc->setRenderHint(Poppler::Document::Antialiasing);
   _doc->setRenderHint(Poppler::Document::TextAntialiasing);
 
-  _lastPage = _doc->numPages();
-  
+  _lastPage = _pdf_doc->numPages();
+
   connect(&_pageLayout, SIGNAL(layoutChanged(const QRectF)), this, SLOT(pageLayoutChanged(const QRectF)));
 
   // Create a `PDFPageGraphicsItem` for each page in the PDF document and let

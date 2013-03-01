@@ -12,36 +12,44 @@
  * more details.
  */
 
+// NOTE: `PopplerBackend.h` is included via `PDFBackend.h`
 #include <PDFBackend.h>
 
 // Document Class
 // ==============
-Document::Document(QString fileName):
-  _numPages(-1)
+PopplerDocument::PopplerDocument(QString fileName):
+  Super(fileName),
+  _poppler_doc(Poppler::Document::load(fileName))
+{
+  _numPages = _poppler_doc->numPages();
+
+}
+
+PopplerDocument::~PopplerDocument()
 {
 }
 
-Document::~Document()
-{
-}
-
-int Document::numPages() { return _numPages; }
+Page *PopplerDocument::page(int at){ return new PopplerPage(this, at); }
 
 
 // Page Class
 // ==========
-Page::Page(Document *parent, int at):
-  _n(at)
+PopplerPage::PopplerPage(PopplerDocument *parent, int at):
+  Super(parent, at),
+  _parent(parent),
+  _poppler_page(_parent->_poppler_doc->page(at))
 {
 }
 
-Page::~Page()
+PopplerPage::~PopplerPage()
 {
 }
 
-int Page::pageNum() { return _n; }
-qreal Page::rotate() { return _rotate; }
-QSizeF Page::pageSizeF()   { return _size; }
+QImage PopplerPage::renderToImage(double xres, double yres)
+{
+  return QImage();
+}
+
 
 // vim: set sw=2 ts=2 et
 
