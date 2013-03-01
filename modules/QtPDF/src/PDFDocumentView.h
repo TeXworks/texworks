@@ -83,6 +83,8 @@ protected slots:
 private:
   PageMode _pageMode;
   MouseMode _mouseMode;
+  // Never try to set a vanilla QGraphicsScene, always use a PDFGraphicsScene.
+  void setScene(QGraphicsScene *scene);
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFDocumentView)
 };
