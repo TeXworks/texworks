@@ -28,9 +28,15 @@ private:
 
 signals:
   void searchRequested(QString searchText);
+  void gotoNextResult();
+  void gotoPreviousResult();
+  void searchCleared();
 
 private slots:
   void prepareSearch();
+  void clearSearch();
+  void handleNextResult();
+  void handlePreviousResult();
 
 };
 

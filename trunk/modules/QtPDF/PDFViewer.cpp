@@ -49,6 +49,9 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   toolBar->addSeparator();
   toolBar->addWidget(search);
   connect(search, SIGNAL(searchRequested(QString)), docView, SLOT(search(QString)));
+  connect(search, SIGNAL(gotoNextResult()), docView, SLOT(nextSearchResult()));
+  connect(search, SIGNAL(gotoPreviousResult()), docView, SLOT(previousSearchResult()));
+  connect(search, SIGNAL(searchCleared()), docView, SLOT(clearSearchResults()));
 
   statusBar()->addPermanentWidget(counter);
   statusBar()->addWidget(zoomWdgt);
@@ -136,17 +139,19 @@ SearchLineEdit::SearchLineEdit(QWidget *parent):
   previousResultButton->setIcon(style()->standardIcon(QStyle::SP_ArrowLeft));
   previousResultButton->setCursor(Qt::ArrowCursor);
   previousResultButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
+  connect(previousResultButton, SIGNAL(clicked()), this, SLOT(handlePreviousResult()));
 
   nextResultButton = new QToolButton(this);
   nextResultButton->setIcon(style()->standardIcon(QStyle::SP_ArrowRight));
   nextResultButton->setCursor(Qt::ArrowCursor);
   nextResultButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
+  connect(nextResultButton, SIGNAL(clicked()), this, SLOT(handleNextResult()));
 
   clearButton = new QToolButton(this);
   clearButton->setIcon(style()->standardIcon(QStyle::SP_TitleBarCloseButton));
   clearButton->setCursor(Qt::ArrowCursor);
   clearButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
-  connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
+  connect(clearButton, SIGNAL(clicked()), this, SLOT(clearSearch()));
 
   int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
   setStyleSheet(QString("QLineEdit { padding-right: %1px; } ").arg(
@@ -180,12 +185,34 @@ void SearchLineEdit::resizeEvent(QResizeEvent *)
                     (rect().bottom() + 1 - sc.height())/2);
 }
 
-
 void SearchLineEdit::prepareSearch() {
   if( this->text().isEmpty() )
     return;
 
-  emit(searchRequested(this->text()));
+  emit searchRequested(this->text());
+}
+
+void SearchLineEdit::clearSearch() {
+  // Don't check for empty text as the user may have deleted the text, then hit
+  // the clear button. In this case, there are still other objects that may
+  // want to recieve the `searchCleared` signal.
+  clear();
+
+  emit searchCleared();
+}
+
+void SearchLineEdit::handleNextResult() {
+  if( this->text().isEmpty() )
+    return;
+
+  emit gotoNextResult();
+}
+
+void SearchLineEdit::handlePreviousResult() {
+  if( this->text().isEmpty() )
+    return;
+
+  emit gotoPreviousResult();
 }
 
 

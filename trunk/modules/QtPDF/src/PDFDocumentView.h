@@ -45,6 +45,8 @@ class PDFDocumentView : public QGraphicsView {
   int _currentPage, _lastPage;
 
   QString _searchString;
+  QList<QGraphicsItem *> _searchResults;
+  int _currentSearchResult;
 
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
@@ -92,6 +94,9 @@ public slots:
   void zoomFitWidth();
 
   void search(QString searchText);
+  void nextSearchResult();
+  void previousSearchResult();
+  void clearSearchResults();
 
 signals:
   void changedPage(int pageNum);
@@ -288,7 +293,6 @@ class PDFDocumentScene : public QGraphicsScene
 
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> _pages;
-  QList<QGraphicsItem*> _highlights;
   int _lastPage;
   PDFPageLayout _pageLayout;
   void handleActionEvent(const PDFActionEvent * action_event);
@@ -315,10 +319,6 @@ signals:
   void pageChangeRequested(int pageNum);
   void pageLayoutChanged();
   void pdfActionTriggered(const PDFAction * action);
-
-public slots:
-  void highlight(int pageNum, QRectF bbox);
-  void clearHighlights();
 
 protected slots:
   void pageLayoutChanged(const QRectF& sceneRect);

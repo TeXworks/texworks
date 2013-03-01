@@ -63,6 +63,10 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
   _pdf_scene = a_scene;
   _lastPage = a_scene->lastPage();
 
+  // Ensure search result list is empty in case we are switching from another
+  // scene.
+  _searchResults.clear();
+
   // Respond to page jumps requested by the `PDFDocumentScene`.
   //
   // **TODO:**
@@ -327,7 +331,7 @@ void PDFDocumentView::search(QString searchText)
     return;
 
   if ( searchText != _searchString ) {
-    _pdf_scene->clearHighlights();
+    clearSearchResults();
 
 #ifdef DEBUG
     // Test search.
@@ -339,16 +343,71 @@ void PDFDocumentView::search(QString searchText)
     qDebug() << "Document has : " << results.size() << " occurances of the search string. Search took: " << stopwatch.elapsed() << " milliseconds";
 #endif
 
-    foreach( SearchResult result, results )
-      _pdf_scene->highlight(result.pageNum, result.bbox);
+    // FIXME:
+    // The brush used for highlighting should be defined at global scope to
+    // remove the need for re-creating it on each function call. Should also be
+    // configurable via a settings object.
+    QColor fillColor(Qt::yellow);
+    fillColor.setAlphaF(0.6);
+    QBrush highlightBrush(fillColor);
+
+    foreach( SearchResult result, results ) {
+      PDFPageGraphicsItem *page = qgraphicsitem_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(result.pageNum));
+
+      // This causes the page to take ownership of the highlight item which applies
+      // necessary transformations and adds the item to the scene.
+      QGraphicsRectItem *highlightItem = new QGraphicsRectItem(result.bbox, page);
+
+      highlightItem->setBrush(highlightBrush);
+      highlightItem->setPen(Qt::NoPen);
+      highlightItem->setTransform(page->pointScale());
+
+      _searchResults << highlightItem;
+    }
 
     _searchString = searchText;
+    _currentSearchResult = 0;
   }
 
-  // TODO:
-  //
-  // Need a method for jumping to search results.
+  // Center view on first search result.
+  nextSearchResult();
+}
 
+void PDFDocumentView::nextSearchResult()
+{
+  if ( not _pdf_scene || _searchResults.empty() )
+    return;
+
+  if ( _currentSearchResult + 1 >= _searchResults.size() )
+    _currentSearchResult = 0;
+  else
+    ++_currentSearchResult;
+
+  centerOn(_searchResults[_currentSearchResult]);
+}
+
+void PDFDocumentView::previousSearchResult()
+{
+  if ( not _pdf_scene || _searchResults.empty() )
+    return;
+
+  if ( (_currentSearchResult - 2) < 0 )
+    _currentSearchResult = _searchResults.size() - 1;
+  else
+    _currentSearchResult -= 2;
+
+  centerOn(_searchResults[_currentSearchResult]);
+}
+
+void PDFDocumentView::clearSearchResults()
+{
+  if ( not _pdf_scene || _searchResults.empty() )
+    return;
+
+  foreach( QGraphicsItem *item, _searchResults )
+    _pdf_scene->removeItem(item);
+
+  _searchResults.clear();
 }
 
 
@@ -1242,38 +1301,6 @@ bool PDFDocumentScene::event(QEvent *event)
   return Super::event(event);
 }
 
-// Slots
-// -----
-
-void PDFDocumentScene::highlight(int pageNum, QRectF bbox)
-{
-  PDFPageGraphicsItem *page = qgraphicsitem_cast<PDFPageGraphicsItem*>(pageAt(pageNum));
-
-  // This causes the page to take ownership of the highlight item which applies
-  // necessary transformations and adds the item to the scene.
-  QGraphicsRectItem *highlightItem = new QGraphicsRectItem(bbox, page);
-
-  // FIXME:
-  // The brush used for highlighting should be defined at global scope to
-  // remove the need for re-creating it on each function call. Should also be
-  // configurable via a settings object.
-  QColor fillColor(Qt::yellow);
-  fillColor.setAlphaF(0.6);
-
-  highlightItem->setBrush(QBrush(fillColor));
-  highlightItem->setPen(Qt::NoPen);
-  highlightItem->setTransform(page->pointScale());
-
-  _highlights << highlightItem;
-}
-
-void PDFDocumentScene::clearHighlights()
-{
-  foreach(QGraphicsItem *item, _highlights)
-    removeItem(item);
-
-  _highlights.clear();
-}
 
 // Protected Slots
 // --------------
