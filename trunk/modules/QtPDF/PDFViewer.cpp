@@ -1,5 +1,4 @@
 #include "PDFViewer.h"
-#include "PDFDocumentView.h"
 
 PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   QMainWindow(parent, flags)
@@ -25,48 +24,48 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   }
   docView->goFirst();
 
-  PageCounter *counter = new PageCounter(this->statusBar());
-  ZoomTracker *zoomWdgt = new ZoomTracker(this);
-  SearchLineEdit *search = new SearchLineEdit(this);
-  QToolBar *toolBar = new QToolBar(this);
+  _counter = new PageCounter(this->statusBar());
+  _zoomWdgt = new ZoomTracker(this);
+  _search = new SearchLineEdit(this);
+  _toolBar = new QToolBar(this);
 
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/document-open.png")), tr("Open..."), this, SLOT(open()));
+  _toolBar->addSeparator();
 
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/document-open.png")), tr("Open..."), this, SLOT(open()));
-  toolBar->addSeparator();
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomin.png")), tr("Zoom In"), docView, SLOT(zoomIn()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomout.png")), tr("Zoom Out"), docView, SLOT(zoomOut()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/fitwidth.png")), tr("Fit to Width"), docView, SLOT(zoomFitWidth()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/fitwindow.png")), tr("Fit to Window"), docView, SLOT(zoomFitWindow()));
 
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomin.png")), tr("Zoom In"), docView, SLOT(zoomIn()));
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomout.png")), tr("Zoom Out"), docView, SLOT(zoomOut()));
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/fitwidth.png")), tr("Fit to Width"), docView, SLOT(zoomFitWidth()));
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/fitwindow.png")), tr("Fit to Window"), docView, SLOT(zoomFitWindow()));
+  _toolBar->addSeparator();
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-single.png")), tr("Single Page Mode"), docView, SLOT(setSinglePageMode()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-continuous.png")), tr("One Column Continuous Page Mode"), docView, SLOT(setOneColContPageMode()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-twocols.png")), tr("Two Columns Continuous Page Mode"), docView, SLOT(setTwoColContPageMode()));
 
-  toolBar->addSeparator();
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-single.png")), tr("Single Page Mode"), docView, SLOT(setSinglePageMode()));
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-continuous.png")), tr("One Column Continuous Page Mode"), docView, SLOT(setOneColContPageMode()));
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-twocols.png")), tr("Two Columns Continuous Page Mode"), docView, SLOT(setTwoColContPageMode()));
+  _toolBar->addSeparator();
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom.png")), tr("Magnify"), docView, SLOT(setMouseModeMagnifyingGlass()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/hand.png")), tr("Pan"), docView, SLOT(setMouseModeMove()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom-select.png")), tr("Marquee Zoom"), docView, SLOT(setMouseModeMarqueeZoom()));
 
-  toolBar->addSeparator();
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom.png")), tr("Magnify"), docView, SLOT(setMouseModeMagnifyingGlass()));
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/hand.png")), tr("Pan"), docView, SLOT(setMouseModeMove()));
-  toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom-select.png")), tr("Marquee Zoom"), docView, SLOT(setMouseModeMarqueeZoom()));
-
-  counter->setLastPage(docView->lastPage());
-  connect(docView, SIGNAL(changedPage(int)), counter, SLOT(setCurrentPage(int)));
-  connect(docView, SIGNAL(changedZoom(qreal)), zoomWdgt, SLOT(setZoom(qreal)));
+  _counter->setLastPage(docView->lastPage());
+  connect(docView, SIGNAL(changedPage(int)), _counter, SLOT(setCurrentPage(int)));
+  connect(docView, SIGNAL(changedZoom(qreal)), _zoomWdgt, SLOT(setZoom(qreal)));
   connect(docView, SIGNAL(requestOpenUrl(const QUrl)), this, SLOT(openUrl(const QUrl)));
   connect(docView, SIGNAL(requestOpenPdf(QString, int, bool)), this, SLOT(openPdf(QString, int, bool)));
   connect(docView, SIGNAL(contextClick(const int, const QPointF)), this, SLOT(syncFromPdf(const int, const QPointF)));
   connect(docView, SIGNAL(searchProgressChanged(int, int)), this, SLOT(searchProgressChanged(int, int)));
+  connect(docView, SIGNAL(changedDocument(const QSharedPointer<Document>)), this, SLOT(documentChanged(const QSharedPointer<Document>)));
 
-  toolBar->addSeparator();
-  toolBar->addWidget(search);
-  connect(search, SIGNAL(searchRequested(QString)), docView, SLOT(search(QString)));
-  connect(search, SIGNAL(gotoNextResult()), docView, SLOT(nextSearchResult()));
-  connect(search, SIGNAL(gotoPreviousResult()), docView, SLOT(previousSearchResult()));
-  connect(search, SIGNAL(searchCleared()), docView, SLOT(clearSearchResults()));
+  _toolBar->addSeparator();
+  _toolBar->addWidget(_search);
+  connect(_search, SIGNAL(searchRequested(QString)), docView, SLOT(search(QString)));
+  connect(_search, SIGNAL(gotoNextResult()), docView, SLOT(nextSearchResult()));
+  connect(_search, SIGNAL(gotoPreviousResult()), docView, SLOT(previousSearchResult()));
+  connect(_search, SIGNAL(searchCleared()), docView, SLOT(clearSearchResults()));
 
-  statusBar()->addPermanentWidget(counter);
-  statusBar()->addWidget(zoomWdgt);
-  addToolBar(toolBar);
+  statusBar()->addPermanentWidget(_counter);
+  statusBar()->addWidget(_zoomWdgt);
+  addToolBar(_toolBar);
   setCentralWidget(docView);
   
   QDockWidget * toc = docView->dockWidget(PDFDocumentView::Dock_TableOfContents, this);
@@ -108,6 +107,12 @@ void PDFViewer::open()
   }
   else
     docView->setScene(QSharedPointer<PDFDocumentScene>());
+}
+
+void PDFViewer::documentChanged(const QSharedPointer<Document> newDoc)
+{
+  if (_counter)
+    _counter->setLastPage(newDoc->numPages());
 }
 
 void PDFViewer::searchProgressChanged(int percent, int occurrences)
