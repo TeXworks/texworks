@@ -191,8 +191,10 @@ void PopplerDocument::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode no
 
     val = attributes.namedItem(QString::fromUtf8("ExternalFileName")).nodeValue();
     if (action) {
-      action->setOpenInNewWindow(false);
       if (!val.isEmpty()) {
+        // Open external links in new window by default (since poppler doesn't
+        // tell us what to do)
+        action->setOpenInNewWindow(true);
         action->setRemote();
         action->setFilename(val);
       }
@@ -372,6 +374,7 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
           if (popplerGoto->isExternal()) {
             // TODO: Verify that Poppler::LinkGoto only refers to pdf files
             // (for other file types we would need PDFLaunchAction)
+            action->setOpenInNewWindow(true);
             action->setRemote();
             action->setFilename(popplerGoto->fileName());
           }

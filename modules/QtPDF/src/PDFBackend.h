@@ -194,7 +194,7 @@ private:
 class PDFGotoAction : public PDFAction
 {
 public:
-  PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination), _isRemote(false), _openInNewWindow(true) { }
+  PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination), _isRemote(false), _openInNewWindow(false) { }
   PDFGotoAction(const PDFGotoAction & a) : _destination(a._destination), _isRemote(a._isRemote), _filename(a._filename), _openInNewWindow(a._openInNewWindow) { }
 
   ActionType type() const { return ActionTypeGoTo; }
