@@ -1104,6 +1104,13 @@ PDFDocumentScene::PDFDocumentScene(Document *a_doc, QObject *parent):
     _pageLayout.addPage(pagePtr);
   }
   _pageLayout.relayout();
+
+#ifdef DEBUG
+  // Test search.
+  stopwatch.start();
+  QList<QRectF> results = _doc->search(QString::fromAscii("till"), 4);
+  qDebug() << "Document has : " << results.size() << " occurances of the test string. Search took: " << stopwatch.elapsed() << " milliseconds";
+#endif
 }
 
 void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
@@ -1271,14 +1278,6 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(QSharedPointer<Page> a_page, QGraphicsI
   //
   // NOTE: This flag needs Qt 4.6 or newer.
   setFlags(QGraphicsItem::ItemUsesExtendedStyleOption);
-
-#ifdef DEBUG
-  // Test search.
-  if ( _page->pageNum() == 1) {
-    QList<QRectF> results = _page->search(QString::fromAscii("till"));
-    qDebug() << "Page 1 has : " << results.size() << " occurances of the test string.";
-  }
-#endif
 }
 
 QRectF PDFPageGraphicsItem::boundingRect() const { return QRectF(QPointF(0.0, 0.0), _pageSize); }
