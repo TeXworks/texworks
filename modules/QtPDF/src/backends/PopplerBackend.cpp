@@ -45,7 +45,7 @@ Page *PopplerDocument::page(int at){ return new PopplerPage(this, at); }
 PopplerPage::PopplerPage(PopplerDocument *parent, int at):
   Super(parent, at)
 {
-  _poppler_page = QSharedPointer<Poppler::Page>(reinterpret_cast<PopplerDocument *>(_parent)->_poppler_doc->page(at));
+  _poppler_page = QSharedPointer<Poppler::Page>(static_cast<PopplerDocument *>(_parent)->_poppler_doc->page(at));
 }
 
 PopplerPage::~PopplerPage()
@@ -59,7 +59,7 @@ QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box, bo
   QImage renderedPage;
 
   // Rendering pages is not thread safe.
-  QMutexLocker docLock(reinterpret_cast<PopplerDocument *>(_parent)->_doc_lock);
+  QMutexLocker docLock(static_cast<PopplerDocument *>(_parent)->_doc_lock);
     if( render_box.isNull() ) {
       // A null QRect has a width and height of 0 --- we will tell Poppler to render the whole
       // page.
@@ -88,7 +88,7 @@ QList<Poppler::Link *> PopplerPage::loadLinks()
 {
   QList<Poppler::Link *> links;
   // Loading links is not thread safe.
-  QMutexLocker docLock(reinterpret_cast<PopplerDocument *>(_parent)->_doc_lock);
+  QMutexLocker docLock(static_cast<PopplerDocument *>(_parent)->_doc_lock);
     links = _poppler_page->links();
   docLock.unlock();
 
