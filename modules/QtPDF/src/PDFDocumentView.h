@@ -183,6 +183,9 @@ private:
   QMutex _mutex;
   QWaitCondition _waitCondition;
   bool _quit;
+#ifdef DEBUG
+  QTime _renderTimer;
+#endif
 };
 
 // Cannot use QGraphicsGridLayout and similar classes for pages because it only

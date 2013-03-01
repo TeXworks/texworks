@@ -995,9 +995,21 @@ void PDFPageProcessingThread::run()
 
 #ifdef DEBUG
       qDebug() << "processing work item; remaining items:" << _workStack.size();
-
+      _renderTimer.start();
 #endif
       workItem->execute();
+#ifdef DEBUG
+      QString jobDesc;
+      switch (workItem->type()) {
+        case PageProcessingRequest::LoadLinks:
+          jobDesc = "loading links";
+          break;
+        case PageProcessingRequest::PageRendering:
+          jobDesc = "rendering page";
+          break;
+      }
+      qDebug() << "finished " << jobDesc << "; time elapsed:" << _renderTimer.elapsed() << " ms";
+#endif
 
       // Delete the work item as it has fulfilled its purpose
       // Note that we can't delete it here or we might risk that some emitted
