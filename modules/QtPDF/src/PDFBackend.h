@@ -570,6 +570,13 @@ protected:
 
 typedef QList<PDFToCItem> PDFToC;
 
+struct  SearchResult
+{
+  int pageNum;
+  QRectF bbox;
+};
+
+
 // PDF ABCs
 // ========
 // This header file defines a set of Abstract Base Classes (ABCs) for PDF
@@ -613,18 +620,13 @@ public:
   // Searches the entire document for the given string and returns a list of
   // boxes that contain that text.
   //
-  // FIXME:
-  //   This `QRectF` objects returned by this function should be paired with
-  //   the page number they came from so that they can be located
-  //   appropriately.
-  //
   // TODO:
   //
   //   - Implement as a function that returns a generator object which can
   //     return the search results one at a time rather than all at once.
   //
   //   - See TODO list in `Page::search`
-  virtual QList<QRectF> search(QString searchText, int startPage=0);
+  virtual QList<SearchResult> search(QString searchText, int startPage=0);
 
 protected:
   int _numPages;
@@ -689,7 +691,7 @@ public:
   //
   // This is very tricky to do in C++. God I miss Python and its `itertools`
   // library.
-  virtual QList<QRectF> search(QString searchText) = 0;
+  virtual QList<SearchResult> search(QString searchText) = 0;
 };
 
 

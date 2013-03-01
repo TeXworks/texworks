@@ -78,7 +78,7 @@ public:
 
   QList< QSharedPointer<PDFLinkAnnotation> > loadLinks();
 
-  QList<QRectF> search(QString searchText);
+  QList<SearchResult> search(QString searchText);
 };
 
 

@@ -369,20 +369,28 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
   return _links;
 }
 
-QList<QRectF> PopplerPage::search(QString searchText)
+QList<SearchResult> PopplerPage::search(QString searchText)
 {
-  QList<QRectF> results;
+  QList<SearchResult> results;
+  SearchResult result;
   double left, right, top, bottom;
+
+  result.pageNum = _n;
 
   QMutexLocker docLock(static_cast<PopplerDocument *>(_parent)->_doc_lock);
     // The Poppler search function that takes a QRectF has been marked as
     // depreciated---something to do with float <-> double conversion causing
     // infinite loops on some architectures. So, we explicitly use doubles and
     // avoid the depreciated function.
-    if ( _poppler_page->search(searchText, left, top, right, bottom, Poppler::Page::FromTop, Poppler::Page::CaseInsensitive) )
-      results << QRectF(qreal(left), qreal(top), qAbs(qreal(right) - qreal(left)), qAbs(qreal(bottom) - qreal(top)));
-    while ( _poppler_page->search(searchText, left, top, right, bottom, Poppler::Page::NextResult, Poppler::Page::CaseInsensitive) )
-      results << QRectF(qreal(left), qreal(top), qAbs(qreal(right) - qreal(left)), qAbs(qreal(bottom) - qreal(top)));
+    if ( _poppler_page->search(searchText, left, top, right, bottom, Poppler::Page::FromTop, Poppler::Page::CaseInsensitive) ) {
+      result.bbox = QRectF(qreal(left), qreal(top), qAbs(qreal(right) - qreal(left)), qAbs(qreal(bottom) - qreal(top)));
+      results << result;
+    }
+
+    while ( _poppler_page->search(searchText, left, top, right, bottom, Poppler::Page::NextResult, Poppler::Page::CaseInsensitive) ) {
+      result.bbox = QRectF(qreal(left), qreal(top), qAbs(qreal(right) - qreal(left)), qAbs(qreal(bottom) - qreal(top)));
+      results << result;
+    }
   docLock.unlock();
 
   return results;
