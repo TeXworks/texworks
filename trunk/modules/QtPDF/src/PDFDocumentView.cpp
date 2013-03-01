@@ -1070,6 +1070,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 #endif
 
     QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
+    // FIXME: speed up tile lookup by not iterating over all tiles but only over
+    // those possibly inside the exposedRect
     foreach( QRect tile, _tilemap ) {
       if( not tile.intersects(visibleRect) )
         continue;
@@ -1147,13 +1149,13 @@ bool PDFPageGraphicsItem::event(QEvent *event)
 // `setParentItem` causes the link objects to be added to the scene that owns
 // the page object. `update` is then called to ensure all links are drawn at
 // once.
-void PDFPageGraphicsItem::addLinks(QList<PDFLinkAnnotation *> links)
+void PDFPageGraphicsItem::addLinks(QList< QSharedPointer<PDFLinkAnnotation> > links)
 {
   PDFLinkGraphicsItem *linkItem;
 #ifdef DEBUG
   stopwatch.start();
 #endif
-  foreach( PDFLinkAnnotation *link, links ){
+  foreach( QSharedPointer<PDFLinkAnnotation> link, links ){
     linkItem = new PDFLinkGraphicsItem(link);
     linkItem->setTransform(_pageScale);
     linkItem->setParentItem(this);
@@ -1176,7 +1178,7 @@ void PDFPageGraphicsItem::addLinks(QList<PDFLinkAnnotation *> links)
 //
 //    * Handles tasks such as cursor changes on mouse hover and link activation
 //      on mouse clicks.
-PDFLinkGraphicsItem::PDFLinkGraphicsItem(PDFLinkAnnotation *a_link, QGraphicsItem *parent):
+PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_link, QGraphicsItem *parent):
   Super(parent),
   _link(a_link),
   _activated(false)

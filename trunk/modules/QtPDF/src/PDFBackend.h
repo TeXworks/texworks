@@ -329,14 +329,14 @@ class PDFLinksLoadedEvent : public QEvent
 {
 
 public:
-  PDFLinksLoadedEvent(const QList<PDFLinkAnnotation *> links):
+  PDFLinksLoadedEvent(const QList< QSharedPointer<PDFLinkAnnotation> > links):
     QEvent(LinksLoadedEvent),
     links(links)
   {}
 
   static const QEvent::Type LinksLoadedEvent;
 
-  const QList<PDFLinkAnnotation *> links;
+  const QList< QSharedPointer<PDFLinkAnnotation> > links;
 
 };
 
@@ -421,7 +421,7 @@ public:
   virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
   // FIXME: take care that the links are destroyed - maybe use QSharedPointer?
-  virtual QList<PDFLinkAnnotation*> loadLinks() = 0;
+  virtual QList< QSharedPointer<PDFLinkAnnotation> > loadLinks() = 0;
   virtual void asyncLoadLinks(QObject *listener);
 
   QImage *getCachedImage(double xres, double yres, QRect render_box = QRect());

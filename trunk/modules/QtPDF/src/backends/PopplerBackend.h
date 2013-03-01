@@ -51,6 +51,8 @@ class PopplerPage: public Page
 {
   typedef Page Super;
   QSharedPointer<Poppler::Page> _poppler_page;
+  QList< QSharedPointer<PDFLinkAnnotation> > _links;
+  bool _linksLoaded;
 
 public:
   PopplerPage(PopplerDocument *parent, int at);
@@ -60,10 +62,7 @@ public:
 
   QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false);
 
-  // FIXME: This should return a list of object inherting from an abstract base
-  // class for Links.
-  QList<PDFLinkAnnotation *> loadLinks();
-
+  QList< QSharedPointer<PDFLinkAnnotation> > loadLinks();
 };
 
 

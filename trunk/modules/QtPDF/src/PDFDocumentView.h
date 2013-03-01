@@ -287,7 +287,7 @@ private:
   Q_DISABLE_COPY(PDFPageGraphicsItem)
 
 private slots:
-  void addLinks(QList<PDFLinkAnnotation *> links);
+  void addLinks(QList< QSharedPointer<PDFLinkAnnotation> > links);
 
 };
 
@@ -295,11 +295,11 @@ private slots:
 class PDFLinkGraphicsItem : public QGraphicsRectItem {
   typedef QGraphicsRectItem Super;
 
-  PDFLinkAnnotation *_link;
+  QSharedPointer<PDFLinkAnnotation> _link;
   bool _activated;
 
 public:
-  PDFLinkGraphicsItem(PDFLinkAnnotation *a_link, QGraphicsItem *parent = 0);
+  PDFLinkGraphicsItem(QSharedPointer<PDFLinkAnnotation> a_link, QGraphicsItem *parent = 0);
   // See concerns in `PDFPageGraphicsItem` for why this feels fragile.
   enum { Type = UserType + 2 };
   int type() const;
