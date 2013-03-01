@@ -61,6 +61,36 @@ private:
 };
 
 
+// Class to render pages in the background
+// Modelled after the "Blocking Fortune Client Example" in the Qt docs
+// (http://doc.qt.nokia.com/stable/network-blockingfortuneclient.html)
+class PDFPageRenderingThread : public QThread
+{
+  Q_OBJECT
+public:
+  PDFPageRenderingThread();
+  virtual ~PDFPageRenderingThread();
+  
+  void requestRender(PDFPageGraphicsItem * page, qreal scaleFactor);
+
+signals:
+  void pageReady(PDFPageGraphicsItem *, qreal, QImage);
+
+protected:
+  virtual void run();
+
+private:
+  struct StackItem {
+    PDFPageGraphicsItem * page;
+    qreal scaleFactor;
+  };
+  QStack<StackItem> _workStack;
+  QMutex _mutex;
+  QWaitCondition _waitCondition;
+  bool _quit;
+};
+
+
 class PDFDocumentScene : public QGraphicsScene {
   Q_OBJECT
   typedef QGraphicsScene Super;
@@ -70,12 +100,14 @@ class PDFDocumentScene : public QGraphicsScene {
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> _pages;
   int _lastPage;
+  PDFPageRenderingThread _renderingThread;
 
 public:
   PDFDocumentScene(Poppler::Document *a_doc, QObject *parent = 0);
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
   int pageNumAt(const QPolygonF &polygon);
+  PDFPageRenderingThread& renderingThread() { return _renderingThread; }
 
   int lastPage();
   // Poppler is *NOT* thread safe :(
@@ -112,10 +144,12 @@ class PDFPageGraphicsItem : public QObject, public QGraphicsPixmapItem
   QFutureWatcher< QList<PDFLinkGraphicsItem *> > *_linkGenerator;
 
   bool _pageIsRendering;
-  QFutureWatcher<QImage> *_pageImageGenerator;
 
   QTransform _pageScale;
   qreal _zoomLevel;
+  PDFPageRenderingThread * _connectedRenderingThread;
+  
+  friend class PDFPageRenderingThread;
 
 public:
 
@@ -139,7 +173,7 @@ private:
 
 private slots:
   void addLinks();
-  void updateRenderedPage();
+  void maybeUpdateRenderedPage(PDFPageGraphicsItem * page, qreal scaleFactor, QImage pageImage);
 };
 
 
