@@ -50,8 +50,6 @@ public:
 class PopplerPage: public Page
 {
   typedef Page Super;
-
-  PopplerDocument *_parent;
   QSharedPointer<Poppler::Page> _poppler_page;
 
 public:
@@ -59,7 +57,11 @@ public:
   ~PopplerPage();
 
   QSizeF pageSizeF();
+
   QImage renderToImage(double xres, double yres, int x = -1, int y = -1, int width = -1, int height = -1);
+
+  QList<Poppler::Link *> loadLinks();
+  void asyncLoadLinks(QObject *listener);
 
 };
 

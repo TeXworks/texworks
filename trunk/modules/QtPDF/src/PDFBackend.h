@@ -14,9 +14,10 @@
 #ifndef PDFBackend_H
 #define PDFBackend_H
 
-// TODO: Thin the header inclusion down.
+// FIXME: Thin the header inclusion down.
 #include <QtCore>
 #include <QImage>
+#include <QApplication>
 
 
 // Backend Rendering
@@ -24,8 +25,12 @@
 
 // FIXME: Forward-declaring these classes is a hack that allows the threaded
 // rendering code to live in PDFBackend. Clean up and fix.
-class PDFPageGraphicsItem;
-class PDFLinkGraphicsItem;
+class Page;
+class Document;
+// FIXME: Loading the Poppler Qt4 headers here to gain access to Link class in
+// order to test the rendering thread. We need a link class of our own.
+#include <poppler/qt4/poppler-qt4.h>
+
 
 class PageProcessingRequest : public QObject
 {
@@ -35,7 +40,7 @@ class PageProcessingRequest : public QObject
   // Protect c'tor and execute() so we can't access them except in derived
   // classes and friends
 protected:
-  PageProcessingRequest(PDFPageGraphicsItem * page) : page(page) { }
+  PageProcessingRequest(Page *page, QObject *listener) : page(page), listener(listener) { }
   // Should perform whatever processing it is designed to do
   // Returns true if finished successfully, false otherwise
   virtual bool execute() = 0;
@@ -46,7 +51,8 @@ public:
   virtual ~PageProcessingRequest() { }
   virtual Type type() = 0;
 
-  PDFPageGraphicsItem * page;
+  Page *page;
+  QObject *listener;
 };
 
 
@@ -58,11 +64,11 @@ class PageProcessingRenderPageRequest : public PageProcessingRequest
   // Protect c'tor and execute() so we can't access them except in derived
   // classes and friends
 protected:
-  PageProcessingRenderPageRequest(PDFPageGraphicsItem * page, qreal scaleFactor);
-  virtual bool execute();
+  PageProcessingRenderPageRequest(Page *page, QObject *listener, qreal scaleFactor);
+  bool execute();
 
 public:
-  virtual Type type() { return PageRendering; }
+  Type type() { return PageRendering; }
 
   qreal scaleFactor;
 
@@ -79,14 +85,23 @@ class PageProcessingLoadLinksRequest : public PageProcessingRequest
   // Protect c'tor and execute() so we can't access them except in derived
   // classes and friends
 protected:
-  PageProcessingLoadLinksRequest(PDFPageGraphicsItem * page) : PageProcessingRequest(page) { }
-  virtual bool execute();
+  PageProcessingLoadLinksRequest(Page *page, QObject *listener) : PageProcessingRequest(page, listener) { }
+  bool execute();
 
 public:
-  virtual Type type() { return LoadLinks; }
+  Type type() { return LoadLinks; }
 
-signals:
-  void linksReady(QList<PDFLinkGraphicsItem *>);
+};
+
+
+class PDFLinksLoadedEvent : public QEvent
+{
+  typedef QEvent Super;
+
+public:
+  PDFLinksLoadedEvent(const QList<Poppler::Link *> links): Super(LinksLoadedEvent), links(links) {}
+  static QEvent::Type LinksLoadedEvent;
+  const QList<Poppler::Link *> links;
 };
 
 
@@ -100,8 +115,8 @@ public:
   PDFPageProcessingThread();
   virtual ~PDFPageProcessingThread();
 
-  PageProcessingRenderPageRequest* requestRenderPage(PDFPageGraphicsItem * page, const qreal scaleFactor) const;
-  PageProcessingLoadLinksRequest* requestLoadLinks(PDFPageGraphicsItem * page) const;
+  void requestRenderPage(Page *page, QObject *listener, qreal scaleFactor);
+  void requestLoadLinks(Page *page, QObject *listener);
 
   // add a processing request to the work stack
   // Note: request must have been created on the heap and must be in the scope
@@ -130,8 +145,6 @@ private:
 // documents. Having a set of abstract classes allows tools like GUI viewers to
 // be written that are agnostic to the library that provides the actual PDF
 // implementation: Poppler, MuPDF, etc.
-class Document;
-class Page;
 
 class Document
 {
@@ -139,20 +152,24 @@ class Document
 
 protected:
   int _numPages;
+  PDFPageProcessingThread _processingThread;
 
 public:
   Document(QString fileName);
   ~Document();
 
   int numPages();
+  PDFPageProcessingThread& processingThread();
+
   virtual Page *page(int at)=0;
 
 };
 
-
 class Page
 {
+
 protected:
+  Document *_parent;
   const int _n;
 
 public:
@@ -163,6 +180,9 @@ public:
   virtual QSizeF pageSizeF()=0;
 
   virtual QImage renderToImage(double xres, double yres, int x=-1, int y=-1, int width=-1, int height=-1)=0;
+
+  virtual QList<Poppler::Link *> loadLinks()=0;
+  virtual void asyncLoadLinks(QObject *listener)=0;
 
 };
 

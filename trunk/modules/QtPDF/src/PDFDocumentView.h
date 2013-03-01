@@ -202,7 +202,6 @@ class PDFDocumentScene : public QGraphicsScene
   // This may change to a `QSet` in the future
   QList<QGraphicsItem*> _pages;
   int _lastPage;
-  PDFPageProcessingThread _processingThread;
   PDFPageLayout _pageLayout;
   void handleLinkEvent(const PDFLinkEvent * link_event);
 
@@ -213,7 +212,6 @@ public:
   QGraphicsItem* pageAt(const int idx);
   int pageNumAt(const QPolygonF &polygon);
   int pageNumFor(PDFPageGraphicsItem * const graphicsItem) const;
-  PDFPageProcessingThread& processingThread() { return _processingThread; }
   PDFPageLayout& pageLayout() { return _pageLayout; }
 
   void showOnePage(const int pageIdx) const;
@@ -289,12 +287,15 @@ public:
 
   virtual QRectF boundingRect() const;
 
+protected:
+  bool event(QEvent *event);
+
 private:
   // Parent has no copy constructor.
   Q_DISABLE_COPY(PDFPageGraphicsItem)
 
 private slots:
-  void addLinks(QList<PDFLinkGraphicsItem *> links);
+  void addLinks(QList<Poppler::Link *> links);
   void updateRenderedPage(qreal scaleFactor, QImage pageImage);
   void updateMagnifiedPage(qreal scaleFactor, QImage pageImage);
 };
