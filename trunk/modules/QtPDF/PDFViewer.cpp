@@ -4,7 +4,13 @@
 PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   QMainWindow(parent, flags)
 {
+#ifdef USE_MUPDF
+  Document *a_pdf_doc = new MuPDFDocument(pdf_doc);
+#else
+  // Assumes Poppler
   Document *a_pdf_doc = new PopplerDocument(pdf_doc);
+#endif
+
   PDFDocumentScene *docScene = new PDFDocumentScene(a_pdf_doc, this);
   PDFDocumentView *docView = new PDFDocumentView(this);
 
