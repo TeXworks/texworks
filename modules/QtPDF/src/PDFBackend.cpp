@@ -150,22 +150,16 @@ PDFPageProcessingThread::~PDFPageProcessingThread()
   wait();
 }
 
-void PDFPageProcessingThread::requestRenderPage(Page *page, QObject *listener, double xres, double yres, QRect render_box, bool cache)
-{
-  addPageProcessingRequest(new PageProcessingRenderPageRequest(page, listener, xres, yres, render_box, cache));
-}
-
-void PDFPageProcessingThread::requestLoadLinks(Page *page, QObject *listener)
-{
-  addPageProcessingRequest(new PageProcessingLoadLinksRequest(page, listener));
-}
-
 void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * request)
 {
   int i;
 
   if (!request)
     return;
+
+  // `request` must live in the main (GUI) thread, or else destroying it later
+  // on will fail
+  Q_ASSERT(request->thread() == QApplication::instance()->thread());
 
   QMutexLocker locker(&(this->_mutex));
   // remove any instances of the given request type before adding the new one to
@@ -239,9 +233,9 @@ void PDFPageProcessingThread::run()
       // Delete the work item as it has fulfilled its purpose
       // Note that we can't delete it here or we might risk that some emitted
       // signals are invalidated; to ensure they reach their destination, we
-      // need to call deleteLater(), which requires and event queue; thus, we
-      // first move it to the main processing thread
-      workItem->moveToThread(QApplication::instance()->thread());
+      // need to call deleteLater().
+      // Note: workItem *must* live in the main (GUI) thread for this!
+      Q_ASSERT(workItem->thread() == QApplication::instance()->thread());
       workItem->deleteLater();
 
       _mutex.lock();
@@ -441,7 +435,7 @@ QSharedPointer<QImage> Page::getCachedImage(double xres, double yres, QRect rend
 
 void Page::asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box, bool cache)
 {
-  _parent->processingThread().requestRenderPage(this, listener, xres, yres, render_box, cache);
+  _parent->processingThread().addPageProcessingRequest(new PageProcessingRenderPageRequest(this, listener, xres, yres, render_box, cache));
 }
 
 bool higherResolutionThan(const PDFPageTile & t1, const PDFPageTile & t2)
@@ -543,7 +537,7 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
 
 void Page::asyncLoadLinks(QObject *listener)
 {
-  _parent->processingThread().requestLoadLinks(this, listener);
+  _parent->processingThread().addPageProcessingRequest(new PageProcessingLoadLinksRequest(this, listener));
 }
 
 

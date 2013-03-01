@@ -67,12 +67,6 @@ TODO
  - Highlighting! (to show syncing destination, search results, etc.)
  - possibility to abort render requests when page moves out of view (is there a
    way to avoid going through all pages at each scroll event?)
- - Possibly simplify page processing request generation. Rational: Right now,
-   requestLoadLinks, requestRenderPage, and addPageProcessingRequest are all
-   called from the main thread, if I understood threading correctly.
-   Consequently, the page processing request object should live in the main
-   thread as well (but is accessed only from the worked thread). If that is
-   correct, all the moving of objects is superfluous as well.
  - Implement text search for PDF files.
  - Port scripting-related functions from Tw (if any)
  - Handling of encrypted/password protected files (this needs to be handled
@@ -87,6 +81,12 @@ TODO
    holding a pointer to them (e.g., PDFPageGraphicsItem)
  - Make program translatable; this probably entails creating a (dummy) Qt .pro
    file so we can use the normal Qt linguist approach
+ - ~~Possibly simplify page processing request generation. Rational: Right now,
+   requestLoadLinks, requestRenderPage, and addPageProcessingRequest are all
+   called from the main thread, if I understood threading correctly.
+   Consequently, the page processing request object should live in the main
+   thread as well (but is accessed only from the worked thread). If that is
+   correct, all the moving of objects is superfluous as well.~~ __DONE__
  - ~~Clicking on an item in the ToC that lies after the current viewport position
    moves the view such that a small band of the page in question is visible at
    the bottom of the screen---but we should see that page fill the entire screen
