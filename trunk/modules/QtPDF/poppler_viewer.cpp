@@ -2,7 +2,8 @@
 
 #include <QtCore/QtCore>
 
-#include "PDFView.h"
+#include "PDFViewer.h"
+#include "PDFDocumentView.h"
 
 
 int main(int argc, char **argv) {
