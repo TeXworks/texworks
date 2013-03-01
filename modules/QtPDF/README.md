@@ -120,7 +120,7 @@ TODO
 
 ### Wishlist
  - Add automated (unit) tests (presumably using the QtTest framework as that
-   directly supports generating and monitoring Qt events)
+   directly supports generating and monitoring Qt events) __STARTED__
  - Speed up magnifier; in Tw, it seems much more responsive. This might be due
    to using centerOn in PDFDocumentMagnifierView::setPosition but needs closer
    investigation

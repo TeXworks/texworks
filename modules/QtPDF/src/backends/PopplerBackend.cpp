@@ -130,7 +130,7 @@ Document::Document(QString fileName):
   _fontsLoaded(false)
 {
 #ifdef DEBUG
-  qDebug() << "Poppler::Document::Document(" << fileName << ")";
+//  qDebug() << "Poppler::Document::Document(" << fileName << ")";
 #endif
   parseDocument();
 }
@@ -138,7 +138,7 @@ Document::Document(QString fileName):
 Document::~Document()
 {
 #ifdef DEBUG
-  qDebug() << "Poppler::Document::~Document()";
+//  qDebug() << "Poppler::Document::~Document()";
 #endif
   clearPages();
 }

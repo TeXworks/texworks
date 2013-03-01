@@ -370,7 +370,7 @@ Document::Document(QString fileName):
   _glyph_cache(fz_new_glyph_cache())
 {
 #ifdef DEBUG
-  qDebug() << "MuPDF::Document::Document(" << fileName << ")";
+//  qDebug() << "MuPDF::Document::Document(" << fileName << ")";
 #endif
   reload();
 }
@@ -378,7 +378,7 @@ Document::Document(QString fileName):
 Document::~Document()
 {
 #ifdef DEBUG
-  qDebug() << "MuPDF::Document::~Document()";
+//  qDebug() << "MuPDF::Document::~Document()";
 #endif
 
   QWriteLocker docLocker(_docLock.data());

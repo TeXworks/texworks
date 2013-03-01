@@ -464,7 +464,7 @@ Document::Document(QString fileName):
   Q_ASSERT(_docLock != NULL);
 
 #ifdef DEBUG
-  qDebug() << "Document::Document(" << fileName << ")";
+//  qDebug() << "Document::Document(" << fileName << ")";
 #endif
 
   // Set cache for rendered pages to be 1GB. This is enough for 256 RGBA tiles
@@ -478,7 +478,7 @@ Document::Document(QString fileName):
 Document::~Document()
 {
 #ifdef DEBUG
-  qDebug() << "Document::~Document()";
+//  qDebug() << "Document::~Document()";
 #endif
   QWriteLocker docLocker(_docLock.data());
   clearPages();
