@@ -530,6 +530,23 @@ void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
     finishTool(_activeTool, event);
 }
 
+void PDFDocumentView::wheelEvent(QWheelEvent * event)
+{
+  // TODO: Possibly make the Ctrl modifier configurable?
+  // TODO: According to Qt docs, the delta() is not necessarily the same for all
+  // mice. Decide if we want to enforce the same step size regardless of the
+  // resolution of the mouse wheel sensor
+  if (event->orientation() == Qt::Vertical && event->buttons() == Qt::NoButton && event->modifiers() == Qt::ControlModifier) {
+    if (event->delta() > 0)
+      zoomIn();
+    else if (event->delta() < 0)
+      zoomOut();
+    event->accept();
+    return;
+  }
+  Super::wheelEvent(event);
+}
+
 void PDFDocumentView::armTool(const Tool tool)
 {
   if (_armedTool == tool)
