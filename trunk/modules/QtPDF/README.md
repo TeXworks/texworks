@@ -67,27 +67,30 @@ TODO
  - Highlighting! (to show syncing destination, search results, etc.)
  - possibility to abort render requests when page moves out of view (is there a
    way to avoid going through all pages at each scroll event?)
- - Program segfaults if a page is destroyed while a render request is active
  - Possibly simplify page processing request generation. Rational: Right now,
    requestLoadLinks, requestRenderPage, and addPageProcessingRequest are all
    called from the main thread, if I understood threading correctly.
    Consequently, the page processing request object should live in the main
    thread as well (but is accessed only from the worked thread). If that is
    correct, all the moving of objects is superfluous as well.
- - Turn PDFViewer into a more general test case (loading of arbitrary files,
-   etc.)
  - Implement text search for PDF files.
  - Port scripting-related functions from Tw (if any)
  - Icons (add icons for page modes, make marquee zoom icon consistent with other
    icons)
  - Handling of encrypted/password protected files (this needs to be handled
-   during loading; I haven't checked this code, but Tw crashed for some time
-   with such documents)
- - Possibility to load different file easily (e.g., through a load() method)
+   during loading; accessing some functions (e.g., for rendering) in a locked
+   document crashes the program)
+ - Add a PDFDocumentWidget, derived from PDFDocumentView, which encapsulates the
+   scene and provides, e.g., a load() function for ease of use (similar to what
+   Qt does, see QTreeView vs. QTreeWidget)
  - Possibility to reload current file (e.g., if it changed on disk)
  - Clicking on an item in the ToC that lies after the current viewport position
    moves the view such that a small band of the page in question is visible at
    the bottom of the screen---but we should see that page fill the entire screen
+ - ~~Turn PDFViewer into a more general test case (loading of arbitrary files,
+   etc.)~~ __DONE__
+ - ~~Program segfaults if a page is destroyed while a render request is active~~
+   __DONE__
  - ~~GotoPage should not center on page~~ __DONE__
  - ~~zoom/hand tools~~ __DONE__
  - ~~ctrl+mousewheel should zoom~~ __DONE__
@@ -107,6 +110,7 @@ TODO
  - ~~Don't show mouse cursor while using the magnifier~~ __DONE__
 
 ### Wishlist
+ - Provide a grayscale mode
  - Speed up magnifier; in Tw, it seems much more responsive. This might be due
    to using centerOn in PDFDocumentMagnifierView::setPosition but needs closer
    investigation

@@ -15,7 +15,12 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   PDFDocumentView *docView = new PDFDocumentView(this);
 
   if (a_pdf_doc) {
-    PDFDocumentScene *docScene = new PDFDocumentScene(a_pdf_doc, this);
+    // Note: Don't pass `this` (or any other QObject*) as parent to the new
+    // PDFDocumentScene as that would cause docScene to be destroyed with its
+    // parent, thereby bypassing the QSharedPointer mechanism. docScene will be
+    // freed automagically when the last QSharedPointer pointing to it will be
+    // destroyed.
+    QSharedPointer<PDFDocumentScene> docScene(new PDFDocumentScene(a_pdf_doc));
     docView->setScene(docScene);
   }
   docView->goFirst();
@@ -88,12 +93,16 @@ void PDFViewer::open()
 #endif
 
   if (a_pdf_doc && a_pdf_doc->isValid()) {
-    // FIXME: Destroy old scene if necessary; use QSharedPointer for that
-    PDFDocumentScene * docScene = new PDFDocumentScene(a_pdf_doc, this);
+    // Note: Don't pass `this` (or any other QObject*) as parent to the new
+    // PDFDocumentScene as that would cause docScene to be destroyed with its
+    // parent, thereby bypassing the QSharedPointer mechanism. docScene will be
+    // freed automagically when the last QSharedPointer pointing to it will be
+    // destroyed.
+    QSharedPointer<PDFDocumentScene> docScene(new PDFDocumentScene(a_pdf_doc));
     docView->setScene(docScene);
   }
   else
-    docView->setScene((PDFDocumentScene*)NULL);
+    docView->setScene(QSharedPointer<PDFDocumentScene>());
 }
 
 void PDFViewer::openUrl(const QUrl url) const
