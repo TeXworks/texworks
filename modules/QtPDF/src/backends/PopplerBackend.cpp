@@ -82,8 +82,19 @@ PopplerDocument::PopplerDocument(QString fileName):
   _poppler_doc(Poppler::Document::load(fileName)),
   _doc_lock(new QMutex())
 {
-  if (!_poppler_doc)
+  parseDocument();
+}
+
+PopplerDocument::~PopplerDocument()
+{
+}
+
+void PopplerDocument::parseDocument()
+{
+  if (!_poppler_doc || isLocked())
     return;
+
+  _numPages = _poppler_doc->numPages();
 
   // Permissions
   // TODO: Check if this mapping from Poppler flags to our flags is correct
@@ -105,8 +116,6 @@ PopplerDocument::PopplerDocument(QString fileName):
     _permissions |= Permission_Print;
   if (_poppler_doc->okToPrintHighRes())
     _permissions |= Permission_PrintHighRes;
-
-  _numPages = _poppler_doc->numPages();
 
   // **TODO:**
   //
@@ -161,13 +170,10 @@ PopplerDocument::PopplerDocument(QString fileName):
     _meta_other[key] = _poppler_doc->info(key);
 }
 
-PopplerDocument::~PopplerDocument()
-{
-}
-
 QSharedPointer<Page> PopplerDocument::page(int at)
 {
   // FIXME: Come up with something to deal with a zero-page PDF.
+  // FIXME: Check if `at` is a valid index
   Q_ASSERT(_numPages != 0);
 
   if( _pages.isEmpty() )
@@ -234,7 +240,7 @@ void PopplerDocument::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode no
 PDFToC PopplerDocument::toc() const
 {
   PDFToC retVal;
-  if (!_poppler_doc)
+  if (!_poppler_doc || isLocked())
     return retVal;
 
   QDomDocument * toc = _poppler_doc->toc();
@@ -248,7 +254,7 @@ PDFToC PopplerDocument::toc() const
 QList<PDFFontInfo> PopplerDocument::fonts() const
 {
   QList<PDFFontInfo> retVal;
-  if (!_poppler_doc)
+  if (!_poppler_doc || isLocked())
     return retVal;
 
   foreach(Poppler::FontInfo popplerFontInfo, _poppler_doc->fonts()) {
@@ -323,6 +329,25 @@ QList<PDFFontInfo> PopplerDocument::fonts() const
   }
   return retVal;
 }
+
+bool PopplerDocument::unlock(const QString password)
+{
+  if (!_poppler_doc)
+    return false;
+  // Note: we try unlocking regardless of what isLocked() returns as the user
+  // might want to unlock a document with the owner's password when user level
+  // access is already granted.
+  bool success = !_poppler_doc->unlock(password.toLatin1(), password.toLatin1());
+
+  if (success)
+    parseDocument();
+
+  // FIXME: Store password for this session in case we need to reload the
+  // document later on (e.g., if it has changed on the disk)
+
+  return success;
+}
+
 
 // Page Class
 // ==========
