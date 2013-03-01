@@ -172,14 +172,16 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
   if (_mouseMode == newMode)
     return;
 
-  if (_mouseMode == MouseMode_Move)
-    setDragMode(QGraphicsView::ScrollHandDrag);
-
   switch (newMode) {
     case MouseMode_Move:
       setDragMode(QGraphicsView::ScrollHandDrag);
       break;
+
+    case MouseMode_MagnifyingGlass:
+      setDragMode(QGraphicsView::NoDrag);
+      break;
   }
+
   _mouseMode = newMode;
 }
 
