@@ -81,10 +81,16 @@ TODO
  - Add a PDFDocumentWidget, derived from PDFDocumentView, which encapsulates the
    scene and provides, e.g., a load() function for ease of use (similar to what
    Qt does, see QTreeView vs. QTreeWidget)
- - Possibility to reload current file (e.g., if it changed on disk)
+ - Possibility to reload current file (e.g., if it changed on disk); note that
+   this requires some reconsideration of memory management, as Page object
+   could change, which would have to be propagated upwards to every object
+   holding a pointer to them (e.g., PDFPageGraphicsItem)
+ - Make program translatable; this probably entails creating a (dummy) Qt .pro
+   file so we can use the normal Qt linguist approach
  - Clicking on an item in the ToC that lies after the current viewport position
    moves the view such that a small band of the page in question is visible at
    the bottom of the screen---but we should see that page fill the entire screen
+   Note: this only applies of no viewport setting is associated with the toc item
  - ~~Icons (add icons for page modes, make marquee zoom icon consistent with
    other icons)~~ __DONE__
  - ~~Turn PDFViewer into a more general test case (loading of arbitrary files,
@@ -124,4 +130,10 @@ TODO
  - Provide additional info, e.g. through QDockWidget. Annotations, thumbnails (?).
  - Printing.
  - Derive zoom icons from Tango instead of from Qt
-
+ - Presentation mode
+   - should display all pages in fit-to-window mode
+   - must render all pages completely before switching to them
+   - full screen
+   - transition support?
+ - save page as image
+ - selecting (and copying/saving) text & images (subject to permissions)
