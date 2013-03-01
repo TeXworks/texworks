@@ -235,7 +235,6 @@ MuPDFDocument::MuPDFDocument(QString fileName):
   _glyph_cache(fz_new_glyph_cache()),
   _mupdf_data(NULL)
 {
-  // NOTE: The next two calls can fail---we need to check for that
   fz_stream *pdf_file = fz_open_file(fileName.toLocal8Bit().data());
   if (!pdf_file)
     return;
@@ -244,6 +243,24 @@ MuPDFDocument::MuPDFDocument(QString fileName):
 
   if (!_mupdf_data)
     return;
+
+  // Permissions
+  if (pdf_has_permission(_mupdf_data, PDF_PERM_PRINT))
+    _permissions |= Permission_Print;
+  if (pdf_has_permission(_mupdf_data, PDF_PERM_CHANGE))
+    _permissions |= Permission_Change;
+  if (pdf_has_permission(_mupdf_data, PDF_PERM_COPY))
+    _permissions |= Permission_Extract;
+  if (pdf_has_permission(_mupdf_data, PDF_PERM_NOTES))
+    _permissions |= Permission_Annotate;
+  if (pdf_has_permission(_mupdf_data, PDF_PERM_FILL_FORM))
+    _permissions |= Permission_FillForm;
+  if (pdf_has_permission(_mupdf_data, PDF_PERM_ACCESSIBILITY))
+    _permissions |= Permission_ExtractForAccessibility;
+  if (pdf_has_permission(_mupdf_data, PDF_PERM_ASSEMBLE))
+    _permissions |= Permission_Assemble;
+  if (pdf_has_permission(_mupdf_data, PDF_PERM_HIGH_RES_PRINT))
+    _permissions |= Permission_PrintHighRes;
 
   // NOTE: This can also fail.
   pdf_load_page_tree(_mupdf_data);

@@ -72,6 +72,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   addDockWidget(Qt::LeftDockWidgetArea, toc);
   tabifyDockWidget(toc, docView->metaDataDockWidget(this));
   tabifyDockWidget(toc, docView->fontsDockWidget(this));
+  tabifyDockWidget(toc, docView->permissionsDockWidget(this));
   toc->raise();
 }
 
