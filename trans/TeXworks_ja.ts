@@ -973,11 +973,19 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation>ログファイル (*.log)</translation>
+        <translation type="obsolete">ログファイル (*.log)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation>補助ファイル (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+        <translation type="obsolete">補助ファイル (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+    </message>
+    <message>
+        <source>Log files (*.log *.blg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

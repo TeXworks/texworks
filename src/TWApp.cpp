@@ -24,12 +24,14 @@
 #include "TeXDocument.h"
 #include "PDFDocument.h"
 #include "PrefsDialog.h"
+#include "DefaultPrefs.h"
 #include "TemplateDialog.h"
 #include "TWSystemCmd.h"
 
 #include "TWVersion.h"
 #include "SvnRev.h"
 #include "ResourcesDialog.h"
+#include "TWTextCodecs.h"
 
 #ifdef Q_WS_WIN
 #include "DefaultBinaryPathsWin.h"
@@ -102,6 +104,8 @@ TWApp::~TWApp()
 
 void TWApp::init()
 {
+	customTextCodecs << new MacCentralEurRomanCodec();
+
 	QIcon appIcon;
 #ifdef Q_WS_X11
 	// The Compiz window manager doesn't seem to support icons larger than
@@ -1275,7 +1279,7 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 	// for absolute paths and full reading permissions, we don't have to care
 	// about peculiarities of the script; in that case, this even succeeds
 	// if no valid scriptApi is passed; otherwise, we need to investigate further
-	if (fi.isRelative() || !settings.value("allowScriptFileReading", false).toBool()) {
+	if (fi.isRelative() || !settings.value("allowScriptFileReading", kDefault_AllowScriptFileReading).toBool()) {
 		if (!scriptApi)
 			return retVal;
 		script = qobject_cast<TWScript*>(scriptApi->GetScript());

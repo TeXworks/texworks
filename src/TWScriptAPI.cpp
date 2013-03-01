@@ -22,6 +22,7 @@
 #include "TWScriptAPI.h"
 #include "TWSystemCmd.h"
 #include "TWUtils.h"
+#include "TWApp.h"
 
 #include <QObject>
 #include <QString>
@@ -368,4 +369,21 @@ QMap<QString, QVariant> TWScriptAPI::getDictionaryList(const bool forceReload /*
 	return retVal;
 }
 //////////////// Wrapper around selected TWUtils functions ////////////////
+
+
+// Wrapper around TWApp::getEngineList()
+Q_INVOKABLE
+QList<QVariant> TWScriptAPI::getEngineList() const
+{
+	QList<QVariant> retVal;
+	const QList<Engine> engines = TWApp::instance()->getEngineList();
+
+	foreach (const Engine& e, engines) {
+		QMap<QString, QVariant> s;
+		s["name"] = e.name();
+		retVal.append(s);
+	}
+
+	return retVal;
+}
 

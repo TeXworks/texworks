@@ -36,6 +36,10 @@ QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
 # maximum compression for resources (unless that only produces a 5% size decrease)
 QMAKE_RESOURCE_FLAGS += -threshold 5 -compress 9
 
+# turn on advanced warnings to check code quality
+# (Note: Qt's own header files produce lots of "long long" warnings, so we disable those)
+QMAKE_CXXFLAGS_WARN_ON += -Wall -pedantic -ansi -Wno-long-long
+
 # avoid warnings about "#pragma mark" on non-Mac/non-XCode systems
 QMAKE_CXXFLAGS_WARN_ON += -Wno-unknown-pragmas
 
@@ -171,8 +175,10 @@ HEADERS	+=	src/TWApp.h \
 			src/HardWrapDialog.h \
 			src/ResourcesDialog.h \
 			src/ScriptManager.h \
+			src/ClosableTabWidget.h \
 			src/ConfirmDelete.h \
 			src/TWVersion.h \
+			src/TWTextCodecs.h \
 			src/SvnRev.h \
 			src/synctex_parser.h \
 			src/synctex_parser_utils.h \
@@ -201,6 +207,7 @@ SOURCES	+=	src/main.cpp \
 			src/TWScript.cpp \
 			src/TWScriptAPI.cpp \
 			src/TeXDocument.cpp \
+			src/ClosableTabWidget.cpp \
 			src/CommandlineParser.cpp \
 			src/CompletingEdit.cpp \
 			src/TeXHighlighter.cpp \
@@ -210,6 +217,7 @@ SOURCES	+=	src/main.cpp \
 			src/FindDialog.cpp \
 			src/PrefsDialog.cpp \
 			src/TemplateDialog.cpp \
+			src/TWTextCodecs.cpp \
 			src/HardWrapDialog.cpp \
 			src/ResourcesDialog.cpp \
 			src/ScriptManager.cpp \

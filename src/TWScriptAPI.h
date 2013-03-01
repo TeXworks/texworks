@@ -33,10 +33,10 @@ class TWScriptAPI : public QObject
 {
 	Q_OBJECT
 	
-    Q_PROPERTY(QObject* app READ GetApp);
-	Q_PROPERTY(QObject* target READ GetTarget);
-	Q_PROPERTY(QVariant result READ GetResult WRITE SetResult);
-	Q_PROPERTY(QObject * script READ GetScript);
+	Q_PROPERTY(QObject* app READ GetApp)
+	Q_PROPERTY(QObject* target READ GetTarget)
+	Q_PROPERTY(QVariant result READ GetResult WRITE SetResult)
+	Q_PROPERTY(QObject * script READ GetScript)
 	
 public:
 	TWScriptAPI(TWScript* script, QObject* twapp, QObject* ctx, QVariant& res);
@@ -175,6 +175,11 @@ public:
 	Q_INVOKABLE
 	QMap<QString, QVariant> getDictionaryList(const bool forceReload = false);
 	//////////////// Wrapper around selected TWUtils functions ////////////////
+	
+	// Wrapper around TWApp::getEngineList()
+	// Currently, only the name is returned
+	Q_INVOKABLE
+	QList<QVariant> getEngineList() const;
 
 protected:
 	TWScript* m_script;

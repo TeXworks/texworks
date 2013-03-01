@@ -970,11 +970,19 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation>Arquivos de log (*.log)</translation>
+        <translation type="obsolete">Arquivos de log (*.log)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation>Arquivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+        <translation type="obsolete">Arquivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+    </message>
+    <message>
+        <source>Log files (*.log *.blg)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

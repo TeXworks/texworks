@@ -58,7 +58,7 @@
         <number>36</number>
        </property>
       </widget>
-      <widget class="QTabWidget" name="consoleTabs">
+      <widget class="ClosableTabWidget" name="consoleTabs">
        <property name="usesScrollButtons">
         <bool>true</bool>
        </property>
@@ -1117,6 +1117,12 @@
    <class>CompletingEdit</class>
    <extends>QTextEdit</extends>
    <header>CompletingEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ClosableTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ClosableTabWidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
