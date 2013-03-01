@@ -179,6 +179,7 @@ uint qHash(const PDFPageTile &tile);
 // This class is thread-safe
 class PDFPageCache : protected QCache<PDFPageTile, QSharedPointer<QImage> >
 {
+  typedef QCache<PDFPageTile, QSharedPointer<QImage> > Super;
 public:
   PDFPageCache() { }
   virtual ~PDFPageCache() { }
@@ -196,6 +197,8 @@ public:
   
   void lock() const { _lock.lockForRead(); }
   void unlock() const { _lock.unlock(); }
+
+  void clear() { QWriteLocker l(&_lock); Super::clear(); }
 
   QList<PDFPageTile> tiles() const { return keys(); }
 protected:
@@ -328,6 +331,9 @@ public:
   // of this thread; use requestRenderPage() and requestLoadLinks() for that
   void addPageProcessingRequest(PageProcessingRequest * request);
 
+  // drop all remaining processing requests
+  void clearWorkStack();
+
 protected:
   virtual void run();
 
@@ -335,6 +341,8 @@ private:
   QStack<PageProcessingRequest*> _workStack;
   QMutex _mutex;
   QWaitCondition _waitCondition;
+  bool _idle;
+  QWaitCondition _idleCondition;
   bool _quit;
 #ifdef DEBUG
   QTime _renderTimer;
@@ -431,6 +439,8 @@ public:
   // Uses doc-read-lock
   int numPages();
   // Uses doc-read-lock
+  QString fileName() const { QReadLocker docLocker(_docLock.data()); return _fileName; }
+  // Uses doc-read-lock
   PDFPageProcessingThread& processingThread();
   // Uses doc-read-lock
   PDFPageCache& pageCache();
@@ -453,6 +463,8 @@ public:
   virtual bool isValid() const = 0;
   // Uses doc-read-lock
   virtual bool isLocked() const = 0;
+  // Uses doc-write-lock
+  virtual void reload() = 0;
 
   // Returns `true` if unlocking was successful and `false` otherwise.  
   // Uses doc-read-lock and may use doc-write-lock
@@ -489,6 +501,7 @@ public:
 
 protected:
   virtual void clearPages();
+  virtual void clearMetaData();
 
   int _numPages;
   PDFPageProcessingThread _processingThread;

@@ -27,6 +27,9 @@ public:
 
   bool load(const QString & filename);
 
+  bool watchForDocumentChangesOnDisk() const { return _scene->watchForDocumentChangesOnDisk(); }
+  void setWatchForDocumentChangesOnDisk(const bool doWatch = true) { _scene->setWatchForDocumentChangesOnDisk(doWatch); }
+
   // *TODO*: Possibly add some way to describe/choose/change the PDF backend used
 
 protected:

@@ -60,6 +60,7 @@ public:
   bool isValid() const { QReadLocker docLocker(_docLock.data()); return _isValid(); }
   bool isLocked() const { QReadLocker docLocker(_docLock.data()); return _isLocked(); }
 
+  void reload();
   bool unlock(const QString password);
 
   QWeakPointer<Backend::Page> page(int at);

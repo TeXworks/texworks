@@ -143,6 +143,25 @@ Document::~Document()
   clearPages();
 }
 
+void Document::reload()
+{
+  QWriteLocker docLocker(_docLock.data());
+
+  clearPages();
+  _processingThread.clearWorkStack();
+  _pageCache.clear();
+
+  {
+    QMutexLocker l(_poppler_docLock);
+    _poppler_doc = QSharedPointer< ::Poppler::Document >(::Poppler::Document::load(_fileName));
+  }
+
+  // TODO: possibly unlock the new document again if it was previously unlocked
+  // and the password is still the same
+
+  parseDocument();
+}
+
 void Document::parseDocument()
 {
   QWriteLocker docLocker(_docLock.data());
@@ -182,6 +201,7 @@ void Document::parseDocument()
   _poppler_doc->setRenderHint(::Poppler::Document::TextAntialiasing);
 
   // Load meta data
+  clearMetaData();
   QStringList metaKeys = _poppler_doc->infoKeys();
   if (metaKeys.contains(QString::fromUtf8("Title"))) {
     _meta_title = _poppler_doc->info(QString::fromUtf8("Title"));

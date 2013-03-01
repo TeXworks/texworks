@@ -157,7 +157,8 @@ QString PDFFontDescriptor::pureName() const
 // Each job is represented by a subclass of `PageProcessingRequest` and
 // contains an `execute` method that performs the actual work.
 PDFPageProcessingThread::PDFPageProcessingThread() :
-_quit(false)
+  _idle(true),
+  _quit(false)
 {
 }
 
@@ -219,6 +220,7 @@ void PDFPageProcessingThread::run()
   PageProcessingRequest * workItem;
 
   _mutex.lock();
+  _idle = false;
   while (!_quit) {
     // mutex must be locked at start of loop
     if (_workStack.size() > 0) {
@@ -256,13 +258,35 @@ void PDFPageProcessingThread::run()
     else {
 #ifdef DEBUG
       qDebug() << "going to sleep";
+      _idle = true;
+      _idleCondition.wakeAll();
 #endif
       _waitCondition.wait(&_mutex);
+      _idle = false;
 #ifdef DEBUG
       qDebug() << "waking up";
 #endif
     }
   }
+}
+
+void PDFPageProcessingThread::clearWorkStack()
+{
+  _mutex.lock();
+
+  foreach(PageProcessingRequest * workItem, _workStack) {
+    if (!workItem)
+      continue;
+    Q_ASSERT(workItem->thread() == QApplication::instance()->thread());
+    workItem->deleteLater();
+  }
+  _workStack.clear();
+
+  if (!_idle) {
+    // Wait until the current operation finishes
+    _idleCondition.wait(&_mutex);
+  }
+  _mutex.unlock();
 }
 
 
@@ -434,6 +458,7 @@ QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage *
 // _docLock.
 Document::Document(QString fileName):
   _numPages(-1),
+  _fileName(fileName),
   _docLock(new QReadWriteLock(QReadWriteLock::Recursive))
 {
   Q_ASSERT(_docLock != NULL);
@@ -496,6 +521,22 @@ void Document::clearPages()
   // Note: clear() releases all QSharedPointer to pages, thereby destroying them
   // (if they are not used elsewhere)
   _pages.clear();
+}
+
+void Document::clearMetaData()
+{
+  QWriteLocker docLocker(_docLock.data());
+  _meta_title = QString();
+  _meta_author = QString();
+  _meta_subject = QString();
+  _meta_keywords = QString();
+  _meta_creator = QString();
+  _meta_producer = QString();
+
+  _meta_creationDate = QDateTime();
+  _meta_modDate = QDateTime();
+  _meta_trapped = Trapped_Unknown;
+  _meta_other.clear();
 }
 
 // Page Class

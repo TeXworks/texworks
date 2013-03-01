@@ -372,7 +372,6 @@ Document::Document(QString fileName):
 #ifdef DEBUG
   qDebug() << "MuPDF::Document::Document(" << fileName << ")";
 #endif
-  _fileName = fileName;
   reload();
 }
 
@@ -398,6 +397,10 @@ void Document::reload()
 {
   QWriteLocker docLocker(_docLock.data());
   MuPDFLocaleResetter lr;
+
+  clearPages();
+  _processingThread.clearWorkStack();
+  _pageCache.clear();
 
   if (_mupdf_data) {
     pdf_free_xref(_mupdf_data);
@@ -477,10 +480,6 @@ void Document::reload()
       break;
   }
 
-  // Clear the page cache since they (may) no longer reflect the pages in the
-  // document
-  clearPages();
-
   // NOTE: This can also fail.
   pdf_load_page_tree(_mupdf_data);
   _numPages = pdf_count_pages(_mupdf_data);
@@ -540,6 +539,8 @@ void Document::loadMetaData()
   // Note: fz_is_dict(NULL)===0, i.e., it doesn't crash
   if (!fz_is_dict(_mupdf_data->trailer))
     return;
+
+  clearMetaData();
   fz_obj * info = fz_dict_gets(_mupdf_data->trailer, infoName);
   if (fz_is_dict(info)) { // the `Info` entry is optional
     for (int i = 0; i < fz_dict_len(info); ++i) {

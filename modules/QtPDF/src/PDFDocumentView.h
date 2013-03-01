@@ -378,6 +378,7 @@ public:
   void addPage(PDFPageGraphicsItem * page);
   void removePage(PDFPageGraphicsItem * page);
   void insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem * before = NULL);
+  void clearPages() { _layoutItems.clear(); }
 
 public slots:
   void relayout();
@@ -403,6 +404,9 @@ class PDFDocumentScene : public QGraphicsScene
   QList<QGraphicsItem*> _pages;
   int _lastPage;
   PDFPageLayout _pageLayout;
+  QFileSystemWatcher _fileWatcher;
+  QTimer _reloadTimer;
+
   void handleActionEvent(const PDFActionEvent * action_event);
 
 public:
@@ -422,6 +426,9 @@ public:
   void showOnePage(const PDFPageGraphicsItem * page) const;
   void showAllPages() const;
 
+  bool watchForDocumentChangesOnDisk() const { return _fileWatcher.files().size() > 0; }
+  void setWatchForDocumentChangesOnDisk(const bool doWatch = true);
+
   int lastPage();
 
   const QWeakPointer<Backend::Document> document() const { return _doc.toWeakRef(); }
@@ -439,6 +446,7 @@ public slots:
 protected slots:
   void pageLayoutChanged(const QRectF& sceneRect);
   void reinitializeScene();
+  void reloadDocument();
 
 protected:
   bool event(QEvent* event);
