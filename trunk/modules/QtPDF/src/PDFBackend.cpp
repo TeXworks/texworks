@@ -40,8 +40,6 @@ Page::~Page()
 }
 
 int Page::pageNum() { return _n; }
-qreal Page::rotate() { return _rotate; }
-QSizeF Page::pageSizeF()   { return _size; }
 
 // vim: set sw=2 ts=2 et
 

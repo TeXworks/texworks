@@ -19,10 +19,18 @@
 // ==============
 PopplerDocument::PopplerDocument(QString fileName):
   Super(fileName),
-  _poppler_doc(Poppler::Document::load(fileName))
+  _poppler_doc(Poppler::Document::load(fileName)),
+  _doc_lock(new QMutex())
 {
   _numPages = _poppler_doc->numPages();
 
+  // **TODO:**
+  //
+  // _Make these configurable._
+  _poppler_doc->setRenderBackend(Poppler::Document::SplashBackend);
+  // Make things look pretty.
+  _poppler_doc->setRenderHint(Poppler::Document::Antialiasing);
+  _poppler_doc->setRenderHint(Poppler::Document::TextAntialiasing);
 }
 
 PopplerDocument::~PopplerDocument()
@@ -45,9 +53,18 @@ PopplerPage::~PopplerPage()
 {
 }
 
-QImage PopplerPage::renderToImage(double xres, double yres)
+QSizeF PopplerPage::pageSizeF() { return _poppler_page->pageSizeF(); }
+
+QImage PopplerPage::renderToImage(double xres, double yres, int x, int y, int width, int height)
 {
-  return QImage();
+  QImage renderedPage;
+
+  // Rendering pages is not thread safe.
+  QMutexLocker docLock(_parent->_doc_lock);
+    renderedPage = _poppler_page->renderToImage(xres, yres, x, y, width, height);
+  docLock.unlock();
+
+  return renderedPage;
 }
 
 

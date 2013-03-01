@@ -47,8 +47,6 @@ public:
 class Page
 {
 protected:
-  QSizeF _size;
-  qreal _rotate;
   const int _n;
 
 public:
@@ -56,10 +54,9 @@ public:
   ~Page();
 
   int pageNum();
-  qreal rotate();
-  QSizeF pageSizeF();
+  virtual QSizeF pageSizeF()=0;
 
-  virtual QImage renderToImage(double xres, double yres)=0;
+  virtual QImage renderToImage(double xres, double yres, int x=-1, int y=-1, int width=-1, int height=-1)=0;
 
 };
 
