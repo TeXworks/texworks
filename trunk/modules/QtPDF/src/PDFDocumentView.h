@@ -248,17 +248,11 @@ class PDFPageGraphicsItem : public QGraphicsObject
 
   QSharedPointer<Page> _page;
 
-  QPixmap _renderedPage;
-  QPixmap _temporaryPage;
-  QPixmap _magnifiedPage;
-  QPixmap _temporaryMagnifiedPage;
-
   double _dpiX;
   double _dpiY;
   QSizeF _pageSize;
 
   bool _linksLoaded;
-  bool _pageIsRendering;
 
   QTransform _pageScale;
   qreal _zoomLevel, _magnifiedZoomLevel;
@@ -294,8 +288,7 @@ private:
 
 private slots:
   void addLinks(QList<Poppler::Link *> links);
-  void updateRenderedPage(qreal scaleFactor, QImage pageImage);
-  void updateMagnifiedPage(qreal scaleFactor, QImage pageImage);
+
 };
 
 

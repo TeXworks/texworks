@@ -968,7 +968,6 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Page *a_page, QGraphicsItem *parent):
   _dpiY(QApplication::desktop()->physicalDpiY()),
 
   _linksLoaded(false),
-  _pageIsRendering(false),
   _zoomLevel(0.0),
   _magnifiedZoomLevel(0.0)
 {
@@ -980,7 +979,6 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Page *a_page, QGraphicsItem *parent):
   _pageSize.setHeight(_pageSize.height() * _dpiY / 72.0);
 
   _pageScale = QTransform::fromScale(_pageSize.width(), _pageSize.height());
-  _renderedPage = QPixmap(_pageSize.toSize());
 
   // So we get information during paint events about what portion of the page
   // is visible.
@@ -1009,10 +1007,6 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   {
     _page->asyncLoadLinks(this);
     _linksLoaded = true;
-
-    // This is a hack to give a nice white fill to pages that have not been
-    // rendered. Would be nice to replace this with a "loading page" graphic.
-    _renderedPage.fill();
   }
 
   if ( _zoomLevel != scaleFactor ) {
@@ -1183,56 +1177,6 @@ void PDFPageGraphicsItem::addLinks(QList<Poppler::Link *> links)
   qDebug() << "Added links in: " << stopwatch.elapsed() << " milliseconds";
 #endif
 
-  update();
-}
-
-
-// Asynchronous Page Rendering
-// ---------------------------
-
-void PDFPageGraphicsItem::updateRenderedPage(qreal scaleFactor, QImage pageImage)
-{
-  // If the rendering thread returned an empty image, something went wrong or
-  // it decided to abort.
-  if ( pageImage.isNull() )
-  {
-    _pageIsRendering = false;
-    return;
-  }
-
-  _renderedPage = QPixmap::fromImage(pageImage);
-
-  // Since we have the fully rendered page now, we don't need any temporarily
-  // scaled version anymore
-  if (!_temporaryPage.isNull())
-    _temporaryPage = QPixmap();
-
-  // Indicate that page rendering has completed and this item needs to be
-  // re-drawn.
-  _pageIsRendering = false;
-  update();
-}
-
-void PDFPageGraphicsItem::updateMagnifiedPage(qreal scaleFactor, QImage pageImage)
-{
-  // If the rendering thread returned an empty image, something went wrong or
-  // it decided to abort.
-  if ( pageImage.isNull() )
-  {
-    _pageIsRendering = false;
-    return;
-  }
-
-  _magnifiedPage = QPixmap::fromImage(pageImage);
-
-  // Since we have the fully rendered page now, we don't need any temporarily
-  // scaled version anymore
-  if (!_temporaryMagnifiedPage.isNull())
-    _temporaryMagnifiedPage = QPixmap();
-
-  // Indicate that page rendering has completed and this item needs to be
-  // re-drawn.
-  _pageIsRendering = false;
   update();
 }
 
