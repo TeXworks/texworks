@@ -4,9 +4,9 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   QMainWindow(parent, flags)
 {
 #ifdef USE_MUPDF
-  QtPDF::Document *a_pdf_doc = new QtPDF::MuPDFDocument(pdf_doc);
+  QtPDF::Backend::Document *a_pdf_doc = new QtPDF::Backend::MuPDF::Document(pdf_doc);
 #elif USE_POPPLER
-  QtPDF::Document *a_pdf_doc = new QtPDF::PopplerDocument(pdf_doc);
+  QtPDF::Backend::Document *a_pdf_doc = new QtPDF::Backend::Poppler::Document(pdf_doc);
 #else
   #error Either the Poppler or the MuPDF backend is required
 #endif
@@ -55,7 +55,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   connect(docView, SIGNAL(requestOpenPdf(QString, int, bool)), this, SLOT(openPdf(QString, int, bool)));
   connect(docView, SIGNAL(contextClick(const int, const QPointF)), this, SLOT(syncFromPdf(const int, const QPointF)));
   connect(docView, SIGNAL(searchProgressChanged(int, int)), this, SLOT(searchProgressChanged(int, int)));
-  connect(docView, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Document>)), this, SLOT(documentChanged(const QSharedPointer<QtPDF::Document>)));
+  connect(docView, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Backend::Document>)), this, SLOT(documentChanged(const QSharedPointer<QtPDF::Backend::Document>)));
 
   _toolBar->addSeparator();
 #ifdef DEBUG
@@ -94,9 +94,9 @@ void PDFViewer::open()
   Q_ASSERT(docView != NULL);
 
 #ifdef USE_MUPDF
-  QtPDF::Document *a_pdf_doc = new QtPDF::MuPDFDocument(pdf_doc);
+  QtPDF::Backend::Document *a_pdf_doc = new QtPDF::Backend::MuPDF::Document(pdf_doc);
 #elif USE_POPPLER
-  QtPDF::Document *a_pdf_doc = new QtPDF::PopplerDocument(pdf_doc);
+  QtPDF::Backend::Document *a_pdf_doc = new QtPDF::Backend::Poppler::Document(pdf_doc);
 #else
   #error Either the Poppler or the MuPDF backend is required
 #endif
@@ -116,7 +116,7 @@ void PDFViewer::open()
     docView->setScene(QSharedPointer<QtPDF::PDFDocumentScene>());
 }
 
-void PDFViewer::documentChanged(const QSharedPointer<QtPDF::Document> newDoc)
+void PDFViewer::documentChanged(const QSharedPointer<QtPDF::Backend::Document> newDoc)
 {
   if (_counter)
     _counter->setLastPage(newDoc->numPages());

@@ -25,15 +25,19 @@
 
 namespace QtPDF {
 
-class PopplerDocument;
-class PopplerPage;
+namespace Backend {
 
-class PopplerDocument: public Document
+namespace Poppler {
+
+class Document;
+class Page;
+
+class Document: public Backend::Document
 {
-  typedef Document Super;
-  friend class PopplerPage;
+  typedef Backend::Document Super;
+  friend class Page;
 
-  QSharedPointer<Poppler::Document> _poppler_doc;
+  QSharedPointer< ::Poppler::Document > _poppler_doc;
 
   void recursiveConvertToC(QList<PDFToCItem> & items, QDomNode node) const;
 
@@ -45,15 +49,15 @@ protected:
   bool _fontsLoaded;
 
 public:
-  PopplerDocument(QString fileName);
-  ~PopplerDocument();
+  Document(QString fileName);
+  ~Document();
 
   bool isValid() const { return (_poppler_doc != NULL); }
   bool isLocked() const { return (_poppler_doc ? _poppler_doc->isLocked() : false); }
 
   bool unlock(const QString password);
 
-  QSharedPointer<Page> page(int at);
+  QSharedPointer<Backend::Page> page(int at);
   PDFDestination resolveDestination(const PDFDestination & namedDestination) const;
 
   PDFToC toc() const;
@@ -64,18 +68,18 @@ private:
 };
 
 
-class PopplerPage: public Page
+class Page: public Backend::Page
 {
-  typedef Page Super;
-  QSharedPointer<Poppler::Page> _poppler_page;
+  typedef Backend::Page Super;
+  QSharedPointer< ::Poppler::Page > _poppler_page;
   QList< QSharedPointer<Annotation::AbstractAnnotation> > _annotations;
   QList< QSharedPointer<Annotation::Link> > _links;
   bool _annotationsLoaded;
   bool _linksLoaded;
 
 public:
-  PopplerPage(PopplerDocument *parent, int at);
-  ~PopplerPage();
+  Page(Document *parent, int at);
+  ~Page();
 
   QSizeF pageSizeF() const;
 
@@ -84,8 +88,12 @@ public:
   QList< QSharedPointer<Annotation::Link> > loadLinks();
   QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations();
 
-  QList<SearchResult> search(QString searchText);
+  QList<Backend::SearchResult> search(QString searchText);
 };
+
+} // namespace Poppler
+
+} // namespace Backend
 
 } // namespace QtPDF
 

@@ -24,7 +24,7 @@ private slots:
   void openPdf(QString filename, int page, bool newWindow) const;
   void syncFromPdf(const int page, const QPointF pos);
   void searchProgressChanged(int percent, int occurrences);
-  void documentChanged(const QSharedPointer<QtPDF::Document> newDoc);
+  void documentChanged(const QSharedPointer<QtPDF::Backend::Document> newDoc);
   
 #ifdef DEBUG
   // FIXME: Remove this

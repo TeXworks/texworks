@@ -29,13 +29,17 @@ extern "C"
 
 namespace QtPDF {
 
-class MuPDFDocument;
-class MuPDFPage;
+namespace Backend {
 
-class MuPDFDocument: public Document
+namespace MuPDF {
+
+class Document;
+class Page;
+
+class Document: public Backend::Document
 {
-  typedef Document Super;
-  friend class MuPDFPage;
+  typedef Backend::Document Super;
+  friend class Page;
 
   void recursiveConvertToC(QList<PDFToCItem> & items, pdf_outline * node) const;
 
@@ -48,8 +52,8 @@ protected:
   void loadMetaData();
 
 public:
-  MuPDFDocument(QString fileName);
-  ~MuPDFDocument();
+  Document(QString fileName);
+  ~Document();
 
   bool isValid() const { return (_mupdf_data != NULL); }
   bool isLocked() const { return (isValid() && _permissionLevel == PermissionLevel_Locked); }
@@ -57,7 +61,7 @@ public:
   bool unlock(const QString password);
   void reload();
 
-  QSharedPointer<Page> page(int at);
+  QSharedPointer<Backend::Page> page(int at);
   PDFDestination resolveDestination(const PDFDestination & namedDestination) const;
 
   PDFToC toc() const;
@@ -73,9 +77,9 @@ private:
 };
 
 
-class MuPDFPage: public Page
+class Page: public Backend::Page
 {
-  typedef Page Super;
+  typedef Backend::Page Super;
 
   // The `fz_display_list` is the main MuPDF object that represents the parsed
   // contents of a Page.
@@ -92,8 +96,8 @@ class MuPDFPage: public Page
   bool _linksLoaded;
 
 public:
-  MuPDFPage(MuPDFDocument *parent, int at);
-  ~MuPDFPage();
+  Page(Document *parent, int at);
+  ~Page();
 
   QSizeF pageSizeF() const;
 
@@ -104,6 +108,10 @@ public:
 
   QList<SearchResult> search(QString searchText);
 };
+
+} // namespace MuPDF
+
+} // namespace Backend
 
 } // namespace QtPDF
 

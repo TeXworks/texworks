@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012  Stefan Löffler
+ * Copyright (C) 2011-2012  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -25,7 +25,9 @@
 
 namespace QtPDF {
 
-class Page;
+namespace Backend {
+  class Page;
+}
 
 namespace Annotation {
 
@@ -73,7 +75,7 @@ public:
   // override them
   virtual QRectF rect() const { return _rect; }
   virtual QString contents() const { return _contents; }
-  virtual Page * page() const { return _page; }
+  virtual Backend::Page * page() const { return _page; }
   virtual QString name() const { return _name; }
   virtual QDateTime lastModified() const { return _lastModified; }
   virtual QFlags<AnnotationFlags> flags() const { return _flags; }
@@ -82,7 +84,7 @@ public:
 
   virtual void setRect(const QRectF rect) { _rect = rect; }
   virtual void setContents(const QString contents) { _contents = contents; }
-  virtual void setPage(Page * page) { _page = page; }
+  virtual void setPage(Backend::Page * page) { _page = page; }
   virtual void setName(const QString name) { _name = name; }
   virtual void setLastModified(const QDateTime lastModified) { _lastModified = lastModified; }
   virtual void setColor(const QColor color) { _color = color; }
@@ -90,7 +92,7 @@ public:
 protected:
   QRectF _rect; // required, in pdf coordinates
   QString _contents; // optional
-  Page * _page; // optional; since PDF 1.3
+  Backend::Page * _page; // optional; since PDF 1.3
   QString _name; // optional; since PDF 1.4
   QDateTime _lastModified; // optional; since PDF 1.1
   // TODO: _appearance, _appearanceState, _border, _structParent, _optContent

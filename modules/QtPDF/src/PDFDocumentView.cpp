@@ -119,7 +119,7 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
     // a View that would ignore page jumps that other scenes would respond to._
     connect(_pdf_scene.data(), SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
     connect(_pdf_scene.data(), SIGNAL(pdfActionTriggered(const QtPDF::PDFAction*)), this, SLOT(pdfActionTriggered(const QtPDF::PDFAction*)));
-    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<QtPDF::Document>)), this, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Document>)));
+    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<QtPDF::Backend::Document>)), this, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Backend::Document>)));
   }
   else
     _lastPage = -1;
@@ -138,7 +138,7 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
   if (_pdf_scene)
     emit changedDocument(_pdf_scene->document());
   else
-    emit changedDocument(QSharedPointer<Document>());
+    emit changedDocument(QSharedPointer<Backend::Document>());
 }
 int PDFDocumentView::currentPage() { return _currentPage; }
 int PDFDocumentView::lastPage()    { return _lastPage; }
@@ -234,7 +234,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
   if (_pdf_scene) {
     if (_pdf_scene->document())
       infoWidget->initFromDocument(_pdf_scene->document());
-    connect(this, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Document>)), infoWidget, SLOT(initFromDocument(const QSharedPointer<QtPDF::Document>)));
+    connect(this, SIGNAL(changedDocument(const QSharedPointer<QtPDF::Backend::Document>)), infoWidget, SLOT(initFromDocument(const QSharedPointer<QtPDF::Backend::Document>)));
   }
   dock->setWindowTitle(infoWidget->windowTitle());
   connect(infoWidget, SIGNAL(windowTitleChanged(const QString &)), dock, SLOT(setWindowTitle(const QString &)));
@@ -467,17 +467,17 @@ void PDFDocumentView::search(QString searchText)
   clearSearchResults();
 
   // Construct a list of requests that can be passed to QtConcurrent::mapped()
-  QList<SearchRequest> requests;
+  QList<Backend::SearchRequest> requests;
   int i;
   for (i = _currentPage; i < _lastPage; ++i) {
-    SearchRequest request;
+    Backend::SearchRequest request;
     request.doc = _pdf_scene->document();
     request.pageNum = i;
     request.searchString = searchText;
     requests << request;
   }
   for (i = 0; i < _currentPage; ++i) {
-    SearchRequest request;
+    Backend::SearchRequest request;
     request.doc = _pdf_scene->document();
     request.pageNum = i;
     request.searchString = searchText;
@@ -493,7 +493,7 @@ void PDFDocumentView::search(QString searchText)
 
   _currentSearchResult = -1;
   _searchString = searchText;
-  _searchResultWatcher.setFuture(QtConcurrent::mapped(requests, Page::search));
+  _searchResultWatcher.setFuture(QtConcurrent::mapped(requests, Backend::Page::search));
 }
 
 void PDFDocumentView::nextSearchResult()
@@ -546,7 +546,7 @@ void PDFDocumentView::searchResultReady(int index)
   QBrush highlightBrush(fillColor);
 
   // Convert the search result to highlight boxes
-  foreach( SearchResult result, _searchResultWatcher.future().resultAt(index) ) {
+  foreach( Backend::SearchResult result, _searchResultWatcher.future().resultAt(index) ) {
     PDFPageGraphicsItem *page = qgraphicsitem_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(result.pageNum));
     if (!page)
       continue;
@@ -1373,7 +1373,7 @@ QPixmap& PDFDocumentMagnifierView::dropShadow()
 // A large canvas that manages the layout of QGraphicsItem subclasses. The
 // primary items we are concerned with are PDFPageGraphicsItem and
 // PDFLinkGraphicsItem.
-PDFDocumentScene::PDFDocumentScene(Document *a_doc, QObject *parent):
+PDFDocumentScene::PDFDocumentScene(Backend::Document *a_doc, QObject *parent):
   Super(parent),
   _doc(a_doc)
 {
@@ -1439,7 +1439,7 @@ void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
 // Accessors
 // ---------
 
-QSharedPointer<Document> PDFDocumentScene::document() { return QSharedPointer<Document>(_doc); }
+QSharedPointer<Backend::Document> PDFDocumentScene::document() { return QSharedPointer<Backend::Document>(_doc); }
 QList<QGraphicsItem*> PDFDocumentScene::pages() { return _pages; };
 
 // Overloaded method that returns all page objects inside a given rectangular
@@ -1630,7 +1630,7 @@ void PDFDocumentScene::showAllPages() const
 
 // This class descends from `QGraphicsObject` and implements the on-screen
 // representation of `Page` objects.
-PDFPageGraphicsItem::PDFPageGraphicsItem(QSharedPointer<Page> a_page, QGraphicsItem *parent):
+PDFPageGraphicsItem::PDFPageGraphicsItem(QSharedPointer<Backend::Page> a_page, QGraphicsItem *parent):
   Super(parent),
   _page(a_page),
   _dpiX(QApplication::desktop()->physicalDpiX()),
@@ -1808,16 +1808,16 @@ void PDFPageGraphicsItem::imageToGrayScale(QImage & img)
 bool PDFPageGraphicsItem::event(QEvent *event)
 {
   // Look for callbacks from asynchronous page operations.
-  if( event->type() == PDFLinksLoadedEvent::LinksLoadedEvent ) {
+  if( event->type() == Backend::PDFLinksLoadedEvent::LinksLoadedEvent ) {
     event->accept();
 
     // Cast to a `PDFLinksLoaded` event so we can access the links.
-    const PDFLinksLoadedEvent *links_loaded_event = static_cast<const PDFLinksLoadedEvent*>(event);
+    const Backend::PDFLinksLoadedEvent *links_loaded_event = static_cast<const Backend::PDFLinksLoadedEvent*>(event);
     addLinks(links_loaded_event->links);
 
     return true;
 
-  } else if( event->type() == PDFPageRenderedEvent::PageRenderedEvent ) {
+  } else if( event->type() == Backend::PDFPageRenderedEvent::PageRenderedEvent ) {
     event->accept();
 
     // FIXME: We're sort of misusing the render event here---it contains a copy
@@ -2203,14 +2203,14 @@ PDFToCInfoWidget::~PDFToCInfoWidget()
   clear();
 }
   
-void PDFToCInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
+void PDFToCInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
 {
   Q_ASSERT(_tree != NULL);
   Q_ASSERT(!doc.isNull());
 
   PDFDocumentInfoWidget::initFromDocument(doc);
   
-  const PDFToC data = doc->toc();
+  const Backend::PDFToC data = doc->toc();
   clear();
   recursiveAddTreeItems(data, _tree->invisibleRootItem());
 }
@@ -2244,15 +2244,15 @@ void PDFToCInfoWidget::itemSelectionChanged()
 }
 
 //static
-void PDFToCInfoWidget::recursiveAddTreeItems(const QList<PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem)
+void PDFToCInfoWidget::recursiveAddTreeItems(const QList<Backend::PDFToCItem> & tocItems, QTreeWidgetItem * parentTreeItem)
 {
-  foreach (const PDFToCItem & tocItem, tocItems) {
+  foreach (const Backend::PDFToCItem & tocItem, tocItems) {
     QTreeWidgetItem * treeItem = new QTreeWidgetItem(parentTreeItem, QStringList(tocItem.label()));
     treeItem->setForeground(0, tocItem.color());
     if (tocItem.flags()) {
       QFont font = treeItem->font(0);
-      font.setBold(tocItem.flags().testFlag(PDFToCItem::Flag_Bold));
-      font.setItalic(tocItem.flags().testFlag(PDFToCItem::Flag_Bold));
+      font.setBold(tocItem.flags().testFlag(Backend::PDFToCItem::Flag_Bold));
+      font.setItalic(tocItem.flags().testFlag(Backend::PDFToCItem::Flag_Bold));
       treeItem->setFont(0, font);
     }
     treeItem->setExpanded(tocItem.isOpen());
@@ -2381,7 +2381,7 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   retranslateUi();
 }
 
-void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
+void PDFMetaDataInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
 {
   PDFDocumentInfoWidget::initFromDocument(doc);
   reload();
@@ -2402,10 +2402,10 @@ void PDFMetaDataInfoWidget::reload()
   _creationDate->setText(_doc->creationDate().toString(Qt::DefaultLocaleLongDate));
   _modDate->setText(_doc->modDate().toString(Qt::DefaultLocaleLongDate));
   switch (_doc->trapped()) {
-    case Document::Trapped_True:
+    case Backend::Document::Trapped_True:
       _trapped->setText(PDFDocumentView::trUtf8("Yes"));
       break;
-    case Document::Trapped_False:
+    case Backend::Document::Trapped_False:
       _trapped->setText(PDFDocumentView::trUtf8("No"));
       break;
     default:
@@ -2508,7 +2508,7 @@ PDFFontsInfoWidget::PDFFontsInfoWidget(QWidget * parent) :
   retranslateUi();
 }
 
-void PDFFontsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
+void PDFFontsInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
 {
   PDFDocumentInfoWidget::initFromDocument(doc);
   reload();
@@ -2522,38 +2522,38 @@ void PDFFontsInfoWidget::reload()
   if (!_doc)
     return;
 
-  QList<PDFFontInfo> fonts = _doc->fonts();
+  QList<Backend::PDFFontInfo> fonts = _doc->fonts();
   _table->setRowCount(fonts.count());
 
   int i = 0;
-  foreach (PDFFontInfo font, fonts) {
+  foreach (Backend::PDFFontInfo font, fonts) {
     _table->setItem(i, 0, new QTableWidgetItem(font.descriptor().pureName()));
     switch (font.fontType()) {
-      case PDFFontInfo::FontType_Type0:
+      case Backend::PDFFontInfo::FontType_Type0:
         _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 0")));
         break;
-      case PDFFontInfo::FontType_Type1:
+      case Backend::PDFFontInfo::FontType_Type1:
         _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 1")));
         break;
-      case PDFFontInfo::FontType_MMType1:
+      case Backend::PDFFontInfo::FontType_MMType1:
         _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 1 (multiple master)")));
         break;
-      case PDFFontInfo::FontType_Type3:
+      case Backend::PDFFontInfo::FontType_Type3:
         _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 3")));
         break;
-      case PDFFontInfo::FontType_TrueType:
+      case Backend::PDFFontInfo::FontType_TrueType:
         _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("TrueType")));
         break;
     }
     _table->setItem(i, 2, new QTableWidgetItem(font.isSubset() ? PDFDocumentView::trUtf8("yes") : PDFDocumentView::trUtf8("no")));
     switch (font.source()) {
-      case PDFFontInfo::Source_Embedded:
+      case Backend::PDFFontInfo::Source_Embedded:
         _table->setItem(i, 3, new QTableWidgetItem(PDFDocumentView::trUtf8("[embedded]")));
         break;
-      case PDFFontInfo::Source_Builtin:
+      case Backend::PDFFontInfo::Source_Builtin:
         _table->setItem(i, 3, new QTableWidgetItem(PDFDocumentView::trUtf8("[builtin]")));
         break;
-      case PDFFontInfo::Source_File:
+      case Backend::PDFFontInfo::Source_File:
         _table->setItem(i, 3, new QTableWidgetItem(font.fileName().canonicalFilePath()));
         break;
     }
@@ -2614,7 +2614,7 @@ PDFPermissionsInfoWidget::PDFPermissionsInfoWidget(QWidget * parent) :
   retranslateUi();
 }
 
-void PDFPermissionsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
+void PDFPermissionsInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
 {
   PDFDocumentInfoWidget::initFromDocument(doc);
   reload();
@@ -2627,10 +2627,10 @@ void PDFPermissionsInfoWidget::reload()
     return;
   }
   
-  QFlags<Document::Permissions> & perm = _doc->permissions();
+  QFlags<Backend::Document::Permissions> & perm = _doc->permissions();
   
-  if (perm.testFlag(Document::Permission_Print)) {
-    if (perm.testFlag(Document::Permission_PrintHighRes))
+  if (perm.testFlag(Backend::Document::Permission_Print)) {
+    if (perm.testFlag(Backend::Document::Permission_PrintHighRes))
       _print->setText(PDFDocumentView::trUtf8("Allowed"));
     else
       _print->setText(PDFDocumentView::trUtf8("Low resolution only"));
@@ -2639,28 +2639,28 @@ void PDFPermissionsInfoWidget::reload()
     _print->setText(PDFDocumentView::trUtf8("Denied"));
 
   _modify->setToolTip(QString());
-  if (perm.testFlag(Document::Permission_Change))
+  if (perm.testFlag(Backend::Document::Permission_Change))
     _modify->setText(PDFDocumentView::trUtf8("Allowed"));
-  else if (perm.testFlag(Document::Permission_Assemble)) {
+  else if (perm.testFlag(Backend::Document::Permission_Assemble)) {
     _modify->setText(PDFDocumentView::trUtf8("Assembling only"));
     _modify->setToolTip(PDFDocumentView::trUtf8("Insert, rotate, or delete pages and create bookmarks or thumbnail images"));
   }
   else
     _modify->setText(PDFDocumentView::trUtf8("Denied"));
 
-  if (perm.testFlag(Document::Permission_Extract))
+  if (perm.testFlag(Backend::Document::Permission_Extract))
     _extract->setText(PDFDocumentView::trUtf8("Allowed"));
-  else if (perm.testFlag(Document::Permission_ExtractForAccessibility))
+  else if (perm.testFlag(Backend::Document::Permission_ExtractForAccessibility))
     _extract->setText(PDFDocumentView::trUtf8("Accessibility support only"));
   else
     _extract->setText(PDFDocumentView::trUtf8("Denied"));
 
-  if (perm.testFlag(Document::Permission_Annotate))
+  if (perm.testFlag(Backend::Document::Permission_Annotate))
     _addNotes->setText(PDFDocumentView::trUtf8("Allowed"));
   else
     _addNotes->setText(PDFDocumentView::trUtf8("Denied"));
 
-  if (perm.testFlag(Document::Permission_FillForm))
+  if (perm.testFlag(Backend::Document::Permission_FillForm))
     _form->setText(PDFDocumentView::trUtf8("Allowed"));
   else
     _form->setText(PDFDocumentView::trUtf8("Denied"));
@@ -2719,15 +2719,15 @@ PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
   retranslateUi();
 }
 
-void PDFAnnotationsInfoWidget::initFromDocument(const QSharedPointer<Document> doc)
+void PDFAnnotationsInfoWidget::initFromDocument(const QSharedPointer<Backend::Document> doc)
 {
   if (!doc)
     return;
 
-  QList< QSharedPointer<Page> > pages;
+  QList< QSharedPointer<Backend::Page> > pages;
   int i;
   for (i = 0; i < doc->numPages(); ++i) {
-    QSharedPointer<Page> page = doc->page(i);
+    QSharedPointer<Backend::Page> page = doc->page(i);
     if (page)
       pages << page;
   }
@@ -2744,7 +2744,7 @@ void PDFAnnotationsInfoWidget::initFromDocument(const QSharedPointer<Document> d
 }
 
 //static
-QList< QSharedPointer<Annotation::AbstractAnnotation> > PDFAnnotationsInfoWidget::loadAnnotations(QSharedPointer<Page> page)
+QList< QSharedPointer<Annotation::AbstractAnnotation> > PDFAnnotationsInfoWidget::loadAnnotations(QSharedPointer<Backend::Page> page)
 {
   if (!page)
     return QList< QSharedPointer<Annotation::AbstractAnnotation> >();

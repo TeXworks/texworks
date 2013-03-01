@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011  Stefan Löffler
+ * Copyright (C) 2011-2012  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -16,7 +16,7 @@
 
 namespace QtPDF {
 
-QRectF PDFDestination::viewport(const Document * doc, const QRectF oldViewport, const float oldZoom) const
+QRectF PDFDestination::viewport(const Backend::Document * doc, const QRectF oldViewport, const float oldZoom) const
 {
   QRectF retVal = oldViewport;
 
@@ -52,7 +52,7 @@ QRectF PDFDestination::viewport(const Document * doc, const QRectF oldViewport, 
     {
       if (!doc)
         break;
-      QSharedPointer<Page> p(const_cast<Document*>(doc)->page(_page));
+      QSharedPointer<Backend::Page> p(const_cast<Backend::Document*>(doc)->page(_page));
       if (!p)
         break;
       retVal = QRectF(QPointF(0, 0), p->pageSizeF());
@@ -63,7 +63,7 @@ QRectF PDFDestination::viewport(const Document * doc, const QRectF oldViewport, 
     {
       if (!doc)
         break;
-      QSharedPointer<Page> p(const_cast<Document*>(doc)->page(_page));
+      QSharedPointer<Backend::Page> p(const_cast<Backend::Document*>(doc)->page(_page));
       if (!p)
         break;
       float aspectRatio = oldViewport.width() / oldViewport.height();
@@ -75,7 +75,7 @@ QRectF PDFDestination::viewport(const Document * doc, const QRectF oldViewport, 
     {
       if (!doc)
         break;
-      QSharedPointer<Page> p(const_cast<Document*>(doc)->page(_page));
+      QSharedPointer<Backend::Page> p(const_cast<Backend::Document*>(doc)->page(_page));
       if (!p)
         break;
       float aspectRatio = oldViewport.width() / oldViewport.height();
