@@ -58,37 +58,74 @@ private:
 };
 
 
+class PDFDocumentView : public QGraphicsView {
+  typedef QGraphicsView super;
+  const std::auto_ptr<Poppler::Document> doc;
+
+public:
+  PDFDocumentView(Poppler::Document *a_doc, QWidget *parent = 0) : super(new QGraphicsScene, parent),
+    doc(a_doc)
+  {
+    setBackgroundRole(QPalette::Dark);
+    setAlignment(Qt::AlignCenter);
+
+    // Create a `PDFPageGraphicsItem` for each page in the PDF document to the
+    // `QGraphicsScene` controlled by this object. The Y-coordinate of each
+    // page is automatically shifted such that it will appear 10px below the
+    // previous page.
+    //
+    // **TODO:** _Should these be packed together into a `QGraphicsItemGroup`
+    // for easy access/removal?_
+    //
+    // **TODO:** _Should the Y-shift be sensitive to zoom levels?_
+    int i;
+    float offY = 0.0;
+    PDFPageGraphicsItem *pagePtr;
+
+    for (i = 0; i < doc->numPages(); ++i) {
+      pagePtr = new PDFPageGraphicsItem(doc->page(i));
+      scene()->addItem(pagePtr);
+
+      pagePtr->setPos(0.0, offY);
+      offY += pagePtr->pixmap().height() + 10.0;
+    }
+
+    // Automatically center on the first page in the PDF document.
+    //
+    // **TODO:** _Should probably be a seperate method. Like `firstPage` or
+    // something._
+    QGraphicsItem *firstPage = items()[0];
+    centerOn(firstPage->boundingRect().center());
+  }
+
+  ~PDFDocumentView() {
+    delete this->scene();
+  }
+
+private:
+  // Parent class has no copy constructor.
+  Q_DISABLE_COPY(PDFDocumentView)
+
+  // **TODO:**
+  // _This class basically comes with a built-in `QGraphicsScene` unlike a
+  // traditional `QGraphicsView` where the scenes can be swapped around. Should
+  // we disable the `setScene` function by declaring it `private`? Does it make
+  // sense to have different graphics scenes?_
+
+};
+
+
 int main(int argc, char **argv) {
   QApplication app(argc, argv);
 
   QMainWindow mainWin;
-  QGraphicsView *viewport = new QGraphicsView(&mainWin);
-  QGraphicsScene *canvas = new QGraphicsScene(viewport);
-
-  viewport->setBackgroundRole(QPalette::Dark);
-  viewport->setAlignment(Qt::AlignCenter);
 
   Poppler::Document *doc = Poppler::Document::load(QString("pgfmanual.pdf"));
   std::cerr << "number of pages: " << doc->numPages() << std::endl;
 
-  int i;
-  float offY = 0.0;
-  PDFPageGraphicsItem *pagePtr;
+  PDFDocumentView *docView = new PDFDocumentView(doc, &mainWin);
 
-  for (i = 0; i < doc->numPages(); ++i) {
-    pagePtr = new PDFPageGraphicsItem(doc->page(i));
-    pagePtr->setPos(0.0, offY);
-
-    canvas->addItem(pagePtr);
-    offY += pagePtr->pixmap().height() + 10.0;
-  }
-
-  viewport->setScene(canvas);
-
-  QGraphicsItem *firstPage = viewport->items()[0];
-  viewport->centerOn(firstPage->boundingRect().center());
-
-  mainWin.setCentralWidget(viewport);
+  mainWin.setCentralWidget(docView);
   mainWin.show();
   return app.exec();
   //return 0;
