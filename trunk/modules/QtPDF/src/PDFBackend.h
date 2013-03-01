@@ -386,7 +386,7 @@ typedef QList<PDFToCItem> PDFToC;
 
 struct SearchRequest
 {
-  QSharedPointer<Document> doc;
+  QWeakPointer<Document> doc;
   int pageNum;
   QString searchString;
 };
@@ -425,7 +425,7 @@ public:
                   };
   Q_DECLARE_FLAGS(Permissions, Permission)
 
-  Document(QString fileName);
+  Document(const QString fileName);
   virtual ~Document();
 
   // Uses doc-read-lock
@@ -436,9 +436,9 @@ public:
   PDFPageCache& pageCache();
 
   // Uses doc-read-lock and may use doc-write-lock
-  virtual QSharedPointer<Page> page(int at) = 0;
+  virtual QWeakPointer<Page> page(int at) = 0;
   // Uses doc-read-lock
-  virtual QSharedPointer<Page> page(int at) const = 0;
+  virtual QWeakPointer<Page> page(int at) const = 0;
   virtual PDFDestination resolveDestination(const PDFDestination & namedDestination) const {
     return (namedDestination.isExplicit() ? namedDestination : PDFDestination());
   }

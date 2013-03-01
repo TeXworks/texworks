@@ -276,7 +276,7 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
 
 
 // TODO: Find a better place to put this
-void initPDFAnnotation(Annotation::AbstractAnnotation * annot, Backend::Page * page, fz_obj * src)
+void initPDFAnnotation(Annotation::AbstractAnnotation * annot, QWeakPointer<Backend::Page> page, fz_obj * src)
 {
   static char keyRect[] = "Rect";
   static char keyContents[] = "Contents";
@@ -316,7 +316,7 @@ Annotation::Popup * toPDFPopupAnnotation(Annotation::Markup * parent, fz_obj * s
   return retVal;
 }
 
-void initPDFMarkupAnnotation(Annotation::Markup * annot, Page * page, fz_obj * src)
+void initPDFMarkupAnnotation(Annotation::Markup * annot, QWeakPointer<Backend::Page> page, fz_obj * src)
 {
   static char keyT[] = "T";
   static char keyRC[] = "RC";
@@ -487,16 +487,16 @@ void Document::reload()
   loadMetaData();
 }
 
-QSharedPointer<Backend::Page> Document::page(int at)
+QWeakPointer<Backend::Page> Document::page(int at)
 {
   {
     QReadLocker docLocker(_docLock.data());
 
     if (at < 0 || at >= _numPages)
-      return QSharedPointer<Backend::Page>();
+      return QWeakPointer<Backend::Page>();
 
     if (at < _pages.size() && !_pages[at].isNull())
-      return _pages[at];
+      return QWeakPointer<Backend::Page>(_pages[at]);;
 
     // if we get here, the page is not in the array
   }
@@ -505,23 +505,23 @@ QSharedPointer<Backend::Page> Document::page(int at)
 
   // recheck everything that could have changed before we got the write lock
   if (at >= _numPages)
-    return QSharedPointer<Backend::Page>();
+    return QWeakPointer<Backend::Page>();
   if (at < _pages.size() && !_pages[at].isNull())
-    return _pages[at];
+    return _pages[at].toWeakRef();
 
   if( _pages.isEmpty() )
     _pages.resize(_numPages);
 
   _pages[at] = QSharedPointer<Backend::Page>(new Page(this, at, _docLock));
-  return _pages[at];
+  return _pages[at].toWeakRef();
 }
 
-QSharedPointer<Backend::Page> Document::page(int at) const
+QWeakPointer<Backend::Page> Document::page(int at) const
 {
   QReadLocker docLocker(_docLock.data());
 
   if (at < 0 || at >= _numPages || at >= _pages.size())
-    return QSharedPointer<Backend::Page>();
+    return QWeakPointer<Backend::Page>();
 
   return _pages[at];
 }
@@ -954,7 +954,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
   while (mupdfLink) {
     QSharedPointer<Annotation::Link> link(new Annotation::Link);
     link->setRect(toRectF(mupdfLink->rect));
-    link->setPage(this);
+    link->setPage(_parent->page(_n));
     // TODO: Initialize all other properties of PDFLinkAnnotation, such as
     // border, color, quadPoints, etc.
 
@@ -1034,37 +1034,37 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
     QString subtype = QString::fromAscii(fz_to_name(fz_dict_gets(mupdfAnnot->obj, keySubtype)));
     if (subtype == QString::fromAscii("Text")) {
       Annotation::Text * annot = new Annotation::Text();
-      initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
+      initPDFMarkupAnnotation(annot, _parent->page(_n), mupdfAnnot->obj);
       _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("FreeText")) {
       Annotation::FreeText * annot = new Annotation::FreeText();
-      initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
+      initPDFMarkupAnnotation(annot, _parent->page(_n), mupdfAnnot->obj);
       _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("Caret")) {
       Annotation::Caret * annot = new Annotation::Caret();
-      initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
+      initPDFMarkupAnnotation(annot, _parent->page(_n), mupdfAnnot->obj);
       _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("Highlight")) {
       Annotation::Highlight * annot = new Annotation::Highlight();
-      initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
+      initPDFMarkupAnnotation(annot, _parent->page(_n), mupdfAnnot->obj);
       _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("Underline")) {
       Annotation::Underline * annot = new Annotation::Underline();
-      initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
+      initPDFMarkupAnnotation(annot, _parent->page(_n), mupdfAnnot->obj);
       _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("Squiggly")) {
       Annotation::Squiggly * annot = new Annotation::Squiggly();
-      initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
+      initPDFMarkupAnnotation(annot, _parent->page(_n), mupdfAnnot->obj);
       _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     else if (subtype == QString::fromAscii("StrikeOut")) {
       Annotation::StrikeOut * annot = new Annotation::StrikeOut();
-      initPDFMarkupAnnotation(annot, this, mupdfAnnot->obj);
+      initPDFMarkupAnnotation(annot, _parent->page(_n), mupdfAnnot->obj);
       _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
     }
     // TODO: Other annotation types (do we need Link annotations here?)

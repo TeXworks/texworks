@@ -79,8 +79,9 @@ PDFDestination toPDFDestination(const ::Poppler::Document * doc, const ::Poppler
   return retVal;
 }
 
-void convertAnnotation(Annotation::AbstractAnnotation * dest, const ::Poppler::Annotation * src, Page * page)
+void convertAnnotation(Annotation::AbstractAnnotation * dest, const ::Poppler::Annotation * src, QWeakPointer<Backend::Page> thePage)
 {
+  QSharedPointer<Backend::Page> page(thePage.toStrongRef());
   if (!dest || !src || !page)
     return;
 
@@ -90,7 +91,7 @@ void convertAnnotation(Annotation::AbstractAnnotation * dest, const ::Poppler::A
   dest->setContents(src->contents());
   dest->setName(src->uniqueName());
   dest->setLastModified(src->modificationDate());
-  dest->setPage(page);
+  dest->setPage(thePage);
 
   // TODO: Does poppler provide the color anywhere?
   // dest->setColor();
@@ -225,13 +226,13 @@ void Document::parseDocument()
     _meta_other[key] = _poppler_doc->info(key);
 }
 
-QSharedPointer<Backend::Page> Document::page(int at)
+QWeakPointer<Backend::Page> Document::page(int at)
 {
   {
     QReadLocker docLocker(_docLock.data());
 
     if (at < 0 || at >= _numPages)
-      return QSharedPointer<Backend::Page>();
+      return QWeakPointer<Backend::Page>();
 
     if (at < _pages.size() && !_pages[at].isNull())
       return _pages[at];
@@ -242,25 +243,25 @@ QSharedPointer<Backend::Page> Document::page(int at)
 
   // recheck everything that could have changed before we got the write lock
   if (at >= _numPages)
-    return QSharedPointer<Backend::Page>();
+    return QWeakPointer<Backend::Page>();
   if (at < _pages.size() && !_pages[at].isNull())
-    return _pages[at];
+    return _pages[at].toWeakRef();
 
   if( _pages.isEmpty() )
     _pages.resize(_numPages);
 
   _pages[at] = QSharedPointer<Backend::Page>(new Page(this, at, _docLock));
-  return _pages[at];
+  return _pages[at].toWeakRef();
 }
 
-QSharedPointer<Backend::Page> Document::page(int at) const
+QWeakPointer<Backend::Page> Document::page(int at) const
 {
   QReadLocker docLocker(_docLock.data());
 
   if (at < 0 || at >= _numPages || at >= _pages.size())
-    return QSharedPointer<Backend::Page>();
+    return QWeakPointer<Backend::Page>();
 
-  return _pages[at];
+  return QWeakPointer<Backend::Page>(_pages[at]);
 }
 
 PDFDestination Document::resolveDestination(const PDFDestination & namedDestination) const
@@ -555,7 +556,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
         continue;
 
       ::Poppler::LinkAnnotation * popplerLinkAnnot = static_cast< ::Poppler::LinkAnnotation *>(popplerAnnot);
-      convertAnnotation(link.data(), popplerLinkAnnot, this);
+      convertAnnotation(link.data(), popplerLinkAnnot, _parent->page(_n));
       // TODO: Does Poppler provide an easy interface to all quadPoints?
       // Note: ::Poppler::LinkAnnotation::HighlightMode is identical to PDFLinkAnnotation::HighlightingMode
       link->setHighlightingMode((Annotation::Link::HighlightingMode)popplerLinkAnnot->linkHighlightMode());
@@ -640,14 +641,14 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
       case ::Poppler::Annotation::AText:
       {
         Annotation::Text * annot = new Annotation::Text();
-        convertAnnotation(annot, popplerAnnot, this);
+        convertAnnotation(annot, popplerAnnot, _parent->page(_n));
         _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
         break;
       }
       case ::Poppler::Annotation::ACaret:
       {
         Annotation::Caret * annot = new Annotation::Caret();
-        convertAnnotation(annot, popplerAnnot, this);
+        convertAnnotation(annot, popplerAnnot, _parent->page(_n));
         _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
         break;
       }
@@ -658,28 +659,28 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
           case ::Poppler::HighlightAnnotation::Highlight:
           {
             Annotation::Highlight * annot = new Annotation::Highlight();
-            convertAnnotation(annot, popplerAnnot, this);
+            convertAnnotation(annot, popplerAnnot, _parent->page(_n));
             _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
             break;
           }
           case ::Poppler::HighlightAnnotation::Squiggly:
           {
             Annotation::Squiggly * annot = new Annotation::Squiggly();
-            convertAnnotation(annot, popplerAnnot, this);
+            convertAnnotation(annot, popplerAnnot, _parent->page(_n));
             _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
             break;
           }
           case ::Poppler::HighlightAnnotation::Underline:
           {
             Annotation::Underline * annot = new Annotation::Underline();
-            convertAnnotation(annot, popplerAnnot, this);
+            convertAnnotation(annot, popplerAnnot, _parent->page(_n));
             _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
             break;
           }
           case ::Poppler::HighlightAnnotation::StrikeOut:
           {
             Annotation::StrikeOut * annot = new Annotation::StrikeOut();
-            convertAnnotation(annot, popplerAnnot, this);
+            convertAnnotation(annot, popplerAnnot, _parent->page(_n));
             _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
             break;
           }

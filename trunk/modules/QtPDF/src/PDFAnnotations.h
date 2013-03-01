@@ -65,7 +65,7 @@ public:
     AnnotationType3D
   };
   
-  AbstractAnnotation() : _page(NULL) { }
+  AbstractAnnotation() { }
   virtual ~AbstractAnnotation() { }
 
   virtual AnnotationType type() const = 0;
@@ -75,7 +75,7 @@ public:
   // override them
   virtual QRectF rect() const { return _rect; }
   virtual QString contents() const { return _contents; }
-  virtual Backend::Page * page() const { return _page; }
+  virtual QWeakPointer<Backend::Page> page() const { return _page; }
   virtual QString name() const { return _name; }
   virtual QDateTime lastModified() const { return _lastModified; }
   virtual QFlags<AnnotationFlags> flags() const { return _flags; }
@@ -84,7 +84,7 @@ public:
 
   virtual void setRect(const QRectF rect) { _rect = rect; }
   virtual void setContents(const QString contents) { _contents = contents; }
-  virtual void setPage(Backend::Page * page) { _page = page; }
+  virtual void setPage(QWeakPointer<Backend::Page> page) { _page = page; }
   virtual void setName(const QString name) { _name = name; }
   virtual void setLastModified(const QDateTime lastModified) { _lastModified = lastModified; }
   virtual void setColor(const QColor color) { _color = color; }
@@ -92,7 +92,7 @@ public:
 protected:
   QRectF _rect; // required, in pdf coordinates
   QString _contents; // optional
-  Backend::Page * _page; // optional; since PDF 1.3
+  QWeakPointer<Backend::Page> _page; // optional; since PDF 1.3
   QString _name; // optional; since PDF 1.4
   QDateTime _lastModified; // optional; since PDF 1.1
   // TODO: _appearance, _appearanceState, _border, _structParent, _optContent

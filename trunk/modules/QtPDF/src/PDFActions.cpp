@@ -50,7 +50,7 @@ QRectF PDFDestination::viewport(const Backend::Document * doc, const QRectF oldV
     {
       if (!doc)
         break;
-      QSharedPointer<Backend::Page> p(doc->page(_page));
+      QSharedPointer<Backend::Page> p(doc->page(_page).toStrongRef());
       if (!p)
         break;
       retVal = QRectF(QPointF(0, 0), p->pageSizeF());
@@ -61,7 +61,7 @@ QRectF PDFDestination::viewport(const Backend::Document * doc, const QRectF oldV
     {
       if (!doc)
         break;
-      QSharedPointer<Backend::Page> p(doc->page(_page));
+      QSharedPointer<Backend::Page> p(doc->page(_page).toStrongRef());
       if (!p)
         break;
       float aspectRatio = oldViewport.width() / oldViewport.height();
@@ -73,7 +73,7 @@ QRectF PDFDestination::viewport(const Backend::Document * doc, const QRectF oldV
     {
       if (!doc)
         break;
-      QSharedPointer<Backend::Page> p(doc->page(_page));
+      QSharedPointer<Backend::Page> p(doc->page(_page).toStrongRef());
       if (!p)
         break;
       float aspectRatio = oldViewport.width() / oldViewport.height();
