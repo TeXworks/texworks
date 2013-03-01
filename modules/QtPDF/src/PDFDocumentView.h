@@ -94,6 +94,7 @@ protected:
   void mousePressEvent(QMouseEvent * event);
   void mouseMoveEvent(QMouseEvent * event);
   void mouseReleaseEvent(QMouseEvent * event);
+  void wheelEvent(QWheelEvent * event);
   void moveTopLeftTo(const QPointF scenePos);
   
   // Prepare to use a tool, e.g., by changing the mouse cursor; usually called

@@ -33,7 +33,7 @@ TODO
 ### Required
  - ~~GotoPage should not center on page~~ __DONE__
  - ~~zoom/hand tools~~ __DONE__
- - ctrl+mousewheel should zoom
+ - ~~ctrl+mousewheel should zoom~~ __DONE__
  - ~~maquee zoom (requested by Philip Taylor)~~ __DONE__
  - context menu
  - Flesh out link support
@@ -52,6 +52,7 @@ TODO
  - Control memory usage through caching and zoom throttling
  - possibility to abort render requests when page moves out of view (is there a
    way to avoid going through all pages at each scroll event?)
+ - Program segfaults if a page is destroyed while a render request is active
 
 ### Wishlist
  - annotations (popup window)
