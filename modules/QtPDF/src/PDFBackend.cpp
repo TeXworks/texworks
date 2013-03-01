@@ -13,7 +13,11 @@
  */
 
 #include <PDFBackend.h>
+#include <QImage>
+#include <QPainter>
 
+// TODO: Find a better place to put this
+QBrush * pageDummyBrush = NULL;
 
 PDFLinkAnnotation::~PDFLinkAnnotation()
 {
@@ -263,6 +267,26 @@ Page::Page(Document *parent, int at):
   _parent(parent),
   _n(at)
 {
+  if (!pageDummyBrush) {
+    pageDummyBrush = new QBrush();
+
+    // Make a texture brush which can be used to print "rendering page" all over
+    // the dummy tiles that are shown while the rendering thread is doing its
+    // work
+    QImage brushTex(1024, 1024, QImage::Format_ARGB32);
+    QRectF textRect;
+    QPainter p;
+    p.begin(&brushTex);
+    p.fillRect(brushTex.rect(), Qt::white);
+    p.setPen(Qt::lightGray);
+    p.drawText(brushTex.rect(), Qt::AlignCenter | Qt::AlignVCenter | Qt::TextSingleLine, QApplication::tr("rendering page"), &textRect);
+    p.end();
+    textRect.adjust(-textRect.width() * .05, -textRect.height() * .1, textRect.width() * .05, textRect.height() * .1);
+    brushTex = brushTex.copy(textRect.toAlignedRect());
+
+    pageDummyBrush->setTextureImage(brushTex);
+    pageDummyBrush->setTransform(QTransform().rotate(-45));
+  }
 }
 
 Page::~Page()
@@ -299,8 +323,6 @@ QImage* Page::getTileImage(QObject * listener, const double xres, const double y
   if (listener) {
     // Render asyncronously, but add a dummy image to the cache first and return
     // that in the end
-    // FIXME: Print some loading indicator on the dummy image
-    // FIXME: Cache the standard dummy image
     // FIXME: Derive the temporary image by scaling existing images in the cache
     // in some sophisticated way
 
@@ -311,8 +333,11 @@ QImage* Page::getTileImage(QObject * listener, const double xres, const double y
     // there's nothing to worry about
     _parent->pageCache().lock.lockForWrite();
     asyncRenderToImage(listener, xres, yres, render_box, true);
+
     retVal = new QImage(render_box.width(), render_box.height(), QImage::Format_ARGB32);
-    retVal->fill(0xffffffff);
+    QPainter p(retVal);
+    p.fillRect(retVal->rect(), *pageDummyBrush);
+
     if (_parent->pageCache().contains(PDFPageTile(xres, yres, render_box, _n))) {
       _parent->pageCache().lock.unlock();
       delete retVal;
