@@ -252,6 +252,7 @@ public:
   PDFDocumentScene(Poppler::Document *a_doc, QObject *parent = 0);
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
+  QGraphicsItem* pageAt(const int idx);
   int pageNumAt(const QPolygonF &polygon);
   PDFPageProcessingThread& processingThread() { return _processingThread; }
   PDFPageLayout& pageLayout() { return _pageLayout; }
