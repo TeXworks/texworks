@@ -18,34 +18,40 @@
 #include <QtCore>
 #include <QImage>
 
+// PDF ABCs
+// ========
+// This header file defines a set of Abstract Base Classes (ABCs) for PDF
+// documents. Having a set of abstract classes allows tools like GUI viewers to
+// be written that are agnostic to the library that provides the actual PDF
+// implementation: Poppler, MuPDF, etc.
 class Document;
 class Page;
 
 class Document
 {
   friend class Page;
+
+protected:
   int _numPages;
 
 public:
-
   Document(QString fileName);
   ~Document();
 
   int numPages();
-  virtual Page *page(int at);
+  virtual Page *page(int at)=0;
 
 };
 
 
 class Page
 {
-  Document *_parent;
+protected:
   QSizeF _size;
   qreal _rotate;
   const int _n;
 
 public:
-
   Page(Document *parent, int at);
   ~Page();
 
@@ -53,9 +59,16 @@ public:
   qreal rotate();
   QSizeF pageSizeF();
 
-  virtual QImage renderToImage(double xres, double yres);
+  virtual QImage renderToImage(double xres, double yres)=0;
 
 };
+
+
+// Backend Implementations
+// =======================
+// These provide library-specific concrete impelemntations of the abstract base
+// classes defined here.
+#include <backends/PopplerBackend.h>
 
 
 #endif // End header guard
