@@ -1228,17 +1228,12 @@ qDebug() << "[INF] PDFPageGraphicsItem::paint()";
     else
       jmax = jmax / TILE_SIZE + 1;
 
-    // FIXME: speed up tile lookup by not iterating over all tiles but only over
-    // those possibly inside the exposedRect
-    for (j = jmin; j <= jmax; ++j) {
-      for (i = imin; i <= imax; ++i) {
+    for (j = jmin; j < jmax; ++j) {
+      for (i = imin; i < imax; ++i) {
         // Construct the tile to paint. Intersect it with the page rect to
         // avoid doign extra work outside the page
         QRect tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         tile &= pageRect;
-        // don't process empty tiles
-        if (tile.isNull())
-          continue;
         // See if a copy of the required page render currently exists in the
         // cache.
         //
