@@ -286,14 +286,14 @@ private:
 };
 
 
-// Also inherits QObject in order to access SIGNALS/SLOTS for `QFutureWatcher`.
-// In the future, this should probably inherit `QGraphicsObject` directly, but
-// since that was introduced only in Qt 4.6 it would break compilation on older
-// systems for now
-class PDFPageGraphicsItem : public QObject, public QGraphicsItem
+// Inherits from `QGraphicsOject` instead of `QGraphicsItem` in order to
+// support SIGNALS/SLOTS used by threaded rendering.
+//
+// NOTE: __`QGraphicsObject` was added in Qt 4.6__
+class PDFPageGraphicsItem : public QGraphicsObject
 {
   Q_OBJECT
-  typedef QGraphicsItem Super;
+  typedef QGraphicsObject Super;
 
   Poppler::Page *_page;
   QPixmap _renderedPage;
