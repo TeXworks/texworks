@@ -123,7 +123,7 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   pageBbox.setHeight(0.5 * pageBbox.height());
   int nextCurrentPage = _pdf_scene->pageNumAt(mapToScene(pageBbox));
 
-  if ( nextCurrentPage != _currentPage )
+  if ( nextCurrentPage != _currentPage && nextCurrentPage >= 0 && nextCurrentPage < _lastPage )
   {
     _currentPage = nextCurrentPage;
     emit changedPage(_currentPage);
@@ -238,10 +238,14 @@ QList<QGraphicsItem*> PDFDocumentScene::pages(const QPolygonF &polygon)
 };
 
 // This is a convenience function for returning the page number of the first
-// page item inside a given area of the scene.
+// page item inside a given area of the scene. If no page is in the specified
+// area, -1 is returned.
 int PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
 {
-  return _pages.indexOf(pages(polygon).first());
+  QList<QGraphicsItem*> p(pages(polygon));
+  if (p.isEmpty())
+  	return -1;
+  return _pages.indexOf(p.first());
 }
 
 int PDFDocumentScene::lastPage() { return _lastPage; }
