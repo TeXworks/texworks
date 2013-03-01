@@ -53,6 +53,9 @@ PopplerPage::~PopplerPage()
 {
 }
 
+// TODO: Does this operation require obtaining the Poppler document mutex? If
+// so, it would be better to store the value in a member variable during
+// initialization.
 QSizeF PopplerPage::pageSizeF() { return _poppler_page->pageSizeF(); }
 
 QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box, bool cache)
