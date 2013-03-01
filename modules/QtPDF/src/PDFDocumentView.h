@@ -346,6 +346,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
   typedef QGraphicsObject Super;
 
   Poppler::Page *_page;
+  QSharedPointer<Page> _pdf_page;
   QPixmap _renderedPage;
   QPixmap _temporaryPage;
   QPixmap _magnifiedPage;
@@ -369,7 +370,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
 
 public:
 
-  PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent = 0);
+  PDFPageGraphicsItem(Poppler::Page *a_page, Page *a_pdf_page, QGraphicsItem *parent = 0);
 
   // This seems fragile as it assumes no other code declaring a custom graphics
   // item will choose the same ID for it's object types. Unfortunately, there

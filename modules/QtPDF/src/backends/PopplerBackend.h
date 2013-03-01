@@ -33,11 +33,16 @@ class PopplerDocument: public Document
 
   QSharedPointer<Poppler::Document> _poppler_doc;
 
+protected:
+  // Poppler is not threadsafe, so some operations need to be serialized with a
+  // mutex.
+  QMutex *_doc_lock;
+
 public:
   PopplerDocument(QString fileName);
   ~PopplerDocument();
 
-  virtual Page *page(int at);
+  Page *page(int at);
 
 };
 
@@ -53,7 +58,8 @@ public:
   PopplerPage(PopplerDocument *parent, int at);
   ~PopplerPage();
 
-  virtual QImage renderToImage(double xres, double yres);
+  QSizeF pageSizeF();
+  QImage renderToImage(double xres, double yres, int x = -1, int y = -1, int width = -1, int height = -1);
 
 };
 

@@ -811,7 +811,7 @@ PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, Document *a_pdf_doc
 
   for (i = 0; i < _lastPage; ++i)
   {
-    pagePtr = new PDFPageGraphicsItem(_doc->page(i));
+    pagePtr = new PDFPageGraphicsItem(_doc->page(i), _pdf_doc->page(i));
     _pages.append(pagePtr);
     addItem(pagePtr);
     _pageLayout.addPage(pagePtr);
@@ -969,9 +969,10 @@ void PDFDocumentScene::showAllPages() const
 
 // This class descends from `QGraphicsObject` and implements the on-screen
 // representation of `Poppler::Page` objects.
-PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent):
+PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, Page *a_pdf_page, QGraphicsItem *parent):
   Super(parent),
   _page(a_page),
+  _pdf_page(a_pdf_page),
   _dpiX(QApplication::desktop()->physicalDpiX()),
   _dpiY(QApplication::desktop()->physicalDpiY()),
 
@@ -1123,7 +1124,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       stopwatch.start();
 #endif
       // TODO: This needs to be threaded and cached.
-      renderedPage = _page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor,
+      renderedPage = _pdf_page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor,
           tile.x(), tile.y(), tile.width(), tile.height());
       painter->drawImage(tile.topLeft(), renderedPage);
 #ifdef DEBUG
