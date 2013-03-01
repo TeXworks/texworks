@@ -543,7 +543,7 @@ void Document::loadMetaData()
       }
     }
   }
-  // FIXME: Implement metadata stream handling (which should probably override
+  // TODO: Implement metadata stream handling (which should probably override
   // the data in the `Info` dictionary
 }
 
@@ -890,7 +890,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
     QSharedPointer<Annotation::Link> link(new Annotation::Link);
     link->setRect(toRectF(mupdfLink->rect));
     link->setPage(this);
-    // FIXME: Initialize all other properties of PDFLinkAnnotation, such as
+    // TODO: Initialize all other properties of PDFLinkAnnotation, such as
     // border, color, quadPoints, etc.
 
     switch (mupdfLink->kind) {
@@ -1001,7 +1001,6 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
 
 QList<SearchResult> Page::search(QString searchText)
 {
-  // FIXME: Currently unimplemented and always returns an empty list.
   QList<SearchResult> results;
   fz_text_span * page_text, * span;
   fz_device * dev;

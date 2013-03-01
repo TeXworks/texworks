@@ -305,7 +305,7 @@ const QEvent::Type PDFLinksLoadedEvent::LinksLoadedEvent = static_cast<QEvent::T
 
 bool PageProcessingRenderPageRequest::execute()
 {
-  // FIXME: Aborting renders doesn't really work right now---the backend knows
+  // TODO: Aborting renders doesn't really work right now---the backend knows
   // nothing about the PDF scenes.
   //
   // Idea: Perhaps allow page render requests to provide a pointer to a function

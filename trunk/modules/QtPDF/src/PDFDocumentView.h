@@ -520,7 +520,7 @@ private slots:
   void addAnnotations(QList< QSharedPointer<Annotation::AbstractAnnotation> > annotations);
 };
 
-// FIXME: Should be turned into a QGraphicsPolygonItem
+// TODO: Should be turned into a QGraphicsPolygonItem
 class PDFLinkGraphicsItem : public QGraphicsRectItem {
   typedef QGraphicsRectItem Super;
 
@@ -547,7 +547,7 @@ private:
 };
 
 
-// FIXME: Should be turned into a QGraphicsPolygonItem
+// TODO: Should be turned into a QGraphicsPolygonItem
 class PDFMarkupAnnotationGraphicsItem : public QGraphicsRectItem {
   typedef QGraphicsRectItem Super;
 
