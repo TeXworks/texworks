@@ -488,14 +488,21 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
   if ( _pageIsRendering ) {
     // A new resized page is still rendering, so we "blow up" our current
-    // render and paint that.
-    //
-    // **TODO:** _The performance of this degrades heavily at high zoom levels.
-    // Mostly due to the use of `scaled` on the pixmap. Find a more efficient
-    // way to scale._
+    // render and paint that. For performance reasons, we store this so we don't
+    // need to recreate it in every paint event.
+    // Note: Creating the scaled pixmap can take some time at high
+    // magnifications, as can copying the fully rendered page from the rendering
+    // thread into _renderedPage. Both cause a small lag on the UI.
+    // **TODO:** Investigate if it would help to only move pointers around. In
+    // this case, we'd have to take care which thread an image belongs to before
+    // assigning/deallocating.
     QSizeF scaledSize = painter->transform().mapRect(boundingRect()).size();
+
+    if (_temporaryPage.isNull() || _temporaryPage.size() != scaledSize.toSize())
+      _temporaryPage = _renderedPage.scaled(scaledSize.toSize());
+
     painter->setTransform(QTransform());
-    painter->drawPixmap(origin, _renderedPage.scaled(scaledSize.toSize()));
+    painter->drawPixmap(origin, _temporaryPage);
   } else {
     painter->setTransform(QTransform());
     painter->drawPixmap(origin, _renderedPage);
@@ -567,6 +574,11 @@ void PDFPageGraphicsItem::maybeUpdateRenderedPage(PDFPageGraphicsItem * page, qr
   // just want to increase the resolution, not affect the geometry of the item
   // in the graphics scene.
   _renderedPage = QPixmap::fromImage(pageImage);
+
+  // Since we have the fully rendered page now, we don't need any temporarily
+  // scaled version anymore
+  if (!_temporaryPage.isNull())
+    _temporaryPage = QPixmap();
 
   // Indicate that page rendering has completed and this item needs to be
   // re-drawn.
