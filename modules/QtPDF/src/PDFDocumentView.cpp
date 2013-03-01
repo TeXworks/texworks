@@ -797,12 +797,14 @@ void PDFPageGraphicsItem::addLinks(QList<PDFLinkGraphicsItem *> links)
 
 void PDFPageGraphicsItem::updateRenderedPage(qreal scaleFactor, QImage pageImage)
 {
-  // We store the rendered page in a new member named `renderedPage` rather
-  // than the `pixmap` member inherited from `QGraphicsPixmapItem`. This is
-  // because the size of `pixmap` is used to calculate a bunch of geometric
-  // attributes for `QGraphicsPixmapItem`. When the page is re-rendered, we
-  // just want to increase the resolution, not affect the geometry of the item
-  // in the graphics scene.
+  // If the rendering thread returned an empty image, something went wrong or
+  // it decided to abort.
+  if ( pageImage.isNull() )
+  {
+    _pageIsRendering = false;
+    return;
+  }
+
   _renderedPage = QPixmap::fromImage(pageImage);
 
   // Since we have the fully rendered page now, we don't need any temporarily
@@ -818,12 +820,14 @@ void PDFPageGraphicsItem::updateRenderedPage(qreal scaleFactor, QImage pageImage
 
 void PDFPageGraphicsItem::updateMagnifiedPage(qreal scaleFactor, QImage pageImage)
 {
-  // We store the rendered page in a new member named `renderedPage` rather
-  // than the `pixmap` member inherited from `QGraphicsPixmapItem`. This is
-  // because the size of `pixmap` is used to calculate a bunch of geometric
-  // attributes for `QGraphicsPixmapItem`. When the page is re-rendered, we
-  // just want to increase the resolution, not affect the geometry of the item
-  // in the graphics scene.
+  // If the rendering thread returned an empty image, something went wrong or
+  // it decided to abort.
+  if ( pageImage.isNull() )
+  {
+    _pageIsRendering = false;
+    return;
+  }
+
   _magnifiedPage = QPixmap::fromImage(pageImage);
 
   // Since we have the fully rendered page now, we don't need any temporarily
@@ -1461,15 +1465,66 @@ PageProcessingRenderPageRequest::PageProcessingRenderPageRequest(PDFPageGraphics
 
 bool PageProcessingRenderPageRequest::execute()
 {
-  if (!page || !qobject_cast<PDFDocumentScene *>(page->scene()) || !page->_page)
-    return false;
+  // Set up to report failure. All objects that recieve the `pageImageReady`
+  // signal emitted by this class should check to see that the QImage passed is
+  // not empty using `QImage.isNull`. if it is empty, that means the render
+  // failed or the request decided to abort.
+  bool doRender = false;
+  QImage pageImage = QImage();
+  PDFDocumentScene *pageScene = qobject_cast<PDFDocumentScene *>(page->scene());
+  QPointF pageCenter, viewCenter;
+  // The render tolerance is used to control the maximum distance from the
+  // center of the viewport at which pages will render.
+  qreal pageHeight, pageDistance, RENDER_TOLERANCE = 5.0;
 
-  QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(page->scene())->docMutex);
-  QImage pageImage = page->_page->renderToImage(page->_dpiX * scaleFactor, page->_dpiY * scaleFactor);
-  docLock.unlock();
-  
+  if (!page || !qobject_cast<PDFDocumentScene *>(page->scene()) || !page->_page)
+    goto renderReport; // Reports failure.
+
+  // Check to see that the page is visible by at least one of the views
+  // observing the scene. If not, skip rendering.
+  //
+  // **TODO:**
+  //
+  // Should this logic be executed at a higher level? Perhaps by the rendering
+  // thread before it decides to process a request? Two problems with this:
+  //
+  //   - Most objects expect to recieve some sort of signal after submitting
+  //     a job and these signals are emitted in the `execute` function.
+  //
+  //   - The `PDFPageGraphicsItem` sets `_linksLoaded` to `true` after
+  //     the load request, not when the results are recieved.
+  //
+  // This wont work for single page layout modes because the pages are all
+  // stacked on top of each other, so it always returns true. Need a better
+  // check for this case.
+  pageCenter = page->sceneBoundingRect().center();
+  pageHeight = page->sceneBoundingRect().height();
+
+  foreach ( QGraphicsView *view, pageScene->views() )
+  {
+    if ( view->isHidden() )
+      continue; // Go to the next iteration if a view is not visible to the user.
+
+    viewCenter = view->mapToScene(view->rect()).boundingRect().center();
+    pageDistance = QLineF(pageCenter, viewCenter).length();
+    // If the distance between the center of the page and the center of the
+    // viewport is less than a certain multiple of the page height, we will
+    // render the page.
+    if ( pageDistance < pageHeight * RENDER_TOLERANCE ) {
+      doRender = true;
+      break;
+    }
+  }
+
+  if ( doRender ) {
+    QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(page->scene())->docMutex);
+    pageImage = page->_page->renderToImage(page->_dpiX * scaleFactor, page->_dpiY * scaleFactor);
+    docLock.unlock();
+  }
+
+renderReport:
   emit pageImageReady(scaleFactor, pageImage);
-  return true;
+  return doRender;
 }
 
 // Asynchronous Link Generation
