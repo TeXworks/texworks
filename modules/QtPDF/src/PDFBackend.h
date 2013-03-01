@@ -216,8 +216,10 @@ public:
   QObject *listener;
   
   virtual bool operator==(const PageProcessingRequest & r) const;
+#ifdef DEBUG
+  virtual operator QString() const = 0;
+#endif
 };
-
 
 class PageProcessingRenderPageRequest : public PageProcessingRequest
 {
@@ -234,6 +236,9 @@ public:
   Type type() const { return PageRendering; }
 
   virtual bool operator==(const PageProcessingRequest & r) const;
+#ifdef DEBUG
+  virtual operator QString() const;
+#endif
 
 protected:
   bool execute();
@@ -272,6 +277,10 @@ class PageProcessingLoadLinksRequest : public PageProcessingRequest
 public:
   PageProcessingLoadLinksRequest(Page *page, QObject *listener) : PageProcessingRequest(page, listener) { }
   Type type() const { return LoadLinks; }
+
+#ifdef DEBUG
+  virtual operator QString() const;
+#endif
 
 protected:
   bool execute();
@@ -320,6 +329,7 @@ private:
   bool _quit;
 #ifdef DEBUG
   QTime _renderTimer;
+  static void dumpWorkStack(const QStack<PageProcessingRequest*> & ws);
 #endif
 
 };
