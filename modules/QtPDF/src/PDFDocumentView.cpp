@@ -28,7 +28,8 @@ static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGr
 PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
   _zoomLevel(1.0),
-  _pageMode(PageMode_OneColumnContinuous)
+  _pageMode(PageMode_OneColumnContinuous),
+  _mouseMode(MouseMode_MagnifyingGlass)
 {
   setBackgroundRole(QPalette::Dark);
   setAlignment(Qt::AlignCenter);
@@ -38,8 +39,7 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   // case, `goFirst()` or `goToPage(0)` will fail because the view will think
   // it is already looking at page 0.
   _currentPage = -1;
-  
-  setMouseMode(MouseMode_Move);
+  _magnifier = new PDFDocumentMagnifierView(this);
 }
 
 
@@ -261,6 +261,51 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
   }
 }
 
+void PDFDocumentView::mousePressEvent(QMouseEvent * event)
+{
+  switch (_mouseMode) {
+    case MouseMode_MagnifyingGlass:
+      if (_magnifier) {
+        _magnifier->prepareToShow();
+        _magnifier->setPosition(event->pos());
+        _magnifier->show();
+      }
+      break;
+    default:
+      // Nothing to do
+      break;
+  }
+  Super::mousePressEvent(event);
+}
+
+void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
+{
+  switch (_mouseMode) {
+    case MouseMode_MagnifyingGlass:
+      if (_magnifier)
+        _magnifier->setPosition(event->pos());
+      break;
+    default:
+      // Nothing to do
+      break;
+  }
+  Super::mouseMoveEvent(event);
+}
+
+void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
+{
+  switch (_mouseMode) {
+    case MouseMode_MagnifyingGlass:
+      if (_magnifier)
+        _magnifier->hide();
+      break;
+    default:
+      // Nothing to do
+      break;
+  }
+  Super::mouseReleaseEvent(event);
+}
+
 
 // Other
 // -----
@@ -271,6 +316,68 @@ void PDFDocumentView::moveTopLeftTo(const QPointF scenePos) {
   // **TODO:** Investigate why this approach doesn't work during startup if
   // the margin is set to 0
   ensureVisible(r, 1, 1);
+}
+
+
+// PDFDocumentMagnifierView
+// ========================
+//
+PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = 0 */) :
+  Super(parent),
+  _parent_view(parent),
+  _zoomFactor(2.0),
+  _zoomLevel(1.0)
+{
+  // the magnifier should initially be hidden
+  hide();
+
+  // suppress scrollbars
+  setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  // suppress any border styling
+  setFrameShape(QFrame::NoFrame);
+
+  if (parent) {
+    // transfer some settings from the parent view
+    setBackgroundRole(parent->backgroundRole());
+    setAlignment(parent->alignment());
+  }
+
+  // **TODO:** magnifier size and shape should be configurable
+  setFixedSize(200 * 4 / 3, 200);
+}
+
+void PDFDocumentMagnifierView::prepareToShow()
+{
+  qreal zoomLevel;
+
+  if (!_parent_view)
+    return;
+
+  // Ensure we have the same scene
+  if (_parent_view->scene() != scene())
+    setScene(_parent_view->scene());
+  // Fix the zoom
+  zoomLevel = _parent_view->zoomLevel() * _zoomFactor;
+  if (zoomLevel != _zoomLevel)
+    scale(zoomLevel / _zoomLevel, zoomLevel / _zoomLevel);
+  _zoomLevel = zoomLevel;
+  // Ensure we have enough padding at the border that we can display the
+  // magnifier even beyond the edge
+  setSceneRect(_parent_view->sceneRect().adjusted(-width() / _zoomLevel, -height() / _zoomLevel, width() / _zoomLevel, height() / _zoomLevel));
+}
+
+void PDFDocumentMagnifierView::setZoomFactor(const qreal zoomFactor)
+{
+  _zoomFactor = zoomFactor;
+  // Actual handling of zoom levels happens in prepareToShow, as the zoom level
+  // of the parent cannot change while the magnifier is shown
+}
+
+void PDFDocumentMagnifierView::setPosition(const QPoint pos)
+{
+  move(pos.x() - width() / 2, pos.y() - height() / 2);
+  centerOn(_parent_view->mapToScene(pos));
 }
 
 // PDFDocumentScene
@@ -435,7 +542,8 @@ PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *p
 
   _linksLoaded(false),
   _pageIsRendering(false),
-  _zoomLevel(0.0)
+  _zoomLevel(0.0),
+  _magnifiedZoomLevel(0.0)
 {
   // Create an empty pixmap that is the same size as the PDF page. This
   // allows us to delay the rendering of pages until they actually come into
@@ -486,29 +594,6 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     _renderedPage.fill();
   }
 
-  // We look at the zoom level and render a new page if the zoom has changed or
-  // still has the value of `0.0` set by the constructor.
-  if ( (_zoomLevel != scaleFactor) && not _pageIsRendering )
-  {
-    // Indicate that a render is in progress so that subsequent paint events
-    // won't trigger a re-render. Once `_pageImageGenerator` emits a `finished`
-    // signal, this boolean is cleared.
-    _pageIsRendering = true;
-
-    if (docScene) {
-      // Connect the rendering thread's signal to this object to receive
-      // notifications of finished pages
-      // **TODO:** If we ever reassign pages to other scenes, revisit this!
-      // Right now, we don't disconnect from the old scene (to ensure we receive
-      // late pageReady messages and those don't vanish into nirvana)
-      PageProcessingRenderPageRequest * request = docScene->processingThread().requestRenderPage(this, scaleFactor);
-      if (request)
-        connect(request, SIGNAL(pageImageReady(qreal, QImage)), this, SLOT(updateRenderedPage(qreal, QImage)));
-    }
-
-    _zoomLevel = scaleFactor;
-  }
-
   // The transformation matrix of the `painter` object contains information
   // such as the current zoom level of the widget viewing this PDF page. We use
   // this matrix to position the page and then reset the transformation matrix
@@ -516,26 +601,99 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // rendering.
   QPointF origin = painter->transform().map(QPointF(0.0, 0.0));
 
-  if ( _pageIsRendering ) {
-    // A new resized page is still rendering, so we "blow up" our current
-    // render and paint that. For performance reasons, we store this so we don't
-    // need to recreate it in every paint event.
-    // Note: Creating the scaled pixmap can take some time at high
-    // magnifications, as can copying the fully rendered page from the rendering
-    // thread into _renderedPage. Both cause a small lag on the UI.
-    // **TODO:** Investigate if it would help to only move pointers around. In
-    // this case, we'd have to take care which thread an image belongs to before
-    // assigning/deallocating.
-    QSizeF scaledSize = painter->transform().mapRect(boundingRect()).size();
+  // **TODO:** This way of detecting whether this is a magnifier request
+  // seems a bit hokey; we should probably use some sort of type() method
+  // **TODO:** Find a better way than to repeat the same code twice (once for
+  // the magnifier, and once for the normal display)
+  if (widget && widget->parent() && widget->parent()->inherits("PDFDocumentMagnifierView")) {
+    if ( (_magnifiedZoomLevel != scaleFactor) && not _pageIsRendering )
+    {
+      // Indicate that a render is in progress so that subsequent paint events
+      // won't trigger a re-render. Once `_pageImageGenerator` emits a `finished`
+      // signal, this boolean is cleared.
+      _pageIsRendering = true;
 
-    if (_temporaryPage.isNull() || _temporaryPage.size() != scaledSize.toSize())
-      _temporaryPage = _renderedPage.scaled(scaledSize.toSize());
+      if (docScene) {
+        // Connect the rendering thread's signal to this object to receive
+        // notifications of finished pages
+        // **TODO:** If we ever reassign pages to other scenes, revisit this!
+        // Right now, we don't disconnect from the old scene (to ensure we receive
+        // late pageReady messages and those don't vanish into nirvana)
+        PageProcessingRenderPageRequest * request = docScene->processingThread().requestRenderPage(this, scaleFactor);
+        if (request) {
+          connect(request, SIGNAL(pageImageReady(qreal, QImage)), this, SLOT(updateMagnifiedPage(qreal, QImage)));
+        }
+      }
 
-    painter->setTransform(QTransform());
-    painter->drawPixmap(origin, _temporaryPage);
-  } else {
-    painter->setTransform(QTransform());
-    painter->drawPixmap(origin, _renderedPage);
+      _magnifiedZoomLevel = scaleFactor;
+    }
+    if ( _pageIsRendering ) {
+      // A new resized page is still rendering, so we "blow up" our current
+      // render and paint that. For performance reasons, we store this so we don't
+      // need to recreate it in every paint event.
+      // Note: Creating the scaled pixmap can take some time at high
+      // magnifications, as can copying the fully rendered page from the rendering
+      // thread into _renderedPage. Both cause a small lag on the UI.
+      // **TODO:** Investigate if it would help to only move pointers around. In
+      // this case, we'd have to take care which thread an image belongs to before
+      // assigning/deallocating.
+      QSizeF scaledSize = painter->transform().mapRect(boundingRect()).size();
+
+      if (_temporaryMagnifiedPage.isNull() || _temporaryMagnifiedPage.size() != scaledSize.toSize())
+        _temporaryMagnifiedPage = _renderedPage.scaled(scaledSize.toSize());
+
+      painter->setTransform(QTransform());
+      painter->drawPixmap(origin, _temporaryMagnifiedPage);
+    } else {
+      painter->setTransform(QTransform());
+      painter->drawPixmap(origin, _magnifiedPage);
+    }
+  }
+  else {
+    // We look at the zoom level and render a new page if the zoom has changed or
+    // still has the value of `0.0` set by the constructor.
+    if ( (_zoomLevel != scaleFactor) && not _pageIsRendering )
+    {
+      // Indicate that a render is in progress so that subsequent paint events
+      // won't trigger a re-render. Once `_pageImageGenerator` emits a `finished`
+      // signal, this boolean is cleared.
+      _pageIsRendering = true;
+
+      if (docScene) {
+        // Connect the rendering thread's signal to this object to receive
+        // notifications of finished pages
+        // **TODO:** If we ever reassign pages to other scenes, revisit this!
+        // Right now, we don't disconnect from the old scene (to ensure we receive
+        // late pageReady messages and those don't vanish into nirvana)
+        PageProcessingRenderPageRequest * request = docScene->processingThread().requestRenderPage(this, scaleFactor);
+        if (request) {
+          connect(request, SIGNAL(pageImageReady(qreal, QImage)), this, SLOT(updateRenderedPage(qreal, QImage)));
+        }
+      }
+
+      _zoomLevel = scaleFactor;
+    }
+    if ( _pageIsRendering ) {
+      // A new resized page is still rendering, so we "blow up" our current
+      // render and paint that. For performance reasons, we store this so we don't
+      // need to recreate it in every paint event.
+      // Note: Creating the scaled pixmap can take some time at high
+      // magnifications, as can copying the fully rendered page from the rendering
+      // thread into _renderedPage. Both cause a small lag on the UI.
+      // **TODO:** Investigate if it would help to only move pointers around. In
+      // this case, we'd have to take care which thread an image belongs to before
+      // assigning/deallocating.
+      QSizeF scaledSize = painter->transform().mapRect(boundingRect()).size();
+
+      if (_temporaryPage.isNull() || _temporaryPage.size() != scaledSize.toSize())
+        _temporaryPage = _renderedPage.scaled(scaledSize.toSize());
+
+      painter->setTransform(QTransform());
+      painter->drawPixmap(origin, _temporaryPage);
+    } else {
+      painter->setTransform(QTransform());
+      painter->drawPixmap(origin, _renderedPage);
+    }
   }
 }
 
@@ -570,6 +728,27 @@ void PDFPageGraphicsItem::updateRenderedPage(qreal scaleFactor, QImage pageImage
   // scaled version anymore
   if (!_temporaryPage.isNull())
     _temporaryPage = QPixmap();
+
+  // Indicate that page rendering has completed and this item needs to be
+  // re-drawn.
+  _pageIsRendering = false;
+  update();
+}
+
+void PDFPageGraphicsItem::updateMagnifiedPage(qreal scaleFactor, QImage pageImage)
+{
+  // We store the rendered page in a new member named `renderedPage` rather
+  // than the `pixmap` member inherited from `QGraphicsPixmapItem`. This is
+  // because the size of `pixmap` is used to calculate a bunch of geometric
+  // attributes for `QGraphicsPixmapItem`. When the page is re-rendered, we
+  // just want to increase the resolution, not affect the geometry of the item
+  // in the graphics scene.
+  _magnifiedPage = QPixmap::fromImage(pageImage);
+
+  // Since we have the fully rendered page now, we don't need any temporarily
+  // scaled version anymore
+  if (!_temporaryMagnifiedPage.isNull())
+    _temporaryMagnifiedPage = QPixmap();
 
   // Indicate that page rendering has completed and this item needs to be
   // re-drawn.

@@ -19,6 +19,7 @@
 class PDFDocumentScene;
 class PDFPageGraphicsItem;
 class PDFLinkGraphicsItem;
+class PDFDocumentMagnifierView;
 
 class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
@@ -26,6 +27,7 @@ class PDFDocumentView : public QGraphicsView {
 
   // **TODO:** _Replace with an overloaded `scene` method._
   PDFDocumentScene *_pdf_scene;
+  PDFDocumentMagnifierView * _magnifier;
 
   qreal _zoomLevel;
   int _currentPage, _lastPage;
@@ -39,6 +41,7 @@ public:
   int currentPage();
   int lastPage();
   PageMode pageMode() const { return _pageMode; }
+  qreal zoomLevel() const { return _zoomLevel; }
 
 public slots:
   void goPrev();
@@ -63,6 +66,9 @@ protected:
   // Keep track of the current page by overloading the widget paint event.
   void paintEvent(QPaintEvent *event);
   void keyPressEvent(QKeyEvent *event);
+  void mousePressEvent(QMouseEvent * event);
+  void mouseMoveEvent(QMouseEvent * event);
+  void mouseReleaseEvent(QMouseEvent * event);
   void moveTopLeftTo(const QPointF scenePos);
 
 protected slots:
@@ -73,6 +79,26 @@ private:
   MouseMode _mouseMode;
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFDocumentView)
+};
+
+class PDFDocumentMagnifierView : public QGraphicsView {
+  Q_OBJECT
+  typedef QGraphicsView Super;
+
+  PDFDocumentView * _parent_view;
+  qreal _zoomLevel, _zoomFactor;
+
+public:
+  PDFDocumentMagnifierView(PDFDocumentView *parent = 0);
+  // the zoom factor multiplies the parent view's _zoomLevel
+  void setZoomFactor(const qreal zoomFactor);
+  void setPosition(const QPoint pos);
+  // ensures all settings are in sync with the parent view
+  // make sure you call it before calling show()!
+  // Note: we cannot override show() because prepareToShow() usually needs to be
+  // called before setPosition as well (as it adjusts the region accessible in
+  // setPosition())
+  void prepareToShow();
 };
 
 class PageProcessingRequest : public QObject
@@ -267,6 +293,8 @@ class PDFPageGraphicsItem : public QObject, public QGraphicsItem
   Poppler::Page *_page;
   QPixmap _renderedPage;
   QPixmap _temporaryPage;
+  QPixmap _magnifiedPage;
+  QPixmap _temporaryMagnifiedPage;
   double _dpiX;
   double _dpiY;
   QSizeF _pageSize;
@@ -275,7 +303,7 @@ class PDFPageGraphicsItem : public QObject, public QGraphicsItem
   bool _pageIsRendering;
 
   QTransform _pageScale;
-  qreal _zoomLevel;
+  qreal _zoomLevel, _magnifiedZoomLevel;
 
   friend class PageProcessingRenderPageRequest;
   friend class PageProcessingLoadLinksRequest;
@@ -303,6 +331,7 @@ private:
 private slots:
   void addLinks(QList<PDFLinkGraphicsItem *> links);
   void updateRenderedPage(qreal scaleFactor, QImage pageImage);
+  void updateMagnifiedPage(qreal scaleFactor, QImage pageImage);
 };
 
 
