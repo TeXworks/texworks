@@ -73,6 +73,39 @@ PDFDestination toPDFDestination(const Poppler::Document * doc, const Poppler::Li
   return retVal;
 }
 
+void convertAnnotation(PDFAnnotation * dest, const Poppler::Annotation * src, Page * page)
+{
+  if (!dest || !src || !page)
+    return;
+
+  QTransform denormalize = QTransform::fromScale(page->pageSizeF().width(), -page->pageSizeF().height()).translate(0,  -1);
+
+  dest->setRect(denormalize.mapRect(src->boundary()));
+  dest->setContents(src->contents());
+  dest->setName(src->uniqueName());
+  dest->setLastModified(src->modificationDate());
+  dest->setPage(page);
+
+  // TODO: Does poppler provide the color anywhere?
+  // dest->setColor();
+
+  QFlags<PDFAnnotation::AnnotationFlags>& flags = dest->flags();
+  flags = QFlags<PDFAnnotation::AnnotationFlags>();
+  if (src->flags() & Poppler::Annotation::Hidden)
+    flags |= PDFAnnotation::Annotation_Hidden;
+  if (src->flags() & Poppler::Annotation::FixedSize)
+    flags |= PDFAnnotation::Annotation_NoZoom;
+  if (src->flags() & Poppler::Annotation::FixedRotation)
+    flags |= PDFAnnotation::Annotation_NoRotate;
+  if (src->flags() & Poppler::Annotation::DenyPrint == 0)
+    flags |= PDFAnnotation::Annotation_Print;
+  if (src->flags() & Poppler::Annotation::DenyWrite)
+    flags |= PDFAnnotation::Annotation_ReadOnly;
+  if (src->flags() & Poppler::Annotation::DenyDelete)
+    flags |= PDFAnnotation::Annotation_Locked;
+  if (src->flags() & Poppler::Annotation::ToggleHidingOnMouse)
+    flags |= PDFAnnotation::Annotation_ToggleNoView;
+}
 
 
 // Document Class
@@ -364,7 +397,10 @@ PopplerPage::~PopplerPage()
 // TODO: Does this operation require obtaining the Poppler document mutex? If
 // so, it would be better to store the value in a member variable during
 // initialization.
-QSizeF PopplerPage::pageSizeF() { return _poppler_page->pageSizeF(); }
+QSizeF PopplerPage::pageSizeF() const {
+  Q_ASSERT(_poppler_page != NULL);
+  return _poppler_page->pageSizeF();
+}
 
 QImage PopplerPage::renderToImage(double xres, double yres, QRect render_box, bool cache)
 {
@@ -412,8 +448,30 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
   // Convert poppler links to PDFLinkAnnotations
   foreach (Poppler::Link * popplerLink, popplerLinks) {
     QSharedPointer<PDFLinkAnnotation> link(new PDFLinkAnnotation);
+
+    // Look up the corresponding Poppler::LinkAnnotation object. Do this first
+    // so the general annotation settings can be overridden by more specific
+    // link annotation settings afterwards (if necessary)
+    // Note: Poppler::LinkAnnotation::linkDestionation() [sic] doesn't reliably
+    // return a Poppler::Link*. Therefore, we have to find the correct
+    // annotation object ourselves. Note, though, that boundary() and rect()
+    // don't seem to correspond exactly (i.e., they are neither (necessarily)
+    // equal, nor does one (necessarily) contain the other.
+    // TODO: Can we have the situation that we get more than one matching
+    // annotations out of this?
+    foreach (Poppler::Annotation * popplerAnnot, popplerAnnots) {
+      if (!popplerAnnot || popplerAnnot->subType() != Poppler::Annotation::ALink || !denormalize.mapRect(popplerAnnot->boundary()).intersects(link->rect()))
+        continue;
+
+      Poppler::LinkAnnotation * popplerLinkAnnot = static_cast<Poppler::LinkAnnotation *>(popplerAnnot);
+      convertAnnotation(link.data(), popplerLinkAnnot, this);
+      // TODO: Does Poppler provide an easy interface to all quadPoints?
+      // Note: Poppler::LinkAnnotation::HighlightMode is identical to PDFLinkAnnotation::HighlightingMode
+      link->setHighlightingMode((PDFLinkAnnotation::HighlightingMode)popplerLinkAnnot->linkHighlightMode());
+      break;
+    }
+
     link->setRect(denormalize.mapRect(popplerLink->linkArea()));
-    link->setPage(this);
     
     switch (popplerLink->linkType()) {
       case Poppler::Link::Goto:
@@ -452,30 +510,6 @@ QList< QSharedPointer<PDFLinkAnnotation> > PopplerPage::loadLinks()
         continue;
     }
 
-
-    // Look up the corresponding Poppler::LinkAnnotation object
-    // Note: Poppler::LinkAnnotation::linkDestionation() [sic] doesn't reliably
-    // return a Poppler::Link*. Therefore, we have to find the correct
-    // annotation object ourselves. Note, though, that boundary() and rect()
-    // don't seem to correspond exactly (i.e., they are neither (necessarily)
-    // equal, nor does one (necessarily) contain the other.
-    // TODO: Can we have the situation that we get more than one matching
-    // annotations out of this?
-    foreach (Poppler::Annotation * popplerAnnot, popplerAnnots) {
-      if (!popplerAnnot || popplerAnnot->subType() != Poppler::Annotation::ALink || !popplerAnnot->boundary().intersects(link->rect()))
-        continue;
-      Poppler::LinkAnnotation * popplerLinkAnnot = static_cast<Poppler::LinkAnnotation *>(popplerAnnot);
-      link->setContents(popplerLinkAnnot->contents());
-      link->setName(popplerLinkAnnot->uniqueName());
-      link->setLastModified(popplerLinkAnnot->modificationDate());
-      // TODO: Does poppler provide the color anywhere?
-      // FIXME: Convert flags
-
-      // Note: Poppler::LinkAnnotation::HighlightMode is identical to PDFLinkAnnotation::HighlightingMode
-      link->setHighlightingMode((PDFLinkAnnotation::HighlightingMode)popplerLinkAnnot->linkHighlightMode());
-      // TODO: Does Poppler provide an easy interface to all quadPoints?
-      break;
-    }
     _links << link;
   }
   return _links;

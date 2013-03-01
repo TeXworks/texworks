@@ -71,7 +71,7 @@ public:
   PopplerPage(PopplerDocument *parent, int at);
   ~PopplerPage();
 
-  QSizeF pageSizeF();
+  QSizeF pageSizeF() const;
 
   QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false);
 

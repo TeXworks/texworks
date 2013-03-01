@@ -695,7 +695,7 @@ MuPDFPage::~MuPDFPage()
   _mupdf_page = NULL;
 }
 
-QSizeF MuPDFPage::pageSizeF() { return _size; }
+QSizeF MuPDFPage::pageSizeF() const { return _size; }
 
 QImage MuPDFPage::renderToImage(double xres, double yres, QRect render_box, bool cache)
 {
