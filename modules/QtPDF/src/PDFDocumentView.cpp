@@ -142,14 +142,24 @@ void PDFDocumentView::goToPage(int pageNum)
 void PDFDocumentView::zoomIn()
 {
   _zoomLevel *= 3.0/2.0;
+  // Set the transformation anchor to AnchorViewCenter so we always zoom into
+  // the center of the view (rather than into the upper left corner)
+  QGraphicsView::ViewportAnchor anchor = transformationAnchor();
+  setTransformationAnchor(QGraphicsView::AnchorViewCenter);
   this->scale(3.0/2.0, 3.0/2.0);
+  setTransformationAnchor(anchor);
   emit changedZoom(_zoomLevel);
 }
 
 void PDFDocumentView::zoomOut()
 {
   _zoomLevel *= 2.0/3.0;
+  // Set the transformation anchor to AnchorViewCenter so we always zoom out of
+  // the center of the view (rather than out of the upper left corner)
+  QGraphicsView::ViewportAnchor anchor = transformationAnchor();
+  setTransformationAnchor(QGraphicsView::AnchorViewCenter);
   this->scale(2.0/3.0, 2.0/3.0);
+  setTransformationAnchor(anchor);
   emit changedZoom(_zoomLevel);
 }
 
