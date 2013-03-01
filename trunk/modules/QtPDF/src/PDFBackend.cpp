@@ -273,7 +273,11 @@ int Page::pageNum() { return _n; }
 
 QImage *Page::getCachedImage(double xres, double yres, QRect render_box)
 {
-  return _parent->pageCache().object(PDFPageTile(xres, yres, render_box, _n));
+  QImage * retVal;
+  _parent->pageCache().lock.lockForRead();
+  retVal = _parent->pageCache().object(PDFPageTile(xres, yres, render_box, _n));
+  _parent->pageCache().lock.unlock();
+  return retVal;
 }
 
 void Page::asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box, bool cache)
