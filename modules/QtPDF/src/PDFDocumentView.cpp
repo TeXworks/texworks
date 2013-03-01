@@ -144,40 +144,37 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   ensureVisible(viewRect, 0, 0);
 }
 
-// TODO: These could possibly be simplified if all dock widgets were derived
-// from a common ancestral class (which provides an overrideable
-// setDataFromDocument method). Question is: can we assure that we never need
-// anything else?
-QDockWidget * PDFDocumentView::tocDockWidget(QWidget * parent)
+PDFDocumentInfoDock * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* = NULL */)
 {
-  PDFToCDockWidget * dock = new PDFToCDockWidget(parent);
-  connect(dock, SIGNAL(actionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
-  if (_pdf_scene && _pdf_scene->document())
-    dock->setToCData(_pdf_scene->document()->toc());
-  return dock;
-}
-
-QDockWidget * PDFDocumentView::metaDataDockWidget(QWidget * parent)
-{
-  PDFMetaDataDockWidget * dock = new PDFMetaDataDockWidget(parent);
-  if (_pdf_scene && _pdf_scene->document())
-    dock->setMetaDataFromDocument(_pdf_scene->document());
-  return dock;
-}
-
-QDockWidget * PDFDocumentView::fontsDockWidget(QWidget * parent)
-{
-  PDFFontsDockWidget * dock = new PDFFontsDockWidget(parent);
-  if (_pdf_scene && _pdf_scene->document())
-    dock->setFontsDataFromDocument(_pdf_scene->document());
-  return dock;
-}
-  
-QDockWidget * PDFDocumentView::permissionsDockWidget(QWidget * parent)
-{
-  PDFPermissionsDockWidget * dock = new PDFPermissionsDockWidget(parent);
-  if (_pdf_scene && _pdf_scene->document())
-    dock->initFromDocument(_pdf_scene->document());
+  PDFDocumentInfoDock * dock;
+  switch (type) {
+    case Dock_TableOfContents:
+    {
+      PDFToCDockWidget * tocDock = new PDFToCDockWidget(parent);
+      connect(tocDock, SIGNAL(actionTriggered(const PDFAction*)), this, SLOT(pdfActionTriggered(const PDFAction*)));
+      dock = tocDock;
+      break;
+    }
+    case Dock_MetaData:
+      dock = new PDFMetaDataDockWidget(parent);
+      break;
+    case Dock_Fonts:
+      dock = new PDFFontsDockWidget(parent);
+      break;
+    case Dock_Permissions:
+      dock = new PDFPermissionsDockWidget(parent);
+      break;
+    default:
+      dock = NULL;
+      break;
+  }
+  if (!dock)
+    return NULL;
+  if (_pdf_scene) {
+    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QSharedPointer<Document>)), dock, SLOT(initFromDocument(const QSharedPointer<Document>)));
+    if (_pdf_scene->document())
+      dock->initFromDocument(_pdf_scene->document());
+  }
   return dock;
 }
 
@@ -1788,7 +1785,7 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 // ============
 
 PDFToCDockWidget::PDFToCDockWidget(QWidget * parent) :
-  QDockWidget(PDFDocumentView::trUtf8("Table of Contents"), parent)
+  PDFDocumentInfoDock(PDFDocumentView::trUtf8("Table of Contents"), parent)
 {
   QTreeWidget * tree = new QTreeWidget(this);
   tree->setAlternatingRowColors(true);
@@ -1803,8 +1800,9 @@ PDFToCDockWidget::~PDFToCDockWidget()
   clearTree();
 }
   
-void PDFToCDockWidget::setToCData(const PDFToC data)
+void PDFToCDockWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
+  const PDFToC data = doc->toc();
   QTreeWidget * tree = qobject_cast<QTreeWidget*>(widget());
   if (!tree)
     return;
@@ -1882,7 +1880,7 @@ void PDFToCDockWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
 // PDFMetaDataDockWidget
 // ============
 PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) : 
-  QDockWidget(PDFDocumentView::trUtf8("Meta Data"), parent)
+  PDFDocumentInfoDock(PDFDocumentView::trUtf8("Meta Data"), parent)
 {
   // scrollArea ... the central widget of the QDockWidget
   // w ... the central widget of scrollArea
@@ -1969,7 +1967,7 @@ PDFMetaDataDockWidget::PDFMetaDataDockWidget(QWidget * parent) :
   setWidget(scrollArea);
 }
 
-void PDFMetaDataDockWidget::setMetaDataFromDocument(const QSharedPointer<Document> doc)
+void PDFMetaDataDockWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
   if (!doc)
     return;
@@ -2012,7 +2010,7 @@ void PDFMetaDataDockWidget::setMetaDataFromDocument(const QSharedPointer<Documen
 // PDFFontsDockWidget
 // ============
 PDFFontsDockWidget::PDFFontsDockWidget(QWidget * parent) :
-  QDockWidget(PDFDocumentView::trUtf8("Fonts"), parent)
+  PDFDocumentInfoDock(PDFDocumentView::trUtf8("Fonts"), parent)
 {
   _table = new QTableWidget(this);
 
@@ -2035,7 +2033,7 @@ PDFFontsDockWidget::PDFFontsDockWidget(QWidget * parent) :
   setWidget(_table);
 }
 
-void PDFFontsDockWidget::setFontsDataFromDocument(const QSharedPointer<Document> doc)
+void PDFFontsDockWidget::initFromDocument(const QSharedPointer<Document> doc)
 {
   Q_ASSERT(_table != NULL);
 
@@ -2089,7 +2087,7 @@ void PDFFontsDockWidget::setFontsDataFromDocument(const QSharedPointer<Document>
 // PDFPermissionsDockWidget
 // ============
 PDFPermissionsDockWidget::PDFPermissionsDockWidget(QWidget * parent) : 
-  QDockWidget(PDFDocumentView::trUtf8("Permissions"), parent)
+  PDFDocumentInfoDock(PDFDocumentView::trUtf8("Permissions"), parent)
 {
   // scrollArea ... the central widget of the QDockWidget
   // w ... the central widget of scrollArea

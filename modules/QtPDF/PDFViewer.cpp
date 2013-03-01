@@ -68,11 +68,11 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   addToolBar(toolBar);
   setCentralWidget(docView);
   
-  QDockWidget * toc = docView->tocDockWidget(this);
+  PDFDocumentInfoDock * toc = docView->dockWidget(PDFDocumentView::Dock_TableOfContents, this);
   addDockWidget(Qt::LeftDockWidgetArea, toc);
-  tabifyDockWidget(toc, docView->metaDataDockWidget(this));
-  tabifyDockWidget(toc, docView->fontsDockWidget(this));
-  tabifyDockWidget(toc, docView->permissionsDockWidget(this));
+  tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_MetaData, this));
+  tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_Fonts, this));
+  tabifyDockWidget(toc, docView->dockWidget(PDFDocumentView::Dock_Permissions, this));
   toc->raise();
 }
 
