@@ -183,6 +183,18 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
   _mouseMode = newMode;
 }
 
+void PDFDocumentView::setMagnifierShape(const MagnifierShape shape)
+{
+  if (_magnifier)
+    _magnifier->setShape(shape);
+}
+
+void PDFDocumentView::setMagnifierSize(const int size)
+{
+  if (_magnifier)
+    _magnifier->setSize(size);
+}
+
 // Protected Slots
 // --------------
 void PDFDocumentView::maybeUpdateSceneRect() {
@@ -351,7 +363,9 @@ PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = 
   Super(parent),
   _parent_view(parent),
   _zoomFactor(2.0),
-  _zoomLevel(1.0)
+  _zoomLevel(1.0),
+  _shape(PDFDocumentView::Magnifier_Circle),
+  _size(300)
 {
   // the magnifier should initially be hidden
   hide();
@@ -368,8 +382,7 @@ PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = 
     setAlignment(parent->alignment());
   }
 
-  // **TODO:** magnifier size and shape should be configurable
-  setFixedSize(200 * 4 / 3, 200);
+  setShape(_shape);
 }
 
 void PDFDocumentMagnifierView::prepareToShow()
@@ -404,6 +417,37 @@ void PDFDocumentMagnifierView::setPosition(const QPoint pos)
   move(pos.x() - width() / 2, pos.y() - height() / 2);
   centerOn(_parent_view->mapToScene(pos));
 }
+
+void PDFDocumentMagnifierView::setShape(const PDFDocumentView::MagnifierShape shape)
+{
+  _shape = shape;
+
+  // ensure the window rect is set properly for the new mode
+  setSize(_size);
+
+  switch (shape) {
+    case PDFDocumentView::Magnifier_Rectangle:
+      clearMask();
+      break;
+    case PDFDocumentView::Magnifier_Circle:
+      setMask(QRegion(rect(), QRegion::Ellipse));
+      break;
+  }
+}
+
+void PDFDocumentMagnifierView::setSize(const int size)
+{
+  _size = size;
+  switch (_shape) {
+    case PDFDocumentView::Magnifier_Rectangle:
+      setFixedSize(size * 4 / 3, size);
+      break;
+    case PDFDocumentView::Magnifier_Circle:
+      setFixedSize(size, size);
+      break;
+  }
+}
+
 
 // PDFDocumentScene
 // ================

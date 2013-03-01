@@ -5,17 +5,21 @@ TODO (required fixes/features/enhancements):
  - maquee zoom (requested by Philip Taylor)
  - context menu
  - Flesh out link support
- - Add some loading indicators so that users know something is happening in the background when pages are blank or blurry
+ - Add some loading indicators so that users know something is happening in the
+   background when pages are blank or blurry
  - scrolling beyond edge at single page mode (mouse wheel/up/down)
- - round magnifying glass
- - magnifying glass size
+ - disallow mouse-wheel events in magnifier (otherwise one could scroll the
+   magnified image with the mouse wheel)
+ - disallow keyboard events in document view while magnifier is shown (otherwise
+   one could scroll the canvas without properly adjusting the magnifier)
  - Sync signal
  - sync/goto slot
  - fit to width/page/...
  - Highlighting! (to show syncing destination, search results, etc.)
  - PgDn should scroll one viewport height
  - draw frame around magnifying glass (requested by Reinhard Kotucha)
- - make the magnifying glass a top-level window (so it can extend outside the main view's window boundaries) (requested by Reinhard Kotucha)
+ - make the magnifying glass a top-level window (so it can extend outside the
+   main view's window boundaries) (requested by Reinhard Kotucha)
  - _Comment on how `pageScale` works and is used._
  - Check memory usage
 
