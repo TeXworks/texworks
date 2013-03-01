@@ -307,18 +307,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // `dirty` will be `true`. We load all of the links on the page.
   if ( dirty )
   {
-    // **TODO:**
-    //
-    //   * _Comment on how `pageTransform` works and is used._
-    //
-    //   * _Is this the best place to handle link <-> Qt graphics
-    //     transformations?._
-    QTransform pageTransform = QTransform::fromScale(pixmap().rect().width(), pixmap().rect().height());
-    PDFLinkGraphicsItem *linkBox;
-    foreach(Poppler::Link *link, page->links()) {
-      linkBox = new PDFLinkGraphicsItem(link, this);
-      linkBox->setTransform(pageTransform);
-    }
+    createLinks(page->links());
+    dirty = false;
 
     // **NOTE:**
     // _An update currently required to ensure links are drawn when the page
@@ -356,6 +346,23 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     (transformationMode() == Qt::SmoothTransformation));
 
   painter->drawPixmap(origin, renderedPage);
+}
+
+
+void PDFPageGraphicsItem::createLinks(QList<Poppler::Link *> links) {
+  // **TODO:**
+  //
+  //   * _Comment on how `pageTransform` works and is used._
+  //
+  //   * _Is this the best place to handle link <-> Qt graphics
+  //     transformations?._
+  QTransform pageTransform = QTransform::fromScale(pixmap().rect().width(), pixmap().rect().height());
+  PDFLinkGraphicsItem *linkBox;
+  foreach(Poppler::Link *link, links)
+  {
+    linkBox = new PDFLinkGraphicsItem(link, this);
+    linkBox->setTransform(pageTransform);
+  }
 }
 
 
