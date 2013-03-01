@@ -27,41 +27,17 @@
 // sense to tightly couple a scene to this class?_
 PDFDocumentView::PDFDocumentView(Poppler::Document *a_doc, QWidget *parent):
   Super(parent),
-  doc(a_doc),
   zoomLevel(1.0)
 {
-  setScene(new QGraphicsScene(this));
-
   setBackgroundRole(QPalette::Dark);
   setAlignment(Qt::AlignCenter);
   setFocusPolicy(Qt::StrongFocus);
 
-  // **TODO:** _Investigate the Arthur backend for native Qt rendering._
-  doc->setRenderBackend(Poppler::Document::SplashBackend);
-  // Make things look pretty.
-  doc->setRenderHint(Poppler::Document::Antialiasing);
-  doc->setRenderHint(Poppler::Document::TextAntialiasing);
-
-  _lastPage = doc->numPages();
-
-  // Create a `PDFPageGraphicsItem` for each page in the PDF document to the
-  // `QGraphicsScene` controlled by this object. The Y-coordinate of each
-  // page is automatically shifted such that it will appear 10px below the
-  // previous page.
-  int i;
-  float offY = 0.0;
-  PDFPageGraphicsItem *pagePtr;
-
-  for (i = 0; i < _lastPage; ++i)
-  {
-    pagePtr = new PDFPageGraphicsItem(doc->page(i));
-    pagePtr->setPos(0.0, offY);
-
-    pages.append(pagePtr);
-    scene()->addItem(pagePtr);
-
-    offY += pagePtr->pixmap().height() + 10.0;
-  }
+  // Having `pdf_scene` as a class member is a bit of a hack. Should probably
+  // override or overload the `scene` method.
+  pdf_scene = new PDFDocumentScene(a_doc, this);
+  setScene(pdf_scene);
+  _lastPage = pdf_scene->lastPage();
 
   // Automatically center on the first page in the PDF document.
   goToPage(0);
@@ -88,7 +64,7 @@ void PDFDocumentView::goToPage(int pageNum)
   // We silently ignore any invalid page numbers.
   if ( (pageNum >= 0) && (pageNum < _lastPage) && (pageNum != _currentPage) )
   {
-    centerOn(pages.at(pageNum));
+    centerOn(pdf_scene->pages().at(pageNum));
     _currentPage = pageNum;
     emit changedPage(_currentPage);
   }
@@ -133,7 +109,7 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   // of `items` and then take the first item of a set intersection._
   QRect pageBbox = viewport()->rect();
   pageBbox.setHeight(0.5 * pageBbox.height());
-  int nextCurrentPage = pages.indexOf(items(pageBbox).first());
+  int nextCurrentPage = pdf_scene->pages().indexOf(items(pageBbox).first());
 
   if ( nextCurrentPage != _currentPage )
   {
@@ -178,6 +154,51 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 
   }
 }
+
+
+// PDFDocumentScene
+// ================
+PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
+  Super(parent),
+  doc(a_doc)
+{
+  // **TODO:** _Investigate the Arthur backend for native Qt rendering._
+  doc->setRenderBackend(Poppler::Document::SplashBackend);
+  // Make things look pretty.
+  doc->setRenderHint(Poppler::Document::Antialiasing);
+  doc->setRenderHint(Poppler::Document::TextAntialiasing);
+
+  _lastPage = doc->numPages();
+
+  // Create a `PDFPageGraphicsItem` for each page in the PDF document.  The
+  // Y-coordinate of each page is shifted such that it will appear 10px below
+  // the previous page.
+  //
+  // **TODO:** _Investigate things such as `QGraphicsGridLayout` that may take
+  // care of offset for us and make it easy to extend to 2-up or multipage
+  // views._
+  int i;
+  float offY = 0.0;
+  PDFPageGraphicsItem *pagePtr;
+
+  for (i = 0; i < _lastPage; ++i)
+  {
+    pagePtr = new PDFPageGraphicsItem(doc->page(i));
+    pagePtr->setPos(0.0, offY);
+
+    _pages.append(pagePtr);
+    addItem(pagePtr);
+
+    offY += pagePtr->pixmap().height() + 10.0;
+  }
+}
+
+
+// Accessors
+// ---------
+
+QList<QGraphicsItem*> PDFDocumentScene::pages() { return _pages; };
+int PDFDocumentScene::lastPage() { return _lastPage; }
 
 
 // PDFPageGraphicsItem
@@ -235,7 +256,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   {
     // **TODO:**
     //
-    //   * _Comment on how exactly this transformation is valid._
+    //   * _Comment on how `pageTransform` works and is used._
+    //
     //   * _Is this the best place to handle link <-> Qt graphics
     //     transformations?._
     QTransform pageTransform = QTransform::fromScale(pixmap().rect().width(), pixmap().rect().height());
