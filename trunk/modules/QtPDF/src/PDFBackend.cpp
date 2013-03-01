@@ -568,7 +568,7 @@ void Page::asyncLoadLinks(QObject *listener)
 }
 
 //static
-QList<SearchResult> Page::search(SearchRequest request)
+QList<SearchResult> Page::executeSearch(SearchRequest request)
 {
   if (request.doc.isNull())
     return QList<SearchResult>();

@@ -499,7 +499,7 @@ void PDFDocumentView::search(QString searchText)
 
   _currentSearchResult = -1;
   _searchString = searchText;
-  _searchResultWatcher.setFuture(QtConcurrent::mapped(requests, Backend::Page::search));
+  _searchResultWatcher.setFuture(QtConcurrent::mapped(requests, Backend::Page::executeSearch));
 }
 
 void PDFDocumentView::nextSearchResult()
