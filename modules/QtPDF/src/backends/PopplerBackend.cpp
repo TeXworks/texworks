@@ -94,7 +94,7 @@ PopplerDocument::~PopplerDocument()
 QSharedPointer<Page> PopplerDocument::page(int at)
 {
   // FIXME: Come up with something to deal with a zero-page PDF.
-  assert(_numPages != 0);
+  Q_ASSERT(_numPages != 0);
 
   if( _pages.isEmpty() )
     _pages.resize(_numPages);
