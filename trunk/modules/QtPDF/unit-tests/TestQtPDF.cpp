@@ -130,7 +130,9 @@ void TestQtPDF::page()
 #ifdef USE_POPPLERQT4
     QEXPECT_FAIL("base14-locked", "poppler-qt4 doesn't report page sizes for locked documents", Continue);
 #endif
-    QCOMPARE(page->pageSizeF(), pageSize);
+    QVERIFY(qAbs(page->pageSizeF().width() - pageSize.width()) < 1e-4);
+    QVERIFY(qAbs(page->pageSizeF().height() - pageSize.height()) < 1e-4);
+
 //		transition
 //		loadLinks()
 //		boxes()

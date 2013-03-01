@@ -836,6 +836,17 @@ Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
 
   _bbox = page_data->mediabox;
   _size = QSizeF(qreal(_bbox.x1 - _bbox.x0), qreal(_bbox.y1 - _bbox.y0));
+  // MuPDF's page_data->mediabox is rounded to integers. _size should be exact,
+  // though.
+  if (parent->_mupdf_data && at >= 0 && at < parent->_mupdf_data->page_len){
+    fz_obj * pageobj = parent->_mupdf_data->page_objs[at];
+    if (pageobj) {
+      static char keyMediaBox[] = "MediaBox";
+      QRectF r(toRectF(fz_dict_gets(pageobj, keyMediaBox)));
+      if (!r.isEmpty())
+        _size = r.size();
+    }
+  }
   _rotate = qreal(page_data->rotate);
 
   // This is also time-intensive. It takes Poppler ~500 ms to create page
