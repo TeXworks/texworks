@@ -1156,6 +1156,7 @@ QPointF PDFPageGraphicsItem::mapToPage(const QPointF & point)
 // calls to backend functions.
 void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+qDebug() << "[INF] PDFPageGraphicsItem::paint()";
   // Really, there is an X scaling factor and a Y scaling factor, but we assume
   // that the X scaling factor is equal to the Y scaling factor.
   qreal scaleFactor = painter->transform().m11();
