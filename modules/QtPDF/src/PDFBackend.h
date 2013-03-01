@@ -15,6 +15,7 @@
 #define PDFBackend_H
 
 #include <PDFAnnotations.h>
+#include <PDFTransitions.h>
 
 #include <QImage>
 #include <QFileInfo>
@@ -496,6 +497,7 @@ class Page
 protected:
   Document *_parent;
   const int _n;
+  Transition::AbstractTransition * _transition;
 
 public:
   Page(Document *parent, int at);
@@ -503,6 +505,7 @@ public:
 
   int pageNum();
   virtual QSizeF pageSizeF() const = 0;
+  Transition::AbstractTransition * transition() { return _transition; }
 
   Document * document() { return _parent; }
 

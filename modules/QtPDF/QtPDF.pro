@@ -6,6 +6,7 @@ SOURCES = \
 "src/PDFDocumentView.cpp" \
 "src/PDFDocumentTools.cpp" \
 "src/PDFBackend.cpp" \
+"src/PDFTransitions.cpp" \
 "src/PDFActions.cpp" \
 "src/PDFAnnotations.cpp" \
 "src/backends/PopplerBackend.cpp" \
@@ -13,6 +14,7 @@ SOURCES = \
 "src/PDFDocumentView.h" \
 "src/PDFDocumentTools.h" \
 "src/PDFBackend.h" \
+"src/PDFTransitions.h" \
 "src/PDFActions.h" \
 "src/PDFAnnotations.h" \
 "src/backends/PopplerBackend.h" \

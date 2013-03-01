@@ -164,6 +164,7 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
   // setColumnCount() below)
   switch (pageMode) {
     case PageMode_SinglePage:
+    case PageMode_Presentation:
       _pdf_scene->showOnePage(_currentPage);
       _pdf_scene->pageLayout().setContinuous(false);
       break;
@@ -186,15 +187,27 @@ void PDFDocumentView::setPageMode(PageMode pageMode)
       _pdf_scene->pageLayout().setColumnCount(2, 1);
       break;
   }
+  
+  // Ensure the background is black during presentation (independent of the
+  // current palette and background role)
+  if (pageMode == PageMode_Presentation)
+    setBackgroundBrush(QBrush(Qt::black));
+  else
+    setBackgroundBrush(Qt::NoBrush);
+  
   _pageMode = pageMode;
   _pdf_scene->pageLayout().relayout();
 
   // We might need to update the scene rect (when switching to single page mode)
   maybeUpdateSceneRect();
 
-  // Restore the view from before as good as possible
-  viewRect.translate(_pdf_scene->pageAt(_currentPage)->pos());
-  ensureVisible(viewRect, 0, 0);
+  if (pageMode == PageMode_Presentation)
+    zoomFitWindow();
+  else {
+    // Restore the view from before as good as possible
+    viewRect.translate(_pdf_scene->pageAt(_currentPage)->pos());
+    ensureVisible(viewRect, 0, 0);
+  }
 }
 
 QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* = NULL */)
@@ -582,7 +595,7 @@ void PDFDocumentView::searchProgressValueChanged(int progressValue)
 }
 
 void PDFDocumentView::maybeUpdateSceneRect() {
-  if (!_pdf_scene || _pageMode != PageMode_SinglePage)
+  if (!_pdf_scene || (_pageMode != PageMode_SinglePage && _pageMode != PageMode_Presentation))
     return;
 
   // Set the scene rect of the view, i.e., the rect accessible via the scroll
@@ -611,69 +624,94 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int align
   if (pageNum == _currentPage)
     return;
 
-  QRectF viewRect(mapToScene(QRect(QPoint(0, 0), viewport()->size())).boundingRect());
-
-  // Note: This function must work if oldPage == NULL (e.g., during start up)
   PDFPageGraphicsItem *oldPage = (PDFPageGraphicsItem*)_pdf_scene->pageAt(_currentPage);
-  if (oldPage && isPageItem(oldPage))
-    viewRect = oldPage->mapRectFromScene(viewRect);
-  else {
-    // If we don't have an oldPage for whatever reason (e.g., during start up)
-    // we default to the top left corner of newPage instead
-    viewRect = page->mapRectFromScene(viewRect);
-    viewRect.moveTopLeft(QPointF(0, 0));
+  
+  if (_pageMode != PageMode_Presentation) {
+    QRectF viewRect(mapToScene(QRect(QPoint(0, 0), viewport()->size())).boundingRect());
+  
+    // Note: This function must work if oldPage == NULL (e.g., during start up)
+    if (oldPage && isPageItem(oldPage))
+      viewRect = oldPage->mapRectFromScene(viewRect);
+    else {
+      // If we don't have an oldPage for whatever reason (e.g., during start up)
+      // we default to the top left corner of newPage instead
+      viewRect = page->mapRectFromScene(viewRect);
+      viewRect.moveTopLeft(QPointF(0, 0));
+    }
+  
+    switch (alignment & Qt::AlignHorizontal_Mask) {
+      case Qt::AlignLeft:
+        viewRect.moveLeft(page->boundingRect().left());
+        break;
+      case Qt::AlignRight:
+        viewRect.moveRight(page->boundingRect().right());
+        break;
+      case Qt::AlignHCenter:
+        viewRect.moveCenter(QPointF(page->boundingRect().center().x(), viewRect.center().y()));
+        break;
+      default:
+        // without (valid) alignment, we don't do anything
+        break;
+    }
+    switch (alignment & Qt::AlignVertical_Mask) {
+      case Qt::AlignTop:
+        viewRect.moveTop(page->boundingRect().top());
+        break;
+      case Qt::AlignBottom:
+        viewRect.moveBottom(page->boundingRect().bottom());
+        break;
+      case Qt::AlignVCenter:
+        viewRect.moveCenter(QPointF(viewRect.center().x(), page->boundingRect().center().y()));
+        break;
+      default:
+        // without (valid) alignment, we don't do anything
+        break;
+    }
+  
+    if (_pageMode == PageMode_SinglePage) {
+      _pdf_scene->showOnePage(page);
+      maybeUpdateSceneRect();
+    }
+  
+    viewRect = page->mapRectToScene(viewRect);
+    // Note: ensureVisible seems to have a small glitch. Even if the passed
+    // `viewRect` is identical, the result may depend on the view's previous state
+    // if the margins are not -1. However, -1 margins don't work during the
+    // initialization when the viewport doesn't have its final size yet (for
+    // whatever reasons, the end result is a view centered on the scene).
+    // So we use centerOn for now which should give the same result since
+    // viewRect has the same size as the viewport.
+  //  ensureVisible(viewRect, -1, -1);
+    centerOn(viewRect.center());
+    _currentPage = pageNum;
   }
-
-  switch (alignment & Qt::AlignHorizontal_Mask) {
-    case Qt::AlignLeft:
-      viewRect.moveLeft(page->boundingRect().left());
-      break;
-    case Qt::AlignRight:
-      viewRect.moveRight(page->boundingRect().right());
-      break;
-    case Qt::AlignHCenter:
-      viewRect.moveCenter(QPointF(page->boundingRect().center().x(), viewRect.center().y()));
-      break;
-    default:
-      // without (valid) alignment, we don't do anything
-      break;
-  }
-  switch (alignment & Qt::AlignVertical_Mask) {
-    case Qt::AlignTop:
-      viewRect.moveTop(page->boundingRect().top());
-      break;
-    case Qt::AlignBottom:
-      viewRect.moveBottom(page->boundingRect().bottom());
-      break;
-    case Qt::AlignVCenter:
-      viewRect.moveCenter(QPointF(viewRect.center().x(), page->boundingRect().center().y()));
-      break;
-    default:
-      // without (valid) alignment, we don't do anything
-      break;
-  }
-
-  if (_pageMode == PageMode_SinglePage) {
+  else { // _pageMode != PageMode_Presentation
+    double oldXres = QApplication::desktop()->physicalDpiX() * _zoomLevel;
+    double oldYres = QApplication::desktop()->physicalDpiY() * _zoomLevel;
     _pdf_scene->showOnePage(page);
+    _currentPage = pageNum;
     maybeUpdateSceneRect();
+    zoomFitWindow();
+    double xres = QApplication::desktop()->physicalDpiX() * _zoomLevel;
+    double yres = QApplication::desktop()->physicalDpiY() * _zoomLevel;
+    
+    if (page->page()->transition()) {
+      page->page()->transition()->reset();
+      // FIXME: oldPage and page could have different xres,yres values (in case
+      // they have different size, since we implicitly need fit-to-window in
+      // presentation mode)
+      // Setting listener = NULL in calls to getTileImage to force synchronous
+      // rendering
+      if (oldPage)
+        page->page()->transition()->start(*(oldPage->page()->getTileImage(NULL, oldXres, oldYres)), *(page->page()->getTileImage(NULL, xres, yres)));
+    }
   }
-
-  viewRect = page->mapRectToScene(viewRect);
-  // Note: ensureVisible seems to have a small glitch. Even if the passed
-  // `viewRect` is identical, the result may depend on the view's previous state
-  // if the margins are not -1. However, -1 margins don't work during the
-  // initialization when the viewport doesn't have its final size yet (for
-  // whatever reasons, the end result is a view centered on the scene).
-  // So we use centerOn for now which should give the same result since
-  // viewRect has the same size as the viewport.
-//  ensureVisible(viewRect, -1, -1);
-  centerOn(viewRect.center());
-
-  _currentPage = pageNum;
   emit changedPage(_currentPage);
 }
 
 // TODO: Test
+// deprecated/unused/unmaintained
+// missing: oldPage handling/checks, presentation mode
 void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const QPointF anchor, const int alignment /* = Qt::AlignHCenter | Qt::AlignVCenter */)
 {
   int pageNum;
@@ -747,18 +785,26 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const QRectF vi
   if (!rect.isValid())
     return;
 
-  if (_pageMode == PageMode_SinglePage) {
+  if (_pageMode == PageMode_Presentation) {
     _pdf_scene->showOnePage(page);
     maybeUpdateSceneRect();
+    zoomFitWindow();
+    // view is ignored in presentation mode as we always zoom to fit the window
   }
-
-  if (mayZoom) {
-    fitInView(rect, Qt::KeepAspectRatio);
-    _zoomLevel = transform().m11();
-    emit changedZoom(_zoomLevel);
+  else {
+    if (_pageMode == PageMode_SinglePage) {
+      _pdf_scene->showOnePage(page);
+      maybeUpdateSceneRect();
+    }
+  
+    if (mayZoom) {
+      fitInView(rect, Qt::KeepAspectRatio);
+      _zoomLevel = transform().m11();
+      emit changedZoom(_zoomLevel);
+    }
+    else
+      centerOn(rect.center());
   }
-  else
-    centerOn(rect.center());
 
   if (_currentPage != page->page()->pageNum()) {
     _currentPage = page->page()->pageNum();
@@ -937,7 +983,7 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Left:
     case Qt::Key_Right:
       // Check to see if we need to jump to the next page in single page mode.
-      if ( pageMode() == PageMode_SinglePage ) {
+      if ( pageMode() == PageMode_SinglePage || pageMode() == PageMode_Presentation ) {
         int scrollStep, scrollPos = verticalScrollBar()->value();
 
         if ( event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown )
@@ -1067,7 +1113,7 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
     event->accept();
     return;
 
-  } else if ( pageMode() == PageMode_SinglePage ) {
+  } else if ( pageMode() == PageMode_SinglePage || pageMode() == PageMode_Presentation) {
 
     // In single page mode we need to flip to the next page if the scroll bar
     // is a the top or bottom of it's range.`
@@ -1683,6 +1729,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   qreal scaleFactor = painter->transform().m11();
   QTransform scaleT = QTransform::fromScale(scaleFactor, scaleFactor);
   QRect pageRect = scaleT.mapRect(boundingRect()).toAlignedRect(), pageTile;
+  QSharedPointer<QImage> renderedPage;
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
   // `_linksLoaded` will be `false`. We then load all of the links on the page.
@@ -1701,84 +1748,127 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   if ( _zoomLevel != scaleFactor )
     _zoomLevel = scaleFactor;
 
+  // get a pointer to the parent view (if any)
+  PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()) : NULL);  
+  
   painter->save();
-  // Clip to the exposed rectangle to prevent unnecessary drawing operations.
-  // This can provide up to a 50% speedup depending on the size of the tile.
-  painter->setClipRect(option->exposedRect);
 
-  // The transformation matrix of the `painter` object contains information
-  // such as the current zoom level of the widget viewing this PDF page. We
-  // throw away the scaling information because that has already been
-  // applied during page rendering. (Note: we don't support rotation/skewing,
-  // so we only care about the translational part)
-  QTransform pageT = painter->transform();
-  painter->setTransform(QTransform::fromTranslate(pageT.dx(), pageT.dy()));
-
+  if (view && view->pageMode() == PDFDocumentView::PageMode_Presentation) {
+    // NOTE: There is no point in clipping here as we always display the whole
+    // page, anyway. Hence, the images all have the correct size (no tiling) and
+    // are usually completely visible.
+    
+    // The transformation matrix of the `painter` object contains information
+    // such as the current zoom level of the widget viewing this PDF page. We
+    // throw away the scaling information because that has already been
+    // applied during page rendering. (Note: we don't support rotation/skewing,
+    // so we only care about the translational part)
+    QTransform pageT = painter->transform();
+    painter->setTransform(QTransform::fromTranslate(pageT.dx(), pageT.dy()));
+    if (_page && _page->transition() && _page->transition()->isRunning()) {
+      // Get and draw the current frame of the transition
+      // NOTE: In the (unlikely) case that the two pages we are transitioning
+      // between are not the same size, the frame image will be padded to
+      // encompass both pages. In that case, we (may) need to paint the image
+      // outside the boundaries of this graphics item (unfortunately, that can't
+      // be helped, but it should not cause too many problems as there should be
+      // no other items visible below it).
+      // NOTE: Don't use QRect::center() here to align the respective centers as
+      // round-off errors can introduce a shift of +-1px.
+      QImage img(_page->transition()->getImage());
+      QPoint offset((pageRect.width() - img.width()) / 2, (pageRect.height() - img.height()) / 2);
+      painter->drawImage(offset, img);
+      // Trigger an update as soon as possible (without recursion) to proceed
+      // with the animation.
+      if (widget) {
+        QTimer::singleShot(1, widget, SLOT(update()));
+      }
+    }
+    else {
+      // render the whole page synchronously (we don't want "rendering" to show
+      // up during presentations, and we don't need tiles as we always display
+      // the full page, anyway).
+      renderedPage = _page->getTileImage(NULL, _dpiX * scaleFactor, _dpiY * scaleFactor);      
+      if (renderedPage)
+        painter->drawImage(QPoint(0, 0), *renderedPage);
+    }
+  }
+  else { // presentation mode
+    // Clip to the exposed rectangle to prevent unnecessary drawing operations.
+    // This can provide up to a 50% speedup depending on the size of the tile.
+    painter->setClipRect(option->exposedRect);
+  
+    // The transformation matrix of the `painter` object contains information
+    // such as the current zoom level of the widget viewing this PDF page. We
+    // throw away the scaling information because that has already been
+    // applied during page rendering. (Note: we don't support rotation/skewing,
+    // so we only care about the translational part)
+    QTransform pageT = painter->transform();
+    painter->setTransform(QTransform::fromTranslate(pageT.dx(), pageT.dy()));
 #ifdef DEBUG
-  // Pen style used to draw the outline of each tile for debugging purposes.
-  QPen tilePen(Qt::darkGray);
-  tilePen.setStyle(Qt::DashDotLine);
-  painter->setPen(tilePen);
+    // Pen style used to draw the outline of each tile for debugging purposes.
+    QPen tilePen(Qt::darkGray);
+    tilePen.setStyle(Qt::DashDotLine);
+    painter->setPen(tilePen);
 #endif
 
-  QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
-  QSharedPointer<QImage> renderedPage;
-
-  int i, imin, imax;
-  int j, jmin, jmax;
-
-  imin = (visibleRect.left() - pageRect.left()) / TILE_SIZE;
-  imax = (visibleRect.right() - pageRect.left());
-  if (imax % TILE_SIZE == 0)
-    imax /= TILE_SIZE;
-  else
-    imax = imax / TILE_SIZE + 1;
-
-  jmin = (visibleRect.top() - pageRect.top()) / TILE_SIZE;
-  jmax = (visibleRect.bottom() - pageRect.top());
-  if (jmax % TILE_SIZE == 0)
-    jmax /= TILE_SIZE;
-  else
-    jmax = jmax / TILE_SIZE + 1;
-
-  for (j = jmin; j < jmax; ++j) {
-    for (i = imin; i < imax; ++i) {
-      QRect tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-
-      bool useGrayScale = false;
-      // If we are rendering a PDFDocumentView that has `useGrayScale` set
-      // respect that setting.
-      PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()) : NULL);
-      if (view && view->useGrayScale())
-        useGrayScale = true;
-      // If we are rendering a PDFDocumentMagnifierView who's parent
-      // PDFDocumentView has `useGrayScale` set respect that setting.
-      else if (widget && widget->parent() && widget->parent()->parent()) {
-        PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()->parent()) : NULL);
+    QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
+  
+    int i, imin, imax;
+    int j, jmin, jmax;
+  
+    imin = (visibleRect.left() - pageRect.left()) / TILE_SIZE;
+    imax = (visibleRect.right() - pageRect.left());
+    if (imax % TILE_SIZE == 0)
+      imax /= TILE_SIZE;
+    else
+      imax = imax / TILE_SIZE + 1;
+  
+    jmin = (visibleRect.top() - pageRect.top()) / TILE_SIZE;
+    jmax = (visibleRect.bottom() - pageRect.top());
+    if (jmax % TILE_SIZE == 0)
+      jmax /= TILE_SIZE;
+    else
+      jmax = jmax / TILE_SIZE + 1;
+  
+    for (j = jmin; j < jmax; ++j) {
+      for (i = imin; i < imax; ++i) {
+        QRect tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  
+        bool useGrayScale = false;
+        // If we are rendering a PDFDocumentView that has `useGrayScale` set
+        // respect that setting.
         if (view && view->useGrayScale())
           useGrayScale = true;
-      }
-
-      renderedPage = _page->getTileImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile);
-      // we don't want a finished render thread to change our image while we
-      // draw it
-      _page->document()->pageCache().lock();
-      // renderedPage as returned from getTileImage _should_ always be valid
-      if ( renderedPage ) {
-        if (useGrayScale) {
-          // In gray scale mode, we need to obtain a deep copy of the rendered
-          // page image to avoid altering the cached (color) image
-          QImage postProcessed = renderedPage->copy();
-          imageToGrayScale(postProcessed);
-          painter->drawImage(tile.topLeft(), postProcessed);
+        // If we are rendering a PDFDocumentMagnifierView who's parent
+        // PDFDocumentView has `useGrayScale` set respect that setting.
+        else if (widget && widget->parent() && widget->parent()->parent()) {
+          PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()->parent()) : NULL);
+          if (view && view->useGrayScale())
+            useGrayScale = true;
         }
-        else
-          painter->drawImage(tile.topLeft(), *renderedPage);
-      }
-      _page->document()->pageCache().unlock();
+
+        renderedPage = _page->getTileImage(this, _dpiX * scaleFactor, _dpiY * scaleFactor, tile);
+        // we don't want a finished render thread to change our image while we
+        // draw it
+        _page->document()->pageCache().lock();
+        // renderedPage as returned from getTileImage _should_ always be valid
+        if ( renderedPage ) {
+          if (useGrayScale) {
+            // In gray scale mode, we need to obtain a deep copy of the rendered
+            // page image to avoid altering the cached (color) image
+            QImage postProcessed = renderedPage->copy();
+            imageToGrayScale(postProcessed);
+            painter->drawImage(tile.topLeft(), postProcessed);
+          }
+          else
+            painter->drawImage(tile.topLeft(), *renderedPage);
+        }
+        _page->document()->pageCache().unlock();
 #ifdef DEBUG
-      painter->drawRect(tile);
+        painter->drawRect(tile);
 #endif
+      }
     }
   }
   painter->restore();

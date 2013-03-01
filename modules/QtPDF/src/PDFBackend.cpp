@@ -425,7 +425,8 @@ QList<SearchResult> Document::search(QString searchText, int startPage)
 // ----------
 Page::Page(Document *parent, int at):
   _parent(parent),
-  _n(at)
+  _n(at),
+  _transition(NULL)
 {
   if (!pageDummyBrush) {
     pageDummyBrush = new QBrush();

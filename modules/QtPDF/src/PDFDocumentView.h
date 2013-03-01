@@ -50,7 +50,7 @@ class PDFDocumentView : public QGraphicsView {
   friend class DocumentTool::AbstractTool;
 
 public:
-  enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous };
+  enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous, PageMode_Presentation };
   enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom, MouseMode_Measure };
   enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions, Dock_Annotations };
 
@@ -90,6 +90,7 @@ public slots:
   void setSinglePageMode() { setPageMode(PageMode_SinglePage); }
   void setOneColContPageMode() { setPageMode(PageMode_OneColumnContinuous); }
   void setTwoColContPageMode() { setPageMode(PageMode_TwoColumnContinuous); }
+  void setPresentationMode() { setPageMode(PageMode_Presentation); }
   void setMouseMode(const MouseMode newMode);
   void setMouseModeMagnifyingGlass() { setMouseMode(MouseMode_MagnifyingGlass); }
   void setMouseModeMove() { setMouseMode(MouseMode_Move); }

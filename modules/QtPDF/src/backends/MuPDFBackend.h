@@ -94,6 +94,8 @@ class Page: public Backend::Page
   QList< QSharedPointer<Annotation::Link> > _links;
   bool _annotationsLoaded;
   bool _linksLoaded;
+  
+  void loadTransitionData();
 
 public:
   Page(Document *parent, int at);
