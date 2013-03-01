@@ -20,7 +20,7 @@ PDFViewer::PDFViewer(QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
 
   PageCounter *counter = new PageCounter(this->statusBar());
   ZoomTracker *zoomWdgt = new ZoomTracker(this);
-  SearchWidget *search = new SearchWidget(this);
+  SearchLineEdit *search = new SearchLineEdit(this);
   QToolBar *toolBar = new QToolBar(this);
 
 
@@ -125,27 +125,67 @@ void ZoomTracker::refreshText() {
   update();
 }
 
-
-SearchWidget::SearchWidget(QWidget *parent, Qt::WindowFlags f) : QWidget(parent, f)
+// The SearchLineEdit class is adapted from code presented by Girish
+// Ramakrishnan in a Qt Labs post:
+//
+//   http://labs.qt.nokia.com/2007/06/06/lineedit-with-a-clear-button
+SearchLineEdit::SearchLineEdit(QWidget *parent):
+  QLineEdit(parent)
 {
-  setLayout(new QHBoxLayout());
+  previousResultButton = new QToolButton(this);
+  previousResultButton->setIcon(style()->standardIcon(QStyle::SP_ArrowLeft));
+  previousResultButton->setCursor(Qt::ArrowCursor);
+  previousResultButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
 
-  _input = new QLineEdit(this);
-  _searchButton = new QPushButton(QString::fromAscii("Search"), this);
+  nextResultButton = new QToolButton(this);
+  nextResultButton->setIcon(style()->standardIcon(QStyle::SP_ArrowRight));
+  nextResultButton->setCursor(Qt::ArrowCursor);
+  nextResultButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
 
-  layout()->addWidget(_input);
-  layout()->addWidget(_searchButton);
+  clearButton = new QToolButton(this);
+  clearButton->setIcon(style()->standardIcon(QStyle::SP_TitleBarCloseButton));
+  clearButton->setCursor(Qt::ArrowCursor);
+  clearButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
+  connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
 
-  connect(_searchButton, SIGNAL(clicked()), this, SLOT(searchActivated()));
-  connect(_input, SIGNAL(returnPressed()), this, SLOT(searchActivated()));
+  int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
+  setStyleSheet(QString("QLineEdit { padding-right: %1px; } ").arg(
+      nextResultButton->sizeHint().width() +
+      previousResultButton->sizeHint().width() +
+      clearButton->sizeHint().width() + frameWidth + 1));
+  QSize msz = minimumSizeHint();
+  setMinimumSize(qMax(msz.width(), nextResultButton->sizeHint().width() +
+      previousResultButton->sizeHint().width() +
+      clearButton->sizeHint().width() + frameWidth * 2 + 2),
+      qMax(msz.height(), clearButton->sizeHint().height() + frameWidth * 2 + 2));
 
+  connect(this, SIGNAL(returnPressed()), this, SLOT(prepareSearch()));
+
+  setPlaceholderText(QString::fromUtf8("Search"));
 }
 
-void SearchWidget::searchActivated() {
-  if( _input->text().isEmpty() )
+void SearchLineEdit::resizeEvent(QResizeEvent *)
+{
+  QSize sa = previousResultButton->sizeHint(),
+        sb = nextResultButton->sizeHint(),
+        sc = clearButton->sizeHint();
+
+  int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
+
+  previousResultButton->move(rect().right() - frameWidth - sa.width() - sb.width() - sc.width(),
+                    (rect().bottom() + 1 - sa.height())/2);
+  nextResultButton->move(rect().right() - frameWidth - sb.width() - sc.width(),
+                    (rect().bottom() + 1 - sb.height())/2);
+  clearButton->move(rect().right() - frameWidth - sc.width(),
+                    (rect().bottom() + 1 - sc.height())/2);
+}
+
+
+void SearchLineEdit::prepareSearch() {
+  if( this->text().isEmpty() )
     return;
 
-  emit(searchRequested(_input->text()));
+  emit(searchRequested(this->text()));
 }
 
 
