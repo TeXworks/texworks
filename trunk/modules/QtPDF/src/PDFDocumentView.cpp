@@ -280,21 +280,21 @@ void PDFDocumentView::pdfLinkActivated(const Poppler::Link * link)
   {
     case Poppler::Link::Goto:
     {
-      const Poppler::LinkGoto *linkGoto = reinterpret_cast<const Poppler::LinkGoto*>(link);
+      const Poppler::LinkGoto *linkGoto = static_cast<const Poppler::LinkGoto*>(link);
       Q_ASSERT( linkGoto != NULL );
       emit requestOpenPdf(linkGoto->fileName(), linkGoto->destination().pageNumber());
       return;
     }
     case Poppler::Link::Browse:
     {
-      const Poppler::LinkBrowse *linkBrowse = reinterpret_cast<const Poppler::LinkBrowse*>(link);
+      const Poppler::LinkBrowse *linkBrowse = static_cast<const Poppler::LinkBrowse*>(link);
       Q_ASSERT( linkBrowse != NULL );
       emit requestOpenUrl(QUrl::fromEncoded(linkBrowse->url().toAscii()));
       return;
     }
     case Poppler::Link::Execute:
     {
-      const Poppler::LinkExecute *linkExecute = reinterpret_cast<const Poppler::LinkExecute*>(link);
+      const Poppler::LinkExecute *linkExecute = static_cast<const Poppler::LinkExecute*>(link);
       Q_ASSERT( linkExecute != NULL );
       emit requestExecuteCommand(linkExecute->fileName(), linkExecute->parameters());
       return;
@@ -820,7 +820,7 @@ void PDFDocumentScene::handleLinkEvent(const PDFLinkEvent * link_event)
   {
     case Poppler::Link::Goto:
     {
-      const Poppler::LinkGoto *linkGoto = reinterpret_cast<const Poppler::LinkGoto*>(link_event->link);
+      const Poppler::LinkGoto *linkGoto = static_cast<const Poppler::LinkGoto*>(link_event->link);
       Q_ASSERT( linkGoto != NULL );
 
       // We don't handle external links here - this is the responsibility of
@@ -915,7 +915,7 @@ bool PDFDocumentScene::event(QEvent *event)
     event->accept();
     // Cast to a pointer for `PDFLinkEvent` so that we can access the `pageNum`
     // field.
-    const PDFLinkEvent *link_event = dynamic_cast<const PDFLinkEvent*>(event);
+    const PDFLinkEvent *link_event = static_cast<const PDFLinkEvent*>(event);
     handleLinkEvent(link_event);
     return true;
   }
@@ -1134,7 +1134,7 @@ bool PDFPageGraphicsItem::event(QEvent *event)
     event->accept();
 
     // Cast to a `PDFLinksLoaded` event so we can access the links.
-    const PDFLinksLoadedEvent *links_loaded_event = reinterpret_cast<const PDFLinksLoadedEvent*>(event);
+    const PDFLinksLoadedEvent *links_loaded_event = static_cast<const PDFLinksLoadedEvent*>(event);
     addLinks(links_loaded_event->links);
 
     return true;
@@ -1231,7 +1231,7 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
   switch(_link->linkType()) {
     case Poppler::Link::Goto:
       Poppler::LinkGoto * linkGoto;
-      linkGoto = reinterpret_cast<Poppler::LinkGoto*>(_link);
+      linkGoto = static_cast<Poppler::LinkGoto*>(_link);
       if (!linkGoto->isExternal())
         setToolTip(PDFDocumentView::trUtf8("<p>Goto page %1</p>").arg(linkGoto->destination().pageNumber()));
       else
@@ -1240,7 +1240,7 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
       break;
     case Poppler::Link::Execute:
       Poppler::LinkExecute * linkExecute;
-      linkExecute = reinterpret_cast<Poppler::LinkExecute*>(_link);
+      linkExecute = static_cast<Poppler::LinkExecute*>(_link);
       if (linkExecute->parameters().isEmpty())
         setToolTip(PDFDocumentView::trUtf8("<p>Execute `%1`</p>"));
       else
@@ -1249,7 +1249,7 @@ PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *p
       break;
     case Poppler::Link::Browse:
       Poppler::LinkBrowse * linkBrowse;
-      linkBrowse = reinterpret_cast<Poppler::LinkBrowse*>(_link);
+      linkBrowse = static_cast<Poppler::LinkBrowse*>(_link);
       setToolTip(QString::fromUtf8("<p>%1</p>").arg(linkBrowse->url()));
       break;
       // Unsupported link types
