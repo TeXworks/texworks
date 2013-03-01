@@ -267,9 +267,18 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 
 void PDFDocumentView::mousePressEvent(QMouseEvent * event)
 {
+  Super::mousePressEvent(event);
+
+  // Don't do anything if the event was handled elsewhere (e.g., by a
+  // PDFLinkGraphicsItem)
+  if (event->isAccepted())
+    return;
+
   switch (_mouseMode) {
     case MouseMode_MagnifyingGlass:
-      if (_magnifier) {
+      // We only handle left mouse button events; no composites (like left+right
+      // mouse buttons)
+      if (_magnifier && event->buttons() == Qt::LeftButton) {
         _magnifier->prepareToShow();
         _magnifier->setPosition(event->pos());
         _magnifier->show();
@@ -279,35 +288,47 @@ void PDFDocumentView::mousePressEvent(QMouseEvent * event)
       // Nothing to do
       break;
   }
-  Super::mousePressEvent(event);
 }
 
 void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
 {
+  Super::mouseMoveEvent(event);
+
+  // We don't check for event->isAccepted() here; for one, this always seems to
+  // return true (for whatever reason), but more importantly, without enabling
+  // mouse tracking we only receive this event if the current widget has grabbed
+  // the mouse (i.e., after a mousePressEvent and before the corresponding
+  // mouseReleaseEvent)
+
   switch (_mouseMode) {
     case MouseMode_MagnifyingGlass:
-      if (_magnifier)
+      if (_magnifier && _magnifier->isVisible())
         _magnifier->setPosition(event->pos());
       break;
     default:
       // Nothing to do
       break;
   }
-  Super::mouseMoveEvent(event);
 }
 
 void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
 {
+  Super::mouseReleaseEvent(event);
+
+  // We don't check for event->isAccepted() here; for one, this always seems to
+  // return true (for whatever reason), but more importantly, without enabling
+  // mouse tracking we only receive this event if the current widget has grabbed
+  // the mouse (i.e., after a mousePressEvent)
+
   switch (_mouseMode) {
     case MouseMode_MagnifyingGlass:
-      if (_magnifier)
+      if (_magnifier && _magnifier->isVisible())
         _magnifier->hide();
       break;
     default:
       // Nothing to do
       break;
   }
-  Super::mouseReleaseEvent(event);
 }
 
 
