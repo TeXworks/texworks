@@ -63,25 +63,8 @@ TODO
 ====
 ### Required
  - Fix FIXMEs
- - ~~GotoPage should not center on page~~ __DONE__
- - ~~zoom/hand tools~~ __DONE__
- - ~~ctrl+mousewheel should zoom~~ __DONE__
- - ~~maquee zoom (requested by Philip Taylor)~~ __DONE__
  - context menu
- - ~~Flesh out link support~~ __DONE__
- - ~~Add some loading indicators so that users know something is happening in the
-   background when pages are blank or blurry~~ __DONE__
- - ~~scrolling beyond edge at single page mode (mouse wheel/up/down)~~ __DONE__
- - ~~disallow keyboard events in document view while magnifier is shown (otherwise
-   one could scroll the canvas without properly adjusting the magnifier)~~ __DONE__
- - ~~SyncTeX with signals and slots~~ __DONE__ (actually invoking SyncTeX must
-   be implemented separate from the viewer)
- - ~~fit to width/page/~~ __DONE__
  - Highlighting! (to show syncing destination, search results, etc.)
- - ~~PgDn should scroll one viewport height~~ __DONE__
- - ~~draw frame around magnifying glass (requested by Reinhard Kotucha)~~ __DONE__
- - Comment on how `pageScale` works and is used
- - ~~Control memory usage through caching and zoom throttling~~ __DONE__
  - possibility to abort render requests when page moves out of view (is there a
    way to avoid going through all pages at each scroll event?)
  - Program segfaults if a page is destroyed while a render request is active
@@ -99,12 +82,28 @@ TODO
  - Port scripting-related functions from Tw (if any)
  - Icons (add icons for page modes, make marquee zoom icon consistent with other
    icons)
- - ~~Don't show mouse cursor while using the magnifier~~ __DONE__
  - Handling of encrypted/password protected files (this needs to be handled
    during loading; I haven't checked this code, but Tw crashed for some time
    with such documents)
  - Possibility to load different file easily (e.g., through a load() method)
  - Possibility to reload current file (e.g., if it changed on disk)
+ - ~~GotoPage should not center on page~~ __DONE__
+ - ~~zoom/hand tools~~ __DONE__
+ - ~~ctrl+mousewheel should zoom~~ __DONE__
+ - ~~maquee zoom (requested by Philip Taylor)~~ __DONE__
+ - ~~Flesh out link support~~ __DONE__
+ - ~~Add some loading indicators so that users know something is happening in the
+   background when pages are blank or blurry~~ __DONE__
+ - ~~scrolling beyond edge at single page mode (mouse wheel/up/down)~~ __DONE__
+ - ~~disallow keyboard events in document view while magnifier is shown (otherwise
+   one could scroll the canvas without properly adjusting the magnifier)~~ __DONE__
+ - ~~SyncTeX with signals and slots~~ __DONE__ (actually invoking SyncTeX must
+   be implemented separate from the viewer)
+ - ~~fit to width/page/~~ __DONE__
+ - ~~PgDn should scroll one viewport height~~ __DONE__
+ - ~~draw frame around magnifying glass (requested by Reinhard Kotucha)~~ __DONE__
+ - ~~Control memory usage through caching and zoom throttling~~ __DONE__
+ - ~~Don't show mouse cursor while using the magnifier~~ __DONE__
 
 ### Wishlist
  - Speed up magnifier; in Tw, it seems much more responsive. This might be due
@@ -116,7 +115,4 @@ TODO
    main view's window boundaries) (requested by Reinhard Kotucha)
  - rulers (in main window, and attached to magnifying glass)
  - Split view???
- - ~~Improve handling of several concurrent versions (magnifications) of the same
-   page (currently: "normal" and "magnified" versions); simplify code, remove
-   redundancy, etc.~~ __OBSOLETE__
  - Printing.
