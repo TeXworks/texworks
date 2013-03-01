@@ -15,15 +15,15 @@
 #include <QtGui/QtGui>
 #include <poppler/qt4/poppler-qt4.h>
 
+class PDFDocumentScene;
 
 class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
   typedef QGraphicsView Super;
-  const std::auto_ptr<Poppler::Document> doc;
-  qreal zoomLevel;
+  // Bit of a hack.
+  PDFDocumentScene *pdf_scene;
 
-  // This may change to a `QSet` in the future
-  QList<QGraphicsItem*> pages;
+  qreal zoomLevel;
   int _currentPage, _lastPage;
 
 public:
@@ -53,6 +53,26 @@ protected:
 private:
   // Parent class has no copy constructor.
   Q_DISABLE_COPY(PDFDocumentView)
+};
+
+
+class PDFDocumentScene : public QGraphicsScene {
+  Q_OBJECT
+  typedef QGraphicsScene Super;
+  const std::auto_ptr<Poppler::Document> doc;
+
+  // This may change to a `QSet` in the future
+  QList<QGraphicsItem*> _pages;
+  int _lastPage;
+
+public:
+  PDFDocumentScene(Poppler::Document *a_doc, QObject *parent = 0);
+  QList<QGraphicsItem*> pages();
+  int lastPage();
+
+private:
+  // Parent class has no copy constructor.
+  Q_DISABLE_COPY(PDFDocumentScene)
 };
 
 
