@@ -382,7 +382,8 @@ PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = 
   // suppress scrollbars
   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  // suppress any border styling
+  // suppress any border styling (which doesn't work with a mask, e.g., for a
+  // circular magnifier)
   setFrameShape(QFrame::NoFrame);
 
   if (parent) {
@@ -453,6 +454,32 @@ void PDFDocumentMagnifierView::setSize(const int size)
       break;
     case PDFDocumentView::Magnifier_Circle:
       setFixedSize(size, size);
+      break;
+  }
+}
+
+void PDFDocumentMagnifierView::paintEvent(QPaintEvent * event)
+{
+  Super::paintEvent(event);
+
+  // Draw our custom border
+  // Note that QGraphicsView is not derived from QWidget, so we can't say
+  // QPainter(this)
+  QPainter painter(viewport());
+  QPen pen(QPalette().color(backgroundRole()));
+  pen.setWidth(2);
+
+  // Adjust the rectangle so we draw only inside the window region
+  QRect rect(this->rect());
+  rect.adjust(pen.width() / 2, pen.width() / 2, -pen.width() / 2, -pen.width() / 2);
+
+  painter.setPen(pen);
+  switch(_shape) {
+    case PDFDocumentView::Magnifier_Rectangle:
+      painter.drawRect(rect);
+      break;
+    case PDFDocumentView::Magnifier_Circle:
+      painter.drawEllipse(rect);
       break;
   }
 }
