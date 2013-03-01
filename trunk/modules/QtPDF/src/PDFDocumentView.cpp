@@ -780,6 +780,7 @@ void PDFDocumentView::abortTool(const Tool tool)
     case Tool_MagnifyingGlass:
       if (_magnifier && _magnifier->isVisible()) {
         _magnifier->hide();
+        viewport()->setCursor(_hiddenCursor);
         viewport()->update();
       }
       break;
