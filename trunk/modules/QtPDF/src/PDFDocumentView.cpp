@@ -26,7 +26,7 @@ static bool isPageItem(QGraphicsItem *item) { return ( item->type() == PDFPageGr
 // and displaying the contents of a `Poppler::Document` using a `QGraphicsScene`.
 PDFDocumentView::PDFDocumentView(QWidget *parent):
   Super(parent),
-  zoomLevel(1.0)
+  _zoomLevel(1.0)
 {
   setBackgroundRole(QPalette::Dark);
   setAlignment(Qt::AlignCenter);
@@ -46,7 +46,7 @@ void PDFDocumentView::setScene(PDFDocumentScene *a_scene)
   Super::setScene(a_scene);
 
   // **TODO:** _Replace with an overloaded `scene` method._
-  pdf_scene = a_scene;
+  _pdf_scene = a_scene;
 
   _lastPage = a_scene->lastPage();
 
@@ -75,7 +75,7 @@ void PDFDocumentView::goToPage(int pageNum)
   // We silently ignore any invalid page numbers.
   if ( (pageNum >= 0) && (pageNum < _lastPage) && (pageNum != _currentPage) )
   {
-    centerOn(pdf_scene->pages().at(pageNum));
+    centerOn(_pdf_scene->pages().at(pageNum));
     _currentPage = pageNum;
     emit changedPage(_currentPage);
   }
@@ -84,16 +84,16 @@ void PDFDocumentView::goToPage(int pageNum)
 
 void PDFDocumentView::zoomIn()
 {
-  zoomLevel *= 3.0/2.0;
+  _zoomLevel *= 3.0/2.0;
   this->scale(3.0/2.0, 3.0/2.0);
-  emit changedZoom(zoomLevel);
+  emit changedZoom(_zoomLevel);
 }
 
 void PDFDocumentView::zoomOut()
 {
-  zoomLevel *= 2.0/3.0;
+  _zoomLevel *= 2.0/3.0;
   this->scale(2.0/3.0, 2.0/3.0);
-  emit changedZoom(zoomLevel);
+  emit changedZoom(_zoomLevel);
 }
 
 
@@ -120,7 +120,7 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   // of `items` and then take the first item of a set intersection._
   QRect pageBbox = viewport()->rect();
   pageBbox.setHeight(0.5 * pageBbox.height());
-  int nextCurrentPage = pdf_scene->pageNumAt(mapToScene(pageBbox));
+  int nextCurrentPage = _pdf_scene->pageNumAt(mapToScene(pageBbox));
 
   if ( nextCurrentPage != _currentPage )
   {
@@ -184,16 +184,16 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
 // mutex may need to be held at a higher level.
 PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
   Super(parent),
-  doc(a_doc),
+  _doc(a_doc),
   docMutex(new QMutex)
 {
   // **TODO:** _Investigate the Arthur backend for native Qt rendering._
-  doc->setRenderBackend(Poppler::Document::SplashBackend);
+  _doc->setRenderBackend(Poppler::Document::SplashBackend);
   // Make things look pretty.
-  doc->setRenderHint(Poppler::Document::Antialiasing);
-  doc->setRenderHint(Poppler::Document::TextAntialiasing);
+  _doc->setRenderHint(Poppler::Document::Antialiasing);
+  _doc->setRenderHint(Poppler::Document::TextAntialiasing);
 
-  _lastPage = doc->numPages();
+  _lastPage = _doc->numPages();
 
   // Create a `PDFPageGraphicsItem` for each page in the PDF document.  The
   // Y-coordinate of each page is shifted such that it will appear 10px below
@@ -208,7 +208,7 @@ PDFDocumentScene::PDFDocumentScene(Poppler::Document *a_doc, QObject *parent):
 
   for (i = 0; i < _lastPage; ++i)
   {
-    pagePtr = new PDFPageGraphicsItem(doc->page(i));
+    pagePtr = new PDFPageGraphicsItem(_doc->page(i));
     pagePtr->setPos(0.0, offY);
 
     _pages.append(pagePtr);
@@ -279,7 +279,7 @@ bool PDFDocumentScene::event(QEvent *event)
 // Currently the `pixmap` member inherited from `QGraphicsPixmapItem` is left
 // blank since it determines this object's size and other geometric properties.
 // The actual PDF pages are rendered to a new `QPixmap` object called
-// `renderedPage`. This is a hack.
+// `_renderedPage`. This is a hack.
 //
 // `PDFPageGraphicsItem` should probably be re-implemented as a subclass of
 // `QGraphicsItem` with custom methods for accessing geometry info.
@@ -288,35 +288,35 @@ bool PDFDocumentScene::event(QEvent *event)
 // `SIGNAL`/`SLOT` mechanics.
 PDFPageGraphicsItem::PDFPageGraphicsItem(Poppler::Page *a_page, QGraphicsItem *parent):
   Super(parent),
-  page(a_page),
-  dpiX(QApplication::desktop()->physicalDpiX()),
-  dpiY(QApplication::desktop()->physicalDpiY()),
+  _page(a_page),
+  _dpiX(QApplication::desktop()->physicalDpiX()),
+  _dpiY(QApplication::desktop()->physicalDpiY()),
 
-  linksLoaded(false),
-  pageIsRendering(false),
-  zoomLevel(0.0)
+  _linksLoaded(false),
+  _pageIsRendering(false),
+  _zoomLevel(0.0)
 {
-  // The `linkGenerator` is used to monitor asynchronous generation of
+  // The `_linkGenerator` is used to monitor asynchronous generation of
   // `PDFLinkGraphicsItem` objects associated with the links on this page.
-  linkGenerator = new QFutureWatcher< QList<PDFLinkGraphicsItem *> >(this);
-  connect(linkGenerator, SIGNAL(finished()), this, SLOT(addLinks()));
+  _linkGenerator = new QFutureWatcher< QList<PDFLinkGraphicsItem *> >(this);
+  connect(_linkGenerator, SIGNAL(finished()), this, SLOT(addLinks()));
 
-  // The `pageImageGenerator` monitors asynchronous rendering jobs. Both
+  // The `_pageImageGenerator` monitors asynchronous rendering jobs. Both
   // generator objects must acquire the same mutex from `PDFDocumentScene` as
   // Poppler is not thread safe.
-  pageImageGenerator = new QFutureWatcher<QImage>(this);
-  connect(pageImageGenerator, SIGNAL(finished()), this, SLOT(updateRenderedPage()));
+  _pageImageGenerator = new QFutureWatcher<QImage>(this);
+  connect(_pageImageGenerator, SIGNAL(finished()), this, SLOT(updateRenderedPage()));
 
   // Create an empty pixmap that is the same size as the PDF page. This
   // allows us to delay the rendering of pages until they actually come into
   // view yet still know what the page size is.
-  QSizeF pageSize = page->pageSizeF() / 72.0;
-  pageSize.setHeight(pageSize.height() * dpiY);
-  pageSize.setWidth(pageSize.width() * dpiX);
+  QSizeF pageSize = _page->pageSizeF() / 72.0;
+  pageSize.setHeight(pageSize.height() * _dpiY);
+  pageSize.setWidth(pageSize.width() * _dpiX);
 
-  pageScale = QTransform::fromScale(pageSize.width(), pageSize.height());
+  _pageScale = QTransform::fromScale(pageSize.width(), pageSize.height());
   setPixmap(QPixmap(pageSize.toSize()));
-  renderedPage = QPixmap(pageSize.toSize());
+  _renderedPage = QPixmap(pageSize.toSize());
 }
 
 int PDFPageGraphicsItem::type() const { return Type; }
@@ -331,35 +331,35 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   qreal scaleFactor = painter->transform().m11();
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
-  // `linksLoaded` will be `false`. We then load all of the links on the page.
-  if ( not linksLoaded )
+  // `_linksLoaded` will be `false`. We then load all of the links on the page.
+  if ( not _linksLoaded )
   {
     // If this page has links, we generate `PDFLinkGraphicsItems` in a separate
-    // thread. The `linkGenerator` will emit a `finished` signal when
+    // thread. The `_linkGenerator` will emit a `finished` signal when
     // generation is complete.
-    linkGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::loadLinks));
+    _linkGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::loadLinks));
 
-    linksLoaded = true;
+    _linksLoaded = true;
 
     // This is a hack to give a nice white fill to pages that have not been
     // rendered. Would be nice to replace this with a "loading page" graphic.
-    renderedPage.fill();
+    _renderedPage.fill();
   }
 
   // We look at the zoom level and render a new page if the zoom has changed or
   // still has the value of `0.0` set by the constructor.
-  if ( (zoomLevel != scaleFactor) && not pageIsRendering )
+  if ( (_zoomLevel != scaleFactor) && not _pageIsRendering )
   {
     // Dispatch page rendering to a new thread so that the GUI stays
     // responsive.
-    pageImageGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::renderPage, scaleFactor));
+    _pageImageGenerator->setFuture(QtConcurrent::run(this, &PDFPageGraphicsItem::renderPage, scaleFactor));
 
     // Indicate that a render is in progress so that subsequent paint events
-    // won't trigger a re-render. Once `pageImageGenerator` emits a `finished`
+    // won't trigger a re-render. Once `_pageImageGenerator` emits a `finished`
     // signal, this boolean is cleared.
-    pageIsRendering = true;
+    _pageIsRendering = true;
 
-    zoomLevel = scaleFactor;
+    _zoomLevel = scaleFactor;
   }
 
   // The transformation matrix of the `painter` object contains information
@@ -373,7 +373,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   painter->setRenderHint(QPainter::SmoothPixmapTransform,
     (transformationMode() == Qt::SmoothTransformation));
 
-  if ( pageIsRendering ) {
+  if ( _pageIsRendering ) {
     // A new resized page is still rendering, so we "blow up" our current
     // render and paint that.
     //
@@ -382,10 +382,10 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     // way to scale._
     QSizeF scaledSize = painter->transform().mapRect(boundingRect()).size();
     painter->setTransform(QTransform());
-    painter->drawPixmap(origin, renderedPage.scaled(scaledSize.toSize()));
+    painter->drawPixmap(origin, _renderedPage.scaled(scaledSize.toSize()));
   } else {
     painter->setTransform(QTransform());
-    painter->drawPixmap(origin, renderedPage);
+    painter->drawPixmap(origin, _renderedPage);
   }
 }
 
@@ -407,7 +407,7 @@ QList<PDFLinkGraphicsItem *> PDFPageGraphicsItem::loadLinks()
   // such as reading link lists or rendering page images is not thread safe
   // among pages objects created from the same document object.
   QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(scene())->docMutex);
-    QList<Poppler::Link *> links = page->links();
+    QList<Poppler::Link *> links = _page->links();
   docLock.unlock();
 
   QList<PDFLinkGraphicsItem *> linkList;
@@ -418,7 +418,7 @@ QList<PDFLinkGraphicsItem *> PDFPageGraphicsItem::loadLinks()
   foreach( Poppler::Link *link, links )
   {
     linkItem = new PDFLinkGraphicsItem(link);
-    linkItem->setTransform(pageScale);
+    linkItem->setTransform(_pageScale);
 
     linkList.append(linkItem);
   }
@@ -433,7 +433,7 @@ QList<PDFLinkGraphicsItem *> PDFPageGraphicsItem::loadLinks()
 // once.
 void PDFPageGraphicsItem::addLinks()
 {
-  foreach( PDFLinkGraphicsItem *item, linkGenerator->result() ) item->setParentItem(this);
+  foreach( PDFLinkGraphicsItem *item, _linkGenerator->result() ) item->setParentItem(this);
 
   update();
 }
@@ -446,7 +446,7 @@ QImage PDFPageGraphicsItem::renderPage(qreal scaleFactor)
 {
   // Rendering is not thread safe!
   QMutexLocker docLock(qobject_cast<PDFDocumentScene *>(scene())->docMutex);
-    QImage pageRender = page->renderToImage(dpiX * scaleFactor, dpiY * scaleFactor);
+    QImage pageRender = _page->renderToImage(_dpiX * scaleFactor, _dpiY * scaleFactor);
   docLock.unlock();
 
   return pageRender;
@@ -460,11 +460,11 @@ void PDFPageGraphicsItem::updateRenderedPage()
   // attributes for `QGraphicsPixmapItem`. When the page is re-rendered, we
   // just want to increase the resolution, not affect the geometry of the item
   // in the graphics scene.
-  renderedPage = QPixmap::fromImage(pageImageGenerator->result());
+  _renderedPage = QPixmap::fromImage(_pageImageGenerator->result());
 
   // Indicate that page rendering has completed and this item needs to be
   // re-drawn.
-  pageIsRendering = false;
+  _pageIsRendering = false;
   update();
 }
 
@@ -482,7 +482,7 @@ void PDFPageGraphicsItem::updateRenderedPage()
 PDFLinkGraphicsItem::PDFLinkGraphicsItem(Poppler::Link *a_link, QGraphicsItem *parent):
   Super(parent),
   _link(a_link),
-  activated(false)
+  _activated(false)
 {
   // Poppler expresses the link area in "normalized page coordinates", i.e.
   // values in the range [0, 1]. The transformation matrix of this item will
@@ -526,8 +526,8 @@ void PDFLinkGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 void PDFLinkGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
   // Actually opening the link is handled during a `mouseReleaseEvent` --- but
-  // only if the `activated` flag is `true`.
-  activated = true;
+  // only if the `_activated` flag is `true`.
+  _activated = true;
 }
 
 // The real nitty-gritty of link activation happens in here.
@@ -536,9 +536,9 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
   // Check that this link was "activated" (mouse press occurred within the link
   // bounding box) and that the mouse release also occurred within the bounding
   // box.
-  if ( (not activated) || (not contains(event->pos())) )
+  if ( (not _activated) || (not contains(event->pos())) )
   {
-    activated = false;
+    _activated = false;
     return;
   }
 
@@ -557,7 +557,7 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
       // subtract to conform with 0-based indexing used by C++.
       //
       // **NOTE:**
-      // _There are a many details that are not being considered, such as
+      // _There are many details that are not being considered, such as
       // centering on a specific anchor point and possibly changing the zoom
       // level rather than just focusing on the center of the target page._
       const int destPage = target->destination().pageNumber() - 1;
@@ -582,7 +582,7 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
       break;
   }
 
-  activated = false;
+  _activated = false;
 }
 
 
