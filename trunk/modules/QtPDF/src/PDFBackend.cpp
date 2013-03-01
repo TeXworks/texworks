@@ -285,6 +285,49 @@ void Page::asyncRenderToImage(QObject *listener, double xres, double yres, QRect
   _parent->processingThread().requestRenderPage(this, listener, xres, yres, render_box, cache);
 }
 
+QImage* Page::getTileImage(QObject * listener, const double xres, const double yres, QRect render_box /* = QRect() */)
+{
+  // If the render_box is empty, use the whole page
+  if (render_box.isNull())
+    render_box = QRectF(0, 0, pageSizeF().width() * xres / 72., pageSizeF().height() * yres / 72.).toAlignedRect();
+
+  // If the tile is cached, return it
+  QImage * retVal = getCachedImage(xres, yres, render_box);
+  if (retVal)
+    return retVal;
+
+  if (listener) {
+    // Render asyncronously, but add a dummy image to the cache first and return
+    // that in the end
+    // FIXME: Print some loading indicator on the dummy image
+    // FIXME: Cache the standard dummy image
+    // FIXME: Derive the temporary image by scaling existing images in the cache
+    // in some sophisticated way
+
+    // Note: The devil never sleeps; a render can have added an image to the
+    // cache in the meantime which obviously we don't want to overwrite
+    // Note: Start the rendering in the background before constructing the image
+    // to take advantage of multi-core CPUs. Since we hold the write lock here
+    // there's nothing to worry about
+    _parent->pageCache().lock.lockForWrite();
+    asyncRenderToImage(listener, xres, yres, render_box, true);
+    retVal = new QImage(render_box.width(), render_box.height(), QImage::Format_ARGB32);
+    retVal->fill(0xffffffff);
+    if (_parent->pageCache().contains(PDFPageTile(xres, yres, render_box, _n))) {
+      _parent->pageCache().lock.unlock();
+      delete retVal;
+      return getCachedImage(xres, yres, render_box);
+    }
+    _parent->pageCache().insert(PDFPageTile(xres, yres, render_box, _n), retVal);
+    _parent->pageCache().lock.unlock();
+    return retVal;
+  }
+  else {
+    renderToImage(xres, yres, render_box, true);
+    return getCachedImage(xres, yres, render_box);
+  }
+}
+
 void Page::asyncLoadLinks(QObject *listener)
 {
   _parent->processingThread().requestLoadLinks(this, listener);
