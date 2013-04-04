@@ -788,7 +788,7 @@ bool TeXDocument::saveAs()
 	// for untitled docs, default to the last dir used, or $HOME if no saved value
 	QSETTINGS_OBJECT(settings);
 	QString lastSaveDir = settings.value("saveDialogDir").toString();
-	if (lastSaveDir.isEmpty())
+	if (lastSaveDir.isEmpty() || !QDir(lastSaveDir).exists())
 		lastSaveDir = QDir::homePath();
 	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
 													isUntitled ? lastSaveDir + "/" + curFile : curFile,
@@ -818,7 +818,7 @@ bool TeXDocument::saveAs()
 	}
 
 	QFileInfo info(fileName);
-	settings.setValue("saveDialogDir", info.canonicalPath());
+	settings.setValue("saveDialogDir", info.absolutePath());
 	
 	return saveFile(fileName);
 }
