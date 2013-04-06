@@ -252,6 +252,7 @@ protected:
 	virtual void dropEvent(QDropEvent *event);
 
 public slots:
+	void texActivated(TeXDocument * texDoc);
 	void texClosed(QObject *obj);
 	void reload();
 	void retypeset();
@@ -296,7 +297,7 @@ private:
 	QScrollArea	*scrollArea;
 	QButtonGroup	*toolButtonGroup;
 
-	QList<TeXDocument*> sourceDocList;
+	QLinkedList<TeXDocument*> sourceDocList;
 
 	QLabel *pageLabel;
 	QLabel *scaleLabel;
