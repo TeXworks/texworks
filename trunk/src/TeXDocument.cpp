@@ -413,8 +413,13 @@ void TeXDocument::changeEvent(QEvent *event)
 		setWindowTitle(title);
 		showCursorPosition();
 	}
-	else
-		QMainWindow::changeEvent(event);
+	else if (event->type() == QEvent::ActivationChange) {
+		// If this window was activated, inform the linked pdf (if any) of it
+		// so that future "Goto Source" actions point here.
+		if (this == QApplication::activeWindow() && pdfDoc)
+			pdfDoc->texActivated(this);
+	}
+	QMainWindow::changeEvent(event);
 }
 
 void TeXDocument::setLangInternal(const QString& lang)
