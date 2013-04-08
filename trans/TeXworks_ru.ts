@@ -697,7 +697,7 @@
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>Кнопки панели управления</translation>
+        <translation type="obsolete">Кнопки панели управления</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -733,7 +733,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>Язык интерфейса:</translation>
+        <translation type="obsolete">Язык интерфейса:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -956,6 +956,22 @@
 &lt;p&gt;&lt;strong&gt;Автоматически:&lt;/strong&gt; скрывать панель вывода работы программы после успешной вёрстки, но только если она была скрыта ранее.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;В случае успеха:&lt;/strong&gt; скрывать панель вывода программы после успешной вёрстки независимо от предыдущего состояния.&lt;/p&gt;</translation>
     </message>
+    <message>
+        <source>Interface</source>
+        <translation>Интерфейс</translation>
+    </message>
+    <message>
+        <source>Locale:</source>
+        <translation>Язык:</translation>
+    </message>
+    <message>
+        <source>Toolbar buttons:</source>
+        <translation>Кнопки на панеле:</translation>
+    </message>
+    <message>
+        <source>Open corresponding PDF preview with TeX files</source>
+        <translation>Открывать для просмотра PDF вместе с TeX файлами</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1015,11 +1031,11 @@
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы журналов (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вспомогательные файлы (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>

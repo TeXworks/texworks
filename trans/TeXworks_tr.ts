@@ -695,7 +695,7 @@
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>Araç çubuğu düğmeleri</translation>
+        <translation type="obsolete">Araç çubuğu düğmeleri</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -731,7 +731,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>Arayüz dili:</translation>
+        <translation type="obsolete">Arayüz dili:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -951,6 +951,22 @@
 &lt;p&gt;&lt;strong&gt;Otomatik:&lt;/strong&gt; Hatasız dizgi sonrası konsol çıktısını şayet önceden de gizli ise gizle.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Hata yoksa:&lt;/strong&gt; Hatasız dizgi sonrası konsol çıktısını önceki durumunu dikkate almadan gizle.&lt;/p&gt;
 </translation>
+    </message>
+    <message>
+        <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toolbar buttons:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open corresponding PDF preview with TeX files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

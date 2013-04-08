@@ -686,7 +686,7 @@
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>ツールバーボタン</translation>
+        <translation type="obsolete">ツールバーボタン</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -722,7 +722,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>次回起動時の言語:</translation>
+        <translation type="obsolete">次回起動時の言語:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -927,6 +927,22 @@
         <translation type="unfinished">&lt;p&gt;&lt;strong&gt;表示する:&lt;/strong&gt; タイプセット終了後、コンソールを閉じません&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;自動で隠す:&lt;/strong&gt; 事前にコンソールが表示していなければ、タイプセット完了時にコンソールを閉じます&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;成功時に隠す:&lt;/strong&gt; 事前の状態を問わず、タイプセット完了時にコンソールを閉じます&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toolbar buttons:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open corresponding PDF preview with TeX files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

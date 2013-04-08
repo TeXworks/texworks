@@ -691,7 +691,7 @@
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>Werkbalk iconen</translation>
+        <translation type="obsolete">Werkbalk iconen</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -727,7 +727,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>Gebruikers interface taal:</translation>
+        <translation type="obsolete">Gebruikers interface taal:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -949,6 +949,22 @@
         <translation>&lt;p&gt;&lt;strong&gt;Nooit:&lt;/strong&gt; Onderdruk het console uitvoerscherm nooit.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatisch:&lt;/strong&gt; Verberg het console uitvoerscherm na een geslaagde typeset run, maar alleen als het al onderdrukt was.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Na succes:&lt;/strong&gt; Onderdruk het console uitvoerscherm na een geslaagde typeset run, ongeacht de eerdere toestand.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toolbar buttons:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open corresponding PDF preview with TeX files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
