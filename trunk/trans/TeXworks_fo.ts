@@ -4,17 +4,17 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="926"/>
+        <location filename="../src/CompletingEdit.cpp" line="950"/>
         <source>Jump to PDF</source>
         <translation>Far til PDF</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="943"/>
+        <location filename="../src/CompletingEdit.cpp" line="967"/>
         <source>No suggestions</source>
         <translation>Einki uppskot</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="963"/>
+        <location filename="../src/CompletingEdit.cpp" line="987"/>
         <source>Ignore word</source>
         <translation>Loyp um orð</translation>
     </message>
@@ -425,7 +425,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="502"/>
-        <location filename="../src/PDFDocument.cpp" line="1668"/>
+        <location filename="../src/PDFDocument.cpp" line="1677"/>
         <source>Typeset</source>
         <translation>Ger tekst</translation>
     </message>
@@ -577,7 +577,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="734"/>
-        <location filename="../src/PDFDocument.cpp" line="1799"/>
+        <location filename="../src/PDFDocument.cpp" line="1808"/>
         <source>Print Pdf...</source>
         <translation>Prenta PDF-skjal...</translation>
     </message>
@@ -597,58 +597,58 @@
         <translation>Strika nýggjar fílur</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1416"/>
+        <location filename="../src/PDFDocument.cpp" line="1425"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
         <translation>PDF-fíla &quot;%1&quot; er stongd; hetta er ikki tøkt í løtuni.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1435"/>
+        <location filename="../src/PDFDocument.cpp" line="1444"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Fekk ikki heinta fíluna &quot;%1&quot;; kanska er hetta ikki eitt gildugt PDF-skjal.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1459"/>
+        <location filename="../src/PDFDocument.cpp" line="1468"/>
         <source>No SyncTeX data available</source>
         <translation>Einki SyncTeX-data tøkt</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1462"/>
+        <location filename="../src/PDFDocument.cpp" line="1471"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1534"/>
+        <location filename="../src/PDFDocument.cpp" line="1543"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1563"/>
+        <location filename="../src/PDFDocument.cpp" line="1572"/>
         <source>page %1 of %2</source>
         <translation>síða %1 av %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1568"/>
+        <location filename="../src/PDFDocument.cpp" line="1577"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1661"/>
+        <location filename="../src/PDFDocument.cpp" line="1670"/>
         <source>Abort typesetting</source>
         <translation>Enda tekstseting</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1794"/>
+        <location filename="../src/PDFDocument.cpp" line="1803"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Av tekniskum ávum fær henda útgávan av %1 ikki prenta PDF-skjøl, tíverri.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1795"/>
+        <location filename="../src/PDFDocument.cpp" line="1804"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Vilt tú heldur lata fíluna upp í tí vanliga kaganum, fyri at prenta hana?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1796"/>
+        <location filename="../src/PDFDocument.cpp" line="1805"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation>(minst til at lata aftur, fyri at sleppa undan atgongutrupulleikum)</translation>
     </message>
@@ -826,246 +826,264 @@
         <translation>Alment</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="46"/>
         <source>Toolbar buttons</source>
-        <translation>Tólbjálkaknøttar</translation>
+        <translation type="obsolete">Tólbjálkaknøttar</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="52"/>
+        <location filename="../src/PrefsDialog.ui" line="81"/>
         <source>Small icons</source>
         <translation>Smá ikon</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="59"/>
+        <location filename="../src/PrefsDialog.ui" line="88"/>
         <source>Medium icons</source>
         <translation>Miðal ikon</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="66"/>
+        <location filename="../src/PrefsDialog.ui" line="95"/>
         <source>Large icons</source>
         <translation>Stór ikon</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="73"/>
+        <location filename="../src/PrefsDialog.ui" line="102"/>
         <source>Show text as well as icons</source>
         <translation>Vís tekst og ikon</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="83"/>
+        <location filename="../src/PrefsDialog.ui" line="114"/>
         <source>When launched, show</source>
         <translation>Tá tendra, vís</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="89"/>
+        <location filename="../src/PrefsDialog.ui" line="120"/>
         <source>New blank document</source>
         <translation>Nýtt tómt skjal</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="96"/>
+        <location filename="../src/PrefsDialog.ui" line="127"/>
         <source>Template selection dialog</source>
         <translation>Valmynd til skabelón</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="103"/>
+        <location filename="../src/PrefsDialog.ui" line="134"/>
         <source>File Open dialog</source>
         <translation>Valmynd til upplating av fílu</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="128"/>
         <source>Interface locale:</source>
-        <translation>Lokalisering av nýtslumóti:</translation>
+        <translation type="obsolete">Lokalisering av nýtslumóti:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="164"/>
+        <location filename="../src/PrefsDialog.ui" line="46"/>
+        <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="52"/>
+        <source>Locale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="72"/>
+        <source>Toolbar buttons:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="141"/>
+        <source>Open corresponding PDF preview with TeX files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="178"/>
         <source>Editor</source>
         <translation>Ritil</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="170"/>
+        <location filename="../src/PrefsDialog.ui" line="184"/>
         <source>Editor defaults</source>
         <translation>Forsetingar fyri ritil</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="194"/>
+        <location filename="../src/PrefsDialog.ui" line="208"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="208"/>
+        <location filename="../src/PrefsDialog.ui" line="222"/>
         <source>Tab width:</source>
         <translation>Teigarabreidd:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="215"/>
+        <location filename="../src/PrefsDialog.ui" line="229"/>
         <source> px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="248"/>
+        <location filename="../src/PrefsDialog.ui" line="262"/>
         <source>Line numbers</source>
         <translation>Reglunummur</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="268"/>
+        <location filename="../src/PrefsDialog.ui" line="282"/>
         <source>Wrap lines</source>
         <translation>Umbrót reglur</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="295"/>
+        <location filename="../src/PrefsDialog.ui" line="309"/>
         <source>Syntax coloring:</source>
         <translation>Bygnaðarliting:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="309"/>
-        <location filename="../src/PrefsDialog.ui" line="348"/>
-        <location filename="../src/PrefsDialog.ui" line="387"/>
-        <location filename="../src/PrefsDialog.ui" line="426"/>
+        <location filename="../src/PrefsDialog.ui" line="323"/>
+        <location filename="../src/PrefsDialog.ui" line="362"/>
+        <location filename="../src/PrefsDialog.ui" line="401"/>
+        <location filename="../src/PrefsDialog.ui" line="440"/>
         <source>None</source>
         <translation>Einki</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="334"/>
+        <location filename="../src/PrefsDialog.ui" line="348"/>
         <source>Auto-Indent mode:</source>
         <translation>Sjálvinndráttur:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="373"/>
+        <location filename="../src/PrefsDialog.ui" line="387"/>
         <source>Smart Quotes mode:</source>
         <translation>Klók gásareygu:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="412"/>
+        <location filename="../src/PrefsDialog.ui" line="426"/>
         <source>Spell-check language:</source>
         <translation>Stavingarmál:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="451"/>
+        <location filename="../src/PrefsDialog.ui" line="465"/>
         <source>Encoding:</source>
         <translation>Koting:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="486"/>
+        <location filename="../src/PrefsDialog.ui" line="500"/>
         <source>Global editor options</source>
         <translation>Algyldugar ritilsásetingar</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="492"/>
+        <location filename="../src/PrefsDialog.ui" line="506"/>
         <source>Highlight current line</source>
         <translation>Hálýs hesa reglu</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="502"/>
+        <location filename="../src/PrefsDialog.ui" line="516"/>
         <source>Enable autocompletion</source>
         <translatorcomment>There is no special Faroese word for autocompletion right now, but I will come up with one and correct the translation.</translatorcomment>
         <translation>Virkja autocompletion</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="528"/>
+        <location filename="../src/PrefsDialog.ui" line="542"/>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
         <translation>&lt;em&gt;Gevið gætur:&lt;/em&gt; Hesar ásetingar eru forsettar. Broytingar ávirka ikki gluggar, sum longu eru opnir. Nýt tey hóskandi punktini á valmyndini &amp;quot;Snið&amp;quot; til tað.</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="539"/>
+        <location filename="../src/PrefsDialog.ui" line="553"/>
         <source>Preview</source>
         <translation>Forsýni</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="545"/>
+        <location filename="../src/PrefsDialog.ui" line="559"/>
         <source>Default scaling</source>
         <translation>Forsett tillaging</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="553"/>
+        <location filename="../src/PrefsDialog.ui" line="567"/>
         <source>Actual size</source>
         <translation>Verulig stødd</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="560"/>
+        <location filename="../src/PrefsDialog.ui" line="574"/>
         <source>Fit to Width</source>
         <translation>Laga til breidd</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="567"/>
+        <location filename="../src/PrefsDialog.ui" line="581"/>
         <source>Fit to Window</source>
         <translation>Laga til vindeyga</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="578"/>
+        <location filename="../src/PrefsDialog.ui" line="592"/>
         <source>Fixed scale:</source>
         <translation>Fastur skali:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="588"/>
+        <location filename="../src/PrefsDialog.ui" line="602"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="609"/>
+        <location filename="../src/PrefsDialog.ui" line="623"/>
         <source>Magnifying glass</source>
         <translation>Størkingarglas</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="617"/>
+        <location filename="../src/PrefsDialog.ui" line="631"/>
         <source>Small</source>
         <translation>Lítið</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="624"/>
+        <location filename="../src/PrefsDialog.ui" line="638"/>
         <source>Medium</source>
         <translation>Miðal</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="631"/>
+        <location filename="../src/PrefsDialog.ui" line="645"/>
         <source>Large</source>
         <translation>Stórt</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="640"/>
+        <location filename="../src/PrefsDialog.ui" line="654"/>
         <source>Circular magnifier</source>
         <translation>Rundur størkari</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="668"/>
+        <location filename="../src/PrefsDialog.ui" line="682"/>
         <source>Screen resolution:</source>
         <translation>Skjíggjaloysni:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="678"/>
+        <location filename="../src/PrefsDialog.ui" line="692"/>
         <source> dpi</source>
         <translation>dpi</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="710"/>
+        <location filename="../src/PrefsDialog.ui" line="724"/>
         <source>Typesetting</source>
         <translation>Tekstseting</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="727"/>
+        <location filename="../src/PrefsDialog.ui" line="741"/>
         <source>Paths for TeX and related programs</source>
         <translation>Leið til TeX og tilhoyrandi forrit</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="800"/>
+        <location filename="../src/PrefsDialog.ui" line="814"/>
         <source>Processing tools</source>
         <translation>Viðgerðartól</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="835"/>
+        <location filename="../src/PrefsDialog.ui" line="849"/>
         <source>Edit...</source>
         <translation>Rætta...</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="873"/>
+        <location filename="../src/PrefsDialog.ui" line="887"/>
         <source>Default:</source>
         <translation>Forsett:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="903"/>
+        <location filename="../src/PrefsDialog.ui" line="917"/>
         <source>Hide console output:</source>
         <translation>Fjal úttak frá konsolli:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="916"/>
+        <location filename="../src/PrefsDialog.ui" line="930"/>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
@@ -1088,19 +1106,19 @@
 &lt;p&gt;&lt;strong&gt;Væleydnað:&lt;/strong&gt; Fjal úttaksmynd eftir væleydnaða seting, óansæð støðuna áðrenn.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="926"/>
+        <location filename="../src/PrefsDialog.ui" line="940"/>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Aldri</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="931"/>
+        <location filename="../src/PrefsDialog.ui" line="945"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Av sær sjálvum</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="936"/>
+        <location filename="../src/PrefsDialog.ui" line="950"/>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Væleydnað</translation>
@@ -1110,57 +1128,57 @@
         <translation type="obsolete">Fjal úttaksskíggja, uttan so at feilir eru</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="962"/>
+        <location filename="../src/PrefsDialog.ui" line="976"/>
         <source>Scripts</source>
         <translation>Script</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="968"/>
+        <location filename="../src/PrefsDialog.ui" line="982"/>
         <source>Security</source>
         <translation>Trygd</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="974"/>
+        <location filename="../src/PrefsDialog.ui" line="988"/>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
         <translation>Loyv scriptum at lesa allar fílur (script og skjøl eru altíð lesilig)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="981"/>
+        <location filename="../src/PrefsDialog.ui" line="995"/>
         <source>Allow scripts to write files</source>
         <translation>Loyv scriptum at skriva til fílur</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="988"/>
+        <location filename="../src/PrefsDialog.ui" line="1002"/>
         <source>Allow scripts to run system commands</source>
         <translation>Loyv scriptum at koyra kervisboð</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="995"/>
+        <location filename="../src/PrefsDialog.ui" line="1009"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
         <translation>Tendra ískoytismál til scripting (kann fara uttanum aðrar avmarkingar fyri script)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1005"/>
+        <location filename="../src/PrefsDialog.ui" line="1019"/>
         <source>Debugging</source>
         <translation>Feilfinning</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1011"/>
+        <location filename="../src/PrefsDialog.ui" line="1025"/>
         <source>Enable QtScript debugger</source>
         <translation>Tendra QtScript feilfinnaran</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="135"/>
+        <location filename="../src/PrefsDialog.cpp" line="136"/>
         <source>Choose Directory</source>
         <translation>Vel mappu</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="209"/>
+        <location filename="../src/PrefsDialog.cpp" line="210"/>
         <source>New Tool</source>
         <translation>Nýtt tól</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="483"/>
+        <location filename="../src/PrefsDialog.cpp" line="491"/>
         <source>System default [%1]</source>
         <translation>Kervisforseting [%1]</translation>
     </message>
@@ -1457,91 +1475,91 @@
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="204"/>
-        <location filename="../src/TWApp.cpp" line="269"/>
+        <location filename="../src/TWApp.cpp" line="205"/>
+        <location filename="../src/TWApp.cpp" line="270"/>
         <source>File</source>
         <translation>Fíla</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="206"/>
-        <location filename="../src/TWApp.cpp" line="270"/>
+        <location filename="../src/TWApp.cpp" line="207"/>
+        <location filename="../src/TWApp.cpp" line="271"/>
         <source>New</source>
         <translation>Nýtt</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="211"/>
-        <location filename="../src/TWApp.cpp" line="272"/>
+        <location filename="../src/TWApp.cpp" line="212"/>
+        <location filename="../src/TWApp.cpp" line="273"/>
         <source>New from Template...</source>
         <translation>Nýtt eftir mynstri...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="215"/>
+        <location filename="../src/TWApp.cpp" line="216"/>
         <source>Preferences...</source>
         <translation>Ásetingar...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="220"/>
-        <location filename="../src/TWApp.cpp" line="274"/>
+        <location filename="../src/TWApp.cpp" line="221"/>
+        <location filename="../src/TWApp.cpp" line="275"/>
         <source>Open...</source>
         <translation>Lat upp...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="225"/>
-        <location filename="../src/TWApp.cpp" line="277"/>
+        <location filename="../src/TWApp.cpp" line="226"/>
+        <location filename="../src/TWApp.cpp" line="278"/>
         <source>Open Recent</source>
         <translation>Lat nýggjasta upp</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="226"/>
+        <location filename="../src/TWApp.cpp" line="227"/>
         <source>Clear Recent Files</source>
         <translation>Strika nýggjar fílur</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="232"/>
-        <location filename="../src/TWApp.cpp" line="279"/>
+        <location filename="../src/TWApp.cpp" line="233"/>
+        <location filename="../src/TWApp.cpp" line="280"/>
         <source>Help</source>
         <translation>Hjálp</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="234"/>
-        <location filename="../src/TWApp.cpp" line="281"/>
+        <location filename="../src/TWApp.cpp" line="235"/>
+        <location filename="../src/TWApp.cpp" line="282"/>
         <source>Go to TeXworks home page</source>
         <translation>Far til heimasíðu TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="237"/>
-        <location filename="../src/TWApp.cpp" line="282"/>
+        <location filename="../src/TWApp.cpp" line="238"/>
+        <location filename="../src/TWApp.cpp" line="283"/>
         <source>Email to the mailing list</source>
         <translation>Send teldupost til teldupostlistan</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="243"/>
-        <location filename="../src/TWApp.cpp" line="280"/>
+        <location filename="../src/TWApp.cpp" line="244"/>
+        <location filename="../src/TWApp.cpp" line="281"/>
         <source>About </source>
         <translation>Um</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="271"/>
+        <location filename="../src/TWApp.cpp" line="272"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="273"/>
+        <location filename="../src/TWApp.cpp" line="274"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="275"/>
+        <location filename="../src/TWApp.cpp" line="276"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="289"/>
+        <location filename="../src/TWApp.cpp" line="290"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 er eitt einfalt umhvørvi til at skriva, seta og hyggja at TeX-skjølum í.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="292"/>
+        <location filename="../src/TWApp.cpp" line="293"/>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
         <translation>&lt;br&gt;Útgáva %1 r.%2 (%3)</translation>
     </message>
@@ -1550,108 +1568,108 @@
         <translation type="obsolete">&lt;p&gt;Útgivið sambært &lt;a href=\&quot;http://www.gnu.org/licenses/gpl-2.0.html\&quot;&gt;GNU General Public License&lt;/a&gt;, 2. útgáva.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="293"/>
+        <location filename="../src/TWApp.cpp" line="294"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;Útgivið undir &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, onnur ella ein seinni útgáva.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="294"/>
+        <location filename="../src/TWApp.cpp" line="295"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
         <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qtapplication framework&lt;/a&gt; v%1 hjá Qt Software, ein deilt undir Nokia Corporation.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="295"/>
+        <location filename="../src/TWApp.cpp" line="296"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; Forrit til seting av PDF-skjølum hjá Kristian H&amp;#xF8;gsberg, Albert Astals Cid og øðrum.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="296"/>
+        <location filename="../src/TWApp.cpp" line="297"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; stavari hjá L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="297"/>
+        <location filename="../src/TWApp.cpp" line="298"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation>&lt;br&gt;Íblástur frá &lt;a href=&quot;http://www.uoregon.edu/~koch/textshop&quot;&gt;TeXShop&lt;/a&gt; hjá Richard Koch.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="298"/>
+        <location filename="../src/TWApp.cpp" line="299"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt;-tøkni hjá J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="299"/>
+        <location filename="../src/TWApp.cpp" line="300"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
         <translation>&lt;br&gt;Nøkur ikon eru frá &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="300"/>
+        <location filename="../src/TWApp.cpp" line="301"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
         <translation>&lt;p&gt;%1 týðing vinarliga send inn av %2.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="300"/>
+        <location filename="../src/TWApp.cpp" line="301"/>
         <source>[language name]</source>
         <translation>[tungumál]</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="300"/>
+        <location filename="../src/TWApp.cpp" line="301"/>
         <source>[translator&apos;s name/email]</source>
         <translation>[navn og teldupostur týðarans]</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="304"/>
+        <location filename="../src/TWApp.cpp" line="305"/>
         <source>About %1</source>
         <translation>Um %1</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="311"/>
+        <location filename="../src/TWApp.cpp" line="312"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
         <translation>Atgongd fæst ikki til &quot;%1&quot;. Kanska eru kagin ella teldupostforritið ikki sett upp á rættan hátt?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="568"/>
+        <location filename="../src/TWApp.cpp" line="569"/>
         <source>Unable to create window</source>
         <translation>Fái ikki gjørt glugga</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="569"/>
+        <location filename="../src/TWApp.cpp" line="570"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Okkurt er heilt galið. %1 fekk ikki gjørt ein skjalaglugga. Forritið sloknar nú.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="621"/>
-        <location filename="../src/TWApp.cpp" line="636"/>
+        <location filename="../src/TWApp.cpp" line="622"/>
+        <location filename="../src/TWApp.cpp" line="637"/>
         <source>Open File</source>
         <translation>Lat fílu upp</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="650"/>
+        <location filename="../src/TWApp.cpp" line="651"/>
         <source>Save File</source>
         <translation>Goym fílu</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="810"/>
+        <location filename="../src/TWApp.cpp" line="811"/>
         <source>No default binary directory found</source>
         <translation>Eingin forsett tvítalsmappa funnin</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="811"/>
+        <location filename="../src/TWApp.cpp" line="812"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>Eingin av teimum upplýstu mappunum til TeX-forrit varð funnin. &lt;p&gt;&lt;small&gt;Fyri at koyra onkra prosess, so mást tú velja mappuna við fílunum til TeX-forritið við spjaldrinum Tekstseting í valmyndini Ásetingar.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1110"/>
+        <location filename="../src/TWApp.cpp" line="1111"/>
         <source>Unable to find help file.</source>
         <translation>Fann ikki hjálparfíluna.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1298"/>
+        <location filename="../src/TWApp.cpp" line="1299"/>
         <source>Permission request</source>
         <translation>Umbøn um loyvi</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1299"/>
+        <location filename="../src/TWApp.cpp" line="1300"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Scriptið &quot;%1&quot; roynir at lata fíluna &quot;%2&quot; upp, uttan nøktandi loyvi. Vilt tú lata fíluna upp?</translation>
     </message>
@@ -1980,7 +1998,7 @@
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="600"/>
-        <location filename="../src/TeXDocument.cpp" line="2680"/>
+        <location filename="../src/TeXDocument.cpp" line="2691"/>
         <source>Typeset</source>
         <translation>Set</translation>
     </message>
@@ -2135,7 +2153,7 @@
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="845"/>
-        <location filename="../src/TeXDocument.cpp" line="2828"/>
+        <location filename="../src/TeXDocument.cpp" line="2839"/>
         <source>Hide Console Output</source>
         <translation>Fjal konsollúttak</translation>
     </message>
@@ -2339,69 +2357,69 @@
         <translation>Nýtt skjal</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="598"/>
+        <location filename="../src/TeXDocument.cpp" line="603"/>
         <source>Open File</source>
         <translation>Lat fílu upp</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="666"/>
+        <location filename="../src/TeXDocument.cpp" line="671"/>
         <source>Abort typesetting?</source>
         <translation>Steðga seting?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="666"/>
+        <location filename="../src/TeXDocument.cpp" line="671"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation>Setingin koyrir enn, og má steðgast áðrenn gluggin verður latin aftur.
 Vilt tú steðga setingini nú?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="793"/>
+        <location filename="../src/TeXDocument.cpp" line="798"/>
         <source>Save File</source>
         <translation>Goym fílu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="831"/>
+        <location filename="../src/TeXDocument.cpp" line="836"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Skjalið &quot;%1&quot; er broytt.
 Vilt tú goyma broytingarnar?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="836"/>
+        <location filename="../src/TeXDocument.cpp" line="841"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="868"/>
+        <location filename="../src/TeXDocument.cpp" line="873"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>Vilt tú ógilda allar broytingar av skjalinum &quot;%1&quot; og fara aftur til seinast goymdu útgávuna?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="870"/>
+        <location filename="../src/TeXDocument.cpp" line="875"/>
         <source>Revert</source>
         <translation>Far aftur</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="871"/>
+        <location filename="../src/TeXDocument.cpp" line="876"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="966"/>
+        <location filename="../src/TeXDocument.cpp" line="971"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Fær ikki lisið fílu &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="983"/>
+        <location filename="../src/TeXDocument.cpp" line="988"/>
         <source>Unrecognized encoding</source>
         <translation>Ókent endursnið</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="984"/>
+        <location filename="../src/TeXDocument.cpp" line="989"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -2410,12 +2428,12 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 Tað verður tolkað sum %3 í staðin, sum kann føra til skeivan tekst.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1085"/>
+        <location filename="../src/TeXDocument.cpp" line="1090"/>
         <source>Layout Problem</source>
         <translation>Trupulleiki við uppsetingini</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1085"/>
+        <location filename="../src/TeXDocument.cpp" line="1090"/>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
  -) Turn syntax highlighting off and on
  -) Turn line numbers off and on
@@ -2430,19 +2448,19 @@ We are sorry for the inconvenience.</source>
 Vit eru kedd av hesum brekinum.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1106"/>
+        <location filename="../src/TeXDocument.cpp" line="1117"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Fíla &quot;%1&quot; lisin inn</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1175"/>
-        <location filename="../src/TeXDocument.cpp" line="1236"/>
-        <location filename="../src/TeXDocument.cpp" line="1330"/>
+        <location filename="../src/TeXDocument.cpp" line="1186"/>
+        <location filename="../src/TeXDocument.cpp" line="1247"/>
+        <location filename="../src/TeXDocument.cpp" line="1341"/>
         <source>File changed on disk</source>
         <translation>Fíla broytt á diski</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1176"/>
+        <location filename="../src/TeXDocument.cpp" line="1187"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2451,7 +2469,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Vilt tú ógilda broytingarnar og lesa fíluna inn aftur frá diskinum?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1237"/>
+        <location filename="../src/TeXDocument.cpp" line="1248"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2460,7 +2478,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Brúka &quot;Fíla &gt; Far aftur til goymda&quot; tá uttanhýsis prosessin er endað.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1331"/>
+        <location filename="../src/TeXDocument.cpp" line="1342"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2469,17 +2487,17 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Vilt tú halda fram at goyma fíluna útyvir ta, sum er á diskinum?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1336"/>
+        <location filename="../src/TeXDocument.cpp" line="1347"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>Skjal &quot;%1&quot; varð ikki goymt</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1358"/>
+        <location filename="../src/TeXDocument.cpp" line="1369"/>
         <source>Text cannot be converted</source>
         <translation>Tekstur kann ikki formbroytast</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1359"/>
+        <location filename="../src/TeXDocument.cpp" line="1370"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -2488,49 +2506,49 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 Um tú heldur fram, verða tey skift út við forsettar kotur. Tú kanst eisini brúka eitt annað snið (t.d. UTF-8) fyri ikki at missa data.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1373"/>
+        <location filename="../src/TeXDocument.cpp" line="1384"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Fái ikki skrivað til fíluna &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1390"/>
+        <location filename="../src/TeXDocument.cpp" line="1401"/>
         <source>Error writing file</source>
         <translation>Feilur í skriving til fílu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1391"/>
+        <location filename="../src/TeXDocument.cpp" line="1402"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>Ein feilur kann vera hendur tá fílan er goymd. Tú vilt kanska goyma eitt avrit av fíluni á einum øðrum staði.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1400"/>
+        <location filename="../src/TeXDocument.cpp" line="1411"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>Fíla &quot;%1&quot; goymd</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1436"/>
+        <location filename="../src/TeXDocument.cpp" line="1447"/>
         <source>untitled-%1.tex</source>
         <translation>untitled-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1453"/>
+        <location filename="../src/TeXDocument.cpp" line="1464"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1546"/>
+        <location filename="../src/TeXDocument.cpp" line="1557"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Regla %1 av %2; teigur %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1601"/>
+        <location filename="../src/TeXDocument.cpp" line="1612"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>Endurles við valdu koting</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1603"/>
+        <location filename="../src/TeXDocument.cpp" line="1614"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2540,12 +2558,12 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 Valda kotingin kemur í staðin fyri ta forsettu og allar &quot;%!TEX koting&quot; reglurnar.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1622"/>
+        <location filename="../src/TeXDocument.cpp" line="1633"/>
         <source>Unsaved changes</source>
         <translation>Ikki goymdar broytingar</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1623"/>
+        <location filename="../src/TeXDocument.cpp" line="1634"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2554,30 +2572,30 @@ Do you want to discard your current changes, and reload the file from disk with 
 Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingini %1?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1748"/>
+        <location filename="../src/TeXDocument.cpp" line="1759"/>
         <source>Go to Line</source>
         <translation>Far til reglu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1749"/>
+        <location filename="../src/TeXDocument.cpp" line="1760"/>
         <source>Line number:</source>
         <translation>Reglunummar:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2122"/>
-        <location filename="../src/TeXDocument.cpp" line="2236"/>
+        <location filename="../src/TeXDocument.cpp" line="2133"/>
+        <location filename="../src/TeXDocument.cpp" line="2247"/>
         <source>Invalid regular expression</source>
         <translation>Ógilt reglufast úttrykk</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2168"/>
-        <location filename="../src/TeXDocument.cpp" line="2205"/>
-        <location filename="../src/TeXDocument.cpp" line="2322"/>
+        <location filename="../src/TeXDocument.cpp" line="2179"/>
+        <location filename="../src/TeXDocument.cpp" line="2216"/>
+        <location filename="../src/TeXDocument.cpp" line="2333"/>
         <source>Not found</source>
         <translation>Ikki funnið</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2172"/>
+        <location filename="../src/TeXDocument.cpp" line="2183"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>Fann %n eintak</numerusform>
@@ -2585,7 +2603,7 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2341"/>
+        <location filename="../src/TeXDocument.cpp" line="2352"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n eintak</numerusform>
@@ -2593,7 +2611,7 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2342"/>
+        <location filename="../src/TeXDocument.cpp" line="2353"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n skjal</numerusform>
@@ -2601,12 +2619,12 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2343"/>
+        <location filename="../src/TeXDocument.cpp" line="2354"/>
         <source>Replaced %1 in %2</source>
         <translation>Skifti út %1 í %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2355"/>
+        <location filename="../src/TeXDocument.cpp" line="2366"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>Skifti út %n eintak</numerusform>
@@ -2614,62 +2632,62 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2543"/>
+        <location filename="../src/TeXDocument.cpp" line="2554"/>
         <source>Cannot process unsaved document</source>
         <translation>Fær ikki viðgjørt skjal, sum ikki er goymt</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2553"/>
+        <location filename="../src/TeXDocument.cpp" line="2564"/>
         <source>Root document %1 is not readable</source>
         <translation>Grundskjal %1 er ólesiligt</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2559"/>
+        <location filename="../src/TeXDocument.cpp" line="2570"/>
         <source>%1 is not properly configured</source>
         <translation>%1 er ikki sett upp á rættan hátt</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2647"/>
+        <location filename="../src/TeXDocument.cpp" line="2658"/>
         <source>Unable to execute %1</source>
         <translation>Fái ikki koyrt %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2648"/>
+        <location filename="../src/TeXDocument.cpp" line="2659"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Forritið &quot;%1&quot; varð ikki funnið.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2650"/>
+        <location filename="../src/TeXDocument.cpp" line="2661"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Tú mást hava eina útgávu av &lt;b&gt;TeX&lt;/b&gt; á telduni, so sum &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; ella &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2652"/>
+        <location filename="../src/TeXDocument.cpp" line="2663"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Tú mást hava eina útgávu av &lt;b&gt;TeX&lt;/b&gt; á telduni, so sum &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;, fyri at seta skjalið.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2654"/>
+        <location filename="../src/TeXDocument.cpp" line="2665"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>Tú mást hava eina útgávu av &lt;b&gt;TeX&lt;/b&gt; á telduni, so sum &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;, fyri at seta skjalið. Ein pakki við TeX er tøkur til flestu skipanir.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2656"/>
+        <location filename="../src/TeXDocument.cpp" line="2667"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>Tá ein útgáva av TeX er løgd á telduna, kann vera neyðugt at siga TeXworks, hvar hon er, við at trýsta á Rætta -&gt; Ásetingar -&gt; Seting.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2659"/>
+        <location filename="../src/TeXDocument.cpp" line="2670"/>
         <source>Searched in directories:</source>
         <translation>Leitaði í mappunum:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2661"/>
+        <location filename="../src/TeXDocument.cpp" line="2672"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>Kanna, hvussu tólið %1 er sett up og hvussu leiðin er sett upp á skíggjamyndini Ásetingar.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2835"/>
+        <location filename="../src/TeXDocument.cpp" line="2846"/>
         <source>Show Console Output</source>
         <translation>Vís konsollúttak</translation>
     </message>
@@ -2678,12 +2696,12 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
         <translation type="obsolete">Kanna uppseting av tólinum %1 og leið (path) í valmyndini Ásetingar.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2688"/>
+        <location filename="../src/TeXDocument.cpp" line="2699"/>
         <source>Abort typesetting</source>
         <translation>Steðga seting</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2708"/>
+        <location filename="../src/TeXDocument.cpp" line="2719"/>
         <source>Process interrupted by user</source>
         <translation>Prosess steðgað av brúkara</translation>
     </message>
@@ -2692,22 +2710,22 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
         <translation type="obsolete">Vís úttaksskíggja</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2922"/>
+        <location filename="../src/TeXDocument.cpp" line="2933"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Set motor til &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2926"/>
+        <location filename="../src/TeXDocument.cpp" line="2937"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>Motorur &quot;%1&quot; er ikki settur</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3036"/>
+        <location filename="../src/TeXDocument.cpp" line="3047"/>
         <source>No files found</source>
         <translation>Ongar fílur funnar</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3037"/>
+        <location filename="../src/TeXDocument.cpp" line="3048"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Ongar hjálparfílur knýttar at skjalinum í løtuni.</translation>
     </message>
@@ -2736,22 +2754,22 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="778"/>
+        <location filename="../src/PrefsDialog.cpp" line="788"/>
         <source>Select program file</source>
         <translation>Vel forritsfílu</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="783"/>
+        <location filename="../src/PrefsDialog.cpp" line="793"/>
         <source>Invalid program</source>
         <translation>Ógilt forrit</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="784"/>
+        <location filename="../src/PrefsDialog.cpp" line="794"/>
         <source>The file &apos;%1&apos; is not executable!</source>
         <translation>Fílan &apos;%1&apos; kann ikki koyrast!</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="827"/>
+        <location filename="../src/PrefsDialog.cpp" line="837"/>
         <source>NewArgument</source>
         <translation>NewArgument</translation>
     </message>

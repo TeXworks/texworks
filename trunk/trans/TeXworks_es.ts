@@ -5,11 +5,11 @@
     <name>CompletingEdit</name>
     <message>
         <source>Jump to PDF</source>
-        <translation>Pasar a PDF</translation>
+        <translation>Pasar al PDF</translation>
     </message>
     <message>
         <source>No suggestions</source>
-        <translation>No hay sugerencias</translation>
+        <translation>No tenemos sugerencias</translation>
     </message>
     <message>
         <source>Ignore word</source>
@@ -28,7 +28,7 @@
     </message>
     <message>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation>Algunos archivos auxiliares no se puedieron eliminar. Probablemente no cuenta con el permiso necesario para hacerlo.</translation>
+        <translation>Algunos archivos auxiliares no se puedieron eliminar. Probablemente no cuenta con los permisos necesarios.</translation>
     </message>
     <message>
         <source>Confirm file deletion</source>
@@ -36,7 +36,7 @@
     </message>
     <message>
         <source>Auxiliary files to be deleted:</source>
-        <translation>Archivos auxiliares que serán eliminados:</translation>
+        <translation>Archivos auxiliares que se van a eliminar:</translation>
     </message>
     <message>
         <source>Select All</source>
@@ -158,15 +158,15 @@
     <message>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
-        <translation>Desafortunadamente, la presente versión de %1 es incapaz de imprimir documentos en PDF debido a varias razones técnicas.</translation>
+        <translation>Desafortunadamente esta versión de %1 es incapaz de imprimir documentos PDF por varias razones técnicas.</translation>
     </message>
     <message>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
-        <translation>¿Quisiera abrir el archivo con el programa lector de PDFs predeterminado para imprimirlo?</translation>
+        <translation>¿Prefiere abrir el archivo con el programa lector de PDFs predeterminado para imprimirlo?</translation>
     </message>
     <message>
         <source> (remember to close it again to avoid access problems)</source>
-        <translation> (No olvide cerrar después ese programa para evitar problemas de acceso)</translation>
+        <translation> (No olvide cerrar luego dicho programa para evitar problemas de acceso)</translation>
     </message>
     <message>
         <source>untitled.pdf[*]</source>
@@ -430,7 +430,7 @@
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>Visitar la página oficial de TeXworks</translation>
+        <translation>Página oficial de TeXworks</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
@@ -494,7 +494,7 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>Archivo PDF &quot;%1&quot; bloqueado; la operación no se pudo efectuar.</translation>
+        <translation>Archivo PDF &quot;%1&quot; bloqueado; la operación no pudo efectuarse.</translation>
     </message>
     <message>
         <source>Find...</source>
@@ -702,7 +702,7 @@
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>Botones de la barra de herramientas</translation>
+        <translation type="obsolete">Botones de la barra de herramientas</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -738,7 +738,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>Idioma local de la interfaz:</translation>
+        <translation type="obsolete">Idioma local de la interfaz:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -875,7 +875,7 @@
     <message>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
         <translation>Permitir a los scripts leer todos los archivos 
-	(que tanto el script como el documento se pueden leer)</translation>
+	(que tanto el script como el documento se puedan leer)</translation>
     </message>
     <message>
         <source>Allow scripts to write files</source>
@@ -931,7 +931,7 @@
     </message>
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation>&lt;em&gt;Nota:&lt;/em&gt; Estos son los valores predeterminados de la configuración. Los cambios que realice en ellos ahora no afectarán las ventanas que ya están abiertas. Válgase de los elementos correspondientes en el menú &amp;quot;Formato&amp;quot; para conseguir dicho propósito.</translation>
+        <translation>&lt;em&gt;Nota:&lt;/em&gt; Estos son los valores predeterminados de la configuración. Los cambios que realice en ellos no afectarán las ventanas que ha abierto. Válgase de los elementos correspondientes en el menú &amp;quot;Formato&amp;quot; para conseguir dicho propósito.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
@@ -963,6 +963,22 @@ sólo si éste había estado oculto antes.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;En caso de éxito:&lt;/strong&gt;Si la compilación ocurre sin contratiempos, ocultar el panel de salida 
 sin importar su estado anterior.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Interface</source>
+        <translation>Interfaz</translation>
+    </message>
+    <message>
+        <source>Locale:</source>
+        <translation>Idioma:</translation>
+    </message>
+    <message>
+        <source>Toolbar buttons:</source>
+        <translation>Botones de la barra de herramientas:</translation>
+    </message>
+    <message>
+        <source>Open corresponding PDF preview with TeX files</source>
+        <translation>Mostrar el PDF asociado a cada archivo TeX </translation>
     </message>
 </context>
 <context>
@@ -1023,11 +1039,11 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos Log (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>
@@ -1238,7 +1254,7 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>Visitar la página ofical de TeXworks</translation>
+        <translation>Página ofical de TeXworks</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>
@@ -1638,7 +1654,7 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     </message>
     <message>
         <source>untitled-%1.tex</source>
-        <translation>nuevo-%1.tex</translation>
+        <translation>texto-%1.tex</translation>
     </message>
     <message>
         <source>%1[*] - %2</source>
@@ -2062,7 +2078,7 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     </message>
     <message>
         <source>Balance Delimiters</source>
-        <translation>Equilibrar delimitadores</translation>
+        <translation>Emparejar delimitadores</translation>
     </message>
     <message>
         <source>Ctrl+B</source>
@@ -2070,7 +2086,7 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     </message>
     <message>
         <source>Go to TeXworks home page</source>
-        <translation>Visitar la página oficial de TeXworks</translation>
+        <translation>Página oficial de TeXworks</translation>
     </message>
     <message>
         <source>Email to the mailing list</source>

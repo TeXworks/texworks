@@ -690,7 +690,7 @@
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>Pulsanti barra strumenti</translation>
+        <translation type="obsolete">Pulsanti barra strumenti</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -846,7 +846,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>Interfaccia locale:</translation>
+        <translation type="obsolete">Interfaccia locale:</translation>
     </message>
     <message>
         <source>System default [%1]</source>
@@ -955,6 +955,22 @@
 &lt;p&gt;&lt;strong&gt;Automaticamente:&lt;/strong&gt; Nascondi il pannello di output dopo l&apos;esito positivo della composizione  solo se era già nascosto prima.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Esito positivo:&lt;/strong&gt; Nascondi il pannello di output dopo l&apos;esito positivo della composizione.&lt;/p&gt;
 </translation>
+    </message>
+    <message>
+        <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toolbar buttons:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open corresponding PDF preview with TeX files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
