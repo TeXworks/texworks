@@ -905,22 +905,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="52"/>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface locale :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="72"/>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Boutons de barre d&apos;outils :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="141"/>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir l&apos;aperçu du PDF correspondant avec les fichiers TeX</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="178"/>
@@ -1217,7 +1217,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichiers log (*.log *.blg)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1242,7 +1242,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichiers auxilliaires (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>

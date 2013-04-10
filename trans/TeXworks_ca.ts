@@ -1169,22 +1169,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfície</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="52"/>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Local:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="72"/>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Botons barra d&apos;eines:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="141"/>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>Obre la corresponent vista prèvia PDF amb els fitxers TeX</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="500"/>
@@ -1216,7 +1216,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxers Log (*.log *.blg)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1241,7 +1241,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxers auxiliars (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>

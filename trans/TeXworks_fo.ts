@@ -16,7 +16,7 @@
     <message>
         <location filename="../src/CompletingEdit.cpp" line="987"/>
         <source>Ignore word</source>
-        <translation>Loyp um orð</translation>
+        <translation>Loyp orð um</translation>
     </message>
 </context>
 <context>
@@ -59,7 +59,7 @@
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="71"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation>Summar av hjálparfílunum kundu ikki strikast. Kanska hevur tú ikki rættindi at strika tær.</translation>
+        <translation>Summar av hjálparfílunum kundu ikki strikast. Kanska hevur tú ikki rættindi til at strika tær.</translation>
     </message>
 </context>
 <context>
@@ -876,22 +876,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Markamót</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="52"/>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalisering:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="72"/>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Knappar á tólbjálka:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="141"/>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>Opna samsvarandi PDF-sýning við TeX-fílum</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="178"/>
@@ -1202,7 +1202,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Loggfílur (*.log *.blg)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1227,7 +1227,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hjálparfílur (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
@@ -1370,7 +1370,7 @@
     <message>
         <location filename="../src/ScriptManager.ui" line="14"/>
         <source>Manage Scripts</source>
-        <translation>Stýr script</translation>
+        <translation>Stýr scriptum</translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.ui" line="34"/>
@@ -1425,7 +1425,7 @@
     <message>
         <location filename="../src/ScriptManager.cpp" line="208"/>
         <source>Hook: </source>
-        <translation>Kongur:</translation>
+        <translation>Húkur:</translation>
     </message>
 </context>
 <context>
