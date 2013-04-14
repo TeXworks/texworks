@@ -695,7 +695,7 @@
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>Araç çubuğu düğmeleri</translation>
+        <translation type="obsolete">Araç çubuğu düğmeleri</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -731,7 +731,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>Arayüz dili:</translation>
+        <translation type="obsolete">Arayüz dili:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -952,6 +952,22 @@
 &lt;p&gt;&lt;strong&gt;Hata yoksa:&lt;/strong&gt; Hatasız dizgi sonrası konsol çıktısını önceki durumunu dikkate almadan gizle.&lt;/p&gt;
 </translation>
     </message>
+    <message>
+        <source>Interface</source>
+        <translation>Arayüz</translation>
+    </message>
+    <message>
+        <source>Locale:</source>
+        <translation>Yerellik:</translation>
+    </message>
+    <message>
+        <source>Toolbar buttons:</source>
+        <translation>Araç çubuğu düğmeleri</translation>
+    </message>
+    <message>
+        <source>Open corresponding PDF preview with TeX files</source>
+        <translation>TeX dosyaları ile ilgili PDF önizlemesini aç</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1011,11 +1027,11 @@
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kayıt dosyaları (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Yardımcı dosyalar (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>

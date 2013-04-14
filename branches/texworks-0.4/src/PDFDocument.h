@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -252,6 +252,7 @@ protected:
 	virtual void dropEvent(QDropEvent *event);
 
 public slots:
+	void texActivated(TeXDocument * texDoc);
 	void texClosed(QObject *obj);
 	void reload();
 	void retypeset();
@@ -296,7 +297,7 @@ private:
 	QScrollArea	*scrollArea;
 	QButtonGroup	*toolButtonGroup;
 
-	QList<TeXDocument*> sourceDocList;
+	QLinkedList<TeXDocument*> sourceDocList;
 
 	QLabel *pageLabel;
 	QLabel *scaleLabel;

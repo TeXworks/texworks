@@ -683,7 +683,7 @@
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation>Botões da barra de ferramentas</translation>
+        <translation type="obsolete">Botões da barra de ferramentas</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -719,7 +719,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation>Localização da interface:</translation>
+        <translation type="obsolete">Localização da interface:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -924,6 +924,22 @@
         <translation>&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt; Nunca ocultar a painel de saída do console depois da compilação.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automaticamente:&lt;/strong&gt; Ocultar o painel de saída do console depois de uma compilação bem sucedida, mas somente se estava oculto antes.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Se Bem Sucedido:&lt;/strong&gt; Ocultar o painel de saída do console depois de uma compilação bem sucedida, desconsiderando o estado anterior.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toolbar buttons:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open corresponding PDF preview with TeX files</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
