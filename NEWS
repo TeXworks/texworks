@@ -1,3 +1,19 @@
+Release 0.4.5 (TL'13) [April 2013]
+	* Fix "Restore defaults" in preferences dialog
+	* Fix removal and selection of text moved via drag'n'drop
+	* Fix default saving location
+	* Keep UTF-8 BOMs in files that have them
+
+	* Make "Goto Source" lead to the last active source window
+	* Implement close button for the console output panel
+	* Implement "Open PDF with TeX" option
+	* Improve compatibility with OS color schemes
+	* New encoding support for "Mac Central European Roman"
+	* Code cleanup
+
+	* Updated log parser (improve handling of long messages and file paths)
+	* New script properties/functions: cursorPosition, getEngineList()
+
 Release 0.4.4 (TL'12) [April 2012]
 	* Fix crash caused by Qt when adding lines at the beginning of a document
 	* Fix search/replace for multi-line strings
