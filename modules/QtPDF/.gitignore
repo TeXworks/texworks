@@ -1,5 +1,0 @@
-*.o
-icons.cpp
-pdf_viewer
-unit-tests/*_test
-

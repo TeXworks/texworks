@@ -1,0 +1,127 @@
+body {
+	font-size: 15px;
+	line-height: 1.6em; /* 24 px */
+}
+h3 {
+	margin: 0;
+	font-size: 1.2666666666666666em;
+	line-height: 1.263157894736842em;
+	margin-top: 1.263157894736842em;
+}
+h4 {
+	margin: 0;
+	font-size: 1.1333333333333333em;
+	line-height: 1.411764705882353em;
+	margin-top: 1.411764705882353em;
+}
+p, ul, blockquote, pre, td, th, label {
+	margin: 0;
+	font-size: 1em;
+	line-height: 1.6em;
+	text-align: justify;
+}
+
+div#container {
+	max-width: 80ex;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1 {
+	background-Color: lightgray;
+	padding-top: 4ex;
+	padding-bottom: .5ex;
+	padding-right: .5ex;
+	text-align: right;
+	font-family: sans-serif;
+	font-size: 2em;
+}
+div.chapternumber {
+	float: right;
+	margin-top: .3ex;
+	margin-right: -.3em;
+	font-size: 6em;
+	color: gray;
+	font-family: serif;
+	font-weight: normal;
+	font-style: italic;
+	text-shadow: #ffffff 0px 0px 10px;
+}
+
+div.OSspecific { border-left: 4px solid #555753; margin-left: -8px; padding-left: 4px; min-height: 48px; margin-bottom: .5ex;}
+
+div.OSspecificLogo {
+	background-repeat: no-repeat;
+	width: 48px;
+	height: 48px;
+	float: left;
+	margin-left: -56px;
+}
+
+div.OSLinux { background-image: url(images/Linux.png); }
+div.OSMac { background-image: url(images/Mac.png); }
+div.OSWindows { background-image: url(images/Windows.png); }
+
+div.example {
+	margin-left: -65px;
+	padding-left: 65px;
+	background-image: url(images/example.png);
+	background-repeat: no-repeat;
+	min-height: 50px;
+}
+
+span.path, span.verb {
+	font-family: monospace;
+	font-size: 90%;
+}
+span.sansserif {
+	font-family: sans-serif;
+	font-size: 90%;
+}
+
+div.example p { margin: 0px; }
+
+span.keystroke {
+	border: 2px outset black;
+	padding: 0px 3px;
+	margin: 0px 2px;
+}
+
+a {
+	text-decoration: none;
+	text-shadow: #aaaaff 0px 0px 5px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+#titlepage {
+	font-family: sans-serif;
+}
+#titlepage .thelogo {
+	text-align: right;
+}
+#titlepage .thetitle {
+	font-size: 250%;
+	border-bottom: 2px solid black;
+}
+#titlepage .theauthor {
+	text-align: right;
+	padding-top: 0.5ex;
+}
+#titlepage .quote {
+	text-align: left;
+	font-family: cursive;
+	margin: 0px;
+	margin-left: auto;
+	margin-top: 2ex;
+	margin-bottom: 2ex;
+	color: #aaaaaa;
+	font-weight: lighter;
+	font-size: 150%;
+	width: 26.2ex;
+}
+
+
+/* css.sty */
+
