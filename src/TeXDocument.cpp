@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -413,8 +413,13 @@ void TeXDocument::changeEvent(QEvent *event)
 		setWindowTitle(title);
 		showCursorPosition();
 	}
-	else
-		QMainWindow::changeEvent(event);
+	else if (event->type() == QEvent::ActivationChange) {
+		// If this window was activated, inform the linked pdf (if any) of it
+		// so that future "Goto Source" actions point here.
+		if (this == QApplication::activeWindow() && pdfDoc)
+			pdfDoc->texActivated(this);
+	}
+	QMainWindow::changeEvent(event);
 }
 
 void TeXDocument::setLangInternal(const QString& lang)
@@ -788,7 +793,7 @@ bool TeXDocument::saveAs()
 	// for untitled docs, default to the last dir used, or $HOME if no saved value
 	QSETTINGS_OBJECT(settings);
 	QString lastSaveDir = settings.value("saveDialogDir").toString();
-	if (lastSaveDir.isEmpty())
+	if (lastSaveDir.isEmpty() || !QDir(lastSaveDir).exists())
 		lastSaveDir = QDir::homePath();
 	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
 													isUntitled ? lastSaveDir + "/" + curFile : curFile,
@@ -818,7 +823,7 @@ bool TeXDocument::saveAs()
 	}
 
 	QFileInfo info(fileName);
-	settings.setValue("saveDialogDir", info.canonicalPath());
+	settings.setValue("saveDialogDir", info.absolutePath());
 	
 	return saveFile(fileName);
 }
