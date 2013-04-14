@@ -32,7 +32,7 @@
     </message>
     <message>
         <source>Confirm file deletion</source>
-        <translation>Confirmar eliminación de archivo</translation>
+        <translation>Confirmar eliminación del archivo</translation>
     </message>
     <message>
         <source>Auxiliary files to be deleted:</source>
@@ -170,7 +170,7 @@
     </message>
     <message>
         <source>untitled.pdf[*]</source>
-        <translation>nuevo.pdf[*]</translation>
+        <translation>texto.pdf[*]</translation>
     </message>
     <message>
         <source>Help</source>
@@ -567,7 +567,7 @@
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>Retroceder</translation>
+        <translation>Buscar hacia atrás</translation>
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
@@ -931,7 +931,7 @@
     </message>
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation>&lt;em&gt;Nota:&lt;/em&gt; Estos son los valores predeterminados de la configuración. Los cambios que realice en ellos no afectarán las ventanas que ha abierto. Válgase de los elementos correspondientes en el menú &amp;quot;Formato&amp;quot; para conseguir dicho propósito.</translation>
+        <translation>&lt;em&gt;Nota: &lt;/em&gt; Estos son los valores predeterminados de la configuración. Los cambios que realice en ellos no afectarán las ventanas que ha abierto. Válgase de los elementos correspondientes en el menú &amp;quot;Formato&amp;quot; para conseguir dicho propósito.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
@@ -956,12 +956,12 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;&lt;strong&gt;Nunca:&lt;/strong&gt;No ocultar nunca el panel de salida después de cada compilación.&lt;/p&gt;
+        <translation>&lt;p&gt;&lt;strong&gt;Nunca: &lt;/strong&gt;No ocultar nunca el panel de salida después de cada compilación.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Automáticamente:&lt;/strong&gt;Efectuada la compilación correctamente, ocultar el panel de salida 
+&lt;p&gt;&lt;strong&gt;Automáticamente: &lt;/strong&gt;Efectuada la compilación correctamente, ocultar el panel de salida 
 sólo si éste había estado oculto antes.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;En caso de éxito:&lt;/strong&gt;Si la compilación ocurre sin contratiempos, ocultar el panel de salida 
+&lt;p&gt;&lt;strong&gt;En caso de éxito: &lt;/strong&gt;Si la compilación ocurre sin contratiempos, ocultar el panel de salida 
 sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -1021,7 +1021,7 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>All files</source>
-        <translation>Todos los archivo</translation>
+        <translation>Todos los archivos</translation>
     </message>
     <message>
         <source>TeXworks %1r%2 (%3)
@@ -1086,7 +1086,7 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>Retroceder</translation>
+        <translation>Buscar hacia atrás</translation>
     </message>
     <message>
         <source>Replace within &amp;selection</source>
@@ -1563,7 +1563,7 @@ Será interpretada como %3, lo cual podría dar como resultado un texto incorrec
 Do you want to discard your current changes, and reload the file from disk?</source>
         <translation>%1 ha sido modificado por otro programa.
 
-¿Desea descartar los cambios efectuados y reabrir el archivo en disco?</translation>
+¿Desea descartar los cambios efectuados y volver a abrir el archivo en disco?</translation>
     </message>
     <message>
         <source>%1 has been modified by another program.
@@ -1714,7 +1714,7 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     </message>
     <message>
         <source>Cannot process unsaved document</source>
-        <translation>No se puede compilar documento sin guardarlo antes</translation>
+        <translation>No se puede compilar un documento sin guardarlo antes</translation>
     </message>
     <message>
         <source>Root document %1 is not readable</source>
@@ -1758,7 +1758,7 @@ Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lug
     </message>
     <message>
         <source>untitled.tex[*]</source>
-        <translation>nuevo.tex[*]</translation>
+        <translation>texto.tex[*]</translation>
     </message>
     <message>
         <source>File</source>
@@ -2343,7 +2343,7 @@ Ofrecemos disculpas por las molestias ocasionadas.</translatorcomment>
     </message>
     <message>
         <source>The file &apos;%1&apos; is not executable!</source>
-        <translation>¡El archivo &apos;%1&apos; no es un programa ejecutable!</translation>
+        <translation>¡El archivo &apos;%1&apos; no es ejecutable!</translation>
     </message>
     <message>
         <source>NewArgument</source>

@@ -952,19 +952,19 @@
     </message>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface</translation>
     </message>
     <message>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taal:</translation>
     </message>
     <message>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Werkbalk iconen:</translation>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>Open bijpassende PDF preview tegelijk met TeX bestanden</translation>
     </message>
 </context>
 <context>
@@ -1019,11 +1019,11 @@
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Log bestanden (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hulpbestanden (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>
