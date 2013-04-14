@@ -1,0 +1,271 @@
+[
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"8",
+    "Description":"1.\nl.8 \\showthe\\catcode`{"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"9",
+    "Description":"begin-group character {.\nl.9 \\show {"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"10",
+    "Description":"end-group character }.\nl.10 \\show }"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"11",
+    "Description":"math shift character $.\nl.11 \\show $"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"12",
+    "Description":"alignment tab character &.\nl.12 \\show &"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"13",
+    "Description":"macro parameter character #.\nl.13 \\show #"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"14",
+    "Description":"superscript character ^.\nl.14 \\show ^"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"15",
+    "Description":"subscript character _.\nl.15 \\show _"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"16",
+    "Description":"blank space  .\n\\space -> \n          \nl.16 \\expandafter\\show\\space"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"17",
+    "Description":"blank space  .\nl.17 \\csname @firstofone\\endcsname{\\show}"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"18",
+    "Description":"the letter t.\nl.18 \\show t"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"19",
+    "Description":"the character ?.\nl.19 \\show ?"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"20",
+    "Description":"~=macro:\n->\\nobreakspace {}.\nl.20 \\show ~"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"24",
+    "Description":"\\showthe=\\showthe.\nl.24 \\show\\showthe"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"26",
+    "Description":"\\input=macro:\n->\\@ifnextchar \\bgroup \\@iinput \\@@input .\nl.26 \\show \\input"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"29",
+    "Description":"\\command=macro:\n\\relax #1->.\nl.29 \\show\\command"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"31",
+    "Description":"\\@starttoc=macro:\n#1->\\begingroup \\makeatletter \\@input {\\jobname .#1}\\if@filesw \\expandafter \\ne\nwwrite \\csname tf@#1\\endcsname \\immediate \\openout \\csname tf@#1\\endcsname \\job\nname .#1\\relax \\fi \\@nobreakfalse \\endgroup .\n<recently read> \\@starttoc \n                           \nl.31 \\expandafter\\show\\csname @starttoc\\endcsname"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"33",
+    "Description":"\\csname\\endcsname=\\relax.\n<recently read> \\csname\\endcsname\n                                 \nl.33 \\expandafter\\show\\csname\\endcsname"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"34",
+    "Description":"\\there are spaces=\\relax.\n<recently read> \\there are spaces \n                                  \nl.34 ...ter\\show\\csname there are spaces\\endcsname"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"35",
+    "Description":"\\strage = characters :=\\relax.\n<recently read> \\strage = characters : \n                                       \nl.35 ...how\\csname strage = characters :\\endcsname"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"43",
+    "Description":"\\headheight=\\dimen76.\nl.43 \\show\\headheight"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"45",
+    "Description":"\\headheight=\\dimen76.\n<recently read> \\headheight \n                            \nl.45 \\expandafter\\show\\csname headheight\\endcsname"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"47",
+    "Description":"12.0pt.\nl.47 \\showthe\\headheight"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"49",
+    "Description":"25.0pt.\n<recently read> \\headsep \n                         \nl.49 \\expandafter\\showthe\\csname headsep\\endcsname"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"51",
+    "Description":"598.0pt.\n<argument> \\textheight \n                       \nl.51 \\printa\\textheight"
+  },
+  {
+    "Severity":Severity.Debug,"File":"./prova.tex","Row":"53",
+    "Description":"345.0pt.\n<recently read> \\textwidth \n                           \nl.53 \\printb{textwidth}"
+  },
+  {
+    "Severity":Severity.Error,"File":"./prova.tex","Row":"60",
+    "Description":"Undefined control sequence.\nl.60 \\lipsu"
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011)
+ restricted \write18 enabled.
+entering extended mode
+(./prova.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
+ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
+rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
+kurmanji, lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nyn
+orsk, polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbia
+nc, slovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorb
+ian, welsh, loaded.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/size10.clo))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/graphics.cfg)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ltxcmds.sty))))
+> 1.
+l.8 \showthe\catcode`{
+                      
+> begin-group character {.
+l.9 \show {
+           
+> end-group character }.
+l.10 \show }
+            
+> math shift character $.
+l.11 \show $
+            
+> alignment tab character &.
+l.12 \show &
+            
+> macro parameter character #.
+l.13 \show #
+            
+> superscript character ^.
+l.14 \show ^
+            
+> subscript character _.
+l.15 \show _
+            
+> blank space  .
+\space -> 
+          
+l.16 \expandafter\show\space
+                            
+> blank space  .
+l.17 \csname @firstofone\endcsname{\show}
+                                         
+> the letter t.
+l.18 \show t
+            
+> the character ?.
+l.19 \show ?
+            
+> ~=macro:
+->\nobreakspace {}.
+l.20 \show ~
+            
+> \showthe=\showthe.
+l.24 \show\showthe
+                  
+> \input=macro:
+->\@ifnextchar \bgroup \@iinput \@@input .
+l.26 \show \input
+                 
+> \command=macro:
+\relax #1->.
+l.29 \show\command
+                  
+> \@starttoc=macro:
+#1->\begingroup \makeatletter \@input {\jobname .#1}\if@filesw \expandafter \ne
+wwrite \csname tf@#1\endcsname \immediate \openout \csname tf@#1\endcsname \job
+name .#1\relax \fi \@nobreakfalse \endgroup .
+<recently read> \@starttoc 
+                           
+l.31 \expandafter\show\csname @starttoc\endcsname
+                                                 
+> \csname\endcsname=\relax.
+<recently read> \csname\endcsname
+                                 
+l.33 \expandafter\show\csname\endcsname
+                                       
+> \there are spaces=\relax.
+<recently read> \there are spaces 
+                                  
+l.34 ...ter\show\csname there are spaces\endcsname
+                                                  
+> \strage = characters :=\relax.
+<recently read> \strage = characters : 
+                                       
+l.35 ...how\csname strage = characters :\endcsname
+                                                  
+> \headheight=\dimen76.
+l.43 \show\headheight
+                     
+> \headheight=\dimen76.
+<recently read> \headheight 
+                            
+l.45 \expandafter\show\csname headheight\endcsname
+                                                  
+> 12.0pt.
+l.47 \showthe\headheight
+                        
+> 25.0pt.
+<recently read> \headsep 
+                         
+l.49 \expandafter\showthe\csname headsep\endcsname
+                                                  
+> 598.0pt.
+<argument> \textheight 
+                       
+l.51 \printa\textheight
+                       
+> 345.0pt.
+<recently read> \textwidth 
+                           
+l.53 \printb{textwidth}
+                       
+(./prova.aux)
+(/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifluatex.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifpdf.sty))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/grfext.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/etexcmds.sty)))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+
+pdfTeX warning: /usr/local/texlive/2011/bin/i386-linux/pdflatex (file ./securer
+andomgen.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5
+> allowed
+<securerandomgen.pdf, id=1, 597.55246pt x 845.07718pt>
+<use securerandomgen.pdf>
+! Undefined control sequence.
+l.60 \lipsu
+           
+[1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./sec
+urerandomgen.pdf>] (./prova.aux) )
+(see the transcript file for additional information)</usr/local/texlive/2011/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on prova.pdf (1 page, 49936 bytes).
+SyncTeX written on prova.synctex.gz.
+Transcript written on prova.log.
+

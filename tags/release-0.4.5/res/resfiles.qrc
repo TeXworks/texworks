@@ -1,0 +1,65 @@
+<RCC>
+<qresource>
+<file>resfiles/completion/tw-basic.txt</file>
+<file>resfiles/completion/tw-beamer.txt</file>
+<file>resfiles/completion/tw-context.txt</file>
+<file>resfiles/completion/tw-latex.txt</file>
+<file>resfiles/configuration/auto-indent-patterns.txt</file>
+<file>resfiles/configuration/delimiter-pairs.txt</file>
+<file>resfiles/configuration/smart-quotes-modes.txt</file>
+<file>resfiles/configuration/syntax-patterns.txt</file>
+<file>resfiles/configuration/tag-patterns.txt</file>
+<file>resfiles/configuration/texworks-config.txt</file>
+<file>resfiles/scripts/Hooks/babelLanguage.js</file>
+<file>resfiles/scripts/Hooks/logParser.js</file>
+<file>resfiles/scripts/LaTeX styles/toggleBold.js</file>
+<file>resfiles/scripts/LaTeX styles/toggleEmph.js</file>
+<file>resfiles/scripts/launchPdf.js</file>
+<file>resfiles/scripts/makeBold.lua</file>
+<file>resfiles/scripts/makeBold.py</file>
+<file>resfiles/scripts/system.js</file>
+<file>resfiles/scripts/Text transforms/titlecase.js</file>
+<file>resfiles/templates/Basic LaTeX documents/article.tex</file>
+<file>resfiles/templates/Basic LaTeX documents/letter.tex</file>
+<file>resfiles/templates/Beamer presentations/conference-ornate-20min.en.tex</file>
+<file>resfiles/templates/Beamer presentations/generic-ornate-15min-45min.en.tex</file>
+<file>resfiles/templates/Beamer presentations/speaker_introduction-ornate-2min.en.tex</file>
+<file>resfiles/templates/More LaTeX classes/KOMA-letter.tex</file>
+<file>resfiles/templates/More LaTeX classes/memoir.tex</file>
+<file>resfiles/templates/XeLaTeX documents/article-fontspec.tex</file>
+<file alias="resfiles/translations/qt_ar.qm">../trans/qt/qt_ar.qm</file>
+<file alias="resfiles/translations/qt_ca.qm">../trans/qt/qt_ca.qm</file>
+<file alias="resfiles/translations/qt_cs.qm">../trans/qt/qt_cs.qm</file>
+<file alias="resfiles/translations/qt_de.qm">../trans/qt/qt_de.qm</file>
+<file alias="resfiles/translations/qt_es.qm">../trans/qt/qt_es.qm</file>
+<file alias="resfiles/translations/qt_fr.qm">../trans/qt/qt_fr.qm</file>
+<file alias="resfiles/translations/qt_it.qm">../trans/qt/qt_it.qm</file>
+<file alias="resfiles/translations/qt_ja.qm">../trans/qt/qt_ja.qm</file>
+<file alias="resfiles/translations/qt_ko.qm">../trans/qt/qt_ko.qm</file>
+<file alias="resfiles/translations/qt_nl.qm">../trans/qt/qt_nl.qm</file>
+<file alias="resfiles/translations/qt_pl.qm">../trans/qt/qt_pl.qm</file>
+<file alias="resfiles/translations/qt_pt_BR.qm">../trans/qt/qt_pt_BR.qm</file>
+<file alias="resfiles/translations/qt_ru.qm">../trans/qt/qt_ru.qm</file>
+<file alias="resfiles/translations/qt_sl.qm">../trans/qt/qt_sl.qm</file>
+<file alias="resfiles/translations/qt_tr.qm">../trans/qt/qt_tr.qm</file>
+<file alias="resfiles/translations/qt_zh_CN.qm">../trans/qt/qt_zh_CN.qm</file>
+<file alias="resfiles/translations/TeXworks_af.qm">../trans/TeXworks_af.qm</file>
+<file alias="resfiles/translations/TeXworks_ar.qm">../trans/TeXworks_ar.qm</file>
+<file alias="resfiles/translations/TeXworks_ca.qm">../trans/TeXworks_ca.qm</file>
+<file alias="resfiles/translations/TeXworks_cs.qm">../trans/TeXworks_cs.qm</file>
+<file alias="resfiles/translations/TeXworks_de.qm">../trans/TeXworks_de.qm</file>
+<file alias="resfiles/translations/TeXworks_es.qm">../trans/TeXworks_es.qm</file>
+<file alias="resfiles/translations/TeXworks_fa.qm">../trans/TeXworks_fa.qm</file>
+<file alias="resfiles/translations/TeXworks_fr.qm">../trans/TeXworks_fr.qm</file>
+<file alias="resfiles/translations/TeXworks_it.qm">../trans/TeXworks_it.qm</file>
+<file alias="resfiles/translations/TeXworks_ja.qm">../trans/TeXworks_ja.qm</file>
+<file alias="resfiles/translations/TeXworks_ko.qm">../trans/TeXworks_ko.qm</file>
+<file alias="resfiles/translations/TeXworks_nl.qm">../trans/TeXworks_nl.qm</file>
+<file alias="resfiles/translations/TeXworks_pl.qm">../trans/TeXworks_pl.qm</file>
+<file alias="resfiles/translations/TeXworks_pt_BR.qm">../trans/TeXworks_pt_BR.qm</file>
+<file alias="resfiles/translations/TeXworks_ru.qm">../trans/TeXworks_ru.qm</file>
+<file alias="resfiles/translations/TeXworks_sl.qm">../trans/TeXworks_sl.qm</file>
+<file alias="resfiles/translations/TeXworks_tr.qm">../trans/TeXworks_tr.qm</file>
+<file alias="resfiles/translations/TeXworks_zh_CN.qm">../trans/TeXworks_zh_CN.qm</file>
+</qresource>
+</RCC>

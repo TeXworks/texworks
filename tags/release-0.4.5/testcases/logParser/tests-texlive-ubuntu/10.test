@@ -1,0 +1,43 @@
+[
+  {
+    "Severity":0,"File":"./10.tex","Row":"7",
+    "Description":"Overfull \\hbox (17.99792pt too wide) in paragraph at lines 7--7\n\\OT1/cmr/bx/n/14.4 Prae-sent at lorem non au-gue fer-men-tum gravida."
+  },
+  {
+    "Severity":0,"File":"./10.tex","Row":"9",
+    "Description":"Underfull \\vbox (badness 10000) detected at line 9"
+  },
+  {
+    "Severity":0,"File":"./10.tex","Row":0,
+    "Description":"Overfull \\vbox (389.50688pt too high) has occurred while \\output is active"
+  }
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012)
+ restricted \write18 enabled.
+entering extended mode
+(./10.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2012-05-30, ngerman-x-2012-05-30, basque, catalan, czech, dutch, ukengli
+sh, usenglishmax, french, galician, german, ngerman, swissgerman, italian, poli
+sh, portuguese, slovak, spanish, loaded.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/size10.clo))
+No file 10.aux.
+
+Overfull \hbox (17.99792pt too wide) in paragraph at lines 7--7
+\OT1/cmr/bx/n/14.4 Prae-sent at lorem non au-gue fer-men-tum gravida.
+
+Underfull \vbox (badness 10000) detected at line 9
+[1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \vbox (389.50688pt too high) has occurred while \output is active
+[2] (./10.aux) )
+(see the transcript file for additional information)</usr/local/texlive/2011/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2011/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on 10.pdf (2 pages, 24911 bytes).
+SyncTeX written on 10.synctex.gz.
+Transcript written on 10.log.
+

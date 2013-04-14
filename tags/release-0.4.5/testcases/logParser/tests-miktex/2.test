@@ -1,0 +1,95 @@
+[
+  {"Severity":2,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":"2","Description":"A simple error.\nl.2 \\errmessage{A simple error}"},
+  {"Severity":2,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":"3","Description":"First line.\n\nExtra.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.3 ...rror{other lines}{First line}{Extra.}{On H}"},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":"4","Description":"LaTeX Warning: A warning with line number on input line 4."},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":0,"Description":"LaTeX Warning: A warning without line number."},
+  {"Severity":2,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":"13","Description":"Class FakeClass Error: This Error spans over multiple lines\n(FakeClass)              just to see if the fake item (FakeClass) is\n(FakeClass)              matched.\n\nSee the FakeClass class documentation for explanation.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.13 }"},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":"13","Description":"Class FakeClass Warning: This Warning spans over multiple lines just to see if the fake item (FakeClass) is matched on input line 13."},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":0,"Description":"Class FakeClass Warning: This WarningNoLine spans over multiple lines just to see if the fake item (FakeClass) is matched."},
+  {"Severity":2,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":"13","Description":"Package FakePackage Error: This Error spans over multiple lines\n(FakePackage)                just to see if the fake item (FakePackage) is\n(FakePackage)                matched.\n\nSee the FakePackage package documentation for explanation.\nType  H <return>  for immediate help.\n ...                                              \n                                                  \nl.13 }"},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":"13","Description":"Package FakePackage Warning: This Warning spans over multiple lines just to see if the fake item (FakePackage) is matched on input line 13."},
+  {"Severity":1,"File":"C:\\Users\\Antonio\\AppData\\Local\\Temp\\Prova2.tex","Row":0,"Description":"Package FakePackage Warning: This WarningNoLine spans over multiple lines just to see if the fake item (FakePackage) is matched."},
+  {"Severity":2,"File":undefined,"Row":0,"Description":"Emergency stop."},
+  {"Severity":2,"File":undefined,"Row":0,"Description":"==> Fatal error occurred, no output PDF file produced!"}
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
+entering extended mode
+(C:\Users\Antonio\AppData\Local\Temp\Prova2.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+! A simple error.
+l.2 \errmessage{A simple error}
+                               
+
+! First line.
+
+Extra.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3 ...rror{other lines}{First line}{Extra.}{On H}
+                                                  
+
+LaTeX Warning: A warning with line number on input line 4.
+
+
+LaTeX Warning: A warning without line number.
+
+
+! Class FakeClass Error: This Error spans over multiple lines
+(FakeClass)              just to see if the fake item (FakeClass) is
+(FakeClass)              matched.
+
+See the FakeClass class documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 }
+      
+
+Class FakeClass Warning: This Warning spans over multiple lines
+(FakeClass)              just to see if the fake item (FakeClass) is
+(FakeClass)              matched on input line 13.
+
+
+Class FakeClass Warning: This WarningNoLine spans over multiple lines
+(FakeClass)              just to see if the fake item (FakeClass) is
+(FakeClass)              matched.
+
+
+! Package FakePackage Error: This Error spans over multiple lines
+(FakePackage)                just to see if the fake item (FakePackage) is
+(FakePackage)                matched.
+
+See the FakePackage package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 }
+      
+
+Package FakePackage Warning: This Warning spans over multiple lines
+(FakePackage)                just to see if the fake item (FakePackage) is
+(FakePackage)                matched on input line 13.
+
+
+Package FakePackage Warning: This WarningNoLine spans over multiple lines
+(FakePackage)                just to see if the fake item (FakePackage) is
+(FakePackage)                matched.
+
+)
+! Emergency stop.
+<*> Prova2.tex
+              
+!  ==> Fatal error occurred, no output PDF file produced!
+Transcript written on Prova2.log.

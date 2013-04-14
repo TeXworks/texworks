@@ -1,0 +1,141 @@
+Release 0.4.5 (TL'13) [April 2013]
+	* Fix "Restore defaults" in preferences dialog
+	* Fix removal and selection of text moved via drag'n'drop
+	* Fix default saving location
+	* Keep UTF-8 BOMs in files that have them
+
+	* Make "Goto Source" lead to the last active source window
+	* Implement close button for the console output panel
+	* Implement "Open PDF with TeX" option
+	* Improve compatibility with OS color schemes
+	* New encoding support for "Mac Central European Roman"
+	* Code cleanup
+
+	* Updated log parser (improve handling of long messages and file paths)
+	* New script properties/functions: cursorPosition, getEngineList()
+
+Release 0.4.4 (TL'12) [April 2012]
+	* Fix crash caused by Qt when adding lines at the beginning of a document
+	* Fix search/replace for multi-line strings
+	* Work around layout issues which cause lines to disappear
+	* Fix building with BSD make
+	* Fix block selection of last paragraph
+	* Fix overwrite of "Find all occurrences" option
+
+	* Improve "Unable to execute..." error dialog
+	* Rename "Show/Hide Output Panel" to "Show/Hide Console Output" in the menu
+	  and the preferences dialog
+	* Remove subject and add instructions to body of the "email to mailinglist"
+	* Bring the window running TeX to the top at the beginning of typesetting to
+	  ensure that the console output is visible
+	* Allow symlinks and display only folders in "path for programs" in the
+	  preferences dialog
+	* Add "Clear Recent Files" to "Open Recent" menu
+	* Add an autocompletion entry to the preferences dialog
+	* Add Lua(La)TeX to the default tools (and drop LaTeXmk by default)
+	* Add an option to open log files
+	* Add CMake support (experimental)
+	* Update SyncTeX to version 1.17
+	* Update URLs to http://www.tug.org/texworks/
+
+	* Some enhancements to functions available to scripting
+	* Avoid showing an empty message box for script results
+	* Resolve symlinks when looking for scripts
+	* Expose the scripts' titles, authors, filenames, etc. to scripting
+	* Update/improve scripts: open pdf in default viewer, derive spellchecking
+	  language from babel package, log parser
+
+Release 0.4.3 (TL'11) [June 2011]
+	* Fix bug in autocompletion that could cause data loss
+
+Release 0.4.2 (TL'11 RC) [June 2011]
+	* Work around layout issues with Qt 4.7.2 that caused TeXworks to crash
+	  sometimes
+	* Fix autocompletion at the beginning of a line
+	* Respect per-file setting "None" for syntax highlighting, smart quotes, and
+	  auto indent
+	
+	* Update SyncTeX to version 1.16
+	* Allow to disable autocompletion by editing the configuration file
+	* Fix runtime warning about empty file watchers
+	* Enhance Mac patches for poppler
+	* Improve installation and packaging routines
+
+Release 0.4.1 (TL'11 RC) [May 2011]
+	* Add option to always close the output panel after sucessful typesetting
+	  (regardless of its previous state)
+	* Invoke "Goto page" and "Goto line" from the status bar widgets
+	* Implement pdf zoom menu from the status bar widget
+	* Allow to reload a file with selectable encoding
+	* Implement "Help > Settings and Resources..." for easy access, in
+	  particular to customizable resources
+	* Speed up program start-up
+	* Add \begin{document} to the auto-completion
+	
+	* Work around the almost invisible highlighting when searching with the
+	  "Find all occurences" option
+	* Improve highlighting of auto-completed text
+	* Let typeset combobox adjust size dynamically
+	* Remove the "+" from the zoom tool icon in the PDF preview
+	* Reduce size of packages
+	* Fix handling of non-existent files in automatic resource updates
+	* Fix handling of TEXEDIT environment variable; add support for the
+	  MIKTEX_EDITOR environment variable
+
+	* [Win] Add installer icon
+	* [Win] Add shortcut to manual to the start menu during setup
+	* [Win] Fix cropping of tooltips
+	* [*nix] Fix invisible icons in application switcher with compiz
+	* Fix several compile time and runtime warnings
+	* Rename default ConTeXt tools
+	* Add more extensions for associating files with TeXworks
+	* Add support for Python 3.2
+	* Clean up unused code & files
+
+Release 0.4.0 [March 2011]
+	* Scripting (QtScript, Lua, Python)
+	* New "Follow focus" mode (experimental)
+	* New %!TeX header (spellcheck)
+	* New "Save All" menu item
+	* New auto-completion file for the beamer class
+	* Support background color/font flags in syntax highlighting
+	* Save and restore window states for recent documents
+	* Implement a command line parser
+	* Automatically update resources when installing new releases
+
+	* Only display each language once in the sellchecker language selection
+	* Display human-readable names in addition to the ISO codes for the
+	  spellchecker language selection
+	* Implement "Smarten quotes" for a selection
+	* Preserve document view when reloading after external changes
+	* Handle different file encodings and line ending conventions and allow the
+	  user to change them
+	* Made pdfLaTeX the default on fresh installation
+	* Indicate a document's modification state in the windows menu
+	* Improve the "Email to mailing list" template
+	* Make "Highlight current line" color palette-aware (issue 467)
+	* Updated SyncTeX to 1.9
+	* Allow Esc and Return in the tags and search result windows
+	* Improve "Remove Auxiliary Files" dialog
+	* Fix handling of external file links in PDFs
+	* Numerous other bug fixes
+	
+	* [Win/*nix] Set TeXworks as the default editor when hitting 'e' after a
+	  TeX error
+	* [Win] Fix handling of "All Files" in the "Save As" dialog (issue 257)
+
+Release 0.2.3 (TL'09 DVD release)
+	* Fix potential crash in Balance Delimiters
+	* Fix a few memory leaks (issue 212)
+	* Localization updates (Chinese, German, Italian, Polish)
+
+Release 0.2.2
+	* Bugfix to recognize jpeg image on windows
+
+Release 0.2.1
+	* Fixed order of taskbar buttons (issue 203)
+	* Fixed crash when opening a PDF file from the startup dialog (issue 207)
+	* Localization updates (Persian)
+
+Release 0.2.0
+	* Initial stable release
