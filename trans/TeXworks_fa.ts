@@ -28,11 +28,11 @@
     </message>
     <message>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation>بعضی از پرونده‌های کمکی نمی‌توانند حذف شوند. شاید اجازهٔ این کار را ندارید.</translation>
+        <translation>پاره‌ای از پرونده‌های کمکی نمی‌توانند حذف شوند. شاید اجازهٔ این کار را ندارید.</translation>
     </message>
     <message>
         <source>Confirm file deletion</source>
-        <translation>تأیید حذف پرونده</translation>
+        <translation>پذیرش حذف پرونده</translation>
     </message>
     <message>
         <source>Auxiliary files to be deleted:</source>
@@ -40,11 +40,11 @@
     </message>
     <message>
         <source>Select All</source>
-        <translation>انتخاب همه</translation>
+        <translation>گزیدن همه</translation>
     </message>
     <message>
         <source>Select None</source>
-        <translation>انتخاب هیچ‌کدام</translation>
+        <translation>گزیدن هیچ‌کدام</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -67,15 +67,15 @@
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>پیدا کردن &amp;عقب‌گرد</translation>
+        <translation>پیدا کردن &amp;پس‌گرد</translation>
     </message>
     <message>
         <source>Search within &amp;selection</source>
-        <translation>جستجو در &amp;انتخاب</translation>
+        <translation>جستجوی &amp;برگزیده</translation>
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
-        <translation>پیدا کردن &amp;تمام موارد</translation>
+        <translation>یافتن &amp;تمام موارد</translation>
     </message>
     <message>
         <source>Search all &amp;open files</source>
@@ -99,7 +99,7 @@
     </message>
     <message>
         <source>(invalid)</source>
-        <translation>(نامعتبر)</translation>
+        <translation>(بی‌ارزش)</translation>
     </message>
 </context>
 <context>
@@ -118,30 +118,30 @@
     </message>
     <message>
         <source>Line length:</source>
-        <translation>طول خط:</translation>
+        <translation>درازی رج:</translation>
     </message>
     <message>
         <source>Re-wrap paragraphs</source>
-        <translation>بسته‌بندی تازه پاراگراف‌ها</translation>
+        <translation>بسته‌بندی تازهٔ پاراگراف‌ها</translation>
     </message>
 </context>
 <context>
     <name>PDFDocument</name>
     <message>
         <source>Open Recent</source>
-        <translation>گشودن اخیر</translation>
+        <translation>گشودن واپسین</translation>
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>پروندهٔ پی‌دی‌اف &quot;%1&quot; قفل است؛ فعلاً حمایت نمی‌شود.</translation>
+        <translation>پروندهٔ پی‌دی‌اف &quot;%1&quot; چفت است؛ هنوز پشتیبانی نمی‌شود.</translation>
     </message>
     <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>ناموفق در بازگذاری پروندهٔ &quot;%1&quot;؛ شاید نوشتار پی‌دی‌اف معتبری نیست.</translation>
+        <translation>ناتوان در بازگذاری پروندهٔ &quot;%1&quot;؛ شاید مستند پی‌دی‌اف باارزشی نیست.</translation>
     </message>
     <message>
         <source>No SyncTeX data available</source>
-        <translation>اطلاعات همگام تک موجود نیست</translation>
+        <translation>دانستنی‌های همگام تک موجود نیست</translation>
     </message>
     <message>
         <source>SyncTeX: &quot;%1&quot;</source>
@@ -198,7 +198,7 @@
     </message>
     <message>
         <source>Toolbar</source>
-        <translation>میلهٔ ابزار</translation>
+        <translation>نوارابزار</translation>
     </message>
     <message>
         <source>About TeXworks...</source>
@@ -206,7 +206,7 @@
     </message>
     <message>
         <source>First Page</source>
-        <translation>برگهٔ اول</translation>
+        <translation>برگهٔ نخست</translation>
     </message>
     <message>
         <source>Home</source>
@@ -215,7 +215,7 @@
     </message>
     <message>
         <source>Previous Page</source>
-        <translation>برگهٔ قبل</translation>
+        <translation>برگهٔ پیش</translation>
     </message>
     <message>
         <source>PgUp</source>
@@ -224,7 +224,7 @@
     </message>
     <message>
         <source>Next Page</source>
-        <translation>برگهٔ بعد</translation>
+        <translation>برگهٔ پسین</translation>
     </message>
     <message>
         <source>PgDown</source>
@@ -233,7 +233,7 @@
     </message>
     <message>
         <source>Last Page</source>
-        <translation>برگهٔ آخر</translation>
+        <translation>برگهٔ پایانی</translation>
     </message>
     <message>
         <source>End</source>
@@ -250,7 +250,7 @@
     </message>
     <message>
         <source>Zoom In</source>
-        <translation>یزرگ‌نمایی</translation>
+        <translation>بزرگ‌نمایی</translation>
     </message>
     <message>
         <source>Ctrl++</source>
@@ -274,7 +274,7 @@
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>اندازهٔ واقعی</translation>
+        <translation>اندازهٔ راستین</translation>
     </message>
     <message>
         <source>Ctrl+1</source>
@@ -282,7 +282,7 @@
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>پرکردن عرض</translation>
+        <translation>پرکردن پهنا</translation>
     </message>
     <message>
         <source>Ctrl+2</source>
@@ -314,7 +314,7 @@
     </message>
     <message>
         <source>Undo</source>
-        <translation>پس‌گرد</translation>
+        <translation>چیدن</translation>
     </message>
     <message>
         <source>Ctrl+Z</source>
@@ -322,7 +322,7 @@
     </message>
     <message>
         <source>Redo</source>
-        <translation>پیش‌گرد</translation>
+        <translation>واچیدن</translation>
     </message>
     <message>
         <source>Ctrl+Shift+Z</source>
@@ -330,7 +330,7 @@
     </message>
     <message>
         <source>Cut</source>
-        <translation>بریدن</translation>
+        <translation>برداشتن</translation>
     </message>
     <message>
         <source>Ctrl+X</source>
@@ -338,7 +338,7 @@
     </message>
     <message>
         <source>Copy</source>
-        <translation>کپی</translation>
+        <translation>رونگاشت</translation>
     </message>
     <message>
         <source>Ctrl+C</source>
@@ -371,19 +371,19 @@
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>ترجیحات...</translation>
+        <translation>ساماندهی...</translation>
     </message>
     <message>
         <source>Stack</source>
-        <translation>پشته</translation>
+        <translation>پشته‌ای</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>کاشی‌بندی</translation>
+        <translation>کاشی‌کاری</translation>
     </message>
     <message>
         <source>Go to Source</source>
-        <translation>برو به منبع</translation>
+        <translation>برو به سرچشمه</translation>
     </message>
     <message>
         <source>Ctrl+&apos;</source>
@@ -399,7 +399,7 @@
     </message>
     <message>
         <source>Full Screen</source>
-        <translation>صفحه‌گستر</translation>
+        <translation>همهٔ برگه</translation>
     </message>
     <message>
         <source>Ctrl+Shift+F</source>
@@ -415,11 +415,11 @@
     </message>
     <message>
         <source>Select Text</source>
-        <translation>انتخاب متن</translation>
+        <translation>گزیدن متن</translation>
     </message>
     <message>
         <source>Select Image</source>
-        <translation>انتخاب تصویر</translation>
+        <translation>گزیدن فرتور</translation>
     </message>
     <message>
         <source>Go to TeXworks home page</source>
@@ -427,7 +427,7 @@
     </message>
     <message>
         <source>Email to the mailing list</source>
-        <translation>ایمیل به لیست ایمیل</translation>
+        <translation>رایانامه به لیست رایانامه</translation>
     </message>
     <message>
         <source>Side by Side</source>
@@ -435,15 +435,15 @@
     </message>
     <message>
         <source>Place on Left</source>
-        <translation>قراردادن در چپ</translation>
+        <translation>گذاشتن در چپ</translation>
     </message>
     <message>
         <source>Place on Right</source>
-        <translation>قراردادن در راست</translation>
+        <translation>گذاشتن در راست</translation>
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation>خروج از تک‌ورکس</translation>
+        <translation>بیرون رفتن از تک‌ورکس</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
@@ -499,29 +499,29 @@
     </message>
     <message>
         <source>Abort typesetting</source>
-        <translation>لغو حروف‌چینی</translation>
+        <translation>کنسل حروف‌چینی</translation>
     </message>
     <message>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
-        <translation>به دلیل مشکلات تکنیکی، متأسفانه این ویراست از %1 قادر به چاپ پی‌دی‌اف نیست.
+        <translation>به سبب دشواریهای تکنیکی، با افسوس این ویراست از %1 توان چاپ پی‌دی‌اف را ندارد.
 </translation>
     </message>
     <message>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
-        <translation>برای چاپ، آیا می‌خواهید پرونده را در نمایشگر پیش‌فرض باز کنید؟</translation>
+        <translation>برای چاپ، آیا می‌خواهید پرونده را در نمایشگر پیش‌نشان بگشایید؟</translation>
     </message>
     <message>
         <source> (remember to close it again to avoid access problems)</source>
-        <translation>(به یاد داشته باشید که آن را برای عدم مشکلات دسترسی ببندید)</translation>
+        <translation>(به یاد داشته باشید که آن را برای جلوگیری از دشواریهای دسترسی ببندید)</translation>
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation>تنظیمات و منابع...</translation>
+        <translation>ساماندهی و سرچشمه‌ها...</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation>پاک‌‌کردن پرونده‌های اخیر</translation>
+        <translation>پاک کردن پروندههای واپسین</translation>
     </message>
 </context>
 <context>
@@ -532,15 +532,15 @@
     </message>
     <message>
         <source>No recent search strings</source>
-        <translation>فاقد رشتهٔ جستجوی اخیر</translation>
+        <translation>بدون رشتهٔ جستجوی واپسین</translation>
     </message>
     <message>
         <source>Find in PDF</source>
-        <translation>در پی‌دی‌اف پیدا کن</translation>
+        <translation>در پی‌دی‌اف بیاب</translation>
     </message>
     <message>
         <source>Find:</source>
-        <translation>پیدا کن:</translation>
+        <translation>بیاب:</translation>
     </message>
     <message>
         <source>&amp;Wrap around</source>
@@ -548,19 +548,19 @@
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>پیدا کن &amp;عقب‌گرد</translation>
+        <translation>بیاب &amp;پسین</translation>
     </message>
     <message>
         <source>Find &amp;all occurrences</source>
-        <translation>پیدا کن &amp;همهٔ موارد</translation>
+        <translation>بیاب &amp;همهٔ نمونه‌ها</translation>
     </message>
     <message>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;حساس به بزرگ و کوچکی حروف</translation>
+        <translation>&amp;حساس به بزرگ و کوچکی واج</translation>
     </message>
     <message>
         <source>&amp;Sync to source</source>
-        <translation>هم&amp;گام به منبع</translation>
+        <translation>هم&amp;گام به سرچشمه</translation>
     </message>
 </context>
 <context>
@@ -571,11 +571,11 @@
     </message>
     <message>
         <source>Type</source>
-        <translation>نوع</translation>
+        <translation>گونه</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>زیرمجموعه</translation>
+        <translation>زیرگروه</translation>
     </message>
     <message>
         <source>File</source>
@@ -606,18 +606,18 @@
     <name>PDFInfoDock</name>
     <message>
         <source>PDF Info</source>
-        <translation>اطلاعات پی‌دی‌اف</translation>
+        <translation>دانستنی‌های پی‌دی‌اف</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
         <source>No TOC</source>
-        <translation>فاقد فهرست</translation>
+        <translation>بدون سیاهه</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation>فهرست</translation>
+        <translation>سیاهه</translation>
     </message>
 </context>
 <context>
@@ -632,11 +632,11 @@
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>اندازهٔ واقعی</translation>
+        <translation>اندازهٔ درست</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>پرکردن عرض</translation>
+        <translation>پرکردن پهنا</translation>
     </message>
     <message>
         <source>Fit to Window</source>
@@ -644,7 +644,7 @@
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation>جهش به کد</translation>
+        <translation>پرش به کد</translation>
     </message>
     <message>
         <source>Go to Page</source>
@@ -652,14 +652,14 @@
     </message>
     <message>
         <source>Page number:</source>
-        <translation>شمارهٔ صفحه:</translation>
+        <translation>شمارهٔ برگه:</translation>
     </message>
 </context>
 <context>
     <name>PrefsDialog</name>
     <message>
         <source>Choose Directory</source>
-        <translation>انتخاب پوشه</translation>
+        <translation>گزیدن پوشه</translation>
     </message>
     <message>
         <source>New Tool</source>
@@ -667,7 +667,7 @@
     </message>
     <message>
         <source>System default [%1]</source>
-        <translation>پیش‌فرض سیستم [%1]</translation>
+        <translation>پیش‌نشان سیستم [%1]</translation>
     </message>
     <message>
         <source>None</source>
@@ -675,15 +675,15 @@
     </message>
     <message>
         <source>TeXworks Preferences</source>
-        <translation>ترجیحات تک‌ورکس</translation>
+        <translation>ساماندهی تک‌ورکس</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>عمومی</translation>
+        <translation>همگانی</translation>
     </message>
     <message>
         <source>Toolbar buttons</source>
-        <translation type="obsolete">کلیدهای میلهٔ ابزار</translation>
+        <translation type="obsolete">کلیدهای نوارابزار</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -699,19 +699,19 @@
     </message>
     <message>
         <source>Show text as well as icons</source>
-        <translation>نمایش متن همراه با آیکون‌ها</translation>
+        <translation>نمایش نوشته همراه با آیکون‌ها</translation>
     </message>
     <message>
         <source>When launched, show</source>
-        <translation>به‌محض اجرا، نمایش بده</translation>
+        <translation>زمان اجرا، نمایش بده</translation>
     </message>
     <message>
         <source>New blank document</source>
-        <translation>نوشتار خالی تازه</translation>
+        <translation>نوشتار تهی تازه</translation>
     </message>
     <message>
         <source>Template selection dialog</source>
-        <translation>الگوی گفتگوی انتخاب</translation>
+        <translation>الگوی گفتگوی گزینش</translation>
     </message>
     <message>
         <source>File Open dialog</source>
@@ -719,7 +719,7 @@
     </message>
     <message>
         <source>Interface locale:</source>
-        <translation type="obsolete">شمایل محلی:</translation>
+        <translation type="obsolete">شمایل بومی:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -727,7 +727,7 @@
     </message>
     <message>
         <source>Editor defaults</source>
-        <translation>پیش‌فرض ویرایشگر</translation>
+        <translation>پیش‌نشانهای ویرایشگر</translation>
     </message>
     <message>
         <source> pt</source>
@@ -735,19 +735,19 @@
     </message>
     <message>
         <source>Tab width:</source>
-        <translation>عرض اتیکت:</translation>
+        <translation>پهنای تب:</translation>
     </message>
     <message>
         <source>Line numbers</source>
-        <translation>شمارهٔ خط‌ها</translation>
+        <translation>شمارهٔ رج‌ها</translation>
     </message>
     <message>
         <source>Wrap lines</source>
-        <translation>بسته‌بندی خط‌ها</translation>
+        <translation>بسته‌بندی رج‌ها</translation>
     </message>
     <message>
         <source>Syntax coloring:</source>
-        <translation>رنگ‌آمیزی  نحوی:</translation>
+        <translation>رنگ‌آمیزی  دستوری:</translation>
     </message>
     <message>
         <source>Auto-Indent mode:</source>
@@ -755,7 +755,7 @@
     </message>
     <message>
         <source>Spell-check language:</source>
-        <translation>زبان غلط‌گیر:</translation>
+        <translation>زبان غلت‌گیر:</translation>
     </message>
     <message>
         <source>Encoding:</source>
@@ -763,11 +763,11 @@
     </message>
     <message>
         <source>Global editor options</source>
-        <translation>انتخاب‌های عمومی ویرایشگر</translation>
+        <translation>گزینه‌های سراسری ویرایشگر</translation>
     </message>
     <message>
         <source>Highlight current line</source>
-        <translation>پررنگ کردن خط جاری</translation>
+        <translation>پررنگ کردن رج کنونی</translation>
     </message>
     <message>
         <source>Preview</source>
@@ -775,15 +775,15 @@
     </message>
     <message>
         <source>Default scaling</source>
-        <translation>مقیاس پیش‌فرض</translation>
+        <translation>سنجهٔ پیش‌فرض</translation>
     </message>
     <message>
         <source>Actual size</source>
-        <translation>اندازهٔ واقعی</translation>
+        <translation>اندازهٔ درست</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>پرکردن عرض</translation>
+        <translation>پرکردن پهنا</translation>
     </message>
     <message>
         <source>Fit to Window</source>
@@ -791,7 +791,7 @@
     </message>
     <message>
         <source>Fixed scale:</source>
-        <translation>مقیاس ثابت:</translation>
+        <translation>سنجهٔ استوار:</translation>
     </message>
     <message>
         <source> %</source>
@@ -807,7 +807,7 @@
     </message>
     <message>
         <source>Medium</source>
-        <translation>متوسط</translation>
+        <translation>میانه</translation>
     </message>
     <message>
         <source>Large</source>
@@ -819,7 +819,7 @@
     </message>
     <message>
         <source>Screen resolution:</source>
-        <translation>دقت صفحه:</translation>
+        <translation>دقت پرده:</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -831,7 +831,7 @@
     </message>
     <message>
         <source>Paths for TeX and related programs</source>
-        <translation>مسیر تک و برنامه‌های مرتبط</translation>
+        <translation>مسیر تک و برنامه‌های درپیوند</translation>
     </message>
     <message>
         <source>Processing tools</source>
@@ -843,7 +843,7 @@
     </message>
     <message>
         <source>Default:</source>
-        <translation>پیش‌فرض:</translation>
+        <translation>پیش‌نشان:</translation>
     </message>
     <message>
         <source>Auto-hide output panel unless errors occur</source>
@@ -855,7 +855,7 @@
     </message>
     <message>
         <source>Smart Quotes mode:</source>
-        <translation>حالت نقل قول هوشمند:</translation>
+        <translation>حالت بازگویی هوشمند:</translation>
     </message>
     <message>
         <source>Scripts</source>
@@ -867,19 +867,19 @@
     </message>
     <message>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
-        <translation>اجازهٔ خواندن تمام پرونده‌ها به سندها (سندها و پرونده‌های عادی همیشه قابل خواندن هستند)</translation>
+        <translation>پروانهٔ خواندن تمام پرونده‌ها به سندها (سندها و پرونده‌های ساده همیشه خواندنی هستند)</translation>
     </message>
     <message>
         <source>Allow scripts to write files</source>
-        <translation>اجازهٔ نوشتن فایل‌ها به سندها</translation>
+        <translation>پروانهٔ نوشتن فایل‌ها به سندها</translation>
     </message>
     <message>
         <source>Allow scripts to run system commands</source>
-        <translation>اجازهٔ اجرای فرمان‌های سیستم به سندها</translation>
+        <translation>پروانهٔ اجرای فرمان‌های سیستم به سندها</translation>
     </message>
     <message>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation>فعال‌سازی افزونهٔ زبان‌های سند (ممکن است محدودیت‌های دیگری بر رفتار سندها اعمال کند)</translation>
+        <translation>پویاسازی افزونهٔ زبان‌های سند (شاید تنگناهایی بر رفتار سندها انجام دهد)</translation>
     </message>
     <message>
         <source>Debugging</source>
@@ -887,7 +887,7 @@
     </message>
     <message>
         <source>Enable QtScript debugger</source>
-        <translation>فعال‌سازی اشکال‌زایی QtScript</translation>
+        <translation>پویاسازی اشکال‌زایی QtScript</translation>
     </message>
     <message>
         <source>Hide output panel:</source>
@@ -906,39 +906,25 @@
     <message>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
-        <translation>در صورت موفقیت</translation>
+        <translation>در صورت کامیابی</translation>
     </message>
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation>&lt;em&gt;توجه:&lt;/em&gt; اینها تنظیمات پیش‌فرض هستند. تغییر آنها بر پنجره‌های باز اثر نمی‌گذارد.  برای دستیابی، گزینهٔ متناظر را از منوی &amp;quot;شمایل&amp;quot; انتخاب کنید.</translation>
+        <translation>&lt;em&gt;هشدار:&lt;/em&gt; اینها سامانه‌های پیش‌نشان هستند. دگرگونی آنها بر پنجره‌های باز نشان نمی‌گذارد.  برای دستیابی، گزینهٔ همسان را از منوی &amp;quot;شمایل&amp;quot; برگزینید.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه بعد از حروفچینی پنل خروجی را پنهان نکن.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; بعد از حروفچینی موفقیت‌آمیز، پنل خروجی را پنهان کن: اما تنها زمانی که از پیش پنهان بوده باشد.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;در صورت موفقیت‌آمیز بودن:&lt;/strong&gt;پنل خروجی را بعد از حروفچینی موفقیت‌آمیز پنهان کن؛ مستقل از اینکه از قبل چگونه بوده است.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه پس از حروفچینی پنل خروجی را پنهان نکن.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; پس از حروفچینی پیروزمندانه پنل خروجی را پنهان کن: اما تنها زمانی که از پیش پنهان بوده باشد.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;در صورت پیروزمندانه بودن:&lt;/strong&gt;پنل خروجی را پس از حروفچینی پیروزمندانه پنهان کن؛ آزاد از اینکه از پیش چگونه بوده است.&lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Enable autocompletion</source>
-        <translation>پویا‌سازی تکمیل خودکار</translation>
-    </message>
-    <message>
-        <source>Hide console output:</source>
-        <translation>پنهان‌سازی پیشانهٔ خروجی:</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
-</source>
-        <translation>&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه پنل پیشانهٔ خروجی را بعد از حروف‌چینی پنهان نکن.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; پنل پیشانهٔ خروجی را پس از حروف‌چینی موفق پنهان کن، اما تنها زمانی که پیش از آن پنهان باشد.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;در صورت موفقیت:&lt;/strong&gt; پنل پیشانهٔ خروجی را پس از حروف‌چینی موفق بدون توجه به وضعیت قبلی، پنهان کن.&lt;/p&gt;
-</translation>
+        <translation>پویاسازی تکمیل خودکار</translation>
     </message>
     <message>
         <source>Interface</source>
@@ -950,11 +936,25 @@
     </message>
     <message>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">کلیدهای نوارابزار:</translation>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide console output:</source>
+        <translation type="unfinished">پنهان‌سازی پیشانهٔ خروجی:</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation type="unfinished">&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه پس از حروفچینی پنل خروجی را پنهان نکن.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; پس از حروفچینی پیروزمندانه پنل خروجی را پنهان کن: اما تنها زمانی که از پیش پنهان بوده باشد.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;در صورت پیروزمندانه بودن:&lt;/strong&gt;پنل خروجی را پس از حروفچینی پیروزمندانه پنهان کن؛ آزاد از اینکه از پیش چگونه بوده است.&lt;/p&gt;
+</translation>
     </message>
 </context>
 <context>
@@ -976,7 +976,7 @@
     </message>
     <message>
         <source>BibTeX databases (*.bib)</source>
-        <translation>پایگاه بیب‌تک (*.bib)</translation>
+        <translation>پایگاه داده‌های بیب‌تک (*.bib)</translation>
     </message>
     <message>
         <source>Style files (*.sty)</source>
@@ -984,11 +984,11 @@
     </message>
     <message>
         <source>Class files (*.cls)</source>
-        <translation>پرونده‌های طبقه (*.cls)</translation>
+        <translation>پرونده‌های کلاس (*.cls)</translation>
     </message>
     <message>
         <source>Documented macros (*.dtx)</source>
-        <translation>ماکروهای تشریح شده (*.dtx)</translation>
+        <translation>ماکروهای بازنموده (*.dtx)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
@@ -996,11 +996,11 @@
     </message>
     <message>
         <source>Text files (*.txt)</source>
-        <translation>پرونده‌های متنی (*.txt)</translation>
+        <translation>پرونده‌های نوشتاری (*.txt)</translation>
     </message>
     <message>
         <source>PDF documents (*.pdf)</source>
-        <translation>نوشتارها پی‌دی‌اف (*.pdf)</translation>
+        <translation>نوشتار پی‌دی‌اف (*.pdf)</translation>
     </message>
     <message>
         <source>All files</source>
@@ -1013,19 +1013,19 @@
     </message>
     <message>
         <source>Log files (*.log)</source>
-        <translation type="obsolete">پرونده‌های لاگ (*.log)</translation>
+        <translation type="obsolete">پروندههای دانستنیهای پردازش (*.log)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="obsolete">پرونده‌های کمکی (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+        <translation type="obsolete">پروندههای کمکی (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پرونده‌های لاگ (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پرونده‌های کمکی (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>
@@ -1040,19 +1040,19 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>لغو</translation>
+        <translation>کنسل</translation>
     </message>
     <message>
         <source>No recent search strings</source>
-        <translation>فاقد رشتهٔ جستجوی اخیر</translation>
+        <translation>بدون رشتهٔ جستجوی واپسین</translation>
     </message>
     <message>
         <source>No recent replacement strings</source>
-        <translation>فاقد رشتهٔ جایگزینی اخیر</translation>
+        <translation>بدون رشتهٔ جایگزینی واپسین</translation>
     </message>
     <message>
         <source>(invalid)</source>
-        <translation>(نامعتبر)</translation>
+        <translation>(بی‌ارزش)</translation>
     </message>
     <message>
         <source>Replace:</source>
@@ -1064,15 +1064,15 @@
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>&amp;بسته‌بندی واقعی</translation>
+        <translation>&amp;بسته‌بندی درست</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
-        <translation>پیدا کن &amp;عقب‌گرد</translation>
+        <translation>بیاب &amp;پیش‌گرد</translation>
     </message>
     <message>
         <source>Replace within &amp;selection</source>
-        <translation>جایگزینی با &amp;انتخاب</translation>
+        <translation>جایگزینی با &amp;گزیده</translation>
     </message>
     <message>
         <source>Replace in all &amp;open files</source>
@@ -1080,49 +1080,49 @@
     </message>
     <message>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;حساس به بزرگی و کوچکی حروف</translation>
+        <translation>&amp;حساس به بزرگی و کوچکی واج‌ها</translation>
     </message>
     <message>
         <source>W&amp;hole words</source>
-        <translation>ه&amp;مهٔ کلمات</translation>
+        <translation>ه&amp;مهٔ واژه‌ها</translation>
     </message>
     <message>
         <source>&amp;Regular expression</source>
-        <translation>عبارت م&amp;نظم</translation>
+        <translation>گزارهٔ &amp;سازمند</translation>
     </message>
 </context>
 <context>
     <name>ResourcesDialog</name>
     <message>
         <source>TeXworks Settings and Resources</source>
-        <translation>تنظیمات و منابع تک‌ورکس</translation>
+        <translation>ساماندهی‌ها و سرچشمه‌های تک‌ورکس</translation>
     </message>
     <message>
         <source>Storage Locations</source>
-        <translation>محل ذخیره</translation>
+        <translation>جایگاه ذخیره</translation>
     </message>
     <message>
         <source>Settings:</source>
-        <translation>تنظیمات:</translation>
+        <translation>ساماندهی‌ها:</translation>
     </message>
     <message>
         <source>Resources:</source>
-        <translation>منابع:</translation>
+        <translation>سرچشمه‌ها:</translation>
     </message>
     <message>
         <source>Registry (%1)</source>
-        <translation>دفتر ثبت (%1)</translation>
+        <translation>دفتر نگارش (%1)</translation>
     </message>
 </context>
 <context>
     <name>ScriptManager</name>
     <message>
         <source>Manage Scripts</source>
-        <translation>مدیریت سندها</translation>
+        <translation>ساماندهی سندها</translation>
     </message>
     <message>
         <source>Standalone Scripts</source>
-        <translation>سند مستقل</translation>
+        <translation>سند ناوابسته</translation>
     </message>
     <message>
         <source>Hook Scripts</source>
@@ -1134,11 +1134,11 @@
     </message>
     <message>
         <source>Context: </source>
-        <translation>متن:</translation>
+        <translation>نوشتار:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation>توضیح:</translation>
+        <translation>بازنمود:</translation>
     </message>
     <message>
         <source>Author: </source>
@@ -1177,7 +1177,7 @@
     </message>
     <message>
         <source>Line</source>
-        <translation>خط</translation>
+        <translation>رج</translation>
     </message>
     <message>
         <source>Start</source>
@@ -1189,15 +1189,15 @@
     </message>
     <message>
         <source>Text</source>
-        <translation>متن</translation>
+        <translation>نوشته</translation>
     </message>
     <message>
         <source>Search Results</source>
-        <translation>نتایج جستجو</translation>
+        <translation>دستاورد جستجو</translation>
     </message>
     <message>
         <source>Search Results - %1 (%2 found)</source>
-        <translation>نتایج جستجو - %1 (%2 پیدا شد)</translation>
+        <translation>دستاورد جستجو - %1 (%2 پیدا شد)</translation>
     </message>
 </context>
 <context>
@@ -1216,7 +1216,7 @@
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>ترجیحات...</translation>
+        <translation>ساماندهی‌ها...</translation>
     </message>
     <message>
         <source>Open...</source>
@@ -1224,7 +1224,7 @@
     </message>
     <message>
         <source>Open Recent</source>
-        <translation>گشودن اخیر</translation>
+        <translation>گشودن واپسین</translation>
     </message>
     <message>
         <source>Help</source>
@@ -1240,7 +1240,7 @@
     </message>
     <message>
         <source>About </source>
-        <translation>درباره</translation>
+        <translation>دربارهٔ</translation>
     </message>
     <message>
         <source>Ctrl+N</source>
@@ -1256,7 +1256,7 @@
     </message>
     <message>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;‏‫%1 محیطی ساده برای نگارش، حروف‌چینی، و نمایش نوشتارهای تک است. ‬&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;‏‫%1 فراگردی ساده برای نگارش، حروف‌چینی، و نمایش نوشتارهای تک است. ‬&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (r.%2)</source>
@@ -1272,31 +1272,31 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;کتابخانهٔ مترجم پی‌دی‌اف &lt;a href=&quot;http.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; توسط Kristian H&amp;#xF8;gsberg, Albert Astals Cid و دیگران.</translation>
+        <translation>&lt;br&gt;کتابخانهٔ برگردان پی‌دی‌اف &lt;a href=&quot;http.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; بدست Kristian H&amp;#xF8;gsberg, Albert Astals Cid و دیگران.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;غلط‌یاب&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; توسط L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+        <translation>&lt;br&gt;غلت‌گیر&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; بدست L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation>&lt;br&gt;مفاهیم و منابع از &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TexShop&lt;/a&gt; توسط Richard Koch.</translation>
+        <translation>&lt;br&gt;پنداره‌ها و سرچشمه‌ها از &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TexShop&lt;/a&gt; بدست Richard Koch.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation>&lt;br&gt;فناوری &lt;a href=&quot;http://itemac.sourceforge.net/SyncTex.html&quot;&gt;SyncTex&lt;/a&gt; توسط J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
+        <translation>&lt;br&gt;فناوری &lt;a href=&quot;http://itemac.sourceforge.net/SyncTex.html&quot;&gt;SyncTex&lt;/a&gt; بدست J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation>&lt;br&gt;بعضی از آیکون‌های استفاده شده از پروژهٔ &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt; هستند.</translation>
+        <translation>&lt;br&gt;پاره‌ای از آیکون‌های بکار گرفته شده از پروژهٔ &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt; هستند.</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation>&lt;p&gt; ارائهٔ ترجمهٔ ‫%1 از %2‏.</translation>
+        <translation>&lt;p&gt; پیشکش برگردان ‫%1 از %2‏.</translation>
     </message>
     <message>
         <source>[language name]</source>
-        <translation>فارسی</translation>
+        <translation>پارسی</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
@@ -1308,7 +1308,7 @@
     </message>
     <message>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation>ناتوان در دسترسی به &quot;%1&quot;؛ شاید مرورگر و نرم‌افزار کاربردی ایمیل شما به‌درستی تنظیم نشده است؟</translation>
+        <translation>ناتوان در دسترسی به &quot;%1&quot;؛ شاید مرورگر و نرم‌افزار کاربردی ایمیل شما به‌درستی ساماندهی نشده است؟</translation>
     </message>
     <message>
         <source>Unable to create window</source>
@@ -1316,7 +1316,7 @@
     </message>
     <message>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
-        <translation>چیزی به‌شدت غلط است، %1 نتوانست پنجرهٔ نوشتار را بسازد. نرم‌افزار کاربردی خارج می‌شود.</translation>
+        <translation>چیزی به‌شدت غلت است، %1 نتوانست پنجرهٔ نوشتار را بسازد. نرم‌افزار کاربردی بیرون می‌رود.</translation>
     </message>
     <message>
         <source>Open File</source>
@@ -1324,11 +1324,11 @@
     </message>
     <message>
         <source>No default binary directory found</source>
-        <translation>پوشهٔ باینری پیش‌فرض یافته نشد</translation>
+        <translation>پوشهٔ باینری پیش‌نشان یافته نشد</translation>
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>هیچ‌کدام از پوشه‌های معرفی‌شده برای برنامه‌های مرتبط با تک پیدا نمی‌شوند. &lt;p&gt;&lt;small&gt;برای اجرای هر پردازشی، باید پوشه‌های باینری توزیع تک خود را از گزینهٔ حروف‌چینی از گفتگوی ترجیحات تنظیم کنید.</translation>
+        <translation>هیچ‌کدام از پوشه‌های شناسایی شده برای برنامه‌های درپیوند با تک پیدا نمی‌شوند. &lt;p&gt;&lt;small&gt;برای کاربست هر پردازشی، باید پوشه‌های باینری پخشایش تک خود را از گزینهٔ حروف‌چینی از گفتگوی ساماندهی‌ها ساماندهی کنید.</translation>
     </message>
     <message>
         <source>Unable to find help file.</source>
@@ -1340,7 +1340,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;چهارچوب نرم‌افزاری Qt &lt;/a&gt; v%1 توسط  Qt Software, a division of Nokia Corporation.</translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;چهارچوب نرم‌افزاری کیوت &lt;/a&gt; v%1 بدست  Qt Software, a division of Nokia Corporation.</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1348,38 +1348,38 @@
     </message>
     <message>
         <source>Permission request</source>
-        <translation>درخواست اجازه</translation>
+        <translation>درخواست پروانه</translation>
     </message>
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
-        <translation>سند &quot;%1&quot;در حال گشودن پروندهٔ &quot;%2&quot; بدون اجازهٔ کافی است. آیا می‌خواهید پرونده را باز کنید؟</translation>
+        <translation>سند &quot;%1&quot;در حال گشودن پروندهٔ &quot;%2&quot; بدون پروانهٔ کافی است. آیا می‌خواهید پرونده را باز کنید؟</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation>&lt;p&gt; انتشار‌یافته تحت &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; اجازه‌نامهٔ عمومی گنو&lt;/a&gt;, نسخهٔ ۲ یا نسخه‌های تازه‌تر .</translation>
+        <translation>&lt;p&gt; پخش‌شده زیر &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; پروانهٔ سراسری گنو&lt;/a&gt;, ویراست ۲ یا ویراست‌های تازه‌تر .</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation>پاک‌کردن پرونده‌های اخیر</translation>
+        <translation>پاککردن پروندههای واپسین</translation>
     </message>
 </context>
 <context>
     <name>TWScriptAPI</name>
     <message>
         <source>Internal error</source>
-        <translation>خطای داخلی</translation>
+        <translation>خطای درونی</translation>
     </message>
     <message>
         <source>Failed to execute system command: %1</source>
-        <translation>ناتوان در اجرای فرمان سیستم: %1</translation>
+        <translation>ناتوان در کاربست فرمان سیستم: %1</translation>
     </message>
     <message>
         <source>Error executing system command: %1</source>
-        <translation>خطا در اجرای فرمان سیستم:%1</translation>
+        <translation>خطا در کاربست فرمان سیستم:%1</translation>
     </message>
     <message>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation>اجرای فرمان سیستم ناممکن است ( ترجیحات را ببینید)</translation>
+        <translation>کاربست فرمان سیستم ناممکن است ( ساماندهی‌ها را ببینید)</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be opened.</source>
@@ -1387,7 +1387,7 @@
     </message>
     <message>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation>خواندن تمامی پرونده‌ها ناممکن شده است (ترجیحات را ببینید)</translation>
+        <translation>خواندن همهٔ پرونده‌ها نشدنی است (ساماندهی‌ها را ببینید)</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
@@ -1402,19 +1402,19 @@
     </message>
     <message>
         <source>Script result</source>
-        <translation>نتیجه سند</translation>
+        <translation>دستاورد سند</translation>
     </message>
     <message>
         <source>unknown error</source>
-        <translation>خطای نامشخص</translation>
+        <translation>خطای ناشناخته</translation>
     </message>
     <message>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation>سند می‌تواند برای افزودن فرمان تازه به %1 ، یا گسترش و یا بهسازی آن مورد استفاده قرار گیرد.</translation>
+        <translation>سند می‌تواند برای افزودن فرمان تازه به %1 ، یا گسترش و یا بهسازی آن بکار برده شود.</translation>
     </message>
     <message>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation>برای اطلاعات بیشتر در مورد ایجاد و استفاده از سندها به %1 مراجعه شود &lt;/p&gt;</translation>
+        <translation>برای دانستن بیشتر در بارهٔ ساخت و استفاده از سندها به %1 بروید &lt;/p&gt;</translation>
     </message>
     <message>
         <source>Scripting languages currently available in this copy of %1:</source>
@@ -1433,7 +1433,7 @@
     </message>
     <message>
         <source>ERROR: exit code %1</source>
-        <translation>خطا: کد خروج %1</translation>
+        <translation>خطا: کد برون‌رفت %1</translation>
     </message>
 </context>
 <context>
@@ -1448,7 +1448,7 @@
     </message>
     <message>
         <source>Outline</source>
-        <translation>طرح کلی</translation>
+        <translation>چهارچوب سراسری</translation>
     </message>
     <message>
         <source>No tags</source>
@@ -1463,7 +1463,7 @@
     </message>
     <message>
         <source>Open Recent</source>
-        <translation>گشودن اخیر</translation>
+        <translation>گشودن واپسین</translation>
     </message>
     <message>
         <source>None</source>
@@ -1484,12 +1484,12 @@
     <message>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
-        <translation>نوشتار &quot;%1&quot; اصلاح شده است.
-آیا می‌خواهید تغییرات را ذخیره کنید؟</translation>
+        <translation>نوشتار &quot;%1&quot; بازسازی شده است.
+آیا می‌خواهید دگرگونی‌ها را ذخیره کنید؟</translation>
     </message>
     <message>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>آیا می‌خواهید تمام تغییرات نوشتار &quot;%1&quot; را دور بیندازید، و به آخرین نسخهٔ ذخیره‌شده برگردید؟</translation>
+        <translation>آیا می‌خواهید تمام دگرگونی‌های نوشتار &quot;%1&quot; را دور بیندازید، و به ویراست پایانی ذخیره‌شده برگردید؟</translation>
     </message>
     <message>
         <source>Revert</source>
@@ -1509,9 +1509,9 @@ Do you want to save your changes?</source>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
-        <translation>رمزینهٔ متنی %1 استفاده شده در %2 حمایت نمی‌شود.
+        <translation>رمزینهٔ نوشتاری %1 بکاربرده شد در %2 پشتیبانی نمی‌شود.
 
-به‌جای آن از %3 استفاده می‌شود، که ممکن است متن درست نمایش داده نشود.</translation>
+به‌جای آن %3 را بکار گیرید، که شاید متن درست نمایش داده نشود.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; loaded (%2)</source>
@@ -1519,21 +1519,21 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
     </message>
     <message>
         <source>File changed on disk</source>
-        <translation>پرونده روی دیسک تغییر کرد</translation>
+        <translation>پرونده روی دیسک دگرگون شد</translation>
     </message>
     <message>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
-        <translation>%1 توسط برنامهٔ دیگری اصلاح شده است.
+        <translation>%1 توسط برنامهٔ دیگری بازسازی شده است.
 
-آیا می‌خواهید تغییرات شما دور انداخته شود، و پرونده از دیسک فراخوانی شود؟</translation>
+آیا می‌خواهید دگرگونی‌های شما دور انداخته شود، و پرونده از دیسک فراخوانی شود؟</translation>
     </message>
     <message>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
-        <translation>%1 توسط برنامهٔ دیگری اصلاح شده است.
+        <translation>%1 بدست برنامهٔ دیگری بازسازی شده است.
 
 آیا می‌خواهید پرونده را در دیسک دوباره بنویسید؟</translation>
     </message>
@@ -1551,15 +1551,15 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
     </message>
     <message>
         <source>Text cannot be converted</source>
-        <translation>متن قابل تبدیل نیست</translation>
+        <translation>متن تبدیل شدنی نیست</translation>
     </message>
     <message>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
-        <translation>این نوشتار شامل کاراکترهایی است که در رمزینهٔ %1 قابل نمایش نیست.
+        <translation>این نوشار دارای واج‌هایی است که در رمزینهٔ %1 نمایش‌پذیر نیست.
 
-اگر ادامه دهید، این کاراکترها با مقادیر رمزینهٔ پیش‌فرض جایگزین می‌شوند. به‌جای این کار ممکن است بخواهید از رمزینهٔ دیگری مانند UTF-8 استفاده کنید تا اطلاعات از دست نروند.</translation>
+اگر ادامه دهید، این واج‌ها با اندازه‌های رمزینهٔ پیش‌نشان جایگزین می‌شوند. به‌جای این کار شاید بخواهید  رمزینهٔ دیگری مانند UTF-8 را بکار ببرید تا نوشته‌ها از دست نروند.</translation>
     </message>
     <message>
         <source>Cannot write file &quot;%1&quot;:
@@ -1585,19 +1585,19 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Line %1 of %2; col %3</source>
-        <translation>خط %1 از %2؛ ستون %3</translation>
+        <translation>رج %1 از %2؛ ستون %3</translation>
     </message>
     <message>
         <source>Go to Line</source>
-        <translation>برو به خط</translation>
+        <translation>برو به رج</translation>
     </message>
     <message>
         <source>Line number:</source>
-        <translation>شمارهٔ خط‌ها:</translation>
+        <translation>شمارهٔ رج‌ها:</translation>
     </message>
     <message>
         <source>Invalid regular expression</source>
-        <translation>عبارت منظم نامعتبر</translation>
+        <translation>گزارهٔ منظم بی‌ارزش</translation>
     </message>
     <message>
         <source>Not found</source>
@@ -1606,14 +1606,14 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message numerus="yes">
         <source>Found %n occurrence(s)</source>
         <translation>
-            <numerusform>%n% مورد پیدا شد
+            <numerusform>%n% نمونه پیدا شد
         </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n occurrence(s)</source>
         <translation>
-            <numerusform>%n مورد
+            <numerusform>%n نمونه
         </numerusform>
         </translation>
     </message>
@@ -1631,17 +1631,17 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message numerus="yes">
         <source>Replaced %n occurrence(s)</source>
         <translation>
-            <numerusform>جایگزینی %n مورد
+            <numerusform>جایگزینی %n نمونه
         </numerusform>
         </translation>
     </message>
     <message>
         <source>Cannot process unsaved document</source>
-        <translation>نوشتار ذخیره نشده قابل اجرا نیست</translation>
+        <translation>نوشتار ذخیره نشده پردازش‌پذیر نیست</translation>
     </message>
     <message>
         <source>Root document %1 is not readable</source>
-        <translation>نوشتار ریشهٔ %1 قابل خواندن نیست</translation>
+        <translation>نوشتار ریشهٔ %1 خوانش‌پذیر نیست</translation>
     </message>
     <message>
         <source>%1 is not properly configured</source>
@@ -1649,7 +1649,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Unable to execute %1</source>
-        <translation>ناتوان در اجرای %1</translation>
+        <translation>ناتوان در کاربست %1</translation>
     </message>
     <message>
         <source>The program &quot;%1&quot; was not found.</source>
@@ -1665,23 +1665,23 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Process interrupted by user</source>
-        <translation>پردازش توسط کابر متوقف شد</translation>
+        <translation>پردازش بدست کابر ایست شد</translation>
     </message>
     <message>
         <source>Hide Output Panel</source>
-        <translation type="obsolete">پنل خروجی را پنهان کن</translation>
+        <translation type="obsolete">پنل برونی را پنهان کن</translation>
     </message>
     <message>
         <source>Show Output Panel</source>
-        <translation type="obsolete">پنل خروجی را نمایش بده</translation>
+        <translation type="obsolete">پنل برونی را نمایان کن</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
-        <translation>تنظیم موتور به %1</translation>
+        <translation>ساماندهی موتور به %1</translation>
     </message>
     <message>
         <source>Engine &quot;%1&quot; not defined</source>
-        <translation>موتور &quot;%1&quot; تعریف نشده است</translation>
+        <translation>موتور &quot;%1&quot; شناسانده نشده است</translation>
     </message>
     <message>
         <source>No files found</source>
@@ -1689,7 +1689,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>No auxiliary files associated with this document at the moment.</source>
-        <translation>هیچ پروندهٔ کمکی مربوط با این نوشتار در حال حاضر پیدا نشد.</translation>
+        <translation>هیچ پروندهٔ کمکی درپیوند با این نوشتار اکنون پیدا نشد.</translation>
     </message>
     <message>
         <source>untitled.tex[*]</source>
@@ -1709,7 +1709,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Change Case</source>
-        <translation>تغییر بزرگی و کوچکی حروف</translation>
+        <translation>دگرش بزرگی و کوچکی واج‌ها</translation>
     </message>
     <message>
         <source>Typeset</source>
@@ -1734,15 +1734,15 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Auto-indent Mode</source>
-        <translation>حالت خودکار تورفتگی</translation>
+        <translation>گونهٔ تورفتگی خودکار</translation>
     </message>
     <message>
         <source>Syntax Coloring</source>
-        <translation>رنگ‌آمیزی  نحوی</translation>
+        <translation>رنگ‌آمیزی  دستوری</translation>
     </message>
     <message>
         <source>Smart Quotes</source>
-        <translation>نقل هوشمند</translation>
+        <translation>بازگویی هوشمند</translation>
     </message>
     <message>
         <source>Help</source>
@@ -1750,11 +1750,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Typeset Toolbar</source>
-        <translation>میلهٔ ابزار حروف‌چینی</translation>
+        <translation>نوارابزار حروف‌چینی</translation>
     </message>
     <message>
         <source>Edit Toolbar</source>
-        <translation>میلهٔ ابزار ویرایش</translation>
+        <translation>نوارابزار ویرایش</translation>
     </message>
     <message>
         <source>New</source>
@@ -1790,7 +1790,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Save As...</source>
-        <translation>ذخیره به‌عنوان...</translation>
+        <translation>ذخیره بانام...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+S</source>
@@ -1802,7 +1802,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Undo</source>
-        <translation>پس‌گرد</translation>
+        <translation>چیدن</translation>
     </message>
     <message>
         <source>Ctrl+Z</source>
@@ -1810,7 +1810,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Redo</source>
-        <translation>پیش‌گرد</translation>
+        <translation>واچیدن</translation>
     </message>
     <message>
         <source>Ctrl+Shift+Z</source>
@@ -1818,7 +1818,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Cut</source>
-        <translation>بریدن</translation>
+        <translation>برداشتن</translation>
     </message>
     <message>
         <source>Ctrl+X</source>
@@ -1826,7 +1826,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Copy</source>
-        <translation>کپی</translation>
+        <translation>رونگاشت</translation>
     </message>
     <message>
         <source>Ctrl+C</source>
@@ -1895,7 +1895,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Go to Line...</source>
-        <translation>برو به خط...</translation>
+        <translation>برو به رج...</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
@@ -1903,7 +1903,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Find Selection</source>
-        <translation>انتخاب شده را پیدا کن</translation>
+        <translation>گزیده را پیدا کن</translation>
     </message>
     <message>
         <source>Ctrl+H</source>
@@ -1911,7 +1911,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Select All</source>
-        <translation>انتخاب همه</translation>
+        <translation>گزینش همه</translation>
     </message>
     <message>
         <source>Ctrl+A</source>
@@ -1939,7 +1939,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Comment</source>
-        <translation>توضیح</translation>
+        <translation>بازنمود</translation>
     </message>
     <message>
         <source>Ctrl+Shift+]</source>
@@ -1947,7 +1947,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Uncomment</source>
-        <translation>خارج از توضیح</translation>
+        <translation>برون از بازنمود</translation>
     </message>
     <message>
         <source>Ctrl+Shift+[</source>
@@ -1955,7 +1955,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Wrap Lines</source>
-        <translation>بسته‌بندی خط‌ها</translation>
+        <translation>بسته‌بندی رج‌ها</translation>
     </message>
     <message>
         <source>About TeXworks...</source>
@@ -1963,15 +1963,15 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Stack</source>
-        <translation>پشته</translation>
+        <translation>پشته‌ای</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>صفحه‌گستر</translation>
+        <translation>کاشی‌کاری</translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>ترجیحات...</translation>
+        <translation>ساماندهی‌ها...</translation>
     </message>
     <message>
         <source>Go to Preview</source>
@@ -1995,7 +1995,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Show Selection</source>
-        <translation>نمایش انتخاب</translation>
+        <translation>نمایش برگزیده</translation>
     </message>
     <message>
         <source>Ctrl+=</source>
@@ -2003,15 +2003,15 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>ALL UPPERCASE</source>
-        <translation>همهٔ حروف بزرگ</translation>
+        <translation>همهٔ واج‌ها بزرگ</translation>
     </message>
     <message>
         <source>all lowercase</source>
-        <translation>همهٔ حروف کوچک</translation>
+        <translation>همهٔ واج‌ها کوچک</translation>
     </message>
     <message>
         <source>Balance Delimiters</source>
-        <translation>موازنهٔ حائل‌ها</translation>
+        <translation>همسنگی حائل‌ها</translation>
     </message>
     <message>
         <source>Ctrl+B</source>
@@ -2023,7 +2023,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Email to the mailing list</source>
-        <translation>ایمیل به لیست ایمیل</translation>
+        <translation>رایانامه به لیست رایانامه</translation>
     </message>
     <message>
         <source>Side by Side</source>
@@ -2031,11 +2031,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Place on Left</source>
-        <translation>قراردادن در چپ</translation>
+        <translation>گذاردن در چپ</translation>
     </message>
     <message>
         <source>Place on Right</source>
-        <translation>قراردادن در راست</translation>
+        <translation>گذاردن در راست</translation>
     </message>
     <message>
         <source>Replace Again</source>
@@ -2047,11 +2047,11 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Remove Aux Files...</source>
-        <translation>حذف پرونده‌های کمکی...</translation>
+        <translation>زدودن پرونده‌های کمکی...</translation>
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation>خروج از تک‌ورکس</translation>
+        <translation>برونرفت از تک‌ورکس</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
@@ -2059,19 +2059,19 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Toggle Case</source>
-        <translation>جابجایی بزرگی و کوچکی حروف</translation>
+        <translation>جابجایی بزرگی و کوچکی واج‌ها</translation>
     </message>
     <message>
         <source>Hard Wrap...</source>
-        <translation>بسته‌بندی واقعی...</translation>
+        <translation>بسته‌بندی درست...</translation>
     </message>
     <message>
         <source>Line Numbers</source>
-        <translation>شمارهٔ خط‌ها</translation>
+        <translation>شمارهٔ رج‌ها</translation>
     </message>
     <message>
         <source>Console output</source>
-        <translation>پیشانه خروجی</translation>
+        <translation>پیشانه برونی</translation>
     </message>
     <message>
         <source>Scripts</source>
@@ -2091,7 +2091,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Manage Scripts</source>
-        <translation>مدیریت سندها</translation>
+        <translation>ساماندهی سندها</translation>
     </message>
     <message>
         <source>Auto-Follow Focus</source>
@@ -2103,7 +2103,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Apply to Selection</source>
-        <translation>اعمال بر انتخاب شده</translation>
+        <translation>بکاربستن بر برگزیده</translation>
     </message>
     <message>
         <source>Save All</source>
@@ -2137,9 +2137,9 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
-        <translation>%1 توسط برنامهٔ دیگری دائماً تغییر می‌یابد.
+        <translation>%1 بدست برنامهٔ دیگری همواره دگرگون می‌شود.
 
-بعد از پایان پردازش، لطفاً از «پرونده &gt; تغییر به ذخیره شده»  به صورت دستی استفاده کنید.</translation>
+بعد از پایان پردازش، خواهشمندم از «پرونده &gt; بازگردانی به ذخیره شده»  به صورت دستی استفاده کنید.</translation>
     </message>
     <message>
         <source>Cannot write file &quot;%1&quot;:
@@ -2153,7 +2153,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     </message>
     <message>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
-        <translation>خطایی در هنگام نوشتن پرونده رخ داد. ممکن است بخواهید یک کپی از پرونده را در مکانی دیگر ذخیره کنید.</translation>
+        <translation>خطایی در هنگام نوشتن پرونده رخ داد. ممکن است بخواهید یک نسخه از پرونده را در جای دیگری ذخیره کنید.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved</source>
@@ -2161,78 +2161,79 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
     </message>
     <message>
         <source>Abort typesetting</source>
-        <translation>لغو حروف‌چینی</translation>
+        <translation>کنسل‌کردن حروف‌چینی</translation>
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation>تنظیمات و منابع...</translation>
+        <translation>ساماندهی‌ها و سرچشمه‌ها...</translation>
     </message>
     <message>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
-        <translation>بازخوانی بر اساس رمزینهٔ انتخاب شده</translation>
+        <translation>بازخوانی بر اساس رمزینهٔ برگزیده</translation>
     </message>
     <message>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation> بازخوانی پروندهٔ جاری با رمزینهٔ انتخاب‌شده از این منو.
+        <translation> بازخوانی پروندهٔ کنونی با رمزینهٔ برگزیده از این منو.
 
- رمزینهٔ انتخاب‌شده جایگزین رمزینهٔ پیش‌فرض شد  &quot;%!TEX encoding&quot; خطوط.</translation>
+ رمزینهٔ برگزیده جایگزین رمزینهٔ پیش‌نشان شد  &quot;%!TEX encoding&quot; رج‌های.</translation>
     </message>
     <message>
         <source>Unsaved changes</source>
-        <translation>تغییرات ذخیره‌نشده</translation>
+        <translation>دگرگونی‌های ذخیره‌نشده</translation>
     </message>
     <message>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
-        <translation>پرونده‌ای را که می‌خواهید بازخوانی کنید دارای تغییرات ذخیره نشده است.
+        <translation>پرونده‌ای را که می‌خواهید بازخوانی کنید دارای دگرگونی‌های ذخیره نشده است.
 
-آیا می‌خواهید تغییرات جاری را دوربریزید، و پرونده را با رمزینهٔ %1 از دیسک بازخوانی کنید؟</translation>
+آیا می‌خواهید دگرگونی‌های کنونی را دوربریزید، و پرونده را با رمزینهٔ %1 از دیسک بازخوانی کنید؟</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation>پاک‌کردن پرونده‌های اخیر</translation>
+        <translation>پاک‌کردن پرونده‌های واپسین</translation>
     </message>
     <message>
         <source>Abort typesetting?</source>
-        <translation>نادیده‌گرفتن حروف‌چینی؟</translation>
+        <translation>کنسل‌کردن حروف‌چینی؟</translation>
     </message>
     <message>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
-        <translation>یک فرایند حروف‌چینی هنوز در حال اجراست و قبل از بستن پنجره باید بایستد. آیا می‌خواهید آن را بایستانید؟</translation>
+        <translation>یک پردازش حروف‌چینی هنوز در حال کار است و پیش از بستن این پنجره بایدبایستد. 
+آیا می‌خواهید آن رابایستانید؟</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation>نیاز است که یک &lt;b&gt;توزیع تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو &lt;/a&gt; یا &lt;a href=&quot;http://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; روی سیستم شما نصب باشد.</translation>
+        <translation>نیاز به &lt;b&gt;TeX پخشایشی از تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو&lt;/a&gt; یا &lt;a href=&quot;http://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; دارید که بر سیستم شما نصب شده باشد تا بتوانید نوشتهٔ خود را حروف‌چینی کنید. </translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation>نیاز است که یک &lt;b&gt;توزیع تک&lt;/b&gt; مانند &lt;&lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;مک‌تک&lt;/a&gt; روی سیستم شما نصب باشد.</translation>
+        <translation>نیاز به &lt;b&gt;TeX پخشایشی از تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو&lt;/a&gt; یا &lt;a href=&quot;http://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; دارید که بر سیستم شما نصب شده باشد تا بتوانید نوشتهٔ خود را حروف‌چینی کنید. </translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation>نیاز است که یک &lt;b&gt;توزیع تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو &lt;/a&gt; یا روی سیستم شما نصب باشد. روی بیشتر سیستم‌ها چنین توزیعی به صورت بستهٔ پیش‌پردازش‌شده وجود دارد.</translation>
+        <translation>نیاز به &lt;b&gt;TeX پخشایشی از تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو&lt;/a&gt; یا &lt;a href=&quot;http://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; دارید که بر سیستم شما نصب شده باشد تا بتوانید نوشتهٔ خود را حروف‌چینی کنید. بر بیشتر سیستم‌ها چنین پخشایشی از پیش نصب است.</translation>
     </message>
     <message>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation>وقتی که یک توزیع تک روی سیستم نصب شد ممکن است نیاز باشد که به تک‌ورکس بگویید کجا آن را بیابد در ویرایش -&gt; ترجیح‌ها -&gt; حروف‌چینی.</translation>
+        <translation>زمانی که پخشایشی از تک را نصب کردید، باید به تک‌ورکس بگویید که در کجا آن را بیابید در ویرایش-&gt;ساماندهی‌ها-&gt;حروف‌چینی.</translation>
     </message>
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation>تنظیمات ابزار و مسیر %1 را در گفتگوی ترجیحات بررسی کنید.</translation>
+        <translation>پیکربندی ابزار %1 و مسیر ساماندهی‌ها را در گفتگوی ساماندهی‌ها بررسی کنید. </translation>
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation>پنهان‌سازی پیشانهٔ خروجی</translation>
+        <translation type="unfinished">پنهان‌سازی پیشانهٔ خروجی</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation>پرسش چهارچوب</translation>
+        <translation type="unfinished">پرسش چهارچوب</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2241,7 +2242,7 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation>مشکلی در قالب‌بندی نوشتار هنگام نمایش در ویرایشگر پدید آمد. این مشکل به خاطر ایرادی در چهارچوب زمینهٔ QT پدید آمد و ممکن است در شرایطی باعث درهم شکستن تک‌ورکس شود. دلیل این مشکل خط‌های پنهان یا هم‌پوشان است. برای برطرف کردن مشکل لطفاً یکی از کارهای زیر را انجام دهید:
+        <translation type="unfinished">مشکلی در قالب‌بندی نوشتار هنگام نمایش در ویرایشگر پدید آمد. این مشکل به خاطر ایرادی در چهارچوب زمینهٔ QT پدید آمد و ممکن است در شرایطی باعث درهم شکستن تک‌ورکس شود. دلیل این مشکل خط‌های پنهان یا هم‌پوشان است. برای برطرف کردن مشکل لطفاً یکی از کارهای زیر را انجام دهید:
 -) رنگ‌آمیزی نحوی را پویا و ناپویا کنید
 -)نمایش شمارهٔ خط‌ها را پویا و ناپویا کنید
 -) پنجره را تغییر اندازه دهید
@@ -2250,25 +2251,25 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation>نمایش پیشانهٔ خروجی</translation>
+        <translation type="unfinished">نمایش پیشانهٔ خروجی</translation>
     </message>
 </context>
 <context>
     <name>TeXHighlighter</name>
     <message>
         <source>default</source>
-        <translation>پیش‌فرض</translation>
+        <translation>پیش‌نشان</translation>
     </message>
 </context>
 <context>
     <name>TemplateDialog</name>
     <message>
         <source>New File using Template</source>
-        <translation>پروندهٔ تازه با استفاده از الگو</translation>
+        <translation>پروندهٔ تازه از روی الگو</translation>
     </message>
     <message>
         <source>Choose template for the new document:</source>
-        <translation>الگوی پروندهٔ تازه را انتخاب کنید:</translation>
+        <translation>الگوی پروندهٔ تازه را برگزینید:</translation>
     </message>
 </context>
 <context>
@@ -2279,22 +2280,22 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Select program file</source>
-        <translation>انتخاب پروندهٔ برنامه</translation>
+        <translation>گزینش پروندهٔ برنامه</translation>
     </message>
     <message>
         <source>Invalid program</source>
-        <translation>برنامهٔ نامعتبر</translation>
+        <translation>برنامهٔ بی‌ارزش</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; is not executable!</source>
-        <translation>پروندهٔ &apos;%1&apos; اجرایی نیست!</translation>
+        <translation>پروندهٔ &apos;%1&apos; کاربستی نیست!</translation>
     </message>
 </context>
 <context>
     <name>ToolConfigDialog</name>
     <message>
         <source>Tool Configuration</source>
-        <translation>تنظیم ابزار</translation>
+        <translation>پیکربندی ابزار</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -2310,11 +2311,11 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>View PDF after running</source>
-        <translation>مشاهدهٔ پی‌دی‌اف پس از اجرا</translation>
+        <translation>مشاهدهٔ پی‌دی‌اف پس از کاربست</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation>ورق زدن (جستجو)...</translation>
+        <translation>بازبینی (جستجو)...</translation>
     </message>
 </context>
 </TS>

@@ -1178,22 +1178,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabniški vmesnik</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="52"/>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jezik:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="72"/>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gumbi v orodni vrstici:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="141"/>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupaj s TeX-ovo datoteko odpri pripadajoči PDF</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="500"/>
@@ -1226,7 +1226,8 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>POPRAVI</translatorcomment>
+        <translation type="unfinished">Log datoteke (*.log *.blg)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
@@ -1252,7 +1253,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="489"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomožne datoteke (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
