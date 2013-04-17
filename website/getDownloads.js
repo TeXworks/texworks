@@ -1,5 +1,5 @@
 var downloads = [];
-var macOSXCodenames = {'10.5': 'Leopard', '10.6': 'Snow Leopard', '10.7': 'Lion'};
+var macOSXCodenames = {'10.5': 'Leopard', '10.6': 'Snow Leopard', '10.7': 'Lion', '10.8' : 'Mountain Lion'};
 var defaultMacVersion = 10.6;
 
 function filter(haystack, key, value) {
