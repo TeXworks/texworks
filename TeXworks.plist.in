@@ -68,5 +68,9 @@
 	<string>@VER@ (r.@REV@)</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 </dict>
 </plist>
