@@ -905,7 +905,7 @@
     <message>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
-        <translation type="unfinished">成功時に隠す</translation>
+        <translation>成功時に隠す</translation>
     </message>
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
@@ -924,25 +924,25 @@
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished">&lt;p&gt;&lt;strong&gt;表示する:&lt;/strong&gt; タイプセット終了後、コンソールを閉じません&lt;/p&gt;
+        <translation>&lt;p&gt;&lt;strong&gt;表示する:&lt;/strong&gt; タイプセット終了後、コンソールを閉じません&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;自動で隠す:&lt;/strong&gt; 事前にコンソールが表示していなければ、タイプセット完了時にコンソールを閉じます&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;成功時に隠す:&lt;/strong&gt; 事前の状態を問わず、タイプセット完了時にコンソールを閉じます&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>インターフェース</translation>
     </message>
     <message>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>言語:</translation>
     </message>
     <message>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>ツールバーボタン:</translation>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>TeXファイルに対応するPDFファイルをプレビューする</translation>
     </message>
 </context>
 <context>
@@ -997,11 +997,11 @@
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>ログファイル (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>補助ファイル (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>
@@ -1551,7 +1551,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <source>Line %1 of %2; col %3</source>
-        <translation type="unfinished">全%2行の%1行目、%3文字目</translation>
+        <translation>全%2行の%1行目、%3文字目</translation>
     </message>
     <message>
         <source>Go to Line</source>
