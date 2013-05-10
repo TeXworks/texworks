@@ -74,7 +74,6 @@ dist-clean : clean
 dist : dist-html
 
 dist-html : index.html tidy.cfg manual.css
-	@rm -rf TeXworks-manual/
 	@mkdir -p ../../../html/TeXworks-manual/$(LANG)/images
 	@$(CP) images/*.png ../../../html/TeXworks-manual/$(LANG)/images
 	@$(CP) *.html *.css tw-help-title.txt ../../../html/TeXworks-manual/$(LANG)/

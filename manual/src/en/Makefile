@@ -28,7 +28,7 @@ clean :
 	rm -f *.aux *.log *.out *.idx *.ind *.ilg *.toc
 
 dist-clean : clean
-	rm manual.pdf
+	rm -f manual.pdf *.synctex *.synctex.gz
 
 recursive-clean : clean
 	@$(MAKE) -C html clean
@@ -40,7 +40,7 @@ dist : dist-pdf dist-html
 
 dist-pdf : manual.pdf
 	@mkdir -p ../../pdf/$(LANG)
-	@$(CP) manual.pdf ../../pdf/$(LANG)/TeXworks-manual.pdf
+	@$(CP) manual.pdf ../../pdf/$(LANG)/TeXworks-manual-$(LANG).pdf
 
 dist-html :
 	$(MAKE) -C html dist
