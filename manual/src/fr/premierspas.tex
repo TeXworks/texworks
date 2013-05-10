@@ -1,0 +1,200 @@
+% !TEX encoding = UTF8
+% !TEX program  = pdflatex
+% !TEX root     = manuel.tex
+% !TEX spellcheck = fr_FR
+
+\chapter{Prise en main}
+\label{chap:first-steps}
+
+Voyons maintenant comment réaliser un premier document: pour cela on devra le saisir dans la fenêtre d'édition de \Tw{}. \AllTeX{} \emph{n'étant pas} des logiciels WYSIWYG\index{WYSIWYG} \footnote{\emph{What You See Is What You Get}, c'est-à-dire \og ce que vous voyez est ce que vous obtenez\fg.}, vous devrez taper le texte et les instructions de mise en forme et vous ne verrez le résultat qu'après avoir \og composé\fg{} le texte. Cela paraît austère, mais on s'y fait très vite et on est amplement récompensé par le résultat.
+
+\section{Description sommaire de l'interface}\index{interface}
+
+\newsavebox{\inlineimg}
+\savebox{\inlineimg}{\includegraphics[scale=.6]{toolbar1}\hspace{1em}}
+
+Lorsqu'il s'ouvre l'éditeur présente une interface très dépouillée: une barre de titre, une barre de menu, deux petites barres d'outils\index{barre d'outils}, une grande zone (blanche) de saisie et, tout en bas, une barre d'état. Nous sommes dans la fenêtre \emph{source/éditeur}\index{source/éditeur}. Si vous avez déjà composé le document auparavant, le \path{.pdf} résultant sera affiché du côté droit dans la fenêtre de \emph{prévisualisation.}\index{prévisualisation}
+\vspace{10pt}
+
+%\noindent\includegraphics[scale=.6]{barreun}\hspace{10pt}
+\savebox{\inlineimg}{\includegraphics[scale=.6]{toolbar1}\hspace{.5em}}
+\begin{wrapfigure}[2]{l}{90pt}
+\vspace*{-1em}
+\usebox{\inlineimg}
+\end{wrapfigure}
+\noindent La première barre d'outils a un bouton pour lancer la composition et une liste déroulante pour choisir le format de composition (nous prendrons \verb|pdfLaTeX|.) Sachant que le raccourci clavier de la composition est \keysequence{Ctrl+T} (Mac OS X: \keysequence{Cmd+T}) et que l'on ne change pratiquement jamais de format, on pourrait même ne pas afficher cette barre d'outils. De plus le choix peut se faire par le menu \menu{Composition}\index{composition}.
+\vspace{10pt}
+
+%\noindent\includegraphics[scale=.6]{barredeux}\hspace{10pt}
+\savebox{\inlineimg}{\includegraphics[scale=.6]{toolbar2}\hspace{.5em}}
+%\begin{wrapfigure}[2]{l}{\widthof{\usebox{\inlineimg}}}
+\begin{wrapfigure}[2]{l}{160pt}
+\vspace*{-1em}
+\usebox{\inlineimg}
+\end{wrapfigure}
+\noindent La deuxième n'offre que des boutons classiques: Nouveau document, Ouvrir, Sauvegarder | Annuler, Répéter | Couper, Copier, Coller | Rechercher, Remplacer.
+
+\begin{center}
+\includegraphics[width=\textwidth]{interface-Tw}
+%\setlength{\unitlength}{1mm}\begin{picture}(0,0)
+%\put(-110,106.5){\colorbox{green}{\scriptsize Barre de titre}}
+%\put(-100,103.5){\colorbox{green}{\scriptsize Menu}}
+%\put(-92,101){\colorbox{green}{\scriptsize Barre d'outils}}
+%\put(-118,56){\colorbox{green}{\small Zone d'édition}}
+%\put(-42,56){\colorbox{green}{\small Prévisualisation}}
+%\put(-115,1){\colorbox{green}{\scriptsize Barre de statut}}
+%\end{picture}\setlength{\unitlength}{1pt}
+\end{center}
+
+Même s'ils ne ressemblent pas à de vrais boutons, les zones de la barre de statut peuvent être cliquées. Elles montrent la position actuelle (ligne ou page, respectivement, ouvrent une boîte de dialogue pour indiquer une ligne ou une page à atteindre en cliquant. Les autres zones ouvrent des menus contextuels où on peut changer quelques paramètres.
+
+
+\section{Créer un document}
+
+\subsection{Écrire le document}
+
+Comme exemple d'utilisation de \Tw, nous allons travailler avec \LaTeX\index{TeX@\TeX!\LaTeX}, mais tout autre système \TeX{} est possible. En particulier si vous avez besoin d'une police particulière\footnote{Vous ne pouvez utiliser que des fontes connues de \AllTeX, la plupart viennent dans des modules inclus dans votre distribution. Vous ne pouvez pas utiliser des fontes \og normales\fg, malheureusement. Pour plus d'information, voyez par exemple \url{http://faq.tug.org/} et \url{http://www.tug.dk/FontCatalogue/}.} -- imposée par un gabarit officiel, des alphabets non latins, etc. -- le système XeTeX est très puissant. \footnote{Voyez la bibliographie pour des pointeurs vers \XeTeX{} et \XeLaTeX.}
+
+Créons maintenant le premier document\index{document!création}! Entrez exactement le texte suivant (intentionnellement en français pour montrer quelques caractéristiques de \Tw/\LaTeX.)
+
+\begin{example}
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage[francais]{babel}
+
+\title{Premier document}
+\author{Un TeXnicien}
+\date{}
+
+\begin{document}
+\maketitle
+
+Voici un texte accentué en français!
+
+\end{document}
+\end{example}
+
+Il faut enregistrer le document, en le mettant dans un dossier, que nous créons à cet effet pour les tests (ex.: \path{<home>\TeXworks_exemples}); le nom du document, par exemple \path{premier.tex}, doit avoir une extension \path{.tex}\index{extension .tex}. 
+
+\subsection{Composer le document et le visionner}
+
+Ensuite lançons la composition\index{document!composition} \footnote{Nous utiliserons aussi les termes de compilation et compiler dans le même sens, en effet \LaTeX{} traite le fichier source pour produire le fichier de sortie \path{.pdf}, il y a donc compilation.} par un clic sur le bouton vert \raisebox{-2pt}{\includegraphics{iconTypeset}} ou par \keysequence{Ctrl+T}\index{Ctrl+T|texttt} (Mac OS X \keysequence{Cmd+T}).
+
+Un panneau s'ouvre entre la zone de saisie et la barre d'état, c'est le \emph{panneau de sortie\index{panneau de sortie}}, labellé \emph{Log\index{log}}; y apparaît tout ce que fait \LaTeX{} quand il travaille \footnote{Voyez page \pageref{fig:consoleOutput} pour une illustration de la base de la zone d'édition.}. Lorsque \LaTeX{} termine ce panneau disparaît (s'il n'y a pas d'erreur) et une nouvelle fenêtre apparaît à côté de la première; dans cette fenêtre, la \emph{Fenêtre de prévisualisation\index{fenêtre de prévisualisation}},\index{document!prévisualiser} on peut voir une page avec un titre \og Premier document\fg{} suivi d'un nom d'auteur \og Un TeXnicien\fg, tous les deux centrés, un texte \og Voici un texte accentué en français!\fg{} et en bas, au centre, un numéro de page.
+
+Remarquez que dans la vue le curseur de la souris représente une loupe! Si vous appuyez sur le bouton gauche de la souris vous pourrez voir le texte sous la loupe fortement agrandi (c'est une loupe non!); vous pouvez déplacer la loupe et ainsi inspecter le texte en détails.
+
+Pour retourner à la source, il suffit de cliquer dans la fenêtre de celui-ci ou mieux, vous verrez à l'usage, faire \keysequence{Ctrl+'} (Mac OS X \keysequence{Cmd+'}). Ce dernier raccourci est une bascule entre les deux fenêtres. Voyez aussi \ref{sec.synctex} pour vous déplacer automatiquement à un endroit sélectionné de la source vers la vue ou inversement. \footnote{Sous Windows on peut aussi utiliser \path{Alt+Tab} pour aller à la dernière fenêtre ouverte avant celle dans laquelle on est.} 
+
+\subsection{Le travail de \LaTeX}
+
+Analysons maintenant brièvement le résultat pour comprendre ce qu'à fait \LaTeX{} et pourquoi. Des introductions et des tutoriels complets peuvent être trouvés sur Internet; voir par exemple \emph{flshort} \footnote{Une courte(?) introduction à \LaTeXe.} qui doit se trouver dans la distribution \LaTeX{} installée ou que l'on peut télécharger du net: faire une recherche sur CTAN\index{CTAN} \footnote{\emph{Comprehensive TeX Archives Network}, c'est un réseau de dépots miroir du CTAN central, on y trouve tout sur \TeX{}, \LaTeX{} et autres: \url{http://www.ctan.org}.}.
+%%
+%%\noindent\raisebox{5pt}{\rule{50mm}{1pt}}
+%\vspace{5pt}
+
+Nous demandons d'abord de créer un document de la classe \emph{article}, il s'agit de la présentation globale du document. 
+
+Ensuite nous signalons que le document d'entrée (la source) est sauvegardé au format Unicode \emph{utf-8\index{encodage!utf-8}\index{utf-8|see{encodage, utf-8}}} et qu'il contiendra donc des caractères qui n'existent pas dans l'ASCII standard sans accents. Nous désirons aussi utiliser un encodage de sortie T1 (l'encodage moderne de \TeX); nous voulons également un document en \emph{A4} et non le format par défaut \emph{US letter} américain. Enfin nous précisons que la typographie doit suivre les règles françaises en utilisant le module \textbf{\textsf{babel}} \footnote{ Cela influence, par exemple, la césure automatique des mots ou la façon dont les caractères de ponctuation sont composés.}. Ces instructions générales de travail se font par l'intermédiaire de modules\index{module} (package\index{package|see {module}}, en anglais) appelés avec des options.
+
+Finalement nous terminons la partie déclarative du document, le \emph{préambule}\index{préambule}, en précisant le titre, l'auteur et la date du document, ici nous spécifions sans la date.
+
+Puis vient le corps de texte, entre \verb+\begin{document}+ et \verb+\end{document}+ (ce sont des commandes \LaTeX). C'est ici que se trouvera tout ce qui doit apparaître dans le document.
+
+Réalisons quelques petites expériences pour montrer l'effet de ces instructions. Pour cela nous mettrons un \% devant les instructions; cela a pour effet de mettre le \% et tout ce qui le suit en commentaire\index{commentaire}, cette partie sera dès lors ignorée par \LaTeX \footnote{Remarquons que, par défaut (ce qui peut être modifié), les commentaires sont colorés en rouge par \Tw, ce qui les met en évidence.}.
+
+Commentez la ligne \verb|\usepackage[utf8]{inputenc}|, et composez le fichier. Vous devriez voir maintenant que les caractères accentués sont maintenant mal affichés dans la prévisualisation. Si de plus, vous commentez aussi la ligne \verb|\usepackage[frenchb]{babel}|, {\LaTeX} donnera une erreur. Tapez seulement \Return pour continuer la composition.
+%Mettez successivement en commentaires les différentes lignes chargeant les modules (\verb+\usepackage[]{}+.) Lorsque vous mettrez en commentaire la demande du français, la composition s'arrêtera (pour \LaTeX{} il y a une erreur due au travail qui précède), tapez seulement \verb=[Enter]= pour continuer. Observez attentivement le résultat, par exemple avec la loupe la position du point d'exclamation par rapport au texte qui précède; voir aussi si tous les caractères sont présents, en particulier si vous commentez la ligne \verb|\usepackage[utf8]{inputenc}|.
+
+\needspace{3\baselineskip}
+Après ces expériences, modifions le texte de la façon suivante:
+\begin{example}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Petite démonstration}
+
+Voici un texte accentué en français!
+Suite du texte entré après avoir fait un retour chariot. Dans 
+l'éditeur on peut demander un passage à la ligne 
+du texte saisi; mais le numéro de ligne n'est incrémenté que par un
+retour chariot.
+
+Nouvelle ligne en passant une ligne dans la source: c'est la manière 
+d'indiquer un changement de paragraphe.
+
+\end{document}
+\end{example}
+Refaites les expériences précédentes et observez les modifications qui apparaissent.
+
+Remarquez que le fait de n'entrer qu'un retour charriot ne crée pas un nouveau paragraphe. En \LaTeX, on doit insérer une ligne vide pour cela. Dans \Tw{} les lignes de la source (à droite de la barre de statut) numérote les lignes créées par un retour charriot, pas les lignes qui passent à la lignes automatiquement.
+
+\section{Et s'il y a des erreurs!}\index{erreurs}
+
+Lors de la création d'un document pour la composition \LaTeX, on ne peut manquer de faire des erreurs: oubli d'une accolade fermante ou d'une commande \verb+\end{}+ de fermeture d'un environnement, utilisation de commandes mathématiques sans commande de passage au mode mathématique,\dots{} Lors de la compilation, s'il y a une erreur, \LaTeX{} s'arrête, en vous permettant de traiter ce problème. Cet arrêt est visible par l'arrêt du défilement des actions dans le panneau de sortie, un message d'erreur y est affiché et \LaTeX{} attend une instruction pour savoir ce qu'il doit faire.
+
+\begin{center}\label{fig:consoleOutput}
+\includegraphics[scale=.9]{consoleOutput}%[width=7cm]{tw-error}
+%\setlength{\unitlength}{1mm}\begin{picture}(0,0)
+%\put(-45,15){\colorbox{green}{\scriptsize Panneau de sortie}}
+%\put(-35,3){\colorbox{green}{\scriptsize Console}}
+%\put(-55,0.5){\colorbox{green}{\scriptsize Barre de statut}}
+%\end{picture}\setlength{\unitlength}{1pt}
+\end{center}
+
+On remarque le \emph{curseur de saisie\index{curseur de saisie}} dans une ligne entre le panneau de sortie et la barre de statut: la console de sortie ou barre console\index{barre console}\index{console de sortie}.
+
+Le message d'erreur est présenté sur plusieurs lignes, comme suit:
+\smallskip
+
+\begin{verbExample}
+! Undefined control sequence.
+l.168 \dots fermante ou d'une commande \veb
+                                         +\end{}+ de fermeture d'un\dots
+? 
+\end{verbExample}
+
+\LaTeX{} indique qu'il ne reconnaît pas un nom de commande (\texttt{Undefined control sequence}), suggère parfois de voir le manuel ou de taper \verb=h= (suivi de \Return) pour de l'aide, indique le numéro de ligne \footnote{Malheureusement, ce n'est pas toujours l'endroit de l'erreur dans la source. Ceci est discuté plus loin.} (ici 168) et l'endroit de l'erreur à la coupure de cette ligne (ici à \verb+\veb+). Enfin par le point d'interrogation indique qu'il attend une action de notre part.
+
+Il y a différentes actions possibles:
+\begin{itemize}
+\item taper \Return et demander de continuer comme si de rien n'était; parfois cela permet de terminer la compilation, mais il y aura une erreur dans le résultat;
+\item taper \verb+h+\Return pour demander de l'aide; cette aide n'est pas toujours plus claire que le message d'erreur, mais souvent cela donne une indication;
+\item taper \verb+i+\Return pour indiquer à \LaTeX{} que l'on va proposer un texte de remplacement, entrer celui-ci suivi de \Return, il sera utilisé pour la suite, avec reprise au niveau de l'erreur, mais il faudra faire la correction dans la source par après; \LaTeX{} ne fait a pas correction de la source au moment de la compilation;
+\item taper \verb=x=\Return pour interrompre l'exécution de la compilation. C'est la façon traditionnelle de \AllTeX{} pour interrompre une compilation.
+
+Remarquons qu'on peut arrêter la compilation en répétant l'action de lancement: le bouton vert de compilation s'est changé en bouton rouge avec une croix blanche \raisebox{-2pt}{\includegraphics[scale=.8]{iconAbortTypesetting}}. En cliquant sur ce bouton ou encore par le raccourci \keysequence{Ctrl+T} (Mac OS X \keysequence{Cmd+T}) la compilation \LaTeX{} est arrêtée. Le panneau de sortie reste affiché et on peut donc encore y voir le message d'erreur.
+\end{itemize}
+
+Il faut noter que parfois une erreur apparaît longtemps après sa position vraie. Par exemple ouvrir un environnement mais ne pas le refermer, \LaTeX{} ne s'en rend compte que lorsqu'il rencontre une autre fin d'environnement sans fermeture du premier. C'est souvent le \verb+\end{document}+ qui montre qu'un autre environnement n'a pas été fermé!
+
+Parfois, une erreur continue d'apparaître dans des compilations successives de \AllTeX{}, même après que le document aie été corrigé. Ceci peut survenir parce que \AllTeX{} crée un certain nombre de fichiers intermédiaires qui peuvent encore contenir le code original, fautif. Dès lors il est conseillé de supprimer ces fichiers après correction d'erreur. \Tw{} fournit une commande pour faciliter cela --- voir la section \ref{sec:remove-aux-files}.
+
+Après qu'une erreur a eu lieu, le panneau de sortie reste ouvert --- même après de compilations successives --- pour aider à la correction du problème (qui peut parfois demander plusieurs essais et redémarrage de \AllTeX. Une fois que tous les problèmes sont résolus, vous pouvez fermer le panneau de sortie par l'option de menu \menu{Fenêtre}\submenu\menu{Masquer la console de sortie}\index{console de sortie!masquer}. Par ailleurs, vous pouvez aussi configurer le panneau de sortie pour qu'il se ferme automatiquement dès que le processus de composition se termine avec succès en définissant \menu{Édition}\submenu\menu{Préférences\dots}\submenu\menu{Composition}\submenu\menu{Masquer la console de sortie:} à \emph{Après réussite}. Comme on peut facilement passer au dessus d'autres problèmes dans le document (par ex. des références non définies) cela empêche \AllTeX{} d'échouer, cette option n'est recommandée qu'aux utilisateurs expérimentés.
+
+Pour vous aider à trouver les erreurs (du moins si vous utilisez \LaTeX), \Tw{} est fourni avec un petit script qui extraie toutes les erreurs, mises en garde et autres messages intéressants de la console de sortie et vous les présente sous une sorme simple de tableau.
+
+\begin{center}\label{fig:errorParsingScript}
+\includegraphics[scale=.9]{errorParsingScript}
+\end{center}
+
+Dans ce cas, vous voyez une liste de messages de \LaTeX{}, avec les codes colorés et triés par sévérité. Le rouge montre les erreurs, le jaune les mises en garde et le bleu pour les boîtes sur- ou sous-remplies. À côté de la barre de couleur, vous voyez le nom du fichier où se trouve l'erreur. Ensuite, vous voyez le numéro de ligne (si le script a été capable de le déterminer), ainsi qu'un extrait de la console de sortie indiquant quelle était l'erreur. De plus le nom du fichier est un lien qui vous mènera au fichier (et si laligne a pu être déterminée, à la ligne) où \LaTeX{} a signalé l'erreur. En espérant que vous pourrez ainsi rapidement corriger les erreurs.
+
+Si vous n'utilisez pas \LaTeX, ce script pourra être de peu d'utilité, en particulier si la console de sortie est mise en forme de façon différente. Dans ce cas, vous pouvez simplement désactiver le script d'analyse des erreurs (voir la section \ref{sec:installing-scripts}).
+
+
+\section{Paramétrer (un peu) \Tw{} pour notre convenance}
+\index{TeXworks@\Tw!paramétrer}
+
+Si la police\index{editeur@éditeur!police} par défaut de l'éditeur ne nous convient pas, il est possible d'en changer par \menu{Format}\submenu\menu{Police\ldots} et choix dans la boîte de dialogue qui s'affiche. Ce changement sera cependant temporaire, on revient à la police par défaut si on ferme \Tw{} et qu'on l'ouvre à nouveau.
+
+À partir du menu \menu{Composition} ou par le menu déroulant de \menu{la barre d'outils Composition} on peut changer de format de compilation. De nouveau ce changement ne sera que provisoire.
+
+Pour obtenir un changement permanent, il faudra changer les \emph{préférences\index{préférences}} par le menu \menu{Édition}\submenu\menu{Préférences\ldots}, puis l'onglet \menu{Éditeur} pour la police et l'onglet \menu{Composition}, en bas, pour le format par défaut.
+

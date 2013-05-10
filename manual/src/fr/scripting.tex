@@ -1,0 +1,44 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manuel.tex
+% !TEX spellcheck = fr_FR
+
+\chapter{Usage avanc{\'e}: les Scripts}\index{scripts}
+
+\section{Introduction à la création de scripts}
+
+Tous les utilitaires et les fonctions décrits jusqu'ici sont par défaut incorporés à \Tw. Bien que certains peuvent être configurés ou adaptés jusqu'à un certain point, ils sont prévus pour répondre aux besoins communs à une grande audience. Cependant, le monde \TeX{} est très grand et diversifié. Afin de permettre aux utilisateurs de répondre à leurs besoins spéciaux -- de mettre du texte en gras jusqu'à remplir les exigences spéciales pour le prochain livre ou article scientifique que vous désirez écrire --, les fonctionnalités de base de \Tw{} peuvent être augmentées ou modifiées par l'utilisation de scripts.
+
+Les scripts sont de simples fichiers texte que vous pouvez ouvrir, lire, modifier dans tout éditeur de texte (y compris \Tw{} bien entendu). Ils sont écrits dans un langage de script particulier qui est essentiellement un langage de programmation. Au moment de l'écriture du manuel, \Tw{} supporte QrScript\footnote{Un langage de script similaire à JavaScript fourni par Qt.} (inclus dans \Tw) et Lua (avec un module additionnel).% et Python (avec un module additionnel). 
+Pour voir quels sont les langages de script disponibles sur votre système, utilisez l'option \menu{Scripts}\submenu\menu{Scripts pour TeXworks}\submenu\menu{À propos des Scripts\dots}.
+
+Écrire des scripts\index{scripts!écriture} va au-delà de la portée de ce manuel, mais est documenté ailleurs \footnote{Voir, par exemple, la page de Paul Norman \url{http://twscript.paulanorman.com/docs/index.html}.}. ici nous ne discuterons que leur installation et leur utilisation.
+
+\Tw{} distingue deux types de scripts: des scripts autonomes et des scripts liés. Le but premier des scripts autonomes est d'ajouter des fonctionnalités au programme. Si vous avez besoin d'une nouvelle fonction, comme mettre un texte sélectionné en gras, il faut choisir un script autonome. Ces scripts apparaissent comme une option dans le menu \menu{Scripts} et vous pouvez les exécuter simplement en cliquant sur cette option de menu (ou en utilisant un raccourci clavier, si le script en fournir un).
+
+Les scripts liés, par ailleurs, sont destinés à étendre des fonctions existantes de \Tw. Ils sont liés dans le code à des endroits spécifiques, par exemple après que le processus de composition soit terminé ou après qu'un fichier aie été chargé, et peuvent ajouter ou modifier ce que \Tw{} est en train de faire. UN exemple de cela serait un script qui analyserait un fichier que l'on vient de charger et définirait la langue de correction orthographique en se basant sur les commandes de \verb+babel+ trouvées dans le document. Dès lors, les scripts liés n'apparaissent pas dans le menu \menu{Scripts} mais sont au contraire chargés automatiquement lorsque la fonction de \Tw{} qu'ils modifient est utilisée.
+
+Vous pouvez facilement déterminer quel type de scripts vous avez en ouvrant le fichier de script. Près du début du fichier vous devriez trouver une ligne semblable à
+\begin{verbExample}
+// Type: standalone
+\end{verbExample}
+Comme alternative -- une fois que le script est installé --, vous pouvez utiliser la boîte de dialogue obtenue par \menu{Scripts}\submenu\menu{Scripts pour {\Tw}}\submenu\menu{Gérer les Scripts} pour afficher cette information/
+
+\section{Installer des Scripts}\index{scripts!installation}
+\label{sec:installing-scripts}
+
+Un mot de mise en garde: n'installez pas des scripts d'une source qui n'a pas votre confiance! Avant d'installer des scripts, vous devez être sûrs que le fichier que vous êtes sur le point d'installer fait bien ce que vous attendez. Les scripts sont très puissants -- ils peuvent faire pratiquement tout ce qu'un programme normal peut faire. Ainsi, bien qu'il y aie des précautions de sécurité inclues dans \Tw, vous devez cependant savoir que des scripts pourraient endommager votre ordinateur et causer (entre autres) des crashs et la perte de données. En particulier, les scripts peuvent lire, créer et modifier de façon arbitraire des fichiers sur votre disque dur.
+
+Cela étant dit, installer des scripts est très simple. Les fichiers de script sont généralement installés dans \path{<ressources>/scripts} ou un sous-dossier de celui-ci. Ces sous-dossiers apparaissent dans le menu \menu{Scripts}, de sorte qu'on peut les utiliser pour grouper et classer les scripts. Ceci est particulièrement utile si vous utilisez beaucoup de scripts différents qui rendraient autrement le menu \menu{Scripts} très confus. Une façon facile d'ouvrir le dossier \path{scripts} est l'option de menu \menu{Scripts}\submenu\menu{Scripts pour {\Tw}}\submenu\menu{Montrer le Dossier des Scripts}.
+
+Comme les scripts sont généralement de simples fichiers texte, ils ne nécessitent dès lors pas d'installateurs particuliers. Pour les installer, copiez ou décompressez (s'il s'agit d'une archive comme un fichier .zip) simplement le fichier script -- et tous les autres fichiers nécessaires que vous avez reçus -- dans \path{<ressources>/scripts} ou un sous-dossier de celui-ci.
+
+Après avoir installé un nouveau fichier script, il faut en informer \Tw{}. Il scrute automatiquement pour trouver tous les scripts au démarrage, vous pouvez donc fermer toutes les fenêtre de \Tw{} et relancer l'application. Une alternative est fournie l'option de menu \menu{Scripts}\submenu\menu{Scripts pour {\Tw}}\submenu\menu{Recharger la liste des Scripts} qui re-balayera tous les scripts sans interférer avec le programme.
+
+Vous pouvez aussi désactiver les scripts (ou tout un dossier de scripts) si vous le désirez. Ceci peut être utile si vous n'avez pas besoin de certains scripts pendant quelque temps et que vous ne voulez pas qu'ils encombrent le menu \menu{Scripts}, sans vouloir cependant tout-à-fait les supprimés. Ou si vous voulez empêcher des scripts liés de s'exécuter automatiquement. Pour faire cela, ouvrez le dialogue \og Gérer les Scripts\fg{} par \menu{Scripts}\submenu\menu{Scripts pour {\Tw}}\submenu\menu{Gérer les Scripts}\index{scripts!gestion}. Décochez simplement le script que vous voulez désactiver et il ne vous gênera plus.
+
+\section{Utiliser les Scripts}\index{scripts!utilisation}
+
+Utiliser un script est simple. Les scripts liés sont exécutés automatiquement -- vous ne devez rien faire. Les scripts autonomes apparaissent dans le menu \menu{Scripts} ou l'un de ses sous-menus. Si vous ne trouvez pas un script que vous cherchez ou si vous trouvez un script dont vous ne connaissez pas l'usage, vous pouvez utiliser le dialogue \og Gérer les Scripts\fg{} pour avoir des informations supplémentaires (comme l'auteur, une brève description, etc.) à son sujet.
+
+Certains scripts doivent faire tourner d'autres programmes sur votre système. Un exemple serait un script qui ouvre le pdf dans votre visualisateur par défaut, par exemple pour imprimer. Comme exécuter des commandes arbitraires peuvent dans certains cas être particulièrement dangereux, cette fonctionnalité est désactivée par défaut. Vous remarquerez cela lorsqu'une boîte de dialogue s'ouvrira subitement pour vous informer d'une erreur dans le script ou si un message similaire est affiché dans la barre de statut. Pour permettre aux scripts d'exécuter des commandes système, ouvrez la boîte de s préférences par \menu{Édition}\submenu\menu{Préférences\dots}. Là allez à l'onglet \og Scripts\fg{} et cochez l'option \og Autoriser les scripts à exécuter des commandes Système\fg. Si vous voulez de nouveau désactiver cette fonction, il suffit de la décocher. Notez que cette fonction est valide pour tous les scripts de la même façon -- il n'y a pas actuellement de moyen de n'autoriser l'exécution de commandes pour certains scripts seulement.
+

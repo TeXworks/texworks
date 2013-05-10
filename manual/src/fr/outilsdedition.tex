@@ -1,0 +1,200 @@
+% !TEX encoding = UTF8
+% !TEX program  = pdflatex
+% !TEX root     = manuel.tex
+% !TEX spellchack = fr_FR
+
+\chapter{Aller plus loin: outils d'{\'e}dition}
+
+Lorsque vous aurez \Tw{} bien en main, vous sentirez le besoin d'avoir des outils pour être plus efficace. Beaucoup d'outils existent dans \Tw{}. Nous les passons maintenant en revue.
+
+\section{Créer un document à partir d'un modèle}\index{modèle}
+
+Les documents que vous créerez ont le plus souvent les mêmes instructions dans le préambule, on charge les mêmes modules, on définit les mêmes caractéristiques de page, on définit aussi des en-tête et pied de page personnalisés. On peut utiliser les modèles prédéfinis ou créer ses propres modèles contenant tous ces pré-requis.
+
+Utilisez \menu{Fichier}\submenu\menu{Nouveau à partir d'un modèle\dots} ou \keysequence{Ctrl+Maj+N} (Mac OS X: \keysequence{Cmd+Maj+N}). Une boîte de dialogue s'ouvre pour permettre la sélection du modèle. Après sélection et \verb|OK| un document est créé et on peut commencer à travailler.
+
+Si on désire créer un modèle plus personnalisé, il suffit de créer ce document avec tout ce que l'on désire toujours y trouver (et en marquant éventuellement des emplacements à compléter) et de l'enregistrer comme fichier \path{.tex} dans le répertoire ressources de \Tw{} \path{<ressources>\templates} ou un sous-répertoire éventuel de celui-ci, si vous le désirez.
+
+\section{Créer un projet sur plusieurs fichiers sources}\index{projet}
+
+Lorsque la source d'un document devient longue, il est parfois difficile de se déplacer dans celle-ci et de la gérer. On a alors avantage à scinder le fichier source en plusieurs fichiers plus petits: un fichier sera le document principal, central, qui contiendra le préambule, l'environnement \verb|document|, ainsi que des appels aux \og sous-documents\fg \footnote{Appels par les commandes \verb|\input{}| ou \verb|\include{}|, voir les manuels de \LaTeX\ pour plus d'informations.}, qui pourraient contenir des chapitres séparés.
+
+Mais il y aura un problème si, étant dans un sous-document, on lance la composition/compilation; comme il n'y a pas de préambule ni d'environnement \verb|document| \LaTeX s'arrête immédiatement sur erreur.
+
+Pour signaler à \Tw{} qu'il doit compiler le document principal on ajoute au début du fichier sous-document l'instruction: \index{\verb+% "!TeX+!\verb+root+}
+
+\begin{verbExample}
+% !TeX root = chemin/fichier_principal.tex
+\end{verbExample}
+par exemple:
+\begin{verbExample}
+% !TeX root = manuel.tex
+\end{verbExample}
+%
+%\newcommand{\instex}{\texttt{\% !TeX}}
+%\verb|% !TeX root = chemin/au/fichier_principal.tex|\index{instruction \instex!root}
+%
+%\noindent par exemple:
+%
+%\verb|% !TeX root = manuel.tex|
+
+Si le fichier principal est dans le même dossier, son nom suffit, comme dans l'exem\-ple ci-dessus. Sinon vous devez fournir le chemin vers le document principal (de préférence relativement au sous-document en question, p.e. \path{../manuel.tex}). Remarquer aussi l'utilisation des barres obliques \og\verb|/|\fg{} et non des contre-obliques \og\verb|\|\fg{} utilisées par Windows pour séparer les niveaux de dossiers.
+
+De plus, avec MikTeX, l'appel au sous-document, \verb|\input{nom.tex}|, doit inclure l'extension \path{.tex} pour que SyncTeX fonctionne convenablement (voir la section~\ref{sec.synctex}).
+
+\section{Vérification d'orthographe}
+
+On peut demander de faire une vérification orthographique \index{verif. orthographe@vérif. automatique}automatique durant la frappe par \menu{Édition}\submenu\menu{Vérification orthographique}\submenu\menu{<choix de langue>}: par exemple fr-FR pour le français. Il est également possible de demander à \Tw{} de permettre une vérification orthographique par défaut par \menu{Édition}\submenu\menu{Préférences\dots}\submenu\menu{Éditeur}\submenu\menu{Langue de vérification orthographique:}.
+
+Lors de la frappe, s'il y a une erreur pour le correcteur, le mot est souligné par un liséré rouge. Un clic-droit sur le mot ouvre un menu contextuel dans lequel il y a des propositions de mots de remplacement. Cliquer sur le mot désiré pour effectuer le remplacement.
+
+Avant d'utiliser la vérification orthographique, il faut installer des dictionnaires\index{dictionnaires} dans le bon dossier de \Tw: \path{<ressources>\dictionaries}. Le dossier \path{<ressources>} est atteint facilement par  \menu{Aide}\submenu\menu{Paramètres et ressources\dots}
+
+\begin{OSLinux}
+Sous Linux, les dictionnaires sont généralement pris dans le dossier \path{/usr/share/myspell/dicts} -- le chemin par défaut pour les dictionnaires de myspell. Notez, cependant, que la personne qui gère votre module \Tw{} a pu changer cela pour tenir compte de l'organisation du système de fichiers de votre distribution Linux. Vous pouvez passer outre à cet organisation par défaut en définissant la variable d'environnement \verb+TW_DICPATH+ avant d'exécuter Tw.
+\end{OSLinux}
+
+On peut utiliser les dictionnaires disponibles pour OpenOffice.org et d'autres logiciels libres \footnote{voir par exemple à \url{http://extensions.services.openoffice.org/dictionary}. Les fichiers \path{.oxt} peuvent être renommés en \path{.zip} et ensuite décompressés pour trouver les fichiers nécessaires \path{.dic} et \path{.aff}.}; si par exemple vous avez Mozilla Thunderbird avec correction orthographique, vous pouvez copier les fichiers \path{.aff}\index{verif. orthographe@vérif. automatique!fichiers .aff} et \path{.dic}\index{verif. orthographe@vérif. automatique!fichiers .dic}. 
+
+\section{Rechercher et remplacer}
+\index{edition@édition!rechercher/remplacer}\index{rechercher/remplacer|see {édition}}
+
+%Autres outils classiques: la recherche et le remplacement de texte. \Tw{} dispose évidemment de ces possibilités avec quelques possibilités supplémentaires.
+
+\subsection{Les actions classiques}
+
+Les options du menu \menu{Recherche}--\menu{Rechercher\dots}, \menu{Chercher encore}, \menu{Remplacer\dots}, \menu{Remplacer encore} et \menu{Aller à la ligne\dots} (\keysequence{Ctrl+F}, \keysequence{Ctrl+G}, \keysequence{Ctrl+R}, \keysequence{Ctrl+Maj+R} et \keysequence{Ctrl+L} respectivement (Mac OS X: \keysequence{Cmd+F}, \keysequence{Cmd+G}, \keysequence{Cmd+R}, \keysequence{Cmd+Shift+R} et \keysequence{Cmd+L}) sont des actions classiques; la première et la troisième provoque l'ouverture d'une boîte de dialogue:
+
+\begin{center}
+\includegraphics[scale=.6]{rechremp}
+\end{center}
+
+On y trouve les options habituelles:  \emph{Recherche en boucle -- dans tout le document}\emph{Chercher vers le haut}, \emph{Chercher/Remplacer dans la sélection} ou \emph{Chercher toutes les occurences}. Sont aussi classiques les options \emph{Sensible à la casse} et \emph{Mots entiers}. Par défaut la recherche se fait vers le bas, la fin du texte.
+
+L'option \emph{Remplacer dans tous les fichiers ouverts} est une extension fréquente, mais pas aussi répandue que les autres; cela permet de faire, par exemple, des remplacements dans tous les fichiers d'un projet -- faites attention que ceci est très puissant.
+
+La dernière option, \emph{Expression régulière}, est expliquée ci-après.
+
+Dans le menu \menu{Recherche} il y a d'autres options:
+\begin{description}
+\item[Copier vers Rechercher] copie le texte sélectionné et l'envoye dans la zone de saisie \textsl{\textbf{Rechercher:}} de la boîte de dialogue Rechercher ou Remplacer; vous devez encore ouvrir les dialogues séparément;
+\item[Copier vers Remplacer] on peut faire de même avec un texte de remplacement vers la zone \textsl{\textbf{Par:}} de la boîte de dialogue \textsl{\textbf{Remplacer}};
+\item[Trouver la sélection] utilise la sélection pour une recherche sans ouvrir la boîte de dialogue  \textsl{\textbf{Recherche}} -- très rapide;
+\item[Montrer la sélection], nous ramène immédiatement au texte sélectionné -- pratique si on a sélectionné un texte et qu'on s'est déplacé dans le document par la glissière latérale,  pratique aussi si on ne fait pas passer les lignes à la ligne.
+\end{description}
+
+\subsection{Recherche/Remplacement avancé (les expressions régulières)}\index{expressions régulières}
+
+Les expressions régulières forment un outil très performant, mais qu'il convient de bien comprendre. Il faudrait un manuel uniquement pour cet apprentissage \footnote{De tels manuels existent sur internet.}, mais nous allons donner quelques idées d'utilisation. Voir aussi les expressions disponibles dans la section \ref{sec:regexp}.
+
+Supposons que nous ayons le texte suivant:
+\begin{verbExample}
+Voici du texte pour tester les expressions régulières 
+dans du texte accentué. 
+Voici du texte pour tester les expressions régulières dans 
+du texte accentué. 
+Voici du texte pour tester les expressions régulières. Voici 
+du texte pour tester les expressions régulières. 
+truc          truc
+tél.: 010-99-99-99
+tél.: 00.32.10.99.99.99
+tél.: 00/32-10/99.99.99
+\end{verbExample}
+Nous désirons d'une part 
+\begin{enumerate}
+\item séparer les différents paragraphes par une ligne vide après \og accentué\fg{} (pour créer des paragraphes dans \LaTeX) mais pas pour les trois numéros de téléphone; 
+\item remplacer les deux caractères tabulations (\textsl{tab})qui séparent les deux mots \og truc\fg{} du quatrième paragraphe chacun par trois espaces et, enfin;
+\item uniformiser les numéros de téléphones en remplaçant les divers caractères de ponctuation par des espaces. 
+\end{enumerate}
+
+Pour 1) dans la boîte de dialogue \textsl{\textbf{Remplacer}} (\keysequence{Ctrl+R}) pour \emph{Rechercher:} on mettra {\frq\verb+\n+\flq} \footnote{les {\frq\flq} servent ici à montrer les limites des chaînes entrées et ne doivent pas être eux-mêmes entrés.} et dans \emph{Par:} {\frq\verb+\n\n+\flq}. {\frq\verb+\n+\flq} est le code pour le passage à la ligne. On prendra soin d'avoir sélectionné les quatre premiers paragraphes et le début du cinquième (premier numéro de téléphone) et de cocher les cases \emph{Remplacer dans la sélection} et \emph{Expression régulière}; si on ne l'a pas fait et qu'une ligne vide a été insérée entre toutes les lignes, sélectionner les lignes de téléphone et faire l'opération inverse: replacer {\frq\verb+\n\n+\flq} par {\frq\verb+\n+\flq}. Donc nous avons remplacer un passage à la ligne par un double, en créant ainsi une ligne vide.
+
+Pour 2) on utilisera {\frq\verb+\t+\flq} et {\frq\verb*+   +\flq}\footnote{Il s'agit de trois espaces.}.  {\frq\verb+\t+\flq} est le code représentant une tabulation, un espace est entré tel quel (ici représenté par \verb*| |).
+
+Pour 3) ce sera: rechercher {\frq\verb+-|\.|/+\flq} et remplacer par {\frq\verb*+ +\flq}. Ici, {\frq\verb+|+\flq} fournit les diverses alternatives (\verb|-|, \verb|.|, or \verb|/|); pour le point nous avons utilisé {\frq\verb+\.+\flq} car le point seul est un code d'expression régulière qui représente n'importe quel caractère et nous aurions donc remplacer tous les caractères par un espace!! Nous devons dès lors utiliser un code pour avoir le point -- en mettant une contre-oblique devant le point, on précise que le point doit garder son sens propre plutôt que le sens spécial qu'il a généralement dans les expressinos régulières.
+
+Si on a des chaînes d'un même caractère mais de longueurs différentes (exemple 3, 4, 5 fois le caractère e) et qu'on veut tout ramener à une chaîne plus courte (exemple 2), on peut demander de remplacer la chaîne {\frq\verb+e{3,5}+\flq} par {\frq\verb+ee+\flq}.
+
+Si on veut insérer devant une série de paragraphes séparés ou non par une ligne vide une même chaîne, par exemple {\frq\verb*+\noindent +\flq} ou {\frq\verb*+\item +\flq}, on peut remplacer {\frq\verb+\n\n+\flq} ou {\frq\verb+\n+\flq} par {\frq\verb*+\n\n\\noindent +\flq} ou {\frq\verb*+\n\\noindent +\flq}. Attention, on a doublé le \verb|\| devant \verb|noindent| pour en avoir un (\verb|\noindent|), parce que \verb|\| est un caractère d'échapement dans les expressions régulièrs (nous l'avons rencontré auparavant dans l'expression \verb|\.|)!
+
+Si cela avait un sens, nous pourrions remplacer toutes les lettres comprises entre \og a\fg{} et \og m\fg{} par \og \$\fg{} en utilisant {\frq\verb+[a-m]+\flq} et {\frq\verb+$+\flq}.
+
+\section{Autres outils d'édition et de recherche d'erreur}
+\index{edition@édition!outils}
+
+\subsection{Outils standard}
+
+Il est toujours possible d'annuler\index{edition@édition!annuler} une action non-désirée par \menu{Édition}\submenu\menu{Annuler} ou \keysequence{Ctrl+Z} (Mac OS X: \keysequence{Cmd+Z}); on peut ainsi annuler à reculons! L'opération inverse, annuler l'annulation ou refaire\index{edition@édition!refaire}, s'obtient par \menu{Édition}\submenu\menu{Répéter/refaire} ou \keysequence{Ctrl+Maj+Z} (Mac OS X \keysequence{Cmd+Maj+Z}.) \footnote{\keysequence{Ctrl+Y} et \keysequence{Alt+Maj+Backspace} fonctionnent aussi sous Windows. \keysequence{Cmd+Y} fonctionne aussi sur Mac OS X.} 
+
+\Tw{} dispose aussi des outils classiques d'édition comme le presse papier; on peut donc sélectionner, couper/copier puis coller une partie de texte.
+
+On peut sélectionner à la souris en \og glissant\fg{} sur le texte à sélectionner, et on peut aussi \og double cliquer\fg{} pour sélectionner un mot. Au clavier il suffit de se déplacer en maintenant la touche \keysequence{Maj} enfoncée; on utilisera les touches de direction seules avec \keysequence{Maj} ; mais on peut aussi se déplacer et sélectionner par mot en se déplaçant à gauche ou à droite en maintenant \keysequence{Ctrl+Maj} enfoncés (\keysequence{Cmd+Shift} sous Mac OS X). Les raccourcis clavier du presse papier sont les raccourcis que l'on trouve dans pratiquement tous les logiciels: \keysequence{Ctrl-X} pour couper, \keysequence{Ctrl+C} pour copier et \keysequence{Ctrl+V} pour coller (\keysequence{Cmd+X}, \keysequence{Cmd+C} et \keysequence{Cmd+V} respectivement, Mac OS X.)
+
+On peut facilement changer la casse\index{edition@édition!changer la casse} d'une sélection -- tout mettre en capitales ou tout en minuscules -- par \menu{Édition}\submenu\menu{Changer la casse} puis, suivant le cas, \menu{TOUT EN CAPITALES} ou \menu{tout en minuscules}, ou \menu{Inverser la casse} (qui bascule la casse de chaque lettre idividuellement.)
+
+Il est aussi pratique de voir les numéros de lignes\index{edition@édition!numéros de lignes}, car tous les messages d'erreurs font référence à ces numéros; vous pouvez basculer \texttt{on/off} l'affichage des lignes, sur la gauche du panneau de saisie, par \menu{Format}\submenu\menu{Numéros de ligne}.
+
+\subsection{Commenter}
+
+Quand on met au point un texte pour \AllTeX{} il est souvent intéressant d'empêcher la compilation d'une partie du texte pour arriver à localiser les erreurs; on progresse ainsi morceau de texte par morceau de texte qui fonctionne jusqu'à rencontrer un fragment qui cause une erreur. Pour cela on commentera la source par bloc. 
+
+Nous avons vu que le signe \verb|%| indique le début d'un commentaire. Pour commenter \index{edition@édition!commenter}une grande partie de texte, il suffit de la sélectionner puis de demander le marquage en tant que commentaire \menu{Format}\submenu\menu{Commenter} ou \keysequence{Ctrl+(} (Mac OS X: \keysequence{Cmd+Shift+]}.) Pour supprimer la mise en commentaire: sélectionnez les lignes et choisissez \menu{Format}\submenu\menu{Dé-commenter}\index{edition@édition!dé-commenter} ou \keysequence{Ctrl+)} (Mac OS X: \keysequence{Cmd+Maj+[} \footnote{Sur certains claviers, comme les claviers français,il n'est pas possible de faire \keysequence{Ctrl+Maj+[} ou \keysequence{Ctrl+Maj+]}; cependant les raccourcis peuvent être changés -- voir la section \ref{sec.shortcuts}.}. 
+
+\subsection{Équilibrer les délimiteurs}
+\index{edition@édition!équilibrer les délimiteurs}
+
+Une erreur fréquente est d'oublier un symbole fermant: parenthèse, accolade, crochet,\emph{etc}. \Tw{} propose un outil pour mettre en évidence les paires de symboles: lorsqu'on passe sur un de ces symboles son complémentaire est brièvement mis en sur-brillance orange. On peut également, quand on est à l'intérieur d'un bloc ainsi délimité demander de le sélectionner par \menu{Édition}\submenu\menu{Sélection d'un bloc entre délimiteurs}\index{edition@édition!sélection d'un bloc} ou son raccourci \keysequence{Ctrl+B} (Mac OS X: \keysequence{Cmd+B}). On voit ainsi directement l'ampleur du bloc.
+
+\subsection{Guillemets intelligents}
+\index{edition@édition!guillemets intelligents}
+
+Une autre erreur similaire, mais ici sémantique et n'ayant aucune influence sur la composition, est rencontrée dans l'utilisation des guillemets lorsqu'on désire mettre un texte en évidence.
+
+En français il y a des guillemets `simples' et des guillemets \og{}doubles\fg. On utilise également les guillemets ``anglais'' pour un texte entre guillemets dans un texte déjà entre guillemets. Les guillemets simples et doubles anglais sont obtenus par \verb|`| et \verb|'|; ce ne sont pas les guillemets utilisés en programmation et trouvés sur la clavier \verb|"| et \verb|'|. Mais utilisant le système des guillemets intelligents de \Tw, on peut utiliser ces derniers pour produire automatiquement les guillemets simple/double ouvrants et fermants.
+
+Dans un document \path{.tex}, sélectionnez un des systèmes de guillemets intelligents: \menu{Format}\submenu\menu{Guillemets intelligents}\submenu\menu{Ligatures TeX}, \submenu\menu{Com\-mandes TeX}, \submenu\menu{Caractères Unicode} \footnote{par défaut, il n'y a que les systèmes pour les guillemets à l'anglaise, mais on peut définir c'est propres quillemets}. Ensuite dans votre texte, lorsque vous voulez commencer un texte mis en évidence, disons des guillemets doubles, entrez \verb|"| puis le texte et pour terminer de nouveau \verb|"|; \Tw{} va automatiquement insérer les guillemets ouvrants \verb|``| et ensuite les guillemets fermants corrects \verb|''|. Les trois options donnent le même résultat dans le document composé, mais \menu{Ligatures TeX} devrait bien fonctionner dans la plupart des cas.
+
+Enfin, il est possible de définir ses propres systèmes de guillemets (dans le fichier de définitions (\path{smart-quotes-modes.txt} dans le dossier \path{configuration} du dossier ressources.) Par exemple, pour les guillemets français de babel, ajoutez le code suivant:
+\begin{verbExample}
+#[French quotes]
+[Guillemets français]
+'   `     '
+"   \og{}    \fg{}
+\end{verbExample}
+
+\section{La complétion automatique\index{complétion automatique}}
+
+Un autre outil dont on ne peut rapidement plus se passer est la complétion automatique. En effet, quand on utilise \AllTeX, on doit continuellement entrer des codes pour, par exemple, créer des environnements; de plus dans ce cas il ne faut pas oublier de les fermer.
+
+La complétion automatique permet de taper une suite de caractères, on pourrait dire un mot clé, puis en tapant \keysequence{Tab} \Tw{} crée automatiquement le code de la commande ou de l'environnement \AllTeX.
+
+Par exemple, pour obtenir \og\LaTeX\fg, il faut entrer \verb|\LaTeX|. Ce n'est pas difficile, mais l'introduction du ``\verb|\|'' \footnote{en particulier sur clavier Azerty, où $\backslash$ nécessite l'utilisation de \keysequence{AltGr+<} ou \keysequence{Ctrl+Alt+<}} puis du mot ``\verb|LaTeX|'' avec l'alternance de majuscules et de minuscules peut devenir fastidieux à la longue. Par la complétion automatique il suffit d'entrer \verb|latex| puis taper \keysequence{TaB} pour obtenir \verb|\LaTeX|. Il faut juste veiller à ne pas avoir une \emph{lettre} accolée devant ou derrière \verb|latex| -- par ex. \verb|alatax| -- sinon le mécanisme pourrait ne pas choisir le mot clé correct.
+
+\needspace{3\baselineskip}
+Autres exemples, \verb|bmin| produit:
+\begin{verbExample}
+\begin{minipage}{}
+•
+\end{minipage}•
+\end{verbExample}
+le curseur de saisie se trouve dans la paire d'accolades vide où il faut entrer la dimension de la minipage. Voir la section \ref{sec.autocompletion} pourune liste des mots clé d'autocomplétion.
+%, et \verb|xve| donne \verb|\varepsilon| soit $\varepsilon$ en mode mathématiques. Voir la section \ref{autoc} pour une liste des mots clé d'auto-complétion. 
+Remarquons le \og•\fg{} dans l'environnement minipage. C'est une marque que l'on peut atteindre par \keysequence{Ctrl+Tab} (\keysequence{Option+Tab} sur le Mac), en répétant ce raccourci, on avance dans la structure créée et par \keysequence{Ctrl+Maj+Tab} (\keysequence{Option+Shift+Tab}) on recule. 
+
+Il est à remarquer que si on donne un mot clé partiel et que l'on appuie successivement sur \keysequence{Tab}, on peut avoir d'autres complétions, généralement associées. Par exemple, \verb|bali| (le \verb|b| indique un début d'environnement \verb|\begin{}|) crée l'environnement \verb|align| après un \keysequence{Tab}, \verb|align*|	ensuite, successivement \verb|alignat|, \verb|alignat*|, \verb|aligned|, \verb|alignedat|, \verb|alignedat| avec option; ces derniers environnements ont leur propre code qui commence par \verb|bali| (\verb|balis|, \verb|baliat|, \verb|baliats|, \verb|balied|, \verb|baliedat| et enfin \verb|baliedato|.)
+
+Enfin, si vous désirer créer vos propres raccourcis, vous pouvez toujours ajouter un fichier \path{.txt} dans le sous-répertoire \path{completion} du répertoire ressources. 
+Les entrées dans ce fichier seront de la forme:
+\begin{verbExample}
+bfigo:=\begin{figure}[#INS#]#RET##RET#\end{figure}•
+\bibliography{#INS#}•
+\end{verbExample}
+
+Dans le premier cas, pour l'environnement \verb|figure| avec option, \verb|bfigo| est le mot clé, puis vient l'affectation \verb|:=| et la définition: écrire \verb|\begin{figure}[]| \verb|\end{figure}| avec un passage à la ligne après le \verb|begin| (\verb|#RET#|), laisser une ligne vide (deuxième \verb|#RET#|) et mettre le curseur d'insertion entre les crochets (\verb|#INS#|); \og•\fg{} est la marque de déplacement expliquée plus haut.
+
+Dans le deuxième cas il n'y aura que \verb|\bibliography{}| lui-même et \Tw{} créera le nom complet avec accolades (le curseur entre elles.) Dans ce cas le mot clé est l'instruction elle-même.
+
+%Il est évidemment possible d'utiliser le \og•\fg!
+
+Il faut veiller à créer des fichiers \path{.txt} encodés en utf-8; on peut pour cela utiliser le programme \Tw{} lui-même, qui utilise cet encodage par défaut.
+

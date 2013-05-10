@@ -1,0 +1,137 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manuel.tex
+% !TEX spellcheck = fr_FR
+
+\chapter{Aller plus loin: autres outils}
+
+\section{Passage source/vue: SyncTeX}\index{SyncTeX}
+\label{sec.synctex}
+
+Lorsqu'on lit le  document dans la fenêtre de prévisualisation et qu'on remarque quelque chose à changer, il est intéressant de passer directement au même endroit dans la source. Pour faire cela il suffit de cliquer à l'endroit souhaité de la vue en maintenant la touche \keysequence{Ctrl} enfoncée; le curseur se déplacera et mettra en surbrillance l'endroit recherché dans la source. De même inversement, si on a déjà affiché la vue et que, retourné dans la source on s'y est déplacé, \keysequence{Ctrl+LMB} mettra en surbrillance la même ligne dans la vue. \footnote{Il est aussi possible d'utiliser un clic-droit (\keysequence{RMB}) pour ouvrir le menu contextuel et choisir \og{}Aller au PDF\fg{} ou \og{}Aller à la source\fg.}
+
+\begin{OSWindows}
+Ici une remarque pour les utilisateurs de Windows: ceci ne fonctionne que si \textbf{tous} les noms de dossier/fichiers/\dots \textbf{ne} contiennent \textbf{pas} de caractères accentués. Si, par exemple, votre document est dans \texttt{C:\textbackslash Documents and Settings\textbackslash Propriétaire\textbackslash My Documents\textbackslash these} cela ne fonctionnera pas à cause du \verb|é| de \texttt{Propriétaire}!
+\end{OSWindows}
+
+\section{Chaînes de commande particulières}
+
+Des lignes de commentaires, au tout début du document, peuvent être utilisées pour régler deux autres aspects de la compilation. 
+
+\Tw{} utilise par défaut l'encodage \og utf-8\fg\index{encodage!utf-8} quand il charge et sauvegarde les fichiers, mais certains fichiers pourraient être encodés dans un autre format. Des encodages très communs sont ``latin1''\index{encodage!latin1}, qui est l'encodage prépondérant pour les langues d'Europe de l'Ouest sous Winsows, et ``Apple Roman'' prépondérant sous Mac.
+
+Pour définir un autre encodage\index{encodage} pour un fichier en particulier on peut mettre en début de ce fichier:\index{\verb+% "!TeX+!\verb+encoding+}
+\begin{verbExample}
+% !TeX encoding = latin1
+\end{verbExample}
+
+Notez que sans cette linge, vous devez spécifier manuellement à \Tw{} l'encodage correct. Sinon, vos données pourraient être corrompues! Pour passer au-dessus du choix d'encodage par défaut de \Tw, utilisez le menu qui apparaît lorsque vous cliquez sur le bouton central de la barre de statut de la fenêtre d'édition.
+
+Si vous avez ouvert dans \Tw{} un fichier qui n'avait pas été sauvegardé en utf-8 mais auquel il manque la ligne \verb+% !TeX encodage+, il peut être affiché avec des caractères bizarres\index{caractères bizarres|see{encodage}}. Dans ce cas, vous pouvez spécifier de la même façon l'encodage correct par le bouton de la barre de statut, mais il est \emph{impératif} d'alors utiliser \menu{Recharger en utilisant l'encodage sélectionné} du même menu! Cela oblige \Tw{} de ré-ouvrir le document avec l'encodage souhaité, les caractères bizarres devraient être remplacés par des caractères normaux et c'est seulement à ce moment qu'il est sûr de continuer à travailler. Pour éviter de devoir répéter ce processus chaque fois que vous ouvrez ce fichier, vous devriez soit basculer en utf-8 pour le sauvegarder soit ajouter une ligne adéquate \verb+% !TeX encodage+.
+
+Si on veut compiler une fichier par un autre programme que le programme \TeX{} ou \LaTeX{} par défaut\index{programme!par défaut}, on mettra au début du fichier:
+\index{\verb+% "!TeX+!\verb+program+}
+\begin{verbExample}
+% !TeX program = <le_programme>
+\end{verbExample}
+%\index{instruction \instex!programme}
+par exemple:
+\begin{verbExample}
+% !TeX program = xelatex
+\end{verbExample}
+
+Faites attention avec cette dernière instruction: vous devez utiliser ici le nom du programme qui doit être utilisé pour l'ensemble du projet, car c'est le nom de programme qui est le premier vu (celui du sous-document dans lequel vous êtes lorsque vous commencez la composition) qui sera utilisé. \Tw{} utilisera ce programme, même si un autre nom apparaît dans le document principal!
+
+Lorsqu'un document est ouvert avec une ligne \verb+% !TeX programme+, celui-ci devient le programme à utiliser et son nom apparaît dans la liste déroulante de la Barre d'outils; mais vous pouvez cependant outrepasser cela en choisissant un programme différent dans la liste déroulante, si vous le désirez.
+
+\needspace{3\baselineskip}
+De plus, vous pouvez définir la langue de correction orthographique par une ligne de commentaire similaire:
+\index{\verb+% "!TeX+!\verb+spellcheck+}
+\begin{verbExample}
+% !TeX spellcheck = <language_code>
+\end{verbExample}
+Les codes de langue disponibles sur votre système sont listés entre parenthèses dans \menu{Édition}\submenu\menu{Vérification orthographique} à côté du nom de la langue en toutes lettres.
+
+\needspace{6\baselineskip}
+\section{Mise en forme de la source pour la lisibilité}
+
+Pour faciliter la lisibilité de la source, on peut utiliser l'indentation\index{edition@édition!indentation} comme le font les programmeurs:
+\begin{verbExample}
+\begin{itemize}
+    \item Premier élément de la liste;
+    \item deuxième élément;
+    \item dernier élément:
+    \begin{itemize}      % début de sous-liste
+        \item premier sous-élément;
+        \item deuxième sous-élément.
+    \end{itemize}
+\end{itemize}
+\end{verbExample}
+
+Cela améliore la lisibilité, mais ne fonctionne bien que sur des lignes courtes, sans passage à la ligne automatique; ou si on demande de ne pas passer à la ligne par \menu{Format}\submenu\menu{Passage à la ligne}\index{coupure de ligne!automatique}.
+
+La commande \menu{Format}\submenu\menu{Indenter} ou le raccourci \keysequence{Ctrl+]} (Mac OS~X: \keysequence{Cmd+]}) vont indenter la ligne, ou les lignes sélectionnées, de quatre caractères en insérant un caractère tabulation. On peut répéter l'opération pour augmenter le retrait.
+
+Pour supprimer une indentation: \menu{Format}\submenu\menu{Supprimer l'indentation} ou par le raccourci \keysequence{Ctrl+[} (\keysequence{Cmd+[} sur Mac OS X). \footnote{Voir les raccourcis modifiés pour les claviers qui ne permettent pas ces actions.}
+
+Comme \textsl{indent} n'indente que la première ligne d'un texte multiligne (si on demande la passage à la ligne), ceci n'est pas vraiment utile. Mais on peut demander à \Tw{} de scinder une longue ligne (plus longue que la largeur du panneau d'édition) en lignes plus courtes et en y ajoutant des retours à la ligne physiques (insertion du caractère retour à la ligne): \emph{\menu{Format}\submenu\menu{Retour à la ligne physique\dots}}\index{coupure de ligne!physique} ouvre une boîte de dialogue dans laquelle vous pouvez spécifier la largeur des lignes; vous pouvez aussi re-formater des lignes qui ont déjà été scindées.
+%
+%\begin{center}
+%\includegraphics[scale=.8]{hardwrap}
+%\end{center}
+
+\section{Afficher les balises\index{balises}}
+
+Quand un document devient un peu long et qu'on veut se déplacer à un endroit précis (un chapitre, une section, une sous-section,\dots), il faut faire défiler la fenêtre d'édition pour trouver l'endroit recherché\index{balises!structure}, ou utiliser le dialogue Rechercher si vous vous souvenez d'un mot clé dans le titre du chapitre.
+
+Dans le même but, plus confortablement, on peut aussi afficher les balises de structure du document: l'option de menu \menu{Fenêtre}\submenu\menu{Montrer}\submenu\menu{Balise} ouvre  un panneau à gauche de la zone d'édition montrant les informations détectées par \Tw. Un clic sur le niveau recherché sélectionne la partie correspondante dans la source. Ce panneau, comme tout panneau, peut être redimensionner en tirant sa bordure.
+
+%On peut également plus ou moins développer la structure si elle est vraiment très longue en cliquant sur le petit carré avec \og-\fg{} pour réduire/fermer une structure et sur le carré avec \og+\fg{} pour l'ouvrir.
+
+La même opération peut se faire dans la vue PDF par \menu{Fenêtre}\submenu\menu{Visuali\-sation}\submenu\menu{Table des matières}\index{balises!table des matières}, mais cela ne sera actif que si on a créé des balises de structure dans le fichier PDF par le module \verb|hyperref|.
+
+\section{Organiser les fenêtres\index{fenêtres}}
+
+Par défaut, la fenêtre d'édition (source) s'ouvre à gauche et la fenêtre de vue (lorsque le fichier PDF correspondant existe), à droite en partageant l'écran en deux.
+
+On peut changer la position des fenêtres par le menu \menu{Fenêtre}. \submenu\menu{Mosaï\-que} et \submenu\menu{Côte à côte} donnent le effet par défaut si on n'a qu'un document ouvert. Sinon \submenu\menu{Mosaïque} crée une mosaïque de toutes les fenêtres. Les autres options permettent de présenter les fenêtres selon sa convenance. On peut, évidemment, aussi toujours re-dimensionner et déplacer manuellement les fenêtres.
+
+Pour la vue on peut aussi changer la présentation et donc l'agrandissement\index{zoom|see{agrandissement}}\index{agrandissement} par \menu{Vue}\submenu\menu{Taille réelle}, \submenu\menu{Ajuster à la largeur} et \submenu\menu{Ajuster à la fenêtre}; on peut également effectuer des zoom positifs et négatifs. Des raccourcis clavier existent pour toutes ces actions et sont donnés à côté de l'option dans le menu.
+
+\section{Nettoyer le dossier de travail}\index{nettoyer le dossier}
+\label{sec:remove-aux-files}
+
+Rapidement, lorsqu'on utilise \AllTeX, on découvre que le dossier de travail est encombré de fichiers qui ont le même nom que la source mais avec une extension différente: \path{.aux}, \path{.log}, \path{.toc}, \path{.lof}+, \path{.lot}, \path{.bbl},\dots
+
+Tous ces fichiers sont nécessaires à \AllTeX{} pour pouvoir créer la table des matières, les listes de figures/tableaux, la bibliographie, les références croisées et, également très important, pour avoir une trace de ce qu'il a fait (le fichier \path{.log}.)
+
+En dehors des fichiers externes, images, illustrations,\dots , les seuls fichiers nécessaires sont les fichiers \path{.tex}, les sources du document. On peut effacer tous les autres. Parfois cela est même nécessaire lorsque \AllTeX{} se bloque suite à une erreur.
+
+Ceci peut être fait par le commande \Tw{} du menu \menu{Fichier}: \submenu\menu{Supprimer les Fichiers Auxiliaires\dots}\index{nettoyer un dossier!fichiers auxiliaires}.
+
+Lorsque vous lancez cette commande, une boîte de dialogue s'ouvre dans laquelle vous pouvez cocher/décocher les fichiers que vous voulez enlever \footnote{Le nom du fichier principal est utilisé pour créer la liste des candidats possibles à la suppression.}. La boîte de dialogue ne ferra la liste que des fichiers actuellement dans le dossier; si vous les avez tous supprimés, vous aurez un message précisant qu'il n'y a pas de fichier à supprimer à ce moment.
+
+La liste des fichiers auxiliaires qui vous est proposée se trouve dans le fichier de configuration \path{texworks-config.txt}\index{configuration!texworks-config.txt} du sous-dossier \path{configuration} du dossier ressource de \Tw. Vous pourriez en ajouter si nécessaire.
+%\newpage
+
+\section{Modifier la configuration\index{configuration}}
+
+Nous avons vu à la section \ref{chap.installation} (page \pageref{chap.installation}) que lors du premier lancement \Tw{} crée un dossier ressource, de même qu'il sauvegarde les informations de préférences.
+
+Il est cependant possible de définir soi-même l'endroit où on veut le dossier ressource et la sauvegarde des préférences. Cela peut être intéressant lorsqu'on veut un système portable (par exemple sur une clé USB) ou que l'on veut accéder facilement par exemple au dossier des modèles ou des mors clé de complétion.
+
+Par cela, créer dans le dossier du programme un fichier \path{texworks-setup.ini}\index{configuration!texworks-setup.ini} dans lequel on donnera la localisation des dossier contenant les sous-dossiers de complétion, configuration, dictionnaires,\dots et le fichier de configuration (\path{texworks.ini}\index{configuration!texworks.ini}); il y aura deux lignes:
+\begin{verbExample}
+inipath=C:/mondossier/TW_conf/
+libpath=C:/mondossier/TW_conf/\index{configuration!libpath}
+\end{verbExample}
+
+\verb|inipath|\index{configuration!inipath} pour le fichier de configuration et \verb|libpath|\index{configuration!libpath} pour les dossiers nécessaires. Ici \path{TW\_conf} remplacerait le dossier ressource \path{TeXworks}. Remarquez d'une part que le dossier référencé (ici \path{TW\_conf}) doit exister -- il ne sera pas créé -- et d'autre part l'utilisation de \verb|/| même sous Windows (et non de la contre-oblique \verb+\+).
+
+Si on désire mettre le dossier ressource dans le dossier du programme, comme sous-dossier, on peut utiliser une instruction qui prendra la forme \verb|inipath=./TW\_conf/|; cette référence et les autres formes de références relatives sont toujours par rapport au dossier programme de \Tw (sous Mac OS~X, le dossier contenant le module app est utilisé.)
+
+On pourrait aussi ajouter une première ligne:\index{configuration!defaultbinpaths}
+\begin{verbExample}
+defaultbinpaths=C:/Program Files/MiKTeX 2.7/miktex/bin
+\end{verbExample}
+pour indiquer où se trouve les programmes de la distribution \TeX; cependant cette instruction n'est pas encore pleinement opérationnelle en particulier sous Windows.
+

@@ -1,0 +1,116 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manuel.tex
+% !TEX spellcheck = fr_FR
+
+\chapter{Expressions r{\'e}guli{\`e}res}
+\label{sec:regexp}
+
+Comme \Tw{} est construit sur Qt4, les expressions régulières\index{expressions régulières} -- souvent appelées \emph{regexp} -- disponibles sont un sous-ensemble de celles trouvées dans Qt4. Voir le site de Qt4.
+\footnote{\label{fn.regexpQt}\texttt{http://doc.trolltech.com/4.4/qregexp.html\#details}, -- cette section est basée sur cette information} pour plus d'information. Il est possible de trouver d'autres informations sur les expressions régulières sur le net \footnote{voir par exemple Wikipedia} ou dans des livres. Mais faites attention que tous les systèmes (langages de programmation, éditeurs,...) n'utilisent pas le même ensemble d'instructions; il n'y a malheureusement pas \og d'ensemble standard\fg.
+
+\section{Introduction}
+\index{expressions régulières!introduction}
+
+Lorsqu'on recherche et remplace, on doit définir le texte à trouver. Ce peut être le texte lui-même (ex. \og Abracadabra\fg), mais souvent il est nécessaire de définir les chaînes d'une façon plus générale et puissante pour éviter de répéter la même opération plusieurs fois avec seulement de faibles changements d'une fois à l'autre; si, par exemple, on veut remplacer des séquences de la lettre \og a\fg{} par un \og o\fg{}, mais pas toutes les séquences, seulement celles de 3 à 7 \textbf{a}; ceci demanderait de répéter 5 fois l'opération de remplacement en l'ajustant légèrement. Un autre exemple: remplacer toutes les voyelles par \textbf{§}, encore 5 remplacements. C'est ici qu'interviennent les expressions régulières!
+
+Un simple caractère (a ou 9) représente lui-même. Mais on peut définir un ensemble de caractères: \textbf{[aeiou]} correspondra à toute voyelle, \textbf{[abcdef]} aux lettres \textbf{a b c d e f}; ce dernier ensemble peut être abrégé en \textbf{[a-f]} en utilisant \og\textbf{-}\fg{} entre les deux extrémités de l'intervalle. On peut même combiner ceci: \textbf{[a-zA-Z0-9]} va correspondre à toutes les lettres et tous les chiffres.
+
+Pour définir un ensemble à exclure \footnote{Un ensemble de caractères qui ne peuvent pas être sélectionnés dans la correspondance de l'expression régulière}, on utilise \og\textbf{\^{}}\fg: le circonflexe rend l'ensemble négatif s'il apparaît comme le premier caractère, c'est-à-dire juste après le crochet d'ouverture. \textbf{[\^{}abc]} correspond à tout sauf \textbf{a b c}.
+
+\section{Codes pour certains ensembles spéciaux}
+\index{expressions régulières!ensembles}
+
+Lorsqu'on utilise les expressions régulières, on doit très souvent créer des chaînes qui représentent d'autres chaînes de façon générale. Si, par exemple, vous cherchez une chaîne qui représente une adresse de courriel, les lettres et symboles vont varier; cependant vous pourriez rechercher toute chaîne correspondant à une adresse de courriel (\texttt{texte@texte.texte} -- en général). Il y a des abréviations pour représenter les lettres, les chiffres, symboles,...
+
+Ces codes remplacent et facilitent la définition d'ensembles; par exemple, pour représenter en toutes lettres les chiffres \textbf{[0-9]}, on peut utiliser \og\textbf{\textbackslash{}d}\fg. Le tableau page suivante liste les codes de remplacement. \footnote{simplifié et traduit de Qt4 chez trolltech, voir note \label{trollnext}\ref{fn.regexpQt}}
+\smallskip
+
+\begin{table}
+\noindent\begin{tabular}{Rp{113mm}}
+\toprule
+\multicolumn{1}{l}{Élément} & Signification\\
+\midrule
+\verb|c|  & Tout caractère se représente lui-même, à moins qu'il n'aie une signification particulière dans les expressions régulières. Ainsi c correspond au caractère c.\\
+\verb|\c|  & Un caractère qui suit une contre-oblique correspond au caractère lui-même à moins de mention ci-dessous. Par exemple, si vous voulez chercher un circonflexe en début de chaîne vous devriez écrire \og\verb|\^|\fg.\\
+\verb|\n|  & Ceci correspond au caractère ASCII \emph{passage à la ligne} (LF, \emph{à la ligne} de Unix, utilisé dans \Tw).\\
+\verb|\r|  & Ceci correspond à l'ASCII \emph{retour à la ligne} (CR).\\
+\verb|\t|  & Ceci est la tabulation horizontale (ASCII: HT).\\
+\verb|\v|  & La tabulation verticale (ASCII: VT).\\
+\verb|\xhhhh|  & Correspond au caractère Unicode de représentation hexadécimale hhhh (entre 0x0000 et 0xFFFF). \verb|\0ooo| (i.e., zero-ooo) correspond au caractère ASCII/Latin-1 correspondant au nombre octal ooo (entre 0 et 0377).\\
+\verb|.| (point)  & Correspond à n'importe quel caractère (y compris \emph{passage à la ligne}). Dès lors si vous voulez trouver le \emph{point}, il faut lui ajouter un échappement \og\verb|\.|\fg.\\
+\verb|\d|  & Correspond à un chiffre.\\
+\verb|\D|  & Correspond à un non-chiffre.\\
+\verb|\s|  & Correspond à une espace (espace blanc).\\
+\verb|\S|  & Correspond à une non-espace.\\
+\verb|\w|  & Correspond à un caractère d'un mot ou \og\verb|_|\fg).\\
+\verb|\W|  & Correspond à un caractère non mot.\\
+\verb|\n|, \dots  & La n\ième{} référence antérieure, ex. \verb|\1|, \verb|\2|, etc.; utilisé dans les chaînes de remplacement avec des motifs de capture -- voir plus bas \\
+\bottomrule
+\end{tabular}
+\end{table}
+%\smallskip
+
+Il est préférable d'utiliser les abréviations que de décrire les ensembles, car les abréviations restent valables dans différents alphabets.
+
+Faites attention à ce que le caractère \emph{fin de ligne} est souvent pris comme une espace. Sous \Tw{} on fait spécifiquement référence à la fin de ligne par \og\verb|\n|\fg.
+
+\section{Répétition}
+\index{expressions régulières!répétition}
+
+On ne travaille pas uniquement avec de simples lettres, chiffres, symboles; la plupart du temps ils sont répétés (ex.: un nombre est une répétition de chiffres et de symboles -- dans le bon ordre.)
+
+\needspace{2\baselineskip}
+Pour indiquer le nombre de répétitions, on utilise ce qu'on appelle des \og quantificateurs\fg: \textbf{a\{1,1\}} signifie au moins un et seulement un \textbf{a}, \textbf{a\{3,7\}} entre 3 et 7; \textbf{\{1,1\}} est redondant, ainsi \textbf{a\{1,1\}} = \textbf{a}.
+
+Ceci peut être combiné à la notation d'ensemble: \textbf{[0-9]\{1,2\}} correspondra à au moins un chiffre et au plus deux, soit les nombres entiers entre 0 et 99. Mais cela correspondra à tout groupe de 1 ou 2 chiffres \emph{dans} une chaîne (il peut y avoir beaucoup de texte avant et après l'entier); si on désire que cela corresponde à l'entièreté de la chaîne avec qu'un ou deux chiffres (sans caractères qui les précèdent ou suivent) nous devrons écrire l'expression régulière comme \textbf{\^{}[0-9]\{1,2\}\$}; ici \textbf{\^{}} précise que la chaîne désirée doit être le premier caractère de la chaîne, le \textbf{\$} le dernier, de sorte qu'il n'y a qu'un ou deux chiffres dans la chaîne (\textbf{\^{}} et \textbf{\$} sont des \og assertions\fg{} -- voir plus loin pour des compléments.)
+
+Voici la table des quantificateurs. \footnote{simplifié de Qt4 chez trolltech, voir note \ref{fn.regexpQt}} E représente une expression (lettre, abréviation, ensemble.)
+\smallskip
+
+\noindent\begin{tabular}{Rp{113mm}}
+\toprule
+\verb|E{n,m}| & Correspond à au moins \textbf{n} occurrences et au plus \textbf{m} occurrences de l'expression.\\
+\verb|E{n}| & Exactement \textbf{n} occurrences de l'expression. Équivalent à répéter l'expression n fois. C'est la même chose que \textbf{E\{n,n\}} ou de répéter l'expression n fois.\\
+\verb|E{n,}| & Correspond à au moins \textbf{n} occurrences de l'expression.\\
+\verb|E{,m}| & Correspond à au plus \textbf{m} occurrences de l'expression.\\
+\verb|E?| & Zéro ou une occurrence de E. Ce quantificateur signifie 
+\emph{l'expression précédente est optionnelle} (elle peut être présente, mais ne doit pas nécessairement l'être). C'est la même chose que \textbf{E\{0,1\}}.\\
+\verb|E+| & Une ou plusieurs occurrences de E. C'est équivalent à \textbf{E\{1,\}}.\\
+\verb|E*| & Zéro ou plus d'occurrences de E. Équivalent à \textbf{E\{0,\}}. Attention le quantificateur \textbf{*} est souvent utilisé à tort pour le quantificateur \textbf{+}. Comme il correspond à zéro ou plus d'occurrences, il y aura correspondance même s'il n'y a  aucune occurrence dans la chaîne.\\
+\bottomrule
+\end{tabular}
+\smallskip
+
+\section{Alternatives et assertions}
+\index{expressions régulières!alternatives/assertions}
+
+Lorsqu'on cherche, il est souvent nécessaire de chercher des alternatives, par ex.: pomme, poire, cerise, mais pas pommeau. Pour séparer les alternatives on utilise le symbole \textbf{|}: pomme|poire|cerise. Mais ceci n'empêchera pas de trouver pommeau, nous devons donc spécifier que pomme doit être un mot en soi, un mot entier (dénomination fréquente des boîtes de dialogues \og Chercher\fg.)
+
+Pour préciser qu'une chaîne doit être considérée comme un mot en soi, nous l'écrirons entourée d'un séparateur/d'un délimiteur de mot (début/fin de phrase, espace): \textbf{\textbackslash{}bpomme\textbackslash{}b}. Pour notre exemple d'alternatives nous les \textbf{grouperons} par des parenthèses et ajouteront les délimiteurs \textbf{\textbackslash{}b(pomme|poire|cerise)\textbackslash{}b}. En plus de \textbf{\textbackslash{}b} nous avons déjà vu \textbf{\^{}} et \textbf{\$} qui marquent les limites de toute ne chaîne.
+
+Voici le tableau des \og assertions\fg{} qui ne correspondent à aucun caractère et ne feront jamais partie du résultat d'une recherche. \footnote{simplifié de Qt4 chez trolltech, voir note \ref{fn.regexpQt}}
+\smallskip
+
+\noindent\begin{tabular}{Rp{113mm}}
+\toprule
+\verb|^| & Le circonflexe représente le début de la chaîne. Si vous voulez trouver le caractère \textbf{\^{}} vous devez utilisez un échappement en écrivant \verb|\^|\\
+\verb|$| & Le dollar représente la fin de chaîne. Pour trouver le symbole \textbf{\$} vous devez utilisez un échappement en écrivant \verb|\$|\\  
+\verb|\b| & Un séparateur mot.\\
+\verb|\B| & Un non-séparateur mot. Cette assertion est valable chaque fois que \verb|\b| est faux.\\
+\verb|(?=E)| & Anticipation positive. L'assertion est vraie si l'expression \textbf{E} est correcte à ce point de l'expression régulière.\\
+\verb|(?!E)| & Anticipation négative. L'assertion est vraie si l'expression \textbf{E} n'est pas correcte à ce point dans l'expression régulière.\\
+\bottomrule
+\end{tabular}
+\smallskip
+
+Remarquez les significations différentes de \textbf{\^{}} comme assertion et comme négation dans un ensemble!
+
+\section{Pour conclure}
+
+Utiliser les expressions régulières est très puissant, mais donc aussi très dangereux; vous pourriez changer votre texte à des endroits non visibles et parfois le retour à la situation précédente n'est pas entièrement possible. Si vous remarquez immédiatement l'erreur, vous pourriez utiliser \mbox{\keysequence{Ctrl+Z}}.
+
+Montrer comment tirer profit de toute la puissance des expressions régulières exigerait beaucoup plus que cette introduction extrêmement sommaire; en fait cela demanderait un manuel complet en soi.
+
+Notez aussi qu'il y a certaines limites dans les implantations des expressions régulières dans \Tw; en particulier les assertions (\^{} et \$) ne prennent en compte que tout le fichier et il n'y a pas d'assertion à anticipation positive.
+
+Enfin, n'oubliez pas de \og cocher\fg{} l'option \textsl{Expression régulière} lorsque vous en utilisez dans les boîtes de dialogue \emph{Rechercher} et \emph{Remplacer} et de la décocher lorsque vous n'utilisez pas d'expression régulière.

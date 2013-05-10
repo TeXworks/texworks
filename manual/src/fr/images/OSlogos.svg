@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   id="svg3043"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="OSlogos.svg">
+  <defs
+     id="defs3045">
+    <linearGradient
+       id="linearGradient3856">
+      <stop
+         style="stop-color:#555753;stop-opacity:1;"
+         offset="0"
+         id="stop3858" />
+      <stop
+         style="stop-color:#babdb6;stop-opacity:1;"
+         offset="1"
+         id="stop3860" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3862"
+       x1="-24.484234"
+       y1="30.855757"
+       x2="-24.484236"
+       y2="12.650907"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0.73642731,16.957114)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3874"
+       x1="-23.175417"
+       y1="105.18624"
+       x2="-23.175419"
+       y2="86.99897"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1005.1868,-57.205109)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3856"
+       id="linearGradient3882"
+       x1="-22.479916"
+       y1="127.13728"
+       x2="-22.479916"
+       y2="107.90511"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1.5200859,-78.63369)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="3.3162067"
+     inkscape:cy="19.361424"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="668"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3048">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Windows"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1004.3622)"
+     style="display:inline">
+    <rect
+       style="fill:#d3d7cf;fill-opacity:1;stroke:none"
+       id="rect3884"
+       width="48"
+       height="48"
+       x="0"
+       y="1004.3622" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3076"
+       y="48"
+       x="-1050.6085"
+       style="font-size:22.32083702px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#555753;fill-opacity:1;stroke:none;font-family:FreeSans;-inkscape-font-specification:FreeSans Bold"
+       xml:space="preserve"
+       transform="matrix(0,-1,1,0,0,0)"><tspan
+         style="font-size:25px;fill:#555753;fill-opacity:1"
+         y="48"
+         x="-1050.6085"
+         id="tspan3078"
+         sodipodi:role="line">Win</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Mac"
+     style="display:inline">
+    <rect
+       y="0"
+       x="0"
+       height="48"
+       width="48"
+       id="rect3886"
+       style="fill:#d3d7cf;fill-opacity:1;stroke:none;display:inline" />
+    <text
+       xml:space="preserve"
+       style="font-size:22.32083702px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#555753;fill-opacity:1;stroke:none;font-family:FreeSans;-inkscape-font-specification:FreeSans Bold"
+       x="-49.744629"
+       y="47.645996"
+       id="text3072"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-1,1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan3074"
+         x="-49.744629"
+         y="47.645996"
+         style="font-size:25px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:semi-condensed;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#555753;fill-opacity:1;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Bold Semi-Condensed">Mac</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="*nix"
+     style="display:inline">
+    <rect
+       style="fill:#d3d7cf;fill-opacity:1;stroke:none;display:inline"
+       id="rect3889"
+       width="48"
+       height="48"
+       x="0"
+       y="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:22.32083702px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#555753;fill-opacity:1;stroke:none;font-family:FreeSans;-inkscape-font-specification:FreeSans Bold"
+       x="-46.941795"
+       y="48"
+       id="text3080"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-1,1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan3082"
+         x="-46.941795"
+         y="48"
+         style="font-size:25px;fill:#555753;fill-opacity:1">*nix</tspan></text>
+  </g>
+</svg>

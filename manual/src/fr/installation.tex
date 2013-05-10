@@ -1,0 +1,70 @@
+% !TEX encoding = UTF8
+% !TEX program  = pdflatex
+% !TEX root     = manuel.tex
+
+\chapter{Installation}
+\index{installation}
+\label{chap.installation}
+
+\Tw{} n'est qu'un éditeur de texte; pour pouvoir créer des documents avec \AllTeX{} et les composer en PDF, nous avons besoin de ce qu'on appelle une distribution \TeX\index{TeX distribution@{\TeX} distribution}\index{TeX@\TeX!distribution|see {{\TeX} distribution}}. C'est un ensemble de programmes et autres fichiers complémentaires qui seront appelés automatiquement par \Tw{} durant son travail. Il faut donc installer une distribution; nous le ferrons \emph{avant} de lancer \Tw{} la première fois pour que celui-ci trouve automatiquement ce dont il a besoin.
+
+On peut utiliser \textbf{TeX~Live\index{TeX distribution@{\TeX} distribution!TeX~Live}} (\url{http://www.tug.org/texlive/}), une combinaison de teTex, MacTeX et XEmTeX, est disponible pour les trois systèmes d'exploitation (Linux, Mac OS X, Windows). La dernière version disponible est la TeXlive 2012. Notez que vous avez besoin d'une distribution relativement récente de TeX~Live (2012 ou suivante au moment d'écriture) pour utiliser toutes les possibilités de {\Tw}.
+
+\begin{OSLinux}
+Pour Linux\index{TeX distribution@{\TeX} distribution!Linux}: la plupart des distributions ont une distribution \TeX, elle peut cependant ne pas être installée de base et il faudra utiliser les outils de gestion Linux pour le faire. Outre TeXlive on peut utiliser \textbf{teTex} (\url{http://www.tug.org/teTeX/}) sur laquelle TeXlive est basée. 
+\end{OSLinux}
+\vspace{6pt} 
+
+\begin{OSMac}
+Pour le Mac\index{TeX distribution@{\TeX} distribution!Mac}: \textbf{MacTeX}\index{TeX distribution@{\TeX} distribution!Mac!MacTeX}, une nouvelle distribution basée sur gwTeX et XeTeX est disponible; \url{http://www.tug.org/mactex/}.
+\end{OSMac}
+\vspace{6pt} 
+
+\begin{OSWindows}
+Pour Windows\index{TeX distribution@{\TeX} distribution!Windows}: une distribution souvent utilisée est \textbf{MiKTeX\index{TeX distribution@{\TeX} distribution!Windows!MikTeX}} (\url{http://www.miktex.org/}). MiKTeX dispose d'un programme de mise-à-jour de la distribution qui a aussi été portée sur Linux. On peut aussi utiliser la distribution \textbf{XEmTeX} (\url{http://www.xemtex.org/}).
+\end{OSWindows}
+
+\section{Sous Windows\index{installation!Windows}}
+
+La plupart des grandes distributions \TeX{} ont déjà un module \Tw. Parfois ces versions ont des améliorations spécifiques pour la distribution. C'est pourquoi il est préférable d'installer \Tw{} sur Windows est d'utiliser le gestionnaire de modules de votre distribution. Dans ce cas, vous pouvez sauter les quelques paragraphes qui suivent. Mais, cependant, lisez la fin de cette section car elle fournit des indications sur lamanière d'adapter \Tw{} à vos besoins.
+
+Si vous voulez obtenir une version \og officielle\fg, téléchargez le système setup de \Tw{} à partir de  \url{htp://tug.org/texworks/}  après installation de la distribution \TeX.
+
+Installer simplement \Tw{} en exécutant le fichier setup. Durant l'installation, on vous demandera où vous désireze installer le programme, si vous désirez créer des raccourcis et si vous voulez toujours ouvrir les fichiers \path{.tex} avec \Tw. Il y a des valeirs par défaut correctes qui devraient fonctionner pour la plupart des utiilsateurs.
+
+Si vous voulez avor un contrôle complet de où et comment \Tw{} est localisé, vous pouvez aussi télécharger l'archive \path{.zip} à partir du site web et la désarchiver où voulez. Notez que dans ce cas les raccourcis et les associations de fichiers doivent être créés manuellement.
+
+\urldef{\TwRegistryPath}\path{\HKEY_USERS\S-\dots\Software\TUG\TeXworks}
+
+Lorsque le programme sera lancé pour la première fois il créera un dossier \path{TeXworks}\index{dossier!TeXworks}\index{dossier!ressource} dans le répertoire associé à votre compte d'utilisateur \footnote{sous Windows XP: votre dossier home est \path{C:\Documents and Settings\<votre nom>}, sous Vista et Windows 7 c'est: \path{C:\Users\<your name>}.}. Ce dossier contiendra quelques sous-dossiers pour les fichiers d'auto-complé\-tion\index{dossier!auto-complétion}, de configuration\index{dossier!configuration}, des dictionnaires\index{dossier!dictionnaires} orthographiques éventuels, des modèles\index{dossier!modèles} de documents et des traductions\index{dossier!traductions} d'interface -- nous verrons tout cela en temps utile \footnote{\Tw{} enregistrera ses préférences dans le registre:
+\TwRegistryPath. Si elles sont supprimés, elles seront recréés avec des valeurs par défaut à l'utilisation suivante.}.
+
+NB. Jusqu'à la version utilisée ici, le fait que le dossier principal du compte de l'utilisateur (\path{<votre nom>}), dans \og Documents and Settings\fg, comprenne des caractères non-ASCII (comme des lettres accentuées), empêchera la correction d'orthographe et la synchronisation entre la source et le \path{.pdf}.
+
+\section{Sous Linux\index{installation!Linux}}
+
+Plusieurs distributions Linux courantes ont déjà des modules \Tw. Ils sontadaptés à la plupart des utilisateurs et facilitent considérablement l'installation de \Tw.
+
+Si votre distribution ne fournit pas de modules adéquats et récents, vous devrez construire vous-mêmes \Tw{} à partir des sources, ce qui est vraiment facile sous Linux. Après installation de la distribution \TeX, allez à \url{http://code.google.com/p/texworks/wiki/Building} et suivez les instructions adaptées à votre distribution Linux. Voyez aussi la section \ref{sec.compiling}.
+
+Une fois la compilation réussie, lancer \Tw{}. Les dossiers \path{.TeXworks}\index{dossier!.TeXworks} et \path{.config/TUG}\index{dossier!.config/TUG} seront créés dans votre répertoire home.
+
+\section{Sous Mac OS\index{installation!Mac}}
+
+MacTeX 2010 contient déjà un module \Tw. Dès lors il est préférable d'installer \Tw{} sur un Mac en utilisant le gestionnaire de modules de votre distribution. Dans ce cas, vous pouvez sauter les quelques paragraphes qui suivent. Mais veillez lire la fin de la section, cependant, car elle contient des informatins importantes sur le paramétrage de \Tw{} suivant vos besoins.
+
+Si vous désirez obtenir une version \og officielle\fg{}, récupérez \Tw{} en téléchargeant l'archive du site de \Tw{} \url{htp://tug.org/texworks/} après installation de la distribution {\TeX}.
+
+Vous devez récupérer \path{TeXworks-Mac-0.3r567.zip}\footnote{version disponible au moment de l'écriture de ce manuel. Voyez la page centrale du logiciel et cliquer le lien de téléchargement.}, c'est un fichier qui comprend tout ce qui est nécessaire.
+
+C'est un module autonome, \texttt{.app}, qui ne requière pas l'installation de fichiers Qt dans \path{/Library/Frameworks}, ou d'autres librairies dans \path{/usr/local/lib}. Copiez juste l'\path{.app} où vous voulez et lancez le.
+
+Le répertoire ressource\index{dossier!ressource Mac} \Tw{} sera créé dans votre répertoire \path{Library} (\path{~/Library/.TeXworks/}) de votre répertoire home. Les préférences, que vous pouvez supprimer si cela crée des problèmes, sont sauvegardées dans \path{~/Library/Preferences/org.tug.TeXworks.plist} .
+
+\section{Prêts!}
+
+Enfin quelques fichiers pourront être ajoutés aux fichiers \og propres\fg{} à \Tw. Comme la localisation dépend de votre plateforme, nous y ferrons référence, dans ce manuel, comme \path{<ressources>}\index{folder!$\langle$resources$\rangle$} ou le \textbf{dossier ressources \Tw}.
+Par défaut, sous Linux il s'agit de \path{~/.TeXworks}, sous Windows~XP c'est \path{C:\Documents and Settings\<votre nom>\TeXworks}, sous Windows Vista/7 c'est \path{C:\Users\<votre nom>\TeXworks}, et sur Mac c'est \path{~/Library/TeXworks/}.
+Le moyen le plus facile pour localiser ce dossier, dans les versions récentes de \Tw, est d'utiliser \menu{Aide}, option \submenu\menu{Paramètres et ressources\dots}. Cela ouvre ue boîte de dialogue qui montre où \Tw{} enregistre ses paramètres et cherche pour les ressources.
+
+Après l'installation et la première utilisation, jetez un œil aux sous-dossiers du dossier ressource de \Tw{} et effacer tous les fichiers \path{qt_temp.xxxx}; ce sont des fichiers temporaires abandonnés là et ils pourraient interférer par après avec les fichiers normaux qui sont installés dans le même dossier.

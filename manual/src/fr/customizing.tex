@@ -1,0 +1,152 @@
+% !TEX encoding   = UTF8
+% !TEX root       = manuel.tex
+% !TEX spellcheck = fr_FR
+
+\chapter{Adaptation de \Tw}
+
+\section{Mise en évidence de la Syntaxe}
+
+Parmi beaucoup d'autres caractéristiques, \Tw{} inclut aussi la mise évidence de la syntaxe\index{syntaxe, mise en évidence}. Cela signifie que certaines choses comme les commandes \LaTeX, les environnements ou les commentaires sont colorés, soulignés ou mis en évidence d'une façon ou d'une autre. \Tw{} fournit aussi la possibilité de basculer entre différentes combinaisons de mise en évidence\footnote{ Utilisez \menu{Format}\submenu\menu{Coloration syntaxique} pour changer la combinaison de mise en évidence du document en cours, et  \menu{Édition}\submenu{Préférences\dots}\submenu\menu{Éditeur}\submenu\menu{Coloration syntaxique} pour établir le système par défaut.} et pour vos propres combinaisons. Ceci est utile si vous travaillez souvent avec des types de fichiers pour lesquels aucun système de mise en évidence n'est fourni par défaut, ou si vous voulez ajuster les combinaisons our mieux correspondre aux vôtres.
+
+Pour modifier les combinaisons de mise en évidence, vous devez éditer le fichier texte \path{<resources>/configuration/syntax-patterns.txt}. Ce fichier contient un nombre de sections individuelles, chacune définissant une combinaison unique de mise en valeur à afficher dans la structure des menus de \Tw. Pour définir une section, écrivez uniquement le nom entouré de crochets sur une ligne. À l'évidence ces noms de doivent pas comprendre le caractère \verb|]|. Par défaut, les deux sections suivantes sont définies:
+\begin{verbExample}
+[LaTeX]
+[ConTeXt]
+\end{verbExample}
+De plus, vous pouvez ajouter des commentaires dans le fichier en commençant une ligne par \verb|#|. Les lignes vides sont ignorées.
+
+Chaque section comprend un nombre arbitraire de règles. Chacune de ces instructions consiste en trois partie: une instruction de mise en forme, un signe de correction orthographique et une expression régulière \footnote{Pour quelques détails sur les expressions régulières, voir \ref{sec:regexp}} définissant quelle partie du texte correspond. Ces parties doivent toutes être sur la même ligne et séparées par des espaces (espaces ou caractères de tabulation). Prenez par exemple la ligne qui suit à partir de la section \verb|LaTeX| par défaut:
+\begin{verbExample}
+red    Y    %.*
+\end{verbExample}
+La première partie, \verb|red|, définit le format (dans ce cas, une couleur rouge d'avant plan est spécifiée). La seconde partie, \verb|Y|, précise que la correction orthographique doit être activée pour du texte qui correspond cette règle en particulier. Parfois, il est utile de mettre \verb|N| à cet endroit pour désactiver la correction orthographique. Par exemple, si la correction était active pour les commandes de \LaTeX, la plupart des documents seraient envahis de texte souligné en rouge indiquant des mots mal orthographiés alors qu'en fait ils ne sont que des commandes spéciales. Enfin, la troisième partie spécifie que cette règle doit être appliquée à tout texte précédé de \verb|%|.
+
+Regardons plus attentivement aux trois parties de chaque règle. Dans sa forme la plus générale, la première partie -- l'instruction de formatage -- ressemble à
+\begin{verbExample}
+<foreground_colour>/<background_colour>;<fontflags>
+\end{verbExample}
+\verb|<fontflags>| peut spécifier indépendamment des couleurs (notez cependant qu'il doit toujours être précédé d'un \verb|;|). La couleur d'arrière plan (ainsi que le \verb|/|) peut être omise, mais si vous la spécifiez, vous devez aussi spécifier la couleur d'avant plan.
+
+Chaque couleur peut être spécifiée soit par un nom SVG\footnote{Voir \url{http://www.w3.org/TR/SVG/types.html#ColorKeywords} pour une liste de noms valides.}, soit par une valeur hexadécimale (\verb|#rrggbb|\footnote{Parce que \verb|#| est aussi utilisé pour indiquer les commentaires si donné comme premier caractère d'une ligne, vous devez ajouter un espace, une tabulation ou quelque chose de similaire avant de spécifier une couleur hexadécimale d'avant plan.}) similaire aux documents web. Le \verb|<fontflahs>| peut être toute combinaison des lettres \verb|B| (gras), \verb|I| (italique) et \verb|U| (souligné).
+
+Exemples d'instructions de mise en forme valides:
+\begin{verbExample}
+red
+white/#000000
+;B
+blue;I
+ #000000/#ffff00;U
+\end{verbExample}
+
+\section{Raccourcis clavier}
+\label{sec.shortcuts}
+
+
+L'utilisation des raccourcis clavier\index{raccourcis clavier} facilite grandement la saisie de la source et la gestion de celle-ci et de la vue. pour des actions fréquemment répétées, leur utilisation est beaucoup plus efficace que l'utilisation de la souris sur des boutons de barres d'outils.
+
+Nous donnons ci-après les raccourcis clavier pour le travail dans la source et pour celui dans la vue. Notez que sous Mac OS X, \verb|Ctrl| fait en réalité référence à la \emph{touche Commande}, qui est le modificateur habituel des raccourcis clavier. Bien que les raccourcis clavier soient spécifiés avec \verb|Ctrl|, celui-ci apparaîtra comme la \emph{touche Commande} dans les menus. (Pour faire vraiment référence à la \emph{touche Contrôle} sur la Mac, le fichier de définitions doit utiliser le nom \verb|Meta|.)
+
+Notez que les définitions ci-dessous sont celles par défaut de la version originelle en anglais. Des langues différentes peuvent utiliser des raccourcis différents.%, ainsi que quelques changements pour la version francisée du logiciel \footnote{du moins une version de travail des raccourcis francisés, car il y a des problèmes suivant les systèmes et les habitudes des utilisateurs!}; en effet la combinaison de \verb|Ctrl| et de \verb|\| ou \verb|[| n'est pas possible sur un clavier Azerty. Lorsque les raccourcis sont les mêmes, \og --\fg{} est mis dans la colonne francisée.
+
+Tous les raccourcis peuvent être redéfinis soit pour créer de nouveaux raccourcis ou pour modifier le raccourci existant pour se conformer aux habitudes personnelles ou changer des raccourcis non adaptés à un clavier particulier. La liste des actions\index{raccourcis clavier!actions} possibles qui peuvent être associées à un raccourci est données après la liste des raccourcis prédéfinis.
+
+Pour définir son propre raccourci, créer un fichier \path{shortcuts.ini}\index{raccourcis clavier!shortcuts.ini} dans le sous-dossier \path{<ressources>/configuration}; s'y trouvent déjà les fichiers \path{auto-indent-patterns.txt}, \path{delimiter-pairs.txt},\dots, \path{texworks-config.txt}.
+
+Par exemple, ce fichier pourrait contenir:
+\begin{verbExample}
+actionHard_Wrap = Shift+F3
+actionLast_Page = Ctrl+End
+actionFirst_Page = Ctrl+Home
+actionWrap_Lines = F3
+actionLine_Numbers = F4
+actionBalance_Delimiters = F9
+\end{verbExample}
+
+La première ligne dit que la frappe de \keysequence{Maj+F3} ouvre la boîte de dialogue du retour à la ligne physique; la deuxième \keysequence{Ctrl+End} vous amène à la dernière page et \keysequence{Ctrl+Home} (troisième ligne) à la première page; avec \keysequence{F3} vous obtenez le passage à la ligne automatique ou non dans la source, avec \keysequence{F4} vous montrez/cachez les numéros de ligne et avec \keysequence{F9} vous sélectionnez le texte entre délimiteurs correspondants de la source.
+
+\needspace{7\baselineskip}
+\subsection{Raccourcis prédéfinis}\index{raccourcis clavier!prédéfinis}
+
+Pour travailler dans la fenêtre source \footnote{Certaines combinaisons de touches ne sont pas possible sur un clavier AZERTY, aussi nous proposons du moins une version de travail des raccourcis francisés, car il y a des problèmes suivant les systèmes et les habitudes des utilisateurs!; en effet la combinaison de \verb|Ctrl| et de \verb|\| ou \verb|[| n'est pas possible. Nous proposons donc: \verb|Ctrl+]| \submenu\ \verb|Ctrl+>| (Indenter), \verb|Ctrl+[| \submenu\ \verb|Ctrl+<| (Désindenter), \verb|Ctrl+Maj+]| \submenu\ \verb|Ctrl+(| (Commenter), \verb|Ctrl+Maj+[| \submenu\ \verb|Ctrl+)| (Décommenter) et \verb|Ctrl+\| \submenu\ \verb|Ctrl+$| (Afficher/masquer le panneau de sortie)}
+\input shortcutsTeXDocument.tex
+
+\needspace{5\baselineskip}
+Déplacements du curseur (maintenir \keysequence{Shift} pour sélectionner):
+\begin{longtable}{Pl}
+\toprule
+Shortcut & Action \\
+\midrule \endhead
+$\rightarrow$      & 1 caractère à droite\\
+Ctrl+$\rightarrow$ & 1 mot à droite\\
+$\leftarrow$       & 1 caractère à gauche\\
+Ctrl+$\leftarrow$  & 1 mot à gauche\\
+$\uparrow$         & 1 ligne vers le haut\\
+$\downarrow$       & 1 ligne vers le bas\\
+PgUp               & 1 écran vers le haut\\
+PgDown             & 1 écran vers le bas\\
+Home               & Début de ligne\\
+Ctrl+Home          & Début de document\\
+End                & Fin de ligne\\
+Ctrl+End           & Fin de document\\
+\bottomrule
+\end{longtable}
+
+Pour travailler dans la vue .pdf:
+\input shortcutsPDFDocument.tex
+
+\subsection{Actions par ordre alphabétique}
+\index{actions!ordre alphabétique}
+\input{actionsAlphabetical.tex}
+
+\subsection{Actions listées par menu}
+\index{actions!by menu}
+
+Pour la fenêtre source:
+\input menuactionsTeXDocument.tex
+
+\bigskip
+Pour la fenêtre de vue:
+\input menuactionsPDFDocument.tex
+
+\subsection{Autres actions}
+En plus des actions listées ci-dessus, il y a aussi des actions pour les scripts. Celles-ci sont dynamiques par nature, comme elles sont créées à la volée pour les scripts disponibles (elles pourront changer lorsque vous installerez, supprimerez ou modifierez des scripts.) Toutes ces actions sont de la forme \verb*|Script: <script_titre>|, où \verb*|<script_titre>| doit être modifié de façon appropriée. Si vous avez un script qui apparaît comme \verb|Mon Script|, l'action correspondante sera appelée \verb*|Script: Mon Script|.
+
+
+\section{Les mots clé de complétion}
+\index{complétion automatique!mots clé}\index{auto-complétion|see {complétion automatique}}
+\label{sec.autocompletion}
+
+Nous donnons ici les mots clé de complétion tels qu'ils sont fournis avec \Tw. Ils se trouvent dans les fichiers \path{tw-basic.txt}, \path{tw-context.txt} (initialement vide) et \path{tw-latex.txt} dans le répertoire \path{<ressources>\completion}.
+
+Nous donnons les indications en trois colonnes: les deux premières montrent les mots clé, la troisième le code \AllTeX{} résultat. Dans certains cas il n'y a que le résultat, cela signifie que l'on peut commencer à entrer le code \AllTeX{} et essayer de le compléter par \keysequence{Tab}.
+
+\newcommand{\AutoCompRet}{$\mathcal{R}$}
+\newcommand{\AutoCompIns}{$\mathcal{I}$}
+Lors de la complétion, le système insère des retours à la ligne et positionne le curseur de saisie au premier endroit où on doit entrer des informations pour compléter la saisie. Pour représenter les retours à la ligne nous avons utiliser \AutoCompRet{} et pour marquer le point de saisie \AutoCompIns.
+
+\needspace{4\baselineskip}
+Dès lors, une ligne telle que ``\textbackslash begin\{abstract\}{\AutoCompRet}{\AutoCompIns}{\AutoCompRet}\textbackslash end\{abstract\}•'' devrait être interprétée comme
+\begin{verbExample}
+\begin{abstract}
+
+\end{abstract}•
+\end{verbExample}
+avec le curseur positionné dans la ligne centrale, vide.
+
+On remarquera que les mots clé présentent une certaine cohérence, les variables mathématiques ont un mot clé commençant par \verb|x|, lorsqu'elles sont dans un environnement mathématique, quand elles sont utilisées seules dans le texte on ajoute \verb|d| devant; par exemple \verb|xa| et \verb|dxa| pour \verb|\alpha|, s'il y a une majuscule il y aura un \verb|c|, comme  \verb|xo| pour
+\verb|\omega| et \verb|xco| pour \verb|\Omega|. Les mots clé d'environnements commencent par \verb|b|: \verb|bali| pour
+\verb|\begin{align}| (\verb|b| mnémonique pour \verb|\begin|). Lorsque l'environnement a des options possibles, on accole un ou plusieurs \verb|o| au nom de base: \verb|bminp| pour \verb|\begin{minipage}{}..| et 
+\verb|bminpo| pour \verb|\begin{minipage}[]{}..|.
+
+%\vspace{12pt}
+%
+Mots clé définis dans \path{tw-basic.txt}\index{complétion automatique!tw-basic.txt} (définis dans \TeX):
+%\input{tw-basic_fr.tex}
+\input{autocompletionBasic}
+
+\needspace{6\baselineskip}
+Mots clé définis dans \path{tw-latex.txt}\index{complétion automatique!tw-latex.txt} (définis dans in \LaTeX):
+%\input{tw-latex_fr.tex}
+\input{autocompletionLatex}
+
+On y trouve aussi des codes d'environnements (ci-dessus) sans le \verb|\begin{| (qui est aussi un mot clé); cela permet si on a commencé d'entrer le code d'un environnement, de le compléter par \verb|[Tab]|.

@@ -1,0 +1,73 @@
+% !TEX encoding = utf8
+% !TEX program  = pdflatex
+% !TEX root     = manuel.tex
+% !TEX spellcheck = fr_FR
+
+\chapter{Introduction}
+
+Donald E. Knuth\index{Knuth Donald E.} a décidé de créer un nouveau système typographique qui sera appelé \TeX\index{tex@\TeX}, parce que le système d'impression des volumes de son livre \emph{The Art of Computer Programming} avait changé; Knuth trouva horrible le résultat du nouveau système.
+
+Le but de \TeX{} était d'avoir un système qui produirait toujours les mêmes documents indépendamment de la machine utilisée. Knuth a aussi décrit la famille de fontes \emph{Computer Modern} et le langage \textsf{METAFONT}\index{metafont@\textsf{METAFONT}} de description de fontes.
+
+Le travail débuté en 1977 fut terminé (les langages ont été \og figés\fg) en 1989. \TeX{} et \textsf{METAFONT} n'évoluent plus sauf pour correction de bogues mineures (les versions de \TeX{} sont numérotées suivant les décimales de $\pi$ -- actuellement 3.1415926 -- et \textsf{METAFONT} les décimales du nombre \og e\fg{} -- actuellement 2.718281.)
+
+\TeX{} fournit des outils de base (commandes/instructions/\og primitives\fg) pour définir une typographie \footnote{pris ici au sens large de fontes et mise en page}; pratiquement tous les détails doivent être précisés, mais le langage permet de créer des macros pour des constructions répétées. C'est ainsi que des collections de macros sont chargées au moyen de fichiers \og format\fg\index{fichiers!format} (entre autres, de grandes collections de macros précompilées.)
+
+Knuth a créé un format de base par défaut (plus ou moins 600 commandes), c'est \emph{Plain\index{tex@\TeX!Plain} \TeX}. Celui-ci facilite la création des documents.
+
+Le format le plus utilisé est \LaTeX\index{tex@\TeX!\LaTeX} (Leslie Lamport\index{Lamport Leslie}, 1985), qui offre des commandes et des structures plus générales pour certains documents (article, book,\dots) permettant un travail plus facile et plus rapide, mais parfois avec moins de flexibilité à cause du cadre plus ou moins rigide. D'autres formats sont \AmS-\TeX\index{tex@\TeX!\AmS-\TeX}, \AmS-\LaTeX, ConTeXt\index{tex@\TeX!ConTeXt}, chacun ayant des buts et des avantages (et inconvénients) particuliers.
+
+Pour étendre le format, on charge des \og modules\fg{} qui sont des collections de macros spécifiques à certains aspects de la typographie.
+
+Depuis sa définition, fin des années 70, jusqu'à maintenant, dernière version en mars 2008, la famille \TeX{} a dû évoluer pour tenir compte des développements de la typographie en dehors du monde \TeX.
+
+Quelques uns des problèmes étaient/sont:
+\begin{itemize}
+\item prendre en compte d'autres langues avec des \og alphabets\fg{} plus étendus que l'ASCII\footnote{``American Standard Code for Information Interchange'': système d'encodage des caractères incluant seulment les caractères Latin trouvés en anglais, quelques caractères communs de ponctuation et quelques autres symboles tels que \% ou \$} ou tout aussi bien avec des alphabets non latins, 
+\item avoir plus de polices, il n'y a pas grande variété dans les polices créées avec \textsf{METAFONT} (peu de créateurs l'utilisent), 
+\item créer des documents dans d'autres formats que le DVI d'origine \footnote{Device Independent: format des fichiers produits par \TeX{} et indépendants du système.}, 
+\item utiliser les riches possibilités des autres systèmes et formats typographiques comme PostScript et PDF, 
+\item avoir plus de facilités de calcul et de création de scripts,\dots
+\end{itemize}
+
+Pour répondre à ces demandes et d'autres, de nombreux \og moteurs\fg{} et programmes ont été créés autour de \TeX, par exemple: pdftex\index{tex@\TeX!pdftex}, pdflatex, dvips\index{tex@\TeX!dvips}, ps2pdf, \textsf{METAPOST}\index{metapost@\textsf{METAPOST}} pour ouvrir le monde \TeX{} aux possibilités de PostScript\index{PostScript} et PDF\index{PDF}, XeTeX\index{tex@\TeX!XeTeX} et XeLaTeX pour pouvoir utiliser des fontes \og normales\fg{} sur les différentes machines et pour être capable de gérer les systèmes d'écriture différents des systèmes gauche-droite originaires d'Europe (lettres latines et cyrilliques et associés) -- droite-gauche, vertical, pictogrammes,\dots --, LuaTeX\index{tex@\TeX!LuaTeX} et LuaLaTeX pour avoir un langage puissant de scripts.
+
+Mais pour utiliser \TeX{} et les systèmes de sa famille, on doit créer un document \og source\fg{}\index{document!source} car \TeX{} n'est qu'un système pour transformer un document source en un document (parfaitement!) mis en page. Cette source est un simple fichier texte avec des instructions de mise en forme typographique et on a besoin d'un programme pour la créer: \textbf{l'éditeur\index{editeur@éditeur}}.
+
+Il y a beaucoup d'éditeurs capables de créer une source \TeX, certains sont des éditeurs généraux, d'autres sont spécifiquement créés pour \TeX: c'est ici qu'intervient \Tw\index{texworks@\Tw}.
+\bigskip
+
+\Tw{} est un projet de création d'un éditeur de texte utilisé pour les outils de la faille \TeX, nous nous référerons à ceux-ci comme \AllTeX. Plutôt que de créer une nouvelle incarnation d'éditeur sophistiqué, bardé de multiples barres d'outils pour subvenir à tous les besoins, \Tw{} cherche au contraire à proposer un éditeur dépouillé, n'offrant, à première vue que des outils limités à l'édition de texte ainsi qu'un bouton et un menu déroulant pour composer un texte en \AllTeX.
+
+L'idée de création de l'éditeur fait suite à une longue réflexion de \emph{Jonathan Kew\index{Kew Jonathan}}, initiateur en charge du projet, sur les raisons qui éloignent les utilisateurs potentiels de \AllTeX, ainsi que de l'observation du succès de l'éditeur \textbf{\TeX shop\index{texshop@\TeX shop}} sous environnement Mac.
+
+Enfin, le but est aussi de fournir un éditeur identique sur de nombreuses plates-formes logicielles; \Tw{} est actuellement disponible sous Linux, sous Mac OS ainsi que sous Windows. Dans tous les cas l'interface se présente sous la même forme et offre les mêmes fonctionnalités.
+%\bigskip
+
+Après l'introduction, la deuxième section explique comment installer le logiciel. Dans le troisième on décrit l'interface et on crée un premier document montrant les bases d'utilisation de \Tw. Dans les quatrièmes et cinquièmes sections on aborde les outils de travail avancés proposés par \Tw{}; cette section n'est à lire que lorsqu'on a bien en main les bases du travail sous \Tw{}. Les outils avancés permettent d'être beaucoup plus efficace. La sixième section donne une brève introduction à l'écriture de scripts (ce qui dépasse le but de ce manuel, on trouvera des informations ailleurs.) Enfin la septième section fournit des pointeurs vers des informations complémentaires sur \TeX{} et des sources d'aide; ceci termine la partie principale du document.
+
+Enfin, les annexes fournissent des informations pour \og customiser\fg{} l'éditeur \Tw, sur les expressions régulières pour le système rechercher/remplacer et comment \Tw{} peut être compilé à partir des sources. Une courte bibliographie et un index terminent ce manuel.
+
+\section{Icônes et style}
+
+Parce qu'une image vaut souvent mieux que mille mots, des icônes et des styles particuliers sont utilisés dans tout le manuel pour éviter des paragraphes incommodes ou marquer certains points spéciaux. Les touches du clavier sont généralement représentées par\keystroke{A}, à l'exception de quelques touches spéciales. Ce sont:\keysequence{Shift},\keysequence{PgUp},\keysequence{PgDown},\keysequence{Return} (retour charriot),\keysequence{UArrow},\keysequence{DArrow},\keysequence{LArrow},\keysequence{RArrow},\keysequence{Spacebar} (espace),\keysequence{BSpace} (backspace) et \keysequence{Tab} (tab).
+
+De plus, les cliques de souris sont représentés par {\LMB} (clique gauche) et {\RMB} (clique droit; sur Mac OS X avec une souris à un bouton, cela est généralement réalisé en maintenant la touche {\Ctrl} tout en cliquant.)
+
+En dehors des instructions de saisie, de nombreux passages de ce manuel sont marqués avec un style particulier.
+
+\needspace{5\baselineskip}
+Des informations valables seulement pour ou qui ne concernent qu'un système d'exploitation sont indiquées comme ceci:
+\begin{OSWindows}
+\noindent Ceci ne vous concerne que si vous utilisez Windows. \\
+Vous pouvez bien évidemment lire ces informations si vous utilisez un autre système d'exploitation. \\
+Ce ne sera que de peu d'usage pour vous.
+\end{OSWindows}
+
+\bigskip
+Les exemples de code sont donnés par une police de chasse fixe, style machine à écrire, avec des lignes au-dessus et en-dessous pour les séparer du reste du texte:
+\begin{verbExample}
+Hello \TeX-World!
+\end{verbExample}
+
+En relation directe avec ceci, le chapitre \ref{chap:first-steps} contient plusieurs tutoriels, présentés comme les exemples de code ci-dessus, mais avec une icône de bloc-note à côté.
