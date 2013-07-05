@@ -231,6 +231,12 @@ void PDFWidget::setDocument(Poppler::Document *doc)
 
 void PDFWidget::windowResized()
 {
+	// the fitting functions below may trigger resize events (e.g., if scroll
+	// bars are shown/hidden as a result of resizing the page image). To avoid
+	// infinite loops of resize events, disconnect the event here and reconnect
+	// it in the end.
+	disconnect(parent()->parent(), SIGNAL(resized()), this, SLOT(windowResized()));
+
 	switch (scaleOption) {
 		case kFixedMag:
 			break;
@@ -241,7 +247,10 @@ void PDFWidget::windowResized()
 			fitWindow(true);
 			break;
 	}
+	// Ensure all resizing is finished before reconnecting the resize event.
 	update();
+	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents | QEventLoop::ExcludeSocketNotifiers);
+	connect(parent()->parent(), SIGNAL(resized()), this, SLOT(windowResized()));
 }
 
 void PDFWidget::paintEvent(QPaintEvent *event)
