@@ -1,0 +1,45 @@
+[
+  {
+    "Severity":Severity.BadBox,"File":"./untitled-1.tex","Row":4,
+    "Description":"Underfull \\hbox (badness 10000) in paragraph at lines 4--5\n[][]\\OT1/cmr/m/n/42.99 Crazy for-"
+  },
+  {
+    "Severity":Severity.BadBox,"File":"./untitled-1.tex","Row":4,
+    "Description":"Underfull \\hbox (badness 10000) in paragraph at lines 4--5\n\\OT1/cmr/m/n/42.99 mat-ting"
+  },
+  {
+    "Severity":Severity.BadBox,"File":"./untitled-1.tex","Row":4,
+    "Description":"Tight \\hbox (badness 57) in paragraph at lines 4--5\n\\OT1/cmr/m/n/42.99 leads to crazy"
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is LuaTeX, Version beta-0.70.2-2012052410 (TeX Live 2012)
+ restricted \write18 enabled.
+(./untitled-1.tex
+LaTeX2e <2011/06/27>
+LuaTeX adaptation of babel <v3.8m-luatex-1.5> and hyphenation patterns for engl
+ish, dumylang, nohyphenation, loaded.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/extsizes/extarticle.cls
+Document Class: extarticle 1996/10/08 v1.0 Non Standard LaTeX document class
+(/usr/local/texlive/2011/texmf-dist/tex/latex/extsizes/size20.clo)
+(/usr/local/texlive/201/texmf-dist/tex/latex/base/exscale.sty))
+(./untitled-1.aux)
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+[][]\OT1/cmr/m/n/42.99 Crazy for-
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/42.99 mat-ting
+
+Tight \hbox (badness 57) in paragraph at lines 4--5
+\OT1/cmr/m/n/42.99 leads to crazy
+[1{/usr/local/texlive/201/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./untitled-1.aux) )
+(see the transcript file for additional information)
+ 260 words of node memory still in use:
+   2 hlist, 1 vlist, 1 rule, 2 glue, 39 glue_spec, 1 write nodes
+   avail lists: 2:12,3:8,4:43,6:45,7:9,9:16,10:6
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on untitled-1.pdf (1 page, 11727 bytes).
+
+SyncTeX written on untitled-1.synctex.gz.Transcript written on untitled-1.log.
+

@@ -2,8 +2,8 @@
 // Title: Errors, warnings, badboxes
 // Description: Looks for errors, warnings or badboxes in the LaTeX terminal output
 // Author: Jonathan Kew, Stefan Löffler, Antonio Macrì, Henrik Skov Midtiby
-// Version: 0.8.5
-// Date: 2012-10-20
+// Version: 0.8.6
+// Date: 2013-07-05
 // Script-Type: hook
 // Hook: AfterTypeset
 
@@ -146,6 +146,27 @@ function LogParser()
     {
       // This pattern recognizes badboxes without context and line numbers
       Regex: new RegExp("^(?:Under|Over)full \\\\[hv]box\\s*\\([^)]+\\) has occurred while \\\\output is active\\b"),
+      Callback: function(m, f) {
+        return new Result(Severity.BadBox, f, 0, m[0]);
+      }
+    },
+    {
+      // This pattern recognizes tight/loose boxes in paragraphs with context given on one, two or more lines.
+      Regex: new RegExp("^((?:Tight|Loose) \\\\hbox\\s*\\([^)]+\\) in paragraph at lines (\\d+)--\\d+\n)((?:.{" + max_print_line + "}\n)*)(.*)"),
+      Callback: function(m, f) {
+        return new Result(Severity.BadBox, f, m[2], (m[1] + m[3].replace(/\n/g, '') + m[4]).trimRight());
+      }
+    },
+    {
+      // This pattern recognizes tight/loose boxes without context, but with line numbers
+      Regex: new RegExp("^(?:Tight|Loose) \\\\[hv]box\\s*\\([^)]+\\) (?:detected at line (\\d+)|in alignment at lines (\\d+)--\\d+)\n"),
+      Callback: function(m, f) {
+        return new Result(Severity.BadBox, f, m[1] || m[2], m[0].trimRight());
+      }
+    },
+    {
+      // This pattern recognizes tight/loose boxes without context and line numbers
+      Regex: new RegExp("^(?:Tight|Loose) \\\\[hv]box\\s*\\([^)]+\\) has occurred while \\\\output is active\\b"),
       Callback: function(m, f) {
         return new Result(Severity.BadBox, f, 0, m[0]);
       }
