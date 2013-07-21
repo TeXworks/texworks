@@ -926,7 +926,7 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 	if (pos > -1) {
 		hasMetadata = true;
 		reqName = re.cap(1).trimmed();
-		reqCodec = QTextCodec::codecForName(reqName.toAscii());
+		reqCodec = QTextCodec::codecForName(reqName.toLatin1());
 		if (reqCodec == NULL) {
 			static QHash<QString,QString> *synonyms = NULL;
 			if (synonyms == NULL) {
@@ -935,7 +935,7 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 					synonyms->insert(QString(texshopSynonyms[i]).toLower(), texshopSynonyms[i+1]);
 			}
 			if (synonyms->contains(reqName.toLower()))
-				reqCodec = QTextCodec::codecForName(synonyms->value(reqName.toLower()).toAscii());
+				reqCodec = QTextCodec::codecForName(synonyms->value(reqName.toLower()).toLatin1());
 		}
 	}
 	else
@@ -990,7 +990,7 @@ QString TeXDocument::readFile(const QString &fileName,
 						   "It will be interpreted as %3 instead, which may result in incorrect text.")
 							.arg(reqName)
 							.arg(fileName)
-							.arg(QString::fromAscii((*codecUsed)->name())),
+							.arg(QString::fromLatin1((*codecUsed)->name())),
 						QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
 					return QString();
 			}
@@ -1643,7 +1643,7 @@ void TeXDocument::encodingPopup(const QPoint loc)
 			; // FIXME
 		}
 		else {
-			QTextCodec *newCodec = QTextCodec::codecForName(result->text().toAscii());
+			QTextCodec *newCodec = QTextCodec::codecForName(result->text().toLatin1());
 			if (newCodec && newCodec != codec) {
 				codec = newCodec;
 				showEncodingSetting();
@@ -1756,9 +1756,15 @@ void TeXDocument::doLineDialog()
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.setPosition(cursor.selectionStart());
 	bool ok;
+	#if QT_VERSION >= 0x050000
+	int lineNo = QInputDialog::getInt(this, tr("Go to Line"),
+									tr("Line number:"), cursor.blockNumber() + 1,
+									1, textEdit->document()->blockCount(), 1, &ok);
+	#else
 	int lineNo = QInputDialog::getInteger(this, tr("Go to Line"),
 									tr("Line number:"), cursor.blockNumber() + 1,
 									1, textEdit->document()->blockCount(), 1, &ok);
+	#endif
 	if (ok)
 		goToLine(lineNo);
 }

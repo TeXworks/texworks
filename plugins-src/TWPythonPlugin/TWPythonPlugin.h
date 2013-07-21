@@ -39,6 +39,9 @@ class TWPythonPlugin : public QObject, public TWScriptLanguageInterface
 {
 	Q_OBJECT
 	Q_INTERFACES(TWScriptLanguageInterface)
+#if QT_VERSION >= 0x050000
+	Q_PLUGIN_METADATA(IID "org.tug.texworks.ScriptPlugins.PythonPlugin")
+#endif
 	
 public:
 	/** \brief Constructor

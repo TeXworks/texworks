@@ -13,7 +13,11 @@ LINK_DIRECTORIES(${QT_LIBRARY_DIR})
 # already been mocced during the build of the main program seems redundant, but
 # I'm not wise enough in the ways of Qt and CMake to figure out an
 # alternative._
-QT4_WRAP_CPP(PYTHON_PLUGIN_MOC ${TeXworks_SCRIPT_API_H} TWPythonPlugin.h)
+IF (${QT_VERSION_MAJOR} EQUAL 5)
+  QT5_WRAP_CPP(PYTHON_PLUGIN_MOC ${TeXworks_SCRIPT_API_H} TWPythonPlugin.h)
+ELSE()
+  QT4_WRAP_CPP(PYTHON_PLUGIN_MOC ${TeXworks_SCRIPT_API_H} TWPythonPlugin.h)
+ENDIF()
 
 ADD_LIBRARY(TWPythonPlugin MODULE
   TWPythonPlugin.cpp

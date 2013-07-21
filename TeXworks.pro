@@ -68,7 +68,7 @@ unix:!macx {
 isEmpty(TW_BUILD_ID):TW_BUILD_ID = personal
 QMAKE_CXXFLAGS += -DTW_BUILD_ID=$$TW_BUILD_ID
 
-QT			+=	xml script scripttools
+QT			+=	script scripttools
 CONFIG		+=	rtti uitools
 
 unix {

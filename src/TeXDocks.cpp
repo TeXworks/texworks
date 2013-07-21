@@ -26,7 +26,6 @@
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QScrollBar>
-#include <QDomNode>
 
 TeXDock::TeXDock(const QString& title, TeXDocument *doc)
 	: QDockWidget(title, doc), document(doc), filled(false)

@@ -672,7 +672,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		font = QFont(dlg.editorFont->currentText());
 		font.setPointSize(dlg.fontSize->value());
 		settings.setValue("font", font.toString());
-		TWApp::instance()->setDefaultCodec(QTextCodec::codecForName(dlg.encoding->currentText().toAscii()));
+		TWApp::instance()->setDefaultCodec(QTextCodec::codecForName(dlg.encoding->currentText().toLatin1()));
 		if (dlg.language->currentIndex() >= 0) {
 			QVariant data = dlg.language->itemData(dlg.language->currentIndex());
 			if (data.isValid())

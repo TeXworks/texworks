@@ -75,14 +75,25 @@ ENDIF ()
 # Qt-Specific Source Code Processing
 # ----------------------------------
 
-# Run moc on header files.
-QT4_WRAP_CPP(TEXWORKS_GEN_MOC ${TEXWORKS_MOC_HDRS})
-# Run uic on user interface files.
-QT4_WRAP_UI(TEXWORKS_GEN_UI ${TEXWORKS_UIS})
-# Run rcc on reasource files.
-QT4_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
-# Prep language translations.
-QT4_ADD_TRANSLATION(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS})
+IF (${QT_VERSION_MAJOR} EQUAL 5)
+  # Run moc on header files.
+  QT5_WRAP_CPP(TEXWORKS_GEN_MOC ${TEXWORKS_MOC_HDRS})
+  # Run uic on user interface files.
+  QT5_WRAP_UI(TEXWORKS_GEN_UI ${TEXWORKS_UIS})
+  # Run rcc on reasource files.
+  QT5_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
+  # Prep language translations.
+  QT5_ADD_TRANSLATION(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS})
+ELSE()
+  # Run moc on header files.
+  QT4_WRAP_CPP(TEXWORKS_GEN_MOC ${TEXWORKS_MOC_HDRS})
+  # Run uic on user interface files.
+  QT4_WRAP_UI(TEXWORKS_GEN_UI ${TEXWORKS_UIS})
+  # Run rcc on reasource files.
+  QT4_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
+  # Prep language translations.
+  QT4_ADD_TRANSLATION(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS})
+ENDIF()
 
 IF ( APPLE OR NOT UNIX )
   SET(EXE_NAME TeXworks)
@@ -118,6 +129,9 @@ IF (APPLE)
   )
 ENDIF ()
 
+IF (${QT_VERSION_MAJOR} EQUAL 5 AND UNIX)
+    SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES COMPILE_FLAGS -fPIC)
+ENDIF ()
 
 # Installation
 # ------------

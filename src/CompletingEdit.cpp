@@ -227,7 +227,7 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 							// need to make sure that the source text is removed
 							// (inserting the text in the target has already
 							// been completed at this point)
-							bool insideWindow = (drag->target() && (this == drag->target() || this->isAncestorOf(drag->target())));
+							bool insideWindow = (drag->target() && (this == drag->target() || this->isAncestorOf(qobject_cast<QWidget*>(drag->target()))));
 							bool insideSelection = (insideWindow && droppedOffset >= sourceStart && droppedOffset <= sourceEnd);
 							if (insideSelection) {
 								// The text was dropped into the same window at

@@ -25,6 +25,8 @@
 #include <QTextEdit>
 #include <QHash>
 #include <QTimer>
+#include <QDrag>
+#include <QMimeData>
 
 #include <hunspell.h>
 

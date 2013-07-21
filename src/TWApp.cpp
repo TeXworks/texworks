@@ -186,7 +186,7 @@ void TWApp::init()
 	recentFilesLimit = settings.value("maxRecentFiles", kDefaultMaxRecentFiles).toInt();
 
 	QString codecName = settings.value("defaultEncoding", "UTF-8").toString();
-	defaultCodec = QTextCodec::codecForName(codecName.toAscii());
+	defaultCodec = QTextCodec::codecForName(codecName.toLatin1());
 	if (defaultCodec == NULL)
 		defaultCodec = QTextCodec::codecForName("UTF-8");
 
@@ -1188,7 +1188,6 @@ void TWApp::createMessageTarget(QWidget* aWindow)
 }
 #endif
 
-#ifdef Q_WS_X11
 void TWApp::bringToFront()
 {
 	foreach (QWidget* widget, topLevelWidgets()) {
@@ -1199,7 +1198,6 @@ void TWApp::bringToFront()
 		}
 	}
 }
-#endif
 
 QList<QVariant> TWApp::getOpenWindows() const
 {
@@ -1225,9 +1223,11 @@ void TWApp::setGlobal(const QString& key, const QVariant& val)
 		case QMetaType::QObjectStar:
 			connect(v.value<QObject*>(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
 			break;
+		#if QT_VERSION < 0x050000
 		case QMetaType::QWidgetStar:
 			connect((QWidget*)v.data(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
 			break;
+		#endif
 		default: break;
 	}
 	m_globals[key] = v;
@@ -1245,12 +1245,14 @@ void TWApp::globalDestroyed(QObject * obj)
 				else
 					++i;
 				break;
+			#if QT_VERSION < 0x050000
 			case QMetaType::QWidgetStar:
 				if (i.value().value<QWidget*>() == obj)
 					i = m_globals.erase(i);
 				else
 					++i;
 				break;
+			#endif
 			default:
 				++i;
 				break;
