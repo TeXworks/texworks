@@ -131,7 +131,6 @@ SET (QT_COMPONENTS
     QtUiTools
     QtScript
     QtScriptTools
-    QtXML
 )
 
 IF ( UNIX AND NOT APPLE )
@@ -159,7 +158,7 @@ ENDIF ()
 SET(TeXworks_INCLUDE_DIRS
   ${QT_INCLUDE_DIR}
   ${HUNSPELL_INCLUDE_DIR}
-  ${POPPLER_QT4_INCLUDE_DIR}
+  ${POPPLER_QT_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
 )
 IF ( POPPLER_NEEDS_FONTCONFIG )
@@ -346,6 +345,7 @@ MESSAGE("TeXworks has been configured:\n")
 CONFIG_INFO("Version" ${TeXworks_VERSION})
 CONFIG_INFO("SVN Revision" ${TeXworks_SVN_REV})
 CONFIG_INFO("Build ID" ${TW_BUILD_ID})
+CONFIG_INFO("Qt version" ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH})
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
 MESSAGE("")
 

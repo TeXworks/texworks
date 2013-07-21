@@ -121,9 +121,7 @@ public:
 	static QString GetWindowsVersionString();
 	static unsigned int GetWindowsVersion();
 #endif
-#ifdef Q_WS_X11
 	void bringToFront();
-#endif
 
 	QObject* openFile(const QString& fileName, const int pos = -1);
 	Q_INVOKABLE

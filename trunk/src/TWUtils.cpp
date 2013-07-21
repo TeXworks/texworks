@@ -1275,7 +1275,7 @@ FileVersionDatabase FileVersionDatabase::load(const QString & path)
 		if (line.startsWith('#')) continue;
 		
 		rec.version = line.section(' ', 0, 0).toUInt();
-		rec.hash = QByteArray::fromHex(line.section(' ', 1, 1).toAscii());
+		rec.hash = QByteArray::fromHex(line.section(' ', 1, 1).toLatin1());
 		rec.filePath = line.section(' ', 2).trimmed();
 		rec.filePath = rootDir.absoluteFilePath(rec.filePath.filePath());
 		retVal.m_records.append(rec);

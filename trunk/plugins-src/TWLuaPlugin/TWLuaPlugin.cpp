@@ -48,7 +48,9 @@ TWScript* TWLuaPlugin::newScript(const QString& fileName)
 	return new LuaScript(this, fileName);
 }
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(TWLuaPlugin, TWLuaPlugin)
+#endif
 
 
 bool LuaScript::execute(TWScriptAPI *tw) const
@@ -189,8 +191,10 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 			return 1;
 		case QMetaType::QObjectStar:
 			return LuaScript::pushQObject(L, v.value<QObject*>(), throwError);
+		#if QT_VERSION < 0x050000
 		case QMetaType::QWidgetStar:
 			return LuaScript::pushQObject(L, qobject_cast<QObject*>(v.value<QWidget*>()), throwError);
+		#endif
 		default:
 			// Don't throw errors if we are not in protected mode in lua, i.e.
 			// if the call to this function originated from C code, not in response

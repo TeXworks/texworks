@@ -491,7 +491,7 @@ void PDFWidget::doLink(const Poppler::Link *link)
 			{
 				const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
 				Q_ASSERT(browse != NULL);
-				QUrl url = QUrl::fromEncoded(browse->url().toAscii());
+				QUrl url = QUrl::fromEncoded(browse->url().toLatin1());
 				if (url.scheme() == "file") {
 					PDFDocument *doc = qobject_cast<PDFDocument*>(window());
 					if (doc) {
@@ -934,9 +934,15 @@ void PDFWidget::doPageDialog()
 		return;
 	bool ok;
 	setCursor(Qt::ArrowCursor);
+	#if QT_VERSION >= 0x050000
+	int pageNo = QInputDialog::getInt(this, tr("Go to Page"),
+									tr("Page number:"), pageIndex + 1,
+									1, document->numPages(), 1, &ok);
+	#else
 	int pageNo = QInputDialog::getInteger(this, tr("Go to Page"),
 									tr("Page number:"), pageIndex + 1,
 									1, document->numPages(), 1, &ok);
+	#endif
 	if (ok)
 		goToPage(pageNo - 1);
 }
@@ -1782,7 +1788,14 @@ void PDFDocument::doFindAgain(bool newSearch /* = false */)
 		for (pageIdx = firstPage; pageIdx != lastPage; pageIdx += deltaPage) {
 			page = document->page(pageIdx);
 
+			#if QT_VERSION >= 0x050000
+			double left, top, bottom, right;
+			lastSearchResult.selRect.getCoords(&left, &top, &right, &bottom);
+			if (page->search(searchText, left, top, right, bottom, searchDir, searchMode)) {
+				lastSearchResult.selRect.setCoords(left, top, right, bottom);
+			#else
 			if (page->search(searchText, lastSearchResult.selRect, searchDir, searchMode)) {
+			#endif
 				lastSearchResult.doc = this;
 				lastSearchResult.pageIdx = pageIdx;
 				QPainterPath p;

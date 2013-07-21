@@ -542,8 +542,13 @@ void SearchResults::presentResults(const QString& searchText,
 	}
 
 	resultsWindow->table->setHorizontalHeaderLabels(QStringList() << tr("File") << tr("Line") << tr("Start") << tr("End") << tr("Text"));
+	#if QT_VERSION >= 0x050000
+	resultsWindow->table->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Stretch);
+	resultsWindow->table->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+	#else
 	resultsWindow->table->horizontalHeader()->setResizeMode(4, QHeaderView::Stretch);
 	resultsWindow->table->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+	#endif
 	resultsWindow->table->verticalHeader()->hide();
 	resultsWindow->table->setColumnHidden(2, true);
 	resultsWindow->table->setColumnHidden(3, true);
