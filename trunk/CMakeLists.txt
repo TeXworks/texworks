@@ -116,6 +116,23 @@ IF ( APPLE )
   OPTION(USE_SYSTEM_PYTHON "Link against Python Framework distributed with OS X?" ON)
 ENDIF ()
 
+IF (UNIX AND NOT APPLE)
+  SET(TeXworks_HELP_DIR share/doc/texworks-help CACHE PATH "Path where TeXworks looks for help files")
+  SET(TeXworks_DIC_DIR /usr/share/myspell/dicts CACHE PATH "Path where TeXworks looks for spellchecking dictionaries")
+  SET(TeXworks_DOCS_DIR share/doc/texworks CACHE PATH "Path in which documentation files are installed")
+  SET(TeXworks_ICON_DIR share/pixmaps CACHE PATH "Path in which icons are installed")
+  SET(TeXworks_MAN_DIR share/man/man1 CACHE PATH "Path in which manpages are installed")
+  SET(TeXworks_DESKTOP_DIR share/applications CACHE PATH "Path in which .desktop files are installed")
+  MARK_AS_ADVANCED(TeXworks_HELP_DIR)
+  MARK_AS_ADVANCED(TeXworks_DIC_DIR)
+  MARK_AS_ADVANCED(TeXworks_DOCS_DIR)
+  MARK_AS_ADVANCED(TeXworks_ICON_DIR)
+  MARK_AS_ADVANCED(TeXworks_MAN_DIR)
+  MARK_AS_ADVANCED(TeXworks_DESKTOP_DIR)
+  IF (EXISTS ${TeXworks_SOURCE_DIR}/manual/)
+    INSTALL(DIRECTORY ${TeXworks_SOURCE_DIR}/manual/ DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_HELP_DIR}/ OPTIONAL)
+  ENDIF()
+ENDIF()
 
 # Dependency Configuration
 # ========================
@@ -226,10 +243,6 @@ ADD_SUBDIRECTORY(src)
 # Build Plugins
 # -------------
 
-# Set the plugin installation path. This is a good default for UNIX-like
-# systems, but is not appropriate for Windows.
-SET(TeXworks_PLUGIN_DIR lib)
-
 # On OS X, the plugins should live inside the application bundle.
 IF ( APPLE )
   SET(TeXworks_PLUGIN_DIR ${PROJECT_NAME}.app/Contents/PlugIns)
@@ -238,6 +251,11 @@ IF ( APPLE )
   # freak out about this.
   SET(CMAKE_MODULE_LINKER_FLAGS
     "${CMAKE_MODULE_LINKER_FLAGS_INIT} $ENV{LDFLAGS} -undefined dynamic_lookup")
+ELSE ()
+  # Set the plugin installation path. This is a good default for UNIX-like
+  # systems, but is not appropriate for Windows.
+  SET(TeXworks_PLUGIN_DIR lib/texworks CACHE PATH "Path where TeXworks looks for plugins")
+  MARK_AS_ADVANCED(TeXworks_PLUGIN_DIR)
 ENDIF ()
 
 
