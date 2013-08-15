@@ -38,9 +38,12 @@
 #include <QtScriptTools>
 #endif
 
-#ifdef STATIC_SCRIPTING_PLUGINS
+#if STATIC_LUA_SCRIPTING_PLUGIN
 #include <QtPlugin>
 Q_IMPORT_PLUGIN(TWLuaPlugin)
+#endif
+#if STATIC_PYTHON_SCRIPTING_PLUGIN
+#include <QtPlugin>
 Q_IMPORT_PLUGIN(TWPythonPlugin)
 #endif
 
