@@ -109,6 +109,15 @@ ENDIF ( APPLE OR NOT UNIX )
 # Compilation
 # -----------
 
+IF (NOT ${BUILD_SHARED_LIBS})
+  IF (WITH_LUA)
+    LIST(APPEND TeXworks_LIBS TWLuaPlugin)
+  ENDIF()
+  IF (WITH_PYTHON)
+    LIST(APPEND TeXworks_LIBS TWPythonPlugin)
+  ENDIF()
+ENDIF()
+
 # Build the executible.
 ADD_EXECUTABLE( ${EXE_NAME} ${GUI_TYPE}
   ${TEXWORKS_SRCS}
