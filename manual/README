@@ -24,6 +24,8 @@ manual. Please note that this requires pdflatex & friends to be in your $PATH.
 For typesetting the html version, you additionally need ghostscript and the
 ImageMagick convert tools in your path. In addition, tidy is recommended.
 
+The packages required to typeset the manual are documented in src/*/README.
+
 Note that not all parts of the makefiles are platform-independent and tested on
 other than GNU/Linux systems and may thus fail on your system. In the case your
 invocation doesn't produce a valid output, you can typeset the manual by
