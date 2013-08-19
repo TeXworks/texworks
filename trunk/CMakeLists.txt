@@ -100,6 +100,10 @@ ENDIF ()
 OPTION(BUILD_SHARED_LIBS "Build shared libraries?" ${BUILD_SHARED_LIBS})
 MARK_AS_ADVANCED(BUILD_SHARED_LIBS)
 
+SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place libraries in")
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place programs in")
+MARK_AS_ADVANCED(CMAKE_LIBRARY_OUTPUT_DIRECTORY CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+
 # On UNIX, CMake installs to `/usr/local` by default. However, Mac users
 # will probably find `/Applications` a more convenient default.
 IF( APPLE AND CMAKE_INSTALL_PREFIX MATCHES "/usr/local" )
