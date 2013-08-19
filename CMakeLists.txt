@@ -93,6 +93,13 @@ STRING(REGEX MATCH "([0-9]+)" TeXworks_SVN_REV ${TeXworks_SVN_REV})
 
 SET(TW_BUILD_ID "personal" CACHE STRING "A distribution-specific identifier for TeXworks")
 
+# Build shared libs by default
+IF ( NOT DEFINED BUILD_SHARED_LIBS )
+  SET(BUILD_SHARED_LIBS ON)
+ENDIF ()
+OPTION(BUILD_SHARED_LIBS "Build shared libraries?" ${BUILD_SHARED_LIBS})
+MARK_AS_ADVANCED(BUILD_SHARED_LIBS)
+
 # On UNIX, CMake installs to `/usr/local` by default. However, Mac users
 # will probably find `/Applications` a more convenient default.
 IF( APPLE AND CMAKE_INSTALL_PREFIX MATCHES "/usr/local" )
