@@ -190,7 +190,7 @@ IF ( APPLE )
 
   INSTALL( CODE
     "
-    FILE(WRITE \"\${CMAKE_INSTALL_PREFIX}/${QTCONF_DIR}/qt.conf\"
+    FILE(WRITE \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${QTCONF_DIR}/qt.conf\"
       \"${QTCONF_CONTENTS}\"
     )
     "
