@@ -6,7 +6,7 @@ The !TeXworks progam does not currently include any bundled spelling dictionarie
 
 The editor uses the [http://hunspell.sourceforge.net/ hunspell] spell-checker; more information is available at that project's site. Hunspell also supports dictionaries from the older myspell program.
 
-One easy source of dictionaries is the !OpenOffice.org project, which uses the same spelling engine. There is a list of available dictionaries at http://extensions.services.openoffice.org/en/dictionaries. Note that !TeXworks can only use the spelling dictionaries (`*.dic` and `*.aff`) for each language; to get them, rename the downloaded .oxt file to .zip and extract the spelling dictionary files (they may be contained in a subdirectory).
+One easy source of dictionaries is the !OpenOffice.org project, which uses the same spelling engine. There is a list of available dictionaries at http://extensions.services.openoffice.org/. Note that !TeXworks can only use the spelling dictionaries (`*.dic` and `*.aff`) for each language; to get them, rename the downloaded .oxt file to .zip and extract the spelling dictionary files (they may be contained in a subdirectory).
 
 = Installing =
 
