@@ -235,7 +235,7 @@ private:
 	void prefixLines(const QString &prefix);
 	void unPrefixLines(const QString &prefix);
 	void replaceSelection(const QString& newText);
-	void doHardWrap(int lineWidth, bool rewrap);
+	void doHardWrap(int mode, int lineWidth, bool rewrap);
 	void zoomToLeft(QWidget *otherWindow);
 	QTextCursor doSearch(QTextDocument *theDoc, const QString& searchText, const QRegExp *regex,
 						 QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);

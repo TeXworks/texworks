@@ -26,6 +26,9 @@
 #include "ui_HardWrapDialog.h"
 
 const int kDefault_HardWrapWidth = 64;
+const int kHardWrapMode_Window = 0;
+const int kHardWrapMode_Fixed = 1;
+const int kHardWrapMode_Unwrap = 2;
 
 class HardWrapDialog : public QDialog, private Ui::HardWrapDialog
 {
@@ -44,10 +47,15 @@ public:
 	    return checkbox_rewrap->isChecked();
 	}
 	
+	int mode() const; // returns one of the kHardWrapMode_* values
+	
 	void saveSettings();
 
 protected:
 	void init();
+
+protected slots:
+	void unwrapModeToggled(const bool selected);
 };
 
 #endif // !defined(HardWrapDialog_H)

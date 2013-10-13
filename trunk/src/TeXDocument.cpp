@@ -1954,18 +1954,24 @@ void TeXDocument::doHardWrapDialog()
 	dlg.show();
 	if (dlg.exec()) {
 		dlg.saveSettings();
-		doHardWrap(dlg.lineWidth(), dlg.rewrap());
+		doHardWrap(dlg.mode(), dlg.lineWidth(), dlg.rewrap());
 	}
 }
 
-void TeXDocument::doHardWrap(int lineWidth, bool rewrap)
+void TeXDocument::doHardWrap(int mode, int lineWidth, bool rewrap)
 {
-	if (lineWidth == 0) { // use window width (approx)
+	if (mode == kHardWrapMode_Window) {
 		// fudge this for now.... not accurate with proportional fonts, ignores tabs,....
 		QFontMetrics fm(textEdit->currentFont());
 		lineWidth = textEdit->width() / fm.averageCharWidth();
 	}
-	
+	else if (mode == kHardWrapMode_Unwrap) {
+		lineWidth = INT_MAX;
+		rewrap = true;
+	}
+	if (lineWidth == 0)
+		return;
+
 	QTextCursor cur = textEdit->textCursor();
 	if (!cur.hasSelection())
 		cur.select(QTextCursor::Document);
