@@ -34,12 +34,16 @@ HardWrapDialog::init()
 {
 	QSETTINGS_OBJECT(settings);
 	int	wrapWidth = settings.value("hardWrapWidth", kDefault_HardWrapWidth).toInt();
+	spinbox_charCount->setMaximum(INT_MAX);
 	spinbox_charCount->setValue(wrapWidth);
 	spinbox_charCount->selectAll();
+	
+	connect(radio_Unwrap, SIGNAL(toggled(bool)), this, SLOT(unwrapModeToggled(bool)));
 
-	bool wrapToWindow = settings.value("hardWrapToWindow", false).toBool();
-	radio_currentWidth->setChecked(wrapToWindow);
-	radio_fixedLineLength->setChecked(!wrapToWindow);
+	int wrapMode = settings.value("hardWrapMode", kHardWrapMode_Fixed).toInt();
+	radio_currentWidth->setChecked(wrapMode == kHardWrapMode_Window);
+	radio_fixedLineLength->setChecked(wrapMode == kHardWrapMode_Fixed);
+	radio_Unwrap->setChecked(wrapMode == kHardWrapMode_Unwrap);
 	
 	bool rewrapParagraphs = settings.value("hardWrapRewrap", false).toBool();
 	checkbox_rewrap->setChecked(rewrapParagraphs);
@@ -54,6 +58,25 @@ HardWrapDialog::saveSettings()
 {
 	QSETTINGS_OBJECT(settings);
 	settings.setValue("hardWrapWidth", spinbox_charCount->value());
-	settings.setValue("hardWrapToWindow", radio_currentWidth->isChecked());
+	settings.setValue("hardWrapMode", mode());
 	settings.setValue("hardWrapRewrap", checkbox_rewrap->isChecked());
+}
+
+int
+HardWrapDialog::mode() const
+{
+	if (radio_currentWidth->isChecked())
+		return kHardWrapMode_Window;
+	else if (radio_fixedLineLength->isChecked())
+		return kHardWrapMode_Fixed;
+	else if (radio_Unwrap->isChecked())
+		return kHardWrapMode_Unwrap;
+	
+	return kHardWrapMode_Fixed;
+}
+
+void
+HardWrapDialog::unwrapModeToggled(const bool selected)
+{
+	checkbox_rewrap->setEnabled(!selected);
 }
