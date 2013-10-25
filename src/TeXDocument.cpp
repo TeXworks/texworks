@@ -1721,7 +1721,7 @@ void TeXDocument::goToLine(int lineNo, int selStart, int selEnd)
 		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, selEnd - selStart);
 	}
 	else
-		cursor.movePosition(QTextCursor::NextBlock, QTextCursor::KeepAnchor);
+		cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
 	textEdit->setTextCursor(cursor);
 	maybeCenterSelection(oldScrollValue);
 }
