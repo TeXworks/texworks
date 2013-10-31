@@ -504,13 +504,29 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 void CompletingEdit::handleReturn(QKeyEvent *e)
 {
 	QString prefix;
+	// Check if auto indent is on and applicable
 	if (autoIndentMode >= 0 && autoIndentMode < indentModes->count() && e->modifiers() == Qt::NoModifier) {
 		QRegExp &re = (*indentModes)[autoIndentMode].regex;
-		QString blockText = textCursor().block().text();
+		// Only apply prefix recognition to characters in front of the cursor.
+		// Otherwise, we would accumulate characters if the cursor is inside the
+		// region matched by the regexp.
+		QTextCursor curs = textCursor();
+		// Collaps the selection (if any) in the direction of the beginning of
+		// the line (as the selection gets replaced by \n, there's no point in
+		// including it in the prefix calculation)
+		if (curs.hasSelection())
+			curs.setPosition(curs.selectionStart());
+		// Get the (possible) prefix text to check
+		curs.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
+		QString blockText = curs.selectedText();
+		// Check if the prefix matches the regexp of the current auto indent mode
 		if (blockText.indexOf(re) == 0 && re.matchedLength() > 0)
 			prefix = blockText.left(re.matchedLength());
 	}
+	// Propagate the key press event to the base class so that the text is
+	// actually modified
 	QTextEdit::keyPressEvent(e);
+	// Insert the appropriate prefix if necessary
 	if (!prefix.isEmpty()) {
 		insertPlainText(prefix);
 		prefixLength = prefix.length();
