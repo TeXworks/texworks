@@ -459,11 +459,11 @@ signals:
 public slots:
   void doUnlockDialog();
   void retranslateUi();
+  void reloadDocument();
 
 protected slots:
   void pageLayoutChanged(const QRectF& sceneRect);
   void reinitializeScene();
-  void reloadDocument();
 
 protected:
   bool event(QEvent* event);
