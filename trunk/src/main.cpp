@@ -27,6 +27,11 @@
 #include <QTimer>
 #include <QTextCodec>
 
+#if defined(STATIC_QT5) && defined(Q_OS_WIN)
+  #include <QtPlugin>
+  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+#endif
+
 #ifdef Q_WS_WIN
 BOOL CALLBACK enumThreadWindowProc(HWND hWnd, LPARAM /*lParam*/)
 {

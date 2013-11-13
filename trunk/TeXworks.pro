@@ -206,10 +206,13 @@ SOURCES	+=	src/main.cpp \
 			src/TWScriptable.cpp \
 			src/TWScript.cpp \
 			src/TWScriptAPI.cpp \
+			src/TWSystemCmd.cpp \
 			src/TeXDocument.cpp \
+			src/ClickableLabel.cpp \
 			src/ClosableTabWidget.cpp \
 			src/CommandlineParser.cpp \
 			src/CompletingEdit.cpp \
+			src/ConfigurableApp.cpp \
 			src/TeXHighlighter.cpp \
 			src/TeXDocks.cpp \
 			src/PDFDocument.cpp \

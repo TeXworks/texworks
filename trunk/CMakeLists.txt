@@ -49,20 +49,13 @@ PROJECT(TeXworks)
 
 # We require CMake v2.8 or greater because it is the first version that
 # provides support for certain parts of Qt, such as the ScriptTools.
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
+CMAKE_POLICY(VERSION 2.8.6)
 SET(CMAKE_COLOR_MAKEFILE ON)
 # Always add the current source and binary directories to the header include
 # path when compiling.
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-IF ( WIN32 )
-  MESSAGE( WARNING
-    "The CMake build system has only been tested on Mac OS X and Linux."
-    "\nIt probably won't work on Windows. Patches containing fixes are"
-    "\nwelcomed at:"
-    "\n  https://github.com/Sharpie/TeXworks"
-  )
-ENDIF ()
+SET(CMAKE_AUTOMOC TRUE)
 
 # Determine Version Numbers
 # -------------------------
@@ -152,23 +145,78 @@ ENDIF()
 # directory contains scripts that locate project components such as Poppler.
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${CMAKE_MODULE_PATH})
 
-# Declare Qt libraries required by this project.
-SET (QT_COMPONENTS
-    QtCore
-    QtGui
-    QtUiTools
-    QtScript
-    QtScriptTools
-)
+set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
+MARK_AS_ADVANCED(DESIRED_QT_VERSION)
 
-IF ( UNIX AND NOT APPLE )
-  LIST(APPEND QT_COMPONENTS QtDbus)
-ENDIF ()
+# Check for Qt4 by default
+IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 4)
+  # Declare Qt libraries required by this project.
+  SET (QT_COMPONENTS
+      QtCore
+      QtGui
+      QtUiTools
+      QtScript
+      QtScriptTools
+  )
 
-# Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
-# with Qt-specific tasks such as compiling resources or running `moc`.
-FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
-INCLUDE(UseQt4)
+  IF ( UNIX AND NOT APPLE )
+    LIST(APPEND QT_COMPONENTS QtDbus)
+  ENDIF ()
+
+  # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
+  # with Qt-specific tasks such as compiling resources or running `moc`.
+  FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+  INCLUDE(UseQt4)
+ENDIF()
+# If Qt4 is not found (or not desired), check for Qt5
+IF (DESIRED_QT_VERSION MATCHES 5 OR NOT QT4_FOUND)
+  find_package(Qt5Widgets QUIET)
+  find_package(Qt5UiTools QUIET)
+  find_package(Qt5Script QUIET)
+  find_package(Qt5ScriptTools QUIET)
+  find_package(Qt5Xml QUIET)
+  IF ( UNIX AND NOT APPLE )
+    find_package(Qt5DBus QUIET)
+  ENDIF ()
+
+  IF( WIN32 AND NOT BUILD_SHARED_LIBS )
+    # For static Windows builds, we also need to pull in the Qt5 Platform
+    # support library, which is not exposed to CMake properly, unfortunately
+    GET_TARGET_PROPERTY(QT_LIB_DIR "${Qt5Widgets_LIBRARIES}" LOCATION)
+    GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
+    FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
+      HINTS "${QT_LIB_DIR}"
+    )
+    FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
+      HINTS "${QT_LIB_DIR}/../plugins/platforms"
+    )
+    ADD_DEFINITIONS(-DSTATIC_QT5)
+  ENDIF()
+
+  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5UiTools_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND)
+  	SET(QT5_FOUND TRUE)
+    SET(QT_INCLUDE_DIR "${Qt5Widgets_INCLUDE_DIRS} ${Qt5UiTools_INCLUDE_DIRS} ${Qt5Script_INCLUDE_DIRS} ${Qt5ScriptTools_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS}")
+    SET(QT_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5UiTools_LIBRARIES} ${Qt5Script_LIBRARIES} ${Qt5ScriptTools_LIBRARIES} ${Qt5Xml_LIBRARIES} ${Qt5DBus_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES})
+
+    # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
+    # etc. which is used here.
+    string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
+    string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
+    string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
+  ENDIF()
+ENDIF()
+
+IF (NOT QT4_FOUND AND NOT QT5_FOUND)
+  MESSAGE(FATAL_ERROR "Could not find required Qt. Please install Qt (see http://qt-project.org/) and/or adjust DESIRED_QT_VERSION.")
+ENDIF()
+
+# Expose the major version number of Qt to the preprocessor. This is necessary
+# to include the correct Qt headers (as QTVERSION is not defined before any Qt
+# headers are included)
+ADD_DEFINITIONS(-DQT_VERSION_MAJOR=${QT_VERSION_MAJOR})
+INCLUDE( TranslationMacros )
+
+
 
 FIND_PACKAGE(ZLIB REQUIRED)
 FIND_PACKAGE(Hunspell REQUIRED)
@@ -195,11 +243,16 @@ ENDIF ()
 
 SET(TeXworks_LIB_DIRS ${QT_LIBRARY_DIR})
 
+set(TEXWORKS_ADDITIONAL_LIBS "" CACHE STRING "Additional libraries not found by CMake")
+MARK_AS_ADVANCED(TEXWORKS_ADDITIONAL_LIBS)
+
+
 SET(TeXworks_LIBS
-  ${QT_LIBRARIES}
   ${POPPLER_LIBRARIES}
   ${HUNSPELL_LIBRARIES}
+  ${QT_LIBRARIES}
   ${ZLIB_LIBRARIES}
+  ${TEXWORKS_ADDITIONAL_LIBS}
 )
 
 # Configure Optional Dependencies
@@ -256,13 +309,6 @@ ENDIF ()
 # Building
 # ========
 
-# Build main TeXworks application
-# -------------------------------
-ADD_SUBDIRECTORY(src)
-
-# Build Plugins
-# -------------
-
 # On OS X, the plugins should live inside the application bundle.
 IF ( APPLE )
   SET(TeXworks_PLUGIN_DIR ${PROJECT_NAME}.app/Contents/PlugIns)
@@ -278,6 +324,12 @@ ELSE ()
   MARK_AS_ADVANCED(TeXworks_PLUGIN_DIR)
 ENDIF ()
 
+# Build main TeXworks application
+# -------------------------------
+ADD_SUBDIRECTORY(src)
+
+# Build Plugins
+# -------------
 
 # Build scripting language plugins if the required libraries are available.
 IF ( LUA51_FOUND AND WITH_LUA )
