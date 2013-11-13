@@ -612,11 +612,15 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
       case ::Poppler::Link::Browse:
         link->setActionOnActivation(new PDFURIAction(static_cast< ::Poppler::LinkBrowse*>(popplerLink)->url()));
         break;
+      /*
       case ::Poppler::Link::Action:
       case ::Poppler::Link::None:
       case ::Poppler::Link::Sound:
       case ::Poppler::Link::Movie:
       case ::Poppler::Link::JavaScript:
+      case ::Poppler::Link::Rendition: // Since poppler 0.20
+      */
+      default:
         // We don't handle these types yet
         link.clear();
         continue;
