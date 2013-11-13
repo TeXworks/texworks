@@ -23,9 +23,9 @@
 
 #include "PDFBackend.h"
 #if QT_VERSION < 0x050000
-  #include <poppler/qt4/poppler-qt4.h>
+  #include <poppler-qt4.h>
 #else
-  #include <poppler/qt5/poppler-qt5.h>
+  #include <poppler-qt5.h>
 #endif
 
 namespace QtPDF {

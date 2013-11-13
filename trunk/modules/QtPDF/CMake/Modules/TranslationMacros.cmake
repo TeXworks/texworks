@@ -1,7 +1,39 @@
 # Adapted from CMake 2.8 QT4_CREATE_TRANSLATION
 # TODO: Find a better name for this
-MACRO(CREATE_QT4_PRO_FILE _pro_path _pro_include_path)
-  QT4_EXTRACT_OPTIONS(_pro_files _pro_options ${ARGN})
+
+# Qt-version-agnostic wrappers
+if (QT_VERSION_MAJOR EQUAL 5)
+  macro(QT_ADD_RESOURCES)
+    QT5_ADD_RESOURCES(${ARGV})
+  endmacro()
+else()
+  macro(QT_ADD_RESOURCES)
+    QT4_ADD_RESOURCES(${ARGV})
+  endmacro()
+endif()
+
+
+macro (QT_EXTRACT_OPTIONS _qt_files _qt_options)
+  set(${_qt_files})
+  set(${_qt_options})
+  set(_QT_DOING_OPTIONS FALSE)
+  foreach(_currentArg ${ARGN})
+    if ("${_currentArg}" STREQUAL "OPTIONS")
+      set(_QT_DOING_OPTIONS TRUE)
+    else ()
+      if(_QT_DOING_OPTIONS)
+        list(APPEND ${_qt_options} "${_currentArg}")
+      else()
+        list(APPEND ${_qt_files} "${_currentArg}")
+      endif()
+    endif ()
+  endforeach()
+endmacro ()
+
+
+
+MACRO(CREATE_QT_PRO_FILE _pro_path _pro_include_path)
+  QT_EXTRACT_OPTIONS(_pro_files _pro_options ${ARGN})
   SET(_my_sources)
   SET(_my_headers)
   SET(_my_forms)
@@ -62,7 +94,7 @@ MACRO(CREATE_QT4_PRO_FILE _pro_path _pro_include_path)
     ENDFOREACH(_pro_file ${_my_tsfiles})
   ENDIF(_my_tsfiles)
   FILE(WRITE ${_pro_path} "${_pro_content}\n")
-ENDMACRO(CREATE_QT4_PRO_FILE)
+ENDMACRO(CREATE_QT_PRO_FILE)
 
 # QT_ADD_QM_TRANSLATIONS(<output_var> <1.qm> [<2.qm> ...])
 MACRO(QT_ADD_QM_TRANSLATIONS _qm_res)
@@ -76,5 +108,5 @@ MACRO(QT_ADD_QM_TRANSLATIONS _qm_res)
   SET(_qm_qrc_path ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_trans.qrc)
   FILE(WRITE ${_qm_qrc_path} ${_qm_qrc})
 
-  QT4_ADD_RESOURCES(${_qm_res} ${_qm_qrc_path})
+  QT_ADD_RESOURCES(${_qm_res} ${_qm_qrc_path})
 ENDMACRO(QT_ADD_QM_TRANSLATIONS)

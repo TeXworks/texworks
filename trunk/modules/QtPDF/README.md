@@ -30,7 +30,7 @@ The following libraries are required by all targets:
 
 For the Poppler backend, the following components are needed:
 
-  - poppler and poppler-qt4
+  - poppler with poppler-qt4 or poppler-qt5
 
 For the MuPDF backend, the following components are needed:
 
@@ -43,6 +43,8 @@ By default, CMake will look for Poppler and produce the `poppler_viewer`
 executable. To enable MuPDF and the `mupdf_viewer`, add `-DWITH_MUDPF=YES` to
 the options passed to `cmake`.
 
+For using poppler-qt5, poppler >= 0.23.3 and Qt5 are required. You can set
+DESIRED_QT_VERSION to force a specific Qt version (e.g., Qt5).
 
 Building on Windows
 ===================
