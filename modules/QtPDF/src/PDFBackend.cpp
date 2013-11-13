@@ -62,7 +62,7 @@ QDateTime fromPDFDate(QString pdfDate)
   // Parse time zone data
   if (pdfDate.length() == 0)
     return QDateTime(date, time);
-  switch (pdfDate[0].toAscii()) {
+  switch (pdfDate[0].toLatin1()) {
     case 'Z':
       return QDateTime(date, time, Qt::UTC).toLocalTime();
     case '+':
@@ -77,7 +77,7 @@ QDateTime fromPDFDate(QString pdfDate)
       return QDateTime(date, time);
   }
   pdfDate.remove(0, 1);
-  if (pdfDate.length() < 3 || pdfDate[2] != QChar::fromAscii('\''))
+  if (pdfDate.length() < 3 || pdfDate[2] != QChar::fromLatin1('\''))
     return QDateTime(date, time);
   hourOffset = pdfDate.left(2).toInt(&ok);
   if (!ok)
@@ -133,7 +133,7 @@ bool PDFFontDescriptor::isSubset() const
 {
   // Subset fonts have a tag of 6 upper-case letters, followed by a '+',
   // prefixed to the font name
-  if (_name.length() < 7 || _name[6] != QChar::fromAscii('+'))
+  if (_name.length() < 7 || _name[6] != QChar::fromLatin1('+'))
     return false;
   for (int i = 0; i < 6; ++i) {
     if (!_name[i].isUpper())

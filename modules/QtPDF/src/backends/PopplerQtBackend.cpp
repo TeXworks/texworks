@@ -96,8 +96,8 @@ void convertAnnotation(Annotation::AbstractAnnotation * dest, const ::Poppler::A
   // TODO: Does poppler provide the color anywhere?
   // dest->setColor();
 
-  QFlags<Annotation::AbstractAnnotation::AnnotationFlags>& flags = dest->flags();
-  flags = QFlags<Annotation::AbstractAnnotation::AnnotationFlags>();
+  Annotation::AbstractAnnotation::AnnotationFlags& flags = dest->flags();
+  flags = Annotation::AbstractAnnotation::AnnotationFlags();
   if (src->flags() & ::Poppler::Annotation::Hidden)
     flags |= Annotation::AbstractAnnotation::Annotation_Hidden;
   if (src->flags() & ::Poppler::Annotation::FixedSize)

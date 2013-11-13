@@ -127,8 +127,8 @@ public:
     return QSharedPointer<Backend::Document>(new Backend::PopplerQt::Document(fileName));
   }
 
-  virtual QString name() const { return QString::fromAscii("poppler-qt"); }
-  virtual bool canHandleFile(const QString & fileName) { return QFileInfo(fileName).suffix() == QString::fromAscii("pdf"); }
+  virtual QString name() const { return QString::fromLatin1("poppler-qt"); }
+  virtual bool canHandleFile(const QString & fileName) { return QFileInfo(fileName).suffix() == QString::fromLatin1("pdf"); }
 };
 
 } // namespace QtPDF

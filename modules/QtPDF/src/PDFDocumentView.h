@@ -14,7 +14,11 @@
 #ifndef PDFDocumentView_H
 #define PDFDocumentView_H
 
-#include <QtGui/QtGui>
+#if QT_VERSION_MAJOR < 5
+  #include <QtGui/QtGui>
+#else
+  #include <QtWidgets>
+#endif
 
 #include <PDFBackend.h>
 #include <PDFDocumentTools.h>
