@@ -237,6 +237,9 @@ SET_TARGET_PROPERTIES(qtpdf PROPERTIES
   COMPILE_FLAGS ${QTPDF_FLAGS}
 )
 
+# Inform parent scope (if any) what to do to use QtPDF
+SET(QTPDF_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src PARENT_SCOPE)
+#  ${CMAKE_CURRENT_SOURCE_DIR}/src/backend
 
 
 # Viewers
@@ -366,7 +369,7 @@ MACRO(CONFIG_YESNO what enabled)
 ENDMACRO()
 
 # Print out configuration summary.
-MESSAGE("${CMAKE_PROJECT_NAME} has been configured:\n")
+MESSAGE("${PROJECT_NAME} has been configured:\n")
 
 CONFIG_INFO("Version" ${PROJECT_VERSION})
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
@@ -377,7 +380,7 @@ CONFIG_YESNO("MuPDF backend" WITH_MUPDF)
 CONFIG_YESNO("Shared library" BUILD_SHARED_LIBS)
 
 message("")
-message("  Project will be installed to:")
+message("  ${PROJECT_NAME} will be installed to:")
 message("      ${CMAKE_INSTALL_PREFIX}")
 message("")
 
