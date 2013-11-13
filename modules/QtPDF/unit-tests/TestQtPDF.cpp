@@ -24,6 +24,7 @@ void TestQtPDF::loadDocs()
     _docs[QString::fromAscii("transitions")] = backend.newDocument(QString::fromAscii("pdf-transitions.pdf"));
     _docs[QString::fromAscii("pgfmanual")] = backend.newDocument(QString::fromAscii("pgfmanual.pdf"));
     _docs[QString::fromAscii("base14-fonts")] = backend.newDocument(QString::fromAscii("base14-fonts.pdf"));
+    _docs[QString::fromAscii("metadata")] = backend.newDocument(QString::fromAscii("metadata.pdf"));
   }
 }
 
@@ -36,6 +37,7 @@ void TestQtPDF::isValid_data()
   newDocTest("pgfmanual") << true;
   newDocTest("base14-fonts") << true;
   newDocTest("base14-locked") << true;
+  newDocTest("metadata") << true;
 }
 
 void TestQtPDF::isValid()
@@ -54,6 +56,7 @@ void TestQtPDF::isLocked_data()
   newDocTest("pgfmanual") << false;
   newDocTest("base14-fonts") << false;
   newDocTest("base14-locked") << true;
+  newDocTest("metadata") << false;
 }
 
 void TestQtPDF::isLocked()
@@ -72,6 +75,7 @@ void TestQtPDF::numPages_data()
   newDocTest("pgfmanual") << 726;
   newDocTest("base14-fonts") << 1;
   newDocTest("base14-locked") << 1;
+  newDocTest("metadata") << 1;
 }
 
 void TestQtPDF::numPages()
@@ -93,6 +97,7 @@ void TestQtPDF::fileName_data()
   newDocTest("pgfmanual") << QString::fromAscii("pgfmanual.pdf");
   newDocTest("base14-fonts") << QString::fromAscii("base14-fonts.pdf");
   newDocTest("base14-locked") << QString::fromAscii("base14-fonts-locked.pdf");
+  newDocTest("metadata") << QString::fromAscii("metadata.pdf");
 }
 
 void TestQtPDF::fileName()
@@ -112,6 +117,7 @@ void TestQtPDF::page_data()
   newDocTest("pgfmanual") << QSizeF(595.276, 841.89);
   newDocTest("base14-fonts") << QSizeF(595, 842);
   newDocTest("base14-locked") << QSizeF(595, 842);
+  newDocTest("metadata") << QSizeF(612, 792);
 }
 
 void TestQtPDF::page()
@@ -153,6 +159,7 @@ void TestQtPDF::metaDataTitle_data()
   newDocTest("pgfmanual") << QString();
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
+  newDocTest("metadata") << QString::fromUtf8("Document Title • UTF16-BE");
 }
 
 void TestQtPDF::metaDataTitle()
@@ -171,6 +178,7 @@ void TestQtPDF::metaDataAuthor_data()
   newDocTest("pgfmanual") << QString();
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
+  newDocTest("metadata") << QString::fromUtf8("Stefan Löffler");
 }
 
 void TestQtPDF::metaDataAuthor()
@@ -189,6 +197,7 @@ void TestQtPDF::metaDataSubject_data()
   newDocTest("pgfmanual") << QString();
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
+  newDocTest("metadata") << QString::fromAscii("PDF Test File");
 }
 
 void TestQtPDF::metaDataSubject()
@@ -207,6 +216,7 @@ void TestQtPDF::metaDataKeywords_data()
   newDocTest("pgfmanual") << QString();
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
+  newDocTest("metadata") << QString::fromAscii("pdf, metadata, test");
 }
 
 void TestQtPDF::metaDataKeywords()
@@ -225,6 +235,7 @@ void TestQtPDF::metaDataCreator_data()
   newDocTest("pgfmanual") << QString::fromUtf8("LaTeX with hyperref package");
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
+  newDocTest("metadata") << QString::fromAscii("gedit");
 }
 
 void TestQtPDF::metaDataCreator()
@@ -243,6 +254,7 @@ void TestQtPDF::metaDataProducer_data()
   newDocTest("pgfmanual") << QString::fromUtf8("pdfTeX-1.40.10");
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
+  newDocTest("metadata") << QString::fromAscii("also gedit");
 }
 
 void TestQtPDF::metaDataProducer()
@@ -261,6 +273,7 @@ void TestQtPDF::metaDataCreationDate_data()
   newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(22, 56, 26));
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
+  newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(1, 23, 45));
 }
 
 void TestQtPDF::metaDataCreationDate()
@@ -279,6 +292,7 @@ void TestQtPDF::metaDataModDate_data()
   newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(22, 56, 26));
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
+  newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(12, 34, 56));
 }
 
 void TestQtPDF::metaDataModDate()
@@ -297,6 +311,7 @@ void TestQtPDF::metaDataTrapped_data()
     newDocTest("pgfmanual") << (int)QtPDF::Backend::Document::Trapped_False;
     newDocTest("base14-fonts") << (int)QtPDF::Backend::Document::Trapped_Unknown;
     newDocTest("base14-locked") << (int)QtPDF::Backend::Document::Trapped_Unknown;
+    newDocTest("metadata") << (int)QtPDF::Backend::Document::Trapped_Unknown;
 }
 
 void TestQtPDF::metaDataTrapped()
