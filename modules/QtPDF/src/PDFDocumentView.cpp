@@ -325,6 +325,13 @@ void PDFDocumentView::zoomBy(const qreal zoomFactor)
   emit changedZoom(_zoomLevel);
 }
 
+void PDFDocumentView::setZoomLevel(const qreal zoomLevel)
+{
+  if (zoomLevel <= 0)
+    return;
+  zoomBy(zoomLevel / _zoomLevel);
+}
+
 void PDFDocumentView::zoomIn() { zoomBy(3.0/2.0); }
 void PDFDocumentView::zoomOut() { zoomBy(2.0/3.0); }
 

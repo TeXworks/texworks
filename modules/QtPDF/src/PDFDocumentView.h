@@ -108,6 +108,7 @@ public slots:
   void zoomFitWindow();
   void zoomFitWidth();
   void zoom100();
+  void setZoomLevel(const qreal zoomLevel);
 
   void search(QString searchText);
   void nextSearchResult();
