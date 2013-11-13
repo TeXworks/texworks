@@ -410,11 +410,12 @@ class PDFDocumentScene : public QGraphicsScene
   PDFPageLayout _pageLayout;
   QFileSystemWatcher _fileWatcher;
   QTimer _reloadTimer;
+  double _dpiX, _dpiY;
 
   void handleActionEvent(const PDFActionEvent * action_event);
 
 public:
-  PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent = 0);
+  PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent = 0, const double dpiX = -1, const double dpiY = -1);
 
   QWeakPointer<Backend::Document> document();
   QList<QGraphicsItem*> pages();
@@ -436,6 +437,8 @@ public:
   int lastPage();
 
   const QWeakPointer<Backend::Document> document() const { return _doc.toWeakRef(); }
+
+  void setResolution(const double dpiX, const double dpiY);
 
 signals:
   void pageChangeRequested(int pageNum);
@@ -497,8 +500,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
   static void imageToGrayScale(QImage & img);
 
 public:
-
-  PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, QGraphicsItem *parent = 0);
+  PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, const double dpiX, const double dpiY, QGraphicsItem *parent = 0);
 
   // This seems fragile as it assumes no other code declaring a custom graphics
   // item will choose the same ID for it's object types. Unfortunately, there

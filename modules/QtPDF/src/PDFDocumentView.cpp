@@ -1408,7 +1408,7 @@ QPixmap& PDFDocumentMagnifierView::dropShadow()
 // A large canvas that manages the layout of QGraphicsItem subclasses. The
 // primary items we are concerned with are PDFPageGraphicsItem and
 // PDFLinkGraphicsItem.
-PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent):
+PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent /* = 0 */, const double dpiX /* = -1 */, const double dpiY /* = -1 */):
   Super(parent),
   _doc(a_doc)
 {
@@ -1416,6 +1416,9 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
   // We need to register a QList<PDFLinkGraphicsItem *> meta-type so we can
   // pass it through inter-thread (i.e., queued) connections
   qRegisterMetaType< QList<PDFLinkGraphicsItem *> >();
+
+  _dpiX = (dpiX > 0 ? dpiX : QApplication::desktop()->physicalDpiX());
+  _dpiY = (dpiY > 0 ? dpiY : QApplication::desktop()->physicalDpiY());
 
   connect(&_pageLayout, SIGNAL(layoutChanged(const QRectF)), this, SLOT(pageLayoutChanged(const QRectF)));
 
@@ -1647,7 +1650,7 @@ void PDFDocumentScene::reinitializeScene()
 
     for (i = 0; i < _lastPage; ++i)
     {
-      pagePtr = new PDFPageGraphicsItem(_doc->page(i));
+      pagePtr = new PDFPageGraphicsItem(_doc->page(i), _dpiX, _dpiY);
       _pages.append(pagePtr);
       addItem(pagePtr);
       _pageLayout.addPage(pagePtr);
@@ -1715,22 +1718,35 @@ void PDFDocumentScene::setWatchForDocumentChangesOnDisk(const bool doWatch /* = 
   }
 }
 
+void PDFDocumentScene::setResolution(const double dpiX, const double dpiY)
+{
+  if (dpiX > 0)
+    _dpiX = dpiX;
+  if (dpiY > 0)
+    _dpiY = dpiY;
+
+  // FIXME: reinitializing everything seems like overkill
+  reinitializeScene();
+}
+
+
 // PDFPageGraphicsItem
 // ===================
 
 // This class descends from `QGraphicsObject` and implements the on-screen
 // representation of `Page` objects.
-PDFPageGraphicsItem::PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, QGraphicsItem *parent):
+PDFPageGraphicsItem::PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, const double dpiX, const double dpiY, QGraphicsItem *parent /* = 0 */):
   Super(parent),
   _page(a_page),
-  _dpiX(QApplication::desktop()->physicalDpiX()),
-  _dpiY(QApplication::desktop()->physicalDpiY()),
 
   _pageNum(-1),
   _linksLoaded(false),
   _annotationsLoaded(false),
   _zoomLevel(0.0)
 {
+  _dpiX = (dpiX > 0 ? dpiX : QApplication::desktop()->physicalDpiX());
+  _dpiY = (dpiY > 0 ? dpiY : QApplication::desktop()->physicalDpiY());
+
   // So we get information during paint events about what portion of the page
   // is visible.
   //
