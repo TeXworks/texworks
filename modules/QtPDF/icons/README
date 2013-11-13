@@ -2,8 +2,6 @@ Sources:
 ========
 
 document-open.png:       Tango (http://commons.wikimedia.org/w/index.php?title=File:Document-open.svg&oldid=57073679)
-fitwidth.png:            Derived from scalable/zoom-fit.svg
-fitwindow.png:           Derived from scalable/zoom-fit.svg
 hand.png:                Derived from scalable/hand.svg
 lock.png:                Derived from scalable/Emblem-readonly.svg
 logo.png:                Derived from scalable/logo.svg
@@ -15,6 +13,9 @@ pagemode-twocols.png:    Derived from scalable/pagemode.svg
 pagemode-present.png:    Derived from scalable/X-office-presentation.svg
 select-text.png:         Derived from scalable/text-select.svg
 zoom.png:                Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
+zoom100.png:             Derived from scalable/zoom-fit.svg
+zoom-fitwidth.png:       Derived from scalable/zoom-fit.svg
+zoom-fitwindow.png:      Derived from scalable/zoom-fit.svg
 zoomin.png:              Qt (/tools/assistant/tools/assistant/images/mac)
 zoomincursor.png:        Derived from zoomin.png
 zoomout.png:             Qt (/tools/assistant/tools/assistant/images/mac)
