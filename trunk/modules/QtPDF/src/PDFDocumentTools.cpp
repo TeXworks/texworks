@@ -360,10 +360,16 @@ void ContextClick::mouseReleaseEvent(QMouseEvent * event)
   _started = false;
   if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton) {
     QPointF pos(_parent->mapToScene(event->pos()));
-    QGraphicsItem * item = _parent->scene()->itemAt(pos);
-    if (!item || item->type() != PDFPageGraphicsItem::Type)
+
+    PDFPageGraphicsItem * pageItem = NULL;
+    foreach(QGraphicsItem * item, _parent->scene()->items(pos, Qt::IntersectsItemBoundingRect, Qt::AscendingOrder)) {
+      if (item && item->type() == PDFPageGraphicsItem::Type) {
+        pageItem = static_cast<PDFPageGraphicsItem*>(item);
+        break;
+      }
+    }
+    if (!pageItem)
       return;
-    PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(item);
     _parent->triggerContextClick(pageItem->pageNum(), pageItem->mapToPage(pageItem->mapFromScene(pos)));
   }
 }
