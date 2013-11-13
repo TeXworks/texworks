@@ -23,27 +23,27 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   _search = new SearchLineEdit(this);
   _toolBar = new QToolBar(this);
 
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/document-open.png")), tr("Open..."), this, SLOT(open()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/document-open.png")), tr("Open..."), this, SLOT(open()));
   _toolBar->addSeparator();
 
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomin.png")), tr("Zoom In"), docWidget, SLOT(zoomIn()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoomout.png")), tr("Zoom Out"), docWidget, SLOT(zoomOut()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/fitwidth.png")), tr("Fit to Width"), docWidget, SLOT(zoomFitWidth()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/fitwindow.png")), tr("Fit to Window"), docWidget, SLOT(zoomFitWindow()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoomin.png")), tr("Zoom In"), docWidget, SLOT(zoomIn()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoomout.png")), tr("Zoom Out"), docWidget, SLOT(zoomOut()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoom-fitwidth.png")), tr("Fit to Width"), docWidget, SLOT(zoomFitWidth()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoom-fitwindow.png")), tr("Fit to Window"), docWidget, SLOT(zoomFitWindow()));
 
   _toolBar->addSeparator();
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-single.png")), tr("Single Page Mode"), docWidget, SLOT(setSinglePageMode()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-continuous.png")), tr("One Column Continuous Page Mode"), docWidget, SLOT(setOneColContPageMode()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-twocols.png")), tr("Two Columns Continuous Page Mode"), docWidget, SLOT(setTwoColContPageMode()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/pagemode-present.png")), tr("Presentation Mode"), docWidget, SLOT(setPresentationMode()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/pagemode-single.png")), tr("Single Page Mode"), docWidget, SLOT(setSinglePageMode()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/pagemode-continuous.png")), tr("One Column Continuous Page Mode"), docWidget, SLOT(setOneColContPageMode()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/pagemode-twocols.png")), tr("Two Columns Continuous Page Mode"), docWidget, SLOT(setTwoColContPageMode()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/pagemode-present.png")), tr("Presentation Mode"), docWidget, SLOT(setPresentationMode()));
   // TODO: fullscreen mode for presentations
 
   _toolBar->addSeparator();
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom.png")), tr("Magnify"), docWidget, SLOT(setMouseModeMagnifyingGlass()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/hand.png")), tr("Pan"), docWidget, SLOT(setMouseModeMove()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/zoom-select.png")), tr("Marquee Zoom"), docWidget, SLOT(setMouseModeMarqueeZoom()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/measure.png")), tr("Measure"), docWidget, SLOT(setMouseModeMeasure()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/icons/select-text.png")), tr("Select"), docWidget, SLOT(setMouseModeSelect()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoom.png")), tr("Magnify"), docWidget, SLOT(setMouseModeMagnifyingGlass()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/hand.png")), tr("Pan"), docWidget, SLOT(setMouseModeMove()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoom-select.png")), tr("Marquee Zoom"), docWidget, SLOT(setMouseModeMarqueeZoom()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/measure.png")), tr("Measure"), docWidget, SLOT(setMouseModeMeasure()));
+  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/select-text.png")), tr("Select"), docWidget, SLOT(setMouseModeSelect()));
 
   _counter->setLastPage(docWidget->lastPage());
   connect(docWidget, SIGNAL(changedPage(int)), _counter, SLOT(setCurrentPage(int)));

@@ -1,6 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-  <qresource>
+  <qresource prefix="QtPDF">
     <file>icons/lock.png</file>
     <file>icons/magnifiercursor.png</file>
     <file>icons/zoomincursor.png</file>
