@@ -41,13 +41,13 @@ class ConfigurableApp : public QApplication
 	Q_OBJECT
 
 public:
-	ConfigurableApp(int &argc, char **argv) : QApplication(argc, argv), settingsFormat(QSettings::NativeFormat) { }
+	ConfigurableApp(int &argc, char **argv);
 	virtual ~ConfigurableApp() { }
 
-	static ConfigurableApp * instance() { return qobject_cast<ConfigurableApp*>(QApplication::instance()); }
+	static ConfigurableApp * instance();
 
-	QSettings::Format getSettingsFormat() const { return settingsFormat; }
-	void setSettingsFormat(QSettings::Format fmt) { settingsFormat = fmt; }
+	QSettings::Format getSettingsFormat() const;
+	void setSettingsFormat(QSettings::Format fmt);
 	
 protected:
 	QSettings::Format settingsFormat;

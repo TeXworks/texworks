@@ -30,70 +30,25 @@ class TWSystemCmd : public QProcess {
 	Q_OBJECT
 	
 public:
-	TWSystemCmd(QObject* parent, const bool isOutputWanted = true, const bool runInBackground = false)
-		: QProcess(parent), wantOutput(isOutputWanted), deleteOnFinish(runInBackground)
-	{
-		connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(processOutput()));
-		connect(this, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
-		connect(this, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
-		finishedSuccessfully = false;
-		finished = false;
-	}
-	virtual ~TWSystemCmd() {}
+	TWSystemCmd(QObject* parent, const bool isOutputWanted = true, const bool runInBackground = false);
+	virtual ~TWSystemCmd() { }
 	
 	QString getResult() { return result; }
 	
 	// replacement of QProcess::waitForStarted()
 	// unlike the QProcess version, this returns true if the process has already
 	// finished when the function is called
-	bool waitForStarted(int msecs = 30000) {
-		if (finished)
-			return finishedSuccessfully;
-		else
-			return QProcess::waitForStarted(msecs);
-	}
+	bool waitForStarted(int msecs = 30000);
 
 	// replacement of QProcess::waitForFinished()
 	// unlike the QProcess version, this returns true if the process has already
 	// finished when the function is called
-	bool waitForFinished(int msecs = 30000) {
-		if (finished)
-			return finishedSuccessfully;
-		else
-			return QProcess::waitForFinished(msecs);
-	}
-	
+	bool waitForFinished(int msecs = 30000);
+
 private slots:
-	void processError(QProcess::ProcessError error) {
-		finished = true;
-		if (wantOutput)
-			result = tr("ERROR: failure code %1").arg(error);
-		if (deleteOnFinish)
-			deleteLater();
-	}
-	void processFinished(int exitCode, QProcess::ExitStatus exitStatus) {
-		finished = true;
-		finishedSuccessfully = (exitStatus == QProcess::NormalExit);
-		if (wantOutput) {
-			if (exitStatus == QProcess::NormalExit) {
-				if (bytesAvailable() > 0) {
-					QByteArray ba = readAllStandardOutput();
-					result += QString::fromLocal8Bit(ba);
-				}
-			}
-			else {
-				result = tr("ERROR: exit code %1").arg(exitCode);
-			}
-		}
-		if (deleteOnFinish)
-			deleteLater();
-	}
-	void processOutput() {
-		if (wantOutput && bytesAvailable() > 0) {
-			QByteArray ba = readAllStandardOutput();
-			result += QString::fromLocal8Bit(ba);
-		}
-	}
+	void processError(QProcess::ProcessError error);
+	void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
+	void processOutput();
 
 private:
 	bool wantOutput;

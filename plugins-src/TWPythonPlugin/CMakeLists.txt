@@ -9,22 +9,11 @@ INCLUDE_DIRECTORIES(
 
 LINK_DIRECTORIES(${QT_LIBRARY_DIR})
 
-# **NOTE:** _Re-moccing headers from the main source directory that have
-# already been mocced during the build of the main program seems redundant, but
-# I'm not wise enough in the ways of Qt and CMake to figure out an
-# alternative._
-IF (${QT_VERSION_MAJOR} EQUAL 5)
-  QT5_WRAP_CPP(PYTHON_PLUGIN_MOC ${TeXworks_SCRIPT_API_H} TWPythonPlugin.h)
-ELSE()
-  QT4_WRAP_CPP(PYTHON_PLUGIN_MOC ${TeXworks_SCRIPT_API_H} TWPythonPlugin.h)
-ENDIF()
-
 ADD_LIBRARY(TWPythonPlugin
   TWPythonPlugin.cpp
-  ${TeXworks_SCRIPT_API}
   ${PYTHON_PLUGIN_MOC}
 )
-TARGET_LINK_LIBRARIES(TWPythonPlugin ${QT_LIBRARIES} ${PYTHON_LIBRARIES})
+TARGET_LINK_LIBRARIES(TWPythonPlugin ${QT_LIBRARIES} ${PYTHON_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 
 IF (${BUILD_SHARED_LIBS})
   INSTALL(TARGETS TWPythonPlugin

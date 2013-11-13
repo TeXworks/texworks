@@ -10,10 +10,11 @@
 # the next time `make` is invoked. When `GLOB` is used, the developer will have
 # to remember to re-run `cmake` if a source file is added._
 FILE(GLOB TEXWORKS_SRCS       "*.cpp" "*.c")
-FILE(GLOB TEXWORKS_MOC_HDRS   "*.h")
+FILE(GLOB TEXWORKS_HDRS       "*.h")
 FILE(GLOB TEXWORKS_UIS        "*.ui")
 FILE(GLOB TEXWORKS_RCS        "${TeXworks_SOURCE_DIR}/res/*.qrc")
-FILE(GLOB TEXWORKS_TRANS      "${TeXworks_SOURCE_DIR}/trans/*.ts")
+FILE(GLOB TEXWORKS_TRANS_TS   "${TeXworks_SOURCE_DIR}/trans/*.ts")
+FILE(GLOB TEXWORKS_TRANS_QM   "${TeXworks_SOURCE_DIR}/trans/*.qm")
 
 # These source files along with the `.moc` files generated from some headers
 # form the TeXworks scripting API. We export them to variables in the
@@ -93,24 +94,16 @@ ENDIF ()
 # ----------------------------------
 
 IF (${QT_VERSION_MAJOR} EQUAL 5)
-  # Run moc on header files.
-  QT5_WRAP_CPP(TEXWORKS_GEN_MOC ${TEXWORKS_MOC_HDRS})
   # Run uic on user interface files.
   QT5_WRAP_UI(TEXWORKS_GEN_UI ${TEXWORKS_UIS})
-  # Run rcc on reasource files.
-  QT5_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
-  # Prep language translations.
-  QT5_ADD_TRANSLATION(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS})
 ELSE()
-  # Run moc on header files.
-  QT4_WRAP_CPP(TEXWORKS_GEN_MOC ${TEXWORKS_MOC_HDRS})
   # Run uic on user interface files.
   QT4_WRAP_UI(TEXWORKS_GEN_UI ${TEXWORKS_UIS})
-  # Run rcc on reasource files.
-  QT4_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
-  # Prep language translations.
-  QT4_ADD_TRANSLATION(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS})
 ENDIF()
+# Run rcc on reasource files.
+QT_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
+# Add translations
+QT_ADD_QM_TRANSLATIONS(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS_QM})
 
 IF ( APPLE OR NOT UNIX )
   SET(EXE_NAME TeXworks)
@@ -133,7 +126,7 @@ ENDIF()
 # Build the executible.
 ADD_EXECUTABLE( ${EXE_NAME} ${GUI_TYPE}
   ${TEXWORKS_SRCS}
-  ${TEXWORKS_GEN_MOC} ${TEXWORKS_GEN_UI} ${TEXWORKS_GEN_RCS} ${TEXWORKS_GEN_TRANS}
+  ${TEXWORKS_GEN_UI} ${TEXWORKS_GEN_RCS} ${TEXWORKS_GEN_TRANS}
   ${TeXworks_APP_ICONS}
 )
 

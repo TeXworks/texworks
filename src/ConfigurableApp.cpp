@@ -19,33 +19,27 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef ClickableLabel_H
-#define ClickableLabel_H
+#include "ConfigurableApp.h"
 
-#include <QLabel>
-#include <QMouseEvent>
-#include <QApplication>
-
-class ClickableLabel : public QLabel
+ConfigurableApp::ConfigurableApp(int &argc, char **argv)
+: QApplication(argc, argv)
+, settingsFormat(QSettings::NativeFormat)
 {
-	Q_OBJECT
-public:
-	ClickableLabel(QWidget * parent = 0, Qt::WindowFlags f = 0);
-	ClickableLabel(const QString & text, QWidget * parent = 0, Qt::WindowFlags f = 0);
-	virtual ~ClickableLabel() { }
-	
-signals:
-	void mouseDoubleClick(QMouseEvent * event);
-	void mouseLeftClick(QMouseEvent * event);
-	void mouseMiddleClick(QMouseEvent * event);
-	void mouseRightClick(QMouseEvent * event);
+}
 
-protected:
-	virtual void mouseDoubleClickEvent(QMouseEvent * event);
-	virtual void mousePressEvent(QMouseEvent * event);
-	virtual void mouseReleaseEvent(QMouseEvent * event);
+// static
+ConfigurableApp * ConfigurableApp::instance()
+{
+	return qobject_cast<ConfigurableApp*>(QApplication::instance());
+}
 
-	QPoint mouseStartPoint;
-};
+QSettings::Format ConfigurableApp::getSettingsFormat() const
+{
+	return settingsFormat;
+}
 
-#endif // !defined(ClickableLabel_H)
+void ConfigurableApp::setSettingsFormat(QSettings::Format fmt)
+{
+	settingsFormat = fmt;
+}
+
