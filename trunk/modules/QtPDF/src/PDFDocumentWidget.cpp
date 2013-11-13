@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012  Stefan Löffler
+ * Copyright (C) 2012-2013  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -21,8 +21,8 @@ PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = NULL */, const double
 #ifdef USE_MUPDF
   _backends.append(new MuPDFBackend());
 #endif
-#ifdef USE_POPPLERQT4
-  _backends.append(new PopplerQt4Backend());
+#ifdef USE_POPPLERQT
+  _backends.append(new PopplerQtBackend());
 #endif
 
   if (dpi > 0)

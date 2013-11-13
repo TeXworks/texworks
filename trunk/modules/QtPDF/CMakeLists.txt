@@ -32,9 +32,9 @@ IF ( NOT DEFINED BUILD_SHARED_LIBS )
   SET(BUILD_SHARED_LIBS ON)
 ENDIF ()
 
-# ...with poppler-qt4...
-IF ( NOT DEFINED WITH_POPPLERQT4 )
-  SET(WITH_POPPLERQT4 ON)
+# ...with poppler-qt...
+IF ( NOT DEFINED WITH_POPPLERQT )
+  SET(WITH_POPPLERQT ON)
 ENDIF ()
 
 # ...but without MuPDF
@@ -49,7 +49,7 @@ ENDIF ()
 
 OPTION(QTPDF_VIEWER "Build PDF viewer application" ${QTPDF_VIEWER})
 
-OPTION(WITH_POPPLER "Build Poppler Qt4 backend" ${WITH_POPPLERQT4})
+OPTION(WITH_POPPLER "Build Poppler Qt backend" ${WITH_POPPLERQT})
 # MuPDF backend is a bit immature, so we don't bother with it by default right
 # now.
 OPTION(WITH_MUPDF "Build MuPDF backend" ${WITH_MUPDF})
@@ -100,10 +100,10 @@ SET(QTPDF_LIBS
 
 # Backend Components
 # ------------------
-IF( WITH_POPPLERQT4 )
+IF( WITH_POPPLERQT )
 
   FIND_PACKAGE(Poppler REQUIRED)
-  LIST(APPEND QTPDF_INCLUDE_DIRS ${POPPLER_QT4_INCLUDE_DIR})
+  LIST(APPEND QTPDF_INCLUDE_DIRS ${POPPLER_QT_INCLUDE_DIR})
   # In case poppler is linked statically, its libs have to be given to the
   # linker **first** for some strange reason or symbols won't be properly
   # resolved. At least, this is the case with the MinGW linker.
@@ -205,10 +205,10 @@ SET(QTPDF_MOC_HDRS
 
 SET(QTPDF_FLAGS "")
 
-IF( WITH_POPPLERQT4 )
-  LIST(APPEND QTPDF_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerQt4Backend.cpp)
-  LIST(APPEND QTPDF_MOC_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerQt4Backend.h)
-  SET(QTPDF_FLAGS "${QTPDF_FLAGS} -DUSE_POPPLERQT4")
+IF( WITH_POPPLERQT )
+  LIST(APPEND QTPDF_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerQtBackend.cpp)
+  LIST(APPEND QTPDF_MOC_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerQtBackend.h)
+  SET(QTPDF_FLAGS "${QTPDF_FLAGS} -DUSE_POPPLERQT")
 ENDIF()
 
 IF( WITH_MUPDF )
@@ -285,9 +285,9 @@ QT4_WRAP_CPP(PDFVIEWER_MOC ${PDFVIEWER_MOC_HDRS})
 QT4_WRAP_CPP(QTPDFTEST_MOC ${QTPDFTEST_MOC_HDRS})
 
 
-IF( WITH_POPPLERQT4 )
+IF( WITH_POPPLERQT )
 
-  ADD_EXECUTABLE(poppler-qt4_viewer
+  ADD_EXECUTABLE(poppler-qt${QT_VERSION_MAJOR}_viewer
     ${PDFVIEWER_SRCS}
     ${PDFVIEWER_MOC} ${PDFVIEWER_RESOURCES}
   )
@@ -296,23 +296,23 @@ IF( WITH_POPPLERQT4 )
   # Setting properties on a target sets those properties on all source files
   # that are built to create that target. Other targets can re-use the sources
   # and build with different flags. Pretty handy.
-  SET_TARGET_PROPERTIES(poppler-qt4_viewer PROPERTIES
-    COMPILE_FLAGS -DUSE_POPPLERQT4
+  SET_TARGET_PROPERTIES(poppler-qt${QT_VERSION_MAJOR}_viewer PROPERTIES
+    COMPILE_FLAGS -DUSE_POPPLERQT
   )
 
-  TARGET_LINK_LIBRARIES(poppler-qt4_viewer qtpdf)
+  TARGET_LINK_LIBRARIES(poppler-qt${QT_VERSION_MAJOR}_viewer qtpdf)
 
 
   IF( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-    ADD_EXECUTABLE(poppler-qt4_test
+    ADD_EXECUTABLE(poppler-qt${QT_VERSION_MAJOR}_test
       ${QTPDFTEST_SRCS}
       ${QTPDFTEST_MOC}
     )
-    SET_TARGET_PROPERTIES(poppler-qt4_test PROPERTIES
-      COMPILE_FLAGS -DUSE_POPPLERQT4
+    SET_TARGET_PROPERTIES(poppler-qt${QT_VERSION_MAJOR}_test PROPERTIES
+      COMPILE_FLAGS -DUSE_POPPLERQT
       RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests
     )
-    TARGET_LINK_LIBRARIES(poppler-qt4_test qtpdf QtTest)
+    TARGET_LINK_LIBRARIES(poppler-qt${QT_VERSION_MAJOR}_test qtpdf QtTest)
   ENDIF()
 
 ENDIF()
@@ -385,7 +385,7 @@ CONFIG_INFO("Version" ${PROJECT_VERSION})
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
 message("")
 
-CONFIG_YESNO("Poppler-Qt4 backend" WITH_POPPLERQT4)
+CONFIG_YESNO("Poppler-Qt backend" WITH_POPPLERQT)
 CONFIG_YESNO("MuPDF backend" WITH_MUPDF)
 CONFIG_YESNO("Shared library" BUILD_SHARED_LIBS)
 CONFIG_YESNO("Viewer application" QTPDF_VIEWER)

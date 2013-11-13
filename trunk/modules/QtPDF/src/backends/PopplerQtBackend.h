@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011-2012  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2011-2013  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -22,13 +22,17 @@
 #define PopplerBackend_H
 
 #include "PDFBackend.h"
-#include <poppler/qt4/poppler-qt4.h>
+#if QT_VERSION < 0x050000
+  #include <poppler/qt4/poppler-qt4.h>
+#else
+  #include <poppler/qt5/poppler-qt5.h>
+#endif
 
 namespace QtPDF {
 
 namespace Backend {
 
-namespace PopplerQt4 {
+namespace PopplerQt {
 
 class Document;
 class Page;
@@ -107,23 +111,23 @@ public:
   QList<Backend::SearchResult> search(QString searchText, SearchFlags flags);
 };
 
-} // namespace PopplerQt4
+} // namespace PopplerQt
 
 } // namespace Backend
 
-class PopplerQt4Backend : public BackendInterface
+class PopplerQtBackend : public BackendInterface
 {
   Q_OBJECT
   Q_INTERFACES(QtPDF::BackendInterface)
 public:
-  PopplerQt4Backend() { }
-  virtual ~PopplerQt4Backend() { }
+  PopplerQtBackend() { }
+  virtual ~PopplerQtBackend() { }
 
   virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) {
-    return QSharedPointer<Backend::Document>(new Backend::PopplerQt4::Document(fileName));
+    return QSharedPointer<Backend::Document>(new Backend::PopplerQt::Document(fileName));
   }
 
-  virtual QString name() const { return QString::fromAscii("poppler-qt4"); }
+  virtual QString name() const { return QString::fromAscii("poppler-qt"); }
   virtual bool canHandleFile(const QString & fileName) { return QFileInfo(fileName).suffix() == QString::fromAscii("pdf"); }
 };
 
