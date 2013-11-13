@@ -250,11 +250,10 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
     dock->deleteLater();
     return NULL;
   }
-  if (_pdf_scene) {
-    if (_pdf_scene->document())
+  if (_pdf_scene && _pdf_scene->document())
       infoWidget->initFromDocument(_pdf_scene->document());
-    connect(this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), infoWidget, SLOT(initFromDocument(const QWeakPointer<QtPDF::Backend::Document>)));
-  }
+  connect(this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), infoWidget, SLOT(initFromDocument(const QWeakPointer<QtPDF::Backend::Document>)));
+
   dock->setWindowTitle(infoWidget->windowTitle());
   connect(infoWidget, SIGNAL(windowTitleChanged(const QString &)), dock, SLOT(setWindowTitle(const QString &)));
 
