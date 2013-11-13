@@ -45,6 +45,16 @@ PDFDocumentWidget::~PDFDocumentWidget()
 // is returned
 bool PDFDocumentWidget::load(const QString &filename)
 {
+  if (_scene) {
+    // If we already have the document, reload it instead of replacing it with
+    // a new instance to preserve the current state (e.g., viewing area, etc.)
+    QSharedPointer<Backend::Document> doc = _scene.data()->document().toStrongRef();
+    if (doc && doc.data()->fileName() == filename) {
+      _scene.data()->reloadDocument();
+      return true;
+    }
+  }
+
   QSharedPointer<QtPDF::Backend::Document> a_pdf_doc;
   foreach(BackendInterface * bi, _backends) {
     if (bi && bi->canHandleFile(filename))
