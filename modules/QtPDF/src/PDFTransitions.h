@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012  Stefan Löffler
+ * Copyright (C) 2012-2013  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -30,6 +30,7 @@ public:
   enum Motion { Motion_Inward, Motion_Outward };
 
   AbstractTransition();
+  virtual ~AbstractTransition() { }
 
   bool isRunning() const { return (_started && !_finished); }
   bool isFinished() const { return _finished; }
@@ -66,6 +67,8 @@ class AbstractInPlaceTransition : public AbstractTransition
 {
 public:
   AbstractInPlaceTransition() : _spread(0.05f) { }
+  virtual ~AbstractInPlaceTransition() { }
+  
   virtual void start(const QImage & imgStart, const QImage & imgEnd);
   virtual QImage getImage();
 protected:
