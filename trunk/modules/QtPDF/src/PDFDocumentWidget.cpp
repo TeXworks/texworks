@@ -15,7 +15,7 @@
 
 namespace QtPDF {
 
-PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = NULL */)
+PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = NULL */, const double dpi /* = -1 */)
 : PDFDocumentView(parent)
 {
 #ifdef USE_MUPDF
@@ -24,6 +24,11 @@ PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = NULL */)
 #ifdef USE_POPPLERQT4
   _backends.append(new PopplerQt4Backend());
 #endif
+
+  if (dpi > 0)
+    _dpi = dpi;
+  else
+    _dpi = QApplication::desktop()->physicalDpiX();
 }
 
 PDFDocumentWidget::~PDFDocumentWidget()
@@ -56,7 +61,7 @@ bool PDFDocumentWidget::load(const QString &filename)
   // parent, thereby bypassing the QSharedPointer mechanism. docScene will be
   // freed automagically when the last QSharedPointer pointing to it will be
   // destroyed.
-  _scene = QSharedPointer<QtPDF::PDFDocumentScene>(new QtPDF::PDFDocumentScene(a_pdf_doc));
+  _scene = QSharedPointer<QtPDF::PDFDocumentScene>(new QtPDF::PDFDocumentScene(a_pdf_doc, NULL, _dpi, _dpi));
   setScene(_scene);
   return true;
 }
@@ -89,6 +94,16 @@ void PDFDocumentWidget::setDefaultBackend(const QString & backend)
   if (i < _backends.size()) {
     _backends.move(i, 0);
   }
+}
+
+void PDFDocumentWidget::setResolution(const double dpi)
+{
+  if (dpi <= 0)
+    return;
+  _dpi = dpi;
+
+  if (_scene)
+    _scene->setResolution(dpi, dpi);
 }
 
 

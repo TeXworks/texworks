@@ -22,7 +22,7 @@ class PDFDocumentWidget : public PDFDocumentView
 {
 	Q_OBJECT
 public:
-  PDFDocumentWidget(QWidget * parent = NULL);
+  PDFDocumentWidget(QWidget * parent = NULL, const double dpi = -1);
   virtual ~PDFDocumentWidget();
 
   bool load(const QString & filename);
@@ -36,9 +36,12 @@ public:
 
   // *TODO*: Possibly add some way to describe/choose/change the PDF backend used
 
+  void setResolution(const double dpi);
+
 protected:
   QSharedPointer<QtPDF::PDFDocumentScene> _scene;
   QList<BackendInterface*> _backends;
+  double _dpi;
 };
 
 } // namespace QtPDF
