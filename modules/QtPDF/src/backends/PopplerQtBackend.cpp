@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011-2012  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2011-2013  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -12,14 +12,14 @@
  * more details.
  */
 
-// NOTE: `PopplerQt4Backend.h` is included via `PDFBackend.h`
+// NOTE: `PopplerQtBackend.h` is included via `PDFBackend.h`
 #include <PDFBackend.h>
 
 namespace QtPDF {
 
 namespace Backend {
 
-namespace PopplerQt4 {
+namespace PopplerQt {
 
 // TODO: Find a better place to put this
 PDFDestination toPDFDestination(const ::Poppler::Document * doc, const ::Poppler::LinkDestination & dest)
@@ -130,7 +130,7 @@ Document::Document(QString fileName):
   _fontsLoaded(false)
 {
 #ifdef DEBUG
-//  qDebug() << "PopplerQt4::Document::Document(" << fileName << ")";
+//  qDebug() << "PopplerQt::Document::Document(" << fileName << ")";
 #endif
   parseDocument();
 }
@@ -138,7 +138,7 @@ Document::Document(QString fileName):
 Document::~Document()
 {
 #ifdef DEBUG
-//  qDebug() << "PopplerQt4::Document::~Document()";
+//  qDebug() << "PopplerQt::Document::~Document()";
 #endif
   clearPages();
 }
@@ -501,7 +501,7 @@ QImage Page::renderToImage(double xres, double yres, QRect render_box, bool cach
 
   {
     // Rendering pages is not thread safe.
-    QMutexLocker popplerDocLock(static_cast<Backend::PopplerQt4::Document *>(_parent)->_poppler_docLock);
+    QMutexLocker popplerDocLock(static_cast<Backend::PopplerQt::Document *>(_parent)->_poppler_docLock);
     if( render_box.isNull() ) {
       // A null QRect has a width and height of 0 --- we will tell Poppler to render the whole
       // page.
@@ -545,7 +545,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
   QList< ::Poppler::Annotation *> popplerAnnots;
   {
     // Loading links is not thread safe.
-    QMutexLocker popplerDocLock(static_cast<Backend::PopplerQt4::Document *>(_parent)->_poppler_docLock);
+    QMutexLocker popplerDocLock(static_cast<Backend::PopplerQt::Document *>(_parent)->_poppler_docLock);
     popplerLinks = _poppler_page->links();
     popplerAnnots = _poppler_page->annotations();
   }
@@ -886,7 +886,7 @@ QString Page::selectedText(const QList<QPolygonF> & selection)
   return retVal;
 }
 
-} // namespace PopplerQt4
+} // namespace PopplerQt
 
 } // namespace Backend
 

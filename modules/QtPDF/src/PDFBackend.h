@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011-2012  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2011-2013  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -639,8 +639,8 @@ Q_DECLARE_INTERFACE(QtPDF::BackendInterface, "org.tug.QtPDF/1.0")
 // NOTE: The backend implementations must be included _outside_ the namespace,
 // as that could otherwise interfere with other header files (e.g., those of
 // poppler-qt4)
-#ifdef USE_POPPLERQT4
-#include <backends/PopplerQt4Backend.h> // Invokes GPL v2+ License
+#ifdef USE_POPPLERQT
+#include <backends/PopplerQtBackend.h> // Invokes GPL v2+ License
 #endif
 #ifdef USE_MUPDF
 #include <backends/MuPDFBackend.h>   // Invokes GPL v3 License

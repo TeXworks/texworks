@@ -8,8 +8,8 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
 
 #ifdef USE_MUPDF
   docWidget->setDefaultBackend(QString::fromAscii("mupdf"));
-#elif USE_POPPLERQT4
-  docWidget->setDefaultBackend(QString::fromAscii("poppler-qt4"));
+#elif USE_POPPLERQT
+  docWidget->setDefaultBackend(QString::fromAscii("poppler-qt"));
 #else
   #error At least one backend is required
 #endif
