@@ -27,6 +27,8 @@ public:
 
   bool load(const QString & filename);
 
+  QWeakPointer<Backend::Document> document() const;
+
   bool watchForDocumentChangesOnDisk() const { return _scene->watchForDocumentChangesOnDisk(); }
   void setWatchForDocumentChangesOnDisk(const bool doWatch = true) { _scene->setWatchForDocumentChangesOnDisk(doWatch); }
 
