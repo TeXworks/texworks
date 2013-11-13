@@ -1,0 +1,87 @@
+%PDF-1.4
+1 0 obj
+<<
+  /Type /Catalog
+  /Pages 2 0 R
+>>
+endobj
+2 0 obj
+<<
+  /Type /Pages
+  /Kids [ 3 0 R
+          4 0 R
+          5 0 R
+          6 0 R]
+  /Count 4
+>>
+endobj
+3 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /Resources << /ProcSet [/PDF] >>
+  /MediaBox [0 0 595 842]
+  /Rotate   0
+  /Contents 7 0 R
+>>
+endobj
+4 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /Resources << /ProcSet [/PDF] >>
+  /MediaBox [0 0 595 842]
+  /Rotate  90
+  /Contents 7 0 R
+>>
+endobj
+5 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /Resources << /ProcSet [/PDF] >>
+  /MediaBox [0 0 595 842]
+  /Rotate 180
+  /Contents 7 0 R
+>>
+endobj
+6 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /Resources << /ProcSet [/PDF] >>
+  /MediaBox [0 0 595 842]
+  /Rotate 270
+  /Contents 7 0 R
+>>
+endobj
+7 0 obj
+  << /Length  97 >>
+stream
+/DeviceRGB cs
+1 0 0 sc
+0 421 297 421 re f
+0 1 0 sc
+297 421 298 421 re f
+0 0 1 sc
+0 0 297 421 re f
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f
+0000000009 00000 n
+0000000062 00000 n
+0000000174 00000 n
+0000000318 00000 n
+0000000462 00000 n
+0000000606 00000 n
+0000000750 00000 n
+trailer
+<<
+  /Size 8
+  /Root 1 0 R
+>>
+startxref
+900
+%%EOF
