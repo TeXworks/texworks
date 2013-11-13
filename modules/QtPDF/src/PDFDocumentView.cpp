@@ -271,6 +271,23 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
   return dock;
 }
 
+// path in PDF coordinates
+QGraphicsPathItem * PDFDocumentView::addHighlightPath(const unsigned int page, const QPainterPath & path, const QBrush & brush, const QPen & pen /* = Qt::NoPen */)
+{
+  if (!_pdf_scene)
+    return NULL;
+
+  PDFPageGraphicsItem * pageItem = (PDFPageGraphicsItem*)(_pdf_scene->pageAt(page));
+  if (!pageItem || !isPageItem(pageItem))
+    return NULL;
+
+  QGraphicsPathItem * highlightItem = new QGraphicsPathItem(path, pageItem, _pdf_scene.data());
+  highlightItem->setBrush(brush);
+  highlightItem->setPen(pen);
+  highlightItem->setTransform(pageItem->pointScale());
+  return highlightItem;
+}
+
 // Public Slots
 // ------------
 
@@ -587,21 +604,8 @@ void PDFDocumentView::searchResultReady(int index)
   QBrush highlightBrush(fillColor);
 
   // Convert the search result to highlight boxes
-  foreach( Backend::SearchResult result, _searchResultWatcher.future().resultAt(index) ) {
-    PDFPageGraphicsItem *page = qgraphicsitem_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(result.pageNum));
-    if (!page)
-      continue;
-
-    // This causes the page to take ownership of the highlight item which applies
-    // necessary transformations and adds the item to the scene.
-    QGraphicsRectItem *highlightItem = new QGraphicsRectItem(result.bbox, page);
-
-    highlightItem->setBrush(highlightBrush);
-    highlightItem->setPen(Qt::NoPen);
-    highlightItem->setTransform(page->pointScale());
-
-    _searchResults << highlightItem;
-  }
+  foreach( Backend::SearchResult result, _searchResultWatcher.future().resultAt(index) )
+    _searchResults << addHighlightPath(result.pageNum, result.bbox, highlightBrush);
   
   // If this is the first result that becomes available in a new search, center
   // on the first result

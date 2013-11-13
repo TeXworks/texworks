@@ -72,6 +72,16 @@ public:
   DocumentTool::AbstractTool * armedTool() const { return _armedTool; }
   void triggerContextClick(const int page, const QPointF pos) { emit contextClick(page, pos); }
 
+  QGraphicsPathItem * addHighlightPath(const unsigned int page, const QPainterPath & path, const QBrush & brush, const QPen & pen = Qt::NoPen);
+  QGraphicsPathItem * addHighlightPath(const unsigned int page, const QRectF & rect, const QBrush & brush, const QPen & pen = Qt::NoPen) {
+    QPainterPath p;
+    p.addRect(rect);
+    return addHighlightPath(page, p, brush, pen);
+  }
+  QGraphicsPathItem * addHighlightPath(const unsigned int page, const QPainterPath & path, const QColor color, const QPen & pen = Qt::NoPen) {
+    return addHighlightPath(page, path, QBrush(color), pen);
+  }
+
 public slots:
   void goPrev();
   void goNext();
