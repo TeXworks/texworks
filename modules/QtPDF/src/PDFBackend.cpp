@@ -30,7 +30,7 @@ QDateTime fromPDFDate(QString pdfDate)
   QString format;
   QDateTime retVal;
   int sign = 0;
-  int hourOffset, minuteOffset;
+  int hourOffset, minuteOffset = 0;
   bool ok;
 
   // "D:" prefix is strongly recommended, but optional; we don't need it here
@@ -83,7 +83,7 @@ QDateTime fromPDFDate(QString pdfDate)
   if (!ok)
     return QDateTime(date, time);
   pdfDate.remove(0, 3);
-  if (pdfDate.length() >= 3 && pdfDate[2] ==  QChar::fromAscii('\''))
+  if (pdfDate.length() >= 2)
     minuteOffset = pdfDate.left(2).toInt();
   return QDateTime(date, time, Qt::UTC).addSecs(sign * (hourOffset * 3600 + minuteOffset * 60)).toLocalTime();
 }
