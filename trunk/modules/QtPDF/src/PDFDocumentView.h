@@ -101,7 +101,7 @@ public slots:
   void setMagnifierSize(const int size);
   void setUseGrayScale(const bool grayScale = true) { _useGrayScale = grayScale; }
 
-  void zoomBy(qreal zoomFactor);
+  void zoomBy(const qreal zoomFactor);
   void zoomIn();
   void zoomOut();
   void zoomToRect(QRectF a_rect);
