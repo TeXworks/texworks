@@ -195,8 +195,9 @@ public:
   // the zoom factor multiplies the parent view's _zoomLevel
   void setZoomFactor(const qreal zoomFactor);
   void setPosition(const QPoint pos);
-  void setShape(const DocumentTool::MagnifyingGlass::MagnifierShape shape);
-  void setSize(const int size);
+  void setShape(const DocumentTool::MagnifyingGlass::MagnifierShape shape) { setSizeAndShape(_size, shape); }
+  void setSize(const int size) { setSizeAndShape(size, _shape); }
+  void setSizeAndShape(const int size, const DocumentTool::MagnifyingGlass::MagnifierShape shape);
   // ensures all settings are in sync with the parent view
   // make sure you call it before calling show()!
   // Note: we cannot override show() because prepareToShow() usually needs to be

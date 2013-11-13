@@ -1239,15 +1239,14 @@ void PDFDocumentMagnifierView::setPosition(const QPoint pos)
   centerOn(_parent_view->mapToScene(pos));
 }
 
-void PDFDocumentMagnifierView::setShape(const DocumentTool::MagnifyingGlass::MagnifierShape shape)
+void PDFDocumentMagnifierView::setSizeAndShape(const int size, const DocumentTool::MagnifyingGlass::MagnifierShape shape)
 {
+  _size = size;
   _shape = shape;
-
-  // ensure the window rect is set properly for the new mode
-  setSize(_size);
 
   switch (shape) {
     case DocumentTool::MagnifyingGlass::Magnifier_Rectangle:
+      setFixedSize(size * 4 / 3, size);
       clearMask();
 #ifdef Q_WS_MAC
       // On OS X there is a bug that affects masking of QAbstractScrollArea and
@@ -1261,25 +1260,12 @@ void PDFDocumentMagnifierView::setShape(const DocumentTool::MagnifyingGlass::Mag
 #endif
       break;
     case DocumentTool::MagnifyingGlass::Magnifier_Circle:
+      setFixedSize(size, size);
       setMask(QRegion(rect(), QRegion::Ellipse));
 #ifdef Q_WS_MAC
       // Hack to fix QTBUG-7150
       viewport()->setMask(QRegion(rect(), QRegion::Ellipse));
 #endif
-      break;
-  }
-  _dropShadow = QPixmap();
-}
-
-void PDFDocumentMagnifierView::setSize(const int size)
-{
-  _size = size;
-  switch (_shape) {
-    case DocumentTool::MagnifyingGlass::Magnifier_Rectangle:
-      setFixedSize(size * 4 / 3, size);
-      break;
-    case DocumentTool::MagnifyingGlass::Magnifier_Circle:
-      setFixedSize(size, size);
       break;
   }
   _dropShadow = QPixmap();
