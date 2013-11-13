@@ -116,8 +116,10 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
   }
 
   _pdf_scene = a_scene;
+  
+  reinitializeFromScene();
+  
   if (a_scene) {
-    _lastPage = _pdf_scene->lastPage();
     // Respond to page jumps requested by the `PDFDocumentScene`.
     //
     // **TODO:**
@@ -126,17 +128,19 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
     connect(_pdf_scene.data(), SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
     connect(_pdf_scene.data(), SIGNAL(pdfActionTriggered(const QtPDF::PDFAction*)), this, SLOT(pdfActionTriggered(const QtPDF::PDFAction*)));
     connect(_pdf_scene.data(), SIGNAL(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)), this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)));
+    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(reinitializeFromScene()));
   }
-  else
-    _lastPage = -1;
   
   // ensure the zoom is reset if we load a new document
   zoom100();
   
   // Ensure we're at the top left corner (we need to set _currentPage to -1 to
-  // ensure goFirst() actually does anything even if _currentPage == 0 before.
-  _currentPage = -1;
-  goFirst();
+  // ensure goToPage() actually does anything.
+  int page = _currentPage;
+  if (page >= 0) {
+    _currentPage = -1;
+    goToPage(page);
+  }
 
   // Ensure search result list is empty in case we are switching from another
   // scene.
@@ -948,6 +952,25 @@ void PDFDocumentView::switchInterfaceLocale(const QLocale & newLocale)
   }
 }
 
+void PDFDocumentView::reinitializeFromScene()
+{
+  if (_pdf_scene) {
+    _lastPage = _pdf_scene->lastPage();
+    if (_lastPage <= 0)
+      _currentPage = -1;
+    else {
+      if (_currentPage < 0)
+        _currentPage = 0;
+      if (_currentPage >= _lastPage)
+        _currentPage = _lastPage - 1;
+    }
+  }
+  else {
+    _lastPage = -1;
+    _currentPage = -1;
+  }
+}
+
 
 void PDFDocumentView::registerTool(DocumentTool::AbstractTool * tool)
 {
@@ -1624,8 +1647,7 @@ void PDFDocumentScene::doUnlockDialog()
       // it until control returns to the event queue. Problem: slots connected
       // to documentChanged() will receive the new doc, but the scene itself
       // will not have changed, yet.
-      QTimer::singleShot(1, this, SLOT(reinitializeScene()));
-      emit documentChanged(_doc);
+      QTimer::singleShot(1, this, SLOT(finishUnlock()));
     }
     else
       QMessageBox::information(NULL, trUtf8("Incorrect password"), trUtf8("The password you entered was incorrect."));
@@ -1687,6 +1709,12 @@ void PDFDocumentScene::reinitializeScene()
     }
     _pageLayout.relayout();
   }
+}
+
+void PDFDocumentScene::finishUnlock()
+{
+  reinitializeScene();
+  emit documentChanged(_doc);
 }
 
 void PDFDocumentScene::reloadDocument()
