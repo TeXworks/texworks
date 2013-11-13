@@ -1093,12 +1093,18 @@ void PDFDocumentView::mousePressEvent(QMouseEvent * event)
   if (event->isAccepted())
     return;
 
+  // Maybe arm a new tool, depending on the mouse buttons and keyboard modifiers.
+  // This is particularly relevant if the current widget is not the focussed
+  // widget. In that case, mousePressEvent() will focus this widget, but any
+  // keyboard modifiers may require a new tool to fire.
+  // In the typical case, the correct tool will already be armed, so the call to
+  // maybeArmTool will effectively be a no-op.
+  maybeArmTool(event->buttons() | event->modifiers());
+
   DocumentTool::AbstractTool * oldArmed = _armedTool;
   
   if(_armedTool)
     _armedTool->mousePressEvent(event);
-  else
-    maybeArmTool(event->buttons() | event->modifiers());
 
   // This mouse event may have armed a new tool (either explicitly, or because
   // the previously armed tool passed it on to maybeArmTool). In that case, we
