@@ -42,6 +42,13 @@ IF ( NOT DEFINED WITH_MUPDF )
   SET(WITH_MUPDF OFF)
 ENDIF ()
 
+# ...and the viewer programs
+IF ( NOT DEFINED QTPDF_VIEWER )
+  SET(QTPDF_VIEWER ON)
+ENDIF ()
+
+OPTION(QTPDF_VIEWER "Build PDF viewer application" ${QTPDF_VIEWER})
+
 OPTION(WITH_POPPLER "Build Poppler Qt4 backend" ${WITH_POPPLERQT4})
 # MuPDF backend is a bit immature, so we don't bother with it by default right
 # now.
@@ -245,6 +252,8 @@ SET(QTPDF_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src PARENT_SCOPE)
 # Viewers
 # -------
 
+IF ( QTPDF_VIEWER )
+
 # Both viewers use a common set of source code files. Preprocessor definitions
 # toggle the backend-sensitive bits.
 SET(PDFVIEWER_SRCS
@@ -335,6 +344,7 @@ IF( WITH_MUPDF )
 
 ENDIF()
 
+ENDIF() # QTPDF_VIEWER
 
 # Packaging
 # =========
@@ -378,6 +388,7 @@ message("")
 CONFIG_YESNO("Poppler-Qt4 backend" WITH_POPPLERQT4)
 CONFIG_YESNO("MuPDF backend" WITH_MUPDF)
 CONFIG_YESNO("Shared library" BUILD_SHARED_LIBS)
+CONFIG_YESNO("Viewer application" QTPDF_VIEWER)
 
 message("")
 message("  ${PROJECT_NAME} will be installed to:")
