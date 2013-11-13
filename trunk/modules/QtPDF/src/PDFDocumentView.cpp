@@ -631,7 +631,10 @@ void PDFDocumentView::searchProgressValueChanged(int progressValue)
   // of the progress when no matches are found, whereas searchResultReady is
   // primarily intended for informing the user of the progress when matches are
   // found.
-  emit searchProgressChanged(100 * (progressValue - _searchResultWatcher.progressMinimum()) / (_searchResultWatcher.progressMaximum() - _searchResultWatcher.progressMinimum()), _searchResults.count());
+  if (_searchResultWatcher.progressMaximum() == _searchResultWatcher.progressMinimum())
+    emit searchProgressChanged(100, _searchResults.count());
+  else
+    emit searchProgressChanged(100 * (progressValue - _searchResultWatcher.progressMinimum()) / (_searchResultWatcher.progressMaximum() - _searchResultWatcher.progressMinimum()), _searchResults.count());
 }
 
 void PDFDocumentView::maybeUpdateSceneRect() {
