@@ -460,9 +460,9 @@ public:
 
 
   // Uses doc-read-lock
-  QFlags<Permissions> permissions() const { QReadLocker docLocker(_docLock.data()); return _permissions; }
+  Permissions permissions() const { QReadLocker docLocker(_docLock.data()); return _permissions; }
   // Uses doc-read-lock
-  QFlags<Permissions>& permissions() { QReadLocker docLocker(_docLock.data()); return _permissions; }
+  Permissions& permissions() { QReadLocker docLocker(_docLock.data()); return _permissions; }
   
   // Uses doc-read-lock
   virtual bool isValid() const = 0;
@@ -512,7 +512,7 @@ protected:
   PDFPageProcessingThread _processingThread;
   PDFPageCache _pageCache;
   QVector< QSharedPointer<Page> > _pages;
-  QFlags<Permissions> _permissions;
+  Permissions _permissions;
 
   QString _fileName;
 

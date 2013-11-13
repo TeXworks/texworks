@@ -17,14 +17,14 @@ void TestQtPDF::loadDocs()
 
   // Don't run documents that may produce error messages in QBENCHMARK as
   // otherwise the console may be filled with unhelpful messages
-  _docs[QString::fromAscii("invalid")] = backend.newDocument(QString());
-  _docs[QString::fromAscii("base14-locked")] = backend.newDocument(QString::fromAscii("base14-fonts-locked.pdf"));
+  _docs[QString::fromLatin1("invalid")] = backend.newDocument(QString());
+  _docs[QString::fromLatin1("base14-locked")] = backend.newDocument(QString::fromLatin1("base14-fonts-locked.pdf"));
 
   QBENCHMARK {
-    _docs[QString::fromAscii("transitions")] = backend.newDocument(QString::fromAscii("pdf-transitions.pdf"));
-    _docs[QString::fromAscii("pgfmanual")] = backend.newDocument(QString::fromAscii("pgfmanual.pdf"));
-    _docs[QString::fromAscii("base14-fonts")] = backend.newDocument(QString::fromAscii("base14-fonts.pdf"));
-    _docs[QString::fromAscii("metadata")] = backend.newDocument(QString::fromAscii("metadata.pdf"));
+    _docs[QString::fromLatin1("transitions")] = backend.newDocument(QString::fromLatin1("pdf-transitions.pdf"));
+    _docs[QString::fromLatin1("pgfmanual")] = backend.newDocument(QString::fromLatin1("pgfmanual.pdf"));
+    _docs[QString::fromLatin1("base14-fonts")] = backend.newDocument(QString::fromLatin1("base14-fonts.pdf"));
+    _docs[QString::fromLatin1("metadata")] = backend.newDocument(QString::fromLatin1("metadata.pdf"));
   }
 }
 
@@ -93,11 +93,11 @@ void TestQtPDF::fileName_data()
   QTest::addColumn<pDoc>("doc");
   QTest::addColumn<QString>("expected");
   newDocTest("invalid") << QString();
-  newDocTest("transitions") << QString::fromAscii("pdf-transitions.pdf");
-  newDocTest("pgfmanual") << QString::fromAscii("pgfmanual.pdf");
-  newDocTest("base14-fonts") << QString::fromAscii("base14-fonts.pdf");
-  newDocTest("base14-locked") << QString::fromAscii("base14-fonts-locked.pdf");
-  newDocTest("metadata") << QString::fromAscii("metadata.pdf");
+  newDocTest("transitions") << QString::fromLatin1("pdf-transitions.pdf");
+  newDocTest("pgfmanual") << QString::fromLatin1("pgfmanual.pdf");
+  newDocTest("base14-fonts") << QString::fromLatin1("base14-fonts.pdf");
+  newDocTest("base14-locked") << QString::fromLatin1("base14-fonts-locked.pdf");
+  newDocTest("metadata") << QString::fromLatin1("metadata.pdf");
 }
 
 void TestQtPDF::fileName()
@@ -197,7 +197,7 @@ void TestQtPDF::metaDataSubject_data()
   newDocTest("pgfmanual") << QString();
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
-  newDocTest("metadata") << QString::fromAscii("PDF Test File");
+  newDocTest("metadata") << QString::fromLatin1("PDF Test File");
 }
 
 void TestQtPDF::metaDataSubject()
@@ -216,7 +216,7 @@ void TestQtPDF::metaDataKeywords_data()
   newDocTest("pgfmanual") << QString();
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
-  newDocTest("metadata") << QString::fromAscii("pdf, metadata, test");
+  newDocTest("metadata") << QString::fromLatin1("pdf, metadata, test");
 }
 
 void TestQtPDF::metaDataKeywords()
@@ -235,7 +235,7 @@ void TestQtPDF::metaDataCreator_data()
   newDocTest("pgfmanual") << QString::fromUtf8("LaTeX with hyperref package");
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
-  newDocTest("metadata") << QString::fromAscii("gedit");
+  newDocTest("metadata") << QString::fromLatin1("gedit");
 }
 
 void TestQtPDF::metaDataCreator()
@@ -254,7 +254,7 @@ void TestQtPDF::metaDataProducer_data()
   newDocTest("pgfmanual") << QString::fromUtf8("pdfTeX-1.40.10");
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
-  newDocTest("metadata") << QString::fromAscii("also gedit");
+  newDocTest("metadata") << QString::fromLatin1("also gedit");
 }
 
 void TestQtPDF::metaDataProducer()

@@ -7,9 +7,9 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   connect(this, SIGNAL(switchInterfaceLocale(QLocale)), docWidget, SLOT(switchInterfaceLocale(QLocale)));
 
 #ifdef USE_MUPDF
-  docWidget->setDefaultBackend(QString::fromAscii("mupdf"));
+  docWidget->setDefaultBackend(QString::fromLatin1("mupdf"));
 #elif USE_POPPLERQT
-  docWidget->setDefaultBackend(QString::fromAscii("poppler-qt"));
+  docWidget->setDefaultBackend(QString::fromLatin1("poppler-qt"));
 #else
   #error At least one backend is required
 #endif
@@ -150,7 +150,7 @@ void PageCounter::refreshText() {
   if (lastPage > 0 && currentPage > 0 && currentPage <= lastPage)
     setText(tr("Page %1 of %2").arg(currentPage).arg(lastPage));
   else
-    setText(QString::fromAscii(""));
+    setText(QString::fromLatin1(""));
   update();
 }
 

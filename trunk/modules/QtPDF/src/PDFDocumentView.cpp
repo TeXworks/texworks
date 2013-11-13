@@ -13,6 +13,10 @@
  */
 #include "PDFDocumentView.h"
 
+#if QT_VERSION_MAJOR >= 5
+  #include <QtConcurrent>
+#endif
+
 // This has to be outside the namespace (according to Qt docs)
 static void initResources()
 {
@@ -289,7 +293,7 @@ QGraphicsPathItem * PDFDocumentView::addHighlightPath(const unsigned int page, c
   if (!pageItem || !isPageItem(pageItem))
     return NULL;
 
-  QGraphicsPathItem * highlightItem = new QGraphicsPathItem(path, pageItem, _pdf_scene.data());
+  QGraphicsPathItem * highlightItem = new QGraphicsPathItem(path, pageItem);
   highlightItem->setBrush(brush);
   highlightItem->setPen(pen);
   highlightItem->setTransform(pageItem->pointScale());
@@ -2282,8 +2286,8 @@ PDFMarkupAnnotationGraphicsItem::PDFMarkupAnnotationGraphicsItem(QSharedPointer<
   QString tooltip(annot->richContents());
   // If the text is not already split into paragraphs, we do that here to ensure
   // proper line folding in the tooltip and hence to avoid very wide tooltips.
-  if (tooltip.indexOf(QString::fromAscii("<p>")) < 0)
-    tooltip = QString::fromAscii("<p>%1</p>").arg(tooltip.replace(QChar::fromAscii('\n'), QString::fromAscii("</p>\n<p>")));
+  if (tooltip.indexOf(QString::fromLatin1("<p>")) < 0)
+    tooltip = QString::fromLatin1("<p>%1</p>").arg(tooltip.replace(QChar::fromLatin1('\n'), QString::fromLatin1("</p>\n<p>")));
   setToolTip(tooltip);
 }
 
@@ -2360,7 +2364,7 @@ void PDFMarkupAnnotationGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent
     styles << QString::fromUtf8(".QWidget { background-color: %1; }").arg(QApplication::palette().color(QPalette::Window).name());
       styles << QString::fromUtf8(".QWidget, .QLabel { color: %1; }").arg(QApplication::palette().color(QPalette::Text).name());
   }
-  _popup->setStyleSheet(styles.join(QString::fromAscii("\n")));
+  _popup->setStyleSheet(styles.join(QString::fromLatin1("\n")));
   QGridLayout * layout = new QGridLayout(_popup);
   layout->setContentsMargins(2, 2, 2, 5);
 
@@ -2858,7 +2862,7 @@ void PDFPermissionsInfoWidget::reload()
     return;
   }
   
-  QFlags<Backend::Document::Permissions> & perm = doc->permissions();
+  Backend::Document::Permissions & perm = doc->permissions();
   
   if (perm.testFlag(Backend::Document::Permission_Print)) {
     if (perm.testFlag(Backend::Document::Permission_PrintHighRes))

@@ -724,8 +724,9 @@ void Select::mousePressEvent(QMouseEvent * event)
   
   // Create the highlight path to visualize selections in the scene
   // Note: it will be parented to the page it belongs to later on
+  // FIXME: Maybe use PDFDocumentView::addHighlightPath here instead?
   if (!_highlightPath) {
-    _highlightPath = new QGraphicsPathItem(NULL, _parent->scene());
+    _highlightPath = new QGraphicsPathItem(NULL);
     _highlightPath->setBrush(QBrush(_highlightColor));
     _highlightPath->setPen(QPen(Qt::transparent));
   }

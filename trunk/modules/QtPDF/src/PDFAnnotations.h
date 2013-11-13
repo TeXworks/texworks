@@ -78,8 +78,8 @@ public:
   virtual QWeakPointer<Backend::Page> page() const { return _page; }
   virtual QString name() const { return _name; }
   virtual QDateTime lastModified() const { return _lastModified; }
-  virtual QFlags<AnnotationFlags> flags() const { return _flags; }
-  virtual QFlags<AnnotationFlags>& flags() { return _flags; }
+  virtual AnnotationFlags flags() const { return _flags; }
+  virtual AnnotationFlags& flags() { return _flags; }
   virtual QColor color() const { return _color; }
 
   virtual void setRect(const QRectF rect) { _rect = rect; }
@@ -96,7 +96,7 @@ protected:
   QString _name; // optional; since PDF 1.4
   QDateTime _lastModified; // optional; since PDF 1.1
   // TODO: _appearance, _appearanceState, _border, _structParent, _optContent
-  QFlags<AnnotationFlags> _flags;
+  AnnotationFlags _flags;
   // QList<???> _appearance;
   // ??? _appearanceState;
   // ??? _border;
