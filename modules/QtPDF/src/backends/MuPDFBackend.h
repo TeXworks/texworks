@@ -120,7 +120,7 @@ public:
   QList< QSharedPointer<Annotation::Link> > loadLinks();
   QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations();
 
-  QList<SearchResult> search(QString searchText);
+  QList<SearchResult> search(QString searchText, SearchFlags flags);
   virtual QList<Backend::Page::Box> boxes();
   virtual QString selectedText(const QList<QPolygonF> & selection);
 };

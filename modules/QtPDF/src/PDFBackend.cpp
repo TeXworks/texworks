@@ -489,23 +489,32 @@ int Document::numPages() { QReadLocker docLocker(_docLock.data()); return _numPa
 PDFPageProcessingThread &Document::processingThread() { QReadLocker docLocker(_docLock.data()); return _processingThread; }
 PDFPageCache &Document::pageCache() { QReadLocker docLocker(_docLock.data()); return _pageCache; }
 
-QList<SearchResult> Document::search(QString searchText, int startPage)
+QList<SearchResult> Document::search(QString searchText, SearchFlags flags, int startPage)
 {
   QReadLocker docLocker(_docLock.data());
   QList<SearchResult> results;
-  int i;
+  int i, start, end, step;
 
-  for (i = startPage; i < _numPages; ++i) {
+  start = startPage;
+  end = (flags & Search_Backwards ? -1 : _numPages);
+  step = (flags & Search_Backwards ? -1 : +1);
+
+  for (i = start; i != end; i += step) {
     QSharedPointer<Page> page(_pages[i]);
     if (!page)
       continue;
-    results << page->search(searchText);
+    results << page->search(searchText, flags);
   }
-  for (i = 0; i < startPage; ++i) {
-    QSharedPointer<Page> page(_pages[i]);
-    if (!page)
-      continue;
-    results << page->search(searchText);
+
+  if (flags & Search_WrapAround) {
+    start = (flags & Search_Backwards ? _numPages - 1 : 0);
+    end = startPage;
+    for (i = start; i != end; i += step) {
+      QSharedPointer<Page> page(_pages[i]);
+      if (!page)
+        continue;
+      results << page->search(searchText, flags);
+    }
   }
 
   return results;
@@ -737,7 +746,7 @@ QList<SearchResult> Page::executeSearch(SearchRequest request)
   QSharedPointer<Page> page = doc->page(request.pageNum).toStrongRef();
   if (!page)
     return QList<SearchResult>();
-  return page->search(request.searchString);
+  return page->search(request.searchString, request.flags);
 }
 
 } // namespace Backend

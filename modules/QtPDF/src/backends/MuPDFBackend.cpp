@@ -1085,13 +1085,14 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
   return _annotations;
 }
 
-QList<SearchResult> Page::search(QString searchText)
+QList<SearchResult> Page::search(QString searchText, SearchFlags flags)
 {
   QList<SearchResult> results;
   fz_text_span * page_text, * span;
   fz_device * dev;
   QString text;
   int i, j, spanStart;
+  Qt::CaseSensitivity caseSensitivity = (flags & Search_CaseInsensitive ? Qt::CaseInsensitive : Qt::CaseSensitive);
 
   QReadLocker pageLocker(_pageLock);
 
@@ -1125,7 +1126,7 @@ QList<SearchResult> Page::search(QString searchText)
   i = 0;
   spanStart = 0;
   span = page_text;
-  while ((i = text.indexOf(searchText, i, Qt::CaseInsensitive)) >= 0) {
+  while ((i = text.indexOf(searchText, i, caseSensitivity)) >= 0) {
     // Search for the text span(s) the string is coming from. Note: Because we
     // are doing a forward search only, we don't need to reset `span` or
     // `spanStart`.
@@ -1150,7 +1151,11 @@ QList<SearchResult> Page::search(QString searchText)
       }
       result.bbox |= toRectF(span->text[i + j - spanStart].bbox);
     }
-    results << result;
+
+    if (flags & ::QtPDF::Backend::Search_Backwards)
+      results.prepend(result);
+    else
+      results << result;
 
     // Offset `i` so we don't find the same match over and over again    
     i += searchText.length();
