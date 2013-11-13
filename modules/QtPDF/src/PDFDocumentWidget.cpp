@@ -76,6 +76,13 @@ bool PDFDocumentWidget::load(const QString &filename)
   return true;
 }
 
+QWeakPointer<Backend::Document> PDFDocumentWidget::document() const
+{
+  if (!_scene)
+    return QWeakPointer<Backend::Document>();
+  return _scene->document();
+}
+
 QStringList PDFDocumentWidget::backends() const
 {
   QStringList retVal;
