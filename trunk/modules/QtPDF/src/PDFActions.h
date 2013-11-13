@@ -94,6 +94,9 @@ public:
     ActionTypeRendition, ActionTypeTrans, ActionTypeGoTo3DView
   };
 
+  PDFAction() { }
+  virtual ~PDFAction() { }
+
   virtual ActionType type() const = 0;
   virtual PDFAction * clone() const = 0;
 };
