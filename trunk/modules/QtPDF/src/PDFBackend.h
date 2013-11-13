@@ -392,11 +392,16 @@ protected:
 
 typedef QList<PDFToCItem> PDFToC;
 
+enum SearchFlag { Search_WrapAround = 0x01, Search_CaseInsensitive = 0x02, Search_Backwards = 0x04};
+Q_DECLARE_FLAGS(SearchFlags, SearchFlag)
+Q_DECLARE_OPERATORS_FOR_FLAGS(SearchFlags)
+
 struct SearchRequest
 {
   QWeakPointer<Document> doc;
   int pageNum;
   QString searchString;
+  SearchFlags flags;
 };
 
 struct SearchResult
@@ -497,7 +502,7 @@ public:
   //     return the search results one at a time rather than all at once.
   //
   //   - See TODO list in `Page::search`
-  virtual QList<SearchResult> search(QString searchText, int startPage=0);
+  virtual QList<SearchResult> search(QString searchText, SearchFlags flags, int startPage = 0);
 
 protected:
   virtual void clearPages();
@@ -607,7 +612,7 @@ public:
   //
   // This is very tricky to do in C++. God I miss Python and its `itertools`
   // library.
-  virtual QList<SearchResult> search(QString searchText) = 0;
+  virtual QList<SearchResult> search(QString searchText, SearchFlags flags) = 0;
   static QList<SearchResult> executeSearch(SearchRequest request);
 };
 

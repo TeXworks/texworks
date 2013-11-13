@@ -482,7 +482,7 @@ void PDFDocumentView::setMagnifierSize(const int size)
     magnifier->setMagnifierSize(size);
 }
 
-void PDFDocumentView::search(QString searchText)
+void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* = Backend::Search_CaseInsensitive */)
 {
   if ( not _pdf_scene )
     return;
@@ -498,6 +498,7 @@ void PDFDocumentView::search(QString searchText)
   // then back again to abort the previous search and restart at the new
   // location).
   if (searchText == _searchString) {
+    // FIXME: If flags changed we need to do a full search!
     nextSearchResult();
     return;
   }
@@ -512,6 +513,7 @@ void PDFDocumentView::search(QString searchText)
     request.doc = _pdf_scene->document();
     request.pageNum = i;
     request.searchString = searchText;
+    request.flags = flags;
     requests << request;
   }
   for (i = 0; i < _currentPage; ++i) {
@@ -519,6 +521,7 @@ void PDFDocumentView::search(QString searchText)
     request.doc = _pdf_scene->document();
     request.pageNum = i;
     request.searchString = searchText;
+    request.flags = flags;
     requests << request;
   }
   

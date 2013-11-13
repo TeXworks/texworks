@@ -714,11 +714,13 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
   return _annotations;
 }
 
-QList<SearchResult> Page::search(QString searchText)
+QList<SearchResult> Page::search(QString searchText, SearchFlags flags)
 {
   QList<SearchResult> results;
   SearchResult result;
   double left, right, top, bottom;
+  ::Poppler::Page::SearchDirection searchDir = (flags & Search_Backwards ? ::Poppler::Page::PreviousResult : ::Poppler::Page::NextResult);
+  ::Poppler::Page::SearchMode searchMode = (flags & Search_CaseInsensitive ? ::Poppler::Page::CaseInsensitive : ::Poppler::Page::CaseSensitive);
 
   QReadLocker docLocker(_docLock.data());
   QReadLocker pageLocker(_pageLock);
@@ -728,19 +730,23 @@ QList<SearchResult> Page::search(QString searchText)
   result.pageNum = _n;
 
   QMutexLocker popplerDocLock(static_cast<Document *>(_parent)->_poppler_docLock);
-    // The Poppler search function that takes a QRectF has been marked as
-    // depreciated---something to do with float <-> double conversion causing
-    // infinite loops on some architectures. So, we explicitly use doubles and
-    // avoid the depreciated function.
-    if ( _poppler_page->search(searchText, left, top, right, bottom, ::Poppler::Page::FromTop, ::Poppler::Page::CaseInsensitive) ) {
-      result.bbox = QRectF(qreal(left), qreal(top), qAbs(qreal(right) - qreal(left)), qAbs(qreal(bottom) - qreal(top)));
-      results << result;
-    }
 
-    while ( _poppler_page->search(searchText, left, top, right, bottom, ::Poppler::Page::NextResult, ::Poppler::Page::CaseInsensitive) ) {
-      result.bbox = QRectF(qreal(left), qreal(top), qAbs(qreal(right) - qreal(left)), qAbs(qreal(bottom) - qreal(top)));
-      results << result;
-    }
+  if (flags & Search_Backwards) {
+    left = right = pageSizeF().width();
+    top = bottom = pageSizeF().height();
+  }
+  else {
+    left = top = right = bottom = 0;
+  }
+
+  // The Poppler search function that takes a QRectF has been marked as
+  // depreciated---something to do with float <-> double conversion causing
+  // infinite loops on some architectures. So, we explicitly use doubles and
+  // avoid the depreciated function.
+  while ( _poppler_page->search(searchText, left, top, right, bottom, searchDir, searchMode) ) {
+    result.bbox = QRectF(qreal(left), qreal(top), qAbs(qreal(right) - qreal(left)), qAbs(qreal(bottom) - qreal(top)));
+    results << result;
+  }
 
   return results;
 }

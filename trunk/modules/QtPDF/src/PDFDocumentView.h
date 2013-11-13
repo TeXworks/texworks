@@ -110,7 +110,7 @@ public slots:
   void zoom100();
   void setZoomLevel(const qreal zoomLevel);
 
-  void search(QString searchText);
+  void search(QString searchText, Backend::SearchFlags flags = Backend::Search_CaseInsensitive);
   void nextSearchResult();
   void previousSearchResult();
   void clearSearchResults();

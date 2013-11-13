@@ -104,7 +104,7 @@ public:
   QList< Backend::Page::Box > boxes();
   QString selectedText(const QList<QPolygonF> & selection);
 
-  QList<Backend::SearchResult> search(QString searchText);
+  QList<Backend::SearchResult> search(QString searchText, SearchFlags flags);
 };
 
 } // namespace PopplerQt4
