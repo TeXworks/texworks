@@ -241,7 +241,7 @@ ADD_LIBRARY(qtpdf
 TARGET_LINK_LIBRARIES(qtpdf ${QTPDF_LIBS})
 
 SET_TARGET_PROPERTIES(qtpdf PROPERTIES
-  COMPILE_FLAGS ${QTPDF_FLAGS}
+  COMPILE_FLAGS "${QTPDF_FLAGS}"
 )
 
 # Inform parent scope (if any) what to do to use QtPDF
