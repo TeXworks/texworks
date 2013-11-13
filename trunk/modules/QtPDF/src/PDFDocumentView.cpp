@@ -2676,7 +2676,8 @@ PDFFontsInfoWidget::PDFFontsInfoWidget(QWidget * parent) :
 void PDFFontsInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> doc)
 {
   PDFDocumentInfoWidget::initFromDocument(doc);
-  reload();
+  if (isVisible())
+    reload();
 }
 
 void PDFFontsInfoWidget::reload()

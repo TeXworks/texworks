@@ -298,6 +298,8 @@ protected slots:
   void clear();
   virtual void retranslateUi();
   void reload();
+protected:
+  virtual void showEvent(QShowEvent * event) { initFromDocument(_doc); }
 private:
   QTableWidget * _table;
 };
