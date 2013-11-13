@@ -309,8 +309,11 @@ void PDFDocumentView::goToPage(const int pageNum, const QPointF anchor, const in
   goToPage((const PDFPageGraphicsItem*)_pdf_scene->pageAt(pageNum), anchor, alignment);
 }
 
-void PDFDocumentView::zoomBy(qreal zoomFactor)
+void PDFDocumentView::zoomBy(const qreal zoomFactor)
 {
+  if (zoomFactor <= 0)
+    return;
+
   _zoomLevel *= zoomFactor;
   // Set the transformation anchor to AnchorViewCenter so we always zoom out of
   // the center of the view (rather than out of the upper left corner)
