@@ -230,7 +230,7 @@ class PDFDocumentInfoWidget : public QWidget
   Q_OBJECT
   friend class PDFDocumentView;
 public:
-  PDFDocumentInfoWidget(QWidget * parent = NULL, const QString & title = QString()) : QWidget(parent) { setWindowTitle(title); }
+  PDFDocumentInfoWidget(QWidget * parent = NULL, const QString & title = QString(), const QString & objectName = QString()) : QWidget(parent) { setObjectName(objectName); setWindowTitle(title); }
   virtual ~PDFDocumentInfoWidget() { }
   // If the widget has a fixed size, it should not be resized (it can, e.g., be
   // put into a QScrollArea instead).

@@ -255,6 +255,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
   connect(this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), infoWidget, SLOT(initFromDocument(const QWeakPointer<QtPDF::Backend::Document>)));
 
   dock->setWindowTitle(infoWidget->windowTitle());
+  dock->setObjectName(infoWidget->objectName() + QString::fromLatin1(".DockWidget"));
   connect(infoWidget, SIGNAL(windowTitleChanged(const QString &)), dock, SLOT(setWindowTitle(const QString &)));
 
   // We don't want docks to (need to) take up a lot of space. If the infoWidget
@@ -2363,7 +2364,7 @@ void PDFDocumentInfoWidget::changeEvent(QEvent * event)
 // ============
 
 PDFToCInfoWidget::PDFToCInfoWidget(QWidget * parent) :
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Table of Contents"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Table of Contents"), QString::fromLatin1("QtPDF.ToCInfoWidget"))
 {
   QVBoxLayout * layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
@@ -2473,7 +2474,7 @@ void PDFToCInfoWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
 // PDFMetaDataInfoWidget
 // ============
 PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) : 
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Meta Data"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Meta Data"), QString::fromLatin1("QtPDF.MetaDataInfoWidget"))
 {
   setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
   // scrollArea ... the central widget of the QDockWidget
@@ -2669,7 +2670,7 @@ void PDFMetaDataInfoWidget::retranslateUi()
 // PDFFontsInfoWidget
 // ============
 PDFFontsInfoWidget::PDFFontsInfoWidget(QWidget * parent) :
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Fonts"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Fonts"), QString::fromLatin1("QtPDF.FontsInfoWidget"))
 {
   QVBoxLayout * layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
@@ -2769,10 +2770,10 @@ void PDFFontsInfoWidget::retranslateUi()
 }
 
 
-// PDFPermissionsInfoWidget
+// PDFPermissionsInfoWidget)
 // ============
 PDFPermissionsInfoWidget::PDFPermissionsInfoWidget(QWidget * parent) : 
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Permissions"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Permissions"), QString::fromLatin1("QtPDF.PermissionsInfoWidget"))
 {
   setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
   // layout ... lays out the widgets in w
@@ -2881,7 +2882,7 @@ void PDFPermissionsInfoWidget::retranslateUi()
 // PDFAnnotationsInfoWidget
 // ============
 PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Annotations"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Annotations"), QString::fromLatin1("QtPDF.AnnotationsInfoWidget"))
 {
   QVBoxLayout * layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
