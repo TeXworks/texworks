@@ -172,6 +172,7 @@ protected slots:
   void searchResultReady(int index);
   void searchProgressValueChanged(int progressValue);
   void switchInterfaceLocale(const QLocale & newLocale);
+  void reinitializeFromScene();
 
 private:
   PageMode _pageMode;
@@ -464,6 +465,7 @@ public slots:
 protected slots:
   void pageLayoutChanged(const QRectF& sceneRect);
   void reinitializeScene();
+  void finishUnlock();
 
 protected:
   bool event(QEvent* event);
