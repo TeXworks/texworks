@@ -382,6 +382,7 @@ ENDMACRO()
 MESSAGE("${PROJECT_NAME} has been configured:\n")
 
 CONFIG_INFO("Version" ${PROJECT_VERSION})
+CONFIG_INFO("Qt version" "${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}")
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
 message("")
 
