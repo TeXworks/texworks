@@ -18,6 +18,8 @@
 #include <QPixmap>
 // DEBUG
 
+#include <cstdlib>
+#include <ctime>
 
 namespace QtPDF {
 
