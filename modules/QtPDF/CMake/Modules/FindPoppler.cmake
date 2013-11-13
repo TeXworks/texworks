@@ -5,9 +5,9 @@
 #  POPPLER_HAS_XPDF - A boolean indicating if Poppler XPDF headers are available
 #  POPPLER_NEEDS_FONTCONFIG - A boolean indicating if libpoppler depends on libfontconfig
 #  POPPLER_XPDF_INCLUDE_DIR - the include directory for Poppler XPDF headers
-#  POPPLER_QT4_INCLUDE_DIR - the include directory for Poppler-Qt4 headers
-#  POPPLER_QT4_LIBRARIES  - Link this to use only libpoppler-Qt4
-#  POPPLER_LIBRARIES - Link these to use Poppler and Poppler-Qt4
+#  POPPLER_QT_INCLUDE_DIR - the include directory for Poppler-Qt4 headers
+#  POPPLER_QT_LIBRARIES  - Link this to use only libpoppler-qt*
+#  POPPLER_LIBRARIES - Link these to use Poppler and Poppler-Qt*
 #
 # Note: the Poppler-cpp include directory is currently not needed by TeXworks
 #
