@@ -258,10 +258,8 @@ SET(TeXworks_LIBS
 # Configure Optional Dependencies
 # -------------------------------
 
-# CMake 2.8 has separate find scripts for Lua 5.1 and Lua 5.0. We assume that
-# the most recent Lua version is installed.
 IF ( WITH_LUA )
-  FIND_PACKAGE(Lua51)
+  FIND_PACKAGE(Lua)
 ENDIF()
 
 IF ( WITH_PYTHON )
@@ -279,7 +277,7 @@ IF ( WITH_PYTHON )
   ENDIF ()
 ENDIF()
 
-IF ( LUA51_FOUND AND WITH_LUA AND NOT ${BUILD_SHARED_LIBS})
+IF ( LUA_FOUND AND WITH_LUA AND NOT ${BUILD_SHARED_LIBS})
   ADD_DEFINITIONS(-DQT_STATICPLUGIN -DSTATIC_LUA_SCRIPTING_PLUGIN)
 ENDIF ()
 
@@ -332,7 +330,7 @@ ADD_SUBDIRECTORY(src)
 # -------------
 
 # Build scripting language plugins if the required libraries are available.
-IF ( LUA51_FOUND AND WITH_LUA )
+IF ( LUA_FOUND AND WITH_LUA )
   ADD_SUBDIRECTORY(${TeXworks_SOURCE_DIR}/plugins-src/TWLuaPlugin)
 ENDIF ()
 
@@ -439,7 +437,7 @@ CONFIG_INFO("Qt version" ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PA
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
 MESSAGE("")
 
-CONFIG_YESNO("Lua scripting plugin" LUA51_FOUND)
+CONFIG_YESNO("Lua scripting plugin" LUA_FOUND)
 CONFIG_YESNO("Python scripting plugin" PYTHONLIBS_FOUND)
 IF( APPLE )
   CONFIG_YESNO("  OS X system python" USE_SYSTEM_PYTHON)
