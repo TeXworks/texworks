@@ -1,105 +1,101 @@
-#summary Notes on building TeXworks on various distributions.
+#summary Notes on building TeXworks on various Linux distributions.
+<wiki:toc max_depth="3" />
 
-Building !TeXworks on typical GNU/Linux systems should be fairly straightforward. You just need standard build tools (gcc, make, etc.), and the development files (not just runtime libraries) for Qt4, poppler, hunspell, and dbus. The exact set of packages needed will depend how your distribution arranges things; some examples are given here.
+_If you have corrections, additions, or updates to the instructions given below - or instructions for another distribution not covered yet -, please contact us (preferably on the [http://tug.org/mailman/listinfo/texworks mailing list] or via email._
 
-For Windows users wanting to try a build, see the page about installing and [BuildingOnWindowsMinGW using the MinGW tools on WinXP] (preferred) or the page about [BuildingOnWindows using Visual C++ 2008]. Thanks to Stefan Löffler, Alain Delmotte, and Tomek for researching and documenting these Windows build procedures.
+Building !TeXworks on typical GNU/Linux systems is fairly straightforward. You just need standard build tools (gcc, make, cmake, etc.), and the development files (not just runtime libraries) for Qt4, poppler, hunspell, and dbus. The exact set of packages needed will depend how your distribution arranges things; some examples are given here.
+
+For Windows users wanting to try a build, see the page about installing and [BuildingOnWindowsMinGW using the MinGW tools]. Thanks to Alain Delmotte and Tomek for their help in researching, testing, and documenting the Windows build procedure.
 
 For Mac users, see the page about [BuildingOnMacOSXHomebrew building on Mac OS X using Homebrew]. Thanks to Charlie Sharpsteen for researching and documenting this Mac OS X build procedure.
 
 If you not only want to build !TeXworks, but also package it to share with others, have a look at the file [http://code.google.com/p/texworks/source/browse/trunk/PACKAGING PACKAGING] in the source tree.
 
-=== Fedora 9 ===
+= Fedora =
+== Fedora 9 ==
 
 {{{
 # yum install poppler-devel qt4-devel hunspell-devel
 $ svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
 $ cd texworks-read-only
-$ qmake
+$ mkdir build
+$ cd build
+$ cmake ..
 $ make
 $ ./texworks
 }}}
 
 (Thanks to Dave Crossland for this.)
 
-=== Fedora 10 ===
+== Fedora 10 ==
 
 {{{
 $ sudo yum groupinstall x-software-development development-tools
 $ sudo yum install subversion poppler-devel poppler-qt4-devel qt-devel hunspell-devel dbus-devel
 $ svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
 $ cd texworks-read-only
-$ qmake-qt4
+$ mkdir build
+$ cd build
+$ cmake ..
 $ make
 $ ./texworks
 }}}
 
 (Thanks to Dave Crossland for this.)
 
-=== Ubuntu (Hardy and later) & Debian ===
-
-==== The base system ====
+= Ubuntu & Debian =
 
 {{{
-$ sudo aptitude install build-essential subversion libpoppler-qt4-dev libhunspell-dev libdbus-1-dev
+$ sudo aptitude install build-essential subversion libpoppler-qt4-dev libhunspell-dev libdbus-1-dev liblua5.1-0-dev zlib1g-dev
 $ svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
 $ cd texworks-read-only
-$ qmake-qt4
+$ mkdir build
+$ cd build
+$ cmake ..
 $ make
 $ ./texworks
 }}}
 
-(I hope this is OK; have not checked on a completely virgin Ubuntu system, so it is possible I missed something in the dependencies.)
+Another option is to use the [https://launchpad.net/~texworks/+archive/ppa Ubuntu package repository], thus avoiding the need to compile from source.
 
-Another option would be to use the [https://launchpad.net/~texworks/+archive/ppa Ubuntu package repository] announced by Stefan Löffler, thus avoiding the need to compile from source.
+= OpenSUSE =
 
-==== The Lua scripting plugin ====
-This assumes you have an up-to-date base system and are in the texworks-read-only directory.
-{{{
-$ sudo aptitude install liblua5.1-0-dev
-$ cd plugins-src/TWLuaPlugin
-$ qmake-qt4
-$ make && sudo make install
-}}}
-
-==== The Python scripting plugin ====
-This assumes you have an up-to-date base system and are in the texworks-read-only directory.
-On recent systems (e.g. Ubuntu Intrepid and later) run
-{{{
-$ sudo aptitude install python2.6-dev
-$ cd plugins-src/TWPythonPlugin
-$ qmake-qt4
-$ make && sudo make install
-}}}
-
-On older systems (e.g. Ubuntu Jaunty and below), only Python 2.5 is available. On those systems, open the file plugins-src/TWPythonPlugin/TWPythonPlugin.pro and replace the lines
-{{{
-unix:!macx { # on Unix-ish platforms we should rely on pkgconfig
-	# Python prior to 3.x doesn't register properly with pkg-config
-	INCLUDEPATH	+= /usr/include/python2.6/
-	LIBS		+= -lpython2.6
-}}}
-by
-{{{
-unix:!macx { # on Unix-ish platforms we should rely on pkgconfig
-	# Python prior to 3.x doesn't register properly with pkg-config
-	INCLUDEPATH	+= /usr/include/python2.5/
-	LIBS		+= -lpython2.5
-}}}
-Then run the same commands as above except for replacing `python2.6-dev` by `python2.5-dev`.
-
-=== OpenSUSE 11.1 ===
-
-Reported by [http://code.google.com/u/msiniscalchi/ msiniscalchi]:
+Adapted from a report by [http://code.google.com/u/msiniscalchi/ msiniscalchi]:
 
 Under OpenSUSE 11.1, I had to install the following devel packages:
 
 {{{
 gcc
 make
+cmake
 hunspell-devel
 poppler-devel
 libqt4-devel
 libpoppler-qt4-devel
 }}}
 
-Issuing `qmake TeXworks.pro` and then `make` left me with a working binary.
+Running `cmake` and then `make` produces the binary.
+
+= Slackware =
+
+Adapted from a report by wtx358:
+
+Install the following packages:
+{{{
+qt
+hunspell
+poppler
+poppler-data
+dbus
+}}}
+
+Then run
+{{{
+svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
+cd texworks-read-only
+mkdir build
+cd build
+cmake ..
+make
+./texworks
+}}}
