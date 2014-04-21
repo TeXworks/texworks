@@ -1,41 +1,42 @@
 var downloads = [];
-var macOSXCodenames = {'10.5': 'Leopard', '10.6': 'Snow Leopard', '10.7': 'Lion', '10.8' : 'Mountain Lion'};
-var defaultMacVersion = 10.6;
+var macOSXCodenames = {'10.5': 'Leopard', '10.6': 'Snow Leopard', '10.7': 'Lion', '10.8' : 'Mountain Lion', '10.9' : 'Mavericks'};
 
-function filter(haystack, key, value) {
-	"use strict";
-	var i, retVal;
-	retVal = [];
-	for (i = 0; i < haystack.length; i += 1) {
-		if (haystack[i][key] === value) {
-			retVal[retVal.length] = haystack[i];
-		}
-	}
-	return retVal;
+function endsWith(str, suffix) {
+	if (suffix.length > str.length)
+		return false;
+	return (str.substr(str.length - suffix.length) === suffix);
 }
 
-function arrayContains(haystack, needle) {
+function humanReadableFilesize(filesize) {
 	"use strict";
+	var prefixes = ['', 'k', 'M', 'G', 'T'];
+	var humanReadable = filesize;
 	var i;
-	for (i = 0; i < haystack.length; i += 1) {
-		if (haystack[i] === needle) {
-			return true;
-		}
+
+	for (i = 0; i < prefixes.length; i++) {
+		if (humanReadable < 1000)
+			break;
+		humanReadable /= 1000;
 	}
-	return false;
+	// If we've run out of prefixes, i will have been incremented one additional time
+	if (i >= prefixes.length)
+		i = prefixes.length - 1;
+	
+	return Math.round(10 * humanReadable) / 10 + "&nbsp;" + prefixes[i] + "B";
 }
 
-function makeGCDownloadLink(download, label, sizeRegExp) {
+function makeDownloadLink(download, label, versionRegExp) {
 	"use strict";
 	var html, m, info;
-	html = '<a href="http:' + download.url + '" class="link">'; // TODO: safeguard
+	html = '<a href="' + download.url + '" class="link">'; // TODO: safeguard
 	html += label;
 	info = [];
-	m = download.url.match(sizeRegExp);
+	
+	m = download.filename.match(versionRegExp);
 	if (m) {
-		info[info.length] = 'version ' + m[1];
+		info[info.length] = 'version&nbsp;' + m[1];
 	}
-	info[info.length] = download.size; // TODO: safeguard
+	info[info.length] = humanReadableFilesize(parseInt("" + download.size));
 	if (info.length > 0) {
 		html += '<div class="info">' + info.join(', ') + '</div>';
 	}
@@ -45,14 +46,15 @@ function makeGCDownloadLink(download, label, sizeRegExp) {
 
 function updateUi() {
 	"use strict";
-	var osType, osName, osVersion, userAgent, appVersion, i, m, featuredDownloads, filteredDownloads, html, codeName, el;
+	var osType, osName, osVersion, userAgent, appVersion, i, j, m, html, codeName, el;
+	var osVersions, osVersionIdx, downloadVersionIdx, downloadIdx;
 
 	userAgent = navigator.userAgent;
 	appVersion = navigator.appVersion;
 
 ///////////////////////////// DEBUG
 //			appVersion = "Mac";
-//			userAgent = "Mac"
+//			userAgent = "Mac OS X 10.8"
 ///////////////////////////// DEBUG
 
 	if (appVersion.indexOf("Win") > -1) {
@@ -79,41 +81,47 @@ function updateUi() {
 		}
 	}
 
-	featuredDownloads = [];
-	for (i = 0; i < downloads.length; i += 1) {
-		if (arrayContains(downloads[i].labels, 'Featured')) {
-			featuredDownloads[featuredDownloads.length] = downloads[i];
-		}
-	}
-
 	html = '';
 	if (osType === "Windows") {
-		filteredDownloads = filter(featuredDownloads, 'opsys', 'Windows');
-		if (filteredDownloads.length > 0) {
-			html = makeGCDownloadLink(filteredDownloads[0], "Get TeXworks for Windows Installer", /\/TeXworks-setup-((?:\d|\.)+)-/);
+		// Find the installer
+		for (i = 0; i < downloads.length; i++) {
+			if (endsWith(downloads[i].filename, ".exe")) {
+				html = makeDownloadLink(downloads[i], "Get TeXworks for Windows Installer", /^TeXworks.*?-(\d+\.\d+(?:\.\d)?)-r(\d+)/);
+				break;
+			}
+		}
+		// If no installer was found, default to the first file
+		if (i >= downloads.length && downloads.length > 0) {
+			html = makeDownloadLink(downloads[0], "Get TeXworks for Windows", /^TeXworks.*?-(\d+\.\d+(?:\.\d)?)-r(\d+)/);
 		}
 	}
 	if (osType === "Mac") {
-		filteredDownloads = filter(featuredDownloads, 'opsys', 'OSX');
-		if (osVersion && macOSXCodenames[osVersion]) {
-			// Try to find a matching package
-			codeName = macOSXCodenames[osVersion].replace(/\s/g, '');
-			for (i = 0; i < filteredDownloads.length; i += 1) {
-				if (filteredDownloads[i].url.match(new RegExp('TeXworks-Mac-[^-]+-r\\d+-' + codeName + '\\.dmg'))) {
-					html = makeGCDownloadLink(filteredDownloads[i], "Get TeXworks for Mac&nbsp;OS&nbsp;X " + osVersion + " (" + macOSXCodenames[osVersion] + ")", /\/TeXworks-Mac-((?:\d|\.)+)-/);
+		// Find the download corresponding to the latest Mac OS X version <= osVersion
+		osVersions = [];
+		for (i in macOSXCodenames) {
+			osVersions[osVersions.length] = i;
+		}
+		osVersionIdx = osVersions.indexOf(osVersion);
+
+		downloadIdx = -1;
+		downloadVersionIdx = -1;
+		for (i = 0; i < downloads.length; i++) {
+			m = downloads[i].filename.match(/^TeXworks-Mac-.*?-([^.-]+)\.dmg/);
+			for (j = 0; j < osVersions.length; j++) {
+				if (macOSXCodenames[osVersions[j]].replace(/\s/g, '').toLowerCase() == m[1].replace(/\s/g, '').toLowerCase()) {
+					if (j > downloadVersionIdx && j <= osVersionIdx) {
+						downloadIdx = i;
+						downloadVersionIdx = j;
+					}
+					break;
 				}
 			}
 		}
-		if (html === '') {
-			// As fallback, use the default Mac version
-			osVersion = defaultMacVersion;
-			codeName = macOSXCodenames[osVersion].replace(/\s/g, '');
-			for (i = 0; i < filteredDownloads.length; i += 1) {
-				if (filteredDownloads[i].url.match(new RegExp('TeXworks-Mac-[^-]+-r\\d+-' + codeName + '\\.dmg'))) {
-					html = makeGCDownloadLink(filteredDownloads[i], "Get TeXworks for Mac&nbsp;OS&nbsp;X " + osVersion + " (" + macOSXCodenames[osVersion] + ")", /\/TeXworks-Mac-((?:\d|\.)+)-/);
-				}
-			}
-		}
+		
+		if (downloadIdx > -1)
+			html = makeDownloadLink(downloads[downloadIdx], "Get TeXworks for Mac&nbsp;OS&nbsp;X", /^TeXworks-Mac-((?:\d|\.)+)-/);
+		// Note: There is no point in advertising a download for a Mac OS X
+		// version >= the OS version.
 	}
 	if (osType === "Linux") {
 		if (osName === 'Ubuntu') {
@@ -127,28 +135,31 @@ function updateUi() {
 		}
 	}
 
-	if (html === '') {
+	if (html === '' && osType !== "Windows" && osType !== "Mac" && downloads.length > 0) {
 		// Fallback: Sources
-		filteredDownloads = filter(featuredDownloads, 'type', 'Source');
-		if (filteredDownloads.length > 0) {
-			html = makeGCDownloadLink(filteredDownloads[0], "Get TeXworks Sources", /\/texworks-((?:\d|\.)+)-/);
-		}
+		html = makeDownloadLink(downloads[0], "Get TeXworks Sources", /texworks.*?-(\d+\.\d+(?:\.\d)?)-r(\d+)/);
 	}
 
-	if (osType === "Windows" || osType === "Mac") {
-		html += '<div class="other_ways">Alternatively, your TeX distribution may offer a TeXworks package.</div>';
-	}
-	else if (osType === "Linux") {
-		html += '<div class="other_ways">Alternatively, your Linux distribution may already offer a TeXworks package.</div>';
-	}
 
 	if (html !== '') {
-		html += '<div class="other_ways">Not what you are looking for? Check <a href="#Getting_TeXworks">Getting TeXworks</a> for other ways to obtain TeXworks.</div>';
-
-		el = document.getElementById("tw_downloads");
-		el.innerHTML = html;
-		el.parentNode.style.display = 'block';
+		if (osType === "Windows" || osType === "Mac") {
+			html += '<div class="other_ways">Alternatively, your TeX distribution may offer a TeXworks package.</div>';
+		}
+		else if (osType === "Linux") {
+			html += '<div class="other_ways">Alternatively, your Linux distribution may already offer a TeXworks package.</div>';
+		}
 	}
+	else {
+		// Final fallback: Redirect the user to Google Drive
+		// (should only happen if the OS is recognized, but no suitable version
+		// is found (e.g., when using an old, unsupported Mac OS X))
+		html = '<a href="https://drive.google.com/folderview?id=0B5iVT8Q7W44pMkNLblFjUzdQUVE" class="link">Get TeXworks</a>';
+	}
+	html += '<div class="other_ways">Not what you are looking for? Check <a href="#Getting_TeXworks">Getting TeXworks</a> for other ways to obtain TeXworks.</div>';
+
+	el = document.getElementById("tw_downloads");
+	el.innerHTML = html;
+	el.parentNode.style.display = 'block';
 }
 
 
