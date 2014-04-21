@@ -2643,6 +2643,7 @@ void TeXDocument::typeset()
 		}
 		// ensure the window is visible - otherwise we can't see the output
 		// panel (and the typeset process appears to hang in case of an error)
+		consoleTabs->setCurrentIndex(0);
 		raise();
 		
 		inputLine->setFocus(Qt::OtherFocusReason);
