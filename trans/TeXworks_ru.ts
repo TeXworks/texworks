@@ -130,6 +130,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>Переразбить абзацы</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation>Объединить строки</translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
