@@ -16,6 +16,11 @@ FILE(GLOB TEXWORKS_RCS        "${TeXworks_SOURCE_DIR}/res/*.qrc")
 FILE(GLOB TEXWORKS_TRANS_TS   "${TeXworks_SOURCE_DIR}/trans/*.ts")
 FILE(GLOB TEXWORKS_TRANS_QM   "${TeXworks_SOURCE_DIR}/trans/*.qm")
 
+IF ( WIN32 )
+	FILE(GLOB TEXWORKS_WIN_RCS  "${TeXworks_SOURCE_DIR}/res/*.rc")
+  LIST(APPEND TEXWORKS_SRCS ${TEXWORKS_WIN_RCS})
+ENDIF ( WIN32 )
+
 # These source files along with the `.moc` files generated from some headers
 # form the TeXworks scripting API. We export them to variables in the
 # `PARENT_SCOPE` (top level CMake file) so that they will be available to the
