@@ -685,7 +685,7 @@ QObject* TWApp::openFile(const QString &fileName, int pos /* = 0 */)
 		if (doc != NULL) {
 			if (pos > 0)
 				doc->widget()->goToPage(pos - 1);
-			doc->selectWindow();
+			QTimer::singleShot(0, doc, SLOT(selectWindow()));
 			return doc;
 		}
 		return NULL;
