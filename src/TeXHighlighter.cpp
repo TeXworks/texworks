@@ -33,16 +33,18 @@ QList<TeXHighlighter::HighlightingSpec> *TeXHighlighter::syntaxRules = NULL;
 QList<TeXHighlighter::TagPattern> *TeXHighlighter::tagPatterns = NULL;
 
 TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
-	: QSyntaxHighlighter(parent)
+	: QSyntaxHighlighter((QObject*)NULL)
 	, texDoc(texDocument)
 	, highlightIndex(-1)
 	, isTagging(true)
 	, pHunspell(NULL)
 	, spellingCodec(NULL)
+	, textDoc(parent)
 {
 	loadPatterns();
 	spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
 	spellFormat.setUnderlineColor(Qt::red);
+	QTimer::singleShot(1000, this, SLOT(delayedInstallParent()));
 }
 
 void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, const QTextCharFormat &spellFormat)
