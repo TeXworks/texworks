@@ -86,6 +86,10 @@ private:
 
 	Hunhandle	*pHunspell;
 	QTextCodec	*spellingCodec;
+
+	QTextDocument * textDoc;
+private slots:
+	void delayedInstallParent() { setDocument(textDoc); }
 };
 
 #endif
