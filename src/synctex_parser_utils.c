@@ -57,6 +57,10 @@ authorization from the copyright holder.
 #define SYNCTEX_WINDOWS 1
 #endif
 
+#if defined(__OS2__)
+#define SYNCTEX_OS2 1
+#endif
+
 #ifdef _WIN32_WINNT_WINXP
 #define SYNCTEX_RECENT_WINDOWS 1
 #endif
@@ -121,7 +125,7 @@ void _synctex_strip_last_path_extension(char * string) {
 				last_component = next+1;
 			}
 		}
-#       ifdef	SYNCTEX_WINDOWS
+#       if defined(SYNCTEX_WINDOWS) || defined(SYNCTEX_OS2)
 		/*  On Windows, the '\' is also a path separator. */
 		while((next = strstr(last_component,"\\"))){
 			last_component = next+1;
@@ -207,7 +211,7 @@ synctex_bool_t _synctex_path_is_absolute(const char * name) {
 	if(!strlen(name)) {
 		return synctex_NO;
 	}
-#	if SYNCTEX_WINDOWS
+#	if defined(SYNCTEX_WINDOWS) || defined(SYNCTEX_OS2)
 	if(strlen(name)>2) {
 		return (name[1]==':' && SYNCTEX_IS_PATH_SEPARATOR(name[2]))?synctex_YES:synctex_NO;
 	}
