@@ -123,6 +123,6 @@ for f in files:
 # Reminder for places where the copyright information must be updated manually
 print("")
 print("Don't forget to manually update the copyright information in the following files:")
-for f in ["README", "TeXworks.plist.in", "man/texworks.1", "CMake/Modules/COPYING-CMAKE-MODULES", "COPYING", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp"]:
+for f in ["README", "TeXworks.plist.in", "man/texworks.1", "CMake/Modules/COPYING-CMAKE-MODULES", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp"]:
 	print("   %s" % f)
 

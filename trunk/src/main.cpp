@@ -84,10 +84,10 @@ int main(int argc, char *argv[])
 			QTextStream strm(stdout);
 			strm << QString("TeXworks %1r%2 (%3)\n\n").arg(TEXWORKS_VERSION).arg(SVN_REVISION_STR).arg(TW_BUILD_ID_STR);
 			strm << QString::fromUtf8("\
-Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen\n\
+Copyright (C) %1  %2\n\
 License GPLv2+: GNU GPL (version 2 or later) <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
-There is NO WARRANTY, to the extent permitted by law.\n\n");
+There is NO WARRANTY, to the extent permitted by law.\n\n").arg("2007-2014", "Jonathan Kew, Stefan Löffler, Charlie Sharpsteen);
 			strm.flush();
 		}
 		if ((i = clp.getNextSwitch("help")) >= 0) {
