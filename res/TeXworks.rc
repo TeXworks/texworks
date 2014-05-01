@@ -22,7 +22,7 @@ BEGIN
             VALUE "FileDescription",  "TeXworks editor & previewer"
             VALUE "FileVersion",      TEXWORKS_VERSION ".r" SVN_REVISION_STR
             VALUE "InternalName",     "TeXworks"
-            VALUE "LegalCopyright",   "Copyright (C) 2007-2013 Jonathan Kew, Stefan Löffler, Charlie Sharpsteen"
+            VALUE "LegalCopyright",   "Copyright (C) 2007-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen"
             VALUE "OriginalFilename", "TeXworks.exe"
             VALUE "ProductName",      "TeXworks"
             VALUE "ProductVersion",   "TeXworks " TEXWORKS_VERSION
