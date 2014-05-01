@@ -61,18 +61,15 @@ authorization from the copyright holder.
 extern "C" {
 #endif
 
-#define FALSE 0
-#define TRUE !FALSE
-
-#	if _WIN32
-#       define SYNCTEX_CASE_SENSITIVE_PATH FALSE
+#	if defined(_WIN32) || defined(__OS2__)
+#       define SYNCTEX_CASE_SENSITIVE_PATH 0
 #		define SYNCTEX_IS_PATH_SEPARATOR(c) ('/' == c || '\\' == c)
 #	else
-#       define SYNCTEX_CASE_SENSITIVE_PATH TRUE
+#       define SYNCTEX_CASE_SENSITIVE_PATH 1
 #		define SYNCTEX_IS_PATH_SEPARATOR(c) ('/' == c)
 #	endif
     
-#	if _WIN32
+#	if defined(_WIN32) || defined(__OS2__)
 #		define SYNCTEX_IS_DOT(c) ('.' == c)
 #	else
 #		define SYNCTEX_IS_DOT(c) ('.' == c)

@@ -119,7 +119,7 @@ typedef union _synctex_info_t {
 } synctex_info_t;
 
 #   if defined(SYNCTEX_USE_CHARINDEX)
-#       define SYNCTEX_DECLARE_CHARINDEX synctex_charindex_t char_index
+#       define SYNCTEX_DECLARE_CHARINDEX synctex_charindex_t char_index;
 #       define SYNCTEX_CHARINDEX(NODE) (NODE->char_index)
 #       define SYNCTEX_PRINT_CHARINDEX printf("#%i\n",SYNCTEX_CHARINDEX(node))
 #       define SYNCTEX_DECLARE_CHAR_OFFSET synctex_charindex_t charindex_offset
@@ -133,7 +133,7 @@ typedef union _synctex_info_t {
 #   endif
 
 struct _synctex_node {
-    SYNCTEX_DECLARE_CHARINDEX;
+    SYNCTEX_DECLARE_CHARINDEX
 	synctex_class_t class;
 	synctex_info_t * implementation;
 };
@@ -357,7 +357,7 @@ SYNCTEX_MAKE_GET(_synctex_implementation_4,4)
 SYNCTEX_MAKE_GET(_synctex_implementation_5,5)
 
 typedef struct {
-    SYNCTEX_DECLARE_CHARINDEX;
+    SYNCTEX_DECLARE_CHARINDEX
 	synctex_class_t class;
 	synctex_info_t implementation[3+SYNCTEX_PAGE_IDX+1];/*  child, sibling, next box,
 	                         *  SYNCTEX_PAGE_IDX */
@@ -425,7 +425,7 @@ DEFINE_synctex_new_NODE(sheet)
 #   define SYNCTEX_ABS_DEPTH(NODE) ((SYNCTEX_DEPTH(NODE)>0?SYNCTEX_DEPTH(NODE):-SYNCTEX_DEPTH(NODE)))
 
 typedef struct {
-    SYNCTEX_DECLARE_CHARINDEX;
+    SYNCTEX_DECLARE_CHARINDEX
 	synctex_class_t class;
 	synctex_info_t implementation[5+SYNCTEX_DEPTH_IDX+1]; /*  parent,child,sibling,friend,next box,
 						        *  SYNCTEX_TAG,SYNCTEX_LINE,SYNCTEX_COLUMN,
@@ -478,7 +478,7 @@ DEFINE_synctex_new_NODE(vbox)
 #   define SYNCTEX_ABS_DEPTH_V(NODE) ((SYNCTEX_DEPTH_V(NODE)>0?SYNCTEX_DEPTH_V(NODE):-SYNCTEX_DEPTH_V(NODE)))
 
 typedef struct {
-    SYNCTEX_DECLARE_CHARINDEX;
+    SYNCTEX_DECLARE_CHARINDEX
 	synctex_class_t class;
 	synctex_info_t implementation[5+SYNCTEX_DEPTH_V_IDX+1]; /*parent,child,sibling,friend,next box,
 						*  SYNCTEX_TAG,SYNCTEX_LINE,SYNCTEX_COLUMN,
@@ -514,7 +514,7 @@ DEFINE_synctex_new_NODE(hbox)
  *  It does not contain a child field.
  */
 typedef struct {
-    SYNCTEX_DECLARE_CHARINDEX;
+    SYNCTEX_DECLARE_CHARINDEX
 	synctex_class_t class;
 	synctex_info_t implementation[3+SYNCTEX_DEPTH_IDX+1]; /*  parent,sibling,friend,
 	                  *  SYNCTEX_TAG,SYNCTEX_LINE,SYNCTEX_COLUMN,
@@ -569,7 +569,7 @@ DEFINE_synctex_new_NODE(void_hbox)
 /*  The medium nodes correspond to kern, glue, penalty and math nodes.
  *  In LuaTeX, the size of the nodes may have changed.  */
 typedef struct {
-    SYNCTEX_DECLARE_CHARINDEX;
+    SYNCTEX_DECLARE_CHARINDEX
 	synctex_class_t class;
 	synctex_info_t implementation[3+SYNCTEX_WIDTH_IDX+1]; /*  parent,sibling,friend,
 	                  *  SYNCTEX_TAG,SYNCTEX_LINE,SYNCTEX_COLUMN,
@@ -634,7 +634,7 @@ DEFINE_synctex_new_NODE(kern)
 
 /*  The small nodes correspond to glue and boundary nodes.  */
 typedef struct {
-    SYNCTEX_DECLARE_CHARINDEX;
+    SYNCTEX_DECLARE_CHARINDEX
 	synctex_class_t class;
 	synctex_info_t implementation[3+SYNCTEX_VERT_IDX+1]; /*  parent,sibling,friend,
 	                  *  SYNCTEX_TAG,SYNCTEX_LINE,SYNCTEX_COLUMN,
@@ -692,7 +692,7 @@ DEFINE_synctex_new_NODE(boundary)
 /*  Input nodes only know about their sibling, which is another input node.
  *  The synctex information is the SYNCTEX_TAG and SYNCTEX_NAME*/
 typedef struct {
-    SYNCTEX_DECLARE_CHARINDEX;
+    SYNCTEX_DECLARE_CHARINDEX
 	synctex_class_t class;
 	synctex_info_t implementation[1+SYNCTEX_NAME_IDX+1]; /*  sibling,
 	                          *  SYNCTEX_TAG,SYNCTEX_NAME */
@@ -4328,9 +4328,9 @@ typedef int (*synctex_fprintf_t)(void *, const char * , ...); /*  print formatte
 #   define SYNCTEX_BITS_PER_BYTE 8
 
 struct __synctex_updater_t {
-    void *file;                 /*  the foo.synctex or foo.synctex.gz I/O identifier  */
-	synctex_fprintf_t fprintf;  /*  either fprintf or gzprintf */
-	int length;                 /*  the number of chars appended */
+    gzFile file;                /*  the foo.synctex or foo.synctex.gz I/O identifier  */
+    synctex_fprintf_t fprintf;  /*  either fprintf or gzprintf */
+    int length;                 /*  the number of chars appended */
     struct _flags {
         unsigned int no_gz:1;   /*  Whether zlib is used or not */
         unsigned int reserved:SYNCTEX_BITS_PER_BYTE*sizeof(int)-1; /*  Align */
