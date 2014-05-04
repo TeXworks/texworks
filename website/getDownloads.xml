@@ -4,236 +4,205 @@
 	<Content type="html">
 	<![CDATA[
 		<script type="text/javascript">
-			function Download() {
-				"use strict";
-				this.id = "";
-				this.filename = [];
-				this.size = "";
-				this.url = "";
-			}
-			
-			var downloads = [];
-			var numDetailsToFetch = 0;
+function Download() {
+    "use strict";
+    this.id = "";
+    this.filename = [];
+    this.size = "";
+    this.url = "";
+}
 
-			function decodeUnicode(str) {
-				"use strict"
-				return str.replace(/\\u([0-9a-f]{4})/g, function(c) { return String.fromCharCode(parseInt("0x" + c.substr(2))); });
-			}
+var downloads = [];
+var numDetailsToFetch = 0;
 
-			function parseDict(r) {
-				"use strict"
-				var m, propName, propVal;
-				var retVal = new Object();
-				var rePropDelim = /^\s*:\s*/;
-				var reDictEnd = /^\s*\}/;
-				var reDictDelim = /^\s*,\s*/;
+function decodeUnicode(str) {
+    "use strict";
+    return str.replace(/\\u([0-9a-f]{4})/g, function (c) { return String.fromCharCode(parseInt("0x" + c.substr(2), 16)); });
+}
 
-				if (r.html.length == 0)
-					return;
-				if (r.html[0] != '{')
-					return;
-				r.html = r.html.substr(1);
-				
-				while (r.html.length > 0) {
-					if ((m = reDictEnd.exec(r.html))) {
-						r.html = r.html.substr(m[0].length);
-						return retVal;
-					}
-					else if ((m = reDictDelim.exec(r.html))) {
-						r.html = r.html.substr(m[0].length);
-						continue;
-					}
+function parseDict(r) {
+    "use strict";
+    var m, propName, propVal, retVal = { }, rePropDelim = /^\s*:\s*/, reDictEnd = /^\s*\}/, reDictDelim = /^\s*,\s*/;
 
-					propName = parseVal(r);
-					if (!propName)
-						return;
-					m = rePropDelim.exec(r.html);
-					if (!m)
-						return;
-					r.html = r.html.substr(m[0].length);
-					propVal = parseVal(r);
-					if (propName && propVal)
-						retVal[propName] = propVal;
-				}
-			}
-			
-			function parseArray(r) {
-				"use strict"
-				var m, retVal = [];
-				var reArrayEnd = /^\s*\]/;
-				var reArrayDelim = /^\s*,\s*/;
-				
-				if (r.html.length == 0)
-					return;
-				if (r.html[0] != '[')
-					return;
-				r.html = r.html.substr(1);
-				
-				if ((m = reArrayEnd.exec(r.html))) {
-					// empty array
-					r.html = r.html.substr(m[0].length);
-					return retVal;
-				}
-				
-				while (r.html.length > 0) {
-					retVal[retVal.length] = parseVal(r);
-					if ((m = reArrayEnd.exec(r.html))) {
-						r.html = r.html.substr(m[0].length);
-						return retVal;
-					}
-					else if (m = reArrayDelim.exec(r.html)) {
-						r.html = r.html.substr(m[0].length);
-					}
-					else
-						return;
-				}
-			}
-			
-			function parseVal(r) {
-				"use strict"
-				var retVal = "";
-				var i;
+    if (r.html.length === 0) { return; }
+    if (r.html[0] !== '{') { return; }
+    r.html = r.html.substr(1);
 
-				if (r.html.length == 0)
-					return;
-				if (r.html[0] == '{')
-					return parseDict(r);
-				if (r.html[0] == '[')
-					return parseArray(r);
-					
-				if (r.html[0] == '"' || r.html[0] == "'") {
-					var delim = r.html[0];
-					var escaped = false;
-					r.html = r.html.substr(1);
-					for (i = 0; i < r.html.length; i++) {
-						if (escaped) {
-							escaped = false;
-							continue;
-						}
-						if (r.html[i] == '\\') {
-							escaped = true;
-							continue;
-						}
-						if (r.html[i] == delim)
-							break;
-					}
-					if (i > r.html.length || r.html[i] != delim)
-						return;
-					retVal = r.html.substr(0, i);
-					r.html = r.html.substr(i + 1);
-				}
-				else {
-					var m;
-					var reValEnd = /[,:;\}\]]/;
-					m = reValEnd.exec(r.html);
-					if (!m)
-						return;
-					retVal = r.html.substr(0, r.html.indexOf(m[0]));
-					r.html = r.html.substr(retVal.length);
-				}
-				return retVal;
-			}
+    while (r.html.length > 0) {
+        m = reDictEnd.exec(r.html);
+        if (m) {
+            r.html = r.html.substr(m[0].length);
+            return retVal;
+        }
+        m = reDictDelim.exec(r.html);
+        if (m) {
+            r.html = r.html.substr(m[0].length);
+            continue;
+        }
+
+        propName = parseVal(r);
+        if (!propName) { return; }
+        m = rePropDelim.exec(r.html);
+        if (!m) { return; }
+        r.html = r.html.substr(m[0].length);
+        propVal = parseVal(r);
+        if (propName && propVal) { retVal[propName] = propVal; }
+    }
+}
+
+function parseArray(r) {
+    "use strict";
+    var m, retVal = [], reArrayEnd = /^\s*\]/, reArrayDelim = /^\s*,\s*/;
+
+    if (r.html.length === 0) { return; }
+    if (r.html[0] !== '[') { return; }
+    r.html = r.html.substr(1);
+
+    m = reArrayEnd.exec(r.html);
+    if (m) {
+        // empty array
+        r.html = r.html.substr(m[0].length);
+        return retVal;
+    }
+
+    while (r.html.length > 0) {
+        retVal[retVal.length] = parseVal(r);
+        m = reArrayEnd.exec(r.html);
+        if (m) {
+            r.html = r.html.substr(m[0].length);
+            return retVal;
+        }
+        m = reArrayDelim.exec(r.html);
+        if (!m) { return; }
+        r.html = r.html.substr(m[0].length);
+    }
+}
+
+function parseVal(r) {
+    "use strict";
+    var retVal = "", i, delim, escaped, m, reValEnd = /[,:;\}\]]/;
+
+    if (r.html.length === 0) { return; }
+    if (r.html[0] === '{') { return parseDict(r); }
+    if (r.html[0] === '[') { return parseArray(r); }
+
+    if (r.html[0] === '"' || r.html[0] === "'") {
+        delim = r.html[0];
+        escaped = false;
+        r.html = r.html.substr(1);
+        for (i = 0; i < r.html.length; i++) {
+            if (escaped) {
+                escaped = false;
+                continue;
+            }
+            if (r.html[i] === '\\') {
+                escaped = true;
+                continue;
+            }
+            if (r.html[i] === delim) { break; }
+        }
+        if (i > r.html.length || r.html[i] !== delim) { return; }
+        retVal = r.html.substr(0, i);
+        r.html = r.html.substr(i + 1);
+    } else {
+        m = reValEnd.exec(r.html);
+        if (!m) { return; }
+        retVal = r.html.substr(0, r.html.indexOf(m[0]));
+        r.html = r.html.substr(retVal.length);
+    }
+    return retVal;
+}
 
 
-			function parseFolder(html) {
-				"use strict";
-				var response, ids, re, i;
-				var params = {};
-				var m, data;
+function parseFolder(html) {
+    "use strict";
+    var response, ids, i, params = {}, data;
 
-				response = new Object();				
-				response.html = html;
-				response.html = response.html.substr(response.html.indexOf('var data = {'));
-				response.html = response.html.substr(11);
-	
-				data = parseDict(response);
-				
-				if (!data || !data.viewerItems)
-					return;
-				
-				ids = new Array();
-				for (i = 0; i < data.viewerItems.length; i++) {
-					ids[ids.length] = data.viewerItems[i][7];
-				}
-				
-				downloads = new Array();
-				numDetailsToFetch = ids.length;
-				
-				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
-				for (i = 0; i < ids.length; i++) {
-					// Details from: https://docs.google.com/file/d/0B5iVT8Q7W44pZ3JNR2x6dm4zWms/edit
-					gadgets.io.makeRequest("https://docs.google.com/file/d/" + ids[i] + "/edit", fileResponse, params);
-				}
-			}
+    response = {};
+    response.html = html;
+    response.html = response.html.substr(response.html.indexOf('var data = {'));
+    response.html = response.html.substr(11);
+
+    data = parseDict(response);
+
+    if (!data || !data.viewerItems) { return; }
+
+    ids = [];
+    for (i = 0; i < data.viewerItems.length; i++) {
+        ids[ids.length] = data.viewerItems[i][7];
+    }
+
+    downloads = [];
+    numDetailsToFetch = ids.length;
+
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+    for (i = 0; i < ids.length; i++) {
+        // Details from: https://docs.google.com/file/d/0B5iVT8Q7W44pZ3JNR2x6dm4zWms/edit
+        gadgets.io.makeRequest("https://docs.google.com/file/d/" + ids[i] + "/edit", fileResponse, params);
+    }
+}
 
 
-			function parseFile(html) {
-				"use strict";
-				var response, d, reId, reFilename, reSize, reUrl;
-				var data, rev;
-				
-				response = new Object();
-				response.html = html;
-				response.html = response.html.substr(response.html.indexOf('_main\('));
-				response.html = response.html.substr(response.html.indexOf('{'));
-				
-				data = parseDict(response);
-				
-				d = new Download();
+function parseFile(html) {
+    "use strict";
+    var response, d, data, rev;
 
-				if (data && data.id)
-					d.id = data.id;
-					
-				if (data && data.revisions && data.revisions.length > 0)
-					rev = data.revisions[data.revisions.length - 1];
-				
-				d.filename = decodeUnicode(data.title);
-//				if (rev && rev.filename)
-//					d.filename = decodeUnicode(rev.filename);
-				if (rev && rev.sizeInBytes)
-					d.size = parseInt(rev.sizeInBytes);
-				if (rev && rev.downloadUrl)
-					d.url = decodeUnicode(rev.downloadUrl);
-				
-				downloads[downloads.length] = d;
-				numDetailsToFetch--;
-				if (numDetailsToFetch <= 0)
-					top.postMessage(JSON.stringify(downloads), "*");
-			}
-			
-			function folderResponse(obj) {
-				"use strict";
-				parseFolder(obj.text);
-			}
-			function fileResponse(obj) {
-				"use strict";
-				parseFile(obj.text);
-			}
+    response = {};
+    response.html = html;
+    response.html = response.html.substr(response.html.indexOf('_main('));
+    response.html = response.html.substr(response.html.indexOf('{'));
 
-			function fetchFolder() {
-				"use strict";
-				var params = {};
-				var appVersion, folderId;
+    data = parseDict(response);
 
-				appVersion = navigator.appVersion;
+    d = new Download();
 
-				///////////////////////////// DEBUG
-				//			appVersion = "Mac";
-				///////////////////////////// DEBUG
+    if (data && data.id) { d.id = data.id; }
+    if (data && data.revisions && data.revisions.length > 0) { rev = data.revisions[data.revisions.length - 1]; }
 
-				// Default: sources
-				folderId = '0B5iVT8Q7W44pNWNZd1VSaWNCUEU';
+    d.filename = decodeUnicode(data.title);
+//    if (rev && rev.filename)
+//        d.filename = decodeUnicode(rev.filename);
+    if (rev && rev.sizeInBytes) { d.size = parseInt(rev.sizeInBytes, 10); }
+    if (rev && rev.downloadUrl) { d.url = decodeUnicode(rev.downloadUrl); }
 
-				if (appVersion.indexOf("Win") > -1)
-					folderId = '0B5iVT8Q7W44pYzBwMjFBWGdVVHM';
-				else if (appVersion.indexOf("Mac") > -1)
-					folderId = '0B5iVT8Q7W44pMTY5YjNzZmdzS1U';
+    downloads[downloads.length] = d;
+    numDetailsToFetch--;
+    if (numDetailsToFetch <= 0) { top.postMessage(JSON.stringify(downloads), "*"); }
+}
 
-				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
-				gadgets.io.makeRequest("https://drive.google.com/folderview?id=" + folderId, folderResponse, params);
-			}
-			
-			gadgets.util.registerOnLoadHandler(fetchFolder);
+function folderResponse(obj) {
+    "use strict";
+    parseFolder(obj.text);
+}
+function fileResponse(obj) {
+    "use strict";
+    parseFile(obj.text);
+}
+
+function fetchFolder() {
+    "use strict";
+    var params = {}, appVersion, folderId;
+
+    appVersion = navigator.appVersion;
+
+    ///////////////////////////// DEBUG
+    //            appVersion = "Mac";
+    ///////////////////////////// DEBUG
+
+    // Default: sources
+    folderId = '0B5iVT8Q7W44pNWNZd1VSaWNCUEU';
+
+    if (appVersion.indexOf("Win") > -1) {
+        folderId = '0B5iVT8Q7W44pYzBwMjFBWGdVVHM';
+    } else if (appVersion.indexOf("Mac") > -1) {
+        folderId = '0B5iVT8Q7W44pMTY5YjNzZmdzS1U';
+    }
+
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+    gadgets.io.makeRequest("https://drive.google.com/folderview?id=" + folderId, folderResponse, params);
+}
+
+gadgets.util.registerOnLoadHandler(fetchFolder);
 		</script>
 	]]>
 	</Content> 
