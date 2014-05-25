@@ -580,7 +580,7 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 	else {
 		if (result.isNull())
 			result = tr("unknown error");
-		statusBar()->showMessage(tr("Script \"%1\": %2").arg(s->getTitle()).arg(result.toString()));
+		QMessageBox::information(this, tr("Script error"), tr("Script \"%1\": %2").arg(s->getTitle()).arg(result.toString()), QMessageBox::Ok, QMessageBox::Ok);
 	}
 }
 
