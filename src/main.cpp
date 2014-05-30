@@ -167,8 +167,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\n").arg("2007-2014", "Jo
 
 	int rval = 0;
 	if (launchApp) {
+		// If a document is opened during the startup of Tw, the QApplication
+		// may not be properly initialized yet. Therefore, defer the opening to
+		// the event loop.
 		foreach (fileToOpen, filesToOpen) {
-			app.openFile(fileToOpen.filename, fileToOpen.position);
+			QCoreApplication::postEvent(&app, new TWDocumentOpenEvent(fileToOpen.filename, fileToOpen.position));
 		}
 
 		QTimer::singleShot(1, &app, SLOT(launchAction()));
