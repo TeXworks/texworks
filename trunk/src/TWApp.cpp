@@ -79,6 +79,9 @@ const int kDefaultMaxRecentFiles = 20;
 
 TWApp *TWApp::theAppInstance = NULL;
 
+const QEvent::Type TWDocumentOpenEvent::type = static_cast<QEvent::Type>(QEvent::registerEventType());
+
+
 TWApp::TWApp(int &argc, char **argv)
 	: ConfigurableApp(argc, argv)
 	, defaultCodec(NULL)
@@ -685,7 +688,7 @@ QObject* TWApp::openFile(const QString &fileName, int pos /* = 0 */)
 		if (doc != NULL) {
 			if (pos > 0)
 				doc->widget()->goToPage(pos - 1);
-			QTimer::singleShot(0, doc, SLOT(selectWindow()));
+			doc->selectWindow();
 			return doc;
 		}
 		return NULL;
@@ -767,6 +770,11 @@ void TWApp::arrangeWindows(TWUtils::WindowArrangementFunction func)
 
 bool TWApp::event(QEvent *event)
 {
+	if (event->type() == TWDocumentOpenEvent::type) {
+		TWDocumentOpenEvent * e = static_cast<TWDocumentOpenEvent*>(event);
+		openFile(e->filename, e->pos);
+		return true;
+	}
 	switch (event->type()) {
 		case QEvent::FileOpen:
 			openFile(static_cast<QFileOpenEvent *>(event)->file());        
