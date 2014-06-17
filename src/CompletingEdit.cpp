@@ -294,6 +294,13 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 			}
 			int start = qMin(dragStartCursor.selectionStart(), curs.selectionStart());
 			int end = qMax(dragStartCursor.selectionEnd(), curs.selectionEnd());
+			if (dragStartCursor.selectionStart() > curs.selectionStart()) {
+				// If the user is selecting from right to left (moving towards
+				// smaller positions), we reverse start and end so that the
+				// selection anchor is placed at the proper place (the
+				// left-most end of the selection).
+				qSwap(start, end);
+			}
 			curs.setPosition(start);
 			curs.setPosition(end, QTextCursor::KeepAnchor);
 			setTextCursor(curs);
