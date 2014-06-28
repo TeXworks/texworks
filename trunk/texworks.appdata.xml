@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Stefan Löffler <st.loeffler@gmail.com> -->
+<application>
+  <id type="desktop">texworks.desktop</id>
+  <metadata_license>CC0</metadata_license>
+<!--
+  <project_license>GPL-2.0+</project_license>
+-->
+  <description>
+    <p>
+      TeXworks is an environment for authoring TeX (LaTeX, ConTeXt, etc) documents, with a
+      Unicode-based, TeX-aware editor, integrated PDF viewer, and a clean, simple
+      interface accessible to casual and non-technical users.
+    </p>
+    <p>
+      TeXworks is inspired by Dick Koch's award-winning TeXShop program for Mac OS X,
+      which has made quality typesetting through TeX accessible to a wider community
+      of users, without a technical or intimidating face. The goal of TeXworks is to
+      deliver a similarly integrated, easy-to-use environment for users on other
+      platforms, especially GNU/Linux and Windows.
+    </p>
+    <p>
+      Among other things, TeXworks features an integrated PDF previewer, synchronization
+      between the TeX files and the PDF output, and an extensible scripting interface.
+    </p>
+  </description>
+  <screenshots>
+    <screenshot type="default" width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</screenshot>
+  </screenshots>
+  <url type="homepage">http://www.tug.org/texworks/</url>
+  <updatecontact>texworks@tug.org</updatecontact>
+</application>
+
