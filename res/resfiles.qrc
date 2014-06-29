@@ -54,6 +54,7 @@
 <file alias="resfiles/translations/TeXworks_it.qm">../trans/TeXworks_it.qm</file>
 <file alias="resfiles/translations/TeXworks_ja.qm">../trans/TeXworks_ja.qm</file>
 <file alias="resfiles/translations/TeXworks_ko.qm">../trans/TeXworks_ko.qm</file>
+<file alias="resfiles/translations/TeXworks_nn.qm">../trans/TeXworks_nn.qm</file>
 <file alias="resfiles/translations/TeXworks_nl.qm">../trans/TeXworks_nl.qm</file>
 <file alias="resfiles/translations/TeXworks_pl.qm">../trans/TeXworks_pl.qm</file>
 <file alias="resfiles/translations/TeXworks_pt_BR.qm">../trans/TeXworks_pt_BR.qm</file>
