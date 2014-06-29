@@ -124,6 +124,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>Ri-formatta paragrafi</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
@@ -1431,6 +1435,10 @@
     <message>
         <source>About Scripts</source>
         <translation>A proposito degli script</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

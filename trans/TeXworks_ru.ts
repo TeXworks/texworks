@@ -1453,6 +1453,10 @@
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Сценарий «%1»: %2</translation>
     </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TWSystemCmd</name>
