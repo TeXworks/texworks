@@ -124,6 +124,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>문단 재정렬</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
@@ -1411,6 +1415,10 @@
     <message>
         <source>About Scripts</source>
         <translation>스크립트에 대하여</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

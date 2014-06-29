@@ -124,6 +124,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>重新对段落执行换行操作</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
@@ -1376,6 +1380,10 @@
     <message>
         <source>About Scripts</source>
         <translation>关于脚本</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

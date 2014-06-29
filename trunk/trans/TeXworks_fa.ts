@@ -124,6 +124,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>بسته‌بندی تازهٔ پاراگراف‌ها</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
@@ -1423,6 +1427,10 @@
     <message>
         <source>About Scripts</source>
         <translation>دربارهٔ سند</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

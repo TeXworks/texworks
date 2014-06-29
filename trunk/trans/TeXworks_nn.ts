@@ -1369,6 +1369,10 @@
         <source>About Scripts</source>
         <translation>Om skript</translation>
     </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TWSystemCmd</name>

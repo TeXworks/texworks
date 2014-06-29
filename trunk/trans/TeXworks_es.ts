@@ -124,6 +124,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>Reformatear parágrafos</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
@@ -1454,6 +1458,10 @@ adecuados. ¿Quiere abrirlo de todos modos?</translation>
     <message>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Script &quot;%1&quot;: %2</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

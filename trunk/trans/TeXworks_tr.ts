@@ -124,6 +124,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>Paragrafları tekrar sarmala</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
@@ -1429,6 +1433,10 @@
     <message>
         <source>About Scripts</source>
         <translation>Eklentiler Hakkında</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

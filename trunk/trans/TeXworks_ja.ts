@@ -124,6 +124,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>段落の折り返しをやり直す</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
@@ -1391,6 +1395,10 @@
     <message>
         <source>About Scripts</source>
         <translation>スクリプトについて</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
