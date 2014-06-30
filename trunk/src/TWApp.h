@@ -61,7 +61,9 @@ const int kStatusMessageDuration = 3000;
 const int kNewWindowOffset = 32;
 
 #ifdef Q_WS_WIN // for communication with the original instance
-#define _WIN32_WINNT			0x0500	// for HWND_MESSAGE
+#if !defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0500
+	#define _WIN32_WINNT			0x0500	// for HWND_MESSAGE
+#endif
 #include <windows.h>
 #define TW_HIDDEN_WINDOW_CLASS	TEXWORKS_NAME ":MessageTarget"
 #define TW_OPEN_FILE_MSG		(('T' << 8) + 'W')	// just a small sanity check for the receiver
