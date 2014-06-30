@@ -1478,11 +1478,11 @@ void PDFDocument::reloadWhenIdle()
 
 void PDFDocument::loadSyncData()
 {
-	scanner = synctex_scanner_new_with_output_file(curFile.toUtf8().data(), NULL, 1);
+	scanner = synctex_scanner_new_with_output_file(curFile.toLocal8Bit().data(), NULL, 1);
 	if (scanner == NULL)
 		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
 	else {
-		QString synctexName = QString::fromUtf8(synctex_scanner_get_synctex(scanner));
+		QString synctexName = QString::fromLocal8Bit(synctex_scanner_get_synctex(scanner));
 		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(synctexName), kStatusMessageDuration);
 	}
 }
@@ -1496,7 +1496,7 @@ void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 	if (synctex_edit_query(scanner, pageIndex + 1, pos.x(), pos.y()) > 0) {
 		synctex_node_t node;
 		while ((node = synctex_next_result(scanner)) != NULL) {
-			QString filename = QString::fromUtf8(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
+			QString filename = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
 			QDir curDir(QFileInfo(curFile).canonicalPath());
 			TeXDocument::openDocument(QFileInfo(curDir, filename).canonicalFilePath(), true, true, synctex_node_line(node));
 			break; // FIXME: currently we just take the first hit
@@ -1516,7 +1516,7 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, bool act
 	QString name;
 	bool found = false;
 	while (node != NULL) {
-		name = QString::fromUtf8(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
+		name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
 		const QFileInfo fi(curDir, name);
 		if (fi == sourceFileInfo) {
 			found = true;
@@ -1527,7 +1527,7 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, bool act
 	if (!found)
 		return;
 
-	if (synctex_display_query(scanner, name.toUtf8().data(), lineNo, 0) > 0) {
+	if (synctex_display_query(scanner, name.toLocal8Bit().data(), lineNo, 0) > 0) {
 		int page = -1;
 		QPainterPath path;
 		while ((node = synctex_next_result(scanner)) != NULL) {
