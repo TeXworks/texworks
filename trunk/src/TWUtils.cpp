@@ -23,6 +23,7 @@
 #include "TWApp.h"
 #include "TeXDocument.h"
 #include "PDFDocument.h"
+#include "SvnRev.h"
 
 #include <QFileDialog>
 #include <QString>

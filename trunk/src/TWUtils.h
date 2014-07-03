@@ -22,8 +22,6 @@
 #ifndef TWUtils_H
 #define TWUtils_H
 
-#include "SvnRev.h"
-
 #include <QAction>
 #include <QString>
 #include <QList>
