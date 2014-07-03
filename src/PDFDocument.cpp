@@ -1788,14 +1788,10 @@ void PDFDocument::doFindAgain(bool newSearch /* = false */)
 		for (pageIdx = firstPage; pageIdx != lastPage; pageIdx += deltaPage) {
 			page = document->page(pageIdx);
 
-			#if QT_VERSION >= 0x050000
 			double left, top, bottom, right;
 			lastSearchResult.selRect.getCoords(&left, &top, &right, &bottom);
 			if (page->search(searchText, left, top, right, bottom, searchDir, searchMode)) {
 				lastSearchResult.selRect.setCoords(left, top, right, bottom);
-			#else
-			if (page->search(searchText, lastSearchResult.selRect, searchDir, searchMode)) {
-			#endif
 				lastSearchResult.doc = this;
 				lastSearchResult.pageIdx = pageIdx;
 				QPainterPath p;
