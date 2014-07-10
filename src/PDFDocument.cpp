@@ -1118,7 +1118,7 @@ QScrollArea* PDFWidget::getScrollArea()
 QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
-	: watcher(NULL), reloadTimer(NULL), scanner(NULL), openedManually(false)
+	: watcher(NULL), reloadTimer(NULL), _synchronizer(NULL), openedManually(false)
 {
 	init();
 
@@ -1149,8 +1149,6 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 
 PDFDocument::~PDFDocument()
 {
-	if (scanner != NULL)
-		synctex_scanner_free(scanner);
 	docList.removeAll(this);
 	if (document)
 		delete document;
@@ -1424,9 +1422,9 @@ void PDFDocument::reload()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	if (scanner != NULL) {
-		synctex_scanner_free(scanner);
-		scanner = NULL;
+	if (_synchronizer != NULL) {
+		delete _synchronizer;
+		_synchronizer = NULL;
 	}
 
 	if (document != NULL)
@@ -1478,78 +1476,71 @@ void PDFDocument::reloadWhenIdle()
 
 void PDFDocument::loadSyncData()
 {
-	scanner = synctex_scanner_new_with_output_file(curFile.toLocal8Bit().data(), NULL, 1);
-	if (scanner == NULL)
-		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
-	else {
-		QString synctexName = QString::fromLocal8Bit(synctex_scanner_get_synctex(scanner));
-		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(synctexName), kStatusMessageDuration);
+	if (_synchronizer) {
+		delete _synchronizer;
+		_synchronizer = NULL;
 	}
+	_synchronizer = new TWSyncTeXSynchronizer(curFile);
+	if (!_synchronizer)
+		statusBar()->showMessage(tr("Error initializing SyncTeX"), kStatusMessageDuration);
+	else if (!_synchronizer->isValid())
+		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
+	else
+		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(_synchronizer->syncTeXFilename()), kStatusMessageDuration);
 }
 
 void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 {
-	if (scanner == NULL)
+	if (!_synchronizer)
 		return;
+
 	pdfWidget->setHighlightPath(QPainterPath());
 	pdfWidget->update();
-	if (synctex_edit_query(scanner, pageIndex + 1, pos.x(), pos.y()) > 0) {
-		synctex_node_t node;
-		while ((node = synctex_next_result(scanner)) != NULL) {
-			QString filename = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
-			QDir curDir(QFileInfo(curFile).canonicalPath());
-			TeXDocument::openDocument(QFileInfo(curDir, filename).canonicalFilePath(), true, true, synctex_node_line(node));
-			break; // FIXME: currently we just take the first hit
-		}
-	}
+
+	TWSynchronizer::PDFSyncPoint src;
+	src.filename = curFile;
+	src.page = pageIndex + 1;
+	src.rects.append(QRectF(pos.x(), pos.y(), 0, 0));
+
+	// Get target point
+	TWSynchronizer::TeXSyncPoint dest = _synchronizer->syncFromPDF(src);
+
+	// Check target point
+	if (dest.filename.isEmpty() || dest.line < 0)
+		return;
+
+	// Display the result
+	QDir curDir(QFileInfo(curFile).canonicalPath());
+	TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), true, true, dest.line, dest.col, dest.col);
 }
 
 void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, bool activatePreview)
 {
-	if (scanner == NULL)
+	if (!_synchronizer)
 		return;
 
-	// find the name synctex is using for this source file...
-	const QFileInfo sourceFileInfo(sourceFile);
-	QDir curDir(QFileInfo(curFile).canonicalPath());
-	synctex_node_t node = synctex_scanner_input(scanner);
-	QString name;
-	bool found = false;
-	while (node != NULL) {
-		name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
-		const QFileInfo fi(curDir, name);
-		if (fi == sourceFileInfo) {
-			found = true;
-			break;
-		}
-		node = synctex_node_sibling(node);
-	}
-	if (!found)
+	TWSynchronizer::TeXSyncPoint src;
+	src.filename = sourceFile;
+	src.line = lineNo;
+	src.col = 0;
+
+	// Get target point
+	TWSynchronizer::PDFSyncPoint dest = _synchronizer->syncFromTeX(src);
+
+	// Check target point
+	if (dest.page < 1 || QFileInfo(curFile) != QFileInfo(dest.filename))
 		return;
 
-	if (synctex_display_query(scanner, name.toLocal8Bit().data(), lineNo, 0) > 0) {
-		int page = -1;
-		QPainterPath path;
-		while ((node = synctex_next_result(scanner)) != NULL) {
-			if (page == -1)
-				page = synctex_node_page(node);
-			if (synctex_node_page(node) != page)
-				continue;
-			QRectF nodeRect(synctex_node_box_visible_h(node),
-							synctex_node_box_visible_v(node) - synctex_node_box_visible_height(node),
-							synctex_node_box_visible_width(node),
-							synctex_node_box_visible_height(node) + synctex_node_box_visible_depth(node));
-			path.addRect(nodeRect);
-		}
-		if (page > 0) {
-			pdfWidget->goToPage(page - 1);
-			path.setFillRule(Qt::WindingFill);
-			pdfWidget->setHighlightPath(path);
-			pdfWidget->update();
-			if (activatePreview)
-				selectWindow();
-		}
-	}
+	// Display the result
+	pdfWidget->goToPage(dest.page - 1);
+	QPainterPath path;
+	path.setFillRule(Qt::WindingFill);
+	foreach(QRectF r, dest.rects)
+	path.addRect(r);
+	pdfWidget->setHighlightPath(path);
+	pdfWidget->update();
+	if (activatePreview)
+		selectWindow();
 }
 
 void PDFDocument::setCurrentFile(const QString &fileName)
