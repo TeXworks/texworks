@@ -40,7 +40,7 @@
 #else
 #include "poppler-qt5.h"
 #endif
-#include <synctex_parser.h>
+#include "TWSynchronizer.h"
 
 #include "ui_PDFDocument.h"
 
@@ -233,10 +233,7 @@ public:
 	void updateTypesettingAction(bool processRunning);
 	void goToDestination(const QString& destName);
 	void linkToSource(TeXDocument *texDoc);
-	bool hasSyncData()
-		{
-			return scanner != NULL;
-		}
+	bool hasSyncData() const { return _synchronizer != NULL; }
 
 	Poppler::Document *popplerDoc()
 		{
@@ -311,11 +308,11 @@ private:
 	QFileSystemWatcher *watcher;
 	QTimer *reloadTimer;
 	
-	synctex_scanner_t scanner;
-
 	bool openedManually;
 	
 	static QList<PDFDocument*> docList;
+
+	TWSyncTeXSynchronizer * _synchronizer;
 	
 	PDFSearchResult lastSearchResult;
 	// stores the page idx a search was started on
