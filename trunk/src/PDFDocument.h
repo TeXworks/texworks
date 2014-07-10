@@ -40,7 +40,7 @@
 #else
 #include "poppler-qt5.h"
 #endif
-#include "synctex_parser.h"
+#include <synctex_parser.h>
 
 #include "ui_PDFDocument.h"
 
