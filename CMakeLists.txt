@@ -92,6 +92,8 @@ IF ( NOT DEFINED BUILD_SHARED_LIBS )
 ENDIF ()
 OPTION(BUILD_SHARED_LIBS "Build shared libraries?" ${BUILD_SHARED_LIBS})
 MARK_AS_ADVANCED(BUILD_SHARED_LIBS)
+OPTION(PREFER_BUNDLED_SYNCTEX "Use SyncTeX bundled with TeXworks even if a shared library is found?" OFF)
+MARK_AS_ADVANCED(PREFER_BUNDLED_SYNCTEX)
 
 SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place libraries in")
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place programs in")
@@ -223,6 +225,9 @@ INCLUDE( TranslationMacros )
 FIND_PACKAGE(ZLIB REQUIRED)
 FIND_PACKAGE(Hunspell REQUIRED)
 FIND_PACKAGE(Poppler REQUIRED)
+IF ( NOT PREFER_BUNDLED_SYNCTEX )
+  FIND_PACKAGE(Synctex QUIET)
+ENDIF ( NOT PREFER_BUNDLED_SYNCTEX )
 
 # The only thing Poppler should need is the location of the include directories
 # in order to access header files. The library loader should be able to find
@@ -243,6 +248,10 @@ IF ( POPPLER_NEEDS_FONTCONFIG )
   LIST(APPEND TeXworks_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
 ENDIF ()
 
+IF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
+  LIST(APPEND TeXworks_INCLUDE_DIRS ${SYNCTEX_INCLUDE_DIR})
+ENDIF ()
+
 SET(TeXworks_LIB_DIRS ${QT_LIBRARY_DIR})
 
 set(TEXWORKS_ADDITIONAL_LIBS "" CACHE STRING "Additional libraries not found by CMake")
@@ -256,6 +265,11 @@ SET(TeXworks_LIBS
   ${ZLIB_LIBRARIES}
   ${TEXWORKS_ADDITIONAL_LIBS}
 )
+
+IF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
+  LIST(APPEND TeXworks_LIBS ${SYNCTEX_LIBRARIES})
+ENDIF ()
+
 
 # Configure Optional Dependencies
 # -------------------------------

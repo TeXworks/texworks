@@ -21,6 +21,14 @@ IF ( WIN32 )
   LIST(APPEND TEXWORKS_SRCS ${TEXWORKS_WIN_RCS})
 ENDIF ( WIN32 )
 
+IF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
+  FILE(GLOB SYNCTEX_SRCS "synctex_*.c")
+  FILE(GLOB SYNCTEX_HDRS "synctex_*.h")
+
+  LIST(REMOVE_ITEM TEXWORKS_SRCS ${SYNCTEX_SRCS})
+  LIST(REMOVE_ITEM TEXWORKS_HDRS ${SYNCTEX_HDRS})
+ENDIF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
+
 # These source files along with the `.moc` files generated from some headers
 # form the TeXworks scripting API. We export them to variables in the
 # `PARENT_SCOPE` (top level CMake file) so that they will be available to the
