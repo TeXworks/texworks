@@ -67,6 +67,11 @@ public:
   virtual TeXSyncPoint syncFromPDF(const PDFSyncPoint & src) const;
 
 protected:
+  void _syncFromTeXFine(const TeXSyncPoint & src, PDFSyncPoint & dest) const;
+  void _syncFromPDFFine(const PDFSyncPoint & src, TeXSyncPoint & dest) const;
+
+  static int _findCorrespondingPosition(const QString & srcContext, const QString & destContext, const int col, bool & unique);
+
   SyncTeX::synctex_scanner_t _scanner;
 };
 

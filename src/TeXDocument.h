@@ -125,7 +125,7 @@ public:
 	Q_PROPERTY(QString spellcheckLanguage READ spellcheckLanguage WRITE setSpellcheckLanguage STORED false)
 	
 signals:
-	void syncFromSource(const QString&, int, bool);
+	void syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview);
 	void activatedWindow(QWidget*);
 	void tagListUpdated();
 	void asyncFlashStatusBarMessage(const QString & msg, const int timeout = 0);
@@ -174,7 +174,7 @@ public slots:
 	void showSelection();
 	void toggleConsoleVisibility();
 	void goToPreview();
-	void syncClick(int lineNo);
+	void syncClick(int lineNo, int col);
 	void openAt(QAction *action);
 	void sideBySide();
 	void removeAuxFiles();

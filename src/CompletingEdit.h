@@ -75,7 +75,7 @@ public slots:
 	void updateLineNumberAreaWidth(int newBlockCount);
 	
 signals:
-	void syncClick(int);
+	void syncClick(int line, int col);
 	void rehighlight();
 	void updateRequest(const QRect& rect, int dy);
 
