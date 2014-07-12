@@ -109,6 +109,7 @@ public:
 	int getCurrentPageIndex() { return pageIndex; }
 	void reloadPage();
 	void updateStatusBar();
+	QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = NULL, QMap<int, QRectF> * charBoxes = NULL);
 
 private slots:
 	void goFirst();
@@ -263,7 +264,7 @@ public slots:
 	void doFindAgain(bool newSearch = false);
 	void goToSource();
 	void toggleFullScreen();
-	void syncFromSource(const QString& sourceFile, int lineNo, bool activatePreview);
+	void syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview);
 	void print();
 	
 private slots:

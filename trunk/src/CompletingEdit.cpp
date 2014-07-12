@@ -324,7 +324,11 @@ void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 		case synctexClick:
 			{
 				QTextCursor curs = cursorForPosition(e->pos());
-				emit syncClick(curs.blockNumber() + 1);
+#if QT_VERSION < 0x040700
+				emit syncClick(curs.blockNumber() + 1, curs.position() - curs.block().position());
+#else
+				emit syncClick(curs.blockNumber() + 1, curs.positionInBlock());
+#endif
 			}
 			e->accept();
 			return;
@@ -960,18 +964,24 @@ void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
 void CompletingEdit::jumpToPdf()
 {
 	QAction *act = qobject_cast<QAction*>(sender());
-	if (act != NULL)
-		emit syncClick(act->data().toInt());
+	if (act != NULL) {
+		QPoint pt = act->data().toPoint();
+		emit syncClick(pt.y(), pt.x());
+	}
 }
 
 void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = createStandardContextMenu();
-
 	QAction *defaultAction = NULL;
-
 	QAction *act = new QAction(tr("Jump to PDF"), menu);
-	act->setData(QVariant(cursorForPosition(event->pos()).blockNumber() + 1));
+	QTextCursor cur = cursorForPosition(event->pos());
+
+#if QT_VERSION < 0x040700
+	act->setData(QVariant(QPoint(cur.position() - cur.block().position(), cur.blockNumber() + 1)));
+#else
+	act->setData(QVariant(QPoint(cur.positionInBlock(), cur.blockNumber() + 1)));
+#endif
 	connect(act, SIGNAL(triggered()), this, SLOT(jumpToPdf()));
 	menu->insertSeparator(menu->actions().first());
 	menu->insertAction(menu->actions().first(), act);

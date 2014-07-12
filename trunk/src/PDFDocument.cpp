@@ -828,6 +828,56 @@ void PDFWidget::updateStatusBar()
 	}
 }
 
+QString PDFWidget::selectedText(const QList<QPolygonF> &selection, QMap<int, QRectF> * wordBoxes /* = NULL */, QMap<int, QRectF> * charBoxes /* = NULL */)
+{
+	QString retVal;
+
+	if (!page)
+		return retVal;
+
+	// Get a list of all boxes
+	QList<Poppler::TextBox*> poppler_boxes = page->textList();
+
+	// Filter boxes by selection
+	foreach (Poppler::TextBox * poppler_box, poppler_boxes) {
+		if (!poppler_box)
+			continue;
+		bool include = false;
+		foreach (const QPolygonF & p, selection) {
+			if (!p.intersected(poppler_box->boundingBox()).empty()) {
+				include = true;
+				break;
+			}
+		}
+		if (!include)
+			continue;
+		retVal += poppler_box->text();
+		if (poppler_box->hasSpaceAfter())
+			retVal += " ";
+
+		if (wordBoxes) {
+			for (unsigned int i = 0; i < poppler_box->text().length(); ++i)
+				(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
+			if (poppler_box->hasSpaceAfter())
+				(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
+		}
+		if (charBoxes) {
+			for (unsigned int i = 0; i < poppler_box->text().length(); ++i)
+				(*charBoxes)[charBoxes->count()] = poppler_box->charBoundingBox(i);
+			if (poppler_box->hasSpaceAfter())
+				(*charBoxes)[charBoxes->count()] = poppler_box->boundingBox();
+		}
+	}
+
+	// Clean up
+	foreach (Poppler::TextBox * poppler_box, poppler_boxes) {
+		if (poppler_box)
+			delete poppler_box;
+	}
+
+	return retVal;
+}
+
 void PDFWidget::goFirst()
 {
 	if (pageIndex != 0) {
@@ -1267,7 +1317,7 @@ PDFDocument::init()
 
 	connect(this, SIGNAL(destroyed()), qApp, SLOT(updateWindowMenus()));
 
-	connect(qApp, SIGNAL(syncPdf(const QString&, int, bool)), this, SLOT(syncFromSource(const QString&, int, bool)));
+	connect(qApp, SIGNAL(syncPdf(const QString&, int, int, bool)), this, SLOT(syncFromSource(const QString&, int, int, bool)));
 
 	menuShow->addAction(toolBar->toggleViewAction());
 	menuShow->addSeparator();
@@ -1511,10 +1561,13 @@ void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 
 	// Display the result
 	QDir curDir(QFileInfo(curFile).canonicalPath());
-	TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), true, true, dest.line, dest.col, dest.col);
+	if (dest.col >= 0)
+		TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), true, true, dest.line, dest.col, dest.col + 1);
+	else
+		TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), true, true, dest.line, -1, -1);
 }
 
-void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, bool activatePreview)
+void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview)
 {
 	if (!_synchronizer)
 		return;
@@ -1522,7 +1575,7 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, bool act
 	TWSynchronizer::TeXSyncPoint src;
 	src.filename = sourceFile;
 	src.line = lineNo;
-	src.col = 0;
+	src.col = col;
 
 	// Get target point
 	TWSynchronizer::PDFSyncPoint dest = _synchronizer->syncFromTeX(src);

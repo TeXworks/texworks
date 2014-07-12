@@ -213,8 +213,8 @@ void TeXDocument::init()
 	connect(textEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
-	connect(textEdit, SIGNAL(syncClick(int)), this, SLOT(syncClick(int)));
-	connect(this, SIGNAL(syncFromSource(const QString&, int, bool)), qApp, SIGNAL(syncPdf(const QString&, int, bool)));
+	connect(textEdit, SIGNAL(syncClick(int, int)), this, SLOT(syncClick(int, int)));
+	connect(this, SIGNAL(syncFromSource(const QString&, int, int, bool)), qApp, SIGNAL(syncPdf(const QString&, int, int, bool)));
 
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(clipboardChanged()));
 	clipboardChanged();
@@ -1556,7 +1556,7 @@ void TeXDocument::showCursorPosition()
 	int col = cursor.position() - textEdit->document()->findBlock(cursor.selectionStart()).position();
 	lineNumberLabel->setText(tr("Line %1 of %2; col %3").arg(line).arg(total).arg(col));
 	if (actionAuto_Follow_Focus->isChecked())
-		emit syncFromSource(curFile, line, false);
+		emit syncFromSource(curFile, line, col, false);
 }
 
 void TeXDocument::showLineEndingSetting()
@@ -2910,12 +2910,12 @@ void TeXDocument::goToPreview()
 	}
 }
 
-void TeXDocument::syncClick(int lineNo)
+void TeXDocument::syncClick(int lineNo, int col)
 {
 	if (!isUntitled) {
 		// ensure that there is a pdf to receive our signal
 		goToPreview();
-		emit syncFromSource(curFile, lineNo, true);
+		emit syncFromSource(curFile, lineNo, col, true);
 	}
 }
 

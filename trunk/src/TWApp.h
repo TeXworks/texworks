@@ -225,7 +225,7 @@ signals:
 	// windows can connect to it to rebuild, e.g., a spellchecking menu
 	void dictionaryListChanged() const;
 	
-	void syncPdf(const QString& sourceFile, int lineNo, bool activatePreview);
+	void syncPdf(const QString& sourceFile, int lineNo, int col, bool activatePreview);
 
 	void hideFloatersExcept(QWidget* theWindow);
 
