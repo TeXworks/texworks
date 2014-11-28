@@ -59,7 +59,7 @@ QString TWScriptAPI::platform() const
 {
 #if defined(Q_WS_MAC)
 	return QString("MacOSX");
-#elif defined(Q_WS_WIN)
+#elif defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	return QString("Windows");
 #elif defined(Q_WS_X11)
 	return QString("X11");

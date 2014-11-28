@@ -138,7 +138,7 @@ void PrefsDialog::addPath()
 								QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	// remove the trailing / (if any)
 	dir = QDir::fromNativeSeparators(dir);
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if (dir.length() > 2)
 #else
 	if (dir.length() > 1)

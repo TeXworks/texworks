@@ -57,7 +57,7 @@
 #include <QTextBrowser>
 #include <QAbstractTextDocumentLayout>
 
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 #include <windows.h>
 #endif
 
@@ -103,14 +103,14 @@ void TeXDocument::init()
 	highlighter = NULL;
 	pHunspell = NULL;
 	utf8BOM = false;
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	lineEndings = kLineEnd_CRLF;
 #else
 	lineEndings = kLineEnd_LF;
 #endif
 	
 	setupUi(this);
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	TWApp::instance()->createMessageTarget(this);
 #endif
 
@@ -593,7 +593,7 @@ void TeXDocument::open()
 	if (!(isUntitled && textEdit->document()->isEmpty() && !isWindowModified()))
 		options = QFileDialog::DontUseSheet;
 #endif
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QSETTINGS_OBJECT(settings);
@@ -785,7 +785,7 @@ bool TeXDocument::saveAll()
 bool TeXDocument::saveAs()
 {
 	QFileDialog::Options	options = 0;
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QString selectedFilter = TWUtils::chooseDefaultFilter(curFile, *(TWUtils::filterList()));;
@@ -955,7 +955,7 @@ QString TeXDocument::readFile(const QString &fileName,
 {
 	if (lineEndings != NULL) {
 		// initialize to default for the platform
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 		*lineEndings = kLineEnd_CRLF;
 #else
 		*lineEndings = kLineEnd_LF;
@@ -2587,7 +2587,7 @@ void TeXDocument::typeset()
 	updateTypesettingAction();
 
 	QString workingDir = fileInfo.canonicalPath();	// Note that fileInfo refers to the root file
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	// files in the root directory of the current drive have to be handled specially
 	// because QFileInfo::canonicalPath() returns a path without trailing slash
 	// (i.e., a bare drive letter)
@@ -2605,7 +2605,7 @@ void TeXDocument::typeset()
 	// Add a (customized) TEXEDIT environment variable
 	env << QString("TEXEDIT=%1 --position=%d %s").arg(QCoreApplication::applicationFilePath());
 	
-	#ifdef Q_WS_WIN // MiKTeX apparently uses it's own variable
+	#if defined(Q_WS_WIN) || defined(Q_OS_WIN) // MiKTeX apparently uses it's own variable
 	env << QString("MIKTEX_EDITOR=%1 --position=%l \"%f\"").arg(QCoreApplication::applicationFilePath());
 	#endif
 #endif
@@ -2670,7 +2670,7 @@ void TeXDocument::typeset()
 		process = NULL;
 		QMessageBox msgBox(QMessageBox::Critical, tr("Unable to execute %1").arg(e.name()),
 							  "<p>" + tr("The program \"%1\" was not found.").arg(e.program()) + "</p>" +
-#if defined(Q_WS_WIN)
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> or <a href=\"http://miktex.org/\">MiKTeX</a> installed on your system to typeset your document.") + "</p>" +
 #elif defined(Q_WS_MAC)
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://www.tug.org/mactex/\">MacTeX</a> installed on your system to typeset your document.") + "</p>" +

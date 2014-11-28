@@ -35,7 +35,7 @@
 #include "ConfigurableApp.h"
 #include "TWScriptAPI.h"
 
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 #define PATH_LIST_SEP   ';'
 #define EXE             ".exe"
 #else
@@ -60,7 +60,7 @@ class QMenuBar;
 const int kStatusMessageDuration = 3000;
 const int kNewWindowOffset = 32;
 
-#ifdef Q_WS_WIN // for communication with the original instance
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN) // for communication with the original instance
 #if !defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0500
 	#define _WIN32_WINNT			0x0500	// for HWND_MESSAGE
 #endif
@@ -118,7 +118,7 @@ public:
 	
 	void notifyDictionaryListChanged() const { emit dictionaryListChanged(); }
 
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	void createMessageTarget(QWidget* aWindow);
 	static QString GetWindowsVersionString();
 	static unsigned int GetWindowsVersion();
@@ -267,7 +267,7 @@ private:
 	QHash<QString, QVariant> m_globals;
 	QList<QTextCodec*> customTextCodecs;
 	
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	HWND messageTargetWindow;
 #endif
 
