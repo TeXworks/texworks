@@ -129,9 +129,9 @@ ENDIF ( APPLE OR NOT UNIX )
 # Compilation
 # -----------
 
-IF (NOT ${BUILD_SHARED_LIBS})
+IF (NOT ${BUILD_SHARED_PLUGINS})
   IF (WITH_LUA)
-    LIST(APPEND TeXworks_LIBS TWLuaPlugin)
+    LIST(APPEND TeXworks_LIBS TWLuaPlugin ${LUA_LIBRARIES})
   ENDIF()
   IF (WITH_PYTHON)
     LIST(APPEND TeXworks_LIBS TWPythonPlugin)
