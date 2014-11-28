@@ -1210,7 +1210,7 @@ PDFDocument::init()
 	docList.append(this);
 
 	setupUi(this);
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	TWApp::instance()->createMessageTarget(this);
 #endif
 

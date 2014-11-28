@@ -33,7 +33,7 @@
 #include "ResourcesDialog.h"
 #include "TWTextCodecs.h"
 
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 #include "DefaultBinaryPathsWin.h"
 #else
 #include "DefaultBinaryPaths.h"
@@ -57,7 +57,7 @@
 #include <QUrl>
 #include <QDesktopServices>
 
-#if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN))
+#if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN) || defined(Q_OS_WIN))
 #include "poppler-config.h"
 #include "GlobalParams.h"
 #endif
@@ -66,7 +66,7 @@
 #include <CoreServices/CoreServices.h>
 #endif
 
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 #include <windows.h>
 #ifndef VER_SUITE_WH_SERVER /* not defined in my mingw system */
 #define VER_SUITE_WH_SERVER 0x00008000
@@ -90,7 +90,7 @@ TWApp::TWApp(int &argc, char **argv)
 	, engineList(NULL)
 	, defaultEngineIndex(0)
 	, scriptManager(NULL)
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	, messageTargetWindow(NULL)
 #endif
 {
@@ -160,7 +160,7 @@ void TWApp::init()
 	}
 	// </Check for portable mode>
 
-#if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN))
+#if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_WS_WIN) || defined(Q_OS_WIN))
 	// for Mac and Windows, support "local" poppler-data directory
 	// (requires patched poppler-qt4 lib to be effective,
 	// otherwise the GlobalParams gets overwritten when a
@@ -321,7 +321,7 @@ void TWApp::goToHomePage()
 	openUrl(QUrl("http://www.tug.org/texworks/"));
 }
 
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 /* based on MSDN sample code from http://msdn.microsoft.com/en-us/library/ms724429(VS.85).aspx */
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
@@ -430,7 +430,7 @@ unsigned int TWApp::GetWindowsVersion()
 
 const QStringList TWApp::getBinaryPaths(QStringList& systemEnvironment)
 {
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 #define PATH_CASE_SENSITIVE	Qt::CaseInsensitive
 #else
 #define PATH_CASE_SENSITIVE	Qt::CaseSensitive
@@ -457,14 +457,14 @@ QString TWApp::findProgram(const QString& program, const QStringList& binPaths)
 	QStringListIterator pathIter(binPaths);
 	bool found = false;
 	QFileInfo fileInfo;
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	QStringList executableTypes = QStringList() << "exe" << "com" << "cmd" << "bat";
 #endif
 	while (pathIter.hasNext() && !found) {
 		QString path = pathIter.next();
 		fileInfo = QFileInfo(path, program);
 		found = fileInfo.exists() && fileInfo.isExecutable();
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 		// try adding common executable extensions, if one was not already present
 		if (!found && !executableTypes.contains(fileInfo.suffix())) {
 			QStringListIterator extensions(executableTypes);
@@ -505,7 +505,7 @@ void TWApp::writeToMailingList()
 	body += "pdfTeX location  : " + pdftex + "\n";
 	
 	body += "Operating system : ";
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	body += "Windows " + GetWindowsVersionString() + "\n";
 #else
 #ifdef Q_WS_MAC
@@ -536,7 +536,7 @@ void TWApp::writeToMailingList()
 	body += " (runtime)\n";
 	body += "------------------------------\n";
 
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	body.replace('\n', "\r\n");
 #endif
 
@@ -614,7 +614,7 @@ void TWApp::openRecentFile()
 QStringList TWApp::getOpenFileNames(QString selectedFilter)
 {
 	QFileDialog::Options	options = 0;
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QSETTINGS_OBJECT(settings);
@@ -629,7 +629,7 @@ QStringList TWApp::getOpenFileNames(QString selectedFilter)
 QString TWApp::getOpenFileName(QString selectedFilter)
 {
 	QFileDialog::Options	options = 0;
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QSETTINGS_OBJECT(settings);
@@ -644,7 +644,7 @@ QString TWApp::getOpenFileName(QString selectedFilter)
 QString TWApp::getSaveFileName(const QString& defaultName)
 {
 	QFileDialog::Options	options = 0;
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QString selectedFilter;
@@ -1131,7 +1131,7 @@ void TWApp::showScriptsFolder()
 	QDesktopServices::openUrl(QUrl::fromLocalFile(TWUtils::getLibraryPath("scripts")));
 }
 
-#ifdef Q_WS_WIN	// support for the Windows single-instance code
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN) // support for the Windows single-instance code
 #include <windows.h>
 
 LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -1170,7 +1170,7 @@ void TWApp::createMessageTarget(QWidget* aWindow)
 	if (!aWindow || !aWindow->isWindow())
 		return;
 
-	HINSTANCE hInstance = (HINSTANCE)GetWindowLongPtr(aWindow->winId(), GWLP_HINSTANCE);
+	HINSTANCE hInstance = (HINSTANCE)GetWindowLongPtr((HWND)aWindow->winId(), GWLP_HINSTANCE);
 	if (hInstance == NULL)
 		return;
 

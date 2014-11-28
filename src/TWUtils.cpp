@@ -103,7 +103,7 @@ const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOn
 		else
 			libRootPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/";
 #endif
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 		libRootPath = QDir::homePath() + "/" + TEXWORKS_NAME + "/";
 #endif
 	}
@@ -695,7 +695,7 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 		// If we still have no valid value for hDiff/wDiff, just guess (on some
 		// platforms)
 		if (hDiff == 0 && wDiff == 0) {
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 			// (these values were determined on WinXP with default theme)
 			hDiff = 34;
 			wDiff = 8;
