@@ -57,6 +57,13 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 SET(CMAKE_AUTOMOC TRUE)
 
+IF(WIN32 AND MINGW)
+  # Ensure that no cpp flags are passed to windres, the Windows resource compiler.
+  # At least with MinGW 4 on Windows, that would cause problems
+  SET(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> -O coff <DEFINES> <SOURCE> <OBJECT>")
+ENDIF()
+
+
 # Determine Version Numbers
 # -------------------------
 
