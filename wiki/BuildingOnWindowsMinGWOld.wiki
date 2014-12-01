@@ -1,0 +1,310 @@
+#summary Guide to building TeXworks on Windows XP using MinGW
+#labels Deprecated
+
+_Thanks to Stefan Löffler, Alain Delmotte, Tomek, and Ignasi Furió for developing this guide._
+
+<wiki:toc max_depth="2" />
+
+= Preface =
+
+This document describes a procedure for building !TeXworks on Windows XP using the (freely available) Minimalist Gnu for Windows (MinGW) suite together with the (also freely available) Minimal System (MSYS) command line system. It is by no means the only way possible and it doesn't anticipate and tackle all possible problems, either. If you run into any difficulties feel free to ask for help on the [http://tug.org/mailman/listinfo/texworks mailing list] <http://tug.org/mailman/listinfo/texworks>.
+
+_Note: This guide is designed for use with the English version on Windows XP. If you use another language the labels and some of the paths will be different._
+
+= Required Software =
+
+The process described here has been sucessfully implemented using the following software. You may of course use other software, but then the described steps may have to be adapted in some places.
+  * Windows XP (+SP3; Vista should work, too, but wasn't tested yet)
+  * [http://www.mingw.org/ MinGW and MSYS] <http://www.mingw.org/><br>for building some required libraries and the program itself.<br>Note: This software is for free (as in "speech"). There are some installation notes in the next section.
+  * [http://www.7-zip.org/ 7-Zip] <http://www.7-zip.org/><br>>= 4.61 for opening tar.gz and tar.lzma<br>Note: This software is for free (as in "beer", mostly also as in "speech")
+  * [http://subversion.tigris.org/ Subversion] <http://subversion.tigris.org/><br>for obtaining the !TeXworks source code<br>Note: This software is for free (as in "speech")
+_Note: You need administrator's privileges to install new software._
+
+= Setting up MinGW and MSYS =
+Start by installing MinGW. For this, go to [http://www.mingw.org/] and click on "Downloads" on the left side. On the following page, click on the green "Download Now!" button (as of the time of writing this guide, this downloads "MinGW-5.1.6.exe"). Download the file to your hard disk and execute it. Download and install the following components:
+  * MinGW base tools
+  * MinGW make
+In this guide, we'll assume you installed them in the folder C:\MinGW.
+
+Then, return to [http://www.mingw.org/] and click on "Downloads" again. On the following page, open the "GCC Version 4" folder and the "Current Release" folder inside. From there, download gcc-full-{{{*}}}-mingw32-bin-2.tar.lzma (gcc-full-4.4.0-mingw32-bin-2.tar.lzma at the time of writing). Open the contents with 7-zip and extract the folders to C:\MinGW, replacing existing files.
+
+To install MSYS, go to [http://www.mingw.org/] again and click on "Downloads". This time, scroll down and open the folder "MSYS Base System". In it, open the folder containing the latest version of MSYS (as of the time of writing this guide, this is msys-1.0.11) and click on the file MSYS-{{{*}}}.exe (as of the time of writing this guide, this is MSYS-1.0.11.exe). Download the file to your hard disk and execute it. In this guide, we'll assume you installed MSYS to the folder C:\MSYS\1.0. You'll be asked for the path to MinGW during the install.
+
+= Directory structure =
+
+The following directory layout is used in this guide. If you choose another layout you have to adjust the paths in the rest of this guide.
+{{{
+C:\MinGW\ (MinGW)
+C:\MSYS\1.0 (MSYS)
+C:\KDE\ (KDE on Windows libraries)
+C:\texworks\hunspell-1.2.8\ (hunspell)
+C:\texworks\texworks-read-only\ (TeXworks)
+}}}
+
+= Obtaining the necessary libraries from KDE on Windows =
+
+!TeXworks depends on several external libraries, most notably Qt and Poppler. You can obtain most of the needed dependencies from [http://windows.kde.org/ the KDE on Windows project] <http://windows.kde.org/>. See their [http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps summary of steps] <http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps> for further information.
+
+Download and run the installer. Choose the following options when asked:
+  * Do *not* skip the basic settings page if asked
+  * Installation Directory: Choose a path *not containing spaces or special characters* (this includes accented characters, umlauts, etc.; only use [http://en.wikipedia.org/wiki/ASCII ASCII]), e.g. C:\KDE
+  * Install Mode: Package Manager
+  * Compiler Mode: MinGW4
+_Note: You need administrator's privileges to install some of the packages._
+
+Install the following packages and their dependencies:
+  * freetype (bin),
+  * iconv (bin),
+  * jpeg (bin),
+  * libpng (bin),
+  * libxml2 (bin),
+  * openjpeg (bin),
+  * poppler (bin & devel),
+  * poppler-data (bin),
+  * qt (bin & devel),
+  * zlib (bin & devel)
+_Note: Not all available servers provide all necessary packages. If the one you chose doesn't, choose another._
+
+Add the KDEDIRS environment variable and adjust your path to include the KDE bin and lib directories according to the [http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps summary of steps required for installation of KDE on Windows] <http://techbase.kde.org/Projects/KDE_on_Windows/Installation#Summary_of_Steps>. For more information about setting environment variables, see the Q&A below.
+
+= Downloading and building Hunspell =
+
+The hunspell library is required for spell checking and is not bundled with KDE on Windows. Hence you have to compile it yourself.
+
+Go to [http://sourceforge.net/projects/hunspell/] and choose "View all files". On the next page, open the "Hunspell" folder and in it the folder with the latest version number (1.2.8 at the time of writing).
+
+Download the .tar.gz file (the win32.zip file only contains programs, no sources and no libraries).
+
+At the time of writing, hunspell-1.2.8.tar.gz was the latest version and will be used throughout this guide.
+
+Extract hunspell-1.2.8.tar.gz to C:\texworks\
+
+To compile hunspell, start by running MSYS. In the terminal that appears, type:
+{{{
+cd /c/texworks/hunspell-1.2.8
+./configure
+cd src/hunspell
+make
+}}}
+
+There are several warnings but the build should succeed and you can close the MSYS terminal again.
+
+= Obtaining and building !TeXworks =
+
+Run the following command from the command line (i.e. in a DOS prompt window) in the folder C:\texworks
+{{{
+svn checkout http://texworks.googlecode.com/svn/trunk/ texworks-read-only
+}}}
+
+You get a fresh new copy of the latest !TeXworks code in the folder C:\texworks\texworks-read-only
+
+In order to build !TeXworks you have to modify C:\texworks\texworks-read-only\!TeXworks.pro to reflect your local configuration. Find the lines reading
+{{{
+win32 { # paths here are specific to my setup
+	INCLUDEPATH += c:/MinGW514/local/include
+	INCLUDEPATH += c:/MinGW514/local/include/poppler
+	INCLUDEPATH += c:/MinGW514/local/include/poppler/qt4
+	INCLUDEPATH += c:/MinGW514/local/include/hunspell
+
+	LIBS += -Lc:/MinGW514/local/lib
+	LIBS += -lpoppler-qt4
+	LIBS += -lpoppler
+	LIBS += -lfreetype
+	LIBS += -lhunspell-1.2
+	LIBS += -lz
+	LIBS += -lgdi32
+
+	RC_FILE = res/TeXworks.rc
+
+	# for the Windows build, we use static plugins:
+	QMAKE_CXXFLAGS += -DSTATIC_SCRIPTING_PLUGINS
+}
+}}}
+and replace them by
+{{{
+win32 {
+	INCLUDEPATH += C:/KDE/include/poppler/qt4
+	INCLUDEPATH += C:/texworks/hunspell-1.2.8/src/hunspell
+	LIBS += -LC:/texworks/hunspell-1.2.8/src/hunspell/.libs
+	LIBS += -lpoppler-qt4
+	LIBS += -lhunspell-1.2
+	LIBS += -lQtUiTools
+
+	RC_FILE = res/TeXworks.rc
+
+
+	# for the Windows build, we use static plugins:
+#	QMAKE_CXXFLAGS += -DSTATIC_SCRIPTING_PLUGINS
+}
+}}}
+
+In addition, unless you are using a poppler installation that includes the xpdf compatibility headers (not provided by default poppler builds, this requires a configure option), you will need to find the line
+
+{{{
+QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
+}}}
+
+and comment it out by inserting `#` at the beginning. The result will be that !TeXworks will not automatically locate a poppler-data directory alongside the executable, but will need the poppler data files (for CJK font support) installed in a fixed system location that is dependent on the poppler library build.
+
+Then run
+{{{
+qmake -makefile -win32 TeXworks.pro
+}}}
+on the command line from the C:\texworks\texworks-read-only directory. This creates the files Makefile, Makefile.Debug, and Makefile.Release (maybe along with some additional files for internal purposes). To build !TeXworks, simply run
+{{{
+mingw32-make
+}}}
+This should give you a working release\!TeXworks.exe.
+
+If you run into lots of error messages similar to
+{{{
+C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/../../../../include/winbase.h:1681: error:
+declaration of C function `LONG InterlockedCompareExchange(volatile LONG*, LONG
+, LONG)' conflicts with
+../../KDE/include/QtCore/qatomic_windows.h:387: error: previous
+declaration `long int InterlockedCompareExchange(long int*, long int, long int)
+' here
+}}}
+refer to the Q&A section below.
+
+If you run into the error message
+{{{
+c:/mingw/bin/../lib/gcc/mingw32/4.4.0/../../../../mingw32/bin/ld.exe: cannot find -lQtScript
+}}}
+refer to the Q&A section below. 
+
+= Updating !TeXworks =
+
+Updating !TeXworks is simple. Just run the following command on the command line from the C:\texworks\texworks-read-only directory:
+{{{
+svn update
+qmake
+mingw32-make
+}}}
+
+If this doesn't help (e.g. you get errors or the application doesn't start), try to prepend the following line:
+{{{
+mingw32-make clean
+}}}
+
+= Building plugins =
+== Building the Lua scripting plugin =
+In order to build the Lua scripting plugin, you need to get the Lua development files suitable for your build setup (mingw + gcc 4.x). The most easiest way to obtain them is from the [http://luaforge.net/frs/?group_id=110 Lua Binaries] <http://luaforge.net/frs/?group_id=110> page at !LuaForge. Download the file `lua*_Win32_mingw4_lib.zip` (`lua5_1_4_Win32_mingw4_lib.zip` at the time of writing) and extract it, e.g., to C:\texworks\lua5.1\. Then modify the file plugins-src\TWLuaPlugin\TWLuaPlugin.pro and replace the lines
+{{{
+win32 { # paths here are specific to my setup
+	INCLUDEPATH += c:/MinGW514/local/include
+
+	LIBS += -Lc:/MinGW514/local/lib
+	LIBS += -llua5.1
+}
+}}}
+by
+{{{
+win32 {
+	INCLUDEPATH += c:/texworks/lua5.1/include
+	LIBS += -Lc:/texworks/lua5.1 -llua5.1
+	LIBS += -lQtUiTools
+}
+}}}
+Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWLuaPlugin subdirectory. This should leave you with the file plugins-src\TWLuaPlugin\release\libTWLuaPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins (if it doesn't exist) and copy the file libTWLuaPlugin.dll into it. Finally restart !TeXworks.
+
+== Building the Python scripting plugin =
+In order to build the Python scripting plugin, you need to get a working copy of Python. Downloaded it from [http://www.python.org/] and install it to, e.g., C:\Python26. Then modify the file plugins-src\TWPythonPlugin\TWPythonPlugin.pro and replace the lines
+{{{
+win32 { # paths here are specific to my setup
+	INCLUDEPATH += c:/MinGW514/local/include
+	INCLUDEPATH += c:/Python26/include
+
+	LIBS += -Lc:/MinGW514/local/lib
+	LIBS += -Lc:/Python26/libs -lpython26
+}
+}}}
+by
+{{{
+win32 {
+	INCLUDEPATH += c:/Python26/include
+	LIBS += -Lc:/Python26/libs -lpython26
+	LIBS += -lQtUiTools
+}
+}}}
+Then run `qmake` and `mingw32-make` from the command line in the plugins-src\TWPythonPlugin subdirectory. This should leave you with the file plugins-src\TWPythonPlugin\release\libTWPythonPlugin.dll. Now create the directory C:\texworks\texworks-read-only\plugins (if it doesn't exist) and copy the file libTWPythonPlugin.dll into it. Finally restart !TeXworks.
+
+= Disclaimer =  
+This guide is provided as-is in the hope that it's helpful. There is no guarantee the described procedure will work on your system. Use at your own risk.
+
+= Q & A =
+
+How do I add/edit an environment variable?
+ Right-click on "My Computer" and select "Preferences". Select the "Advanced" tab and click on the button labeled "Environment variables". Note that if an environment variable contains a list of values (e.g. paths), the values are typically separated by a semicolon (";") character. 
+
+When running mingw32-make, Windows complains that this command is not recognized. Why?
+ You need to add C:\MinGW\bin to your PATH environmental variable.
+
+When building !TeXworks, I get many errors about conflicting declarations of `InterlockedCompareExchange`. What's wrong?
+ This is caused by conflicting declarations of the same function - one by MinGW, the other by the Qt library from KDE on Windows. You need to edit two files to get rid of this error. First, open C:\KDE\include\!QtCore\qatomic_windows.h and replace the following lines
+{{{
+   __declspec(dllimport) long __stdcall InterlockedCompareExchange(long *, long, long);
+   __declspec(dllimport) long __stdcall InterlockedIncrement(long *);
+   __declspec(dllimport) long __stdcall InterlockedDecrement(long *);
+   __declspec(dllimport) long __stdcall InterlockedExchange(long *, long);
+   __declspec(dllimport) long __stdcall InterlockedExchangeAdd(long *, long);
+}}}
+ by
+{{{
+   __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile*, long, long);
+   __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);
+   __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);
+   __declspec(dllimport) long __stdcall InterlockedExchange(long volatile*, long);
+   __declspec(dllimport) long __stdcall InterlockedExchangeAdd(long volatile*, long);
+}}}
+
+When building !TeXworks, I get an error about a missing Qt library of the form ".../ld.exe: cannot find -lQtScript". What's wrong?
+ This is a bug in the interaction of KDE on Windows, Qt, and MinGW. Qt tells MinGW to look for a library named "!QtScript", while KDE on Windows provides a library named "!QtScript4". To work around this, create a batch file "fixQtLibs.bat" in C:\texworks\texworks-read-only containing the lines
+{{{
+@echo off
+copy "%KDEDIRS%\lib\libQtScript4.a" "%KDEDIRS%\lib\libQtScript.a"
+copy "%KDEDIRS%\lib\libQtScriptTools4.a" "%KDEDIRS%\lib\libQtScriptTools.a"
+copy "%KDEDIRS%\lib\libQtXml4.a" "%KDEDIRS%\lib\libQtXml.a"
+copy "%KDEDIRS%\lib\libQtGui4.a" "%KDEDIRS%\lib\libQtGui.a"
+copy "%KDEDIRS%\lib\libQtCore4.a" "%KDEDIRS%\lib\libQtCore.a"
+}}}
+ Then, add the following line to your !TeXworks.pro (next to where you edited it before):
+{{{
+QMAKE_PRE_LINK = "fixQtLibs.bat"
+}}}
+ Now the application should build fine. This batch file simply tells the build process to copy the existing files to new files with the correct names. In addition, updates to the KDE on Windows libraries are also used for building !TeXworks.
+ (Note: Instead of using the environmental variable %KDEDIRS% you could also write out the complete path, of course.)
+
+When starting !TeXworks, it crashes with some error message about `_ZN8QPainter9drawImageERK7QPointFRK6QImage`. What's wrong?
+ This is caused by an incompatibility between the poppler library and the Qt library shipped with KDE on Windows. To get a working copy of the poppler library, go to [http://sourceforge.net/projects/kde-windows/] and there click on "View all files". On the following page, open the folder named "poppler", and in it the folder with the latest version (0.12.2 at the time of writing). There, download the file poppler-mingw4-`*`-bin.tar.bz2 (at the time of writing, this is poppler-mingw4-0.12.2-bin.tar.bz2). From this archive, extract the file bin\libpoppler-qt4.dll to the texworks-read-only\release directory.
+
+Can I mix this compilation using MinGW with the compilation using MSVC?
+ Yes, although it is strongly advisable to keep the files separate. In order to install the KDE on Windows libraries, you are even required to specify two different paths. For the rest, this is advisable as well. Other than that, there shouldn't be any conflict. Just make sure that the correct programs and libraries are used (check your KDELIBS and/or PATH environmental variable).
+
+QMake doesn't produce any Makefiles or, when subsequently running mingw32-make, it dies with a message about missing separators. Why?
+ You are probably not using the MinGW version of QMake. Try running "qmake --version". If it doesn't give the path to the MinGW version of the Qt library, you're definitely using the wrong one. Check your KDELIBS and/or PATH environmental variable to include the MinGW version before any other. (Note: this may break the compilation of other programs that rely on the other version of QMake.)
+
+I really want to install the KDE on Windows packages into a folder containing spaces. Can't it be done?
+ Yes, you can try. If everything works well and all settings are correct it should work on most systems. Some of the workarounds presented here won't work, however. So to be on the safe side, installing to paths not containing spaces or special characters is recommended. If it doesn't work please try installing the packages to the recommended location before asking for help on the mailing list.
+
+When starting !TeXworks, it complains about missing or incompatible dlls or simply crashes during start-up. What's wrong?
+ This can be caused if !TeXworks doesn't find some required dlls at all or finds incompatible versions of the dlls, first. This can most notably be caused by MikTeX which includes some Qt dlls. First of all make sure you have your environmental variables set correctly. If this doesn't help, copy the following dlls from C:\KDE\bin to C:\texworks\texworks-read-only\release:
+  * jpeg62.dll
+  * libfontconfig.dll
+  * libfreetype.dll
+  * iconv.dll
+  * libopenjpeg.dll
+  * libpng12.dll
+  * libpoppler-qt4.dll
+  * libpoppler.dll
+  * libxml2.dll
+  * mingwm10.dll
+  * !QtCore4.dll
+  * !QtGui4.dll
+  * !QtScript4.dll
+  * !QtScriptTools4.dll
+  * !QtXml4.dll
+  * zlib1.dll
+
+I have a question not answered here. What shall I do?
+ Ask the question on the [http://tug.org/mailman/listinfo/texworks mailing list] <http://tug.org/mailman/listinfo/texworks>.
