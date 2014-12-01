@@ -217,6 +217,7 @@ private slots:
 	void lineEndingLabelClick(QMouseEvent * event) { lineEndingPopup(event->pos()); }
 	void encodingLabelClick(QMouseEvent * event) { encodingPopup(event->pos()); }
 	void anchorClicked(const QUrl& url);
+	void delayedInit();
 
 private:
 	void init();

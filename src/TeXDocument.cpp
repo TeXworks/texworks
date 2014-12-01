@@ -274,9 +274,6 @@ void TeXDocument::init()
 	actionLine_Numbers->setChecked(b);
 	setLineNumbers(b);
 	
-	highlighter = new TeXHighlighter(textEdit->document(), this);
-	connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
-
 	QStringList options = TeXHighlighter::syntaxOptions();
 
 	QSignalMapper *syntaxMapper = new QSignalMapper(this);
@@ -295,12 +292,6 @@ void TeXDocument::init()
 		syntaxMapper->setMapping(action, index);
 		++index;
 	}
-	// FIXME: This does not respect kDefault_SyntaxColoring defined in
-	// DefaultPrefs.h. ATM, that is irrelevant because kDefault_SyntaxColoring = 0
-	// corresponds to None (i.e., ""). In the future, this may change, though.
-	// However, it would require some additional logic here (e.g., handling the
-	// case that kDefault_SyntaxColoring points to an invalid index).
-	setSyntaxColoringMode(settings.value("syntaxColoring").toString());
 	
 	// kDefault_TabWidth is defined in DefaultPrefs.h
 	textEdit->setTabStopWidth(settings.value("tabWidth", kDefault_TabWidth).toInt());
@@ -374,7 +365,6 @@ void TeXDocument::init()
 	group->addAction(actionNone);
 
 	reloadSpellcheckerMenu();
-	setSpellcheckLanguage(settings.value("language").toString());
 	connect(TWApp::instance(), SIGNAL(dictionaryListChanged()), this, SLOT(reloadSpellcheckerMenu()));
 
 	menuShow->addAction(toolBar_run->toggleViewAction());
@@ -402,6 +392,7 @@ void TeXDocument::init()
 
 	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);
+	QTimer::singleShot(1000, this, SLOT(delayedInit()));
 }
 
 void TeXDocument::changeEvent(QEvent *event)
@@ -443,7 +434,8 @@ void TeXDocument::setLangInternal(const QString& lang)
 	else
 		spellingCodec = NULL;
 	textEdit->setSpellChecker(pHunspell, spellingCodec);
-	highlighter->setSpellChecker(pHunspell, spellingCodec);
+	if (highlighter)
+		highlighter->setSpellChecker(pHunspell, spellingCodec);
 }
 
 void TeXDocument::setSpellcheckLanguage(const QString& lang)
@@ -1171,6 +1163,35 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	runHooks("LoadFile");
 }
 
+void TeXDocument::delayedInit()
+{
+	if (!highlighter) {
+		QSETTINGS_OBJECT(settings);
+
+		highlighter = new TeXHighlighter(textEdit->document(), this);
+		connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
+
+		// set up syntax highlighting
+		QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+		if (properties.contains("syntaxMode"))
+			setSyntaxColoringMode(properties.value("syntaxMode").toString());
+		else {
+			// FIXME: This does not respect kDefault_SyntaxColoring defined in
+			// DefaultPrefs.h. ATM, that is irrelevant because kDefault_SyntaxColoring = 0
+			// corresponds to None (i.e., ""). In the future, this may change, though.
+			// However, it would require some additional logic here (e.g., handling the
+			// case that kDefault_SyntaxColoring points to an invalid index).
+			setSyntaxColoringMode(settings.value("syntaxColoring").toString());
+		}
+
+		// set the default spell checking language
+		setSpellcheckLanguage(settings.value("language").toString());
+
+		// contentsChanged() parses the modlines (thus possibly overrinding the spell checking language)
+		contentsChanged(0, 0, 0);
+	}
+}
+
 #define FILE_MODIFICATION_ACCURACY	1000	// in msec
 void TeXDocument::reloadIfChangedOnDisk()
 {
@@ -1482,7 +1503,8 @@ void TeXDocument::saveRecentFileInfo()
 	fileProperties.insert("selLength", selectionLength());
 	fileProperties.insert("quotesMode", textEdit->getQuotesMode());
 	fileProperties.insert("indentMode", textEdit->getIndentMode());
-	fileProperties.insert("syntaxMode", highlighter->getSyntaxMode());
+	if (highlighter)
+		fileProperties.insert("syntaxMode", highlighter->getSyntaxMode());
 	fileProperties.insert("lineNumbers", textEdit->getLineNumbersVisible());
 	fileProperties.insert("wrapLines", textEdit->wordWrapMode() == QTextOption::WordWrap);
 
@@ -2077,7 +2099,8 @@ void TeXDocument::setWrapLines(bool wrap)
 
 void TeXDocument::setSyntaxColoring(int index)
 {
-	highlighter->setActiveIndex(index);
+	if (highlighter)
+		highlighter->setActiveIndex(index);
 }
 
 void TeXDocument::setSyntaxColoringMode(const QString& mode)
