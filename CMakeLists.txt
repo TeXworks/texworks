@@ -51,6 +51,12 @@ PROJECT(TeXworks)
 # provides support for certain parts of Qt, such as the ScriptTools.
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
 CMAKE_POLICY(VERSION 2.8.6)
+
+# Silence warning about linking to qtmain.lib statically on Windows
+IF(POLICY CMP0020)
+  cmake_policy(SET CMP0020 NEW)
+ENDIF()
+
 SET(CMAKE_COLOR_MAKEFILE ON)
 # Always add the current source and binary directories to the header include
 # path when compiling.
