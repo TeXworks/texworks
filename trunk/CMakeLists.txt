@@ -190,6 +190,7 @@ ENDIF()
 # If Qt4 is not found (or not desired), check for Qt5
 IF (DESIRED_QT_VERSION MATCHES 5 OR NOT QT4_FOUND)
   find_package(Qt5Widgets QUIET)
+  find_package(Qt5Gui QUIET)
   find_package(Qt5UiTools QUIET)
   find_package(Qt5Script QUIET)
   find_package(Qt5ScriptTools QUIET)
@@ -212,10 +213,10 @@ IF (DESIRED_QT_VERSION MATCHES 5 OR NOT QT4_FOUND)
     ADD_DEFINITIONS(-DSTATIC_QT5)
   ENDIF()
 
-  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5UiTools_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND)
+  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND)
   	SET(QT5_FOUND TRUE)
-    SET(QT_INCLUDE_DIR "${Qt5Widgets_INCLUDE_DIRS} ${Qt5UiTools_INCLUDE_DIRS} ${Qt5Script_INCLUDE_DIRS} ${Qt5ScriptTools_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS}")
-    SET(QT_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5UiTools_LIBRARIES} ${Qt5Script_LIBRARIES} ${Qt5ScriptTools_LIBRARIES} ${Qt5Xml_LIBRARIES} ${Qt5DBus_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES})
+    SET(QT_INCLUDE_DIR "${Qt5Widgets_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5UiTools_INCLUDE_DIRS} ${Qt5Script_INCLUDE_DIRS} ${Qt5ScriptTools_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS}")
+    SET(QT_LIBRARIES ${Qt5UiTools_LIBRARIES} ${Qt5ScriptTools_LIBRARIES} ${Qt5Script_LIBRARIES} ${Qt5Xml_LIBRARIES} ${Qt5DBus_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Core_LIBRARIES})
 
     # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
     # etc. which is used here.
