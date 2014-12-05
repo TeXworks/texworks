@@ -5,11 +5,11 @@
 # Qt-version-agnostic wrappers
 if (QT_VERSION_MAJOR EQUAL 5)
   macro(QT_ADD_RESOURCES)
-    QT5_ADD_RESOURCES(${ARGV})
+    QT5_ADD_RESOURCES(${ARGV} OPTIONS -threshold 5 -compress 9)
   endmacro()
 else()
   macro(QT_ADD_RESOURCES)
-    QT4_ADD_RESOURCES(${ARGV})
+    QT4_ADD_RESOURCES(${ARGV} OPTIONS -threshold 5 -compress 9)
   endmacro()
 endif()
 
