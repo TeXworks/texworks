@@ -1024,7 +1024,7 @@ QString TeXDocument::readFile(const QString &fileName,
 	}
 }
 
-void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBackground, QTextCodec * forceCodec)
+void TeXDocument::loadFile(const QString &fileName, bool asTemplate /* = false */, bool inBackground /* = false */, bool reload /* = false */, QTextCodec * forceCodec /* = NULL */)
 {
 	QString fileContents = readFile(fileName, &codec, &lineEndings, forceCodec);
 	showLineEndingSetting();
@@ -1046,7 +1046,8 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	// - this ensures it is shown before the PDF (if opening a new doc)
 	// - this avoids problems during layouting (which can be broken if the
 	//   geometry, highlighting, ... is changed before the window is shown)
-	show();
+	if (!reload)
+		show();
 	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
 	{
@@ -1089,22 +1090,24 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 		lastModified = QDateTime();
 	}
 	else {
-		QSETTINGS_OBJECT(settings);
 		setCurrentFile(fileName);
-		if (!inBackground && settings.value("openPDFwithTeX", kDefault_OpenPDFwithTeX).toBool()) {
-			openPdfIfAvailable(false);
-			// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
-			// automatically.
+		if (!reload) {
+			QSETTINGS_OBJECT(settings);
+			if (!inBackground && settings.value("openPDFwithTeX", kDefault_OpenPDFwithTeX).toBool()) {
+				openPdfIfAvailable(false);
+				// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
+				// automatically.
+			}
+			else {
+				QString previewFileName;
+				actionGo_to_Preview->setEnabled(getPreviewFileName(previewFileName));
+			}
+			// set openDialogDir after openPdfIfAvailable as we want the .tex file's
+			// path to end up in that variable (which might be touched/changed when
+			// loading the pdf
+			QFileInfo info(fileName);
+			settings.setValue("openDialogDir", info.canonicalPath());
 		}
-		else {
-			QString previewFileName;
-			actionGo_to_Preview->setEnabled(getPreviewFileName(previewFileName));
-		}
-		// set openDialogDir after openPdfIfAvailable as we want the .tex file's
-		// path to end up in that variable (which might be touched/changed when
-		// loading the pdf
-		QFileInfo info(fileName);
-		settings.setValue("openDialogDir", info.canonicalPath());
 
 		statusBar()->showMessage(tr("File \"%1\" loaded").arg(TWUtils::strippedName(curFile)),
 								 kStatusMessageDuration);
@@ -1112,53 +1115,54 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	}
 	maybeEnableSaveAndRevert(false);
 
-	bool autoPlace = true;
-	QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
-	if (properties.contains("geometry")) {
-		restoreGeometry(properties.value("geometry").toByteArray());
-		autoPlace = false;
-	}
-	if (properties.contains("state"))
-		restoreState(properties.value("state").toByteArray(), kTeXWindowStateVersion);
-
-	if (properties.contains("selStart")) {
-		QTextCursor c(textEdit->document());
-		c.setPosition(properties.value("selStart").toInt());
-		c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, properties.value("selLength", 0).toInt());
-		textEdit->setTextCursor(c);
-	}
-
-	if (properties.contains("quotesMode"))
-		setSmartQuotesMode(properties.value("quotesMode").toString());
-	if (properties.contains("indentMode"))
-		setAutoIndentMode(properties.value("indentMode").toString());
-	if (properties.contains("syntaxMode"))
-		setSyntaxColoringMode(properties.value("syntaxMode").toString());
-	if (properties.contains("wrapLines"))
-		setWrapLines(properties.value("wrapLines").toBool());
-	if (properties.contains("lineNumbers"))
-		setLineNumbers(properties.value("lineNumbers").toBool());
-	
-	if (pdfDoc) {
-		if (properties.contains("pdfgeometry")) {
-			pdfDoc->restoreGeometry(properties.value("pdfgeometry").toByteArray());
+	if (!reload) {
+		bool autoPlace = true;
+		QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+		if (properties.contains("geometry")) {
+			restoreGeometry(properties.value("geometry").toByteArray());
 			autoPlace = false;
 		}
-		if (properties.contains("pdfstate"))
-			pdfDoc->restoreState(properties.value("pdfstate").toByteArray(), kPDFWindowStateVersion);
-	}
+		if (properties.contains("state"))
+			restoreState(properties.value("state").toByteArray(), kTeXWindowStateVersion);
 
-	if (autoPlace)
-		sideBySide();
+		if (properties.contains("selStart")) {
+			QTextCursor c(textEdit->document());
+			c.setPosition(properties.value("selStart").toInt());
+			c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, properties.value("selLength", 0).toInt());
+			textEdit->setTextCursor(c);
+		}
+
+		if (properties.contains("quotesMode"))
+			setSmartQuotesMode(properties.value("quotesMode").toString());
+		if (properties.contains("indentMode"))
+			setAutoIndentMode(properties.value("indentMode").toString());
+		if (properties.contains("syntaxMode"))
+			setSyntaxColoringMode(properties.value("syntaxMode").toString());
+		if (properties.contains("wrapLines"))
+			setWrapLines(properties.value("wrapLines").toBool());
+		if (properties.contains("lineNumbers"))
+			setLineNumbers(properties.value("lineNumbers").toBool());
+	
+		if (pdfDoc) {
+			if (properties.contains("pdfgeometry")) {
+				pdfDoc->restoreGeometry(properties.value("pdfgeometry").toByteArray());
+				autoPlace = false;
+			}
+			if (properties.contains("pdfstate"))
+				pdfDoc->restoreState(properties.value("pdfstate").toByteArray(), kPDFWindowStateVersion);
+		}
+
+		if (autoPlace)
+			sideBySide();
+
+		if (pdfDoc)
+			pdfDoc->show();
+
+		selectWindow();
+		saveRecentFileInfo();
+	}
 	
 	editor()->updateLineNumberAreaWidth(0);
-
-	if (pdfDoc)
-		pdfDoc->show();
-
-	selectWindow();
-
-	saveRecentFileInfo();
 	
 	runHooks("LoadFile");
 }
@@ -1259,7 +1263,7 @@ void TeXDocument::reloadIfChangedOnDisk()
 		// miss the second change otherwise)
 		while (QDateTime::currentDateTime() <= QFileInfo(curFile).lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			; // do nothing
-		loadFile(curFile, false, true);
+		loadFile(curFile, false, true, true);
 		// one final safety check - if the file has not changed, we can safely end this
 		if (QDateTime::currentDateTime() > QFileInfo(curFile).lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			break;
@@ -1661,7 +1665,7 @@ void TeXDocument::encodingPopup(const QPoint loc)
 				}
 			}
 			clearFileWatcher(); // stop watching until next save or reload
-			loadFile(curFile, false, true, codec);
+			loadFile(curFile, false, true, true, codec);
 			; // FIXME
 		}
 		else {
