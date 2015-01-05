@@ -148,14 +148,13 @@ void TWApp::init()
 			*defaultBinPaths = portable.value("defaultbinpaths").toString().split(PATH_LIST_SEP, QString::SkipEmptyParts);
 		}
 	}
-	const char *envPath;
-	envPath = getenv("TW_INIPATH");
-	if (envPath != NULL && iniPath.cd(QString(envPath))) {
+	QString envPath = QString::fromLocal8Bit(getenv("TW_INIPATH"));
+	if (envPath != NULL && iniPath.cd(envPath)) {
 		setSettingsFormat(QSettings::IniFormat);
 		QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
 	}
-	envPath = getenv("TW_LIBPATH");
-	if (envPath != NULL && libPath.cd(QString(envPath))) {
+	envPath = QString::fromLocal8Bit(getenv("TW_LIBPATH"));
+	if (envPath != NULL && libPath.cd(envPath)) {
 		portableLibPath = libPath.absolutePath();
 	}
 	// </Check for portable mode>
@@ -799,9 +798,9 @@ void TWApp::setDefaultPaths()
 	if (!binaryPaths->contains(appDir.absolutePath()))
 		binaryPaths->append(appDir.absolutePath());
 #endif
-	const char *envPath = getenv("PATH");
-	if (envPath != NULL)
-		foreach (const QString& s, QString(envPath).split(PATH_LIST_SEP, QString::SkipEmptyParts))
+	QString envPath = QString::fromLocal8Bit(getenv("PATH"));
+	if (!envPath.isEmpty())
+		foreach (const QString& s, envPath.split(PATH_LIST_SEP, QString::SkipEmptyParts))
 		if (!binaryPaths->contains(s))
 			binaryPaths->append(s);
 	if (!defaultBinPaths) {

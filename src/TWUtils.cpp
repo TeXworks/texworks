@@ -95,8 +95,8 @@ const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOn
 #ifdef Q_WS_X11
 		if (subdir == "dictionaries") {
 			libPath = TW_DICPATH;
-			const char* dicPath = getenv("TW_DICPATH");
-			if (dicPath != NULL)
+			QString dicPath = QString::fromLocal8Bit(getenv("TW_DICPATH"));
+			if (!dicPath.isEmpty())
 				libPath = dicPath;
 			return libPath; // don't try to create/update the system dicts directory
 		}
@@ -287,8 +287,8 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 		helpDir.cd(TW_HELPPATH);
 #endif
 #endif
-	const char* helpPath = getenv("TW_HELPPATH");
-	if (helpPath != NULL)
+	QString helpPath = QString::fromLocal8Bit(getenv("TW_HELPPATH"));
+	if (!helpPath.isEmpty())
 		helpDir.cd(QString(helpPath));
 
 	QSETTINGS_OBJECT(settings);

@@ -175,9 +175,9 @@ void TWScriptManager::loadPlugins()
 #endif
 
 	// allow an env var to override the default plugin path
-	const char* pluginPath = getenv("TW_PLUGINPATH");
-	if (pluginPath != NULL)
-		pluginsDir.cd(QString(pluginPath));
+	QString pluginPath = QString::fromLocal8Bit(getenv("TW_PLUGINPATH"));
+	if (!pluginPath.isEmpty())
+		pluginsDir.cd(pluginPath);
 
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
 		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
