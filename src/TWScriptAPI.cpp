@@ -57,11 +57,11 @@ int TWScriptAPI::strlen(const QString& str) const
 
 QString TWScriptAPI::platform() const
 {
-#if defined(Q_WS_MAC)
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	return QString("MacOSX");
 #elif defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	return QString("Windows");
-#elif defined(Q_WS_X11)
+#elif defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 	return QString("X11");
 #else
 	return QString("unknown");

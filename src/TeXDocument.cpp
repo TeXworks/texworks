@@ -151,7 +151,7 @@ void TeXDocument::init()
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
 	engine->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-#if defined(Q_WS_MAC) && (QT_VERSION >= 0x040600)
+#if (defined(Q_WS_MAC) || defined(Q_OS_MAC)) && (QT_VERSION >= 0x040600)
 	engine->setStyleSheet("padding:4px;");
 	engine->setMinimumWidth(150);
 #endif
@@ -243,7 +243,7 @@ void TeXDocument::init()
 
 	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(editMenuAboutToShow()));
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	textEdit->installEventFilter(CmdKeyFilter::filter());
 #endif
 
@@ -580,7 +580,7 @@ void TeXDocument::makeUntitled()
 void TeXDocument::open()
 {
 	QFileDialog::Options options = 0;
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 		/* use a sheet if we're calling Open from an empty, untitled, untouched window; otherwise use a separate dialog */
 	if (!(isUntitled && textEdit->document()->isEmpty() && !isWindowModified()))
 		options = QFileDialog::DontUseSheet;
@@ -717,12 +717,12 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 						action->setIcon(icon);
 					}
 					QPoint pos(QCursor::pos().x() - 20, frameGeometry().y());
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 					extern void qt_mac_set_menubar_icons(bool);
 					qt_mac_set_menubar_icons(true);
 #endif
 					menu.exec(pos);
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 					qt_mac_set_menubar_icons(false);
 #endif
 				}
@@ -1474,7 +1474,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	}
 	else {
 		QIcon winIcon;
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 		// The Compiz window manager doesn't seem to support icons larger than
 		// 128x128, so we add a suitable one first
 		winIcon.addFile(":/images/images/TeXworks-doc-128.png");
@@ -2628,7 +2628,7 @@ void TeXDocument::typeset()
 	
 	QString exeFilePath = TWApp::instance()->findProgram(e.program(), binPaths);
 	
-#ifndef Q_WS_MAC // not supported on OS X yet :(
+#if !(defined(Q_WS_MAC) || defined(Q_OS_MAC)) // not supported on OS X yet :(
 	// Add a (customized) TEXEDIT environment variable
 	env << QString("TEXEDIT=%1 --position=%d %s").arg(QCoreApplication::applicationFilePath());
 	
@@ -2699,7 +2699,7 @@ void TeXDocument::typeset()
 							  "<p>" + tr("The program \"%1\" was not found.").arg(e.program()) + "</p>" +
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> or <a href=\"http://miktex.org/\">MiKTeX</a> installed on your system to typeset your document.") + "</p>" +
-#elif defined(Q_WS_MAC)
+#elif defined(Q_WS_MAC) || defined(Q_OS_MAC)
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://www.tug.org/mactex/\">MacTeX</a> installed on your system to typeset your document.") + "</p>" +
 #else
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.") + "</p>" +
@@ -3088,7 +3088,7 @@ void TeXDocument::removeAuxFiles()
 									   tr("No auxiliary files associated with this document at the moment."));
 }
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 #define OPEN_FILE_IN_NEW_WINDOW	Qt::MoveAction // unmodified drag appears as MoveAction on Mac OS X
 #define INSERT_DOCUMENT_TEXT	Qt::CopyAction
 #define CREATE_INCLUDE_COMMAND	Qt::LinkAction

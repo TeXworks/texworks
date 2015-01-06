@@ -48,7 +48,7 @@ HardWrapDialog::init()
 	bool rewrapParagraphs = settings.value("hardWrapRewrap", false).toBool();
 	checkbox_rewrap->setChecked(rewrapParagraphs);
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	setWindowFlags(Qt::Sheet);
 #endif
 }

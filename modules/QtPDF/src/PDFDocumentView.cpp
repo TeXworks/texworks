@@ -1308,7 +1308,7 @@ void PDFDocumentMagnifierView::setSizeAndShape(const int size, const DocumentToo
     case DocumentTool::MagnifyingGlass::Magnifier_Rectangle:
       setFixedSize(size * 4 / 3, size);
       clearMask();
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
       // On OS X there is a bug that affects masking of QAbstractScrollArea and
       // its subclasses:
       //
@@ -1322,7 +1322,7 @@ void PDFDocumentMagnifierView::setSizeAndShape(const int size, const DocumentToo
     case DocumentTool::MagnifyingGlass::Magnifier_Circle:
       setFixedSize(size, size);
       setMask(QRegion(rect(), QRegion::Ellipse));
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
       // Hack to fix QTBUG-7150
       viewport()->setMask(QRegion(rect(), QRegion::Ellipse));
 #endif
@@ -2720,7 +2720,7 @@ PDFFontsInfoWidget::PDFFontsInfoWidget(QWidget * parent) :
   layout->setContentsMargins(0, 0, 0, 0);
   _table = new QTableWidget(this);
 
-#ifdef Q_WS_MAC /* don't do this on windows, as the font ends up too small */
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC) /* don't do this on windows, as the font ends up too small */
   QFont f(_table->font());
   f.setPointSize(f.pointSize() - 2);
   _table->setFont(f);
@@ -2932,7 +2932,7 @@ PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
   layout->setContentsMargins(0, 0, 0, 0);
   _table = new QTableWidget(this);
 
-#ifdef Q_WS_MAC /* don't do this on windows, as the font ends up too small */
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC) /* don't do this on windows, as the font ends up too small */
   QFont f(_table->font());
   f.setPointSize(f.pointSize() - 2);
   _table->setFont(f);

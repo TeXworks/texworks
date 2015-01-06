@@ -25,7 +25,7 @@
 #include <QApplication>
 #include <QSettings>
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 #define QSETTINGS_OBJECT(s) \
 			QSettings s(ConfigurableApp::instance()->getSettingsFormat(), QSettings::UserScope, \
 						ConfigurableApp::instance()->organizationDomain(), ConfigurableApp::instance()->applicationName())

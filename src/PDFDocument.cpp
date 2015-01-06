@@ -1218,7 +1218,7 @@ PDFDocument::init()
 	setAttribute(Qt::WA_MacNoClickThrough, true);
 
 	QIcon winIcon;
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 	// The Compiz window manager doesn't seem to support icons larger than
 	// 128x128, so we add a suitable one first
 	winIcon.addFile(":/images/images/TeXworks-doc-128.png");

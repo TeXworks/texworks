@@ -45,7 +45,7 @@
 
 #pragma mark === TWUtils ===
 
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 // compile-time default paths - customize by defining in the .pro file
 #ifndef TW_DICPATH
 #define TW_DICPATH "/usr/share/myspell/dicts"
@@ -89,10 +89,10 @@ const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOn
 	
 	libRootPath = TWApp::instance()->getPortableLibPath();
 	if (libRootPath.isEmpty()) {
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 		libRootPath = QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/";
 #endif
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 		if (subdir == "dictionaries") {
 			libPath = TW_DICPATH;
 			QString dicPath = QString::fromLocal8Bit(getenv("TW_DICPATH"));
@@ -278,11 +278,11 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 		delete actions[i];
 	}
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	QDir helpDir(QCoreApplication::applicationDirPath() + "/../texworks-help");
 #else
 	QDir helpDir(QCoreApplication::applicationDirPath() + "/texworks-help");
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 	if (!helpDir.exists())
 		helpDir.cd(TW_HELPPATH);
 #endif
@@ -1173,7 +1173,7 @@ CmdKeyFilter *CmdKeyFilter::filter()
 
 bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 {
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	if (event->type() == QEvent::KeyPress) {
 		QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
 		if ((keyEvent->modifiers() & Qt::ControlModifier) != 0) {
