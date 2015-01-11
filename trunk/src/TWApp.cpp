@@ -56,6 +56,7 @@
 #include <QTranslator>
 #include <QUrl>
 #include <QDesktopServices>
+#include <QLibraryInfo>
 
 #if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_WS_MAC) || defined(Q_OS_MAC) || defined(Q_WS_WIN) || defined(Q_OS_WIN))
 #include "poppler-config.h"
@@ -1029,27 +1030,54 @@ void TWApp::applyTranslation(const QString& locale)
 	translators.clear();
 
 	if (!locale.isEmpty()) {
-		QString basicTranslations = ":/resfiles/translations";
+		QString bundledTranslations = ":/resfiles/translations";
 		QString extraTranslations = TWUtils::getLibraryPath("translations");
+		QString systemTranslations = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+		QTranslator * qtTranslator;
+		QTranslator * twTranslator;
 		
-		QTranslator *qtTranslator = new QTranslator(this);
-		if (qtTranslator->load("qt_" + locale, extraTranslations)) {
-			installTranslator(qtTranslator);
-			translators.append(qtTranslator);
-		}
-		else if (qtTranslator->load("qt_" + locale, basicTranslations)) {
+		// According to the Qt docs, translators are searched in reverse order
+		// (the last installed one is tried first). Here, we use the following
+		// search order (1. is tried first):
+		// 1. The user's files in <resources>/translations
+		// 2. The system-wide translation
+		// 3. The bundled translation
+		// Note that the bundled translations are not copied to <resources>, so
+		// this search order is not messed up.
+		qtTranslator = new QTranslator(this);
+		if (qtTranslator->load("qt_" + locale, bundledTranslations)) {
 			installTranslator(qtTranslator);
 			translators.append(qtTranslator);
 		}
 		else
 			delete qtTranslator;
 
-		QTranslator *twTranslator = new QTranslator(this);
-		if (twTranslator->load(TEXWORKS_NAME "_" + locale, extraTranslations)) {
+		qtTranslator = new QTranslator(this);
+		if (qtTranslator->load("qt_" + locale, systemTranslations)) {
+			installTranslator(qtTranslator);
+			translators.append(qtTranslator);
+		}
+		else
+			delete qtTranslator;
+
+		qtTranslator = new QTranslator(this);
+		if (qtTranslator->load("qt_" + locale, extraTranslations)) {
+			installTranslator(qtTranslator);
+			translators.append(qtTranslator);
+		}
+		else
+			delete qtTranslator;
+
+		twTranslator = new QTranslator(this);
+		if (twTranslator->load(TEXWORKS_NAME "_" + locale, bundledTranslations)) {
 			installTranslator(twTranslator);
 			translators.append(twTranslator);
 		}
-		else if (twTranslator->load(TEXWORKS_NAME "_" + locale, basicTranslations)) {
+		else
+			delete twTranslator;
+		
+		twTranslator = new QTranslator(this);
+		if (twTranslator->load(TEXWORKS_NAME "_" + locale, extraTranslations)) {
 			installTranslator(twTranslator);
 			translators.append(twTranslator);
 		}
