@@ -1,6 +1,70 @@
-
+var osType, osName, osVersion, userAgent, appVersion, folderId;
 var downloads = [];
-var macOSXCodenames = {'10.5': 'Leopard', '10.6': 'Snow Leopard', '10.7': 'Lion', '10.8' : 'Mountain Lion', '10.9' : 'Mavericks'};
+var macOSXCodenames = {'10.5': 'Leopard', '10.6': 'Snow Leopard', '10.7': 'Lion', '10.8' : 'Mountain Lion', '10.9' : 'Mavericks', '10.10' : 'Yosemite'};
+
+userAgent = navigator.userAgent;
+appVersion = navigator.appVersion;
+
+///////////////////////////// DEBUG
+//            appVersion = "Mac";
+//            userAgent = "Mac OS X 10.8"
+///////////////////////////// DEBUG
+
+if (appVersion.indexOf("Win") > -1) {
+    osName = osType = "Windows";
+} else if (appVersion.indexOf("Mac") > -1) {
+    osType = "Mac";
+    osName = "Mac OS X";
+    var m = userAgent.match(/Mac OS X (\d+)(?:\.|_)(\d+)/);
+    if (m && m.length >= 3) {
+        osVersion = m[1] + "." + m[2];
+    }
+} else {
+    if (userAgent.toLowerCase().indexOf('ubuntu') > -1) {
+        osType = "Linux";
+        osName = "Ubuntu";
+    } else if (userAgent.toLowerCase().indexOf('opensuse') > -1) {
+        osType = "Linux";
+        osName = "openSUSE";
+    } else if (userAgent.toLowerCase().indexOf('debian') > -1) {
+        osType = "Linux";
+        osName = "Debian";
+    } else if (userAgent.toLowerCase().indexOf('fedora') > -1) {
+        osType = "Linux";
+        osName = "Fedora";
+    } else if (navigator.platform.toLowerCase().indexOf('linux') > -1) {
+        osType = "Linux";
+    }
+}
+
+///////////////////////////// DEBUG
+// osType = "Windows";
+// osName = "Mac OS X";
+// osVersion = "10.10";
+///////////////////////////// DEBUG
+
+// Default: sources
+folderId = '0B5iVT8Q7W44pNWNZd1VSaWNCUEU';
+
+if (osType === "Windows") {
+    folderId = '0B5iVT8Q7W44pYzBwMjFBWGdVVHM';
+} else if (osType === "Mac") {
+    folderId = '0B5iVT8Q7W44pMTY5YjNzZmdzS1U';
+} else if (osType === "Linux" && osName !== null) {
+    // For some Linux distros, we link to third-party packages
+    folderId = null;
+}
+
+
+function Download() {
+    "use strict";
+    this.id = "";
+    this.mimetype = "";
+    this.filename = "";
+    this.size = null;
+    this.url = "";
+}
+
 
 function endsWith(str, suffix) {
     "use strict";
@@ -33,7 +97,9 @@ function makeDownloadLink(download, label, versionRegExp) {
     if (m) {
         info[info.length] = 'version&nbsp;' + m[1];
     }
-    info[info.length] = humanReadableFilesize(parseInt(String(download.size), 10));
+    if (download.size) {
+        info[info.length] = humanReadableFilesize(parseInt(String(download.size), 10));
+    }
     if (info.length > 0) {
         html += '<div class="info">' + info.join(', ') + '</div>';
     }
@@ -43,39 +109,7 @@ function makeDownloadLink(download, label, versionRegExp) {
 
 function updateUi() {
     "use strict";
-    var osType, osName, osVersion, userAgent, appVersion, i, j, m, html, el, osVersions, osVersionIdx, downloadVersionIdx, downloadIdx;
-
-    userAgent = navigator.userAgent;
-    appVersion = navigator.appVersion;
-
-///////////////////////////// DEBUG
-//            appVersion = "Mac";
-//            userAgent = "Mac OS X 10.8"
-///////////////////////////// DEBUG
-
-    if (appVersion.indexOf("Win") > -1) {
-        osName = osType = "Windows";
-    } else if (appVersion.indexOf("Mac") > -1) {
-        osType = "Mac";
-        osName = "Mac OS X";
-        m = userAgent.match(/Mac OS X (\d+)(?:\.|_)(\d+)/);
-        if (m && m.length >= 3) {
-            osVersion = m[1] + "." + m[2];
-        }
-    } else {
-        if (userAgent.toLowerCase().indexOf('ubuntu') > -1) {
-            osType = "Linux";
-            osName = "Ubuntu";
-        } else if (userAgent.toLowerCase().indexOf('opensuse') > -1) {
-            osType = "Linux";
-            osName = "openSUSE";
-        } else if (userAgent.toLowerCase().indexOf('debian') > -1) {
-            osType = "Linux";
-            osName = "Debian";
-        } else if (navigator.platform.toLowerCase().indexOf('linux') > -1) {
-            osType = "Linux";
-        }
-    }
+    var i, j, m, html, el, osVersions, osVersionIdx, downloadVersionIdx, downloadIdx;
 
     html = '';
     if (osType === "Windows") {
@@ -88,7 +122,12 @@ function updateUi() {
         }
         // If no installer was found, default to the first file
         if (i >= downloads.length && downloads.length > 0) {
-            html = makeDownloadLink(downloads[0], "Get TeXworks for Windows", /^TeXworks.*?-(\d+\.\d+(?:\.\d)?)-r(\d+)/);
+            for (i = 0; i < downloads.length; i++) {
+                if (endsWith(downloads[i].filename, ".zip")) {
+                    html = makeDownloadLink(downloads[0], "Get TeXworks for Windows", /^TeXworks.*?-(\d+\.\d+(?:\.\d)?)-r(\d+)/);
+                    break;
+                }
+            }
         }
     }
     if (osType === "Mac") {
@@ -104,6 +143,9 @@ function updateUi() {
         downloadVersionIdx = -1;
         for (i = 0; i < downloads.length; i++) {
             m = downloads[i].filename.match(/^TeXworks-Mac-.*?-([^\-.]+)\.dmg/);
+            if (!m) {
+                continue;
+            }
             for (j = 0; j < osVersions.length; j++) {
                 if (macOSXCodenames[osVersions[j]].replace(/\s/g, '').toLowerCase() === m[1].replace(/\s/g, '').toLowerCase()) {
                     if (j > downloadVersionIdx && j <= osVersionIdx) {
@@ -130,6 +172,9 @@ function updateUi() {
         }
         if (osName === 'Debian') {
             html = '<a href="http://packages.debian.org/de/sid/texworks" class="link">Get TeXworks for Debian</a>';
+        }
+        if (osName === 'Fedora') {
+            html = '<a href="https://admin.fedoraproject.org/pkgdb/package/texworks/" class="link">Get TeXworks for Fedora</a>';
         }
     }
 
@@ -158,16 +203,40 @@ function updateUi() {
     el.parentNode.style.display = 'block';
 }
 
-
-function receiveMessage(event) {
+function parseFolder(data) {
     "use strict";
-    if (event.origin !== "http://www.gmodules.com") {
-        return;
+    var reGlob, re, m, mm, i, d;
+    reGlob = /<script>insertIcon\('[^']*', '([^']*)'\)<\/script><\/div><div class="folder-row-inner"><div class="folder-cell"><a href="([^"]*)">([^<]*)<\/a><\/div>/g;
+    re = /<script>insertIcon\('[^']*', '([^']*)'\)<\/script><\/div><div class="folder-row-inner"><div class="folder-cell"><a href="([^"]*)">([^<]*)<\/a><\/div>/;
+
+    // Clear downloads
+    downloads = [];
+
+    // Find beginning of main data
+    data = data.substr(data.indexOf("<body>"));
+    // Find strings of interest
+    m = data.match(reGlob);
+    for (i = 0; i < m.length; i++) {
+        // Parse string
+        mm = re.exec(m[i]);
+        if (!mm || mm.length < 4) {
+            continue; // this should never happen as the RegExp has matched before
+        }
+        // Ignore folders
+        if (mm[1] === 'application/vnd.google-apps.folder') {
+            continue;
+        }
+        d = new Download();
+        d.mimetype = mm[1];
+        d.url = "https://googledrive.com" + mm[2];
+        d.filename = mm[3];
+        downloads[downloads.length] = d;
     }
-    downloads = JSON.parse(event.data);
     updateUi();
 }
 
-
-top.addEventListener("message", receiveMessage, false);
-updateUi();
+if (folderId) {
+    fetchFolder(folderId).done(function (data) { "use strict"; parseFolder(data); }).fail(function () { "use strict"; updateUi(); });
+} else {
+    updateUi();
+}
