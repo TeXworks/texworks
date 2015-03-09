@@ -1221,6 +1221,21 @@ void CompletingEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
 	}
 }
 
+void CompletingEdit::setTextCursor(const QTextCursor & cursor)
+{
+	// QTextEdit::setTextCursor only scrolls to cursor.position(). If 
+	// position() > anchor(), the two are on different lines, and the view has
+	// to scroll up, this means that not the whole selection is visible.
+	// By manually setting the cursor to anchor() first, we ensure that the
+	// anchor is visible. Only then we set the final cursor (which may scroll to
+	// position() as it should, but at least a large part of the selection will
+	// be visible).
+	QTextCursor c(cursor);
+	c.setPosition(c.anchor());
+	QTextEdit::setTextCursor(c);
+	QTextEdit::setTextCursor(cursor);
+}
+
 bool CompletingEdit::event(QEvent *e)
 {
 	if (e->type() == QEvent::UpdateRequest) {
