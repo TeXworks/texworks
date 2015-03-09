@@ -33,13 +33,13 @@
 
 [LaTeX]
 # special characters
-darkred		N	[$#^_{}&]
+darkred		N	[\$#\^_\{\}&]
 
 # LaTeX environments
-darkgreen	N	\\(?:begin|end)\s*\{[^}]*\}
+darkgreen	N	\\(?:begin|end)\s*\{[^\}]*\}
 
 # LaTeX packages
-darkblue	N	\\usepackage\s*(?:\[[^]]*\]\s*)?\{[^}]*\}
+darkblue	N	\\usepackage\s*(?:\[[^\]]*\]\s*)?\{[^\}]*\}
 
 # control sequences
 blue		N	\\(?:[A-Za-z@]+|.)
