@@ -62,6 +62,10 @@ public:
 			smartQuotesModes().at(smartQuotesMode) : QString();
 	}
 	
+	// Override of QTextEdit's method to properly handle scrolling for multiline
+	// cursors
+	void setTextCursor(const QTextCursor & cursor);
+	
 	static QStringList autoIndentModes();
 	static QStringList smartQuotesModes();
 	
