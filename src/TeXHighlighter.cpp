@@ -175,7 +175,7 @@ void TeXHighlighter::loadPatterns()
 	if (syntaxRules == NULL) {
 		syntaxRules = new QList<HighlightingSpec>;
 		QFile syntaxFile(configDir.filePath("syntax-patterns.txt"));
-		QRegExp sectionRE("^\\[([^]]+)\\]");
+		QRegExp sectionRE("^\\[([^\\]]+)\\]");
 		if (syntaxFile.open(QIODevice::ReadOnly)) {
 			HighlightingSpec spec;
 			spec.name = tr("default");
