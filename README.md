@@ -20,10 +20,10 @@ stop by the development webpage, send a mail to the mailing list (preferably via
 the "Help > Email to mailing list" menu item which automatically includes some
 debug information), or file a bug report.
 
-Homepage:     http://www.tug.org/texworks/
-Development:  https://github.com/TeXworks/texworks
-Bugs:         https://github.com/TeXworks/texworks/issues
-Mailing list: http://tug.org/mailman/listinfo/texworks
+- Homepage:     http://www.tug.org/texworks/
+- Development:  https://github.com/TeXworks/texworks
+- Bugs:         https://github.com/TeXworks/texworks/issues
+- Mailing list: http://tug.org/mailman/listinfo/texworks
 
 
 License
