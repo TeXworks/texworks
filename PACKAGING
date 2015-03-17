@@ -20,7 +20,7 @@ General guidelines
 
 This section describes how TeXworks should be packaged. It does not deal with
 the building process itself, however. Building in general is documented in the
-README and on http://code.google.com/p/texworks/w/list, while special
+README and on https://github.com/TeXworks/texworks/wiki, while special
 considerations concerning packaging are discussed in the following sections.
 This section deals with the principal decisions.
 
@@ -148,6 +148,6 @@ Further information and help
 ============================
 
 Homepage:     http://www.tug.org/texworks/
-Development:  http://code.google.com/p/texworks/
-Bugs:         http://code.google.com/p/texworks/issues/list
+Development:  https://github.com/TeXworks/texworks
+Bugs:         https://github.com/TeXworks/texworks/issues
 Mailing list: http://tug.org/mailman/listinfo/texworks

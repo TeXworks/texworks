@@ -38,7 +38,7 @@
 #   [cmake]: http://www.cmake.org
 #   [docco]: http://jashkenas.github.com/docco
 #   [md]: http://daringfireball.net/projects/markdown/
-#   [tw]: http://code.google.com/p/texworks
+#   [tw]: https://github.com/TeXworks/texworks
 
 
 # Setup and User Options
@@ -485,5 +485,3 @@ MESSAGE("")
 MESSAGE("  TeXworks will be installed to:")
 MESSAGE("      ${CMAKE_INSTALL_PREFIX}")
 MESSAGE("")
-
-
