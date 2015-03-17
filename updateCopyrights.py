@@ -1,128 +1,109 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
+#
+# System requirements:
+#  - GitPython: https://pypi.python.org/pypi/GitPython/
+#
+from __future__ import print_function
+from git import Repo
+import datetime, os, re
 
-# This script requires pysvn
-# Under Debian/Ubuntu, you can install it via
-#    sudo apt-get install python-svn
+# Global variable for the git repository
+gitrepo = None
 
-import pysvn, datetime, re, os, sys
+class CopyrightedFile:
+    """A thin wrapper for a real file on the filesystem. This class assists
+    in updating the file's embedded copyright information.
 
-def infoMsg(msg):
-	sys.stdout.write(msg)
-	sys.stdout.flush()
+    Attributes
+    ----------
 
-def svnModified():
-	for s in svnClient.status('.', get_all = False):
-		if not s['text_status'] in [pysvn.wc_status_kind.none, pysvn.wc_status_kind.unversioned, pysvn.wc_status_kind.normal, pysvn.wc_status_kind.ignored]:
-			return True
-		if not s['prop_status'] in [pysvn.wc_status_kind.none, pysvn.wc_status_kind.unversioned, pysvn.wc_status_kind.normal, pysvn.wc_status_kind.ignored]:
-			return True
-	return False
+    CURRENT_YEAR: int
+                  The current year.
+    RE_PART_OF_TEXWORKS: string
+                         A regular expression to match the embedded copyright
+                         line in files.
+    REPLACE_EXTENSIONS: list[string]
+                        Files ending in any of these extensions will be
+                        considered when updating copyrighted files.
 
-# Uses globals: svnClient, svnLog
-def getCopyrightYears(filename):
-	global svnClient, svnLog
-	
-	# Get canonical path (as shown in the changelog)
-	info = svnClient.info2(filename)[0][1]
-	path = info['URL'].replace(info['repos_root_URL'], "")
-	
-	minYear = maxYear = None
-	
-	for rev in svnLog:
-		for p in rev['changed_paths']:
-			if path == p['path']:
-				year = datetime.datetime.utcfromtimestamp(rev['date']).year
-				if not minYear or year < minYear:
-					minYear = year
-				if not maxYear or year > maxYear:
-					maxYear = year
-				# Follow copies
-				if p['copyfrom_path']:
-					path = p['copyfrom_path']
-				break
-	return (minYear, maxYear)
-	
+    """
 
-# Inspired by http://stackoverflow.com/questions/1597649/replace-strings-in-files-by-python
+    CURRENT_YEAR = datetime.datetime.now().year
+    RE_PART_OF_TEXWORKS = "(This is part of TeXworks, an environment for working with TeX documents\s*\n\s*Copyright \(C\)) [-0-9]+  ([^\n]+)"
+    REPLACE_EXTENSIONS = ['.cpp', '.h']
 
-DEFAULT_REPLACE_EXTENSIONS = (".cpp", ".h")
+    def __init__(self, filename):
+        """Construct from filename.
 
-def try_to_replace(fname, replace_extensions=DEFAULT_REPLACE_EXTENSIONS):
-    if replace_extensions:
-        return fname.lower().endswith(replace_extensions)
-    return True
+        Parameters
+        ----------
+        filename: str
+                  Path to a file. This file's copyright information will be
+                  examined and possibly updated by using the helper methods
+                  below.
 
-def replaceInFile(filename):
-	infoMsg("Updating %s... " % filename)
-	
-	# first, see if the pattern is even in the file.
-	f = open(filename)
-	content = f.read()
-	f.close()
-	
-	m = re.search("(This is part of TeXworks, an environment for working with TeX documents\s*\n\s*Copyright \(C\)) [-0-9]+  ([^\n]+)", content)
-	if not m:
-		infoMsg("noop\n")
-		return
+        """
+        self.filename = filename
 
-	(yearStart, yearEnd) = getCopyrightYears(filename)
-	if not yearStart:
-		infoMsg("ERROR\n")
-		return
-	
-	orig = m.group(0)
-	if yearStart == yearEnd:
-		subst = "%s %i  %s" % (m.group(1), yearStart, m.group(2))
-	else:
-		subst = "%s %i-%i  %s" % (m.group(1), yearStart, yearEnd, m.group(2))
-	
-	content = content.replace(orig, subst)
-	
-	f = open(filename, 'w')
-	f.write(content)
-	f.close()
-
-	infoMsg("OK\n")
+    @property
+    def begin_year(self):
+        """Returns the full four-digit year when this file was first committed"""
+        global gitrepo
+        timestamp_str = gitrepo.log('--diff-filter=A', '--format="%at"', '--', self.filename)
+        timestamp = float(timestamp_str.replace('"', ''))
+        return datetime.datetime.fromtimestamp(timestamp).year
 
 
+    def one_of_replace_extensions(self):
+        """Returns True if the file extension is allowed to be updated, False otherwise."""
+        for ext in self.REPLACE_EXTENSIONS:
+            if self.filename.endswith(ext):
+                return True
 
+        return False
 
-################################################################################
-# MAIN
-################################################################################
+    def needs_update(self):
+        """Returns True if the file needs updating, False otherwise."""
+        if not self.one_of_replace_extensions():
+            return False
 
-svnClient = pysvn.Client()
+        self.content = open(self.filename).read()
+        self.matches = re.search(self.RE_PART_OF_TEXWORKS, self.content)
+        return self.matches
 
-# Abort if there are local changes (so if this script should mess things up, it's easy to recover
-if svnModified():
-	print("Your working copy has local changes. Please commit (or revert) them first")
-	sys.exit(1)
+    def update_copyright(self):
+        """Updates the copyright line in the file."""
 
+        # Replace the year(s)
+        orig = self.matches.group(0)
+        subst = "{0} {1}-{2} {3}".format(self.matches.group(1), self.begin_year, self.CURRENT_YEAR, self.matches.group(2))
+        self.content = self.content.replace(orig, subst)
 
+        # Write the contents to disk
+        f = open(self.filename, 'w')
+        f.write(self.content)
+        f.close()
 
-# Get the full log
-infoMsg("Retrieving svn log... ")
-svnLog = svnClient.log('.', discover_changed_paths = True)
-infoMsg("OK\n")
+        print("Updated {0}".format(self.filename))
 
-# Get all versioned files
-infoMsg("Retrieving file list... ")
-files = svnClient.list('.', recurse = True)
-infoMsg("OK\n")
+def manual_update_notice():
+    """Reminder for places where the copyright information must be updated manually"""
+    print("")
+    print("Don't forget to manually update the copyright information in the following files:")
+    for f in ["README.md", "TeXworks.plist.in", "man/texworks.1", "CMake/Modules/COPYING-CMAKE-MODULES", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp"]:
+    	print("   {0}".format(f))
 
-# The first entry is the directory component
-repo_dir = files[0][0]['repos_path']
-files = files[1:]
+def main():
+    """Main"""
+    global gitrepo
+    gitrepo = Repo(".").git
+    for root, dirs, files in os.walk('.'):
+        for f in files:
+            the_file = CopyrightedFile(os.path.join(root, f))
+            if the_file.needs_update():
+                the_file.update_copyright()
 
-# Update copyright information
-for f in files:
-	fname = f[0]['repos_path'][len(repo_dir) + 1:]
-	if try_to_replace(fname):
-		replaceInFile(fname)
+    manual_update_notice()
 
-# Reminder for places where the copyright information must be updated manually
-print("")
-print("Don't forget to manually update the copyright information in the following files:")
-for f in ["README.md", "TeXworks.plist.in", "man/texworks.1", "CMake/Modules/COPYING-CMAKE-MODULES", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp"]:
-	print("   %s" % f)
-
+if __name__ == '__main__':
+    main()
