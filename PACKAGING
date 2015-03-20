@@ -19,8 +19,8 @@ General guidelines
 ==================
 
 This section describes how TeXworks should be packaged. It does not deal with
-the building process itself, however. Building in general is documented in the
-README and on http://code.google.com/p/texworks/w/list, while special
+the building process itself, however. Building in general is documented in
+README.md and on https://github.com/TeXworks/texworks/wiki, while special
 considerations concerning packaging are discussed in the following sections.
 This section deals with the principal decisions.
 
@@ -75,7 +75,7 @@ system directories):
     TW_HELPPATH      path to install help files [DATA_DIR/texworks-help]
     TW_DICPATH       path to look for spell checking files (dictionaries)
                      [/usr/share/myspell/dicts]
-    DOCS_DIR         path to install general docs (README, NEWS, COPYING)
+    DOCS_DIR         path to install general docs (README.md, NEWS, COPYING)
                      [DATA_DIR/doc/texworks]
     ICON_DIR         path to install icons [DATA_DIR/pixmaps]
     MAN_DIR          path to install man files [DATA_DIR/man/man1]
@@ -148,6 +148,6 @@ Further information and help
 ============================
 
 Homepage:     http://www.tug.org/texworks/
-Development:  http://code.google.com/p/texworks/
-Bugs:         http://code.google.com/p/texworks/issues/list
+Development:  https://github.com/TeXworks/texworks
+Bugs:         https://github.com/TeXworks/texworks/issues
 Mailing list: http://tug.org/mailman/listinfo/texworks

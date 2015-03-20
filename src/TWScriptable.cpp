@@ -596,7 +596,7 @@ TWScriptable::runHooks(const QString& hookName)
 void
 TWScriptable::doAboutScripts()
 {
-	QString scriptingLink = QString("<a href=\"%1\">%1</a>").arg("http://code.google.com/p/texworks/wiki/ScriptingTeXworks");
+	QString scriptingLink = QString("<a href=\"%1\">%1</a>").arg("https://github.com/TeXworks/texworks/wiki/ScriptingTeXworks");
 	QString aboutText = "<p>";
 	aboutText += tr("Scripts may be used to add new commands to %1, "
 					"and to extend or modify its behavior.").arg(TEXWORKS_NAME);

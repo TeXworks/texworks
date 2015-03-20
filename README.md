@@ -20,10 +20,10 @@ stop by the development webpage, send a mail to the mailing list (preferably via
 the "Help > Email to mailing list" menu item which automatically includes some
 debug information), or file a bug report.
 
-Homepage:     http://www.tug.org/texworks/
-Development:  http://code.google.com/p/texworks/
-Bugs:         http://code.google.com/p/texworks/issues/list
-Mailing list: http://tug.org/mailman/listinfo/texworks
+- Homepage:     http://www.tug.org/texworks/
+- Development:  https://github.com/TeXworks/texworks
+- Bugs:         https://github.com/TeXworks/texworks/issues
+- Mailing list: http://tug.org/mailman/listinfo/texworks
 
 
 License
@@ -64,7 +64,7 @@ along with their dependencies (such as Freetype, fontconfig, zlib, etc.) If you
 also want to build the scripting plugins (optional), you additionally need
 development packages for Lua and/or Python. Details will depend on your
 platform. On Linux or similar systems, your package manager can probably provide
-all these. 
+all these.
 
 After installing the necessary libraries (and their headers), check the
 TeXworks.pro file and update paths as necessary; some of the paths currently in
@@ -97,6 +97,6 @@ On the Mac, required libraries can be obtained, e.g., using Homebrew.
 
 Further tips on building TeXworks from source are available on some of the wiki
 pages:
- - http://code.google.com/p/texworks/wiki/Building
- - http://code.google.com/p/texworks/wiki/BuildingOnWindowsMinGW
- - http://code.google.com/p/texworks/wiki/BuildingOnMacOSXHomebrew
+ - https://github.com/TeXworks/texworks/wiki/Building
+ - https://github.com/TeXworks/texworks/wiki/BuildingOnWindowsMinGW
+ - https://github.com/TeXworks/texworks/wiki/BuildingOnMacOSXHomebrew
