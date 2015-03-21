@@ -17,8 +17,6 @@ class CopyrightedFile:
     Attributes
     ----------
 
-    CURRENT_YEAR: int
-                  The current year.
     RE_PART_OF_TEXWORKS: string
                          A regular expression to match the embedded copyright
                          line in files.
@@ -28,7 +26,6 @@ class CopyrightedFile:
 
     """
 
-    CURRENT_YEAR = datetime.datetime.now().year
     RE_PART_OF_TEXWORKS = "(This is part of TeXworks, an environment for working with TeX documents\s*\n\s*Copyright \(C\)) [-0-9]+  ([^\n]+)"
     REPLACE_EXTENSIONS = ['.cpp', '.h']
 
@@ -46,12 +43,19 @@ class CopyrightedFile:
         self.filename = filename
 
     @property
-    def begin_year(self):
-        """Returns the full four-digit year when this file was first committed"""
+    def year_range_str(self):
+        """Returns the year (range) in which this file was modified"""
         global gitrepo
-        timestamp_str = gitrepo.log('--diff-filter=A', '--format="%at"', '--', self.filename)
+        timestamp_str = gitrepo.log('--diff-filter=A', '--follow', '--format="%at"', '--', self.filename)
         timestamp = float(timestamp_str.replace('"', ''))
-        return datetime.datetime.fromtimestamp(timestamp).year
+        begin = datetime.datetime.fromtimestamp(timestamp).year
+        timestamp_str = gitrepo.log('-1', '--format="%at"', '--', self.filename)
+        timestamp = float(timestamp_str.replace('"', ''))
+        end = datetime.datetime.fromtimestamp(timestamp).year
+        if begin == end:
+            return str(end)
+        else:
+            return "{0}-{1}".format(begin, end)
 
 
     def one_of_replace_extensions(self):
@@ -76,7 +80,7 @@ class CopyrightedFile:
 
         # Replace the year(s)
         orig = self.matches.group(0)
-        subst = "{0} {1}-{2} {3}".format(self.matches.group(1), self.begin_year, self.CURRENT_YEAR, self.matches.group(2))
+        subst = "{0} {1}  {2}".format(self.matches.group(1), self.year_range_str, self.matches.group(2))
         self.content = self.content.replace(orig, subst)
 
         # Write the contents to disk
