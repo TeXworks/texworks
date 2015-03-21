@@ -122,7 +122,7 @@ accordingly. See lib-patches/poppler-win32-font-handling.patch for an example
 for poppler-0.16 on Windows.
 
 To check if the fonts are picked up correctly, use the base14-fonts testcase
-from http://texworks.googlecode.com/svn/trunk/testcases/.
+from https://github.com/TeXworks/texworks/tree/master/testcases.
 
 Moreover, the poppler library needs the poppler-data from
 http://poppler.freedesktop.org/ (this particularly affects displaying CJK
@@ -133,7 +133,7 @@ you need ensure poppler doesn't mess with it by building poppler with the
 lib-patches/poppler-qt4-globalparams.patch patch.
 
 To check if poppler-data is picked up properly, use the poppler-data testcase
-from http://texworks.googlecode.com/svn/trunk/testcases/.
+from https://github.com/TeXworks/texworks/tree/master/testcases.
 
 
 Other libraries and patches
