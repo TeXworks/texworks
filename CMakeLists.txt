@@ -85,9 +85,20 @@ FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/TWVersion.h TeXworks_VER_PATCH REGEX "VER
 STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_PATCH ${TeXworks_VER_PATCH})
 SET(TeXworks_VERSION ${TeXworks_VER_MAJOR}.${TeXworks_VER_MINOR}.${TeXworks_VER_PATCH})
 
-# Recover SVN revision from `src/SvnRev.h`.
-FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/SvnRev.h TeXworks_SVN_REV LIMIT_COUNT 1)
-STRING(REGEX MATCH "([0-9]+)" TeXworks_SVN_REV ${TeXworks_SVN_REV})
+# Make sure we have up-to-date git commit infos
+IF ( WIN32 )
+	EXECUTE_PROCESS(COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.bat WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+ELSE ( WIN32 )
+	EXECUTE_PROCESS(COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+endif ( WIN32 )
+MESSAGE( STATUS "Git commit info updated" )
+
+# Recover git commit info from `src/GitRev.h`.
+FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/GitRev.h TeXworks_GIT_INFO)
+LIST(GET TeXworks_GIT_INFO 1 TeXworks_GIT_COMMIT)
+STRING(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+)\"" "\\1" TeXworks_GIT_HASH "${TeXworks_GIT_COMMIT}")
+LIST(GET TeXworks_GIT_INFO 2 TeXworks_GIT_COMMIT)
+STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-:0-9 Z]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
 
 
 # Declare Project Options
@@ -341,6 +352,11 @@ IF ( UNIX )
   ENDIF ()
 ENDIF ()
 
+IF ( WIN32 )
+	ADD_CUSTOM_TARGET(GitRev ALL COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.bat WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMENT "Update git commit info")
+ELSE ( WIN32 )
+	ADD_CUSTOM_TARGET(GitRev ALL COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMENT "Update git commit info")
+endif ( WIN32 )
 
 # Building
 # ========
@@ -418,7 +434,7 @@ SET(CPACK_PACKAGE_VERSION_PATCH ${TeXworks_VER_PATCH})
 SET(CPACK_PACKAGE_VERSION ${TeXworks_VERSION})
 
 SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}")
+SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_GIT_HASH}")
 
 # Configure Drag N' Drop installer.
 IF ( APPLE )
@@ -469,7 +485,7 @@ ENDMACRO()
 MESSAGE("TeXworks has been configured:\n")
 
 CONFIG_INFO("Version" ${TeXworks_VERSION})
-CONFIG_INFO("SVN Revision" ${TeXworks_SVN_REV})
+CONFIG_INFO("Git Commit" "${TeXworks_GIT_HASH} (${TeXworks_GIT_DATE})")
 CONFIG_INFO("Build ID" ${TW_BUILD_ID})
 CONFIG_INFO("Qt version" ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH})
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})

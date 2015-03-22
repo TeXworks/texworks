@@ -151,7 +151,7 @@ TARGET_LINK_LIBRARIES( ${EXE_NAME} ${TeXworks_LIBS} )
 # For OS X, generate `Info.plist` and add it to the `.app` bundle.
 IF (APPLE)
   SET(VER ${TeXworks_VERSION})
-  SET(REV ${TeXworks_SVN_REV})
+  SET(REV ${TeXworks_GIT_HASH})
   CONFIGURE_FILE(${TeXworks_SOURCE_DIR}/TeXworks.plist.in
     ${TeXworks_SOURCE_DIR}/TeXworks.plist
     @ONLY

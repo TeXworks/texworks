@@ -30,6 +30,7 @@ SOURCES = \
   "../src/ClickableLabel.cpp" \
   "../src/TWSynchronizer.cpp" \
   "../src/TeXHighlighter.cpp" \
+  "../src/TWVersion.cpp" \
   "../src/TWTextCodecs.cpp" \
   "../src/TWApp.cpp" \
   "../src/synctex_parser_utils.c" \
@@ -53,7 +54,6 @@ HEADERS = \
   "../src/TWUtils.h" \
   "../src/DefaultPrefs.h" \
   "../src/FindDialog.h" \
-  "../src/SvnRev.h" \
   "../src/TWScriptAPI.h" \
   "../src/TWVersion.h" \
   "../src/ScriptManager.h" \
@@ -63,6 +63,7 @@ HEADERS = \
   "../src/TWScriptable.h" \
   "../src/TeXHighlighter.h" \
   "../src/HardWrapDialog.h" \
+  "../src/GitRev.h" \
   "../src/TWSystemCmd.h" \
   "../src/synctex_parser.h" \
   "../src/PrefsDialog.h" \

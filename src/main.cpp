@@ -22,7 +22,6 @@
 #include "TWApp.h"
 #include "TWVersion.h"
 #include "CommandlineParser.h"
-#include "SvnRev.h"
 
 #include <QTimer>
 #include <QTextCodec>
@@ -82,7 +81,10 @@ int main(int argc, char *argv[])
 				launchApp = false;
 			clp.at(i).processed = true;
 			QTextStream strm(stdout);
-			strm << QString("TeXworks %1r%2 (%3)\n\n").arg(TEXWORKS_VERSION).arg(SVN_REVISION_STR).arg(TW_BUILD_ID_STR);
+			if (isGitInfoAvailable())
+				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR).arg(gitCommitHash()).arg(gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
+			else
+				strm << QString::fromUtf8("TeXworks %1 (%3)\n\n").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR);
 			strm << QString::fromUtf8("\
 Copyright (C) %1  %2\n\
 License GPLv2+: GNU GPL (version 2 or later) <http://gnu.org/licenses/gpl.html>\n\

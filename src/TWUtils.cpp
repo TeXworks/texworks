@@ -23,7 +23,7 @@
 #include "TWApp.h"
 #include "TeXDocument.h"
 #include "PDFDocument.h"
-#include "SvnRev.h"
+#include "TWVersion.h"
 
 #include <QFileDialog>
 #include <QString>
@@ -144,15 +144,10 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 		QString srcPath = iter.fileInfo().filePath();
 		QString path = srcRootDir.relativeFilePath(srcPath);
 		QString destPath = destRootDir.filePath(path);
-		
+
 		// Check if the file is in the database
 		if (fvdb.hasFileRecord(destPath)) {
 			FileVersionDatabase::Record rec = fvdb.getFileRecord(destPath);
-			// If we can't update the file, don't bother with the rest of the
-			// code
-			if (rec.version >= SVN_REVISION)
-				continue;
-			
 			// If the file no longer exists on the disk, the user has deleted it
 			// Hence we won't recreate it, but we keep the database record to
 			// remember that this file was deleted by the user
@@ -170,19 +165,19 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// latest version from the internet)
 				if (destHash != srcHash)
 					continue;
-				fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+				fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
 			}
 			else {
 				// The file matches the record in the database; update it
 				// (copying is only necessary if the contents has changed)
 				if (srcHash == destHash)
-					fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+					fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
 				else {
 					// we have to remove the file first as QFile::copy doesn't
 					// overwrite existing files
 					QFile::remove(destPath);
 					if(QFile::copy(srcPath, destPath))
-						fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+						fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
 				}
 			}
 		}
@@ -195,7 +190,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// might fail
 				destRootDir.mkpath(QFileInfo(destPath).path());
 				QFile(srcPath).copy(destPath);
-				fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+				fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
 			}
 			else {
 				// If a file with that name already exists, we don't replace it
@@ -204,7 +199,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// database so that future updates are applied
 				QByteArray destHash = FileVersionDatabase::hashForFile(destPath);
 				if (srcHash == destHash)
-					fvdb.addFileRecord(destPath, destHash, SVN_REVISION);
+					fvdb.addFileRecord(destPath, destHash, gitCommitHash());
 			}
 		}
 	}
@@ -1275,7 +1270,7 @@ FileVersionDatabase FileVersionDatabase::load(const QString & path)
 		// ignore comments
 		if (line.startsWith('#')) continue;
 		
-		rec.version = line.section(' ', 0, 0).toUInt();
+		rec.version = line.section(' ', 0, 0);
 		rec.hash = QByteArray::fromHex(line.section(' ', 1, 1).toLatin1());
 		rec.filePath = line.section(' ', 2).trimmed();
 		rec.filePath = rootDir.absoluteFilePath(rec.filePath.filePath());
@@ -1306,7 +1301,7 @@ bool FileVersionDatabase::save(const QString & path) const
 	return true;
 }
 
-void FileVersionDatabase::addFileRecord(const QFileInfo & file, const QByteArray & md5Hash, const unsigned int version)
+void FileVersionDatabase::addFileRecord(const QFileInfo & file, const QByteArray & md5Hash, const QString version)
 {
 	// remove all existing entries for this file
 	QMutableListIterator<FileVersionDatabase::Record> it(m_records);
@@ -1349,7 +1344,7 @@ FileVersionDatabase::Record FileVersionDatabase::getFileRecord(const QFileInfo &
 	}
 
 	FileVersionDatabase::Record retVal;
-	retVal.version = 0;
+	retVal.version = QString();
 	retVal.hash = QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e"); // hash for the zero-length string
 	return retVal;
 }

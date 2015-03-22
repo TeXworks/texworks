@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2008-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,18 +19,27 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef __TW_VERSION_H
-#define __TW_VERSION_H
+#include "TWVersion.h"
+#include "GitRev.h"
 
 #include <QDateTime>
 
-#define VER_MAJOR			0
-#define VER_MINOR			5
-#define VER_BUGFIX			0
-#define TEXWORKS_VERSION	"0.5"
+bool isGitInfoAvailable()
+{
+	return (!QString::fromAscii(GIT_COMMIT_HASH).startsWith("$Format:") && !QString::fromAscii(GIT_COMMIT_DATE).startsWith("$Format:"));
+}
 
-bool isGitInfoAvailable();
-QString gitCommitHash();
-QDateTime gitCommitDate();
+QString gitCommitHash()
+{
+	if(QString::fromAscii(GIT_COMMIT_HASH).startsWith("$Format:"))
+		return QString();
+	return GIT_COMMIT_HASH;
+}
 
-#endif // !defined(__TW_VERSION_H)
+QDateTime gitCommitDate()
+{
+	if (QString::fromAscii(GIT_COMMIT_DATE).startsWith("$Format:"))
+		return QDateTime();
+	return QDateTime::fromString(GIT_COMMIT_DATE, Qt::ISODate).toUTC();
+}
+
