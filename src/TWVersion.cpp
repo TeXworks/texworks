@@ -26,19 +26,19 @@
 
 bool isGitInfoAvailable()
 {
-	return (!QString::fromAscii(GIT_COMMIT_HASH).startsWith("$Format:") && !QString::fromAscii(GIT_COMMIT_DATE).startsWith("$Format:"));
+	return (!QString::fromLatin1(GIT_COMMIT_HASH).startsWith("$Format:") && !QString::fromLatin1(GIT_COMMIT_DATE).startsWith("$Format:"));
 }
 
 QString gitCommitHash()
 {
-	if(QString::fromAscii(GIT_COMMIT_HASH).startsWith("$Format:"))
+	if(QString::fromLatin1(GIT_COMMIT_HASH).startsWith("$Format:"))
 		return QString();
 	return GIT_COMMIT_HASH;
 }
 
 QDateTime gitCommitDate()
 {
-	if (QString::fromAscii(GIT_COMMIT_DATE).startsWith("$Format:"))
+	if (QString::fromLatin1(GIT_COMMIT_DATE).startsWith("$Format:"))
 		return QDateTime();
 	return QDateTime::fromString(GIT_COMMIT_DATE, Qt::ISODate).toUTC();
 }
