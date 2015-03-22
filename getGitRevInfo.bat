@@ -3,7 +3,7 @@
 rem Use git to create src/GitRev.h.new with latest commit information. If this
 rem fails (e.g., because git is not available), we assume that this is an export
 rem so the commit info is in GitArchiveInfo.txt
-git show --no-patch --pretty="// This file is used to identify the latest git commit. Please do not touch.%%n#define GIT_COMMIT_HASH \"%%h\"%%n#define GIT_COMMIT_DATE \"%%ci\"%%n" > src\GitRev.h.new 2> nul || copy GitArchiveInfo.txt src\GitRev.h.new > nul
+git --git-dir=".git" show --no-patch --pretty="// This file is used to identify the latest git commit. Please do not touch.%%n#define GIT_COMMIT_HASH \"%%h\"%%n#define GIT_COMMIT_DATE \"%%ci\"%%n" > src\GitRev.h.new 2> nul || copy GitArchiveInfo.txt src\GitRev.h.new > nul
 
 rem If src/GitRev.h does not exist, yet, we simply create it now
 if not exist src\GitRev.h (
