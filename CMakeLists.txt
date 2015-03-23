@@ -197,6 +197,7 @@ IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 4)
       QtUiTools
       QtScript
       QtScriptTools
+      QtXml
   )
 
   IF ( UNIX AND NOT APPLE )
