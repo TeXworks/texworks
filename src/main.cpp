@@ -81,8 +81,8 @@ int main(int argc, char *argv[])
 				launchApp = false;
 			clp.at(i).processed = true;
 			QTextStream strm(stdout);
-			if (isGitInfoAvailable())
-				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR).arg(gitCommitHash()).arg(gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
+			if (TWUtils::isGitInfoAvailable())
+				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR).arg(TWUtils::gitCommitHash()).arg(TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
 			else
 				strm << QString::fromUtf8("TeXworks %1 (%3)\n\n").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR);
 			strm << QString::fromUtf8("\

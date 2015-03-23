@@ -117,6 +117,10 @@ public:
 	
 	static void installCustomShortcuts(QWidget * widget, bool recursive = true, QSettings * map = NULL);
 
+	static bool isGitInfoAvailable();
+	static QString gitCommitHash();
+	static QDateTime gitCommitDate();
+
 private:
 	TWUtils();
 

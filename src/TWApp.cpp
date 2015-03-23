@@ -292,8 +292,8 @@ void TWApp::about()
 	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(TEXWORKS_NAME);
 	aboutText += "<small>";
 	aboutText += "<p>&#xA9; 2007-2015  Jonathan Kew, Stefan L&#xF6;ffler, Charlie Sharpsteen";
-	if (isGitInfoAvailable())
-		aboutText += tr("<br>Version %1 (%2) [r.%3, %4]").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR).arg(gitCommitHash()).arg(gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
+	if (TWUtils::isGitInfoAvailable())
+		aboutText += tr("<br>Version %1 (%2) [r.%3, %4]").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR).arg(TWUtils::gitCommitHash()).arg(TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
 	else
 		aboutText += tr("<br>Version %1 (%2)").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR);
 	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2 or (at your option) any later version.");
@@ -486,7 +486,7 @@ void TWApp::writeToMailingList()
 	QString address("texworks@tug.org");
 	QString body("Thank you for taking the time to write an email to the TeXworks mailing list. Please read the instructions below carefully as following them will greatly facilitate the communication.\n\nInstructions:\n-) Please write your message in English (it's in your own best interest; otherwise, many people will not be able to understand it and therefore will not answer).\n\n-) Please type something meaningful in the subject line.\n\n-) If you are having a problem, please describe it step-by-step in detail.\n\n-) After reading, please delete these instructions (up to the \"configuration info\" below which we may need to find the source of problems).\n\n\n\n----- configuration info -----\n");
 
-	body += "TeXworks version : " TEXWORKS_VERSION "r." + gitCommitHash() + " (" TW_BUILD_ID_STR ")\n";
+	body += "TeXworks version : " TEXWORKS_VERSION "r." + TWUtils::gitCommitHash() + " (" TW_BUILD_ID_STR ")\n";
 #if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	body += "Install location : " + QDir(applicationDirPath() + "/../..").absolutePath() + "\n";
 #else

@@ -19,18 +19,7 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef __TW_VERSION_H
-#define __TW_VERSION_H
-
-#include <QDateTime>
-
 #define VER_MAJOR			0
 #define VER_MINOR			5
 #define VER_BUGFIX			0
 #define TEXWORKS_VERSION	"0.5"
-
-bool isGitInfoAvailable();
-QString gitCommitHash();
-QDateTime gitCommitDate();
-
-#endif // !defined(__TW_VERSION_H)

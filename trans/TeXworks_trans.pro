@@ -30,7 +30,6 @@ SOURCES = \
   "../src/ClickableLabel.cpp" \
   "../src/TWSynchronizer.cpp" \
   "../src/TeXHighlighter.cpp" \
-  "../src/TWVersion.cpp" \
   "../src/TWTextCodecs.cpp" \
   "../src/TWApp.cpp" \
   "../src/synctex_parser_utils.c" \

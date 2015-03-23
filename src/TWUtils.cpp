@@ -24,6 +24,7 @@
 #include "TeXDocument.h"
 #include "PDFDocument.h"
 #include "TWVersion.h"
+#include "GitRev.h"
 
 #include <QFileDialog>
 #include <QString>
@@ -40,6 +41,7 @@
 #include <QSignalMapper>
 #include <QCryptographicHash>
 #include <QTextStream>
+#include <QDateTime>
 
 #include <hunspell.h>
 
@@ -1139,6 +1141,28 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 	
 	if (deleteMap)
 		delete map;
+}
+
+// static
+bool TWUtils::isGitInfoAvailable()
+{
+	return (!QString::fromLatin1(GIT_COMMIT_HASH).startsWith("$Format:") && !QString::fromLatin1(GIT_COMMIT_DATE).startsWith("$Format:"));
+}
+
+// static
+QString TWUtils::gitCommitHash()
+{
+	if(QString::fromLatin1(GIT_COMMIT_HASH).startsWith("$Format:"))
+		return QString();
+	return GIT_COMMIT_HASH;
+}
+
+// static
+QDateTime TWUtils::gitCommitDate()
+{
+	if (QString::fromLatin1(GIT_COMMIT_DATE).startsWith("$Format:"))
+		return QDateTime();
+	return QDateTime::fromString(GIT_COMMIT_DATE, Qt::ISODate).toUTC();
 }
 
 #pragma mark === SelWinAction ===
