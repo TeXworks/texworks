@@ -257,6 +257,7 @@ LogParser.prototype.Parse = function(output, rootFileName)
     }
   }
 
+  this.WarnUTF8BOM();
   this.WarnAuxFiles();
 }
 
@@ -389,6 +390,21 @@ LogParser.MatchNewFile = (function()
     return null;
   };
 })();
+
+
+LogParser.prototype.WarnUTF8BOM = function()
+{
+  if (TW.target.currentCodecName != "UTF-8" || !TW.target.writeUTF8BOM)
+    return;
+  for (var i = this.Results.length-1; i >= 0; i--) {
+    if (this.Results[i].Description.indexOf("LaTeX Error: Missing \\begin{document}.") > -1) {
+      TW.warning(null, "", "The UTF-8 byte order mark can confuse some " +
+        "variants of TeX. You may want to disable it in the encoding popup " +
+        "available from the status bar.")
+      break;
+    }
+  }
+}
 
 
 LogParser.prototype.WarnAuxFiles = function()
