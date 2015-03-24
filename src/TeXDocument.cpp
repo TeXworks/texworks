@@ -1417,7 +1417,8 @@ bool TeXDocument::saveFile(const QString &fileName)
 		
 		// When using the UTF-8 codec (mib = 106), byte order marks (BOMs) are
 		// ignored during reading and not produced when writing. To keep them in
-		// files that have them, we need to write them ourselves.
+		// files that have them (or the user wants them), we need to write them
+		// ourselves.
 		if (codec->mibEnum() == 106 && utf8BOM)
 			file.write("\xEF\xBB\xBF");
 		
@@ -1638,12 +1639,17 @@ void TeXDocument::encodingPopup(const QPoint loc)
 	QAction * reloadAction = new QAction(tr("Reload using selected encoding"), &menu);
 	//: Tooltip for "Reload using selected encoding"
 	reloadAction->setToolTip(tr("Reloads the current file with the encoding selected from this menu.\n\nThe selected encoding replaces the default one and overrides all \"%!TEX encoding\" lines."));
+	QAction * BOMAction = new QAction(tr("Write UTF-8 byte order mark"), &menu);
+	BOMAction->setCheckable(true);
+	BOMAction->setChecked(utf8BOM);
+	// Only enable this option if we are currently using the UTF-8 codec
+	BOMAction->setEnabled(codec && codec->mibEnum() == 106);
 	QAction * a;
 	
-	if (!isUntitled) {
+	if (!isUntitled)
 		menu.addAction(reloadAction);
-		menu.addSeparator();
-	}
+	menu.addAction(BOMAction);
+	menu.addSeparator();
 	
 	foreach (QTextCodec *codec, *TWUtils::findCodecs()) {
 		a = new QAction(codec->name(), &menu);
@@ -1667,6 +1673,15 @@ void TeXDocument::encodingPopup(const QPoint loc)
 			clearFileWatcher(); // stop watching until next save or reload
 			loadFile(curFile, false, true, true, codec);
 			; // FIXME
+		}
+		else if (result == BOMAction) {
+			utf8BOM = BOMAction->isChecked();
+			// If the UTF-8 codec is selected, changing utf8BOM actually
+			// modifies how the file is saved. In all other cases, it does not
+			// take effect until the UTF-8 codec is selected (in which case the
+			// modified flag is set anyway).
+			if (codec && codec->mibEnum() == 106)
+				textEdit->document()->setModified();
 		}
 		else {
 			QTextCodec *newCodec = QTextCodec::codecForName(result->text().toLatin1());
