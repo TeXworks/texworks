@@ -864,15 +864,15 @@ void CompletingEdit::showCompletion(const QString& completion, int insOffset)
 	QTextCursor tc = cmpCursor;
 	if (tc.isNull()) {
 		tc = textCursor();
-		tc.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, c->completionPrefix().length());
+		tc.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, c->completionPrefix().length());
 	}
 
 	tc.insertText(completion);
 	cmpCursor = tc;
-	cmpCursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, completion.length());
+	cmpCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, completion.length());
 
 	if (insOffset != -1)
-		tc.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor, completion.length() - insOffset);
+		tc.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, completion.length() - insOffset);
 	setTextCursor(tc);
 
 	currentCompletionRange = cmpCursor;
