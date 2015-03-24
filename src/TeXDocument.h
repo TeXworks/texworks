@@ -87,6 +87,8 @@ public:
 	int cursorPosition() const { return textCursor().position(); }
 	int selectionStart() const { return textCursor().selectionStart(); }
 	int selectionLength() const { return textCursor().selectionEnd() - textCursor().selectionStart(); }
+	QString getCurrentCodecName() const { return (codec ? codec->name() : QString()); }
+	bool getUTF8BOM() const { return utf8BOM; }
 	
 	QString spellcheckLanguage() const;
 
@@ -123,6 +125,8 @@ public:
 	Q_PROPERTY(bool untitled READ untitled STORED false)
 	Q_PROPERTY(bool modified READ isModified WRITE setModified STORED false)
 	Q_PROPERTY(QString spellcheckLanguage READ spellcheckLanguage WRITE setSpellcheckLanguage STORED false)
+	Q_PROPERTY(QString currentCodecName READ getCurrentCodecName STORED false)
+	Q_PROPERTY(bool writeUTF8BOM READ getUTF8BOM STORED false)
 	
 signals:
 	void syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview);
