@@ -1330,7 +1330,6 @@ bool TeXDocument::openPdfIfAvailable(bool show)
 		PDFDocument *existingPdf = PDFDocument::findDocument(pdfName);
 		if (existingPdf != NULL) {
 			pdfDoc = existingPdf;
-			pdfDoc->reload();
 			pdfDoc->selectWindow();
 			pdfDoc->linkToSource(this);
 		}
