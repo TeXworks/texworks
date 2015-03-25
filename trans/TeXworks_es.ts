@@ -546,6 +546,10 @@
         <source>Clear Recent Files</source>
         <translation>Limpiar lista de archivos recientes</translation>
     </message>
+    <message>
+        <source>Error initializing SyncTeX</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -1294,7 +1298,7 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation>&lt;br&gt;Versión %1 р.%2 (%3)</translation>
+        <translation type="obsolete">&lt;br&gt;Versión %1 р.%2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
@@ -1396,6 +1400,14 @@ adecuados. ¿Quiere abrirlo de todos modos?</translation>
     <message>
         <source>Clear Recent Files</source>
         <translation>Limpiar lista de archivos recientes</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2318,6 +2330,10 @@ Ofrecemos disculpas por las molestias ocasionadas.</translatorcomment>
     <message>
         <source>Show Console Output</source>
         <translation>Mostrar panel de salida</translation>
+    </message>
+    <message>
+        <source>Write UTF-8 byte order mark</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

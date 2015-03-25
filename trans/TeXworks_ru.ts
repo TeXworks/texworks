@@ -539,6 +539,10 @@
         <source>Abort typesetting</source>
         <translation>Прервать вёрстку</translation>
     </message>
+    <message>
+        <source>Error initializing SyncTeX</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -1289,7 +1293,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation>&lt;br&gt;Версия %1 r.%2 (%3)</translation>
+        <translation type="obsolete">&lt;br&gt;Версия %1 r.%2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
@@ -1390,6 +1394,14 @@
     <message>
         <source>Clear Recent Files</source>
         <translation>Очистить список недавно открытых файлов</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2296,6 +2308,10 @@ We are sorry for the inconvenience.</source>
     <message>
         <source>Show Console Output</source>
         <translation>Показать панель вывода</translation>
+    </message>
+    <message>
+        <source>Write UTF-8 byte order mark</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

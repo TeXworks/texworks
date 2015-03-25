@@ -530,6 +530,10 @@
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (hugs å lukka programmet igjen etterpå, for å unngå tilgangsproblem)</translation>
     </message>
+    <message>
+        <source>Error initializing SyncTeX</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -1281,7 +1285,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation>&lt;br&gt;Versjon %1 r.%2 (%3)</translation>
+        <translation type="obsolete">&lt;br&gt;Versjon %1 r.%2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
@@ -1306,6 +1310,14 @@
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Skriptet «%1» prøver å opna fila «%2», men har ikkje løyve til dette. Ønskjer du å opna fila?</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2153,6 +2165,10 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation>Fila du prøver å opna på nytt har ulagra endringar.
 
 Ønskjer du å forkasta endringane og lasta inn fila frå disk med teiknkodinga %1?</translation>
+    </message>
+    <message>
+        <source>Write UTF-8 byte order mark</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
