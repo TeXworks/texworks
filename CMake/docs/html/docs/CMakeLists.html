@@ -42,6 +42,7 @@
           <a class="source" href="CMake/packaging/CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
           <a class="source" href="CMake/packaging/mac/MacPackagingTasks.cmake.html">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
           <a class="source" href="CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="modules/QtPDF/CMakeLists.html">modules/QtPDF/CMakeLists.txt</a>
           <a class="source" href="plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
           <a class="source" href="plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
           <a class="source" href="src/CMakeLists.html">src/CMakeLists.txt</a>
@@ -96,7 +97,7 @@ operating systems and can set TeXworks up to be built using GNU
 Makefiles, XCode or Visual Studio.</p></li>
 <li><p>Includes CPack, a tool which simplifies the task of packaging the
 TeXworks app for release after it has been built. CPack can generate
-Drag N' Drop installers for the Mac, Nullsoft installers for Windows and
+Drag N&#39; Drop installers for the Mac, Nullsoft installers for Windows and
 <code>.deb</code> or <code>.rpm</code> packages for Linux.</p></li>
 </ul>
 
@@ -143,8 +144,8 @@ future developers and maintainers.</p>
 provides support for certain parts of Qt, such as the ScriptTools.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_COLOR_MAKEFILE</span> <span class="s">ON</span><span class="p">)</span></pre></div>
+        <div class='highlight'><pre><span class="nb">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8.6</span><span class="p">)</span>
+<span class="nb">CMAKE_POLICY</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8.6</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -153,20 +154,44 @@ provides support for certain parts of Qt, such as the ScriptTools.</p>
           <a class="pilcrow" href="#section-5">&#182;</a>
           <span class="bookmark" id="section-5"></span>
         </div>
+        <p>Silence warning about linking to qtmain.lib statically on Windows</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span><span class="p">(</span><span class="s">POLICY</span> <span class="s">CMP0020</span><span class="p">)</span>
+  <span class="nb">cmake_policy</span><span class="p">(</span><span class="s">SET</span> <span class="s">CMP0020</span> <span class="s">NEW</span><span class="p">)</span>
+<span class="nb">ENDIF</span><span class="p">()</span>
+
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_COLOR_MAKEFILE</span> <span class="s">ON</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+          <span class="bookmark" id="section-6"></span>
+        </div>
         <p>Always add the current source and binary directories to the header include
 path when compiling.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_INCLUDE_CURRENT_DIR</span> <span class="s">ON</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_AUTOMOC</span> <span class="s">TRUE</span><span class="p">)</span>
 
-<span class="nb">IF</span> <span class="p">(</span> <span class="s">WIN32</span> <span class="p">)</span>
-  <span class="nb">MESSAGE</span><span class="p">(</span> <span class="s">WARNING</span>
-    <span class="s2">&quot;The CMake build system has only been tested on Mac OS X and Linux.&quot;</span>
-    <span class="s2">&quot;\nIt probably won&#39;t work on Windows. Patches containing fixes are&quot;</span>
-    <span class="s2">&quot;\nwelcomed at:&quot;</span>
-    <span class="s2">&quot;\n  https://github.com/Sharpie/TeXworks&quot;</span>
-  <span class="p">)</span>
-<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+<span class="nb">IF</span><span class="p">(</span><span class="s">WIN32</span> <span class="s">AND</span> <span class="s">MINGW</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+          <span class="bookmark" id="section-7"></span>
+        </div>
+        <p>Ensure that no cpp flags are passed to windres, the Windows resource compiler.
+At least with MinGW 4 on Windows, that would cause problems</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_RC_COMPILE_OBJECT</span> <span class="s2">&quot;&lt;CMAKE_RC_COMPILER&gt; -O coff &lt;DEFINES&gt; &lt;SOURCE&gt; &lt;OBJECT&gt;&quot;</span><span class="p">)</span>
+<span class="nb">ENDIF</span><span class="p">()</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -184,11 +209,11 @@ path when compiling.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-7">&#182;</a>
-          <span class="bookmark" id="section-7"></span>
+          <a class="pilcrow" href="#section-9">&#182;</a>
+          <span class="bookmark" id="section-9"></span>
         </div>
         <p>The values recovered here are used in the filenames of packaged builds and
-influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
+influence parts of the application such as the &quot;About&quot; dialog.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre></pre></div>
@@ -197,8 +222,8 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
-          <span class="bookmark" id="section-8"></span>
+          <a class="pilcrow" href="#section-10">&#182;</a>
+          <span class="bookmark" id="section-10"></span>
         </div>
         <p>Recover canonical (x.y.z) version number from <code>src/TWVersion.h</code>.</p>
       </td>
@@ -215,14 +240,38 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
-          <span class="bookmark" id="section-9"></span>
+          <a class="pilcrow" href="#section-11">&#182;</a>
+          <span class="bookmark" id="section-11"></span>
         </div>
-        <p>Recover SVN revision from <code>src/SvnRev.h</code>.</p>
+        <p>Make sure we have up-to-date git commit infos</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">FILE</span><span class="p">(</span><span class="s">STRINGS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/SvnRev.h</span> <span class="s">TeXworks_SVN_REV</span> <span class="s">LIMIT_COUNT</span> <span class="s">1</span><span class="p">)</span>
-<span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">MATCH</span> <span class="s2">&quot;([0-9]+)&quot;</span> <span class="s">TeXworks_SVN_REV</span> <span class="o">${</span><span class="nv">TeXworks_SVN_REV</span><span class="o">}</span><span class="p">)</span></pre></div>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">CMAKE_CROSSCOMPILING</span> <span class="p">)</span>
+  <span class="nb">IF</span> <span class="p">(</span> <span class="s">WIN32</span> <span class="p">)</span>
+    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/getGitRevInfo.bat</span> <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">ADD_CUSTOM_TARGET</span><span class="p">(</span><span class="s">GitRev</span> <span class="s">ALL</span> <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/getGitRevInfo.bat</span> <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span> <span class="s">COMMENT</span> <span class="s2">&quot;Update git commit info&quot;</span><span class="p">)</span>
+  <span class="nb">ELSE</span> <span class="p">(</span> <span class="s">WIN32</span> <span class="p">)</span>
+    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/getGitRevInfo.sh</span> <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">ADD_CUSTOM_TARGET</span><span class="p">(</span><span class="s">GitRev</span> <span class="s">ALL</span> <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/getGitRevInfo.sh</span> <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span> <span class="s">COMMENT</span> <span class="s2">&quot;Update git commit info&quot;</span><span class="p">)</span>
+  <span class="nb">ENDIF</span> <span class="p">(</span> <span class="s">WIN32</span> <span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">CMAKE_CROSSCOMPILING</span><span class="p">)</span>
+<span class="nb">MESSAGE</span><span class="p">(</span> <span class="s">STATUS</span> <span class="s2">&quot;Git commit info updated&quot;</span> <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-12">&#182;</a>
+          <span class="bookmark" id="section-12"></span>
+        </div>
+        <p>Recover git commit info from <code>src/GitRev.h</code>.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">FILE</span><span class="p">(</span><span class="s">STRINGS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/GitRev.h</span> <span class="s">TeXworks_GIT_INFO</span><span class="p">)</span>
+<span class="nb">LIST</span><span class="p">(</span><span class="s">GET</span> <span class="s">TeXworks_GIT_INFO</span> <span class="s">1</span> <span class="s">TeXworks_GIT_COMMIT</span><span class="p">)</span>
+<span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;#define GIT_COMMIT_HASH \&quot;</span><span class="p">(</span><span class="s">[a-f0-9]+</span><span class="p">)</span><span class="s">\&quot;&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">TeXworks_GIT_HASH</span> <span class="s2">&quot;${TeXworks_GIT_COMMIT}&quot;</span><span class="p">)</span>
+<span class="nb">LIST</span><span class="p">(</span><span class="s">GET</span> <span class="s">TeXworks_GIT_INFO</span> <span class="s">2</span> <span class="s">TeXworks_GIT_COMMIT</span><span class="p">)</span>
+<span class="nb">STRING</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;#define GIT_COMMIT_DATE \&quot;</span><span class="p">(</span><span class="s">[-:0-9</span> <span class="s">Z]+</span><span class="p">)</span><span class="s">\&quot;&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">TeXworks_GIT_DATE</span> <span class="s2">&quot;${TeXworks_GIT_COMMIT}&quot;</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -240,8 +289,8 @@ influence parts of the application such as the &ldquo;About&rdquo; dialog.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-11">&#182;</a>
-          <span class="bookmark" id="section-11"></span>
+          <a class="pilcrow" href="#section-14">&#182;</a>
+          <span class="bookmark" id="section-14"></span>
         </div>
         <p>These are options that users can set at configure-time to determine how the
 application is built and what functionalities it will have. Here we declare
@@ -254,8 +303,47 @@ these options by setting default values.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-12">&#182;</a>
-          <span class="bookmark" id="section-12"></span>
+          <a class="pilcrow" href="#section-15">&#182;</a>
+          <span class="bookmark" id="section-15"></span>
+        </div>
+        <p>Build with shared libs by default</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">DEFINED</span> <span class="s">BUILD_SHARED_LIBS</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">BUILD_SHARED_LIBS</span> <span class="s">ON</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span>
+<span class="nb">OPTION</span><span class="p">(</span><span class="s">BUILD_SHARED_LIBS</span> <span class="s2">&quot;Build with shared libs?&quot;</span> <span class="o">${</span><span class="nv">BUILD_SHARED_LIBS</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">BUILD_SHARED_LIBS</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-16">&#182;</a>
+          <span class="bookmark" id="section-16"></span>
+        </div>
+        <p>Build shared plugins by default</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">DEFINED</span> <span class="s">BUILD_SHARED_PLUGINS</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">BUILD_SHARED_PLUGINS</span> <span class="o">${</span><span class="nv">BUILD_SHARED_LIBS</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">ENDIF</span><span class="p">()</span>
+<span class="nb">OPTION</span><span class="p">(</span><span class="s">BUILD_SHARED_PLUGINS</span> <span class="s2">&quot;Build shared plugins?&quot;</span> <span class="o">${</span><span class="nv">BUILD_SHARED_PLUGINS</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">BUILD_SHARED_PLUGINS</span><span class="p">)</span>
+
+<span class="nb">OPTION</span><span class="p">(</span><span class="s">PREFER_BUNDLED_SYNCTEX</span> <span class="s2">&quot;Use SyncTeX bundled with TeXworks even if a shared library is found?&quot;</span> <span class="s">OFF</span><span class="p">)</span>
+<span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">PREFER_BUNDLED_SYNCTEX</span><span class="p">)</span>
+
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_LIBRARY_OUTPUT_DIRECTORY</span> <span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path to place libraries in&quot;</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_RUNTIME_OUTPUT_DIRECTORY</span> <span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path to place programs in&quot;</span><span class="p">)</span>
+<span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">CMAKE_LIBRARY_OUTPUT_DIRECTORY</span> <span class="s">CMAKE_RUNTIME_OUTPUT_DIRECTORY</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-17">&#182;</a>
+          <span class="bookmark" id="section-17"></span>
         </div>
         <p>On UNIX, CMake installs to <code>/usr/local</code> by default. However, Mac users
 will probably find <code>/Applications</code> a more convenient default.</p>
@@ -269,8 +357,8 @@ will probably find <code>/Applications</code> a more convenient default.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-13">&#182;</a>
-          <span class="bookmark" id="section-13"></span>
+          <a class="pilcrow" href="#section-18">&#182;</a>
+          <span class="bookmark" id="section-18"></span>
         </div>
         <p>Do an optimized release build by default</p>
       </td>
@@ -283,21 +371,21 @@ will probably find <code>/Applications</code> a more convenient default.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-14">&#182;</a>
-          <span class="bookmark" id="section-14"></span>
+          <a class="pilcrow" href="#section-19">&#182;</a>
+          <span class="bookmark" id="section-19"></span>
         </div>
         <p>Options controlling the creation of scripting language plugins.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="nb">OPTION</span><span class="p">(</span><span class="s">WITH_LUA</span> <span class="s2">&quot;Build TeXworks Lua plugin?&quot;</span> <span class="s">ON</span><span class="p">)</span>
-<span class="nb">OPTION</span><span class="p">(</span><span class="s">WITH_PYTHON</span> <span class="s2">&quot;Build TeXworks Python plugin?&quot;</span> <span class="s">ON</span><span class="p">)</span></pre></div>
+<span class="nb">OPTION</span><span class="p">(</span><span class="s">WITH_PYTHON</span> <span class="s2">&quot;Build TeXworks Python plugin?&quot;</span> <span class="s">OFF</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-15">&#182;</a>
-          <span class="bookmark" id="section-15"></span>
+          <a class="pilcrow" href="#section-20">&#182;</a>
+          <span class="bookmark" id="section-20"></span>
         </div>
         <p>On OS X we default to linking against the Python libraries provided by Apple
 even if other Pythons are available. This helps when building
@@ -307,7 +395,27 @@ link against whatever Python they wish for a personal build.</p>
       <td class=code>
         <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
   <span class="nb">OPTION</span><span class="p">(</span><span class="s">USE_SYSTEM_PYTHON</span> <span class="s2">&quot;Link against Python Framework distributed with OS X?&quot;</span> <span class="s">ON</span><span class="p">)</span>
-<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+<span class="nb">ENDIF</span> <span class="p">()</span>
+
+<span class="nb">IF</span> <span class="p">(</span><span class="s">UNIX</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">APPLE</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_HELP_DIR</span> <span class="s">share/doc/texworks-help</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path where TeXworks looks for help files&quot;</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_DIC_DIR</span> <span class="s">/usr/share/myspell/dicts</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path where TeXworks looks for spellchecking dictionaries&quot;</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_DOCS_DIR</span> <span class="s">share/doc/texworks</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path in which documentation files are installed&quot;</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_ICON_DIR</span> <span class="s">share/pixmaps</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path in which icons are installed&quot;</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_MAN_DIR</span> <span class="s">share/man/man1</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path in which manpages are installed&quot;</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_DESKTOP_DIR</span> <span class="s">share/applications</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path in which .desktop files are installed&quot;</span><span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_APPDATA_DIR</span> <span class="s">share/appdata</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path in which .appdata.xml files are installed&quot;</span><span class="p">)</span>
+  <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">TeXworks_HELP_DIR</span><span class="p">)</span>
+  <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">TeXworks_DIC_DIR</span><span class="p">)</span>
+  <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">TeXworks_DOCS_DIR</span><span class="p">)</span>
+  <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">TeXworks_ICON_DIR</span><span class="p">)</span>
+  <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">TeXworks_MAN_DIR</span><span class="p">)</span>
+  <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">TeXworks_DESKTOP_DIR</span><span class="p">)</span>
+  <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">TeXworks_APPDATA_DIR</span><span class="p">)</span>
+  <span class="nb">IF</span> <span class="p">(</span><span class="s">EXISTS</span> <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/manual/</span><span class="p">)</span>
+    <span class="nb">INSTALL</span><span class="p">(</span><span class="s">DIRECTORY</span> <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/manual/</span> <span class="s">DESTINATION</span> <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">TeXworks_HELP_DIR</span><span class="o">}</span><span class="s">/</span> <span class="s">OPTIONAL</span><span class="p">)</span>
+  <span class="nb">ENDIF</span><span class="p">()</span>
+<span class="nb">ENDIF</span><span class="p">()</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -325,62 +433,169 @@ link against whatever Python they wish for a personal build.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-17">&#182;</a>
-          <span class="bookmark" id="section-17"></span>
+          <a class="pilcrow" href="#section-22">&#182;</a>
+          <span class="bookmark" id="section-22"></span>
         </div>
         <p>Make the contents of <code>CMake/Modules</code> available. Among other things, this
 directory contains scripts that locate project components such as Poppler.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_MODULE_PATH</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/CMake/Modules</span> <span class="o">${</span><span class="nv">CMAKE_MODULE_PATH</span><span class="o">}</span><span class="p">)</span></pre></div>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_MODULE_PATH</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/CMake/Modules</span> <span class="o">${</span><span class="nv">CMAKE_MODULE_PATH</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">DESIRED_QT_VERSION</span> <span class="s2">&quot;&quot;</span> <span class="s">CACHE</span> <span class="s">STRING</span> <span class="s2">&quot;Pick a version of Qt to use: 4 or 5&quot;</span><span class="p">)</span>
+<span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">DESIRED_QT_VERSION</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-18">&#182;</a>
-          <span class="bookmark" id="section-18"></span>
+          <a class="pilcrow" href="#section-23">&#182;</a>
+          <span class="bookmark" id="section-23"></span>
+        </div>
+        <p>Check for Qt4 by default</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span><span class="s">NOT</span> <span class="s">DESIRED_QT_VERSION</span> <span class="s">OR</span> <span class="s">DESIRED_QT_VERSION</span> <span class="s">MATCHES</span> <span class="s">4</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-24">&#182;</a>
+          <span class="bookmark" id="section-24"></span>
         </div>
         <p>Declare Qt libraries required by this project.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">SET</span> <span class="p">(</span><span class="s">QT_COMPONENTS</span>
-    <span class="s">QtCore</span>
-    <span class="s">QtGui</span>
-    <span class="s">QtUiTools</span>
-    <span class="s">QtScript</span>
-    <span class="s">QtScriptTools</span>
-    <span class="s">QtXML</span>
-<span class="p">)</span>
+        <div class='highlight'><pre>  <span class="nb">SET</span> <span class="p">(</span><span class="s">QT_COMPONENTS</span>
+      <span class="s">QtCore</span>
+      <span class="s">QtGui</span>
+      <span class="s">QtUiTools</span>
+      <span class="s">QtScript</span>
+      <span class="s">QtScriptTools</span>
+      <span class="s">QtXml</span>
+  <span class="p">)</span>
 
-<span class="nb">IF</span> <span class="p">(</span> <span class="s">UNIX</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">APPLE</span> <span class="p">)</span>
-  <span class="nb">LIST</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">QT_COMPONENTS</span> <span class="s">QtDbus</span><span class="p">)</span>
-<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+  <span class="nb">IF</span> <span class="p">(</span> <span class="s">UNIX</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">APPLE</span> <span class="p">)</span>
+    <span class="nb">LIST</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">QT_COMPONENTS</span> <span class="s">QtDbus</span><span class="p">)</span>
+  <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-19">&#182;</a>
-          <span class="bookmark" id="section-19"></span>
+          <a class="pilcrow" href="#section-25">&#182;</a>
+          <span class="bookmark" id="section-25"></span>
         </div>
         <p>Locate Qt. <code>INCLUDE(UseQt4)</code> brings in a set of macros that helps us deal
 with Qt-specific tasks such as compiling resources or running <code>moc</code>.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Qt4</span> <span class="s">COMPONENTS</span> <span class="o">${</span><span class="nv">QT_COMPONENTS</span><span class="o">}</span> <span class="s">REQUIRED</span><span class="p">)</span>
-<span class="nb">INCLUDE</span><span class="p">(</span><span class="s">UseQt4</span><span class="p">)</span>
-
-<span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">ZLIB</span> <span class="s">REQUIRED</span><span class="p">)</span>
-<span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Hunspell</span> <span class="s">REQUIRED</span><span class="p">)</span>
-<span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Poppler</span> <span class="s">REQUIRED</span><span class="p">)</span></pre></div>
+        <div class='highlight'><pre>  <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Qt4</span> <span class="s">COMPONENTS</span> <span class="o">${</span><span class="nv">QT_COMPONENTS</span><span class="o">}</span> <span class="s">REQUIRED</span><span class="p">)</span>
+  <span class="nb">INCLUDE</span><span class="p">(</span><span class="s">UseQt4</span><span class="p">)</span>
+<span class="nb">ENDIF</span><span class="p">()</span></pre></div>
       </td>
     </tr>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-20">&#182;</a>
-          <span class="bookmark" id="section-20"></span>
+          <a class="pilcrow" href="#section-26">&#182;</a>
+          <span class="bookmark" id="section-26"></span>
+        </div>
+        <p>If Qt4 is not found (or not desired), check for Qt5</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span><span class="s">DESIRED_QT_VERSION</span> <span class="s">MATCHES</span> <span class="s">5</span> <span class="s">OR</span> <span class="s">NOT</span> <span class="s">QT4_FOUND</span><span class="p">)</span>
+  <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Widgets</span> <span class="s">QUIET</span><span class="p">)</span>
+  <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Gui</span> <span class="s">QUIET</span><span class="p">)</span>
+  <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5UiTools</span> <span class="s">QUIET</span><span class="p">)</span>
+  <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Script</span> <span class="s">QUIET</span><span class="p">)</span>
+  <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5ScriptTools</span> <span class="s">QUIET</span><span class="p">)</span>
+  <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Xml</span> <span class="s">QUIET</span><span class="p">)</span>
+  <span class="nb">IF</span> <span class="p">(</span> <span class="s">UNIX</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">APPLE</span> <span class="p">)</span>
+    <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5DBus</span> <span class="s">QUIET</span><span class="p">)</span>
+  <span class="nb">ENDIF</span> <span class="p">()</span>
+
+  <span class="nb">IF</span><span class="p">(</span> <span class="s">WIN32</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">BUILD_SHARED_LIBS</span> <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-27">&#182;</a>
+          <span class="bookmark" id="section-27"></span>
+        </div>
+        <p>For static Windows builds, we also need to pull in the Qt5 Platform
+support library, which is not exposed to CMake properly, unfortunately</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nb">GET_TARGET_PROPERTY</span><span class="p">(</span><span class="s">QT_LIB_DIR</span> <span class="s2">&quot;${Qt5Widgets_LIBRARIES}&quot;</span> <span class="s">LOCATION</span><span class="p">)</span>
+    <span class="nb">GET_FILENAME_COMPONENT</span><span class="p">(</span><span class="s">QT_LIB_DIR</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span> <span class="s">PATH</span><span class="p">)</span>
+    <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5Platform_LIBRARIES</span> <span class="s">Qt5PlatformSupport</span>
+      <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5QWindows_LIBRARIES</span> <span class="s">qwindows</span>
+      <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}/../plugins/platforms&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DSTATIC_QT5</span><span class="p">)</span>
+  <span class="nb">ENDIF</span><span class="p">()</span>
+
+  <span class="nb">IF</span><span class="p">(</span><span class="s">Qt5Widgets_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Core_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Gui_FOUND</span> <span class="s">AND</span> <span class="s">Qt5UiTools_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Script_FOUND</span> <span class="s">AND</span> <span class="s">Qt5ScriptTools_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Xml_FOUND</span><span class="p">)</span>
+  	<span class="nb">SET</span><span class="p">(</span><span class="s">QT5_FOUND</span> <span class="s">TRUE</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_INCLUDE_DIR</span> <span class="s2">&quot;${Qt5Widgets_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5UiTools_INCLUDE_DIRS} ${Qt5Script_INCLUDE_DIRS} ${Qt5ScriptTools_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS}&quot;</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_LIBRARIES</span> <span class="o">${</span><span class="nv">Qt5UiTools_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5ScriptTools_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Script_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Xml_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5DBus_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Widgets_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Platform_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5QWindows_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Gui_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Core_LIBRARIES</span><span class="o">}</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-28">&#182;</a>
+          <span class="bookmark" id="section-28"></span>
+        </div>
+        <p>Note: Qt5 only sets Qt5Widgets<em>VERSION, etc., but not QT</em>VERSION_MAJOR,
+etc. which is used here.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MAJOR</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MINOR</span>  <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_PATCH</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+  <span class="nb">ENDIF</span><span class="p">()</span>
+<span class="nb">ENDIF</span><span class="p">()</span>
+
+<span class="nb">IF</span> <span class="p">(</span><span class="s">NOT</span> <span class="s">QT4_FOUND</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">QT5_FOUND</span><span class="p">)</span>
+  <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">FATAL_ERROR</span> <span class="s2">&quot;Could not find required Qt. Please install Qt (see http://qt-project.org/) and/or adjust DESIRED_QT_VERSION.&quot;</span><span class="p">)</span>
+<span class="nb">ENDIF</span><span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-29">&#182;</a>
+          <span class="bookmark" id="section-29"></span>
+        </div>
+        <p>Expose the major version number of Qt to the preprocessor. This is necessary
+to include the correct Qt headers (as QTVERSION is not defined before any Qt
+headers are included)</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DQT_VERSION_MAJOR=</span><span class="o">${</span><span class="nv">QT_VERSION_MAJOR</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">INCLUDE</span><span class="p">(</span> <span class="s">TranslationMacros</span> <span class="p">)</span>
+
+
+
+<span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">ZLIB</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Hunspell</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Poppler</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">PREFER_BUNDLED_SYNCTEX</span> <span class="p">)</span>
+  <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Synctex</span> <span class="s">QUIET</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">PREFER_BUNDLED_SYNCTEX</span> <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-30">&#182;</a>
+          <span class="bookmark" id="section-30"></span>
         </div>
         <p>The only thing Poppler should need is the location of the include directories
 in order to access header files. The library loader should be able to find
@@ -395,8 +610,8 @@ libfontconfig on standard search paths.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-21">&#182;</a>
-          <span class="bookmark" id="section-21"></span>
+          <a class="pilcrow" href="#section-31">&#182;</a>
+          <span class="bookmark" id="section-31"></span>
         </div>
         <p>Aggregate library names and include directories into variables for easy
 access.</p>
@@ -405,21 +620,34 @@ access.</p>
         <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_INCLUDE_DIRS</span>
   <span class="o">${</span><span class="nv">QT_INCLUDE_DIR</span><span class="o">}</span>
   <span class="o">${</span><span class="nv">HUNSPELL_INCLUDE_DIR</span><span class="o">}</span>
-  <span class="o">${</span><span class="nv">POPPLER_QT4_INCLUDE_DIR</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">POPPLER_QT_INCLUDE_DIR</span><span class="o">}</span>
   <span class="o">${</span><span class="nv">ZLIB_INCLUDE_DIR</span><span class="o">}</span>
 <span class="p">)</span>
 <span class="nb">IF</span> <span class="p">(</span> <span class="s">POPPLER_NEEDS_FONTCONFIG</span> <span class="p">)</span>
   <span class="nb">LIST</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">TeXworks_INCLUDE_DIRS</span> <span class="o">${</span><span class="nv">FONTCONFIG_INCLUDE_DIR</span><span class="o">}</span><span class="p">)</span>
 <span class="nb">ENDIF</span> <span class="p">()</span>
 
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">SYNCTEX_FOUND</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">PREFER_BUNDLED_SYNCTEX</span> <span class="p">)</span>
+  <span class="nb">LIST</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">TeXworks_INCLUDE_DIRS</span> <span class="o">${</span><span class="nv">SYNCTEX_INCLUDE_DIR</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span>
+
 <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_LIB_DIRS</span> <span class="o">${</span><span class="nv">QT_LIBRARY_DIR</span><span class="o">}</span><span class="p">)</span>
 
+<span class="nb">set</span><span class="p">(</span><span class="s">TEXWORKS_ADDITIONAL_LIBS</span> <span class="s2">&quot;&quot;</span> <span class="s">CACHE</span> <span class="s">STRING</span> <span class="s2">&quot;Additional libraries not found by CMake&quot;</span><span class="p">)</span>
+<span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">TEXWORKS_ADDITIONAL_LIBS</span><span class="p">)</span>
+
+
 <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_LIBS</span>
-  <span class="o">${</span><span class="nv">QT_LIBRARIES</span><span class="o">}</span>
   <span class="o">${</span><span class="nv">POPPLER_LIBRARIES</span><span class="o">}</span>
   <span class="o">${</span><span class="nv">HUNSPELL_LIBRARIES</span><span class="o">}</span>
+  <span class="o">${</span><span class="nv">QT_LIBRARIES</span><span class="o">}</span>
   <span class="o">${</span><span class="nv">ZLIB_LIBRARIES</span><span class="o">}</span>
-<span class="p">)</span></pre></div>
+  <span class="o">${</span><span class="nv">TEXWORKS_ADDITIONAL_LIBS</span><span class="o">}</span>
+<span class="p">)</span>
+
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">SYNCTEX_FOUND</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">PREFER_BUNDLED_SYNCTEX</span> <span class="p">)</span>
+  <span class="nb">LIST</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">TeXworks_LIBS</span> <span class="o">${</span><span class="nv">SYNCTEX_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -431,21 +659,8 @@ access.</p>
         <h2>Configure Optional Dependencies</h2>
       </td>
       <td class=code>
-        <div class='highlight'><pre></pre></div>
-      </td>
-    </tr>
-    <tr>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-23">&#182;</a>
-          <span class="bookmark" id="section-23"></span>
-        </div>
-        <p>CMake 2.8 has separate find scripts for Lua 5.1 and Lua 5.0. We assume that
-the most recent Lua version is installed.</p>
-      </td>
-      <td class=code>
         <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">WITH_LUA</span> <span class="p">)</span>
-  <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Lua51</span><span class="p">)</span>
+  <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">Lua</span><span class="p">)</span>
 <span class="nb">ENDIF</span><span class="p">()</span>
 
 <span class="nb">IF</span> <span class="p">(</span> <span class="s">WITH_PYTHON</span> <span class="p">)</span>
@@ -461,8 +676,8 @@ the most recent Lua version is installed.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-24">&#182;</a>
-          <span class="bookmark" id="section-24"></span>
+          <a class="pilcrow" href="#section-33">&#182;</a>
+          <span class="bookmark" id="section-33"></span>
         </div>
         <p><strong>NOTE</strong> For some reason, FindPythonLibs.cmake always seems to default to
 <code>/System/Library/Frameworks/Python.framework/Headers</code> as the include path
@@ -471,7 +686,15 @@ on OS X.</p>
       <td class=code>
         <div class='highlight'><pre>    <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">PythonLibs</span><span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
-<span class="nb">ENDIF</span><span class="p">()</span></pre></div>
+<span class="nb">ENDIF</span><span class="p">()</span>
+
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">LUA_FOUND</span> <span class="s">AND</span> <span class="s">WITH_LUA</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="o">${</span><span class="nv">BUILD_SHARED_PLUGINS</span><span class="o">}</span><span class="p">)</span>
+  <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DQT_STATICPLUGIN</span> <span class="s">-DSTATIC_LUA_SCRIPTING_PLUGIN</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span>
+
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">PYTHONLIBS_FOUND</span> <span class="s">AND</span> <span class="s">WITH_PYTHON</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="o">${</span><span class="nv">BUILD_SHARED_PLUGINS</span><span class="o">}</span><span class="p">)</span>
+  <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DQT_STATICPLUGIN</span> <span class="s">-DSTATIC_PYTHON_SCRIPTING_PLUGIN</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -489,8 +712,8 @@ on OS X.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-26">&#182;</a>
-          <span class="bookmark" id="section-26"></span>
+          <a class="pilcrow" href="#section-35">&#182;</a>
+          <span class="bookmark" id="section-35"></span>
         </div>
         <p>Some header files contain components that must be dynamically generated. For
 example, <code>getDefaultBinPaths.sh</code> is a script that tries to figure out the
@@ -524,6 +747,50 @@ appropriate path to TeX binaries on UNIX-like systems.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
+          <a class="pilcrow" href="#section-37">&#182;</a>
+          <span class="bookmark" id="section-37"></span>
+        </div>
+        <p>On OS X, the plugins should live inside the application bundle.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
+  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_PLUGIN_DIR</span> <span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/PlugIns</span><span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-38">&#182;</a>
+          <span class="bookmark" id="section-38"></span>
+        </div>
+        <p>Plugins are build as shared libraries that contain undefined symbols.
+Pass <code>-undefined dynamic_lookup</code> so that the Apple linker does not
+freak out about this.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_MODULE_LINKER_FLAGS</span>
+    <span class="s2">&quot;${CMAKE_MODULE_LINKER_FLAGS_INIT} $ENV{LDFLAGS} -undefined dynamic_lookup&quot;</span><span class="p">)</span>
+<span class="nb">ELSE</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-39">&#182;</a>
+          <span class="bookmark" id="section-39"></span>
+        </div>
+        <p>Set the plugin installation path. This is a good default for UNIX-like
+systems, but is not appropriate for Windows.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_PLUGIN_DIR</span> <span class="s">lib/texworks</span> <span class="s">CACHE</span> <span class="s">PATH</span> <span class="s2">&quot;Path where TeXworks looks for plugins&quot;</span><span class="p">)</span>
+  <span class="nb">MARK_AS_ADVANCED</span><span class="p">(</span><span class="s">TeXworks_PLUGIN_DIR</span><span class="p">)</span>
+<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
           <a class="pilcrow" href="#section-Build_main_TeXworks_application">&#182;</a>
           <span class="bookmark" id="section-Build_main_TeXworks_application"></span>
         </div>
@@ -548,44 +815,17 @@ appropriate path to TeX binaries on UNIX-like systems.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-30">&#182;</a>
-          <span class="bookmark" id="section-30"></span>
-        </div>
-        <p>Set the plugin installation path. This is a good default for UNIX-like
-systems, but is not appropriate for Windows.</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_PLUGIN_DIR</span> <span class="s">lib</span><span class="p">)</span></pre></div>
-      </td>
-    </tr>
-    <tr>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-31">&#182;</a>
-          <span class="bookmark" id="section-31"></span>
-        </div>
-        <p>On OS X, the plugins should live inside the application bundle.</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
-  <span class="nb">SET</span><span class="p">(</span><span class="s">TeXworks_PLUGIN_DIR</span> <span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/PlugIns</span><span class="p">)</span>
-<span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
-      </td>
-    </tr>
-    <tr>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-32">&#182;</a>
-          <span class="bookmark" id="section-32"></span>
+          <a class="pilcrow" href="#section-42">&#182;</a>
+          <span class="bookmark" id="section-42"></span>
         </div>
         <p>Build scripting language plugins if the required libraries are available.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">LUA51_FOUND</span> <span class="p">)</span>
+        <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">LUA_FOUND</span> <span class="s">AND</span> <span class="s">WITH_LUA</span> <span class="p">)</span>
   <span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/plugins-src/TWLuaPlugin</span><span class="p">)</span>
 <span class="nb">ENDIF</span> <span class="p">()</span>
 
-<span class="nb">IF</span> <span class="p">(</span> <span class="s">PYTHONLIBS_FOUND</span> <span class="p">)</span>
+<span class="nb">IF</span> <span class="p">(</span> <span class="s">PYTHONLIBS_FOUND</span> <span class="s">AND</span> <span class="s">WITH_PYTHON</span> <span class="p">)</span>
   <span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/plugins-src/TWPythonPlugin</span><span class="p">)</span>
 <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
       </td>
@@ -605,11 +845,11 @@ systems, but is not appropriate for Windows.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-34">&#182;</a>
-          <span class="bookmark" id="section-34"></span>
+          <a class="pilcrow" href="#section-44">&#182;</a>
+          <span class="bookmark" id="section-44"></span>
         </div>
         <p>This section is responsible for executing all tasks that run when a user
-invokes <code>cpack</code> or <code>make package</code> after executing their platform&rsquo;s equivalent
+invokes <code>cpack</code> or <code>make package</code> after executing their platform&#39;s equivalent
 of of <code>make</code>. The packaging tasks are responsible for two things:</p>
 
 <ul>
@@ -627,8 +867,8 @@ file.</p></li>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-35">&#182;</a>
-          <span class="bookmark" id="section-35"></span>
+          <a class="pilcrow" href="#section-45">&#182;</a>
+          <span class="bookmark" id="section-45"></span>
         </div>
         <p>Gather all libraries related to Qt plugins used by TeXworks so that they can
 be bundled into packages.</p>
@@ -649,24 +889,24 @@ be bundled into packages.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-36">&#182;</a>
-          <span class="bookmark" id="section-36"></span>
+          <a class="pilcrow" href="#section-46">&#182;</a>
+          <span class="bookmark" id="section-46"></span>
         </div>
-        <p>The file <code>cmake/packaging/CMakeLists.txt</code> controls the execution of tasks
+        <p>The file <code>CMake/packaging/CMakeLists.txt</code> controls the execution of tasks
 specific to preparing binaries for packaging on a given platform. This script
 is invoked via <code>ADD_SUBDIRECTORY</code> so that it executes after TeXworks and its
 components are built and installed. You cannot fixup an application bundle
-before it has been created&hellip;</p>
+before it has been created...</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmake/packaging</span><span class="p">)</span></pre></div>
+        <div class='highlight'><pre><span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/CMake/packaging</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-37">&#182;</a>
-          <span class="bookmark" id="section-37"></span>
+          <a class="pilcrow" href="#section-47">&#182;</a>
+          <span class="bookmark" id="section-47"></span>
         </div>
         <p>Set CPack variables.</p>
       </td>
@@ -677,16 +917,16 @@ before it has been created&hellip;</p>
 <span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_VERSION</span> <span class="o">${</span><span class="nv">TeXworks_VERSION</span><span class="o">}</span><span class="p">)</span>
 
 <span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_NAME</span> <span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_FILE_NAME</span> <span class="s2">&quot;${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}&quot;</span><span class="p">)</span></pre></div>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CPACK_PACKAGE_FILE_NAME</span> <span class="s2">&quot;${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_GIT_HASH}&quot;</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-38">&#182;</a>
-          <span class="bookmark" id="section-38"></span>
+          <a class="pilcrow" href="#section-48">&#182;</a>
+          <span class="bookmark" id="section-48"></span>
         </div>
-        <p>Configure Drag N' Drop installer.</p>
+        <p>Configure Drag N&#39; Drop installer.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
@@ -698,10 +938,10 @@ before it has been created&hellip;</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-39">&#182;</a>
-          <span class="bookmark" id="section-39"></span>
+          <a class="pilcrow" href="#section-49">&#182;</a>
+          <span class="bookmark" id="section-49"></span>
         </div>
-        <p>Configure an AppleScript for applying a nice window layout to Drag N' Drop disk
+        <p>Configure an AppleScript for applying a nice window layout to Drag N&#39; Drop disk
 image.</p>
       </td>
       <td class=code>
@@ -729,8 +969,8 @@ image.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-41">&#182;</a>
-          <span class="bookmark" id="section-41"></span>
+          <a class="pilcrow" href="#section-51">&#182;</a>
+          <span class="bookmark" id="section-51"></span>
         </div>
         <p>This section displays a nice configuration summary for the user.</p>
       </td>
@@ -741,8 +981,8 @@ image.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-42">&#182;</a>
-          <span class="bookmark" id="section-42"></span>
+          <a class="pilcrow" href="#section-52">&#182;</a>
+          <span class="bookmark" id="section-52"></span>
         </div>
         <p>These macros borrowed from the Poppler CMake scripts. They add some nice
 formatting to configuration info.</p>
@@ -773,8 +1013,8 @@ formatting to configuration info.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-43">&#182;</a>
-          <span class="bookmark" id="section-43"></span>
+          <a class="pilcrow" href="#section-53">&#182;</a>
+          <span class="bookmark" id="section-53"></span>
         </div>
         <p>Print out configuration summary.</p>
 
@@ -783,12 +1023,13 @@ formatting to configuration info.</p>
         <div class='highlight'><pre><span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;TeXworks has been configured:\n&quot;</span><span class="p">)</span>
 
 <span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;Version&quot;</span> <span class="o">${</span><span class="nv">TeXworks_VERSION</span><span class="o">}</span><span class="p">)</span>
-<span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;SVN Revision&quot;</span> <span class="o">${</span><span class="nv">TeXworks_SVN_REV</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;Git Commit&quot;</span> <span class="s2">&quot;${TeXworks_GIT_HASH} (${TeXworks_GIT_DATE})&quot;</span><span class="p">)</span>
 <span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;Build ID&quot;</span> <span class="o">${</span><span class="nv">TW_BUILD_ID</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;Qt version&quot;</span> <span class="o">${</span><span class="nv">QT_VERSION_MAJOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">QT_VERSION_MINOR</span><span class="o">}</span><span class="s">.</span><span class="o">${</span><span class="nv">QT_VERSION_PATCH</span><span class="o">}</span><span class="p">)</span>
 <span class="nb">CONFIG_INFO</span><span class="p">(</span><span class="s2">&quot;Compiler optimization&quot;</span> <span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span><span class="p">)</span>
 <span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-<span class="nb">CONFIG_YESNO</span><span class="p">(</span><span class="s2">&quot;Lua scripting plugin&quot;</span> <span class="s">LUA51_FOUND</span><span class="p">)</span>
+<span class="nb">CONFIG_YESNO</span><span class="p">(</span><span class="s2">&quot;Lua scripting plugin&quot;</span> <span class="s">LUA_FOUND</span><span class="p">)</span>
 <span class="nb">CONFIG_YESNO</span><span class="p">(</span><span class="s2">&quot;Python scripting plugin&quot;</span> <span class="s">PYTHONLIBS_FOUND</span><span class="p">)</span>
 <span class="nb">IF</span><span class="p">(</span> <span class="s">APPLE</span> <span class="p">)</span>
   <span class="nb">CONFIG_YESNO</span><span class="p">(</span><span class="s2">&quot;  OS X system python&quot;</span> <span class="s">USE_SYSTEM_PYTHON</span><span class="p">)</span>

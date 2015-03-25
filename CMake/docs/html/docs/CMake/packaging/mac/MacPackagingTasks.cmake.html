@@ -42,6 +42,7 @@
           <a class="source" href="../CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
           <a class="source" href="MacPackagingTasks.cmake.html">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
           <a class="source" href="../../../CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="../../../modules/QtPDF/CMakeLists.html">modules/QtPDF/CMakeLists.txt</a>
           <a class="source" href="../../../plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
           <a class="source" href="../../../plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
           <a class="source" href="../../../src/CMakeLists.html">src/CMakeLists.txt</a>
@@ -99,7 +100,7 @@ variables that would otherwise be undefined when CPack is running.</p>
           <span class="bookmark" id="section-3"></span>
         </div>
         <p>This <code>IF</code> statement ensures that the following commands are executed only when
-CPack is running&mdash;-i.e. when a user executes <code>make package</code> but not <code>make install</code></p>
+CPack is running---i.e. when a user executes <code>make package</code> but not <code>make install</code></p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="nb">IF</span> <span class="p">(</span> <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span> <span class="s">MATCHES</span> <span class="s">.*/_CPack_Packages/.*</span> <span class="p">)</span></pre></div>
@@ -116,20 +117,20 @@ CPack is running&mdash;-i.e. when a user executes <code>make package</code> but 
       <td class=code>
         <div class='highlight'><pre>  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4.tar.gz</span> <span class="p">)</span>
     <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Downloading Poppler data files&quot;</span><span class="p">)</span>
-    <span class="nb">FILE</span><span class="p">(</span><span class="s">DOWNLOAD</span> <span class="s2">&quot;http://poppler.freedesktop.org/poppler-data-0.4.4.tar.gz&quot;</span>
-      <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4.tar.gz</span>
-      <span class="s">EXPECTED_MD5</span> <span class="s">f3a1afa9218386b50ffd262c00b35b31</span>
+    <span class="nb">FILE</span><span class="p">(</span><span class="s">DOWNLOAD</span> <span class="s2">&quot;http://poppler.freedesktop.org/poppler-data-0.4.5.tar.gz&quot;</span>
+      <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.5.tar.gz</span>
+      <span class="s">EXPECTED_MD5</span> <span class="s">448dd7c5077570e340340706cef931aa</span>
       <span class="s">SHOW_PROGRESS</span>
     <span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
 
-  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4</span> <span class="p">)</span>
-    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="s">tar</span> <span class="s">xzf</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4.tar.gz</span>
+  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.5</span> <span class="p">)</span>
+    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="s">tar</span> <span class="s">xzf</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.5.tar.gz</span>
       <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span>
     <span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
 
-  <span class="nb">FILE</span><span class="p">(</span><span class="s">INSTALL</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.4/</span>
+  <span class="nb">FILE</span><span class="p">(</span><span class="s">INSTALL</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/poppler-data-0.4.5/</span>
     <span class="s">DESTINATION</span> <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/poppler-data</span>
     <span class="s">PATTERN</span> <span class="s">CMakeLists.txt</span> <span class="s">EXCLUDE</span>
     <span class="s">PATTERN</span> <span class="s">Makefile</span> <span class="s">EXCLUDE</span>
@@ -145,17 +146,18 @@ CPack is running&mdash;-i.e. when a user executes <code>make package</code> but 
         <h2>Download and install TeXworks manual</h2>
       </td>
       <td class=code>
-        <div class='highlight'><pre>  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual-html-r814.zip</span> <span class="p">)</span>
+        <div class='highlight'><pre>  <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual-html-r959.zip</span> <span class="p">)</span>
     <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Downloading TeXworks HTML manual&quot;</span><span class="p">)</span>
-    <span class="nb">FILE</span><span class="p">(</span><span class="s">DOWNLOAD</span> <span class="s2">&quot;http://texworks.googlecode.com/files/TeXworks-manual-html-r814.zip&quot;</span>
-      <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual-html-r814.zip</span>
-      <span class="s">EXPECTED_MD5</span> <span class="s">2894969a6ac4bba31953264e04553717</span>
+    <span class="nb">FILE</span><span class="p">(</span><span class="s">DOWNLOAD</span>
+      <span class="s2">&quot;http://texworks.googlecode.com/files/TeXworks-manual-html-r959.zip&quot;</span>
+      <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual-html-r959.zip</span>
+      <span class="s">EXPECTED_MD5</span> <span class="s">2071e3c2fc6b6fdb57bca0484abdd35a</span>
       <span class="s">SHOW_PROGRESS</span>
     <span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
 
   <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual</span> <span class="p">)</span>
-    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="s">unzip</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual-html-r814.zip</span>
+    <span class="nb">EXECUTE_PROCESS</span><span class="p">(</span><span class="s">COMMAND</span> <span class="s">unzip</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/TeXworks-manual-html-r959.zip</span>
       <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span>
     <span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
@@ -188,8 +190,8 @@ CPack is running&mdash;-i.e. when a user executes <code>make package</code> but 
 <p><a href="https://github.com/KDAB/Charm">https://github.com/KDAB/Charm</a></p>
 
 <p>This module offers the <code>FIXUP_QT4_BUNDLE</code> function which wraps
-<code>FIXUP_BUNDLE</code> from CMake&rsquo;s <code>BundleUtilities</code> module and extends it with
-additional Qt4-specific goodies&mdash;-such as installing Qt4 plugins.</p>
+<code>FIXUP_BUNDLE</code> from CMake&#39;s <code>BundleUtilities</code> module and extends it with
+additional Qt4-specific goodies---such as installing Qt4 plugins.</p>
 
 <p><code>FIXUP_BUNDLE</code> is a wonderful function that examines an executable, finds
 all non-system libraries it depends on, copies them into the <code>.app</code> bundle
@@ -210,7 +212,7 @@ and then re-writes the necessary loader paths.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>  <span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TeXworks_PLUGINS</span>
-    <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/PlugIns/*</span><span class="o">${</span><span class="nv">CMAKE_SHARED_LIBRARY_SUFFIX</span><span class="o">}</span><span class="p">)</span></pre></div>
+    <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.app/Contents/PlugIns/*</span><span class="o">${</span><span class="nv">CMAKE_SHARED_MODULE_SUFFIX</span><span class="o">}</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
