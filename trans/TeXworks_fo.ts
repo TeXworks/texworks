@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fo_FO">
+<TS version="2.1" language="fo_FO">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -151,7 +151,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="77"/>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbrót ikki</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="87"/>
@@ -614,7 +614,8 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1535"/>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Fekk ikki løtt SyncTeX</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1537"/>
@@ -1581,12 +1582,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="296"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Útgáva %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="298"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Útgáva %1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="299"/>
@@ -1755,7 +1756,7 @@
     <message>
         <location filename="../src/TWScriptable.cpp" line="583"/>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Feilur í scripti</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="601"/>
@@ -2586,7 +2587,7 @@ Valda kotingin kemur í staðin fyri ta forsettu og allar &quot;%!TEX koting&quo
     <message>
         <location filename="../src/TeXDocument.cpp" line="1641"/>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriva merki fyri UTF-8 beitrøð</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1664"/>
