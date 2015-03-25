@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru">
+<TS version="2.1" language="ru">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -541,7 +541,7 @@
     </message>
     <message>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка при запуске SyncTeX</translation>
     </message>
 </context>
 <context>
@@ -1397,11 +1397,11 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Версия %1 (%2) [рев.%3, %4]</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Версия %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1467,7 +1467,7 @@
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка в сценарии</translation>
     </message>
 </context>
 <context>
@@ -2311,7 +2311,7 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Записать метку порядка байтов UTF-8</translation>
     </message>
 </context>
 <context>
