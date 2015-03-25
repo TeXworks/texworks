@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl">
+<TS version="2.1" language="nl">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Regelovergangen verwijderen</translation>
     </message>
 </context>
 <context>
@@ -537,7 +537,7 @@
     </message>
     <message>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialiseren van SyncTeX mislukt</translation>
     </message>
 </context>
 <context>
@@ -1375,11 +1375,11 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versie %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versie %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1445,7 +1445,7 @@
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Script fout</translation>
     </message>
 </context>
 <context>
@@ -2293,7 +2293,7 @@ Het spijt ons van het ongemak.</translation>
     </message>
     <message>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>UTF 8 byte order mark wegschrijven</translation>
     </message>
 </context>
 <context>
