@@ -110,7 +110,7 @@
     </message>
     <message>
         <source>Wrap lines to:</source>
-        <translation>Ajustar líneas en:</translation>
+        <translation>Ajuste de líneas:</translation>
     </message>
     <message>
         <source>Current window size</source>
@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Desajustar líneas</translation>
     </message>
 </context>
 <context>
@@ -166,7 +166,7 @@
     </message>
     <message>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
-        <translation>¿Prefiere abrir el archivo con el programa lector de PDFs predeterminado para imprimirlo?</translation>
+        <translation>¿Prefiere utilizar el programa lector de PDF predeterminado para imprimir este archivo?</translation>
     </message>
     <message>
         <source> (remember to close it again to avoid access problems)</source>
@@ -548,7 +548,7 @@
     </message>
     <message>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al iniciar SyncTeX</translation>
     </message>
 </context>
 <context>
@@ -939,7 +939,7 @@
     </message>
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
-        <translation>&lt;em&gt;Nota: &lt;/em&gt; Estos son los valores predeterminados de la configuración. Los cambios que realice en ellos no afectarán las ventanas que ha abierto. Válgase de los elementos correspondientes en el menú &amp;quot;Formato&amp;quot; para conseguir dicho propósito.</translation>
+        <translation>&lt;em&gt;Nota: &lt;/em&gt; Estos son los valores predeterminados de la configuración. Los cambios que realice en ellos no afectarán las ventanas que haya abierto. Válgase de los elementos correspondientes en el menú &amp;quot;Formato&amp;quot; para conseguir dicho propósito.</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
@@ -1342,7 +1342,7 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation>Imposible acceder a &quot;%1&quot;; verifique la configuración de su navegador o cliente de correos.</translation>
+        <translation>No se pudo acceder a &quot;%1&quot;; verifique la configuración de su navegador o cliente de correos.</translation>
     </message>
     <message>
         <source>Unable to create window</source>
@@ -1350,7 +1350,7 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
-        <translation>Ha ocurrido un error grave; %1 no ha podido crear la ventana para el documento. El programa se va a cerrar enseguida.</translation>
+        <translation>Ha ocurrido un error grave; %1 no se ha podido crear la ventana para el documento. El programa se va a cerrar enseguida.</translation>
     </message>
     <message>
         <source>Open File</source>
@@ -1362,7 +1362,7 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>No default binary directory found</source>
-        <translation>No se encontró el directorio predeterminado con lo binarios</translation>
+        <translation>No se encontró el directorio predeterminado con lo binarios respectivos</translation>
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
@@ -1390,8 +1390,8 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
-        <translation>El script &quot;%1&quot; está tratando de abrir el archivo &quot;%2&quot; sin contar con los permisos
-adecuados. ¿Quiere abrirlo de todos modos?</translation>
+        <translation>El script &quot;%1&quot; intenta abrir el archivo &quot;%2&quot; sin contar con los permisos
+necesarios. ¿Quiere abrirlo de todos modos?</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
@@ -1399,15 +1399,15 @@ adecuados. ¿Quiere abrirlo de todos modos?</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
-        <translation>Limpiar lista de archivos recientes</translation>
+        <translation>Limpiar la lista de archivos recientes</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versión %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>o&lt;br&gt;Versión %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1473,7 +1473,7 @@ adecuados. ¿Quiere abrirlo de todos modos?</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error en el script</translation>
     </message>
 </context>
 <context>
@@ -2333,7 +2333,7 @@ Ofrecemos disculpas por las molestias ocasionadas.</translatorcomment>
     </message>
     <message>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Escribir la etiqueta UTF-8</translation>
     </message>
 </context>
 <context>
@@ -2352,7 +2352,7 @@ Ofrecemos disculpas por las molestias ocasionadas.</translatorcomment>
     </message>
     <message>
         <source>Choose template for the new document:</source>
-        <translation>Seleccionar Plantilla para nuevo documento:</translation>
+        <translation>Seleccionar Plantilla para el nuevo documento:</translation>
     </message>
 </context>
 <context>
