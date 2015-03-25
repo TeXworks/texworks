@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>取消换行（合并行）</translation>
     </message>
 </context>
 <context>
@@ -529,7 +529,7 @@
     </message>
     <message>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>SyncTeX 初始化错误</translation>
     </message>
 </context>
 <context>
@@ -931,19 +931,19 @@
     </message>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>图形界面设置</translation>
     </message>
     <message>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>区域设置（本地化）：</translation>
     </message>
     <message>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>工具栏图标</translation>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>打开 TeX 文件对应的PDF预览</translation>
     </message>
 </context>
 <context>
@@ -994,11 +994,11 @@
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>日志文件 (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>辅助文件 (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>
@@ -1325,11 +1325,11 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;版本 %1 (%2) [r.%3, %4] </translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;版本 %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1379,7 +1379,7 @@
     </message>
     <message>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="unfinished">脚本可用于添加新的命令到 %1，以及扩展或修改命令。</translation>
+        <translation>脚本可用于添加新的命令到 %1，以及扩展或修改程序行为。</translation>
     </message>
     <message>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
@@ -1395,7 +1395,7 @@
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>脚本错误</translation>
     </message>
 </context>
 <context>
@@ -2169,7 +2169,7 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>写入 UTF-8 字节顺序标记(BOM)</translation>
     </message>
 </context>
 <context>
