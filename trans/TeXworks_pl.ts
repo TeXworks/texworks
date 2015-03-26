@@ -34,7 +34,7 @@
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="71"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation>Niektóre z plików pomocniczych nie mogą być skaowane. Prawdopodobnie nie masz uprawnień aby je skasować.</translation>
+        <translation>Niektóre z plików pomocniczych nie mogą być skasowane. Prawdopodobnie nie masz uprawnień aby je skasować.</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.ui" line="17"/>
@@ -78,7 +78,7 @@
     <message>
         <location filename="../src/Find.ui" line="69"/>
         <source>&amp;Wrap around</source>
-        <translation>Automatyczny po&amp;wrót do początku</translation>
+        <translation>A&amp;utomatyczny powrót do początku</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="76"/>
@@ -108,7 +108,7 @@
     <message>
         <location filename="../src/Find.ui" line="115"/>
         <source>W&amp;hole words</source>
-        <translation>Tylko całe &amp;wyrazy</translation>
+        <translation>&amp;Tylko całe wyrazy</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="122"/>
@@ -151,7 +151,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="77"/>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Cofnij zawijanie</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="87"/>
@@ -179,7 +179,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1535"/>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas inicjalizowania SyncTeX</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1537"/>
@@ -246,7 +246,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="75"/>
         <source>View</source>
-        <translation>Pokaż</translation>
+        <translation>Widok</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="94"/>
@@ -681,7 +681,7 @@
     <message>
         <location filename="../src/PDFFind.ui" line="20"/>
         <source>Find in PDF</source>
-        <translation>Szyukaj w PDF</translation>
+        <translation>Szukaj w PDF</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="34"/>
@@ -919,7 +919,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="184"/>
         <source>Editor defaults</source>
-        <translation>Ustawienia domyśłne</translation>
+        <translation>Ustawienia domyślne</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="208"/>
@@ -1583,12 +1583,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="296"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Wersja %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="298"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Wersja %1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="301"/>
@@ -1774,7 +1774,7 @@
     <message>
         <location filename="../src/TWScriptable.cpp" line="583"/>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd skryptu</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="601"/>
@@ -2057,7 +2057,7 @@ Zostanie użyte wybrane kodowanie, które zastąpi kodowanie domyślne i wskazan
     <message>
         <location filename="../src/TeXDocument.cpp" line="1641"/>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz znacznik kolejności bajtów UTF-8 (BOM)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1664"/>
@@ -2703,7 +2703,7 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
     <message>
         <location filename="../src/TeXDocument.ui" line="1016"/>
         <source>Hard Wrap...</source>
-        <translation>Zawijanie wierszy...</translation>
+        <translation>Zawijaj...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1027"/>
