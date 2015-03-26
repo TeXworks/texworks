@@ -170,7 +170,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1535"/>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler bei der Initialisierung von SyncTeX</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1537"/>
@@ -1636,12 +1636,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="296"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Version %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="298"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Version %1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="317"/>
@@ -2081,7 +2081,7 @@ Die gewählte Kodierung ersetzt dabei die Standardkodierung; alle &quot;%!TEX en
     <message>
         <location filename="../src/TeXDocument.cpp" line="1641"/>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>UTF-8 Byte Order Mark schreiben</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1664"/>
