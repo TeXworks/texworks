@@ -142,8 +142,9 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
   if (src.col < 0)
     return;
 
+  QDir curDir(QFileInfo(src.filename).canonicalPath());
   TeXDocument * tex = TeXDocument::findDocument(src.filename);
-  PDFDocument * pdf = PDFDocument::findDocument(dest.filename);
+  PDFDocument * pdf = PDFDocument::findDocument(QFileInfo(curDir, dest.filename).canonicalFilePath());
   if (!tex || !pdf || !pdf->widget())
     return;
 
@@ -183,7 +184,8 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
 
 void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint &src, TWSynchronizer::TeXSyncPoint &dest) const
 {
-  TeXDocument * tex = TeXDocument::openDocument(dest.filename, false, false, dest.line);
+  QDir curDir(QFileInfo(src.filename).canonicalPath());
+  TeXDocument * tex = TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), false, false, dest.line);
   PDFDocument * pdf = PDFDocument::findDocument(src.filename);
   if (!tex || !pdf || !pdf->widget())
     return;
