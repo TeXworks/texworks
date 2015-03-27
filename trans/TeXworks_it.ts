@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it">
+<TS version="2.1" language="it">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuovi formattazione</translation>
     </message>
 </context>
 <context>
@@ -540,7 +540,7 @@
     </message>
     <message>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore nell&apos;inizializzazione di SyncTeX</translation>
     </message>
 </context>
 <context>
@@ -966,19 +966,19 @@
     </message>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaccia</translation>
     </message>
     <message>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Locale:</translation>
     </message>
     <message>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulsanti barra strumenti:</translation>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>Apri l&apos;anteprima del PDF corrispondente con i file TeX</translation>
     </message>
 </context>
 <context>
@@ -1033,11 +1033,11 @@
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>File di log (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>File ausiliari (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>
@@ -1380,11 +1380,11 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versione %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Version %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1450,7 +1450,7 @@
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore nello script</translation>
     </message>
 </context>
 <context>
@@ -2313,7 +2313,7 @@ Ci dispiace per l&apos;inconveniente.</translation>
     </message>
     <message>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrivi il codice UTF-8 byte order mark (BOM)</translation>
     </message>
 </context>
 <context>
