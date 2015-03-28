@@ -155,7 +155,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="77"/>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Desajusta les línies</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="87"/>
@@ -178,7 +178,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1535"/>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Error iniciant SyncTeX</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1537"/>
@@ -1604,12 +1604,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="296"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versió %1 (%2) [r %3, %4]</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="298"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versió %1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="299"/>
@@ -1778,7 +1778,7 @@
     <message>
         <location filename="../src/TWScriptable.cpp" line="583"/>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error a l&apos;script</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="601"/>
@@ -2098,7 +2098,7 @@ La codificació seleccionada substitueix la codificació per defecte i sobreescr
     <message>
         <location filename="../src/TeXDocument.cpp" line="1641"/>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Escriu la marca d&apos;ordre del bytes UTF-8</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1664"/>
