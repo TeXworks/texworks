@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>줄 바꿈 취소</translation>
     </message>
 </context>
 <context>
@@ -529,7 +529,7 @@
     </message>
     <message>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>SyncTeX 초기화 실패</translation>
     </message>
 </context>
 <context>
@@ -950,19 +950,19 @@
     </message>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>인터페이스</translation>
     </message>
     <message>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>언어:</translation>
     </message>
     <message>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>툴바 단추:</translation>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>TeX 파일과 함께 PDF도 열기</translation>
     </message>
 </context>
 <context>
@@ -1017,11 +1017,11 @@
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>로그 파일 (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>부수 파일 (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>
@@ -1296,7 +1296,7 @@
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
-        <translation>Dohyun Kim&amp;lt;nomos@ktug.or.kr&amp;gt;</translation>
+        <translation>Dohyun Kim&amp;lt;nomos@ktug.org&amp;gt;</translation>
     </message>
     <message>
         <source>About %1</source>
@@ -1360,11 +1360,11 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;버전 %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;버전 %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1430,7 +1430,7 @@
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>스크립트 오류</translation>
     </message>
 </context>
 <context>
@@ -2211,7 +2211,7 @@ Do you want to stop it now?</source>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation>문서를 조판하기 위해서는 &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;나 &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; 같은   &lt;b&gt;텍배포판&lt;/b&gt;이 설치돼 있어야 합니다.</translation>
+        <translation>문서를 조판하기 위해서는 &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;나 &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; 같은 &lt;b&gt;텍배포판&lt;/b&gt;이 설치돼 있어야 합니다.</translation>
     </message>
     <message>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
@@ -2257,7 +2257,7 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>UTF-8 BOM (byte order mark) 넣기</translation>
     </message>
 </context>
 <context>
