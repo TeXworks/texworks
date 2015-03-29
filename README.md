@@ -41,7 +41,7 @@ src/synctex_parser.c for license details.
 Building TeXworks
 =================
 
-Notes by Jonathan Kew, updated 2011-03-20 by Stefan Löffler
+Notes by Jonathan Kew, updated 2011-03-20 and 2015-03-29 by Stefan Löffler
 
 To build TeXworks from source, you will need to install developer packages (or
 equivalent) for:
@@ -49,15 +49,15 @@ equivalent) for:
  - Qt4 (4.5.2 or later is recommended, although the application may build with
    versions as old as 4.3.x. Note that on GNU/Linux, TeXworks may crash when
    changing the spell-checking language when using Qt 4.3.x. Updating to at
-   least Qt 4.4.0 solves this.)
-   http://qt.nokia.com/downloads
+   least Qt 4.4.0 solves this.)  
+   http://www.qt.io/download/
 
  - Poppler (using the latest stable release, currently 0.16, is strongly
-   recommended, although versions as old as the 0.6 series should still work)
+   recommended, although versions as old as the 0.6 series should still work)  
    http://poppler.freedesktop.org/
 
  - Hunspell (release 1.2.8 or later is recommended; earlier 1.2.x releases may
-   be used, although support for some non-Latin-script languages may be lacking)
+   be used, although support for some non-Latin-script languages may be lacking)  
    http://hunspell.sourceforge.net/
 
 along with their dependencies (such as Freetype, fontconfig, zlib, etc.) If you
@@ -66,37 +66,20 @@ development packages for Lua and/or Python. Details will depend on your
 platform. On Linux or similar systems, your package manager can probably provide
 all these.
 
-After installing the necessary libraries (and their headers), check the
-TeXworks.pro file and update paths as necessary; some of the paths currently in
-the project file are specific to one of my build machines.
-
-Once the project file is correct, run qmake to create a Makefile or Xcode
-project, and then run make or use Xcode to build the application. Do not run
-"qmake -pro" to recreate the .pro file, as it has been hand-edited.
-
-To build the scripting plugins, similarly check and edit the files
-plugins-src/TWLuaPlugin/TWLuaPlugin.pro and
-plugins-src/TWPythonPlugin/TWPythonPlugin.pro. Then run qmake in the respective
-directories and build the plugins using make or Xcode. Note that on some
-platforms and with certain configuartions, you need to build the scripting
-plugins before building the main application for the former to be picked up
-correctly.
+Once everything is set up, create a folder for building (e.g., "build") and run
+CMake in it to create a Makefile or Xcode project. Finally, run make or use
+Xcode to build the application.
 
 The current TeXworks prototype has been successfully built with
  - Xcode (using gcc 4) on Mac OS X (built on 10.5, but should run on 10.4 or
    later)
  - MinGW release 5.1.4 on Windows XP (also runs on Vista and Windows 7)
  - gcc 4 on GNU/Linux, various BSDs, etc.
-Getting all the right libraries built and installed for the mingw32 build can be
-tricky.
-
-To avoid having to build the poppler dependencies for Windows, you can get
-precompiled libraries from the KDE on Windows project.
 
 On the Mac, required libraries can be obtained, e.g., using Homebrew.
 
 Further tips on building TeXworks from source are available on some of the wiki
 pages:
  - https://github.com/TeXworks/texworks/wiki/Building
- - https://github.com/TeXworks/texworks/wiki/BuildingOnWindowsMinGW
- - https://github.com/TeXworks/texworks/wiki/BuildingOnMacOSXHomebrew
+ - https://github.com/TeXworks/texworks/wiki/Building-on-Windows-(MinGW)
+ - https://github.com/TeXworks/texworks/wiki/Building-on-Mac-OS-X-(Homebrew)
