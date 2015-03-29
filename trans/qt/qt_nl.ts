@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.0" language="nl">
 <context>
     <name>MAC_APPLICATION_MENU</name>
     <message>
         <source>Services</source>
-        <translation></translation>
+        <translation>Services</translation>
     </message>
     <message>
         <source>Hide %1</source>
@@ -36,11 +36,11 @@
     <name>AudioOutput</name>
     <message>
         <source>&lt;html&gt;The audio playback device &lt;b&gt;%1&lt;/b&gt; does not work.&lt;br/&gt;Falling back to &lt;b&gt;%2&lt;/b&gt;.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Het apparaat &lt;b&gt;%1&lt;/b&gt; , dat geluid afspeelt, werkt niet.&lt;br/&gt;In plaats daarvan wordt &lt;b&gt;%2&lt;/b&gt; gebruikt.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Het apparaat &lt;b&gt;%1&lt;/b&gt; dat geluid zou moeten afspelen werkt niet.&lt;br/&gt;Teruggevallen wordt op &lt;b&gt;%2&lt;/b&gt;.&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;Switching to the audio playback device &lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;which just became available and has higher preference.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Stappen over op het geluidsafspeel apparaat &lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;deze is net beschikbaar gekomen en verdient de voorkeur.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Switchen naar geluidafspeelapparaat &lt;b&gt;%1&lt;/b&gt;&lt;br/&gt; die net beschikbaar is gekomen en de voorkeur verdient.&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Revert back to device &apos;%1&apos;</source>
@@ -51,7 +51,7 @@
     <name>Phonon::</name>
     <message>
         <source>Notifications</source>
-        <translation>mededeling</translation>
+        <translation>Mededelingen</translation>
     </message>
     <message>
         <source>Music</source>
@@ -63,11 +63,11 @@
     </message>
     <message>
         <source>Communication</source>
-        <translation>communicatie</translation>
+        <translation>Communicatie</translation>
     </message>
     <message>
         <source>Games</source>
-        <translation>Spelletjes</translation>
+        <translation>Games</translation>
     </message>
     <message>
         <source>Accessibility</source>
@@ -79,14 +79,16 @@
     <message>
         <source>Warning: You do not seem to have the package gstreamer0.10-plugins-good installed.
           Some video features have been disabled.</source>
-        <translation>Waarschuwing: Het pakker &quot;gstreamer0.10 plugins&quot; is niet goed geïnstalleerd.
-          Sommige video mogelijkheden zijn gedeactiveerd.</translation>
+        <translatorcomment>RL - gstreamer0.10 plugins-good zijn aanvullende codecs voor gstreamer</translatorcomment>
+        <translation>Waarschuwing: Het pakket &quot;gstreamer0.10 plugins-good&quot; is niet geïnstalleerd.
+          Sommige videomogelijkheden zijn gedeactiveerd.</translation>
     </message>
     <message>
         <source>Warning: You do not seem to have the base GStreamer plugins installed.
           All audio and video support has been disabled</source>
-        <translation>Waarschuwing: De &quot;GStreamer plugins&quot; blijken niet geïnstalleerd.￼
-          Alle audio  en video ondersteuning is gedeactiveerd</translation>
+        <translatorcomment>RL - basis GStreamer plugins leveren de basis codecs om mediabestanden te kunnen afspelen</translatorcomment>
+        <translation>Waarschuwing: De basis GStreamer plugins blijken niet geïnstalleerd.￼
+          Alle audio en video ondersteuning is gedeactiveerd</translation>
     </message>
 </context>
 <context>
@@ -97,18 +99,21 @@
 Check your Gstreamer installation and make sure you 
 have libgstreamer-plugins-base installed.</source>
         <translation>Kan het afspelen niet starten.
-Controleer de installatie van &quot;Gstreamer&quot; en zorg ervoor dat de &quot;libgstreamer plugins basis is geïnstalleer.</translation>
+
+Controleer de installatie van Gstreamer en zorg ervoor 
+dat libgstreamer-plugins-base is geïnstalleerd.</translation>
     </message>
     <message numerus="yes">
         <source>A required codec is missing. You need to install the following codec(s) to play this content: %0</source>
+        <translatorcomment>RL - kan nog niet goed vertaald worden omdat %n als single/plural place marker niet in source is opgenomen. Ticket #10400 aangemaakt bij virtualbox, afwachten tot bug hersteld is. RL - Ticket gesloten - is string van derde (Phonon) in Qt source, geen VirtualBox issue.</translatorcomment>
         <translation>
-            <numerusform>Een noodzakelijke codec mist. U moet de volgende codec installeren om deze inhoud af te spelen: %0</numerusform>
-            <numerusform>De noodzakelijke codecs missen. U moet de volgende codecs installeren om deze inhoud af te spelen: %0</numerusform>
+            <numerusform>Een noodzakelijke codec ontbreekt. U moet de volgende codec installeren om dit bestand af te kunnen spelen: %0</numerusform>
+            <numerusform>Noodzakelijke codecs ontbreken. U moet de volgende codecs installeren om dit bestand af te kunnen spelen: %0</numerusform>
         </translation>
     </message>
     <message>
         <source>Could not open media source.</source>
-        <translation>Kan de media bron niet openen.</translation>
+        <translation>Kan de mediabron niet openen.</translation>
     </message>
     <message>
         <source>Invalid source type.</source>
@@ -116,15 +121,15 @@ Controleer de installatie van &quot;Gstreamer&quot; en zorg ervoor dat de &quot;
     </message>
     <message>
         <source>Could not locate media source.</source>
-        <translation>Kan de media bron niet vinden.</translation>
+        <translation>Kan mediabron niet vinden.</translation>
     </message>
     <message>
         <source>Could not open audio device. The device is already in use.</source>
-        <translation>Kan het audio apparaat niet openen. Het apparaat wordt al gebruikt.</translation>
+        <translation>Kan het audio-apparaat niet openen. Het apparaat wordt al gebruikt.</translation>
     </message>
     <message>
         <source>Could not decode media source.</source>
-        <translation>Kan de media bron niet decoderen.</translation>
+        <translation>Kan de mediabron niet decoderen.</translation>
     </message>
 </context>
 <context>
@@ -228,7 +233,7 @@ Controleer de installatie van &quot;Gstreamer&quot; en zorg ervoor dat de &quot;
     </message>
     <message>
         <source>File &amp;type:</source>
-        <translation>&amp;Soort bestands:</translation>
+        <translation>&amp;Bestandstype:</translation>
     </message>
     <message>
         <source>Back</source>
@@ -264,27 +269,28 @@ Controleer de installatie van &quot;Gstreamer&quot; en zorg ervoor dat de &quot;
     </message>
     <message>
         <source>Read-only</source>
-        <translation>Alleen lezen</translation>
+        <translation>Alleen-lezen</translation>
     </message>
     <message>
         <source>Write-only</source>
-        <translation>Alleen schrijven</translation>
+        <translation>Alleen-schrijven</translation>
     </message>
     <message>
         <source>Inaccessible</source>
-        <translation>niet toegankelijk</translation>
+        <translation>Niet toegankelijk</translation>
     </message>
     <message>
         <source>Symlink to File</source>
-        <translation>Snelkoppeling naar het bestand</translation>
+        <translation>Snelkoppeling naar bestand</translation>
     </message>
     <message>
         <source>Symlink to Directory</source>
-        <translation>Snelkoppeling naar de map</translation>
+        <translation>Snelkoppeling naar map</translation>
     </message>
     <message>
         <source>Symlink to Special</source>
-        <translation>Snelkoppeling naar iets speciaals</translation>
+        <translatorcomment>RL - naar de map &apos;Speciaal&apos;, als die map van naam verandert, deze string ook aanpassen</translatorcomment>
+        <translation>Snelkoppeling naar Speciaal</translation>
     </message>
     <message>
         <source>File</source>
@@ -332,7 +338,7 @@ Controleer de installatie van &quot;Gstreamer&quot; en zorg ervoor dat de &quot;
     </message>
     <message>
         <source>Sort by &amp;Size</source>
-        <translatorcomment>size kan ook zijn omvang</translatorcomment>
+        <translatorcomment>EG - size kan ook zijn omvang RL - verschil?</translatorcomment>
         <translation>Op grootte &amp;sorteren</translation>
     </message>
     <message>
@@ -353,15 +359,18 @@ Controleer de installatie van &quot;Gstreamer&quot; en zorg ervoor dat de &quot;
     </message>
     <message>
         <source>the file</source>
-        <translation>Het bestand</translation>
+        <translatorcomment>RL - kleine &apos;h&apos; bij &apos;het&apos; (deze string is %1 bij andere string)</translatorcomment>
+        <translation>het bestand</translation>
     </message>
     <message>
         <source>the directory</source>
-        <translation>De map</translation>
+        <translatorcomment>RL - kleine &apos;d&apos; bij &apos;de&apos; (deze string is %1 bij andere string)</translatorcomment>
+        <translation>de map</translation>
     </message>
     <message>
         <source>the symlink</source>
-        <translation>De snelkoppeling</translation>
+        <translatorcomment>RL - kleine &apos;d&apos; bij &apos;de&apos; (deze string is %1 bij andere string)</translatorcomment>
+        <translation>de snelkoppeling</translation>
     </message>
     <message>
         <source>Delete %1</source>
@@ -421,7 +430,7 @@ Controleer pad en bestandsnaam.</translation>
     <message>
         <source>Could not read directory
 %1</source>
-        <translation>Kan de map niet lezen
+        <translation>Kon deze map niet lezen
 %1</translation>
     </message>
     <message>
@@ -449,8 +458,8 @@ niet hernoemen naar
     <message>
         <source>Could not open
 %1</source>
-        <translation>Kan:
-%1 niet openen</translation>
+        <translation>Kan niet openen:
+%1</translation>
     </message>
     <message>
         <source>Could not write
@@ -474,7 +483,7 @@ niet hernoemen naar
     <name>Q3NetworkProtocol</name>
     <message>
         <source>Operation stopped by the user</source>
-        <translation>Actie gestopd door de gebruiker</translation>
+        <translation>Actie gestopt door gebruiker</translation>
     </message>
 </context>
 <context>
@@ -488,7 +497,7 @@ niet hernoemen naar
     <name>Q3TabDialog</name>
     <message>
         <source>OK</source>
-        <translation>Ok</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -496,7 +505,8 @@ niet hernoemen naar
     </message>
     <message>
         <source>Help</source>
-        <translation>Help</translation>
+        <translatorcomment>RL - eng &apos;Help&apos; wordt bij Moz/KDe/GNOME/Ubuntu/Fedora/Windows/Mac standaard vertaald in Nederlands als &apos;Hulp&apos;</translatorcomment>
+        <translation>Hulp</translation>
     </message>
     <message>
         <source>Defaults</source>
@@ -589,7 +599,7 @@ niet hernoemen naar
         <translation>Sluit het venster</translation>
     </message>
     <message>
-        <source>Displays the name of the window and contains controls to manipulate it</source>
+        <source>Holds the name of the window and contains controls to manipulate it</source>
         <translation>Geeft de naam van venster weer en bevat knoppen om deze te bewerken</translation>
     </message>
 </context>
@@ -608,31 +618,31 @@ niet hernoemen naar
     </message>
     <message>
         <source>The protocol `%1&apos; does not support listing directories</source>
-        <translation>Het protocol `%1&apos; ondersteund geen opname in een lijst van mappen</translation>
+        <translation>Het protocol `%1&apos; ondersteunt geen opsomming van mappen</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support creating new directories</source>
-        <translation>Het protocol `%1&apos; ondersteund niet het aanmaken van nieuwe mappen</translation>
+        <translation>Het protocol `%1&apos; ondersteunt niet het aanmaken van nieuwe mappen</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support removing files or directories</source>
-        <translation>Het protocol `%1&apos; ondersteund niet het verwijderen van bestanden of mappen</translation>
+        <translation>Het protocol `%1&apos; ondersteunt niet het verwijderen van bestanden of mappen</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support renaming files or directories</source>
-        <translation>Het protocol `%1&apos; ondersteund niet het herbenoemen van bestanden of mappen</translation>
+        <translation>Het protocol `%1&apos; ondersteunt niet het herbenoemen van bestanden of mappen</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support getting files</source>
-        <translation>Het protocol `%1&apos; ondersteund niet het ophalen van bestanden</translation>
+        <translation>Het protocol `%1&apos; ondersteunt niet het ophalen van bestanden</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support putting files</source>
-        <translation>Het protocol `%1&apos; ondersteund niet het wegzetten van bestanden</translation>
+        <translation>Het protocol `%1&apos; ondersteunt niet het wegzetten van bestanden</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support copying or moving files or directories</source>
-        <translation>Het protocol `%1&apos; ondersteund niet het kopiëren van bestanden of mappen</translation>
+        <translation>Het protocol `%1&apos; ondersteunt niet het kopiëren van bestanden of mappen</translation>
     </message>
     <message>
         <source>(unknown)</source>
@@ -659,14 +669,15 @@ niet hernoemen naar
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>&amp;Help</translation>
+        <translatorcomment>RL - eng &apos;Help&apos; wordt bij Moz/KDe/GNOME/Ubuntu/Fedora/Windows/Mac standaard vertaald in Nederlands als &apos;Hulp&apos;</translatorcomment>
+        <translation>&amp;Hulp</translation>
     </message>
 </context>
 <context>
     <name>QAbstractSocket</name>
     <message>
         <source>Host not found</source>
-        <translation>Gastheer niet gevonden</translation>
+        <translation>Host niet gevonden</translation>
     </message>
     <message>
         <source>Connection refused</source>
@@ -674,7 +685,7 @@ niet hernoemen naar
     </message>
     <message>
         <source>Socket operation timed out</source>
-        <translation>Tijdslimiet verstreken voor de actie op de socket</translation>
+        <translation>Tijdslimiet voor actie op socket verstreken</translation>
     </message>
     <message>
         <source>Socket is not connected</source>
@@ -685,13 +696,13 @@ niet hernoemen naar
     <name>QAbstractSpinBox</name>
     <message>
         <source>&amp;Step up</source>
-        <translatorcomment>nakijken</translatorcomment>
-        <translation>&amp;ophogen??</translation>
+        <translatorcomment>EG - nakijken  RL - tja....</translatorcomment>
+        <translation>&amp;Stap omhoog</translation>
     </message>
     <message>
         <source>Step &amp;down</source>
-        <translatorcomment>Nakijken</translatorcomment>
-        <translation>&amp;Afnemen??</translation>
+        <translatorcomment>EG - Nakijken  RL - tja..</translatorcomment>
+        <translation>&amp;Stap omlaag</translation>
     </message>
     <message>
         <source>&amp;Select All</source>
@@ -701,9 +712,8 @@ niet hernoemen naar
 <context>
     <name>QApplication</name>
     <message>
-        <source>QT_LAYOUT_DIRECTION</source>
-        <comment>Translate this string to the string &apos;LTR&apos; in left-to-right languages or to &apos;RTL&apos; in right-to-left languages (such as Hebrew and Arabic) to get proper widget layout.</comment>
-        <translation>LTR</translation>
+        <source>Activate</source>
+        <translation>Activeren</translation>
     </message>
     <message>
         <source>Executable &apos;%1&apos; requires Qt %2, found Qt %3.</source>
@@ -714,8 +724,9 @@ niet hernoemen naar
         <translation>Qt bibliotheek is niet compatibel</translation>
     </message>
     <message>
-        <source>Activate</source>
-        <translation>Activeren</translation>
+        <source>QT_LAYOUT_DIRECTION</source>
+        <comment>Translate this string to the string &apos;LTR&apos; in left-to-right languages or to &apos;RTL&apos; in right-to-left languages (such as Hebrew and Arabic) to get proper widget layout.</comment>
+        <translation>LTR</translation>
     </message>
     <message>
         <source>Activates the program&apos;s main window</source>
@@ -769,7 +780,7 @@ niet hernoemen naar
     </message>
     <message>
         <source>&amp;Basic colors</source>
-        <translation>&amp;Basis kleuren</translation>
+        <translation>&amp;Basiskleuren</translation>
     </message>
     <message>
         <source>&amp;Custom colors</source>
@@ -808,7 +819,7 @@ niet hernoemen naar
     <message>
         <source>%1: permission denied</source>
         <comment>QSystemSemaphore</comment>
-        <translation>%1: geen toestemming</translation>
+        <translation>%1: toestemming geweigerd</translation>
     </message>
     <message>
         <source>%1: already exists</source>
@@ -854,7 +865,7 @@ niet hernoemen naar
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>Kan de transactie niet bevestigen</translation>
+        <translation>Kan de transactie niet toepassen</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
@@ -862,7 +873,8 @@ niet hernoemen naar
     </message>
     <message>
         <source>Unable to set autocommit</source>
-        <translation>Kan het automatisch bevestigen niet instellen</translation>
+        <translatorcomment>RL - autocommit is techterm</translatorcomment>
+        <translation>Kan automatisch toepassen (autocommit) niet instellen</translation>
     </message>
 </context>
 <context>
@@ -881,7 +893,7 @@ niet hernoemen naar
     </message>
     <message>
         <source>Unable to fetch record %1</source>
-        <translation>Kan het record %1 niet ophalen</translation>
+        <translation>Kan record %1 niet ophalen</translation>
     </message>
     <message>
         <source>Unable to fetch next</source>
@@ -900,7 +912,7 @@ niet hernoemen naar
     </message>
     <message>
         <source>am</source>
-        <translation>NM</translation>
+        <translation>vm</translation>
     </message>
     <message>
         <source>PM</source>
@@ -919,7 +931,7 @@ niet hernoemen naar
     </message>
     <message>
         <source>SpeedoMeter</source>
-        <translation>Tachometer</translation>
+        <translation>SpeedoMeter</translation>
     </message>
     <message>
         <source>SliderHandle</source>
@@ -941,7 +953,7 @@ niet hernoemen naar
     <name>QDialogButtonBox</name>
     <message>
         <source>OK</source>
-        <translation>Ok</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Save</source>
@@ -969,7 +981,8 @@ niet hernoemen naar
     </message>
     <message>
         <source>Help</source>
-        <translation>Help</translation>
+        <translatorcomment>RL - eng &apos;Help&apos; wordt bij Moz/KDe/GNOME/Ubuntu/Fedora/Windows/Mac standaard vertaald in Nederlands als &apos;Hulp&apos;</translatorcomment>
+        <translation>Hulp</translation>
     </message>
     <message>
         <source>Don&apos;t Save</source>
@@ -985,7 +998,7 @@ niet hernoemen naar
     </message>
     <message>
         <source>Yes to &amp;All</source>
-        <translation>Ja, &amp;alles</translation>
+        <translation>Ja op &amp;alles</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -993,7 +1006,7 @@ niet hernoemen naar
     </message>
     <message>
         <source>N&amp;o to All</source>
-        <translation>Nee voor &amp;alles</translation>
+        <translation>Nee op &amp;alles</translation>
     </message>
     <message>
         <source>Save All</source>
@@ -1032,7 +1045,7 @@ niet hernoemen naar
     </message>
     <message>
         <source>Size</source>
-        <translation>Omvang</translation>
+        <translation>Grootte</translation>
     </message>
     <message>
         <source>Kind</source>
@@ -1078,16 +1091,9 @@ niet hernoemen naar
 <context>
     <name>QErrorMessage</name>
     <message>
-        <source>&amp;Show this message again</source>
-        <translation>&amp;Geef dit bericht opnieuw weer</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
         <source>Debug Message:</source>
-        <translation>Test bericht:</translation>
+        <translatorcomment>RL - debug als bekende term laten staan</translatorcomment>
+        <translation>Debug bericht:</translation>
     </message>
     <message>
         <source>Warning:</source>
@@ -1097,6 +1103,14 @@ niet hernoemen naar
         <source>Fatal Error:</source>
         <translation>Fatale fout:</translation>
     </message>
+    <message>
+        <source>&amp;Show this message again</source>
+        <translation>&amp;Geef dit bericht opnieuw weer</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
 </context>
 <context>
     <name>QFileDialog</name>
@@ -1105,28 +1119,8 @@ niet hernoemen naar
         <translation>Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>Back</source>
-        <translation>Terug</translation>
-    </message>
-    <message>
-        <source>List View</source>
-        <translation>Lijst weergave</translation>
-    </message>
-    <message>
-        <source>Detail View</source>
-        <translation>Detail weergave</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation>Bestand</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation>Openen</translation>
-    </message>
-    <message>
-        <source>Save As</source>
-        <translation>Opslaan als</translation>
+        <source>Directories</source>
+        <translation>Mappen</translation>
     </message>
     <message>
         <source>&amp;Open</source>
@@ -1137,32 +1131,8 @@ niet hernoemen naar
         <translation>&amp;Opslaan</translation>
     </message>
     <message>
-        <source>&amp;Rename</source>
-        <translation>&amp;Hernoemen</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Verwijderen</translation>
-    </message>
-    <message>
-        <source>Show &amp;hidden files</source>
-        <translation>&amp;Geef verborgen bestanden weer</translation>
-    </message>
-    <message>
-        <source>New Folder</source>
-        <translation>Nieuwe map</translation>
-    </message>
-    <message>
-        <source>Find Directory</source>
-        <translation>Zoek een map</translation>
-    </message>
-    <message>
-        <source>Directories</source>
-        <translation>Mappen</translation>
-    </message>
-    <message>
-        <source>Directory:</source>
-        <translation>Map:</translation>
+        <source>Open</source>
+        <translation>Openen</translation>
     </message>
     <message>
         <source>%1 already exists.
@@ -1183,12 +1153,40 @@ Controleer of de juiste bestandnaam is opgegeven.</translation>
         <translation>Mijn computer</translation>
     </message>
     <message>
+        <source>&amp;Rename</source>
+        <translation>&amp;Hernoemen</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Verwijderen</translation>
+    </message>
+    <message>
+        <source>Show &amp;hidden files</source>
+        <translation>&amp;Geef verborgen bestanden weer</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Terug</translation>
+    </message>
+    <message>
         <source>Parent Directory</source>
         <translation>Bovenliggende map</translation>
     </message>
     <message>
+        <source>List View</source>
+        <translation>Lijst weergave</translation>
+    </message>
+    <message>
+        <source>Detail View</source>
+        <translation>Detail weergave</translation>
+    </message>
+    <message>
         <source>Files of type:</source>
         <translation>Bestanden van het type:</translation>
+    </message>
+    <message>
+        <source>Directory:</source>
+        <translation>Map:</translation>
     </message>
     <message>
         <source>%1
@@ -1213,20 +1211,36 @@ Wilt u het toch verwijderen?</translation>
         <translation>Kan de map niet verwijderen.</translation>
     </message>
     <message>
+        <source>Save As</source>
+        <translation>Opslaan als</translation>
+    </message>
+    <message>
         <source>Drive</source>
         <translation>Station</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Bestand</translation>
     </message>
     <message>
         <source>Unknown</source>
         <translation>Onbekend</translation>
     </message>
     <message>
+        <source>Find Directory</source>
+        <translation>Zoek een map</translation>
+    </message>
+    <message>
         <source>Show </source>
-        <translation>Weergeven</translation>
+        <translation>Toon</translation>
     </message>
     <message>
         <source>Forward</source>
         <translation>Vooruit</translation>
+    </message>
+    <message>
+        <source>New Folder</source>
+        <translation>Nieuwe map</translation>
     </message>
     <message>
         <source>&amp;New Folder</source>
@@ -1256,26 +1270,6 @@ Wilt u het toch verwijderen?</translation>
 <context>
     <name>QFileSystemModel</name>
     <message>
-        <source>%1 TB</source>
-        <translation>%1 TB</translation>
-    </message>
-    <message>
-        <source>%1 GB</source>
-        <translation>%1 GB</translation>
-    </message>
-    <message>
-        <source>%1 MB</source>
-        <translation>%1 MB</translation>
-    </message>
-    <message>
-        <source>%1 KB</source>
-        <translation>%1 KB</translation>
-    </message>
-    <message>
-        <source>%1 bytes</source>
-        <translation>%1 bytes</translation>
-    </message>
-    <message>
         <source>Invalid filename</source>
         <translation>Ongeldige bestandsnaam</translation>
     </message>
@@ -1289,7 +1283,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>Omvang</translation>
+        <translation>Grootte</translation>
     </message>
     <message>
         <source>Kind</source>
@@ -1312,6 +1306,26 @@ Wilt u het toch verwijderen?</translation>
     <message>
         <source>Computer</source>
         <translation>Computer</translation>
+    </message>
+    <message>
+        <source>%1 TB</source>
+        <translation>%1 TB</translation>
+    </message>
+    <message>
+        <source>%1 GB</source>
+        <translation>%1 GB</translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <translation>%1 MB</translation>
+    </message>
+    <message>
+        <source>%1 KB</source>
+        <translation>%1 KB</translation>
+    </message>
+    <message>
+        <source>%1 bytes</source>
+        <translation>%1 bytes</translation>
     </message>
 </context>
 <context>
@@ -1338,7 +1352,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation>licht</translation>
+        <translation>Licht</translation>
     </message>
     <message>
         <source>Italic</source>
@@ -1354,7 +1368,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Latin</source>
-        <translation>Latijns</translation>
+        <translation>Latijn</translation>
     </message>
     <message>
         <source>Greek</source>
@@ -1366,7 +1380,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Armenian</source>
-        <translation>Armekaans</translation>
+        <translation>Armeens</translation>
     </message>
     <message>
         <source>Hebrew</source>
@@ -1493,7 +1507,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation>&amp;Omvang</translation>
+        <translation>&amp;Grootte</translation>
     </message>
     <message>
         <source>Effects</source>
@@ -1512,47 +1526,35 @@ Wilt u het toch verwijderen?</translation>
         <translation>Voorbeeld</translation>
     </message>
     <message>
-        <source>Select Font</source>
-        <translation>Selecteer lettertype</translation>
-    </message>
-    <message>
         <source>Wr&amp;iting System</source>
         <translation>&amp;Schrijfsysteem</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation>Selecteer lettertype</translation>
     </message>
 </context>
 <context>
     <name>QFtp</name>
     <message>
-        <source>Host %1 found</source>
-        <translation>Gastheer %1 gevonden</translation>
-    </message>
-    <message>
-        <source>Host found</source>
-        <translation>Gastheer gevonden</translation>
-    </message>
-    <message>
-        <source>Connected to host %1</source>
-        <translation>Verbonden met de gastheer %1</translation>
-    </message>
-    <message>
-        <source>Connected to host</source>
-        <translation>Verbonden met de gastheer</translation>
-    </message>
-    <message>
-        <source>Connection to %1 closed</source>
-        <translation>Verbinding met %1 afgesloten</translation>
-    </message>
-    <message>
-        <source>Connection closed</source>
-        <translation>Verbinding afgesloten</translation>
+        <source>Not connected</source>
+        <translation>Geen verbinding</translation>
     </message>
     <message>
         <source>Host %1 not found</source>
-        <translation>Gastheer %1 niet gevonden</translation>
+        <translation>Host %1 niet gevonden</translation>
     </message>
     <message>
         <source>Connection refused to host %1</source>
-        <translation>Verbinding met %1 geweigerd</translation>
+        <translation>Verbinding met host %1 geweigerd</translation>
+    </message>
+    <message>
+        <source>Connected to host %1</source>
+        <translation>Verbonden met host %1</translation>
+    </message>
+    <message>
+        <source>Connection refused for data connection</source>
+        <translation>Verbinding geweigerd voor dataconnectie</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -1561,7 +1563,7 @@ Wilt u het toch verwijderen?</translation>
     <message>
         <source>Connecting to host failed:
 %1</source>
-        <translation>Verbinding met gastheer mislukt:
+        <translation>Verbinding met host mislukt:
 %1</translation>
     </message>
     <message>
@@ -1579,7 +1581,7 @@ Wilt u het toch verwijderen?</translation>
     <message>
         <source>Changing directory failed:
 %1</source>
-        <translation>veranderen van map is misluktl:
+        <translation>Veranderen van map is misluktl:
 %1</translation>
     </message>
     <message>
@@ -1613,12 +1615,25 @@ Wilt u het toch verwijderen?</translation>
 %1</translation>
     </message>
     <message>
-        <source>Not connected</source>
-        <translation>Geen verbinding</translation>
+        <source>Connection closed</source>
+        <translation>Verbinding afgesloten</translation>
     </message>
     <message>
-        <source>Connection refused for data connection</source>
-        <translation>Verbinding voor gegevens verbinding geweigerd</translation>
+        <source>Host %1 found</source>
+        <translation>Host %1 gevonden</translation>
+    </message>
+    <message>
+        <source>Connection to %1 closed</source>
+        <translation>Verbinding met %1 afgesloten</translation>
+    </message>
+    <message>
+        <source>Host found</source>
+        <translatorcomment>RL - &apos;host&apos; als host vertalen, voorkomt &apos;gast&apos; en &apos;gastheer&apos; verwarring in VirtualBox (gebruikerswens)</translatorcomment>
+        <translation>Host gevonden</translation>
+    </message>
+    <message>
+        <source>Connected to host</source>
+        <translation>Verbonden met host</translation>
     </message>
 </context>
 <context>
@@ -1632,11 +1647,11 @@ Wilt u het toch verwijderen?</translation>
     <name>QHostInfoAgent</name>
     <message>
         <source>Host not found</source>
-        <translation>gastheer niet gevonden</translation>
+        <translation>Host niet gevonden</translation>
     </message>
     <message>
         <source>Unknown address type</source>
-        <translation>Onbekend soort adres</translation>
+        <translation>Onbekend adrestype</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -1646,60 +1661,36 @@ Wilt u het toch verwijderen?</translation>
 <context>
     <name>QHttp</name>
     <message>
-        <source>Connection refused</source>
-        <translation>Verbinding geweigerd</translation>
-    </message>
-    <message>
-        <source>Host %1 not found</source>
-        <translation>Gastheer %1 niet gevonden</translation>
-    </message>
-    <message>
-        <source>Wrong content length</source>
-        <translation>Lengte van de inhoud is verkeerd</translation>
-    </message>
-    <message>
-        <source>HTTP request failed</source>
-        <translation>HTTP verzoek is mislukt</translation>
-    </message>
-    <message>
-        <source>Host %1 found</source>
-        <translation>Gastheer %1 gevonden</translation>
-    </message>
-    <message>
-        <source>Host found</source>
-        <translation>Gastheer gevonden</translation>
-    </message>
-    <message>
-        <source>Connected to host %1</source>
-        <translation>Verbonden met de gastheer %1</translation>
-    </message>
-    <message>
-        <source>Connected to host</source>
-        <translation>Verbonden met de gastheer</translation>
-    </message>
-    <message>
-        <source>Connection to %1 closed</source>
-        <translation>Verbinding met %1 afgesloten</translation>
-    </message>
-    <message>
-        <source>Connection closed</source>
-        <translation>Verbinding afgesloten</translation>
-    </message>
-    <message>
         <source>Unknown error</source>
         <translation>Onbekende fout</translation>
     </message>
     <message>
         <source>Request aborted</source>
-        <translation>verzoek afgebroken</translation>
+        <translation>Verzoek afgebroken</translation>
     </message>
     <message>
         <source>No server set to connect to</source>
         <translation>Geen server aangewezen om mee te verbinden</translation>
     </message>
     <message>
+        <source>Wrong content length</source>
+        <translation>Lengte van de inhoud is verkeerd</translation>
+    </message>
+    <message>
         <source>Server closed connection unexpectedly</source>
         <translation>Server heeft de verbinding onverwacht verbroken</translation>
+    </message>
+    <message>
+        <source>Connection refused</source>
+        <translation>Verbinding geweigerd</translation>
+    </message>
+    <message>
+        <source>Host %1 not found</source>
+        <translation>Host %1 niet gevonden</translation>
+    </message>
+    <message>
+        <source>HTTP request failed</source>
+        <translation>HTTP verzoek is mislukt</translation>
     </message>
     <message>
         <source>Invalid HTTP response header</source>
@@ -1707,7 +1698,31 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Invalid HTTP chunked body</source>
-        <translation>Ongeldige HTTP gebroken body</translation>
+        <translation>Ongeldige HTTP afgebroken body</translation>
+    </message>
+    <message>
+        <source>Host %1 found</source>
+        <translation>Host %1 gevonden</translation>
+    </message>
+    <message>
+        <source>Connected to host %1</source>
+        <translation>Verbonden met host %1</translation>
+    </message>
+    <message>
+        <source>Connection to %1 closed</source>
+        <translation>Verbinding met %1 afgesloten</translation>
+    </message>
+    <message>
+        <source>Host found</source>
+        <translation>Host gevonden</translation>
+    </message>
+    <message>
+        <source>Connected to host</source>
+        <translation>Verbonden met host</translation>
+    </message>
+    <message>
+        <source>Connection closed</source>
+        <translation>Verbinding afgesloten</translation>
     </message>
     <message>
         <source>Proxy authentication required</source>
@@ -1718,32 +1733,32 @@ Wilt u het toch verwijderen?</translation>
         <translation>Authenticatie vereist</translation>
     </message>
     <message>
+        <source>Connection refused (or timed out)</source>
+        <translation>Verbinding geweigerd (tijdslimiet verstreken)</translation>
+    </message>
+    <message>
         <source>Proxy requires authentication</source>
         <translation>De proxy vereist authenticatie</translation>
     </message>
     <message>
         <source>Host requires authentication</source>
-        <translation>De gastheer vereist authenticatie</translation>
+        <translation>Host vereist authenticatie</translation>
     </message>
     <message>
         <source>Data corrupted</source>
-        <translation>gegevens zijn onbetrouwbaar</translation>
-    </message>
-    <message>
-        <source>SSL handshake failed</source>
-        <translation>SSL handdruk is mislukt</translation>
+        <translation>Data gecorrumpeerd</translation>
     </message>
     <message>
         <source>Unknown protocol specified</source>
         <translation>Onbekend protocol gespecificeerd</translation>
     </message>
     <message>
-        <source>Connection refused (or timed out)</source>
-        <translation>Verbinding geweigerd (tijdslimiet verstreken)</translation>
+        <source>SSL handshake failed</source>
+        <translation>SSL handdruk is mislukt</translation>
     </message>
     <message>
         <source>HTTPS connection requested but SSL support not compiled in</source>
-        <translation>HTTPS verginding vereist maar SSL ondersteuning niet opgenomen</translation>
+        <translation>HTTPS verbinding vereist maar SSL ondersteuning niet meegecompileerd</translation>
     </message>
 </context>
 <context>
@@ -1765,7 +1780,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>Kan de transactie niet bevestigen</translation>
+        <translation>Kan de transactie niet toepassen</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
@@ -1808,7 +1823,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>Kan de transactie niet bevestigen</translation>
+        <translation>Kan de transactie niet toepassen</translation>
     </message>
     <message>
         <source>Could not allocate statement</source>
@@ -1820,7 +1835,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Could not describe input statement</source>
-        <translation>Kan de invoer instructie niet beschrijven</translation>
+        <translation>Kan de invoerinstructie niet beschrijven</translation>
     </message>
     <message>
         <source>Could not describe statement</source>
@@ -1847,7 +1862,7 @@ Wilt u het toch verwijderen?</translation>
     <name>QIODevice</name>
     <message>
         <source>Permission denied</source>
-        <translation>Geen toestemming</translation>
+        <translation>Toestemming geweigerd</translation>
     </message>
     <message>
         <source>Too many open files</source>
@@ -1874,15 +1889,15 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>XIM input method</source>
-        <translation>XIM invoer methode</translation>
+        <translation>XIM invoermethode</translation>
     </message>
     <message>
         <source>Windows input method</source>
-        <translation>Windows invoer methode</translation>
+        <translation>Windows invoermethode</translation>
     </message>
     <message>
         <source>Mac OS X input method</source>
-        <translation>Mac OS X invoer methode</translation>
+        <translation>Mac OS X invoermethode</translation>
     </message>
 </context>
 <context>
@@ -1901,25 +1916,26 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Could not mmap &apos;%1&apos;: %2</source>
-        <translatorcomment>wat is mmap</translatorcomment>
-        <translation>Kan &apos;%1&apos;: %2 niet mmappen??</translation>
+        <translatorcomment>EG - wat is mmap   RL - mmap is (op unix en -----x familie) een system call dat bestanden of apparaten mapt naar het geheugen (map/unmap), dus gewoon vertalen als &apos;mmappen&apos;</translatorcomment>
+        <translation>Kan &apos;%1&apos;: %2 niet mmappen</translation>
     </message>
     <message>
         <source>Plugin verification data mismatch in &apos;%1&apos;</source>
-        <translation>Plugin controle gegevens komen niet overeen in &apos;%1</translation>
+        <translation>Plugin controle-gegevens komen niet overeen in &apos;%1</translation>
     </message>
     <message>
         <source>Could not unmap &apos;%1&apos;: %2</source>
-        <translatorcomment>wat is unmap</translatorcomment>
-        <translation>kan &apos;%1&apos;: %2 niet unmappen??</translation>
+        <translatorcomment>EG - wat is unmap...RL - mmap is (op unix en -----x familie) een system call dat bestanden of apparaten mapt naar het geheugen (map/unmap), dus gewoon vertalen als &apos;unmappen&apos;</translatorcomment>
+        <translation>kan &apos;%1&apos;: %2 niet unmappen</translation>
     </message>
     <message>
         <source>The plugin &apos;%1&apos; uses incompatible Qt library. (%2.%3.%4) [%5]</source>
-        <translation>Plugin &apos;%1&apos; gebruikt een QT biblitheek, (%2.%3.%4) [%5], die niet compatibel is</translation>
+        <translation>Plugin &apos;%1&apos; gebruikt een Qt bibliotheek, (%2.%3.%4) [%5], die niet compatibel is</translation>
     </message>
     <message>
         <source>The plugin &apos;%1&apos; uses incompatible Qt library. Expected build key &quot;%2&quot;, got &quot;%3&quot;</source>
-        <translation>Plugin &apos;%1&apos; gebruikt een QT biblitheek die niet compatibel is. Verwacht bouw sleutel &quot;%2&quot; maar kreeg &quot;%3&quot;</translation>
+        <translatorcomment>RL - build key onvertaald laten</translatorcomment>
+        <translation>Plugin &apos;%1&apos; gebruikt een Qt bibliotheek die niet compatibel is. Verwacht build key &quot;%2&quot; maar kreeg &quot;%3&quot;</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -1935,15 +1951,11 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>The plugin &apos;%1&apos; uses incompatible Qt library. (Cannot mix debug and release libraries.)</source>
-        <translation>Plugin &apos;%1&apos; gebruikt een QT bibliotheek die niet compatibel is. (kan geen test en productie biblitheek doorelkaar gebruiken.)</translation>
+        <translation>Plugin &apos;%1&apos; gebruikt een Qt bibliotheek die niet compatibel is. (een test en productie bibliotheek kunnen niet door elkaar gebruikt worden.)</translation>
     </message>
 </context>
 <context>
     <name>QLineEdit</name>
-    <message>
-        <source>Select All</source>
-        <translation>Alles selecteren</translation>
-    </message>
     <message>
         <source>&amp;Undo</source>
         <translation>&amp;Ongedaan maken</translation>
@@ -1968,6 +1980,10 @@ Wilt u het toch verwijderen?</translation>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
+    <message>
+        <source>Select All</source>
+        <translation>Alles selecteren</translation>
+    </message>
 </context>
 <context>
     <name>QLocalServer</name>
@@ -1977,7 +1993,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>%1: Permission denied</source>
-        <translation>%1: geen toestemming</translation>
+        <translation>%1: Toestemming geweigerd</translation>
     </message>
     <message>
         <source>%1: Address in use</source>
@@ -2020,7 +2036,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>%1: Connection error</source>
-        <translation>%1: Fout in de verbinding</translation>
+        <translation>%1: Verbindingsfout</translation>
     </message>
     <message>
         <source>%1: The socket operation is not supported</source>
@@ -2047,7 +2063,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>Kan de transactie niet bevestigen</translation>
+        <translation>Kan de transactie niet toepassen</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
@@ -2086,7 +2102,8 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to bind outvalues</source>
-        <translation>Kan geen overwaarde binden</translation>
+        <translatorcomment>RL - was vertaald &apos;overwaarde&apos;, maar betekent &apos;een hogere waarde hebbende dan&apos;  Wordt door bv Microsoft in Nederlands nooit vertaald</translatorcomment>
+        <translation>Kan geen outvalues binden</translation>
     </message>
     <message>
         <source>Unable to store statement results</source>
@@ -2098,14 +2115,15 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to store next result</source>
-        <translation>Kan het volgene resultaat niet opslaan</translation>
+        <translation>Kan het volgende resultaat niet opslaan</translation>
     </message>
 </context>
 <context>
     <name>QMdiArea</name>
     <message>
         <source>(Untitled)</source>
-        <translation>(Zonder titel)</translation>
+        <translatorcomment>RL - opmaak, niet vertalen Zie virtualbox.org wikki translating</translatorcomment>
+        <translation>(Untitled)</translation>
     </message>
 </context>
 <context>
@@ -2148,11 +2166,15 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
-        <translation>Op de &amp;Voorgrond blijven</translation>
+        <translation>Op &amp;Voorgrond blijven</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <translation>Sl&amp;uiten</translation>
+    </message>
+    <message>
+        <source>- [%1]</source>
+        <translation>- [%1]</translation>
     </message>
     <message>
         <source>Maximize</source>
@@ -2172,15 +2194,12 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Help</translation>
+        <translatorcomment>RL - eng &apos;Help&apos; wordt bij Moz/KDe/GNOME/Ubuntu/Fedora/Windows/Mac standaard vertaald in Nederlands als &apos;Hulp&apos;</translatorcomment>
+        <translation>Hulp</translation>
     </message>
     <message>
         <source>Menu</source>
         <translation>Menu</translation>
-    </message>
-    <message>
-        <source>- [%1]</source>
-        <translation>- [%1]</translation>
     </message>
 </context>
 <context>
@@ -2201,16 +2220,17 @@ Wilt u het toch verwijderen?</translation>
 <context>
     <name>QMessageBox</name>
     <message>
+        <source>Help</source>
+        <translatorcomment>RL - eng &apos;Help&apos; wordt bij Moz/KDe/GNOME/Ubuntu/Fedora/Windows/Mac standaard vertaald in Nederlands als &apos;Hulp&apos;</translatorcomment>
+        <translation>Hulp</translation>
+    </message>
+    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
         <source>About Qt</source>
         <translation>Info over Qt</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation>Help</translation>
     </message>
     <message>
         <source>&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;</source>
@@ -2226,18 +2246,18 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>&lt;p&gt;This program uses Qt Open Source Edition version %1.&lt;/p&gt;&lt;p&gt;Qt Open Source Edition is intended for the development of Open Source applications. You need a commercial Qt license for development of proprietary (closed source) applications.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://www.trolltech.com/company/model/&quot;&gt;www.trolltech.com/company/model/&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Dit programma gebruikt Qt Open Source editie versie %1.&lt;/p&gt;&lt;p&gt;Qt Open Source editie is bedoeld voor het ontwikkelen van Open Source applicaties. U heeft een commerciële Qt license nodig voor het ontwikkelen van proprietary (closed source) applicaties.&lt;/p&gt;&lt;p&gt;Kijk bij &lt;a href=&quot;http://www.trolltech.com/company/model/&quot;&gt;www.trolltech.com/company/model/&lt;/a&gt; voor een overzicht van Qt licenties.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Dit programma gebruikt Qt Open Source editie versie %1.&lt;/p&gt;&lt;p&gt;Qt Open Source editie is bedoeld voor het ontwikkelen van Open Source applicaties. U hebt een commerciële Qt license nodig voor het ontwikkelen van proprietary (closed source) applicaties.&lt;/p&gt;&lt;p&gt;Kijk bij &lt;a href=&quot;http://www.trolltech.com/company/model/&quot;&gt;www.trolltech.com/company/model/&lt;/a&gt; voor een overzicht van Qt licenties.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is a Nokia product. See &lt;a href=&quot;http://www.trolltech.com/qt/&quot;&gt;www.trolltech.com/qt/&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Info over Qt&lt;/h3&gt;%1&lt;p&gt;Qt is een C++ gereedschapskist voor applicatie ontwikkeling over platformen heen.&lt;/p&gt;&lt;p&gt;Qt levert één enkele bron overdraagbaarheid met MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux en alle belangrijke commerciële Unix variantenn. Qt is ook beschikbaar voor ingebouw apparaten zoals Qt voor inbouw Linux en Qt voor Windows CE.&lt;/p&gt;&lt;p&gt;Qt is een Nokia product. Kijk bij &lt;a href=&quot;http://www.trolltech.com/qt/&quot;&gt;www.trolltech.com/qt/&lt;/a&gt; voor meer informatie.&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Info over Qt&lt;/h3&gt;%1&lt;p&gt;Qt is een C++ gereedschapskist voor applicatie-ontwikkeling over platformen heen.&lt;/p&gt;&lt;p&gt;Qt levert één enkele bron overdraagbaarheid met MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux en alle belangrijke commerciële Unix varianten. Qt is ook beschikbaar voor ingebouwde apparaten zoals Qt Embedded Linux en Qt voor Windows CE.&lt;/p&gt;&lt;p&gt;Qt is een Nokia product. Kijk bij &lt;a href=&quot;http://www.trolltech.com/qt/&quot;&gt;www.trolltech.com/qt/&lt;/a&gt; voor meer informatie.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
     <name>QMultiInputContext</name>
     <message>
         <source>Select IM</source>
-        <translatorcomment>wat is IM</translatorcomment>
+        <translatorcomment>EG - wat is IM   RL - Ik weet het ook niet zeker, maar het zou zomaar kunnen dat hier -gezien de context- &apos;Input Method&apos; wordt afgekort</translatorcomment>
         <translation>Selecteer IM</translation>
     </message>
 </context>
@@ -2245,18 +2265,18 @@ Wilt u het toch verwijderen?</translation>
     <name>QMultiInputContextPlugin</name>
     <message>
         <source>Multiple input method switcher</source>
-        <translation>Schakelaar tussen invoer methodes</translation>
+        <translation>Schakelaar tussen invoermethodes</translation>
     </message>
     <message>
         <source>Multiple input method switcher that uses the context menu of the text widgets</source>
-        <translation>Schakelaar tussen invoer methodes die gebruik maakt van het context menu of de tekst widgets</translation>
+        <translation>Schakelaar tussen invoermethodes die gebruik maakt van het context menu of de tekst-widgets</translation>
     </message>
 </context>
 <context>
     <name>QNativeSocketEngine</name>
     <message>
         <source>The remote host closed the connection</source>
-        <translation>De gastheer op afstand heeft de verbinding verbroken</translation>
+        <translation>Host op afstand heeft de verbinding verbroken</translation>
     </message>
     <message>
         <source>Network operation timed out</source>
@@ -2276,16 +2296,16 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Invalid socket descriptor</source>
-        <translatorcomment>Wat is een descriptor</translatorcomment>
-        <translation>Ongeldige socket deskriptor</translation>
+        <translatorcomment>EG - Wat is een descriptor  RL - Heel kort door de bocht: een beschrijver (zoals sockfd) hoe de socket moet worden benaderd. Techterm, onvertaald laten</translatorcomment>
+        <translation>Ongeldige socket descriptor</translation>
     </message>
     <message>
         <source>Network unreachable</source>
-        <translation>Netwerk is niet te bereiken</translation>
+        <translation>Netwerk onbereikbaar</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation>Geen toestemming</translation>
+        <translation>Toestemming geweigerd</translation>
     </message>
     <message>
         <source>Connection timed out</source>
@@ -2325,31 +2345,33 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Another socket is already listening on the same port</source>
-        <translation>Eenn andere socket luisterd al op dezelfde poort</translation>
+        <translation>Eenn andere socket luistert al op dezelfde poort</translation>
     </message>
     <message>
         <source>Unable to initialize non-blocking socket</source>
-        <translation>Kan het, niet blokkerende, socket niet initialiseren</translation>
+        <translatorcomment>RL - non blocking socket: techterm, niet vertalen</translatorcomment>
+        <translation>Kan non-blocking-socket niet initialiseren</translation>
     </message>
     <message>
         <source>Unable to initialize broadcast socket</source>
-        <translation>Kan het, rondstrooiende , socket niet initialiseren</translation>
+        <translatorcomment>RL - broadcast socket: techterm, niet vertalen</translatorcomment>
+        <translation>Kan broadcast socket niet initialiseren</translation>
     </message>
     <message>
         <source>Attempt to use IPv6 socket on a platform with no IPv6 support</source>
-        <translation>Probeert IPv socket te gebruiken op een platform die IPv6 niet ondersteund</translation>
+        <translation>Poging IPv6 socket te gebruiken op een platform dat IPv6 niet ondersteund</translation>
     </message>
     <message>
         <source>Host unreachable</source>
-        <translation>Gastheer niet te bereiken</translation>
+        <translation>Host onbereikbaar</translation>
     </message>
     <message>
         <source>Datagram was too large to send</source>
-        <translation> Datagram is te groot om te verzenden</translation>
+        <translation>Datagram was te groot om te verzenden</translation>
     </message>
     <message>
         <source>Operation on non-socket</source>
-        <translation>Operatie op een niet-socket</translation>
+        <translation>Operatie op een non-socket</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -2357,30 +2379,30 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>The proxy type is invalid for this operation</source>
-        <translation>De operatie is niet geldig voor dit soort proxy</translation>
+        <translation>Het proxytype is ongeldig voor deze operatie</translation>
     </message>
 </context>
 <context>
     <name>QNetworkAccessFileBackend</name>
     <message>
         <source>Request for opening non-local file %1</source>
-        <translation>Verzoek om bestand %1 te openen, dat niet locaal staat</translation>
+        <translation>Verzoek om niet lokaal bestand %1 te openen</translation>
     </message>
     <message>
         <source>Error opening %1: %2</source>
-        <translation>Openen van %1: %2 gaat fout</translation>
+        <translation>Fout bij openen van %1: %2</translation>
     </message>
     <message>
         <source>Write error writing to %1: %2</source>
-        <translation>Schrijf fout bij het schrijven naar %1: %2</translation>
+        <translation>Schrijffout bij het schrijven naar %1: %2</translation>
     </message>
     <message>
         <source>Cannot open %1: Path is a directory</source>
-        <translation>Kan %1 niet openen: Het pad is map</translation>
+        <translation>Kan %1 niet openen: Het pad is een map</translation>
     </message>
     <message>
         <source>Read error reading from %1: %2</source>
-        <translation>Lees fout bij het lezen van %1: %2</translation>
+        <translation>Leesfout bij het lezen van %1: %2</translation>
     </message>
 </context>
 <context>
@@ -2391,26 +2413,26 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Logging in to %1 failed: authentication required</source>
-        <translation>Logboek bij houden in %1 is mislukt: authenticatie is nodig</translation>
+        <translation>Logboek bij houden in %1 is mislukt: authenticatie is vereist</translation>
     </message>
     <message>
         <source>Error while downloading %1: %2</source>
-        <translation>Fout tijdens het downloaden%1: %2</translation>
+        <translation>Fout tijdens het downloaden %1: %2</translation>
     </message>
     <message>
         <source>Error while uploading %1: %2</source>
-        <translation>Fout tijdens het uploaden%1: %2</translation>
+        <translation>Fout tijdens het uploaden %1: %2</translation>
     </message>
 </context>
 <context>
     <name>QNetworkReply</name>
     <message>
         <source>Error downloading %1 - server replied: %2</source>
-        <translation>Fout tijdens het downloaden%1 - server antwoorde: %2</translation>
+        <translation>Fout tijdens het downloaden %1 - server antwoordde: %2</translation>
     </message>
     <message>
         <source>Protocol &quot;%1&quot; is unknown</source>
-        <translation>Protocol &quot;%1&quot; is onbekend </translation>
+        <translation>Protocol &quot;%1&quot; is onbekend</translation>
     </message>
 </context>
 <context>
@@ -2424,7 +2446,7 @@ Wilt u het toch verwijderen?</translation>
     <name>QOCIDriver</name>
     <message>
         <source>Unable to logon</source>
-        <translation>Kan u niet aanmelden</translation>
+        <translation>Niet in staat in te loggen</translation>
     </message>
     <message>
         <source>Unable to initialize</source>
@@ -2433,11 +2455,11 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to begin transaction</source>
-        <translation>Kan niet beginnen met de transactie</translation>
+        <translation>Kan niet met transactie beginnen</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>Kan de transactie niet bevestigen</translation>
+        <translation>Kan de transactie niet toepassen</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
@@ -2448,7 +2470,7 @@ Wilt u het toch verwijderen?</translation>
     <name>QOCIResult</name>
     <message>
         <source>Unable to bind column for batch execute</source>
-        <translation>Kan de kolom niet binden voor een batch uitvoering</translation>
+        <translation>Kan kolom niet binden voor een batch uitvoering</translation>
     </message>
     <message>
         <source>Unable to execute batch statement</source>
@@ -2472,7 +2494,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to execute select statement</source>
-        <translation>Kan de &quot;select&quot; instructie niet uitvoeren</translation>
+        <translation>Kan de select-instructie niet uitvoeren</translation>
     </message>
     <message>
         <source>Unable to execute statement</source>
@@ -2487,15 +2509,15 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to connect - Driver doesn&apos;t support all needed functionality</source>
-        <translation>Kan geen verbinding maken - Stuurprogramma ondersteund niet alle benodigde functionaliteit</translation>
+        <translation>Kan geen verbinding maken - Stuurprogramma ondersteunt niet alle benodigde functionaliteiten</translation>
     </message>
     <message>
         <source>Unable to disable autocommit</source>
-        <translation>Kan het automatisch bevestigen niet deactiveren</translation>
+        <translation>Kan automatisch toepassen (autocommit) niet deactiveren</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>Kan de transactie niet bevestigen</translation>
+        <translation>Kan de transactie niet toepassen</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
@@ -2503,14 +2525,14 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to enable autocommit</source>
-        <translation>Kan het automatisch bevestigen niet activeren</translation>
+        <translation>Kan het automatisch toepassen (autocommit) niet activeren</translation>
     </message>
 </context>
 <context>
     <name>QODBCResult</name>
     <message>
         <source>QODBCResult::reset: Unable to set &apos;SQL_CURSOR_STATIC&apos; as statement attribute. Please check your ODBC driver configuration</source>
-        <translation>QODBCResult::terugzetten: &apos;SQL_CURSOR_STATIC&apos; kan niet als een attribuut van instructie meegeven. controleer de configuratie van het ODBC stuurprogramma</translation>
+        <translation>QODBCResult::terugzetten: kan &apos;SQL_CURSOR_STATIC&apos; niet als instructie-attribuut meegeven. Controleer configuratie ODBC-stuurprogramma</translation>
     </message>
     <message>
         <source>Unable to execute statement</source>
@@ -2526,7 +2548,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to bind variable</source>
-        <translation>Kan geen variabele binden</translation>
+        <translation>Kan de variabele niet binden</translation>
     </message>
     <message>
         <source>Unable to fetch last</source>
@@ -2534,7 +2556,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Unable to fetch</source>
-        <translation>Kan niets ophalen</translation>
+        <translation>Kan niet ophalen</translation>
     </message>
     <message>
         <source>Unable to fetch first</source>
@@ -2557,11 +2579,11 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Write error writing to %1: %2</source>
-        <translation>Schrijf fout bij het schrijven naar %1: %2</translation>
+        <translation>Schrijffout bij het schrijven naar %1: %2</translation>
     </message>
     <message>
         <source>Read error reading from %1: %2</source>
-        <translation>Lees fout bij het lezen van %1: %2</translation>
+        <translation>Leesfout bij het lezen van %1: %2</translation>
     </message>
     <message>
         <source>Socket error on %1: %2</source>
@@ -2569,11 +2591,11 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Remote host closed the connection prematurely on %1</source>
-        <translation>De gastheer op afstand heeft de verbinding voortijdig verbroken op %1</translation>
+        <translation>Host op afstand heeft de verbinding voortijdig verbroken op %1</translation>
     </message>
     <message>
         <source>Protocol error: packet of size 0 received</source>
-        <translation>Protocol fout:Een leeg gegevenspakket ontvangen</translation>
+        <translation>Protocolfout:pakket met grootte van 0 ontvangen</translation>
     </message>
 </context>
 <context>
@@ -2599,7 +2621,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Could not commit transaction</source>
-        <translation>Kan de transactie niet bevestigen</translation>
+        <translation>Kan de transactie niet toepassen</translation>
     </message>
     <message>
         <source>Could not rollback transaction</source>
@@ -2633,7 +2655,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Millimeters (mm)</source>
-        <translation>Millimeter (mm)</translation>
+        <translation>Millimeters (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -2669,7 +2691,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Orientation</source>
-        <translation>Ligging</translation>
+        <translation>Oriëntatie</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -2689,19 +2711,19 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation>Marges</translation>
+        <translation>Kantlijnen</translation>
     </message>
     <message>
         <source>top margin</source>
-        <translation>Bovenmarge</translation>
+        <translation>bovenmarge</translation>
     </message>
     <message>
         <source>left margin</source>
-        <translation>Linkermarge</translation>
+        <translation>linkermarge</translation>
     </message>
     <message>
         <source>right margin</source>
-        <translation>Rechtermarge</translation>
+        <translation>rechtermarge</translation>
     </message>
     <message>
         <source>bottom margin</source>
@@ -2727,7 +2749,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Aliases: %1</source>
-        <translation>Alias: %1</translation>
+        <translation>Aliases: %1</translation>
     </message>
     <message>
         <source>unknown</source>
@@ -2735,7 +2757,7 @@ Wilt u het toch verwijderen?</translation>
     </message>
     <message>
         <source>Print To File ...</source>
-        <translation>Afdrukken naar een bestand ...</translation>
+        <translation>Afdrukken naar bestand ...</translation>
     </message>
     <message>
         <source>File %1 is not writable.
@@ -2884,16 +2906,20 @@ Kies een andere bestandsnaam.</translation>
         <translation>&amp;Opties &gt;&gt;</translation>
     </message>
     <message>
+        <source>&amp;Print</source>
+        <translation>&amp;Printen</translation>
+    </message>
+    <message>
         <source>&amp;Options &lt;&lt;</source>
         <translation>&amp;Opties &lt;&lt; </translation>
     </message>
     <message>
         <source>Print to File (PDF)</source>
-        <translation>Afdrukken naar een bestand (PDF)</translation>
+        <translation>Afdrukken naar bestand (PDF)</translation>
     </message>
     <message>
         <source>Print to File (Postscript)</source>
-        <translation>Afdrukken naar een bestand (Postscript)</translation>
+        <translation>Afdrukken naar bestand (Postscript)</translation>
     </message>
     <message>
         <source>Local file</source>
@@ -2903,16 +2929,16 @@ Kies een andere bestandsnaam.</translation>
         <source>Write %1 file</source>
         <translation>Schrijf %1 bestand</translation>
     </message>
-    <message>
-        <source>&amp;Print</source>
-        <translation>&amp;Printen</translation>
-    </message>
 </context>
 <context>
     <name>QPrintPreviewDialog</name>
     <message>
+        <source>Page Setup</source>
+        <translation>Pagina Instelling</translation>
+    </message>
+    <message>
         <source>Print Preview</source>
-        <translation>Print voorbeeld</translation>
+        <translation>Afdrukvoorbeeld</translation>
     </message>
     <message>
         <source>Next page</source>
@@ -2932,11 +2958,11 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Fit width</source>
-        <translation>Breedte aanpassen</translation>
+        <translation>Breedte passend</translation>
     </message>
     <message>
         <source>Fit page</source>
-        <translation>Pagina aanpassen</translation>
+        <translation>Pagina passend</translation>
     </message>
     <message>
         <source>Zoom in</source>
@@ -2960,7 +2986,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Show facing pages</source>
-        <translation>Geef gespiegelde pagina&apos;s weer</translation>
+        <translation>Geef tegenoverliggende pagina&apos;s weer</translation>
     </message>
     <message>
         <source>Show overview of all pages</source>
@@ -2968,7 +2994,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation>Print</translation>
+        <translation>Afdrukken</translation>
     </message>
     <message>
         <source>Page setup</source>
@@ -2977,10 +3003,6 @@ Kies een andere bestandsnaam.</translation>
     <message>
         <source>Close</source>
         <translation>Sluiten</translation>
-    </message>
-    <message>
-        <source>Page Setup</source>
-        <translation>Pagina instelling</translation>
     </message>
 </context>
 <context>
@@ -3002,8 +3024,8 @@ Kies een andere bestandsnaam.</translation>
     <name>QPrintSettingsOutput</name>
     <message>
         <source>Form</source>
-        <translatorcomment>of Vorm</translatorcomment>
-        <translation>Formulier</translation>
+        <translatorcomment>EG - Formulier of Vorm   RL - Even gechecked, het moet &apos;Papierformaat&apos; zijn, A4, Letter, Legal en zo...</translatorcomment>
+        <translation>Papierformaat</translation>
     </message>
     <message>
         <source>Copies</source>
@@ -3011,7 +3033,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Print range</source>
-        <translation>Print bereik</translation>
+        <translation>Afdrukbereik</translation>
     </message>
     <message>
         <source>Print all</source>
@@ -3031,7 +3053,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Output Settings</source>
-        <translation>Uitvoer instellingen</translation>
+        <translation>Uitvoerinstellingen</translation>
     </message>
     <message>
         <source>Copies:</source>
@@ -3082,7 +3104,7 @@ Kies een andere bestandsnaam.</translation>
     <name>QPrintWidget</name>
     <message>
         <source>Form</source>
-        <translation>Formulier</translation>
+        <translation>Papierformaat</translation>
     </message>
     <message>
         <source>Printer</source>
@@ -3189,7 +3211,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>Kan de transactie niet bevestigen</translation>
+        <translation>Kan de transactie niet toepassen</translation>
     </message>
     <message>
         <source>Unable to rollback Transaction</source>
@@ -3223,7 +3245,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>Kan de transactie niet bevestigen</translation>
+        <translation>Kan de transactie niet toepassen</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
@@ -3269,7 +3291,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Top</source>
-        <translation>boven</translation>
+        <translation>Bovenkant</translation>
     </message>
     <message>
         <source>Right edge</source>
@@ -3277,7 +3299,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation>Onder</translation>
+        <translation>Onderkant</translation>
     </message>
     <message>
         <source>Page left</source>
@@ -3313,7 +3335,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Line up</source>
-        <translation>Rangschikken</translation>
+        <translation>Regel naar boven</translation>
     </message>
     <message>
         <source>Position</source>
@@ -3321,26 +3343,30 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Line down</source>
-        <translation>Lijn onder??</translation>
+        <translation>Regel naar beneden</translation>
     </message>
 </context>
 <context>
     <name>QSharedMemory</name>
+    <message>
+        <source>%1: unable to set key on lock</source>
+        <translation>%1: kan geen sleutel op het slot zetten</translation>
+    </message>
     <message>
         <source>%1: create size is less then 0</source>
         <translation>%1: aanmaakgrote is kleiner dan 0</translation>
     </message>
     <message>
         <source>%1: unable to lock</source>
-        <translation>%1: kan niet sluiten</translation>
+        <translation>%1: kan niet vergrendelen</translation>
     </message>
     <message>
         <source>%1: unable to unlock</source>
-        <translation>%1: kan niet openen</translation>
+        <translation>%1: kan niet ontgrendelen</translation>
     </message>
     <message>
         <source>%1: permission denied</source>
-        <translation>%1: geen toestemming</translation>
+        <translation>%1: toestemming geweigerd</translation>
     </message>
     <message>
         <source>%1: already exists</source>
@@ -3381,10 +3407,6 @@ Kies een andere bestandsnaam.</translation>
     <message>
         <source>%1: not attached</source>
         <translation>%1: niet gekoppeld</translation>
-    </message>
-    <message>
-        <source>%1: unable to set key on lock</source>
-        <translation>%1: kan geen sleutel op het slot zetten</translation>
     </message>
 </context>
 <context>
@@ -3487,7 +3509,8 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Help</translation>
+        <translatorcomment>RL - eng &apos;Help&apos; wordt bij Moz/KDe/GNOME/Ubuntu/Fedora/Windows/Mac standaard vertaald in Nederlands als &apos;Hulp&apos;</translatorcomment>
+        <translation>Hulp</translation>
     </message>
     <message>
         <source>Back</source>
@@ -3691,7 +3714,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation>selecteren</translation>
+        <translation>Selecteren</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -3719,7 +3742,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Call</source>
-        <translation>Aanroep</translation>
+        <translation>Bellen</translation>
     </message>
     <message>
         <source>Hangup</source>
@@ -3785,11 +3808,11 @@ Kies een andere bestandsnaam.</translation>
     <name>QSocks5SocketEngine</name>
     <message>
         <source>Socks5 timeout error connecting to socks server</source>
-        <translation>Socks5 tijdslimiet verlopen tijdens verdinging zoeken met de socks server</translation>
+        <translation>Socks5 tijdslimiet verlopen tijdens verbinding zoeken met de socks server</translation>
     </message>
     <message>
         <source>Network operation timed out</source>
-        <translation>Tijdslimiet verlopen bij de netwerk operatie</translation>
+        <translation>Tijdslimiet verlopen bij netwerk operatie</translation>
     </message>
 </context>
 <context>
@@ -3882,7 +3905,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Error loading local certificate, %1</source>
-        <translation>Fout bij het laden van het locale certificaat, %1</translation>
+        <translation>Fout bij het laden van lokaal certificaat, %1</translation>
     </message>
     <message>
         <source>Error loading private key, %1</source>
@@ -3890,14 +3913,14 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Private key does not certificate public key, %1</source>
-        <translation>Prive sleutel certificeerd geen publieke sleutel, %1</translation>
+        <translation>Prive sleutel certificeert geen publieke sleutel, %1</translation>
     </message>
 </context>
 <context>
     <name>QTDSDriver</name>
     <message>
         <source>Unable to open connection</source>
-        <translation>Kan de verbinding niet openen &apos;</translation>
+        <translation>Kan verbinding niet openen</translation>
     </message>
     <message>
         <source>Unable to use database</source>
@@ -3947,7 +3970,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation>Alles selecteren</translation>
+        <translation>Selecteer Alles</translation>
     </message>
 </context>
 <context>
@@ -3965,7 +3988,7 @@ Kies een andere bestandsnaam.</translation>
     <name>QUdpSocket</name>
     <message>
         <source>This platform does not support IPv6</source>
-        <translation>Dit platform ondersteund geen IPv6</translation>
+        <translation>Dit platform ondersteunt geen IPv6</translation>
     </message>
 </context>
 <context>
@@ -3976,7 +3999,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Opnieuw</translation>
+        <translation>Opnieuw doen</translation>
     </message>
 </context>
 <context>
@@ -3994,7 +4017,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Opnieuw</translation>
+        <translation>Opnieuw doen</translation>
     </message>
 </context>
 <context>
@@ -4009,26 +4032,26 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>ZWJ Zero width joiner</source>
-        <translatorcomment>nog vertalen</translatorcomment>
-        <translation>ZWJ Koppelaar zonder breedte</translation>
+        <translatorcomment>EG nog vertalen  RL - Techterm</translatorcomment>
+        <translation>ZWJ Zero width joiner</translation>
     </message>
     <message>
         <source>ZWNJ Zero width non-joiner</source>
-        <translatorcomment>nog vertalen</translatorcomment>
-        <translation>ZWNJ Niet-koppelaar zonder breedte</translation>
+        <translatorcomment>EG nog vertalen  RL - Techterm</translatorcomment>
+        <translation>ZWNJ Zero width non-joiner</translation>
     </message>
     <message>
         <source>ZWSP Zero width space</source>
-        <translatorcomment>nog vertalen</translatorcomment>
-        <translation>ZWSP Spatie zonder breedte</translation>
+        <translatorcomment>EG nog vertalen  RL - Techterm</translatorcomment>
+        <translation>ZWSP Zero width space</translation>
     </message>
     <message>
         <source>LRE Start of left-to-right embedding</source>
-        <translation>LRE Start van links-naar-rechts imbedding</translation>
+        <translation>LRE Start van links-naar-rechts embedding</translation>
     </message>
     <message>
         <source>RLE Start of right-to-left embedding</source>
-        <translation>RLE Start van rechts-naar-links imbedding</translation>
+        <translation>RLE Start van rechts-naar-links embedding</translation>
     </message>
     <message>
         <source>LRO Start of left-to-right override</source>
@@ -4040,12 +4063,12 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>PDF Pop directional formatting</source>
-        <translatorcomment>nog vertalen</translatorcomment>
-        <translation>PDF Pop richtingsformattering</translation>
+        <translatorcomment>EG nog vertalen  RL - Techterm</translatorcomment>
+        <translation>PDF Pop directional formatting</translation>
     </message>
     <message>
         <source>Insert Unicode control character</source>
-        <translation>Voeg een unicode controle teken toe</translation>
+        <translation>Voeg een Unicode controle teken toe</translation>
     </message>
 </context>
 <context>
@@ -4056,19 +4079,19 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Request blocked</source>
-        <translation>verzoek geblokkeerd</translation>
+        <translation>Verzoek geblokkeerd</translation>
     </message>
     <message>
         <source>Cannot show URL</source>
-        <translation>Der URL kann nicht angezeigt werden</translation>
+        <translation>Kan URL niet tonen</translation>
     </message>
     <message>
         <source>Frame load interruped by policy change</source>
-        <translation>Laden van het frame onderbroken door een wijziging in het beleid</translation>
+        <translation>Laden van het frame onderbroken door een policywijziging</translation>
     </message>
     <message>
         <source>Cannot show mimetype</source>
-        <translation>Kan het mime type niet weergeven</translation>
+        <translation>Kan het mime-type niet weergeven</translation>
     </message>
     <message>
         <source>File does not exist</source>
@@ -4078,19 +4101,28 @@ Kies een andere bestandsnaam.</translation>
 <context>
     <name>QWebPage</name>
     <message>
+        <source>Bad HTTP request</source>
+        <translation>Ongeldig HTTP verzoek</translation>
+    </message>
+    <message>
         <source>Submit</source>
         <comment>default label for Submit buttons in forms on web pages</comment>
-        <translation>Voorleggen</translation>
+        <translation>Indienen</translation>
     </message>
     <message>
         <source>Submit</source>
         <comment>Submit (input element) alt text for &lt;input&gt; elements with no alt, title, or value</comment>
-        <translation>Voorleggen</translation>
+        <translation>Indienen</translation>
     </message>
     <message>
         <source>Reset</source>
         <comment>default label for Reset buttons in forms on web pages</comment>
         <translation>Terugzetten</translation>
+    </message>
+    <message>
+        <source>This is a searchable index. Enter search keywords: </source>
+        <comment>text that appears at the start of nearly-obsolete web pages in the form of a &apos;searchable index&apos;</comment>
+        <translation>Deze index is te doorzoeken. Geef trefwoorden op:</translation>
     </message>
     <message>
         <source>Choose File</source>
@@ -4120,17 +4152,18 @@ Kies een andere bestandsnaam.</translation>
     <message>
         <source>Open Image</source>
         <comment>Open Image in New Window context menu item</comment>
-        <translation>Plaatje openen</translation>
+        <translatorcomment>RL - Liever &apos;afbeelding&apos; dan &apos;plaatje&apos;</translatorcomment>
+        <translation>Afbeelding openen</translation>
     </message>
     <message>
         <source>Save Image</source>
         <comment>Download Image context menu item</comment>
-        <translation>Plaatje opslaan</translation>
+        <translation>Afbeelding opslaan</translation>
     </message>
     <message>
         <source>Copy Image</source>
         <comment>Copy Link context menu item</comment>
-        <translation>Kopiëer plaatje</translation>
+        <translation>Kopiëer afbeelding</translation>
     </message>
     <message>
         <source>Open Frame</source>
@@ -4185,7 +4218,7 @@ Kies een andere bestandsnaam.</translation>
     <message>
         <source>Add To Dictionary</source>
         <comment>Learn Spelling context menu item</comment>
-        <translation>Aan de map toevoegen</translation>
+        <translation>Aan woordenboek toevoegen</translation>
     </message>
     <message>
         <source>Search The Web</source>
@@ -4195,7 +4228,7 @@ Kies een andere bestandsnaam.</translation>
     <message>
         <source>Look Up In Dictionary</source>
         <comment>Look Up in Dictionary context menu item</comment>
-        <translation>In het woordenboek opzoeken</translation>
+        <translation>In woordenboek opzoeken</translation>
     </message>
     <message>
         <source>Open Link</source>
@@ -4308,22 +4341,13 @@ Kies een andere bestandsnaam.</translation>
         <translation>Onbekend</translation>
     </message>
     <message>
-        <source>Web Inspector - %2</source>
-        <translation>Web Inspecteur - %2</translation>
-    </message>
-    <message>
         <source>%1 (%2x%3 pixels)</source>
         <comment>Title string for images</comment>
         <translation>%1 (%2x%3 pixels)</translation>
     </message>
     <message>
-        <source>Bad HTTP request</source>
-        <translation>Ongeldig HTTP verzoek</translation>
-    </message>
-    <message>
-        <source>This is a searchable index. Enter search keywords: </source>
-        <comment>text that appears at the start of nearly-obsolete web pages in the form of a &apos;searchable index&apos;</comment>
-        <translation>Deze index is te doorzoeken.Geef trefwoorden op:</translation>
+        <source>Web Inspector - %2</source>
+        <translation>Web Inspector - %2</translation>
     </message>
 </context>
 <context>
@@ -4343,12 +4367,29 @@ Kies een andere bestandsnaam.</translation>
 <context>
     <name>QWizard</name>
     <message>
-        <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <source>Go Back</source>
+        <translation>Vorige</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation>Doorgaan</translation>
+    </message>
+    <message>
+        <source>Commit</source>
+        <translation>Toepassen</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Klaar</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation>Stoppen</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Help</translation>
+        <translatorcomment>RL - eng &apos;Help&apos; wordt bij Moz/KDe/GNOME/Ubuntu/Fedora/Windows/Mac standaard vertaald in Nederlands als &apos;Hulp&apos;</translatorcomment>
+        <translation>Hulp</translation>
     </message>
     <message>
         <source>&lt; &amp;Back</source>
@@ -4359,28 +4400,13 @@ Kies een andere bestandsnaam.</translation>
         <translation>&amp;Klaar</translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
         <source>&amp;Help</source>
-        <translation>&amp;Help</translation>
-    </message>
-    <message>
-        <source>Go Back</source>
-        <translation>Vorige</translation>
-    </message>
-    <message>
-        <source>Continue</source>
-        <translation>Doorgaan</translation>
-    </message>
-    <message>
-        <source>Commit</source>
-        <translation>Anwenden</translation>
-    </message>
-    <message>
-        <source>Done</source>
-        <translation>Klaar</translation>
-    </message>
-    <message>
-        <source>Quit</source>
-        <translation>Stoppen</translation>
+        <translatorcomment>RL - eng &apos;Help&apos; wordt bij Moz/KDe/GNOME/Ubuntu/Fedora/Windows/Mac standaard vertaald in Nederlands als &apos;Hulp&apos;</translatorcomment>
+        <translation>&amp;Hulp</translation>
     </message>
     <message>
         <source>&amp;Next</source>
@@ -4403,7 +4429,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation>&amp;Omvang</translation>
+        <translation>&amp;Grootte</translation>
     </message>
     <message>
         <source>Mi&amp;nimize</source>
@@ -4419,20 +4445,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
-        <translation>Op de &amp;Voorgrond blijven</translation>
-    </message>
-    <message>
-        <source>Minimize</source>
-        <translation>Minimaliseren</translation>
-    </message>
-    <message>
-        <source>Restore Down</source>
-        <translatorcomment>nog vertalen</translatorcomment>
-        <translation>Restore Down</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Sluiten</translation>
+        <translation>Op &amp;voorgrond blijven</translation>
     </message>
     <message>
         <source>Sh&amp;ade</source>
@@ -4441,6 +4454,19 @@ Kies een andere bestandsnaam.</translation>
     <message>
         <source>%1 - [%2]</source>
         <translation>%1 - [%2]</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Minimaliseren</translation>
+    </message>
+    <message>
+        <source>Restore Down</source>
+        <translatorcomment>Eg - nog vertalen   RL - Dit is de actie verbonden aan het raam-icoontje rechtsboven op titelbalk van venster (middelste van de drie), bij aanklikken gaat venster naar maximaal, nog eens aanklikken naar oude grootte. Wordt in Fedora vertaald als &apos;venster herstellen&apos;.</translatorcomment>
+        <translation>Venster herstellen</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <source>&amp;Unshade</source>
@@ -4459,15 +4485,16 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>unexpected end of file</source>
-        <translation>Onverwachts einde van het bestand</translation>
+        <translation>Onverwacht einde van het bestand</translation>
     </message>
     <message>
         <source>more than one document type definition</source>
-        <translation>Meerdere definities van het soort document</translation>
+        <translation>Meer dan één document type definitie</translation>
     </message>
     <message>
         <source>error occurred while parsing element</source>
-        <translation>Fout bij het ontleden van het element</translation>
+        <translatorcomment>RL - parsen is nl werkwoord, betekent analyseren van info, Techterm</translatorcomment>
+        <translation>Fout bij het parsen van element</translation>
     </message>
     <message>
         <source>tag mismatch</source>
@@ -4475,7 +4502,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>error occurred while parsing content</source>
-        <translation>Fout opgetreden bij het ontleden van de inhoud</translation>
+        <translation>Fout opgetreden bij parsen van inhoud</translation>
     </message>
     <message>
         <source>unexpected character</source>
@@ -4491,23 +4518,32 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>wrong value for standalone declaration</source>
-        <translation>Verkeerde waarde voor een op zichzelf staande declaratie</translation>
+        <translation>Verkeerde waarde voor een standalone declaratie</translation>
+    </message>
+    <message>
+        <source>encoding declaration or standalone declaration expected while reading the XML declaration</source>
+        <translation>Bij het lezen van de XML declaratie wordt een coderende declaratie of op zichzelf staande declaratie verwacht</translation>
+    </message>
+    <message>
+        <source>standalone declaration expected while reading the XML declaration</source>
+        <translation>op zichzelf staande declaratie verwacht bij het lezen een XML declaratie</translation>
     </message>
     <message>
         <source>error occurred while parsing document type definition</source>
-        <translation>fout opgetreden bij het ontleden van het document type definitie</translation>
+        <translation>fout opgetreden bij het parsen van document type definitie</translation>
     </message>
     <message>
         <source>letter is expected</source>
-        <translation>Een letter wordt verwacht</translation>
+        <translatorcomment>RL - letter als papierformaat, zoals A4 bv</translatorcomment>
+        <translation>letter wordt verwacht</translation>
     </message>
     <message>
         <source>error occurred while parsing comment</source>
-        <translation>Fout opgetreden bij het ontleden van het commentaar</translation>
+        <translation>Fout opgetreden bij parsen van commentaar</translation>
     </message>
     <message>
         <source>error occurred while parsing reference</source>
-        <translation>Fout bij het ontleden van de referentie</translation>
+        <translation>Fout bij parsen van referentie</translation>
     </message>
     <message>
         <source>internal general entity reference not allowed in DTD</source>
@@ -4533,14 +4569,6 @@ Kies een andere bestandsnaam.</translation>
         <source>error in the text declaration of an external entity</source>
         <translation>Fout in de tekst declaratie van een externe entiteit</translation>
     </message>
-    <message>
-        <source>encoding declaration or standalone declaration expected while reading the XML declaration</source>
-        <translation>Bij het lezen van de XML declaratie wordt een coderende declaratie of op zichzelf staande declaratie verwacht</translation>
-    </message>
-    <message>
-        <source>standalone declaration expected while reading the XML declaration</source>
-        <translation>op zichzelf staande declaratie verwacht bij het lezen een XML declaratie</translation>
-    </message>
 </context>
 <context>
     <name>QXmlStream</name>
@@ -4558,11 +4586,12 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Sequence &apos;]]&gt;&apos; not allowed in content.</source>
-        <translation>De volgorde &apos;]]&gt;&apos; is niet toegestaan in de inhoud.</translation>
+        <translation>De volgorde &apos;]]&gt;&apos; is niet toegestaan in inhoud.</translation>
     </message>
     <message>
         <source>Namespace prefix &apos;%1&apos; not declared</source>
-        <translation>De naamruimte voorvoegsel &apos;%1&apos; is niet declareerd</translation>
+        <translatorcomment>gewoon prefix</translatorcomment>
+        <translation>Naamruimte prefix &apos;%1&apos; is niet declareerd</translation>
     </message>
     <message>
         <source>Attribute redefined.</source>
@@ -4570,8 +4599,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Unexpected character &apos;%1&apos; in public id literal.</source>
-        <translatorcomment>Literal?</translatorcomment>
-        <translation>&apos;%1&apos; wordt niet verwacht in een publieke id literal.</translation>
+        <translation>Teken &apos;%1&apos; wordt niet verwacht in een publieke identificator literaal.</translation>
     </message>
     <message>
         <source>Invalid XML version string.</source>
@@ -4591,7 +4619,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Standalone accepts only yes or no.</source>
-        <translation>Op zichzelf staand accepteerd alleen ja of nee.</translation>
+        <translation>Standalone accepteert alleen ja of nee.</translation>
     </message>
     <message>
         <source>Invalid attribute in XML declaration.</source>
@@ -4619,7 +4647,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Expected character data.</source>
-        <translation>Verwacht een teken als gegeven.</translation>
+        <translation>Verwacht teken als data.</translation>
     </message>
     <message>
         <source>Recursive entity detected.</source>
@@ -4631,11 +4659,11 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>XML declaration not at start of document.</source>
-        <translation>De XML declaratie staat niet aan heb begin van het document.</translation>
+        <translation>De XML declaratie staat niet aan het begin van het document.</translation>
     </message>
     <message>
         <source>NDATA in parameter entity declaration.</source>
-        <translation>NDATA in de parameter entiteit declaratie.</translation>
+        <translation>NDATA in parameter entiteit declaratie.</translation>
     </message>
     <message>
         <source>%1 is an invalid processing instruction name.</source>
@@ -4655,11 +4683,11 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Opening and ending tag mismatch.</source>
-        <translation>Opening en afsluit tag komen niet overeen.</translation>
+        <translation>Openings- en sluittag komen niet overeen.</translation>
     </message>
     <message>
         <source>Reference to unparsed entity &apos;%1&apos;.</source>
-        <translation>Referentie naar niet ontlede entiteit &apos;%1&apos;.</translation>
+        <translation>Referentie naar ongeparste entiteit &apos;%1&apos;.</translation>
     </message>
     <message>
         <source>Entity &apos;%1&apos; not declared.</source>
@@ -4667,7 +4695,7 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Reference to external entity &apos;%1&apos; in attribute value.</source>
-        <translation>Verwijzing naar externe entiteit &apos;%1&apos; in de attribuut waarde.</translation>
+        <translation>Verwijzing naar externe entiteit &apos;%1&apos; in de attribuutwaarde.</translation>
     </message>
     <message>
         <source>Invalid character reference.</source>
@@ -4675,270 +4703,34 @@ Kies een andere bestandsnaam.</translation>
     </message>
     <message>
         <source>Encountered incorrectly encoded content.</source>
-        <translation>Niet correct gecodeerde inhoud ontdekt.</translation>
+        <translation>Niet correct gecodeerde inhoud tegengekomen.</translation>
     </message>
     <message>
         <source>The standalone pseudo attribute must appear after the encoding.</source>
-        <translation>Het op zichzelf staande pseudo attribuut moet na de codering volgen.</translation>
+        <translation>Standalone pseudo attribuut moet komen na de codering.</translation>
     </message>
     <message>
         <source>%1 is an invalid PUBLIC identifier.</source>
-        <translation>%1 is een ongeldige PUBLIEKE id.</translation>
+        <translation>%1 is een ongeldige PUBLIEKE identificator.</translation>
     </message>
 </context>
 <context>
     <name>QtXmlPatterns</name>
     <message>
-        <source>At least one component must be present.</source>
-        <translation>Tenminste één component moet aanwezig zijn.</translation>
+        <source>An %1-attribute with value %2 has already been declared.</source>
+        <translation>Een %1 attribuut met de waarde %2 is al gedeclareerd.</translation>
     </message>
     <message>
-        <source>No operand in an integer division, %1, can be %2.</source>
-        <translation>Geen operand bij deling %1, van gehele getallen, kan een %2 zijin.</translation>
-    </message>
-    <message>
-        <source>%1 is not a valid value of type %2.</source>
-        <translation>%1 is een ongeldige waarde van het soort %2.</translation>
-    </message>
-    <message>
-        <source>When casting to %1 from %2, the source value cannot be %3.</source>
-        <translation>Bij het overgaan van %1 uit %2 kan %3 geen brond zijn.</translation>
-    </message>
-    <message>
-        <source>Effective Boolean Value cannot be calculated for a sequence containing two or more atomic values.</source>
-        <translation>Een effectieve boolsche waarde kan niet worden berekend voor een serrie die meer dan twee zeer kleine waarden bevat.</translation>
-    </message>
-    <message>
-        <source>Operator %1 is not available between atomic values of type %2 and %3.</source>
-        <translation>Operator %1 is niet beschikbaar voor zeer kleine waarden van het soort %2 en %3.</translation>
-    </message>
-    <message>
-        <source>It is not possible to cast from %1 to %2.</source>
-        <translation>Het is niet mogelijk om %1 over te laten gaan vanuit %2.</translation>
-    </message>
-    <message>
-        <source>Casting to %1 is not possible because it is an abstract type, and can therefore never be instantiated.</source>
-        <translation>Overgaan naar %1 is niet mogelijk omdat dit een abstracte soort is en kan daarom nooit geconcretiseerd worden.</translation>
-    </message>
-    <message>
-        <source>It&apos;s not possible to cast the value %1 of type %2 to %3</source>
-        <translation>Het is niet mogelijk om de waarde %1 van soort %2 over te laten gaan naar %3</translation>
-    </message>
-    <message>
-        <source>Failure when casting from %1 to %2: %3</source>
-        <translation>De overgang van %1 naar %2 is mislukt: %3</translation>
-    </message>
-    <message>
-        <source>No comparisons can be done involving the type %1.</source>
-        <translation>Met soort %1 zijn geen vergelijkingen uit te voeren.</translation>
-    </message>
-    <message>
-        <source>The data of a processing instruction cannot contain the string %1</source>
-        <translation>De gegevens van een proces instructie kunnen niet de reeks %1 bevatten</translation>
-    </message>
-    <message>
-        <source>%1 is an invalid %2</source>
-        <translation>%1 is ongeldig %2</translation>
-    </message>
-    <message>
-        <source>%1 is not a valid XML 1.0 character.</source>
-        <translation>%1 is een ongeldig XML 1.0 teken.</translation>
-    </message>
-    <message>
-        <source>The first argument to %1 cannot be of type %2.</source>
-        <translation>Het eerste argument van %1 kan niet van het soort %2 zijn.</translation>
-    </message>
-    <message>
-        <source>%1 was called.</source>
-        <translation>%1 was aangeroepen.</translation>
-    </message>
-    <message>
-        <source>In the replacement string, %1 must be followed by at least one digit when not escaped.</source>
-        <translation>In de vervangende reeks moet %1 gevolgd worden door tenminste één cijfer als deze niet door een escape teken wordt gedekt.</translation>
-    </message>
-    <message>
-        <source>In the replacement string, %1 can only be used to escape itself or %2, not %3</source>
-        <translation>In de vervangende reeks kan %1 alleen worden gebruikt om zichzelf in te dekken of %2 maar niet %3</translation>
-    </message>
-    <message>
-        <source>%1 matches newline characters</source>
-        <translation>%1 komt overeen met tekens voor nieuwe regels</translation>
-    </message>
-    <message>
-        <source>Matches are case insensitive</source>
-        <translation>Overeenkomsten zijn niet hoofdletter gevoelig</translation>
-    </message>
-    <message>
-        <source>%1 is an invalid regular expression pattern: %2</source>
-        <translation>%1 is een ongeldige reguliere expressie patroon: %2</translation>
-    </message>
-    <message>
-        <source>It will not be possible to retrieve %1.</source>
-        <translation>het is niet mogelijk om %1 terug te halen.</translation>
-    </message>
-    <message>
-        <source>The default collection is undefined</source>
-        <translation>De standaard verzameling is niet gedefinieerd</translation>
-    </message>
-    <message>
-        <source>%1 cannot be retrieved</source>
-        <translation>%1 kan niet terug gehaald worden</translation>
-    </message>
-    <message>
-        <source>The item %1 did not match the required type %2.</source>
-        <translation>Het item %1 komt niet overeen met het vereiste soort %2.</translation>
-    </message>
-    <message>
-        <source>%1 is an unknown schema type.</source>
-        <translation>%1 is een onbekend soort schema.</translation>
-    </message>
-    <message>
-        <source>Only one %1 declaration can occur in the query prolog.</source>
-        <translation>Maar één %1 declaratie kan voorkomen in de inleiding van een zoekvraag.</translation>
-    </message>
-    <message>
-        <source>The initialization of variable %1 depends on itself</source>
-        <translation>De initialisering van variabele %1 hangt van zichzelf af</translation>
-    </message>
-    <message>
-        <source>The variable %1 is unused</source>
-        <translation>De variabele %1 wordt niet gebruikt</translation>
-    </message>
-    <message>
-        <source>Version %1 is not supported. The supported XQuery version is 1.0.</source>
-        <translation>Versie %1 wordt niet ondersteund. De ondersteunde Xquery versie is 1.0.</translation>
-    </message>
-    <message>
-        <source>No function with signature %1 is available</source>
-        <translation>Geen functie beschikbaar met handtekening %1</translation>
-    </message>
-    <message>
-        <source>It is not possible to redeclare prefix %1.</source>
-        <translation>Het is niet mogelijk om voorvoegsel %1 opnieuw te declareren.</translation>
-    </message>
-    <message>
-        <source>Prefix %1 is already declared in the prolog.</source>
-        <translation>Voorvoegsel %1 is al gedeclareerd in de inleiding.</translation>
-    </message>
-    <message>
-        <source>The name of an option must have a prefix. There is no default namespace for options.</source>
-        <translation>De naam van een optie moet een voorvoegsel hebben. Er bestaat geen standaard naamruimte voor opties.</translation>
-    </message>
-    <message>
-        <source>The Schema Import feature is not supported, and therefore %1 declarations cannot occur.</source>
-        <translation>De import kenmerken, voor het schema, wordt niet ondersteund en daarom kunnen declaraties %1 niet voorkomen.</translation>
-    </message>
-    <message>
-        <source>The target namespace of a %1 cannot be empty.</source>
-        <translation>De doel naamruimte van een %1 kan niet leeg zijn.</translation>
-    </message>
-    <message>
-        <source>The module import feature is not supported</source>
-        <translation>Het kenmerk &quot;import module&quot; wordt niet ondersteund</translation>
-    </message>
-    <message>
-        <source>A variable by name %1 has already been declared in the prolog.</source>
-        <translation>Een variabele met de naam %1 is al gedeclareerd in de inleiding.</translation>
-    </message>
-    <message>
-        <source>No value is available for the external variable by name %1.</source>
-        <translation>Voor de externe variabele met de naam %1 is geen waarde beschikbaar.</translation>
-    </message>
-    <message>
-        <source>The namespace of a user defined function in a library module must be equivalent to the module namespace. In other words, it should be %1 instead of %2</source>
-        <translation>De naamruimte van een zelf gedefinieerde functie, in een biblitheek module, moet overeenkomen met de module naamruimte. Met andere woorden: het moet %1 zijn in plaats van %2</translation>
-    </message>
-    <message>
-        <source>A function already exists with the signature %1.</source>
-        <translation>Een functie met handtekening %1 bestaat al.</translation>
-    </message>
-    <message>
-        <source>No external functions are supported. All supported functions can be used directly, without first declaring them as external</source>
-        <translation>Externe funkties worden niet ondersteund. Alle ondersteunde functies kunnen direct worden gebruikt zonder deze als extern te declareren</translation>
-    </message>
-    <message>
-        <source>An argument by name %1 has already been declared. Every argument name must be unique.</source>
-        <translation>Een argument met de naam %1 is al gedeclareerd. Elke naam van een argument moet uniek zijn.</translation>
-    </message>
-    <message>
-        <source>The %1-axis is unsupported in XQuery</source>
-        <translation>De %1 as wordt niet ondersteund in een XQuery</translation>
-    </message>
-    <message>
-        <source>No variable by name %1 exists</source>
-        <translation>Een variabele met naam %1 betaat niet</translation>
-    </message>
-    <message>
-        <source>No function by name %1 is available.</source>
-        <translation>Een functie met naam %1 is niet beschikbaar.</translation>
-    </message>
-    <message>
-        <source>The namespace URI cannot be the empty string when binding to a prefix, %1.</source>
-        <translation>De naamruimte URI kan niet een lege reeks zijn als deze gebonden wordt aan voorvoegsel %1.</translation>
-    </message>
-    <message>
-        <source>%1 is an invalid namespace URI.</source>
-        <translation>%1 is een ongeldige naamruimte URI.</translation>
-    </message>
-    <message>
-        <source>It is not possible to bind to the prefix %1</source>
-        <translation>Het is niet mogelijk om voorvoegsel %1 opnieuw te binden</translation>
-    </message>
-    <message>
-        <source>Two namespace declaration attributes have the same name: %1.</source>
-        <translation>Twee attributen voor een naamruimte declaratie hebben dezelfde naam: %1.</translation>
-    </message>
-    <message>
-        <source>The namespace URI must be a constant and cannot use enclosed expressions.</source>
-        <translation>Een naamruimte URI moet een constante zijn en kan geen ingesloten expressie zijn.</translation>
-    </message>
-    <message>
-        <source>An attribute by name %1 has already appeared on this element.</source>
-        <translation>Een attribuut met de naam %1 is al voorgekomen op dit element.</translation>
-    </message>
-    <message>
-        <source>%1 is not a valid name for a processing-instruction. Therefore this name test will never match.</source>
-        <translation>%1 is geen geldige naam voor een proces instructie. Daarom zal deze naam test nooit werken.</translation>
-    </message>
-    <message>
-        <source>%1 is not in the in-scope attribute declarations. Note that the schema import feature is not supported.</source>
-        <translation>%1 valt niet in het bereik van de attribuut declaraties. Let op: het kenmerk &quot;schema import&quot; wordt niet ondersteund.</translation>
-    </message>
-    <message>
-        <source>empty</source>
-        <translation>leeg</translation>
-    </message>
-    <message>
-        <source>zero or one</source>
-        <translation>nul of één</translation>
-    </message>
-    <message>
-        <source>exactly one</source>
-        <translation>
-precies één</translation>
-    </message>
-    <message>
-        <source>one or more</source>
-        <translation>één of meer</translation>
-    </message>
-    <message>
-        <source>zero or more</source>
-        <translation>nul of meer</translation>
-    </message>
-    <message>
-        <source>The focus is undefined.</source>
-        <translation>De focus in niet gedefinieerd.</translation>
-    </message>
-    <message>
-        <source>An attribute by name %1 has already been created.</source>
-        <translation>Een attribuut met de naam %1 is al aangemaakt.</translation>
+        <source>An %1-attribute must have a valid %2 as value, which %3 isn&apos;t.</source>
+        <translation>Een %1 attribuut moet een geldige %2 als waarde hebben en dat heeft %3 niet.</translation>
     </message>
     <message>
         <source>Network timeout.</source>
-        <translation>Tijdslimiet van het netwerk is verlopen.</translation>
+        <translation>Netwerk timeout.</translation>
     </message>
     <message>
         <source>Element %1 can&apos;t be serialized because it appears outside the document element.</source>
+        <translatorcomment>EG - xml serialization = geserialiseerd</translatorcomment>
         <translation>Element %1 kan niet geserialiseerd worden omdat buiten het document element voorkomt.</translation>
     </message>
     <message>
@@ -4955,7 +4747,8 @@ precies één</translation>
     </message>
     <message>
         <source>Overflow: Can&apos;t represent date %1.</source>
-        <translation>Kan datum %1 niet weergeven (loopt over).</translation>
+        <translatorcomment>RL - Foutmelding dus Overflow onvertaald vermelden ivm foutopsporing op internet</translatorcomment>
+        <translation>Kan datum %1 niet weergeven (Overflow).</translation>
     </message>
     <message>
         <source>Day %1 is invalid for month %2.</source>
@@ -4963,7 +4756,7 @@ precies één</translation>
     </message>
     <message>
         <source>Time 24:%1:%2.%3 is invalid. Hour is 24, but minutes, seconds, and milliseconds are not all 0; </source>
-        <translation>24 uurs tijd:%1:%2.%3 zijn ongeldig. Het uur is 24 maar de minuten, seconden en milliseconden zijn niet allemaal 0. </translation>
+        <translation>24 uurs tijd:%1:%2.%3 zijn ongeldig. Het uur is 24 maar de minuten, seconden en milliseconden zijn niet allemaal 0; </translation>
     </message>
     <message>
         <source>Time %1:%2:%3.%4 is invalid.</source>
@@ -4971,11 +4764,48 @@ precies één</translation>
     </message>
     <message>
         <source>Overflow: Date can&apos;t be represented.</source>
-        <translation>Kan de datum niet weergeven (loopt over).</translation>
+        <translatorcomment>RL - Foutmelding dus Overflow onvertaald vermelden ivm foutopsporing op internet</translatorcomment>
+        <translation>Kan de datum niet weergeven (Overflow).</translation>
+    </message>
+    <message>
+        <source>At least one component must be present.</source>
+        <translation>Tenminste één component moet aanwezig zijn.</translation>
     </message>
     <message>
         <source>At least one time component must appear after the %1-delimiter.</source>
-        <translation>Tenminste één tijd component moet voorkomen na de %1 begrenzer.</translation>
+        <translation>Tenminste één tijdscomponent moet voorkomen na de %1 begrenzer.</translation>
+    </message>
+    <message>
+        <source>No operand in an integer division, %1, can be %2.</source>
+        <translation>Geen operand bij deling %1, van gehele getallen, kan een %2 zijn.</translation>
+    </message>
+    <message>
+        <source>The first operand in an integer division, %1, cannot be infinity (%2).</source>
+        <translation>De eerste operand in een deling met gehele getallen, %1, kan niet oneindig zijn (%2).</translation>
+    </message>
+    <message>
+        <source>The second operand in a division, %1, cannot be zero (%2).</source>
+        <translation>De tweede operand in een deling, %1 kan niet nul zijn (%2).</translation>
+    </message>
+    <message>
+        <source>%1 is not a valid value of type %2.</source>
+        <translation>%1 is een ongeldige waarde van het soort %2.</translation>
+    </message>
+    <message>
+        <source>When casting to %1 from %2, the source value cannot be %3.</source>
+        <translation>Bij het omzetten naar %1 vanuit %2 kan %3 geen bron zijn.</translation>
+    </message>
+    <message>
+        <source>Integer division (%1) by zero (%2) is undefined.</source>
+        <translation>De deling met gehele getallen (%1) door nul (%2) is niet gedefinieerd.</translation>
+    </message>
+    <message>
+        <source>Division (%1) by zero (%2) is undefined.</source>
+        <translation>Deling (%1) door nul (%2) is niet gedefinieerd.</translation>
+    </message>
+    <message>
+        <source>Modulus division (%1) by zero (%2) is undefined.</source>
+        <translation>De modulus deling (%1) door nul (%2) is niet gedefinieerd.</translation>
     </message>
     <message>
         <source>Dividing a value of type %1 by %2 (not-a-number) is not allowed.</source>
@@ -4991,47 +4821,77 @@ precies één</translation>
     </message>
     <message>
         <source>A value of type %1 cannot have an Effective Boolean Value.</source>
-        <translation>En waarde van het soort %1 kan geen effectieve booleanse waarde hebben.</translation>
+        <translatorcomment>RL - EBV: Waarde van George Boole, wiskundige. Wordt in Nederland wisselend niet vertaald (Boolean) en wel (Booleaans)</translatorcomment>
+        <translation>Een waarde van het soort %1 kan geen Effectieve Booleaanse Waarde hebben.</translation>
+    </message>
+    <message>
+        <source>Effective Boolean Value cannot be calculated for a sequence containing two or more atomic values.</source>
+        <translatorcomment>RL - EBV: Waarde van George Boole, wiskundige. Wordt in Nederland wisselend niet vertaald (Boolean) en wel (Booleaans)
+RL - een attribuut is atomair indien het maar één enkele waarde kan bevatten</translatorcomment>
+        <translation>Een Effectieve Booleaanse Waarde kan niet worden berekend voor een serie die twee of meer atomaire waarden bevat.</translation>
     </message>
     <message>
         <source>Value %1 of type %2 exceeds maximum (%3).</source>
-        <translation>Waarde %1 van het soort %2 overschreidt het maximum (%3).</translation>
+        <translation>Waarde %1 van het soort %2 overschrijdt het maximum (%3).</translation>
     </message>
     <message>
         <source>Value %1 of type %2 is below minimum (%3).</source>
-        <translation>Waarde %1 van het soort %2 overschreidt het minimum (%3).</translation>
+        <translation>Waarde %1 van het soort %2 overschrijdt het minimum (%3).</translation>
     </message>
     <message>
         <source>A value of type %1 must contain an even number of digits. The value %2 does not.</source>
-        <translation>Een waarde van het soort %1 moet een even aantal getallen  bevatten. De waarde %2 heeft dat niet.</translation>
+        <translation>Een waarde van het type %1 moet een even aantal getallen bevatten. De waarde %2 heeft dat niet.</translation>
     </message>
     <message>
         <source>%1 is not valid as a value of type %2.</source>
-        <translation>%1 is niet geldig als een waarde van het soort %2.</translation>
+        <translation>%1 is niet geldig als een waarde van het type %2.</translation>
     </message>
     <message>
         <source>Operator %1 cannot be used on type %2.</source>
-        <translation>Operator %1 kan niet worden gebruikt bij soort %2.</translation>
+        <translation>Operator %1 kan niet worden gebruikt bij type %2.</translation>
     </message>
     <message>
         <source>Operator %1 cannot be used on atomic values of type %2 and %3.</source>
-        <translation>Operator %1 kan niet gebruikt worden op zeer kleine waarden van de soorent %2 en %3.</translation>
+        <translatorcomment>RL - een attribuut is atomair indien het maar één enkele waarde kan bevatten</translatorcomment>
+        <translation>Operator %1 kan niet gebruikt worden op atomaire waarden van type %2 en %3.</translation>
     </message>
     <message>
         <source>The namespace URI in the name for a computed attribute cannot be %1.</source>
-        <translation>De naamruimte URI inde naam voor berekende attribuut kan geen %1 zijn.</translation>
+        <translation>De naamruimte URI in de naam voor berekend attribuut kan geen %1 zijn.</translation>
     </message>
     <message>
         <source>The name for a computed attribute cannot have the namespace URI %1 with the local name %2.</source>
-        <translation>De naam voor een berekend attribuut kan niet de naamruimte URI %1 hebben met de locale naam %2.</translation>
+        <translation>De naam voor een berekend attribuut kan niet de naamruimte URI %1 hebben met de lokale naam %2.</translation>
     </message>
     <message>
         <source>Type error in cast, expected %1, received %2.</source>
-        <translation>Foute in het soort bij de overgang, verwacht %1 maar %2 ontvangen.</translation>
+        <translation>Typefout bij omzetten, verwachtte %1 maar %2 ontvangen.</translation>
     </message>
     <message>
         <source>When casting to %1 or types derived from it, the source value must be of the same type, or it must be a string literal. Type %2 is not allowed.</source>
-        <translation>Bij het overgaan van %1 of soorten daaraan afgeleidt, moet de bronwaarde van hetzelfde soort zijn of moet het een literal reeks zijn. Soort %2 is niet toegestaan.</translation>
+        <translatorcomment>RL - literaal: constante die in een programmeertaal, als absolute rekengrootheid, vergelijkingswaarde of vast uitvoergegeven wordt weergegeven</translatorcomment>
+        <translation>Bij omzetten van %1 of typen daarvan afgeleid moet de bronwaarde van hetzelfde type zijn of moet het een literale reeks zijn. Soort %2 is niet toegestaan.</translation>
+    </message>
+    <message>
+        <source>No casting is possible with %1 as the target type.</source>
+        <translation>Een omzetting is niet mogelijk met %1 als doeltype.</translation>
+    </message>
+    <message>
+        <source>It is not possible to cast from %1 to %2.</source>
+        <translatorcomment>RL - To cast hier is eigenlijk &apos;omgieten&apos; bv van SQL-vorm naar Xml of andersom</translatorcomment>
+        <translation>Het is niet mogelijk om %1 om te zetten %2.</translation>
+    </message>
+    <message>
+        <source>Casting to %1 is not possible because it is an abstract type, and can therefore never be instantiated.</source>
+        <translation>Omzetten naar %1 is niet mogelijk omdat dit een abstract type is en daarom nooit geconcretiseerd kan worden.</translation>
+    </message>
+    <message>
+        <source>It&apos;s not possible to cast the value %1 of type %2 to %3</source>
+        <translation>Het is niet mogelijk om waarde %1 van soort %2 om te zetten in %3</translation>
+    </message>
+    <message>
+        <source>Failure when casting from %1 to %2: %3</source>
+        <translation>Omzetting van %1 naar %2 is mislukt: %3</translation>
     </message>
     <message>
         <source>A comment cannot contain %1</source>
@@ -5042,64 +4902,134 @@ precies één</translation>
         <translation>Een commentaar kan niet op %1 eindigen.</translation>
     </message>
     <message>
+        <source>No comparisons can be done involving the type %1.</source>
+        <translation>Met type %1 zijn geen vergelijkingen uit te voeren.</translation>
+    </message>
+    <message>
+        <source>Operator %1 is not available between atomic values of type %2 and %3.</source>
+        <translatorcomment>RL - een attribuut is atomair indien het maar één enkele waarde kan bevatten</translatorcomment>
+        <translation>Operator %1 is niet beschikbaar tussen atomaire waarden van type %2 en %3.</translation>
+    </message>
+    <message>
         <source>An attribute node cannot be a child of a document node. Therefore, the attribute %1 is out of place.</source>
-        <translation>Een attribuut node kan geen kind zijn van een document node. Daarom is het attribuut %1 niet op zijn plaats.</translation>
+        <translation>Een attribuutnode kan geen kind zijn van een documentnode. Daarom is het attribuut %1 niet op zijn plaats.</translation>
     </message>
     <message>
         <source>A library module cannot be evaluated directly. It must be imported from a main module.</source>
-        <translation>Een bibliotheek module kan niet direct geëvalueerd worden. Deze moet via een hoofd module geïmporteerd worden.</translation>
+        <translation>Een bibliotheekmodule kan niet direct geëvalueerd worden. Deze moet via een hoofdmodule geïmporteerd worden.</translation>
     </message>
     <message>
         <source>A value of type %1 cannot be a predicate. A predicate must have either a numeric type or an Effective Boolean Value type.</source>
-        <translation>Een waarde van het soort %1 kan geen gezegde zijn. Een gezegde moet of een numerieke soort of een effectieve booleanse waarde soort hebben.</translation>
+        <translatorcomment>RL - Waarde van George Boole, wiskundige. Wordt in Nederland wisselend niet vertaald (Boolean) en wel (Booleaans)</translatorcomment>
+        <translation>Een waarde van het soort %1 kan geen predikaat zijn. Een predikaat moet of een numeriek type of een Effectieve Booleaanse Waarde type hebben.</translation>
     </message>
     <message>
         <source>A positional predicate must evaluate to a single numeric value.</source>
-        <translation>Een positioneel gezegde moet evalueren naar een enkele numerieke waarde.</translation>
+        <translation>Een positioneel predikaat moet evalueren naar een enkele numerieke waarde.</translation>
+    </message>
+    <message>
+        <source>The target name in a processing instruction cannot be %1 in any combination of upper and lower case. Therefore, is %2 invalid.</source>
+        <translation>De doelnaam in een procesinstructie kan geen %1 zijn, in welke combinatie van hoofd- of kleine letters dan ook. Daarom is %2 ongeldig.</translation>
     </message>
     <message>
         <source>%1 is not a valid target name in a processing instruction. It must be a %2 value, e.g. %3.</source>
-        <translation>%1 is geen geldige doelnaam in een proces instructie. Deze moet %2 waarde zijn, bijvoorbeeld %3.</translation>
+        <translation>%1 is geen geldige doelnaam in een procesinstructie. Deze moet een %2 waarde zijn, bijvoorbeeld %3.</translation>
     </message>
     <message>
         <source>The last step in a path must contain either nodes or atomic values. It cannot be a mixture between the two.</source>
-        <translation>De laatste stap in een pad moet of nodes of zeer kleine waarden bevatten. En combinatie van de twee kan niet.</translation>
+        <translatorcomment>RL - een attribuut is atomair indien het maar één enkele waarde kan bevatten</translatorcomment>
+        <translation>De laatste stap in een pad moet of nodes of atomaire waarden bevatten. Een combinatie van beide kan niet.</translation>
+    </message>
+    <message>
+        <source>The data of a processing instruction cannot contain the string %1</source>
+        <translation>De gegevens van een procesinstructie kunnen niet de reeks %1 bevatten</translation>
     </message>
     <message>
         <source>No namespace binding exists for the prefix %1</source>
-        <translation>Een naamruimte binding bestaat niet voor het voorvoegsel %1</translation>
+        <translation>Een naamruimtebinding bestaat niet voor prefix %1</translation>
     </message>
     <message>
         <source>No namespace binding exists for the prefix %1 in %2</source>
-        <translation>Een naamruimte binding bestaat niet voor het voorvoegsel %1 in %2</translation>
+        <translation>Een naamruimtebinding bestaat niet voor prefix %1 in %2</translation>
+    </message>
+    <message>
+        <source>%1 is an invalid %2</source>
+        <translation>%1 is een ongeldig %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 takes at most %n argument(s). %2 is therefore invalid.</source>
+        <translatorcomment>enkel en meervoud string, nieuwe format</translatorcomment>
+        <translation>
+            <numerusform>%1 accepteert ten hoogste %n argument. %2 is daarom ongeldig.</numerusform>
+            <numerusform>%1 accepteert ten hoogste %n argumenten. %2 is daarom ongeldig.</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 requires at least %n argument(s). %2 is therefore invalid.</source>
+        <translation>
+            <numerusform>%1 vereist tenminste %n argument %2 is daarom ongeldig.</numerusform>
+            <numerusform>%1 vereist tenminste %n argumenten %2 is daarom ongeldig.</numerusform>
+        </translation>
     </message>
     <message>
         <source>The first argument to %1 cannot be of type %2. It must be a numeric type, xs:yearMonthDuration or xs:dayTimeDuration.</source>
-        <translation>Het eerste argument van %1 kan niet van het soort %2 zijn. Het moet numeriek, xs:jaarMaandDuur of xs:dagTijdDuur, zijn.</translation>
+        <translation>Het eerste argument van %1 kan niet van het type %2 zijn. Het moet numeriek, xs:jaarMaandDuur of xs:dagTijdDuur zijn.</translation>
     </message>
     <message>
         <source>The first argument to %1 cannot be of type %2. It must be of type %3, %4, or %5.</source>
-        <translation>Het eerste argument van %1 kan niet van het soort %2 zijn. Het moet van het soort %3, %4 of %5 zijn.</translation>
+        <translation>Het eerste argument van %1 kan niet van het type %2 zijn. Het moet van het type %3, %4 of %5 zijn.</translation>
     </message>
     <message>
         <source>The second argument to %1 cannot be of type %2. It must be of type %3, %4, or %5.</source>
-        <translation>Het tweede argument van %1 kan niet van het soort %2 zijn. Het moet van het soort %3, %4 of %5 zijn.</translation>
+        <translation>Het tweede argument van %1 kan niet van het type %2 zijn. Het moet van het type %3, %4 of %5 zijn.</translation>
+    </message>
+    <message>
+        <source>%1 is not a valid XML 1.0 character.</source>
+        <translation>%1 is een ongeldig XML 1.0 teken.</translation>
+    </message>
+    <message>
+        <source>The first argument to %1 cannot be of type %2.</source>
+        <translation>Het eerste argument van %1 kan niet van het type %2 zijn.</translation>
     </message>
     <message>
         <source>If both values have zone offsets, they must have the same zone offset. %1 and %2 are not the same.</source>
-        <translation>Hebben beide waarden zone uitlopers, dan moeten ze dezelfde zone uitloper hebben. %1 en %2 zijn niet hetzelfde.</translation>
+        <translation>Hebben beide waarden zone offsets, dan moeten ze dezelfde zone offset hebben. %1 en %2 zijn niet hetzelfde.</translation>
+    </message>
+    <message>
+        <source>%1 was called.</source>
+        <translation>%1 was aangeroepen.</translation>
     </message>
     <message>
         <source>%1 must be followed by %2 or %3, not at the end of the replacement string.</source>
         <translation>%1 moet gevolgd worden door %2 of %3; maar niet aan het einde van een vervangende reeks.</translation>
     </message>
     <message>
+        <source>In the replacement string, %1 must be followed by at least one digit when not escaped.</source>
+        <translation>In de vervangende reeks moet %1 gevolgd worden door tenminste één cijfer als deze niet door een escape teken wordt gedekt.</translation>
+    </message>
+    <message>
+        <source>In the replacement string, %1 can only be used to escape itself or %2, not %3</source>
+        <translation>In de vervangende reeks kan %1 alleen worden gebruikt om zichzelf in te dekken of %2, maar niet %3</translation>
+    </message>
+    <message>
+        <source>%1 matches newline characters</source>
+        <translation>%1 komt overeen met tekens voor een nieuwe tekstregel</translation>
+    </message>
+    <message>
         <source>%1 and %2 match the start and end of a line.</source>
-        <translation>%1 en %2 komen aan het begin en het einde van de regel overeen.</translation>
+        <translation>%1 en %2 betekenen allebei begin en het einde van een regel.</translation>
+    </message>
+    <message>
+        <source>Matches are case insensitive</source>
+        <translation>Overeenkomsten zijn niet hoofdletter gevoelig</translation>
     </message>
     <message>
         <source>Whitespace characters are removed, except when they appear in character classes</source>
-        <translation>Witruimte tekens zijn verplaatst, behalve wanneer deze voorkomen in teken klassen</translation>
+        <translation>Witruimte-tekens worden verwijderd, behalve wanneer deze voorkomen in tekenklassen</translation>
+    </message>
+    <message>
+        <source>%1 is an invalid regular expression pattern: %2</source>
+        <translation>%1 is een ongeldige reguliere expressie patroon: %2</translation>
     </message>
     <message>
         <source>%1 is an invalid flag for regular expressions. Valid flags are:</source>
@@ -5107,47 +5037,181 @@ precies één</translation>
     </message>
     <message>
         <source>If the first argument is the empty sequence or a zero-length string (no namespace), a prefix cannot be specified. Prefix %1 was specified.</source>
-        <translation>Is het eerste argument lege volgorde of een reeks met lengte nul (geen naamruimte), dan kan geen voorvoegsel worden gespecificeerd. Voorvoegsel %1 is gespecificeerd.</translation>
+        <translation>Is het eerste argument een lege reeks (empty sequence) of een reeks met lengte nul (geen naamruimte), dan kan geen prefix worden meegegeven. Prefix %1 was meegegeven.</translation>
+    </message>
+    <message>
+        <source>It will not be possible to retrieve %1.</source>
+        <translation>Het is niet mogelijk om %1 terug te halen.</translation>
+    </message>
+    <message>
+        <source>The root node of the second argument to function %1 must be a document node. %2 is not a document node.</source>
+        <translatorcomment>RL - root node is Techterm</translatorcomment>
+        <translation>De root node van het tweede argument voor functie %1 moet een document node zijn. %2 is geen document node.</translation>
+    </message>
+    <message>
+        <source>The default collection is undefined</source>
+        <translation>De standaardverzameling is niet gedefinieerd</translation>
+    </message>
+    <message>
+        <source>%1 cannot be retrieved</source>
+        <translation>%1 kan niet terug gehaald worden</translation>
     </message>
     <message>
         <source>The normalization form %1 is unsupported. The supported forms are %2, %3, %4, and %5, and none, i.e. the empty string (no normalization).</source>
-        <translation>De normalisatie vorm %1 wordt niet ondersteund. De ondersteunde vormen zijn %2, %3, %4, %5 ,en &quot;geen&quot;, dus de lege reeks (geen normalisatie).</translation>
+        <translation>De normalisatie vorm %1 wordt niet ondersteund. De ondersteunde vormen zijn %2, %3, %4, %5 ,en &quot;geen&quot; d.w.z. de lege reeks (geen normalisatie).</translation>
     </message>
     <message>
         <source>A zone offset must be in the range %1..%2 inclusive. %3 is out of range.</source>
-        <translation>Een zone uitloper moet binnen de reeks %1..%2 (inklusief) vallen. %3 valt buiten het bereik.</translation>
+        <translation>Een zone offset moet binnen de reeks %1..%2 (inclusief) vallen. %3 valt buiten het bereik.</translation>
+    </message>
+    <message>
+        <source>%1 is not a whole number of minutes.</source>
+        <translation>%1 is geen geheel getal in minuten.</translation>
     </message>
     <message>
         <source>Required cardinality is %1; got cardinality %2.</source>
         <translation>Het vereiste hoofdtelwoord is %1 maar kreeg %2.</translation>
     </message>
     <message>
+        <source>The item %1 did not match the required type %2.</source>
+        <translation>Het item %1 komt niet overeen met het vereiste type %2.</translation>
+    </message>
+    <message>
+        <source>%1 is an unknown schema type.</source>
+        <translation>%1 is een onbekend schematype.</translation>
+    </message>
+    <message>
+        <source>Only one %1 declaration can occur in the query prolog.</source>
+        <translation>Maar één %1 declaratie kan voorkomen in de inleiding van een zoekopdracht.</translation>
+    </message>
+    <message>
+        <source>The initialization of variable %1 depends on itself</source>
+        <translation>De initialisering van variabele %1 hangt van zichzelf af</translation>
+    </message>
+    <message>
+        <source>No variable by name %1 exists</source>
+        <translation>Een variabele met naam %1 bestaat niet</translation>
+    </message>
+    <message>
+        <source>The variable %1 is unused</source>
+        <translation>De variabele %1 wordt niet gebruikt</translation>
+    </message>
+    <message>
+        <source>Version %1 is not supported. The supported XQuery version is 1.0.</source>
+        <translation>Versie %1 wordt niet ondersteund. De ondersteunde XQuery-versie is 1.0.</translation>
+    </message>
+    <message>
         <source>The encoding %1 is invalid. It must contain Latin characters only, must not contain whitespace, and must match the regular expression %2.</source>
-        <translation>De codering %1 is ongeldig. Deze mag alleen latijnse tekens bevatten, geen witruimte en moet overeenkomen met de reguliere expressie %2.</translation>
+        <translatorcomment>RL - Latin is karaktertype</translatorcomment>
+        <translation>De codering %1 is ongeldig. Deze mag alleen Latin tekens bevatten, geen witruimte en moet overeenkomen met de reguliere expressie %2.</translation>
+    </message>
+    <message>
+        <source>No function with signature %1 is available</source>
+        <translation>Geen functie beschikbaar met handtekening %1</translation>
+    </message>
+    <message>
+        <source>A default namespace declaration must occur before function, variable, and option declarations.</source>
+        <translation>Een standaard naamruimte declaratie moet aanwezig zijn vóór functie, variabele en optie-declaraties.</translation>
+    </message>
+    <message>
+        <source>Namespace declarations must occur before function, variable, and option declarations.</source>
+        <translation>Naamruimte declaraties moeten aanwezig zijn vóór functie, variabele en optie declaraties.</translation>
+    </message>
+    <message>
+        <source>Module imports must occur before function, variable, and option declarations.</source>
+        <translation>Module imports moeten aanwezig zijn vóór functie, variabele en optie declaraties.</translation>
+    </message>
+    <message>
+        <source>It is not possible to redeclare prefix %1.</source>
+        <translation>Het is niet mogelijk om prefix %1 opnieuw te declareren.</translation>
     </message>
     <message>
         <source>Only the prefix %1 can be declared to bind the namespace %2. By default, it is already bound to the prefix %1.</source>
-        <translation>Alleen voorvoegsel %1 kan gedeclareerd worden om te binden met naamruimte %2. Standaard is deze al gebonden met voorvoegsel %1.</translation>
+        <translation>Alleen prefixl %1 kan gedeclareerd worden om te binden met naamruimte %2. Standaard is deze al gebonden met prefix %1.</translation>
+    </message>
+    <message>
+        <source>Prefix %1 is already declared in the prolog.</source>
+        <translation>Prefix %1 is al gedeclareerd in de inleiding.</translation>
+    </message>
+    <message>
+        <source>The name of an option must have a prefix. There is no default namespace for options.</source>
+        <translation>De naam van een optie moet een prefix hebben. Er bestaat geen standaardnaamruimte voor opties.</translation>
+    </message>
+    <message>
+        <source>The Schema Import feature is not supported, and therefore %1 declarations cannot occur.</source>
+        <translation>De faciliteit Schema Import wordt niet ondersteund en daarom kunnen declaraties %1 niet voorkomen.</translation>
+    </message>
+    <message>
+        <source>The target namespace of a %1 cannot be empty.</source>
+        <translation>De doelnaamruimte van een %1 kan niet leeg zijn.</translation>
+    </message>
+    <message>
+        <source>The module import feature is not supported</source>
+        <translation>De import-module faciliteit wordt niet ondersteund</translation>
+    </message>
+    <message>
+        <source>A variable by name %1 has already been declared in the prolog.</source>
+        <translation>Een variabele met de naam %1 is al gedeclareerd in de inleiding.</translation>
+    </message>
+    <message>
+        <source>No value is available for the external variable by name %1.</source>
+        <translation>Voor de externe variabele met de naam %1 is geen waarde beschikbaar.</translation>
     </message>
     <message>
         <source>The namespace %1 is reserved; therefore user defined functions may not use it. Try the predefined prefix %2, which exists for these cases.</source>
-        <translation>De naamruimte %1 is gereserveerd. Daarom kunnen eigen gedefineerde functies niet worden gebruikt. Probeer het voorgedefinieerde voorvoegsel %2) deze bestaat voor dit soort gevallen.</translation>
+        <translation>De naamruimte %1 is gereserveerd. Daarom mogen eigen gedefineerde functies deze niet gebruiken. Probeer het voorgedefinieerde prefix %2, dat al bestaat voor dit soort gevallen.</translation>
+    </message>
+    <message>
+        <source>The namespace of a user defined function in a library module must be equivalent to the module namespace. In other words, it should be %1 instead of %2</source>
+        <translation>De naamruimte van een zelf gedefinieerde functie in een bibliotheek module moet overeenkomen met de module naamruimte. Met andere woorden: het zou %1 moeten zijn in plaats van %2</translation>
+    </message>
+    <message>
+        <source>A function already exists with the signature %1.</source>
+        <translation>Een functie met handtekening %1 bestaat al.</translation>
+    </message>
+    <message>
+        <source>No external functions are supported. All supported functions can be used directly, without first declaring them as external</source>
+        <translation>Externe functies worden niet ondersteund. Alle ondersteunde functies kunnen direct worden gebruikt zonder deze als extern te declareren</translation>
+    </message>
+    <message>
+        <source>An argument by name %1 has already been declared. Every argument name must be unique.</source>
+        <translation>Een argument met de naam %1 is al gedeclareerd. Elke naam van een argument moet uniek zijn.</translation>
     </message>
     <message>
         <source>The name of a variable bound in a for-expression must be different from the positional variable. Hence, the two variables named %1 collide.</source>
-        <translation>De naam van de variabele, gebonden in een &quot;for&quot; expressie moet verschillen van de positionele variabele. Daarom botsen de twee variabelen genaamd %1.</translation>
+        <translation>De naam van de variabele gebonden in een &quot;for&quot; expressie moet verschillen van de positionele variabele. Daarom botsen de twee variabelen genaamd %1.</translation>
     </message>
     <message>
         <source>The Schema Validation Feature is not supported. Hence, %1-expressions may not be used.</source>
-        <translation>Het kenmerk &quot;schema validatie&quot; wordt niet ondersteund. Daarom mogen %1 expressies niet worden gebruikt. </translation>
+        <translation>Schema Validatie faciliteit wordt niet ondersteund. Daarom mogen %1 expressies niet worden gebruikt. </translation>
     </message>
     <message>
         <source>None of the pragma expressions are supported. Therefore, a fallback expression must be present</source>
-        <translation>Geen van de pragmatische expressies worden ondersteund. Daarom moet een terugval expressie aanwezig zijn</translation>
+        <translation>Geen van de pragmatische expressies wordt ondersteund. Daarom moet een terugval expressie aanwezig zijn</translation>
+    </message>
+    <message>
+        <source>The %1-axis is unsupported in XQuery</source>
+        <translation>De %1 as wordt niet ondersteund in een XQuery</translation>
     </message>
     <message>
         <source>%1 is not a valid numeric literal.</source>
-        <translation>%1 is geen geldige numerike literal.</translation>
+        <translation>%1 is geen geldige numerieke literaal.</translation>
+    </message>
+    <message>
+        <source>No function by name %1 is available.</source>
+        <translation>Een functie met naam %1 is niet beschikbaar.</translation>
+    </message>
+    <message>
+        <source>The namespace URI cannot be the empty string when binding to a prefix, %1.</source>
+        <translation>De naamruimte URI kan niet een lege reeks zijn als deze gebonden wordt aan een prefix, %1.</translation>
+    </message>
+    <message>
+        <source>%1 is an invalid namespace URI.</source>
+        <translation>%1 is een ongeldige naamruimte URI.</translation>
+    </message>
+    <message>
+        <source>It is not possible to bind to the prefix %1</source>
+        <translation>Het is niet mogelijk om prefix %1 opnieuw te binden</translation>
     </message>
     <message>
         <source>Namespace %1 can only be bound to %2 (and it is, in either case, pre-declared).</source>
@@ -5155,128 +5219,109 @@ precies één</translation>
     </message>
     <message>
         <source>Prefix %1 can only be bound to %2 (and it is, in either case, pre-declared).</source>
-        <translation>Voorvoegsel %1 kan alleen gebonden worden aan %2 (en is in elk geval voorgedeclareerd).</translation>
+        <translation>Prefix %1 kan alleen gebonden worden aan %2 (en is in elk geval voorgedeclareerd).</translation>
+    </message>
+    <message>
+        <source>Two namespace declaration attributes have the same name: %1.</source>
+        <translation>Twee attributen voor een naamruimtedeclaratie hebben dezelfde naam: %1.</translation>
+    </message>
+    <message>
+        <source>The namespace URI must be a constant and cannot use enclosed expressions.</source>
+        <translation>Een naamruimte URI moet een constante zijn en kan geen ingesloten expressie zijn.</translation>
+    </message>
+    <message>
+        <source>An attribute by name %1 has already appeared on this element.</source>
+        <translation>Een attribuut met de naam %1 is al voorgekomen op dit element.</translation>
     </message>
     <message>
         <source>A direct element constructor is not well-formed. %1 is ended with %2.</source>
-        <translation>Een directe element constructor is niet goed gevormeerd. %1 eindigt met %2.</translation>
+        <translation>Een direct element constructor is niet goed opgezet. %1 eindigt met %2.</translation>
     </message>
     <message>
         <source>The name %1 does not refer to any schema type.</source>
-        <translation>De naam %1 heeft verwijst niet naar enig soort schema.</translation>
+        <translation>De naam %1 verwijst naar geen enkel schematype.</translation>
     </message>
     <message>
         <source>%1 is an complex type. Casting to complex types is not possible. However, casting to atomic types such as %2 works.</source>
-        <translation>%1 is een complex soort. Overgaan naar een complex soort is niet mogelijk. Hoewel overgaan van zeer kleine soorten zoals %2 werkt.</translation>
+        <translatorcomment>RL - een attribuut is atomair indien het maar één enkele waarde kan bevatten</translatorcomment>
+        <translation>%1 is een complex type. Overgaan naar complexe typen is niet mogelijk. Echter, omzetten naar atomaire typen zoals %2 werkt.</translation>
     </message>
     <message>
         <source>%1 is not an atomic type. Casting is only possible to atomic types.</source>
-        <translation>%1 is geen zeer kleine soort. Overgaan is alleen mogeijk naar zeer kleine soorten.</translation>
+        <translatorcomment>RL - een attribuut is atomair indien het maar één enkele waarde kan bevatten</translatorcomment>
+        <translation>%1 is geen atomair type. Overgaan is alleen mogeijk naar atomaire typen.</translation>
+    </message>
+    <message>
+        <source>%1 is not a valid name for a processing-instruction. Therefore this name test will never match.</source>
+        <translation>%1 is geen geldige naam voor een procesinstructie. Daarom zal deze naamtest nooit werken.</translation>
+    </message>
+    <message>
+        <source>%1 is not in the in-scope attribute declarations. Note that the schema import feature is not supported.</source>
+        <translation>%1 valt niet in het bereik van de attribuutdeclaraties. Weet dat schema-import faciliteit niet wordt ondersteund.</translation>
     </message>
     <message>
         <source>The name of an extension expression must be in a namespace.</source>
-        <translation>De naam van een aanvullende expressie moet in de naamruimte aanwezig zijn.</translation>
+        <translation>De naam van een aanvullende expressie moet in een naamruimte staan.</translation>
+    </message>
+    <message>
+        <source>empty</source>
+        <translation>leeg</translation>
+    </message>
+    <message>
+        <source>zero or one</source>
+        <translation>nul of één</translation>
+    </message>
+    <message>
+        <source>exactly one</source>
+        <translation>precies één</translation>
+    </message>
+    <message>
+        <source>one or more</source>
+        <translation>één of meer</translation>
+    </message>
+    <message>
+        <source>zero or more</source>
+        <translation>nul of meer</translation>
     </message>
     <message>
         <source>Required type is %1, but %2 was found.</source>
-        <translation>Het vereiste soort is %1 maar %2 is gevonden.</translation>
+        <translation>Het vereiste type is %1 maar %2 is gevonden.</translation>
     </message>
     <message>
         <source>Promoting %1 to %2 may cause loss of precision.</source>
-        <translation>Het opwaarderen van %1 maar %2 kan verlies van de nauwkeurigheid veroorzaken.</translation>
+        <translation>Het opwaarderen van %1 maar %2 kan verlies van nauwkeurigheid tot gevolg hebben.</translation>
+    </message>
+    <message>
+        <source>The focus is undefined.</source>
+        <translation>De focus in niet gedefinieerd.</translation>
     </message>
     <message>
         <source>It&apos;s not possible to add attributes after any other kind of node.</source>
         <translation>Het is niet mogelijk om attributen toe te voegen na enig ander soort node.</translation>
     </message>
     <message>
+        <source>An attribute by name %1 has already been created.</source>
+        <translation>Een attribuut met de naam %1 is al aangemaakt.</translation>
+    </message>
+    <message>
         <source>Only the Unicode Codepoint Collation is supported(%1). %2 is unsupported.</source>
-        <translation>Alleen de Unicode codepunt samenwerking wordt ondersteund (%1). %2 wordt niet ondersteund.</translation>
-    </message>
-    <message>
-        <source>An %1-attribute with value %2 has already been declared.</source>
-        <translation>Een %1 attribuut met de waarde %2 is al gedeclareerd.</translation>
-    </message>
-    <message>
-        <source>An %1-attribute must have a valid %2 as value, which %3 isn&apos;t.</source>
-        <translation>Een %1 attribuut moest een geldige %2 als waarde hebben en dat is niet %3.</translation>
-    </message>
-    <message>
-        <source>The first operand in an integer division, %1, cannot be infinity (%2).</source>
-        <translation>De eerste operand in een deling met gehele getallen, %1, kan niet oneindig zijn (%2).</translation>
-    </message>
-    <message>
-        <source>The second operand in a division, %1, cannot be zero (%2).</source>
-        <translation>De tweede operand in een deling, %1 kan niet null zijn (%2).</translation>
-    </message>
-    <message>
-        <source>Integer division (%1) by zero (%2) is undefined.</source>
-        <translation>De deling met gehele getallen (%1) door nul (%2) is niet gedefinieerd.</translation>
-    </message>
-    <message>
-        <source>Division (%1) by zero (%2) is undefined.</source>
-        <translation>De  deling (%1) door nul (%2) is niet gedefinieerd.</translation>
-    </message>
-    <message>
-        <source>Modulus division (%1) by zero (%2) is undefined.</source>
-        <translation>De modulo deling (%1) door nul (%2) is niet gedefinieerd.</translation>
-    </message>
-    <message>
-        <source>No casting is possible with %1 as the target type.</source>
-        <translation>Een overgang is niet mogelijk met %1 als doel soort.</translation>
-    </message>
-    <message>
-        <source>The target name in a processing instruction cannot be %1 in any combination of upper and lower case. Therefore, is %2 invalid.</source>
-        <translation>De doelnaam, in een proces instructie, kan geen %1 zijn, in enige combinatie van hoofd- of kleine letters. Daarom is %2 ongeldig.</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 takes at most %n argument(s). %2 is therefore invalid.</source>
-        <translation>
-            <numerusform>%1 heeft ten hoogste %n argument(en). %2 is daarom ongeldig.</numerusform>
-            <numerusform>%1 heeft ten hoogste %n argument(en). %2 is daarom ongeldig.</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 requires at least %n argument(s). %2 is therefore invalid.</source>
-        <translation>
-            <numerusform>%1 vereist tenminste %n argument(en) %2 is daarom ongeldig.</numerusform>
-            <numerusform>%1 vereist tenminste %n argument(en) %2 is daarom ongeldig.</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>The root node of the second argument to function %1 must be a document node. %2 is not a document node.</source>
-        <translation>De wortel node van het tweede argument voor functie %1 moet een document node zijn. %2 is geen document node.</translation>
-    </message>
-    <message>
-        <source>The namespace for a user defined function cannot be empty (try the predefined prefix %1 which exists for cases like this)</source>
-        <translation>De naamruimte for een eige gedefinieerde functie kan niet leeg zijn (probeer een voorgedefinieerd voorvoegsel %1 die voor dit soort zaken bestaat)</translation>
-    </message>
-    <message>
-        <source>A default namespace declaration must occur before function, variable, and option declarations.</source>
-        <translation>Een standaard naamruimte declaratie moet bestaan voor een functie, variabele en optie declaraties.</translation>
-    </message>
-    <message>
-        <source>Namespace declarations must occur before function, variable, and option declarations.</source>
-        <translation>Naamruimte declaaraties moet voorkomen voor functie, variabele en optie declaraties.</translation>
-    </message>
-    <message>
-        <source>Module imports must occur before function, variable, and option declarations.</source>
-        <translation>Module import moet voorkomen voor functie, variabele en optie declaraties.</translation>
-    </message>
-    <message>
-        <source>%1 is not a whole number of minutes.</source>
-        <translation>%1 is geen geheel getal voor minuten.</translation>
+        <translatorcomment>RL - Unicode Codepoint Collation niet vertalen</translatorcomment>
+        <translation>Alleen Unicode Codepoint Collation wordt ondersteund (%1). %2 wordt niet ondersteund.</translation>
     </message>
     <message>
         <source>Attribute %1 can&apos;t be serialized because it appears at the top level.</source>
-        <translation>Attribuut %1 kan niet geserialiseerd worden omdat deze op het hoogste niveau voortkomt.</translation>
+        <translation>Attribuut %1 kan niet geserialiseerd worden omdat deze op het hoogste niveau optreedt.</translation>
+    </message>
+    <message>
+        <source>The namespace for a user defined function cannot be empty (try the predefined prefix %1 which exists for cases like this)</source>
+        <translation>De naamruimte for een eigen gedefinieerde functie kan niet leeg zijn (probeer een voorgedefinieerd prefix %1 dat voor dit soort gevallen bestaat)</translation>
     </message>
 </context>
 <context>
     <name>VolumeSlider</name>
     <message>
         <source>Muted</source>
-        <translation>Gedemp</translation>
+        <translation>Gedempd</translation>
     </message>
     <message>
         <source>Volume: %1%</source>
@@ -5295,7 +5340,7 @@ precies één</translation>
     </message>
     <message>
         <source>Top</source>
-        <translation>boven</translation>
+        <translation>Boven</translation>
     </message>
     <message>
         <source>Right edge</source>
