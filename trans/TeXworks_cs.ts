@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="cs" sourcelanguage="en">
+<TS version="2.1" language="cs" sourcelanguage="en">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -151,7 +151,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="77"/>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit zalomení</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="87"/>
@@ -179,7 +179,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1535"/>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při inicializaci SyncTeXu</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1537"/>
@@ -910,22 +910,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozhraní</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="52"/>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jazyk:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="72"/>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tlačítka lišty nástrojů:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="141"/>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřít náhled PDF spolu s TeX soubory</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="178"/>
@@ -1212,7 +1212,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="482"/>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Protokolovací soubory (*.log *.blg)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="483"/>
@@ -1237,7 +1237,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="487"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomocné soubory (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
@@ -1588,12 +1588,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="296"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Verze %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="298"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Verze %1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="299"/>
@@ -1762,7 +1762,7 @@
     <message>
         <location filename="../src/TWScriptable.cpp" line="583"/>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba skriptu</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="601"/>
@@ -2079,7 +2079,7 @@ Zvolené kódování nahradí to výchozí a rovněž všechny řádky s &quot;%
     <message>
         <location filename="../src/TeXDocument.cpp" line="1641"/>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapsat UTF-8 byte order mark</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1664"/>
