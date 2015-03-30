@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Sarmalama</translation>
     </message>
 </context>
 <context>
@@ -541,7 +541,7 @@
     </message>
     <message>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>SyncTeX başlatılırken hata</translation>
     </message>
 </context>
 <context>
@@ -1378,11 +1378,11 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versiyon %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versiyon %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1448,7 +1448,7 @@
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Eklenti hatası</translation>
     </message>
 </context>
 <context>
@@ -2289,7 +2289,7 @@ Rahatsızlık için üzgünüz.</translation>
     </message>
     <message>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>UTF-8 BOM yaz</translation>
     </message>
 </context>
 <context>
