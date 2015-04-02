@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>折り返しを解除する</translation>
     </message>
 </context>
 <context>
@@ -532,7 +532,7 @@
     </message>
     <message>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>SyncTeXのエラーを初期化する</translation>
     </message>
 </context>
 <context>
@@ -1340,11 +1340,11 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;バージョン %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;バージョン %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1410,7 +1410,7 @@
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリプトエラー</translation>
     </message>
 </context>
 <context>
@@ -2241,7 +2241,7 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>UTF-8のBOMを付与する</translation>
     </message>
 </context>
 <context>
