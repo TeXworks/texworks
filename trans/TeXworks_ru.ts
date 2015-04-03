@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru">
+<TS version="2.1" language="ru">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -129,6 +129,10 @@
     <message>
         <source>Re-wrap paragraphs</source>
         <translation>Переразбить абзацы</translation>
+    </message>
+    <message>
+        <source>Unwrap</source>
+        <translation>Объединить строки</translation>
     </message>
 </context>
 <context>
@@ -534,6 +538,10 @@
     <message>
         <source>Abort typesetting</source>
         <translation>Прервать вёрстку</translation>
+    </message>
+    <message>
+        <source>Error initializing SyncTeX</source>
+        <translation>Ошибка при запуске SyncTeX</translation>
     </message>
 </context>
 <context>
@@ -1285,7 +1293,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation>&lt;br&gt;Версия %1 r.%2 (%3)</translation>
+        <translation type="obsolete">&lt;br&gt;Версия %1 r.%2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
@@ -1387,6 +1395,14 @@
         <source>Clear Recent Files</source>
         <translation>Очистить список недавно открытых файлов</translation>
     </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
+        <translation>&lt;br&gt;Версия %1 (%2) [рев.%3, %4]</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2)</source>
+        <translation>&lt;br&gt;Версия %1 (%2)</translation>
+    </message>
 </context>
 <context>
     <name>TWScriptAPI</name>
@@ -1448,6 +1464,10 @@
     <message>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Сценарий «%1»: %2</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation>Ошибка в сценарии</translation>
     </message>
 </context>
 <context>
@@ -2288,6 +2308,10 @@ We are sorry for the inconvenience.</source>
     <message>
         <source>Show Console Output</source>
         <translation>Показать панель вывода</translation>
+    </message>
+    <message>
+        <source>Write UTF-8 byte order mark</source>
+        <translation>Записать метку порядка байтов UTF-8</translation>
     </message>
 </context>
 <context>

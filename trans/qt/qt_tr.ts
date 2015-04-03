@@ -5,73 +5,73 @@
     <name>MAC_APPLICATION_MENU</name>
     <message>
         <source>Services</source>
-        <translation type="unfinished"></translation>
+        <translation>Hizmetler</translation>
     </message>
     <message>
         <source>Hide %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Gizle</translation>
     </message>
     <message>
         <source>Hide Others</source>
-        <translation type="unfinished"></translation>
+        <translation>Diğerlerini Gizle</translation>
     </message>
     <message>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Tümünü Göster</translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tercihler...</translation>
     </message>
     <message>
         <source>Quit %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Çıkış</translation>
     </message>
     <message>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Hakkında</translation>
     </message>
 </context>
 <context>
     <name>AudioOutput</name>
     <message>
         <source>&lt;html&gt;The audio playback device &lt;b&gt;%1&lt;/b&gt; does not work.&lt;br/&gt;Falling back to &lt;b&gt;%2&lt;/b&gt;.&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;Ses çalma aygıtı &lt;b&gt;%1&lt;/b&gt; çalışmıyor.&lt;br/&gt;&lt;b&gt;%2&lt;/b&gt; aygıtına geri çekiliyor.&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;Switching to the audio playback device &lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;which just became available and has higher preference.&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;Henüz kullanılabilir olan ve yüksek tercihe sahip&lt;br/&gt;&lt;b&gt;%1&lt;/b&gt; ses çalma aygıtına değiştiriliyor.&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Revert back to device &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; aygıtına geri döndür</translation>
     </message>
 </context>
 <context>
     <name>Phonon::</name>
     <message>
         <source>Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildirimler</translation>
     </message>
     <message>
         <source>Music</source>
-        <translation type="unfinished"></translation>
+        <translation>Müzik</translation>
     </message>
     <message>
         <source>Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Görüntü</translation>
     </message>
     <message>
         <source>Communication</source>
-        <translation type="unfinished"></translation>
+        <translation>İletişim</translation>
     </message>
     <message>
         <source>Games</source>
-        <translation type="unfinished"></translation>
+        <translation>Oyunlar</translation>
     </message>
     <message>
         <source>Accessibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Erişebilirlik</translation>
     </message>
 </context>
 <context>
@@ -79,12 +79,14 @@
     <message>
         <source>Warning: You do not seem to have the package gstreamer0.10-plugins-good installed.
           Some video features have been disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uyarı: Yüklenmiş gstreamer0.10-plugins-good paketine sahip görünmüyorsunuz.
+          Bazı görüntü özellikleri etkisizleştirildi.</translation>
     </message>
     <message>
         <source>Warning: You do not seem to have the base GStreamer plugins installed.
           All audio and video support has been disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Uyarı: Yüklenmiş ana GStreame eklentilerine sahip görünmüyorsunuz.
+          Tüm ses ve görüntü desteği etkisizleştirildi</translation>
     </message>
 </context>
 <context>
@@ -94,45 +96,47 @@
 
 Check your Gstreamer installation and make sure you 
 have libgstreamer-plugins-base installed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Çalma başlatılamıyor. 
+
+Gstreamer kurulumunuzu kontrol edin ve yüklenmiş 
+ libgstreamer-plugins-base&apos;e sahip olduğunuzdan emin olun.</translation>
     </message>
     <message numerus="yes">
         <source>A required codec is missing. You need to install the following codec(s) to play this content: %0</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Gereken bir kodek eksik. Bu içeriği çalmak için aşağıdaki kodek(ler)i yüklemeniz gerek: %0</numerusform>
         </translation>
     </message>
     <message>
         <source>Could not open media source.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ortam kaynağı açılamadı.</translation>
     </message>
     <message>
         <source>Invalid source type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geçersiz kaynak türü.</translation>
     </message>
     <message>
         <source>Could not locate media source.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ortam kaynağının yeri bulunamadı.</translation>
     </message>
     <message>
         <source>Could not open audio device. The device is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses aygıtı açılamadı. Aygıt zaten kullanımda.</translation>
     </message>
     <message>
         <source>Could not decode media source.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ortam kaynağı çözülemedi.</translation>
     </message>
 </context>
 <context>
     <name>Phonon::VolumeSlider</name>
     <message>
         <source>Volume: %1%</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses: %1%</translation>
     </message>
     <message>
         <source>Use this slider to adjust the volume. The leftmost position is 0%, the rightmost is %1%</source>
-        <translation type="unfinished"></translation>
+        <translation>Sesi ayarlamak için bu kaydırma çuğunu kullanın. En sol konum % 0, en sağ konum %1%</translation>
     </message>
 </context>
 <context>
@@ -173,15 +177,15 @@ have libgstreamer-plugins-base installed.</source>
     <name>Q3FileDialog</name>
     <message>
         <source>Copy or Move a File</source>
-        <translation>Bir Dosya Kopyala ya da Taşı</translation>
+        <translation>Dosyayı Kopyala ya da Taşı</translation>
     </message>
     <message>
         <source>Read: %1</source>
-        <translation>Oku: %1</translation>
+        <translation>Okuma: %1</translation>
     </message>
     <message>
         <source>Write: %1</source>
-        <translation>Yaz: %1</translation>
+        <translation>Yazma: %1</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -193,7 +197,7 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Name</source>
-        <translation>İsim</translation>
+        <translation>Adı</translation>
     </message>
     <message>
         <source>Size</source>
@@ -201,7 +205,7 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Type</source>
-        <translation>Tip</translation>
+        <translation>Türü</translation>
     </message>
     <message>
         <source>Date</source>
@@ -209,7 +213,7 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Attributes</source>
-        <translation>Nitelikler</translation>
+        <translation>Öznitelikleri</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -217,7 +221,7 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Look &amp;in:</source>
-        <translation>Ko&amp;num:</translation>
+        <translation>Bakılan &amp;yer:</translation>
     </message>
     <message>
         <source>File &amp;name:</source>
@@ -225,7 +229,7 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>File &amp;type:</source>
-        <translation>Dosya &amp;tipi:</translation>
+        <translation>Dosya &amp;türü:</translation>
     </message>
     <message>
         <source>Back</source>
@@ -237,7 +241,7 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Create New Folder</source>
-        <translation>Yeni Dizin Oluştur</translation>
+        <translation>Yeni Klasör Oluştur</translation>
     </message>
     <message>
         <source>List View</source>
@@ -253,11 +257,11 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Preview File Contents</source>
-        <translation>Dosya İçeriğini Önizle</translation>
+        <translation>Dosya İçeriklerini Önizle</translation>
     </message>
     <message>
         <source>Read-write</source>
-        <translation>Oku-yaz</translation>
+        <translation>Okuma-yazma</translation>
     </message>
     <message>
         <source>Read-only</source>
@@ -265,7 +269,7 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Write-only</source>
-        <translation>Sadece-yaz</translation>
+        <translation>Sadece-yazma</translation>
     </message>
     <message>
         <source>Inaccessible</source>
@@ -325,15 +329,15 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Sort by &amp;Name</source>
-        <translation>İs&amp;me Göre Sırala</translation>
+        <translation>İs&amp;me göre Sırala</translation>
     </message>
     <message>
         <source>Sort by &amp;Size</source>
-        <translation>B&amp;oyuta Göre Sırala</translation>
+        <translation>B&amp;oyuta göre Sırala</translation>
     </message>
     <message>
         <source>Sort by &amp;Date</source>
-        <translation>Ta&amp;rihe Göre Sırala</translation>
+        <translation>Ta&amp;rihe göre Sırala</translation>
     </message>
     <message>
         <source>&amp;Unsorted</source>
@@ -361,11 +365,11 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Delete %1</source>
-        <translation>%1 konumunu sil</translation>
+        <translation>%1 öğesini sil</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;%1  &quot;%2&quot; ögesini silmek istediğinizden emin misiniz?&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;%1 &quot;%2&quot; ögesini silmek istediğinizden emin misiniz?&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
@@ -377,15 +381,15 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>New Folder 1</source>
-        <translation>Yeni Dizin 1</translation>
+        <translation>Yeni Klasör 1</translation>
     </message>
     <message>
         <source>New Folder</source>
-        <translation>Yeni Dizin</translation>
+        <translation>Yeni Klasör</translation>
     </message>
     <message>
         <source>New Folder %1</source>
-        <translation>Yeni Dizin %1</translation>
+        <translation>Yeni Klasör %1</translation>
     </message>
     <message>
         <source>Find Directory</source>
@@ -417,19 +421,19 @@ Yolu ve dosya adını kontrol edin.</translation>
     <message>
         <source>Could not read directory
 %1</source>
-        <translation>Dizin okunamadı
+        <translation>Okunamayan dizin
 %1</translation>
     </message>
     <message>
         <source>Could not create directory
 %1</source>
-        <translation>Dizin oluşturulamadı
+        <translation>Oluşturulamayan dizin
 %1</translation>
     </message>
     <message>
         <source>Could not remove file or directory
 %1</source>
-        <translation>Dizin silinemedi
+        <translation>Kaldırılamayan dosya ya da dizin
 %1</translation>
     </message>
     <message>
@@ -437,20 +441,20 @@ Yolu ve dosya adını kontrol edin.</translation>
 %1
 to
 %2</source>
-        <translation>Yeniden adlandırılamadı
-%1
-%2</translation>
+        <translation>Yeniden adlandırılamadı;
+%1 adından
+%2 adına</translation>
     </message>
     <message>
         <source>Could not open
 %1</source>
-        <translation>Açılamadı
+        <translation>Açılamayan
 %1</translation>
     </message>
     <message>
         <source>Could not write
 %1</source>
-        <translation>Yazılamadı
+        <translation>Yazılamayan
 %1</translation>
     </message>
 </context>
@@ -458,7 +462,7 @@ to
     <name>Q3MainWindow</name>
     <message>
         <source>Line up</source>
-        <translation>Diz</translation>
+        <translation>Sıraya sok</translation>
     </message>
     <message>
         <source>Customize...</source>
@@ -495,7 +499,7 @@ to
     </message>
     <message>
         <source>Defaults</source>
-        <translation>Öntanımlılar</translation>
+        <translation>Varsayılanlar</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -545,7 +549,7 @@ to
     </message>
     <message>
         <source>Minimize</source>
-        <translation>Küçült</translation>
+        <translation>Simge Durumuna</translation>
     </message>
     <message>
         <source>Restore down</source>
@@ -553,7 +557,7 @@ to
     </message>
     <message>
         <source>Maximize</source>
-        <translation>Büyüt</translation>
+        <translation>Ekranı Kapla</translation>
     </message>
     <message>
         <source>Close</source>
@@ -561,19 +565,19 @@ to
     </message>
     <message>
         <source>Contains commands to manipulate the window</source>
-        <translation>Pencereyi durumunu değiştirmek için gereken komutları içerir</translation>
+        <translation>Pencereyi değiştiren komutları içerir</translation>
     </message>
     <message>
         <source>Puts a minimized back to normal</source>
-        <translation>Küçültülmüş bir pencereyi önceki haline getirir</translation>
+        <translation>Küçültülmüş bir pencereyi normal haline getirir</translation>
     </message>
     <message>
         <source>Moves the window out of the way</source>
-        <translation>Pencereyi taşır</translation>
+        <translation>Pencereyi uzağa taşır</translation>
     </message>
     <message>
         <source>Puts a maximized window back to normal</source>
-        <translation>Büyütülmüş bir pencereyi önceki haline getirir</translation>
+        <translation>Büyütülmüş bir pencereyi normal haline getirir</translation>
     </message>
     <message>
         <source>Makes the window full screen</source>
@@ -584,8 +588,8 @@ to
         <translation>Pencereyi kapatır</translation>
     </message>
     <message>
-        <source>Displays the name of the window and contains controls to manipulate it</source>
-        <translation>Pencerenin adını gösterir ve pencereyi değiştirebilecek kontrolleri içerir</translation>
+        <source>Holds the name of the window and contains controls to manipulate it</source>
+        <translation>Pencerenin adını gösterir ve pencereyi değiştiren kontrolleri içerir</translation>
     </message>
 </context>
 <context>
@@ -603,35 +607,35 @@ to
     </message>
     <message>
         <source>The protocol `%1&apos; does not support listing directories</source>
-        <translation>`%1&apos;  protokolü dizin listelemeyi desteklemiyor</translation>
+        <translation>`%1&apos; protokolü dizinleri listelemeyi desteklemiyor</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support creating new directories</source>
-        <translation>`%1&apos;  protokolü yeni dizin oluşturmayı desteklemiyor</translation>
+        <translation>`%1&apos; protokolü yeni dizinleri oluşturmayı desteklemiyor</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support removing files or directories</source>
-        <translation>`%1&apos;  protokolü dosya veya dizinleri silmeyi desteklemiyor</translation>
+        <translation>`%1&apos; protokolü dosya veya dizinleri kaldırmayı desteklemiyor</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support renaming files or directories</source>
-        <translation>`%1&apos;  protokolü dosya veya dizinleri yeniden adlandırmayı desteklemiyor</translation>
+        <translation>`%1&apos; protokolü dosya veya dizinleri yeniden adlandırmayı desteklemiyor</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support getting files</source>
-        <translation>`%1&apos;  protokolü dosyaları almayı desteklemiyor</translation>
+        <translation>`%1&apos; protokolü dosyaları almayı desteklemiyor</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support putting files</source>
-        <translation>`%1&apos;  protokolü dosya koymayı desteklemiyor</translation>
+        <translation>`%1&apos; protokolü dosyaları koymayı desteklemiyor</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support copying or moving files or directories</source>
-        <translation>`%1&apos;  protokolü dosya veya dizinleri kopyalamyı ya da taşımayı desteklemiyor</translation>
+        <translation>`%1&apos; protokolü dosya veya dizinleri kopyalamyı veya taşımayı desteklemiyor</translation>
     </message>
     <message>
         <source>(unknown)</source>
-        <translation>(bilinmeyen)</translation>
+        <translation>(bilinmiyor)</translation>
     </message>
 </context>
 <context>
@@ -650,7 +654,7 @@ to
     </message>
     <message>
         <source>&amp;Finish</source>
-        <translation>&amp;Bitir</translation>
+        <translation>&amp;Bitti</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -661,7 +665,7 @@ to
     <name>QAbstractSocket</name>
     <message>
         <source>Host not found</source>
-        <translation>Makine bulunamadı</translation>
+        <translation>Anamakine bulunamadı</translation>
     </message>
     <message>
         <source>Connection refused</source>
@@ -669,7 +673,7 @@ to
     </message>
     <message>
         <source>Socket operation timed out</source>
-        <translation>Soket işleminde zamanaşımı oluştu</translation>
+        <translation>Soket işlemi zamanı aştı</translation>
     </message>
     <message>
         <source>Socket is not connected</source>
@@ -712,7 +716,7 @@ to
     </message>
     <message>
         <source>Activates the program&apos;s main window</source>
-        <translation>Uygulamanın ana penceresini etkinleştirir</translation>
+        <translation>Programın ana penceresini etkinleştirir</translation>
     </message>
 </context>
 <context>
@@ -723,7 +727,7 @@ to
     </message>
     <message>
         <source>Check</source>
-        <translation>Kontrol Et</translation>
+        <translation>İşaretle</translation>
     </message>
     <message>
         <source>Toggle</source>
@@ -770,7 +774,7 @@ to
     </message>
     <message>
         <source>&amp;Add to Custom Colors</source>
-        <translation>Ö&amp;zel Renkler Ekle</translation>
+        <translation>Ö&amp;zel Renkleri Ekle</translation>
     </message>
     <message>
         <source>Select color</source>
@@ -801,88 +805,88 @@ to
     <message>
         <source>%1: permission denied</source>
         <comment>QSystemSemaphore</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: izin reddedildi</translation>
     </message>
     <message>
         <source>%1: already exists</source>
         <comment>QSystemSemaphore</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: zaten mevcut</translation>
     </message>
     <message>
         <source>%1: doesn&apos;t exists</source>
         <comment>QSystemSemaphore</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: mevcut değil</translation>
     </message>
     <message>
         <source>%1: out of resources</source>
         <comment>QSystemSemaphore</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: yetersiz kaynak</translation>
     </message>
     <message>
         <source>%1: unknown error %2</source>
         <comment>QSystemSemaphore</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: bilinmeyen hata %2</translation>
     </message>
     <message>
         <source>%1: key is empty</source>
         <comment>QSystemSemaphore</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: tuş boş</translation>
     </message>
     <message>
         <source>%1: unable to make key</source>
         <comment>QSystemSemaphore</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: tuş yapılamaz</translation>
     </message>
     <message>
         <source>%1: ftok failed</source>
         <comment>QSystemSemaphore</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: ftok başarısız oldu</translation>
     </message>
 </context>
 <context>
     <name>QDB2Driver</name>
     <message>
         <source>Unable to connect</source>
-        <translation>Bağlanılamadı</translation>
+        <translation>Bağlanılamaz</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>İşlem (transaction) yapılamadı</translation>
+        <translation>İşlem yapılamaz</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
-        <translation>İşlem (transaction) geri alınamadı</translation>
+        <translation>İşlem geri alınamaz</translation>
     </message>
     <message>
         <source>Unable to set autocommit</source>
-        <translation>Otomatik uygulama ayarlanamadı</translation>
+        <translation>Otomatik yapılma ayarlanamaz</translation>
     </message>
 </context>
 <context>
     <name>QDB2Result</name>
     <message>
         <source>Unable to execute statement</source>
-        <translation>İfade çalıştırılamadı</translation>
+        <translation>İfade çalıştırılamaz</translation>
     </message>
     <message>
         <source>Unable to prepare statement</source>
-        <translation>İfade hazırlanamadı</translation>
+        <translation>İfade hazırlanamaz</translation>
     </message>
     <message>
         <source>Unable to bind variable</source>
-        <translation>Değişken atanamadı</translation>
+        <translation>Değişken atanamaz</translation>
     </message>
     <message>
         <source>Unable to fetch record %1</source>
-        <translation>%1 kaydı getirilemedi</translation>
+        <translation>%1 kaydı getirilemez</translation>
     </message>
     <message>
         <source>Unable to fetch next</source>
-        <translation>Sonraki getirilemedi</translation>
+        <translation>Sonraki getirilemez</translation>
     </message>
     <message>
         <source>Unable to fetch first</source>
-        <translation>Öncelikle birinci getirilemedi</translation>
+        <translation>Birincisi getirilemez</translation>
     </message>
 </context>
 <context>
@@ -908,7 +912,7 @@ to
     <name>QDial</name>
     <message>
         <source>QDial</source>
-        <translation>QDial</translation>
+        <translation>HAra</translation>
     </message>
     <message>
         <source>SpeedoMeter</source>
@@ -923,11 +927,11 @@ to
     <name>QDialog</name>
     <message>
         <source>What&apos;s This?</source>
-        <translation>Bu nedir?</translation>
+        <translation>Bu Nedir?</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation type="unfinished">Tamam</translation>
+        <translation>Bitti</translation>
     </message>
 </context>
 <context>
@@ -994,7 +998,7 @@ to
     </message>
     <message>
         <source>Abort</source>
-        <translation>İptal</translation>
+        <translation>Durdur</translation>
     </message>
     <message>
         <source>Retry</source>
@@ -1006,7 +1010,7 @@ to
     </message>
     <message>
         <source>Restore Defaults</source>
-        <translation>Öntanımlılara Dön</translation>
+        <translation>Varsayılanları Geri Yükle</translation>
     </message>
     <message>
         <source>Close without Saving</source>
@@ -1014,14 +1018,14 @@ to
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;TAMAM</translation>
+        <translation>&amp;TAMAM</translation>
     </message>
 </context>
 <context>
     <name>QDirModel</name>
     <message>
         <source>Name</source>
-        <translation>İsim</translation>
+        <translation>Adı</translation>
     </message>
     <message>
         <source>Size</source>
@@ -1030,12 +1034,12 @@ to
     <message>
         <source>Kind</source>
         <comment>Match OS X Finder</comment>
-        <translation>Tip</translation>
+        <translation>Çeşit</translation>
     </message>
     <message>
         <source>Type</source>
         <comment>All other platforms</comment>
-        <translation>Tip</translation>
+        <translation>Türü</translation>
     </message>
     <message>
         <source>Date Modified</source>
@@ -1050,11 +1054,11 @@ to
     </message>
     <message>
         <source>Dock</source>
-        <translation>Gömülü</translation>
+        <translation>Yapışık</translation>
     </message>
     <message>
         <source>Float</source>
-        <translation>Float</translation>
+        <translation>Gezen</translation>
     </message>
 </context>
 <context>
@@ -1080,7 +1084,7 @@ to
     </message>
     <message>
         <source>Fatal Error:</source>
-        <translation>Ölümcül Hata:</translation>
+        <translation>Önemli Hata:</translation>
     </message>
     <message>
         <source>&amp;Show this message again</source>
@@ -1116,8 +1120,8 @@ to
     <message>
         <source>%1 already exists.
 Do you want to replace it?</source>
-        <translation>%1 zaten var.
-Üzerine yazmak ister misiniz?</translation>
+        <translation>%1 zaten mevcut.
+Değiştirmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>%1
@@ -1125,7 +1129,7 @@ File not found.
 Please verify the correct file name was given.</source>
         <translation>%1
 Dosya bulunamadı.
-Lütfen verilen ismin doğruluğunu kontrol edin.</translation>
+Lütfen doğru dosya adının verildiğini doğrulayın.</translation>
     </message>
     <message>
         <source>My Computer</source>
@@ -1149,7 +1153,7 @@ Lütfen verilen ismin doğruluğunu kontrol edin.</translation>
     </message>
     <message>
         <source>Parent Directory</source>
-        <translation>Üst Dizin</translation>
+        <translation>Ana Dizin</translation>
     </message>
     <message>
         <source>List View</source>
@@ -1173,7 +1177,7 @@ Directory not found.
 Please verify the correct directory name was given.</source>
         <translation>%1
 Dizin bulunamadı.
-Lütfen verilen ismin doğruluğunu kontrol edin.</translation>
+Lütfen doğru dizin adının verildiğini doğrulayın.</translation>
     </message>
     <message>
         <source>&apos;%1&apos; is write protected.
@@ -1183,7 +1187,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Are sure you want to delete &apos;%1&apos;?</source>
-        <translation>&apos;%1&apos; konumunu silmek istediğinizden emin misiniz?</translation>
+        <translation>&apos;%1&apos; dizinini silmek istediğinize emin misiniz?</translation>
     </message>
     <message>
         <source>Could not delete directory.</source>
@@ -1195,7 +1199,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Drive</source>
-        <translation>Disk Sürücüsü</translation>
+        <translation>Sürücü</translation>
     </message>
     <message>
         <source>File</source>
@@ -1203,7 +1207,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>Bilinmeyen</translation>
+        <translation>Bilinmiyor</translation>
     </message>
     <message>
         <source>Find Directory</source>
@@ -1219,19 +1223,19 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>New Folder</source>
-        <translation>Yeni Dizin</translation>
+        <translation>Yeni Klasör</translation>
     </message>
     <message>
         <source>&amp;New Folder</source>
-        <translation>&amp;Yeni Dizin</translation>
+        <translation>&amp;Yeni Klasör</translation>
     </message>
     <message>
         <source>&amp;Choose</source>
-        <translation>Se&amp;ç</translation>
+        <translation>Se&amp;çin</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Sil</translation>
+        <translation>Kaldır</translation>
     </message>
     <message>
         <source>File &amp;name:</source>
@@ -1239,11 +1243,11 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Look in:</source>
-        <translation>Konum:</translation>
+        <translation>Bakılan yer:</translation>
     </message>
     <message>
         <source>Create New Folder</source>
-        <translation>Yeni Dizin Oluştur</translation>
+        <translation>Yeni Klasör Oluştur</translation>
     </message>
 </context>
 <context>
@@ -1254,11 +1258,11 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>&lt;b&gt;The name &quot;%1&quot; can not be used.&lt;/b&gt;&lt;p&gt;Try using another name, with fewer characters or no punctuations marks.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;&quot;%1&quot; adı kullanılamıyor.&lt;/b&gt;&lt;p&gt;Daha az karakter ile ya da noktalama işaretleri olmadan başka bir isim kullanmayı deneyin.</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>İsim</translation>
+        <translation>Adı</translation>
     </message>
     <message>
         <source>Size</source>
@@ -1267,12 +1271,12 @@ Yine de silmek istiyor musunuz?</translation>
     <message>
         <source>Kind</source>
         <comment>Match OS X Finder</comment>
-        <translation>Tip</translation>
+        <translation>Çeşit</translation>
     </message>
     <message>
         <source>Type</source>
         <comment>All other platforms</comment>
-        <translation>Tip</translation>
+        <translation>Türü</translation>
     </message>
     <message>
         <source>Date Modified</source>
@@ -1284,7 +1288,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Computer</source>
-        <translation>Kök Dizini</translation>
+        <translation>Bilgisayar</translation>
     </message>
     <message>
         <source>%1 TB</source>
@@ -1311,178 +1315,178 @@ Yine de silmek istiyor musunuz?</translation>
     <name>QFontDatabase</name>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalın</translation>
     </message>
     <message>
         <source>Demi Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>Yarı Kalın</translation>
     </message>
     <message>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation>Koyu</translation>
     </message>
     <message>
         <source>Demi</source>
-        <translation type="unfinished"></translation>
+        <translation>Yarı Koyu</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Açık</translation>
     </message>
     <message>
         <source>Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>İtalik</translation>
     </message>
     <message>
         <source>Oblique</source>
-        <translation type="unfinished"></translation>
+        <translation>Eğik</translation>
     </message>
     <message>
         <source>Any</source>
-        <translation type="unfinished"></translation>
+        <translation>Herhangi</translation>
     </message>
     <message>
         <source>Latin</source>
-        <translation type="unfinished"></translation>
+        <translation>Latin</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished"></translation>
+        <translation>Yunanca</translation>
     </message>
     <message>
         <source>Cyrillic</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiril</translation>
     </message>
     <message>
         <source>Armenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ermenice</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation type="unfinished"></translation>
+        <translation>İbranice</translation>
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished"></translation>
+        <translation>Arapça</translation>
     </message>
     <message>
         <source>Syriac</source>
-        <translation type="unfinished"></translation>
+        <translation>Süryanice</translation>
     </message>
     <message>
         <source>Thaana</source>
-        <translation type="unfinished"></translation>
+        <translation>Maldivce</translation>
     </message>
     <message>
         <source>Devanagari</source>
-        <translation type="unfinished"></translation>
+        <translation>Devanagari</translation>
     </message>
     <message>
         <source>Bengali</source>
-        <translation type="unfinished"></translation>
+        <translation>Bendalce</translation>
     </message>
     <message>
         <source>Gurmukhi</source>
-        <translation type="unfinished"></translation>
+        <translation>Gurmukhi</translation>
     </message>
     <message>
         <source>Gujarati</source>
-        <translation type="unfinished"></translation>
+        <translation>Gujarati</translation>
     </message>
     <message>
         <source>Oriya</source>
-        <translation type="unfinished"></translation>
+        <translation>Oriya</translation>
     </message>
     <message>
         <source>Tamil</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamilce</translation>
     </message>
     <message>
         <source>Telugu</source>
-        <translation type="unfinished"></translation>
+        <translation>Telugu</translation>
     </message>
     <message>
         <source>Kannada</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanada</translation>
     </message>
     <message>
         <source>Malayalam</source>
-        <translation type="unfinished"></translation>
+        <translation>Malayalam</translation>
     </message>
     <message>
         <source>Sinhala</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinhala</translation>
     </message>
     <message>
         <source>Thai</source>
-        <translation type="unfinished"></translation>
+        <translation>Tayca</translation>
     </message>
     <message>
         <source>Lao</source>
-        <translation type="unfinished"></translation>
+        <translation>Laoca</translation>
     </message>
     <message>
         <source>Tibetan</source>
-        <translation type="unfinished"></translation>
+        <translation>Tibetçe</translation>
     </message>
     <message>
         <source>Myanmar</source>
-        <translation type="unfinished"></translation>
+        <translation>Myanmar</translation>
     </message>
     <message>
         <source>Georgian</source>
-        <translation type="unfinished"></translation>
+        <translation>Gürcüce</translation>
     </message>
     <message>
         <source>Khmer</source>
-        <translation type="unfinished"></translation>
+        <translation>Kmer</translation>
     </message>
     <message>
         <source>Simplified Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Basitleştirilmiş Çince</translation>
     </message>
     <message>
         <source>Traditional Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Geleneksel Çince</translation>
     </message>
     <message>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Japonca</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Korece</translation>
     </message>
     <message>
         <source>Vietnamese</source>
-        <translation type="unfinished"></translation>
+        <translation>Vietnamca</translation>
     </message>
     <message>
         <source>Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Sembol</translation>
     </message>
     <message>
         <source>Ogham</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogham</translation>
     </message>
     <message>
         <source>Runic</source>
-        <translation type="unfinished"></translation>
+        <translation>Rünik</translation>
     </message>
 </context>
 <context>
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Yazıtipi</translation>
+        <translation>&amp;Yazı Tipi</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
-        <translation>Yazıtipi B&amp;içemi</translation>
+        <translation>Yazı Tipi B&amp;içemi</translation>
     </message>
     <message>
         <source>&amp;Size</source>
@@ -1510,7 +1514,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation>Yazıtipi Seç</translation>
+        <translation>Yazı Tipi Seç</translation>
     </message>
 </context>
 <context>
@@ -1521,15 +1525,15 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Host %1 not found</source>
-        <translation>%1 makinesi bulunamadı</translation>
+        <translation>%1 anamakinesi bulunamadı</translation>
     </message>
     <message>
         <source>Connection refused to host %1</source>
-        <translation>%1 makinesine bağlantı reddedildi</translation>
+        <translation>%1 anamakinesine bağlantı reddedildi</translation>
     </message>
     <message>
         <source>Connected to host %1</source>
-        <translation>%1 makinesine bağlanıldı</translation>
+        <translation>%1 anamakinesine bağlanıldı</translation>
     </message>
     <message>
         <source>Connection refused for data connection</source>
@@ -1542,19 +1546,19 @@ Yine de silmek istiyor musunuz?</translation>
     <message>
         <source>Connecting to host failed:
 %1</source>
-        <translation>Makineye bağlantı reddedildi:
+        <translation>Anamakineye bağlantı başarısız oldu:
 %1</translation>
     </message>
     <message>
         <source>Login failed:
 %1</source>
-        <translation>Giriş başarısız:
+        <translation>Oturum açma başarısız oldu:
 %1</translation>
     </message>
     <message>
         <source>Listing directory failed:
 %1</source>
-        <translation>Dizin listeleme işlemi başarısız oldu:
+        <translation>Dizin listeleme başarısız oldu:
 %1</translation>
     </message>
     <message>
@@ -1566,31 +1570,31 @@ Yine de silmek istiyor musunuz?</translation>
     <message>
         <source>Downloading file failed:
 %1</source>
-        <translation>Dosya indirme işlemi başarısız oldu:
+        <translation>Dosya indirme başarısız oldu:
 %1</translation>
     </message>
     <message>
         <source>Uploading file failed:
 %1</source>
-        <translation>Dosya gönderme işlemi başarısız oldu:
+        <translation>Dosya gönderme başarısız oldu:
 %1</translation>
     </message>
     <message>
         <source>Removing file failed:
 %1</source>
-        <translation>Dosya silme işlemi başarısız oldu:
+        <translation>Dosya kaldırma başarısız oldu:
 %1</translation>
     </message>
     <message>
         <source>Creating directory failed:
 %1</source>
-        <translation>Dizin oluşturma işlemi başarısız oldu:
+        <translation>Dizin oluşturma başarısız oldu:
 %1</translation>
     </message>
     <message>
         <source>Removing directory failed:
 %1</source>
-        <translation>Dizin silme işlemi başarısız oldu:
+        <translation>Dizin kaldırma başarısız oldu:
 %1</translation>
     </message>
     <message>
@@ -1599,7 +1603,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Host %1 found</source>
-        <translation>%1 makinesi bulundu</translation>
+        <translation>%1 anamakinesi bulundu</translation>
     </message>
     <message>
         <source>Connection to %1 closed</source>
@@ -1607,11 +1611,11 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Host found</source>
-        <translation>Makine bulundu</translation>
+        <translation>Anamakine bulundu</translation>
     </message>
     <message>
         <source>Connected to host</source>
-        <translation>Makineye bağlanıldı</translation>
+        <translation>Anamakineye bağlanıldı</translation>
     </message>
 </context>
 <context>
@@ -1625,11 +1629,11 @@ Yine de silmek istiyor musunuz?</translation>
     <name>QHostInfoAgent</name>
     <message>
         <source>Host not found</source>
-        <translation>Makine bulunamadı</translation>
+        <translation>Anamakine bulunamadı</translation>
     </message>
     <message>
         <source>Unknown address type</source>
-        <translation>Bilinmeyen adres tipi</translation>
+        <translation>Bilinmeyen adres türü</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -1648,7 +1652,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>No server set to connect to</source>
-        <translation>Bağlanılacak sunucu ayarlanmamış</translation>
+        <translation>Bağlanmaya ayarlanmış sunucu yok</translation>
     </message>
     <message>
         <source>Wrong content length</source>
@@ -1664,7 +1668,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Host %1 not found</source>
-        <translation>%1 makinesi bulunamadı</translation>
+        <translation>%1 anamakinesi bulunamadı</translation>
     </message>
     <message>
         <source>HTTP request failed</source>
@@ -1680,11 +1684,11 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Host %1 found</source>
-        <translation>%1 makinesi bulundu</translation>
+        <translation>%1 anamakinesi bulundu</translation>
     </message>
     <message>
         <source>Connected to host %1</source>
-        <translation>%1 makinesine bağlanıldı</translation>
+        <translation>%1 anamakinesine bağlanıldı</translation>
     </message>
     <message>
         <source>Connection to %1 closed</source>
@@ -1692,11 +1696,11 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Host found</source>
-        <translation>Makine bulundu</translation>
+        <translation>Anamakine bulundu</translation>
     </message>
     <message>
         <source>Connected to host</source>
-        <translation>Makineye bağlanıldı</translation>
+        <translation>Anamakineye bağlanıldı</translation>
     </message>
     <message>
         <source>Connection closed</source>
@@ -1704,92 +1708,92 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Proxy authentication required</source>
-        <translation>Vekil sunucu kimlik doğrulaması gerektiriyor</translation>
+        <translation>Proksi kimlik doğrulaması gerekli</translation>
     </message>
     <message>
         <source>Authentication required</source>
-        <translation>Kimlik doğrulaması gerekiyor</translation>
+        <translation>Kimlik doğrulaması gerekli</translation>
     </message>
     <message>
         <source>HTTPS connection requested but SSL support not compiled in</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTPS bağlantısı istendi ama SSL desteği ile derlenmiş değil</translation>
     </message>
     <message>
         <source>Connection refused (or timed out)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bağlantı reddedildi (ya da zaman aşıldı)</translation>
     </message>
     <message>
         <source>Proxy requires authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Proksi kimlik doğrulaması gerektirir</translation>
     </message>
     <message>
         <source>Host requires authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Anamakine kimlik doğrulaması gerektirir</translation>
     </message>
     <message>
         <source>Data corrupted</source>
-        <translation type="unfinished"></translation>
+        <translation>Veri bozulmuş</translation>
     </message>
     <message>
         <source>Unknown protocol specified</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilinmeyen protokol belirtilmiş</translation>
     </message>
     <message>
         <source>SSL handshake failed</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL anlaşması başarısız oldu</translation>
     </message>
 </context>
 <context>
     <name>QHttpSocketEngine</name>
     <message>
         <source>Authentication required</source>
-        <translation>Kimlik doğrulaması gerekiyor</translation>
+        <translation>Kimlik doğrulaması gerekli</translation>
     </message>
 </context>
 <context>
     <name>QIBaseDriver</name>
     <message>
         <source>Error opening database</source>
-        <translation>Veritabanı açılırken hata oluştu</translation>
+        <translation>Veritabanını açarken hata oldu</translation>
     </message>
     <message>
         <source>Could not start transaction</source>
-        <translation>İşlem (transaction) başlatılamadı</translation>
+        <translation>İşlem başlatılamadı</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>İşlem (transaction) yapılamadı</translation>
+        <translation>İşlem yapılamaz</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
-        <translation>İşlem (transaction) geri alınamadı</translation>
+        <translation>İşlem geri alınamaz</translation>
     </message>
 </context>
 <context>
     <name>QIBaseResult</name>
     <message>
         <source>Unable to create BLOB</source>
-        <translation>BLOB oluşturulamadı</translation>
+        <translation>BLOB oluşturulamaz</translation>
     </message>
     <message>
         <source>Unable to write BLOB</source>
-        <translation>BLOB yazılamadı</translation>
+        <translation>BLOB yazılamaz</translation>
     </message>
     <message>
         <source>Unable to open BLOB</source>
-        <translation>BLOB açılamadı</translation>
+        <translation>BLOB açılamaz</translation>
     </message>
     <message>
         <source>Unable to read BLOB</source>
-        <translation>BLOB okunamadı</translation>
+        <translation>BLOB okunamaz</translation>
     </message>
     <message>
         <source>Could not find array</source>
-        <translation>Dizi (array) bulunamadı</translation>
+        <translation>Sıra bulunamadı</translation>
     </message>
     <message>
         <source>Could not get array data</source>
-        <translation>Dizi (array) verisi alınamadı</translation>
+        <translation>Sıralı veri alınamadı</translation>
     </message>
     <message>
         <source>Could not get query info</source>
@@ -1797,15 +1801,15 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Could not start transaction</source>
-        <translation>İşlem (transaction) başlatılamadı</translation>
+        <translation>İşlem başlatılamadı</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>İşlem (transaction) yapılamadı</translation>
+        <translation>İşlem yapılamaz</translation>
     </message>
     <message>
         <source>Could not allocate statement</source>
-        <translation>İfade yerleştirilemedi</translation>
+        <translation>İfade ayrılamadı</translation>
     </message>
     <message>
         <source>Could not prepare statement</source>
@@ -1825,7 +1829,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Unable to execute query</source>
-        <translation>Sorgu yapılamadı</translation>
+        <translation>Sorgu çalıştırılamaz</translation>
     </message>
     <message>
         <source>Could not fetch next item</source>
@@ -1840,7 +1844,7 @@ Yine de silmek istiyor musunuz?</translation>
     <name>QIODevice</name>
     <message>
         <source>Permission denied</source>
-        <translation>İzin verilmedi</translation>
+        <translation>İzin reddedildi</translation>
     </message>
     <message>
         <source>Too many open files</source>
@@ -1852,7 +1856,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>No space left on device</source>
-        <translation>Disk sürücüde yer kalmadı</translation>
+        <translation>Aygıtta kalan boş alan yok</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -1867,15 +1871,15 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>XIM input method</source>
-        <translation>XIM girdi metodu</translation>
+        <translation>XIM girdi yöntemi</translation>
     </message>
     <message>
         <source>Windows input method</source>
-        <translation>Windows girdi metodu</translation>
+        <translation>Windows girdi yöntemi</translation>
     </message>
     <message>
         <source>Mac OS X input method</source>
-        <translation>Mac OS X girdi metodu</translation>
+        <translation>Mac OS X girdi yöntemi</translation>
     </message>
 </context>
 <context>
@@ -1890,11 +1894,11 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>QLibrary::resolve_sys: Symbol &quot;%1&quot; undefined in %2 (%3)</source>
-        <translation>QLibrary::resolve_sys: Symbol &quot;%1&quot; %2 (%3) içerisinde tanımlanmamış</translation>
+        <translation>QLibrary::resolve_sys: Sembol &quot;%1&quot;, %2 (%3) içerisinde tanımlanmamış</translation>
     </message>
     <message>
         <source>Could not mmap &apos;%1&apos;: %2</source>
-        <translation>mmap başarısız &apos;%1&apos;: %2</translation>
+        <translation>mmap &apos;%1&apos; yapılamadı: %2</translation>
     </message>
     <message>
         <source>Plugin verification data mismatch in &apos;%1&apos;</source>
@@ -1902,7 +1906,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Could not unmap &apos;%1&apos;: %2</source>
-        <translation>unmap başarısız &apos;%1&apos;: %2</translation>
+        <translation>unmap &apos;%1&apos; yapılamadı: %2</translation>
     </message>
     <message>
         <source>The plugin &apos;%1&apos; uses incompatible Qt library. (%2.%3.%4) [%5]</source>
@@ -1910,7 +1914,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>The plugin &apos;%1&apos; uses incompatible Qt library. Expected build key &quot;%2&quot;, got &quot;%3&quot;</source>
-        <translation>&apos;%1&apos; eklentisi uyumsuz bir Qt kitaplığı kullanıyor. Beklenen inşa anahtarı &quot;%2&quot;, alınan &quot;%3&quot;</translation>
+        <translation>&apos;%1&apos; eklentisi uyumsuz Qt kütüphanesi kullanıyor. Beklenen yapım anahtarı &quot;%2&quot;, alınan &quot;%3&quot;</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -1918,15 +1922,15 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>The shared library was not found.</source>
-        <translation>Ortak kütüphane bulunamadı.</translation>
+        <translation>Paylaşılan kütüphane bulunamadı.</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; is not a valid Qt plugin.</source>
-        <translation>&apos;%1&apos; geçerli bir Qt eklentisi değil.</translation>
+        <translation>&apos;%1&apos; dosyası geçerli bir Qt eklentisi değil.</translation>
     </message>
     <message>
         <source>The plugin &apos;%1&apos; uses incompatible Qt library. (Cannot mix debug and release libraries.)</source>
-        <translation>&apos;%1&apos; eklentisi uyumsuz Qt kütüphanesi kullanıyor. (Hata ayıklama ve uygulama kütüphaneleri karışık olamaz.)</translation>
+        <translation>&apos;%1&apos; eklentisi uyumsuz Qt kütüphanesi kullanıyor. (Hata ayıklama ve yayım kütüphaneleri karıştırılamaz.)</translation>
     </message>
 </context>
 <context>
@@ -1964,139 +1968,139 @@ Yine de silmek istiyor musunuz?</translation>
     <name>QLocalServer</name>
     <message>
         <source>%1: Name error</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: İsim hatası</translation>
     </message>
     <message>
         <source>%1: Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: İzin reddedildi</translation>
     </message>
     <message>
         <source>%1: Address in use</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Adres kullanımda</translation>
     </message>
     <message>
         <source>%1: Unknown error %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Bilinmeyen hata %2</translation>
     </message>
 </context>
 <context>
     <name>QLocalSocket</name>
     <message>
         <source>%1: Connection refused</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Bağlantı reddedildi</translation>
     </message>
     <message>
         <source>%1: Remote closed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Uzaktan kapatıldı</translation>
     </message>
     <message>
         <source>%1: Invalid name</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Geçersiz ad</translation>
     </message>
     <message>
         <source>%1: Socket access error</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Soket erişim hatası</translation>
     </message>
     <message>
         <source>%1: Socket resource error</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Soket kaynak hatası</translation>
     </message>
     <message>
         <source>%1: Socket operation timed out</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Soket işlem zamanı aşıldı</translation>
     </message>
     <message>
         <source>%1: Datagram too large</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Veri paketi çok büyük</translation>
     </message>
     <message>
         <source>%1: Connection error</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Bağlantı hatası</translation>
     </message>
     <message>
         <source>%1: The socket operation is not supported</source>
-        <translation type="unfinished"></translation>
+        <translation>%1:  Soket işlemi desteklenmiyor</translation>
     </message>
     <message>
         <source>%1: Unknown error %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: Bilinmeyen hata %2 </translation>
     </message>
 </context>
 <context>
     <name>QMYSQLDriver</name>
     <message>
         <source>Unable to open database &apos;</source>
-        <translation>Veritabanı açılamadı &apos;</translation>
+        <translation>Veritabanı açılamaz &apos;</translation>
     </message>
     <message>
         <source>Unable to connect</source>
-        <translation>Bağlanılamadı</translation>
+        <translation>Bağlanılamaz</translation>
     </message>
     <message>
         <source>Unable to begin transaction</source>
-        <translation>İşleme (transaction) başlanamadı</translation>
+        <translation>İşlem başlayamaz</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>İşlem (transaction) yapılamadı</translation>
+        <translation>İşlem yapılamaz</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
-        <translation>İşlem (transaction) geri alınamadı</translation>
+        <translation>İşlem geri alınamaz</translation>
     </message>
 </context>
 <context>
     <name>QMYSQLResult</name>
     <message>
         <source>Unable to fetch data</source>
-        <translation>Veri getirilemedi</translation>
+        <translation>Veri getirilemez</translation>
     </message>
     <message>
         <source>Unable to execute query</source>
-        <translation>Sorgu yapılamadı</translation>
+        <translation>Sorgu çalıştırılamaz</translation>
     </message>
     <message>
         <source>Unable to store result</source>
-        <translation>Sonuç kaydedilemedi</translation>
+        <translation>Sonuç saklanamaz</translation>
     </message>
     <message>
         <source>Unable to prepare statement</source>
-        <translation>İfade hazırlanamadı</translation>
+        <translation>İfade hazırlanamaz</translation>
     </message>
     <message>
         <source>Unable to reset statement</source>
-        <translation>İfade sıfırlanamadı</translation>
+        <translation>İfade sıfırlanamaz</translation>
     </message>
     <message>
         <source>Unable to bind value</source>
-        <translation>Değer atanamadı</translation>
+        <translation>Değer atanamaz</translation>
     </message>
     <message>
         <source>Unable to execute statement</source>
-        <translation>İfade çalıştırılamadı</translation>
+        <translation>İfade çalıştırılamaz</translation>
     </message>
     <message>
         <source>Unable to bind outvalues</source>
-        <translation>Otomatik değerler atanamadı</translation>
+        <translation>Çıkan değerler atanamaz</translation>
     </message>
     <message>
         <source>Unable to store statement results</source>
-        <translation>İfade sonuçları kaydedilemedi</translation>
+        <translation>İfade sonuçları saklanamaz</translation>
     </message>
     <message>
         <source>Unable to execute next query</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonraki sorgu çalıştırılamaz</translation>
     </message>
     <message>
         <source>Unable to store next result</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonraki sorgu saklanamaz</translation>
     </message>
 </context>
 <context>
     <name>QMdiArea</name>
     <message>
         <source>(Untitled)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Başlıksız)</translation>
     </message>
 </context>
 <context>
@@ -2111,11 +2115,11 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Minimize</source>
-        <translation>Küçült</translation>
+        <translation>Simge Durumuna</translation>
     </message>
     <message>
         <source>Restore Down</source>
-        <translation>Aşağıya Geri Yükle</translation>
+        <translation>Aşağı Geri Yükle</translation>
     </message>
     <message>
         <source>&amp;Restore</source>
@@ -2131,15 +2135,15 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Mi&amp;nimize</source>
-        <translation>&amp;Küçült</translation>
+        <translation>Simge Durumu&amp;na</translation>
     </message>
     <message>
         <source>Ma&amp;ximize</source>
-        <translation>B&amp;üyüt</translation>
+        <translation>Ekranı Ka&amp;pla</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
-        <translation>&amp;Herzaman Üstte</translation>
+        <translation>&amp;Her Zaman Üstte</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -2147,31 +2151,31 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>- [%1]</source>
-        <translation type="unfinished"></translation>
+        <translation>- [%1]</translation>
     </message>
     <message>
         <source>Maximize</source>
-        <translation type="unfinished">Büyüt</translation>
+        <translation>Ekranı Kapla</translation>
     </message>
     <message>
         <source>Unshade</source>
-        <translation type="unfinished"></translation>
+        <translation>Gölgeleme</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Gölgele</translation>
     </message>
     <message>
         <source>Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>Geri Yükle</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished">Yardım</translation>
+        <translation>Yardım</translation>
     </message>
     <message>
         <source>Menu</source>
-        <translation type="unfinished">Menü</translation>
+        <translation>Menü</translation>
     </message>
 </context>
 <context>
@@ -2205,7 +2209,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Bu uygulama Qt %1 sürümü kullanmaktadır.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Bu program Qt %1 sürümünü kullanır.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Show Details...</source>
@@ -2217,11 +2221,11 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>&lt;p&gt;This program uses Qt Open Source Edition version %1.&lt;/p&gt;&lt;p&gt;Qt Open Source Edition is intended for the development of Open Source applications. You need a commercial Qt license for development of proprietary (closed source) applications.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://www.trolltech.com/company/model/&quot;&gt;www.trolltech.com/company/model/&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Bu program Qt Açık Kaynak Yayını %1 sürümünü kullanır.&lt;/p&gt;&lt;p&gt;Qt Açık Kaynak Yayını, Açık Kaynak uygulamaların geliştirilmesi için tasarlanır. Tescilli (kapalı kaynak) uygulamaların geliştirilmesi için ticari Qt lisansına ihtiyacınız var.&lt;/p&gt;&lt;p&gt;Lütfen Qt lisanslamasını gözden geçirmek için &lt;a href=&quot;http://www.trolltech.com/company/model/&quot;&gt;www.trolltech.com/company/model/&lt;/a&gt; adresine bakın.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is a Nokia product. See &lt;a href=&quot;http://www.trolltech.com/qt/&quot;&gt;www.trolltech.com/qt/&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Qt Hakkında&lt;/h3&gt;%1&lt;p&gt;Qt birden fazla platformda uygulama geliştirilmesi için bir C++ araç takımıdır.&lt;/p&gt;&lt;p&gt;Qt, MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, ve tüm ticari Unix çeşitleri arasında tek-kaynak taşınabilirliği sağlar. Qt ayrıca Gömülü Linux için Qt ve Windows CE için Qt gibi gömülü aygıtlar için mevcuttur.&lt;/p&gt;&lt;p&gt;Qt bir Nokia ürünüdür. Daha fazla bilgi için &lt;a href=&quot;http://www.trolltech.com/qt/&quot;&gt;www.trolltech.com/qt/&lt;/a&gt; adresine bakın.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2235,22 +2239,22 @@ Yine de silmek istiyor musunuz?</translation>
     <name>QMultiInputContextPlugin</name>
     <message>
         <source>Multiple input method switcher</source>
-        <translation>Çoklu girdi metodu seçici</translation>
+        <translation>Çoklu girdi yöntemi değiştirici</translation>
     </message>
     <message>
         <source>Multiple input method switcher that uses the context menu of the text widgets</source>
-        <translation>Çoklu girdi metodu seçici metin parçacıkları genel menüsünü kullanır</translation>
+        <translation>Çoklu girdi yöntemi değiştirici metin parçacıklarının sağ tıklama menüsünü kullanır</translation>
     </message>
 </context>
 <context>
     <name>QNativeSocketEngine</name>
     <message>
         <source>The remote host closed the connection</source>
-        <translation>Uzak makine bağlantıyı kapattı</translation>
+        <translation>Uzak anamakine bağlantıyı kapattı</translation>
     </message>
     <message>
         <source>Network operation timed out</source>
-        <translation>Ağ işleminde zamanaşımı</translation>
+        <translation>Ağ işlemi zamanı aşıldı</translation>
     </message>
     <message>
         <source>Out of resources</source>
@@ -2262,7 +2266,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Protocol type not supported</source>
-        <translation>Protokol tipi desteklenmiyor</translation>
+        <translation>Protokol türü desteklenmiyor</translation>
     </message>
     <message>
         <source>Invalid socket descriptor</source>
@@ -2270,15 +2274,15 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Network unreachable</source>
-        <translation>Ağ erişilemez durumda</translation>
+        <translation>Ağa erişilemez</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation>İzin verilmedi</translation>
+        <translation>İzin reddedildi</translation>
     </message>
     <message>
         <source>Connection timed out</source>
-        <translation>Bağlantıda zamanaşımı</translation>
+        <translation>Bağlantı zamanı aşıldı</translation>
     </message>
     <message>
         <source>Connection refused</source>
@@ -2286,27 +2290,27 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>The bound address is already in use</source>
-        <translation>Bağlanılacak adres zaten kullanılıyor</translation>
+        <translation>Sınır adresi zaten kullanımda</translation>
     </message>
     <message>
         <source>The address is not available</source>
-        <translation>Adres erişilebilir değil</translation>
+        <translation>Adres kullanılabilirdeğil</translation>
     </message>
     <message>
         <source>The address is protected</source>
-        <translation>Adres korumalı</translation>
+        <translation>Adres korunuyor</translation>
     </message>
     <message>
         <source>Unable to send a message</source>
-        <translation>Bir ileti gönderilemedi</translation>
+        <translation>İileti gönderilemez</translation>
     </message>
     <message>
         <source>Unable to receive a message</source>
-        <translation>Bir ileti alınamadı</translation>
+        <translation>İleti alınamaz</translation>
     </message>
     <message>
         <source>Unable to write</source>
-        <translation>Yazılamadı</translation>
+        <translation>Yazılamaz</translation>
     </message>
     <message>
         <source>Network error</source>
@@ -2314,15 +2318,15 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Another socket is already listening on the same port</source>
-        <translation>Aynı port üzerinde zaten başka bir soket dinleniyor</translation>
+        <translation>Aynı bağlantı noktası üzerinde zaten başka bir soket dinleniyor</translation>
     </message>
     <message>
         <source>Unable to initialize non-blocking socket</source>
-        <translation>Tıkanmasız soket başlatılamadı</translation>
+        <translation>Engellenmeyen soket başlatılamaz</translation>
     </message>
     <message>
         <source>Unable to initialize broadcast socket</source>
-        <translation>Yayın soketi başlatılamadı</translation>
+        <translation>Yayın soketi başlatılamaz</translation>
     </message>
     <message>
         <source>Attempt to use IPv6 socket on a platform with no IPv6 support</source>
@@ -2330,7 +2334,7 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Host unreachable</source>
-        <translation>Makine erişilemez durumda</translation>
+        <translation>Anamakineye erişilemez</translation>
     </message>
     <message>
         <source>Datagram was too large to send</source>
@@ -2346,355 +2350,355 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>The proxy type is invalid for this operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Proksi türü bu işlem için geçersiz</translation>
     </message>
 </context>
 <context>
     <name>QNetworkAccessFileBackend</name>
     <message>
         <source>Request for opening non-local file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel olmayan %1 dosyasının açılması için istek</translation>
     </message>
     <message>
         <source>Error opening %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 dosyasını açarken hata oldu: %2</translation>
     </message>
     <message>
         <source>Write error writing to %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 dosyasına yazarken yazma hatası oldu: %2</translation>
     </message>
     <message>
         <source>Cannot open %1: Path is a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 açılamıyor: Yol bir dizindir</translation>
     </message>
     <message>
         <source>Read error reading from %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 dosyasından okurken okuma hatası oldu: %2</translation>
     </message>
 </context>
 <context>
     <name>QNetworkAccessFtpBackend</name>
     <message>
         <source>Cannot open %1: is a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 açılamıyor: bu bir dizin</translation>
     </message>
     <message>
         <source>Logging in to %1 failed: authentication required</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 oturum açma başarısız oldu: kimlik doğrulaması gerekli</translation>
     </message>
     <message>
         <source>Error while downloading %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 indiriliyorken hata oldu: %2</translation>
     </message>
     <message>
         <source>Error while uploading %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 gönderiliyorken hata oldu: %2</translation>
     </message>
 </context>
 <context>
     <name>QNetworkReply</name>
     <message>
         <source>Error downloading %1 - server replied: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 indiriliyorken hata oldu - sunucunun yanıtı: %2</translation>
     </message>
     <message>
         <source>Protocol &quot;%1&quot; is unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;%1&quot; protokolü bilinmiyor</translation>
     </message>
 </context>
 <context>
     <name>QNetworkReplyImpl</name>
     <message>
         <source>Operation canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>İşlem iptal edildi</translation>
     </message>
 </context>
 <context>
     <name>QOCIDriver</name>
     <message>
         <source>Unable to logon</source>
-        <translation>Girilemedi</translation>
+        <translation>Oturum açılamaz</translation>
     </message>
     <message>
         <source>Unable to initialize</source>
         <comment>QOCIDriver</comment>
-        <translation>Başlatılamadı</translation>
+        <translation>Başlatılamaz</translation>
     </message>
     <message>
         <source>Unable to begin transaction</source>
-        <translation type="unfinished">İşleme (transaction) başlanamadı</translation>
+        <translation>İşlem başlayamaz</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation type="unfinished">İşlem (transaction) yapılamadı</translation>
+        <translation>İşlem yapılamaz</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
-        <translation type="unfinished">İşlem (transaction) geri alınamadı</translation>
+        <translation>İşlem geri alınamaz</translation>
     </message>
 </context>
 <context>
     <name>QOCIResult</name>
     <message>
         <source>Unable to bind column for batch execute</source>
-        <translation>Toplu çalıştırma için sütun atanamadı</translation>
+        <translation>Toplu çalıştırma için sütun atanamaz</translation>
     </message>
     <message>
         <source>Unable to execute batch statement</source>
-        <translation>Toplu ifade çalıştırılamadı</translation>
+        <translation>Toplu ifade çalıştırılamaz</translation>
     </message>
     <message>
         <source>Unable to goto next</source>
-        <translation>Sonrakine gidilemedi</translation>
+        <translation>Sonrakine gidilemez</translation>
     </message>
     <message>
         <source>Unable to alloc statement</source>
-        <translation>İfade yerleştirilemedi</translation>
+        <translation>İfadeye ayrılamaz</translation>
     </message>
     <message>
         <source>Unable to prepare statement</source>
-        <translation>İfade hazırlanamadı</translation>
+        <translation>İfade hazırlanamaz</translation>
     </message>
     <message>
         <source>Unable to bind value</source>
-        <translation>Değer atanamadı</translation>
+        <translation>Değer atanamaz</translation>
     </message>
     <message>
         <source>Unable to execute select statement</source>
-        <translation>Select ifadesi çalıştırılamadı</translation>
+        <translation>Select ifadesi çalıştırılamaz</translation>
     </message>
     <message>
         <source>Unable to execute statement</source>
-        <translation>İfade çalıştırılamadı</translation>
+        <translation>İfade çalıştırılamaz</translation>
     </message>
 </context>
 <context>
     <name>QODBCDriver</name>
     <message>
         <source>Unable to connect</source>
-        <translation>Bağlanılamadı</translation>
+        <translation>Bağlanılamaz</translation>
     </message>
     <message>
         <source>Unable to connect - Driver doesn&apos;t support all needed functionality</source>
-        <translation>Bağlanılamadı - Sürücü gereken işlevleri desteklemiyor</translation>
+        <translation>Bağlanılamaz - Sürücü gereken tüm işlevleri desteklemiyor</translation>
     </message>
     <message>
         <source>Unable to disable autocommit</source>
-        <translation>Otomatik uygulama pasifleştirilemedi</translation>
+        <translation>Otomatik yapılma etkinleştirilemez</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>İşlem (transaction) yapılamadı</translation>
+        <translation>İşlem yapılamaz</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
-        <translation>İşlem (transaction) geri alınamadı</translation>
+        <translation>İşlem geri alınamaz</translation>
     </message>
     <message>
         <source>Unable to enable autocommit</source>
-        <translation>Otomatik uygulama etkinleştirilemedi</translation>
+        <translation>Otomatik yapılma etkinleştirilemez</translation>
     </message>
 </context>
 <context>
     <name>QODBCResult</name>
     <message>
         <source>QODBCResult::reset: Unable to set &apos;SQL_CURSOR_STATIC&apos; as statement attribute. Please check your ODBC driver configuration</source>
-        <translation>QODBCResult::reset:  &apos;SQL_CURSOR_STATIC&apos; sorgu niteliği olarak ayarlanamadı. Lütfen ODBC sürücü yapılandırmanızı kontrol edin</translation>
+        <translation>QODBCResult::reset:  &apos;SQL_CURSOR_STATIC&apos; öznitelik ifadesi olarak ayarlanamaz. Lütfen ODBC sürücü yapılandırmanızı kontrol edin</translation>
     </message>
     <message>
         <source>Unable to execute statement</source>
-        <translation>İfade çalıştırılamadı</translation>
+        <translation>İfade çalıştırılamaz</translation>
     </message>
     <message>
         <source>Unable to fetch next</source>
-        <translation>Sonraki getirilemedi</translation>
+        <translation>Sonraki getirilemez</translation>
     </message>
     <message>
         <source>Unable to prepare statement</source>
-        <translation>İfade hazırlanamadı</translation>
+        <translation>İfade hazırlanamaz</translation>
     </message>
     <message>
         <source>Unable to bind variable</source>
-        <translation>Değişken atanamadı</translation>
+        <translation>Değişken atanamaz</translation>
     </message>
     <message>
         <source>Unable to fetch last</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonuncu getirilemez</translation>
     </message>
     <message>
         <source>Unable to fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>Getirilemez</translation>
     </message>
     <message>
         <source>Unable to fetch first</source>
-        <translation type="unfinished">Öncelikle birinci getirilemedi</translation>
+        <translation>Birinci getirilemez</translation>
     </message>
     <message>
         <source>Unable to fetch previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Önceki getirilemez</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Operation not supported on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>İşlem %1 üzerinde desteklenmedi</translation>
     </message>
     <message>
         <source>Invalid URI: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Geçersiz URI: %1</translation>
     </message>
     <message>
         <source>Write error writing to %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 dosyasına yazarken yazma hatası oldu: %2</translation>
     </message>
     <message>
         <source>Read error reading from %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 dosyasından okurken okuma hatası oldu: %2</translation>
     </message>
     <message>
         <source>Socket error on %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 üzerinde soket hatası oldu: %2</translation>
     </message>
     <message>
         <source>Remote host closed the connection prematurely on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzak anamakine %1 üzerindeki bağlantıyı erken kapadı</translation>
     </message>
     <message>
         <source>Protocol error: packet of size 0 received</source>
-        <translation type="unfinished"></translation>
+        <translation>Protokol hatası: alınan paket boyutu 0</translation>
     </message>
 </context>
 <context>
     <name>QPPDOptionsModel</name>
     <message>
         <source>Name</source>
-        <translation type="unfinished">İsim</translation>
+        <translation>Adı</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="unfinished">Değer</translation>
+        <translation>Değer</translation>
     </message>
 </context>
 <context>
     <name>QPSQLDriver</name>
     <message>
         <source>Unable to connect</source>
-        <translation>Bağlanılamadı</translation>
+        <translation>Bağlanılamaz</translation>
     </message>
     <message>
         <source>Could not begin transaction</source>
-        <translation>İşleme (transaction) başlanamadı</translation>
+        <translation>İşlem başlayamaz</translation>
     </message>
     <message>
         <source>Could not commit transaction</source>
-        <translation>İşlem (transaction) yapılamadı</translation>
+        <translation>İşlem yapılamaz</translation>
     </message>
     <message>
         <source>Could not rollback transaction</source>
-        <translation>İşlem (transaction) geri alınamadı</translation>
+        <translation>İşlem geri alınamaz</translation>
     </message>
     <message>
         <source>Unable to subscribe</source>
-        <translation type="unfinished"></translation>
+        <translation>Abone olunamaz</translation>
     </message>
     <message>
         <source>Unable to unsubscribe</source>
-        <translation type="unfinished"></translation>
+        <translation>Abonelik kaldırılamaz</translation>
     </message>
 </context>
 <context>
     <name>QPSQLResult</name>
     <message>
         <source>Unable to create query</source>
-        <translation>Sorgu oluşturulamadı</translation>
+        <translation>Sorgu oluşturulamaz</translation>
     </message>
     <message>
         <source>Unable to prepare statement</source>
-        <translation type="unfinished">İfade hazırlanamadı</translation>
+        <translation>İfade hazırlanamaz</translation>
     </message>
 </context>
 <context>
     <name>QPageSetupWidget</name>
     <message>
         <source>Centimeters (cm)</source>
-        <translation type="unfinished"></translation>
+        <translation>Santimetre (cm)</translation>
     </message>
     <message>
         <source>Millimeters (mm)</source>
-        <translation type="unfinished"></translation>
+        <translation>Milimetre (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation type="unfinished"></translation>
+        <translation>İnç (in)</translation>
     </message>
     <message>
         <source>Points (pt)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nokta (pt)</translation>
     </message>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Biçim</translation>
     </message>
     <message>
         <source>Paper</source>
-        <translation type="unfinished"></translation>
+        <translation>Kağıt</translation>
     </message>
     <message>
         <source>Page size:</source>
-        <translation type="unfinished">Sayfa boyutu:</translation>
+        <translation>Sayfa boyutu:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Genişlik:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Yükseklik:</translation>
     </message>
     <message>
         <source>Paper source:</source>
-        <translation type="unfinished">Sayfa kaynağı:</translation>
+        <translation>Kağıt kaynağı:</translation>
     </message>
     <message>
         <source>Orientation</source>
-        <translation type="unfinished"></translation>
+        <translation>Yönlendirme</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Dikey</translation>
+        <translation>Dikey</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Yatay</translation>
+        <translation>Yatay</translation>
     </message>
     <message>
         <source>Reverse landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>Döndürülmüş yatay</translation>
     </message>
     <message>
         <source>Reverse portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>Döndürülmüş dikey</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Kenar Boşlukları</translation>
     </message>
     <message>
         <source>top margin</source>
-        <translation type="unfinished"></translation>
+        <translation>üst kenar</translation>
     </message>
     <message>
         <source>left margin</source>
-        <translation type="unfinished"></translation>
+        <translation>sol kenar</translation>
     </message>
     <message>
         <source>right margin</source>
-        <translation type="unfinished"></translation>
+        <translation>sağ kenar</translation>
     </message>
     <message>
         <source>bottom margin</source>
-        <translation type="unfinished"></translation>
+        <translation>alt kenar</translation>
     </message>
 </context>
 <context>
@@ -2720,389 +2724,389 @@ Yine de silmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation>Unbekannt</translation>
+        <translation>bilinmiyor</translation>
     </message>
     <message>
         <source>Print To File ...</source>
-        <translation>Dosyaya Yazdır...</translation>
+        <translation>Dosyaya Yazdır ...</translation>
     </message>
     <message>
         <source>File %1 is not writable.
 Please choose a different file name.</source>
         <translation>%1 dosyası yazılabilir değil.
-Lütfen başka bir dosya adı seçin.</translation>
+Lütfen farklı bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>%1 already exists.
 Do you want to overwrite it?</source>
-        <translation>%1 zaten var.
-Üzerine yazmak ister misiniz?</translation>
+        <translation>%1 zaten mevcut.
+Üzerine yazmak istiyor musunuz?</translation>
     </message>
     <message>
         <source>%1 is a directory.
 Please choose a different file name.</source>
         <translation>%1 bir dizin.
-Lütfen başka bir dosya adı seçin.</translation>
+Lütfen farklı bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>A0</source>
-        <translation type="unfinished"></translation>
+        <translation>A0</translation>
     </message>
     <message>
         <source>A1</source>
-        <translation type="unfinished"></translation>
+        <translation>A1</translation>
     </message>
     <message>
         <source>A2</source>
-        <translation type="unfinished"></translation>
+        <translation>A2</translation>
     </message>
     <message>
         <source>A3</source>
-        <translation type="unfinished"></translation>
+        <translation>A3</translation>
     </message>
     <message>
         <source>A4</source>
-        <translation type="unfinished"></translation>
+        <translation>A4</translation>
     </message>
     <message>
         <source>A5</source>
-        <translation type="unfinished"></translation>
+        <translation>A5</translation>
     </message>
     <message>
         <source>A6</source>
-        <translation type="unfinished"></translation>
+        <translation>A6</translation>
     </message>
     <message>
         <source>A7</source>
-        <translation type="unfinished"></translation>
+        <translation>A7</translation>
     </message>
     <message>
         <source>A8</source>
-        <translation type="unfinished"></translation>
+        <translation>A8</translation>
     </message>
     <message>
         <source>A9</source>
-        <translation type="unfinished"></translation>
+        <translation>A9</translation>
     </message>
     <message>
         <source>B0</source>
-        <translation type="unfinished"></translation>
+        <translation>B0</translation>
     </message>
     <message>
         <source>B1</source>
-        <translation type="unfinished"></translation>
+        <translation>B1</translation>
     </message>
     <message>
         <source>B2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>B3</source>
-        <translation type="unfinished"></translation>
+        <translation>B3</translation>
     </message>
     <message>
         <source>B4</source>
-        <translation type="unfinished"></translation>
+        <translation>B4</translation>
     </message>
     <message>
         <source>B5</source>
-        <translation type="unfinished"></translation>
+        <translation>B5</translation>
     </message>
     <message>
         <source>B6</source>
-        <translation type="unfinished"></translation>
+        <translation>B6</translation>
     </message>
     <message>
         <source>B7</source>
-        <translation type="unfinished"></translation>
+        <translation>B7</translation>
     </message>
     <message>
         <source>B8</source>
-        <translation type="unfinished"></translation>
+        <translation>B8</translation>
     </message>
     <message>
         <source>B9</source>
-        <translation type="unfinished"></translation>
+        <translation>B9</translation>
     </message>
     <message>
         <source>B10</source>
-        <translation type="unfinished"></translation>
+        <translation>B10</translation>
     </message>
     <message>
         <source>C5E</source>
-        <translation type="unfinished"></translation>
+        <translation>C5E</translation>
     </message>
     <message>
         <source>DLE</source>
-        <translation type="unfinished"></translation>
+        <translation>DLE</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished"></translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabloid</translation>
     </message>
     <message>
         <source>US Common #10 Envelope</source>
-        <translation type="unfinished"></translation>
+        <translation>US Common #10 Zarf</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Özel</translation>
     </message>
     <message>
         <source>&amp;Options &gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seçenekler &gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;Print</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yazdır</translation>
     </message>
     <message>
         <source>&amp;Options &lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seçenekler &lt;&lt;</translation>
     </message>
     <message>
         <source>Print to File (PDF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosyaya Yazdır (PDF)</translation>
     </message>
     <message>
         <source>Print to File (Postscript)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosyaya Yazdır (Postscript)</translation>
     </message>
     <message>
         <source>Local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel dosya</translation>
     </message>
     <message>
         <source>Write %1 file</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 dosyasını yaz</translation>
     </message>
 </context>
 <context>
     <name>QPrintPreviewDialog</name>
     <message>
         <source>Page Setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Sayfa Yapısı</translation>
     </message>
     <message>
         <source>Print Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Baskı Önizleme</translation>
     </message>
     <message>
         <source>Next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonraki sayfa</translation>
     </message>
     <message>
         <source>Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Önceki sayfa</translation>
     </message>
     <message>
         <source>First page</source>
-        <translation type="unfinished"></translation>
+        <translation>İlk sayfa</translation>
     </message>
     <message>
         <source>Last page</source>
-        <translation type="unfinished"></translation>
+        <translation>Son sayfa</translation>
     </message>
     <message>
         <source>Fit width</source>
-        <translation type="unfinished"></translation>
+        <translation>Genişliği sığdır</translation>
     </message>
     <message>
         <source>Fit page</source>
-        <translation type="unfinished"></translation>
+        <translation>Sayfayı sığdır</translation>
     </message>
     <message>
         <source>Zoom in</source>
-        <translation type="unfinished"></translation>
+        <translation>Yakınlaştır</translation>
     </message>
     <message>
         <source>Zoom out</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzaklaştır</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Dikey</translation>
+        <translation>Dikey</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Yatay</translation>
+        <translation>Yatay</translation>
     </message>
     <message>
         <source>Show single page</source>
-        <translation type="unfinished"></translation>
+        <translation>Tek sayfa göster</translation>
     </message>
     <message>
         <source>Show facing pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Karşılıklı sayfaları göster</translation>
     </message>
     <message>
         <source>Show overview of all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Tüm sayfaların genelini göster</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation type="unfinished">Yazdır</translation>
+        <translation>Yazdır</translation>
     </message>
     <message>
         <source>Page setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Sayfa yapısı</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Kapat</translation>
+        <translation>Kapat</translation>
     </message>
 </context>
 <context>
     <name>QPrintPropertiesWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Biçim</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Sayfa</translation>
     </message>
     <message>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Gelişmiş</translation>
     </message>
 </context>
 <context>
     <name>QPrintSettingsOutput</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Biçim</translation>
     </message>
     <message>
         <source>Copies</source>
-        <translation type="unfinished">Kopya</translation>
+        <translation>Kopya</translation>
     </message>
     <message>
         <source>Print range</source>
-        <translation type="unfinished">Yazdırma oranı</translation>
+        <translation>Yazdırma aralığı</translation>
     </message>
     <message>
         <source>Print all</source>
-        <translation type="unfinished">Tümünü yazdır</translation>
+        <translation>Tümünü yazdır</translation>
     </message>
     <message>
         <source>Pages from</source>
-        <translation type="unfinished">Bu sayfadan</translation>
+        <translation>Bu sayfadan</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished">bu sayfaya</translation>
+        <translation>bu sayfaya</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished">Seçim</translation>
+        <translation>Seçim</translation>
     </message>
     <message>
         <source>Output Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Çıktı Ayarları</translation>
     </message>
     <message>
         <source>Copies:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopya:</translation>
     </message>
     <message>
         <source>Collate</source>
-        <translation type="unfinished">Harmanla</translation>
+        <translation>Harmanla</translation>
     </message>
     <message>
         <source>Reverse</source>
-        <translation type="unfinished"></translation>
+        <translation>Tersten</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Seçenekler</translation>
+        <translation>Seçenekler</translation>
     </message>
     <message>
         <source>Color Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Renk Kipi</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Renk</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Gri Tonlama</translation>
     </message>
     <message>
         <source>Duplex Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Her İki Tarafa Yazdır</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiçbiri</translation>
     </message>
     <message>
         <source>Long side</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzun kenar</translation>
     </message>
     <message>
         <source>Short side</source>
-        <translation type="unfinished"></translation>
+        <translation>Kısa kenar</translation>
     </message>
 </context>
 <context>
     <name>QPrintWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Biçim</translation>
     </message>
     <message>
         <source>Printer</source>
-        <translation type="unfinished">Yazıcı</translation>
+        <translation>Yazıcı</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Adı:</translation>
     </message>
     <message>
         <source>P&amp;roperties</source>
-        <translation type="unfinished"></translation>
+        <translation>Ö&amp;zellikleri</translation>
     </message>
     <message>
         <source>Location:</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeri:</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Önizleme</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Türü:</translation>
     </message>
     <message>
         <source>Output &amp;file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Çıktı &amp;dosyası:</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
 </context>
 <context>
@@ -3123,18 +3127,18 @@ Lütfen başka bir dosya adı seçin.</translation>
     <name>QRadioButton</name>
     <message>
         <source>Check</source>
-        <translation>Kontrol Et</translation>
+        <translation>İşaretle</translation>
     </message>
 </context>
 <context>
     <name>QRegExp</name>
     <message>
         <source>no error occurred</source>
-        <translation>hata yok</translation>
+        <translation>hata meydana gelmedi</translation>
     </message>
     <message>
         <source>disabled feature used</source>
-        <translation>pasifleştirilmiş özellik kullanıldı</translation>
+        <translation>etkisizleştirilmiş özellik kullanıldı</translation>
     </message>
     <message>
         <source>bad char class syntax</source>
@@ -3154,15 +3158,15 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>missing left delim</source>
-        <translation type="unfinished"></translation>
+        <translation>eksik sol sınırlayıcı</translation>
     </message>
     <message>
         <source>unexpected end</source>
-        <translation>beklenmeyen bitiş</translation>
+        <translation>beklenmedik bitiş</translation>
     </message>
     <message>
         <source>met internal limit</source>
-        <translation>iç limite ulaşıldı</translation>
+        <translation>dahili sınıra rastlandı</translation>
     </message>
 </context>
 <context>
@@ -3173,76 +3177,76 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Unable to begin transaction</source>
-        <translation>İşleme (transaction) başlanamadı</translation>
+        <translation>İşlem başlayamaz</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>İşlem (transaction) yapılamadı</translation>
+        <translation>İşlem yapılamaz</translation>
     </message>
     <message>
         <source>Unable to rollback Transaction</source>
-        <translation>İşlem (transaction) geri alınamadı</translation>
+        <translation>İşlem geri alınamaz</translation>
     </message>
 </context>
 <context>
     <name>QSQLite2Result</name>
     <message>
         <source>Unable to fetch results</source>
-        <translation>Sonuçlar eşlenemedi</translation>
+        <translation>Sonuçlar getirilemez</translation>
     </message>
     <message>
         <source>Unable to execute statement</source>
-        <translation>İfade çalıştırılamadı</translation>
+        <translation>İfade çalıştırılamaz</translation>
     </message>
 </context>
 <context>
     <name>QSQLiteDriver</name>
     <message>
         <source>Error opening database</source>
-        <translation>Veritabanı açılırken hata oluştu</translation>
+        <translation>Veritabanı açılırken hata oldu</translation>
     </message>
     <message>
         <source>Error closing database</source>
-        <translation>Veritabanı kapatma hatası</translation>
+        <translation>Veritabanı kapatılırken hata oldu</translation>
     </message>
     <message>
         <source>Unable to begin transaction</source>
-        <translation>İşleme (transaction) başlanamadı</translation>
+        <translation>İşlem başlayamaz</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>İşlem (transaction) yapılamadı</translation>
+        <translation>İşlem yapılamaz</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
-        <translation type="unfinished">İşlem (transaction) geri alınamadı</translation>
+        <translation>İşlem geri alınamaz</translation>
     </message>
 </context>
 <context>
     <name>QSQLiteResult</name>
     <message>
         <source>Unable to fetch row</source>
-        <translation>Satır getirilemedi</translation>
+        <translation>Satır getirilemez</translation>
     </message>
     <message>
         <source>Unable to execute statement</source>
-        <translation>İfade çalıştırılamadı</translation>
+        <translation>İfade çalıştırılamaz</translation>
     </message>
     <message>
         <source>Unable to reset statement</source>
-        <translation>İfade sıfırlanamadı</translation>
+        <translation>İfade sıfırlanamaz</translation>
     </message>
     <message>
         <source>Unable to bind parameters</source>
-        <translation>Parametreler atanamadı</translation>
+        <translation>Parametreler atanamaz</translation>
     </message>
     <message>
         <source>Parameter count mismatch</source>
-        <translation>Parametre sayısı tutmuyor</translation>
+        <translation>Parametre sayısı uyuşmuyor</translation>
     </message>
     <message>
         <source>No query</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorgu yok</translation>
     </message>
 </context>
 <context>
@@ -3253,19 +3257,19 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Left edge</source>
-        <translation>Sol gölge</translation>
+        <translation>Sol kenara</translation>
     </message>
     <message>
         <source>Top</source>
-        <translation>En Yukarı</translation>
+        <translation>En Üste</translation>
     </message>
     <message>
         <source>Right edge</source>
-        <translation>Sağ gölge</translation>
+        <translation>Sağ kenara</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation>En Aşağı</translation>
+        <translation>En Alta</translation>
     </message>
     <message>
         <source>Page left</source>
@@ -3301,7 +3305,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Line up</source>
-        <translation>Diz</translation>
+        <translation>Satır yukarı</translation>
     </message>
     <message>
         <source>Position</source>
@@ -3316,63 +3320,63 @@ Lütfen başka bir dosya adı seçin.</translation>
     <name>QSharedMemory</name>
     <message>
         <source>%1: unable to set key on lock</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: kilitte anahtar ayarlanamaz</translation>
     </message>
     <message>
         <source>%1: create size is less then 0</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: oluşturulan boyut 0&apos;dan az</translation>
     </message>
     <message>
         <source>%1: unable to lock</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: kilitlenemez</translation>
     </message>
     <message>
         <source>%1: unable to unlock</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: kilit açılamaz</translation>
     </message>
     <message>
         <source>%1: permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: izin reddedildi</translation>
     </message>
     <message>
         <source>%1: already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: zaten mevcut</translation>
     </message>
     <message>
         <source>%1: doesn&apos;t exists</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: mevcut değil</translation>
     </message>
     <message>
         <source>%1: out of resources</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: yetersiz kaynak</translation>
     </message>
     <message>
         <source>%1: unknown error %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: bilinmeyen hata %2</translation>
     </message>
     <message>
         <source>%1: key is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: anahtar boş</translation>
     </message>
     <message>
         <source>%1: unix key file doesn&apos;t exists</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: unix anahtar dosyası mevcut değil</translation>
     </message>
     <message>
         <source>%1: ftok failed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: ftok başarısız oldu</translation>
     </message>
     <message>
         <source>%1: unable to make key</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: anahtar yapılamaz</translation>
     </message>
     <message>
         <source>%1: system-imposed size restrictions</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: sistem-maruz kalma boyutu kısıtlamaları</translation>
     </message>
     <message>
         <source>%1: not attached</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: takılı değil</translation>
     </message>
 </context>
 <context>
@@ -3419,7 +3423,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation>Yazdır</translation>
+        <translation>Print</translation>
     </message>
     <message>
         <source>SysReq</source>
@@ -3427,11 +3431,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Home</source>
-        <translation>Başlangıç</translation>
+        <translation>Home</translation>
     </message>
     <message>
         <source>End</source>
-        <translation>Bitir</translation>
+        <translation>End</translation>
     </message>
     <message>
         <source>Left</source>
@@ -3487,7 +3491,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation>Dur</translation>
+        <translation>Durdur</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -3495,7 +3499,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Volume Down</source>
-        <translation>Sesi Yükselt</translation>
+        <translation>Sesi Azalt</translation>
     </message>
     <message>
         <source>Volume Mute</source>
@@ -3503,7 +3507,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Volume Up</source>
-        <translation>Sesi Alçalt</translation>
+        <translation>Sesi Arttır</translation>
     </message>
     <message>
         <source>Bass Boost</source>
@@ -3511,43 +3515,43 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Bass Up</source>
-        <translation>Bası Yükselt</translation>
+        <translation>Bası Arttır</translation>
     </message>
     <message>
         <source>Bass Down</source>
-        <translation>Bası Alçalt</translation>
+        <translation>Bası Azalt</translation>
     </message>
     <message>
         <source>Treble Up</source>
-        <translation>Tizi Yükselt</translation>
+        <translation>Tizi Arttır</translation>
     </message>
     <message>
         <source>Treble Down</source>
-        <translation>Tizi Alçalt</translation>
+        <translation>Tizi Azalt</translation>
     </message>
     <message>
         <source>Media Play</source>
-        <translation>Çokluortam Çal</translation>
+        <translation>Ortam Çal</translation>
     </message>
     <message>
         <source>Media Stop</source>
-        <translation>Çokluortam Dur</translation>
+        <translation>Ortam Durdur</translation>
     </message>
     <message>
         <source>Media Previous</source>
-        <translation>Çokluortam Önceki</translation>
+        <translation>Ortam Önceki</translation>
     </message>
     <message>
         <source>Media Next</source>
-        <translation>Çokluortam Sonraki</translation>
+        <translation>Ortam Sonraki</translation>
     </message>
     <message>
         <source>Media Record</source>
-        <translation>Çokluortam Kaydet</translation>
+        <translation>Ortam Kayıt</translation>
     </message>
     <message>
         <source>Favorites</source>
-        <translation>Yer İmleri</translation>
+        <translation>Favoriler</translation>
     </message>
     <message>
         <source>Search</source>
@@ -3555,19 +3559,19 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Standby</source>
-        <translation>Bekleme Kipine Geç</translation>
+        <translation>Beklemede</translation>
     </message>
     <message>
         <source>Open URL</source>
-        <translation>Adres Aç</translation>
+        <translation>URL&apos;yi Aç</translation>
     </message>
     <message>
         <source>Launch Mail</source>
-        <translation>E-posta Uygulamasını Aç</translation>
+        <translation>Posta Uyg. Çalıştır</translation>
     </message>
     <message>
         <source>Launch Media</source>
-        <translation>Çokluortam Aç</translation>
+        <translation>Ortam Çalıştır</translation>
     </message>
     <message>
         <source>Launch (0)</source>
@@ -3635,15 +3639,15 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Print Screen</source>
-        <translation>Ekran Görüntüsü Al</translation>
+        <translation>Print Screen</translation>
     </message>
     <message>
         <source>Page Up</source>
-        <translation>Sayfa Yukarı</translation>
+        <translation>Page Up</translation>
     </message>
     <message>
         <source>Page Down</source>
-        <translation>Sayfa Aşağı</translation>
+        <translation>Page Down</translation>
     </message>
     <message>
         <source>Caps Lock</source>
@@ -3663,11 +3667,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Insert</source>
-        <translation>Ekle</translation>
+        <translation>Insert</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Sil</translation>
+        <translation>Delete</translation>
     </message>
     <message>
         <source>Escape</source>
@@ -3719,19 +3723,19 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <source>Meta</source>
-        <translation>Meta</translation>
+        <translation>Üst</translation>
     </message>
     <message>
         <source>+</source>
@@ -3743,7 +3747,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Home Page</source>
-        <translation>Web Sayfası</translation>
+        <translation>Ana Sayfa</translation>
     </message>
 </context>
 <context>
@@ -3773,11 +3777,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     <name>QSocks5SocketEngine</name>
     <message>
         <source>Socks5 timeout error connecting to socks server</source>
-        <translation>Socks sunucusuna bağlanırken Socks5 zamanaşımı hatası</translation>
+        <translation>Socks sunucusuna bağlanırken Socks5 zaman aşımı hatası oldu</translation>
     </message>
     <message>
         <source>Network operation timed out</source>
-        <translation type="unfinished">Ağ işleminde zamanaşımı</translation>
+        <translation>Ağ işlem zamanı aşıldı</translation>
     </message>
 </context>
 <context>
@@ -3819,7 +3823,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Save edits?</source>
-        <translation>Kaydedilsin mi?</translation>
+        <translation>Düzenlemeler kaydedilsin mi?</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -3827,34 +3831,34 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Confirm</source>
-        <translation>Doğrula</translation>
+        <translation>Onayla</translation>
     </message>
     <message>
         <source>Cancel your edits?</source>
-        <translation>Değişiklikleriniz iptal edilsin mi?</translation>
+        <translation>Düzenlemeler iptal edilsin mi?</translation>
     </message>
 </context>
 <context>
     <name>QSslSocket</name>
     <message>
         <source>Unable to write data: %1</source>
-        <translation>Veri yazılamadı: %1</translation>
+        <translation>Veri yazılamaz: %1</translation>
     </message>
     <message>
         <source>Error while reading: %1</source>
-        <translation>Okuma hatası: %1</translation>
+        <translation>Okunurken hata oldu: %1</translation>
     </message>
     <message>
         <source>Error during SSL handshake: %1</source>
-        <translation>SSL tokalaşması sırasında hata: %1</translation>
+        <translation>SSL anlaşması sırasında hata oldu: %1</translation>
     </message>
     <message>
         <source>Error creating SSL context (%1)</source>
-        <translation>SSL bağlamı oluşturulurken hata (%1)</translation>
+        <translation>SSL bağlamı oluşturma hatası (%1)</translation>
     </message>
     <message>
         <source>Invalid or empty cipher list (%1)</source>
-        <translation>Geçersiz ya da boş edinme listesi (%1)</translation>
+        <translation>Geçersiz ya da boş şifreleme listesi (%1)</translation>
     </message>
     <message>
         <source>Error creating SSL session, %1</source>
@@ -3866,30 +3870,30 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Cannot provide a certificate with no key, %1</source>
-        <translation>Anahtar olmadan bir sertifika sağlanamaz, %1</translation>
+        <translation>Anahtar olmadan bir sertifika sağlanamıyor, %1</translation>
     </message>
     <message>
         <source>Error loading local certificate, %1</source>
-        <translation>Yerel sertifika yüklenirken hata, %1</translation>
+        <translation>Yerel sertifika yükleme hatası, %1</translation>
     </message>
     <message>
         <source>Error loading private key, %1</source>
-        <translation>Yerel gizli anahtar yüklenirken hata, %1</translation>
+        <translation>Yerel özel anahtar yükleme hatası, %1</translation>
     </message>
     <message>
         <source>Private key does not certificate public key, %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Özel anahtar ortak anahtarı belgelemez, %1</translation>
     </message>
 </context>
 <context>
     <name>QTDSDriver</name>
     <message>
         <source>Unable to open connection</source>
-        <translation>Bağlantı açılamadı</translation>
+        <translation>Bağlantı açılamaz</translation>
     </message>
     <message>
         <source>Unable to use database</source>
-        <translation>Veritabanı kullanılamadı</translation>
+        <translation>Veritabanı kullanılamaz</translation>
     </message>
 </context>
 <context>
@@ -3923,7 +3927,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Copy &amp;Link Location</source>
-        <translation>Bağlantı Konumunu Kopya&amp;la</translation>
+        <translation>Bağlantı Yerini Kopya&amp;la</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -3989,332 +3993,332 @@ Lütfen başka bir dosya adı seçin.</translation>
     <name>QUnicodeControlCharacterMenu</name>
     <message>
         <source>LRM Left-to-right mark</source>
-        <translation>LRM Soldan-sağa yap</translation>
+        <translation>LRM Soldan-sağa işaretle</translation>
     </message>
     <message>
         <source>RLM Right-to-left mark</source>
-        <translation>RLM Sağdan-sola yap</translation>
+        <translation>RLM Sağdan-sola işaretle</translation>
     </message>
     <message>
         <source>ZWJ Zero width joiner</source>
-        <translation type="unfinished"></translation>
+        <translation>ZWJ Sıfır genişliğe birleştiren</translation>
     </message>
     <message>
         <source>ZWNJ Zero width non-joiner</source>
-        <translation type="unfinished"></translation>
+        <translation>ZWNJ Sıfır genişliğe birleştirmeyen</translation>
     </message>
     <message>
         <source>ZWSP Zero width space</source>
-        <translation type="unfinished"></translation>
+        <translation>ZWSP Sıfır genişlikte boşluk</translation>
     </message>
     <message>
         <source>LRE Start of left-to-right embedding</source>
-        <translation>LRE Soldan-sağa gömülü yap</translation>
+        <translation>LRE Soldan-sağa gömme başlangıcı</translation>
     </message>
     <message>
         <source>RLE Start of right-to-left embedding</source>
-        <translation>RLE Sağdan-sola gömülü yap</translation>
+        <translation>RLE Sağdan-sola gömme başlangıcı</translation>
     </message>
     <message>
         <source>LRO Start of left-to-right override</source>
-        <translation type="unfinished"></translation>
+        <translation>LRO Soldan-sağa geçersiz kılma başlangıcı</translation>
     </message>
     <message>
         <source>RLO Start of right-to-left override</source>
-        <translation type="unfinished"></translation>
+        <translation>RLO Sağdan-sola  geçersiz kılma başlangıcı</translation>
     </message>
     <message>
         <source>PDF Pop directional formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF Açılır yönde biçimlendirme</translation>
     </message>
     <message>
         <source>Insert Unicode control character</source>
-        <translation>Unicode kontrol karakteri ekle</translation>
+        <translation>Unicode denetim karakteri ekle</translation>
     </message>
 </context>
 <context>
     <name>QWebFrame</name>
     <message>
         <source>Request cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>İstek iptal edildi</translation>
     </message>
     <message>
         <source>Request blocked</source>
-        <translation type="unfinished"></translation>
+        <translation>İstek engellendi</translation>
     </message>
     <message>
         <source>Cannot show URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL gösterilemiyor</translation>
     </message>
     <message>
         <source>Frame load interruped by policy change</source>
-        <translation type="unfinished"></translation>
+        <translation>Politika değişimi yüzünden çerçeve yükleme kesildi</translation>
     </message>
     <message>
         <source>Cannot show mimetype</source>
-        <translation type="unfinished"></translation>
+        <translation>Mime türleri gösterilemiyor</translation>
     </message>
     <message>
         <source>File does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosya mevcut değil</translation>
     </message>
 </context>
 <context>
     <name>QWebPage</name>
     <message>
         <source>Bad HTTP request</source>
-        <translation type="unfinished"></translation>
+        <translation>Kötü HTTP isteği</translation>
     </message>
     <message>
         <source>Submit</source>
         <comment>default label for Submit buttons in forms on web pages</comment>
-        <translation type="unfinished"></translation>
+        <translation>Gönder</translation>
     </message>
     <message>
         <source>Submit</source>
         <comment>Submit (input element) alt text for &lt;input&gt; elements with no alt, title, or value</comment>
-        <translation type="unfinished"></translation>
+        <translation>Gönder</translation>
     </message>
     <message>
         <source>Reset</source>
         <comment>default label for Reset buttons in forms on web pages</comment>
-        <translation type="unfinished">Sıfırla</translation>
+        <translation>Sıfırla</translation>
     </message>
     <message>
         <source>This is a searchable index. Enter search keywords: </source>
         <comment>text that appears at the start of nearly-obsolete web pages in the form of a &apos;searchable index&apos;</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bu aranabilir bir indekstir. Aranacak anahtar kelimeleri girin:</translation>
     </message>
     <message>
         <source>Choose File</source>
         <comment>title for file button used in HTML forms</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dosya Seçin</translation>
     </message>
     <message>
         <source>No file selected</source>
         <comment>text to display in file button used in HTML forms when no file is selected</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seçilen dosya yok</translation>
     </message>
     <message>
         <source>Open in New Window</source>
         <comment>Open in New Window context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yeni Pencerede Aç</translation>
     </message>
     <message>
         <source>Save Link...</source>
         <comment>Download Linked File context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bağlantıyı Kaydet...</translation>
     </message>
     <message>
         <source>Copy Link</source>
         <comment>Copy Link context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bağlantıyı Kopyala</translation>
     </message>
     <message>
         <source>Open Image</source>
         <comment>Open Image in New Window context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Resimi Aç</translation>
     </message>
     <message>
         <source>Save Image</source>
         <comment>Download Image context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Resimi Kaydet</translation>
     </message>
     <message>
         <source>Copy Image</source>
         <comment>Copy Link context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Resimi Kopyala</translation>
     </message>
     <message>
         <source>Open Frame</source>
         <comment>Open Frame in New Window context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Çerçeve Aç</translation>
     </message>
     <message>
         <source>Copy</source>
         <comment>Copy context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kopyala</translation>
     </message>
     <message>
         <source>Go Back</source>
         <comment>Back context menu item</comment>
-        <translation type="unfinished">Geri Git</translation>
+        <translation>Geri Git</translation>
     </message>
     <message>
         <source>Go Forward</source>
         <comment>Forward context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>İleri Git</translation>
     </message>
     <message>
         <source>Stop</source>
         <comment>Stop context menu item</comment>
-        <translation type="unfinished">Dur</translation>
+        <translation>Durdur</translation>
     </message>
     <message>
         <source>Reload</source>
         <comment>Reload context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yeniden Yükle</translation>
     </message>
     <message>
         <source>Cut</source>
         <comment>Cut context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kes</translation>
     </message>
     <message>
         <source>Paste</source>
         <comment>Paste context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yapıştır</translation>
     </message>
     <message>
         <source>No Guesses Found</source>
         <comment>No Guesses Found context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bulunan Tahminler Yok</translation>
     </message>
     <message>
         <source>Ignore</source>
         <comment>Ignore Spelling context menu item</comment>
-        <translation type="unfinished">Yoksay</translation>
+        <translation>Yoksay</translation>
     </message>
     <message>
         <source>Add To Dictionary</source>
         <comment>Learn Spelling context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sözlüğe Ekle</translation>
     </message>
     <message>
         <source>Search The Web</source>
         <comment>Search The Web context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Web&apos;i Ara</translation>
     </message>
     <message>
         <source>Look Up In Dictionary</source>
         <comment>Look Up in Dictionary context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sözlükte Ara</translation>
     </message>
     <message>
         <source>Open Link</source>
         <comment>Open Link context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bağlantıyı Aç</translation>
     </message>
     <message>
         <source>Ignore</source>
         <comment>Ignore Grammar context menu item</comment>
-        <translation type="unfinished">Yoksay</translation>
+        <translation>Yoksay</translation>
     </message>
     <message>
         <source>Spelling</source>
         <comment>Spelling and Grammar context sub-menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yazım</translation>
     </message>
     <message>
         <source>Show Spelling and Grammar</source>
         <comment>menu item title</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yazımı ve Dilbilgisini Göster</translation>
     </message>
     <message>
         <source>Hide Spelling and Grammar</source>
         <comment>menu item title</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yazımı ve Dilbilgisini Gizle</translation>
     </message>
     <message>
         <source>Check Spelling</source>
         <comment>Check spelling context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yazımı Kontrol Et</translation>
     </message>
     <message>
         <source>Check Spelling While Typing</source>
         <comment>Check spelling while typing context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yazımı Yazarken Kontrol Et</translation>
     </message>
     <message>
         <source>Check Grammar With Spelling</source>
         <comment>Check grammar with spelling context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dilbilgisini Yazımla Kontrol Et</translation>
     </message>
     <message>
         <source>Fonts</source>
         <comment>Font context sub-menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yazı Tipleri</translation>
     </message>
     <message>
         <source>Bold</source>
         <comment>Bold context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kalın</translation>
     </message>
     <message>
         <source>Italic</source>
         <comment>Italic context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>İtalik</translation>
     </message>
     <message>
         <source>Underline</source>
         <comment>Underline context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Altı Çizili</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Outline context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Üstü Çizili</translation>
     </message>
     <message>
         <source>Direction</source>
         <comment>Writing direction context sub-menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yön</translation>
     </message>
     <message>
         <source>Default</source>
         <comment>Default writing direction context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Varsayılan</translation>
     </message>
     <message>
         <source>LTR</source>
         <comment>Left to Right context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>LTR</translation>
     </message>
     <message>
         <source>RTL</source>
         <comment>Right to Left context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>RTL</translation>
     </message>
     <message>
         <source>Inspect</source>
         <comment>Inspect Element context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Denetle</translation>
     </message>
     <message>
         <source>No recent searches</source>
         <comment>Label for only item in menu that appears when clicking on the search field image, when no searches have been performed</comment>
-        <translation type="unfinished"></translation>
+        <translation>Son aramalar yok</translation>
     </message>
     <message>
         <source>Recent searches</source>
         <comment>label for first item in the menu that appears when clicking on the search field image, used as embedded menu title</comment>
-        <translation type="unfinished"></translation>
+        <translation>Son aramalar</translation>
     </message>
     <message>
         <source>Clear recent searches</source>
         <comment>menu item in Recent Searches menu that empties menu&apos;s contents</comment>
-        <translation type="unfinished"></translation>
+        <translation>Son aramaları temizle</translation>
     </message>
     <message>
         <source>Unknown</source>
         <comment>Unknown filesize FTP directory listing item</comment>
-        <translation type="unfinished">Bilinmeyen</translation>
+        <translation>Bilinmiyor</translation>
     </message>
     <message>
         <source>%1 (%2x%3 pixels)</source>
         <comment>Title string for images</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2x%3 piksel)</translation>
     </message>
     <message>
         <source>Web Inspector - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Web Denetleyicisi - %2</translation>
     </message>
 </context>
 <context>
     <name>QWhatsThisAction</name>
     <message>
         <source>What&apos;s This?</source>
-        <translation>Bu nedir?</translation>
+        <translation>Bu Nedir?</translation>
     </message>
 </context>
 <context>
@@ -4332,7 +4336,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Continue</source>
-        <translation>Devam Et</translation>
+        <translation>Devam</translation>
     </message>
     <message>
         <source>Commit</source>
@@ -4340,7 +4344,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Done</source>
-        <translation>Tamam</translation>
+        <translation>Bitti</translation>
     </message>
     <message>
         <source>Quit</source>
@@ -4368,11 +4372,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>&amp;Next</source>
-        <translation type="unfinished"></translation>
+        <translation>İ&amp;leri</translation>
     </message>
     <message>
         <source>&amp;Next &gt;</source>
-        <translation type="unfinished">&amp;İleri &gt;</translation>
+        <translation>İ&amp;leri &gt;</translation>
     </message>
 </context>
 <context>
@@ -4391,11 +4395,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Mi&amp;nimize</source>
-        <translation>&amp;Küçült</translation>
+        <translation>Simge Durumu&amp;na</translation>
     </message>
     <message>
         <source>Ma&amp;ximize</source>
-        <translation>B&amp;üyüt</translation>
+        <translation>Ekranı Ka&amp;pla</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -4403,7 +4407,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
-        <translation>&amp;Herzaman Üstte</translation>
+        <translation>&amp;Her Zaman Üstte</translation>
     </message>
     <message>
         <source>Sh&amp;ade</source>
@@ -4415,11 +4419,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Minimize</source>
-        <translation>Küçült</translation>
+        <translation>Simge Durumuna</translation>
     </message>
     <message>
         <source>Restore Down</source>
-        <translation>Aşağıya Geri Yükle</translation>
+        <translation>Aşağı Geri Yükle</translation>
     </message>
     <message>
         <source>Close</source>
@@ -4434,7 +4438,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     <name>QXml</name>
     <message>
         <source>no error occurred</source>
-        <translation>hata yok</translation>
+        <translation>hata meydana gelmedi</translation>
     </message>
     <message>
         <source>error triggered by consumer</source>
@@ -4442,98 +4446,98 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>unexpected end of file</source>
-        <translation>beklenmeyen dosya sonu</translation>
+        <translation>beklenmedik dosya sonu</translation>
     </message>
     <message>
         <source>more than one document type definition</source>
-        <translation>birden fazla belge tipi tanımlaması</translation>
+        <translation>birden fazla belge türü tanımlaması</translation>
     </message>
     <message>
         <source>error occurred while parsing element</source>
-        <translation>Öge ayrıştırılırken hata oluştu</translation>
+        <translation>Öge ayrıştırılırken hata meydana geldi</translation>
     </message>
     <message>
         <source>tag mismatch</source>
-        <translation>etiket uyumsuzluğu</translation>
+        <translation>etiket uyuşmuyor</translation>
     </message>
     <message>
         <source>error occurred while parsing content</source>
-        <translation>İçerik ayrıştırılırken hata oluştu</translation>
+        <translation>İçerik ayrıştırılırken hata meydana geldi</translation>
     </message>
     <message>
         <source>unexpected character</source>
-        <translation>beklenmeyen karakter</translation>
+        <translation>beklenmedik karakter</translation>
     </message>
     <message>
         <source>invalid name for processing instruction</source>
-        <translation>işleme komutu için geçersiz isim</translation>
+        <translation>işleme talimatı için geçersiz isim</translation>
     </message>
     <message>
         <source>version expected while reading the XML declaration</source>
-        <translation>XML bildirimi okunurken sürüm beklenir</translation>
+        <translation>XML bildirimi okunurken sürüm beklenmekte</translation>
     </message>
     <message>
         <source>wrong value for standalone declaration</source>
-        <translation>bağımsız bildirim için hatalı değer</translation>
+        <translation>bağımsız bildirim için yanlış değer</translation>
     </message>
     <message>
         <source>encoding declaration or standalone declaration expected while reading the XML declaration</source>
-        <translation>XML bildirimi okunurken  kodlama bildirmi ya da bağımsız bildirim beklenir</translation>
+        <translation>XML bildirimi okunurken  kodlama bildirmi ya da bağımsız bildirim beklenmekte</translation>
     </message>
     <message>
         <source>standalone declaration expected while reading the XML declaration</source>
-        <translation>XML bildirimi okunurken bağımsız bildirim beklenir</translation>
+        <translation>XML bildirimi okunurken bağımsız bildirim beklenmekte</translation>
     </message>
     <message>
         <source>error occurred while parsing document type definition</source>
-        <translation>Belge tipi tanımlaması ayrıştırılırken hata oluştu</translation>
+        <translation>Belge türü tanımlaması ayrıştırılırken hata meydana geldi</translation>
     </message>
     <message>
         <source>letter is expected</source>
-        <translation>harf beklenir</translation>
+        <translation>harf beklenmekte</translation>
     </message>
     <message>
         <source>error occurred while parsing comment</source>
-        <translation>yorum ayrıştırılırken hata oluştu</translation>
+        <translation>yorum ayrıştırılırken hata meydana geldi</translation>
     </message>
     <message>
         <source>error occurred while parsing reference</source>
-        <translation>Referans ayrıştırılırken hata oluştu</translation>
+        <translation>Referans ayrıştırılırken hata meydana geldi</translation>
     </message>
     <message>
         <source>internal general entity reference not allowed in DTD</source>
-        <translation>DTD içerisinde genel iç varlık referansılarına (entity) izin verilmez</translation>
+        <translation>DTD içerisinde dahili genel birim referansına izin verilmez</translation>
     </message>
     <message>
         <source>external parsed general entity reference not allowed in attribute value</source>
-        <translation>Nitelik değeri içerisinde ayrıştırılmış genel dış varlık referansılarına (entity) izin verilmez</translation>
+        <translation>Öznitelik değeri içerisinde harici ayrıştırılmış genel birim referansına izin verilmez</translation>
     </message>
     <message>
         <source>external parsed general entity reference not allowed in DTD</source>
-        <translation>DTD içerisinde ayrıştırılmış genel dış varlık referansılarına (entity) izin verilmez</translation>
+        <translation>DTD içerisinde harici ayrıştırılmış genel birim referansına izin verilmez</translation>
     </message>
     <message>
         <source>unparsed entity reference in wrong context</source>
-        <translation>hatalı yerde ayrıştırılmamış varlık referansı (entity)</translation>
+        <translation>yanlış bağlam içinde ayrıştırılmamış birim referansı</translation>
     </message>
     <message>
         <source>recursive entities</source>
-        <translation>özyinelemeli varlık referansları (entity)</translation>
+        <translation>tekrarlanan birimler</translation>
     </message>
     <message>
         <source>error in the text declaration of an external entity</source>
-        <translation>dış varlık referansının (entity) metin bildiriminde hata</translation>
+        <translation>harici bir birimin metin bildiriminde hata</translation>
     </message>
 </context>
 <context>
     <name>QXmlStream</name>
     <message>
         <source>Extra content at end of document.</source>
-        <translation>Belge sonunda fazladan içerik var.</translation>
+        <translation>Belge sonunda fazladan içerik.</translation>
     </message>
     <message>
         <source>Invalid entity value.</source>
-        <translation>Geçersiz varlık referansı (entity) değeri.</translation>
+        <translation>Geçersiz birim değeri.</translation>
     </message>
     <message>
         <source>Invalid XML character.</source>
@@ -4541,23 +4545,23 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Sequence &apos;]]&gt;&apos; not allowed in content.</source>
-        <translation>İçerik içerisinde &apos;]]&gt;&apos; dizisine izin verilmez.</translation>
+        <translation>İçerikte &apos;]]&gt;&apos; dizisine izin verilmez.</translation>
     </message>
     <message>
         <source>Namespace prefix &apos;%1&apos; not declared</source>
-        <translation>İsimlendirme öneki &apos;%1&apos; bildirilmedi</translation>
+        <translation>Ad boşluğu öneki &apos;%1&apos; bildirilmedi</translation>
     </message>
     <message>
         <source>Attribute redefined.</source>
-        <translation>Nitelik yeniden tanımlandı.</translation>
+        <translation>Öznitelik yeniden tanımlandı.</translation>
     </message>
     <message>
         <source>Unexpected character &apos;%1&apos; in public id literal.</source>
-        <translation>Açık kimlik bilgisinde beklenmeyen &apos;%1&apos; karakteri.</translation>
+        <translation>Ortak kimlik bilgisinde beklenmedik &apos;%1&apos; karakteri.</translation>
     </message>
     <message>
         <source>Invalid XML version string.</source>
-        <translation>Geçersiz XML sürüm ifadesi.</translation>
+        <translation>Geçersiz XML sürüm dizgisi.</translation>
     </message>
     <message>
         <source>Unsupported XML version.</source>
@@ -4577,11 +4581,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Invalid attribute in XML declaration.</source>
-        <translation>XML bildiriminde geçersiz nitelik.</translation>
+        <translation>XML bildiriminde geçersiz öznitelik.</translation>
     </message>
     <message>
         <source>Premature end of document.</source>
-        <translation>Tamamlanmamış belge sonu.</translation>
+        <translation>Erken belge sonu.</translation>
     </message>
     <message>
         <source>Invalid document.</source>
@@ -4597,7 +4601,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Unexpected &apos;</source>
-        <translation>Beklenmeyen &apos;</translation>
+        <translation>Beklenmedik &apos;</translation>
     </message>
     <message>
         <source>Expected character data.</source>
@@ -4605,11 +4609,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Recursive entity detected.</source>
-        <translation>Özyinelemeli varlık referansı (entity) bulundu.</translation>
+        <translation>Tekrarlanan birim saptandı.</translation>
     </message>
     <message>
         <source>Start tag expected.</source>
-        <translation>Başlama etiketi beklenir.</translation>
+        <translation>Başlama etiketi beklenmekte.</translation>
     </message>
     <message>
         <source>XML declaration not at start of document.</source>
@@ -4617,19 +4621,19 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>NDATA in parameter entity declaration.</source>
-        <translation>Varlık referansı (entity) bildirimi parametresinde NDATA.</translation>
+        <translation>Parametre birim bildirimindeki NDATA.</translation>
     </message>
     <message>
         <source>%1 is an invalid processing instruction name.</source>
-        <translation>%1 geçersiz bir işleme komutu adı.</translation>
+        <translation>%1 geçersiz bir işleme talimatı adı.</translation>
     </message>
     <message>
         <source>Invalid processing instruction name.</source>
-        <translation>Geçersiz bir işleme komutu adı.</translation>
+        <translation>Geçersiz işleme talimatı adı.</translation>
     </message>
     <message>
         <source>Illegal namespace declaration.</source>
-        <translation>Geçersiz isimlendirme bildirimi.</translation>
+        <translation>Geçersiz ad boşluğu bildirimi.</translation>
     </message>
     <message>
         <source>Invalid XML name.</source>
@@ -4637,19 +4641,19 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Opening and ending tag mismatch.</source>
-        <translation>Açma etiketi ile kapatma etiketi uyuşmuyor.</translation>
+        <translation>Açma ve bitirme etiketi uyuşmuyor.</translation>
     </message>
     <message>
         <source>Reference to unparsed entity &apos;%1&apos;.</source>
-        <translation>&apos;%1&apos; ayrıştırılmamış varlık referansına (entity) referans.</translation>
+        <translation>Ayrıştırılmamış &apos;%1&apos; birimine referans.</translation>
     </message>
     <message>
         <source>Entity &apos;%1&apos; not declared.</source>
-        <translation>Varlık referansı (entity) &apos;%1&apos; bildirilmemiş.</translation>
+        <translation>&apos;%1&apos; birimi bildirilmemiş.</translation>
     </message>
     <message>
         <source>Reference to external entity &apos;%1&apos; in attribute value.</source>
-        <translation> &apos;%1&apos; dış varlık referansının (entity) nitelik değerine referans.</translation>
+        <translation>Öznitelik değerindeki &apos;%1&apos; harici birimine referans.</translation>
     </message>
     <message>
         <source>Invalid character reference.</source>
@@ -4657,11 +4661,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Encountered incorrectly encoded content.</source>
-        <translation>Doğru şekilde kodlanmamış içeriğe rastlandı.</translation>
+        <translation>Yanlış olarak kodlanmamış içerikle karşılaşıldı.</translation>
     </message>
     <message>
         <source>The standalone pseudo attribute must appear after the encoding.</source>
-        <translation>Bağımsız yalancı nitelik kodlamadan sonra belirmelidir.</translation>
+        <translation>Bağımsız sahte öznitelik kodlamadan sonra belirmelidir.</translation>
     </message>
     <message>
         <source>%1 is an invalid PUBLIC identifier.</source>
@@ -4672,79 +4676,79 @@ Lütfen başka bir dosya adı seçin.</translation>
     <name>QtXmlPatterns</name>
     <message>
         <source>An %1-attribute with value %2 has already been declared.</source>
-        <translation type="unfinished"></translation>
+        <translation>%2 değeriyle birlikte %1 özniteliği zaten bildirilmiş.</translation>
     </message>
     <message>
         <source>An %1-attribute must have a valid %2 as value, which %3 isn&apos;t.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 özniteliği değer olarak %3 olmayan geçerli bir %2 sahip olmalıdır.</translation>
     </message>
     <message>
         <source>Network timeout.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ağ zaman aşımı.</translation>
     </message>
     <message>
         <source>Element %1 can&apos;t be serialized because it appears outside the document element.</source>
-        <translation type="unfinished"></translation>
+        <translation>Öğe %1 serileştirilemiyor çünkü belge öğesinin dışında görünüyor.</translation>
     </message>
     <message>
         <source>Attribute %1 can&apos;t be serialized because it appears at the top level.</source>
-        <translation type="unfinished"></translation>
+        <translation>Öznitelik %1 serileştirilemiyor çünkü en üst seviyede görünüyor.</translation>
     </message>
     <message>
         <source>Year %1 is invalid because it begins with %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Yıl %1 geçersiz çünkü %2 ile başlıyor.</translation>
     </message>
     <message>
         <source>Day %1 is outside the range %2..%3.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gün %1, %2..%3 aralığı dışında.</translation>
     </message>
     <message>
         <source>Month %1 is outside the range %2..%3.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ay %1, %2..%3 aralığı dışında.</translation>
     </message>
     <message>
         <source>Overflow: Can&apos;t represent date %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dışa Taşma: %1 tarihini ifade edemiyor.</translation>
     </message>
     <message>
         <source>Day %1 is invalid for month %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gün %1, %2 ayı için geçersiz.</translation>
     </message>
     <message>
         <source>Time 24:%1:%2.%3 is invalid. Hour is 24, but minutes, seconds, and milliseconds are not all 0; </source>
-        <translation type="unfinished"></translation>
+        <translation>24&apos;lük Zaman:%1:%2.%3 geçersiz. Saat 24&apos;lük ama dakika, saniye ve milisaniyenin tümü 0 değildir; </translation>
     </message>
     <message>
         <source>Time %1:%2:%3.%4 is invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaman:%1:%2:%3.%4 geçersiz.</translation>
     </message>
     <message>
         <source>Overflow: Date can&apos;t be represented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dışa Taşma: Tarih ifade edilemez.</translation>
     </message>
     <message>
         <source>At least one component must be present.</source>
-        <translation type="unfinished"></translation>
+        <translation>En az bir bileşen olmak zorundadır.</translation>
     </message>
     <message>
         <source>At least one time component must appear after the %1-delimiter.</source>
-        <translation type="unfinished"></translation>
+        <translation>En az bir defa bileşen %1-sınırlayıcısından sonra görünmek zorundadır.</translation>
     </message>
     <message>
         <source>No operand in an integer division, %1, can be %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir tam sayı bölmede matematik işlemci yok, %1, %2 olabilir.</translation>
     </message>
     <message>
         <source>The first operand in an integer division, %1, cannot be infinity (%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir tam sayı bölmede ilk matematik işlemci, %1, sonsuz olamaz (%2).</translation>
     </message>
     <message>
         <source>The second operand in a division, %1, cannot be zero (%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir bölmede ikinci matematik işlemci, %1, sıfır olamaz (%2).</translation>
     </message>
     <message>
         <source>%1 is not a valid value of type %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1, %2 türünün geçerli bir değeri değildir.</translation>
     </message>
     <message>
         <source>When casting to %1 from %2, the source value cannot be %3.</source>
@@ -4844,11 +4848,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>A comment cannot contain %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Yorum %1 içeremez</translation>
     </message>
     <message>
         <source>A comment cannot end with a %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Yorum %1 ile bitemez.</translation>
     </message>
     <message>
         <source>No comparisons can be done involving the type %1.</source>
@@ -4900,19 +4904,17 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>%1 is an invalid %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 bir geçersiz %2</translation>
     </message>
     <message numerus="yes">
         <source>%1 takes at most %n argument(s). %2 is therefore invalid.</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%1 requires at least %n argument(s). %2 is therefore invalid.</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -4942,7 +4944,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>%1 was called.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 iptal edildi.</translation>
     </message>
     <message>
         <source>%1 must be followed by %2 or %3, not at the end of the replacement string.</source>
@@ -4958,7 +4960,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>%1 matches newline characters</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 satır başı karakterleriyle eşleşiyor</translation>
     </message>
     <message>
         <source>%1 and %2 match the start and end of a line.</source>
@@ -4966,11 +4968,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>Matches are case insensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Eşleşenler büyük küçük harfe duyarlı</translation>
     </message>
     <message>
         <source>Whitespace characters are removed, except when they appear in character classes</source>
-        <translation type="unfinished"></translation>
+        <translation>Boşluk karakterleri kaldırıldı, karakter sınıflarında göründüklerinde hariç</translation>
     </message>
     <message>
         <source>%1 is an invalid regular expression pattern: %2</source>
@@ -4998,7 +5000,7 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>%1 cannot be retrieved</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 geri alınamaz</translation>
     </message>
     <message>
         <source>The normalization form %1 is unsupported. The supported forms are %2, %3, %4, and %5, and none, i.e. the empty string (no normalization).</source>
@@ -5038,11 +5040,11 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>The variable %1 is unused</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 değişkeni kullanılmıyor</translation>
     </message>
     <message>
         <source>Version %1 is not supported. The supported XQuery version is 1.0.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sürüm %1 desteklenmiyor. Desteklenen XQuery sürümü 1.0.</translation>
     </message>
     <message>
         <source>The encoding %1 is invalid. It must contain Latin characters only, must not contain whitespace, and must match the regular expression %2.</source>
@@ -5210,27 +5212,27 @@ Lütfen başka bir dosya adı seçin.</translation>
     </message>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>boş</translation>
     </message>
     <message>
         <source>zero or one</source>
-        <translation type="unfinished"></translation>
+        <translation>sıfır veya bir</translation>
     </message>
     <message>
         <source>exactly one</source>
-        <translation type="unfinished"></translation>
+        <translation>kesinlikle bir</translation>
     </message>
     <message>
         <source>one or more</source>
-        <translation type="unfinished"></translation>
+        <translation>bir veya daha fazlası</translation>
     </message>
     <message>
         <source>zero or more</source>
-        <translation type="unfinished"></translation>
+        <translation>sıfır veya daha fazlası</translation>
     </message>
     <message>
         <source>Required type is %1, but %2 was found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gereken tür %1 ama %2 bulundu.</translation>
     </message>
     <message>
         <source>Promoting %1 to %2 may cause loss of precision.</source>
@@ -5257,66 +5259,66 @@ Lütfen başka bir dosya adı seçin.</translation>
     <name>VolumeSlider</name>
     <message>
         <source>Muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Sessiz</translation>
     </message>
     <message>
         <source>Volume: %1%</source>
-        <translation type="unfinished"></translation>
+        <translation>Ses: %1%</translation>
     </message>
 </context>
 <context>
     <name>WebCore::PlatformScrollbar</name>
     <message>
         <source>Scroll here</source>
-        <translation type="unfinished">Buraya kaydır</translation>
+        <translation>Buraya kaydır</translation>
     </message>
     <message>
         <source>Left edge</source>
-        <translation type="unfinished">Sol gölge</translation>
+        <translation>Sol kenara</translation>
     </message>
     <message>
         <source>Top</source>
-        <translation type="unfinished">En Yukarı</translation>
+        <translation>En Üste</translation>
     </message>
     <message>
         <source>Right edge</source>
-        <translation type="unfinished">Sağ gölge</translation>
+        <translation>Sağ kenera</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished">En Aşağı</translation>
+        <translation>En Alta</translation>
     </message>
     <message>
         <source>Page left</source>
-        <translation type="unfinished">Sayfa sola</translation>
+        <translation>Sayfa sola</translation>
     </message>
     <message>
         <source>Page up</source>
-        <translation type="unfinished">Sayfa yukarı</translation>
+        <translation>Sayfa yukarı</translation>
     </message>
     <message>
         <source>Page right</source>
-        <translation type="unfinished">Sayfa sağa</translation>
+        <translation>Sayfa sağa</translation>
     </message>
     <message>
         <source>Page down</source>
-        <translation type="unfinished">Sayfa aşağı</translation>
+        <translation>Sayfa aşağı</translation>
     </message>
     <message>
         <source>Scroll left</source>
-        <translation type="unfinished">Sola kaydır</translation>
+        <translation>Sola kaydır</translation>
     </message>
     <message>
         <source>Scroll up</source>
-        <translation type="unfinished">Yukarı kaydır</translation>
+        <translation>Yukarı kaydır</translation>
     </message>
     <message>
         <source>Scroll right</source>
-        <translation type="unfinished">Sağa kaydır</translation>
+        <translation>Sağa kaydır</translation>
     </message>
     <message>
         <source>Scroll down</source>
-        <translation type="unfinished">Aşağı kaydır</translation>
+        <translation>Aşağı kaydır</translation>
     </message>
 </context>
 </TS>

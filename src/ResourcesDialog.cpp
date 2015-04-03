@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2011-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ void ResourcesDialog::init()
 
 	setupUi(this);
 	
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if(ConfigurableApp::instance()->getSettingsFormat() == QSettings::NativeFormat)
 		locationOfSettings->setText(tr("Registry (%1)").arg(s.fileName()));
 	else

@@ -124,6 +124,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>بسته‌بندی تازهٔ پاراگراف‌ها</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation>از بسته‌بندی خارج کن</translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
@@ -522,6 +526,10 @@
     <message>
         <source>Clear Recent Files</source>
         <translation>پاک کردن پروندههای واپسین</translation>
+    </message>
+    <message>
+        <source>Error initializing SyncTeX</source>
+        <translation>ایراد در مقداردهی اولیهٔ سینک‌تک</translation>
     </message>
 </context>
 <context>
@@ -928,30 +936,30 @@
     </message>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>رابط</translation>
     </message>
     <message>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>بومی</translation>
     </message>
     <message>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished">کلیدهای نوارابزار:</translation>
+        <translation>کلیدهای نوارابزار:</translation>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>گشودن پی‌دی‌اف متناظر همراه با پروندهٔ تک</translation>
     </message>
     <message>
         <source>Hide console output:</source>
-        <translation type="unfinished">پنهان‌سازی پیشانهٔ خروجی:</translation>
+        <translation>پنهان‌سازی پیشانهٔ خروجی:</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
-        <translation type="unfinished">&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه پس از حروفچینی پنل خروجی را پنهان نکن.&lt;/p&gt;
+        <translation>&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه پس از حروفچینی پنل خروجی را پنهان نکن.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; پس از حروفچینی پیروزمندانه پنل خروجی را پنهان کن: اما تنها زمانی که از پیش پنهان بوده باشد.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;در صورت پیروزمندانه بودن:&lt;/strong&gt;پنل خروجی را پس از حروفچینی پیروزمندانه پنهان کن؛ آزاد از اینکه از پیش چگونه بوده است.&lt;/p&gt;
 </translation>
@@ -1021,11 +1029,11 @@
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished">پرونده‌های لاگ (*.log *.blg)</translation>
+        <translation>پرونده‌های لاگ (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished">پرونده‌های کمکی (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
+        <translation>پرونده‌های کمکی (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>
@@ -1336,7 +1344,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation>&lt;br&gt;ویراست %1 ب.%2 (%3)</translation>
+        <translation type="obsolete">&lt;br&gt;ویراست %1 ب.%2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
@@ -1361,6 +1369,14 @@
     <message>
         <source>Clear Recent Files</source>
         <translation>پاککردن پروندههای واپسین</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
+        <translation>&lt;br&gt;ویرایش %1 (%2) [r.%3, %4]</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2)</source>
+        <translation>&lt;br&gt;ویرایش %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1423,6 +1439,10 @@
     <message>
         <source>About Scripts</source>
         <translation>دربارهٔ سند</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation>خطای اسکریپت</translation>
     </message>
 </context>
 <context>
@@ -2229,11 +2249,11 @@ Do you want to stop it now?</source>
     </message>
     <message>
         <source>Hide Console Output</source>
-        <translation type="unfinished">پنهان‌سازی پیشانهٔ خروجی</translation>
+        <translation>پنهان‌سازی پیشانهٔ خروجی</translation>
     </message>
     <message>
         <source>Layout Problem</source>
-        <translation type="unfinished">پرسش چهارچوب</translation>
+        <translation>خطای چهارچوب</translation>
     </message>
     <message>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
@@ -2242,7 +2262,7 @@ Do you want to stop it now?</source>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished">مشکلی در قالب‌بندی نوشتار هنگام نمایش در ویرایشگر پدید آمد. این مشکل به خاطر ایرادی در چهارچوب زمینهٔ QT پدید آمد و ممکن است در شرایطی باعث درهم شکستن تک‌ورکس شود. دلیل این مشکل خط‌های پنهان یا هم‌پوشان است. برای برطرف کردن مشکل لطفاً یکی از کارهای زیر را انجام دهید:
+        <translation>مشکلی در قالب‌بندی نوشتار هنگام نمایش در ویرایشگر پدید آمد. این مشکل به خاطر ایرادی در چهارچوب زمینهٔ QT پدید آمد و ممکن است در شرایطی باعث درهم شکستن تک‌ورکس شود. دلیل این مشکل خط‌های پنهان یا هم‌پوشان است. برای برطرف کردن مشکل لطفاً یکی از کارهای زیر را انجام دهید:
 -) رنگ‌آمیزی نحوی را پویا و ناپویا کنید
 -)نمایش شمارهٔ خط‌ها را پویا و ناپویا کنید
 -) پنجره را تغییر اندازه دهید
@@ -2251,7 +2271,11 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Show Console Output</source>
-        <translation type="unfinished">نمایش پیشانهٔ خروجی</translation>
+        <translation>نمایش پیشانهٔ خروجی</translation>
+    </message>
+    <message>
+        <source>Write UTF-8 byte order mark</source>
+        <translation>نوشتن نشانهٔ بایت مرتبهٔ UTF-8</translation>
     </message>
 </context>
 <context>

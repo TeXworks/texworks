@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2008-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QScrollBar>
-#include <QDomNode>
 
 TeXDock::TeXDock(const QString& title, TeXDocument *doc)
 	: QDockWidget(title, doc), document(doc), filled(false)

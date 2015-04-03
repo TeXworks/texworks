@@ -27,6 +27,7 @@
   "./show-long-macro.tex",
   "./show-long-macro.aux",
   "./10.tex",
+  "./untitled-1.tex",
   "/usr/local/texlive/2011/texmf-dist/tex/generic/babel/babel.sty",
   "/usr/local/texlive/2011/texmf-dist/tex/generic/babel/italian.ldf",
   "/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii",
@@ -135,5 +136,6 @@
   "/usr/local/texlive/2011/texmf-dist/tex/latex/pgf/utilities/pgffor.sty",
   "/usr/local/texlive/2011/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty",
   "/usr/local/texlive/2011/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty",
-  "/usr/local/texlive/2011/texmf-dist/tex/latex/xcolor/xcolor.sty"
+  "/usr/local/texlive/2011/texmf-dist/tex/latex/xcolor/xcolor.sty",
+  "/usr/local/texlive/2011/texmf-dist/tex/latex/extsizes/extarticle.cls"
 ]

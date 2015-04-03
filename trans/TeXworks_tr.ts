@@ -124,6 +124,10 @@
         <source>Re-wrap paragraphs</source>
         <translation>Paragrafları tekrar sarmala</translation>
     </message>
+    <message>
+        <source>Unwrap</source>
+        <translation>Sarmalama</translation>
+    </message>
 </context>
 <context>
     <name>PDFDocument</name>
@@ -534,6 +538,10 @@
     <message>
         <source>Clear Recent Files</source>
         <translation>Son kullanılanları temizle</translation>
+    </message>
+    <message>
+        <source>Error initializing SyncTeX</source>
+        <translation>SyncTeX başlatılırken hata</translation>
     </message>
 </context>
 <context>
@@ -1342,7 +1350,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation>&lt;br&gt;Versiyon %1 r.%2 (%3)</translation>
+        <translation type="obsolete">&lt;br&gt;Versiyon %1 r.%2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
@@ -1367,6 +1375,14 @@
     <message>
         <source>Clear Recent Files</source>
         <translation>Son kullanılanları temizle</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
+        <translation>&lt;br&gt;Versiyon %1 (%2) [r.%3, %4]</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2)</source>
+        <translation>&lt;br&gt;Versiyon %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1429,6 +1445,10 @@
     <message>
         <source>About Scripts</source>
         <translation>Eklentiler Hakkında</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation>Eklenti hatası</translation>
     </message>
 </context>
 <context>
@@ -2266,6 +2286,10 @@ Rahatsızlık için üzgünüz.</translation>
     <message>
         <source>Show Console Output</source>
         <translation>Konsol Çıktısını Göster</translation>
+    </message>
+    <message>
+        <source>Write UTF-8 byte order mark</source>
+        <translation>UTF-8 BOM yaz</translation>
     </message>
 </context>
 <context>

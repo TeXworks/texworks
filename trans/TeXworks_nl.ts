@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl">
+<TS version="2.1" language="nl">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -123,6 +123,10 @@
     <message>
         <source>Re-wrap paragraphs</source>
         <translation>Herformatteer paragraven</translation>
+    </message>
+    <message>
+        <source>Unwrap</source>
+        <translation>Regelovergangen verwijderen</translation>
     </message>
 </context>
 <context>
@@ -530,6 +534,10 @@
     <message>
         <source>Clear Recent Files</source>
         <translation>Schoon recente bestanden op</translation>
+    </message>
+    <message>
+        <source>Error initializing SyncTeX</source>
+        <translation>Initialiseren van SyncTeX mislukt</translation>
     </message>
 </context>
 <context>
@@ -1334,7 +1342,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation>&lt;br&gt;Versie %1 r.%2 (%3)</translation>
+        <translation type="obsolete">&lt;br&gt;Versie %1 r.%2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
@@ -1364,6 +1372,14 @@
     <message>
         <source>Clear Recent Files</source>
         <translation>Schoon recente bestanden op</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
+        <translation>&lt;br&gt;Versie %1 (%2) [r.%3, %4]</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2)</source>
+        <translation>&lt;br&gt;Versie %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1426,6 +1442,10 @@
     <message>
         <source>About Scripts</source>
         <translation>Over Scripts</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation>Script fout</translation>
     </message>
 </context>
 <context>
@@ -2270,6 +2290,10 @@ Het spijt ons van het ongemak.</translation>
     <message>
         <source>Show Console Output</source>
         <translation>Toon console uitvoer</translation>
+    </message>
+    <message>
+        <source>Write UTF-8 byte order mark</source>
+        <translation>UTF 8 byte order mark wegschrijven</translation>
     </message>
 </context>
 <context>

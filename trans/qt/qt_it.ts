@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>About %1</source>
-        <translation>Informzioni su %1</translation>
+        <translation>Informazioni su %1</translation>
     </message>
 </context>
 <context>
@@ -40,7 +40,7 @@
     </message>
     <message>
         <source>&lt;html&gt;Switching to the audio playback device &lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;which just became available and has higher preference.&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;Commutazione del dispositivo di riproduzione audio &lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;che è diventato disponibile e ha una preferenza maggiore.&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Revert back to device &apos;%1&apos;</source>
@@ -96,17 +96,20 @@
 
 Check your Gstreamer installation and make sure you 
 have libgstreamer-plugins-base installed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile avviare la riproduzione.
+Controlla l&apos;installazione di Gstreamer e assicurati che
+libgstreamer-plugins-base sia installato.</translation>
     </message>
     <message numerus="yes">
         <source>A required codec is missing. You need to install the following codec(s) to play this content: %0</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Manca un codificatore richiesto. Devi installare il seguente codificatore per riprodurre questo contenuto: %0</numerusform>
+            <numerusform>Manca un codificatore richiesto. Devi installare i seguenti codificatori per riprodurre questo contenuto: %0</numerusform>
         </translation>
     </message>
     <message>
         <source>Could not open media source.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile aprire la sorgente multimediale.</translation>
     </message>
     <message>
         <source>Invalid source type.</source>
@@ -114,15 +117,15 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Could not locate media source.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile individuare la sorgente multimediale.</translation>
     </message>
     <message>
         <source>Could not open audio device. The device is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile aprire il dispositivo audio. Il dispositivo è già in uso.</translation>
     </message>
     <message>
         <source>Could not decode media source.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile decodificare la sorgente multimediale.</translation>
     </message>
 </context>
 <context>
@@ -250,7 +253,7 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Preview File Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni anteprima file</translation>
     </message>
     <message>
         <source>Preview File Contents</source>
@@ -282,7 +285,7 @@ have libgstreamer-plugins-base installed.</source>
     </message>
     <message>
         <source>Symlink to Special</source>
-        <translation type="unfinished"></translation>
+        <translation>Collegamento simbolico a speciale</translation>
     </message>
     <message>
         <source>File</source>
@@ -460,7 +463,7 @@ in
     <name>Q3MainWindow</name>
     <message>
         <source>Line up</source>
-        <translation type="unfinished"></translation>
+        <translation>Allinea in alto</translation>
     </message>
     <message>
         <source>Customize...</source>
@@ -567,26 +570,26 @@ in
     </message>
     <message>
         <source>Puts a minimized back to normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Riporta una finestra minimizzata alla normalità</translation>
     </message>
     <message>
         <source>Moves the window out of the way</source>
-        <translation type="unfinished"></translation>
+        <translation>Sposta altrove una finestra</translation>
     </message>
     <message>
         <source>Puts a maximized window back to normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Riporta una finestra massimizzata alla normalità</translation>
     </message>
     <message>
         <source>Makes the window full screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Rende la finestra a schermo intero</translation>
     </message>
     <message>
         <source>Closes the window</source>
         <translation>Chiude la finestra</translation>
     </message>
     <message>
-        <source>Displays the name of the window and contains controls to manipulate it</source>
+        <source>Holds the name of the window and contains controls to manipulate it</source>
         <translation>Visualizza il nome della finestra e contiene i controlli per manipolarla</translation>
     </message>
 </context>
@@ -682,11 +685,11 @@ in
     <name>QAbstractSpinBox</name>
     <message>
         <source>&amp;Step up</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;umenta</translation>
     </message>
     <message>
         <source>Step &amp;down</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Diminuisci</translation>
     </message>
     <message>
         <source>&amp;Select All</source>
@@ -868,7 +871,7 @@ in
     </message>
     <message>
         <source>Unable to prepare statement</source>
-        <translation>Impossible preparare l&apos;istruzione</translation>
+        <translation>Impossibile preparare l&apos;istruzione</translation>
     </message>
     <message>
         <source>Unable to bind variable</source>
@@ -1180,7 +1183,7 @@ Verifica che sia stato fornito il nome corretto della cartella.</translation>
     <message>
         <source>&apos;%1&apos; is write protected.
 Do you want to delete it anyway?</source>
-        <translation>«%1» è protetto da scrittua.
+        <translation>«%1» è protetto da scrittura.
 Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
@@ -1325,7 +1328,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation>Nero</translation>
     </message>
     <message>
         <source>Demi</source>
@@ -1333,7 +1336,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Leggero</translation>
     </message>
     <message>
         <source>Italic</source>
@@ -1508,7 +1511,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Wr&amp;iting System</source>
-        <translation>S&amp;istema di scrittua</translation>
+        <translation>S&amp;istema di scrittura</translation>
     </message>
     <message>
         <source>Select Font</source>
@@ -1678,7 +1681,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Invalid HTTP chunked body</source>
-        <translation>ContenutoHTTP  spezzettato non valido</translation>
+        <translation>Contenuto HTTP spezzettato non valido</translation>
     </message>
     <message>
         <source>Host %1 found</source>
@@ -1795,7 +1798,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Could not get query info</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile ottenere informazioni sulla query</translation>
     </message>
     <message>
         <source>Could not start transaction</source>
@@ -1803,11 +1806,11 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile applicare la transazione</translation>
     </message>
     <message>
         <source>Could not allocate statement</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile allocare l&apos;istruzione</translation>
     </message>
     <message>
         <source>Could not prepare statement</source>
@@ -1815,7 +1818,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Could not describe input statement</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile descrivere l&apos;istruzione in ingresso</translation>
     </message>
     <message>
         <source>Could not describe statement</source>
@@ -1835,7 +1838,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Could not get statement info</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile ottenere informazioni sull&apos;istruzione</translation>
     </message>
 </context>
 <context>
@@ -1896,7 +1899,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Could not mmap &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>mmap di &apos;%1&apos; non possibile: %2</translation>
     </message>
     <message>
         <source>Plugin verification data mismatch in &apos;%1&apos;</source>
@@ -1904,7 +1907,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Could not unmap &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>unmap di &apos;%1&apos; non possibile: %2</translation>
     </message>
     <message>
         <source>The plugin &apos;%1&apos; uses incompatible Qt library. (%2.%3.%4) [%5]</source>
@@ -2001,11 +2004,11 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>%1: Socket resource error</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: errore risorsa socket</translation>
     </message>
     <message>
         <source>%1: Socket operation timed out</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: operazione socket scaduta</translation>
     </message>
     <message>
         <source>%1: Datagram too large</source>
@@ -2079,11 +2082,11 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Unable to bind outvalues</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile associare i valori di uscita</translation>
     </message>
     <message>
         <source>Unable to store statement results</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile memorizzare i risultati dell&apos;istruzione</translation>
     </message>
     <message>
         <source>Unable to execute next query</source>
@@ -2113,11 +2116,11 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Minimize</source>
-        <translation>Minizza</translation>
+        <translation>Minimizza</translation>
     </message>
     <message>
         <source>Restore Down</source>
-        <translation type="unfinished">Ripristina in basso</translation>
+        <translation>Ripristina in basso</translation>
     </message>
     <message>
         <source>&amp;Restore</source>
@@ -2157,11 +2160,11 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Unshade</source>
-        <translation type="unfinished"></translation>
+        <translation>Srotola</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrotola</translation>
     </message>
     <message>
         <source>Restore</source>
@@ -2223,7 +2226,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is a Nokia product. See &lt;a href=&quot;http://www.trolltech.com/qt/&quot;&gt;www.trolltech.com/qt/&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Informazioni su Qt&lt;/h3&gt;%1&lt;p&gt;Qt è un toolkit C++ per lo sviluppo multipiattaforma di applicazioni.&lt;/p&gt;&lt;p&gt;Qt fornisce la portabilità degli stessi sorgenti tra MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux e tutte le varianti commerciali di Unix. Qt è disponibile anche per dispositivi integrati come Qt per Linux Embedded e Qt per Windows CE.&lt;/p&gt;&lt;p&gt;Qt è un prodotto Nokia. Vedi &lt;a href=&quot;http://www.trolltech.com/qt/&quot;&gt;www.trolltech.com/qt/&lt;/a&gt; per ulteriori informazioni.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2237,11 +2240,11 @@ Vuoi eliminarlo comunque?</translation>
     <name>QMultiInputContextPlugin</name>
     <message>
         <source>Multiple input method switcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Commutatore di metodi di inserimento</translation>
     </message>
     <message>
         <source>Multiple input method switcher that uses the context menu of the text widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Commutatore di metodi di inserimento multipli che utilizza il menu contestuale per gli oggetti testuali</translation>
     </message>
 </context>
 <context>
@@ -2320,15 +2323,15 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Unable to initialize non-blocking socket</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile inizializzare il socket asincrono</translation>
     </message>
     <message>
         <source>Unable to initialize broadcast socket</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile inizializzare il socket di trasmissione</translation>
     </message>
     <message>
         <source>Attempt to use IPv6 socket on a platform with no IPv6 support</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentativo di utilizzare un socket IPv6 su una piattaforma che non supporta IPv6</translation>
     </message>
     <message>
         <source>Host unreachable</source>
@@ -2340,7 +2343,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Operation on non-socket</source>
-        <translation type="unfinished"></translation>
+        <translation>Operazione su non-socket</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -2348,7 +2351,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>The proxy type is invalid for this operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Il tipo di proxy non è valido per questa operazione</translation>
     </message>
 </context>
 <context>
@@ -2382,7 +2385,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Logging in to %1 failed: authentication required</source>
-        <translation type="unfinished"></translation>
+        <translation>Accesso a %1 non riuscito: autenticazione richiesta</translation>
     </message>
     <message>
         <source>Error while downloading %1: %2</source>
@@ -2428,11 +2431,11 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile effettuare il commit della transazione</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
-        <translation type="unfinished">Impossibile effettuare il rollback della transazione</translation>
+        <translation>Impossibile effettuare il rollback della transazione</translation>
     </message>
 </context>
 <context>
@@ -2455,7 +2458,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Unable to prepare statement</source>
-        <translation>Impossible preparare l&apos;istruzione</translation>
+        <translation>Impossibile preparare l&apos;istruzione</translation>
     </message>
     <message>
         <source>Unable to bind value</source>
@@ -2525,7 +2528,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Unable to fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile recuperare</translation>
     </message>
     <message>
         <source>Unable to fetch first</source>
@@ -2556,15 +2559,15 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Socket error on %1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore socket su %1: %2</translation>
     </message>
     <message>
         <source>Remote host closed the connection prematurely on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;host remoto ha terminato prematuramente la connessione su %1</translation>
     </message>
     <message>
         <source>Protocol error: packet of size 0 received</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore di protocollo: ricevuto un pacchetto di dimensione 0</translation>
     </message>
 </context>
 <context>
@@ -2590,7 +2593,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Could not commit transaction</source>
-        <translation>Impossibile appliare l&apos;istruzione</translation>
+        <translation>Impossibile effettuare il commit dell&apos;istruzione</translation>
     </message>
     <message>
         <source>Could not rollback transaction</source>
@@ -2598,11 +2601,11 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Unable to subscribe</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile registrarsi</translation>
     </message>
     <message>
         <source>Unable to unsubscribe</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile cancellarsi</translation>
     </message>
 </context>
 <context>
@@ -2613,7 +2616,7 @@ Vuoi eliminarlo comunque?</translation>
     </message>
     <message>
         <source>Unable to prepare statement</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile preparare l&apos;istruzione</translation>
     </message>
 </context>
 <context>
@@ -2840,19 +2843,19 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Letter</source>
@@ -2860,11 +2863,11 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>US Common #10 Envelope</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Custom</source>
@@ -3136,19 +3139,19 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>disabled feature used</source>
-        <translation type="unfinished"></translation>
+        <translation>utilizzata una funzionalità disabilitata</translation>
     </message>
     <message>
         <source>bad char class syntax</source>
-        <translation type="unfinished"></translation>
+        <translation>sintassi della classe di caratteri errata</translation>
     </message>
     <message>
         <source>bad lookahead syntax</source>
-        <translation type="unfinished"></translation>
+        <translation>sintassi di lookahead non valida</translation>
     </message>
     <message>
         <source>bad repetition syntax</source>
-        <translation type="unfinished"></translation>
+        <translation>sintassi di ripetizione non valida</translation>
     </message>
     <message>
         <source>invalid octal value</source>
@@ -3164,7 +3167,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>met internal limit</source>
-        <translation type="unfinished"></translation>
+        <translation>raggiunto limite interno</translation>
     </message>
 </context>
 <context>
@@ -3175,7 +3178,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Unable to begin transaction</source>
-        <translation>Impossibile inizare la transazione</translation>
+        <translation>Impossibile iniziare la transazione</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
@@ -3217,7 +3220,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
-        <translation type="unfinished">Impossibile effettuare il rollback della transazione</translation>
+        <translation>Impossibile effettuare il rollback della transazione</translation>
     </message>
 </context>
 <context>
@@ -3303,7 +3306,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Line up</source>
-        <translation type="unfinished"></translation>
+        <translation>Allinea in alto</translation>
     </message>
     <message>
         <source>Position</source>
@@ -3311,7 +3314,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Line down</source>
-        <translation type="unfinished"></translation>
+        <translation>Allinea in basso</translation>
     </message>
 </context>
 <context>
@@ -3322,39 +3325,39 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>%1: create size is less then 0</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: la dimensione di creazione è minore di 0</translation>
     </message>
     <message>
         <source>%1: unable to lock</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: impossibile bloccare</translation>
     </message>
     <message>
         <source>%1: unable to unlock</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: impossibile sbloccare</translation>
     </message>
     <message>
         <source>%1: permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: permesso negato</translation>
     </message>
     <message>
         <source>%1: already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: esiste già</translation>
     </message>
     <message>
         <source>%1: doesn&apos;t exists</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: non esiste</translation>
     </message>
     <message>
         <source>%1: out of resources</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: risorse insufficienti</translation>
     </message>
     <message>
         <source>%1: unknown error %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: errore sconosciuto %2</translation>
     </message>
     <message>
         <source>%1: key is empty</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: la chiave è vuota</translation>
     </message>
     <message>
         <source>%1: unix key file doesn&apos;t exists</source>
@@ -3362,7 +3365,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>%1: ftok failed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: ftok non riuscito</translation>
     </message>
     <message>
         <source>%1: unable to make key</source>
@@ -3370,11 +3373,11 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>%1: system-imposed size restrictions</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: restrizione delle dimensioni imposte dal sistema</translation>
     </message>
     <message>
         <source>%1: not attached</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: non collegato</translation>
     </message>
 </context>
 <context>
@@ -3429,7 +3432,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Home</source>
-        <translation type="unfinished">Home</translation>
+        <translation>Home</translation>
     </message>
     <message>
         <source>End</source>
@@ -3573,67 +3576,67 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Launch (0)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (0)</translation>
     </message>
     <message>
         <source>Launch (1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (1)</translation>
     </message>
     <message>
         <source>Launch (2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (2)</translation>
     </message>
     <message>
         <source>Launch (3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (3)</translation>
     </message>
     <message>
         <source>Launch (4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (4)</translation>
     </message>
     <message>
         <source>Launch (5)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (5)</translation>
     </message>
     <message>
         <source>Launch (6)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (6)</translation>
     </message>
     <message>
         <source>Launch (7)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (7)</translation>
     </message>
     <message>
         <source>Launch (8)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (8)</translation>
     </message>
     <message>
         <source>Launch (9)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (9)</translation>
     </message>
     <message>
         <source>Launch (A)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (A)</translation>
     </message>
     <message>
         <source>Launch (B)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (B)</translation>
     </message>
     <message>
         <source>Launch (C)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (C)</translation>
     </message>
     <message>
         <source>Launch (D)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (D)</translation>
     </message>
     <message>
         <source>Launch (E)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (E)</translation>
     </message>
     <message>
         <source>Launch (F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia (F)</translation>
     </message>
     <message>
         <source>Print Screen</source>
@@ -3657,7 +3660,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Number Lock</source>
-        <translation type="unfinished">Blocco tast numerico</translation>
+        <translation>Blocco tast numerico</translation>
     </message>
     <message>
         <source>Scroll Lock</source>
@@ -3717,7 +3720,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Flip</source>
-        <translation type="unfinished"></translation>
+        <translation>Ribalta</translation>
     </message>
     <message>
         <source>Ctrl</source>
@@ -4031,7 +4034,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Insert Unicode control character</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserisci carattere di controllo unicode</translation>
     </message>
 </context>
 <context>
@@ -4042,7 +4045,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Request blocked</source>
-        <translation>Richiest bloccata</translation>
+        <translation>Richiesta bloccata</translation>
     </message>
     <message>
         <source>Cannot show URL</source>
@@ -4050,7 +4053,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Frame load interruped by policy change</source>
-        <translation type="unfinished">Caricamento frame interrotto da un cambiamento di regole</translation>
+        <translation>Caricamento frame interrotto da un cambiamento di regole</translation>
     </message>
     <message>
         <source>Cannot show mimetype</source>
@@ -4210,12 +4213,12 @@ Scegli un nome diverso.</translation>
     <message>
         <source>Show Spelling and Grammar</source>
         <comment>menu item title</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mostra ortografia e grammatica</translation>
     </message>
     <message>
         <source>Hide Spelling and Grammar</source>
         <comment>menu item title</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi ortografia e grammatica</translation>
     </message>
     <message>
         <source>Check Spelling</source>
@@ -4230,7 +4233,7 @@ Scegli un nome diverso.</translation>
     <message>
         <source>Check Grammar With Spelling</source>
         <comment>Check grammar with spelling context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Controlla grammatica durante il controllo ortografico</translation>
     </message>
     <message>
         <source>Fonts</source>
@@ -4255,7 +4258,7 @@ Scegli un nome diverso.</translation>
     <message>
         <source>Outline</source>
         <comment>Outline context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bordatura</translation>
     </message>
     <message>
         <source>Direction</source>
@@ -4270,17 +4273,17 @@ Scegli un nome diverso.</translation>
     <message>
         <source>LTR</source>
         <comment>Left to Right context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Da sinistra a destra</translation>
     </message>
     <message>
         <source>RTL</source>
         <comment>Right to Left context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Da destra a sinistra</translation>
     </message>
     <message>
         <source>Inspect</source>
         <comment>Inspect Element context menu item</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ispeziona</translation>
     </message>
     <message>
         <source>No recent searches</source>
@@ -4575,7 +4578,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Standalone accepts only yes or no.</source>
-        <translation type="unfinished"></translation>
+        <translation>Standalone accetta solo yes o no.</translation>
     </message>
     <message>
         <source>Invalid attribute in XML declaration.</source>
@@ -4639,7 +4642,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Opening and ending tag mismatch.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mancata corrispondenza tra tag di apertura e chiusura.</translation>
     </message>
     <message>
         <source>Reference to unparsed entity &apos;%1&apos;.</source>
@@ -4674,11 +4677,11 @@ Scegli un nome diverso.</translation>
     <name>QtXmlPatterns</name>
     <message>
         <source>An %1-attribute with value %2 has already been declared.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un attributo %1 con valore %2 è già stato dichiarato.</translation>
     </message>
     <message>
         <source>An %1-attribute must have a valid %2 as value, which %3 isn&apos;t.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un valore %1 deve avere un %2 valido come valore, che %3 non rappresenta.</translation>
     </message>
     <message>
         <source>Network timeout.</source>
@@ -4694,15 +4697,15 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Year %1 is invalid because it begins with %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;anno %1 non è valido poiché inizia con %2.</translation>
     </message>
     <message>
         <source>Day %1 is outside the range %2..%3.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il giorno %1 è fuori dall&apos;intervallo %2..%3.</translation>
     </message>
     <message>
         <source>Month %1 is outside the range %2..%3.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il mese %1 è fuori dall&apos;intervallo %2..%3.</translation>
     </message>
     <message>
         <source>Overflow: Can&apos;t represent date %1.</source>
@@ -4710,7 +4713,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Day %1 is invalid for month %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il giorno %1 non è valido per il mese %2.</translation>
     </message>
     <message>
         <source>Time 24:%1:%2.%3 is invalid. Hour is 24, but minutes, seconds, and milliseconds are not all 0; </source>
@@ -4718,7 +4721,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Time %1:%2:%3.%4 is invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;ora %1:%2:%3.%4 non è valida.</translation>
     </message>
     <message>
         <source>Overflow: Date can&apos;t be represented.</source>
@@ -4726,7 +4729,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>At least one component must be present.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deve essere presente almeno un componente.</translation>
     </message>
     <message>
         <source>At least one time component must appear after the %1-delimiter.</source>
@@ -4738,15 +4741,15 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>The first operand in an integer division, %1, cannot be infinity (%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Il primo operando in una divisione intera, %1, non può essere infinito (%2).</translation>
     </message>
     <message>
         <source>The second operand in a division, %1, cannot be zero (%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Il secondo operando in una divisione, %1, non può essere zero (%2).</translation>
     </message>
     <message>
         <source>%1 is not a valid value of type %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 non è un valore valido di tipo %2.</translation>
     </message>
     <message>
         <source>When casting to %1 from %2, the source value cannot be %3.</source>
@@ -4754,11 +4757,11 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Integer division (%1) by zero (%2) is undefined.</source>
-        <translation type="unfinished"></translation>
+        <translation>La divisione intera (%1) per zero (%2) non è definita.</translation>
     </message>
     <message>
         <source>Division (%1) by zero (%2) is undefined.</source>
-        <translation type="unfinished"></translation>
+        <translation>La divisione (%1) per zero (%2) non è definita.</translation>
     </message>
     <message>
         <source>Modulus division (%1) by zero (%2) is undefined.</source>
@@ -4830,7 +4833,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>It is not possible to cast from %1 to %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile eseguire il cast da %1 a %2.</translation>
     </message>
     <message>
         <source>Casting to %1 is not possible because it is an abstract type, and can therefore never be instantiated.</source>
@@ -4838,11 +4841,11 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>It&apos;s not possible to cast the value %1 of type %2 to %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile effettuare il cast di un valore %1 del tipo %2 in %3</translation>
     </message>
     <message>
         <source>Failure when casting from %1 to %2: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Problema durante il cast di %1 in %2: %3</translation>
     </message>
     <message>
         <source>A comment cannot contain %1</source>
@@ -4850,15 +4853,15 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>A comment cannot end with a %1.</source>
-        <translation>Un commentio non può terminare con un %1.</translation>
+        <translation>Un commento non può terminare con un %1.</translation>
     </message>
     <message>
         <source>No comparisons can be done involving the type %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Non è possibile alcuna comparazione che includa il tipo %1.</translation>
     </message>
     <message>
         <source>Operator %1 is not available between atomic values of type %2 and %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;operatore %1 non è disponibile tra i valori atomici di tipo %2 e %3.</translation>
     </message>
     <message>
         <source>An attribute node cannot be a child of a document node. Therefore, the attribute %1 is out of place.</source>
@@ -4930,11 +4933,11 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>%1 is not a valid XML 1.0 character.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 non è un carattere XML 1.0 valido.</translation>
     </message>
     <message>
         <source>The first argument to %1 cannot be of type %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il primo argomento di %1 non può essere di tipo %2.</translation>
     </message>
     <message>
         <source>If both values have zone offsets, they must have the same zone offset. %1 and %2 are not the same.</source>
@@ -4942,7 +4945,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>%1 was called.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 è stato invocato.</translation>
     </message>
     <message>
         <source>%1 must be followed by %2 or %3, not at the end of the replacement string.</source>
@@ -4958,7 +4961,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>%1 matches newline characters</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 verifica i caratteri di fine riga</translation>
     </message>
     <message>
         <source>%1 and %2 match the start and end of a line.</source>
@@ -4966,7 +4969,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Matches are case insensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Le corrispondenze non tengono conto delle maiuscole</translation>
     </message>
     <message>
         <source>Whitespace characters are removed, except when they appear in character classes</source>
@@ -4986,7 +4989,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>It will not be possible to retrieve %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Non sarà possibile recuperare %1.</translation>
     </message>
     <message>
         <source>The root node of the second argument to function %1 must be a document node. %2 is not a document node.</source>
@@ -5018,11 +5021,11 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>The item %1 did not match the required type %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;elemento %1 non corrisponde al tipo %2 richiesto.</translation>
     </message>
     <message>
         <source>%1 is an unknown schema type.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 è un tipo di schema sconosciuto.</translation>
     </message>
     <message>
         <source>Only one %1 declaration can occur in the query prolog.</source>
@@ -5042,7 +5045,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Version %1 is not supported. The supported XQuery version is 1.0.</source>
-        <translation type="unfinished"></translation>
+        <translation>La versione %1 non è supportata. La versione di XQuery supportata è la 1.0.</translation>
     </message>
     <message>
         <source>The encoding %1 is invalid. It must contain Latin characters only, must not contain whitespace, and must match the regular expression %2.</source>
@@ -5122,7 +5125,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>An argument by name %1 has already been declared. Every argument name must be unique.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un argomento con nome %1 è già stato dichiarato. Ogni nome di argomento deve essere unico.</translation>
     </message>
     <message>
         <source>The name of a variable bound in a for-expression must be different from the positional variable. Hence, the two variables named %1 collide.</source>
@@ -5154,11 +5157,11 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>%1 is an invalid namespace URI.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 è un URI di spazio dei nomi non valido.</translation>
     </message>
     <message>
         <source>It is not possible to bind to the prefix %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile associare al prefisso %1</translation>
     </message>
     <message>
         <source>Namespace %1 can only be bound to %2 (and it is, in either case, pre-declared).</source>
@@ -5186,7 +5189,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>The name %1 does not refer to any schema type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il nome %1 non si riferisce a nessun tipo di schema.</translation>
     </message>
     <message>
         <source>%1 is an complex type. Casting to complex types is not possible. However, casting to atomic types such as %2 works.</source>
@@ -5206,7 +5209,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>The name of an extension expression must be in a namespace.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il nome di un&apos;espressione di estensione deve essere in uno spazio dei nomi.</translation>
     </message>
     <message>
         <source>empty</source>
@@ -5230,7 +5233,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>Required type is %1, but %2 was found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il tipo richiesto è «%1», ma è stato trovato %2.</translation>
     </message>
     <message>
         <source>Promoting %1 to %2 may cause loss of precision.</source>
@@ -5246,7 +5249,7 @@ Scegli un nome diverso.</translation>
     </message>
     <message>
         <source>An attribute by name %1 has already been created.</source>
-        <translation type="unfinished"></translation>
+        <translation>Un attributo con nome %1 è già stato creato.</translation>
     </message>
     <message>
         <source>Only the Unicode Codepoint Collation is supported(%1). %2 is unsupported.</source>

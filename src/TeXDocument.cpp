@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@
 #include <QTextBrowser>
 #include <QAbstractTextDocumentLayout>
 
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 #include <windows.h>
 #endif
 
@@ -103,14 +103,14 @@ void TeXDocument::init()
 	highlighter = NULL;
 	pHunspell = NULL;
 	utf8BOM = false;
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	lineEndings = kLineEnd_CRLF;
 #else
 	lineEndings = kLineEnd_LF;
 #endif
 	
 	setupUi(this);
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	TWApp::instance()->createMessageTarget(this);
 #endif
 
@@ -151,7 +151,7 @@ void TeXDocument::init()
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
 	engine->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-#if defined(Q_WS_MAC) && (QT_VERSION >= 0x040600)
+#if (defined(Q_WS_MAC) || defined(Q_OS_MAC)) && (QT_VERSION >= 0x040600)
 	engine->setStyleSheet("padding:4px;");
 	engine->setMinimumWidth(150);
 #endif
@@ -213,8 +213,8 @@ void TeXDocument::init()
 	connect(textEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
-	connect(textEdit, SIGNAL(syncClick(int)), this, SLOT(syncClick(int)));
-	connect(this, SIGNAL(syncFromSource(const QString&, int, bool)), qApp, SIGNAL(syncPdf(const QString&, int, bool)));
+	connect(textEdit, SIGNAL(syncClick(int, int)), this, SLOT(syncClick(int, int)));
+	connect(this, SIGNAL(syncFromSource(const QString&, int, int, bool)), qApp, SIGNAL(syncPdf(const QString&, int, int, bool)));
 
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(clipboardChanged()));
 	clipboardChanged();
@@ -243,7 +243,7 @@ void TeXDocument::init()
 
 	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(editMenuAboutToShow()));
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	textEdit->installEventFilter(CmdKeyFilter::filter());
 #endif
 
@@ -274,9 +274,6 @@ void TeXDocument::init()
 	actionLine_Numbers->setChecked(b);
 	setLineNumbers(b);
 	
-	highlighter = new TeXHighlighter(textEdit->document(), this);
-	connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
-
 	QStringList options = TeXHighlighter::syntaxOptions();
 
 	QSignalMapper *syntaxMapper = new QSignalMapper(this);
@@ -374,7 +371,6 @@ void TeXDocument::init()
 	group->addAction(actionNone);
 
 	reloadSpellcheckerMenu();
-	setSpellcheckLanguage(settings.value("language").toString());
 	connect(TWApp::instance(), SIGNAL(dictionaryListChanged()), this, SLOT(reloadSpellcheckerMenu()));
 
 	menuShow->addAction(toolBar_run->toggleViewAction());
@@ -402,6 +398,7 @@ void TeXDocument::init()
 
 	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);
+	QTimer::singleShot(1000, this, SLOT(delayedInit()));
 }
 
 void TeXDocument::changeEvent(QEvent *event)
@@ -443,7 +440,8 @@ void TeXDocument::setLangInternal(const QString& lang)
 	else
 		spellingCodec = NULL;
 	textEdit->setSpellChecker(pHunspell, spellingCodec);
-	highlighter->setSpellChecker(pHunspell, spellingCodec);
+	if (highlighter)
+		highlighter->setSpellChecker(pHunspell, spellingCodec);
 }
 
 void TeXDocument::setSpellcheckLanguage(const QString& lang)
@@ -588,12 +586,12 @@ void TeXDocument::makeUntitled()
 void TeXDocument::open()
 {
 	QFileDialog::Options options = 0;
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 		/* use a sheet if we're calling Open from an empty, untitled, untouched window; otherwise use a separate dialog */
 	if (!(isUntitled && textEdit->document()->isEmpty() && !isWindowModified()))
 		options = QFileDialog::DontUseSheet;
 #endif
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QSETTINGS_OBJECT(settings);
@@ -725,12 +723,12 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 						action->setIcon(icon);
 					}
 					QPoint pos(QCursor::pos().x() - 20, frameGeometry().y());
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 					extern void qt_mac_set_menubar_icons(bool);
 					qt_mac_set_menubar_icons(true);
 #endif
 					menu.exec(pos);
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 					qt_mac_set_menubar_icons(false);
 #endif
 				}
@@ -785,7 +783,7 @@ bool TeXDocument::saveAll()
 bool TeXDocument::saveAs()
 {
 	QFileDialog::Options	options = 0;
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QString selectedFilter = TWUtils::chooseDefaultFilter(curFile, *(TWUtils::filterList()));;
@@ -926,7 +924,7 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 	if (pos > -1) {
 		hasMetadata = true;
 		reqName = re.cap(1).trimmed();
-		reqCodec = QTextCodec::codecForName(reqName.toAscii());
+		reqCodec = QTextCodec::codecForName(reqName.toLatin1());
 		if (reqCodec == NULL) {
 			static QHash<QString,QString> *synonyms = NULL;
 			if (synonyms == NULL) {
@@ -935,7 +933,7 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 					synonyms->insert(QString(texshopSynonyms[i]).toLower(), texshopSynonyms[i+1]);
 			}
 			if (synonyms->contains(reqName.toLower()))
-				reqCodec = QTextCodec::codecForName(synonyms->value(reqName.toLower()).toAscii());
+				reqCodec = QTextCodec::codecForName(synonyms->value(reqName.toLower()).toLatin1());
 		}
 	}
 	else
@@ -955,7 +953,7 @@ QString TeXDocument::readFile(const QString &fileName,
 {
 	if (lineEndings != NULL) {
 		// initialize to default for the platform
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 		*lineEndings = kLineEnd_CRLF;
 #else
 		*lineEndings = kLineEnd_LF;
@@ -990,7 +988,7 @@ QString TeXDocument::readFile(const QString &fileName,
 						   "It will be interpreted as %3 instead, which may result in incorrect text.")
 							.arg(reqName)
 							.arg(fileName)
-							.arg(QString::fromAscii((*codecUsed)->name())),
+							.arg(QString::fromLatin1((*codecUsed)->name())),
 						QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
 					return QString();
 			}
@@ -1032,7 +1030,7 @@ QString TeXDocument::readFile(const QString &fileName,
 	}
 }
 
-void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBackground, QTextCodec * forceCodec)
+void TeXDocument::loadFile(const QString &fileName, bool asTemplate /* = false */, bool inBackground /* = false */, bool reload /* = false */, QTextCodec * forceCodec /* = NULL */)
 {
 	QString fileContents = readFile(fileName, &codec, &lineEndings, forceCodec);
 	showLineEndingSetting();
@@ -1054,7 +1052,8 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	// - this ensures it is shown before the PDF (if opening a new doc)
 	// - this avoids problems during layouting (which can be broken if the
 	//   geometry, highlighting, ... is changed before the window is shown)
-	show();
+	if (!reload)
+		show();
 	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
 	{
@@ -1099,10 +1098,22 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	else {
 		QSETTINGS_OBJECT(settings);
 		setCurrentFile(fileName);
-		if (!inBackground && settings.value("openPDFwithTeX", kDefault_OpenPDFwithTeX).toBool()) {
-			openPdfIfAvailable(false);
-			// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
-			// automatically.
+		if (!reload) {
+			QSETTINGS_OBJECT(settings);
+			if (!inBackground && settings.value("openPDFwithTeX", kDefault_OpenPDFwithTeX).toBool()) {
+				openPdfIfAvailable(false);
+				// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
+				// automatically.
+			}
+			else {
+				QString previewFileName;
+				actionGo_to_Preview->setEnabled(getPreviewFileName(previewFileName));
+			}
+			// set openDialogDir after openPdfIfAvailable as we want the .tex file's
+			// path to end up in that variable (which might be touched/changed when
+			// loading the pdf
+			QFileInfo info(fileName);
+			settings.setValue("openDialogDir", info.canonicalPath());
 		}
 		else {
 			QString previewFileName;
@@ -1120,55 +1131,85 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate, bool inBack
 	}
 	maybeEnableSaveAndRevert(false);
 
-	bool autoPlace = true;
-	QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
-	if (properties.contains("geometry")) {
-		restoreGeometry(properties.value("geometry").toByteArray());
-		autoPlace = false;
-	}
-	if (properties.contains("state"))
-		restoreState(properties.value("state").toByteArray(), kTeXWindowStateVersion);
-
-	if (properties.contains("selStart")) {
-		QTextCursor c(textEdit->document());
-		c.setPosition(properties.value("selStart").toInt());
-		c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, properties.value("selLength", 0).toInt());
-		textEdit->setTextCursor(c);
-	}
-
-	if (properties.contains("quotesMode"))
-		setSmartQuotesMode(properties.value("quotesMode").toString());
-	if (properties.contains("indentMode"))
-		setAutoIndentMode(properties.value("indentMode").toString());
-	if (properties.contains("syntaxMode"))
-		setSyntaxColoringMode(properties.value("syntaxMode").toString());
-	if (properties.contains("wrapLines"))
-		setWrapLines(properties.value("wrapLines").toBool());
-	if (properties.contains("lineNumbers"))
-		setLineNumbers(properties.value("lineNumbers").toBool());
-	
-	if (pdfDoc) {
-		if (properties.contains("pdfgeometry")) {
-			pdfDoc->restoreGeometry(properties.value("pdfgeometry").toByteArray());
+	if (!reload) {
+		bool autoPlace = true;
+		QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+		if (properties.contains("geometry")) {
+			restoreGeometry(properties.value("geometry").toByteArray());
 			autoPlace = false;
 		}
-		if (properties.contains("pdfstate"))
-			pdfDoc->restoreState(properties.value("pdfstate").toByteArray(), kPDFWindowStateVersion);
-	}
+		if (properties.contains("state"))
+			restoreState(properties.value("state").toByteArray(), kTeXWindowStateVersion);
 
-	if (autoPlace)
-		sideBySide();
+		if (properties.contains("selStart")) {
+			QTextCursor c(textEdit->document());
+			c.setPosition(properties.value("selStart").toInt());
+			c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, properties.value("selLength", 0).toInt());
+			textEdit->setTextCursor(c);
+		}
+
+		if (properties.contains("quotesMode"))
+			setSmartQuotesMode(properties.value("quotesMode").toString());
+		if (properties.contains("indentMode"))
+			setAutoIndentMode(properties.value("indentMode").toString());
+		if (properties.contains("syntaxMode"))
+			setSyntaxColoringMode(properties.value("syntaxMode").toString());
+		if (properties.contains("wrapLines"))
+			setWrapLines(properties.value("wrapLines").toBool());
+		if (properties.contains("lineNumbers"))
+			setLineNumbers(properties.value("lineNumbers").toBool());
+	
+		if (pdfDoc) {
+			if (properties.contains("pdfgeometry")) {
+				pdfDoc->restoreGeometry(properties.value("pdfgeometry").toByteArray());
+				autoPlace = false;
+			}
+			if (properties.contains("pdfstate"))
+				pdfDoc->restoreState(properties.value("pdfstate").toByteArray(), kPDFWindowStateVersion);
+		}
+
+		if (autoPlace)
+			sideBySide();
+
+		if (pdfDoc)
+			pdfDoc->show();
+
+		selectWindow();
+		saveRecentFileInfo();
+	}
 	
 	editor()->updateLineNumberAreaWidth(0);
-
-	if (pdfDoc)
-		pdfDoc->show();
-
-	selectWindow();
-
-	saveRecentFileInfo();
 	
 	runHooks("LoadFile");
+}
+
+void TeXDocument::delayedInit()
+{
+	if (!highlighter) {
+		QSETTINGS_OBJECT(settings);
+
+		highlighter = new TeXHighlighter(textEdit->document(), this);
+		connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
+
+		// set up syntax highlighting
+		QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+		if (properties.contains("syntaxMode"))
+			setSyntaxColoringMode(properties.value("syntaxMode").toString());
+		else {
+			// FIXME: This does not respect kDefault_SyntaxColoring defined in
+			// DefaultPrefs.h. ATM, that is irrelevant because kDefault_SyntaxColoring = 0
+			// corresponds to None (i.e., ""). In the future, this may change, though.
+			// However, it would require some additional logic here (e.g., handling the
+			// case that kDefault_SyntaxColoring points to an invalid index).
+			setSyntaxColoringMode(settings.value("syntaxColoring").toString());
+		}
+
+		// set the default spell checking language
+		setSpellcheckLanguage(settings.value("language").toString());
+
+		// contentsChanged() parses the modlines (thus possibly overrinding the spell checking language)
+		contentsChanged(0, 0, 0);
+	}
 }
 
 #define FILE_MODIFICATION_ACCURACY	1000	// in msec
@@ -1238,7 +1279,7 @@ void TeXDocument::reloadIfChangedOnDisk()
 		// miss the second change otherwise)
 		while (QDateTime::currentDateTime() <= QFileInfo(curFile).lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			; // do nothing
-		loadFile(curFile, false, true);
+		loadFile(curFile, false, true, true);
 		// one final safety check - if the file has not changed, we can safely end this
 		if (QDateTime::currentDateTime() > QFileInfo(curFile).lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			break;
@@ -1305,7 +1346,6 @@ bool TeXDocument::openPdfIfAvailable(bool show)
 		PDFDocument *existingPdf = PDFDocument::findDocument(pdfName);
 		if (existingPdf != NULL) {
 			pdfDoc = existingPdf;
-			pdfDoc->reload();
 			pdfDoc->selectWindow();
 			pdfDoc->linkToSource(this);
 		}
@@ -1392,7 +1432,8 @@ bool TeXDocument::saveFile(const QString &fileName)
 		
 		// When using the UTF-8 codec (mib = 106), byte order marks (BOMs) are
 		// ignored during reading and not produced when writing. To keep them in
-		// files that have them, we need to write them ourselves.
+		// files that have them (or the user wants them), we need to write them
+		// ourselves.
 		if (codec->mibEnum() == 106 && utf8BOM)
 			file.write("\xEF\xBB\xBF");
 		
@@ -1449,7 +1490,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	}
 	else {
 		QIcon winIcon;
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 		// The Compiz window manager doesn't seem to support icons larger than
 		// 128x128, so we add a suitable one first
 		winIcon.addFile(":/images/images/TeXworks-doc-128.png");
@@ -1482,7 +1523,8 @@ void TeXDocument::saveRecentFileInfo()
 	fileProperties.insert("selLength", selectionLength());
 	fileProperties.insert("quotesMode", textEdit->getQuotesMode());
 	fileProperties.insert("indentMode", textEdit->getIndentMode());
-	fileProperties.insert("syntaxMode", highlighter->getSyntaxMode());
+	if (highlighter)
+		fileProperties.insert("syntaxMode", highlighter->getSyntaxMode());
 	fileProperties.insert("lineNumbers", textEdit->getLineNumbersVisible());
 	fileProperties.insert("wrapLines", textEdit->wordWrapMode() == QTextOption::WordWrap);
 
@@ -1556,7 +1598,7 @@ void TeXDocument::showCursorPosition()
 	int col = cursor.position() - textEdit->document()->findBlock(cursor.selectionStart()).position();
 	lineNumberLabel->setText(tr("Line %1 of %2; col %3").arg(line).arg(total).arg(col));
 	if (actionAuto_Follow_Focus->isChecked())
-		emit syncFromSource(curFile, line, false);
+		emit syncFromSource(curFile, line, col, false);
 }
 
 void TeXDocument::showLineEndingSetting()
@@ -1612,12 +1654,17 @@ void TeXDocument::encodingPopup(const QPoint loc)
 	QAction * reloadAction = new QAction(tr("Reload using selected encoding"), &menu);
 	//: Tooltip for "Reload using selected encoding"
 	reloadAction->setToolTip(tr("Reloads the current file with the encoding selected from this menu.\n\nThe selected encoding replaces the default one and overrides all \"%!TEX encoding\" lines."));
+	QAction * BOMAction = new QAction(tr("Write UTF-8 byte order mark"), &menu);
+	BOMAction->setCheckable(true);
+	BOMAction->setChecked(utf8BOM);
+	// Only enable this option if we are currently using the UTF-8 codec
+	BOMAction->setEnabled(codec && codec->mibEnum() == 106);
 	QAction * a;
 	
-	if (!isUntitled) {
+	if (!isUntitled)
 		menu.addAction(reloadAction);
-		menu.addSeparator();
-	}
+	menu.addAction(BOMAction);
+	menu.addSeparator();
 	
 	foreach (QTextCodec *codec, *TWUtils::findCodecs()) {
 		a = new QAction(codec->name(), &menu);
@@ -1639,11 +1686,20 @@ void TeXDocument::encodingPopup(const QPoint loc)
 				}
 			}
 			clearFileWatcher(); // stop watching until next save or reload
-			loadFile(curFile, false, true, codec);
+			loadFile(curFile, false, true, true, codec);
 			; // FIXME
 		}
+		else if (result == BOMAction) {
+			utf8BOM = BOMAction->isChecked();
+			// If the UTF-8 codec is selected, changing utf8BOM actually
+			// modifies how the file is saved. In all other cases, it does not
+			// take effect until the UTF-8 codec is selected (in which case the
+			// modified flag is set anyway).
+			if (codec && codec->mibEnum() == 106)
+				textEdit->document()->setModified();
+		}
 		else {
-			QTextCodec *newCodec = QTextCodec::codecForName(result->text().toAscii());
+			QTextCodec *newCodec = QTextCodec::codecForName(result->text().toLatin1());
 			if (newCodec && newCodec != codec) {
 				codec = newCodec;
 				showEncodingSetting();
@@ -1721,7 +1777,7 @@ void TeXDocument::goToLine(int lineNo, int selStart, int selEnd)
 		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, selEnd - selStart);
 	}
 	else
-		cursor.movePosition(QTextCursor::NextBlock, QTextCursor::KeepAnchor);
+		cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
 	textEdit->setTextCursor(cursor);
 	maybeCenterSelection(oldScrollValue);
 }
@@ -1756,9 +1812,15 @@ void TeXDocument::doLineDialog()
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.setPosition(cursor.selectionStart());
 	bool ok;
+	#if QT_VERSION >= 0x050000
+	int lineNo = QInputDialog::getInt(this, tr("Go to Line"),
+									tr("Line number:"), cursor.blockNumber() + 1,
+									1, textEdit->document()->blockCount(), 1, &ok);
+	#else
 	int lineNo = QInputDialog::getInteger(this, tr("Go to Line"),
 									tr("Line number:"), cursor.blockNumber() + 1,
 									1, textEdit->document()->blockCount(), 1, &ok);
+	#endif
 	if (ok)
 		goToLine(lineNo);
 }
@@ -1948,18 +2010,24 @@ void TeXDocument::doHardWrapDialog()
 	dlg.show();
 	if (dlg.exec()) {
 		dlg.saveSettings();
-		doHardWrap(dlg.lineWidth(), dlg.rewrap());
+		doHardWrap(dlg.mode(), dlg.lineWidth(), dlg.rewrap());
 	}
 }
 
-void TeXDocument::doHardWrap(int lineWidth, bool rewrap)
+void TeXDocument::doHardWrap(int mode, int lineWidth, bool rewrap)
 {
-	if (lineWidth == 0) { // use window width (approx)
+	if (mode == kHardWrapMode_Window) {
 		// fudge this for now.... not accurate with proportional fonts, ignores tabs,....
 		QFontMetrics fm(textEdit->currentFont());
 		lineWidth = textEdit->width() / fm.averageCharWidth();
 	}
-	
+	else if (mode == kHardWrapMode_Unwrap) {
+		lineWidth = INT_MAX;
+		rewrap = true;
+	}
+	if (lineWidth == 0)
+		return;
+
 	QTextCursor cur = textEdit->textCursor();
 	if (!cur.hasSelection())
 		cur.select(QTextCursor::Document);
@@ -2065,7 +2133,8 @@ void TeXDocument::setWrapLines(bool wrap)
 
 void TeXDocument::setSyntaxColoring(int index)
 {
-	highlighter->setActiveIndex(index);
+	if (highlighter)
+		highlighter->setActiveIndex(index);
 }
 
 void TeXDocument::setSyntaxColoringMode(const QString& mode)
@@ -2575,7 +2644,7 @@ void TeXDocument::typeset()
 	updateTypesettingAction();
 
 	QString workingDir = fileInfo.canonicalPath();	// Note that fileInfo refers to the root file
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	// files in the root directory of the current drive have to be handled specially
 	// because QFileInfo::canonicalPath() returns a path without trailing slash
 	// (i.e., a bare drive letter)
@@ -2589,11 +2658,11 @@ void TeXDocument::typeset()
 	
 	QString exeFilePath = TWApp::instance()->findProgram(e.program(), binPaths);
 	
-#ifndef Q_WS_MAC // not supported on OS X yet :(
+#if !(defined(Q_WS_MAC) || defined(Q_OS_MAC)) // not supported on OS X yet :(
 	// Add a (customized) TEXEDIT environment variable
 	env << QString("TEXEDIT=%1 --position=%d %s").arg(QCoreApplication::applicationFilePath());
 	
-	#ifdef Q_WS_WIN // MiKTeX apparently uses it's own variable
+	#if defined(Q_WS_WIN) || defined(Q_OS_WIN) // MiKTeX apparently uses it's own variable
 	env << QString("MIKTEX_EDITOR=%1 --position=%l \"%f\"").arg(QCoreApplication::applicationFilePath());
 	#endif
 #endif
@@ -2631,6 +2700,7 @@ void TeXDocument::typeset()
 		}
 		// ensure the window is visible - otherwise we can't see the output
 		// panel (and the typeset process appears to hang in case of an error)
+		consoleTabs->setCurrentIndex(0);
 		raise();
 		
 		inputLine->setFocus(Qt::OtherFocusReason);
@@ -2657,9 +2727,9 @@ void TeXDocument::typeset()
 		process = NULL;
 		QMessageBox msgBox(QMessageBox::Critical, tr("Unable to execute %1").arg(e.name()),
 							  "<p>" + tr("The program \"%1\" was not found.").arg(e.program()) + "</p>" +
-#if defined(Q_WS_WIN)
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> or <a href=\"http://miktex.org/\">MiKTeX</a> installed on your system to typeset your document.") + "</p>" +
-#elif defined(Q_WS_MAC)
+#elif defined(Q_WS_MAC) || defined(Q_OS_MAC)
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://www.tug.org/mactex/\">MacTeX</a> installed on your system to typeset your document.") + "</p>" +
 #else
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.") + "</p>" +
@@ -2897,12 +2967,12 @@ void TeXDocument::goToPreview()
 	}
 }
 
-void TeXDocument::syncClick(int lineNo)
+void TeXDocument::syncClick(int lineNo, int col)
 {
 	if (!isUntitled) {
 		// ensure that there is a pdf to receive our signal
 		goToPreview();
-		emit syncFromSource(curFile, lineNo, true);
+		emit syncFromSource(curFile, lineNo, col, true);
 	}
 }
 
@@ -3048,7 +3118,7 @@ void TeXDocument::removeAuxFiles()
 									   tr("No auxiliary files associated with this document at the moment."));
 }
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 #define OPEN_FILE_IN_NEW_WINDOW	Qt::MoveAction // unmodified drag appears as MoveAction on Mac OS X
 #define INSERT_DOCUMENT_TEXT	Qt::CopyAction
 #define CREATE_INCLUDE_COMMAND	Qt::LinkAction

@@ -921,7 +921,7 @@ to
     <message>
         <location line="-8"/>
         <source>&amp;Select All</source>
-        <translation>选择关部(&amp;S)</translation>
+        <translation>选择全部(&amp;S)</translation>
     </message>
 </context>
 <context>
@@ -1765,7 +1765,7 @@ Do you want to delete it anyway?</source>
     <message>
         <location line="+7"/>
         <source>Date Modified</source>
-        <translation>日期被修改</translation>
+        <translation>修改时间</translation>
     </message>
     <message>
         <location filename="../src/gui/dialogs/qfilesystemmodel_p.h" line="+234"/>
@@ -2680,7 +2680,7 @@ Do you want to delete it anyway?</source>
         <location line="+31"/>
         <location filename="../src/corelib/plugin/qlibrary_win.cpp" line="+15"/>
         <source>Cannot resolve symbol &quot;%1&quot; in %2: %3</source>
-        <translation>无法解析%2中的符号“%2”：%3</translation>
+        <translation>无法解析%1中的符号“%2”：%3</translation>
     </message>
 </context>
 <context>
@@ -3115,20 +3115,20 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <location line="+1570"/>
-        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is available under three different licensing options designed to accommodate the needs of our various users.&lt;/p&gt;Qt licensed under our commercial license agreement is appropriate for development of proprietary/commercial software where you do not want to share any source code with third parties or otherwise cannot comply with the terms of the GNU LGPL version 2.1 or GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU LGPL version 2.1 is appropriate for the development of Qt applications (proprietary or open source) provided you can comply with the terms and conditions of the GNU LGPL version 2.1.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU General Public License version 3.0 is appropriate for the development of Qt applications where you wish to use such applications in combination with software subject to the terms of the GNU GPL version 3.0 or where you are otherwise willing to comply with the terms of the GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.nokia.com/products/licensing&quot;&gt;qt.nokia.com/products/licensing&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;&lt;p&gt;Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).&lt;/p&gt;&lt;p&gt;Qt is a Nokia product. See &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is available under three different licensing options designed to accommodate the needs of our various users.&lt;/p&gt;Qt licensed under our commercial license agreement is appropriate for development of proprietary/commercial software where you do not want to share any source code with third parties or otherwise cannot comply with the terms of the GNU LGPL version 2.1 or GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU LGPL version 2.1 is appropriate for the development of Qt applications (proprietary or open source) provided you can comply with the terms and conditions of the GNU LGPL version 2.1.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU General Public License version 3.0 is appropriate for the development of Qt applications where you wish to use such applications in combination with software subject to the terms of the GNU GPL version 3.0 or where you are otherwise willing to comply with the terms of the GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.digia.com/product/licensing&quot;&gt;qt.digia.com/product/licensing&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;&lt;p&gt;Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).&lt;/p&gt;&lt;p&gt;Qt is a Digia product. See &lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is a Nokia product. See &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokiae.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;h3&gt;关于Qt&lt;/h3&gt;%1&lt;p&gt;Qt是一个用于跨平台应用程序开发的C++工具包。&lt;/p&gt;&lt;p&gt;对于MS&amp;nbsp;Windows、Mac&amp;nbsp;OS&amp;nbsp;X、Linux和所有主流商业Unix，Qt提供了单一源程序的可移植性。Qt也有用于嵌入式Linux和Windows CE的版本。&lt;/p&gt;&lt;p&gt;Qt是Nokia的产品。有关更多信息，请参考&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt;。&lt;/p&gt;</translation>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is a Digia product. See &lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;h3&gt;关于Qt&lt;/h3&gt;%1&lt;p&gt;Qt是一个用于跨平台应用程序开发的C++工具包。&lt;/p&gt;&lt;p&gt;对于MS&amp;nbsp;Windows、Mac&amp;nbsp;OS&amp;nbsp;X、Linux和所有主流商业Unix，Qt提供了单一源程序的可移植性。Qt也有用于嵌入式Linux和Windows CE的版本。&lt;/p&gt;&lt;p&gt;Qt是Digia的产品。有关更多信息，请参考&lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt;。&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;This program uses Qt Open Source Edition version %1.&lt;/p&gt;&lt;p&gt;Qt Open Source Edition is intended for the development of Open Source applications. You need a commercial Qt license for development of proprietary (closed source) applications.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.nokia.com/company/model/&quot;&gt;qt.nokia.com/company/model/&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;这个程序使用了Qt %1开源版本。&lt;/p&gt;&lt;p&gt;Qt开源版本只用于开源应用程序的开发。如果要开发私有（闭源）软件，你需要一个商业的Qt协议。&lt;/p&gt;&lt;p&gt;有关Qt协议的概览，请参考&lt;a href=&quot;http://qt.nokia.com/company/model/&quot;&gt;qt.nokia.com/company/model/&lt;/a&gt;。&lt;/p&gt;</translation>
+        <source>&lt;p&gt;This program uses Qt Open Source Edition version %1.&lt;/p&gt;&lt;p&gt;Qt Open Source Edition is intended for the development of Open Source applications. You need a commercial Qt license for development of proprietary (closed source) applications.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.digia.com/company/model/&quot;&gt;qt.digia.com/company/model/&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;p&gt;这个程序使用了Qt %1开源版本。&lt;/p&gt;&lt;p&gt;Qt开源版本只用于开源应用程序的开发。如果要开发私有（闭源）软件，你需要一个商业的Qt协议。&lt;/p&gt;&lt;p&gt;有关Qt协议的概览，请参考&lt;a href=&quot;http://qt.digia.com/company/model/&quot;&gt;qt.digia.com/company/model/&lt;/a&gt;。&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt Embedded.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;h3&gt;关于Qt&lt;/h3&gt;%1&lt;p&gt;Qt是一个用于跨平台应用程序开发的C++工具包。&lt;/p&gt;&lt;p&gt;对于MS&amp;nbsp;Windows、Mac&amp;nbsp;OS&amp;nbsp;X、Linux和所有主流商业Unix，Qt提供了单一源程序的可移植性。Qt对于嵌入式平台也是可用的，在嵌入式平台上它被称为Qt Embedded。&lt;/p&gt;&lt;p&gt;Qt是Trolltech的产品。有关更多信息，请参考&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt;。&lt;/p&gt;</translation>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt Embedded.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;h3&gt;关于Qt&lt;/h3&gt;%1&lt;p&gt;Qt是一个用于跨平台应用程序开发的C++工具包。&lt;/p&gt;&lt;p&gt;对于MS&amp;nbsp;Windows、Mac&amp;nbsp;OS&amp;nbsp;X、Linux和所有主流商业Unix，Qt提供了单一源程序的可移植性。Qt对于嵌入式平台也是可用的，在嵌入式平台上它被称为Qt Embedded。&lt;/p&gt;&lt;p&gt;Qt是Trolltech的产品。有关更多信息，请参考&lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt;。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7494,7 +7494,7 @@ Please choose a different file name.</source>
     <message>
         <location line="+267"/>
         <source>Each name of a template parameter must be unique; %1 is duplicated.</source>
-        <translation>每一个模板参数的名称都必须是唯一的；%2是重复的。</translation>
+        <translation>每一个模板参数的名称都必须是唯一的；%1是重复的。</translation>
     </message>
     <message>
         <location line="+129"/>

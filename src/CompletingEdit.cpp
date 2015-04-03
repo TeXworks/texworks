@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -227,7 +227,7 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 							// need to make sure that the source text is removed
 							// (inserting the text in the target has already
 							// been completed at this point)
-							bool insideWindow = (drag->target() && (this == drag->target() || this->isAncestorOf(drag->target())));
+							bool insideWindow = (drag->target() && (this == drag->target() || this->isAncestorOf(qobject_cast<QWidget*>(drag->target()))));
 							bool insideSelection = (insideWindow && droppedOffset >= sourceStart && droppedOffset <= sourceEnd);
 							if (insideSelection) {
 								// The text was dropped into the same window at
@@ -294,6 +294,13 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 			}
 			int start = qMin(dragStartCursor.selectionStart(), curs.selectionStart());
 			int end = qMax(dragStartCursor.selectionEnd(), curs.selectionEnd());
+			if (dragStartCursor.selectionStart() > curs.selectionStart()) {
+				// If the user is selecting from right to left (moving towards
+				// smaller positions), we reverse start and end so that the
+				// selection anchor is placed at the proper place (the
+				// left-most end of the selection).
+				qSwap(start, end);
+			}
 			curs.setPosition(start);
 			curs.setPosition(end, QTextCursor::KeepAnchor);
 			setTextCursor(curs);
@@ -317,7 +324,11 @@ void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 		case synctexClick:
 			{
 				QTextCursor curs = cursorForPosition(e->pos());
-				emit syncClick(curs.blockNumber() + 1);
+#if QT_VERSION < 0x040700
+				emit syncClick(curs.blockNumber() + 1, curs.position() - curs.block().position());
+#else
+				emit syncClick(curs.blockNumber() + 1, curs.positionInBlock());
+#endif
 			}
 			e->accept();
 			return;
@@ -504,13 +515,29 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 void CompletingEdit::handleReturn(QKeyEvent *e)
 {
 	QString prefix;
+	// Check if auto indent is on and applicable
 	if (autoIndentMode >= 0 && autoIndentMode < indentModes->count() && e->modifiers() == Qt::NoModifier) {
 		QRegExp &re = (*indentModes)[autoIndentMode].regex;
-		QString blockText = textCursor().block().text();
+		// Only apply prefix recognition to characters in front of the cursor.
+		// Otherwise, we would accumulate characters if the cursor is inside the
+		// region matched by the regexp.
+		QTextCursor curs = textCursor();
+		// Collaps the selection (if any) in the direction of the beginning of
+		// the line (as the selection gets replaced by \n, there's no point in
+		// including it in the prefix calculation)
+		if (curs.hasSelection())
+			curs.setPosition(curs.selectionStart());
+		// Get the (possible) prefix text to check
+		curs.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
+		QString blockText = curs.selectedText();
+		// Check if the prefix matches the regexp of the current auto indent mode
 		if (blockText.indexOf(re) == 0 && re.matchedLength() > 0)
 			prefix = blockText.left(re.matchedLength());
 	}
+	// Propagate the key press event to the base class so that the text is
+	// actually modified
 	QTextEdit::keyPressEvent(e);
+	// Insert the appropriate prefix if necessary
 	if (!prefix.isEmpty()) {
 		insertPlainText(prefix);
 		prefixLength = prefix.length();
@@ -719,7 +746,7 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 //   ctl/alt       : skip to next placeholder (alt on Mac, ctl elsewhere)
 //   ctl/alt-shift : skip to previous placeholder
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::AltModifier)
 #else
 	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::ControlModifier)
@@ -837,15 +864,15 @@ void CompletingEdit::showCompletion(const QString& completion, int insOffset)
 	QTextCursor tc = cmpCursor;
 	if (tc.isNull()) {
 		tc = textCursor();
-		tc.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, c->completionPrefix().length());
+		tc.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, c->completionPrefix().length());
 	}
 
 	tc.insertText(completion);
 	cmpCursor = tc;
-	cmpCursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, completion.length());
+	cmpCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, completion.length());
 
 	if (insOffset != -1)
-		tc.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor, completion.length() - insOffset);
+		tc.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, completion.length() - insOffset);
 	setTextCursor(tc);
 
 	currentCompletionRange = cmpCursor;
@@ -937,18 +964,24 @@ void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
 void CompletingEdit::jumpToPdf()
 {
 	QAction *act = qobject_cast<QAction*>(sender());
-	if (act != NULL)
-		emit syncClick(act->data().toInt());
+	if (act != NULL) {
+		QPoint pt = act->data().toPoint();
+		emit syncClick(pt.y(), pt.x());
+	}
 }
 
 void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = createStandardContextMenu();
-
 	QAction *defaultAction = NULL;
-
 	QAction *act = new QAction(tr("Jump to PDF"), menu);
-	act->setData(QVariant(cursorForPosition(event->pos()).blockNumber() + 1));
+	QTextCursor cur = cursorForPosition(event->pos());
+
+#if QT_VERSION < 0x040700
+	act->setData(QVariant(QPoint(cur.position() - cur.block().position(), cur.blockNumber() + 1)));
+#else
+	act->setData(QVariant(QPoint(cur.positionInBlock(), cur.blockNumber() + 1)));
+#endif
 	connect(act, SIGNAL(triggered()), this, SLOT(jumpToPdf()));
 	menu->insertSeparator(menu->actions().first());
 	menu->insertAction(menu->actions().first(), act);
@@ -1186,6 +1219,21 @@ void CompletingEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
 		bottom = top + (int)layout->blockBoundingRect(block).height();
 		++blockNumber;
 	}
+}
+
+void CompletingEdit::setTextCursor(const QTextCursor & cursor)
+{
+	// QTextEdit::setTextCursor only scrolls to cursor.position(). If 
+	// position() > anchor(), the two are on different lines, and the view has
+	// to scroll up, this means that not the whole selection is visible.
+	// By manually setting the cursor to anchor() first, we ensure that the
+	// anchor is visible. Only then we set the final cursor (which may scroll to
+	// position() as it should, but at least a large part of the selection will
+	// be visible).
+	QTextCursor c(cursor);
+	c.setPosition(c.anchor());
+	QTextEdit::setTextCursor(c);
+	QTextEdit::setTextCursor(cursor);
 }
 
 bool CompletingEdit::event(QEvent *e)

@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2010-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -39,6 +39,9 @@ class TWPythonPlugin : public QObject, public TWScriptLanguageInterface
 {
 	Q_OBJECT
 	Q_INTERFACES(TWScriptLanguageInterface)
+#if QT_VERSION >= 0x050000
+	Q_PLUGIN_METADATA(IID "org.tug.texworks.ScriptPlugins.PythonPlugin")
+#endif
 	
 public:
 	/** \brief Constructor

@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -25,6 +25,8 @@
 #include <QTextEdit>
 #include <QHash>
 #include <QTimer>
+#include <QDrag>
+#include <QMimeData>
 
 #include <hunspell.h>
 
@@ -60,6 +62,10 @@ public:
 			smartQuotesModes().at(smartQuotesMode) : QString();
 	}
 	
+	// Override of QTextEdit's method to properly handle scrolling for multiline
+	// cursors
+	void setTextCursor(const QTextCursor & cursor);
+	
 	static QStringList autoIndentModes();
 	static QStringList smartQuotesModes();
 	
@@ -73,7 +79,7 @@ public slots:
 	void updateLineNumberAreaWidth(int newBlockCount);
 	
 signals:
-	void syncClick(int);
+	void syncClick(int line, int col);
 	void rehighlight();
 	void updateRequest(const QRect& rect, int dy);
 

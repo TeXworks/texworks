@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2011-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -30,8 +30,8 @@ class ClickableLabel : public QLabel
 {
 	Q_OBJECT
 public:
-	ClickableLabel(QWidget * parent = 0, Qt::WindowFlags f = 0) : QLabel(parent, f) { }
-	ClickableLabel(const QString & text, QWidget * parent = 0, Qt::WindowFlags f = 0) : QLabel(text, parent, f) { }
+	ClickableLabel(QWidget * parent = 0, Qt::WindowFlags f = 0);
+	ClickableLabel(const QString & text, QWidget * parent = 0, Qt::WindowFlags f = 0);
 	virtual ~ClickableLabel() { }
 	
 signals:
@@ -41,25 +41,9 @@ signals:
 	void mouseRightClick(QMouseEvent * event);
 
 protected:
-	virtual void mouseDoubleClickEvent(QMouseEvent * event) { emit mouseDoubleClick(event); }
-	virtual void mousePressEvent(QMouseEvent * event) { mouseStartPoint = event->pos(); }
-	virtual void mouseReleaseEvent(QMouseEvent * event) {
-		if ((event->pos() - mouseStartPoint).manhattanLength() < QApplication::startDragDistance()) {
-			switch (event->button()) {
-				case Qt::LeftButton:
-					emit mouseLeftClick(event);
-					break;
-				case Qt::RightButton:
-					emit mouseRightClick(event);
-					break;
-				case Qt::MidButton:
-					emit mouseMiddleClick(event);
-					break;
-				default:
-					break;
-			}
-		}
-	}
+	virtual void mouseDoubleClickEvent(QMouseEvent * event);
+	virtual void mousePressEvent(QMouseEvent * event);
+	virtual void mouseReleaseEvent(QMouseEvent * event);
 
 	QPoint mouseStartPoint;
 };

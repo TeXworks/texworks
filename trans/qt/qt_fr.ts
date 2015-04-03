@@ -66,10 +66,25 @@
     </message>
 </context>
 <context>
+    <name>Debugger::JSAgentWatchData</name>
+    <message>
+        <source>[Array of length %1]</source>
+        <translation>[Tableau de longueur %1]</translation>
+    </message>
+    <message>
+        <source>&lt;undefined&gt;</source>
+        <translation>&lt;indéfini&gt;</translation>
+    </message>
+</context>
+<context>
     <name>FakeReply</name>
     <message>
         <source>Fake error !</source>
-        <translation>Fausse erreur !</translation>
+        <translation type="obsolete">Fausse erreur !</translation>
+    </message>
+    <message>
+        <source>Fake error!</source>
+        <translation>Fausse erreur !</translation>
     </message>
     <message>
         <source>Invalid URL</source>
@@ -484,6 +499,10 @@ d&apos;avoir installé libgstreamer-plugins-base.</translation>
         <source>Playback complete</source>
         <translation>Lecture terminée</translation>
     </message>
+    <message>
+        <source>Download error</source>
+        <translation>Erreur de téléchargement</translation>
+    </message>
 </context>
 <context>
     <name>Phonon::MMF::AbstractVideoPlayer</name>
@@ -606,6 +625,10 @@ d&apos;avoir installé libgstreamer-plugins-base.</translation>
     <message>
         <source>Error opening source: media type could not be determined</source>
         <translation>Erreur lors de l&apos;ouverture de la source : type de média non déterminé</translation>
+    </message>
+    <message>
+        <source>Failed to set requested IAP</source>
+        <translation>Echec lors de l&apos;établissement du point d&apos;accès à Internet requis</translation>
     </message>
 </context>
 <context>
@@ -1252,6 +1275,14 @@ en
 <context>
     <name>QAccessibleButton</name>
     <message>
+        <source>Uncheck</source>
+        <translation>Décocher</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation>Cocher</translation>
+    </message>
+    <message>
         <source>Press</source>
         <translation>Appuyer</translation>
     </message>
@@ -1405,7 +1436,7 @@ en
     <message>
         <source>%1: permission denied</source>
         <comment>QSystemSemaphore</comment>
-        <translation type="obsolete">%1 : permission refusée</translation>
+        <translation>%1 : permission refusée</translation>
     </message>
     <message>
         <source>%1: already exists</source>
@@ -1622,6 +1653,13 @@ en
     </message>
 </context>
 <context>
+    <name>QDeclarativeApplication</name>
+    <message>
+        <source>Application is an abstract class</source>
+        <translation>Application est une classe abstraite</translation>
+    </message>
+</context>
+<context>
     <name>QDeclarativeBehavior</name>
     <message>
         <source>Cannot change the animation assigned to a Behavior.</source>
@@ -1637,6 +1675,13 @@ en
 </context>
 <context>
     <name>QDeclarativeBindings</name>
+    <message>
+        <source>Binding loop detected for property &quot;%1&quot;</source>
+        <translation type="obsolete">Boucle détectée dans l&apos;affectation pour la propriété &quot;%1&quot;</translation>
+    </message>
+</context>
+<context>
+    <name>QDeclarativeCompiledBindings</name>
     <message>
         <source>Binding loop detected for property &quot;%1&quot;</source>
         <translation>Boucle détectée dans l&apos;affectation pour la propriété &quot;%1&quot;</translation>
@@ -1757,6 +1802,14 @@ en
         <translation>Impossible de créer une spécification du composant vide</translation>
     </message>
     <message>
+        <source>&quot;%1.%2&quot; is not available in %3 %4.%5.</source>
+        <translation>&quot;%1.%2&quot; n&apos;est pas disponible dans %3 %4.%5.</translation>
+    </message>
+    <message>
+        <source>&quot;%1.%2&quot; is not available due to component versioning.</source>
+        <translation>&quot;%1.%2&quot; n&apos;est pas disponible dans cette version du composant.</translation>
+    </message>
+    <message>
         <source>Incorrectly specified signal assignment</source>
         <translation>L&apos;affectation du signal est incorrectement spécifiée</translation>
     </message>
@@ -1853,6 +1906,10 @@ en
         <translation>Affectation de propriété invalide : script attendu</translation>
     </message>
     <message>
+        <source>Cannot assign multiple values to a singular property</source>
+        <translation>Impossible d&apos;assigner plusieurs valeurs à une propriété singulière</translation>
+    </message>
+    <message>
         <source>Cannot assign object to property</source>
         <translation>Impossible d&apos;assigner un objet à une propriété</translation>
     </message>
@@ -1937,12 +1994,28 @@ en
         <translation>id masque illégalement la propriété JavaScript globale</translation>
     </message>
     <message>
+        <source>No property alias location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid alias location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid alias reference. An alias reference must be specified as &lt;id&gt;, &lt;id&gt;.&lt;property&gt; or &lt;id&gt;.&lt;value property&gt;.&lt;property&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alias property exceeds alias bounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source></source>
         <translation>L&apos;alias de propriété n&apos;a pas d&apos;emplacement</translation>
     </message>
     <message>
         <source>Invalid alias reference. An alias reference must be specified as &lt;id&gt; or &lt;id&gt;.&lt;property&gt;</source>
-        <translation>Référence d&apos;alias invalide. Les références d&apos;alias doivent être spécifiées comme &lt;id&gt; ou &lt;id&gt;.&lt;property&gt;</translation>
+        <translation type="obsolete">Référence d&apos;alias invalide. Les références d&apos;alias doivent être spécifiées comme &lt;id&gt; ou &lt;id&gt;.&lt;property&gt;</translation>
     </message>
     <message>
         <source>Invalid alias reference. Unable to find id &quot;%1&quot;</source>
@@ -1955,24 +2028,28 @@ en
         <source>Invalid empty URL</source>
         <translation>URL vide invalide</translation>
     </message>
+    <message>
+        <source>createObject: value is not an object</source>
+        <translation>createObject : la valeur fournie n&apos;est pas un objet</translation>
+    </message>
 </context>
 <context>
     <name>QDeclarativeCompositeTypeManager</name>
     <message>
         <source>Resource %1 unavailable</source>
-        <translation>La ressource %1 n&apos;est pas disponible</translation>
+        <translation type="obsolete">La ressource %1 n&apos;est pas disponible</translation>
     </message>
     <message>
         <source>Namespace %1 cannot be used as a type</source>
-        <translation>L&apos;espace de noms %1 ne peut pas être utilisé comme un type</translation>
+        <translation type="obsolete">L&apos;espace de noms %1 ne peut pas être utilisé comme un type</translation>
     </message>
     <message>
         <source>%1 %2</source>
-        <translation>%1 %2</translation>
+        <translation type="obsolete">%1 %2</translation>
     </message>
     <message>
         <source>Type %1 unavailable</source>
-        <translation>Le type %1 n&apos;est pas disponible</translation>
+        <translation type="obsolete">Le type %1 n&apos;est pas disponible</translation>
     </message>
 </context>
 <context>
@@ -2035,6 +2112,10 @@ en
 <context>
     <name>QDeclarativeImportDatabase</name>
     <message>
+        <source>cannot load module &quot;%1&quot;: File name case mismatch for &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>module &quot;%1&quot; definition &quot;%2&quot; not readable</source>
         <translation>la définition &quot;%2&quot; du module &quot;%1% n&apos;est pas lisible</translation>
     </message>
@@ -2090,6 +2171,10 @@ en
         <source>is not a type</source>
         <translation>n&apos;est pas un type</translation>
     </message>
+    <message>
+        <source>File name case mismatch for &quot;%2&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QDeclarativeKeyNavigationAttached</name>
@@ -2104,6 +2189,17 @@ en
         <source>Keys is only available via attached properties</source>
         <translatorcomment>Keys, a verifier</translatorcomment>
         <translation>Keys est disponible uniquement via les propriétés attachées</translation>
+    </message>
+</context>
+<context>
+    <name>QDeclarativeLayoutMirroringAttached</name>
+    <message>
+        <source>LayoutDirection attached property only works with Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LayoutMirroring is only available via attached properties</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2205,7 +2301,7 @@ en
         <translation>Chaîne de caractères non fermée en fin de ligne</translation>
     </message>
     <message>
-        <source>Illegal escape squence</source>
+        <source>Illegal escape sequence</source>
         <translation>Séquence d&apos;échappement illégale</translation>
     </message>
     <message>
@@ -2374,6 +2470,26 @@ en
     <message>
         <source>Could not instantiate cursor delegate</source>
         <translation>Impossible d&apos;instancier le délégué de curseur</translation>
+    </message>
+</context>
+<context>
+    <name>QDeclarativeTypeLoader</name>
+    <message>
+        <source>Script %1 unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type %1 unavailable</source>
+        <translation>Le type %1 n&apos;est pas disponible</translation>
+    </message>
+    <message>
+        <source>Namespace %1 cannot be used as a type</source>
+        <translation>L&apos;espace de noms %1 ne peut pas être utilisé comme un type</translation>
+    </message>
+    <message>
+        <source>%1 %2</source>
+        <translatorcomment>%1: user typename %2: error string</translatorcomment>
+        <translation>%1 %2</translation>
     </message>
 </context>
 <context>
@@ -2676,6 +2792,10 @@ en
     <message>
         <source>Cannot create %1 for output</source>
         <translation>Impossible de créer %1 pour écriture</translation>
+    </message>
+    <message>
+        <source>No file engine available or engine does not support UnMapExtension</source>
+        <translation>Aucun moteur de fichier disponible ou celui-ci ne supporte pas UnMapExtension</translation>
     </message>
     <message>
         <source>Will not rename sequential file using block copy</source>
@@ -3306,7 +3426,7 @@ Voulez-vous quand même le supprimer ?</translation>
     <name>QGstreamerPlayerSession</name>
     <message>
         <source>Unable to play %1</source>
-        <translation>Impossible de lire %1</translation>
+        <translation type="obsolete">Impossible de lire %1</translation>
     </message>
 </context>
 <context>
@@ -3656,7 +3776,7 @@ Voulez-vous quand même le supprimer ?</translation>
     </message>
     <message>
         <source>Could not mmap &apos;%1&apos;: %2</source>
-        <translation>Impossible d&apos;établir la projection en mémoire de &apos;%1&apos; : %2</translation>
+        <translation type="obsolete">Impossible d&apos;établir la projection en mémoire de &apos;%1&apos; : %2</translation>
     </message>
     <message>
         <source>Plugin verification data mismatch in &apos;%1&apos;</source>
@@ -3664,7 +3784,7 @@ Voulez-vous quand même le supprimer ?</translation>
     </message>
     <message>
         <source>Could not unmap &apos;%1&apos;: %2</source>
-        <translation>Impossible de supprimer la projection en mémoire de &apos;%1&apos; : %2</translation>
+        <translation type="obsolete">Impossible de supprimer la projection en mémoire de &apos;%1&apos; : %2</translation>
     </message>
     <message>
         <source>The plugin &apos;%1&apos; uses incompatible Qt library. (%2.%3.%4) [%5]</source>
@@ -3701,6 +3821,18 @@ Voulez-vous quand même le supprimer ?</translation>
     <message>
         <source>Cannot resolve symbol &quot;%1&quot; in %2: %3</source>
         <translation>Impossible de résoudre le symbole &quot;%1&quot; dans %2 : %3</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; is not an ELF object (%2)</source>
+        <translation>&apos;%1&apos; n&apos;est pas un objet ELF (%2)</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; is not an ELF object</source>
+        <translation>&apos;%1&apos; n&apos;est pas un objet ELF</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; is an invalid ELF object (%2)</source>
+        <translation>&apos;%1&apos; n&apos;est pas un objet ELF valide (%2)</translation>
     </message>
 </context>
 <context>
@@ -3798,6 +3930,10 @@ Voulez-vous quand même le supprimer ?</translation>
     <message>
         <source>%1: Unknown error %2</source>
         <translation>%1 : Erreur inconnue %2</translation>
+    </message>
+    <message>
+        <source>%1: Access denied</source>
+        <translation>%1 : Autorisation refusée</translation>
     </message>
 </context>
 <context>
@@ -3956,22 +4092,22 @@ Voulez-vous quand même le supprimer ?</translation>
     <name>QMediaPlayer</name>
     <message>
         <source>The QMediaPlayer object does not have a valid service</source>
-        <translation>Pas de service valide pour l&apos;objet QMediaPlayer</translation>
+        <translation type="obsolete">Pas de service valide pour l&apos;objet QMediaPlayer</translation>
     </message>
 </context>
 <context>
     <name>QMediaPlaylist</name>
     <message>
         <source>Could not add items to read only playlist.</source>
-        <translation>Impossible d&apos;ajouter des éléments à une liste de lecture en lecture seule.</translation>
+        <translation type="obsolete">Impossible d&apos;ajouter des éléments à une liste de lecture en lecture seule.</translation>
     </message>
     <message>
         <source>Playlist format is not supported</source>
-        <translation>Le format de liste de lecture n&apos;est pas supporté</translation>
+        <translation type="obsolete">Le format de liste de lecture n&apos;est pas supporté</translation>
     </message>
     <message>
         <source>The file could not be accessed.</source>
-        <translation>Impossible d&apos;accéder au fichier.</translation>
+        <translation type="obsolete">Impossible d&apos;accéder au fichier.</translation>
     </message>
 </context>
 <context>
@@ -4063,8 +4199,8 @@ Voulez-vous quand même le supprimer ?</translation>
         <translation type="obsolete">&lt;p&gt;Ce programme utilise la version %1 de Qt.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qtopia Core.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com/&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;h3&gt;À propos de Qt&lt;/h3&gt;%1&lt;p&gt;Qt est un toolkit C++ pour le développement d&apos;applications multi-platformes.&lt;/p&gt;&lt;p&gt;Qt fournit la portabilité du code source pour MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux et toutes les variantes commerciales majeures d&apos;Unix. Qt est aussi disponible pour les systèmes embarqués sous le nom Qtopia Core.&lt;/p&gt;&lt;p&gt;Qt est un produit de Trolltech. &lt;a href=&quot;http : //qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; for more information.&lt;/p&gt;</translation>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qtopia Core.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com/&lt;/a&gt; for more information.&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;h3&gt;À propos de Qt&lt;/h3&gt;%1&lt;p&gt;Qt est un toolkit C++ pour le développement d&apos;applications multi-platformes.&lt;/p&gt;&lt;p&gt;Qt fournit la portabilité du code source pour MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux et toutes les variantes commerciales majeures d&apos;Unix. Qt est aussi disponible pour les systèmes embarqués sous le nom Qtopia Core.&lt;/p&gt;&lt;p&gt;Qt est un produit de Trolltech. &lt;a href=&quot;http : //qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; for more information.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Show Details...</source>
@@ -4075,28 +4211,24 @@ Voulez-vous quand même le supprimer ?</translation>
         <translation>Cacher les détails...</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is available under three different licensing options designed to accommodate the needs of our various users.&lt;/p&gt;Qt licensed under our commercial license agreement is appropriate for development of proprietary/commercial software where you do not want to share any source code with third parties or otherwise cannot comply with the terms of the GNU LGPL version 2.1 or GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU LGPL version 2.1 is appropriate for the development of Qt applications (proprietary or open source) provided you can comply with the terms and conditions of the GNU LGPL version 2.1.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU General Public License version 3.0 is appropriate for the development of Qt applications where you wish to use such applications in combination with software subject to the terms of the GNU GPL version 3.0 or where you are otherwise willing to comply with the terms of the GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.nokia.com/products/licensing&quot;&gt;qt.nokia.com/products/licensing&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;&lt;p&gt;Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).&lt;/p&gt;&lt;p&gt;Qt is a Nokia product. See &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;h3&gt;À propos de Qt&lt;/h3&gt;&lt;p&gt;Ce programme utilise Qt version %1.&lt;/p&gt;&lt;p&gt;Qt est une bibliothèque logicielle C++ pour le développement d’applications multiplateformes.&lt;/p&gt;&lt;p&gt;Qt fournit une portabilité source unique pour MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux et les principales variantes commerciales d’Unix. Qt est également disponible pour appareils intégrés comme Qt pour Embedded Linux et Qt pour Windows CE.&lt;/p&gt;&lt;p&gt;Il existe trois options de licence différentes conçues pour s’adapter aux besoins d’utilisateurs variés.&lt;/p&gt;&lt;p&gt;Qt concédée sous notre contrat de licence commerciale est destinée au développement de logiciels propriétaires/commerciaux dont vous ne souhaitez pas partager le code source avec des tiers ou qui ne peuvent se conformer aux termes de la LGPL GNU version 2.1 ou GPL GNU version 3.0.&lt;/p&gt;&lt;p&gt;Qt concédée sous la LGPL GNU version 2.1 est destinée au développement d’applications Qt (propriétaires ou libres) à condition que vous vous conformiez aux conditions générales de la LGPL GNU version 2.1.&lt;/p&gt;&lt;p&gt;Qt concédée sous la licence publique générale GNU version 3.0 est destinée au développement d’applications Qt lorsque vous souhaitez utiliser ces applications avec d’autres logiciels soumis aux termes de la GPL GNU version 3.0 ou lorsque vous acceptez les termes de la GPL GNU version 3.0.&lt;/p&gt;&lt;p&gt;Veuillez consulter&lt;a href=&quot;http : //qt.nokia.com/products/licensing&quot;&gt;qt.nokia.com/products/licensing&lt;/a&gt; pour un aperçu des concessions de licences Qt.&lt;/p&gt;&lt;p&gt;Copyright (C) 2010 Nokia Corporation et/ou ses filiales.&lt;/p&gt;&lt;p&gt;Qt est un produit Nokia. Voir &lt;a href=&quot;http : //qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; pour de plus amples informations.&lt;/p&gt;</translation>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is a Digia product. See &lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;h3&gt;À propos de Qt&lt;/h3&gt;%1&lt;p&gt;Qt est un framework de développement d&apos;applications multi-plateforme.&lt;/p&gt;&lt;p&gt;Qt fournit la portabilité du code source surMS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, et toutes les variantes majeures d&apos;Unix. Qt est aussi disponible pour l&apos;embarqué avec Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt est un produit de Digia. Allez à &lt;a href=&quot;http : //qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; pour plus d&apos;informations.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is a Nokia product. See &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;h3&gt;À propos de Qt&lt;/h3&gt;%1&lt;p&gt;Qt est un framework de développement d&apos;applications multi-plateforme.&lt;/p&gt;&lt;p&gt;Qt fournit la portabilité du code source surMS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, et toutes les variantes majeures d&apos;Unix. Qt est aussi disponible pour l&apos;embarqué avec Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt est un produit de Nokia. Allez à &lt;a href=&quot;http : //qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; pour plus d&apos;informations.&lt;/p&gt;</translation>
+        <source>&lt;p&gt;This program uses Qt Open Source Edition version %1.&lt;/p&gt;&lt;p&gt;Qt Open Source Edition is intended for the development of Open Source applications. You need a commercial Qt license for development of proprietary (closed source) applications.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.digia.com/company/model/&quot;&gt;qt.digia.com/company/model/&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;p&gt;Ce programme utilise Qt Open Source Edition version %1.&lt;/p&gt;&lt;p&gt;Qt Open Source Edition est prévu pour le développement d&apos;applications Open Source. Vous devez avoir un license commerciale de Qt pour développer des applications propiétaires (Closed Source).&lt;/p&gt;&lt;p&gt;Vous pouvez aller sur &lt;a href=&quot;http : //qt.digia.com/company/model/&quot;&gt;qt.digia.com/company/model/&lt;/a&gt; pour plus d&apos;informations sur les licenses Qt.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;This program uses Qt Open Source Edition version %1.&lt;/p&gt;&lt;p&gt;Qt Open Source Edition is intended for the development of Open Source applications. You need a commercial Qt license for development of proprietary (closed source) applications.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.nokia.com/company/model/&quot;&gt;qt.nokia.com/company/model/&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Ce programme utilise Qt Open Source Edition version %1.&lt;/p&gt;&lt;p&gt;Qt Open Source Edition est prévu pour le développement d&apos;applications Open Source. Vous devez avoir un license commerciale de Qt pour développer des applications propiétaires (Closed Source).&lt;/p&gt;&lt;p&gt;Vous pouvez aller sur &lt;a href=&quot;http : //qt.nokia.com/company/model/&quot;&gt;qt.nokia.com/company/model/&lt;/a&gt; pour plus d&apos;informations sur les licenses Qt.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt Embedded.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;h3&gt;À propos de Qt&lt;/h3&gt;%1&lt;p&gt;Qt est un toolkit C++ pour le développement d&apos;application multi-plateforme.&lt;/p&gt;&lt;p&gt;Qt fournit la portabilité de votre source pour MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, toutes les variantes majeures d&apos;Unix. Qt est aussi disponible pour les périphériques embarqués avec Qt Embedded.&lt;/p&gt;&lt;p&gt;Qt est un produit de Trolltech. Voir &lt;a href=&quot;http : //qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; pour plus d&apos;informations.&lt;/p&gt;</translation>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;%1&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt Embedded.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
+        <translation type="obsolete">&lt;h3&gt;À propos de Qt&lt;/h3&gt;%1&lt;p&gt;Qt est un toolkit C++ pour le développement d&apos;application multi-plateforme.&lt;/p&gt;&lt;p&gt;Qt fournit la portabilité de votre source pour MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, toutes les variantes majeures d&apos;Unix. Qt est aussi disponible pour les périphériques embarqués avec Qt Embedded.&lt;/p&gt;&lt;p&gt;Qt est un produit de Trolltech. Voir &lt;a href=&quot;http : //qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; pour plus d&apos;informations.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;</source>
         <translation>&lt;h3&gt;À propos de Qt&lt;/h3&gt;&lt;p&gt;Ce programme utilise Qt version %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is available under three different licensing options designed to accommodate the needs of our various users.&lt;/p&gt;&lt;p&gt;Qt licensed under our commercial license agreement is appropriate for development of proprietary/commercial software where you do not want to share any source code with third parties or otherwise cannot comply with the terms of the GNU LGPL version 2.1 or GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU LGPL version 2.1 is appropriate for the development of Qt applications (proprietary or open source) provided you can comply with the terms and conditions of the GNU LGPL version 2.1.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU General Public License version 3.0 is appropriate for the development of Qt applications where you wish to use such applications in combination with software subject to the terms of the GNU GPL version 3.0 or where you are otherwise willing to comply with the terms of the GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.nokia.com/products/licensing&quot;&gt;qt.nokia.com/products/licensing&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;&lt;p&gt;Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).&lt;/p&gt;&lt;p&gt;Qt is a Nokia product. See &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Qt est une bibliothèque logicielle C++ pour le développement d’applications multiplateformes.&lt;/p&gt;&lt;p&gt;Qt fournit une portabilité source unique pour MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux et les principales variantes commerciales d’Unix. Qt est également disponible pour appareils intégrés comme Qt pour Embedded Linux et Qt pour Windows CE.&lt;/p&gt;&lt;p&gt;Il existe trois options de licence différentes conçues pour s’adapter aux besoins d’utilisateurs variés.&lt;/p&gt;&lt;p&gt;Qt concédée sous notre contrat de licence commerciale est destinée au développement de logiciels propriétaires/commerciaux dont vous ne souhaitez pas partager le code source avec des tiers ou qui ne peuvent se conformer aux termes de la LGPL GNU version 2.1 ou GPL GNU version 3.0.&lt;/p&gt;&lt;p&gt;Qt concédée sous la LGPL GNU version 2.1 est destinée au développement d’applications Qt (propriétaires ou libres) à condition que vous vous conformiez aux conditions générales de la LGPL GNU version 2.1.&lt;/p&gt;&lt;p&gt;Qt concédée sous la licence publique générale GNU version 3.0 est destinée au développement d’applications Qt lorsque vous souhaitez utiliser ces applications avec d’autres logiciels soumis aux termes de la GPL GNU version 3.0 ou lorsque vous acceptez les termes de la GPL GNU version 3.0.&lt;/p&gt;&lt;p&gt;Veuillez consulter&lt;a href=&quot;http : //qt.nokia.com/products/licensing&quot;&gt;qt.nokia.com/products/licensing&lt;/a&gt; pour un aperçu des concessions de licences Qt.&lt;/p&gt;&lt;p&gt;Copyright (C) 2010 Nokia Corporation et/ou ses filiales.&lt;/p&gt;&lt;p&gt;Qt est un produit Nokia. Voir &lt;a href=&quot;http : //qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; pour de plus amples informations.&lt;/p&gt;</translation>
+        <source>&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is available under three different licensing options designed to accommodate the needs of our various users.&lt;/p&gt;&lt;p&gt;Qt licensed under our commercial license agreement is appropriate for development of proprietary/commercial software where you do not want to share any source code with third parties or otherwise cannot comply with the terms of the GNU LGPL version 2.1 or GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU LGPL version 2.1 is appropriate for the development of Qt applications (proprietary or open source) provided you can comply with the terms and conditions of the GNU LGPL version 2.1.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU General Public License version 3.0 is appropriate for the development of Qt applications where you wish to use such applications in combination with software subject to the terms of the GNU GPL version 3.0 or where you are otherwise willing to comply with the terms of the GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.digia.com/product/licensing&quot;&gt;qt.digia.com/product/licensing&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;&lt;p&gt;Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).&lt;/p&gt;&lt;p&gt;Qt is a Digia product. See &lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Qt est une bibliothèque logicielle C++ pour le développement d’applications multiplateformes.&lt;/p&gt;&lt;p&gt;Qt fournit une portabilité source unique pour MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux et les principales variantes commerciales d’Unix. Qt est également disponible pour appareils intégrés comme Qt pour Embedded Linux et Qt pour Windows CE.&lt;/p&gt;&lt;p&gt;Il existe trois options de licence différentes conçues pour s’adapter aux besoins d’utilisateurs variés.&lt;/p&gt;&lt;p&gt;Qt concédée sous notre contrat de licence commerciale est destinée au développement de logiciels propriétaires/commerciaux dont vous ne souhaitez pas partager le code source avec des tiers ou qui ne peuvent se conformer aux termes de la LGPL GNU version 2.1 ou GPL GNU version 3.0.&lt;/p&gt;&lt;p&gt;Qt concédée sous la LGPL GNU version 2.1 est destinée au développement d’applications Qt (propriétaires ou libres) à condition que vous vous conformiez aux conditions générales de la LGPL GNU version 2.1.&lt;/p&gt;&lt;p&gt;Qt concédée sous la licence publique générale GNU version 3.0 est destinée au développement d’applications Qt lorsque vous souhaitez utiliser ces applications avec d’autres logiciels soumis aux termes de la GPL GNU version 3.0 ou lorsque vous acceptez les termes de la GPL GNU version 3.0.&lt;/p&gt;&lt;p&gt;Veuillez consulter&lt;a href=&quot;http : //qt.digia.com/product/licensing&quot;&gt;qt.digia.com/product/licensing&lt;/a&gt; pour un aperçu des concessions de licences Qt.&lt;/p&gt;&lt;p&gt;Copyright (C) 2012 Digia Plc et/ou ses filiales.&lt;/p&gt;&lt;p&gt;Qt est un produit Digia. Voir &lt;a href=&quot;http : //qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; pour de plus amples informations.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -4235,7 +4367,7 @@ Voulez-vous quand même le supprimer ?</translation>
     <name>QNetworkAccessDataBackend</name>
     <message>
         <source>Operation not supported on %1</source>
-        <translation>Opération non supportée sur %1</translation>
+        <translation type="obsolete">Opération non supportée sur %1</translation>
     </message>
     <message>
         <source>Invalid URI: %1</source>
@@ -4330,6 +4462,10 @@ Voulez-vous quand même le supprimer ?</translation>
     <message>
         <source>Network session error.</source>
         <translation>Erreur de session réseau.</translation>
+    </message>
+    <message>
+        <source>backend start error.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Temporary network failure.</source>
@@ -4575,6 +4711,10 @@ Voulez-vous quand même le supprimer ?</translation>
     <message>
         <source>invalid query: &quot;%1&quot;</source>
         <translation>Requête invalide : &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Host not found</source>
+        <translation>Hôte introuvable</translation>
     </message>
 </context>
 <context>
@@ -6008,6 +6148,10 @@ Veuillez choisir un nom de fichier différent.</translation>
         <translation>%1 : le système impose des restrictions sur la taille</translation>
     </message>
     <message>
+        <source>%1: bad name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1: not attached</source>
         <translation>%1 : non attaché</translation>
     </message>
@@ -6017,7 +6161,7 @@ Veuillez choisir un nom de fichier différent.</translation>
     </message>
     <message>
         <source>%1: key error</source>
-        <translation>%1 : erreur de clé</translation>
+        <translation type="obsolete">%1 : erreur de clé</translation>
     </message>
     <message>
         <source>%1: size query failed</source>
@@ -6385,7 +6529,7 @@ Veuillez choisir un nom de fichier différent.</translation>
     </message>
     <message>
         <source>Voice Dial</source>
-        <extracomment>Button to trigger voice dialling</extracomment>
+        <extracomment>Button to trigger voice dialing</extracomment>
         <translation>Commande vocale</translation>
     </message>
     <message>
@@ -7232,6 +7376,10 @@ Veuillez choisir un nom de fichier différent.</translation>
         <translation>Le nom d&apos;hôte ne correspondait à aucun des hôtes valides pour ce certificat</translation>
     </message>
     <message>
+        <source>The peer certificate is blacklisted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unknown error</source>
         <translation>Erreur inconnue</translation>
     </message>
@@ -7256,6 +7404,121 @@ Veuillez choisir un nom de fichier différent.</translation>
     </message>
 </context>
 <context>
+    <name>QSymbianSocketEngine</name>
+    <message>
+        <source>Unable to initialize non-blocking socket</source>
+        <translation>Impossible d&apos;initialiser le socket asynchrone</translation>
+    </message>
+    <message>
+        <source>Unable to initialize broadcast socket</source>
+        <translation>Impossible d&apos;initialiser le socket broadcast</translation>
+    </message>
+    <message>
+        <source>Attempt to use IPv6 socket on a platform with no IPv6 support</source>
+        <translation>Tentative d&apos;utiliser un socket IPv6 sur une plateforme qui ne supporte pas IPv6</translation>
+    </message>
+    <message>
+        <source>The remote host closed the connection</source>
+        <translation>L&apos;hôte distant a fermé la connexion</translation>
+    </message>
+    <message>
+        <source>Network operation timed out</source>
+        <translation>L&apos;opération réseau a expiré</translation>
+    </message>
+    <message>
+        <source>Out of resources</source>
+        <translation>Manque de ressources</translation>
+    </message>
+    <message>
+        <source>Unsupported socket operation</source>
+        <translation>Opération socket non supportée</translation>
+    </message>
+    <message>
+        <source>Protocol type not supported</source>
+        <translation>Protocol non géré</translation>
+    </message>
+    <message>
+        <source>Invalid socket descriptor</source>
+        <translation>Descripteur de socket invalide</translation>
+    </message>
+    <message>
+        <source>Host unreachable</source>
+        <translation>Hôte inaccessible</translation>
+    </message>
+    <message>
+        <source>Network unreachable</source>
+        <translation>Réseau impossible à rejoindre</translation>
+    </message>
+    <message>
+        <source>Permission denied</source>
+        <translation>Autorisation refusée</translation>
+    </message>
+    <message>
+        <source>Connection timed out</source>
+        <translation>Connexion expirée</translation>
+    </message>
+    <message>
+        <source>Connection refused</source>
+        <translation>Connexion refusée</translation>
+    </message>
+    <message>
+        <source>The bound address is already in use</source>
+        <translation>L&apos;adresse liée est déjà en usage</translation>
+    </message>
+    <message>
+        <source>The address is not available</source>
+        <translation>L&apos;adresse n&apos;est pas disponible</translation>
+    </message>
+    <message>
+        <source>The address is protected</source>
+        <translation>L&apos;adresse est protégée</translation>
+    </message>
+    <message>
+        <source>Datagram was too large to send</source>
+        <translation>Le datagramme était trop grand pour être envoyé</translation>
+    </message>
+    <message>
+        <source>Unable to send a message</source>
+        <translation>Impossible d&apos;envoyer un message</translation>
+    </message>
+    <message>
+        <source>Unable to receive a message</source>
+        <translation>Impossible de recevoir un message</translation>
+    </message>
+    <message>
+        <source>Unable to write</source>
+        <translation>Impossible d&apos;écrire</translation>
+    </message>
+    <message>
+        <source>Network error</source>
+        <translation>Erreur réseau</translation>
+    </message>
+    <message>
+        <source>Another socket is already listening on the same port</source>
+        <translation>Un autre socket écoute déjà sur le même port</translation>
+    </message>
+    <message>
+        <source>Operation on non-socket</source>
+        <translation>Operation sur non-socket</translation>
+    </message>
+    <message>
+        <source>The proxy type is invalid for this operation</source>
+        <translation>Le type de proxy est invalide pour cette opération</translation>
+    </message>
+    <message>
+        <source>The address is invalid for this operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The specified network session is not opened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation>Erreur inconnue</translation>
+    </message>
+</context>
+<context>
     <name>QSystemSemaphore</name>
     <message>
         <source>%1: out of resources</source>
@@ -7272,6 +7535,10 @@ Veuillez choisir un nom de fichier différent.</translation>
     <message>
         <source>%1: does not exist</source>
         <translation>%1 : n&apos;existe pas</translation>
+    </message>
+    <message>
+        <source>%1: name error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1: unknown error %2</source>
@@ -7368,10 +7635,28 @@ Veuillez choisir un nom de fichier différent.</translation>
     <name>QUndoGroup</name>
     <message>
         <source>Undo</source>
-        <translation>Annuler</translation>
+        <translation type="obsolete">Annuler</translation>
     </message>
     <message>
         <source>Redo</source>
+        <translation type="obsolete">Rétablir</translation>
+    </message>
+    <message>
+        <source>Undo %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <comment>Default text for undo action</comment>
+        <translation>Annuler</translation>
+    </message>
+    <message>
+        <source>Redo %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <comment>Default text for redo action</comment>
         <translation>Rétablir</translation>
     </message>
 </context>
@@ -7386,10 +7671,28 @@ Veuillez choisir un nom de fichier différent.</translation>
     <name>QUndoStack</name>
     <message>
         <source>Undo</source>
-        <translation>Annuler</translation>
+        <translation type="obsolete">Annuler</translation>
     </message>
     <message>
         <source>Redo</source>
+        <translation type="obsolete">Rétablir</translation>
+    </message>
+    <message>
+        <source>Undo %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <comment>Default text for undo action</comment>
+        <translation>Annuler</translation>
+    </message>
+    <message>
+        <source>Redo %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <comment>Default text for redo action</comment>
         <translation>Rétablir</translation>
     </message>
 </context>
@@ -7455,6 +7758,10 @@ Veuillez choisir un nom de fichier différent.</translation>
         <translation>Impossible d&apos;afficher l&apos;URL</translation>
     </message>
     <message>
+        <source>Loading is handled by the media engine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Frame load interruped by policy change</source>
         <translation type="obsolete">Chargement de la frame interrompu par un changement de configuration</translation>
     </message>
@@ -7504,6 +7811,11 @@ Veuillez choisir un nom de fichier différent.</translation>
         <translation>Pas de fichier sélectionné</translation>
     </message>
     <message>
+        <source>Details</source>
+        <comment>text to display in &lt;details&gt; tag when it has no &lt;summary&gt; child</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Open in New Window</source>
         <comment>Open in New Window context menu item</comment>
         <translation>Ouvrir dans une Nouvelle Fenêtre</translation>
@@ -7532,6 +7844,61 @@ Veuillez choisir un nom de fichier différent.</translation>
         <source>Copy Image</source>
         <comment>Copy Link context menu item</comment>
         <translation>Copier l&apos;image</translation>
+    </message>
+    <message>
+        <source>Copy Image Address</source>
+        <comment>Copy Image Address menu item</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Video</source>
+        <comment>Open Video in New Window</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Audio</source>
+        <comment>Open Audio in New Window</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy Video</source>
+        <comment>Copy Video Link Location</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy Audio</source>
+        <comment>Copy Audio Link Location</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle Controls</source>
+        <comment>Toggle Media Controls</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle Loop</source>
+        <comment>Toggle Media Loop Playback</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter Fullscreen</source>
+        <comment>Switch Video to Fullscreen</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <comment>Play</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <comment>Pause</comment>
+        <translation>Pause</translation>
+    </message>
+    <message>
+        <source>Mute</source>
+        <comment>Mute</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Open Frame</source>
@@ -7572,6 +7939,11 @@ Veuillez choisir un nom de fichier différent.</translation>
         <source>Paste</source>
         <comment>Paste context menu item</comment>
         <translation>Coller</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <comment>Select All context menu item</comment>
+        <translation>Tout sélectionner</translation>
     </message>
     <message>
         <source>No Guesses Found</source>
@@ -7938,7 +8310,7 @@ Veuillez choisir un nom de fichier différent.</translation>
     </message>
     <message>
         <source>Bad HTTP request</source>
-        <translation>Requête HTTP erronée</translation>
+        <translation type="obsolete">Requête HTTP erronée</translation>
     </message>
     <message>
         <source>This is a searchable index. Enter search keywords: </source>
@@ -8067,7 +8439,7 @@ Veuillez choisir un nom de fichier différent.</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation>Tout sélectionner</translation>
+        <translation type="obsolete">Tout sélectionner</translation>
     </message>
     <message>
         <source>Select to the next character</source>
@@ -8765,6 +9137,10 @@ Veuillez choisir un nom de fichier différent.</translation>
         <translation>Avertissement dans %1 : %2</translation>
     </message>
     <message>
+        <source>Unknown location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source></source>
         <translation>Lieu inconnu</translation>
     </message>
@@ -8922,6 +9298,94 @@ Veuillez choisir un nom de fichier différent.</translation>
     <message>
         <source>%1 is an invalid PUBLIC identifier.</source>
         <translation>%1 n&apos;est pas un identifiant &quot;PUBLIC&quot; valide.</translation>
+    </message>
+</context>
+<context>
+    <name>QmlJSDebugger::LiveSelectionTool</name>
+    <message>
+        <source>Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QmlJSDebugger::QmlToolBar</name>
+    <message>
+        <source>Inspector Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play/Pause Animations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Sélectionner</translation>
+    </message>
+    <message>
+        <source>Select (Marquee)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Picker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Changes to QML Viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Changes to Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation>Outils</translation>
+    </message>
+    <message>
+        <source>1x</source>
+        <translation>1x</translation>
+    </message>
+    <message>
+        <source>0.5x</source>
+        <translation>0.5x</translation>
+    </message>
+    <message>
+        <source>0.25x</source>
+        <translation>0.25x</translation>
+    </message>
+    <message>
+        <source>0.125x</source>
+        <translation>0.125x</translation>
+    </message>
+    <message>
+        <source>0.1x</source>
+        <translation>0.1x</translation>
+    </message>
+</context>
+<context>
+    <name>QmlJSDebugger::ToolBarColorBox</name>
+    <message>
+        <source>Copy Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QmlJSDebugger::ZoomTool</name>
+    <message>
+        <source>Zoom to &amp;100%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom In</source>
+        <translation>Agrandir</translation>
+    </message>
+    <message>
+        <source>Zoom Out</source>
+        <translation>Rétrécir</translation>
     </message>
 </context>
 <context>
@@ -9707,6 +10171,14 @@ Veuillez choisir un nom de fichier différent.</translation>
     <message>
         <source>The element with local name %1 does not exist in XSL-T.</source>
         <translation type="obsolete">L&apos;élément avec le nom local %1 n&apos;existe pas dans XSL-T.</translation>
+    </message>
+    <message>
+        <source>Element %1 is not allowed at this location.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text nodes are not allowed at this location.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Element %1 must come last.</source>

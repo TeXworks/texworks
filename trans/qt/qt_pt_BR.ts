@@ -591,7 +591,7 @@ para
         <translation>Fecha a janela</translation>
     </message>
     <message>
-        <source>Displays the name of the window and contains controls to manipulate it</source>
+        <source>Holds the name of the window and contains controls to manipulate it</source>
         <translation>Mostra o nome da janela e contém controles para manipulá-la</translation>
     </message>
 </context>

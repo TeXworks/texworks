@@ -2,8 +2,8 @@
 // Title: Errors, warnings, badboxes
 // Description: Looks for errors, warnings or badboxes in the LaTeX terminal output
 // Author: Jonathan Kew, Stefan Löffler, Antonio Macrì, Henrik Skov Midtiby
-// Version: 0.8.5
-// Date: 2012-10-20
+// Version: 0.8.6
+// Date: 2013-07-05
 // Script-Type: hook
 // Hook: AfterTypeset
 
@@ -151,6 +151,27 @@ function LogParser()
       }
     },
     {
+      // This pattern recognizes tight/loose boxes in paragraphs with context given on one, two or more lines.
+      Regex: new RegExp("^((?:Tight|Loose) \\\\hbox\\s*\\([^)]+\\) in paragraph at lines (\\d+)--\\d+\n)((?:.{" + max_print_line + "}\n)*)(.*)"),
+      Callback: function(m, f) {
+        return new Result(Severity.BadBox, f, m[2], (m[1] + m[3].replace(/\n/g, '') + m[4]).trimRight());
+      }
+    },
+    {
+      // This pattern recognizes tight/loose boxes without context, but with line numbers
+      Regex: new RegExp("^(?:Tight|Loose) \\\\[hv]box\\s*\\([^)]+\\) (?:detected at line (\\d+)|in alignment at lines (\\d+)--\\d+)\n"),
+      Callback: function(m, f) {
+        return new Result(Severity.BadBox, f, m[1] || m[2], m[0].trimRight());
+      }
+    },
+    {
+      // This pattern recognizes tight/loose boxes without context and line numbers
+      Regex: new RegExp("^(?:Tight|Loose) \\\\[hv]box\\s*\\([^)]+\\) has occurred while \\\\output is active\\b"),
+      Callback: function(m, f) {
+        return new Result(Severity.BadBox, f, 0, m[0]);
+      }
+    },
+    {
       // \show and \showthe
       Regex: new RegExp("^>\\s(.+(?:\\.|=(?:\\\\long\\s)?macro:)\n(?:.*\n)*?l\\.(\\d+)\\s.*)\n"),
       Callback: function(m, f) {
@@ -236,6 +257,7 @@ LogParser.prototype.Parse = function(output, rootFileName)
     }
   }
 
+  this.WarnUTF8BOM();
   this.WarnAuxFiles();
 }
 
@@ -368,6 +390,21 @@ LogParser.MatchNewFile = (function()
     return null;
   };
 })();
+
+
+LogParser.prototype.WarnUTF8BOM = function()
+{
+  if (TW.target.currentCodecName != "UTF-8" || !TW.target.writeUTF8BOM)
+    return;
+  for (var i = this.Results.length-1; i >= 0; i--) {
+    if (this.Results[i].Description.indexOf("LaTeX Error: Missing \\begin{document}.") > -1) {
+      TW.warning(null, "", "The UTF-8 byte order mark can confuse some " +
+        "variants of TeX. You may want to disable it in the encoding popup " +
+        "available from the status bar.")
+      break;
+    }
+  }
+}
 
 
 LogParser.prototype.WarnAuxFiles = function()

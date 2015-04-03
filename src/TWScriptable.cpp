@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2009-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -38,9 +38,12 @@
 #include <QtScriptTools>
 #endif
 
-#ifdef STATIC_SCRIPTING_PLUGINS
+#if STATIC_LUA_SCRIPTING_PLUGIN
 #include <QtPlugin>
 Q_IMPORT_PLUGIN(TWLuaPlugin)
+#endif
+#if STATIC_PYTHON_SCRIPTING_PLUGIN
+#include <QtPlugin>
 Q_IMPORT_PLUGIN(TWPythonPlugin)
 #endif
 
@@ -172,9 +175,9 @@ void TWScriptManager::loadPlugins()
 #endif
 
 	// allow an env var to override the default plugin path
-	const char* pluginPath = getenv("TW_PLUGINPATH");
-	if (pluginPath != NULL)
-		pluginsDir.cd(QString(pluginPath));
+	QString pluginPath = QString::fromLocal8Bit(getenv("TW_PLUGINPATH"));
+	if (!pluginPath.isEmpty())
+		pluginsDir.cd(pluginPath);
 
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
 		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
@@ -577,7 +580,7 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 	else {
 		if (result.isNull())
 			result = tr("unknown error");
-		statusBar()->showMessage(tr("Script \"%1\": %2").arg(s->getTitle()).arg(result.toString()));
+		QMessageBox::information(this, tr("Script error"), tr("Script \"%1\": %2").arg(s->getTitle()).arg(result.toString()), QMessageBox::Ok, QMessageBox::Ok);
 	}
 }
 
@@ -593,7 +596,7 @@ TWScriptable::runHooks(const QString& hookName)
 void
 TWScriptable::doAboutScripts()
 {
-	QString scriptingLink = QString("<a href=\"%1\">%1</a>").arg("http://code.google.com/p/texworks/wiki/ScriptingTeXworks");
+	QString scriptingLink = QString("<a href=\"%1\">%1</a>").arg("https://github.com/TeXworks/texworks/wiki/ScriptingTeXworks");
 	QString aboutText = "<p>";
 	aboutText += tr("Scripts may be used to add new commands to %1, "
 					"and to extend or modify its behavior.").arg(TEXWORKS_NAME);

@@ -38,7 +38,7 @@
 #   [cmake]: http://www.cmake.org
 #   [docco]: http://jashkenas.github.com/docco
 #   [md]: http://daringfireball.net/projects/markdown/
-#   [tw]: http://code.google.com/p/texworks
+#   [tw]: https://github.com/TeXworks/texworks
 
 
 # Setup and User Options
@@ -49,20 +49,26 @@ PROJECT(TeXworks)
 
 # We require CMake v2.8 or greater because it is the first version that
 # provides support for certain parts of Qt, such as the ScriptTools.
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
+CMAKE_POLICY(VERSION 2.8.6)
+
+# Silence warning about linking to qtmain.lib statically on Windows
+IF(POLICY CMP0020)
+  cmake_policy(SET CMP0020 NEW)
+ENDIF()
+
 SET(CMAKE_COLOR_MAKEFILE ON)
 # Always add the current source and binary directories to the header include
 # path when compiling.
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+SET(CMAKE_AUTOMOC TRUE)
 
-IF ( WIN32 )
-  MESSAGE( WARNING
-    "The CMake build system has only been tested on Mac OS X and Linux."
-    "\nIt probably won't work on Windows. Patches containing fixes are"
-    "\nwelcomed at:"
-    "\n  https://github.com/Sharpie/TeXworks"
-  )
-ENDIF ()
+IF(WIN32 AND MINGW)
+  # Ensure that no cpp flags are passed to windres, the Windows resource compiler.
+  # At least with MinGW 4 on Windows, that would cause problems
+  SET(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> -O coff <DEFINES> <SOURCE> <OBJECT>")
+ENDIF()
+
 
 # Determine Version Numbers
 # -------------------------
@@ -79,9 +85,24 @@ FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/TWVersion.h TeXworks_VER_PATCH REGEX "VER
 STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_PATCH ${TeXworks_VER_PATCH})
 SET(TeXworks_VERSION ${TeXworks_VER_MAJOR}.${TeXworks_VER_MINOR}.${TeXworks_VER_PATCH})
 
-# Recover SVN revision from `src/SvnRev.h`.
-FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/SvnRev.h TeXworks_SVN_REV LIMIT_COUNT 1)
-STRING(REGEX MATCH "([0-9]+)" TeXworks_SVN_REV ${TeXworks_SVN_REV})
+# Make sure we have up-to-date git commit infos
+IF ( NOT CMAKE_CROSSCOMPILING )
+	IF ( WIN32 )
+		EXECUTE_PROCESS(COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.bat WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+		ADD_CUSTOM_TARGET(GitRev ALL COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.bat WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMENT "Update git commit info")
+	ELSE ( WIN32 )
+		EXECUTE_PROCESS(COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+		ADD_CUSTOM_TARGET(GitRev ALL COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMENT "Update git commit info")
+	ENDIF ( WIN32 )
+ENDIF ( NOT CMAKE_CROSSCOMPILING)
+MESSAGE( STATUS "Git commit info updated" )
+
+# Recover git commit info from `src/GitRev.h`.
+FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/GitRev.h TeXworks_GIT_INFO)
+LIST(GET TeXworks_GIT_INFO 1 TeXworks_GIT_COMMIT)
+STRING(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+)\"" "\\1" TeXworks_GIT_HASH "${TeXworks_GIT_COMMIT}")
+LIST(GET TeXworks_GIT_INFO 2 TeXworks_GIT_COMMIT)
+STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-:0-9 Z]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
 
 
 # Declare Project Options
@@ -92,6 +113,27 @@ STRING(REGEX MATCH "([0-9]+)" TeXworks_SVN_REV ${TeXworks_SVN_REV})
 # these options by setting default values.
 
 SET(TW_BUILD_ID "personal" CACHE STRING "A distribution-specific identifier for TeXworks")
+
+# Build with shared libs by default
+IF ( NOT DEFINED BUILD_SHARED_LIBS )
+  SET(BUILD_SHARED_LIBS ON)
+ENDIF ()
+OPTION(BUILD_SHARED_LIBS "Build with shared libs?" ${BUILD_SHARED_LIBS})
+MARK_AS_ADVANCED(BUILD_SHARED_LIBS)
+
+# Build shared plugins by default
+IF ( NOT DEFINED BUILD_SHARED_PLUGINS )
+  SET(BUILD_SHARED_PLUGINS ${BUILD_SHARED_LIBS})
+ENDIF()
+OPTION(BUILD_SHARED_PLUGINS "Build shared plugins?" ${BUILD_SHARED_PLUGINS})
+MARK_AS_ADVANCED(BUILD_SHARED_PLUGINS)
+
+OPTION(PREFER_BUNDLED_SYNCTEX "Use SyncTeX bundled with TeXworks even if a shared library is found?" OFF)
+MARK_AS_ADVANCED(PREFER_BUNDLED_SYNCTEX)
+
+SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place libraries in")
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place programs in")
+MARK_AS_ADVANCED(CMAKE_LIBRARY_OUTPUT_DIRECTORY CMAKE_RUNTIME_OUTPUT_DIRECTORY)
 
 # On UNIX, CMake installs to `/usr/local` by default. However, Mac users
 # will probably find `/Applications` a more convenient default.
@@ -106,7 +148,7 @@ ENDIF ()
 
 # Options controlling the creation of scripting language plugins.
 OPTION(WITH_LUA "Build TeXworks Lua plugin?" ON)
-OPTION(WITH_PYTHON "Build TeXworks Python plugin?" ON)
+OPTION(WITH_PYTHON "Build TeXworks Python plugin?" OFF)
 
 # On OS X we default to linking against the Python libraries provided by Apple
 # even if other Pythons are available. This helps when building
@@ -116,6 +158,25 @@ IF ( APPLE )
   OPTION(USE_SYSTEM_PYTHON "Link against Python Framework distributed with OS X?" ON)
 ENDIF ()
 
+IF (UNIX AND NOT APPLE)
+  SET(TeXworks_HELP_DIR share/doc/texworks-help CACHE PATH "Path where TeXworks looks for help files")
+  SET(TeXworks_DIC_DIR /usr/share/myspell/dicts CACHE PATH "Path where TeXworks looks for spellchecking dictionaries")
+  SET(TeXworks_DOCS_DIR share/doc/texworks CACHE PATH "Path in which documentation files are installed")
+  SET(TeXworks_ICON_DIR share/pixmaps CACHE PATH "Path in which icons are installed")
+  SET(TeXworks_MAN_DIR share/man/man1 CACHE PATH "Path in which manpages are installed")
+  SET(TeXworks_DESKTOP_DIR share/applications CACHE PATH "Path in which .desktop files are installed")
+  SET(TeXworks_APPDATA_DIR share/appdata CACHE PATH "Path in which .appdata.xml files are installed")
+  MARK_AS_ADVANCED(TeXworks_HELP_DIR)
+  MARK_AS_ADVANCED(TeXworks_DIC_DIR)
+  MARK_AS_ADVANCED(TeXworks_DOCS_DIR)
+  MARK_AS_ADVANCED(TeXworks_ICON_DIR)
+  MARK_AS_ADVANCED(TeXworks_MAN_DIR)
+  MARK_AS_ADVANCED(TeXworks_DESKTOP_DIR)
+  MARK_AS_ADVANCED(TeXworks_APPDATA_DIR)
+  IF (EXISTS ${TeXworks_SOURCE_DIR}/manual/)
+    INSTALL(DIRECTORY ${TeXworks_SOURCE_DIR}/manual/ DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_HELP_DIR}/ OPTIONAL)
+  ENDIF()
+ENDIF()
 
 # Dependency Configuration
 # ========================
@@ -124,28 +185,87 @@ ENDIF ()
 # directory contains scripts that locate project components such as Poppler.
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${CMAKE_MODULE_PATH})
 
-# Declare Qt libraries required by this project.
-SET (QT_COMPONENTS
-    QtCore
-    QtGui
-    QtUiTools
-    QtScript
-    QtScriptTools
-    QtXML
-)
+set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
+MARK_AS_ADVANCED(DESIRED_QT_VERSION)
 
-IF ( UNIX AND NOT APPLE )
-  LIST(APPEND QT_COMPONENTS QtDbus)
-ENDIF ()
+# Check for Qt4 by default
+IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 4)
+  # Declare Qt libraries required by this project.
+  SET (QT_COMPONENTS
+      QtCore
+      QtGui
+      QtUiTools
+      QtScript
+      QtScriptTools
+      QtXml
+  )
 
-# Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
-# with Qt-specific tasks such as compiling resources or running `moc`.
-FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
-INCLUDE(UseQt4)
+  IF ( UNIX AND NOT APPLE )
+    LIST(APPEND QT_COMPONENTS QtDbus)
+  ENDIF ()
+
+  # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
+  # with Qt-specific tasks such as compiling resources or running `moc`.
+  FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+  INCLUDE(UseQt4)
+ENDIF()
+# If Qt4 is not found (or not desired), check for Qt5
+IF (DESIRED_QT_VERSION MATCHES 5 OR NOT QT4_FOUND)
+  find_package(Qt5Widgets QUIET)
+  find_package(Qt5Gui QUIET)
+  find_package(Qt5UiTools QUIET)
+  find_package(Qt5Script QUIET)
+  find_package(Qt5ScriptTools QUIET)
+  find_package(Qt5Xml QUIET)
+  IF ( UNIX AND NOT APPLE )
+    find_package(Qt5DBus QUIET)
+  ENDIF ()
+
+  IF( WIN32 AND NOT BUILD_SHARED_LIBS )
+    # For static Windows builds, we also need to pull in the Qt5 Platform
+    # support library, which is not exposed to CMake properly, unfortunately
+    GET_TARGET_PROPERTY(QT_LIB_DIR "${Qt5Widgets_LIBRARIES}" LOCATION)
+    GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
+    FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
+      HINTS "${QT_LIB_DIR}"
+    )
+    FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
+      HINTS "${QT_LIB_DIR}/../plugins/platforms"
+    )
+    ADD_DEFINITIONS(-DSTATIC_QT5)
+  ENDIF()
+
+  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND)
+  	SET(QT5_FOUND TRUE)
+    SET(QT_INCLUDE_DIR "${Qt5Widgets_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5UiTools_INCLUDE_DIRS} ${Qt5Script_INCLUDE_DIRS} ${Qt5ScriptTools_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS}")
+    SET(QT_LIBRARIES ${Qt5UiTools_LIBRARIES} ${Qt5ScriptTools_LIBRARIES} ${Qt5Script_LIBRARIES} ${Qt5Xml_LIBRARIES} ${Qt5DBus_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Core_LIBRARIES})
+
+    # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
+    # etc. which is used here.
+    string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
+    string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
+    string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
+  ENDIF()
+ENDIF()
+
+IF (NOT QT4_FOUND AND NOT QT5_FOUND)
+  MESSAGE(FATAL_ERROR "Could not find required Qt. Please install Qt (see http://qt-project.org/) and/or adjust DESIRED_QT_VERSION.")
+ENDIF()
+
+# Expose the major version number of Qt to the preprocessor. This is necessary
+# to include the correct Qt headers (as QTVERSION is not defined before any Qt
+# headers are included)
+ADD_DEFINITIONS(-DQT_VERSION_MAJOR=${QT_VERSION_MAJOR})
+INCLUDE( TranslationMacros )
+
+
 
 FIND_PACKAGE(ZLIB REQUIRED)
 FIND_PACKAGE(Hunspell REQUIRED)
 FIND_PACKAGE(Poppler REQUIRED)
+IF ( NOT PREFER_BUNDLED_SYNCTEX )
+  FIND_PACKAGE(Synctex QUIET)
+ENDIF ( NOT PREFER_BUNDLED_SYNCTEX )
 
 # The only thing Poppler should need is the location of the include directories
 # in order to access header files. The library loader should be able to find
@@ -159,29 +279,41 @@ ENDIF ()
 SET(TeXworks_INCLUDE_DIRS
   ${QT_INCLUDE_DIR}
   ${HUNSPELL_INCLUDE_DIR}
-  ${POPPLER_QT4_INCLUDE_DIR}
+  ${POPPLER_QT_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
 )
 IF ( POPPLER_NEEDS_FONTCONFIG )
   LIST(APPEND TeXworks_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
 ENDIF ()
 
+IF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
+  LIST(APPEND TeXworks_INCLUDE_DIRS ${SYNCTEX_INCLUDE_DIR})
+ENDIF ()
+
 SET(TeXworks_LIB_DIRS ${QT_LIBRARY_DIR})
 
+set(TEXWORKS_ADDITIONAL_LIBS "" CACHE STRING "Additional libraries not found by CMake")
+MARK_AS_ADVANCED(TEXWORKS_ADDITIONAL_LIBS)
+
+
 SET(TeXworks_LIBS
-  ${QT_LIBRARIES}
   ${POPPLER_LIBRARIES}
   ${HUNSPELL_LIBRARIES}
+  ${QT_LIBRARIES}
   ${ZLIB_LIBRARIES}
+  ${TEXWORKS_ADDITIONAL_LIBS}
 )
+
+IF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
+  LIST(APPEND TeXworks_LIBS ${SYNCTEX_LIBRARIES})
+ENDIF ()
+
 
 # Configure Optional Dependencies
 # -------------------------------
 
-# CMake 2.8 has separate find scripts for Lua 5.1 and Lua 5.0. We assume that
-# the most recent Lua version is installed.
 IF ( WITH_LUA )
-  FIND_PACKAGE(Lua51)
+  FIND_PACKAGE(Lua)
 ENDIF()
 
 IF ( WITH_PYTHON )
@@ -198,6 +330,15 @@ IF ( WITH_PYTHON )
     FIND_PACKAGE(PythonLibs)
   ENDIF ()
 ENDIF()
+
+IF ( LUA_FOUND AND WITH_LUA AND NOT ${BUILD_SHARED_PLUGINS})
+  ADD_DEFINITIONS(-DQT_STATICPLUGIN -DSTATIC_LUA_SCRIPTING_PLUGIN)
+ENDIF ()
+
+IF ( PYTHONLIBS_FOUND AND WITH_PYTHON AND NOT ${BUILD_SHARED_PLUGINS})
+  ADD_DEFINITIONS(-DQT_STATICPLUGIN -DSTATIC_PYTHON_SCRIPTING_PLUGIN)
+ENDIF ()
+
 
 # Update Header Templates
 # -----------------------
@@ -216,20 +357,8 @@ IF ( UNIX )
   ENDIF ()
 ENDIF ()
 
-
 # Building
 # ========
-
-# Build main TeXworks application
-# -------------------------------
-ADD_SUBDIRECTORY(src)
-
-# Build Plugins
-# -------------
-
-# Set the plugin installation path. This is a good default for UNIX-like
-# systems, but is not appropriate for Windows.
-SET(TeXworks_PLUGIN_DIR lib)
 
 # On OS X, the plugins should live inside the application bundle.
 IF ( APPLE )
@@ -239,15 +368,26 @@ IF ( APPLE )
   # freak out about this.
   SET(CMAKE_MODULE_LINKER_FLAGS
     "${CMAKE_MODULE_LINKER_FLAGS_INIT} $ENV{LDFLAGS} -undefined dynamic_lookup")
+ELSE ()
+  # Set the plugin installation path. This is a good default for UNIX-like
+  # systems, but is not appropriate for Windows.
+  SET(TeXworks_PLUGIN_DIR lib/texworks CACHE PATH "Path where TeXworks looks for plugins")
+  MARK_AS_ADVANCED(TeXworks_PLUGIN_DIR)
 ENDIF ()
 
+# Build main TeXworks application
+# -------------------------------
+ADD_SUBDIRECTORY(src)
+
+# Build Plugins
+# -------------
 
 # Build scripting language plugins if the required libraries are available.
-IF ( LUA51_FOUND )
+IF ( LUA_FOUND AND WITH_LUA )
   ADD_SUBDIRECTORY(${TeXworks_SOURCE_DIR}/plugins-src/TWLuaPlugin)
 ENDIF ()
 
-IF ( PYTHONLIBS_FOUND )
+IF ( PYTHONLIBS_FOUND AND WITH_PYTHON )
   ADD_SUBDIRECTORY(${TeXworks_SOURCE_DIR}/plugins-src/TWPythonPlugin)
 ENDIF ()
 
@@ -293,7 +433,7 @@ SET(CPACK_PACKAGE_VERSION_PATCH ${TeXworks_VER_PATCH})
 SET(CPACK_PACKAGE_VERSION ${TeXworks_VERSION})
 
 SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_SVN_REV}")
+SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_GIT_HASH}")
 
 # Configure Drag N' Drop installer.
 IF ( APPLE )
@@ -344,12 +484,13 @@ ENDMACRO()
 MESSAGE("TeXworks has been configured:\n")
 
 CONFIG_INFO("Version" ${TeXworks_VERSION})
-CONFIG_INFO("SVN Revision" ${TeXworks_SVN_REV})
+CONFIG_INFO("Git Commit" "${TeXworks_GIT_HASH} (${TeXworks_GIT_DATE})")
 CONFIG_INFO("Build ID" ${TW_BUILD_ID})
+CONFIG_INFO("Qt version" ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH})
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
 MESSAGE("")
 
-CONFIG_YESNO("Lua scripting plugin" LUA51_FOUND)
+CONFIG_YESNO("Lua scripting plugin" LUA_FOUND)
 CONFIG_YESNO("Python scripting plugin" PYTHONLIBS_FOUND)
 IF( APPLE )
   CONFIG_YESNO("  OS X system python" USE_SYSTEM_PYTHON)
@@ -359,5 +500,3 @@ MESSAGE("")
 MESSAGE("  TeXworks will be installed to:")
 MESSAGE("      ${CMAKE_INSTALL_PREFIX}")
 MESSAGE("")
-
-

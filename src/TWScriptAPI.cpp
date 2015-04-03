@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2010-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -57,11 +57,11 @@ int TWScriptAPI::strlen(const QString& str) const
 
 QString TWScriptAPI::platform() const
 {
-#if defined(Q_WS_MAC)
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	return QString("MacOSX");
-#elif defined(Q_WS_WIN)
+#elif defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	return QString("Windows");
-#elif defined(Q_WS_X11)
+#elif defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 	return QString("X11");
 #else
 	return QString("unknown");

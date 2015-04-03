@@ -86,7 +86,7 @@
         <source>Warning: You do not seem to have the base GStreamer plugins installed.
           All audio and video support has been disabled</source>
         <translation>Avís: Sembla que no teniu instal·lat els connectors bàsics de GStreamer.
-          S&apos;ha inhabilitat el suport per a vídeo i àudio</translation>
+          S&apos;ha inhabilitat la compatibilitat per a vídeo i àudio</translation>
     </message>
 </context>
 <context>
@@ -156,7 +156,7 @@ que teniu instal·lat el connector libgstreamer-plugins-base.</translation>
     <name>Q3DataTable</name>
     <message>
         <source>True</source>
-        <translation>Vertader</translation>
+        <translation>Cert</translation>
     </message>
     <message>
         <source>False</source>
@@ -243,7 +243,7 @@ que teniu instal·lat el connector libgstreamer-plugins-base.</translation>
     </message>
     <message>
         <source>Create New Folder</source>
-        <translation>Crea nova carpeta</translation>
+        <translation>Crea una carpeta nova</translation>
     </message>
     <message>
         <source>List View</source>
@@ -255,11 +255,11 @@ que teniu instal·lat el connector libgstreamer-plugins-base.</translation>
     </message>
     <message>
         <source>Preview File Info</source>
-        <translation>Mostra informació del fitxer</translation>
+        <translation>Mostra la informació del fitxer</translation>
     </message>
     <message>
         <source>Preview File Contents</source>
-        <translation>Mostra continguts del fitxer</translation>
+        <translation>Mostra els continguts del fitxer</translation>
     </message>
     <message>
         <source>Read-write</source>
@@ -383,15 +383,15 @@ que teniu instal·lat el connector libgstreamer-plugins-base.</translation>
     </message>
     <message>
         <source>New Folder 1</source>
-        <translation>Nova carpeta 1</translation>
+        <translation>Carpeta nova 1</translation>
     </message>
     <message>
         <source>New Folder</source>
-        <translation>Nova carpeta</translation>
+        <translation>Carpeta nova</translation>
     </message>
     <message>
         <source>New Folder %1</source>
-        <translation>Nova carpeta %1</translation>
+        <translation>Carpeta nova %1</translation>
     </message>
     <message>
         <source>Find Directory</source>
@@ -591,7 +591,7 @@ a
         <translation>Tanca la finestra</translation>
     </message>
     <message>
-        <source>Displays the name of the window and contains controls to manipulate it</source>
+        <source>Holds the name of the window and contains controls to manipulate it</source>
         <translation>Mostra el nom de la finestra i conté controls per a manipular-la</translation>
     </message>
 </context>
@@ -606,7 +606,7 @@ a
     <name>Q3UrlOperator</name>
     <message>
         <source>The protocol `%1&apos; is not supported</source>
-        <translation>El protocol `%1&apos; no està suportat</translation>
+        <translation>El protocol `%1&apos; no és compatible</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support listing directories</source>
@@ -614,7 +614,7 @@ a
     </message>
     <message>
         <source>The protocol `%1&apos; does not support creating new directories</source>
-        <translation>El protocol `%1&apos; no admet la creació de nous directoris</translation>
+        <translation>El protocol `%1&apos; no admet la creació de directoris nous</translation>
     </message>
     <message>
         <source>The protocol `%1&apos; does not support removing files or directories</source>
@@ -1005,7 +1005,7 @@ a
     </message>
     <message>
         <source>Retry</source>
-        <translation>Torna a provar</translation>
+        <translation>Torna-ho a provar</translation>
     </message>
     <message>
         <source>Ignore</source>
@@ -1123,7 +1123,8 @@ a
     <message>
         <source>%1 already exists.
 Do you want to replace it?</source>
-        <translation>%1 ja existeix.Voleu reemplaçar-lo?</translation>
+        <translation>%1 ja existeix. 
+Voleu reemplaçar-lo?</translation>
     </message>
     <message>
         <source>%1
@@ -1212,7 +1213,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>Find Directory</source>
-        <translation>Cerca directori</translation>
+        <translation>Cerca al directori</translation>
     </message>
     <message>
         <source>Show </source>
@@ -1224,11 +1225,11 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>New Folder</source>
-        <translation>Nova carpeta</translation>
+        <translation>Carpeta nova</translation>
     </message>
     <message>
         <source>&amp;New Folder</source>
-        <translation>&amp;Nova carpeta</translation>
+        <translation>Carpeta &amp;nova</translation>
     </message>
     <message>
         <source>&amp;Choose</source>
@@ -1248,7 +1249,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>Create New Folder</source>
-        <translation>Crea nova carpeta</translation>
+        <translation>Crea una carpeta nova</translation>
     </message>
 </context>
 <context>
@@ -1259,7 +1260,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>&lt;b&gt;The name &quot;%1&quot; can not be used.&lt;/b&gt;&lt;p&gt;Try using another name, with fewer characters or no punctuations marks.</source>
-        <translation>&lt;b&gt;No es pot usar el nom &quot;%1&quot;.&lt;/b&gt;&lt;p&gt;Proveu d&apos;usar un altre nom, amb menys caràcters o sense signes de puntuació.</translation>
+        <translation>&lt;b&gt;No es pot fer servir el nom &quot;%1&quot;.&lt;/b&gt;&lt;p&gt;Proveu amb un altre nom, amb menys caràcters o sense signes de puntuació.</translation>
     </message>
     <message>
         <source>Name</source>
@@ -1344,7 +1345,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>Oblique</source>
-        <translation>Obliqua</translation>
+        <translation>Oblíqua</translation>
     </message>
     <message>
         <source>Any</source>
@@ -1571,7 +1572,7 @@ Do you want to delete it anyway?</source>
     <message>
         <source>Downloading file failed:
 %1</source>
-        <translation>No s&apos;ha pogut descarregar el fitxer:
+        <translation>No s&apos;ha pogut baixar el fitxer:
 %1</translation>
     </message>
     <message>
@@ -1717,7 +1718,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>HTTPS connection requested but SSL support not compiled in</source>
-        <translation>S&apos;ha fet la consulta HTTP però no hi ha suport compilat per a SSL</translation>
+        <translation>S&apos;ha fet la consulta HTTP però no hi ha compatibilitat SSL compilada</translation>
     </message>
     <message>
         <source>Connection refused (or timed out)</source>
@@ -1733,7 +1734,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>Data corrupted</source>
-        <translation>Dades corruptes</translation>
+        <translation>Dades no vàlides</translation>
     </message>
     <message>
         <source>Unknown protocol specified</source>
@@ -1774,19 +1775,19 @@ Do you want to delete it anyway?</source>
     <name>QIBaseResult</name>
     <message>
         <source>Unable to create BLOB</source>
-        <translation>No es pot crear BLOB</translation>
+        <translation>No es pot crear el BLOB</translation>
     </message>
     <message>
         <source>Unable to write BLOB</source>
-        <translation>No es pot escriure BLOB</translation>
+        <translation>No es pot escriure al BLOB</translation>
     </message>
     <message>
         <source>Unable to open BLOB</source>
-        <translation>No es pot obrir BLOB</translation>
+        <translation>No es pot obrir el BLOB</translation>
     </message>
     <message>
         <source>Unable to read BLOB</source>
-        <translation>No es pot llegir BLOB</translation>
+        <translation>No es pot llegir el BLOB</translation>
     </message>
     <message>
         <source>Could not find array</source>
@@ -1895,7 +1896,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>QLibrary::resolve_sys: Symbol &quot;%1&quot; undefined in %2 (%3)</source>
-        <translation>QLibrary::resolve_sys: Símbol &quot;%1&quot; indefinit en %2 (%3)</translation>
+        <translation>QLibrary::resolve_sys: Símbol &quot;%1&quot; no definit en %2 (%3)</translation>
     </message>
     <message>
         <source>Could not mmap &apos;%1&apos;: %2</source>
@@ -2020,7 +2021,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>%1: The socket operation is not supported</source>
-        <translation>%1: L&apos;operació de sòcol no es troba suportada</translation>
+        <translation>%1: L&apos;operació de sòcol no és compatible</translation>
     </message>
     <message>
         <source>%1: Unknown error %2</source>
@@ -2101,7 +2102,7 @@ Do you want to delete it anyway?</source>
     <name>QMdiArea</name>
     <message>
         <source>(Untitled)</source>
-        <translation>(sense títol)</translation>
+        <translation>(Sense títol)</translation>
     </message>
 </context>
 <context>
@@ -2206,7 +2207,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>About Qt</source>
-        <translation>Quant a Qt</translation>
+        <translation>Quant al Qt</translation>
     </message>
     <message>
         <source>&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;</source>
@@ -2327,7 +2328,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>Unable to initialize broadcast socket</source>
-        <translation>No es pot inicialitzar el sòcol de difusio</translation>
+        <translation>No es pot inicialitzar el sòcol de difusió</translation>
     </message>
     <message>
         <source>Attempt to use IPv6 socket on a platform with no IPv6 support</source>
@@ -2400,7 +2401,7 @@ Do you want to delete it anyway?</source>
     <name>QNetworkReply</name>
     <message>
         <source>Error downloading %1 - server replied: %2</source>
-        <translation>S&apos;ha produït un error mentre es descarregava %1 - el servidor va respondre: %2</translation>
+        <translation>S&apos;ha produït un error en baixar %1 - el servidor va respondre: %2</translation>
     </message>
     <message>
         <source>Protocol &quot;%1&quot; is unknown</source>
@@ -2427,7 +2428,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>Unable to begin transaction</source>
-        <translation>No es pot començar la transacció</translation>
+        <translation>No es pot iniciar la transacció</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
@@ -2485,11 +2486,11 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>Unable to disable autocommit</source>
-        <translation>No es pot inhabilitar l&apos;autovalidació</translation>
+        <translation>No es pot inhabilitar l&apos;enviament automàtic</translation>
     </message>
     <message>
         <source>Unable to commit transaction</source>
-        <translation>No es pot validar la transacció</translation>
+        <translation>No es pot enviar la transacció</translation>
     </message>
     <message>
         <source>Unable to rollback transaction</source>
@@ -2504,7 +2505,7 @@ Do you want to delete it anyway?</source>
     <name>QODBCResult</name>
     <message>
         <source>QODBCResult::reset: Unable to set &apos;SQL_CURSOR_STATIC&apos; as statement attribute. Please check your ODBC driver configuration</source>
-        <translation>QODBCResult::reset: No es pot activar &apos;SQL_CURSOR_STATIC&apos; com a atribut de la declaració. Comproveu la configuració del programa de control ODBC</translation>
+        <translation>QODBCResult::reset: No es pot establir &apos;SQL_CURSOR_STATIC&apos; com a atribut de la declaració. Comproveu la configuració del programa de control ODBC</translation>
     </message>
     <message>
         <source>Unable to execute statement</source>
@@ -2543,7 +2544,7 @@ Do you want to delete it anyway?</source>
     <name>QObject</name>
     <message>
         <source>Operation not supported on %1</source>
-        <translation>Operació no suportada a %1</translation>
+        <translation>Operació no compatible a %1</translation>
     </message>
     <message>
         <source>Invalid URI: %1</source>
@@ -2563,7 +2564,7 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>Remote host closed the connection prematurely on %1</source>
-        <translation>Amfitrió remot ha tancat la connexió en %1</translation>
+        <translation>L&apos;amfitrió remot ha tancat la connexió en %1</translation>
     </message>
     <message>
         <source>Protocol error: packet of size 0 received</source>
@@ -2687,19 +2688,19 @@ Do you want to delete it anyway?</source>
     </message>
     <message>
         <source>top margin</source>
-        <translation>Marge superior</translation>
+        <translation>marge superior</translation>
     </message>
     <message>
         <source>left margin</source>
-        <translation>Marge esquerre</translation>
+        <translation>marge esquerre</translation>
     </message>
     <message>
         <source>right margin</source>
-        <translation>Marge dret</translation>
+        <translation>marge dret</translation>
     </message>
     <message>
         <source>bottom margin</source>
-        <translation>Marge inferior</translation>
+        <translation>marge inferior</translation>
     </message>
 </context>
 <context>
@@ -2934,7 +2935,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>Fit page</source>
-        <translation>AJusta a la pàgina</translation>
+        <translation>Ajusta a la pàgina</translation>
     </message>
     <message>
         <source>Zoom in</source>
@@ -3174,7 +3175,7 @@ Trieu un nom de fitxer diferent.</translation>
     <name>QSQLite2Driver</name>
     <message>
         <source>Error to open database</source>
-        <translation>S&apos;ha produït un error per obrir base de dades</translation>
+        <translation>S&apos;ha produït un error en obrir base de dades</translation>
     </message>
     <message>
         <source>Unable to begin transaction</source>
@@ -3227,7 +3228,7 @@ Trieu un nom de fitxer diferent.</translation>
     <name>QSQLiteResult</name>
     <message>
         <source>Unable to fetch row</source>
-        <translation>No es pot recollir la fila</translation>
+        <translation>No es pot obtenir la fila</translation>
     </message>
     <message>
         <source>Unable to execute statement</source>
@@ -3254,7 +3255,7 @@ Trieu un nom de fitxer diferent.</translation>
     <name>QScrollBar</name>
     <message>
         <source>Scroll here</source>
-        <translation>Desplaça ací</translation>
+        <translation>Desplaça aquí</translation>
     </message>
     <message>
         <source>Left edge</source>
@@ -4499,11 +4500,11 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>error occurred while parsing comment</source>
-        <translation>s&apos;ha produït un error quan s&apos;analitzava el document</translation>
+        <translation>s&apos;ha produït un error en analitzar el document</translation>
     </message>
     <message>
         <source>error occurred while parsing reference</source>
-        <translation>s&apos;ha produït un error quan s&apos;analitzava la referència</translation>
+        <translation>s&apos;ha produït un error en analitzar la referència</translation>
     </message>
     <message>
         <source>internal general entity reference not allowed in DTD</source>
@@ -5009,7 +5010,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>The normalization form %1 is unsupported. The supported forms are %2, %3, %4, and %5, and none, i.e. the empty string (no normalization).</source>
-        <translation>No està suportat el formulari de normalització %1. Els formularis suportats són %2, %3, %4 i %5, i buit, i.e. una cadena buida (sense normalització).</translation>
+        <translation>El formulari de normalització %1 no és compatible. Els formularis compatibles són %2, %3, %4 i %5, i buit, i.e. una cadena buida (sense normalització).</translation>
     </message>
     <message>
         <source>A zone offset must be in the range %1..%2 inclusive. %3 is out of range.</source>
@@ -5049,7 +5050,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>Version %1 is not supported. The supported XQuery version is 1.0.</source>
-        <translation>No està suportada la versió %1. La versió suportada d&apos;XQuery és l&apos;1.0.</translation>
+        <translation>La versió %1 no és compatible. La versió compatible d&apos;XQuery és l&apos;1.0.</translation>
     </message>
     <message>
         <source>The encoding %1 is invalid. It must contain Latin characters only, must not contain whitespace, and must match the regular expression %2.</source>
@@ -5057,7 +5058,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>No function with signature %1 is available</source>
-        <translation>No hi ha cap funció disponible am la signatura %1</translation>
+        <translation>No hi ha cap funció disponible amb la signatura %1</translation>
     </message>
     <message>
         <source>A default namespace declaration must occur before function, variable, and option declarations.</source>
@@ -5089,7 +5090,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>The Schema Import feature is not supported, and therefore %1 declarations cannot occur.</source>
-        <translation>No està suportada la característica d&apos;importació d&apos;esquema, i per tant les delcaracions %1 no ocorreran.</translation>
+        <translation>La característica d&apos;importació d&apos;esquema no és compatible, i per tant les delcaracions %1 no ocorreran.</translation>
     </message>
     <message>
         <source>The target namespace of a %1 cannot be empty.</source>
@@ -5097,7 +5098,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>The module import feature is not supported</source>
-        <translation>La importació de mòduls no està suportada</translation>
+        <translation>La importació de mòduls no és compatible</translation>
     </message>
     <message>
         <source>A variable by name %1 has already been declared in the prolog.</source>
@@ -5125,7 +5126,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>No external functions are supported. All supported functions can be used directly, without first declaring them as external</source>
-        <translation>No estan suportades funcions externes. Totes les funcions suportades es poden utilitzar direcctament, sense haver-les de declarar primerament com a externes</translation>
+        <translation>Les funcions externes no són compatibles. Totes les funcions compatibles es poden utilitzar direcctament, sense haver-les de declarar primerament com a externes</translation>
     </message>
     <message>
         <source>An argument by name %1 has already been declared. Every argument name must be unique.</source>
@@ -5137,15 +5138,15 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>The Schema Validation Feature is not supported. Hence, %1-expressions may not be used.</source>
-        <translation>La Característica de validació esquemàtica no està suportada. Per tant, les expressions %1 no es poden utilitzar.</translation>
+        <translation>La Característica de validació esquemàtica no és compatible. Per tant, les expressions %1 no es poden utilitzar.</translation>
     </message>
     <message>
         <source>None of the pragma expressions are supported. Therefore, a fallback expression must be present</source>
-        <translation>Cap de les expressions pragma no està suportada. A més, una expressió fallback ha d&apos;estar present</translation>
+        <translation>Cap de les expressions pragma no és compatible. A més, una expressió fallback ha d&apos;estar present</translation>
     </message>
     <message>
         <source>The %1-axis is unsupported in XQuery</source>
-        <translation>L&apos;eix %1 no està suportat a XQuery</translation>
+        <translation>L&apos;eix %1 és compatible amb XQuery</translation>
     </message>
     <message>
         <source>%1 is not a valid numeric literal.</source>
@@ -5197,7 +5198,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>%1 is an complex type. Casting to complex types is not possible. However, casting to atomic types such as %2 works.</source>
-        <translation>%1 és un tipus complexe. La fundició a tipus complexes no és possible. Tot i així, la fundició a tipus atòmics com %2 sí que funciona.</translation>
+        <translation>%1 és un tipus complex. La fundició a tipus complexes no és possible. Tot i així, la fundició a tipus atòmics com %2 sí que funciona.</translation>
     </message>
     <message>
         <source>%1 is not an atomic type. Casting is only possible to atomic types.</source>
@@ -5209,7 +5210,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>%1 is not in the in-scope attribute declarations. Note that the schema import feature is not supported.</source>
-        <translation>%1 no és una declaració d&apos;atribut in-scope. Tingueu en compte que la característica d&apos;importació d&apos;esquemes no està suportada.</translation>
+        <translation>%1 no és una declaració d&apos;atribut in-scope. Tingueu en compte que la característica d&apos;importació d&apos;esquemes no és compatible.</translation>
     </message>
     <message>
         <source>The name of an extension expression must be in a namespace.</source>
@@ -5225,11 +5226,11 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>exactly one</source>
-        <translation>exactament u</translation>
+        <translation>exactament un</translation>
     </message>
     <message>
         <source>one or more</source>
-        <translation>u o més</translation>
+        <translation>un o més</translation>
     </message>
     <message>
         <source>zero or more</source>
@@ -5249,7 +5250,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>It&apos;s not possible to add attributes after any other kind of node.</source>
-        <translation>No és possible afegir atributs després de qualsevol tipus de node.</translation>
+        <translation>No és possible afegir atributs després de cap tipus de node.</translation>
     </message>
     <message>
         <source>An attribute by name %1 has already been created.</source>
@@ -5257,7 +5258,7 @@ Trieu un nom de fitxer diferent.</translation>
     </message>
     <message>
         <source>Only the Unicode Codepoint Collation is supported(%1). %2 is unsupported.</source>
-        <translation>Només està suportat l&apos;Unicode Codepoint Collation (%1). %2 no està suportat.</translation>
+        <translation>Només l&apos;Unicode Codepoint Collation és compatible (%1). %2 no és compatible.</translation>
     </message>
 </context>
 <context>
@@ -5275,7 +5276,7 @@ Trieu un nom de fitxer diferent.</translation>
     <name>WebCore::PlatformScrollbar</name>
     <message>
         <source>Scroll here</source>
-        <translation>Desplaça ací</translation>
+        <translation>Desplaça aquí</translation>
     </message>
     <message>
         <source>Left edge</source>

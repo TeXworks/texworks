@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2010-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -100,7 +100,9 @@ TWScript* TWPythonPlugin::newScript(const QString& fileName)
 	return new PythonScript(this, fileName);
 }
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(TWPythonPlugin, TWPythonPlugin)
+#endif
 
 
 bool PythonScript::execute(TWScriptAPI *tw) const
@@ -446,8 +448,10 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 			return pyDict;
 		case QMetaType::QObjectStar:
 			return PythonScript::QObjectToPython(v.value<QObject*>());
+#if QT_VERSION < 0x050000
 		case QMetaType::QWidgetStar:
 			return PythonScript::QObjectToPython(qobject_cast<QObject*>(v.value<QWidget*>()));
+#endif
 		default:
 			PyErr_Format(PyExc_TypeError, qPrintable(tr("the type %s is currently not supported")), v.typeName());
 			return NULL;

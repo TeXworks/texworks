@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
 	, isTagging(true)
 	, pHunspell(NULL)
 	, spellingCodec(NULL)
+	, textDoc(parent)
 {
 	loadPatterns();
 	spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
@@ -174,7 +175,7 @@ void TeXHighlighter::loadPatterns()
 	if (syntaxRules == NULL) {
 		syntaxRules = new QList<HighlightingSpec>;
 		QFile syntaxFile(configDir.filePath("syntax-patterns.txt"));
-		QRegExp sectionRE("^\\[([^]]+)\\]");
+		QRegExp sectionRE("^\\[([^\\]]+)\\]");
 		if (syntaxFile.open(QIODevice::ReadOnly)) {
 			HighlightingSpec spec;
 			spec.name = tr("default");

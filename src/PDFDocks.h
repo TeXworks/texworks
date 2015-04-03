@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2008-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -27,7 +27,11 @@
 #include <QListWidget>
 #include <QScrollArea>
 
+#if QT_VERSION < 0x050000
 #include "poppler-qt4.h"
+#else
+#include "poppler-qt5.h"
+#endif
 
 class PDFDocument;
 class QListWidget;

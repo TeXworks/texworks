@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -22,12 +22,16 @@
 #include "TWApp.h"
 #include "TWVersion.h"
 #include "CommandlineParser.h"
-#include "SvnRev.h"
 
 #include <QTimer>
 #include <QTextCodec>
 
-#ifdef Q_WS_WIN
+#if defined(STATIC_QT5) && defined(Q_OS_WIN)
+  #include <QtPlugin>
+  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+#endif
+
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 BOOL CALLBACK enumThreadWindowProc(HWND hWnd, LPARAM /*lParam*/)
 {
 	if (IsWindowVisible(hWnd))
@@ -77,12 +81,15 @@ int main(int argc, char *argv[])
 				launchApp = false;
 			clp.at(i).processed = true;
 			QTextStream strm(stdout);
-			strm << QString("TeXworks %1r%2 (%3)\n\n").arg(TEXWORKS_VERSION).arg(SVN_REVISION_STR).arg(TW_BUILD_ID_STR);
+			if (TWUtils::isGitInfoAvailable())
+				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR).arg(TWUtils::gitCommitHash()).arg(TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
+			else
+				strm << QString::fromUtf8("TeXworks %1 (%3)\n\n").arg(TEXWORKS_VERSION).arg(TW_BUILD_ID_STR);
 			strm << QString::fromUtf8("\
-Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen\n\
+Copyright (C) %1  %2\n\
 License GPLv2+: GNU GPL (version 2 or later) <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
-There is NO WARRANTY, to the extent permitted by law.\n\n");
+There is NO WARRANTY, to the extent permitted by law.\n\n").arg("2007-2015", "Jonathan Kew, Stefan Löffler, Charlie Sharpsteen");
 			strm.flush();
 		}
 		if ((i = clp.getNextSwitch("help")) >= 0) {
@@ -94,7 +101,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\n");
 		}
 	}
 
-#ifdef Q_WS_WIN // single-instance code for Windows
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN) // single-instance code for Windows
 #define TW_MUTEX_NAME		"org.tug.texworks-" TEXWORKS_VERSION
 	HANDLE hMutex = CreateMutexA(NULL, FALSE, TW_MUTEX_NAME);
 	if (hMutex == NULL)
@@ -162,15 +169,18 @@ There is NO WARRANTY, to the extent permitted by law.\n\n");
 
 	int rval = 0;
 	if (launchApp) {
+		// If a document is opened during the startup of Tw, the QApplication
+		// may not be properly initialized yet. Therefore, defer the opening to
+		// the event loop.
 		foreach (fileToOpen, filesToOpen) {
-			app.openFile(fileToOpen.filename, fileToOpen.position);
+			QCoreApplication::postEvent(&app, new TWDocumentOpenEvent(fileToOpen.filename, fileToOpen.position));
 		}
 
 		QTimer::singleShot(1, &app, SLOT(launchAction()));
 		rval = app.exec();
 	}
 
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	CloseHandle(hMutex);
 #endif
 

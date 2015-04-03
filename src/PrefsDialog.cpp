@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -138,7 +138,7 @@ void PrefsDialog::addPath()
 								QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	// remove the trailing / (if any)
 	dir = QDir::fromNativeSeparators(dir);
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	if (dir.length() > 2)
 #else
 	if (dir.length() > 1)
@@ -672,7 +672,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		font = QFont(dlg.editorFont->currentText());
 		font.setPointSize(dlg.fontSize->value());
 		settings.setValue("font", font.toString());
-		TWApp::instance()->setDefaultCodec(QTextCodec::codecForName(dlg.encoding->currentText().toAscii()));
+		TWApp::instance()->setDefaultCodec(QTextCodec::codecForName(dlg.encoding->currentText().toLatin1()));
 		if (dlg.language->currentIndex() >= 0) {
 			QVariant data = dlg.language->itemData(dlg.language->currentIndex());
 			if (data.isValid())

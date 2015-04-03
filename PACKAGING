@@ -19,13 +19,13 @@ General guidelines
 ==================
 
 This section describes how TeXworks should be packaged. It does not deal with
-the building process itself, however. Building in general is documented in the
-README and on http://code.google.com/p/texworks/w/list, while special
+the building process itself, however. Building in general is documented in
+README.md and on https://github.com/TeXworks/texworks/wiki, while special
 considerations concerning packaging are discussed in the following sections.
 This section deals with the principal decisions.
 
  * TeXworks consists of the core program and plugins. If possibly, the plugins
-   should be made available separately (unless noted otherwise). The are to be
+   should be made available separately (unless noted otherwise). They are to be
    considered optional (Debian policy: they are suggested, not recommended,
    meaning that running TeXworks without them is perfectly reasonable).
 
@@ -33,7 +33,8 @@ This section deals with the principal decisions.
 
  * Stable releases feature a copy of the manual. Like the plugins, this should
    be packaged, preferably as a separate, optional package (Debian policy: a
-   suggested package).
+   suggested package, meaning that you don't need it to run TeXworks, but
+   typical installations will have it).
 
  * It is strongly recommended to distribute TeXworks with the poppler encoding
    data as well as the 14 PDF base fonts or suitable (i.e., metrically
@@ -57,45 +58,55 @@ process. This section discusses where and how such modifications to the default
 behavior can be implemented.
 
 The TeXworks build process supports several variables that can be set when
-invoking qmake. To set a variable VAR1=abc and VAR2=xyz, invoke qmake as
-    qmake-qt4 'VAR1=abc' 'VAR2=xyz' TeXworks.pro
+invoking CMake. To set a variable VAR1=abc and VAR2=xyz, invoke CMake as
+   cmake -DVAR1=abc -DVAR2=xyz ..
 
 The most important variable you must always set is TW_BUILD_ID. This ID should
 uniquely identify the build process (who built it, for what platform, etc.) so
 that packaging-related problems that are reported to the general mailing list
 can be passed on to you, the packager.
 
+Other variables that may be useful for packaging include:
+   BUILD_SHARED_PLUGINS      flag to indicate whether plugins should be built
+                             as separate shared libraries [true]
+   PREFER_BUNDLED_SYNCTEX    set this flag to use SyncTeX is bundled with
+                             TeXworks even if a system-wide installation is
+                             found [false]
+   DESIRED_QT_VERSION        set to 4 or 5 to indicate which Qt version to use;
+                             useful only if you have several versions of Qt
+                             installed
+   TeXworks_PLUGIN_DIR       place to install plugin libraries to [OS specific]
+   TEXWORKS_ADDITIONAL_LIBS  additional libraries that need to be passed to the
+                             linker; useful only if CMake does not pick up all
+                             dependencies automatically; separate multiple
+                             libraries by a semicolon
+
 In addition, several directory variables can be set on *nix (on Windows and the
 Mac, packages are self-contained and don't usually install into (separate)
 system directories):
-    INSTALL_PREFIX   base prefix [/usr/local]
-    BIN_DIR          path to install the main program [INSTALL_PREFIX/bin]
-    TW_PLUGINPATH    path to install plugins [INSTALL_PREFIX/lib/texworks]
-    DATA_DIR         base prefix for data files [INSTALL_PREFIX/share]
-    TW_HELPPATH      path to install help files [DATA_DIR/texworks-help]
-    TW_DICPATH       path to look for spell checking files (dictionaries)
-                     [/usr/share/myspell/dicts]
-    DOCS_DIR         path to install general docs (README, NEWS, COPYING)
-                     [DATA_DIR/doc/texworks]
-    ICON_DIR         path to install icons [DATA_DIR/pixmaps]
-    MAN_DIR          path to install man files [DATA_DIR/man/man1]
-    DESKTOP_DIR      path to install .desktop files [DATA_DIR/applications]
-Note that generated Makefiles still honor the INSTALL_ROOT= directive to take
-INSTALL_PREFIX as a relative path under INSTALL_ROOT as opposed to an absolute
+   TeXworks_HELP_DIR     Path where TeXworks looks for help files
+                         [share/doc/texworks-help]
+   TeXworks_DIC_DIR      Path where TeXworks looks for spellchecking
+                         dictionaries [/usr/share/myspell/dicts]
+   TeXworks_DOCS_DIR     Path in which documentation files are installed
+                         [share/doc/texworks]
+   TeXworks_ICON_DIR     Path in which icons are installed [share/pixmaps]
+   TeXworks_MAN_DIR      Path in which manpages are installed [share/man/man1]
+   TeXworks_DESKTOP_DIR  Path in which .desktop files are installed
+                         [share/applications]
+   TeXworks_APPDATA_DIR  Path in which .appdata.xml files are installed
+                         [share/appdata]
+Unless an absolute paths are specified, paths are relative to
+CMAKE_INSTALL_PREFIX.
+
+Other than that, CMake should take care of most of your needs. For details about
+how to tweak general CMake settings, please refer to the CMake documentation
+(http://www.cmake.org/documentation/). A variables that you might find useful is
+CMAKE_PREFIX_PATH.
+
+Note that generated Makefiles still honor the DESTDIR= directive to take
+CMAKE_INSTALL_PREFIX as a relative path under DESTDIR as opposed to an absolute
 path.
-
-Apart from these variables, qmake is controlled primarily by TeXworks.pro and
-similar .pro files in subdirectories. These contain all definitions and settings
-that you may need to change under special circumstances. E.g., they contain
-directives for finding and linking libraries that may need adjustment to suit
-your needs.
-
-Apart from that, the only line you should need to pay attention to is
-    QMAKE_CXXFLAGS += -DHAVE_POPPLER_XPDF_HEADERS
-which needs to be commented if you don't have the xpdf headers provided by
-poppler. This entails that no custom poppler data will be supported (used on
-Windows and the Mac; requires a customized build of the poppler library - see
-below) and therefore is not recommended.
 
 
 Poppler
@@ -105,7 +116,7 @@ As mentioned in the guidelines, there are several intricacies concerning the
 poppler library.
 
 In order to properly display PDF files without embedded fonts - and to conform
-to the PDF standard - TeXworks package must ensure that the base 14 fonts are
+to the PDF standard - TeXworks packages must ensure that the base 14 fonts are
 available on the system. The preferable way to do that is to pull in system
 packages and/or use alternative fonts found on the system. The remaining files
 can be obtained, e.g., from http://www.ctan.org/tex-archive/fonts/urw/base35
@@ -122,7 +133,7 @@ accordingly. See lib-patches/poppler-win32-font-handling.patch for an example
 for poppler-0.16 on Windows.
 
 To check if the fonts are picked up correctly, use the base14-fonts testcase
-from http://texworks.googlecode.com/svn/trunk/testcases/.
+from https://github.com/TeXworks/texworks/tree/master/testcases.
 
 Moreover, the poppler library needs the poppler-data from
 http://poppler.freedesktop.org/ (this particularly affects displaying CJK
@@ -133,7 +144,7 @@ you need ensure poppler doesn't mess with it by building poppler with the
 lib-patches/poppler-qt4-globalparams.patch patch.
 
 To check if poppler-data is picked up properly, use the poppler-data testcase
-from http://texworks.googlecode.com/svn/trunk/testcases/.
+from https://github.com/TeXworks/texworks/tree/master/testcases.
 
 
 Other libraries and patches
@@ -148,6 +159,6 @@ Further information and help
 ============================
 
 Homepage:     http://www.tug.org/texworks/
-Development:  http://code.google.com/p/texworks/
-Bugs:         http://code.google.com/p/texworks/issues/list
+Development:  https://github.com/TeXworks/texworks
+Bugs:         https://github.com/TeXworks/texworks/issues
 Mailing list: http://tug.org/mailman/listinfo/texworks

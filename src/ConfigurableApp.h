@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2010-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #include <QApplication>
 #include <QSettings>
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 #define QSETTINGS_OBJECT(s) \
 			QSettings s(ConfigurableApp::instance()->getSettingsFormat(), QSettings::UserScope, \
 						ConfigurableApp::instance()->organizationDomain(), ConfigurableApp::instance()->applicationName())
@@ -41,13 +41,13 @@ class ConfigurableApp : public QApplication
 	Q_OBJECT
 
 public:
-	ConfigurableApp(int &argc, char **argv) : QApplication(argc, argv), settingsFormat(QSettings::NativeFormat) { }
+	ConfigurableApp(int &argc, char **argv);
 	virtual ~ConfigurableApp() { }
 
-	static ConfigurableApp * instance() { return qobject_cast<ConfigurableApp*>(QApplication::instance()); }
+	static ConfigurableApp * instance();
 
-	QSettings::Format getSettingsFormat() const { return settingsFormat; }
-	void setSettingsFormat(QSettings::Format fmt) { settingsFormat = fmt; }
+	QSettings::Format getSettingsFormat() const;
+	void setSettingsFormat(QSettings::Format fmt);
 	
 protected:
 	QSettings::Format settingsFormat;

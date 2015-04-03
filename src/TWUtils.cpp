@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -23,6 +23,8 @@
 #include "TWApp.h"
 #include "TeXDocument.h"
 #include "PDFDocument.h"
+#include "TWVersion.h"
+#include "GitRev.h"
 
 #include <QFileDialog>
 #include <QString>
@@ -39,12 +41,15 @@
 #include <QSignalMapper>
 #include <QCryptographicHash>
 #include <QTextStream>
+#include <QDateTime>
+
+#include <hunspell.h>
 
 #include <hunspell.h>
 
 #pragma mark === TWUtils ===
 
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 // compile-time default paths - customize by defining in the .pro file
 #ifndef TW_DICPATH
 #define TW_DICPATH "/usr/share/myspell/dicts"
@@ -88,21 +93,21 @@ const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOn
 	
 	libRootPath = TWApp::instance()->getPortableLibPath();
 	if (libRootPath.isEmpty()) {
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 		libRootPath = QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/";
 #endif
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 		if (subdir == "dictionaries") {
 			libPath = TW_DICPATH;
-			const char* dicPath = getenv("TW_DICPATH");
-			if (dicPath != NULL)
+			QString dicPath = QString::fromLocal8Bit(getenv("TW_DICPATH"));
+			if (!dicPath.isEmpty())
 				libPath = dicPath;
 			return libPath; // don't try to create/update the system dicts directory
 		}
 		else
 			libRootPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/";
 #endif
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 		libRootPath = QDir::homePath() + "/" + TEXWORKS_NAME + "/";
 #endif
 	}
@@ -143,15 +148,10 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 		QString srcPath = iter.fileInfo().filePath();
 		QString path = srcRootDir.relativeFilePath(srcPath);
 		QString destPath = destRootDir.filePath(path);
-		
+
 		// Check if the file is in the database
 		if (fvdb.hasFileRecord(destPath)) {
 			FileVersionDatabase::Record rec = fvdb.getFileRecord(destPath);
-			// If we can't update the file, don't bother with the rest of the
-			// code
-			if (rec.version >= SVN_REVISION)
-				continue;
-			
 			// If the file no longer exists on the disk, the user has deleted it
 			// Hence we won't recreate it, but we keep the database record to
 			// remember that this file was deleted by the user
@@ -169,19 +169,19 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// latest version from the internet)
 				if (destHash != srcHash)
 					continue;
-				fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+				fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
 			}
 			else {
 				// The file matches the record in the database; update it
 				// (copying is only necessary if the contents has changed)
 				if (srcHash == destHash)
-					fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+					fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
 				else {
 					// we have to remove the file first as QFile::copy doesn't
 					// overwrite existing files
 					QFile::remove(destPath);
 					if(QFile::copy(srcPath, destPath))
-						fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+						fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
 				}
 			}
 		}
@@ -194,7 +194,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// might fail
 				destRootDir.mkpath(QFileInfo(destPath).path());
 				QFile(srcPath).copy(destPath);
-				fvdb.addFileRecord(destPath, srcHash, SVN_REVISION);
+				fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
 			}
 			else {
 				// If a file with that name already exists, we don't replace it
@@ -203,7 +203,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// database so that future updates are applied
 				QByteArray destHash = FileVersionDatabase::hashForFile(destPath);
 				if (srcHash == destHash)
-					fvdb.addFileRecord(destPath, destHash, SVN_REVISION);
+					fvdb.addFileRecord(destPath, destHash, gitCommitHash());
 			}
 		}
 	}
@@ -277,17 +277,17 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 		delete actions[i];
 	}
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	QDir helpDir(QCoreApplication::applicationDirPath() + "/../texworks-help");
 #else
 	QDir helpDir(QCoreApplication::applicationDirPath() + "/texworks-help");
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 	if (!helpDir.exists())
 		helpDir.cd(TW_HELPPATH);
 #endif
 #endif
-	const char* helpPath = getenv("TW_HELPPATH");
-	if (helpPath != NULL)
+	QString helpPath = QString::fromLocal8Bit(getenv("TW_HELPPATH"));
+	if (!helpPath.isEmpty())
 		helpDir.cd(QString(helpPath));
 
 	QSETTINGS_OBJECT(settings);
@@ -694,7 +694,7 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 		// If we still have no valid value for hDiff/wDiff, just guess (on some
 		// platforms)
 		if (hDiff == 0 && wDiff == 0) {
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 			// (these values were determined on WinXP with default theme)
 			hDiff = 34;
 			wDiff = 8;
@@ -1145,6 +1145,28 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 		delete map;
 }
 
+// static
+bool TWUtils::isGitInfoAvailable()
+{
+	return (!QString::fromLatin1(GIT_COMMIT_HASH).startsWith("$Format:") && !QString::fromLatin1(GIT_COMMIT_DATE).startsWith("$Format:"));
+}
+
+// static
+QString TWUtils::gitCommitHash()
+{
+	if(QString::fromLatin1(GIT_COMMIT_HASH).startsWith("$Format:"))
+		return QString();
+	return GIT_COMMIT_HASH;
+}
+
+// static
+QDateTime TWUtils::gitCommitDate()
+{
+	if (QString::fromLatin1(GIT_COMMIT_DATE).startsWith("$Format:"))
+		return QDateTime();
+	return QDateTime::fromString(GIT_COMMIT_DATE, Qt::ISODate).toUTC();
+}
+
 #pragma mark === SelWinAction ===
 
 // action subclass used for dynamic window-selection items in the Window menu
@@ -1172,7 +1194,7 @@ CmdKeyFilter *CmdKeyFilter::filter()
 
 bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 {
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	if (event->type() == QEvent::KeyPress) {
 		QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
 		if ((keyEvent->modifiers() & Qt::ControlModifier) != 0) {
@@ -1274,8 +1296,8 @@ FileVersionDatabase FileVersionDatabase::load(const QString & path)
 		// ignore comments
 		if (line.startsWith('#')) continue;
 		
-		rec.version = line.section(' ', 0, 0).toUInt();
-		rec.hash = QByteArray::fromHex(line.section(' ', 1, 1).toAscii());
+		rec.version = line.section(' ', 0, 0);
+		rec.hash = QByteArray::fromHex(line.section(' ', 1, 1).toLatin1());
 		rec.filePath = line.section(' ', 2).trimmed();
 		rec.filePath = rootDir.absoluteFilePath(rec.filePath.filePath());
 		retVal.m_records.append(rec);
@@ -1305,7 +1327,7 @@ bool FileVersionDatabase::save(const QString & path) const
 	return true;
 }
 
-void FileVersionDatabase::addFileRecord(const QFileInfo & file, const QByteArray & md5Hash, const unsigned int version)
+void FileVersionDatabase::addFileRecord(const QFileInfo & file, const QByteArray & md5Hash, const QString version)
 {
 	// remove all existing entries for this file
 	QMutableListIterator<FileVersionDatabase::Record> it(m_records);
@@ -1348,7 +1370,7 @@ FileVersionDatabase::Record FileVersionDatabase::getFileRecord(const QFileInfo &
 	}
 
 	FileVersionDatabase::Record retVal;
-	retVal.version = 0;
+	retVal.version = QString();
 	retVal.hash = QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e"); // hash for the zero-length string
 	return retVal;
 }

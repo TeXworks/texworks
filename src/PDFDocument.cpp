@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -231,6 +231,12 @@ void PDFWidget::setDocument(Poppler::Document *doc)
 
 void PDFWidget::windowResized()
 {
+	// the fitting functions below may trigger resize events (e.g., if scroll
+	// bars are shown/hidden as a result of resizing the page image). To avoid
+	// infinite loops of resize events, disconnect the event here and reconnect
+	// it in the end.
+	disconnect(parent()->parent(), SIGNAL(resized()), this, SLOT(windowResized()));
+
 	switch (scaleOption) {
 		case kFixedMag:
 			break;
@@ -241,7 +247,10 @@ void PDFWidget::windowResized()
 			fitWindow(true);
 			break;
 	}
+	// Ensure all resizing is finished before reconnecting the resize event.
 	update();
+	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents | QEventLoop::ExcludeSocketNotifiers);
+	connect(parent()->parent(), SIGNAL(resized()), this, SLOT(windowResized()));
 }
 
 void PDFWidget::paintEvent(QPaintEvent *event)
@@ -482,7 +491,7 @@ void PDFWidget::doLink(const Poppler::Link *link)
 			{
 				const Poppler::LinkBrowse *browse = dynamic_cast<const Poppler::LinkBrowse*>(link);
 				Q_ASSERT(browse != NULL);
-				QUrl url = QUrl::fromEncoded(browse->url().toAscii());
+				QUrl url = QUrl::fromEncoded(browse->url().toLatin1());
 				if (url.scheme() == "file") {
 					PDFDocument *doc = qobject_cast<PDFDocument*>(window());
 					if (doc) {
@@ -819,6 +828,56 @@ void PDFWidget::updateStatusBar()
 	}
 }
 
+QString PDFWidget::selectedText(const QList<QPolygonF> &selection, QMap<int, QRectF> * wordBoxes /* = NULL */, QMap<int, QRectF> * charBoxes /* = NULL */)
+{
+	QString retVal;
+
+	if (!page)
+		return retVal;
+
+	// Get a list of all boxes
+	QList<Poppler::TextBox*> poppler_boxes = page->textList();
+
+	// Filter boxes by selection
+	foreach (Poppler::TextBox * poppler_box, poppler_boxes) {
+		if (!poppler_box)
+			continue;
+		bool include = false;
+		foreach (const QPolygonF & p, selection) {
+			if (!p.intersected(poppler_box->boundingBox()).empty()) {
+				include = true;
+				break;
+			}
+		}
+		if (!include)
+			continue;
+		retVal += poppler_box->text();
+		if (poppler_box->hasSpaceAfter())
+			retVal += " ";
+
+		if (wordBoxes) {
+			for (unsigned int i = 0; i < poppler_box->text().length(); ++i)
+				(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
+			if (poppler_box->hasSpaceAfter())
+				(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
+		}
+		if (charBoxes) {
+			for (unsigned int i = 0; i < poppler_box->text().length(); ++i)
+				(*charBoxes)[charBoxes->count()] = poppler_box->charBoundingBox(i);
+			if (poppler_box->hasSpaceAfter())
+				(*charBoxes)[charBoxes->count()] = poppler_box->boundingBox();
+		}
+	}
+
+	// Clean up
+	foreach (Poppler::TextBox * poppler_box, poppler_boxes) {
+		if (poppler_box)
+			delete poppler_box;
+	}
+
+	return retVal;
+}
+
 void PDFWidget::goFirst()
 {
 	if (pageIndex != 0) {
@@ -925,9 +984,15 @@ void PDFWidget::doPageDialog()
 		return;
 	bool ok;
 	setCursor(Qt::ArrowCursor);
+	#if QT_VERSION >= 0x050000
+	int pageNo = QInputDialog::getInt(this, tr("Go to Page"),
+									tr("Page number:"), pageIndex + 1,
+									1, document->numPages(), 1, &ok);
+	#else
 	int pageNo = QInputDialog::getInteger(this, tr("Go to Page"),
 									tr("Page number:"), pageIndex + 1,
 									1, document->numPages(), 1, &ok);
+	#endif
 	if (ok)
 		goToPage(pageNo - 1);
 }
@@ -1103,7 +1168,7 @@ QScrollArea* PDFWidget::getScrollArea()
 QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
-	: watcher(NULL), reloadTimer(NULL), scanner(NULL), openedManually(false)
+	: watcher(NULL), reloadTimer(NULL), _synchronizer(NULL), openedManually(false)
 {
 	init();
 
@@ -1134,8 +1199,6 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 
 PDFDocument::~PDFDocument()
 {
-	if (scanner != NULL)
-		synctex_scanner_free(scanner);
 	docList.removeAll(this);
 	if (document)
 		delete document;
@@ -1147,7 +1210,7 @@ PDFDocument::init()
 	docList.append(this);
 
 	setupUi(this);
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
 	TWApp::instance()->createMessageTarget(this);
 #endif
 
@@ -1155,7 +1218,7 @@ PDFDocument::init()
 	setAttribute(Qt::WA_MacNoClickThrough, true);
 
 	QIcon winIcon;
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
 	// The Compiz window manager doesn't seem to support icons larger than
 	// 128x128, so we add a suitable one first
 	winIcon.addFile(":/images/images/TeXworks-doc-128.png");
@@ -1254,7 +1317,7 @@ PDFDocument::init()
 
 	connect(this, SIGNAL(destroyed()), qApp, SLOT(updateWindowMenus()));
 
-	connect(qApp, SIGNAL(syncPdf(const QString&, int, bool)), this, SLOT(syncFromSource(const QString&, int, bool)));
+	connect(qApp, SIGNAL(syncPdf(const QString&, int, int, bool)), this, SLOT(syncFromSource(const QString&, int, int, bool)));
 
 	menuShow->addAction(toolBar->toggleViewAction());
 	menuShow->addSeparator();
@@ -1409,9 +1472,9 @@ void PDFDocument::reload()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	if (scanner != NULL) {
-		synctex_scanner_free(scanner);
-		scanner = NULL;
+	if (_synchronizer != NULL) {
+		delete _synchronizer;
+		_synchronizer = NULL;
 	}
 
 	if (document != NULL)
@@ -1463,78 +1526,74 @@ void PDFDocument::reloadWhenIdle()
 
 void PDFDocument::loadSyncData()
 {
-	scanner = synctex_scanner_new_with_output_file(curFile.toUtf8().data(), NULL, 1);
-	if (scanner == NULL)
-		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
-	else {
-		QString synctexName = QString::fromUtf8(synctex_scanner_get_synctex(scanner));
-		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(synctexName), kStatusMessageDuration);
+	if (_synchronizer) {
+		delete _synchronizer;
+		_synchronizer = NULL;
 	}
+	_synchronizer = new TWSyncTeXSynchronizer(curFile);
+	if (!_synchronizer)
+		statusBar()->showMessage(tr("Error initializing SyncTeX"), kStatusMessageDuration);
+	else if (!_synchronizer->isValid())
+		statusBar()->showMessage(tr("No SyncTeX data available"), kStatusMessageDuration);
+	else
+		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(_synchronizer->syncTeXFilename()), kStatusMessageDuration);
 }
 
 void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 {
-	if (scanner == NULL)
+	if (!_synchronizer)
 		return;
+
 	pdfWidget->setHighlightPath(QPainterPath());
 	pdfWidget->update();
-	if (synctex_edit_query(scanner, pageIndex + 1, pos.x(), pos.y()) > 0) {
-		synctex_node_t node;
-		while ((node = synctex_next_result(scanner)) != NULL) {
-			QString filename = QString::fromUtf8(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
-			QDir curDir(QFileInfo(curFile).canonicalPath());
-			TeXDocument::openDocument(QFileInfo(curDir, filename).canonicalFilePath(), true, true, synctex_node_line(node));
-			break; // FIXME: currently we just take the first hit
-		}
-	}
+
+	TWSynchronizer::PDFSyncPoint src;
+	src.filename = curFile;
+	src.page = pageIndex + 1;
+	src.rects.append(QRectF(pos.x(), pos.y(), 0, 0));
+
+	// Get target point
+	TWSynchronizer::TeXSyncPoint dest = _synchronizer->syncFromPDF(src);
+
+	// Check target point
+	if (dest.filename.isEmpty() || dest.line < 0)
+		return;
+
+	// Display the result
+	QDir curDir(QFileInfo(curFile).canonicalPath());
+	if (dest.col >= 0)
+		TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), true, true, dest.line, dest.col, dest.col + 1);
+	else
+		TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), true, true, dest.line, -1, -1);
 }
 
-void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, bool activatePreview)
+void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview)
 {
-	if (scanner == NULL)
+	if (!_synchronizer)
 		return;
 
-	// find the name synctex is using for this source file...
-	const QFileInfo sourceFileInfo(sourceFile);
-	QDir curDir(QFileInfo(curFile).canonicalPath());
-	synctex_node_t node = synctex_scanner_input(scanner);
-	QString name;
-	bool found = false;
-	while (node != NULL) {
-		name = QString::fromUtf8(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
-		const QFileInfo fi(curDir, name);
-		if (fi == sourceFileInfo) {
-			found = true;
-			break;
-		}
-		node = synctex_node_sibling(node);
-	}
-	if (!found)
+	TWSynchronizer::TeXSyncPoint src;
+	src.filename = sourceFile;
+	src.line = lineNo;
+	src.col = col;
+
+	// Get target point
+	TWSynchronizer::PDFSyncPoint dest = _synchronizer->syncFromTeX(src);
+
+	// Check target point
+	if (dest.page < 1 || QFileInfo(curFile) != QFileInfo(dest.filename))
 		return;
 
-	if (synctex_display_query(scanner, name.toUtf8().data(), lineNo, 0) > 0) {
-		int page = -1;
-		QPainterPath path;
-		while ((node = synctex_next_result(scanner)) != NULL) {
-			if (page == -1)
-				page = synctex_node_page(node);
-			if (synctex_node_page(node) != page)
-				continue;
-			QRectF nodeRect(synctex_node_box_visible_h(node),
-							synctex_node_box_visible_v(node) - synctex_node_box_visible_height(node),
-							synctex_node_box_visible_width(node),
-							synctex_node_box_visible_height(node) + synctex_node_box_visible_depth(node));
-			path.addRect(nodeRect);
-		}
-		if (page > 0) {
-			pdfWidget->goToPage(page - 1);
-			path.setFillRule(Qt::WindingFill);
-			pdfWidget->setHighlightPath(path);
-			pdfWidget->update();
-			if (activatePreview)
-				selectWindow();
-		}
-	}
+	// Display the result
+	pdfWidget->goToPage(dest.page - 1);
+	QPainterPath path;
+	path.setFillRule(Qt::WindingFill);
+	foreach(QRectF r, dest.rects)
+	path.addRect(r);
+	pdfWidget->setHighlightPath(path);
+	pdfWidget->update();
+	if (activatePreview)
+		selectWindow();
 }
 
 void PDFDocument::setCurrentFile(const QString &fileName)
@@ -1773,7 +1832,10 @@ void PDFDocument::doFindAgain(bool newSearch /* = false */)
 		for (pageIdx = firstPage; pageIdx != lastPage; pageIdx += deltaPage) {
 			page = document->page(pageIdx);
 
-			if (page->search(searchText, lastSearchResult.selRect, searchDir, searchMode)) {
+			double left, top, bottom, right;
+			lastSearchResult.selRect.getCoords(&left, &top, &right, &bottom);
+			if (page->search(searchText, left, top, right, bottom, searchDir, searchMode)) {
+				lastSearchResult.selRect.setCoords(left, top, right, bottom);
 				lastSearchResult.doc = this;
 				lastSearchResult.pageIdx = pageIdx;
 				QPainterPath p;

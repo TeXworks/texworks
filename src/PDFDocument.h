@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2013  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -35,8 +35,12 @@
 
 #include "TWApp.h"
 #include "FindDialog.h"
+#if QT_VERSION < 0x050000
 #include "poppler-qt4.h"
-#include "synctex_parser.h"
+#else
+#include "poppler-qt5.h"
+#endif
+#include "TWSynchronizer.h"
 
 #include "ui_PDFDocument.h"
 
@@ -105,6 +109,7 @@ public:
 	int getCurrentPageIndex() { return pageIndex; }
 	void reloadPage();
 	void updateStatusBar();
+	QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = NULL, QMap<int, QRectF> * charBoxes = NULL);
 
 private slots:
 	void goFirst();
@@ -229,10 +234,7 @@ public:
 	void updateTypesettingAction(bool processRunning);
 	void goToDestination(const QString& destName);
 	void linkToSource(TeXDocument *texDoc);
-	bool hasSyncData()
-		{
-			return scanner != NULL;
-		}
+	bool hasSyncData() const { return _synchronizer != NULL; }
 
 	Poppler::Document *popplerDoc()
 		{
@@ -262,7 +264,7 @@ public slots:
 	void doFindAgain(bool newSearch = false);
 	void goToSource();
 	void toggleFullScreen();
-	void syncFromSource(const QString& sourceFile, int lineNo, bool activatePreview);
+	void syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview);
 	void print();
 	
 private slots:
@@ -307,11 +309,11 @@ private:
 	QFileSystemWatcher *watcher;
 	QTimer *reloadTimer;
 	
-	synctex_scanner_t scanner;
-
 	bool openedManually;
 	
 	static QList<PDFDocument*> docList;
+
+	TWSyncTeXSynchronizer * _synchronizer;
 	
 	PDFSearchResult lastSearchResult;
 	// stores the page idx a search was started on

@@ -382,13 +382,13 @@ da je nameščen paket libgstreamer-plugins-base.</translation>
         <source>Decay HF ratio (%)</source>
         <extracomment>DecayHFRatio: Ratio of high-frequency decay time to the value specified by DecayTime.
 </extracomment>
-        <translation type="unfinished"></translation>
+        <translation>VF razmerje zamrtja (%)</translation>
     </message>
     <message>
         <source>Decay time (ms)</source>
         <extracomment>DecayTime: Time over which reverberation is diminished.
 </extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Čas zamrtja (ms)</translation>
     </message>
     <message>
         <source>Density (%)</source>
@@ -1519,11 +1519,11 @@ v
     </message>
     <message>
         <source>Empty signal assignment</source>
-        <translation type="unfinished">Prazna prireditev signalu</translation>
+        <translation>Prazna prireditev signalu</translation>
     </message>
     <message>
         <source>Empty property assignment</source>
-        <translation type="unfinished">Prazna prireditev lastnosti</translation>
+        <translation>Prazna prireditev lastnosti</translation>
     </message>
     <message>
         <source>Attached properties cannot be used here</source>
@@ -1717,19 +1717,19 @@ v
     <name>QDeclarativeCompositeTypeManager</name>
     <message>
         <source>Resource %1 unavailable</source>
-        <translation>Vir %1 ni na voljo</translation>
+        <translation type="obsolete">Vir %1 ni na voljo</translation>
     </message>
     <message>
         <source>Namespace %1 cannot be used as a type</source>
-        <translation>Imenskega prostora %1 ni moč uporabiti kot vrste</translation>
+        <translation type="obsolete">Imenskega prostora %1 ni moč uporabiti kot vrste</translation>
     </message>
     <message>
         <source>%1 %2</source>
-        <translation>%1 %2</translation>
+        <translation type="obsolete">%1 %2</translation>
     </message>
     <message>
         <source>Type %1 unavailable</source>
-        <translation>Vrsta %1 ni na voljo</translation>
+        <translation type="obsolete">Vrsta %1 ni na voljo</translation>
     </message>
 </context>
 <context>
@@ -1771,7 +1771,7 @@ v
     </message>
     <message>
         <source>transaction: missing callback</source>
-        <translation type="unfinished">transaction: manjka povratni klic</translation>
+        <translation>transaction: manjka povratni klic</translation>
     </message>
     <message>
         <source>SQL: database version mismatch</source>
@@ -1961,7 +1961,7 @@ v
         <translation>Nezaprt niz na koncu vrstice</translation>
     </message>
     <message>
-        <source>Illegal escape squence</source>
+        <source>Illegal escape sequence</source>
         <translation>Neveljavno ubežno zaporedje</translation>
     </message>
     <message>
@@ -2110,6 +2110,25 @@ v
     <message>
         <source>Could not instantiate cursor delegate</source>
         <translation>Ni bilo moč instancirati delegata za kazalec</translation>
+    </message>
+</context>
+<context>
+    <name>QDeclarativeTypeData</name>
+    <message>
+        <source>Script %1 unavailable</source>
+        <translation>Skript %1 ni na voljo</translation>
+    </message>
+    <message>
+        <source>Type %1 unavailable</source>
+        <translation>Vrsta %1 ni na voljo</translation>
+    </message>
+    <message>
+        <source>Namespace %1 cannot be used as a type</source>
+        <translation>Imenskega prostora %1 ni moč uporabiti kot vrste</translation>
+    </message>
+    <message>
+        <source>%1 %2</source>
+        <translation>%1 %2</translation>
     </message>
 </context>
 <context>
@@ -2685,7 +2704,7 @@ Ali jo kljub temu želite izbrisati?</translation>
     <name>QFontDatabase</name>
     <message>
         <source>Normal</source>
-        <translation>Normalno</translation>
+        <translation>Običajno</translation>
     </message>
     <message>
         <source>Bold</source>
@@ -2697,7 +2716,7 @@ Ali jo kljub temu želite izbrisati?</translation>
     </message>
     <message>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation>Krepko</translation>
     </message>
     <message>
         <source>Demi</source>
@@ -2924,7 +2943,7 @@ Ali jo kljub temu želite izbrisati?</translation>
     <message>
         <source>Connecting to host failed:
 %1</source>
-        <translation>Povezovanje z gostiteljem %1 ni uspelo:
+        <translation>Povezovanje z gostiteljem ni uspelo:
 %1</translation>
     </message>
     <message>
@@ -3331,7 +3350,7 @@ Ali jo kljub temu želite izbrisati?</translation>
     <name>QLibrary</name>
     <message>
         <source>Could not mmap &apos;%1&apos;: %2</source>
-        <translation>Ni bilo moč izvesti funkcije mmap za »%1«: %2</translation>
+        <translation type="obsolete">Ni bilo moč izvesti funkcije mmap za »%1«: %2</translation>
     </message>
     <message>
         <source>Plugin verification data mismatch in &apos;%1&apos;</source>
@@ -3339,7 +3358,7 @@ Ali jo kljub temu želite izbrisati?</translation>
     </message>
     <message>
         <source>Could not unmap &apos;%1&apos;: %2</source>
-        <translation>Ni bilo moč izvesti funkcije unmap za »%1«: %2</translation>
+        <translation type="obsolete">Ni bilo moč izvesti funkcije unmap za »%1«: %2</translation>
     </message>
     <message>
         <source>The plugin &apos;%1&apos; uses incompatible Qt library. (%2.%3.%4) [%5]</source>
@@ -3664,8 +3683,8 @@ Ali jo kljub temu želite izbrisati?</translation>
         <translation>&lt;h3&gt;O Qt&lt;/h3&gt;&lt;p&gt;Ta program uporablja Qt različice %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is available under three different licensing options designed to accommodate the needs of our various users.&lt;/p&gt;&lt;p&gt;Qt licensed under our commercial license agreement is appropriate for development of proprietary/commercial software where you do not want to share any source code with third parties or otherwise cannot comply with the terms of the GNU LGPL version 2.1 or GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU LGPL version 2.1 is appropriate for the development of Qt applications (proprietary or open source) provided you can comply with the terms and conditions of the GNU LGPL version 2.1.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU General Public License version 3.0 is appropriate for the development of Qt applications where you wish to use such applications in combination with software subject to the terms of the GNU GPL version 3.0 or where you are otherwise willing to comply with the terms of the GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.nokia.com/products/licensing&quot;&gt;qt.nokia.com/products/licensing&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;&lt;p&gt;Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).&lt;/p&gt;&lt;p&gt;Qt is a Nokia product. See &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Qt je skupek gradnikov C++ za razvoj programov, ki tečejo na več platformah.&lt;/p&gt;&lt;p&gt;Qt omogoča isto kodo prenašati med platformami Linux, Mac&amp;nbsp;OS&amp;nbsp;X, Windows in vsemi večjimi variantami UNIX-a. Qt je na voljo tudi za vgrajene naprave in sicer kot Qt for Embedded Linux in Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt je na voljo pod tremi možnimi licenčnimi pogoji, ki ustrezajo različnim željam uporabnikov.&lt;/p&gt;&lt;p&gt;Qt pod licenco GNU General Public License različice 3.0 (&lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0.html&quot;&gt;GPLv3.0&lt;/a&gt;) je primeren za razvoj programov Qt, ki so povsem &lt;a href=&quot;http://www.gnu.org/philosophy/free-sw.html&quot;&gt;prosti in odprto-kodni&lt;/a&gt;. S to licenco se uporabnikom programa zagotovijo vse pravice in svoboščine, kot jih je imel izdelovalec programa.&lt;/p&gt;&lt;p&gt;Qt pod licenco GNU Lesser General Public License različice 2.1 (&lt;a href=&quot;http://www.gnu.org/licenses/lgpl-2.1.html&quot;&gt;LGPLv2.1&lt;/a&gt;) omogoča tudi razvoj programov, ki uporabnikom ne zagotavljajo vseh pravic in svoboščin, kot jih je imel izdelovalec. Omogoča na primer tudi razvoj zaprto-kodnih programov.&lt;/p&gt;&lt;p&gt;Qt pod posebno komercialno licenco je namenjen razvoju lastniških in zaprto-kodnih programov, kjer izdelovalec z uporabniki noče deliti nič izvorne kode ter pravic in svoboščin, ali pa ne more ustreči pogojem licenc GPLv3.0 ali LGPLv2.1.&lt;/p&gt;&lt;p&gt;Za pregled licenčnih možnosti si oglejte spletno stran &lt;a href=&quot;http://qt.nokia.com/products/licensing&quot;&gt;qt.nokia.com/products/licensing&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Avtorske pravice © 2009 Nokia Corporation in/ali podružnice ter zunanji prispevajoči.&lt;/p&gt;&lt;p&gt;Qt je proizvod podjetja Nokia. Za dodatne podatke si oglejte &lt;a href=&quot;http://qt.nokia.com/&quot;&gt;qt.nokia.com&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Prevedel: &lt;a href=&quot;mailto:jlp@holodeck1.com&quot;&gt;Jure Repinc&lt;/a&gt;, &lt;a href=&quot;http://www.lugos.si/&quot;&gt;LUGOS&lt;/a&gt;&lt;/p&gt;</translation>
+        <source>&lt;p&gt;Qt is a C++ toolkit for cross-platform application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants. Qt is also available for embedded devices as Qt for Embedded Linux and Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt is available under three different licensing options designed to accommodate the needs of our various users.&lt;/p&gt;&lt;p&gt;Qt licensed under our commercial license agreement is appropriate for development of proprietary/commercial software where you do not want to share any source code with third parties or otherwise cannot comply with the terms of the GNU LGPL version 2.1 or GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU LGPL version 2.1 is appropriate for the development of Qt applications (proprietary or open source) provided you can comply with the terms and conditions of the GNU LGPL version 2.1.&lt;/p&gt;&lt;p&gt;Qt licensed under the GNU General Public License version 3.0 is appropriate for the development of Qt applications where you wish to use such applications in combination with software subject to the terms of the GNU GPL version 3.0 or where you are otherwise willing to comply with the terms of the GNU GPL version 3.0.&lt;/p&gt;&lt;p&gt;Please see &lt;a href=&quot;http://qt.digia.com/product/licensing&quot;&gt;qt.digia.com/product/licensing&lt;/a&gt; for an overview of Qt licensing.&lt;/p&gt;&lt;p&gt;Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).&lt;/p&gt;&lt;p&gt;Qt is a Digia product. See &lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt; for more information.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Qt je skupek gradnikov C++ za razvoj programov, ki tečejo na več platformah.&lt;/p&gt;&lt;p&gt;Qt omogoča isto kodo prenašati med platformami Linux, Mac&amp;nbsp;OS&amp;nbsp;X, Windows in vsemi večjimi variantami UNIX-a. Qt je na voljo tudi za vgrajene naprave in sicer kot Qt for Embedded Linux in Qt for Windows CE.&lt;/p&gt;&lt;p&gt;Qt je na voljo pod tremi možnimi licenčnimi pogoji, ki ustrezajo različnim željam uporabnikov.&lt;/p&gt;&lt;p&gt;Qt pod licenco GNU General Public License različice 3.0 (&lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0.html&quot;&gt;GPLv3.0&lt;/a&gt;) je primeren za razvoj programov Qt, ki so povsem &lt;a href=&quot;http://www.gnu.org/philosophy/free-sw.html&quot;&gt;prosti in odprto-kodni&lt;/a&gt;. S to licenco se uporabnikom programa zagotovijo vse pravice in svoboščine, kot jih je imel izdelovalec programa.&lt;/p&gt;&lt;p&gt;Qt pod licenco GNU Lesser General Public License različice 2.1 (&lt;a href=&quot;http://www.gnu.org/licenses/lgpl-2.1.html&quot;&gt;LGPLv2.1&lt;/a&gt;) omogoča tudi razvoj programov, ki uporabnikom ne zagotavljajo vseh pravic in svoboščin, kot jih je imel izdelovalec. Omogoča na primer tudi razvoj zaprto-kodnih programov.&lt;/p&gt;&lt;p&gt;Qt pod posebno komercialno licenco je namenjen razvoju lastniških in zaprto-kodnih programov, kjer izdelovalec z uporabniki noče deliti nič izvorne kode ter pravic in svoboščin, ali pa ne more ustreči pogojem licenc GPLv3.0 ali LGPLv2.1.&lt;/p&gt;&lt;p&gt;Za pregled licenčnih možnosti si oglejte spletno stran &lt;a href=&quot;http://qt.digia.com/product/licensing&quot;&gt;qt.digia.com/product/licensing&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Avtorske pravice © 2012 Digia Plc in/ali podružnice ter zunanji prispevajoči.&lt;/p&gt;&lt;p&gt;Qt je proizvod podjetja Digia. Za dodatne podatke si oglejte &lt;a href=&quot;http://qt.digia.com/&quot;&gt;qt.digia.com&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Prevedel: &lt;a href=&quot;mailto:jlp@holodeck1.com&quot;&gt;Jure Repinc&lt;/a&gt;, &lt;a href=&quot;http://www.lugos.si/&quot;&gt;LUGOS&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <source>About Qt</source>
@@ -4618,15 +4637,15 @@ Izberite drugo ime datoteke.</translation>
     </message>
     <message>
         <source>First page</source>
-        <translation>&amp;Prva stran</translation>
+        <translation>Prva stran</translation>
     </message>
     <message>
         <source>Last page</source>
-        <translation>&amp;Zadnja stran</translation>
+        <translation>Zadnja stran</translation>
     </message>
     <message>
         <source>Fit width</source>
-        <translation>Prilagodi &amp;širini</translation>
+        <translation>Prilagodi širini</translation>
     </message>
     <message>
         <source>Fit page</source>
@@ -6469,7 +6488,7 @@ Izberite drugo ime datoteke.</translation>
     </message>
     <message>
         <source>Save edits?</source>
-        <translation>&amp;Shranmi urejan?.</translation>
+        <translation>Ali shranim urejanja?.</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -9768,430 +9787,6 @@ Izberite drugo ime datoteke.</translation>
     <message>
         <source>&apos;%1&apos; attribute contains invalid QName content: %2.</source>
         <translation>Lastnost »%1« vsebuje neveljavno vsebino QName: %2.</translation>
-    </message>
-</context>
-<context>
-    <name></name>
-    <message>
-        <source>Remaining move time</source>
-        <comment>QWebPage~|Media controller element</comment>
-        <translation type="obsolete">Preostali čas filma</translation>
-    </message>
-    <message>
-        <source>attribute group %1 contains attribute %2 twice</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">skupina lastnosti %1 dvakrat vsebuje lastnost %2</translation>
-    </message>
-    <message>
-        <source>complex type %1 contains attribute %2 twice</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">kompleksna vrsta %1 dvakrat vsebuje lastnost %2</translation>
-    </message>
-    <message>
-        <source>element %1 exists twice with different types</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 obstaja dvakrat, z različnima vrstama</translation>
-    </message>
-    <message>
-        <source>can not process unknown element %1, expected elements are: %2</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">ni moč obdelati neznanega elementa %1, pričakovani elementi so: %2</translation>
-    </message>
-    <message>
-        <source>element %1 is not allowed in this scope, possible elements are: %2</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 v tem obsegu ni dovoljen, možni elementi so: %2</translation>
-    </message>
-    <message>
-        <source>child element is missing in that scope, possible child elements are: %1</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">v tem obsegu manjka podelement, možni podelementi so: %1</translation>
-    </message>
-    <message>
-        <source>document is not a XML schema</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">dokument ni shema XML</translation>
-    </message>
-    <message>
-        <source>%1 attribute of %2 element contains invalid content: {%3} is not a value of type %4</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">lastnost %1 elementa %2 vsebuje neveljavno vsebino: {%3} ni vrednost vrste %4</translation>
-    </message>
-    <message>
-        <source>%1 attribute of %2 element contains invalid content: {%3}</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">lastnost %1 elementa %2 vsebuje neveljavno vsebino: {%3}</translation>
-    </message>
-    <message>
-        <source>%1 element is not allowed inside %2 element if %3 attribute is present</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 znotraj elementa %2 ni dovoljen, če je prisotna lastnost %3</translation>
-    </message>
-    <message>
-        <source>%1 element has neither %2 attribute nor %3 child element</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 nima niti lastnosti %2 niti podelementa %3</translation>
-    </message>
-    <message>
-        <source>%1 element with %2 child element must not have a %3 attribute</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 s podelementom %2 ne sme imeti lastnosti %3</translation>
-    </message>
-    <message>
-        <source>%1 attribute of %2 element must be %3 or %4</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">lastnost %1 elementa %2 mora biti %3 ali %4</translation>
-    </message>
-    <message>
-        <source>%1 attribute of %2 element must have a value of %3</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">lastnost %1 elementa %2 mora imeti vrednost %3</translation>
-    </message>
-    <message>
-        <source>%1 attribute of %2 element must have a value of %3 or %4</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">lastnost %1 elementa %2 mora imeti vrednost %3 ali %4</translation>
-    </message>
-    <message>
-        <source>%1 element must not have %2 and %3 attribute together</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 hkrati ne sme imeti lastnosti %2 in %3</translation>
-    </message>
-    <message>
-        <source>content of %1 attribute of %2 element must not be from namespace %3</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">vsebina lastnosti %1 elementa %2 ne sme biti iz imenskega prostora %3</translation>
-    </message>
-    <message>
-        <source>%1 attribute of %2 element must not be %3</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">lastnost %1 elementa %2 ne sme biti %3</translation>
-    </message>
-    <message>
-        <source>%1 element must have either %2 or %3 attribute</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 mora imeti lastnost %2 ali %3</translation>
-    </message>
-    <message>
-        <source>%1 element requires either %2 or %3 attribute</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 potrebuje vsaj lastnost %2 ali %3</translation>
-    </message>
-    <message>
-        <source>%1 element is not allowed in this context</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 v tem kontekstu ni dovoljen</translation>
-    </message>
-    <message>
-        <source>component with id %1 has been defined previously</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">komponenta z ID-jem %1 je že bila definirana</translation>
-    </message>
-    <message>
-        <source>element %1 already defined</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 je že definiran</translation>
-    </message>
-    <message>
-        <source>attribute %1 already defined</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">lastnost %1 je že definirana</translation>
-    </message>
-    <message>
-        <source>type %1 already defined</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">vrsta %1 je že definirana</translation>
-    </message>
-    <message>
-        <source>attribute group %1 already defined</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">skupina lastnosti %1 je že definirana</translation>
-    </message>
-    <message>
-        <source>element group %1 already defined</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">skupina elementov %1 je že definirana</translation>
-    </message>
-    <message>
-        <source>notation %1 already defined</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">zapis %1 je že definiran</translation>
-    </message>
-    <message>
-        <source>type of %1 element must be a simple type, %2 is not</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">vrsta elementa %1 mora biti preprosta, %2 to ni</translation>
-    </message>
-    <message>
-        <source>duplicated element names %1 in %2 element</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">podvojeni imeni elementov %1 v elementu %2</translation>
-    </message>
-    <message>
-        <source>%1 is not valid according to %2</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">%1 glede na %2 ni veljaven</translation>
-    </message>
-    <message>
-        <source>invalid QName content: %1</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">neveljavna vsebina QName: %1</translation>
-    </message>
-    <message>
-        <source>data of type %1 are not allowed to be empty</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">podatki vrste %1 ne smejo biti prazni</translation>
-    </message>
-    <message>
-        <source>element %1 is missing child element</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">elementu %1 manjka podelement</translation>
-    </message>
-    <message>
-        <source>%1 contains invalid data</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">%1 vsebuje neveljavne podatke</translation>
-    </message>
-    <message>
-        <source>no definition for element %1 available</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">definicija za element %1 ni na voljo</translation>
-    </message>
-    <message>
-        <source>element %1 is not defined in this scope</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 v tem obsegu ni definiran</translation>
-    </message>
-    <message>
-        <source>declaration for element %1 does not exist</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">deklaracija elementa %1 ne obstaja</translation>
-    </message>
-    <message>
-        <source>element %1 contains invalid content</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 vsebuje neveljavno vsebino</translation>
-    </message>
-    <message>
-        <source>element %1 is declared as abstract</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 je deklariran kot abstrakten</translation>
-    </message>
-    <message>
-        <source>complex type %1 is not allowed to be abstract</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">kompleksna vrsta %1 ne sme biti abstraktna</translation>
-    </message>
-    <message>
-        <source>element %1 contains not allowed attributes</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 vsebuje nedovoljene lastnosti</translation>
-    </message>
-    <message>
-        <source>element %1 contains not allowed child element</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 vsebuje nedovoljen podelement</translation>
-    </message>
-    <message>
-        <source>content of element %1 does not match its type definition: %2</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">vsebina elementa %1 ne ustreza zanj določeni vrsti: %2</translation>
-    </message>
-    <message>
-        <source>element %1 contains not allowed child content</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 vsebuje nedovoljeno vsebino v podelementih</translation>
-    </message>
-    <message>
-        <source>element %1 contains not allowed text content</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 vsebuje nedovoljeno besedilno vsebino</translation>
-    </message>
-    <message>
-        <source>element %1 can not contain other elements, as it has a fixed content</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 ne more vsebovati drugih elementov, ker ima fiksno vsebino</translation>
-    </message>
-    <message>
-        <source>element %1 is missing required attribute %2</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">elementu %1 manjka obvezna lastnost %2</translation>
-    </message>
-    <message>
-        <source>declaration for attribute %1 does not exist</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">deklaracija lastnosti %1 ne obstaja</translation>
-    </message>
-    <message>
-        <source>element %1 contains two attributes of type %2</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 vsebuje dve lastnosti vrste %2</translation>
-    </message>
-    <message>
-        <source>attribute %1 contains invalid content</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">lastnost %1 vsebuje neveljavno vsebino</translation>
-    </message>
-    <message>
-        <source>element %1 contains unknown attribute %2</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">element %1 vsebuje neznano lastnost %2</translation>
-    </message>
-    <message>
-        <source>more than one value found for field %1</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">za polje %1 je bila najdena več kot ena vrednost</translation>
-    </message>
-    <message>
-        <source>field %1 has no simple type</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">polje %1 nima preproste vrste</translation>
-    </message>
-    <message>
-        <source>ID value &apos;%1&apos; is not unique</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">Vrednost ID »%1« ni edinstvena</translation>
-    </message>
-    <message>
-        <source>&apos;%1&apos; attribute contains invalid QName content: %2</source>
-        <comment>QtXmlPatterns~|</comment>
-        <translation type="obsolete">Lastnost »%1« vsebuje neveljavno vsebino QName: %2</translation>
-    </message>
-    <message>
-        <source>Cannot start playback. 
-
-Check your Gstreamer installation and make sure you 
-have libgstreamer-plugins-base installed.</source>
-        <comment>Phonon::Gstreamer::MediaObject|</comment>
-        <translation type="obsolete">Ni moč začeti predvajanja.
-
-Preverite namestitev GStreamerja in se prepričajte, 
-da je nameščen paket libgstreamer-plugins-base.</translation>
-    </message>
-    <message>
-        <source>Frequency band, %1 Hz</source>
-        <comment>Phonon::MMF::AudioEqualizer|</comment>
-        <translation type="obsolete">Frekvenčni pas, %1 Hz</translation>
-    </message>
-    <message>
-        <source>audio equalizer</source>
-        <comment>Phonon::MMF::EffectFactory|</comment>
-        <translation type="obsolete">izenačevalnik zvoka</translation>
-    </message>
-    <message>
-        <source>Bass boost</source>
-        <comment>Phonon::MMF::EffectFactory|</comment>
-        <translation type="obsolete">Ojačanje basov</translation>
-    </message>
-    <message>
-        <source>Distance Attenuation</source>
-        <comment>Phonon::MMF::EffectFactory|</comment>
-        <translation type="obsolete">Utišanje zaradi razdalje</translation>
-    </message>
-    <message>
-        <source>Environmental Reverb</source>
-        <comment>Phonon::MMF::EffectFactory|</comment>
-        <translation type="obsolete">Okoljsko odmevanje</translation>
-    </message>
-    <message>
-        <source>Loudness</source>
-        <comment>Phonon::MMF::EffectFactory|</comment>
-        <translation type="obsolete">Glasnost</translation>
-    </message>
-    <message>
-        <source>Source Orientation</source>
-        <comment>Phonon::MMF::EffectFactory|</comment>
-        <translation type="obsolete">Usmerjenost vira</translation>
-    </message>
-    <message>
-        <source>Stereo Widening</source>
-        <comment>Phonon::MMF::EffectFactory|</comment>
-        <translation type="obsolete">Razširitev sterea</translation>
-    </message>
-    <message>
-        <source>Invalid hostname</source>
-        <comment>QObject|</comment>
-        <translation type="obsolete">Neveljavno ime gostitelja</translation>
-    </message>
-    <message>
-        <source>Operation not supported on %1</source>
-        <comment>QObject|</comment>
-        <translation type="obsolete">Dejanje na %1 ni podprto</translation>
-    </message>
-    <message>
-        <source>Invalid URI: %1</source>
-        <comment>QObject|</comment>
-        <translation type="obsolete">Neveljaven URI: %1</translation>
-    </message>
-    <message>
-        <source>Socket error on %1: %2</source>
-        <comment>QObject|</comment>
-        <translation type="obsolete">Napaka vtičnice na %1: %2</translation>
-    </message>
-    <message>
-        <source>Remote host closed the connection prematurely on %1</source>
-        <comment>QObject|</comment>
-        <translation type="obsolete">Oddaljen gostitelj je predčasno prekinil povezavo na %1</translation>
-    </message>
-    <message>
-        <source>No host name given</source>
-        <comment>QObject|</comment>
-        <translation type="obsolete">Podano ni bilo nobeno ime gostitelja</translation>
-    </message>
-    <message>
-        <source>Private key does not certificate public key, %1</source>
-        <comment>QSslSocket|</comment>
-        <translation type="obsolete">Zasebni ključ ne potrjuje javnega ključa, %1</translation>
-    </message>
-    <message>
-        <source>No variable by name %1 exists</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Spremenljivka z imenom %1 ne obstaja</translation>
-    </message>
-    <message>
-        <source>No value is available for the external variable by name %1.</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Za zunanjo spremenljivko z imenom %1 ni na voljo nobene vrednosti.</translation>
-    </message>
-    <message>
-        <source>A template by name %1 has already been declared.</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Predloga z imenom %1 je že bila deklarirana.</translation>
-    </message>
-    <message>
-        <source>The value of attribute %1 must of type %2, which %3 isn&apos;t.</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Vrednost lastnosti %1 mora biti vrste %2, %3 pa to ni.</translation>
-    </message>
-    <message>
-        <source>A variable by name %1 has already been declared.</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Spremenljivka z imenom %1 je že bila deklarirana.</translation>
-    </message>
-    <message>
-        <source>An argument by name %1 has already been declared. Every argument name must be unique.</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Argument z imenom %1 je že bil deklariran. Vsako ime argumenta mora biti edinstveno.</translation>
-    </message>
-    <message>
-        <source>No function by name %1 is available.</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Na voljo ni nobene funkcije z imenom %1.</translation>
-    </message>
-    <message>
-        <source>An attribute by name %1 has already appeared on this element.</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Atribut z imenom %1 se je v tem elementu že pojavil.</translation>
-    </message>
-    <message>
-        <source>Component with id %1 has been defined previously.</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Komponenta z ID-jem %1 je že bila definirana.</translation>
-    </message>
-    <message>
-        <source>Element %1 can not contain other elements, as it has a fixed content.</source>
-        <comment>QtXmlPatterns|</comment>
-        <translation type="obsolete">Element %1 ne more vsebovati drugih elementov, ker ima fiksno vsebino.</translation>
     </message>
 </context>
 </TS>

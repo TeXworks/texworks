@@ -1,3 +1,31 @@
+Release 0.4.6 (TL'15) [April 2014]
+	* Implement character-level synchronization by using text searching to
+	  assist SyncTeX
+	* Lift hardwrap line length limitation and implement (hard) unwrap
+	* Always show console output tab while typesetting to show progress
+	* Improve the handling of UTF-8 byte order marks
+	* Improve the log parsing script
+	* Improve the handling of script errors
+
+	* Work around a race condition that causes lines to become invisible,
+	  subsequently leading to a crash
+	* Fix incorrectly accumulating indent
+	* Fix SyncTeX initialization with non-ASCII filenames
+	* Fix selection of whole lines and when selecting right-to-left
+	* Fix hangs and crashes when using "Fit to ..." in the PDF view
+	* Fix a crash when running an invalid system command from scripts
+	* Fix encoding issues when reading environment variables
+	* Fix scrolling when searching for multi-line strings
+	* Fix auto-completion when working with RTL languages
+	* Improve the handling of Retina displays in Mac OS X
+	* Fix a crash when opening PDF files from the Windows Explorer
+	* Provide texworks.appdata.xml for *nix platforms
+
+	* Fix compilation with Qt 5
+	* Improve the CMake build system
+	* Add support for Lua 5.2
+	* Move development from Google Code to GitHub
+
 Release 0.4.5 (TL'13) [April 2013]
 	* Fix "Restore defaults" in preferences dialog
 	* Fix removal and selection of text moved via drag'n'drop

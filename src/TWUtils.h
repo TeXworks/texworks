@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2014  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -21,8 +21,6 @@
 
 #ifndef TWUtils_H
 #define TWUtils_H
-
-#include "SvnRev.h"
 
 #include <QAction>
 #include <QString>
@@ -119,6 +117,10 @@ public:
 	
 	static void installCustomShortcuts(QWidget * widget, bool recursive = true, QSettings * map = NULL);
 
+	static bool isGitInfoAvailable();
+	static QString gitCommitHash();
+	static QDateTime gitCommitDate();
+
 private:
 	TWUtils();
 
@@ -198,7 +200,7 @@ class FileVersionDatabase
 public:
 	struct Record {
 		QFileInfo filePath;
-		unsigned int version;
+		QString version;
 		QByteArray hash;
 	};
 	
@@ -210,7 +212,7 @@ public:
 	static FileVersionDatabase load(const QString & path);
 	bool save(const QString & path) const;
 	
-	void addFileRecord(const QFileInfo & file, const QByteArray & hash, const unsigned int version);
+	void addFileRecord(const QFileInfo & file, const QByteArray & hash, const QString version);
 	bool hasFileRecord(const QFileInfo & file) const;
 	Record getFileRecord(const QFileInfo & file) const;
 	const QList<Record> & getFileRecords() const { return m_records; }

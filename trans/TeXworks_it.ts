@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it">
+<TS version="2.1" language="it">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -123,6 +123,10 @@
     <message>
         <source>Re-wrap paragraphs</source>
         <translation>Ri-formatta paragrafi</translation>
+    </message>
+    <message>
+        <source>Unwrap</source>
+        <translation>Rimuovi formattazione</translation>
     </message>
 </context>
 <context>
@@ -533,6 +537,10 @@
     <message>
         <source>Clear Recent Files</source>
         <translation>Elimina file recenti</translation>
+    </message>
+    <message>
+        <source>Error initializing SyncTeX</source>
+        <translation>Errore nell&apos;inizializzazione di SyncTeX</translation>
     </message>
 </context>
 <context>
@@ -958,19 +966,19 @@
     </message>
     <message>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaccia</translation>
     </message>
     <message>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Locale:</translation>
     </message>
     <message>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulsanti barra strumenti:</translation>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>Apri l&apos;anteprima del PDF corrispondente con i file TeX</translation>
     </message>
 </context>
 <context>
@@ -1025,11 +1033,11 @@
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>File di log (*.log *.blg)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>File ausiliari (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
 </context>
 <context>
@@ -1344,7 +1352,7 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation>&lt;br&gt;Versione %1 r.%2 (%3)</translation>
+        <translation type="obsolete">&lt;br&gt;Versione %1 r.%2 (%3)</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
@@ -1369,6 +1377,14 @@
     <message>
         <source>Clear Recent Files</source>
         <translation>Elimina file recenti</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
+        <translation>&lt;br&gt;Versione %1 (%2) [r.%3, %4]</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 (%2)</source>
+        <translation>&lt;br&gt;Version %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -1431,6 +1447,10 @@
     <message>
         <source>About Scripts</source>
         <translation>A proposito degli script</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation>Errore nello script</translation>
     </message>
 </context>
 <context>
@@ -2290,6 +2310,10 @@ Ci dispiace per l&apos;inconveniente.</translation>
     <message>
         <source>Show Console Output</source>
         <translation>Mostra il pannello di output</translation>
+    </message>
+    <message>
+        <source>Write UTF-8 byte order mark</source>
+        <translation>Scrivi il codice UTF-8 byte order mark (BOM)</translation>
     </message>
 </context>
 <context>

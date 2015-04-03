@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2008-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -241,7 +241,7 @@ PDFFontsDock::PDFFontsDock(PDFDocument *doc)
 	setObjectName("fonts");
 	setWindowTitle(getTitle());
 	table = new QTableWidget(this);
-#ifdef Q_WS_MAC /* don't do this on windows, as the font ends up too small */
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC) /* don't do this on windows, as the font ends up too small */
 	QFont f(table->font());
 	f.setPointSize(f.pointSize() - 2);
 	table->setFont(f);

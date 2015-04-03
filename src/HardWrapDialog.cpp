@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2012  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2009-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -34,17 +34,21 @@ HardWrapDialog::init()
 {
 	QSETTINGS_OBJECT(settings);
 	int	wrapWidth = settings.value("hardWrapWidth", kDefault_HardWrapWidth).toInt();
+	spinbox_charCount->setMaximum(INT_MAX);
 	spinbox_charCount->setValue(wrapWidth);
 	spinbox_charCount->selectAll();
+	
+	connect(radio_Unwrap, SIGNAL(toggled(bool)), this, SLOT(unwrapModeToggled(bool)));
 
-	bool wrapToWindow = settings.value("hardWrapToWindow", false).toBool();
-	radio_currentWidth->setChecked(wrapToWindow);
-	radio_fixedLineLength->setChecked(!wrapToWindow);
+	int wrapMode = settings.value("hardWrapMode", kHardWrapMode_Fixed).toInt();
+	radio_currentWidth->setChecked(wrapMode == kHardWrapMode_Window);
+	radio_fixedLineLength->setChecked(wrapMode == kHardWrapMode_Fixed);
+	radio_Unwrap->setChecked(wrapMode == kHardWrapMode_Unwrap);
 	
 	bool rewrapParagraphs = settings.value("hardWrapRewrap", false).toBool();
 	checkbox_rewrap->setChecked(rewrapParagraphs);
 
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
 	setWindowFlags(Qt::Sheet);
 #endif
 }
@@ -54,6 +58,25 @@ HardWrapDialog::saveSettings()
 {
 	QSETTINGS_OBJECT(settings);
 	settings.setValue("hardWrapWidth", spinbox_charCount->value());
-	settings.setValue("hardWrapToWindow", radio_currentWidth->isChecked());
+	settings.setValue("hardWrapMode", mode());
 	settings.setValue("hardWrapRewrap", checkbox_rewrap->isChecked());
+}
+
+int
+HardWrapDialog::mode() const
+{
+	if (radio_currentWidth->isChecked())
+		return kHardWrapMode_Window;
+	else if (radio_fixedLineLength->isChecked())
+		return kHardWrapMode_Fixed;
+	else if (radio_Unwrap->isChecked())
+		return kHardWrapMode_Unwrap;
+	
+	return kHardWrapMode_Fixed;
+}
+
+void
+HardWrapDialog::unwrapModeToggled(const bool selected)
+{
+	checkbox_rewrap->setEnabled(!selected);
 }
