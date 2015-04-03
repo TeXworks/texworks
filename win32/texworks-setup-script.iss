@@ -54,7 +54,8 @@ Name: "tr"; MessagesFile: "extra-setup-languages\Turkish-3-5.1.11.isl"
 Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimp-12-5.1.11.isl"
 
 [CustomMessages]
-ManualName=A short manual for TeXworks
+ManualNameEn=A short manual for TeXworks
+ManualNameFr=Petit manuel pour TeXworks
 ca.CreateFileAssoc=Obri el següents fitxers amb TeXworks per defecte:
 cs.CreateFileAssoc=Nastavit TeXworks jako výchozí program pro otevírání následujících typů souborů:
 de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
@@ -94,7 +95,8 @@ Source: "..\release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs cr
 [Icons]
 Name: "{group}\TeXworks"; Filename: "{app}\TeXworks.exe"
 Name: "{group}\{cm:ProgramOnTheWeb,TeXworks}"; Filename: "http://www.tug.org/texworks/"
-Name: "{group}\{cm:ManualName}"; Filename: "{app}\texworks-help\TeXworks-manual\en\TeXworks-manual.pdf"
+Name: "{group}\{cm:ManualNameEn}"; Filename: "{app}\texworks-help\TeXworks-manual\en\TeXworks-manual-en.pdf"
+Name: "{group}\{cm:ManualNameFr}"; Filename: "{app}\texworks-help\TeXworks-manual\fr\TeXworks-manual-fr.pdf"
 Name: "{group}\{cm:UninstallProgram,TeXworks}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: desktopicon
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: quicklaunchicon
