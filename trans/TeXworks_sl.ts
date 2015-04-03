@@ -49,7 +49,7 @@
     <message>
         <location filename="../src/ConfirmDelete.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">Izberi vse</translation>
+        <translation>Izberi vse</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.ui" line="57"/>
@@ -80,7 +80,7 @@
         <location filename="../src/Find.ui" line="69"/>
         <source>&amp;Wrap around</source>
         <translatorcomment>ko je konec dokumenta ...</translatorcomment>
-        <translation>Nadaljuj na začetku dokumenta</translation>
+        <translation>Nadaljuj na začetku</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="76"/>
@@ -154,7 +154,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="77"/>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odstrani prelom</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="87"/>
@@ -184,7 +184,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="1535"/>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Napaka pri inicializaciji SyncTeX-a</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1537"/>
@@ -1344,32 +1344,32 @@
         <location filename="../src/Replace.ui" line="107"/>
         <source>&amp;Wrap around</source>
         <translatorcomment>?</translatorcomment>
-        <translation>Nadaljuj na začetku dokumenta</translation>
+        <translation type="unfinished">Nadaljuj na &amp;začetku</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="114"/>
         <source>Find &amp;backwards</source>
-        <translation>Išči nazaj</translation>
+        <translation type="unfinished">Išči &amp;nazaj</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="121"/>
         <source>Replace within &amp;selection</source>
-        <translation>Zamenjaj znotraj izbora</translation>
+        <translation type="unfinished">Zamenjaj v &amp;izboru</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="128"/>
         <source>Replace in all &amp;open files</source>
-        <translation>Zamenjaj znotraj vseh &amp;odprtih datotek</translation>
+        <translation type="unfinished">V &amp;odprtih datotekah</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="139"/>
         <source>&amp;Case sensitive</source>
-        <translation>Razlikovanje med malimi in velikimi črkami</translation>
+        <translation type="unfinished">Razlikuj &amp;male/velike črke</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="146"/>
         <source>W&amp;hole words</source>
-        <translation>Celotne besede</translation>
+        <translation type="unfinished">&amp;Celotne besede</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="153"/>
@@ -1630,12 +1630,12 @@ documentation and web pages much easier for users.</translatorcomment>
     <message>
         <location filename="../src/TWApp.cpp" line="296"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Verzija %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="298"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Verzija %1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="299"/>
@@ -1743,7 +1743,7 @@ documentation and web pages much easier for users.</translatorcomment>
     <message>
         <location filename="../src/TWApp.cpp" line="1340"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
-        <translation type="unfinished">Skripta &quot;%1&quot; nima dovoljenja za odpiranje datoteke &quot;%2&quot;. Jo želite vseeno odpreti (datoteko)?</translation>
+        <translation>Skripta &quot;%1&quot; nima pravic za odpiranje datoteke &quot;%2&quot;. Želite datoteko vseeno odpreti?</translation>
     </message>
     <message>
         <source>Failed to execute system command: %1</source>
@@ -1816,7 +1816,7 @@ documentation and web pages much easier for users.</translatorcomment>
     <message>
         <location filename="../src/TWScriptable.cpp" line="583"/>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Napaka v skripti</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="601"/>
@@ -2152,7 +2152,8 @@ Izbrana kodna tabela nadomesti privzeto in se ne ozira na vsebino vrstice &quot;
     <message>
         <location filename="../src/TeXDocument.cpp" line="1641"/>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>IZBOLJŠAJ prevod</translatorcomment>
+        <translation type="unfinished">Zapiši &quot;byte order mark&quot; za UTF-8</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1664"/>
