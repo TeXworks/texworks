@@ -74,13 +74,13 @@ case $PLATFORM in
 	*)			OS=`echo $PLATFORM | sed 's/.*-//'`
 esac
 
+appendPath "/usr/local/texlive/2016/bin/$ARCH-$OS"
+appendPath "/usr/local/texlive/2015/bin/$ARCH-$OS"
+appendPath "/usr/local/texlive/2014/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2013/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2012/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2011/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2010/bin/$ARCH-$OS"
-appendPath "/usr/local/texlive/2009/bin/$ARCH-$OS"
-appendPath "/usr/local/texlive/2008/bin/$ARCH-$OS"
-appendPath "/usr/local/texlive/2007/bin/$ARCH-$OS"
 
 for TEXLIVEROOT in /usr/local/texlive/* /opt/texlive/*; do
 	# Check if this is really a folder (e.g., /opt/... might not exist)
