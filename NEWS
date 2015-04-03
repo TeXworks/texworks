@@ -1,4 +1,4 @@
-Release 0.4.6 (TL'15) [April 2014]
+Release 0.4.6 (TL'15) [April 2015]
 	* Implement character-level synchronization by using text searching to
 	  assist SyncTeX
 	* Lift hardwrap line length limitation and implement (hard) unwrap
