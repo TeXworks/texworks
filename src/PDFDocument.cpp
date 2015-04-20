@@ -1831,9 +1831,14 @@ void PDFDocument::doFindAgain(bool newSearch /* = false */)
 		
 		for (pageIdx = firstPage; pageIdx != lastPage; pageIdx += deltaPage) {
 			page = document->page(pageIdx);
-
-			double left, top, bottom, right;
-			lastSearchResult.selRect.getCoords(&left, &top, &right, &bottom);
+			// Note: do _not_ use lastSearchResult.selRect.getCoords() as that
+			// requires pointers to qreal, which may be float or double,
+			// depending on the platform. As poppler requires (references to
+			// double, we use double here.
+			double left = lastSearchResult.selRect.left();
+			double right = lastSearchResult.selRect.right();
+			double top = lastSearchResult.selRect.top();
+			double bottom = lastSearchResult.selRect.bottom();
 			if (page->search(searchText, left, top, right, bottom, searchDir, searchMode)) {
 				lastSearchResult.selRect.setCoords(left, top, right, bottom);
 				lastSearchResult.doc = this;
