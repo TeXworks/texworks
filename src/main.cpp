@@ -31,7 +31,7 @@
   Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
 #endif
 
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 BOOL CALLBACK enumThreadWindowProc(HWND hWnd, LPARAM /*lParam*/)
 {
 	if (IsWindowVisible(hWnd))
@@ -101,7 +101,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\n").arg("2007-2015", "Jo
 		}
 	}
 
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN) // single-instance code for Windows
+#if defined(Q_OS_WIN) // single-instance code for Windows
 #define TW_MUTEX_NAME		"org.tug.texworks-" TEXWORKS_VERSION
 	HANDLE hMutex = CreateMutexA(NULL, FALSE, TW_MUTEX_NAME);
 	if (hMutex == NULL)
@@ -180,7 +180,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\n").arg("2007-2015", "Jo
 		rval = app.exec();
 	}
 
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	CloseHandle(hMutex);
 #endif
 

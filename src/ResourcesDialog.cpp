@@ -35,7 +35,7 @@ void ResourcesDialog::init()
 
 	setupUi(this);
 	
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	if(ConfigurableApp::instance()->getSettingsFormat() == QSettings::NativeFormat)
 		locationOfSettings->setText(tr("Registry (%1)").arg(s.fileName()));
 	else

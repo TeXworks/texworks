@@ -35,7 +35,7 @@
 #include "ConfigurableApp.h"
 #include "TWScriptAPI.h"
 
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 #define PATH_LIST_SEP   ';'
 #define EXE             ".exe"
 #else
@@ -60,7 +60,7 @@ class QMenuBar;
 const int kStatusMessageDuration = 3000;
 const int kNewWindowOffset = 32;
 
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN) // for communication with the original instance
+#if defined(Q_OS_WIN) // for communication with the original instance
 #if !defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0500
 	#define _WIN32_WINNT			0x0500	// for HWND_MESSAGE
 #endif
@@ -118,7 +118,7 @@ public:
 	
 	void notifyDictionaryListChanged() const { emit dictionaryListChanged(); }
 
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	void createMessageTarget(QWidget* aWindow);
 	static QString GetWindowsVersionString();
 	static unsigned int GetWindowsVersion();
@@ -152,7 +152,7 @@ public:
 	Q_INVOKABLE bool hasGlobal(const QString& key) const { return m_globals.contains(key); }
 	Q_INVOKABLE QVariant getGlobal(const QString& key) const { return m_globals[key]; }
 	
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 private:
 	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
 	QMenuBar *menuBar;
@@ -267,7 +267,7 @@ private:
 	QHash<QString, QVariant> m_globals;
 	QList<QTextCodec*> customTextCodecs;
 	
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	HWND messageTargetWindow;
 #endif
 

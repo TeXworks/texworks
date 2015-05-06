@@ -22,7 +22,7 @@
 #ifndef TW_PYTHON_PLUGIN_H
 #define TW_PYTHON_PLUGIN_H
 
-#ifdef __APPLE__ // can't use Q_WS_MAC as it's not defined yet!
+#ifdef __APPLE__ // can't use Q_OS_DARWIN as it's not defined yet!
 #include <Python/Python.h>
 #else
 #include <Python.h>

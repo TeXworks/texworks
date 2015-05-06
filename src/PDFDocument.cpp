@@ -1210,7 +1210,7 @@ PDFDocument::init()
 	docList.append(this);
 
 	setupUi(this);
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	TWApp::instance()->createMessageTarget(this);
 #endif
 
@@ -1218,7 +1218,7 @@ PDFDocument::init()
 	setAttribute(Qt::WA_MacNoClickThrough, true);
 
 	QIcon winIcon;
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
+#if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 	// The Compiz window manager doesn't seem to support icons larger than
 	// 128x128, so we add a suitable one first
 	winIcon.addFile(":/images/images/TeXworks-doc-128.png");
@@ -1659,7 +1659,7 @@ void PDFDocument::goToSource()
 
 void PDFDocument::enablePageActions(int pageIndex)
 {
-//#ifndef Q_WS_MAC
+//#if !defined(Q_OS_DARWIN)
 // On Mac OS X, disabling these leads to a crash if we hit the end of document while auto-repeating a key
 // (seems like a Qt bug, but needs further investigation)
 // 2008-09-07: seems to no longer be a problem, probably thanks to Qt 4.4 update
