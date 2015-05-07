@@ -372,7 +372,7 @@ IF ( APPLE )
   # Pass `-undefined dynamic_lookup` so that the Apple linker does not
   # freak out about this.
   SET(CMAKE_MODULE_LINKER_FLAGS
-    "${CMAKE_MODULE_LINKER_FLAGS_INIT} $ENV{LDFLAGS} -undefined dynamic_lookup")
+    "${CMAKE_MODULE_LINKER_FLAGS} -undefined dynamic_lookup")
 ELSE ()
   # Set the plugin installation path. This is a good default for UNIX-like
   # systems, but is not appropriate for Windows.
