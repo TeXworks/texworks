@@ -10,29 +10,37 @@ SET(TeXworks_LIB_DIRS @TeXworks_LIB_DIRS@)
 SET(CMAKE_SHARED_LIBRARY_SUFFIX @CMAKE_SHARED_LIBRARY_SUFFIX@)
 SET(QT_PLUGINS @QT_PLUGINS@)
 
+# Poppler data files: version, matching hash, and derived variables.
+SET(POPPLER_DATA_VERSION "0.4.7")
+SET(POPPLER_DATA_ARCHIVE_MD5 "636a8f2b9f6df9e7ced8ec0946961eaf")
+SET(POPPLER_DATA_BASE "poppler-data-${POPPLER_DATA_VERSION}")
+SET(POPPLER_DATA_ARCHIVE "${POPPLER_DATA_BASE}.tar.gz")
+SET(POPPLER_DATA_ARCHIVE_URL "http://poppler.freedesktop.org/${POPPLER_DATA_ARCHIVE}")
+
 # This `IF` statement ensures that the following commands are executed only when
 # CPack is running---i.e. when a user executes `make package` but not `make install`
 IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
 
   # Download and install Poppler data
   # ---------------------------------
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/poppler-data-0.4.4.tar.gz )
+  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}" )
     MESSAGE(STATUS "Downloading Poppler data files")
-    FILE(DOWNLOAD "http://poppler.freedesktop.org/poppler-data-0.4.5.tar.gz"
-      ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5.tar.gz
-      EXPECTED_MD5 448dd7c5077570e340340706cef931aa
+    FILE(DOWNLOAD "${POPPLER_DATA_ARCHIVE_URL}"
+      "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}"
+      EXPECTED_MD5 "${POPPLER_DATA_ARCHIVE_MD5}"
       SHOW_PROGRESS
     )
   ENDIF ()
 
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5 )
-    EXECUTE_PROCESS(COMMAND tar xzf ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5.tar.gz
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}" )
+    EXECUTE_PROCESS(
+      COMMAND tar xzf "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}"
+      WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
     )
   ENDIF ()
 
-  FILE(INSTALL ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5/
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/poppler-data
+  FILE(INSTALL "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}/"
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/poppler-data"
     PATTERN CMakeLists.txt EXCLUDE
     PATTERN Makefile EXCLUDE
   )
