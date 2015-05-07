@@ -18,11 +18,11 @@ SET(POPPLER_DATA_ARCHIVE "${POPPLER_DATA_BASE}.tar.gz")
 SET(POPPLER_DATA_ARCHIVE_URL "http://poppler.freedesktop.org/${POPPLER_DATA_ARCHIVE}")
 
 # TeXworks HTML manual: version, matching hash, and derived variables.
-SET(TW_MANUAL_VERSION "r959")
-SET(TW_MANUAL_ARCHIVE_MD5 "2071e3c2fc6b6fdb57bca0484abdd35a")
+SET(TW_MANUAL_VERSION "20150506-64280a1")
+SET(TW_MANUAL_ARCHIVE_MD5 "6f4cb6bb29b1ff3b482ff0700ff06d9d")
 SET(TW_MANUAL_BASE "TeXworks-manual-html-${TW_MANUAL_VERSION}")
 SET(TW_MANUAL_ARCHIVE "${TW_MANUAL_BASE}.zip")
-SET(TW_MANUAL_ARCHIVE_URL "http://texworks.googlecode.com/files/${TW_MANUAL_ARCHIVE}")
+SET(TW_MANUAL_ARCHIVE_URL "https://github.com/TeXworks/manual/releases/download/2015-05-06/${TW_MANUAL_ARCHIVE}")
 
 # This `IF` statement ensures that the following commands are executed only when
 # CPack is running---i.e. when a user executes `make package` but not `make install`
