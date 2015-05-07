@@ -20,8 +20,8 @@ SET(POPPLER_DATA_ARCHIVE_URL "http://poppler.freedesktop.org/${POPPLER_DATA_ARCH
 # TeXworks HTML manual: version, matching hash, and derived variables.
 SET(TW_MANUAL_VERSION "r959")
 SET(TW_MANUAL_ARCHIVE_MD5 "2071e3c2fc6b6fdb57bca0484abdd35a")
-SET(TW_MANUAL_BASE "TeXworks-manual")
-SET(TW_MANUAL_ARCHIVE "${TW_MANUAL_BASE}-html-${TW_MANUAL_VERSION}.zip")
+SET(TW_MANUAL_BASE "TeXworks-manual-html-${TW_MANUAL_VERSION}")
+SET(TW_MANUAL_ARCHIVE "${TW_MANUAL_BASE}.zip")
 SET(TW_MANUAL_ARCHIVE_URL "http://texworks.googlecode.com/files/${TW_MANUAL_ARCHIVE}")
 
 # This `IF` statement ensures that the following commands are executed only when
@@ -65,13 +65,14 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   ENDIF ()
 
   IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}" )
+    FILE(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}")
     EXECUTE_PROCESS(
       COMMAND unzip "${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}"
-      WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+      WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}"
     )
   ENDIF ()
 
-  FILE(INSTALL "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}"
+  FILE(INSTALL "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}/TeXworks-manual"
     DESTINATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/texworks-help/"
   )
 
