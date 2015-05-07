@@ -136,10 +136,24 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
     ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/MacOS/*${CMAKE_SHARED_LIBRARY_SUFFIX})
 
   FOREACH(DYLIB IN LISTS BUNDLED_DYLIBS)
-    MESSAGE(STATUS "Processing included library: ${DYLIB}")
-    # `lipo` is very very anal about how arguments get passed to it. So we
-    # execute through bash to side-step the issue.
-    EXECUTE_PROCESS(COMMAND bash -c "lipo ${ARCHS_TO_EXTRACT} ${DYLIB} -output ${DYLIB}")
+    # `lipo` prints error messages when attempting to extract from a file that
+    # is not a universal (fat) binary. Avoid this by checking first.
+    EXECUTE_PROCESS(
+      COMMAND lipo -info ${DYLIB}
+      COMMAND cut -d : -f 1
+      COMMAND grep -q "Non-fat file"
+      RESULT_VARIABLE DYLIB_IS_FAT
+    )
+    IF(NOT ${DYLIB_IS_FAT} EQUAL 0)
+      MESSAGE(STATUS "Processing fat library: ${DYLIB}")
+      # `lipo` is very very anal about how arguments get passed to it. So we
+      # execute through bash to side-step the issue.
+      EXECUTE_PROCESS(
+        COMMAND bash -c "lipo ${ARCHS_TO_EXTRACT} ${DYLIB} -output ${DYLIB}"
+      )
+    ELSE()
+      MESSAGE(STATUS "Skipping non-fat library: ${DYLIB}")
+    ENDIF()
   ENDFOREACH ()
 
   MESSAGE(STATUS "Finished stripping architectures from bundled libraries.")
