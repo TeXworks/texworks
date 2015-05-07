@@ -17,6 +17,13 @@ SET(POPPLER_DATA_BASE "poppler-data-${POPPLER_DATA_VERSION}")
 SET(POPPLER_DATA_ARCHIVE "${POPPLER_DATA_BASE}.tar.gz")
 SET(POPPLER_DATA_ARCHIVE_URL "http://poppler.freedesktop.org/${POPPLER_DATA_ARCHIVE}")
 
+# TeXworks HTML manual: version, matching hash, and derived variables.
+SET(TW_MANUAL_VERSION "r959")
+SET(TW_MANUAL_ARCHIVE_MD5 "2071e3c2fc6b6fdb57bca0484abdd35a")
+SET(TW_MANUAL_BASE "TeXworks-manual")
+SET(TW_MANUAL_ARCHIVE "${TW_MANUAL_BASE}-html-${TW_MANUAL_VERSION}.zip")
+SET(TW_MANUAL_ARCHIVE_URL "http://texworks.googlecode.com/files/${TW_MANUAL_ARCHIVE}")
+
 # This `IF` statement ensures that the following commands are executed only when
 # CPack is running---i.e. when a user executes `make package` but not `make install`
 IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
@@ -48,24 +55,24 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
 
   # Download and install TeXworks manual
   # ------------------------------------
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r959.zip )
+  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}" )
     MESSAGE(STATUS "Downloading TeXworks HTML manual")
-    FILE(DOWNLOAD
-      "http://texworks.googlecode.com/files/TeXworks-manual-html-r959.zip"
-      ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r959.zip
-      EXPECTED_MD5 2071e3c2fc6b6fdb57bca0484abdd35a
+    FILE(DOWNLOAD "${TW_MANUAL_ARCHIVE_URL}"
+      "${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}"
+      EXPECTED_MD5 "${TW_MANUAL_ARCHIVE_MD5}"
       SHOW_PROGRESS
     )
   ENDIF ()
 
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/TeXworks-manual )
-    EXECUTE_PROCESS(COMMAND unzip ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r959.zip
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}" )
+    EXECUTE_PROCESS(
+      COMMAND unzip "${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}"
+      WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
     )
   ENDIF ()
 
-  FILE(INSTALL ${PROJECT_SOURCE_DIR}/TeXworks-manual
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/texworks-help/
+  FILE(INSTALL "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}"
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/texworks-help/"
   )
 
 
