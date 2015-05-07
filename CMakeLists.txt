@@ -57,6 +57,11 @@ IF(POLICY CMP0020)
   cmake_policy(SET CMP0020 NEW)
 ENDIF()
 
+# Silence warning about using @rpath on OS X.
+if(POLICY CMP0042)
+  cmake_policy(SET CMP0042 NEW)
+endif()
+
 SET(CMAKE_COLOR_MAKEFILE ON)
 # Always add the current source and binary directories to the header include
 # path when compiling.
