@@ -1,2 +1,13 @@
-src/DefaultBinaryPaths.h
-src/GitRev.h
+# Files auto-generated during build.
+/src/DefaultBinaryPaths.h
+/src/GitRev.h
+/TeXworks.plist
+
+# Default build directory.
+/build/
+
+# Files downloaded/extracted as part of OS X packaging task.
+/poppler-data-*.tar.gz
+/poppler-data-*/
+/TeXworks-manual-html-*.zip
+/TeXworks-manual-html-*/
