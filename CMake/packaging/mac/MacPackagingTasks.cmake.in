@@ -10,29 +10,44 @@ SET(TeXworks_LIB_DIRS @TeXworks_LIB_DIRS@)
 SET(CMAKE_SHARED_LIBRARY_SUFFIX @CMAKE_SHARED_LIBRARY_SUFFIX@)
 SET(QT_PLUGINS @QT_PLUGINS@)
 
+# Poppler data files: version, matching hash, and derived variables.
+SET(POPPLER_DATA_VERSION "0.4.7")
+SET(POPPLER_DATA_ARCHIVE_MD5 "636a8f2b9f6df9e7ced8ec0946961eaf")
+SET(POPPLER_DATA_BASE "poppler-data-${POPPLER_DATA_VERSION}")
+SET(POPPLER_DATA_ARCHIVE "${POPPLER_DATA_BASE}.tar.gz")
+SET(POPPLER_DATA_ARCHIVE_URL "http://poppler.freedesktop.org/${POPPLER_DATA_ARCHIVE}")
+
+# TeXworks HTML manual: version, matching hash, and derived variables.
+SET(TW_MANUAL_VERSION "20150506-64280a1")
+SET(TW_MANUAL_ARCHIVE_MD5 "6f4cb6bb29b1ff3b482ff0700ff06d9d")
+SET(TW_MANUAL_BASE "TeXworks-manual-html-${TW_MANUAL_VERSION}")
+SET(TW_MANUAL_ARCHIVE "${TW_MANUAL_BASE}.zip")
+SET(TW_MANUAL_ARCHIVE_URL "https://github.com/TeXworks/manual/releases/download/2015-05-06/${TW_MANUAL_ARCHIVE}")
+
 # This `IF` statement ensures that the following commands are executed only when
 # CPack is running---i.e. when a user executes `make package` but not `make install`
 IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
 
   # Download and install Poppler data
   # ---------------------------------
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/poppler-data-0.4.4.tar.gz )
+  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}" )
     MESSAGE(STATUS "Downloading Poppler data files")
-    FILE(DOWNLOAD "http://poppler.freedesktop.org/poppler-data-0.4.5.tar.gz"
-      ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5.tar.gz
-      EXPECTED_MD5 448dd7c5077570e340340706cef931aa
+    FILE(DOWNLOAD "${POPPLER_DATA_ARCHIVE_URL}"
+      "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}"
+      EXPECTED_MD5 "${POPPLER_DATA_ARCHIVE_MD5}"
       SHOW_PROGRESS
     )
   ENDIF ()
 
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5 )
-    EXECUTE_PROCESS(COMMAND tar xzf ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5.tar.gz
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}" )
+    EXECUTE_PROCESS(
+      COMMAND tar xzf "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}"
+      WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
     )
   ENDIF ()
 
-  FILE(INSTALL ${PROJECT_SOURCE_DIR}/poppler-data-0.4.5/
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/poppler-data
+  FILE(INSTALL "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}/"
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/poppler-data"
     PATTERN CMakeLists.txt EXCLUDE
     PATTERN Makefile EXCLUDE
   )
@@ -40,24 +55,25 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
 
   # Download and install TeXworks manual
   # ------------------------------------
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r959.zip )
+  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}" )
     MESSAGE(STATUS "Downloading TeXworks HTML manual")
-    FILE(DOWNLOAD
-      "http://texworks.googlecode.com/files/TeXworks-manual-html-r959.zip"
-      ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r959.zip
-      EXPECTED_MD5 2071e3c2fc6b6fdb57bca0484abdd35a
+    FILE(DOWNLOAD "${TW_MANUAL_ARCHIVE_URL}"
+      "${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}"
+      EXPECTED_MD5 "${TW_MANUAL_ARCHIVE_MD5}"
       SHOW_PROGRESS
     )
   ENDIF ()
 
-  IF ( NOT EXISTS ${PROJECT_SOURCE_DIR}/TeXworks-manual )
-    EXECUTE_PROCESS(COMMAND unzip ${PROJECT_SOURCE_DIR}/TeXworks-manual-html-r959.zip
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}" )
+    FILE(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}")
+    EXECUTE_PROCESS(
+      COMMAND unzip "${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}"
+      WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}"
     )
   ENDIF ()
 
-  FILE(INSTALL ${PROJECT_SOURCE_DIR}/TeXworks-manual
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/texworks-help/
+  FILE(INSTALL "${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}/TeXworks-manual"
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/texworks-help/"
   )
 
 
@@ -136,10 +152,24 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
     ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/MacOS/*${CMAKE_SHARED_LIBRARY_SUFFIX})
 
   FOREACH(DYLIB IN LISTS BUNDLED_DYLIBS)
-    MESSAGE(STATUS "Processing included library: ${DYLIB}")
-    # `lipo` is very very anal about how arguments get passed to it. So we
-    # execute through bash to side-step the issue.
-    EXECUTE_PROCESS(COMMAND bash -c "lipo ${ARCHS_TO_EXTRACT} ${DYLIB} -output ${DYLIB}")
+    # `lipo` prints error messages when attempting to extract from a file that
+    # is not a universal (fat) binary. Avoid this by checking first.
+    EXECUTE_PROCESS(
+      COMMAND lipo -info ${DYLIB}
+      COMMAND cut -d : -f 1
+      COMMAND grep -q "Non-fat file"
+      RESULT_VARIABLE DYLIB_IS_FAT
+    )
+    IF(NOT ${DYLIB_IS_FAT} EQUAL 0)
+      MESSAGE(STATUS "Processing fat library: ${DYLIB}")
+      # `lipo` is very very anal about how arguments get passed to it. So we
+      # execute through bash to side-step the issue.
+      EXECUTE_PROCESS(
+        COMMAND bash -c "lipo ${ARCHS_TO_EXTRACT} ${DYLIB} -output ${DYLIB}"
+      )
+    ELSE()
+      MESSAGE(STATUS "Skipping non-fat library: ${DYLIB}")
+    ENDIF()
   ENDFOREACH ()
 
   MESSAGE(STATUS "Finished stripping architectures from bundled libraries.")
