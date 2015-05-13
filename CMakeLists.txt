@@ -14,7 +14,7 @@
 #   │       └── <a href="plugins-src/TWPythonPlugin/CMakeLists.html">CMakeLists.txt</a>
 #   └── CMake
 #       └── packaging
-#           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.html</a>
+#           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.txt</a>
 #           └── mac
 #               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.cmake.in</a>
 # </pre>
