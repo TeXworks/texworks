@@ -14,6 +14,9 @@ Dir.chdir ROOT_DIR
 # Gather all CMake files
 CMAKE_FILES = Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
 
+# Remove unwanted items like 'modules/' and 'poppler-data-*/'.
+CMAKE_FILES.reject! { |f| f.start_with?("modules/", "poppler-data-") }
+
 # Generate documentation from comments in CMake files
 task :docs do
   sh "rocco",
