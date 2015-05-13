@@ -16,8 +16,8 @@ CMAKE_FILES = Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
 
 # Generate documentation from comments in CMake files
 task :docs do
-  system 'rocco',
-    '--language=cmake',
+  sh "rocco",
+    "--language=cmake",
     "--output=#{DOC_DIR + 'html' + 'docs'}",
     "--template=#{DOC_DIR + 'layout.mustache'}",
     *CMAKE_FILES
@@ -28,5 +28,6 @@ task :default => :docs
 
 # Generate documentation and then view it
 task :view => [:docs] do
-  exec "open #{DOC_DIR + 'html' + 'index.html'}"
+  sh "open",
+    "#{DOC_DIR + 'html' + 'index.html'}"
 end
