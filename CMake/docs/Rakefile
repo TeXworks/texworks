@@ -8,7 +8,8 @@ require 'rocco/tasks' # Not used, but serves as a good test that Rocco is instal
 
 # Run everything from the project root directory
 DOC_DIR = Pathname.new(__FILE__).realpath.dirname
-ROOT_DIR = DOC_DIR.join '../..'
+DOC_OUTPUT_DIR = DOC_DIR + "html" + "docs"
+ROOT_DIR = DOC_DIR + ".." + ".."
 Dir.chdir ROOT_DIR
 
 # Gather all CMake files
@@ -17,11 +18,28 @@ CMAKE_FILES = Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
 # Remove unwanted items like 'modules/' and 'poppler-data-*/'.
 CMAKE_FILES.reject! { |f| f.start_with?("modules/", "poppler-data-") }
 
-# Generate documentation from comments in CMake files
-task :docs do
+# Remove generated documentation files.
+task :clean do
+  html_files = Dir.chdir(DOC_OUTPUT_DIR) { Dir["**/*.html"] }
+  next if html_files.empty?
+
+  puts "Cleaning '#{DOC_OUTPUT_DIR}' (#{html_files.count} files):"
+  html_files.each do |f|
+    abs_f = DOC_OUTPUT_DIR + f
+    if abs_f.file? then
+      puts "  * #{f}"
+      abs_f.delete
+    else
+      puts "  ! #{f} is not a file"
+    end
+  end
+end
+
+# Generate documentation from comments in CMake files, but clean up first.
+task :docs => [:clean] do
   sh "rocco",
     "--language=cmake",
-    "--output=#{DOC_DIR + 'html' + 'docs'}",
+    "--output=#{DOC_OUTPUT_DIR}",
     "--template=#{DOC_DIR + 'layout.mustache'}",
     *CMAKE_FILES
 end
