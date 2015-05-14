@@ -5,17 +5,10 @@
 #
 require "pathname"
 
-# Run everything from the project root directory.
-DOC_DIR = Pathname.new(__FILE__).realpath.dirname
+# Determine all relevant directories (relative to Rakefile).
+DOC_DIR        = Pathname.new(__FILE__).realpath.dirname
 DOC_OUTPUT_DIR = DOC_DIR + "html" + "docs"
-ROOT_DIR = DOC_DIR + ".." + ".."
-Dir.chdir ROOT_DIR
-
-# Gather all CMake files.
-CMAKE_FILES = Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
-
-# Remove unwanted items like 'modules/' and 'poppler-data-*/'.
-CMAKE_FILES.reject! { |f| f.start_with?("modules/", "poppler-data-") }
+ROOT_DIR       = DOC_DIR + ".." + ".."
 
 # Make document generation the default task.
 task :default => [:docs]
@@ -45,11 +38,17 @@ end
 
 # Generate documentation from comments in CMake files, but clean up first.
 task :docs => [:prerequisites, :clean] do
-  sh rocco_binary,
-    "--language=cmake",
-    "--output=#{DOC_OUTPUT_DIR}",
-    "--template=#{DOC_DIR + 'layout.mustache'}",
-    *CMAKE_FILES
+  raise "Failed to find source CMake files." if cmake_files.empty?
+  puts "Generating documentation for files:"
+  cmake_files.each { |f| puts "  * #{f}" }
+
+  Dir.chdir ROOT_DIR do
+    sh rocco_binary,
+      "--language=cmake",
+      "--output=#{DOC_OUTPUT_DIR}",
+      "--template=#{DOC_DIR + 'layout.mustache'}",
+      *cmake_files
+  end
 end
 
 # Generate documentation and then view it.
@@ -61,4 +60,15 @@ end
 # Asks 'Gem' for the path to 'rocco' to avoid dependency on proper search path.
 def rocco_binary
   _binary ||= Gem.bin_path("rocco", "rocco")
+end
+
+# Create a (sorted) list of CMake files that should be processed.
+def cmake_files
+  _files ||= Dir.chdir ROOT_DIR do
+    # Gather all CMake files.
+    Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
+  end.reject do |f|
+    # Remove unwanted items like 'modules/' and 'poppler-data-*/'.
+    f.start_with?("modules/", "poppler-data-")
+  end.sort
 end
