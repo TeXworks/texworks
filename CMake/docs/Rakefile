@@ -49,6 +49,8 @@ task :docs => [:prerequisites, :clean] do
       "--template=#{DOC_DIR + 'layout.mustache'}",
       *cmake_files
   end
+
+  fixup_css_paths
 end
 
 # Generate documentation and then view it.
@@ -71,4 +73,24 @@ def cmake_files
     # Remove unwanted items like 'modules/' and 'poppler-data-*/'.
     f.start_with?("modules/", "poppler-data-")
   end.sort
+end
+
+# Post-processes HTML and replaces absolute CSS URLs with relative ones.
+def fixup_css_paths
+  # URL path of CSS file and full path to CSS file.
+  css_url = "resources/docs.css"
+  css_file = DOC_DIR + "html" + css_url
+
+  # Regular expression that searches for hard-coded CSS URL.
+  css_rex = Regexp.new("\"https?://[^\"]+#{Regexp.escape(css_url)}\"")
+
+  # HTML files to operate on.
+  html_files = Dir.chdir(DOC_OUTPUT_DIR) { Dir["**/*.html"] }
+  html_files.each do |f|
+    abs_f = DOC_OUTPUT_DIR + f
+    css_rel = css_file.relative_path_from(abs_f.dirname)
+    f_data = abs_f.read()
+    f_data.gsub!(css_rex, "\"#{css_rel}\"")
+    IO.write(abs_f, f_data)
+  end
 end
