@@ -161,11 +161,11 @@ table td {
   }
     .navigation.about {
       float: right;
-      margin-right: 260px;
+      margin-right: 10px;
     }
     .navigation.toc {
       float: right;
-      margin-right: 30px;
+      margin-right: 10px;
     }
     .navigation:hover,
     .navigation.active {
@@ -195,9 +195,10 @@ table td {
       position: absolute;
       background: #fff;
       opacity: 0.97;
-      top: 40px; left: 0;
+      top: 40px; right: 0;
       padding: 5px 0;
       margin-left: -1px;
+      margin-right: -1px;
       border: 1px solid #aaa;
       border-top: 0;
       -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
@@ -208,7 +209,6 @@ table td {
       box-shadow: 0 3px 5px rgba(0,0,0,0.2);
     }
       .navigation .contents p {
-        width: 335px;
         display: block;
         text-transform: none;
         margin: 0px;
@@ -216,12 +216,18 @@ table td {
         border: 1px solid transparent;
         border-left: 0; border-right: 0;
       }
+      .navigation.about .contents p {
+        width: 335px;
+      }
       .navigation.about .contents a {
         display: block;
         text-transform: none;
         padding: 4px 20px;
         border: 1px solid transparent;
         border-left: 0; border-right: 0;
+      }
+      .navigation .contents.menu {
+        width: 450px;
       }
       .navigation .contents.menu a {
         display: block;
