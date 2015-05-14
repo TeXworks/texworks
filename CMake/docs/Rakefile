@@ -1,22 +1,25 @@
-# Simple Rakefile for generating documentation from the CMake buildsystem using
+# Simple Rakefile for generating documentation from the CMake build system using
 # Rocco:
 #
 #    http://rtomayko.github.com/rocco
 #
-require 'pathname'
-require 'rocco/tasks' # Not used, but serves as a good test that Rocco is installed
+require "pathname"
+require "rocco/tasks" # Not used, but implicitly tests that Rocco is installed.
 
-# Run everything from the project root directory
+# Run everything from the project root directory.
 DOC_DIR = Pathname.new(__FILE__).realpath.dirname
 DOC_OUTPUT_DIR = DOC_DIR + "html" + "docs"
 ROOT_DIR = DOC_DIR + ".." + ".."
 Dir.chdir ROOT_DIR
 
-# Gather all CMake files
+# Gather all CMake files.
 CMAKE_FILES = Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
 
 # Remove unwanted items like 'modules/' and 'poppler-data-*/'.
 CMAKE_FILES.reject! { |f| f.start_with?("modules/", "poppler-data-") }
+
+# Make document generation the default task.
+task :default => [:docs]
 
 # Remove generated documentation files.
 task :clean do
@@ -44,10 +47,7 @@ task :docs => [:clean] do
     *CMAKE_FILES
 end
 
-# Make doc generation the default task
-task :default => :docs
-
-# Generate documentation and then view it
+# Generate documentation and then view it.
 task :view => [:docs] do
   sh "open",
     "#{DOC_DIR + 'html' + 'index.html'}"
