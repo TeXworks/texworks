@@ -117,8 +117,19 @@ ENDIF()
 QT_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
 # Add translations
 QT_ADD_QM_TRANSLATIONS(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS_QM})
-# Create .pro file that can be used for easy updating with lupdate
-CREATE_QT_PRO_FILE("${CMAKE_SOURCE_DIR}/trans/${CMAKE_PROJECT_NAME}_trans.pro" "src" ${TEXWORKS_SRCS} ${TEXWORKS_HDRS} ${TEXWORKS_UIS} ${TEXWORKS_TRANS_TS})
+
+# Create .pro file that can be used for easy updating with `lupdate`. We sort
+# the file list to obtain a stable result (that can be kept in the repository)
+# irrespective of globbing order (which varies for different file systems).
+SET(TEXWORKS_TRANS_FILE_LIST
+  ${TEXWORKS_SRCS} ${TEXWORKS_HDRS} ${TEXWORKS_UIS} ${TEXWORKS_TRANS_TS}
+)
+LIST(SORT TEXWORKS_TRANS_FILE_LIST)
+CREATE_QT_PRO_FILE(
+  "${CMAKE_SOURCE_DIR}/trans/${PROJECT_NAME}_trans.pro"
+  "src"
+  ${TEXWORKS_TRANS_FILE_LIST}
+)
 
 IF ( APPLE OR NOT UNIX )
   SET(EXE_NAME TeXworks)
@@ -134,7 +145,7 @@ IF (NOT ${BUILD_SHARED_PLUGINS})
     LIST(INSERT TeXworks_LIBS 0 TWLuaPlugin ${LUA_LIBRARIES})
   ENDIF()
   IF (WITH_PYTHON)
-    LIST(INSERT TeXworks_LIBS 0 TWPythonPlugin)
+    LIST(INSERT TeXworks_LIBS 0 TWPythonPlugin ${PYTHON_LIBRARIES})
   ENDIF()
 ENDIF()
 

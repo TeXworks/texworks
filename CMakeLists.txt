@@ -57,6 +57,11 @@ IF(POLICY CMP0020)
   cmake_policy(SET CMP0020 NEW)
 ENDIF()
 
+# Silence warning about using @rpath on OS X.
+if(POLICY CMP0042)
+  cmake_policy(SET CMP0042 NEW)
+endif()
+
 SET(CMAKE_COLOR_MAKEFILE ON)
 # Always add the current source and binary directories to the header include
 # path when compiling.
@@ -102,7 +107,7 @@ FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/GitRev.h TeXworks_GIT_INFO)
 LIST(GET TeXworks_GIT_INFO 1 TeXworks_GIT_COMMIT)
 STRING(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+)\"" "\\1" TeXworks_GIT_HASH "${TeXworks_GIT_COMMIT}")
 LIST(GET TeXworks_GIT_INFO 2 TeXworks_GIT_COMMIT)
-STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-:0-9 Z]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
+STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
 
 
 # Declare Project Options
@@ -367,7 +372,7 @@ IF ( APPLE )
   # Pass `-undefined dynamic_lookup` so that the Apple linker does not
   # freak out about this.
   SET(CMAKE_MODULE_LINKER_FLAGS
-    "${CMAKE_MODULE_LINKER_FLAGS_INIT} $ENV{LDFLAGS} -undefined dynamic_lookup")
+    "${CMAKE_MODULE_LINKER_FLAGS} -undefined dynamic_lookup")
 ELSE ()
   # Set the plugin installation path. This is a good default for UNIX-like
   # systems, but is not appropriate for Windows.
