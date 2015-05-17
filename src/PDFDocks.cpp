@@ -241,7 +241,7 @@ PDFFontsDock::PDFFontsDock(PDFDocument *doc)
 	setObjectName("fonts");
 	setWindowTitle(getTitle());
 	table = new QTableWidget(this);
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC) /* don't do this on windows, as the font ends up too small */
+#if defined(Q_OS_DARWIN) /* don't do this on windows, as the font ends up too small */
 	QFont f(table->font());
 	f.setPointSize(f.pointSize() - 2);
 	table->setFont(f);

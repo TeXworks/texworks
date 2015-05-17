@@ -57,7 +57,7 @@
 #include <QTextBrowser>
 #include <QAbstractTextDocumentLayout>
 
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 #include <windows.h>
 #endif
 
@@ -103,14 +103,14 @@ void TeXDocument::init()
 	highlighter = NULL;
 	pHunspell = NULL;
 	utf8BOM = false;
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	lineEndings = kLineEnd_CRLF;
 #else
 	lineEndings = kLineEnd_LF;
 #endif
 	
 	setupUi(this);
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	TWApp::instance()->createMessageTarget(this);
 #endif
 
@@ -151,7 +151,7 @@ void TeXDocument::init()
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
 	engine->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-#if (defined(Q_WS_MAC) || defined(Q_OS_MAC)) && (QT_VERSION >= 0x040600)
+#if defined(Q_OS_DARWIN) && (QT_VERSION >= 0x040600)
 	engine->setStyleSheet("padding:4px;");
 	engine->setMinimumWidth(150);
 #endif
@@ -243,7 +243,7 @@ void TeXDocument::init()
 
 	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(editMenuAboutToShow()));
 
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 	textEdit->installEventFilter(CmdKeyFilter::filter());
 #endif
 
@@ -580,12 +580,11 @@ void TeXDocument::makeUntitled()
 void TeXDocument::open()
 {
 	QFileDialog::Options options = 0;
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 		/* use a sheet if we're calling Open from an empty, untitled, untouched window; otherwise use a separate dialog */
 	if (!(isUntitled && textEdit->document()->isEmpty() && !isWindowModified()))
 		options = QFileDialog::DontUseSheet;
-#endif
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#elif defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QSETTINGS_OBJECT(settings);
@@ -717,12 +716,12 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 						action->setIcon(icon);
 					}
 					QPoint pos(QCursor::pos().x() - 20, frameGeometry().y());
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 					extern void qt_mac_set_menubar_icons(bool);
 					qt_mac_set_menubar_icons(true);
 #endif
 					menu.exec(pos);
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 					qt_mac_set_menubar_icons(false);
 #endif
 				}
@@ -777,7 +776,7 @@ bool TeXDocument::saveAll()
 bool TeXDocument::saveAs()
 {
 	QFileDialog::Options	options = 0;
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	QString selectedFilter = TWUtils::chooseDefaultFilter(curFile, *(TWUtils::filterList()));;
@@ -947,7 +946,7 @@ QString TeXDocument::readFile(const QString &fileName,
 {
 	if (lineEndings != NULL) {
 		// initialize to default for the platform
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 		*lineEndings = kLineEnd_CRLF;
 #else
 		*lineEndings = kLineEnd_LF;
@@ -1474,7 +1473,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	}
 	else {
 		QIcon winIcon;
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
+#if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 		// The Compiz window manager doesn't seem to support icons larger than
 		// 128x128, so we add a suitable one first
 		winIcon.addFile(":/images/images/TeXworks-doc-128.png");
@@ -2628,7 +2627,7 @@ void TeXDocument::typeset()
 	updateTypesettingAction();
 
 	QString workingDir = fileInfo.canonicalPath();	// Note that fileInfo refers to the root file
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	// files in the root directory of the current drive have to be handled specially
 	// because QFileInfo::canonicalPath() returns a path without trailing slash
 	// (i.e., a bare drive letter)
@@ -2642,11 +2641,11 @@ void TeXDocument::typeset()
 	
 	QString exeFilePath = TWApp::instance()->findProgram(e.program(), binPaths);
 	
-#if !(defined(Q_WS_MAC) || defined(Q_OS_MAC)) // not supported on OS X yet :(
+#if !defined(Q_OS_DARWIN) // not supported on OS X yet :(
 	// Add a (customized) TEXEDIT environment variable
 	env << QString("TEXEDIT=%1 --position=%d %s").arg(QCoreApplication::applicationFilePath());
 	
-	#if defined(Q_WS_WIN) || defined(Q_OS_WIN) // MiKTeX apparently uses it's own variable
+	#if defined(Q_OS_WIN) // MiKTeX apparently uses it's own variable
 	env << QString("MIKTEX_EDITOR=%1 --position=%l \"%f\"").arg(QCoreApplication::applicationFilePath());
 	#endif
 #endif
@@ -2711,11 +2710,11 @@ void TeXDocument::typeset()
 		process = NULL;
 		QMessageBox msgBox(QMessageBox::Critical, tr("Unable to execute %1").arg(e.name()),
 							  "<p>" + tr("The program \"%1\" was not found.").arg(e.program()) + "</p>" +
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> or <a href=\"http://miktex.org/\">MiKTeX</a> installed on your system to typeset your document.") + "</p>" +
-#elif defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://www.tug.org/mactex/\">MacTeX</a> installed on your system to typeset your document.") + "</p>" +
-#else
+#else // defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 							  "<p>" + tr("You need a <b>TeX distribution</b> like <a href=\"http://tug.org/texlive/\">TeX Live</a> installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.") + "</p>" +
 #endif
 							  "<p>" + tr("When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -> Preferences -> Typesetting.") + "</p>",
@@ -3102,7 +3101,7 @@ void TeXDocument::removeAuxFiles()
 									   tr("No auxiliary files associated with this document at the moment."));
 }
 
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 #define OPEN_FILE_IN_NEW_WINDOW	Qt::MoveAction // unmodified drag appears as MoveAction on Mac OS X
 #define INSERT_DOCUMENT_TEXT	Qt::CopyAction
 #define CREATE_INCLUDE_COMMAND	Qt::LinkAction

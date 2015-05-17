@@ -47,7 +47,7 @@
 
 #pragma mark === TWUtils ===
 
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
+#if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 // compile-time default paths - customize by defining in the .pro file
 #ifndef TW_DICPATH
 #define TW_DICPATH "/usr/share/myspell/dicts"
@@ -91,10 +91,9 @@ const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOn
 	
 	libRootPath = TWApp::instance()->getPortableLibPath();
 	if (libRootPath.isEmpty()) {
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 		libRootPath = QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/";
-#endif
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
+#elif defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
 		if (subdir == "dictionaries") {
 			libPath = TW_DICPATH;
 			QString dicPath = QString::fromLocal8Bit(getenv("TW_DICPATH"));
@@ -104,8 +103,7 @@ const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOn
 		}
 		else
 			libRootPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/";
-#endif
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#else // defined(Q_OS_WIN)
 		libRootPath = QDir::homePath() + "/" + TEXWORKS_NAME + "/";
 #endif
 	}
@@ -275,11 +273,11 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 		delete actions[i];
 	}
 
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 	QDir helpDir(QCoreApplication::applicationDirPath() + "/../texworks-help");
 #else
 	QDir helpDir(QCoreApplication::applicationDirPath() + "/texworks-help");
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
+#if defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
 	if (!helpDir.exists())
 		helpDir.cd(TW_HELPPATH);
 #endif
@@ -692,7 +690,7 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 		// If we still have no valid value for hDiff/wDiff, just guess (on some
 		// platforms)
 		if (hDiff == 0 && wDiff == 0) {
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 			// (these values were determined on WinXP with default theme)
 			hDiff = 34;
 			wDiff = 8;
@@ -1192,7 +1190,7 @@ CmdKeyFilter *CmdKeyFilter::filter()
 
 bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 {
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 	if (event->type() == QEvent::KeyPress) {
 		QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
 		if ((keyEvent->modifiers() & Qt::ControlModifier) != 0) {

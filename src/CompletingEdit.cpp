@@ -746,7 +746,7 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 //   ctl/alt       : skip to next placeholder (alt on Mac, ctl elsewhere)
 //   ctl/alt-shift : skip to previous placeholder
 
-#if defined(Q_WS_MAC) || defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::AltModifier)
 #else
 	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::ControlModifier)
