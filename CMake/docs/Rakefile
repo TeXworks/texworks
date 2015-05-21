@@ -15,7 +15,7 @@ task :default => [:docs]
 
 # Check if prerequisites are met.
 task :prerequisites do
-  raise "Failed to find 'rocco' binary!" unless File.executable?(rocco_binary)
+  raise "Failed to find 'rocco' script!" unless File.file?(rocco_binary)
   puts "Found 'rocco' in '#{File.dirname(rocco_binary)}'!"
 end
 
@@ -43,7 +43,7 @@ task :docs => [:prerequisites, :clean] do
   cmake_files.each { |f| puts "  * #{f}" }
 
   Dir.chdir ROOT_DIR do
-    sh rocco_binary,
+    ruby rocco_binary,
       "--language=cmake",
       "--output=#{DOC_OUTPUT_DIR}",
       "--template=#{DOC_DIR + 'layout.mustache'}",
