@@ -4,6 +4,7 @@
 #    http://rtomayko.github.io/rocco/
 #
 require "pathname"
+require "rbconfig" # Detection of host OS for OS-specific code.
 
 # Determine all relevant directories (relative to Rakefile).
 DOC_DIR        = Pathname.new(__FILE__).realpath.dirname
@@ -55,7 +56,13 @@ end
 
 # Generate documentation and then view it.
 task :view => [:docs] do
-  sh "open",
+  # Select OS-specific way of opening a file with the default application.
+  program = case RbConfig::CONFIG["host_os"]
+            when /mswin|mingw|cygwin/ then "start" # Windows
+            when /darwin/ then "open" # OS X
+            else "xdg-open" # Linux, BSD, ...
+            end
+  sh program,
     "#{DOC_DIR + 'html' + 'index.html'}"
 end
 
