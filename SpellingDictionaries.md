@@ -26,3 +26,10 @@ By default, the TeXworks resources folder should be located inside the Library f
 ## GNU/Linux ##
 
 On these systems, it is quite likely that appropriate dictionaries are already present, thanks to other programs using the same spell-check engine. However, if you need to add dictionaries, they should be placed in `/usr/share/myspell/dicts`. (This will typically require administrative privileges. I guess we'll offer some way to install "personal" dictionaries as a non-privileged user in the future.)
+
+On some systems, the dictionaries are put elsewhere (for instance in `/usr/share/hunspell/`).
+In this case, you can do:
+
+    # cd /usr/share/myspell/dicts
+    # ln -s /usr/share/hunspell/en_US.aff
+    # ln -s /usr/share/hunspell/en_US.dic
