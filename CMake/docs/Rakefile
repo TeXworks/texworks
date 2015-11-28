@@ -1,32 +1,103 @@
-# Simple Rakefile for generating documentation from the CMake buildsystem using
+# Simple Rakefile for generating documentation from the CMake build system using
 # Rocco:
 #
-#    http://rtomayko.github.com/rocco
+#    http://rtomayko.github.io/rocco/
 #
-require 'pathname'
-require 'rocco/tasks' # Not used, but serves as a good test that Rocco is installed
+require "pathname"
+require "rbconfig" # Detection of host OS for OS-specific code.
 
-# Run everything from the project root directory
-DOC_DIR = Pathname.new(__FILE__).realpath.dirname
-ROOT_DIR = DOC_DIR.join '../..'
-Dir.chdir ROOT_DIR
+# Determine all relevant directories (relative to Rakefile).
+DOC_DIR        = Pathname.new(__FILE__).realpath.dirname
+DOC_OUTPUT_DIR = DOC_DIR + "html" + "docs"
+ROOT_DIR       = DOC_DIR + ".." + ".."
 
-# Gather all CMake files
-CMAKE_FILES = Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
+# Make document generation the default task.
+task :default => [:docs]
 
-# Generate documentation from comments in CMake files
-task :docs do
-  system 'rocco',
-    '--language=cmake',
-    "--output=#{DOC_DIR + 'html' + 'docs'}",
-    "--template=#{DOC_DIR + 'layout.mustache'}",
-    *CMAKE_FILES
+# Check if prerequisites are met.
+task :prerequisites do
+  raise "Failed to find 'rocco' script!" unless File.file?(rocco_binary)
+  puts "Found 'rocco' in '#{File.dirname(rocco_binary)}'!"
 end
 
-# Make doc generation the default task
-task :default => :docs
+# Remove generated documentation files.
+task :clean => [:prerequisites] do
+  html_files = Dir.chdir(DOC_OUTPUT_DIR) { Dir["**/*.html"] }
+  next if html_files.empty?
 
-# Generate documentation and then view it
+  puts "Cleaning '#{DOC_OUTPUT_DIR}' (#{html_files.count} files):"
+  html_files.each do |f|
+    abs_f = DOC_OUTPUT_DIR + f
+    if abs_f.file? then
+      puts "  * #{f}"
+      abs_f.delete
+    else
+      puts "  ! #{f} is not a file"
+    end
+  end
+end
+
+# Generate documentation from comments in CMake files, but clean up first.
+task :docs => [:prerequisites, :clean] do
+  raise "Failed to find source CMake files." if cmake_files.empty?
+  puts "Generating documentation for files:"
+  cmake_files.each { |f| puts "  * #{f}" }
+
+  Dir.chdir ROOT_DIR do
+    ruby rocco_binary,
+      "--language=cmake",
+      "--output=#{DOC_OUTPUT_DIR}",
+      "--template=#{DOC_DIR + 'layout.mustache'}",
+      *cmake_files
+  end
+
+  fixup_css_paths
+end
+
+# Generate documentation and then view it.
 task :view => [:docs] do
-  exec "open #{DOC_DIR + 'html' + 'index.html'}"
+  # Select OS-specific way of opening a file with the default application.
+  program = case RbConfig::CONFIG["host_os"]
+            when /mswin|mingw|cygwin/ then "start" # Windows
+            when /darwin/ then "open" # OS X
+            else "xdg-open" # Linux, BSD, ...
+            end
+  sh program,
+    "#{DOC_DIR + 'html' + 'index.html'}"
+end
+
+# Asks 'Gem' for the path to 'rocco' to avoid dependency on proper search path.
+def rocco_binary
+  _binary ||= Gem.bin_path("rocco", "rocco")
+end
+
+# Create a (sorted) list of CMake files that should be processed.
+def cmake_files
+  _files ||= (Dir.chdir ROOT_DIR do
+    # Gather all CMake files.
+    Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
+  end).reject do |f|
+    # Remove unwanted items like 'modules/' and 'poppler-data-*/'.
+    f.start_with?("modules/", "poppler-data-")
+  end.sort
+end
+
+# Post-processes HTML and replaces absolute CSS URLs with relative ones.
+def fixup_css_paths
+  # URL path of CSS file and full path to CSS file.
+  css_url = "resources/docs.css"
+  css_file = DOC_DIR + "html" + css_url
+
+  # Regular expression that searches for hard-coded CSS URL.
+  css_rex = Regexp.new("\"https?://[^\"]+#{Regexp.escape(css_url)}\"")
+
+  # HTML files to operate on.
+  html_files = Dir.chdir(DOC_OUTPUT_DIR) { Dir["**/*.html"] }
+  html_files.each do |f|
+    abs_f = DOC_OUTPUT_DIR + f
+    css_rel = css_file.relative_path_from(abs_f.dirname)
+    f_data = abs_f.read()
+    f_data.gsub!(css_rex, "\"#{css_rel}\"")
+    IO.write(abs_f, f_data)
+  end
 end
