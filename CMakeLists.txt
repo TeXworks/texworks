@@ -193,29 +193,8 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${CMAKE_MODULE_PATH})
 set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
 MARK_AS_ADVANCED(DESIRED_QT_VERSION)
 
-# Check for Qt4 by default
-IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 4)
-  # Declare Qt libraries required by this project.
-  SET (QT_COMPONENTS
-      QtCore
-      QtGui
-      QtUiTools
-      QtScript
-      QtScriptTools
-      QtXml
-  )
-
-  IF ( UNIX AND NOT APPLE )
-    LIST(APPEND QT_COMPONENTS QtDbus)
-  ENDIF ()
-
-  # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
-  # with Qt-specific tasks such as compiling resources or running `moc`.
-  FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
-  INCLUDE(UseQt4)
-ENDIF()
-# If Qt4 is not found (or not desired), check for Qt5
-IF (DESIRED_QT_VERSION MATCHES 5 OR NOT QT4_FOUND)
+# Check for Qt5 by default
+IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
   find_package(Qt5Widgets QUIET)
   find_package(Qt5Gui QUIET)
   find_package(Qt5UiTools QUIET)
@@ -251,6 +230,27 @@ IF (DESIRED_QT_VERSION MATCHES 5 OR NOT QT4_FOUND)
     string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
     string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
   ENDIF()
+ENDIF()
+# If Qt5 is not found (or not desired), check for Qt4
+IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
+  # Declare Qt libraries required by this project.
+  SET (QT_COMPONENTS
+      QtCore
+      QtGui
+      QtUiTools
+      QtScript
+      QtScriptTools
+      QtXml
+  )
+
+  IF ( UNIX AND NOT APPLE )
+    LIST(APPEND QT_COMPONENTS QtDbus)
+  ENDIF ()
+
+  # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
+  # with Qt-specific tasks such as compiling resources or running `moc`.
+  FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+  INCLUDE(UseQt4)
 ENDIF()
 
 IF (NOT QT4_FOUND AND NOT QT5_FOUND)
