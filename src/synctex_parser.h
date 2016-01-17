@@ -5,7 +5,7 @@ This file is part of the SyncTeX package.
 
 Latest Revision: Tue Jun 14 08:23:30 UTC 2011
 
-Version: 1.17
+Version: 1.18
 
 See synctex_parser_readme.txt for more details
 
@@ -58,6 +58,8 @@ Thu Jun 19 09:39:21 UTC 2008
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#   define SYNCTEX_VERSION_STRING "1.18"
 
 /*  synctex_node_t is the type for all synctex nodes.
  *  The synctex file is parsed into a tree of nodes, either sheet, boxes, math nodes... */
@@ -162,8 +164,9 @@ synctex_scanner_t synctex_scanner_parse(synctex_scanner_t scanner);
  *  Sumatra-PDF, Skim, iTeXMac2 and Texworks are examples of open source software that use this library.
  *  You can browse their code for a concrete implementation.
  */
-int synctex_display_query(synctex_scanner_t scanner,const char *  name,int line,int column);
-int synctex_edit_query(synctex_scanner_t scanner,int page,float h,float v);
+typedef long synctex_status_t;
+synctex_status_t synctex_display_query(synctex_scanner_t scanner,const char *  name,int line,int column);
+synctex_status_t synctex_edit_query(synctex_scanner_t scanner,int page,float h,float v);
 synctex_node_t synctex_next_result(synctex_scanner_t scanner);
 
 /*  Display all the information contained in the scanner object.
