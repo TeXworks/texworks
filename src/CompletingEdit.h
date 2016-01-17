@@ -77,6 +77,11 @@ public slots:
 	void setSmartQuotesMode(int index);
 	void smartenQuotes();
 	void updateLineNumberAreaWidth(int newBlockCount);
+	void setFont(const QFont & font);
+	void setFontFamily(const QString & fontFamily);
+	void setFontItalic(bool italic);
+	void setFontPointSize(qreal s);
+	void setFontWeight(int weight);
 	
 signals:
 	void syncClick(int line, int col);

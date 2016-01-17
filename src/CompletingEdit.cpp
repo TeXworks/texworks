@@ -1273,6 +1273,37 @@ void CompletingEdit::setAutocompleteEnabled(bool autocomplete)
 	}
 }
 
+void CompletingEdit::setFont(const QFont & font)
+{
+	QTextEdit::setFont(font);
+	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+}
+
+void CompletingEdit::setFontFamily(const QString & fontFamily)
+{
+	QTextEdit::setFontFamily(fontFamily);
+	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+}
+
+void CompletingEdit::setFontItalic(bool italic)
+{
+	QTextEdit::setFontItalic(italic);
+	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+}
+
+void CompletingEdit::setFontPointSize(qreal s)
+{
+	QTextEdit::setFontPointSize(s);
+	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+}
+
+void CompletingEdit::setFontWeight(int weight)
+{
+	QTextEdit::setFontWeight(weight);
+	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+}
+
+
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = NULL;
 QTextCharFormat	*CompletingEdit::braceMatchingFormat = NULL;
 QTextCharFormat	*CompletingEdit::currentLineFormat = NULL;
