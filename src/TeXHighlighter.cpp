@@ -42,7 +42,9 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
 	, textDoc(parent)
 {
 	loadPatterns();
-	spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+	// TODO: We should use QTextCharFormat::SpellCheckUnderline here, but that
+	// causes problems for some fonts/font sizes in Qt 5 (QTBUG-50499)
+	spellFormat.setUnderlineStyle(QTextCharFormat::WaveUnderline);
 	spellFormat.setUnderlineColor(Qt::red);
 }
 
