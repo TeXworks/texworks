@@ -1175,16 +1175,21 @@ void TeXDocument::delayedInit()
 		connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
 
 		// set up syntax highlighting
+		// First, use the current file's syntaxMode property (if available)
 		QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
 		if (properties.contains("syntaxMode"))
 			setSyntaxColoringMode(properties.value("syntaxMode").toString());
+		// Secondly, try the global settings
+		else if (settings.contains("syntaxColoring"))
+				setSyntaxColoringMode(settings.value("syntaxColoring").toString());
+		// Lastly, use the default setting
 		else {
-			// FIXME: This does not respect kDefault_SyntaxColoring defined in
-			// DefaultPrefs.h. ATM, that is irrelevant because kDefault_SyntaxColoring = 0
-			// corresponds to None (i.e., ""). In the future, this may change, though.
-			// However, it would require some additional logic here (e.g., handling the
-			// case that kDefault_SyntaxColoring points to an invalid index).
-			setSyntaxColoringMode(settings.value("syntaxColoring").toString());
+			// This should mimick the code in PrefsDialog::doPrefsDialog()
+			QStringList syntaxOptions = TeXHighlighter::syntaxOptions();
+			if (kDefault_SyntaxColoring < syntaxOptions.count())
+				setSyntaxColoringMode(syntaxOptions[kDefault_SyntaxColoring]);
+			else
+				setSyntaxColoringMode("");
 		}
 
 		// set the default spell checking language
