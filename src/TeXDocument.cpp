@@ -392,7 +392,11 @@ void TeXDocument::init()
 
 	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);
+#if QT_VERSION < 0x050000
 	QTimer::singleShot(1000, this, SLOT(delayedInit()));
+#else
+	delayedInit();
+#endif
 }
 
 void TeXDocument::changeEvent(QEvent *event)
