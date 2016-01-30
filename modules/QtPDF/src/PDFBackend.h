@@ -585,7 +585,14 @@ public:
   // The returned text should contain all characters inside (at least) one of
   // the `selection` polygons.
   // The `selection` polygons must be in pdf coords (i.e., in bp)
-  virtual QString selectedText(const QList<QPolygonF> & selection) { return QString(); }
+  // Optionally, the function can also return wordBoxes and/or charBoxes for
+  // each character (i.e., a rect enclosing the word the character is part of
+  // and/or a rect enclosing the actual character)
+  virtual QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = NULL, QMap<int, QRectF> * charBoxes = NULL) {
+    if (wordBoxes) wordBoxes->clear();
+    if (charBoxes) charBoxes->clear();
+    return QString();
+  }
 
   // Uses page-read-lock and doc-read-lock.
   virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) = 0;

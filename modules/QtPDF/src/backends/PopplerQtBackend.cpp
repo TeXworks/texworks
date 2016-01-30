@@ -859,13 +859,8 @@ QList< Backend::Page::Box > Page::boxes()
   return retVal;
 }
 
-QString Page::selectedText(const QList<QPolygonF> & selection)
+QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes /* = NULL */, QMap<int, QRectF> * charBoxes /* = NULL */)
 {
-  // FIXME: Properly implement selectedText() with poppler
-  // Since poppler doesn't provide a reliable way to extract the text inside (a
-  // list of) polygons, we bail out for now
-  return QString();
-
   QReadLocker pageLocker(_pageLock);
   Q_ASSERT(_poppler_page != NULL);
   // Using the bounding rects of the selection polygons is almost
@@ -875,14 +870,42 @@ QString Page::selectedText(const QList<QPolygonF> & selection)
   // list of words. Hence, by iterating over them, we get a list of words with
   // no whitespace inbetween
   QString retVal;
-  foreach (QPolygonF poly, selection) {
-    QRectF boundingRect = poly.boundingRect();
-    // Poppler returns the entire page text if an empty rect is given. We don't
-    // want that here
-    if (boundingRect.isEmpty())
-      continue;
-    retVal.append(_poppler_page->text(boundingRect));
-  }
+
+	// Get a list of all boxes
+	QList<Poppler::TextBox*> poppler_boxes = _poppler_page->textList();
+
+	// Filter boxes by selection
+	foreach (Poppler::TextBox * poppler_box, poppler_boxes) {
+		if (!poppler_box)
+			continue;
+		bool include = false;
+		foreach (const QPolygonF & p, selection) {
+			if (!p.intersected(poppler_box->boundingBox()).empty()) {
+				include = true;
+				break;
+			}
+		}
+		if (!include)
+			continue;
+		// If we get here, we found a box in the selection, so we append its text
+		retVal += poppler_box->text();
+		if (poppler_box->hasSpaceAfter())
+			retVal += QString::fromLatin1(" ");
+
+		if (wordBoxes) {
+			for (int i = 0; i < poppler_box->text().length(); ++i)
+				(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
+			if (poppler_box->hasSpaceAfter())
+				(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
+		}
+		if (charBoxes) {
+			for (int i = 0; i < poppler_box->text().length(); ++i)
+				(*charBoxes)[charBoxes->count()] = poppler_box->charBoundingBox(i);
+			if (poppler_box->hasSpaceAfter())
+				(*charBoxes)[charBoxes->count()] = poppler_box->boundingBox();
+		}
+	}
+
   return retVal;
 }
 

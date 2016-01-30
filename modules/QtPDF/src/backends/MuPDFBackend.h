@@ -122,7 +122,7 @@ public:
 
   QList<SearchResult> search(QString searchText, SearchFlags flags);
   virtual QList<Backend::Page::Box> boxes();
-  virtual QString selectedText(const QList<QPolygonF> & selection);
+  virtual QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = NULL, QMap<int, QRectF> * charBoxes = NULL);
 };
 
 } // namespace MuPDF
