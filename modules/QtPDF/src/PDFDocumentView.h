@@ -49,6 +49,7 @@ class PDFDocumentView : public QGraphicsView {
   QList<QGraphicsItem *> _searchResults;
   QFutureWatcher< QList<Backend::SearchResult> > _searchResultWatcher;
   int _currentSearchResult;
+  QBrush _searchResultHighlightBrush;
   bool _useGrayScale;
 
   friend class DocumentTool::AbstractTool;
@@ -85,6 +86,12 @@ public:
   QGraphicsPathItem * addHighlightPath(const unsigned int page, const QPainterPath & path, const QColor color, const QPen & pen = Qt::NoPen) {
     return addHighlightPath(page, path, QBrush(color), pen);
   }
+
+  QBrush searchResultHighlightBrush() const { return _searchResultHighlightBrush; }
+  // Sets the highlight brush for search results
+  // Note: this does not update the current display of search results (if any)!
+  // It only applies to future search result
+  void setSearchResultHighlightBrush(const QBrush & brush) { _searchResultHighlightBrush = brush; }
 
 public slots:
   void goPrev();

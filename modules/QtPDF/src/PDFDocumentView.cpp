@@ -75,6 +75,10 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   setAlignment(Qt::AlignCenter);
   setFocusPolicy(Qt::StrongFocus);
 
+  QColor fillColor(Qt::yellow);
+  fillColor.setAlphaF(0.6);
+  _searchResultHighlightBrush = QBrush(fillColor);
+
   // If _currentPage is not set to -1, the compiler may default to 0. In that
   // case, `goFirst()` or `goToPage(0)` will fail because the view will think
   // it is already looking at page 0.
@@ -608,16 +612,9 @@ void PDFDocumentView::clearSearchResults()
 // --------------
 void PDFDocumentView::searchResultReady(int index)
 {
-  // FIXME: The brush used for highlighting should be defined at global scope
-  // to remove the need for re-creating it on each function call. Should also
-  // be configurable via a settings object.
-  QColor fillColor(Qt::yellow);
-  fillColor.setAlphaF(0.6);
-  QBrush highlightBrush(fillColor);
-
   // Convert the search result to highlight boxes
   foreach( Backend::SearchResult result, _searchResultWatcher.future().resultAt(index) )
-    _searchResults << addHighlightPath(result.pageNum, result.bbox, highlightBrush);
+    _searchResults << addHighlightPath(result.pageNum, result.bbox, _searchResultHighlightBrush);
   
   // If this is the first result that becomes available in a new search, center
   // on the first result
