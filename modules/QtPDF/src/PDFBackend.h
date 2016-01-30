@@ -30,6 +30,7 @@
 #include <QWaitCondition>
 #include <QEvent>
 #include <QMap>
+#include <QWeakPointer>
 
 namespace QtPDF {
 

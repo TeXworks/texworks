@@ -74,37 +74,9 @@ LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules)
 set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
 MARK_AS_ADVANCED(DESIRED_QT_VERSION)
 
-# Check for Qt4 by default
-IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 4)
-  # Declare Qt libraries required by this project.
-  SET (QT_COMPONENTS
-    QtCore
-    QtGui
-    QtXML
-  )
-  IF( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-    LIST(APPEND QT_COMPONENTS QtTest)
-  ENDIF()
-
-  # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
-  # with Qt-specific tasks such as compiling resources or running `moc`.
-  #
-  # Qt 4.6.0 or newer is required for many pieces of functionality used in the
-  # code.
-  FIND_PACKAGE(Qt4 4.6.0 COMPONENTS ${QT_COMPONENTS} QUIET)
-  INCLUDE(UseQt4)
-  
-  # TODO: QtTest is included in the list of "normal" libraries for debug builds.
-  # Therefore, QT_TEST_LIBRARIES is not set here. Can we improve this somehow
-  # (i.e., can we pull in QtTest only for programs that actually use it)?
-
-  # Define version-dependent wrappers
-  MACRO(QT_ADD_RESOURCES)
-    QT4_ADD_RESOURCES(${ARGV})
-  ENDMACRO(QT_ADD_RESOURCES)
-ENDIF()
-# If Qt4 is not found (or not desired), check for Qt5
-IF (DESIRED_QT_VERSION MATCHES 5 OR NOT QT4_FOUND)
+# Check for Qt5 by default
+IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
+  find_package(Qt5Core QUIET)
   find_package(Qt5Widgets QUIET)
   find_package(Qt5Concurrent QUIET)
   find_package(Qt5Xml QUIET)
@@ -127,11 +99,11 @@ IF (DESIRED_QT_VERSION MATCHES 5 OR NOT QT4_FOUND)
     ADD_DEFINITIONS(-DSTATIC_QT5)
   ENDIF()
 
-  IF(Qt5Widgets_FOUND AND Qt5Concurrent_FOUND AND Qt5Core_FOUND AND (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug" OR (Qt5Test_FOUND AND Qt5Xml_FOUND)))
+  IF(Qt5Core_FOUND AND Qt5Widgets_FOUND AND Qt5Concurrent_FOUND AND Qt5Core_FOUND AND (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug" OR (Qt5Test_FOUND AND Qt5Xml_FOUND)))
   	SET(QT5_FOUND TRUE)
-    SET(QT_INCLUDE_DIR "${Qt5Widgets_INCLUDE_DIRS} ${Qt5Concurrent_INCLUDE_DIRS}")
-    SET(QT_LIBRARIES ${Qt5QWindows_LIBRARIES} ${Qt5Platform_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Concurrent_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Xml_LIBRARIES})
-    SET(QT_TEST_LIBRARIES ${Qt5Test_LIBRARIES})
+    SET(QT_INCLUDE_DIR "${Qt5Core_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Concurrent_INCLUDE_DIRS}")
+    SET(QT_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5QWindows_LIBRARIES} ${Qt5Platform_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Concurrent_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Xml_LIBRARIES})
+    SET(QT_TEST_LIBRARIES ${Qt5Test_LIBRARIES} ${Qt5Core_LIBRARIES})
 
     # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
     # etc. which is used here.
@@ -143,6 +115,35 @@ IF (DESIRED_QT_VERSION MATCHES 5 OR NOT QT4_FOUND)
   # Define version-dependent wrappers
   MACRO(QT_ADD_RESOURCES)
     QT5_ADD_RESOURCES(${ARGV})
+  ENDMACRO(QT_ADD_RESOURCES)
+ENDIF()
+# If Qt5 is not found (or not desired), check for Qt4
+IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
+  # Declare Qt libraries required by this project.
+  SET (QT_COMPONENTS
+    QtCore
+    QtGui
+    QtXML
+  )
+  IF( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
+    LIST(APPEND QT_COMPONENTS QtTest)
+  ENDIF()
+
+  # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
+  # with Qt-specific tasks such as compiling resources or running `moc`.
+  #
+  # Qt 4.6.0 or newer is required for many pieces of functionality used in the
+  # code.
+  FIND_PACKAGE(Qt4 4.6.0 COMPONENTS ${QT_COMPONENTS} QUIET)
+  INCLUDE(UseQt4)
+
+  # TODO: QtTest is included in the list of "normal" libraries for debug builds.
+  # Therefore, QT_TEST_LIBRARIES is not set here. Can we improve this somehow
+  # (i.e., can we pull in QtTest only for programs that actually use it)?
+
+  # Define version-dependent wrappers
+  MACRO(QT_ADD_RESOURCES)
+    QT4_ADD_RESOURCES(${ARGV})
   ENDMACRO(QT_ADD_RESOURCES)
 ENDIF()
 
@@ -376,7 +377,7 @@ IF( WITH_POPPLERQT )
       COMPILE_FLAGS "-DUSE_POPPLERQT ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
       RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests
     )
-    TARGET_LINK_LIBRARIES(poppler-qt${QT_VERSION_MAJOR}_test qtpdf ${QT_TEST_LIBRARIES})
+    TARGET_LINK_LIBRARIES(poppler-qt${QT_VERSION_MAJOR}_test ${QT_TEST_LIBRARIES} qtpdf)
   ENDIF()
 ENDIF()
 
@@ -400,7 +401,7 @@ IF( WITH_MUPDF )
       COMPILE_FLAGS "-DUSE_MUPDF ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
       RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests
     )
-    TARGET_LINK_LIBRARIES(mupdf_test qtpdf ${QT_TEST_LIBRARIES})
+    TARGET_LINK_LIBRARIES(mupdf_test ${QT_TEST_LIBRARIES} qtpdf)
   ENDIF()
 ENDIF()
 

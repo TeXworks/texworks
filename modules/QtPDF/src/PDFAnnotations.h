@@ -22,6 +22,7 @@
 #include <QDateTime>
 #include <QFlags>
 #include <QColor>
+#include <QWeakPointer>
 
 namespace QtPDF {
 
