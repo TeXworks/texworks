@@ -268,6 +268,7 @@ void PDFPageProcessingThread::run()
 #endif
     }
   }
+  _mutex.unlock();
 }
 
 void PDFPageProcessingThread::clearWorkStack()
