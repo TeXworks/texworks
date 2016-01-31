@@ -75,9 +75,13 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   setAlignment(Qt::AlignCenter);
   setFocusPolicy(Qt::StrongFocus);
 
-  QColor fillColor(Qt::yellow);
-  fillColor.setAlphaF(0.6);
+  QColor fillColor(Qt::darkYellow);
+  fillColor.setAlphaF(0.3);
   _searchResultHighlightBrush = QBrush(fillColor);
+
+  fillColor = QColor(Qt::yellow);
+  fillColor.setAlphaF(0.6);
+  _currentSearchResultHighlightBrush = QBrush(fillColor);
 
   // If _currentPage is not set to -1, the compiler may default to 0. In that
   // case, `goFirst()` or `goToPage(0)` will fail because the view will think
@@ -575,10 +579,17 @@ void PDFDocumentView::nextSearchResult()
   if ( not _pdf_scene || _searchResults.empty() )
     return;
 
+  // Note: _currentSearchResult is initially -1 if no result is selected
+  if (_currentSearchResult >= 0 && _searchResults[_currentSearchResult])
+    static_cast<QGraphicsPathItem*>(_searchResults[_currentSearchResult])->setBrush(_searchResultHighlightBrush);
+
   if ( (_currentSearchResult + 1) >= _searchResults.size() )
     _currentSearchResult = 0;
   else
     ++_currentSearchResult;
+
+  if (_searchResults[_currentSearchResult])
+    static_cast<QGraphicsPathItem*>(_searchResults[_currentSearchResult])->setBrush(_currentSearchResultHighlightBrush);
 
   centerOn(_searchResults[_currentSearchResult]);
 }
@@ -588,10 +599,16 @@ void PDFDocumentView::previousSearchResult()
   if ( not _pdf_scene || _searchResults.empty() )
     return;
 
+  if (_currentSearchResult >= 0 && _searchResults[_currentSearchResult])
+    static_cast<QGraphicsPathItem*>(_searchResults[_currentSearchResult])->setBrush(_searchResultHighlightBrush);
+
   if ( (_currentSearchResult - 1) < 0 )
     _currentSearchResult = _searchResults.size() - 1;
   else
     --_currentSearchResult;
+
+  if (_searchResults[_currentSearchResult])
+    static_cast<QGraphicsPathItem*>(_searchResults[_currentSearchResult])->setBrush(_currentSearchResultHighlightBrush);
 
   centerOn(_searchResults[_currentSearchResult]);
 }
