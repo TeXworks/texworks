@@ -89,16 +89,10 @@ public:
   }
 
   QBrush searchResultHighlightBrush() const { return _searchResultHighlightBrush; }
-  // Sets the highlight brush for search results
-  // Note: this does not update the current display of search results (if any)!
-  // It only applies to future search results
-  void setSearchResultHighlightBrush(const QBrush & brush) { _searchResultHighlightBrush = brush; }
+  void setSearchResultHighlightBrush(const QBrush & brush);
 
   QBrush currentSearchResultHighlightBrush() const { return _currentSearchResultHighlightBrush; }
-  // Sets the highlight brush for the current search result
-  // Note: this does not update the current display of search results (if any)!
-  // It only applies to future search results
-  void setCurrentSearchResultHighlightBrush(const QBrush & brush) { _currentSearchResultHighlightBrush = brush; }
+  void setCurrentSearchResultHighlightBrush(const QBrush & brush);
 
 public slots:
   void goPrev();

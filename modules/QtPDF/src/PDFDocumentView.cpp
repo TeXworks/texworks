@@ -624,6 +624,23 @@ void PDFDocumentView::clearSearchResults()
   _searchResults.clear();
 }
 
+void PDFDocumentView::setSearchResultHighlightBrush(const QBrush & brush)
+{
+  _searchResultHighlightBrush = brush;
+  for (int i = 0; i < _searchResults.size(); ++i) {
+    if (i == _currentSearchResult || !_searchResults[i])
+      continue;
+    static_cast<QGraphicsPathItem*>(_searchResults[i])->setBrush(brush);
+  }
+}
+
+void PDFDocumentView::setCurrentSearchResultHighlightBrush(const QBrush & brush)
+{
+  _currentSearchResultHighlightBrush = brush;
+  if (_currentSearchResult >= 0 && _currentSearchResult < _searchResults.size() && _searchResults[_currentSearchResult])
+    static_cast<QGraphicsPathItem*>(_searchResults[_currentSearchResult])->setBrush(brush);
+}
+
 
 // Protected Slots
 // --------------
