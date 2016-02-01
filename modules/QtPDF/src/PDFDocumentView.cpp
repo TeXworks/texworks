@@ -157,6 +157,9 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
     goToPage(page);
   }
 
+  // Ensure proper layout
+  setPageMode(_pageMode, true);
+
   // Ensure search result list is empty in case we are switching from another
   // scene.
   _searchResults.clear();
@@ -168,10 +171,15 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
 int PDFDocumentView::currentPage() { return _currentPage; }
 int PDFDocumentView::lastPage()    { return _lastPage; }
 
-void PDFDocumentView::setPageMode(PageMode pageMode)
+void PDFDocumentView::setPageMode(const PageMode pageMode, const bool forceRelayout /* = false */)
 {
-  if (!_pdf_scene || pageMode == _pageMode)
+  if (_pageMode == pageMode && !forceRelayout)
     return;
+  if (!_pdf_scene) {
+    // If we don't have a scene (yet), save the setting for future use and return
+    _pageMode = pageMode;
+    return;
+  }
 
   QGraphicsItem *currentPage = _pdf_scene->pageAt(_currentPage);
   if (!currentPage)

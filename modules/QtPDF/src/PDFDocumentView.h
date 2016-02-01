@@ -108,7 +108,7 @@ public slots:
   // default alignment is centering here, which is also used if `alignment` == 0.
   // `anchor` must be given in item coordinates
   void goToPage(const int pageNum, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
-  void setPageMode(PageMode pageMode);
+  void setPageMode(const PageMode pageMode, const bool forceRelayout = false);
   void setSinglePageMode() { setPageMode(PageMode_SinglePage); }
   void setOneColContPageMode() { setPageMode(PageMode_OneColumnContinuous); }
   void setTwoColContPageMode() { setPageMode(PageMode_TwoColumnContinuous); }
