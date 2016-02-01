@@ -713,8 +713,9 @@ void PDFDocumentView::maybeUpdateSceneRect() {
 
   // Set the scene rect of the view, i.e., the rect accessible via the scroll
   // bars. In single page mode, this must be the rect of the current page
-  // **TODO:** Safeguard
-  setSceneRect(_pdf_scene->pageAt(_currentPage)->sceneBoundingRect());
+  PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem *>(_pdf_scene->pageAt(_currentPage));
+  if (pageItem)
+    setSceneRect(pageItem->sceneBoundingRect());
 }
 
 void PDFDocumentView::maybeArmTool(uint modifiers)
