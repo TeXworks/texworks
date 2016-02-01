@@ -145,6 +145,7 @@ signals:
   void changedDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
 
   void searchProgressChanged(int percent, int occurrences);
+  void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
 
   void requestOpenUrl(const QUrl url);
   void requestExecuteCommand(QString command);

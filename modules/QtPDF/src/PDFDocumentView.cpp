@@ -588,10 +588,24 @@ void PDFDocumentView::nextSearchResult()
   else
     ++_currentSearchResult;
 
-  if (_searchResults[_currentSearchResult])
-    static_cast<QGraphicsPathItem*>(_searchResults[_currentSearchResult])->setBrush(_currentSearchResultHighlightBrush);
+  // FIXME: The rest of the code in this method is the same as in previousSearchResult()
+  // We should move this into its own private method
 
-  centerOn(_searchResults[_currentSearchResult]);
+  QGraphicsPathItem* highlightPath = static_cast<QGraphicsPathItem*>(_searchResults[_currentSearchResult]);
+
+  if (!highlightPath)
+    return;
+
+  highlightPath->setBrush(_currentSearchResultHighlightBrush);
+  centerOn(highlightPath);
+
+  PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem *>(highlightPath->parentItem());
+  if (pageItem) {
+    QSharedPointer<Backend::Page> page = pageItem->page().toStrongRef();
+    // FIXME: shape subpath coordinates seem to be in upside down pdf coordinates. We should find a better place to construct the proper transform (e.g., in PDFPageGraphicsItem)
+    if (page)
+      emit searchResultHighlighted(pageItem->pageNum(), highlightPath->shape().toSubpathPolygons(QTransform::fromTranslate(0, page->pageSizeF().height()).scale(1, -1)));
+  }
 }
 
 void PDFDocumentView::previousSearchResult()
@@ -607,10 +621,24 @@ void PDFDocumentView::previousSearchResult()
   else
     --_currentSearchResult;
 
-  if (_searchResults[_currentSearchResult])
-    static_cast<QGraphicsPathItem*>(_searchResults[_currentSearchResult])->setBrush(_currentSearchResultHighlightBrush);
+  // FIXME: The rest of the code in this method is the same as in previousSearchResult()
+  // We should move this into its own private method
 
-  centerOn(_searchResults[_currentSearchResult]);
+  QGraphicsPathItem* highlightPath = static_cast<QGraphicsPathItem*>(_searchResults[_currentSearchResult]);
+
+  if (!highlightPath)
+    return;
+
+  highlightPath->setBrush(_currentSearchResultHighlightBrush);
+  centerOn(highlightPath);
+
+  PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem *>(highlightPath->parentItem());
+  if (pageItem) {
+    QSharedPointer<Backend::Page> page = pageItem->page().toStrongRef();
+    // FIXME: shape subpath coordinates seem to be in upside down pdf coordinates. We should find a better place to construct the proper transform (e.g., in PDFPageGraphicsItem)
+    if (page)
+      emit searchResultHighlighted(pageItem->pageNum(), highlightPath->shape().toSubpathPolygons(QTransform::fromTranslate(0, page->pageSizeF().height()).scale(1, -1)));
+  }
 }
 
 void PDFDocumentView::clearSearchResults()
