@@ -14,7 +14,6 @@ SOURCES = \
   "../src/ConfirmDelete.cpp" \
   "../src/FindDialog.cpp" \
   "../src/HardWrapDialog.cpp" \
-  "../src/PDFDocks.cpp" \
   "../src/PDFDocument.cpp" \
   "../src/PrefsDialog.cpp" \
   "../src/ResourcesDialog.cpp" \
@@ -48,7 +47,6 @@ HEADERS = \
   "../src/FindDialog.h" \
   "../src/GitRev.h" \
   "../src/HardWrapDialog.h" \
-  "../src/PDFDocks.h" \
   "../src/PDFDocument.h" \
   "../src/PrefsDialog.h" \
   "../src/ResourcesDialog.h" \

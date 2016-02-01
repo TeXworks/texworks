@@ -147,6 +147,12 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
   PDFDocument * pdf = PDFDocument::findDocument(QFileInfo(curDir, dest.filename).canonicalFilePath());
   if (!tex || !pdf || !pdf->widget())
     return;
+  QSharedPointer<QtPDF::Backend::Document> pdfDoc = pdf->widget()->document().toStrongRef();
+  if (!pdfDoc)
+    return;
+  QSharedPointer<QtPDF::Backend::Page> pdfPage = pdfDoc->page(dest.page - 1).toStrongRef();
+  if (!pdfPage)
+    return;
 
   // Get source context
   QString srcContext = tex->getLineText(src.line);
@@ -158,7 +164,7 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
   foreach (QRectF r, dest.rects)
     selection.append(r);
   QMap<int, QRectF> boxes;
-  QString destContext = pdf->widget()->selectedText(selection, &boxes);
+  QString destContext = pdfPage->selectedText(selection, &boxes);
 
   // FIXME: the string returned by selectedText() seems to twist the beginning
   // (and ends) of footnotes sometimes.
@@ -189,6 +195,12 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   PDFDocument * pdf = PDFDocument::findDocument(src.filename);
   if (!tex || !pdf || !pdf->widget())
     return;
+  QSharedPointer<QtPDF::Backend::Document> pdfDoc = pdf->widget()->document().toStrongRef();
+  if (!pdfDoc)
+    return;
+  QSharedPointer<QtPDF::Backend::Page> pdfPage = pdfDoc->page(src.page - 1).toStrongRef();
+  if (!pdfPage)
+    return;
 
   // Get source context
   // In order to get the full context corresponding to the whole input line,
@@ -210,7 +222,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   }
   // Find the box the user clicked on
   QMap<int, QRectF> boxes;
-  QString srcContext = pdf->widget()->selectedText(selection, NULL, &boxes);
+  QString srcContext = pdfPage->selectedText(selection, NULL, &boxes);
   int col;
   for (col = 0; col < boxes.count(); ++col) {
     if (boxes[col].contains(src.rects[0].center()))

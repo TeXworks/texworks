@@ -157,7 +157,7 @@ ADD_EXECUTABLE( ${EXE_NAME} ${GUI_TYPE}
 )
 
 # Specify libraries to be linked to TeXworks.
-TARGET_LINK_LIBRARIES( ${EXE_NAME} ${TeXworks_LIBS} )
+TARGET_LINK_LIBRARIES( ${EXE_NAME} ${MODULE_LIBS} ${TeXworks_LIBS} )
 
 # For OS X, generate `Info.plist` and add it to the `.app` bundle.
 IF (APPLE)

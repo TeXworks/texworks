@@ -626,7 +626,7 @@ void SearchResults::focusChanged(QWidget * old, QWidget * now)
 }
 
 PDFFindDialog::PDFFindDialog(PDFDocument *document)
-	: QDialog(document->widget())
+	: QDialog(document)
 {
 	init(document);
 }
