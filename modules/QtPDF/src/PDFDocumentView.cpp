@@ -1760,6 +1760,25 @@ void PDFDocumentScene::pageLayoutChanged(const QRectF& sceneRect)
 
 void PDFDocumentScene::reinitializeScene()
 {
+  // Ensure we can reinitialize page visibilities. This is particularly
+  // important for single page mode, as there, the right page should be visible.
+  QVector<bool> wasVisible(qMax(_pages.size(), _doc->numPages()), _pageLayout.isContinuous());
+  for (int i = 0; i < _pages.size(); ++i) {
+    if (!_pages[i])
+      continue;
+    wasVisible[i] = _pages[i]->isVisible();
+  }
+  // Check if there is at least one visible page. If not (e.g., because we are
+  // reloading a document that had no pages previously because it was broken),
+  // make the first page visible.
+  if (!wasVisible.isEmpty()) {
+    bool anyVisible = false;
+    for (int i = 0; i < wasVisible.size(); ++i)
+      anyVisible |= wasVisible[i];
+    if (!anyVisible)
+      wasVisible[0] = true;
+  }
+
   clear();
   _pages.clear();
   _pageLayout.clearPages();
@@ -1780,6 +1799,7 @@ void PDFDocumentScene::reinitializeScene()
     for (i = 0; i < _lastPage; ++i)
     {
       pagePtr = new PDFPageGraphicsItem(_doc->page(i), _dpiX, _dpiY);
+      pagePtr->setVisible(wasVisible[i]);
       _pages.append(pagePtr);
       addItem(pagePtr);
       _pageLayout.addPage(pagePtr);
