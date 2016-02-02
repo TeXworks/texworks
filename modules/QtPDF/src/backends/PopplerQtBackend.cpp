@@ -270,6 +270,13 @@ QWeakPointer<Backend::Page> Document::page(int at)
   if( _pages.isEmpty() )
     _pages.resize(_numPages);
 
+  // If we got here, we don't have the page cached. As we need to create a new
+  // page, we need to make sure the Poppler document is valid and does not go
+  // out of scope
+  QMutexLocker popplerLocker(_poppler_docLock);
+  if (!_poppler_doc)
+    return QWeakPointer<Backend::Page>();
+
   _pages[at] = QSharedPointer<Backend::Page>(new Page(this, at, _docLock));
   return _pages[at].toWeakRef();
 }

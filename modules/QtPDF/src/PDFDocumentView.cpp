@@ -1765,6 +1765,8 @@ void PDFDocumentScene::reinitializeScene()
   _pageLayout.clearPages();
 
   _lastPage = _doc->numPages();
+  if (!_doc->isValid())
+    return;
   if (_doc->isLocked()) {
     // FIXME: Deactivate "normal" user interaction, e.g., zooming, panning, etc.
     addWidget(_unlockWidget);
@@ -3025,7 +3027,7 @@ PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
 void PDFAnnotationsInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> newDoc)
 {
   QSharedPointer<Backend::Document> doc(newDoc.toStrongRef());
-  if (!doc)
+  if (!doc || !doc->isValid())
     return;
 
   QList< QWeakPointer<Backend::Page> > pages;
