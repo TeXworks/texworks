@@ -333,6 +333,12 @@ public:
   void addPageProcessingRequest(PageProcessingRequest * request);
 
   // drop all remaining processing requests
+  // WARNING: This function *must not* be called while the calling thread holds
+  // any locks that would prevent and work item from finishing. Otherwise, we
+  // could run into the following deadlock scenario:
+  // clearWorkStack() waits for the currently active work items to finish. The
+  // currently active work item waits to acquire a lock necessary for it to
+  // finish. However, that lock is held by the caller of clearWorkStack().
   void clearWorkStack();
 
 protected:

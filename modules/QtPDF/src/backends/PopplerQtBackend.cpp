@@ -145,10 +145,16 @@ Document::~Document()
 
 void Document::reload()
 {
+  // Clear the processing thread
+  // NB: Do this before acquiring _docLock. See clearWorkStack() documentation.
+  // This should not cause any problems as we are supposed to currently be in
+  // the main (GUI) thread, and only this thread is supposed to add items to the
+  // work stack.
+  _processingThread.clearWorkStack();
+
   QWriteLocker docLocker(_docLock.data());
 
   clearPages();
-  _processingThread.clearWorkStack();
   _pageCache.clear();
 
   {
