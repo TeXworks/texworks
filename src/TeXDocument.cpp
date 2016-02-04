@@ -2712,6 +2712,11 @@ void TeXDocument::typeset()
 		else
 			oldPdfTime = QDateTime();
 		
+		// Stop watching the pdf document while it is being changed to avoid
+		// interference
+		if (pdfDoc && pdfDoc->widget())
+			pdfDoc->widget()->setWatchForDocumentChangesOnDisk(false);
+
 		process->start(exeFilePath, args);
 	}
 	else {
@@ -2742,6 +2747,10 @@ void TeXDocument::interrupt()
 	if (process != NULL) {
 		userInterrupt = true;
 		process->kill();
+
+		// Start watching for changes in the pdf (again)
+		if (pdfDoc && pdfDoc->widget())
+			pdfDoc->widget()->setWatchForDocumentChangesOnDisk(true);
 	}
 }
 
@@ -2786,10 +2795,18 @@ void TeXDocument::processError(QProcess::ProcessError /*error*/)
 	process = NULL;
 	inputLine->hide();
 	updateTypesettingAction();
+
+	// Start watching for changes in the pdf (again)
+	if (pdfDoc && pdfDoc->widget())
+		pdfDoc->widget()->setWatchForDocumentChangesOnDisk(true);
 }
 
 void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
+	// Start watching for changes in the pdf (again)
+	if (pdfDoc && pdfDoc->widget())
+		pdfDoc->widget()->setWatchForDocumentChangesOnDisk(true);
+
 	if (exitStatus != QProcess::CrashExit) {
 		QString pdfName;
 		if (getPreviewFileName(pdfName)) {
