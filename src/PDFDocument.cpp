@@ -131,6 +131,7 @@ void PDFDocument::init()
 	pdfWidget->setCurrentSearchResultHighlightBrush(QBrush(Qt::transparent));
 	_searchResultHighlightBrush = QColor(255, 255, 0, 63);
 	pdfWidget->setPageMode(QtPDF::PDFDocumentView::PageMode_SinglePage);
+	actionPageMode_Single->setChecked(true);
 	setCentralWidget(pdfWidget);
 
 	connect(pdfWidget, SIGNAL(changedPage(int)), this, SLOT(updateStatusBar()));
@@ -186,6 +187,13 @@ void PDFDocument::init()
 	connect(actionZoom_Out, SIGNAL(triggered()), pdfWidget, SLOT(zoomOut()));
 	connect(actionFull_Screen, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
 	connect(pdfWidget, SIGNAL(contextClick(int, const QPointF&)), this, SLOT(syncClick(int, const QPointF&)));
+	pageModeSignalMapper.setMapping(actionPageMode_Single, QtPDF::PDFDocumentView::PageMode_SinglePage);
+	pageModeSignalMapper.setMapping(actionPageMode_Continuous, QtPDF::PDFDocumentView::PageMode_OneColumnContinuous);
+	pageModeSignalMapper.setMapping(actionPageMode_TwoPagesContinuous, QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous);
+	connect(actionPageMode_Single, SIGNAL(triggered()), &pageModeSignalMapper, SLOT(map()));
+	connect(actionPageMode_Continuous, SIGNAL(triggered()), &pageModeSignalMapper, SLOT(map()));
+	connect(actionPageMode_TwoPagesContinuous, SIGNAL(triggered()), &pageModeSignalMapper, SLOT(map()));
+	connect(&pageModeSignalMapper, SIGNAL(mapped(int)), this, SLOT(setPageMode(int)));
 
 	if (actionZoom_In->shortcut() == QKeySequence("Ctrl++"))
 		new QShortcut(QKeySequence("Ctrl+="), pdfWidget, SLOT(zoomIn()));
@@ -603,6 +611,30 @@ void PDFDocument::toggleFullScreen()
 		actionFull_Screen->setChecked(true);
 		exitFullscreen = new QShortcut(Qt::Key_Escape, this, SLOT(toggleFullScreen()));
 	}
+}
+
+void PDFDocument::setPageMode(const int newMode)
+{
+	if (!pdfWidget)
+		return;
+
+	switch (newMode) {
+		case QtPDF::PDFDocumentView::PageMode_SinglePage:
+		case QtPDF::PDFDocumentView::PageMode_OneColumnContinuous:
+		case QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous:
+			pdfWidget->setPageMode((QtPDF::PDFDocumentView::PageMode)newMode);
+			break;
+		default:
+			return;
+	}
+}
+
+void PDFDocument::updatePageMode(const QtPDF::PDFDocumentView::PageMode newMode)
+{
+	// Mark proper menu item
+	actionPageMode_Single->setChecked(newMode == QtPDF::PDFDocumentView::PageMode_SinglePage);
+	actionPageMode_Continuous->setChecked(newMode== QtPDF::PDFDocumentView::PageMode_OneColumnContinuous);
+	actionPageMode_TwoPagesContinuous->setChecked(newMode == QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous);
 }
 
 void PDFDocument::resetMagnifier()

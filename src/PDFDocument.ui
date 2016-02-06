@@ -87,6 +87,10 @@
     <addaction name="actionFit_to_Width"/>
     <addaction name="actionFit_to_Window"/>
     <addaction name="separator"/>
+    <addaction name="actionPageMode_Single"/>
+    <addaction name="actionPageMode_Continuous"/>
+    <addaction name="actionPageMode_TwoPagesContinuous"/>
+    <addaction name="separator"/>
     <addaction name="actionFull_Screen"/>
    </widget>
    <widget class="QMenu" name="menuWindow">
@@ -753,9 +757,48 @@
     <string>Clear Recent Files</string>
    </property>
   </action>
+  <actiongroup name="actionPageModes">
+   <action name="actionPageMode_Single">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="icon">
+     <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
+     <normaloff>:/QtPDF/icons/pagemode-single.png</normaloff>:/QtPDF/icons/pagemode-single.png</iconset>
+    </property>
+    <property name="text">
+     <string>Single Page</string>
+    </property>
+   </action>
+   <action name="actionPageMode_Continuous">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="icon">
+     <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
+     <normaloff>:/QtPDF/icons/pagemode-continuous.png</normaloff>:/QtPDF/icons/pagemode-continuous.png</iconset>
+    </property>
+    <property name="text">
+     <string>Single Page Continuous</string>
+    </property>
+   </action>
+   <action name="actionPageMode_TwoPagesContinuous">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="icon">
+     <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
+     <normaloff>:/QtPDF/icons/pagemode-twocols.png</normaloff>:/QtPDF/icons/pagemode-twocols.png</iconset>
+    </property>
+    <property name="text">
+     <string>Two Pages Continuous</string>
+    </property>
+   </action>
+  </actiongroup>
  </widget>
  <resources>
   <include location="../res/resources.qrc"/>
+  <include location="../modules/QtPDF/QtPDF_icons.qrc"/>
  </resources>
  <connections>
   <connection>

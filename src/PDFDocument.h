@@ -107,6 +107,7 @@ public slots:
 	void syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview);
 	void print();
 	void setMouseMode(const int newMode);
+	void setPageMode(const int newMode);
 	void clearSyncHighlight();
 	void clearSearchResultHighlight();
 	
@@ -121,6 +122,7 @@ private slots:
 	void showScaleContextMenu(const QPoint pos);
 	void setScaleFromContextMenu(const QString & strZoom);
 	void updateStatusBar();
+	void updatePageMode(const QtPDF::PDFDocumentView::PageMode newMode);
 	void doPageDialog();
 	void jumpToSource();
 	void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
@@ -148,6 +150,7 @@ private:
 	QLabel *scaleLabel;
 	QList<QAction*> recentFileActions;
 	QShortcut *exitFullscreen;
+	QSignalMapper pageModeSignalMapper;
 
 	QGraphicsItem * _syncHighlight;
 	QTimer _syncHighlightRemover;
