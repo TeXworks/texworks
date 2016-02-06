@@ -178,6 +178,7 @@ void PDFDocumentView::setPageMode(const PageMode pageMode, const bool forceRelay
   if (!_pdf_scene) {
     // If we don't have a scene (yet), save the setting for future use and return
     _pageMode = pageMode;
+    emit changedPageMode(pageMode);
     return;
   }
 
@@ -240,6 +241,8 @@ void PDFDocumentView::setPageMode(const PageMode pageMode, const bool forceRelay
     viewRect.translate(_pdf_scene->pageAt(_currentPage)->pos());
     ensureVisible(viewRect, 0, 0);
   }
+
+  emit changedPageMode(pageMode);
 }
 
 QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* = NULL */)
