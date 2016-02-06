@@ -137,6 +137,7 @@ void PDFDocument::init()
 	connect(pdfWidget, SIGNAL(changedPage(int)), this, SLOT(updateStatusBar()));
 	connect(pdfWidget, SIGNAL(changedZoom(qreal)), this, SLOT(updateStatusBar()));
 	connect(pdfWidget, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(updateStatusBar()));
+	connect(pdfWidget, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(invalidateSyncHighlight()));
 	connect(pdfWidget, SIGNAL(searchResultHighlighted(const int, const QList<QPolygonF>)), this, SLOT(searchResultHighlighted(const int, const QList<QPolygonF>)));
 
 	toolButtonGroup = new QButtonGroup(toolBar);
@@ -500,6 +501,15 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col,
 	pdfWidget->update();
 	if (activatePreview)
 		selectWindow();
+}
+
+void PDFDocument::invalidateSyncHighlight()
+{
+	// This slot should be called when the graphics item pointed to by
+	// _syncHighlight goes out of scope (e.g., because the PDF changed, all pages
+	// were deleted, and, in the process, all subordinate graphics items as well).
+	_syncHighlight = NULL;
+	_syncHighlightRemover.stop();
 }
 
 void PDFDocument::clearSyncHighlight()

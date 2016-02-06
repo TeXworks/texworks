@@ -117,6 +117,7 @@ private slots:
 	void updateWindowMenu();
 	void enablePageActions(int);
 	void syncClick(int page, const QPointF& pos);
+	void invalidateSyncHighlight();
 	void reloadWhenIdle();
 	void scaleLabelClick(QMouseEvent * event) { showScaleContextMenu(event->pos()); }
 	void showScaleContextMenu(const QPoint pos);
