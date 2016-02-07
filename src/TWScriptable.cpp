@@ -596,6 +596,9 @@ TWScriptable::runHooks(const QString& hookName)
 void
 TWScriptable::doAboutScripts()
 {
+	QSETTINGS_OBJECT(settings);
+	bool enableScriptsPlugins = settings.value("enableScriptingPlugins", false).toBool();
+
 	QString scriptingLink = QString("<a href=\"%1\">%1</a>").arg("https://github.com/TeXworks/texworks/wiki/ScriptingTeXworks");
 	QString aboutText = "<p>";
 	aboutText += tr("Scripts may be used to add new commands to %1, "
@@ -613,7 +616,12 @@ TWScriptable::doAboutScripts()
 		aboutText += i->scriptLanguageURL();
 		aboutText += "\">";
 		aboutText += i->scriptLanguageName();
-		aboutText += "</a></li>";
+		aboutText += "</a>";
+		if (!enableScriptsPlugins && !qobject_cast<const JSScriptInterface*>(plugin)) {
+			//: This string is appended to a script language name to indicate it is currently disabled
+			aboutText += " " + tr("(disabled in the preferences)");
+		}
+		aboutText += "</li>";
 	}
 	QMessageBox::about(NULL, tr("About Scripts"), aboutText);
 }
