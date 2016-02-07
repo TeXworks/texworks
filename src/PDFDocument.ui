@@ -599,8 +599,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/hand.png</normaloff>:/images/images/hand.png</iconset>
+    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
+     <normaloff>:/QtPDF/icons/hand.png</normaloff>:/QtPDF/icons/hand.png</iconset>
    </property>
    <property name="text">
     <string>Scroll</string>
@@ -764,7 +764,7 @@
     </property>
     <property name="icon">
      <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-     <normaloff>:/QtPDF/icons/pagemode-single.png</normaloff>:/QtPDF/icons/pagemode-single.png</iconset>
+      <normaloff>:/QtPDF/icons/pagemode-single.png</normaloff>:/QtPDF/icons/pagemode-single.png</iconset>
     </property>
     <property name="text">
      <string>Single Page</string>
@@ -776,7 +776,7 @@
     </property>
     <property name="icon">
      <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-     <normaloff>:/QtPDF/icons/pagemode-continuous.png</normaloff>:/QtPDF/icons/pagemode-continuous.png</iconset>
+      <normaloff>:/QtPDF/icons/pagemode-continuous.png</normaloff>:/QtPDF/icons/pagemode-continuous.png</iconset>
     </property>
     <property name="text">
      <string>Single Page Continuous</string>
@@ -788,7 +788,7 @@
     </property>
     <property name="icon">
      <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-     <normaloff>:/QtPDF/icons/pagemode-twocols.png</normaloff>:/QtPDF/icons/pagemode-twocols.png</iconset>
+      <normaloff>:/QtPDF/icons/pagemode-twocols.png</normaloff>:/QtPDF/icons/pagemode-twocols.png</iconset>
     </property>
     <property name="text">
      <string>Two Pages Continuous</string>
