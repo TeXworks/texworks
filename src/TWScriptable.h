@@ -88,7 +88,7 @@ public:
 	virtual TWScript* newScript(const QString& fileName);
 
 	virtual QString scriptLanguageName() const { return QString("QtScript"); }
-	virtual QString scriptLanguageURL() const { return QString("http://doc.trolltech.com/4.5/qtscript.html"); }
+	virtual QString scriptLanguageURL() const { return QString("http://doc.qt.io/qt-5/qtscript-index.html"); }
 	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QString("js"); }
 };
 
