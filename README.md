@@ -58,7 +58,7 @@ equivalent) for:
 
  - Hunspell (release 1.2.8 or later is recommended; earlier 1.2.x releases may
    be used, although support for some non-Latin-script languages may be lacking)  
-   http://hunspell.sourceforge.net/
+   http://hunspell.github.io/
 
 along with their dependencies (such as Freetype, fontconfig, zlib, etc.) If you
 also want to build the scripting plugins (optional), you additionally need
