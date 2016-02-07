@@ -187,7 +187,7 @@ ENDIF()
 # ========================
 
 # Make the contents of `CMake/Modules` available. Among other things, this
-# directory contains scripts that locate project components such as Poppler.
+# directory contains scripts that locate project components such as hunspell.
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${CMAKE_MODULE_PATH})
 
 set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
@@ -268,29 +268,17 @@ INCLUDE( TranslationMacros )
 
 FIND_PACKAGE(ZLIB REQUIRED)
 FIND_PACKAGE(Hunspell REQUIRED)
-FIND_PACKAGE(Poppler REQUIRED)
 IF ( NOT PREFER_BUNDLED_SYNCTEX )
   FIND_PACKAGE(Synctex QUIET)
 ENDIF ( NOT PREFER_BUNDLED_SYNCTEX )
-
-# The only thing Poppler should need is the location of the include directories
-# in order to access header files. The library loader should be able to find
-# libfontconfig on standard search paths.
-IF ( POPPLER_NEEDS_FONTCONFIG )
-  FIND_PACKAGE(Fontconfig REQUIRED)
-ENDIF ()
 
 # Aggregate library names and include directories into variables for easy
 # access.
 SET(TeXworks_INCLUDE_DIRS
   ${QT_INCLUDE_DIR}
   ${HUNSPELL_INCLUDE_DIR}
-  ${POPPLER_QT_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
 )
-IF ( POPPLER_NEEDS_FONTCONFIG )
-  LIST(APPEND TeXworks_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
-ENDIF ()
 
 IF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
   LIST(APPEND TeXworks_INCLUDE_DIRS ${SYNCTEX_INCLUDE_DIR})
@@ -303,7 +291,6 @@ MARK_AS_ADVANCED(TEXWORKS_ADDITIONAL_LIBS)
 
 
 SET(TeXworks_LIBS
-  ${POPPLER_LIBRARIES}
   ${HUNSPELL_LIBRARIES}
   ${QT_LIBRARIES}
   ${ZLIB_LIBRARIES}
