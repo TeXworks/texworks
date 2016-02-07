@@ -9,6 +9,18 @@ PROJECT(QtPDF)
 # In CMake v2.8.6, the AUTOMOC feature was introduced which simplifies the
 # interaction with Qt.
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
+CMAKE_POLICY(VERSION 2.8.6)
+
+# Silence warning about linking to qtmain.lib statically on Windows
+IF(POLICY CMP0020)
+  cmake_policy(SET CMP0020 NEW)
+ENDIF()
+
+# Silence warning about using @rpath on OS X.
+if(POLICY CMP0042)
+  cmake_policy(SET CMP0042 NEW)
+endif()
+
 SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_AUTOMOC TRUE)
 
