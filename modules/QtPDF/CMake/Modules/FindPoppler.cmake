@@ -14,10 +14,18 @@
 # Redistribution and use of this file is allowed according to the terms of the
 # MIT license. For details see the file COPYING-CMAKE-MODULES.
 
-if ( POPPLER_LIBRARIES )
+if (NOT POPPLER_QT_QTVERSION VERSION_EQUAL QT_VERSION_MAJOR)
+  # if the current Qt version does not match the one for which we found the
+  # poppler-qt package before, unset (some of) the package info variables to
+  # trigger a new search for a version matching the right Qt version
+  unset(POPPLER_QT_PKG_FOUND CACHE)
+  unset(POPPLER_QT_PKG_LIBRARIES CACHE)
+  unset(POPPLER_QT_INCLUDE_DIR CACHE)
+  unset(POPPLER_QT_LIBRARIES CACHE)
+elseif ( POPPLER_LIBRARIES )
    # in cache already
    SET(Poppler_FIND_QUIETLY TRUE)
-endif ( POPPLER_LIBRARIES )
+endif ()
 
 # use pkg-config to get the directories and then use these values
 # in the FIND_PATH() and FIND_LIBRARY() calls
@@ -96,6 +104,7 @@ FIND_LIBRARY(POPPLER_QT_LIBRARIES NAMES poppler-qt${QT_VERSION_MAJOR} ${POPPLER_
     lib64
     lib
 )
+SET(POPPLER_QT_QTVERSION ${QT_VERSION_MAJOR} CACHE INTERNAL "Qt version used by poppler-qt")
 MARK_AS_ADVANCED(POPPLER_QT_LIBRARIES)
 IF ( NOT(POPPLER_QT_LIBRARIES) )
   MESSAGE(STATUS "Could not find libpoppler-qt${QT_VERSION_MAJOR}." )
