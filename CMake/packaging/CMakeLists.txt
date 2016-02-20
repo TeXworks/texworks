@@ -6,7 +6,7 @@
 # form `${VARIABLE}` will be left untouched.
 IF ( APPLE )
   CONFIGURE_FILE(
-    ${PROJECT_SOURCE_DIR}/cmake/packaging/mac/MacPackagingTasks.cmake.in
+    ${PROJECT_SOURCE_DIR}/CMake/packaging/mac/MacPackagingTasks.cmake.in
     ${PROJECT_BINARY_DIR}/CPackPackagingTasks.cmake
     @ONLY
   )

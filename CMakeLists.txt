@@ -437,7 +437,7 @@ SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${Te
 
 # Configure Drag N' Drop installer.
 IF ( APPLE )
-  SET(MAC_PACK_BITS "${CMAKE_SOURCE_DIR}/cmake/packaging/mac")
+  SET(MAC_PACK_BITS "${CMAKE_SOURCE_DIR}/CMake/packaging/mac")
   SET(CPACK_GENERATOR DragNDrop)
   SET( CPACK_DMG_BACKGROUND_IMAGE "${MAC_PACK_BITS}/texworks_dmg_background.png" )
 
