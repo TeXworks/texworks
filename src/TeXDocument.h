@@ -202,7 +202,6 @@ private slots:
 	void doReplace(ReplaceDialog::DialogCode mode);
 	void pdfClosed();
 	void updateRecentFileActions();
-	void clearRecentFiles() { TWApp::instance()->clearRecentFiles(); }
 	void updateWindowMenu();
 	void updateEngineList();
 	void showCursorPosition();

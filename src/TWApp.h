@@ -80,7 +80,6 @@ public:
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
 	void addToRecentFiles(const QMap<QString,QVariant>& fileProperties);
-	void clearRecentFiles();
 
 	void emitHighlightLineOptionChanged();
 	
@@ -234,6 +233,7 @@ signals:
 	void highlightLineOptionChanged();
 
 private slots:
+	void clearRecentFiles();
 	QObject * newFromTemplate() const;
 	void openRecentFile();
 	void preferences();

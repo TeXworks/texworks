@@ -224,7 +224,7 @@ void TeXDocument::init()
 	updateRecentFileActions();
 	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
 	connect(qApp, SIGNAL(windowListChanged()), this, SLOT(updateWindowMenu()));
-	connect(actionClear_Recent_Files, SIGNAL(triggered()), this, SLOT(clearRecentFiles()));
+	connect(actionClear_Recent_Files, SIGNAL(triggered()), TWApp::instance(), SLOT(clearRecentFiles()));
 	
 	connect(qApp, SIGNAL(hideFloatersExcept(QWidget*)), this, SLOT(hideFloatersUnlessThis(QWidget*)));
 	connect(this, SIGNAL(activatedWindow(QWidget*)), qApp, SLOT(activatedWindow(QWidget*)));
@@ -721,11 +721,13 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 					}
 					QPoint pos(QCursor::pos().x() - 20, frameGeometry().y());
 #if defined(Q_OS_DARWIN)
+					// FIXME: No longer available in Qt5
 					extern void qt_mac_set_menubar_icons(bool);
 					qt_mac_set_menubar_icons(true);
 #endif
 					menu.exec(pos);
 #if defined(Q_OS_DARWIN)
+					// FIXME: No longer available in Qt5
 					qt_mac_set_menubar_icons(false);
 #endif
 				}

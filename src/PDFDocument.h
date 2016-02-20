@@ -113,7 +113,6 @@ public slots:
 	
 private slots:
 	void updateRecentFileActions();
-	void clearRecentFiles() { TWApp::instance()->clearRecentFiles(); }
 	void updateWindowMenu();
 	void enablePageActions(int);
 	void syncClick(int page, const QPointF& pos);
