@@ -49,9 +49,9 @@ FIND_PATH(POPPLER_XPDF_INCLUDE_DIR NAMES poppler-config.h
 
 IF( NOT(POPPLER_XPDF_INCLUDE_DIR) )
   MESSAGE( STATUS "Could not find poppler-config.h, disabling support for Xpdf headers." )
-  SET( POPPLER_HAS_XPDF false )
+  SET( POPPLER_HAS_XPDF false CACHE INTERNAL "Indicates presence of Xpdf headers")
 ELSE( NOT(POPPLER_XPDF_INCLUDE_DIR) )
-  SET( POPPLER_HAS_XPDF true )
+  SET( POPPLER_HAS_XPDF true CACHE INTERNAL "Indicates presence of Xpdf headers")
 ENDIF( NOT(POPPLER_XPDF_INCLUDE_DIR) )
 
 # Find libpoppler, libpoppler-qt4 and associated header files (Required)
