@@ -26,7 +26,7 @@
 justLoad = null;
 
 
-function GenerateDiff(expected, unexpected)
+function GenerateResultDiff(expected, unexpected)
 {
   var s = "";
   s += "<table border='0' cellspacing='0' cellpadding='4'>";
@@ -77,10 +77,18 @@ if (file.status == 0) {
     return result;
   };
 
-  var s = "";
+  function TestResult(expected, generated) {
+    this.Expected = expected;
+    this.Generated = generated;
+    var passed = expected.length == generated.length;
+    for (var k=0; k<expected.length && passed; k++) {
+      passed = Result.Equals(expected[k], generated[k]);
+    }
+    this.Passed = passed;
+  }
 
   function RunTests(folder) {
-    var grouping = false;
+    var testResults = [];
     for (var i = 1; ; i++) {
       var filename = folder + "/" + i + ".test";
       var result = TW.readFile(filename);
@@ -89,6 +97,7 @@ if (file.status == 0) {
       }
       result = result.result;
 
+      testResults[i] = [];
       for (var j = 0; j < fex.length; j++) {
         TW.fileExists = fex[j];
         totalTests++;
@@ -100,39 +109,67 @@ if (file.status == 0) {
 
         var expected = eval("(function(){return " + exp + ";})()");
         var generated = parser.Results;
+        var testResult = new TestResult(expected, generated);
+        testResults[i][j] = testResult;
+        failedTests += testResult.Passed ? 0 : 1;
+      }
+    }
+    return testResults;
+  }
 
-        var passed = expected.length == generated.length;
-        for (var k=0; k<expected.length && passed; k++) {
-          passed = Result.Equals(expected[k], generated[k]);
-        }
 
-        if (!passed) {
-          if (grouping) {
-            s += "</td></tr>";
-            grouping = false;
+  function GenerateDiff(folder, testResults) {
+    var s = "";
+    var iFirst = 1;
+    for (var i = 1; i < testResults.length; i++) {
+      var jFirst = 0;
+      for (var j = 0; j < testResults[i].length; j++) {
+        var testResult = testResults[i][j];
+        if (!testResult.Passed) {
+          if (iFirst < i) {
+            s += "<tr>";
+            s += "<td style='background-color: green'></td>";
+            if (iFirst == i - 1) {
+              s += "<td valign='top' colspan='2'>" + folder + "/" + iFirst + ".test</td>";
+            } else {
+              s += "<td valign='top' colspan='2'>" + folder + "/" + iFirst + "..." + (i-1) + ".test</td>";
+            }
+            s += "</tr>";
+          }
+          if (jFirst < j) {
+            s += "<tr>";
+            s += "<td style='background-color: green'></td>";
+            if (jFirst == j - 1) {
+              s += "<td valign='top' colspan='2'>" + folder + "/" + i + "[" + jFirst + "].test</td>";
+            } else {
+              s += "<td valign='top' colspan='2'>" + folder + "/" + i + "[" + jFirst + "..." + j + "].test</td>";
+            }
+            s += "</tr>";
           }
           s += "<tr>";
           s += "<td style='background-color: red'></td>";
-          s += "<td valign='top'>" + filename + " [" + j + "]</td>";
-          s += "<td valign='top'><font size=-2>" + GenerateDiff(expected, generated) + "</font></td>";
+          s += "<td valign='top'>" + folder + "/" + i + "[" + j +  "].test</td>";
+          s += "<td valign='top'><font size=-2>" + GenerateResultDiff(testResult.Expected, testResult.Generated) + "</font></td>";
           s += "</tr>";
+          iFirst = i + 1;
+          jFirst = j + 1;
         }
-        else if (grouping) {
-          s += ", " + filename + " [" + j + "]";
-        }
-        else {
-          s += "<tr>";
-          s += "<td style='background-color: green'></td>";
-          s += "<td valign='top' colspan='2'>" + filename + " [" + j + "]";
-          grouping = true;
-        }
-        failedTests += passed ? 0 : 1;
       }
     }
-    if (grouping) {
-      s += "</td></tr>";
+    if (iFirst < testResults.length) {
+      s += "<tr>";
+      s += "<td style='background-color: green'></td>";
+      if (iFirst == testResults.length - 1) {
+        s += "<td valign='top' colspan='2'>" + folder + "/" + iFirst + ".test</td>";
+      } else {
+        s += "<td valign='top' colspan='2'>" + folder + "/" + iFirst + "..." + (testResults.length-1) + ".test</td>";
+      }
+      s += "</tr>";
     }
+    return s;
   }
+
+  var s = "";
 
   var folders = [ "tests-miktex", "tests-texlive-ubuntu" ];
   for (var j = 0; j < folders.length; j++) {
@@ -143,7 +180,8 @@ if (file.status == 0) {
     else {
       files = [];
     }
-    RunTests(folders[j]);
+    var testResults = RunTests(folders[j]);
+    s += GenerateDiff(folders[j], testResults);
   }
 
   var html = "<html><body>";

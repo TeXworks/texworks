@@ -1,0 +1,33 @@
+[
+  {
+    "Severity":Severity.Warning,"File":"29.tex","Row":0,
+    "Description":"LaTeX Warning: Writing file `./licencia.tex'."
+  },
+  {
+    "Severity":Severity.Error,"File":"licencia.tex","Row":"5",
+    "Description":"Undefined control sequence.\nl.5 \\hello"
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit)
+entering extended mode
+(29.tex
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 69 languages loaded.
+
+
+LaTeX Warning: Writing file `./licencia.tex'.
+
+
+(C:\opt\miktex\tex\latex\base\article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(C:\opt\miktex\tex\latex\base\size10.clo))
+No file 29.aux.
+(licencia.tex
+! Undefined control sequence.
+l.5 \hello
+          
+) (29.aux) )
+(see the transcript file for additional information)
+No pages of output.
+Transcript written on 29.log.

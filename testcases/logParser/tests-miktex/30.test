@@ -1,0 +1,47 @@
+[
+  {
+    "Severity":Severity.Warning,"File":"graham-mailinglist.tex","Row":0,
+    "Description":"LaTeX Warning: Overwriting file `./licencia.tex'."
+  },
+  {
+    "Severity":Severity.Error,"File":"licencia.tex","Row":"6",
+    "Description":"Undefined control sequence.\nl.6 \\rulez"
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit)
+entering extended mode
+(graham-mailinglist.tex
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 69 languages loaded.
+
+(C:\opt\miktex\tex\latex\filecontents\filecontents.sty)
+
+LaTeX Warning: Overwriting file `./licencia.tex'.
+
+
+(C:\opt\miktex\tex\latex\base\article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(C:\opt\miktex\tex\latex\base\size10.clo))
+(C:\opt\miktex\tex\latex\graphics\graphicx.sty
+(C:\opt\miktex\tex\latex\graphics\keyval.sty)
+(C:\opt\miktex\tex\latex\graphics\graphics.sty
+(C:\opt\miktex\tex\latex\graphics\trig.sty)
+(C:\opt\miktex\tex\latex\00miktex\graphics.cfg)
+(C:\opt\miktex\tex\latex\pdftex-def\pdftex.def
+(C:\opt\miktex\tex\generic\oberdiek\infwarerr.sty)
+(C:\opt\miktex\tex\generic\oberdiek\ltxcmds.sty))))
+No file graham-mailinglist.aux.
+(C:\opt\miktex\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (licencia.tex <prova.png, id=1, 564.1075pt x 534.99875pt> <use prova.png>
+! Undefined control sequence.
+l.6 \rulez
+          
+) [1{C:/Users/ingan/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./prova
+.png>] (graham-mailinglist.aux) )
+(see the transcript file for additional information)<C:/opt/miktex/fonts/type1/
+public/amsfonts/cm/cmr10.pfb>
+Output written on graham-mailinglist.pdf (1 page, 151087 bytes).
+SyncTeX written on graham-mailinglist.synctex.gz.
+Transcript written on graham-mailinglist.log.

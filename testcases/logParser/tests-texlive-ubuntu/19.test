@@ -1,0 +1,26 @@
+[
+  {
+    "Severity":Severity.Warning,"File":"./untitled-1.tex","Row":8,
+    "Description":"\\endL or \\endR problem (0 missing, 1 extra) in paragraph"
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+(./untitled-1.tex
+LaTeX2e <2015/10/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 9 languages loaded.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/size10.clo))
+No file untitled-1.aux.
+
+\endL or \endR problem (0 missing, 1 extra) in paragraph at lines 8--9
+[] 
+[1] (./untitled-1.aux) )
+(see the transcript file for additional information)
+Output written on untitled-1.pdf (1 page).
+SyncTeX written on untitled-1.synctex.gz.
+Transcript written on untitled-1.log.
+

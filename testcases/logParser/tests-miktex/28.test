@@ -1,0 +1,331 @@
+[
+  {
+    "Severity":Severity.Debug,"File":"F:\\Antonio\\Tipocomposizione & Calligrafia\\LaTeX\\Pacchetti e classi\\anthosthesis 7\\anthosthesis.cls","Row":"145",
+    "Description":"\\ant@baseclass@options=macro:\n->,11pt,fontsize=12pt.\nl.145 \\show\\ant@baseclass@options"
+  },
+  {
+    "Severity":Severity.Debug,"File":"F:\\Antonio\\Tipocomposizione & Calligrafia\\LaTeX\\Pacchetti e classi\\anthosthesis 7\\anthosthesis.cls","Row":"145",
+    "Description":"\\ant@baseclass@options=macro:\n->,10pt.\nl.145 \\show\\ant@baseclass@options"
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9)
+entering extended mode
+
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\test\0.5a\options.dtx"
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\docstrip.tex"
+Utility: `docstrip' 2.5d <2005/07/29>
+English documentation    <1999/03/31>
+
+**********************************************************
+* This program converts documented macro-files into fast *
+* loadable files by stripping off (nearly) all comments! *
+**********************************************************
+
+********************************************************
+* No Configuration file found, using default settings. *
+********************************************************
+
+)This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9)
+entering extended mode
+
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\test\0.5a\tobaseclass-options.tex"
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\anthosthesis.cls"
+Document Class: anthosthesis 2012/10/20 v0.5 A document class based on the Clas
+sicThesis style
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrbase.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrlfile.sty"
+Package scrlfile, 2012/06/15 v3.12 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))
+> \ant@baseclass@options=macro:
+->,11pt,fontsize=12pt.
+l.145 \show\ant@baseclass@options
+                                 
+? R
+OK, entering \nonstopmode...
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrbook.cls"
+Document Class: scrbook 2012/07/29 v3.11b KOMA-Script document class (book)
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrkbase.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\tocbasic.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\fleqn.clo")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrsize10pt.clo")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\typearea.sty"
+Package typearea, 2012/07/29 v3.11b KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+)) ("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg")
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\dvipsnam.def"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\mathpazo.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\bera\beramono.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\microtype.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\microtype.cfg"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\textcase\textcase.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\titlesec\titlesec.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\tocloft\tocloft.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\carlisle\remreset.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrhack.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrpage2.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrtime.sty"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\booktabs\booktabs.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\xstring\xstring.sty"
+("C:\Program Files\MiKTeX 2.9\tex\generic\xstring\xstring.tex"))
+
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\test\0.5a\tobaseclass-options.aux")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1pplj.fd")
+("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\mt-ppl.cfg")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pplx.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omlzplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omszplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omxzplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1zplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\bera\t1fvm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\iwona\t1iwona.fd") [1{C:/Users/Antonio/
+AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\test\0.5a\tobaseclass-options.aux") )
+(see the transcript file for additional information){C:/Program Files/MiKTeX 2.
+9/fonts/enc/dvips/iwona/ec-iwona.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvi
+ps/fontname/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/fpl/fplbj8a.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/fpl/fplrc8a.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/bera/fvmr8a.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/nowacki/iwona/iwonar.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/b
+ase35/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/base35/uplr8a.pfb
+>
+Output written on tobaseclass-options.pdf (1 page, 66574 bytes).
+Transcript written on tobaseclass-options.log.
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9)
+entering extended mode
+
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\test\0.5a\setupbaseclass.tex"
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\anthosthesis.cls"
+Document Class: anthosthesis 2012/10/20 v0.5 A document class based on the Clas
+sicThesis style
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrbase.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrlfile.sty"
+Package scrlfile, 2012/06/15 v3.12 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))
+> \ant@baseclass@options=macro:
+->,10pt.
+l.145 \show\ant@baseclass@options
+                                 
+? OK, entering \nonstopmode...
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrartcl.cls"
+Document Class: scrartcl 2012/07/29 v3.11b KOMA-Script document class (article)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrkbase.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\tocbasic.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\fleqn.clo")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrsize10pt.clo")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\typearea.sty"
+Package typearea, 2012/07/29 v3.11b KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+)) ("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg")
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty")
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\dvipsnam.def"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\mathpazo.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\bera\beramono.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\microtype.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\microtype.cfg"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\textcase\textcase.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\titlesec\titlesec.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\tocloft\tocloft.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\carlisle\remreset.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrhack.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrpage2.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\koma-script\scrtime.sty"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\booktabs\booktabs.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\xstring\xstring.sty"
+("C:\Program Files\MiKTeX 2.9\tex\generic\xstring\xstring.tex"))
+
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\test\0.5a\setupbaseclass.aux")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1pplj.fd")
+("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\mt-ppl.cfg")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pplx.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omlzplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omszplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omxzplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1zplm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\bera\t1fvm.fd")
+("C:\Program Files\MiKTeX 2.9\tex\latex\iwona\t1iwona.fd")
+[1{C:/Users/Antonio/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\test\0.5a\setupbaseclass.aux") )
+(see the transcript file for additional information){C:/Program Files/MiKTeX 2.
+9/fonts/enc/dvips/iwona/ec-iwona.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvi
+ps/fontname/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/fpl/fplrc8a.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/bera/fvmr8a.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/nowacki/iwona/iwonar.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/urw/base35/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ba
+se35/uplr8a.pfb>
+Output written on setupbaseclass.pdf (1 page, 63766 bytes).
+Transcript written on setupbaseclass.log.
+
+
+Generating file(s) ./no-options.tex ./bool-options.tex ./choice-options.tex ./s
+tandard-options.tex ./tobaseclass-options.tex ./mixed-options.tex ./setupbasecl
+ass.tex 
+
+Processing file options.dtx (common,no-options) -> no-options.tex
+                            (common,bool-options) -> bool-options.tex
+                            (common,choice-options) -> choice-options.tex
+                            (common,standard-options) -> standard-options.tex
+                            (common,tobaseclass-options) -> tobaseclass-options
+.tex
+                            (common,mixed-options) -> mixed-options.tex
+                            (common,setupbaseclass) -> setupbaseclass.tex
+
+Lines  processed: 243
+Comments removed: 13
+Comments  passed: 0
+Codelines passed: 195
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty")
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ifthen.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\calc.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.sty"
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\atbegshi.sty"
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty")
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"))
+("C:\Program Files\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg")
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def")))
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty")
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg")))
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"))
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\test\0.5a\options.aux")
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+) <no-options.pdf, id=3, page=1, 597.50829pt x 845.0471pt>
+<use no-options.pdf, page 1> <use no-options.pdf, page 1>
+<use no-options.pdf, page 1> <use no-options.pdf, page 1>
+<use no-options.pdf, page 1> [1 <F:/Antonio/Tipocomposizione & Calligrafia/LaTe
+X/Pacchetti e classi/anthosthesis 7/test/0.5a/no-options.pdf{C:/Users/Antonio/A
+ppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}>]
+<bool-options.pdf, id=36, page=1, 597.50829pt x 845.0471pt>
+<use bool-options.pdf, page 1> <use bool-options.pdf, page 1>
+<use bool-options.pdf, page 1> <use bool-options.pdf, page 1>
+<use bool-options.pdf, page 1> [2 <F:/Antonio/Tipocomposizione & Calligrafia/La
+TeX/Pacchetti e classi/anthosthesis 7/test/0.5a/bool-options.pdf>]
+<choice-options.pdf, id=58, page=1, 421.10124pt x 597.50829pt>
+<use choice-options.pdf, page 1> <use choice-options.pdf, page 1>
+<use choice-options.pdf, page 1> <use choice-options.pdf, page 1>
+<use choice-options.pdf, page 1> [3 <F:/Antonio/Tipocomposizione & Calligrafia/
+LaTeX/Pacchetti e classi/anthosthesis 7/test/0.5a/choice-options.pdf>]
+<standard-options.pdf, id=81, page=1, 500.76888pt x 711.3185pt>
+<use standard-options.pdf, page 1> <use standard-options.pdf, page 1>
+<use standard-options.pdf, page 1> <use standard-options.pdf, page 1>
+<use standard-options.pdf, page 1> [4 <F:/Antonio/Tipocomposizione & Calligrafi
+a/LaTeX/Pacchetti e classi/anthosthesis 7/test/0.5a/standard-options.pdf>]
+<tobaseclass-options.pdf, id=100, page=1, 597.50829pt x 845.0471pt>
+<use tobaseclass-options.pdf, page 1> <use tobaseclass-options.pdf, page 1>
+<use tobaseclass-options.pdf, page 1> <use tobaseclass-options.pdf, page 1>
+<use tobaseclass-options.pdf, page 1> [5 <F:/Antonio/Tipocomposizione & Calligr
+afia/LaTeX/Pacchetti e classi/anthosthesis 7/test/0.5a/tobaseclass-options.pdf>
+] <mixed-options.pdf, id=127, page=1, 500.76888pt x 711.3185pt>
+<use mixed-options.pdf, page 1> <use mixed-options.pdf, page 1>
+<use mixed-options.pdf, page 1> <use mixed-options.pdf, page 1>
+<use mixed-options.pdf, page 1> [6 <F:/Antonio/Tipocomposizione & Calligrafia/L
+aTeX/Pacchetti e classi/anthosthesis 7/test/0.5a/mixed-options.pdf>]
+<setupbaseclass.pdf, id=152, page=1, 597.50829pt x 845.0471pt>
+<use setupbaseclass.pdf, page 1> <use setupbaseclass.pdf, page 1>
+<use setupbaseclass.pdf, page 1> <use setupbaseclass.pdf, page 1>
+<use setupbaseclass.pdf, page 1> [7 <F:/Antonio/Tipocomposizione & Calligrafia/
+LaTeX/Pacchetti e classi/anthosthesis 7/test/0.5a/setupbaseclass.pdf>]
+("F:\Antonio\Tipocomposizione & Calligrafia\LaTeX\Pacchetti e classi\anthosthes
+is 7\test\0.5a\options.aux") )
+(see the transcript file for additional information)<C:/Users/Antonio/AppData/L
+ocal/MiKTeX/2.9/fonts/type1/adobe/MinionPro/MinionPro-Bold.pfb><C:/Users/Antoni
+o/AppData/Local/MiKTeX/2.9/fonts/type1/adobe/MinionPro/MinionPro-Regular.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/fpl/fplbj8a.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/public/fpl/fplrc8a.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/bera/fvmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/nowacki/iwona
+/iwonar.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/base35/uplb8a.pfb><C:/
+Program Files/MiKTeX 2.9/fonts/type1/urw/base35/uplr8a.pfb>
+Output written on options.pdf (7 pages, 215221 bytes).
+Transcript written on options.log.

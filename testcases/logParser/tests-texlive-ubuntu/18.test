@@ -1,0 +1,148 @@
+[
+  {
+    "Severity":Severity.BadBox,"File":"./fonts-xelatex.toc","Row":6,
+    "Description":"Underfull \\hbox (badness 10000) detected at line 6"
+  },
+  {
+    "Severity":Severity.BadBox,"File":"./fonts-xelatex.toc","Row":7,
+    "Description":"Underfull \\hbox (badness 10000) detected at line 7"
+  },
+  {
+    "Severity":Severity.Warning,"File":"./fonts-xelatex.tex","Row":0,
+    "Description":"LaTeX Font Warning: Some font shapes were not available, defaults substituted."
+  },
+]
+-----BEGIN OUTPUT BLOCK-----
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013)
+ restricted \write18 enabled.
+entering extended mode
+(./fonts-xelatex.tex
+LaTeX2e <2011/06/27>
+Babel <3.9f> and hyphenation patterns for 9 languages loaded.
+(./anthosthesis.cls
+Document Class: anthosthesis 2012/10/26 v0.6 A document class based on the Clas
+sicThesis style
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrbase.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package scrlfile, 2012/06/15 v3.12 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+)) (/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrbook.cls
+Document Class: scrbook 2012/07/29 v3.11b KOMA-Script document class (book)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrkbase.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/tocbasic.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/fleqn.clo)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrsize11pt.clo)
+ (/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/typearea.sty
+Package typearea, 2012/07/29 v3.11b KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+)) (/usr/local/texlive/2011/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifluatex.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/color.cfg)
+(/usr/local/texlive/2011/texmf-dist/tex/xelatex/xetex-def/xetex.def)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/dvipsnam.def))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/fontspec/fontspec.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3names.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3bootstrap.sty))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/etex-pkg/etex.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3basics.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3expan.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3tl.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3seq.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3int.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3quark.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3prg.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3clist.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3token.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3prop.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3msg.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3file.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3skip.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3keys.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3fp.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3box.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3coffins.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3color.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3luatex.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3kernel/l3candidates.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifpdf.sty))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/fontspec/fontspec-patches.st
+y (/usr/local/texlive/2011/texmf-dist/tex/latex/base/fixltx2e.sty)
+*************************************************
+* LaTeX warning: "xparse/redefine-command"
+*
+* Redefining document command \oldstylenums with arg. spec. 'm' on line 128.
+*************************************************
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/euenc/eu1enc.def)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/euenc/eu1lmr.fd))
+(/usr/local/texlive/2011/texmf-dist/tex/xelatex/xunicode/xunicode.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tipa/t3enc.def
+(/usr/local/texlive/2011/texmf-dist/tex/latex/euenc/eu1lmss.fd))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/graphics.cfg))))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/textcase/textcase.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/titlesec/titlesec.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tocloft/tocloft.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/carlisle/remreset.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrhack.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrpage2.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/koma-script/scrtime.sty))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/fontaxes/fontaxes.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/polyglossia/polyglossia.sty
+(/usr/local/texlive/2011/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/makecmds/makecmds.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/xkeyval/xkeyval.tex)))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/polyglossia/gloss-english.ld
+f)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/polyglossia/gloss-italian.ld
+f (/usr/local/texlive/2011/texmf-dist/tex/latex/polyglossia/babelsh.def))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.s
+ty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/hobsub-generic.st
+y)) (/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/url/url.sty))
+
+Package hyperref Message: Driver (autodetected): hxetex.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/hxetex.def
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/stringenc.sty)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty)
+) (./fonts-xelatex.aux)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tipa/t3cmr.fd)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/gettitlestring.st
+y)) (./fonts-xelatex.out) (./fonts-xelatex.out) (./fonts-xelatex.toc
+Underfull \hbox (badness 10000) detected at line 6
+\EU1/texgyrepagella-regular.otf(0)/m/n/10.95 5
+(/usr/local/texlive/2011/texmf-dist/tex/latex/euenc/eu1lmtt.fd)
+Underfull \hbox (badness 10000) detected at line 7
+\EU1/texgyrepagella-regular.otf(0)/m/n/10.95 5
+)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/se-ascii-print.de
+f) [1] [2] [3] [4] [5] (./fonts-xelatex.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)
+Output written on fonts-xelatex.pdf (5 pages).
+Transcript written on fonts-xelatex.log.
