@@ -718,18 +718,12 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 						}
 						action = menu.addAction(str);
 						action->setIcon(icon);
+#if defined(Q_OS_DARWIN)
+						action->setIconVisibleInMenu(true);
+#endif
 					}
 					QPoint pos(QCursor::pos().x() - 20, frameGeometry().y());
-#if defined(Q_OS_DARWIN)
-					// FIXME: No longer available in Qt5
-					extern void qt_mac_set_menubar_icons(bool);
-					qt_mac_set_menubar_icons(true);
-#endif
 					menu.exec(pos);
-#if defined(Q_OS_DARWIN)
-					// FIXME: No longer available in Qt5
-					qt_mac_set_menubar_icons(false);
-#endif
 				}
 				else {
 					event->ignore();

@@ -198,10 +198,7 @@ void TWApp::init()
 
 #if defined(Q_OS_DARWIN)
 	setQuitOnLastWindowClosed(false);
-
-	// FIXME: No longer available in Qt5
-	extern void qt_mac_set_menubar_icons(bool);
-	qt_mac_set_menubar_icons(false);
+	setAttribute(Qt::AA_DontShowIconsInMenus);
 
 	menuBar = new QMenuBar;
 
