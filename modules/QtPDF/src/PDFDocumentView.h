@@ -140,7 +140,7 @@ public slots:
 signals:
   void changedPage(int pageNum);
   void changedZoom(qreal zoomLevel);
-  void changedPageMode(PageMode newMode);
+  void changedPageMode(QtPDF::PDFDocumentView::PageMode newMode);
   // emitted, e.g., if a new document was loaded, or if the existing document
   // has changed (e.g., if it was unlocked)
   void changedDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
