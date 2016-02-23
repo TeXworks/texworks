@@ -114,7 +114,7 @@ public:
                          ProgramType_CIDCFF, ProgramType_OpenType };
   enum FontSource { Source_Embedded, Source_File, Source_Builtin };
   
-  PDFFontInfo() { };
+  PDFFontInfo() : _source(Source_Builtin), _fontType(FontType_Type1), _CIDType(CIDFont_None), _fontProgramType(ProgramType_None) { };
   virtual ~PDFFontInfo() { };
   
   FontType fontType() const { return _fontType; }

@@ -153,7 +153,7 @@ class Link : public AbstractAnnotation
 public:
   enum HighlightingMode { HighlightingNone, HighlightingInvert, HighlightingOutline, HighlightingPush };
 
-  Link() : AbstractAnnotation(), _actionOnActivation(NULL) { }
+  Link() : AbstractAnnotation(), _highlightingMode(HighlightingNone), _actionOnActivation(NULL) { }
   virtual ~Link();
   
   AnnotationType type() const { return AnnotationTypeLink; };

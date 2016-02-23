@@ -37,7 +37,7 @@ public:
               Destination_FitV, Destination_FitR, Destination_FitB, \
               Destination_FitBH, Destination_FitBV };
   PDFDestination(const int page = -1) : _page(page), _type(Destination_XYZ), _rect(QRectF(-1, -1, -1, -1)), _zoom(-1) { }
-  PDFDestination(const QString destinationName) : _destinationName(destinationName) { }
+  PDFDestination(const QString destinationName) : _page(-1), _type(Destination_XYZ), _destinationName(destinationName), _zoom(-1) { }
 
   bool isValid() const { return _page >= 0 || !_destinationName.isEmpty(); }
   // If the destination is not explicit (i.e., it is a named destination), use
@@ -147,7 +147,7 @@ private:
 class PDFLaunchAction : public PDFAction
 {
 public:
-  PDFLaunchAction(const QString command) : _command(command) { }
+  PDFLaunchAction(const QString command) : _command(command), _newWindow(false) { }
 
   ActionType type() const { return ActionTypeLaunch; }
   PDFAction * clone() const { return new PDFLaunchAction(*this); }

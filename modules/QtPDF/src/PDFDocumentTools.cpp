@@ -135,7 +135,8 @@ void ZoomOut::mouseReleaseEvent(QMouseEvent * event)
 // ==============================
 //
 MagnifyingGlass::MagnifyingGlass(PDFDocumentView * parent) : 
-  AbstractTool(parent)
+  AbstractTool(parent),
+  _started(false)
 {
   _magnifier = new PDFDocumentMagnifierView(parent);
   _cursor = QCursor(QPixmap(QString::fromUtf8(":/QtPDF/icons/magnifiercursor.png")));
@@ -227,7 +228,8 @@ void MagnifyingGlass::paintEvent(QPaintEvent * event)
 // ==========================
 //
 MarqueeZoom::MarqueeZoom(PDFDocumentView * parent) :
-  AbstractTool(parent)
+  AbstractTool(parent),
+  _started(false)
 {
   Q_ASSERT(_parent);
   _rubberBand = new QRubberBand(QRubberBand::Rectangle, _parent->viewport());
@@ -289,7 +291,8 @@ void MarqueeZoom::mouseReleaseEvent(QMouseEvent * event)
 // ===================
 //
 Move::Move(PDFDocumentView * parent) :
-  AbstractTool(parent)
+  AbstractTool(parent),
+  _started(false)
 {
   _cursor = QCursor(Qt::OpenHandCursor);
   _closedHandCursor = QCursor(Qt::ClosedHandCursor);
@@ -671,10 +674,13 @@ inline double distanceFromRect(const QPointF & pt, const QRectF & rect) {
 
 Select::Select(PDFDocumentView * parent) :
   AbstractTool(parent),
+  _cursorOverBox(false),
   _highlightPath(NULL),
   _mouseMode(MouseMode_None),
   _rubberBand(NULL),
-  _pageNum(-1)
+  _pageNum(-1),
+  _startBox(0),
+  _startSubbox(0)
 {
   // We default to the cross cursor. Only when over a text box we change to the
   // IBeam cursor

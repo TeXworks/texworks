@@ -158,7 +158,7 @@ protected:
 class ContextClick : public AbstractTool
 {
 public:
-  ContextClick(PDFDocumentView * parent) : AbstractTool(parent) { }
+  ContextClick(PDFDocumentView * parent) : AbstractTool(parent), _started(false) { }
   virtual Type type() const { return Tool_ContextClick; }
 protected:
   virtual void mousePressEvent(QMouseEvent * event);
