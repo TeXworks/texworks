@@ -757,6 +757,14 @@
     <string>Clear Recent Files</string>
    </property>
   </action>
+  <action name="actionPrevious_ViewRect">
+   <property name="text">
+    <string>Go to previous view</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Left</string>
+   </property>
+  </action>
   <actiongroup name="actionPageModes">
    <action name="actionPageMode_Single">
     <property name="checkable">

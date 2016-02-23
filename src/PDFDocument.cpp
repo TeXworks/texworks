@@ -181,6 +181,8 @@ void PDFDocument::init()
 	connect(actionNext_Page, SIGNAL(triggered()), pdfWidget, SLOT(goNext()));
 	connect(actionLast_Page, SIGNAL(triggered()), pdfWidget, SLOT(goLast()));
 	connect(actionGo_to_Page, SIGNAL(triggered()), this, SLOT(doPageDialog()));
+	addAction(actionPrevious_ViewRect);
+	connect(actionPrevious_ViewRect, SIGNAL(triggered()), pdfWidget, SLOT(goPrevViewRect()));
 	connect(pdfWidget, SIGNAL(changedPage(int)), this, SLOT(enablePageActions(int)));
 
 	connect(actionActual_Size, SIGNAL(triggered()), pdfWidget, SLOT(zoom100()));
