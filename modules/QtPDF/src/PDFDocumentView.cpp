@@ -327,6 +327,12 @@ void PDFDocumentView::goNext()  { goToPage(_currentPage + 1, Qt::AlignTop); }
 void PDFDocumentView::goFirst() { goToPage(0); }
 void PDFDocumentView::goLast()  { goToPage(_lastPage - 1); }
 
+void PDFDocumentView::goPrevViewRect() {
+  if (_oldViewRects.empty())
+    return;
+  goToPDFDestination(_oldViewRects.pop(), false);
+}
+
 
 // `goToPage` will shift the view to a different page. If the `alignment`
 // parameter is `Qt::AlignLeft | Qt::AlignTop` (the default), the view will
@@ -354,6 +360,39 @@ void PDFDocumentView::goToPage(const int pageNum, const QPointF anchor, const in
     return;
 
   goToPage((const PDFPageGraphicsItem*)_pdf_scene->pageAt(pageNum), anchor, alignment);
+}
+
+void PDFDocumentView::goToPDFDestination(const PDFDestination & dest, bool saveOldViewRect /* = true */)
+{
+  if (!dest.isValid() || !dest.isExplicit())
+    return;
+
+  Q_ASSERT(_pdf_scene != NULL);
+  Q_ASSERT(!_pdf_scene->document().isNull());
+  QSharedPointer<Backend::Document> doc(_pdf_scene->document().toStrongRef());
+  if (!doc)
+    return;
+
+  Q_ASSERT(isPageItem(_pdf_scene->pageAt(_currentPage)));
+  PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(_currentPage));
+  Q_ASSERT(pageItem != NULL);
+
+  // Get the current (=old) viewport in the current (=old) page's
+  // coordinate system
+  QRectF oldViewport = pageItem->mapRectFromScene(mapToScene(viewport()->rect()).boundingRect());
+  oldViewport = QRectF(pageItem->mapToPage(oldViewport.topLeft()), \
+                       pageItem->mapToPage(oldViewport.bottomRight()));
+  // Calculate the new viewport (in page coordinates)
+  QRectF view(dest.viewport(doc.data(), oldViewport, _zoomLevel));
+
+  if (saveOldViewRect) {
+    PDFDestination origin(_currentPage);
+    origin.setType(PDFDestination::Destination_FitR);
+    origin.setRect(oldViewport);
+    _oldViewRects.push(origin);
+  }
+
+  goToPage(static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(dest.page())), view, true);
 }
 
 void PDFDocumentView::zoomBy(const qreal zoomFactor)
@@ -958,26 +997,11 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
         else {
           Q_ASSERT(_pdf_scene != NULL);
           Q_ASSERT(!_pdf_scene->document().isNull());
-          Q_ASSERT(isPageItem(_pdf_scene->pageAt(_currentPage)));
-          PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(_currentPage));
-          Q_ASSERT(pageItem != NULL);
-          
           QSharedPointer<Backend::Document> doc(_pdf_scene->document().toStrongRef());
           if (!doc)
             break;
           PDFDestination dest = doc->resolveDestination(actionGoto->destination());
-          if (!dest.isValid() || !dest.isExplicit())
-            break;
-
-          // Get the current (=old) viewport in the current (=old) page's
-          // coordinate system
-          QRectF oldViewport = pageItem->mapRectFromScene(mapToScene(viewport()->rect()).boundingRect());
-          oldViewport = QRectF(pageItem->mapToPage(oldViewport.topLeft()), \
-                               pageItem->mapToPage(oldViewport.bottomRight()));
-          // Calculate the new viewport (in page coordinates)
-          QRectF view(dest.viewport(doc.data(), oldViewport, _zoomLevel));
-
-          goToPage(static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(dest.page())), view, true);
+          goToPDFDestination(dest);
         }
       }
       break;
