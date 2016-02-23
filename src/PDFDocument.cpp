@@ -133,8 +133,6 @@ void PDFDocument::init()
 	pdfWidget->setSearchResultHighlightBrush(QBrush(Qt::transparent));
 	pdfWidget->setCurrentSearchResultHighlightBrush(QBrush(Qt::transparent));
 	_searchResultHighlightBrush = QColor(255, 255, 0, 63);
-	pdfWidget->setPageMode(QtPDF::PDFDocumentView::PageMode_SinglePage);
-	actionPageMode_Single->setChecked(true);
 	setCentralWidget(pdfWidget);
 
 	connect(pdfWidget, SIGNAL(changedPage(int)), this, SLOT(updateStatusBar()));
@@ -265,6 +263,21 @@ void PDFDocument::init()
 	exitFullscreen = NULL;
 	
 	QSETTINGS_OBJECT(settings);
+	switch(settings.value("pdfPageMode", kDefault_PDFPageMode).toInt()) {
+		case 0:
+			setPageMode(QtPDF::PDFDocumentView::PageMode_SinglePage);
+			break;
+		case 1:
+			setPageMode(QtPDF::PDFDocumentView::PageMode_OneColumnContinuous);
+			break;
+		case 2:
+			setPageMode(QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous);
+			break;
+		default:
+			setPageMode(kDefault_PDFPageMode);
+			break;
+	}
+
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
 	TWApp::instance()->updateWindowMenus();

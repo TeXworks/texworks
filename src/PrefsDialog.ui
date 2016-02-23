@@ -672,18 +672,18 @@
         </spacer>
        </item>
        <item row="2" column="0">
-        <layout class="QHBoxLayout">
+        <layout class="QFormLayout">
          <property name="margin">
           <number>3</number>
          </property>
-         <item>
+         <item row="0" column="0">
           <widget class="QLabel" name="label_4">
            <property name="text">
             <string>Screen resolution:</string>
            </property>
           </widget>
          </item>
-         <item>
+         <item row="0" column="1">
           <widget class="QSpinBox" name="resolution">
            <property name="correctionMode">
             <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
@@ -700,6 +700,32 @@
            <property name="value">
             <number>72</number>
            </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Page mode:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="pdfPageMode">
+           <item>
+            <property name="text">
+             <string>Single Page</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Single Page Continuous</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Two Page Continuous</string>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>
