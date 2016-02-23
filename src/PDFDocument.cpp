@@ -92,6 +92,9 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 	if (properties.contains("state"))
 		restoreState(properties.value("state").toByteArray(), kPDFWindowStateVersion);
 	
+	if (properties.contains("pdfPageMode"))
+		setPageMode(properties.value("pdfPageMode", -1).toInt());
+
 	if (texDoc != NULL) {
 		stackUnder((QWidget*)texDoc);
 		actionSide_by_Side->setEnabled(true);
@@ -364,6 +367,7 @@ void PDFDocument::saveRecentFileInfo()
 	fileProperties.insert("path", curFile);
 	fileProperties.insert("geometry", saveGeometry());
 	fileProperties.insert("state", saveState(kPDFWindowStateVersion));
+	fileProperties.insert("pdfPageMode", pdfWidget->pageMode());
 	TWApp::instance()->addToRecentFiles(fileProperties);
 }
 
