@@ -344,10 +344,10 @@ void PrefsDialog::restoreDefaults()
 			scale->setValue(kDefault_PreviewScale);
 			switch (kDefault_PDFPageMode) {
 				case QtPDF::PDFDocumentView::PageMode_SinglePage:
-				default:
 					pdfPageMode->setCurrentIndex(0);
 					break;
 				case QtPDF::PDFDocumentView::PageMode_OneColumnContinuous:
+				default:
 					pdfPageMode->setCurrentIndex(1);
 					break;
 				case QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous:
@@ -573,10 +573,10 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.scale->setValue(settings.value("previewScale", kDefault_PreviewScale).toInt());
 	switch (settings.value("pdfPageMode", kDefault_PDFPageMode).toInt()) {
 		case QtPDF::PDFDocumentView::PageMode_SinglePage:
-		default:
 			dlg.pdfPageMode->setCurrentIndex(0);
 			break;
 		case QtPDF::PDFDocumentView::PageMode_OneColumnContinuous:
+		default:
 			dlg.pdfPageMode->setCurrentIndex(1);
 			break;
 		case QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous:
