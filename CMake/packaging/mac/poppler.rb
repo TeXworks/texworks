@@ -9,84 +9,104 @@
 #
 # Changes compared to Homebrew's standard Poppler formula:
 #
-#   - TeXworks-specific patches are applied to help Qt apps find the
-#     poppler-data directory.
-#
-#   - Poppler is configured to use as few dependencies as possible. This
-#     reduces the number of dylibs that must be added to TeXworks.app when it
-#     is packaged for distribution.
-TEXWORKS_SOURCE_DIR = Pathname.new(__FILE__).realpath.dirname.join('../../..')
-TEXWORKS_PATCH_DIR = TEXWORKS_SOURCE_DIR + 'lib-patches'
-
-require 'formula'
-
-class PopplerData < Formula
-  url 'http://poppler.freedesktop.org/poppler-data-0.4.5.tar.gz'
-  md5 '448dd7c5077570e340340706cef931aa'
-end
-
+#   - TeXworks-specific patches are applied to
+#        - help Qt apps find the poppler-data directory.
+#        - use native Mac OS X font handling (instead of fontconfig)
 class Poppler < Formula
-  url 'http://poppler.freedesktop.org/poppler-0.18.4.tar.gz'
-  homepage 'http://poppler.freedesktop.org'
-  md5 '12658f3308597e57f3faff538cc73baf'
-  version '0.18.4-texworks'
+  homepage "https://poppler.freedesktop.org/"
+  url "https://poppler.freedesktop.org/poppler-0.41.0.tar.xz"
+  sha256 "420abaab63caed9e1ee28964a0ba216d1979506726164bc99ad5ade289192a1b"
+# BEGIN TEXWORKS ADDITION
+  version '0.41.0-texworks'
 
-  depends_on 'pkg-config' => :build
-  depends_on 'qt'
+  TEXWORKS_SOURCE_DIR = Pathname.new(__FILE__).realpath.dirname.join('../../..')
+  TEXWORKS_PATCH_DIR = TEXWORKS_SOURCE_DIR + 'lib-patches/'
+  patch do
+    url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0001-Fix-bogus-memory-allocation-in-SplashFTFont-makeGlyp.patch'
+    sha256 "3b40b066995756a0c80badfe47e701bb0438305f3b8eb15b67875c7de38c7290"
+  end
+  patch do
+    url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0002-Native-Mac-font-handling.patch'
+    sha256 "41cedfe209c203833574ace4c60c0440840cb03f7ba687a27a3a350b0d868cc4"
+  end
+  patch do
+    url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0003-Add-support-for-persistent-GlobalParams.patch'
+    sha256 "6c17fe4d91c7c5d77e265af48c511db31fce73370cd2af4cbacc218435c9c86a"
+  end
 
-  def patches
-    {
-      :p1 => [
-        TEXWORKS_PATCH_DIR + 'poppler-qt4-globalparams.patch',
-        TEXWORKS_PATCH_DIR + 'poppler-bogus-memory-allocation-fix.patch',
-        TEXWORKS_PATCH_DIR + 'poppler-fix-cmake-install-names-for-homebrew.patch'
-      ]
-    }
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
+# END TEXWORKS ADDITION
+
+  option "with-qt", "Build Qt backend"
+  option "with-qt5", "Build Qt5 backend"
+  option "with-little-cms2", "Use color management system"
+
+  deprecated_option "with-qt4" => "with-qt"
+  deprecated_option "with-lcms2" => "with-little-cms2"
+
+  depends_on "pkg-config" => :build
+  depends_on "cairo"
+  depends_on "fontconfig"
+  depends_on "freetype"
+  depends_on "gettext"
+  depends_on "glib"
+  depends_on "gobject-introspection"
+  depends_on "jpeg"
+  depends_on "libpng"
+  depends_on "libtiff"
+  depends_on "openjpeg"
+
+  depends_on "qt" => :optional
+  depends_on "qt5" => :optional
+  depends_on "little-cms2" => :optional
+
+  conflicts_with "pdftohtml", :because => "both install `pdftohtml` binaries"
+
+  resource "font-data" do
+    url "https://poppler.freedesktop.org/poppler-data-0.4.7.tar.gz"
+    sha256 "e752b0d88a7aba54574152143e7bf76436a7ef51977c55d6bd9a48dccde3a7de"
   end
 
   def install
-    ENV.x11
-    cmake_args = std_cmake_parameters.split
+    ENV["LIBOPENJPEG_CFLAGS"] = "-I#{Formula["openjpeg"].opt_include}/openjpeg-1.5"
 
-    # Save time by not building tests
-    cmake_args.concat [
-      '-DBUILD_CPP_TESTS=OFF',
-      '-DBUILD_GTK_TESTS=OFF',
-      '-DBUILD_QT3_TESTS=OFF',
-      '-DBUILD_QT4_TESTS=OFF'
+    args = %W[
+      --disable-dependency-tracking
+      --prefix=#{prefix}
+      --enable-xpdf-headers
+      --enable-poppler-glib
+      --disable-gtk-test
+      --enable-introspection=yes
     ]
 
-    # Components required by TeXworks.
-    cmake_args.concat [
-      '-DWITH_Qt4=YES',
-      '-DENABLE_XPDF_HEADERS=YES'
-    ]
-
-    # Minimize library dependencies for TeXworks
-    cmake_args.concat [
-      '-DENABLE_ABIWORD=OFF',
-      '-DENABLE_CPP=OFF',
-      '-DENABLE_LCMS=OFF',
-      '-DENABLE_LIBCURL=OFF',
-      '-DENABLE_LIBOPENJPEG=OFF',
-      '-DENABLE_SPLASH=ON', # Required
-      '-DENABLE_UTILS=OFF',
-      '-DENABLE_ZLIB=OFF',
-      '-DWITH_Cairo=OFF',
-      '-DWITH_JPEG=OFF',
-      '-DWITH_PNG=OFF',
-      '-DWITH_Qt3=OFF'
-    ]
-
-    Dir.mkdir 'build'
-    Dir.chdir 'build' do
-      system 'cmake', '..', *cmake_args
-      system "make install"
+    if build.with?("qt") && build.with?("qt5")
+      raise "poppler: --with-qt and --with-qt5 cannot be used at the same time"
+    elsif build.with? "qt"
+      args << "--enable-poppler-qt4"
+    elsif build.with? "qt5"
+      args << "--enable-poppler-qt5"
+    else
+      args << "--disable-poppler-qt4" << "--disable-poppler-qt5"
     end
 
-    # Install poppler font data.
-    PopplerData.new.brew do
-      system "make install prefix=#{prefix}"
+    args << "--enable-cms=lcms2" if build.with? "little-cms2"
+
+# BEGIN TEXWORKS ADDITION
+    # We changed the config file (to add native font handling), so we need to
+    # update the configure script
+    system "autoreconf", "-ivf"
+# END TEXWORKS ADDITION
+    system "./configure", *args
+    system "make", "install"
+    resource("font-data").stage do
+      system "make", "install", "prefix=#{prefix}"
     end
   end
+
+  test do
+    system "#{bin}/pdfinfo", test_fixtures("test.pdf")
+  end
 end
+
