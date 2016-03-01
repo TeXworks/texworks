@@ -91,7 +91,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 			"version": {
 				"name": "${VERSION_NAME}",
 				"released": "${RELEASE_DATE}",
-				"gpgSign": true
+				"gpgSign": false
 			},
 			"files":
 			[
@@ -119,7 +119,7 @@ elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
 			"version": {
 				"name": "${VERSION_NAME}",
 				"released": "${RELEASE_DATE}",
-				"gpgSign": true
+				"gpgSign": false
 			},
 			"files":
 			[
