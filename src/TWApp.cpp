@@ -1030,12 +1030,6 @@ void TWApp::applyTranslation(const QString& locale)
 	translators.clear();
 
 	if (!locale.isEmpty()) {
-		QString bundledTranslations = ":/resfiles/translations";
-		QString extraTranslations = TWUtils::getLibraryPath("translations");
-		QString systemTranslations = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-		QTranslator * qtTranslator;
-		QTranslator * twTranslator;
-		
 		// According to the Qt docs, translators are searched in reverse order
 		// (the last installed one is tried first). Here, we use the following
 		// search order (1. is tried first):
@@ -1044,45 +1038,25 @@ void TWApp::applyTranslation(const QString& locale)
 		// 3. The bundled translation
 		// Note that the bundled translations are not copied to <resources>, so
 		// this search order is not messed up.
-		qtTranslator = new QTranslator(this);
-		if (qtTranslator->load("qt_" + locale, bundledTranslations)) {
-			installTranslator(qtTranslator);
-			translators.append(qtTranslator);
-		}
-		else
-			delete qtTranslator;
+		QStringList names, directories;
+		names << QString::fromLatin1("qt") + locale \
+					<< QString::fromLatin1("QtPDF_") + locale \
+					<< QString::fromLatin1(TEXWORKS_NAME) + QString::fromLatin1("_") + locale;
+		directories << QString::fromLatin1(":/resfiles/translations") \
+								<< QLibraryInfo::location(QLibraryInfo::TranslationsPath) \
+								<< TWUtils::getLibraryPath("translations");
 
-		qtTranslator = new QTranslator(this);
-		if (qtTranslator->load("qt_" + locale, systemTranslations)) {
-			installTranslator(qtTranslator);
-			translators.append(qtTranslator);
+		foreach (QString name, names) {
+			foreach (QString dir, directories) {
+				QTranslator * t = new QTranslator(this);
+				if (t->load(name, dir)) {
+					installTranslator(t);
+					translators.append(t);
+				}
+				else
+					delete t;
+			}
 		}
-		else
-			delete qtTranslator;
-
-		qtTranslator = new QTranslator(this);
-		if (qtTranslator->load("qt_" + locale, extraTranslations)) {
-			installTranslator(qtTranslator);
-			translators.append(qtTranslator);
-		}
-		else
-			delete qtTranslator;
-
-		twTranslator = new QTranslator(this);
-		if (twTranslator->load(TEXWORKS_NAME "_" + locale, bundledTranslations)) {
-			installTranslator(twTranslator);
-			translators.append(twTranslator);
-		}
-		else
-			delete twTranslator;
-		
-		twTranslator = new QTranslator(this);
-		if (twTranslator->load(TEXWORKS_NAME "_" + locale, extraTranslations)) {
-			installTranslator(twTranslator);
-			translators.append(twTranslator);
-		}
-		else
-			delete twTranslator;
 	}
 
 	emit updatedTranslators();
