@@ -206,6 +206,7 @@ IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
     find_package(Qt5DBus QUIET)
   ENDIF ()
 
+  # FIXME: This will be executed even if Qt5 is not found. Defining -DSTATIC_QT5 is not a good idea in that case...
   IF( WIN32 AND NOT BUILD_SHARED_LIBS )
     # For static Windows builds, we also need to pull in the Qt5 Platform
     # support library, which is not exposed to CMake properly, unfortunately
@@ -339,10 +340,11 @@ ENDIF ()
 # Some header files contain components that must be dynamically generated. For
 # example, `getDefaultBinPaths.sh` is a script that tries to figure out the
 # appropriate path to TeX binaries on UNIX-like systems.
-IF ( UNIX )
+IF ( UNIX AND NOT CMAKE_CROSSCOMPILING )
   IF ( NOT EXISTS ${TeXworks_SOURCE_DIR}/src/DefaultBinaryPaths.h )
     MESSAGE(STATUS "Generating DefaultBinaryPaths.h")
 
+    # FIXME: Make getDefaultBinPaths.sh cross-compilation aware
     EXECUTE_PROCESS(
       COMMAND ${TeXworks_SOURCE_DIR}/getDefaultBinPaths.sh
       WORKING_DIRECTORY ${TeXworks_SOURCE_DIR}
