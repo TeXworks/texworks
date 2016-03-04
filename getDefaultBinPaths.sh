@@ -35,9 +35,9 @@ appendPath()
 	esac
 }
 
-# (0) for Mac OS X, start with /usr/texbin
+# (0) for Mac OS X, start with /Library/TeX/texbin (OSX 10.11 El Capitan) & /usr/texbin
 case $PLATFORM in
-	*darwin*)	appendPath "/usr/texbin";;
+	*darwin*)	appendPath "/Library/TeX/texbin"; appendPath "/usr/texbin";;
 esac
 
 # (1) try to find tex and ghostscript
