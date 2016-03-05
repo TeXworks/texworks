@@ -849,6 +849,7 @@ void Select::mouseMoveEvent(QMouseEvent *event)
       }
     }
     _highlightPath->setPath(highlightPath);
+    _highlightPath->setParentItem(pageGraphicsItem);
     break;
   }
   case MouseMode_TextSelect:
