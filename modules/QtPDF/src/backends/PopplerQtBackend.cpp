@@ -886,6 +886,7 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 
 	// Get a list of all boxes
 	QList<Poppler::TextBox*> poppler_boxes = _poppler_page->textList();
+	Poppler::TextBox * lastPopplerBox = NULL;
 
 	// Filter boxes by selection
 	foreach (Poppler::TextBox * poppler_box, poppler_boxes) {
@@ -901,6 +902,14 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 		if (!include)
 			continue;
 		// If we get here, we found a box in the selection, so we append its text
+
+		// Guess ends of line: if the new box is entirely below the old box, we
+		// assume it's a new line. This should work reasonably well for normal text
+		// (including RTL text), but may fail in some less common cases (e.g.,
+		// subscripts after superscripts, formulas, etc.).
+		if (lastPopplerBox && lastPopplerBox->boundingBox().bottom() < poppler_box->boundingBox().top())
+			retVal += QString::fromLatin1("\n");
+
 		retVal += poppler_box->text();
 		if (poppler_box->hasSpaceAfter())
 			retVal += QString::fromLatin1(" ");
@@ -917,6 +926,8 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 			if (poppler_box->hasSpaceAfter())
 				(*charBoxes)[charBoxes->count()] = poppler_box->boundingBox();
 		}
+
+		lastPopplerBox = poppler_box;
 	}
 
   return retVal;
