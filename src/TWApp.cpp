@@ -215,6 +215,7 @@ void TWApp::init()
 
 	actionPreferences = new QAction(tr("Preferences..."), this);
 	actionPreferences->setIcon(QIcon(":/images/tango/preferences-system.png"));
+	actionPreferences->setMenuRole(QAction::PreferencesRole);
 	menuFile->addAction(actionPreferences);
 	connect(actionPreferences, SIGNAL(triggered()), this, SLOT(preferences()));
 
