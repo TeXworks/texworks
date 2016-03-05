@@ -972,7 +972,7 @@ void Select::keyPressEvent(QKeyEvent *event)
         // TODO: Add hint to unlock document w/ password, once we allow to
         // provide a password to an unlocked document (i.e., one which we can
         // display, but for which we don't have author's privileges)
-        QMessageBox::information(_parent, PDFDocumentView::trUtf8("Insufficient permission"), PDFDocumentView::trUtf8("Text extraction is not allowed for this document."));
+        QMessageBox::information(_parent, ::QtPDF::PDFDocumentView::trUtf8("Insufficient permission"), ::QtPDF::PDFDocumentView::trUtf8("Text extraction is not allowed for this document."));
       }
     }
   }
