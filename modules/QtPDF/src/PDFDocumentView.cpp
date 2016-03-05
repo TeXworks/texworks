@@ -1052,6 +1052,11 @@ void PDFDocumentView::switchInterfaceLocale(const QLocale & newLocale)
     _translator->deleteLater();
     _translator = NULL;
   }
+
+  // The language and translator are currently not used but are accessed here so
+  // they show up in the .ts files.
+  QString lang = QString::fromUtf8(QT_TRANSLATE_NOOP("QtPDF", "[language name]"));
+  QString translator = QString::fromUtf8(QT_TRANSLATE_NOOP("QtPDF", "[translator's name/email]"));
 }
 
 void PDFDocumentView::reinitializeFromScene()
