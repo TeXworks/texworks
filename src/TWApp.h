@@ -161,6 +161,7 @@ private:
 	QAction *actionNew_from_Template;
 	QAction *actionOpen;
 	QAction *actionPreferences;
+	QAction *actionQuit;
 
 	QMenu *menuRecent;
 	QAction *actionClear_Recent_Files;

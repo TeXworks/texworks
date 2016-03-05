@@ -231,6 +231,11 @@ void TWApp::init()
 	updateRecentFileActions();
 	menuFile->addMenu(menuRecent);
 
+	actionQuit = new QAction(tr("Quit TeXworks"), this);
+	actionQuit->setMenuRole(QAction::QuitRole);
+	menuFile->addAction(actionQuit);
+	connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
+
 	menuHelp = menuBar->addMenu(tr("Help"));
 
 	homePageAction = new QAction(tr("Go to TeXworks home page"), this);
@@ -275,6 +280,8 @@ void TWApp::changeLanguage()
 	actionNew_from_Template->setShortcut(QKeySequence(tr("Ctrl+Shift+N")));
 	actionOpen->setText(tr("Open..."));
 	actionOpen->setShortcut(QKeySequence(tr("Ctrl+O")));
+	actionQuit->setText(tr("Quit TeXworks"));
+	actionQuit->setShortcut(QKeySequence("Ctrl+Q"));
 
 	menuRecent->setTitle(tr("Open Recent"));
 
