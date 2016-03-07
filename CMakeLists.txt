@@ -410,16 +410,25 @@ ENDIF ()
 
 # Gather all libraries related to Qt plugins used by TeXworks so that they can
 # be bundled into packages.
-SET(QT_PLUGINS
-  ${QT_QTACCESSIBLEWIDGETS_PLUGIN_RELEASE}
-  ${QT_QCNCODECS_PLUGIN_RELEASE}
-  ${QT_QJPCODECS_PLUGIN_RELEASE}
-  ${QT_QKRCODECS_PLUGIN_RELEASE}
-  ${QT_QTWCODECS_PLUGIN_RELEASE}
-  ${QT_QGIF_PLUGIN_RELEASE}
-  ${QT_QJPEG_PLUGIN_RELEASE}
-  ${QT_QTIFF_PLUGIN_RELEASE}
-)
+if (QT_VERSION_MAJOR EQUAL 4)
+  SET(QT_PLUGINS
+    ${QT_QTACCESSIBLEWIDGETS_PLUGIN_RELEASE}
+    ${QT_QCNCODECS_PLUGIN_RELEASE}
+    ${QT_QJPCODECS_PLUGIN_RELEASE}
+    ${QT_QKRCODECS_PLUGIN_RELEASE}
+    ${QT_QTWCODECS_PLUGIN_RELEASE}
+    ${QT_QGIF_PLUGIN_RELEASE}
+    ${QT_QJPEG_PLUGIN_RELEASE}
+    ${QT_QTIFF_PLUGIN_RELEASE}
+  )
+elseif (QT_VERSION_MAJOR EQUAL 5)
+  if (WIN32)
+    get_target_property(QT_QPLATFORM_PLUGIN_RELEASE Qt5::QWindowsIntegrationPlugin LOCATION_Release)
+  elseif (APPLE)
+    get_target_property(QT_QPLATFORM_PLUGIN_RELEASE Qt5::QCocoaIntegrationPlugin LOCATION_Release)
+  endif ()
+  SET(QT_PLUGINS "${QT_QPLATFORM_PLUGIN_RELEASE}")
+endif()
 
 # The file `CMake/packaging/CMakeLists.txt` controls the execution of tasks
 # specific to preparing binaries for packaging on a given platform. This script
