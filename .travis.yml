@@ -31,11 +31,16 @@ after_success:
   - ${TRAVIS_BUILD_DIR}/travis-ci/package.sh
 
 deploy:
-  skip_cleanup: true
-  provider: bintray
-  file: ${TRAVIS_BUILD_DIR}/travis-ci/bintray.json
-  user: stloeffler
-  on:
-    condition: -f ${TRAVIS_BUILD_DIR}/travis-ci/bintray.json
-  key:
-    secure: A+7WxDVhnvJ229GlBOvo9kq9+xh0FYeau9ZIUh7GyuRvfQ0WTORQ+6OKq8KnRIhZQuk2Vji7hknlMV8ds22NI7hA5kfQf9iUUomBChSjOWWTUed5ldW7UDVRJk9njH7QNUycjJuU0MEctRH+WkcCXjsJi11c/JEnDgKO6Pi9H5ryGS5VZd24HKpiAccoYpu0OlErfUctZ/0NT97v4Bb2DXB1ovb3OUpPf/4s6EmAVLGjEAYuiAhLcvPFQ52A+ywBHrGQ3c9DMEtXOoHnCW1XB4mu3lZ/g4/GxZxkq7KW1KAi1F+IyZKzBJUu12dNVWa4Mk9LAyOmfzQNHH8hgZh5RJ5pQQ12a/zQk0fkDODFvzbbDv4pQSmV/M8qHIPOmRenzZxy2dmhhBNIuuPf6QO1bT8ZM0I/7WKUqG6P+Oys5+5jlDw1o0t73h7451xl+BSz8Z54CHQPY/FviK3ED/dwBj3Xz8ObseOpSa2EQB42K6ckozYeUE+0KexX30ejBa/Sx9xM4gdJU56UWGAmBlr73cfMKsx9KaMurKPiSDCEwgQ2aVwXF7/9Z5DRrkUYVvnpla95M5rnuOtH5qalz9j0Q54pkob5NTkxDI0QXUmVSgf+kbx7xNHuNhRj/akVknU2uESLv2TOZNCD2NrFaqF4CqcnxcdnK/Eh+sWfcOYe3ls=
+  - provider: bintray
+    skip_cleanup: true
+    file: ${TRAVIS_BUILD_DIR}/travis-ci/bintray.json
+    user: stloeffler
+    on:
+      condition: -f ${TRAVIS_BUILD_DIR}/travis-ci/bintray.json
+    key:
+      secure: A+7WxDVhnvJ229GlBOvo9kq9+xh0FYeau9ZIUh7GyuRvfQ0WTORQ+6OKq8KnRIhZQuk2Vji7hknlMV8ds22NI7hA5kfQf9iUUomBChSjOWWTUed5ldW7UDVRJk9njH7QNUycjJuU0MEctRH+WkcCXjsJi11c/JEnDgKO6Pi9H5ryGS5VZd24HKpiAccoYpu0OlErfUctZ/0NT97v4Bb2DXB1ovb3OUpPf/4s6EmAVLGjEAYuiAhLcvPFQ52A+ywBHrGQ3c9DMEtXOoHnCW1XB4mu3lZ/g4/GxZxkq7KW1KAi1F+IyZKzBJUu12dNVWa4Mk9LAyOmfzQNHH8hgZh5RJ5pQQ12a/zQk0fkDODFvzbbDv4pQSmV/M8qHIPOmRenzZxy2dmhhBNIuuPf6QO1bT8ZM0I/7WKUqG6P+Oys5+5jlDw1o0t73h7451xl+BSz8Z54CHQPY/FviK3ED/dwBj3Xz8ObseOpSa2EQB42K6ckozYeUE+0KexX30ejBa/Sx9xM4gdJU56UWGAmBlr73cfMKsx9KaMurKPiSDCEwgQ2aVwXF7/9Z5DRrkUYVvnpla95M5rnuOtH5qalz9j0Q54pkob5NTkxDI0QXUmVSgf+kbx7xNHuNhRj/akVknU2uESLv2TOZNCD2NrFaqF4CqcnxcdnK/Eh+sWfcOYe3ls=
+  - provider: script
+    skip_cleanup: true
+    on:
+      condition: -f ${TRAVIS_BUILD_DIR}/travis-ci/dput-launchpad.sh
+    script: sh "${TRAVIS_BUILD_DIR}/travis-ci/dput-launchpad.sh"
