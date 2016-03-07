@@ -823,27 +823,20 @@ void Select::mouseMoveEvent(QMouseEvent *event)
     QPointF startPdfCoords = pageGraphicsItem->pointScale().inverted().map(pageGraphicsItem->mapFromScene(_parent->mapToScene(_startPos)));
     QRectF marqueeRect(startPdfCoords, curPdfCoords);
     QPainterPath highlightPath;
-    // Note: Below, we cannot just use highlightPath.addRect(); in the case of
-    // overlapping pdf boxes, this would create gaps due to the winding fill
-    // rule. This in turn does not look good and may also prevent
-    // Backend::Page::selectedText() from catching all selected boxes
+    // Set WindingFill so overlapping, individual paths are both filled
+    // completely.
+    highlightPath.setFillRule(Qt::WindingFill);
     foreach(Backend::Page::Box b, _boxes) {
       // Note: If b.boundingBox is fully contained in the marqueeRect, add it
       // without iterating over the subboxes. Otherwise, add all intersected
       // subboxes
       if (marqueeRect.intersects(b.boundingBox)) {
-        if (b.subBoxes.isEmpty() || marqueeRect.contains(b.boundingBox)) {
-          QPainterPath pp;
-          pp.addRect(toView.mapRect(b.boundingBox));
-          highlightPath |= pp;
-        }          
+        if (b.subBoxes.isEmpty() || marqueeRect.contains(b.boundingBox))
+          highlightPath.addRect(toView.mapRect(b.boundingBox));
         else {
           foreach(Backend::Page::Box sb, b.subBoxes) {
-            if (marqueeRect.intersects(sb.boundingBox)) {
-              QPainterPath pp;
-              pp.addRect(toView.mapRect(sb.boundingBox));
-              highlightPath |= pp;
-            }
+            if (marqueeRect.intersects(sb.boundingBox))
+              highlightPath.addRect(toView.mapRect(sb.boundingBox));
           }
         }
       }
@@ -894,10 +887,9 @@ void Select::mouseMoveEvent(QMouseEvent *event)
     }
     
     QPainterPath highlightPath;
-    // Note: Below, we cannot just use highlightPath.addRect(); in the case of
-    // overlapping pdf boxes, this would create gaps due to the winding fill
-    // rule. This in turn does not look good and may also prevent
-    // Backend::Page::selectedText() from catching all selected boxes
+    // Set WindingFill so overlapping, individual paths are both filled
+    // completely.
+    highlightPath.setFillRule(Qt::WindingFill);
     for (i = startBox; i <= endBox; ++i) {
       // Iterate over subboxes in the case that not the whole box might be
       // selected
@@ -905,16 +897,11 @@ void Select::mouseMoveEvent(QMouseEvent *event)
         for (j = 0; j < _boxes[i].subBoxes.size(); ++j) {
           if ((i == startBox && j < startSubbox) || (i == endBox && j > endSubbox))
             continue;
-          QPainterPath pp;
-          pp.addRect(toView.mapRect(_boxes[i].subBoxes[j].boundingBox));
-          highlightPath |= pp;
+          highlightPath.addRect(toView.mapRect(_boxes[i].subBoxes[j].boundingBox));
         }
       }
-      else {
-        QPainterPath pp;
-        pp.addRect(toView.mapRect(_boxes[i].boundingBox));
-        highlightPath |= pp;
-      }
+      else
+        highlightPath.addRect(toView.mapRect(_boxes[i].boundingBox));
     }
     _highlightPath->setPath(highlightPath);
     _highlightPath->setParentItem(pageGraphicsItem);
