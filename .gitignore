@@ -3,8 +3,9 @@
 /src/GitRev.h
 /TeXworks.plist
 
-# Default build directory.
-/build/
+# Build directories
+/build*/
+/modules/QtPDF/build*/
 
 # Files downloaded/extracted as part of OS X packaging task.
 /poppler-data-*.tar.gz
