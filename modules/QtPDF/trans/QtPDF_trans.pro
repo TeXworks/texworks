@@ -26,4 +26,23 @@ HEADERS = \
   "../src/backends/PopplerQtBackend.h"
 
 TRANSLATIONS = \
-  "QtPDF_de.ts"
+  "QtPDF_af.ts" \
+  "QtPDF_ar.ts" \
+  "QtPDF_ca.ts" \
+  "QtPDF_cs.ts" \
+  "QtPDF_de.ts" \
+  "QtPDF_es.ts" \
+  "QtPDF_fa.ts" \
+  "QtPDF_fo.ts" \
+  "QtPDF_fr.ts" \
+  "QtPDF_it.ts" \
+  "QtPDF_ja.ts" \
+  "QtPDF_ko.ts" \
+  "QtPDF_nl.ts" \
+  "QtPDF_nn.ts" \
+  "QtPDF_pl.ts" \
+  "QtPDF_pt_BR.ts" \
+  "QtPDF_ru.ts" \
+  "QtPDF_sl.ts" \
+  "QtPDF_tr.ts" \
+  "QtPDF_zh_CN.ts"
