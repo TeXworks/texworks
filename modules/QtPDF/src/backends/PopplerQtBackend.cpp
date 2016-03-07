@@ -893,9 +893,11 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 		if (!poppler_box)
 			continue;
 		bool include = false;
+		bool includeEntirely = false;
 		foreach (const QPolygonF & p, selection) {
 			if (!p.intersected(poppler_box->boundingBox()).empty()) {
 				include = true;
+				includeEntirely = QPolygonF(poppler_box->boundingBox()).subtracted(p).empty();
 				break;
 			}
 		}
@@ -910,8 +912,24 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 		if (lastPopplerBox && lastPopplerBox->boundingBox().bottom() < poppler_box->boundingBox().top())
 			retVal += QString::fromLatin1("\n");
 
-		retVal += poppler_box->text();
-		if (poppler_box->hasSpaceAfter())
+		bool appendSpace = false;
+		if (includeEntirely) {
+			retVal += poppler_box->text();
+			appendSpace = poppler_box->hasSpaceAfter();
+		}
+		else {
+			for (int i = 0; i < poppler_box->text().length(); ++i) {
+				foreach (const QPolygonF & p, selection) {
+					if (!p.intersected(poppler_box->charBoundingBox(i)).empty()) {
+						retVal += poppler_box->text()[i];
+						if (i == poppler_box->text().length() - 1)
+							appendSpace = poppler_box->hasSpaceAfter();
+						break;
+					}
+				}
+			}
+		}
+		if (appendSpace)
 			retVal += QString::fromLatin1(" ");
 
 		if (wordBoxes) {
