@@ -277,7 +277,7 @@ protected:
   enum MouseMode { MouseMode_None, MouseMode_MarqueeSelect, MouseMode_TextSelect, MouseMode_ImageSelect };
 
   bool _cursorOverBox;
-  QPoint _startPos;
+  QPointF _startPos;
   QGraphicsPathItem * _highlightPath;
   MouseMode _mouseMode;
   QRubberBand * _rubberBand;

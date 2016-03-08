@@ -739,7 +739,9 @@ void Select::mousePressEvent(QMouseEvent * event)
   // Clear any previous selection
   _highlightPath->setPath(QPainterPath());
 
-  _startPos = event->pos();
+  // Save the starting position (in scene coordinates so we can handle scrolling
+  // etc.)
+  _startPos = _parent->mapToScene(event->pos());
   // Set the mouse mode. Note that _cursorOverBox is updated dynamically in
   // mouseMoveEvent()
   _mouseMode = (_cursorOverBox ? MouseMode_TextSelect : MouseMode_MarqueeSelect);
@@ -748,7 +750,7 @@ void Select::mousePressEvent(QMouseEvent * event)
     // Create the rubber band widget if it doesn't exist and show it
     if (!_rubberBand)
       _rubberBand = new QRubberBand(QRubberBand::Rectangle, _parent->viewport());
-    _rubberBand->setGeometry(QRect(_startPos, _startPos));
+    _rubberBand->setGeometry(QRect(event->pos(), event->pos()));
     _rubberBand->show();
   }
   else if (_mouseMode == MouseMode_TextSelect) {
@@ -818,9 +820,9 @@ void Select::mouseMoveEvent(QMouseEvent *event)
     if (!_highlightPath || _boxes.size() == 0)
       break;
     if (_rubberBand)
-      _rubberBand->setGeometry(QRect(_startPos, event->pos()));
+      _rubberBand->setGeometry(QRect(_parent->mapFromScene(_startPos), event->pos()));
     // Get the selection rect in pdf coords (bp)
-    QPointF startPdfCoords = pageGraphicsItem->pointScale().inverted().map(pageGraphicsItem->mapFromScene(_parent->mapToScene(_startPos)));
+    QPointF startPdfCoords = pageGraphicsItem->pointScale().inverted().map(pageGraphicsItem->mapFromScene(_startPos));
     QRectF marqueeRect(startPdfCoords, curPdfCoords);
     QPainterPath highlightPath;
     // Set WindingFill so overlapping, individual paths are both filled
