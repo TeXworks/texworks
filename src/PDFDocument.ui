@@ -189,6 +189,7 @@
    <addaction name="separator"/>
    <addaction name="actionMagnify"/>
    <addaction name="actionScroll"/>
+   <addaction name="actionSelect_Text"/>
    <addaction name="separator"/>
    <addaction name="actionFind"/>
   </widget>
@@ -611,8 +612,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/text-tool.png</normaloff>:/images/images/text-tool.png</iconset>
+    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
+     <normaloff>:/QtPDF/icons/select-text.png</normaloff>:/QtPDF/icons/select-text.png</iconset>
    </property>
    <property name="text">
     <string>Select Text</string>
