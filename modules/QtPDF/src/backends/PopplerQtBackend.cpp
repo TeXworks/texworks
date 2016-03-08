@@ -920,7 +920,10 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 		else {
 			for (int i = 0; i < poppler_box->text().length(); ++i) {
 				foreach (const QPolygonF & p, selection) {
-					if (!p.intersected(poppler_box->charBoundingBox(i)).empty()) {
+					// Append text for char boxes iff they are entirely inside the
+					// selection area; using intersection only would cause problems for
+					// overlapping char boxes.
+					if (QPolygonF(poppler_box->charBoundingBox(i)).subtracted(p).empty()) {
 						retVal += poppler_box->text()[i];
 						if (i == poppler_box->text().length() - 1)
 							appendSpace = poppler_box->hasSpaceAfter();
