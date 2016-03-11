@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru">
+<TS version="2.1" language="ru">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -515,7 +515,7 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="obsolete">PDF файл «%1» заблокирован; на данный момент операция не поддерживается.</translation>
+        <translation type="vanished">PDF файл «%1» заблокирован; на данный момент операция не поддерживается.</translation>
     </message>
     <message>
         <source>Find...</source>
@@ -545,35 +545,35 @@
     </message>
     <message>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти к предыдущему виду</translation>
     </message>
     <message>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Left</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Постранично</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Постранично свитком</translation>
     </message>
     <message>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>По две страницы свитком</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation type="unfinished">Перейти к исходному файлу</translation>
+        <translation>Перейти к исходному файлу</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation type="unfinished">Перейти к странице</translation>
+        <translation>Перейти к странице</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation type="unfinished">Страница:</translation>
+        <translation>Страница:</translation>
     </message>
 </context>
 <context>
@@ -620,93 +620,93 @@
     <name>PDFFontsDock</name>
     <message>
         <source>Name</source>
-        <translation type="obsolete">Название</translation>
+        <translation type="vanished">Название</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="obsolete">Гарнитура</translation>
+        <translation type="vanished">Гарнитура</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation type="obsolete">Подмножество</translation>
+        <translation type="vanished">Подмножество</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="obsolete">Файл</translation>
+        <translation type="vanished">Файл</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation type="obsolete">[отсутствует]</translation>
+        <translation type="vanished">[отсутствует]</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation type="obsolete">да</translation>
+        <translation type="vanished">да</translation>
     </message>
     <message>
         <source>no</source>
-        <translation type="obsolete">нет</translation>
+        <translation type="vanished">нет</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation type="obsolete">[встроенный]</translation>
+        <translation type="vanished">[вставленный]</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="obsolete">Шрифты</translation>
+        <translation type="vanished">Шрифты</translation>
     </message>
 </context>
 <context>
     <name>PDFInfoDock</name>
     <message>
         <source>PDF Info</source>
-        <translation type="obsolete">Информация о PDF</translation>
+        <translation type="vanished">Информация о PDF</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
         <source>No TOC</source>
-        <translation type="obsolete">Нет оглавления</translation>
+        <translation type="vanished">Нет оглавления</translation>
     </message>
     <message>
         <source>Contents</source>
         <translatorcomment>Содержание и оглавление синонимы.</translatorcomment>
-        <translation type="obsolete">Содержание</translation>
+        <translation type="vanished">Содержание</translation>
     </message>
 </context>
 <context>
     <name>PDFWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation type="obsolete">Увеличить</translation>
+        <translation type="vanished">Увеличить</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation type="obsolete">Уменьшить</translation>
+        <translation type="vanished">Уменьшить</translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation type="obsolete">Натуральный размер</translation>
+        <translation type="vanished">Натуральный размер</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation type="obsolete">По ширине страницы</translation>
+        <translation type="vanished">По ширине страницы</translation>
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation type="obsolete">По размеру окна</translation>
+        <translation type="vanished">По размеру окна</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation type="obsolete">Перейти к исходному файлу</translation>
+        <translation type="vanished">Перейти к исходному файлу</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation type="obsolete">Перейти к странице</translation>
+        <translation type="vanished">Перейти к странице</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation type="obsolete">Страница:</translation>
+        <translation type="vanished">Страница:</translation>
     </message>
 </context>
 <context>
@@ -1014,19 +1014,19 @@
     </message>
     <message>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Отображение страниц:</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Постранично</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Постранично свитком</translation>
     </message>
     <message>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>По две страницы свитком</translation>
     </message>
 </context>
 <context>
@@ -1349,7 +1349,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Инфраструктура приложений Qt&lt;/a&gt; вер%1 от Qt Software, подразделения Nokia Corporation.</translation>
+        <translation type="vanished">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Инфраструктура приложений Qt&lt;/a&gt; вер%1 от Qt Software, подразделения Nokia Corporation.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
@@ -1357,7 +1357,7 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; программа проверки орфографии от L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+        <translation type="vanished">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; программа проверки орфографии от L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1453,15 +1453,15 @@
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">Выйти из TeXworks</translation>
+        <translation>Выйти из TeXworks</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Платформа приложений Qt&lt;/a&gt; v%1 компании Qt.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; проверка орфографии, разработчик L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
 </context>
 <context>
@@ -1532,7 +1532,7 @@
     <message>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(отключено в Настройках)</translation>
     </message>
 </context>
 <context>
