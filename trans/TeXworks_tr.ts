@@ -441,7 +441,7 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>&quot;%1&quot; PDF dosyası kilitli; bu henüz desteklenmiyor.</translation>
+        <translation type="obsolete">&quot;%1&quot; PDF dosyası kilitli; bu henüz desteklenmiyor.</translation>
     </message>
     <message>
         <source>Search</source>
@@ -543,6 +543,38 @@
         <source>Error initializing SyncTeX</source>
         <translation>SyncTeX başlatılırken hata</translation>
     </message>
+    <message>
+        <source>Go to previous view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Pages Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jump to Source</source>
+        <translation type="unfinished">Kaynağa Atla</translation>
+    </message>
+    <message>
+        <source>Go to Page</source>
+        <translation type="unfinished">Sayfaya Git</translation>
+    </message>
+    <message>
+        <source>Page number:</source>
+        <translation type="unfinished">Sayfa no:</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -587,92 +619,92 @@
     <name>PDFFontsDock</name>
     <message>
         <source>Fonts</source>
-        <translation>Fontlar</translation>
+        <translation type="obsolete">Fontlar</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>İsim</translation>
+        <translation type="obsolete">İsim</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Tip</translation>
+        <translation type="obsolete">Tip</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>Altküme</translation>
+        <translation type="obsolete">Altküme</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Dosya</translation>
+        <translation type="obsolete">Dosya</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation>[yok]</translation>
+        <translation type="obsolete">[yok]</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation>evet</translation>
+        <translation type="obsolete">evet</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>hayır</translation>
+        <translation type="obsolete">hayır</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation>[gömülü]</translation>
+        <translation type="obsolete">[gömülü]</translation>
     </message>
 </context>
 <context>
     <name>PDFInfoDock</name>
     <message>
         <source>PDF Info</source>
-        <translation>PDF Bilgisi</translation>
+        <translation type="obsolete">PDF Bilgisi</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
         <source>Contents</source>
-        <translation>İçindekiler</translation>
+        <translation type="obsolete">İçindekiler</translation>
     </message>
     <message>
         <source>No TOC</source>
-        <translation>İçindekiler Yok</translation>
+        <translation type="obsolete">İçindekiler Yok</translation>
     </message>
 </context>
 <context>
     <name>PDFWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation>Yakınlaştır</translation>
+        <translation type="obsolete">Yakınlaştır</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>Uzaklaştır</translation>
+        <translation type="obsolete">Uzaklaştır</translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>Gerçek Boyut</translation>
+        <translation type="obsolete">Gerçek Boyut</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>Genişliğe Sığdır</translation>
+        <translation type="obsolete">Genişliğe Sığdır</translation>
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation>Pencereye Sığdır</translation>
+        <translation type="obsolete">Pencereye Sığdır</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation>Kaynağa Atla</translation>
+        <translation type="obsolete">Kaynağa Atla</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation>Sayfaya Git</translation>
+        <translation type="obsolete">Sayfaya Git</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation>Sayfa no:</translation>
+        <translation type="obsolete">Sayfa no:</translation>
     </message>
 </context>
 <context>
@@ -975,6 +1007,22 @@
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
         <translation>TeX dosyaları ile ilgili PDF önizlemesini aç</translation>
+    </message>
+    <message>
+        <source>Page mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Page Continuous</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1290,7 +1338,7 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; yazım denetleyicisi L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth tarafından.</translation>
+        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; yazım denetleyicisi L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth tarafından.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1354,7 +1402,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt uygulama çatısı&lt;/a&gt; v%1 bir Nokia Corporation bölümü olan Qt Software tarafından.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt uygulama çatısı&lt;/a&gt; v%1 bir Nokia Corporation bölümü olan Qt Software tarafından.</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1383,6 +1431,18 @@
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
         <translation>&lt;br&gt;Versiyon %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Quit TeXworks</source>
+        <translation type="unfinished">TeXworks&apos;den çık</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1449,6 +1509,11 @@
     <message>
         <source>Script error</source>
         <translation>Eklenti hatası</translation>
+    </message>
+    <message>
+        <source>(disabled in the preferences)</source>
+        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

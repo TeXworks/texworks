@@ -137,7 +137,7 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>&quot;%1&quot; 파일이 잠겨 있습니다. 잠긴 파일 처리는 아직 지원하지 않습니다.</translation>
+        <translation type="obsolete">&quot;%1&quot; 파일이 잠겨 있습니다. 잠긴 파일 처리는 아직 지원하지 않습니다.</translation>
     </message>
     <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
@@ -531,6 +531,38 @@
         <source>Error initializing SyncTeX</source>
         <translation>SyncTeX 초기화 실패</translation>
     </message>
+    <message>
+        <source>Go to previous view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Pages Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jump to Source</source>
+        <translation type="unfinished">소스의 여기로 가기</translation>
+    </message>
+    <message>
+        <source>Go to Page</source>
+        <translation type="unfinished">쪽 찾아가기</translation>
+    </message>
+    <message>
+        <source>Page number:</source>
+        <translation type="unfinished">쪽 번호:</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -575,92 +607,92 @@
     <name>PDFFontsDock</name>
     <message>
         <source>Name</source>
-        <translation>이름</translation>
+        <translation type="obsolete">이름</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>종류</translation>
+        <translation type="obsolete">종류</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>서브셋</translation>
+        <translation type="obsolete">서브셋</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>파일</translation>
+        <translation type="obsolete">파일</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation>[없음]</translation>
+        <translation type="obsolete">[없음]</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation>예</translation>
+        <translation type="obsolete">예</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>아니오</translation>
+        <translation type="obsolete">아니오</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation>[내장]</translation>
+        <translation type="obsolete">[내장]</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>글꼴</translation>
+        <translation type="obsolete">글꼴</translation>
     </message>
 </context>
 <context>
     <name>PDFInfoDock</name>
     <message>
         <source>PDF Info</source>
-        <translation>PDF 정보</translation>
+        <translation type="obsolete">PDF 정보</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
         <source>No TOC</source>
-        <translation>차례 없음</translation>
+        <translation type="obsolete">차례 없음</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation>차례</translation>
+        <translation type="obsolete">차례</translation>
     </message>
 </context>
 <context>
     <name>PDFWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation>확대</translation>
+        <translation type="obsolete">확대</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>축소</translation>
+        <translation type="obsolete">축소</translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>실제 크기</translation>
+        <translation type="obsolete">실제 크기</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>창너비에 맞추기</translation>
+        <translation type="obsolete">창너비에 맞추기</translation>
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation>창크기에 맞추기</translation>
+        <translation type="obsolete">창크기에 맞추기</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation>소스의 여기로 가기</translation>
+        <translation type="obsolete">소스의 여기로 가기</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation>쪽 찾아가기</translation>
+        <translation type="obsolete">쪽 찾아가기</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation>쪽 번호:</translation>
+        <translation type="obsolete">쪽 번호:</translation>
     </message>
 </context>
 <context>
@@ -963,6 +995,22 @@
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
         <translation>TeX 파일과 함께 PDF도 열기</translation>
+    </message>
+    <message>
+        <source>Page mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Page Continuous</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1272,7 +1320,7 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; 철자 검사기는 L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth가 제공합니다.</translation>
+        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; 철자 검사기는 L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth가 제공합니다.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1332,7 +1380,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt 응용 프레임워크&lt;/a&gt; v%1은(는) Nokia Corporation 소속의 Qt Software가 제공합니다.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt 응용 프레임워크&lt;/a&gt; v%1은(는) Nokia Corporation 소속의 Qt Software가 제공합니다.</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1365,6 +1413,18 @@
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
         <translation>&lt;br&gt;버전 %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Quit TeXworks</source>
+        <translation type="unfinished">TeXworks 종료</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1431,6 +1491,11 @@
     <message>
         <source>Script error</source>
         <translation>스크립트 오류</translation>
+    </message>
+    <message>
+        <source>(disabled in the preferences)</source>
+        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

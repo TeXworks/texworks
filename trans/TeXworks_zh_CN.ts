@@ -137,7 +137,7 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>PDF 文件“%1”被锁定了；这一功能现在不支持。</translation>
+        <translation type="obsolete">PDF 文件“%1”被锁定了；这一功能现在不支持。</translation>
     </message>
     <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
@@ -531,6 +531,38 @@
         <source>Error initializing SyncTeX</source>
         <translation>SyncTeX 初始化错误</translation>
     </message>
+    <message>
+        <source>Go to previous view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Pages Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jump to Source</source>
+        <translation type="unfinished">跳至源文件</translation>
+    </message>
+    <message>
+        <source>Go to Page</source>
+        <translation type="unfinished">跳至页码</translation>
+    </message>
+    <message>
+        <source>Page number:</source>
+        <translation type="unfinished">页码：</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -575,92 +607,92 @@
     <name>PDFFontsDock</name>
     <message>
         <source>Name</source>
-        <translation>名称</translation>
+        <translation type="obsolete">名称</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>类型</translation>
+        <translation type="obsolete">类型</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>子集</translation>
+        <translation type="obsolete">子集</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>文件</translation>
+        <translation type="obsolete">文件</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation>[无]</translation>
+        <translation type="obsolete">[无]</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation>是</translation>
+        <translation type="obsolete">是</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>否</translation>
+        <translation type="obsolete">否</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation>[已嵌入]</translation>
+        <translation type="obsolete">[已嵌入]</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>字体</translation>
+        <translation type="obsolete">字体</translation>
     </message>
 </context>
 <context>
     <name>PDFInfoDock</name>
     <message>
         <source>PDF Info</source>
-        <translation>PDF 文件信息</translation>
+        <translation type="obsolete">PDF 文件信息</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
         <source>No TOC</source>
-        <translation>没有目录 (TOC)</translation>
+        <translation type="obsolete">没有目录 (TOC)</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation>目录</translation>
+        <translation type="obsolete">目录</translation>
     </message>
 </context>
 <context>
     <name>PDFWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation>放大</translation>
+        <translation type="obsolete">放大</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>缩小</translation>
+        <translation type="obsolete">缩小</translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>实际大小</translation>
+        <translation type="obsolete">实际大小</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>适合页面宽度</translation>
+        <translation type="obsolete">适合页面宽度</translation>
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation>适合页面</translation>
+        <translation type="obsolete">适合页面</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation>跳至源文件</translation>
+        <translation type="obsolete">跳至源文件</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation>跳至页码</translation>
+        <translation type="obsolete">跳至页码</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation>页码：</translation>
+        <translation type="obsolete">页码：</translation>
     </message>
 </context>
 <context>
@@ -944,6 +976,22 @@
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
         <translation>打开 TeX 文件对应的PDF预览</translation>
+    </message>
+    <message>
+        <source>Page mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Page Continuous</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1237,7 +1285,7 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; 语法检查器由 L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth 开发。</translation>
+        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; 语法检查器由 L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth 开发。</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1305,7 +1353,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt应用程序框架&lt;/a&gt;v%1 由Nokia公司子公司 Qt Software 开发。</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt应用程序框架&lt;/a&gt;v%1 由Nokia公司子公司 Qt Software 开发。</translation>
     </message>
     <message>
         <source>Permission request</source>
@@ -1330,6 +1378,18 @@
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
         <translation>&lt;br&gt;版本 %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Quit TeXworks</source>
+        <translation type="unfinished">退出 TeXworks</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1396,6 +1456,11 @@
     <message>
         <source>Script error</source>
         <translation>脚本错误</translation>
+    </message>
+    <message>
+        <source>(disabled in the preferences)</source>
+        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

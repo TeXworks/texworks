@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nl">
+<TS version="2.0" language="nl">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -441,7 +441,7 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>Pdf bestand &quot;%1&quot; is geblokeerd; dit is niet ondersteund.</translation>
+        <translation type="obsolete">Pdf bestand &quot;%1&quot; is geblokeerd; dit is niet ondersteund.</translation>
     </message>
     <message>
         <source>Search</source>
@@ -539,6 +539,38 @@
         <source>Error initializing SyncTeX</source>
         <translation>Initialiseren van SyncTeX mislukt</translation>
     </message>
+    <message>
+        <source>Go to previous view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Pages Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jump to Source</source>
+        <translation type="unfinished">Spring naar tekst</translation>
+    </message>
+    <message>
+        <source>Go to Page</source>
+        <translation type="unfinished">Ga naar pagina</translation>
+    </message>
+    <message>
+        <source>Page number:</source>
+        <translation type="unfinished">Pagina:</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -583,92 +615,92 @@
     <name>PDFFontsDock</name>
     <message>
         <source>Fonts</source>
-        <translation>Fonts</translation>
+        <translation type="obsolete">Fonts</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation type="obsolete">Naam</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation type="obsolete">Type</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>Subset</translation>
+        <translation type="obsolete">Subset</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Bestand</translation>
+        <translation type="obsolete">Bestand</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation>[geen]</translation>
+        <translation type="obsolete">[geen]</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation>ja</translation>
+        <translation type="obsolete">ja</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>nee</translation>
+        <translation type="obsolete">nee</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation>[ingesloten]</translation>
+        <translation type="obsolete">[ingesloten]</translation>
     </message>
 </context>
 <context>
     <name>PDFInfoDock</name>
     <message>
         <source>PDF Info</source>
-        <translation>PDF info</translation>
+        <translation type="obsolete">PDF info</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
         <source>Contents</source>
-        <translation>Inhoud</translation>
+        <translation type="obsolete">Inhoud</translation>
     </message>
     <message>
         <source>No TOC</source>
-        <translation>Geen Inhoudsopgave</translation>
+        <translation type="obsolete">Geen Inhoudsopgave</translation>
     </message>
 </context>
 <context>
     <name>PDFWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation>Zoom in</translation>
+        <translation type="obsolete">Zoom in</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>Zoom uit</translation>
+        <translation type="obsolete">Zoom uit</translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>Ware grootte</translation>
+        <translation type="obsolete">Ware grootte</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>Venster breedte</translation>
+        <translation type="obsolete">Venster breedte</translation>
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation>Pas in venster</translation>
+        <translation type="obsolete">Pas in venster</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation>Ga naar pagina</translation>
+        <translation type="obsolete">Ga naar pagina</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation>Pagina:</translation>
+        <translation type="obsolete">Pagina:</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation>Spring naar tekst</translation>
+        <translation type="obsolete">Spring naar tekst</translation>
     </message>
 </context>
 <context>
@@ -973,6 +1005,22 @@
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
         <translation>Open bijpassende PDF preview tegelijk met TeX bestanden</translation>
+    </message>
+    <message>
+        <source>Page mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Page Continuous</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1314,7 +1362,7 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spellingschecker door L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spellingschecker door L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1346,7 +1394,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 door Qt Software, een onderdeel van Nokia Corporation.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 door Qt Software, een onderdeel van Nokia Corporation.</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1380,6 +1428,18 @@
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
         <translation>&lt;br&gt;Versie %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Quit TeXworks</source>
+        <translation type="unfinished">TeXworks afsluiten</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1446,6 +1506,11 @@
     <message>
         <source>Script error</source>
         <translation>Script fout</translation>
+    </message>
+    <message>
+        <source>(disabled in the preferences)</source>
+        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -171,67 +171,83 @@
         <translation>Nedavni dokumenti</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1488"/>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
         <translatorcomment>a ni bolje namigniti, kaj je potrebno narediti?</translatorcomment>
-        <translation type="unfinished">PDF datoteka &quot;%1&quot; je zaklenjena; to trenutno ni podprto.</translation>
+        <translation type="obsolete">PDF datoteka &quot;%1&quot; je zaklenjena; to trenutno ni podprto.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1507"/>
+        <location filename="../src/PDFDocument.cpp" line="415"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Ni mogoče odpreti datoteke &quot;%1&quot;; morda ni veljaven PDF.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1535"/>
+        <location filename="../src/PDFDocument.cpp" line="441"/>
         <source>Error initializing SyncTeX</source>
         <translation>Napaka pri inicializaciji SyncTeX-a</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1537"/>
+        <location filename="../src/PDFDocument.cpp" line="443"/>
         <source>No SyncTeX data available</source>
         <translation>Ni podatkov za sinhronizacijo (SyncTeX)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1539"/>
+        <location filename="../src/PDFDocument.cpp" line="445"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1602"/>
+        <location filename="../src/PDFDocument.cpp" line="554"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1631"/>
+        <location filename="../src/PDFDocument.cpp" line="583"/>
         <source>page %1 of %2</source>
         <translation>stran %1 od %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1636"/>
+        <location filename="../src/PDFDocument.cpp" line="588"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1729"/>
+        <location filename="../src/PDFDocument.cpp" line="700"/>
         <source>Abort typesetting</source>
         <translation type="unfinished">Prekini stavljenje</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1865"/>
+        <location filename="../src/PDFDocument.cpp" line="745"/>
+        <source>Jump to Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="829"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Zaradi tehničnih razlogov ta verzija %1-a žel ne podpira tiskanja PDF datotek.
 </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1866"/>
+        <location filename="../src/PDFDocument.cpp" line="830"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation type="unfinished">Želite namesto tega odpreti datoteko za tiskanje s privzetim programom?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1867"/>
+        <location filename="../src/PDFDocument.cpp" line="831"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation type="unfinished"> (po uporabi ne pozabite programa zapreti, da se izognete konfliktom pri dostopu do datoteke)</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="907"/>
+        <location filename="../src/PDFDocument.cpp" line="911"/>
+        <source>Go to Page</source>
+        <translation type="unfinished">Pojdi na stran</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="908"/>
+        <location filename="../src/PDFDocument.cpp" line="912"/>
+        <source>Page number:</source>
+        <translation type="unfinished">Stran št.:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -259,294 +275,324 @@
         <translation>Pogled</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="94"/>
+        <location filename="../src/PDFDocument.ui" line="98"/>
         <source>Window</source>
         <translation>Okno</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="98"/>
+        <location filename="../src/PDFDocument.ui" line="102"/>
         <source>Show</source>
         <translation>Pokaži</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="502"/>
-        <location filename="../src/PDFDocument.cpp" line="1736"/>
+        <location filename="../src/PDFDocument.ui" line="507"/>
+        <location filename="../src/PDFDocument.cpp" line="707"/>
         <source>Typeset</source>
         <translation>Stavljenje</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="119"/>
+        <location filename="../src/PDFDocument.ui" line="123"/>
         <source>Search</source>
         <translation>Iskanje</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="113"/>
+        <location filename="../src/PDFDocument.ui" line="117"/>
         <source>Typeset</source>
         <comment>menu title</comment>
         <translation>Stavljenje</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="126"/>
+        <location filename="../src/PDFDocument.ui" line="130"/>
         <source>Scripts</source>
         <translation>Skripte</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="130"/>
+        <location filename="../src/PDFDocument.ui" line="134"/>
         <source>Scripting TeXworks</source>
         <translation type="unfinished">Uporaba skript v programu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="158"/>
+        <location filename="../src/PDFDocument.ui" line="162"/>
         <source>Toolbar</source>
         <translation>Orodja</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="193"/>
+        <location filename="../src/PDFDocument.ui" line="198"/>
         <source>About TeXworks...</source>
         <translation>O programu TeXworks ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="205"/>
+        <location filename="../src/PDFDocument.ui" line="210"/>
         <source>First Page</source>
         <translation>Prva stran</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="208"/>
+        <location filename="../src/PDFDocument.ui" line="213"/>
         <source>Home</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="220"/>
+        <location filename="../src/PDFDocument.ui" line="225"/>
         <source>Previous Page</source>
         <translation>Prejšnja stran</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="223"/>
+        <location filename="../src/PDFDocument.ui" line="228"/>
         <source>PgUp</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>PgUp</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="235"/>
+        <location filename="../src/PDFDocument.ui" line="240"/>
         <source>Next Page</source>
         <translation>Naslednja stran</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="238"/>
+        <location filename="../src/PDFDocument.ui" line="243"/>
         <source>PgDown</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="250"/>
+        <location filename="../src/PDFDocument.ui" line="255"/>
         <source>Last Page</source>
         <translation>Zadnja stran</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="253"/>
+        <location filename="../src/PDFDocument.ui" line="258"/>
         <source>End</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="261"/>
+        <location filename="../src/PDFDocument.ui" line="266"/>
         <source>Go to Page...</source>
         <translation>Pojdi na stran ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="264"/>
+        <location filename="../src/PDFDocument.ui" line="269"/>
         <source>Ctrl+J</source>
         <translation>Ctrl+J</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="276"/>
+        <location filename="../src/PDFDocument.ui" line="281"/>
+        <location filename="../src/PDFDocument.cpp" line="752"/>
         <source>Zoom In</source>
         <translation>Povečaj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="279"/>
+        <location filename="../src/PDFDocument.ui" line="284"/>
         <source>Ctrl++</source>
         <translation>Ctrl++</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="291"/>
+        <location filename="../src/PDFDocument.ui" line="296"/>
+        <location filename="../src/PDFDocument.cpp" line="753"/>
         <source>Zoom Out</source>
         <translation>Pomanjšaj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="294"/>
+        <location filename="../src/PDFDocument.ui" line="299"/>
         <source>Ctrl+-</source>
         <translation>Ctrl+-</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="309"/>
+        <location filename="../src/PDFDocument.ui" line="314"/>
+        <location filename="../src/PDFDocument.cpp" line="756"/>
         <source>Fit to Window</source>
         <translation>Prilagodi velikosti okna</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="312"/>
+        <location filename="../src/PDFDocument.ui" line="317"/>
         <source>Ctrl+3</source>
         <translation>Ctrl+3</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="324"/>
+        <location filename="../src/PDFDocument.ui" line="329"/>
+        <location filename="../src/PDFDocument.cpp" line="754"/>
         <source>Actual Size</source>
         <translation>Dejanska velikost</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="327"/>
+        <location filename="../src/PDFDocument.ui" line="332"/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="342"/>
+        <location filename="../src/PDFDocument.ui" line="347"/>
+        <location filename="../src/PDFDocument.cpp" line="755"/>
         <source>Fit to Width</source>
         <translation>Prilagodi širini</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="345"/>
+        <location filename="../src/PDFDocument.ui" line="350"/>
         <source>Ctrl+2</source>
         <translation>Ctrl+2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="357"/>
+        <location filename="../src/PDFDocument.ui" line="362"/>
         <source>New</source>
         <translation>Nov dokument</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="360"/>
+        <location filename="../src/PDFDocument.ui" line="365"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="372"/>
+        <location filename="../src/PDFDocument.ui" line="377"/>
         <source>Open...</source>
         <translation>Odpri ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="375"/>
+        <location filename="../src/PDFDocument.ui" line="380"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="383"/>
+        <location filename="../src/PDFDocument.ui" line="388"/>
         <source>Close</source>
         <translation>Zapri</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="386"/>
+        <location filename="../src/PDFDocument.ui" line="391"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="401"/>
+        <location filename="../src/PDFDocument.ui" line="406"/>
         <source>Undo</source>
         <translation>Razveljavi</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="404"/>
+        <location filename="../src/PDFDocument.ui" line="409"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="419"/>
+        <location filename="../src/PDFDocument.ui" line="424"/>
         <source>Redo</source>
         <translation>Uveljavi</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="422"/>
+        <location filename="../src/PDFDocument.ui" line="427"/>
         <source>Ctrl+Shift+Z</source>
         <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="437"/>
+        <location filename="../src/PDFDocument.ui" line="442"/>
         <source>Cut</source>
         <translation>Izreži</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="440"/>
+        <location filename="../src/PDFDocument.ui" line="445"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="455"/>
+        <location filename="../src/PDFDocument.ui" line="460"/>
         <source>Copy</source>
         <translation>Kopiraj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="458"/>
+        <location filename="../src/PDFDocument.ui" line="463"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="473"/>
+        <location filename="../src/PDFDocument.ui" line="478"/>
         <source>Paste</source>
         <translation>Prilepi</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="476"/>
+        <location filename="../src/PDFDocument.ui" line="481"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="487"/>
+        <location filename="../src/PDFDocument.ui" line="492"/>
         <source>Clear</source>
         <translation>Izbriši</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="490"/>
+        <location filename="../src/PDFDocument.ui" line="495"/>
         <source>Ctrl+Backspace</source>
         <translation>Ctrl+Backspace</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="505"/>
+        <location filename="../src/PDFDocument.ui" line="510"/>
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="702"/>
+        <location filename="../src/PDFDocument.ui" line="707"/>
         <source>Reload Script List</source>
         <translation>Osveži seznam skript</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="726"/>
+        <location filename="../src/PDFDocument.ui" line="731"/>
         <source>About Scripts...</source>
         <translation>O skriptah ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="734"/>
-        <location filename="../src/PDFDocument.cpp" line="1870"/>
+        <location filename="../src/PDFDocument.ui" line="739"/>
+        <location filename="../src/PDFDocument.cpp" line="834"/>
         <source>Print Pdf...</source>
         <translation>Natisni PDF ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="737"/>
+        <location filename="../src/PDFDocument.ui" line="742"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="742"/>
+        <location filename="../src/PDFDocument.ui" line="747"/>
         <source>Settings and Resources...</source>
         <translation type="unfinished">Nastavitve in viri ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="753"/>
+        <location filename="../src/PDFDocument.ui" line="758"/>
         <source>Clear Recent Files</source>
         <translation type="unfinished">Počisti nedavne datoteke</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="763"/>
+        <source>Go to previous view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="766"/>
+        <source>Alt+Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="779"/>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="791"/>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="803"/>
+        <source>Two Pages Continuous</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update Scripts</source>
         <translation type="obsolete">Posodobi skripte</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="710"/>
+        <location filename="../src/PDFDocument.ui" line="715"/>
         <source>Manage Scripts</source>
         <translation>Uredi skripte</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="718"/>
+        <location filename="../src/PDFDocument.ui" line="723"/>
         <source>Show Scripts Folder</source>
         <translation>Odpri mapo s skriptami</translation>
     </message>
@@ -555,127 +601,127 @@
         <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="517"/>
+        <location filename="../src/PDFDocument.ui" line="522"/>
         <source>Preferences...</source>
         <translation>Nastavitve ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="525"/>
+        <location filename="../src/PDFDocument.ui" line="530"/>
         <source>Stack</source>
         <translatorcomment>?</translatorcomment>
         <translation type="unfinished">Drugo za drugim</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="533"/>
+        <location filename="../src/PDFDocument.ui" line="538"/>
         <source>Tile</source>
         <translation>Tlakuj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="544"/>
+        <location filename="../src/PDFDocument.ui" line="549"/>
         <source>Go to Source</source>
         <translatorcomment>manjka sicer &quot;pojdi na&quot;, a ne vem, če je to tako važno</translatorcomment>
         <translation>Izvorna koda dokumenta</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="547"/>
+        <location filename="../src/PDFDocument.ui" line="552"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="555"/>
+        <location filename="../src/PDFDocument.ui" line="560"/>
         <source>New from Template...</source>
         <translation>Nov dokument po predlogi ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="558"/>
+        <location filename="../src/PDFDocument.ui" line="563"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="569"/>
+        <location filename="../src/PDFDocument.ui" line="574"/>
         <source>Full Screen</source>
         <translation>Celozaslonski način</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="572"/>
+        <location filename="../src/PDFDocument.ui" line="577"/>
         <source>Ctrl+Shift+F</source>
         <translation>Ctrl+Shift+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="590"/>
+        <location filename="../src/PDFDocument.ui" line="595"/>
         <source>Magnify</source>
         <translatorcomment>najprej sem prevedla v &quot;povečaj&quot;, vendar se zdi, da to poveča cel dokument; to je dejansko povečevalno steklo (kar je predolgo ime)</translatorcomment>
         <translation>Lupa</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="602"/>
+        <location filename="../src/PDFDocument.ui" line="607"/>
         <source>Scroll</source>
         <translatorcomment>drsenje/drsnik? - to je tista rokica v PDF dokumentu</translatorcomment>
         <translation>Pomikanje</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="614"/>
+        <location filename="../src/PDFDocument.ui" line="619"/>
         <source>Select Text</source>
         <translation>Izberi besedilo</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="626"/>
+        <location filename="../src/PDFDocument.ui" line="631"/>
         <source>Select Image</source>
         <translation>Izberi sliko</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="631"/>
+        <location filename="../src/PDFDocument.ui" line="636"/>
         <source>Go to TeXworks home page</source>
         <translation>Pojdi na domačo stran za TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="636"/>
+        <location filename="../src/PDFDocument.ui" line="641"/>
         <source>Email to the mailing list</source>
         <translation>Pošlji elektronsko sporočilo na dopisni seznam</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="644"/>
+        <location filename="../src/PDFDocument.ui" line="649"/>
         <source>Side by Side</source>
         <translatorcomment>nanaša se na razporeditev oken v programu</translatorcomment>
         <translation>Drugo od drugem</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="649"/>
+        <location filename="../src/PDFDocument.ui" line="654"/>
         <source>Place on Left</source>
         <translation>Premakni na levo</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="654"/>
+        <location filename="../src/PDFDocument.ui" line="659"/>
         <source>Place on Right</source>
         <translation>Premakni na desno</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="659"/>
+        <location filename="../src/PDFDocument.ui" line="664"/>
         <source>Quit TeXworks</source>
         <translation>Izhod</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="662"/>
+        <location filename="../src/PDFDocument.ui" line="667"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="674"/>
+        <location filename="../src/PDFDocument.ui" line="679"/>
         <source>Find...</source>
         <translation>Najdi ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="677"/>
+        <location filename="../src/PDFDocument.ui" line="682"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="688"/>
+        <location filename="../src/PDFDocument.ui" line="693"/>
         <source>Find Again</source>
         <translation>Ponovno išči</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="691"/>
+        <location filename="../src/PDFDocument.ui" line="696"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
@@ -731,117 +777,91 @@
 <context>
     <name>PDFFontsDock</name>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="277"/>
         <source>Name</source>
-        <translation>Ime</translation>
+        <translation type="obsolete">Ime</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="277"/>
         <source>Type</source>
         <translatorcomment>lahko bi bil Tip</translatorcomment>
-        <translation>Vrsta</translation>
+        <translation type="obsolete">Vrsta</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="277"/>
         <source>Subset</source>
         <translatorcomment>najbrž misli, da je v dokumentu shranjen le del celotne pisave</translatorcomment>
-        <translation>Podmnožica</translation>
+        <translation type="obsolete">Podmnožica</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="277"/>
         <source>File</source>
-        <translation>Datoteka</translation>
+        <translation type="obsolete">Datoteka</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="292"/>
         <source>[none]</source>
-        <translation>[brez]</translation>
+        <translation type="obsolete">[brez]</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="297"/>
         <source>yes</source>
-        <translation>da</translation>
+        <translation type="obsolete">da</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="297"/>
         <source>no</source>
-        <translation>ne</translation>
+        <translation type="obsolete">ne</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="298"/>
         <source>[embedded]</source>
-        <translation>[vgrajena]</translation>
+        <translation type="obsolete">[vgrajena]</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocks.h" line="153"/>
         <source>Fonts</source>
-        <translation>Pisave</translation>
+        <translation type="obsolete">Pisave</translation>
     </message>
 </context>
 <context>
     <name>PDFInfoDock</name>
     <message>
-        <location filename="../src/PDFDocks.h" line="121"/>
         <source>PDF Info</source>
-        <translation>PDF info</translation>
+        <translation type="obsolete">PDF info</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
-        <location filename="../src/PDFDocks.cpp" line="137"/>
         <source>No TOC</source>
-        <translation>Ni kazala</translation>
+        <translation type="obsolete">Ni kazala</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocks.h" line="84"/>
         <source>Contents</source>
-        <translation>Vsebina</translation>
+        <translation type="obsolete">Vsebina</translation>
     </message>
 </context>
 <context>
     <name>PDFWidget</name>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="196"/>
         <source>Zoom In</source>
-        <translation>Povečaj</translation>
+        <translation type="obsolete">Povečaj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="198"/>
         <source>Zoom Out</source>
-        <translation>Zmanjšaj</translation>
+        <translation type="obsolete">Zmanjšaj</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="201"/>
         <source>Actual Size</source>
-        <translation>Dejanska širina</translation>
+        <translation type="obsolete">Dejanska širina</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="204"/>
         <source>Fit to Width</source>
-        <translation>Prilagodi širini</translation>
+        <translation type="obsolete">Prilagodi širini</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="207"/>
         <source>Fit to Window</source>
-        <translation>Prilagodi velikosti okna</translation>
+        <translation type="obsolete">Prilagodi velikosti okna</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="601"/>
-        <source>Jump to Source</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.cpp" line="988"/>
-        <location filename="../src/PDFDocument.cpp" line="992"/>
         <source>Go to Page</source>
-        <translation>Pojdi na stran</translation>
+        <translation type="obsolete">Pojdi na stran</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="989"/>
-        <location filename="../src/PDFDocument.cpp" line="993"/>
         <source>Page number:</source>
-        <translation>Stran št.:</translation>
+        <translation type="obsolete">Stran št.:</translation>
     </message>
 </context>
 <context>
@@ -857,7 +877,7 @@
         <translation>Novo orodje</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="491"/>
+        <location filename="../src/PrefsDialog.cpp" line="504"/>
         <source>System default [%1]</source>
         <translation>Privzet sistemski [%1]</translation>
     </message>
@@ -1072,37 +1092,57 @@
         <translation> dpi</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="724"/>
+        <location filename="../src/PrefsDialog.ui" line="708"/>
+        <source>Page mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="716"/>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="721"/>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="726"/>
+        <source>Two Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="750"/>
         <source>Typesetting</source>
         <translation>Stavljenje</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="741"/>
+        <location filename="../src/PrefsDialog.ui" line="767"/>
         <source>Paths for TeX and related programs</source>
         <translation>Poti do TeX-a in ostalih sorodnih programov</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="814"/>
+        <location filename="../src/PrefsDialog.ui" line="840"/>
         <source>Processing tools</source>
         <translation>Orodja za procesiranje dokumentov</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="849"/>
+        <location filename="../src/PrefsDialog.ui" line="875"/>
         <source>Edit...</source>
         <translation>Uredi ...</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="887"/>
+        <location filename="../src/PrefsDialog.ui" line="913"/>
         <source>Default:</source>
         <translation>Privzeto:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="917"/>
+        <location filename="../src/PrefsDialog.ui" line="943"/>
         <source>Hide console output:</source>
         <translation type="unfinished">Skrij dnevnik:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="930"/>
+        <location filename="../src/PrefsDialog.ui" line="956"/>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
@@ -1126,19 +1166,19 @@
 </translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="940"/>
+        <location filename="../src/PrefsDialog.ui" line="966"/>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Nikoli</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="945"/>
+        <location filename="../src/PrefsDialog.ui" line="971"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Samodejno</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="950"/>
+        <location filename="../src/PrefsDialog.ui" line="976"/>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation type="unfinished">Ob uspešnem stavljenju</translation>
@@ -1148,42 +1188,42 @@
         <translation type="obsolete">Če ni napak, po koncu stavljenja skrij izpis (log)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="976"/>
+        <location filename="../src/PrefsDialog.ui" line="1002"/>
         <source>Scripts</source>
         <translation>Skripte</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="982"/>
+        <location filename="../src/PrefsDialog.ui" line="1008"/>
         <source>Security</source>
         <translation>Varnost</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="988"/>
+        <location filename="../src/PrefsDialog.ui" line="1014"/>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
         <translation type="unfinished">Skriptam dovoli branje vseh datotek na disku (poleg samih skript in dokumentov)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="995"/>
+        <location filename="../src/PrefsDialog.ui" line="1021"/>
         <source>Allow scripts to write files</source>
         <translation type="unfinished">Skriptam dovoli zapisovanje datotek</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1009"/>
+        <location filename="../src/PrefsDialog.ui" line="1035"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
         <translation type="unfinished">Dovoli vstavljene skriptne jezike (kar lahko obide varnostne nastavitve pri omejevanju skript)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1019"/>
+        <location filename="../src/PrefsDialog.ui" line="1045"/>
         <source>Debugging</source>
         <translation>Razhroščevanje</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1025"/>
+        <location filename="../src/PrefsDialog.ui" line="1051"/>
         <source>Enable QtScript debugger</source>
         <translation>Omogoči razhroščevalnik QtScript</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1002"/>
+        <location filename="../src/PrefsDialog.ui" line="1028"/>
         <source>Allow scripts to run system commands</source>
         <translation>Dovoli skriptam poganjati sistemske ukaze</translation>
     </message>
@@ -1221,12 +1261,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/TWUtils.cpp" line="480"/>
+        <location filename="../src/TWUtils.cpp" line="478"/>
         <source>TeX documents (*.tex)</source>
         <translation>TeX datoteke (*.tex)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="481"/>
+        <location filename="../src/TWUtils.cpp" line="479"/>
         <source>LaTeX documents (*.ltx)</source>
         <translation>LaTeX datoteke (*.ltx)</translation>
     </message>
@@ -1236,34 +1276,34 @@
         <translation type="obsolete">Log datoteke (*.log)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="482"/>
+        <location filename="../src/TWUtils.cpp" line="480"/>
         <source>Log files (*.log *.blg)</source>
         <translatorcomment>POPRAVI</translatorcomment>
         <translation type="unfinished">Log datoteke (*.log *.blg)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="483"/>
+        <location filename="../src/TWUtils.cpp" line="481"/>
         <source>BibTeX databases (*.bib)</source>
         <translatorcomment>ali samo datoteke</translatorcomment>
         <translation>BibTeX baze (*.bib)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="484"/>
+        <location filename="../src/TWUtils.cpp" line="482"/>
         <source>Style files (*.sty)</source>
         <translation>Datoteke slogov (*.sty)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="485"/>
+        <location filename="../src/TWUtils.cpp" line="483"/>
         <source>Class files (*.cls)</source>
         <translation>Datoteke razredov (*.cls)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="486"/>
+        <location filename="../src/TWUtils.cpp" line="484"/>
         <source>Documented macros (*.dtx)</source>
         <translation>Makro ukazi z dokumentacijo (*.dtx)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="487"/>
+        <location filename="../src/TWUtils.cpp" line="485"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
         <translation>Pomožne datoteke (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
@@ -1276,17 +1316,17 @@
         <translation type="obsolete">Pomožne datoteke (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="488"/>
+        <location filename="../src/TWUtils.cpp" line="486"/>
         <source>Text files (*.txt)</source>
         <translation>Besedilne datototeke (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="489"/>
+        <location filename="../src/TWUtils.cpp" line="487"/>
         <source>PDF documents (*.pdf)</source>
         <translation>PDF datoteke (*.pdf)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="490"/>
+        <location filename="../src/TWUtils.cpp" line="488"/>
         <source>All files</source>
         <translation>Vse datoteke</translation>
     </message>
@@ -1527,87 +1567,93 @@ documentation and web pages much easier for users.</translatorcomment>
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="207"/>
-        <location filename="../src/TWApp.cpp" line="272"/>
+        <location filename="../src/TWApp.cpp" line="205"/>
+        <location filename="../src/TWApp.cpp" line="276"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="209"/>
-        <location filename="../src/TWApp.cpp" line="273"/>
+        <location filename="../src/TWApp.cpp" line="207"/>
+        <location filename="../src/TWApp.cpp" line="277"/>
         <source>New</source>
         <translation>Nov dokument</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="214"/>
-        <location filename="../src/TWApp.cpp" line="275"/>
+        <location filename="../src/TWApp.cpp" line="212"/>
+        <location filename="../src/TWApp.cpp" line="279"/>
         <source>New from Template...</source>
         <translation>Nov dokument po predlogi ...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="218"/>
+        <location filename="../src/TWApp.cpp" line="216"/>
         <source>Preferences...</source>
         <translation>Nastavitve ...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="223"/>
-        <location filename="../src/TWApp.cpp" line="277"/>
+        <location filename="../src/TWApp.cpp" line="222"/>
+        <location filename="../src/TWApp.cpp" line="281"/>
         <source>Open...</source>
         <translation>Odpri ...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="228"/>
-        <location filename="../src/TWApp.cpp" line="280"/>
+        <location filename="../src/TWApp.cpp" line="227"/>
+        <location filename="../src/TWApp.cpp" line="286"/>
         <source>Open Recent</source>
         <translatorcomment>malo prevajalske svobode</translatorcomment>
         <translation>Nedavno odprti dokumenti</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="229"/>
+        <location filename="../src/TWApp.cpp" line="228"/>
         <source>Clear Recent Files</source>
         <translation type="unfinished">Počisti nedavne datoteke</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="235"/>
-        <location filename="../src/TWApp.cpp" line="282"/>
+        <location filename="../src/TWApp.cpp" line="234"/>
+        <location filename="../src/TWApp.cpp" line="283"/>
+        <source>Quit TeXworks</source>
+        <translation type="unfinished">Izhod</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="239"/>
+        <location filename="../src/TWApp.cpp" line="288"/>
         <source>Help</source>
         <translation>Pomoč</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="246"/>
-        <location filename="../src/TWApp.cpp" line="283"/>
+        <location filename="../src/TWApp.cpp" line="250"/>
+        <location filename="../src/TWApp.cpp" line="289"/>
         <source>About </source>
         <translation>O </translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="237"/>
-        <location filename="../src/TWApp.cpp" line="284"/>
+        <location filename="../src/TWApp.cpp" line="241"/>
+        <location filename="../src/TWApp.cpp" line="290"/>
         <source>Go to TeXworks home page</source>
         <translation>Pojdi na TeXworks-ovo domačo stran</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="240"/>
-        <location filename="../src/TWApp.cpp" line="285"/>
+        <location filename="../src/TWApp.cpp" line="244"/>
+        <location filename="../src/TWApp.cpp" line="291"/>
         <source>Email to the mailing list</source>
         <translation>Pošlji elektronsko sporočilo na dopisni seznam</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="274"/>
+        <location filename="../src/TWApp.cpp" line="278"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="276"/>
+        <location filename="../src/TWApp.cpp" line="280"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="278"/>
+        <location filename="../src/TWApp.cpp" line="282"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="292"/>
+        <location filename="../src/TWApp.cpp" line="298"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 je enostavno okolje za urejanje, stavljenje in ogled TeX-ovih dokumentov.&lt;/p&gt;</translation>
     </message>
@@ -1628,120 +1674,128 @@ documentation and web pages much easier for users.</translatorcomment>
         <translation type="obsolete">&lt;br&gt;Verzija %1 r.%2 (%3)</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="296"/>
+        <location filename="../src/TWApp.cpp" line="302"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
         <translation>&lt;br&gt;Verzija %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="298"/>
+        <location filename="../src/TWApp.cpp" line="304"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
         <translation>&lt;br&gt;Verzija %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="299"/>
+        <location filename="../src/TWApp.cpp" line="305"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation type="unfinished">&lt;p&gt;Distribuiran pod licenco &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, verzija 2 ali (po želji) katerakoli poznejša verzija.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="300"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="unfinished">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt programsko ogrodje&lt;/a&gt; v%1, razvito v Nokiinem oddelku Qt Software.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt programsko ogrodje&lt;/a&gt; v%1, razvito v Nokiinem oddelku Qt Software.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="301"/>
+        <location filename="../src/TWApp.cpp" line="307"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; knjižnica za delo s PDF datotekami, avtorji Kristian H&amp;#xF8;gsberg, Albert Astals Cid in ostali.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="302"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; črkovalnik, avtor L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; črkovalnik, avtor L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="303"/>
+        <location filename="../src/TWApp.cpp" line="306"/>
+        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="308"/>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="309"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation>&lt;br&gt;Koncept in rešitve iz programa &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt;, avtor Richard Koch.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="304"/>
+        <location filename="../src/TWApp.cpp" line="310"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; tehnologija, avtor J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="305"/>
+        <location filename="../src/TWApp.cpp" line="311"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
         <translation>&lt;br&gt;Nekatere ikone uporabljene iz &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="306"/>
+        <location filename="../src/TWApp.cpp" line="312"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
         <translatorcomment>sklon ne bo delal - popravi</translatorcomment>
         <translation>&lt;p&gt;Prevod v %1: %2.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="306"/>
+        <location filename="../src/TWApp.cpp" line="312"/>
         <source>[language name]</source>
         <translatorcomment>mora biti v pravem sklonu; upam, da se to uporablja na enem samem mestu</translatorcomment>
         <translation>slovenščino</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="306"/>
+        <location filename="../src/TWApp.cpp" line="312"/>
         <source>[translator&apos;s name/email]</source>
         <translation>&lt;a href=&quot;mailto:mojca.miklavec.lists@gmail.com&quot;&gt;Mojca Miklavec&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="310"/>
+        <location filename="../src/TWApp.cpp" line="316"/>
         <source>About %1</source>
         <translation>O %1</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="317"/>
+        <location filename="../src/TWApp.cpp" line="323"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
         <translation>Ni mogoče dostopati do &quot;%1&quot;; morda brskalnik ali aplikacija za el. pošto nista prav skonfigurirana?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="575"/>
+        <location filename="../src/TWApp.cpp" line="581"/>
         <source>Unable to create window</source>
         <translation>Ni mogoče ustvariti okna</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="576"/>
+        <location filename="../src/TWApp.cpp" line="582"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Nekaj je hudo narobe; aplikacija %1 ni mogla ustvariti okna z dokumentom, zato se bo končala.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="628"/>
-        <location filename="../src/TWApp.cpp" line="643"/>
+        <location filename="../src/TWApp.cpp" line="634"/>
+        <location filename="../src/TWApp.cpp" line="649"/>
         <source>Open File</source>
         <translation>Odpri datoteko</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="657"/>
+        <location filename="../src/TWApp.cpp" line="663"/>
         <source>Save File</source>
         <translation>Shrani datoteko</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="822"/>
+        <location filename="../src/TWApp.cpp" line="828"/>
         <source>No default binary directory found</source>
         <translation>Nobeden od privzetih direktorijev s programi ni bil najden</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="823"/>
+        <location filename="../src/TWApp.cpp" line="829"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>Nobeden od predefiniranih direktorijev s TeX-ovimi programi ni bil najden.&lt;p&gt;&lt;small&gt;Da bi lahko poganjali katerikoli program, boste najprej morali nastaviti direktorij(e), kjer se nahajajo programi vaše TeX distribucije (glejte Nastavitve/Stavljenje).</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1149"/>
+        <location filename="../src/TWApp.cpp" line="1129"/>
         <source>Unable to find help file.</source>
         <translation type="unfinished">Pomoči ni bilo mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1339"/>
+        <location filename="../src/TWApp.cpp" line="1319"/>
         <source>Permission request</source>
         <translation type="unfinished">Dovoljene za odpiranje</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1340"/>
+        <location filename="../src/TWApp.cpp" line="1320"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Skripta &quot;%1&quot; nima pravic za odpiranje datoteke &quot;%2&quot;. Želite datoteko vseeno odpreti?</translation>
     </message>
@@ -1819,22 +1873,28 @@ documentation and web pages much easier for users.</translatorcomment>
         <translation type="unfinished">Napaka v skripti</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="601"/>
+        <location filename="../src/TWScriptable.cpp" line="604"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
         <translation>Skripte je mogoče uporabiti za dodajanje novih ukazov v program %1, za razširitve ali spremembe njegovega delovanja.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="604"/>
+        <location filename="../src/TWScriptable.cpp" line="607"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
         <translation>Za več informacij o pisanju in uporabi skript glej %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="606"/>
+        <location filename="../src/TWScriptable.cpp" line="609"/>
         <source>Scripting languages currently available in this copy of %1:</source>
         <translation type="unfinished">Podprti skriptnji jeziki v tej različici programa %1:</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="618"/>
+        <location filename="../src/TWScriptable.cpp" line="622"/>
+        <source>(disabled in the preferences)</source>
+        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptable.cpp" line="626"/>
         <source>About Scripts</source>
         <translation type="unfinished">O skriptah</translation>
     </message>
@@ -1908,7 +1968,7 @@ documentation and web pages much easier for users.</translatorcomment>
         <translation>Brez</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="595"/>
+        <location filename="../src/TeXDocument.cpp" line="598"/>
         <source>Open File</source>
         <translation>Odpri datoteko</translation>
     </message>
@@ -1917,30 +1977,30 @@ documentation and web pages much easier for users.</translatorcomment>
         <translation type="obsolete">Okna ni mogoče zapreti, dokler je orodje v teku</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="790"/>
+        <location filename="../src/TeXDocument.cpp" line="789"/>
         <source>Save File</source>
         <translation>Shrani datoteko</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="828"/>
+        <location filename="../src/TeXDocument.cpp" line="827"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Dokument &quot;%1&quot; je bil spremenjen.
 Želite shraniti spremembe?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="833"/>
+        <location filename="../src/TeXDocument.cpp" line="832"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="865"/>
+        <location filename="../src/TeXDocument.cpp" line="864"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>Želite zavreči vse spremembe dokumenta &quot;%1&quot; in se vrniti na zadnjo shranjeno verzijo?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="867"/>
+        <location filename="../src/TeXDocument.cpp" line="866"/>
         <source>Revert</source>
         <translatorcomment>ni najbolje ... npr. vrni se na zadnje shranjeno stanje</translatorcomment>
         <translation type="unfinished">Vrni na shranjeno</translation>
@@ -1952,12 +2012,12 @@ Do you want to save your changes?</source>
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="980"/>
+        <location filename="../src/TeXDocument.cpp" line="979"/>
         <source>Unrecognized encoding</source>
         <translation>Neprepoznano kodiranje</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="981"/>
+        <location filename="../src/TeXDocument.cpp" line="980"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1970,14 +2030,14 @@ Namesto tega bo uporabljeno kodiranje %3, zaradi česar se lahko nekateri znaki 
         <translation type="obsolete">Datoteka &quot;%1&quot; naložena (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1211"/>
-        <location filename="../src/TeXDocument.cpp" line="1272"/>
-        <location filename="../src/TeXDocument.cpp" line="1365"/>
+        <location filename="../src/TeXDocument.cpp" line="1215"/>
+        <location filename="../src/TeXDocument.cpp" line="1276"/>
+        <location filename="../src/TeXDocument.cpp" line="1369"/>
         <source>File changed on disk</source>
         <translation>Datoteka na disku spremenjena</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1212"/>
+        <location filename="../src/TeXDocument.cpp" line="1216"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -1986,7 +2046,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Želite zavreči trenutne spremembe in ponovno naložiti datoteko z diska?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1366"/>
+        <location filename="../src/TeXDocument.cpp" line="1370"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -1995,7 +2055,7 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Želite nadaljevati s shranjevanjem datoteke in s tem povoziti verzijo na disku?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1371"/>
+        <location filename="../src/TeXDocument.cpp" line="1375"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>Datoteka &quot;%1&quot; ni bila shranjena</translation>
     </message>
@@ -2008,12 +2068,12 @@ It will be saved as %3 instead, which may result in incorrect text.</source>
 Namesto tega bo pri shranjevanju uporabljeno kodiranje %3, zaradi česar se lahko nekateri znaki spremenijo.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1393"/>
+        <location filename="../src/TeXDocument.cpp" line="1397"/>
         <source>Text cannot be converted</source>
         <translation>Pretvorba besedila ni mogoča</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1394"/>
+        <location filename="../src/TeXDocument.cpp" line="1398"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -2028,14 +2088,14 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 %2.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="963"/>
+        <location filename="../src/TeXDocument.cpp" line="962"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Ni mogoče prebrati datoteke &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1408"/>
+        <location filename="../src/TeXDocument.cpp" line="1412"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Ni mogoče pisati v datoteko &quot;%1&quot;:
@@ -2051,30 +2111,30 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation type="obsolete">privzeto kodirinaje</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="663"/>
+        <location filename="../src/TeXDocument.cpp" line="666"/>
         <source>Abort typesetting?</source>
         <translation>Prekini stavljenje?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="663"/>
+        <location filename="../src/TeXDocument.cpp" line="666"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation type="unfinished">Stavljenje še poteka in ga je potrebno pred zapiranje okna prekiniti . Ga želite prekiniti takoj?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="868"/>
+        <location filename="../src/TeXDocument.cpp" line="867"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1083"/>
+        <location filename="../src/TeXDocument.cpp" line="1082"/>
         <source>Layout Problem</source>
         <translatorcomment>Poskusi najti boljši prevod</translatorcomment>
         <translation type="unfinished">Težave s programom</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1083"/>
+        <location filename="../src/TeXDocument.cpp" line="1082"/>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
  -) Turn syntax highlighting off and on
  -) Turn line numbers off and on
@@ -2089,12 +2149,12 @@ We are sorry for the inconvenience.</source>
 Oproščamo se za neprijetnosti.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1112"/>
+        <location filename="../src/TeXDocument.cpp" line="1111"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Datoteka &quot;%1&quot; naložena</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1273"/>
+        <location filename="../src/TeXDocument.cpp" line="1277"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2104,43 +2164,43 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Prosimo uporabite &quot;Datoteka &gt; Vrni na shranjeno&quot;, ko se zunanji program konča.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1426"/>
+        <location filename="../src/TeXDocument.cpp" line="1430"/>
         <source>Error writing file</source>
         <translation>Napaka med zapisovanjem datoteke</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1427"/>
+        <location filename="../src/TeXDocument.cpp" line="1431"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation type="unfinished">Med zapisovanjem datoteke je prišlo do napake. Poskusite lahko shraniti njeno kopijo na drugo lokacijo.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1436"/>
+        <location filename="../src/TeXDocument.cpp" line="1440"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>Datoteka &quot;%1&quot; shranjena</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1472"/>
+        <location filename="../src/TeXDocument.cpp" line="1476"/>
         <source>untitled-%1.tex</source>
         <translation>neimenovana-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1489"/>
+        <location filename="../src/TeXDocument.cpp" line="1493"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1583"/>
+        <location filename="../src/TeXDocument.cpp" line="1587"/>
         <source>Line %1 of %2; col %3</source>
         <translation>vrstica %1 od %2; stolpec %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1638"/>
+        <location filename="../src/TeXDocument.cpp" line="1642"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation type="unfinished">Ponovno naloži dokument z izbrano kodno tabelo</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1640"/>
+        <location filename="../src/TeXDocument.cpp" line="1644"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2150,18 +2210,18 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 Izbrana kodna tabela nadomesti privzeto in se ne ozira na vsebino vrstice &quot;%!TEX encoding&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1641"/>
+        <location filename="../src/TeXDocument.cpp" line="1645"/>
         <source>Write UTF-8 byte order mark</source>
         <translatorcomment>IZBOLJŠAJ prevod</translatorcomment>
         <translation type="unfinished">Zapiši &quot;byte order mark&quot; za UTF-8</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1664"/>
+        <location filename="../src/TeXDocument.cpp" line="1668"/>
         <source>Unsaved changes</source>
         <translation type="unfinished">Neshranjene spremembe</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1665"/>
+        <location filename="../src/TeXDocument.cpp" line="1669"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2170,33 +2230,33 @@ Do you want to discard your current changes, and reload the file from disk with 
 Želite prezreti trenutne spremembe in ponovno naložiti datoteko z diska pod kodno tabelo %1?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1800"/>
         <location filename="../src/TeXDocument.cpp" line="1804"/>
+        <location filename="../src/TeXDocument.cpp" line="1808"/>
         <source>Go to Line</source>
         <translation>Pojdi v vrstico</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1801"/>
         <location filename="../src/TeXDocument.cpp" line="1805"/>
+        <location filename="../src/TeXDocument.cpp" line="1809"/>
         <source>Line number:</source>
         <translation>Št. vrstice:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2186"/>
-        <location filename="../src/TeXDocument.cpp" line="2300"/>
+        <location filename="../src/TeXDocument.cpp" line="2190"/>
+        <location filename="../src/TeXDocument.cpp" line="2304"/>
         <source>Invalid regular expression</source>
         <translation>Neveljaven regularen izraz</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2232"/>
-        <location filename="../src/TeXDocument.cpp" line="2269"/>
-        <location filename="../src/TeXDocument.cpp" line="2386"/>
+        <location filename="../src/TeXDocument.cpp" line="2236"/>
+        <location filename="../src/TeXDocument.cpp" line="2273"/>
+        <location filename="../src/TeXDocument.cpp" line="2390"/>
         <source>Not found</source>
         <translatorcomment>ni najdeno - kateri sklon ?</translatorcomment>
         <translation>Ni zadetkov</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2236"/>
+        <location filename="../src/TeXDocument.cpp" line="2240"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>Najden %n zadetek</numerusform>
@@ -2206,7 +2266,7 @@ Do you want to discard your current changes, and reload the file from disk with 
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2405"/>
+        <location filename="../src/TeXDocument.cpp" line="2409"/>
         <source>%n occurrence(s)</source>
         <translatorcomment>zadetek ali pojavitev?</translatorcomment>
         <translation>
@@ -2217,7 +2277,7 @@ Do you want to discard your current changes, and reload the file from disk with 
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2406"/>
+        <location filename="../src/TeXDocument.cpp" line="2410"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n datoteki</numerusform>
@@ -2227,13 +2287,13 @@ Do you want to discard your current changes, and reload the file from disk with 
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2407"/>
+        <location filename="../src/TeXDocument.cpp" line="2411"/>
         <source>Replaced %1 in %2</source>
         <translatorcomment>npr: 5 zamenjav v 2 dokumentih</translatorcomment>
         <translation>%1 v %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2419"/>
+        <location filename="../src/TeXDocument.cpp" line="2423"/>
         <source>Replaced %n occurrence(s)</source>
         <translatorcomment>to je gotovo narobe</translatorcomment>
         <translation>
@@ -2244,64 +2304,64 @@ Do you want to discard your current changes, and reload the file from disk with 
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2607"/>
+        <location filename="../src/TeXDocument.cpp" line="2611"/>
         <source>Cannot process unsaved document</source>
         <translation>Neshranjenega dokumenta ni mogoče procesirati</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2617"/>
+        <location filename="../src/TeXDocument.cpp" line="2621"/>
         <source>Root document %1 is not readable</source>
         <translatorcomment>preveri</translatorcomment>
         <translation>Vrhnji dokument %1 ni berljiv</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2623"/>
+        <location filename="../src/TeXDocument.cpp" line="2627"/>
         <source>%1 is not properly configured</source>
         <translatorcomment>preveri</translatorcomment>
         <translation type="unfinished">Program %1 je napačno nastavljen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2712"/>
+        <location filename="../src/TeXDocument.cpp" line="2721"/>
         <source>Unable to execute %1</source>
         <translation>Ni bilo mogoče izvesti %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2713"/>
+        <location filename="../src/TeXDocument.cpp" line="2722"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Program &quot;%1&quot; ni bil najden.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2715"/>
+        <location filename="../src/TeXDocument.cpp" line="2724"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Za stavljenje dokumentov potrebujete eno od &lt;b&gt;distribucij TeX-a&lt;/b&gt;, kot npr. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; ali &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2717"/>
+        <location filename="../src/TeXDocument.cpp" line="2726"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Za stavljenje dokumentov potrebujete eno od &lt;b&gt;distribucij TeX-a&lt;/b&gt;, kot npr. &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2719"/>
+        <location filename="../src/TeXDocument.cpp" line="2728"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation type="unfinished">Za stavljenje dokumentov potrebujete eno od &lt;b&gt;distribucij TeX-a&lt;/b&gt;, kot npr. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;. Za večino sistemov je TeX Live na voljo v že preveni obliki.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2721"/>
+        <location filename="../src/TeXDocument.cpp" line="2730"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation type="unfinished">Po namestitvi distribucije TeX-a boste morda morali TeXworks-u nastaviti pot do izvedljivih datotek v meniju Uredi -&gt; Nastavitve -&gt; Stavljenje.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2724"/>
+        <location filename="../src/TeXDocument.cpp" line="2733"/>
         <source>Searched in directories:</source>
         <translation>Prečesane so bile mape:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2726"/>
+        <location filename="../src/TeXDocument.cpp" line="2735"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation type="unfinished">V nastavitvah preverite nastavitev orodja %1 in vrednost spremenljivke PATH.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2900"/>
+        <location filename="../src/TeXDocument.cpp" line="2921"/>
         <source>Show Console Output</source>
         <translation type="unfinished">Pokaži dnevnik</translation>
     </message>
@@ -2311,12 +2371,12 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation type="obsolete">Preveri konfiguracijo orodja %1 in nastavitve poti v nastavitvah.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2753"/>
+        <location filename="../src/TeXDocument.cpp" line="2766"/>
         <source>Abort typesetting</source>
         <translation>Prekini stavljenje</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2773"/>
+        <location filename="../src/TeXDocument.cpp" line="2786"/>
         <source>Process interrupted by user</source>
         <translation>Uporabnik je prekinil proces</translation>
     </message>
@@ -2329,22 +2389,22 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation type="obsolete">Pokaži izpis (log)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2987"/>
+        <location filename="../src/TeXDocument.cpp" line="3008"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation type="unfinished">Program za stavljenje: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2991"/>
+        <location filename="../src/TeXDocument.cpp" line="3012"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation type="unfinished">Program &quot;%1&quot; ni prepoznan (ni definiran)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3101"/>
+        <location filename="../src/TeXDocument.cpp" line="3122"/>
         <source>No files found</source>
         <translation>Ni najdenih datotek</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3102"/>
+        <location filename="../src/TeXDocument.cpp" line="3123"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translatorcomment>preveri - čuden prevod (Pomožne datoteke, ki bi pripadale temu dokumentu, ta hip ne obstajajo.)</translatorcomment>
         <translation type="unfinished">Trenutne ni nobene pomožne datoteke za ta dokument.</translation>
@@ -2376,7 +2436,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="600"/>
-        <location filename="../src/TeXDocument.cpp" line="2745"/>
+        <location filename="../src/TeXDocument.cpp" line="2758"/>
         <source>Typeset</source>
         <translatorcomment>??? to se uporabi trikrat; pod ikono bi dala &quot;poženi&quot;, v meni pa &quot;stavljenje/poženi&quot;, a vmesnik tega še ne omogoča</translatorcomment>
         <translation>Poženi</translation>
@@ -2746,7 +2806,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="845"/>
-        <location filename="../src/TeXDocument.cpp" line="2893"/>
+        <location filename="../src/TeXDocument.cpp" line="2914"/>
         <source>Hide Console Output</source>
         <translation type="unfinished">Skrij dnevnik</translation>
     </message>
@@ -2921,7 +2981,7 @@ Do you want to discard your current changes, and reload the file from disk with 
 <context>
     <name>TeXHighlighter</name>
     <message>
-        <location filename="../src/TeXHighlighter.cpp" line="181"/>
+        <location filename="../src/TeXHighlighter.cpp" line="183"/>
         <source>default</source>
         <translation>privzeto</translation>
     </message>
@@ -2942,22 +3002,22 @@ Do you want to discard your current changes, and reload the file from disk with 
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="788"/>
+        <location filename="../src/PrefsDialog.cpp" line="824"/>
         <source>Select program file</source>
         <translation>Izberi program</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="793"/>
+        <location filename="../src/PrefsDialog.cpp" line="829"/>
         <source>Invalid program</source>
         <translation type="unfinished">Neveljaven program</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="794"/>
+        <location filename="../src/PrefsDialog.cpp" line="830"/>
         <source>The file &apos;%1&apos; is not executable!</source>
         <translation>Datoteka &apos;%1&apos; ni izvršljiva!</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="837"/>
+        <location filename="../src/PrefsDialog.cpp" line="873"/>
         <source>NewArgument</source>
         <translation>NovaOpcija</translation>
     </message>

@@ -55,12 +55,12 @@
 <context>
     <name>QtPDF::PDFDocumentView</name>
     <message>
-        <location filename="../src/PDFDocumentTools.cpp" line="975"/>
+        <location filename="../src/PDFDocumentTools.cpp" line="965"/>
         <source>Insufficient permission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentTools.cpp" line="975"/>
+        <location filename="../src/PDFDocumentTools.cpp" line="965"/>
         <source>Text extraction is not allowed for this document.</source>
         <translation type="unfinished"></translation>
     </message>

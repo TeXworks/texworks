@@ -137,7 +137,7 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>پروندهٔ پی‌دی‌اف &quot;%1&quot; چفت است؛ هنوز پشتیبانی نمی‌شود.</translation>
+        <translation type="obsolete">پروندهٔ پی‌دی‌اف &quot;%1&quot; چفت است؛ هنوز پشتیبانی نمی‌شود.</translation>
     </message>
     <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
@@ -531,6 +531,38 @@
         <source>Error initializing SyncTeX</source>
         <translation>ایراد در مقداردهی اولیهٔ سینک‌تک</translation>
     </message>
+    <message>
+        <source>Go to previous view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Pages Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jump to Source</source>
+        <translation type="unfinished">پرش به کد</translation>
+    </message>
+    <message>
+        <source>Go to Page</source>
+        <translation type="unfinished">برو به برگهٔ</translation>
+    </message>
+    <message>
+        <source>Page number:</source>
+        <translation type="unfinished">شمارهٔ برگه:</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -575,92 +607,92 @@
     <name>PDFFontsDock</name>
     <message>
         <source>Name</source>
-        <translation>نام</translation>
+        <translation type="obsolete">نام</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>گونه</translation>
+        <translation type="obsolete">گونه</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>زیرگروه</translation>
+        <translation type="obsolete">زیرگروه</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>پرونده</translation>
+        <translation type="obsolete">پرونده</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation>[هیچ‌کدام]</translation>
+        <translation type="obsolete">[هیچ‌کدام]</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation>بله</translation>
+        <translation type="obsolete">بله</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>خیر</translation>
+        <translation type="obsolete">خیر</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation>[نشانده]</translation>
+        <translation type="obsolete">[نشانده]</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>قلم‌ها</translation>
+        <translation type="obsolete">قلم‌ها</translation>
     </message>
 </context>
 <context>
     <name>PDFInfoDock</name>
     <message>
         <source>PDF Info</source>
-        <translation>دانستنی‌های پی‌دی‌اف</translation>
+        <translation type="obsolete">دانستنی‌های پی‌دی‌اف</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
         <source>No TOC</source>
-        <translation>بدون سیاهه</translation>
+        <translation type="obsolete">بدون سیاهه</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation>سیاهه</translation>
+        <translation type="obsolete">سیاهه</translation>
     </message>
 </context>
 <context>
     <name>PDFWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation>بزرگ‌نمایی</translation>
+        <translation type="obsolete">بزرگ‌نمایی</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>کوچک‌نمایی</translation>
+        <translation type="obsolete">کوچک‌نمایی</translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>اندازهٔ درست</translation>
+        <translation type="obsolete">اندازهٔ درست</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>پرکردن پهنا</translation>
+        <translation type="obsolete">پرکردن پهنا</translation>
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation>پرکردن پنجره</translation>
+        <translation type="obsolete">پرکردن پنجره</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation>پرش به کد</translation>
+        <translation type="obsolete">پرش به کد</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation>برو به برگهٔ</translation>
+        <translation type="obsolete">برو به برگهٔ</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation>شمارهٔ برگه:</translation>
+        <translation type="obsolete">شمارهٔ برگه:</translation>
     </message>
 </context>
 <context>
@@ -963,6 +995,22 @@
 &lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; پس از حروفچینی پیروزمندانه پنل خروجی را پنهان کن: اما تنها زمانی که از پیش پنهان بوده باشد.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;در صورت پیروزمندانه بودن:&lt;/strong&gt;پنل خروجی را پس از حروفچینی پیروزمندانه پنهان کن؛ آزاد از اینکه از پیش چگونه بوده است.&lt;/p&gt;
 </translation>
+    </message>
+    <message>
+        <source>Page mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Page Continuous</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1284,7 +1332,7 @@
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;غلت‌گیر&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; بدست L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+        <translation type="obsolete">&lt;br&gt;غلت‌گیر&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; بدست L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1348,7 +1396,7 @@
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;چهارچوب نرم‌افزاری کیوت &lt;/a&gt; v%1 بدست  Qt Software, a division of Nokia Corporation.</translation>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;چهارچوب نرم‌افزاری کیوت &lt;/a&gt; v%1 بدست  Qt Software, a division of Nokia Corporation.</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1377,6 +1425,18 @@
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
         <translation>&lt;br&gt;ویرایش %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Quit TeXworks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1443,6 +1503,11 @@
     <message>
         <source>Script error</source>
         <translation>خطای اسکریپت</translation>
+    </message>
+    <message>
+        <source>(disabled in the preferences)</source>
+        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

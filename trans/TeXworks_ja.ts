@@ -137,7 +137,7 @@
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation>PDFファイル&quot;%1&quot;がロックされています。この機能は現在実装されていません</translation>
+        <translation type="obsolete">PDFファイル&quot;%1&quot;がロックされています。この機能は現在実装されていません</translation>
     </message>
     <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
@@ -534,6 +534,38 @@
         <source>Error initializing SyncTeX</source>
         <translation>SyncTeXのエラーを初期化する</translation>
     </message>
+    <message>
+        <source>Go to previous view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Pages Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jump to Source</source>
+        <translation type="unfinished">ソースの該当箇所へジャンプ</translation>
+    </message>
+    <message>
+        <source>Go to Page</source>
+        <translation type="unfinished">ページを指定して移動</translation>
+    </message>
+    <message>
+        <source>Page number:</source>
+        <translation type="unfinished">ページ番号:</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -578,92 +610,92 @@
     <name>PDFFontsDock</name>
     <message>
         <source>Name</source>
-        <translation>フォント名</translation>
+        <translation type="obsolete">フォント名</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>タイプ</translation>
+        <translation type="obsolete">タイプ</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>サブセット</translation>
+        <translation type="obsolete">サブセット</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>ファイル</translation>
+        <translation type="obsolete">ファイル</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation>[なし]</translation>
+        <translation type="obsolete">[なし]</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation>はい</translation>
+        <translation type="obsolete">はい</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>いいえ</translation>
+        <translation type="obsolete">いいえ</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation>[埋め込み]</translation>
+        <translation type="obsolete">[埋め込み]</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>フォント</translation>
+        <translation type="obsolete">フォント</translation>
     </message>
 </context>
 <context>
     <name>PDFInfoDock</name>
     <message>
         <source>PDF Info</source>
-        <translation>PDFの情報</translation>
+        <translation type="obsolete">PDFの情報</translation>
     </message>
 </context>
 <context>
     <name>PDFOutlineDock</name>
     <message>
         <source>No TOC</source>
-        <translation>目次がありません</translation>
+        <translation type="obsolete">目次がありません</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation>目次</translation>
+        <translation type="obsolete">目次</translation>
     </message>
 </context>
 <context>
     <name>PDFWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation>拡大</translation>
+        <translation type="obsolete">拡大</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>縮小</translation>
+        <translation type="obsolete">縮小</translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>実際のサイズ</translation>
+        <translation type="obsolete">実際のサイズ</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation>ウィンドウ幅に合わせる</translation>
+        <translation type="obsolete">ウィンドウ幅に合わせる</translation>
     </message>
     <message>
         <source>Fit to Window</source>
-        <translation>ウィンドウサイズに合わせる</translation>
+        <translation type="obsolete">ウィンドウサイズに合わせる</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation>ソースの該当箇所へジャンプ</translation>
+        <translation type="obsolete">ソースの該当箇所へジャンプ</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation>ページを指定して移動</translation>
+        <translation type="obsolete">ページを指定して移動</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation>ページ番号:</translation>
+        <translation type="obsolete">ページ番号:</translation>
     </message>
 </context>
 <context>
@@ -951,6 +983,22 @@
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
         <translation>TeXファイルに対応するPDFファイルをプレビューする</translation>
+    </message>
+    <message>
+        <source>Page mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page Continuous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Page Continuous</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1251,10 +1299,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation></translation>
     </message>
@@ -1315,10 +1359,6 @@
         <translation type="obsolete">&lt;br&gt;バージョン: %1 r.%2 (%3)</translation>
     </message>
     <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Save File</source>
         <translation>ファイルの保存</translation>
     </message>
@@ -1345,6 +1385,18 @@
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
         <translation>&lt;br&gt;バージョン %1 (%2)</translation>
+    </message>
+    <message>
+        <source>Quit TeXworks</source>
+        <translation type="unfinished">TeXworksを終了する</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1411,6 +1463,11 @@
     <message>
         <source>Script error</source>
         <translation>スクリプトエラー</translation>
+    </message>
+    <message>
+        <source>(disabled in the preferences)</source>
+        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

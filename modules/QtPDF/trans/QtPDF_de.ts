@@ -326,12 +326,12 @@
         <translation>Inhalt</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentTools.cpp" line="975"/>
+        <location filename="../src/PDFDocumentTools.cpp" line="965"/>
         <source>Insufficient permission</source>
         <translation>Unzureichende Berechtigung</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentTools.cpp" line="975"/>
+        <location filename="../src/PDFDocumentTools.cpp" line="965"/>
         <source>Text extraction is not allowed for this document.</source>
         <translation>Das Kopieren von Text aus diesem Dokument ist nicht erlaubt.</translation>
     </message>
