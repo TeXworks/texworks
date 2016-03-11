@@ -86,8 +86,9 @@ LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules)
 set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
 MARK_AS_ADVANCED(DESIRED_QT_VERSION)
 
-# Check for Qt5 by default
-IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
+# Check for Qt5 by default (unless another Qt version was already found, e.g.,
+# by a parent project)
+IF (DESIRED_QT_VERSION MATCHES 5 OR (NOT DESIRED_QT_VERSION AND (QT_VERSION_MAJOR MATCHES 5 OR NOT QT_VERSION_MAJOR)))
   find_package(Qt5Core QUIET)
   find_package(Qt5Widgets QUIET)
   find_package(Qt5Concurrent QUIET)
