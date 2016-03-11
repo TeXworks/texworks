@@ -26,7 +26,7 @@ ClickableLabel::ClickableLabel(QWidget * parent /* = 0 */, Qt::WindowFlags f /* 
 {
 }
 
-ClickableLabel::ClickableLabel(const QString & text, QWidget * parent /*= 0 */, Qt::WindowFlags f /* = 0 */)
+ClickableLabel::ClickableLabel(const QString & text, QWidget * parent /* = 0 */, Qt::WindowFlags f /* = 0 */)
 : QLabel(text, parent, f)
 {
 }
