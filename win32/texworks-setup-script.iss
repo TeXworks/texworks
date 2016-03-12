@@ -56,7 +56,7 @@ Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimp-12-5.1.11.isl"
 [CustomMessages]
 ManualNameEn=A short manual for TeXworks
 ManualNameFr=Petit manuel pour TeXworks
-ca.CreateFileAssoc=Obri el següents fitxers amb TeXworks per defecte:
+ca.CreateFileAssoc=Obri els següents tipus de fitxers amb TeXworks per defecte:
 cs.CreateFileAssoc=Nastavit TeXworks jako výchozí program pro otevírání následujících typů souborů:
 de.CreateFileAssoc=Folgende Dateitypen standardmäßig mit TeXworks öffnen:
 en.CreateFileAssoc=Open the following file types with TeXworks by default:
