@@ -29,17 +29,17 @@
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="70"/>
         <source>Unable to delete</source>
-        <translation>Incapable de supprimer</translation>
+        <translation>Ne peut pas supprimer</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="71"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation>Certains fichiers auxiliaires n&apos;ont pû être supprimés. Peut-être n&apos;avez vous pas la permission de les supprimer.</translation>
+        <translation>Certains fichiers auxiliaires n&apos;ont pû être supprimés. Peut-être n&apos;avez vous pas la permission pour les supprimer.</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.ui" line="17"/>
         <source>Confirm file deletion</source>
-        <translation>Confirmer la suppression</translation>
+        <translation>Confirmer la suppression du fichier</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.ui" line="26"/>
@@ -98,7 +98,7 @@
     <message>
         <location filename="../src/Find.ui" line="97"/>
         <source>Search all &amp;open files</source>
-        <translation>Chercher dans tous le fichiers &amp;ouverts</translation>
+        <translation>Chercher dans tous les fichiers &amp;ouverts</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="108"/>
@@ -141,12 +141,12 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="44"/>
         <source>Current window size</source>
-        <translation>à la largeur de la fenêtre actuelle</translation>
+        <translation>À la largeur de la fenêtre actuelle</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="51"/>
         <source>Line length:</source>
-        <translation>à la longueur de lignes :</translation>
+        <translation>À la longueur de lignes :</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="77"/>
@@ -214,8 +214,7 @@
         <location filename="../src/PDFDocument.cpp" line="829"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
-        <translation>Malheureusement, cette version de %1 est incapable d&apos;imprimer les documents Pdf pour diverses raisons techniques.
-</translation>
+        <translation>Malheureusement, cette version de %1 est incapable d&apos;imprimer les documents Pdf pour diverses raisons techniques.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="830"/>
@@ -225,7 +224,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="831"/>
         <source> (remember to close it again to avoid access problems)</source>
-        <translation>(rappelez-vous de le refermer pour éviter les problèmes d&apos;acces)</translation>
+        <translation>(rappelez-vous de le refermer pour éviter les problèmes d&apos;accès)</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="907"/>
@@ -570,7 +569,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="549"/>
         <source>Go to Source</source>
-        <translation>Basculer source/prévisualisation</translation>
+        <translation>Basculer vers la source</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="552"/>
@@ -645,7 +644,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="415"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>Échec du chargement de &quot;%1&quot; ; il se peut que ce ne soit pas un fichier PDF valide.</translation>
+        <translation>Échec du chargement du fichier &quot;%1&quot; ; il se peut que ce ne soit pas un fichier PDF valide.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -703,7 +702,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="693"/>
         <source>Find Again</source>
-        <translation>Chercher encore</translation>
+        <translation>Chercher de nouveau</translation>
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
@@ -804,7 +803,7 @@
     </message>
     <message>
         <source>[embedded]</source>
-        <translation type="obsolete">[inclus]</translation>
+        <translation type="obsolete">[enchâssé]</translation>
     </message>
 </context>
 <context>
@@ -1091,7 +1090,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="692"/>
         <source> dpi</source>
-        <translation> dpi (points pp)</translation>
+        <translation> dpi (points par pouce)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="708"/>
@@ -1150,7 +1149,7 @@
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
         <translation>&lt;p&gt;&lt;strong&gt;Jamais :&lt;/strong&gt; Ne jamais masquer la console de sortie après composition.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automaticement :&lt;/strong&gt; Masquer la console de sortie après une composition réussie, mais uniquement si elle était masquée auparavant.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatiquement :&lt;/strong&gt; Masquer la console de sortie après une composition réussie, mais uniquement si elle était masquée auparavant.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Après réussite :&lt;/strong&gt; Masquer la console de sortie après une composition réusssie, quel que soit son état préalable.&lt;/p&gt;
 </translation>
     </message>
@@ -1217,7 +1216,7 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="1035"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation>Activer les l angages de script (peut contourner d&apos;autres restrictions de comportement de script)</translation>
+        <translation>Activer les langages de script (peut contourner d&apos;autres restrictions de comportement de script)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1045"/>
@@ -1419,7 +1418,7 @@
     <message>
         <location filename="../src/ResourcesDialog.ui" line="23"/>
         <source>Storage Locations</source>
-        <translation>Endroits de stockage</translation>
+        <translation>Endroits de sauvegarde</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="41"/>
@@ -1945,7 +1944,7 @@
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Le document &quot;%1&quot; a été modifié.
-Voulez-vous sauvegrader les changements ?</translation>
+Voulez-vous sauvegrader vos changements ?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="832"/>
@@ -1956,7 +1955,7 @@ Voulez-vous sauvegrader les changements ?</translation>
     <message>
         <location filename="../src/TeXDocument.cpp" line="864"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
-        <translation>Voulez-vous annuler tous les changements du document &quot;%1&quot;, et retourner à la dernière version sauvegardée ?</translation>
+        <translation>Voulez-vous annuler tous les changements apportés au document &quot;%1&quot;, et retourner à la dernière version sauvegardée ?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="866"/>
@@ -2345,7 +2344,7 @@ Vérifiez la configuration de l&apos;outil %2 et les paramètres de chemin dans 
     <message>
         <location filename="../src/TeXDocument.ui" line="626"/>
         <source>Find Again</source>
-        <translation>Chercher encore</translation>
+        <translation>Chercher de nouveau</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="629"/>
@@ -2660,7 +2659,7 @@ Voulez l&apos;arrêter maintenant ?</translation>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation>Un problème est survenu lors de la mise en forme du document dans l&apos;éditeur. Ceci est causé par un problème de la structure du système Qt sous-jacent et peut provoquer l&apos;arêt de TeXworks sous certaines circonstances. Les symptômes de ce problème sont des lignes masquées ou se superposant. Pour contourner cela, veuillez essayer une des solutions suivantes : 
+        <translation>Un problème est survenu lors de la mise en forme du document dans l&apos;éditeur. Ceci est causé par un problème de la structure du système Qt sous-jacent et peut provoquer l&apos;arrêt de TeXworks dans certaines circonstances. Les symptômes de ce problème sont des lignes masquées ou se superposant. Pour contourner cela, veuillez essayer une des solutions suivantes :
  -) Désactivez puis réactivez la mise en évidence de la syntaxe
  -) Désactivez puis réactivez la numérotation des lignes
  -) Redimensionnez votre fenêtre
@@ -2721,7 +2720,7 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
     <message>
         <location filename="../src/TeXDocument.cpp" line="1431"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
-        <translation>Une erreur est survenue lors de la sauvegarde du fichier. Vous pourriez désirer sauvegarder une copie à un endroit différent.</translation>
+        <translation>Une erreur est peut-être survenue lors de la sauvegarde du fichier. Vous pourriez désirer sauvegarder une copie à un endroit différent.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1440"/>
@@ -2862,7 +2861,7 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
     <message>
         <location filename="../src/TeXDocument.ui" line="961"/>
         <source>Replace Again</source>
-        <translation>Remplacer encore</translation>
+        <translation>Remplacer de nouveau</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="964"/>
