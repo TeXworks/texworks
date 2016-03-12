@@ -948,7 +948,7 @@ void Select::keyPressEvent(QKeyEvent *event)
         Q_ASSERT(pageGraphicsItem != NULL);
       
         QTransform fromView = pageGraphicsItem->pointScale().inverted();
-        QString textToCopy = page->selectedText(_highlightPath->path().toFillPolygons(fromView));
+        QString textToCopy = page->selectedText(_highlightPath->path().toFillPolygons(fromView), NULL, NULL, true);
         // If the text is empty (e.g., there is no valid selection or the backend
         // doesn't (properly) support selectedText()) we don't overwrite the
         // clipboard

@@ -872,7 +872,7 @@ QList< Backend::Page::Box > Page::boxes()
   return retVal;
 }
 
-QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes /* = NULL */, QMap<int, QRectF> * charBoxes /* = NULL */)
+QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes /* = NULL */, QMap<int, QRectF> * charBoxes /* = NULL */, const bool onlyFullyEnclosed /* = false */)
 {
   QReadLocker pageLocker(_pageLock);
   Q_ASSERT(_poppler_page != NULL);
@@ -920,10 +920,15 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 		else {
 			for (int i = 0; i < poppler_box->text().length(); ++i) {
 				foreach (const QPolygonF & p, selection) {
-					// Append text for char boxes iff they are entirely inside the
-					// selection area; using intersection only would cause problems for
-					// overlapping char boxes.
-					if (QPolygonF(poppler_box->charBoundingBox(i)).subtracted(p).empty()) {
+					// Append text for char boxes if they are entirely inside the
+					// selection area or onlyFullyEnclosed == false; using "intersection
+					// only" can cause problems for overlapping char boxes (if selection
+					// is made of entire char boxes, it would return characters that are
+					// not actually inside the selection but are just "edge cases") but is
+					// necessary if selection comes from external sources, such as SyncTeX
+					if (p.intersected(poppler_box->charBoundingBox(i)).empty())
+						continue;
+					if (!onlyFullyEnclosed || QPolygonF(poppler_box->charBoundingBox(i)).subtracted(p).empty()) {
 						retVal += poppler_box->text()[i];
 						if (i == poppler_box->text().length() - 1)
 							appendSpace = poppler_box->hasSpaceAfter();

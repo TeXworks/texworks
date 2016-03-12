@@ -594,7 +594,7 @@ public:
   // Optionally, the function can also return wordBoxes and/or charBoxes for
   // each character (i.e., a rect enclosing the word the character is part of
   // and/or a rect enclosing the actual character)
-  virtual QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = NULL, QMap<int, QRectF> * charBoxes = NULL) {
+  virtual QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = NULL, QMap<int, QRectF> * charBoxes = NULL, const bool onlyFullyEnclosed = false) {
     if (wordBoxes) wordBoxes->clear();
     if (charBoxes) charBoxes->clear();
     return QString();
