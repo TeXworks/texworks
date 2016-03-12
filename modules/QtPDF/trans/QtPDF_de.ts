@@ -6,12 +6,12 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1058"/>
         <source>[language name]</source>
-        <translation type="unfinished"></translation>
+        <translation>Deutsch</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1059"/>
         <source>[translator&apos;s name/email]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;mailto:st.loeffler@gmail.com&quot;&gt;Stefan Löffler&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
