@@ -63,7 +63,7 @@
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>En todo el documento</translation>
+        <translation>Buscar desde el principio</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
@@ -603,7 +603,7 @@
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>Buscar desde el principio</translation>
+        <translation>Buscar en todo el documento</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
@@ -1138,7 +1138,7 @@ sin importar su estado anterior.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Wrap around</source>
-        <translation>Desde el principio</translation>
+        <translation>Buscar en todo el documento</translation>
     </message>
     <message>
         <source>Find &amp;backwards</source>
@@ -2380,7 +2380,7 @@ o &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; en su sistema pa
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translatorcomment>Se produjo un problema a la hora de desplegar el documento en el editor.
+        <translation type="unfinished">Se produjo un problema a la hora de desplegar el documento en el editor.
 Este error obedece a un problema con Qt que puede causar que TeXworks 
 deje de funcionar en ciertas circunstancias. Los síntomas de este problema 
 se muestran como líneas ocultas o sobrepuestas.
@@ -2389,8 +2389,7 @@ Para sortear este problema, realice alguna de las siguientes acciones:
   -) Active y desactive la numeración de líneas
   -) Cambie el tamaño de la ventana
 
-Ofrecemos disculpas por las molestias ocasionadas.</translatorcomment>
-        <translation></translation>
+Ofrecemos disculpas por las molestias ocasionadas.</translation>
     </message>
     <message>
         <source>Show Console Output</source>
