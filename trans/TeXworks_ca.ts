@@ -213,7 +213,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="745"/>
         <source>Jump to Source</source>
-        <translation type="unfinished">Salta a la font</translation>
+        <translation>Salta a la font</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="829"/>
@@ -235,13 +235,13 @@
         <location filename="../src/PDFDocument.cpp" line="907"/>
         <location filename="../src/PDFDocument.cpp" line="911"/>
         <source>Go to Page</source>
-        <translation type="unfinished">Ves a la pàgina</translation>
+        <translation>Ves a la pàgina</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="908"/>
         <location filename="../src/PDFDocument.cpp" line="912"/>
         <source>Page number:</source>
-        <translation type="unfinished">Nombre de pàgina:</translation>
+        <translation>Nombre de pàgina:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -552,27 +552,27 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="763"/>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>Ves a vista anterior</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="766"/>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Esq</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="779"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Una pàgina</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="791"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Una pàgina contínua</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="803"/>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Doble pàgina contínua</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
@@ -1084,22 +1084,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="708"/>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de pàgina:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="716"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pàgina única</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="721"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Pàgina única contínua</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="726"/>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Doble pàgina contínua</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="750"/>
@@ -1589,7 +1589,7 @@
         <location filename="../src/TWApp.cpp" line="234"/>
         <location filename="../src/TWApp.cpp" line="283"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">Surt de TeXworks</translation>
+        <translation>Surt de TeXworks</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="239"/>
@@ -1682,12 +1682,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="306"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="309"/>
@@ -1857,7 +1857,7 @@
         <location filename="../src/TWScriptable.cpp" line="622"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(desactivat a preferències)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="626"/>
