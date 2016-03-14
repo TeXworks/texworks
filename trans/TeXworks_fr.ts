@@ -29,7 +29,7 @@
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="70"/>
         <source>Unable to delete</source>
-        <translation>Ne peut pas supprimer</translation>
+        <translation>Incapable de  supprimer</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.cpp" line="71"/>
@@ -54,7 +54,7 @@
     <message>
         <location filename="../src/ConfirmDelete.ui" line="57"/>
         <source>Select None</source>
-        <translation>Sélectionner aucun</translation>
+        <translation>Ne sélectionner aucun</translation>
     </message>
     <message>
         <location filename="../src/ConfirmDelete.ui" line="64"/>
@@ -171,72 +171,72 @@
         <translation type="obsolete">Échec de l&apos;ouverture de &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="441"/>
+        <location filename="../src/PDFDocument.cpp" line="445"/>
         <source>Error initializing SyncTeX</source>
         <translation>Erreur d&apos;initialisation de SyncTeX</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="443"/>
+        <location filename="../src/PDFDocument.cpp" line="447"/>
         <source>No SyncTeX data available</source>
         <translation>Pas de donnée SyncTeX disponible</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="445"/>
+        <location filename="../src/PDFDocument.cpp" line="449"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="554"/>
+        <location filename="../src/PDFDocument.cpp" line="558"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="583"/>
+        <location filename="../src/PDFDocument.cpp" line="587"/>
         <source>page %1 of %2</source>
         <translation>page %1 de %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="588"/>
+        <location filename="../src/PDFDocument.cpp" line="592"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="700"/>
+        <location filename="../src/PDFDocument.cpp" line="704"/>
         <source>Abort typesetting</source>
         <translation>Arrêter la composition</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="745"/>
+        <location filename="../src/PDFDocument.cpp" line="749"/>
         <source>Jump to Source</source>
-        <translation type="unfinished">Aller à la source</translation>
+        <translation>Aller à la source</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="829"/>
+        <location filename="../src/PDFDocument.cpp" line="833"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Malheureusement, cette version de %1 est incapable d&apos;imprimer les documents Pdf pour diverses raisons techniques.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="830"/>
+        <location filename="../src/PDFDocument.cpp" line="834"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Voulez-vous plutôt ouvrir le fichier dans le visionneur par défaut pour imprimer ?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="831"/>
+        <location filename="../src/PDFDocument.cpp" line="835"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation>(rappelez-vous de le refermer pour éviter les problèmes d&apos;accès)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="907"/>
-        <location filename="../src/PDFDocument.cpp" line="911"/>
+        <location filename="../src/PDFDocument.cpp" line="916"/>
+        <location filename="../src/PDFDocument.cpp" line="920"/>
         <source>Go to Page</source>
-        <translation type="unfinished">Aller à la page</translation>
+        <translation>Aller à la page</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="908"/>
-        <location filename="../src/PDFDocument.cpp" line="912"/>
+        <location filename="../src/PDFDocument.cpp" line="917"/>
+        <location filename="../src/PDFDocument.cpp" line="921"/>
         <source>Page number:</source>
-        <translation type="unfinished">Page numéro :</translation>
+        <translation>Page numéro :</translation>
     </message>
     <message>
         <source>MainWindow</source>
@@ -274,7 +274,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="507"/>
-        <location filename="../src/PDFDocument.cpp" line="707"/>
+        <location filename="../src/PDFDocument.cpp" line="711"/>
         <source>Typeset</source>
         <translation>Composition</translation>
     </message>
@@ -326,7 +326,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="281"/>
-        <location filename="../src/PDFDocument.cpp" line="752"/>
+        <location filename="../src/PDFDocument.cpp" line="756"/>
         <source>Zoom In</source>
         <translation>Zoom +</translation>
     </message>
@@ -353,7 +353,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="296"/>
-        <location filename="../src/PDFDocument.cpp" line="753"/>
+        <location filename="../src/PDFDocument.cpp" line="757"/>
         <source>Zoom Out</source>
         <translation>Zoom -</translation>
     </message>
@@ -364,7 +364,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="314"/>
-        <location filename="../src/PDFDocument.cpp" line="756"/>
+        <location filename="../src/PDFDocument.cpp" line="760"/>
         <source>Fit to Window</source>
         <translation>Ajuster à la fenêtre</translation>
     </message>
@@ -375,7 +375,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="329"/>
-        <location filename="../src/PDFDocument.cpp" line="754"/>
+        <location filename="../src/PDFDocument.cpp" line="758"/>
         <source>Actual Size</source>
         <translation>Taille réelle</translation>
     </message>
@@ -386,7 +386,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="347"/>
-        <location filename="../src/PDFDocument.cpp" line="755"/>
+        <location filename="../src/PDFDocument.cpp" line="759"/>
         <source>Fit to Width</source>
         <translation>Ajuster à la largeur</translation>
     </message>
@@ -507,7 +507,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="739"/>
-        <location filename="../src/PDFDocument.cpp" line="834"/>
+        <location filename="../src/PDFDocument.cpp" line="838"/>
         <source>Print Pdf...</source>
         <translation>Imprimer le Pdf...</translation>
     </message>
@@ -529,27 +529,27 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="763"/>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>Aller à la vue précédente</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="766"/>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="779"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Une page seule</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="791"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Page seule en continu</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="803"/>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Double page en continu</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="522"/>
@@ -642,7 +642,7 @@
         <translation>Mettre à droite</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="415"/>
+        <location filename="../src/PDFDocument.cpp" line="419"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Échec du chargement du fichier &quot;%1&quot; ; il se peut que ce ne soit pas un fichier PDF valide.</translation>
     </message>
@@ -744,7 +744,7 @@
     <message>
         <location filename="../src/PDFFind.ui" line="71"/>
         <source>&amp;Wrap around</source>
-        <translation>&amp;Passer à la ligne</translation>
+        <translation>Recherche en &amp;boucle</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="78"/>
@@ -1095,22 +1095,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="708"/>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode page :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="716"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Une page seule</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="721"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Simple page en continu</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="726"/>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Double page en continu</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="750"/>
@@ -1491,7 +1491,7 @@
     <message>
         <location filename="../src/ScriptManager.cpp" line="204"/>
         <source>Language: </source>
-        <translation>Langue : </translation>
+        <translation>Language : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="208"/>
@@ -1589,7 +1589,7 @@
         <location filename="../src/TWApp.cpp" line="234"/>
         <location filename="../src/TWApp.cpp" line="283"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">Quitter TeXworks</translation>
+        <translation>Quitter TeXworks</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="239"/>
@@ -1621,12 +1621,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="306"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 par The Qt Company.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt;vérificateur d&apos;orthographe par L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="1129"/>
@@ -1861,7 +1861,7 @@
         <location filename="../src/TWScriptable.cpp" line="622"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Cette chaîne de caractères est ajoutée au nom d&apos;un language de script pour indiquer qu&apos;il est actuellement désactivé</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="626"/>
@@ -2631,7 +2631,7 @@ Vérifiez la configuration de l&apos;outil %2 et les paramètres de chemin dans 
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation>Un processus de composition est encore en cours et doit être arrêté avant de fermer cette fenêtre.
-Voulez l&apos;arrêter maintenant ?</translation>
+Voulez-vous l&apos;arrêter maintenant ?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="867"/>
