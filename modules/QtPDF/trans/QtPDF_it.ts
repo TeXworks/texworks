@@ -5,253 +5,253 @@
     <name>QtPDF</name>
     <message>
         <source>[language name]</source>
-        <translation type="unfinished">Italiana</translation>
+        <translation>Italiana</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
-        <translation type="unfinished">trebestie@gmail.com</translation>
+        <translation>trebestie@gmail.com</translation>
     </message>
 </context>
 <context>
     <name>QtPDF::PDFDocumentScene</name>
     <message>
         <source>rendering page</source>
-        <translation type="unfinished"></translation>
+        <translation>rendering della pagina</translation>
     </message>
     <message>
         <source>Unlock PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Sblocca PDF</translation>
     </message>
     <message>
         <source>Please enter the password to unlock the PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserisci la password per sbloccare il PDF</translation>
     </message>
     <message>
         <source>Incorrect password</source>
-        <translation type="unfinished"></translation>
+        <translation>Password non corretta</translation>
     </message>
     <message>
         <source>The password you entered was incorrect.</source>
-        <translation type="unfinished"></translation>
+        <translation>La password inserita non è corretta.</translation>
     </message>
     <message>
         <source>This document is locked. You need a password to open it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo documento è bloccato. Ci vuole una password per aprirlo.</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation type="unfinished"></translation>
+        <translation>Sblocca</translation>
     </message>
 </context>
 <context>
     <name>QtPDF::PDFDocumentView</name>
     <message>
         <source>Insufficient permission</source>
-        <translation type="unfinished"></translation>
+        <translation>Permessi insufficienti</translation>
     </message>
     <message>
         <source>Text extraction is not allowed for this document.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;estrazione del testo non è consentita in questo documento.</translation>
     </message>
     <message>
         <source>Goto page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vai a pagina %1</translation>
     </message>
     <message>
         <source>Execute `%1`</source>
-        <translation type="unfinished"></translation>
+        <translation>Esegui `%1`</translation>
     </message>
     <message>
         <source>Table of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Indice</translation>
     </message>
     <message>
         <source>Meta Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Meta Dati</translation>
     </message>
     <message>
         <source>Processing</source>
-        <translation type="unfinished"></translation>
+        <translation>In esecuzione</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>Altro</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sì</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>No</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Sconosciuto</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Documento</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation type="unfinished"></translation>
+        <translation>Titolo:</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation>Autore:</translation>
     </message>
     <message>
         <source>Subject:</source>
-        <translation type="unfinished"></translation>
+        <translation>Soggetto:</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation type="unfinished"></translation>
+        <translation>Parole chiave:</translation>
     </message>
     <message>
         <source>Creator:</source>
-        <translation type="unfinished"></translation>
+        <translation>Creatore:</translation>
     </message>
     <message>
         <source>Producer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Produttore:</translation>
     </message>
     <message>
         <source>Creation date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Data creazione:</translation>
     </message>
     <message>
         <source>Modification date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Data modifica:</translation>
     </message>
     <message>
         <source>Trapped:</source>
-        <translation type="unfinished"></translation>
+        <translation>Correzione colore:</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished">Caratteri</translation>
+        <translation>Caratteri</translation>
     </message>
     <message>
         <source>Type 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo 0</translation>
     </message>
     <message>
         <source>Type 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo 1</translation>
     </message>
     <message>
         <source>Type 1 (multiple master)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo 1 (master multiplo)</translation>
     </message>
     <message>
         <source>Type 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo 3</translation>
     </message>
     <message>
         <source>TrueType</source>
-        <translation type="unfinished"></translation>
+        <translation>TrueType</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation type="unfinished">sì</translation>
+        <translation>sì</translation>
     </message>
     <message>
         <source>no</source>
-        <translation type="unfinished">no</translation>
+        <translation>no</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation type="unfinished">[incorporato]</translation>
+        <translation>[inserito]</translation>
     </message>
     <message>
         <source>[builtin]</source>
-        <translation type="unfinished"></translation>
+        <translation>[incorporato]</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Nome</translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation type="unfinished">Sottoinsieme</translation>
+        <translation>Sottoinsieme</translation>
     </message>
     <message>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorgente</translation>
     </message>
     <message>
         <source>Permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Permessi</translation>
     </message>
     <message>
         <source>Allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Consentito</translation>
     </message>
     <message>
         <source>Low resolution only</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo bassa risoluzione</translation>
     </message>
     <message>
         <source>Denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Negato</translation>
     </message>
     <message>
         <source>Assembling only</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo assemblaggio</translation>
     </message>
     <message>
         <source>Insert, rotate, or delete pages and create bookmarks or thumbnail images</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserisci, ruota o elimina pagine e crea segnalibri o miniature</translation>
     </message>
     <message>
         <source>Accessibility support only</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo supporto accessibilità</translation>
     </message>
     <message>
         <source>Printing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stampa in corso:</translation>
     </message>
     <message>
         <source>Modifications:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificazioni:</translation>
     </message>
     <message>
         <source>Extraction:</source>
-        <translation type="unfinished"></translation>
+        <translation>Estrazione:</translation>
     </message>
     <message>
         <source>Annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Annotazione:</translation>
     </message>
     <message>
         <source>Filling forms:</source>
-        <translation type="unfinished"></translation>
+        <translation>Moduli compilabili:</translation>
     </message>
     <message>
         <source>Annotations</source>
-        <translation type="unfinished"></translation>
+        <translation>Annotazioni</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina</translation>
     </message>
     <message>
         <source>Subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Soggetto</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Autore</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">Sommario</translation>
+        <translation>Sommario</translation>
     </message>
 </context>
 </TS>

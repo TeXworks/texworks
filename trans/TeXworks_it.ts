@@ -544,35 +544,35 @@
     </message>
     <message>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>Vai alla vista precedente</translation>
     </message>
     <message>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+sinistra</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina singola</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina singola continua</translation>
     </message>
     <message>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Due pagine continue</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation type="unfinished">Vai al sorgente</translation>
+        <translation>Vai al sorgente</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation type="unfinished">Vai a pagina</translation>
+        <translation>Vai a pagina</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation type="unfinished">Pagina numero:</translation>
+        <translation>Pagina numero:</translation>
     </message>
 </context>
 <context>
@@ -1014,19 +1014,19 @@
     </message>
     <message>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modalità pagina</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina singola</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina singola continua</translation>
     </message>
     <message>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Due pagine continue</translation>
     </message>
 </context>
 <context>
@@ -1436,15 +1436,15 @@
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>Lascia TeXworks</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 della The Qt Company.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; correttore ortografico a cura di L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
 </context>
 <context>
@@ -1515,7 +1515,7 @@
     <message>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(disabilitato nelle preferenze)</translation>
     </message>
 </context>
 <context>
