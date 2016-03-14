@@ -142,8 +142,12 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
     // a View that would ignore page jumps that other scenes would respond to._
     connect(_pdf_scene.data(), SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
     connect(_pdf_scene.data(), SIGNAL(pdfActionTriggered(const QtPDF::PDFAction*)), this, SLOT(pdfActionTriggered(const QtPDF::PDFAction*)));
-    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)), this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)));
     connect(_pdf_scene.data(), SIGNAL(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(reinitializeFromScene()));
+    // The connection PDFDocumentScene::documentChanged > PDFDocumentView::changedDocument
+    // must be last in this list to ensure all internal states are updated (e.g.
+    // in _lastPage in reinitializeFromScene()) before the signal is
+    // communicated on to the "outside world".
+    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)), this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)));
   }
   
   // ensure the zoom is reset if we load a new document
