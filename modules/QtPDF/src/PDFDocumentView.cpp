@@ -395,7 +395,7 @@ void PDFDocumentView::goToPDFDestination(const PDFDestination & dest, bool saveO
   goToPage(static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(dest.page())), view, true);
 }
 
-void PDFDocumentView::zoomBy(const qreal zoomFactor)
+void PDFDocumentView::zoomBy(const qreal zoomFactor, const QGraphicsView::ViewportAnchor anchor /* = QGraphicsView::AnchorViewCenter */)
 {
   if (zoomFactor <= 0)
     return;
@@ -403,23 +403,23 @@ void PDFDocumentView::zoomBy(const qreal zoomFactor)
   _zoomLevel *= zoomFactor;
   // Set the transformation anchor to AnchorViewCenter so we always zoom out of
   // the center of the view (rather than out of the upper left corner)
-  QGraphicsView::ViewportAnchor anchor = transformationAnchor();
-  setTransformationAnchor(QGraphicsView::AnchorViewCenter);
-  this->scale(zoomFactor, zoomFactor);
+  QGraphicsView::ViewportAnchor oldAnchor = transformationAnchor();
   setTransformationAnchor(anchor);
+  this->scale(zoomFactor, zoomFactor);
+  setTransformationAnchor(oldAnchor);
 
   emit changedZoom(_zoomLevel);
 }
 
-void PDFDocumentView::setZoomLevel(const qreal zoomLevel)
+void PDFDocumentView::setZoomLevel(const qreal zoomLevel, const QGraphicsView::ViewportAnchor anchor /* = QGraphicsView::AnchorViewCenter */)
 {
   if (zoomLevel <= 0)
     return;
-  zoomBy(zoomLevel / _zoomLevel);
+  zoomBy(zoomLevel / _zoomLevel, anchor);
 }
 
-void PDFDocumentView::zoomIn() { zoomBy(3.0/2.0); }
-void PDFDocumentView::zoomOut() { zoomBy(2.0/3.0); }
+void PDFDocumentView::zoomIn(const QGraphicsView::ViewportAnchor anchor /* = QGraphicsView::AnchorViewCenter */) { zoomBy(3.0/2.0, anchor); }
+void PDFDocumentView::zoomOut(const QGraphicsView::ViewportAnchor anchor /* = QGraphicsView::AnchorViewCenter */) { zoomBy(2.0/3.0, anchor); }
 
 void PDFDocumentView::zoomToRect(QRectF a_rect)
 {
@@ -1274,9 +1274,9 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
     // mice. Decide if we want to enforce the same step size regardless of the
     // resolution of the mouse wheel sensor
     if ( delta > 0 )
-      zoomIn();
+      zoomIn(QGraphicsView::AnchorUnderMouse);
     else if ( delta < 0 )
-      zoomOut();
+      zoomOut(QGraphicsView::AnchorUnderMouse);
     event->accept();
     return;
 

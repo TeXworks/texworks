@@ -92,7 +92,7 @@ void ZoomIn::mouseReleaseEvent(QMouseEvent * event)
   if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton) {
     QPoint offset = event->pos() - _startPos;
     if (offset.manhattanLength() <  QApplication::startDragDistance())
-      _parent->zoomIn();
+      _parent->zoomIn(QGraphicsView::AnchorUnderMouse);
   }
   _started = false;
 }
@@ -125,7 +125,7 @@ void ZoomOut::mouseReleaseEvent(QMouseEvent * event)
   if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton) {
     QPoint offset = event->pos() - _startPos;
     if (offset.manhattanLength() <  QApplication::startDragDistance())
-      _parent->zoomOut();
+      _parent->zoomOut(QGraphicsView::AnchorUnderMouse);
   }
   _started = false;
 }

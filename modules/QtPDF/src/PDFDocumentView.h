@@ -126,14 +126,14 @@ public slots:
   void setMagnifierSize(const int size);
   void setUseGrayScale(const bool grayScale = true) { _useGrayScale = grayScale; }
 
-  void zoomBy(const qreal zoomFactor);
-  void zoomIn();
-  void zoomOut();
+  void zoomBy(const qreal zoomFactor, const QGraphicsView::ViewportAnchor anchor = QGraphicsView::AnchorViewCenter);
+  void zoomIn(const QGraphicsView::ViewportAnchor anchor = QGraphicsView::AnchorViewCenter);
+  void zoomOut(const QGraphicsView::ViewportAnchor anchor = QGraphicsView::AnchorViewCenter);
   void zoomToRect(QRectF a_rect);
   void zoomFitWindow();
   void zoomFitWidth();
   void zoom100();
-  void setZoomLevel(const qreal zoomLevel);
+  void setZoomLevel(const qreal zoomLevel, const QGraphicsView::ViewportAnchor anchor = QGraphicsView::AnchorViewCenter);
 
   void search(QString searchText, Backend::SearchFlags flags = Backend::Search_CaseInsensitive);
   void nextSearchResult();

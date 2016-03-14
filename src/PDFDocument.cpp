@@ -881,6 +881,11 @@ void PDFDocument::setScaleFromContextMenu(const QString & strZoom)
 {
 	bool conversionOK = false;
 	float zoom = strZoom.toFloat(&conversionOK);
+	// FIXME: This should actually use the point the context menu was opened at as
+	// anchor for zooming. Currently, arbitrary coordinates are not supported yet
+	// (and using QGraphicsView::AnchorUnderMouse would use the position of the
+	// mouse cursor when the user clicks on the respective menu item - which will
+	// be somewhere else
 	if (pdfWidget && conversionOK)
 		pdfWidget->setZoomLevel(zoom);
 }
