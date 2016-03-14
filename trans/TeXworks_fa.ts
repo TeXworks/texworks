@@ -533,35 +533,35 @@
     </message>
     <message>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>برو به نمایش پیش</translation>
     </message>
     <message>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>تک برگ</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>تک برگ پیوسته</translation>
     </message>
     <message>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>دو برگ پیوسته</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation type="unfinished">پرش به کد</translation>
+        <translation>پرش به کد</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation type="unfinished">برو به برگهٔ</translation>
+        <translation>برو به برگهٔ</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation type="unfinished">شمارهٔ برگه:</translation>
+        <translation>شمارهٔ برگه:</translation>
     </message>
 </context>
 <context>
@@ -998,19 +998,19 @@
     </message>
     <message>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>حالت برگه:</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>تک برگ</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>تک برگ پیوسته</translation>
     </message>
     <message>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>دو برگ پیوسته</translation>
     </message>
 </context>
 <context>
@@ -1428,15 +1428,15 @@
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>خروج از تک‌ورکس</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;چارچوب کاربردی کیوت&lt;/a&gt; v%1 توسط کمپانی کیوت.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1507,7 +1507,7 @@
     <message>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(ناپویا در تنظیم‌ها)</translation>
     </message>
 </context>
 <context>
