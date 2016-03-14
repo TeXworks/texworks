@@ -536,35 +536,35 @@
     </message>
     <message>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>1つ前の画面に移動する</translation>
     </message>
     <message>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+←</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>単一ページ</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>スクロールを有効にする</translation>
     </message>
     <message>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>見開きページでスクロール</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation type="unfinished">ソースの該当箇所へジャンプ</translation>
+        <translation>ソースの該当箇所へジャンプ</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation type="unfinished">ページを指定して移動</translation>
+        <translation>ページを指定して移動</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation type="unfinished">ページ番号:</translation>
+        <translation>ページ番号:</translation>
     </message>
 </context>
 <context>
@@ -986,19 +986,19 @@
     </message>
     <message>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>表示</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>単一ページ</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>スクロールを有効にする</translation>
     </message>
     <message>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>見開きページでスクロール</translation>
     </message>
 </context>
 <context>
@@ -1388,15 +1388,15 @@
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">TeXworksを終了する</translation>
+        <translation>TeXworksを終了する</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
 </context>
 <context>
@@ -1467,7 +1467,7 @@
     <message>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>この文字列は、該当するスクリプト言語が利用できないことを示します。</translation>
     </message>
 </context>
 <context>
