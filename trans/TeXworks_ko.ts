@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ko_KR">
+<TS version="2.1" language="ko_KR">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -533,35 +533,35 @@
     </message>
     <message>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>이전으로 돌아가기</translation>
     </message>
     <message>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>한 쪽씩 따로</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>한 쪽씩 이어서</translation>
     </message>
     <message>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>맞쪽 이어서</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation type="unfinished">소스의 여기로 가기</translation>
+        <translation>소스의 여기로 가기</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation type="unfinished">쪽 찾아가기</translation>
+        <translation>쪽 찾아가기</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation type="unfinished">쪽 번호:</translation>
+        <translation>쪽 번호:</translation>
     </message>
 </context>
 <context>
@@ -998,19 +998,19 @@
     </message>
     <message>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>쪽 보기 방식:</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>한 쪽씩 따로</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>한 쪽씩 이어서</translation>
     </message>
     <message>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>맞쪽 이어서</translation>
     </message>
 </context>
 <context>
@@ -1416,15 +1416,15 @@
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">TeXworks 종료</translation>
+        <translation>TeXworks 종료</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt 응용 프레임워크&lt;/a&gt; v%1은(는) The Qt Company가 제공합니다.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; 철자검사기는 L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth가 제공합니다.</translation>
     </message>
 </context>
 <context>
@@ -1495,7 +1495,7 @@
     <message>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(환경설정에서 꺼져 있음)</translation>
     </message>
 </context>
 <context>
