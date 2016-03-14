@@ -69,7 +69,7 @@ pt_BR.CreateFileAssoc=
 ru.CreateFileAssoc=Открывать следующие файлы по умолчанию в TeXworks:
 sl.CreateFileAssoc=Uporabi TeXworks za odpiranje naslednjih vrst datotek:
 
-af.CreateFileAssoc=Maak by verstek die volgende lêertipes met TeXworks oop:
+af.CreateFileAssoc=Maar die volgende lêer-tipes by verstek met TeXworks oop:
 ar.CreateFileAssoc=افتح أنواع الملفات التالية في TeXworks مبدئيا:
 fa.CreateFileAssoc=پرونده‌های از نوع زیر را به‌طور پیش‌فرض با تک‌ورکس بازکن:
 ja.CreateFileAssoc=常にTeXworksを使ってこれらの種類のファイルを開く:

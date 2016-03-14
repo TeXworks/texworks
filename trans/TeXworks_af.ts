@@ -151,7 +151,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="77"/>
         <source>Unwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Ontvou</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="87"/>
@@ -174,7 +174,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="441"/>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout met inisialisering van SyncTex</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="443"/>
@@ -209,7 +209,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="745"/>
         <source>Jump to Source</source>
-        <translation type="unfinished">Spring na bronteks</translation>
+        <translation>Spring na bronteks</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="829"/>
@@ -228,16 +228,16 @@
         <translation> (onthou om dit weer toe te maak ten einde toegangsprobleme te verhoed)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="907"/>
-        <location filename="../src/PDFDocument.cpp" line="911"/>
+        <location filename="../src/PDFDocument.cpp" line="912"/>
+        <location filename="../src/PDFDocument.cpp" line="916"/>
         <source>Go to Page</source>
-        <translation type="unfinished">Gaan na bladsy</translation>
+        <translation>Gaan na bladsy</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="908"/>
-        <location filename="../src/PDFDocument.cpp" line="912"/>
+        <location filename="../src/PDFDocument.cpp" line="913"/>
+        <location filename="../src/PDFDocument.cpp" line="917"/>
         <source>Page number:</source>
-        <translation type="unfinished">Bladsynommer:</translation>
+        <translation>Bladsynommer:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -527,27 +527,27 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="763"/>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>Gaan na vorige beeld</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="766"/>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Links</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="779"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Enkelbladsy</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="791"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Enkelbladsy deurlopend</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="803"/>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Twee bladsye deurlopend</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="715"/>
@@ -928,22 +928,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Koppelvlak</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="52"/>
         <source>Locale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Plek:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="72"/>
         <source>Toolbar buttons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nutsbalk ikone</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="141"/>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation type="unfinished"></translation>
+        <translation>Open ooreenstemmende PDF voorskou met TeX lêers</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="178"/>
@@ -1098,22 +1098,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="708"/>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bladsy modus:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="716"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Enkelbladsy</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="721"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Enkelbladsy deurlopend</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="726"/>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Twee bladsye deurlopend</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="750"/>
@@ -1256,7 +1256,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="480"/>
         <source>Log files (*.log *.blg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Loglêers (*.log *.blg)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="481"/>
@@ -1281,7 +1281,7 @@
     <message>
         <location filename="../src/TWUtils.cpp" line="485"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hulplêers (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
@@ -1539,7 +1539,7 @@
         <location filename="../src/TWApp.cpp" line="212"/>
         <location filename="../src/TWApp.cpp" line="279"/>
         <source>New from Template...</source>
-        <translation>Nuut vanaf templaat...</translation>
+        <translation>Nuut vanaf Templaat...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="216"/>
@@ -1562,7 +1562,7 @@
         <location filename="../src/TWApp.cpp" line="234"/>
         <location filename="../src/TWApp.cpp" line="283"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">Verlaat TeXworks</translation>
+        <translation>Verlaat TeXworks</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="239"/>
@@ -1579,7 +1579,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spelltoetser deur L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="241"/>
@@ -1660,12 +1660,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="828"/>
         <source>No default binary directory found</source>
-        <translation>Geen verstek vakkie vir programme is gevind nie</translation>
+        <translation>Geen verstekvakkie vir programme is gevind nie</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="829"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Geeneen van die gedefinieerde vakkies vir TeX-verwante programme is gevind nie. &lt;p&gt;&lt;small&gt;Om &apos;n proses te kan uitvoer moet jy die program-bevattende vakkie(s) in jou TeX-distribusie instel in die Lettersetgedeelte van die Voorkeure.</translation>
+        <translation>Geeneen van die gedefinieerde vakkies vir TeX-verwante programme is gevind nie. &lt;p&gt;&lt;small&gt;Om &apos;n proses te kan uitvoer moet jy die programbevattende vakkie(s) in jou TeX-distribusie instel in die Lettersetgedeelte van die Voorkeure.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="298"/>
@@ -1679,22 +1679,22 @@
     <message>
         <location filename="../src/TWApp.cpp" line="302"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Weergawe %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="304"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Weergawe %1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="306"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt toepassingraamwerk&lt;/a&gt; v%1 by The Qt Company.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF library deur Kristian H&amp;#xF8;gsberg, Albert Astals Cid en ander.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library deur Kristian H&amp;#xF8;gsberg, Albert Astals Cid en ander.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
@@ -1806,7 +1806,7 @@
     <message>
         <location filename="../src/TWScriptable.cpp" line="583"/>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Skripfout</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="604"/>
@@ -1827,7 +1827,7 @@
         <location filename="../src/TWScriptable.cpp" line="622"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(afgeskakel in die voorkeure)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="626"/>
@@ -2027,7 +2027,7 @@ Wil jy dit nou stop?</translation>
  -) Resize the window
 
 We are sorry for the inconvenience.</source>
-        <translation type="unfinished">Daar was &apos;n probleem tydens die uitleg van die gelaaide dokument in die redigeerder. Dit word veroorsaak deur &apos;n probleem in die onderliggend Qt raamwerk en kan TeXworks onder sekere omstandighede laat faal. Die simptome van hierdie probleem is verborge of oorvleuelende reëls. Om dit te vermy, probeer asseblief een van die volgende:
+        <translation>Daar was &apos;n probleem tydens die uitleg van die gelaaide dokument in die redigeerder. Dit word veroorsaak deur &apos;n probleem in die onderliggend Qt raamwerk en kan TeXworks onder sekere omstandighede laat faal. Die simptome van hierdie probleem is verborge of oorvleuelende reëls. Om dit te vermy, probeer asseblief een van die volgende:
  -) Skakel sintaks-inkleuring af en aan
  -) Skakel reëlnommers af en aan
  -) Verander die venstergrootte
@@ -2090,14 +2090,14 @@ Gebruik asseblief &quot;Lêer &gt; Terug na gestoorde weergawe&quot; handmatig w
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
-        <translation type="unfinished">Herlaai die huidige lêer met die enkodering wat uit hierdie lys gekies is.
+        <translation>Herlaai die huidige lêer met die enkodering wat uit hierdie lys gekies is.
 
 Die geselekteerde enkodering vervang die verstekkeuse en hef alle &quot;%!TEX encoding&quot; reëls op.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1645"/>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Skryf UTF-8 greeporde merk</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1668"/>

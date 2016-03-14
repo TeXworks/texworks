@@ -6,12 +6,12 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1058"/>
         <source>[language name]</source>
-        <translation type="unfinished">Afrikaans</translation>
+        <translation>Afrikaans</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1059"/>
         <source>[translator&apos;s name/email]</source>
-        <translation type="unfinished">&lt;a href=&quot;mailto:jhsh@sun.ac.za&quot;&gt;Jannie Hofmeyr&lt;/a&gt;</translation>
+        <translation>&lt;a href=&quot;mailto:jhsh@sun.ac.za&quot;&gt;Jannie Hofmeyr&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -19,37 +19,37 @@
     <message>
         <location filename="../src/PDFBackend.cpp" line="589"/>
         <source>rendering page</source>
-        <translation type="unfinished"></translation>
+        <translation>gee bladsy weer</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1748"/>
         <source>Unlock PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Ontsluit PDF</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1748"/>
         <source>Please enter the password to unlock the PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer asseblief wagwoord in om PDF te ontsluit</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1760"/>
         <source>Incorrect password</source>
-        <translation type="unfinished"></translation>
+        <translation>Verkeerde wagwoord</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1760"/>
         <source>The password you entered was incorrect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die wagwoord wat jy ingevoer het was verkeerd</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1766"/>
         <source>This document is locked. You need a password to open it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die dokument is gesluit. Jy moet n wagwoord hê om dit oop te maak.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1767"/>
         <source>Unlock</source>
-        <translation type="unfinished"></translation>
+        <translation>Ontsluit</translation>
     </message>
 </context>
 <context>
@@ -57,189 +57,189 @@
     <message>
         <location filename="../src/PDFDocumentTools.cpp" line="965"/>
         <source>Insufficient permission</source>
-        <translation type="unfinished"></translation>
+        <translation>Onvoldoende permissie</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentTools.cpp" line="965"/>
         <source>Text extraction is not allowed for this document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Teksekstraksie word nie vir hierdie dokument toegelaat nie.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2298"/>
         <source>Goto page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gaan na bladsy %1</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2310"/>
         <source>Execute `%1`</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer `%1` uit</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2533"/>
         <location filename="../src/PDFDocumentView.cpp" line="2550"/>
         <source>Table of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Inhoudsopgawe</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2643"/>
         <location filename="../src/PDFDocumentView.cpp" line="2815"/>
         <source>Meta Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Metadata</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2690"/>
         <location filename="../src/PDFDocumentView.cpp" line="2823"/>
         <source>Processing</source>
-        <translation type="unfinished"></translation>
+        <translation>Prosessering</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2722"/>
         <location filename="../src/PDFDocumentView.cpp" line="2830"/>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>Ander</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2760"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2763"/>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Nee</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2766"/>
         <location filename="../src/PDFDocumentView.cpp" line="2801"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekend</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2817"/>
         <source>Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2818"/>
         <source>Title:</source>
-        <translation type="unfinished"></translation>
+        <translation>Titel:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2819"/>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation>Outeur:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2820"/>
         <source>Subject:</source>
-        <translation type="unfinished"></translation>
+        <translation>Onderwerp:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2821"/>
         <source>Keywords:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sleutelwoorde:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2824"/>
         <source>Creator:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skepper:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2825"/>
         <source>Producer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitvoerder:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2826"/>
         <source>Creation date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skeppingsdatum:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2827"/>
         <source>Modification date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifiseringsdatum:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2828"/>
         <source>Trapped:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vasgevang:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2839"/>
         <location filename="../src/PDFDocumentView.cpp" line="2933"/>
         <source>Fonts</source>
-        <translation type="unfinished">Lettertipe</translation>
+        <translation>Lettertipes</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2889"/>
         <source>Type 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipe 0</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2892"/>
         <source>Type 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipe 1</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2895"/>
         <source>Type 1 (multiple master)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipe 1 (veelvoudige meester)</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2898"/>
         <source>Type 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipe 3</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2901"/>
         <source>TrueType</source>
-        <translation type="unfinished"></translation>
+        <translation>TrueType</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2904"/>
         <source>yes</source>
-        <translation type="unfinished">ja</translation>
+        <translation>ja</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2904"/>
         <source>no</source>
-        <translation type="unfinished">nee</translation>
+        <translation>nee</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2907"/>
         <source>[embedded]</source>
-        <translation type="unfinished">[ingebed]</translation>
+        <translation>[ingebed]</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2910"/>
         <source>[builtin]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ingebou]</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2934"/>
         <source>Name</source>
-        <translation type="unfinished">Naam</translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2934"/>
         <source>Type</source>
-        <translation type="unfinished">Tipe</translation>
+        <translation>Tipe</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2934"/>
         <source>Subset</source>
-        <translation type="unfinished">Subversameling</translation>
+        <translation>Subversameling</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2934"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Bron</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2942"/>
         <location filename="../src/PDFDocumentView.cpp" line="3037"/>
         <source>Permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Permissies</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2991"/>
@@ -248,12 +248,12 @@
         <location filename="../src/PDFDocumentView.cpp" line="3016"/>
         <location filename="../src/PDFDocumentView.cpp" line="3021"/>
         <source>Allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Toegelaat</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2993"/>
         <source>Low resolution only</source>
-        <translation type="unfinished"></translation>
+        <translation>Alleenlik lae resolusie</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2996"/>
@@ -267,73 +267,73 @@
         <location filename="../src/PDFDocumentView.cpp" line="3031"/>
         <location filename="../src/PDFDocumentView.cpp" line="3032"/>
         <source>Denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Geweier</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3002"/>
         <source>Assembling only</source>
-        <translation type="unfinished"></translation>
+        <translation>Net bymekaarsit</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3003"/>
         <source>Insert, rotate, or delete pages and create bookmarks or thumbnail images</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg in, roteer, of skrap bladsye en skep boekmerke of miniatuurbeelde</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3011"/>
         <source>Accessibility support only</source>
-        <translation type="unfinished"></translation>
+        <translation>Alleenlik ondersteuning vir toeganklikheid</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3039"/>
         <source>Printing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukwerk:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3040"/>
         <source>Modifications:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifikasies:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3041"/>
         <source>Extraction:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekstraksie:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3042"/>
         <source>Annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Annotasie:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3043"/>
         <source>Filling forms:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorms invul:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3051"/>
         <location filename="../src/PDFDocumentView.cpp" line="3146"/>
         <source>Annotations</source>
-        <translation type="unfinished"></translation>
+        <translation>Annotasies</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3147"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Bladsy</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3147"/>
         <source>Subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Onderwerp</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3147"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Outeur</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3147"/>
         <source>Contents</source>
-        <translation type="unfinished">Inhoud</translation>
+        <translation>Inhoud</translation>
     </message>
 </context>
 </TS>
