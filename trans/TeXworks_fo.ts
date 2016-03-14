@@ -609,27 +609,27 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="763"/>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>Far til fyrra sýni</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="766"/>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Vinstra</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="779"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstøk síða</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="791"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstøk samanhangandi síða</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="803"/>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Tvær samanhangandi síður</translation>
     </message>
     <message>
         <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
@@ -643,8 +643,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="441"/>
         <source>Error initializing SyncTeX</source>
-        <translatorcomment>Fekk ikki løtt SyncTeX</translatorcomment>
-        <translation></translation>
+        <translation type="unfinished">Fekk ikki løtt SyncTeX</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="443"/>
@@ -679,7 +678,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="745"/>
         <source>Jump to Source</source>
-        <translation type="unfinished">Til keldu</translation>
+        <translation>Far til keldu</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="829"/>
@@ -698,16 +697,16 @@
         <translation>(minst til at lata aftur, fyri at sleppa undan atgongutrupulleikum)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="907"/>
-        <location filename="../src/PDFDocument.cpp" line="911"/>
+        <location filename="../src/PDFDocument.cpp" line="912"/>
+        <location filename="../src/PDFDocument.cpp" line="916"/>
         <source>Go to Page</source>
-        <translation type="unfinished">Til síðu</translation>
+        <translation>Far til síðu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="908"/>
-        <location filename="../src/PDFDocument.cpp" line="912"/>
+        <location filename="../src/PDFDocument.cpp" line="913"/>
+        <location filename="../src/PDFDocument.cpp" line="917"/>
         <source>Page number:</source>
-        <translation type="unfinished">Síðutal:</translation>
+        <translation>Síðutal:</translation>
     </message>
 </context>
 <context>
@@ -1092,22 +1091,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="708"/>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Síðustøða:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="716"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstøk síða</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="721"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstøk samanhangandi síða</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="726"/>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Tvær samanhangandi síður</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="750"/>
@@ -1575,7 +1574,7 @@
         <location filename="../src/TWApp.cpp" line="234"/>
         <location filename="../src/TWApp.cpp" line="283"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished"></translation>
+        <translation>Sløkk TeXworks</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="239"/>
@@ -1660,12 +1659,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="306"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt forritakarmur&lt;/a&gt; v%1 frá The Qt Company.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; rættlesari frá L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="309"/>
@@ -1835,7 +1834,7 @@
         <location filename="../src/TWScriptable.cpp" line="622"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(ógildað í ásetingunum)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="626"/>

@@ -77,7 +77,7 @@ ko.CreateFileAssoc=다음 유형의 파일을 열 때 기본값으로 TeXworks�
 tr.CreateFileAssoc=Aşağıdaki dosya türlerini öntanımlı olarak TeXworks ile aç:
 zh_cn.CreateFileAssoc=默认使用 TeXworks 打开下列文件类型：
 ; Inno Setup doesn't support Faroese (yet)
-; fo.CreateFileAssoc=Opna sum standard hesi fílusløg við TeXworks:
+; fo.CreateFileAssoc=Lat altíð hesi sløgini av fílum upp við TeXworks:
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
