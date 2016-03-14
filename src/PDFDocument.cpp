@@ -281,6 +281,9 @@ void PDFDocument::init()
 			break;
 	}
 
+	if (settings.contains("previewResolution"))
+		pdfWidget->setResolution(settings.value("previewResolution", QApplication::desktop()->logicalDpiX()).toInt());
+
 	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
 
 	TWApp::instance()->updateWindowMenus();
