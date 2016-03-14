@@ -132,6 +132,7 @@ void PDFDocument::init()
 	pdfWidget = new QtPDF::PDFDocumentWidget(this);
 	pdfWidget->setSearchResultHighlightBrush(QBrush(Qt::transparent));
 	pdfWidget->setCurrentSearchResultHighlightBrush(QBrush(Qt::transparent));
+	pdfWidget->setAcceptDrops(false);
 	_searchResultHighlightBrush = QColor(255, 255, 0, 63);
 	setCentralWidget(pdfWidget);
 
