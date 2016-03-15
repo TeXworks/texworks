@@ -458,9 +458,9 @@ public:
   int pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const;
   PDFPageLayout& pageLayout() { return _pageLayout; }
 
-  void showOnePage(const int pageIdx) const;
-  void showOnePage(const PDFPageGraphicsItem * page) const;
-  void showAllPages() const;
+  void showOnePage(const int pageIdx);
+  void showOnePage(const PDFPageGraphicsItem * page);
+  void showAllPages();
 
   bool watchForDocumentChangesOnDisk() const { return _fileWatcher.files().size() > 0; }
   void setWatchForDocumentChangesOnDisk(const bool doWatch = true);
@@ -488,6 +488,9 @@ protected slots:
   void finishUnlock();
 
 protected:
+  // Used in non-continuous mode to keep track of currently shown page across
+  // reloads. -2 is used in continuous mode. -1 indicates an invalid value.
+  int _shownPageIdx;
   bool event(QEvent* event);
   
   QWidget * _unlockWidget;

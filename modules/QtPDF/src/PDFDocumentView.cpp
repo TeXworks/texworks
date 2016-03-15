@@ -1574,7 +1574,8 @@ QPixmap& PDFDocumentMagnifierView::dropShadow()
 // PDFLinkGraphicsItem.
 PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent /* = 0 */, const double dpiX /* = -1 */, const double dpiY /* = -1 */):
   Super(parent),
-  _doc(a_doc)
+  _doc(a_doc),
+  _shownPageIdx(-2)
 {
   Q_ASSERT(a_doc != NULL);
   // We need to register a QList<PDFLinkGraphicsItem *> meta-type so we can
@@ -1796,25 +1797,6 @@ void PDFDocumentScene::pageLayoutChanged(const QRectF& sceneRect)
 
 void PDFDocumentScene::reinitializeScene()
 {
-  // Ensure we can reinitialize page visibilities. This is particularly
-  // important for single page mode, as there, the right page should be visible.
-  QVector<bool> wasVisible(qMax(_pages.size(), _doc->numPages()), _pageLayout.isContinuous());
-  for (int i = 0; i < _pages.size(); ++i) {
-    if (!_pages[i])
-      continue;
-    wasVisible[i] = _pages[i]->isVisible();
-  }
-  // Check if there is at least one visible page. If not (e.g., because we are
-  // reloading a document that had no pages previously because it was broken),
-  // make the first page visible.
-  if (!wasVisible.isEmpty()) {
-    bool anyVisible = false;
-    for (int i = 0; i < wasVisible.size(); ++i)
-      anyVisible |= wasVisible[i];
-    if (!anyVisible)
-      wasVisible[0] = true;
-  }
-
   clear();
   _pages.clear();
   _pageLayout.clearPages();
@@ -1832,10 +1814,13 @@ void PDFDocumentScene::reinitializeScene()
     int i;
     PDFPageGraphicsItem *pagePtr;
 
+    if (_shownPageIdx >= _lastPage)
+      _shownPageIdx = _lastPage - 1;
+
     for (i = 0; i < _lastPage; ++i)
     {
       pagePtr = new PDFPageGraphicsItem(_doc->page(i), _dpiX, _dpiY);
-      pagePtr->setVisible(wasVisible[i]);
+      pagePtr->setVisible(i == _shownPageIdx || _shownPageIdx == -2);
       _pages.append(pagePtr);
       addItem(pagePtr);
       _pageLayout.addPage(pagePtr);
@@ -1864,18 +1849,23 @@ void PDFDocumentScene::reloadDocument()
 
 // Other
 // -----
-void PDFDocumentScene::showOnePage(const int pageIdx) const
+void PDFDocumentScene::showOnePage(const int pageIdx)
 {
   int i;
 
   for (i = 0; i < _pages.size(); ++i) {
     if (!isPageItem(_pages[i]))
       continue;
-    _pages[i]->setVisible(i == pageIdx);
+    if (i == pageIdx) {
+      _pages[i]->setVisible(true);
+      _shownPageIdx = pageIdx;
+    }
+    else
+      _pages[i]->setVisible(false);
   }
 }
 
-void PDFDocumentScene::showOnePage(const PDFPageGraphicsItem * page) const
+void PDFDocumentScene::showOnePage(const PDFPageGraphicsItem * page)
 {
   int i;
 
@@ -1883,10 +1873,16 @@ void PDFDocumentScene::showOnePage(const PDFPageGraphicsItem * page) const
     if (!isPageItem(_pages[i]))
       continue;
     _pages[i]->setVisible(_pages[i] == page);
+    if (_pages[i] == page) {
+      _pages[i]->setVisible(true);
+      _shownPageIdx = i;
+    }
+    else
+      _pages[i]->setVisible(false);
   }
 }
 
-void PDFDocumentScene::showAllPages() const
+void PDFDocumentScene::showAllPages()
 {
   int i;
 
@@ -1895,6 +1891,7 @@ void PDFDocumentScene::showAllPages() const
       continue;
     _pages[i]->setVisible(true);
   }
+  _shownPageIdx = -2;
 }
 
 void PDFDocumentScene::setWatchForDocumentChangesOnDisk(const bool doWatch /* = true */)
