@@ -1619,7 +1619,7 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
   // the QFileSystemWatcher fires several times, the timer gets restarted every
   // time.
   _reloadTimer.setSingleShot(true);
-  _reloadTimer.setInterval(100);
+  _reloadTimer.setInterval(500);
   connect(&_reloadTimer, SIGNAL(timeout()), this, SLOT(reloadDocument()));
   connect(&_fileWatcher, SIGNAL(fileChanged(const QString &)), &_reloadTimer, SLOT(start()));
   setWatchForDocumentChangesOnDisk(true);
