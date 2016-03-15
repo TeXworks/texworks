@@ -54,7 +54,6 @@ class QToolBar;
 class QScrollArea;
 class TeXDocument;
 class QShortcut;
-class QFileSystemWatcher;
 
 class PDFDocument : public TWScriptable, private Ui::PDFDocument
 {
@@ -118,7 +117,6 @@ private slots:
 	void enablePageActions(int);
 	void syncClick(int page, const QPointF& pos);
 	void invalidateSyncHighlight();
-	void reloadWhenIdle();
 	void scaleLabelClick(QMouseEvent * event) { showScaleContextMenu(event->pos()); }
 	void showScaleContextMenu(const QPoint pos);
 	void setScaleFromContextMenu(const QString & strZoom);
@@ -159,9 +157,6 @@ private:
 	QBrush _searchResultHighlightBrush;
 	QTimer _searchResultHighlightRemover;
 
-	QFileSystemWatcher *watcher;
-	QTimer *reloadTimer;
-	
 	bool openedManually;
 	
 	static QList<PDFDocument*> docList;

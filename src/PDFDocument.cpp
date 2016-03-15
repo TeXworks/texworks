@@ -46,7 +46,6 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QShortcut>
-#include <QFileSystemWatcher>
 #include <QToolTip>
 #include <QSignalMapper>
 
@@ -71,15 +70,12 @@ const int kPDFHighlightDuration = 2000;
 QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
-	: _syncHighlight(NULL), watcher(NULL), reloadTimer(NULL), _synchronizer(NULL), openedManually(false)
+	: _syncHighlight(NULL), _synchronizer(NULL), openedManually(false)
 {
 	init();
 
-	if (texDoc == NULL) {
+	if (texDoc == NULL)
 		openedManually = true;
-		watcher = new QFileSystemWatcher(this);
-		connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadWhenIdle()));
-	}
 
 	loadFile(fileName);
 
@@ -398,12 +394,6 @@ void PDFDocument::loadFile(const QString &fileName)
 	settings.setValue("openDialogDir", info.canonicalPath());
 
 	reload();
-	if (watcher) {
-		const QStringList files = watcher->files();
-		if (!files.isEmpty())
-			watcher->removePaths(files); // in case we ever load different files into the same widget
-		watcher->addPath(curFile);
-	}
 }
 
 void PDFDocument::reload()
@@ -419,19 +409,6 @@ void PDFDocument::reload()
 		statusBar()->showMessage(tr("Failed to load file \"%1\"; perhaps it is not a valid PDF document.").arg(TWUtils::strippedName(curFile)));
 	}
 	QApplication::restoreOverrideCursor();
-}
-
-void PDFDocument::reloadWhenIdle()
-{
-	if (reloadTimer)
-		reloadTimer->stop();
-	else {
-		reloadTimer = new QTimer(this);
-		reloadTimer->setSingleShot(true);
-		reloadTimer->setInterval(1000);
-		connect(reloadTimer, SIGNAL(timeout()), this, SLOT(reload()));
-	}
-	reloadTimer->start();
 }
 
 void PDFDocument::loadSyncData()
