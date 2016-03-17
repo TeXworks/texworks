@@ -2296,7 +2296,11 @@ void PDFLinkGraphicsItem::retranslateUi()
       case PDFAction::ActionTypeGoTo:
         {
           PDFGotoAction * actionGoto = static_cast<PDFGotoAction*>(action);
-          setToolTip(QString::fromUtf8("<p>") + PDFDocumentView::trUtf8("Goto page %1").arg(actionGoto->destination().page() + 1) + QString::fromUtf8("</p>"));
+          if (actionGoto->isRemote())
+            setToolTip(QString::fromUtf8("<p>%1</p>").arg(actionGoto->filename()));
+            // FIXME: Possibly include page as well after the filename
+          else
+            setToolTip(QString::fromUtf8("<p>") + PDFDocumentView::trUtf8("Goto page %1").arg(actionGoto->destination().page() + 1) + QString::fromUtf8("</p>"));
         }
         break;
       case PDFAction::ActionTypeURI:
