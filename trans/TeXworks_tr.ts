@@ -545,35 +545,35 @@
     </message>
     <message>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>Önceki görünüme git</translation>
     </message>
     <message>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Sol</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Tek Sayfa</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesintisiz Tek Sayfa</translation>
     </message>
     <message>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesintisiz İkişer Sayfa</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation type="unfinished">Kaynağa Atla</translation>
+        <translation>Kaynağa Atla</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation type="unfinished">Sayfaya Git</translation>
+        <translation>Sayfaya Git</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation type="unfinished">Sayfa no:</translation>
+        <translation>Sayfa no:</translation>
     </message>
 </context>
 <context>
@@ -1010,19 +1010,19 @@
     </message>
     <message>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sayfa modu:</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Tek Sayfa</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesintisiz Tek Sayfa</translation>
     </message>
     <message>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Kesintisiz İkişer Sayfa</translation>
     </message>
 </context>
 <context>
@@ -1434,15 +1434,15 @@
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">TeXworks&apos;den çık</translation>
+        <translation>TeXworks&apos;den çık</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;The Qt Company tarafından &lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt uygulama çatısı&lt;/a&gt; v%1.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth tarafından &lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; yazım denetçisi.</translation>
     </message>
 </context>
 <context>
@@ -1513,7 +1513,7 @@
     <message>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(tercihlerden etkisizleştirilmiş)</translation>
     </message>
 </context>
 <context>

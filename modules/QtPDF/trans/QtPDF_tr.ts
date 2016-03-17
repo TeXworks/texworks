@@ -5,11 +5,11 @@
     <name>QtPDF</name>
     <message>
         <source>[language name]</source>
-        <translation type="unfinished">Türkçe</translation>
+        <translation>Türkçe</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
-        <translation type="unfinished">Sertaç Ö. Yıldız &lt;sertacyildiz＠gmail.com&gt;</translation>
+        <translation>Sertaç Ö. Yıldız &lt;sertacyildiz＠gmail.com&gt;</translation>
     </message>
 </context>
 <context>
@@ -20,34 +20,34 @@
     </message>
     <message>
         <source>Unlock PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF&apos;in kilidini aç</translation>
     </message>
     <message>
         <source>Please enter the password to unlock the PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF&apos;in kilidini açmak için parolayı girin</translation>
     </message>
     <message>
         <source>Incorrect password</source>
-        <translation type="unfinished"></translation>
+        <translation>Hatalı parola</translation>
     </message>
     <message>
         <source>The password you entered was incorrect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Girdiğiniz parola hatalıydı.</translation>
     </message>
     <message>
         <source>This document is locked. You need a password to open it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu belge kilitli. Açmak için bir parola gerekiyor.</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation type="unfinished"></translation>
+        <translation>Kilidi aç</translation>
     </message>
 </context>
 <context>
     <name>QtPDF::PDFDocumentView</name>
     <message>
         <source>Insufficient permission</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerekli izin yok</translation>
     </message>
     <message>
         <source>Text extraction is not allowed for this document.</source>
@@ -67,7 +67,7 @@
     </message>
     <message>
         <source>Meta Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Üst Veri</translation>
     </message>
     <message>
         <source>Processing</source>
@@ -75,55 +75,55 @@
     </message>
     <message>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>Diğer</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Evet</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Hayır</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilinmiyor</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Belge</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation type="unfinished"></translation>
+        <translation>Başlık:</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation>Yazar:</translation>
     </message>
     <message>
         <source>Subject:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konu:</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anahtar kelimeler:</translation>
     </message>
     <message>
         <source>Creator:</source>
-        <translation type="unfinished"></translation>
+        <translation>Oluşturan:</translation>
     </message>
     <message>
         <source>Producer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Üretici:</translation>
     </message>
     <message>
         <source>Creation date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Oluşturulma tarihi:</translation>
     </message>
     <message>
         <source>Modification date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Değişiklik tarihi:</translation>
     </message>
     <message>
         <source>Trapped:</source>
@@ -131,15 +131,15 @@
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished">Fontlar</translation>
+        <translation>Fontlar</translation>
     </message>
     <message>
         <source>Type 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Tip 0</translation>
     </message>
     <message>
         <source>Type 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tip 1</translation>
     </message>
     <message>
         <source>Type 1 (multiple master)</source>
@@ -147,59 +147,59 @@
     </message>
     <message>
         <source>Type 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Tip 3</translation>
     </message>
     <message>
         <source>TrueType</source>
-        <translation type="unfinished"></translation>
+        <translation>TrueType</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation type="unfinished">evet</translation>
+        <translation>evet</translation>
     </message>
     <message>
         <source>no</source>
-        <translation type="unfinished">hayır</translation>
+        <translation>hayır</translation>
     </message>
     <message>
         <source>[embedded]</source>
-        <translation type="unfinished">[gömülü]</translation>
+        <translation>[gömülü]</translation>
     </message>
     <message>
         <source>[builtin]</source>
-        <translation type="unfinished"></translation>
+        <translation>[yerleşik]</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">İsim</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Tip</translation>
+        <translation>Tip</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation type="unfinished">Altküme</translation>
+        <translation>Altküme</translation>
     </message>
     <message>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaynak</translation>
     </message>
     <message>
         <source>Permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>İzinler</translation>
     </message>
     <message>
         <source>Allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>İzin verildi</translation>
     </message>
     <message>
         <source>Low resolution only</source>
-        <translation type="unfinished"></translation>
+        <translation>Sadece düşük çözünürlük</translation>
     </message>
     <message>
         <source>Denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Engellendi</translation>
     </message>
     <message>
         <source>Assembling only</source>
@@ -239,19 +239,19 @@
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Sayfa</translation>
     </message>
     <message>
         <source>Subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Konu</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Yazar</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">İçindekiler</translation>
+        <translation>İçindekiler</translation>
     </message>
 </context>
 </TS>
