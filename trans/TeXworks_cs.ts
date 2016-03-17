@@ -171,78 +171,78 @@
         <translation type="obsolete">Soubor PDF &quot;%1&quot; je uzamčen; toto momentálně není podporováno.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="415"/>
+        <location filename="../src/PDFDocument.cpp" line="409"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Nepodařilo se otevřít soubor &quot;%1&quot;; zřejmě nejde o platný dokument PDF.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="441"/>
+        <location filename="../src/PDFDocument.cpp" line="422"/>
         <source>Error initializing SyncTeX</source>
         <translation>Chyba při inicializaci SyncTeXu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="443"/>
+        <location filename="../src/PDFDocument.cpp" line="424"/>
         <source>No SyncTeX data available</source>
         <translation>Data SyncTeX nejsou dostupná</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="445"/>
+        <location filename="../src/PDFDocument.cpp" line="426"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="554"/>
+        <location filename="../src/PDFDocument.cpp" line="535"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="583"/>
+        <location filename="../src/PDFDocument.cpp" line="564"/>
         <source>page %1 of %2</source>
         <translation>strana %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="588"/>
+        <location filename="../src/PDFDocument.cpp" line="569"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="700"/>
+        <location filename="../src/PDFDocument.cpp" line="681"/>
         <source>Abort typesetting</source>
         <translation>Zrušit sazbu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="745"/>
+        <location filename="../src/PDFDocument.cpp" line="726"/>
         <source>Jump to Source</source>
-        <translation type="unfinished">Přeskočit do zdrojového dokumentu</translation>
+        <translation>Přeskočit do zdrojového dokumentu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="829"/>
+        <location filename="../src/PDFDocument.cpp" line="810"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Bohužel, z řady technických důvodů tato verze programu %1 nepodporuje tisk dokumentů PDF.
 </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="830"/>
+        <location filename="../src/PDFDocument.cpp" line="811"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Chcete soubor otevřít ve výchozím prohlížeči pro tisk?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="831"/>
+        <location filename="../src/PDFDocument.cpp" line="812"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (Nezapomeňte jej následně zavřít, abyste předešli problémům s přístupem.)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="907"/>
-        <location filename="../src/PDFDocument.cpp" line="911"/>
+        <location filename="../src/PDFDocument.cpp" line="893"/>
+        <location filename="../src/PDFDocument.cpp" line="897"/>
         <source>Go to Page</source>
-        <translation type="unfinished">Přejít na stranu</translation>
+        <translation>Přejít na stranu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="908"/>
-        <location filename="../src/PDFDocument.cpp" line="912"/>
+        <location filename="../src/PDFDocument.cpp" line="894"/>
+        <location filename="../src/PDFDocument.cpp" line="898"/>
         <source>Page number:</source>
-        <translation type="unfinished">Číslo strany:</translation>
+        <translation>Číslo strany:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -366,7 +366,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="281"/>
-        <location filename="../src/PDFDocument.cpp" line="752"/>
+        <location filename="../src/PDFDocument.cpp" line="733"/>
         <source>Zoom In</source>
         <translation>Zvětšit</translation>
     </message>
@@ -377,7 +377,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="296"/>
-        <location filename="../src/PDFDocument.cpp" line="753"/>
+        <location filename="../src/PDFDocument.cpp" line="734"/>
         <source>Zoom Out</source>
         <translation>Zmenšit</translation>
     </message>
@@ -388,7 +388,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="314"/>
-        <location filename="../src/PDFDocument.cpp" line="756"/>
+        <location filename="../src/PDFDocument.cpp" line="737"/>
         <source>Fit to Window</source>
         <translation>Přizpůsobit oknu</translation>
     </message>
@@ -399,7 +399,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="329"/>
-        <location filename="../src/PDFDocument.cpp" line="754"/>
+        <location filename="../src/PDFDocument.cpp" line="735"/>
         <source>Actual Size</source>
         <translation>Skutečná velikost</translation>
     </message>
@@ -410,7 +410,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="347"/>
-        <location filename="../src/PDFDocument.cpp" line="755"/>
+        <location filename="../src/PDFDocument.cpp" line="736"/>
         <source>Fit to Width</source>
         <translation>Přizpůsobit šířce okna</translation>
     </message>
@@ -511,7 +511,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="507"/>
-        <location filename="../src/PDFDocument.cpp" line="707"/>
+        <location filename="../src/PDFDocument.cpp" line="688"/>
         <source>Typeset</source>
         <translation>Vysázet</translation>
     </message>
@@ -663,7 +663,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="739"/>
-        <location filename="../src/PDFDocument.cpp" line="834"/>
+        <location filename="../src/PDFDocument.cpp" line="815"/>
         <source>Print Pdf...</source>
         <translation>Tisk PDF...</translation>
     </message>
@@ -685,27 +685,27 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="763"/>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>Přejít na předchozí pohled</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="766"/>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Vlevo</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="779"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedna strana</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="791"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedna strana souvisle</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="803"/>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvě strany souvisle</translation>
     </message>
 </context>
 <context>
@@ -1104,22 +1104,22 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="708"/>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazení stran:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="716"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedna strana</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="721"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedna strana souvisle</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="726"/>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvě strany souvisle</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="750"/>
@@ -1573,7 +1573,7 @@
         <location filename="../src/TWApp.cpp" line="234"/>
         <location filename="../src/TWApp.cpp" line="283"/>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">Ukončit TeXworks</translation>
+        <translation>Ukončit TeXworks</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="239"/>
@@ -1666,12 +1666,12 @@
     <message>
         <location filename="../src/TWApp.cpp" line="306"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Aplikační systém Qt&lt;/a&gt; v%1 od The Qt Company.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker, autor L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="309"/>
@@ -1841,7 +1841,7 @@
         <location filename="../src/TWScriptable.cpp" line="622"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(zakázáno v nastavení)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="626"/>
