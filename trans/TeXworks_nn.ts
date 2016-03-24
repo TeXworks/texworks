@@ -443,25 +443,22 @@
     <message>
         <source>Home</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation type="unfinished">            </translation>
+        <translation>Home</translation>
     </message>
     <message>
         <source>PgUp</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation type="unfinished">
-            </translation>
+        <translation>PgUp</translation>
     </message>
     <message>
         <source>PgDown</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation type="unfinished">
-            </translation>
+        <translation>PgDown</translation>
     </message>
     <message>
         <source>End</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation type="unfinished">
-            </translation>
+        <translation>End</translation>
     </message>
     <message>
         <source>Ctrl+J</source>
@@ -509,10 +506,6 @@
         <translation>Tøm nyleg brukte filer</translation>
     </message>
     <message>
-        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="obsolete">PDF-fila «%1» er låst. Dette er ikkje støtta.</translation>
-    </message>
-    <message>
         <source>Abort typesetting</source>
         <translation>Avbryt kompilering</translation>
     </message>
@@ -532,39 +525,39 @@
     </message>
     <message>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>Feil ved start av SyncTeX</translation>
     </message>
     <message>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>Gå til førre vising</translation>
     </message>
     <message>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt + Pil venstre</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Éi side</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Éi side – samanhengande</translation>
     </message>
     <message>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>To sider – samanhengande</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation type="unfinished">Hopp til kjeldefil</translation>
+        <translation>Hopp til kjeldefil</translation>
     </message>
     <message>
         <source>Go to Page</source>
-        <translation type="unfinished">Gå til side</translation>
+        <translation>Gå til side</translation>
     </message>
     <message>
         <source>Page number:</source>
-        <translation type="unfinished">Sidetal:</translation>
+        <translation>Sidetal:</translation>
     </message>
 </context>
 <context>
@@ -604,98 +597,6 @@
     <message>
         <source>&amp;Sync to source</source>
         <translation>&amp;Synkroniser med kjeldefil</translation>
-    </message>
-</context>
-<context>
-    <name>PDFFontsDock</name>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Namn</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation type="obsolete">Del</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Fil</translation>
-    </message>
-    <message>
-        <source>[none]</source>
-        <translation type="obsolete">[ingen]</translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation type="obsolete">ja</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation type="obsolete">nei</translation>
-    </message>
-    <message>
-        <source>[embedded]</source>
-        <translation type="obsolete">[innebygd]</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">Skrifter</translation>
-    </message>
-</context>
-<context>
-    <name>PDFInfoDock</name>
-    <message>
-        <source>PDF Info</source>
-        <translation type="obsolete">PDF-info</translation>
-    </message>
-</context>
-<context>
-    <name>PDFOutlineDock</name>
-    <message>
-        <source>No TOC</source>
-        <translation type="obsolete">Inga innhaldsliste</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">Innhald</translation>
-    </message>
-</context>
-<context>
-    <name>PDFWidget</name>
-    <message>
-        <source>Zoom In</source>
-        <translation type="obsolete">Vis større</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation type="obsolete">Vis mindre</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">Verkeleg storleik</translation>
-    </message>
-    <message>
-        <source>Fit to Width</source>
-        <translation type="obsolete">Tilpass til sidebreidd</translation>
-    </message>
-    <message>
-        <source>Fit to Window</source>
-        <translation type="obsolete">Tilpass til vindauge</translation>
-    </message>
-    <message>
-        <source>Jump to Source</source>
-        <translation type="obsolete">Hopp til kjeldefil</translation>
-    </message>
-    <message>
-        <source>Go to Page</source>
-        <translation type="obsolete">Gå til side</translation>
-    </message>
-    <message>
-        <source>Page number:</source>
-        <translation type="obsolete">Sidetal:</translation>
     </message>
 </context>
 <context>
@@ -975,19 +876,19 @@
     </message>
     <message>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidemodus:</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Éi side</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>Éi side – samanhengande</translation>
     </message>
     <message>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>To sider – samanhengande</translation>
     </message>
 </context>
 <context>
@@ -1272,10 +1173,6 @@
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF-bibliotek av Kristian H&amp;#xF8;gsberg, Albert Astals Cid og andre.</translation>
     </message>
     <message>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; stavekontroll av L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
-    </message>
-    <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation>&lt;br&gt;Konsept og ressursar frå &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; av Richard Koch.</translation>
     </message>
@@ -1332,16 +1229,8 @@
         <translation>Tøm nyleg brukte dokument</translation>
     </message>
     <message>
-        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation type="obsolete">&lt;br&gt;Versjon %1 r.%2 (%3)</translation>
-    </message>
-    <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;Distribuert under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versjon 2 eller (om du ønskjer) ein seinare versjon.</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt programvarerammeverk&lt;/a&gt; v%1 av Qt Software, ein del av Nokia Corporation.</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1361,23 +1250,23 @@
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versjon %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versjon %1 (%2)</translation>
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">Avslutt TeXworks</translation>
+        <translation>Avslutt TeXworks</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt programvarerammeverk&lt;/a&gt; v%1 av The Qt Company.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; stavekontroll av L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
 </context>
 <context>
@@ -1443,12 +1332,12 @@
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Skript-feil</translation>
     </message>
     <message>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(slått av i innstillingane)</translation>
     </message>
 </context>
 <context>
@@ -2233,7 +2122,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <source>Write UTF-8 byte order mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv UTF-8-BOM</translation>
     </message>
 </context>
 <context>
