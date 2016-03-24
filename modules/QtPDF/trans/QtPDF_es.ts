@@ -51,7 +51,7 @@
     </message>
     <message>
         <source>Text extraction is not allowed for this document.</source>
-        <translation>En este documento no está permitida la extracción de texto.</translation>
+        <translation>En este documento no está permitido el copiado de texto.</translation>
     </message>
     <message>
         <source>Goto page %1</source>
@@ -207,8 +207,7 @@
     </message>
     <message>
         <source>Insert, rotate, or delete pages and create bookmarks or thumbnail images</source>
-        <translation>
-Insertar, rotar o borrar páginas y crear marcadores o imágenes miniatura</translation>
+        <translation>Insertar, rotar o borrar páginas y crear marcadores o imágenes miniatura</translation>
     </message>
     <message>
         <source>Accessibility support only</source>
@@ -216,15 +215,15 @@ Insertar, rotar o borrar páginas y crear marcadores o imágenes miniatura</tran
     </message>
     <message>
         <source>Printing:</source>
-        <translation>Imprimiendo:</translation>
+        <translation>Impresión:</translation>
     </message>
     <message>
         <source>Modifications:</source>
-        <translation>Modificaciones:</translation>
+        <translation>Modificación:</translation>
     </message>
     <message>
         <source>Extraction:</source>
-        <translation>Extracción:</translation>
+        <translation>Copiado:</translation>
     </message>
     <message>
         <source>Annotation:</source>
@@ -232,7 +231,7 @@ Insertar, rotar o borrar páginas y crear marcadores o imágenes miniatura</tran
     </message>
     <message>
         <source>Filling forms:</source>
-        <translation>Llenar formularios:</translation>
+        <translation>Rellenar formularios:</translation>
     </message>
     <message>
         <source>Annotations</source>
