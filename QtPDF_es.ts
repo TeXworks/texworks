@@ -51,7 +51,7 @@
     </message>
     <message>
         <source>Text extraction is not allowed for this document.</source>
-        <translation>En este documento no está permitido el copiado de texto.</translation>
+        <translation>Documento sin permiso para la extracción de texto.</translation>
     </message>
     <message>
         <source>Goto page %1</source>
@@ -211,7 +211,7 @@
     </message>
     <message>
         <source>Accessibility support only</source>
-        <translation>Sólo con facilidad de acceso</translation>
+        <translation>Sólo con permiso de acceso</translation>
     </message>
     <message>
         <source>Printing:</source>
@@ -223,11 +223,11 @@
     </message>
     <message>
         <source>Extraction:</source>
-        <translation>Copiado:</translation>
+        <translation>Extracción:</translation>
     </message>
     <message>
         <source>Annotation:</source>
-        <translation>Notas:</translation>
+        <translation>Anotaciones:</translation>
     </message>
     <message>
         <source>Filling forms:</source>
