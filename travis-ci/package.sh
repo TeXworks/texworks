@@ -5,12 +5,12 @@ set -e
 
 cd "${TRAVIS_BUILD_DIR}"
 
+. travis-ci/defs.sh
+
 if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
 	print_warning "Not packaging pull-requests for deployment"
 	exit 0
 fi
-
-. travis-ci/defs.sh
 
 print_headline "Packaging ${TARGET_OS}/qt${QT} for deployment"
 
@@ -91,9 +91,13 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 
 			print_info "   preparing changelog"
 			echo "texworks (${DEB_VERSION}) ${DISTRO}; urgency=low\n" > "${DEBDIR}/debian/changelog"
-			# FIXME: For stable releases, derive the changelog from the NEWS file
-			git log --reverse --pretty=format:"%w(80,4,6)* %s" ${TRAVIS_COMMIT_RANGE} >> "${DEBDIR}/debian/changelog"
-			echo "" >> "${DEBDIR}/debian/changelog" # git log does not append a newline
+			if [ -z "${TRAVIS_TAG}" ]; then
+				git log --reverse --pretty=format:"%w(80,4,6)* %s" ${TRAVIS_COMMIT_RANGE} >> "${DEBDIR}/debian/changelog"
+				echo "" >> "${DEBDIR}/debian/changelog" # git log does not append a newline
+			else
+				NEWS=$(sed -n "/^Release ${TW_VERSION}/,/^Release/p" ${TRAVIS_BUILD_DIR}/NEWS | sed -e '/^Release/d' -e 's/^\t/    /')
+				echo "$NEWS" >> "${DEBDIR}/debian/changelog"
+			fi
 			echo "\n -- ${DEB_MAINTAINER_NAME} <${DEB_MAINTAINER_EMAIL}>  ${DEBDATE}" >> "${DEBDIR}/debian/changelog"
 
 			print_info "   building package"
@@ -117,7 +121,11 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 			cd ..
 
 			DEBFILE="texworks_${DEB_VERSION}_source.changes"
-			PPA="ppa:texworks/ppa"
+			if [ -z "${TRAVIS_TAG}" ]; then
+				PPA="ppa:texworks/ppa"
+			else
+				PPA="ppa:texworks/stable"
+			fi
 			print_info "   scheduling to upload ${DEBFILE} to ${PPA}"
 
 			echo "dput \"${PPA}\" \"${BUILDDIR}/${DEBFILE}\"" >> "${TRAVIS_BUILD_DIR}/travis-ci/dput-launchpad.sh"
@@ -138,8 +146,13 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		echo_and_run "cp \"${BUILDDIR}/TeXworks.exe\" \"package-zip/\""
 		echo_and_run "cp \"${TRAVIS_BUILD_DIR}/COPYING\" \"package-zip/\""
 		echo_and_run "cp -r \"${TRAVIS_BUILD_DIR}/win32/fonts\" \"package-zip/share/\""
-		# FIXME: manual (only for tags)
 		echo_and_run "cp -r \"${TRAVIS_BUILD_DIR}/travis-ci/README.win\" \"package-zip/README.txt\""
+		if [ ! -z "${TRAVIS_TAG}" -o ! -z "${FORCE_MANUAL}" ]; then
+			print_info "Fetching manual"
+			cd package-zip
+			echo_and_run "python \"${TRAVIS_BUILD_DIR}/travis-ci/getManual.py\""
+			cd ..
+		fi
 
 		print_info "Fetching poppler data"
 		wget "${POPPLERDATA_URL}"
@@ -178,6 +191,10 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 			"publish": true
 		}
 EOF
+		if [ ! -z "${TRAVIS_TAG}" ]; then
+			print_info "Preparing github-releases.txt"
+			echo "${BUILDDIR}/TeXworks-${TARGET_OS}-${VERSION_NAME}.zip" > "${TRAVIS_BUILD_DIR}/travis-ci/github-releases.txt"
+		fi
 	else
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
 	fi
@@ -187,6 +204,9 @@ elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
 	elif [ ${QT} -eq 5 ]; then
 		print_info "Running CPack"
 		cpack --verbose
+
+		print_info "Renaming .dmg"
+		mv "${BUILDDIR}/"TeXworks.*.dmg "${BUILDDIR}/TeXworks-${TRAVIS_OS_NAME}-${VERSION_NAME}.dmg"
 
 		print_info "Preparing bintray.json"
 		cat > "${TRAVIS_BUILD_DIR}/travis-ci/bintray.json" <<EOF
@@ -203,11 +223,15 @@ elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
 			},
 			"files":
 			[
-				{"includePattern": "${BUILDDIR}/(TeXworks.*\\\\.dmg)", "uploadPattern": "TeXworks-${TRAVIS_OS_NAME}-${VERSION_NAME}.dmg"}
+				{"includePattern": "${BUILDDIR}/TeXworks-${TRAVIS_OS_NAME}-${VERSION_NAME}.dmg", "uploadPattern": "TeXworks-${TRAVIS_OS_NAME}-${VERSION_NAME}.dmg"}
 			],
 			"publish": true
 		}
 EOF
+		if [ ! -z "${TRAVIS_TAG}" ]; then
+			print_info "Preparing github-releases.txt"
+			echo "${BUILDDIR}/TeXworks-${TARGET_OS}-${VERSION_NAME}.dmg" > "${TRAVIS_BUILD_DIR}/travis-ci/github-releases.txt"
+		fi
 	else
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
 	fi
