@@ -125,6 +125,7 @@ private slots:
 	void doPageDialog();
 	void jumpToSource();
 	void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
+	void setDefaultScale();
 
 signals:
 	void reloaded();

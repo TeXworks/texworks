@@ -91,6 +91,8 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 	if (properties.contains("pdfPageMode"))
 		setPageMode(properties.value("pdfPageMode", -1).toInt());
 
+	QTimer::singleShot(100, this, SLOT(setDefaultScale()));
+
 	if (texDoc != NULL) {
 		stackUnder((QWidget*)texDoc);
 		actionSide_by_Side->setEnabled(true);
@@ -799,6 +801,24 @@ void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygo
 		QRectF r = region[0].boundingRect();
 		QPointF pt(r.left() + 1e-5 * qMin(r.width(), 1.), r.center().y());
 		emit syncClick(pageNum, pt);
+	}
+}
+
+void PDFDocument::setDefaultScale() {
+	QSETTINGS_OBJECT(settings);
+	switch (settings.value("scaleOption", kDefault_PreviewScaleOption).toInt()) {
+		case 2:
+			pdfWidget->zoomFitWidth();
+			break;
+		case 3:
+			pdfWidget->zoomFitWindow();
+			break;
+		case 4:
+			pdfWidget->setZoomLevel(settings.value("previewScale", kDefault_PreviewScale).toFloat() / 100.);
+			break;
+		default:
+			pdfWidget->zoom100();
+			break;
 	}
 }
 
