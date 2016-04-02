@@ -65,9 +65,9 @@ TODO
 ====
 ### Required
  - Fix FIXMEs
- - context menu
- - Highlighting! (to show syncing destination, search results, etc.)
- - Port scripting-related functions from Tw (if any)
+ - ~~context menu~~
+ - ~~Highlighting! (to show syncing destination, search results, etc.)~~ __DONE__
+ - ~~Port scripting-related functions from Tw (if any)~~
  - ~~Possibility to reload current file (e.g., if it changed on disk); note that
    this requires some reconsideration of memory management, as Page object
    could change, which would have to be propagated upwards to every object
