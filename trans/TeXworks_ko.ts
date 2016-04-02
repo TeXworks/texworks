@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ko_KR">
+<TS version="2.0" language="ko_KR">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -136,10 +136,6 @@
         <translation>최근 문서 열기</translation>
     </message>
     <message>
-        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="obsolete">&quot;%1&quot; 파일이 잠겨 있습니다. 잠긴 파일 처리는 아직 지원하지 않습니다.</translation>
-    </message>
-    <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>&quot;%1&quot; 파일을 열 수 없습니다. 유효한 PDF 문서가 아닐 수 있습니다.</translation>
     </message>
@@ -212,11 +208,6 @@
         <translation>첫 쪽</translation>
     </message>
     <message>
-        <source>Home</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation></translation>
-    </message>
-    <message>
         <source>Previous Page</source>
         <translation>이전 쪽</translation>
     </message>
@@ -237,11 +228,6 @@
     <message>
         <source>Last Page</source>
         <translation>끝 쪽</translation>
-    </message>
-    <message>
-        <source>End</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation></translation>
     </message>
     <message>
         <source>Go to Page...</source>
@@ -604,98 +590,6 @@
     </message>
 </context>
 <context>
-    <name>PDFFontsDock</name>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">이름</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">종류</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation type="obsolete">서브셋</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">파일</translation>
-    </message>
-    <message>
-        <source>[none]</source>
-        <translation type="obsolete">[없음]</translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation type="obsolete">예</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation type="obsolete">아니오</translation>
-    </message>
-    <message>
-        <source>[embedded]</source>
-        <translation type="obsolete">[내장]</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">글꼴</translation>
-    </message>
-</context>
-<context>
-    <name>PDFInfoDock</name>
-    <message>
-        <source>PDF Info</source>
-        <translation type="obsolete">PDF 정보</translation>
-    </message>
-</context>
-<context>
-    <name>PDFOutlineDock</name>
-    <message>
-        <source>No TOC</source>
-        <translation type="obsolete">차례 없음</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">차례</translation>
-    </message>
-</context>
-<context>
-    <name>PDFWidget</name>
-    <message>
-        <source>Zoom In</source>
-        <translation type="obsolete">확대</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation type="obsolete">축소</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">실제 크기</translation>
-    </message>
-    <message>
-        <source>Fit to Width</source>
-        <translation type="obsolete">창너비에 맞추기</translation>
-    </message>
-    <message>
-        <source>Fit to Window</source>
-        <translation type="obsolete">창크기에 맞추기</translation>
-    </message>
-    <message>
-        <source>Jump to Source</source>
-        <translation type="obsolete">소스의 여기로 가기</translation>
-    </message>
-    <message>
-        <source>Go to Page</source>
-        <translation type="obsolete">쪽 찾아가기</translation>
-    </message>
-    <message>
-        <source>Page number:</source>
-        <translation type="obsolete">쪽 번호:</translation>
-    </message>
-</context>
-<context>
     <name>PrefsDialog</name>
     <message>
         <source>Choose Directory</source>
@@ -720,10 +614,6 @@
     <message>
         <source>General</source>
         <translation>일반</translation>
-    </message>
-    <message>
-        <source>Toolbar buttons</source>
-        <translation type="obsolete">툴바 단추</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -756,10 +646,6 @@
     <message>
         <source>File Open dialog</source>
         <translation>파일 열기 대화상자</translation>
-    </message>
-    <message>
-        <source>Interface locale:</source>
-        <translation type="obsolete">인터페이스 언어:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -874,10 +760,6 @@
         <translation>기본값:</translation>
     </message>
     <message>
-        <source>Auto-hide output panel unless errors occur</source>
-        <translation type="obsolete">에러 없이 종료하면 콘솔 패널 자동 숨김</translation>
-    </message>
-    <message>
         <source>Line numbers</source>
         <translation>줄번호 표시</translation>
     </message>
@@ -930,10 +812,6 @@
         <translation>Qt스크립트 디버거 활성화</translation>
     </message>
     <message>
-        <source>Hide output panel:</source>
-        <translation type="obsolete">콘솔 패널 숨기기:</translation>
-    </message>
-    <message>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>안 함</translation>
@@ -951,16 +829,6 @@
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
         <translation>&lt;em&gt;주의:&lt;/em&gt; 이곳에서는 기본값을 설정합니다. 이미 열려 있는 창에는 효과가 없습니다. 열려 있는 창에 적용하려면 &amp;quot;모양&amp;quot; 메뉴 아래의 항목들을 이용하세요.</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
-</source>
-        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;안 함:&lt;/strong&gt; 조판이 끝나도 콘솔 패널을 닫지 않습니다.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;자동으로:&lt;/strong&gt; 조판이 성공하면 콘솔 패널을 닫습니다. 단, 컴파일 시작시 닫혀 있었어야 합니다.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;성공하면:&lt;/strong&gt; 조판이 성공하면 콘솔 패널을 닫습니다. 컴파일 시작시 닫혀 있었는지 불문합니다.&lt;/p&gt;
-</translation>
     </message>
     <message>
         <source>Enable autocompletion</source>
@@ -1040,10 +908,6 @@
         <translation>문서화된 매크로 (*.dtx)</translation>
     </message>
     <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation type="obsolete">부수 파일 (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
-    </message>
-    <message>
         <source>Text files (*.txt)</source>
         <translation>텍스트 파일 (*.txt)</translation>
     </message>
@@ -1054,14 +918,6 @@
     <message>
         <source>All files</source>
         <translation>모든 파일</translation>
-    </message>
-    <message>
-        <source>Log files (*.log)</source>
-        <translation type="obsolete">로그 파일 (*.log)</translation>
-    </message>
-    <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="obsolete">부수 파일 (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
@@ -1303,24 +1159,8 @@
         <translation>&lt;p&gt;%1는 TeX 문서를 편집하고 조판하고 미리보기할 수 있는 심플한 환경을 제공합니다.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="obsolete">&lt;br&gt;버전 %1 (r.%2)</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2에 따릅니다.</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; 응용 프레임워크는 Nokia Corporation 소속의 Qt Software가 제공합니다.</translation>
-    </message>
-    <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF 렌더링 라이브러리는 Kristian H&amp;#xF8;gsberg, Albert Astals Cid 등이 제공합니다.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; 철자 검사기는 L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth가 제공합니다.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1373,14 +1213,6 @@
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
         <translation>TeX 관련 프로그램의 경로를 찾을 수 없습니다.&lt;p&gt;&lt;small&gt;문서처리를 위해서는 TeX 배포판의 바이너리 디렉토리를 환경 설정 대화상자의 문서처리 탭에서 설정해야 합니다.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation type="obsolete">&lt;br&gt;버전 %1 r.%2 (%3)</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt 응용 프레임워크&lt;/a&gt; v%1은(는) Nokia Corporation 소속의 Qt Software가 제공합니다.</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1547,10 +1379,6 @@
         <translation>파일 열기</translation>
     </message>
     <message>
-        <source>Cannot close window while tool is running</source>
-        <translation type="obsolete">도구 실행 중에는 창을 닫을 수 없습니다</translation>
-    </message>
-    <message>
         <source>Save File</source>
         <translation>파일 저장</translation>
     </message>
@@ -1568,12 +1396,6 @@ Do you want to save your changes?</source>
         <translation>복구</translation>
     </message>
     <message>
-        <source>Cannot read file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">&quot;%1&quot; 파일을 열 수 없습니다:
-%2.</translation>
-    </message>
-    <message>
         <source>Unrecognized encoding</source>
         <translation>알 수 없는 인코딩</translation>
     </message>
@@ -1584,10 +1406,6 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation>%2에 사용된 %1 인코딩은 지원되지 않는 인코딩입니다.
 
 대신 %3 인코딩으로 읽겠습니다. 글자가 깨질 수 있습니다.</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation type="obsolete">&quot;%1&quot; 파일을 읽어들임 (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1614,14 +1432,6 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <translation>&quot;%1&quot; 문서가 저장되지 않았습니다</translation>
     </message>
     <message>
-        <source>The text encoding %1 requested for %2 is not supported.
-
-It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation type="obsolete">%2에서 요구한 %1 인코딩은 지원되지 않는 인코딩입니다.
-
-대신 %3 인코딩으로 저장하겠습니다. 글자가 깨질 수 있습니다.</translation>
-    </message>
-    <message>
         <source>Text cannot be converted</source>
         <translation>텍스트를 변환할 수 없습니다</translation>
     </message>
@@ -1632,20 +1442,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>문서가 %1 인코딩에 속하지 않는 글자를 가지고 있습니다.
 
 계속 진행하면 이 글자들은 기본 코드로 대체됩니다. 데이터 손실을 막으려면 다른 인코딩(예: UTF-8)으로 저장하십시오.</translation>
-    </message>
-    <message>
-        <source>Cannot write file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">&quot;%1&quot; 파일을 저장할 수 없습니다:
-%2.</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; saved (%2)</source>
-        <translation type="obsolete">&quot;%1&quot; 파일이 저장되었습니다 (%2)</translation>
-    </message>
-    <message>
-        <source>default encoding</source>
-        <translation type="obsolete">기본 인코딩</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
@@ -1718,14 +1514,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Unable to execute %1</source>
         <translation>%1을 실행할 수 없습니다</translation>
-    </message>
-    <message>
-        <source>Hide Output Panel</source>
-        <translation type="obsolete">콘솔 패널 숨기기</translation>
-    </message>
-    <message>
-        <source>Show Output Panel</source>
-        <translation type="obsolete">콘솔 패널 보기</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
@@ -2110,10 +1898,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Searched in directories:</source>
         <translation>다음 디렉토리를 검색했습니다:</translation>
-    </message>
-    <message>
-        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation type="obsolete">환경 설정 대화상자에서 %1 도구와 경로 설정을 확인하세요.</translation>
     </message>
     <message>
         <source>Hard Wrap...</source>

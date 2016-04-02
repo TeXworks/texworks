@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru">
+<TS version="2.0" language="ru">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -228,11 +228,6 @@
         <translation>Первая страница</translation>
     </message>
     <message>
-        <source>Home</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation>Home</translation>
-    </message>
-    <message>
         <source>Previous Page</source>
         <translation>Предыдущая страница</translation>
     </message>
@@ -253,11 +248,6 @@
     <message>
         <source>Last Page</source>
         <translation>Последняя страница</translation>
-    </message>
-    <message>
-        <source>End</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation>End</translation>
     </message>
     <message>
         <source>Go to Page...</source>
@@ -498,10 +488,6 @@
         <translation>Очистить список недавно открытых файлов</translation>
     </message>
     <message>
-        <source>Update Scripts</source>
-        <translation type="obsolete">Обновление скриптов</translation>
-    </message>
-    <message>
         <source>Manage Scripts</source>
         <translation>Управление сценариями</translation>
     </message>
@@ -512,10 +498,6 @@
     <message>
         <source>About Scripts...</source>
         <translation>О сценариях...</translation>
-    </message>
-    <message>
-        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="vanished">PDF файл «%1» заблокирован; на данный момент операция не поддерживается.</translation>
     </message>
     <message>
         <source>Find...</source>
@@ -617,99 +599,6 @@
     </message>
 </context>
 <context>
-    <name>PDFFontsDock</name>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Название</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="vanished">Гарнитура</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation type="vanished">Подмножество</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="vanished">Файл</translation>
-    </message>
-    <message>
-        <source>[none]</source>
-        <translation type="vanished">[отсутствует]</translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation type="vanished">да</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation type="vanished">нет</translation>
-    </message>
-    <message>
-        <source>[embedded]</source>
-        <translation type="vanished">[вставленный]</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="vanished">Шрифты</translation>
-    </message>
-</context>
-<context>
-    <name>PDFInfoDock</name>
-    <message>
-        <source>PDF Info</source>
-        <translation type="vanished">Информация о PDF</translation>
-    </message>
-</context>
-<context>
-    <name>PDFOutlineDock</name>
-    <message>
-        <source>No TOC</source>
-        <translation type="vanished">Нет оглавления</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translatorcomment>Содержание и оглавление синонимы.</translatorcomment>
-        <translation type="vanished">Содержание</translation>
-    </message>
-</context>
-<context>
-    <name>PDFWidget</name>
-    <message>
-        <source>Zoom In</source>
-        <translation type="vanished">Увеличить</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation type="vanished">Уменьшить</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="vanished">Натуральный размер</translation>
-    </message>
-    <message>
-        <source>Fit to Width</source>
-        <translation type="vanished">По ширине страницы</translation>
-    </message>
-    <message>
-        <source>Fit to Window</source>
-        <translation type="vanished">По размеру окна</translation>
-    </message>
-    <message>
-        <source>Jump to Source</source>
-        <translation type="vanished">Перейти к исходному файлу</translation>
-    </message>
-    <message>
-        <source>Go to Page</source>
-        <translation type="vanished">Перейти к странице</translation>
-    </message>
-    <message>
-        <source>Page number:</source>
-        <translation type="vanished">Страница:</translation>
-    </message>
-</context>
-<context>
     <name>PrefsDialog</name>
     <message>
         <source>Choose Directory</source>
@@ -734,10 +623,6 @@
     <message>
         <source>General</source>
         <translation>Общие</translation>
-    </message>
-    <message>
-        <source>Toolbar buttons</source>
-        <translation type="obsolete">Кнопки панели управления</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -770,10 +655,6 @@
     <message>
         <source>File Open dialog</source>
         <translation>Окна открытия файла</translation>
-    </message>
-    <message>
-        <source>Interface locale:</source>
-        <translation type="obsolete">Язык интерфейса:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -900,20 +781,6 @@
         <translation>По умолчанию:</translation>
     </message>
     <message>
-        <source>Hide output panel:</source>
-        <translation type="obsolete">Скрытие панели вывода:</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
-</source>
-        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Никогда:&lt;/strong&gt; никогда не скрывать панель вывода после вёрстки.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Автоматически:&lt;/strong&gt; скрывать панель вывода после успешной вёрстки, но только если она была скрыта до этого.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;В случае успеха:&lt;/strong&gt; скрывать панель вывода после успешной вёрстки, независимо от предыдущего состояния.&lt;/p&gt;
-</translation>
-    </message>
-    <message>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translatorcomment>Режим «скрытия панели вывода»</translatorcomment>
@@ -930,10 +797,6 @@
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translatorcomment>Режим «скрытия панели вывода»</translatorcomment>
         <translation>В случае успеха</translation>
-    </message>
-    <message>
-        <source>Auto-hide output panel unless errors occur</source>
-        <translation type="obsolete">Автоматически скрывать панель вывода если нет ошибок</translation>
     </message>
     <message>
         <source>Scripts</source>
@@ -1056,10 +919,6 @@
         <translation>Документированные макропакеты (*.dtx)</translation>
     </message>
     <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation type="obsolete">Вспомогательные файлы (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
-    </message>
-    <message>
         <source>Text files (*.txt)</source>
         <translation>Текстовые файлы (*.txt)</translation>
     </message>
@@ -1070,20 +929,6 @@
     <message>
         <source>All files</source>
         <translation>Все файлы</translation>
-    </message>
-    <message>
-        <source>TeXworks %1r%2 (%3)
-</source>
-        <translation type="obsolete">TeXworks %1r%2 (%3)
-</translation>
-    </message>
-    <message>
-        <source>Log files (*.log)</source>
-        <translation type="obsolete">Файлы журнала (*.log)</translation>
-    </message>
-    <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="obsolete">Вспомогательные файлы (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
@@ -1328,36 +1173,12 @@
         <translation>&lt;p&gt;%1 это простая программа для редактирования, вёрстки и просмотра документов TeX.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="obsolete">&lt;br&gt;Версия %1 (r.%2)</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="obsolete">&lt;p&gt;Распространяется по лицензии &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, вторая редакция.</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; набор библиотек от Qt Software, подразделения Nokia Corporation.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation type="obsolete">&lt;br&gt;Версия %1 r.%2 (%3)</translation>
-    </message>
-    <message>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;Распространяется по лицензии &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, вторая редакция или (по вашему усмотрению) любой последующей редакции.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="vanished">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Инфраструктура приложений Qt&lt;/a&gt; вер%1 от Qt Software, подразделения Nokia Corporation.</translation>
-    </message>
-    <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; библиотека обработки PDF, разработчики Kristian H&amp;#xF8;gsberg, Albert Astals Cid и другие.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="vanished">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; программа проверки орфографии от L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1426,18 +1247,6 @@
     <message>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Сценарий «%1» пытается открыть файл «%2» без достаточных на то прав доступа. Открыть файл?</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Не удалось выполнить системную команду: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Ошибка при выполнении системной команды: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">Запуск системных команд отключён (см. Настройки)</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
@@ -1584,10 +1393,6 @@
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <source>Cannot close window while tool is running</source>
-        <translation type="obsolete">Нельзя закрыть окно пока идёт обработка</translation>
-    </message>
-    <message>
         <source>Save File</source>
         <translation>Сохранить файл</translation>
     </message>
@@ -1612,12 +1417,6 @@ Do you want to save your changes?</source>
         <translation>Отменить последние изменения</translation>
     </message>
     <message>
-        <source>Cannot read file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">Ошибка при чтении файла &quot;%1&quot;:
-%2.</translation>
-    </message>
-    <message>
         <source>Unrecognized encoding</source>
         <translation>Неопознанная кодировка</translation>
     </message>
@@ -1628,10 +1427,6 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation>Кодировка текста %1, используемая в %2 не поддерживается.
 
 Она будет интерпретирована как %3, что может привести к искажению теста.</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation type="obsolete">Файл &quot;%1&quot; был загружен (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1658,14 +1453,6 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <translation>Документ «%1» не был сохранён</translation>
     </message>
     <message>
-        <source>The text encoding %1 requested for %2 is not supported.
-
-It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation type="obsolete">Кодировка текста %1 запрошенная для %2 не поддерживается.
-
-Будет использована %3, что может привести к искажению текста.</translation>
-    </message>
-    <message>
         <source>Text cannot be converted</source>
         <translation>Текст невозможно перекодировать</translation>
     </message>
@@ -1678,12 +1465,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 Если вы продолжите они будут заменены на коды по умолчанию. Или же вы можете использовать другую кодировку (например UTF-8), чтобы избежать потерю данных.</translation>
     </message>
     <message>
-        <source>Cannot write file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">Ошибка при записи файла &quot;%1&quot;:
-%2.</translation>
-    </message>
-    <message>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Невозможно прочитать файл «%1»:
@@ -1694,14 +1475,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 %2</source>
         <translation>Невозможно записать файл «%1»:
 %2</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; saved (%2)</source>
-        <translation type="obsolete">Файл &quot;%1&quot; сохранён (%2)</translation>
-    </message>
-    <message>
-        <source>default encoding</source>
-        <translation type="obsolete">Кодировка по умолчанию</translation>
     </message>
     <message>
         <source>Abort typesetting?</source>
@@ -1872,14 +1645,6 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <source>Abort typesetting</source>
         <translation>Прервать вёрстку</translation>
-    </message>
-    <message>
-        <source>Hide Output Panel</source>
-        <translation type="obsolete">Скрыть панель вывода</translation>
-    </message>
-    <message>
-        <source>Show Output Panel</source>
-        <translation type="obsolete">Показать панель вывода</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
@@ -2294,10 +2059,6 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation>Очистить список недавно открытых файлов</translation>
     </message>
     <message>
-        <source>Update Scripts</source>
-        <translation type="obsolete">Обновление скриптов</translation>
-    </message>
-    <message>
         <source>Manage Scripts</source>
         <translation>Управление сценариями</translation>
     </message>
@@ -2320,11 +2081,6 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <source>Searched in directories:</source>
         <translation>Поиск проводили в каталогах:</translation>
-    </message>
-    <message>
-        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translatorcomment>Configuration, settings и Preferences на русский можно перевести одним словом.</translatorcomment>
-        <translation type="obsolete">Проверьте настройки инструмента &quot;%1&quot; и папки поиска программ в окне Настройки.</translation>
     </message>
     <message>
         <source>Process interrupted by user</source>

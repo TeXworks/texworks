@@ -136,10 +136,6 @@
         <translation>گشودن واپسین</translation>
     </message>
     <message>
-        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="obsolete">پروندهٔ پی‌دی‌اف &quot;%1&quot; چفت است؛ هنوز پشتیبانی نمی‌شود.</translation>
-    </message>
-    <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>ناتوان در بازگذاری پروندهٔ &quot;%1&quot;؛ شاید مستند پی‌دی‌اف باارزشی نیست.</translation>
     </message>
@@ -213,11 +209,6 @@
         <translation>برگهٔ نخست</translation>
     </message>
     <message>
-        <source>Home</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation>Home</translation>
-    </message>
-    <message>
         <source>Previous Page</source>
         <translation>برگهٔ پیش</translation>
     </message>
@@ -238,11 +229,6 @@
     <message>
         <source>Last Page</source>
         <translation>برگهٔ پایانی</translation>
-    </message>
-    <message>
-        <source>End</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation>End</translation>
     </message>
     <message>
         <source>Go to Page...</source>
@@ -604,98 +590,6 @@
     </message>
 </context>
 <context>
-    <name>PDFFontsDock</name>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">نام</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">گونه</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation type="obsolete">زیرگروه</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">پرونده</translation>
-    </message>
-    <message>
-        <source>[none]</source>
-        <translation type="obsolete">[هیچ‌کدام]</translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation type="obsolete">بله</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation type="obsolete">خیر</translation>
-    </message>
-    <message>
-        <source>[embedded]</source>
-        <translation type="obsolete">[نشانده]</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">قلم‌ها</translation>
-    </message>
-</context>
-<context>
-    <name>PDFInfoDock</name>
-    <message>
-        <source>PDF Info</source>
-        <translation type="obsolete">دانستنی‌های پی‌دی‌اف</translation>
-    </message>
-</context>
-<context>
-    <name>PDFOutlineDock</name>
-    <message>
-        <source>No TOC</source>
-        <translation type="obsolete">بدون سیاهه</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">سیاهه</translation>
-    </message>
-</context>
-<context>
-    <name>PDFWidget</name>
-    <message>
-        <source>Zoom In</source>
-        <translation type="obsolete">بزرگ‌نمایی</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation type="obsolete">کوچک‌نمایی</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">اندازهٔ درست</translation>
-    </message>
-    <message>
-        <source>Fit to Width</source>
-        <translation type="obsolete">پرکردن پهنا</translation>
-    </message>
-    <message>
-        <source>Fit to Window</source>
-        <translation type="obsolete">پرکردن پنجره</translation>
-    </message>
-    <message>
-        <source>Jump to Source</source>
-        <translation type="obsolete">پرش به کد</translation>
-    </message>
-    <message>
-        <source>Go to Page</source>
-        <translation type="obsolete">برو به برگهٔ</translation>
-    </message>
-    <message>
-        <source>Page number:</source>
-        <translation type="obsolete">شمارهٔ برگه:</translation>
-    </message>
-</context>
-<context>
     <name>PrefsDialog</name>
     <message>
         <source>Choose Directory</source>
@@ -720,10 +614,6 @@
     <message>
         <source>General</source>
         <translation>همگانی</translation>
-    </message>
-    <message>
-        <source>Toolbar buttons</source>
-        <translation type="obsolete">کلیدهای نوارابزار</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -756,10 +646,6 @@
     <message>
         <source>File Open dialog</source>
         <translation>گفتگوی گشودن پرونده</translation>
-    </message>
-    <message>
-        <source>Interface locale:</source>
-        <translation type="obsolete">شمایل بومی:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -886,10 +772,6 @@
         <translation>پیش‌نشان:</translation>
     </message>
     <message>
-        <source>Auto-hide output panel unless errors occur</source>
-        <translation type="obsolete">پنهان‌کردن خودکار خروجی مگر خطا وجود داشته باشد</translation>
-    </message>
-    <message>
         <source> px</source>
         <translation>px</translation>
     </message>
@@ -930,10 +812,6 @@
         <translation>پویاسازی اشکال‌زایی QtScript</translation>
     </message>
     <message>
-        <source>Hide output panel:</source>
-        <translation type="obsolete">پنل خروجی را پنهان کن:</translation>
-    </message>
-    <message>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>هیچگاه</translation>
@@ -951,16 +829,6 @@
     <message>
         <source>&lt;em&gt;Note:&lt;/em&gt; These are default settings. Changes to them will not affect windows that are already open. Use the respective items in the &amp;quot;Format&amp;quot; menu to achieve that.</source>
         <translation>&lt;em&gt;هشدار:&lt;/em&gt; اینها سامانه‌های پیش‌نشان هستند. دگرگونی آنها بر پنجره‌های باز نشان نمی‌گذارد.  برای دستیابی، گزینهٔ همسان را از منوی &amp;quot;شمایل&amp;quot; برگزینید.</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
-</source>
-        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;هیچگاه:&lt;/strong&gt; هیچگاه پس از حروفچینی پنل خروجی را پنهان نکن.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;خودکار:&lt;/strong&gt; پس از حروفچینی پیروزمندانه پنل خروجی را پنهان کن: اما تنها زمانی که از پیش پنهان بوده باشد.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;در صورت پیروزمندانه بودن:&lt;/strong&gt;پنل خروجی را پس از حروفچینی پیروزمندانه پنهان کن؛ آزاد از اینکه از پیش چگونه بوده است.&lt;/p&gt;
-</translation>
     </message>
     <message>
         <source>Enable autocompletion</source>
@@ -1014,13 +882,6 @@
     </message>
 </context>
 <context>
-    <name>QApplication</name>
-    <message>
-        <source>QT_LAYOUT_DIRECTION</source>
-        <translation type="obsolete">RTL</translation>
-    </message>
-</context>
-<context>
     <name>QObject</name>
     <message>
         <source>TeX documents (*.tex)</source>
@@ -1047,10 +908,6 @@
         <translation>ماکروهای بازنموده (*.dtx)</translation>
     </message>
     <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation type="obsolete">پرونده‌های کمکی (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
-    </message>
-    <message>
         <source>Text files (*.txt)</source>
         <translation>پرونده‌های نوشتاری (*.txt)</translation>
     </message>
@@ -1061,19 +918,6 @@
     <message>
         <source>All files</source>
         <translation>همهٔ پرونده‌ها</translation>
-    </message>
-    <message>
-        <source>TeXworks %1r%2 (%3)
-</source>
-        <translation type="obsolete">تک‌ورکس %1 ب %2 (%3)</translation>
-    </message>
-    <message>
-        <source>Log files (*.log)</source>
-        <translation type="obsolete">پروندههای دانستنیهای پردازش (*.log)</translation>
-    </message>
-    <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="obsolete">پروندههای کمکی (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
@@ -1315,24 +1159,8 @@
         <translation>&lt;p&gt;‏‫%1 فراگردی ساده برای نگارش، حروف‌چینی، و نمایش نوشتارهای تک است. ‬&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="obsolete">&lt;br&gt;‫نسخهٔ %1 (ب.%2‏)‬</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="obsolete">&lt;p&gt; انتشار‌یافته تحت &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; اجازه‌نامهٔ عمومی گنو&lt;/a&gt;, نسخهٔ ۲.</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;چهارچوب کاربری &lt;a href=&quot;http://trolltech.com/product/&quot;&gt;QT4&lt;/a&gt; توسط شرکت  QT , وابسته به شرکت نوکیا.</translation>
-    </message>
-    <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;کتابخانهٔ برگردان پی‌دی‌اف &lt;a href=&quot;http.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; بدست Kristian H&amp;#xF8;gsberg, Albert Astals Cid و دیگران.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="obsolete">&lt;br&gt;غلت‌گیر&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; بدست L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1389,14 +1217,6 @@
     <message>
         <source>Unable to find help file.</source>
         <translation>پروندهٔ کمکی یافت نشد.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation type="obsolete">&lt;br&gt;ویراست %1 ب.%2 (%3)</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;چهارچوب نرم‌افزاری کیوت &lt;/a&gt; v%1 بدست  Qt Software, a division of Nokia Corporation.</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1559,10 +1379,6 @@
         <translation>گشودن پرونده</translation>
     </message>
     <message>
-        <source>Cannot close window while tool is running</source>
-        <translation type="obsolete">وقتی ابزار در حال اجراست پرونده نمی‌تواند بسته شود</translation>
-    </message>
-    <message>
         <source>Save File</source>
         <translation>ذخیرهٔ پرونده</translation>
     </message>
@@ -1581,12 +1397,6 @@ Do you want to save your changes?</source>
         <translation>برگرداندن</translation>
     </message>
     <message>
-        <source>Cannot read file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">ناتوان در خواندن پروندهٔ &quot;%1&quot;:
-%2.</translation>
-    </message>
-    <message>
         <source>Unrecognized encoding</source>
         <translation>رمزینهٔ ناشناخته</translation>
     </message>
@@ -1597,10 +1407,6 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation>رمزینهٔ نوشتاری %1 بکاربرده شد در %2 پشتیبانی نمی‌شود.
 
 به‌جای آن %3 را بکار گیرید، که شاید متن درست نمایش داده نشود.</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation type="obsolete">پروندهٔ &quot;%1&quot; بارگذاری شد (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1627,14 +1433,6 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <translation>نوشتار &quot;%1&quot; ذخیره نشده است</translation>
     </message>
     <message>
-        <source>The text encoding %1 requested for %2 is not supported.
-
-It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation type="obsolete">رمزینهٔ متنی %1 استفاده شده در %2 حمایت نمی‌شود.
-
-به‌جای آن از %3 استفاده می‌شود، که ممکن است متن درست نمایش داده نشود.</translation>
-    </message>
-    <message>
         <source>Text cannot be converted</source>
         <translation>متن تبدیل شدنی نیست</translation>
     </message>
@@ -1645,20 +1443,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>این نوشار دارای واج‌هایی است که در رمزینهٔ %1 نمایش‌پذیر نیست.
 
 اگر ادامه دهید، این واج‌ها با اندازه‌های رمزینهٔ پیش‌نشان جایگزین می‌شوند. به‌جای این کار شاید بخواهید  رمزینهٔ دیگری مانند UTF-8 را بکار ببرید تا نوشته‌ها از دست نروند.</translation>
-    </message>
-    <message>
-        <source>Cannot write file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">ناتوان از نوشتن پروندهٔ &quot;%1&quot;
-%2.</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; saved (%2)</source>
-        <translation type="obsolete">پروندهٔ &quot;%1&quot; ذخیره شد (%2)</translation>
-    </message>
-    <message>
-        <source>default encoding</source>
-        <translation type="obsolete">رمزینهٔ پیش‌فرض</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
@@ -1745,20 +1529,8 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>جستجو در پوشه‌های:</translation>
     </message>
     <message>
-        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation type="obsolete">تنظیمات ابزار و مسیر %1 را در گفتگوی ترجیحات بررسی کنید.</translation>
-    </message>
-    <message>
         <source>Process interrupted by user</source>
         <translation>پردازش بدست کابر ایست شد</translation>
-    </message>
-    <message>
-        <source>Hide Output Panel</source>
-        <translation type="obsolete">پنل برونی را پنهان کن</translation>
-    </message>
-    <message>
-        <source>Show Output Panel</source>
-        <translation type="obsolete">پنل برونی را نمایان کن</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>

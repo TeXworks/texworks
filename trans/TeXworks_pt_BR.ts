@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="pt_BR" sourcelanguage="en">
+<TS version="2.0" language="pt_BR" sourcelanguage="en">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -136,10 +136,6 @@
         <translation>Abrir recente</translation>
     </message>
     <message>
-        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="obsolete">Arquivo PDF &quot;%1&quot; está trancado; isto não é atualmente suportado.</translation>
-    </message>
-    <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Falha ao abrir o arquivo &quot;%1&quot;; talvez não seja um documento PDF válido.</translation>
     </message>
@@ -213,11 +209,6 @@
         <translation>Primeira Página</translation>
     </message>
     <message>
-        <source>Home</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation></translation>
-    </message>
-    <message>
         <source>Previous Page</source>
         <translation>Página Anterior</translation>
     </message>
@@ -238,11 +229,6 @@
     <message>
         <source>Last Page</source>
         <translation>Última Página</translation>
-    </message>
-    <message>
-        <source>End</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation></translation>
     </message>
     <message>
         <source>Go to Page...</source>
@@ -604,94 +590,6 @@
     </message>
 </context>
 <context>
-    <name>PDFFontsDock</name>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Novo</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Tipo</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Arquivo</translation>
-    </message>
-    <message>
-        <source>[none]</source>
-        <translation type="obsolete">[nenhum]</translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation type="obsolete">sim</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation type="obsolete">não</translation>
-    </message>
-    <message>
-        <source>[embedded]</source>
-        <translation type="obsolete">[incluído]</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">Fontes</translation>
-    </message>
-</context>
-<context>
-    <name>PDFInfoDock</name>
-    <message>
-        <source>PDF Info</source>
-        <translation type="obsolete">Informação do PDF</translation>
-    </message>
-</context>
-<context>
-    <name>PDFOutlineDock</name>
-    <message>
-        <source>No TOC</source>
-        <translation type="obsolete">Sem Sumário</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">Conteúdo</translation>
-    </message>
-</context>
-<context>
-    <name>PDFWidget</name>
-    <message>
-        <source>Zoom In</source>
-        <translation type="obsolete">Aumentar</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation type="obsolete">Diminuir</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">Tamanho Real</translation>
-    </message>
-    <message>
-        <source>Fit to Width</source>
-        <translation type="obsolete">Ajustar à Largura</translation>
-    </message>
-    <message>
-        <source>Fit to Window</source>
-        <translation type="obsolete">Ajustar à Janela</translation>
-    </message>
-    <message>
-        <source>Jump to Source</source>
-        <translation type="obsolete">Saltar para o código-fonte</translation>
-    </message>
-    <message>
-        <source>Go to Page</source>
-        <translation type="obsolete">Ir para a página</translation>
-    </message>
-    <message>
-        <source>Page number:</source>
-        <translation type="obsolete">Número da página:</translation>
-    </message>
-</context>
-<context>
     <name>PrefsDialog</name>
     <message>
         <source>Choose Directory</source>
@@ -716,10 +614,6 @@
     <message>
         <source>General</source>
         <translation>Geral</translation>
-    </message>
-    <message>
-        <source>Toolbar buttons</source>
-        <translation type="obsolete">Botões da barra de ferramentas</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -752,10 +646,6 @@
     <message>
         <source>File Open dialog</source>
         <translation>Caixa de abertura de arquivo</translation>
-    </message>
-    <message>
-        <source>Interface locale:</source>
-        <translation type="obsolete">Localização da interface:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -880,10 +770,6 @@
     <message>
         <source>Default:</source>
         <translation>Padrão:</translation>
-    </message>
-    <message>
-        <source>Auto-hide output panel unless errors occur</source>
-        <translation type="obsolete">Ocultar automaticamente o painel de mensagens se não ocorrerem erros</translation>
     </message>
     <message>
         <source> px</source>
@@ -1021,10 +907,6 @@
         <translation>Macros documentadas (*.dtx)</translation>
     </message>
     <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation type="obsolete">Arquivos auxliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
-    </message>
-    <message>
         <source>Text files (*.txt)</source>
         <translation>Arquivos de texto (*.txt)</translation>
     </message>
@@ -1035,14 +917,6 @@
     <message>
         <source>All files</source>
         <translation>Todos os arquivos</translation>
-    </message>
-    <message>
-        <source>Log files (*.log)</source>
-        <translation type="obsolete">Arquivos de log (*.log)</translation>
-    </message>
-    <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="obsolete">Arquivos auxiliares (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
@@ -1284,24 +1158,8 @@
         <translation>&lt;p&gt;%1 é um ambiente simples para editar, compilar e prever documentos TeX.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="obsolete">&lt;br&gt;Versão %1 (r%2)</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="obsolete">&lt;p&gt;Distribuído sob a &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;Licença Pública Geral GNU&lt;/a&gt;, versão 2.</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;Ambiente de desenvolvimento &lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; da Qt Software, uma divisão da Nokia Corporation.</translation>
-    </message>
-    <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;Biblioteca de renderização de PDF &lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt;, por Kristian H&amp;#xF8;gsberg, Albert Astals-Cid e outros.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="obsolete">&lt;br&gt;Verificador ortográfico &lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt;, por L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1358,14 +1216,6 @@
     <message>
         <source>Unable to find help file.</source>
         <translation>Impossível achar arquivo de ajuda.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation type="obsolete">&lt;br&gt;Versão %1 r %2 (%3)</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Estrutura de aplicativos Qt&lt;/a&gt; v%1 by Qt Software, uma divisão da Nokia Corporation.</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1528,10 +1378,6 @@
         <translation>Abrir arquivo</translation>
     </message>
     <message>
-        <source>Cannot close window while tool is running</source>
-        <translation type="obsolete">Impossivel fechar janela enquanto a ferramenta está em execução</translation>
-    </message>
-    <message>
         <source>Save File</source>
         <translation>Salvar o arquivo</translation>
     </message>
@@ -1550,12 +1396,6 @@ Você quer salvar suas mudanças?</translation>
         <translation>Reverter</translation>
     </message>
     <message>
-        <source>Cannot read file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">Impossível ler arquivo &quot;%1&quot;:
-%2.</translation>
-    </message>
-    <message>
         <source>Unrecognized encoding</source>
         <translation>Codificação não reconhecida</translation>
     </message>
@@ -1566,10 +1406,6 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation>A codificação de texto %1 usada em %2 não é suportada.
 
 Será interpretada como %3, o que poderá resultar em texto incorreto.</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation type="obsolete">Arquivo &quot;%1&quot; aberto (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1596,14 +1432,6 @@ Você quer continuar e salvar este arquivo, sobrescrevendo a versão do disco?</
         <translation>O documento &quot;%1&quot; não foi salvo</translation>
     </message>
     <message>
-        <source>The text encoding %1 requested for %2 is not supported.
-
-It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation type="obsolete">A codificação de texto %1 escolhida para %2 não é suportada.
-
-O arquivo será salvo como %3, o que poderá resultar em texto incorreto.</translation>
-    </message>
-    <message>
         <source>Text cannot be converted</source>
         <translation>O texto não pôde ser convertido</translation>
     </message>
@@ -1614,20 +1442,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Este documento contém caracteres que não podem ser representados na codificação %1.
 
 Se você continuar, eles serão substituídos por códigos-padrão. Em vez disso, você pode escolher usar outra codificação (como UTF-8) para evitar perda de informação.</translation>
-    </message>
-    <message>
-        <source>Cannot write file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">Impossível gravar arquivo &quot;%1&quot;:
-%2.</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; saved (%2)</source>
-        <translation type="obsolete">Arquivo &quot;%1&quot; salvo (%2)</translation>
-    </message>
-    <message>
-        <source>default encoding</source>
-        <translation type="obsolete">codificação padrão</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
@@ -1714,20 +1528,8 @@ Se você continuar, eles serão substituídos por códigos-padrão. Em vez disso
         <translation>Procurado nas pastas:</translation>
     </message>
     <message>
-        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation type="obsolete">Verifique a configuração da ferramenta %1 e as definições de caminho na caixa de Preferências.</translation>
-    </message>
-    <message>
         <source>Process interrupted by user</source>
         <translation>Processo interrompido pelo usuário</translation>
-    </message>
-    <message>
-        <source>Hide Output Panel</source>
-        <translation type="obsolete">Esconder Painel de Informações</translation>
-    </message>
-    <message>
-        <source>Show Output Panel</source>
-        <translation type="obsolete">Exibir Painel de Informações</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>

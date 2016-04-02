@@ -441,11 +441,6 @@
         <translation>Skripting av TeXworks</translation>
     </message>
     <message>
-        <source>Home</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation>Home</translation>
-    </message>
-    <message>
         <source>Ctrl+PgUp</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>Ctrl+PgUp</translation>
@@ -454,11 +449,6 @@
         <source>Ctrl+PgDown</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>Ctrl+PgDown</translation>
-    </message>
-    <message>
-        <source>End</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation>End</translation>
     </message>
     <message>
         <source>Ctrl+J</source>

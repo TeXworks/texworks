@@ -167,10 +167,6 @@
         <translation>Nedávné soubory</translation>
     </message>
     <message>
-        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="obsolete">Soubor PDF &quot;%1&quot; je uzamčen; toto momentálně není podporováno.</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.cpp" line="409"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Nepodařilo se otevřít soubor &quot;%1&quot;; zřejmě nejde o platný dokument PDF.</translation>
@@ -316,394 +312,382 @@
         <translation>První strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="213"/>
-        <source>Home</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation>Home</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="225"/>
+        <location filename="../src/PDFDocument.ui" line="222"/>
         <source>Previous Page</source>
         <translation>Další strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="228"/>
+        <location filename="../src/PDFDocument.ui" line="225"/>
         <source>Ctrl+PgUp</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>Ctrl+PgUp</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="240"/>
+        <location filename="../src/PDFDocument.ui" line="237"/>
         <source>Next Page</source>
         <translation>Další strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="243"/>
+        <location filename="../src/PDFDocument.ui" line="240"/>
         <source>Ctrl+PgDown</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>Ctrl+PgDown</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="255"/>
+        <location filename="../src/PDFDocument.ui" line="252"/>
         <source>Last Page</source>
         <translation>Poslední strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="258"/>
-        <source>End</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation>End</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="266"/>
+        <location filename="../src/PDFDocument.ui" line="260"/>
         <source>Go to Page...</source>
         <translation>Přejít na stranu...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="269"/>
+        <location filename="../src/PDFDocument.ui" line="263"/>
         <source>Ctrl+J</source>
         <translation>Ctrl+J</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="281"/>
+        <location filename="../src/PDFDocument.ui" line="275"/>
         <location filename="../src/PDFDocument.cpp" line="733"/>
         <source>Zoom In</source>
         <translation>Zvětšit</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="284"/>
+        <location filename="../src/PDFDocument.ui" line="278"/>
         <source>Ctrl++</source>
         <translation>Ctrl++</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="296"/>
+        <location filename="../src/PDFDocument.ui" line="290"/>
         <location filename="../src/PDFDocument.cpp" line="734"/>
         <source>Zoom Out</source>
         <translation>Zmenšit</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="299"/>
+        <location filename="../src/PDFDocument.ui" line="293"/>
         <source>Ctrl+-</source>
         <translation>Ctrl+-</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="314"/>
+        <location filename="../src/PDFDocument.ui" line="308"/>
         <location filename="../src/PDFDocument.cpp" line="737"/>
         <source>Fit to Window</source>
         <translation>Přizpůsobit oknu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="317"/>
+        <location filename="../src/PDFDocument.ui" line="311"/>
         <source>Ctrl+3</source>
         <translation>Ctrl+3</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="329"/>
+        <location filename="../src/PDFDocument.ui" line="323"/>
         <location filename="../src/PDFDocument.cpp" line="735"/>
         <source>Actual Size</source>
         <translation>Skutečná velikost</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="332"/>
+        <location filename="../src/PDFDocument.ui" line="326"/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="347"/>
+        <location filename="../src/PDFDocument.ui" line="341"/>
         <location filename="../src/PDFDocument.cpp" line="736"/>
         <source>Fit to Width</source>
         <translation>Přizpůsobit šířce okna</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="350"/>
+        <location filename="../src/PDFDocument.ui" line="344"/>
         <source>Ctrl+2</source>
         <translation>Ctrl+2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="362"/>
+        <location filename="../src/PDFDocument.ui" line="356"/>
         <source>New</source>
         <translation>Nový</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="365"/>
+        <location filename="../src/PDFDocument.ui" line="359"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="377"/>
+        <location filename="../src/PDFDocument.ui" line="371"/>
         <source>Open...</source>
         <translation>Otevřít...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="380"/>
+        <location filename="../src/PDFDocument.ui" line="374"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="388"/>
+        <location filename="../src/PDFDocument.ui" line="382"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="391"/>
+        <location filename="../src/PDFDocument.ui" line="385"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="406"/>
+        <location filename="../src/PDFDocument.ui" line="400"/>
         <source>Undo</source>
         <translation>Zpět</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="409"/>
+        <location filename="../src/PDFDocument.ui" line="403"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="424"/>
+        <location filename="../src/PDFDocument.ui" line="418"/>
         <source>Redo</source>
         <translation>Znovu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="427"/>
+        <location filename="../src/PDFDocument.ui" line="421"/>
         <source>Ctrl+Shift+Z</source>
         <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="442"/>
+        <location filename="../src/PDFDocument.ui" line="436"/>
         <source>Cut</source>
         <translation>Vyjmout</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="445"/>
+        <location filename="../src/PDFDocument.ui" line="439"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="460"/>
+        <location filename="../src/PDFDocument.ui" line="454"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="463"/>
+        <location filename="../src/PDFDocument.ui" line="457"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="478"/>
+        <location filename="../src/PDFDocument.ui" line="472"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="481"/>
+        <location filename="../src/PDFDocument.ui" line="475"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="492"/>
+        <location filename="../src/PDFDocument.ui" line="486"/>
         <source>Clear</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="495"/>
+        <location filename="../src/PDFDocument.ui" line="489"/>
         <source>Ctrl+Backspace</source>
         <translation>Ctrl+Backspace</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="507"/>
+        <location filename="../src/PDFDocument.ui" line="501"/>
         <location filename="../src/PDFDocument.cpp" line="688"/>
         <source>Typeset</source>
         <translation>Vysázet</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="510"/>
+        <location filename="../src/PDFDocument.ui" line="504"/>
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="522"/>
+        <location filename="../src/PDFDocument.ui" line="516"/>
         <source>Preferences...</source>
         <translation>Nastavení...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="530"/>
+        <location filename="../src/PDFDocument.ui" line="524"/>
         <source>Stack</source>
         <translation>Kaskádově</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="538"/>
+        <location filename="../src/PDFDocument.ui" line="532"/>
         <source>Tile</source>
         <translation>Dlaždicově</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="549"/>
+        <location filename="../src/PDFDocument.ui" line="543"/>
         <source>Go to Source</source>
         <translation>Přeskočit do zdrojového dokumentu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="552"/>
+        <location filename="../src/PDFDocument.ui" line="546"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="560"/>
+        <location filename="../src/PDFDocument.ui" line="554"/>
         <source>New from Template...</source>
         <translation>Nový ze šablony...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="563"/>
+        <location filename="../src/PDFDocument.ui" line="557"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="574"/>
+        <location filename="../src/PDFDocument.ui" line="568"/>
         <source>Full Screen</source>
         <translation>Celá obrazovka</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="577"/>
+        <location filename="../src/PDFDocument.ui" line="571"/>
         <source>Ctrl+Shift+F</source>
         <translation>Ctrl+Shift+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="595"/>
+        <location filename="../src/PDFDocument.ui" line="589"/>
         <source>Magnify</source>
         <translation>Lupa</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="607"/>
+        <location filename="../src/PDFDocument.ui" line="601"/>
         <source>Scroll</source>
         <translation>Posouvání</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="619"/>
+        <location filename="../src/PDFDocument.ui" line="613"/>
         <source>Select Text</source>
         <translation>Výběr textu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="631"/>
+        <location filename="../src/PDFDocument.ui" line="625"/>
         <source>Select Image</source>
         <translation>Výběr obrázku</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="636"/>
+        <location filename="../src/PDFDocument.ui" line="630"/>
         <source>Go to TeXworks home page</source>
         <translation>Domovská stránka TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="641"/>
+        <location filename="../src/PDFDocument.ui" line="635"/>
         <source>Email to the mailing list</source>
         <translation>Poslat e-mail do elektronické konference</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="649"/>
+        <location filename="../src/PDFDocument.ui" line="643"/>
         <source>Side by Side</source>
         <translation>Vedle sebe</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="654"/>
+        <location filename="../src/PDFDocument.ui" line="648"/>
         <source>Place on Left</source>
         <translation>Umístit vlevo</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="659"/>
+        <location filename="../src/PDFDocument.ui" line="653"/>
         <source>Place on Right</source>
         <translation>Umístit vpravo</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="664"/>
+        <location filename="../src/PDFDocument.ui" line="658"/>
         <source>Quit TeXworks</source>
         <translation>Ukončit TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="667"/>
+        <location filename="../src/PDFDocument.ui" line="661"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="679"/>
+        <location filename="../src/PDFDocument.ui" line="673"/>
         <source>Find...</source>
         <translation>Hledat...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="682"/>
+        <location filename="../src/PDFDocument.ui" line="676"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="693"/>
+        <location filename="../src/PDFDocument.ui" line="687"/>
         <source>Find Again</source>
         <translation>Hledat další</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="696"/>
+        <location filename="../src/PDFDocument.ui" line="690"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="707"/>
+        <location filename="../src/PDFDocument.ui" line="701"/>
         <source>Reload Script List</source>
         <translation>Obnovit seznam skriptů</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="715"/>
+        <location filename="../src/PDFDocument.ui" line="709"/>
         <source>Manage Scripts</source>
         <translation>Správa skriptů</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="723"/>
+        <location filename="../src/PDFDocument.ui" line="717"/>
         <source>Show Scripts Folder</source>
         <translation>Zobrazit adresář se skripty</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="731"/>
+        <location filename="../src/PDFDocument.ui" line="725"/>
         <source>About Scripts...</source>
         <translation>O skriptech...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="739"/>
+        <location filename="../src/PDFDocument.ui" line="733"/>
         <location filename="../src/PDFDocument.cpp" line="815"/>
         <source>Print Pdf...</source>
         <translation>Tisk PDF...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="742"/>
+        <location filename="../src/PDFDocument.ui" line="736"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="747"/>
+        <location filename="../src/PDFDocument.ui" line="741"/>
         <source>Settings and Resources...</source>
         <translation>Nastavení a zdroje...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="758"/>
+        <location filename="../src/PDFDocument.ui" line="752"/>
         <source>Clear Recent Files</source>
         <translation>Vyčistit nedávnou historii</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="763"/>
+        <location filename="../src/PDFDocument.ui" line="757"/>
         <source>Go to previous view</source>
         <translation>Přejít na předchozí pohled</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="766"/>
+        <location filename="../src/PDFDocument.ui" line="760"/>
         <source>Alt+Left</source>
         <translation>Alt+Vlevo</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="779"/>
+        <location filename="../src/PDFDocument.ui" line="773"/>
         <source>Single Page</source>
         <translation>Jedna strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="791"/>
+        <location filename="../src/PDFDocument.ui" line="785"/>
         <source>Single Page Continuous</source>
         <translation>Jedna strana souvisle</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="803"/>
+        <location filename="../src/PDFDocument.ui" line="797"/>
         <source>Two Pages Continuous</source>
         <translation>Dvě strany souvisle</translation>
     </message>
@@ -757,98 +741,6 @@
     </message>
 </context>
 <context>
-    <name>PDFFontsDock</name>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Název</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Typ</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation type="obsolete">Podmnožina</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Soubor</translation>
-    </message>
-    <message>
-        <source>[none]</source>
-        <translation type="obsolete">[žádné]</translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation type="obsolete">ano</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation type="obsolete">ne</translation>
-    </message>
-    <message>
-        <source>[embedded]</source>
-        <translation type="obsolete">[vložené]</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">Písma</translation>
-    </message>
-</context>
-<context>
-    <name>PDFInfoDock</name>
-    <message>
-        <source>PDF Info</source>
-        <translation type="obsolete">Informace o PDF</translation>
-    </message>
-</context>
-<context>
-    <name>PDFOutlineDock</name>
-    <message>
-        <source>No TOC</source>
-        <translation type="obsolete">Bez obsahu</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">Obsah</translation>
-    </message>
-</context>
-<context>
-    <name>PDFWidget</name>
-    <message>
-        <source>Zoom In</source>
-        <translation type="obsolete">Zvětšit</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation type="obsolete">Zmenšit</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">Skutečná velikost</translation>
-    </message>
-    <message>
-        <source>Fit to Width</source>
-        <translation type="obsolete">Přizpůsobit šířce okna</translation>
-    </message>
-    <message>
-        <source>Fit to Window</source>
-        <translation type="obsolete">Přizpůsobit oknu</translation>
-    </message>
-    <message>
-        <source>Jump to Source</source>
-        <translation type="obsolete">Přeskočit do zdrojového dokumentu</translation>
-    </message>
-    <message>
-        <source>Go to Page</source>
-        <translation type="obsolete">Přejít na stranu</translation>
-    </message>
-    <message>
-        <source>Page number:</source>
-        <translation type="obsolete">Číslo strany:</translation>
-    </message>
-</context>
-<context>
     <name>PrefsDialog</name>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="136"/>
@@ -882,10 +774,6 @@
         <location filename="../src/PrefsDialog.ui" line="40"/>
         <source>General</source>
         <translation>Obecné</translation>
-    </message>
-    <message>
-        <source>Toolbar buttons</source>
-        <translation type="obsolete">Tlačítka lišty nástrojů</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="81"/>
@@ -926,10 +814,6 @@
         <location filename="../src/PrefsDialog.ui" line="134"/>
         <source>File Open dialog</source>
         <translation>Dialog otevření souboru</translation>
-    </message>
-    <message>
-        <source>Interface locale:</source>
-        <translation type="obsolete">Jazyk rozhraní:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
@@ -1162,19 +1046,6 @@
 &lt;p&gt;&lt;strong&gt;Při úspěchu:&lt;/strong&gt; Skrývat panel s výstupem na konzoli po úspěšné sazbě bez ohledu na předchozí stav.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>Hide output panel:</source>
-        <translation type="obsolete">Skrýt panel s výstupem:</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
-</source>
-        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Nikdy:&lt;/strong&gt; Nikdy po sazbě neskrývat panel s výstupem.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automaticky:&lt;/strong&gt; Skrývat panel s výstupem po úspěšné sazbě, ale pouze jen byl-li skryt i předtím.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Při úspěchu:&lt;/strong&gt; Skrývat panel s výstupem po úspěšné sazbě bez ohledu na předchozí stav.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <location filename="../src/PrefsDialog.ui" line="966"/>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
@@ -1191,10 +1062,6 @@
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Při úspěchu</translation>
-    </message>
-    <message>
-        <source>Auto-hide output panel unless errors occur</source>
-        <translation type="obsolete">Automaticky skrývat panel s výstupem, pokud nedojde k žádné chybě</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1002"/>
@@ -1250,10 +1117,6 @@
         <translation>Dokumenty LaTeX (*.ltx)</translation>
     </message>
     <message>
-        <source>Log files (*.log)</source>
-        <translation type="obsolete">Protokolovací soubory (*.log)</translation>
-    </message>
-    <message>
         <location filename="../src/TWUtils.cpp" line="480"/>
         <source>Log files (*.log *.blg)</source>
         <translation>Protokolovací soubory (*.log *.blg)</translation>
@@ -1284,14 +1147,6 @@
         <translation>Pomocné soubory (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="obsolete">Pomocné soubory (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
-    </message>
-    <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation type="obsolete">Pomocné soubory (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
-    </message>
-    <message>
         <location filename="../src/TWUtils.cpp" line="486"/>
         <source>Text files (*.txt)</source>
         <translation>Textové soubory (*.txt)</translation>
@@ -1305,12 +1160,6 @@
         <location filename="../src/TWUtils.cpp" line="488"/>
         <source>All files</source>
         <translation>Všechny soubory</translation>
-    </message>
-    <message>
-        <source>TeXworks %1r%2 (%3)
-</source>
-        <translation type="obsolete">TeXworks %1r%2 (%3)
-</translation>
     </message>
 </context>
 <context>
@@ -1620,22 +1469,6 @@
         <translation>&lt;p&gt;%1 je jednoduché prostředí pro úpravu, sazbu a náhled TeXových dokumentů.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="obsolete">&lt;br&gt;Verze %1 (r.%2)</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
-        <translation type="obsolete">&lt;p&gt;Šířeno pod &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, verze 2.</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; aplikační systém od Qt Software, divize společnosti Nokia.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation type="obsolete">&lt;br&gt;Verze %1 r.%2 (%3)</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="302"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
         <translation>&lt;br&gt;Verze %1 (%2) [r.%3, %4]</translation>
@@ -1651,17 +1484,9 @@
         <translation>&lt;p&gt;Šířeno pod &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt; verze 2 či (dle vaší volby) libovolné pozdější verze.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
-        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Aplikační systém Qt&lt;/a&gt; v%1 od Qt Software, divize společnosti Nokia.</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; knihovna pro vykreslování PDF, autoři Kristian H&amp;#xF8;gsberg, Albert Astals Cid a další.</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker, autor L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="306"/>
@@ -1951,12 +1776,6 @@ Chcete své změny uložit?</translation>
         <translation>Vrátit se</translation>
     </message>
     <message>
-        <source>Cannot read file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">Nelze číst ze souboru &quot;%1&quot;:
-%2.</translation>
-    </message>
-    <message>
         <location filename="../src/TeXDocument.cpp" line="979"/>
         <source>Unrecognized encoding</source>
         <translation>Neznámé kódování</translation>
@@ -1969,10 +1788,6 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation>Kódování %1, použité v %2, není podporováno.
 
 Místo toho bude použito kódování %3; výsledný text proto může obsahovat nesprávné znaky.</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation type="obsolete">Soubor &quot;%1&quot; načten (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1215"/>
@@ -2005,14 +1820,6 @@ Chcete přesto soubor uložit a přepsat tak stávající verzi na disku?</trans
         <translation>Dokument &quot;%1&quot; nebyl uložen</translation>
     </message>
     <message>
-        <source>The text encoding %1 requested for %2 is not supported.
-
-It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation type="obsolete">Kódování %1 požadované pro %2 není podporováno.
-
-Místo toho bude soubor uložen v kódování %3, což může způsobit chyby ve výsledném textu.</translation>
-    </message>
-    <message>
         <location filename="../src/TeXDocument.cpp" line="1397"/>
         <source>Text cannot be converted</source>
         <translation>Text nelze zkonvertovat</translation>
@@ -2025,20 +1832,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Tento dokument obsahuje znaky, které nelze uložit pomocí kódování %1.
 
 Pokud se rozhodnete pokračovat, budou tyto nahrazeny výchozími kódy. V opačném případě raději zvolte jiné kódování (jako např. UTF-8), abyste zabránili ztrátě dat.</translation>
-    </message>
-    <message>
-        <source>Cannot write file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">Nelze zapsat soubor &quot;%1&quot;:
-%2.</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; saved (%2)</source>
-        <translation type="obsolete">Soubor &quot;%1&quot; uložen (%2)</translation>
-    </message>
-    <message>
-        <source>default encoding</source>
-        <translation type="obsolete">výchozí kódování</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="867"/>
@@ -2290,10 +2083,6 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         <translation>Zobrazit výstup na konzoli</translation>
     </message>
     <message>
-        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation type="obsolete">Zkontrolujte nastavení nástroje %1 a cesty v dialogu Nastavení.</translation>
-    </message>
-    <message>
         <location filename="../src/TeXDocument.cpp" line="2766"/>
         <source>Abort typesetting</source>
         <translation>Zrušit sazbu</translation>
@@ -2302,14 +2091,6 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         <location filename="../src/TeXDocument.cpp" line="2786"/>
         <source>Process interrupted by user</source>
         <translation>Proces přerušen uživatelem</translation>
-    </message>
-    <message>
-        <source>Hide Output Panel</source>
-        <translation type="obsolete">Skrýt panel s výstupem</translation>
-    </message>
-    <message>
-        <source>Show Output Panel</source>
-        <translation type="obsolete">Zobrazit panel s výstupem</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="3008"/>

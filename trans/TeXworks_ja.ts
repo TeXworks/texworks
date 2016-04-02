@@ -136,10 +136,6 @@
         <translation>最近開いたファイル</translation>
     </message>
     <message>
-        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
-        <translation type="obsolete">PDFファイル&quot;%1&quot;がロックされています。この機能は現在実装されていません</translation>
-    </message>
-    <message>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>ファイル&quot;%1&quot;を読み込めません。正常なPDFファイルではないかもしれません</translation>
     </message>
@@ -213,11 +209,6 @@
         <translation>最初のページ</translation>
     </message>
     <message>
-        <source>Home</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation></translation>
-    </message>
-    <message>
         <source>Previous Page</source>
         <translation>前のページ</translation>
     </message>
@@ -238,11 +229,6 @@
     <message>
         <source>Last Page</source>
         <translation>最後のページ</translation>
-    </message>
-    <message>
-        <source>End</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation></translation>
     </message>
     <message>
         <source>Go to Page...</source>
@@ -474,10 +460,6 @@
         <translation>スクリプト</translation>
     </message>
     <message>
-        <source>Update Scripts</source>
-        <translation type="obsolete">スクリプトの更新</translation>
-    </message>
-    <message>
         <source>Manage Scripts</source>
         <translation>スクリプトの管理</translation>
     </message>
@@ -607,98 +589,6 @@
     </message>
 </context>
 <context>
-    <name>PDFFontsDock</name>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">フォント名</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">タイプ</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation type="obsolete">サブセット</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">ファイル</translation>
-    </message>
-    <message>
-        <source>[none]</source>
-        <translation type="obsolete">[なし]</translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation type="obsolete">はい</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation type="obsolete">いいえ</translation>
-    </message>
-    <message>
-        <source>[embedded]</source>
-        <translation type="obsolete">[埋め込み]</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">フォント</translation>
-    </message>
-</context>
-<context>
-    <name>PDFInfoDock</name>
-    <message>
-        <source>PDF Info</source>
-        <translation type="obsolete">PDFの情報</translation>
-    </message>
-</context>
-<context>
-    <name>PDFOutlineDock</name>
-    <message>
-        <source>No TOC</source>
-        <translation type="obsolete">目次がありません</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">目次</translation>
-    </message>
-</context>
-<context>
-    <name>PDFWidget</name>
-    <message>
-        <source>Zoom In</source>
-        <translation type="obsolete">拡大</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation type="obsolete">縮小</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">実際のサイズ</translation>
-    </message>
-    <message>
-        <source>Fit to Width</source>
-        <translation type="obsolete">ウィンドウ幅に合わせる</translation>
-    </message>
-    <message>
-        <source>Fit to Window</source>
-        <translation type="obsolete">ウィンドウサイズに合わせる</translation>
-    </message>
-    <message>
-        <source>Jump to Source</source>
-        <translation type="obsolete">ソースの該当箇所へジャンプ</translation>
-    </message>
-    <message>
-        <source>Go to Page</source>
-        <translation type="obsolete">ページを指定して移動</translation>
-    </message>
-    <message>
-        <source>Page number:</source>
-        <translation type="obsolete">ページ番号:</translation>
-    </message>
-</context>
-<context>
     <name>PrefsDialog</name>
     <message>
         <source>Choose Directory</source>
@@ -723,10 +613,6 @@
     <message>
         <source>General</source>
         <translation>全体</translation>
-    </message>
-    <message>
-        <source>Toolbar buttons</source>
-        <translation type="obsolete">ツールバーボタン</translation>
     </message>
     <message>
         <source>Small icons</source>
@@ -759,10 +645,6 @@
     <message>
         <source>File Open dialog</source>
         <translation>ファイル選択ダイアログを開く</translation>
-    </message>
-    <message>
-        <source>Interface locale:</source>
-        <translation type="obsolete">次回起動時の言語:</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -887,10 +769,6 @@
     <message>
         <source>Default:</source>
         <translation>デフォルト:</translation>
-    </message>
-    <message>
-        <source>Auto-hide output panel unless errors occur</source>
-        <translation type="obsolete">エラーがなければ、ログを表示しない</translation>
     </message>
     <message>
         <source>Smart Quotes mode:</source>
@@ -1028,10 +906,6 @@
         <translation>文書化されたマクロ(*.dtx)</translation>
     </message>
     <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
-        <translation type="obsolete">補助ファイル(*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
-    </message>
-    <message>
         <source>Text files (*.txt)</source>
         <translation>テキストファイル(*.txt)</translation>
     </message>
@@ -1042,14 +916,6 @@
     <message>
         <source>All files</source>
         <translation>全てのファイル</translation>
-    </message>
-    <message>
-        <source>Log files (*.log)</source>
-        <translation type="obsolete">ログファイル (*.log)</translation>
-    </message>
-    <message>
-        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
-        <translation type="obsolete">補助ファイル (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
     </message>
     <message>
         <source>Log files (*.log *.blg)</source>
@@ -1291,10 +1157,6 @@
         <translation>&lt;p&gt;%1 はTeX文書の編集・タイプセット・プレビューのためのシンプルな統合環境です&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>&lt;br&gt;Version %1 (r.%2)</source>
-        <translation type="obsolete">&lt;br&gt;バージョン %1 (r.%2)</translation>
-    </message>
-    <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation></translation>
     </message>
@@ -1353,10 +1215,6 @@
     <message>
         <source>Unable to find help file.</source>
         <translation>ヘルプファイルが見つかりません</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
-        <translation type="obsolete">&lt;br&gt;バージョン: %1 r.%2 (%3)</translation>
     </message>
     <message>
         <source>Save File</source>
@@ -1519,10 +1377,6 @@
         <translation>ファイルを開く</translation>
     </message>
     <message>
-        <source>Cannot close window while tool is running</source>
-        <translation type="obsolete">処理が続いているため、ウィンドウを閉じることができません</translation>
-    </message>
-    <message>
         <source>Save File</source>
         <translation>ファイルの保存</translation>
     </message>
@@ -1540,11 +1394,6 @@ Do you want to save your changes?</source>
         <translation>復旧</translation>
     </message>
     <message>
-        <source>Cannot read file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">ファイル&quot;%1&quot;が開けません: %2</translation>
-    </message>
-    <message>
         <source>Unrecognized encoding</source>
         <translation>解釈できない文字コードです</translation>
     </message>
@@ -1555,10 +1404,6 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation>ファイル%2で使われている文字コード%1はサポートされていません。
 
 かわりに%3として表示しますが、表示がおかしくなる場合があります</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; loaded (%2)</source>
-        <translation type="obsolete">ファイル&quot;%1&quot;が読み込まれました (%2)</translation>
     </message>
     <message>
         <source>File changed on disk</source>
@@ -1585,14 +1430,6 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <translation>文書&quot;%1&quot;は保存されていません</translation>
     </message>
     <message>
-        <source>The text encoding %1 requested for %2 is not supported.
-
-It will be saved as %3 instead, which may result in incorrect text.</source>
-        <translation type="obsolete">ファイル%2が要求する文字コード%1はサポートされていません。
-
-かわりに%3として保存しますが、表示がおかしくなる場合があります</translation>
-    </message>
-    <message>
         <source>Text cannot be converted</source>
         <translation>テキストの変換ができません</translation>
     </message>
@@ -1603,20 +1440,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>この文書は文字コード%1に存在しない文字を含んでいます。
 
 続行すると、文字はコード表記に置き換えられます。他の文字コード (UTF-8など) で保存したほうが、データの損失などを避けられるかもしれません</translation>
-    </message>
-    <message>
-        <source>Cannot write file &quot;%1&quot;:
-%2.</source>
-        <translation type="obsolete">ファイル&quot;%1&quot;に書き込めません:
-%2</translation>
-    </message>
-    <message>
-        <source>File &quot;%1&quot; saved (%2)</source>
-        <translation type="obsolete">ファイル&quot;%1&quot;に保存されました(%2)</translation>
-    </message>
-    <message>
-        <source>default encoding</source>
-        <translation type="obsolete">デフォルトの文字コード</translation>
     </message>
     <message>
         <source>untitled-%1.tex</source>
@@ -1697,18 +1520,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Searched in directories:</source>
         <translation>ディレクトリから検索:</translation>
-    </message>
-    <message>
-        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
-        <translation type="obsolete">&quot;%1&quot;の設定とパスを[設定]ダイアログで確認してください</translation>
-    </message>
-    <message>
-        <source>Hide Output Panel</source>
-        <translation type="obsolete">ログ出力パネルを隠す</translation>
-    </message>
-    <message>
-        <source>Show Output Panel</source>
-        <translation type="obsolete">ログ出力パネルを表示する</translation>
     </message>
     <message>
         <source>Set engine to &quot;%1&quot;</source>
@@ -2119,10 +1930,6 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <source>Show Scripts Folder</source>
         <translation>スクリプトフォルダを開く</translation>
-    </message>
-    <message>
-        <source>Update Scripts</source>
-        <translation type="obsolete">スクリプトの更新</translation>
     </message>
     <message>
         <source>Manage Scripts</source>
