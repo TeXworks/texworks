@@ -230,18 +230,18 @@
         <translation>Página anterior</translation>
     </message>
     <message>
-        <source>PgUp</source>
+        <source>Ctrl+PgUp</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>PgUp</translation>
+        <translation>Ctrl+PgUp</translation>
     </message>
     <message>
         <source>Next Page</source>
         <translation>Página siguiente</translation>
     </message>
     <message>
-        <source>PgDown</source>
+        <source>Ctrl+PgDown</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>PgDown</translation>
+        <translation>Ctrl+PgDown</translation>
     </message>
     <message>
         <source>Last Page</source>
@@ -525,14 +525,6 @@
     <message>
         <source>Home</source>
         <translation type="obsolete">Home</translation>
-    </message>
-    <message>
-        <source>PgUp</source>
-        <translation type="obsolete">PgUp</translation>
-    </message>
-    <message>
-        <source>PgDown</source>
-        <translation type="obsolete">PgDown</translation>
     </message>
     <message>
         <source>Ctrl+T</source>

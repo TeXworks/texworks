@@ -339,9 +339,9 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="228"/>
-        <source>PgUp</source>
+        <source>Ctrl+PgUp</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>PgUp</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="240"/>
@@ -350,7 +350,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="243"/>
-        <source>PgDown</source>
+        <source>Ctrl+PgDown</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>

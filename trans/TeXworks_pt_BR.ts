@@ -222,7 +222,7 @@
         <translation>Página Anterior</translation>
     </message>
     <message>
-        <source>PgUp</source>
+        <source>Ctrl+PgUp</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>
@@ -231,7 +231,7 @@
         <translation>Próxima Página</translation>
     </message>
     <message>
-        <source>PgDown</source>
+        <source>Ctrl+PgDown</source>
         <comment>shortcut key name, do not translate</comment>
         <translation></translation>
     </message>

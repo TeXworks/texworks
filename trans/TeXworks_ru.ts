@@ -237,18 +237,18 @@
         <translation>Предыдущая страница</translation>
     </message>
     <message>
-        <source>PgUp</source>
+        <source>Ctrl+PgUp</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>PgUp</translation>
+        <translation>Ctrl+PgUp</translation>
     </message>
     <message>
         <source>Next Page</source>
         <translation>Следующая страница</translation>
     </message>
     <message>
-        <source>PgDown</source>
+        <source>Ctrl+PgDown</source>
         <comment>shortcut key name, do not translate</comment>
-        <translation>PgDown</translation>
+        <translation>Ctrl+PgDown</translation>
     </message>
     <message>
         <source>Last Page</source>
