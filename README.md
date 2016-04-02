@@ -46,18 +46,15 @@ Notes by Jonathan Kew, updated 2011-03-20 and 2015-03-29 by Stefan Löffler
 To build TeXworks from source, you will need to install developer packages (or
 equivalent) for:
 
- - Qt4 (4.5.2 or later is recommended, although the application may build with
-   versions as old as 4.3.x. Note that on GNU/Linux, TeXworks may crash when
-   changing the spell-checking language when using Qt 4.3.x. Updating to at
-   least Qt 4.4.0 solves this.)  
+ - Qt (4.6.0 or later)
    http://www.qt.io/download/
 
  - Poppler (using the latest stable release, currently 0.16, is strongly
-   recommended, although versions as old as the 0.6 series should still work)  
+   recommended, although versions as old as the 0.6 series should still work)
    http://poppler.freedesktop.org/
 
  - Hunspell (release 1.2.8 or later is recommended; earlier 1.2.x releases may
-   be used, although support for some non-Latin-script languages may be lacking)  
+   be used, although support for some non-Latin-script languages may be lacking)
    http://hunspell.github.io/
 
 along with their dependencies (such as Freetype, fontconfig, zlib, etc.) If you
