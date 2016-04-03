@@ -2,8 +2,9 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
-  <title></title>
-  <link rel="stylesheet" href="http://sharpie.github.com/TeXworks/resources/docs.css">
+  <title>[TeXworks] plugins-src/TWLuaPlugin/CMakeLists.txt</title>
+  <!-- In the future, this needs to be replaced with something that comes from the official TeXworks repository, but we currently have no good alternative to http://sharpie.github.io/TeXworks/resources/docs.css, thus keep it. -->
+  <link rel="stylesheet" type="text/css" href="../../../resources/docs.css">
 </head>
 <body>
 <div id='container'>
@@ -20,16 +21,16 @@
       </div>
       <div class="contents">
         <p>This documentation was built using Ryan Tomayko's <strong>Rocco</strong> tool:</p>
-        <a href="http://rtomayko.github.com/rocco">rtomayko.github.com/rocco</a>
+        <a href="http://rtomayko.github.io/rocco/">rtomayko.github.io/rocco/</a>
 
         <p>Which is based on <strong>Docco</strong> by Jeremy Ashkenas:</p>
-        <a href="http://jashkenas.github.com/docco">jashkenas.github.com/docco</a>
+        <a href="http://jashkenas.github.io/docco/">jashkenas.github.io/docco/</a>
 
         <p>The code from this navigation bar was borrowed from the <strong>CoffeeScript</strong> project, also by Jeremy:</p>
-        <a href="http://jashkenas.github.com/coffee-script">jashkenas.github.com/coffee-script</a>
+        <a href="http://coffeescript.org/">coffeescript.org</a>
 
         <p>The templates used to create this page may be found on GitHub:</p>
-        <a href="http://github.com/Sharpie/TeXworks/tree/master/CMake/docs">github.com/Sharpie/TeXworks</a>
+        <a href="https://github.com/TeXworks/texworks/tree/master/CMake/docs">github.com/TeXworks/texworks</a>
 
       </div>
     </div>
@@ -42,6 +43,7 @@
           <a class="source" href="../../CMake/packaging/CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
           <a class="source" href="../../CMake/packaging/mac/MacPackagingTasks.cmake.html">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
           <a class="source" href="../../CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="../../modules/CMakeLists.html">modules/CMakeLists.txt</a>
           <a class="source" href="../../modules/QtPDF/CMakeLists.html">modules/QtPDF/CMakeLists.txt</a>
           <a class="source" href="CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
           <a class="source" href="../TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
@@ -80,6 +82,7 @@
 
 <span class="nb">LINK_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">QT_LIBRARY_DIR</span><span class="o">}</span><span class="p">)</span>
 
+<span class="nb">SET</span><span class="p">(</span><span class="s">TWLUAPLUGIN_LIB_TYPE</span> <span class="s">MODULE</span><span class="p">)</span>
 <span class="nb">IF</span> <span class="p">(</span><span class="s">NOT</span> <span class="o">${</span><span class="nv">BUILD_SHARED_PLUGINS</span><span class="o">}</span><span class="p">)</span>
   <span class="nb">SET</span><span class="p">(</span><span class="s">TWLUAPLUGIN_LIB_TYPE</span> <span class="s">STATIC</span><span class="p">)</span>
 <span class="nb">ENDIF</span><span class="p">()</span>

@@ -2,8 +2,9 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
-  <title></title>
-  <link rel="stylesheet" href="http://sharpie.github.com/TeXworks/resources/docs.css">
+  <title>[TeXworks] src/CMakeLists.txt</title>
+  <!-- In the future, this needs to be replaced with something that comes from the official TeXworks repository, but we currently have no good alternative to http://sharpie.github.io/TeXworks/resources/docs.css, thus keep it. -->
+  <link rel="stylesheet" type="text/css" href="../../resources/docs.css">
 </head>
 <body>
 <div id='container'>
@@ -20,16 +21,16 @@
       </div>
       <div class="contents">
         <p>This documentation was built using Ryan Tomayko's <strong>Rocco</strong> tool:</p>
-        <a href="http://rtomayko.github.com/rocco">rtomayko.github.com/rocco</a>
+        <a href="http://rtomayko.github.io/rocco/">rtomayko.github.io/rocco/</a>
 
         <p>Which is based on <strong>Docco</strong> by Jeremy Ashkenas:</p>
-        <a href="http://jashkenas.github.com/docco">jashkenas.github.com/docco</a>
+        <a href="http://jashkenas.github.io/docco/">jashkenas.github.io/docco/</a>
 
         <p>The code from this navigation bar was borrowed from the <strong>CoffeeScript</strong> project, also by Jeremy:</p>
-        <a href="http://jashkenas.github.com/coffee-script">jashkenas.github.com/coffee-script</a>
+        <a href="http://coffeescript.org/">coffeescript.org</a>
 
         <p>The templates used to create this page may be found on GitHub:</p>
-        <a href="http://github.com/Sharpie/TeXworks/tree/master/CMake/docs">github.com/Sharpie/TeXworks</a>
+        <a href="https://github.com/TeXworks/texworks/tree/master/CMake/docs">github.com/TeXworks/texworks</a>
 
       </div>
     </div>
@@ -42,6 +43,7 @@
           <a class="source" href="../CMake/packaging/CMakeLists.html">CMake/packaging/CMakeLists.txt</a>
           <a class="source" href="../CMake/packaging/mac/MacPackagingTasks.cmake.html">CMake/packaging/mac/MacPackagingTasks.cmake.in</a>
           <a class="source" href="../CMakeLists.html">CMakeLists.txt</a>
+          <a class="source" href="../modules/CMakeLists.html">modules/CMakeLists.txt</a>
           <a class="source" href="../modules/QtPDF/CMakeLists.html">modules/QtPDF/CMakeLists.txt</a>
           <a class="source" href="../plugins-src/TWLuaPlugin/CMakeLists.html">plugins-src/TWLuaPlugin/CMakeLists.txt</a>
           <a class="source" href="../plugins-src/TWPythonPlugin/CMakeLists.html">plugins-src/TWPythonPlugin/CMakeLists.txt</a>
@@ -104,7 +106,7 @@ to remember to re-run <code>cmake</code> if a source file is added.</em></p>
 <span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_UIS</span>        <span class="s2">&quot;*.ui&quot;</span><span class="p">)</span>
 <span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_RCS</span>        <span class="s2">&quot;${TeXworks_SOURCE_DIR}/res/*.qrc&quot;</span><span class="p">)</span>
 <span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_TRANS_TS</span>   <span class="s2">&quot;${TeXworks_SOURCE_DIR}/trans/*.ts&quot;</span><span class="p">)</span>
-<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_TRANS_QM</span>   <span class="s2">&quot;${TeXworks_SOURCE_DIR}/trans/*.qm&quot;</span> <span class="s2">&quot;${TeXworks_SOURCE_DIR}/trans/qt/*.qm&quot;</span><span class="p">)</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_TRANS_QM</span>   <span class="s2">&quot;${TeXworks_SOURCE_DIR}/trans/*.qm&quot;</span> <span class="s2">&quot;${TeXworks_SOURCE_DIR}/trans/qt/*.qm&quot;</span> <span class="s2">&quot;${TeXworks_SOURCE_DIR}/modules/QtPDF/trans/*.qm&quot;</span><span class="p">)</span>
 
 <span class="nb">IF</span> <span class="p">(</span> <span class="s">WIN32</span> <span class="p">)</span>
   <span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">TEXWORKS_WIN_RCS</span>  <span class="s2">&quot;${TeXworks_SOURCE_DIR}/res/*.rc&quot;</span><span class="p">)</span>
@@ -275,7 +277,7 @@ frameworks to the library link list.</p>
         <p>Run uic on user interface files.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>  <span class="err">QT5_WRAP_UI(TEXWORKS_GEN_UI</span> <span class="err">${TEXWORKS_UIS})</span>
+        <div class='highlight'><pre>  <span class="nb">QT5_WRAP_UI</span><span class="p">(</span><span class="s">TEXWORKS_GEN_UI</span> <span class="o">${</span><span class="nv">TEXWORKS_UIS</span><span class="o">}</span><span class="p">)</span>
 <span class="nb">ELSE</span><span class="p">()</span></pre></div>
       </td>
     </tr>
@@ -288,7 +290,7 @@ frameworks to the library link list.</p>
         <p>Run uic on user interface files.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>  <span class="err">QT4_WRAP_UI(TEXWORKS_GEN_UI</span> <span class="err">${TEXWORKS_UIS})</span>
+        <div class='highlight'><pre>  <span class="nb">QT4_WRAP_UI</span><span class="p">(</span><span class="s">TEXWORKS_GEN_UI</span> <span class="o">${</span><span class="nv">TEXWORKS_UIS</span><span class="o">}</span><span class="p">)</span>
 <span class="nb">ENDIF</span><span class="p">()</span></pre></div>
       </td>
     </tr>
@@ -322,10 +324,20 @@ frameworks to the library link list.</p>
           <a class="pilcrow" href="#section-16">&#182;</a>
           <span class="bookmark" id="section-16"></span>
         </div>
-        <p>Create .pro file that can be used for easy updating with lupdate</p>
+        <p>Create .pro file that can be used for easy updating with <code>lupdate</code>. We sort
+the file list to obtain a stable result (that can be kept in the repository)
+irrespective of globbing order (which varies for different file systems).</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">CREATE_QT_PRO_FILE</span><span class="p">(</span><span class="s2">&quot;${CMAKE_SOURCE_DIR}/trans/${CMAKE_PROJECT_NAME}_trans.pro&quot;</span> <span class="s2">&quot;src&quot;</span> <span class="o">${</span><span class="nv">TEXWORKS_SRCS</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_HDRS</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_UIS</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_TRANS_TS</span><span class="o">}</span><span class="p">)</span>
+        <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">TEXWORKS_TRANS_FILE_LIST</span>
+  <span class="o">${</span><span class="nv">TEXWORKS_SRCS</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_HDRS</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_UIS</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_TRANS_TS</span><span class="o">}</span>
+<span class="p">)</span>
+<span class="nb">LIST</span><span class="p">(</span><span class="s">SORT</span> <span class="s">TEXWORKS_TRANS_FILE_LIST</span><span class="p">)</span>
+<span class="nb">CREATE_QT_PRO_FILE</span><span class="p">(</span>
+  <span class="s2">&quot;${CMAKE_SOURCE_DIR}/trans/${PROJECT_NAME}_trans.pro&quot;</span>
+  <span class="s2">&quot;src&quot;</span>
+  <span class="o">${</span><span class="nv">TEXWORKS_TRANS_FILE_LIST</span><span class="o">}</span>
+<span class="p">)</span>
 
 <span class="nb">IF</span> <span class="p">(</span> <span class="s">APPLE</span> <span class="s">OR</span> <span class="s">NOT</span> <span class="s">UNIX</span> <span class="p">)</span>
   <span class="nb">SET</span><span class="p">(</span><span class="s">EXE_NAME</span> <span class="s">TeXworks</span><span class="p">)</span>
@@ -348,7 +360,7 @@ frameworks to the library link list.</p>
     <span class="nb">LIST</span><span class="p">(</span><span class="s">INSERT</span> <span class="s">TeXworks_LIBS</span> <span class="s">0</span> <span class="s">TWLuaPlugin</span> <span class="o">${</span><span class="nv">LUA_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
   <span class="nb">ENDIF</span><span class="p">()</span>
   <span class="nb">IF</span> <span class="p">(</span><span class="s">WITH_PYTHON</span><span class="p">)</span>
-    <span class="nb">LIST</span><span class="p">(</span><span class="s">INSERT</span> <span class="s">TeXworks_LIBS</span> <span class="s">0</span> <span class="s">TWPythonPlugin</span><span class="p">)</span>
+    <span class="nb">LIST</span><span class="p">(</span><span class="s">INSERT</span> <span class="s">TeXworks_LIBS</span> <span class="s">0</span> <span class="s">TWPythonPlugin</span> <span class="o">${</span><span class="nv">PYTHON_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
   <span class="nb">ENDIF</span><span class="p">()</span>
 <span class="nb">ENDIF</span><span class="p">()</span></pre></div>
       </td>
@@ -378,7 +390,7 @@ frameworks to the library link list.</p>
         <p>Specify libraries to be linked to TeXworks.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span> <span class="o">${</span><span class="nv">EXE_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">TeXworks_LIBS</span><span class="o">}</span> <span class="p">)</span></pre></div>
+        <div class='highlight'><pre><span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span> <span class="o">${</span><span class="nv">EXE_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">MODULE_LIBS</span><span class="o">}</span> <span class="o">${</span><span class="nv">TeXworks_LIBS</span><span class="o">}</span> <span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
