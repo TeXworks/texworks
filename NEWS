@@ -1,3 +1,21 @@
+Release 0.6.0 (TL'16) [April 2016]
+	* Complete redesign of the PDF previewer using QtPDF by Charlie Sharpsteen
+	* Fast and responsive preview even at very high magnifications
+	* New page modes: continuous scrolling and two-column layout
+	* Text selection/copying from the PDF
+	* Go back to previous view after clicking on a link using Alt+left arrow
+
+	* Fix disappearing spellcheck underline with some fonts/font sizes in Qt 5
+	* Update the width of the line number display when changing the editor font
+	* Show a note in the "About Scripts" dialog for disabled script languages
+	* Explicitly add a "Quit TeXworks" menu item to the global menubar on
+	  Mac OS X
+
+	* Make Qt5 the default framework for building TeXworks
+	* Use Travis CI for continuous integration tests and builds for Windows and
+	  Mac OS X
+	* Add support for Lua 5.3
+
 Release 0.4.6 (TL'15) [April 2015]
 	* Implement character-level synchronization by using text searching to
 	  assist SyncTeX
