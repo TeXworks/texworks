@@ -46,7 +46,7 @@ fi
 echo "RELEASE_DATE = ${RELEASE_DATE}"
 
 #VERSION_NAME="TeXworks-${TRAVIS_OS_NAME}-${TW_VERSION}-${DATE_HASH}-git_${GIT_HASH}"
-VERSION_NAME="${TW_VERSION}-t${DATE_HASH}-git_${GIT_HASH}"
+VERSION_NAME="${TW_VERSION}-${DATE_HASH}-git_${GIT_HASH}"
 echo "VERSION_NAME = ${VERSION_NAME}"
 
 # Start packaging and prepare deployment
