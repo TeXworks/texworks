@@ -20,6 +20,6 @@
 */
 
 #define VER_MAJOR			0
-#define VER_MINOR			5
+#define VER_MINOR			7
 #define VER_BUGFIX			0
-#define TEXWORKS_VERSION	"0.5"
+#define TEXWORKS_VERSION	"0.7"
