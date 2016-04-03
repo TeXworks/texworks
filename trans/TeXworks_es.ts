@@ -1217,8 +1217,8 @@
         <translation>No se encontró el directorio predeterminado con lo binarios respectivos</translation>
     </message>
     <message>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Ninguno de los directorios predefinidos con los programas TeX correspondientes se pudo encontrar.&lt;p&gt;&lt;small&gt; Para ejecutar cualquier proceso debe establecer la ubicación del directorio (o directorios) con los programas de su ditribución TeX, utilizando la pestaña Compilar en la ventana de Preferencias.</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>Ninguno de los directorios predefinidos con los programas TeX correspondientes se pudo encontrar.&lt;p&gt;&lt;small&gt; Para ejecutar cualquier proceso debe establecer la ubicación del directorio (o directorios) con los programas de su ditribución TeX, utilizando la pestaña Compilar en la ventana de Preferencias.&lt;/small&gt;</translation>
     </message>
     <message>
         <source>Unable to find help file.</source>

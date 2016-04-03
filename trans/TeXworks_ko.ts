@@ -1211,8 +1211,8 @@
         <translation>기본 바이너리 디렉토리를 찾을 수 없습니다</translation>
     </message>
     <message>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>TeX 관련 프로그램의 경로를 찾을 수 없습니다.&lt;p&gt;&lt;small&gt;문서처리를 위해서는 TeX 배포판의 바이너리 디렉토리를 환경 설정 대화상자의 문서처리 탭에서 설정해야 합니다.</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>TeX 관련 프로그램의 경로를 찾을 수 없습니다.&lt;p&gt;&lt;small&gt;문서처리를 위해서는 TeX 배포판의 바이너리 디렉토리를 환경 설정 대화상자의 문서처리 탭에서 설정해야 합니다.&lt;/small&gt;</translation>
     </message>
     <message>
         <source>Save File</source>

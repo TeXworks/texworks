@@ -828,7 +828,7 @@ void TWApp::setDefaultPaths()
 		QMessageBox::warning(NULL, tr("No default binary directory found"),
 			tr("None of the predefined directories for TeX-related programs could be found."
 				"<p><small>To run any processes, you will need to set the binaries directory (or directories) "
-				"for your TeX distribution using the Typesetting tab of the Preferences dialog."));
+				"for your TeX distribution using the Typesetting tab of the Preferences dialog.</small>"));
 	}
 }
 

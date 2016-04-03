@@ -1167,8 +1167,8 @@
         <translation>Directory programmi non trovata</translation>
     </message>
     <message>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Non è stato possibile trovare nessuna delle directory predefinite per i programmi relativi a Tex.&lt;p&gt;&lt;small&gt;Per lanciare qualsiasi processo devi definire la(e) directory dove risiede la tua distribuzione Tex utilizzando la scheda Typesetting delle Preferenze.</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>Non è stato possibile trovare nessuna delle directory predefinite per i programmi relativi a Tex.&lt;p&gt;&lt;small&gt;Per lanciare qualsiasi processo devi definire la(e) directory dove risiede la tua distribuzione Tex utilizzando la scheda Typesetting delle Preferenze.&lt;/small&gt;</translation>
     </message>
     <message>
         <source>Ctrl+N</source>

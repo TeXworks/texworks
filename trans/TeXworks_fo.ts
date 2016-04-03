@@ -1568,8 +1568,8 @@
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="829"/>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Eingin av teimum upplýstu mappunum til TeX-forrit varð funnin. &lt;p&gt;&lt;small&gt;Fyri at koyra onkra prosess, so mást tú velja mappuna við fílunum til TeX-forritið við spjaldrinum Tekstseting í valmyndini Ásetingar.</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>Eingin av teimum upplýstu mappunum til TeX-forrit varð funnin. &lt;p&gt;&lt;small&gt;Fyri at koyra onkra prosess, so mást tú velja mappuna við fílunum til TeX-forritið við spjaldrinum Tekstseting í valmyndini Ásetingar.&lt;/small&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="1129"/>

@@ -1503,7 +1503,7 @@
     <message>
         <location filename="../src/TWApp.cpp" line="829"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>لم يعثر على أي من المجلدات المحددة للتطبيقات المتعلقة بTeX.&lt;p&gt;&lt;small&gt;قبل تشغيل أي عملية ستحتاج لتحديد مجلد (أو مجلدات) الثنائيات لتوزيعة TeX لديك مستخدما لسان الصف الطباعي في حوار التفضيلات.</translation>
+        <translation>لم يعثر على أي من المجلدات المحددة للتطبيقات المتعلقة بTeX.&lt;p&gt;&lt;small&gt;قبل تشغيل أي عملية ستحتاج لتحديد مجلد (أو مجلدات) الثنائيات لتوزيعة TeX لديك مستخدما لسان الصف الطباعي في حوار التفضيلات.&lt;/small&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="298"/>
