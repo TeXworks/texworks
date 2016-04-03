@@ -78,7 +78,7 @@ def cmake_files
     Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
   end).reject do |f|
     # Remove unwanted items like 'modules/' and 'poppler-data-*/'.
-    f.start_with?("modules/", "poppler-data-")
+    f.start_with?("poppler-data-")
   end.sort
 end
 
