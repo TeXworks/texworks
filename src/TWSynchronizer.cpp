@@ -165,6 +165,11 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
     selection.append(r);
   QMap<int, QRectF> boxes;
   QString destContext = pdfPage->selectedText(selection, &boxes);
+  // Normalize the destContext. selectedText() returns newline chars between
+  // separate (output) lines that all correspond to the same input line
+  // (different input lines are handled by SyncTeX). Here we replace those \n
+  // to make destContext more comparable to srcContext.
+  destContext.replace('\n', " ");
 
   // FIXME: the string returned by selectedText() seems to twist the beginning
   // (and ends) of footnotes sometimes.
@@ -223,6 +228,12 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   // Find the box the user clicked on
   QMap<int, QRectF> boxes;
   QString srcContext = pdfPage->selectedText(selection, NULL, &boxes);
+  // Normalize the srcContext. selectedText() returns newline chars between
+  // separate (output) lines that all correspond to the same input line
+  // (different input lines are handled by SyncTeX). Here we replace those \n
+  // to make srcContext more comparable to destContext below.
+  srcContext.replace('\n', " ");
+
   int col;
   for (col = 0; col < boxes.count(); ++col) {
     if (boxes[col].contains(src.rects[0].center()))
