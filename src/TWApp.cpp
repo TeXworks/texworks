@@ -1047,7 +1047,7 @@ void TWApp::applyTranslation(const QString& locale)
 		// Note that the bundled translations are not copied to <resources>, so
 		// this search order is not messed up.
 		QStringList names, directories;
-		names << QString::fromLatin1("qt") + locale \
+		names << QString::fromLatin1("qt_") + locale \
 					<< QString::fromLatin1("QtPDF_") + locale \
 					<< QString::fromLatin1(TEXWORKS_NAME) + QString::fromLatin1("_") + locale;
 		directories << QString::fromLatin1(":/resfiles/translations") \
