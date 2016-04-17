@@ -141,6 +141,7 @@ Document::~Document()
 //  qDebug() << "PopplerQt::Document::~Document()";
 #endif
   clearPages();
+  delete _poppler_docLock;
 }
 
 void Document::reload()
