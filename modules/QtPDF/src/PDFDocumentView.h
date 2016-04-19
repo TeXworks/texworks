@@ -398,8 +398,8 @@ public:
   virtual ~PDFPageLayout() { }
   int columnCount() const { return _numCols; }
   int firstColumn() const { return _firstCol; }
-  int xSpacing() const { return _xSpacing; }
-  int ySpacing() const { return _ySpacing; }
+  qreal xSpacing() const { return _xSpacing; }
+  qreal ySpacing() const { return _ySpacing; }
   bool isContinuous() const { return _isContinuous; }
   void setContinuous(const bool continuous = true);
 
