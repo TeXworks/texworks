@@ -323,6 +323,47 @@ QGraphicsPathItem * PDFDocumentView::addHighlightPath(const unsigned int page, c
   return highlightItem;
 }
 
+void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectRatioMode /* = Qt::IgnoreAspectRatio */)
+{
+  // This method is modeled closely after QGraphicsView::fitInView(), with a
+  // notable exception: no arbitrary (hard-coded) margin is added, thus allowing
+  // page-scrolling without (slight) shifts
+  if (rect.isNull())
+    return;
+
+  // Reset the view scale to 1:1.
+  QRectF unity = matrix().mapRect(QRectF(0, 0, 1, 1));
+  if (unity.isEmpty())
+    return;
+  scale(1 / unity.width(), 1 / unity.height());
+
+  // Find the ideal x / y scaling ratio to fit \a rect in the view.
+  QRectF viewRect = viewport()->rect();
+  if (viewRect.isEmpty())
+    return;
+  QRectF sceneRect = matrix().mapRect(rect);
+  if (sceneRect.isEmpty())
+    return;
+  qreal xratio = viewRect.width() / sceneRect.width();
+  qreal yratio = viewRect.height() / sceneRect.height();
+
+  // Respect the aspect ratio mode.
+  switch (aspectRatioMode) {
+    case Qt::KeepAspectRatio:
+      xratio = yratio = qMin(xratio, yratio);
+      break;
+    case Qt::KeepAspectRatioByExpanding:
+      xratio = yratio = qMax(xratio, yratio);
+      break;
+    case Qt::IgnoreAspectRatio:
+      break;
+  }
+
+  // Scale and center on the center of \a rect.
+  scale(xratio, yratio);
+  centerOn(rect.center());
+}
+
 // Public Slots
 // ------------
 
@@ -446,51 +487,45 @@ void PDFDocumentView::zoomFitWindow()
   if (!currentPage)
     return;
 
-  // Curious fact: This function will end up producing a different zoom level depending on if
-  // it zooms out or in. But the implementation of `fitInView` in the Qt source
-  // is pretty solid---I can't think of a better way to do it.
-  fitInView(currentPage, Qt::KeepAspectRatio);
+  QRectF rect(currentPage->sceneBoundingRect());
+  // Add a margin of half the inter-page spacing around the page rect so
+  // scrolling by one such rect will take us to exactly the same area on the
+  // next page
+  qreal dx = _pdf_scene->pageLayout().xSpacing();
+  qreal dy = _pdf_scene->pageLayout().ySpacing();
+  rect.adjust(-dx / 2, -dy / 2, dx / 2, dy / 2);
 
-  _zoomLevel = transform().m11();
-  emit changedZoom(_zoomLevel);
+  zoomToRect(rect);
 }
 
 
 // `zoomFitWidth` is basically a re-worked version of `QGraphicsView::fitInView`.
 void PDFDocumentView::zoomFitWidth()
 {
-  if ( !scene() || rect().isNull() )
-      return;
+  if (!scene())
+    return;
 
   QGraphicsItem *currentPage = _pdf_scene->pageAt(_currentPage);
   if (!currentPage)
     return;
-  
+
+  QRectF rect(currentPage->sceneBoundingRect());
+  // Add a margin of half the inter-page spacing around the page rect so
+  // scrolling by one such rect will take us to exactly the same area on the
+  // next page
+  qreal dx = _pdf_scene->pageLayout().xSpacing();
+  qreal dy = _pdf_scene->pageLayout().ySpacing();
+  rect.adjust(-dx / 2, -dy / 2, dx / 2, dy / 2);
+
   // Store current y position so we can center on it later.
   qreal ypos = mapToScene(viewport()->rect()).boundingRect().center().y();
 
-  // Reset the view scale to 1:1.
-  QRectF unity = matrix().mapRect(QRectF(0, 0, 1, 1));
-  if (unity.isEmpty())
-      return;
-  scale(1 / unity.width(), 1 / unity.height());
+  // Squash the rect to minimal height so its width will be limitting the zoom
+  // factor
+  rect.setTop(ypos - 1e-5);
+  rect.setBottom(ypos + 1e-5);
 
-  // Find the x scaling ratio to fit the page to the view width.
-  int margin = 2;
-  QRectF viewRect = viewport()->rect().adjusted(margin, margin, -margin, -margin);
-  if (viewRect.isEmpty())
-      return;
-  qreal xratio = viewRect.width() / currentPage->sceneBoundingRect().width();
-
-  scale(xratio, xratio);
-  // Focus on the horizontal center of the page and set the vertical position
-  // to the previous y position.
-  centerOn(QPointF(currentPage->sceneBoundingRect().center().x(), ypos));
-
-  // We reset the scaling factors to (1,1) and then scaled both by the same
-  // factor so the zoom level should be equal to the x scale.
-  _zoomLevel = transform().m11();
-  emit changedZoom(_zoomLevel);
+  zoomToRect(rect);
 }
 
 void PDFDocumentView::zoom100()
@@ -3401,8 +3436,9 @@ void PDFPageLayout::continuousModeRelayout() {
   }
 
   // leave some space around the pages (note that the space on the right/bottom
-  // is already included in the corresponding Offset values)
-  sceneRect.setRect(-_xSpacing, -_ySpacing, colOffsets[_numCols] + _xSpacing, rowOffsets[rowCount()] + _ySpacing);
+  // is already included in the corresponding Offset values and that the method
+  // signature is (x0, y0, w, h)!)
+  sceneRect.setRect(-_xSpacing / 2, -_ySpacing / 2, colOffsets[_numCols], rowOffsets[rowCount()]);
   emit layoutChanged(sceneRect);
 }
 
