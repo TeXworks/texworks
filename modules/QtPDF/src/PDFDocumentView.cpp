@@ -1436,7 +1436,6 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
   int delta = event->delta();
 
   if (event->orientation() == Qt::Vertical && event->buttons() == Qt::NoButton && event->modifiers() == Qt::ControlModifier) {
-
     // TODO: Possibly make the Ctrl modifier configurable?
     // TODO: According to Qt docs, the delta() is not necessarily the same for all
     // mice. Decide if we want to enforce the same step size regardless of the
@@ -1447,9 +1446,17 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
       zoomOut(QGraphicsView::AnchorUnderMouse);
     event->accept();
     return;
-
-  } else if ( pageMode() == PageMode_SinglePage || pageMode() == PageMode_Presentation) {
-
+  }
+  if (event->modifiers() == Qt::ShiftModifier) {
+    // If "Shift" (and only that modifier) is pressed, swap orientations
+    // (e.g., to allow horizontal scrolling)
+    // TODO: Possibly make the Shift modifier configurable?
+    event->accept();
+    QWheelEvent newEvent(event->pos(), event->delta(), event->buttons(), Qt::NoModifier, (event->orientation() == Qt::Vertical ? Qt::Horizontal : Qt::Vertical));
+    wheelEvent(&newEvent);
+    return;
+  }
+  if (event->orientation() == Qt::Vertical && (pageMode() == PageMode_SinglePage || pageMode() == PageMode_Presentation)) {
     // In single page mode we need to flip to the next page if the scroll bar
     // is a the top or bottom of it's range.`
     int scrollPos = verticalScrollBar()->value();
@@ -1464,7 +1471,6 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
       event->accept();
       return;
     }
-
   }
 
   Super::wheelEvent(event);
