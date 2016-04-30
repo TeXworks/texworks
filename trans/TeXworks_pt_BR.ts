@@ -1210,8 +1210,8 @@
         <translation>Pasta padrão dos binários não encontrada</translation>
     </message>
     <message>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Nenhuma das pastas predefinidas para os programas relacionados ao TeX pode ser encontrada.&lt;p&gt;&lt;small&gt;Para executar quaisquer processos você precisará configurar a(s) pasta(s) de binários de sua distribuição TeX usando a aba Composição da caixa de Preferências.</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>Nenhuma das pastas predefinidas para os programas relacionados ao TeX pode ser encontrada.&lt;p&gt;&lt;small&gt;Para executar quaisquer processos você precisará configurar a(s) pasta(s) de binários de sua distribuição TeX usando a aba Composição da caixa de Preferências.&lt;/small&gt;</translation>
     </message>
     <message>
         <source>Unable to find help file.</source>

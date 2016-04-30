@@ -1211,8 +1211,8 @@
         <translation>Fann inga standardplassering for programfiler</translation>
     </message>
     <message>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Fann ingen av dei standardplasseringane for TeX-programfiler.&lt;p&gt;&lt;small&gt;For å kunna kompilera filene, må du oppgje adressa/adressene til TeX-distribusjonen din under «Instillingar → Kompilering».</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>Fann ingen av dei standardplasseringane for TeX-programfiler.&lt;p&gt;&lt;small&gt;For å kunna kompilera filene, må du oppgje adressa/adressene til TeX-distribusjonen din under «Instillingar → Kompilering».&lt;/small&gt;</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>

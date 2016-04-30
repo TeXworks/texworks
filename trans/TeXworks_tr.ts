@@ -1211,8 +1211,8 @@
         <translation>Hiçbir öntanımlı ikili dizini bulunamadı</translation>
     </message>
     <message>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>TeX ile ilgili programlar için önceden tanımlanmış dizinlerin hiçbiri bulunamadı.&lt;p&gt;&lt;small&gt;Bir işlem çalıştırmak için Tercihler penceresindeki Dizgi sekmesinde TeX dağıtımınız için ikililer dizini (veya dizinleri) ayarlamanız gerekecek.</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>TeX ile ilgili programlar için önceden tanımlanmış dizinlerin hiçbiri bulunamadı.&lt;p&gt;&lt;small&gt;Bir işlem çalıştırmak için Tercihler penceresindeki Dizgi sekmesinde TeX dağıtımınız için ikililer dizini (veya dizinleri) ayarlamanız gerekecek.&lt;/small&gt;</translation>
     </message>
     <message>
         <source>Unable to find help file.</source>

@@ -141,6 +141,7 @@ Document::~Document()
 //  qDebug() << "PopplerQt::Document::~Document()";
 #endif
   clearPages();
+  delete _poppler_docLock;
 }
 
 void Document::reload()
@@ -909,12 +910,26 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 		// assume it's a new line. This should work reasonably well for normal text
 		// (including RTL text), but may fail in some less common cases (e.g.,
 		// subscripts after superscripts, formulas, etc.).
-		if (lastPopplerBox && lastPopplerBox->boundingBox().bottom() < poppler_box->boundingBox().top())
+		if (lastPopplerBox && lastPopplerBox->boundingBox().bottom() < poppler_box->boundingBox().top()) {
 			retVal += QString::fromLatin1("\n");
+
+			if (wordBoxes)
+				(*wordBoxes)[wordBoxes->count()] = lastPopplerBox->boundingBox();
+			if (charBoxes)
+				(*charBoxes)[charBoxes->count()] = lastPopplerBox->boundingBox();
+		}
 
 		bool appendSpace = false;
 		if (includeEntirely) {
 			retVal += poppler_box->text();
+			if (wordBoxes) {
+				for (int i = 0; i < poppler_box->text().length(); ++i)
+					(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
+			}
+			if (charBoxes) {
+				for (int i = 0; i < poppler_box->text().length(); ++i)
+					(*charBoxes)[charBoxes->count()] = poppler_box->charBoundingBox(i);
+			}
 			appendSpace = poppler_box->hasSpaceAfter();
 		}
 		else {
@@ -930,6 +945,12 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 						continue;
 					if (!onlyFullyEnclosed || QPolygonF(poppler_box->charBoundingBox(i)).subtracted(p).empty()) {
 						retVal += poppler_box->text()[i];
+
+						if (wordBoxes)
+							(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
+						if (charBoxes)
+							(*charBoxes)[charBoxes->count()] = poppler_box->charBoundingBox(i);
+
 						if (i == poppler_box->text().length() - 1)
 							appendSpace = poppler_box->hasSpaceAfter();
 						break;
@@ -937,22 +958,14 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 				}
 			}
 		}
-		if (appendSpace)
+		if (appendSpace) {
 			retVal += QString::fromLatin1(" ");
 
-		if (wordBoxes) {
-			for (int i = 0; i < poppler_box->text().length(); ++i)
+			if (wordBoxes)
 				(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
-			if (poppler_box->hasSpaceAfter())
-				(*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
-		}
-		if (charBoxes) {
-			for (int i = 0; i < poppler_box->text().length(); ++i)
-				(*charBoxes)[charBoxes->count()] = poppler_box->charBoundingBox(i);
-			if (poppler_box->hasSpaceAfter())
+			if (charBoxes)
 				(*charBoxes)[charBoxes->count()] = poppler_box->boundingBox();
 		}
-
 		lastPopplerBox = poppler_box;
 	}
 

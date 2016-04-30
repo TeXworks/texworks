@@ -323,6 +323,177 @@ QGraphicsPathItem * PDFDocumentView::addHighlightPath(const unsigned int page, c
   return highlightItem;
 }
 
+void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectRatioMode /* = Qt::IgnoreAspectRatio */)
+{
+  const unsigned int ScaleDataSize = 4;
+  struct ScaleData {
+    qreal xratio, yratio;
+    bool horizontalScrollbar, verticalScrollbar;
+  } _scaleDat[ScaleDataSize];
+  qreal xratio, yratio;
+  qreal horizontalScrollbar, verticalScrollbar;
+  QRectF viewRect;
+  QRectF sceneRect;
+  Qt::ScrollBarPolicy oldHorizontalPolicy, oldVerticalPolicy;
+
+  // This method is modeled closely after QGraphicsView::fitInView(), with two
+  // notable exceptions: 1) no arbitrary (hard-coded) margin is added, thus
+  // allowing page-scrolling without (slight) shifts. 2) we calculate zoom
+  // factors with and without scroll bars and pick the most suitable one; this
+  // way, cases where we would zoom out so much that, e.g., a horizontal scroll
+  // bar is no longer needed are handled properly
+
+  // Ensure that we have a valid rect to fit into the view
+  if (rect.isNull())
+    return;
+
+  // Save the current scroll bar policies so we can restore them later;
+  // NB: this method repeatedly changes the scroll bar policies to "simulate"
+  // cases without scroll bars as needed
+  oldHorizontalPolicy = horizontalScrollBarPolicy();
+  oldVerticalPolicy = verticalScrollBarPolicy();
+
+  // Reset the view scale to 1:1.
+  QRectF unity = matrix().mapRect(QRectF(0, 0, 1, 1));
+  if (unity.isEmpty())
+    return;
+  scale(1 / unity.width(), 1 / unity.height());
+
+  // 1) determine the potential scaling ratios for "only" fitting the given
+  // rect into the current viewport; the scroll bars remain as they are
+  _scaleDat[0].horizontalScrollbar = (horizontalScrollBar() ? horizontalScrollBar()->isVisible() : false);
+  _scaleDat[0].verticalScrollbar = (verticalScrollBar() ? verticalScrollBar()->isVisible() : false);
+  viewRect = viewport()->rect();
+  sceneRect = matrix().mapRect(rect);
+  if (!viewRect.isEmpty() && !sceneRect.isEmpty()) {
+    _scaleDat[0].xratio = viewRect.width() / sceneRect.width();
+    _scaleDat[0].yratio = viewRect.height() / sceneRect.height();
+  }
+  else {
+    _scaleDat[0].xratio = -1;
+    _scaleDat[0].yratio = -1;
+  }
+
+  // 2) determine potential scaling ratios for fitting the whole scene width
+  // into the viewport (with disabled horizontal scroll bars if possible!)
+  setHorizontalScrollBarPolicy(oldHorizontalPolicy == Qt::ScrollBarAsNeeded ? Qt::ScrollBarAlwaysOff : oldHorizontalPolicy);
+  setVerticalScrollBarPolicy(oldVerticalPolicy);
+  _scaleDat[1].horizontalScrollbar = (horizontalScrollBar() ? horizontalScrollBar()->isVisible() : false);
+  _scaleDat[1].verticalScrollbar = (verticalScrollBar() ? verticalScrollBar()->isVisible() : false);
+
+  viewRect = viewport()->rect();
+  setHorizontalScrollBarPolicy(oldHorizontalPolicy);
+  sceneRect.setLeft(matrix().mapRect(_pdf_scene->sceneRect()).left());
+  sceneRect.setRight(matrix().mapRect(_pdf_scene->sceneRect()).right());
+
+  if (!viewRect.isEmpty() && !sceneRect.isEmpty()) {
+    _scaleDat[1].xratio = viewRect.width() / sceneRect.width();
+    _scaleDat[1].yratio = viewRect.height() / sceneRect.height();
+  }
+  else {
+    _scaleDat[1].xratio = -1;
+    _scaleDat[1].yratio = -1;
+  }
+
+  // 3) determine potential scaling ratios for fitting the whole scene height
+  // into the viewport (with disabled vertical scroll bars if possible!)
+  setHorizontalScrollBarPolicy(oldHorizontalPolicy);
+  setVerticalScrollBarPolicy(oldVerticalPolicy == Qt::ScrollBarAsNeeded ? Qt::ScrollBarAlwaysOff : oldVerticalPolicy);
+  _scaleDat[2].horizontalScrollbar = (horizontalScrollBar() ? horizontalScrollBar()->isVisible() : false);
+  _scaleDat[2].verticalScrollbar = (verticalScrollBar() ? verticalScrollBar()->isVisible() : false);
+
+  viewRect = viewport()->rect();
+  setVerticalScrollBarPolicy(oldVerticalPolicy);
+  sceneRect.setTop(matrix().mapRect(_pdf_scene->sceneRect()).top());
+  sceneRect.setBottom(matrix().mapRect(_pdf_scene->sceneRect()).bottom());
+
+  if (!viewRect.isEmpty() && !sceneRect.isEmpty()) {
+    _scaleDat[2].xratio = viewRect.width() / sceneRect.width();
+    _scaleDat[2].yratio = viewRect.height() / sceneRect.height();
+  }
+  else {
+    _scaleDat[2].xratio = -1;
+    _scaleDat[2].yratio = -1;
+  }
+
+  // 4) determine potential scaling ratios for fitting the whole scene
+  // into the viewport (with disabled scroll bars if possible!)
+  setHorizontalScrollBarPolicy(oldHorizontalPolicy == Qt::ScrollBarAsNeeded ? Qt::ScrollBarAlwaysOff : oldHorizontalPolicy);
+  setVerticalScrollBarPolicy(oldVerticalPolicy == Qt::ScrollBarAsNeeded ? Qt::ScrollBarAlwaysOff : oldVerticalPolicy);
+  _scaleDat[3].horizontalScrollbar = (horizontalScrollBar() ? horizontalScrollBar()->isVisible() : false);
+  _scaleDat[3].verticalScrollbar = (verticalScrollBar() ? verticalScrollBar()->isVisible() : false);
+
+  viewRect = viewport()->rect();
+  setHorizontalScrollBarPolicy(oldHorizontalPolicy);
+  setVerticalScrollBarPolicy(oldVerticalPolicy);
+  sceneRect = matrix().mapRect(_pdf_scene->sceneRect());
+
+  if (!viewRect.isEmpty() && !sceneRect.isEmpty()) {
+    _scaleDat[3].xratio = viewRect.width() / sceneRect.width();
+    _scaleDat[3].yratio = viewRect.height() / sceneRect.height();
+  }
+  else {
+    _scaleDat[3].xratio = -1;
+    _scaleDat[3].yratio = -1;
+  }
+
+  // Determine the optimal (i.e., maximum) zoom factor
+  // Respect the aspect ratio mode.
+  switch (aspectRatioMode) {
+    case Qt::KeepAspectRatio:
+      xratio = yratio = -1;
+      for (unsigned int i = 0; i < ScaleDataSize; ++i) {
+        qreal r = qMin(_scaleDat[i].xratio, _scaleDat[i].yratio);
+        if (xratio < r) {
+          xratio = yratio = r;
+          horizontalScrollbar = _scaleDat[i].horizontalScrollbar;
+          verticalScrollbar = _scaleDat[i].verticalScrollbar;
+        }
+      }
+      break;
+    case Qt::KeepAspectRatioByExpanding:
+      xratio = yratio = -1;
+      for (unsigned int i = 0; i < ScaleDataSize; ++i) {
+        qreal r = qMax(_scaleDat[i].xratio, _scaleDat[i].yratio);
+        if (xratio < r) {
+          xratio = yratio = r;
+          horizontalScrollbar = _scaleDat[i].horizontalScrollbar;
+          verticalScrollbar = _scaleDat[i].verticalScrollbar;
+        }
+      }
+      break;
+    case Qt::IgnoreAspectRatio:
+      xratio = yratio = -1;
+      for (unsigned int i = 0; i < ScaleDataSize; ++i) {
+        if (xratio < _scaleDat[i].xratio) {
+          xratio = _scaleDat[i].xratio;
+          horizontalScrollbar = _scaleDat[i].horizontalScrollbar;
+        }
+        if (yratio < _scaleDat[i].yratio) {
+          yratio = _scaleDat[i].yratio;
+          verticalScrollbar = _scaleDat[i].verticalScrollbar;
+        }
+      }
+      break;
+  }
+
+  if (xratio <= 0 || yratio <= 0)
+    return;
+
+  // Set the scroll bar policy to what it will be in the end so `centerOn` works
+  // with the correct viewport
+  setHorizontalScrollBarPolicy(horizontalScrollbar ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
+  setVerticalScrollBarPolicy(verticalScrollbar ? Qt::ScrollBarAlwaysOn : Qt::ScrollBarAlwaysOff);
+
+  // Scale and center on the center of \a rect.
+  scale(xratio, yratio);
+  centerOn(rect.center());
+
+  // Reset the scroll bar policy to what it was before
+  setHorizontalScrollBarPolicy(oldHorizontalPolicy);
+  setVerticalScrollBarPolicy(oldVerticalPolicy);
+}
+
 // Public Slots
 // ------------
 
@@ -446,51 +617,44 @@ void PDFDocumentView::zoomFitWindow()
   if (!currentPage)
     return;
 
-  // Curious fact: This function will end up producing a different zoom level depending on if
-  // it zooms out or in. But the implementation of `fitInView` in the Qt source
-  // is pretty solid---I can't think of a better way to do it.
-  fitInView(currentPage, Qt::KeepAspectRatio);
+  QRectF rect(currentPage->sceneBoundingRect());
+  // Add a margin of half the inter-page spacing around the page rect so
+  // scrolling by one such rect will take us to exactly the same area on the
+  // next page
+  qreal dx = _pdf_scene->pageLayout().xSpacing();
+  qreal dy = _pdf_scene->pageLayout().ySpacing();
+  rect.adjust(-dx / 2, -dy / 2, dx / 2, dy / 2);
 
-  _zoomLevel = transform().m11();
-  emit changedZoom(_zoomLevel);
+  zoomToRect(rect);
 }
 
 
-// `zoomFitWidth` is basically a re-worked version of `QGraphicsView::fitInView`.
 void PDFDocumentView::zoomFitWidth()
 {
-  if ( !scene() || rect().isNull() )
-      return;
+  if (!_pdf_scene)
+    return;
 
   QGraphicsItem *currentPage = _pdf_scene->pageAt(_currentPage);
   if (!currentPage)
     return;
-  
+
+  QRectF rect(currentPage->sceneBoundingRect());
+
+  // Add a margin of half the inter-page spacing around the page rect so
+  // scrolling by one such rect will take us to exactly the same area on the
+  // next page
+  qreal dx = _pdf_scene->pageLayout().xSpacing();
+  rect.adjust(-dx / 2, 0, dx / 2, 0);
+
   // Store current y position so we can center on it later.
   qreal ypos = mapToScene(viewport()->rect()).boundingRect().center().y();
 
-  // Reset the view scale to 1:1.
-  QRectF unity = matrix().mapRect(QRectF(0, 0, 1, 1));
-  if (unity.isEmpty())
-      return;
-  scale(1 / unity.width(), 1 / unity.height());
+  // Squash the rect to minimal height so its width will be limitting the zoom
+  // factor
+  rect.setTop(ypos - 1e-5);
+  rect.setBottom(ypos + 1e-5);
 
-  // Find the x scaling ratio to fit the page to the view width.
-  int margin = 2;
-  QRectF viewRect = viewport()->rect().adjusted(margin, margin, -margin, -margin);
-  if (viewRect.isEmpty())
-      return;
-  qreal xratio = viewRect.width() / currentPage->sceneBoundingRect().width();
-
-  scale(xratio, xratio);
-  // Focus on the horizontal center of the page and set the vertical position
-  // to the previous y position.
-  centerOn(QPointF(currentPage->sceneBoundingRect().center().x(), ypos));
-
-  // We reset the scaling factors to (1,1) and then scaled both by the same
-  // factor so the zoom level should be equal to the x scale.
-  _zoomLevel = transform().m11();
-  emit changedZoom(_zoomLevel);
+  zoomToRect(rect);
 }
 
 void PDFDocumentView::zoom100()
@@ -1272,7 +1436,6 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
   int delta = event->delta();
 
   if (event->orientation() == Qt::Vertical && event->buttons() == Qt::NoButton && event->modifiers() == Qt::ControlModifier) {
-
     // TODO: Possibly make the Ctrl modifier configurable?
     // TODO: According to Qt docs, the delta() is not necessarily the same for all
     // mice. Decide if we want to enforce the same step size regardless of the
@@ -1283,9 +1446,17 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
       zoomOut(QGraphicsView::AnchorUnderMouse);
     event->accept();
     return;
-
-  } else if ( pageMode() == PageMode_SinglePage || pageMode() == PageMode_Presentation) {
-
+  }
+  if (event->modifiers() == Qt::ShiftModifier) {
+    // If "Shift" (and only that modifier) is pressed, swap orientations
+    // (e.g., to allow horizontal scrolling)
+    // TODO: Possibly make the Shift modifier configurable?
+    event->accept();
+    QWheelEvent newEvent(event->pos(), event->delta(), event->buttons(), Qt::NoModifier, (event->orientation() == Qt::Vertical ? Qt::Horizontal : Qt::Vertical));
+    wheelEvent(&newEvent);
+    return;
+  }
+  if (event->orientation() == Qt::Vertical && (pageMode() == PageMode_SinglePage || pageMode() == PageMode_Presentation)) {
     // In single page mode we need to flip to the next page if the scroll bar
     // is a the top or bottom of it's range.`
     int scrollPos = verticalScrollBar()->value();
@@ -1300,7 +1471,6 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
       event->accept();
       return;
     }
-
   }
 
   Super::wheelEvent(event);
@@ -3401,8 +3571,9 @@ void PDFPageLayout::continuousModeRelayout() {
   }
 
   // leave some space around the pages (note that the space on the right/bottom
-  // is already included in the corresponding Offset values)
-  sceneRect.setRect(-_xSpacing, -_ySpacing, colOffsets[_numCols] + _xSpacing, rowOffsets[rowCount()] + _ySpacing);
+  // is already included in the corresponding Offset values and that the method
+  // signature is (x0, y0, w, h)!)
+  sceneRect.setRect(-_xSpacing / 2, -_ySpacing / 2, colOffsets[_numCols], rowOffsets[rowCount()]);
   emit layoutChanged(sceneRect);
 }
 

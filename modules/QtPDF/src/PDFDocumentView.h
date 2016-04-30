@@ -68,6 +68,7 @@ public:
   PageMode pageMode() const { return _pageMode; }
   qreal zoomLevel() const { return _zoomLevel; }
   bool useGrayScale() const { return _useGrayScale; }
+  void fitInView(const QRectF & rect, Qt::AspectRatioMode aspectRatioMode = Qt::IgnoreAspectRatio);
 
   // The ownership of the returned pointers is transferred to the caller (i.e.,
   // he has to destroy them, unless the `parent` widget does that automatically)
@@ -398,8 +399,8 @@ public:
   virtual ~PDFPageLayout() { }
   int columnCount() const { return _numCols; }
   int firstColumn() const { return _firstCol; }
-  int xSpacing() const { return _xSpacing; }
-  int ySpacing() const { return _ySpacing; }
+  qreal xSpacing() const { return _xSpacing; }
+  qreal ySpacing() const { return _ySpacing; }
   bool isContinuous() const { return _isContinuous; }
   void setContinuous(const bool continuous = true);
 

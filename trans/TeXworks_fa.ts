@@ -1211,8 +1211,8 @@
         <translation>پوشهٔ باینری پیش‌نشان یافته نشد</translation>
     </message>
     <message>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>هیچ‌کدام از پوشه‌های شناسایی شده برای برنامه‌های درپیوند با تک پیدا نمی‌شوند. &lt;p&gt;&lt;small&gt;برای کاربست هر پردازشی، باید پوشه‌های باینری پخشایش تک خود را از گزینهٔ حروف‌چینی از گفتگوی ساماندهی‌ها ساماندهی کنید.</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>هیچ‌کدام از پوشه‌های شناسایی شده برای برنامه‌های درپیوند با تک پیدا نمی‌شوند. &lt;p&gt;&lt;small&gt;برای کاربست هر پردازشی، باید پوشه‌های باینری پخشایش تک خود را از گزینهٔ حروف‌چینی از گفتگوی ساماندهی‌ها ساماندهی کنید.&lt;/small&gt;</translation>
     </message>
     <message>
         <source>Unable to find help file.</source>

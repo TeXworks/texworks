@@ -828,7 +828,7 @@ void TWApp::setDefaultPaths()
 		QMessageBox::warning(NULL, tr("No default binary directory found"),
 			tr("None of the predefined directories for TeX-related programs could be found."
 				"<p><small>To run any processes, you will need to set the binaries directory (or directories) "
-				"for your TeX distribution using the Typesetting tab of the Preferences dialog."));
+				"for your TeX distribution using the Typesetting tab of the Preferences dialog.</small>"));
 	}
 }
 
@@ -1047,7 +1047,7 @@ void TWApp::applyTranslation(const QString& locale)
 		// Note that the bundled translations are not copied to <resources>, so
 		// this search order is not messed up.
 		QStringList names, directories;
-		names << QString::fromLatin1("qt") + locale \
+		names << QString::fromLatin1("qt_") + locale \
 					<< QString::fromLatin1("QtPDF_") + locale \
 					<< QString::fromLatin1(TEXWORKS_NAME) + QString::fromLatin1("_") + locale;
 		directories << QString::fromLatin1(":/resfiles/translations") \

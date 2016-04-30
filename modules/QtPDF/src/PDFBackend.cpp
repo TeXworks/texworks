@@ -482,7 +482,6 @@ Document::~Document()
 #ifdef DEBUG
 //  qDebug() << "Document::~Document()";
 #endif
-  QWriteLocker docLocker(_docLock.data());
   clearPages();
 }
 
@@ -523,6 +522,14 @@ QList<SearchResult> Document::search(QString searchText, SearchFlags flags, int 
 
 void Document::clearPages()
 {
+  // Clear the processing thread to ensure no task still needs the pages we are
+  // about to destroy.
+  // NB: Do this before acquiring _docLock. See clearWorkStack() documentation.
+  // This should not cause any problems as we are supposed to currently be in
+  // the main (GUI) thread, and only this thread is supposed to add items to the
+  // work stack.
+  _processingThread.clearWorkStack();
+
   QWriteLocker docLocker(_docLock.data());
   foreach(QSharedPointer<Page> page, _pages) {
     if (page.isNull())

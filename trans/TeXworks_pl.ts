@@ -167,71 +167,75 @@
         <translation>Otwórz ostatnie</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="409"/>
+        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
+        <translation type="obsolete">Plik PDF &quot;%1&quot; jest zablokowany; Taka sytuacja obecnie nie jest obsługiwana.</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="411"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Nie udało się załadować pliku &quot;%1&quot;; prawdopodobnie nie jest to prawidłowy plik PDF.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="422"/>
+        <location filename="../src/PDFDocument.cpp" line="424"/>
         <source>Error initializing SyncTeX</source>
         <translation>Błąd podczas inicjalizowania SyncTeX</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="424"/>
+        <location filename="../src/PDFDocument.cpp" line="426"/>
         <source>No SyncTeX data available</source>
         <translation>Dane SyncTeX niedostępne</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="426"/>
+        <location filename="../src/PDFDocument.cpp" line="428"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="535"/>
+        <location filename="../src/PDFDocument.cpp" line="537"/>
         <source>%1[*] - %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="564"/>
+        <location filename="../src/PDFDocument.cpp" line="566"/>
         <source>page %1 of %2</source>
         <translation>strona %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="569"/>
+        <location filename="../src/PDFDocument.cpp" line="571"/>
         <source>%1%</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="726"/>
+        <location filename="../src/PDFDocument.cpp" line="728"/>
         <source>Jump to Source</source>
         <translation>Przejdź do źródła</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="810"/>
+        <location filename="../src/PDFDocument.cpp" line="830"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Niestety, ta wersja %1 nie może drukować dokumentów PDF z różnych powodów technicznych.
 </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="811"/>
+        <location filename="../src/PDFDocument.cpp" line="831"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Czy zamiast tego chcesz otworzyć plik w domyślnej przeglądarce aby wydrukować?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="812"/>
+        <location filename="../src/PDFDocument.cpp" line="832"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (pamiętaj żeby zamknąć plik aby uniknąć problemów z dostępem)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="893"/>
-        <location filename="../src/PDFDocument.cpp" line="897"/>
+        <location filename="../src/PDFDocument.cpp" line="913"/>
+        <location filename="../src/PDFDocument.cpp" line="917"/>
         <source>Go to Page</source>
         <translation>Przejdź do strony</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="894"/>
-        <location filename="../src/PDFDocument.cpp" line="898"/>
+        <location filename="../src/PDFDocument.cpp" line="914"/>
+        <location filename="../src/PDFDocument.cpp" line="918"/>
         <source>Page number:</source>
         <translation>Strona numer:</translation>
     </message>
@@ -335,7 +339,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="275"/>
-        <location filename="../src/PDFDocument.cpp" line="733"/>
+        <location filename="../src/PDFDocument.cpp" line="735"/>
         <source>Zoom In</source>
         <translation>Powiększ</translation>
     </message>
@@ -346,7 +350,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="290"/>
-        <location filename="../src/PDFDocument.cpp" line="734"/>
+        <location filename="../src/PDFDocument.cpp" line="736"/>
         <source>Zoom Out</source>
         <translation>Pomniejsz</translation>
     </message>
@@ -357,7 +361,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="308"/>
-        <location filename="../src/PDFDocument.cpp" line="737"/>
+        <location filename="../src/PDFDocument.cpp" line="739"/>
         <source>Fit to Window</source>
         <translation>Najlepsze dopasowanie</translation>
     </message>
@@ -368,7 +372,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="323"/>
-        <location filename="../src/PDFDocument.cpp" line="735"/>
+        <location filename="../src/PDFDocument.cpp" line="737"/>
         <source>Actual Size</source>
         <translation>Widok normalny</translation>
     </message>
@@ -379,7 +383,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="341"/>
-        <location filename="../src/PDFDocument.cpp" line="736"/>
+        <location filename="../src/PDFDocument.cpp" line="738"/>
         <source>Fit to Width</source>
         <translation>Dopasuj do szerokości</translation>
     </message>
@@ -480,7 +484,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="501"/>
-        <location filename="../src/PDFDocument.cpp" line="688"/>
+        <location filename="../src/PDFDocument.cpp" line="690"/>
         <source>Typeset</source>
         <translation>Składaj</translation>
     </message>
@@ -612,7 +616,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="733"/>
-        <location filename="../src/PDFDocument.cpp" line="815"/>
+        <location filename="../src/PDFDocument.cpp" line="835"/>
         <source>Print Pdf...</source>
         <translation>Drukuj PDF…</translation>
     </message>
@@ -639,7 +643,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="760"/>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="773"/>
@@ -662,6 +666,10 @@
         <translation>Skrypty</translation>
     </message>
     <message>
+        <source>Update Scripts</source>
+        <translation type="obsolete">Uaktualnij skrypty</translation>
+    </message>
+    <message>
         <location filename="../src/PDFDocument.ui" line="709"/>
         <source>Manage Scripts</source>
         <translation>Zarządzaj skryptami</translation>
@@ -672,7 +680,7 @@
         <translation>Pokaż kartotekę ze skryptami</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="681"/>
+        <location filename="../src/PDFDocument.cpp" line="683"/>
         <source>Abort typesetting</source>
         <translation>Przerwij skład</translation>
     </message>
@@ -741,6 +749,94 @@
     </message>
 </context>
 <context>
+    <name>PDFFontsDock</name>
+    <message>
+        <source>Name</source>
+        <translation type="obsolete">Nazwa</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="obsolete">Typ</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <translation type="obsolete">Podzbiór</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="obsolete">Plik</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation type="obsolete">tak</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation type="obsolete">nie</translation>
+    </message>
+    <message>
+        <source>[embedded]</source>
+        <translation type="obsolete">[wbudowany]</translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation type="obsolete">Czcionki</translation>
+    </message>
+</context>
+<context>
+    <name>PDFInfoDock</name>
+    <message>
+        <source>PDF Info</source>
+        <translation type="obsolete">PDF Info</translation>
+    </message>
+</context>
+<context>
+    <name>PDFOutlineDock</name>
+    <message>
+        <source>No TOC</source>
+        <translation type="obsolete">Brak spisu</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="obsolete">Zawartość</translation>
+    </message>
+</context>
+<context>
+    <name>PDFWidget</name>
+    <message>
+        <source>Zoom In</source>
+        <translation type="obsolete">Powiększ</translation>
+    </message>
+    <message>
+        <source>Zoom Out</source>
+        <translation type="obsolete">Pomniejsz</translation>
+    </message>
+    <message>
+        <source>Actual Size</source>
+        <translation type="obsolete">Widok normalny</translation>
+    </message>
+    <message>
+        <source>Fit to Width</source>
+        <translation type="obsolete">Dopasuj do szerokości</translation>
+    </message>
+    <message>
+        <source>Fit to Window</source>
+        <translation type="obsolete">Najlepsze dopasowanie</translation>
+    </message>
+    <message>
+        <source>Jump to Source</source>
+        <translation type="obsolete">Przejdź do źródła</translation>
+    </message>
+    <message>
+        <source>Go to Page</source>
+        <translation type="obsolete">Przejdź do strony</translation>
+    </message>
+    <message>
+        <source>Page number:</source>
+        <translation type="obsolete">Strona numer:</translation>
+    </message>
+</context>
+<context>
     <name>PrefsDialog</name>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="136"/>
@@ -774,6 +870,10 @@
         <location filename="../src/PrefsDialog.ui" line="40"/>
         <source>General</source>
         <translation>Ogólne</translation>
+    </message>
+    <message>
+        <source>Toolbar buttons</source>
+        <translation type="obsolete">Przyciski paska narzędzi</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="81"/>
@@ -814,6 +914,10 @@
         <location filename="../src/PrefsDialog.ui" line="134"/>
         <source>File Open dialog</source>
         <translation>Okno wyboru pliku</translation>
+    </message>
+    <message>
+        <source>Interface locale:</source>
+        <translation type="obsolete">Język interfejsu:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="178"/>
@@ -1017,9 +1121,26 @@
 </translation>
     </message>
     <message>
+        <source>Auto-hide output panel unless errors occur</source>
+        <translation type="obsolete">Ukrywaj automatycznie panel wyjściowy, chyba że wystąpią błędy</translation>
+    </message>
+    <message>
         <location filename="../src/PrefsDialog.ui" line="387"/>
         <source>Smart Quotes mode:</source>
         <translation>Tryb sprytnych cudzysłowów:</translation>
+    </message>
+    <message>
+        <source>Hide output panel:</source>
+        <translation type="obsolete">Ukryj panel wyjściowy:</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Nigdy:&lt;/strong&gt; Nie ukrywaj panelu wyjściowego po zakończeniu składu.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatycznie:&lt;/strong&gt; Ukryj panel wyjściowy po poprawnym złożeniu dokumentu, ale tylko wtedy, gdy był ukryty wcześniej.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Gdy poprawnie:&lt;/strong&gt; Ukryj panel wyjściowy po poprawnym złożeniu dokumentu niezależnie od poprzedniego stanu.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="966"/>
@@ -1148,6 +1269,14 @@
         <translation>Pliki pomocnicze (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="obsolete">Pliki pomocnicze (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
+        <translation type="obsolete">Pliki pomocnicze (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
+    </message>
+    <message>
         <location filename="../src/TWUtils.cpp" line="486"/>
         <source>Text files (*.txt)</source>
         <translation>Pliki tekstowe (*.txt)</translation>
@@ -1255,7 +1384,7 @@
         <location filename="../src/ResourcesDialog.ui" line="23"/>
         <source>Storage Locations</source>
         <translatorcomment>I am not sure…</translatorcomment>
-        <translation>Pamięć</translation>
+        <translation>Kartoteki</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="41"/>
@@ -1479,6 +1608,18 @@
         <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; korektor pisowni autorstwa L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;metha.</translation>
     </message>
     <message>
+        <source>&lt;br&gt;Version %1 (r.%2)</source>
+        <translation type="obsolete">&lt;br&gt;Wersja %1 (r.%2)</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
+        <translation type="obsolete">&lt;p&gt;Rozpowszechniany zgodnie z &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, wersja 2.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; środowisko programistyczne opracowane przez Qt Software, oddział Nokia Corporation.</translation>
+    </message>
+    <message>
         <location filename="../src/TWApp.cpp" line="302"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
         <translation>&lt;br&gt;Wersja %1 (%2) [r.%3, %4]</translation>
@@ -1497,6 +1638,10 @@
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; biblioteka rastrowania PDF opracowana przez Kristian H&amp;#xF8;gsberg, Albert Astals Cid i innych.</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="obsolete">&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; korektor pisowni autorstwa L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;metha.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="309"/>
@@ -1561,8 +1706,8 @@
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="829"/>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Żadna ze zdefiniowanych kartotek z środowiskiem TeXowym nie może być znaleziona.&lt;p&gt;&lt;small&gt; Aby uruchamiać programy musisz zdefiniować kartoteki z binariami oraz drzewo kartotek zawierających Twoją dystrybucję TeXa. Użyj zakładki Skład w Ustawieniach programu. </translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>Żadna ze zdefiniowanych kartotek z środowiskiem TeXowym nie może być znaleziona.&lt;p&gt;&lt;small&gt; Aby uruchamiać programy musisz zdefiniować kartoteki z binariami oraz drzewo kartotek zawierających Twoją dystrybucję TeXa. Użyj zakładki Skład w Ustawieniach programu.&lt;/small&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="1129"/>
@@ -1585,10 +1730,30 @@
         <translation>Zapisz</translation>
     </message>
     <message>
+        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
+        <translation type="obsolete">&lt;br&gt;Wersja %1 r.%2 (%3)</translation>
+    </message>
+    <message>
         <location filename="../src/TWApp.cpp" line="305"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translatorcomment>Taken from GIMP</translatorcomment>
         <translation>&lt;p&gt;Rozpowszechniany na warunkach &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;Powszechnej Licencji Publicznej GNU&lt;/a&gt; według wersji drugiej tej Licencji lub (jeżeli wolisz) którejś z późniejszych wersji.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Środowisko programistyczne Qt&lt;/a&gt; wer. %1 opracowane przez Qt Software, oddział firmy Nokia Corporation.</translation>
+    </message>
+    <message>
+        <source>Failed to execute system command: %1</source>
+        <translation type="obsolete">Błąd podczas próby wykonania polecenia: %1</translation>
+    </message>
+    <message>
+        <source>Error executing system command: %1</source>
+        <translation type="obsolete">Błąd podczas wykonania polecenia: %1</translation>
+    </message>
+    <message>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation type="obsolete">Wykonywanie poleceń systemu wyłaczone (patrz Preferencje)</translation>
     </message>
 </context>
 <context>
@@ -1782,6 +1947,12 @@ Czy chcesz zachowć zmiany?</translation>
         <translation>Odwróć zmiany</translation>
     </message>
     <message>
+        <source>Cannot read file &quot;%1&quot;:
+%2.</source>
+        <translation type="obsolete">Nie mogę odczytać pliku &quot;%1&quot;:
+%2.</translation>
+    </message>
+    <message>
         <location filename="../src/TeXDocument.cpp" line="979"/>
         <source>Unrecognized encoding</source>
         <translation>Nierozpoznane kodowanie</translation>
@@ -1794,6 +1965,10 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation>Kodowanie tekstu %1 znalezione w %2 nie jest obsługiwane.
 
 Będzie ono interpretowane jako %3, co może spowodować błędy.</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; loaded (%2)</source>
+        <translation type="obsolete">Plik &quot;%1&quot; załadowany (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1215"/>
@@ -1826,6 +2001,14 @@ Czy chcesz nadpisać zawartość pliku zachowując wykonane poprawki?</translati
         <translation>Dokument &quot;%1&quot; nie został zapisany</translation>
     </message>
     <message>
+        <source>The text encoding %1 requested for %2 is not supported.
+
+It will be saved as %3 instead, which may result in incorrect text.</source>
+        <translation type="obsolete">Kodowanie tekstu %1 wymagane dla %2 nie jest obsługiwane.
+
+Dokument będzie zachowany z użyciem kodowania %3, co może powodować błędy.</translation>
+    </message>
+    <message>
         <location filename="../src/TeXDocument.cpp" line="1397"/>
         <source>Text cannot be converted</source>
         <translation>Tekst nie może być skonwertowany</translation>
@@ -1839,6 +2022,19 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 
 Jeżeli będziesz kontynuował, zostaną one zastąpione znakami domyślnymi.
 Możesz też (jeżeli chcesz) użyć innego kodowania (na przykład UTF8) aby zapobiec utracie informacji.</translation>
+    </message>
+    <message>
+        <source>Cannot write file &quot;%1&quot;:
+%2.</source>
+        <translation type="obsolete">Nie mogę zapisać pliku &quot;%1&quot;: %2.</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; saved (%2)</source>
+        <translation type="obsolete">Plik &quot;%1&quot; zachowany (%2)</translation>
+    </message>
+    <message>
+        <source>default encoding</source>
+        <translation type="obsolete">kodowanie domyślne</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="867"/>
@@ -2047,9 +2243,21 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
         <translation>Pokaż informacje diagnostyczne</translation>
     </message>
     <message>
+        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
+        <translation type="obsolete">Sprawdż konfigurację narzędzia %1 i ustawienia ścieżki w Ustawieniach programu.</translation>
+    </message>
+    <message>
         <location filename="../src/TeXDocument.cpp" line="2786"/>
         <source>Process interrupted by user</source>
         <translation>Proces przerwany przez użytkownika</translation>
+    </message>
+    <message>
+        <source>Hide Output Panel</source>
+        <translation type="obsolete">Ukryj panel wyjściowy</translation>
+    </message>
+    <message>
+        <source>Show Output Panel</source>
+        <translation type="obsolete">Pokaż panel wyjściowy</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="3008"/>
@@ -2584,6 +2792,10 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
         <location filename="../src/TeXDocument.ui" line="1035"/>
         <source>Show Scripts Folder</source>
         <translation>Pokaż kartotekę ze skryptami</translation>
+    </message>
+    <message>
+        <source>Update Scripts</source>
+        <translation type="obsolete">Uaktualnij skrypty</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1051"/>

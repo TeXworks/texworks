@@ -1209,8 +1209,8 @@
         <translation>バイナリディレクトリが見つかりませんでした</translation>
     </message>
     <message>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>TeX関連プログラムがインストールされたディレクトリが見つかりません。&lt;p&gt;&lt;small&gt;プロセスを起動するためには、お使いのTeXディストリビューションに合わせたディレクトリ設定を[設定]-[タイプセット]ダイアログでおこなっておく必要があります</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>TeX関連プログラムがインストールされたディレクトリが見つかりません。&lt;p&gt;&lt;small&gt;プロセスを起動するためには、お使いのTeXディストリビューションに合わせたディレクトリ設定を[設定]-[タイプセット]ダイアログでおこなっておく必要があります&lt;/small&gt;</translation>
     </message>
     <message>
         <source>Unable to find help file.</source>

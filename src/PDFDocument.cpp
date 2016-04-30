@@ -748,7 +748,7 @@ void PDFDocument::jumpToSource()
 		return;
 
 	QPoint eventPos = act->data().toPoint();
-	QPointF scenePos = pdfWidget->mapFrom(this, eventPos);
+	QPointF scenePos = pdfWidget->mapToScene(pdfWidget->mapFrom(this, eventPos));
 
 	// Map to scene, then map to page
 	QtPDF::PDFDocumentScene * scene = qobject_cast<QtPDF::PDFDocumentScene*>(pdfWidget->scene());
@@ -758,7 +758,7 @@ void PDFDocument::jumpToSource()
 	if (!page)
 		return;
 
-	syncClick(scene->pageNumFor(page), page->mapFromScene(scenePos));
+	syncClick(scene->pageNumFor(page), page->mapToPage(page->mapFromScene(scenePos)));
 }
 
 void PDFDocument::doFindDialog()

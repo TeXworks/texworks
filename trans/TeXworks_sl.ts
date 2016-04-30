@@ -171,76 +171,76 @@
         <translation>Nedavni dokumenti</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="409"/>
+        <location filename="../src/PDFDocument.cpp" line="411"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Ni mogoče odpreti datoteke &quot;%1&quot;; morda ni veljaven PDF.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="422"/>
+        <location filename="../src/PDFDocument.cpp" line="424"/>
         <source>Error initializing SyncTeX</source>
         <translation>Napaka pri inicializaciji SyncTeX-a</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="424"/>
+        <location filename="../src/PDFDocument.cpp" line="426"/>
         <source>No SyncTeX data available</source>
         <translation>Ni podatkov za sinhronizacijo (SyncTeX)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="426"/>
+        <location filename="../src/PDFDocument.cpp" line="428"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="535"/>
+        <location filename="../src/PDFDocument.cpp" line="537"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="564"/>
+        <location filename="../src/PDFDocument.cpp" line="566"/>
         <source>page %1 of %2</source>
         <translation>stran %1 od %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="569"/>
+        <location filename="../src/PDFDocument.cpp" line="571"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="681"/>
+        <location filename="../src/PDFDocument.cpp" line="683"/>
         <source>Abort typesetting</source>
         <translation type="unfinished">Prekini stavljenje</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="726"/>
+        <location filename="../src/PDFDocument.cpp" line="728"/>
         <source>Jump to Source</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pojdi na izvorno kodo</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="810"/>
+        <location filename="../src/PDFDocument.cpp" line="830"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Zaradi tehničnih razlogov ta verzija %1-a žel ne podpira tiskanja PDF datotek.
 </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="811"/>
+        <location filename="../src/PDFDocument.cpp" line="831"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation type="unfinished">Želite namesto tega odpreti datoteko za tiskanje s privzetim programom?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="812"/>
+        <location filename="../src/PDFDocument.cpp" line="832"/>
         <source> (remember to close it again to avoid access problems)</source>
-        <translation type="unfinished"> (po uporabi ne pozabite programa zapreti, da se izognete konfliktom pri dostopu do datoteke)</translation>
+        <translation type="unfinished"> (Po uporabi ne pozabite programa zapreti, da se izognete konfliktom pri dostopu do datoteke.)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="893"/>
-        <location filename="../src/PDFDocument.cpp" line="897"/>
+        <location filename="../src/PDFDocument.cpp" line="913"/>
+        <location filename="../src/PDFDocument.cpp" line="917"/>
         <source>Go to Page</source>
         <translation type="unfinished">Pojdi na stran</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="894"/>
-        <location filename="../src/PDFDocument.cpp" line="898"/>
+        <location filename="../src/PDFDocument.cpp" line="914"/>
+        <location filename="../src/PDFDocument.cpp" line="918"/>
         <source>Page number:</source>
         <translation type="unfinished">Stran št.:</translation>
     </message>
@@ -281,7 +281,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="501"/>
-        <location filename="../src/PDFDocument.cpp" line="688"/>
+        <location filename="../src/PDFDocument.cpp" line="690"/>
         <source>Typeset</source>
         <translation>Stavljenje</translation>
     </message>
@@ -360,7 +360,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="275"/>
-        <location filename="../src/PDFDocument.cpp" line="733"/>
+        <location filename="../src/PDFDocument.cpp" line="735"/>
         <source>Zoom In</source>
         <translation>Povečaj</translation>
     </message>
@@ -371,7 +371,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="290"/>
-        <location filename="../src/PDFDocument.cpp" line="734"/>
+        <location filename="../src/PDFDocument.cpp" line="736"/>
         <source>Zoom Out</source>
         <translation>Pomanjšaj</translation>
     </message>
@@ -382,7 +382,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="308"/>
-        <location filename="../src/PDFDocument.cpp" line="737"/>
+        <location filename="../src/PDFDocument.cpp" line="739"/>
         <source>Fit to Window</source>
         <translation>Prilagodi velikosti okna</translation>
     </message>
@@ -393,7 +393,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="323"/>
-        <location filename="../src/PDFDocument.cpp" line="735"/>
+        <location filename="../src/PDFDocument.cpp" line="737"/>
         <source>Actual Size</source>
         <translation>Dejanska velikost</translation>
     </message>
@@ -404,7 +404,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="341"/>
-        <location filename="../src/PDFDocument.cpp" line="736"/>
+        <location filename="../src/PDFDocument.cpp" line="738"/>
         <source>Fit to Width</source>
         <translation>Prilagodi širini</translation>
     </message>
@@ -521,7 +521,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="733"/>
-        <location filename="../src/PDFDocument.cpp" line="815"/>
+        <location filename="../src/PDFDocument.cpp" line="835"/>
         <source>Print Pdf...</source>
         <translation>Natisni PDF ...</translation>
     </message>
@@ -543,27 +543,29 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="757"/>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vrni se na prejšnji pogled</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="760"/>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+levo</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="773"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posamezna stran</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="785"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Po ena stran, druga za drugo (popravi)</translatorcomment>
+        <translation type="unfinished">Ena stran z nadaljevanjem</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="797"/>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Po dve strani, druga za drugo (popravi)</translatorcomment>
+        <translation type="unfinished">Dve strani z nadaljevanjem</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="709"/>
@@ -971,22 +973,24 @@
     <message>
         <location filename="../src/PrefsDialog.ui" line="708"/>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prikaz strani:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="716"/>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posamezna stran</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="721"/>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Po ena stran, druga za drugo (popravi)</translatorcomment>
+        <translation type="unfinished">Ena stran z nadaljevanjem</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="726"/>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Po dve strani, druga za drugo (popravi)</translatorcomment>
+        <translation type="unfinished">Dve strani z nadaljevanjem</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="750"/>
@@ -1510,22 +1514,22 @@ documentation and web pages much easier for users.</translatorcomment>
     <message>
         <location filename="../src/TWApp.cpp" line="305"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished">&lt;p&gt;Distribuiran pod licenco &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, verzija 2 ali (po želji) katerakoli poznejša verzija.</translation>
+        <translation>&lt;p&gt;Distribuiran pod licenco &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, verzija 2 ali (po želji) katerakoli poznejša.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; knjižnica za delo s PDF datotekami, avtorji Kristian H&amp;#xF8;gsberg, Albert Astals Cid in ostali.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt;, knjižnica za delo s PDF datotekami, avtorji Kristian H&amp;#xF8;gsberg, Albert Astals Cid in ostali.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="306"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Programsko ogrodje Qt&lt;/a&gt; v%1, The Qt Company.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt;, črkovalnik, avtor L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="309"/>
@@ -1540,7 +1544,7 @@ documentation and web pages much easier for users.</translatorcomment>
     <message>
         <location filename="../src/TWApp.cpp" line="311"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation>&lt;br&gt;Nekatere ikone uporabljene iz &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
+        <translation>&lt;br&gt;Nekatere ikone so iz &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="312"/>
@@ -1597,8 +1601,8 @@ documentation and web pages much easier for users.</translatorcomment>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="829"/>
-        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
-        <translation>Nobeden od predefiniranih direktorijev s TeX-ovimi programi ni bil najden.&lt;p&gt;&lt;small&gt;Da bi lahko poganjali katerikoli program, boste najprej morali nastaviti direktorij(e), kjer se nahajajo programi vaše TeX distribucije (glejte Nastavitve/Stavljenje).</translation>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
+        <translation>Nobeden od predefiniranih direktorijev s TeX-ovimi programi ni bil najden.&lt;p&gt;&lt;small&gt;Da bi lahko poganjali katerikoli program, boste najprej morali nastaviti direktorij(e), kjer se nahajajo programi vaše TeX distribucije (glejte Nastavitve/Stavljenje).&lt;/small&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="1129"/>
@@ -1693,7 +1697,7 @@ documentation and web pages much easier for users.</translatorcomment>
         <location filename="../src/TWScriptable.cpp" line="622"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(onemogočeno v nastavitvah)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="626"/>
@@ -2174,7 +2178,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.ui" line="196"/>
         <source>Edit</source>
-        <translation>Uredi</translation>
+        <translation type="unfinished">Urejanje</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="200"/>

@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1062"/>
         <source>[language name]</source>
-        <translation type="unfinished">Polskie</translation>
+        <translation>Polskie</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1063"/>
@@ -90,13 +90,13 @@
         <location filename="../src/PDFDocumentView.cpp" line="2695"/>
         <location filename="../src/PDFDocumentView.cpp" line="2828"/>
         <source>Processing</source>
-        <translation>Przetwarzam</translation>
+        <translation>Tworzenie</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2727"/>
         <location filename="../src/PDFDocumentView.cpp" line="2835"/>
         <source>Other</source>
-        <translation>Inny</translation>
+        <translation>Inne</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2765"/>
@@ -251,7 +251,7 @@
         <location filename="../src/PDFDocumentView.cpp" line="3021"/>
         <location filename="../src/PDFDocumentView.cpp" line="3026"/>
         <source>Allowed</source>
-        <translation>Dozwolony</translation>
+        <translation>Dozwolone</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2998"/>
@@ -275,7 +275,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3007"/>
         <source>Assembling only</source>
-        <translation type="unfinished"></translation>
+        <translation>Tylko łączenie</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3008"/>
@@ -285,7 +285,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3016"/>
         <source>Accessibility support only</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiowanie zawartości (tylko udogodnienia dla niepełnosprawnych)</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3044"/>
@@ -300,23 +300,23 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3046"/>
         <source>Extraction:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyodrębnianie:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3047"/>
         <source>Annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Komentowanie:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3048"/>
         <source>Filling forms:</source>
-        <translation>Wypełnianie formularzy:</translation>
+        <translation>Wypełnianie pól formularzy:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3056"/>
         <location filename="../src/PDFDocumentView.cpp" line="3151"/>
         <source>Annotations</source>
-        <translation type="unfinished"></translation>
+        <translation>Komentarze</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3152"/>
