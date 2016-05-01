@@ -1,3 +1,13 @@
+Release 0.6.1 (TL'16) [May 2016]
+	* Fix "Jump to Source" from PDF context menu
+	* Fix fine-sync'ing close to PDF line boundaries
+	* Fix loading of Qt-global translations
+	* Fix pixel-alignment after zoomFitWindow in continuous mode
+	* Fix handling of changing scroll bar visibilities in zoomFitWidth and
+	  zoomFitWindow
+	* Allow horizontal scrolling by Shift+MouseWheel
+	* Update translations
+
 Release 0.6.0 (TL'16) [April 2016]
 	* Complete redesign of the PDF previewer using QtPDF by Charlie Sharpsteen
 	* Fast and responsive preview even at very high magnifications
