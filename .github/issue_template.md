@@ -6,11 +6,13 @@ _Steps to reproduce the problem_:
 
 _Expected output_:
 
+
 _Actual output_:
 
 
-_TeXworks version_:
-_TeXworks obtained from_:
-_Operating system_:
+_TeXworks version_: 
+_TeXworks obtained from_: 
+_Operating system_: 
 
 _Please provide any additional information below_:
+
