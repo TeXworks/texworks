@@ -136,8 +136,7 @@ void PDFDocument::init()
 
 	connect(pdfWidget, SIGNAL(changedPage(int)), this, SLOT(updateStatusBar()));
 	connect(pdfWidget, SIGNAL(changedZoom(qreal)), this, SLOT(updateStatusBar()));
-	connect(pdfWidget, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(updateStatusBar()));
-	connect(pdfWidget, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(invalidateSyncHighlight()));
+	connect(pdfWidget, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)));
 	connect(pdfWidget, SIGNAL(searchResultHighlighted(const int, const QList<QPolygonF>)), this, SLOT(searchResultHighlighted(const int, const QList<QPolygonF>)));
 	connect(pdfWidget, SIGNAL(changedPageMode(QtPDF::PDFDocumentView::PageMode)), this, SLOT(updatePageMode(QtPDF::PDFDocumentView::PageMode)));
 
@@ -590,6 +589,12 @@ void PDFDocument::goToSource()
 	else
 		// should not occur, the action is supposed to be disabled
 		actionGo_to_Source->setEnabled(false);
+}
+
+void PDFDocument::changedDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc) {
+	updateStatusBar();
+	invalidateSyncHighlight();
+	enablePageActions(pdfWidget->currentPage());
 }
 
 void PDFDocument::enablePageActions(int pageIndex)

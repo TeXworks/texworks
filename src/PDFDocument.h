@@ -112,6 +112,7 @@ public slots:
 	void clearSearchResultHighlight();
 	
 private slots:
+	void changedDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
 	void updateRecentFileActions();
 	void updateWindowMenu();
 	void enablePageActions(int);
