@@ -277,6 +277,7 @@ void PDFDocument::init()
 			setPageMode(kDefault_PDFPageMode);
 			break;
 	}
+	resetMagnifier();
 
 	if (settings.contains("previewResolution"))
 		pdfWidget->setResolution(settings.value("previewResolution", QApplication::desktop()->logicalDpiX()).toInt());
