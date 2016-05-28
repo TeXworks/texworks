@@ -671,6 +671,10 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
 
   // we don't need the docLock anymore
   docLocker.unlock();
+  // we don't need the pageLock anymore (until we actually modify _annotations).
+  // in fact, convertAnnotation tries to acquire a read lock at some point,
+  // which fails while we hold a write lock here
+  pageLocker.unlock();
 
   foreach(::Poppler::Annotation * popplerAnnot, popplerAnnots) {
     if (!popplerAnnot)
@@ -680,14 +684,18 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
       {
         Annotation::Text * annot = new Annotation::Text();
         convertAnnotation(annot, popplerAnnot, _parent->page(_n));
+        pageLocker.relock();
         _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
+        pageLocker.unlock();
         break;
       }
       case ::Poppler::Annotation::ACaret:
       {
         Annotation::Caret * annot = new Annotation::Caret();
         convertAnnotation(annot, popplerAnnot, _parent->page(_n));
+        pageLocker.relock();
         _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
+        pageLocker.unlock();
         break;
       }
       case ::Poppler::Annotation::AHighlight:
@@ -698,28 +706,36 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
           {
             Annotation::Highlight * annot = new Annotation::Highlight();
             convertAnnotation(annot, popplerAnnot, _parent->page(_n));
+            pageLocker.relock();
             _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
+            pageLocker.unlock();
             break;
           }
           case ::Poppler::HighlightAnnotation::Squiggly:
           {
             Annotation::Squiggly * annot = new Annotation::Squiggly();
             convertAnnotation(annot, popplerAnnot, _parent->page(_n));
+            pageLocker.relock();
             _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
+            pageLocker.unlock();
             break;
           }
           case ::Poppler::HighlightAnnotation::Underline:
           {
             Annotation::Underline * annot = new Annotation::Underline();
             convertAnnotation(annot, popplerAnnot, _parent->page(_n));
+            pageLocker.relock();
             _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
+            pageLocker.unlock();
             break;
           }
           case ::Poppler::HighlightAnnotation::StrikeOut:
           {
             Annotation::StrikeOut * annot = new Annotation::StrikeOut();
             convertAnnotation(annot, popplerAnnot, _parent->page(_n));
+            pageLocker.relock();
             _annotations << QSharedPointer<Annotation::AbstractAnnotation>(annot);
+            pageLocker.unlock();
             break;
           }
         }
@@ -729,6 +745,7 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
         break;
     }
   }
+  pageLocker.relock();
   return _annotations;
 }
 
