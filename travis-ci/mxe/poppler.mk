@@ -3,11 +3,11 @@
 
 PKG             := poppler
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 0.41.0
-$(PKG)_CHECKSUM := 420abaab63caed9e1ee28964a0ba216d1979506726164bc99ad5ade289192a1b
+$(PKG)_VERSION  := 0.44.0
+$(PKG)_CHECKSUM := 5b467ed26a55e1824da6bd86f5f562b1b45582069c03898c91f01ad5c6fa0eab
 $(PKG)_SUBDIR   := poppler-$($(PKG)_VERSION)
 $(PKG)_FILE     := poppler-$($(PKG)_VERSION).tar.xz
-$(PKG)_URL      := http://poppler.freedesktop.org/$($(PKG)_FILE)
+$(PKG)_URL      := https://poppler.freedesktop.org/$($(PKG)_FILE)
 #$(PKG)_DEPS     := gcc glib cairo libpng lcms1 jpeg tiff freetype zlib curl qt qt5
 $(PKG)_DEPS     := gcc glib cairo libpng lcms jpeg tiff freetype zlib curl qt qt5
 
