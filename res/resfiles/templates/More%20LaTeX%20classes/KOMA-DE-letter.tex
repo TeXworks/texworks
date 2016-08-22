@@ -1,0 +1,34 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% An alternative to the standard LaTeX letter class.
+
+\documentclass[fontsize=12pt, paper=a4, version=last]{scrlttr2}
+
+% Don't forget to read the KOMA-Script documentation, scrguien.pdf
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{german}
+\usepackage{eurosym}
+\usepackage[autostyle=true,german=quotes]{csquotes}
+
+\setkomavar{fromname}{Dein Name} % your name
+\setkomavar{fromaddress}{Deine-Strasse 6\\ 12345 Ort}
+
+\setkomavar{signature}{Dein Name} % printed after the \closing
+\renewcommand{\raggedsignature}{\raggedright} % make the signature ragged right
+
+\setkomavar{subject}{Betreffzeile} % subject of the letter
+
+\begin{document}
+\begin{letter}{Blabla GmbH\\ Hauptstr. 11\\ 23456 Andererort} % Recipient
+
+\opening{Sehr geehrte Damen und Herren,}  % eg. Hello
+
+hier schreibe ich Ihnen etwas % content
+
+\closing{Mit freundlichen Grüßen,} %eg. Regards
+
+\end{letter}
+\end{document}
