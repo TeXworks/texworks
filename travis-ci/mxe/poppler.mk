@@ -1,10 +1,9 @@
-# This file is part of MXE.
-# See index.html for further information.
+# This file is part of MXE. See LICENSE.md for licensing information.
 
 PKG             := poppler
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 0.44.0
-$(PKG)_CHECKSUM := 5b467ed26a55e1824da6bd86f5f562b1b45582069c03898c91f01ad5c6fa0eab
+$(PKG)_VERSION  := 0.48.0
+$(PKG)_CHECKSUM := 85a003968074c85d8e13bf320ec47cef647b496b56dcff4c790b34e5482fef93
 $(PKG)_SUBDIR   := poppler-$($(PKG)_VERSION)
 $(PKG)_FILE     := poppler-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://poppler.freedesktop.org/$($(PKG)_FILE)
@@ -25,12 +24,8 @@ define $(PKG)_BUILD
     cd '$(1)' \
         && PATH='$(PREFIX)/$(TARGET)/qt/bin:$(PATH)' \
         ./configure \
-        --host='$(TARGET)' \
-        --build="`config.guess`" \
-        --prefix='$(PREFIX)/$(TARGET)' \
+        $(MXE_CONFIGURE_OPTS) \
         --disable-silent-rules \
-        --disable-shared \
-        --enable-static \
         --enable-xpdf-headers \
         --enable-zlib \
         --enable-cms=lcms2 \
@@ -61,9 +56,6 @@ define $(PKG)_BUILD
     # Test program
     '$(TARGET)-g++' \
         -W -Wall -Werror -ansi -pedantic \
-        '$(2).cxx' -o '$(PREFIX)/$(TARGET)/bin/test-poppler.exe' \
+        '$(TEST_FILE)' -o '$(PREFIX)/$(TARGET)/bin/test-poppler.exe' \
         `'$(TARGET)-pkg-config' poppler poppler-cpp --cflags --libs`
 endef
-
-$(PKG)_BUILD_SHARED =
-
