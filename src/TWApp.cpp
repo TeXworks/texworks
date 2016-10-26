@@ -539,7 +539,7 @@ void TWApp::writeToMailingList()
 #endif
 #endif
 
-	body += "Qt4 version      : " QT_VERSION_STR " (build) / ";
+	body += "Qt version       : " QT_VERSION_STR " (build) / ";
 	body += qVersion();
 	body += " (runtime)\n";
 	body += "------------------------------\n";
