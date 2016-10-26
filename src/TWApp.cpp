@@ -356,7 +356,15 @@ QString TWApp::GetWindowsVersionString()
 		GetSystemInfo(&si);
 	
 	if ( VER_PLATFORM_WIN32_NT == osvi.dwPlatformId && osvi.dwMajorVersion > 4 ) {
-		if ( osvi.dwMajorVersion == 6 ) {
+		if ( osvi.dwMajorVersion == 10 ) {
+			if ( osvi.dwMinorVersion == 0 ) {
+				if ( osvi.wProductType == VER_NT_WORKSTATION )
+					result = "10";
+				else
+					result = "Server 2016";
+			}
+		}
+		else if ( osvi.dwMajorVersion == 6 ) {
 			if ( osvi.dwMinorVersion == 0 ) {
 				if ( osvi.wProductType == VER_NT_WORKSTATION )
 					result = "Vista";
@@ -368,6 +376,18 @@ QString TWApp::GetWindowsVersionString()
 					result = "7";
 				else
 					result = "Server 2008 R2";
+			}
+			else if ( osvi.dwMinorVersion == 2 ) {
+				if( osvi.wProductType == VER_NT_WORKSTATION )
+					result = "8";
+				else
+					result = "Server 2012";
+			}
+			else if ( osvi.dwMinorVersion == 3 ) {
+				if( osvi.wProductType == VER_NT_WORKSTATION )
+					result = "8.1";
+				else
+					result = "Server 2012 R2";
 			}
 		}
 		else if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2 ) {
