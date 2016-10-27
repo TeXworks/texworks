@@ -568,7 +568,7 @@ void TWApp::writeToMailingList()
 	body.replace('\n', "\r\n");
 #endif
 
-	openUrl(QUrl(QString("mailto:%1?subject=&body=%2").arg(address).arg(body)));
+	openUrl(QUrl(QString("mailto:%1?subject=&body=%2").arg(address).arg(QString(QUrl::toPercentEncoding(body)))));
 }
 
 void TWApp::launchAction()
