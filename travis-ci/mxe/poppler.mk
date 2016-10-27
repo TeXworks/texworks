@@ -47,7 +47,7 @@ define $(PKG)_BUILD
         --disable-gtk-doc-pdf \
         --with-font-configuration=win32 \
         PKG_CONFIG_PATH_$(subst .,_,$(subst -,_,$(TARGET)))='$(PREFIX)/$(TARGET)/qt5/lib/pkgconfig:$(PREFIX)/$(TARGET)/qt5/lib/pkgconfig' \
-        CXXFLAGS=-D_WIN32_WINNT=0x0500 \
+        CXXFLAGS="-D_WIN32_WINNT=0x0500 -std=c++11" \
         LIBTIFF_LIBS="`'$(TARGET)-pkg-config' libtiff-4 --libs`"
     PATH='$(PREFIX)/$(TARGET)/qt/bin:$(PATH)' \
         $(MAKE) -C '$(1)' -j '$(JOBS)' bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS=
