@@ -231,6 +231,9 @@ IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
     string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
     string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
     string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
+
+    # Starting with Qt 5.7, c++11 must be used
+    set(CMAKE_CXX_STANDARD 11)
   ENDIF()
 ENDIF()
 # If Qt5 is not found (or not desired), check for Qt4
