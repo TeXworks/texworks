@@ -131,7 +131,10 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
   }
 
   _pdf_scene = a_scene;
-  
+
+  // Reinitialize all scene-related data
+  // NB: This also resets any text selection and search results as it clears the
+  // page graphic items.
   reinitializeFromScene();
   
   if (a_scene) {
@@ -164,9 +167,6 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
   // Ensure proper layout
   setPageMode(_pageMode, true);
 
-  // Ensure search result list is empty in case we are switching from another
-  // scene.
-  _searchResults.clear();
   if (_pdf_scene)
     emit changedDocument(_pdf_scene->document());
   else
@@ -1244,6 +1244,20 @@ void PDFDocumentView::reinitializeFromScene()
     _lastPage = -1;
     _currentPage = -1;
   }
+  // Ensure the text selection marker is reset (if any) as it holds pointers to
+  // page items (highlight path, boxes) that are now changed and/or destroyed.
+  DocumentTool::Select * selectTool = static_cast<DocumentTool::Select*>(getToolByType(DocumentTool::AbstractTool::Tool_Select));
+  if (selectTool)
+    selectTool->pageDestroyed();
+  // Ensure (old) search data is destroyed as well
+  if (!_searchResultWatcher.isFinished())
+    _searchResultWatcher.cancel();
+  _searchResults.clear();
+  _currentSearchResult = -1;
+  // Also reset _searchString. Otherwise the next search for the same string
+  // will assume the search has already been run (without results as
+  // _searchResults is empty) and won't run it again on the new scene data.
+  _searchString = QString();
 }
 
 
