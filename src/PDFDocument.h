@@ -124,6 +124,7 @@ private slots:
 	void updateStatusBar();
 	void updatePageMode(const QtPDF::PDFDocumentView::PageMode newMode);
 	void doPageDialog();
+	void doScaleDialog();
 	void jumpToSource();
 	void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
 	void setDefaultScale();

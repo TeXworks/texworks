@@ -859,6 +859,9 @@ void PDFDocument::showScaleContextMenu(const QPoint pos)
 		contextMenu->addAction(actionFit_to_Window);
 		contextMenu->addSeparator();
 		
+		a = contextMenu->addAction(tr("Custom..."));
+		connect(a, SIGNAL(triggered()), this, SLOT(doScaleDialog()));
+
 		a = contextMenu->addAction("200%");
 		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
 		contextMenuMapper->setMapping(a, "2");
@@ -926,4 +929,14 @@ void PDFDocument::doPageDialog()
 #endif
 	if (ok)
 		pdfWidget->goToPage(pageNo - 1);
+}
+
+void PDFDocument::doScaleDialog()
+{
+	bool ok;
+	Q_ASSERT(pdfWidget != NULL);
+
+	double newScale = QInputDialog::getDouble(this, tr("Set Zoom"), tr("Zoom level:"), 100 * pdfWidget->zoomLevel(), 0, 2147483647, 0, &ok);
+	if (ok)
+		pdfWidget->setZoomLevel(newScale / 100);
 }
