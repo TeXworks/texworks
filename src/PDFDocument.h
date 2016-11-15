@@ -76,7 +76,7 @@ public:
 	void zoomToRight(QWidget *otherWindow);
 	void showScale(qreal scale);
 	void showPage(int page);
-	void setResolution(int res);
+	void setResolution(const double res);
 	void resetMagnifier();
 	void enableTypesetAction(bool enabled);
 	void updateTypesettingAction(bool processRunning);

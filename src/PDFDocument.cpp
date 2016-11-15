@@ -669,7 +669,7 @@ void PDFDocument::resetMagnifier()
 	pdfWidget->setMagnifierSize(magSizes[qBound(0, settings.value("magnifierSize", kDefault_MagnifierSize).toInt() - 1, 2)]);
 }
 
-void PDFDocument::setResolution(int res)
+void PDFDocument::setResolution(const double res)
 {
 	Q_ASSERT(pdfWidget != NULL);
 	if (res > 0)
