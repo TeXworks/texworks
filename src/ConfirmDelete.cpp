@@ -43,6 +43,7 @@ void ConfirmDelete::init()
 	connect(selectAll, SIGNAL(clicked()), this, SLOT(doSelectAll()));
 	connect(selectNone, SIGNAL(clicked()), this, SLOT(doSelectNone()));
 	connect(toggleSelection, SIGNAL(clicked()), this, SLOT(doToggleSelection()));
+	connect(listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(doToggleItemSelection(QListWidgetItem*)));
 	connect(listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(setDeleteButtonEnabledStatus()));
 }
 
@@ -93,6 +94,13 @@ void ConfirmDelete::doToggleSelection()
 		listWidget->item(i)->setCheckState(checked == Qt::Unchecked ? Qt::Checked : Qt::Unchecked);
 	}
 	setDeleteButtonEnabledStatus();
+}
+
+void ConfirmDelete::doToggleItemSelection(QListWidgetItem * item)
+{
+	if (!item)
+		return;
+	item->setCheckState(item->checkState() == Qt::Unchecked ? Qt::Checked : Qt::Unchecked);
 }
 
 void ConfirmDelete::setDeleteButtonEnabledStatus()
