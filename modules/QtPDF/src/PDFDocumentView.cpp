@@ -1451,13 +1451,11 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
 
   if (event->orientation() == Qt::Vertical && event->buttons() == Qt::NoButton && event->modifiers() == Qt::ControlModifier) {
     // TODO: Possibly make the Ctrl modifier configurable?
-    // TODO: According to Qt docs, the delta() is not necessarily the same for all
-    // mice. Decide if we want to enforce the same step size regardless of the
-    // resolution of the mouse wheel sensor
-    if ( delta > 0 )
-      zoomIn(QGraphicsView::AnchorUnderMouse);
-    else if ( delta < 0 )
-      zoomOut(QGraphicsView::AnchorUnderMouse);
+    // According to Qt docs, the resolution of delta() is not necessarily the
+    // same for all mice. delta() returns the rotation in 1/8 degrees. Here, we
+    // use a zoom factor of 1.5 every 15 degrees (= delta() == 120, which seems
+    // to be a widespread default resolution).
+    zoomBy(pow(1.5, delta / 120.), QGraphicsView::AnchorUnderMouse);
     event->accept();
     return;
   }
