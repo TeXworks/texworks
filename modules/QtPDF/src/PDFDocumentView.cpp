@@ -1170,7 +1170,7 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
         // security issue) or to create a new window, we need to propagate this
         // up the hierarchy. Otherwise we can handle it ourselves here.
         if (actionGoto->isRemote() || actionGoto->openInNewWindow())
-          emit requestOpenPdf(actionGoto->filename(), actionGoto->destination().page(), actionGoto->openInNewWindow());
+          emit requestOpenPdf(actionGoto->filename(), actionGoto->destination(), actionGoto->openInNewWindow());
         else {
           Q_ASSERT(_pdf_scene != NULL);
           Q_ASSERT(!_pdf_scene->document().isNull());
