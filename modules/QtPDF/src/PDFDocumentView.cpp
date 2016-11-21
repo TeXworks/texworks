@@ -539,7 +539,7 @@ void PDFDocumentView::goToPage(const int pageNum, const QPointF anchor, const in
 
 void PDFDocumentView::goToPDFDestination(const PDFDestination & dest, bool saveOldViewRect /* = true */)
 {
-  if (!dest.isValid() || !dest.isExplicit())
+  if (!dest.isValid())
     return;
 
   Q_ASSERT(_pdf_scene != NULL);
@@ -547,6 +547,15 @@ void PDFDocumentView::goToPDFDestination(const PDFDestination & dest, bool saveO
   QSharedPointer<Backend::Document> doc(_pdf_scene->document().toStrongRef());
   if (!doc)
     return;
+
+  PDFDestination finalDest;
+  if (!dest.isExplicit()) {
+    finalDest = doc->resolveDestination(dest);
+    if (!finalDest.isValid())
+      return;
+  }
+  else
+    finalDest = dest;
 
   Q_ASSERT(isPageItem(_pdf_scene->pageAt(_currentPage)));
   PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(_currentPage));
@@ -558,7 +567,7 @@ void PDFDocumentView::goToPDFDestination(const PDFDestination & dest, bool saveO
   oldViewport = QRectF(pageItem->mapToPage(oldViewport.topLeft()), \
                        pageItem->mapToPage(oldViewport.bottomRight()));
   // Calculate the new viewport (in page coordinates)
-  QRectF view(dest.viewport(doc.data(), oldViewport, _zoomLevel));
+  QRectF view(finalDest.viewport(doc.data(), oldViewport, _zoomLevel));
 
   if (saveOldViewRect) {
     PDFDestination origin(_currentPage);
@@ -567,7 +576,7 @@ void PDFDocumentView::goToPDFDestination(const PDFDestination & dest, bool saveO
     _oldViewRects.push(origin);
   }
 
-  goToPage(static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(dest.page())), view, true);
+  goToPage(static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(finalDest.page())), view, true);
 }
 
 void PDFDocumentView::zoomBy(const qreal zoomFactor, const QGraphicsView::ViewportAnchor anchor /* = QGraphicsView::AnchorViewCenter */)
@@ -1455,6 +1464,9 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
     // same for all mice. delta() returns the rotation in 1/8 degrees. Here, we
     // use a zoom factor of 1.5 every 15 degrees (= delta() == 120, which seems
     // to be a widespread default resolution).
+    // TODO: for high-resolution mice, this may trigger many small zooms,
+    // resulting in the rendering of many intermediate resolutions. This can
+    // cause a lagging display and can potentially fill the pdf cache.
     zoomBy(pow(1.5, delta / 120.), QGraphicsView::AnchorUnderMouse);
     event->accept();
     return;
