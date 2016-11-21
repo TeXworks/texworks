@@ -128,6 +128,8 @@ private slots:
 	void jumpToSource();
 	void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
 	void setDefaultScale();
+	void maybeOpenUrl(const QUrl url);
+	void maybeOpenPdf(QString filename, QtPDF::PDFDestination destination, bool newWindow);
 
 signals:
 	void reloaded();

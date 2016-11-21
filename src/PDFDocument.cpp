@@ -139,6 +139,8 @@ void PDFDocument::init()
 	connect(pdfWidget, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)));
 	connect(pdfWidget, SIGNAL(searchResultHighlighted(const int, const QList<QPolygonF>)), this, SLOT(searchResultHighlighted(const int, const QList<QPolygonF>)));
 	connect(pdfWidget, SIGNAL(changedPageMode(QtPDF::PDFDocumentView::PageMode)), this, SLOT(updatePageMode(QtPDF::PDFDocumentView::PageMode)));
+	connect(pdfWidget, SIGNAL(requestOpenPdf(QString,QtPDF::PDFDestination,bool)), this, SLOT(maybeOpenPdf(QString,QtPDF::PDFDestination,bool)));
+	connect(pdfWidget, SIGNAL(requestOpenUrl(QUrl)), this, SLOT(maybeOpenUrl(QUrl)));
 
 	toolButtonGroup = new QButtonGroup(toolBar);
 	toolButtonGroup->addButton(qobject_cast<QAbstractButton*>(toolBar->widgetForAction(actionMagnify)), QtPDF::PDFDocumentView::MouseMode_MagnifyingGlass);
@@ -827,6 +829,32 @@ void PDFDocument::setDefaultScale() {
 			break;
 	}
 }
+
+void PDFDocument::maybeOpenUrl(const QUrl url)
+{
+	// Opening URLs could be a security risk, so ask the user (but make "yes,
+	// proceed the default option - after all the user typically clicked on the
+	// link deliberately)
+	if (QMessageBox::question(this, tr("Open URL"), tr("You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.\nDo you want to continue?").arg(url.toDisplayString()),
+	                          QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
+		QDesktopServices::openUrl(url);
+}
+
+void PDFDocument::maybeOpenPdf(QString filename, QtPDF::PDFDestination destination, bool newWindow)
+{
+	// Unlike in maybeOpenUrl, this function only works on local PDF files which
+	// we assume are safe.
+	// TODO: We currently ignore the value of newWindow and always open a new
+	// window. This avoids the need to update/invalidate all pointers to this
+	// PDFDocument (e.g., in the TeXDocument associated with it) to notify the
+	// other parts of the code that a completely new and unrelated document is
+	// loaded here now.
+	PDFDocument * pdf = qobject_cast<PDFDocument*>(TWApp::instance()->openFile(filename));
+	if (!pdf || !pdf->widget())
+		return;
+	pdf->widget()->goToPDFDestination(destination, false);
+}
+
 
 void PDFDocument::print()
 {
