@@ -835,7 +835,7 @@ void PDFDocument::maybeOpenUrl(const QUrl url)
 	// Opening URLs could be a security risk, so ask the user (but make "yes,
 	// proceed the default option - after all the user typically clicked on the
 	// link deliberately)
-	if (QMessageBox::question(this, tr("Open URL"), tr("You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.\nDo you want to continue?").arg(url.toDisplayString()),
+	if (QMessageBox::question(this, tr("Open URL"), tr("You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.\nDo you want to continue?").arg(url.toString()),
 	                          QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
 		QDesktopServices::openUrl(url);
 }
