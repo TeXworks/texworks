@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="zh">
+<TS version="2.1" language="zh">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -523,23 +523,23 @@
     </message>
     <message>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+Left</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>单页</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>连续单页</translation>
     </message>
     <message>
         <source>Two Pages Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>连续双页</translation>
     </message>
     <message>
         <source>Jump to Source</source>
-        <translation type="unfinished">跳至源文件</translation>
+        <translation>跳至源文件</translation>
     </message>
     <message>
         <source>Go to Page</source>
@@ -547,7 +547,7 @@
     </message>
     <message>
         <source>Page number:</source>
-        <translation type="unfinished">页码：</translation>
+        <translation>页码：</translation>
     </message>
 </context>
 <context>
@@ -865,19 +865,19 @@
     </message>
     <message>
         <source>Page mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>页面模式：</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>单页</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>连续单页</translation>
     </message>
     <message>
         <source>Two Page Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation>连续双页</translation>
     </message>
 </context>
 <context>
@@ -1183,7 +1183,7 @@
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
-        <translation>&lt;a href=&quot;mailto:crickzhang1@gmail.com&quot;&gt;Yinhe Zhang&lt;/a&gt;</translation>
+        <translation>&lt;a href=&quot;mailto:crickzhang1@gmail.com&quot;&gt;Yinhe Zhang&lt;/a&gt; 和 &lt;a href=&quot;mailto:073plan@gmail.com&quot;&gt;Boyuan Yang&lt;/a&gt;</translation>
     </message>
     <message>
         <source>About %1</source>
@@ -1247,15 +1247,15 @@
     </message>
     <message>
         <source>Quit TeXworks</source>
-        <translation type="unfinished">退出 TeXworks</translation>
+        <translation>退出 TeXworks</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt 应用程序框架&lt;/a&gt; v%1 由 Qt 公司提供。</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; 拼写检查器由 L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth 提供。</translation>
     </message>
 </context>
 <context>
@@ -1326,7 +1326,7 @@
     <message>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>（已在首选项中停用）</translation>
     </message>
 </context>
 <context>
