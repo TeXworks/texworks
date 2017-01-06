@@ -356,7 +356,15 @@ QString TWApp::GetWindowsVersionString()
 		GetSystemInfo(&si);
 	
 	if ( VER_PLATFORM_WIN32_NT == osvi.dwPlatformId && osvi.dwMajorVersion > 4 ) {
-		if ( osvi.dwMajorVersion == 6 ) {
+		if ( osvi.dwMajorVersion == 10 ) {
+			if ( osvi.dwMinorVersion == 0 ) {
+				if ( osvi.wProductType == VER_NT_WORKSTATION )
+					result = "10";
+				else
+					result = "Server 2016";
+			}
+		}
+		else if ( osvi.dwMajorVersion == 6 ) {
 			if ( osvi.dwMinorVersion == 0 ) {
 				if ( osvi.wProductType == VER_NT_WORKSTATION )
 					result = "Vista";
@@ -368,6 +376,18 @@ QString TWApp::GetWindowsVersionString()
 					result = "7";
 				else
 					result = "Server 2008 R2";
+			}
+			else if ( osvi.dwMinorVersion == 2 ) {
+				if( osvi.wProductType == VER_NT_WORKSTATION )
+					result = "8";
+				else
+					result = "Server 2012";
+			}
+			else if ( osvi.dwMinorVersion == 3 ) {
+				if( osvi.wProductType == VER_NT_WORKSTATION )
+					result = "8.1";
+				else
+					result = "Server 2012 R2";
 			}
 		}
 		else if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2 ) {
@@ -539,7 +559,7 @@ void TWApp::writeToMailingList()
 #endif
 #endif
 
-	body += "Qt4 version      : " QT_VERSION_STR " (build) / ";
+	body += "Qt version       : " QT_VERSION_STR " (build) / ";
 	body += qVersion();
 	body += " (runtime)\n";
 	body += "------------------------------\n";
@@ -548,7 +568,7 @@ void TWApp::writeToMailingList()
 	body.replace('\n', "\r\n");
 #endif
 
-	openUrl(QUrl(QString("mailto:%1?subject=&body=%2").arg(address).arg(body)));
+	openUrl(QUrl(QString("mailto:%1?subject=&body=%2").arg(address).arg(QString(QUrl::toPercentEncoding(body)))));
 }
 
 void TWApp::launchAction()
@@ -873,6 +893,7 @@ void TWApp::setDefaultEngineList()
 		<< Engine("ConTeXt (pdfTeX)", "texexec" EXE, QStringList("--synctex") << "$fullname", true)
 		<< Engine("ConTeXt (XeTeX)", "texexec" EXE, QStringList("--synctex") << "--xtx" << "$fullname", true)
 		<< Engine("BibTeX", "bibtex" EXE, QStringList("$basename"), false)
+		<< Engine("Biber", "biber" EXE, QStringList("$basename"), false)
 		<< Engine("MakeIndex", "makeindex" EXE, QStringList("$basename"), false);
 	defaultEngineIndex = 1;
 }

@@ -155,7 +155,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		fi
 
 		print_info "Fetching poppler data"
-		wget "${POPPLERDATA_URL}"
+		wget --no-check-certificate "${POPPLERDATA_URL}"
 		CHKSUM=$(openssl dgst -sha256 "${POPPLERDATA_FILE}" 2> /dev/null)
 		if [ "${CHKSUM}" != "SHA256(${POPPLERDATA_FILE})= ${POPPLERDATA_SHA256}" ]; then
 			print_error "Wrong checksum"

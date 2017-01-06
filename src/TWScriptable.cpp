@@ -467,6 +467,7 @@ TWScriptManager::runHooks(const QString& hookName, QObject * context /* = NULL *
 TWScriptable::TWScriptable()
 	: QMainWindow(),
 	  scriptsMenu(NULL),
+	  scriptMapper(NULL),
 	  staticScriptMenuItemCount(0)
 {
 }

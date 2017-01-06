@@ -1211,6 +1211,7 @@ bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 
 Engine::Engine()
 	: QObject()
+	, f_showPdf(false)
 {
 }
 

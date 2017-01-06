@@ -76,7 +76,7 @@ public:
 	void zoomToRight(QWidget *otherWindow);
 	void showScale(qreal scale);
 	void showPage(int page);
-	void setResolution(int res);
+	void setResolution(const double res);
 	void resetMagnifier();
 	void enableTypesetAction(bool enabled);
 	void updateTypesettingAction(bool processRunning);
@@ -124,9 +124,12 @@ private slots:
 	void updateStatusBar();
 	void updatePageMode(const QtPDF::PDFDocumentView::PageMode newMode);
 	void doPageDialog();
+	void doScaleDialog();
 	void jumpToSource();
 	void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
 	void setDefaultScale();
+	void maybeOpenUrl(const QUrl url);
+	void maybeOpenPdf(QString filename, QtPDF::PDFDestination destination, bool newWindow);
 
 signals:
 	void reloaded();

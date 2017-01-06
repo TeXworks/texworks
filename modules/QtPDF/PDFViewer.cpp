@@ -49,7 +49,7 @@ PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags fla
   connect(docWidget, SIGNAL(changedPage(int)), _counter, SLOT(setCurrentPage(int)));
   connect(docWidget, SIGNAL(changedZoom(qreal)), _zoomWdgt, SLOT(setZoom(qreal)));
   connect(docWidget, SIGNAL(requestOpenUrl(const QUrl)), this, SLOT(openUrl(const QUrl)));
-  connect(docWidget, SIGNAL(requestOpenPdf(QString, int, bool)), this, SLOT(openPdf(QString, int, bool)));
+  connect(docWidget, SIGNAL(requestOpenPdf(QString, QtPDF::PDFDestination, bool)), this, SLOT(openPdf(QString, QtPDF::PDFDestination, bool)));
   connect(docWidget, SIGNAL(contextClick(const int, const QPointF)), this, SLOT(syncFromPdf(const int, const QPointF)));
   connect(docWidget, SIGNAL(searchProgressChanged(int, int)), this, SLOT(searchProgressChanged(int, int)));
   connect(docWidget, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)));
@@ -119,9 +119,9 @@ void PDFViewer::openUrl(const QUrl url) const
   QDesktopServices::openUrl(url);
 }
 
-void PDFViewer::openPdf(QString filename, int page, bool newWindow) const
+void PDFViewer::openPdf(QString filename, QtPDF::PDFDestination destination, bool newWindow) const
 {
-  qDebug() << "Open PDF" << filename << "on page" << (page + 1) << "(in new window =" << newWindow << ")";
+  qDebug() << "Open PDF" << filename << "on page" << (destination.page() + 1) << "/ at anchor" << destination.destinationName() << "(in new window =" << newWindow << ")";
 }
 
 void PDFViewer::syncFromPdf(const int page, const QPointF pos)
