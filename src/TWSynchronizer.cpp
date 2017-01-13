@@ -70,6 +70,7 @@ QString TWSyncTeXSynchronizer::pdfFilename() const
 TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchronizer::TeXSyncPoint & src) const
 {
   PDFSyncPoint retVal;
+  retVal.page = -1;
 
   // Find the name SyncTeX is using for this source file...
   const QFileInfo sourceFileInfo(src.filename);
@@ -92,7 +93,6 @@ TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchron
   retVal.filename = pdfFilename();
 
   if (SyncTeX::synctex_display_query(_scanner, name.toLocal8Bit().data(), src.line, src.col) > 0) {
-    retVal.page = -1;
     while ((node = SyncTeX::synctex_next_result(_scanner)) != NULL) {
       if (retVal.page < 0)
         retVal.page = SyncTeX::synctex_node_page(node);
@@ -115,6 +115,8 @@ TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchron
 TWSynchronizer::TeXSyncPoint TWSyncTeXSynchronizer::syncFromPDF(const TWSynchronizer::PDFSyncPoint & src) const
 {
   TeXSyncPoint retVal;
+  retVal.line = -1;
+  retVal.col = -1;
 
   if (src.rects.length() != 1)
     return retVal;
