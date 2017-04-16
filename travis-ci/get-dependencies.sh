@@ -59,8 +59,6 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		sudo chmod -R a+w "${MXEDIR}"
 
 		cd travis-ci/mxe
-		print_info "Patching MXE Qt5 (see https://github.com/mxe/mxe/issues/1185)"
-		patch -f -d "${MXEDIR}/usr/${MXETARGET}" -p1 < qt5-QUiLoader-fix.patch || ( echo "Patching failed; maybe the patch is already applied?"; cat "${MXEDIR}/usr/${MXETARGET}/qt5/lib/cmake/Qt5UiPlugin/Qt5UiPluginConfig.cmake" )
 
 		print_info "Building poppler (using ${JOBS} jobs)"
 		env PATH="${MXEDIR}/usr/bin:${MXEDIR}/usr/${MXETARGET}/qt5/bin:$PATH" PREFIX="${MXEDIR}/usr" TARGET="${MXETARGET}" JOBS="$JOBS" MXE_CONFIGURE_OPTS="--host='${MXETARGET}' --build='`config.guess`' --prefix='${MXEDIR}/usr/${MXETARGET}' --enable-static --disable-shared ac_cv_prog_HAVE_DOXYGEN='false' --disable-doxygen --enable-poppler-qt5 --disable-poppler-qt4" TEST_FILE="poppler-test.cxx" make -f build-poppler-mxe.mk
