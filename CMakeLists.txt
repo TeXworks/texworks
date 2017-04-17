@@ -225,8 +225,7 @@ IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
 
   IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND)
   	SET(QT5_FOUND TRUE)
-    SET(QT_INCLUDE_DIR "${Qt5Widgets_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5UiTools_INCLUDE_DIRS} ${Qt5Concurrent_INCLUDE_DIRS} ${Qt5Script_INCLUDE_DIRS} ${Qt5ScriptTools_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS}")
-    SET(QT_LIBRARIES ${Qt5UiTools_LIBRARIES} ${Qt5ScriptTools_LIBRARIES} ${Qt5Script_LIBRARIES} ${Qt5Concurrent_LIBRARIES} ${Qt5Xml_LIBRARIES} ${Qt5DBus_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Core_LIBRARIES})
+    SET(QT_LIBRARIES Qt5::UiTools Qt5::ScriptTools Qt5::Script Qt5::Concurrent Qt5::Xml ${Qt5DBus_LIBRARIES} Qt5::Widgets ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES} Qt5::Gui Qt5::Core)
 
     # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
     # etc. which is used here.

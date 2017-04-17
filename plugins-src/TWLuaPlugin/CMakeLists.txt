@@ -3,7 +3,6 @@
 
 INCLUDE_DIRECTORIES(
   ${TeXworks_SOURCE_DIR}/src
-  ${QT_INCLUDE_DIR}
   ${LUA_INCLUDE_DIR}
 )
 
@@ -19,8 +18,11 @@ ADD_LIBRARY(TWLuaPlugin ${TWLUAPLUGIN_LIB_TYPE}
   ${LUA_PLUGIN_MOC}
 )
 
+# Specify link libraries even if the plugin is built statically so all the
+# interface properties of the Qt targets (include directories, lib directories,
+# etc.) are available
+TARGET_LINK_LIBRARIES(TWLuaPlugin ${QT_LIBRARIES} ${LUA_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 IF (${BUILD_SHARED_PLUGINS})
-  TARGET_LINK_LIBRARIES(TWLuaPlugin ${QT_LIBRARIES} ${LUA_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
   INSTALL(TARGETS TWLuaPlugin
     LIBRARY DESTINATION ${TeXworks_PLUGIN_DIR}
   )

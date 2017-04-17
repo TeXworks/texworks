@@ -3,7 +3,6 @@
 
 INCLUDE_DIRECTORIES(
   ${TeXworks_SOURCE_DIR}/src
-  ${QT_INCLUDE_DIR}
   ${PYTHON_INCLUDE_DIRS}
 )
 
@@ -19,8 +18,11 @@ ADD_LIBRARY(TWPythonPlugin ${TWPYTHONPLUGIN_LIB_TYPE}
   ${PYTHON_PLUGIN_MOC}
 )
 
+# Specify link libraries even if the plugin is built statically so all the
+# interface properties of the Qt targets (include directories, lib directories,
+# etc.) are available
+TARGET_LINK_LIBRARIES(TWPythonPlugin ${QT_LIBRARIES} ${PYTHON_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 IF (${BUILD_SHARED_PLUGINS})
-  TARGET_LINK_LIBRARIES(TWPythonPlugin ${QT_LIBRARIES} ${PYTHON_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
   INSTALL(TARGETS TWPythonPlugin
     LIBRARY DESTINATION ${TeXworks_PLUGIN_DIR}
   )
