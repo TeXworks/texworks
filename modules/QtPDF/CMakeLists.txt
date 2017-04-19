@@ -119,13 +119,29 @@ IF (DESIRED_QT_VERSION MATCHES 5 OR (NOT DESIRED_QT_VERSION AND (QT_VERSION_MAJO
     # support library, which is not exposed to CMake properly, unfortunately
     GET_TARGET_PROPERTY(QT_LIB_DIR Qt5::Widgets LOCATION)
     GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
-    FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
-      HINTS "${QT_LIB_DIR}"
-    )
+
     FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
       HINTS "${QT_LIB_DIR}/../plugins/platforms"
     )
-    LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5Platform_LIBRARIES})
+
+    # Starting with Qt 5.8, Qt5PlatformSupport was modularized
+    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR LESS 8)
+      FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      LIST(INSERT QT_LIBRARIES 0 ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES})
+    else()
+      FIND_LIBRARY(Qt5FontDatabaseSupport_LIBRARIES Qt5FontDatabaseSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      FIND_LIBRARY(Qt5EventDispatcherSupport_LIBRARIES Qt5EventDispatcherSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      FIND_LIBRARY(Qt5ThemeSupport_LIBRARIES Qt5ThemeSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5FontDatabaseSupport_LIBRARIES} ${Qt5EventDispatcherSupport_LIBRARIES} ${Qt5ThemeSupport_LIBRARIES})
+    endif()
     ADD_DEFINITIONS(-DSTATIC_QT5)
   ENDIF()
 
