@@ -28,8 +28,6 @@ define $(PKG)_BUILD
         $(MXE_CONFIGURE_OPTS) \
         --disable-silent-rules \
         --enable-xpdf-headers \
-        --enable-poppler-qt4 \
-        --enable-poppler-qt5 \
         --enable-zlib \
         --enable-cms=lcms2 \
         --enable-libcurl \
