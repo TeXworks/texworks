@@ -105,3 +105,5 @@ TRANSLATIONS = \
   "TeXworks_sl.ts" \
   "TeXworks_tr.ts" \
   "TeXworks_zh_CN.ts"
+
+RC_FILE = "../res/TeXworks.rc"

@@ -27,12 +27,12 @@
         <translation>Skrap</translation>
     </message>
     <message>
-        <location filename="../src/ConfirmDelete.cpp" line="70"/>
+        <location filename="../src/ConfirmDelete.cpp" line="71"/>
         <source>Unable to delete</source>
         <translation>Kan nie skrap nie</translation>
     </message>
     <message>
-        <location filename="../src/ConfirmDelete.cpp" line="71"/>
+        <location filename="../src/ConfirmDelete.cpp" line="72"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
         <translation>Sommige van die hulplêers kan nie verwyder word nie. Miskien het jy nie toestemming om hulle te skrap nie.</translation>
     </message>
@@ -167,77 +167,103 @@
         <translation>Open onlangse lêer</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="409"/>
+        <location filename="../src/PDFDocument.cpp" line="413"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Laai van lêer &quot;%1&quot; het misluk; miskien is dit nie &apos;n geldige PDF dokument nie. </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="422"/>
+        <location filename="../src/PDFDocument.cpp" line="426"/>
         <source>Error initializing SyncTeX</source>
         <translation>Fout met inisialisering van SyncTex</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="424"/>
+        <location filename="../src/PDFDocument.cpp" line="428"/>
         <source>No SyncTeX data available</source>
         <translation>Geen SyncTeX-data beskikbaar nie</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="426"/>
+        <location filename="../src/PDFDocument.cpp" line="430"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="535"/>
+        <location filename="../src/PDFDocument.cpp" line="539"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="564"/>
+        <location filename="../src/PDFDocument.cpp" line="568"/>
         <source>page %1 of %2</source>
         <translation>bladsy %1 van %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="569"/>
+        <location filename="../src/PDFDocument.cpp" line="573"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="681"/>
+        <location filename="../src/PDFDocument.cpp" line="691"/>
         <source>Abort typesetting</source>
         <translation>Staak lettersetproses</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="726"/>
+        <location filename="../src/PDFDocument.cpp" line="736"/>
         <source>Jump to Source</source>
         <translation>Spring na bronteks</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="810"/>
+        <location filename="../src/PDFDocument.cpp" line="838"/>
+        <source>Open URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="838"/>
+        <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
+Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="864"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Weens tegniese redes kan hierdie weergawe van %1 ongelukkig nie Pdf dokumente druk nie.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="811"/>
+        <location filename="../src/PDFDocument.cpp" line="865"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Wil jy die lêer eerder in die verstek besigtiger oopmaak om te kan druk?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="812"/>
+        <location filename="../src/PDFDocument.cpp" line="866"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (onthou om dit weer toe te maak ten einde toegangsprobleme te verhoed)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="893"/>
-        <location filename="../src/PDFDocument.cpp" line="897"/>
+        <location filename="../src/PDFDocument.cpp" line="890"/>
+        <source>Custom...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="950"/>
+        <location filename="../src/PDFDocument.cpp" line="954"/>
         <source>Go to Page</source>
         <translation>Gaan na bladsy</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="894"/>
-        <location filename="../src/PDFDocument.cpp" line="898"/>
+        <location filename="../src/PDFDocument.cpp" line="951"/>
+        <location filename="../src/PDFDocument.cpp" line="955"/>
         <source>Page number:</source>
         <translation>Bladsynommer:</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="967"/>
+        <source>Set Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="967"/>
+        <source>Zoom level:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -276,7 +302,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="501"/>
-        <location filename="../src/PDFDocument.cpp" line="688"/>
+        <location filename="../src/PDFDocument.cpp" line="698"/>
         <source>Typeset</source>
         <translation>Letterset</translation>
     </message>
@@ -328,7 +354,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="275"/>
-        <location filename="../src/PDFDocument.cpp" line="733"/>
+        <location filename="../src/PDFDocument.cpp" line="743"/>
         <source>Zoom In</source>
         <translation>Zoem in</translation>
     </message>
@@ -360,7 +386,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="290"/>
-        <location filename="../src/PDFDocument.cpp" line="734"/>
+        <location filename="../src/PDFDocument.cpp" line="744"/>
         <source>Zoom Out</source>
         <translation>Zoem uit</translation>
     </message>
@@ -371,7 +397,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="308"/>
-        <location filename="../src/PDFDocument.cpp" line="737"/>
+        <location filename="../src/PDFDocument.cpp" line="747"/>
         <source>Fit to Window</source>
         <translation>Pas in venster</translation>
     </message>
@@ -382,7 +408,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="323"/>
-        <location filename="../src/PDFDocument.cpp" line="735"/>
+        <location filename="../src/PDFDocument.cpp" line="745"/>
         <source>Actual Size</source>
         <translation>Ware grootte</translation>
     </message>
@@ -393,7 +419,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="341"/>
-        <location filename="../src/PDFDocument.cpp" line="736"/>
+        <location filename="../src/PDFDocument.cpp" line="746"/>
         <source>Fit to Width</source>
         <translation>Pas na breedte</translation>
     </message>
@@ -499,7 +525,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="733"/>
-        <location filename="../src/PDFDocument.cpp" line="815"/>
+        <location filename="../src/PDFDocument.cpp" line="869"/>
         <source>Print Pdf...</source>
         <translation>Druk Pdf...</translation>
     </message>
@@ -694,12 +720,12 @@
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="638"/>
+        <location filename="../src/FindDialog.cpp" line="656"/>
         <source>Find</source>
         <translation>Vind</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="680"/>
+        <location filename="../src/FindDialog.cpp" line="698"/>
         <source>No recent search strings</source>
         <translation>Geen onlangse soekstringe nie</translation>
     </message>
@@ -970,67 +996,66 @@
         <translation>Ronde vergrootglas</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="682"/>
+        <location filename="../src/PrefsDialog.ui" line="701"/>
         <source>Screen resolution:</source>
         <translation>Skermresolusie:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="692"/>
         <source> dpi</source>
-        <translation>dpi</translation>
+        <translation type="obsolete">dpi</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="708"/>
+        <location filename="../src/PrefsDialog.ui" line="669"/>
         <source>Page mode:</source>
         <translation>Bladsy modus:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="716"/>
+        <location filename="../src/PrefsDialog.ui" line="683"/>
         <source>Single Page</source>
         <translation>Enkelbladsy</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="721"/>
+        <location filename="../src/PrefsDialog.ui" line="688"/>
         <source>Single Page Continuous</source>
         <translation>Enkelbladsy deurlopend</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="726"/>
+        <location filename="../src/PrefsDialog.ui" line="693"/>
         <source>Two Page Continuous</source>
         <translation>Twee bladsye deurlopend</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="750"/>
+        <location filename="../src/PrefsDialog.ui" line="727"/>
         <source>Typesetting</source>
         <translation>Lettersetting</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="767"/>
+        <location filename="../src/PrefsDialog.ui" line="744"/>
         <source>Paths for TeX and related programs</source>
         <translation>Paaie vir TeX en verwante programme</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="840"/>
+        <location filename="../src/PrefsDialog.ui" line="817"/>
         <source>Processing tools</source>
         <translation>Nutsprogramme</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="875"/>
+        <location filename="../src/PrefsDialog.ui" line="852"/>
         <source>Edit...</source>
         <translation>Redigeer...</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="913"/>
+        <location filename="../src/PrefsDialog.ui" line="890"/>
         <source>Default:</source>
         <translation>Verstek:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="943"/>
+        <location filename="../src/PrefsDialog.ui" line="920"/>
         <source>Hide console output:</source>
         <translation>Verberg konsoolafvoer:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="956"/>
+        <location filename="../src/PrefsDialog.ui" line="933"/>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
@@ -1041,60 +1066,60 @@
 </translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="966"/>
+        <location filename="../src/PrefsDialog.ui" line="943"/>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Nooit</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="971"/>
+        <location filename="../src/PrefsDialog.ui" line="948"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Outomaties</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="976"/>
+        <location filename="../src/PrefsDialog.ui" line="953"/>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Op sukses</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1002"/>
+        <location filename="../src/PrefsDialog.ui" line="979"/>
         <source>Scripts</source>
         <translation>Skrippe</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1008"/>
+        <location filename="../src/PrefsDialog.ui" line="985"/>
         <source>Security</source>
         <translation>Sekuriteit</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1014"/>
+        <location filename="../src/PrefsDialog.ui" line="991"/>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
         <translation>Laat skrippe toe om alle lêers te lees (skrip en dokumentlêers is altyd leesbaar)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1021"/>
+        <location filename="../src/PrefsDialog.ui" line="998"/>
         <source>Allow scripts to write files</source>
         <translation>Laat skrippe toe om lêers te skryf</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1035"/>
+        <location filename="../src/PrefsDialog.ui" line="1012"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
         <translation>Ontsper inprop-skriptale (mag ander restriksies op skripgedrag omseil)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1045"/>
+        <location filename="../src/PrefsDialog.ui" line="1022"/>
         <source>Debugging</source>
         <translation>Ontfouting</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1051"/>
+        <location filename="../src/PrefsDialog.ui" line="1028"/>
         <source>Enable QtScript debugger</source>
         <translation>Ontsper QtScript ontfouter</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1028"/>
+        <location filename="../src/PrefsDialog.ui" line="1005"/>
         <source>Allow scripts to run system commands</source>
         <translation>Laat skrippe toe om sisteembevele uit te voer</translation>
     </message>
@@ -1270,6 +1295,46 @@
     </message>
 </context>
 <context>
+    <name>ScreenCalibrationWidget</name>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="19"/>
+        <source>Drag the ruler or change the value to match real world lengths.
+Common paper sizes are marked as well (you may need to resize the dialog window to see them).
+Use the context menu to change the units.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="55"/>
+        <source> dpi</source>
+        <extracomment>dots per inch</extracomment>
+        <translation type="unfinished">dpi</translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="58"/>
+        <source>DIN A4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="59"/>
+        <source>Letter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="63"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="69"/>
+        <source>cm</source>
+        <extracomment>this refers to the length unit of centimeters</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="65"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="75"/>
+        <source>in</source>
+        <extracomment>this refers to the length unit of inches</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScriptManager</name>
     <message>
         <location filename="../src/ScriptManager.ui" line="14"/>
@@ -1335,32 +1400,32 @@
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="487"/>
+        <location filename="../src/FindDialog.cpp" line="499"/>
         <source>Search Results - %1 (%2 found)</source>
         <translation>Soekresultate - %1 (%2 gevind)</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>File</source>
         <translation>Lêer</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>Line</source>
         <translation>Reël</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>Start</source>
         <translation>Begin</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>End</source>
         <translation>Einde</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>Text</source>
         <translation>Teks</translation>
     </message>
@@ -1370,8 +1435,8 @@
         <translation>Soekresultate</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="536"/>
-        <location filename="../src/FindDialog.cpp" line="538"/>
+        <location filename="../src/FindDialog.cpp" line="548"/>
+        <location filename="../src/FindDialog.cpp" line="550"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -1484,33 +1549,33 @@
         <translation>Geen toegang tot &quot;%1&quot; nie; is jou blaaier of eposprogram nie dalk verkeerd ingestel nie?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="581"/>
+        <location filename="../src/TWApp.cpp" line="601"/>
         <source>Unable to create window</source>
         <translation>Kan nie venster skep nie</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="582"/>
+        <location filename="../src/TWApp.cpp" line="602"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Iets ernstigs is fout: %1 kon geen dokumentvenster skep nie. Die program sluit nou.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="634"/>
-        <location filename="../src/TWApp.cpp" line="649"/>
+        <location filename="../src/TWApp.cpp" line="654"/>
+        <location filename="../src/TWApp.cpp" line="669"/>
         <source>Open File</source>
         <translation>Open lêer</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="663"/>
+        <location filename="../src/TWApp.cpp" line="683"/>
         <source>Save File</source>
         <translation>Stoor lêer</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="828"/>
+        <location filename="../src/TWApp.cpp" line="848"/>
         <source>No default binary directory found</source>
         <translation>Geen verstekvakkie vir programme is gevind nie</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="829"/>
+        <location filename="../src/TWApp.cpp" line="849"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Geeneen van die gedefinieerde vakkies vir TeX-verwante programme is gevind nie. &lt;p&gt;&lt;small&gt;Om &apos;n proses te kan uitvoer moet jy die programbevattende vakkie(s) in jou TeX-distribusie instel in die Lettersetgedeelte van die Voorkeure.&lt;/small&gt;</translation>
     </message>
@@ -1570,17 +1635,17 @@
         <translation>&lt;a href=&quot;mailto:jhsh@sun.ac.za&quot;&gt;Jannie Hofmeyr&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1129"/>
+        <location filename="../src/TWApp.cpp" line="1150"/>
         <source>Unable to find help file.</source>
         <translation>Kan nie helplêer vind nie.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1319"/>
+        <location filename="../src/TWApp.cpp" line="1340"/>
         <source>Permission request</source>
         <translation>Permissie versoek</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1320"/>
+        <location filename="../src/TWApp.cpp" line="1341"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Die skrip &quot;%1&quot; probeer om die lêer &quot;%2&quot; oop te maak sonder voldoende permissies. Wil jy die lêer oopmaak?</translation>
     </message>
@@ -1627,49 +1692,49 @@
 <context>
     <name>TWScriptable</name>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="575"/>
-        <location filename="../src/TWScriptable.cpp" line="583"/>
+        <location filename="../src/TWScriptable.cpp" line="576"/>
+        <location filename="../src/TWScriptable.cpp" line="584"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Skrip &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="577"/>
+        <location filename="../src/TWScriptable.cpp" line="578"/>
         <source>Script result</source>
         <translation>Skript resultaat</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="582"/>
+        <location filename="../src/TWScriptable.cpp" line="583"/>
         <source>unknown error</source>
         <translation>onbekende fout</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="583"/>
+        <location filename="../src/TWScriptable.cpp" line="584"/>
         <source>Script error</source>
         <translation>Skripfout</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="604"/>
+        <location filename="../src/TWScriptable.cpp" line="605"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
         <translation>Skrippe kan gebruik word om nuwe bevele by %1 te voeg, en om die bevele se gedrag te uit te brei of te modifiseer.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="607"/>
+        <location filename="../src/TWScriptable.cpp" line="608"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
         <translation>Vir meer inligting oor die skepping en gebruik van skrippe, sien %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="609"/>
+        <location filename="../src/TWScriptable.cpp" line="610"/>
         <source>Scripting languages currently available in this copy of %1:</source>
         <translation>Skriptale wat tans in hierdie kopie van %1 beskikbaar is:</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="622"/>
+        <location filename="../src/TWScriptable.cpp" line="623"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
         <translation>(afgeskakel in die voorkeure)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="626"/>
+        <location filename="../src/TWScriptable.cpp" line="627"/>
         <source>About Scripts</source>
         <translation>Oor skrippe</translation>
     </message>

@@ -27,12 +27,12 @@
         <translation>Suprimeix</translation>
     </message>
     <message>
-        <location filename="../src/ConfirmDelete.cpp" line="70"/>
+        <location filename="../src/ConfirmDelete.cpp" line="71"/>
         <source>Unable to delete</source>
         <translation>No puc suprimir</translation>
     </message>
     <message>
-        <location filename="../src/ConfirmDelete.cpp" line="71"/>
+        <location filename="../src/ConfirmDelete.cpp" line="72"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
         <translation>No puc suprimir alguns dels fitxers auxiliars. Pot ser no teniu permís per suprimir-los.</translation>
     </message>
@@ -171,77 +171,103 @@
         <translation>Obri recent</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="409"/>
+        <location filename="../src/PDFDocument.cpp" line="413"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>La càrrega del fitxer &quot;%1&quot; ha fallat, tal vegada no sigui un document PDF vàlid.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="422"/>
+        <location filename="../src/PDFDocument.cpp" line="426"/>
         <source>Error initializing SyncTeX</source>
         <translation>Error iniciant SyncTeX</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="424"/>
+        <location filename="../src/PDFDocument.cpp" line="428"/>
         <source>No SyncTeX data available</source>
         <translation>No hi ha dades SyncTex disponibles</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="426"/>
+        <location filename="../src/PDFDocument.cpp" line="430"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="535"/>
+        <location filename="../src/PDFDocument.cpp" line="539"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="564"/>
+        <location filename="../src/PDFDocument.cpp" line="568"/>
         <source>page %1 of %2</source>
         <translation>pàgina %1 de %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="569"/>
+        <location filename="../src/PDFDocument.cpp" line="573"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="681"/>
+        <location filename="../src/PDFDocument.cpp" line="691"/>
         <source>Abort typesetting</source>
         <translation>Avorta compilació</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="726"/>
+        <location filename="../src/PDFDocument.cpp" line="736"/>
         <source>Jump to Source</source>
         <translation>Salta a la font</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="810"/>
+        <location filename="../src/PDFDocument.cpp" line="838"/>
+        <source>Open URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="838"/>
+        <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
+Do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="864"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Malauradament, aquesta versió de %1 no pot imprimir documents Pdf degut a diverses raons tècniques.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="811"/>
+        <location filename="../src/PDFDocument.cpp" line="865"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>En el seu lloc, vol obrir el fitxer amb el visualitzador per defecte per poder imprimir?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="812"/>
+        <location filename="../src/PDFDocument.cpp" line="866"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation>Recordi tancar-lo per evitar problemes d&apos;accés</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="893"/>
-        <location filename="../src/PDFDocument.cpp" line="897"/>
+        <location filename="../src/PDFDocument.cpp" line="890"/>
+        <source>Custom...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="950"/>
+        <location filename="../src/PDFDocument.cpp" line="954"/>
         <source>Go to Page</source>
         <translation>Ves a la pàgina</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="894"/>
-        <location filename="../src/PDFDocument.cpp" line="898"/>
+        <location filename="../src/PDFDocument.cpp" line="951"/>
+        <location filename="../src/PDFDocument.cpp" line="955"/>
         <source>Page number:</source>
         <translation>Nombre de pàgina:</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="967"/>
+        <source>Set Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.cpp" line="967"/>
+        <source>Zoom level:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -280,7 +306,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="501"/>
-        <location filename="../src/PDFDocument.cpp" line="688"/>
+        <location filename="../src/PDFDocument.cpp" line="698"/>
         <source>Typeset</source>
         <translation>Compon</translation>
     </message>
@@ -343,7 +369,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="275"/>
-        <location filename="../src/PDFDocument.cpp" line="733"/>
+        <location filename="../src/PDFDocument.cpp" line="743"/>
         <source>Zoom In</source>
         <translation>Amplia</translation>
     </message>
@@ -364,7 +390,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="290"/>
-        <location filename="../src/PDFDocument.cpp" line="734"/>
+        <location filename="../src/PDFDocument.cpp" line="744"/>
         <source>Zoom Out</source>
         <translation>Redueix</translation>
     </message>
@@ -375,7 +401,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="308"/>
-        <location filename="../src/PDFDocument.cpp" line="737"/>
+        <location filename="../src/PDFDocument.cpp" line="747"/>
         <source>Fit to Window</source>
         <translation>Ajusta a la finestra</translation>
     </message>
@@ -386,7 +412,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="323"/>
-        <location filename="../src/PDFDocument.cpp" line="735"/>
+        <location filename="../src/PDFDocument.cpp" line="745"/>
         <source>Actual Size</source>
         <translation>Mida real</translation>
     </message>
@@ -397,7 +423,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="341"/>
-        <location filename="../src/PDFDocument.cpp" line="736"/>
+        <location filename="../src/PDFDocument.cpp" line="746"/>
         <source>Fit to Width</source>
         <translation>Ajusta a l&apos;amplada</translation>
     </message>
@@ -518,7 +544,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="733"/>
-        <location filename="../src/PDFDocument.cpp" line="815"/>
+        <location filename="../src/PDFDocument.cpp" line="869"/>
         <source>Print Pdf...</source>
         <translation>Imprimeix Pdf...</translation>
     </message>
@@ -698,12 +724,12 @@
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="638"/>
+        <location filename="../src/FindDialog.cpp" line="656"/>
         <source>Find</source>
         <translation>Cerca</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="680"/>
+        <location filename="../src/FindDialog.cpp" line="698"/>
         <source>No recent search strings</source>
         <translation>No hi ha cadenes de cerca recents</translation>
     </message>
@@ -944,67 +970,66 @@
         <translation>Lupa circular</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="682"/>
+        <location filename="../src/PrefsDialog.ui" line="701"/>
         <source>Screen resolution:</source>
         <translation>Resolució de pantalla:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="692"/>
         <source> dpi</source>
-        <translation> dpi (punts per polzada)</translation>
+        <translation type="obsolete"> dpi (punts per polzada)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="708"/>
+        <location filename="../src/PrefsDialog.ui" line="669"/>
         <source>Page mode:</source>
         <translation>Mode de pàgina:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="716"/>
+        <location filename="../src/PrefsDialog.ui" line="683"/>
         <source>Single Page</source>
         <translation>Pàgina única</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="721"/>
+        <location filename="../src/PrefsDialog.ui" line="688"/>
         <source>Single Page Continuous</source>
         <translation>Pàgina única contínua</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="726"/>
+        <location filename="../src/PrefsDialog.ui" line="693"/>
         <source>Two Page Continuous</source>
         <translation>Doble pàgina contínua</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="750"/>
+        <location filename="../src/PrefsDialog.ui" line="727"/>
         <source>Typesetting</source>
         <translation>Composició</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="767"/>
+        <location filename="../src/PrefsDialog.ui" line="744"/>
         <source>Paths for TeX and related programs</source>
         <translation>Camí a TeX i programes relacionats</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="840"/>
+        <location filename="../src/PrefsDialog.ui" line="817"/>
         <source>Processing tools</source>
         <translation>Eines de composició</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="875"/>
+        <location filename="../src/PrefsDialog.ui" line="852"/>
         <source>Edit...</source>
         <translation>Edita...</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="913"/>
+        <location filename="../src/PrefsDialog.ui" line="890"/>
         <source>Default:</source>
         <translation>Per defecte:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="943"/>
+        <location filename="../src/PrefsDialog.ui" line="920"/>
         <source>Hide console output:</source>
         <translation>Amaga sortida de consola:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="956"/>
+        <location filename="../src/PrefsDialog.ui" line="933"/>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
@@ -1014,60 +1039,60 @@
 &lt;p&gt;&lt;strong&gt;En cas d&apos;èxit:&lt;/strong&gt; Amaga el panell de sortida de consola després d&apos;una composició amb éxit, amb independència del seu estat anterior.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="966"/>
+        <location filename="../src/PrefsDialog.ui" line="943"/>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Mai</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="971"/>
+        <location filename="../src/PrefsDialog.ui" line="948"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Automàticament</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="976"/>
+        <location filename="../src/PrefsDialog.ui" line="953"/>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>En cas d&apos;èxit</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1002"/>
+        <location filename="../src/PrefsDialog.ui" line="979"/>
         <source>Scripts</source>
         <translation>Scripts</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1008"/>
+        <location filename="../src/PrefsDialog.ui" line="985"/>
         <source>Security</source>
         <translation>Seguretat</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1014"/>
+        <location filename="../src/PrefsDialog.ui" line="991"/>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
         <translation>Permet als scripts llegir tots els fitxers (scripts i documents són llegibles sempre)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1021"/>
+        <location filename="../src/PrefsDialog.ui" line="998"/>
         <source>Allow scripts to write files</source>
         <translation>Permet als scripts escriure fitxers</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1028"/>
+        <location filename="../src/PrefsDialog.ui" line="1005"/>
         <source>Allow scripts to run system commands</source>
         <translation>Permet als scripts executar comandes de sistema</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1035"/>
+        <location filename="../src/PrefsDialog.ui" line="1012"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
         <translation>Habilita connector de llenguatges d&apos;script (pot eludir altres restriccions degut a l&apos;ús d&apos;scripts)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1045"/>
+        <location filename="../src/PrefsDialog.ui" line="1022"/>
         <source>Debugging</source>
         <translation>Depurant</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1051"/>
+        <location filename="../src/PrefsDialog.ui" line="1028"/>
         <source>Enable QtScript debugger</source>
         <translation>Activa depurador QtScript</translation>
     </message>
@@ -1273,6 +1298,46 @@
     </message>
 </context>
 <context>
+    <name>ScreenCalibrationWidget</name>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="19"/>
+        <source>Drag the ruler or change the value to match real world lengths.
+Common paper sizes are marked as well (you may need to resize the dialog window to see them).
+Use the context menu to change the units.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="55"/>
+        <source> dpi</source>
+        <extracomment>dots per inch</extracomment>
+        <translation type="unfinished"> dpi (punts per polzada)</translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="58"/>
+        <source>DIN A4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="59"/>
+        <source>Letter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="63"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="69"/>
+        <source>cm</source>
+        <extracomment>this refers to the length unit of centimeters</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="65"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="75"/>
+        <source>in</source>
+        <extracomment>this refers to the length unit of inches</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScriptManager</name>
     <message>
         <location filename="../src/ScriptManager.ui" line="14"/>
@@ -1339,32 +1404,32 @@
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="487"/>
+        <location filename="../src/FindDialog.cpp" line="499"/>
         <source>Search Results - %1 (%2 found)</source>
         <translation>Cerca Resultats - %1 (%2 trobats)</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>File</source>
         <translation>Fitxer</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>Line</source>
         <translation>Línia</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>Start</source>
         <translation>Inici</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>End</source>
         <translation>Fi</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="544"/>
+        <location filename="../src/FindDialog.cpp" line="556"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
@@ -1374,8 +1439,8 @@
         <translation>Resultats de la cerca</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="536"/>
-        <location filename="../src/FindDialog.cpp" line="538"/>
+        <location filename="../src/FindDialog.cpp" line="548"/>
+        <location filename="../src/FindDialog.cpp" line="550"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -1543,48 +1608,48 @@
         <translation>No puc accedir a &quot;%1&quot;; pot ser que el vostre navegador o aplicació de correu electrònic no estiguin configurats correctament?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="581"/>
+        <location filename="../src/TWApp.cpp" line="601"/>
         <source>Unable to create window</source>
         <translation>No puc crear la finestra</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="582"/>
+        <location filename="../src/TWApp.cpp" line="602"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Alguna cosa està malament; %1 no ha pogut crear una finestra de document. Surt de l&apos;aplicació.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="634"/>
-        <location filename="../src/TWApp.cpp" line="649"/>
+        <location filename="../src/TWApp.cpp" line="654"/>
+        <location filename="../src/TWApp.cpp" line="669"/>
         <source>Open File</source>
         <translation>Obre un fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="663"/>
+        <location filename="../src/TWApp.cpp" line="683"/>
         <source>Save File</source>
         <translation>Guarda fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="828"/>
+        <location filename="../src/TWApp.cpp" line="848"/>
         <source>No default binary directory found</source>
         <translation>No he trobat el directori de binaris per defecte</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="829"/>
+        <location filename="../src/TWApp.cpp" line="849"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>No puc trobar cap dels directoris predefinits de programes relacionats amb TeX. &lt;p&gt; &lt;small&gt; Per executar qualsevol procrés, cal que indiqueu el directori (o directoris) dels binaris de la vostra distribució TeX utilitzant l&apos;etiqueta Composició del diàleg de preferències.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1129"/>
+        <location filename="../src/TWApp.cpp" line="1150"/>
         <source>Unable to find help file.</source>
         <translation>No puc trobar el fitxer d&apos;ajuda.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1319"/>
+        <location filename="../src/TWApp.cpp" line="1340"/>
         <source>Permission request</source>
         <translation>Petició de permís</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1320"/>
+        <location filename="../src/TWApp.cpp" line="1341"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>L&apos;script &quot;%1&quot; tracta d&apos;obrir el fitxer &quot;%2&quot; sense prou permisos. Vol obrir el fitxer?</translation>
     </message>
@@ -1631,49 +1696,49 @@
 <context>
     <name>TWScriptable</name>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="575"/>
-        <location filename="../src/TWScriptable.cpp" line="583"/>
+        <location filename="../src/TWScriptable.cpp" line="576"/>
+        <location filename="../src/TWScriptable.cpp" line="584"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Script &quot;%1%: %2</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="577"/>
+        <location filename="../src/TWScriptable.cpp" line="578"/>
         <source>Script result</source>
         <translation>Resultat de l&apos;script</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="582"/>
+        <location filename="../src/TWScriptable.cpp" line="583"/>
         <source>unknown error</source>
         <translation>error desconegut</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="583"/>
+        <location filename="../src/TWScriptable.cpp" line="584"/>
         <source>Script error</source>
         <translation>Error a l&apos;script</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="604"/>
+        <location filename="../src/TWScriptable.cpp" line="605"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
         <translation>Els scripts poden usar-se per afegir noves comandes a %1 i per amplir o modificar el seu comportament.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="607"/>
+        <location filename="../src/TWScriptable.cpp" line="608"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
         <translation>Per a més informació en la creació i ús dels scripts, miri %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="609"/>
+        <location filename="../src/TWScriptable.cpp" line="610"/>
         <source>Scripting languages currently available in this copy of %1:</source>
         <translation>Llenguatges d&apos;script actualment disponibles en aquesta còpia de %1:</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="622"/>
+        <location filename="../src/TWScriptable.cpp" line="623"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
         <translation>(desactivat a preferències)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="626"/>
+        <location filename="../src/TWScriptable.cpp" line="627"/>
         <source>About Scripts</source>
         <translation>Quant els scripts</translation>
     </message>
