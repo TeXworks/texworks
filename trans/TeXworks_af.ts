@@ -214,13 +214,14 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="838"/>
         <source>Open URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Open URL</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="838"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Jy is besig om die URL %1 te open. Dis &apos;n sekuriteitsrisiko om onbekende of onbetroubare webadresse oop te maak.
+Wil jy voortgaan?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="864"/>
@@ -241,7 +242,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="890"/>
         <source>Custom...</source>
-        <translation type="unfinished"></translation>
+        <translation>Pasgemaak...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="950"/>
@@ -258,12 +259,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="967"/>
         <source>Set Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel zoem</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="967"/>
         <source>Zoom level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoemvlak:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -720,12 +721,12 @@ Do you want to continue?</source>
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="656"/>
+        <location filename="../src/FindDialog.cpp" line="638"/>
         <source>Find</source>
         <translation>Vind</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="698"/>
+        <location filename="../src/FindDialog.cpp" line="680"/>
         <source>No recent search strings</source>
         <translation>Geen onlangse soekstringe nie</translation>
     </message>
@@ -1301,37 +1302,40 @@ Do you want to continue?</source>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sleep die liniaal of verander die waarde na &apos;n reëele lengte.
+Gebruiklike papiergroottes is ook gemerk (die dialoogvenstergrootte moet dalk verstel word om hulle sigbaar te maak)
+Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="55"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished">dpi</translation>
+        <translatorcomment>stippels per duim kan waarskynlik as spd afgekort word, maar ek twyfel op gebruikers dit sal snap.</translatorcomment>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="58"/>
         <source>DIN A4</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="59"/>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Brief</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="63"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="69"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="65"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="75"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>duim</translation>
     </message>
 </context>
 <context>
@@ -1400,32 +1404,32 @@ Use the context menu to change the units.</source>
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="499"/>
+        <location filename="../src/FindDialog.cpp" line="487"/>
         <source>Search Results - %1 (%2 found)</source>
         <translation>Soekresultate - %1 (%2 gevind)</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>File</source>
         <translation>Lêer</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Line</source>
         <translation>Reël</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Start</source>
         <translation>Begin</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>End</source>
         <translation>Einde</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Text</source>
         <translation>Teks</translation>
     </message>
@@ -1435,8 +1439,8 @@ Use the context menu to change the units.</source>
         <translation>Soekresultate</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="548"/>
-        <location filename="../src/FindDialog.cpp" line="550"/>
+        <location filename="../src/FindDialog.cpp" line="536"/>
+        <location filename="../src/FindDialog.cpp" line="538"/>
         <source>...</source>
         <translation>...</translation>
     </message>
