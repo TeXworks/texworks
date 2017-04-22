@@ -2533,7 +2533,14 @@ void PDFLinkGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
   // Actually opening the link is handled during a `mouseReleaseEvent` --- but
   // only if the `_activated` flag is `true`.
-  _activated = true;
+  // Only set _activated if no keyboard modifiers are currently pressed (which
+  // most likely indicates some tool or other is active)
+  if (event->modifiers() == Qt::NoModifier)
+    _activated = true;
+  else {
+    _activated = false;
+    Super::mousePressEvent(event);
+  }
 }
 
 // The real nitty-gritty of link activation happens in here.
@@ -2545,6 +2552,7 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
   if ( (not _activated) || (not contains(event->pos())) )
   {
     _activated = false;
+    Super::mouseReleaseEvent(event);
     return;
   }
 
@@ -2633,15 +2641,24 @@ void PDFMarkupAnnotationGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *
 {
   // Actually opening the popup is handled during a `mouseReleaseEvent` --- but
   // only if the `_activated` flag is `true`.
-  _activated = true;
+  // Only set _activated if no keyboard modifiers are currently pressed (which
+  // most likely indicates some tool or other is active)
+  if (event->modifiers() == Qt::NoModifier)
+    _activated = true;
+  else {
+    _activated = false;
+    Super::mousePressEvent(event);
+  }
 }
 
 void PDFMarkupAnnotationGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
   Q_ASSERT(event != NULL);
 
-  if (!_activated)
+  if (!_activated) {
+    Super::mouseReleaseEvent(event);
     return;
+  }
   _activated = false;
   
   if (!contains(event->pos()) || !_annot)
