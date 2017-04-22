@@ -559,24 +559,25 @@
     </message>
     <message>
         <source>Open URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть URL-адрес</translation>
     </message>
     <message>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы собираетесь открыть URL-адрес %1. Открывать неизвестные или непроверенные URL-адреса может быть небезопасно.
+Продолжить?</translation>
     </message>
     <message>
         <source>Custom...</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройка...</translation>
     </message>
     <message>
         <source>Set Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить масштаб</translation>
     </message>
     <message>
         <source>Zoom level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштаб:</translation>
     </message>
 </context>
 <context>
@@ -1055,30 +1056,32 @@ Do you want to continue?</source>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Передвиньте линейку или измените значение, чтобы задать масштаб.
+Общепринятые размеры страниц также указаны на линейке (чтобы их увидеть измените размер окна).
+Используйте контекстное меню чтобы изменить единицы измерения.</translation>
     </message>
     <message>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> дпи</translation>
+        <translation> дпи</translation>
     </message>
     <message>
         <source>DIN A4</source>
-        <translation type="unfinished"></translation>
+        <translation>Размер A4</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Размер Letter</translation>
     </message>
     <message>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>см</translation>
     </message>
     <message>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>дюйм</translation>
     </message>
 </context>
 <context>
