@@ -73,7 +73,7 @@
         <p>OS X packaging tasks</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre></pre></div>
+        <div class='highlight'><pre><span></span></pre></div>
       </td>
     </tr>
     <tr>
@@ -157,6 +157,8 @@ CPack is running---i.e. when a user executes <code>make package</code> but not <
       <span class="s">EXPECTED_MD5</span> <span class="s2">&quot;${POPPLER_DATA_ARCHIVE_MD5}&quot;</span>
       <span class="s">SHOW_PROGRESS</span>
     <span class="p">)</span>
+  <span class="nb">ELSE</span> <span class="p">(</span> <span class="p">)</span>
+    <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Using Poppler data files in &#39;${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}&#39;&quot;</span><span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
 
   <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}&quot;</span> <span class="p">)</span>
@@ -164,8 +166,11 @@ CPack is running---i.e. when a user executes <code>make package</code> but not <
       <span class="s">COMMAND</span> <span class="s">tar</span> <span class="s">xzf</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}&quot;</span>
       <span class="s">WORKING_DIRECTORY</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}&quot;</span>
     <span class="p">)</span>
+  <span class="nb">ELSE</span> <span class="p">(</span> <span class="p">)</span>
+    <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;&#39;${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}&#39; already present&quot;</span><span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
 
+  <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Bundling poppler data files&quot;</span><span class="p">)</span>
   <span class="nb">FILE</span><span class="p">(</span><span class="s">INSTALL</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}/&quot;</span>
     <span class="s">DESTINATION</span> <span class="s2">&quot;${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/poppler-data&quot;</span>
     <span class="s">PATTERN</span> <span class="s">CMakeLists.txt</span> <span class="s">EXCLUDE</span>
@@ -189,6 +194,8 @@ CPack is running---i.e. when a user executes <code>make package</code> but not <
       <span class="s">EXPECTED_MD5</span> <span class="s2">&quot;${TW_MANUAL_ARCHIVE_MD5}&quot;</span>
       <span class="s">SHOW_PROGRESS</span>
     <span class="p">)</span>
+  <span class="nb">ELSE</span> <span class="p">(</span> <span class="p">)</span>
+    <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Using manual files in &#39;${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}&#39;&quot;</span><span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
 
   <span class="nb">IF</span> <span class="p">(</span> <span class="s">NOT</span> <span class="s">EXISTS</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}&quot;</span> <span class="p">)</span>
@@ -197,8 +204,11 @@ CPack is running---i.e. when a user executes <code>make package</code> but not <
       <span class="s">COMMAND</span> <span class="s">unzip</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}&quot;</span>
       <span class="s">WORKING_DIRECTORY</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}&quot;</span>
     <span class="p">)</span>
+  <span class="nb">ELSE</span> <span class="p">(</span> <span class="p">)</span>
+    <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;&#39;${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}&#39; already present&quot;</span><span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
 
+  <span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Bundling manual files&quot;</span><span class="p">)</span>
   <span class="nb">FILE</span><span class="p">(</span><span class="s">INSTALL</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/${TW_MANUAL_BASE}/TeXworks-manual&quot;</span>
     <span class="s">DESTINATION</span> <span class="s2">&quot;${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/texworks-help/&quot;</span>
   <span class="p">)</span></pre></div>

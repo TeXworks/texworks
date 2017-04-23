@@ -109,7 +109,7 @@ such as <a href="http://jashkenas.github.com/docco">Docco</a> to create a nicely
 future developers and maintainers.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre></pre></div>
+        <div class='highlight'><pre><span></span></pre></div>
       </td>
     </tr>
     <tr>
@@ -431,7 +431,9 @@ link against whatever Python they wish for a personal build.</p>
   <span class="nb">IF</span> <span class="p">(</span><span class="s">EXISTS</span> <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/manual/</span><span class="p">)</span>
     <span class="nb">INSTALL</span><span class="p">(</span><span class="s">DIRECTORY</span> <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/manual/</span> <span class="s">DESTINATION</span> <span class="o">${</span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">TeXworks_HELP_DIR</span><span class="o">}</span><span class="s">/</span> <span class="s">OPTIONAL</span><span class="p">)</span>
   <span class="nb">ENDIF</span><span class="p">()</span>
-<span class="nb">ENDIF</span><span class="p">()</span></pre></div>
+<span class="nb">ENDIF</span><span class="p">()</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span> <span class="s">11</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -481,7 +483,11 @@ directory contains scripts that locate project components such as hunspell.</p>
   <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Xml</span> <span class="s">QUIET</span><span class="p">)</span>
   <span class="nb">IF</span> <span class="p">(</span> <span class="s">UNIX</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">APPLE</span> <span class="p">)</span>
     <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5DBus</span> <span class="s">QUIET</span><span class="p">)</span>
-  <span class="nb">ENDIF</span> <span class="p">()</span></pre></div>
+  <span class="nb">ENDIF</span> <span class="p">()</span>
+
+  <span class="nb">IF</span><span class="p">(</span><span class="s">Qt5Widgets_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Core_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Gui_FOUND</span> <span class="s">AND</span> <span class="s">Qt5UiTools_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Concurrent_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Script_FOUND</span> <span class="s">AND</span> <span class="s">Qt5ScriptTools_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Xml_FOUND</span> <span class="s">AND</span> <span class="p">(</span><span class="s">NOT</span> <span class="s">UNIX</span> <span class="s">OR</span> <span class="s">APPLE</span> <span class="s">OR</span> <span class="s">Qt5DBus_FOUND</span><span class="p">))</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">QT5_FOUND</span> <span class="s">TRUE</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_LIBRARIES</span> <span class="s">Qt5::UiTools</span> <span class="s">Qt5::ScriptTools</span> <span class="s">Qt5::Script</span> <span class="s">Qt5::Concurrent</span> <span class="s">Qt5::Xml</span> <span class="o">${</span><span class="nv">Qt5DBus_LIBRARIES</span><span class="o">}</span> <span class="s">Qt5::Widgets</span> <span class="s">Qt5::Gui</span> <span class="s">Qt5::Core</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -490,10 +496,18 @@ directory contains scripts that locate project components such as hunspell.</p>
           <a class="pilcrow" href="#section-25">&#182;</a>
           <span class="bookmark" id="section-25"></span>
         </div>
-        <p>FIXME: This will be executed even if Qt5 is not found. Defining -DSTATIC_QT5 is not a good idea in that case...</p>
+        <p>Note: Qt5 only sets Qt5Widgets<em>VERSION, etc., but not QT</em>VERSION_MAJOR,
+etc. which is used here.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>  <span class="nb">IF</span><span class="p">(</span> <span class="s">WIN32</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">BUILD_SHARED_LIBS</span> <span class="p">)</span></pre></div>
+        <div class='highlight'><pre>    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MAJOR</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MINOR</span>  <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_PATCH</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+  <span class="nb">ELSE</span><span class="p">()</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">QT5_FOUND</span> <span class="s">FALSE</span><span class="p">)</span>
+  <span class="nb">ENDIF</span><span class="p">()</span>
+
+  <span class="nb">IF</span><span class="p">(</span> <span class="s">QT5_FOUND</span> <span class="s">AND</span> <span class="s">WIN32</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">BUILD_SHARED_LIBS</span> <span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -508,19 +522,10 @@ support library, which is not exposed to CMake properly, unfortunately</p>
       <td class=code>
         <div class='highlight'><pre>    <span class="nb">GET_TARGET_PROPERTY</span><span class="p">(</span><span class="s">QT_LIB_DIR</span> <span class="s2">&quot;${Qt5Widgets_LIBRARIES}&quot;</span> <span class="s">LOCATION</span><span class="p">)</span>
     <span class="nb">GET_FILENAME_COMPONENT</span><span class="p">(</span><span class="s">QT_LIB_DIR</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span> <span class="s">PATH</span><span class="p">)</span>
-    <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5Platform_LIBRARIES</span> <span class="s">Qt5PlatformSupport</span>
-      <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
-    <span class="p">)</span>
+
     <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5QWindows_LIBRARIES</span> <span class="s">qwindows</span>
       <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}/../plugins/platforms&quot;</span>
-    <span class="p">)</span>
-    <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DSTATIC_QT5</span><span class="p">)</span>
-  <span class="nb">ENDIF</span><span class="p">()</span>
-
-  <span class="nb">IF</span><span class="p">(</span><span class="s">Qt5Widgets_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Core_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Gui_FOUND</span> <span class="s">AND</span> <span class="s">Qt5UiTools_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Concurrent_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Script_FOUND</span> <span class="s">AND</span> <span class="s">Qt5ScriptTools_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Xml_FOUND</span><span class="p">)</span>
-  	<span class="nb">SET</span><span class="p">(</span><span class="s">QT5_FOUND</span> <span class="s">TRUE</span><span class="p">)</span>
-    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_INCLUDE_DIR</span> <span class="s2">&quot;${Qt5Widgets_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5UiTools_INCLUDE_DIRS} ${Qt5Concurrent_INCLUDE_DIRS} ${Qt5Script_INCLUDE_DIRS} ${Qt5ScriptTools_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS}&quot;</span><span class="p">)</span>
-    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_LIBRARIES</span> <span class="o">${</span><span class="nv">Qt5UiTools_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5ScriptTools_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Script_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Concurrent_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Xml_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5DBus_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Widgets_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Platform_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5QWindows_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Gui_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Core_LIBRARIES</span><span class="o">}</span><span class="p">)</span></pre></div>
+    <span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -529,14 +534,29 @@ support library, which is not exposed to CMake properly, unfortunately</p>
           <a class="pilcrow" href="#section-27">&#182;</a>
           <span class="bookmark" id="section-27"></span>
         </div>
-        <p>Note: Qt5 only sets Qt5Widgets<em>VERSION, etc., but not QT</em>VERSION_MAJOR,
-etc. which is used here.</p>
+        <p>Starting with Qt 5.8, Qt5PlatformSupport was modularized</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MAJOR</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
-    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MINOR</span>  <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
-    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_PATCH</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="nb">if</span> <span class="p">(</span><span class="s">QT_VERSION_MAJOR</span> <span class="s">EQUAL</span> <span class="s">5</span> <span class="s">AND</span> <span class="s">QT_VERSION_MINOR</span> <span class="s">LESS</span> <span class="s">8</span><span class="p">)</span>
+      <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5Platform_LIBRARIES</span> <span class="s">Qt5PlatformSupport</span>
+        <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
+      <span class="p">)</span>
+      <span class="nb">LIST</span><span class="p">(</span><span class="s">INSERT</span> <span class="s">QT_LIBRARIES</span> <span class="s">0</span> <span class="o">${</span><span class="nv">Qt5Platform_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5QWindows_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">else</span><span class="p">()</span>
+      <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5FontDatabaseSupport_LIBRARIES</span> <span class="s">Qt5FontDatabaseSupport</span>
+        <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
+      <span class="p">)</span>
+      <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5EventDispatcherSupport_LIBRARIES</span> <span class="s">Qt5EventDispatcherSupport</span>
+        <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
+      <span class="p">)</span>
+      <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5ThemeSupport_LIBRARIES</span> <span class="s">Qt5ThemeSupport</span>
+        <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
+      <span class="p">)</span>
+      <span class="nb">LIST</span><span class="p">(</span><span class="s">INSERT</span> <span class="s">QT_LIBRARIES</span> <span class="s">0</span> <span class="o">${</span><span class="nv">Qt5QWindows_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5FontDatabaseSupport_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5EventDispatcherSupport_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5ThemeSupport_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+    <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DSTATIC_QT5</span><span class="p">)</span>
   <span class="nb">ENDIF</span><span class="p">()</span>
+
 <span class="nb">ENDIF</span><span class="p">()</span></pre></div>
       </td>
     </tr>
@@ -684,12 +704,13 @@ access.</p>
           <a class="pilcrow" href="#section-34">&#182;</a>
           <span class="bookmark" id="section-34"></span>
         </div>
-        <p><strong>NOTE</strong> For some reason, FindPythonLibs.cmake always seems to default to
-<code>/System/Library/Frameworks/Python.framework/Headers</code> as the include path
-on OS X.</p>
+        <p><strong>NOTE</strong>
+In order to find the correct version of &#39;PythonLibs&#39;, it seems that we need to run &#39;FIND_PACKAGE(PythonInterp)&#39; firstly.
+In order to find the correct version of &#39;PythonInterp&#39;, we need to set &#39;PYTHONHOME&#39; environment variable</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">PythonLibs</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">PythonInterp</span><span class="p">)</span>
+    <span class="nb">FIND_PACKAGE</span><span class="p">(</span><span class="s">PythonLibs</span><span class="p">)</span>
   <span class="nb">ENDIF</span> <span class="p">()</span>
 <span class="nb">ENDIF</span><span class="p">()</span>
 

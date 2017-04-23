@@ -73,7 +73,7 @@
         <h1>Setup and User Options</h1>
       </td>
       <td class=code>
-        <div class='highlight'><pre></pre></div>
+        <div class='highlight'><pre><span></span></pre></div>
       </td>
     </tr>
     <tr>
@@ -319,8 +319,9 @@ by a parent project)</p>
   <span class="nb">IF</span><span class="p">(</span> <span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span> <span class="s">STREQUAL</span> <span class="s2">&quot;Debug&quot;</span> <span class="p">)</span>
     <span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Test</span> <span class="s">QUIET</span><span class="p">)</span>
   <span class="nb">ENDIF</span><span class="p">()</span>
-  
-  <span class="nb">IF</span><span class="p">(</span> <span class="s">WIN32</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">BUILD_SHARED_LIBS</span> <span class="p">)</span></pre></div>
+
+  <span class="nb">IF</span><span class="p">(</span><span class="s">Qt5Core_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Widgets_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Concurrent_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Xml_FOUND</span> <span class="s">AND</span> <span class="p">(</span><span class="s">NOT</span> <span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span> <span class="s">STREQUAL</span> <span class="s2">&quot;Debug&quot;</span> <span class="s">OR</span> <span class="p">(</span><span class="s">Qt5Test_FOUND</span><span class="p">)))</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">QT5_FOUND</span> <span class="s">TRUE</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -329,26 +330,13 @@ by a parent project)</p>
           <a class="pilcrow" href="#section-19">&#182;</a>
           <span class="bookmark" id="section-19"></span>
         </div>
-        <p>For static Windows builds, we also need to pull in the Qt5 Platform
-support library, which is not exposed to CMake properly, unfortunately</p>
+        <p>Note: Qt5 only sets Qt5Widgets<em>VERSION, etc., but not QT</em>VERSION_MAJOR,
+etc. which is used here.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="nb">GET_TARGET_PROPERTY</span><span class="p">(</span><span class="s">QT_LIB_DIR</span> <span class="s2">&quot;${Qt5Widgets_LIBRARIES}&quot;</span> <span class="s">LOCATION</span><span class="p">)</span>
-    <span class="nb">GET_FILENAME_COMPONENT</span><span class="p">(</span><span class="s">QT_LIB_DIR</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span> <span class="s">PATH</span><span class="p">)</span>
-    <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5Platform_LIBRARIES</span> <span class="s">Qt5PlatformSupport</span>
-      <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
-    <span class="p">)</span>
-    <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5QWindows_LIBRARIES</span> <span class="s">qwindows</span>
-      <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}/../plugins/platforms&quot;</span>
-    <span class="p">)</span>
-    <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DSTATIC_QT5</span><span class="p">)</span>
-  <span class="nb">ENDIF</span><span class="p">()</span>
-
-  <span class="nb">IF</span><span class="p">(</span><span class="s">Qt5Core_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Widgets_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Concurrent_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Core_FOUND</span> <span class="s">AND</span> <span class="p">(</span><span class="s">NOT</span> <span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span> <span class="s">STREQUAL</span> <span class="s2">&quot;Debug&quot;</span> <span class="s">OR</span> <span class="p">(</span><span class="s">Qt5Test_FOUND</span> <span class="s">AND</span> <span class="s">Qt5Xml_FOUND</span><span class="p">)))</span>
-  	<span class="nb">SET</span><span class="p">(</span><span class="s">QT5_FOUND</span> <span class="s">TRUE</span><span class="p">)</span>
-    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_INCLUDE_DIR</span> <span class="s2">&quot;${Qt5Core_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Concurrent_INCLUDE_DIRS}&quot;</span><span class="p">)</span>
-    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_LIBRARIES</span> <span class="o">${</span><span class="nv">Qt5Core_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5QWindows_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Platform_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Widgets_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Concurrent_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Core_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Xml_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
-    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_TEST_LIBRARIES</span> <span class="o">${</span><span class="nv">Qt5Test_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5Core_LIBRARIES</span><span class="o">}</span><span class="p">)</span></pre></div>
+        <div class='highlight'><pre>    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MAJOR</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MINOR</span>  <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_PATCH</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -357,15 +345,17 @@ support library, which is not exposed to CMake properly, unfortunately</p>
           <a class="pilcrow" href="#section-20">&#182;</a>
           <span class="bookmark" id="section-20"></span>
         </div>
-        <p>Note: Qt5 only sets Qt5Widgets<em>VERSION, etc., but not QT</em>VERSION_MAJOR,
-etc. which is used here.</p>
+        <p>Starting with Qt 5.7, c++11 must be used; before, it doesn&#39;t hurt</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MAJOR</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
-    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_MINOR</span>  <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
-    <span class="nb">string</span><span class="p">(</span><span class="s">REGEX</span> <span class="s">REPLACE</span> <span class="s2">&quot;^[0-9]+\\.[0-9]+\\.([0-9]+).*$&quot;</span> <span class="s2">&quot;\\1&quot;</span> <span class="s">QT_VERSION_PATCH</span> <span class="s2">&quot;${Qt5Widgets_VERSION}&quot;</span><span class="p">)</span>
+        <div class='highlight'><pre>    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span> <span class="s">11</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_LIBRARIES</span> <span class="s">Qt5::Core</span> <span class="s">Qt5::Widgets</span> <span class="s">Qt5::Concurrent</span> <span class="s">Qt5::Core</span> <span class="s">Qt5::Xml</span><span class="p">)</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">QT_TEST_LIBRARIES</span> <span class="o">${</span><span class="nv">Qt5Test_LIBRARIES</span><span class="o">}</span> <span class="s">Qt5::Core</span><span class="p">)</span>
+  <span class="nb">ELSE</span><span class="p">()</span>
+    <span class="nb">SET</span><span class="p">(</span><span class="s">QT5_FOUND</span> <span class="s">FALSE</span><span class="p">)</span>
   <span class="nb">ENDIF</span><span class="p">()</span>
-  </pre></div>
+  
+  <span class="nb">IF</span><span class="p">(</span> <span class="s">QT5_FOUND</span> <span class="s">AND</span> <span class="s">WIN32</span> <span class="s">AND</span> <span class="s">NOT</span> <span class="s">BUILD_SHARED_LIBS</span> <span class="p">)</span></pre></div>
       </td>
     </tr>
     <tr>
@@ -373,6 +363,54 @@ etc. which is used here.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-21">&#182;</a>
           <span class="bookmark" id="section-21"></span>
+        </div>
+        <p>For static Windows builds, we also need to pull in the Qt5 Platform
+support library, which is not exposed to CMake properly, unfortunately</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nb">GET_TARGET_PROPERTY</span><span class="p">(</span><span class="s">QT_LIB_DIR</span> <span class="s">Qt5::Widgets</span> <span class="s">LOCATION</span><span class="p">)</span>
+    <span class="nb">GET_FILENAME_COMPONENT</span><span class="p">(</span><span class="s">QT_LIB_DIR</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span> <span class="s">PATH</span><span class="p">)</span>
+
+    <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5QWindows_LIBRARIES</span> <span class="s">qwindows</span>
+      <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}/../plugins/platforms&quot;</span>
+    <span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-22">&#182;</a>
+          <span class="bookmark" id="section-22"></span>
+        </div>
+        <p>Starting with Qt 5.8, Qt5PlatformSupport was modularized</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nb">if</span> <span class="p">(</span><span class="s">QT_VERSION_MAJOR</span> <span class="s">EQUAL</span> <span class="s">5</span> <span class="s">AND</span> <span class="s">QT_VERSION_MINOR</span> <span class="s">LESS</span> <span class="s">8</span><span class="p">)</span>
+      <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5Platform_LIBRARIES</span> <span class="s">Qt5PlatformSupport</span>
+        <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
+      <span class="p">)</span>
+      <span class="nb">LIST</span><span class="p">(</span><span class="s">INSERT</span> <span class="s">QT_LIBRARIES</span> <span class="s">0</span> <span class="o">${</span><span class="nv">Qt5Platform_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5QWindows_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">else</span><span class="p">()</span>
+      <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5FontDatabaseSupport_LIBRARIES</span> <span class="s">Qt5FontDatabaseSupport</span>
+        <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
+      <span class="p">)</span>
+      <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5EventDispatcherSupport_LIBRARIES</span> <span class="s">Qt5EventDispatcherSupport</span>
+        <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
+      <span class="p">)</span>
+      <span class="nb">FIND_LIBRARY</span><span class="p">(</span><span class="s">Qt5ThemeSupport_LIBRARIES</span> <span class="s">Qt5ThemeSupport</span>
+        <span class="s">HINTS</span> <span class="s2">&quot;${QT_LIB_DIR}&quot;</span>
+      <span class="p">)</span>
+      <span class="nb">LIST</span><span class="p">(</span><span class="s">INSERT</span> <span class="s">QT_LIBRARIES</span> <span class="s">0</span> <span class="o">${</span><span class="nv">Qt5QWindows_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5FontDatabaseSupport_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5EventDispatcherSupport_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">Qt5ThemeSupport_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">endif</span><span class="p">()</span>
+    <span class="nb">ADD_DEFINITIONS</span><span class="p">(</span><span class="s">-DSTATIC_QT5</span><span class="p">)</span>
+  <span class="nb">ENDIF</span><span class="p">()</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-23">&#182;</a>
+          <span class="bookmark" id="section-23"></span>
         </div>
         <p>Define version-dependent wrappers</p>
       </td>
@@ -386,8 +424,8 @@ etc. which is used here.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-22">&#182;</a>
-          <span class="bookmark" id="section-22"></span>
+          <a class="pilcrow" href="#section-24">&#182;</a>
+          <span class="bookmark" id="section-24"></span>
         </div>
         <p>If Qt5 is not found (or not desired), check for Qt4</p>
       </td>
@@ -398,8 +436,8 @@ etc. which is used here.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-23">&#182;</a>
-          <span class="bookmark" id="section-23"></span>
+          <a class="pilcrow" href="#section-25">&#182;</a>
+          <span class="bookmark" id="section-25"></span>
         </div>
         <p>Declare Qt libraries required by this project.</p>
       </td>
@@ -417,8 +455,8 @@ etc. which is used here.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-24">&#182;</a>
-          <span class="bookmark" id="section-24"></span>
+          <a class="pilcrow" href="#section-26">&#182;</a>
+          <span class="bookmark" id="section-26"></span>
         </div>
         <p>Locate Qt. <code>INCLUDE(UseQt4)</code> brings in a set of macros that helps us deal
 with Qt-specific tasks such as compiling resources or running <code>moc</code>.</p>
@@ -434,8 +472,8 @@ code.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-25">&#182;</a>
-          <span class="bookmark" id="section-25"></span>
+          <a class="pilcrow" href="#section-27">&#182;</a>
+          <span class="bookmark" id="section-27"></span>
         </div>
         <p>TODO: QtTest is included in the list of &quot;normal&quot; libraries for debug builds.
 Therefore, QT<em>TEST</em>LIBRARIES is not set here. Can we improve this somehow
@@ -448,8 +486,8 @@ Therefore, QT<em>TEST</em>LIBRARIES is not set here. Can we improve this somehow
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-26">&#182;</a>
-          <span class="bookmark" id="section-26"></span>
+          <a class="pilcrow" href="#section-28">&#182;</a>
+          <span class="bookmark" id="section-28"></span>
         </div>
         <p>Define version-dependent wrappers</p>
       </td>
@@ -467,8 +505,8 @@ Therefore, QT<em>TEST</em>LIBRARIES is not set here. Can we improve this somehow
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-27">&#182;</a>
-          <span class="bookmark" id="section-27"></span>
+          <a class="pilcrow" href="#section-29">&#182;</a>
+          <span class="bookmark" id="section-29"></span>
         </div>
         <p>Expose the major version number of Qt to the preprocessor. This is necessary
 to include the correct Qt headers (as QTVERSION is not defined before any Qt
@@ -484,15 +522,14 @@ headers are included)</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-28">&#182;</a>
-          <span class="bookmark" id="section-28"></span>
+          <a class="pilcrow" href="#section-30">&#182;</a>
+          <span class="bookmark" id="section-30"></span>
         </div>
         <p>Aggregate library names and include directories into variables for easy
 access.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre><span class="nb">SET</span><span class="p">(</span><span class="s">QTPDF_INCLUDE_DIRS</span>
-  <span class="o">${</span><span class="nv">QT_INCLUDE_DIR</span><span class="o">}</span>
   <span class="o">${</span><span class="nv">ZLIB_INCLUDE_DIR</span><span class="o">}</span>
   <span class="o">${</span><span class="nv">POPPLER_QT_INCLUDE_DIR</span><span class="o">}</span>
 <span class="p">)</span>
@@ -521,8 +558,8 @@ access.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-30">&#182;</a>
-          <span class="bookmark" id="section-30"></span>
+          <a class="pilcrow" href="#section-32">&#182;</a>
+          <span class="bookmark" id="section-32"></span>
         </div>
         <p>In case poppler is linked statically, its libs have to be given to the
 linker <strong>first</strong> for some strange reason or symbols won&#39;t be properly
@@ -535,8 +572,8 @@ resolved. At least, this is the case with the MinGW linker.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-31">&#182;</a>
-          <span class="bookmark" id="section-31"></span>
+          <a class="pilcrow" href="#section-33">&#182;</a>
+          <span class="bookmark" id="section-33"></span>
         </div>
         <p>The only thing Poppler should need is the location of the include
 directories in order to access header files. The library loader should be
@@ -577,8 +614,8 @@ able to find libfontconfig on standard search paths.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-32">&#182;</a>
-          <span class="bookmark" id="section-32"></span>
+          <a class="pilcrow" href="#section-34">&#182;</a>
+          <span class="bookmark" id="section-34"></span>
         </div>
         <p>Since the MuPDF libraries are static libs, they have to be given to the
 linker <strong>first</strong> for some strange reason or symbols won&#39;t be properly
@@ -591,8 +628,8 @@ resolved. At least, this is the case with the MinGW linker.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-33">&#182;</a>
-          <span class="bookmark" id="section-33"></span>
+          <a class="pilcrow" href="#section-35">&#182;</a>
+          <span class="bookmark" id="section-35"></span>
         </div>
         <p>setlocale() is necessary for the MuPDF backend (at least for locales not
 using &#39;.&#39; as a decimal point)</p>
@@ -636,8 +673,8 @@ using &#39;.&#39; as a decimal point)</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-36">&#182;</a>
-          <span class="bookmark" id="section-36"></span>
+          <a class="pilcrow" href="#section-38">&#182;</a>
+          <span class="bookmark" id="section-38"></span>
         </div>
         <p>Common setup.</p>
       </td>
@@ -687,8 +724,8 @@ using &#39;.&#39; as a decimal point)</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-38">&#182;</a>
-          <span class="bookmark" id="section-38"></span>
+          <a class="pilcrow" href="#section-40">&#182;</a>
+          <span class="bookmark" id="section-40"></span>
         </div>
         <p>FIXME: Is -fPIC required/appropriate for all situations/platforms?</p>
       </td>
@@ -713,8 +750,8 @@ using &#39;.&#39; as a decimal point)</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-39">&#182;</a>
-          <span class="bookmark" id="section-39"></span>
+          <a class="pilcrow" href="#section-41">&#182;</a>
+          <span class="bookmark" id="section-41"></span>
         </div>
         <p>Create translations</p>
       </td>
@@ -731,8 +768,8 @@ using &#39;.&#39; as a decimal point)</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-40">&#182;</a>
-          <span class="bookmark" id="section-40"></span>
+          <a class="pilcrow" href="#section-42">&#182;</a>
+          <span class="bookmark" id="section-42"></span>
         </div>
         <p>Icons</p>
       </td>
@@ -762,8 +799,8 @@ using &#39;.&#39; as a decimal point)</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-41">&#182;</a>
-          <span class="bookmark" id="section-41"></span>
+          <a class="pilcrow" href="#section-43">&#182;</a>
+          <span class="bookmark" id="section-43"></span>
         </div>
         <p>Inform parent scope (if any) what to do to use QtPDF</p>
       </td>
@@ -774,8 +811,8 @@ using &#39;.&#39; as a decimal point)</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-42">&#182;</a>
-          <span class="bookmark" id="section-42"></span>
+          <a class="pilcrow" href="#section-44">&#182;</a>
+          <span class="bookmark" id="section-44"></span>
         </div>
         <p>${CMAKE<em>CURRENT</em>SOURCE_DIR}/src/backend</p>
       </td>
@@ -798,8 +835,8 @@ using &#39;.&#39; as a decimal point)</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-44">&#182;</a>
-          <span class="bookmark" id="section-44"></span>
+          <a class="pilcrow" href="#section-46">&#182;</a>
+          <span class="bookmark" id="section-46"></span>
         </div>
         <p>Both viewers use a common set of source code files. Preprocessor definitions
 toggle the backend-sensitive bits.</p>
@@ -830,8 +867,8 @@ toggle the backend-sensitive bits.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-45">&#182;</a>
-          <span class="bookmark" id="section-45"></span>
+          <a class="pilcrow" href="#section-47">&#182;</a>
+          <span class="bookmark" id="section-47"></span>
         </div>
         <p>NOTE:
 Setting properties on a target sets those properties on all source files
@@ -911,8 +948,8 @@ and build with different flags. Pretty handy.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-48">&#182;</a>
-          <span class="bookmark" id="section-48"></span>
+          <a class="pilcrow" href="#section-50">&#182;</a>
+          <span class="bookmark" id="section-50"></span>
         </div>
         <p>This section displays a nice configuration summary for the user.</p>
       </td>
@@ -923,8 +960,8 @@ and build with different flags. Pretty handy.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-49">&#182;</a>
-          <span class="bookmark" id="section-49"></span>
+          <a class="pilcrow" href="#section-51">&#182;</a>
+          <span class="bookmark" id="section-51"></span>
         </div>
         <p>These macros borrowed from the Poppler CMake scripts. They add some nice
 formatting to configuration info.</p>
@@ -955,8 +992,8 @@ formatting to configuration info.</p>
     <tr>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-50">&#182;</a>
-          <span class="bookmark" id="section-50"></span>
+          <a class="pilcrow" href="#section-52">&#182;</a>
+          <span class="bookmark" id="section-52"></span>
         </div>
         <p>Print out configuration summary.</p>
 

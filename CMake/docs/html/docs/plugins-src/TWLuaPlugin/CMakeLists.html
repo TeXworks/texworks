@@ -71,12 +71,10 @@
           <span class="bookmark" id="section-Build_Lua_Plugin"></span>
         </div>
         <h1>Build Lua Plugin</h1>
-
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span>
+        <div class='highlight'><pre><span></span><span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span>
   <span class="o">${</span><span class="nv">TeXworks_SOURCE_DIR</span><span class="o">}</span><span class="s">/src</span>
-  <span class="o">${</span><span class="nv">QT_INCLUDE_DIR</span><span class="o">}</span>
   <span class="o">${</span><span class="nv">LUA_INCLUDE_DIR</span><span class="o">}</span>
 <span class="p">)</span>
 
@@ -90,10 +88,23 @@
 <span class="nb">ADD_LIBRARY</span><span class="p">(</span><span class="s">TWLuaPlugin</span> <span class="o">${</span><span class="nv">TWLUAPLUGIN_LIB_TYPE</span><span class="o">}</span>
   <span class="s">TWLuaPlugin.cpp</span>
   <span class="o">${</span><span class="nv">LUA_PLUGIN_MOC</span><span class="o">}</span>
-<span class="p">)</span>
+<span class="p">)</span></pre></div>
+      </td>
+    </tr>
+    <tr>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+          <span class="bookmark" id="section-2"></span>
+        </div>
+        <p>Specify link libraries even if the plugin is built statically so all the
+interface properties of the Qt targets (include directories, lib directories,
+etc.) are available</p>
 
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span><span class="s">TWLuaPlugin</span> <span class="o">${</span><span class="nv">QT_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">LUA_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_ADDITIONAL_LIBS</span><span class="o">}</span><span class="p">)</span>
 <span class="nb">IF</span> <span class="p">(</span><span class="o">${</span><span class="nv">BUILD_SHARED_PLUGINS</span><span class="o">}</span><span class="p">)</span>
-  <span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span><span class="s">TWLuaPlugin</span> <span class="o">${</span><span class="nv">QT_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">LUA_LIBRARIES</span><span class="o">}</span> <span class="o">${</span><span class="nv">TEXWORKS_ADDITIONAL_LIBS</span><span class="o">}</span><span class="p">)</span>
   <span class="nb">INSTALL</span><span class="p">(</span><span class="s">TARGETS</span> <span class="s">TWLuaPlugin</span>
     <span class="s">LIBRARY</span> <span class="s">DESTINATION</span> <span class="o">${</span><span class="nv">TeXworks_PLUGIN_DIR</span><span class="o">}</span>
   <span class="p">)</span>
