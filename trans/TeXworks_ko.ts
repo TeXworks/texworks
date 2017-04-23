@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ko_KR">
+<TS version="2.1" language="ko_KR">
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -551,24 +551,24 @@
     </message>
     <message>
         <source>Open URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL 열기</translation>
     </message>
     <message>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>다음 URL을 열고자 합니다: %1. 신뢰할 수 없는 웹주소를 열면 보안이 위험해집니다. 계속하시겠습니까?</translation>
     </message>
     <message>
         <source>Custom...</source>
-        <translation type="unfinished"></translation>
+        <translation>사용자 설정...</translation>
     </message>
     <message>
         <source>Set Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>확대 설정</translation>
     </message>
     <message>
         <source>Zoom level:</source>
-        <translation type="unfinished"></translation>
+        <translation>확대 비율:</translation>
     </message>
 </context>
 <context>
@@ -1037,30 +1037,32 @@ Do you want to continue?</source>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished"></translation>
+        <translation>실제 길이에 맞추려면 줄자를 드래그하거나 값을 변경하세요.
+널리 쓰이는 용지 크기도 표시됩니다 (대화창 크기를 조정해야 할 수 있습니다).
+단위를 변경하려면 오른쪽 버튼 메뉴를 이용하세요.</translation>
     </message>
     <message>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>DIN A4</source>
-        <translation type="unfinished"></translation>
+        <translation>A4</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>레터</translation>
     </message>
     <message>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
