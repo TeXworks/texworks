@@ -338,9 +338,10 @@ IF ( WITH_PYTHON )
     MARK_AS_ADVANCED(PYTHON_INCLUDE_DIR)
     SET(PYTHONLIBS_FOUND TRUE)
   ELSE ()
-    # **NOTE** For some reason, FindPythonLibs.cmake always seems to default to
-    # `/System/Library/Frameworks/Python.framework/Headers` as the include path
-    # on OS X.
+    # **NOTE**
+    # In order to find the correct version of 'PythonLibs', it seems that we need to run 'FIND_PACKAGE(PythonInterp)' firstly.
+    # In order to find the correct version of 'PythonInterp', we need to set 'PYTHONHOME' environment variable
+    FIND_PACKAGE(PythonInterp)
     FIND_PACKAGE(PythonLibs)
   ENDIF ()
 ENDIF()
