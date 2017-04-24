@@ -7,5 +7,5 @@ poppler : $(poppler_FILE)
 	$(call poppler_BUILD,$(poppler_SUBDIR),poppler-test)
 
 $(poppler_FILE) :
-	wget --no-check-certificate "$(poppler_URL)"
+	wget --no-check-certificate -O "$(poppler_FILE)" "$(poppler_URL)"
 
