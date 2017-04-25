@@ -371,6 +371,7 @@ void NonblockingSyntaxHighlighter::process()
 		const QTextBlock & block = nextBlockToHighlight();
 		if (block.isValid()) {
 			int prevUserState = block.userState();
+			_currentBlock = block;
 			_currentFormatRanges.clear();
 			highlightBlock(block.text());
 
