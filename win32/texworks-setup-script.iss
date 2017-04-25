@@ -46,13 +46,13 @@ Name: "pl"; MessagesFile: "compiler:Languages\Polish.isl"
 Name: "pt_BR"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
 Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "sl"; MessagesFile: "compiler:Languages\Slovenian.isl"
+Name: "tr"; MessagesFile: "compiler:Languages\Turkish.isl"
 ; additional Inno Setup languages using contributed translations
-Name: "af"; MessagesFile: "extra-setup-languages\Afrikaans-1-5.1.11.isl"
-Name: "ar"; MessagesFile: "extra-setup-languages\Arabic-4-5.1.11.isl"
-Name: "fa"; MessagesFile: "extra-setup-languages\Farsi-2-5.1.11.isl"
-Name: "ko"; MessagesFile: "extra-setup-languages\Korean-5-5.1.11.isl"
-Name: "tr"; MessagesFile: "extra-setup-languages\Turkish-3-5.1.11.isl"
-Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimp-12-5.1.11.isl"
+Name: "af"; MessagesFile: "extra-setup-languages\Afrikaans.isl"
+Name: "ar"; MessagesFile: "extra-setup-languages\Arabic.isl"
+Name: "fa"; MessagesFile: "extra-setup-languages\Farsi.isl"
+Name: "ko"; MessagesFile: "extra-setup-languages\Korean.isl"
+Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimplified.isl"
 
 [CustomMessages]
 ManualNameEn=A short manual for TeXworks
