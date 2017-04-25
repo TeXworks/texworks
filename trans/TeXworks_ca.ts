@@ -218,13 +218,14 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="838"/>
         <source>Open URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Obre URL</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="838"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Està obrint l&apos;enllaç %1. Accedir a adreces web desconegudes o de poca confiança pot comportar un risc de seguretat.
+Vol continuar?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="864"/>
@@ -245,7 +246,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="890"/>
         <source>Custom...</source>
-        <translation type="unfinished"></translation>
+        <translation>A mida ...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="950"/>
@@ -262,12 +263,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="967"/>
         <source>Set Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixa ampliació</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="967"/>
         <source>Zoom level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivell de ampliació:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -336,21 +337,9 @@ Do you want to continue?</source>
         <translation>Pàgina anterior</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="225"/>
-        <source>Ctrl+PgUp</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocument.ui" line="237"/>
         <source>Next Page</source>
         <translation>Pàgina següent</translation>
-    </message>
-    <message>
-        <location filename="../src/PDFDocument.ui" line="240"/>
-        <source>Ctrl+PgDown</source>
-        <comment>shortcut key name, do not translate</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="252"/>
@@ -382,6 +371,18 @@ Do you want to continue?</source>
         <location filename="../src/PDFDocument.ui" line="134"/>
         <source>Scripting TeXworks</source>
         <translation>Scripting TeXworks</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="225"/>
+        <source>Ctrl+PgUp</source>
+        <comment>shortcut key name, do not translate</comment>
+        <translation>Ctrl+RePág</translation>
+    </message>
+    <message>
+        <location filename="../src/PDFDocument.ui" line="240"/>
+        <source>Ctrl+PgDown</source>
+        <comment>shortcut key name, do not translate</comment>
+        <translation>Ctrl+AvPág</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="278"/>
@@ -589,6 +590,10 @@ Do you want to continue?</source>
         <translation>Doble pàgina contínua</translation>
     </message>
     <message>
+        <source>Ctrl+T</source>
+        <translation type="obsolete">Ctrl+T</translation>
+    </message>
+    <message>
         <location filename="../src/PDFDocument.ui" line="516"/>
         <source>Preferences...</source>
         <translation>Preferències...</translation>
@@ -689,6 +694,10 @@ Do you want to continue?</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
+        <source>Find</source>
+        <translation type="obsolete">Cerca</translation>
+    </message>
+    <message>
         <location filename="../src/PDFDocument.ui" line="676"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
@@ -697,6 +706,14 @@ Do you want to continue?</source>
         <location filename="../src/PDFDocument.ui" line="687"/>
         <source>Find Again</source>
         <translation>Torna a cercar</translation>
+    </message>
+    <message>
+        <source>Ctrl+Shift+G</source>
+        <translation type="obsolete">Ctrl+Shift+G</translation>
+    </message>
+    <message>
+        <source>PDF file &quot;%1&quot; is locked; this is not currently supported.</source>
+        <translation type="obsolete">El fitxer PDF &quot;%1&quot; està bloquejat; aquesta acció no està suportada actualment.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="263"/>
@@ -724,12 +741,12 @@ Do you want to continue?</source>
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="656"/>
+        <location filename="../src/FindDialog.cpp" line="638"/>
         <source>Find</source>
         <translation>Cerca</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="698"/>
+        <location filename="../src/FindDialog.cpp" line="680"/>
         <source>No recent search strings</source>
         <translation>No hi ha cadenes de cerca recents</translation>
     </message>
@@ -770,6 +787,98 @@ Do you want to continue?</source>
     </message>
 </context>
 <context>
+    <name>PDFFontsDock</name>
+    <message>
+        <source>Name</source>
+        <translation type="obsolete">Nom</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="obsolete">Tipus</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <translation type="obsolete">Subconjunt</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="obsolete">Fitxer</translation>
+    </message>
+    <message>
+        <source>[none]</source>
+        <translation type="obsolete">[cap]</translation>
+    </message>
+    <message>
+        <source>yes</source>
+        <translation type="obsolete">sí</translation>
+    </message>
+    <message>
+        <source>no</source>
+        <translation type="obsolete">no</translation>
+    </message>
+    <message>
+        <source>[embedded]</source>
+        <translation type="obsolete">[incrustat]</translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation type="obsolete">Fonts</translation>
+    </message>
+</context>
+<context>
+    <name>PDFInfoDock</name>
+    <message>
+        <source>PDF Info</source>
+        <translation type="obsolete">PDF Info</translation>
+    </message>
+</context>
+<context>
+    <name>PDFOutlineDock</name>
+    <message>
+        <source>No TOC</source>
+        <translation type="obsolete">No hi ha sumari</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="obsolete">Continguts</translation>
+    </message>
+</context>
+<context>
+    <name>PDFWidget</name>
+    <message>
+        <source>Zoom In</source>
+        <translation type="obsolete">Amplia</translation>
+    </message>
+    <message>
+        <source>Zoom Out</source>
+        <translation type="obsolete">Redueix</translation>
+    </message>
+    <message>
+        <source>Actual Size</source>
+        <translation type="obsolete">Mida real</translation>
+    </message>
+    <message>
+        <source>Fit to Width</source>
+        <translation type="obsolete">Ajusta a l&apos;amplada</translation>
+    </message>
+    <message>
+        <source>Fit to Window</source>
+        <translation type="obsolete">Ajusta a la finestra</translation>
+    </message>
+    <message>
+        <source>Jump to Source</source>
+        <translation type="obsolete">Salta a la font</translation>
+    </message>
+    <message>
+        <source>Go to Page</source>
+        <translation type="obsolete">Ves a la pàgina</translation>
+    </message>
+    <message>
+        <source>Page number:</source>
+        <translation type="obsolete">Nombre de pàgina:</translation>
+    </message>
+</context>
+<context>
     <name>PrefsDialog</name>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="136"/>
@@ -803,6 +912,10 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="40"/>
         <source>General</source>
         <translation>General</translation>
+    </message>
+    <message>
+        <source>Toolbar buttons</source>
+        <translation type="obsolete">Botons de la barra d&apos;eines</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="81"/>
@@ -843,6 +956,10 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="134"/>
         <source>File Open dialog</source>
         <translation>Diàleg d&apos;obertura de fitxers</translation>
+    </message>
+    <message>
+        <source>Interface locale:</source>
+        <translation type="obsolete">Interfície local:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="178"/>
@@ -1039,6 +1156,20 @@ Do you want to continue?</source>
 &lt;p&gt;&lt;strong&gt;En cas d&apos;èxit:&lt;/strong&gt; Amaga el panell de sortida de consola després d&apos;una composició amb éxit, amb independència del seu estat anterior.&lt;/p&gt;</translation>
     </message>
     <message>
+        <source>Hide output panel:</source>
+        <translation type="obsolete">Oculta el panell de sortida:</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the output panel after typesetting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
+</source>
+        <translation type="obsolete">&lt;p&gt;&lt;strong&gt;Mai:&lt;/strong&gt; Mai ocultis el panell de sortida després de la composició.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automàticament:&lt;/strong&gt; Oculta el panell de sortida després d&apos;una composició exitosa, però sols si abans ja estava ocult.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;En cas d&apos;èxit:&lt;/strong&gt; Oculta el panell de sortida després d&apos;una composició exitosa, amb independència del seu estat previ.&lt;/p&gt;
+</translation>
+    </message>
+    <message>
         <location filename="../src/PrefsDialog.ui" line="943"/>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
@@ -1055,6 +1186,10 @@ Do you want to continue?</source>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>En cas d&apos;èxit</translation>
+    </message>
+    <message>
+        <source>Auto-hide output panel unless errors occur</source>
+        <translation type="obsolete">Amaga el panell de sortida si no hi ha errors</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="979"/>
@@ -1145,6 +1280,10 @@ Do you want to continue?</source>
         <translation>Documents LaTeX (*.ltx)</translation>
     </message>
     <message>
+        <source>Log files (*.log)</source>
+        <translation type="obsolete">Fitxers Log (*.log)</translation>
+    </message>
+    <message>
         <location filename="../src/TWUtils.cpp" line="480"/>
         <source>Log files (*.log *.blg)</source>
         <translation>Fitxers Log (*.log *.blg)</translation>
@@ -1175,6 +1314,14 @@ Do you want to continue?</source>
         <translation>Fitxers auxiliars (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</source>
+        <translation type="obsolete">Fitxers auxiliars (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl)</translation>
+    </message>
+    <message>
+        <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</source>
+        <translation type="obsolete">Fitxers auxiliars (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.log)</translation>
+    </message>
+    <message>
         <location filename="../src/TWUtils.cpp" line="486"/>
         <source>Text files (*.txt)</source>
         <translation>Fitxers de text (*.txt)</translation>
@@ -1188,6 +1335,11 @@ Do you want to continue?</source>
         <location filename="../src/TWUtils.cpp" line="488"/>
         <source>All files</source>
         <translation>Tots els fitxers</translation>
+    </message>
+    <message>
+        <source>TeXworks %1r%2 (%3)
+</source>
+        <translation type="obsolete">TeXworks %1r%2 (%3)</translation>
     </message>
 </context>
 <context>
@@ -1304,37 +1456,39 @@ Do you want to continue?</source>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrossegui la regla o modifiqui el valor per coincidir amb les longituds reals.
+Mides de paper habituals també es marquen (pot ser cal canviar la mida de la finestra de diàleg per vuere-les).
+Usi el menú de context per canviar les unitats.</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="55"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> dpi (punts per polzada)</translation>
+        <translation> dpi (punts per polzada)</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="58"/>
         <source>DIN A4</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="59"/>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="63"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="69"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="65"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="75"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>in (polsades)</translation>
     </message>
 </context>
 <context>
@@ -1404,32 +1558,32 @@ Use the context menu to change the units.</source>
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="499"/>
+        <location filename="../src/FindDialog.cpp" line="487"/>
         <source>Search Results - %1 (%2 found)</source>
         <translation>Cerca Resultats - %1 (%2 trobats)</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>File</source>
         <translation>Fitxer</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Line</source>
         <translation>Línia</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Start</source>
         <translation>Inici</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>End</source>
         <translation>Fi</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
@@ -1439,8 +1593,8 @@ Use the context menu to change the units.</source>
         <translation>Resultats de la cerca</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="548"/>
-        <location filename="../src/FindDialog.cpp" line="550"/>
+        <location filename="../src/FindDialog.cpp" line="536"/>
+        <location filename="../src/FindDialog.cpp" line="538"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -1538,6 +1692,22 @@ Use the context menu to change the units.</source>
         <translation>&lt;p&gt;%1 és un entorn senzill per editar, compondre i visualitzar documents TeX.&lt;/p&gt;</translation>
     </message>
     <message>
+        <source>&lt;br&gt;Version %1 (r.%2)</source>
+        <translation type="obsolete">&lt;br &gt;Versió %1 (r.%2)</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2.</source>
+        <translation type="obsolete">&lt;p&gt;Distribuït sota la &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versió 2.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; application framework by Qt Software, a division of Nokia Corporation.</source>
+        <translation type="obsolete">&lt;p&gt;Marc d&apos;aplicació &lt;a href=&quot;http://trolltech.com/products/&quot;&gt;Qt4&lt;/a&gt; de Qt Software, una divisió de Nokia Corporation.</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Version %1 r.%2 (%3)</source>
+        <translation type="obsolete">&lt;br&gt;Versió %1 r.%2 (%3)</translation>
+    </message>
+    <message>
         <location filename="../src/TWApp.cpp" line="302"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
         <translation>&lt;br&gt;Versió %1 (%2) [r %3, %4]</translation>
@@ -1553,9 +1723,17 @@ Use the context menu to change the units.</source>
         <translation>&lt;p&gt;Distribuït sota la llicència &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versió 2 o (al vostre criteri) qualsevol versió posterior.</translation>
     </message>
     <message>
+        <source>&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by Qt Software, a division of Nokia Corporation.</source>
+        <translation type="obsolete">&lt;p&gt;&lt;a href=&quot;http://qt.nokia.com/&quot;&gt;Marc d&apos;aplicació Qt&lt;/a&gt; v%1 de Qt Software, una divisió de Nokia Corporation.</translation>
+    </message>
+    <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;Biblioteca de renderització PDF &lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; de Kristian H&amp;#xF8;gsberg, Albert Astals Cid i altres.</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation type="obsolete">&lt;br&gt;Corrector ortogràfic &lt;a href=&quot;http://hunspell.sourceforge.net/&quot;&gt;Hunspell&lt;/a&gt; de L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="306"/>
@@ -1636,7 +1814,11 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/TWApp.cpp" line="849"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
-        <translation>No puc trobar cap dels directoris predefinits de programes relacionats amb TeX. &lt;p&gt; &lt;small&gt; Per executar qualsevol procrés, cal que indiqueu el directori (o directoris) dels binaris de la vostra distribució TeX utilitzant l&apos;etiqueta Composició del diàleg de preferències.&lt;/small&gt;</translation>
+        <translation>No es pot trobar cap de les carpetes predefinides per a programes relatius a TeX.&lt;p&gt;&lt;small&gt;Per executar qualsevol procés, cal indicar la carpeta (o carpetes) de la distribució TeX utilitzant la pestanya Composició en el diàleg Preferències.&lt;/small&gt;</translation>
+    </message>
+    <message>
+        <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.</source>
+        <translation type="obsolete">No puc trobar cap dels directoris predefinits de programes relacionats amb TeX. &lt;p&gt; &lt;small&gt; Per executar qualsevol procrés, cal que indiqueu el directori (o directoris) dels binaris de la vostra distribució TeX utilitzant l&apos;etiqueta Composició del diàleg de preferències.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="1150"/>
@@ -1805,6 +1987,10 @@ Use the context menu to change the units.</source>
         <translation>Obre fitxer</translation>
     </message>
     <message>
+        <source>Cannot close window while tool is running</source>
+        <translation type="obsolete">No puc tancar la finestra mentre l&apos;eina està en execució</translation>
+    </message>
+    <message>
         <location filename="../src/TeXDocument.cpp" line="789"/>
         <source>Save File</source>
         <translation>Desa el fitxer</translation>
@@ -1833,6 +2019,12 @@ Vol desar els canvis?</translation>
         <translation>Reverteix</translation>
     </message>
     <message>
+        <source>Cannot read file &quot;%1&quot;:
+%2.</source>
+        <translation type="obsolete">No puc llegir el fitxer &quot;%1&quot;:
+%2.</translation>
+    </message>
+    <message>
         <location filename="../src/TeXDocument.cpp" line="979"/>
         <source>Unrecognized encoding</source>
         <translation>Codificació no reconeguda</translation>
@@ -1845,6 +2037,10 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
         <translation>La codificació de text %1 usada a %2 no està suportada.
 
 S&apos;interpretarà com a %3, per tant pot generar un text incorrecte.</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; loaded (%2)</source>
+        <translation type="obsolete">Fitxer &quot;%1&quot; carregat (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1215"/>
@@ -1877,6 +2073,14 @@ Voleu guardar el fitxer, sobreescrivint la versió del disc?</translation>
         <translation>No s&apos;ha desat el document &quot;%1&quot;</translation>
     </message>
     <message>
+        <source>The text encoding %1 requested for %2 is not supported.
+
+It will be saved as %3 instead, which may result in incorrect text.</source>
+        <translation type="obsolete">La codificació de text %1 sol·licitada per %2 no està suportada.
+
+Serà desat com a %3 i pot resultar en un text incorrecte.</translation>
+    </message>
+    <message>
         <location filename="../src/TeXDocument.cpp" line="1397"/>
         <source>Text cannot be converted</source>
         <translation>No puc convertir el text</translation>
@@ -1889,6 +2093,20 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>Aquest document conté caràcters que no poden representar-se amb la codificació %1.
 
 Si continuau, seran substituits per codis per defecte. Pot ser preferiu usar una codificació diferent (per exemple UTF-8) per evitar la pèrdua de dades.</translation>
+    </message>
+    <message>
+        <source>Cannot write file &quot;%1&quot;:
+%2.</source>
+        <translation type="obsolete">No puc escriure el fitxer %1:
+%2.</translation>
+    </message>
+    <message>
+        <source>File &quot;%1&quot; saved (%2)</source>
+        <translation type="obsolete">Fitxer &quot;%1&quot; desat (%2)</translation>
+    </message>
+    <message>
+        <source>default encoding</source>
+        <translation type="obsolete">Codificació per defecte</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="666"/>
@@ -2142,6 +2360,22 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         <translation>Mostra sortida de consola</translation>
     </message>
     <message>
+        <source>The program &quot;%1&quot; was not found.
+
+Check configuration of the %2 tool and path settings in the Preferences dialog.</source>
+        <translation type="obsolete">No puc trobar el programa %1.
+
+Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de preferències.</translation>
+    </message>
+    <message>
+        <source>Hide Output Panel</source>
+        <translation type="obsolete">Oculta panell de sortida</translation>
+    </message>
+    <message>
+        <source>Show Output Panel</source>
+        <translation type="obsolete">Mostra panell de sortida</translation>
+    </message>
+    <message>
         <location filename="../src/TeXDocument.cpp" line="3008"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Fixa el mecanisme de procés a &quot;%1&quot;</translation>
@@ -2366,6 +2600,10 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         <location filename="../src/TeXDocument.ui" line="588"/>
         <source>Clear</source>
         <translation>Esborra</translation>
+    </message>
+    <message>
+        <source>Ctrl+T</source>
+        <translation type="obsolete">Ctrl+T</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="615"/>
@@ -2692,6 +2930,10 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         <location filename="../src/TeXDocument.cpp" line="2733"/>
         <source>Searched in directories:</source>
         <translation>Cercat en els directoris:</translation>
+    </message>
+    <message>
+        <source>Check configuration of the %1 tool and path settings in the Preferences dialog.</source>
+        <translation type="obsolete">Comprova els camins i la configuració de l&apos;eina %1 en el diàleg Preferències.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1016"/>
