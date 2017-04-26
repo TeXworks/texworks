@@ -627,7 +627,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="426"/>
         <source>Error initializing SyncTeX</source>
-        <translation type="unfinished">Fekk ikki løtt SyncTeX</translation>
+        <translation>Fekk ikki løtt SyncTeX</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="428"/>
@@ -667,19 +667,21 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="838"/>
         <source>Open URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Lat upp URL</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="838"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Tú ert í ferð við at late upp URLin %1. Vandi er við at lata upp netstøð, sum tú ikki kennir ella ikki lítur á.
+Vilt tú halda fram?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="864"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
-        <translation>Av tekniskum ávum fær henda útgávan av %1 ikki prenta PDF-skjøl, tíverri.</translation>
+        <translation>Av tekniskum ávum fær henda útgávan av %1 tíverri ikki prentað PDF-skjøl.
+</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="865"/>
@@ -689,12 +691,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="866"/>
         <source> (remember to close it again to avoid access problems)</source>
-        <translation>(minst til at lata aftur, fyri at sleppa undan atgongutrupulleikum)</translation>
+        <translation> (minst til at lata aftur, fyri at sleppa undan trupulleikum við atgongd)</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="890"/>
         <source>Custom...</source>
-        <translation type="unfinished"></translation>
+        <translation>Serligt...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="950"/>
@@ -711,12 +713,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="967"/>
         <source>Set Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Set zoom</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="967"/>
         <source>Zoom level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoomstig:</translation>
     </message>
 </context>
 <context>
@@ -757,12 +759,12 @@ Do you want to continue?</source>
         <translation>&amp;Samskipa við keldu</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="656"/>
+        <location filename="../src/FindDialog.cpp" line="638"/>
         <source>Find</source>
         <translation>Leita</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="698"/>
+        <location filename="../src/FindDialog.cpp" line="680"/>
         <source>No recent search strings</source>
         <translation>Eingi nýggj leitorð</translation>
     </message>
@@ -852,7 +854,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="208"/>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="222"/>
@@ -862,7 +864,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="229"/>
         <source> px</source>
-        <translation>px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="262"/>
@@ -1055,7 +1057,8 @@ Do you want to continue?</source>
 </source>
         <translation>&lt;p&gt;&lt;strong&gt;Aldri:&lt;/strong&gt; Fjal aldri skíggjan við konsollúttaki aftaná seting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Sjálvvirkandi:&lt;/strong&gt; Fjal skíggjan við konsollúttaki aftaná at seting er liðug, men bara um skíggin fjal fjaldur frammanundan.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Fjal skíggjan við konsollúttaki aftaná at seting er liðug, uttan mun til um skíggin var fjaldur ella ikki.&lt;/p&gt;</translation>
+&lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Fjal skíggjan við konsollúttaki aftaná at seting er liðug, uttan mun til um skíggin var fjaldur ella ikki.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="943"/>
@@ -1303,37 +1306,39 @@ Do you want to continue?</source>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished"></translation>
+        <translation>Drag linjuna ella broyt talið fyri at hóska til veruligar longdir.
+Vanligar pappírsstøddir eru eisini merktar (tú verður kanska noydd til at broyta støddina á glugganum fyri at síggja tær).
+Brúka kontekstmenuina fyri at broyta eindirnar.</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="55"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished">dpi</translation>
+        <translation> prikkar per tumma (dpi)</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="58"/>
         <source>DIN A4</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="59"/>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="63"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="69"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="65"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="75"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>&quot;</translation>
     </message>
 </context>
 <context>
@@ -1356,47 +1361,47 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/ScriptManager.cpp" line="190"/>
         <source>Name: </source>
-        <translation>Navn:</translation>
+        <translation>Navn: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="191"/>
         <source>Context: </source>
-        <translation>Samheingi:</translation>
+        <translation>Samheingi: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="192"/>
         <source>Description: </source>
-        <translation>Lýsing:</translation>
+        <translation>Lýsing: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="193"/>
         <source>Author: </source>
-        <translation>Høvundur:</translation>
+        <translation>Høvundur: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="194"/>
         <source>Version: </source>
-        <translation>Útgáva:</translation>
+        <translation>Útgáva: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="195"/>
         <source>Shortcut: </source>
-        <translation>Snarvegur:</translation>
+        <translation>Snarvegur: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="196"/>
         <source>File: </source>
-        <translation>Fíla:</translation>
+        <translation>Fíla: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="204"/>
         <source>Language: </source>
-        <translation>Tungumál:</translation>
+        <translation>Tungumál: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManager.cpp" line="208"/>
         <source>Hook: </source>
-        <translation>Húkur:</translation>
+        <translation>Húkur: </translation>
     </message>
 </context>
 <context>
@@ -1407,38 +1412,38 @@ Use the context menu to change the units.</source>
         <translation>Leitingarúrslit</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="499"/>
+        <location filename="../src/FindDialog.cpp" line="487"/>
         <source>Search Results - %1 (%2 found)</source>
         <translation>Leitingarúrslit - %1 (%2 funnin)</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="548"/>
-        <location filename="../src/FindDialog.cpp" line="550"/>
+        <location filename="../src/FindDialog.cpp" line="536"/>
+        <location filename="../src/FindDialog.cpp" line="538"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>File</source>
         <translation>Fíla</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Line</source>
         <translation>Regla</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Start</source>
         <translation>Byrjan</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>End</source>
         <translation>Endi</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="556"/>
+        <location filename="../src/FindDialog.cpp" line="544"/>
         <source>Text</source>
         <translation>Tekstur</translation>
     </message>
@@ -1513,7 +1518,7 @@ Use the context menu to change the units.</source>
         <location filename="../src/TWApp.cpp" line="250"/>
         <location filename="../src/TWApp.cpp" line="289"/>
         <source>About </source>
-        <translation>Um</translation>
+        <translation>Um </translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="278"/>
