@@ -549,6 +549,27 @@
         <source>Page number:</source>
         <translation>Pagina:</translation>
     </message>
+    <message>
+        <source>Open URL</source>
+        <translation>Open URL</translation>
+    </message>
+    <message>
+        <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
+Do you want to continue?</source>
+        <translation>Je bent de volgende URL aan het openen: %1. Het openen van onbekende of niet vertrouwde websites kan een beveiligingsrisico met zich meebrengen. Wil je doorgaan?</translation>
+    </message>
+    <message>
+        <source>Custom...</source>
+        <translation>Aangepast...</translation>
+    </message>
+    <message>
+        <source>Set Zoom</source>
+        <translation>Stel Zoom in</translation>
+    </message>
+    <message>
+        <source>Zoom level:</source>
+        <translation>Zoom niveau:</translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -733,7 +754,7 @@
     </message>
     <message>
         <source> dpi</source>
-        <translation>dpi</translation>
+        <translation type="obsolete">dpi</translation>
     </message>
     <message>
         <source>Typesetting</source>
@@ -1011,6 +1032,40 @@
     <message>
         <source>Registry (%1)</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>ScreenCalibrationWidget</name>
+    <message>
+        <source>Drag the ruler or change the value to match real world lengths.
+Common paper sizes are marked as well (you may need to resize the dialog window to see them).
+Use the context menu to change the units.</source>
+        <translation>Sleep de liniaal of verander de waarde tot de maat overeenkomt met de werkelijkheid.
+Standaard papierformaten worden eveneens gemarkeerd (je moet misschien het dialoogvenster aanpassen om ze te zien).
+Gebruik het contextmenu om de eenheden te wijzigen.</translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <extracomment>dots per inch</extracomment>
+        <translation>dpi</translation>
+    </message>
+    <message>
+        <source>DIN A4</source>
+        <translation>DIN A4</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Letter</translation>
+    </message>
+    <message>
+        <source>cm</source>
+        <extracomment>this refers to the length unit of centimeters</extracomment>
+        <translation>cm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <extracomment>this refers to the length unit of inches</extracomment>
+        <translation>in</translation>
     </message>
 </context>
 <context>

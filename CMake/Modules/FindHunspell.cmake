@@ -31,7 +31,7 @@ FIND_PATH(HUNSPELL_INCLUDE_DIR NAMES hunspell.h
   PATH_SUFFIXES hunspell
 )
 
-FIND_LIBRARY(HUNSPELL_LIBRARIES NAMES hunspell-1.3 hunspell-1.2 hunspell ${HUNSPELL_PKG_LIBRARIES}
+FIND_LIBRARY(HUNSPELL_LIBRARIES NAMES hunspell-1.7 hunspell-1.6 hunspell-1.5 hunspell-1.4 hunspell-1.3 hunspell-1.2 hunspell ${HUNSPELL_PKG_LIBRARIES}
   PATHS
     /usr/local
     /usr

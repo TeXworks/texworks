@@ -2,8 +2,6 @@ language: cpp
 
 matrix:
   include:
-    - env: TARGET_OS=osx QT=4
-      os: osx
     - env: TARGET_OS=osx QT=5
       os: osx
     - env: TARGET_OS=win QT=4

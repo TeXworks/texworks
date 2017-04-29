@@ -155,7 +155,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		fi
 
 		print_info "Fetching poppler data"
-		wget "${POPPLERDATA_URL}"
+		wget --no-check-certificate "${POPPLERDATA_URL}"
 		CHKSUM=$(openssl dgst -sha256 "${POPPLERDATA_FILE}" 2> /dev/null)
 		if [ "${CHKSUM}" != "SHA256(${POPPLERDATA_FILE})= ${POPPLERDATA_SHA256}" ]; then
 			print_error "Wrong checksum"
@@ -199,9 +199,7 @@ EOF
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
 	fi
 elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
-	if [ ${QT} -eq 4 ]; then
-		print_info "Not packaging for ${TARGET_OS}/qt${QT}"
-	elif [ ${QT} -eq 5 ]; then
+	if [ ${QT} -eq 5 ]; then
 		print_info "Running CPack"
 		cpack --verbose
 

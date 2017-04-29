@@ -21,7 +21,7 @@ public slots:
 
 private slots:
   void openUrl(const QUrl url) const;
-  void openPdf(QString filename, int page, bool newWindow) const;
+  void openPdf(QString filename, QtPDF::PDFDestination destination, bool newWindow) const;
   void syncFromPdf(const int page, const QPointF pos);
   void searchProgressChanged(int percent, int occurrences);
   void documentChanged(const QWeakPointer<QtPDF::Backend::Document> newDoc);

@@ -1,3 +1,31 @@
+Release 0.6.2 (TL'17) [April 2017]
+	* Implement handling of links to external files in the PDF preview
+	* Implement a simple screen calibration widget to allow adapting the PDF
+	  preview to the screen's resolution
+	* Improve responsiveness when opening large documents
+	* Use old content instead of rendering placeholers after a PDF was reloaded
+	  to facilitate seeing changes
+	* Improve the usability of the "Remove Aux Files..." dialog by letting the
+	  user toogle the selection by clicking anywhere on the row
+	* Add support for the bibliography program "biber" by default
+	* Allow custom zoom levels in the PDF status bar context menu
+	* Add a Windows manifest so TeXworks looks more "native" on modern versions
+	  of Windows
+
+	* Fix PDF zoom speed for high-resolution mouse-wheels
+	* Fix a deadlock causing TeXworks to hang when loading PDF annotations such
+	  as links
+	* Fix crash when changing files outside TeXworks
+	* Fix crash when syncing from an if-block in the TeX file
+	* Fix crash when reloading a PDF while text was selected
+	* Fix enabling of the first/previous/next/last page toolbar buttons in the
+	  PDF preview
+	* Fix the wrong appearance of the PDF magnifier in some cases
+	* Fix truncation issues and misreported Windows versions in "Email to
+	  mailing list"
+
+	* Update translations
+
 Release 0.6.1 (TL'16) [May 2016]
 	* Fix "Jump to Source" from PDF context menu
 	* Fix fine-sync'ing close to PDF line boundaries

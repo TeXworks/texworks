@@ -49,7 +49,16 @@ class CopyrightedFile:
         timestamp_str = gitrepo.log('--diff-filter=A', '--follow', '--format="%at"', '--', self.filename)
         timestamp = float(timestamp_str.replace('"', ''))
         begin = datetime.datetime.fromtimestamp(timestamp).year
-        timestamp_str = gitrepo.log('-1', '--format="%at"', '--', self.filename)
+        logs = gitrepo.log('--format="%at %s"', '--', self.filename).split('\n')
+        for log in logs:
+        	log = log[1:-1]
+        	log = log.split(' ', 1)
+        	if log[1] in ['Update copyrights', 'Update copyright notices', 'Update copyright statements', 'Updated copyright information', 'Update copyright and add Charlie to list of authors', 'Update URLs to http://www.tug.org/texworks/', 'update copyright to 2010']: continue
+        	timestamp_str = log[0]
+        	print('   %s: %s' % (self.filename, log[1]))
+        	break
+#        print(logs)
+#        timestamp_str = gitrepo.log('-1', '--format="%at"', '--', self.filename)
         timestamp = float(timestamp_str.replace('"', ''))
         end = datetime.datetime.fromtimestamp(timestamp).year
         if begin == end:
@@ -94,7 +103,7 @@ def manual_update_notice():
     """Reminder for places where the copyright information must be updated manually"""
     print("")
     print("Don't forget to manually update the copyright information in the following files:")
-    for f in ["README.md", "TeXworks.plist.in", "man/texworks.1", "CMake/Modules/COPYING-CMAKE-MODULES", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp"]:
+    for f in ["README.md", "TeXworks.plist.in", "man/texworks.1", "CMake/Modules/COPYING-CMAKE-MODULES", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", "travis-ci/launchpad/debian/copyright", "travis-ci/README.win"]:
     	print("   {0}".format(f))
 
 def main():

@@ -29,7 +29,7 @@ debug information), or file a bug report.
 License
 =======
 
-TeXworks is copyright (C) 2007-2016 by Jonathan Kew, Stefan Löffler, and Charlie
+TeXworks is copyright (C) 2007-2017 by Jonathan Kew, Stefan Löffler, and Charlie
 Sharpsteen. Distributed under the terms of the GNU General Public License,
 version 2 or (at your option) any later version.
 See the file COPYING for details.

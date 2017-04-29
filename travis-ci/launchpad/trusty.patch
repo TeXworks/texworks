@@ -6,8 +6,8 @@ index b2d38b0..d465593 100644
  Section: tex
  Priority: optional
  Maintainer: Stefan Löffler <st.loeffler@gmail.com>
--Build-Depends: debhelper (>= 6), pkg-config, cmake (>= 2.8.6), libqt4-dev (>= 4.6), zlib1g-dev, libhunspell-dev, libpoppler-qt4-dev, liblua5.2-dev
-+Build-Depends: debhelper (>= 6), pkg-config, cmake (>= 2.8.6), libqt4-dev (>= 4.6), zlib1g-dev, libhunspell-dev, libpoppler-qt4-dev, liblua5.3-dev
+-Build-Depends: debhelper (>= 6), pkg-config, cmake (>= 2.8.6), libqt4-dev (>= 4.6), zlib1g-dev, libhunspell-dev, libpoppler-qt4-dev, liblua5.3-dev
++Build-Depends: debhelper (>= 6), pkg-config, cmake (>= 2.8.6), libqt4-dev (>= 4.6), zlib1g-dev, libhunspell-dev, libpoppler-qt4-dev, liblua5.2-dev
  Standards-Version: 3.9.7
  Homepage: https://github.com/TeXworks/texworks
  Vcs-Git: https://github.com/TeXworks/texworks.git

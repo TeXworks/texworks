@@ -1,0 +1,7 @@
+TeXworks win32/extra-setup-languages directory
+==============================================
+
+This directory contains additional, third-party translations needed for building
+the Inno Setup installer.
+
+These files were obtained from https://www.jrsoftware.org/files/istrans/.

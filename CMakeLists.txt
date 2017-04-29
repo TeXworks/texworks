@@ -183,6 +183,8 @@ IF (UNIX AND NOT APPLE)
   ENDIF()
 ENDIF()
 
+set(CMAKE_CXX_STANDARD 11)
+
 # Dependency Configuration
 # ========================
 
@@ -206,32 +208,50 @@ IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
     find_package(Qt5DBus QUIET)
   ENDIF ()
 
-  # FIXME: This will be executed even if Qt5 is not found. Defining -DSTATIC_QT5 is not a good idea in that case...
-  IF( WIN32 AND NOT BUILD_SHARED_LIBS )
-    # For static Windows builds, we also need to pull in the Qt5 Platform
-    # support library, which is not exposed to CMake properly, unfortunately
-    GET_TARGET_PROPERTY(QT_LIB_DIR "${Qt5Widgets_LIBRARIES}" LOCATION)
-    GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
-    FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
-      HINTS "${QT_LIB_DIR}"
-    )
-    FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
-      HINTS "${QT_LIB_DIR}/../plugins/platforms"
-    )
-    ADD_DEFINITIONS(-DSTATIC_QT5)
-  ENDIF()
-
-  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND)
-  	SET(QT5_FOUND TRUE)
-    SET(QT_INCLUDE_DIR "${Qt5Widgets_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5UiTools_INCLUDE_DIRS} ${Qt5Concurrent_INCLUDE_DIRS} ${Qt5Script_INCLUDE_DIRS} ${Qt5ScriptTools_INCLUDE_DIRS} ${Qt5Xml_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS}")
-    SET(QT_LIBRARIES ${Qt5UiTools_LIBRARIES} ${Qt5ScriptTools_LIBRARIES} ${Qt5Script_LIBRARIES} ${Qt5Concurrent_LIBRARIES} ${Qt5Xml_LIBRARIES} ${Qt5DBus_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Core_LIBRARIES})
+  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND AND (NOT UNIX OR APPLE OR Qt5DBus_FOUND))
+    SET(QT5_FOUND TRUE)
+    SET(QT_LIBRARIES Qt5::UiTools Qt5::ScriptTools Qt5::Script Qt5::Concurrent Qt5::Xml ${Qt5DBus_LIBRARIES} Qt5::Widgets Qt5::Gui Qt5::Core)
 
     # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
     # etc. which is used here.
     string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
     string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
     string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
+  ELSE()
+    SET(QT5_FOUND FALSE)
   ENDIF()
+
+  IF( QT5_FOUND AND WIN32 AND NOT BUILD_SHARED_LIBS )
+    # For static Windows builds, we also need to pull in the Qt5 Platform
+    # support library, which is not exposed to CMake properly, unfortunately
+    GET_TARGET_PROPERTY(QT_LIB_DIR "${Qt5Widgets_LIBRARIES}" LOCATION)
+    GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
+
+    FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
+      HINTS "${QT_LIB_DIR}/../plugins/platforms"
+    )
+
+    # Starting with Qt 5.8, Qt5PlatformSupport was modularized
+    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR LESS 8)
+      FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      LIST(INSERT QT_LIBRARIES 0 ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES})
+    else()
+      FIND_LIBRARY(Qt5FontDatabaseSupport_LIBRARIES Qt5FontDatabaseSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      FIND_LIBRARY(Qt5EventDispatcherSupport_LIBRARIES Qt5EventDispatcherSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      FIND_LIBRARY(Qt5ThemeSupport_LIBRARIES Qt5ThemeSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5FontDatabaseSupport_LIBRARIES} ${Qt5EventDispatcherSupport_LIBRARIES} ${Qt5ThemeSupport_LIBRARIES})
+    endif()
+    ADD_DEFINITIONS(-DSTATIC_QT5)
+  ENDIF()
+
 ENDIF()
 # If Qt5 is not found (or not desired), check for Qt4
 IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
@@ -318,9 +338,10 @@ IF ( WITH_PYTHON )
     MARK_AS_ADVANCED(PYTHON_INCLUDE_DIR)
     SET(PYTHONLIBS_FOUND TRUE)
   ELSE ()
-    # **NOTE** For some reason, FindPythonLibs.cmake always seems to default to
-    # `/System/Library/Frameworks/Python.framework/Headers` as the include path
-    # on OS X.
+    # **NOTE**
+    # In order to find the correct version of 'PythonLibs', it seems that we need to run 'FIND_PACKAGE(PythonInterp)' firstly.
+    # In order to find the correct version of 'PythonInterp', we need to set 'PYTHONHOME' environment variable
+    FIND_PACKAGE(PythonInterp)
     FIND_PACKAGE(PythonLibs)
   ENDIF ()
 ENDIF()

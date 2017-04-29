@@ -97,34 +97,54 @@ IF (DESIRED_QT_VERSION MATCHES 5 OR (NOT DESIRED_QT_VERSION AND (QT_VERSION_MAJO
   IF( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
     find_package(Qt5Test QUIET)
   ENDIF()
-  
-  IF( WIN32 AND NOT BUILD_SHARED_LIBS )
-    # For static Windows builds, we also need to pull in the Qt5 Platform
-    # support library, which is not exposed to CMake properly, unfortunately
-    GET_TARGET_PROPERTY(QT_LIB_DIR "${Qt5Widgets_LIBRARIES}" LOCATION)
-    GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
-    FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
-      HINTS "${QT_LIB_DIR}"
-    )
-    FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
-      HINTS "${QT_LIB_DIR}/../plugins/platforms"
-    )
-    ADD_DEFINITIONS(-DSTATIC_QT5)
-  ENDIF()
 
-  IF(Qt5Core_FOUND AND Qt5Widgets_FOUND AND Qt5Concurrent_FOUND AND Qt5Core_FOUND AND (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug" OR (Qt5Test_FOUND AND Qt5Xml_FOUND)))
-  	SET(QT5_FOUND TRUE)
-    SET(QT_INCLUDE_DIR "${Qt5Core_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS} ${Qt5Concurrent_INCLUDE_DIRS}")
-    SET(QT_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5QWindows_LIBRARIES} ${Qt5Platform_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Concurrent_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Xml_LIBRARIES})
-    SET(QT_TEST_LIBRARIES ${Qt5Test_LIBRARIES} ${Qt5Core_LIBRARIES})
-
+  IF(Qt5Core_FOUND AND Qt5Widgets_FOUND AND Qt5Concurrent_FOUND AND Qt5Xml_FOUND AND (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug" OR (Qt5Test_FOUND)))
+    SET(QT5_FOUND TRUE)
     # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
     # etc. which is used here.
     string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
     string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
     string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
+
+    # Starting with Qt 5.7, c++11 must be used; before, it doesn't hurt
+    set(CMAKE_CXX_STANDARD 11)
+    SET(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml)
+    SET(QT_TEST_LIBRARIES ${Qt5Test_LIBRARIES} Qt5::Core)
+  ELSE()
+    SET(QT5_FOUND FALSE)
   ENDIF()
   
+  IF( QT5_FOUND AND WIN32 AND NOT BUILD_SHARED_LIBS )
+    # For static Windows builds, we also need to pull in the Qt5 Platform
+    # support library, which is not exposed to CMake properly, unfortunately
+    GET_TARGET_PROPERTY(QT_LIB_DIR Qt5::Widgets LOCATION)
+    GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
+
+    FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
+      HINTS "${QT_LIB_DIR}/../plugins/platforms"
+    )
+
+    # Starting with Qt 5.8, Qt5PlatformSupport was modularized
+    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR LESS 8)
+      FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      LIST(INSERT QT_LIBRARIES 0 ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES})
+    else()
+      FIND_LIBRARY(Qt5FontDatabaseSupport_LIBRARIES Qt5FontDatabaseSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      FIND_LIBRARY(Qt5EventDispatcherSupport_LIBRARIES Qt5EventDispatcherSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      FIND_LIBRARY(Qt5ThemeSupport_LIBRARIES Qt5ThemeSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5FontDatabaseSupport_LIBRARIES} ${Qt5EventDispatcherSupport_LIBRARIES} ${Qt5ThemeSupport_LIBRARIES})
+    endif()
+    ADD_DEFINITIONS(-DSTATIC_QT5)
+  ENDIF()
+
   # Define version-dependent wrappers
   MACRO(QT_ADD_RESOURCES)
     QT5_ADD_RESOURCES(${ARGV})
@@ -175,7 +195,6 @@ FIND_PACKAGE(ZLIB REQUIRED)
 # Aggregate library names and include directories into variables for easy
 # access.
 SET(QTPDF_INCLUDE_DIRS
-  ${QT_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
   ${POPPLER_QT_INCLUDE_DIR}
 )
