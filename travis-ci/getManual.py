@@ -1,7 +1,15 @@
-import urllib, urllib2, json, sys, os, os.path, zipfile, tempfile
+import json, sys, os, os.path, zipfile, tempfile
+try:
+	# Python3
+	from urllib.request import urlopen, urlretrieve
+except:
+	# Python2
+	from urllib2 import urlopen
+	from urllib import urlretrieve
 
-fin = urllib2.urlopen("https://api.github.com/repos/TeXworks/manual/releases/latest")
-release = json.load(fin)
+
+fin = urlopen("https://api.github.com/repos/TeXworks/manual/releases/latest")
+release = json.loads(fin.read().decode('utf-8'))
 fin.close()
 
 for asset in release["assets"]:
@@ -12,7 +20,7 @@ for asset in release["assets"]:
 		print("Downloading %s from %s and uncompressing to %s" % (asset['name'], asset['browser_download_url'], folder))
 		tmpfile = tempfile.NamedTemporaryFile(delete = False)
 		tmpfile.close()
-		urllib.urlretrieve(asset['browser_download_url'], tmpfile.name)
+		urlretrieve(asset['browser_download_url'], tmpfile.name)
 		
 		with zipfile.ZipFile(tmpfile.name, 'r') as z:
 			z.extractall(folder)
@@ -24,7 +32,7 @@ for asset in release["assets"]:
 		if not os.path.exists(folder):
 			os.makedirs(folder)
 		print("Downloading %s from %s to %s" % (asset['name'], asset['browser_download_url'], folder))
-		urllib.urlretrieve(asset['browser_download_url'], os.path.join(folder, asset['name']))
+		urlretrieve(asset['browser_download_url'], os.path.join(folder, asset['name']))
 
 	else:
 		print("Error: Unknown content type '%s' for file '%s'" % (asset['content_type'], asset['name']))
