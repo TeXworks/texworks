@@ -557,6 +557,11 @@ void CompletingEdit::handleBackspace(QKeyEvent *e)
 	}
 	else
 		QTextEdit::keyPressEvent(e);
+
+	// Without the following, when pressing Up or Down immediately
+	// after Backspace the cursor ends up in the wrong column.
+	curs.setPosition(curs.position());
+	setTextCursor(curs);
 }
 
 void CompletingEdit::handleOtherKey(QKeyEvent *e)
