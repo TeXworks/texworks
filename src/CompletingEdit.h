@@ -102,6 +102,7 @@ protected:
 	virtual bool canInsertFromMimeData(const QMimeData *source) const;
 	virtual void insertFromMimeData(const QMimeData *source);
 	virtual void resizeEvent(QResizeEvent *event);
+	virtual void wheelEvent(QWheelEvent *event);
 	virtual bool event(QEvent *event);	
 	virtual void scrollContentsBy(int dx, int dy);
 	

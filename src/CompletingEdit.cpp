@@ -1191,6 +1191,21 @@ void CompletingEdit::resizeEvent(QResizeEvent *e)
 	lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
 }
 
+void CompletingEdit::wheelEvent(QWheelEvent *e)
+{
+	if (e->modifiers() & Qt::ControlModifier)
+	{
+		const int fontSizeChange = (e->delta() > 0) ? 1 : -1;
+		QFont ft = font();
+		ft.setPointSize(ft.pointSize() + fontSizeChange);
+		setFont(ft);
+		e->accept();
+		return;
+	}
+
+	QTextEdit::wheelEvent(e);
+}
+
 void CompletingEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
 	Q_ASSERT(lineNumberArea != NULL);
