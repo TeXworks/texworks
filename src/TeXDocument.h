@@ -236,8 +236,6 @@ private:
 	void saveRecentFileInfo();
 	bool getPreviewFileName(QString &pdfName);
 	bool openPdfIfAvailable(bool show);
-	void prefixLines(const QString &prefix);
-	void unPrefixLines(const QString &prefix);
 	void replaceSelection(const QString& newText);
 	void doHardWrap(int mode, int lineWidth, bool rewrap);
 	void zoomToLeft(QWidget *otherWindow);
