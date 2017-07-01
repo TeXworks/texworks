@@ -72,6 +72,9 @@ public:
 	static void setHighlightCurrentLine(bool highlight);
 	static void setAutocompleteEnabled(bool autocomplete);
 
+	void prefixLines(const QString &prefix);
+	void unPrefixLines(const QString &prefix);
+
 public slots:
 	void setAutoIndentMode(int index);
 	void setSmartQuotesMode(int index);

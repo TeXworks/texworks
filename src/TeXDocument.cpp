@@ -1826,97 +1826,24 @@ void TeXDocument::doReplaceDialog()
 		doReplace(result);
 }
 
-void TeXDocument::prefixLines(const QString &prefix)
-{
-	QTextCursor cursor = textEdit->textCursor();
-	cursor.beginEditBlock();
-	int selStart = cursor.selectionStart();
-	int selEnd = cursor.selectionEnd();
-	cursor.setPosition(selStart);
-	if (!cursor.atBlockStart()) {
-		cursor.movePosition(QTextCursor::StartOfBlock);
-		selStart = cursor.position();
-	}
-	cursor.setPosition(selEnd);
-	if (!cursor.atBlockStart() || selEnd == selStart) {
-		cursor.movePosition(QTextCursor::NextBlock);
-		selEnd = cursor.position();
-	}
-	if (selEnd == selStart)
-		goto handle_end_of_doc;	// special case - cursor in blank line at end of doc
-	if (!cursor.atBlockStart()) {
-		cursor.movePosition(QTextCursor::StartOfBlock);
-		goto handle_end_of_doc; // special case - unterminated last line
-	}
-	while (cursor.position() > selStart) {
-		cursor.movePosition(QTextCursor::PreviousBlock);
-	handle_end_of_doc:
-		cursor.insertText(prefix);
-		cursor.movePosition(QTextCursor::StartOfBlock);
-		selEnd += prefix.length();
-	}
-	cursor.setPosition(selStart);
-	cursor.setPosition(selEnd, QTextCursor::KeepAnchor);
-	textEdit->setTextCursor(cursor);
-	cursor.endEditBlock();
-}
-
 void TeXDocument::doIndent()
 {
-	prefixLines("\t");
+	textEdit->prefixLines("\t");
 }
 
 void TeXDocument::doComment()
 {
-	prefixLines("%");
-}
-
-void TeXDocument::unPrefixLines(const QString &prefix)
-{
-	QTextCursor cursor = textEdit->textCursor();
-	cursor.beginEditBlock();
-	int selStart = cursor.selectionStart();
-	int selEnd = cursor.selectionEnd();
-	cursor.setPosition(selStart);
-	if (!cursor.atBlockStart()) {
-		cursor.movePosition(QTextCursor::StartOfBlock);
-		selStart = cursor.position();
-	}
-	cursor.setPosition(selEnd);
-	if (!cursor.atBlockStart() || selEnd == selStart) {
-		cursor.movePosition(QTextCursor::NextBlock);
-		selEnd = cursor.position();
-	}
-	if (!cursor.atBlockStart()) {
-		cursor.movePosition(QTextCursor::StartOfBlock);
-		goto handle_end_of_doc; // special case - unterminated last line
-	}
-	while (cursor.position() > selStart) {
-		cursor.movePosition(QTextCursor::PreviousBlock);
-	handle_end_of_doc:
-		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
-		QString		str = cursor.selectedText();
-		if (str == prefix) {
-			cursor.removeSelectedText();
-			selEnd -= prefix.length();
-		}
-		else
-			cursor.movePosition(QTextCursor::PreviousCharacter);
-	}
-	cursor.setPosition(selStart);
-	cursor.setPosition(selEnd, QTextCursor::KeepAnchor);
-	textEdit->setTextCursor(cursor);
-	cursor.endEditBlock();
+	textEdit->prefixLines("%");
 }
 
 void TeXDocument::doUnindent()
 {
-	unPrefixLines("\t");
+	textEdit->unPrefixLines("\t");
 }
 
 void TeXDocument::doUncomment()
 {
-	unPrefixLines("%");
+	textEdit->unPrefixLines("%");
 }
 
 void TeXDocument::toUppercase()
