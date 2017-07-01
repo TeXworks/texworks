@@ -1790,8 +1790,11 @@ void TeXDocument::doFontDialog()
 	if (ok) {
 		textEdit->setFont(font);
 		font.setPointSize(font.pointSize() - 1);
-		textEdit_console->setFont(font);
+
 		inputLine->setFont(font);
+		textEdit_console->setFont(font);
+		for (int i = 1; i < consoleTabs->count(); ++i)
+			consoleTabs->widget(i)->setFont(font);
 	}
 }
 
@@ -2800,6 +2803,8 @@ void TeXDocument::executeAfterTypesetHooks()
 			QString res = result.toString();
 			if (res.startsWith("<html>", Qt::CaseInsensitive)) {
 				QTextBrowser *browser = new QTextBrowser(this);
+				// Use console font (which is customizable)
+				browser->setFont(textEdit_console->font());
 				browser->setOpenLinks(false);
 				connect(browser, SIGNAL(anchorClicked(const QUrl&)), this, SLOT(anchorClicked(const QUrl&)));
 				browser->setHtml(res);
