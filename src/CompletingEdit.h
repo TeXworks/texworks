@@ -154,8 +154,8 @@ private:
 	QBasicTimer clickTimer;
 	QPoint clickPos;
 	int clickCount;
-    
-    int wheelDelta;  // used to accumulate small steps of high-resolution mice
+
+	int wheelDelta;  // used to accumulate small steps of high-resolution mice
 	
 	static void loadIndentModes();
 
@@ -167,7 +167,7 @@ private:
 	int autoIndentMode;
 	int prefixLength;
 
-    static void loadSmartQuotesModes();
+	static void loadSmartQuotesModes();
 	
 	typedef QPair<QString,QString> QuotePair;
 	typedef QHash<QChar,QuotePair> QuoteMapping;
