@@ -49,6 +49,7 @@
 CompletingEdit::CompletingEdit(QWidget *parent)
 	: QTextEdit(parent),
 	  clickCount(0),
+	  wheelDelta(0),
 	  autoIndentMode(-1), prefixLength(0),
 	  smartQuotesMode(-1),
 	  c(NULL), cmpCursor(QTextCursor()),
@@ -1195,10 +1196,17 @@ void CompletingEdit::wheelEvent(QWheelEvent *e)
 {
 	if (e->modifiers() & Qt::ControlModifier)
 	{
-		const int fontSizeChange = (e->delta() > 0) ? 1 : -1;
-		QFont ft = font();
-		ft.setPointSize(ft.pointSize() + fontSizeChange);
-		setFont(ft);
+		wheelDelta += e->delta();  // accumulate wheelDelta for high-resolution mice, which might pass small values.
+		int sign = (wheelDelta < 0) ? -1 : 1;
+        const int stepSize = 120;  // according to Qt docs a standard wheel step corresponds to a delta of 120.
+		int steps = (sign * wheelDelta) / stepSize;  // abs value to guarantee rounding towards 0.
+		if (steps > 0) {
+			QFont ft = font();
+            const int minFontSize = 4;
+			ft.setPointSize(qMax(ft.pointSize() + sign * steps, minFontSize));
+			setFont(ft);
+			wheelDelta = 0;
+		}
 		e->accept();
 		return;
 	}

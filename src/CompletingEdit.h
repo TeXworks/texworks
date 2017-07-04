@@ -154,6 +154,8 @@ private:
 	QBasicTimer clickTimer;
 	QPoint clickPos;
 	int clickCount;
+    
+    int wheelDelta;  // used to accumulate small steps of high-resolution mice
 	
 	static void loadIndentModes();
 
