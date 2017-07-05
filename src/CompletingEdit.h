@@ -105,6 +105,7 @@ protected:
 	virtual bool canInsertFromMimeData(const QMimeData *source) const;
 	virtual void insertFromMimeData(const QMimeData *source);
 	virtual void resizeEvent(QResizeEvent *event);
+	virtual void wheelEvent(QWheelEvent *event);
 	virtual bool event(QEvent *event);	
 	virtual void scrollContentsBy(int dx, int dy);
 	
@@ -156,6 +157,8 @@ private:
 	QBasicTimer clickTimer;
 	QPoint clickPos;
 	int clickCount;
+
+	int wheelDelta;  // used to accumulate small steps of high-resolution mice
 	
 	static void loadIndentModes();
 
@@ -167,7 +170,7 @@ private:
 	int autoIndentMode;
 	int prefixLength;
 
-    static void loadSmartQuotesModes();
+	static void loadSmartQuotesModes();
 	
 	typedef QPair<QString,QString> QuotePair;
 	typedef QHash<QChar,QuotePair> QuoteMapping;
