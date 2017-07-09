@@ -197,14 +197,8 @@ void MagnifyingGlass::mouseReleaseEvent(QMouseEvent * event)
 
   if (!event || !_started)
     return;
-  if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton) {
-    _magnifier->hide();
-    _started = false;
-    // Force an update of the viewport so that the drop shadow is hidden
-    QRect r(QPoint(0, 0), _magnifier->dropShadow().size());
-    r.moveCenter(_magnifier->geometry().center());
-    _parent->viewport()->update(r);
-  }
+  if (event->buttons() == Qt::NoButton && event->button() == Qt::LeftButton)
+    hide();
 }
 
 void MagnifyingGlass::paintEvent(QPaintEvent * event)
@@ -221,6 +215,18 @@ void MagnifyingGlass::paintEvent(QPaintEvent * event)
   QRect r(QPoint(0, 0), dropShadow.size());
   r.moveCenter(_magnifier->geometry().center());
   p.drawPixmap(r.topLeft(), dropShadow);
+}
+
+void MagnifyingGlass::hide()
+{
+  Q_ASSERT(_magnifier != NULL);
+
+  _magnifier->hide();
+  _started = false;
+  // Force an update of the viewport so that the drop shadow is hidden
+  QRect r(QPoint(0, 0), _magnifier->dropShadow().size());
+  r.moveCenter(_magnifier->geometry().center());
+  _parent->viewport()->update(r);
 }
 
 

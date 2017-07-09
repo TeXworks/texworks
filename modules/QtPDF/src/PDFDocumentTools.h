@@ -108,12 +108,14 @@ public:
 
 protected:
   virtual void arm() { AbstractTool::arm(); _started = false; }
-  virtual void disarm() { AbstractTool::disarm(); _started = false; }
+  virtual void disarm() { AbstractTool::disarm(); hide(); }
 
   virtual void mousePressEvent(QMouseEvent * event);
   virtual void mouseMoveEvent(QMouseEvent * event);
   virtual void mouseReleaseEvent(QMouseEvent * event);
   virtual void paintEvent(QPaintEvent * event);
+
+  virtual void hide();
 
   PDFDocumentMagnifierView * _magnifier;
   bool _started;
