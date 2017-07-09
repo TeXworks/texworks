@@ -142,6 +142,9 @@ public slots:
   void previousSearchResult();
   void clearSearchResults();
 
+  void armTool(const DocumentTool::AbstractTool::Type toolType);
+  void disarmTool();
+
 signals:
   void changedPage(int pageNum);
   void changedZoom(qreal zoomLevel);
@@ -175,9 +178,7 @@ protected:
 
   DocumentTool::AbstractTool * getToolByType(const DocumentTool::AbstractTool::Type type);
 
-  void armTool(const DocumentTool::AbstractTool::Type toolType);
   void armTool(DocumentTool::AbstractTool * tool);
-  void disarmTool();
 
 protected slots:
   void maybeUpdateSceneRect();
