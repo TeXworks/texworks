@@ -732,6 +732,11 @@ void PDFDocument::contextMenuEvent(QContextMenuEvent *event)
 	Q_ASSERT(pdfWidget != NULL);
 	QMenu menu(this);
 
+	// Disarm the active tool (if any) as the menu will be highjacking all
+	// events. This will, e.g., close an open magnifier view, which would
+	// otherwise not receive a proper mouseReleaseEvent
+	pdfWidget->disarmTool();
+
 	if (_synchronizer && _synchronizer->isValid()) {
 		QAction *act = new QAction(tr("Jump to Source"), &menu);
 		act->setData(QVariant(event->pos()));
