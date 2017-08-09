@@ -242,6 +242,7 @@ void Document::parseDocument()
     _meta_modDate = fromPDFDate(_poppler_doc->info(QString::fromUtf8("ModDate")));
     metaKeys.removeAll(QString::fromUtf8("ModDate"));
   }
+  _meta_fileSize = QFileInfo(_fileName).size();
 
   // Note: Poppler doesn't handle the meta data key "Trapped" correctly, as that
   // has a value of type `name` (/True, /False, or /Unknown) which doesn't get

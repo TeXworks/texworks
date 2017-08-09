@@ -512,6 +512,7 @@ public:
   QString producer() const { QReadLocker docLocker(_docLock.data()); return _meta_producer; }
   QDateTime creationDate() const { QReadLocker docLocker(_docLock.data()); return _meta_creationDate; }
   QDateTime modDate() const { QReadLocker docLocker(_docLock.data()); return _meta_modDate; }
+  qint64 fileSize() const { QReadLocker docLocker(_docLock.data()); return _meta_fileSize; }
   TrappedState trapped() const { QReadLocker docLocker(_docLock.data()); return _meta_trapped; }
   QMap<QString, QString> metaDataOther() const { QReadLocker docLocker(_docLock.data()); return _meta_other; }
   // </metadata>
@@ -547,6 +548,7 @@ protected:
   QString _meta_producer;
   QDateTime _meta_creationDate;
   QDateTime _meta_modDate;
+  qint64 _meta_fileSize;
   TrappedState _meta_trapped;
   QMap<QString, QString> _meta_other;
   QSharedPointer<QReadWriteLock> _docLock;

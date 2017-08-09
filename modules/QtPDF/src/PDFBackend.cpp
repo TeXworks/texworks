@@ -484,6 +484,7 @@ void PDFPageCache::markOutdated()
 Document::Document(QString fileName):
   _numPages(-1),
   _fileName(fileName),
+  _meta_fileSize(0),
   _meta_trapped(Trapped_Unknown),
   _docLock(new QReadWriteLock(QReadWriteLock::Recursive))
 {
@@ -574,6 +575,7 @@ void Document::clearMetaData()
   _meta_keywords = QString();
   _meta_creator = QString();
   _meta_producer = QString();
+  _meta_fileSize = 0;
 
   _meta_creationDate = QDateTime();
   _meta_modDate = QDateTime();

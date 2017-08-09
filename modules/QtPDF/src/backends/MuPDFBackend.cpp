@@ -594,6 +594,7 @@ void Document::loadMetaData()
       }
     }
   }
+  _meta_fileSize = QFileInfo(_fileName).size();
   // TODO: Implement metadata stream handling (which should probably override
   // the data in the `Info` dictionary
 }

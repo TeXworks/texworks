@@ -2895,7 +2895,12 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   _keywords = new QLabel(_documentGroup);
   _keywords->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_keywordsLabel, _keywords);
-  
+
+  _fileSizeLabel = new QLabel(_documentGroup);
+  _fileSize = new QLabel(_documentGroup);
+  _fileSize->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(_fileSizeLabel, _fileSize);
+
   _documentGroup->setLayout(layout);
   vLayout->addWidget(_documentGroup);
 
@@ -2936,7 +2941,6 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   layout = new QFormLayout(_otherGroup);
   // Hide the "Other" group box unless it has something to display
   _otherGroup->setVisible(false);
-
   // Note: Items are added to the "Other" box dynamically in
   // initFromDocument()
 
@@ -2955,6 +2959,18 @@ void PDFMetaDataInfoWidget::initFromDocument(const QWeakPointer<Backend::Documen
 
 void PDFMetaDataInfoWidget::reload()
 {
+  QStringList sizeUnits;
+  //: File size: bytes
+  sizeUnits << PDFDocumentView::trUtf8("B");
+  //: File size: kilobytes
+  sizeUnits << PDFDocumentView::trUtf8("kB");
+  //: File size: megabytes
+  sizeUnits << PDFDocumentView::trUtf8("MB");
+  //: File size: gigabytes
+  sizeUnits << PDFDocumentView::trUtf8("GB");
+  //: File size: terabytes
+  sizeUnits << PDFDocumentView::trUtf8("TB");
+
   QSharedPointer<Backend::Document> doc(_doc.toStrongRef());
   if (!doc) {
     clear();
@@ -2964,6 +2980,18 @@ void PDFMetaDataInfoWidget::reload()
   _author->setText(doc->author());
   _subject->setText(doc->subject());
   _keywords->setText(doc->keywords());
+
+  // Convert the file size to human-readable form
+  float fileSize = doc->fileSize();
+  int iUnit;
+  for (iUnit = 0; iUnit < sizeUnits.size() && fileSize >= 1000.; ++iUnit)
+	fileSize /= 1000.;
+  if (iUnit == 0)
+	_fileSize->setText(QString::fromLatin1("%1 %2").arg(doc->fileSize()).arg(sizeUnits[0]));
+  else
+	_fileSize->setText(QString::fromLatin1("%1 %2").arg(fileSize, 0, 'f', 1).arg(sizeUnits[iUnit]));
+
+
   _creator->setText(doc->creator());
   _producer->setText(doc->producer());
   _creationDate->setText(doc->creationDate().toString(Qt::DefaultLocaleLongDate));
@@ -2991,6 +3019,7 @@ void PDFMetaDataInfoWidget::reload()
       delete child;
     }
   }
+
   QMap<QString, QString>::const_iterator it;
   for (it = doc->metaDataOther().constBegin(); it != doc->metaDataOther().constEnd(); ++it) {
     QLabel * l = new QLabel(it.value(), _otherGroup);
@@ -3007,6 +3036,7 @@ void PDFMetaDataInfoWidget::clear()
   _author->setText(QString());
   _subject->setText(QString());
   _keywords->setText(QString());
+  _fileSize->setText(QString());
   _creator->setText(QString());
   _producer->setText(QString());
   _creationDate->setText(QString());
@@ -3032,7 +3062,8 @@ void PDFMetaDataInfoWidget::retranslateUi()
   _authorLabel->setText(PDFDocumentView::trUtf8("Author:"));
   _subjectLabel->setText(PDFDocumentView::trUtf8("Subject:"));
   _keywordsLabel->setText(PDFDocumentView::trUtf8("Keywords:"));
-  
+  _fileSizeLabel->setText(PDFDocumentView::trUtf8("File size:"));
+
   _processingGroup->setTitle(PDFDocumentView::trUtf8("Processing"));
   _creatorLabel->setText(PDFDocumentView::trUtf8("Creator:"));
   _producerLabel->setText(PDFDocumentView::trUtf8("Producer:"));
