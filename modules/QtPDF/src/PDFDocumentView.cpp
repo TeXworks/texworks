@@ -12,6 +12,7 @@
  * more details.
  */
 #include "PDFDocumentView.h"
+#include "PaperSizes.h"
 
 #if QT_VERSION_MAJOR >= 5
   #include <QtConcurrent>
@@ -2896,6 +2897,11 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   _keywords->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
   layout->addRow(_keywordsLabel, _keywords);
 
+  _pageSizeLabel = new QLabel(_documentGroup);
+  _pageSize = new QLabel(_documentGroup);
+  _pageSize->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+  layout->addRow(_pageSizeLabel, _pageSize);
+
   _fileSizeLabel = new QLabel(_documentGroup);
   _fileSize = new QLabel(_documentGroup);
   _fileSize->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
@@ -2985,12 +2991,13 @@ void PDFMetaDataInfoWidget::reload()
   float fileSize = doc->fileSize();
   int iUnit;
   for (iUnit = 0; iUnit < sizeUnits.size() && fileSize >= 1000.; ++iUnit)
-	fileSize /= 1000.;
+    fileSize /= 1000.;
   if (iUnit == 0)
-	_fileSize->setText(QString::fromLatin1("%1 %2").arg(doc->fileSize()).arg(sizeUnits[0]));
+    _fileSize->setText(QString::fromLatin1("%1 %2").arg(doc->fileSize()).arg(sizeUnits[0]));
   else
-	_fileSize->setText(QString::fromLatin1("%1 %2").arg(fileSize, 0, 'f', 1).arg(sizeUnits[iUnit]));
+    _fileSize->setText(QString::fromLatin1("%1 %2").arg(fileSize, 0, 'f', 1).arg(sizeUnits[iUnit]));
 
+  _pageSize->setText(PaperSize::findForPDFSize(doc->pageSize()).label());
 
   _creator->setText(doc->creator());
   _producer->setText(doc->producer());
@@ -3062,6 +3069,7 @@ void PDFMetaDataInfoWidget::retranslateUi()
   _authorLabel->setText(PDFDocumentView::trUtf8("Author:"));
   _subjectLabel->setText(PDFDocumentView::trUtf8("Subject:"));
   _keywordsLabel->setText(PDFDocumentView::trUtf8("Keywords:"));
+  _pageSizeLabel->setText(PDFDocumentView::trUtf8("Page size:"));
   _fileSizeLabel->setText(PDFDocumentView::trUtf8("File size:"));
 
   _processingGroup->setTitle(PDFDocumentView::trUtf8("Processing"));

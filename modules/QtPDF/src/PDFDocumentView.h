@@ -311,6 +311,7 @@ private:
   QLabel * _author, * _authorLabel;
   QLabel * _subject, * _subjectLabel;
   QLabel * _keywords, * _keywordsLabel;
+  QLabel * _pageSize, * _pageSizeLabel;
   QLabel * _fileSize, * _fileSizeLabel;
   QGroupBox * _processingGroup;
   QLabel * _creator, * _creatorLabel;

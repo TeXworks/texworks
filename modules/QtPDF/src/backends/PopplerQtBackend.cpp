@@ -15,6 +15,14 @@
 // NOTE: `PopplerQtBackend.h` is included via `PDFBackend.h`
 #include <PDFBackend.h>
 
+// Comparison operator for QSizeF needed to use QSizeF as keys in a QMap
+// NB: Must be in the global namespace
+inline bool operator<(const QSizeF & a, const QSizeF & b) {
+    float areaA = a.width() * a.height();
+    float areaB = b.width() * b.height();
+    return (areaA < areaB || (areaA == areaB && a.width() < b.width()));
+}
+
 namespace QtPDF {
 
 namespace Backend {
@@ -243,6 +251,22 @@ void Document::parseDocument()
     metaKeys.removeAll(QString::fromUtf8("ModDate"));
   }
   _meta_fileSize = QFileInfo(_fileName).size();
+
+  // Get the most often used page size
+  QMap<QSizeF, int> pageSizes;
+  for (int i = 0; i < _numPages; ++i) {
+    QSizeF ps = _poppler_doc->page(i)->pageSizeF();
+    if (pageSizes.contains(ps)) ++pageSizes[ps];
+    else pageSizes[ps] = 1;
+  }
+  int occurrences = -1;
+  _meta_pageSize = QSizeF();
+  Q_FOREACH(QSizeF ps, pageSizes.keys()) {
+      if (occurrences < pageSizes[ps]) {
+          _meta_pageSize = ps;
+          occurrences = pageSizes[ps];
+      }
+  }
 
   // Note: Poppler doesn't handle the meta data key "Trapped" correctly, as that
   // has a value of type `name` (/True, /False, or /Unknown) which doesn't get
