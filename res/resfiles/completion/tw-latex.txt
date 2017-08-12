@@ -193,7 +193,6 @@ parbox:=\parbox{#INS#}{•}
 parboxo:=\parbox[#INS#]{•}{•}
 pbox:=\parbox{#INS#}{•}
 pboxo:=\parbox[#INS#]{•}{•}
-pbox:=\pbox{#INS}{•}
 ref:=\ref{#INS#}
 rncm:=\renewcommand{#INS#}{•}#RET#
 rnewc:=\renewcommand{#INS#}{•}#RET#
@@ -586,7 +585,6 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \pbox:=\parbox{#INS#}{•}
 \parbox[#INS#]{•}{•}
 \pboxo:=\parbox[#INS#]{•}{•}
-\pbox{#INS#}{•}
 \rule{#INS#}{•}
 \rule[#INS#]{•}{•}
 \mathbf{#INS#}
