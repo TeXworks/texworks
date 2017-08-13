@@ -1,0 +1,20 @@
+%%!TEX encoding = UTF-8 Unicode
+botr:=\bottomrule#RET#
+cmidr:=\cmidrule(#INS#){•}
+cmidro:=\cmidrule[#INS#](•){•}
+geometry:=\geometry{•}
+href:=\href{#INS#}{•}
+topr:=\toprule#RET#
+\bottomrule#RET#
+\citep{#INS#}
+\citet{#INS#}
+\cmidrule(#INS#){•}
+\cmidrule[#INS#](•){•}
+\geometry{•}
+\href{#INS#}{•}
+\midrule#RET#
+\toprule#RET#
+{compactenum}#RET#\item#RET##INS##RET#\end{compactenum}•
+{compactenum}[#INS#]#RET#\item#RET#•#RET#\end{compactenum}•
+{compactitem}#RET#\item#RET##INS##RET#\end{compactitem}•
+{compactitem}[#INS#]#RET#\item#RET#•#RET#\end{compactitem}•

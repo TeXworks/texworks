@@ -52,7 +52,6 @@ bminp:=\begin{minipage}{#INS#}#RET#•#RET#\end{minipage}•
 bminpo:=\begin{minipage}[#INS#]{•}#RET#•#RET#\end{minipage}•
 bmult:=\begin{multline}#RET##INS##RET#\end{multline}•
 bmults:=\begin{multline*}#RET##INS##RET#\end{multline*}•
-botr:=\bottomrule#RET#
 bpict:=\begin{picture}#RET##INS##RET#\end{picture}•
 bpmat:=\begin{pmatrix}#RET##INS##RET#\end{pmatrix}•
 bquo:=\begin{quote}#RET##INS##RET#\end{quote}•
@@ -83,8 +82,6 @@ bibitem:=\bibitem{#INS#}#RET#•
 bibitemo:=\bibitem[#INS#]{•}#RET#•
 center:=\centering
 chap:=\chapter{#INS#}#RET#
-cmidr:=\cmidrule(#INS#){•}
-cmidro:=\cmidrule[#INS#](•){•}
 dd:=\( #INS# \)•
 dxa:=\(\alpha\)
 dxb:=\(\beta\)
@@ -131,10 +128,8 @@ frac:=\frac{#INS#}{•}
 fbox:=\fbox{#INS#}
 fboxo:=\framebox[#INS#]{•}
 fboxoo:=\framebox[#INS#][•]{•}
-geometry:=\geometry{•}
 hw:=\headwidth
 hw2tw:=\setlength{\headwidth}{\textwidth}#RET#
-href:=\href{#INS#}{•}
 it:=\item#RET##INS#
 ito:=\item[#INS#]#RET#•
 incg:=\includegraphics{#INS#}#RET#
@@ -154,7 +149,6 @@ mcal:=\mathcal{#INS#}
 msf:=\mathsf{#INS#}
 mtt:=\mathtt{#INS#}
 mit:=\mathit{#INS#}
-midr:=\midrule#RET#
 mnorm:=\mathnormal{#INS#}
 mdd:=\mdseries
 mbox:=\mbox{#INS#}
@@ -229,7 +223,6 @@ tt:=\texttt{#INS#}
 ttd:=\ttfamily
 tw:=\textwidth
 tilde:=\textasciitilde
-topr:=\toprule#RET#
 toc:=\tableofcontents#RET#
 tableofcontents:=\tableofcontents#RET#
 up:=\textup{#INS#}
@@ -315,19 +308,14 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \bvers:=\begin{verse}#RET##INS##RET#\end{verse}•
 \bibitem{#INS#}#RET#•
 \bibitem[#INS#]{•}#RET#•
-\bottomrule#RET#
 \boxed{#INS#}
 \dxch:=\(\chi\)
 \centering
 \chapter{#INS#}
 \cite{#INS#}
-\citep{#INS#}
-\citet{#INS#}
 \caption{#INS#}#RET#
 \cdots
 \cline{#INS#}
-\cmidrule(#INS#){•}
-\cmidrule[#INS#](•){•}
 \date{#INS#}#RET#
 \dd:=\( #INS# \)•
 \ddots
@@ -353,7 +341,6 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \footnote{#INS#}
 \footnotesize
 \frac{#INS#}{•}
-\geometry{•}
 \dxg:=\(\gamma\)
 \dxcg:=\(\Gamma\)
 \dxio:=\(\iota\)
@@ -362,7 +349,6 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \dxm:=\(\mu\)
 \dxn:=\(\nu\)
 \hline#RET#
-\href{#INS#}{•}
 \hspace{#INS#}
 \hspace*{#INS#}
 \item#RET##INS#
@@ -385,7 +371,6 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \marginpar{#INS#}
 \mpar:=\marginpar{#INS#}
 \mdseries
-\midrule#RET#
 \multicolumn{#INS#}{•}{•}
 \multc:=\multicolumn{#INS#}{•}{•}
 \ncol:= & 
@@ -471,7 +456,6 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \up:=\textup{#INS#}
 \textwidth
 \headwidth
-\toprule#RET#
 \toc:=\tableofcontents#RET#
 \tableofcontents#RET#
 \thanks{#INS#}#RET#
