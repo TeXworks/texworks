@@ -204,11 +204,12 @@ IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
   find_package(Qt5Script QUIET)
   find_package(Qt5ScriptTools QUIET)
   find_package(Qt5Xml QUIET)
+  find_package(Qt5LinguistTools QUIET)
   IF ( UNIX AND NOT APPLE )
     find_package(Qt5DBus QUIET)
   ENDIF ()
 
-  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND AND (NOT UNIX OR APPLE OR Qt5DBus_FOUND))
+  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT UNIX OR APPLE OR Qt5DBus_FOUND))
     SET(QT5_FOUND TRUE)
     SET(QT_LIBRARIES Qt5::UiTools Qt5::ScriptTools Qt5::Script Qt5::Concurrent Qt5::Xml ${Qt5DBus_LIBRARIES} Qt5::Widgets Qt5::Gui Qt5::Core)
 

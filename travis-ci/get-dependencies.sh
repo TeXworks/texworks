@@ -17,7 +17,7 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		sudo apt-get install -y ubuntu-dev-tools dput debhelper libqt4-dev zlib1g-dev libhunspell-dev libpoppler-qt4-dev liblua5.2-dev
 	elif [ $QT -eq 5 ]; then
 		print_info "Installing packages: ubuntu-dev-tools dput debhelper qtbase5-dev qtscript5-dev qttools5-dev zlib1g-dev libhunspell-dev libpoppler-qt5-dev libpoppler-private-dev liblua5.2-dev"
-		sudo apt-get install -y ubuntu-dev-tools dput debhelper qtbase5-dev qtscript5-dev qttools5-dev zlib1g-dev libhunspell-dev libpoppler-qt5-dev libpoppler-private-dev liblua5.2-dev
+		sudo apt-get install -y ubuntu-dev-tools dput debhelper qtbase5-dev qtscript5-dev qttools5-dev qttools5-dev-tools zlib1g-dev libhunspell-dev libpoppler-qt5-dev libpoppler-private-dev liblua5.2-dev
 	else
 		print_error "Unsupported Qt version '${QT}'"
 		exit 1

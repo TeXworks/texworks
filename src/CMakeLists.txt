@@ -14,7 +14,8 @@ FILE(GLOB TEXWORKS_HDRS       "*.h")
 FILE(GLOB TEXWORKS_UIS        "*.ui")
 FILE(GLOB TEXWORKS_RCS        "${TeXworks_SOURCE_DIR}/res/*.qrc")
 FILE(GLOB TEXWORKS_TRANS_TS   "${TeXworks_SOURCE_DIR}/trans/*.ts")
-FILE(GLOB TEXWORKS_TRANS_QM   "${TeXworks_SOURCE_DIR}/trans/*.qm" "${TeXworks_SOURCE_DIR}/trans/qt/*.qm" "${TeXworks_SOURCE_DIR}/modules/QtPDF/trans/*.qm")
+FILE(GLOB QTPDF_TRANS_TS      "${TeXworks_SOURCE_DIR}/modules/QtPDF/trans/*.ts")
+FILE(GLOB QT_TRANS_QM         "${TeXworks_SOURCE_DIR}/trans/qt/*.qm")
 
 IF ( WIN32 )
 	FILE(GLOB TEXWORKS_WIN_RCS  "${TeXworks_SOURCE_DIR}/res/*.rc")
@@ -116,7 +117,7 @@ ENDIF()
 # Run rcc on reasource files.
 QT_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
 # Add translations
-QT_ADD_QM_TRANSLATIONS(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS_QM})
+QT_ADD_TRANSLATIONS(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS_TS} ${QTPDF_TRANS_TS} ${QT_TRANS_QM})
 
 # Create .pro file that can be used for easy updating with `lupdate`. We sort
 # the file list to obtain a stable result (that can be kept in the repository)

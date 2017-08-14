@@ -13,6 +13,7 @@ SOURCES = \
   "../src/PDFTransitions.cpp" \
   "../src/PDFActions.cpp" \
   "../src/PDFAnnotations.cpp" \
+  "../src/PaperSizes.cpp" \
   "../src/backends/PopplerQtBackend.cpp"
 
 HEADERS = \
@@ -23,6 +24,7 @@ HEADERS = \
   "../src/PDFTransitions.h" \
   "../src/PDFActions.h" \
   "../src/PDFAnnotations.h" \
+  "../src/PaperSizes.h" \
   "../src/backends/PopplerQtBackend.h"
 
 TRANSLATIONS = \
