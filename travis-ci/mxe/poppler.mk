@@ -3,8 +3,8 @@
 PKG             := poppler
 $(PKG)_WEBSITE  := https://poppler.freedesktop.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 0.54.0
-$(PKG)_CHECKSUM := 10cca9a67cc2e6f4f9024192b1067c444218bf94430891f43dc819d78536ca31
+$(PKG)_VERSION  := 0.57.0
+$(PKG)_CHECKSUM := 0ea37de71b7db78212ebc79df59f99b66409a29c2eac4d882dae9f2397fe44d8
 $(PKG)_SUBDIR   := poppler-$($(PKG)_VERSION)
 $(PKG)_FILE     := poppler-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://poppler.freedesktop.org/$($(PKG)_FILE)
@@ -40,7 +40,7 @@ define $(PKG)_BUILD
         --enable-splash-output \
         --enable-compile-warnings=yes \
         --enable-introspection=auto \
-        --disable-libopenjpeg \
+        --enable-libopenjpeg=none \
         --disable-gtk-test \
         --disable-utils \
         --disable-gtk-doc \
