@@ -11,8 +11,6 @@ bfrm:=\begin{frame}#RET##INS##RET#\end{frame}•
 \beamergotobutton{#INS#}
 \beamerreturnbutton{#INS#}
 \beamerskipbutton{#INS#}
-\column{#INS#}
-\column[•]{#INS#}
 \frametitle{#INS#}#RET#
 \frametitle<•>[•]{#INS#}#RET#
 \framesubtitle{#INS#}#RET#
