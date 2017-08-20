@@ -58,10 +58,10 @@ darkblue N [\=\[\]]
 gray N [\-\+\/\^\_]
 
 # start/stop
-darkgreen	N	\\(?:start|stop)[A-Za-z]+
+darkgreen;B	N	\\(?:start|stop)[A-Za-z]+
 
 # control sequences
-blue		N	\\(?:[A-Za-z@]+|.)
+blue;B		N	\\(?:[A-Za-z@]+|.)
 
 # comments
 red			Y	%.*
