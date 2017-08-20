@@ -45,17 +45,17 @@ darkblue	N	\\usepackage\s*(?:\[[^\]]*\]\s*)?\{[^\}]*\}
 blue		N	\\(?:[A-Za-z@]+|.)
 
 # comments
-red			Y	%.*
+red		Y	%.*
 
 [ConTeXt]
 # special characters
 darkred		N	[\$\#{\}\&]
 
 # 'other' special characters
-darkblue N [\=\[\]]
+darkblue	N	[\=\[\]]
 
 # mathematical operations
-gray N [\-\+\/\^\_]
+gray		N	[\-\+\/\^\_]
 
 # start/stop
 darkgreen;B	N	\\(?:start|stop)[A-Za-z]+
@@ -64,7 +64,7 @@ darkgreen;B	N	\\(?:start|stop)[A-Za-z]+
 blue;B		N	\\(?:[A-Za-z@]+|.)
 
 # comments
-red			Y	%.*
+red		Y	%.*
 
 # other possibilities to be added....
 # [BibTeX]
