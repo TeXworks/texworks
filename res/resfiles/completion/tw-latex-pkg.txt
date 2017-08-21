@@ -1,5 +1,9 @@
 %%!TEX encoding = UTF-8 Unicode
 %%
+%% biblatex
+\addbibresource{#INS#}#RET#
+\printbibliography#RET#
+\printbibliography[#INS#]#RET#
 %% booktabs
 botr:=\bottomrule#RET#
 cmidr:=\cmidrule(#INS#){•}
@@ -10,6 +14,8 @@ topr:=\toprule#RET#
 \cmidrule[#INS#](•){•}
 \midrule#RET#
 \toprule#RET#
+%% csquotes
+\enquote{#INS#}
 %% geometry
 geometry:=\geometry{•}
 \geometry{•}
