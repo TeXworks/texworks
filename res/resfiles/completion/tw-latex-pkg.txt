@@ -1,19 +1,25 @@
 %%!TEX encoding = UTF-8 Unicode
+%%
+%% booktabs
 botr:=\bottomrule#RET#
 cmidr:=\cmidrule(#INS#){•}
 cmidro:=\cmidrule[#INS#](•){•}
-geometry:=\geometry{•}
-href:=\href{#INS#}{•}
 topr:=\toprule#RET#
 \bottomrule#RET#
-\citep{#INS#}
-\citet{#INS#}
 \cmidrule(#INS#){•}
 \cmidrule[#INS#](•){•}
-\geometry{•}
-\href{#INS#}{•}
 \midrule#RET#
 \toprule#RET#
+%% geometry
+geometry:=\geometry{•}
+\geometry{•}
+%% hyperref
+href:=\href{#INS#}{•}
+\href{#INS#}{•}
+%% natbib
+\citep{#INS#}
+\citet{#INS#}
+%% paralist
 {compactenum}#RET#\item#RET##INS##RET#\end{compactenum}•
 {compactenum}[#INS#]#RET#\item#RET#•#RET#\end{compactenum}•
 {compactitem}#RET#\item#RET##INS##RET#\end{compactitem}•
