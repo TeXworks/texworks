@@ -27,9 +27,7 @@ bfrm:=\begin{frame}#RET##INS##RET#\end{frame}•
 \note<#INS#>{•}#RET#
 \note<#INS#>[•]{•}#RET#
 \only<#INS#>{•}
-\onslide<>{#INS#}
-\onslide+<>{#INS#}
-\onslide*<>{#INS#}
+\onslide<#INS#>{•}
 \pause#RET#
 \pause[#INS#]#RET#
 \setbeamercolor{#INS#}{•}#RET#
