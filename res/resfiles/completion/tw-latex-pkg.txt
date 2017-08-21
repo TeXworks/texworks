@@ -30,3 +30,6 @@ href:=\href{#INS#}{•}
 {compactenum}[#INS#]#RET#\item#RET#•#RET#\end{compactenum}•
 {compactitem}#RET#\item#RET##INS##RET#\end{compactitem}•
 {compactitem}[#INS#]#RET#\item#RET#•#RET#\end{compactitem}•
+%% TikZ
+{tikzpicture}#RET##INS##RET#\end{tikzpicture}•
+{tikzpicture}[#INS#]#RET#•#RET#\end{tikzpicture}•
