@@ -60,6 +60,22 @@ blue		N	\\(?:[A-Za-z@]+|.)
 # comments
 red			Y	%.*
 
+[Lua]
+
+# Comments (single line only)
+red		Y	--.*
+
+# Strings
+green		N	(?:\"(?:[^\"\\]|\\[\s\S])*(?:\"|$)|\'(?:[^\'\\]|\\[\s\S])*(?:\'|$))
+green		N	\[(=*)\[[\s\S]*(?:\]\1\]|$)
+
+# Keywords
+blue;B		N	
+\b(?:and|break|do|else|elseif|end|false|for|function|if|in|local|nil|not|or|repeat|return|then|true|until|while)\b
+
+# Numbers
+darkblue	N	[+-]?(?:0x[\da-f]+|(?:(?:\.\d+|\d+(?:\.\d*)?)(?:e[+\-]?\d+)?))
+
 # other possibilities to be added....
 # [BibTeX]
 # [Metapost]
