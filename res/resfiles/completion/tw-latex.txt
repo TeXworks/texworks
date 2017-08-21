@@ -310,6 +310,7 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \hline#RET#
 \hspace{#INS#}
 \hspace*{#INS#}
+\input{#INS#}#RET#
 \item#RET##INS#
 \item[#INS#]#RET#•
 \include{#INS#}#RET#
@@ -333,8 +334,11 @@ usepo:=\usepackage[#INS#]{•}#RET#
 \ldots
 \listf:=\listoffigures#RET#
 \listt:=\listoftables#RET#
+\listfiles#RET#
 \listoffigures#RET#
 \listoftables#RET#
+\makeatletter
+\makeatother
 \makebox[#INS#]{•}
 \makebox[#INS#][•]{•}
 \marginpar{#INS#}
