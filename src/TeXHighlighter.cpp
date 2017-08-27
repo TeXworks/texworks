@@ -339,12 +339,19 @@ void NonblockingSyntaxHighlighter::maybeRehighlightText(int position, int charsR
 
 void NonblockingSyntaxHighlighter::sanitizeHighlightRanges()
 {
-	// 1) remove any invalid ranges
+	// 1) clip ranges
+	int n = (_parent ? _parent->characterCount() : 0);
+	for (int i = 0; i < _highlightRanges.size(); ++i) {
+		if (_highlightRanges[i].from < 0) _highlightRanges[i].from = 0;
+		if (_highlightRanges[i].to > n) _highlightRanges[i].to = n;
+	}
+
+	// 2) remove any invalid ranges
 	for (int i = _highlightRanges.size() - 1; i >= 0; --i) {
 		if (_highlightRanges[i].to <= _highlightRanges[i].from)
 			_highlightRanges.remove(i);
 	}
-	// 2) merge adjacent (or overlapping) ranges
+	// 3) merge adjacent (or overlapping) ranges
 	// NB: There must not be any invalid ranges in here for this or else the
 	// merging algorithm would fail
 	for (int i = _highlightRanges.size() - 1; i >= 1; --i) {
