@@ -75,7 +75,7 @@ TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchron
   // Find the name SyncTeX is using for this source file...
   const QFileInfo sourceFileInfo(src.filename);
   QDir curDir(QFileInfo(pdfFilename()).canonicalPath());
-  SyncTeX::synctex_node_t node = SyncTeX::synctex_scanner_input(_scanner);
+  SyncTeX::synctex_node_p node = SyncTeX::synctex_scanner_input(_scanner);
   QString name;
   bool found = false;
   while (node) {
@@ -92,8 +92,8 @@ TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchron
 
   retVal.filename = pdfFilename();
 
-  if (SyncTeX::synctex_display_query(_scanner, name.toLocal8Bit().data(), src.line, src.col) > 0) {
-    while ((node = SyncTeX::synctex_next_result(_scanner)) != NULL) {
+  if (SyncTeX::synctex_display_query(_scanner, name.toLocal8Bit().data(), src.line, src.col, -1) > 0) {
+	while ((node = SyncTeX::synctex_scanner_next_result(_scanner)) != NULL) {
       if (retVal.page < 0)
         retVal.page = SyncTeX::synctex_node_page(node);
       if (SyncTeX::synctex_node_page(node) != retVal.page)
@@ -122,8 +122,8 @@ TWSynchronizer::TeXSyncPoint TWSyncTeXSynchronizer::syncFromPDF(const TWSynchron
     return retVal;
 
   if (SyncTeX::synctex_edit_query(_scanner, src.page, src.rects[0].left(), src.rects[0].top()) > 0) {
-    SyncTeX::synctex_node_t node;
-    while ((node = SyncTeX::synctex_next_result(_scanner)) != NULL) {
+	SyncTeX::synctex_node_p node;
+	while ((node = SyncTeX::synctex_scanner_next_result(_scanner)) != NULL) {
       retVal.filename = QString::fromLocal8Bit(SyncTeX::synctex_scanner_get_name(_scanner, SyncTeX::synctex_node_tag(node)));
       retVal.line = SyncTeX::synctex_node_line(node);
       retVal.col = -1;
@@ -215,9 +215,9 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   // than one PDF rect for multiline paragraphs).
   // Note: this still does not help for paragraphs broken across pages
   QList<QPolygonF> selection;
-  if (SyncTeX::synctex_display_query(_scanner, dest.filename.toLocal8Bit().data(), dest.line, -1) > 0) {
-    SyncTeX::synctex_node_t node;
-    while ((node = SyncTeX::synctex_next_result(_scanner)) != NULL) {
+  if (SyncTeX::synctex_display_query(_scanner, dest.filename.toLocal8Bit().data(), dest.line, -1, src.page) > 0) {
+	SyncTeX::synctex_node_p node;
+	while ((node = SyncTeX::synctex_scanner_next_result(_scanner)) != NULL) {
       if (SyncTeX::synctex_node_page(node) != src.page)
         continue;
       QRectF nodeRect(synctex_node_box_visible_h(node),

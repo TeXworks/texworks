@@ -72,7 +72,7 @@ protected:
 
   static int _findCorrespondingPosition(const QString & srcContext, const QString & destContext, const int col, bool & unique);
 
-  SyncTeX::synctex_scanner_t _scanner;
+  SyncTeX::synctex_scanner_p _scanner;
 };
 
 #endif // !defined(TW_SYNCHRONIZER_H)
