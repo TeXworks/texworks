@@ -100,6 +100,7 @@
 #include <string.h>
 #include <errno.h>
 #include <limits.h>
+#include <stdarg.h>
 
 #if defined(HAVE_LOCALE_H)
 #include <locale.h>
