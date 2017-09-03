@@ -33,7 +33,7 @@
 
 [LaTeX]
 # special characters
-darkred		N	[\$\#\^\_\{\}\&]
+darkred		N	[$#^_{}&]
 
 # LaTeX environments
 darkgreen	N	\\(?:begin|end)\s*\{[^\}]*\}
@@ -49,13 +49,13 @@ red		Y	%.*
 
 [ConTeXt]
 # special characters
-darkred		N	[\$\#{\}\&]
+darkred		N	[$#{}&]
 
 # 'other' special characters
-darkblue	N	[\=\[\]]
+darkblue	N	[=\[\]]
 
 # mathematical operations
-gray		N	[\-\+\/\^\_]
+gray		N	[\-+/^_]
 
 # start/stop
 darkgreen;B	N	\\(?:start|stop)[A-Za-z]+
