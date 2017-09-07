@@ -33,7 +33,7 @@
 
 [LaTeX]
 # special characters
-darkred		N	[\$#\^_\{\}&]
+darkred		N	[$#^_{}&]
 
 # LaTeX environments
 darkgreen	N	\\(?:begin|end)\s*\{[^\}]*\}
@@ -45,20 +45,26 @@ darkblue	N	\\usepackage\s*(?:\[[^\]]*\]\s*)?\{[^\}]*\}
 blue		N	\\(?:[A-Za-z@]+|.)
 
 # comments
-red			Y	%.*
+red		Y	%.*
 
 [ConTeXt]
 # special characters
-darkred		N	[$#^_{}&]
+darkred		N	[$#{}&]
+
+# 'other' special characters
+darkblue	N	[=\[\]]
+
+# mathematical operations
+gray		N	[\-+/^_]
 
 # start/stop
-darkgreen	N	\\(?:start|stop)[A-Za-z]+
+darkgreen;B	N	\\(?:start|stop)[A-Za-z]+
 
 # control sequences
-blue		N	\\(?:[A-Za-z@]+|.)
+blue;B		N	\\(?:[A-Za-z@]+|.)
 
 # comments
-red			Y	%.*
+red		Y	%.*
 
 # other possibilities to be added....
 # [BibTeX]
