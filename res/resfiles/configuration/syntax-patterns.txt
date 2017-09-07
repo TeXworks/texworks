@@ -66,6 +66,36 @@ blue;B		N	\\(?:[A-Za-z@]+|.)
 # comments
 red		Y	%.*
 
+[LaTeX DTX]
+
+# comments
+red		Y	\^\^A.*
+
+# Guards
+darkviolet		N	^%<@@=[^>]*>
+limegreen		N	^%<\*[^>]*>
+crimson		N	^%</[^>]*>
+brown		N	^%<<
+orange		N	^%<[^>]*>
+
+# special characters
+darkred		N	\^\^\^\^\^[0-9a-z]{5}
+darkred		N	\^\^\^\^[0-9a-z]{4}
+darkred		N	\^\^\^[0-9a-z]{3}
+darkred		N	\^\^[0-9a-z]{2}
+darkred		N	[$#^_{}&]
+gray		N	^%%.*
+gray		N	^%
+
+# Macrocode
+green		N	\\(?:begin|end)\{macrocode\}
+
+# LaTeX environments
+darkgreen	N	\\(?:begin|end)\s*\{[^}]*\}
+
+# control sequences
+blue		N	\\(?:[A-Za-z@:_]+|.)
+
 # other possibilities to be added....
 # [BibTeX]
 # [Metapost]
