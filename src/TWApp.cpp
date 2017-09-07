@@ -894,7 +894,11 @@ void TWApp::setDefaultEngineList()
 		<< Engine("ConTeXt (XeTeX)", "texexec" EXE, QStringList("--synctex") << "--xtx" << "$fullname", true)
 		<< Engine("BibTeX", "bibtex" EXE, QStringList("$basename"), false)
 		<< Engine("Biber", "biber" EXE, QStringList("$basename"), false)
-		<< Engine("MakeIndex", "makeindex" EXE, QStringList("$basename"), false);
+		<< Engine("MakeIndex", "makeindex" EXE, QStringList("$basename"), false)
+#if !defined(Q_OS_WIN)
+	        << Engine("Make", "make" EXE, QStringList("SYNCTEX=$synctexoption"), true)
+#endif
+	  ;
 	defaultEngineIndex = 1;
 }
 
