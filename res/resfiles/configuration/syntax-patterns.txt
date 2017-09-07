@@ -66,6 +66,17 @@ blue;B		N	\\(?:[A-Za-z@]+|.)
 # comments
 red		Y	%.*
 
+[BibTeX]
+
+# entries
+darkgreen	N	@[^{]+
+
+# comments
+red		Y	%.*
+
+# keys
+blue	N	[a-zA-Z]+(?=\s*=)
+
 [LaTeX DTX]
 
 # comments
@@ -113,6 +124,5 @@ blue;B		N
 darkblue	N	[+-]?(?:0x[\da-f]+|(?:(?:\.\d+|\d+(?:\.\d*)?)(?:e[+\-]?\d+)?))
 
 # other possibilities to be added....
-# [BibTeX]
 # [Metapost]
 # etc
