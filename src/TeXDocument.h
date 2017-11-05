@@ -169,6 +169,7 @@ public slots:
 	void toggleCase();
 	void balanceDelimiters();
 	void doHardWrapDialog();
+	void doInsertCitationsDialog();
 	void setLineNumbers(bool displayNumbers);
 	void setWrapLines(bool wrap);
 	void setSyntaxColoring(int index);

@@ -6,6 +6,8 @@ error("This file is not intended for building TeXworks. Please use CMake instead
 INCLUDEPATH += src
 
 SOURCES = \
+  "../src/BibTeXfile.cpp" \
+  "../src/CitationSelectDialog.cpp" \
   "../src/ClickableLabel.cpp" \
   "../src/ClosableTabWidget.cpp" \
   "../src/CommandlineParser.cpp" \
@@ -36,6 +38,8 @@ SOURCES = \
   "../src/synctex_parser_utils.c"
 
 HEADERS = \
+  "../src/BibTeXfile.h" \
+  "../src/CitationSelectDialog.h" \
   "../src/ClickableLabel.h" \
   "../src/ClosableTabWidget.h" \
   "../src/CommandlineParser.h" \
@@ -67,9 +71,11 @@ HEADERS = \
   "../src/TeXHighlighter.h" \
   "../src/TemplateDialog.h" \
   "../src/synctex_parser.h" \
+  "../src/synctex_parser_advanced.h" \
   "../src/synctex_parser_utils.h"
 
 FORMS = \
+  "../src/CitationSelectDialog.ui" \
   "../src/ConfirmDelete.ui" \
   "../src/Find.ui" \
   "../src/HardWrapDialog.ui" \

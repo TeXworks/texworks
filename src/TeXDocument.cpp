@@ -30,6 +30,8 @@
 #include "ConfirmDelete.h"
 #include "HardWrapDialog.h"
 #include "DefaultPrefs.h"
+#include "CitationSelectDialog.h"
+#include "BibTeXfile.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -201,6 +203,7 @@ void TeXDocument::init()
 	connect(actionUncomment, SIGNAL(triggered()), this, SLOT(doUncomment()));
 
 	connect(actionHard_Wrap, SIGNAL(triggered()), this, SLOT(doHardWrapDialog()));
+	connect(actionInsert_Citations, SIGNAL(triggered()), this, SLOT(doInsertCitationsDialog()));
 	
 	connect(actionTo_Uppercase, SIGNAL(triggered()), this, SLOT(toUppercase()));
 	connect(actionTo_Lowercase, SIGNAL(triggered()), this, SLOT(toLowercase()));
@@ -1929,6 +1932,113 @@ void TeXDocument::doHardWrapDialog()
 	if (dlg.exec()) {
 		dlg.saveSettings();
 		doHardWrap(dlg.mode(), dlg.lineWidth(), dlg.rewrap());
+	}
+}
+
+void TeXDocument::doInsertCitationsDialog()
+{
+	CitationSelectDialog dlg(this);
+
+	// Look for a %!TeX bibfile modline
+	QTextCursor curs(textEdit->document());
+	// (begin|end)EditBlock() is a workaround for QTBUG-24718 that causes
+	// movePosition() to crash the program under some circumstances.
+	// Since we don't change any text in the edit block, it should be a noop
+	// in the context of undo/redo.
+	curs.beginEditBlock();
+	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
+	curs.endEditBlock();
+
+	QString peekStr = curs.selectedText();
+
+	// Search for bibfile(s) modline
+	// TODO: Be able to figure out bib files from \bibliography and
+	//       \nobibliography commands or from aux files
+	// TODO: Be able to parse thebibliography environments
+	QRegExp reBib("% *!TEX +bibfiles? *= *([^\\x2029]+)\\x2029", Qt::CaseInsensitive);
+	int pos = reBib.indexIn(peekStr);
+
+	if (pos < 0) {
+		emit asyncFlashStatusBarMessage(tr("No '%!TEX bibfile' modline found"), kStatusMessageDuration);
+		return;
+	}
+
+	// Load the bibfiles
+	Q_FOREACH(QString bibFile, reBib.cap(1).split(QLatin1Char(','), QString::SkipEmptyParts)) {
+		bibFile = bibFile.trimmed();
+		if (bibFile.isEmpty()) continue;
+		// Assume relative paths are given with respect to the current file's
+		// directory.
+		bibFile = QFileInfo(curFile).dir().absoluteFilePath(bibFile);
+		dlg.addBibTeXFile(BibTeXFile(bibFile));
+	}
+
+	// Work out the enclosing citation command and already existing BiBTeX keys
+	// (if any)
+	// TODO: Make configurable in a config text file
+	QStringList citeCmds = QStringList() << QLatin1String("cite") \
+	                                     << QLatin1String("bibentry") \
+	                                     << QLatin1String("citet") \
+	                                     << QLatin1String("citep") \
+	                                     << QLatin1String("citealt") \
+	                                     << QLatin1String("citealp") \
+	                                     << QLatin1String("citenum") \
+	                                     << QLatin1String("citeauthor") \
+	                                     << QLatin1String("citeyear") \
+	                                     << QLatin1String("citeyearpar") \
+	                                     << QLatin1String("citefullauthor") \
+	                                     << QLatin1String("Citet") \
+	                                     << QLatin1String("Citep") \
+	                                     << QLatin1String("Citealt") \
+	                                     << QLatin1String("Citealp") \
+	                                     << QLatin1String("Citeauthor");
+
+	QString pattern = QString::fromLatin1("\\\\(");
+	Q_FOREACH(QString citeCmd, citeCmds)
+		pattern += QRegExp::escape(citeCmd) + QString::fromLatin1("|");
+	pattern.chop(1);
+	pattern += QLatin1String(")\\*?\\s*(\\[[^\\]]*\\])?\\s*\\{([^}]*)\\}");
+
+	curs = textEdit->textCursor();
+
+	int peekFront = qMin(PEEK_LENGTH, curs.position());
+	int peekBack = qMin(PEEK_LENGTH, textDoc()->characterCount() - curs.position());
+
+	curs.beginEditBlock();
+	curs.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, peekFront);
+	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, peekFront + peekBack);
+	curs.endEditBlock();
+
+	peekStr = curs.selectedText();
+	QRegExp reCmd(pattern);
+
+	reCmd.lastIndexIn(peekStr, PEEK_LENGTH);
+	if (reCmd.pos() < peekFront && reCmd.pos() + reCmd.matchedLength() > peekFront) {
+		dlg.setInitialKeys(reCmd.cap(3).split(QLatin1Char(',')));
+	}
+
+	// Run the dialog
+	if (dlg.exec()) {
+		// If the dialog succeeded, insert the changes
+
+		// If the dialog was invoked without the cursor inside a citation
+		// command, insert a new one (\cite by default)
+		if (reCmd.pos() < 0) {
+			insertText(QString::fromLatin1("\\cite{%1}").arg(dlg.getSelectedKeys().join(QLatin1String(","))));
+		}
+		// Otherwise, replace the argument of the existing citation command
+		else {
+			curs.beginEditBlock();
+			// collapse the selection to the beginning
+			curs.setPosition(curs.position());
+			// move to the beginning of the cite argument (just after '{')
+			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, reCmd.pos(3));
+			// select the cite argument (until just before '}')
+			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, reCmd.cap(3).length());
+			// replace the text
+			curs.insertText(dlg.getSelectedKeys().join(QLatin1String(",")));
+			curs.endEditBlock();
+		}
 	}
 }
 
