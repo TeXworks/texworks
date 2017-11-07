@@ -2012,10 +2012,10 @@ void TeXDocument::doInsertCitationsDialog()
 	peekStr = curs.selectedText();
 	QRegExp reCmd(pattern);
 
-	reCmd.lastIndexIn(peekStr, PEEK_LENGTH);
-	if (reCmd.pos() < peekFront && reCmd.pos() + reCmd.matchedLength() > peekFront) {
+	reCmd.lastIndexIn(peekStr, peekFront);
+	bool updateExisting = reCmd.pos() < peekFront && reCmd.pos() + reCmd.matchedLength() > peekFront;
+	if (updateExisting)
 		dlg.setInitialKeys(reCmd.cap(3).split(QLatin1Char(',')));
-	}
 
 	// Run the dialog
 	if (dlg.exec()) {
@@ -2023,14 +2023,14 @@ void TeXDocument::doInsertCitationsDialog()
 
 		// If the dialog was invoked without the cursor inside a citation
 		// command, insert a new one (\cite by default)
-		if (reCmd.pos() < 0) {
+		if (!updateExisting) {
 			insertText(QString::fromLatin1("\\cite{%1}").arg(dlg.getSelectedKeys().join(QLatin1String(","))));
 		}
 		// Otherwise, replace the argument of the existing citation command
 		else {
 			curs.beginEditBlock();
 			// collapse the selection to the beginning
-			curs.setPosition(curs.position());
+			curs.setPosition(qMin(curs.position(), curs.anchor()));
 			// move to the beginning of the cite argument (just after '{')
 			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, reCmd.pos(3));
 			// select the cite argument (until just before '}')
