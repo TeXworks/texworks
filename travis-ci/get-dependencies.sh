@@ -43,8 +43,8 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	echo_and_run "sudo apt-get -qq update"
 
 	if [ "${QT}" -eq 4 ]; then
-		print_info "Installing packages: curl freetype gcc jpeg lcms1 libpng lua pkg-config qt tiff"
-		sudo apt-get install -y mxe-i686-w64-mingw32.static-curl mxe-i686-w64-mingw32.static-freetype mxe-i686-w64-mingw32.static-gcc mxe-i686-w64-mingw32.static-jpeg mxe-i686-w64-mingw32.static-lcms1 mxe-i686-w64-mingw32.static-libpng mxe-i686-w64-mingw32.static-lua mxe-i686-w64-mingw32.static-pkgconf mxe-i686-w64-mingw32.static-qt mxe-i686-w64-mingw32.static-tiff
+		print_info "Installing packages: curl freetype gcc jpeg lcms libpng lua pkg-config qt tiff"
+		sudo apt-get install -y mxe-i686-w64-mingw32.static-curl mxe-i686-w64-mingw32.static-freetype mxe-i686-w64-mingw32.static-gcc mxe-i686-w64-mingw32.static-jpeg mxe-i686-w64-mingw32.static-lcms mxe-i686-w64-mingw32.static-libpng mxe-i686-w64-mingw32.static-lua mxe-i686-w64-mingw32.static-pkgconf mxe-i686-w64-mingw32.static-qt mxe-i686-w64-mingw32.static-tiff
 
 		print_info "Make MXE writable"
 		sudo chmod -R a+w "${MXEDIR}"
@@ -59,8 +59,8 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		print_info "Building poppler (using ${JOBS} jobs)"
 		env PATH="${MXEDIR}/usr/bin:${MXEDIR}/usr/${MXETARGET}/qt/bin:$PATH" PREFIX="${MXEDIR}/usr" TARGET="${MXETARGET}" JOBS="$JOBS" MXE_CONFIGURE_OPTS="--host='${MXETARGET}' --build='`${MXEDIR}/ext/config.guess`' --prefix='${MXEDIR}/usr/${MXETARGET}' --enable-static --disable-shared ac_cv_prog_HAVE_DOXYGEN='false' --disable-doxygen --enable-poppler-qt4 --disable-poppler-qt5" TEST_FILE="poppler-test.cxx" make -f build-poppler-mxe.mk
 	elif [ "${QT}" -eq 5 ]; then
-		print_info "Installing packages: curl freetype gcc jpeg lcms1 libpng lua pkg-config qtbase qtscript qttools tiff"
-		sudo apt-get install -y mxe-i686-w64-mingw32.static-curl mxe-i686-w64-mingw32.static-freetype mxe-i686-w64-mingw32.static-gcc mxe-i686-w64-mingw32.static-jpeg mxe-i686-w64-mingw32.static-lcms1 mxe-i686-w64-mingw32.static-libpng mxe-i686-w64-mingw32.static-lua mxe-i686-w64-mingw32.static-pkgconf mxe-i686-w64-mingw32.static-qtbase mxe-i686-w64-mingw32.static-qtscript mxe-i686-w64-mingw32.static-qttools mxe-i686-w64-mingw32.static-tiff
+		print_info "Installing packages: curl freetype gcc jpeg lcms libpng lua pkg-config qtbase qtscript qttools tiff"
+		sudo apt-get install -y mxe-i686-w64-mingw32.static-curl mxe-i686-w64-mingw32.static-freetype mxe-i686-w64-mingw32.static-gcc mxe-i686-w64-mingw32.static-jpeg mxe-i686-w64-mingw32.static-lcms mxe-i686-w64-mingw32.static-libpng mxe-i686-w64-mingw32.static-lua mxe-i686-w64-mingw32.static-pkgconf mxe-i686-w64-mingw32.static-qtbase mxe-i686-w64-mingw32.static-qtscript mxe-i686-w64-mingw32.static-qttools mxe-i686-w64-mingw32.static-tiff
 
 		print_info "Make MXE writable"
 		sudo chmod -R a+w "${MXEDIR}"

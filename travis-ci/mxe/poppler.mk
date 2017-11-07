@@ -3,8 +3,8 @@
 PKG             := poppler
 $(PKG)_WEBSITE  := https://poppler.freedesktop.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 0.57.0
-$(PKG)_CHECKSUM := 0ea37de71b7db78212ebc79df59f99b66409a29c2eac4d882dae9f2397fe44d8
+$(PKG)_VERSION  := 0.61.0
+$(PKG)_CHECKSUM := 53cde17a2afa3b73eb8b209d24e4369b52bfac444065dbb0a8cbcc7356582b7f
 $(PKG)_SUBDIR   := poppler-$($(PKG)_VERSION)
 $(PKG)_FILE     := poppler-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://poppler.freedesktop.org/$($(PKG)_FILE)
@@ -18,41 +18,10 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_BUILD
-    # Note: Specifying LIBS explicitly is necessary for configure to properly
-    #       pick up libtiff (otherwise linking a minimal test program fails not
-    #       because libtiff is not found, but because some references are
-    #       undefined)
-    cd '$(1)' \
-        && PATH='$(PREFIX)/$(TARGET)/qt/bin:$(PATH)' \
-        ./configure \
-        $(MXE_CONFIGURE_OPTS) \
-        --disable-silent-rules \
-        --enable-xpdf-headers \
-        --enable-zlib \
-        --enable-cms=lcms2 \
-        --enable-libcurl \
-        --enable-libtiff \
-        --enable-libjpeg \
-        --enable-libpng \
-        --enable-poppler-glib \
-        --enable-poppler-cpp \
-        --enable-cairo-output \
-        --enable-splash-output \
-        --enable-compile-warnings=yes \
-        --enable-introspection=auto \
-        --enable-libopenjpeg=none \
-        --disable-gtk-test \
-        --disable-utils \
-        --disable-gtk-doc \
-        --disable-gtk-doc-html \
-        --disable-gtk-doc-pdf \
-        --with-font-configuration=win32 \
-        PKG_CONFIG_PATH_$(subst .,_,$(subst -,_,$(TARGET)))='$(PREFIX)/$(TARGET)/qt/lib/pkgconfig:$(PREFIX)/$(TARGET)/qt5/lib/pkgconfig' \
-        CXXFLAGS=-D_WIN32_WINNT=0x0500 \
-        LIBTIFF_LIBS="`'$(TARGET)-pkg-config' libtiff-4 --libs`"
-    PATH='$(PREFIX)/$(TARGET)/qt/bin:$(PATH)' \
-        $(MAKE) -C '$(1)' -j '$(JOBS)' $(MXE_DISABLE_CRUFT) HTML_DIR=
-    $(MAKE) -C '$(1)' -j 1 install $(MXE_DISABLE_CRUFT) HTML_DIR=
+    mkdir -p '$(1)/build'
+    cd '$(1)/build' && '$(TARGET)-cmake' .. -DENABLE_XPDF_HEADERS=ON -DENABLE_LIBOPENJPEG='none' -DENABLE_UTILS=OFF -DBUILD_GTK_TESTS=OFF -DBUILD_QT4_TESTS=OFF -DBUILD_QT5_TESTS=OFF -DBUILD_CPP_TESTS=OFF
+    $(MAKE) -C '$(1)/build' -j '$(JOBS)' $(MXE_DISABLE_CRUFT) HTML_DIR=
+    $(MAKE) -C '$(1)/build' -j 1 install $(MXE_DISABLE_CRUFT) HTML_DIR=
 
     # Test program
     '$(TARGET)-g++' \
