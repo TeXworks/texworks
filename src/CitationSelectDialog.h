@@ -88,7 +88,7 @@ public:
 
 	CitationModel & model() { return _model; }
 
-	void setInitialKeys(const QStringList & keys) { _initialKeys = keys; _model.setSelectedKeys(keys); }
+	void setInitialKeys(const QStringList & keys) { _initialKeys = keys; _initialKeys.removeAll(QLatin1String("")); _model.setSelectedKeys(_initialKeys); }
 
 	void addBibTeXFile(const BibTeXFile & file) {
 		_model.addBibTeXFile(file);

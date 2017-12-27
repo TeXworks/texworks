@@ -2032,7 +2032,11 @@ void TeXDocument::doInsertCitationsDialog()
 			// collapse the selection to the beginning
 			curs.setPosition(qMin(curs.position(), curs.anchor()));
 			// move to the beginning of the cite argument (just after '{')
-			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, reCmd.pos(3));
+			// NB: if there was no argument ("{}"), cap(3) is empty; for empty
+			// captures pos() returns -1 according to the documentation; in that
+			// case, use the fact that cap(0) is not empty and we know that the
+			// argument is followed by "}"
+			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, (reCmd.pos(3) >= 0 ? reCmd.pos(3) : reCmd.pos(0) + reCmd.cap(0).length() - 1));
 			// select the cite argument (until just before '}')
 			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, reCmd.cap(3).length());
 			// replace the text
