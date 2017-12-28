@@ -510,27 +510,26 @@ void TeXDocument::reloadSpellcheckerMenu()
 
 		foreach (dict, TWUtils::getDictionaryList()->values(dictKey)) {
 			loc = QLocale(dict);
-			if (loc.language() != QLocale::C) break;
-		}
 
-		if (loc.language() == QLocale::C)
-			label = dict;
-		else {
-			label = QLocale::languageToString(loc.language());
-			QLocale::Country country = loc.country();
-			if (country != QLocale::AnyCountry)
-				label += " - " + QLocale::countryToString(country);
-			label += " (" + dict + ")";
-		}
+			if (loc.language() == QLocale::C)
+				label = dict;
+			else {
+				label = QLocale::languageToString(loc.language());
+				QLocale::Country country = loc.country();
+				if (country != QLocale::AnyCountry)
+					label += " - " + QLocale::countryToString(country);
+				label += " (" + dict + ")";
+			}
 
-		act = new QAction(label, NULL);
-		act->setCheckable(true);
-		if (!oldSelected.isEmpty() && label == oldSelected)
-			act->setChecked(true);
-		connect(act, SIGNAL(triggered()), &dictSignalMapper, SLOT(map()));
-		dictSignalMapper.setMapping(act, dict);
-		group->addAction(act);
-		dictActions << act;
+			act = new QAction(label, NULL);
+			act->setCheckable(true);
+			if (!oldSelected.isEmpty() && label == oldSelected)
+				act->setChecked(true);
+			connect(act, SIGNAL(triggered()), &dictSignalMapper, SLOT(map()));
+			dictSignalMapper.setMapping(act, dict);
+			group->addAction(act);
+			dictActions << act;
+		}
 	}
 	qSort(dictActions.begin(), dictActions.end(), dictActionLessThan);
 	foreach (QAction* dictAction, dictActions)
