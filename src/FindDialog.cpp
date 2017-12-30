@@ -422,6 +422,7 @@ SearchResults::SearchResults(QWidget* parent)
 	: QDockWidget(parent)
 {
 	setupUi(this);
+	setFocusProxy(parent);
 	connect(table, SIGNAL(itemSelectionChanged()), this, SLOT(showSelectedEntry()));
 	connect(table, SIGNAL(itemPressed(QTableWidgetItem*)), this, SLOT(showEntry(QTableWidgetItem*)));
 	connect(table, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(goToSource()));
@@ -430,12 +431,6 @@ SearchResults::SearchResults(QWidget* parent)
 	sc->setContext(Qt::WidgetShortcut);
 	connect(sc, SIGNAL(activated()), this, SLOT(goToSourceAndClose()));
 	
-	TeXDocument * texDoc = qobject_cast<TeXDocument*>(parent);
-	if (texDoc) {
-		editorModifiedPalette = editorOriginalPalette = texDoc->palette();
-		editorModifiedPalette.setColor(QPalette::Highlight, editorOriginalPalette.color(QPalette::Active, QPalette::Highlight));
-		editorModifiedPalette.setColor(QPalette::HighlightedText, editorOriginalPalette.color(QPalette::Active, QPalette::HighlightedText));
-	}
 	connect(TWApp::instance(), SIGNAL(focusChanged(QWidget*,QWidget*)), this, SLOT(focusChanged(QWidget*,QWidget*)));
 }
 
@@ -618,11 +613,6 @@ void SearchResults::focusChanged(QWidget * old, QWidget * now)
 		nowFocused = false;
 	else
 		nowFocused = isAncestorOf(now);
-
-	if (!previouslyFocused && nowFocused)
-		texDoc->editor()->setPalette(editorModifiedPalette);
-	if (previouslyFocused && !nowFocused)
-		texDoc->editor()->setPalette(editorOriginalPalette);
 }
 
 PDFFindDialog::PDFFindDialog(PDFDocument *document)

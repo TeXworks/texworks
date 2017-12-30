@@ -164,9 +164,6 @@ private slots:
 	void showEntry(QTableWidgetItem * item);
 	void goToSource();
 	void goToSourceAndClose();
-
-private:
-	QPalette editorOriginalPalette, editorModifiedPalette;
 };
 
 #endif
