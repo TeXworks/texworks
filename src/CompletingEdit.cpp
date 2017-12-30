@@ -457,7 +457,7 @@ QTextCursor CompletingEdit::wordSelectionForPos(const QPoint& mousePos)
 
 	cursor = QTextCursor(document());
 	cursor.setPosition(cursorPos);
-	cursor.setPosition(cursorPos + 1, QTextCursor::KeepAnchor);
+	cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
 
 	// check if click was within the char to the right of cursor; if so we select forwards
 	QRect r = cursorRect(cursor);
