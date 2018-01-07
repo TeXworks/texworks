@@ -205,7 +205,7 @@ void TWApp::init()
 	menuFile = menuBar->addMenu(tr("File"));
 
 	actionNew = new QAction(tr("New"), this);
-	actionNew->setIcon(QIcon(":/images/tango/document-new.png"));
+	actionNew->setIcon(QIcon(QString::fromLatin1(":/images/tango/document-new.png")));
 	menuFile->addAction(actionNew);
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 
@@ -214,13 +214,13 @@ void TWApp::init()
 	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
 
 	actionPreferences = new QAction(tr("Preferences..."), this);
-	actionPreferences->setIcon(QIcon(":/images/tango/preferences-system.png"));
+	actionPreferences->setIcon(QIcon(QString::fromLatin1(":/images/tango/preferences-system.png")));
 	actionPreferences->setMenuRole(QAction::PreferencesRole);
 	menuFile->addAction(actionPreferences);
 	connect(actionPreferences, SIGNAL(triggered()), this, SLOT(preferences()));
 
 	actionOpen = new QAction(tr("Open..."), this);
-	actionOpen->setIcon(QIcon(":/images/tango/document-open.png"));
+	actionOpen->setIcon(QIcon(QString::fromLatin1(":/images/tango/document-open.png")));
 	menuFile->addAction(actionOpen);
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 
@@ -281,7 +281,7 @@ void TWApp::changeLanguage()
 	actionOpen->setText(tr("Open..."));
 	actionOpen->setShortcut(QKeySequence(tr("Ctrl+O")));
 	actionQuit->setText(tr("Quit TeXworks"));
-	actionQuit->setShortcut(QKeySequence("Ctrl+Q"));
+	actionQuit->setShortcut(QKeySequence(QKeySequence::Quit));
 
 	menuRecent->setTitle(tr("Open Recent"));
 
@@ -514,7 +514,7 @@ void TWApp::writeToMailingList()
 
 	body += QLatin1String("TeXworks version : " TEXWORKS_VERSION "r.") + TWUtils::gitCommitHash() + QLatin1String(" (" TW_BUILD_ID_STR ")\n");
 #if defined(Q_OS_DARWIN)
-	body += QLatin1String("Install location : ") + QDir(applicationDirPath() + "/../..").absolutePath() + QChar::fromLatin1('\n');
+	body += QLatin1String("Install location : ") + QDir(applicationDirPath() + QLatin1String("/../..")).absolutePath() + QChar::fromLatin1('\n');
 #else
 	body += QLatin1String("Install location : ") + applicationFilePath() + QChar::fromLatin1('\n');
 #endif
