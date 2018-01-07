@@ -142,12 +142,12 @@ template <class S, class C> int findBlock(const S & content, int from, const C &
 
 inline int findBlock(const QByteArray & content, int from, char startDelim = '{', char endDelim = '}', char escapeChar = 0)
 {
-	findBlock<QByteArray, char>(content, from, startDelim, endDelim, escapeChar);
+	return findBlock<QByteArray, char>(content, from, startDelim, endDelim, escapeChar);
 }
 
 inline int findBlock(const QString & content, int from, const QChar & startDelim = QChar::fromLatin1('{'), const QChar & endDelim = QChar::fromLatin1('}'), const QChar & escapeChar = QChar())
 {
-	findBlock<QString, QChar>(content, from, startDelim, endDelim, escapeChar);
+	return findBlock<QString, QChar>(content, from, startDelim, endDelim, escapeChar);
 }
 
 // static
@@ -259,4 +259,7 @@ const BibTeXFile::Entry & BibTeXFile::entry(const unsigned int idx) const
 		if (j == idx) return _entries[i];
 		++j;
 	}
+	// We should never get here
+	static BibTeXFile::Entry e(NULL);
+	return e;
 }
