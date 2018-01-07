@@ -145,7 +145,7 @@ inline int findBlock(const QByteArray & content, int from, char startDelim = '{'
 	findBlock<QByteArray, char>(content, from, startDelim, endDelim, escapeChar);
 }
 
-inline int findBlock(const QString & content, int from, const QChar & startDelim = '{', const QChar & endDelim = '}', const QChar & escapeChar = QChar())
+inline int findBlock(const QString & content, int from, const QChar & startDelim = QChar::fromLatin1('{'), const QChar & endDelim = QChar::fromLatin1('}'), const QChar & escapeChar = QChar())
 {
 	findBlock<QString, QChar>(content, from, startDelim, endDelim, escapeChar);
 }
@@ -190,7 +190,7 @@ int BibTeXFile::readEntry(Entry & e, const QByteArray & content, int curPos, con
 //static
 void BibTeXFile::parseEntry(Entry & e, const QString & block)
 {
-	int pos = block.indexOf(',');
+	int pos = block.indexOf(QChar::fromLatin1(','));
 	e._key = block.mid(0, pos).trimmed();
 	if (pos == -1) return;
 
@@ -199,7 +199,7 @@ void BibTeXFile::parseEntry(Entry & e, const QString & block)
 
 	do {
 		int start = pos + 1;
-		pos = block.indexOf('=', start);
+		pos = block.indexOf(QChar::fromLatin1('='), start);
 		if (pos < 0) break;
 		QString key = block.mid(start, pos - start).trimmed();
 		QString val;
@@ -212,12 +212,12 @@ void BibTeXFile::parseEntry(Entry & e, const QString & block)
 		}
 
 		for (i = start; i < block.size(); ++i) {
-			if (block[i] == ',') break;
-			else if (block[i] == '{') {
+			if (block[i] == QChar::fromLatin1(',')) break;
+			else if (block[i] == QChar::fromLatin1('{')) {
 				startDelim = QChar::fromLatin1('{');
 				endDelim = QChar::fromLatin1('}');
 			}
-			else if (block[i] == '"') {
+			else if (block[i] == QChar::fromLatin1('"')) {
 				startDelim = QChar::fromLatin1('"');
 				endDelim = QChar::fromLatin1('"');
 			}

@@ -35,16 +35,16 @@ bool CommandlineParser::parse()
 			item.longName = spec.longName;
 			item.processed = false;
 
-			QString strLong = "--" + spec.longName;
-			QString strShort = "-" + spec.shortName;
+			QString strLong = QLatin1String("--") + spec.longName;
+			QString strShort = QLatin1String("-") + spec.shortName;
 			
 			switch (spec.type) {
 				case Commandline_Option:
-					if (!spec.longName.isEmpty() && rawItem.startsWith(strLong + "=")) {
+				    if (!spec.longName.isEmpty() && rawItem.startsWith(strLong + QLatin1String("="))) {
 						item.value = rawItem.mid(strLong.length() + 1);
 						found = true;
 					}
-					else if (!spec.shortName.isEmpty() && rawItem.startsWith(strShort + "=")) {
+					else if (!spec.shortName.isEmpty() && rawItem.startsWith(strShort + QLatin1String("="))) {
 						item.value = rawItem.mid(strShort.length() + 1);
 						found = true;
 					}

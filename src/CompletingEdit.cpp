@@ -66,8 +66,8 @@ CompletingEdit::CompletingEdit(QWidget *parent)
 		currentLineFormat = new QTextCharFormat;
 
 		QSETTINGS_OBJECT(settings);
-		highlightCurrentLine = settings.value("highlightCurrentLine", true).toBool();
-		autocompleteEnabled = settings.value("autocompleteEnabled", true).toBool();
+		highlightCurrentLine = settings.value(QString::fromLatin1("highlightCurrentLine"), true).toBool();
+		autocompleteEnabled = settings.value(QString::fromLatin1("autocompleteEnabled"), true).toBool();
 	}
 		
 	loadIndentModes();
@@ -521,7 +521,7 @@ CompletingEdit::setSelectionClipboard(const QTextCursor& curs)
 	QClipboard *c = QApplication::clipboard();
 	if (!c->supportsSelection())
 		return;
-	c->setText(curs.selectedText().replace(QChar(0x2019), QChar('\n')),
+	c->setText(curs.selectedText().replace(QChar(0x2019), QChar::fromLatin1('\n')),
 		QClipboard::Selection);
 }
 
@@ -569,7 +569,7 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 		return;
 	}
 
-	if (e->text() != "")
+	if (!e->text().isEmpty())
 		cmpCursor = QTextCursor();
 
 	switch (e->key()) {
@@ -707,12 +707,12 @@ QStringList CompletingEdit::smartQuotesModes()
 void CompletingEdit::loadSmartQuotesModes()
 {
 	if (quotesModes == NULL) {
-		QDir configDir(TWUtils::getLibraryPath("configuration"));
+		QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
 		quotesModes = new QList<QuotesMode>;
-		QFile quotesModesFile(configDir.filePath("smart-quotes-modes.txt"));
+		QFile quotesModesFile(configDir.filePath(QString::fromLatin1("smart-quotes-modes.txt")));
 		if (quotesModesFile.open(QIODevice::ReadOnly)) {
-			QRegExp modeName("\\[([^]]+)\\]");
-			QRegExp quoteLine("([^ \\t])\\s+([^ \\t]+)\\s+([^ \\t]+)");
+			QRegExp modeName(QString::fromLatin1("\\[([^]]+)\\]"));
+			QRegExp quoteLine(QString::fromLatin1("([^ \\t])\\s+([^ \\t]+)\\s+([^ \\t]+)"));
 			QuotesMode newMode;
 			while (1) {
 				QByteArray ba = quotesModesFile.readLine();
@@ -773,7 +773,7 @@ void CompletingEdit::maybeSmartenQuote(int offset)
 			replacement = iter.value().first;
 		
 		// after opening brackets, also use opening quotes
-		if (text[offset - 1] == '{' || text[offset - 1] == '[' || text[offset - 1] == '(')
+		if (text[offset - 1] == QChar::fromLatin1('{') || text[offset - 1] == QChar::fromLatin1('[') || text[offset - 1] == QChar::fromLatin1('('))
 			replacement = iter.value().first;
 	}
 	
@@ -861,24 +861,24 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 		int start = cmpCursor.selectionStart();
 		int end = cmpCursor.selectionEnd();
 		if (start > 0) { // special cases: possibly look back to include brace or hyphen(s)
-			if (cmpCursor.selectedText() == "-") {
+			if (cmpCursor.selectedText() == QLatin1String("-")) {
 				QTextCursor hyphCursor(cmpCursor);
 				int hyphPos = start;
 				while (hyphPos > 0) {
 					hyphCursor.setPosition(hyphPos - 1);
 					hyphCursor.setPosition(hyphPos, QTextCursor::KeepAnchor);
-					if (hyphCursor.selectedText() != "-")
+					if (hyphCursor.selectedText() != QLatin1String("-"))
 						break;
 					--hyphPos;
 				}
 				cmpCursor.setPosition(hyphPos);
 				cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
 			}
-			else if (cmpCursor.selectedText() != "{") {
+			else if (cmpCursor.selectedText() != QLatin1String("{")) {
 				QTextCursor braceCursor(cmpCursor);
 				braceCursor.setPosition(start - 1);
 				braceCursor.setPosition(start, QTextCursor::KeepAnchor);
-				if (braceCursor.selectedText() == "{") {
+				if (braceCursor.selectedText() == QLatin1String("{")) {
 					cmpCursor.setPosition(start - 1);
 					cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
 				}
@@ -887,7 +887,7 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 		
 		while (1) {
 			QString completionPrefix = cmpCursor.selectedText();
-			if (completionPrefix != "") {
+			if (!completionPrefix.isEmpty()) {
 				setCompleter(sharedCompleter);
 				c->setCompletionPrefix(completionPrefix);
 				if (c->completionCount() == 0) {
@@ -936,9 +936,9 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 	
 	if(!noSelection) {
 		if(e->modifiers() == Qt::ShiftModifier) {
-			unPrefixLines("\t");
+			unPrefixLines(QString::fromLatin1("\t"));
 		} else {
-			prefixLines("\t");
+			prefixLines(QString::fromLatin1("\t"));
 		}
 	} else {
 		QTextEdit::keyPressEvent(e);
@@ -1003,9 +1003,9 @@ void CompletingEdit::showCurrentCompletion()
 
 	QString completion = model->item(items[itemIndex]->row(), 1)->text();
 	
-	int insOffset = completion.indexOf("#INS#");
+	int insOffset = completion.indexOf(QLatin1String("#INS#"));
 	if (insOffset != -1)
-		completion.replace("#INS#", "");
+		completion.replace(QLatin1String("#INS#"), QLatin1String(""));
 
 	showCompletion(completion, insOffset);
 }
@@ -1022,15 +1022,15 @@ void CompletingEdit::loadCompletionsFromFile(QStandardItemModel *model, const QS
 			QString	line = in.readLine();
 			if (line.isNull())
 				break;
-			if (line[0] == '%')
+			if (line[0] == QChar::fromLatin1('%'))
 				continue;
-			line.replace("#RET#", "\n");
-			QStringList parts = line.split(":=");
+			line.replace(QLatin1String("#RET#"), QLatin1String("\n"));
+			QStringList parts = line.split(QString::fromLatin1(":="));
 			if (parts.count() > 2)
 				continue;
 			if (parts.count() == 1)
 				parts.append(parts[0]);
-			parts[0].replace("#INS#", "");
+			parts[0].replace(QLatin1String("#INS#"), QLatin1String(""));
 			row.append(new QStandardItem(parts[0]));
 			row.append(new QStandardItem(parts[1]));
 			model->appendRow(row);
@@ -1044,7 +1044,7 @@ void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
 {
 	QStandardItemModel *model = new QStandardItemModel(0, 2, theCompleter); // columns are abbrev, expansion
 
-	QDir completionDir(TWUtils::getLibraryPath("completion"));
+	QDir completionDir(TWUtils::getLibraryPath(QString::fromLatin1("completion")));
 	foreach (QFileInfo fileInfo, completionDir.entryInfoList(QDir::Files | QDir::Readable, QDir::Name)) {
 		loadCompletionsFromFile(model, fileInfo.canonicalFilePath());
 	}
@@ -1152,11 +1152,11 @@ void CompletingEdit::ignoreWord()
 void CompletingEdit::loadIndentModes()
 {
 	if (indentModes == NULL) {
-		QDir configDir(TWUtils::getLibraryPath("configuration"));
+		QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
 		indentModes = new QList<IndentMode>;
-		QFile indentPatternFile(configDir.filePath("auto-indent-patterns.txt"));
+		QFile indentPatternFile(configDir.filePath(QString::fromLatin1("auto-indent-patterns.txt")));
 		if (indentPatternFile.open(QIODevice::ReadOnly)) {
-			QRegExp re("\"([^\"]+)\"\\s+(.+)");
+			QRegExp re(QString::fromLatin1("\"([^\"]+)\"\\s+(.+)"));
 			while (1) {
 				QByteArray ba = indentPatternFile.readLine();
 				if (ba.size() == 0)
@@ -1242,7 +1242,7 @@ int CompletingEdit::lineNumberAreaWidth()
 		++digits;
 	}
 	
-	int space = 3 + fontMetrics().width(QLatin1Char('9')) * digits;
+	int space = 3 + fontMetrics().width(QChar::fromLatin1('9')) * digits;
 	
 	return space;
 }

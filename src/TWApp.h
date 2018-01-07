@@ -36,10 +36,10 @@
 #include "TWScriptAPI.h"
 
 #if defined(Q_OS_WIN)
-#define PATH_LIST_SEP   ';'
+#define PATH_LIST_SEP   ";"
 #define EXE             ".exe"
 #else
-#define PATH_LIST_SEP   ':'
+#define PATH_LIST_SEP   ":"
 #define EXE
 #endif
 

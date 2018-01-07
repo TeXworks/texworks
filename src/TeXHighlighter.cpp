@@ -171,13 +171,13 @@ void TeXHighlighter::loadPatterns()
 	if (syntaxRules != NULL)
 		return;
 
-	QDir configDir(TWUtils::getLibraryPath("configuration"));
-	QRegExp whitespace("\\s+");
+	QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
+	QRegExp whitespace(QString::fromLatin1("\\s+"));
 
 	if (syntaxRules == NULL) {
 		syntaxRules = new QList<HighlightingSpec>;
-		QFile syntaxFile(configDir.filePath("syntax-patterns.txt"));
-		QRegExp sectionRE("^\\[([^\\]]+)\\]");
+		QFile syntaxFile(configDir.filePath(QString::fromLatin1("syntax-patterns.txt")));
+		QRegExp sectionRE(QString::fromLatin1("^\\[([^\\]]+)\\]"));
 		if (syntaxFile.open(QIODevice::ReadOnly)) {
 			HighlightingSpec spec;
 			spec.name = tr("default");
@@ -198,8 +198,8 @@ void TeXHighlighter::loadPatterns()
 				QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
 				if (parts.size() != 3)
 					continue;
-				QStringList styles = parts[0].split(QChar(';'));
-				QStringList colors = styles[0].split(QChar('/'));
+				QStringList styles = parts[0].split(QChar::fromLatin1(';'));
+				QStringList colors = styles[0].split(QChar::fromLatin1('/'));
 				QColor fg, bg;
 				if (colors.size() <= 2) {
 					if (colors.size() == 2)
@@ -212,14 +212,14 @@ void TeXHighlighter::loadPatterns()
 				if (bg.isValid())
 					rule.format.setBackground(bg);
 				if (styles.size() > 1) {
-					if (styles[1].contains('B'))
+					if (styles[1].contains(QChar::fromLatin1('B')))
 						rule.format.setFontWeight(QFont::Bold);
-					if (styles[1].contains('I'))
+					if (styles[1].contains(QChar::fromLatin1('I')))
 						rule.format.setFontItalic(true);
-					if (styles[1].contains('U'))
+					if (styles[1].contains(QChar::fromLatin1('U')))
 						rule.format.setFontUnderline(true);
 				}
-				if (parts[1].compare("Y", Qt::CaseInsensitive) == 0) {
+				if (parts[1].compare(QChar::fromLatin1('Y'), Qt::CaseInsensitive) == 0) {
 					rule.spellCheck = true;
 					rule.spellFormat = rule.format;
 					rule.spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
@@ -238,7 +238,7 @@ void TeXHighlighter::loadPatterns()
 	if (tagPatterns == NULL) {
 		// read tag-recognition patterns
 		tagPatterns = new QList<TagPattern>;
-		QFile tagPatternFile(configDir.filePath("tag-patterns.txt"));
+		QFile tagPatternFile(configDir.filePath(QString::fromLatin1("tag-patterns.txt")));
 		if (tagPatternFile.open(QIODevice::ReadOnly)) {
 			while (1) {
 				QByteArray ba = tagPatternFile.readLine();

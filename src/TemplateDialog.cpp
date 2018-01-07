@@ -44,7 +44,7 @@ void TemplateDialog::init()
 {
 	setupUi(this);
 
-	QString templatePath = TWUtils::getLibraryPath("templates");
+	QString templatePath = TWUtils::getLibraryPath(QString::fromLatin1("templates"));
 		// do this before creating the model, as getLibraryPath might initialize a new dir
 		
 	model = new QDirModel(this);
@@ -61,7 +61,7 @@ void TemplateDialog::init()
 	connect(treeView, SIGNAL(activated(const QModelIndex&)), this, SLOT(itemActivated(const QModelIndex&)));
 
 	QSETTINGS_OBJECT(settings);
-	if (settings.value("syntaxColoring", true).toBool()) {
+	if (settings.value(QString::fromLatin1("syntaxColoring"), true).toBool()) {
 		new TeXHighlighter(textEdit->document());
 	}
 }

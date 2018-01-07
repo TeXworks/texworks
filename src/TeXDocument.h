@@ -87,7 +87,7 @@ public:
 	int cursorPosition() const { return textCursor().position(); }
 	int selectionStart() const { return textCursor().selectionStart(); }
 	int selectionLength() const { return textCursor().selectionEnd() - textCursor().selectionStart(); }
-	QString getCurrentCodecName() const { return (codec ? codec->name() : QString()); }
+	QString getCurrentCodecName() const { return (codec ? QString::fromUtf8(codec->name().constData()) : QString()); }
 	bool getUTF8BOM() const { return utf8BOM; }
 	
 	QString spellcheckLanguage() const;
@@ -256,7 +256,7 @@ private:
 	void showLineEndingSetting();
 	void showEncodingSetting();
 	
-	QString selectedText() { return textCursor().selectedText().replace(QChar(QChar::ParagraphSeparator), "\n"); }
+	QString selectedText() { return textCursor().selectedText().replace(QChar(QChar::ParagraphSeparator), QChar::fromLatin1('\n')); }
 	QString consoleText() { return textEdit_console->toPlainText(); }
 	QString text() { return textEdit->toPlainText(); }
 	

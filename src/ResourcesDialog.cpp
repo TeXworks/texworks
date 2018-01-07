@@ -61,7 +61,7 @@ QString ResourcesDialog::pathToLink(const QString & path)
 {
 	QFileInfo fi(path);
 	QString absPath = fi.absoluteFilePath();
-	return QString("<a href=\"%1\">%2</a>").arg(QUrl::fromLocalFile(absPath).toString()).arg(absPath);
+	return QString::fromLatin1("<a href=\"%1\">%2</a>").arg(QUrl::fromLocalFile(absPath).toString()).arg(absPath);
 }
 
 /*

@@ -80,16 +80,16 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
 	loadFile(fileName);
 
 	QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
-	if (properties.contains("geometry"))
-		restoreGeometry(properties.value("geometry").toByteArray());
+	if (properties.contains(QString::fromLatin1("geometry")))
+		restoreGeometry(properties.value(QString::fromLatin1("geometry")).toByteArray());
 	else
 		TWUtils::zoomToHalfScreen(this, true);
 
-	if (properties.contains("state"))
-		restoreState(properties.value("state").toByteArray(), kPDFWindowStateVersion);
+	if (properties.contains(QString::fromLatin1("state")))
+		restoreState(properties.value(QString::fromLatin1("state")).toByteArray(), kPDFWindowStateVersion);
 	
-	if (properties.contains("pdfPageMode"))
-		setPageMode(properties.value("pdfPageMode", -1).toInt());
+	if (properties.contains(QString::fromLatin1("pdfPageMode")))
+		setPageMode(properties.value(QString::fromLatin1("pdfPageMode"), -1).toInt());
 
 	QTimer::singleShot(100, this, SLOT(setDefaultScale()));
 
@@ -122,9 +122,9 @@ void PDFDocument::init()
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 	// The Compiz window manager doesn't seem to support icons larger than
 	// 128x128, so we add a suitable one first
-	winIcon.addFile(":/images/images/TeXworks-doc-128.png");
+	winIcon.addFile(QString::fromLatin1(":/images/images/TeXworks-doc-128.png"));
 #endif
-	winIcon.addFile(":/images/images/TeXworks-doc.png");
+	winIcon.addFile(QString::fromLatin1(":/images/images/TeXworks-doc.png"));
 	setWindowIcon(winIcon);
 
 	pdfWidget = new QtPDF::PDFDocumentWidget(this);
@@ -200,8 +200,8 @@ void PDFDocument::init()
 	connect(actionPageMode_TwoPagesContinuous, SIGNAL(triggered()), &pageModeSignalMapper, SLOT(map()));
 	connect(&pageModeSignalMapper, SIGNAL(mapped(int)), this, SLOT(setPageMode(int)));
 
-	if (actionZoom_In->shortcut() == QKeySequence("Ctrl++"))
-		new QShortcut(QKeySequence("Ctrl+="), pdfWidget, SLOT(zoomIn()));
+	if (actionZoom_In->shortcut() == QKeySequence(tr("Ctrl++")))
+		new QShortcut(QKeySequence(tr("Ctrl+=")), pdfWidget, SLOT(zoomIn()));
 	
 	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	
@@ -265,7 +265,7 @@ void PDFDocument::init()
 	exitFullscreen = NULL;
 	
 	QSETTINGS_OBJECT(settings);
-	switch(settings.value("pdfPageMode", kDefault_PDFPageMode).toInt()) {
+	switch(settings.value(QString::fromLatin1("pdfPageMode"), kDefault_PDFPageMode).toInt()) {
 		case 0:
 			setPageMode(QtPDF::PDFDocumentView::PageMode_SinglePage);
 			break;
@@ -281,10 +281,10 @@ void PDFDocument::init()
 	}
 	resetMagnifier();
 
-	if (settings.contains("previewResolution"))
-		pdfWidget->setResolution(settings.value("previewResolution", QApplication::desktop()->logicalDpiX()).toInt());
+	if (settings.contains(QString::fromLatin1("previewResolution")))
+		pdfWidget->setResolution(settings.value(QString::fromLatin1("previewResolution"), QApplication::desktop()->logicalDpiX()).toInt());
 
-	TWUtils::applyToolbarOptions(this, settings.value("toolBarIconSize", 2).toInt(), settings.value("toolBarShowText", false).toBool());
+	TWUtils::applyToolbarOptions(this, settings.value(QString::fromLatin1("toolBarIconSize"), 2).toInt(), settings.value(QString::fromLatin1("toolBarShowText"), false).toBool());
 
 	TWApp::instance()->updateWindowMenus();
 	
@@ -383,10 +383,10 @@ void PDFDocument::closeEvent(QCloseEvent *event)
 void PDFDocument::saveRecentFileInfo()
 {
 	QMap<QString,QVariant> fileProperties;
-	fileProperties.insert("path", curFile);
-	fileProperties.insert("geometry", saveGeometry());
-	fileProperties.insert("state", saveState(kPDFWindowStateVersion));
-	fileProperties.insert("pdfPageMode", pdfWidget->pageMode());
+	fileProperties.insert(QString::fromLatin1("path"), curFile);
+	fileProperties.insert(QString::fromLatin1("geometry"), saveGeometry());
+	fileProperties.insert(QString::fromLatin1("state"), saveState(kPDFWindowStateVersion));
+	fileProperties.insert(QString::fromLatin1("pdfPageMode"), pdfWidget->pageMode());
 	TWApp::instance()->addToRecentFiles(fileProperties);
 }
 
@@ -395,7 +395,7 @@ void PDFDocument::loadFile(const QString &fileName)
 	setCurrentFile(fileName);
 	QSETTINGS_OBJECT(settings);
 	QFileInfo info(fileName);
-	settings.setValue("openDialogDir", info.canonicalPath());
+	settings.setValue(QString::fromLatin1("openDialogDir"), info.canonicalPath());
 
 	reload();
 }
@@ -663,12 +663,12 @@ void PDFDocument::resetMagnifier()
 	Q_ASSERT(pdfWidget != NULL);
 	QSETTINGS_OBJECT(settings);
 
-	if (settings.value("circularMagnifier", kDefault_CircularMagnifier).toBool())
+	if (settings.value(QString::fromLatin1("circularMagnifier"), kDefault_CircularMagnifier).toBool())
 		pdfWidget->setMagnifierShape(QtPDF::DocumentTool::MagnifyingGlass::Magnifier_Circle);
 	else
 		pdfWidget->setMagnifierShape(QtPDF::DocumentTool::MagnifyingGlass::Magnifier_Rectangle);
 
-	pdfWidget->setMagnifierSize(magSizes[qBound(0, settings.value("magnifierSize", kDefault_MagnifierSize).toInt() - 1, 2)]);
+	pdfWidget->setMagnifierSize(magSizes[qBound(0, settings.value(QString::fromLatin1("magnifierSize"), kDefault_MagnifierSize).toInt() - 1, 2)]);
 }
 
 void PDFDocument::setResolution(const double res)
@@ -687,14 +687,14 @@ void PDFDocument::updateTypesettingAction(bool processRunning)
 {
 	if (processRunning) {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
-		actionTypeset->setIcon(QIcon(":/images/tango/process-stop.png"));
+		actionTypeset->setIcon(QIcon(QString::fromLatin1(":/images/tango/process-stop.png")));
 		actionTypeset->setText(tr("Abort typesetting"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
 		enableTypesetAction(true);
 	}
 	else {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
-		actionTypeset->setIcon(QIcon(":/images/images/runtool.png"));
+		actionTypeset->setIcon(QIcon(QString::fromLatin1(":/images/images/runtool.png")));
 		actionTypeset->setText(tr("Typeset"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	}
@@ -707,7 +707,7 @@ void PDFDocument::dragEnterEvent(QDragEnterEvent *event)
 	if (event->mimeData()->hasUrls()) {
 		const QList<QUrl> urls = event->mimeData()->urls();
 		foreach (const QUrl& url, urls) {
-			if (url.scheme() == "file") {
+			if (url.scheme() == QLatin1String("file")) {
 				event->acceptProposedAction();
 				break;
 			}
@@ -721,7 +721,7 @@ void PDFDocument::dropEvent(QDropEvent *event)
 	if (event->mimeData()->hasUrls()) {
 		const QList<QUrl> urls = event->mimeData()->urls();
 		foreach (const QUrl& url, urls)
-			if (url.scheme() == "file")
+			if (url.scheme() == QLatin1String("file"))
 				TWApp::instance()->openFile(url.toLocalFile());
 		event->acceptProposedAction();
 	}
@@ -784,12 +784,12 @@ void PDFDocument::doFindAgain(bool newSearch /* = false */)
 {
 	QSETTINGS_OBJECT(settings);
 
-	QString	searchText = settings.value("searchText").toString();
+	QString	searchText = settings.value(QString::fromLatin1("searchText")).toString();
 	if (searchText.isEmpty())
 		return;
 
 	QtPDF::Backend::SearchFlags searchFlags;
-	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value("searchFlags").toInt();
+	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value(QString::fromLatin1("searchFlags")).toInt();
 
 	if ((flags & QTextDocument::FindCaseSensitively) == 0)
 		searchFlags |= QtPDF::Backend::Search_CaseInsensitive;
@@ -807,7 +807,7 @@ void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygo
 	if (kPDFHighlightDuration > 0)
 		_searchResultHighlightRemover.start(kPDFHighlightDuration);
 
-	if (hasSyncData() && settings.value("searchPdfSync").toBool() && !region.isEmpty()) {
+	if (hasSyncData() && settings.value(QString::fromLatin1("searchPdfSync")).toBool() && !region.isEmpty()) {
 		// emit a syncClick message at the center of the left edge of the (bounding)
 		// rect. To ensure hit-testing succeeds later on, we add an offset of 1e-5
 		// (for rectangles of finite width)
@@ -819,7 +819,7 @@ void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygo
 
 void PDFDocument::setDefaultScale() {
 	QSETTINGS_OBJECT(settings);
-	switch (settings.value("scaleOption", kDefault_PreviewScaleOption).toInt()) {
+	switch (settings.value(QString::fromLatin1("scaleOption"), kDefault_PreviewScaleOption).toInt()) {
 		case 2:
 			pdfWidget->zoomFitWidth();
 			break;
@@ -827,7 +827,7 @@ void PDFDocument::setDefaultScale() {
 			pdfWidget->zoomFitWindow();
 			break;
 		case 4:
-			pdfWidget->setZoomLevel(settings.value("previewScale", kDefault_PreviewScale).toFloat() / 100.);
+		    pdfWidget->setZoomLevel(settings.value(QString::fromLatin1("previewScale"), kDefault_PreviewScale).toFloat() / 100.);
 			break;
 		default:
 			pdfWidget->zoom100();
@@ -866,7 +866,7 @@ void PDFDocument::print()
 	// Currently, printing is not supported in a reliable, cross-platform way
 	// Instead, offer to open the document in the system's default viewer
 	
-	QString msg = tr("Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.\n").arg(TEXWORKS_NAME);
+	QString msg = tr("Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.\n").arg(QString::fromLatin1(TEXWORKS_NAME));
 	msg += tr("Do you want to open the file in the default viewer for printing instead?");
 	msg += tr(" (remember to close it again to avoid access problems)");
 	
@@ -895,24 +895,24 @@ void PDFDocument::showScaleContextMenu(const QPoint pos)
 		a = contextMenu->addAction(tr("Custom..."));
 		connect(a, SIGNAL(triggered()), this, SLOT(doScaleDialog()));
 
-		a = contextMenu->addAction("200%");
+		a = contextMenu->addAction(tr("200%"));
 		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
-		contextMenuMapper->setMapping(a, "2");
-		a = contextMenu->addAction("150%");
+		contextMenuMapper->setMapping(a, QString::fromLatin1("2"));
+		a = contextMenu->addAction(tr("150%"));
 		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
-		contextMenuMapper->setMapping(a, "1.5");
+		contextMenuMapper->setMapping(a, QString::fromLatin1("1.5"));
 		// "100%" corresponds to "Actual Size", but we keep the numeric value
 		// here for consistency
-		a = contextMenu->addAction("100%");
+		a = contextMenu->addAction(tr("100%"));
 		a->setShortcut(actionActual_Size->shortcut());
 		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
-		contextMenuMapper->setMapping(a, "1");
-		a = contextMenu->addAction("75%");
+		contextMenuMapper->setMapping(a, QString::fromLatin1("1"));
+		a = contextMenu->addAction(tr("75%"));
 		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
-		contextMenuMapper->setMapping(a, ".75");
-		a = contextMenu->addAction("50%");
+		contextMenuMapper->setMapping(a, QString::fromLatin1(".75"));
+		a = contextMenu->addAction(tr("50%"));
 		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
-		contextMenuMapper->setMapping(a, ".5");
+		contextMenuMapper->setMapping(a, QString::fromLatin1(".5"));
 		
 		connect(contextMenuMapper, SIGNAL(mapped(const QString&)), this, SLOT(setScaleFromContextMenu(const QString&)));
 	}

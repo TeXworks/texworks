@@ -223,7 +223,7 @@ int LuaScript::getProperty(lua_State * L)
 	obj = (QObject*)lua_topointer(L, lua_upvalueindex(1));
 	
 	// Get the parameters
-	propName = lua_tostring(L, 2);
+	propName = QString::fromUtf8(lua_tostring(L, 2));
 	
 	switch (doGetProperty(obj, propName, result)) {
 		case Property_DoesNotExist:
@@ -259,7 +259,7 @@ int LuaScript::callMethod(lua_State * L)
 	// Get the QObject* we operate on
 	obj = (QObject*)lua_topointer(L, lua_upvalueindex(1));
 
-	methodName = lua_tostring(L, lua_upvalueindex(2));
+	methodName = QString::fromUtf8(lua_tostring(L, lua_upvalueindex(2)));
 	
 	for (i = 1; i <= lua_gettop(L); ++i) {
 		args.append(getLuaStackValue(L, i));
@@ -302,7 +302,7 @@ int LuaScript::setProperty(lua_State * L)
 	obj = (QObject*)lua_topointer(L, lua_upvalueindex(1));
 
 	// Get the parameters
-	propName = lua_tostring(L, 2);
+	propName = QString::fromUtf8(lua_tostring(L, 2));
 
 	switch (doSetProperty(obj, propName, LuaScript::getLuaStackValue(L, 3))) {
 		case Property_DoesNotExist:
@@ -356,7 +356,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 					if (!lua_isstring(L, -1))
 						continue;
 					lua_pushvalue(L, -1); // duplicate the key so we don't disturb lua_next
-					if (QString(lua_tostring(L, -1)) == "__qobject")
+					if (QString::fromUtf8(lua_tostring(L, -1)) == QLatin1String("__qobject"))
 						isQObject = true;
 					lua_pop(L, 1); // pop the duplicate key
 				}
@@ -434,7 +434,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 					// duplicate the key. If we didn't, lua_tostring could
 					// convert it, thereby confusing lua_next later on
 					lua_pushvalue(L, -2);
-					vm.insert(lua_tostring(L, -2), LuaScript::getLuaStackValue(L, -1));
+					vm.insert(QString::fromUtf8(lua_tostring(L, -2)), LuaScript::getLuaStackValue(L, -1));
 					lua_pop(L, 2);
 				}
 				return vm;

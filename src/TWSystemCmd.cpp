@@ -67,7 +67,7 @@ void TWSystemCmd::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 		if (exitStatus == QProcess::NormalExit) {
 			if (bytesAvailable() > 0) {
 				QByteArray ba = readAllStandardOutput();
-				result += QString::fromLocal8Bit(ba);
+				result += QString::fromLocal8Bit(ba.constData());
 			}
 		}
 		else {
@@ -82,7 +82,7 @@ void TWSystemCmd::processOutput()
 {
 	if (wantOutput && bytesAvailable() > 0) {
 		QByteArray ba = readAllStandardOutput();
-		result += QString::fromLocal8Bit(ba);
+		result += QString::fromLocal8Bit(ba.constData());
 	}
 }
 

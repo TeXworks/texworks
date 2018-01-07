@@ -1,6 +1,10 @@
 # Build Lua Plugin
 # ================
 
+# Disallow automatic casts from char* to QString (enforcing the use of tr() or
+# explicitly specifying the string encoding)
+ADD_DEFINITIONS(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
+
 INCLUDE_DIRECTORIES(
   ${TeXworks_SOURCE_DIR}/src
   ${LUA_INCLUDE_DIR}

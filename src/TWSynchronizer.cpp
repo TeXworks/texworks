@@ -171,7 +171,7 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
   // separate (output) lines that all correspond to the same input line
   // (different input lines are handled by SyncTeX). Here we replace those \n
   // to make destContext more comparable to srcContext.
-  destContext.replace('\n', " ");
+  destContext.replace(QChar::fromLatin1('\n'), QChar::fromLatin1(' '));
 
   // FIXME: the string returned by selectedText() seems to twist the beginning
   // (and ends) of footnotes sometimes.
@@ -234,7 +234,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   // separate (output) lines that all correspond to the same input line
   // (different input lines are handled by SyncTeX). Here we replace those \n
   // to make srcContext more comparable to destContext below.
-  srcContext.replace('\n', " ");
+  srcContext.replace(QChar::fromLatin1('\n'), QChar::fromLatin1(' '));
 
   int col;
   for (col = 0; col < boxes.count(); ++col) {
