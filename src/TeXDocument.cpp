@@ -154,7 +154,7 @@ void TeXDocument::init()
 	engine->setFocusPolicy(Qt::NoFocus);
 	engine->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 #if defined(Q_OS_DARWIN) && (QT_VERSION >= 0x040600)
-	engine->setStyleSheet("padding:4px;");
+	engine->setStyleSheet(QString::fromLatin1("padding:4px;"));
 	engine->setMinimumWidth(150);
 #endif
 	toolBar_run->addWidget(engine);
