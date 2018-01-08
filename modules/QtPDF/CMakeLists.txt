@@ -225,6 +225,25 @@ IF( WITH_POPPLERQT )
     LIST(APPEND QTPDF_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
   ENDIF ()
 
+  # Check if Poppler provides certain features (as poppler does not reliably
+  # expose its version number, there is no easy way to check for these at
+  # compile-time)
+  include(CheckCXXSourceCompiles)
+  set(CMAKE_REQUIRED_INCLUDES ${QTPDF_INCLUDE_DIRS} ${QT_INCLUDE_DIR})
+  set(CMAKE_REQUIRED_LIBRARIES ${QTPDF_LIBS} ${QTPDF_ADDITIONAL_LIBS})
+
+  # Page::SearchFlags were added in 0.31
+  CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { double x; Poppler::Document::load(QString())->page(0)->search(QString(), x, x, x, x, Poppler::Page::NextResult, Poppler::Page::IgnoreCase); return 0; }" POPPLER_HAS_SEARCH_FLAGS)
+  if (POPPLER_HAS_SEARCH_FLAGS)
+    add_definitions(-DPOPPLER_HAS_SEARCH_FLAGS)
+  endif (POPPLER_HAS_SEARCH_FLAGS)
+
+  # PageTransition::durationReal() was added in 0.37
+  CHECK_CXX_SOURCE_COMPILES("#include <poppler/qt${QT_VERSION_MAJOR}/poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { Poppler::Document::load(QString())->page(0)->transition()->durationReal(); return 0; }" POPPLER_HAS_DURATION_REAL)
+  if (POPPLER_HAS_DURATION_REAL)
+    add_definitions(-DPOPPLER_HAS_DURATION_REAL)
+  endif (POPPLER_HAS_DURATION_REAL)
+
 ENDIF()
 
 IF( WITH_MUPDF )

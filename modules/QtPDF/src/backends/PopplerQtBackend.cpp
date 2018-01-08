@@ -780,7 +780,11 @@ QList<SearchResult> Page::search(QString searchText, SearchFlags flags)
   SearchResult result;
   double left, right, top, bottom;
   ::Poppler::Page::SearchDirection searchDir = (flags & Search_Backwards ? ::Poppler::Page::PreviousResult : ::Poppler::Page::NextResult);
-  ::Poppler::Page::SearchMode searchMode = (flags & Search_CaseInsensitive ? ::Poppler::Page::CaseInsensitive : ::Poppler::Page::CaseSensitive);
+#if POPPLER_HAS_SEARCH_FLAGS
+  ::Poppler::Page::SearchFlags searchFlags = (flags & Search_CaseInsensitive ? ::Poppler::Page::IgnoreCase : ::Poppler::Page::SearchFlags());
+#else
+  ::Poppler::Page::SearchMode searchFlags = (flags & Search_CaseInsensitive ? ::Poppler::Page::CaseInsensitive : ::Poppler::Page::CaseSensitive);
+#endif
 
   QReadLocker docLocker(_docLock.data());
   QReadLocker pageLocker(_pageLock);
@@ -803,7 +807,7 @@ QList<SearchResult> Page::search(QString searchText, SearchFlags flags)
   // depreciated---something to do with float <-> double conversion causing
   // infinite loops on some architectures. So, we explicitly use doubles and
   // avoid the depreciated function.
-  while ( _poppler_page->search(searchText, left, top, right, bottom, searchDir, searchMode) ) {
+  while ( _poppler_page->search(searchText, left, top, right, bottom, searchDir, searchFlags) ) {
     result.bbox = QRectF(qreal(left), qreal(top), qAbs(qreal(right) - qreal(left)), qAbs(qreal(bottom) - qreal(top)));
     results << result;
   }
@@ -881,7 +885,11 @@ void Page::loadTransitionData()
       break;
     }
     if (_transition) {
+#if POPPLER_HAS_DURATION_REAL
+      _transition->setDuration(poppler_trans->durationReal());
+#else
       _transition->setDuration(poppler_trans->duration());
+#endif
       switch (poppler_trans->direction()) {
       case ::Poppler::PageTransition::Inward:
       default:
