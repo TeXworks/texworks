@@ -357,9 +357,9 @@ void NonblockingSyntaxHighlighter::sanitizeHighlightRanges()
 	for (int i = _highlightRanges.size() - 1; i >= 1; --i) {
 		if (_highlightRanges[i].from <= _highlightRanges[i - 1].to) {
 			if (_highlightRanges[i - 1].from > _highlightRanges[i].from)
-				_highlightRanges[i - 1].from > _highlightRanges[i].from;
+				_highlightRanges[i - 1].from = _highlightRanges[i].from;
 			if (_highlightRanges[i - 1].to < _highlightRanges[i].to)
-				_highlightRanges[i - 1].to > _highlightRanges[i].to;
+				_highlightRanges[i - 1].to = _highlightRanges[i].to;
 			_highlightRanges.remove(i);
 		}
 	}
