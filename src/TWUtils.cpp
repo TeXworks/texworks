@@ -847,7 +847,7 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 				isControlSeq = true;
 				continue;
 			}
-			if (!isControlSeq && (ch == QChar::fromLatin1('\'') || ch == 0x2019) && start > 0 && IS_WORD_FORMING(text.at(start - 1))) {
+			if (!isControlSeq && (ch == QChar::fromLatin1('\'') || ch == QChar(0x2019)) && start > 0 && IS_WORD_FORMING(text.at(start - 1))) {
 				includesApos = true;
 				continue;
 			}
@@ -866,7 +866,7 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 				isControlSeq = true;
 				continue;
 			}
-			if (!isControlSeq && (ch == QChar::fromLatin1('\'') || ch == 0x2019) && end < text.length() - 1 && IS_WORD_FORMING(text.at(end + 1))) {
+			if (!isControlSeq && (ch == QChar::fromLatin1('\'') || ch == QChar(0x2019)) && end < text.length() - 1 && IS_WORD_FORMING(text.at(end + 1))) {
 				includesApos = true;
 				continue;
 			}
@@ -1076,9 +1076,9 @@ int TWUtils::balanceDelim(const QString& text, int pos, QChar delim, int directi
 	int len = text.length();
 	QChar c;
 	while ((c = text[pos]) != delim) {
-		if (openerMatching(c) != 0)
+		if (!openerMatching(c).isNull())
 			pos = (direction < 0) ? balanceDelim(text, pos - 1, openerMatching(c), -1) : -1;
-		else if (closerMatching(c) != 0)
+		else if (!closerMatching(c).isNull())
 			pos = (direction > 0) ? balanceDelim(text, pos + 1, closerMatching(c), 1) : -1;
 		if (pos < 0)
 			return -1;
@@ -1094,7 +1094,7 @@ int TWUtils::findOpeningDelim(const QString& text, int pos)
 {
 	while (--pos >= 0) {
 		QChar c = text[pos];
-		if (closerMatching(c) != 0)
+		if (!closerMatching(c).isNull())
 			return pos;
 	}
 	return -1;

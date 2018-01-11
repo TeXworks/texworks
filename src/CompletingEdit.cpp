@@ -480,14 +480,14 @@ QTextCursor CompletingEdit::wordSelectionForPos(const QPoint& mousePos)
 		const QString plainText = toPlainText();
 		QChar curChr = plainText[cursorPos];
 		QChar c;
-		if ((c = TWUtils::closerMatching(curChr)) != 0) {
+		if (!(c = TWUtils::closerMatching(curChr)).isNull()) {
 			int balancePos = TWUtils::balanceDelim(plainText, cursorPos + 1, c, 1);
 			if (balancePos < 0)
 				QApplication::beep();
 			else
 				cursor.setPosition(balancePos + 1, QTextCursor::KeepAnchor);
-				}
-		else if ((c = TWUtils::openerMatching(curChr)) != 0) {
+		}
+		else if (!(c = TWUtils::openerMatching(curChr)).isNull()) {
 			int balancePos = TWUtils::balanceDelim(plainText, cursorPos - 1, c, -1);
 			if (balancePos < 0)
 				QApplication::beep();
@@ -669,9 +669,9 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 				const QString text = document()->toPlainText();
 				int match = -2;
 				QChar c;
-				if (pos > 0 && pos < text.length() && (c = TWUtils::openerMatching(text[pos])) != 0)
+				if (pos > 0 && pos < text.length() && !(c = TWUtils::openerMatching(text[pos])).isNull())
 					match = TWUtils::balanceDelim(text, pos - 1, c, -1);
-				else if (pos < text.length() - 1 && (c = TWUtils::closerMatching(text[pos])) != 0)
+				else if (pos < text.length() - 1 && !(c = TWUtils::closerMatching(text[pos])).isNull())
 					match = TWUtils::balanceDelim(text, pos + 1, c, 1);
 				if (match >= 0) {
 					QList<ExtraSelection> selList = extraSelections();
