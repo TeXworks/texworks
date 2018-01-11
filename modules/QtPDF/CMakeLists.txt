@@ -239,7 +239,7 @@ IF( WITH_POPPLERQT )
   endif (POPPLER_HAS_SEARCH_FLAGS)
 
   # PageTransition::durationReal() was added in 0.37
-  CHECK_CXX_SOURCE_COMPILES("#include <poppler/qt${QT_VERSION_MAJOR}/poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { Poppler::Document::load(QString())->page(0)->transition()->durationReal(); return 0; }" POPPLER_HAS_DURATION_REAL)
+  CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { Poppler::Document::load(QString())->page(0)->transition()->durationReal(); return 0; }" POPPLER_HAS_DURATION_REAL)
   if (POPPLER_HAS_DURATION_REAL)
     add_definitions(-DPOPPLER_HAS_DURATION_REAL)
   endif (POPPLER_HAS_DURATION_REAL)
