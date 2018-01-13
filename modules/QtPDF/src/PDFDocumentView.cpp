@@ -1442,6 +1442,9 @@ void PDFDocumentView::mouseMoveEvent(QMouseEvent * event)
 {
   if(_armedTool)
     _armedTool->mouseMoveEvent(event);
+  // We only use the event for information purposes and don't actually "handle"
+  // it, therefore we ignore it so it can also be passed on to parent widgets
+  event->ignore();
   Super::mouseMoveEvent(event);
 }
 
