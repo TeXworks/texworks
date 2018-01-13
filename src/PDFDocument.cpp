@@ -70,7 +70,7 @@ const int kPDFHighlightDuration = 2000;
 QList<PDFDocument*> PDFDocument::docList;
 
 PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
-	: _syncHighlight(NULL), _synchronizer(NULL), openedManually(false)
+	: _syncHighlight(NULL), _synchronizer(NULL), openedManually(false), _fullScreenManager(NULL)
 {
 	init();
 
@@ -261,8 +261,6 @@ void PDFDocument::init()
 	dw->hide();
 	addDockWidget(Qt::LeftDockWidgetArea, dw);
 	menuShow->addAction(dw->toggleViewAction());
-
-	exitFullscreen = NULL;
 	
 	QSETTINGS_OBJECT(settings);
 	switch(settings.value(QString::fromLatin1("pdfPageMode"), kDefault_PDFPageMode).toInt()) {
@@ -293,6 +291,12 @@ void PDFDocument::init()
 	
 	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);
+
+	pdfWidget->setMouseTracking(true);
+	_fullScreenManager = new FullscreenManager(this);
+	_fullScreenManager->addShortcut(actionFull_Screen, SLOT(toggleFullScreen()));
+	connect(_fullScreenManager, SIGNAL(fullscreenChanged(bool)), actionFull_Screen, SLOT(setChecked(bool)));
+	connect(_fullScreenManager, SIGNAL(fullscreenChanged(bool)), this, SLOT(maybeZoomToWindow(bool)), Qt::QueuedConnection);
 }
 
 void PDFDocument::changeEvent(QEvent *event)
@@ -615,23 +619,8 @@ void PDFDocument::enablePageActions(int pageIndex)
 
 void PDFDocument::toggleFullScreen()
 {
-	if (windowState() & Qt::WindowFullScreen) {
-		// exiting full-screen mode
-		statusBar()->show();
-		toolBar->show();
-		showNormal();
-		actionFull_Screen->setChecked(false);
-		delete exitFullscreen;
-	}
-	else {
-		// entering full-screen mode
-		statusBar()->hide();
-		toolBar->hide();
-		showFullScreen();
-		pdfWidget->zoomFitWindow();
-		actionFull_Screen->setChecked(true);
-		exitFullscreen = new QShortcut(Qt::Key_Escape, this, SLOT(toggleFullScreen()));
-	}
+	Q_ASSERT(_fullScreenManager);
+	_fullScreenManager->toggleFullscreen();
 }
 
 void PDFDocument::setPageMode(const int newMode)
@@ -752,6 +741,11 @@ void PDFDocument::contextMenuEvent(QContextMenuEvent *event)
 	menu.addAction(tr("Fit to Window"), pdfWidget, SLOT(zoomFitWindow()));
 
 	menu.exec(event->globalPos());
+}
+
+void PDFDocument::mouseMoveEvent(QMouseEvent *event)
+{
+	if (_fullScreenManager) _fullScreenManager->mouseMoveEvent(event);
 }
 
 void PDFDocument::jumpToSource()
@@ -972,4 +966,165 @@ void PDFDocument::doScaleDialog()
 	double newScale = QInputDialog::getDouble(this, tr("Set Zoom"), tr("Zoom level:"), 100 * pdfWidget->zoomLevel(), 0, 2147483647, 0, &ok);
 	if (ok)
 		pdfWidget->setZoomLevel(newScale / 100);
+}
+
+FullscreenManager::FullscreenManager(QMainWindow * parent)
+	: _parent(parent)
+{
+	addShortcut(Qt::Key_Escape, SLOT(toggleFullScreen()));
+	_menuBarTimer.setSingleShot(true);
+	_menuBarTimer.setInterval(500);
+	connect(&_menuBarTimer, SIGNAL(timeout()), this, SLOT(showMenuBar()));
+}
+
+//virtual
+FullscreenManager::~FullscreenManager()
+{
+	foreach (const shortcut_info & sci, _shortcuts) {
+		if (sci.shortcut) delete sci.shortcut;
+	}
+}
+
+void FullscreenManager::setFullscreen(const bool fullscreen /* = true */)
+{
+	if (!_parent) return;
+	if (fullscreen == isFullscreen()) return;
+
+	if (fullscreen) {
+		// entering full-screen mode
+
+		// store the visibilities of important widgets such as the menu bar
+		// before hiding them (so we can restore them when exiting fullscreen
+		// mode)
+		_normalVisibility.clear();
+		if (_parent->menuBar()) {
+			_normalVisibility[_parent->menuBar()] = _parent->menuBar()->isVisible();
+			hideMenuBar();
+		}
+		if (_parent->statusBar()) {
+			_normalVisibility[_parent->statusBar()] = _parent->statusBar()->isVisible();
+			_parent->statusBar()->hide();
+		}
+		foreach (QToolBar * tb, _parent->findChildren<QToolBar*>()) {
+			_normalVisibility[tb] = tb->isVisible();
+			tb->hide();
+		}
+
+		_parent->showFullScreen();
+
+		// Enable custom shortcuts
+		foreach (const shortcut_info & sci, _shortcuts) {
+			// Skip shortcuts that are associated with a menu QAction; those are
+			// enabled/disabled when the menubar is hidden/shown
+			if (sci.action) continue;
+			sci.shortcut->setEnabled(fullscreen);
+		}
+	}
+	else if (!fullscreen) {
+		// exiting full-screen mode
+		// stop the timer, just in case
+		_menuBarTimer.stop();
+
+		_parent->showNormal();
+
+		// restore visibilities
+		foreach (QWidget * w, _normalVisibility.keys())
+			w->setVisible(_normalVisibility[w]);
+
+		// Disable custom shortcuts
+		foreach (const shortcut_info & sci, _shortcuts)
+			sci.shortcut->setEnabled(false);
+	}
+
+	// Enable/disable mouse tracking (which is required for getting mouse move
+	// events when no mouse button is pressed) to be able to show/hide the
+	// menu bar depending on the mouse position
+	_parent->setMouseTracking(fullscreen);
+
+	emit fullscreenChanged(fullscreen);
+}
+
+bool FullscreenManager::isFullscreen() const
+{
+	if (!_parent) return false;
+	return _parent->windowState().testFlag(Qt::WindowFullScreen);
+}
+
+void FullscreenManager::toggleFullscreen()
+{
+	setFullscreen(!isFullscreen());
+}
+
+void FullscreenManager::mouseMoveEvent(QMouseEvent * event)
+{
+	if (!_parent || !_parent->menuBar() || !isFullscreen()) return;
+	const int thresholdHeight = 10;
+
+	// The menu bar is shown when the mouse stays within thresholdHeight
+	// from the top of the screen for _menuBarTimer.interval()
+	// When the mouse moves in(to) that area and the timer is not running,
+	// start it
+	if (!_parent->menuBar()->isVisible()) {
+		if (event->pos().y() <= thresholdHeight && !_menuBarTimer.isActive()) _menuBarTimer.start();
+		// When the mouse moves out(side) of that area and the timer is running,
+		// stop it
+		else if (event->pos().y() > thresholdHeight && _menuBarTimer.isActive()) _menuBarTimer.stop();
+	}
+	// The menu bar is hidden whenever the mouse moves off of the menu bar
+	// (Note: when opening a menu, that menu intercepts all mouse events so we
+	// don't need to worry about the menu bar disappearing while the user
+	// browses through the menus.
+	else if (event->pos().y() > _parent->menuBar()->height())
+		hideMenuBar();
+}
+
+void FullscreenManager::addShortcut(QAction * action, const char * member)
+{
+	addShortcut(action->shortcut(), member, action);
+}
+
+void FullscreenManager::addShortcut(const QKeySequence & key, const char * member, QAction * action /* = NULL */)
+{
+	shortcut_info sci;
+	sci.shortcut = new QShortcut(key, _parent, member);
+	sci.shortcut->setEnabled(false);
+	sci.action = action;
+	if (action)
+		connect(action, SIGNAL(destroyed(QObject*)), this, SLOT(actionDeleted(QObject*)));
+	_shortcuts << sci;
+}
+
+void FullscreenManager::actionDeleted(QObject * obj)
+{
+	QAction * a = qobject_cast<QAction *>(obj);
+	if (!a) return;
+	for (unsigned int i = 0; i < _shortcuts.size(); ) {
+		if (_shortcuts[i].action == a)
+			_shortcuts.removeAt(i);
+		else
+			++i;
+	}
+}
+
+void FullscreenManager::setMenuBarVisible(const bool visible /* = true */)
+{
+	if (!_parent || !_parent->menuBar()) return;
+	if (visible == _parent->menuBar()->isVisible()) return;
+
+	_parent->menuBar()->setVisible(visible);
+
+	// Enable our shortcut overrides when the menubar is hidden (to ensure that
+	// the most important shortcuts are available even when the corresponding
+	// QActions are hidden and disabled)
+	foreach (const shortcut_info & sci, _shortcuts) {
+		// Skip shortcuts that are not associated with any menu QAction
+		if (!sci.action) continue;
+
+		// If the shortcut gets enabled and corresponds to a valid, named
+		// QAction, update it to the QAction's key sequence (in case that
+		// got changed in the meantime)
+		if (!visible)
+			sci.shortcut->setKey(sci.action->shortcut());
+		sci.shortcut->setEnabled(!visible);
+	}
 }
