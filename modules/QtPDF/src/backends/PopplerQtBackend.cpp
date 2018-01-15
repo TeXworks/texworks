@@ -779,11 +779,11 @@ QList<SearchResult> Page::search(QString searchText, SearchFlags flags)
   QList<SearchResult> results;
   SearchResult result;
   double left, right, top, bottom;
-  ::Poppler::Page::SearchDirection searchDir = (flags & Search_Backwards ? ::Poppler::Page::PreviousResult : ::Poppler::Page::NextResult);
+  ::Poppler::Page::SearchDirection searchDir = (flags.testFlag(Search_Backwards) ? ::Poppler::Page::PreviousResult : ::Poppler::Page::NextResult);
 #if POPPLER_HAS_SEARCH_FLAGS
-  ::Poppler::Page::SearchFlags searchFlags = (flags & Search_CaseInsensitive ? ::Poppler::Page::IgnoreCase : ::Poppler::Page::SearchFlags());
+  ::Poppler::Page::SearchFlags searchFlags = (flags.testFlag(Search_CaseInsensitive) ? ::Poppler::Page::IgnoreCase : ::Poppler::Page::SearchFlags());
 #else
-  ::Poppler::Page::SearchMode searchFlags = (flags & Search_CaseInsensitive ? ::Poppler::Page::CaseInsensitive : ::Poppler::Page::CaseSensitive);
+  ::Poppler::Page::SearchMode searchFlags = (flags.testFlag(Search_CaseInsensitive) ? ::Poppler::Page::CaseInsensitive : ::Poppler::Page::CaseSensitive);
 #endif
 
   QReadLocker docLocker(_docLock.data());

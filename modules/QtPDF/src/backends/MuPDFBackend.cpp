@@ -1099,7 +1099,7 @@ QList<SearchResult> Page::search(QString searchText, SearchFlags flags)
   fz_device * dev;
   QString text;
   int i, j, spanStart;
-  Qt::CaseSensitivity caseSensitivity = (flags & Search_CaseInsensitive ? Qt::CaseInsensitive : Qt::CaseSensitive);
+  Qt::CaseSensitivity caseSensitivity = (flags.testFlag(Search_CaseInsensitive) ? Qt::CaseInsensitive : Qt::CaseSensitive);
 
   QReadLocker pageLocker(_pageLock);
 
