@@ -4,7 +4,7 @@
  This file is part of the __SyncTeX__ package.
  
  [//]: # (Latest Revision: Fri Jul 14 16:20:41 UTC 2017)
- [//]: # (Version: 1.19)
+ [//]: # (Version: 1.21)
  
  See `synctex_parser_readme.md` for more details
  
@@ -45,6 +45,8 @@ authorization from the copyright holder.
  *  All the operating system special stuff goes here.
  *  The problem mainly comes from file name management: path separator, encoding...
  */
+
+#include "synctex_version.h"
 
 typedef int synctex_bool_t;
 #	define synctex_YES (0==0)
