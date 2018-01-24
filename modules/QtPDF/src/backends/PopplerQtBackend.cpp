@@ -956,11 +956,12 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 			continue;
 		// If we get here, we found a box in the selection, so we append its text
 
-		// Guess ends of line: if the new box is entirely below the old box, we
-		// assume it's a new line. This should work reasonably well for normal text
+		// Guess ends of line: if the new box is mostly below the old box (with the
+		// overlap being less than 20% of the height of the larger box), we assume
+		// it's a new line. This should work reasonably well for normal text
 		// (including RTL text), but may fail in some less common cases (e.g.,
 		// subscripts after superscripts, formulas, etc.).
-		if (lastPopplerBox && lastPopplerBox->boundingBox().bottom() < poppler_box->boundingBox().top()) {
+		if (lastPopplerBox && lastPopplerBox->boundingBox().bottom() - poppler_box->boundingBox().top() < 0.2 * qMax(lastPopplerBox->boundingBox().height(), poppler_box->boundingBox().height())) {
 			retVal += QString::fromLatin1("\n");
 
 			if (wordBoxes)
