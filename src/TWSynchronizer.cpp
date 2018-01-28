@@ -197,6 +197,8 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
 
 void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint &src, TWSynchronizer::TeXSyncPoint &dest) const
 {
+  if (dest.filename.isEmpty())
+    return;
   QDir curDir(QFileInfo(src.filename).canonicalPath());
   TeXDocument * tex = TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), false, false, dest.line);
   PDFDocument * pdf = PDFDocument::findDocument(src.filename);
