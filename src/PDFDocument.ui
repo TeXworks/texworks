@@ -63,10 +63,7 @@
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
-    <addaction name="actionCut"/>
     <addaction name="actionCopy"/>
-    <addaction name="actionPaste"/>
-    <addaction name="actionClear"/>
     <addaction name="separator"/>
     <addaction name="actionPreferences"/>
    </widget>
