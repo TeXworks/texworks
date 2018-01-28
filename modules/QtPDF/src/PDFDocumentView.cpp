@@ -495,6 +495,11 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
   setVerticalScrollBarPolicy(oldVerticalPolicy);
 }
 
+const QWeakPointer<QtPDF::Backend::Document> PDFDocumentView::document() const
+{
+  return (_pdf_scene ? _pdf_scene->document() : QWeakPointer<QtPDF::Backend::Document>());
+}
+
 // Public Slots
 // ------------
 
