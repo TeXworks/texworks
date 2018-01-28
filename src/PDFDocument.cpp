@@ -141,6 +141,7 @@ void PDFDocument::init()
 	connect(pdfWidget, SIGNAL(changedPageMode(QtPDF::PDFDocumentView::PageMode)), this, SLOT(updatePageMode(QtPDF::PDFDocumentView::PageMode)));
 	connect(pdfWidget, SIGNAL(requestOpenPdf(QString,QtPDF::PDFDestination,bool)), this, SLOT(maybeOpenPdf(QString,QtPDF::PDFDestination,bool)));
 	connect(pdfWidget, SIGNAL(requestOpenUrl(QUrl)), this, SLOT(maybeOpenUrl(QUrl)));
+	connect(pdfWidget, SIGNAL(textSelectionChanged(bool)), this, SLOT(maybeEnableCopyCommand(bool)));
 
 	toolButtonGroup = new QButtonGroup(toolBar);
 	toolButtonGroup->addButton(qobject_cast<QAbstractButton*>(toolBar->widgetForAction(actionMagnify)), QtPDF::PDFDocumentView::MouseMode_MagnifyingGlass);
@@ -173,6 +174,8 @@ void PDFDocument::init()
 	connect(actionPrintPdf, SIGNAL(triggered()), this, SLOT(print()));
 
 	connect(actionQuit_TeXworks, SIGNAL(triggered()), TWApp::instance(), SLOT(maybeQuit()));
+
+	connect(actionCopy, SIGNAL(triggered(bool)), this, SLOT(copySelectedTextToClipboard()));
 
 	connect(actionFind, SIGNAL(triggered()), this, SLOT(doFindDialog()));
 
@@ -535,6 +538,28 @@ void PDFDocument::clearSearchResultHighlight()
 	if (!widget())
 		return;
 	widget()->setCurrentSearchResultHighlightBrush(QBrush(Qt::transparent));
+}
+
+void PDFDocument::copySelectedTextToClipboard()
+{
+	if (!widget()) return;
+	QString textToCopy = widget()->selectedText();
+	if (textToCopy.isEmpty())
+		return;
+	Q_ASSERT(QApplication::clipboard());
+	QApplication::clipboard()->setText(textToCopy);
+}
+
+void PDFDocument::maybeEnableCopyCommand(const bool isTextSelected)
+{
+  Q_ASSERT(actionCopy);
+  if (!widget())
+	return;
+  QSharedPointer<QtPDF::Backend::Document> doc = widget()->document().toStrongRef();
+  if (!doc)
+	actionCopy->setEnabled(false);
+  else
+	actionCopy->setEnabled(isTextSelected && doc->permissions().testFlag(QtPDF::Backend::Document::Permission_Extract));
 }
 
 void PDFDocument::setCurrentFile(const QString &fileName)

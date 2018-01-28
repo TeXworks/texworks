@@ -148,7 +148,8 @@ public slots:
 	void setPageMode(const int newMode);
 	void clearSyncHighlight();
 	void clearSearchResultHighlight();
-	
+	void copySelectedTextToClipboard();
+
 private slots:
 	void changedDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
 	void updateRecentFileActions();
@@ -169,6 +170,7 @@ private slots:
 	void maybeOpenUrl(const QUrl url);
 	void maybeOpenPdf(QString filename, QtPDF::PDFDestination destination, bool newWindow);
 	void maybeZoomToWindow(bool doZoom) { if (doZoom) pdfWidget->zoomFitWindow(); }
+	void maybeEnableCopyCommand(const bool isTextSelected);
 
 signals:
 	void reloaded();
