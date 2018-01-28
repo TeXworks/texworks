@@ -264,6 +264,9 @@ public:
   
   QColor highlightColor() const { return _highlightColor; }
   void setHighlightColor(const QColor & color);
+  bool isTextSelected() const { return (_highlightPath ? !_highlightPath->path().isEmpty() : false); }
+  QString selectedText() const;
+
 protected:
   virtual void disarm();
   virtual void mousePressEvent(QMouseEvent * event);

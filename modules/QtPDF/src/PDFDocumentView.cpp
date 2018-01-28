@@ -500,6 +500,16 @@ const QWeakPointer<QtPDF::Backend::Document> PDFDocumentView::document() const
   return (_pdf_scene ? _pdf_scene->document() : QWeakPointer<QtPDF::Backend::Document>());
 }
 
+QString PDFDocumentView::selectedText() const
+{
+  QSharedPointer<Backend::Document> doc = document().toStrongRef();
+  if(!doc || !doc->permissions().testFlag(Backend::Document::Permission_Extract))
+    return QString();
+  if (!_armedTool || _armedTool->type() != DocumentTool::AbstractTool::Tool_Select)
+    return QString();
+  return static_cast<DocumentTool::Select*>(_armedTool)->selectedText();
+}
+
 // Public Slots
 // ------------
 

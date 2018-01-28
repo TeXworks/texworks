@@ -70,6 +70,7 @@ public:
   bool useGrayScale() const { return _useGrayScale; }
   void fitInView(const QRectF & rect, Qt::AspectRatioMode aspectRatioMode = Qt::IgnoreAspectRatio);
   const QWeakPointer<QtPDF::Backend::Document> document() const;
+  QString selectedText() const;
 
   // The ownership of the returned pointers is transferred to the caller (i.e.,
   // he has to destroy them, unless the `parent` widget does that automatically)
