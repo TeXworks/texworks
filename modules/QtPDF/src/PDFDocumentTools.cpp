@@ -928,6 +928,8 @@ void Select::mouseReleaseEvent(QMouseEvent * event)
   _mouseMode = MouseMode_None;
   if (_rubberBand)
     _rubberBand->hide();
+  if (_parent)
+    _parent->notifyTextSelectionChanged();
 }
 
 void Select::keyPressEvent(QKeyEvent *event)

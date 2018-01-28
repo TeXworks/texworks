@@ -1285,6 +1285,12 @@ void PDFDocumentView::reinitializeFromScene()
   _searchString = QString();
 }
 
+void PDFDocumentView::notifyTextSelectionChanged()
+{
+  DocumentTool::Select * tool = static_cast<DocumentTool::Select *>(getToolByType(DocumentTool::AbstractTool::Tool_Select));
+  if (!tool) return;
+  emit textSelectionChanged(tool->isTextSelected());
+}
 
 void PDFDocumentView::registerTool(DocumentTool::AbstractTool * tool)
 {

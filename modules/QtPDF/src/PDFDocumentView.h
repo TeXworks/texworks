@@ -54,6 +54,7 @@ class PDFDocumentView : public QGraphicsView {
   bool _useGrayScale;
 
   friend class DocumentTool::AbstractTool;
+  friend class DocumentTool::Select;
 
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous, PageMode_Presentation };
@@ -157,6 +158,7 @@ signals:
 
   void searchProgressChanged(int percent, int occurrences);
   void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
+  void textSelectionChanged(const bool isTextSelected);
 
   void requestOpenUrl(const QUrl url);
   void requestExecuteCommand(QString command);
@@ -195,6 +197,7 @@ protected slots:
   void searchProgressValueChanged(int progressValue);
   void switchInterfaceLocale(const QLocale & newLocale);
   void reinitializeFromScene();
+  void notifyTextSelectionChanged();
 
 private:
   PageMode _pageMode;
