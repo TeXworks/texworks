@@ -122,16 +122,19 @@ TWSynchronizer::TeXSyncPoint TWSyncTeXSynchronizer::syncFromPDF(const TWSynchron
     return retVal;
 
   if (SyncTeX::synctex_edit_query(_scanner, src.page, src.rects[0].left(), src.rects[0].top()) > 0) {
-	SyncTeX::synctex_node_p node;
-	while ((node = SyncTeX::synctex_scanner_next_result(_scanner)) != NULL) {
+    SyncTeX::synctex_node_p node;
+    while ((node = SyncTeX::synctex_scanner_next_result(_scanner)) != NULL) {
       retVal.filename = QString::fromLocal8Bit(SyncTeX::synctex_scanner_get_name(_scanner, SyncTeX::synctex_node_tag(node)));
       retVal.line = SyncTeX::synctex_node_line(node);
       retVal.col = -1;
-      break; // FIXME: currently we just take the first hit
+
+      _syncFromPDFFine(src, retVal);
+      // If we found a (unique) match, we are done; otherwise, try other
+      // synctex_edit_query results (if any)
+      if (retVal.col > -1)
+        break;
     }
   }
-
-  _syncFromPDFFine(src, retVal);
 
   return retVal;
 }
