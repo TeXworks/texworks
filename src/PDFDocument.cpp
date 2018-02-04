@@ -439,15 +439,20 @@ void PDFDocument::loadSyncData()
 
 void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 {
+	syncRange(pageIndex, pos, pos);
+}
+
+void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QPointF & end)
+{
 	if (!_synchronizer)
 		return;
 
 	clearSyncHighlight();
 
-	/* NOTE: PDF coordinates are upside down (i.e., (0,0) is in the lower left),
-	 *       whereas SyncTeX expects TeX coordinates (i.e., (0,0) in the upper
-	 *       left). Hence we need to convert the coordinates
-	 */
+	// NOTE: "start" and "end" are in PDF coordinates, which are upside down
+	// (i.e., (0,0) is in the lower left), whereas SyncTeX expects TeX
+	// coordinates (i.e., (0,0) in the upper left). Hence we need to convert the
+	// coordinates.
 	QSharedPointer<QtPDF::Backend::Document> doc = pdfWidget->document().toStrongRef();
 	if (!doc)
 		return;
@@ -455,24 +460,72 @@ void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 	if (!page)
 		return;
 
-	TWSynchronizer::PDFSyncPoint src;
-	src.filename = curFile;
-	src.page = pageIndex + 1;
-	src.rects.append(QRectF(pos.x(), page->pageSizeF().height() - pos.y(), 0, 0));
+	// Synchronize the point "start"
+	TWSynchronizer::PDFSyncPoint srcStart;
+	srcStart.filename = curFile;
+	srcStart.page = pageIndex + 1;
+	srcStart.rects.append(QRectF(start.x(), page->pageSizeF().height() - start.y(), 0, 0));
+	TWSynchronizer::TeXSyncPoint destStart = _synchronizer->syncFromPDF(srcStart);
 
-	// Get target point
-	TWSynchronizer::TeXSyncPoint dest = _synchronizer->syncFromPDF(src);
+	// Syncronize the point "end"
+	TWSynchronizer::TeXSyncPoint destEnd;
+	if (end.isNull() || end == start)
+		// If "end" was not provided or was the same as "start", just copy the
+		// result
+		destEnd = destStart;
+	else {
+		// Otherwise, perform the synchronization
+		TWSynchronizer::PDFSyncPoint srcEnd;
+		srcEnd.filename = curFile;
+		srcEnd.page = pageIndex + 1;
+		srcEnd.rects.append(QRectF(end.x(), page->pageSizeF().height() - end.y(), 0, 0));
+		destEnd = _synchronizer->syncFromPDF(srcEnd);
+	}
 
-	// Check target point
-	if (dest.filename.isEmpty() || dest.line < 0)
+	// Check if (at least) "start" was properly synchronized; if not: bail out
+	if (destStart.filename.isEmpty() || destStart.line < 0)
 		return;
 
-	// Display the result
+	// Open the destination document (for the point "start"), and put the cursor
+	// on the right line (though not necessarily on the right column or with the
+	// the right selection, yet, as that requires additional handling below)
 	QDir curDir(QFileInfo(curFile).canonicalPath());
-	if (dest.col >= 0)
-		TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), true, true, dest.line, dest.col, dest.col + 1);
-	else
-		TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), true, true, dest.line, -1, -1);
+	TeXDocument * texDoc = TeXDocument::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line);
+	if (!texDoc)
+		return;
+
+	// Get a text cursor in the correct position for "start" (if no valid column
+	// was found, place it at the beginning of the correct line)
+	QTextCursor curStart = texDoc->textCursor();
+	curStart.setPosition(0);
+	curStart.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, destStart.line - 1);
+	if (destStart.col >= 0)
+		curStart.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, destStart.col);
+
+	// Get a text cursor in the correct position for "end" (if no valid column
+	// was found, place it at the end of the correct line)
+	QTextCursor curEnd = texDoc->textCursor();
+	if (destEnd.filename == destStart.filename) {
+		curEnd.setPosition(0);
+		curEnd.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, destStart.line - 1);
+		if (destEnd.col >= 0)
+			curEnd.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, destEnd.col);
+		else
+			curEnd.movePosition(QTextCursor::EndOfBlock);
+	}
+	else {
+		// If we get here, the end point is in a different file than the
+		// starting point. In that case, we assume the rest of the file
+		// containing the starting point should be highlighted)
+		curEnd.movePosition(QTextCursor::End);
+	}
+
+	// Properly highlight the destination document
+	// NB: We use TeXDocument::openDocument here even though we already have a
+	// pointer to the document as that is the only publicly available function
+	// that does what we need (i.e., position the cursor and possibly change the
+	// current selection).
+	TeXDocument::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line, curStart.position() - curStart.block().position(), curEnd.position() - curStart.block().position() + 1);
 }
 
 void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview)
@@ -818,7 +871,7 @@ void PDFDocument::doFindAgain(bool newSearch /* = false */)
 	widget()->search(searchText, searchFlags);
 }
 
-void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygonF> region)
+void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygonF> pdfRegion)
 {
 	QSETTINGS_OBJECT(settings);
 
@@ -826,13 +879,43 @@ void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygo
 	if (kPDFHighlightDuration > 0)
 		_searchResultHighlightRemover.start(kPDFHighlightDuration);
 
-	if (hasSyncData() && settings.value(QString::fromLatin1("searchPdfSync")).toBool() && !region.isEmpty()) {
-		// emit a syncClick message at the center of the left edge of the (bounding)
-		// rect. To ensure hit-testing succeeds later on, we add an offset of 1e-5
-		// (for rectangles of finite width)
-		QRectF r = region[0].boundingRect();
-		QPointF pt(r.left() + 1e-5 * qMin(r.width(), 1.), r.center().y());
-		emit syncClick(pageNum, pt);
+	if (hasSyncData() && settings.value(QString::fromLatin1("searchPdfSync")).toBool() && !pdfRegion.isEmpty()) {
+		// In order to properly synchronize the search result, we first obtain
+		// the bounding boxes of the first and last matched characters and then
+		// use those for synchronization
+
+		QSharedPointer<QtPDF::Backend::Document> doc = widget()->document().toStrongRef();
+		Q_ASSERT(doc);
+		QSharedPointer<QtPDF::Backend::Page> page = doc->page(pageNum);
+		Q_ASSERT(page);
+		QMap<int, QRectF> charBoxes;
+
+		// NOTE: pdfRegion is in PDF coordinates (i.e., (0,0) is in the lower
+		// left), whereas QtPDF::Backend::Page::selectedText() expects TeX
+		// coordinates (i.e., (0,0) in the upper left). Hence we need to convert
+		// the coordinates
+		QList<QPolygonF> region;
+		foreach (QPolygonF pdfPolygon, pdfRegion) {
+			QPolygonF polygon;
+			foreach (QPointF p, pdfPolygon)
+				polygon << QPointF(p.x(), page->pageSizeF().height() - p.y());
+			region << polygon;
+		}
+
+		// Obtain the chracter bounding boxes of the search result
+		page->selectedText(region, NULL, &charBoxes, true);
+		Q_ASSERT(charBoxes.size() > 0);
+
+		// Obtain the centers of the first and last character bounding boxes and
+		// convert them to PDF coordinates (i.e., (0,0) in the lower left) as
+		// required by syncRange()
+		QPointF pt1 = charBoxes.first().center();
+		QPointF pt2 = charBoxes.last().center();
+		pt1.ry() = page->pageSizeF().height() - pt1.y();
+		pt2.ry() = page->pageSizeF().height() - pt2.y();
+
+		// Perform the synchronization
+		syncRange(pageNum, pt1, pt2);
 	}
 }
 

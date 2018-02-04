@@ -156,6 +156,7 @@ private slots:
 	void updateWindowMenu();
 	void enablePageActions(int);
 	void syncClick(int page, const QPointF& pos);
+	void syncRange(const int pageIndex, const QPointF & start, const QPointF & end);
 	void invalidateSyncHighlight();
 	void scaleLabelClick(QMouseEvent * event) { showScaleContextMenu(event->pos()); }
 	void showScaleContextMenu(const QPoint pos);
@@ -165,7 +166,7 @@ private slots:
 	void doPageDialog();
 	void doScaleDialog();
 	void jumpToSource();
-	void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
+	void searchResultHighlighted(const int pageNum, const QList<QPolygonF> pdfRegion);
 	void setDefaultScale();
 	void maybeOpenUrl(const QUrl url);
 	void maybeOpenPdf(QString filename, QtPDF::PDFDestination destination, bool newWindow);
