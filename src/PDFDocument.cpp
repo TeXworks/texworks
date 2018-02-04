@@ -909,8 +909,8 @@ void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygo
 		// Obtain the centers of the first and last character bounding boxes and
 		// convert them to PDF coordinates (i.e., (0,0) in the lower left) as
 		// required by syncRange()
-		QPointF pt1 = charBoxes.first().center();
-		QPointF pt2 = charBoxes.last().center();
+		QPointF pt1 = charBoxes[0].center();
+		QPointF pt2 = charBoxes[charBoxes.size() - 1].center();
 		pt1.ry() = page->pageSizeF().height() - pt1.y();
 		pt2.ry() = page->pageSizeF().height() - pt2.y();
 
