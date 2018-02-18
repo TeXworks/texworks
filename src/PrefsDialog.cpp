@@ -356,7 +356,30 @@ void PrefsDialog::restoreDefaults()
 			}
 
 			resolution->setDpi(QApplication::desktop()->physicalDpiX());
-			
+
+			switch (TWSynchronizer::kDefault_Resolution_ToTeX) {
+				case TWSynchronizer::CharacterResolution:
+					cbSyncToTeX->setCurrentIndex(0);
+					break;
+				case TWSynchronizer::WordResolution:
+					cbSyncToTeX->setCurrentIndex(1);
+					break;
+				case TWSynchronizer::LineResolution:
+					cbSyncToTeX->setCurrentIndex(2);
+					break;
+			}
+			switch (TWSynchronizer::kDefault_Resolution_ToPDF) {
+				case TWSynchronizer::CharacterResolution:
+					cbSyncToPDF->setCurrentIndex(0);
+					break;
+				case TWSynchronizer::WordResolution:
+					cbSyncToPDF->setCurrentIndex(1);
+					break;
+				case TWSynchronizer::LineResolution:
+					cbSyncToPDF->setCurrentIndex(2);
+					break;
+			}
+
 			switch (kDefault_MagnifierSize) {
 				case 1:
 					smallMag->setChecked(true);
@@ -586,6 +609,12 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 
 	double oldResolution = settings.value(QString::fromLatin1("previewResolution"), QApplication::desktop()->physicalDpiX()).toDouble();
 	dlg.resolution->setDpi(oldResolution);
+
+	int oldSyncToTeX = settings.value(QString::fromLatin1("syncResolutionToTeX"), TWSynchronizer::kDefault_Resolution_ToTeX).toInt();
+	dlg.cbSyncToTeX->setCurrentIndex(oldSyncToTeX);
+
+	int oldSyncToPDF = settings.value(QString::fromLatin1("syncResolutionToPDF"), TWSynchronizer::kDefault_Resolution_ToPDF).toInt();
+	dlg.cbSyncToPDF->setCurrentIndex(oldSyncToPDF);
 	
 	int oldMagSize = settings.value(QString::fromLatin1("magnifierSize"), kDefault_MagnifierSize).toInt();
 	switch (oldMagSize) {
@@ -755,7 +784,15 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 					thePdfDoc->setResolution(resolution);
 			}
 		}
-		
+
+		int syncToTeX = dlg.cbSyncToTeX->currentIndex();
+		if (syncToTeX != oldSyncToTeX)
+			settings.setValue(QString::fromLatin1("syncResolutionToTeX"), syncToTeX);
+
+		int syncToPDF = dlg.cbSyncToPDF->currentIndex();
+		if (syncToPDF != oldSyncToPDF)
+			settings.setValue(QString::fromLatin1("syncResolutionToPDF"), syncToPDF);
+
 		int magSize = 2;
 		if (dlg.smallMag->isChecked())
 			magSize = 1;

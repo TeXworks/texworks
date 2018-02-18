@@ -156,7 +156,7 @@ private slots:
 	void updateWindowMenu();
 	void enablePageActions(int);
 	void syncClick(int page, const QPointF& pos);
-	void syncRange(const int pageIndex, const QPointF & start, const QPointF & end);
+	void syncRange(const int pageIndex, const QPointF & start, const QPointF & end, const TWSynchronizer::Resolution resolution);
 	void invalidateSyncHighlight();
 	void scaleLabelClick(QMouseEvent * event) { showScaleContextMenu(event->pos()); }
 	void showScaleContextMenu(const QPoint pos);

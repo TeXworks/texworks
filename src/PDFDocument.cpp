@@ -439,10 +439,26 @@ void PDFDocument::loadSyncData()
 
 void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 {
-	syncRange(pageIndex, pos, pos);
+	QSETTINGS_OBJECT(settings);
+	TWSynchronizer::Resolution res;
+	switch (settings.value(QString::fromLatin1("syncResolutionToTeX"), TWSynchronizer::kDefault_Resolution_ToTeX).toInt()) {
+		case 0:
+			res = TWSynchronizer::CharacterResolution;
+			break;
+		case 1:
+			res = TWSynchronizer::WordResolution;
+			break;
+		case 2:
+			res = TWSynchronizer::LineResolution;
+			break;
+		default:
+			res = TWSynchronizer::kDefault_Resolution_ToPDF;
+	}
+
+	syncRange(pageIndex, pos, pos, res);
 }
 
-void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QPointF & end)
+void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QPointF & end, const TWSynchronizer::Resolution resolution)
 {
 	if (!_synchronizer)
 		return;
@@ -465,7 +481,7 @@ void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QP
 	srcStart.filename = curFile;
 	srcStart.page = pageIndex + 1;
 	srcStart.rects.append(QRectF(start.x(), page->pageSizeF().height() - start.y(), 0, 0));
-	TWSynchronizer::TeXSyncPoint destStart = _synchronizer->syncFromPDF(srcStart);
+	TWSynchronizer::TeXSyncPoint destStart = _synchronizer->syncFromPDF(srcStart, resolution);
 
 	// Syncronize the point "end"
 	TWSynchronizer::TeXSyncPoint destEnd;
@@ -479,7 +495,7 @@ void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QP
 		srcEnd.filename = curFile;
 		srcEnd.page = pageIndex + 1;
 		srcEnd.rects.append(QRectF(end.x(), page->pageSizeF().height() - end.y(), 0, 0));
-		destEnd = _synchronizer->syncFromPDF(srcEnd);
+		destEnd = _synchronizer->syncFromPDF(srcEnd, resolution);
 	}
 
 	// Check if (at least) "start" was properly synchronized; if not: bail out
@@ -509,7 +525,7 @@ void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QP
 		curEnd.setPosition(0);
 		curEnd.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, destStart.line - 1);
 		if (destEnd.col >= 0)
-			curEnd.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, destEnd.col);
+			curEnd.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, destEnd.col + qMax(1, destEnd.len));
 		else
 			curEnd.movePosition(QTextCursor::EndOfBlock);
 	}
@@ -525,7 +541,7 @@ void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QP
 	// pointer to the document as that is the only publicly available function
 	// that does what we need (i.e., position the cursor and possibly change the
 	// current selection).
-	TeXDocument::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line, curStart.position() - curStart.block().position(), curEnd.position() - curStart.block().position() + 1);
+	TeXDocument::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line, curStart.position() - curStart.block().position(), curEnd.position() - curStart.block().position());
 }
 
 void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview)
@@ -533,13 +549,29 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col,
 	if (!_synchronizer)
 		return;
 
+	QSETTINGS_OBJECT(settings);
+	TWSynchronizer::Resolution res;
+	switch (settings.value(QString::fromLatin1("syncResolutionToPDF"), TWSynchronizer::kDefault_Resolution_ToPDF).toInt()) {
+		case 0:
+			res = TWSynchronizer::CharacterResolution;
+			break;
+		case 1:
+			res = TWSynchronizer::WordResolution;
+			break;
+		case 2:
+			res = TWSynchronizer::LineResolution;
+			break;
+		default:
+			res = TWSynchronizer::kDefault_Resolution_ToPDF;
+	}
+
 	TWSynchronizer::TeXSyncPoint src;
 	src.filename = sourceFile;
 	src.line = lineNo;
 	src.col = col;
 
 	// Get target point
-	TWSynchronizer::PDFSyncPoint dest = _synchronizer->syncFromTeX(src);
+	TWSynchronizer::PDFSyncPoint dest = _synchronizer->syncFromTeX(src, res);
 
 	// Check target point
 	if (dest.page < 1 || QFileInfo(curFile) != QFileInfo(dest.filename))
@@ -915,7 +947,7 @@ void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygo
 		pt2.ry() = page->pageSizeF().height() - pt2.y();
 
 		// Perform the synchronization
-		syncRange(pageNum, pt1, pt2);
+		syncRange(pageNum, pt1, pt2, TWSynchronizer::CharacterResolution);
 	}
 }
 
