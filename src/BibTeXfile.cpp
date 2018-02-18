@@ -226,7 +226,7 @@ void BibTeXFile::parseEntry(Entry & e, const QString & block)
 				continue;
 			}
 
-			int end = findBlock(block, i, QChar::fromLatin1('{'), QChar::fromLatin1('}'));
+			int end = findBlock(block, i, startDelim, endDelim);
 			if (end < 0) {
 				val += block.mid(i);
 				i = block.size();
