@@ -50,7 +50,7 @@
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 // compile-time default paths - customize by defining in the .pro file
 #ifndef TW_DICPATH
-#define TW_DICPATH "/usr/share/myspell/dicts"
+#define TW_DICPATH "/usr/share/hunspell" PATH_LIST_SEP "/usr/share/myspell/dicts"
 #endif
 #ifndef TW_HELPPATH
 #define TW_HELPPATH "/usr/local/share/texworks-help"
