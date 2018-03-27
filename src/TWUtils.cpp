@@ -432,15 +432,17 @@ Hunhandle* TWUtils::getDictionary(const QString& language)
 		return dictionaries->value(language);
 	
 	Hunhandle *h = NULL;
-	const QString dictPath = getLibraryPath(QString::fromLatin1("dictionaries"));
-	QFileInfo affFile(dictPath + QChar::fromLatin1('/') + language + QLatin1String(".aff"));
-	QFileInfo dicFile(dictPath + QChar::fromLatin1('/') + language + QLatin1String(".dic"));
-	if (affFile.isReadable() && dicFile.isReadable()) {
-		h = Hunspell_create(affFile.canonicalFilePath().toLocal8Bit().data(),
-							dicFile.canonicalFilePath().toLocal8Bit().data());
-		(*dictionaries)[language] = h;
+	foreach (QDir dicDir, TWUtils::getLibraryPath(QString::fromLatin1("dictionaries")).split(QLatin1String(PATH_LIST_SEP))) {
+		QFileInfo affFile(dicDir, language + QLatin1String(".aff"));
+		QFileInfo dicFile(dicDir, language + QLatin1String(".dic"));
+		if (affFile.isReadable() && dicFile.isReadable()) {
+			h = Hunspell_create(affFile.canonicalFilePath().toLocal8Bit().data(),
+			                    dicFile.canonicalFilePath().toLocal8Bit().data());
+			(*dictionaries)[language] = h;
+			return h;
+		}
 	}
-	return h;
+	return NULL;
 }
 
 QString TWUtils::getLanguageForDictionary(const Hunhandle * pHunspell)
