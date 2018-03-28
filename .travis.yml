@@ -6,15 +6,43 @@ matrix:
       os: osx
     - env: TARGET_OS=win QT=4
       os: linux
+      sudo: required
     - env: TARGET_OS=win QT=5
       os: linux
+      sudo: required
     - env: TARGET_OS=linux QT=4
       os: linux
+      addons:
+        apt:
+          packages:
+            - ubuntu-dev-tools
+            - dput
+            - debhelper
+            - libqt4-dev
+            - zlib1g-dev
+            - libhunspell-dev
+            - libpoppler-qt4-dev
+            - libpoppler-private-dev
+            - liblua5.2-dev
+            - fakeroot
     - env: TARGET_OS=linux QT=5
       os: linux
-
-dist: trusty
-sudo: required
+      addons:
+        apt:
+          packages:
+            - ubuntu-dev-tools
+            - dput
+            - debhelper
+            - qtbase5-dev
+            - qtscript5-dev
+            - qttools5-dev
+            - qttools5-dev-tools
+            - zlib1g-dev
+            - libhunspell-dev
+            - libpoppler-qt5-dev
+            - libpoppler-private-dev
+            - liblua5.2-dev
+            - fakeroot
 
 before_install:
   - ${TRAVIS_BUILD_DIR}/travis-ci/get-dependencies.sh
