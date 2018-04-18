@@ -1123,8 +1123,7 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 		deleteMap = true;
 	}
 
-	QAction * act;
-	foreach (act, widget->actions()) {
+	foreach (QAction * act, widget->actions()) {
 		if (act->objectName().isEmpty())
 			continue;
 		if (map->contains(act->objectName()))
@@ -1132,8 +1131,7 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 	}
 	
 	if (recursive) {
-		QObject * obj;
-		foreach (obj, widget->children()) {
+		foreach (QObject * obj, widget->children()) {
 			QWidget * child = qobject_cast<QWidget*>(obj);
 			if (child)
 				installCustomShortcuts(child, true, map);
