@@ -1239,8 +1239,11 @@ void FullscreenManager::actionDeleted(QObject * obj)
 	QAction * a = qobject_cast<QAction *>(obj);
 	if (!a) return;
 	for (unsigned int i = 0; i < _shortcuts.size(); ) {
-		if (_shortcuts[i].action == a)
+		if (_shortcuts[i].action == a) {
+			if (_shortcuts[i].shortcut)
+				delete _shortcuts[i].shortcut;
 			_shortcuts.removeAt(i);
+		}
 		else
 			++i;
 	}
