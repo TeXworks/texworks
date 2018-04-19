@@ -222,7 +222,10 @@ void TeXHighlighter::loadPatterns()
 				if (parts[1].compare(QChar::fromLatin1('Y'), Qt::CaseInsensitive) == 0) {
 					rule.spellCheck = true;
 					rule.spellFormat = rule.format;
-					rule.spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+					// TODO: We should use QTextCharFormat::SpellCheckUnderline here, but that
+					// causes problems for some fonts/font sizes in Qt 5 (QTBUG-50499)
+					rule.spellFormat.setUnderlineStyle(QTextCharFormat::WaveUnderline);
+					rule.spellFormat.setUnderlineColor(Qt::red);
 				}
 				else
 					rule.spellCheck = false;
