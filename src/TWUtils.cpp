@@ -701,13 +701,16 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 		}
 	}
 	
+	// Ensure the window is not maximized, otherwise some window managers might
+	// react strangely to resizing
+	window->showNormal();
 	if (rhs) {
-		r.setLeft(r.left() + r.right() / 2);
+		r.setLeft((r.left() + r.right()) / 2);
 		window->move(r.left(), r.top());
 		window->resize(r.width() - wDiff, r.height() - hDiff);
 	}
 	else {
-		r.setRight(r.left() + r.right() / 2 - 1);
+		r.setRight((r.left() + r.right()) / 2 - 1);
 		window->move(r.left(), r.top());
 		window->resize(r.width() - wDiff, r.height() - hDiff);
 	}
