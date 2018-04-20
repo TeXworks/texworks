@@ -32,7 +32,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	echo_and_run "sudo apt-get -qq update"
 
 	if [ "${QT}" -eq 4 ]; then
-		print_info "Installing packages: curl freetype gcc jpeg lcms libpng lua pkg-config qt tiff"
+		print_info "Installing packages: curl freetype gcc jpeg lcms libpng lua pkgconf qt tiff"
 		sudo apt-get install -y mxe-i686-w64-mingw32.static-curl mxe-i686-w64-mingw32.static-freetype mxe-i686-w64-mingw32.static-gcc mxe-i686-w64-mingw32.static-jpeg mxe-i686-w64-mingw32.static-lcms mxe-i686-w64-mingw32.static-libpng mxe-i686-w64-mingw32.static-lua mxe-i686-w64-mingw32.static-pkgconf mxe-i686-w64-mingw32.static-qt mxe-i686-w64-mingw32.static-tiff
 
 		print_info "Make MXE writable"
@@ -48,7 +48,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		print_info "Building poppler (using ${JOBS} jobs)"
 		env PATH="${MXEDIR}/usr/bin:${MXEDIR}/usr/${MXETARGET}/qt/bin:$PATH" PREFIX="${MXEDIR}/usr" TARGET="${MXETARGET}" JOBS="$JOBS" MXE_CONFIGURE_OPTS="--host='${MXETARGET}' --build='`${MXEDIR}/ext/config.guess`' --prefix='${MXEDIR}/usr/${MXETARGET}' --enable-static --disable-shared ac_cv_prog_HAVE_DOXYGEN='false' --disable-doxygen --enable-poppler-qt4 --disable-poppler-qt5" TEST_FILE="poppler-test.cxx" make -f build-poppler-mxe.mk
 	elif [ "${QT}" -eq 5 ]; then
-		print_info "Installing packages: curl freetype gcc jpeg lcms libpng lua pkg-config qtbase qtscript qttools tiff"
+		print_info "Installing packages: curl freetype gcc jpeg lcms libpng lua pkgconf qtbase qtscript qttools tiff"
 		sudo apt-get install -y mxe-i686-w64-mingw32.static-curl mxe-i686-w64-mingw32.static-freetype mxe-i686-w64-mingw32.static-gcc mxe-i686-w64-mingw32.static-jpeg mxe-i686-w64-mingw32.static-lcms mxe-i686-w64-mingw32.static-libpng mxe-i686-w64-mingw32.static-lua mxe-i686-w64-mingw32.static-pkgconf mxe-i686-w64-mingw32.static-qtbase mxe-i686-w64-mingw32.static-qtscript mxe-i686-w64-mingw32.static-qttools mxe-i686-w64-mingw32.static-tiff
 
 		print_info "Make MXE writable"
@@ -74,6 +74,11 @@ elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
 	brew update > brew_update.log || { print_error "Updating homebrew failed"; cat brew_update.log; exit 1; }
 	if [ $QT -eq 5 ]; then
 		print_info "Brewing packages: qt5 poppler hunspell lua"
+		# Travis-CI comes with python preinstalled; poppler depends on
+		# gobject-introspection, which depends on python@2, which
+		# conflicts with the preinstalled version; so we unlink the
+		# pre-installed version first
+		brew unlink python
 		brew install qt5
 		brew install "${TRAVIS_BUILD_DIR}/CMake/packaging/mac/poppler.rb" --with-qt --enable-xpdf-headers
 	else
