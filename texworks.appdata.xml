@@ -1,33 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014 Stefan Löffler <st.loeffler@gmail.com> -->
-<application>
-  <id type="desktop">texworks.desktop</id>
-  <metadata_license>CC0</metadata_license>
-<!--
-  <project_license>GPL-2.0+</project_license>
--->
-  <description>
-    <p>
-      TeXworks is an environment for authoring TeX (LaTeX, ConTeXt, etc) documents, with a
-      Unicode-based, TeX-aware editor, integrated PDF viewer, and a clean, simple
-      interface accessible to casual and non-technical users.
-    </p>
-    <p>
-      TeXworks is inspired by Dick Koch's award-winning TeXShop program for Mac OS X,
-      which has made quality typesetting through TeX accessible to a wider community
-      of users, without a technical or intimidating face. The goal of TeXworks is to
-      deliver a similarly integrated, easy-to-use environment for users on other
-      platforms, especially GNU/Linux and Windows.
-    </p>
-    <p>
-      Among other things, TeXworks features an integrated PDF previewer, synchronization
-      between the TeX files and the PDF output, and an extensible scripting interface.
-    </p>
-  </description>
-  <screenshots>
-    <screenshot type="default" width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</screenshot>
-  </screenshots>
-  <url type="homepage">http://www.tug.org/texworks/</url>
-  <updatecontact>texworks@tug.org</updatecontact>
-</application>
+<!-- Copyright 2014-2018 Stefan Löffler <st.loeffler@gmail.com> -->
+<component type="desktop-application">
+	<id>org.tug.texworks.desktop</id>
+	<metadata_license>CC0-1.0</metadata_license>
+	<project_license>GPL-2.0+</project_license>
+	<name>TeXworks</name>
+	<name xml:lang="de">TeXworks</name>
+	<summary>A simple environment for editing, typesetting, and previewing TeX documents</summary>
+	<summary xml:lang="af">'n Eenvoudige omgewing vir redigering, letterset, en vooraflees van TeX dokumente</summary>
+	<summary xml:lang="ar">بيئة بسيطة لتحرير وصف ومعاينة مستندات تخ</summary>
+	<summary xml:lang="ca">Un entorn senzill per a l'edició, composiciò i vista prèvia de documents TeX</summary>
+	<summary xml:lang="cs">Jednoduché prostředí pro úpravu, sazbu a náhled TeXových dokumentů</summary>
+	<summary xml:lang="de">Eine einfache Umgebung zum Bearbeiten, Setzen und Darstellen von TeX-Dokumenten</summary>
+	<summary xml:lang="es">Un simple recurso para editar, compilar y previsualizar documentos TeX</summary>
+	<summary xml:lang="fa">محیطی ساده برای ویرایش، حروف‌چینی، و پیش‌نمایش مستندات تک</summary>
+	<summary xml:lang="fo">Eitt einfalt umhvørvi til at skriva, seta og lesa TeX-skjøl við</summary>
+	<summary xml:lang="fr">Un environnement simple pour éditer, composer et prévisualiser des documents TeX</summary>
+	<summary xml:lang="it">Un semplice ambiente per la modifica, la composizione e l'anteprima di documenti TeX</summary>
+	<summary xml:lang="ja">TeX文書を作成、タイプセット、プレビューするためのシンプルな統合環境です</summary>
+	<summary xml:lang="ko">TeX 문서를 편집, 조판, 미리보기 할 수 있는 심플한 환경</summary>
+	<summary xml:lang="nl">Een eenvoudige omgeving voor het aanpassen, typesetten, en vertonen van TeX documenten</summary>
+	<summary xml:lang="nn">Eit enkelt miljø for redigering, sideombrekking og vising av TeX-dokument</summary>
+	<summary xml:lang="pl">Proste środowisko do edycji, składu oraz przeglądania dokumentów w TeXu</summary>
+	<summary xml:lang="pt_BR">TeXworks é um ambiente simples para editar, compilar e prever documentos TeX</summary>
+	<summary xml:lang="ru">TeXworks это простая программа для редактирования, вёрстки и просмотра документов TeX</summary>
+	<summary xml:lang="sl">Okolje za enostavno urejanje, stavljenje in predogled TeX-ovih dokumentov</summary>
+	<summary xml:lang="tr">TeXworks, TeX belgelerini düzenleme, dizme ve önizleme için basit bir ortamdır</summary>
+	<summary xml:lang="zh_CN">一个用于编辑、排版和预览 TeX 文档的简洁集成环境</summary>
+
+	<description>
+		<p>
+			TeXworks is an environment for authoring TeX (LaTeX, ConTeXt, etc) documents, with a
+			Unicode-based, TeX-aware editor, integrated PDF viewer, and a clean, simple
+			interface accessible to casual and non-technical users.
+		</p>
+		<p>
+			TeXworks is inspired by Dick Koch's award-winning TeXShop program for Mac OS X,
+			which has made quality typesetting through TeX accessible to a wider community
+			of users, without a technical or intimidating face. The goal of TeXworks is to
+			deliver a similarly integrated, easy-to-use environment for users on other
+			platforms, especially GNU/Linux and Windows.
+		</p>
+		<p>
+			Among other things, TeXworks features an integrated PDF previewer, synchronization
+			between the TeX files and the PDF output, and an extensible scripting interface.
+		</p>
+		<p xml:lang="de">
+			TeXworks ist ein Programm, um TeX (LaTeX, ConTeXt, etc) Dokumente zu erstellen
+			und zu bearbeiten. Es besitzt einen eingebauten Unicode-basierten TeX-Editor,
+			eine integrierte PDF Anzeige und eine aufgeräumte, einfach zu verwendende
+			Benutzeroberfläche die für gelegentliche und nicht-technische Nutzer leicht
+			zu bedienen ist.
+		</p>
+		<p xml:lang="de">
+			TeXworks wurde von Dick Kochs preisgekröntem Programm TeXShop für Mac OS X
+			inspiriert, das hochqualitativen Schriftsatz mittels TeX ohne einschüchternde
+			technische Details einer breiten Nutzerbasis zugänglich gemacht hat. Das Ziel
+			von TeXworks ist es, ein gleichermaßen integriertes, einfach zu verwendendes
+			Programm auch Nutzern anderer Platformen, insbesondere GNU/Linux und Windows,
+			zur Verfügung zu stellen.
+		</p>
+		<p xml:lang="de">
+			TeXworks zeichnet sich unter anderem durch eine integrierte PDF Vorschau,
+			Synchronisation zwischen TeX- und PDF-Dateien sowie ein erweiterbares
+			Skripting-Interface aus.
+		</p>
+	</description>
+	<screenshots>
+		<screenshot type="default" width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</screenshot>
+	</screenshots>
+	<url type="homepage">http://www.tug.org/texworks/</url>
+	<url type="bugtracker">https://github.com/TeXworks/texworks/issues</url>
+	<url type="translate">https://github.com/TeXworks/texworks/wiki/Translating</url>
+	<update_contact>texworks@tug.org</update_contact>
+
+	<provides>
+		<binary>texworks</binary>
+	</provides>
+	<launchable type="desktop-id">texworks.desktop</launchable>
+	<translation type="qt" />
+
+	<releases>
+		<release version="0.6.2" date="2017-04-30" />
+		<release version="0.6.1" date="2016-05-01" />
+		<release version="0.6.0" date="2016-04-03" />
+		<release version="0.4.6" date="2015-04-03" />
+		<release version="0.4.5" date="2015-03-15" />
+		<release version="0.4.4" date="2012-04-29" />
+		<release version="0.4.3" date="2011-06-29" />
+		<release version="0.4.2" date="2011-06-26" />
+		<release version="0.4.1" date="2012-05-27" />
+		<release version="0.4.0" date="2012-05-21" />
+		<release version="0.2.3" date="2009-10-12" />
+		<release version="0.2.2" date="2009-10-10" />
+		<release version="0.2.1" date="2009-10-10" />
+		<release version="0.2.0" date="2009-09-30" />
+	</releases>
+</component>
 
