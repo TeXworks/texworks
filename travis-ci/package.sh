@@ -54,6 +54,8 @@ cd "${BUILDDIR}"
 
 if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	if [ ${QT} -eq 4 ]; then
+		print_info "Not packaging for ${TARGET_OS}/qt${QT}"
+	elif [ ${QT} -eq 5 ]; then
 		DEBDATE=$(date -R)
 
 		echo_var "DEBDATE"
@@ -130,8 +132,6 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 
 			echo "dput \"${PPA}\" \"${BUILDDIR}/${DEBFILE}\"" >> "${TRAVIS_BUILD_DIR}/travis-ci/dput-launchpad.sh"
 		done
-	elif [ ${QT} -eq 5 ]; then
-		print_info "Not packaging for ${TARGET_OS}/qt${QT}"
 	else
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
 	fi
