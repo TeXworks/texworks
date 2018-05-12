@@ -3,13 +3,12 @@
 PKG             := poppler
 $(PKG)_WEBSITE  := https://poppler.freedesktop.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 0.61.0
-$(PKG)_CHECKSUM := 53cde17a2afa3b73eb8b209d24e4369b52bfac444065dbb0a8cbcc7356582b7f
+$(PKG)_VERSION  := 0.64.0
+$(PKG)_CHECKSUM := b21df92ca99f78067785cf2dc8e06deb04726b62389c0ee1f5d8b103c77f64b1
 $(PKG)_SUBDIR   := poppler-$($(PKG)_VERSION)
 $(PKG)_FILE     := poppler-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://poppler.freedesktop.org/$($(PKG)_FILE)
-#$(PKG)_DEPS     := gcc cairo curl freetype glib jpeg lcms libpng qt tiff zlib
-$(PKG)_DEPS     := gcc cairo curl freetype glib jpeg lcms libpng qt qtbase tiff zlib
+$(PKG)_DEPS     := cc cairo curl freetype glib jpeg lcms libpng qtbase tiff zlib
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://poppler.freedesktop.org/' | \

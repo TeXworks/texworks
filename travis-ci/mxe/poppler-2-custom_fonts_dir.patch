@@ -1,7 +1,7 @@
-From ebb63c29d32d752d410ad1952de88caf707eb60c Mon Sep 17 00:00:00 2001
+From 498cf1f365bd190a5c41caaf2fd5c8fa457ccebe Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Mon, 6 Nov 2017 06:59:37 +0100
-Subject: [PATCH] Use a custom font directory on Windows
+Subject: [PATCH 5/5] Use a custom font directory on Windows
 
 Uses the share/fonts directory alongside the application/poppler library
 ---
@@ -11,10 +11,10 @@ Uses the share/fonts directory alongside the application/poppler library
  3 files changed, 36 insertions(+), 6 deletions(-)
 
 diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
-index d17673a4..fb64d8a7 100644
+index c4116684..04b9b1d0 100644
 --- a/poppler/GlobalParams.cc
 +++ b/poppler/GlobalParams.cc
-@@ -188,6 +188,36 @@ get_poppler_datadir (void)
+@@ -191,6 +191,36 @@ get_poppler_datadir (void)
  #undef POPPLER_DATADIR
  #define POPPLER_DATADIR get_poppler_datadir ()
  
@@ -51,16 +51,16 @@ index d17673a4..fb64d8a7 100644
  #endif
  
  //------------------------------------------------------------------------
-@@ -1070,7 +1100,7 @@ static FcPattern *buildFcPattern(GfxFont *font, GooString *base14Name)
+@@ -1078,7 +1108,7 @@ static FcPattern *buildFcPattern(GfxFont *font, const GooString *base14Name)
  GooString *GlobalParams::findFontFile(GooString *fontName) {
    GooString *path;
  
--  setupBaseFonts(NULL);
+-  setupBaseFonts(nullptr);
 +  setupBaseFonts(POPPLER_FONTSDIR);
    lockGlobalParams;
    if ((path = (GooString *)fontFiles->lookup(fontName))) {
      path = path->copy();
-@@ -1086,7 +1116,7 @@ GooString *GlobalParams::findFontFile(GooString *fontName) {
+@@ -1094,7 +1124,7 @@ GooString *GlobalParams::findFontFile(GooString *fontName) {
  */
  #ifdef WITH_FONTCONFIGURATION_FONTCONFIG
  // not needed for fontconfig
@@ -69,7 +69,7 @@ index d17673a4..fb64d8a7 100644
  }
  
  GooString *GlobalParams::findBase14FontFile(GooString *base14Name, GfxFont *font) {
-@@ -1300,7 +1330,7 @@ static const char *displayFontDirs[] = {
+@@ -1308,7 +1338,7 @@ static const char *displayFontDirs[] = {
    NULL
  };
  
@@ -79,12 +79,12 @@ index d17673a4..fb64d8a7 100644
    GooString *fileName;
    FILE *f;
 diff --git a/poppler/GlobalParams.h b/poppler/GlobalParams.h
-index 7c61ae44..7b444eee 100644
+index e3d660cf..c7ced56b 100644
 --- a/poppler/GlobalParams.h
 +++ b/poppler/GlobalParams.h
-@@ -108,7 +108,7 @@ public:
- 
-   ~GlobalParams();
+@@ -111,7 +111,7 @@ public:
+   GlobalParams(const GlobalParams &) = delete;
+   GlobalParams& operator=(const GlobalParams &) = delete;
  
 -  void setupBaseFonts(char *dir);
 +  void setupBaseFonts(const char *dir);
@@ -92,10 +92,10 @@ index 7c61ae44..7b444eee 100644
    //----- accessors
  
 diff --git a/poppler/GlobalParamsWin.cc b/poppler/GlobalParamsWin.cc
-index a7440b9a..8f8c8364 100644
+index 66996ffd..b24ab559 100644
 --- a/poppler/GlobalParamsWin.cc
 +++ b/poppler/GlobalParamsWin.cc
-@@ -408,7 +408,7 @@ static GooString* replaceSuffix(GooString *path,
+@@ -409,7 +409,7 @@ static GooString* replaceSuffix(GooString *path,
  }
  
  
@@ -103,12 +103,12 @@ index a7440b9a..8f8c8364 100644
 +void GlobalParams::setupBaseFonts(const char * dir = NULL)
  {
      const char *dataRoot = popplerDataDir ? popplerDataDir : POPPLER_DATADIR;
-     GooString *fileName = NULL;
-@@ -556,7 +556,7 @@ GooString *GlobalParams::findSystemFontFile(GfxFont *font,
-   GooString *fontName = font->getName();
-   if (!fontName) return NULL;
+     GooString *fileName = nullptr;
+@@ -557,7 +557,7 @@ GooString *GlobalParams::findSystemFontFile(GfxFont *font,
+   const GooString *fontName = font->getName();
+   if (!fontName) return nullptr;
    lockGlobalParams;
--  setupBaseFonts(NULL);
+-  setupBaseFonts(nullptr);
 +  setupBaseFonts(POPPLER_FONTSDIR);
  
    // TODO: base14Name should be changed?

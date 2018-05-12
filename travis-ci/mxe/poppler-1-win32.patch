@@ -1,7 +1,7 @@
-From 8dd9a8e5240d34ca8a75f0035273dbf00409b704 Mon Sep 17 00:00:00 2001
+From c061f7f35070f1bff6b9ffe1d3b7aef92c65933f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Sun, 5 Nov 2017 20:53:42 +0100
-Subject: [PATCH 1/3] Only check for Type1 fonts in custom directory if path is
+Subject: [PATCH 1/5] Only check for Type1 fonts in custom directory if path is
  non-NULL
 
 Otherwise, programs using poppler may crash
@@ -11,10 +11,10 @@ Proposed upstream at https://bugs.freedesktop.org/show_bug.cgi?id=49037
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/poppler/GlobalParamsWin.cc b/poppler/GlobalParamsWin.cc
-index f122fcb6..a7440b9a 100644
+index 072d0fbb..66996ffd 100644
 --- a/poppler/GlobalParamsWin.cc
 +++ b/poppler/GlobalParamsWin.cc
-@@ -426,7 +426,7 @@ void GlobalParams::setupBaseFonts(char * dir)
+@@ -427,7 +427,7 @@ void GlobalParams::setupBaseFonts(char * dir)
          if (fontFiles->lookup(fontName))
              continue;
  
@@ -26,18 +26,17 @@ index f122fcb6..a7440b9a 100644
 -- 
 2.14.1
 
-From bb465dc6571ce004df8a71839b777e537ed64561 Mon Sep 17 00:00:00 2001
+From f87b207bd8506f33a6f5812daa66788b2c22187c Mon Sep 17 00:00:00 2001
 From: darealshinji <djcj@gmx.de>
 Date: Thu, 14 Jul 2016 13:21:26 +0200
-Subject: [PATCH 2/3] enable cross-building DLLs
+Subject: [PATCH 2/5] enable cross-building DLLs
 
 ---
  cpp/poppler-global.h     | 2 +-
  poppler/GlobalParams.cc  | 2 ++
  poppler/XpdfPluginAPI.h  | 4 ++--
- qt4/src/poppler-export.h | 2 +-
  qt5/src/poppler-export.h | 2 +-
- 5 files changed, 7 insertions(+), 5 deletions(-)
+ 4 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/cpp/poppler-global.h b/cpp/poppler-global.h
 index eb7ec244..7550afc3 100644
@@ -53,10 +52,10 @@ index eb7ec244..7550afc3 100644
  #  define LIB_IMPORT __declspec(dllimport)
  #else
 diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
-index 26669930..d17673a4 100644
+index cbb15eb1..c4116684 100644
 --- a/poppler/GlobalParams.cc
 +++ b/poppler/GlobalParams.cc
-@@ -133,6 +133,7 @@ GlobalParams *globalParams = NULL;
+@@ -136,6 +136,7 @@ GlobalParams *globalParams = nullptr;
  
  static HMODULE hmodule;
  
@@ -64,7 +63,7 @@ index 26669930..d17673a4 100644
  extern "C" {
    /* Provide declaration to squelch -Wmissing-declarations warning */
    BOOL WINAPI
-@@ -154,6 +155,7 @@ extern "C" {
+@@ -157,6 +158,7 @@ extern "C" {
      return TRUE;
    }
  }
@@ -94,19 +93,6 @@ index 6ed890a8..02f064ff 100644
  
  extern __declspec(dllexport) XpdfPluginVecTable xpdfPluginVecTable;
  
-diff --git a/qt4/src/poppler-export.h b/qt4/src/poppler-export.h
-index 2e2f6ff8..eb6a2a6e 100644
---- a/qt4/src/poppler-export.h
-+++ b/qt4/src/poppler-export.h
-@@ -2,7 +2,7 @@
- * This file is used to set the poppler_qt4_EXPORT macros right.
- * This is needed for setting the visibility on windows, it will have no effect on other platforms.
- */
--#if defined(_WIN32)
-+#if defined(_WIN32) && defined(DLL_EXPORT)
- # define _POPPLER_QT4_LIB_EXPORT __declspec(dllexport)
- # define _POPPLER_QT4_LIB_IMPORT __declspec(dllimport)
- #elif defined(__GNUC__)
 diff --git a/qt5/src/poppler-export.h b/qt5/src/poppler-export.h
 index 24a4b177..d7e87dc0 100644
 --- a/qt5/src/poppler-export.h
@@ -123,10 +109,10 @@ index 24a4b177..d7e87dc0 100644
 -- 
 2.14.1
 
-From 2744424dfc6350389015097ea8dabed3b1126c8a Mon Sep 17 00:00:00 2001
+From f9857c9bdf69abf76914f266b65543869256fe60 Mon Sep 17 00:00:00 2001
 From: Boris Nagaev <bnagaev@gmail.com>
 Date: Wed, 27 Jul 2016 10:29:52 +0200
-Subject: [PATCH 3/3] do not try to use mman.h (package mman-win32)
+Subject: [PATCH 3/5] do not try to use mman.h (package mman-win32)
 
 fix https://github.com/mxe/mxe/issues/1455
 ---
@@ -134,7 +120,7 @@ fix https://github.com/mxe/mxe/issues/1455
  1 file changed, 7 deletions(-)
 
 diff --git a/poppler/CairoFontEngine.cc b/poppler/CairoFontEngine.cc
-index a375e0af..82e1f2e1 100644
+index 91deac46..cd7a06bc 100644
 --- a/poppler/CairoFontEngine.cc
 +++ b/poppler/CairoFontEngine.cc
 @@ -49,13 +49,6 @@
@@ -151,6 +137,73 @@ index a375e0af..82e1f2e1 100644
  #ifdef USE_GCC_PRAGMAS
  #pragma implementation
  #endif
+-- 
+2.14.1
+
+From 7de21f9dc56bc351f1bba451ff062771f6be2d1f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Mon, 6 Nov 2017 07:52:10 +0100
+Subject: [PATCH 4/5] Respect BUILD_SHARED_LIBS=OFF
+
+---
+ CMakeLists.txt         | 2 +-
+ cpp/CMakeLists.txt     | 2 +-
+ glib/CMakeLists.txt    | 2 +-
+ qt5/src/CMakeLists.txt | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ac186d53..bbbeefb5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -492,7 +492,7 @@ else()
+ add_library(poppler ${poppler_SRCS})
+ endif()
+ set_target_properties(poppler PROPERTIES VERSION 75.0.0 SOVERSION 75)
+-if(MINGW)
++if(MINGW AND BUILD_SHARED_LIBS)
+     get_target_property(POPPLER_SOVERSION poppler SOVERSION)
+     set_target_properties(poppler PROPERTIES SUFFIX "-${POPPLER_SOVERSION}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+ endif()
+diff --git a/cpp/CMakeLists.txt b/cpp/CMakeLists.txt
+index a08ee263..c0940365 100644
+--- a/cpp/CMakeLists.txt
++++ b/cpp/CMakeLists.txt
+@@ -25,7 +25,7 @@ set(poppler_cpp_SRCS
+ 
+ add_library(poppler-cpp ${poppler_cpp_SRCS})
+ set_target_properties(poppler-cpp PROPERTIES VERSION 0.4.0 SOVERSION 0)
+-if(MINGW)
++if(MINGW AND BUILD_SHARED_LIBS)
+     get_target_property(POPPLER_CPP_SOVERSION poppler-cpp SOVERSION)
+     set_target_properties(poppler-cpp PROPERTIES SUFFIX "-${POPPLER_CPP_SOVERSION}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+ endif()
+diff --git a/glib/CMakeLists.txt b/glib/CMakeLists.txt
+index 33c66082..dd76403a 100644
+--- a/glib/CMakeLists.txt
++++ b/glib/CMakeLists.txt
+@@ -86,7 +86,7 @@ set(poppler_glib_generated_SRCS
+ )
+ add_library(poppler-glib ${poppler_glib_SRCS} ${poppler_glib_generated_SRCS})
+ set_target_properties(poppler-glib PROPERTIES VERSION 8.9.0 SOVERSION 8)
+-if(MINGW)
++if(MINGW AND BUILD_SHARED_LIBS)
+     get_target_property(POPPLER_GLIB_SOVERSION poppler-glib SOVERSION)
+     set_target_properties(poppler-glib PROPERTIES SUFFIX "-${POPPLER_GLIB_SOVERSION}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+ endif()
+diff --git a/qt5/src/CMakeLists.txt b/qt5/src/CMakeLists.txt
+index 7100ebb3..40b2f35e 100644
+--- a/qt5/src/CMakeLists.txt
++++ b/qt5/src/CMakeLists.txt
+@@ -31,7 +31,7 @@ set(poppler_qt5_SRCS
+ )
+ add_library(poppler-qt5 ${poppler_qt5_SRCS})
+ set_target_properties(poppler-qt5 PROPERTIES VERSION 1.14.0 SOVERSION 1)
+-if(MINGW)
++if(MINGW AND BUILD_SHARED_LIBS)
+     get_target_property(POPPLER_QT5_SOVERSION poppler-qt5 SOVERSION)
+     set_target_properties(poppler-qt5 PROPERTIES SUFFIX "-${POPPLER_QT5_SOVERSION}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+ endif()
 -- 
 2.14.1
 
