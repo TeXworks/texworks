@@ -101,7 +101,7 @@ public:
 
   QSizeF pageSizeF() const;
 
-  QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false);
+  QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) const;
 
   QList< QSharedPointer<Annotation::Link> > loadLinks();
   QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations();

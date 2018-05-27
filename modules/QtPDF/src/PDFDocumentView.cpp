@@ -682,6 +682,34 @@ void PDFDocumentView::zoomFitWidth()
   zoomToRect(rect);
 }
 
+void PDFDocumentView::zoomFitContentWidth()
+{
+  if (!_pdf_scene)
+    return;
+
+  PDFPageGraphicsItem *currentPage = (PDFPageGraphicsItem*)(_pdf_scene->pageAt(_currentPage));
+  if (!currentPage)
+    return;
+
+  QSharedPointer<Backend::Page> page = currentPage->page().toStrongRef();
+  if (!page)
+    return;
+
+  QRectF rect(page->getContentBoundingBox());
+  rect = currentPage->mapRectToScene(QRectF(currentPage->mapFromPage(rect.topLeft()), currentPage->mapFromPage(rect.bottomRight())));
+
+  // Store current y position so we can center on it later.
+  qreal ypos = mapToScene(viewport()->rect()).boundingRect().center().y();
+
+  // Squash the rect to minimal height so its width will be limitting the zoom
+  // factor
+  rect.setTop(ypos - 1e-5);
+  rect.setBottom(ypos + 1e-5);
+
+  zoomToRect(rect);
+}
+
+
 void PDFDocumentView::zoom100()
 {
   // Reset zoom level to 100%

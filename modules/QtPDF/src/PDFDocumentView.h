@@ -137,6 +137,7 @@ public slots:
   void zoomToRect(QRectF a_rect);
   void zoomFitWindow();
   void zoomFitWidth();
+  void zoomFitContentWidth();
   void zoom100();
   void setZoomLevel(const qreal zoomLevel, const QGraphicsView::ViewportAnchor anchor = QGraphicsView::AnchorViewCenter);
 

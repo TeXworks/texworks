@@ -530,7 +530,7 @@ QSizeF Page::pageSizeF() const
   return _poppler_page->pageSizeF();
 }
 
-QImage Page::renderToImage(double xres, double yres, QRect render_box, bool cache)
+QImage Page::renderToImage(double xres, double yres, QRect render_box, bool cache) const
 {
   QReadLocker docLocker(_docLock.data());
   QReadLocker pageLocker(_pageLock);

@@ -594,6 +594,7 @@ public:
   Document * document() { QReadLocker pageLocker(_pageLock); return _parent; }
   int pageNum();
   virtual QSizeF pageSizeF() const = 0;
+  virtual QRectF getContentBoundingBox() const;
   Transition::AbstractTransition * transition() { QReadLocker pageLocker(_pageLock); return _transition; }
 
   virtual QList< QSharedPointer<Annotation::Link> > loadLinks() = 0;
@@ -621,7 +622,7 @@ public:
   }
 
   // Uses page-read-lock and doc-read-lock.
-  virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) = 0;
+  virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) const = 0;
 
   // Returns either a cached image (if it exists), or triggers a render request.
   // If listener != NULL, this is an asynchronous render request and the method
