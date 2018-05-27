@@ -298,8 +298,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/fitwindow.png</normaloff>:/images/images/fitwindow.png</iconset>
+    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
+     <normaloff>:/QtPDF/icons/zoom-fitwindow.png</normaloff>:/QtPDF/icons/zoom-fitwindow.png</iconset>
    </property>
    <property name="text">
     <string>Fit to Window</string>
@@ -313,8 +313,8 @@
   </action>
   <action name="actionActual_Size">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/actualsize.png</normaloff>:/images/images/actualsize.png</iconset>
+    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
+     <normaloff>:/QtPDF/icons/zoom100.png</normaloff>:/QtPDF/icons/zoom100.png</iconset>
    </property>
    <property name="text">
     <string>Actual Size</string>
@@ -331,8 +331,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/fitwidth.png</normaloff>:/images/images/fitwidth.png</iconset>
+    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
+     <normaloff>:/QtPDF/icons/zoom-fitwidth.png</normaloff>:/QtPDF/icons/zoom-fitwidth.png</iconset>
    </property>
    <property name="text">
     <string>Fit to Width</string>
