@@ -83,6 +83,7 @@
     <addaction name="actionActual_Size"/>
     <addaction name="actionFit_to_Width"/>
     <addaction name="actionFit_to_Window"/>
+    <addaction name="actionFit_to_Content_Width"/>
     <addaction name="separator"/>
     <addaction name="actionPageMode_Single"/>
     <addaction name="actionPageMode_Continuous"/>
@@ -183,6 +184,7 @@
    <addaction name="actionActual_Size"/>
    <addaction name="actionFit_to_Width"/>
    <addaction name="actionFit_to_Window"/>
+   <addaction name="actionFit_to_Content_Width"/>
    <addaction name="separator"/>
    <addaction name="actionMagnify"/>
    <addaction name="actionScroll"/>
@@ -755,6 +757,27 @@
    </property>
    <property name="shortcut">
     <string>Alt+Left</string>
+   </property>
+  </action>
+  <action name="actionFit_to_Content_Width">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
+     <normaloff>:/QtPDF/icons/zoom-fitcontentwidth.png</normaloff>:/QtPDF/icons/zoom-fitcontentwidth.png</iconset>
+   </property>
+   <property name="text">
+    <string>Fit to ContentWidth</string>
+   </property>
+   <property name="toolTip">
+    <string>Fit to Content Width</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+4</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
   <actiongroup name="actionPageModes">

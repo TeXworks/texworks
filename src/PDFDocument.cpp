@@ -191,6 +191,7 @@ void PDFDocument::init()
 	connect(actionActual_Size, SIGNAL(triggered()), pdfWidget, SLOT(zoom100()));
 	connect(actionFit_to_Width, SIGNAL(triggered()), pdfWidget, SLOT(zoomFitWidth()));
 	connect(actionFit_to_Window, SIGNAL(triggered()), pdfWidget, SLOT(zoomFitWindow()));
+	connect(actionFit_to_Content_Width, SIGNAL(triggered()), pdfWidget, SLOT(zoomFitContentWidth()));
 	connect(actionZoom_In, SIGNAL(triggered()), pdfWidget, SLOT(zoomIn()));
 	connect(actionZoom_Out, SIGNAL(triggered()), pdfWidget, SLOT(zoomOut()));
 	connect(actionFull_Screen, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
