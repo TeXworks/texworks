@@ -8,3 +8,6 @@ LIST(APPEND MODULE_INCLUDE_DIRS ${QTPDF_INCLUDE_DIRS})
 
 SET(MODULE_INCLUDE_DIRS ${MODULE_INCLUDE_DIRS} PARENT_SCOPE)
 SET(MODULE_LIBS qtpdf PARENT_SCOPE)
+
+# We DO NOT include the synctex subdirectory here as that is handled entirely by
+# FindSynctex.cmake
