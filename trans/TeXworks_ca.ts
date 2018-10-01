@@ -2854,7 +2854,7 @@ Revisau la configuració de l&apos;eina %2 i els camins en el diàleg de prefer�
     <message>
         <location filename="../src/TeXDocument.ui" line="972"/>
         <source>Remove Aux Files...</source>
-        <translation>Suprimieix fitxers auxiliars...</translation>
+        <translation>Suprimeix fitxers auxiliars...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="980"/>
