@@ -358,6 +358,9 @@ void TestQtPDF::metaDataTrapped()
 
 
 
+#if defined(STATIC_QT5) && defined(Q_OS_WIN)
+  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+#endif
 
 QTEST_MAIN(TestQtPDF)
 //#include "TestQtPDF.moc"
