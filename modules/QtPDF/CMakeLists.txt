@@ -113,11 +113,11 @@ IF (DESIRED_QT_VERSION MATCHES 5 OR (NOT DESIRED_QT_VERSION AND (QT_VERSION_MAJO
   find_qt5_package(Qt5Xml)
   find_qt5_package(Qt5LinguistTools)
 
-  IF( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
+  IF( WITH_TESTS )
     find_qt5_package(Qt5Test QUIET)
   ENDIF()
 
-  IF(Qt5Core_FOUND AND Qt5Widgets_FOUND AND Qt5Concurrent_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug" OR (Qt5Test_FOUND)))
+  IF(Qt5Core_FOUND AND Qt5Widgets_FOUND AND Qt5Concurrent_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT WITH_TESTS OR Qt5Test_FOUND))
     SET(QT5_FOUND TRUE)
     # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
     # etc. which is used here.
@@ -180,7 +180,7 @@ IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
     QtGui
     QtXML
   )
-  IF( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
+  IF( WITH_TESTS )
     LIST(APPEND QT_COMPONENTS QtTest)
   ENDIF()
 
@@ -192,7 +192,7 @@ IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
   FIND_PACKAGE(Qt4 4.6.0 COMPONENTS ${QT_COMPONENTS} QUIET)
   INCLUDE(UseQt4)
 
-  # TODO: QtTest is included in the list of "normal" libraries for debug builds.
+  # TODO: QtTest is included in the list of "normal" libraries.
   # Therefore, QT_TEST_LIBRARIES is not set here. Can we improve this somehow
   # (i.e., can we pull in QtTest only for programs that actually use it)?
 
