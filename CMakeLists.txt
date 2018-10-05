@@ -136,6 +136,11 @@ MARK_AS_ADVANCED(BUILD_SHARED_PLUGINS)
 OPTION(PREFER_BUNDLED_SYNCTEX "Use SyncTeX bundled with TeXworks even if a shared library is found?" OFF)
 MARK_AS_ADVANCED(PREFER_BUNDLED_SYNCTEX)
 
+OPTION(WITH_TESTS "build unit tests" ON)
+IF (WITH_TESTS)
+  ENABLE_TESTING(TRUE)
+ENDIF (WITH_TESTS)
+
 SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place libraries in")
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place programs in")
 MARK_AS_ADVANCED(CMAKE_LIBRARY_OUTPUT_DIRECTORY CMAKE_RUNTIME_OUTPUT_DIRECTORY)
@@ -225,10 +230,13 @@ IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
   IF ( UNIX AND NOT APPLE )
     find_qt5_package(Qt5DBus QUIET)
   ENDIF ()
+  IF ( WITH_TESTS )
+    find_qt5_package(Qt5Test QUIET)
+  ENDIF ( WITH_TESTS )
 
-  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT UNIX OR APPLE OR Qt5DBus_FOUND))
+  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT UNIX OR APPLE OR Qt5DBus_FOUND) AND (NOT WITH_TESTS OR Qt5Test_FOUND))
     SET(QT5_FOUND TRUE)
-    SET(QT_LIBRARIES Qt5::UiTools Qt5::ScriptTools Qt5::Script Qt5::Concurrent Qt5::Xml ${Qt5DBus_LIBRARIES} Qt5::Widgets Qt5::Gui Qt5::Core)
+    SET(QT_LIBRARIES Qt5::UiTools Qt5::ScriptTools Qt5::Script Qt5::Concurrent Qt5::Xml ${Qt5DBus_LIBRARIES} Qt5::Widgets Qt5::Gui Qt5::Core ${Qt5Test_LIBRARIES})
 
     # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
     # etc. which is used here.
@@ -289,6 +297,10 @@ IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
       QtScriptTools
       QtXml
   )
+  IF( WITH_TESTS )
+    LIST(APPEND QT_COMPONENTS QtTest)
+  ENDIF( WITH_TESTS )
+
 
   IF ( UNIX AND NOT APPLE )
     LIST(APPEND QT_COMPONENTS QtDbus)
@@ -298,6 +310,10 @@ IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
   # with Qt-specific tasks such as compiling resources or running `moc`.
   FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
   INCLUDE(UseQt4)
+
+  # TODO: QtTest is included in the list of "normal" libraries.
+  # Therefore, QT_TEST_LIBRARIES is not set here. Can we improve this somehow
+  # (i.e., can we pull in QtTest only for programs that actually use it)?
 ENDIF()
 
 IF (NOT QT4_FOUND AND NOT QT5_FOUND)
