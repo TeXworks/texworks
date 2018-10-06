@@ -16,10 +16,12 @@ echo_and_run "make VERBOSE=1"
 if [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	# For Windows, we are cross-compiling, i.e. we cannot run the produced binaries
 	echo "Skipping CTest due to cross-compilation"
-else
+elif [ "${TARGET_OS}" = "linux" ]
 	# Run tests with a (virtual) X server (as the poppler tests require QtGui,
 	# e.g. for finding fonts)
 	xvfb-run ctest -V
+elif [ "${TARGET_OS}" = "osx" ]
+	ctest -V
 fi
 
 cd "${TRAVIS_BUILD_DIR}"
