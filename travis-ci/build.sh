@@ -17,12 +17,9 @@ if [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	# For Windows, we are cross-compiling, i.e. we cannot run the produced binaries
 	echo "Skipping CTest due to cross-compilation"
 else
-	if [ ${QT} -eq 4 ]; then
-		# On Qt4, we need to run tests with an (off-screen) X server
-		xvfb-run ctest -V
-	else
-		ctest -V
-	fi
+	# Run tests with a (virtual) X server (as the poppler tests require QtGui,
+	# e.g. for finding fonts)
+	xvfb-run ctest -V
 fi
 
 cd "${TRAVIS_BUILD_DIR}"
