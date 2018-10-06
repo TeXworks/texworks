@@ -296,10 +296,10 @@ void TestQtPDF::metaDataCreationDate_data()
   QTest::addColumn<QDateTime>("expected");
   newDocTest("invalid") << QDateTime();
   newDocTest("transitions") << QDateTime();
-  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(22, 56, 26));
+  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), Qt::UTC);
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
-  newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(1, 23, 45));
+  newDocTest("metadata") << QDateTime(QDate(2013, 9, 7), QTime(23, 23, 45), Qt::UTC);
 }
 
 void TestQtPDF::metaDataCreationDate()
@@ -315,10 +315,10 @@ void TestQtPDF::metaDataModDate_data()
   QTest::addColumn<QDateTime>("expected");
   newDocTest("invalid") << QDateTime();
   newDocTest("transitions") << QDateTime();
-  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(22, 56, 26));
+  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), Qt::UTC);
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
-  newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(12, 34, 56));
+  newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(10, 34, 56), Qt::UTC);
 }
 
 void TestQtPDF::metaDataModDate()
