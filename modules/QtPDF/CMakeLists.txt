@@ -464,6 +464,12 @@ IF ( WITH_TESTS )
   SET(QTPDFTEST_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests/TestQtPDF.cpp
   )
+  IF ( APPLE )
+    # On OS X, we use Qt 5 which supports the "offscreen" platform
+    # Note that the "offscreen" platform on Linux causes problems with finding
+    # the system font directory.
+    SET(TEST_ARGS -platform offscreen)
+  ENDIF ()
   IF( WITH_POPPLERQT )
     ADD_EXECUTABLE(test_poppler-qt${QT_VERSION_MAJOR}
       ${QTPDFTEST_SRCS}
@@ -472,7 +478,7 @@ IF ( WITH_TESTS )
       COMPILE_FLAGS "-DUSE_POPPLERQT ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
     TARGET_LINK_LIBRARIES(test_poppler-qt${QT_VERSION_MAJOR} ${QT_TEST_LIBRARIES} qtpdf)
-    ADD_TEST(NAME test_poppler-qt${QT_VERSION_MAJOR} COMMAND test_poppler-qt${QT_VERSION_MAJOR} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
+    ADD_TEST(NAME test_poppler-qt${QT_VERSION_MAJOR} COMMAND test_poppler-qt${QT_VERSION_MAJOR} ${TEST_ARGS} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
   IF( WITH_MUPDF )
     ADD_EXECUTABLE(test_mupdf
@@ -482,7 +488,7 @@ IF ( WITH_TESTS )
       COMPILE_FLAGS "-DUSE_MUPDF ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
     TARGET_LINK_LIBRARIES(test_mupdf ${QT_TEST_LIBRARIES} qtpdf)
-    ADD_TEST(NAME test_mupdf COMMAND test_mupdf WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
+    ADD_TEST(NAME test_mupdf COMMAND test_mupdf ${TEST_ARGS} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
 ENDIF( WITH_TESTS )
 
