@@ -68,6 +68,19 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		openssl aes-256-cbc -K $encrypted_54846cac3f0f_key -iv $encrypted_54846cac3f0f_iv -in "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/key.asc.enc" -out "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/key.asc" -d
 		gpg --import "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/key.asc"
 
+		# Add ppa.launchpad.net to ssh's known hosts so we can upload to it
+		# using sftp
+		echo "ppa.launchpad.net ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA0aKz5UTUndYgIGG7dQBV+HaeuEZJ2xPHo2DS2iSKvUL4xNMSAY4UguNW+pX56nAQmZKIZZ8MaEvSj6zMEDiq6HFfn5JcTlM80UwlnyKe8B8p7Nk06PPQLrnmQt5fh0HmEcZx+JU9TZsfCHPnX7MNz4ELfZE6cFsclClrKim3BHUIGq//t93DllB+h4O9LHjEUsQ1Sr63irDLSutkLJD6RXchjROXkNirlcNVHH/jwLWR5RcYilNX7S5bIkK8NlWPjsn/8Ua5O7I9/YoE97PpO6i73DTGLh5H9JN/SITwCKBkgSDWUt61uPK3Y11Gty7o2lWsBjhBUm2Y38CBsoGmBw==" >> ~/.ssh/known_hosts
+
+		# Set up key for ssh (sftp) authentication
+		openssl aes-256-cbc -K $encrypted_47834aa722cd_key -iv $encrypted_47834aa722cd_iv -in "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks.enc" -out "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks" -d
+		chmod 0600 "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks"
+		print_info "Creating ~/.ssh/config"
+		echo """Host ppa.launchpad.net
+	IdentityFile ${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks
+	User st.loeffler
+""" >> ~/.ssh/config
+
 		for DISTRO in ${LAUNCHPAD_DISTROS}; do
 			print_info "Packging for ${DISTRO}"
 			DEB_VERSION=$(echo "${VERSION_NAME}" | tr "_-" "~")"~${DISTRO}"
@@ -124,13 +137,13 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 
 			DEBFILE="texworks_${DEB_VERSION}_source.changes"
 			if [ -z "${TRAVIS_TAG}" ]; then
-				PPA="ppa:texworks/ppa"
+				PPA="tw-latest"
 			else
-				PPA="ppa:texworks/stable"
+				PPA="tw-stable"
 			fi
 			print_info "   scheduling to upload ${DEBFILE} to ${PPA}"
 
-			echo "dput \"${PPA}\" \"${BUILDDIR}/${DEBFILE}\"" >> "${TRAVIS_BUILD_DIR}/travis-ci/dput-launchpad.sh"
+			echo "dput --config \"${TRAVIS_BUILD_DIR}/travis-ci/launchpad/dput.cf\" \"${PPA}\" \"${BUILDDIR}/${DEBFILE}\"" >> "${TRAVIS_BUILD_DIR}/travis-ci/dput-launchpad.sh"
 		done
 	else
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
