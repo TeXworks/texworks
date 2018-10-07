@@ -1,32 +1,35 @@
 Policies for Backend Implementations
-================================
+====================================
 
-  1. All non-const data may only be accessed after acquiring at least a read
-     lock of the corresponding _docLock or _pageLock. If the data is to be
-     changed, a write lock is required. Note that locks cannot be locked
-     recursively, but cannot be upgraded.
-  2. If a doc-lock and a page-lock are acquired, the doc-lock **must be
-     acquired first** to avoid deadlocks.
-  3. Classes derived from Page should have a protected constructor (and hence
-     the corresponding class derived from Document as friend).
-  4. In the constructor of classes derived from Page (and methods called from
-     it), don't try to acquire a doc-read lock.
-  5. In the destructor of classes derived from Document, clearPages() should be
-     called.
+1.  All non-const data may only be accessed after acquiring at least a read
+    lock of the corresponding _docLock or _pageLock. If the data is to be
+    changed, a write lock is required. Note that locks cannot be locked
+    recursively, but cannot be upgraded.
+
+2.  If a doc-lock and a page-lock are acquired, the doc-lock **must be
+    acquired first** to avoid deadlocks.
+
+3.  Classes derived from Page should have a protected constructor (and hence
+    the corresponding class derived from Document as friend).
+
+4.  In the constructor of classes derived from Page (and methods called from
+    it), don't try to acquire a doc-read lock.
+
+5.  In the destructor of classes derived from Document, clearPages() should be
+    called.
 
 Good practice:
 
-  - When methods that need a read-lock are used for internal purposes as well
-    as from outside, there should be a protected, internal implementation that
-    assumes all locks are properly acquired beforehand as well as a public
-    method that acquires the necessary locks and then invokes the internal
-    method. This ensures that the internal method can also be used from methods
-    that acquire write locks (trying to acquire a read lock in that situation
-    would block the thread indefinitely).
-
+- When methods that need a read-lock are used for internal purposes as well
+  as from outside, there should be a protected, internal implementation that
+  assumes all locks are properly acquired beforehand as well as a public
+  method that acquires the necessary locks and then invokes the internal
+  method. This ensures that the internal method can also be used from methods
+  that acquire write locks (trying to acquire a read lock in that situation
+  would block the thread indefinitely).
 
 Internal Design
-=============
+---------------
 
 The reason for policy 1 should be fairly obvious.
 
