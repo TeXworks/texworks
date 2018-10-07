@@ -1,6 +1,8 @@
 About TeXworks
 ==============
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4f2df1288a4346e3a69adf80413c7393)](https://app.codacy.com/app/TeXworks/texworks?utm_source=github.com&utm_medium=referral&utm_content=TeXworks/texworks&utm_campaign=Badge_Grade_Settings)
+
 TeXworks is an environment for authoring TeX (LaTeX, ConTeXt, etc) documents,
 with a Unicode-based, TeX-aware editor, integrated PDF viewer, and a clean,
 simple interface accessible to casual and non-technical users.
