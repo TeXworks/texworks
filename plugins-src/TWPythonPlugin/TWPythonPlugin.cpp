@@ -107,8 +107,6 @@ Q_EXPORT_PLUGIN2(TWPythonPlugin, TWPythonPlugin)
 
 bool PythonScript::execute(TWScriptAPI *tw) const
 {
-	PyObject * tmp;
-	
 	// Load the script
 	QFile scriptFile(m_Filename);
 	if (!scriptFile.open(QIODevice::ReadOnly)) {
@@ -165,7 +163,7 @@ bool PythonScript::execute(TWScriptAPI *tw) const
 		PyObject * errType, * errValue, * errTraceback;
 		PyErr_Fetch(&errType, &errValue, &errTraceback);
 		
-		tmp = PyObject_Str(errValue);
+		PyObject * tmp = PyObject_Str(errValue);
 		QString errString;
 		if (!asQString(tmp, errString)) {
 			Py_XDECREF(tmp);

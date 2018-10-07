@@ -1311,7 +1311,6 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 	QSETTINGS_OBJECT(settings);
 	QMap<QString, QVariant> retVal;
 	QObject * doc = NULL;
-	TWScript * script;
 	QFileInfo fi(fileName);
 	TWScriptAPI * scriptApi = qobject_cast<TWScriptAPI*>(scriptApiObj);
 
@@ -1323,7 +1322,7 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 	if (fi.isRelative() || !settings.value(QString::fromLatin1("allowScriptFileReading"), kDefault_AllowScriptFileReading).toBool()) {
 		if (!scriptApi)
 			return retVal;
-		script = qobject_cast<TWScript*>(scriptApi->GetScript());
+		TWScript * script = qobject_cast<TWScript*>(scriptApi->GetScript());
 		if (!script)
 			return retVal; // this should never happen
 	

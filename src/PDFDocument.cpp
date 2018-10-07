@@ -1016,12 +1016,11 @@ void PDFDocument::print()
 void PDFDocument::showScaleContextMenu(const QPoint pos)
 {
 	static QMenu * contextMenu = NULL;
-	static QSignalMapper * contextMenuMapper = NULL;
-	QAction * a;
 	
 	if (contextMenu == NULL) {
 		contextMenu = new QMenu(this);
-		contextMenuMapper = new QSignalMapper(this);
+		static QSignalMapper * contextMenuMapper = new QSignalMapper(this);
+		QAction * a;
 		
 		contextMenu->addAction(actionFit_to_Width);
 		contextMenu->addAction(actionFit_to_Window);

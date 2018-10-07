@@ -24,10 +24,8 @@
 
 bool CommandlineParser::parse()
 {
-	bool found;
-	
 	foreach (const QString& rawItem, m_rawItems) {
-		found = false;
+		bool found = false;
 		
 		foreach (const CommandlineItemSpec& spec, m_specs) {
 			CommandlineItem item;

@@ -57,14 +57,12 @@ int main(int argc, char *argv[])
 	clp.registerOption(QString::fromLatin1("position"), TWApp::tr("Open the following file at the given position (line or page)"), QString::fromLatin1("p"));
 	clp.registerSwitch(QString::fromLatin1("version"), TWApp::tr("Display version information"), QString::fromLatin1("v"));
 
-	int pos;
-	int numArgs = 0;
 	bool launchApp = true;
 	if (clp.parse()) {
-		int i, j;
+		int i, numArgs = 0;
 		while ((i = clp.getNextArgument()) >= 0) {
 			++numArgs;
-			pos = -1;
+			int j, pos = -1;
 			if ((j = clp.getPrevOption(QString::fromLatin1("position"), i)) >= 0) {
 				pos = clp.at(j).value.toInt();
 				clp.at(j).processed = true;

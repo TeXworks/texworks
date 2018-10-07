@@ -459,10 +459,10 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 	langAliases.removeAll(lang);
 	langAliases.prepend(lang);
 	
-	bool found = false;
 	if (menuSpelling) {
 		QAction *chosen = menuSpelling->actions()[0]; // default is None
 		foreach (QAction *act, menuSpelling->actions()) {
+			bool found = false;
 			foreach(QString alias, langAliases) {
 				if (act->text() == alias || act->text().contains(QString::fromLatin1("(%1)").arg(alias))) {
 					chosen = act;
@@ -504,7 +504,6 @@ void TeXDocument::reloadSpellcheckerMenu()
 	
 	QList<QAction*> dictActions;
 	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
-		QAction *act;
 		QString dict, label;
 		QLocale loc;
 
@@ -521,7 +520,7 @@ void TeXDocument::reloadSpellcheckerMenu()
 					label = tr("%1 (%2)").arg(QLocale::languageToString(loc.language())).arg(dict);
 			}
 
-			act = new QAction(label, NULL);
+			QAction * act = new QAction(label, NULL);
 			act->setCheckable(true);
 			if (!oldSelected.isEmpty() && label == oldSelected)
 				act->setChecked(true);
@@ -970,10 +969,10 @@ QString TeXDocument::readFile(const QString &fileName,
 	QByteArray peekBytes(file.peek(PEEK_LENGTH));
 	
 	QString reqName;
-	bool hasMetadata;
 	if (forceCodec)
 		*codecUsed = forceCodec;
 	else {
+		bool hasMetadata;
 		*codecUsed = scanForEncoding(QString::fromUtf8(peekBytes.constData()), hasMetadata, reqName);
 		if (*codecUsed == NULL) {
 			*codecUsed = TWApp::instance()->getDefaultCodec();
@@ -1470,11 +1469,11 @@ void TeXDocument::setupFileWatcher()
 
 void TeXDocument::setCurrentFile(const QString &fileName)
 {
-	static int sequenceNumber = 1;
 
 	curFile = QFileInfo(fileName).canonicalFilePath();
 	isUntitled = curFile.isEmpty();
 	if (isUntitled) {
+		static int sequenceNumber = 1;
 		curFile = tr("untitled-%1.tex").arg(sequenceNumber++);
 		setWindowIcon(QApplication::windowIcon());
 	}
@@ -1649,7 +1648,6 @@ void TeXDocument::encodingPopup(const QPoint loc)
 	BOMAction->setChecked(utf8BOM);
 	// Only enable this option if we are currently using the UTF-8 codec
 	BOMAction->setEnabled(codec && codec->mibEnum() == 106);
-	QAction * a;
 	
 	if (!isUntitled)
 		menu.addAction(reloadAction);
@@ -1657,7 +1655,7 @@ void TeXDocument::encodingPopup(const QPoint loc)
 	menu.addSeparator();
 	
 	foreach (QTextCodec *codec, *TWUtils::findCodecs()) {
-		a = new QAction(QString::fromUtf8(codec->name().constData()), &menu);
+		QAction * a = new QAction(QString::fromUtf8(codec->name().constData()), &menu);
 		a->setCheckable(true);
 		if (codec == this->codec)
 			a->setChecked(true);

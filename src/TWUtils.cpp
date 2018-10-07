@@ -837,9 +837,9 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 
 #define IS_WORD_FORMING(ch) (ch.isLetter() || ch.isMark())
 
-	bool isControlSeq = false; // becomes true if we include an @ sign or a leading backslash
-	bool includesApos = false; // becomes true if we include an apostrophe
 	if (IS_WORD_FORMING(ch) || ch == QChar::fromLatin1('@') /* || ch == QChar::fromLatin1('\'') || ch == 0x2019 */) {
+		bool isControlSeq = false; // becomes true if we include an @ sign or a leading backslash
+		bool includesApos = false; // becomes true if we include an apostrophe
 		if (ch == QChar::fromLatin1('@'))
 			isControlSeq = true;
 		//else if (ch == QChar::fromLatin1('\'') || ch == 0x2019)

@@ -176,7 +176,7 @@ TWScript::ParseHeaderResult TWScript::doParseHeader(const QStringList & lines)
 /*static*/
 TWScript::PropertyResult TWScript::doGetProperty(const QObject * obj, const QString& name, QVariant & value)
 {
-	int iProp, i;
+	int iProp;
 	QMetaProperty prop;
 	
 	if (!obj || !(obj->metaObject()))
@@ -187,7 +187,7 @@ TWScript::PropertyResult TWScript::doGetProperty(const QObject * obj, const QStr
 	
 	// if we didn't find a property maybe it's a method
 	if (iProp < 0) {
-		for (i = 0; i < obj->metaObject()->methodCount(); ++i) {
+		for (int i = 0; i < obj->metaObject()->methodCount(); ++i) {
 			#if QT_VERSION >= 0x050000
 			if (QString::fromUtf8(obj->metaObject()->method(i).methodSignature()).startsWith(name + QChar::fromLatin1('(')))
 				return Property_Method;

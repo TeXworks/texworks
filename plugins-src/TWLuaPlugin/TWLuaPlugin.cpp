@@ -323,7 +323,7 @@ int LuaScript::setProperty(lua_State * L)
 /*static*/
 QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwError /* = true */)
 {
-	bool isArray = true, isMap = true, isQObject = false;
+	bool isArray = true, isMap = true;
 	QVariantList vl;
 	QVariantMap vm;
 	int i, n, iMax;
@@ -346,11 +346,12 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			
 			// Check if we're dealing with a QObject* wrapper
 			if (lua_getmetatable(L, idx)) {
-
 				i = lua_gettop(L);
 				lua_pushnil(L);
+
 				// see if the metatable contains the key "__qobject"; if it
 				// doesn't, trying to get it later could result in an error
+				bool isQObject = false;
 				while (lua_next(L, i)) {
 					lua_pop(L, 1); // pop the value (we don't need it)
 					if (!lua_isstring(L, -1))
