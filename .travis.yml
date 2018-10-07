@@ -51,6 +51,7 @@ before_script:
 
 script:
   - ${TRAVIS_BUILD_DIR}/travis-ci/build.sh
+  - ${TRAVIS_BUILD_DIR}/travis-ci/run-tests.sh
 
 after_success:
   - ${TRAVIS_BUILD_DIR}/travis-ci/package.sh
