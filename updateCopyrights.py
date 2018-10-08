@@ -110,7 +110,7 @@ def main():
     """Main"""
     global gitrepo
     gitrepo = Repo(".").git
-    for root, dirs, files in os.walk('.'):
+    for root, _, files in os.walk('.'):
         for f in files:
             the_file = CopyrightedFile(os.path.join(root, f))
             if the_file.needs_update():
