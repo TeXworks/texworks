@@ -10,6 +10,10 @@ import datetime, os, re
 # Global variable for the git repository
 gitrepo = None
 
+class FileNotVersionedError(Exception):
+	def __init__(self, filename):
+		super(FileNotVersionedError, self).__init__("File '%s' is not versioned" % filename)
+
 class CopyrightedFile:
     """A thin wrapper for a real file on the filesystem. This class assists
     in updating the file's embedded copyright information.
@@ -46,7 +50,8 @@ class CopyrightedFile:
     def year_range_str(self):
         """Returns the year (range) in which this file was modified"""
         global gitrepo
-        timestamp_str = gitrepo.log('--diff-filter=A', '--follow', '--format="%at"', '--', self.filename)
+        timestamp_str = gitrepo.log('--diff-filter=A', '--follow', r'--format="%at"', '--', self.filename)
+        if len(timestamp_str.strip()) == 0: raise FileNotVersionedError(self.filename)
         timestamp = float(timestamp_str.replace('"', ''))
         begin = datetime.datetime.fromtimestamp(timestamp).year
         logs = gitrepo.log('--format="%at %s"', '--', self.filename).split('\n')
@@ -89,7 +94,10 @@ class CopyrightedFile:
 
         # Replace the year(s)
         orig = self.matches.group(0)
-        subst = "{0} {1}  {2}".format(self.matches.group(1), self.year_range_str, self.matches.group(2))
+        try:
+	        subst = "{0} {1}  {2}".format(self.matches.group(1), self.year_range_str, self.matches.group(2))
+        except FileNotVersionedError:
+            return
         self.content = self.content.replace(orig, subst)
 
         # Write the contents to disk
