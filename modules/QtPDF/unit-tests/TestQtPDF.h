@@ -59,6 +59,8 @@ private slots:
   void metaDataTrapped_data();
   void metaDataTrapped();
 
+  void page_renderToImage_data();
+  void page_renderToImage();
 
 /*
   void permissions();

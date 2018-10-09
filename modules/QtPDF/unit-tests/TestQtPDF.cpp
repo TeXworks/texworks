@@ -1,5 +1,33 @@
 #include "TestQtPDF.h"
 
+class ComparableImage : public QImage {
+  double _threshold;
+public:
+  ComparableImage(QImage other, const double threshold = 2) : QImage(other), _threshold(threshold) { }
+  ComparableImage(const QString & filename, const double threshold = 2) : QImage(filename), _threshold(threshold) { }
+
+  bool operator==(const ComparableImage & other) const {
+    Q_ASSERT(format() == QImage::Format_RGB32);
+    Q_ASSERT(other.format() == QImage::Format_RGB32);
+
+    double threshold = qMax(_threshold, other._threshold);
+    if (byteCount() != other.byteCount()) return false;
+
+    double diff = 0.0;
+    const uchar * src = bits();
+    const uchar * dst = other.bits();
+    for (int i = 0; i < byteCount(); ++i)
+      diff += qAbs(static_cast<int>(src[i]) - static_cast<int>(dst[i]));
+
+    diff /= size().width() * size().height();
+
+    if (diff >= threshold)
+      qDebug() << "Difference" << diff << ">=" << threshold;
+
+    return diff < threshold;
+  }
+};
+
 QTestData & TestQtPDF::newDocTest(const char * tag)
 {
   return QTest::newRow(tag) << _docs[QString::fromUtf8(tag)];
@@ -24,6 +52,7 @@ void TestQtPDF::loadDocs()
     _docs[QString::fromLatin1("transitions")] = backend.newDocument(QString::fromLatin1("pdf-transitions.pdf"));
     _docs[QString::fromLatin1("pgfmanual")] = backend.newDocument(QString::fromLatin1("pgfmanual.pdf"));
     _docs[QString::fromLatin1("base14-fonts")] = backend.newDocument(QString::fromLatin1("base14-fonts.pdf"));
+    _docs[QString::fromLatin1("poppler-data")] = backend.newDocument(QString::fromLatin1("poppler-data.pdf"));
     _docs[QString::fromLatin1("metadata")] = backend.newDocument(QString::fromLatin1("metadata.pdf"));
     _docs[QString::fromLatin1("page-rotation")] = backend.newDocument(QString::fromLatin1("page-rotation.pdf"));
   }
@@ -350,7 +379,28 @@ void TestQtPDF::metaDataTrapped()
     QCOMPARE((int)doc->trapped(), expected);
 }
 
+void TestQtPDF::page_renderToImage_data()
+{
+  QTest::addColumn<pDoc>("doc");
+  QTest::addColumn<int>("iPage");
+  QTest::addColumn<QString>("filename");
+  newDocTest("base14-fonts") << 0 << "base14-fonts-1.png";
+  newDocTest("poppler-data") << 0 << "poppler-data-1.png";
+}
 
+void TestQtPDF::page_renderToImage()
+{
+  QFETCH(pDoc, doc);
+  QFETCH(int, iPage);
+  QFETCH(QString, filename);
+
+  QSharedPointer<QtPDF::Backend::Page> page = doc->page(iPage).toStrongRef();
+  QVERIFY(page);
+  ComparableImage render(page->renderToImage(150, 150));
+//  render.save(filename);
+  ComparableImage ref(filename);
+  QVERIFY(render == ref);
+}
 
 
 
