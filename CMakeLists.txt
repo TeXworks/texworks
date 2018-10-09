@@ -68,6 +68,10 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 SET(CMAKE_AUTOMOC TRUE)
 
+# Make the contents of `CMake/Modules` available. Among other things, this
+# directory contains scripts that locate project components such as hunspell.
+SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${CMAKE_MODULE_PATH})
+
 IF(WIN32 AND MINGW)
   # Ensure that no cpp flags are passed to windres, the Windows resource compiler.
   # At least with MinGW 4 on Windows, that would cause problems
@@ -141,6 +145,19 @@ IF (WITH_TESTS)
   ENABLE_TESTING(TRUE)
 ENDIF (WITH_TESTS)
 
+OPTION(WITH_COVERAGE "build with lcov coverage support" OFF)
+IF (WITH_COVERAGE)
+  IF (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" AND WITH_TESTS))
+    MESSAGE(WARNING "Coverage support is intended to be used with Debug builds and testing enabled")
+  ENDIF ()
+  INCLUDE(CodeCoverage)
+  APPEND_COVERAGE_COMPILER_FLAGS()
+  IF (UNIX)
+    SET(COVERAGE_LCOV_EXCLUDES '/usr/*')
+  ENDIF (UNIX)
+  SETUP_TARGET_FOR_COVERAGE_LCOV(NAME coverage EXECUTABLE "${CMAKE_CTEST_COMMAND}")
+ENDIF (WITH_COVERAGE)
+
 SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place libraries in")
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place programs in")
 MARK_AS_ADVANCED(CMAKE_LIBRARY_OUTPUT_DIRECTORY CMAKE_RUNTIME_OUTPUT_DIRECTORY)
@@ -192,10 +209,6 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Dependency Configuration
 # ========================
-
-# Make the contents of `CMake/Modules` available. Among other things, this
-# directory contains scripts that locate project components such as hunspell.
-SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${CMAKE_MODULE_PATH})
 
 set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
 MARK_AS_ADVANCED(DESIRED_QT_VERSION)
