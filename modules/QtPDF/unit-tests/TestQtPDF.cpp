@@ -3,8 +3,8 @@
 class ComparableImage : public QImage {
   double _threshold;
 public:
-  ComparableImage(QImage other, const double threshold = 2) : QImage(other), _threshold(threshold) { }
-  ComparableImage(const QString & filename, const double threshold = 2) : QImage(filename), _threshold(threshold) { }
+  ComparableImage(QImage other, const double threshold = 3) : QImage(other), _threshold(threshold) { }
+  ComparableImage(const QString & filename, const double threshold = 3) : QImage(filename), _threshold(threshold) { }
 
   bool operator==(const ComparableImage & other) const {
     Q_ASSERT(format() == QImage::Format_RGB32);
@@ -384,8 +384,12 @@ void TestQtPDF::page_renderToImage_data()
   QTest::addColumn<pDoc>("doc");
   QTest::addColumn<int>("iPage");
   QTest::addColumn<QString>("filename");
-  newDocTest("base14-fonts") << 0 << "base14-fonts-1.png";
-  newDocTest("poppler-data") << 0 << "poppler-data-1.png";
+  QTest::addColumn<double>("threshold");
+  // Use a higher threshold for the base14 test since the fonts are not
+  // embedded. Consequently, system fonts are used as replacements, but they can
+  // differ substantially between different systems.
+  newDocTest("base14-fonts") << 0 << "base14-fonts-1.png" << 10;
+  newDocTest("poppler-data") << 0 << "poppler-data-1.png" << 3;
 }
 
 void TestQtPDF::page_renderToImage()
@@ -393,10 +397,11 @@ void TestQtPDF::page_renderToImage()
   QFETCH(pDoc, doc);
   QFETCH(int, iPage);
   QFETCH(QString, filename);
+  QFETCH(double, threshold);
 
   QSharedPointer<QtPDF::Backend::Page> page = doc->page(iPage).toStrongRef();
   QVERIFY(page);
-  ComparableImage render(page->renderToImage(150, 150));
+  ComparableImage render(page->renderToImage(150, 150), threshold);
 //  render.save(filename);
   ComparableImage ref(filename);
   QVERIFY(render == ref);
