@@ -24,6 +24,7 @@ matrix:
             - libhunspell-dev
             - libpoppler-qt4-dev
             - libpoppler-private-dev
+            - poppler-data
             - liblua5.2-dev
             - fakeroot
     - name: "Ubuntu/Linux (Qt 5)"
@@ -44,6 +45,7 @@ matrix:
             - libhunspell-dev
             - libpoppler-qt5-dev
             - libpoppler-private-dev
+            - poppler-data
             - liblua5.2-dev
             - fakeroot
 
