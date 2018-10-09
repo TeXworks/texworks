@@ -388,8 +388,8 @@ void TestQtPDF::page_renderToImage_data()
   // Use a higher threshold for the base14 test since the fonts are not
   // embedded. Consequently, system fonts are used as replacements, but they can
   // differ substantially between different systems.
-  newDocTest("base14-fonts") << 0 << "base14-fonts-1.png" << 10;
-  newDocTest("poppler-data") << 0 << "poppler-data-1.png" << 3;
+  newDocTest("base14-fonts") << 0 << "base14-fonts-1.png" << 10.;
+  newDocTest("poppler-data") << 0 << "poppler-data-1.png" << 3.;
 }
 
 void TestQtPDF::page_renderToImage()
