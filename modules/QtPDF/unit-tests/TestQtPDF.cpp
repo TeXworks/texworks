@@ -998,17 +998,17 @@ void TestQtPDF::paperSize_data()
   QTest::addColumn<QString>("label");
   QTest::addColumn<bool>("landscape");
 
-  QTest::addRow("A4 [mm]") << QSizeF(210, 297) << 0 << QString::fromUtf8("DIN A4 [210 × 297 mm]") << false;
-  QTest::addRow("A4 [mm approx]") << QSizeF(209, 298) << 0 << QString::fromUtf8("DIN A4 [210 × 297 mm]") << false;
-  QTest::addRow("A4 [mm landscape]") << QSizeF(297, 210) << 0 << QString::fromUtf8("DIN A4 [297 × 210 mm]") << true;
-  QTest::addRow("A4 [mm landscape approx]") << QSizeF(295, 212) << 0 << QString::fromUtf8("DIN A4 [297 × 210 mm]") << true;
-  QTest::addRow("not A4") << QSizeF(210, 294) << 0 << QString::fromUtf8("210 × 294 mm") << false;
+  QTest::newRow("A4 [mm]") << QSizeF(210, 297) << 0 << QString::fromUtf8("DIN A4 [210 × 297 mm]") << false;
+  QTest::newRow("A4 [mm approx]") << QSizeF(209, 298) << 0 << QString::fromUtf8("DIN A4 [210 × 297 mm]") << false;
+  QTest::newRow("A4 [mm landscape]") << QSizeF(297, 210) << 0 << QString::fromUtf8("DIN A4 [297 × 210 mm]") << true;
+  QTest::newRow("A4 [mm landscape approx]") << QSizeF(295, 212) << 0 << QString::fromUtf8("DIN A4 [297 × 210 mm]") << true;
+  QTest::newRow("not A4") << QSizeF(210, 294) << 0 << QString::fromUtf8("210 × 294 mm") << false;
 
-  QTest::addRow("A4 [in]") << QSizeF(8.27, 11.7) << 1 << QString::fromUtf8("DIN A4 [210 × 297 mm]") << false;
+  QTest::newRow("A4 [in]") << QSizeF(8.27, 11.7) << 1 << QString::fromUtf8("DIN A4 [210 × 297 mm]") << false;
 
-  QTest::addRow("A4 [pdf]") << QSizeF(595, 842) << 2 << QString::fromUtf8("DIN A4 [210 × 297 mm]") << false;
+  QTest::newRow("A4 [pdf]") << QSizeF(595, 842) << 2 << QString::fromUtf8("DIN A4 [210 × 297 mm]") << false;
 
-  QTest::addRow("Letter") << QSizeF(216, 279) << 0 << QString::fromUtf8("Letter (ANSI A) [8.5 × 11 in]") << false;
+  QTest::newRow("Letter") << QSizeF(216, 279) << 0 << QString::fromUtf8("Letter (ANSI A) [8.5 × 11 in]") << false;
 }
 
 void TestQtPDF::paperSize()
