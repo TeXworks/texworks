@@ -155,7 +155,18 @@ public:
 
   Link() : AbstractAnnotation(), _highlightingMode(HighlightingNone), _actionOnActivation(NULL) { }
   virtual ~Link();
-  
+  Link(const Link & other) : AbstractAnnotation(other), _highlightingMode(other._highlightingMode), _quadPoints(other._quadPoints) {
+    _actionOnActivation = (other._actionOnActivation ? other._actionOnActivation->clone() : nullptr);
+  }
+  Link & operator =(const Link & other) {
+    AbstractAnnotation::operator =(other);
+    _highlightingMode = other._highlightingMode;
+    _quadPoints = other._quadPoints;
+    if (_actionOnActivation) delete _actionOnActivation;
+    _actionOnActivation = (other._actionOnActivation ? other._actionOnActivation->clone() : nullptr);
+    return *this;
+  }
+
   AnnotationType type() const { return AnnotationTypeLink; };
 
   HighlightingMode highlightingMode() const { return _highlightingMode; }
