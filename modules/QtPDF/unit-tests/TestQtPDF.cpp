@@ -475,8 +475,6 @@ void TestQtPDF::metaDataTrapped()
     QCOMPARE((int)doc->trapped(), expected);
 }
 
-typedef QMap<QString, QString> QStringMap;
-
 void TestQtPDF::metaDataOther_data()
 {
   QTest::addColumn<pDoc>("doc");

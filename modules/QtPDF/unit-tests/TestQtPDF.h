@@ -108,6 +108,8 @@ private slots:
   void paperSize();
 };
 
+typedef QMap<QString, QString> QStringMap;
+
 Q_DECLARE_METATYPE(QSharedPointer<QtPDF::Backend::Document>)
 Q_DECLARE_METATYPE(QSharedPointer<QtPDF::Backend::Page>)
 Q_DECLARE_METATYPE(QtPDF::Backend::Document::Permissions)
@@ -117,3 +119,4 @@ Q_DECLARE_METATYPE(QtPDF::Annotation::Link)
 Q_DECLARE_METATYPE(QtPDF::Backend::SearchResult)
 Q_DECLARE_METATYPE(QtPDF::Backend::SearchFlags)
 Q_DECLARE_METATYPE(QSharedPointer<QtPDF::Annotation::AbstractAnnotation>)
+Q_DECLARE_METATYPE(QStringMap)
