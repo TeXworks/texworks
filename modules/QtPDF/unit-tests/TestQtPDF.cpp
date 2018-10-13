@@ -684,6 +684,7 @@ void TestQtPDF::page_renderToImage()
   QVERIFY(render == ref);
 }
 
+namespace QtPDF {
 bool operator== (const QtPDF::PDFAction & a, const QtPDF::PDFAction & b) {
   if (a.type() != b.type()) return false;
   switch (a.type()) {
@@ -710,6 +711,7 @@ bool operator== (const QtPDF::PDFAction & a, const QtPDF::PDFAction & b) {
     return false;
   }
 }
+} // namespace QtPDF
 
 void printAction(const QtPDF::PDFAction & a)
 {

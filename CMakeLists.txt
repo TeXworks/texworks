@@ -461,6 +461,12 @@ IF ( PYTHONLIBS_FOUND AND WITH_PYTHON )
   ADD_SUBDIRECTORY(${TeXworks_SOURCE_DIR}/plugins-src/TWPythonPlugin)
 ENDIF ()
 
+# Tests
+# -----
+IF (WITH_TESTS)
+#  ADD_SUBDIRECTORY(unit-tests)
+ENDIF (WITH_TESTS)
+
 
 # Packaging
 # =========
