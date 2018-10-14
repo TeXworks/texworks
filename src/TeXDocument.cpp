@@ -31,7 +31,6 @@
 #include "HardWrapDialog.h"
 #include "DefaultPrefs.h"
 #include "CitationSelectDialog.h"
-#include "BibTeXFile.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -1967,7 +1966,7 @@ void TeXDocument::doInsertCitationsDialog()
 		// Assume relative paths are given with respect to the current file's
 		// directory.
 		bibFile = QFileInfo(curFile).dir().absoluteFilePath(bibFile);
-		dlg.addBibTeXFile(BibTeXFile(bibFile));
+		dlg.addBibTeXFile(bibFile);
 	}
 
 	// Work out the enclosing citation command and already existing BiBTeX keys
