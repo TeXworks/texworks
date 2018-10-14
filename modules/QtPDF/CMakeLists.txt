@@ -104,6 +104,19 @@ MACRO(find_qt5_package pkg)
   endif()
 ENDMACRO()
 
+# Source: https://stackoverflow.com/a/31010221
+macro(use_cxx11)
+  if (CMAKE_VERSION VERSION_LESS "3.1")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+    endif ()
+  else ()
+    set (CMAKE_CXX_STANDARD 11)
+  endif ()
+endmacro(use_cxx11)
+
+use_cxx11()
+
 # Check for Qt5 by default (unless another Qt version was already found, e.g.,
 # by a parent project)
 IF (DESIRED_QT_VERSION MATCHES 5 OR (NOT DESIRED_QT_VERSION AND (QT_VERSION_MAJOR MATCHES 5 OR NOT QT_VERSION_MAJOR)))
@@ -125,8 +138,6 @@ IF (DESIRED_QT_VERSION MATCHES 5 OR (NOT DESIRED_QT_VERSION AND (QT_VERSION_MAJO
     string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
     string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
 
-    # Starting with Qt 5.7, c++11 must be used; before, it doesn't hurt
-    set(CMAKE_CXX_STANDARD 11)
     SET(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml)
     SET(QT_TEST_LIBRARIES ${Qt5Test_LIBRARIES} Qt5::Core)
   ELSE()
