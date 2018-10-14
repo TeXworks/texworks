@@ -31,7 +31,7 @@
 #include "HardWrapDialog.h"
 #include "DefaultPrefs.h"
 #include "CitationSelectDialog.h"
-#include "BibTeXfile.h"
+#include "BibTeXFile.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>

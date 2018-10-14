@@ -27,7 +27,7 @@
 #include <QTableView>
 #include <QSet>
 #include <QSortFilterProxyModel>
-#include "BibTeXfile.h"
+#include "BibTeXFile.h"
 
 class CitationModel : public QAbstractTableModel {
 	Q_OBJECT;

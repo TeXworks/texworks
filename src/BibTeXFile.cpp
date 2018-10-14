@@ -18,7 +18,7 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
-#include "BibTeXfile.h"
+#include "BibTeXFile.h"
 
 #include <QFile>
 #include <QTextCodec>
