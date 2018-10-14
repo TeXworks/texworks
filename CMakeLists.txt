@@ -475,7 +475,7 @@ ENDIF ()
 # Tests
 # -----
 IF (WITH_TESTS)
-#  ADD_SUBDIRECTORY(unit-tests)
+  ADD_SUBDIRECTORY(unit-tests)
 ENDIF (WITH_TESTS)
 
 
