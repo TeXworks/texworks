@@ -48,6 +48,23 @@ matrix:
             - poppler-data
             - liblua5.2-dev
             - fakeroot
+    - name: "Ubuntu/Linux (Qt 5) [coverage]"
+      env: TARGET_OS=linux QT=5 COVERAGE=ON
+      os: linux
+      addons:
+        apt:
+          packages:
+            - qtbase5-dev
+            - qtscript5-dev
+            - qttools5-dev
+            - qttools5-dev-tools
+            - zlib1g-dev
+            - libhunspell-dev
+            - libpoppler-qt5-dev
+            - libpoppler-private-dev
+            - poppler-data
+            - liblua5.2-dev
+            - lcov
 
 before_install:
   - ${TRAVIS_BUILD_DIR}/travis-ci/get-dependencies.sh

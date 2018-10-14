@@ -11,6 +11,10 @@ if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
 	print_warning "Not packaging pull-requests for deployment"
 	exit 0
 fi
+if [ "x${COVERAGE}" != "x" ]; then
+	print_warning "Not packaging coverage builds"
+	exit 0
+fi
 
 print_headline "Packaging ${TARGET_OS}/qt${QT} for deployment"
 
