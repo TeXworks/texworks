@@ -72,4 +72,8 @@ void TestBibTeXFile::entry_howPublished()
   QCOMPARE(b.entry(0).howPublished(), QString());
 }
 
+#if defined(STATIC_QT5) && defined(Q_OS_WIN)
+  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+#endif
+
 QTEST_MAIN(TestBibTeXFile)
