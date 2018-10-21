@@ -1545,6 +1545,7 @@ void TeXDocument::updateEngineList()
 	foreach (Engine e, TWApp::instance()->getEngineList()) {
 		QAction *newAction = new QAction(e.name(), engineActions);
 		newAction->setCheckable(true);
+		newAction->setEnabled(e.isAvailable());
 		menuRun->addAction(newAction);
 		engine->addItem(e.name());
 	}
