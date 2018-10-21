@@ -26,6 +26,7 @@
 #include <QList>
 
 #include "TWUtils.h"
+#include "Engine.h"
 
 #include "ui_PrefsDialog.h"
 #include "ui_ToolConfig.h"

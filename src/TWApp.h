@@ -31,6 +31,7 @@
 #include <QHash>
 
 #include "TWUtils.h"
+#include "Engine.h"
 #include "TWScriptable.h"
 #include "ConfigurableApp.h"
 #include "TWScriptAPI.h"
