@@ -182,6 +182,9 @@ void Document::parseDocument()
 {
   QWriteLocker docLocker(_docLock.data());
 
+  clearMetaData();
+  _numPages = -1;
+
   if (!_poppler_doc || _isLocked())
     return;
 
@@ -217,7 +220,6 @@ void Document::parseDocument()
   _poppler_doc->setRenderHint(::Poppler::Document::TextAntialiasing);
 
   // Load meta data
-  clearMetaData();
   QStringList metaKeys = _poppler_doc->infoKeys();
   if (metaKeys.contains(QString::fromUtf8("Title"))) {
     _meta_title = _poppler_doc->info(QString::fromUtf8("Title"));
