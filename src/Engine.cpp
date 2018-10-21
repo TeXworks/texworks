@@ -87,7 +87,7 @@ QString Engine::programPath(const QString & prog)
 }
 
 
-QProcess * Engine::run(QFileInfo input, QObject * parent /* = Q_NULLPTR */)
+QProcess * Engine::run(QFileInfo input, QObject * parent /* = nullptr */)
 {
 	QString exeFilePath = programPath(program());
 	if (exeFilePath.isEmpty())

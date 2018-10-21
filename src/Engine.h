@@ -27,7 +27,7 @@ public:
 	void setShowPdf(bool showPdf);
 
 	bool isAvailable() const;
-	QProcess * run(QFileInfo input, QObject * parent = Q_NULLPTR);
+	QProcess * run(QFileInfo input, QObject * parent = nullptr);
 
 	static QStringList binPaths();
 
