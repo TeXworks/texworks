@@ -1853,6 +1853,8 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
     layout->setAlignment(_unlockWidgetUnlockButton, Qt::AlignHCenter);
   
     _unlockWidget->setLayout(layout);
+    _unlockProxy = new QGraphicsProxyWidget();
+    _unlockProxy->setWidget(_unlockWidget);
     retranslateUi();
   }
   
@@ -1869,6 +1871,16 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
   setWatchForDocumentChangesOnDisk(true);
 
   reinitializeScene();
+}
+
+PDFDocumentScene::~PDFDocumentScene()
+{
+  // Destroy the _unlockProxy if it is not currently attached to the scene (in
+  // which case it is destroyed automatically)
+  if (!_unlockProxy->scene()) {
+    delete _unlockProxy;
+    _unlockProxy = nullptr;
+  }
 }
 
 void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
@@ -2041,6 +2053,10 @@ void PDFDocumentScene::pageLayoutChanged(const QRectF& sceneRect)
 
 void PDFDocumentScene::reinitializeScene()
 {
+  // Remove the _unlockProxy from the scene (if applicable) to avoid it being
+  // destroyed automatically by the subsequent call to clear()
+  if (_unlockProxy->scene() == this)
+    removeItem(_unlockProxy);
   clear();
   _pages.clear();
   _pageLayout.clearPages();
@@ -2050,7 +2066,8 @@ void PDFDocumentScene::reinitializeScene()
     return;
   if (_doc->isLocked()) {
     // FIXME: Deactivate "normal" user interaction, e.g., zooming, panning, etc.
-    addWidget(_unlockWidget);
+    addItem(_unlockProxy);
+    setSceneRect(QRectF());
   }
   else {
     // Create a `PDFPageGraphicsItem` for each page in the PDF document and let
