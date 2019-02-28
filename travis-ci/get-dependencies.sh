@@ -80,7 +80,7 @@ elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
 		# pre-installed version first
 		brew unlink python
 		brew install qt5
-		brew install "${TRAVIS_BUILD_DIR}/CMake/packaging/mac/poppler.rb" --with-qt
+		brew install "${TRAVIS_BUILD_DIR}/CMake/packaging/mac/poppler.rb"
 	else
 		print_error "Unsupported Qt version '${QT}'"
 		exit 1
