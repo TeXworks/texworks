@@ -8,7 +8,8 @@ matrix:
     - name: "Windows (Qt 5)"
       env: TARGET_OS=win QT=5
       os: linux
-      sudo: required
+      dist: xenial
+      services: docker
     - name: "Ubuntu/Linux (Qt 4)"
       env: TARGET_OS=linux QT=4
       os: linux

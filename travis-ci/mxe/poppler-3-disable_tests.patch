@@ -1,0 +1,41 @@
+From 513b042ea809d0426c82eabca6d9ff62f31db7ea Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Sat, 2 Mar 2019 12:42:53 +0100
+Subject: [PATCH 6/6] Add the possibility to disable tests
+
+---
+ CMakeLists.txt | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bbbeefb5..4bf3e842 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -39,9 +39,10 @@ set (CMAKE_CXX_EXTENSIONS OFF)
+ 
+ # command line switches
+ option(ENABLE_XPDF_HEADERS "Install unsupported xpdf headers." OFF)
+-option(BUILD_GTK_TESTS "Whether compile the GTK+ test programs." ON)
+-option(BUILD_QT5_TESTS "Whether compile the Qt5 test programs." ON)
+-option(BUILD_CPP_TESTS "Whether compile the CPP test programs." ON)
++option(ENABLE_TESTS "Compile tests." ON)
++option(BUILD_GTK_TESTS "Whether compile the GTK+ test programs." ${ENABLE_TESTS})
++option(BUILD_QT5_TESTS "Whether compile the Qt5 test programs." ${ENABLE_TESTS})
++option(BUILD_CPP_TESTS "Whether compile the CPP test programs." ${ENABLE_TESTS})
+ option(ENABLE_SPLASH "Build the Splash graphics backend." ON)
+ option(ENABLE_UTILS "Compile poppler command line utils." ON)
+ option(ENABLE_CPP "Compile poppler cpp wrapper." ON)
+@@ -668,7 +669,9 @@ endif()
+ if(ENABLE_GLIB)
+   add_subdirectory(glib)
+ endif()
+-add_subdirectory(test)
++if(ENABLE_TESTS)
++  add_subdirectory(test)
++endif()
+ if(ENABLE_QT5)
+   add_subdirectory(qt5)
+ endif()
+-- 
+2.17.1
+
