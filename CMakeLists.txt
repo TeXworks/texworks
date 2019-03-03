@@ -299,6 +299,13 @@ IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
       )
       LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5FontDatabaseSupport_LIBRARIES} ${Qt5EventDispatcherSupport_LIBRARIES} ${Qt5ThemeSupport_LIBRARIES})
     endif()
+    # Starting with Qt 5.11, WindowsUIAutomation was added
+    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 10)
+      FIND_LIBRARY(Qt5WindowsUIAutomation_LIBRARIES Qt5WindowsUIAutomationSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      LIST(APPEND QT_LIBRARIES ${Qt5WindowsUIAutomation_LIBRARIES})
+    endif()
     # Starting with Qt 5.10, AccessibilitySupport was modularized
     if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 9)
       FIND_LIBRARY(Qt5AccessibilitySupport_LIBRARIES Qt5AccessibilitySupport
