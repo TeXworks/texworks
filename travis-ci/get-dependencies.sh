@@ -35,8 +35,6 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	echo_and_run "docker cp mxe:${MXEDIR} ${MXEDIR}"
 
 	cd travis-ci/mxe
-	print_info "Building hunspell (using ${JOBS} jobs)"
-	env PATH="${MXEDIR}/usr/bin:${MXEDIR}/usr/${MXETARGET}/qt/bin:$PATH" PREFIX="${MXEDIR}/usr" TARGET="${MXETARGET}" JOBS="$JOBS" MXE_CONFIGURE_OPTS="--host='${MXETARGET}' --build='$(${MXEDIR}/ext/config.guess)' --prefix='${MXEDIR}/usr/${MXETARGET}' --enable-static --disable-shared" TEST_FILE="hunspell-test.cpp" make -f build-hunspell-mxe.mk
 
 	print_info "Building poppler (using ${JOBS} jobs)"
 	env PATH="${MXEDIR}/usr/bin:${MXEDIR}/usr/${MXETARGET}/qt/bin:$PATH" PREFIX="${MXEDIR}/usr" TARGET="${MXETARGET}" JOBS="$JOBS" MXE_CONFIGURE_OPTS="--host='${MXETARGET}' --build='$(${MXEDIR}/ext/config.guess)' --prefix='${MXEDIR}/usr/${MXETARGET}' --enable-static --disable-shared ac_cv_prog_HAVE_DOXYGEN='false'" TEST_FILE="poppler-test.cxx" make -f build-poppler-mxe.mk

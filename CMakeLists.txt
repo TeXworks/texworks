@@ -49,8 +49,10 @@ PROJECT(TeXworks)
 
 # We require CMake v2.8 or greater because it is the first version that
 # provides support for certain parts of Qt, such as the ScriptTools.
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
-CMAKE_POLICY(VERSION 2.8.6)
+# Also, 2.8.11 added the possibility to define INTERFACE_COMPILE_DEFINITIONS
+# on imported libraries required by recent versions of hunspell (e.g. 1.7.0)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.11)
+CMAKE_POLICY(VERSION 2.8.11)
 
 # Silence warning about linking to qtmain.lib statically on Windows
 IF(POLICY CMP0020)
@@ -368,7 +370,6 @@ FIND_PACKAGE(Synctex QUIET)
 SET(TeXworks_INCLUDE_DIRS
   ${SYNCTEX_INCLUDE_DIR}
   ${QT_INCLUDE_DIR}
-  ${HUNSPELL_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
 )
 
@@ -380,7 +381,7 @@ MARK_AS_ADVANCED(TEXWORKS_ADDITIONAL_LIBS)
 
 SET(TeXworks_LIBS
   ${SYNCTEX_LIBRARIES}
-  ${HUNSPELL_LIBRARIES}
+  hunspell
   ${QT_LIBRARIES}
   ${ZLIB_LIBRARIES}
   ${TEXWORKS_ADDITIONAL_LIBS}
