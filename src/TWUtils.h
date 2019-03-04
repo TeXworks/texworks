@@ -84,7 +84,7 @@ public:
 	static void updateWindowMenu(QWidget *window, QMenu *menu);
 
 	// return just the filename from a full pathname, suitable for UI display
-	static QString strippedName(const QString &fullFileName);
+	static QString strippedName(const QString &fullFileName, const unsigned int dirComponents = 0);
 
 	// window positioning utilities
 	typedef void (WindowArrangementFunction)(const QWidgetList& windows, const QRect& bounds);

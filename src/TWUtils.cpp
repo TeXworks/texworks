@@ -512,15 +512,21 @@ QString TWUtils::chooseDefaultFilter(const QString & filename, const QStringList
 	return filters.last();
 }
 
-QString TWUtils::strippedName(const QString &fullFileName)
+QString TWUtils::strippedName(const QString &fullFileName, const unsigned int dirComponents /* = 0 */)
 {
-	return QFileInfo(fullFileName).fileName();
+	QDir dir(QFileInfo(fullFileName).dir());
+	for (unsigned int i = 0; i < dirComponents; ++i) {
+		// NB: dir.cdUp() would be more logical, but fails if the resulting
+		// path does not exist
+		dir.setPath(dir.path() + QString::fromLatin1("/.."));
+	}
+	return dir.relativeFilePath(fullFileName);
 }
 
 void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu, QAction * clearAction) /* static */
 {
 	QSETTINGS_OBJECT(settings);
-	QStringList fileList;
+	QStringList fileList, labelList;
 	if (settings.contains(QString::fromLatin1("recentFiles"))) {
 		QList<QVariant> files = settings.value(QString::fromLatin1("recentFiles")).toList();
 		foreach (const QVariant& v, files) {
@@ -543,7 +549,27 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 			settings.setValue(QString::fromLatin1("recentFiles"), files);
 		}
 	}
-	
+
+	// Generate label list (list of filenames without directory components)
+	Q_FOREACH (QString file, fileList)
+		labelList.append(strippedName(file));
+	// Make label list unique, i.e. while labels are not unique, add
+	// directory components
+	for (unsigned int dirComponents = 1; ; ++dirComponents) {
+		QList<bool> isDuplicate;
+		Q_FOREACH(QString label, labelList)
+			isDuplicate.append(labelList.count(label) > 1);
+		if (!isDuplicate.contains(true))
+			break;
+
+		for (int i = 0; i < labelList.size(); ++i) {
+			if (!isDuplicate[i])
+				continue;
+			labelList[i] = strippedName(fileList[i], dirComponents);
+		}
+	}
+
+
 	int numRecentFiles = fileList.size();
 	
 	foreach(QAction * sep, menu->actions()) {
@@ -565,10 +591,8 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	}
 
 	for (int i = 0; i < numRecentFiles; ++i) {
-		QString path = fileList[i];
-		QString text = TWUtils::strippedName(path);
-		actions[i]->setText(text);
-		actions[i]->setData(path);
+		actions[i]->setText(labelList[i]);
+		actions[i]->setData(fileList[i]);
 		actions[i]->setVisible(true);
 	}
 	
