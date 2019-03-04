@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nn_NO">
+<TS version="2.0" language="nn_NO">
+<context>
+    <name>CitationSelectDialog</name>
+    <message>
+        <source>Select Citations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Journal</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 <context>
     <name>CompletingEdit</name>
     <message>
@@ -577,6 +608,38 @@ Er du sikker på at du vil halda fram?</translation>
         <oldsource>Log level:</oldsource>
         <translation>Forstørring:</translation>
     </message>
+    <message>
+        <source>Fit to Content Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+4</source>
+        <translation type="unfinished">Ctrl+4</translation>
+    </message>
+    <message>
+        <source>Ctrl+=</source>
+        <translation type="unfinished">Ctrl+=</translation>
+    </message>
+    <message>
+        <source>200%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>150%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>100%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>75%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>50%</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -903,6 +966,34 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <source>Two Page Continuous</source>
         <translation>To sider – samanhengande</translation>
+    </message>
+    <message>
+        <source>Synchronization Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source &gt; Preview:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highlight Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highlight Word</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highlight Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview &gt; Source :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (%1)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1318,6 +1409,18 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; stavekontroll av L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+    </message>
+    <message>
+        <source>Display this message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open the following file at the given position (line or page)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display version information</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2174,6 +2277,54 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <source>Write UTF-8 byte order mark</source>
         <translation>Skriv UTF-8-BOM</translation>
+    </message>
+    <message>
+        <source>Insert Citations...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+Shift+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 - %2 (%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CRLF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LF (Unix, Mac OS X)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CRLF (Windows)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CR (Mac Classic)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No &apos;%!TEX bibfile&apos; modline found</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

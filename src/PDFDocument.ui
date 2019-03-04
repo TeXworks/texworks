@@ -768,7 +768,7 @@
      <normaloff>:/QtPDF/icons/zoom-fitcontentwidth.png</normaloff>:/QtPDF/icons/zoom-fitcontentwidth.png</iconset>
    </property>
    <property name="text">
-    <string>Fit to ContentWidth</string>
+    <string>Fit to Content Width</string>
    </property>
    <property name="toolTip">
     <string>Fit to Content Width</string>
@@ -820,8 +820,8 @@
   </actiongroup>
  </widget>
  <resources>
-  <include location="../res/resources.qrc"/>
   <include location="../modules/QtPDF/QtPDF_icons.qrc"/>
+  <include location="../res/resources.qrc"/>
  </resources>
  <connections>
   <connection>

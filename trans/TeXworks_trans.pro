@@ -6,7 +6,7 @@ error("This file is not intended for building TeXworks. Please use CMake instead
 INCLUDEPATH += src
 
 SOURCES = \
-  "../src/BibTeXfile.cpp" \
+  "../src/BibTeXFile.cpp" \
   "../src/CitationSelectDialog.cpp" \
   "../src/ClickableLabel.cpp" \
   "../src/ClosableTabWidget.cpp" \
@@ -14,6 +14,7 @@ SOURCES = \
   "../src/CompletingEdit.cpp" \
   "../src/ConfigurableApp.cpp" \
   "../src/ConfirmDelete.cpp" \
+  "../src/Engine.cpp" \
   "../src/FindDialog.cpp" \
   "../src/HardWrapDialog.cpp" \
   "../src/PDFDocument.cpp" \
@@ -36,7 +37,7 @@ SOURCES = \
   "../src/main.cpp"
 
 HEADERS = \
-  "../src/BibTeXfile.h" \
+  "../src/BibTeXFile.h" \
   "../src/CitationSelectDialog.h" \
   "../src/ClickableLabel.h" \
   "../src/ClosableTabWidget.h" \
@@ -47,6 +48,7 @@ HEADERS = \
   "../src/DefaultBinaryPaths.h" \
   "../src/DefaultBinaryPathsWin.h" \
   "../src/DefaultPrefs.h" \
+  "../src/Engine.h" \
   "../src/FindDialog.h" \
   "../src/GitRev.h" \
   "../src/HardWrapDialog.h" \

@@ -2,6 +2,37 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="es_MX">
 <context>
+    <name>CitationSelectDialog</name>
+    <message>
+        <source>Select Citations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Journal</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CompletingEdit</name>
     <message>
         <source>Jump to PDF</source>
@@ -573,6 +604,38 @@ Do you want to continue?</source>
         <source>Zoom level:</source>
         <translation>Ampliación:</translation>
     </message>
+    <message>
+        <source>Fit to Content Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+4</source>
+        <translation type="unfinished">Ctrl+4</translation>
+    </message>
+    <message>
+        <source>Ctrl+=</source>
+        <translation type="unfinished">Ctrl+=</translation>
+    </message>
+    <message>
+        <source>200%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>150%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>100%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>75%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>50%</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFFindDialog</name>
@@ -768,10 +831,6 @@ Do you want to continue?</source>
         <translation>Resolución de pantalla:</translation>
     </message>
     <message>
-        <source> dpi</source>
-        <translation type="obsolete"> dpi</translation>
-    </message>
-    <message>
         <source>Typesetting</source>
         <translation>Compilación</translation>
     </message>
@@ -906,6 +965,34 @@ Do you want to continue?</source>
     <message>
         <source>Two Page Continuous</source>
         <translation>Dos páginas continuas</translation>
+    </message>
+    <message>
+        <source>Synchronization Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source &gt; Preview:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highlight Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highlight Word</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highlight Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview &gt; Source :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (%1)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1322,6 +1409,18 @@ necesarios. ¿Quiere abrirlo de todos modos?</translation>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; es un corrector ortográfico creado por  L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+    </message>
+    <message>
+        <source>Display this message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open the following file at the given position (line or page)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display version information</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2181,6 +2280,54 @@ Ofrecemos disculpas por las molestias ocasionadas.</translation>
     <message>
         <source>Write UTF-8 byte order mark</source>
         <translation>Escribir la etiqueta UTF-8</translation>
+    </message>
+    <message>
+        <source>Insert Citations...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+Shift+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 - %2 (%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CRLF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LF (Unix, Mac OS X)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CRLF (Windows)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CR (Mac Classic)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No &apos;%!TEX bibfile&apos; modline found</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
