@@ -279,7 +279,7 @@ typedef synctex_node_p synctex_noxy_p;
  *  Free the given node by sending the free message.
  *  - parameter NODE: of type synctex_node_p
  */
-void synctex_node_free(synctex_node_p node) {
+static void synctex_node_free(synctex_node_p node) {
     SYNCTEX_MSG_SEND(node,free);
 }
 #   if defined(SYNCTEX_TESTING)
@@ -707,7 +707,7 @@ static synctex_open_s _synctex_open_v2(const char * output, const char * build_d
     } /* if (build_directory...) */
     return open;
 }
-void synctex_reader_free(synctex_reader_p reader) {
+static void synctex_reader_free(synctex_reader_p reader) {
     if (reader) {
         _synctex_free(reader->output);
         _synctex_free(reader->synctex);
@@ -720,7 +720,7 @@ void synctex_reader_free(synctex_reader_p reader) {
  *  Return reader on success.
  *  Deallocate reader and return NULL on failure.
  */
-synctex_reader_p synctex_reader_init_with_output_file(synctex_reader_p reader, const char * output, const char * build_directory) {
+static synctex_reader_p synctex_reader_init_with_output_file(synctex_reader_p reader, const char * output, const char * build_directory) {
     if (reader) {
         /*  now open the synctex file */
         synctex_open_s open = _synctex_open_v2(output,build_directory,0,synctex_ADD_QUOTES);
@@ -2822,20 +2822,6 @@ SYNCTEX_INLINE static synctex_node_p _synctex_node_sibling_or_parents(synctex_no
  */
 synctex_node_p synctex_node_next(synctex_node_p node) {
     synctex_node_p N = synctex_node_child(node);
-    if (N) {
-        return N;
-    }
-    return _synctex_node_sibling_or_parents(node);
-}
-/**
- *  The next nodes corresponds to a deep first tree traversal.
- *  Does not create child proxies as side effect contrary to
- *  the synctex_node_next method above.
- *  May loop infinitely many times if the tree
- *  is not properly built (contains loops).
- */
-synctex_node_p _synctex_node_next(synctex_node_p node) {
-    synctex_node_p N = _synctex_tree_child(node);
     if (N) {
         return N;
     }
@@ -5944,11 +5930,11 @@ SYNCTEX_INLINE static synctex_status_t _synctex_post_process(synctex_scanner_p s
 /*  Used when parsing the synctex file
  */
 static synctex_status_t _synctex_scan_content(synctex_scanner_p scanner) {
-    scanner->reader->lastv = -1;
-    synctex_status_t status = 0;
     if (NULL == scanner) {
         return SYNCTEX_STATUS_BAD_ARGUMENT;
     }
+    scanner->reader->lastv = -1;
+    synctex_status_t status = 0;
     /*  Find where this section starts */
 content_not_found:
     status = _synctex_match_string(scanner,"Content:");
@@ -8560,6 +8546,20 @@ void synctex_updater_free(synctex_updater_p updater){
 #       pragma mark -
 #       pragma mark Testers
 #   endif
+/**
+ *  The next nodes corresponds to a deep first tree traversal.
+ *  Does not create child proxies as side effect contrary to
+ *  the synctex_node_next method above.
+ *  May loop infinitely many times if the tree
+ *  is not properly built (contains loops).
+ */
+static synctex_node_p _synctex_node_next(synctex_node_p node) {
+    synctex_node_p N = _synctex_tree_child(node);
+    if (N) {
+        return N;
+    }
+    return _synctex_node_sibling_or_parents(node);
+}
 static int _synctex_input_copy_name(synctex_node_p input, char * name) {
     char * copy = _synctex_malloc(strlen(name)+1);
     memcpy(copy,name,strlen(name)+1);

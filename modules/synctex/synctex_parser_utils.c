@@ -87,7 +87,7 @@ void _synctex_free(void * ptr) {
 #   include <syslog.h>
 #endif
 
-int _synctex_log(int level, const char * prompt, const char * reason,va_list arg) {
+static int _synctex_log(int level, const char * prompt, const char * reason,va_list arg) {
 	int result;
 #	ifdef SYNCTEX_RECENT_WINDOWS
 	{/*	This code is contributed by William Blum.
@@ -351,6 +351,7 @@ char * _synctex_merge_strings(const char * first,...) {
 		size_t len = strlen(temp);
 		if(UINT_MAX-len<size) {
 			_synctex_error("!  _synctex_merge_strings: Capacity exceeded.");
+			va_end(arg);
 			return NULL;
 		}
 		size+=len;
@@ -371,6 +372,7 @@ char * _synctex_merge_strings(const char * first,...) {
 						_synctex_error("!  _synctex_merge_strings: Copy problem");
 						free(result);
 						result = NULL;
+						va_end(arg);
 						return NULL;
 					}
 					dest += size;
