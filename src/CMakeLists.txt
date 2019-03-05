@@ -153,6 +153,11 @@ ADD_EXECUTABLE( ${EXE_NAME} ${GUI_TYPE}
   ${TeXworks_APP_ICONS}
 )
 
+IF (UNIX)
+  # Required (at least) on OpenBSD to make scripting plugins work
+  SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES LINK_FLAGS -rdynamic)
+ENDIF ()
+
 # Specify libraries to be linked to TeXworks.
 TARGET_LINK_LIBRARIES( ${EXE_NAME} ${MODULE_LIBS} ${TeXworks_LIBS} )
 
