@@ -65,6 +65,22 @@
 			Synchronisation zwischen TeX- und PDF-Dateien sowie ein erweiterbares
 			Skripting-Interface aus.
 		</p>
+		<p xml:lang="ru">
+		  	TeXworks это среда для подготовки документов в TeX (LaTeX, ConTeXt и др.) формате,
+		  	включающий в себя TeX ориентированный основанный на Unicode редактор, встроенный
+			просмотрщик PDF и простой и понятный интерфейс, доступный обычным пользователям.
+		</p>
+		<p xml:lang="ru">
+		  	При своём создании TeXworks взял на основу популярную программу TeXShop для Mac OS X,
+		  	разрабатываемую Диком Кохом, которая предоставила широкому кругу пользователей без
+		  	большого опыта получать высококлассные документы используя TeX. Цель TeXworks — 
+			предоставить те же возможности простого и интегрированного окружения для пользователей
+		  	на других платформах, в особенности GNU/Linux и Windows.
+		</p>
+		<p xml:lang="ru">
+		  	Среди прочего, в TeXworks имеется встроенный просмотр PDF, синхронизация между
+		  	исходными TeX файлами и PDF выводом и возможности для расширения с помощью сценариев.
+		</p>
 	</description>
 	<screenshots>
 		<screenshot type="default" width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</screenshot>

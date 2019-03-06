@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru">
+<TS version="2.1" language="ru">
 <context>
     <name>CitationSelectDialog</name>
     <message>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Заголовок окна</translatorcomment>
+        <translation>Выберите ссылки</translation>
     </message>
     <message>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>Фильтр...</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Автор</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Название</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Год</translation>
     </message>
     <message>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал</translation>
     </message>
 </context>
 <context>
@@ -612,35 +613,35 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>По ширине текста</translation>
     </message>
     <message>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <source>Ctrl+=</source>
-        <translation type="unfinished">Ctrl+=</translation>
+        <translation>Ctrl+=</translation>
     </message>
     <message>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>200%</translation>
     </message>
     <message>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation>150%</translation>
     </message>
     <message>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>100%</translation>
     </message>
     <message>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation>75%</translation>
     </message>
     <message>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>50%</translation>
     </message>
 </context>
 <context>
@@ -974,31 +975,32 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Заголовок</translatorcomment>
+        <translation>Точность синхронизации</translation>
     </message>
     <message>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Исходный файл &gt; Предпросмотр:</translation>
     </message>
     <message>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделять символ</translation>
     </message>
     <message>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделять слово</translation>
     </message>
     <message>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделять строку</translation>
     </message>
     <message>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation>Предпросмотр &gt; Исходный файл:</translation>
     </message>
     <message>
         <source> (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation> (%1)</translation>
     </message>
 </context>
 <context>
@@ -1143,7 +1145,7 @@ Do you want to continue?</source>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Передвиньте линейку или измените значение, чтобы задать масштаб.
+        <translation>Передвиньте линейку или измените значение, чтобы задать масштаб.
 Общепринятые размеры страниц также указаны на линейке (чтобы их увидеть измените размер окна).
 Используйте контекстное меню чтобы изменить единицы измерения.</translation>
     </message>
@@ -1417,15 +1419,15 @@ Use the context menu to change the units.</source>
     </message>
     <message>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать это сообщение</translation>
     </message>
     <message>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть этот файл в заданом месте (строке или странице)</translation>
     </message>
     <message>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать информацию о версии</translation>
     </message>
 </context>
 <context>
@@ -2291,51 +2293,51 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставить ссылки...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <source>%1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation>LF</translation>
     </message>
     <message>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF</translation>
     </message>
     <message>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation>CR</translation>
     </message>
     <message>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation>*</translation>
     </message>
     <message>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation>LF (Unix, Mac OS X)</translation>
     </message>
     <message>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF (Windows)</translation>
     </message>
     <message>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation>CR (Mac Classic)</translation>
     </message>
     <message>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation>Не найдена строка &apos;%!TEX bibfile&apos;</translation>
     </message>
 </context>
 <context>
