@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_MX">
+<TS version="2.1" language="es_MX">
 <context>
     <name>CitationSelectDialog</name>
     <message>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar referencias</translation>
     </message>
     <message>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtro...</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Título</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Año</translation>
     </message>
     <message>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>Revista</translation>
     </message>
 </context>
 <context>
@@ -193,7 +193,8 @@
     <message>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
-        <translation>Lo sentimos. Esta versión de %1 es incapaz de imprimir documentos PDF por varias razones técnicas.</translation>
+        <translation>Lo sentimos. Por algunas razones técnicas, esta versión de %1 no puede imprimir documentos PDF.
+</translation>
     </message>
     <message>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
@@ -549,7 +550,7 @@
     </message>
     <message>
         <source>Go to previous view</source>
-        <translation></translation>
+        <translation>Volver a la vista previa</translation>
     </message>
     <message>
         <source>Alt+Left</source>
@@ -587,7 +588,7 @@
     <message>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
-        <translation>Intenta acceder a la URL %1. Abrir sitios web desconocidos o no confiables puede ser un riesgo para la seguridad.
+        <translation>Intenta acceder a la URL %1. Abrir sitios web desconocidos o no confiables conlleva un riesgo de seguridad.
 ¿Desea continuar?</translation>
     </message>
     <message>
@@ -606,35 +607,35 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustar al ancho del contenido</translation>
     </message>
     <message>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <source>Ctrl+=</source>
-        <translation type="unfinished">Ctrl+=</translation>
+        <translation>Ctrl+=</translation>
     </message>
     <message>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>200%</translation>
     </message>
     <message>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation>150%</translation>
     </message>
     <message>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>100%</translation>
     </message>
     <message>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation>75%</translation>
     </message>
     <message>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>50%</translation>
     </message>
 </context>
 <context>
@@ -804,7 +805,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Magnifying glass</source>
@@ -929,10 +930,9 @@ Do you want to continue?</source>
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
         <translation>&lt;p&gt;&lt;strong&gt;Nunca: &lt;/strong&gt;No ocultar nunca la consola de salida después de cada compilación.&lt;/p&gt;
-
 &lt;p&gt;&lt;strong&gt;Automáticamente: &lt;/strong&gt;Efectuada la compilación correctamente, ocultar la consola de salida sólo si ésta estaba oculta antes.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;En caso de éxito: &lt;/strong&gt;Si la compilación ocurre sin contratiempos, ocultar la consola de salida sin importar su estado anterior.&lt;/p&gt;</translation>
+&lt;p&gt;&lt;strong&gt;En caso de éxito: &lt;/strong&gt;Si la compilación ocurre sin contratiempos, ocultar la consola de salida sin importar su estado anterior.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <source>Interface</source>
@@ -948,7 +948,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation>Mostrar el PDF asociado a cada archivo TeX </translation>
+        <translation>Mostrar el PDF correspondiente a cada archivo TeX</translation>
     </message>
     <message>
         <source>Page mode:</source>
@@ -968,31 +968,32 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronizar resolución</translation>
     </message>
     <message>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuente &gt; Previsualización:</translation>
     </message>
     <message>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Resaltar carácter</translation>
     </message>
     <message>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Resaltar palabra</translation>
     </message>
     <message>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Resaltar línea</translation>
     </message>
     <message>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation>Previsualización &gt; Fuente:</translation>
     </message>
     <message>
         <source> (%1)</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment> (%1)</translatorcomment>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1086,7 +1087,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Replace within &amp;selection</source>
-        <translation>Cambiar en la parte &amp;seleccionada </translation>
+        <translation>Reemplazar en la parte &amp;seleccionada</translation>
     </message>
     <message>
         <source>Replace in all &amp;open files</source>
@@ -1311,7 +1312,7 @@ Utilice el menú contextual para modificar las unidades.</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; es la biblioteca para el renderizado PDF, obra de Kristian H&amp;#xF8;gsberg, Albert Astals Cid y colegas.</translation>
+        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; es la librería para el renderizado PDF, obra de Kristian H&amp;#xF8;gsberg, Albert Astals Cid y colegas.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
@@ -1327,7 +1328,7 @@ Utilice el menú contextual para modificar las unidades.</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation>&lt;p&gt;Traducción al %1 realizada por %2.</translation>
+        <translation>&lt;p&gt;Traducción al %1 a cargo de %2.</translation>
     </message>
     <message>
         <source>[language name]</source>
@@ -1335,7 +1336,7 @@ Utilice el menú contextual para modificar las unidades.</translation>
     </message>
     <message>
         <source>[translator&apos;s name/email]</source>
-        <translation>Luis Montgomery Antelo/monty.luis@gmail.com</translation>
+        <translation>Luis Montgomery/monty.luis@gmail.com</translation>
     </message>
     <message>
         <source>About %1</source>
@@ -1412,15 +1413,15 @@ necesarios. ¿Quiere abrirlo de todos modos?</translation>
     </message>
     <message>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar este mensaje</translation>
     </message>
     <message>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir este archivo en la posición dada (línea o página)</translation>
     </message>
     <message>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información sobre la presente versión</translation>
     </message>
 </context>
 <context>
@@ -1567,7 +1568,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Unrecognized encoding</source>
-        <translation>Codificación desconocida </translation>
+        <translation>Codificación desconocida</translation>
     </message>
     <message>
         <source>The text encoding %1 used in %2 is not supported.
@@ -1647,8 +1648,7 @@ Use &quot;Archivo -&gt; Recuperar versión guardada&quot; manualmente cuando el 
     </message>
     <message>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
-        <translation>
-Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lugar.</translation>
+        <translation>Ha ocurrido un error al salvar el archivo. Podría guardar una copia en otro lugar.</translation>
     </message>
     <message>
         <source>File &quot;%1&quot; saved</source>
@@ -2201,8 +2201,7 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
         <extracomment>Tooltip for &quot;Reload using selected encoding&quot;</extracomment>
         <translation>Reabrir el archivo actual con la codificación seleccionada en este menú.
 
-La codificación seleccionada cambia la predeterminada y anula todas las líneas &quot;%!TEX encoding&quot;.
-</translation>
+La codificación seleccionada cambia la predeterminada y anula todas las líneas &quot;%!TEX encoding&quot;.</translation>
     </message>
     <message>
         <source>Unsaved changes</source>
@@ -2283,51 +2282,53 @@ Ofrecemos disculpas por las molestias ocasionadas.</translation>
     </message>
     <message>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation>Introducir referencias...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <source>%1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation>LF</translation>
     </message>
     <message>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF</translation>
     </message>
     <message>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>CR</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>*</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation>LF (Unix, Mac OS X)</translation>
     </message>
     <message>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF (Windows)</translation>
     </message>
     <message>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation>CR (Mac Classic)</translation>
     </message>
     <message>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation>No ha dispuesto ningún &apos;%!TEX bibfile&apos;</translation>
     </message>
 </context>
 <context>
