@@ -5,31 +5,31 @@
     <name>CitationSelectDialog</name>
     <message>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>Alıntı Seçin</translation>
     </message>
     <message>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrele...</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tür</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+				<translation>Yazar</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Başlık</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Yıl</translation>
     </message>
     <message>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>Dergi</translation>
     </message>
 </context>
 <context>
@@ -603,35 +603,35 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>İçerik Genişliğini Sığdır</translation>
     </message>
     <message>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <source>Ctrl+=</source>
-        <translation type="unfinished">Ctrl+=</translation>
+        <translation>Ctrl+=</translation>
     </message>
     <message>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>%200</translation>
     </message>
     <message>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation>%150</translation>
     </message>
     <message>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>%100</translation>
     </message>
     <message>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation>%75</translation>
     </message>
     <message>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>%50</translation>
     </message>
 </context>
 <context>
@@ -962,31 +962,31 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Senkronizasyon Çözünürlüğü</translation>
     </message>
     <message>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaynak &gt; Önizleme:</translation>
     </message>
     <message>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Karakteri Vurgula</translation>
     </message>
     <message>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Kelimeyi Vurgula</translation>
     </message>
     <message>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Satırı Vurgula</translation>
     </message>
     <message>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation>Önizleme &gt; Kaynak:</translation>
     </message>
     <message>
         <source> (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation> (%1)</translation>
     </message>
 </context>
 <context>
@@ -1402,15 +1402,15 @@ Birimleri değiştirmek için menüyü kullanın.</translation>
     </message>
     <message>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu mesajı göster</translation>
     </message>
     <message>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosyayı verilen konumda (satır veya sayfa) aç</translation>
     </message>
     <message>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation>Sürüm bilgisini göster</translation>
     </message>
 </context>
 <context>
@@ -2266,51 +2266,51 @@ Rahatsızlık için üzgünüz.</translation>
     </message>
     <message>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation>Alıntı ekle...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <source>%1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation>LF</translation>
     </message>
     <message>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF</translation>
     </message>
     <message>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation>CR</translation>
     </message>
     <message>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation>*</translation>
     </message>
     <message>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation>LF (Unix, Mac OS X)</translation>
     </message>
     <message>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF (Windows)</translation>
     </message>
     <message>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation>CR (Mac Classic)</translation>
     </message>
     <message>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir &apos;%!TEX bibfile&apos; satırı bulunamadı</translation>
     </message>
 </context>
 <context>
