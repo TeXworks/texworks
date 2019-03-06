@@ -297,7 +297,7 @@ void TWApp::about()
 {
 	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(QString::fromLatin1(TEXWORKS_NAME));
 	aboutText += QLatin1String("<small>");
-	aboutText += QLatin1String("<p>&#xA9; 2007-2017  Jonathan Kew, Stefan L&#xF6;ffler, Charlie Sharpsteen");
+	aboutText += QLatin1String("<p>&#xA9; 2007-2019  Jonathan Kew, Stefan L&#xF6;ffler, Charlie Sharpsteen");
 	if (TWUtils::isGitInfoAvailable())
 		aboutText += tr("<br>Version %1 (%2) [r.%3, %4]").arg(QString::fromLatin1(TEXWORKS_VERSION)).arg(QString::fromLatin1(TW_BUILD_ID_STR)).arg(TWUtils::gitCommitHash()).arg(TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
 	else

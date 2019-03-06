@@ -30,13 +30,13 @@ debug information), or file a bug report.
 License
 -------
 
-TeXworks is copyright (C) 2007-2017 by Jonathan Kew, Stefan Löffler, and Charlie
+TeXworks is copyright (C) 2007-2019 by Jonathan Kew, Stefan Löffler, and Charlie
 Sharpsteen. Distributed under the terms of the GNU General Public License,
 version 2 or (at your option) any later version.
 See the file COPYING for details.
 
-The SyncTeX code is copyright (c) 2008-2011 by Jérôme Laurens; see
-src/synctex_parser.c for license details.
+The SyncTeX code is copyright (c) 2008-2017 by Jérôme Laurens; see
+modules/synctex/synctex_parser.c for license details.
 
 Building TeXworks
 -----------------
