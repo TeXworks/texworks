@@ -180,6 +180,7 @@
     </message>
     <message>
         <source>%1[*] - %2</source>
+        <extracomment>Format for the window title (ex. &quot;file.pdf[*] - TeXworks&quot;)</extracomment>
         <translation></translation>
     </message>
     <message>
@@ -986,6 +987,7 @@ Você quer continuar?</translation>
     </message>
     <message>
         <source> (%1)</source>
+        <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1605,6 +1607,7 @@ Se você continuar, eles serão substituídos por códigos-padrão. Em vez disso
     </message>
     <message>
         <source>%1[*] - %2</source>
+        <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation></translation>
     </message>
     <message>
@@ -2280,10 +2283,12 @@ Lamentamos a inconveniência.</translation>
     </message>
     <message>
         <source>%1 - %2 (%3)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1 (%2)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>

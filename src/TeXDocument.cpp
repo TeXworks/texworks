@@ -514,8 +514,10 @@ void TeXDocument::reloadSpellcheckerMenu()
 			else {
 				QLocale::Country country = loc.country();
 				if (country != QLocale::AnyCountry)
+					//: Format to display spell-checking dictionaries (ex. "English - UnitedStates (en_US)")
 					label = tr("%1 - %2 (%3)").arg(QLocale::languageToString(loc.language())).arg(QLocale::countryToString(country)).arg(dict);
 				else
+					//: Format to display spell-checking dictionaries (ex. "English (en_US)")
 					label = tr("%1 (%2)").arg(QLocale::languageToString(loc.language())).arg(dict);
 			}
 
@@ -1490,6 +1492,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	textEdit->document()->setModified(false);
 	setWindowModified(false);
 
+	//: Format for the window title (ex. "file.tex[*] - TeXworks")
 	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
 
 	actionRemove_Aux_Files->setEnabled(!isUntitled);

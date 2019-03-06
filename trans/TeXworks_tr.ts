@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>Author</source>
-				<translation>Yazar</translation>
+        <translation>Yazar</translation>
     </message>
     <message>
         <source>Title</source>
@@ -180,6 +180,7 @@
     </message>
     <message>
         <source>%1[*] - %2</source>
+        <extracomment>Format for the window title (ex. &quot;file.pdf[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
@@ -986,6 +987,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <source> (%1)</source>
+        <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
         <translation> (%1)</translation>
     </message>
 </context>
@@ -1604,6 +1606,7 @@ Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, 
     </message>
     <message>
         <source>%1[*] - %2</source>
+        <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
@@ -2274,10 +2277,12 @@ Rahatsızlık için üzgünüz.</translation>
     </message>
     <message>
         <source>%1 - %2 (%3)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
         <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <source>%1 (%2)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
         <translation>%1 (%2)</translation>
     </message>
     <message>

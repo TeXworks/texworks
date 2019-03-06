@@ -651,6 +651,7 @@ void PDFDocument::maybeEnableCopyCommand(const bool isTextSelected)
 void PDFDocument::setCurrentFile(const QString &fileName)
 {
 	curFile = QFileInfo(fileName).canonicalFilePath();
+	//: Format for the window title (ex. "file.pdf[*] - TeXworks")
 	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
 	TWApp::instance()->updateWindowMenus();
 }
