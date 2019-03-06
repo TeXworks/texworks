@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fo_FO">
+<TS version="2.1" language="fo_FO">
 <context>
     <name>CitationSelectDialog</name>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="14"/>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>Vel ávísingar</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="20"/>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>Síla...</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="202"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Slag</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="203"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Høvundur</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="204"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Heiti</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="205"/>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Ár</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="206"/>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>Tíðarrit</translation>
     </message>
 </context>
 <context>
@@ -647,12 +647,12 @@
         <location filename="../src/PDFDocument.ui" line="771"/>
         <location filename="../src/PDFDocument.ui" line="774"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Passa til breiddina á innihaldinum</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="777"/>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="793"/>
@@ -672,7 +672,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="208"/>
         <source>Ctrl+=</source>
-        <translation type="unfinished">Ctrl+=</translation>
+        <translation>Ctrl+=</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="421"/>
@@ -757,27 +757,27 @@ Vilt tú halda fram?</translation>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1033"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>200%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1036"/>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation>150%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1041"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>100%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1045"/>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation>75%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1048"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>50%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1090"/>
@@ -1099,35 +1099,35 @@ Vilt tú halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="735"/>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Upploysing fyri forsýning</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="741"/>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kelda &gt; Forsýning:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="755"/>
         <location filename="../src/PrefsDialog.ui" line="787"/>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg dent á tekn</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="760"/>
         <location filename="../src/PrefsDialog.ui" line="792"/>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg dent á orð</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="765"/>
         <location filename="../src/PrefsDialog.ui" line="797"/>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg dent á reglu</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="773"/>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation>Forsýning &gt; Kelda:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="809"/>
@@ -1247,7 +1247,7 @@ Vilt tú halda fram?</translation>
         <location filename="../src/PrefsDialog.cpp" line="543"/>
         <source> (%1)</source>
         <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation> (%1)</translation>
     </message>
 </context>
 <context>
@@ -1775,17 +1775,17 @@ Brúka kontekstmenuina fyri at broyta eindirnar.</translation>
     <message>
         <location filename="../src/main.cpp" line="56"/>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>Vís hesi boð</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="57"/>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lat hesa fíluna upp á tí givna staðnum (reglu ella síðu)</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="58"/>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation>Vís kunning um útgávu</translation>
     </message>
 </context>
 <context>
@@ -2290,12 +2290,12 @@ Brúka kontekstmenuina fyri at broyta eindirnar.</translation>
     <message>
         <location filename="../src/TeXDocument.ui" line="1135"/>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation>Set ávísingar inn...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1138"/>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="193"/>
@@ -2491,13 +2491,13 @@ Brúka kontekstmenuina fyri at broyta eindirnar.</translation>
         <location filename="../src/TeXDocument.cpp" line="518"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="521"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="600"/>
@@ -2688,37 +2688,37 @@ Um tú heldur fram, verða tey skift út við forsettar kotur. Tú kanst eisini 
     <message>
         <location filename="../src/TeXDocument.cpp" line="1606"/>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation>LF</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1609"/>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1612"/>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation>CR</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1616"/>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation>*</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1624"/>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation>LF (Unix, Mac OS X)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1625"/>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF (Windows)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1626"/>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation>CR (Mac Classic)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1651"/>
@@ -2770,7 +2770,7 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
     <message>
         <location filename="../src/TeXDocument.cpp" line="1967"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingin &apos;%!TEX bibfile&apos; modline var funnin</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2239"/>
