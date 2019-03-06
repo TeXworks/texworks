@@ -360,8 +360,12 @@ QString TWApp::GetWindowsVersionString()
 			if ( osvi.dwMinorVersion == 0 ) {
 				if ( osvi.wProductType == VER_NT_WORKSTATION )
 					result = QLatin1String("10");
-				else
-					result = QLatin1String("Server 2016");
+				else {
+					if (osvi.dwBuildNumber >= 17623)
+						result = QLatin1String("Server 2019");
+					else
+						result = QLatin1String("Server 2016");
+				}
 			}
 		}
 		else if ( osvi.dwMajorVersion == 6 ) {
