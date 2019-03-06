@@ -1541,13 +1541,18 @@ void TeXDocument::updateEngineList()
 		menuRun->removeAction(menuRun->actions().last());
 	while (engineActions->actions().count() > 0)
 		engineActions->removeAction(engineActions->actions().last());
-	engine->clear();
+
+	QStandardItemModel * model = qobject_cast<QStandardItemModel*>(engine->model());
+	Q_ASSERT(model);
+	model->clear();
 	foreach (Engine e, TWApp::instance()->getEngineList()) {
 		QAction *newAction = new QAction(e.name(), engineActions);
 		newAction->setCheckable(true);
 		newAction->setEnabled(e.isAvailable());
 		menuRun->addAction(newAction);
-		engine->addItem(e.name());
+		QStandardItem * item = new QStandardItem(e.name());
+		item->setFlags(Qt::ItemIsSelectable | (e.isAvailable() ? Qt::ItemIsEnabled : Qt::NoItemFlags));
+		model->appendRow(item);
 	}
 	connect(engine, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(selectedEngine(const QString&)));
 	int index = engine->findText(engineName, Qt::MatchFixedString);
