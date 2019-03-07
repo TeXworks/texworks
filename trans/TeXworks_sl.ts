@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="sl_SI">
+<TS version="2.1" language="sl_SI">
 <context>
     <name>CitationSelectDialog</name>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="14"/>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberi citate</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="20"/>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>Filter ...</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="202"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tip</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="203"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Avtor</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="204"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Naslov</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="205"/>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Leto</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="206"/>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>Revija</translation>
     </message>
 </context>
 <context>
@@ -262,7 +262,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="979"/>
         <source>Open URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Odpri URL</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="979"/>
@@ -290,38 +290,38 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1030"/>
         <source>Custom...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Po meri ...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1033"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>200 %</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1036"/>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation>150 %</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1041"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>100 %</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1045"/>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation>75 %</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1048"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>50 %</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1090"/>
         <location filename="../src/PDFDocument.cpp" line="1094"/>
         <source>Go to Page</source>
-        <translation type="unfinished">Pojdi na stran</translation>
+        <translation>Pojdi na stran</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1091"/>
@@ -332,12 +332,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1107"/>
         <source>Set Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nastavi povečavo</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1107"/>
         <source>Zoom level:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Povečava:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="17"/>
@@ -650,7 +650,7 @@ Do you want to continue?</source>
         <location filename="../src/PDFDocument.ui" line="771"/>
         <location filename="../src/PDFDocument.ui" line="774"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prilagodi širini vsebine</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="777"/>
@@ -879,7 +879,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.cpp" line="543"/>
         <source> (%1)</source>
         <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> (%1)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="323"/>
@@ -1003,7 +1003,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="516"/>
         <source>Enable autocompletion</source>
-        <translation type="unfinished">Omogoči samodejno dopolnjevanje besed</translation>
+        <translation>Omogoči samodejno dopolnjevanje besed</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="542"/>
@@ -1103,35 +1103,35 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="735"/>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Podrobnost sinhronizacije</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="741"/>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Koda &gt; Predogled:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="755"/>
         <location filename="../src/PrefsDialog.ui" line="787"/>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Označi znak</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="760"/>
         <location filename="../src/PrefsDialog.ui" line="792"/>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Označi besedo</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="765"/>
         <location filename="../src/PrefsDialog.ui" line="797"/>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Označi vrstico</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="773"/>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Predogled &gt; Koda:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="809"/>
@@ -1171,7 +1171,8 @@ Do you want to continue?</source>
 </source>
         <translation type="unfinished">&lt;p&gt;&lt;strong&gt;Nikoli:&lt;/strong&gt; Nikoli ne skrij dnevnika po stavljenju.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Samodejno:&lt;/strong&gt; Po uspešnem stavljenju skrij dnevnik, a le, če je bil skrit že pred tem.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Po uspešnem stavljenju:&lt;/strong&gt; Po uspešnem stavljenju vedno skrij dnevnik, ne glede na to, ali je bil prej prikazan.&lt;/p&gt;</translation>
+&lt;p&gt;&lt;strong&gt;Po uspešnem stavljenju:&lt;/strong&gt; Po uspešnem stavljenju vedno skrij dnevnik, ne glede na to, ali je bil prej prikazan.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1025"/>
@@ -1448,37 +1449,39 @@ documentation and web pages much easier for users.</translatorcomment>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Povleci ravnilo ali spremeni vrednost tako, da bodo enote ustrezale fizični velikosti na zaslonu.
+Prav tako so označene standardne velikosti papirja (morda morate povečati okno, da jih boste videli).
+Uporabite kontekstni meni za spremembo enot.</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="55"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="58"/>
         <source>DIN A4</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="59"/>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="63"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="69"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="65"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="75"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">in</translation>
     </message>
 </context>
 <context>
@@ -1803,17 +1806,17 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/main.cpp" line="56"/>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>Prikaži to sporočilo</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="57"/>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odpri to datoteko v določeni vrstici oz. strani</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="58"/>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pokaži verzijo</translation>
     </message>
 </context>
 <context>
@@ -2084,13 +2087,13 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <location filename="../src/TeXDocument.cpp" line="518"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="521"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="668"/>
@@ -2174,37 +2177,37 @@ Prosimo uporabite &quot;Datoteka &gt; Vrni na shranjeno&quot;, ko se zunanji pro
     <message>
         <location filename="../src/TeXDocument.cpp" line="1606"/>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation>LF</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1609"/>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1612"/>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation>CR</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1616"/>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation>*</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1624"/>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation>LF (Unix, Mac OS X)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1625"/>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF (Windows)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1626"/>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation>CR (Mac Classic)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1651"/>
@@ -2257,7 +2260,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.cpp" line="1967"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vrstica &apos;%!TEX bibfile&apos; ni bila najdena</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2239"/>
@@ -2972,12 +2975,12 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocument.ui" line="1135"/>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vstavi citate ...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1138"/>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1070"/>
