@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ko_KR">
+<TS version="2.1" language="ko_KR">
 <context>
     <name>CitationSelectDialog</name>
     <message>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>인용 선택</translation>
     </message>
     <message>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>필터...</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>유형</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>저자</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>제목</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>연도</translation>
     </message>
     <message>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>저널</translation>
     </message>
 </context>
 <context>
@@ -604,35 +604,35 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>본문 너비에 맞추기</translation>
     </message>
     <message>
         <source>Ctrl+4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Ctrl+=</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -742,7 +742,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <source> pt</source>
-        <translation>포인트</translation>
+        <translation> 포인트</translation>
     </message>
     <message>
         <source>Tab width:</source>
@@ -854,7 +854,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <source> px</source>
-        <translation>픽셀</translation>
+        <translation> 픽셀</translation>
     </message>
     <message>
         <source>Smart Quotes mode:</source>
@@ -963,32 +963,32 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>바로가기 수준</translation>
     </message>
     <message>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>소스 &gt; 미리보기:</translation>
     </message>
     <message>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>문자 강조</translation>
     </message>
     <message>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>단어 강조</translation>
     </message>
     <message>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>행 강조</translation>
     </message>
     <message>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation>미리보기 &gt; 소스 :</translation>
     </message>
     <message>
         <source> (%1)</source>
         <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1174,39 +1174,39 @@ Use the context menu to change the units.</source>
     </message>
     <message>
         <source>Name: </source>
-        <translation>이름:</translation>
+        <translation>이름: </translation>
     </message>
     <message>
         <source>Context: </source>
-        <translation>환경:</translation>
+        <translation>환경: </translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation>기능:</translation>
+        <translation>기능: </translation>
     </message>
     <message>
         <source>Author: </source>
-        <translation>저자:</translation>
+        <translation>저자: </translation>
     </message>
     <message>
         <source>Version: </source>
-        <translation>버전:</translation>
+        <translation>버전: </translation>
     </message>
     <message>
         <source>Shortcut: </source>
-        <translation>단축키:</translation>
+        <translation>단축키: </translation>
     </message>
     <message>
         <source>File: </source>
-        <translation>파일:</translation>
+        <translation>파일: </translation>
     </message>
     <message>
         <source>Language: </source>
-        <translation>언어:</translation>
+        <translation>언어: </translation>
     </message>
     <message>
         <source>Hook: </source>
-        <translation>후킹:</translation>
+        <translation>후킹: </translation>
     </message>
 </context>
 <context>
@@ -1404,15 +1404,15 @@ Use the context menu to change the units.</source>
     </message>
     <message>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>이 메시지를 표시</translation>
     </message>
     <message>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation>다음 파일을 주어진 위치(행 또는 페이지)에서 열기</translation>
     </message>
     <message>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation>버전 정보 표시</translation>
     </message>
 </context>
 <context>
@@ -2267,53 +2267,53 @@ We are sorry for the inconvenience.</source>
     </message>
     <message>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation>인용 넣기...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%!TEX bibfile&apos; 모드라인을 찾을 수 없음</translation>
     </message>
 </context>
 <context>
