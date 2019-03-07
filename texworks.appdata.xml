@@ -97,6 +97,23 @@
 			무엇보다 TeXworks는 PDF 미리보기 기능 내장, 텍 파일과 PDF 결과물 간 연동,
 			확장가능한 스크립트 활용 인터페이스 등의 특징을 가지고 있습니다.  
 		</p>
+		<p xml:lang="sl">
+			TeXworks je program za pripravo TeX-ovih dokumentov (vključno z LaTeX-om,	ConTeXt-om, itd.).
+			Vključuje urejevalnik besedila (s podporo Unicode-u in barvanju TeX-ove sintakse)
+			ter integriran pregledovalnik PDF-jev. Ponuja preprost uporabniški vmesnik,
+			primeren tudi za manj tehnično podkovane uporabnike.
+		</p>
+		<p xml:lang="sl">
+			Inspiracija za program izhaja iz programa TeXShop za macOS, za katerega je
+			avtor Dick Koch prejel posebno nagrado, in ki je približal kvalitetno stavljenje
+			besedil širši množici uporabnikov, brez nepotrebne tehnične navlake.
+			Misija TeXworksa je uporabnikom ostalih operacijskih sistemov – še zlasti
+			Linuxašem in uporabnikom Oken – približati podobno uporabniško izkušnjo.
+		</p>
+		<p xml:lang="sl">
+			TeXworks med ostalim ponuja vgrajen pregledovalnik PDF-jev, sinhronizacijo med
+			izvorno kodo in PDF-jem ter razširljivost s skriptami.
+		</p>
 	</description>
 	<screenshots>
 		<screenshot type="default" width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</screenshot>
