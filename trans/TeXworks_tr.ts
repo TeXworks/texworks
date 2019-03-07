@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="tr">
+<TS version="2.1" language="tr">
 <context>
     <name>CitationSelectDialog</name>
     <message>
@@ -189,7 +189,8 @@
     </message>
     <message>
         <source>%1%</source>
-        <translation>%1%</translation>
+        <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
+        <translation>%​%1</translation>
     </message>
     <message>
         <source>untitled.pdf[*]</source>
@@ -616,23 +617,28 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>200%</source>
-        <translation>%200</translation>
+        <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
+        <translation>%​200</translation>
     </message>
     <message>
         <source>150%</source>
-        <translation>%150</translation>
+        <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
+        <translation>%​150</translation>
     </message>
     <message>
         <source>100%</source>
-        <translation>%100</translation>
+        <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
+        <translation>%​100</translation>
     </message>
     <message>
         <source>75%</source>
-        <translation>%75</translation>
+        <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
+        <translation>%​75</translation>
     </message>
     <message>
         <source>50%</source>
-        <translation>%50</translation>
+        <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
+        <translation>%​50</translation>
     </message>
 </context>
 <context>
