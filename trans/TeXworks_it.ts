@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it">
+<TS version="2.1" language="it">
 <context>
     <name>CitationSelectDialog</name>
     <message>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona:Citazioni</translation>
     </message>
     <message>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtro...</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Autore</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titolo</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Anno</translation>
     </message>
     <message>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>Pubblicazione</translation>
     </message>
 </context>
 <context>
@@ -526,7 +526,8 @@
     <message>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
-        <translation>Purtroppo questa versione di %1 non è in grado di stampare documenti Pdf per motivi tecnici.</translation>
+        <translation>Purtroppo questa versione di %1 non è in grado di stampare documenti Pdf per motivi tecnici.
+</translation>
     </message>
     <message>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
@@ -600,39 +601,39 @@ Vuoi continuare?</translation>
     </message>
     <message>
         <source>Zoom level:</source>
-        <translation>Livello di zoom</translation>
+        <translation>Livello di zoom:</translation>
     </message>
     <message>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Adatta larghezza</translation>
     </message>
     <message>
         <source>Ctrl+4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Ctrl+=</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -738,7 +739,7 @@ Vuoi continuare?</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Tab width:</source>
@@ -790,7 +791,7 @@ Vuoi continuare?</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Magnifying glass</source>
@@ -948,7 +949,7 @@ Vuoi continuare?</translation>
     </message>
     <message>
         <source>Page mode:</source>
-        <translation>Modalità pagina</translation>
+        <translation>Modalità pagina:</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -964,32 +965,32 @@ Vuoi continuare?</translation>
     </message>
     <message>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronizzazione Risoluzione</translation>
     </message>
     <message>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorgente &gt; Anteprima:</translation>
     </message>
     <message>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Evidenzia Carattere</translation>
     </message>
     <message>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Evidenzia Parola</translation>
     </message>
     <message>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Evidenzia Riga</translation>
     </message>
     <message>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation>Anteprima &gt; Sorgente:</translation>
     </message>
     <message>
         <source> (%1)</source>
         <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1138,7 +1139,8 @@ Usa il menù constestuale per cambiare le unità.</translation>
     <message>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation>dpi (punti pp)</translation>
+        <translatorcomment>punti per pollice</translatorcomment>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>DIN A4</source>
@@ -1175,39 +1177,39 @@ Usa il menù constestuale per cambiare le unità.</translation>
     </message>
     <message>
         <source>Name: </source>
-        <translation>Nome:</translation>
+        <translation>Nome: </translation>
     </message>
     <message>
         <source>Context: </source>
-        <translation>Contesto:</translation>
+        <translation>Contesto: </translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation>Descrizione:</translation>
+        <translation>Descrizione: </translation>
     </message>
     <message>
         <source>Author: </source>
-        <translation>Autore:</translation>
+        <translation>Autore: </translation>
     </message>
     <message>
         <source>Version: </source>
-        <translation>Versione:</translation>
+        <translation>Versione: </translation>
     </message>
     <message>
         <source>Shortcut: </source>
-        <translation>Scorciatoia:</translation>
+        <translation>Scorciatoia: </translation>
     </message>
     <message>
         <source>File: </source>
-        <translation>File:</translation>
+        <translation>File: </translation>
     </message>
     <message>
         <source>Language: </source>
-        <translation>Linguaggio:</translation>
+        <translation>Linguaggio: </translation>
     </message>
     <message>
         <source>Hook: </source>
-        <translation>Hook:</translation>
+        <translation>Hook: </translation>
     </message>
 </context>
 <context>
@@ -1277,7 +1279,7 @@ Usa il menù constestuale per cambiare le unità.</translation>
     </message>
     <message>
         <source>About </source>
-        <translation>A proposito</translation>
+        <translation>A proposito </translation>
     </message>
     <message>
         <source>Go to TeXworks home page</source>
@@ -1405,15 +1407,15 @@ Usa il menù constestuale per cambiare le unità.</translation>
     </message>
     <message>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra questo messaggio</translation>
     </message>
     <message>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation>Apri il seguente file alla posizione assegnata (riga o pagina)</translation>
     </message>
     <message>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra informazioni sulla versione</translation>
     </message>
 </context>
 <context>
@@ -1992,14 +1994,14 @@ Vuoi salvare le modifiche e sovrascrivere il file sul disco?</translation>
     <message numerus="yes">
         <source>%n occurrence(s)</source>
         <translation>
-            <numerusform>%n occorrenza        </numerusform>
+            <numerusform>%n occorrenza</numerusform>
             <numerusform>%n occorrenze</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n documents</source>
         <translation>
-            <numerusform>%n documento        </numerusform>
+            <numerusform>%n documento</numerusform>
             <numerusform>%n documenti</numerusform>
         </translation>
     </message>
@@ -2010,8 +2012,8 @@ Vuoi salvare le modifiche e sovrascrivere il file sul disco?</translation>
     <message numerus="yes">
         <source>Replaced %n occurrence(s)</source>
         <translation>
-            <numerusform>Effettuata %n sostituzione        </numerusform>
-            <numerusform>Effettuate %n sostituzioni        </numerusform>
+            <numerusform>Effettuata %n sostituzione</numerusform>
+            <numerusform>Effettuate %n sostituzioni</numerusform>
         </translation>
     </message>
     <message>
@@ -2240,7 +2242,7 @@ Sei sicuro di voler interrompere adesso?</translation>
     </message>
     <message>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
-        <translation>Controlla configurazione e percorso del programma %1 nella finestra di dialogo Preferenze. </translation>
+        <translation>Controlla configurazione e percorso del programma %1 nella finestra di dialogo Preferenze.</translation>
     </message>
     <message>
         <source>Hide Console Output</source>
@@ -2274,53 +2276,53 @@ Ci dispiace per l&apos;inconveniente.</translation>
     </message>
     <message>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserisci Citazioni...</translation>
     </message>
     <message>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation>Modline &apos;%!TEX bibfile&apos; non trovata</translation>
     </message>
 </context>
 <context>

@@ -97,6 +97,23 @@
 			무엇보다 TeXworks는 PDF 미리보기 기능 내장, 텍 파일과 PDF 결과물 간 연동,
 			확장가능한 스크립트 활용 인터페이스 등의 특징을 가지고 있습니다.  
 		</p>
+		<p xml:lang="it">
+			TeXworks è un ambiente completo per la creazione, la gestione e la manipolazione di
+			di documenti basati su TeX e derivati (LaTex, ConTeXt, etc). E'  dotato di un proprio
+			editor compatibile con lo standard Unicode, di un visualizzatore di PDF integrato e di
+			una interfaccia semplice e comprensibile, accessibile a ogni tipologia di utente.
+		</p>
+		<p xml:lang="it">
+			TeXworks è ispirato a TeXShop, il celebrato programma di Dick Koch per Mac OS X, che ha
+			consentito a una vasta comunità di utenti di cimentarsi con la qualità di composizione
+			tipografica offerta da TeX senza farsi impressionare dai suoi aspetti più ostici.
+			Lo scopo di TeXworks è offrire agli utenti di altri sistemi operativi, GNU/Linux e
+			Windows in primis, lo stesso tipo di approccioi amichevole.
+		</p>
+		<p xml:lang="it">
+			Tra le caratteristiche principali di TeXworks spiccano il visualizzatore integrato di file PDF,
+			la sincronizzazone tra file di TeX e il PDF generato e un linguaggio di scripting estensibile.
+		</p>
 	</description>
 	<screenshots>
 		<screenshot type="default" width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</screenshot>
