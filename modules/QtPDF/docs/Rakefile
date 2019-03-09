@@ -8,6 +8,7 @@ require 'rocco/tasks' # Not used, but serves as a good test that Rocco is instal
 
 # Run everything from the project root directory
 DOC_DIR = Pathname.new(__FILE__).realpath.dirname
+DOC_OUTPUT_DIR = DOC_DIR + "html" + "docs"
 ROOT_DIR = DOC_DIR.join '..'
 Dir.chdir ROOT_DIR
 
@@ -24,7 +25,7 @@ end
 task :docs => [:prerequisites] do
   ruby rocco_binary,
     "--language=cmake",
-    "--output=#{DOC_DIR + 'html' + 'docs'}",
+    "--output=#{DOC_OUTPUT_DIR}",
     "--template=#{DOC_DIR + 'layout.mustache'}",
     *SOURCE_FILES
 
