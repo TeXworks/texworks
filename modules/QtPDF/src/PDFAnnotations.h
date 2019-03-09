@@ -159,6 +159,7 @@ public:
     _actionOnActivation = (other._actionOnActivation ? other._actionOnActivation->clone() : nullptr);
   }
   Link & operator =(const Link & other) {
+    if (&other == this) return *this;
     AbstractAnnotation::operator =(other);
     _highlightingMode = other._highlightingMode;
     _quadPoints = other._quadPoints;
