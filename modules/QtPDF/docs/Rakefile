@@ -14,9 +14,16 @@ Dir.chdir ROOT_DIR
 # Gather all source code files
 SOURCE_FILES = Dir['src/**/*.cpp']
 
+# Check if prerequisites are met.
+task :prerequisites do
+  raise "Failed to find 'rocco' script!" unless File.file?(rocco_binary)
+  puts "Found 'rocco' in '#{File.dirname(rocco_binary)}'!"
+end
+
 # Generate documentation from comments
-task :docs do
-  system 'rocco',
+task :docs => [:prerequisites] do
+  ruby rocco_binary,
+    "--language=cmake",
     "--output=#{DOC_DIR + 'html' + 'docs'}",
     "--template=#{DOC_DIR + 'layout.mustache'}",
     *SOURCE_FILES
@@ -35,3 +42,9 @@ task :default => :docs
 task :view => [:docs] do
   exec "open #{DOC_DIR + 'html' + 'index.html'}"
 end
+
+# Asks 'Gem' for the path to 'rocco' to avoid dependency on proper search path.
+def rocco_binary
+  _binary ||= Gem.bin_path("rocco", "rocco")
+end
+
