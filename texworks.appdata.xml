@@ -131,6 +131,21 @@
 			TeXworks med ostalim ponuja vgrajen pregledovalnik PDF-jev, sinhronizacijo med
 			izvorno kodo in PDF-jem ter razširljivost s skriptami.
 		</p>
+		<p xml:lang="ca">
+			TeXworks és un entorn per a l'edició de documents TeX (LaTeX, ConTeXt, etc). L'editor 
+			és compatible amb l'estàndar Unicode, conté un visualitzador de PDF integrat i una interfície 
+			simple i comprensible per a tot tipus d'usuaris.
+		</p>
+		<p xml:lang="ca">
+			TeXworks està inspirat en el premiat programa TeXShop per a Mac OS X de Dick Koch, el qual ha
+			fet accessible la composició de qualitat a través de TeX a una gran comunitat d'usuaris gràcies a 
+            eliminar la seva cara tècnica i intimidatòria. L'objectiu de TeXworks és oferir un entorn 
+			igualment integrat i d'ús senzill per usuaris d'altres plataformes, especialment GNU/Linux i Windows. 			
+		</p>
+		<p xml:lang="ca">
+			Entre altres coses, TeXworks presenta un previsualitzador de PDF integrat, sincronització
+			entre el fitxer TeX i la sortida PDF, i una interfície d'scripts extensible.
+		</p>
 	</description>
 	<screenshots>
 		<screenshot type="default" width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</screenshot>
