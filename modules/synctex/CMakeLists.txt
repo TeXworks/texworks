@@ -1,3 +1,5 @@
+# File to build <a href="https://github.com/jlaurens/synctex/">SyncTeX</a> by
+# Jérôme Laurens into a static library
 
 set(SYNCTEX_SRCS
   synctex_parser.c

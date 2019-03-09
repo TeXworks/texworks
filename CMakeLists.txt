@@ -7,11 +7,18 @@
 #   ├── <a href="CMakeLists.html">CMakeLists.txt</a>
 #   ├── src
 #   │   └── <a href="src/CMakeLists.html">CMakeLists.txt</a>
+#   ├── modules
+#   │   ├── <a href="modules/CMakeLists.html">CMakeLists.txt</a>
+#   │   ├── synctex
+#   │   │   └── <a href="modules/synctex/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── QtPDF (documented separately)
 #   ├── plugins-src
 #   │   ├── TWLuaPlugin
 #   │   │   └── <a href="plugins-src/TWLuaPlugin/CMakeLists.html">CMakeLists.txt</a>
 #   │   └── TWPythonPlugin
 #   │       └── <a href="plugins-src/TWPythonPlugin/CMakeLists.html">CMakeLists.txt</a>
+#   ├── unit-tests
+#   │   └── <a href="unit-tests/CMakeLists.html">CMakeLists.txt</a>
 #   └── CMake
 #       └── packaging
 #           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.txt</a>
