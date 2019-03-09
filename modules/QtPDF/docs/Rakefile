@@ -21,8 +21,25 @@ task :prerequisites do
   puts "Found 'rocco' in '#{File.dirname(rocco_binary)}'!"
 end
 
+# Remove generated documentation files.
+task :clean => [:prerequisites] do
+  html_files = Dir.chdir(DOC_OUTPUT_DIR) { Dir["**/*.html"] }
+  next if html_files.empty?
+
+  puts "Cleaning '#{DOC_OUTPUT_DIR}' (#{html_files.count} files):"
+  html_files.each do |f|
+    abs_f = DOC_OUTPUT_DIR + f
+    if abs_f.file? then
+      puts "  * #{f}"
+      abs_f.delete
+    else
+      puts "  ! #{f} is not a file"
+    end
+  end
+end
+
 # Generate documentation from comments
-task :docs => [:prerequisites] do
+task :docs => [:prerequisites, :clean] do
   ruby rocco_binary,
     "--language=cmake",
     "--output=#{DOC_OUTPUT_DIR}",
