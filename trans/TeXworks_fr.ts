@@ -6,37 +6,37 @@
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="14"/>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionnez des citations</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="20"/>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtres...</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="202"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="203"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Auteur</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="204"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titre</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="205"/>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Année</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="206"/>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>Journal</translation>
     </message>
 </context>
 <context>
@@ -207,7 +207,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="208"/>
         <source>Ctrl+=</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+=</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="434"/>
@@ -253,13 +253,13 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="979"/>
         <source>Open URL</source>
-        <translation type="unfinished">Ouvrir un URL</translation>
+        <translation>Ouvrir un URL</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="979"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
-        <translation type="unfinished">Vous êtes dans le processus d&apos;ouvrir l&apos;URL %1. Ouvrir des adresses web non connues ou non fiables peut comporter un risque de sécurité. Voulez-vous continuer ?</translation>
+        <translation>Vous êtes dans le processus d&apos;ouvrir l&apos;URL %1. Ouvrir des adresses web non connues ou non fiables peut comporter un risque de sécurité. Voulez-vous continuer ?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1005"/>
@@ -280,32 +280,32 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1030"/>
         <source>Custom...</source>
-        <translation type="unfinished">Approprié...</translation>
+        <translation>Approprié...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1033"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>200%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1036"/>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation>150%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1041"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>100%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1045"/>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation>75%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1048"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>50%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1090"/>
@@ -322,12 +322,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1107"/>
         <source>Set Zoom</source>
-        <translation type="unfinished">Définir le Zoom</translation>
+        <translation>Définir le Zoom</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1107"/>
         <source>Zoom level:</source>
-        <translation type="unfinished">Niveau de Zoom :</translation>
+        <translation>Niveau de Zoom :</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="31"/>
@@ -628,12 +628,12 @@ Do you want to continue?</source>
         <location filename="../src/PDFDocument.ui" line="771"/>
         <location filename="../src/PDFDocument.ui" line="774"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuster à la Largeur du Contenu</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="777"/>
         <source>Ctrl+4</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="793"/>
@@ -862,7 +862,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.cpp" line="543"/>
         <source> (%1)</source>
         <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation> (%1)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="323"/>
@@ -1095,35 +1095,35 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="735"/>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Résolution de Synchronisation</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="741"/>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Source &gt; Prévisualisation :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="755"/>
         <location filename="../src/PrefsDialog.ui" line="787"/>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Mise en évidence de caractère</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="760"/>
         <location filename="../src/PrefsDialog.ui" line="792"/>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Mise en évidence de Mot</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="765"/>
         <location filename="../src/PrefsDialog.ui" line="797"/>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Mise en évidence de ligne</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="773"/>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation>Prévisualisation &gt; Source :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="809"/>
@@ -1417,39 +1417,39 @@ Do you want to continue?</source>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Glissez la règle ou changez la valeur pour correspondre à la longueur réelle des mots.
-Les dimensions usuelles du papier sont également indiquées (vous pourriez avoir besoin de redimensionner la fenêtre de dialogue popur les voir.)
-Utilisez le menu contextuel pour chager le sunités.</translation>
+        <translation>Glissez la règle ou changez la valeur pour correspondre à la longueur réelle des mots.
+Les dimensions usuelles du papier sont également indiquées (vous pourriez avoir besoin de redimensionner la fenêtre de dialogue pour les voir.)
+Utilisez le menu contextuel pour changer les unités.</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="55"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> dpi (points par pouce)</translation>
+        <translation> dpi (points par pouce)</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="58"/>
         <source>DIN A4</source>
-        <translation type="unfinished">DINA A4</translation>
+        <translation>DINA A4</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="59"/>
         <source>Letter</source>
-        <translation type="unfinished">letter</translation>
+        <translation>letter</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="63"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="69"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="65"/>
         <location filename="../src/ScreenCalibrationWidget.cpp" line="75"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">in (pouces)</translation>
+        <translation>in (pouces)</translation>
     </message>
 </context>
 <context>
@@ -1770,17 +1770,17 @@ Utilisez le menu contextuel pour chager le sunités.</translation>
     <message>
         <location filename="../src/main.cpp" line="56"/>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher ce message</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="57"/>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrie le fichier suivant à la position donnée (ligne ou page)</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="58"/>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les informations de version</translation>
     </message>
 </context>
 <context>
@@ -1998,13 +1998,13 @@ Si vous continuez, ils seront remplacés par des codes par défaut. Comme autre 
         <location filename="../src/TeXDocument.cpp" line="518"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="521"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1478"/>
@@ -2568,12 +2568,12 @@ Si vous continuez, ils seront remplacés par des codes par défaut. Comme autre 
     <message>
         <location filename="../src/TeXDocument.ui" line="1135"/>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation>Insérer des Citations...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1138"/>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Maj+C</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="668"/>
@@ -2684,37 +2684,37 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
     <message>
         <location filename="../src/TeXDocument.cpp" line="1606"/>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation>LF (à la ligne)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1609"/>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF (retour chariot + à la ligne)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1612"/>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation>CR (retour chariot)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1616"/>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation>*</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1624"/>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation>LF (à laligne : Unix, MacOS X)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1625"/>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF (retour chariot + à la ligne : Windows)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1626"/>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation>CR (retour chariot : mac Classic)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1651"/>
@@ -2754,7 +2754,7 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
     <message>
         <location filename="../src/TeXDocument.cpp" line="1967"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de ligne commentaire système &apos;%!TEX bibfile&apos; trouvée</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/TeXDocument.cpp" line="2289"/>
