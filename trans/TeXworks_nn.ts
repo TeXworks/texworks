@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nn_NO">
+<TS version="2.1" language="nn_NO">
 <context>
     <name>CitationSelectDialog</name>
     <message>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>Vel kjeldereferansar</translation>
     </message>
     <message>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrer&#xa0;…</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Forfattar</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Tittel</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>År</translation>
     </message>
     <message>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidsskrift</translation>
     </message>
 </context>
 <context>
@@ -172,7 +172,7 @@
     </message>
     <message>
         <source>No SyncTeX data available</source>
-        <translation>Ingen SyncTex-data tilgjengeleg</translation>
+        <translation>Ingen SyncTeX-data tilgjengeleg</translation>
     </message>
     <message>
         <source>SyncTeX: &quot;%1&quot;</source>
@@ -189,7 +189,7 @@
     </message>
     <message>
         <source>%1%</source>
-        <translation>%1 %</translation>
+        <translation>%1&#xa0;%</translation>
     </message>
     <message>
         <source>untitled.pdf[*]</source>
@@ -233,7 +233,7 @@
     </message>
     <message>
         <source>About TeXworks...</source>
-        <translation>Om Texworks …</translation>
+        <translation>Om&#xa0;TeXworks&#xa0;…</translation>
     </message>
     <message>
         <source>First Page</source>
@@ -253,7 +253,7 @@
     </message>
     <message>
         <source>Go to Page...</source>
-        <translation>Gå til side …</translation>
+        <translation>Gå til side&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+G</source>
@@ -309,7 +309,7 @@
     </message>
     <message>
         <source>Open...</source>
-        <translation>Opna …</translation>
+        <translation>Opna&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+O</source>
@@ -373,7 +373,7 @@
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>Innstillingar …</translation>
+        <translation>Innstillingar&#xa0;…</translation>
     </message>
     <message>
         <source>Stack</source>
@@ -393,7 +393,7 @@
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>Ny frå mal …</translation>
+        <translation>Ny frå mal&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -493,7 +493,7 @@
     </message>
     <message>
         <source>Find...</source>
-        <translation>Finn …</translation>
+        <translation>Finn&#xa0;…</translation>
     </message>
     <message>
         <source>Reload Script List</source>
@@ -509,11 +509,11 @@
     </message>
     <message>
         <source>About Scripts...</source>
-        <translation>Om skript …</translation>
+        <translation>Om skript&#xa0;…</translation>
     </message>
     <message>
         <source>Print Pdf...</source>
-        <translation>Skriv ut PDF …</translation>
+        <translation>Skriv ut PDF&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+P</source>
@@ -521,7 +521,7 @@
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation>Innstillingar og ressursar …</translation>
+        <translation>Innstillingar og ressursar&#xa0;…</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
@@ -565,11 +565,11 @@
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation>Éi side – samanhengande</translation>
+        <translation>Éi side&#xa0;– samanhengande</translation>
     </message>
     <message>
         <source>Two Pages Continuous</source>
-        <translation>To sider – samanhengande</translation>
+        <translation>To sider&#xa0;– samanhengande</translation>
     </message>
     <message>
         <source>Jump to Source</source>
@@ -585,7 +585,6 @@
     </message>
     <message>
         <source>Open URL</source>
-        <oldsource>Open URL</oldsource>
         <translation>Opna adresse</translation>
     </message>
     <message>
@@ -596,50 +595,47 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Custom...</source>
-        <oldsource>Custom...</oldsource>
-        <translation>Tilpassa …</translation>
+        <translation>Tilpassa&#xa0;…</translation>
     </message>
     <message>
         <source>Set Zoom</source>
-        <oldsource>Set Zoom...</oldsource>
         <translation>Vel visingsstorleik</translation>
     </message>
     <message>
         <source>Zoom level:</source>
-        <oldsource>Log level:</oldsource>
         <translation>Forstørring:</translation>
     </message>
     <message>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilpass til innhaldsbreidd</translation>
     </message>
     <message>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <source>Ctrl+=</source>
-        <translation type="unfinished">Ctrl+=</translation>
+        <translation>Ctrl+=</translation>
     </message>
     <message>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>200&#xa0;%</translation>
     </message>
     <message>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation>150&#xa0;%</translation>
     </message>
     <message>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>100&#xa0;%</translation>
     </message>
     <message>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation>75&#xa0;%</translation>
     </message>
     <message>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>50&#xa0;%</translation>
     </message>
 </context>
 <context>
@@ -733,11 +729,11 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Template selection dialog</source>
-        <translation>Val av mal</translation>
+        <translation>Vindauge for val av mal</translation>
     </message>
     <message>
         <source>File Open dialog</source>
-        <translation>Filopningsvindauge</translation>
+        <translation>Vindauge for filopning</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -801,7 +797,7 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation>&#xa0;%</translation>
     </message>
     <message>
         <source>Magnifying glass</source>
@@ -809,7 +805,7 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Liten</translation>
+        <translation>Lite</translation>
     </message>
     <message>
         <source>Medium</source>
@@ -817,7 +813,7 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation>Stor</translation>
+        <translation>Stort</translation>
     </message>
     <message>
         <source>Circular magnifier</source>
@@ -841,7 +837,7 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>Rediger …</translation>
+        <translation>Rediger&#xa0;…</translation>
     </message>
     <message>
         <source>Default:</source>
@@ -849,7 +845,7 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Interface</source>
-        <translation>Grensesnitt</translation>
+        <translation>Brukarflate</translation>
     </message>
     <message>
         <source>Locale:</source>
@@ -861,7 +857,7 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation>Med TeX-filer, opna tilhøyrande PDF-fil</translation>
+        <translation>For TeX-filer, opna tilhøyrande PDF-fil</translation>
     </message>
     <message>
         <source> px</source>
@@ -901,8 +897,8 @@ Er du sikker på at du vil halda fram?</translation>
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
 </source>
         <translation>&lt;p&gt;&lt;strong&gt;Alder:&lt;/strong&gt; Gøym aldri resultatpanelet etter kompilering.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Automatisk:&lt;/strong&gt; Gøym resultatetpanelet etter vellukka kompilering, men berre om det var gøymt frå før.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Om vellukka:&lt;/strong&gt; Gøym alltid resultatetpanelet etter vellukka kompilering.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automatisk:&lt;/strong&gt; Gøym resultatpanelet etter vellukka kompilering, men berre om det var gøymt frå før.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Om vellukka:&lt;/strong&gt; Gøym alltid resultatpanelet etter vellukka kompilering.&lt;/p&gt;
 </translation>
     </message>
     <message>
@@ -930,7 +926,7 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
-        <translation>Tillat at skript les alle filer (skript og dokumentfiler eller alltid lesbare)</translation>
+        <translation>Tillat at skript les alle filer (skript og dokumentfiler er alltid lesbare)</translation>
     </message>
     <message>
         <source>Allow scripts to write files</source>
@@ -942,7 +938,7 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation>Tillat tilleggsskriptspråk (desse kan omgå andre avgrensingar på skriptatferd)</translation>
+        <translation>Tillat tilleggs-skriptspråk (desse kan omgå andre avgrensingar på skriptatferd)</translation>
     </message>
     <message>
         <source>Debugging</source>
@@ -962,40 +958,39 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <source>Single Page Continuous</source>
-        <translation>Éi side – samanhengande</translation>
+        <translation>Éi side&#xa0;– samanhengande</translation>
     </message>
     <message>
         <source>Two Page Continuous</source>
-        <translation>To sider – samanhengande</translation>
+        <translation>To sider&#xa0;– samanhengande</translation>
     </message>
     <message>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Synkroniseringsresultat</translation>
     </message>
     <message>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kjelde&#xa0;→ førehandsvising:</translation>
     </message>
     <message>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Uthev teikn</translation>
     </message>
     <message>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Uthev ord</translation>
     </message>
     <message>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Uthev linje</translation>
     </message>
     <message>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation>Førehandsvising&#xa0;→ kjelde:</translation>
     </message>
     <message>
         <source> (%1)</source>
-        <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation> (%1)</translation>
     </message>
 </context>
 <context>
@@ -1137,8 +1132,8 @@ Er du sikker på at du vil halda fram?</translation>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation>Dra linjalen eller endra verdien slik at han svarer til fysisk lengd.
-Vanlege papirstorleikar er òg merkerte. (Det kan vera du må endra storleiken på vindauget for å sjå dei).
+        <translation>Dra linjalen eller endra verdien slik at han svarar til fysisk lengd.
+Vanlege papirstorleikar er òg markerte. (Det kan vera du må endra storleiken på vindauget for å sjå dei).
 Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
     <message>
@@ -1152,18 +1147,17 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
     <message>
         <source>Letter</source>
-        <oldsource>Letter</oldsource>
+        <translatorcomment>skip-rule: unormert
+</translatorcomment>
         <translation>Letter</translation>
     </message>
     <message>
         <source>cm</source>
-        <oldsource>cm</oldsource>
         <extracomment>this refers to the length unit of centimeters</extracomment>
         <translation>cm</translation>
     </message>
     <message>
         <source>in</source>
-        <oldsource>in</oldsource>
         <extracomment>this refers to the length unit of inches</extracomment>
         <translation>tommar</translation>
     </message>
@@ -1251,7 +1245,7 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
     <message>
         <source>...</source>
-        <translation> ...</translation>
+        <translation>&#xa0;...</translation>
     </message>
 </context>
 <context>
@@ -1266,15 +1260,15 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>Ny frå mal …</translation>
+        <translation>Ny frå mal&#xa0;…</translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>Innstillingar …</translation>
+        <translation>Innstillingar&#xa0;…</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation>Opna …</translation>
+        <translation>Opna&#xa0;…</translation>
     </message>
     <message>
         <source>Open Recent</source>
@@ -1330,7 +1324,7 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
     <message>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
-        <translation>&lt;p&gt;Omsetjing til %1 av %2.</translation>
+        <translation>&lt;p&gt;Omsett til %1 av %2.</translation>
     </message>
     <message>
         <source>[language name]</source>
@@ -1366,7 +1360,7 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
     <message>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
-        <translation>Fann ingen av dei standardplasseringane for TeX-programfiler.&lt;p&gt;&lt;small&gt;For å kunna kompilera filene, må du oppgje adressa/adressene til TeX-distribusjonen din under «Instillingar → Kompilering».&lt;/small&gt;</translation>
+        <translation>Fann ingen av dei standardplasseringane for TeX-programfiler.&lt;p&gt;&lt;small&gt;For å kunna kompilera filene, må du oppgje adressa/adressene til TeX-distribusjonen din under «Innstillingar&#xa0;→ Kompilering».&lt;/small&gt;</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
@@ -1414,15 +1408,15 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
     <message>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis denne meldinga</translation>
     </message>
     <message>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation>Opna følgjande fil ved oppgjeven linje/side</translation>
     </message>
     <message>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis versjonsinformasjon</translation>
     </message>
 </context>
 <context>
@@ -1689,7 +1683,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Change Case</source>
-        <translation>Byt store og små bokstavar</translation>
+        <translation>Byt mellom store og små bokstavar</translation>
     </message>
     <message>
         <source>Typeset</source>
@@ -1745,7 +1739,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation>Opna …</translation>
+        <translation>Opna&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+O</source>
@@ -1769,7 +1763,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Save As...</source>
-        <translation>Lagra som …</translation>
+        <translation>Lagra som&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+Shift+S</source>
@@ -1825,7 +1819,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Find...</source>
-        <translation>Finn …</translation>
+        <translation>Finn&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
@@ -1841,7 +1835,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Replace...</source>
-        <translation>Byt ut …</translation>
+        <translation>Byt ut&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+R</source>
@@ -1865,7 +1859,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Go to Line...</source>
-        <translation>Gå til linje …</translation>
+        <translation>Gå til linje&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
@@ -1889,7 +1883,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Font...</source>
-        <translation>Skrift …</translation>
+        <translation>Skrift&#xa0;…</translation>
     </message>
     <message>
         <source>Indent</source>
@@ -1929,7 +1923,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>About TeXworks...</source>
-        <translation>Om TeXworks …</translation>
+        <translation>Om TeXworks&#xa0;…</translation>
     </message>
     <message>
         <source>Stack</source>
@@ -1941,7 +1935,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>Innstillingar …</translation>
+        <translation>Innstillingar&#xa0;…</translation>
     </message>
     <message>
         <source>Go to Preview</source>
@@ -1957,7 +1951,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>New from Template...</source>
-        <translation>Ny frå mal …</translation>
+        <translation>Ny frå mal&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+Shift+N</source>
@@ -2017,7 +2011,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Remove Aux Files...</source>
-        <translation>Slett tilleggsfiler …</translation>
+        <translation>Slett tilleggsfiler&#xa0;…</translation>
     </message>
     <message>
         <source>Quit TeXworks</source>
@@ -2059,7 +2053,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Hard Wrap...</source>
-        <translation>Harde linjeskift …</translation>
+        <translation>Harde linjeskift&#xa0;…</translation>
     </message>
     <message>
         <source>Line Numbers</source>
@@ -2083,7 +2077,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>About Scripts...</source>
-        <translation>Om skript …</translation>
+        <translation>Om skript&#xa0;…</translation>
     </message>
     <message>
         <source>Apply to Selection</source>
@@ -2099,7 +2093,7 @@ Vil du lagra endringane?</translation>
     </message>
     <message>
         <source>Settings and Resources...</source>
-        <translation>Innstillingar og ressursar …</translation>
+        <translation>Innstillingar og ressursar&#xa0;…</translation>
     </message>
     <message>
         <source>Clear Recent Files</source>
@@ -2179,7 +2173,7 @@ Do you want to stop it now?</source>
     </message>
     <message>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation>Når ein TeX-distribusjon er installert, kan det vera du må gje TeXworks beskjed om korleis programmet skal finna han, via «Rediger → Instillingar → Kompilering».</translation>
+        <translation>Når ein TeX-distribusjon er installert, kan det vera du må gje TeXworks beskjed om korleis programmet skal finna han, via «Rediger&#xa0;→ Innstillingar&#xa0;→ Kompilering».</translation>
     </message>
     <message>
         <source>Searched in directories:</source>
@@ -2283,53 +2277,57 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Vanlegvis set ein berre inn éin referanse, så eintal fungerer betre enn fleirtal her.
+</translatorcomment>
+        <translation>Set inn kjeldereferanse&#xa0;…</translation>
     </message>
     <message>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <source>%1 - %2 (%3)</source>
-        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1&#xa0;– %2 (%3)</translation>
     </message>
     <message>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation>LF</translation>
     </message>
     <message>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF</translation>
     </message>
     <message>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation>CR</translation>
     </message>
     <message>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation>*</translation>
     </message>
     <message>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation>LF (Unix, Mac OS X)</translation>
     </message>
     <message>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF (Windows)</translation>
     </message>
     <message>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation>CR (Mac Classic)</translation>
     </message>
     <message>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Linje som ein skriv øvst i dokumentet, på forma:
+%!TEX bibfile = eksempel.bib
+</translatorcomment>
+        <translation>Fann ikkje noko «%!TEX bibfile»-linje</translation>
     </message>
 </context>
 <context>
@@ -2347,7 +2345,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <source>Choose template for the new document:</source>
-        <translation>Vel mal for det nye dokumentet:</translation>
+        <translation>Vel ein mal for det nye dokumentet:</translation>
     </message>
 </context>
 <context>
@@ -2393,7 +2391,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
     <message>
         <source>Browse...</source>
-        <translation>Bla gjennom …</translation>
+        <translation>Bla gjennom&#xa0;…</translation>
     </message>
 </context>
 </TS>
