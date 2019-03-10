@@ -45,6 +45,21 @@
 			Among other things, TeXworks features an integrated PDF previewer, synchronization
 			between the TeX files and the PDF output, and an extensible scripting interface.
 		</p>
+		<p xml:lang="ca">
+			TeXworks és un entorn per a l'edició de documents TeX (LaTeX, ConTeXt, etc). L'editor
+			és compatible amb l'estàndar Unicode, conté un visualitzador de PDF integrat i una interfície
+			simple i comprensible per a tot tipus d'usuaris.
+		</p>
+		<p xml:lang="ca">
+			TeXworks està inspirat en el premiat programa TeXShop per a Mac OS X de Dick Koch, el qual ha
+			fet accessible la composició de qualitat a través de TeX a una gran comunitat d'usuaris gràcies a
+			eliminar la seva cara tècnica i intimidatòria. L'objectiu de TeXworks és oferir un entorn
+			igualment integrat i d'ús senzill per usuaris d'altres plataformes, especialment GNU/Linux i Windows.
+		</p>
+		<p xml:lang="ca">
+			Entre altres coses, TeXworks presenta un previsualitzador de PDF integrat, sincronització
+			entre el fitxer TeX i la sortida PDF, i una interfície d'scripts extensible.
+		</p>
 		<p xml:lang="de">
 			TeXworks ist ein Programm, um TeX (LaTeX, ConTeXt, etc) Dokumente zu erstellen
 			und zu bearbeiten. Es besitzt einen eingebauten Unicode-basierten TeX-Editor,
@@ -83,38 +98,6 @@
 			synchronisation entre les fichiers TeX et la sortie PDF, et une interface de
 			scripts extensible.
 		</p>
-		<p xml:lang="ru">
-		  	TeXworks это среда для подготовки документов в TeX (LaTeX, ConTeXt и др.) формате,
-		  	включающий в себя TeX ориентированный основанный на Unicode редактор, встроенный
-			просмотрщик PDF и простой и понятный интерфейс, доступный обычным пользователям.
-		</p>
-		<p xml:lang="ru">
-		  	При своём создании TeXworks взял на основу популярную программу TeXShop для Mac OS X,
-		  	разрабатываемую Диком Кохом, которая предоставила широкому кругу пользователей без
-		  	большого опыта получать высококлассные документы используя TeX. Цель TeXworks — 
-			предоставить те же возможности простого и интегрированного окружения для пользователей
-		  	на других платформах, в особенности GNU/Linux и Windows.
-		</p>
-		<p xml:lang="ru">
-		  	Среди прочего, в TeXworks имеется встроенный просмотр PDF, синхронизация между
-		  	исходными TeX файлами и PDF выводом и возможности для расширения с помощью сценариев.
-		</p>
-		<p xml:lang="ko">
-			TeXworks는 TeX (LaTeX, ConTeXt 등) 문서를 작성하기 위한 환경입니다. 유니코드 기반의
-			텍 친화적인 에디터, 내장 PDF 뷰어, 깔끔하고 단순한 인터페이스를 가지고 있어
-			초보 사용자들도 쉽게 사용할 수 있습니다.
-		</p>
-		<p xml:lang="ko">
-			TeXworks는 Dick Koch의 Mac OS X 용 프로그램 TeXShop에서 영향을 받았습니다.
-			수상경력에 빛나는 이 프로그램은 접근 곤란한 전문적 기술적 외양을 걷어내어 
-			텍을 이용한 고품질 조판을 폭넓은 사용자층에 보급하였습니다. TeXworks의 목표는
-			이와 같이 사용하기 쉬운 통합적인 환경을 GNU/Linux나 Windows 등 다른 플랫폼
-			사용자들에게도 제공하는 것입니다.
-		</p>
-		<p xml:lang="ko">
-			무엇보다 TeXworks는 PDF 미리보기 기능 내장, 텍 파일과 PDF 결과물 간 연동,
-			확장가능한 스크립트 활용 인터페이스 등의 특징을 가지고 있습니다.  
-		</p>
 		<p xml:lang="it">
 			TeXworks è un ambiente completo per la creazione, la gestione e la manipolazione di
 			di documenti basati su TeX e derivati (LaTex, ConTeXt, etc). E'  dotato di un proprio
@@ -132,6 +115,22 @@
 			Tra le caratteristiche principali di TeXworks spiccano il visualizzatore integrato di file PDF,
 			la sincronizzazone tra file di TeX e il PDF generato e un linguaggio di scripting estensibile.
 		</p>
+		<p xml:lang="ko">
+			TeXworks는 TeX (LaTeX, ConTeXt 등) 문서를 작성하기 위한 환경입니다. 유니코드 기반의
+			텍 친화적인 에디터, 내장 PDF 뷰어, 깔끔하고 단순한 인터페이스를 가지고 있어
+			초보 사용자들도 쉽게 사용할 수 있습니다.
+		</p>
+		<p xml:lang="ko">
+			TeXworks는 Dick Koch의 Mac OS X 용 프로그램 TeXShop에서 영향을 받았습니다.
+			수상경력에 빛나는 이 프로그램은 접근 곤란한 전문적 기술적 외양을 걷어내어 
+			텍을 이용한 고품질 조판을 폭넓은 사용자층에 보급하였습니다. TeXworks의 목표는
+			이와 같이 사용하기 쉬운 통합적인 환경을 GNU/Linux나 Windows 등 다른 플랫폼
+			사용자들에게도 제공하는 것입니다.
+		</p>
+		<p xml:lang="ko">
+			무엇보다 TeXworks는 PDF 미리보기 기능 내장, 텍 파일과 PDF 결과물 간 연동,
+			확장가능한 스크립트 활용 인터페이스 등의 특징을 가지고 있습니다.  
+		</p>
 		<p xml:lang="nn">
 			TeXworks er eit miljø for redigering av TeX-dokument (LaTeX, ConTeXt, …),
 			med eit Unicode-basert skriveprogram, integrert PDF-visar og eit oversiktleg
@@ -147,8 +146,24 @@
 			TeXworks støttar blant anna innebygd PDF-vising, synkronisering mellom TeX-filer
 			og PDF-resultat og moglegheit for utvidingar via eit eige skriptgrensesnitt.
 		</p>
+		<p xml:lang="ru">
+			TeXworks это среда для подготовки документов в TeX (LaTeX, ConTeXt и др.) формате,
+			включающий в себя TeX ориентированный основанный на Unicode редактор, встроенный
+			просмотрщик PDF и простой и понятный интерфейс, доступный обычным пользователям.
+		</p>
+		<p xml:lang="ru">
+			При своём создании TeXworks взял на основу популярную программу TeXShop для Mac OS X,
+			разрабатываемую Диком Кохом, которая предоставила широкому кругу пользователей без
+			большого опыта получать высококлассные документы используя TeX. Цель TeXworks —
+			предоставить те же возможности простого и интегрированного окружения для пользователей
+			на других платформах, в особенности GNU/Linux и Windows.
+		</p>
+		<p xml:lang="ru">
+			Среди прочего, в TeXworks имеется встроенный просмотр PDF, синхронизация между
+			исходными TeX файлами и PDF выводом и возможности для расширения с помощью сценариев.
+		</p>
 		<p xml:lang="sl">
-			TeXworks je program za pripravo TeX-ovih dokumentov (vključno z LaTeX-om,	ConTeXt-om, itd.).
+			TeXworks je program za pripravo TeX-ovih dokumentov (vključno z LaTeX-om, ConTeXt-om, itd.).
 			Vključuje urejevalnik besedila (s podporo Unicode-u in barvanju TeX-ove sintakse)
 			ter integriran pregledovalnik PDF-jev. Ponuja preprost uporabniški vmesnik,
 			primeren tudi za manj tehnično podkovane uporabnike.
@@ -163,21 +178,6 @@
 		<p xml:lang="sl">
 			TeXworks med ostalim ponuja vgrajen pregledovalnik PDF-jev, sinhronizacijo med
 			izvorno kodo in PDF-jem ter razširljivost s skriptami.
-		</p>
-		<p xml:lang="ca">
-			TeXworks és un entorn per a l'edició de documents TeX (LaTeX, ConTeXt, etc). L'editor 
-			és compatible amb l'estàndar Unicode, conté un visualitzador de PDF integrat i una interfície 
-			simple i comprensible per a tot tipus d'usuaris.
-		</p>
-		<p xml:lang="ca">
-			TeXworks està inspirat en el premiat programa TeXShop per a Mac OS X de Dick Koch, el qual ha
-			fet accessible la composició de qualitat a través de TeX a una gran comunitat d'usuaris gràcies a 
-            eliminar la seva cara tècnica i intimidatòria. L'objectiu de TeXworks és oferir un entorn 
-			igualment integrat i d'ús senzill per usuaris d'altres plataformes, especialment GNU/Linux i Windows. 			
-		</p>
-		<p xml:lang="ca">
-			Entre altres coses, TeXworks presenta un previsualitzador de PDF integrat, sincronització
-			entre el fitxer TeX i la sortida PDF, i una interfície d'scripts extensible.
 		</p>
 	</description>
 	<screenshots>
