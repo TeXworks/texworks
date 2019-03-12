@@ -80,6 +80,23 @@
 			Synchronisation zwischen TeX- und PDF-Dateien sowie ein erweiterbares
 			Skripting-Interface aus.
 		</p>
+		<p xml:lang="fo">
+			TeXworks er eitt umhvørvi til at skriva TeX-skjøl, t.e LaTeX, ConTeXt o.s.fr., við.
+			Tað kemur við einum Unicode-grundaðum ritli, sum kennir til TeX, einum innbygdum
+			PDF-vísara og einum reinum og einføldum markamóti, sum brúkarar við lítlum tøkniligum 
+			innliti kunnu brúka.
+		</p>
+		<p xml:lang="fo">
+			TeXworks er gjørt við íblástri frá tí virðislønta TeXShop-forritinum, sum Dick Koch
+			gjørdi til Mac OS X. TeXShop hevur givið einum størri skara av brúkarum atgongd til
+			dygdarseting við TeX uttan at skula møta tøkniligum og ræðandi avbjóðingum. Endamálið
+			við TeXworks er at veita eitt líknandi heildarumhvørvi, sum er lætt at brúka hjá brúkarum
+			av øðrum skipanum, serliga GNU/Linux og Windows.
+		</p>
+		<p xml:lang="fo">
+			TeXworks kemur við m.a. einum innbygdum PDF-vísara, synkronisering millum TeX-fílur
+			og PDF-úrslitið, umframt eitt skriptmarkamót, ið kann víðkast.
+		</p>
 		<p xml:lang="fr">
 			TeXworks est un environnement de création de documents TeX (LaTeX, ConTeXt, etc)
 			avec un éditeur Unicode orienté TeX, une visionneuse PDF intégrée et une interface
