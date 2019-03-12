@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="af_ZA">
+<TS version="2.1" language="af_ZA">
 <context>
     <name>CitationSelectDialog</name>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="14"/>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies Aanhaling</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="20"/>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>Filter...</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="202"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipe</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="203"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Outeur</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="204"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titel</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="205"/>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>Jaar</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="206"/>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>Joernaal</translation>
     </message>
 </context>
 <context>
@@ -202,12 +202,12 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="45"/>
         <source>Open Recent</source>
-        <translation>Open onlangse lêer</translation>
+        <translation>Maak onlangse lêer oop</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="208"/>
         <source>Ctrl+=</source>
-        <translation type="unfinished">Ctrl+=</translation>
+        <translation>Ctrl+=</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="421"/>
@@ -258,13 +258,13 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="979"/>
         <source>Open URL</source>
-        <translation>Open URL</translation>
+        <translation>Maak URL oop</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="979"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
-        <translation>Jy is besig om die URL %1 te open. Dis &apos;n sekuriteitsrisiko om onbekende of onbetroubare webadresse oop te maak.
+        <translation>Jy is besig om die URL %1oop te maak. Dis &apos;n sekuriteitsrisiko om onbekende of onbetroubare webadresse oop te maak.
 Wil jy voortgaan?</translation>
     </message>
     <message>
@@ -291,27 +291,27 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1033"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>200%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1036"/>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation>150%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1041"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>100%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1045"/>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation>75%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1048"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>50%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1090"/>
@@ -629,12 +629,12 @@ Wil jy voortgaan?</translation>
         <location filename="../src/PDFDocument.ui" line="771"/>
         <location filename="../src/PDFDocument.ui" line="774"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas tot Inhoudswydte</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="777"/>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="793"/>
@@ -863,7 +863,7 @@ Wil jy voortgaan?</translation>
         <location filename="../src/PrefsDialog.cpp" line="543"/>
         <source> (%1)</source>
         <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>(%1)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="323"/>
@@ -921,7 +921,7 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="134"/>
         <source>File Open dialog</source>
-        <translation>&apos;Open lêer&apos; dialoog</translation>
+        <translation>&apos;Maak Open Lêer&apos; Dialoog oop</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
@@ -936,12 +936,12 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="72"/>
         <source>Toolbar buttons:</source>
-        <translation>Nutsbalk ikone</translation>
+        <translation>Nutsbalk ikone:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="141"/>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation>Open ooreenstemmende PDF voorskou met TeX lêers</translation>
+        <translation>Maak ooreenstemmende PDF voorskou met TeX lêers oop</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="178"/>
@@ -1016,7 +1016,7 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="516"/>
         <source>Enable autocompletion</source>
-        <translation>Maak autovoltooing moontlik</translation>
+        <translation>Maak outovoltooing moontlik</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="542"/>
@@ -1111,35 +1111,35 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="735"/>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinkronisasie Resolusie</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="741"/>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bron &gt; Voorskou:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="755"/>
         <location filename="../src/PrefsDialog.ui" line="787"/>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Merk Karakter</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="760"/>
         <location filename="../src/PrefsDialog.ui" line="792"/>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Merk Woord</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="765"/>
         <location filename="../src/PrefsDialog.ui" line="797"/>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Merk Lyn</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="773"/>
         <source>Preview &gt; Source :</source>
-        <translation type="unfinished"></translation>
+        <translation>Voorskou &gt; Bron:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="809"/>
@@ -1418,7 +1418,7 @@ Wil jy voortgaan?</translation>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation>Sleep die liniaal of verander die waarde na &apos;n reëele lengte.
+        <translation>Sleep die liniaal of verander die waarde na &apos;n reële lengte.
 Gebruiklike papiergroottes is ook gemerk (die dialoogvenstergrootte moet dalk verstel word om hulle sigbaar te maak)
 Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     </message>
@@ -1596,7 +1596,7 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <location filename="../src/TWApp.cpp" line="227"/>
         <location filename="../src/TWApp.cpp" line="286"/>
         <source>Open Recent</source>
-        <translation>Open onlangse lêer</translation>
+        <translation>Maak onlangse lêer oop</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="234"/>
@@ -1630,7 +1630,7 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="228"/>
         <source>Clear Recent Files</source>
-        <translation>Maak onlangse leêrs skoon</translation>
+        <translation>Maak Onlangse leêrs skoon</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="244"/>
@@ -1682,7 +1682,7 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <location filename="../src/TWApp.cpp" line="654"/>
         <location filename="../src/TWApp.cpp" line="669"/>
         <source>Open File</source>
-        <translation>Open lêer</translation>
+        <translation>Maak lêer oop</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="683"/>
@@ -1772,17 +1772,17 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     <message>
         <location filename="../src/main.cpp" line="56"/>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertoon die boodskap</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="57"/>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak die volgende lêer by die gegewe posisie (lyn of bladsy) oop</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="58"/>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertoon weergawe informasie</translation>
     </message>
 </context>
 <context>
@@ -1920,7 +1920,7 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     <message>
         <location filename="../src/TeXDocument.ui" line="193"/>
         <source>Open Recent</source>
-        <translation>Open onlangse lêer</translation>
+        <translation>Maak onlangse lêer oop</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="806"/>
@@ -1933,7 +1933,7 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     <message>
         <location filename="../src/TeXDocument.cpp" line="600"/>
         <source>Open File</source>
-        <translation>Open lêer</translation>
+        <translation>Maak lêer oop</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="791"/>
@@ -2045,13 +2045,13 @@ Indien jy voortgaan, sal hulle deur standaard kodes vervang word. Om dataverlies
         <location filename="../src/TeXDocument.cpp" line="518"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="521"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="668"/>
@@ -2133,37 +2133,37 @@ Gebruik asseblief &quot;Lêer &gt; Terug na gestoorde weergawe&quot; handmatig w
     <message>
         <location filename="../src/TeXDocument.cpp" line="1606"/>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation>LF</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1609"/>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1612"/>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation>CR</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1616"/>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation>*</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1624"/>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation>LF (Unix, Mac OS X)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1625"/>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>CRLF (Windows)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1626"/>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation>CR (Mac Classic)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1651"/>
@@ -2215,7 +2215,7 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
     <message>
         <location filename="../src/TeXDocument.cpp" line="1967"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen &apos;%!TEX bibfile&apos; modlyn gevind nie</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="2239"/>
@@ -2863,17 +2863,17 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
     <message>
         <location filename="../src/TeXDocument.ui" line="1130"/>
         <source>Clear Recent Files</source>
-        <translation>Maak Onlangse leêrs skoon</translation>
+        <translation>Maak Onlangse Leêrs skoon</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1135"/>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg Aanhalings in...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1138"/>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="1070"/>
