@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="14"/>
         <source>Select Citations</source>
-        <translation>Kies Aanhaling</translation>
+        <translation>Kies Aanhalings</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="20"/>
@@ -44,7 +44,7 @@
     <message>
         <location filename="../src/CompletingEdit.cpp" line="1091"/>
         <source>No suggestions</source>
-        <translation>Geen suggesties</translation>
+        <translation>Geen voorstelle</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.cpp" line="1111"/>
@@ -512,7 +512,7 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PDFDocument.ui" line="370"/>
         <source>Open...</source>
-        <translation>Open...</translation>
+        <translation>Maak lêer oop...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="373"/>
@@ -921,7 +921,7 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="134"/>
         <source>File Open dialog</source>
-        <translation>&apos;Maak Open Lêer&apos; Dialoog oop</translation>
+        <translation>&apos;Maak Lêer oop&apos; Dialoog</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
@@ -1134,7 +1134,7 @@ Wil jy voortgaan?</translation>
         <location filename="../src/PrefsDialog.ui" line="765"/>
         <location filename="../src/PrefsDialog.ui" line="797"/>
         <source>Highlight Line</source>
-        <translation>Merk Lyn</translation>
+        <translation>Merk Rëel</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="773"/>
@@ -1590,7 +1590,7 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <location filename="../src/TWApp.cpp" line="222"/>
         <location filename="../src/TWApp.cpp" line="281"/>
         <source>Open...</source>
-        <translation>Open...</translation>
+        <translation>Maak lêer oop...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="227"/>
@@ -1777,7 +1777,7 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     <message>
         <location filename="../src/main.cpp" line="57"/>
         <source>Open the following file at the given position (line or page)</source>
-        <translation>Maak die volgende lêer by die gegewe posisie (lyn of bladsy) oop</translation>
+        <translation>Maak die volgende lêer by die gegewe posisie (rëel of bladsy) oop</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="58"/>
@@ -1835,7 +1835,7 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     <message>
         <location filename="../src/TWScriptable.cpp" line="578"/>
         <source>Script result</source>
-        <translation>Skript resultaat</translation>
+        <translation>Skrip resultaat</translation>
     </message>
     <message>
         <location filename="../src/TWScriptable.cpp" line="583"/>
@@ -2467,7 +2467,7 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
     <message>
         <location filename="../src/TeXDocument.ui" line="455"/>
         <source>Open...</source>
-        <translation>Open...</translation>
+        <translation>Maak lêer oop...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="458"/>
