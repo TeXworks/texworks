@@ -1535,6 +1535,20 @@ void TeXDocument::updateRecentFileActions()
 void TeXDocument::updateWindowMenu()
 {
 	TWUtils::updateWindowMenu(this, menuWindow);
+
+	// If the window list changed, we might want to update our window title as
+	// well to uniquely identify the current file among all others open in
+	// TeXworks
+	Q_FOREACH(QAction * action, menuWindow->actions()) {
+		SelWinAction * selWinAction = qobject_cast<SelWinAction*>(action);
+		// If this is not an action related to an open window, skip it
+		if (!selWinAction)
+			continue;
+		// If this action corresponds to the current file, use it's label as
+		// window text
+		if (selWinAction->data().toString() == fileName())
+			setWindowTitle(tr("%1[*] - %2").arg(selWinAction->text()).arg(tr(TEXWORKS_NAME)));
+	}
 }
 
 void TeXDocument::updateEngineList()

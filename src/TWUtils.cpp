@@ -523,6 +523,31 @@ QString TWUtils::strippedName(const QString &fullFileName, const unsigned int di
 	return dir.relativeFilePath(fullFileName);
 }
 
+QStringList TWUtils::constructUniqueFileLabels(const QStringList & fileList)
+{
+	QStringList labelList;
+
+	Q_FOREACH (QString file, fileList)
+		labelList.append(strippedName(file));
+
+	// Make label list unique, i.e. while labels are not unique, add
+	// directory components
+	for (unsigned int dirComponents = 1; ; ++dirComponents) {
+		QList<bool> isDuplicate;
+		Q_FOREACH(QString label, labelList)
+			isDuplicate.append(labelList.count(label) > 1);
+		if (!isDuplicate.contains(true))
+			break;
+
+		for (int i = 0; i < labelList.size(); ++i) {
+			if (!isDuplicate[i])
+				continue;
+			labelList[i] = strippedName(fileList[i], dirComponents);
+		}
+	}
+	return labelList;
+}
+
 void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu, QAction * clearAction) /* static */
 {
 	QSETTINGS_OBJECT(settings);
@@ -551,24 +576,7 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	}
 
 	// Generate label list (list of filenames without directory components)
-	Q_FOREACH (QString file, fileList)
-		labelList.append(strippedName(file));
-	// Make label list unique, i.e. while labels are not unique, add
-	// directory components
-	for (unsigned int dirComponents = 1; ; ++dirComponents) {
-		QList<bool> isDuplicate;
-		Q_FOREACH(QString label, labelList)
-			isDuplicate.append(labelList.count(label) > 1);
-		if (!isDuplicate.contains(true))
-			break;
-
-		for (int i = 0; i < labelList.size(); ++i) {
-			if (!isDuplicate[i])
-				continue;
-			labelList[i] = strippedName(fileList[i], dirComponents);
-		}
-	}
-
+	labelList = constructUniqueFileLabels(fileList);
 
 	int numRecentFiles = fileList.size();
 	
@@ -614,14 +622,22 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	while (!menu->actions().isEmpty() && menu->actions().last()->isSeparator())
 		menu->removeAction(menu->actions().last());
 	
+	QList<TeXDocument *> texDocList;
+	QStringList fileList, labelList;
+	Q_FOREACH(TeXDocument * texDoc, TeXDocument::documentList()) {
+		texDocList.append(texDoc);
+		fileList.append(texDoc->fileName());
+	}
+	labelList = constructUniqueFileLabels(fileList);
+
 	// append an item for each TeXDocument
 	bool first = true;
-	foreach (TeXDocument *texDoc, TeXDocument::documentList()) {
+	for (int i = 0; i < texDocList.size(); ++i) {
+		TeXDocument * texDoc = texDocList[i];
 		if (first && !menu->actions().isEmpty())
 			menu->addSeparator();
 		first = false;
-		QString label = texDoc->fileName();
-		SelWinAction *selWin = new SelWinAction(menu, label);
+		SelWinAction *selWin = new SelWinAction(menu, fileList[i], labelList[i]);
 		if (texDoc->isModified()) {
 			QFont f(selWin->font());
 			f.setItalic(true);
@@ -634,14 +650,24 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 		QObject::connect(selWin, SIGNAL(triggered()), texDoc, SLOT(selectWindow()));
 		menu->addAction(selWin);
 	}
-	
+
+	QList<PDFDocument *> pdfDocList;
+	fileList.clear();
+	labelList.clear();
+	Q_FOREACH(PDFDocument * pdfDoc, PDFDocument::documentList()) {
+		pdfDocList.append(pdfDoc);
+		fileList.append(pdfDoc->fileName());
+	}
+	labelList = constructUniqueFileLabels(fileList);
+
 	// append an item for each PDFDocument
 	first = true;
-	foreach (PDFDocument *pdfDoc, PDFDocument::documentList()) {
+	for (int i = 0; i < pdfDocList.size(); ++i) {
+		PDFDocument * pdfDoc = pdfDocList[i];
 		if (first && !menu->actions().isEmpty())
 			menu->addSeparator();
 		first = false;
-		SelWinAction *selWin = new SelWinAction(menu, pdfDoc->fileName());
+		SelWinAction *selWin = new SelWinAction(menu, fileList[i], labelList[i]);
 		if (pdfDoc == qobject_cast<PDFDocument*>(window)) {
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
@@ -1195,10 +1221,10 @@ QDateTime TWUtils::gitCommitDate()
 
 // action subclass used for dynamic window-selection items in the Window menu
 
-SelWinAction::SelWinAction(QObject *parent, const QString &fileName)
+SelWinAction::SelWinAction(QObject *parent, const QString &fileName, const QString &label)
 	: QAction(parent)
 {
-	setText(TWUtils::strippedName(fileName));
+	setText(label);
 	setData(fileName);
 }
 

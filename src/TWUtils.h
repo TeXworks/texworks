@@ -86,6 +86,10 @@ public:
 	// return just the filename from a full pathname, suitable for UI display
 	static QString strippedName(const QString &fullFileName, const unsigned int dirComponents = 0);
 
+	// return a list of file labels suitable for UI display that uniquely
+	// describe the given filenames
+	static QStringList constructUniqueFileLabels(const QStringList & fileList);
+
 	// window positioning utilities
 	typedef void (WindowArrangementFunction)(const QWidgetList& windows, const QRect& bounds);
 	
@@ -148,7 +152,7 @@ class SelWinAction : public QAction
 	Q_OBJECT
 	
 public:
-	SelWinAction(QObject *parent, const QString &fileName);
+	SelWinAction(QObject *parent, const QString & fileName, const QString &label);
 };
 
 // filter used to stop Command-keys getting inserted into edit text items
