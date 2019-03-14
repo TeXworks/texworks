@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #
 # System requirements:
 #  - GitPython: https://pypi.python.org/pypi/GitPython/
@@ -30,8 +30,9 @@ class CopyrightedFile:
 
     """
 
-    RE_PART_OF_TEXWORKS = "(This is part of TeXworks, an environment for working with TeX documents\s*\n\s*Copyright \(C\)) [-0-9]+  ([^\n]+)"
+    RE_PART_OF_TEXWORKS = "(\s*Copyright \(C\)) [-0-9]+  ([^\n]+)"
     REPLACE_EXTENSIONS = ['.cpp', '.h']
+    EXCLUDE_FOLDERS = ['./modules/synctex/']
 
     def __init__(self, filename):
         """Construct from filename.
@@ -80,13 +81,19 @@ class CopyrightedFile:
 
         return False
 
+    def is_excluded(self):
+        for d in self.EXCLUDE_FOLDERS:
+            if self.filename.startswith(d):
+                return True
+        return False
+
     def needs_update(self):
         """Returns True if the file needs updating, False otherwise."""
-        if not self.one_of_replace_extensions():
+        if self.is_excluded() or not self.one_of_replace_extensions():
             return False
 
         self.content = open(self.filename).read()
-        self.matches = re.search(self.RE_PART_OF_TEXWORKS, self.content)
+        self.matches = re.search(self.RE_PART_OF_TEXWORKS, self.content[:1000])
         return self.matches
 
     def update_copyright(self):
@@ -111,7 +118,7 @@ def manual_update_notice():
     """Reminder for places where the copyright information must be updated manually"""
     print("")
     print("Don't forget to manually update the copyright information in the following files:")
-    for f in ["README.md", "TeXworks.plist.in", "man/texworks.1", "CMake/Modules/COPYING-CMAKE-MODULES", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", "travis-ci/launchpad/debian/copyright", "travis-ci/README.win"]:
+    for f in ["README.md", "texworks.appdata.xml", "TeXworks.plist.in", "CMake/Modules/COPYING-CMAKE-MODULES", "man/texworks.1", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", "travis-ci/launchpad/debian/copyright", "travis-ci/README.win"]:
     	print("   {0}".format(f))
 
 def main():
