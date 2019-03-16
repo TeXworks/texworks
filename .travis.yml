@@ -99,9 +99,10 @@ deploy:
   - provider: releases
     skip_cleanup: true
     api_key:
-      secure: qSlvMc9Hv/Y9EsqNTuriOB1DieeHMZlJr41DM9Vwy8HPLgoQ8an1UmgtpFj7+wcV58Glr+vvUZRjI8OH8agvAzG7xaPESHQbQzJcDuvDW9V1WR0yOxYPUmbHLq2imwnEAuR8Mik1cA/zYE1781VAuc2WB8ND6roqYj33fi8TcuX9E6I3lDfTHdEk/s6m7N0zZOPBgg6FORrLqiVSSfhkDboyJbO9MSjDK8VIImPajz47orv/QExkbZq8ECU0O9RQNk8cLUZlNf7xRmJBFkLEMe91PJXPkJ8+gddTkQaAKxIL6qCY80yepElF6dVYW6ubH9QowGESuBq66Z3/UD5Q5vd0hCc9zWTizWuzfStHFxlYmETNltuQ8WDUYUqd+rrnpRSQiyuifFeQul76MrA4OKhx8QPp93UYUrn8pgR7fZy1ch/GCl31lxYkpFE6MW2ifsqYDpM9K+oYGwhY2Se/AlkQF4W7wu3+uMIBr5YDqrXWlF0AMalqmBLHj2OP+MuFHmDb4BCNKsUHFfD7fw4sd+wix01Sfm0Jph2PRE2LBOKl3C3gdGzK8t7u5NzyejnQOIudEDLzPZBjyvAnNFemMI/4uQNqZK3Mebm5yqdSH5XKzBqNUUFpgeXTZBgkriOOOCVUgkxStqOq55JZk+XSU1o6A87KqavvuUD7kyRyTN8=
+      secure: zDXDPGl5IXCZAXwaTnFbtmG8aY0IbF2TctZ3wYd05+Vrc1aDg/t6hnIyEdK1YDHm2iNFE34iG9oGrVDgv+Bn3/E6QCQWgFR3vRZ2wsjTS/4nenTx1zt1+fk4yhUJ8chOakGyPRqh9nBLHTLGI40je3GgChp447P/GPA5LWHWCEV0dZKzSWfKQGmXRsGoM2baJN0uQqIV1UJCYHOStZ+KmyFokw0jUHkZVERK9BES1Cp/3oQAehHWhx50NCWnO8hPy3+GlrZe3dpxBSwzYfY7KrQ5MYQXF3Uk4/w32B6UTDR2GTIW5fxz655iylruj1+liv2IkKavWaf8Xsru4s3qaY4uVWdrbfCsLWPL6c6k9/HY8i3AbGRVeu/oHBtuJAoYTmLQYYRVQ6ZJQod1Y3G6Ne0uU7Po0lbjBXE0xshDkZtOz8Gol/v8ZCc6jjhrJJq9NjR+TbVY6BG4lSAXJOXXNy8ffA6WIXt0nhQ6RV59NbsvtYsoPaWvY0abuN2tJMUDQUeod+Ft3nxhZ6M7a0m4c1MZivl20f+CqWcKNirvkuoVk90mdzRPTP2O691QuJrgyEHhRRAqmFy7PcM3x5TPz0r2Jf4vUF354Nez2A4k+glYmpmxfJZSE7KaRydIU+wAbRpzbk/uG3Swm7DsX3GnHkDsJUF+3OuT4eC4JZpjC0w=
     file: "$(cat ${TRAVIS_BUILD_DIR}/travis-ci/github-releases.txt)"
     on:
       all_branches: true
       tags: true
       condition: -f "${TRAVIS_BUILD_DIR}/travis-ci/github-releases.txt"
+      repo: TeXworks/texworks
