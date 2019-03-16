@@ -1,3 +1,46 @@
+Release 0.6.3 (TL'19) [March 2019]
+	* Implement "Insert Citations..." dialog
+	* Implement indenting/unindenting by Tab/Shift+Tab (thanks to fsonner)
+	* Make synchronization granularity configurable (highlight corresponding
+	  character, word, or line)
+	* Add ability to distinguish identically named files by displaying the
+	  respective folders they are in in the window title, window menu, and under
+	  "Open Recent"
+	* Implement "Fit to content width" PDF zoom (which ignores empty space
+	  around the text)
+	* Disable unavailable typesetting engines
+	* Allow to change the editor font size by Ctrl+Mousewheel (thanks to Tim
+	  Hoffmann)
+	* Improve the detection of spellchecking languages (add ability to search
+	  multiple directories and list all results)
+	* Hide the menu bar in PDF full screen mode
+	* Rework/expand code completion strings (thanks to Joseph Wright)
+	* Add/update syntax highlighting for LaTeX, ConTeXt, Lua, DTX (all thanks to
+	  Joseph Wright), and BibTeX
+	* Add cleanup-patterns for beamer files .nav & .snm
+	* Add new/unified icons for typeset (thanks to Tim Hoffmann) and zooming
+	* Display paper size and file size in the PDF metadata
+
+	* Fix infinite loop in syntax highlighter (which caused significant
+	  slow-down especially for large files)
+	* Fix underline when spellchecking with syntax highlighting
+	* Fix "Place on Left/Right", especially on multi-screen setups
+	* Avoid 'file "" not found' errors when synchronizing
+	* Fix synchronization while searching in a PDF
+	* Fix fine-grained synchronization near paragraph boundaries
+	* Fix the PDF copy menu command
+	* Fix PDF text selection
+	* Fix font color reset when searching and using stylesheets
+	* Fix crashes when working with locked PDFs
+	* Fix unexpected cursor movement when using a combination of backspace and
+	  up/down arrow keys (thanks to Markus Kuhn)
+	* Fix the font in the log parser output
+	* Fix persistent magnifying glass
+	* Remove unimplemented PDF menu items cut, paste, clear
+
+	* Update translations
+	* Update libraries for pre-built binaries
+
 Release 0.6.2 (TL'17) [April 2017]
 	* Implement handling of links to external files in the PDF preview
 	* Implement a simple screen calibration widget to allow adapting the PDF
