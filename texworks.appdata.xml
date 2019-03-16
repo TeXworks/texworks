@@ -164,6 +164,25 @@
 			무엇보다 TeXworks는 PDF 미리보기 기능 내장, 텍 파일과 PDF 결과물 간 연동,
 			확장가능한 스크립트 활용 인터페이스 등의 특징을 가지고 있습니다.  
 		</p>
+		<p xml:lang="nl">
+			TeXworks ist een omgeving om documenten voor TeX (LaTeX, ConTeXt, enzovoort)
+			op te stellen en te bewerken. Het bevat een op Unicode gebaseerde TeX-editor,
+			een geïntegreerde PDF-viewer en een eenvoudige, opgeruimde interface die ook
+			voor incidentele gebruikers en niet-professionals gemakkelijk te gebruiken is.
+		</p>
+		<p xml:lang="nl">
+			Het ontwerp van TeXworks is geïnspireerd op het gelauwerde programma TeXShop
+			dat door Dick Koch is gemaakt voor Mac OS X en dat kwaliteitszetwerk mogelijk
+			heeft gemaakt voor een grote gemeenschap van gebruikers, zonder technisch of
+			intimiderend over te komen. Het doel van TeXworks is om net zo'n geïntegreerde
+			en gemakkelijk te gebruiken omgeving te bieden voor gebruikers van andere
+			besturingssystemen, in het bijzonder GNU/Linux en Windows.
+		</p>
+		<p xml:lang="nl">
+			TeXworks munt onder andere uit door een geïntegreerde PDF-viewer, synchronisatie
+			tussen de TeX-bestanden en het resultaat in PDF-formaat, en een functionaliteit
+			die is uit te breiden door middel van scripts.
+		</p>
 		<p xml:lang="nn">
 			TeXworks er eit miljø for redigering av TeX-dokument (LaTeX, ConTeXt, …),
 			med eit Unicode-basert skriveprogram, integrert PDF-visar og eit oversiktleg
