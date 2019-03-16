@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #
 # System requirements:
 #  - GitPython: https://pypi.python.org/pypi/GitPython/
@@ -9,6 +9,10 @@ import datetime, os, re
 
 # Global variable for the git repository
 gitrepo = None
+
+class FileNotVersionedError(Exception):
+	def __init__(self, filename):
+		super(FileNotVersionedError, self).__init__("File '%s' is not versioned" % filename)
 
 class CopyrightedFile:
     """A thin wrapper for a real file on the filesystem. This class assists
@@ -26,8 +30,9 @@ class CopyrightedFile:
 
     """
 
-    RE_PART_OF_TEXWORKS = "(This is part of TeXworks, an environment for working with TeX documents\s*\n\s*Copyright \(C\)) [-0-9]+  ([^\n]+)"
+    RE_PART_OF_TEXWORKS = "(\s*Copyright \(C\)) [-0-9]+  ([^\n]+)"
     REPLACE_EXTENSIONS = ['.cpp', '.h']
+    EXCLUDE_FOLDERS = ['./modules/synctex/']
 
     def __init__(self, filename):
         """Construct from filename.
@@ -46,7 +51,8 @@ class CopyrightedFile:
     def year_range_str(self):
         """Returns the year (range) in which this file was modified"""
         global gitrepo
-        timestamp_str = gitrepo.log('--diff-filter=A', '--follow', '--format="%at"', '--', self.filename)
+        timestamp_str = gitrepo.log('--diff-filter=A', '--follow', r'--format="%at"', '--', self.filename)
+        if len(timestamp_str.strip()) == 0: raise FileNotVersionedError(self.filename)
         timestamp = float(timestamp_str.replace('"', ''))
         begin = datetime.datetime.fromtimestamp(timestamp).year
         logs = gitrepo.log('--format="%at %s"', '--', self.filename).split('\n')
@@ -75,13 +81,19 @@ class CopyrightedFile:
 
         return False
 
+    def is_excluded(self):
+        for d in self.EXCLUDE_FOLDERS:
+            if self.filename.startswith(d):
+                return True
+        return False
+
     def needs_update(self):
         """Returns True if the file needs updating, False otherwise."""
-        if not self.one_of_replace_extensions():
+        if self.is_excluded() or not self.one_of_replace_extensions():
             return False
 
         self.content = open(self.filename).read()
-        self.matches = re.search(self.RE_PART_OF_TEXWORKS, self.content)
+        self.matches = re.search(self.RE_PART_OF_TEXWORKS, self.content[:1000])
         return self.matches
 
     def update_copyright(self):
@@ -89,7 +101,10 @@ class CopyrightedFile:
 
         # Replace the year(s)
         orig = self.matches.group(0)
-        subst = "{0} {1}  {2}".format(self.matches.group(1), self.year_range_str, self.matches.group(2))
+        try:
+	        subst = "{0} {1}  {2}".format(self.matches.group(1), self.year_range_str, self.matches.group(2))
+        except FileNotVersionedError:
+            return
         self.content = self.content.replace(orig, subst)
 
         # Write the contents to disk
@@ -103,14 +118,14 @@ def manual_update_notice():
     """Reminder for places where the copyright information must be updated manually"""
     print("")
     print("Don't forget to manually update the copyright information in the following files:")
-    for f in ["README.md", "TeXworks.plist.in", "man/texworks.1", "CMake/Modules/COPYING-CMAKE-MODULES", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", "travis-ci/launchpad/debian/copyright", "travis-ci/README.win"]:
+    for f in ["README.md", "texworks.appdata.xml", "TeXworks.plist.in", "CMake/Modules/COPYING-CMAKE-MODULES", "man/texworks.1", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", "travis-ci/launchpad/debian/copyright", "travis-ci/README.win"]:
     	print("   {0}".format(f))
 
 def main():
     """Main"""
     global gitrepo
     gitrepo = Repo(".").git
-    for root, dirs, files in os.walk('.'):
+    for root, _, files in os.walk('.'):
         for f in files:
             the_file = CopyrightedFile(os.path.join(root, f))
             if the_file.needs_update():

@@ -1,0 +1,50 @@
+\documentclass[a4paper,12pt]{article}
+\pagestyle{empty}
+
+\usepackage[utf8]{luainputenc}
+\usepackage{pdfcomment}
+\usepackage{hyperref}
+
+% pdfcomment, datetime2, marginnote, bezos (soulpos.sty), soul
+
+\begin{document}
+
+\pdfmargincomment[subject={Test}, author={Random Guy}]{Comment}
+
+\pdfmarkupcomment[markup=Highlight]{Highlight}{}
+\pdfmarkupcomment[markup=Underline]{Underline}{}
+\pdfmarkupcomment[markup=Squiggly]{Squiggly}{}
+\pdfmarkupcomment[markup=StrikeOut]{StrikeOut}{}
+
+\vspace*{2\baselineskip}
+\pdffreetextcomment[type=freetext,height=1cm,width=4cm,hoffset=0cm]{Free text}
+
+\pdffreetextcomment[type=callout,height=1cm,width=4cm,hoffset=5cm]{Free text}
+
+\pdffreetextcomment[type=typewriter,height=1cm,width=4cm,hoffset=10cm]{Free text}
+
+\pdfsquarecomment[width=1cm, height=1cm, hoffset=0cm]{}
+
+\pdfcirclecomment[width=1cm, height=1cm, hoffset=2cm]{}
+
+\pdflinecomment[type=line,line={0 750 50 800}]{}
+
+%\pdfannot width 10ex height 10ex {
+%/Subtype /Line
+%/L [0 0 100 100]
+%}
+
+\section{A}
+
+\url{http://www.tug.org/texworks/}
+
+sec.~\ref{sec:a}
+
+\clearpage
+
+\subsection{aä®€}
+\label{sec:a}
+
+\section{\LaTeX}
+
+\end{document}

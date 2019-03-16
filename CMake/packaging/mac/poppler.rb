@@ -12,105 +12,105 @@
 #   - TeXworks-specific patches are applied to
 #        - help Qt apps find the poppler-data directory.
 #        - use native Mac OS X font handling (instead of fontconfig)
+#
+# Upstream source: https://github.com/Homebrew/homebrew-core/blob/master/Formula/poppler.rb
 class Poppler < Formula
   desc "PDF rendering library (based on the xpdf-3.0 code base)"
   homepage "https://poppler.freedesktop.org/"
-  url "https://poppler.freedesktop.org/poppler-0.54.0.tar.xz"
-  sha256 "10cca9a67cc2e6f4f9024192b1067c444218bf94430891f43dc819d78536ca31"
+  url "https://poppler.freedesktop.org/poppler-0.74.0.tar.xz"
+  sha256 "92e09fd3302567fd36146b36bb707db43ce436e8841219025a82ea9fb0076b2f"
+  head "https://anongit.freedesktop.org/git/poppler/poppler.git"
 
 # BEGIN TEXWORKS MODIFICATION
 #  bottle do
-#    rebuild 1
-#    sha256 "5b6de69e6ab1996332934e21b3a5220990e2a5943775d002ee8e5c2447b93758" => :sierra
-#    sha256 "44fcbb473c78c5ce034b65885fcb2e05d4ef0b2d537a043b7d2b6d44d075907b" => :el_capitan
-#    sha256 "47787f7ffa8f69dea50ebb1391186d8146386ad46f2f6b69e3786b7271caeb9d" => :yosemite
+#    sha256 "f1c8ead874f888f7324a5ca6c95efd5e04519038393a89a6f7c030b8807bddc1" => :mojave
+#    sha256 "5d050e5f3355e4a72c9bfe4128108a4f64228c0e10fe6bb51aac32a07c10e707" => :high_sierra
+#    sha256 "438fc1e448307d1bf17bdc37eb74bbc645ff526b26dd0423915b5f68af12a49d" => :sierra
 #  end
-  version '0.54.0-texworks'
+
+  version '0.74.0-texworks'
 
   TEXWORKS_SOURCE_DIR = Pathname.new(__FILE__).realpath.dirname.join('../../..')
   TEXWORKS_PATCH_DIR = TEXWORKS_SOURCE_DIR + 'lib-patches/'
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0001-Fix-bogus-memory-allocation-in-SplashFTFont-makeGlyp.patch'
-    sha256 "3b40b066995756a0c80badfe47e701bb0438305f3b8eb15b67875c7de38c7290"
+    sha256 "0d974f87b8c0993aeb8ea70401e3b2419b7d8ee6c25b982c84bbdcb6e0152c71"
   end
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0002-Native-Mac-font-handling.patch'
-    sha256 "41cedfe209c203833574ace4c60c0440840cb03f7ba687a27a3a350b0d868cc4"
+    sha256 "40ed5889583ea4e20bdf3ed642dfb3f948224a84280593b0ced979a90464d011"
   end
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0003-Add-support-for-persistent-GlobalParams.patch'
-    sha256 "6c17fe4d91c7c5d77e265af48c511db31fce73370cd2af4cbacc218435c9c86a"
+    sha256 "fb18b1747f47a608e4b5cd06ab1332df7d12c05e1d1c65526ed2505e07298fd7"
   end
-
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
 # END TEXWORKS MODIFICATION
 
-  option "with-qt", "Build Qt5 backend"
-  option "with-little-cms2", "Use color management system"
-
-  deprecated_option "with-qt4" => "with-qt"
-  deprecated_option "with-qt5" => "with-qt"
-  deprecated_option "with-lcms2" => "with-little-cms2"
-
+  depends_on "cmake" => :build
+  depends_on "gobject-introspection" => :build
   depends_on "pkg-config" => :build
   depends_on "cairo"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "gettext"
   depends_on "glib"
-  depends_on "gobject-introspection"
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "libtiff"
+  depends_on "little-cms2"
+  depends_on "nss"
   depends_on "openjpeg"
-  depends_on "qt" => :optional
-  depends_on "little-cms2" => :optional
+  depends_on "qt"
 
   conflicts_with "pdftohtml", "pdf2image", "xpdf",
     :because => "poppler, pdftohtml, pdf2image, and xpdf install conflicting executables"
 
   resource "font-data" do
-    url "https://poppler.freedesktop.org/poppler-data-0.4.7.tar.gz"
-    sha256 "e752b0d88a7aba54574152143e7bf76436a7ef51977c55d6bd9a48dccde3a7de"
+    url "https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz"
+    sha256 "1f9c7e7de9ecd0db6ab287349e31bf815ca108a5a175cf906a90163bdbe32012"
   end
 
-  needs :cxx11 if build.with?("qt") || MacOS.version < :mavericks
-
   def install
-    ENV.cxx11 if build.with?("qt") || MacOS.version < :mavericks
-    ENV["LIBOPENJPEG_CFLAGS"] = "-I#{Formula["openjpeg"].opt_include}/openjpeg-2.1"
+    ENV.cxx11
 
-    args = %W[
-      --disable-dependency-tracking
-      --prefix=#{prefix}
-      --enable-xpdf-headers
-      --enable-poppler-glib
-      --disable-gtk-test
-      --enable-introspection=yes
-      --disable-poppler-qt4
+    args = std_cmake_args + %w[
+      -DBUILD_GTK_TESTS=OFF
+      -DENABLE_CMS=lcms2
+      -DENABLE_GLIB=ON
+      -DENABLE_QT5=ON
+      -DENABLE_UNSTABLE_API_ABI_HEADERS=ON
+      -DWITH_GObjectIntrospection=ON
     ]
 
-    if build.with? "qt"
-      args << "--enable-poppler-qt5"
-    else
-      args << "--disable-poppler-qt5"
-    end
-
-    args << "--enable-cms=lcms2" if build.with? "little-cms2"
-
-# BEGIN TEXWORKS MODIFICATION
-    # We changed the config file (to add native font handling), so we need to
-    # update the configure script
-    system "autoreconf", "-ivf"
-# END TEXWORKS MODIFICATION
-
-    system "./configure", *args
+    system "cmake", ".", *args
     system "make", "install"
+    system "make", "clean"
+    system "cmake", ".", "-DBUILD_SHARED_LIBS=OFF", *args
+    system "make"
+    lib.install "libpoppler.a"
+    lib.install "cpp/libpoppler-cpp.a"
+    lib.install "glib/libpoppler-glib.a"
     resource("font-data").stage do
       system "make", "install", "prefix=#{prefix}"
     end
+
+    libpoppler = (lib/"libpoppler.dylib").readlink
+    [
+      "#{lib}/libpoppler-cpp.dylib",
+      "#{lib}/libpoppler-glib.dylib",
+      "#{lib}/libpoppler-qt5.dylib",
+      *Dir["#{bin}/*"],
+    ].each do |f|
+      macho = MachO.open(f)
+      macho.change_dylib("@rpath/#{libpoppler}", "#{lib}/#{libpoppler}")
+      macho.write!
+    end
+
+    # fix gobject-introspection support
+    # issue reported upstream as https://gitlab.freedesktop.org/poppler/poppler/issues/18
+    # patch attached there does not work though...
+    inreplace share/"gir-1.0/Poppler-0.18.gir", "@rpath", lib.to_s
+    system "g-ir-compiler", "--output=#{lib}/girepository-1.0/Poppler-0.18.typelib", share/"gir-1.0/Poppler-0.18.gir"
   end
 
   test do

@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2016  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2018  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -87,7 +87,7 @@ public:
 	int cursorPosition() const { return textCursor().position(); }
 	int selectionStart() const { return textCursor().selectionStart(); }
 	int selectionLength() const { return textCursor().selectionEnd() - textCursor().selectionStart(); }
-	QString getCurrentCodecName() const { return (codec ? codec->name() : QString()); }
+	QString getCurrentCodecName() const { return (codec ? QString::fromUtf8(codec->name().constData()) : QString()); }
 	bool getUTF8BOM() const { return utf8BOM; }
 	
 	QString spellcheckLanguage() const;
@@ -169,6 +169,7 @@ public slots:
 	void toggleCase();
 	void balanceDelimiters();
 	void doHardWrapDialog();
+	void doInsertCitationsDialog();
 	void setLineNumbers(bool displayNumbers);
 	void setWrapLines(bool wrap);
 	void setSyntaxColoring(int index);
@@ -236,8 +237,6 @@ private:
 	void saveRecentFileInfo();
 	bool getPreviewFileName(QString &pdfName);
 	bool openPdfIfAvailable(bool show);
-	void prefixLines(const QString &prefix);
-	void unPrefixLines(const QString &prefix);
 	void replaceSelection(const QString& newText);
 	void doHardWrap(int mode, int lineWidth, bool rewrap);
 	void zoomToLeft(QWidget *otherWindow);
@@ -257,7 +256,7 @@ private:
 	void showLineEndingSetting();
 	void showEncodingSetting();
 	
-	QString selectedText() { return textCursor().selectedText().replace(QChar(QChar::ParagraphSeparator), "\n"); }
+	QString selectedText() { return textCursor().selectedText().replace(QChar(QChar::ParagraphSeparator), QChar::fromLatin1('\n')); }
 	QString consoleText() { return textEdit_console->toPlainText(); }
 	QString text() { return textEdit->toPlainText(); }
 	

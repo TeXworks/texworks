@@ -6,12 +6,15 @@ error("This file is not intended for building TeXworks. Please use CMake instead
 INCLUDEPATH += src
 
 SOURCES = \
+  "../src/BibTeXFile.cpp" \
+  "../src/CitationSelectDialog.cpp" \
   "../src/ClickableLabel.cpp" \
   "../src/ClosableTabWidget.cpp" \
   "../src/CommandlineParser.cpp" \
   "../src/CompletingEdit.cpp" \
   "../src/ConfigurableApp.cpp" \
   "../src/ConfirmDelete.cpp" \
+  "../src/Engine.cpp" \
   "../src/FindDialog.cpp" \
   "../src/HardWrapDialog.cpp" \
   "../src/PDFDocument.cpp" \
@@ -31,11 +34,11 @@ SOURCES = \
   "../src/TeXDocument.cpp" \
   "../src/TeXHighlighter.cpp" \
   "../src/TemplateDialog.cpp" \
-  "../src/main.cpp" \
-  "../src/synctex_parser.c" \
-  "../src/synctex_parser_utils.c"
+  "../src/main.cpp"
 
 HEADERS = \
+  "../src/BibTeXFile.h" \
+  "../src/CitationSelectDialog.h" \
   "../src/ClickableLabel.h" \
   "../src/ClosableTabWidget.h" \
   "../src/CommandlineParser.h" \
@@ -45,6 +48,7 @@ HEADERS = \
   "../src/DefaultBinaryPaths.h" \
   "../src/DefaultBinaryPathsWin.h" \
   "../src/DefaultPrefs.h" \
+  "../src/Engine.h" \
   "../src/FindDialog.h" \
   "../src/GitRev.h" \
   "../src/HardWrapDialog.h" \
@@ -65,11 +69,10 @@ HEADERS = \
   "../src/TeXDocks.h" \
   "../src/TeXDocument.h" \
   "../src/TeXHighlighter.h" \
-  "../src/TemplateDialog.h" \
-  "../src/synctex_parser.h" \
-  "../src/synctex_parser_utils.h"
+  "../src/TemplateDialog.h"
 
 FORMS = \
+  "../src/CitationSelectDialog.ui" \
   "../src/ConfirmDelete.ui" \
   "../src/Find.ui" \
   "../src/HardWrapDialog.ui" \

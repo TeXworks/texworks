@@ -16,6 +16,7 @@ zoom.png:                Qt (/tools/assistant/tools/assistant/images/mac/resetzo
 zoom100.png:             Derived from scalable/zoom-fit.svg
 zoom-fitwidth.png:       Derived from scalable/zoom-fit.svg
 zoom-fitwindow.png:      Derived from scalable/zoom-fit.svg
+zoom-fitcontentwindow.png: Derived from scalable/zoom-fit.svg
 zoomin.png:              Qt (/tools/assistant/tools/assistant/images/mac)
 zoomincursor.png:        Derived from zoomin.png
 zoomout.png:             Qt (/tools/assistant/tools/assistant/images/mac)

@@ -14,20 +14,13 @@ FILE(GLOB TEXWORKS_HDRS       "*.h")
 FILE(GLOB TEXWORKS_UIS        "*.ui")
 FILE(GLOB TEXWORKS_RCS        "${TeXworks_SOURCE_DIR}/res/*.qrc")
 FILE(GLOB TEXWORKS_TRANS_TS   "${TeXworks_SOURCE_DIR}/trans/*.ts")
-FILE(GLOB TEXWORKS_TRANS_QM   "${TeXworks_SOURCE_DIR}/trans/*.qm" "${TeXworks_SOURCE_DIR}/trans/qt/*.qm" "${TeXworks_SOURCE_DIR}/modules/QtPDF/trans/*.qm")
+FILE(GLOB QTPDF_TRANS_TS      "${TeXworks_SOURCE_DIR}/modules/QtPDF/trans/*.ts")
+FILE(GLOB QT_TRANS_QM         "${TeXworks_SOURCE_DIR}/trans/qt/*.qm")
 
 IF ( WIN32 )
 	FILE(GLOB TEXWORKS_WIN_RCS  "${TeXworks_SOURCE_DIR}/res/*.rc")
   LIST(APPEND TEXWORKS_SRCS ${TEXWORKS_WIN_RCS})
 ENDIF ( WIN32 )
-
-IF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
-  FILE(GLOB SYNCTEX_SRCS "synctex_*.c")
-  FILE(GLOB SYNCTEX_HDRS "synctex_*.h")
-
-  LIST(REMOVE_ITEM TEXWORKS_SRCS ${SYNCTEX_SRCS})
-  LIST(REMOVE_ITEM TEXWORKS_HDRS ${SYNCTEX_HDRS})
-ENDIF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
 
 # These source files along with the `.moc` files generated from some headers
 # form the TeXworks scripting API. We export them to variables in the
@@ -77,6 +70,10 @@ INCLUDE_DIRECTORIES(${TeXworks_INCLUDE_DIRS})
 # Make sure the compiler can find library files.
 LINK_DIRECTORIES(${TeXworks_LIB_DIRS})
 
+# Disallow automatic casts from char* to QString (enforcing the use of tr() or
+# explicitly specifying the string encoding)
+ADD_DEFINITIONS(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
+
 ADD_DEFINITIONS(-DTW_BUILD_ID=${TW_BUILD_ID})
 IF (UNIX AND NOT APPLE)
   IF (IS_ABSOLUTE ${TeXworks_HELP_DIR})
@@ -116,7 +113,7 @@ ENDIF()
 # Run rcc on reasource files.
 QT_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
 # Add translations
-QT_ADD_QM_TRANSLATIONS(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS_QM})
+QT_ADD_TRANSLATIONS(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS_TS} ${QTPDF_TRANS_TS} ${QT_TRANS_QM})
 
 # Create .pro file that can be used for easy updating with `lupdate`. We sort
 # the file list to obtain a stable result (that can be kept in the repository)
@@ -141,10 +138,10 @@ ENDIF ( APPLE OR NOT UNIX )
 # -----------
 
 IF (NOT ${BUILD_SHARED_PLUGINS})
-  IF (WITH_LUA)
+  IF (WITH_LUA AND LUA_FOUND)
     LIST(INSERT TeXworks_LIBS 0 TWLuaPlugin ${LUA_LIBRARIES})
   ENDIF()
-  IF (WITH_PYTHON)
+  IF (WITH_PYTHON AND PYTHONLIBS_FOUND)
     LIST(INSERT TeXworks_LIBS 0 TWPythonPlugin ${PYTHON_LIBRARIES})
   ENDIF()
 ENDIF()
@@ -155,6 +152,11 @@ ADD_EXECUTABLE( ${EXE_NAME} ${GUI_TYPE}
   ${TEXWORKS_GEN_UI} ${TEXWORKS_GEN_RCS} ${TEXWORKS_GEN_TRANS}
   ${TeXworks_APP_ICONS}
 )
+
+IF (UNIX)
+  # Required (at least) on OpenBSD to make scripting plugins work
+  SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES LINK_FLAGS -rdynamic)
+ENDIF ()
 
 # Specify libraries to be linked to TeXworks.
 TARGET_LINK_LIBRARIES( ${EXE_NAME} ${MODULE_LIBS} ${TeXworks_LIBS} )

@@ -1,5 +1,4 @@
-This package was debianized by Stefan Löffler on
-Tue, 01 Mar 2016 19:05:44 -0500
+This package was debianized by <AUTHOR> on <DATE>
 
 It was downloaded from https://github.com/TeXworks/texworks
 
@@ -9,7 +8,7 @@ Upstream Authors:
 
 Copyright:
 
-    Copyright (C) 2007-2017  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+    Copyright (C) 2007-2019  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 License:
 
@@ -19,6 +18,6 @@ License:
     On Debian systems, the complete text of the GNU General Public
     License v2 can be found in the file `/usr/share/common-licenses/GPL-2'.
 
-The Debian packaging is copyright 2017, Stefan Löffler and
+The Debian packaging is copyright 2016-2019, Stefan Löffler and
 is licensed under the GPLv2, see `/usr/share/common-licenses/GPL-2'.
 

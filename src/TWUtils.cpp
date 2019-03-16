@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2016  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2019  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 // compile-time default paths - customize by defining in the .pro file
 #ifndef TW_DICPATH
-#define TW_DICPATH "/usr/share/myspell/dicts"
+#define TW_DICPATH "/usr/share/hunspell" PATH_LIST_SEP "/usr/share/myspell/dicts"
 #endif
 #ifndef TW_HELPPATH
 #define TW_HELPPATH "/usr/local/share/texworks-help"
@@ -92,25 +92,25 @@ const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOn
 	libRootPath = TWApp::instance()->getPortableLibPath();
 	if (libRootPath.isEmpty()) {
 #if defined(Q_OS_DARWIN)
-		libRootPath = QDir::homePath() + "/Library/" + TEXWORKS_NAME + "/";
+		libRootPath = QDir::homePath() + QLatin1String("/Library/" TEXWORKS_NAME "/");
 #elif defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
-		if (subdir == "dictionaries") {
-			libPath = TW_DICPATH;
+		if (subdir == QLatin1String("dictionaries")) {
+			libPath = QString::fromLatin1(TW_DICPATH);
 			QString dicPath = QString::fromLocal8Bit(getenv("TW_DICPATH"));
 			if (!dicPath.isEmpty())
 				libPath = dicPath;
 			return libPath; // don't try to create/update the system dicts directory
 		}
 		else
-			libRootPath = QDir::homePath() + "/." + TEXWORKS_NAME + "/";
+			libRootPath = QDir::homePath() + QLatin1String("/." TEXWORKS_NAME "/");
 #else // defined(Q_OS_WIN)
-		libRootPath = QDir::homePath() + "/" + TEXWORKS_NAME + "/";
+		libRootPath = QDir::homePath() + QLatin1String("/" TEXWORKS_NAME "/");
 #endif
 	}
 	libPath = QDir(libRootPath).absolutePath() + QDir::separator() + subdir;
 
 	if(updateOnDisk)
-		updateLibraryResources(QDir(":/resfiles"), libRootPath, subdir);
+		updateLibraryResources(QDir(QString::fromLatin1(":/resfiles")), libRootPath, subdir);
 	return libPath;
 }
 
@@ -129,10 +129,10 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 	if (!destDir.exists())
 		QDir::root().mkpath(destDir.absolutePath());
 	
-	if (subdir == "translations") // don't copy the built-in translations
+	if (subdir == QString::fromLatin1("translations")) // don't copy the built-in translations
 		return;
 	
-	FileVersionDatabase fvdb = FileVersionDatabase::load(destRootDir.absoluteFilePath("TwFileVersions.db"));
+	FileVersionDatabase fvdb = FileVersionDatabase::load(destRootDir.absoluteFilePath(QString::fromLatin1("TwFileVersions.db")));
 	
 	QDirIterator iter(srcDir, QDirIterator::Subdirectories);
 	while (iter.hasNext()) {
@@ -227,15 +227,15 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 	}
 
 	// Finally, save the updated database
-	fvdb.save(destRootDir.absoluteFilePath("TwFileVersions.db"));
+	fvdb.save(destRootDir.absoluteFilePath(QString::fromLatin1("TwFileVersions.db")));
 }
 
 static int
 insertItemIfPresent(QFileInfo& fi, QMenu* helpMenu, QAction* before, QSignalMapper* mapper, QString title)
 {
-	QFileInfo indexFile(fi.absoluteFilePath(), "index.html");
+	QFileInfo indexFile(fi.absoluteFilePath(), QString::fromLatin1("index.html"));
 	if (indexFile.exists()) {
-		QFileInfo titlefileInfo(fi.absoluteFilePath(), "tw-help-title.txt");
+		QFileInfo titlefileInfo(fi.absoluteFilePath(), QString::fromLatin1("tw-help-title.txt"));
 		if (titlefileInfo.exists() && titlefileInfo.isReadable()) {
 			QFile titleFile(titlefileInfo.absoluteFilePath());
 			titleFile.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -274,12 +274,12 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	}
 
 #if defined(Q_OS_DARWIN)
-	QDir helpDir(QCoreApplication::applicationDirPath() + "/../texworks-help");
+	QDir helpDir(QCoreApplication::applicationDirPath() + QLatin1String("/../texworks-help"));
 #else
-	QDir helpDir(QCoreApplication::applicationDirPath() + "/texworks-help");
+	QDir helpDir(QCoreApplication::applicationDirPath() + QLatin1String("/texworks-help"));
 #if defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
 	if (!helpDir.exists())
-		helpDir.cd(TW_HELPPATH);
+		helpDir.cd(QString::fromLatin1(TW_HELPPATH));
 #endif
 #endif
 	QString helpPath = QString::fromLocal8Bit(getenv("TW_HELPPATH"));
@@ -287,7 +287,7 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 		helpDir.cd(QString(helpPath));
 
 	QSETTINGS_OBJECT(settings);
-	QString loc = settings.value("locale").toString();
+	QString loc = settings.value(QString::fromLatin1("locale")).toString();
 	if (loc.isEmpty())
 		loc = QLocale::system().name();
 	
@@ -298,7 +298,7 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 		if (!iter.fileInfo().isDir())
 			continue;
 		QString name(iter.fileInfo().fileName());
-		if (name == "." || name == "..")
+		if (name == QLatin1String(".") || name == QLatin1String(".."))
 			continue;
 		QDir subDir(iter.filePath());
 		// try for localized content first
@@ -307,12 +307,12 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 			inserted += insertItemIfPresent(fi, helpMenu, before, mapper, name);
 			continue;
 		}
-		fi.setFile(subDir.absolutePath() + "/" + loc.left(2));
+		fi.setFile(subDir.absolutePath() + QChar::fromLatin1('/') + loc.left(2));
 		if (fi.exists() && fi.isDir() && fi.isReadable()) {
 			inserted += insertItemIfPresent(fi, helpMenu, before, mapper, name);
 			continue;
 		}
-		fi.setFile(subDir.absolutePath() + "/en");
+		fi.setFile(subDir.absolutePath() + QString::fromLatin1("/en"));
 		if (fi.exists() && fi.isDir() && fi.isReadable()) {
 			inserted += insertItemIfPresent(fi, helpMenu, before, mapper, name);
 			continue;
@@ -337,14 +337,14 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 
 	codecList = new QList<QTextCodec*>;
 	QMap<QString, QTextCodec*> codecMap;
-	QRegExp iso8859RegExp("ISO[- ]8859-([0-9]+).*");
+	QRegExp iso8859RegExp(QString::fromLatin1("ISO[- ]8859-([0-9]+).*"));
 	foreach (int mib, QTextCodec::availableMibs()) {
 		QTextCodec *codec = QTextCodec::codecForMib(mib);
-		QString sortKey = codec->name().toUpper();
+		QString sortKey = QString::fromUtf8(codec->name().constData()).toUpper();
 		int rank;
-		if (sortKey.startsWith("UTF-8"))
+		if (sortKey.startsWith(QLatin1String("UTF-8")))
 			rank = 1;
-		else if (sortKey.startsWith("UTF-16"))
+		else if (sortKey.startsWith(QLatin1String("UTF-16")))
 			rank = 2;
 		else if (iso8859RegExp.exactMatch(sortKey)) {
 			if (iso8859RegExp.cap(1).size() == 1)
@@ -370,26 +370,26 @@ QStringList* TWUtils::getTranslationList()
 
 	translationList = new QStringList;
 	
-	QDir transDir(":/resfiles/translations");
-	foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(TEXWORKS_NAME "_*.qm"),
+	QDir transDir(QString::fromLatin1(":/resfiles/translations"));
+	foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(QString::fromLatin1(TEXWORKS_NAME "_*.qm")),
 														  QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
 		QString locName = qmFileInfo.completeBaseName();
-		locName.remove(TEXWORKS_NAME "_");
+		locName.remove(QString::fromLatin1(TEXWORKS_NAME "_"));
 		*translationList << locName;
 	}
 	
-	transDir = QDir(TWUtils::getLibraryPath("translations"));
-	foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(TEXWORKS_NAME "_*.qm"),
+	transDir = QDir(TWUtils::getLibraryPath(QString::fromLatin1("translations")));
+	foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(QString::fromLatin1(TEXWORKS_NAME "_*.qm")),
 				QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
 		QString locName = qmFileInfo.completeBaseName();
-		locName.remove(TEXWORKS_NAME "_");
+		locName.remove(QString::fromLatin1(TEXWORKS_NAME "_"));
 		if (!translationList->contains(locName, Qt::CaseInsensitive))
 			*translationList << locName;
 	}
 	
 	// English is always available, and it has to be the first item
-	translationList->removeAll("en");
-	translationList->prepend("en");
+	translationList->removeAll(QString::fromLatin1("en"));
+	translationList->prepend(QString::fromLatin1("en"));
 	
 	return translationList;
 }
@@ -405,12 +405,13 @@ QHash<QString, QString>* TWUtils::getDictionaryList(const bool forceReload /* = 
 	}
 
 	dictionaryList = new QHash<QString, QString>();
-	QDir dicDir(TWUtils::getLibraryPath("dictionaries"));
-	foreach (QFileInfo dicFileInfo, dicDir.entryInfoList(QStringList("*.dic"),
-				QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
-		QFileInfo affFileInfo(dicFileInfo.dir(), dicFileInfo.completeBaseName() + ".aff");
-		if (affFileInfo.isReadable())
-			dictionaryList->insertMulti(dicFileInfo.canonicalFilePath(), dicFileInfo.completeBaseName());
+	foreach (QDir dicDir, TWUtils::getLibraryPath(QString::fromLatin1("dictionaries")).split(QLatin1String(PATH_LIST_SEP))) {
+		foreach (QFileInfo dicFileInfo, dicDir.entryInfoList(QStringList(QString::fromLatin1("*.dic")),
+					QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
+			QFileInfo affFileInfo(dicFileInfo.dir(), dicFileInfo.completeBaseName() + QLatin1String(".aff"));
+			if (affFileInfo.isReadable())
+				dictionaryList->insertMulti(dicFileInfo.canonicalFilePath(), dicFileInfo.completeBaseName());
+		}
 	}
 	
 	TWApp::instance()->notifyDictionaryListChanged();
@@ -431,15 +432,17 @@ Hunhandle* TWUtils::getDictionary(const QString& language)
 		return dictionaries->value(language);
 	
 	Hunhandle *h = NULL;
-	const QString dictPath = getLibraryPath("dictionaries");
-	QFileInfo affFile(dictPath + "/" + language + ".aff");
-	QFileInfo dicFile(dictPath + "/" + language + ".dic");
-	if (affFile.isReadable() && dicFile.isReadable()) {
-		h = Hunspell_create(affFile.canonicalFilePath().toLocal8Bit().data(),
-							dicFile.canonicalFilePath().toLocal8Bit().data());
-		(*dictionaries)[language] = h;
+	foreach (QDir dicDir, TWUtils::getLibraryPath(QString::fromLatin1("dictionaries")).split(QLatin1String(PATH_LIST_SEP))) {
+		QFileInfo affFile(dicDir, language + QLatin1String(".aff"));
+		QFileInfo dicFile(dicDir, language + QLatin1String(".dic"));
+		if (affFile.isReadable() && dicFile.isReadable()) {
+			h = Hunspell_create(affFile.canonicalFilePath().toLocal8Bit().data(),
+			                    dicFile.canonicalFilePath().toLocal8Bit().data());
+			(*dictionaries)[language] = h;
+			return h;
+		}
 	}
-	return h;
+	return NULL;
 }
 
 QString TWUtils::getLanguageForDictionary(const Hunhandle * pHunspell)
@@ -485,7 +488,7 @@ void TWUtils::setDefaultFilters()
 	*filters << QObject::tr("Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)");
 	*filters << QObject::tr("Text files (*.txt)");
 	*filters << QObject::tr("PDF documents (*.pdf)");
-	*filters << QObject::tr("All files") + " (*)"; // this must not be "*.*", which causes an extension ".*" to be added on some systems
+	*filters << QObject::tr("All files") + QLatin1String(" (*)"); // this must not be "*.*", which causes an extension ".*" to be added on some systems
 }
 
 /*static*/
@@ -496,51 +499,85 @@ QString TWUtils::chooseDefaultFilter(const QString & filename, const QStringList
 	if (extension.isEmpty())
 		return filters[0];
 	
-	QRegExp re("\\*\\." + QRegExp::escape(extension));
+	QRegExp re(QString::fromLatin1("\\*\\.") + QRegExp::escape(extension));
 	foreach (QString filter, filters) {
 		// return filter if it corresponds to the given extension
 		// note that the extension must be the first one in the list to match;
 		// otherwise, the file dialog would replace the actual extension by the
 		// first one in the list, thereby altering it without cause
-		if (filter.contains(QString("(*.%1").arg(extension)))
+		if (filter.contains(QString::fromLatin1("(*.%1").arg(extension)))
 			return filter;
 	}
 	// if no filter matched, return the last one (which should be "All files")
 	return filters.last();
 }
 
-QString TWUtils::strippedName(const QString &fullFileName)
+QString TWUtils::strippedName(const QString &fullFileName, const unsigned int dirComponents /* = 0 */)
 {
-	return QFileInfo(fullFileName).fileName();
+	QDir dir(QFileInfo(fullFileName).dir());
+	for (unsigned int i = 0; i < dirComponents; ++i) {
+		// NB: dir.cdUp() would be more logical, but fails if the resulting
+		// path does not exist
+		dir.setPath(dir.path() + QString::fromLatin1("/.."));
+	}
+	return dir.relativeFilePath(fullFileName);
+}
+
+QStringList TWUtils::constructUniqueFileLabels(const QStringList & fileList)
+{
+	QStringList labelList;
+
+	Q_FOREACH (QString file, fileList)
+		labelList.append(strippedName(file));
+
+	// Make label list unique, i.e. while labels are not unique, add
+	// directory components
+	for (unsigned int dirComponents = 1; ; ++dirComponents) {
+		QList<bool> isDuplicate;
+		Q_FOREACH(QString label, labelList)
+			isDuplicate.append(labelList.count(label) > 1);
+		if (!isDuplicate.contains(true))
+			break;
+
+		for (int i = 0; i < labelList.size(); ++i) {
+			if (!isDuplicate[i])
+				continue;
+			labelList[i] = strippedName(fileList[i], dirComponents);
+		}
+	}
+	return labelList;
 }
 
 void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu, QAction * clearAction) /* static */
 {
 	QSETTINGS_OBJECT(settings);
-	QStringList fileList;
-	if (settings.contains("recentFiles")) {
-		QList<QVariant> files = settings.value("recentFiles").toList();
+	QStringList fileList, labelList;
+	if (settings.contains(QString::fromLatin1("recentFiles"))) {
+		QList<QVariant> files = settings.value(QString::fromLatin1("recentFiles")).toList();
 		foreach (const QVariant& v, files) {
 			QMap<QString,QVariant> map = v.toMap();
-			if (map.contains("path"))
-				fileList.append(map.value("path").toString());
+			if (map.contains(QString::fromLatin1("path")))
+				fileList.append(map.value(QString::fromLatin1("path")).toString());
 		}
 	}
 	else {
 		// check for an old "recentFilesList" entry, and migrate it
-		if (settings.contains("recentFileList")) {
-			fileList = settings.value("recentFileList").toStringList();
+		if (settings.contains(QString::fromLatin1("recentFileList"))) {
+			fileList = settings.value(QString::fromLatin1("recentFileList")).toStringList();
 			QList<QVariant> files;
 			foreach (const QString& path, fileList) {
 				QMap<QString,QVariant> map;
-				map.insert("path", path);
+				map.insert(QString::fromLatin1("path"), path);
 				files.append(QVariant(map));
 			}
-			settings.remove("recentFileList");
-			settings.setValue("recentFiles", files);
+			settings.remove(QString::fromLatin1("recentFileList"));
+			settings.setValue(QString::fromLatin1("recentFiles"), files);
 		}
 	}
-	
+
+	// Generate label list (list of filenames without directory components)
+	labelList = constructUniqueFileLabels(fileList);
+
 	int numRecentFiles = fileList.size();
 	
 	foreach(QAction * sep, menu->actions()) {
@@ -562,10 +599,8 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	}
 
 	for (int i = 0; i < numRecentFiles; ++i) {
-		QString path = fileList[i];
-		QString text = TWUtils::strippedName(path);
-		actions[i]->setText(text);
-		actions[i]->setData(path);
+		actions[i]->setText(labelList[i]);
+		actions[i]->setData(fileList[i]);
 		actions[i]->setVisible(true);
 	}
 	
@@ -587,14 +622,22 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	while (!menu->actions().isEmpty() && menu->actions().last()->isSeparator())
 		menu->removeAction(menu->actions().last());
 	
+	QList<TeXDocument *> texDocList;
+	QStringList fileList, labelList;
+	Q_FOREACH(TeXDocument * texDoc, TeXDocument::documentList()) {
+		texDocList.append(texDoc);
+		fileList.append(texDoc->fileName());
+	}
+	labelList = constructUniqueFileLabels(fileList);
+
 	// append an item for each TeXDocument
 	bool first = true;
-	foreach (TeXDocument *texDoc, TeXDocument::documentList()) {
+	for (int i = 0; i < texDocList.size(); ++i) {
+		TeXDocument * texDoc = texDocList[i];
 		if (first && !menu->actions().isEmpty())
 			menu->addSeparator();
 		first = false;
-		QString label = texDoc->fileName();
-		SelWinAction *selWin = new SelWinAction(menu, label);
+		SelWinAction *selWin = new SelWinAction(menu, fileList[i], labelList[i]);
 		if (texDoc->isModified()) {
 			QFont f(selWin->font());
 			f.setItalic(true);
@@ -607,14 +650,24 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 		QObject::connect(selWin, SIGNAL(triggered()), texDoc, SLOT(selectWindow()));
 		menu->addAction(selWin);
 	}
-	
+
+	QList<PDFDocument *> pdfDocList;
+	fileList.clear();
+	labelList.clear();
+	Q_FOREACH(PDFDocument * pdfDoc, PDFDocument::documentList()) {
+		pdfDocList.append(pdfDoc);
+		fileList.append(pdfDoc->fileName());
+	}
+	labelList = constructUniqueFileLabels(fileList);
+
 	// append an item for each PDFDocument
 	first = true;
-	foreach (PDFDocument *pdfDoc, PDFDocument::documentList()) {
+	for (int i = 0; i < pdfDocList.size(); ++i) {
+		PDFDocument * pdfDoc = pdfDocList[i];
 		if (first && !menu->actions().isEmpty())
 			menu->addSeparator();
 		first = false;
-		SelWinAction *selWin = new SelWinAction(menu, pdfDoc->fileName());
+		SelWinAction *selWin = new SelWinAction(menu, fileList[i], labelList[i]);
 		if (pdfDoc == qobject_cast<PDFDocument*>(window)) {
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
@@ -684,8 +737,8 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 			// (Note: this should only be necessary in some special cases, e.g.
 			// on X11 systems with special effects enabled)
 			QSETTINGS_OBJECT(settings);
-			wDiff = qMax(0, settings.value("windowWDiff", 0).toInt());
-			hDiff = qMax(0, settings.value("windowHDiff", 0).toInt());
+			wDiff = qMax(0, settings.value(QString::fromLatin1("windowWDiff"), 0).toInt());
+			hDiff = qMax(0, settings.value(QString::fromLatin1("windowHDiff"), 0).toInt());
 		}
 		// If we still have no valid value for hDiff/wDiff, just guess (on some
 		// platforms)
@@ -698,13 +751,16 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 		}
 	}
 	
+	// Ensure the window is not maximized, otherwise some window managers might
+	// react strangely to resizing
+	window->showNormal();
 	if (rhs) {
-		r.setLeft(r.left() + r.right() / 2);
+		r.setLeft((r.left() + r.right()) / 2);
 		window->move(r.left(), r.top());
 		window->resize(r.width() - wDiff, r.height() - hDiff);
 	}
 	else {
-		r.setRight(r.left() + r.right() / 2 - 1);
+		r.setRight((r.left() + r.right()) / 2 - 1);
 		window->move(r.left(), r.top());
 		window->resize(r.width() - wDiff, r.height() - hDiff);
 	}
@@ -831,30 +887,30 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 
 #define IS_WORD_FORMING(ch) (ch.isLetter() || ch.isMark())
 
-	bool isControlSeq = false; // becomes true if we include an @ sign or a leading backslash
-	bool includesApos = false; // becomes true if we include an apostrophe
-	if (IS_WORD_FORMING(ch) || ch == '@' /* || ch == '\'' || ch == 0x2019 */) {
-		if (ch == '@')
+	if (IS_WORD_FORMING(ch) || ch == QChar::fromLatin1('@') /* || ch == QChar::fromLatin1('\'') || ch == 0x2019 */) {
+		bool isControlSeq = false; // becomes true if we include an @ sign or a leading backslash
+		bool includesApos = false; // becomes true if we include an apostrophe
+		if (ch == QChar::fromLatin1('@'))
 			isControlSeq = true;
-		//else if (ch == '\'' || ch == 0x2019)
+		//else if (ch == QChar::fromLatin1('\'') || ch == 0x2019)
 		//	includesApos = true;
 		while (start > 0) {
 			--start;
 			ch = text.at(start);
 			if (IS_WORD_FORMING(ch))
 				continue;
-			if (!includesApos && ch == '@') {
+			if (!includesApos && ch == QChar::fromLatin1('@')) {
 				isControlSeq = true;
 				continue;
 			}
-			if (!isControlSeq && (ch == '\'' || ch == 0x2019) && start > 0 && IS_WORD_FORMING(text.at(start - 1))) {
+			if (!isControlSeq && (ch == QChar::fromLatin1('\'') || ch == QChar(0x2019)) && start > 0 && IS_WORD_FORMING(text.at(start - 1))) {
 				includesApos = true;
 				continue;
 			}
 			++start;
 			break;
 		}
-		if (start > 0 && text.at(start - 1) == '\\') {
+		if (start > 0 && text.at(start - 1) == QChar::fromLatin1('\\')) {
 			isControlSeq = true;
 			--start;
 		}
@@ -862,11 +918,11 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 			ch = text.at(end);
 			if (IS_WORD_FORMING(ch))
 				continue;
-			if (!includesApos && ch == '@') {
+			if (!includesApos && ch == QChar::fromLatin1('@')) {
 				isControlSeq = true;
 				continue;
 			}
-			if (!isControlSeq && (ch == '\'' || ch == 0x2019) && end < text.length() - 1 && IS_WORD_FORMING(text.at(end + 1))) {
+			if (!isControlSeq && (ch == QChar::fromLatin1('\'') || ch == QChar(0x2019)) && end < text.length() - 1 && IS_WORD_FORMING(text.at(end + 1))) {
 				includesApos = true;
 				continue;
 			}
@@ -875,7 +931,7 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 		return !isControlSeq;
 	}
 	
-	if (index > 0 && text.at(index - 1) == '\\') {
+	if (index > 0 && text.at(index - 1) == QChar::fromLatin1('\\')) {
 		start = index - 1;
 		end = index + 1;
 		return false;
@@ -900,30 +956,30 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 		return false;
 	}
 	
-	if (ch == ' ' || ch == '\t') {
+	if (ch == QChar::fromLatin1(' ') || ch == QChar::fromLatin1('\t')) {
 		while (start > 0) {
 			--start;
 			ch = text.at(start);
-			if (!(ch == ' ' || ch == '\t')) {
+			if (!(ch == QChar::fromLatin1(' ') || ch == QChar::fromLatin1('\t'))) {
 				++start;
 				break;
 			}
 		}
 		while (++end < text.length()) {
 			ch = text.at(end);
-			if (!(ch == ' ' || ch == '\t'))
+			if (!(ch == QChar::fromLatin1(' ') || ch == QChar::fromLatin1('\t')))
 				break;
 		}
 		return false;
 	}
 	
-	if (ch == '\\') {
+	if (ch == QChar::fromLatin1('\\')) {
 		if (++end < text.length()) {
 			ch = text.at(end);
-			if (IS_WORD_FORMING(ch) || ch == '@')
+			if (IS_WORD_FORMING(ch) || ch == QChar::fromLatin1('@'))
 				while (++end < text.length()) {
 					ch = text.at(end);
-					if (IS_WORD_FORMING(ch) || ch == '@')
+					if (IS_WORD_FORMING(ch) || ch == QChar::fromLatin1('@'))
 						continue;
 					break;
 				}
@@ -987,10 +1043,10 @@ void TWUtils::readConfig()
 	pairOpeners.clear();
 	pairClosers.clear();
 
-	QDir configDir(TWUtils::getLibraryPath("configuration"));
-	QRegExp pair("([^\\s])\\s+([^\\s])\\s*(?:#.*)?");
+	QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
+	QRegExp pair(QString::fromLatin1("([^\\s])\\s+([^\\s])\\s*(?:#.*)?"));
 
-	QFile pairsFile(configDir.filePath("delimiter-pairs.txt"));
+	QFile pairsFile(configDir.filePath(QString::fromLatin1("delimiter-pairs.txt")));
 	if (pairsFile.open(QIODevice::ReadOnly)) {
 		while (1) {
 			QByteArray ba = pairsFile.readLine();
@@ -1008,18 +1064,18 @@ void TWUtils::readConfig()
 	}
 
 	// defaults in case config file not found
-	sIncludeTextCommand			= "\\include{%1}\n";
-	sIncludePdfCommand			= "\\includegraphics[]{%1}\n";
-	sIncludeImageCommand		= "\\includegraphics[]{%1}\n";
-	sIncludePostscriptCommand	= "\\includegraphics[]{%1}\n";
+	sIncludeTextCommand			= QString::fromLatin1("\\include{%1}\n");
+	sIncludePdfCommand			= QString::fromLatin1("\\includegraphics[]{%1}\n");
+	sIncludeImageCommand		= QString::fromLatin1("\\includegraphics[]{%1}\n");
+	sIncludePostscriptCommand	= QString::fromLatin1("\\includegraphics[]{%1}\n");
 
-	sCleanupPatterns = "*.aux $jobname.log $jobname.lof $jobname.lot $jobname.toc";
+	sCleanupPatterns = QString::fromLatin1("*.aux $jobname.log $jobname.lof $jobname.lot $jobname.toc");
 
 	filters = new QStringList;
 	
-	QFile configFile(configDir.filePath("texworks-config.txt"));
+	QFile configFile(configDir.filePath(QString::fromLatin1("texworks-config.txt")));
 	if (configFile.open(QIODevice::ReadOnly)) {
-		QRegExp keyVal("([-a-z]+):\\s*([^ \\t].+)");
+		QRegExp keyVal(QString::fromLatin1("([-a-z]+):\\s*([^ \\t].+)"));
 			// looking for keyword, colon, optional whitespace, value
 		while (1) {
 			QByteArray ba = configFile.readLine();
@@ -1032,35 +1088,35 @@ void TWUtils::readConfig()
 				// if that matched, keyVal.cap(1) is the keyword, cap(2) is the value
 				const QString& keyword = keyVal.cap(1);
 				QString value = keyVal.cap(2).trimmed();
-				if (keyword == "include-text") {
-					sIncludeTextCommand = value.replace("#RET#", "\n");
+				if (keyword == QString::fromLatin1("include-text")) {
+					sIncludeTextCommand = value.replace(QString::fromLatin1("#RET#"), QChar::fromLatin1('\n'));
 					continue;
 				}
-				if (keyword == "include-pdf") {
-					sIncludePdfCommand = value.replace("#RET#", "\n");
+				if (keyword == QString::fromLatin1("include-pdf")) {
+					sIncludePdfCommand = value.replace(QString::fromLatin1("#RET#"), QChar::fromLatin1('\n'));
 					continue;
 				}
-				if (keyword == "include-image") {
-					sIncludeImageCommand = value.replace("#RET#", "\n");
+				if (keyword == QString::fromLatin1("include-image")) {
+					sIncludeImageCommand = value.replace(QString::fromLatin1("#RET#"), QChar::fromLatin1('\n'));
 					continue;
 				}
-				if (keyword == "include-postscript") {
-					sIncludePostscriptCommand = value.replace("#RET#", "\n");
+				if (keyword == QString::fromLatin1("include-postscript")) {
+					sIncludePostscriptCommand = value.replace(QString::fromLatin1("#RET#"), QChar::fromLatin1('\n'));
 					continue;
 				}
-				if (keyword == "cleanup-patterns") {
+				if (keyword == QString::fromLatin1("cleanup-patterns")) {
 					static bool first = true;
 					if (first) {
 						sCleanupPatterns = value;
 						first = false;
 					}
 					else {
-						sCleanupPatterns += " ";
+						sCleanupPatterns += QChar::fromLatin1(' ');
 						sCleanupPatterns += value;
 					}
 					continue;
 				}
-				if (keyword == "file-open-filter") {
+				if (keyword == QString::fromLatin1("file-open-filter")) {
 					*filters << value;
 				}
 			}
@@ -1076,9 +1132,9 @@ int TWUtils::balanceDelim(const QString& text, int pos, QChar delim, int directi
 	int len = text.length();
 	QChar c;
 	while ((c = text[pos]) != delim) {
-		if (openerMatching(c) != 0)
+		if (!openerMatching(c).isNull())
 			pos = (direction < 0) ? balanceDelim(text, pos - 1, openerMatching(c), -1) : -1;
-		else if (closerMatching(c) != 0)
+		else if (!closerMatching(c).isNull())
 			pos = (direction > 0) ? balanceDelim(text, pos + 1, closerMatching(c), 1) : -1;
 		if (pos < 0)
 			return -1;
@@ -1094,7 +1150,7 @@ int TWUtils::findOpeningDelim(const QString& text, int pos)
 {
 	while (--pos >= 0) {
 		QChar c = text[pos];
-		if (closerMatching(c) != 0)
+		if (!closerMatching(c).isNull())
 			return pos;
 	}
 	return -1;
@@ -1108,7 +1164,7 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 		return;
 
 	if (!map) {
-		QString filename = QDir(TWUtils::getLibraryPath("configuration")).absoluteFilePath("shortcuts.ini");
+		QString filename = QDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration"))).absoluteFilePath(QString::fromLatin1("shortcuts.ini"));
 		if (filename.isEmpty() || !QFileInfo(filename).exists())
 			return;
 
@@ -1120,8 +1176,7 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 		deleteMap = true;
 	}
 
-	QAction * act;
-	foreach (act, widget->actions()) {
+	foreach (QAction * act, widget->actions()) {
 		if (act->objectName().isEmpty())
 			continue;
 		if (map->contains(act->objectName()))
@@ -1129,8 +1184,7 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 	}
 	
 	if (recursive) {
-		QObject * obj;
-		foreach (obj, widget->children()) {
+		foreach (QObject * obj, widget->children()) {
 			QWidget * child = qobject_cast<QWidget*>(obj);
 			if (child)
 				installCustomShortcuts(child, true, map);
@@ -1144,33 +1198,33 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 // static
 bool TWUtils::isGitInfoAvailable()
 {
-	return (!QString::fromLatin1(GIT_COMMIT_HASH).startsWith("$Format:") && !QString::fromLatin1(GIT_COMMIT_DATE).startsWith("$Format:"));
+	return (!QString::fromLatin1(GIT_COMMIT_HASH).startsWith(QString::fromLatin1("$Format:")) && !QString::fromLatin1(GIT_COMMIT_DATE).startsWith(QString::fromLatin1("$Format:")));
 }
 
 // static
 QString TWUtils::gitCommitHash()
 {
-	if(QString::fromLatin1(GIT_COMMIT_HASH).startsWith("$Format:"))
+	if(QString::fromLatin1(GIT_COMMIT_HASH).startsWith(QString::fromLatin1("$Format:")))
 		return QString();
-	return GIT_COMMIT_HASH;
+	return QString::fromLatin1(GIT_COMMIT_HASH);
 }
 
 // static
 QDateTime TWUtils::gitCommitDate()
 {
-	if (QString::fromLatin1(GIT_COMMIT_DATE).startsWith("$Format:"))
+	if (QString::fromLatin1(GIT_COMMIT_DATE).startsWith(QString::fromLatin1("$Format:")))
 		return QDateTime();
-	return QDateTime::fromString(GIT_COMMIT_DATE, Qt::ISODate).toUTC();
+	return QDateTime::fromString(QString::fromLatin1(GIT_COMMIT_DATE), Qt::ISODate).toUTC();
 }
 
 #pragma mark === SelWinAction ===
 
 // action subclass used for dynamic window-selection items in the Window menu
 
-SelWinAction::SelWinAction(QObject *parent, const QString &fileName)
+SelWinAction::SelWinAction(QObject *parent, const QString &fileName, const QString &label)
 	: QAction(parent)
 {
-	setText(TWUtils::strippedName(fileName));
+	setText(label);
 	setData(fileName);
 }
 
@@ -1207,73 +1261,6 @@ bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 	return QObject::eventFilter(obj, event);
 }
 
-#pragma mark === Engine ===
-
-Engine::Engine()
-	: QObject()
-	, f_showPdf(false)
-{
-}
-
-Engine::Engine(const QString& name, const QString& program, const QStringList arguments, bool showPdf)
-	: QObject(), f_name(name), f_program(program), f_arguments(arguments), f_showPdf(showPdf)
-{
-}
-
-Engine::Engine(const Engine& orig)
-	: QObject(), f_name(orig.f_name), f_program(orig.f_program), f_arguments(orig.f_arguments), f_showPdf(orig.f_showPdf)
-{
-}
-
-Engine& Engine::operator=(const Engine& rhs)
-{
-	f_name = rhs.f_name;
-	f_program = rhs.f_program;
-	f_arguments = rhs.f_arguments;
-	f_showPdf = rhs.f_showPdf;
-	return *this;
-}
-
-const QString Engine::name() const
-{
-	return f_name;
-}
-
-const QString Engine::program() const
-{
-	return f_program;
-}
-
-const QStringList Engine::arguments() const
-{
-	return f_arguments;
-}
-
-bool Engine::showPdf() const
-{
-	return f_showPdf;
-}
-
-void Engine::setName(const QString& name)
-{
-	f_name = name;
-}
-
-void Engine::setProgram(const QString& program)
-{
-	f_program = program;
-}
-
-void Engine::setArguments(const QStringList& arguments)
-{
-	f_arguments = arguments;
-}
-
-void Engine::setShowPdf(bool showPdf)
-{
-	f_showPdf = showPdf;
-}
-
 /*static*/
 FileVersionDatabase FileVersionDatabase::load(const QString & path)
 {
@@ -1291,11 +1278,11 @@ FileVersionDatabase FileVersionDatabase::load(const QString & path)
 		QString line = strm.readLine().trimmed();
 		
 		// ignore comments
-		if (line.startsWith('#')) continue;
+		if (line.startsWith(QChar::fromLatin1('#'))) continue;
 		
-		rec.version = line.section(' ', 0, 0);
-		rec.hash = QByteArray::fromHex(line.section(' ', 1, 1).toLatin1());
-		rec.filePath = line.section(' ', 2).trimmed();
+		rec.version = line.section(QChar::fromLatin1(' '), 0, 0);
+		rec.hash = QByteArray::fromHex(line.section(QChar::fromLatin1(' '), 1, 1).toLatin1());
+		rec.filePath = line.section(QChar::fromLatin1(' '), 2).trimmed();
 		rec.filePath = rootDir.absoluteFilePath(rec.filePath.filePath());
 		retVal.m_records.append(rec);
 	}

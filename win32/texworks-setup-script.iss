@@ -101,7 +101,7 @@ Name: "{group}\{cm:ManualNameEn}"; Filename: "{app}\texworks-help\TeXworks-manua
 Name: "{group}\{cm:ManualNameFr}"; Filename: "{app}\texworks-help\TeXworks-manual\fr\TeXworks-manual-fr.pdf"
 Name: "{group}\{cm:UninstallProgram,TeXworks}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: quicklaunchicon
+Name: "{commonappdata}\Microsoft\Internet Explorer\Quick Launch\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: quicklaunchicon
 
 [Registry]
 Root: HKCR; Subkey: ".tex"; ValueType: string; ValueName: ""; ValueData: "TeXworksTeXFile"; Flags: uninsdeletevalue; Tasks: texfileassoc

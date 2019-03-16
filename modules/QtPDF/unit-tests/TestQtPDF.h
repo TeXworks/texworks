@@ -8,11 +8,15 @@ class TestQtPDF : public QObject
   Q_OBJECT
 
   typedef QSharedPointer<QtPDF::Backend::Document> pDoc;
+  typedef QSharedPointer<QtPDF::Backend::Page> pPage;
   QMap<QString, pDoc> _docs;
 
   QTestData & newDocTest(const char * tag);
+  QTestData & newPageTest(const char * tag, const unsigned int iPage);
 
 private slots:
+  void backendInterface();
+
   void loadDocs();
 //  virtual void reload() = 0;
 
@@ -22,6 +26,9 @@ private slots:
   void isLocked_data();
   void isLocked();
 
+  void unlock_data();
+  void unlock();
+
   void numPages_data();
   void numPages();
 
@@ -30,7 +37,9 @@ private slots:
 
   void page_data();
   void page();
-  // void resolveDestination();
+
+  void resolveDestination_data();
+  void resolveDestination();
 
   void metaDataTitle_data();
   void metaDataTitle();
@@ -59,18 +68,56 @@ private slots:
   void metaDataTrapped_data();
   void metaDataTrapped();
 
+  void metaDataOther_data();
+  void metaDataOther();
 
-/*
+  void fileSize_data();
+  void fileSize();
+
+  void pageSize_data();
+  void pageSize();
+
+  void permissions_data();
   void permissions();
-  virtual bool isValid() const = 0;
-  // Uses doc-read-lock
-  virtual bool isLocked() const = 0;
-  virtual bool unlock(const QString password) = 0;
-  virtual PDFToC toc() const { return PDFToC(); }
-  virtual QList<PDFFontInfo> fonts() const { return QList<PDFFontInfo>(); }
-  QMap<QString, QString> metaDataOther() const { QReadLocker docLocker(_docLock.data()); return _meta_other; }
-  virtual QList<SearchResult> search(QString searchText, int startPage=0);
-*/
+
+  void fonts_data();
+  void fonts();
+
+  void toc_data();
+  void toc();
+
+  void page_renderToImage_data();
+  void page_renderToImage();
+
+  void page_loadLinks_data();
+  void page_loadLinks();
+
+  void page_loadAnnotations_data();
+  void page_loadAnnotations();
+
+  void page_boxes_data();
+  void page_boxes();
+
+  void page_selectedText_data();
+  void page_selectedText();
+
+  void page_search_data();
+  void page_search();
+
+  void paperSize_data();
+  void paperSize();
 };
 
+typedef QMap<QString, QString> QStringMap;
+
 Q_DECLARE_METATYPE(QSharedPointer<QtPDF::Backend::Document>)
+Q_DECLARE_METATYPE(QSharedPointer<QtPDF::Backend::Page>)
+Q_DECLARE_METATYPE(QtPDF::Backend::Document::Permissions)
+Q_DECLARE_METATYPE(QtPDF::Backend::PDFToC)
+Q_DECLARE_METATYPE(QtPDF::PDFDestination)
+Q_DECLARE_METATYPE(QList<QtPDF::Annotation::Link>)
+Q_DECLARE_METATYPE(QList<QPolygonF>)
+Q_DECLARE_METATYPE(QList<QtPDF::Backend::SearchResult>)
+Q_DECLARE_METATYPE(QtPDF::Backend::SearchFlags)
+Q_DECLARE_METATYPE(QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> >)
+Q_DECLARE_METATYPE(QStringMap)

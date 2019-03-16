@@ -1,0 +1,24 @@
+From 652885ce93eb19ffe3b62de9de8191bb5e4294dc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Sat, 2 Sep 2017 16:43:31 +0200
+Subject: [PATCH] include stdarg.h in synctex_parser.c
+
+---
+ src/synctex_parser.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/synctex_parser.c b/src/synctex_parser.c
+index bab4688..eaae2ed 100644
+--- a/src/synctex_parser.c
++++ b/src/synctex_parser.c
+@@ -100,6 +100,7 @@
+ #include <string.h>
+ #include <errno.h>
+ #include <limits.h>
++#include <stdarg.h>
+ 
+ #if defined(HAVE_LOCALE_H)
+ #include <locale.h>
+-- 
+2.11.0
+

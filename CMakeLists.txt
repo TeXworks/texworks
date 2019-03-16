@@ -7,11 +7,18 @@
 #   ├── <a href="CMakeLists.html">CMakeLists.txt</a>
 #   ├── src
 #   │   └── <a href="src/CMakeLists.html">CMakeLists.txt</a>
+#   ├── modules
+#   │   ├── <a href="modules/CMakeLists.html">CMakeLists.txt</a>
+#   │   ├── synctex
+#   │   │   └── <a href="modules/synctex/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── QtPDF (documented separately)
 #   ├── plugins-src
 #   │   ├── TWLuaPlugin
 #   │   │   └── <a href="plugins-src/TWLuaPlugin/CMakeLists.html">CMakeLists.txt</a>
 #   │   └── TWPythonPlugin
 #   │       └── <a href="plugins-src/TWPythonPlugin/CMakeLists.html">CMakeLists.txt</a>
+#   ├── unit-tests
+#   │   └── <a href="unit-tests/CMakeLists.html">CMakeLists.txt</a>
 #   └── CMake
 #       └── packaging
 #           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.txt</a>
@@ -49,8 +56,10 @@ PROJECT(TeXworks)
 
 # We require CMake v2.8 or greater because it is the first version that
 # provides support for certain parts of Qt, such as the ScriptTools.
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
-CMAKE_POLICY(VERSION 2.8.6)
+# Also, 2.8.11 added the possibility to define INTERFACE_COMPILE_DEFINITIONS
+# on imported libraries required by recent versions of hunspell (e.g. 1.7.0)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.11)
+CMAKE_POLICY(VERSION 2.8.11)
 
 # Silence warning about linking to qtmain.lib statically on Windows
 IF(POLICY CMP0020)
@@ -67,6 +76,10 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 # path when compiling.
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 SET(CMAKE_AUTOMOC TRUE)
+
+# Make the contents of `CMake/Modules` available. Among other things, this
+# directory contains scripts that locate project components such as hunspell.
+SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${CMAKE_MODULE_PATH})
 
 IF(WIN32 AND MINGW)
   # Ensure that no cpp flags are passed to windres, the Windows resource compiler.
@@ -136,6 +149,24 @@ MARK_AS_ADVANCED(BUILD_SHARED_PLUGINS)
 OPTION(PREFER_BUNDLED_SYNCTEX "Use SyncTeX bundled with TeXworks even if a shared library is found?" OFF)
 MARK_AS_ADVANCED(PREFER_BUNDLED_SYNCTEX)
 
+OPTION(WITH_TESTS "build unit tests" ON)
+IF (WITH_TESTS)
+  ENABLE_TESTING(TRUE)
+ENDIF (WITH_TESTS)
+
+OPTION(WITH_COVERAGE "build with lcov coverage support" OFF)
+IF (WITH_COVERAGE)
+  IF (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" AND WITH_TESTS))
+    MESSAGE(WARNING "Coverage support is intended to be used with Debug builds and testing enabled")
+  ENDIF ()
+  INCLUDE(CodeCoverage)
+  APPEND_COVERAGE_COMPILER_FLAGS()
+  IF (UNIX)
+    SET(COVERAGE_LCOV_EXCLUDES '/usr/*')
+  ENDIF (UNIX)
+  SETUP_TARGET_FOR_COVERAGE_LCOV(NAME coverage EXECUTABLE "${CMAKE_CTEST_COMMAND}")
+ENDIF (WITH_COVERAGE)
+
 SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place libraries in")
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR} CACHE PATH "Path to place programs in")
 MARK_AS_ADVANCED(CMAKE_LIBRARY_OUTPUT_DIRECTORY CMAKE_RUNTIME_OUTPUT_DIRECTORY)
@@ -165,12 +196,12 @@ ENDIF ()
 
 IF (UNIX AND NOT APPLE)
   SET(TeXworks_HELP_DIR share/doc/texworks-help CACHE PATH "Path where TeXworks looks for help files")
-  SET(TeXworks_DIC_DIR /usr/share/myspell/dicts CACHE PATH "Path where TeXworks looks for spellchecking dictionaries")
+  SET(TeXworks_DIC_DIR /usr/share/hunspell:/usr/share/myspell/dicts CACHE PATH "Path where TeXworks looks for spellchecking dictionaries")
   SET(TeXworks_DOCS_DIR share/doc/texworks CACHE PATH "Path in which documentation files are installed")
   SET(TeXworks_ICON_DIR share/pixmaps CACHE PATH "Path in which icons are installed")
   SET(TeXworks_MAN_DIR share/man/man1 CACHE PATH "Path in which manpages are installed")
   SET(TeXworks_DESKTOP_DIR share/applications CACHE PATH "Path in which .desktop files are installed")
-  SET(TeXworks_APPDATA_DIR share/appdata CACHE PATH "Path in which .appdata.xml files are installed")
+  SET(TeXworks_APPDATA_DIR share/metainfo CACHE PATH "Path in which .appdata.xml files are installed")
   MARK_AS_ADVANCED(TeXworks_HELP_DIR)
   MARK_AS_ADVANCED(TeXworks_DIC_DIR)
   MARK_AS_ADVANCED(TeXworks_DOCS_DIR)
@@ -183,34 +214,62 @@ IF (UNIX AND NOT APPLE)
   ENDIF()
 ENDIF()
 
-set(CMAKE_CXX_STANDARD 11)
+# Source: https://stackoverflow.com/a/31010221
+macro(use_cxx11)
+  if (CMAKE_VERSION VERSION_LESS "3.1")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+    endif ()
+  else ()
+    set (CMAKE_CXX_STANDARD 11)
+  endif ()
+endmacro(use_cxx11)
+
+use_cxx11()
 
 # Dependency Configuration
 # ========================
 
-# Make the contents of `CMake/Modules` available. Among other things, this
-# directory contains scripts that locate project components such as hunspell.
-SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${CMAKE_MODULE_PATH})
-
 set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
 MARK_AS_ADVANCED(DESIRED_QT_VERSION)
 
+include(FindPackageMessage)
+MACRO(find_qt5_package pkg)
+  find_package(${pkg} QUIET)
+  if (${pkg}_FOUND)
+    set(_msg "Found ${pkg}")
+    if (${pkg}_DIR)
+      set(_msg "${_msg}: ${${pkg}_DIR}")
+    endif()
+    if (${pkg}_VERSION)
+      set(_msg "${_msg} (found version ${${pkg}_VERSION})")
+    endif()
+    FIND_PACKAGE_MESSAGE(${pkg} ${_msg} "[${${pkg_FOUND}}][${${pkg}_DIR}][${${pkg}_VERSION}]")
+  else()
+    FIND_PACKAGE_MESSAGE(${pkg} "Could not find ${pkg}" "[${${pkg_FOUND}}][${${pkg}_DIR}][${${pkg}_VERSION}]")
+  endif()
+ENDMACRO()
+
 # Check for Qt5 by default
 IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
-  find_package(Qt5Widgets QUIET)
-  find_package(Qt5Gui QUIET)
-  find_package(Qt5UiTools QUIET)
-  find_package(Qt5Concurrent QUIET)
-  find_package(Qt5Script QUIET)
-  find_package(Qt5ScriptTools QUIET)
-  find_package(Qt5Xml QUIET)
+  find_qt5_package(Qt5Widgets QUIET)
+  find_qt5_package(Qt5Gui QUIET)
+  find_qt5_package(Qt5UiTools QUIET)
+  find_qt5_package(Qt5Concurrent QUIET)
+  find_qt5_package(Qt5Script QUIET)
+  find_qt5_package(Qt5ScriptTools QUIET)
+  find_qt5_package(Qt5Xml QUIET)
+  find_qt5_package(Qt5LinguistTools QUIET)
   IF ( UNIX AND NOT APPLE )
-    find_package(Qt5DBus QUIET)
+    find_qt5_package(Qt5DBus QUIET)
   ENDIF ()
+  IF ( WITH_TESTS )
+    find_qt5_package(Qt5Test QUIET)
+  ENDIF ( WITH_TESTS )
 
-  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND AND (NOT UNIX OR APPLE OR Qt5DBus_FOUND))
+  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT UNIX OR APPLE OR Qt5DBus_FOUND) AND (NOT WITH_TESTS OR Qt5Test_FOUND))
     SET(QT5_FOUND TRUE)
-    SET(QT_LIBRARIES Qt5::UiTools Qt5::ScriptTools Qt5::Script Qt5::Concurrent Qt5::Xml ${Qt5DBus_LIBRARIES} Qt5::Widgets Qt5::Gui Qt5::Core)
+    SET(QT_LIBRARIES Qt5::UiTools Qt5::ScriptTools Qt5::Script Qt5::Concurrent Qt5::Xml ${Qt5DBus_LIBRARIES} Qt5::Widgets Qt5::Gui Qt5::Core ${Qt5Test_LIBRARIES})
 
     # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
     # etc. which is used here.
@@ -249,6 +308,20 @@ IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
       )
       LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5FontDatabaseSupport_LIBRARIES} ${Qt5EventDispatcherSupport_LIBRARIES} ${Qt5ThemeSupport_LIBRARIES})
     endif()
+    # Starting with Qt 5.11, WindowsUIAutomation was added
+    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 10)
+      FIND_LIBRARY(Qt5WindowsUIAutomation_LIBRARIES Qt5WindowsUIAutomationSupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      LIST(APPEND QT_LIBRARIES ${Qt5WindowsUIAutomation_LIBRARIES})
+    endif()
+    # Starting with Qt 5.10, AccessibilitySupport was modularized
+    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 9)
+      FIND_LIBRARY(Qt5AccessibilitySupport_LIBRARIES Qt5AccessibilitySupport
+        HINTS "${QT_LIB_DIR}"
+      )
+      LIST(APPEND QT_LIBRARIES ${Qt5AccessibilitySupport_LIBRARIES})
+    endif()
     ADD_DEFINITIONS(-DSTATIC_QT5)
   ENDIF()
 
@@ -264,6 +337,10 @@ IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
       QtScriptTools
       QtXml
   )
+  IF( WITH_TESTS )
+    LIST(APPEND QT_COMPONENTS QtTest)
+  ENDIF( WITH_TESTS )
+
 
   IF ( UNIX AND NOT APPLE )
     LIST(APPEND QT_COMPONENTS QtDbus)
@@ -273,6 +350,10 @@ IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
   # with Qt-specific tasks such as compiling resources or running `moc`.
   FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
   INCLUDE(UseQt4)
+
+  # TODO: QtTest is included in the list of "normal" libraries.
+  # Therefore, QT_TEST_LIBRARIES is not set here. Can we improve this somehow
+  # (i.e., can we pull in QtTest only for programs that actually use it)?
 ENDIF()
 
 IF (NOT QT4_FOUND AND NOT QT5_FOUND)
@@ -289,21 +370,15 @@ INCLUDE( TranslationMacros )
 
 FIND_PACKAGE(ZLIB REQUIRED)
 FIND_PACKAGE(Hunspell REQUIRED)
-IF ( NOT PREFER_BUNDLED_SYNCTEX )
-  FIND_PACKAGE(Synctex QUIET)
-ENDIF ( NOT PREFER_BUNDLED_SYNCTEX )
+FIND_PACKAGE(Synctex QUIET)
 
 # Aggregate library names and include directories into variables for easy
 # access.
 SET(TeXworks_INCLUDE_DIRS
+  ${SYNCTEX_INCLUDE_DIR}
   ${QT_INCLUDE_DIR}
-  ${HUNSPELL_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
 )
-
-IF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
-  LIST(APPEND TeXworks_INCLUDE_DIRS ${SYNCTEX_INCLUDE_DIR})
-ENDIF ()
 
 SET(TeXworks_LIB_DIRS ${QT_LIBRARY_DIR})
 
@@ -312,15 +387,13 @@ MARK_AS_ADVANCED(TEXWORKS_ADDITIONAL_LIBS)
 
 
 SET(TeXworks_LIBS
-  ${HUNSPELL_LIBRARIES}
+  ${SYNCTEX_LIBRARIES}
+  hunspell
   ${QT_LIBRARIES}
   ${ZLIB_LIBRARIES}
   ${TEXWORKS_ADDITIONAL_LIBS}
 )
 
-IF ( SYNCTEX_FOUND AND NOT PREFER_BUNDLED_SYNCTEX )
-  LIST(APPEND TeXworks_LIBS ${SYNCTEX_LIBRARIES})
-ENDIF ()
 
 
 # Configure Optional Dependencies
@@ -413,6 +486,12 @@ ENDIF ()
 IF ( PYTHONLIBS_FOUND AND WITH_PYTHON )
   ADD_SUBDIRECTORY(${TeXworks_SOURCE_DIR}/plugins-src/TWPythonPlugin)
 ENDIF ()
+
+# Tests
+# -----
+IF (WITH_TESTS)
+  ADD_SUBDIRECTORY(unit-tests)
+ENDIF (WITH_TESTS)
 
 
 # Packaging

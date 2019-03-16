@@ -8,16 +8,41 @@ require 'rocco/tasks' # Not used, but serves as a good test that Rocco is instal
 
 # Run everything from the project root directory
 DOC_DIR = Pathname.new(__FILE__).realpath.dirname
+DOC_OUTPUT_DIR = DOC_DIR + "html" + "docs"
 ROOT_DIR = DOC_DIR.join '..'
 Dir.chdir ROOT_DIR
 
 # Gather all source code files
 SOURCE_FILES = Dir['src/**/*.cpp']
 
+# Check if prerequisites are met.
+task :prerequisites do
+  raise "Failed to find 'rocco' script!" unless File.file?(rocco_binary)
+  puts "Found 'rocco' in '#{File.dirname(rocco_binary)}'!"
+end
+
+# Remove generated documentation files.
+task :clean => [:prerequisites] do
+  html_files = Dir.chdir(DOC_OUTPUT_DIR) { Dir["**/*.html"] }
+  next if html_files.empty?
+
+  puts "Cleaning '#{DOC_OUTPUT_DIR}' (#{html_files.count} files):"
+  html_files.each do |f|
+    abs_f = DOC_OUTPUT_DIR + f
+    if abs_f.file? then
+      puts "  * #{f}"
+      abs_f.delete
+    else
+      puts "  ! #{f} is not a file"
+    end
+  end
+end
+
 # Generate documentation from comments
-task :docs do
-  system 'rocco',
-    "--output=#{DOC_DIR + 'html' + 'docs'}",
+task :docs => [:prerequisites, :clean] do
+  ruby rocco_binary,
+    "--language=cmake",
+    "--output=#{DOC_OUTPUT_DIR}",
     "--template=#{DOC_DIR + 'layout.mustache'}",
     *SOURCE_FILES
 
@@ -35,3 +60,9 @@ task :default => :docs
 task :view => [:docs] do
   exec "open #{DOC_DIR + 'html' + 'index.html'}"
 end
+
+# Asks 'Gem' for the path to 'rocco' to avoid dependency on proper search path.
+def rocco_binary
+  _binary ||= Gem.bin_path("rocco", "rocco")
+end
+

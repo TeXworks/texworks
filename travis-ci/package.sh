@@ -11,14 +11,18 @@ if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
 	print_warning "Not packaging pull-requests for deployment"
 	exit 0
 fi
+if [ "x${COVERAGE}" != "x" ]; then
+	print_warning "Not packaging coverage builds"
+	exit 0
+fi
 
 print_headline "Packaging ${TARGET_OS}/qt${QT} for deployment"
 
-POPPLERDATA_VERSION="0.4.7"
+POPPLERDATA_VERSION="0.4.9"
 POPPLERDATA_SUBDIR="poppler-data-${POPPLERDATA_VERSION}"
 POPPLERDATA_FILE="poppler-data-${POPPLERDATA_VERSION}.tar.gz"
 POPPLERDATA_URL="https://poppler.freedesktop.org/${POPPLERDATA_FILE}"
-POPPLERDATA_SHA256="e752b0d88a7aba54574152143e7bf76436a7ef51977c55d6bd9a48dccde3a7de"
+POPPLERDATA_SHA256="1f9c7e7de9ecd0db6ab287349e31bf815ca108a5a175cf906a90163bdbe32012"
 
 # Gather information
 
@@ -54,6 +58,8 @@ cd "${BUILDDIR}"
 
 if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	if [ ${QT} -eq 4 ]; then
+		print_info "Not packaging for ${TARGET_OS}/qt${QT}"
+	elif [ ${QT} -eq 5 ]; then
 		DEBDATE=$(date -R)
 
 		echo_var "DEBDATE"
@@ -65,6 +71,19 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		fi
 		openssl aes-256-cbc -K $encrypted_54846cac3f0f_key -iv $encrypted_54846cac3f0f_iv -in "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/key.asc.enc" -out "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/key.asc" -d
 		gpg --import "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/key.asc"
+
+		# Add ppa.launchpad.net to ssh's known hosts so we can upload to it
+		# using sftp
+		echo "ppa.launchpad.net ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA0aKz5UTUndYgIGG7dQBV+HaeuEZJ2xPHo2DS2iSKvUL4xNMSAY4UguNW+pX56nAQmZKIZZ8MaEvSj6zMEDiq6HFfn5JcTlM80UwlnyKe8B8p7Nk06PPQLrnmQt5fh0HmEcZx+JU9TZsfCHPnX7MNz4ELfZE6cFsclClrKim3BHUIGq//t93DllB+h4O9LHjEUsQ1Sr63irDLSutkLJD6RXchjROXkNirlcNVHH/jwLWR5RcYilNX7S5bIkK8NlWPjsn/8Ua5O7I9/YoE97PpO6i73DTGLh5H9JN/SITwCKBkgSDWUt61uPK3Y11Gty7o2lWsBjhBUm2Y38CBsoGmBw==" >> ~/.ssh/known_hosts
+
+		# Set up key for ssh (sftp) authentication
+		openssl aes-256-cbc -K $encrypted_47834aa722cd_key -iv $encrypted_47834aa722cd_iv -in "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks.enc" -out "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks" -d
+		chmod 0600 "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks"
+		print_info "Creating ~/.ssh/config"
+		echo """Host ppa.launchpad.net
+	IdentityFile ${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks
+	User st.loeffler
+""" >> ~/.ssh/config
 
 		for DISTRO in ${LAUNCHPAD_DISTROS}; do
 			print_info "Packging for ${DISTRO}"
@@ -122,16 +141,14 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 
 			DEBFILE="texworks_${DEB_VERSION}_source.changes"
 			if [ -z "${TRAVIS_TAG}" ]; then
-				PPA="ppa:texworks/ppa"
+				PPA="tw-latest"
 			else
-				PPA="ppa:texworks/stable"
+				PPA="tw-stable"
 			fi
 			print_info "   scheduling to upload ${DEBFILE} to ${PPA}"
 
-			echo "dput \"${PPA}\" \"${BUILDDIR}/${DEBFILE}\"" >> "${TRAVIS_BUILD_DIR}/travis-ci/dput-launchpad.sh"
+			echo "dput --config \"${TRAVIS_BUILD_DIR}/travis-ci/launchpad/dput.cf\" \"${PPA}\" \"${BUILDDIR}/${DEBFILE}\"" >> "${TRAVIS_BUILD_DIR}/travis-ci/dput-launchpad.sh"
 		done
-	elif [ ${QT} -eq 5 ]; then
-		print_info "Not packaging for ${TARGET_OS}/qt${QT}"
 	else
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
 	fi

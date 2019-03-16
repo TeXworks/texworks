@@ -1,6 +1,6 @@
 /*
   This is part of TeXworks, an environment for working with TeX documents
-  Copyright (C) 2014-2017  Stefan Löffler, Jonathan Kew
+  Copyright (C) 2014-2018  Stefan Löffler, Jonathan Kew
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -67,7 +67,7 @@ QString TWSyncTeXSynchronizer::pdfFilename() const
 }
 
 //virtual
-TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchronizer::TeXSyncPoint & src) const
+TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchronizer::TeXSyncPoint & src, const Resolution resolution) const
 {
   PDFSyncPoint retVal;
   retVal.page = -1;
@@ -75,7 +75,7 @@ TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchron
   // Find the name SyncTeX is using for this source file...
   const QFileInfo sourceFileInfo(src.filename);
   QDir curDir(QFileInfo(pdfFilename()).canonicalPath());
-  SyncTeX::synctex_node_t node = SyncTeX::synctex_scanner_input(_scanner);
+  SyncTeX::synctex_node_p node = SyncTeX::synctex_scanner_input(_scanner);
   QString name;
   bool found = false;
   while (node) {
@@ -92,8 +92,8 @@ TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchron
 
   retVal.filename = pdfFilename();
 
-  if (SyncTeX::synctex_display_query(_scanner, name.toLocal8Bit().data(), src.line, src.col) > 0) {
-    while ((node = SyncTeX::synctex_next_result(_scanner)) != NULL) {
+  if (SyncTeX::synctex_display_query(_scanner, name.toLocal8Bit().data(), src.line, src.col, -1) > 0) {
+    while ((node = SyncTeX::synctex_scanner_next_result(_scanner)) != NULL) {
       if (retVal.page < 0)
         retVal.page = SyncTeX::synctex_node_page(node);
       if (SyncTeX::synctex_node_page(node) != retVal.page)
@@ -106,37 +106,50 @@ TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchron
     }
   }
 
-  _syncFromTeXFine(src, retVal);
+  // Only perform fine synchronization if requested
+  if (resolution != LineResolution)
+    _syncFromTeXFine(src, retVal, resolution);
 
   return retVal;
 }
 
 //virtual
-TWSynchronizer::TeXSyncPoint TWSyncTeXSynchronizer::syncFromPDF(const TWSynchronizer::PDFSyncPoint & src) const
+TWSynchronizer::TeXSyncPoint TWSyncTeXSynchronizer::syncFromPDF(const TWSynchronizer::PDFSyncPoint & src, const Resolution resolution) const
 {
   TeXSyncPoint retVal;
   retVal.line = -1;
   retVal.col = -1;
+  retVal.len = -1;
 
   if (src.rects.length() != 1)
     return retVal;
 
   if (SyncTeX::synctex_edit_query(_scanner, src.page, src.rects[0].left(), src.rects[0].top()) > 0) {
-    SyncTeX::synctex_node_t node;
-    while ((node = SyncTeX::synctex_next_result(_scanner)) != NULL) {
+    SyncTeX::synctex_node_p node;
+    while ((node = SyncTeX::synctex_scanner_next_result(_scanner)) != NULL) {
       retVal.filename = QString::fromLocal8Bit(SyncTeX::synctex_scanner_get_name(_scanner, SyncTeX::synctex_node_tag(node)));
       retVal.line = SyncTeX::synctex_node_line(node);
+      if (retVal.line <= 0)
+        continue;
       retVal.col = -1;
-      break; // FIXME: currently we just take the first hit
+      retVal.len = -1;
+
+      // If we only need to match lines, we are done
+      if (resolution == LineResolution)
+        break;
+
+      _syncFromPDFFine(src, retVal, resolution);
+      // If we found a (unique) match, we are done; otherwise, try other
+      // synctex_edit_query results (if any)
+      if (retVal.col > -1 && retVal.len > 0)
+        break;
     }
   }
-
-  _syncFromPDFFine(src, retVal);
 
   return retVal;
 }
 
-void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint & src, TWSynchronizer::PDFSyncPoint & dest) const
+void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint & src, TWSynchronizer::PDFSyncPoint & dest, const Resolution resolution) const
 {
   // FIXME: this does not work properly for text which is split across pages!
 
@@ -165,13 +178,13 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
   QList<QPolygonF> selection;
   foreach (QRectF r, dest.rects)
     selection.append(r);
-  QMap<int, QRectF> boxes;
-  QString destContext = pdfPage->selectedText(selection, &boxes);
+  QMap<int, QRectF> wordBoxes, charBoxes;
+  QString destContext = pdfPage->selectedText(selection, &wordBoxes, &charBoxes);
   // Normalize the destContext. selectedText() returns newline chars between
   // separate (output) lines that all correspond to the same input line
   // (different input lines are handled by SyncTeX). Here we replace those \n
   // to make destContext more comparable to srcContext.
-  destContext.replace('\n', " ");
+  destContext.replace(QChar::fromLatin1('\n'), QChar::fromLatin1(' '));
 
   // FIXME: the string returned by selectedText() seems to twist the beginning
   // (and ends) of footnotes sometimes.
@@ -191,12 +204,20 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
     return;
 
   // Update the matching destination rectangles
-  dest.rects.clear();
-  dest.rects.append(boxes[destCol]);
+  if (resolution == WordResolution) {
+    dest.rects.clear();
+    dest.rects.append(wordBoxes[destCol]);
+  }
+  else if (resolution == CharacterResolution){
+    dest.rects.clear();
+    dest.rects.append(charBoxes[destCol]);
+  }
 }
 
-void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint &src, TWSynchronizer::TeXSyncPoint &dest) const
+void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint &src, TWSynchronizer::TeXSyncPoint &dest, const Resolution resolution) const
 {
+  if (dest.filename.isEmpty())
+    return;
   QDir curDir(QFileInfo(src.filename).canonicalPath());
   TeXDocument * tex = TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), false, false, dest.line);
   PDFDocument * pdf = PDFDocument::findDocument(src.filename);
@@ -215,9 +236,9 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   // than one PDF rect for multiline paragraphs).
   // Note: this still does not help for paragraphs broken across pages
   QList<QPolygonF> selection;
-  if (SyncTeX::synctex_display_query(_scanner, dest.filename.toLocal8Bit().data(), dest.line, -1) > 0) {
-    SyncTeX::synctex_node_t node;
-    while ((node = SyncTeX::synctex_next_result(_scanner)) != NULL) {
+  if (SyncTeX::synctex_display_query(_scanner, dest.filename.toLocal8Bit().data(), dest.line, -1, src.page) > 0) {
+	SyncTeX::synctex_node_p node;
+	while ((node = SyncTeX::synctex_scanner_next_result(_scanner)) != NULL) {
       if (SyncTeX::synctex_node_page(node) != src.page)
         continue;
       QRectF nodeRect(synctex_node_box_visible_h(node),
@@ -234,7 +255,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   // separate (output) lines that all correspond to the same input line
   // (different input lines are handled by SyncTeX). Here we replace those \n
   // to make srcContext more comparable to destContext below.
-  srcContext.replace('\n', " ");
+  srcContext.replace(QChar::fromLatin1('\n'), QChar::fromLatin1(' '));
 
   int col;
   for (col = 0; col < boxes.count(); ++col) {
@@ -266,7 +287,17 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   if (col != _findCorrespondingPosition(destContext, srcContext, destCol, unique) || !unique)
     return;
 
-  dest.col = destCol;
+  if (resolution == CharacterResolution) {
+    dest.col = destCol;
+    dest.len = 1;
+  }
+  else if (resolution == WordResolution) {
+    TWUtils::findNextWord(destContext, destCol, dest.col, dest.len);
+    dest.len -= dest.col;
+    // Always select at least one character
+    if (dest.len <= 0)
+      dest.len = 1;
+  }
 }
 
 // static
