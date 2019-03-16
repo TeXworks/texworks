@@ -214,127 +214,129 @@
         <translation>Ctrl+=</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="421"/>
+        <location filename="../src/PDFDocument.cpp" line="435"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>La càrrega del fitxer &quot;%1&quot; ha fallat, tal vegada no sigui un document PDF vàlid.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="434"/>
+        <location filename="../src/PDFDocument.cpp" line="448"/>
         <source>Error initializing SyncTeX</source>
         <translation>Error iniciant SyncTeX</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="436"/>
+        <location filename="../src/PDFDocument.cpp" line="450"/>
         <source>No SyncTeX data available</source>
         <translation>No hi ha dades SyncTex disponibles</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="438"/>
+        <location filename="../src/PDFDocument.cpp" line="452"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="654"/>
+        <location filename="../src/PDFDocument.cpp" line="368"/>
+        <location filename="../src/PDFDocument.cpp" line="669"/>
         <source>%1[*] - %2</source>
+        <extracomment>Format for the window title (ex. &quot;file.pdf[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="683"/>
+        <location filename="../src/PDFDocument.cpp" line="698"/>
         <source>page %1 of %2</source>
         <translation>pàgina %1 de %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="688"/>
+        <location filename="../src/PDFDocument.cpp" line="703"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="791"/>
+        <location filename="../src/PDFDocument.cpp" line="806"/>
         <source>Abort typesetting</source>
         <translation>Avorta compilació</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="841"/>
+        <location filename="../src/PDFDocument.cpp" line="856"/>
         <source>Jump to Source</source>
         <translation>Salta a la font</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="978"/>
+        <location filename="../src/PDFDocument.cpp" line="993"/>
         <source>Open URL</source>
         <translation>Obre URL</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="978"/>
+        <location filename="../src/PDFDocument.cpp" line="993"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
         <translation>Està obrint l&apos;enllaç %1. Accedir a adreces web desconegudes o de poca confiança pot comportar un risc de seguretat.
 Vol continuar?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1004"/>
+        <location filename="../src/PDFDocument.cpp" line="1019"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Malauradament, aquesta versió de %1 no pot imprimir documents Pdf degut a diverses raons tècniques.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1005"/>
+        <location filename="../src/PDFDocument.cpp" line="1020"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>En el seu lloc, vol obrir el fitxer amb el visualitzador per defecte per poder imprimir?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1006"/>
+        <location filename="../src/PDFDocument.cpp" line="1021"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation>Recordi tancar-lo per evitar problemes d&apos;accés</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1029"/>
+        <location filename="../src/PDFDocument.cpp" line="1044"/>
         <source>Custom...</source>
         <translation>A mida ...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1032"/>
+        <location filename="../src/PDFDocument.cpp" line="1047"/>
         <source>200%</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1035"/>
+        <location filename="../src/PDFDocument.cpp" line="1050"/>
         <source>150%</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1040"/>
+        <location filename="../src/PDFDocument.cpp" line="1055"/>
         <source>100%</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1044"/>
+        <location filename="../src/PDFDocument.cpp" line="1059"/>
         <source>75%</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1047"/>
+        <location filename="../src/PDFDocument.cpp" line="1062"/>
         <source>50%</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1089"/>
-        <location filename="../src/PDFDocument.cpp" line="1093"/>
+        <location filename="../src/PDFDocument.cpp" line="1104"/>
+        <location filename="../src/PDFDocument.cpp" line="1108"/>
         <source>Go to Page</source>
         <translation>Ves a la pàgina</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1090"/>
-        <location filename="../src/PDFDocument.cpp" line="1094"/>
+        <location filename="../src/PDFDocument.cpp" line="1105"/>
+        <location filename="../src/PDFDocument.cpp" line="1109"/>
         <source>Page number:</source>
         <translation>Nombre de pàgina:</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1106"/>
+        <location filename="../src/PDFDocument.cpp" line="1121"/>
         <source>Set Zoom</source>
         <translation>Fixa ampliació</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1106"/>
+        <location filename="../src/PDFDocument.cpp" line="1121"/>
         <source>Zoom level:</source>
         <translation>Nivell de ampliació:</translation>
     </message>
@@ -375,7 +377,7 @@ Vol continuar?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="500"/>
-        <location filename="../src/PDFDocument.cpp" line="798"/>
+        <location filename="../src/PDFDocument.cpp" line="813"/>
         <source>Typeset</source>
         <translation>Compon</translation>
     </message>
@@ -426,7 +428,7 @@ Vol continuar?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="274"/>
-        <location filename="../src/PDFDocument.cpp" line="848"/>
+        <location filename="../src/PDFDocument.cpp" line="863"/>
         <source>Zoom In</source>
         <translation>Amplia</translation>
     </message>
@@ -460,7 +462,7 @@ Vol continuar?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="289"/>
-        <location filename="../src/PDFDocument.cpp" line="849"/>
+        <location filename="../src/PDFDocument.cpp" line="864"/>
         <source>Zoom Out</source>
         <translation>Redueix</translation>
     </message>
@@ -471,7 +473,7 @@ Vol continuar?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="307"/>
-        <location filename="../src/PDFDocument.cpp" line="852"/>
+        <location filename="../src/PDFDocument.cpp" line="867"/>
         <source>Fit to Window</source>
         <translation>Ajusta a la finestra</translation>
     </message>
@@ -482,7 +484,7 @@ Vol continuar?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="322"/>
-        <location filename="../src/PDFDocument.cpp" line="850"/>
+        <location filename="../src/PDFDocument.cpp" line="865"/>
         <source>Actual Size</source>
         <translation>Mida real</translation>
     </message>
@@ -493,7 +495,7 @@ Vol continuar?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="340"/>
-        <location filename="../src/PDFDocument.cpp" line="851"/>
+        <location filename="../src/PDFDocument.cpp" line="866"/>
         <source>Fit to Width</source>
         <translation>Ajusta a l&apos;amplada</translation>
     </message>
@@ -614,7 +616,7 @@ Vol continuar?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="732"/>
-        <location filename="../src/PDFDocument.cpp" line="1009"/>
+        <location filename="../src/PDFDocument.cpp" line="1024"/>
         <source>Print Pdf...</source>
         <translation>Imprimeix Pdf...</translation>
     </message>
@@ -868,8 +870,9 @@ Vol continuar?</translation>
         <translation>Sistema per defecte [%1]</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="542"/>
+        <location filename="../src/PrefsDialog.cpp" line="543"/>
         <source> (%1)</source>
+        <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
         <translation> (%1)</translation>
     </message>
     <message>
@@ -1725,48 +1728,48 @@ Usi el menú de context per canviar les unitats.</translation>
         <translation>No puc accedir a &quot;%1&quot;; pot ser que el vostre navegador o aplicació de correu electrònic no estiguin configurats correctament?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="601"/>
+        <location filename="../src/TWApp.cpp" line="605"/>
         <source>Unable to create window</source>
         <translation>No puc crear la finestra</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="602"/>
+        <location filename="../src/TWApp.cpp" line="606"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Alguna cosa està malament; %1 no ha pogut crear una finestra de document. Surt de l&apos;aplicació.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="654"/>
-        <location filename="../src/TWApp.cpp" line="669"/>
+        <location filename="../src/TWApp.cpp" line="658"/>
+        <location filename="../src/TWApp.cpp" line="673"/>
         <source>Open File</source>
         <translation>Obre un fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="683"/>
+        <location filename="../src/TWApp.cpp" line="687"/>
         <source>Save File</source>
         <translation>Guarda fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="848"/>
+        <location filename="../src/TWApp.cpp" line="852"/>
         <source>No default binary directory found</source>
         <translation>No he trobat el directori de binaris per defecte</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="849"/>
+        <location filename="../src/TWApp.cpp" line="853"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>No es pot trobar cap de les carpetes predefinides per a programes relatius a TeX.&lt;p&gt;&lt;small&gt;Per executar qualsevol procés, cal indicar la carpeta (o carpetes) de la distribució TeX utilitzant la pestanya Composició en el diàleg Preferències.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1150"/>
+        <location filename="../src/TWApp.cpp" line="1154"/>
         <source>Unable to find help file.</source>
         <translation>No puc trobar el fitxer d&apos;ajuda.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1339"/>
+        <location filename="../src/TWApp.cpp" line="1343"/>
         <source>Permission request</source>
         <translation>Petició de permís</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1340"/>
+        <location filename="../src/TWApp.cpp" line="1344"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>L&apos;script &quot;%1&quot; tracta d&apos;obrir el fitxer &quot;%2&quot; sense prou permisos. Vol obrir el fitxer?</translation>
     </message>
@@ -1932,45 +1935,45 @@ Usi el menú de context per canviar les unitats.</translation>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="598"/>
+        <location filename="../src/TeXDocument.cpp" line="600"/>
         <source>Open File</source>
         <translation>Obre fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="789"/>
+        <location filename="../src/TeXDocument.cpp" line="791"/>
         <source>Save File</source>
         <translation>Desa el fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="827"/>
+        <location filename="../src/TeXDocument.cpp" line="829"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Ha modificat el document &quot;%1&quot;.
 Vol desar els canvis?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="832"/>
+        <location filename="../src/TeXDocument.cpp" line="834"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="864"/>
+        <location filename="../src/TeXDocument.cpp" line="866"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>Voleu descartar tots els canvis en el document &quot;%1&quot; i tornar a la darrera versió desada?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="866"/>
+        <location filename="../src/TeXDocument.cpp" line="868"/>
         <source>Revert</source>
         <translation>Reverteix</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="979"/>
+        <location filename="../src/TeXDocument.cpp" line="981"/>
         <source>Unrecognized encoding</source>
         <translation>Codificació no reconeguda</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="980"/>
+        <location filename="../src/TeXDocument.cpp" line="982"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1979,14 +1982,14 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 S&apos;interpretarà com a %3, per tant pot generar un text incorrecte.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1215"/>
-        <location filename="../src/TeXDocument.cpp" line="1276"/>
-        <location filename="../src/TeXDocument.cpp" line="1369"/>
+        <location filename="../src/TeXDocument.cpp" line="1217"/>
+        <location filename="../src/TeXDocument.cpp" line="1278"/>
+        <location filename="../src/TeXDocument.cpp" line="1371"/>
         <source>File changed on disk</source>
         <translation>Fitxer modificat a disc</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1216"/>
+        <location filename="../src/TeXDocument.cpp" line="1218"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -1995,7 +1998,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Voleu descartar els canvis i recuperar el fitxer de disc?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1370"/>
+        <location filename="../src/TeXDocument.cpp" line="1372"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2004,17 +2007,17 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Voleu guardar el fitxer, sobreescrivint la versió del disc?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1375"/>
+        <location filename="../src/TeXDocument.cpp" line="1377"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>No s&apos;ha desat el document &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1397"/>
+        <location filename="../src/TeXDocument.cpp" line="1399"/>
         <source>Text cannot be converted</source>
         <translation>No puc convertir el text</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1398"/>
+        <location filename="../src/TeXDocument.cpp" line="1400"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -2023,46 +2026,48 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 Si continuau, seran substituits per codis per defecte. Pot ser preferiu usar una codificació diferent (per exemple UTF-8) per evitar la pèrdua de dades.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="517"/>
+        <location filename="../src/TeXDocument.cpp" line="518"/>
         <source>%1 - %2 (%3)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="519"/>
+        <location filename="../src/TeXDocument.cpp" line="521"/>
         <source>%1 (%2)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="666"/>
+        <location filename="../src/TeXDocument.cpp" line="668"/>
         <source>Abort typesetting?</source>
         <translation>Avort la composició?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="666"/>
+        <location filename="../src/TeXDocument.cpp" line="668"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation>Un procés de composició està encara en execució i s&apos;ha d&apos;aturar abans de tancar la finestra.
 Vol que l&apos;aturi ara?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="867"/>
+        <location filename="../src/TeXDocument.cpp" line="869"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="962"/>
+        <location filename="../src/TeXDocument.cpp" line="964"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>No es pot llegir el fitxer &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1082"/>
+        <location filename="../src/TeXDocument.cpp" line="1084"/>
         <source>Layout Problem</source>
         <translation>Problema de compaginació</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1082"/>
+        <location filename="../src/TeXDocument.cpp" line="1084"/>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
  -) Turn syntax highlighting off and on
  -) Turn line numbers off and on
@@ -2077,12 +2082,12 @@ We are sorry for the inconvenience.</source>
 Disculpi els inconvenients.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1111"/>
+        <location filename="../src/TeXDocument.cpp" line="1113"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Fitxer &quot;%1&quot; carregat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1277"/>
+        <location filename="../src/TeXDocument.cpp" line="1279"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2091,85 +2096,87 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Si us plau, usi &quot;Fitxer &gt; Reverteix&quot; manualment quan el procés extern finalitzi.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1412"/>
+        <location filename="../src/TeXDocument.cpp" line="1414"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>No es pot escriure el fitxer &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1430"/>
+        <location filename="../src/TeXDocument.cpp" line="1432"/>
         <source>Error writing file</source>
         <translation>Error escrivint fitxer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1431"/>
+        <location filename="../src/TeXDocument.cpp" line="1433"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>Pot haver-se produit un error al desar el fitxer. Tal vegada vulgui desar una còpia en un altre lloc.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1440"/>
+        <location filename="../src/TeXDocument.cpp" line="1442"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>Fitxers &quot;%1&quot; desat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1476"/>
+        <location filename="../src/TeXDocument.cpp" line="1478"/>
         <source>untitled-%1.tex</source>
         <translation>sensetitol-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1493"/>
+        <location filename="../src/TeXDocument.cpp" line="1496"/>
+        <location filename="../src/TeXDocument.cpp" line="1550"/>
         <source>%1[*] - %2</source>
+        <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1588"/>
+        <location filename="../src/TeXDocument.cpp" line="1610"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Línia %1 de %2; col %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1598"/>
+        <location filename="../src/TeXDocument.cpp" line="1620"/>
         <source>LF</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1601"/>
+        <location filename="../src/TeXDocument.cpp" line="1623"/>
         <source>CRLF</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1604"/>
+        <location filename="../src/TeXDocument.cpp" line="1626"/>
         <source>CR</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1608"/>
+        <location filename="../src/TeXDocument.cpp" line="1630"/>
         <source>*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1616"/>
+        <location filename="../src/TeXDocument.cpp" line="1638"/>
         <source>LF (Unix, Mac OS X)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1617"/>
+        <location filename="../src/TeXDocument.cpp" line="1639"/>
         <source>CRLF (Windows)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1618"/>
+        <location filename="../src/TeXDocument.cpp" line="1640"/>
         <source>CR (Mac Classic)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1643"/>
+        <location filename="../src/TeXDocument.cpp" line="1665"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>Actualitza a la codificació seleccionada</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1645"/>
+        <location filename="../src/TeXDocument.cpp" line="1667"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2179,17 +2186,17 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 La codificació seleccionada substitueix la codificació per defecte i sobreescriu totes les línies &quot;%!TEX encoding&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1646"/>
+        <location filename="../src/TeXDocument.cpp" line="1668"/>
         <source>Write UTF-8 byte order mark</source>
         <translation>Escriu la marca d&apos;ordre del bytes UTF-8</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1668"/>
+        <location filename="../src/TeXDocument.cpp" line="1690"/>
         <source>Unsaved changes</source>
         <translation>Modificacions no desades</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1669"/>
+        <location filename="../src/TeXDocument.cpp" line="1691"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2198,37 +2205,37 @@ Do you want to discard your current changes, and reload the file from disk with 
 Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificació %1?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1807"/>
-        <location filename="../src/TeXDocument.cpp" line="1811"/>
+        <location filename="../src/TeXDocument.cpp" line="1829"/>
+        <location filename="../src/TeXDocument.cpp" line="1833"/>
         <source>Go to Line</source>
         <translation>Ves a línia</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1808"/>
-        <location filename="../src/TeXDocument.cpp" line="1812"/>
+        <location filename="../src/TeXDocument.cpp" line="1830"/>
+        <location filename="../src/TeXDocument.cpp" line="1834"/>
         <source>Line number:</source>
         <translation>Línia:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1959"/>
+        <location filename="../src/TeXDocument.cpp" line="1981"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
         <translation>No s&apos;ha especificat cap &apos;%!TEX bibfile&apos;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2231"/>
-        <location filename="../src/TeXDocument.cpp" line="2345"/>
+        <location filename="../src/TeXDocument.cpp" line="2253"/>
+        <location filename="../src/TeXDocument.cpp" line="2367"/>
         <source>Invalid regular expression</source>
         <translation>Expressió regular no vàlida</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2277"/>
-        <location filename="../src/TeXDocument.cpp" line="2314"/>
-        <location filename="../src/TeXDocument.cpp" line="2431"/>
+        <location filename="../src/TeXDocument.cpp" line="2299"/>
+        <location filename="../src/TeXDocument.cpp" line="2336"/>
+        <location filename="../src/TeXDocument.cpp" line="2453"/>
         <source>Not found</source>
         <translation>No trobat</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2281"/>
+        <location filename="../src/TeXDocument.cpp" line="2303"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>Trobada %n ocurrència</numerusform>
@@ -2237,7 +2244,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2450"/>
+        <location filename="../src/TeXDocument.cpp" line="2472"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n ocurrència</numerusform>
@@ -2246,7 +2253,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2451"/>
+        <location filename="../src/TeXDocument.cpp" line="2473"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n document</numerusform>
@@ -2255,12 +2262,12 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2452"/>
+        <location filename="../src/TeXDocument.cpp" line="2474"/>
         <source>Replaced %1 in %2</source>
         <translation>Substituit %1 a %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2464"/>
+        <location filename="../src/TeXDocument.cpp" line="2486"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>Substituïda %n occurència</numerusform>
@@ -2269,77 +2276,77 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2652"/>
+        <location filename="../src/TeXDocument.cpp" line="2674"/>
         <source>Cannot process unsaved document</source>
         <translation>No puc processar un document sense desar</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2663"/>
+        <location filename="../src/TeXDocument.cpp" line="2685"/>
         <source>Root document %1 is not readable</source>
         <translation>No puc llegir el document arrel %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2669"/>
+        <location filename="../src/TeXDocument.cpp" line="2691"/>
         <source>%1 is not properly configured</source>
         <translation>%1 no està configurat adequadament</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2715"/>
+        <location filename="../src/TeXDocument.cpp" line="2737"/>
         <source>Unable to execute %1</source>
         <translation>No puc executar %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2718"/>
+        <location filename="../src/TeXDocument.cpp" line="2740"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Necessita una &lt;b&gt;distribució TeX&lt;/b&gt; com &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; o &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; instal·lada en el seu sistema per compondre el document.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2720"/>
+        <location filename="../src/TeXDocument.cpp" line="2742"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Necessita una &lt;b&gt;distribució TeX&lt;/b&gt; com &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; instal·lada en el seu sistema per compondre el document.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2722"/>
+        <location filename="../src/TeXDocument.cpp" line="2744"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>Necessita una &lt;b&gt;distribució TeX&lt;/b&gt; com &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; instal·lada en el seu sistema per compondre el document.En la majoria de sistemes la distribució TeX està disponible en forma de paquest precompilat.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2724"/>
+        <location filename="../src/TeXDocument.cpp" line="2746"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>Quna s&apos;ha instal·lat una distribució TeX, pot ser calgui indicar a TeXworks on trobar-la a Edició -&gt; Preferències -&gt; Composició.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2729"/>
+        <location filename="../src/TeXDocument.cpp" line="2751"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>Comprovi la configuració de l&apos;eina %1 i dels camins en el diàleg de Preferències.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2759"/>
+        <location filename="../src/TeXDocument.cpp" line="2781"/>
         <source>Abort typesetting</source>
         <translation>Avorta compilació</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2916"/>
+        <location filename="../src/TeXDocument.cpp" line="2938"/>
         <source>Show Console Output</source>
         <translation>Mostra sortida de consola</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3003"/>
+        <location filename="../src/TeXDocument.cpp" line="3025"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Fixa el mecanisme de procés a &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3007"/>
+        <location filename="../src/TeXDocument.cpp" line="3029"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>No s&apos;ha definit el mecanisme de procés &quot;%1&quot; </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3117"/>
+        <location filename="../src/TeXDocument.cpp" line="3139"/>
         <source>No files found</source>
         <translation>No puc trobar fitxers</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3118"/>
+        <location filename="../src/TeXDocument.cpp" line="3140"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Actualment no hi ha fitxers auxiliars associats a aquest document.</translation>
     </message>
@@ -2370,7 +2377,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="619"/>
-        <location filename="../src/TeXDocument.cpp" line="2751"/>
+        <location filename="../src/TeXDocument.cpp" line="2773"/>
         <source>Typeset</source>
         <translation>Compon</translation>
     </message>
@@ -2711,7 +2718,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="864"/>
-        <location filename="../src/TeXDocument.cpp" line="2909"/>
+        <location filename="../src/TeXDocument.cpp" line="2931"/>
         <source>Hide Console Output</source>
         <translation>Amaga sortida de consola</translation>
     </message>
@@ -2876,12 +2883,12 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2716"/>
+        <location filename="../src/TeXDocument.cpp" line="2738"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>No s&apos;ha trobat el programa &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2727"/>
+        <location filename="../src/TeXDocument.cpp" line="2749"/>
         <source>Searched in directories:</source>
         <translation>Cercat en els directoris:</translation>
     </message>
@@ -2908,7 +2915,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2779"/>
+        <location filename="../src/TeXDocument.cpp" line="2801"/>
         <source>Process interrupted by user</source>
         <translation>Procés interromput per l&apos;usuari</translation>
     </message>
@@ -2937,22 +2944,22 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="861"/>
+        <location filename="../src/PrefsDialog.cpp" line="862"/>
         <source>Select program file</source>
         <translation>Selecció fitxer de programa</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="866"/>
+        <location filename="../src/PrefsDialog.cpp" line="867"/>
         <source>Invalid program</source>
         <translation>Programa no vàlid</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="867"/>
+        <location filename="../src/PrefsDialog.cpp" line="868"/>
         <source>The file &apos;%1&apos; is not executable!</source>
         <translation>El fitxer &apos;%1&apos; no és executable!</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="910"/>
+        <location filename="../src/PrefsDialog.cpp" line="911"/>
         <source>NewArgument</source>
         <translation>NouArgument</translation>
     </message>

@@ -210,128 +210,129 @@
         <translation type="unfinished">Ctrl+=</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="421"/>
+        <location filename="../src/PDFDocument.cpp" line="435"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Nepodařilo se otevřít soubor &quot;%1&quot;; zřejmě nejde o platný dokument PDF.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="434"/>
+        <location filename="../src/PDFDocument.cpp" line="448"/>
         <source>Error initializing SyncTeX</source>
         <translation>Chyba při inicializaci SyncTeXu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="436"/>
+        <location filename="../src/PDFDocument.cpp" line="450"/>
         <source>No SyncTeX data available</source>
         <translation>Data SyncTeX nejsou dostupná</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="438"/>
+        <location filename="../src/PDFDocument.cpp" line="452"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="655"/>
+        <location filename="../src/PDFDocument.cpp" line="368"/>
+        <location filename="../src/PDFDocument.cpp" line="669"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.pdf[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="684"/>
+        <location filename="../src/PDFDocument.cpp" line="698"/>
         <source>page %1 of %2</source>
         <translation>strana %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="689"/>
+        <location filename="../src/PDFDocument.cpp" line="703"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="792"/>
+        <location filename="../src/PDFDocument.cpp" line="806"/>
         <source>Abort typesetting</source>
         <translation>Zrušit sazbu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="842"/>
+        <location filename="../src/PDFDocument.cpp" line="856"/>
         <source>Jump to Source</source>
         <translation>Přeskočit do zdrojového dokumentu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="979"/>
+        <location filename="../src/PDFDocument.cpp" line="993"/>
         <source>Open URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="979"/>
+        <location filename="../src/PDFDocument.cpp" line="993"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1005"/>
+        <location filename="../src/PDFDocument.cpp" line="1019"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Bohužel, z řady technických důvodů tato verze programu %1 nepodporuje tisk dokumentů PDF.
 </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1006"/>
+        <location filename="../src/PDFDocument.cpp" line="1020"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Chcete soubor otevřít ve výchozím prohlížeči pro tisk?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1007"/>
+        <location filename="../src/PDFDocument.cpp" line="1021"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (Nezapomeňte jej následně zavřít, abyste předešli problémům s přístupem.)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1030"/>
+        <location filename="../src/PDFDocument.cpp" line="1044"/>
         <source>Custom...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1033"/>
+        <location filename="../src/PDFDocument.cpp" line="1047"/>
         <source>200%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1036"/>
+        <location filename="../src/PDFDocument.cpp" line="1050"/>
         <source>150%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1041"/>
+        <location filename="../src/PDFDocument.cpp" line="1055"/>
         <source>100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1045"/>
+        <location filename="../src/PDFDocument.cpp" line="1059"/>
         <source>75%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1048"/>
+        <location filename="../src/PDFDocument.cpp" line="1062"/>
         <source>50%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1090"/>
-        <location filename="../src/PDFDocument.cpp" line="1094"/>
+        <location filename="../src/PDFDocument.cpp" line="1104"/>
+        <location filename="../src/PDFDocument.cpp" line="1108"/>
         <source>Go to Page</source>
         <translation>Přejít na stranu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1091"/>
-        <location filename="../src/PDFDocument.cpp" line="1095"/>
+        <location filename="../src/PDFDocument.cpp" line="1105"/>
+        <location filename="../src/PDFDocument.cpp" line="1109"/>
         <source>Page number:</source>
         <translation>Číslo strany:</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1107"/>
+        <location filename="../src/PDFDocument.cpp" line="1121"/>
         <source>Set Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1107"/>
+        <location filename="../src/PDFDocument.cpp" line="1121"/>
         <source>Zoom level:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -445,7 +446,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="274"/>
-        <location filename="../src/PDFDocument.cpp" line="849"/>
+        <location filename="../src/PDFDocument.cpp" line="863"/>
         <source>Zoom In</source>
         <translation>Zvětšit</translation>
     </message>
@@ -457,7 +458,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="289"/>
-        <location filename="../src/PDFDocument.cpp" line="850"/>
+        <location filename="../src/PDFDocument.cpp" line="864"/>
         <source>Zoom Out</source>
         <translation>Zmenšit</translation>
     </message>
@@ -468,7 +469,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="307"/>
-        <location filename="../src/PDFDocument.cpp" line="853"/>
+        <location filename="../src/PDFDocument.cpp" line="867"/>
         <source>Fit to Window</source>
         <translation>Přizpůsobit oknu</translation>
     </message>
@@ -479,7 +480,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="322"/>
-        <location filename="../src/PDFDocument.cpp" line="851"/>
+        <location filename="../src/PDFDocument.cpp" line="865"/>
         <source>Actual Size</source>
         <translation>Skutečná velikost</translation>
     </message>
@@ -490,7 +491,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="340"/>
-        <location filename="../src/PDFDocument.cpp" line="852"/>
+        <location filename="../src/PDFDocument.cpp" line="866"/>
         <source>Fit to Width</source>
         <translation>Přizpůsobit šířce okna</translation>
     </message>
@@ -591,7 +592,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="500"/>
-        <location filename="../src/PDFDocument.cpp" line="799"/>
+        <location filename="../src/PDFDocument.cpp" line="813"/>
         <source>Typeset</source>
         <translation>Vysázet</translation>
     </message>
@@ -743,7 +744,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="732"/>
-        <location filename="../src/PDFDocument.cpp" line="1010"/>
+        <location filename="../src/PDFDocument.cpp" line="1024"/>
         <source>Print Pdf...</source>
         <translation>Tisk PDF...</translation>
     </message>
@@ -1720,48 +1721,48 @@ Use the context menu to change the units.</source>
         <translation>Nelze přejít k &quot;%1&quot;; váš prohlížeč nebo mailový klient možná není správně nastavený?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="601"/>
+        <location filename="../src/TWApp.cpp" line="605"/>
         <source>Unable to create window</source>
         <translation>Nelze vytvořit okno</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="602"/>
+        <location filename="../src/TWApp.cpp" line="606"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Něco je velmi špatně; %1 nemohl vytvořit okno dokumentu. Aplikace se nyní ukončí.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="654"/>
-        <location filename="../src/TWApp.cpp" line="669"/>
+        <location filename="../src/TWApp.cpp" line="658"/>
+        <location filename="../src/TWApp.cpp" line="673"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="683"/>
+        <location filename="../src/TWApp.cpp" line="687"/>
         <source>Save File</source>
         <translation>Uložit soubor</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="848"/>
+        <location filename="../src/TWApp.cpp" line="852"/>
         <source>No default binary directory found</source>
         <translation>Nenalezen žádný výchozí adresář binárních souborů</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="849"/>
+        <location filename="../src/TWApp.cpp" line="853"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Žádný z předdefinovaných adresářů TeXových programů nebyl nalezen.&lt;p&gt;&lt;small&gt;Pro spouštění těchto programů budete muset v dialogu Nastavení, záložka Sazba nastavit adresář (či adresáře) obsahující binární soubory vaší TeXové distribuce.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1150"/>
+        <location filename="../src/TWApp.cpp" line="1154"/>
         <source>Unable to find help file.</source>
         <translation>Nelze nalézt soubor nápovědy.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1339"/>
+        <location filename="../src/TWApp.cpp" line="1343"/>
         <source>Permission request</source>
         <translation>Žádost o oprávnění</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1340"/>
+        <location filename="../src/TWApp.cpp" line="1344"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Skript &quot;%1&quot; se pokouší otevřít soubor &quot;%2&quot; bez příslušného oprávnění. Chcete soubor otevřít?</translation>
     </message>
@@ -2117,58 +2118,59 @@ Použijte prosím &quot;Soubor &gt; Návrat k uložené verzi&quot;, jakmile ext
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1496"/>
+        <location filename="../src/TeXDocument.cpp" line="1550"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1596"/>
+        <location filename="../src/TeXDocument.cpp" line="1610"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Řádek %1 z %2; sl. %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1606"/>
+        <location filename="../src/TeXDocument.cpp" line="1620"/>
         <source>LF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1609"/>
+        <location filename="../src/TeXDocument.cpp" line="1623"/>
         <source>CRLF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1612"/>
+        <location filename="../src/TeXDocument.cpp" line="1626"/>
         <source>CR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1616"/>
+        <location filename="../src/TeXDocument.cpp" line="1630"/>
         <source>*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1624"/>
+        <location filename="../src/TeXDocument.cpp" line="1638"/>
         <source>LF (Unix, Mac OS X)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1625"/>
+        <location filename="../src/TeXDocument.cpp" line="1639"/>
         <source>CRLF (Windows)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1626"/>
+        <location filename="../src/TeXDocument.cpp" line="1640"/>
         <source>CR (Mac Classic)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1651"/>
+        <location filename="../src/TeXDocument.cpp" line="1665"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>Obnovit za použití zvoleného kódování</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1653"/>
+        <location filename="../src/TeXDocument.cpp" line="1667"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2178,17 +2180,17 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 Zvolené kódování nahradí to výchozí a rovněž všechny řádky s &quot;%!TEX encoding&quot; budou ignorovány.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1654"/>
+        <location filename="../src/TeXDocument.cpp" line="1668"/>
         <source>Write UTF-8 byte order mark</source>
         <translation>Zapsat UTF-8 byte order mark</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1676"/>
+        <location filename="../src/TeXDocument.cpp" line="1690"/>
         <source>Unsaved changes</source>
         <translation>Neuložené změny</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1677"/>
+        <location filename="../src/TeXDocument.cpp" line="1691"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2197,37 +2199,37 @@ Do you want to discard your current changes, and reload the file from disk with 
 Chcete stávající změny zahodit a obnovit soubor z disku za použití kódování %1?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1815"/>
-        <location filename="../src/TeXDocument.cpp" line="1819"/>
+        <location filename="../src/TeXDocument.cpp" line="1829"/>
+        <location filename="../src/TeXDocument.cpp" line="1833"/>
         <source>Go to Line</source>
         <translation>Přejít na řádek</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1816"/>
-        <location filename="../src/TeXDocument.cpp" line="1820"/>
+        <location filename="../src/TeXDocument.cpp" line="1830"/>
+        <location filename="../src/TeXDocument.cpp" line="1834"/>
         <source>Line number:</source>
         <translation>Číslo řádku:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1967"/>
+        <location filename="../src/TeXDocument.cpp" line="1981"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2239"/>
-        <location filename="../src/TeXDocument.cpp" line="2353"/>
+        <location filename="../src/TeXDocument.cpp" line="2253"/>
+        <location filename="../src/TeXDocument.cpp" line="2367"/>
         <source>Invalid regular expression</source>
         <translation>Neplatný regulární výraz</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2285"/>
-        <location filename="../src/TeXDocument.cpp" line="2322"/>
-        <location filename="../src/TeXDocument.cpp" line="2439"/>
+        <location filename="../src/TeXDocument.cpp" line="2299"/>
+        <location filename="../src/TeXDocument.cpp" line="2336"/>
+        <location filename="../src/TeXDocument.cpp" line="2453"/>
         <source>Not found</source>
         <translation>Nenalezeno</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2289"/>
+        <location filename="../src/TeXDocument.cpp" line="2303"/>
         <source>Found %n occurrence(s)</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -2237,7 +2239,7 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2458"/>
+        <location filename="../src/TeXDocument.cpp" line="2472"/>
         <source>%n occurrence(s)</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -2247,7 +2249,7 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2459"/>
+        <location filename="../src/TeXDocument.cpp" line="2473"/>
         <source>%n documents</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -2257,12 +2259,12 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2460"/>
+        <location filename="../src/TeXDocument.cpp" line="2474"/>
         <source>Replaced %1 in %2</source>
         <translation>Nahrazeno %1 v %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2472"/>
+        <location filename="../src/TeXDocument.cpp" line="2486"/>
         <source>Replaced %n occurrence(s)</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -2272,92 +2274,92 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2660"/>
+        <location filename="../src/TeXDocument.cpp" line="2674"/>
         <source>Cannot process unsaved document</source>
         <translation>Nelze zpracovat neuložený dokument</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2671"/>
+        <location filename="../src/TeXDocument.cpp" line="2685"/>
         <source>Root document %1 is not readable</source>
         <translation>Kořenový dokument %1 nelze otevřít</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2677"/>
+        <location filename="../src/TeXDocument.cpp" line="2691"/>
         <source>%1 is not properly configured</source>
         <translation>%1 není správně nakonfigurováno</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2723"/>
+        <location filename="../src/TeXDocument.cpp" line="2737"/>
         <source>Unable to execute %1</source>
         <translation>Nelze spustit %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2724"/>
+        <location filename="../src/TeXDocument.cpp" line="2738"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Program &quot;%1&quot; nebyl nalezen.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2726"/>
+        <location filename="../src/TeXDocument.cpp" line="2740"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Pro vysázení vašeho dokumentu potřebujete mít nainstalovánu distribuci TeXu, jako např. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; nebo &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2728"/>
+        <location filename="../src/TeXDocument.cpp" line="2742"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Pro vysázení vašeho dokumentu potřebujete mít nainstalovánu distribuci TeXu, jako např. &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2730"/>
+        <location filename="../src/TeXDocument.cpp" line="2744"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>Pro vysázení vašeho dokumentu potřebujete mít nainstalovánu distribuci TeXu, jako např. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;. TeXové distribuce jsou dostupné pro většinu systémů ve formě předkompilovaných balíčků.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2732"/>
+        <location filename="../src/TeXDocument.cpp" line="2746"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>Jakmile je distribuce TeXu nainstalována, je možné, že bude třeba nastavit cestu k ní v Úpravy -&gt; Nastavení... -&gt; Sazba.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2735"/>
+        <location filename="../src/TeXDocument.cpp" line="2749"/>
         <source>Searched in directories:</source>
         <translation>Hledáno v adresářích:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2737"/>
+        <location filename="../src/TeXDocument.cpp" line="2751"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>Zkontrolujte nastavení nástroje %1 a cesty v dialogu Nastavení.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2924"/>
+        <location filename="../src/TeXDocument.cpp" line="2938"/>
         <source>Show Console Output</source>
         <translation>Zobrazit výstup na konzoli</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2767"/>
+        <location filename="../src/TeXDocument.cpp" line="2781"/>
         <source>Abort typesetting</source>
         <translation>Zrušit sazbu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2787"/>
+        <location filename="../src/TeXDocument.cpp" line="2801"/>
         <source>Process interrupted by user</source>
         <translation>Proces přerušen uživatelem</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3011"/>
+        <location filename="../src/TeXDocument.cpp" line="3025"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Nastavit překladač na &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3015"/>
+        <location filename="../src/TeXDocument.cpp" line="3029"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>Překladač &quot;%1&quot; není definován</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3125"/>
+        <location filename="../src/TeXDocument.cpp" line="3139"/>
         <source>No files found</source>
         <translation>Žádný soubor nenalezen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3126"/>
+        <location filename="../src/TeXDocument.cpp" line="3140"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Momentálně nejsou k tomuto dokumentu přidruženy žádné pomocné soubory.</translation>
     </message>
@@ -2569,7 +2571,7 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="619"/>
-        <location filename="../src/TeXDocument.cpp" line="2759"/>
+        <location filename="../src/TeXDocument.cpp" line="2773"/>
         <source>Typeset</source>
         <translation>Vysázet</translation>
     </message>
@@ -2741,7 +2743,7 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="864"/>
-        <location filename="../src/TeXDocument.cpp" line="2917"/>
+        <location filename="../src/TeXDocument.cpp" line="2931"/>
         <source>Hide Console Output</source>
         <translation>Skrýt výstup na konzoli</translation>
     </message>

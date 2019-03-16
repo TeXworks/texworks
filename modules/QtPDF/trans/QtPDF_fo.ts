@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fo_FO">
+<TS version="2.0" language="fo_FO">
 <context>
     <name>PaperSize</name>
     <message>

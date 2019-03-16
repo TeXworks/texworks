@@ -210,122 +210,123 @@
         <translation>Ctrl+=</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="434"/>
+        <location filename="../src/PDFDocument.cpp" line="448"/>
         <source>Error initializing SyncTeX</source>
         <translation>Erreur d&apos;initialisation de SyncTeX</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="436"/>
+        <location filename="../src/PDFDocument.cpp" line="450"/>
         <source>No SyncTeX data available</source>
         <translation>Pas de donnée SyncTeX disponible</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="438"/>
+        <location filename="../src/PDFDocument.cpp" line="452"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="655"/>
+        <location filename="../src/PDFDocument.cpp" line="368"/>
+        <location filename="../src/PDFDocument.cpp" line="669"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.pdf[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="684"/>
+        <location filename="../src/PDFDocument.cpp" line="698"/>
         <source>page %1 of %2</source>
         <translation>page %1 de %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="689"/>
+        <location filename="../src/PDFDocument.cpp" line="703"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="792"/>
+        <location filename="../src/PDFDocument.cpp" line="806"/>
         <source>Abort typesetting</source>
         <translation>Arrêter la composition</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="842"/>
+        <location filename="../src/PDFDocument.cpp" line="856"/>
         <source>Jump to Source</source>
         <translation>Aller à la source</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="979"/>
+        <location filename="../src/PDFDocument.cpp" line="993"/>
         <source>Open URL</source>
         <translation>Ouvrir un URL</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="979"/>
+        <location filename="../src/PDFDocument.cpp" line="993"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
         <translation>Vous êtes dans le processus d&apos;ouvrir l&apos;URL %1. Ouvrir des adresses web non connues ou non fiables peut comporter un risque de sécurité. Voulez-vous continuer ?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1005"/>
+        <location filename="../src/PDFDocument.cpp" line="1019"/>
         <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
 </source>
         <translation>Malheureusement, cette version de %1 est incapable d&apos;imprimer les documents Pdf pour diverses raisons techniques.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1006"/>
+        <location filename="../src/PDFDocument.cpp" line="1020"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Voulez-vous plutôt ouvrir le fichier dans le visionneur par défaut pour imprimer ?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1007"/>
+        <location filename="../src/PDFDocument.cpp" line="1021"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation>(rappelez-vous de le refermer pour éviter les problèmes d&apos;accès)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1030"/>
+        <location filename="../src/PDFDocument.cpp" line="1044"/>
         <source>Custom...</source>
         <translation>Approprié...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1033"/>
+        <location filename="../src/PDFDocument.cpp" line="1047"/>
         <source>200%</source>
         <translation>200%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1036"/>
+        <location filename="../src/PDFDocument.cpp" line="1050"/>
         <source>150%</source>
         <translation>150%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1041"/>
+        <location filename="../src/PDFDocument.cpp" line="1055"/>
         <source>100%</source>
         <translation>100%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1045"/>
+        <location filename="../src/PDFDocument.cpp" line="1059"/>
         <source>75%</source>
         <translation>75%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1048"/>
+        <location filename="../src/PDFDocument.cpp" line="1062"/>
         <source>50%</source>
         <translation>50%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1090"/>
-        <location filename="../src/PDFDocument.cpp" line="1094"/>
+        <location filename="../src/PDFDocument.cpp" line="1104"/>
+        <location filename="../src/PDFDocument.cpp" line="1108"/>
         <source>Go to Page</source>
         <translation>Aller à la page</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1091"/>
-        <location filename="../src/PDFDocument.cpp" line="1095"/>
+        <location filename="../src/PDFDocument.cpp" line="1105"/>
+        <location filename="../src/PDFDocument.cpp" line="1109"/>
         <source>Page number:</source>
         <translation>Page numéro :</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1107"/>
+        <location filename="../src/PDFDocument.cpp" line="1121"/>
         <source>Set Zoom</source>
         <translation>Définir le Zoom</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1107"/>
+        <location filename="../src/PDFDocument.cpp" line="1121"/>
         <source>Zoom level:</source>
         <translation>Niveau de Zoom :</translation>
     </message>
@@ -361,7 +362,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="500"/>
-        <location filename="../src/PDFDocument.cpp" line="799"/>
+        <location filename="../src/PDFDocument.cpp" line="813"/>
         <source>Typeset</source>
         <translation>Composition</translation>
     </message>
@@ -413,7 +414,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="274"/>
-        <location filename="../src/PDFDocument.cpp" line="849"/>
+        <location filename="../src/PDFDocument.cpp" line="863"/>
         <source>Zoom In</source>
         <translation>Zoom +</translation>
     </message>
@@ -441,7 +442,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="289"/>
-        <location filename="../src/PDFDocument.cpp" line="850"/>
+        <location filename="../src/PDFDocument.cpp" line="864"/>
         <source>Zoom Out</source>
         <translation>Zoom -</translation>
     </message>
@@ -452,7 +453,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="307"/>
-        <location filename="../src/PDFDocument.cpp" line="853"/>
+        <location filename="../src/PDFDocument.cpp" line="867"/>
         <source>Fit to Window</source>
         <translation>Ajuster à la fenêtre</translation>
     </message>
@@ -463,7 +464,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="322"/>
-        <location filename="../src/PDFDocument.cpp" line="851"/>
+        <location filename="../src/PDFDocument.cpp" line="865"/>
         <source>Actual Size</source>
         <translation>Taille réelle</translation>
     </message>
@@ -474,7 +475,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="340"/>
-        <location filename="../src/PDFDocument.cpp" line="852"/>
+        <location filename="../src/PDFDocument.cpp" line="866"/>
         <source>Fit to Width</source>
         <translation>Ajuster à la largeur</translation>
     </message>
@@ -595,7 +596,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="732"/>
-        <location filename="../src/PDFDocument.cpp" line="1010"/>
+        <location filename="../src/PDFDocument.cpp" line="1024"/>
         <source>Print Pdf...</source>
         <translation>Imprimer le Pdf...</translation>
     </message>
@@ -741,7 +742,7 @@ Do you want to continue?</source>
         <translation>Mettre à droite</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="421"/>
+        <location filename="../src/PDFDocument.cpp" line="435"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Échec du chargement du fichier &quot;%1&quot; ; il se peut que ce ne soit pas un fichier PDF valide.</translation>
     </message>
@@ -1645,17 +1646,17 @@ Utilisez le menu contextuel pour changer les unités.</translation>
         <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt;vérificateur d&apos;orthographe par L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1150"/>
+        <location filename="../src/TWApp.cpp" line="1154"/>
         <source>Unable to find help file.</source>
         <translation>Impossible de trouver le fichier d&apos;aide.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1339"/>
+        <location filename="../src/TWApp.cpp" line="1343"/>
         <source>Permission request</source>
         <translation>Demande de permission</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1340"/>
+        <location filename="../src/TWApp.cpp" line="1344"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Le script &quot;%1&quot; essaie d&apos;ouvrir le fichier &quot;%2&quot; avec trop peu de permissions. Voulez-vous ouvrir le fichier ?</translation>
     </message>
@@ -1682,33 +1683,33 @@ Utilisez le menu contextuel pour changer les unités.</translation>
         <translation>Impossible d&apos;atteindre &quot;%1&quot; ; votre système de navigation ou de courriel n&apos;est pas configuré convenablement ?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="601"/>
+        <location filename="../src/TWApp.cpp" line="605"/>
         <source>Unable to create window</source>
         <translation>Impossible de créer la fenêtre</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="602"/>
+        <location filename="../src/TWApp.cpp" line="606"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Quelque chose est vraiment incorrect ; %1 n&apos;a pas été capable de créer une fenêtre document. L&apos;application va se fermer.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="654"/>
-        <location filename="../src/TWApp.cpp" line="669"/>
+        <location filename="../src/TWApp.cpp" line="658"/>
+        <location filename="../src/TWApp.cpp" line="673"/>
         <source>Open File</source>
         <translation>Ouvrir un fichier</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="683"/>
+        <location filename="../src/TWApp.cpp" line="687"/>
         <source>Save File</source>
         <translation>Sauvegarder le fichier</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="848"/>
+        <location filename="../src/TWApp.cpp" line="852"/>
         <source>No default binary directory found</source>
         <translation>Aucun dossier de binaires par défaut n&apos;a été trouvé</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="849"/>
+        <location filename="../src/TWApp.cpp" line="853"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Aucun des dossiers prédéfinis pour les programmes relatifs à TeX n&apos;a pu être trouvé.&lt;p&gt;&lt;small&gt;Pour toute exécution, vous devrez définir le(s) dossier(s) de binaires de votre distribution TeX en utilisant l&apos;onglet Composition du dialogue des Préférences.&lt;/small&gt;</translation>
     </message>
@@ -2013,62 +2014,63 @@ Si vous continuez, ils seront remplacés par des codes par défaut. Comme autre 
     </message>
     <message>
         <location filename="../src/TeXDocument.cpp" line="1496"/>
+        <location filename="../src/TeXDocument.cpp" line="1550"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1596"/>
+        <location filename="../src/TeXDocument.cpp" line="1610"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Ligne %1 de %2 ; col %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1815"/>
-        <location filename="../src/TeXDocument.cpp" line="1819"/>
+        <location filename="../src/TeXDocument.cpp" line="1829"/>
+        <location filename="../src/TeXDocument.cpp" line="1833"/>
         <source>Go to Line</source>
         <translation>Aller à la Ligne</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1816"/>
-        <location filename="../src/TeXDocument.cpp" line="1820"/>
+        <location filename="../src/TeXDocument.cpp" line="1830"/>
+        <location filename="../src/TeXDocument.cpp" line="1834"/>
         <source>Line number:</source>
         <translation>Ligne numéro :</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2239"/>
-        <location filename="../src/TeXDocument.cpp" line="2353"/>
+        <location filename="../src/TeXDocument.cpp" line="2253"/>
+        <location filename="../src/TeXDocument.cpp" line="2367"/>
         <source>Invalid regular expression</source>
         <translation>Expression régulière incorrecte</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2285"/>
-        <location filename="../src/TeXDocument.cpp" line="2322"/>
-        <location filename="../src/TeXDocument.cpp" line="2439"/>
+        <location filename="../src/TeXDocument.cpp" line="2299"/>
+        <location filename="../src/TeXDocument.cpp" line="2336"/>
+        <location filename="../src/TeXDocument.cpp" line="2453"/>
         <source>Not found</source>
         <translation>Non trouvé</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2660"/>
+        <location filename="../src/TeXDocument.cpp" line="2674"/>
         <source>Cannot process unsaved document</source>
         <translation>Impossible de traiter un document non sauvegardé</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2677"/>
+        <location filename="../src/TeXDocument.cpp" line="2691"/>
         <source>%1 is not properly configured</source>
         <translation>%1 n&apos;est pas configuré correctement</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2723"/>
+        <location filename="../src/TeXDocument.cpp" line="2737"/>
         <source>Unable to execute %1</source>
         <translation>Impossible d&apos;exécuter %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3011"/>
+        <location filename="../src/TeXDocument.cpp" line="3025"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Définir le moteur à &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3015"/>
+        <location filename="../src/TeXDocument.cpp" line="3029"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>Le moteur &quot;%1&quot; n&apos;est pas défini</translation>
     </message>
@@ -2099,7 +2101,7 @@ Si vous continuez, ils seront remplacés par des codes par défaut. Comme autre 
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="619"/>
-        <location filename="../src/TeXDocument.cpp" line="2759"/>
+        <location filename="../src/TeXDocument.cpp" line="2773"/>
         <source>Typeset</source>
         <translation>Composition</translation>
     </message>
@@ -2441,7 +2443,7 @@ Si vous continuez, ils seront remplacés par des codes par défaut. Comme autre 
     </message>
     <message>
         <location filename="../src/TeXDocument.ui" line="864"/>
-        <location filename="../src/TeXDocument.cpp" line="2917"/>
+        <location filename="../src/TeXDocument.cpp" line="2931"/>
         <source>Hide Console Output</source>
         <translation>Masquer la console de sortie</translation>
     </message>
@@ -2682,48 +2684,48 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
         <translation>Fichier &quot;%1&quot; sauvegardé</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1606"/>
+        <location filename="../src/TeXDocument.cpp" line="1620"/>
         <source>LF</source>
         <translation>LF (à la ligne)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1609"/>
+        <location filename="../src/TeXDocument.cpp" line="1623"/>
         <source>CRLF</source>
         <translation>CRLF (retour chariot + à la ligne)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1612"/>
+        <location filename="../src/TeXDocument.cpp" line="1626"/>
         <source>CR</source>
         <translation>CR (retour chariot)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1616"/>
+        <location filename="../src/TeXDocument.cpp" line="1630"/>
         <source>*</source>
         <translation>*</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1624"/>
+        <location filename="../src/TeXDocument.cpp" line="1638"/>
         <source>LF (Unix, Mac OS X)</source>
         <translation>LF (à laligne : Unix, MacOS X)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1625"/>
+        <location filename="../src/TeXDocument.cpp" line="1639"/>
         <source>CRLF (Windows)</source>
         <translation>CRLF (retour chariot + à la ligne : Windows)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1626"/>
+        <location filename="../src/TeXDocument.cpp" line="1640"/>
         <source>CR (Mac Classic)</source>
         <translation>CR (retour chariot : mac Classic)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1651"/>
+        <location filename="../src/TeXDocument.cpp" line="1665"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>Recharger en utilisant l&apos;encodage sélectionné</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1653"/>
+        <location filename="../src/TeXDocument.cpp" line="1667"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2733,17 +2735,17 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 L&apos;encodage sélectionné remplace celui par défaut et outrepasse toutes les lignes &quot;%!TeX encoding&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1654"/>
+        <location filename="../src/TeXDocument.cpp" line="1668"/>
         <source>Write UTF-8 byte order mark</source>
         <translation>Écrire le code d&apos;ordre de l&apos;octet UTF-8</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1676"/>
+        <location filename="../src/TeXDocument.cpp" line="1690"/>
         <source>Unsaved changes</source>
         <translation>Changements non sauvegardés</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1677"/>
+        <location filename="../src/TeXDocument.cpp" line="1691"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2752,12 +2754,12 @@ Do you want to discard your current changes, and reload the file from disk with 
 Voulez-vous abandonner vos changements actuels et recharger le fichier à partir du disque avec l&apos;encodage %1 ?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1967"/>
+        <location filename="../src/TeXDocument.cpp" line="1981"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
         <translation>Pas de ligne commentaire système &apos;%!TEX bibfile&apos; trouvée</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2289"/>
+        <location filename="../src/TeXDocument.cpp" line="2303"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>%n occurence trouvée</numerusform>
@@ -2765,7 +2767,7 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2458"/>
+        <location filename="../src/TeXDocument.cpp" line="2472"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n occurence</numerusform>
@@ -2773,7 +2775,7 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2459"/>
+        <location filename="../src/TeXDocument.cpp" line="2473"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n document</numerusform>
@@ -2781,12 +2783,12 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2460"/>
+        <location filename="../src/TeXDocument.cpp" line="2474"/>
         <source>Replaced %1 in %2</source>
         <translation>%1 remplacé dans %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2472"/>
+        <location filename="../src/TeXDocument.cpp" line="2486"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>%n occurence remplacée</numerusform>
@@ -2794,57 +2796,57 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2671"/>
+        <location filename="../src/TeXDocument.cpp" line="2685"/>
         <source>Root document %1 is not readable</source>
         <translation>Le fichier racine %1 n&apos;est pas lisible</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2726"/>
+        <location filename="../src/TeXDocument.cpp" line="2740"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Vous avez besoin d&apos;une &lt;b&gt;distribution TeX&lt;/b&gt; comme &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; ou &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installée sur votre système pour composer votre document.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2728"/>
+        <location filename="../src/TeXDocument.cpp" line="2742"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Vous avez besoin d&apos;une &lt;b&gt;distribution TeX&lt;/b&gt; comme &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installée sur votre système pour composer votre document.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2730"/>
+        <location filename="../src/TeXDocument.cpp" line="2744"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>Vous avez besoin d&apos;une &lt;b&gt;distribution TeX&lt;/b&gt; comme &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installée sur votre système pour composer votre document. Sur la plupart des systèmes une distribution TeX de ce type est disponible sous forme de paquets préassemblé.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2732"/>
+        <location filename="../src/TeXDocument.cpp" line="2746"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>Lorsqu&apos;une distribution TeX est installée, vous pouvez être amenés à indiquer à TeXworks où la trouver dans Édition -&gt; Préférences -&gt; Composition.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2737"/>
+        <location filename="../src/TeXDocument.cpp" line="2751"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>Vérifiez la configuration de l&apos;outil %1 et les paramètres du chemin dans le dialogue Préférences.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2767"/>
+        <location filename="../src/TeXDocument.cpp" line="2781"/>
         <source>Abort typesetting</source>
         <translation>Arrêter la composition</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2787"/>
+        <location filename="../src/TeXDocument.cpp" line="2801"/>
         <source>Process interrupted by user</source>
         <translation>Processus arrêté par l&apos;utilisateur</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2924"/>
+        <location filename="../src/TeXDocument.cpp" line="2938"/>
         <source>Show Console Output</source>
         <translation>Montrer la Console de Sortie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3125"/>
+        <location filename="../src/TeXDocument.cpp" line="3139"/>
         <source>No files found</source>
         <translation>Aucun fichier trouvé</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3126"/>
+        <location filename="../src/TeXDocument.cpp" line="3140"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Aucun fichier auxiliaire associé à ce document pour le moment.</translation>
     </message>
@@ -2890,12 +2892,12 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
         <translation>Inverser la casse</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2724"/>
+        <location filename="../src/TeXDocument.cpp" line="2738"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Le programme &quot;%1&quot; n&apos;a pas été trouvé.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2735"/>
+        <location filename="../src/TeXDocument.cpp" line="2749"/>
         <source>Searched in directories:</source>
         <translation>Recherché dans les répertoires :</translation>
     </message>
