@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="af_ZA">
+<TS version="2.1" language="af_ZA">
 <context>
     <name>PaperSize</name>
     <message>
@@ -754,7 +754,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2021"/>
         <source>The password you entered was incorrect.</source>
-        <translation>Die wagwoord wat jy ingevoer het was verkeerd</translation>
+        <translation>Die wagwoord wat jy ingevoer het was verkeerd.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2027"/>
@@ -817,31 +817,31 @@
         <location filename="../src/PDFDocumentView.cpp" line="3039"/>
         <source>B</source>
         <extracomment>File size: bytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>B</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3041"/>
         <source>kB</source>
         <extracomment>File size: kilobytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>kB</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3043"/>
         <source>MB</source>
         <extracomment>File size: megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>MB</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3045"/>
         <source>GB</source>
         <extracomment>File size: gigabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>GB</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3047"/>
         <source>TB</source>
         <extracomment>File size: terabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>TB</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3077"/>
@@ -887,12 +887,12 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3141"/>
         <source>Page size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bladsygrootte:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3142"/>
         <source>File size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lêergrootte:</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3145"/>
