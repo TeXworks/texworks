@@ -230,9 +230,6 @@ use_cxx11()
 # Dependency Configuration
 # ========================
 
-set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
-MARK_AS_ADVANCED(DESIRED_QT_VERSION)
-
 include(FindPackageMessage)
 MACRO(find_qt5_package pkg)
   find_package(${pkg} QUIET)
@@ -250,114 +247,83 @@ MACRO(find_qt5_package pkg)
   endif()
 ENDMACRO()
 
-# Check for Qt5 by default
-IF (NOT DESIRED_QT_VERSION OR DESIRED_QT_VERSION MATCHES 5)
-  find_qt5_package(Qt5Widgets QUIET)
-  find_qt5_package(Qt5Gui QUIET)
-  find_qt5_package(Qt5UiTools QUIET)
-  find_qt5_package(Qt5Concurrent QUIET)
-  find_qt5_package(Qt5Script QUIET)
-  find_qt5_package(Qt5ScriptTools QUIET)
-  find_qt5_package(Qt5Xml QUIET)
-  find_qt5_package(Qt5LinguistTools QUIET)
-  IF ( UNIX AND NOT APPLE )
-    find_qt5_package(Qt5DBus QUIET)
-  ENDIF ()
-  IF ( WITH_TESTS )
-    find_qt5_package(Qt5Test QUIET)
-  ENDIF ( WITH_TESTS )
+# Check for Qt5
+find_qt5_package(Qt5Widgets QUIET)
+find_qt5_package(Qt5Gui QUIET)
+find_qt5_package(Qt5UiTools QUIET)
+find_qt5_package(Qt5Concurrent QUIET)
+find_qt5_package(Qt5Script QUIET)
+find_qt5_package(Qt5ScriptTools QUIET)
+find_qt5_package(Qt5Xml QUIET)
+find_qt5_package(Qt5LinguistTools QUIET)
+IF ( UNIX AND NOT APPLE )
+  find_qt5_package(Qt5DBus QUIET)
+ENDIF ()
+IF ( WITH_TESTS )
+  find_qt5_package(Qt5Test QUIET)
+ENDIF ( WITH_TESTS )
 
-  IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT UNIX OR APPLE OR Qt5DBus_FOUND) AND (NOT WITH_TESTS OR Qt5Test_FOUND))
-    SET(QT5_FOUND TRUE)
-    SET(QT_LIBRARIES Qt5::UiTools Qt5::ScriptTools Qt5::Script Qt5::Concurrent Qt5::Xml ${Qt5DBus_LIBRARIES} Qt5::Widgets Qt5::Gui Qt5::Core ${Qt5Test_LIBRARIES})
+IF(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5UiTools_FOUND AND Qt5Concurrent_FOUND AND Qt5Script_FOUND AND Qt5ScriptTools_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT UNIX OR APPLE OR Qt5DBus_FOUND) AND (NOT WITH_TESTS OR Qt5Test_FOUND))
+  SET(QT5_FOUND TRUE)
+  SET(QT_LIBRARIES Qt5::UiTools Qt5::ScriptTools Qt5::Script Qt5::Concurrent Qt5::Xml ${Qt5DBus_LIBRARIES} Qt5::Widgets Qt5::Gui Qt5::Core ${Qt5Test_LIBRARIES})
 
-    # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
-    # etc. which is used here.
-    string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
-    string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
-    string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
-  ELSE()
-    SET(QT5_FOUND FALSE)
-  ENDIF()
-
-  IF( QT5_FOUND AND WIN32 AND NOT BUILD_SHARED_LIBS )
-    # For static Windows builds, we also need to pull in the Qt5 Platform
-    # support library, which is not exposed to CMake properly, unfortunately
-    GET_TARGET_PROPERTY(QT_LIB_DIR "${Qt5Widgets_LIBRARIES}" LOCATION)
-    GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
-
-    FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
-      HINTS "${QT_LIB_DIR}/../plugins/platforms"
-    )
-
-    # Starting with Qt 5.8, Qt5PlatformSupport was modularized
-    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR LESS 8)
-      FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      LIST(INSERT QT_LIBRARIES 0 ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES})
-    else()
-      FIND_LIBRARY(Qt5FontDatabaseSupport_LIBRARIES Qt5FontDatabaseSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      FIND_LIBRARY(Qt5EventDispatcherSupport_LIBRARIES Qt5EventDispatcherSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      FIND_LIBRARY(Qt5ThemeSupport_LIBRARIES Qt5ThemeSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5FontDatabaseSupport_LIBRARIES} ${Qt5EventDispatcherSupport_LIBRARIES} ${Qt5ThemeSupport_LIBRARIES})
-    endif()
-    # Starting with Qt 5.11, WindowsUIAutomation was added
-    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 10)
-      FIND_LIBRARY(Qt5WindowsUIAutomation_LIBRARIES Qt5WindowsUIAutomationSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      LIST(APPEND QT_LIBRARIES ${Qt5WindowsUIAutomation_LIBRARIES})
-    endif()
-    # Starting with Qt 5.10, AccessibilitySupport was modularized
-    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 9)
-      FIND_LIBRARY(Qt5AccessibilitySupport_LIBRARIES Qt5AccessibilitySupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      LIST(APPEND QT_LIBRARIES ${Qt5AccessibilitySupport_LIBRARIES})
-    endif()
-    ADD_DEFINITIONS(-DSTATIC_QT5)
-  ENDIF()
-
+  # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
+  # etc. which is used here.
+  string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
+  string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
+  string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
+ELSE()
+  SET(QT5_FOUND FALSE)
 ENDIF()
-# If Qt5 is not found (or not desired), check for Qt4
-IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
-  # Declare Qt libraries required by this project.
-  SET (QT_COMPONENTS
-      QtCore
-      QtGui
-      QtUiTools
-      QtScript
-      QtScriptTools
-      QtXml
+
+IF( QT5_FOUND AND WIN32 AND NOT BUILD_SHARED_LIBS )
+  # For static Windows builds, we also need to pull in the Qt5 Platform
+  # support library, which is not exposed to CMake properly, unfortunately
+  GET_TARGET_PROPERTY(QT_LIB_DIR "${Qt5Widgets_LIBRARIES}" LOCATION)
+  GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
+
+  FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
+    HINTS "${QT_LIB_DIR}/../plugins/platforms"
   )
-  IF( WITH_TESTS )
-    LIST(APPEND QT_COMPONENTS QtTest)
-  ENDIF( WITH_TESTS )
 
-
-  IF ( UNIX AND NOT APPLE )
-    LIST(APPEND QT_COMPONENTS QtDbus)
-  ENDIF ()
-
-  # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
-  # with Qt-specific tasks such as compiling resources or running `moc`.
-  FIND_PACKAGE(Qt4 COMPONENTS ${QT_COMPONENTS} REQUIRED)
-  INCLUDE(UseQt4)
-
-  # TODO: QtTest is included in the list of "normal" libraries.
-  # Therefore, QT_TEST_LIBRARIES is not set here. Can we improve this somehow
-  # (i.e., can we pull in QtTest only for programs that actually use it)?
+  # Starting with Qt 5.8, Qt5PlatformSupport was modularized
+  if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR LESS 8)
+    FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
+      HINTS "${QT_LIB_DIR}"
+    )
+    LIST(INSERT QT_LIBRARIES 0 ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES})
+  else()
+    FIND_LIBRARY(Qt5FontDatabaseSupport_LIBRARIES Qt5FontDatabaseSupport
+      HINTS "${QT_LIB_DIR}"
+    )
+    FIND_LIBRARY(Qt5EventDispatcherSupport_LIBRARIES Qt5EventDispatcherSupport
+      HINTS "${QT_LIB_DIR}"
+    )
+    FIND_LIBRARY(Qt5ThemeSupport_LIBRARIES Qt5ThemeSupport
+      HINTS "${QT_LIB_DIR}"
+    )
+    LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5FontDatabaseSupport_LIBRARIES} ${Qt5EventDispatcherSupport_LIBRARIES} ${Qt5ThemeSupport_LIBRARIES})
+  endif()
+  # Starting with Qt 5.11, WindowsUIAutomation was added
+  if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 10)
+    FIND_LIBRARY(Qt5WindowsUIAutomation_LIBRARIES Qt5WindowsUIAutomationSupport
+      HINTS "${QT_LIB_DIR}"
+    )
+    LIST(APPEND QT_LIBRARIES ${Qt5WindowsUIAutomation_LIBRARIES})
+  endif()
+  # Starting with Qt 5.10, AccessibilitySupport was modularized
+  if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 9)
+    FIND_LIBRARY(Qt5AccessibilitySupport_LIBRARIES Qt5AccessibilitySupport
+      HINTS "${QT_LIB_DIR}"
+    )
+    LIST(APPEND QT_LIBRARIES ${Qt5AccessibilitySupport_LIBRARIES})
+  endif()
+  ADD_DEFINITIONS(-DSTATIC_QT5)
 ENDIF()
 
-IF (NOT QT4_FOUND AND NOT QT5_FOUND)
-  MESSAGE(FATAL_ERROR "Could not find required Qt. Please install Qt (see http://qt-project.org/) and/or adjust DESIRED_QT_VERSION.")
+
+IF (NOT QT5_FOUND)
+  MESSAGE(FATAL_ERROR "Could not find required Qt. Please install Qt (see https://www.qt.io/)")
 ENDIF()
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
@@ -510,25 +476,12 @@ ENDIF (WITH_TESTS)
 
 # Gather all libraries related to Qt plugins used by TeXworks so that they can
 # be bundled into packages.
-if (QT_VERSION_MAJOR EQUAL 4)
-  SET(QT_PLUGINS
-    ${QT_QTACCESSIBLEWIDGETS_PLUGIN_RELEASE}
-    ${QT_QCNCODECS_PLUGIN_RELEASE}
-    ${QT_QJPCODECS_PLUGIN_RELEASE}
-    ${QT_QKRCODECS_PLUGIN_RELEASE}
-    ${QT_QTWCODECS_PLUGIN_RELEASE}
-    ${QT_QGIF_PLUGIN_RELEASE}
-    ${QT_QJPEG_PLUGIN_RELEASE}
-    ${QT_QTIFF_PLUGIN_RELEASE}
-  )
-elseif (QT_VERSION_MAJOR EQUAL 5)
-  if (WIN32)
-    get_target_property(QT_QPLATFORM_PLUGIN_RELEASE Qt5::QWindowsIntegrationPlugin LOCATION_Release)
-  elseif (APPLE)
-    get_target_property(QT_QPLATFORM_PLUGIN_RELEASE Qt5::QCocoaIntegrationPlugin LOCATION_Release)
-  endif ()
-  SET(QT_PLUGINS "${QT_QPLATFORM_PLUGIN_RELEASE}")
-endif()
+if (WIN32)
+  get_target_property(QT_QPLATFORM_PLUGIN_RELEASE Qt5::QWindowsIntegrationPlugin LOCATION_Release)
+elseif (APPLE)
+  get_target_property(QT_QPLATFORM_PLUGIN_RELEASE Qt5::QCocoaIntegrationPlugin LOCATION_Release)
+endif ()
+SET(QT_PLUGINS "${QT_QPLATFORM_PLUGIN_RELEASE}")
 
 # The file `CMake/packaging/CMakeLists.txt` controls the execution of tasks
 # specific to preparing binaries for packaging on a given platform. This script

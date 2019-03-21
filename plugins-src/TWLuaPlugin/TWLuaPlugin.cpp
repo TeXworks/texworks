@@ -48,10 +48,6 @@ TWScript* TWLuaPlugin::newScript(const QString& fileName)
 	return new LuaScript(this, fileName);
 }
 
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(TWLuaPlugin, TWLuaPlugin)
-#endif
-
 
 bool LuaScript::execute(TWScriptAPI *tw) const
 {
@@ -129,10 +125,8 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 	int i;
 	QVariantList::const_iterator iList;
 	QVariantList list;
-#if QT_VERSION >= 0x040500
 	QVariantHash::const_iterator iHash;
 	QVariantHash hash;
-#endif
 	QVariantMap::const_iterator iMap;
 	QVariantMap map;
 
@@ -169,7 +163,6 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 				lua_settable(L, -3);
 			}
 			return 1;
-#if QT_VERSION >= 0x040500
 		case QVariant::Hash:
 			hash = v.toHash();
 			
@@ -179,7 +172,6 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 				lua_setfield(L, -2, qPrintable(iHash.key()));
 			}
 			return 1;
-#endif
 		case QVariant::Map:
 			map = v.toMap();
 			
@@ -191,10 +183,6 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 			return 1;
 		case QMetaType::QObjectStar:
 			return LuaScript::pushQObject(L, v.value<QObject*>(), throwError);
-		#if QT_VERSION < 0x050000
-		case QMetaType::QWidgetStar:
-			return LuaScript::pushQObject(L, qobject_cast<QObject*>(v.value<QWidget*>()), throwError);
-		#endif
 		default:
 			// Don't throw errors if we are not in protected mode in lua, i.e.
 			// if the call to this function originated from C code, not in response

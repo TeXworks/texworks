@@ -99,7 +99,6 @@ void TeXHighlighter::highlightBlock(const QString &text)
 	if (pHunspell != NULL)
 		spellCheckRange(text, index, text.length(), spellFormat);
 
-#if QT_VERSION >= 0x040400	/* the currentBlock() method is not available in 4.3.x */
 	if (texDoc != NULL) {
 		bool changed = false;
 		if (texDoc->removeTags(currentBlock().position(), currentBlock().length()) > 0)
@@ -135,7 +134,6 @@ void TeXHighlighter::highlightBlock(const QString &text)
 		if (changed)
 			texDoc->tagsChanged();
 	}
-#endif
 }
 
 void TeXHighlighter::setActiveIndex(int index)

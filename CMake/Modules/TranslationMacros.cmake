@@ -3,15 +3,9 @@
 
   
 # Qt-version-agnostic wrappers
-if (QT_VERSION_MAJOR EQUAL 5)
-  macro(QT_ADD_RESOURCES)
-    QT5_ADD_RESOURCES(${ARGV} OPTIONS -threshold 5 -compress 9)
-  endmacro()
-else()
-  macro(QT_ADD_RESOURCES)
-    QT4_ADD_RESOURCES(${ARGV} OPTIONS -threshold 5 -compress 9)
-  endmacro()
-endif()
+macro(QT_ADD_RESOURCES)
+  QT5_ADD_RESOURCES(${ARGV} OPTIONS -threshold 5 -compress 9)
+endmacro()
 
 
 macro (QT_EXTRACT_OPTIONS _qt_files _qt_options)
@@ -58,12 +52,12 @@ MACRO(CREATE_QT_PRO_FILE _pro_path _pro_include_path)
       LIST(APPEND _my_sources ${_abs_FILE})
     ELSEIF(_ext MATCHES "rc")
       IF(_my_rcfile)
-        MESSAGE(AUTHOR_WARNING "CREATE_QT4_PRO_FILE got two rc files: ${_my_rcfile} and ${_abs_FILE}. Ignoring the latter.")
+        MESSAGE(AUTHOR_WARNING "CREATE_QT_PRO_FILE got two rc files: ${_my_rcfile} and ${_abs_FILE}. Ignoring the latter.")
       ELSE()
         SET(_my_rcfile "${_abs_FILE}")
       ENDIF()
     ELSE()
-      MESSAGE(AUTHOR_WARNING "CREATE_QT4_PRO_FILE cannot handle file '${_abs_FILE}'.")
+      MESSAGE(AUTHOR_WARNING "CREATE_QT_PRO_FILE cannot handle file '${_abs_FILE}'.")
     ENDIF()
   ENDFOREACH(_file)
 
@@ -118,11 +112,7 @@ MACRO(QT_ADD_TRANSLATIONS outfile)
     set(_qm_file "")
     if (_ext MATCHES "ts")
       # .ts source files need to be converted
-      if (QT_VERSION_MAJOR EQUAL 5)
-        qt5_add_translation(_qm_file "${_file}")
-      else()
-        qt4_add_translation(_qm_file "${_file}")
-      endif()
+      qt5_add_translation(_qm_file "${_file}")
     elseif (_ext MATCHES "qm")
       # .qm files are taken as is
       set(_qm_file "${_file}")

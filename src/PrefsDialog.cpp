@@ -649,9 +649,6 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	if (TWApp::instance()->getScriptManager()->languages().size() <= 1)
 		dlg.enableScriptingPlugins->setEnabled(false);
 	dlg.scriptDebugger->setChecked(settings.value(QString::fromLatin1("scriptDebugger"), kDefault_ScriptDebugger).toBool());
-#if QT_VERSION < 0x040500
-	dlg.scriptDebugger->setEnabled(false);
-#endif
 	
 	// Decide which tab to select initially
 	if (sCurrentTab == -1) {

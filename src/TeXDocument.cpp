@@ -152,7 +152,7 @@ void TeXDocument::init()
 	engine->setEditable(false);
 	engine->setFocusPolicy(Qt::NoFocus);
 	engine->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-#if defined(Q_OS_DARWIN) && (QT_VERSION >= 0x040600)
+#if defined(Q_OS_DARWIN)
 	engine->setStyleSheet(QString::fromLatin1("padding:4px;"));
 	engine->setMinimumWidth(150);
 #endif
@@ -394,11 +394,7 @@ void TeXDocument::init()
 
 	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);
-#if QT_VERSION < 0x050000
-	QTimer::singleShot(1000, this, SLOT(delayedInit()));
-#else
 	delayedInit();
-#endif
 }
 
 void TeXDocument::changeEvent(QEvent *event)
@@ -1756,14 +1752,7 @@ QString TeXDocument::getLineText(int lineNo) const
 	QTextDocument* doc = textEdit->document();
 	if (lineNo < 1 || lineNo > doc->blockCount())
 		return QString();
-#if QT_VERSION >= 0x040400
 	return doc->findBlockByNumber(lineNo - 1).text();
-#else
-	QTextBlock block = doc->findBlock(0);
-	while (--lineNo > 0)
-		block = block.next();
-	return block.text();
-#endif
 }
 
 void TeXDocument::goToLine(int lineNo, int selStart, int selEnd)
@@ -1774,14 +1763,7 @@ void TeXDocument::goToLine(int lineNo, int selStart, int selEnd)
 	int oldScrollValue = -1;
 	if (textEdit->verticalScrollBar() != NULL)
 		oldScrollValue = textEdit->verticalScrollBar()->value();
-#if QT_VERSION >= 0x040400
 	QTextCursor cursor(doc->findBlockByNumber(lineNo - 1));
-#else
-	QTextBlock block = doc->findBlock(0);
-	while (--lineNo > 0)
-		block = block.next();
-	QTextCursor cursor(block);
-#endif
 	if (selStart >= 0 && selEnd >= selStart) {
 		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, selStart);
 		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, selEnd - selStart);
@@ -1825,15 +1807,9 @@ void TeXDocument::doLineDialog()
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.setPosition(cursor.selectionStart());
 	bool ok;
-	#if QT_VERSION >= 0x050000
 	int lineNo = QInputDialog::getInt(this, tr("Go to Line"),
 									tr("Line number:"), cursor.blockNumber() + 1,
 									1, textEdit->document()->blockCount(), 1, &ok);
-	#else
-	int lineNo = QInputDialog::getInteger(this, tr("Go to Line"),
-									tr("Line number:"), cursor.blockNumber() + 1,
-									1, textEdit->document()->blockCount(), 1, &ok);
-	#endif
 	if (ok)
 		goToLine(lineNo);
 }

@@ -91,23 +91,19 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   # Copy all runtime dependencies and rewrite loader paths
   # ------------------------------------------------------
 
-  # Bring in `DeployQt4` a CMake module taken from the Charm application:
+  # Bring in `DeployQt5` a CMake module taken from the Charm application:
   #
   #   <https://github.com/KDAB/Charm>
   #
-  # This module offers the `FIXUP_QT4_BUNDLE` function which wraps
+  # This module offers the `FIXUP_QT5_BUNDLE` function which wraps
   # `FIXUP_BUNDLE` from CMake's `BundleUtilities` module and extends it with
-  # additional Qt4-specific goodies---such as installing Qt4 plugins.
+  # additional Qt5-specific goodies---such as installing Qt5 plugins.
   #
   # `FIXUP_BUNDLE` is a wonderful function that examines an executable, finds
   # all non-system libraries it depends on, copies them into the `.app` bundle
   # and then re-writes the necessary loader paths.
   SET(CMAKE_MODULE_PATH @CMAKE_MODULE_PATH@)
-  if (QT_VERSION_MAJOR EQUAL 4)
-    INCLUDE(DeployQt4)
-  elseif (QT_VERSION_MAJOR EQUAL 5)
-    INCLUDE(DeployQt5)
-  endif ()
+  INCLUDE(DeployQt5)
 
   # Gather all TeXworks Plugin libraries.
   FILE(GLOB TeXworks_PLUGINS
@@ -117,11 +113,7 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   # re-write some loader paths due to insufficiant permissions.
   SET(BU_CHMOD_BUNDLE_ITEMS ON)
 
-  if (QT_VERSION_MAJOR EQUAL 4)
-    FIXUP_QT4_BUNDLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app "${QT_PLUGINS}" "${TeXworks_PLUGINS}" "${TeXworks_LIB_DIRS}")
-  elseif(QT_VERSION_MAJOR EQUAL 5)
-    FIXUP_QT5_EXECUTABLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app "${QT_PLUGINS}" "${TeXworks_PLUGINS}" "${TeXworks_LIB_DIRS}")
-  endif()
+  FIXUP_QT5_EXECUTABLE(${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app "${QT_PLUGINS}" "${TeXworks_PLUGINS}" "${TeXworks_LIB_DIRS}")
 
   # Remove unecessary architectures from universal binaries
   # -------------------------------------------------------

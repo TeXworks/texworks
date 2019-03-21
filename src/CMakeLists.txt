@@ -103,13 +103,8 @@ ENDIF ()
 # Qt-Specific Source Code Processing
 # ----------------------------------
 
-IF (${QT_VERSION_MAJOR} EQUAL 5)
-  # Run uic on user interface files.
-  QT5_WRAP_UI(TEXWORKS_GEN_UI ${TEXWORKS_UIS})
-ELSE()
-  # Run uic on user interface files.
-  QT4_WRAP_UI(TEXWORKS_GEN_UI ${TEXWORKS_UIS})
-ENDIF()
+# Run uic on user interface files.
+QT5_WRAP_UI(TEXWORKS_GEN_UI ${TEXWORKS_UIS})
 # Run rcc on reasource files.
 QT_ADD_RESOURCES(TEXWORKS_GEN_RCS ${TEXWORKS_RCS})
 # Add translations
@@ -176,7 +171,7 @@ IF (APPLE)
   )
 ENDIF ()
 
-IF (${QT_VERSION_MAJOR} EQUAL 5 AND UNIX)
+IF (UNIX)
     SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES COMPILE_FLAGS -fPIC)
 ENDIF ()
 

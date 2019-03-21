@@ -41,22 +41,23 @@ modules/synctex/synctex_parser.c for license details.
 Building TeXworks
 -----------------
 
-Notes by Jonathan Kew, updated 2011-03-20 and 2015-03-29 by Stefan Löffler
+Notes by Jonathan Kew, updated 2011-03-20, 2015-03-29, 2019-03-21 by Stefan
+Löffler
 
 To build TeXworks from source, you will need to install developer packages (or
 equivalent) for:
 
--   Qt (4.6.0 or later)
-    <http://www.qt.io/download/>
+-   Qt (5.0 or later)
+    <https://www.qt.io/download/>
 
--   Poppler (using the latest stable release, currently 0.16, is strongly
-    recommended, although versions as old as the 0.6 series should still work)
-    <http://poppler.freedesktop.org/>
+-   Poppler (using the latest stable release is strongly recommended, although
+    versions as old as the 0.24 series should still work)
+    <https://poppler.freedesktop.org/>
 
 -   Hunspell (release 1.2.8 or later is recommended; earlier 1.2.x releases may
     be used, although support for some non-Latin-script languages may be
     lacking)
-    <http://hunspell.github.io/>
+    <https://hunspell.github.io/>
 
 along with their dependencies (such as Freetype, fontconfig, zlib, etc.) If you
 also want to build the scripting plugins (optional), you additionally need

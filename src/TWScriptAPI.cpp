@@ -112,11 +112,7 @@ QVariant TWScriptAPI::getInt(QWidget* parent, const QString& title, const QStrin
 				int value, int min, int max, int step)
 {
 	bool ok;
-#if QT_VERSION >= 0x040500
 	int i = QInputDialog::getInt(parent, title, label, value, min, max, step, &ok);
-#else
-	int i = QInputDialog::getInteger(parent, title, label, value, min, max, step, &ok);
-#endif
 	return ok ? QVariant(i) : QVariant();
 }
 

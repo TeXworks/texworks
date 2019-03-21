@@ -399,11 +399,7 @@ void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
 		case synctexClick:
 			{
 				QTextCursor curs = cursorForPosition(e->pos());
-#if QT_VERSION < 0x040700
-				emit syncClick(curs.blockNumber() + 1, curs.position() - curs.block().position());
-#else
 				emit syncClick(curs.blockNumber() + 1, curs.positionInBlock());
-#endif
 			}
 			e->accept();
 			return;
@@ -1068,11 +1064,7 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	QAction *act = new QAction(tr("Jump to PDF"), menu);
 	QTextCursor cur = cursorForPosition(event->pos());
 
-#if QT_VERSION < 0x040700
-	act->setData(QVariant(QPoint(cur.position() - cur.block().position(), cur.blockNumber() + 1)));
-#else
 	act->setData(QVariant(QPoint(cur.positionInBlock(), cur.blockNumber() + 1)));
-#endif
 	connect(act, SIGNAL(triggered()), this, SLOT(jumpToPdf()));
 	menu->insertSeparator(menu->actions().first());
 	menu->insertAction(menu->actions().first(), act);

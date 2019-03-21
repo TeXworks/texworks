@@ -34,9 +34,7 @@
 #include <QToolBar>
 #include <QDockWidget>
 #include <QtScript>
-#if QT_VERSION >= 0x040500
 #include <QtScriptTools>
-#endif
 
 #if STATIC_LUA_SCRIPTING_PLUGIN
 #include <QtPlugin>
@@ -81,7 +79,6 @@ bool JSScript::execute(TWScriptAPI *tw) const
 	
 	QScriptValue val;
 
-#if QT_VERSION >= 0x040500
 	QSETTINGS_OBJECT(settings);
 	if (settings.value(QString::fromLatin1("scriptDebugger"), false).toBool()) {
 		QScriptEngineDebugger debugger;
@@ -91,9 +88,6 @@ bool JSScript::execute(TWScriptAPI *tw) const
 	else {
 		val = engine.evaluate(contents, m_Filename);
 	}
-#else
-	val = engine.evaluate(contents, m_Filename);
-#endif
 
 	if (engine.hasUncaughtException()) {
 		tw->SetResult(engine.uncaughtException().toString());
@@ -181,12 +175,10 @@ void TWScriptManager::loadPlugins()
 
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
 		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
-#if QT_VERSION >= 0x040400
 		// (At least) Python 2.6 requires the symbols in the secondary libraries
 		// to be put in the global scope if modules are imported that load
 		// additional shared libraries (e.g. datetime)
 		loader.setLoadHints(QLibrary::ExportExternalSymbolsHint);
-#endif
 		QObject *plugin = loader.instance();
 		if (qobject_cast<TWScriptLanguageInterface*>(plugin))
 			scriptLanguages += plugin;

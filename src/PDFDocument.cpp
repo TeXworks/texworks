@@ -1100,15 +1100,9 @@ void PDFDocument::doPageDialog()
 	bool ok;
 	Q_ASSERT(pdfWidget != NULL);
 
-#if QT_VERSION < 0x050000
-	int pageNo = QInputDialog::getInteger(this, tr("Go to Page"),
-									tr("Page number:"), pdfWidget->currentPage() + 1,
-                  1, pdfWidget->lastPage(), 1, &ok);
-#else
 	int pageNo = QInputDialog::getInt(this, tr("Go to Page"),
 									tr("Page number:"), pdfWidget->currentPage() + 1,
                   1, pdfWidget->lastPage(), 1, &ok);
-#endif
 	if (ok)
 		pdfWidget->goToPage(pageNo - 1);
 }

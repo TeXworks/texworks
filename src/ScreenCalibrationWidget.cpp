@@ -19,12 +19,8 @@ ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget *parent) : QWidget(pare
 	setToolTip(tr("Drag the ruler or change the value to match real world lengths.\nCommon paper sizes are marked as well (you may need to resize the dialog window to see them).\nUse the context menu to change the units."));
 
 	switch(locale().measurementSystem()) {
-#if QT_VERSION < 0x050000
-		case QLocale::ImperialSystem:
-#else
 		case QLocale::ImperialUSSystem:
 		case QLocale::ImperialUKSystem:
-#endif
 			_curUnit = 1;
 			break;
 		default:

@@ -100,10 +100,6 @@ TWScript* TWPythonPlugin::newScript(const QString& fileName)
 	return new PythonScript(this, fileName);
 }
 
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(TWPythonPlugin, TWPythonPlugin)
-#endif
-
 
 bool PythonScript::execute(TWScriptAPI *tw) const
 {
@@ -383,10 +379,8 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 	int i;
 	QVariantList::const_iterator iList;
 	QVariantList list;
-#if QT_VERSION >= 0x040500
 	QVariantHash::const_iterator iHash;
 	QVariantHash hash;
-#endif
 	QVariantMap::const_iterator iMap;
 	QVariantMap map;
 	PyObject * pyList, * pyDict;
@@ -426,7 +420,6 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 				PyList_SetItem(pyList, i, PythonScript::VariantToPython(*iList));
 			}
 			return pyList;
-#if QT_VERSION >= 0x040500
 		case QVariant::Hash:
 			hash = v.toHash();
 			
@@ -435,7 +428,6 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 				PyDict_SetItemString(pyDict, qPrintable(iHash.key()), PythonScript::VariantToPython(iHash.value()));
 			}
 			return pyDict;
-#endif
 		case QVariant::Map:
 			map = v.toMap();
 			
@@ -446,10 +438,6 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 			return pyDict;
 		case QMetaType::QObjectStar:
 			return PythonScript::QObjectToPython(v.value<QObject*>());
-#if QT_VERSION < 0x050000
-		case QMetaType::QWidgetStar:
-			return PythonScript::QObjectToPython(qobject_cast<QObject*>(v.value<QWidget*>()));
-#endif
 		default:
 			PyErr_Format(PyExc_TypeError, qPrintable(tr("the type %s is currently not supported")), v.typeName());
 			return NULL;

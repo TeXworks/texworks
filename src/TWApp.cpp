@@ -161,7 +161,7 @@ void TWApp::init()
 
 #if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_OS_DARWIN) || defined(Q_OS_WIN))
 	// for Mac and Windows, support "local" poppler-data directory
-	// (requires patched poppler-qt4 lib to be effective,
+	// (requires patched poppler-qt lib to be effective,
 	// otherwise the GlobalParams gets overwritten when a
 	// document is opened)
 #if defined(Q_OS_DARWIN)
@@ -1266,11 +1266,6 @@ void TWApp::setGlobal(const QString& key, const QVariant& val)
 		case QMetaType::QObjectStar:
 			connect(v.value<QObject*>(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
 			break;
-		#if QT_VERSION < 0x050000
-		case QMetaType::QWidgetStar:
-			connect((QWidget*)v.data(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
-			break;
-		#endif
 		default: break;
 	}
 	m_globals[key] = v;
@@ -1288,14 +1283,6 @@ void TWApp::globalDestroyed(QObject * obj)
 				else
 					++i;
 				break;
-			#if QT_VERSION < 0x050000
-			case QMetaType::QWidgetStar:
-				if (i.value().value<QWidget*>() == obj)
-					i = m_globals.erase(i);
-				else
-					++i;
-				break;
-			#endif
 			default:
 				++i;
 				break;
