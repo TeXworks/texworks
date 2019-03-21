@@ -85,16 +85,22 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	User st.loeffler
 """ >> ~/.ssh/config
 
+		ORIG_VERSION=$(echo "${VERSION_NAME}" | tr "_-" "~")
+		ORIGNAME="texworks_${ORIG_VERSION}.orig.tar.gz"
+
+		print_info "   exporting sources to ${BUILDDIR}/${ORIGNAME}"
+		cd "${TRAVIS_BUILD_DIR}" && git archive --prefix="${ORIGNAME}/" --output="${BUILDDIR}/${ORIGNAME}" HEAD
+
 		for DISTRO in ${LAUNCHPAD_DISTROS}; do
 			print_info "Packging for ${DISTRO}"
-			DEB_VERSION=$(echo "${VERSION_NAME}" | tr "_-" "~")"~${DISTRO}"
+			DEB_VERSION=$(echo "${VERSION_NAME}" | tr "_-" "~")"-1${DISTRO}"
 			echo -n "   "
 			echo_var "DEB_VERSION"
 
 			DEBDIR="${BUILDDIR}/texworks-${DEB_VERSION}"
 			print_info "   exporting sources to ${DEBDIR}"
 			mkdir -p "${DEBDIR}"
-			cd "${TRAVIS_BUILD_DIR}" && git archive --format=tar HEAD  | tar -x -C "${DEBDIR}" -f -
+			tar -x -C "${DEBDIR}" --strip-components=1 -f "${BUILDDIR}/${ORIGNAME}"
 
 			print_info "   copying debian directory"
 			cp -r "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/debian" "${DEBDIR}"
