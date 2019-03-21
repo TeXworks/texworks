@@ -388,23 +388,21 @@ void Glitter::initMask()
 void Fly::start(const QImage & imgStart, const QImage & imgEnd)
 {
   int i, j;
-  const QRgb * img1, * img2;
-  uchar * mask;
-  
+
   setImages(imgStart, imgEnd);
-  
+
   // Using QImage::Format_Mono would be more efficient, but would complicate the
   // code (introducing lots of bit operations and alignment checks)
   _mask = QImage(_imgStart.size(), QImage::Format_Indexed8);
   for (j = 0; j < _mask.height(); ++j) {
 #if QT_VERSION >= 0x040700
-    img1 = (const QRgb*)(_imgStart.constScanLine(j));
-    img2 = (const QRgb*)(_imgEnd.constScanLine(j));
+    const QRgb * img1 = (const QRgb*)(_imgStart.constScanLine(j));
+    const QRgb * img2 = (const QRgb*)(_imgEnd.constScanLine(j));
 #else
-    img1 = (const QRgb*)(_imgStart.scanLine(j));
-    img2 = (const QRgb*)(_imgEnd.scanLine(j));
+    const QRgb * img1 = (const QRgb*)(_imgStart.scanLine(j));
+    const QRgb * img2 = (const QRgb*)(_imgEnd.scanLine(j));
 #endif
-    mask = _mask.scanLine(j);
+    uchar * mask = _mask.scanLine(j);
     for (i = 0; i < _mask.width(); ++i)
       mask[i] = (img1[i] == img2[i] ? 0 : 255);
   }
@@ -645,7 +643,6 @@ QImage Uncover::getImage()
   int i, j;
   int edge;
   const QRgb * img1, * img2;
-  QRgb * img;
   
   if (_direction == 0) {
     edge = (int)(getFracTime() * _imgEnd.width());
@@ -657,7 +654,7 @@ QImage Uncover::getImage()
       img1 = (const QRgb*)(_imgStart.scanLine(j));
       img2 = (const QRgb*)(_imgEnd.scanLine(j));
 #endif
-      img = (QRgb*)(retVal.scanLine(j));
+      QRgb * img = (QRgb*)(retVal.scanLine(j));
       for (i = 0; i < edge; ++i)
         img[i] = img2[i];
       for (; i < _imgEnd.width(); ++i)

@@ -532,7 +532,7 @@ QList<SearchResult> Document::search(QString searchText, SearchFlags flags, int 
   }
 
   if (flags.testFlag(Search_WrapAround)) {
-    start = (flags & Search_Backwards ? _numPages - 1 : 0);
+    start = ((flags & Search_Backwards) ? _numPages - 1 : 0);
     end = startPage;
     for (i = start; i != end; i += step) {
       QSharedPointer<Page> page(_pages[i]);

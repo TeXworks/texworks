@@ -313,7 +313,7 @@ QGraphicsPathItem * PDFDocumentView::addHighlightPath(const unsigned int page, c
   if (!_pdf_scene)
     return NULL;
 
-  PDFPageGraphicsItem * pageItem = (PDFPageGraphicsItem*)(_pdf_scene->pageAt(page));
+  PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(page));
   if (!pageItem || !isPageItem(pageItem))
     return NULL;
 
@@ -539,7 +539,7 @@ void PDFDocumentView::goToPage(const int pageNum, const int alignment /* = Qt::A
   if (pageNum == _currentPage)
     return;
 
-  goToPage((const PDFPageGraphicsItem*)_pdf_scene->pageAt(pageNum), alignment);
+  goToPage(static_cast<const PDFPageGraphicsItem*>(_pdf_scene->pageAt(pageNum)), alignment);
 }
 
 void PDFDocumentView::goToPage(const int pageNum, const QPointF anchor, const int alignment /* = Qt::AlignHCenter | Qt::AlignVCenter */)
@@ -550,7 +550,7 @@ void PDFDocumentView::goToPage(const int pageNum, const QPointF anchor, const in
   if (pageNum == _currentPage)
     return;
 
-  goToPage((const PDFPageGraphicsItem*)_pdf_scene->pageAt(pageNum), anchor, alignment);
+  goToPage(static_cast<const PDFPageGraphicsItem*>(_pdf_scene->pageAt(pageNum)), anchor, alignment);
 }
 
 void PDFDocumentView::goToPDFDestination(const PDFDestination & dest, bool saveOldViewRect /* = true */)
@@ -687,7 +687,7 @@ void PDFDocumentView::zoomFitContentWidth()
   if (!_pdf_scene)
     return;
 
-  PDFPageGraphicsItem *currentPage = (PDFPageGraphicsItem*)(_pdf_scene->pageAt(_currentPage));
+  PDFPageGraphicsItem *currentPage = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(_currentPage));
   if (!currentPage)
     return;
 
@@ -1009,7 +1009,7 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int align
   if (pageNum == _currentPage)
     return;
 
-  PDFPageGraphicsItem *oldPage = (PDFPageGraphicsItem*)_pdf_scene->pageAt(_currentPage);
+  PDFPageGraphicsItem *oldPage = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(_currentPage));
   
   if (_pageMode != PageMode_Presentation) {
     QRectF viewRect(mapToScene(QRect(QPoint(0, 0), viewport()->size())).boundingRect());
@@ -2073,14 +2073,13 @@ void PDFDocumentScene::reinitializeScene()
     // Create a `PDFPageGraphicsItem` for each page in the PDF document and let
     // them be layed out by a `PDFPageLayout` instance.
     int i;
-    PDFPageGraphicsItem *pagePtr;
 
     if (_shownPageIdx >= _lastPage)
       _shownPageIdx = _lastPage - 1;
 
     for (i = 0; i < _lastPage; ++i)
     {
-      pagePtr = new PDFPageGraphicsItem(_doc->page(i), _dpiX, _dpiY);
+      PDFPageGraphicsItem * pagePtr = new PDFPageGraphicsItem(_doc->page(i), _dpiX, _dpiY);
       pagePtr->setVisible(i == _shownPageIdx || _shownPageIdx == -2);
       _pages.append(pagePtr);
       addItem(pagePtr);
@@ -2408,11 +2407,11 @@ void PDFPageGraphicsItem::imageToGrayScale(QImage & img)
   // Casting to QRgb* only works for 32bit images
   Q_ASSERT(img.depth() == 32);
   QRgb * data = (QRgb*)img.scanLine(0);
-  int i, gray;
+  int i;
   for (i = 0; i < img.byteCount() / 4; ++i) {
     // Qt formula (qGray()): 0.34375 * r + 0.5 * g + 0.15625 * b
     // MuPDF formula (rgb_to_gray()): r * 0.3f + g * 0.59f + b * 0.11f;
-    gray = qGray(data[i]);
+    int gray = qGray(data[i]);
     data[i] = qRgba(gray, gray, gray, qAlpha(data[i]));
   }
 }
@@ -2457,12 +2456,11 @@ bool PDFPageGraphicsItem::event(QEvent *event)
 // once.
 void PDFPageGraphicsItem::addLinks(QList< QSharedPointer<Annotation::Link> > links)
 {
-  PDFLinkGraphicsItem *linkItem;
 #ifdef DEBUG
   stopwatch.start();
 #endif
   foreach( QSharedPointer<Annotation::Link> link, links ){
-    linkItem = new PDFLinkGraphicsItem(link);
+    PDFLinkGraphicsItem * linkItem = new PDFLinkGraphicsItem(link);
     // Map the link from pdf coordinates to scene coordinates
     linkItem->setTransform(QTransform::fromTranslate(0, _pageSize.height()).scale(_dpiX / 72., -_dpiY / 72.));
     linkItem->setParentItem(this);
@@ -2911,7 +2909,7 @@ void PDFToCInfoWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
   while (parent->childCount() > 0) {
     QTreeWidgetItem * item = parent->child(0);
     recursiveClearTreeItems(item);
-    PDFAction * action = (PDFAction*)item->data(0, Qt::UserRole).value<void*>();
+    PDFAction * action = static_cast<PDFAction*>(item->data(0, Qt::UserRole).value<void*>());
     if (action)
       delete action;
     parent->removeChild(item);
