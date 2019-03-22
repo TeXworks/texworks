@@ -450,7 +450,7 @@ QString TWUtils::getLanguageForDictionary(const Hunhandle * pHunspell)
 	if (!pHunspell || !dictionaries)
 		return QString();
 	
-	for (QHash<const QString,Hunhandle*>::const_iterator it = dictionaries->begin(); it != dictionaries->end(); ++it) {
+	for (QHash<const QString,Hunhandle*>::const_iterator it = dictionaries->cbegin(); it != dictionaries->cend(); ++it) {
 		if (it.value() == pHunspell)
 			return it.key();
 	}
