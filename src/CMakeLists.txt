@@ -9,17 +9,94 @@
 # new file to an explicit list will cause CMake to automatically reconfigure
 # the next time `make` is invoked. When `GLOB` is used, the developer will have
 # to remember to re-run `cmake` if a source file is added._
-FILE(GLOB TEXWORKS_SRCS       "*.cpp" "*.c")
-FILE(GLOB TEXWORKS_HDRS       "*.h")
-FILE(GLOB TEXWORKS_UIS        "*.ui")
-FILE(GLOB TEXWORKS_RCS        "${TeXworks_SOURCE_DIR}/res/*.qrc")
+set(TEXWORKS_SRCS BibTeXFile.cpp
+                  CitationSelectDialog.cpp
+                  ClickableLabel.cpp
+                  ClosableTabWidget.cpp
+                  CommandlineParser.cpp
+                  CompletingEdit.cpp
+                  ConfigurableApp.cpp
+                  ConfirmDelete.cpp
+                  Engine.cpp
+                  FindDialog.cpp
+                  HardWrapDialog.cpp
+                  main.cpp
+                  PDFDocument.cpp
+                  PrefsDialog.cpp
+                  ResourcesDialog.cpp
+                  ScreenCalibrationWidget.cpp
+                  ScriptManager.cpp
+                  TemplateDialog.cpp
+                  TeXDocks.cpp
+                  TeXDocument.cpp
+                  TeXHighlighter.cpp
+                  TWApp.cpp
+                  TWScriptable.cpp
+                  TWScriptAPI.cpp
+                  TWScript.cpp
+                  TWSynchronizer.cpp
+                  TWSystemCmd.cpp
+                  TWTextCodecs.cpp
+                  TWUtils.cpp)
+
+set(TEXWORKS_HDRS BibTeXFile.h
+                  CitationSelectDialog.h
+                  ClickableLabel.h
+                  ClosableTabWidget.h
+                  CommandlineParser.h
+                  CompletingEdit.h
+                  ConfigurableApp.h
+                  ConfirmDelete.h
+                  DefaultBinaryPaths.h
+                  DefaultBinaryPathsWin.h
+                  DefaultPrefs.h
+                  Engine.h
+                  FindDialog.h
+                  GitRev.h
+                  HardWrapDialog.h
+                  PDFDocument.h
+                  PrefsDialog.h
+                  ResourcesDialog.h
+                  ScreenCalibrationWidget.h
+                  ScriptManager.h
+                  TemplateDialog.h
+                  TeXDocks.h
+                  TeXDocument.h
+                  TeXHighlighter.h
+                  TWApp.h
+                  TWScriptable.h
+                  TWScriptAPI.h
+                  TWScript.h
+                  TWSynchronizer.h
+                  TWSystemCmd.h
+                  TWTextCodecs.h
+                  TWUtils.h
+                  TWVersion.h)
+
+set(TEXWORKS_UIS CitationSelectDialog.ui
+                 ConfirmDelete.ui
+                 Find.ui
+                 HardWrapDialog.ui
+                 PDFDocument.ui
+                 PDFFind.ui
+                 PrefsDialog.ui
+                 Replace.ui
+                 ResourcesDialog.ui
+                 ScriptManager.ui
+                 SearchResults.ui
+                 TemplateDialog.ui
+                 TeXDocument.ui
+                 ToolConfig.ui)
+
+set(TEXWORKS_RCS ${TeXworks_SOURCE_DIR}/res/resfiles.qrc
+                 ${TeXworks_SOURCE_DIR}/res/resources.qrc)
+
 FILE(GLOB TEXWORKS_TRANS_TS   "${TeXworks_SOURCE_DIR}/trans/*.ts")
 FILE(GLOB QTPDF_TRANS_TS      "${TeXworks_SOURCE_DIR}/modules/QtPDF/trans/*.ts")
 FILE(GLOB QT_TRANS_QM         "${TeXworks_SOURCE_DIR}/trans/qt/*.qm")
 
 IF ( WIN32 )
-	FILE(GLOB TEXWORKS_WIN_RCS  "${TeXworks_SOURCE_DIR}/res/*.rc")
-  LIST(APPEND TEXWORKS_SRCS ${TEXWORKS_WIN_RCS})
+  LIST(APPEND TEXWORKS_SRCS ${TeXworks_SOURCE_DIR}/res/TeXworks.rc)
 ENDIF ( WIN32 )
 
 # These source files along with the `.moc` files generated from some headers
