@@ -54,12 +54,9 @@
 # Set project name.
 PROJECT(TeXworks)
 
-# We require CMake v2.8 or greater because it is the first version that
-# provides support for certain parts of Qt, such as the ScriptTools.
-# Also, 2.8.11 added the possibility to define INTERFACE_COMPILE_DEFINITIONS
-# on imported libraries required by recent versions of hunspell (e.g. 1.7.0)
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.11)
-CMAKE_POLICY(VERSION 2.8.11)
+# CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
+CMAKE_POLICY(VERSION 3.1)
 
 # Silence warning about linking to qtmain.lib statically on Windows
 IF(POLICY CMP0020)
