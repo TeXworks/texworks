@@ -198,12 +198,6 @@ CREATE_QT_PRO_FILE(
   ${TEXWORKS_TRANS_FILE_LIST}
 )
 
-IF ( APPLE OR NOT UNIX )
-  SET(EXE_NAME TeXworks)
-ELSE ( APPLE OR NOT UNIX )
-  SET(EXE_NAME texworks)
-ENDIF ( APPLE OR NOT UNIX )
-
 # Compilation
 # -----------
 
@@ -217,19 +211,25 @@ IF (NOT ${BUILD_SHARED_PLUGINS})
 ENDIF()
 
 # Build the executible.
-ADD_EXECUTABLE( ${EXE_NAME} ${GUI_TYPE}
+ADD_EXECUTABLE(TeXworks ${GUI_TYPE}
   ${TEXWORKS_SRCS} ${TEXWORKS_HDRS} ${TEXWORKS_UIS}
   ${TEXWORKS_GEN_UI} ${TEXWORKS_GEN_RCS} ${TEXWORKS_GEN_TRANS}
   ${TeXworks_APP_ICONS}
 )
 
+if (UNIX AND NOT APPLE)
+  set_target_properties(TeXworks PROPERTIES
+    OUTPUT_NAME texworks
+  )
+endif ()
+
 IF (UNIX)
   # Required (at least) on OpenBSD to make scripting plugins work
-  SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES LINK_FLAGS -rdynamic)
+  SET_TARGET_PROPERTIES(TeXworks PROPERTIES LINK_FLAGS -rdynamic)
 ENDIF ()
 
 # Specify libraries to be linked to TeXworks.
-TARGET_LINK_LIBRARIES( ${EXE_NAME} ${MODULE_LIBS} ${TeXworks_LIBS} )
+target_LINK_LIBRARIES(TeXworks ${MODULE_LIBS} ${TeXworks_LIBS} )
 
 # For OS X, generate `Info.plist` and add it to the `.app` bundle.
 IF (APPLE)
@@ -247,12 +247,12 @@ IF (APPLE)
 ENDIF ()
 
 IF (UNIX)
-    SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES COMPILE_FLAGS -fPIC)
+    SET_TARGET_PROPERTIES(TeXworks PROPERTIES COMPILE_FLAGS -fPIC)
 ENDIF ()
 
 # Installation
 # ------------
-INSTALL( TARGETS ${EXE_NAME}
+INSTALL(TARGETS TeXworks
   RUNTIME DESTINATION bin COMPONENT
   BUNDLE DESTINATION . COMPONENT
 )
