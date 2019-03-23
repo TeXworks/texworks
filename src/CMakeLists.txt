@@ -47,8 +47,6 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   CompletingEdit.h
                   ConfigurableApp.h
                   ConfirmDelete.h
-                  DefaultBinaryPaths.h
-                  DefaultBinaryPathsWin.h
                   DefaultPrefs.h
                   Engine.h
                   FindDialog.h
@@ -72,6 +70,12 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWTextCodecs.h
                   TWUtils.h
                   TWVersion.h)
+
+if (WIN32)
+  list(APPEND TEXWORKS_HDRS DefaultBinaryPathsWin.h)
+else ()
+  list(APPEND TEXWORKS_HDRS DefaultBinaryPaths.h)
+endif ()
 
 set(TEXWORKS_UIS CitationSelectDialog.ui
                  ConfirmDelete.ui
