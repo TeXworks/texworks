@@ -229,7 +229,7 @@ IF (UNIX)
 ENDIF ()
 
 # Specify libraries to be linked to TeXworks.
-target_LINK_LIBRARIES(TeXworks ${MODULE_LIBS} ${TeXworks_LIBS} )
+target_LINK_LIBRARIES(TeXworks QtPDF::qtpdf ${TeXworks_LIBS} )
 
 # For OS X, generate `Info.plist` and add it to the `.app` bundle.
 IF (APPLE)

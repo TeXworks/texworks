@@ -405,7 +405,6 @@ ENDIF ()
 
 # Build modules
 ADD_SUBDIRECTORY(modules)
-INCLUDE_DIRECTORIES(${MODULE_INCLUDE_DIRS})
 
 # Build Plugins
 # -------------
