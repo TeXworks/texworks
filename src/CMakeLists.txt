@@ -141,12 +141,6 @@ IF ( WIN32 )
 ENDIF ()
 
 
-# Make sure the compiler can find include files.
-INCLUDE_DIRECTORIES(${TeXworks_INCLUDE_DIRS})
-
-# Make sure the compiler can find library files.
-LINK_DIRECTORIES(${TeXworks_LIB_DIRS})
-
 # Disallow automatic casts from char* to QString (enforcing the use of tr() or
 # explicitly specifying the string encoding)
 ADD_DEFINITIONS(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY -DQT_STRICT_ITERATORS)

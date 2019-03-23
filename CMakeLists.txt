@@ -337,15 +337,8 @@ FIND_PACKAGE(Synctex QUIET)
 
 # Aggregate library names and include directories into variables for easy
 # access.
-SET(TeXworks_INCLUDE_DIRS
-  ${QT_INCLUDE_DIR}
-)
-
-SET(TeXworks_LIB_DIRS ${QT_LIBRARY_DIR})
-
 set(TEXWORKS_ADDITIONAL_LIBS "" CACHE STRING "Additional libraries not found by CMake")
 MARK_AS_ADVANCED(TEXWORKS_ADDITIONAL_LIBS)
-
 
 SET(TeXworks_LIBS
   SyncTeX::synctex
