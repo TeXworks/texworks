@@ -338,7 +338,6 @@ FIND_PACKAGE(Synctex QUIET)
 # Aggregate library names and include directories into variables for easy
 # access.
 SET(TeXworks_INCLUDE_DIRS
-  ${SYNCTEX_INCLUDE_DIR}
   ${QT_INCLUDE_DIR}
 )
 
@@ -349,7 +348,7 @@ MARK_AS_ADVANCED(TEXWORKS_ADDITIONAL_LIBS)
 
 
 SET(TeXworks_LIBS
-  ${SYNCTEX_LIBRARIES}
+  SyncTeX::synctex
   Hunspell::hunspell
   ${QT_LIBRARIES}
   ZLIB::ZLIB
