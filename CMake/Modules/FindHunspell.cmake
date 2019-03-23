@@ -5,6 +5,10 @@
 #  HUNSPELL_INCLUDE_DIR - the Hunspell include directory
 #  HUNSPELL_LIBRARIES - Link these to use Hunspell
 #
+# as well as the IMPORT target
+#
+#  Hunspell::hunspell
+#
 # Redistribution and use of this file is allowed according to the terms of the
 # MIT license. For details see the file COPYING-CMAKE-MODULES.
 
@@ -48,10 +52,15 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS(Hunspell DEFAULT_MSG HUNSPELL_LIBRARIES HUNSPE
 # show the HUNSPELL_INCLUDE_DIR and HUNSPELL_LIBRARIES variables only in the advanced view
 MARK_AS_ADVANCED(HUNSPELL_INCLUDE_DIR HUNSPELL_LIBRARIES )
 
-add_library(hunspell UNKNOWN IMPORTED)
-set_target_properties(hunspell PROPERTIES IMPORTED_LOCATION ${HUNSPELL_LIBRARIES} INTERFACE_INCLUDE_DIRECTORIES ${HUNSPELL_INCLUDE_DIR})
-if (NOT BUILD_SHARED_LIBS)
-  # At least statically compiled hunspell 1.7.0 requires HUNSPELL_STATIC
-  # For other versions, it should not hurt
-  set_target_properties(hunspell PROPERTIES INTERFACE_COMPILE_DEFINITIONS HUNSPELL_STATIC)
+if (HUNSPELL_FOUND)
+  if (NOT TARGET Hunspell::hunspell)
+    add_library(Hunspell::hunspell UNKNOWN IMPORTED)
+    set_target_properties(Hunspell::hunspell PROPERTIES IMPORTED_LOCATION ${HUNSPELL_LIBRARIES} INTERFACE_INCLUDE_DIRECTORIES ${HUNSPELL_INCLUDE_DIR})
+    if (NOT BUILD_SHARED_LIBS)
+      # At least statically compiled hunspell 1.7.0 requires HUNSPELL_STATIC for
+      # the include headers to work correctly
+      # For other versions, it should not hurt
+      set_target_properties(Hunspell::hunspell PROPERTIES INTERFACE_COMPILE_DEFINITIONS HUNSPELL_STATIC)
+    endif ()
+  endif ()
 endif ()
