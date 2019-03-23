@@ -4,12 +4,9 @@
 # Set project name.
 PROJECT(QtPDF)
 
-# We require CMake v2.8 or greater because we don't do any testing with earlier
-# versions.
-# In CMake v2.8.6, the AUTOMOC feature was introduced which simplifies the
-# interaction with Qt.
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
-CMAKE_POLICY(VERSION 2.8.6)
+# CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
+CMAKE_POLICY(VERSION 3.1)
 
 # Silence warning about linking to qtmain.lib statically on Windows
 IF(POLICY CMP0020)
@@ -80,6 +77,7 @@ OPTION(BUILD_SHARED_LIBS "Build shared library" ${BUILD_SHARED_LIBS})
 # directory contains scripts that locate project components such as Poppler.
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules)
 
+set (CMAKE_CXX_STANDARD 11)
 
 # Core Components
 # ---------------
@@ -103,19 +101,6 @@ MACRO(find_qt5_package pkg)
     FIND_PACKAGE_MESSAGE(${pkg} "Could not find ${pkg}" "[${${pkg_FOUND}}][${${pkg}_DIR}][${${pkg}_VERSION}]")
   endif()
 ENDMACRO()
-
-# Source: https://stackoverflow.com/a/31010221
-macro(use_cxx11)
-  if (CMAKE_VERSION VERSION_LESS "3.1")
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-    endif ()
-  else ()
-    set (CMAKE_CXX_STANDARD 11)
-  endif ()
-endmacro(use_cxx11)
-
-use_cxx11()
 
 # Check for Qt5 by default (unless another Qt version was already found, e.g.,
 # by a parent project)
