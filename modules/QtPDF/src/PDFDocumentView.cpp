@@ -34,11 +34,11 @@ public:
   // Call out-of-namespace function in constructor
   ResourceInitializer() { ::initResources(); }
 };
-ResourceInitializer _resourceInitializer;
+static ResourceInitializer _resourceInitializer;
 
 #ifdef DEBUG
 #include <QDebug>
-QTime stopwatch;
+static QTime stopwatch;
 #endif
 
 // Some utility functions.
@@ -48,14 +48,14 @@ static bool isPageItem(const QGraphicsItem *item) { return ( item->type() == PDF
 
 // PDFDocumentView
 // ===============
-QTranslator * PDFDocumentView::_translator = NULL;
+QTranslator * PDFDocumentView::_translator = nullptr;
 QString PDFDocumentView::_translatorLanguage;
 
 // This class descends from `QGraphicsView` and is responsible for controlling
 // and displaying the contents of a `Document` using a `QGraphicsScene`.
-PDFDocumentView::PDFDocumentView(QWidget *parent):
+PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
   Super(parent),
-  _pdf_scene(NULL),
+  _pdf_scene(nullptr),
   _zoomLevel(1.0),
   _currentPage(-1),
   _lastPage(-1),
@@ -63,7 +63,7 @@ PDFDocumentView::PDFDocumentView(QWidget *parent):
   _useGrayScale(false),
   _pageMode(PageMode_OneColumnContinuous),
   _mouseMode(MouseMode_Move),
-  _armedTool(NULL)
+  _armedTool(nullptr)
 {
   initResources();
   // FIXME: Allow to initialize with a specific language (in case the
@@ -125,7 +125,7 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
 
   // disconnect us from the old scene (if any)
   if (_pdf_scene) {
-    disconnect(_pdf_scene.data(), 0, this, 0);
+    disconnect(_pdf_scene.data(), nullptr, this, nullptr);
     _pdf_scene.clear();
   }
 
@@ -248,10 +248,10 @@ void PDFDocumentView::setPageMode(const PageMode pageMode, const bool forceRelay
   emit changedPageMode(pageMode);
 }
 
-QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* = NULL */)
+QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* = nullptr */)
 {
   QDockWidget * dock = new QDockWidget(QString(), parent);
-  Q_ASSERT(dock != NULL);
+  Q_ASSERT(dock != nullptr);
 
   PDFDocumentInfoWidget * infoWidget;
   switch (type) {
@@ -276,12 +276,12 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
       // TODO: possibility to jump to selected/activated annotation
       break;
     default:
-      infoWidget = NULL;
+      infoWidget = nullptr;
       break;
   }
   if (!infoWidget) {
     dock->deleteLater();
-    return NULL;
+    return nullptr;
   }
   if (_pdf_scene && _pdf_scene->document())
       infoWidget->initFromDocument(_pdf_scene->document());
@@ -309,11 +309,11 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
 QGraphicsPathItem * PDFDocumentView::addHighlightPath(const unsigned int page, const QPainterPath & path, const QBrush & brush, const QPen & pen /* = Qt::NoPen */)
 {
   if (!_pdf_scene)
-    return NULL;
+    return nullptr;
 
-  PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(page));
+  PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(static_cast<const int>(page)));
   if (!pageItem || !isPageItem(pageItem))
-    return NULL;
+    return nullptr;
 
   QGraphicsPathItem * highlightItem = new QGraphicsPathItem(path, pageItem);
   highlightItem->setBrush(brush);
@@ -330,7 +330,7 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
     bool horizontalScrollbar, verticalScrollbar;
   } _scaleDat[ScaleDataSize];
   qreal xratio, yratio;
-  qreal horizontalScrollbar, verticalScrollbar;
+  bool horizontalScrollbar = true, verticalScrollbar = true;
   QRectF viewRect;
   QRectF sceneRect;
   Qt::ScrollBarPolicy oldHorizontalPolicy, oldVerticalPolicy;
@@ -556,7 +556,7 @@ void PDFDocumentView::goToPDFDestination(const PDFDestination & dest, bool saveO
   if (!dest.isValid())
     return;
 
-  Q_ASSERT(_pdf_scene != NULL);
+  Q_ASSERT(_pdf_scene != nullptr);
   Q_ASSERT(!_pdf_scene->document().isNull());
   QSharedPointer<Backend::Document> doc(_pdf_scene->document().toStrongRef());
   if (!doc)
@@ -573,7 +573,7 @@ void PDFDocumentView::goToPDFDestination(const PDFDestination & dest, bool saveO
 
   Q_ASSERT(isPageItem(_pdf_scene->pageAt(_currentPage)));
   PDFPageGraphicsItem * pageItem = static_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(_currentPage));
-  Q_ASSERT(pageItem != NULL);
+  Q_ASSERT(pageItem != nullptr);
 
   // Get the current (=old) viewport in the current (=old) page's
   // coordinate system
@@ -990,7 +990,7 @@ void PDFDocumentView::maybeUpdateSceneRect() {
 void PDFDocumentView::maybeArmTool(uint modifiers)
 {
   // Arms the tool corresponding to `modifiers` if one is available. 
-  DocumentTool::AbstractTool * t = _toolAccessors.value(modifiers, NULL);
+  DocumentTool::AbstractTool * t = _toolAccessors.value(modifiers, nullptr);
   if (t != _armedTool) {
     disarmTool();
     armTool(t);
@@ -1012,7 +1012,7 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int align
   if (_pageMode != PageMode_Presentation) {
     QRectF viewRect(mapToScene(QRect(QPoint(0, 0), viewport()->size())).boundingRect());
   
-    // Note: This function must work if oldPage == NULL (e.g., during start up)
+    // Note: This function must work if oldPage == nullptr (e.g., during start up)
     if (oldPage && isPageItem(oldPage))
       viewRect = oldPage->mapRectFromScene(viewRect);
     else {
@@ -1081,11 +1081,11 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int align
     
     if (backendPage && backendPage->transition()) {
       backendPage->transition()->reset();
-      // Setting listener = NULL in calls to getTileImage to force synchronous
+      // Setting listener = nullptr in calls to getTileImage to force synchronous
       // rendering
       if (oldPage) {
         QSharedPointer<Backend::Page> oldBackendPage(oldPage->page().toStrongRef());
-        backendPage->transition()->start(*(oldBackendPage->getTileImage(NULL, oldXres, oldYres)), *(backendPage->getTileImage(NULL, xres, yres)));
+        backendPage->transition()->start(*(oldBackendPage->getTileImage(nullptr, oldXres, oldYres)), *(backendPage->getTileImage(nullptr, xres, yres)));
       }
     }
   }
@@ -1214,7 +1214,7 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
         if (actionGoto->isRemote() || actionGoto->openInNewWindow())
           emit requestOpenPdf(actionGoto->filename(), actionGoto->destination(), actionGoto->openInNewWindow());
         else {
-          Q_ASSERT(_pdf_scene != NULL);
+          Q_ASSERT(_pdf_scene != nullptr);
           Q_ASSERT(!_pdf_scene->document().isNull());
           QSharedPointer<Backend::Document> doc(_pdf_scene->document().toStrongRef());
           if (!doc)
@@ -1259,7 +1259,7 @@ void PDFDocumentView::switchInterfaceLocale(const QLocale & newLocale)
   if (_translator) {
     QApplication::instance()->removeTranslator(_translator);
     _translator->deleteLater();
-    _translator = NULL;
+    _translator = nullptr;
   }
   
   _translatorLanguage = newLocale.name();
@@ -1269,7 +1269,7 @@ void PDFDocumentView::switchInterfaceLocale(const QLocale & newLocale)
     QApplication::instance()->installTranslator(_translator);
   else {
     _translator->deleteLater();
-    _translator = NULL;
+    _translator = nullptr;
   }
 
   // The language and translator are currently not used but are accessed here so
@@ -1343,7 +1343,7 @@ DocumentTool::AbstractTool* PDFDocumentView::getToolByType(const DocumentTool::A
     if (tool && tool->type() == type)
       return tool;
   }
-  return NULL;
+  return nullptr;
 }
 
 
@@ -1362,7 +1362,7 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   // first item found to be the "current page".
   if (_pdf_scene) {
     QRect pageBbox = viewport()->rect();
-    pageBbox.setHeight(0.5 * pageBbox.height());
+    pageBbox.setHeight(pageBbox.height() / 2);
     int nextCurrentPage = _pdf_scene->pageNumAt(mapToScene(pageBbox));
 
     if ( nextCurrentPage != _currentPage && nextCurrentPage >= 0 && nextCurrentPage < _lastPage )
@@ -1431,6 +1431,7 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
       // Deliberate fall-through; we only override the movement keys if a tool is
       // currently in use or the view is in single page mode and the movement
       // would cross a page boundary.
+      // falls through
     default:
       Super::keyPressEvent(event);
       break;
@@ -1581,14 +1582,14 @@ void PDFDocumentView::disarmTool()
   if (!_armedTool)
     return;
   _armedTool->disarm();
-  _armedTool = NULL;
+  _armedTool = nullptr;
 }
 
 
 // PDFDocumentMagnifierView
 // ========================
 //
-PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = 0 */) :
+PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = nullptr */) :
   Super(parent),
   _parent_view(parent),
   _zoomLevel(1.0),
@@ -1814,12 +1815,12 @@ QPixmap& PDFDocumentMagnifierView::dropShadow()
 // A large canvas that manages the layout of QGraphicsItem subclasses. The
 // primary items we are concerned with are PDFPageGraphicsItem and
 // PDFLinkGraphicsItem.
-PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent /* = 0 */, const double dpiX /* = -1 */, const double dpiY /* = -1 */):
+PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent /* = nullptr */, const double dpiX /* = -1 */, const double dpiY /* = -1 */):
   Super(parent),
   _doc(a_doc),
   _shownPageIdx(-2)
 {
-  Q_ASSERT(a_doc != NULL);
+  Q_ASSERT(a_doc != nullptr);
   // We need to register a QList<PDFLinkGraphicsItem *> meta-type so we can
   // pass it through inter-thread (i.e., queued) connections
   qRegisterMetaType< QList<PDFLinkGraphicsItem *> >();
@@ -1909,7 +1910,7 @@ void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
 // ---------
 
 QWeakPointer<Backend::Document> PDFDocumentScene::document() { return _doc.toWeakRef(); }
-QList<QGraphicsItem*> PDFDocumentScene::pages() { return _pages; };
+QList<QGraphicsItem*> PDFDocumentScene::pages() { return _pages; }
 
 // Overloaded method that returns all page objects inside a given rectangular
 // area. First, `items` is used to grab all items inside the rectangle. This
@@ -1921,14 +1922,14 @@ QList<QGraphicsItem*> PDFDocumentScene::pages(const QPolygonF &polygon)
   QtConcurrent::blockingFilter(pageList, isPageItem);
 
   return pageList;
-};
+}
 
 // Convenience function to avoid moving the complete list of pages around
 // between functions if only one page is needed
 QGraphicsItem* PDFDocumentScene::pageAt(const int idx)
 {
   if (idx < 0 || idx >= _pages.size())
-    return NULL;
+    return nullptr;
   return _pages[idx];
 }
 
@@ -1941,7 +1942,7 @@ QGraphicsItem* PDFDocumentScene::pageAt(const QPointF &pt)
   QtConcurrent::blockingFilter(pageList, isPageItem);
 
   if (pageList.isEmpty())
-    return NULL;
+    return nullptr;
   return pageList[0];
 }
 
@@ -2003,8 +2004,8 @@ void PDFDocumentScene::doUnlockDialog()
 
   bool ok;
   // TODO: Maybe use some parent for QInputDialog (and QMessageBox below)
-  // instead of NULL?
-  QString password = QInputDialog::getText(NULL, trUtf8("Unlock PDF"), trUtf8("Please enter the password to unlock the PDF"), QLineEdit::Password, QString(), &ok);
+  // instead of nullptr?
+  QString password = QInputDialog::getText(nullptr, trUtf8("Unlock PDF"), trUtf8("Please enter the password to unlock the PDF"), QLineEdit::Password, QString(), &ok);
   if (ok) {
     if (_doc->unlock(password)) {
       // FIXME: the program crashes in the QGraphicsView::mouseReleaseEvent
@@ -2016,7 +2017,7 @@ void PDFDocumentScene::doUnlockDialog()
       QTimer::singleShot(1, this, SLOT(finishUnlock()));
     }
     else
-      QMessageBox::information(NULL, trUtf8("Incorrect password"), trUtf8("The password you entered was incorrect."));
+      QMessageBox::information(nullptr, trUtf8("Incorrect password"), trUtf8("The password you entered was incorrect."));
   }
 }
 
@@ -2181,7 +2182,7 @@ void PDFDocumentScene::setResolution(const double dpiX, const double dpiY)
 
 // This class descends from `QGraphicsObject` and implements the on-screen
 // representation of `Page` objects.
-PDFPageGraphicsItem::PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, const double dpiX, const double dpiY, QGraphicsItem *parent /* = 0 */):
+PDFPageGraphicsItem::PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, const double dpiX, const double dpiY, QGraphicsItem *parent /* = nullptr */):
   Super(parent),
   _page(a_page),
 
@@ -2249,7 +2250,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
   // that the X scaling factor is equal to the Y scaling factor.
   qreal scaleFactor = painter->transform().m11();
   QTransform scaleT = QTransform::fromScale(scaleFactor, scaleFactor);
-  QRect pageRect = scaleT.mapRect(boundingRect()).toAlignedRect(), pageTile;
+  QRect pageRect = scaleT.mapRect(boundingRect()).toAlignedRect();
   QSharedPointer<Backend::Page> page(_page.toStrongRef());
   QSharedPointer<QImage> renderedPage;
 
@@ -2274,7 +2275,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
     _zoomLevel = scaleFactor;
 
   // get a pointer to the parent view (if any)
-  PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()) : NULL);  
+  PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()) : nullptr);
   
   painter->save();
 
@@ -2313,7 +2314,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       // render the whole page synchronously (we don't want "rendering" to show
       // up during presentations, and we don't need tiles as we always display
       // the full page, anyway).
-      renderedPage = page->getTileImage(NULL, _dpiX * scaleFactor, _dpiY * scaleFactor);
+      renderedPage = page->getTileImage(nullptr, _dpiX * scaleFactor, _dpiY * scaleFactor);
       if (renderedPage)
         painter->drawImage(QPoint(0, 0), *renderedPage);
     }
@@ -2368,7 +2369,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
         // If we are rendering a PDFDocumentMagnifierView who's parent
         // PDFDocumentView has `useGrayScale` set respect that setting.
         else if (widget && widget->parent() && widget->parent()->parent()) {
-          PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()->parent()) : NULL);
+          PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()->parent()) : nullptr);
           if (view && view->useGrayScale())
             useGrayScale = true;
         }
@@ -2404,7 +2405,7 @@ void PDFPageGraphicsItem::imageToGrayScale(QImage & img)
 {
   // Casting to QRgb* only works for 32bit images
   Q_ASSERT(img.depth() == 32);
-  QRgb * data = (QRgb*)img.scanLine(0);
+  QRgb * data = reinterpret_cast<QRgb*>(img.scanLine(0));
   int i;
   for (i = 0; i < img.byteCount() / 4; ++i) {
     // Qt formula (qGray()): 0.34375 * r + 0.5 * g + 0.15625 * b
@@ -2504,7 +2505,7 @@ void PDFPageGraphicsItem::addAnnotations(QList< QSharedPointer<Annotation::Abstr
 //
 //    * Handles tasks such as cursor changes on mouse hover and link activation
 //      on mouse clicks.
-PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<Annotation::Link> a_link, QGraphicsItem *parent):
+PDFLinkGraphicsItem::PDFLinkGraphicsItem(QSharedPointer<Annotation::Link> a_link, QGraphicsItem *parent /* = nullptr */):
   Super(parent),
   _link(a_link),
   _activated(false)
@@ -2585,11 +2586,13 @@ void PDFLinkGraphicsItem::retranslateUi()
 // Swap cursor during hover events.
 void PDFLinkGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
+  Q_UNUSED(event)
   setCursor(Qt::PointingHandCursor);
 }
 
 void PDFLinkGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
+  Q_UNUSED(event)
   unsetCursor();
 }
 
@@ -2644,11 +2647,11 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 //      on mouse clicks.
 //
 //    * Displays note popups if necessary
-PDFMarkupAnnotationGraphicsItem::PDFMarkupAnnotationGraphicsItem(QSharedPointer<Annotation::Markup> annot, QGraphicsItem *parent):
+PDFMarkupAnnotationGraphicsItem::PDFMarkupAnnotationGraphicsItem(QSharedPointer<Annotation::Markup> annot, QGraphicsItem *parent /* = nullptr */):
   Super(parent),
   _annot(annot),
   _activated(false),
-  _popup(NULL)
+  _popup(nullptr)
 {
   // The area is expressed in "normalized page coordinates", i.e.  values
   // in the range [0, 1]. The transformation matrix of this item will have to
@@ -2691,12 +2694,14 @@ int PDFMarkupAnnotationGraphicsItem::type() const { return Type; }
 // Swap cursor during hover events.
 void PDFMarkupAnnotationGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
+  Q_UNUSED(event)
   if (_annot->popup())
     setCursor(Qt::PointingHandCursor);
 }
 
 void PDFMarkupAnnotationGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
+  Q_UNUSED(event)
   if (_annot->popup())
     unsetCursor();
 }
@@ -2719,7 +2724,7 @@ void PDFMarkupAnnotationGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *
 
 void PDFMarkupAnnotationGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-  Q_ASSERT(event != NULL);
+  Q_ASSERT(event != nullptr);
 
   if (!_activated) {
     Super::mouseReleaseEvent(event);
@@ -2836,7 +2841,7 @@ PDFToCInfoWidget::~PDFToCInfoWidget()
   
 void PDFToCInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> newDoc)
 {
-  Q_ASSERT(_tree != NULL);
+  Q_ASSERT(_tree != nullptr);
 
   PDFDocumentInfoWidget::initFromDocument(newDoc);
   
@@ -2850,7 +2855,7 @@ void PDFToCInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> ne
 
 void PDFToCInfoWidget::clear()
 {
-  Q_ASSERT(_tree != NULL);
+  Q_ASSERT(_tree != nullptr);
   // make sure that no item is (and can be) selected while we clear the tree
   // (otherwise clearing it could trigger (numerous) itemSelectionChanged signals)
   _tree->setSelectionMode(QAbstractItemView::NoSelection);
@@ -2860,7 +2865,7 @@ void PDFToCInfoWidget::clear()
 
 void PDFToCInfoWidget::itemSelectionChanged()
 {
-  Q_ASSERT(_tree != NULL);
+  Q_ASSERT(_tree != nullptr);
   // Since the ToC QTreeWidget is in single selection mode, we can only get zero
   // or one selected item(s)
   
@@ -2868,10 +2873,10 @@ void PDFToCInfoWidget::itemSelectionChanged()
   if (selectedItems.count() == 0)
     return;
   QTreeWidgetItem * item = selectedItems.first();
-  Q_ASSERT(item != NULL);
+  Q_ASSERT(item != nullptr);
   // TODO: It might be better to register PDFAction with the QMetaType framework
   // instead of doing casts with (void*).
-  PDFAction * action = (PDFAction*)item->data(0, Qt::UserRole).value<void*>();
+  PDFAction * action = reinterpret_cast<PDFAction*>(item->data(0, Qt::UserRole).value<void*>());
   if (action)
     emit actionTriggered(action);
 }
@@ -2892,7 +2897,7 @@ void PDFToCInfoWidget::recursiveAddTreeItems(const QList<Backend::PDFToCItem> & 
     // TODO: It might be better to register PDFAction via QMetaType to avoid
     // having to use (void*).
     if (tocItem.action())
-      treeItem->setData(0, Qt::UserRole, QVariant::fromValue((void*)tocItem.action()->clone()));
+      treeItem->setData(0, Qt::UserRole, QVariant::fromValue(reinterpret_cast<void*>(tocItem.action()->clone())));
     // TODO: maybe display page numbers in col 2?
 
     if (!tocItem.children().isEmpty())
@@ -2903,7 +2908,7 @@ void PDFToCInfoWidget::recursiveAddTreeItems(const QList<Backend::PDFToCItem> & 
 //static
 void PDFToCInfoWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
 {
-  Q_ASSERT(parent != NULL);
+  Q_ASSERT(parent != nullptr);
   while (parent->childCount() > 0) {
     QTreeWidgetItem * item = parent->child(0);
     recursiveClearTreeItems(item);
@@ -3053,7 +3058,7 @@ void PDFMetaDataInfoWidget::reload()
   _keywords->setText(doc->keywords());
 
   // Convert the file size to human-readable form
-  float fileSize = doc->fileSize();
+  double fileSize = static_cast<double>(doc->fileSize());
   int iUnit;
   for (iUnit = 0; iUnit < sizeUnits.size() && fileSize >= 1000.; ++iUnit)
     fileSize /= 1000.;
@@ -3080,7 +3085,7 @@ void PDFMetaDataInfoWidget::reload()
       break;
   }
   QFormLayout * layout = qobject_cast<QFormLayout*>(_otherGroup->layout());
-  Q_ASSERT(layout != NULL);
+  Q_ASSERT(layout != nullptr);
 
   // Remove any items there may be
   while (layout->count() > 0) {
@@ -3115,7 +3120,7 @@ void PDFMetaDataInfoWidget::clear()
   _modDate->setText(QString());
   _trapped->setText(PDFDocumentView::trUtf8("Unknown"));
   QFormLayout * layout = qobject_cast<QFormLayout*>(_otherGroup->layout());
-  Q_ASSERT(layout != NULL);
+  Q_ASSERT(layout != nullptr);
 
   // Remove any items there may be
   while (layout->count() > 0) {
@@ -3188,7 +3193,7 @@ void PDFFontsInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> 
 
 void PDFFontsInfoWidget::reload()
 {
-  Q_ASSERT(_table != NULL);
+  Q_ASSERT(_table != nullptr);
 
   clear();
   QSharedPointer<Backend::Document> doc(_doc.toStrongRef());
@@ -3239,14 +3244,14 @@ void PDFFontsInfoWidget::reload()
 
 void PDFFontsInfoWidget::clear()
 {
-  Q_ASSERT(_table != NULL);
+  Q_ASSERT(_table != nullptr);
   _table->clearContents();
   _table->setRowCount(0);
 }
 
 void PDFFontsInfoWidget::retranslateUi()
 {
-  Q_ASSERT(_table != NULL);
+  Q_ASSERT(_table != nullptr);
   setWindowTitle(PDFDocumentView::trUtf8("Fonts"));
   _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Name") << PDFDocumentView::trUtf8("Type") << PDFDocumentView::trUtf8("Subset") << PDFDocumentView::trUtf8("Source"));  
   reload();
@@ -3429,7 +3434,7 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > PDFAnnotationsInfoWidget
 
 void PDFAnnotationsInfoWidget::annotationsReady(int index)
 {
-  Q_ASSERT(_table != NULL);
+  Q_ASSERT(_table != nullptr);
   int i;
   
   i = _table->rowCount();
@@ -3612,7 +3617,7 @@ void PDFPageLayout::removePage(PDFPageGraphicsItem * page) {
   }
 }
 
-void PDFPageLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem * before /* = NULL */) {
+void PDFPageLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem * before /* = nullptr */) {
   QList<LayoutItem>::iterator it;
   int row, col;
   LayoutItem item;

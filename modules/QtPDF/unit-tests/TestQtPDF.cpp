@@ -283,7 +283,7 @@ void TestQtPDF::resolveDestination_data()
   {
     QtPDF::PDFDestination d(1);
     QtPDF::PDFDestination n(1);
-    d.setRect(QRectF(102.000000167333, 750.890013065086, -1, -1));
+    d.setRect(QRectF(102, 750.89, -1, -1));
     n.setDestinationName(QString::fromLatin1("page.2"));
     newDocTest("annotations") << d << d;
     newDocTest("annotations") << n << d;
@@ -772,7 +772,7 @@ void TestQtPDF::page_loadLinks_data()
     l.setRect(r);
     l.setQuadPoints(QPolygonF(r));
     QtPDF::PDFDestination d(1);
-    d.setRect(QRectF(103.0000001689736, 712.8900124039062, -1, -1));
+    d.setRect(QRectF(103, 712.89, -1, -1));
     l.setActionOnActivation(new QtPDF::PDFGotoAction(d));
     data << l;
 

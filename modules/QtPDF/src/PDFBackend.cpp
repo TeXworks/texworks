@@ -21,7 +21,7 @@ namespace QtPDF {
 namespace Backend {
 
 // TODO: Find a better place to put this
-QBrush * pageDummyBrush = NULL;
+static QBrush * pageDummyBrush = nullptr;
 
 QDateTime fromPDFDate(QString pdfDate)
 {
@@ -313,7 +313,7 @@ bool PageProcessingRenderPageRequest::operator==(const PageProcessingRequest & r
     return false;
   const PageProcessingRenderPageRequest * rr = static_cast<const PageProcessingRenderPageRequest*>(&r);
   // TODO: Should we care about the listener here as well?
-  return (xres == rr->xres && yres == rr->yres && render_box == rr->render_box && cache == rr->cache);
+  return (qFuzzyCompare(xres, rr->xres) && qFuzzyCompare(yres, rr->yres) && render_box == rr->render_box && cache == rr->cache);
 }
 
 #ifdef DEBUG
@@ -397,7 +397,7 @@ inline uint qHash(const double &d)
   // Note also that the QDataStream approach used previously also works on the
   // binary representation of doubles internally and so the same problem would
   // occur there as well.
-  return hash((const uchar*)&d, sizeof(d));
+  return hash(reinterpret_cast<const uchar*>(&d), sizeof(d));
 }
 
 // ### Cache for Rendered Images
@@ -488,7 +488,7 @@ Document::Document(QString fileName):
   _meta_trapped(Trapped_Unknown),
   _docLock(new QReadWriteLock(QReadWriteLock::Recursive))
 {
-  Q_ASSERT(_docLock != NULL);
+  Q_ASSERT(_docLock != nullptr);
 
 #ifdef DEBUG
 //  qDebug() << "Document::Document(" << fileName << ")";
@@ -591,13 +591,13 @@ void Document::clearMetaData()
 // member functions), the QSharedPointer<QReadWriteLock> _docLock must also be
 // acquired. Note that if _docLock and _pageLock are to be acquired, _docLock
 // must be acquired first.
-// Note that the Page may exist in a detached state, i.e., _parent == NULL. This
+// Note that the Page may exist in a detached state, i.e., _parent == nullptr. This
 // is typically the case when the document discarded the page object but some
 // other object (typically in another thread) still holds a QSharedPointer to it.
 Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
   _parent(parent),
   _n(at),
-  _transition(NULL),
+  _transition(nullptr),
   _pageLock(new QReadWriteLock(QReadWriteLock::Recursive)),
   _docLock(docLock)
 {
@@ -641,7 +641,7 @@ int Page::pageNum() { QReadLocker pageLocker(_pageLock); return _n; }
 void Page::detachFromParent()
 {
   QWriteLocker pageLocker(_pageLock);
-  _parent = NULL;
+  _parent = nullptr;
 }
 
 QRectF Page::getContentBoundingBox() const
@@ -674,7 +674,7 @@ QRectF Page::getContentBoundingBox() const
   // Find the bounding box (min/max values for x and y) of the content
   int x0 = img.width(), x1 = 0, y0 = img.height(), y1 = 0;
   for (int y = 0; y < img.height(); ++y) {
-    QRgb * row = ((QRgb*)img.constScanLine(y));
+    const QRgb * row = reinterpret_cast<const QRgb*>(img.constScanLine(y));
     for (int x = 0; x < img.width(); ++x) {
       if (row[x] != bg) {
         if (x0 > x) x0 = x;
@@ -688,7 +688,7 @@ QRectF Page::getContentBoundingBox() const
   return QRectF(x0 * pageSize.width() / 100., y0 * pageSize.height() / 100., (x1 - x0 + 1) * pageSize.width() / 100., (y1 - y0 + 1) * pageSize.height() / 100.);
 }
 
-QSharedPointer<QImage> Page::getCachedImage(double xres, double yres, QRect render_box /* = QRect() */, PDFPageCache::TileStatus * status /* = NULL */)
+QSharedPointer<QImage> Page::getCachedImage(double xres, double yres, QRect render_box /* = QRect() */, PDFPageCache::TileStatus * status /* = nullptr */)
 {
   QReadLocker docLocker(_docLock.data());
   QReadLocker pageLocker(_pageLock);

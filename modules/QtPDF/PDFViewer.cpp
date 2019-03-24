@@ -91,7 +91,7 @@ void PDFViewer::open()
     return;
 
   QtPDF::PDFDocumentWidget * docWidget = qobject_cast<QtPDF::PDFDocumentWidget*>(centralWidget());
-  Q_ASSERT(docWidget != NULL);
+  Q_ASSERT(docWidget != nullptr);
   docWidget->load(pdf_doc);
 }
 

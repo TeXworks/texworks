@@ -49,9 +49,9 @@ public:
   int page() const { return _page; }
   Type type() const { return _type; }
   QString destinationName() const { return _destinationName; }
-  float zoom() const { return _zoom; }
-  float top() const { return _rect.top(); }
-  float left() const { return _rect.left(); }
+  qreal zoom() const { return _zoom; }
+  qreal top() const { return _rect.top(); }
+  qreal left() const { return _rect.left(); }
   QRectF rect() const { return _rect; }
 
   // Returns the new viewport in the new page's coordinate system
@@ -61,11 +61,11 @@ public:
   // Params:
   //  - oldViewport: viewport in old page's coordinate system
   //  - oldZoom
-  QRectF viewport(const Backend::Document * doc, const QRectF oldViewport, const float oldZoom) const;
+  QRectF viewport(const Backend::Document * doc, const QRectF oldViewport, const qreal oldZoom) const;
   
   void setPage(const int page) { _page = page; }
   void setType(const Type type) { _type = type; }
-  void setZoom(const float zoom) { _zoom = zoom; }
+  void setZoom(const qreal zoom) { _zoom = zoom; }
   void setRect(const QRectF rect) { _rect = rect; }
   void setDestinationName(const QString destinationName) { _destinationName = destinationName; }
 
@@ -74,7 +74,7 @@ private:
   Type _type;
   QString _destinationName;
   QRectF _rect; // depending on _type, only some of the components might be significant
-  float _zoom;
+  qreal _zoom;
 };
 
 #ifdef DEBUG

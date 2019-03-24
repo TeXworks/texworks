@@ -15,7 +15,7 @@
 
 namespace QtPDF {
 
-PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = NULL */, const double dpi /* = -1 */)
+PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = nullptr */, const double dpi /* = -1 */)
 : PDFDocumentView(parent)
 {
 #ifdef USE_MUPDF
@@ -71,7 +71,7 @@ bool PDFDocumentWidget::load(const QString &filename)
   // parent, thereby bypassing the QSharedPointer mechanism. docScene will be
   // freed automagically when the last QSharedPointer pointing to it will be
   // destroyed.
-  _scene = QSharedPointer<QtPDF::PDFDocumentScene>(new QtPDF::PDFDocumentScene(a_pdf_doc, NULL, _dpi, _dpi));
+  _scene = QSharedPointer<QtPDF::PDFDocumentScene>(new QtPDF::PDFDocumentScene(a_pdf_doc, nullptr, _dpi, _dpi));
   setScene(_scene);
   return true;
 }

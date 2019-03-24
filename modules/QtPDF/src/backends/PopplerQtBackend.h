@@ -51,7 +51,7 @@ protected:
 
   // The following two methods are not thread-safe because they don't acquire a
   // read lock. This is to enable methods that have a write lock to use them.
-  bool _isValid() const { return (_poppler_doc != NULL); }
+  bool _isValid() const { return (_poppler_doc != nullptr); }
   bool _isLocked() const { return (_poppler_doc ? _poppler_doc->isLocked() : false); }
 
 public:
@@ -102,7 +102,7 @@ public:
   QList< QSharedPointer<Annotation::Link> > loadLinks();
   QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations();
   QList< Backend::Page::Box > boxes();
-  QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = NULL, QMap<int, QRectF> * charBoxes = NULL, const bool onlyFullyEnclosed = false);
+  QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = nullptr, QMap<int, QRectF> * charBoxes = nullptr, const bool onlyFullyEnclosed = false);
 
   QList<Backend::SearchResult> search(QString searchText, SearchFlags flags);
 };

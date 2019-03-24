@@ -57,7 +57,7 @@ public:
   enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom, MouseMode_Measure, MouseMode_Select };
   enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions, Dock_Annotations };
 
-  PDFDocumentView(QWidget *parent = 0);
+  PDFDocumentView(QWidget *parent = nullptr);
   ~PDFDocumentView();
   void setScene(QSharedPointer<PDFDocumentScene> a_scene);
   int currentPage();
@@ -73,7 +73,7 @@ public:
   // he has to destroy them, unless the `parent` widget does that automatically)
   // They are fully wired to this PDFDocumentView (e.g., clicking on entries in
   // the table of contents will change this view)
-  QDockWidget * dockWidget(const Dock type, QWidget * parent = NULL);
+  QDockWidget * dockWidget(const Dock type, QWidget * parent = nullptr);
   
   DocumentTool::AbstractTool * armedTool() const { return _armedTool; }
   void triggerContextClick(const int page, const QPointF pos) { emit contextClick(page, pos); }
@@ -226,7 +226,7 @@ class PDFDocumentMagnifierView : public QGraphicsView {
   int _size;
 
 public:
-  PDFDocumentMagnifierView(PDFDocumentView *parent = 0);
+  PDFDocumentMagnifierView(PDFDocumentView *parent = nullptr);
   // the zoom factor multiplies the parent view's _zoomLevel
   void setZoomFactor(const qreal zoomFactor);
   void setPosition(const QPoint pos);
@@ -255,7 +255,7 @@ class PDFDocumentInfoWidget : public QWidget
   Q_OBJECT
   friend class PDFDocumentView;
 public:
-  PDFDocumentInfoWidget(QWidget * parent = NULL, const QString & title = QString(), const QString & objectName = QString()) : QWidget(parent) { setObjectName(objectName); setWindowTitle(title); }
+  PDFDocumentInfoWidget(QWidget * parent = nullptr, const QString & title = QString(), const QString & objectName = QString()) : QWidget(parent) { setObjectName(objectName); setWindowTitle(title); }
   virtual ~PDFDocumentInfoWidget() { }
   // If the widget has a fixed size, it should not be resized (it can, e.g., be
   // put into a QScrollArea instead).
@@ -337,7 +337,10 @@ protected slots:
   virtual void retranslateUi();
   void reload();
 protected:
-  virtual void showEvent(QShowEvent * event) { initFromDocument(_doc); }
+  virtual void showEvent(QShowEvent * event) {
+    Q_UNUSED(event)
+    initFromDocument(_doc);
+  }
 private:
   QTableWidget * _table;
 };
@@ -418,7 +421,7 @@ public:
 
   void addPage(PDFPageGraphicsItem * page);
   void removePage(PDFPageGraphicsItem * page);
-  void insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem * before = NULL);
+  void insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem * before = nullptr);
   void clearPages() { _layoutItems.clear(); }
 
 public slots:
@@ -452,7 +455,7 @@ class PDFDocumentScene : public QGraphicsScene
   void handleActionEvent(const PDFActionEvent * action_event);
 
 public:
-  PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent = 0, const double dpiX = -1, const double dpiY = -1);
+  PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent = nullptr, const double dpiX = -1, const double dpiY = -1);
   ~PDFDocumentScene();
 
   QWeakPointer<Backend::Document> document();
@@ -543,7 +546,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
   static void imageToGrayScale(QImage & img);
 
 public:
-  PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, const double dpiX, const double dpiY, QGraphicsItem *parent = 0);
+  PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, const double dpiX, const double dpiY, QGraphicsItem *parent = nullptr);
 
   // This seems fragile as it assumes no other code declaring a custom graphics
   // item will choose the same ID for it's object types. Unfortunately, there
@@ -594,7 +597,7 @@ class PDFLinkGraphicsItem : public QGraphicsRectItem {
   bool _activated;
 
 public:
-  PDFLinkGraphicsItem(QSharedPointer<Annotation::Link> a_link, QGraphicsItem *parent = 0);
+  PDFLinkGraphicsItem(QSharedPointer<Annotation::Link> a_link, QGraphicsItem *parent = nullptr);
   // See concerns in `PDFPageGraphicsItem` for why this feels fragile.
   enum { Type = UserType + 2 };
   int type() const;
@@ -622,7 +625,7 @@ class PDFMarkupAnnotationGraphicsItem : public QGraphicsRectItem {
   QWidget * _popup;
 
 public:
-  PDFMarkupAnnotationGraphicsItem(QSharedPointer<Annotation::Markup> annot, QGraphicsItem *parent = 0);
+  PDFMarkupAnnotationGraphicsItem(QSharedPointer<Annotation::Markup> annot, QGraphicsItem *parent = nullptr);
   // See concerns in `PDFPageGraphicsItem` for why this feels fragile.
   enum { Type = UserType + 3 };
   int type() const;

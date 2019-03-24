@@ -34,10 +34,10 @@ public:
 
   bool isRunning() const { return (_started && !_finished); }
   bool isFinished() const { return _finished; }
-  float duration() const { return _duration; }
+  double duration() const { return _duration; }
   int direction() const { return _direction; }
   Motion motion() const { return _motion; }
-  void setDuration(const float duration) { _duration = duration; }
+  void setDuration(const double duration) { _duration = duration; }
   // for valid values, see pdf specs (use -1 for None)
   void setDirection(const int direction) { _direction = direction; }
   void setMotion(const Motion motion) { _motion = motion; }
@@ -49,10 +49,10 @@ public:
   static AbstractTransition * newTransition(const Type type);
   
 protected:
-  float getFracTime();
+  double getFracTime();
   virtual void setImages(const QImage & imgStart, const QImage & imgEnd);
   
-  float _duration;
+  double _duration;
   int _direction;
   Motion _motion;
   bool _started;
@@ -66,7 +66,7 @@ protected:
 class AbstractInPlaceTransition : public AbstractTransition
 {
 public:
-  AbstractInPlaceTransition() : _spread(0.05f) { }
+  AbstractInPlaceTransition() : _spread(0.05) { }
   virtual ~AbstractInPlaceTransition() { }
   
   virtual void start(const QImage & imgStart, const QImage & imgEnd);
@@ -75,7 +75,7 @@ protected:
   virtual void initMask() = 0;
   
   QImage _mask;
-  float _spread;
+  double _spread;
 };
 
 class Replace : public AbstractTransition
@@ -113,7 +113,7 @@ protected:
 class Wipe : public AbstractInPlaceTransition
 {
 public:
-  Wipe() { _spread = 0; }
+  Wipe() { _spread = 0.f; }
 protected:
   virtual void initMask();
 };
@@ -129,7 +129,7 @@ protected:
 class Glitter : public AbstractInPlaceTransition
 {
 public:
-  Glitter() { _spread = .1; }
+  Glitter() { _spread = .1f; }
 protected:
   virtual void initMask();
 };

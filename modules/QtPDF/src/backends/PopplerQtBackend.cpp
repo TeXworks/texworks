@@ -19,8 +19,8 @@
 // Comparison operator for QSizeF needed to use QSizeF as keys in a QMap
 // NB: Must be in the global namespace
 inline bool operator<(const QSizeF & a, const QSizeF & b) {
-    float areaA = a.width() * a.height();
-    float areaB = b.width() * b.height();
+    qreal areaA = a.width() * a.height();
+    qreal areaB = b.width() * b.height();
     return (areaA < areaB || (areaA == areaB && a.width() < b.width()));
 }
 
@@ -38,7 +38,7 @@ PDFDestination toPDFDestination(const ::Poppler::Document * doc, const ::Poppler
 
   // Coordinates in LinkDestination are in the range of 0..1, which does not
   // comply with the pdf specs---so we have to convert them back
-  float w = 1., h = 1.;
+  qreal w = 1., h = 1.;
   if (doc) {
     ::Poppler::Page * p = doc->page(dest.pageNumber() - 1);
     if (p) {
@@ -351,7 +351,7 @@ void Document::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode node) con
     newItem.setOpen(attributes.namedItem(QString::fromUtf8("Open")).nodeValue() == QString::fromUtf8("true"));
     // Note: color and flags are not supported by poppler
 
-    PDFGotoAction * action = NULL;
+    PDFGotoAction * action = nullptr;
     QString val = attributes.namedItem(QString::fromUtf8("Destination")).nodeValue();
     if (!val.isEmpty())
       action = new PDFGotoAction(toPDFDestination(_poppler_doc.data(), ::Poppler::LinkDestination(val)));
@@ -528,7 +528,7 @@ QSizeF Page::pageSizeF() const
 {
   QReadLocker pageLocker(_pageLock);
 
-  Q_ASSERT(_poppler_page != NULL);
+  Q_ASSERT(_poppler_page != nullptr);
   return _poppler_page->pageSizeF();
 }
 
@@ -581,7 +581,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
     return _links;
 
 
-  Q_ASSERT(_poppler_page != NULL);
+  Q_ASSERT(_poppler_page != nullptr);
   _linksLoaded = true;
   QList< ::Poppler::Link *> popplerLinks;
   QList< ::Poppler::Annotation *> popplerAnnots;
@@ -621,7 +621,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
       convertAnnotation(link.data(), popplerLinkAnnot, _parent->page(_n));
       // TODO: Does Poppler provide an easy interface to all quadPoints?
       // Note: ::Poppler::LinkAnnotation::HighlightMode is identical to PDFLinkAnnotation::HighlightingMode
-      link->setHighlightingMode((Annotation::Link::HighlightingMode)popplerLinkAnnot->linkHighlightMode());
+      link->setHighlightingMode(static_cast<Annotation::Link::HighlightingMode>(popplerLinkAnnot->linkHighlightMode()));
       break;
     }
 
@@ -908,7 +908,7 @@ void Page::loadTransitionData()
 QList< Backend::Page::Box > Page::boxes()
 {
   QReadLocker pageLocker(_pageLock);
-  Q_ASSERT(_poppler_page != NULL);
+  Q_ASSERT(_poppler_page != nullptr);
   QList< Backend::Page::Box > retVal;
 
   foreach (::Poppler::TextBox * popplerTextBox, _poppler_page->textList()) {
@@ -926,10 +926,10 @@ QList< Backend::Page::Box > Page::boxes()
   return retVal;
 }
 
-QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes /* = NULL */, QMap<int, QRectF> * charBoxes /* = NULL */, const bool onlyFullyEnclosed /* = false */)
+QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes /* = nullptr */, QMap<int, QRectF> * charBoxes /* = nullptr */, const bool onlyFullyEnclosed /* = false */)
 {
   QReadLocker pageLocker(_pageLock);
-  Q_ASSERT(_poppler_page != NULL);
+  Q_ASSERT(_poppler_page != nullptr);
   // Using the bounding rects of the selection polygons is almost
   // certainly wrong! However, poppler-qt4 doesn't offer any alternative AFAICS
   // (except for positioning each char in the string manually).
@@ -941,7 +941,7 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 
   // Get a list of all boxes
   QList<Poppler::TextBox*> poppler_boxes = _poppler_page->textList();
-  Poppler::TextBox * lastPopplerBox = NULL;
+  Poppler::TextBox * lastPopplerBox = nullptr;
 
   // Filter boxes by selection
   foreach (Poppler::TextBox * poppler_box, poppler_boxes) {

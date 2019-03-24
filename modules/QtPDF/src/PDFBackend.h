@@ -198,7 +198,7 @@ public:
   int maxSize() const { return maxCost(); }
   void setMaxSize(const int num) { setMaxCost(num); }
 
-  // Returns the image under the key `tile` or NULL if it doesn't exist
+  // Returns the image under the key `tile` or nullptr if it doesn't exist
   QSharedPointer<QImage> getImage(const PDFPageTile & tile) const;
   TileStatus getStatus(const PDFPageTile & tile) const;
   // Returns the pointer to the image in the cache under they key `tile` after
@@ -380,9 +380,9 @@ public:
   enum PDFToCItemFlag { Flag_Italic = 0x1, Flag_Bold = 0x2 };
   Q_DECLARE_FLAGS(PDFToCItemFlags, PDFToCItemFlag)
 
-  PDFToCItem(const QString label = QString()) : _label(label), _isOpen(false), _action(NULL) { }
+  PDFToCItem(const QString label = QString()) : _label(label), _isOpen(false), _action(nullptr) { }
   PDFToCItem(const PDFToCItem & o) : _label(o._label), _isOpen(o._isOpen), _color(o._color), _children(o._children), _flags(o._flags) {
-    _action = (o._action ? o._action->clone() : NULL);
+    _action = (o._action ? o._action->clone() : nullptr);
   }
   virtual ~PDFToCItem() { if (_action) delete _action; }
 
@@ -429,7 +429,7 @@ struct SearchRequest
 
 struct SearchResult
 {
-  int pageNum;
+  unsigned int pageNum;
   QRectF bbox;
 };
 
@@ -576,7 +576,7 @@ protected:
   Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock);
 
   // Uses doc-read-lock and page-read-lock.
-  QSharedPointer<QImage> getCachedImage(double xres, double yres, QRect render_box = QRect(), PDFPageCache::TileStatus * status = NULL);
+  QSharedPointer<QImage> getCachedImage(double xres, double yres, QRect render_box = QRect(), PDFPageCache::TileStatus * status = nullptr);
 
   // Uses doc-read-lock and page-read-lock.
   virtual void asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box = QRect(), bool cache = false);
@@ -615,7 +615,9 @@ public:
   // Optionally, the function can also return wordBoxes and/or charBoxes for
   // each character (i.e., a rect enclosing the word the character is part of
   // and/or a rect enclosing the actual character)
-  virtual QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = NULL, QMap<int, QRectF> * charBoxes = NULL, const bool onlyFullyEnclosed = false) {
+  virtual QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = nullptr, QMap<int, QRectF> * charBoxes = nullptr, const bool onlyFullyEnclosed = false) {
+    Q_UNUSED(selection)
+    Q_UNUSED(onlyFullyEnclosed)
     if (wordBoxes) wordBoxes->clear();
     if (charBoxes) charBoxes->clear();
     return QString();
@@ -625,7 +627,7 @@ public:
   virtual QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) const = 0;
 
   // Returns either a cached image (if it exists), or triggers a render request.
-  // If listener != NULL, this is an asynchronous render request and the method
+  // If listener != nullptr, this is an asynchronous render request and the method
   // returns a dummy image (which is added to the cache to speed up future
   // requests). Otherwise, the method renders the page synchronously and returns
   // the result.

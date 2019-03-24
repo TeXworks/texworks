@@ -22,7 +22,7 @@ class PDFDocumentWidget : public PDFDocumentView
 {
 	Q_OBJECT
 public:
-  PDFDocumentWidget(QWidget * parent = NULL, const double dpi = -1);
+  PDFDocumentWidget(QWidget * parent = nullptr, const double dpi = -1);
   virtual ~PDFDocumentWidget();
 
   bool load(const QString & filename);

@@ -113,7 +113,7 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(AbstractAnnotation::AnnotationFlags)
 class Markup : public AbstractAnnotation
 {
 public:
-  Markup() : AbstractAnnotation(), _popup(NULL) { }
+  Markup() : AbstractAnnotation(), _popup(nullptr) { }
   virtual ~Markup();
 
   virtual bool isMarkup() const { return true; }
@@ -153,7 +153,7 @@ class Link : public AbstractAnnotation
 public:
   enum HighlightingMode { HighlightingNone, HighlightingInvert, HighlightingOutline, HighlightingPush };
 
-  Link() : AbstractAnnotation(), _highlightingMode(HighlightingNone), _actionOnActivation(NULL) { }
+  Link() : AbstractAnnotation(), _highlightingMode(HighlightingNone), _actionOnActivation(nullptr) { }
   virtual ~Link();
   Link(const Link & other) : AbstractAnnotation(other), _highlightingMode(other._highlightingMode), _quadPoints(other._quadPoints) {
     _actionOnActivation = (other._actionOnActivation ? other._actionOnActivation->clone() : nullptr);
