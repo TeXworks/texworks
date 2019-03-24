@@ -14,9 +14,7 @@
 #include "PDFDocumentView.h"
 #include "PaperSizes.h"
 
-#if QT_VERSION_MAJOR >= 5
-  #include <QtConcurrent>
-#endif
+#include <QtConcurrent>
 
 // This has to be outside the namespace (according to Qt docs)
 static void initResources()

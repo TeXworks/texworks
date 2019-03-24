@@ -674,11 +674,7 @@ QRectF Page::getContentBoundingBox() const
   // Find the bounding box (min/max values for x and y) of the content
   int x0 = img.width(), x1 = 0, y0 = img.height(), y1 = 0;
   for (int y = 0; y < img.height(); ++y) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
     QRgb * row = ((QRgb*)img.constScanLine(y));
-#else
-    QRgb * row = ((QRgb*)img.scanLine(y));
-#endif
     for (int x = 0; x < img.width(); ++x) {
       if (row[x] != bg) {
         if (x0 > x) x0 = x;

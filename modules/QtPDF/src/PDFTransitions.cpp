@@ -146,15 +146,9 @@ QImage AbstractInPlaceTransition::getImage()
   // crashes on Linux/Ubuntu when using zoom (probably due to some data
   // alignment issues).
   for (j = 0; j < _mask.height(); ++j) {
-#if QT_VERSION >= 0x040700
     const uchar * img1 = _imgStart.constScanLine(j);
     const uchar * img2 = _imgEnd.constScanLine(j);
     const uchar * mask = _mask.constScanLine(j);
-#else
-    const uchar * img1 = _imgStart.scanLine(j);
-    const uchar * img2 = _imgEnd.scanLine(j);
-    const uchar * mask = _mask.scanLine(j);
-#endif
     uchar * img = retVal.scanLine(j);
     for (i = 0; i < _mask.width(); ++i) {
       if (mask[i] <= c1)
@@ -395,13 +389,8 @@ void Fly::start(const QImage & imgStart, const QImage & imgEnd)
   // code (introducing lots of bit operations and alignment checks)
   _mask = QImage(_imgStart.size(), QImage::Format_Indexed8);
   for (j = 0; j < _mask.height(); ++j) {
-#if QT_VERSION >= 0x040700
     const QRgb * img1 = (const QRgb*)(_imgStart.constScanLine(j));
     const QRgb * img2 = (const QRgb*)(_imgEnd.constScanLine(j));
-#else
-    const QRgb * img1 = (const QRgb*)(_imgStart.scanLine(j));
-    const QRgb * img2 = (const QRgb*)(_imgEnd.scanLine(j));
-#endif
     uchar * mask = _mask.scanLine(j);
     for (i = 0; i < _mask.width(); ++i)
       mask[i] = (img1[i] == img2[i] ? 0 : 255);
@@ -430,15 +419,9 @@ QImage Fly::getImage()
     if (_direction == 0) {
       offset = (int)(getFracTime() * _imgEnd.width());
       for (j = 0; j < _imgEnd.height(); ++j) {
-#if QT_VERSION >= 0x040700
         img1 = (const QRgb*)(_imgStart.constScanLine(j));
         img2 = (const QRgb*)(_imgEnd.constScanLine(j));
         mask = _mask.constScanLine(j);
-#else
-        img1 = (const QRgb*)(_imgStart.scanLine(j));
-        img2 = (const QRgb*)(_imgEnd.scanLine(j));
-        mask = _mask.scanLine(j);
-#endif
         img = (QRgb*)(retVal.scanLine(j));
         for (i = 0; i < offset; ++i)
           img[i] = (mask[i + _imgEnd.width() - offset] == 0 ? img1[i] : img2[i + _imgEnd.width() - offset]);
@@ -451,24 +434,14 @@ QImage Fly::getImage()
       for (j = 0; j < _imgEnd.height(); ++j) {
         img = (QRgb*)(retVal.scanLine(j));
         if (j < offset) {
-#if QT_VERSION >= 0x040700
           img1 = (const QRgb*)(_imgStart.constScanLine(j));
           img2 = (const QRgb*)(_imgEnd.constScanLine(j + _imgEnd.height() - offset));
           mask = _mask.constScanLine(j + _imgEnd.height() - offset);
-#else
-          img1 = (const QRgb*)(_imgStart.scanLine(j));
-          img2 = (const QRgb*)(_imgEnd.scanLine(j + _imgEnd.height() - offset));
-          mask = _mask.scanLine(j + _imgEnd.height() - offset);
-#endif
           for (i = 0; i < _imgEnd.width(); ++i)
             img[i] = (mask[i] == 0 ? img1[i] : img2[i] );
         }
         else {
-#if QT_VERSION >= 0x040700
           img1 = (const QRgb*)(_imgStart.constScanLine(j));
-#else
-          img1 = (const QRgb*)(_imgStart.scanLine(j));
-#endif
           for (i = 0; i < _imgEnd.width(); ++i)
             img[i] = img1[i];
         }
@@ -479,15 +452,9 @@ QImage Fly::getImage()
     if (_direction == 0) {
       offset = (int)(getFracTime() * _imgEnd.width());
       for (j = 0; j < _imgEnd.height(); ++j) {
-#if QT_VERSION >= 0x040700
         img1 = (const QRgb*)(_imgStart.constScanLine(j));
         img2 = (const QRgb*)(_imgEnd.constScanLine(j));
         mask = _mask.constScanLine(j);
-#else
-        img1 = (const QRgb*)(_imgStart.scanLine(j));
-        img2 = (const QRgb*)(_imgEnd.scanLine(j));
-        mask = _mask.scanLine(j);
-#endif
         img = (QRgb*)(retVal.scanLine(j));
         for (i = 0; i < offset; ++i)
           img[i] = img2[i];
@@ -500,24 +467,14 @@ QImage Fly::getImage()
       for (j = 0; j < _imgEnd.height(); ++j) {
         img = (QRgb*)(retVal.scanLine(j));
         if (j < offset) {
-#if QT_VERSION >= 0x040700
           img2 = (const QRgb*)(_imgEnd.constScanLine(j));
-#else
-          img2 = (const QRgb*)(_imgEnd.scanLine(j));
-#endif
           for (i = 0; i < _imgEnd.width(); ++i)
             img[i] = img2[i];
         }
         else {
-#if QT_VERSION >= 0x040700
           img1 = (const QRgb*)(_imgStart.constScanLine(j - offset));
           img2 = (const QRgb*)(_imgEnd.constScanLine(j));
           mask = _mask.constScanLine(j - offset);
-#else
-          img1 = (const QRgb*)(_imgStart.scanLine(j - offset));
-          img2 = (const QRgb*)(_imgEnd.scanLine(j));
-          mask = _mask.scanLine(j - offset);
-#endif
           for (i = 0; i < _imgEnd.width(); ++i)
             img[i] = (mask[i] == 0 ? img2[i] : img1[i] );
         }
@@ -544,13 +501,8 @@ QImage Push::getImage()
   if (_direction == 0) {
     edge = (int)(getFracTime() * _imgEnd.width());
     for (j = 0; j < _imgEnd.height(); ++j) {
-#if QT_VERSION >= 0x040700
       img1 = (const QRgb*)(_imgStart.constScanLine(j));
       img2 = (const QRgb*)(_imgEnd.constScanLine(j));
-#else
-      img1 = (const QRgb*)(_imgStart.scanLine(j));
-      img2 = (const QRgb*)(_imgEnd.scanLine(j));
-#endif
       img = (QRgb*)(retVal.scanLine(j));
       for (i = 0; i < edge; ++i)
         img[i] = img2[i + _imgEnd.width() - edge];
@@ -561,17 +513,10 @@ QImage Push::getImage()
   else if (_direction == 270) {
     edge = (int)(getFracTime() * _imgEnd.height());
     for (j = 0; j < _imgEnd.height(); ++j) {
-#if QT_VERSION >= 0x040700
       if (j < edge)
         img1 = (const QRgb*)(_imgEnd.constScanLine(j + _imgEnd.height() - edge));
       else
         img1 = (const QRgb*)(_imgStart.constScanLine(j - edge));
-#else
-      if (j < edge)
-        img1 = (const QRgb*)(_imgEnd.scanLine(j + _imgEnd.height() - edge));
-      else
-        img1 = (const QRgb*)(_imgStart.scanLine(j - edge));
-#endif
       QRgb * img = (QRgb*)(retVal.scanLine(j));
 
       for (i = 0; i < retVal.width(); ++i)
@@ -596,13 +541,8 @@ QImage Cover::getImage()
   if (_direction == 0) {
     edge = (int)(getFracTime() * _imgEnd.width());
     for (j = 0; j < _imgEnd.height(); ++j) {
-#if QT_VERSION >= 0x040700
       img1 = (const QRgb*)(_imgStart.constScanLine(j));
       img2 = (const QRgb*)(_imgEnd.constScanLine(j));
-#else
-      img1 = (const QRgb*)(_imgStart.scanLine(j));
-      img2 = (const QRgb*)(_imgEnd.scanLine(j));
-#endif
       img = (QRgb*)(retVal.scanLine(j));
       for (i = 0; i < edge; ++i)
         img[i] = img2[i + _imgEnd.width() - edge];
@@ -613,17 +553,10 @@ QImage Cover::getImage()
   else if (_direction == 270) {
     edge = (int)(getFracTime() * _imgEnd.height());
     for (j = 0; j < _imgEnd.height(); ++j) {
-#if QT_VERSION >= 0x040700
       if (j < edge)
         img1 = (const QRgb*)(_imgEnd.constScanLine(j + _imgEnd.height() - edge));
       else
         img1 = (const QRgb*)(_imgStart.constScanLine(j));
-#else
-      if (j < edge)
-        img1 = (const QRgb*)(_imgEnd.scanLine(j + _imgEnd.height() - edge));
-      else
-        img1 = (const QRgb*)(_imgStart.scanLine(j - edge));
-#endif
       QRgb * img = (QRgb*)(retVal.scanLine(j));
 
       for (i = 0; i < retVal.width(); ++i)
@@ -647,13 +580,8 @@ QImage Uncover::getImage()
   if (_direction == 0) {
     edge = (int)(getFracTime() * _imgEnd.width());
     for (j = 0; j < _imgEnd.height(); ++j) {
-#if QT_VERSION >= 0x040700
       img1 = (const QRgb*)(_imgStart.constScanLine(j));
       img2 = (const QRgb*)(_imgEnd.constScanLine(j));
-#else
-      img1 = (const QRgb*)(_imgStart.scanLine(j));
-      img2 = (const QRgb*)(_imgEnd.scanLine(j));
-#endif
       QRgb * img = (QRgb*)(retVal.scanLine(j));
       for (i = 0; i < edge; ++i)
         img[i] = img2[i];
@@ -664,17 +592,10 @@ QImage Uncover::getImage()
   else if (_direction == 270) {
     edge = (int)(getFracTime() * _imgEnd.height());
     for (j = 0; j < _imgEnd.height(); ++j) {
-#if QT_VERSION >= 0x040700
       if (j < edge)
         img1 = (const QRgb*)(_imgEnd.constScanLine(j));
       else
         img1 = (const QRgb*)(_imgStart.constScanLine(j - edge));
-#else
-      if (j < edge)
-        img1 = (const QRgb*)(_imgEnd.scanLine(j + _imgEnd.height() - edge));
-      else
-        img1 = (const QRgb*)(_imgStart.scanLine(j - edge));
-#endif
       QRgb * img = (QRgb*)(retVal.scanLine(j));
 
       for (i = 0; i < retVal.width(); ++i)
@@ -694,13 +615,8 @@ QImage Fade::getImage()
   int i;
   int f = (int)(255 * getFracTime());
 
-#if QT_VERSION >= 0x040700
   const uchar * img1 = _imgStart.constBits();
   const uchar * img2 = _imgEnd.constBits();
-#else
-  const uchar * img1 = _imgStart.bits();
-  const uchar * img2 = _imgEnd.bits();
-#endif
   uchar * img = retVal.bits();
 
   for (i = 0; i < retVal.byteCount(); ++i) {
