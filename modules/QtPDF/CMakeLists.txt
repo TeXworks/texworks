@@ -287,7 +287,6 @@ INCLUDE_DIRECTORIES(
 
 IF( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
   ADD_DEFINITIONS(-DDEBUG -DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
-  SET(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 ENDIF()
 
 
@@ -362,6 +361,12 @@ SET_TARGET_PROPERTIES(qtpdf PROPERTIES
   COMPILE_FLAGS "${QTPDF_FLAGS}"
   INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+if (MSVC)
+  target_compile_options(qtpdf PRIVATE /W4)
+else ()
+  target_compile_options(qtpdf PRIVATE -Wall -Wpedantic -Wextra -Wconversion -Wold-style-cast -Woverloaded-virtual -Wzero-as-null-pointer-constant)
+endif ()
 
 if (NOT TARGET QtPDF::qtpdf)
   add_library(QtPDF::qtpdf ALIAS qtpdf)
