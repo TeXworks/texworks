@@ -59,7 +59,7 @@ public:
               Flag_ForceBold = 0x40000 };
   Q_DECLARE_FLAGS(Flags, Flag)
 
-  PDFFontDescriptor(const QString fontName = QString());
+  PDFFontDescriptor(const QString & fontName = QString());
   virtual ~PDFFontDescriptor() { }
 
   bool isSubset() const;
@@ -527,7 +527,7 @@ public:
   //     return the search results one at a time rather than all at once.
   //
   //   - See TODO list in `Page::search`
-  virtual QList<SearchResult> search(QString searchText, SearchFlags flags, int startPage = 0);
+  virtual QList<SearchResult> search(const QString & searchText, const SearchFlags & flags, const int startPage = 0);
 
 protected:
   virtual void clearPages();
@@ -649,7 +649,7 @@ public:
   //
   // This is very tricky to do in C++. God I miss Python and its `itertools`
   // library.
-  virtual QList<SearchResult> search(QString searchText, SearchFlags flags) = 0;
+  virtual QList<SearchResult> search(const QString & searchText, const SearchFlags & flags) = 0;
   static QList<SearchResult> executeSearch(SearchRequest request);
 };
 

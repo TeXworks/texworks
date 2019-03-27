@@ -374,7 +374,7 @@ void ContextClick::mouseReleaseEvent(QMouseEvent * event)
     PDFPageGraphicsItem * pageItem = nullptr;
     foreach(QGraphicsItem * item, _parent->scene()->items(pos, Qt::IntersectsItemBoundingRect, Qt::AscendingOrder)) {
       if (item && item->type() == PDFPageGraphicsItem::Type) {
-        pageItem = static_cast<PDFPageGraphicsItem*>(item);
+        pageItem = dynamic_cast<PDFPageGraphicsItem*>(item);
         break;
       }
     }
@@ -425,7 +425,7 @@ void MeasureLineGrip::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void MeasureLineGrip::mouseMove(const QPointF scenePos, const Qt::KeyboardModifiers modifiers)
 {
-  MeasureLine * ml = static_cast<MeasureLine*>(parentItem());
+  MeasureLine * ml = dynamic_cast<MeasureLine*>(parentItem());
   Q_ASSERT(ml != nullptr);
   
   switch(_pt) {
@@ -704,10 +704,8 @@ Select::Select(PDFDocumentView * parent) :
 
 Select::~Select()
 {
-  if (_highlightPath)
-    delete _highlightPath;
-  if (_rubberBand)
-    delete _rubberBand;
+  delete _highlightPath;
+  delete _rubberBand;
 }
 
 void Select::disarm()
@@ -726,7 +724,7 @@ void Select::mousePressEvent(QMouseEvent * event)
     return;
   }
   
-  PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
+  PDFDocumentScene * scene = dynamic_cast<PDFDocumentScene*>(_parent->scene());
   Q_ASSERT(scene != nullptr);
 
   // get the number of the page the mouse is currently over; if the mouse is
@@ -736,7 +734,7 @@ void Select::mousePressEvent(QMouseEvent * event)
   if (pageNum < 0)
     return;
 
-  PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
+  PDFPageGraphicsItem * pageGraphicsItem = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
   Q_ASSERT(pageGraphicsItem != nullptr);
   
   // Create the highlight path to visualize selections in the scene
@@ -783,7 +781,7 @@ void Select::mousePressEvent(QMouseEvent * event)
 void Select::mouseMoveEvent(QMouseEvent *event)
 {
   Q_ASSERT(_parent != nullptr);
-  PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
+  PDFDocumentScene * scene = dynamic_cast<PDFDocumentScene*>(_parent->scene());
   Q_ASSERT(scene != nullptr);
   Q_ASSERT(!scene->document().isNull());
 
@@ -800,7 +798,7 @@ void Select::mouseMoveEvent(QMouseEvent *event)
   if (_mouseMode == MouseMode_None && pageNum != _pageNum)
     resetBoxes(pageNum);
   
-  PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
+  PDFPageGraphicsItem * pageGraphicsItem = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
   Q_ASSERT(pageGraphicsItem != nullptr);
 
   QTransform toView = pageGraphicsItem->pointScale();
@@ -828,7 +826,7 @@ void Select::mouseMoveEvent(QMouseEvent *event)
   }
   case MouseMode_MarqueeSelect:
   {
-    if (!_highlightPath || _boxes.size() == 0)
+    if (!_highlightPath || _boxes.empty())
       break;
     if (_rubberBand)
       _rubberBand->setGeometry(QRect(_parent->mapFromScene(_startPos), event->pos()));
@@ -860,7 +858,7 @@ void Select::mouseMoveEvent(QMouseEvent *event)
   }
   case MouseMode_TextSelect:
   {
-    if (!_highlightPath || _boxes.size() == 0)
+    if (!_highlightPath || _boxes.empty())
       break;
     
     // Find the box (and subbox therein) that is closest to the current mouse
@@ -906,7 +904,7 @@ void Select::mouseMoveEvent(QMouseEvent *event)
     for (i = startBox; i <= endBox; ++i) {
       // Iterate over subboxes in the case that not the whole box might be
       // selected
-      if ((i == startBox || i == endBox) && _boxes[i].subBoxes.size() > 0) {
+      if ((i == startBox || i == endBox) && !_boxes[i].subBoxes.empty()) {
         for (j = 0; j < _boxes[i].subBoxes.size(); ++j) {
           if ((i == startBox && j < startSubbox) || (i == endBox && j > endSubbox))
             continue;
@@ -945,7 +943,7 @@ void Select::keyPressEvent(QKeyEvent *event)
     // We only handle "copy" (Ctrl+C) here
     if (!_highlightPath->path().isEmpty()) {
       Q_ASSERT(_parent != nullptr);
-      PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
+      PDFDocumentScene * scene = dynamic_cast<PDFDocumentScene*>(_parent->scene());
       Q_ASSERT(scene != nullptr);
       QSharedPointer<Backend::Document> doc(scene->document().toStrongRef());
       if (!doc)
@@ -957,7 +955,7 @@ void Select::keyPressEvent(QKeyEvent *event)
         if (page.isNull())
           return;
       
-        PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(_pageNum));
+        PDFPageGraphicsItem * pageGraphicsItem = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(_pageNum));
         Q_ASSERT(pageGraphicsItem != nullptr);
       
         QTransform fromView = pageGraphicsItem->pointScale().inverted();
@@ -1001,7 +999,7 @@ void Select::resetBoxes(const int pageNum /* = -1 */)
 #endif
   
   Q_ASSERT(_parent != nullptr);
-  PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
+  PDFDocumentScene * scene = dynamic_cast<PDFDocumentScene*>(_parent->scene());
   Q_ASSERT(scene != nullptr);
   QSharedPointer<Backend::Document> doc(scene->document().toStrongRef());
   if (!doc)
@@ -1011,7 +1009,7 @@ void Select::resetBoxes(const int pageNum /* = -1 */)
   if (page.isNull())
     return;
 
-  PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
+  PDFPageGraphicsItem * pageGraphicsItem = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
   Q_ASSERT(pageGraphicsItem != nullptr);
   
   _boxes = page->boxes();
@@ -1051,7 +1049,7 @@ QString Select::selectedText() const
   if (!_highlightPath || _highlightPath->path().isEmpty())
     return QString();
 
-  PDFDocumentScene * scene = static_cast<PDFDocumentScene*>(_parent->scene());
+  PDFDocumentScene * scene = dynamic_cast<PDFDocumentScene*>(_parent->scene());
   Q_ASSERT(scene != nullptr);
   QSharedPointer<Backend::Document> doc(scene->document().toStrongRef());
   if (!doc)
@@ -1060,7 +1058,7 @@ QString Select::selectedText() const
   if (page.isNull())
     return QString();
 
-  PDFPageGraphicsItem * pageGraphicsItem = static_cast<PDFPageGraphicsItem*>(scene->pageAt(_pageNum));
+  PDFPageGraphicsItem * pageGraphicsItem = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(_pageNum));
   Q_ASSERT(pageGraphicsItem != nullptr);
 
   QTransform fromView = pageGraphicsItem->pointScale().inverted();

@@ -14,7 +14,7 @@ class PDFViewer : public QMainWindow {
   QToolBar * _toolBar;
 
 public:
-  PDFViewer(const QString pdf_doc = QString(), QWidget *parent = 0, Qt::WindowFlags flags = 0);
+  PDFViewer(const QString & pdf_doc = QString(), QWidget *parent = 0, Qt::WindowFlags flags = 0);
 
 public slots:
   void open();

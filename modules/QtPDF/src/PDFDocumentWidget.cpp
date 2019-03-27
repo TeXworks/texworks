@@ -96,7 +96,7 @@ QStringList PDFDocumentWidget::backends() const
 
 QString PDFDocumentWidget::defaultBackend() const
 {
-  if (_backends.size() == 0)
+  if (_backends.empty())
     return QString();
   return _backends[0]->name();
 }

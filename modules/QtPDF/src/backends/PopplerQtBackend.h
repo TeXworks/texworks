@@ -46,8 +46,10 @@ protected:
   // Poppler is not threadsafe, so some operations need to be serialized with a
   // mutex.
   QMutex * _poppler_docLock;
-  QList<PDFFontInfo> _fonts;
-  bool _fontsLoaded;
+  // Since ::Poppler::Document::fonts() is extremely slow, we need to cache the
+  // result.
+  mutable QList<PDFFontInfo> _fonts;
+  mutable bool _fontsLoaded;
 
   // The following two methods are not thread-safe because they don't acquire a
   // read lock. This is to enable methods that have a write lock to use them.
@@ -55,7 +57,7 @@ protected:
   bool _isLocked() const { return (_poppler_doc ? _poppler_doc->isLocked() : false); }
 
 public:
-  Document(QString fileName);
+  Document(const QString & fileName);
   ~Document();
 
   bool isValid() const { QReadLocker docLocker(_docLock.data()); return _isValid(); }
@@ -104,7 +106,7 @@ public:
   QList< Backend::Page::Box > boxes();
   QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = nullptr, QMap<int, QRectF> * charBoxes = nullptr, const bool onlyFullyEnclosed = false);
 
-  QList<Backend::SearchResult> search(QString searchText, SearchFlags flags);
+  QList<Backend::SearchResult> search(const QString & searchText, const SearchFlags & flags);
 };
 
 } // namespace PopplerQt

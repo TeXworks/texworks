@@ -28,7 +28,6 @@ QDateTime fromPDFDate(QString pdfDate)
   QDate date;
   QTime time;
   QString format;
-  QDateTime retVal;
   int sign = 0;
   int hourOffset, minuteOffset = 0;
   bool ok;
@@ -79,12 +78,12 @@ QDateTime fromPDFDate(QString pdfDate)
   pdfDate.remove(0, 1);
   if (pdfDate.length() < 3 || pdfDate[2] != QChar::fromLatin1('\''))
     return QDateTime(date, time);
-  hourOffset = pdfDate.left(2).toInt(&ok);
+  hourOffset = pdfDate.leftRef(2).toInt(&ok);
   if (!ok)
     return QDateTime(date, time);
   pdfDate.remove(0, 3);
   if (pdfDate.length() >= 2)
-    minuteOffset = pdfDate.left(2).toInt();
+    minuteOffset = pdfDate.leftRef(2).toInt();
   return QDateTime(date, time, Qt::UTC).addSecs(sign * (hourOffset * 3600 + minuteOffset * 60)).toLocalTime();
 }
 
@@ -111,7 +110,7 @@ void PDFPageProcessingThread::dumpWorkStack(const QStack<PageProcessingRequest*>
 // Fonts
 // =================
 
-PDFFontDescriptor::PDFFontDescriptor(const QString fontName /* = QString() */) :
+PDFFontDescriptor::PDFFontDescriptor(const QString & fontName /* = QString() */) :
   _name(fontName),
   _stretch(FontStretch_Normal),
   _weight(400),
@@ -146,8 +145,7 @@ QString PDFFontDescriptor::pureName() const
 {
   if (!isSubset())
     return _name;
-  else
-    return _name.mid(7);
+  return _name.mid(7);
 }
 
 
@@ -223,7 +221,7 @@ void PDFPageProcessingThread::run()
   _idle = false;
   while (!_quit) {
     // mutex must be locked at start of loop
-    if (_workStack.size() > 0) {
+    if (!_workStack.empty()) {
       workItem = _workStack.pop();
       _mutex.unlock();
 
@@ -311,7 +309,7 @@ bool PageProcessingRenderPageRequest::operator==(const PageProcessingRequest & r
 {
   if (!PageProcessingRequest::operator==(r))
     return false;
-  const PageProcessingRenderPageRequest * rr = static_cast<const PageProcessingRenderPageRequest*>(&r);
+  const PageProcessingRenderPageRequest * rr = dynamic_cast<const PageProcessingRenderPageRequest*>(&r);
   // TODO: Should we care about the listener here as well?
   return (qFuzzyCompare(xres, rr->xres) && qFuzzyCompare(yres, rr->yres) && render_box == rr->render_box && cache == rr->cache);
 }
@@ -514,7 +512,7 @@ int Document::numPages() { QReadLocker docLocker(_docLock.data()); return _numPa
 PDFPageProcessingThread &Document::processingThread() { QReadLocker docLocker(_docLock.data()); return _processingThread; }
 PDFPageCache &Document::pageCache() { QReadLocker docLocker(_docLock.data()); return _pageCache; }
 
-QList<SearchResult> Document::search(QString searchText, SearchFlags flags, int startPage)
+QList<SearchResult> Document::search(const QString & searchText, const SearchFlags & flags, const int startPage)
 {
   QReadLocker docLocker(_docLock.data());
   QList<SearchResult> results;
@@ -817,10 +815,8 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
     }
     return retVal;
   }
-  else {
-    renderToImage(xres, yres, render_box, true);
-    return getCachedImage(xres, yres, render_box);
-  }
+  renderToImage(xres, yres, render_box, true);
+  return getCachedImage(xres, yres, render_box);
 }
 
 void Page::asyncLoadLinks(QObject *listener)

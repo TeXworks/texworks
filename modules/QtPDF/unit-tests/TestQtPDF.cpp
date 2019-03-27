@@ -228,7 +228,7 @@ void TestQtPDF::page()
     QVariantList l(pageSize.value<QVariantList>());
     while (pageSizes.length() < doc->numPages()) {
       for (i = 0; i < l.length(); ++i)
-        pageSizes.append(l[i].value<QSizeF>());
+        pageSizes.append(l[i].toSizeF());
     }
   }
   else {
@@ -616,7 +616,7 @@ void compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDF
   }
 }
 
-void printToC(const QtPDF::Backend::PDFToC & toc, const QString indent = QString::fromLatin1("  "))
+void printToC(const QtPDF::Backend::PDFToC & toc, const QString & indent = QString::fromLatin1("  "))
 {
   for (int i = 0; i < toc.size(); ++i) {
     qDebug() << qPrintable(indent + toc[i].label());

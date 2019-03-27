@@ -197,8 +197,7 @@ QString PaperSize::label() const
 
   if (_name.isEmpty())
     return QString::fromUtf8("%1 × %2 %3").arg(w).arg(h).arg(unit);
-  else
-    return QString::fromUtf8("%1 [%2 × %3 %4]").arg(_name).arg(w).arg(h).arg(unit);
+  return QString::fromUtf8("%1 [%2 × %3 %4]").arg(_name).arg(w).arg(h).arg(unit);
 }
 
 //static

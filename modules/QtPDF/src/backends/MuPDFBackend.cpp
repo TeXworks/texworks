@@ -1092,7 +1092,7 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
   return _annotations;
 }
 
-QList<SearchResult> Page::search(QString searchText, SearchFlags flags)
+QList<SearchResult> Page::search(const QString & searchText, const SearchFlags & flags)
 {
   QList<SearchResult> results;
   fz_text_span * page_text, * span;

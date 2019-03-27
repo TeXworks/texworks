@@ -1,6 +1,6 @@
 #include "PDFViewer.h"
 
-PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
+PDFViewer::PDFViewer(const QString & pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   QMainWindow(parent, flags)
 {
   QtPDF::PDFDocumentWidget *docWidget = new QtPDF::PDFDocumentWidget(this);

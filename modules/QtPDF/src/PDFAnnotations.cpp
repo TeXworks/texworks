@@ -23,22 +23,19 @@ namespace Annotation {
 
 Markup::~Markup()
 {
-  if (_popup)
-    delete _popup;
+  delete _popup;
 }
 
 void Markup::setPopup(Popup * popup)
 {
-  if (_popup)
-    delete _popup;
+  delete _popup;
   _popup = popup;
 }
 
 
 Link::~Link()
 {
-  if (_actionOnActivation)
-    delete _actionOnActivation;
+  delete _actionOnActivation;
 }
 
 QPolygonF Link::quadPoints() const
@@ -56,8 +53,7 @@ QPolygonF Link::quadPoints() const
 
 void Link::setActionOnActivation(PDFAction * const action)
 {
-  if (_actionOnActivation)
-    delete _actionOnActivation;
+  delete _actionOnActivation;
   _actionOnActivation = action;
 }
 
