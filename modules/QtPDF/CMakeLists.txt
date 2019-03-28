@@ -180,7 +180,6 @@ FIND_PACKAGE(ZLIB REQUIRED)
 # access.
 SET(QTPDF_INCLUDE_DIRS
   ${ZLIB_INCLUDE_DIR}
-  ${POPPLER_QT_INCLUDE_DIR}
 )
 
 SET(QTPDF_LIBS
@@ -192,28 +191,17 @@ SET(QTPDF_LIBS
 # Backend Components
 # ------------------
 IF( WITH_POPPLERQT )
+  FIND_PACKAGE(Poppler REQUIRED COMPONENTS qt5)
 
-  FIND_PACKAGE(Poppler REQUIRED)
-  LIST(APPEND QTPDF_INCLUDE_DIRS ${POPPLER_QT_INCLUDE_DIR})
-  # In case poppler is linked statically, its libs have to be given to the
-  # linker **first** for some strange reason or symbols won't be properly
-  # resolved. At least, this is the case with the MinGW linker.
-  SET(QTPDF_LIBS ${POPPLER_LIBRARIES} ${QTPDF_LIBS})
-
-  # The only thing Poppler should need is the location of the include
-  # directories in order to access header files. The library loader should be
-  # able to find libfontconfig on standard search paths.
-  IF ( POPPLER_NEEDS_FONTCONFIG )
-    FIND_PACKAGE(Fontconfig REQUIRED)
-    LIST(APPEND QTPDF_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
-  ENDIF ()
+  # As in FindPoppler.cmake, it is important to list poppler after Qt to avoid
+  # confusion with dependencies when using statically linked libraries
+  SET(QTPDF_LIBS ${QTPDF_LIBS} Poppler::poppler-qt5)
 
   # Check if Poppler provides certain features (as poppler does not reliably
   # expose its version number, there is no easy way to check for these at
   # compile-time)
   include(CheckCXXSourceCompiles)
-  set(CMAKE_REQUIRED_INCLUDES ${QTPDF_INCLUDE_DIRS} ${QT_INCLUDE_DIR})
-  set(CMAKE_REQUIRED_LIBRARIES ${QTPDF_LIBS} ${QTPDF_ADDITIONAL_LIBS})
+  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt5)
 
   # Page::SearchFlags were added in 0.31
   CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { double x; Poppler::Document::load(QString())->page(0)->search(QString(), x, x, x, x, Poppler::Page::NextResult, Poppler::Page::IgnoreCase); return 0; }" POPPLER_HAS_SEARCH_FLAGS)
@@ -353,10 +341,7 @@ ADD_LIBRARY(qtpdf
   ${QTPDF_QM}
 )
 
-set(QTPDF_ADDITIONAL_LIBS "" CACHE STRING "Additional libraries not found by CMake")
-MARK_AS_ADVANCED(QTPDF_ADDITIONAL_LIBS)
-
-TARGET_LINK_LIBRARIES(qtpdf ${QTPDF_LIBS} ${QTPDF_ADDITIONAL_LIBS})
+TARGET_LINK_LIBRARIES(qtpdf ${QTPDF_LIBS})
 
 SET_TARGET_PROPERTIES(qtpdf PROPERTIES
   COMPILE_FLAGS "${QTPDF_FLAGS}"
@@ -371,6 +356,12 @@ endif ()
 
 if (NOT TARGET QtPDF::qtpdf)
   add_library(QtPDF::qtpdf ALIAS qtpdf)
+
+  # FIXME: Implementation details about poppler should not need to be exposed in
+  # the cache. Possible solution: port poppler-specific hacks from TeXworks to
+  # QtPDF
+  get_target_property(POPPLER_HAS_XPDF Poppler::poppler HAS_PRIVATE_HEADERS)
+  set(POPPLER_HAS_XPDF "${POPPLER_HAS_XPDF}" CACHE INTERNAL "Whether poppler's XPdf headers are available")
 endif ()
 
 
