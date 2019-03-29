@@ -9,7 +9,7 @@
 
 int main(int argc, char **argv) {
   QApplication app(argc, argv);
-  app.setWindowIcon(QIcon(QString::fromUtf8(":/icons/logo.png")));
+  app.setWindowIcon(QIcon(QString::fromUtf8(":/QtPDF/icons/logo.png")));
   PDFViewer mainWin(QString::fromUtf8("pgfmanual.pdf"));
 
   mainWin.show();
