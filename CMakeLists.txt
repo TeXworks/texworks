@@ -329,7 +329,6 @@ ENDIF()
 # to include the correct Qt headers (as QTVERSION is not defined before any Qt
 # headers are included)
 ADD_DEFINITIONS(-DQT_VERSION_MAJOR=${QT_VERSION_MAJOR})
-INCLUDE( TranslationMacros )
 
 
 

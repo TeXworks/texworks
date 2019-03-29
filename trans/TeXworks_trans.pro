@@ -2,9 +2,6 @@
 
 error("This file is not intended for building TeXworks. Please use CMake instead. See README.md for further instructions.")
 
-# INCLUDEPATH must be set so lupdate finds headers, namespace declarations, etc.
-INCLUDEPATH += src
-
 SOURCES = \
   "../src/BibTeXFile.cpp" \
   "../src/CitationSelectDialog.cpp" \
@@ -46,7 +43,6 @@ HEADERS = \
   "../src/ConfigurableApp.h" \
   "../src/ConfirmDelete.h" \
   "../src/DefaultBinaryPaths.h" \
-  "../src/DefaultBinaryPathsWin.h" \
   "../src/DefaultPrefs.h" \
   "../src/Engine.h" \
   "../src/FindDialog.h" \
@@ -86,6 +82,10 @@ FORMS = \
   "../src/TeXDocument.ui" \
   "../src/TemplateDialog.ui" \
   "../src/ToolConfig.ui"
+
+RESOURCES = \
+  "../res/resfiles.qrc" \
+  "../res/resources.qrc"
 
 TRANSLATIONS = \
   "TeXworks_af.ts" \

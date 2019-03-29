@@ -96,7 +96,6 @@ set(TEXWORKS_RCS ${TeXworks_SOURCE_DIR}/res/resfiles.qrc
                  ${TeXworks_SOURCE_DIR}/res/resources.qrc)
 
 FILE(GLOB TEXWORKS_TRANS_TS   "${TeXworks_SOURCE_DIR}/trans/*.ts")
-FILE(GLOB QTPDF_TRANS_TS      "${TeXworks_SOURCE_DIR}/modules/QtPDF/trans/*.ts")
 FILE(GLOB QT_TRANS_QM         "${TeXworks_SOURCE_DIR}/trans/qt/*.qm")
 
 IF ( WIN32 )
@@ -175,25 +174,6 @@ IF (POPPLER_HAS_XPDF)
 ENDIF ()
 
 
-# Qt-Specific Source Code Processing
-# ----------------------------------
-
-# Add translations
-QT_ADD_TRANSLATIONS(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS_TS} ${QTPDF_TRANS_TS} ${QT_TRANS_QM})
-
-# Create .pro file that can be used for easy updating with `lupdate`. We sort
-# the file list to obtain a stable result (that can be kept in the repository)
-# irrespective of globbing order (which varies for different file systems).
-SET(TEXWORKS_TRANS_FILE_LIST
-  ${TEXWORKS_SRCS} ${TEXWORKS_HDRS} ${TEXWORKS_UIS} ${TEXWORKS_TRANS_TS}
-)
-LIST(SORT TEXWORKS_TRANS_FILE_LIST)
-CREATE_QT_PRO_FILE(
-  "${CMAKE_SOURCE_DIR}/trans/${PROJECT_NAME}_trans.pro"
-  "src"
-  ${TEXWORKS_TRANS_FILE_LIST}
-)
-
 # Compilation
 # -----------
 
@@ -209,7 +189,7 @@ ENDIF()
 # Build the executable
 ADD_EXECUTABLE(TeXworks ${GUI_TYPE}
   ${TEXWORKS_SRCS} ${TEXWORKS_HDRS} ${TEXWORKS_UIS}
-  ${TEXWORKS_RCS} ${TEXWORKS_GEN_TRANS}
+  ${TEXWORKS_RCS}
   ${TeXworks_APP_ICONS}
 )
 
@@ -218,6 +198,13 @@ if (UNIX AND NOT APPLE)
     OUTPUT_NAME texworks
   )
 endif ()
+
+# Add translations
+target_add_qt_translations(TeXworks
+  PRO_FILE "${CMAKE_SOURCE_DIR}/trans/${PROJECT_NAME}_trans.pro"
+  TS_FILES ${TEXWORKS_TRANS_TS}
+  QM_FILES ${QT_TRANS_QM}
+)
 
 IF (UNIX)
   # Required (at least) on OpenBSD to make scripting plugins work
