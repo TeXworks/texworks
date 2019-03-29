@@ -1265,7 +1265,7 @@ void PDFDocumentView::switchInterfaceLocale(const QLocale & newLocale)
   _translatorLanguage = newLocale.name();
   
   _translator = new QTranslator();
-  if (_translator->load(QString::fromUtf8("QtPDF_%1").arg(newLocale.name()), QString::fromUtf8(":/trans")))
+  if (_translator->load(QString::fromUtf8("QtPDF_%1").arg(newLocale.name()), QString::fromUtf8(":/resfiles/translations")))
     QCoreApplication::installTranslator(_translator);
   else {
     _translator->deleteLater();
