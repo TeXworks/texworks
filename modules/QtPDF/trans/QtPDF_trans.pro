@@ -2,30 +2,30 @@
 
 error("This file is not intended for building QtPDF. Please use CMake instead. See README.md for further instructions.")
 
-# INCLUDEPATH must be set so lupdate finds headers, namespace declarations, etc.
-INCLUDEPATH += src
-
 SOURCES = \
-  "../src/PDFDocumentView.cpp" \
-  "../src/PDFDocumentWidget.cpp" \
-  "../src/PDFDocumentTools.cpp" \
-  "../src/PDFBackend.cpp" \
-  "../src/PDFTransitions.cpp" \
   "../src/PDFActions.cpp" \
   "../src/PDFAnnotations.cpp" \
+  "../src/PDFBackend.cpp" \
+  "../src/PDFDocumentTools.cpp" \
+  "../src/PDFDocumentView.cpp" \
+  "../src/PDFDocumentWidget.cpp" \
+  "../src/PDFTransitions.cpp" \
   "../src/PaperSizes.cpp" \
   "../src/backends/PopplerQtBackend.cpp"
 
 HEADERS = \
-  "../src/PDFDocumentView.h" \
-  "../src/PDFDocumentWidget.h" \
-  "../src/PDFDocumentTools.h" \
-  "../src/PDFBackend.h" \
-  "../src/PDFTransitions.h" \
   "../src/PDFActions.h" \
   "../src/PDFAnnotations.h" \
+  "../src/PDFBackend.h" \
+  "../src/PDFDocumentTools.h" \
+  "../src/PDFDocumentView.h" \
+  "../src/PDFDocumentWidget.h" \
+  "../src/PDFTransitions.h" \
   "../src/PaperSizes.h" \
   "../src/backends/PopplerQtBackend.h"
+
+RESOURCES = \
+  "../QtPDF_icons.qrc"
 
 TRANSLATIONS = \
   "QtPDF_af.ts" \
