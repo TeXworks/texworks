@@ -74,6 +74,7 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 SET(CMAKE_AUTOMOC TRUE)
 SET(CMAKE_AUTORCC TRUE)
+SET(CMAKE_AUTOUIC TRUE)
 
 # Make the contents of `CMake/Modules` available. Among other things, this
 # directory contains scripts that locate project components such as hunspell.

@@ -178,8 +178,6 @@ ENDIF ()
 # Qt-Specific Source Code Processing
 # ----------------------------------
 
-# Run uic on user interface files.
-QT5_WRAP_UI(TEXWORKS_GEN_UI ${TEXWORKS_UIS})
 # Add translations
 QT_ADD_TRANSLATIONS(TEXWORKS_GEN_TRANS ${TEXWORKS_TRANS_TS} ${QTPDF_TRANS_TS} ${QT_TRANS_QM})
 
@@ -208,10 +206,10 @@ IF (NOT ${BUILD_SHARED_PLUGINS})
   ENDIF()
 ENDIF()
 
-# Build the executible.
+# Build the executable
 ADD_EXECUTABLE(TeXworks ${GUI_TYPE}
   ${TEXWORKS_SRCS} ${TEXWORKS_HDRS} ${TEXWORKS_UIS}
-  ${TEXWORKS_GEN_UI} ${TEXWORKS_RCS} ${TEXWORKS_GEN_TRANS}
+  ${TEXWORKS_RCS} ${TEXWORKS_GEN_TRANS}
   ${TeXworks_APP_ICONS}
 )
 
