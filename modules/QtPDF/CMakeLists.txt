@@ -83,86 +83,24 @@ set (CMAKE_CXX_STANDARD 11)
 # Core Components
 # ---------------
 
-include(FindPackageMessage)
-MACRO(find_qt5_package pkg)
-  find_package(${pkg} QUIET)
-  if (${pkg}_FOUND)
-    set(_msg "Found ${pkg}")
-    if (${pkg}_DIR)
-      set(_msg "${_msg}: ${${pkg}_DIR}")
-    endif()
-    if (${pkg}_VERSION)
-      set(_msg "${_msg} (found version ${${pkg}_VERSION})")
-    endif()
-    FIND_PACKAGE_MESSAGE(${pkg} ${_msg} "[${${pkg_FOUND}}][${${pkg}_DIR}][${${pkg}_VERSION}]")
-  else()
-    FIND_PACKAGE_MESSAGE(${pkg} "Could not find ${pkg}" "[${${pkg_FOUND}}][${${pkg}_DIR}][${${pkg}_VERSION}]")
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
+
+if (WITH_TESTS)
+  find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
+  if (NOT Qt5Test_FOUND)
+    set(WITH_TESTS OFF)
   endif()
-ENDMACRO()
-
-find_qt5_package(Qt5Core)
-find_qt5_package(Qt5Widgets)
-find_qt5_package(Qt5Concurrent)
-find_qt5_package(Qt5Xml)
-find_qt5_package(Qt5LinguistTools)
-
-IF( WITH_TESTS )
-  find_qt5_package(Qt5Test QUIET)
-ENDIF()
-
-if(Qt5Core_FOUND AND Qt5Widgets_FOUND AND Qt5Concurrent_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT WITH_TESTS OR Qt5Test_FOUND))
-  # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
-  # etc. which is used here.
-  string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
-  string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
-  string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
-
-  SET(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml)
-  SET(QT_TEST_LIBRARIES ${Qt5Test_LIBRARIES} Qt5::Core)
-else()
-  message(FATAL_ERROR "Could not find required Qt5")
 endif()
-  
-IF (WIN32 AND NOT BUILD_SHARED_LIBS )
-  # For static Windows builds, we also need to pull in the Qt5 Platform
-  # support library, which is not exposed to CMake properly, unfortunately
-  GET_TARGET_PROPERTY(QT_LIB_DIR Qt5::Widgets LOCATION)
-  GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
 
-  FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
-    HINTS "${QT_LIB_DIR}/../plugins/platforms"
-  )
+if (WIN32 AND NOT BUILD_SHARED_LIBS)
+  find_package(Qt5WindowsPlatformSupport)
+endif ()
 
-  # Starting with Qt 5.8, Qt5PlatformSupport was modularized
-  if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR LESS 8)
-    FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
-      HINTS "${QT_LIB_DIR}"
-    )
-    LIST(INSERT QT_LIBRARIES 0 ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES})
-  else()
-    FIND_LIBRARY(Qt5FontDatabaseSupport_LIBRARIES Qt5FontDatabaseSupport
-      HINTS "${QT_LIB_DIR}"
-    )
-    FIND_LIBRARY(Qt5EventDispatcherSupport_LIBRARIES Qt5EventDispatcherSupport
-      HINTS "${QT_LIB_DIR}"
-    )
-    FIND_LIBRARY(Qt5ThemeSupport_LIBRARIES Qt5ThemeSupport
-      HINTS "${QT_LIB_DIR}"
-    )
-    FIND_LIBRARY(Qt5AccessibilitySupport_LIBRARIES Qt5AccessibilitySupport
-      HINTS "${QT_LIB_DIR}"
-    )
-    LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5FontDatabaseSupport_LIBRARIES} ${Qt5EventDispatcherSupport_LIBRARIES} ${Qt5ThemeSupport_LIBRARIES} ${Qt5AccessibilitySupport_LIBRARIES})
-  endif()
-  # Starting with Qt 5.11, WindowsUIAutomation was added
-  if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 10)
-    FIND_LIBRARY(Qt5WindowsUIAutomation_LIBRARIES Qt5WindowsUIAutomationSupport
-      HINTS "${QT_LIB_DIR}"
-    )
-    LIST(APPEND QT_LIBRARIES ${Qt5WindowsUIAutomation_LIBRARIES})
-  endif()
-  ADD_DEFINITIONS(-DSTATIC_QT5)
-ENDIF()
+# Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
+# etc. which is used here.
+string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
+string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
+string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
 # to include the correct Qt headers (as QTVERSION is not defined before any Qt
@@ -172,15 +110,10 @@ ADD_DEFINITIONS(-DQT_VERSION_MAJOR=${QT_VERSION_MAJOR})
 
 FIND_PACKAGE(ZLIB REQUIRED)
 
-# Aggregate library names and include directories into variables for easy
-# access.
-SET(QTPDF_INCLUDE_DIRS
-  ${ZLIB_INCLUDE_DIR}
-)
-
 SET(QTPDF_LIBS
-  ${QT_LIBRARIES}
-  ${ZLIB_LIBRARIES}
+  ${QT_PLATFORM_LIBRARIES}
+  Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml
+  ZLIB::ZLIB
 )
 
 
@@ -429,7 +362,7 @@ IF ( WITH_TESTS )
     SET_TARGET_PROPERTIES(test_poppler-qt${QT_VERSION_MAJOR} PROPERTIES
       COMPILE_FLAGS "-DUSE_POPPLERQT ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
-    TARGET_LINK_LIBRARIES(test_poppler-qt${QT_VERSION_MAJOR} ${QT_TEST_LIBRARIES} qtpdf)
+    target_link_libraries(test_poppler-qt${QT_VERSION_MAJOR} Qt5::Test qtpdf)
     ADD_TEST(NAME test_poppler-qt${QT_VERSION_MAJOR} COMMAND test_poppler-qt${QT_VERSION_MAJOR} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
   IF( WITH_MUPDF )
@@ -440,7 +373,7 @@ IF ( WITH_TESTS )
     SET_TARGET_PROPERTIES(test_mupdf PROPERTIES
       COMPILE_FLAGS "-DUSE_MUPDF ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
-    TARGET_LINK_LIBRARIES(test_mupdf ${QT_TEST_LIBRARIES} qtpdf)
+    target_link_libraries(test_mupdf Qt5::Test qtpdf)
     ADD_TEST(NAME test_mupdf COMMAND test_mupdf WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
 ENDIF( WITH_TESTS )
