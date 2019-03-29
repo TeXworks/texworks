@@ -11,14 +11,14 @@ include(CMakeParseArguments)
 # .pro file from target's sources that can be used with lupdate to easily update
 # the translations
 function (target_add_qt_translations _TARGET)
-  cmake_parse_arguments("" "" "PRO_FILE;INCLUDEPATH" "TS_FILES" ${ARGN})
+  cmake_parse_arguments("" "" "PRO_FILE;INCLUDEPATH" "TS_FILES;QM_FILES" ${ARGN})
   list(SORT _TS_FILES)
   if (_PRO_FILE)
     get_target_property(_sources ${_TARGET} SOURCES)
     list(SORT _sources)
     create_qt_pro_file("${_PRO_FILE}" INCLUDEPATH "${_INCLUDEPATH}" FILES ${_sources} ${_TS_FILES})
   endif ()
-  qt_add_translations(_qm ${_TS_FILES})
+  qt_add_translations(_qm ${_TS_FILES} ${_QM_FILES})
   target_sources(${_TARGET} PRIVATE ${_qm})
 endfunction()
 
