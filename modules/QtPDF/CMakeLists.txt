@@ -20,6 +20,7 @@ endif()
 
 SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_AUTOMOC TRUE)
+SET(CMAKE_AUTORCC TRUE)
 
 # Always add the current source and binary directories to the header include
 # path when compiling.
@@ -162,11 +163,6 @@ IF (WIN32 AND NOT BUILD_SHARED_LIBS )
   endif()
   ADD_DEFINITIONS(-DSTATIC_QT5)
 ENDIF()
-
-# Define version-dependent wrappers
-MACRO(QT_ADD_RESOURCES)
-  QT5_ADD_RESOURCES(${ARGV})
-ENDMACRO(QT_ADD_RESOURCES)
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
 # to include the correct Qt headers (as QTVERSION is not defined before any Qt
@@ -331,13 +327,12 @@ CREATE_QT_PRO_FILE("${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro" "src" ${Q
 SET(QTPDF_RCS
   ${CMAKE_CURRENT_SOURCE_DIR}/QtPDF_icons.qrc
 )
-QT_ADD_RESOURCES(QTPDF_RESOURCES ${QTPDF_RCS})
 
 
 ADD_LIBRARY(qtpdf
   ${QTPDF_SRCS}
   ${QTPDF_HDRS}
-  ${QTPDF_RESOURCES}
+  ${QTPDF_RCS}
   ${QTPDF_QM}
 )
 
@@ -381,15 +376,11 @@ SET(PDFVIEWER_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/PDFViewer.h
 )
 
-QT_ADD_RESOURCES(PDFVIEWER_RESOURCES
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons.qrc
-)
-
 IF( WITH_POPPLERQT )
   ADD_EXECUTABLE(poppler-qt${QT_VERSION_MAJOR}_viewer
     ${PDFVIEWER_SRCS}
     ${PDFVIEWER_HDRS}
-    ${PDFVIEWER_RESOURCES}
+    icons.qrc
   )
 
   # NOTE:
@@ -408,7 +399,7 @@ IF( WITH_MUPDF )
   ADD_EXECUTABLE(mupdf_viewer
     ${PDFVIEWER_SRCS}
     ${PDFVIEWER_HDRS}
-    ${PDFVIEWER_RESOURCES}
+    icons.qrc
   )
 
   SET_TARGET_PROPERTIES(mupdf_viewer PROPERTIES
