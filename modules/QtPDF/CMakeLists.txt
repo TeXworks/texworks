@@ -240,6 +240,11 @@ IF( WITH_POPPLERQT )
   LIST(APPEND QTPDF_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerQtBackend.cpp)
   LIST(APPEND QTPDF_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerQtBackend.h)
   SET(QTPDF_FLAGS "${QTPDF_FLAGS} -DUSE_POPPLERQT")
+
+  get_target_property(POPPLER_HAS_XPDF Poppler::poppler HAS_PRIVATE_HEADERS)
+  if (POPPLER_HAS_XPDF)
+    set(QTPDF_FLAGS "${QTPDF_FLAGS} -DHAVE_POPPLER_XPDF_HEADERS")
+  endif ()
 ENDIF()
 
 IF( WITH_MUPDF )
@@ -283,12 +288,6 @@ endif ()
 
 if (NOT TARGET QtPDF::qtpdf)
   add_library(QtPDF::qtpdf ALIAS qtpdf)
-
-  # FIXME: Implementation details about poppler should not need to be exposed in
-  # the cache. Possible solution: port poppler-specific hacks from TeXworks to
-  # QtPDF
-  get_target_property(POPPLER_HAS_XPDF Poppler::poppler HAS_PRIVATE_HEADERS)
-  set(POPPLER_HAS_XPDF "${POPPLER_HAS_XPDF}" CACHE INTERNAL "Whether poppler's XPdf headers are available")
 endif ()
 
 

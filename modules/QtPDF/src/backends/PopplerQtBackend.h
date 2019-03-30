@@ -118,7 +118,7 @@ class PopplerQtBackend : public BackendInterface
   Q_OBJECT
   Q_INTERFACES(QtPDF::BackendInterface)
 public:
-  PopplerQtBackend() { }
+  PopplerQtBackend();
   virtual ~PopplerQtBackend() { }
 
   virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) {

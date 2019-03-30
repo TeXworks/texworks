@@ -57,11 +57,6 @@
 #include <QDesktopServices>
 #include <QLibraryInfo>
 
-#if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_OS_DARWIN) || defined(Q_OS_WIN))
-#include "poppler-config.h"
-#include "GlobalParams.h"
-#endif
-
 #if defined(Q_OS_DARWIN)
 #include <CoreServices/CoreServices.h>
 #endif
@@ -158,24 +153,6 @@ void TWApp::init()
 		portableLibPath = libPath.absolutePath();
 	}
 	// </Check for portable mode>
-
-#if defined(HAVE_POPPLER_XPDF_HEADERS) && (defined(Q_OS_DARWIN) || defined(Q_OS_WIN))
-	// for Mac and Windows, support "local" poppler-data directory
-	// (requires patched poppler-qt lib to be effective,
-	// otherwise the GlobalParams gets overwritten when a
-	// document is opened)
-#if defined(Q_OS_DARWIN)
-	QDir popplerDataDir(applicationDirPath() + QLatin1String("/../poppler-data"));
-#else
-	QDir popplerDataDir(applicationDirPath() + QLatin1String("/poppler-data"));
-#endif
-	if (popplerDataDir.exists()) {
-		globalParams = new GlobalParams(popplerDataDir.canonicalPath().toUtf8().data());
-	}
-	else {
-		globalParams = new GlobalParams();
-	}
-#endif
 
 	// Required for TWUtils::getLibraryPath()
 	theAppInstance = this;

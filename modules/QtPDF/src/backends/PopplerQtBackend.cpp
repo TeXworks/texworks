@@ -16,6 +16,14 @@
 #include <PDFBackend.h>
 #include <QBitArray>
 
+#if defined(HAVE_POPPLER_XPDF_HEADERS) && defined(Q_OS_DARWIN)
+#include "poppler-config.h"
+#include "GlobalParams.h"
+#include <QCoreApplication>
+#include <QDir>
+#endif
+
+
 // Comparison operator for QSizeF needed to use QSizeF as keys in a QMap
 // NB: Must be in the global namespace
 inline bool operator<(const QSizeF & a, const QSizeF & b) {
@@ -1033,6 +1041,26 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 } // namespace PopplerQt
 
 } // namespace Backend
+
+PopplerQtBackend::PopplerQtBackend() {
+#if defined(HAVE_POPPLER_XPDF_HEADERS) && defined(Q_OS_DARWIN)
+  static bool globalParamsInitialized = false;
+  if (!globalParamsInitialized) {
+    globalParamsInitialized = true;
+    // for Mac, support "local" poppler-data directory
+    // (requires patched poppler-qt lib to be effective,
+    // otherwise the GlobalParams gets overwritten when a
+    // document is opened)
+    QDir popplerDataDir(QCoreApplication::applicationDirPath() + QLatin1String("/../poppler-data"));
+    if (popplerDataDir.exists()) {
+      globalParams = new GlobalParams(popplerDataDir.canonicalPath().toUtf8().data());
+    }
+    else {
+      globalParams = new GlobalParams();
+    }
+  }
+#endif
+}
 
 } // namespace QtPDF
 
