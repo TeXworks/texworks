@@ -18,8 +18,16 @@ function (target_add_qt_translations _TARGET)
     list(SORT _sources)
     create_qt_pro_file("${_PRO_FILE}" INCLUDEPATH "${_INCLUDEPATH}" FILES ${_sources} ${_TS_FILES})
   endif ()
-  qt_add_translations(_qm ${_TS_FILES} ${_QM_FILES})
-  target_sources(${_TARGET} PRIVATE ${_qm})
+
+  qt5_add_translation(_generated_qm ${_TS_FILES})
+
+  set(_qm_qrc_path ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_trans.qrc)
+  create_translations_resource_file(${_qm_qrc_path} ${_generated_qm} ${_QM_FILES})
+
+  target_sources(${_TARGET} PRIVATE ${_qm_qrc_path})
+  # Explicitly set the generated .qm files as dependencies for the autogen
+  # target to ensure they are built before AUTORCC is run
+  set_target_properties(${_TARGET} PROPERTIES AUTOGEN_TARGET_DEPENDS "${_generated_qm}")
 endfunction()
 
 # create_qt_pro_file(<path_to_pro_file> [INCLUDEPATH <inc_path>] FILES <file1> [<file2> ...])
@@ -79,31 +87,17 @@ function(create_qt_pro_file _pro_path)
   file(WRITE ${_pro_path} "${_pro_content}\n")
 endfunction(create_qt_pro_file)
 
-# qt_add_translations(<output_var> <1.ts|1.qm> [<2.ts|2.qm> ...])
-function(qt_add_translations outfile)
+# create_translations_resource_file(<output_var> <1.qm> [<2.qm> ...])
+function(create_translations_resource_file outfile)
   # Construct an appropriate resource file
   set(_qm_qrc "<!DOCTYPE RCC>\n<RCC version=\"1.0\">\n<qresource>\n")
   foreach(_file ${ARGN})
-    get_filename_component(_ext ${_file} EXT)
-
-    set(_qm_file "")
-    if (_ext MATCHES "ts")
-      # .ts source files need to be converted
-      qt5_add_translation(_qm_file "${_file}")
-    elseif (_ext MATCHES "qm")
-      # .qm files are taken as is
-      set(_qm_file "${_file}")
-    endif()
-
-    get_filename_component(_qm_filename "${_qm_file}" NAME)
-    set(_qm_qrc "${_qm_qrc}<file alias=\"resfiles/translations/${_qm_filename}\">${_qm_file}</file>\n")
+    get_filename_component(_filename "${_file}" NAME)
+    set(_qm_qrc "${_qm_qrc}<file alias=\"resfiles/translations/${_filename}\">${_file}</file>\n")
   endforeach(_file)
   set(_qm_qrc "${_qm_qrc}</qresource>\n</RCC>\n")
-  set(_qm_qrc_path ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_trans.qrc)
-  file(WRITE ${_qm_qrc_path} ${_qm_qrc})
-
-  set(${outfile} ${_qm_qrc_path} PARENT_SCOPE)
-endfunction(qt_add_translations)
+  file(WRITE ${outfile} ${_qm_qrc})
+endfunction(create_translations_resource_file)
 
 
 function (_qt_pro_file_add_sources _output_var _pro_basepath _label)
