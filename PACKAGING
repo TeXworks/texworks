@@ -69,6 +69,15 @@ can be passed on to you, the packager.
 Other variables that may be useful for packaging include:
    BUILD_SHARED_PLUGINS      flag to indicate whether plugins should be built
                              as separate shared libraries [true]
+   PLATFORM_DEPENDENCIES     additional libraries required by Qt platform
+                             support plugins; currently on used when building
+                             statically on Windows' separate multiple libraries
+                             by a semicolon
+   Poppler_ADDITIONAL_DEPENDENCIES  additional libraries required by poppler;
+                             useful only if CMake does not pick them up
+                             automatically (e.g. when linking poppler
+                             statically); separate multiple libraries by a
+                             semicolon
    PREFER_BUNDLED_SYNCTEX    set this flag to use SyncTeX is bundled with
                              TeXworks even if a system-wide installation is
                              found [false]
