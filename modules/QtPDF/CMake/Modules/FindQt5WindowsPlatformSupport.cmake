@@ -40,6 +40,10 @@ if (NOT Qt5Widgets_VERSION VERSION_LESS 5.11)
   list(APPEND QT_PLATFORM_LIBRARIES ${Qt5WindowsUIAutomation_LIBRARIES})
 endif()
 
+if (PLATFORM_DEPENDENCIES)
+  list(APPEND QT_PLATFORM_LIBRARIES ${PLATFORM_DEPENDENCIES})
+endif ()
+
 if (NOT TARGET Qt5::WindowsPlatformSupport)
   add_library(Qt5::WindowsPlatformSupport UNKNOWN IMPORTED)
   set_target_properties(Qt5::WindowsPlatformSupport PROPERTIES
