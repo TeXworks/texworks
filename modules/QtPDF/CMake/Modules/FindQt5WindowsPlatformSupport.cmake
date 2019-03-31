@@ -40,11 +40,13 @@ if (NOT Qt5Widgets_VERSION VERSION_LESS 5.11)
   list(APPEND QT_PLATFORM_LIBRARIES ${Qt5WindowsUIAutomation_LIBRARIES})
 endif()
 
-add_library(Qt5::WindowsPlatformSupport UNKNOWN IMPORTED)
-set_target_properties(Qt5::WindowsPlatformSupport PROPERTIES
-  IMPORTED_LOCATION "${Qt5QWindows_LIBRARIES}"
-  INTERFACE_LINK_LIBRARIES "${QT_PLATFORM_LIBRARIES}"
-  INTERFACE_COMPILE_DEFINITIONS "STATIC_QT5"
-)
+if (NOT TARGET Qt5::WindowsPlatformSupport)
+  add_library(Qt5::WindowsPlatformSupport UNKNOWN IMPORTED)
+  set_target_properties(Qt5::WindowsPlatformSupport PROPERTIES
+    IMPORTED_LOCATION "${Qt5QWindows_LIBRARIES}"
+    INTERFACE_LINK_LIBRARIES "${QT_PLATFORM_LIBRARIES}"
+    INTERFACE_COMPILE_DEFINITIONS "STATIC_QT5"
+  )
 
-set(QT_PLATFORM_LIBRARIES Qt5::WindowsPlatformSupport)
+  set(QT_PLATFORM_LIBRARIES Qt5::WindowsPlatformSupport)
+endif ()
