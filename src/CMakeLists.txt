@@ -143,31 +143,6 @@ IF ( WIN32 )
   SET(GUI_TYPE WIN32)
 ENDIF ()
 
-
-# Disallow automatic casts from char* to QString (enforcing the use of tr() or
-# explicitly specifying the string encoding)
-ADD_DEFINITIONS(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY -DQT_STRICT_ITERATORS)
-
-ADD_DEFINITIONS(-DTW_BUILD_ID=${TW_BUILD_ID})
-IF (UNIX AND NOT APPLE)
-  IF (IS_ABSOLUTE ${TeXworks_HELP_DIR})
-    ADD_DEFINITIONS(-DTW_HELPPATH="${TeXworks_HELP_DIR}")
-  ELSE ()
-    ADD_DEFINITIONS(-DTW_HELPPATH="${CMAKE_INSTALL_PREFIX}/${TeXworks_HELP_DIR}")
-  ENDIF ()
-  IF (IS_ABSOLUTE ${TeXworks_PLUGIN_DIR})
-    ADD_DEFINITIONS(-DTW_PLUGINPATH="${TeXworks_PLUGIN_DIR}")
-  ELSE ()
-    ADD_DEFINITIONS(-DTW_PLUGINPATH="${CMAKE_INSTALL_PREFIX}/${TeXworks_PLUGIN_DIR}")
-  ENDIF ()
-  IF (IS_ABSOLUTE ${TeXworks_DIC_DIR})
-    ADD_DEFINITIONS(-DTW_DICPATH="${TeXworks_DIC_DIR}")
-  ELSE ()
-    ADD_DEFINITIONS(-DTW_DICPATH="${CMAKE_INSTALL_PREFIX}/${TeXworks_DIC_DIR}")
-  ENDIF ()
-ENDIF ()
-
-
 # Compilation
 # -----------
 
@@ -207,6 +182,26 @@ ENDIF ()
 
 # Specify libraries to be linked to TeXworks.
 target_LINK_LIBRARIES(TeXworks QtPDF::qtpdf ${TeXworks_LIBS} )
+
+# Disallow automatic casts from char* to QString (enforcing the use of tr() or
+# explicitly specifying the string encoding)
+target_compile_definitions(TeXworks PRIVATE QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_BYTEARRAY QT_STRICT_ITERATORS)
+target_compile_definitions(TeXworks PRIVATE TW_BUILD_ID="${TW_BUILD_ID}")
+
+function (target_add_path_define target name path)
+  if (IS_ABSOLUTE ${path})
+    target_compile_definitions(${target} PRIVATE ${name}="${path}")
+  else ()
+    target_compile_definitions(${target} PRIVATE ${name}="${CMAKE_INSTALL_PREFIX}/${path}")
+  endif ()
+endfunction()
+
+if (UNIX AND NOT APPLE)
+  target_add_path_define(TeXworks "TW_HELPPATH" "${TeXworks_HELP_DIR}")
+  target_add_path_define(TeXworks "TW_PLUGINPATH" "${TeXworks_PLUGIN_DIR}")
+  target_add_path_define(TeXworks "TW_DICPATH" "${TeXworks_DIC_DIR}")
+endif ()
+
 
 # For OS X, generate `Info.plist` and add it to the `.app` bundle.
 IF (APPLE)
