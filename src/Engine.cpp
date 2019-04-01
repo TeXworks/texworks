@@ -1,6 +1,8 @@
 #include "Engine.h"
 #include "TWApp.h"
 
+#include <QDir>
+
 Engine::Engine()
 	: QObject()
 	, _showPdf(false)

@@ -26,8 +26,6 @@
 #include <QString>
 #include <QItemSelection>
 
-#include "TWUtils.h"
-
 #include "ui_TemplateDialog.h"
 
 class QDirModel;

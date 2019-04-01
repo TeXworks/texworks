@@ -22,6 +22,7 @@
 #include "TWApp.h"
 #include "TWVersion.h"
 #include "CommandlineParser.h"
+#include "TWUtils.h"
 
 #include <QTimer>
 #include <QTextCodec>

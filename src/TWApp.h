@@ -30,11 +30,7 @@
 #include <QVariant>
 #include <QHash>
 
-#include "TWUtils.h"
-#include "Engine.h"
-#include "TWScriptable.h"
 #include "ConfigurableApp.h"
-#include "TWScriptAPI.h"
 
 #if defined(Q_OS_WIN)
 #define PATH_LIST_SEP   ";"
@@ -57,6 +53,9 @@ class QString;
 class QMenu;
 class QMenuBar;
 
+class Engine;
+class TWScriptManager;
+
 // general constants used by multiple document types
 const int kStatusMessageDuration = 3000;
 const int kNewWindowOffset = 32;
@@ -73,6 +72,9 @@ const int kNewWindowOffset = 32;
 class TWApp : public ConfigurableApp
 {
 	Q_OBJECT
+
+	// window positioning utilities
+	typedef void (WindowArrangementFunction)(const QWidgetList& windows, const QRect& bounds);
 
 public:
 	TWApp(int &argc, char **argv);
@@ -250,7 +252,7 @@ protected:
 private:
 	void init();
 	
-	void arrangeWindows(TWUtils::WindowArrangementFunction func);
+	void arrangeWindows(WindowArrangementFunction func);
 
 	int recentFilesLimit;
 

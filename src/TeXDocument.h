@@ -29,12 +29,11 @@
 #include <QProcess>
 #include <QDateTime>
 #include <QSignalMapper>
+#include <QMouseEvent>
 
 #include "ui_TeXDocument.h"
 
 #include "FindDialog.h"
-#include "TWApp.h"
-#include "ClickableLabel.h"
 
 #include <hunspell.h>
 
@@ -50,6 +49,7 @@ class QFileSystemWatcher;
 
 class TeXHighlighter;
 class PDFDocument;
+class ClickableLabel;
 
 const int kTeXWindowStateVersion = 1; // increment this if we add toolbars/docks/etc
 
@@ -188,10 +188,7 @@ public slots:
 	void selectRange(int start, int length = 0);
 	void insertText(const QString& text);
 	void selectAll() { textEdit->selectAll(); }
- 	void setWindowModified(bool modified) {
-		QMainWindow::setWindowModified(modified);
-		TWApp::instance()->updateWindowMenus();
-	}
+	void setWindowModified(bool modified);
 	void setSmartQuotesMode(const QString& mode);
 	void setAutoIndentMode(const QString& mode);
 	void setSyntaxColoringMode(const QString& mode);

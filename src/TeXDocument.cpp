@@ -31,6 +31,8 @@
 #include "HardWrapDialog.h"
 #include "DefaultPrefs.h"
 #include "CitationSelectDialog.h"
+#include "Engine.h"
+#include "ClickableLabel.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -1892,6 +1894,12 @@ void TeXDocument::selectRange(int start, int length)
 void TeXDocument::insertText(const QString& text)
 {
 	textCursor().insertText(text);
+}
+
+void TeXDocument::setWindowModified(bool modified)
+{
+	QMainWindow::setWindowModified(modified);
+	TWApp::instance()->updateWindowMenus();
 }
 
 void TeXDocument::balanceDelimiters()

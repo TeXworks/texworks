@@ -25,6 +25,7 @@
 #include "PDFDocument.h"
 #include "TeXHighlighter.h"
 #include "CompletingEdit.h"
+#include "TWUtils.h"
 
 #include <QFontDatabase>
 #include <QTextCodec>

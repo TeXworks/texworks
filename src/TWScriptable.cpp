@@ -23,6 +23,7 @@
 #include "TWScriptAPI.h"
 #include "ScriptManager.h"
 #include "TWApp.h"
+#include "TWUtils.h"
 
 #include <QSignalMapper>
 #include <QMenu>

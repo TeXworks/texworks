@@ -24,8 +24,7 @@
 
 #include <QDialog>
 #include <QStringList>
-
-#include "TWUtils.h"
+#include <QDir>
 
 #include "ui_ConfirmDelete.h"
 

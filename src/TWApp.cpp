@@ -27,6 +27,7 @@
 #include "DefaultPrefs.h"
 #include "TemplateDialog.h"
 #include "TWSystemCmd.h"
+#include "TWScriptAPI.h"
 
 #include "TWVersion.h"
 #include "ResourcesDialog.h"
@@ -762,7 +763,7 @@ void TWApp::tileWindows()
 	arrangeWindows(TWUtils::tileWindowsInRect);
 }
 
-void TWApp::arrangeWindows(TWUtils::WindowArrangementFunction func)
+void TWApp::arrangeWindows(WindowArrangementFunction func)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
 	for (int screenIndex = 0; screenIndex < desktop->numScreens(); ++screenIndex) {

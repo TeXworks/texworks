@@ -22,6 +22,7 @@
 #include "ScriptManager.h"
 #include "TWApp.h"
 #include "TWScript.h"
+#include "TWScriptable.h"
 
 #include <QLabel>
 #include <QCloseEvent>

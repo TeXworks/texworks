@@ -33,7 +33,6 @@
 #include <QTimer>
 #include <QMouseEvent>
 
-#include "TWApp.h"
 #include "FindDialog.h"
 #include "../modules/QtPDF/src/PDFDocumentWidget.h"
 #include "TWSynchronizer.h"

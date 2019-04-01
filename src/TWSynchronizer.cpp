@@ -21,6 +21,7 @@
 
 #include "TWSynchronizer.h"
 #include "TWApp.h"
+#include "TWUtils.h"
 #include "TeXDocument.h"
 #include "PDFDocument.h"
 

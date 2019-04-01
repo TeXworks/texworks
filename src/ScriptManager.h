@@ -25,8 +25,7 @@
 #include <QDialog>
 #include "ui_ScriptManager.h"
 
-#include "TWScriptable.h"
-
+class TWScriptList;
 
 class ScriptManager : public QWidget, private Ui::ScriptManager
 {

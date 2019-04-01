@@ -23,6 +23,8 @@
 #include "TWSystemCmd.h"
 #include "TWUtils.h"
 #include "TWApp.h"
+#include "Engine.h"
+#include "TWScript.h"
 
 #include <QObject>
 #include <QString>
@@ -44,7 +46,12 @@ TWScriptAPI::TWScriptAPI(TWScript* script, QObject* twapp, QObject* ctx, QVarian
 	  m_result(res)
 {
 }
-	
+
+QObject* TWScriptAPI::GetScript()
+{
+	return m_script;
+}
+
 void TWScriptAPI::SetResult(const QVariant& rval)
 {
 	m_result = rval;
