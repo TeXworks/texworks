@@ -29,16 +29,16 @@
 
 #include <limits.h> // for INT_MAX
 
-QList<TeXHighlighter::HighlightingSpec> *TeXHighlighter::syntaxRules = NULL;
-QList<TeXHighlighter::TagPattern> *TeXHighlighter::tagPatterns = NULL;
+QList<TeXHighlighter::HighlightingSpec> *TeXHighlighter::syntaxRules = nullptr;
+QList<TeXHighlighter::TagPattern> *TeXHighlighter::tagPatterns = nullptr;
 
 TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
     : NonblockingSyntaxHighlighter(parent)
     , texDoc(texDocument)
     , highlightIndex(-1)
     , isTagging(true)
-    , pHunspell(NULL)
-    , spellingCodec(NULL)
+	, pHunspell(nullptr)
+	, spellingCodec(nullptr)
     , textDoc(parent)
 {
 	loadPatterns();
@@ -75,7 +75,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 		QList<HighlightingRule>& highlightingRules = (*syntaxRules)[highlightIndex].rules;
 		while (index < text.length()) {
 			int firstIndex = INT_MAX, len;
-			const HighlightingRule* firstRule = NULL;
+			const HighlightingRule* firstRule = nullptr;
 			for (int i = 0; i < highlightingRules.size(); ++i) {
 				HighlightingRule &rule = highlightingRules[i];
 				int foundIndex = text.indexOf(rule.pattern, index);
@@ -84,22 +84,22 @@ void TeXHighlighter::highlightBlock(const QString &text)
 					firstRule = &rule;
 				}
 			}
-			if (firstRule != NULL && (len = firstRule->pattern.matchedLength()) > 0) {
-				if (pHunspell != NULL && firstIndex > index)
+			if (firstRule && (len = firstRule->pattern.matchedLength()) > 0) {
+				if (pHunspell && firstIndex > index)
 					spellCheckRange(text, index, firstIndex, spellFormat);
 				setFormat(firstIndex, len, firstRule->format);
 				index = firstIndex + len;
-				if (pHunspell != NULL && firstRule->spellCheck)
+				if (pHunspell && firstRule->spellCheck)
 					spellCheckRange(text, firstIndex, index, firstRule->spellFormat);
 			}
 			else
 				break;
 		}
 	}
-	if (pHunspell != NULL)
+	if (pHunspell)
 		spellCheckRange(text, index, text.length(), spellFormat);
 
-	if (texDoc != NULL) {
+	if (texDoc) {
 		bool changed = false;
 		if (texDoc->removeTags(currentBlock().position(), currentBlock().length()) > 0)
 			changed = true;
@@ -107,7 +107,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 			int index = 0;
 			while (index < text.length()) {
 				int firstIndex = INT_MAX, len;
-				TagPattern* firstPatt = NULL;
+				TagPattern* firstPatt = nullptr;
 				for (int i = 0; i < tagPatterns->count(); ++i) {
 					TagPattern& patt = (*tagPatterns)[i];
 					int foundIndex = text.indexOf(patt.pattern, index);
@@ -116,7 +116,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 						firstPatt = &patt;
 					}
 				}
-				if (firstPatt != NULL && (len = firstPatt->pattern.matchedLength()) > 0) {
+				if (firstPatt && (len = firstPatt->pattern.matchedLength()) > 0) {
 					QTextCursor	cursor(document());
 					cursor.setPosition(currentBlock().position() + firstIndex);
 					cursor.setPosition(currentBlock().position() + firstIndex + len, QTextCursor::KeepAnchor);
@@ -158,7 +158,7 @@ QStringList TeXHighlighter::syntaxOptions()
 	loadPatterns();
 
 	QStringList options;
-	if (syntaxRules != NULL)
+	if (syntaxRules)
 		foreach (const HighlightingSpec& spec, *syntaxRules)
 			options << spec.name;
 	return options;
@@ -166,13 +166,13 @@ QStringList TeXHighlighter::syntaxOptions()
 
 void TeXHighlighter::loadPatterns()
 {
-	if (syntaxRules != NULL)
+	if (syntaxRules)
 		return;
 
 	QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
 	QRegExp whitespace(QString::fromLatin1("\\s+"));
 
-	if (syntaxRules == NULL) {
+	if (!syntaxRules) {
 		syntaxRules = new QList<HighlightingSpec>;
 		QFile syntaxFile(configDir.filePath(QString::fromLatin1("syntax-patterns.txt")));
 		QRegExp sectionRE(QString::fromLatin1("^\\[([^\\]]+)\\]"));
@@ -236,7 +236,7 @@ void TeXHighlighter::loadPatterns()
 		}
 	}
 
-	if (tagPatterns == NULL) {
+	if (!tagPatterns) {
 		// read tag-recognition patterns
 		tagPatterns = new QList<TagPattern>;
 		QFile tagPatternFile(configDir.filePath(QString::fromLatin1("tag-patterns.txt")));

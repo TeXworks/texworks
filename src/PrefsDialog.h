@@ -57,7 +57,7 @@ private slots:
 	void moveToolDown();
 	void addTool();
 	void removeTool();
-	void editTool(QListWidgetItem* item = NULL);
+	void editTool(QListWidgetItem* item = nullptr);
 
 private:
 	void init();

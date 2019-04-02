@@ -117,7 +117,7 @@ public:
 	
 	static const QString& cleanupPatterns();
 	
-	static void installCustomShortcuts(QWidget * widget, bool recursive = true, QSettings * map = NULL);
+	static void installCustomShortcuts(QWidget * widget, bool recursive = true, QSettings * map = nullptr);
 
 	static bool isGitInfoAvailable();
 	static QString gitCommitHash();

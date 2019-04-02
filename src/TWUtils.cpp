@@ -257,7 +257,7 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	QSignalMapper* mapper = new QSignalMapper(helpMenu);
 	mapper->connect(mapper, SIGNAL(mapped(const QString&)), TWApp::instance(), SLOT(openHelpFile(const QString&)));
 
-	QAction* before = NULL;
+	QAction* before = nullptr;
 	int i, firstSeparator = 0;
 	QList<QAction*> actions = helpMenu->actions();
 	for (i = 0; i < actions.count(); ++i) {
@@ -328,11 +328,11 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	}
 }
 
-QList<QTextCodec*> *TWUtils::codecList = NULL;
+QList<QTextCodec*> *TWUtils::codecList = nullptr;
 
 QList<QTextCodec*> *TWUtils::findCodecs()
 {
-	if (codecList != NULL)
+	if (codecList)
 		return codecList;
 
 	codecList = new QList<QTextCodec*>;
@@ -361,11 +361,11 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 	return codecList;
 }
 
-QStringList* TWUtils::translationList = NULL;
+QStringList* TWUtils::translationList = nullptr;
 
 QStringList* TWUtils::getTranslationList()
 {
-	if (translationList != NULL)
+	if (translationList)
 		return translationList;
 
 	translationList = new QStringList;
@@ -394,11 +394,11 @@ QStringList* TWUtils::getTranslationList()
 	return translationList;
 }
 
-QHash<QString, QString>* TWUtils::dictionaryList = NULL;
+QHash<QString, QString>* TWUtils::dictionaryList = nullptr;
 
 QHash<QString, QString>* TWUtils::getDictionaryList(const bool forceReload /* = false */)
 {
-	if (dictionaryList != NULL) {
+	if (dictionaryList) {
 		if (!forceReload)
 			return dictionaryList;
 		delete dictionaryList;
@@ -418,20 +418,20 @@ QHash<QString, QString>* TWUtils::getDictionaryList(const bool forceReload /* = 
 	return dictionaryList;
 }
 
-QHash<const QString,Hunhandle*> *TWUtils::dictionaries = NULL;
+QHash<const QString,Hunhandle*> *TWUtils::dictionaries = nullptr;
 
 Hunhandle* TWUtils::getDictionary(const QString& language)
 {
 	if (language.isEmpty())
-		return NULL;
+		return nullptr;
 	
-	if (dictionaries == NULL)
+	if (!dictionaries)
 		dictionaries = new QHash<const QString,Hunhandle*>;
 	
 	if (dictionaries->contains(language))
 		return dictionaries->value(language);
 	
-	Hunhandle *h = NULL;
+	Hunhandle *h = nullptr;
 	foreach (QDir dicDir, TWUtils::getLibraryPath(QString::fromLatin1("dictionaries")).split(QLatin1String(PATH_LIST_SEP))) {
 		QFileInfo affFile(dicDir, language + QLatin1String(".aff"));
 		QFileInfo dicFile(dicDir, language + QLatin1String(".dic"));
@@ -442,7 +442,7 @@ Hunhandle* TWUtils::getDictionary(const QString& language)
 			return h;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 QString TWUtils::getLanguageForDictionary(const Hunhandle * pHunspell)
@@ -467,7 +467,7 @@ void TWUtils::clearDictionaries()
 			Hunspell_destroy(it.value());
 	}
 	delete dictionaries;
-	dictionaries = NULL;
+	dictionaries = nullptr;
 }
 
 QStringList* TWUtils::filters;
@@ -855,7 +855,7 @@ void TWUtils::applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool sho
 	iconSize = iconSize * 8 + 8;	// convert 1,2,3 to 16,24,32
 	foreach (QObject *object, theWindow->children()) {
 		QToolBar *theToolBar = qobject_cast<QToolBar*>(object);
-		if (theToolBar != NULL) {
+		if (theToolBar) {
 			theToolBar->setToolButtonStyle(showText ? Qt::ToolButtonTextUnderIcon : Qt::ToolButtonIconOnly);
 			theToolBar->setIconSize(QSize(iconSize, iconSize));
 		}
@@ -1156,11 +1156,11 @@ int TWUtils::findOpeningDelim(const QString& text, int pos)
 	return -1;
 }
 
-void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true */, QSettings * map /* = NULL */)
+void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true */, QSettings * map /* = nullptr */)
 {
 	bool deleteMap = false;
 	
-	if (widget == NULL)
+	if (!widget)
 		return;
 
 	if (!map) {
@@ -1233,11 +1233,11 @@ SelWinAction::SelWinAction(QObject *parent, const QString &fileName, const QStri
 // on OS X only, the singleton CmdKeyFilter object is attached to all TeXDocument editor widgets
 // to stop Command-keys getting inserted into edit text items
 
-CmdKeyFilter *CmdKeyFilter::filterObj = NULL;
+CmdKeyFilter *CmdKeyFilter::filterObj = nullptr;
 
 CmdKeyFilter *CmdKeyFilter::filter()
 {
-	if (filterObj == NULL)
+	if (!filterObj)
 		filterObj = new CmdKeyFilter;
 	return filterObj;
 }

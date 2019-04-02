@@ -32,7 +32,7 @@
 class CitationModel : public QAbstractTableModel {
 	Q_OBJECT;
 public:
-	CitationModel(QObject * parent = NULL);
+	CitationModel(QObject * parent = nullptr);
 	virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 	virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -45,7 +45,7 @@ public:
 	void setSelectedKeys(const QStringList & keys);
 	QStringList selectedKeys() const { return _selectedKeys.values(); }
 
-	const BibTeXFile::Entry * getEntry(const unsigned int idx) const { return (idx < _entries.size() ? _entries[idx] : NULL); }
+	const BibTeXFile::Entry * getEntry(const unsigned int idx) const { return (idx < _entries.size() ? _entries[idx] : nullptr); }
 	const BibTeXFile::Entry * getEntry(const QString & key) const;
 
 	void addBibTeXFile(const BibTeXFile & file);
@@ -60,7 +60,7 @@ protected:
 class CitationProxyModel : public QSortFilterProxyModel
 {
 public:
-	CitationProxyModel(QObject * parent = NULL) : QSortFilterProxyModel(parent) { }
+	CitationProxyModel(QObject * parent = nullptr) : QSortFilterProxyModel(parent) { }
 	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
 	virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) { setSortRole(column == 0 ? Qt::CheckStateRole : Qt::DisplayRole); QSortFilterProxyModel::sort(column, order); }
 };
@@ -69,7 +69,7 @@ class CitationTableView : public QTableView
 {
 	Q_OBJECT
 public:
-	CitationTableView(QWidget * parent = NULL) : QTableView(parent) { }
+	CitationTableView(QWidget * parent = nullptr) : QTableView(parent) { }
 protected:
 	virtual void keyPressEvent(QKeyEvent * event);
 };
@@ -115,7 +115,7 @@ class KeyForwarder : public QObject
 {
 	Q_OBJECT
 public:
-	KeyForwarder(QObject * target, QObject * parent = NULL);
+	KeyForwarder(QObject * target, QObject * parent = nullptr);
 protected:
 	bool eventFilter(QObject * watched, QEvent * event);
 	QObject * _target;

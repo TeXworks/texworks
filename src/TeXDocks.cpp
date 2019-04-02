@@ -72,7 +72,7 @@ void TagsDock::fillInfo()
 	tree->clear();
 	const QList<TeXDocument::Tag>& tags = document->getTags();
 	if (tags.size() > 0) {
-		QTreeWidgetItem *item = 0, *bmItem = 0;
+		QTreeWidgetItem *item = nullptr, *bmItem = nullptr;
 		QTreeWidgetItem *bookmarks = new QTreeWidgetItem(tree);
 		bookmarks->setText(0, tr("Bookmarks"));
 		bookmarks->setFlags(Qt::ItemIsEnabled);
@@ -91,9 +91,9 @@ void TagsDock::fillInfo()
 				bmItem->setText(1, QString::number(index));
 			}
 			else  {
-				while (item != 0 && item->type() >= QTreeWidgetItem::UserType + bm.level)
+				while (item && item->type() >= QTreeWidgetItem::UserType + bm.level)
 					item = item->parent();
-				if (item == 0)
+				if (!item)
 					item = new QTreeWidgetItem(outline, QTreeWidgetItem::UserType + bm.level);
 				else
 					item = new QTreeWidgetItem(item, QTreeWidgetItem::UserType + bm.level);

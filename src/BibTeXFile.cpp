@@ -260,6 +260,6 @@ const BibTeXFile::Entry & BibTeXFile::entry(const unsigned int idx) const
 		++j;
 	}
 	// We should never get here
-	static BibTeXFile::Entry e(NULL);
+	static BibTeXFile::Entry e(nullptr);
 	return e;
 }

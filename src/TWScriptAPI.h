@@ -153,10 +153,10 @@ public:
 	
 	// functions to create windows from .ui data or files using QUiLoader
 	Q_INVOKABLE
-	QWidget * createUIFromString(const QString& uiSpec, QWidget * parent = NULL);
+	QWidget * createUIFromString(const QString& uiSpec, QWidget * parent = nullptr);
 
 	Q_INVOKABLE
-	QWidget * createUI(const QString& filename, QWidget * parent = NULL);
+	QWidget * createUI(const QString& filename, QWidget * parent = nullptr);
 	
 	// to find children of a widget
 	Q_INVOKABLE

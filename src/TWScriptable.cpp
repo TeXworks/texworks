@@ -302,7 +302,7 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 		
 		if (info.isDir()) {
 			// Only create a new sublist if a matching one doesn't already exist
-			TWScriptList *subScriptList = NULL;
+			TWScriptList *subScriptList = nullptr;
 			// Note: Using children() returns a const list; findChildren does not
 			foreach (TWScriptList * l, scriptList->findChildren<TWScriptList*>()) {
 				if (l->getName() == info.fileName()) {
@@ -313,7 +313,7 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 			if(!subScriptList) subScriptList = new TWScriptList(scriptList, info.fileName());
 			
 			// Only create a new sublist if a matching one doesn't already exist
-			TWScriptList *subHookList = NULL;
+			TWScriptList *subHookList = nullptr;
 			// Note: Using children() returns a const list; findChildren does not
 			foreach (TWScriptList * l, hookList->findChildren<TWScriptList*>()) {
 				if (l->getName() == info.fileName()) {
@@ -399,9 +399,9 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 	// unset parents; this effectively removes the objects from
 	// scriptList->children()
 	foreach (TWScript* childScript, childScripts)
-		childScript->setParent(NULL);
+		childScript->setParent(nullptr);
 	foreach (TWScriptList* childList, childLists)
-		childList->setParent(NULL);
+		childList->setParent(nullptr);
 	
 	// sort the sublists
 	qSort(childLists.begin(), childLists.end(), scriptListLessThan);
@@ -450,7 +450,7 @@ TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result
 }
 
 void
-TWScriptManager::runHooks(const QString& hookName, QObject * context /* = NULL */)
+TWScriptManager::runHooks(const QString& hookName, QObject * context /* = nullptr */)
 {
 	foreach (TWScript *s, getHookScripts(hookName)) {
 		runScript(s, context, TWScript::ScriptHook);
@@ -459,8 +459,8 @@ TWScriptManager::runHooks(const QString& hookName, QObject * context /* = NULL *
 
 TWScriptable::TWScriptable()
 	: QMainWindow(),
-	  scriptsMenu(NULL),
-	  scriptMapper(NULL),
+	  scriptsMenu(nullptr),
+	  scriptMapper(nullptr),
 	  staticScriptMenuItemCount(0)
 {
 }
@@ -613,7 +613,7 @@ TWScriptable::doAboutScripts()
 		}
 		aboutText += QLatin1String("</li>");
 	}
-	QMessageBox::about(NULL, tr("About Scripts"), aboutText);
+	QMessageBox::about(nullptr, tr("About Scripts"), aboutText);
 }
 
 void

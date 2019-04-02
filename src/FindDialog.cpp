@@ -143,7 +143,7 @@ void FindDialog::init(QTextEdit *document)
 void FindDialog::setSearchText()
 {
 	QAction *act = qobject_cast<QAction*>(sender());
-	if (act != NULL) {
+	if (act) {
 		searchText->setText(act->text());
 		searchText->selectAll();
 	}
@@ -152,7 +152,7 @@ void FindDialog::setSearchText()
 void FindDialog::toggledAllFilesOption(bool checked)
 {
 	QTextEdit* document = qobject_cast<QTextEdit*>(parent());
-	checkBox_selection->setEnabled(document != NULL && document->textCursor().hasSelection() && !checked && !checkBox_findAll->isChecked());
+	checkBox_selection->setEnabled(document && document->textCursor().hasSelection() && !checked && !checkBox_findAll->isChecked());
 	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()) && !checked && !checkBox_findAll->isChecked());
 	checkBox_backwards->setEnabled(!checked && !checkBox_findAll->isChecked());
 	checkBox_findAll->setEnabled(!checked);
@@ -161,7 +161,7 @@ void FindDialog::toggledAllFilesOption(bool checked)
 void FindDialog::toggledFindAllOption(bool checked)
 {
 	QTextEdit* document = qobject_cast<QTextEdit*>(parent());
-	checkBox_selection->setEnabled(document != NULL && document->textCursor().hasSelection() && !checked);
+	checkBox_selection->setEnabled(document && document->textCursor().hasSelection() && !checked);
 	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()) && !checked);
 	checkBox_backwards->setEnabled(!checked);
 }
@@ -307,7 +307,7 @@ void ReplaceDialog::init(QTextEdit *document)
 void ReplaceDialog::setSearchText()
 {
 	QAction *act = qobject_cast<QAction*>(sender());
-	if (act != NULL) {
+	if (act) {
 		searchText->setText(act->text());
 		searchText->selectAll();
 	}
@@ -316,7 +316,7 @@ void ReplaceDialog::setSearchText()
 void ReplaceDialog::setReplaceText()
 {
 	QAction *act = qobject_cast<QAction*>(sender());
-	if (act != NULL) {
+	if (act) {
 		replaceText->setText(act->text());
 		replaceText->selectAll();
 	}
@@ -325,7 +325,7 @@ void ReplaceDialog::setReplaceText()
 void ReplaceDialog::toggledAllFilesOption(bool checked)
 {
 	QTextEdit* document = qobject_cast<QTextEdit*>(parent());
-	checkBox_selection->setEnabled(document != NULL && document->textCursor().hasSelection() && !checked);
+	checkBox_selection->setEnabled(document && document->textCursor().hasSelection() && !checked);
 	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()) && !checked);
 	checkBox_backwards->setEnabled(!checked);
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!checked);
@@ -550,7 +550,7 @@ void SearchResults::presentResults(const QString& searchText,
 	else {
 		resultsWindow->setAllowedAreas(Qt::NoDockWidgetArea);
 		resultsWindow->setFeatures(QDockWidget::NoDockWidgetFeatures);
-		resultsWindow->setParent(NULL);
+		resultsWindow->setParent(nullptr);
 		resultsWindow->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint);
 	}
 	
@@ -595,12 +595,12 @@ void SearchResults::focusChanged(QWidget * old, QWidget * now)
 	if (!texDoc)
 		return;
 
-	if (old == NULL)
+	if (!old)
 		previouslyFocused = false;
 	else
 		previouslyFocused = isAncestorOf(old);
 
-	if (now == NULL)
+	if (!now)
 		nowFocused = false;
 	else
 		nowFocused = isAncestorOf(now);
@@ -713,7 +713,7 @@ QDialog::DialogCode PDFFindDialog::doFindDialog(PDFDocument *document)
 void PDFFindDialog::setSearchText()
 {
 	QAction *act = qobject_cast<QAction*>(sender());
-	if (act != NULL) {
+	if (act) {
 		searchText->setText(act->text());
 		searchText->selectAll();
 	}

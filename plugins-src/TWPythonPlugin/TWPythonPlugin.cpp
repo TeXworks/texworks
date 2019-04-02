@@ -41,13 +41,13 @@
 
 /* To encapsulate C pointers, PyCObject was replaced by PyCapsule in Python 3.2 */
 #if PY_VERSION_HEX < 0x03020000
-	#define ENCAPSULATE_C_POINTER(ptr) PyCObject_FromVoidPtr((ptr), NULL)
+	#define ENCAPSULATE_C_POINTER(ptr) PyCObject_FromVoidPtr((ptr), nullptr)
 	#define IS_ENCAPSULATED_C_POINTER(obj) PyCObject_Check((obj))
 	#define GET_ENCAPSULATED_C_POINTER(obj) PyCObject_AsVoidPtr((obj))
 #else
-	#define ENCAPSULATE_C_POINTER(ptr) PyCapsule_New((ptr), NULL, NULL)
+	#define ENCAPSULATE_C_POINTER(ptr) PyCapsule_New((ptr), nullptr, nullptr)
 	#define IS_ENCAPSULATED_C_POINTER(obj) PyCapsule_CheckExact((obj))
-	#define GET_ENCAPSULATED_C_POINTER(obj) PyCapsule_GetPointer((obj), NULL)
+	#define GET_ENCAPSULATED_C_POINTER(obj) PyCapsule_GetPointer((obj), nullptr)
 #endif
 
 /* Py_ssize_t is new in Python 2.5 */
@@ -144,7 +144,7 @@ bool PythonScript::execute(TWScriptAPI *tw) const
 	PyDict_SetItemString(globals, "__builtins__", PyEval_GetBuiltins());
 	PyDict_SetItemString(globals, "TW", (PyObject*)TW);
 
-	PyObject * ret = NULL;
+	PyObject * ret = nullptr;
 	
 	if (globals && locals)
 		ret = PyRun_String(qPrintable(contents), Py_file_input, globals, locals);
@@ -230,7 +230,7 @@ PyObject * PythonScript::QObjectToPython(QObject * o)
 	pyQObject * obj;
 	obj = PyObject_New(pyQObject, &pyQObjectType);
 	
-	if (!obj) return NULL;
+	if (!obj) return nullptr;
 	
 	obj = (pyQObject*)PyObject_Init((PyObject*)obj, &pyQObjectType);
 	obj->_TWcontext = ENCAPSULATE_C_POINTER(o);
@@ -249,17 +249,17 @@ PyObject* PythonScript::getAttribute(PyObject * o, PyObject * attr_name)
 	// Get the QObject* we operate on
 	if (!PyObject_TypeCheck(o, &pyQObjectType)) {
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("getattr: not a valid TW object")));
-		return NULL;
+		return nullptr;
 	}
 	if (!IS_ENCAPSULATED_C_POINTER(((pyQObject*)o)->_TWcontext)) {
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("getattr: not a valid TW object")));
-		return NULL;
+		return nullptr;
 	}
 	obj = (QObject*)GET_ENCAPSULATED_C_POINTER((PyObject*)(((pyQObject*)o)->_TWcontext));
 	
 	if (!asQString(attr_name, propName)) {
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("getattr: invalid property name")));
-		return NULL;
+		return nullptr;
 	}
 	
 	if (propName.length() > 1 && propName.endsWith(QChar('_')))
@@ -268,10 +268,10 @@ PyObject* PythonScript::getAttribute(PyObject * o, PyObject * attr_name)
 	switch (doGetProperty(obj, propName, result)) {
 		case Property_DoesNotExist:
 			PyErr_Format(PyExc_AttributeError, qPrintable(tr("getattr: object doesn't have property/method %s")), qPrintable(propName));
-			return NULL;
+			return nullptr;
 		case Property_NotReadable:
 			PyErr_Format(PyExc_AttributeError, qPrintable(tr("getattr: property %s is not readable")), qPrintable(propName));
-			return NULL;
+			return nullptr;
 		case Property_Method:
 			pyMethod = PyObject_New(pyQObjectMethodObject, &pyQObjectMethodType);
 			pyMethod = (pyQObjectMethodObject*)PyObject_Init((PyObject*)pyMethod, &pyQObjectMethodType);
@@ -286,7 +286,7 @@ PyObject* PythonScript::getAttribute(PyObject * o, PyObject * attr_name)
 			break;
 	}
 	// we should never reach this point
-	return NULL;
+	return nullptr;
 }
 
 /*static*/
@@ -344,7 +344,7 @@ PyObject * PythonScript::callMethod(PyObject * o, PyObject * pyArgs, PyObject * 
 
 	if (!asQString((PyObject*)(((pyQObjectMethodObject*)o)->_methodName), methodName)) {
 		PyErr_SetString(PyExc_TypeError, qPrintable(tr("call: invalid method name")));
-		return NULL;
+		return nullptr;
 	}
 	
 	for (i = 0; i < PyTuple_Size(pyArgs); ++i) {
@@ -357,19 +357,19 @@ PyObject * PythonScript::callMethod(PyObject * o, PyObject * pyArgs, PyObject * 
 			return PythonScript::VariantToPython(result);
 		case Method_DoesNotExist:
 			PyErr_Format(PyExc_TypeError, qPrintable(tr("call: the method %s doesn't exist")), qPrintable(methodName));
-			return NULL;
+			return nullptr;
 		case Method_WrongArgs:
 			PyErr_Format(PyExc_TypeError, qPrintable(tr("call: couldn't call %s with the given arguments")), qPrintable(methodName));
-			return NULL;
+			return nullptr;
 		case Method_Failed:
 			PyErr_Format(PyExc_TypeError, qPrintable(tr("call: internal error while executing %s")), qPrintable(methodName));
-			return NULL;
+			return nullptr;
 		default:
 			break;
 	}
 	
 	// we should never reach this point
-	return NULL;
+	return nullptr;
 }
 
 
@@ -440,7 +440,7 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 			return PythonScript::QObjectToPython(v.value<QObject*>());
 		default:
 			PyErr_Format(PyExc_TypeError, qPrintable(tr("the type %s is currently not supported")), v.typeName());
-			return NULL;
+			return nullptr;
 	}
 	Py_RETURN_NONE;
 }

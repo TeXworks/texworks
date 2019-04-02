@@ -75,7 +75,7 @@ void PrefsDialog::changedTabPanel(int index)
 	page->clearFocus();
 	switch (index) {
 		case 0: // General
-			if (page->focusWidget() != NULL)
+			if (page->focusWidget())
 				page->focusWidget()->clearFocus();
 			break;
 		case 1: // Editor
@@ -90,7 +90,7 @@ void PrefsDialog::changedTabPanel(int index)
 			binPathList->setFocus();
 			break;
 		case 4: // Script
-			if (page->focusWidget() != NULL)
+			if (page->focusWidget())
 				page->focusWidget()->clearFocus();
 			break;
 	}
@@ -449,7 +449,7 @@ static bool dictPairLessThan(const DictPair& d1, const DictPair& d2)
 
 QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 {
-	PrefsDialog dlg(NULL);
+	PrefsDialog dlg(nullptr);
 	
 	QStringList nameList;
 	foreach (QTextCodec *codec, *TWUtils::findCodecs())
@@ -682,7 +682,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			settings.setValue(QString::fromLatin1("toolBarShowText"), showText);
 			foreach (QWidget *widget, qApp->topLevelWidgets()) {
 				QMainWindow *theWindow = qobject_cast<QMainWindow*>(widget);
-				if (theWindow != NULL)
+				if (theWindow)
 					TWUtils::applyToolbarOptions(theWindow, iconSize, showText);
 			}
 		}
@@ -779,7 +779,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			settings.setValue(QString::fromLatin1("previewResolution"), resolution);
 			foreach (QWidget *widget, qApp->topLevelWidgets()) {
 				PDFDocument *thePdfDoc = qobject_cast<PDFDocument*>(widget);
-				if (thePdfDoc != NULL)
+				if (thePdfDoc)
 					thePdfDoc->setResolution(resolution);
 			}
 		}
@@ -803,7 +803,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		if (oldMagSize != magSize || oldCircular != circular) {
 			foreach (QWidget *widget, qApp->topLevelWidgets()) {
 				PDFDocument *thePdfDoc = qobject_cast<PDFDocument*>(widget);
-				if (thePdfDoc != NULL)
+				if (thePdfDoc)
 					thePdfDoc->resetMagnifier();
 			}
 		}
@@ -937,7 +937,7 @@ QDialog::DialogCode ToolConfig::doToolConfig(QWidget *parent, Engine &engine)
 
 	DialogCode	result = (DialogCode)dlg.exec();
 	if (result == Accepted) {
-		dlg.arguments->setCurrentItem(NULL); // ensure editing is terminated
+		dlg.arguments->setCurrentItem(nullptr); // ensure editing is terminated
 		engine.setName(dlg.toolName->text());
 		engine.setProgram(dlg.program->text());
 		QStringList args;

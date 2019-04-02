@@ -89,7 +89,7 @@ QByteArray MacCentralEurRomanCodec::convertFromUnicode(const QChar * input, int 
 QString MacCentralEurRomanCodec::convertToUnicode(const char * chars, int len, ConverterState * state) const
 {
 	Q_UNUSED(state)
-	if (chars == 0)
+	if (!chars)
 		return QString();
 
 	QString str = QString::fromLatin1(chars, len);

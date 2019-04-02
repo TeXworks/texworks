@@ -156,7 +156,7 @@ QWidget * TWScriptAPI::progressDialog(QWidget * parent)
 {
 	QProgressDialog * dlg = new QProgressDialog(parent);
 	connect(this, SIGNAL(destroyed(QObject*)), dlg, SLOT(deleteLater()));
-	dlg->setCancelButton(NULL);
+	dlg->setCancelButton(nullptr);
 	dlg->show();
 	return dlg;
 }
@@ -180,7 +180,7 @@ QWidget * TWScriptAPI::createUI(const QString& filename, QWidget * parent)
 {
 	QFileInfo fi(QFileInfo(m_script->getFilename()).absoluteDir(), filename);
 	if (!fi.isReadable())
-		return NULL;
+		return nullptr;
 	QFile file(fi.canonicalFilePath());
 	QUiLoader loader;
 	QWidget *widget = loader.load(&file, parent);

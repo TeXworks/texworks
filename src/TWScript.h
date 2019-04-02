@@ -345,7 +345,7 @@ public:
 	 * it should create the script wrapper for the given file.
 	 * This method does NOT call parseHeader(), so until this
 	 * is done, the script is not necessarily valid.
-	 * \return	the script wrapper, or NULL if the file cannot be found
+	 * \return	the script wrapper, or nullptr if the file cannot be found
 	 */
 	virtual TWScript* newScript(const QString& fileName) = 0;
 

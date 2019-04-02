@@ -30,7 +30,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-ScriptManager * ScriptManager::gManageScriptsWindow = NULL;
+ScriptManager * ScriptManager::gManageScriptsWindow = nullptr;
 QRect           ScriptManager::gGeometry;
 
 void ScriptManager::init()
@@ -65,7 +65,7 @@ void ScriptManager::closeEvent(QCloseEvent * event)
 void ScriptManager::showManageScripts()
 {
 	if (!gManageScriptsWindow)
-		gManageScriptsWindow = new ScriptManager(NULL);
+		gManageScriptsWindow = new ScriptManager(nullptr);
 
 	if (!gGeometry.isNull())
 		gManageScriptsWindow->setGeometry(gGeometry);
@@ -91,8 +91,8 @@ void ScriptManager::populateTree()
 	hookTree->clear();
 	standaloneTree->clear();
 	
-	populateTree(hookTree, NULL, hooks);
-	populateTree(standaloneTree, NULL, scripts);
+	populateTree(hookTree, nullptr, hooks);
+	populateTree(standaloneTree, nullptr, scripts);
 	
 	hookTree->expandAll();
 	standaloneTree->expandAll();
@@ -121,7 +121,7 @@ void ScriptManager::populateTree(QTreeWidget * tree, QTreeWidgetItem * parentIte
 			QFont f = item->font(0);
 			f.setBold(true);
 			item->setFont(0, f);
-			populateTree(NULL, item, list);
+			populateTree(nullptr, item, list);
 			setFolderCheckedState(item);
 		}
 	}

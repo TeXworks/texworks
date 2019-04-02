@@ -68,7 +68,7 @@ void ConfirmDelete::doConfirmDelete(const QDir& dir, const QStringList& fileList
 			}
 		}
 		if (failed)
-			(void)QMessageBox::warning(NULL, tr("Unable to delete"),
+			(void)QMessageBox::warning(nullptr, tr("Unable to delete"),
 									   tr("Some of the auxiliary files could not be removed. Perhaps you don't have permission to delete them."));
 	}
 }

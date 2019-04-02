@@ -47,7 +47,7 @@ private slots:
 	void treeSelectionChanged();
 
 private:
-	ScriptManager(QWidget * parent = NULL) : QWidget(parent) { init(); }
+	ScriptManager(QWidget * parent = nullptr) : QWidget(parent) { init(); }
 	
 	void init();
 	

@@ -33,7 +33,7 @@ class ClosableTabWidget : public QTabWidget
 {
 	Q_OBJECT
 public:
-	ClosableTabWidget(QWidget * parent = NULL);
+	ClosableTabWidget(QWidget * parent = nullptr);
 	virtual ~ClosableTabWidget() { }
 
 signals:

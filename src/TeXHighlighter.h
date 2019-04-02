@@ -45,8 +45,8 @@ class NonblockingSyntaxHighlighter : public QObject
 	Q_OBJECT
 
 public:
-	NonblockingSyntaxHighlighter(QTextDocument * parent) : _processingPending(false), _parent(NULL), MAX_TIME_MSECS(5), IDLE_DELAY_TIME(40) { setDocument(parent); }
-	virtual ~NonblockingSyntaxHighlighter() { setDocument(NULL); }
+	NonblockingSyntaxHighlighter(QTextDocument * parent) : _processingPending(false), _parent(nullptr), MAX_TIME_MSECS(5), IDLE_DELAY_TIME(40) { setDocument(parent); }
+	virtual ~NonblockingSyntaxHighlighter() { setDocument(nullptr); }
 
 	QTextDocument * document() const { return _parent; }
 	void setDocument(QTextDocument * doc);
@@ -77,7 +77,7 @@ private slots:
 	void maybeRehighlightText(int position, int charsRemoved, int charsAdded);
 	void process();
 	void processWhenIdle();
-	void unlinkFromDocument() { setDocument(NULL); }
+	void unlinkFromDocument() { setDocument(nullptr); }
 
 private:
 	bool _processingPending;
@@ -100,7 +100,7 @@ class TeXHighlighter : public NonblockingSyntaxHighlighter
 	Q_OBJECT
 
 public:
-	TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument = NULL);
+	TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument = nullptr);
 	void setActiveIndex(int index);
 
 	void setSpellChecker(Hunhandle *h, QTextCodec *codec);

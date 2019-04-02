@@ -30,8 +30,8 @@
 #include <QTextStream>
 
 TemplateDialog::TemplateDialog()
-	: QDialog(NULL)
-	, model(NULL)
+	: QDialog(nullptr)
+	, model(nullptr)
 {
 	init();
 }

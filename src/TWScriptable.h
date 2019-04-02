@@ -114,7 +114,7 @@ public:
 		QVariant result;
 		return runScript(script, context, result, scriptType);
 	}
-	void runHooks(const QString& hookName, QObject * context = NULL);
+	void runHooks(const QString& hookName, QObject * context = nullptr);
 
 	const QList<QObject*>& languages() const { return scriptLanguages; }
 

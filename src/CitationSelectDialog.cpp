@@ -22,7 +22,7 @@
 #include <QKeyEvent>
 #include <QAbstractButton>
 
-KeyForwarder::KeyForwarder(QObject * target, QObject * parent /* = NULL */)
+KeyForwarder::KeyForwarder(QObject * target, QObject * parent /* = nullptr */)
   : QObject(parent), _target(target)
 {
 	_keysToForward << Qt::Key_Up << Qt::Key_Down << Qt::Key_PageUp << Qt::Key_PageDown << Qt::Key_Space;
@@ -87,8 +87,8 @@ void CitationSelectDialog::resetData()
 
 bool BibTeXEntryLessThan(const BibTeXFile::Entry * a, const BibTeXFile::Entry * b)
 {
-	Q_ASSERT(a != NULL);
-	Q_ASSERT(b != NULL);
+	Q_ASSERT(a);
+	Q_ASSERT(b);
 
 	// Sort by year first
 	if (a->year() != b->year()) {
@@ -131,7 +131,7 @@ QStringList CitationSelectDialog::getSelectedKeys(const bool ordered /* = true *
 }
 
 
-CitationModel::CitationModel(QObject * parent /* = NULL */)
+CitationModel::CitationModel(QObject * parent /* = nullptr */)
   : QAbstractTableModel(parent)
 {
 	connect(this, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(rebuildEntryCache()));
@@ -238,7 +238,7 @@ const BibTeXFile::Entry * CitationModel::getEntry(const QString & key) const
 	Q_FOREACH(const BibTeXFile::Entry * entry, _entries) {
 		if (key == entry->key()) return entry;
 	}
-	return NULL;
+	return nullptr;
 }
 
 

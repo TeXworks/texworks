@@ -73,21 +73,21 @@
 
 const int kDefaultMaxRecentFiles = 20;
 
-TWApp *TWApp::theAppInstance = NULL;
+TWApp *TWApp::theAppInstance = nullptr;
 
 const QEvent::Type TWDocumentOpenEvent::type = static_cast<QEvent::Type>(QEvent::registerEventType());
 
 
 TWApp::TWApp(int &argc, char **argv)
 	: ConfigurableApp(argc, argv)
-	, defaultCodec(NULL)
-	, binaryPaths(NULL)
-	, defaultBinPaths(NULL)
-	, engineList(NULL)
+	, defaultCodec(nullptr)
+	, binaryPaths(nullptr)
+	, defaultBinPaths(nullptr)
+	, engineList(nullptr)
 	, defaultEngineIndex(0)
-	, scriptManager(NULL)
+	, scriptManager(nullptr)
 #if defined(Q_OS_WIN)
-	, messageTargetWindow(NULL)
+	, messageTargetWindow(nullptr)
 #endif
 {
 	init();
@@ -167,7 +167,7 @@ void TWApp::init()
 
 	QString codecName = settings.value(QString::fromLatin1("defaultEncoding"), QString::fromLatin1("UTF-8")).toString();
 	defaultCodec = QTextCodec::codecForName(codecName.toLatin1());
-	if (defaultCodec == NULL)
+	if (!defaultCodec)
 		defaultCodec = QTextCodec::codecForName("UTF-8");
 
 	TWUtils::readConfig();
@@ -291,13 +291,13 @@ void TWApp::about()
 	if (!trText.contains(QString::fromLatin1("[language name]")))
 		aboutText += trText;	// omit this if it hasn't been translated!
 	aboutText += QLatin1String("</small>");
-	QMessageBox::about(NULL, tr("About %1").arg(QString::fromLatin1(TEXWORKS_NAME)), aboutText);
+	QMessageBox::about(nullptr, tr("About %1").arg(QString::fromLatin1(TEXWORKS_NAME)), aboutText);
 }
 
 void TWApp::openUrl(const QUrl& url)
 {
 	if (!QDesktopServices::openUrl(url))
-		QMessageBox::warning(NULL, QString::fromLatin1(TEXWORKS_NAME),
+		QMessageBox::warning(nullptr, QString::fromLatin1(TEXWORKS_NAME),
 							 tr("Unable to access \"%1\"; perhaps your browser or mail application is not properly configured?")
 							 .arg(url.toString()));
 }
@@ -328,7 +328,7 @@ QString TWApp::GetWindowsVersionString()
 	
 	// Call GetNativeSystemInfo if supported or GetSystemInfo otherwise.
 	pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo");
-	if (NULL != pGNSI)
+	if (pGNSI)
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
@@ -580,7 +580,7 @@ void TWApp::launchAction()
 		newFile();
 		if (TeXDocument::documentList().size() == 0) {
 			// something went wrong, give up!
-			(void)QMessageBox::critical(NULL, tr("Unable to create window"),
+			(void)QMessageBox::critical(nullptr, tr("Unable to create window"),
 					tr("Something is badly wrong; %1 was unable to create a document window. "
 			           "The application will now quit.").arg(QString::fromLatin1(TEXWORKS_NAME)),
 					QMessageBox::Close, QMessageBox::Close);
@@ -604,7 +604,7 @@ QObject * TWApp::newFromTemplate() const
 	QString templateName = TemplateDialog::doTemplateDialog();
 	if (!templateName.isEmpty()) {
 		TeXDocument *doc = new TeXDocument(templateName, true);
-		if (doc != NULL) {
+		if (doc) {
 			doc->makeUntitled();
 			doc->selectWindow();
 			doc->editor()->updateLineNumberAreaWidth(0);
@@ -612,7 +612,7 @@ QObject * TWApp::newFromTemplate() const
 			return doc;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void TWApp::openRecentFile()
@@ -624,7 +624,7 @@ void TWApp::openRecentFile()
 
 QStringList TWApp::getOpenFileNames(QString selectedFilter)
 {
-	QFileDialog::Options	options = 0;
+	QFileDialog::Options options;
 #if defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
@@ -633,13 +633,13 @@ QStringList TWApp::getOpenFileNames(QString selectedFilter)
 	QStringList filters = *TWUtils::filterList();
 	if (!selectedFilter.isNull() && !filters.contains(selectedFilter))
 		filters.prepend(selectedFilter);
-	return QFileDialog::getOpenFileNames(NULL, QString(tr("Open File")), lastOpenDir,
+	return QFileDialog::getOpenFileNames(nullptr, QString(tr("Open File")), lastOpenDir,
 	                                     filters.join(QLatin1String(";;")), &selectedFilter, options);
 }
 
 QString TWApp::getOpenFileName(QString selectedFilter)
 {
-	QFileDialog::Options	options = 0;
+	QFileDialog::Options options;
 #if defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
@@ -648,13 +648,13 @@ QString TWApp::getOpenFileName(QString selectedFilter)
 	QStringList filters = *TWUtils::filterList();
 	if (!selectedFilter.isNull() && !filters.contains(selectedFilter))
 		filters.prepend(selectedFilter);
-	return QFileDialog::getOpenFileName(NULL, QString(tr("Open File")), lastOpenDir,
+	return QFileDialog::getOpenFileName(nullptr, QString(tr("Open File")), lastOpenDir,
 	                                    filters.join(QLatin1String(";;")), &selectedFilter, options);
 }
 
 QString TWApp::getSaveFileName(const QString& defaultName)
 {
-	QFileDialog::Options	options = 0;
+	QFileDialog::Options options;
 #if defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
@@ -662,7 +662,7 @@ QString TWApp::getSaveFileName(const QString& defaultName)
 	if (!TWUtils::filterList()->isEmpty())
 		selectedFilter = TWUtils::chooseDefaultFilter(defaultName, *(TWUtils::filterList()));
 		
-	QString fileName = QFileDialog::getSaveFileName(NULL, tr("Save File"), defaultName,
+	QString fileName = QFileDialog::getSaveFileName(nullptr, tr("Save File"), defaultName,
 	                                                TWUtils::filterList()->join(QLatin1String(";;")),
 													&selectedFilter, options);
 	if (!fileName.isEmpty()) {
@@ -694,15 +694,15 @@ QObject* TWApp::openFile(const QString &fileName, int pos /* = 0 */)
 {
 	if (TWUtils::isPDFfile(fileName)) {
 		PDFDocument *doc = PDFDocument::findDocument(fileName);
-		if (doc == NULL)
+		if (!doc)
 			doc = new PDFDocument(fileName);
-		if (doc != NULL) {
+		if (doc) {
 			if (pos > 0)
 				doc->widget()->goToPage(pos - 1);
 			doc->selectWindow();
 			return doc;
 		}
-		return NULL;
+		return nullptr;
 	}
 	else
 		return TeXDocument::openDocument(fileName, true, true, pos, 0, 0);
@@ -798,7 +798,7 @@ bool TWApp::event(QEvent *event)
 void TWApp::setDefaultPaths()
 {
 	QDir appDir(applicationDirPath());
-	if (binaryPaths == NULL)
+	if (!binaryPaths)
 		binaryPaths = new QStringList;
 	else
 		binaryPaths->clear();
@@ -827,7 +827,7 @@ void TWApp::setDefaultPaths()
 			binaryPaths->removeAt(i);
 	}
 	if (binaryPaths->count() == 0) {
-		QMessageBox::warning(NULL, tr("No default binary directory found"),
+		QMessageBox::warning(nullptr, tr("No default binary directory found"),
 			tr("None of the predefined directories for TeX-related programs could be found."
 				"<p><small>To run any processes, you will need to set the binaries directory (or directories) "
 				"for your TeX distribution using the Typesetting tab of the Preferences dialog.</small>"));
@@ -836,7 +836,7 @@ void TWApp::setDefaultPaths()
 
 const QStringList TWApp::getPrefsBinaryPaths()
 {
-	if (binaryPaths == NULL) {
+	if (!binaryPaths) {
 		binaryPaths = new QStringList;
 		QSETTINGS_OBJECT(settings);
 		if (settings.contains(QString::fromLatin1("binaryPaths")))
@@ -849,7 +849,7 @@ const QStringList TWApp::getPrefsBinaryPaths()
 
 void TWApp::setBinaryPaths(const QStringList& paths)
 {
-	if (binaryPaths == NULL)
+	if (!binaryPaths)
 		binaryPaths = new QStringList;
 	*binaryPaths = paths;
 	QSETTINGS_OBJECT(settings);
@@ -858,7 +858,7 @@ void TWApp::setBinaryPaths(const QStringList& paths)
 
 void TWApp::setDefaultEngineList()
 {
-	if (engineList == NULL)
+	if (!engineList)
 		engineList = new QList<Engine>;
 	else
 		engineList->clear();
@@ -882,7 +882,7 @@ void TWApp::setDefaultEngineList()
 
 const QList<Engine> TWApp::getEngineList()
 {
-	if (engineList == NULL) {
+	if (!engineList) {
 		engineList = new QList<Engine>;
 		bool foundList = false;
 		// check for old engine list in Preferences
@@ -951,7 +951,7 @@ void TWApp::saveEngineList()
 
 void TWApp::setEngineList(const QList<Engine>& engines)
 {
-	if (engineList == NULL)
+	if (!engineList)
 		engineList = new QList<Engine>;
 	*engineList = engines;
 	saveEngineList();
@@ -1017,7 +1017,7 @@ QTextCodec *TWApp::getDefaultCodec()
 
 void TWApp::setDefaultCodec(QTextCodec *codec)
 {
-	if (codec == NULL)
+	if (!codec)
 		return;
 
 	if (codec != defaultCodec) {
@@ -1129,7 +1129,7 @@ void TWApp::openHelpFile(const QString& helpDirName)
 	if (helpDir.exists(QString::fromLatin1("index.html")))
 		openUrl(QUrl::fromLocalFile(helpDir.absoluteFilePath(QString::fromLatin1("index.html"))));
 	else
-		QMessageBox::warning(NULL, QString::fromLatin1(TEXWORKS_NAME), tr("Unable to find help file."));
+		QMessageBox::warning(nullptr, QString::fromLatin1(TEXWORKS_NAME), tr("Unable to find help file."));
 }
 
 void TWApp::updateScriptsList()
@@ -1155,7 +1155,7 @@ LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 			{
 				const COPYDATASTRUCT* pcds = (const COPYDATASTRUCT*)lParam;
 				if (pcds->dwData == TW_OPEN_FILE_MSG) {
-					if (TWApp::instance() != NULL) {
+					if (TWApp::instance()) {
 						QStringList data = QString::fromUtf8((const char*)pcds->lpData, pcds->cbData).split(QChar::fromLatin1('\n'));
 						if (data.size() == 1)
 							TWApp::instance()->openFile(data[0]);
@@ -1174,7 +1174,7 @@ LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 
 void TWApp::createMessageTarget(QWidget* aWindow)
 {
-	if (messageTargetWindow != NULL)
+	if (messageTargetWindow)
 		return;
 
 	if (QCoreApplication::startingUp())
@@ -1184,7 +1184,7 @@ void TWApp::createMessageTarget(QWidget* aWindow)
 		return;
 
 	HINSTANCE hInstance = (HINSTANCE)GetWindowLongPtr((HWND)aWindow->winId(), GWLP_HINSTANCE);
-	if (hInstance == NULL)
+	if (!hInstance)
 		return;
 
 	WNDCLASSA myWindowClass;
@@ -1213,7 +1213,7 @@ void TWApp::bringToFront()
 {
 	foreach (QWidget* widget, topLevelWidgets()) {
 		QMainWindow* window = qobject_cast<QMainWindow*>(widget);
-		if (window != NULL) {
+		if (window) {
 			window->raise();
 			window->activateWindow();
 		}
@@ -1279,7 +1279,7 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 {
 	QSETTINGS_OBJECT(settings);
 	QMap<QString, QVariant> retVal;
-	QObject * doc = NULL;
+	QObject * doc = nullptr;
 	QFileInfo fi(fileName);
 	TWScriptAPI * scriptApi = qobject_cast<TWScriptAPI*>(scriptApiObj);
 
@@ -1315,13 +1315,13 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 	}
 	doc = openFile(fileName, pos);
 	retVal[QString::fromLatin1("result")] = QVariant::fromValue(doc);
-	retVal[QString::fromLatin1("status")] = (doc != NULL ? TWScriptAPI::SystemAccess_OK : TWScriptAPI::SystemAccess_Failed);
+	retVal[QString::fromLatin1("status")] = (doc ? TWScriptAPI::SystemAccess_OK : TWScriptAPI::SystemAccess_Failed);
 	return retVal;
 }
 
 void TWApp::doResourcesDialog() const
 {
-	ResourcesDialog::doResourcesDialog(NULL);
+	ResourcesDialog::doResourcesDialog(nullptr);
 }
 
 void TWApp::reloadSpellchecker()

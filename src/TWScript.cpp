@@ -241,9 +241,9 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 	char * strTypeName;
 	QMetaMethod mm;
 	QGenericReturnArgument retValArg;
-	void * retValBuffer = NULL;
+	void * retValBuffer = nullptr;
 	TWScript::MethodResult status;
-	void * myNullPtr = NULL;
+	void * myNullPtr = nullptr;
 	
 	if (!obj || !(obj->metaObject()))
 		return Method_Invalid;
@@ -278,7 +278,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 				continue;
 			if (arguments[j].canConvert((QVariant::Type)type))
 				continue;
-			// allow invalid===NULL for pointers
+			// allow invalid===nullptr for pointers
 			if (typeOfArg == QVariant::Invalid && type == QMetaType::QObjectStar)
 				continue;
 			break;

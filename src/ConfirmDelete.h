@@ -33,7 +33,7 @@ class ConfirmDelete : public QDialog, private Ui::ConfirmDelete
 	Q_OBJECT
 
 public:
-	ConfirmDelete(QWidget *parent = NULL);
+	ConfirmDelete(QWidget *parent = nullptr);
 	virtual ~ConfirmDelete();
 
 	static void doConfirmDelete(const QDir& dir, const QStringList& fileList);

@@ -40,7 +40,7 @@ class CompletingEdit : public QTextEdit
 	Q_OBJECT
 
 public:
-	CompletingEdit(QWidget *parent = 0);
+	CompletingEdit(QWidget *parent = nullptr);
 	~CompletingEdit();
 
 	void setSpellChecker(Hunhandle *h, QTextCodec *codec);
