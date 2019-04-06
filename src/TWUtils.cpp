@@ -101,8 +101,7 @@ const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOn
 				libPath = dicPath;
 			return libPath; // don't try to create/update the system dicts directory
 		}
-		else
-			libRootPath = QDir::homePath() + QLatin1String("/." TEXWORKS_NAME "/");
+		libRootPath = QDir::homePath() + QLatin1String("/." TEXWORKS_NAME "/");
 #else // defined(Q_OS_WIN)
 		libRootPath = QDir::homePath() + QLatin1String("/" TEXWORKS_NAME "/");
 #endif
@@ -245,7 +244,7 @@ insertItemIfPresent(QFileInfo& fi, QMenu* helpMenu, QAction* before, QSignalMapp
 		}
 		QAction* action = new QAction(title, helpMenu);
 		mapper->setMapping(action, fi.canonicalFilePath());
-		action->connect(action, SIGNAL(triggered()), mapper, SLOT(map()));
+		QObject::connect(action, SIGNAL(triggered()), mapper, SLOT(map()));
 		helpMenu->insertAction(before, action);
 		return 1;
 	}
@@ -255,7 +254,7 @@ insertItemIfPresent(QFileInfo& fi, QMenu* helpMenu, QAction* before, QSignalMapp
 void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 {
 	QSignalMapper* mapper = new QSignalMapper(helpMenu);
-	mapper->connect(mapper, SIGNAL(mapped(const QString&)), TWApp::instance(), SLOT(openHelpFile(const QString&)));
+	QObject::connect(mapper, SIGNAL(mapped(const QString&)), TWApp::instance(), SLOT(openHelpFile(const QString&)));
 
 	QAction* before = nullptr;
 	int i, firstSeparator = 0;
@@ -498,8 +497,7 @@ QString TWUtils::chooseDefaultFilter(const QString & filename, const QStringList
 
 	if (extension.isEmpty())
 		return filters[0];
-	
-	QRegExp re(QString::fromLatin1("\\*\\.") + QRegExp::escape(extension));
+
 	foreach (QString filter, filters) {
 		// return filter if it corresponds to the given extension
 		// note that the extension must be the first one in the list to match;
@@ -885,7 +883,7 @@ bool TWUtils::findNextWord(const QString& text, int index, int& start, int& end)
 		return false;
 	QChar	ch = text.at(index);
 
-#define IS_WORD_FORMING(ch) (ch.isLetter() || ch.isMark())
+#define IS_WORD_FORMING(ch) ((ch).isLetter() || (ch).isMark())
 
 	if (IS_WORD_FORMING(ch) || ch == QChar::fromLatin1('@') /* || ch == QChar::fromLatin1('\'') || ch == 0x2019 */) {
 		bool isControlSeq = false; // becomes true if we include an @ sign or a leading backslash
@@ -1048,7 +1046,7 @@ void TWUtils::readConfig()
 
 	QFile pairsFile(configDir.filePath(QString::fromLatin1("delimiter-pairs.txt")));
 	if (pairsFile.open(QIODevice::ReadOnly)) {
-		while (1) {
+		while (true) {
 			QByteArray ba = pairsFile.readLine();
 			if (ba.size() == 0)
 				break;
@@ -1077,7 +1075,7 @@ void TWUtils::readConfig()
 	if (configFile.open(QIODevice::ReadOnly)) {
 		QRegExp keyVal(QString::fromLatin1("([-a-z]+):\\s*([^ \\t].+)"));
 			// looking for keyword, colon, optional whitespace, value
-		while (1) {
+		while (true) {
 			QByteArray ba = configFile.readLine();
 			if (ba.size() == 0)
 				break;
@@ -1311,7 +1309,7 @@ bool FileVersionDatabase::save(const QString & path) const
 	return true;
 }
 
-void FileVersionDatabase::addFileRecord(const QFileInfo & file, const QByteArray & md5Hash, const QString version)
+void FileVersionDatabase::addFileRecord(const QFileInfo & file, const QByteArray & md5Hash, const QString & version)
 {
 	// remove all existing entries for this file
 	QMutableListIterator<FileVersionDatabase::Record> it(m_records);

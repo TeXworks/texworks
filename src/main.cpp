@@ -81,9 +81,9 @@ int main(int argc, char *argv[])
 			clp.at(i).processed = true;
 			QTextStream strm(stdout);
 			if (TWUtils::isGitInfoAvailable())
-				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(QString::fromLatin1(TEXWORKS_VERSION)).arg(QString::fromLatin1(TW_BUILD_ID_STR)).arg(TWUtils::gitCommitHash()).arg(TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
+				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(QString::fromLatin1(TEXWORKS_VERSION), QString::fromLatin1(TW_BUILD_ID_STR), TWUtils::gitCommitHash(), TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
 			else
-				strm << QString::fromUtf8("TeXworks %1 (%2)\n\n").arg(QString::fromLatin1(TEXWORKS_VERSION)).arg(QString::fromLatin1(TW_BUILD_ID_STR));
+				strm << QString::fromUtf8("TeXworks %1 (%2)\n\n").arg(QString::fromLatin1(TEXWORKS_VERSION), QString::fromLatin1(TW_BUILD_ID_STR));
 			strm << QString::fromUtf8("\
 Copyright (C) %1  %2\n\
 License GPLv2+: GNU GPL (version 2 or later) <http://gnu.org/licenses/gpl.html>\n\
@@ -137,7 +137,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLat
 #endif
 
 #ifdef QT_DBUS_LIB
-	if (QDBusConnection::sessionBus().registerService(QString::fromLatin1(TW_SERVICE_NAME)) == false) {
+	if (!QDBusConnection::sessionBus().registerService(QString::fromLatin1(TW_SERVICE_NAME))) {
 		QDBusInterface interface(QString::fromLatin1(TW_SERVICE_NAME), QString::fromLatin1(TW_APP_PATH), QString::fromLatin1(TW_INTERFACE_NAME));
 		if (interface.isValid()) {
 			interface.call(QString::fromLatin1("bringToFront"));
@@ -149,17 +149,15 @@ There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLat
 			}
 			return 0;
 		}
-		else {
-			// We could not register the service, but couldn't connect to an
-			// already registered one, either. This can mean that something is
-			// seriously wrong, we've met some race condition, or the dbus
-			// service is not running. Let's assume the best (dbus not running)
-			// and continue as a multiple-instance app instead
-		}
+		// We could not register the service, but couldn't connect to an
+		// already registered one, either. This can mean that something is
+		// seriously wrong, we've met some race condition, or the dbus
+		// service is not running. Let's assume the best (dbus not running)
+		// and continue as a multiple-instance app instead
 	}
 
 	new TWAdaptor(&app);
-	if (QDBusConnection::sessionBus().registerObject(QString::fromLatin1(TW_APP_PATH), &app) == false) {
+	if (!QDBusConnection::sessionBus().registerObject(QString::fromLatin1(TW_APP_PATH), &app)) {
 		// failed to register the application object, so unregister our service
 		// and continue as a multiple-instance app instead
 		(void)QDBusConnection::sessionBus().unregisterService(QString::fromLatin1(TW_SERVICE_NAME));
@@ -176,7 +174,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLat
 		}
 
 		QTimer::singleShot(1, &app, SLOT(launchAction()));
-		rval = app.exec();
+		rval = TWApp::exec();
 	}
 
 #if defined(Q_OS_WIN)

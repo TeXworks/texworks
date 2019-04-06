@@ -77,12 +77,50 @@ const int kHardWrapDefaultWidth = 64;
 QList<TeXDocument*> TeXDocument::docList;
 
 TeXDocument::TeXDocument()
+	: highlighter(nullptr)
+	, pdfDoc(nullptr)
+	, codec(nullptr)
+	, utf8BOM(false)
+	, lineEndings(kLineEnd_LF)
+	, isUntitled(true)
+	, lineNumberLabel(nullptr)
+	, encodingLabel(nullptr)
+	, lineEndingLabel(nullptr)
+	, engineActions(nullptr)
+	, engine(nullptr)
+	, process(nullptr)
+	, keepConsoleOpen(false)
+	, showPdfWhenFinished(true)
+	, userInterrupt(false)
+	, pHunspell(nullptr)
+	, watcher(nullptr)
+	, deferTagListChanges(false)
+	, tagListChanged(false)
 {
 	init();
 	statusBar()->showMessage(tr("New document"), kStatusMessageDuration);
 }
 
 TeXDocument::TeXDocument(const QString &fileName, bool asTemplate)
+	: highlighter(nullptr)
+	, pdfDoc(nullptr)
+	, codec(nullptr)
+	, utf8BOM(false)
+	, lineEndings(kLineEnd_LF)
+	, isUntitled(true)
+	, lineNumberLabel(nullptr)
+	, encodingLabel(nullptr)
+	, lineEndingLabel(nullptr)
+	, engineActions(nullptr)
+	, engine(nullptr)
+	, process(nullptr)
+	, keepConsoleOpen(false)
+	, showPdfWhenFinished(true)
+	, userInterrupt(false)
+	, pHunspell(nullptr)
+	, watcher(nullptr)
+	, deferTagListChanges(false)
+	, tagListChanged(false)
 {
 	init();
 	loadFile(fileName, asTemplate);
@@ -353,7 +391,7 @@ void TeXDocument::init()
 		}
 		++index;
 	}
-	if (options.size() > 0)
+	if (!options.empty())
 		menuSmart_Quotes_Mode->addSeparator();
 	menuSmart_Quotes_Mode->addAction(actionApply_to_Selection);
 	connect(actionApply_to_Selection, SIGNAL(triggered()), textEdit, SLOT(smartenQuotes()));
@@ -481,7 +519,7 @@ QString TeXDocument::spellcheckLanguage() const
 void TeXDocument::reloadSpellcheckerMenu()
 {
 	Q_ASSERT(menuSpelling);
-	Q_ASSERT(menuSpelling->actions().size() > 0);
+	Q_ASSERT(!menuSpelling->actions().empty());
 	
 	QActionGroup * group = menuSpelling->actions()[0]->actionGroup();
 	Q_ASSERT(group);
@@ -513,10 +551,10 @@ void TeXDocument::reloadSpellcheckerMenu()
 				QLocale::Country country = loc.country();
 				if (country != QLocale::AnyCountry)
 					//: Format to display spell-checking dictionaries (ex. "English - UnitedStates (en_US)")
-					label = tr("%1 - %2 (%3)").arg(QLocale::languageToString(loc.language())).arg(QLocale::countryToString(country)).arg(dict);
+					label = tr("%1 - %2 (%3)").arg(QLocale::languageToString(loc.language()), QLocale::countryToString(country), dict);
 				else
 					//: Format to display spell-checking dictionaries (ex. "English (en_US)")
-					label = tr("%1 (%2)").arg(QLocale::languageToString(loc.language())).arg(dict);
+					label = tr("%1 (%2)").arg(QLocale::languageToString(loc.language()), dict);
 			}
 
 			QAction * act = new QAction(label, nullptr);
@@ -667,8 +705,7 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 			event->ignore();
 			return;
 		}
-		else
-			interrupt();
+		interrupt();
 	}
 
 	if (maybeSave()) {
@@ -756,8 +793,7 @@ bool TeXDocument::save()
 {
 	if (isUntitled)
 		return saveAs();
-	else
-		return saveFile(curFile);
+	return saveFile(curFile);
 }
 
 bool TeXDocument::saveAll()
@@ -834,7 +870,7 @@ bool TeXDocument::maybeSave()
 		ret = (QMessageBox::StandardButton)msgBox.exec();
 		if (ret == QMessageBox::Save)
 			return save();
-		else if (ret == QMessageBox::Cancel)
+		if (ret == QMessageBox::Cancel)
 			return false;
 	}
 	return true;
@@ -960,8 +996,7 @@ QString TeXDocument::readFile(const QString &fileName,
 	if (!file.open(QFile::ReadOnly)) {
 		QMessageBox::warning(this, tr(TEXWORKS_NAME),
 							 tr("Cannot read file \"%1\":\n%2")
-							 .arg(fileName)
-							 .arg(file.errorString()));
+							 .arg(fileName, file.errorString()));
 		return QString();
 	}
 
@@ -979,9 +1014,7 @@ QString TeXDocument::readFile(const QString &fileName,
 				if (QMessageBox::warning(this, tr("Unrecognized encoding"),
 						tr("The text encoding %1 used in %2 is not supported.\n\n"
 						   "It will be interpreted as %3 instead, which may result in incorrect text.")
-							.arg(reqName)
-							.arg(fileName)
-				            .arg(QString::fromUtf8((*codecUsed)->name().constData())),
+							.arg(reqName, fileName, QString::fromUtf8((*codecUsed)->name().constData())),
 						QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
 					return QString();
 			}
@@ -996,31 +1029,29 @@ QString TeXDocument::readFile(const QString &fileName,
 	
 	if (file.atEnd())
 		return QString();
-	else {
-		QTextStream in(&file);
-		in.setCodec(*codecUsed);
-		QString text = in.readAll();
+	QTextStream in(&file);
+	in.setCodec(*codecUsed);
+	QString text = in.readAll();
 
-		if (lineEndings) {
-			if (text.contains(QLatin1String("\r\n"))) {
-				text.replace(QLatin1String("\r\n"), QChar::fromLatin1('\n'));
-				*lineEndings = kLineEnd_CRLF;
-			}
-			else if (text.contains(QChar::fromLatin1('\r')) && !text.contains(QChar::fromLatin1('\n'))) {
-				text.replace(QChar::fromLatin1('\r'), QChar::fromLatin1('\n'));
-				*lineEndings = kLineEnd_CR;
-			}
-			else
-				*lineEndings = kLineEnd_LF;
-
-			if (text.contains(QChar::fromLatin1('\r'))) {
-				text.replace(QChar::fromLatin1('\r'), QChar::fromLatin1('\n'));
-				*lineEndings |= kLineEnd_Mixed;
-			}
+	if (lineEndings) {
+		if (text.contains(QLatin1String("\r\n"))) {
+			text.replace(QLatin1String("\r\n"), QChar::fromLatin1('\n'));
+			*lineEndings = kLineEnd_CRLF;
 		}
+		else if (text.contains(QChar::fromLatin1('\r')) && !text.contains(QChar::fromLatin1('\n'))) {
+			text.replace(QChar::fromLatin1('\r'), QChar::fromLatin1('\n'));
+			*lineEndings = kLineEnd_CR;
+		}
+		else
+			*lineEndings = kLineEnd_LF;
 
-		return text;
+		if (text.contains(QChar::fromLatin1('\r'))) {
+			text.replace(QChar::fromLatin1('\r'), QChar::fromLatin1('\n'));
+			*lineEndings |= kLineEnd_Mixed;
+		}
 	}
+
+	return text;
 }
 
 void TeXDocument::loadFile(const QString &fileName, bool asTemplate /* = false */, bool inBackground /* = false */, bool reload /* = false */, QTextCodec * forceCodec /* = nullptr */)
@@ -1410,8 +1441,7 @@ bool TeXDocument::saveFile(const QString &fileName)
 		if (!file.open(QFile::WriteOnly)) {
 			QMessageBox::warning(this, tr(TEXWORKS_NAME),
 								 tr("Cannot write file \"%1\":\n%2")
-								 .arg(fileName)
-								 .arg(file.errorString()));
+								 .arg(fileName, file.errorString()));
 			setupFileWatcher();
 			goto notSaved;
 		}
@@ -1491,7 +1521,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	setWindowModified(false);
 
 	//: Format for the window title (ex. "file.tex[*] - TeXworks")
-	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile)).arg(tr(TEXWORKS_NAME)));
+	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile), tr(TEXWORKS_NAME)));
 
 	actionRemove_Aux_Files->setEnabled(!isUntitled);
 	
@@ -1545,7 +1575,7 @@ void TeXDocument::updateWindowMenu()
 		// If this action corresponds to the current file, use it's label as
 		// window text
 		if (selWinAction->data().toString() == fileName())
-			setWindowTitle(tr("%1[*] - %2").arg(selWinAction->text()).arg(tr(TEXWORKS_NAME)));
+			setWindowTitle(tr("%1[*] - %2").arg(selWinAction->text(), tr(TEXWORKS_NAME)));
 	}
 }
 
@@ -2138,7 +2168,7 @@ void TeXDocument::doHardWrap(int mode, int lineWidth, bool rewrap)
 				newText.append(QChar::fromLatin1(' '));
 				curLength += 1;
 			}
-			newText.append(line.left(breakPoint));
+			newText.append(line.leftRef(breakPoint));
 			curLength += breakPoint;
 			line.remove(0, breakPoint + matchLen);
 		}
@@ -2246,12 +2276,12 @@ void TeXDocument::doFindAgain(bool fromDialog)
 		flags &= ~QTextDocument::FindBackward;
 		int docListIndex = 0;
 		TeXDocument* theDoc = this;
-		while (1) {
+		while (true) {
 			QTextCursor curs(theDoc->textDoc());
 			curs.movePosition(QTextCursor::End);
 			int rangeStart = 0;
 			int rangeEnd = curs.position();
-			while (1) {
+			while (true) {
 				curs = doSearch(theDoc->textDoc(), searchText, regex, flags, rangeStart, rangeEnd);
 				if (curs.isNull())
 					break;
@@ -2264,7 +2294,7 @@ void TeXDocument::doFindAgain(bool fromDialog)
 					rangeStart = curs.selectionEnd();
 			}
 
-			if (settings.value(QString::fromLatin1("searchAllFiles")).toBool() == false)
+			if (!settings.value(QString::fromLatin1("searchAllFiles")).toBool())
 				break;
 			// go to next document
 		next_doc:
@@ -2323,8 +2353,7 @@ void TeXDocument::doFindAgain(bool fromDialog)
 			textEdit->setTextCursor(curs);
 	}
 
-	if (regex)
-		delete regex;
+	delete regex;
 }
 
 void TeXDocument::doReplaceAgain()
@@ -2455,7 +2484,7 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 				replacements += doc->doReplaceAll(searchText, regex, replacement, flags);
 			QString numOccurrences = tr("%n occurrence(s)", "", replacements);
 			QString numDocuments = tr("%n documents", "", docList.count());
-			QString message = tr("Replaced %1 in %2").arg(numOccurrences).arg(numDocuments);
+			QString message = tr("Replaced %1 in %2").arg(numOccurrences, numDocuments);
 			statusBar()->showMessage(message, kStatusMessageDuration);
 		}
 		else {
@@ -2471,8 +2500,7 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 		}
 	}
 
-	if (regex)
-		delete regex;
+	delete regex;
 }
 
 int TeXDocument::doReplaceAll(const QString& searchText, QRegExp* regex, const QString& replacement,
@@ -2487,7 +2515,7 @@ int TeXDocument::doReplaceAll(const QString& searchText, QRegExp* regex, const Q
 		
 	int replacements = 0;
 	bool first = true;
-	while (1) {
+	while (true) {
 		QTextCursor curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
 		if (curs.isNull()) {
 			if (!first)

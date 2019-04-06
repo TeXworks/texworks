@@ -80,6 +80,7 @@ const QEvent::Type TWDocumentOpenEvent::type = static_cast<QEvent::Type>(QEvent:
 
 TWApp::TWApp(int &argc, char **argv)
 	: ConfigurableApp(argc, argv)
+	, recentFilesLimit(kDefaultMaxRecentFiles)
 	, defaultCodec(nullptr)
 	, binaryPaths(nullptr)
 	, defaultBinPaths(nullptr)
@@ -277,9 +278,9 @@ void TWApp::about()
 	aboutText += QLatin1String("<small>");
 	aboutText += QLatin1String("<p>&#xA9; 2007-2019  Jonathan Kew, Stefan L&#xF6;ffler, Charlie Sharpsteen");
 	if (TWUtils::isGitInfoAvailable())
-		aboutText += tr("<br>Version %1 (%2) [r.%3, %4]").arg(QString::fromLatin1(TEXWORKS_VERSION)).arg(QString::fromLatin1(TW_BUILD_ID_STR)).arg(TWUtils::gitCommitHash()).arg(TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
+		aboutText += tr("<br>Version %1 (%2) [r.%3, %4]").arg(QString::fromLatin1(TEXWORKS_VERSION), QString::fromLatin1(TW_BUILD_ID_STR), TWUtils::gitCommitHash(), TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
 	else
-		aboutText += tr("<br>Version %1 (%2)").arg(QString::fromLatin1(TEXWORKS_VERSION)).arg(QString::fromLatin1(TW_BUILD_ID_STR));
+		aboutText += tr("<br>Version %1 (%2)").arg(QString::fromLatin1(TEXWORKS_VERSION), QString::fromLatin1(TW_BUILD_ID_STR));
 	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2 or (at your option) any later version.");
 	aboutText += tr("<p><a href=\"http://www.qt.io/\">Qt application framework</a> v%1 by The Qt Company.").arg(QString::fromLatin1(qVersion()));
 	aboutText += tr("<br><a href=\"http://poppler.freedesktop.org/\">Poppler</a> PDF rendering library by Kristian H&#xF8;gsberg, Albert Astals Cid and others.");
@@ -287,7 +288,7 @@ void TWApp::about()
 	aboutText += tr("<br>Concept and resources from <a href=\"http://www.uoregon.edu/~koch/texshop/\">TeXShop</a> by Richard Koch.");
 	aboutText += tr("<br><a href=\"http://itexmac.sourceforge.net/SyncTeX.html\">SyncTeX</a> technology by J&#xE9;r&#xF4;me Laurens.");
 	aboutText += tr("<br>Some icons used are from the <a href=\"http://tango.freedesktop.org/\">Tango Desktop Project</a>.");
-	QString trText = tr("<p>%1 translation kindly contributed by %2.").arg(tr("[language name]")).arg(tr("[translator's name/email]"));
+	QString trText = tr("<p>%1 translation kindly contributed by %2.").arg(tr("[language name]"), tr("[translator's name/email]"));
 	if (!trText.contains(QString::fromLatin1("[language name]")))
 		aboutText += trText;	// omit this if it hasn't been translated!
 	aboutText += QLatin1String("</small>");
@@ -550,14 +551,14 @@ void TWApp::writeToMailingList()
 	body.replace(QChar::fromLatin1('\n'), QLatin1String("\r\n"));
 #endif
 
-	openUrl(QUrl(QString::fromLatin1("mailto:%1?subject=&body=%2").arg(address).arg(QString::fromLatin1(QUrl::toPercentEncoding(body).constData()))));
+	openUrl(QUrl(QString::fromLatin1("mailto:%1?subject=&body=%2").arg(address, QString::fromLatin1(QUrl::toPercentEncoding(body).constData()))));
 }
 
 void TWApp::launchAction()
 {
 	scriptManager->runHooks(QString::fromLatin1("TeXworksLaunched"));
 
-	if (TeXDocument::documentList().size() > 0 || PDFDocument::documentList().size() > 0)
+	if (!TeXDocument::documentList().empty() || !PDFDocument::documentList().empty())
 		return;
 
 	QSETTINGS_OBJECT(settings);
@@ -576,9 +577,9 @@ void TWApp::launchAction()
 #if !defined(Q_OS_DARWIN)
 	// on Mac OS, it's OK to end up with no document (we still have the app menu bar)
 	// but on W32 and X11 we need a window otherwise the user can't interact at all
-	if (TeXDocument::documentList().size() == 0 && PDFDocument::documentList().size() == 0) {
+	if (TeXDocument::documentList().empty() && PDFDocument::documentList().empty()) {
 		newFile();
-		if (TeXDocument::documentList().size() == 0) {
+		if (TeXDocument::documentList().empty()) {
 			// something went wrong, give up!
 			(void)QMessageBox::critical(nullptr, tr("Unable to create window"),
 					tr("Something is badly wrong; %1 was unable to create a document window. "
@@ -704,8 +705,7 @@ QObject* TWApp::openFile(const QString &fileName, int pos /* = 0 */)
 		}
 		return nullptr;
 	}
-	else
-		return TeXDocument::openDocument(fileName, true, true, pos, 0, 0);
+	return TeXDocument::openDocument(fileName, true, true, pos, 0, 0);
 }
 
 void TWApp::preferences()
@@ -774,7 +774,7 @@ void TWApp::arrangeWindows(WindowArrangementFunction func)
 		foreach (PDFDocument* pdfDoc, PDFDocument::documentList())
 			if (desktop->screenNumber(pdfDoc) == screenIndex)
 				windows << pdfDoc;
-		if (windows.size() > 0)
+		if (!windows.empty())
 			(*func)(windows, desktop->availableGeometry(screenIndex));
 	}
 }
@@ -782,13 +782,13 @@ void TWApp::arrangeWindows(WindowArrangementFunction func)
 bool TWApp::event(QEvent *event)
 {
 	if (event->type() == TWDocumentOpenEvent::type) {
-		TWDocumentOpenEvent * e = static_cast<TWDocumentOpenEvent*>(event);
+		TWDocumentOpenEvent * e = dynamic_cast<TWDocumentOpenEvent*>(event);
 		openFile(e->filename, e->pos);
 		return true;
 	}
 	switch (event->type()) {
 		case QEvent::FileOpen:
-			openFile(static_cast<QFileOpenEvent *>(event)->file());        
+			openFile(dynamic_cast<QFileOpenEvent *>(event)->file());
 			return true;
 		default:
 			return QApplication::event(event);
@@ -968,8 +968,7 @@ const Engine TWApp::getDefaultEngine()
 	defaultEngineIndex = 0;
 	if (engines.empty())
 		return Engine();
-	else
-		return engines[0];
+	return engines[0];
 }
 
 void TWApp::setDefaultEngine(const QString& name)
@@ -1307,7 +1306,7 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 			if (QMessageBox::warning(qobject_cast<QWidget*>(scriptApi->GetTarget()), 
 				tr("Permission request"),
 				tr("The script \"%1\" is trying to open the file \"%2\" without sufficient permissions. Do you want to open the file?")\
-					.arg(script->getTitle()).arg(path),
+					.arg(script->getTitle(), path),
 				QMessageBox::Yes | QMessageBox::No, QMessageBox::No
 			) != QMessageBox::Yes)
 				return retVal;

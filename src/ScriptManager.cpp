@@ -201,7 +201,7 @@ void ScriptManager::treeSelectionChanged()
 		QString url = sli->scriptLanguageURL();
 		QString str = sli->scriptLanguageName();
 		if (!url.isEmpty())
-			str = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url).arg(str);
+			str = QString::fromLatin1("<a href=\"%1\">%2</a>").arg(url, str);
 		addDetailsRow(rows, tr("Language: "), str);
 	}
 
@@ -211,9 +211,9 @@ void ScriptManager::treeSelectionChanged()
 	details->setHtml(QString::fromLatin1("<table>%1</table").arg(rows));
 }
 
-void ScriptManager::addDetailsRow(QString& html, const QString label, const QString value)
+void ScriptManager::addDetailsRow(QString& html, const QString & label, const QString & value)
 {
 	if (!value.isEmpty())
-		html += QString::fromLatin1("<tr><td>%1</td><td>%2</td></tr>").arg(label).arg(value);
+		html += QString::fromLatin1("<tr><td>%1</td><td>%2</td></tr>").arg(label, value);
 }
 

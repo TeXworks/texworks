@@ -336,7 +336,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 			retValArg = QGenericReturnArgument(mm.typeName(), retValBuffer);
 		}
 		
-		if (mo->invokeMethod(obj, qPrintable(name),
+		if (QMetaObject::invokeMethod(obj, qPrintable(name),
 							 Qt::DirectConnection,
 							 retValArg,
 							 genericArgs[0],

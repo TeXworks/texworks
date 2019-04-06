@@ -71,7 +71,7 @@ void TagsDock::fillInfo()
 	disconnect(tree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(followTagSelection()));
 	tree->clear();
 	const QList<TeXDocument::Tag>& tags = document->getTags();
-	if (tags.size() > 0) {
+	if (!tags.empty()) {
 		QTreeWidgetItem *item = nullptr, *bmItem = nullptr;
 		QTreeWidgetItem *bookmarks = new QTreeWidgetItem(tree);
 		bookmarks->setText(0, tr("Bookmarks"));

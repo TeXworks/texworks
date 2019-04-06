@@ -38,16 +38,14 @@ bool TWSystemCmd::waitForStarted(int msecs /* = 30000 */)
 {
 	if (finished)
 		return finishedSuccessfully;
-	else
-		return QProcess::waitForStarted(msecs);
+	return QProcess::waitForStarted(msecs);
 }
 
 bool TWSystemCmd::waitForFinished(int msecs /* = 30000 */)
 {
 	if (finished)
 		return finishedSuccessfully;
-	else
-		return QProcess::waitForFinished(msecs);
+	return QProcess::waitForFinished(msecs);
 }
 
 void TWSystemCmd::processError(QProcess::ProcessError error)

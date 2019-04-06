@@ -38,7 +38,7 @@ bool CommandlineParser::parse()
 			
 			switch (spec.type) {
 				case Commandline_Option:
-				    if (!spec.longName.isEmpty() && rawItem.startsWith(strLong + QLatin1String("="))) {
+					if (!spec.longName.isEmpty() && rawItem.startsWith(strLong + QLatin1String("="))) {
 						item.value = rawItem.mid(strLong.length() + 1);
 						found = true;
 					}
@@ -122,7 +122,7 @@ int CommandlineParser::getPrevArgument(int index /* = -1 */, CommandlineGetItemF
 }
 
 int CommandlineParser::getNextOption(
-	const QString longName /* = QString() */,
+	const QString & longName /* = QString() */,
 	int index /* = -1 */,
 	CommandlineGetItemFlags flags /* = GetFlag_Default */
 ) const
@@ -137,7 +137,7 @@ int CommandlineParser::getNextOption(
 }
 
 int CommandlineParser::getPrevOption(
-	const QString longName /* = QString() */,
+	const QString & longName /* = QString() */,
 	int index /* = -1 */,
 	CommandlineGetItemFlags flags /* = GetFlag_Default */
 ) const
@@ -152,7 +152,7 @@ int CommandlineParser::getPrevOption(
 }
 
 int CommandlineParser::getNextSwitch(
-	const QString longName /* = QString() */,
+	const QString & longName /* = QString() */,
 	int index /* = -1 */,
 	CommandlineGetItemFlags flags /* = GetFlag_Default */
 ) const
@@ -167,7 +167,7 @@ int CommandlineParser::getNextSwitch(
 }
 
 int CommandlineParser::getPrevSwitch(
-	const QString longName /* = QString() */,
+	const QString & longName /* = QString() */,
 	int index /* = -1 */,
 	CommandlineGetItemFlags flags /* = GetFlag_Default */
 ) const

@@ -67,9 +67,9 @@ HardWrapDialog::mode() const
 {
 	if (radio_currentWidth->isChecked())
 		return kHardWrapMode_Window;
-	else if (radio_fixedLineLength->isChecked())
+	if (radio_fixedLineLength->isChecked())
 		return kHardWrapMode_Fixed;
-	else if (radio_Unwrap->isChecked())
+	if (radio_Unwrap->isChecked())
 		return kHardWrapMode_Unwrap;
 	
 	return kHardWrapMode_Fixed;

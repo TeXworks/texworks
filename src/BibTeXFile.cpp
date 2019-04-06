@@ -27,9 +27,9 @@ BibTeXFile::Entry::Type BibTeXFile::Entry::type() const
 {
 	if (_type.toLower() == QString::fromLatin1("comment"))
 		return COMMENT;
-	else if (_type.toLower() == QString::fromLatin1("preamble"))
+	if (_type.toLower() == QString::fromLatin1("preamble"))
 		return PREAMBLE;
-	else if (_type.toLower() == QString::fromLatin1("string"))
+	if (_type.toLower() == QString::fromLatin1("string"))
 		return STRING;
 	return NORMAL;
 }
@@ -137,7 +137,7 @@ template <class S, class C> int findBlock(const S & content, int from, const C &
 		else if (content[i] == startDelim) ++open;
 	}
 	if (open == 0) return i - 1;
-	else return -1;
+	return -1;
 }
 
 inline int findBlock(const QByteArray & content, int from, char startDelim = '{', char endDelim = '}', char escapeChar = 0)
@@ -153,7 +153,6 @@ inline int findBlock(const QString & content, int from, const QChar & startDelim
 // static
 int BibTeXFile::readEntry(Entry & e, const QByteArray & content, int curPos, const QTextCodec * codec)
 {
-	QList<QString> delims;
 	curPos = content.indexOf('@', curPos);
 	if (curPos < 0)
 		return -1;
@@ -213,7 +212,7 @@ void BibTeXFile::parseEntry(Entry & e, const QString & block)
 
 		for (i = start; i < block.size(); ++i) {
 			if (block[i] == QChar::fromLatin1(',')) break;
-			else if (block[i] == QChar::fromLatin1('{')) {
+			if (block[i] == QChar::fromLatin1('{')) {
 				startDelim = QChar::fromLatin1('{');
 				endDelim = QChar::fromLatin1('}');
 			}
@@ -228,11 +227,11 @@ void BibTeXFile::parseEntry(Entry & e, const QString & block)
 
 			int end = findBlock(block, i, startDelim, endDelim);
 			if (end < 0) {
-				val += block.mid(i);
+				val += block.midRef(i);
 				i = block.size();
 			}
 			else {
-				val += block.mid(i, end - i + 1);
+				val += block.midRef(i, end - i + 1);
 				i = end;
 			}
 		}

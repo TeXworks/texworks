@@ -27,7 +27,7 @@
 #include "TeXDocument.h"
 #include "TWUtils.h"
 
-#include <limits.h> // for INT_MAX
+#include <climits> // for INT_MAX
 
 QList<TeXHighlighter::HighlightingSpec> *TeXHighlighter::syntaxRules = nullptr;
 QList<TeXHighlighter::TagPattern> *TeXHighlighter::tagPatterns = nullptr;
@@ -179,7 +179,7 @@ void TeXHighlighter::loadPatterns()
 		if (syntaxFile.open(QIODevice::ReadOnly)) {
 			HighlightingSpec spec;
 			spec.name = tr("default");
-			while (1) {
+			while (true) {
 				QByteArray ba = syntaxFile.readLine();
 				if (ba.size() == 0)
 					break;
@@ -241,7 +241,7 @@ void TeXHighlighter::loadPatterns()
 		tagPatterns = new QList<TagPattern>;
 		QFile tagPatternFile(configDir.filePath(QString::fromLatin1("tag-patterns.txt")));
 		if (tagPatternFile.open(QIODevice::ReadOnly)) {
-			while (1) {
+			while (true) {
 				QByteArray ba = tagPatternFile.readLine();
 				if (ba.size() == 0)
 					break;

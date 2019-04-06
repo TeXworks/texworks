@@ -109,7 +109,7 @@ public:
 		int			level;
 		QString		text;
 		Tag(const QTextCursor& curs, int lvl, const QString& txt)
-			: cursor(curs), level(lvl), text(txt) { };
+			: cursor(curs), level(lvl), text(txt) { }
 	};
 	const QList<Tag> getTags() const
 		{ return tags; }

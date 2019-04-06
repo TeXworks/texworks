@@ -48,12 +48,19 @@
 
 CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	: QTextEdit(parent),
+	  mouseMode(none),
+	  droppedOffset(-1),
+	  droppedLength(0),
 	  clickCount(0),
 	  wheelDelta(0),
-	  autoIndentMode(-1), prefixLength(0),
+	  autoIndentMode(-1),
+	  prefixLength(0),
 	  smartQuotesMode(-1),
-	  c(nullptr), cmpCursor(QTextCursor()),
-	  pHunspell(nullptr), spellingCodec(nullptr)
+	  c(nullptr),
+	  itemIndex(0),
+	  prevRow(-1),
+	  pHunspell(nullptr),
+	  spellingCodec(nullptr)
 {
 	if (!sharedCompleter) { // initialize shared (static) members
 		sharedCompleter = new QCompleter(qApp);
@@ -204,10 +211,8 @@ void CompletingEdit::setCompleter(QCompleter *completer)
 void CompletingEdit::cursorPositionChangedSlot()
 {
 	setCompleter(nullptr);
-	if (!currentCompletionRange.isNull()) {
-		QTextCursor curs = textCursor();
+	if (!currentCompletionRange.isNull())
 		currentCompletionRange = QTextCursor();
-	}
 	resetExtraSelections();
 	prefixLength = 0;
 }
@@ -710,7 +715,7 @@ void CompletingEdit::loadSmartQuotesModes()
 			QRegExp modeName(QString::fromLatin1("\\[([^]]+)\\]"));
 			QRegExp quoteLine(QString::fromLatin1("([^ \\t])\\s+([^ \\t]+)\\s+([^ \\t]+)"));
 			QuotesMode newMode;
-			while (1) {
+			while (true) {
 				QByteArray ba = quotesModesFile.readLine();
 				if (ba.size() == 0)
 					break;
@@ -829,7 +834,7 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 #endif
 	{
 		if (!find(QString(0x2022), (e->modifiers() & Qt::ShiftModifier)
-									? QTextDocument::FindBackward : (QTextDocument::FindFlags)0))
+									? QTextDocument::FindBackward : QTextDocument::FindFlags()))
 			QApplication::beep();
 		return;
 	}
@@ -881,7 +886,7 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 			}
 		}
 		
-		while (1) {
+		while (true) {
 			QString completionPrefix = cmpCursor.selectedText();
 			if (!completionPrefix.isEmpty()) {
 				setCompleter(sharedCompleter);
@@ -1014,7 +1019,7 @@ void CompletingEdit::loadCompletionsFromFile(QStandardItemModel *model, const QS
 		in.setCodec("UTF-8");
 		in.setAutoDetectUnicode(true);
 		QList<QStandardItem*> row;
-		while (1) {
+		while (true) {
 			QString	line = in.readLine();
 			if (line.isNull())
 				break;
@@ -1089,11 +1094,10 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 						connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
 						mapper->setMapping(act, str);
 						menu->insertAction(sep, act);
-						free(suggestionList[i]);
 						if (!defaultAction)
 							defaultAction = act;
 					}
-					free(suggestionList);
+					Hunspell_free_list(pHunspell, &suggestionList, count);
 					connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(correction(const QString&)));
 				}
 				sep = menu->insertSeparator(menu->actions().first());
@@ -1149,7 +1153,7 @@ void CompletingEdit::loadIndentModes()
 		QFile indentPatternFile(configDir.filePath(QString::fromLatin1("auto-indent-patterns.txt")));
 		if (indentPatternFile.open(QIODevice::ReadOnly)) {
 			QRegExp re(QString::fromLatin1("\"([^\"]+)\"\\s+(.+)"));
-			while (1) {
+			while (true) {
 				QByteArray ba = indentPatternFile.readLine();
 				if (ba.size() == 0)
 					break;

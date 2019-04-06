@@ -39,6 +39,8 @@
 
 PrefsDialog::PrefsDialog(QWidget *parent)
 	: QDialog(parent)
+	, pathsChanged(false)
+	, toolsChanged(false)
 {
 	init();
 }
@@ -480,9 +482,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		else {
 			QLocale::Country country = loc.country();
 			if (country != QLocale::AnyCountry)
-				label = QString::fromLatin1("%1 - %2 (%3)").arg(QLocale::languageToString(loc.language())).arg(QLocale::countryToString(country)).arg(dict);
+				label = QString::fromLatin1("%1 - %2 (%3)").arg(QLocale::languageToString(loc.language()), QLocale::countryToString(country), dict);
 			else
-				label = QString::fromLatin1("%1 (%2)").arg(QLocale::languageToString(loc.language())).arg(dict);
+				label = QString::fromLatin1("%1 (%2)").arg(QLocale::languageToString(loc.language()), dict);
 		}
 
 		dictList << qMakePair(label, dict);
@@ -707,7 +709,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 					break;
 				default:
 					{
-						QString locale = trList->at(dlg.localePopup->currentIndex() - kFirstTranslationIndex);
+						const QString & locale = trList->at(dlg.localePopup->currentIndex() - kFirstTranslationIndex);
 						TWApp::instance()->applyTranslation(locale);
 						settings.setValue(QString::fromLatin1("locale"), locale);
 					}

@@ -4,18 +4,17 @@
 #include <QDir>
 
 Engine::Engine()
-	: QObject()
-	, _showPdf(false)
+	: _showPdf(false)
 {
 }
 
-Engine::Engine(const QString& name, const QString& program, const QStringList arguments, bool showPdf)
-	: QObject(), _name(name), _program(program), _arguments(arguments), _showPdf(showPdf)
+Engine::Engine(const QString& name, const QString& program, const QStringList & arguments, bool showPdf)
+	: _name(name), _program(program), _arguments(arguments), _showPdf(showPdf)
 {
 }
 
 Engine::Engine(const Engine& orig)
-	: QObject(), _name(orig._name), _program(orig._program), _arguments(orig._arguments), _showPdf(orig._showPdf)
+	: _name(orig._name), _program(orig._program), _arguments(orig._arguments), _showPdf(orig._showPdf)
 {
 }
 
@@ -89,7 +88,7 @@ QString Engine::programPath(const QString & prog)
 }
 
 
-QProcess * Engine::run(QFileInfo input, QObject * parent /* = nullptr */)
+QProcess * Engine::run(const QFileInfo & input, QObject * parent /* = nullptr */)
 {
 	QString exeFilePath = programPath(program());
 	if (exeFilePath.isEmpty())

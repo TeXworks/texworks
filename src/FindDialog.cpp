@@ -44,7 +44,7 @@ FindDialog::FindDialog(QTextEdit *parent)
 bool RecentStringsKeyFilter::eventFilter(QObject *obj, QEvent *event)
 {
 	if (event->type() == QEvent::KeyPress) {
-		QKeyEvent *e = static_cast<QKeyEvent*>(event);
+		QKeyEvent *e = dynamic_cast<QKeyEvent*>(event);
 		Qt::KeyboardModifiers mods = e->modifiers();
 		if ((mods & Qt::ControlModifier) != Qt::NoModifier) {
 			if (e->key() == Qt::Key_Up) {
@@ -130,7 +130,7 @@ void FindDialog::init(QTextEdit *document)
 	
 	QMenu *recentItemsMenu = new QMenu(this);
 	QStringList recentStrings = settings.value(QString::fromLatin1("recentSearchStrings")).toStringList();
-	if (recentStrings.size() == 0)
+	if (recentStrings.empty())
 		recentItemsMenu->addAction(tr("No recent search strings"))->setEnabled(false);
 	else {
 		foreach (const QString& str, recentStrings)
@@ -283,7 +283,7 @@ void ReplaceDialog::init(QTextEdit *document)
 
 	QMenu *recentItemsMenu = new QMenu(this);
 	QStringList recentStrings = settings.value(QString::fromLatin1("recentSearchStrings")).toStringList();
-	if (recentStrings.size() == 0)
+	if (recentStrings.empty())
 		recentItemsMenu->addAction(tr("No recent search strings"))->setEnabled(false);
 	else {
 		foreach (const QString& str, recentStrings)
@@ -294,7 +294,7 @@ void ReplaceDialog::init(QTextEdit *document)
 
 	recentItemsMenu = new QMenu(this);
 	recentStrings = settings.value(QString::fromLatin1("recentReplaceStrings")).toStringList();
-	if (recentStrings.size() == 0)
+	if (recentStrings.empty())
 		recentItemsMenu->addAction(tr("No recent replacement strings"))->setEnabled(false);
 	else {
 		foreach (const QString& str, recentStrings)
@@ -375,44 +375,43 @@ ReplaceDialog::DialogCode ReplaceDialog::doReplaceDialog(QTextEdit *document)
 
 	if (result == 0)
 		return Cancel;
-	else {
-		QSETTINGS_OBJECT(settings);
-		QString str = dlg.searchText->text();
-		settings.setValue(QString::fromLatin1("searchText"), str);
-		
-		QStringList recentStrings = settings.value(QString::fromLatin1("recentSearchStrings")).toStringList();
-		recentStrings.removeAll(str);
-		recentStrings.prepend(str);
-		while (recentStrings.count() > kMaxRecentStrings)
-			recentStrings.removeLast();
-		settings.setValue(QString::fromLatin1("recentSearchStrings"), recentStrings);
-		
-		str = dlg.replaceText->text();
-		settings.setValue(QString::fromLatin1("replaceText"), str);
 
-		recentStrings = settings.value(QString::fromLatin1("recentReplaceStrings")).toStringList();
-		recentStrings.removeAll(str);
-		recentStrings.prepend(str);
-		while (recentStrings.count() > kMaxRecentStrings)
-			recentStrings.removeLast();
-		settings.setValue(QString::fromLatin1("recentReplaceStrings"), recentStrings);
-		
-		int flags = 0;
-		if (dlg.checkBox_case->isChecked())
-			flags |= QTextDocument::FindCaseSensitively;
-		if (dlg.checkBox_words->isChecked())
-			flags |= QTextDocument::FindWholeWords;
-		if (dlg.checkBox_backwards->isChecked())
-			flags |= QTextDocument::FindBackward;
-		settings.setValue(QString::fromLatin1("searchFlags"), (int)flags);
+	QSETTINGS_OBJECT(settings);
+	QString str = dlg.searchText->text();
+	settings.setValue(QString::fromLatin1("searchText"), str);
 
-		settings.setValue(QString::fromLatin1("searchRegex"), dlg.checkBox_regex->isChecked());
-		settings.setValue(QString::fromLatin1("searchWrap"), dlg.checkBox_wrap->isChecked());
-		settings.setValue(QString::fromLatin1("searchSelection"), dlg.checkBox_selection->isChecked());
-		settings.setValue(QString::fromLatin1("searchAllFiles"), dlg.checkBox_allFiles->isChecked());
+	QStringList recentStrings = settings.value(QString::fromLatin1("recentSearchStrings")).toStringList();
+	recentStrings.removeAll(str);
+	recentStrings.prepend(str);
+	while (recentStrings.count() > kMaxRecentStrings)
+		recentStrings.removeLast();
+	settings.setValue(QString::fromLatin1("recentSearchStrings"), recentStrings);
 
-		return (result == 2) ? ReplaceAll : ReplaceOne;
-	}
+	str = dlg.replaceText->text();
+	settings.setValue(QString::fromLatin1("replaceText"), str);
+
+	recentStrings = settings.value(QString::fromLatin1("recentReplaceStrings")).toStringList();
+	recentStrings.removeAll(str);
+	recentStrings.prepend(str);
+	while (recentStrings.count() > kMaxRecentStrings)
+		recentStrings.removeLast();
+	settings.setValue(QString::fromLatin1("recentReplaceStrings"), recentStrings);
+
+	int flags = 0;
+	if (dlg.checkBox_case->isChecked())
+		flags |= QTextDocument::FindCaseSensitively;
+	if (dlg.checkBox_words->isChecked())
+		flags |= QTextDocument::FindWholeWords;
+	if (dlg.checkBox_backwards->isChecked())
+		flags |= QTextDocument::FindBackward;
+	settings.setValue(QString::fromLatin1("searchFlags"), (int)flags);
+
+	settings.setValue(QString::fromLatin1("searchRegex"), dlg.checkBox_regex->isChecked());
+	settings.setValue(QString::fromLatin1("searchWrap"), dlg.checkBox_wrap->isChecked());
+	settings.setValue(QString::fromLatin1("searchSelection"), dlg.checkBox_selection->isChecked());
+	settings.setValue(QString::fromLatin1("searchAllFiles"), dlg.checkBox_allFiles->isChecked());
+
+	return (result == 2) ? ReplaceAll : ReplaceOne;
 }
 
 
@@ -657,7 +656,7 @@ void PDFFindDialog::init(PDFDocument *document)
 	
 	QMenu *recentItemsMenu = new QMenu(this);
 	QStringList recentStrings = settings.value(QString::fromLatin1("recentSearchStrings")).toStringList();
-	if (recentStrings.size() == 0)
+	if (recentStrings.empty())
 		recentItemsMenu->addAction(tr("No recent search strings"))->setEnabled(false);
 	else {
 		foreach (const QString& str, recentStrings)

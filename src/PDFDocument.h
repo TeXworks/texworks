@@ -150,7 +150,7 @@ public slots:
 	void copySelectedTextToClipboard();
 
 private slots:
-	void changedDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
+	void changedDocument(const QWeakPointer<QtPDF::Backend::Document> & newDoc);
 	void updateRecentFileActions();
 	void updateWindowMenu();
 	void enablePageActions(int);
@@ -165,10 +165,10 @@ private slots:
 	void doPageDialog();
 	void doScaleDialog();
 	void jumpToSource();
-	void searchResultHighlighted(const int pageNum, const QList<QPolygonF> pdfRegion);
+	void searchResultHighlighted(const int pageNum, const QList<QPolygonF> & pdfRegion);
 	void setDefaultScale();
-	void maybeOpenUrl(const QUrl url);
-	void maybeOpenPdf(QString filename, QtPDF::PDFDestination destination, bool newWindow);
+	void maybeOpenUrl(const QUrl & url);
+	void maybeOpenPdf(const QString & filename, const QtPDF::PDFDestination & destination, const bool newWindow);
 	void maybeZoomToWindow(bool doZoom) { if (doZoom) pdfWidget->zoomFitWindow(); }
 	void maybeEnableCopyCommand(const bool isTextSelected);
 
@@ -208,11 +208,6 @@ private:
 	static QList<PDFDocument*> docList;
 
 	TWSyncTeXSynchronizer * _synchronizer;
-	
-	PDFSearchResult lastSearchResult;
-	// stores the page idx a search was started on
-	// after wrapping the search will continue only up to this page
-	int firstSearchPage;
 };
 
 #endif

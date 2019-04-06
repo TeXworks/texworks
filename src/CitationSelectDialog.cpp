@@ -31,7 +31,7 @@ KeyForwarder::KeyForwarder(QObject * target, QObject * parent /* = nullptr */)
 bool KeyForwarder::eventFilter(QObject * watched, QEvent * event)
 {
 	if (_target && (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease)) {
-		QKeyEvent * keyEvent = static_cast<QKeyEvent*>(event);
+		QKeyEvent * keyEvent = dynamic_cast<QKeyEvent*>(event);
 		if (keyEvent->modifiers().testFlag(Qt::ControlModifier)) {
 			if (_keysToForward.contains(keyEvent->key())) {
 				keyEvent->setModifiers(keyEvent->modifiers() & ~Qt::ControlModifier);
@@ -163,18 +163,17 @@ QVariant CitationModel::data(const QModelIndex &index, int role /* = Qt::Display
 
 		if (index.column() == 0 && role == Qt::ToolTipRole)
 			return e->key();
-		else if (index.column() == 1)
+		if (index.column() == 1)
 			return e->typeString();
-		else if (index.column() == 2)
+		if (index.column() == 2)
 			return e->author();
-		else if (index.column() == 3)
+		if (index.column() == 3)
 			return e->title();
-		else if (index.column() == 4)
+		if (index.column() == 4)
 			return e->year();
-		else if (index.column() == 5)
+		if (index.column() == 5)
 			return e->howPublished();
-		else
-			return QVariant();
+		return QVariant();
 	}
 	if (role == Qt::CheckStateRole) {
 		if (index.column() != 0) return QVariant();
@@ -182,12 +181,12 @@ QVariant CitationModel::data(const QModelIndex &index, int role /* = Qt::Display
 	}
 	if (role == Qt::SizeHintRole) {
 		if (index.column() == 0) return QSize(20, 20); // checkbox
-		else if (index.column() == 1) return QSize(75, 20); // type
-		else if (index.column() == 2) return QSize(150, 20); // author
-		else if (index.column() == 3) return QSize(150, 20); // title
-		else if (index.column() == 4) return QSize(40, 20); // year
-		else if (index.column() == 5) return QSize(150, 20); // journal
-		else return QVariant();
+		if (index.column() == 1) return QSize(75, 20); // type
+		if (index.column() == 2) return QSize(150, 20); // author
+		if (index.column() == 3) return QSize(150, 20); // title
+		if (index.column() == 4) return QSize(40, 20); // year
+		if (index.column() == 5) return QSize(150, 20); // journal
+		return QVariant();
 	}
 	return QVariant();
 }
@@ -200,11 +199,11 @@ QVariant CitationModel::headerData(int section, Qt::Orientation orientation, int
 
 	if (role == Qt::DisplayRole) {
 		if (section == 1) return CitationSelectDialog::trUtf8("Type");
-		else if (section == 2) return CitationSelectDialog::trUtf8("Author");
-		else if (section == 3) return CitationSelectDialog::trUtf8("Title");
-		else if (section == 4) return CitationSelectDialog::trUtf8("Year");
-		else if (section == 5) return CitationSelectDialog::trUtf8("Journal");
-		else return QVariant();
+		if (section == 2) return CitationSelectDialog::trUtf8("Author");
+		if (section == 3) return CitationSelectDialog::trUtf8("Title");
+		if (section == 4) return CitationSelectDialog::trUtf8("Year");
+		if (section == 5) return CitationSelectDialog::trUtf8("Journal");
+		return QVariant();
 	}
 	return QVariant();
 }
@@ -253,6 +252,7 @@ Qt::ItemFlags CitationModel::flags(const QModelIndex &index) const
 //virtual
 bool CitationModel::setData(const QModelIndex &index, const QVariant &value, int role /* = Qt::EditRole */)
 {
+	Q_UNUSED(role)
 	if (!index.isValid()) return false;
 
 	const BibTeXFile::Entry * e = static_cast<const BibTeXFile::Entry*>(index.internalPointer());
@@ -298,6 +298,7 @@ void CitationModel::rebuildEntryCache()
 
 bool CitationProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
+	Q_UNUSED(source_parent)
 	static QLatin1String space(" ");
 	const BibTeXFile::Entry * e = static_cast<const BibTeXFile::Entry*>(sourceModel()->index(source_row, 1).internalPointer());
 	QString haystack = e->key() + space + e->typeString() + space + e->author() + space + e->title() + space + e->year() + space + e->howPublished();

@@ -187,7 +187,7 @@ public:
 	static FileVersionDatabase load(const QString & path);
 	bool save(const QString & path) const;
 	
-	void addFileRecord(const QFileInfo & file, const QByteArray & hash, const QString version);
+	void addFileRecord(const QFileInfo & file, const QByteArray & hash, const QString & version);
 	bool hasFileRecord(const QFileInfo & file) const;
 	Record getFileRecord(const QFileInfo & file) const;
 	const QList<Record> & getFileRecords() const { return m_records; }

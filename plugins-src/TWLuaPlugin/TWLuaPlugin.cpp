@@ -157,7 +157,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 			list = v.toList();
 
 			lua_newtable(L);
-			for (i = 1, iList = list.begin(); iList != list.end(); ++iList, ++i) {
+			for (i = 1, iList = list.cbegin(); iList != list.cend(); ++iList, ++i) {
 				lua_pushnumber(L, i);
 				LuaScript::pushVariant(L, *iList);
 				lua_settable(L, -3);
@@ -167,7 +167,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 			hash = v.toHash();
 			
 			lua_newtable(L);
-			for (iHash = hash.begin(); iHash != hash.end(); ++iHash) {
+			for (iHash = hash.cbegin(); iHash != hash.cend(); ++iHash) {
 				LuaScript::pushVariant(L, iHash.value());
 				lua_setfield(L, -2, qPrintable(iHash.key()));
 			}
@@ -176,7 +176,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 			map = v.toMap();
 			
 			lua_newtable(L);
-			for (iMap = map.begin(); iMap != map.end(); ++iMap) {
+			for (iMap = map.cbegin(); iMap != map.cend(); ++iMap) {
 				LuaScript::pushVariant(L, iMap.value());
 				lua_setfield(L, -2, qPrintable(iMap.key()));
 			}
@@ -353,7 +353,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 				if (isQObject) {
 					lua_getfield(L, -1, "__qobject");
 					if (lua_islightuserdata(L, -1)) {
-						QObject * obj = (QObject*)lua_touserdata(L, -1);
+						QObject * obj = reinterpret_cast<QObject*>(lua_touserdata(L, -1));
 						lua_pop(L, 2);
 						return QVariant::fromValue(obj);
 					}

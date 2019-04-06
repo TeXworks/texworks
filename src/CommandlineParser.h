@@ -66,10 +66,10 @@ public:
 	
 	int getNextArgument(int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
 	int getPrevArgument(int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
-	int getNextOption(const QString longName = QString(), int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
-	int getPrevOption(const QString longName = QString(), int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
-	int getNextSwitch(const QString longName = QString(), int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
-	int getPrevSwitch(const QString longName = QString(), int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
+	int getNextOption(const QString & longName = QString(), int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
+	int getPrevOption(const QString & longName = QString(), int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
+	int getNextSwitch(const QString & longName = QString(), int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
+	int getPrevSwitch(const QString & longName = QString(), int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
 
 	CommandlineItem & at(int idx) {
 		return m_items[idx];

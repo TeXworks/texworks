@@ -12,7 +12,7 @@ class Engine : public QObject
 
 public:
 	Engine();
-	Engine(const QString& name, const QString& program, const QStringList arguments, bool showPdf);
+	Engine(const QString& name, const QString& program, const QStringList & arguments, bool showPdf);
 	Engine(const Engine& orig);
 	Engine& operator=(const Engine& rhs);
 
@@ -27,7 +27,7 @@ public:
 	void setShowPdf(bool showPdf);
 
 	bool isAvailable() const;
-	QProcess * run(QFileInfo input, QObject * parent = nullptr);
+	QProcess * run(const QFileInfo & input, QObject * parent = nullptr);
 
 	static QStringList binPaths();
 
