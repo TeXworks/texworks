@@ -863,7 +863,7 @@ void Select::mouseMoveEvent(QMouseEvent *event)
     
     // Find the box (and subbox therein) that is closest to the current mouse
     // position
-    int i, j, endBox, endSubbox;
+    int i, j, endBox = 0, endSubbox;
     double minDist = -1;
     for (i = 0; i < _boxes.size(); ++i) {
       double dist = distanceFromRect(curPdfCoords, _boxes[i].boundingBox);

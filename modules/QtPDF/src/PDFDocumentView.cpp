@@ -311,7 +311,7 @@ QGraphicsPathItem * PDFDocumentView::addHighlightPath(const unsigned int page, c
   if (!_pdf_scene)
     return nullptr;
 
-  PDFPageGraphicsItem * pageItem = dynamic_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(static_cast<const int>(page)));
+  PDFPageGraphicsItem * pageItem = dynamic_cast<PDFPageGraphicsItem*>(_pdf_scene->pageAt(static_cast<int>(page)));
   if (!pageItem || !isPageItem(pageItem))
     return nullptr;
 
@@ -329,7 +329,7 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
     qreal xratio, yratio;
     bool horizontalScrollbar, verticalScrollbar;
   } _scaleDat[ScaleDataSize];
-  qreal xratio, yratio;
+  qreal xratio = -1, yratio = -1;
   bool horizontalScrollbar = true, verticalScrollbar = true;
   QRectF viewRect;
   QRectF sceneRect;
@@ -1973,7 +1973,7 @@ int PDFDocumentScene::pageNumFor(const PDFPageGraphicsItem * const graphicsItem)
   // or else indexOf() complains during compilation. Since we don't do anything
   // with the pointer, this should be safe to do while still remaining the
   // const'ness of `graphicsItem`, however.
-  return _pages.indexOf(const_cast<PDFPageGraphicsItem * const>(graphicsItem));
+  return _pages.indexOf(const_cast<PDFPageGraphicsItem *>(graphicsItem));
 }
 
 int PDFDocumentScene::lastPage() { return _lastPage; }
@@ -3590,7 +3590,7 @@ void PDFPageLayout::addPage(PDFPageGraphicsItem * page) {
 
 void PDFPageLayout::removePage(PDFPageGraphicsItem * page) {
   QList<LayoutItem>::iterator it;
-  int row, col;
+  int row = 0, col = 0;
 
   // **TODO:** Decide what to do with pages that are in the list multiple times
   // (see also insertPage())
@@ -3621,7 +3621,7 @@ void PDFPageLayout::removePage(PDFPageGraphicsItem * page) {
 
 void PDFPageLayout::insertPage(PDFPageGraphicsItem * page, PDFPageGraphicsItem * before /* = nullptr */) {
   QList<LayoutItem>::iterator it;
-  int row, col;
+  int row = 0, col = 0;
   LayoutItem item;
 
   item.page = page;
