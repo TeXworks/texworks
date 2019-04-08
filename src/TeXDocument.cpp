@@ -767,6 +767,7 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 				}
 				return true;
 			}
+			break;
 
 		case QEvent::WindowActivate:
 			showFloaters();
