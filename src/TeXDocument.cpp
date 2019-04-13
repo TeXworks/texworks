@@ -2906,12 +2906,14 @@ void TeXDocument::executeAfterTypesetHooks()
 				browser->setOpenLinks(false);
 				connect(browser, SIGNAL(anchorClicked(const QUrl&)), this, SLOT(anchorClicked(const QUrl&)));
 				browser->setHtml(res);
+				browser->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard | Qt::LinksAccessibleByMouse | Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
 				consoleTabs->addTab(browser, s->getTitle());
 			}
 			else {
 				QTextEdit *textEdit = new QTextEdit(this);
 				textEdit->setPlainText(res);
 				textEdit->setReadOnly(true);
+				textEdit->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard | Qt::LinksAccessibleByMouse | Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
 				consoleTabs->addTab(textEdit, s->getTitle());
 			}
 		}
