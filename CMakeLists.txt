@@ -68,6 +68,16 @@ if(POLICY CMP0042)
   cmake_policy(SET CMP0042 NEW)
 endif()
 
+# Silence warning about ninja custom command byproducts
+if(POLICY CMP0058)
+  cmake_policy(SET CMP0058 NEW)
+endif()
+
+# Silence warning about option() treating variables differently on the first run
+if(POLICY CMP0077)
+  cmake_policy(SET CMP0077 NEW)
+endif()
+
 SET(CMAKE_COLOR_MAKEFILE ON)
 # Always add the current source and binary directories to the header include
 # path when compiling.
@@ -132,17 +142,11 @@ STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"" "\\1" TeXworks_
 SET(TW_BUILD_ID "personal" CACHE STRING "A distribution-specific identifier for TeXworks")
 
 # Build with shared libs by default
-IF ( NOT DEFINED BUILD_SHARED_LIBS )
-  SET(BUILD_SHARED_LIBS ON)
-ENDIF ()
-OPTION(BUILD_SHARED_LIBS "Build with shared libs?" ${BUILD_SHARED_LIBS})
+OPTION(BUILD_SHARED_LIBS "Build with shared libs?" ON)
 MARK_AS_ADVANCED(BUILD_SHARED_LIBS)
 
 # Build shared plugins by default
-IF ( NOT DEFINED BUILD_SHARED_PLUGINS )
-  SET(BUILD_SHARED_PLUGINS ${BUILD_SHARED_LIBS})
-ENDIF()
-OPTION(BUILD_SHARED_PLUGINS "Build shared plugins?" ${BUILD_SHARED_PLUGINS})
+OPTION(BUILD_SHARED_PLUGINS "Build shared plugins?" ON)
 MARK_AS_ADVANCED(BUILD_SHARED_PLUGINS)
 
 OPTION(PREFER_BUNDLED_SYNCTEX "Use SyncTeX bundled with TeXworks even if a shared library is found?" OFF)
