@@ -18,6 +18,16 @@ if(POLICY CMP0042)
   cmake_policy(SET CMP0042 NEW)
 endif()
 
+# Silence warning about ninja custom command byproducts
+if(POLICY CMP0058)
+  cmake_policy(SET CMP0058 NEW)
+endif()
+
+# Silence warning about option() treating variables differently on the first run
+if(POLICY CMP0077)
+  cmake_policy(SET CMP0077 NEW)
+endif()
+
 SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_AUTOMOC TRUE)
 SET(CMAKE_AUTORCC TRUE)
@@ -41,35 +51,22 @@ IF ( NOT CMAKE_BUILD_TYPE )
 ENDIF ()
 
 # By default, we build a shared lib...
-IF ( NOT DEFINED BUILD_SHARED_LIBS )
-  SET(BUILD_SHARED_LIBS ON)
-ENDIF ()
+OPTION(BUILD_SHARED_LIBS "Build shared library" ON)
 
-# ...with poppler-qt...
-IF ( NOT DEFINED WITH_POPPLERQT )
-  SET(WITH_POPPLERQT ON)
-ENDIF ()
+# ...with the viewer program...
+OPTION(QTPDF_VIEWER "Build PDF viewer application" ON)
 
-# ...but without MuPDF
-IF ( NOT DEFINED WITH_MUPDF )
-  SET(WITH_MUPDF OFF)
-ENDIF ()
-
-# ...and the viewer programs
-IF ( NOT DEFINED QTPDF_VIEWER )
-  SET(QTPDF_VIEWER ON)
-ENDIF ()
-
-OPTION(QTPDF_VIEWER "Build PDF viewer application" ${QTPDF_VIEWER})
+# ...with tests...
 OPTION(WITH_TESTS "Build tests" ON)
 
-OPTION(WITH_POPPLER "Build Poppler Qt backend" ${WITH_POPPLERQT})
+# ...with poppler-qt...
+OPTION(WITH_POPPLERQT "Build Poppler Qt backend" ON)
+# ...but without MuPDF
 # MuPDF backend is a bit immature, so we don't bother with it by default right
 # now.
-OPTION(WITH_MUPDF "Build MuPDF backend" ${WITH_MUPDF})
+OPTION(WITH_MUPDF "Build MuPDF backend" OFF)
 
 
-OPTION(BUILD_SHARED_LIBS "Build shared library" ${BUILD_SHARED_LIBS})
 
 # Dependency Configuration
 # ========================
