@@ -35,6 +35,7 @@ matrix:
     - name: "Ubuntu/Linux (Qt 5)"
       env: TARGET_OS=linux QT=5
       os: linux
+      dist: xenial
       addons:
         apt:
           packages:
@@ -56,6 +57,7 @@ matrix:
     - name: "Ubuntu/Linux (Qt 5) [coverage]"
       env: TARGET_OS=linux QT=5 COVERAGE=ON
       os: linux
+      dist: xenial
       addons:
         apt:
           packages:
