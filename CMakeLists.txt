@@ -146,7 +146,7 @@ OPTION(BUILD_SHARED_LIBS "Build with shared libs?" ON)
 MARK_AS_ADVANCED(BUILD_SHARED_LIBS)
 
 # Build shared plugins by default
-OPTION(BUILD_SHARED_PLUGINS "Build shared plugins?" ON)
+OPTION(BUILD_SHARED_PLUGINS "Build shared plugins?" ${BUILD_SHARED_LIBS})
 MARK_AS_ADVANCED(BUILD_SHARED_PLUGINS)
 
 OPTION(PREFER_BUNDLED_SYNCTEX "Use SyncTeX bundled with TeXworks even if a shared library is found?" OFF)
