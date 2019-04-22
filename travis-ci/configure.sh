@@ -18,7 +18,7 @@ print_info "Making build directory '${BUILDDIR}'"
 mkdir "${BUILDDIR}"
 cd "${BUILDDIR}"
 
-CMAKE_OPTS="-DTW_BUILD_ID='travis-ci' -DDESIRED_QT_VERSION=\"$QT\""
+CMAKE_OPTS="-DTW_BUILD_ID='travis-ci'"
 
 if [ "x${COVERAGE}" != "x" ]; then
 	CMAKE_OPTS="${CMAKE_OPTS} -DCMAKE_BUILD_TYPE=\"Debug\" -DWITH_COVERAGE=On"
