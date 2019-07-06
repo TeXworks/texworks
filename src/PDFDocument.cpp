@@ -334,8 +334,8 @@ void PDFDocument::linkToSource(TeXDocument *texDoc)
 
 void PDFDocument::texClosed(QObject *obj)
 {
-	TeXDocument *texDoc = qobject_cast<TeXDocument*>(obj);
-		// can't use qobject_cast here as the object's metadata is already gone!
+	TeXDocument *texDoc = reinterpret_cast<TeXDocument*>(obj);
+	// can't use qobject_cast here as the object's metadata is already gone!
 	if (texDoc) {
 		sourceDocList.removeAll(texDoc);
 		if (sourceDocList.empty())
