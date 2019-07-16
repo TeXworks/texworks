@@ -498,7 +498,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PDFDocument.ui" line="370"/>
         <source>Open...</source>
-        <translation>Öffne...</translation>
+        <translation>Öffnen...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="373"/>
