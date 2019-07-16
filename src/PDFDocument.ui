@@ -729,7 +729,7 @@
   </action>
   <action name="actionPrintPdf">
    <property name="text">
-    <string>Print Pdf...</string>
+    <string>Print PDF...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>

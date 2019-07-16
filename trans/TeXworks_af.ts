@@ -270,9 +270,9 @@ Wil jy voortgaan?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1019"/>
-        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+        <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
-        <translation>Weens tegniese redes kan hierdie weergawe van %1 ongelukkig nie Pdf dokumente druk nie.</translation>
+        <translation>Weens tegniese redes kan hierdie weergawe van %1 ongelukkig nie PDF dokumente druk nie.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1020"/>
@@ -598,8 +598,8 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PDFDocument.ui" line="732"/>
         <location filename="../src/PDFDocument.cpp" line="1024"/>
-        <source>Print Pdf...</source>
-        <translation>Druk Pdf...</translation>
+        <source>Print PDF...</source>
+        <translation>Druk PDF...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="735"/>

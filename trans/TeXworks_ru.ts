@@ -245,9 +245,9 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1019"/>
-        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+        <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
-        <translation>К сожалению, в данной версии %1 нет возможности вывода на печать Pdf документов по ряду технических причин.
+        <translation>К сожалению, в данной версии %1 нет возможности вывода на печать PDF документов по ряду технических причин.
 </translation>
     </message>
     <message>
@@ -634,8 +634,8 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="732"/>
         <location filename="../src/PDFDocument.cpp" line="1024"/>
-        <source>Print Pdf...</source>
-        <translation>Печать Pdf...</translation>
+        <source>Print PDF...</source>
+        <translation>Печать PDF...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="735"/>
