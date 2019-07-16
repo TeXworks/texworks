@@ -99,7 +99,6 @@ Name: "{group}\TeXworks"; Filename: "{app}\TeXworks.exe"
 Name: "{group}\{cm:ProgramOnTheWeb,TeXworks}"; Filename: "http://www.tug.org/texworks/"
 Name: "{group}\{cm:ManualNameEn}"; Filename: "{app}\texworks-help\TeXworks-manual\en\TeXworks-manual-en.pdf"
 Name: "{group}\{cm:ManualNameFr}"; Filename: "{app}\texworks-help\TeXworks-manual\fr\TeXworks-manual-fr.pdf"
-Name: "{group}\{cm:UninstallProgram,TeXworks}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: desktopicon
 Name: "{commonappdata}\Microsoft\Internet Explorer\Quick Launch\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: quicklaunchicon
 
