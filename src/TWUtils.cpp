@@ -597,6 +597,9 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	}
 
 	for (int i = 0; i < numRecentFiles; ++i) {
+		// a "&" inside a menu label is considered a mnemonic, thus, we need to escape them
+		labelList[i].replace(QString::fromLatin1("&"), QString::fromLatin1("&&"));
+
 		actions[i]->setText(labelList[i]);
 		actions[i]->setData(fileList[i]);
 		actions[i]->setVisible(true);
