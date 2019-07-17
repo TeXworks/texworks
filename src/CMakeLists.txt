@@ -69,7 +69,8 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWSystemCmd.h
                   TWTextCodecs.h
                   TWUtils.h
-                  TWVersion.h)
+                  TWVersion.h
+                  scripting/ScriptAPIInterface.h)
 
 if (WIN32)
   list(APPEND TEXWORKS_HDRS DefaultBinaryPathsWin.h)

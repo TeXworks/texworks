@@ -65,7 +65,8 @@ HEADERS = \
   "../src/TeXDocks.h" \
   "../src/TeXDocument.h" \
   "../src/TeXHighlighter.h" \
-  "../src/TemplateDialog.h"
+  "../src/TemplateDialog.h" \
+  "../src/scripting/ScriptAPIInterface.h"
 
 FORMS = \
   "../src/CitationSelectDialog.ui" \
