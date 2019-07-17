@@ -113,13 +113,18 @@ bool PythonScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
 	// Python seems to require Unix style line endings
 	if (contents.contains("\r"))
 		contents.replace(QRegExp("\r\n?"), "\n");
-	
+
+	// Remember the current thread state so we can restore it at the end
+	PyThreadState* origThreadState = PyThreadState_Get();
+
 	// Create a separate sub-interpreter for this script
 	PyThreadState* interpreter = Py_NewInterpreter();
 
 	// Register the types
 	if (!registerPythonTypes(tw->GetResult())) {
 		Py_EndInterpreter(interpreter);
+		// Restore the original thread state
+		PyThreadState_Swap(origThreadState);
 		return false;
 	}
 	
@@ -129,6 +134,8 @@ bool PythonScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
 	if (!TW) {
 		tw->SetResult(tr("Could not create TW"));
 		Py_EndInterpreter(interpreter);
+		// Restore the original thread state
+		PyThreadState_Swap(origThreadState);
 		return false;
 	}
 	
@@ -182,11 +189,16 @@ bool PythonScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
 		Py_XDECREF(errTraceback);
 
 		Py_EndInterpreter(interpreter);
+		// Restore the original thread state
+		PyThreadState_Swap(origThreadState);
 		return false;
 	}
 
 	// Finish
 	Py_EndInterpreter(interpreter);
+
+	// Restore the original thread state
+	PyThreadState_Swap(origThreadState);
 	return true;
 }
 
