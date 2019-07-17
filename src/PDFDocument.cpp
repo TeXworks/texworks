@@ -1027,12 +1027,12 @@ void PDFDocument::print()
 	// Currently, printing is not supported in a reliable, cross-platform way
 	// Instead, offer to open the document in the system's default viewer
 	
-	QString msg = tr("Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.\n").arg(QString::fromLatin1(TEXWORKS_NAME));
+	QString msg = tr("Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.\n").arg(QString::fromLatin1(TEXWORKS_NAME));
 	msg += tr("Do you want to open the file in the default viewer for printing instead?");
 	msg += tr(" (remember to close it again to avoid access problems)");
 	
 	if(QMessageBox::information(this,
-		tr("Print Pdf..."), msg,
+		tr("Print PDF..."), msg,
 		QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes
 	) {
 		QDesktopServices::openUrl(QUrl::fromLocalFile(curFile));

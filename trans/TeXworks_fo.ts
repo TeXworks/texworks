@@ -615,7 +615,7 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="732"/>
         <location filename="../src/PDFDocument.cpp" line="1024"/>
-        <source>Print Pdf...</source>
+        <source>Print PDF...</source>
         <translation>Prenta PDF-skjal...</translation>
     </message>
     <message>
@@ -735,7 +735,7 @@ Vilt tú halda fram?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1019"/>
-        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+        <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
         <translation>Av tekniskum ávum fær henda útgávan av %1 tíverri ikki prentað PDF-skjøl.
 </translation>

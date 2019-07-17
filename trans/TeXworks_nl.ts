@@ -645,8 +645,8 @@
     <message>
         <location filename="../src/PDFDocument.ui" line="732"/>
         <location filename="../src/PDFDocument.cpp" line="1024"/>
-        <source>Print Pdf...</source>
-        <translation>Print Pdf...</translation>
+        <source>Print PDF...</source>
+        <translation>Print PDF...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="735"/>
@@ -660,9 +660,9 @@
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1019"/>
-        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+        <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
-        <translation>Helaas is deze versie van %1 wegens diverse technische redenen niet in staat om Pdf documenten te printen.
+        <translation>Helaas is deze versie van %1 wegens diverse technische redenen niet in staat om PDF documenten te printen.
 </translation>
     </message>
     <message>

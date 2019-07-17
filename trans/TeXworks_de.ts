@@ -313,9 +313,9 @@ Wollen Sie fortfahren?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1019"/>
-        <source>Unfortunately, this version of %1 is unable to print Pdf documents due to various technical reasons.
+        <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
-        <translation>Diese Version von %1 kann aufgrund verschiedener technischer Gründe leider keine Pdf Dokumente drucken.</translation>
+        <translation>Diese Version von %1 kann aufgrund verschiedener technischer Gründe leider keine PDF Dokumente drucken.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="208"/>
@@ -325,7 +325,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1020"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
-        <translation>Wollen Sie die Datei stattdessen in Ihrem Pdf-Standardprogramm öffnen, um es von dort zu drucken?</translation>
+        <translation>Wollen Sie die Datei stattdessen in Ihrem PDF-Standardprogramm öffnen, um es von dort zu drucken?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1021"/>
@@ -583,8 +583,8 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PDFDocument.ui" line="732"/>
         <location filename="../src/PDFDocument.cpp" line="1024"/>
-        <source>Print Pdf...</source>
-        <translation>Pdf drucken...</translation>
+        <source>Print PDF...</source>
+        <translation>PDF drucken...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.ui" line="735"/>
