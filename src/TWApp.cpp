@@ -1299,7 +1299,7 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 		QDir scriptDir(QFileInfo(script->getFilename()).dir());
 		QString path = scriptDir.absoluteFilePath(fileName);
 	
-		if (!script->mayReadFile(path, scriptApi->GetTarget())) {
+		if (!scriptApi->mayReadFile(path, scriptApi->GetTarget())) {
 			// Possibly ask user to override the permissions
 			if (!askUser)
 				return retVal;

@@ -181,6 +181,10 @@ public:
 	Q_INVOKABLE
 	QList<QVariant> getEngineList() const;
 
+	bool mayExecuteSystemCommand(const QString& cmd, QObject * context) const;
+	bool mayWriteFile(const QString& filename, QObject * context) const;
+	bool mayReadFile(const QString& filename, QObject * context) const;
+
 protected:
 	TWScript* m_script;
 	QObject* m_app;
