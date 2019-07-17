@@ -83,7 +83,7 @@ zh_cn.CreateFileAssoc=默认使用 TeXworks 打开下列文件类型：
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 Name: "texfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.tex}"; GroupDescription: "{cm:CreateFileAssoc}"
 Name: "ltxfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.ltx}"; GroupDescription: "{cm:CreateFileAssoc}"
 Name: "styfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.sty}"; GroupDescription: "{cm:CreateFileAssoc}"
