@@ -20,8 +20,6 @@
 */
 
 #include "TWScript.h"
-#include "TWScriptAPI.h"
-#include "ConfigurableApp.h"
 
 #include <QTextStream>
 #include <QMetaObject>
@@ -37,10 +35,9 @@ TWScript::TWScript(QObject * plugin, const QString& fileName)
 		m_Codec = QTextCodec::codecForLocale();
 }
 
-bool TWScript::run(QObject *context, QVariant& result)
+bool TWScript::run(Tw::Scripting::ScriptAPIInterface & api)
 {
-	TWScriptAPI tw(this, qApp, context, result);
-	return execute(&tw);
+	return execute(&api);
 }
 
 bool TWScript::hasChanged() const

@@ -29,6 +29,7 @@
 #endif
 
 #include "TWScript.h"
+#include "scripting/ScriptAPIInterface.h"
 
 #include <QMetaMethod>
 #include <QMetaProperty>
@@ -109,7 +110,7 @@ protected:
      *
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool execute(TWScriptAPI *tw) const;
+	virtual bool execute(Tw::Scripting::ScriptAPIInterface *tw) const;
 	
 	/** \brief Handler for attribute requests on QObjects
 	 *

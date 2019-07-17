@@ -61,7 +61,7 @@ QVariant convertValue(const QScriptValue& value)
 	return value.toVariant();
 }
 
-bool JSScript::execute(TWScriptAPI *tw) const
+bool JSScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
 {
 	QFile scriptFile(m_Filename);
 	if (!scriptFile.open(QIODevice::ReadOnly)) {
@@ -74,7 +74,7 @@ bool JSScript::execute(TWScriptAPI *tw) const
 	scriptFile.close();
 	
 	QScriptEngine engine;
-	QScriptValue twObject = engine.newQObject(tw);
+	QScriptValue twObject = engine.newQObject(tw->self());
 	engine.globalObject().setProperty(QString::fromLatin1("TW"), twObject);
 	
 	QScriptValue val;
@@ -442,7 +442,8 @@ TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result
 	if (!s->isEnabled())
 		return false;
 
-	return s->run(context, result);
+	TWScriptAPI api(s, qApp, context, result);
+	return s->run(api);
 }
 
 void

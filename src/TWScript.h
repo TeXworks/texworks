@@ -32,8 +32,9 @@
 #include <QHash>
 #include <QTextCodec>
 
+#include "scripting/ScriptAPIInterface.h"
+
 class TWScriptLanguageInterface;
-class TWScriptAPI;
 
 /** \brief	Abstract base class for all Tw scripts
  *
@@ -165,7 +166,7 @@ public:
 	 * 					error description
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	bool run(QObject *context, QVariant& result);
+	bool run(Tw::Scripting::ScriptAPIInterface & api);
 	
 	/** \brief Check if two scripts are the same
 	 *
@@ -197,7 +198,7 @@ protected:
 	 *             .target, .app, .result properties
 	 * \return     \c true on success, \c false if an error occurred.
 	 */
-	virtual bool execute(TWScriptAPI* tw) const = 0;
+	virtual bool execute(Tw::Scripting::ScriptAPIInterface * tw) const = 0;
 	
 	enum ParseHeaderResult {
 		ParseHeader_OK,

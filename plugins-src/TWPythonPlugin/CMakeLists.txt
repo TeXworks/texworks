@@ -11,8 +11,18 @@ IF (NOT ${BUILD_SHARED_PLUGINS})
   SET(TWPYTHONPLUGIN_LIB_TYPE STATIC)
 ENDIF()
 
+if (BUILD_SHARED_PLUGINS)
+  # For shared builds, we pull in TWScript.cpp so all references can be resolved
+  set(TWSCRIPT_SRC "../../src/TWScript.cpp")
+else ()
+  # For static builds, TWScript.cpp is already included in the main app, so we
+  # don't pull it in here to avoid multiple definitions of the Qt metaobject
+  set(TWSCRIPT_SRC "")
+endif ()
+
 ADD_LIBRARY(TWPythonPlugin ${TWPYTHONPLUGIN_LIB_TYPE}
   TWPythonPlugin.cpp
+  ${TWSCRIPT_SRC}
   ${PYTHON_PLUGIN_MOC}
 )
 

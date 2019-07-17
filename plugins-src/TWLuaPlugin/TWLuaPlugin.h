@@ -23,6 +23,7 @@
 #define TW_LUA_PLUGIN_H
 
 #include "TWScript.h"
+#include "scripting/ScriptAPIInterface.h"
 
 #include "lua.hpp"
 
@@ -108,7 +109,7 @@ protected:
 	 *
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool execute(TWScriptAPI *tw) const;
+	virtual bool execute(Tw::Scripting::ScriptAPIInterface *tw) const;
 	
 	/** \brief Convenience function to wrap a QObject and push it onto the stack
 	 *

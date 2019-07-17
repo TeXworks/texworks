@@ -20,9 +20,7 @@
 */
 
 #include "TWLuaPlugin.h"
-#include "TWScriptAPI.h"
 
-#include <QCoreApplication>
 #include <QTextStream>
 #include <QtPlugin>
 #include <QMetaObject>
@@ -49,7 +47,7 @@ TWScript* TWLuaPlugin::newScript(const QString& fileName)
 }
 
 
-bool LuaScript::execute(TWScriptAPI *tw) const
+bool LuaScript::execute(Tw::Scripting::ScriptAPIInterface *tw) const
 {
 	int status;
 	lua_State * L = m_LuaPlugin->getLuaState();
@@ -58,7 +56,7 @@ bool LuaScript::execute(TWScriptAPI *tw) const
 		return false;
 
 	// register the TW interface for use in lua
-	if (!LuaScript::pushQObject(L, tw, false)) {
+	if (!LuaScript::pushQObject(L, tw->self(), false)) {
 		tw->SetResult(tr("Could not register TW"));
 		return false;
 	}

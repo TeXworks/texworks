@@ -20,9 +20,7 @@
 */
 
 #include "TWPythonPlugin.h"
-#include "TWScriptAPI.h"
 
-#include <QCoreApplication>
 #include <QtPlugin>
 #include <QMetaObject>
 #include <QStringList>
@@ -101,7 +99,7 @@ TWScript* TWPythonPlugin::newScript(const QString& fileName)
 }
 
 
-bool PythonScript::execute(TWScriptAPI *tw) const
+bool PythonScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
 {
 	// Load the script
 	QFile scriptFile(m_Filename);
@@ -127,7 +125,7 @@ bool PythonScript::execute(TWScriptAPI *tw) const
 	
 	pyQObject *TW;
 	
-	TW = (pyQObject*)QObjectToPython(tw);
+	TW = (pyQObject*)QObjectToPython(tw->self());
 	if (!TW) {
 		tw->SetResult(tr("Could not create TW"));
 		Py_EndInterpreter(interpreter);
