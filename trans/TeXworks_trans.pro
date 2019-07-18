@@ -31,7 +31,9 @@ SOURCES = \
   "../src/TeXDocument.cpp" \
   "../src/TeXHighlighter.cpp" \
   "../src/TemplateDialog.cpp" \
-  "../src/main.cpp"
+  "../src/main.cpp" \
+  "../src/scripting/JSScript.cpp" \
+  "../src/scripting/JSScriptInterface.cpp"
 
 HEADERS = \
   "../src/BibTeXFile.h" \
@@ -66,6 +68,8 @@ HEADERS = \
   "../src/TeXDocument.h" \
   "../src/TeXHighlighter.h" \
   "../src/TemplateDialog.h" \
+  "../src/scripting/JSScript.h" \
+  "../src/scripting/JSScriptInterface.h" \
   "../src/scripting/ScriptAPIInterface.h"
 
 FORMS = \

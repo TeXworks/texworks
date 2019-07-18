@@ -37,7 +37,9 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   TWSynchronizer.cpp
                   TWSystemCmd.cpp
                   TWTextCodecs.cpp
-                  TWUtils.cpp)
+                  TWUtils.cpp
+                  scripting/JSScriptInterface.cpp
+                  scripting/JSScript.cpp)
 
 set(TEXWORKS_HDRS BibTeXFile.h
                   CitationSelectDialog.h
@@ -70,7 +72,9 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWTextCodecs.h
                   TWUtils.h
                   TWVersion.h
-                  scripting/ScriptAPIInterface.h)
+                  scripting/ScriptAPIInterface.h
+                  scripting/JSScriptInterface.h
+                  scripting/JSScript.h)
 
 if (WIN32)
   list(APPEND TEXWORKS_HDRS DefaultBinaryPathsWin.h)

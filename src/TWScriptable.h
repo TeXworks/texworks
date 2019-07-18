@@ -59,39 +59,6 @@ private:
 	// scripts and subfolders are stored as children of the QObject
 };
 
-class JSScript : public TWScript
-{
-	Q_OBJECT
-	Q_INTERFACES(TWScript)
-	
-public:
-	JSScript(QObject * plugin, const QString& filename)
-		: TWScript(plugin, filename) { }
-		
-	virtual bool parseHeader() { return doParseHeader(QString(), QString(), QString::fromLatin1("//")); };
-
-protected:
-	virtual bool execute(Tw::Scripting::ScriptAPIInterface *tw) const;
-};
-
-// for JSScript, we provide a plugin-like factory, but it's actually compiled
-// and linked directly with the main application (at least for now)
-class JSScriptInterface : public QObject, public TWScriptLanguageInterface
-{
-	Q_OBJECT
-	Q_INTERFACES(TWScriptLanguageInterface)
-	
-public:
-	JSScriptInterface() {};
-	virtual ~JSScriptInterface() {};
-
-	virtual TWScript* newScript(const QString& fileName);
-
-	virtual QString scriptLanguageName() const { return QString::fromLatin1("QtScript"); }
-	virtual QString scriptLanguageURL() const { return QString::fromLatin1("http://doc.qt.io/qt-5/qtscript-index.html"); }
-	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QLatin1String("js"); }
-};
-
 class TWScriptManager
 {
 public:

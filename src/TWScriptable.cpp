@@ -24,18 +24,17 @@
 #include "ScriptManager.h"
 #include "TWApp.h"
 #include "TWUtils.h"
+#include "scripting/JSScriptInterface.h"
 
 #include <QSignalMapper>
 #include <QMenu>
 #include <QAction>
 #include <QFile>
-#include <QTextStream>
 #include <QMessageBox>
 #include <QStatusBar>
 #include <QToolBar>
 #include <QDockWidget>
-#include <QtScript>
-#include <QtScriptTools>
+#include <QPluginLoader>
 
 #if STATIC_LUA_SCRIPTING_PLUGIN
 #include <QtPlugin>
@@ -46,62 +45,6 @@ Q_IMPORT_PLUGIN(TWLuaPlugin)
 Q_IMPORT_PLUGIN(TWPythonPlugin)
 #endif
 
-static
-QVariant convertValue(const QScriptValue& value)
-{
-	if (value.isArray()) {
-		QVariantList lst;
-		int len = value.property(QString::fromLatin1("length")).toUInt32();
-		for (int i = 0; i < len; ++i) {
-			QScriptValue p = value.property(i);
-			lst.append(convertValue(p));
-		}
-		return lst;
-	}
-	return value.toVariant();
-}
-
-bool JSScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
-{
-	QFile scriptFile(m_Filename);
-	if (!scriptFile.open(QIODevice::ReadOnly)) {
-		// handle error
-		return false;
-	}
-	QTextStream stream(&scriptFile);
-	stream.setCodec(m_Codec);
-	QString contents = stream.readAll();
-	scriptFile.close();
-	
-	QScriptEngine engine;
-	QScriptValue twObject = engine.newQObject(tw->self());
-	engine.globalObject().setProperty(QString::fromLatin1("TW"), twObject);
-	
-	QScriptValue val;
-
-	QSETTINGS_OBJECT(settings);
-	if (settings.value(QString::fromLatin1("scriptDebugger"), false).toBool()) {
-		QScriptEngineDebugger debugger;
-		debugger.attachTo(&engine);
-		val = engine.evaluate(contents, m_Filename);
-	}
-	else {
-		val = engine.evaluate(contents, m_Filename);
-	}
-
-	if (engine.hasUncaughtException()) {
-		tw->SetResult(engine.uncaughtException().toString());
-		return false;
-	}
-	if (!val.isUndefined())
-		tw->SetResult(convertValue(val));
-	return true;
-}
-
-TWScript* JSScriptInterface::newScript(const QString& fileName)
-{
-	return new JSScript(this, fileName);
-}
 
 TWScriptManager::TWScriptManager()
 {
