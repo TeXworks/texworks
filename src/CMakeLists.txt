@@ -229,10 +229,17 @@ ENDIF ()
 
 # Installation
 # ------------
-INSTALL(TARGETS TeXworks
-  RUNTIME DESTINATION bin COMPONENT
-  BUNDLE DESTINATION . COMPONENT
-)
+if (WIN32)
+  # On Windows, put everything into the root install directory
+  INSTALL(TARGETS TeXworks
+    RUNTIME DESTINATION . COMPONENT
+  )
+else ()
+  INSTALL(TARGETS TeXworks
+    RUNTIME DESTINATION bin COMPONENT
+    BUNDLE DESTINATION . COMPONENT
+  )
+endif ()
 
 IF ( UNIX AND NOT APPLE )
   INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/images/TeXworks.png DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_ICON_DIR})

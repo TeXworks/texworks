@@ -354,6 +354,10 @@ IF ( APPLE )
   # freak out about this.
   SET(CMAKE_MODULE_LINKER_FLAGS
     "${CMAKE_MODULE_LINKER_FLAGS} -undefined dynamic_lookup")
+ELSEIF (WIN32)
+  # Put plugins alongside the main app in the root installation folder on Windows
+  SET(TeXworks_PLUGIN_DIR . CACHE PATH "Path where TeXworks looks for plugins")
+  MARK_AS_ADVANCED(TeXworks_PLUGIN_DIR)
 ELSE ()
   # Set the plugin installation path. This is a good default for UNIX-like
   # systems, but is not appropriate for Windows.
