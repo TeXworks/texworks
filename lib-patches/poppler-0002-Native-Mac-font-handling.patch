@@ -1,4 +1,4 @@
-From 5f6c34051ab86af1ddf914132117fca77eda5729 Mon Sep 17 00:00:00 2001
+From e74cd10f9284ac345ab95a1dcf647351a5f98296 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Thu, 11 Feb 2016 23:14:20 -0500
 Subject: [PATCH 2/3] Native Mac font handling
@@ -8,9 +8,9 @@ Subject: [PATCH 2/3] Native Mac font handling
  config.h.cmake                 |   3 +
  poppler/GlobalParams.cc        |  15 ++
  poppler/GlobalParams.h         |   7 +
- poppler/GlobalParamsMac.cc     | 313 +++++++++++++++++++++++++++++++++
+ poppler/GlobalParamsMac.cc     | 312 +++++++++++++++++++++++++++++++++
  poppler/poppler-config.h.cmake |   5 +
- 6 files changed, 358 insertions(+), 1 deletion(-)
+ 6 files changed, 357 insertions(+), 1 deletion(-)
  create mode 100644 poppler/GlobalParamsMac.cc
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
@@ -145,10 +145,10 @@ index 25ad68d9..dcdb1432 100644
    std::unordered_map<std::string, std::string> fontFiles;
 diff --git a/poppler/GlobalParamsMac.cc b/poppler/GlobalParamsMac.cc
 new file mode 100644
-index 00000000..5a29d465
+index 00000000..cca770f6
 --- /dev/null
 +++ b/poppler/GlobalParamsMac.cc
-@@ -0,0 +1,313 @@
+@@ -0,0 +1,312 @@
 +//========================================================================
 +//
 +// GlobalParamsMac.cc
@@ -177,7 +177,6 @@ index 00000000..5a29d465
 +
 +#include "goo/gmem.h"
 +#include "goo/GooString.h"
-+#include "goo/GooList.h"
 +#include "goo/gfile.h"
 +#include "Error.h"
 +
