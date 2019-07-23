@@ -1,0 +1,31 @@
+image: Visual Studio 2015
+
+version: '0.7_{build}'
+shallow_clone: true
+clone_depth: 1
+pull_requests:
+  do_not_increment_build_number: true
+
+configuration: Release
+
+environment:
+  matrix:
+    - MSYSTEM: MINGW64
+      BASH_PATH: C:\msys64\usr\bin\bash
+      QT5: C:\Qt\5.12\mingw73_64
+
+install:
+  - set Path=%QT5%\bin;%Path%
+  - cmd: '%BASH_PATH% -lc "$APPVEYOR_BUILD_FOLDER/ci/appveyor/get-dependencies.sh"'
+
+before_build:
+  - cmd: '%BASH_PATH% -lc "$APPVEYOR_BUILD_FOLDER/ci/appveyor/configure.sh"'
+
+build_script:
+  - cmd: '%BASH_PATH% -lc "$APPVEYOR_BUILD_FOLDER/ci/appveyor/build.sh"'
+
+after_build:
+  - cmd: '%BASH_PATH% -lc "$APPVEYOR_BUILD_FOLDER/ci/appveyor/package.sh"'
+
+test_script:
+  - cmd: '%BASH_PATH% -lc "$APPVEYOR_BUILD_FOLDER/ci/appveyor/run-tests.sh"'
