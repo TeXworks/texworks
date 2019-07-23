@@ -17,8 +17,8 @@
 class Poppler < Formula
   desc "PDF rendering library (based on the xpdf-3.0 code base)"
   homepage "https://poppler.freedesktop.org/"
-  url "https://poppler.freedesktop.org/poppler-0.74.0.tar.xz"
-  sha256 "92e09fd3302567fd36146b36bb707db43ce436e8841219025a82ea9fb0076b2f"
+  url "https://poppler.freedesktop.org/poppler-0.79.0.tar.xz"
+  sha256 "f985a4608fe592d2546d9d37d4182e502ff6b4c42f8db4be0a021a1c369528c8"
   head "https://anongit.freedesktop.org/git/poppler/poppler.git"
 
 # BEGIN TEXWORKS MODIFICATION
@@ -28,21 +28,21 @@ class Poppler < Formula
 #    sha256 "438fc1e448307d1bf17bdc37eb74bbc645ff526b26dd0423915b5f68af12a49d" => :sierra
 #  end
 
-  version '0.74.0-texworks'
+  version '0.79.0-texworks'
 
   TEXWORKS_SOURCE_DIR = Pathname.new(__FILE__).realpath.dirname.join('../../..')
   TEXWORKS_PATCH_DIR = TEXWORKS_SOURCE_DIR + 'lib-patches/'
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0001-Fix-bogus-memory-allocation-in-SplashFTFont-makeGlyp.patch'
-    sha256 "0d974f87b8c0993aeb8ea70401e3b2419b7d8ee6c25b982c84bbdcb6e0152c71"
+    sha256 "c4006033402c05290efec016a02d395aee9b92cdc9ea4eebe94e01a44b449db7"
   end
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0002-Native-Mac-font-handling.patch'
-    sha256 "40ed5889583ea4e20bdf3ed642dfb3f948224a84280593b0ced979a90464d011"
+    sha256 "ac20ddc6c49f01173b7225e3452aca23ea99bdb7bd41b7880ecdb0cabe994bd7"
   end
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0003-Add-support-for-persistent-GlobalParams.patch'
-    sha256 "fb18b1747f47a608e4b5cd06ab1332df7d12c05e1d1c65526ed2505e07298fd7"
+    sha256 "ba4d43493afeaea13496c5786163cc0b790accaffc991477abc66645e114e11b"
   end
 # END TEXWORKS MODIFICATION
 
