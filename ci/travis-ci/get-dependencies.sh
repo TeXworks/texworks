@@ -5,7 +5,7 @@ set -e
 
 cd "${TRAVIS_BUILD_DIR}"
 
-. travis-ci/defs.sh
+. ci/travis-ci/defs.sh
 
 print_headline "Getting dependencies for building for ${TARGET_OS}/qt${QT} on ${TRAVIS_OS_NAME}"
 
@@ -23,8 +23,8 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	print_info "Make MXE directory writable"
 	echo_and_run "sudo chmod -R a+w ${MXEDIR}"
 
-	echo "MXEDIR=\"${MXEDIR}\"" >> travis-ci/defs.sh
-	echo "MXETARGET=\"${MXETARGET}\"" >> travis-ci/defs.sh
+	echo "MXEDIR=\"${MXEDIR}\"" >> ci/travis-ci/defs.sh
+	echo "MXETARGET=\"${MXETARGET}\"" >> ci/travis-ci/defs.sh
 
 	print_info "Exporting CC = ${MXETARGET}-gcc"
 	export CC="${MXETARGET}-gcc"
@@ -33,7 +33,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 
 	JOBS=$(grep '^processor' /proc/cpuinfo | wc -l)
 
-	cd travis-ci/mxe
+	cd ci/travis-ci/mxe
 
 	print_info "Building poppler (using ${JOBS} jobs)"
 	env PATH="${MXEDIR}/usr/bin:${MXEDIR}/usr/${MXETARGET}/qt/bin:$PATH" PREFIX="${MXEDIR}/usr" TARGET="${MXETARGET}" JOBS="$JOBS" MXE_CONFIGURE_OPTS="--host='${MXETARGET}' --build='$(${MXEDIR}/ext/config.guess)' --prefix='${MXEDIR}/usr/${MXETARGET}' --enable-static --disable-shared ac_cv_prog_HAVE_DOXYGEN='false'" TEST_FILE="poppler-test.cxx" make -f build-poppler-mxe.mk

@@ -5,7 +5,7 @@ set -e
 
 cd "${TRAVIS_BUILD_DIR}"
 
-. travis-ci/defs.sh
+. ci/travis-ci/defs.sh
 
 if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
 	print_warning "Not packaging pull-requests for deployment"
@@ -67,19 +67,19 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 			print_error "DEB_MAINTAINER_NAME and/or DEB_MAINTAINER_EMAIL and/or DEB_PASSPHRASE and/or LAUNCHPAD_DISTROS are not set"
 			exit 0
 		fi
-		openssl aes-256-cbc -K $encrypted_54846cac3f0f_key -iv $encrypted_54846cac3f0f_iv -in "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/key.asc.enc" -out "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/key.asc" -d
-		gpg --import "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/key.asc"
+		openssl aes-256-cbc -K $encrypted_54846cac3f0f_key -iv $encrypted_54846cac3f0f_iv -in "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/key.asc.enc" -out "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/key.asc" -d
+		gpg --import "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/key.asc"
 
 		# Add ppa.launchpad.net to ssh's known hosts so we can upload to it
 		# using sftp
 		echo "ppa.launchpad.net ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA0aKz5UTUndYgIGG7dQBV+HaeuEZJ2xPHo2DS2iSKvUL4xNMSAY4UguNW+pX56nAQmZKIZZ8MaEvSj6zMEDiq6HFfn5JcTlM80UwlnyKe8B8p7Nk06PPQLrnmQt5fh0HmEcZx+JU9TZsfCHPnX7MNz4ELfZE6cFsclClrKim3BHUIGq//t93DllB+h4O9LHjEUsQ1Sr63irDLSutkLJD6RXchjROXkNirlcNVHH/jwLWR5RcYilNX7S5bIkK8NlWPjsn/8Ua5O7I9/YoE97PpO6i73DTGLh5H9JN/SITwCKBkgSDWUt61uPK3Y11Gty7o2lWsBjhBUm2Y38CBsoGmBw==" >> ~/.ssh/known_hosts
 
 		# Set up key for ssh (sftp) authentication
-		openssl aes-256-cbc -K $encrypted_47834aa722cd_key -iv $encrypted_47834aa722cd_iv -in "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks.enc" -out "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks" -d
-		chmod 0600 "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks"
+		openssl aes-256-cbc -K $encrypted_47834aa722cd_key -iv $encrypted_47834aa722cd_iv -in "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/id_rsa_texworks.enc" -out "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/id_rsa_texworks" -d
+		chmod 0600 "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/id_rsa_texworks"
 		print_info "Creating ~/.ssh/config"
 		echo """Host ppa.launchpad.net
-	IdentityFile ${TRAVIS_BUILD_DIR}/travis-ci/launchpad/id_rsa_texworks
+	IdentityFile ${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/id_rsa_texworks
 	User st.loeffler
 """ >> ~/.ssh/config
 
@@ -101,11 +101,11 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 			tar -x -C "${DEBDIR}" --strip-components=1 -f "${BUILDDIR}/${ORIGNAME}"
 
 			print_info "   copying debian directory"
-			cp -r "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/debian" "${DEBDIR}"
+			cp -r "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/debian" "${DEBDIR}"
 
-			if [ -f "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/${DISTRO}.patch" ]; then
+			if [ -f "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/${DISTRO}.patch" ]; then
 				print_info "   applying ${DISTRO}.patch"
-				patch -d "${DEBDIR}" -p0 < "${TRAVIS_BUILD_DIR}/travis-ci/launchpad/${DISTRO}.patch"
+				patch -d "${DEBDIR}" -p0 < "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/${DISTRO}.patch"
 			fi
 
 
@@ -151,7 +151,7 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 			fi
 			print_info "   scheduling to upload ${DEBFILE} to ${PPA}"
 
-			echo "dput --config \"${TRAVIS_BUILD_DIR}/travis-ci/launchpad/dput.cf\" \"${PPA}\" \"${BUILDDIR}/${DEBFILE}\"" >> "${TRAVIS_BUILD_DIR}/travis-ci/dput-launchpad.sh"
+			echo "dput --config \"${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/dput.cf\" \"${PPA}\" \"${BUILDDIR}/${DEBFILE}\"" >> "${TRAVIS_BUILD_DIR}/ci/travis-ci/dput-launchpad.sh"
 		done
 	else
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
@@ -165,11 +165,11 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		echo_and_run "cp \"${BUILDDIR}/TeXworks.exe\" \"package-zip/\""
 		echo_and_run "cp \"${TRAVIS_BUILD_DIR}/COPYING\" \"package-zip/\""
 		echo_and_run "cp -r \"${TRAVIS_BUILD_DIR}/win32/fonts\" \"package-zip/share/\""
-		echo_and_run "cp -r \"${TRAVIS_BUILD_DIR}/travis-ci/README.win\" \"package-zip/README.txt\""
+		echo_and_run "cp -r \"${TRAVIS_BUILD_DIR}/ci/travis-ci/README.win\" \"package-zip/README.txt\""
 		if [ ! -z "${TRAVIS_TAG}" -o ! -z "${FORCE_MANUAL}" ]; then
 			print_info "Fetching manual"
 			cd package-zip
-			echo_and_run "python \"${TRAVIS_BUILD_DIR}/travis-ci/getManual.py\""
+			echo_and_run "python \"${TRAVIS_BUILD_DIR}/ci/travis-ci/getManual.py\""
 			cd ..
 		fi
 
@@ -191,7 +191,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 
 		print_info "Preparing bintray.json"
 
-		cat > "${TRAVIS_BUILD_DIR}/travis-ci/bintray.json" <<EOF
+		cat > "${TRAVIS_BUILD_DIR}/ci/travis-ci/bintray.json" <<EOF
 		{
 			"package": {
 				"name": "TeXworks-for-Windows:latest",
@@ -212,7 +212,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 EOF
 		if [ ! -z "${TRAVIS_TAG}" ]; then
 			print_info "Preparing github-releases.txt"
-			echo "${BUILDDIR}/TeXworks-${TARGET_OS}-${VERSION_NAME}.zip" > "${TRAVIS_BUILD_DIR}/travis-ci/github-releases.txt"
+			echo "${BUILDDIR}/TeXworks-${TARGET_OS}-${VERSION_NAME}.zip" > "${TRAVIS_BUILD_DIR}/ci/travis-ci/github-releases.txt"
 		fi
 	else
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
@@ -226,7 +226,7 @@ elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
 		mv "${BUILDDIR}/"TeXworks.*.dmg "${BUILDDIR}/TeXworks-${TRAVIS_OS_NAME}-${VERSION_NAME}.dmg"
 
 		print_info "Preparing bintray.json"
-		cat > "${TRAVIS_BUILD_DIR}/travis-ci/bintray.json" <<EOF
+		cat > "${TRAVIS_BUILD_DIR}/ci/travis-ci/bintray.json" <<EOF
 		{
 			"package": {
 				"name": "TeXworks-for-Mac:latest",
@@ -247,7 +247,7 @@ elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
 EOF
 		if [ ! -z "${TRAVIS_TAG}" ]; then
 			print_info "Preparing github-releases.txt"
-			echo "${BUILDDIR}/TeXworks-${TARGET_OS}-${VERSION_NAME}.dmg" > "${TRAVIS_BUILD_DIR}/travis-ci/github-releases.txt"
+			echo "${BUILDDIR}/TeXworks-${TARGET_OS}-${VERSION_NAME}.dmg" > "${TRAVIS_BUILD_DIR}/ci/travis-ci/github-releases.txt"
 		fi
 	else
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"

@@ -5,14 +5,14 @@ set -e
 
 cd "${TRAVIS_BUILD_DIR}"
 
-. travis-ci/defs.sh
+. ci/travis-ci/defs.sh
 
 print_headline "Configuring for building for ${TARGET_OS}/qt${QT} on ${TRAVIS_OS_NAME}"
 
 ./getGitRevInfo.sh
 
 BUILDDIR="${TRAVIS_BUILD_DIR}/build-${TRAVIS_OS_NAME}-${TARGET_OS}-qt${QT}"
-echo "BUILDDIR=\"${BUILDDIR}\"" >> travis-ci/defs.sh
+echo "BUILDDIR=\"${BUILDDIR}\"" >> ci/travis-ci/defs.sh
 
 print_info "Making build directory '${BUILDDIR}'"
 mkdir "${BUILDDIR}"
