@@ -1029,8 +1029,13 @@ QString TeXDocument::readFile(const QString &fileName,
 	if ((*codecUsed)->mibEnum() == 106 && peekBytes.size() >= 3 && peekBytes[0] == '\xEF' && peekBytes[1] == '\xBB' && peekBytes[2] == '\xBF')
 		utf8BOM = true;
 	
+	// If the file is empty (we're already at the end), don't try to read
+	// anything using QTextStream below as that would return a Null-String
+	// (QString()) rather than an empty string (QString("")). Instead, return
+	// an empty string right away.
 	if (file.atEnd())
-		return QString();
+		return QStringLiteral("");
+
 	QTextStream in(&file);
 	in.setCodec(*codecUsed);
 	QString text = in.readAll();
