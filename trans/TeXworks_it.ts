@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it">
+<TS version="2.1" language="it">
 <context>
     <name>CitationSelectDialog</name>
     <message>
@@ -224,7 +224,7 @@
     <message>
         <location filename="../src/PDFDocument.cpp" line="698"/>
         <source>page %1 of %2</source>
-        <translation>pagina %1 de %2</translation>
+        <translation>pagina %1 di %2</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="703"/>
@@ -747,7 +747,7 @@ Vuoi continuare?</translation>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1044"/>
         <source>Custom...</source>
-        <translation>Persolnalizza...</translation>
+        <translation>Personalizza...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocument.cpp" line="1121"/>
