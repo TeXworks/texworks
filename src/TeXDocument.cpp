@@ -72,8 +72,6 @@
 #define kLineEnd_Flags_Mask  0xFF00
 #define kLineEnd_Mixed       0x0100
 
-const int kHardWrapDefaultWidth = 64;
-
 QList<TeXDocument*> TeXDocument::docList;
 
 TeXDocument::TeXDocument()
@@ -869,7 +867,7 @@ bool TeXDocument::maybeSave()
 						   this);
 		msgBox.button(QMessageBox::Discard)->setShortcut(QKeySequence(tr("Ctrl+D", "shortcut: Don't Save")));
 		msgBox.setWindowModality(Qt::WindowModal);
-		ret = (QMessageBox::StandardButton)msgBox.exec();
+		ret = static_cast<QMessageBox::StandardButton>(msgBox.exec());
 		if (ret == QMessageBox::Save)
 			return save();
 		if (ret == QMessageBox::Cancel)
@@ -943,7 +941,7 @@ static const char* texshopSynonyms[] = {
 //	"GBK",				"",
 //	"GB 2312",			"",
 	"GB 18030",			"GB18030-0",
-	NULL
+	nullptr
 };
 
 QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName)
@@ -1971,7 +1969,7 @@ void TeXDocument::doHardWrapDialog()
 	dlg.show();
 	if (dlg.exec()) {
 		dlg.saveSettings();
-		doHardWrap(dlg.mode(), dlg.lineWidth(), dlg.rewrap());
+		doHardWrap(dlg.mode(), static_cast<int>(dlg.lineWidth()), dlg.rewrap());
 	}
 }
 
@@ -2271,7 +2269,7 @@ void TeXDocument::doFindAgain(bool fromDialog)
 	if (searchText.isEmpty())
 		return;
 
-	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value(QString::fromLatin1("searchFlags")).toInt();
+	QTextDocument::FindFlags flags = static_cast<QTextDocument::FindFlags>(settings.value(QString::fromLatin1("searchFlags")).toInt());
 
 	QRegularExpression *regex = nullptr;
 	if (settings.value(QString::fromLatin1("searchRegex")).toBool()) {
@@ -2383,7 +2381,7 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 	if (searchText.isEmpty())
 		return;
 	
-	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value(QString::fromLatin1("searchFlags")).toInt();
+	QTextDocument::FindFlags flags = static_cast<QTextDocument::FindFlags>(settings.value(QString::fromLatin1("searchFlags")).toInt());
 
 	QRegularExpression *regex = nullptr;
 	if (settings.value(QString::fromLatin1("searchRegex")).toBool()) {
@@ -2425,7 +2423,7 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 			else {
 				// Unicode char number \xHHHH
 				bool ok;
-				ch = (QChar)escapeMatch.captured(2).toUInt(&ok, 16);
+				ch = QChar(escapeMatch.captured(2).toUInt(&ok, 16));
 			}
 			replacement.replace(index, escapeMatch.capturedLength(), ch);
 		}
@@ -2954,7 +2952,7 @@ void TeXDocument::anchorClicked(const QUrl& url)
 	if (url.scheme() == QString::fromLatin1("texworks")) {
 		int line = 0;
 		if (url.hasFragment()) {
-			line = url.fragment().toLong();
+			line = url.fragment().toInt();
 		}
 		TeXDocument * target = openDocument(QFileInfo(getRootFilePath()).absoluteDir().filePath(url.path()), true, true, line);
 		if (target)
@@ -3045,7 +3043,6 @@ void TeXDocument::syncClick(int lineNo, int col)
 void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*charsAdded*/)
 {
 	if (position < PEEK_LENGTH) {
-		int pos;
 		QTextCursor curs(textEdit->document());
 		// (begin|end)EditBlock() is a workaround for QTBUG-24718 that causes
 		// movePosition() to crash the program under some circumstances.

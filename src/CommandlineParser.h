@@ -41,10 +41,8 @@ public:
 		bool processed;
 	};
 
-	CommandlineParser() {
-		m_rawItems = QCoreApplication::arguments();
-		m_rawItems.removeFirst(); // First item is app name
-	}
+	// First item is app name
+	CommandlineParser() : m_rawItems(QCoreApplication::arguments().mid(1)) { }
 	
 	void registerSwitch(const QString longName, const QString description = QString(), const QString shortName = QString()) {
 		CommandlineItemSpec spec;

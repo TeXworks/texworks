@@ -69,11 +69,11 @@ void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, 
 
 void TeXHighlighter::highlightBlock(const QString &text)
 {
-	int index = 0;
+	int charPos = 0;
 	if (highlightIndex >= 0 && highlightIndex < syntaxRules->count()) {
 		QList<HighlightingRule>& highlightingRules = (*syntaxRules)[highlightIndex].rules;
 		// Go through the whole text...
-		while (index < text.length()) {
+		while (charPos < text.length()) {
 			// ... and find the highlight pattern that matches closest to the
 			// current character index
 			int firstIndex = INT_MAX, len;
@@ -81,7 +81,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 			QRegularExpressionMatch firstMatch;
 			for (int i = 0; i < highlightingRules.size(); ++i) {
 				HighlightingRule &rule = highlightingRules[i];
-				QRegularExpressionMatch m = rule.pattern.match(text, index);
+				QRegularExpressionMatch m = rule.pattern.match(text, charPos);
 				if (m.capturedStart() >= 0 && m.capturedStart() < firstIndex) {
 					firstIndex = m.capturedStart();
 					firstMatch = m;
@@ -91,12 +91,12 @@ void TeXHighlighter::highlightBlock(const QString &text)
 			// If we found a rule, apply it and advance the character index to
 			// the end of the highlighted range
 			if (firstRule && firstMatch.hasMatch() && (len = firstMatch.capturedLength()) > 0) {
-				if (pHunspell && firstIndex > index)
-					spellCheckRange(text, index, firstIndex, spellFormat);
+				if (pHunspell && firstIndex > charPos)
+					spellCheckRange(text, charPos, firstIndex, spellFormat);
 				setFormat(firstIndex, len, firstRule->format);
-				index = firstIndex + len;
+				charPos = firstIndex + len;
 				if (pHunspell && firstRule->spellCheck)
-					spellCheckRange(text, firstIndex, index, firstRule->spellFormat);
+					spellCheckRange(text, firstIndex, charPos, firstRule->spellFormat);
 			}
 			// If no rule matched, we can break out of the loop
 			else
@@ -104,7 +104,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 		}
 	}
 	if (pHunspell)
-		spellCheckRange(text, index, text.length(), spellFormat);
+		spellCheckRange(text, charPos, text.length(), spellFormat);
 
 	if (texDoc) {
 		bool changed = false;

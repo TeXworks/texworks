@@ -113,7 +113,7 @@ public:
 	static QStringList syntaxOptions();
 
 protected:
-	void highlightBlock(const QString &text);
+	virtual void highlightBlock(const QString &text) override;
 
 	void spellCheckRange(const QString &text, int index, int limit, const QTextCharFormat &spellFormat);
 

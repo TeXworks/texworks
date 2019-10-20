@@ -92,7 +92,6 @@ bool BibTeXFile::load(const QString & filename)
 	QByteArray content;
 	QTextCodec * codec = QTextCodec::codecForName("utf-8");
 	int curPos = 0;
-	int start;
 
 	_entries.clear();
 
