@@ -29,7 +29,7 @@ print_info "Extracting poppler"
 7z x "${poppler_ARCHIVE}" -so | 7z x -si -ttar
 cd ${poppler_DIRNAME}
 print_info "Patching poppler"
-for PATCH in $(find ${APPVEYOR_BUILD_FOLDER}/travis-ci/mxe/ -iname 'poppler-*.patch'); do
+for PATCH in $(find ${APPVEYOR_BUILD_FOLDER}/ci/travis-ci/mxe/ -iname 'poppler-*.patch'); do
 	echo "Applying ${PATCH}"
 	patch -p1 < "${PATCH}"
 done
