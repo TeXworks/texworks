@@ -336,17 +336,18 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 
 	codecList = new QList<QTextCodec*>;
 	QMap<QString, QTextCodec*> codecMap;
-	QRegExp iso8859RegExp(QString::fromLatin1("ISO[- ]8859-([0-9]+).*"));
+	QRegularExpression iso8859RegExp(QStringLiteral("^ISO[- ]8859-([0-9]+)"));
 	foreach (int mib, QTextCodec::availableMibs()) {
 		QTextCodec *codec = QTextCodec::codecForMib(mib);
 		QString sortKey = QString::fromUtf8(codec->name().constData()).toUpper();
+		QRegularExpressionMatch iso8859Match = iso8859RegExp.match(sortKey);
 		int rank;
 		if (sortKey.startsWith(QLatin1String("UTF-8")))
 			rank = 1;
 		else if (sortKey.startsWith(QLatin1String("UTF-16")))
 			rank = 2;
-		else if (iso8859RegExp.exactMatch(sortKey)) {
-			if (iso8859RegExp.cap(1).size() == 1)
+		else if (iso8859Match.hasMatch()) {
+			if (iso8859Match.captured(1).size() == 1)
 				rank = 3;
 			else
 				rank = 4;
@@ -1045,7 +1046,7 @@ void TWUtils::readConfig()
 	pairClosers.clear();
 
 	QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
-	QRegExp pair(QString::fromLatin1("([^\\s])\\s+([^\\s])\\s*(?:#.*)?"));
+	QRegularExpression pair(QString::fromLatin1("^([^\\s])\\s+([^\\s])\\s*(?:#.*)?$"));
 
 	QFile pairsFile(configDir.filePath(QString::fromLatin1("delimiter-pairs.txt")));
 	if (pairsFile.open(QIODevice::ReadOnly)) {
@@ -1057,9 +1058,10 @@ void TWUtils::readConfig()
 				continue;
 			ba.chop(1);
 			QString line = QString::fromUtf8(ba.data(), ba.size());
-			if (pair.exactMatch(line)) {
-				pairClosers[pair.cap(1).at(0)] = pair.cap(2).at(0);
-				pairOpeners[pair.cap(2).at(0)] = pair.cap(1).at(0);
+			QRegularExpressionMatch pairMatch = pair.match(line);
+			if (pairMatch.hasMatch()) {
+				pairClosers[pairMatch.captured(1).at(0)] = pairMatch.captured(2).at(0);
+				pairOpeners[pairMatch.captured(2).at(0)] = pairMatch.captured(1).at(0);
 			}
 		}
 	}
@@ -1076,7 +1078,7 @@ void TWUtils::readConfig()
 	
 	QFile configFile(configDir.filePath(QString::fromLatin1("texworks-config.txt")));
 	if (configFile.open(QIODevice::ReadOnly)) {
-		QRegExp keyVal(QString::fromLatin1("([-a-z]+):\\s*([^ \\t].+)"));
+		QRegularExpression keyVal(QStringLiteral("^([-a-z]+):\\s*([^ \\t].+)$"));
 			// looking for keyword, colon, optional whitespace, value
 		while (true) {
 			QByteArray ba = configFile.readLine();
@@ -1085,10 +1087,11 @@ void TWUtils::readConfig()
 			if (ba[0] == '#' || ba[0] == '\n')
 				continue;
 			QString	line = QString::fromUtf8(ba.data(), ba.size());
-			if (keyVal.exactMatch(line)) {
+			QRegularExpressionMatch keyValMatch = keyVal.match(line);
+			if (keyValMatch.hasMatch()) {
 				// if that matched, keyVal.cap(1) is the keyword, cap(2) is the value
-				const QString& keyword = keyVal.cap(1);
-				QString value = keyVal.cap(2).trimmed();
+				const QString& keyword = keyValMatch.captured(1);
+				QString value = keyValMatch.captured(2).trimmed();
 				if (keyword == QString::fromLatin1("include-text")) {
 					sIncludeTextCommand = value.replace(QString::fromLatin1("#RET#"), QChar::fromLatin1('\n'));
 					continue;

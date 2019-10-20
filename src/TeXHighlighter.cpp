@@ -19,7 +19,6 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include <QRegExp>
 #include <QTextCodec>
 #include <QTextCursor>
 
@@ -73,18 +72,25 @@ void TeXHighlighter::highlightBlock(const QString &text)
 	int index = 0;
 	if (highlightIndex >= 0 && highlightIndex < syntaxRules->count()) {
 		QList<HighlightingRule>& highlightingRules = (*syntaxRules)[highlightIndex].rules;
+		// Go through the whole text...
 		while (index < text.length()) {
+			// ... and find the highlight pattern that matches closest to the
+			// current character index
 			int firstIndex = INT_MAX, len;
 			const HighlightingRule* firstRule = nullptr;
+			QRegularExpressionMatch firstMatch;
 			for (int i = 0; i < highlightingRules.size(); ++i) {
 				HighlightingRule &rule = highlightingRules[i];
-				int foundIndex = text.indexOf(rule.pattern, index);
-				if (foundIndex >= 0 && foundIndex < firstIndex) {
-					firstIndex = foundIndex;
+				QRegularExpressionMatch m = rule.pattern.match(text, index);
+				if (m.capturedStart() >= 0 && m.capturedStart() < firstIndex) {
+					firstIndex = m.capturedStart();
+					firstMatch = m;
 					firstRule = &rule;
 				}
 			}
-			if (firstRule && (len = firstRule->pattern.matchedLength()) > 0) {
+			// If we found a rule, apply it and advance the character index to
+			// the end of the highlighted range
+			if (firstRule && firstMatch.hasMatch() && (len = firstMatch.capturedLength()) > 0) {
 				if (pHunspell && firstIndex > index)
 					spellCheckRange(text, index, firstIndex, spellFormat);
 				setFormat(firstIndex, len, firstRule->format);
@@ -92,6 +98,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 				if (pHunspell && firstRule->spellCheck)
 					spellCheckRange(text, firstIndex, index, firstRule->spellFormat);
 			}
+			// If no rule matched, we can break out of the loop
 			else
 				break;
 		}
@@ -108,21 +115,23 @@ void TeXHighlighter::highlightBlock(const QString &text)
 			while (index < text.length()) {
 				int firstIndex = INT_MAX, len;
 				TagPattern* firstPatt = nullptr;
+				QRegularExpressionMatch firstMatch;
 				for (int i = 0; i < tagPatterns->count(); ++i) {
 					TagPattern& patt = (*tagPatterns)[i];
-					int foundIndex = text.indexOf(patt.pattern, index);
-					if (foundIndex >= 0 && foundIndex < firstIndex) {
-						firstIndex = foundIndex;
+					QRegularExpressionMatch m = patt.pattern.match(text, index);
+					if (m.capturedStart() >= 0 && m.capturedStart() < firstIndex) {
+						firstIndex = m.capturedStart();
+						firstMatch = m;
 						firstPatt = &patt;
 					}
 				}
-				if (firstPatt && (len = firstPatt->pattern.matchedLength()) > 0) {
+				if (firstPatt && firstMatch.hasMatch() && (len = firstMatch.capturedLength()) > 0) {
 					QTextCursor	cursor(document());
 					cursor.setPosition(currentBlock().position() + firstIndex);
 					cursor.setPosition(currentBlock().position() + firstIndex + len, QTextCursor::KeepAnchor);
-					QString text = firstPatt->pattern.cap(1);
+					QString text = firstMatch.captured(1);
 					if (text.isEmpty())
-						text = firstPatt->pattern.cap(0);
+						text = firstMatch.captured(0);
 					texDoc->addTag(cursor, firstPatt->level, text);
 					index = firstIndex + len;
 					changed = true;
@@ -170,12 +179,12 @@ void TeXHighlighter::loadPatterns()
 		return;
 
 	QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
-	QRegExp whitespace(QString::fromLatin1("\\s+"));
+	QRegularExpression whitespace(QStringLiteral("\\s+"));
 
 	if (!syntaxRules) {
 		syntaxRules = new QList<HighlightingSpec>;
 		QFile syntaxFile(configDir.filePath(QString::fromLatin1("syntax-patterns.txt")));
-		QRegExp sectionRE(QString::fromLatin1("^\\[([^\\]]+)\\]"));
+		QRegularExpression sectionRE(QStringLiteral("^\\[([^\\]]+)\\]"));
 		if (syntaxFile.open(QIODevice::ReadOnly)) {
 			HighlightingSpec spec;
 			spec.name = tr("default");
@@ -186,11 +195,12 @@ void TeXHighlighter::loadPatterns()
 				if (ba[0] == '#' || ba[0] == '\n')
 					continue;
 				QString line = QString::fromUtf8(ba.data(), ba.size());
-				if (sectionRE.indexIn(line) == 0) {
+				QRegularExpressionMatch sectionMatch = sectionRE.match(line);
+				if (sectionMatch.capturedStart() == 0) {
 					if (spec.rules.count() > 0)
 						syntaxRules->append(spec);
 					spec.rules.clear();
-					spec.name = sectionRE.cap(1);
+					spec.name = sectionMatch.captured(1);
 					continue;
 				}
 				QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
@@ -227,8 +237,8 @@ void TeXHighlighter::loadPatterns()
 				}
 				else
 					rule.spellCheck = false;
-				rule.pattern = QRegExp(parts[2]);
-				if (rule.pattern.isValid() && !rule.pattern.isEmpty())
+				rule.pattern = QRegularExpression(parts[2]);
+				if (rule.pattern.isValid())
 					spec.rules.append(rule);
 			}
 			if (spec.rules.count() > 0)
@@ -255,8 +265,8 @@ void TeXHighlighter::loadPatterns()
 				bool ok;
 				patt.level = parts[0].toInt(&ok);
 				if (ok) {
-					patt.pattern = QRegExp(parts[1]);
-					if (patt.pattern.isValid() && !patt.pattern.isEmpty())
+					patt.pattern = QRegularExpression(parts[1]);
+					if (patt.pattern.isValid())
 						tagPatterns->append(patt);
 				}
 			}

@@ -26,6 +26,7 @@
 #include <QMetaMethod>
 #include <QTextCodec>
 #include <QDir>
+#include <QRegularExpression>
 
 TWScript::TWScript(QObject * plugin, const QString& fileName)
 	: m_Plugin(plugin), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true), m_FileSize(0)
@@ -66,7 +67,7 @@ bool TWScript::doParseHeader(const QString& beginComment, const QString& endComm
 	while (codecChanged) {
 		codec = m_Codec;
 		file.seek(0);
-		lines = codec->toUnicode(file.readAll()).split(QRegExp(QLatin1String("\r\n|[\n\r]")));
+		lines = codec->toUnicode(file.readAll()).split(QRegularExpression(QStringLiteral("\r\n|[\n\r]")));
 	
 		// skip any empty lines
 		if (skipEmpty) {

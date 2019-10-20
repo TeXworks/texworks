@@ -593,7 +593,7 @@ void CompletingEdit::handleReturn(QKeyEvent *e)
 	QString prefix;
 	// Check if auto indent is on and applicable
 	if (autoIndentMode >= 0 && autoIndentMode < indentModes->count() && e->modifiers() == Qt::NoModifier) {
-		QRegExp &re = (*indentModes)[autoIndentMode].regex;
+		const QRegularExpression &re = (*indentModes)[autoIndentMode].regex;
 		// Only apply prefix recognition to characters in front of the cursor.
 		// Otherwise, we would accumulate characters if the cursor is inside the
 		// region matched by the regexp.
@@ -607,8 +607,9 @@ void CompletingEdit::handleReturn(QKeyEvent *e)
 		curs.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
 		QString blockText = curs.selectedText();
 		// Check if the prefix matches the regexp of the current auto indent mode
-		if (blockText.indexOf(re) == 0 && re.matchedLength() > 0)
-			prefix = blockText.left(re.matchedLength());
+		QRegularExpressionMatch m = re.match(blockText);
+		if (m.capturedStart() == 0 && m.capturedLength() > 0)
+			prefix = m.captured();
 	}
 	// Propagate the key press event to the base class so that the text is
 	// actually modified
@@ -712,8 +713,8 @@ void CompletingEdit::loadSmartQuotesModes()
 		quotesModes = new QList<QuotesMode>;
 		QFile quotesModesFile(configDir.filePath(QString::fromLatin1("smart-quotes-modes.txt")));
 		if (quotesModesFile.open(QIODevice::ReadOnly)) {
-			QRegExp modeName(QString::fromLatin1("\\[([^]]+)\\]"));
-			QRegExp quoteLine(QString::fromLatin1("([^ \\t])\\s+([^ \\t]+)\\s+([^ \\t]+)"));
+			QRegularExpression modeName(QStringLiteral("^\\[([^]]+)\\]$"));
+			QRegularExpression quoteLine(QStringLiteral("^([^ \\t])\\s+([^ \\t]+)\\s+([^ \\t]+)$"));
 			QuotesMode newMode;
 			while (true) {
 				QByteArray ba = quotesModesFile.readLine();
@@ -722,18 +723,20 @@ void CompletingEdit::loadSmartQuotesModes()
 				if (ba[0] == '#' || ba[0] == '\n')
 					continue;
 				QString line = QString::fromUtf8(ba.data(), ba.size()).trimmed();
-				if (modeName.exactMatch(line)) {
+				QRegularExpressionMatch modeNameMatch = modeName.match(line);
+				if (modeNameMatch.hasMatch()) {
 					if (newMode.mappings.count() > 0) {
 						quotesModes->append(newMode);
 						newMode.mappings.clear();
 					}
-					newMode.name = modeName.cap(1);
+					newMode.name = modeNameMatch.captured(1);
 					continue;
 				}
-				if (quoteLine.exactMatch(line) && newMode.name.length() > 0) {
-					QChar key = quoteLine.cap(1)[0];
-					const QString& open = quoteLine.cap(2);
-					const QString& close = quoteLine.cap(3);
+				QRegularExpressionMatch quoteLineMatch = quoteLine.match(line);
+				if (quoteLineMatch.hasMatch() && newMode.name.length() > 0) {
+					QChar key = quoteLineMatch.captured(1)[0];
+					const QString& open = quoteLineMatch.captured(2);
+					const QString& close = quoteLineMatch.captured(3);
 					newMode.mappings[key] = QuotePair(open,close);
 					continue;
 				}
@@ -1152,7 +1155,7 @@ void CompletingEdit::loadIndentModes()
 		indentModes = new QList<IndentMode>;
 		QFile indentPatternFile(configDir.filePath(QString::fromLatin1("auto-indent-patterns.txt")));
 		if (indentPatternFile.open(QIODevice::ReadOnly)) {
-			QRegExp re(QString::fromLatin1("\"([^\"]+)\"\\s+(.+)"));
+			QRegularExpression re(QStringLiteral("^\"([^\"]+)\"\\s+(.+)$"));
 			while (true) {
 				QByteArray ba = indentPatternFile.readLine();
 				if (ba.size() == 0)
@@ -1160,10 +1163,11 @@ void CompletingEdit::loadIndentModes()
 				if (ba[0] == '#' || ba[0] == '\n')
 					continue;
 				QString line = QString::fromUtf8(ba.data(), ba.size()).trimmed();
-				if (re.exactMatch(line)) {
+				QRegularExpressionMatch m = re.match(line);
+				if (m.hasMatch()) {
 					IndentMode mode;
-					mode.name = re.cap(1);
-					mode.regex = QRegExp(re.cap(2).trimmed());
+					mode.name = m.captured(1);
+					mode.regex = QRegularExpression(m.captured(2).trimmed());
 					if (!mode.name.isEmpty() && mode.regex.isValid())
 						indentModes->append(mode);
 				}

@@ -25,7 +25,7 @@
 #include "TWScriptable.h"
 
 #include <QList>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QProcess>
 #include <QDateTime>
 #include <QSignalMapper>
@@ -237,9 +237,9 @@ private:
 	void replaceSelection(const QString& newText);
 	void doHardWrap(int mode, int lineWidth, bool rewrap);
 	void zoomToLeft(QWidget *otherWindow);
-	QTextCursor doSearch(QTextDocument *theDoc, const QString& searchText, const QRegExp *regex,
+	QTextCursor doSearch(QTextDocument *theDoc, const QString& searchText, const QRegularExpression *regex,
 						 QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
-	int doReplaceAll(const QString& searchText, QRegExp* regex, const QString& replacement,
+	int doReplaceAll(const QString& searchText, QRegularExpression* regex, const QString& replacement,
 						QTextDocument::FindFlags flags, int rangeStart = -1, int rangeEnd = -1);
 	void executeAfterTypesetHooks();
 	void showConsole();

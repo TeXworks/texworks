@@ -25,6 +25,7 @@
 #include <QMetaObject>
 #include <QStringList>
 #include <QTextStream>
+#include <QRegularExpression>
 
 /* macros that may not be available in older python headers */
 #ifndef Py_RETURN_NONE
@@ -112,7 +113,7 @@ bool PythonScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
 
 	// Python seems to require Unix style line endings
 	if (contents.contains("\r"))
-		contents.replace(QRegExp("\r\n?"), "\n");
+		contents.replace(QRegularExpression("\r\n?"), "\n");
 
 	// Remember the current thread state so we can restore it at the end
 	PyThreadState* origThreadState = PyThreadState_Get();

@@ -183,7 +183,7 @@ void FindDialog::toggledSelectionOption(bool checked)
 void FindDialog::checkRegex(const QString& str)
 {
 	if (checkBox_regex->isChecked()) {
-		QRegExp regex(str);
+		QRegularExpression regex(str);
 		if (regex.isValid())
 			regexStatus->setText(QString());
 		else
@@ -348,7 +348,7 @@ void ReplaceDialog::toggledSelectionOption(bool checked)
 void ReplaceDialog::checkRegex(const QString& str)
 {
 	if (checkBox_regex->isChecked()) {
-		QRegExp regex(str);
+		QRegularExpression regex(str);
 		if (regex.isValid())
 			regexStatus->setText(QString());
 		else

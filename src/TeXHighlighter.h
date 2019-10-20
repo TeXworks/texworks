@@ -26,7 +26,7 @@
 
 #include <QTextLayout>
 #include <QTextCharFormat>
-
+#include <QRegularExpression>
 #include <QTimer>
 
 #include <hunspell.h>
@@ -121,7 +121,7 @@ private:
 	static void loadPatterns();
 
 	struct HighlightingRule {
-		QRegExp pattern;
+		QRegularExpression pattern;
 		QTextCharFormat format;
 		QTextCharFormat	spellFormat;
 		bool spellCheck;
@@ -136,7 +136,7 @@ private:
 	QTextCharFormat spellFormat;
 
 	struct TagPattern {
-		QRegExp pattern;
+		QRegularExpression pattern;
 		unsigned int level;
 	};
 	static QList<TagPattern> *tagPatterns;

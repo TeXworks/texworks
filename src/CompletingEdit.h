@@ -27,6 +27,7 @@
 #include <QTimer>
 #include <QDrag>
 #include <QMimeData>
+#include <QRegularExpression>
 
 #include <hunspell.h>
 
@@ -163,8 +164,8 @@ private:
 	static void loadIndentModes();
 
 	struct IndentMode {
-		QString	name;
-		QRegExp	regex;
+		QString name;
+		QRegularExpression regex;
 	};
 	static QList<IndentMode> *indentModes;
 	int autoIndentMode;
