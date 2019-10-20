@@ -653,31 +653,6 @@ QString TWApp::getOpenFileName(QString selectedFilter)
 	                                    filters.join(QLatin1String(";;")), &selectedFilter, options);
 }
 
-QString TWApp::getSaveFileName(const QString& defaultName)
-{
-	QFileDialog::Options options;
-#if defined(Q_OS_WIN)
-	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
-#endif
-	QString selectedFilter;
-	if (!TWUtils::filterList()->isEmpty())
-		selectedFilter = TWUtils::chooseDefaultFilter(defaultName, *(TWUtils::filterList()));
-		
-	QString fileName = QFileDialog::getSaveFileName(nullptr, tr("Save File"), defaultName,
-	                                                TWUtils::filterList()->join(QLatin1String(";;")),
-													&selectedFilter, options);
-	if (!fileName.isEmpty()) {
-		// add extension from the selected filter, if unique and not already present
-		QRegExp re(QString::fromLatin1("\\(\\*(\\.[^ ]+)\\)"));
-		if (re.indexIn(selectedFilter) >= 0) {
-			QString ext = re.cap(1);
-			if (!fileName.endsWith(ext, Qt::CaseInsensitive) && !fileName.endsWith(QChar::fromLatin1('.')))
-				fileName.append(ext);
-		}
-	}
-	return fileName;
-}
-
 void TWApp::open()
 {
 	QSETTINGS_OBJECT(settings);

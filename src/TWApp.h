@@ -210,7 +210,6 @@ public slots:
 
 	QString getOpenFileName(QString selectedFilter = QString());
 	QStringList getOpenFileNames(QString selectedFilter = QString());
-	QString getSaveFileName(const QString& defaultName);
 	
 signals:
 	// emitted in response to updateRecentFileActions(); documents can listen to this if they have a recent files menu
