@@ -29,7 +29,11 @@
 
 #include "scripting/ScriptAPIInterface.h"
 
-class TWScript;
+namespace Tw {
+namespace Scripting {
+class Script;
+} // namespace Scripting
+} // namespace Tw
 
 class TWScriptAPI : public QObject, public Tw::Scripting::ScriptAPIInterface
 {
@@ -41,7 +45,7 @@ class TWScriptAPI : public QObject, public Tw::Scripting::ScriptAPIInterface
 	Q_PROPERTY(QObject * script READ GetScript)
 	
 public:
-	TWScriptAPI(TWScript* script, QObject* twapp, QObject* ctx, QVariant& res);
+	TWScriptAPI(Tw::Scripting::Script* script, QObject* twapp, QObject* ctx, QVariant& res);
 
 	virtual QObject* self() { return this; }
 	
@@ -190,7 +194,7 @@ public:
 	bool mayReadFile(const QString& filename, QObject * context) const;
 
 protected:
-	TWScript* m_script;
+	Tw::Scripting::Script* m_script;
 	QObject* m_app;
 	QObject* m_target;
 	QVariant& m_result;

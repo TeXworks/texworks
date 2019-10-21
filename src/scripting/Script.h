@@ -19,8 +19,8 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef TWScript_H
-#define TWScript_H
+#ifndef Script_H
+#define Script_H
 
 #include <QObject>
 #include <QString>
@@ -34,11 +34,14 @@
 
 #include "scripting/ScriptAPIInterface.h"
 
+namespace Tw {
+namespace Scripting {
+
 /** \brief	Abstract base class for all Tw scripts
  *
  * \note This must be derived from QObject to enable interaction with e.g. menus
  */
-class TWScript : public QObject
+class Script : public QObject
 {
 	Q_OBJECT
 	
@@ -60,7 +63,7 @@ public:
 	 *
 	 * Does nothing
 	 */
-	virtual ~TWScript() { }
+	virtual ~Script() = default;
 	
 	/** \brief  Return the enabled/disabled status of the script
 	 *
@@ -172,7 +175,7 @@ public:
 	 * \param	s	the script to compare to this one
 	 * \return	\c true if *this == s, \c false otherwise
 	 */
-	bool operator==(const TWScript& s) const { return QFileInfo(m_Filename) == QFileInfo(s.m_Filename); }
+	bool operator==(const Script& s) const { return QFileInfo(m_Filename) == QFileInfo(s.m_Filename); }
 
 	Q_INVOKABLE void setGlobal(const QString& key, const QVariant& val);
 	Q_INVOKABLE void unsetGlobal(const QString& key) { m_globals.remove(key); }
@@ -185,11 +188,11 @@ protected:
 	 * Initializes a script object from the given file.
 	 * Does not invoke parseHeader(), so the script object may not actually be usable.
 	 */
-	TWScript(QObject * plugin, const QString& filename);
+	Script(QObject * plugin, const QString& filename);
 
 	/** \brief  Execute the actual script
 	 *
-	 * Pure virtual method, to be implemented by each concrete TWScript subclass.
+	 * Pure virtual method, to be implemented by each concrete Script subclass.
 	 * This is the method that actually execute the script.
 	 *
 	 * \param  tw  the "TW" object that provides the script with access to
@@ -220,7 +223,7 @@ protected:
 	 * 					without any language-specific comment characters)
 	 * \return	\c true if a title and type were found, \c false otherwise
 	 */
-	TWScript::ParseHeaderResult doParseHeader(const QStringList & lines);
+	Script::ParseHeaderResult doParseHeader(const QStringList & lines);
 
 	/** \brief	Convenience function to parse text-based script files
 	 *
@@ -262,9 +265,9 @@ protected:
 	 * \param	obj		pointer to the QObject the property value of which to get
 	 * \param	name	the name of the property to get
 	 * \param	value	variable to receive the value of the property on success
-	 * \return	one of TWScript::PropertyResult
+	 * \return	one of Script::PropertyResult
 	 */
-	static TWScript::PropertyResult doGetProperty(const QObject * obj, const QString& name, QVariant & value);
+	static Script::PropertyResult doGetProperty(const QObject * obj, const QString& name, QVariant & value);
 
 	/** \brief	Set the value of the property of a QObject
 	 *
@@ -272,9 +275,9 @@ protected:
 	 * \param	obj		pointer to the QObject the property value of which to set
 	 * \param	name	the name of the property to set
 	 * \param	value	the new value of the property
-	 * \return	one of TWScript::PropertyResult
+	 * \return	one of Script::PropertyResult
 	 */
-	static TWScript::PropertyResult doSetProperty(QObject * obj, const QString& name, const QVariant & value);
+	static Script::PropertyResult doSetProperty(QObject * obj, const QString& name, const QVariant & value);
 
 	/** \brief	Call a method of a QObject
 	 *
@@ -283,9 +286,9 @@ protected:
 	 * \param	name	the name of the method to call
 	 * \param	arguments	arguments to pass to the method
 	 * \param	result	variable to receive the return value of the method on success
-	 * \return	one of TWScript::MethodResult
+	 * \return	one of Script::MethodResult
 	 */
-	static TWScript::MethodResult doCallMethod(QObject * obj, const QString& name, QVariantList & arguments, QVariant & result);
+	static Script::MethodResult doCallMethod(QObject * obj, const QString& name, QVariantList & arguments, QVariant & result);
 	
 	QObject * m_Plugin; ///< pointer to the language interface for this script
 	QString m_Filename;	///< the name of the file the script is stored in
@@ -310,7 +313,7 @@ private:
 	 *
 	 * Private, to prevent inadvertent use of the no-arg constructor.
 	 */
-	TWScript() { }
+	Script() { }
 	
 	QDateTime m_LastModified;	///< keeps track of the file modification time so we can detect changes
 	qint64	m_FileSize;	///< similar to m_LastModified
@@ -318,6 +321,9 @@ private:
  	QHash<QString, QVariant> m_globals;
 };
 
-Q_DECLARE_INTERFACE(TWScript, "org.tug.texworks.Script/0.3.2")
+} // namespace Scripting
+} // namespace Tw
 
-#endif /* TWScript_H */
+Q_DECLARE_INTERFACE(Tw::Scripting::Script, "org.tug.texworks.Script/0.3.2")
+
+#endif /* Script_H */

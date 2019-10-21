@@ -41,7 +41,7 @@ TWLuaPlugin::~TWLuaPlugin()
 		lua_close(luaState);
 }
 
-TWScript* TWLuaPlugin::newScript(const QString& fileName)
+Tw::Scripting::Script* TWLuaPlugin::newScript(const QString& fileName)
 {
 	return new LuaScript(this, fileName);
 }

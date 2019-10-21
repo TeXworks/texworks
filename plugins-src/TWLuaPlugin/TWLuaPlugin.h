@@ -22,7 +22,7 @@
 #ifndef TW_LUA_PLUGIN_H
 #define TW_LUA_PLUGIN_H
 
-#include "TWScript.h"
+#include "scripting/Script.h"
 #include "scripting/ScriptAPIInterface.h"
 #include "scripting/ScriptLanguageInterface.h"
 
@@ -54,11 +54,11 @@ public:
 
 	/** \brief Script factory
 	 *
-	 * \return	pointer to a new LuaScript object cast to TWScript as the
-	 * 			interface requires; the caller owns the object and must delete
+	 * \return	pointer to a new LuaScript object cast to Tw::Scripting::Script*
+	 * 			as the interface requires; the caller owns the object and must delete
 	 * 			it.
 	 */
-	virtual TWScript* newScript(const QString& fileName);
+	virtual Tw::Scripting::Script* newScript(const QString& fileName);
 	
 	/** \brief	Get the supported script language name
 	 *
@@ -83,10 +83,10 @@ protected:
 };
 
 /** \brief Class for handling lua scripts */
-class LuaScript : public TWScript
+class LuaScript : public Tw::Scripting::Script
 {
 	Q_OBJECT
-	Q_INTERFACES(TWScript)
+	Q_INTERFACES(Tw::Scripting::Script)
 		
 public:
 	/** \brief Constructor
@@ -94,7 +94,7 @@ public:
 	 * Initializes m_LuaPlugin
 	 * \param	lua	pointer to the plugin that holds the lua state to operate on
 	 */
-	LuaScript(TWLuaPlugin* lua, const QString& fileName) : TWScript(lua, fileName), m_LuaPlugin(lua) { }
+	LuaScript(TWLuaPlugin* lua, const QString& fileName) : Tw::Scripting::Script(lua, fileName), m_LuaPlugin(lua) { }
 	
 	/** \brief Parse the script header
 	 *

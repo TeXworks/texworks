@@ -12,10 +12,10 @@ IF (NOT ${BUILD_SHARED_PLUGINS})
 ENDIF()
 
 if (BUILD_SHARED_PLUGINS)
-  # For shared builds, we pull in TWScript.cpp so all references can be resolved
-  set(TWSCRIPT_SRC "../../src/TWScript.cpp")
+  # For shared builds, we pull in scripting/Script.cpp so all references can be resolved
+  set(TWSCRIPT_SRC "../../src/scripting/Script.cpp")
 else ()
-  # For static builds, TWScript.cpp is already included in the main app, so we
+  # For static builds, scripting/Script.cpp is already included in the main app, so we
   # don't pull it in here to avoid multiple definitions of the Qt metaobject
   set(TWSCRIPT_SRC "")
 endif ()

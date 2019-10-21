@@ -22,13 +22,17 @@
 #ifndef TW_PYTHON_PLUGIN_H
 #define TW_PYTHON_PLUGIN_H
 
+// Python uses the name "slots", which Qt hijacks. So we temporarily undefine
+// it, then include the python headers, then redefine it
+#undef slots
 #ifdef __APPLE__ // can't use Q_OS_DARWIN as it's not defined yet!
 #include <Python/Python.h>
 #else
 #include <Python.h>
 #endif
+#define slots Q_SLOTS
 
-#include "TWScript.h"
+#include "scripting/Script.h"
 #include "scripting/ScriptAPIInterface.h"
 #include "scripting/ScriptLanguageInterface.h"
 
@@ -58,11 +62,11 @@ public:
 
 	/** \brief Script factory
 	 *
-	 * \return	pointer to a new PythonScript object cast to TWScript as the
+	 * \return	pointer to a new PythonScript object cast to Tw::Scripting::Script as the
 	 * 			interface requires; the caller owns the object and must delete
 	 * 			it.
 	 */
-	virtual TWScript* newScript(const QString& fileName);
+	virtual Tw::Scripting::Script* newScript(const QString& fileName);
 
 	/** \brief	Get the supported script language name
 	 *
@@ -82,10 +86,10 @@ public:
 };
 
 /** \brief Class for handling python scripts */
-class PythonScript : public TWScript
+class PythonScript : public Tw::Scripting::Script
 {
 	Q_OBJECT
-	Q_INTERFACES(TWScript)
+	Q_INTERFACES(Tw::Scripting::Script)
 		
 public:
 	/** \brief Constructor
@@ -93,7 +97,7 @@ public:
 	 * Does nothing
 	 */
 	PythonScript(TWPythonPlugin * interface, const QString& fileName)
-		: TWScript(interface, fileName) { }
+		: Tw::Scripting::Script(interface, fileName) { }
 	
 	/** \brief Parse the script header
 	 *

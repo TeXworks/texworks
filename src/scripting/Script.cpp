@@ -19,7 +19,7 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "TWScript.h"
+#include "scripting/Script.h"
 
 #include <QTextStream>
 #include <QMetaObject>
@@ -28,7 +28,10 @@
 #include <QDir>
 #include <QRegularExpression>
 
-TWScript::TWScript(QObject * plugin, const QString& fileName)
+namespace Tw {
+namespace Scripting {
+
+Script::Script(QObject * plugin, const QString& fileName)
 	: m_Plugin(plugin), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true), m_FileSize(0)
 {
 	m_Codec = QTextCodec::codecForName("UTF-8");
@@ -36,18 +39,18 @@ TWScript::TWScript(QObject * plugin, const QString& fileName)
 		m_Codec = QTextCodec::codecForLocale();
 }
 
-bool TWScript::run(Tw::Scripting::ScriptAPIInterface & api)
+bool Script::run(Tw::Scripting::ScriptAPIInterface & api)
 {
 	return execute(&api);
 }
 
-bool TWScript::hasChanged() const
+bool Script::hasChanged() const
 {
 	QFileInfo fi(m_Filename);
 	return (fi.size() != m_FileSize || fi.lastModified() != m_LastModified);
 }
 
-bool TWScript::doParseHeader(const QString& beginComment, const QString& endComment,
+bool Script::doParseHeader(const QString& beginComment, const QString& endComment,
 							 const QString& Comment, bool skipEmpty /* = true */)
 {
 	QFile file(m_Filename);
@@ -129,7 +132,7 @@ bool TWScript::doParseHeader(const QString& beginComment, const QString& endComm
 	return success;
 }
 
-TWScript::ParseHeaderResult TWScript::doParseHeader(const QStringList & lines)
+Script::ParseHeaderResult Script::doParseHeader(const QStringList & lines)
 {
 	QString line, key, value;
 	QFileInfo fi(m_Filename);
@@ -170,7 +173,7 @@ TWScript::ParseHeaderResult TWScript::doParseHeader(const QStringList & lines)
 }
 
 /*static*/
-TWScript::PropertyResult TWScript::doGetProperty(const QObject * obj, const QString& name, QVariant & value)
+Script::PropertyResult Script::doGetProperty(const QObject * obj, const QString& name, QVariant & value)
 {
 	int iProp;
 	QMetaProperty prop;
@@ -201,7 +204,7 @@ TWScript::PropertyResult TWScript::doGetProperty(const QObject * obj, const QStr
 }
 
 /*static*/
-TWScript::PropertyResult TWScript::doSetProperty(QObject * obj, const QString& name, const QVariant & value)
+Script::PropertyResult Script::doSetProperty(QObject * obj, const QString& name, const QVariant & value)
 {
 	int iProp;
 	QMetaProperty prop;
@@ -226,7 +229,7 @@ TWScript::PropertyResult TWScript::doSetProperty(QObject * obj, const QString& n
 }
 
 /*static*/
-TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name,
+Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 											  QVariantList & arguments, QVariant & result)
 {
 	const QMetaObject * mo;
@@ -238,7 +241,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 	QMetaMethod mm;
 	QGenericReturnArgument retValArg;
 	void * retValBuffer = nullptr;
-	TWScript::MethodResult status;
+	Script::MethodResult status;
 	void * myNullPtr = nullptr;
 	
 	if (!obj || !(obj->metaObject()))
@@ -373,7 +376,7 @@ TWScript::MethodResult TWScript::doCallMethod(QObject * obj, const QString& name
 	return Method_DoesNotExist;
 }
 
-void TWScript::setGlobal(const QString& key, const QVariant& val)
+void Script::setGlobal(const QString& key, const QVariant& val)
 {
 	QVariant v = val;
 
@@ -391,7 +394,7 @@ void TWScript::setGlobal(const QString& key, const QVariant& val)
 	m_globals[key] = v;
 }
 
-void TWScript::globalDestroyed(QObject * obj)
+void Script::globalDestroyed(QObject * obj)
 {
 	QHash<QString, QVariant>::iterator i = m_globals.begin();
 	
@@ -409,3 +412,6 @@ void TWScript::globalDestroyed(QObject * obj)
 		}
 	}
 }
+
+} // namespace Scripting
+} // namespace Tw

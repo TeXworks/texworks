@@ -22,7 +22,7 @@
 #ifndef JSScriptInterface_H
 #define JSScriptInterface_H
 
-#include "TWScript.h"
+#include "scripting/Script.h"
 #include "scripting/ScriptLanguageInterface.h"
 
 // for JSScript, we provide a plugin-like factory, but it's actually compiled
@@ -36,7 +36,7 @@ public:
 	JSScriptInterface() {}
 	virtual ~JSScriptInterface() {}
 
-	virtual TWScript* newScript(const QString& fileName);
+	virtual Tw::Scripting::Script* newScript(const QString& fileName);
 
 	virtual QString scriptLanguageName() const { return QString::fromLatin1("QtScript"); }
 	virtual QString scriptLanguageURL() const { return QString::fromLatin1("http://doc.qt.io/qt-5/qtscript-index.html"); }

@@ -22,7 +22,7 @@
 #include "scripting/JSScriptInterface.h"
 #include "scripting/JSScript.h"
 
-TWScript* JSScriptInterface::newScript(const QString& fileName)
+Tw::Scripting::Script* JSScriptInterface::newScript(const QString& fileName)
 {
 	return new JSScript(this, fileName);
 }

@@ -2920,7 +2920,7 @@ void TeXDocument::executeAfterTypesetHooks()
 	for (int i = consoleTabs->count() - 1; i > 0; --i)
 		consoleTabs->removeTab(i);
 	
-	foreach (TWScript *s, scriptManager->getHookScripts(QString::fromLatin1("AfterTypeset"))) {
+	foreach (Tw::Scripting::Script *s, scriptManager->getHookScripts(QString::fromLatin1("AfterTypeset"))) {
 		QVariant result;
 		TWScriptAPI api(s, qApp, this, result);
 		bool success = s->run(api);

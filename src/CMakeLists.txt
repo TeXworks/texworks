@@ -33,12 +33,12 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   TWApp.cpp
                   TWScriptable.cpp
                   TWScriptAPI.cpp
-                  TWScript.cpp
                   TWSynchronizer.cpp
                   TWSystemCmd.cpp
                   TWTextCodecs.cpp
                   TWUtils.cpp
                   scripting/JSScriptInterface.cpp
+                  scripting/Script.cpp
                   scripting/JSScript.cpp)
 
 set(TEXWORKS_HDRS BibTeXFile.h
@@ -66,7 +66,6 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWApp.h
                   TWScriptable.h
                   TWScriptAPI.h
-                  TWScript.h
                   TWSynchronizer.h
                   TWSystemCmd.h
                   TWTextCodecs.h
@@ -74,6 +73,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWVersion.h
                   scripting/ScriptAPIInterface.h
                   scripting/ScriptLanguageInterface.h
+                  scripting/Script.h
                   scripting/JSScriptInterface.h
                   scripting/JSScript.h)
 
@@ -113,13 +113,13 @@ ENDIF ( WIN32 )
 # `PARENT_SCOPE` (top level CMake file) so that they will be available to the
 # build processes of the scripting language plugins.
 SET(TeXworks_SCRIPT_API
-  ${CMAKE_CURRENT_SOURCE_DIR}/TWScript.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripting/Script.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/TWScriptAPI.cpp
   PARENT_SCOPE
 )
 
 SET(TeXworks_SCRIPT_API_H
-  ${CMAKE_CURRENT_SOURCE_DIR}/TWScript.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripting/Script.h
   ${CMAKE_CURRENT_SOURCE_DIR}/TWScriptAPI.h
   ${CMAKE_CURRENT_SOURCE_DIR}/TWSystemCmd.h
   ${CMAKE_CURRENT_SOURCE_DIR}/ConfigurableApp.h

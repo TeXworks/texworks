@@ -22,7 +22,7 @@
 #ifndef TWScriptable_H
 #define TWScriptable_H
 
-#include "TWScript.h"
+#include "scripting/Script.h"
 
 #include <QMainWindow>
 #include <QList>
@@ -63,9 +63,9 @@ class TWScriptManager
 {
 public:
 	TWScriptManager();
-	virtual ~TWScriptManager() {};
+	virtual ~TWScriptManager() {}
 	
-	bool addScript(QObject* scriptList, TWScript* script);
+	bool addScript(QObject* scriptList, Tw::Scripting::Script* script);
 	void addScriptsInDirectory(const QDir& dir, const QStringList& disabled, const QStringList& ignore = QStringList()) {
 		addScriptsInDirectory(&m_Scripts, &m_Hooks, dir, disabled, ignore);
 	}
@@ -73,11 +73,11 @@ public:
 		
 	TWScriptList* getScripts() { return &m_Scripts; }
 	TWScriptList* getHookScripts() { return &m_Hooks; }
-	QList<TWScript*> getHookScripts(const QString& hook) const;
+	QList<Tw::Scripting::Script*> getHookScripts(const QString& hook) const;
 
-	bool runScript(QObject * script, QObject * context, QVariant & result, TWScript::ScriptType scriptType = TWScript::ScriptStandalone);
+	bool runScript(QObject * script, QObject * context, QVariant & result, Tw::Scripting::Script::ScriptType scriptType = Tw::Scripting::Script::ScriptStandalone);
 	// Convenience overload if no result is required
-	bool runScript(QObject * script, QObject * context, TWScript::ScriptType scriptType = TWScript::ScriptStandalone) {
+	bool runScript(QObject * script, QObject * context, Tw::Scripting::Script::ScriptType scriptType = Tw::Scripting::Script::ScriptStandalone) {
 		QVariant result;
 		return runScript(script, context, result, scriptType);
 	}
@@ -116,7 +116,7 @@ public:
 	
 public slots:
 	void updateScriptsMenu();
-	void runScript(QObject * script, TWScript::ScriptType scriptType = TWScript::ScriptStandalone);
+	void runScript(QObject * script, Tw::Scripting::Script::ScriptType scriptType = Tw::Scripting::Script::ScriptStandalone);
 	void runHooks(const QString& hookName);
 	
 	void selectWindow(bool activate = true);

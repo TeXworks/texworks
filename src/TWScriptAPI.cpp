@@ -24,7 +24,7 @@
 #include "TWUtils.h"
 #include "TWApp.h"
 #include "Engine.h"
-#include "TWScript.h"
+#include "scripting/Script.h"
 #include "DefaultPrefs.h"
 
 #include <QObject>
@@ -40,7 +40,7 @@
 #include <QUrl>
 #include <QDesktopServices>
 
-TWScriptAPI::TWScriptAPI(TWScript* script, QObject* twapp, QObject* ctx, QVariant& res)
+TWScriptAPI::TWScriptAPI(Tw::Scripting::Script* script, QObject* twapp, QObject* ctx, QVariant& res)
 	: m_script(script),
 	  m_app(twapp),
 	  m_target(ctx),

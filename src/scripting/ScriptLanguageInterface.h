@@ -25,10 +25,10 @@
 #include <QString>
 #include <QFileInfo>
 
-class TWScript;
-
 namespace Tw {
 namespace Scripting {
+
+class Script;
 
 /** \brief	Interface all TW scripting plugins must implement */
 class ScriptLanguageInterface
@@ -44,7 +44,7 @@ public:
 	 * is done, the script is not necessarily valid.
 	 * \return	the script wrapper, or nullptr if the file cannot be found
 	 */
-	virtual TWScript* newScript(const QString& fileName) = 0;
+	virtual Tw::Scripting::Script* newScript(const QString& fileName) = 0;
 
 	/** \brief	Method to report the supported script language name
 	 *

@@ -22,16 +22,16 @@
 #ifndef JSScript_H
 #define JSScript_H
 
-#include "TWScript.h"
+#include "scripting/Script.h"
 
-class JSScript : public TWScript
+class JSScript : public Tw::Scripting::Script
 {
 	Q_OBJECT
-	Q_INTERFACES(TWScript)
+	Q_INTERFACES(Tw::Scripting::Script)
 
 public:
 	JSScript(QObject * plugin, const QString& filename)
-		: TWScript(plugin, filename) { }
+		: Tw::Scripting::Script(plugin, filename) { }
 
 	virtual bool parseHeader() { return doParseHeader(QString(), QString(), QString::fromLatin1("//")); }
 

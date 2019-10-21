@@ -94,7 +94,7 @@ TWPythonPlugin::~TWPythonPlugin()
 	Py_Finalize();
 }
 
-TWScript* TWPythonPlugin::newScript(const QString& fileName)
+Tw::Scripting::Script* TWPythonPlugin::newScript(const QString& fileName)
 {
 	return new PythonScript(this, fileName);
 }

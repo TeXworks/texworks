@@ -61,14 +61,14 @@ TWScriptManager::saveDisabledList()
 
 	QList<QObject*> list = m_Scripts.findChildren<QObject*>();
 	foreach (QObject* i, list) {
-		TWScript * s = qobject_cast<TWScript*>(i);
+		Tw::Scripting::Script * s = qobject_cast<Tw::Scripting::Script*>(i);
 		if (!s || s->isEnabled())
 			continue;
 		disabled << scriptRoot.relativeFilePath(s->getFilename());
 	}
 	list = m_Hooks.findChildren<QObject*>();
 	foreach (QObject* i, list) {
-		TWScript * s = qobject_cast<TWScript*>(i);
+		Tw::Scripting::Script * s = qobject_cast<Tw::Scripting::Script*>(i);
 		if (!s || s->isEnabled())
 			continue;
 		disabled << scriptRoot.relativeFilePath(s->getFilename());
@@ -156,8 +156,8 @@ void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & pro
 	foreach(QObject * item, list->children()) {
 		if (qobject_cast<TWScriptList*>(item))
 			reloadScriptsInList(qobject_cast<TWScriptList*>(item), processed);
-		else if (qobject_cast<TWScript*>(item)) {
-			TWScript * s = qobject_cast<TWScript*>(item);
+		else if (qobject_cast<Tw::Scripting::Script*>(item)) {
+			Tw::Scripting::Script * s = qobject_cast<Tw::Scripting::Script*>(item);
 			if (s->hasChanged()) {
 				// File has been removed
 				if (!(QFileInfo(s->getFilename()).exists())) {
@@ -167,7 +167,7 @@ void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & pro
 				// File has been changed - reparse; if an error occurs or the
 				// script type has changed treat it as if has been removed (and
 				// possibly re-add it later)
-				TWScript::ScriptType oldType = s->getType();
+				Tw::Scripting::Script::ScriptType oldType = s->getType();
 				if (!s->parseHeader() || s->getType() != oldType) {
 					delete s;
 					continue;
@@ -195,12 +195,12 @@ void TWScriptManager::clear()
 		delete s;
 }
 
-bool TWScriptManager::addScript(QObject* scriptList, TWScript* script)
+bool TWScriptManager::addScript(QObject* scriptList, Tw::Scripting::Script * script)
 {
 	/// \TODO This no longer works since we introduced multiple levels of scripts
 /*
 	foreach (QObject* obj, scriptList->children()) {
-		TWScript *s = qobject_cast<TWScript*>(obj);
+		Tw::Scripting::Script *s = qobject_cast<Tw::Scripting::Script*>(obj);
 		if (!s)
 			continue;
 		if (*s == *script)
@@ -216,7 +216,7 @@ static bool scriptListLessThan(const TWScriptList* l1, const TWScriptList* l2)
 	return l1->getName().toLower() < l2->getName().toLower();
 }
 
-static bool scriptLessThan(const TWScript* s1, const TWScript* s2)
+static bool scriptLessThan(const Tw::Scripting::Script* s1, const Tw::Scripting::Script* s2)
 {
 	return s1->getTitle().toLower() < s2->getTitle().toLower();
 }
@@ -292,18 +292,18 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 				continue;
 			if (!i->canHandleFile(info))
 				continue;
-			TWScript *script = i->newScript(info.absoluteFilePath());
+			Tw::Scripting::Script *script = i->newScript(info.absoluteFilePath());
 			if (script) {
 				if (disabled.contains(info.canonicalFilePath()))
 					script->setEnabled(false);
 				script->parseHeader();
 				switch (script->getType()) {
-					case TWScript::ScriptHook:
+					case Tw::Scripting::Script::ScriptHook:
 						if (!addScript(hookList, script))
 							delete script;
 						break;
 
-					case TWScript::ScriptStandalone:
+					case Tw::Scripting::Script::ScriptStandalone:
 						if (!addScript(scriptList, script))
 							delete script;
 						break;
@@ -323,12 +323,12 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 	// correct order
 
 	QList<TWScriptList*> childLists; 
-	QList<TWScript*> childScripts;
+	QList<Tw::Scripting::Script*> childScripts;
 
 	// Note: we can't use QObject::findChildren here because it's recursive
 	const QObjectList& children = scriptList->children();
 	foreach (QObject *obj, children) {
-		if (TWScript *script = qobject_cast<TWScript*>(obj))
+		if (Tw::Scripting::Script *script = qobject_cast<Tw::Scripting::Script*>(obj))
 			childScripts.append(script);
 		else if (TWScriptList *list = qobject_cast<TWScriptList*>(obj))
 			childLists.append(list);
@@ -338,7 +338,7 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 	
 	// unset parents; this effectively removes the objects from
 	// scriptList->children()
-	foreach (TWScript* childScript, childScripts)
+	foreach (Tw::Scripting::Script* childScript, childScripts)
 		childScript->setParent(nullptr);
 	foreach (TWScriptList* childList, childLists)
 		childList->setParent(nullptr);
@@ -348,18 +348,18 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 	qSort(childScripts.begin(), childScripts.end(), scriptLessThan);
 	
 	// add the scripts again, one-by-one
-	foreach (TWScript* childScript, childScripts)
+	foreach (Tw::Scripting::Script* childScript, childScripts)
 		childScript->setParent(scriptList);
 	foreach (TWScriptList* childList, childLists)
 		childList->setParent(scriptList);
 }
 
-QList<TWScript*> TWScriptManager::getHookScripts(const QString& hook) const
+QList<Tw::Scripting::Script *> TWScriptManager::getHookScripts(const QString& hook) const
 {
-	QList<TWScript*> result;
+	QList<Tw::Scripting::Script*> result;
 	
 	foreach (QObject *obj, m_Hooks.findChildren<QObject*>()) {
-		TWScript *script = qobject_cast<TWScript*>(obj);
+		Tw::Scripting::Script *script = qobject_cast<Tw::Scripting::Script*>(obj);
 		if (!script)
 			continue;
 		if (!script->isEnabled())
@@ -371,11 +371,11 @@ QList<TWScript*> TWScriptManager::getHookScripts(const QString& hook) const
 }
 
 bool
-TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result, TWScript::ScriptType scriptType)
+TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result, Tw::Scripting::Script::ScriptType scriptType)
 {
 	QSETTINGS_OBJECT(settings);
 	
-	TWScript * s = qobject_cast<TWScript*>(script);
+	Tw::Scripting::Script * s = qobject_cast<Tw::Scripting::Script*>(script);
 	if (!s || s->getType() != scriptType)
 		return false;
 
@@ -393,8 +393,8 @@ TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result
 void
 TWScriptManager::runHooks(const QString& hookName, QObject * context /* = nullptr */)
 {
-	foreach (TWScript *s, getHookScripts(hookName)) {
-		runScript(s, context, TWScript::ScriptHook);
+	foreach (Tw::Scripting::Script *s, getHookScripts(hookName)) {
+		runScript(s, context, Tw::Scripting::Script::ScriptHook);
 	}
 }
 
@@ -458,7 +458,7 @@ TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 {
 	int count = 0;
 	foreach (QObject *obj, scripts->children()) {
-		TWScript *script = qobject_cast<TWScript*>(obj);
+		Tw::Scripting::Script *script = qobject_cast<Tw::Scripting::Script*>(obj);
 		if (script) {
 			if (!script->isEnabled())
 				continue;
@@ -489,7 +489,7 @@ TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 }
 
 void
-TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
+TWScriptable::runScript(QObject* script, Tw::Scripting::Script::ScriptType scriptType)
 {
 	QVariant result;
 	
@@ -497,7 +497,7 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 	if (!sm)
 		return;
 
-	TWScript * s = qobject_cast<TWScript*>(script);
+	Tw::Scripting::Script * s = qobject_cast<Tw::Scripting::Script*>(script);
 	if (!s || s->getType() != scriptType)
 		return;
 	
@@ -505,7 +505,7 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 
 	if (success) {
 		if (!result.isNull() and !result.toString().isEmpty()) {
-			if (scriptType == TWScript::ScriptHook)
+			if (scriptType == Tw::Scripting::Script::ScriptHook)
 				statusBar()->showMessage(tr("Script \"%1\": %2").arg(s->getTitle(), result.toString()), kStatusMessageDuration);
 			else
 				QMessageBox::information(this, tr("Script result"), result.toString(), QMessageBox::Ok, QMessageBox::Ok);
@@ -521,9 +521,9 @@ TWScriptable::runScript(QObject* script, TWScript::ScriptType scriptType)
 void
 TWScriptable::runHooks(const QString& hookName)
 {
-	foreach (TWScript *s, TWApp::instance()->getScriptManager()->getHookScripts(hookName)) {
+	foreach (Tw::Scripting::Script *s, TWApp::instance()->getScriptManager()->getHookScripts(hookName)) {
 		// Don't use TWScriptManager::runHooks here to get status bar messages
-		runScript(s, TWScript::ScriptHook);
+		runScript(s, Tw::Scripting::Script::ScriptHook);
 	}
 }
 
