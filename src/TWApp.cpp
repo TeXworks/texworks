@@ -27,7 +27,7 @@
 #include "DefaultPrefs.h"
 #include "TemplateDialog.h"
 #include "TWSystemCmd.h"
-#include "TWScriptAPI.h"
+#include "scripting/ScriptAPI.h"
 
 #include "TWVersion.h"
 #include "ResourcesDialog.h"
@@ -1255,9 +1255,9 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 	QMap<QString, QVariant> retVal;
 	QObject * doc = nullptr;
 	QFileInfo fi(fileName);
-	TWScriptAPI * scriptApi = qobject_cast<TWScriptAPI*>(scriptApiObj);
+	Tw::Scripting::ScriptAPI * scriptApi = qobject_cast<Tw::Scripting::ScriptAPI*>(scriptApiObj);
 
-	retVal[QString::fromLatin1("status")] = TWScriptAPI::SystemAccess_PermissionDenied;
+	retVal[QString::fromLatin1("status")] = Tw::Scripting::ScriptAPI::SystemAccess_PermissionDenied;
 
 	// for absolute paths and full reading permissions, we don't have to care
 	// about peculiarities of the script; in that case, this even succeeds
@@ -1289,7 +1289,7 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 	}
 	doc = openFile(fileName, pos);
 	retVal[QString::fromLatin1("result")] = QVariant::fromValue(doc);
-	retVal[QString::fromLatin1("status")] = (doc ? TWScriptAPI::SystemAccess_OK : TWScriptAPI::SystemAccess_Failed);
+	retVal[QString::fromLatin1("status")] = (doc ? Tw::Scripting::ScriptAPI::SystemAccess_OK : Tw::Scripting::ScriptAPI::SystemAccess_Failed);
 	return retVal;
 }
 

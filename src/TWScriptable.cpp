@@ -20,7 +20,7 @@
 */
 
 #include "TWScriptable.h"
-#include "TWScriptAPI.h"
+#include "scripting/ScriptAPI.h"
 #include "ScriptManager.h"
 #include "TWApp.h"
 #include "TWUtils.h"
@@ -386,7 +386,7 @@ TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result
 	if (!s->isEnabled())
 		return false;
 
-	TWScriptAPI api(s, qApp, context, result);
+	Tw::Scripting::ScriptAPI api(s, qApp, context, result);
 	return s->run(api);
 }
 

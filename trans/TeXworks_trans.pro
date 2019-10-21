@@ -20,7 +20,6 @@ SOURCES = \
   "../src/ScreenCalibrationWidget.cpp" \
   "../src/ScriptManager.cpp" \
   "../src/TWApp.cpp" \
-  "../src/TWScriptAPI.cpp" \
   "../src/TWScriptable.cpp" \
   "../src/TWSynchronizer.cpp" \
   "../src/TWSystemCmd.cpp" \
@@ -33,7 +32,8 @@ SOURCES = \
   "../src/main.cpp" \
   "../src/scripting/JSScript.cpp" \
   "../src/scripting/JSScriptInterface.cpp" \
-  "../src/scripting/Script.cpp"
+  "../src/scripting/Script.cpp" \
+  "../src/scripting/ScriptAPI.cpp"
 
 HEADERS = \
   "../src/BibTeXFile.h" \
@@ -56,7 +56,6 @@ HEADERS = \
   "../src/ScreenCalibrationWidget.h" \
   "../src/ScriptManager.h" \
   "../src/TWApp.h" \
-  "../src/TWScriptAPI.h" \
   "../src/TWScriptable.h" \
   "../src/TWSynchronizer.h" \
   "../src/TWSystemCmd.h" \
@@ -70,6 +69,7 @@ HEADERS = \
   "../src/scripting/JSScript.h" \
   "../src/scripting/JSScriptInterface.h" \
   "../src/scripting/Script.h" \
+  "../src/scripting/ScriptAPI.h" \
   "../src/scripting/ScriptAPIInterface.h" \
   "../src/scripting/ScriptLanguageInterface.h"
 

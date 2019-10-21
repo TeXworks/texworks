@@ -33,7 +33,7 @@
 #include "CitationSelectDialog.h"
 #include "Engine.h"
 #include "ClickableLabel.h"
-#include "TWScriptAPI.h"
+#include "scripting/ScriptAPI.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -2922,7 +2922,7 @@ void TeXDocument::executeAfterTypesetHooks()
 	
 	foreach (Tw::Scripting::Script *s, scriptManager->getHookScripts(QString::fromLatin1("AfterTypeset"))) {
 		QVariant result;
-		TWScriptAPI api(s, qApp, this, result);
+		Tw::Scripting::ScriptAPI api(s, qApp, this, result);
 		bool success = s->run(api);
 		if (success && !result.isNull()) {
 			QString res = result.toString();

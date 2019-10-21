@@ -19,7 +19,7 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "TWScriptAPI.h"
+#include "scripting/ScriptAPI.h"
 #include "TWSystemCmd.h"
 #include "TWUtils.h"
 #include "TWApp.h"
@@ -40,7 +40,10 @@
 #include <QUrl>
 #include <QDesktopServices>
 
-TWScriptAPI::TWScriptAPI(Tw::Scripting::Script* script, QObject* twapp, QObject* ctx, QVariant& res)
+namespace Tw {
+namespace Scripting {
+
+ScriptAPI::ScriptAPI(Script* script, QObject* twapp, QObject* ctx, QVariant& res)
 	: m_script(script),
 	  m_app(twapp),
 	  m_target(ctx),
@@ -48,22 +51,22 @@ TWScriptAPI::TWScriptAPI(Tw::Scripting::Script* script, QObject* twapp, QObject*
 {
 }
 
-QObject* TWScriptAPI::GetScript()
+QObject* ScriptAPI::GetScript()
 {
 	return m_script;
 }
 
-void TWScriptAPI::SetResult(const QVariant& rval)
+void ScriptAPI::SetResult(const QVariant& rval)
 {
 	m_result = rval;
 }
 
-int TWScriptAPI::strlen(const QString& str) const
+int ScriptAPI::strlen(const QString& str) const
 {
 	return str.length();
 }
 
-QString TWScriptAPI::platform() const
+QString ScriptAPI::platform() const
 {
 #if defined(Q_OS_DARWIN)
 	return QString::fromLatin1("MacOSX");
@@ -76,7 +79,7 @@ QString TWScriptAPI::platform() const
 #endif
 }
 
-int TWScriptAPI::information(QWidget* parent,
+int ScriptAPI::information(QWidget* parent,
 				const QString& title, const QString& text,
 				int buttons,
 				int defaultButton)
@@ -86,7 +89,7 @@ int TWScriptAPI::information(QWidget* parent,
 										 (QMessageBox::StandardButton)defaultButton);
 }
 
-int TWScriptAPI::question(QWidget* parent,
+int ScriptAPI::question(QWidget* parent,
 			 const QString& title, const QString& text,
 			 int buttons,
 			 int defaultButton)
@@ -96,7 +99,7 @@ int TWScriptAPI::question(QWidget* parent,
 									  (QMessageBox::StandardButton)defaultButton);
 }
 
-int TWScriptAPI::warning(QWidget* parent,
+int ScriptAPI::warning(QWidget* parent,
 			const QString& title, const QString& text,
 			int buttons,
 			int defaultButton)
@@ -106,7 +109,7 @@ int TWScriptAPI::warning(QWidget* parent,
 									 (QMessageBox::StandardButton)defaultButton);
 }
 
-int TWScriptAPI::critical(QWidget* parent,
+int ScriptAPI::critical(QWidget* parent,
 			 const QString& title, const QString& text,
 			 int buttons,
 			 int defaultButton)
@@ -116,7 +119,7 @@ int TWScriptAPI::critical(QWidget* parent,
 									  (QMessageBox::StandardButton)defaultButton);
 }
 
-QVariant TWScriptAPI::getInt(QWidget* parent, const QString& title, const QString& label,
+QVariant ScriptAPI::getInt(QWidget* parent, const QString& title, const QString& label,
 				int value, int min, int max, int step)
 {
 	bool ok;
@@ -124,7 +127,7 @@ QVariant TWScriptAPI::getInt(QWidget* parent, const QString& title, const QStrin
 	return ok ? QVariant(i) : QVariant();
 }
 
-QVariant TWScriptAPI::getDouble(QWidget* parent, const QString& title, const QString& label,
+QVariant ScriptAPI::getDouble(QWidget* parent, const QString& title, const QString& label,
 				   double value, double min, double max, int decimals)
 {
 	bool ok;
@@ -132,7 +135,7 @@ QVariant TWScriptAPI::getDouble(QWidget* parent, const QString& title, const QSt
 	return ok ? QVariant(d) : QVariant();
 }
 
-QVariant TWScriptAPI::getItem(QWidget* parent, const QString& title, const QString& label,
+QVariant ScriptAPI::getItem(QWidget* parent, const QString& title, const QString& label,
 				 const QStringList& items, int current, bool editable)
 {
 	bool ok;
@@ -140,7 +143,7 @@ QVariant TWScriptAPI::getItem(QWidget* parent, const QString& title, const QStri
 	return ok ? QVariant(s) : QVariant();
 }
 
-QVariant TWScriptAPI::getText(QWidget* parent, const QString& title, const QString& label,
+QVariant ScriptAPI::getText(QWidget* parent, const QString& title, const QString& label,
 				 const QString& text)
 {
 	bool ok;
@@ -148,12 +151,12 @@ QVariant TWScriptAPI::getText(QWidget* parent, const QString& title, const QStri
 	return ok ? QVariant(s) : QVariant();
 }
 	
-void TWScriptAPI::yield()
+void ScriptAPI::yield()
 {
 	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 }
 	
-QWidget * TWScriptAPI::progressDialog(QWidget * parent)
+QWidget * ScriptAPI::progressDialog(QWidget * parent)
 {
 	QProgressDialog * dlg = new QProgressDialog(parent);
 	connect(this, SIGNAL(destroyed(QObject*)), dlg, SLOT(deleteLater()));
@@ -162,7 +165,7 @@ QWidget * TWScriptAPI::progressDialog(QWidget * parent)
 	return dlg;
 }
 	
-QWidget * TWScriptAPI::createUIFromString(const QString& uiSpec, QWidget * parent)
+QWidget * ScriptAPI::createUIFromString(const QString& uiSpec, QWidget * parent)
 {
 	QByteArray ba(uiSpec.toUtf8());
 	QBuffer buffer(&ba);
@@ -177,7 +180,7 @@ QWidget * TWScriptAPI::createUIFromString(const QString& uiSpec, QWidget * paren
 	return widget;
 }
 
-QWidget * TWScriptAPI::createUI(const QString& filename, QWidget * parent)
+QWidget * ScriptAPI::createUI(const QString& filename, QWidget * parent)
 {
 	QFileInfo fi(QFileInfo(m_script->getFilename()).absoluteDir(), filename);
 	if (!fi.isReadable())
@@ -194,20 +197,20 @@ QWidget * TWScriptAPI::createUI(const QString& filename, QWidget * parent)
 	return widget;
 }
 	
-QWidget * TWScriptAPI::findChildWidget(QWidget* parent, const QString& name)
+QWidget * ScriptAPI::findChildWidget(QWidget* parent, const QString& name)
 {
 	QWidget* child = parent->findChild<QWidget*>(name);
 	return child;
 }
 	
-bool TWScriptAPI::makeConnection(QObject* sender, const QString& signal, QObject* receiver, const QString& slot)
+bool ScriptAPI::makeConnection(QObject* sender, const QString& signal, QObject* receiver, const QString& slot)
 {
 	return QObject::connect(sender, QString::fromLatin1("2%1").arg(signal).toUtf8().data(),
 	                        receiver, QString::fromLatin1("1%1").arg(slot).toUtf8().data());
 }
 
 
-QMap<QString, QVariant> TWScriptAPI::system(const QString& cmdline, bool waitForResult)
+QMap<QString, QVariant> ScriptAPI::system(const QString& cmdline, bool waitForResult)
 {
 	QMap<QString, QVariant> retVal;
 
@@ -263,7 +266,7 @@ QMap<QString, QVariant> TWScriptAPI::system(const QString& cmdline, bool waitFor
 	return retVal;
 }
 
-QMap<QString, QVariant> TWScriptAPI::launchFile(const QString& fileName) const
+QMap<QString, QVariant> ScriptAPI::launchFile(const QString& fileName) const
 {
 	QFileInfo finfo(fileName);
 	QMap<QString, QVariant> retVal;
@@ -286,7 +289,7 @@ QMap<QString, QVariant> TWScriptAPI::launchFile(const QString& fileName) const
 }
 
 //Q_INVOKABLE
-int TWScriptAPI::writeFile(const QString& filename, const QString& content) const
+int ScriptAPI::writeFile(const QString& filename, const QString& content) const
 {
 	// relative paths are taken to be relative to the folder containing the
 	// executing script's file
@@ -294,22 +297,22 @@ int TWScriptAPI::writeFile(const QString& filename, const QString& content) cons
 	QString path = scriptDir.absoluteFilePath(filename);
 
 	if (!mayWriteFile(path, m_target))
-		return TWScriptAPI::SystemAccess_PermissionDenied;
+		return ScriptAPI::SystemAccess_PermissionDenied;
 	
 	QFile fout(path);
 	qint64 numBytes = -1;
 	
 	if (!fout.open(QIODevice::WriteOnly | QIODevice::Text))
-		return TWScriptAPI::SystemAccess_Failed;
+		return ScriptAPI::SystemAccess_Failed;
 	
 	numBytes = fout.write(content.toUtf8());
 	fout.close();
 
-	return (numBytes < 0 ? TWScriptAPI::SystemAccess_Failed : TWScriptAPI::SystemAccess_OK);
+	return (numBytes < 0 ? ScriptAPI::SystemAccess_Failed : ScriptAPI::SystemAccess_OK);
 }
 
 //Q_INVOKABLE
-QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
+QMap<QString, QVariant> ScriptAPI::readFile(const QString& filename) const
 {
 	// relative paths are taken to be relative to the folder containing the
 	// executing script's file
@@ -324,7 +327,7 @@ QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
 
 	if (!mayReadFile(path, m_target)) {
 		retVal[QString::fromLatin1("message")] = tr("Reading all files is disabled (see Preferences)");
-		retVal[QString::fromLatin1("status")] = TWScriptAPI::SystemAccess_PermissionDenied;
+		retVal[QString::fromLatin1("status")] = ScriptAPI::SystemAccess_PermissionDenied;
 		return retVal;
 	}
 	
@@ -332,19 +335,19 @@ QMap<QString, QVariant> TWScriptAPI::readFile(const QString& filename) const
 	
 	if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		retVal[QString::fromLatin1("message")] = tr("The file \"%1\" could not be opened for reading").arg(path);
-		retVal[QString::fromLatin1("status")] = TWScriptAPI::SystemAccess_Failed;
+		retVal[QString::fromLatin1("status")] = ScriptAPI::SystemAccess_Failed;
 		return retVal;
 	}
 	
 	// with readAll, there's no way to detect an error during the actual read
 	retVal[QString::fromLatin1("result")] = QString::fromUtf8(fin.readAll().constData());
-	retVal[QString::fromLatin1("status")] = TWScriptAPI::SystemAccess_OK;
+	retVal[QString::fromLatin1("status")] = ScriptAPI::SystemAccess_OK;
 	fin.close();
 
 	return retVal;
 }
 
-int TWScriptAPI::fileExists(const QString& filename) const
+int ScriptAPI::fileExists(const QString& filename) const
 {
 	QDir scriptDir(QFileInfo(m_script->getFilename()).dir());
 	QString path = scriptDir.absoluteFilePath(filename);
@@ -356,7 +359,7 @@ int TWScriptAPI::fileExists(const QString& filename) const
 
 //////////////// Wrapper around selected TWUtils functions ////////////////
 Q_INVOKABLE
-QMap<QString, QVariant> TWScriptAPI::getDictionaryList(const bool forceReload /* = false */)
+QMap<QString, QVariant> ScriptAPI::getDictionaryList(const bool forceReload /* = false */)
 {
 	QMap<QString, QVariant> retVal;
 	const QHash<QString, QString> * h = TWUtils::getDictionaryList(forceReload);
@@ -374,7 +377,7 @@ QMap<QString, QVariant> TWScriptAPI::getDictionaryList(const bool forceReload /*
 
 // Wrapper around TWApp::getEngineList()
 Q_INVOKABLE
-QList<QVariant> TWScriptAPI::getEngineList() const
+QList<QVariant> ScriptAPI::getEngineList() const
 {
 	QList<QVariant> retVal;
 	const QList<Engine> engines = TWApp::instance()->getEngineList();
@@ -388,7 +391,7 @@ QList<QVariant> TWScriptAPI::getEngineList() const
 	return retVal;
 }
 
-bool TWScriptAPI::mayExecuteSystemCommand(const QString& cmd, QObject * context) const
+bool ScriptAPI::mayExecuteSystemCommand(const QString& cmd, QObject * context) const
 {
 	Q_UNUSED(cmd)
 	Q_UNUSED(context)
@@ -398,7 +401,7 @@ bool TWScriptAPI::mayExecuteSystemCommand(const QString& cmd, QObject * context)
 	return settings.value(QString::fromLatin1("allowSystemCommands"), false).toBool();
 }
 
-bool TWScriptAPI::mayWriteFile(const QString& filename, QObject * context) const
+bool ScriptAPI::mayWriteFile(const QString& filename, QObject * context) const
 {
 	Q_UNUSED(filename)
 	Q_UNUSED(context)
@@ -407,7 +410,7 @@ bool TWScriptAPI::mayWriteFile(const QString& filename, QObject * context) const
 	return settings.value(QString::fromLatin1("allowScriptFileWriting"), false).toBool();
 }
 
-bool TWScriptAPI::mayReadFile(const QString& filename, QObject * context) const
+bool ScriptAPI::mayReadFile(const QString& filename, QObject * context) const
 {
 	QSETTINGS_OBJECT(settings);
 	if (!m_script)
@@ -446,3 +449,6 @@ bool TWScriptAPI::mayReadFile(const QString& filename, QObject * context) const
 
 	return false;
 }
+
+} // namespace Scripting
+} // namespace Tw
