@@ -23,13 +23,14 @@
 #define JSScriptInterface_H
 
 #include "TWScript.h"
+#include "scripting/ScriptLanguageInterface.h"
 
 // for JSScript, we provide a plugin-like factory, but it's actually compiled
 // and linked directly with the main application (at least for now)
-class JSScriptInterface : public QObject, public TWScriptLanguageInterface
+class JSScriptInterface : public QObject, public Tw::Scripting::ScriptLanguageInterface
 {
 	Q_OBJECT
-	Q_INTERFACES(TWScriptLanguageInterface)
+	Q_INTERFACES(Tw::Scripting::ScriptLanguageInterface)
 
 public:
 	JSScriptInterface() {}

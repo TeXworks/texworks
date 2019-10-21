@@ -30,16 +30,17 @@
 
 #include "TWScript.h"
 #include "scripting/ScriptAPIInterface.h"
+#include "scripting/ScriptLanguageInterface.h"
 
 #include <QMetaMethod>
 #include <QMetaProperty>
 #include <QVariant>
 
 /** \brief Implementation of the script plugin interface */
-class TWPythonPlugin : public QObject, public TWScriptLanguageInterface
+class TWPythonPlugin : public QObject, public Tw::Scripting::ScriptLanguageInterface
 {
 	Q_OBJECT
-	Q_INTERFACES(TWScriptLanguageInterface)
+	Q_INTERFACES(Tw::Scripting::ScriptLanguageInterface)
 	Q_PLUGIN_METADATA(IID "org.tug.texworks.ScriptPlugins.PythonPlugin")
 	
 public:

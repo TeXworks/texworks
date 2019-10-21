@@ -25,6 +25,7 @@
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "scripting/JSScriptInterface.h"
+#include "scripting/ScriptLanguageInterface.h"
 
 #include <QSignalMapper>
 #include <QMenu>
@@ -84,7 +85,7 @@ void TWScriptManager::loadPlugins()
 	
 	// get any static plugins
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
-		if (qobject_cast<TWScriptLanguageInterface*>(plugin))
+		if (qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(plugin))
 			scriptLanguages += plugin;
 	}
 
@@ -120,7 +121,7 @@ void TWScriptManager::loadPlugins()
 		// additional shared libraries (e.g. datetime)
 		loader.setLoadHints(QLibrary::ExportExternalSymbolsHint);
 		QObject *plugin = loader.instance();
-		if (qobject_cast<TWScriptLanguageInterface*>(plugin))
+		if (qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(plugin))
 			scriptLanguages += plugin;
 	}
 }
@@ -284,7 +285,7 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 			continue;
 
 		foreach (QObject * plugin, scriptLanguages) {
-			TWScriptLanguageInterface * i = qobject_cast<TWScriptLanguageInterface*>(plugin);
+			Tw::Scripting::ScriptLanguageInterface * i = qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(plugin);
 			if (!i)
 				continue;
 			if (!scriptingPluginsEnabled && !qobject_cast<JSScriptInterface*>(plugin))
@@ -543,7 +544,7 @@ TWScriptable::doAboutScripts()
 	aboutText += QLatin1String("</p><ul>");
 	foreach (const QObject * plugin,
 			 TWApp::instance()->getScriptManager()->languages()) {
-		const TWScriptLanguageInterface * i = qobject_cast<TWScriptLanguageInterface*>(plugin);
+		const Tw::Scripting::ScriptLanguageInterface * i = qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(plugin);
 		if(!i) continue;
 		aboutText += QString::fromLatin1("<li><a href=\"%1\">%2</a>").arg(i->scriptLanguageURL(), i->scriptLanguageName());
 		if (!enableScriptsPlugins && !qobject_cast<const JSScriptInterface*>(plugin)) {

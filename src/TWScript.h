@@ -34,8 +34,6 @@
 
 #include "scripting/ScriptAPIInterface.h"
 
-class TWScriptLanguageInterface;
-
 /** \brief	Abstract base class for all Tw scripts
  *
  * \note This must be derived from QObject to enable interaction with e.g. menus
@@ -320,61 +318,6 @@ private:
  	QHash<QString, QVariant> m_globals;
 };
 
-/** \brief	Interface all TW scripting plugins must implement */
-class TWScriptLanguageInterface
-{
-public:
-	/** \brief	Constructor
-	 *
-	 * Does nothing
-	 */
-	TWScriptLanguageInterface() { }
-	
-	/** \brief	Destructor
-	 *
-	 * Does nothing
-	 */
-	virtual ~TWScriptLanguageInterface() { }
-	
-	/** \brief	Method to create a new script wrapper
-	 *
-	 * This method must be implemented in derived classes;
-	 * it should create the script wrapper for the given file.
-	 * This method does NOT call parseHeader(), so until this
-	 * is done, the script is not necessarily valid.
-	 * \return	the script wrapper, or nullptr if the file cannot be found
-	 */
-	virtual TWScript* newScript(const QString& fileName) = 0;
-
-	/** \brief	Method to report the supported script language name
-	 *
-	 * This method must be implemented in derived classes
-	 * \return	the name of the scripting language
-	 */
-	virtual QString scriptLanguageName() const = 0;
-
-	/** \brief	Method to report a URL for information on the script language
-	 *
-	 * This method must be implemented in derived classes
-	 * \return	a string with a URL for information about the language
-	 */
-	virtual QString scriptLanguageURL() const = 0;
-
-	/** \brief	Report whether the given file is potentially a valid
-	 *          script file for this language.
-	 *
-	 * This method is not expected to actually validate the script file
-	 * (e.g., by fully parsing it, or even checking the headers); it
-	 * only serves to "claim" the file for use by this scripting language/
-	 * plugin rather than any others. It will typically just check the
-	 * filename extension.
-	 *
-	 * This method must be implemented in derived classes
-	 */
-	virtual bool canHandleFile(const QFileInfo& fileInfo) const = 0;
-};
-
 Q_DECLARE_INTERFACE(TWScript, "org.tug.texworks.Script/0.3.2")
-Q_DECLARE_INTERFACE(TWScriptLanguageInterface, "org.tug.texworks.ScriptLanguageInterface/0.3.2")
 
 #endif /* TWScript_H */

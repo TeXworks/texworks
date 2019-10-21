@@ -24,6 +24,7 @@
 
 #include "TWScript.h"
 #include "scripting/ScriptAPIInterface.h"
+#include "scripting/ScriptLanguageInterface.h"
 
 #include "lua.hpp"
 
@@ -32,10 +33,10 @@
 #include <QVariant>
 
 /** \brief Implementation of the script plugin interface */
-class TWLuaPlugin : public QObject, public TWScriptLanguageInterface
+class TWLuaPlugin : public QObject, public Tw::Scripting::ScriptLanguageInterface
 {
 	Q_OBJECT
-	Q_INTERFACES(TWScriptLanguageInterface)
+	Q_INTERFACES(Tw::Scripting::ScriptLanguageInterface)
 	Q_PLUGIN_METADATA(IID "org.tug.texworks.ScriptPlugins.LuaPlugin")
 
 public:

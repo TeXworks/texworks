@@ -73,6 +73,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWUtils.h
                   TWVersion.h
                   scripting/ScriptAPIInterface.h
+                  scripting/ScriptLanguageInterface.h
                   scripting/JSScriptInterface.h
                   scripting/JSScript.h)
 

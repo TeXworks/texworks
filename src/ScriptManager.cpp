@@ -23,6 +23,7 @@
 #include "TWApp.h"
 #include "TWScript.h"
 #include "TWScriptable.h"
+#include "scripting/ScriptLanguageInterface.h"
 
 #include <QLabel>
 #include <QCloseEvent>
@@ -196,7 +197,7 @@ void ScriptManager::treeSelectionChanged()
 	addDetailsRow(rows, tr("Shortcut: "), s->getKeySequence().toString());
 	addDetailsRow(rows, tr("File: "), QFileInfo(s->getFilename()).fileName());
 	
-	const TWScriptLanguageInterface * sli = qobject_cast<TWScriptLanguageInterface*>(s->getScriptLanguagePlugin());
+	const Tw::Scripting::ScriptLanguageInterface * sli = qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(s->getScriptLanguagePlugin());
 	if(sli) {
 		QString url = sli->scriptLanguageURL();
 		QString str = sli->scriptLanguageName();

@@ -70,7 +70,8 @@ HEADERS = \
   "../src/TemplateDialog.h" \
   "../src/scripting/JSScript.h" \
   "../src/scripting/JSScriptInterface.h" \
-  "../src/scripting/ScriptAPIInterface.h"
+  "../src/scripting/ScriptAPIInterface.h" \
+  "../src/scripting/ScriptLanguageInterface.h"
 
 FORMS = \
   "../src/CitationSelectDialog.ui" \
