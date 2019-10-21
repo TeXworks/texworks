@@ -27,6 +27,9 @@
 #include <QScriptValue>
 #include <QTextStream>
 
+namespace Tw {
+namespace Scripting {
+
 static
 QVariant convertValue(const QScriptValue& value)
 {
@@ -42,7 +45,7 @@ QVariant convertValue(const QScriptValue& value)
 	return value.toVariant();
 }
 
-bool JSScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
+bool JSScript::execute(ScriptAPIInterface * tw) const
 {
 	QFile scriptFile(m_Filename);
 	if (!scriptFile.open(QIODevice::ReadOnly)) {
@@ -78,3 +81,6 @@ bool JSScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
 		tw->SetResult(convertValue(val));
 	return true;
 }
+
+} // namespace Scripting
+} // namespace Tw

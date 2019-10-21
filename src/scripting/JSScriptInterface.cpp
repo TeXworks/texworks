@@ -22,8 +22,13 @@
 #include "scripting/JSScriptInterface.h"
 #include "scripting/JSScript.h"
 
-Tw::Scripting::Script* JSScriptInterface::newScript(const QString& fileName)
+namespace Tw {
+namespace Scripting {
+
+Script* JSScriptInterface::newScript(const QString& fileName)
 {
 	return new JSScript(this, fileName);
 }
 
+} // namespace Scripting
+} // namespace Tw

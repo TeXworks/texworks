@@ -81,7 +81,7 @@ TWScriptManager::saveDisabledList()
 void TWScriptManager::loadPlugins()
 {
 	// the JSScript interface isn't really a plugin, but provides the same interface
-	scriptLanguages += new JSScriptInterface();
+	scriptLanguages += new Tw::Scripting::JSScriptInterface();
 	
 	// get any static plugins
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
@@ -173,7 +173,7 @@ void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & pro
 					continue;
 				}
 			}
-			if (!enableScriptsPlugins && !qobject_cast<const JSScriptInterface*>(s->getScriptLanguagePlugin())) {
+			if (!enableScriptsPlugins && !qobject_cast<const Tw::Scripting::JSScriptInterface*>(s->getScriptLanguagePlugin())) {
 				// the plugin necessary to execute this scripts has been disabled
 				delete s;
 				continue;
@@ -288,7 +288,7 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 			Tw::Scripting::ScriptLanguageInterface * i = qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(plugin);
 			if (!i)
 				continue;
-			if (!scriptingPluginsEnabled && !qobject_cast<JSScriptInterface*>(plugin))
+			if (!scriptingPluginsEnabled && !qobject_cast<Tw::Scripting::JSScriptInterface*>(plugin))
 				continue;
 			if (!i->canHandleFile(info))
 				continue;
@@ -380,7 +380,7 @@ TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result
 		return false;
 
 	if (!settings.value(QString::fromLatin1("enableScriptingPlugins"), false).toBool() &&
-		!qobject_cast<const JSScriptInterface*>(s->getScriptLanguagePlugin())
+		!qobject_cast<const Tw::Scripting::JSScriptInterface*>(s->getScriptLanguagePlugin())
 	) return false;
 
 	if (!s->isEnabled())
@@ -547,7 +547,7 @@ TWScriptable::doAboutScripts()
 		const Tw::Scripting::ScriptLanguageInterface * i = qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(plugin);
 		if(!i) continue;
 		aboutText += QString::fromLatin1("<li><a href=\"%1\">%2</a>").arg(i->scriptLanguageURL(), i->scriptLanguageName());
-		if (!enableScriptsPlugins && !qobject_cast<const JSScriptInterface*>(plugin)) {
+		if (!enableScriptsPlugins && !qobject_cast<const Tw::Scripting::JSScriptInterface*>(plugin)) {
 			//: This string is appended to a script language name to indicate it is currently disabled
 			aboutText += QChar::fromLatin1(' ') + tr("(disabled in the preferences)");
 		}

@@ -25,9 +25,12 @@
 #include "scripting/Script.h"
 #include "scripting/ScriptLanguageInterface.h"
 
+namespace Tw {
+namespace Scripting {
+
 // for JSScript, we provide a plugin-like factory, but it's actually compiled
 // and linked directly with the main application (at least for now)
-class JSScriptInterface : public QObject, public Tw::Scripting::ScriptLanguageInterface
+class JSScriptInterface : public QObject, public ScriptLanguageInterface
 {
 	Q_OBJECT
 	Q_INTERFACES(Tw::Scripting::ScriptLanguageInterface)
@@ -36,11 +39,14 @@ public:
 	JSScriptInterface() {}
 	virtual ~JSScriptInterface() {}
 
-	virtual Tw::Scripting::Script* newScript(const QString& fileName);
+	virtual Script* newScript(const QString& fileName);
 
 	virtual QString scriptLanguageName() const { return QString::fromLatin1("QtScript"); }
 	virtual QString scriptLanguageURL() const { return QString::fromLatin1("http://doc.qt.io/qt-5/qtscript-index.html"); }
 	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QLatin1String("js"); }
 };
+
+} // namespace Scripting
+} // namespace Tw
 
 #endif // !defined(JSScriptInterface_H)

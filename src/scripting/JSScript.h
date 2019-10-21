@@ -24,7 +24,10 @@
 
 #include "scripting/Script.h"
 
-class JSScript : public Tw::Scripting::Script
+namespace Tw {
+namespace Scripting {
+
+class JSScript : public Script
 {
 	Q_OBJECT
 	Q_INTERFACES(Tw::Scripting::Script)
@@ -36,7 +39,10 @@ public:
 	virtual bool parseHeader() { return doParseHeader(QString(), QString(), QString::fromLatin1("//")); }
 
 protected:
-	virtual bool execute(Tw::Scripting::ScriptAPIInterface *tw) const;
+	virtual bool execute(ScriptAPIInterface *tw) const;
 };
+
+} // namespace Scripting
+} // namespace Tw
 
 #endif // !defined(JSScript_H)
