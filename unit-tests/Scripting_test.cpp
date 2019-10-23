@@ -299,7 +299,7 @@ void TestScripting::parseHeader_data()
 
 	JSScriptInterface jsi;
 
-	QTest::addRow("invalid") << QSharedPointer<Script>(jsi.newScript(QString()))
+	QTest::newRow("invalid") << QSharedPointer<Script>(jsi.newScript(QString()))
 							 << false
 							 << Script::ScriptType::ScriptUnknown
 							 << QString()
@@ -309,7 +309,7 @@ void TestScripting::parseHeader_data()
 							 << QString()
 							 << QString()
 							 << QKeySequence();
-	QTest::addRow("script1.js") << QSharedPointer<Script>(jsi.newScript(QStringLiteral("script1.js")))
+	QTest::newRow("script1.js") << QSharedPointer<Script>(jsi.newScript(QStringLiteral("script1.js")))
 								<< true
 								<< Script::ScriptType::ScriptStandalone
 								<< QStringLiteral("Tw.insertText test")
@@ -319,7 +319,7 @@ void TestScripting::parseHeader_data()
 								<< QString()
 								<< QStringLiteral("TeXDocument")
 								<< QKeySequence(QStringLiteral("Ctrl+Alt+Shift+I"));
-	QTest::addRow("script2.js") << QSharedPointer<Script>(jsi.newScript(QStringLiteral("script2.js")))
+	QTest::newRow("script2.js") << QSharedPointer<Script>(jsi.newScript(QStringLiteral("script2.js")))
 								<< false
 								<< Script::ScriptType::ScriptUnknown
 								<< QStringLiteral("Exception test")
