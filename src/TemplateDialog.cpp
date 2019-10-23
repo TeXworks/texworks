@@ -22,7 +22,7 @@
 #include "TemplateDialog.h"
 #include "TeXHighlighter.h"
 #include "TWUtils.h"
-#include "TWApp.h"
+#include "Settings.h"
 
 #include <QDirModel>
 #include <QFile>
@@ -60,7 +60,7 @@ void TemplateDialog::init()
 	
 	connect(treeView, SIGNAL(activated(const QModelIndex&)), this, SLOT(itemActivated(const QModelIndex&)));
 
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	if (settings.value(QString::fromLatin1("syntaxColoring"), true).toBool()) {
 		new TeXHighlighter(textEdit->document());
 	}

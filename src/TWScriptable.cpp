@@ -23,6 +23,7 @@
 #include "scripting/ScriptAPI.h"
 #include "ScriptManager.h"
 #include "TWApp.h"
+#include "Settings.h"
 #include "TWUtils.h"
 #include "scripting/JSScriptInterface.h"
 #include "scripting/ScriptLanguageInterface.h"
@@ -74,7 +75,7 @@ TWScriptManager::saveDisabledList()
 		disabled << scriptRoot.relativeFilePath(s->getFilename());
 	}
 	
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	settings.setValue(QString::fromLatin1("disabledScripts"), disabled);
 }
 
@@ -128,7 +129,7 @@ void TWScriptManager::loadPlugins()
 
 void TWScriptManager::reloadScripts(bool forceAll /* = false */)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QStringList disabled = settings.value(QString::fromLatin1("disabledScripts"), QStringList()).toStringList();
 	QStringList processed;
 	
@@ -150,7 +151,7 @@ void TWScriptManager::reloadScripts(bool forceAll /* = false */)
 
 void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & processed)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	bool enableScriptsPlugins = settings.value(QString::fromLatin1("enableScriptingPlugins"), false).toBool();
 	
 	foreach(QObject * item, list->children()) {
@@ -228,7 +229,7 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 											const QStringList& disabled,
 											const QStringList& ignore)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QFileInfo info;
 	bool scriptingPluginsEnabled = settings.value(QString::fromLatin1("enableScriptingPlugins"), false).toBool();
 	
@@ -373,7 +374,7 @@ QList<Tw::Scripting::Script *> TWScriptManager::getHookScripts(const QString& ho
 bool
 TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result, Tw::Scripting::Script::ScriptType scriptType)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	
 	Tw::Scripting::Script * s = qobject_cast<Tw::Scripting::Script*>(script);
 	if (!s || s->getType() != scriptType)
@@ -530,7 +531,7 @@ TWScriptable::runHooks(const QString& hookName)
 void
 TWScriptable::doAboutScripts()
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	bool enableScriptsPlugins = settings.value(QString::fromLatin1("enableScriptingPlugins"), false).toBool();
 
 	QString scriptingLink = QString::fromLatin1("<a href=\"%1\">%1</a>").arg(QString::fromLatin1("https://github.com/TeXworks/texworks/wiki/ScriptingTeXworks"));

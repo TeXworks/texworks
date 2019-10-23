@@ -21,6 +21,7 @@
 
 #include "PrefsDialog.h"
 #include "DefaultPrefs.h"
+#include "Settings.h"
 #include "TWApp.h"
 #include "PDFDocument.h"
 #include "TeXHighlighter.h"
@@ -493,7 +494,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	foreach (const DictPair& dict, dictList)
 		dlg.language->addItem(dict.first, dict.second);
 		
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	// initialize controls based on the current settings
 	
 	// General

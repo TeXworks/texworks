@@ -24,6 +24,7 @@
 #include "TeXDocks.h"
 #include "FindDialog.h"
 #include "TemplateDialog.h"
+#include "Settings.h"
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "PDFDocument.h"
@@ -289,7 +290,7 @@ void TeXDocument::init()
 
 	connect(inputLine, SIGNAL(returnPressed()), this, SLOT(acceptInputLine()));
 
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	TWUtils::applyToolbarOptions(this, settings.value(QString::fromLatin1("toolBarIconSize"), 2).toInt(), settings.value(QString::fromLatin1("toolBarShowText"), false).toBool());
 
 	QFont font = textEdit->font();
@@ -627,7 +628,7 @@ void TeXDocument::open()
 #elif defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QString lastOpenDir = settings.value(QString::fromLatin1("openDialogDir")).toString();
 	if (lastOpenDir.isEmpty())
 		lastOpenDir = QDir::homePath();
@@ -817,7 +818,7 @@ bool TeXDocument::saveAs()
 	QString selectedFilter = TWUtils::chooseDefaultFilter(curFile, *(TWUtils::filterList()));;
 
 	// for untitled docs, default to the last dir used, or $HOME if no saved value
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QString lastSaveDir = settings.value(QString::fromLatin1("saveDialogDir")).toString();
 	if (lastSaveDir.isEmpty() || !QDir(lastSaveDir).exists())
 		lastSaveDir = QDir::homePath();
@@ -1127,7 +1128,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate /* = false *
 	else {
 		setCurrentFile(fileName);
 		if (!reload) {
-			QSETTINGS_OBJECT(settings);
+			Tw::Settings settings;
 			if (!inBackground && settings.value(QString::fromLatin1("openPDFwithTeX"), kDefault_OpenPDFwithTeX).toBool()) {
 				openPdfIfAvailable(false);
 				// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
@@ -1205,7 +1206,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate /* = false *
 void TeXDocument::delayedInit()
 {
 	if (!highlighter) {
-		QSETTINGS_OBJECT(settings);
+		Tw::Settings settings;
 
 		highlighter = new TeXHighlighter(textEdit->document(), this);
 		connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
@@ -2264,7 +2265,7 @@ void TeXDocument::setAutoIndentMode(const QString& mode)
 
 void TeXDocument::doFindAgain(bool fromDialog)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QString	searchText = settings.value(QString::fromLatin1("searchText")).toString();
 	if (searchText.isEmpty())
 		return;
@@ -2375,7 +2376,7 @@ void TeXDocument::doReplaceAgain()
 
 void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	
 	QString	searchText = settings.value(QString::fromLatin1("searchText")).toString();
 	if (searchText.isEmpty())
@@ -2631,7 +2632,7 @@ void TeXDocument::copyToFind()
 	if (textEdit->textCursor().hasSelection()) {
 		QString searchText = textEdit->textCursor().selectedText();
 		searchText.replace(QChar(0x2029), QChar::fromLatin1('\n'));
-		QSETTINGS_OBJECT(settings);
+		Tw::Settings settings;
 		// Note: To search for multi-line strings, we currently need regex
 		// enabled (since we only have a single search line). If it was not
 		// enabled, we also need to ensure that the replaceText is escaped
@@ -2657,7 +2658,7 @@ void TeXDocument::copyToReplace()
 	if (textEdit->textCursor().hasSelection()) {
 		QString replaceText = textEdit->textCursor().selectedText();
 		replaceText.replace(QChar(0x2029), QChar::fromLatin1('\n'));
-		QSETTINGS_OBJECT(settings);
+		Tw::Settings settings;
 		// Note: To do multi-line replacements, we currently need regex enabled
 		// (since we only have a single replace line). If it was not enabled, we
 		// also need to ensure that the searchText is escaped properly
@@ -2880,7 +2881,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 	executeAfterTypesetHooks();
 	
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	
 	bool shouldHideConsole = false;
 	QVariant hideConsoleSetting = settings.value(QString::fromLatin1("autoHideConsole"), kDefault_HideConsole);

@@ -23,6 +23,7 @@
 #include "TWSystemCmd.h"
 #include "TWUtils.h"
 #include "TWApp.h"
+#include "Settings.h"
 #include "Engine.h"
 #include "scripting/Script.h"
 #include "DefaultPrefs.h"
@@ -397,7 +398,7 @@ bool ScriptAPI::mayExecuteSystemCommand(const QString& cmd, QObject * context) c
 	Q_UNUSED(context)
 
 	// cmd may be a true command line, or a single file/directory to run or open
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	return settings.value(QString::fromLatin1("allowSystemCommands"), false).toBool();
 }
 
@@ -406,13 +407,13 @@ bool ScriptAPI::mayWriteFile(const QString& filename, QObject * context) const
 	Q_UNUSED(filename)
 	Q_UNUSED(context)
 
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	return settings.value(QString::fromLatin1("allowScriptFileWriting"), false).toBool();
 }
 
 bool ScriptAPI::mayReadFile(const QString& filename, QObject * context) const
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	if (!m_script)
 		return false;
 

@@ -23,6 +23,7 @@
 #include "TeXDocument.h"
 #include "TWApp.h"
 #include "TWUtils.h"
+#include "Settings.h"
 #include "FindDialog.h"
 #include "ClickableLabel.h"
 
@@ -274,7 +275,7 @@ void PDFDocument::init()
 	addDockWidget(Qt::LeftDockWidgetArea, dw);
 	menuShow->addAction(dw->toggleViewAction());
 	
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	switch(settings.value(QString::fromLatin1("pdfPageMode"), kDefault_PDFPageMode).toInt()) {
 		case 0:
 			setPageMode(QtPDF::PDFDocumentView::PageMode_SinglePage);
@@ -423,7 +424,7 @@ void PDFDocument::saveRecentFileInfo()
 void PDFDocument::loadFile(const QString &fileName)
 {
 	setCurrentFile(fileName);
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QFileInfo info(fileName);
 	settings.setValue(QString::fromLatin1("openDialogDir"), info.canonicalPath());
 
@@ -462,7 +463,7 @@ void PDFDocument::loadSyncData()
 
 void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	TWSynchronizer::Resolution res;
 	switch (settings.value(QString::fromLatin1("syncResolutionToTeX"), TWSynchronizer::kDefault_Resolution_ToTeX).toInt()) {
 		case 0:
@@ -572,7 +573,7 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col,
 	if (!_synchronizer)
 		return;
 
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	TWSynchronizer::Resolution res;
 	switch (settings.value(QString::fromLatin1("syncResolutionToPDF"), TWSynchronizer::kDefault_Resolution_ToPDF).toInt()) {
 		case 0:
@@ -785,7 +786,7 @@ void PDFDocument::updatePageMode(const QtPDF::PDFDocumentView::PageMode newMode)
 void PDFDocument::resetMagnifier()
 {
 	Q_ASSERT(pdfWidget);
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 
 	if (settings.value(QString::fromLatin1("circularMagnifier"), kDefault_CircularMagnifier).toBool())
 		pdfWidget->setMagnifierShape(QtPDF::DocumentTool::MagnifyingGlass::Magnifier_Circle);
@@ -912,7 +913,7 @@ void PDFDocument::doFindDialog()
 void PDFDocument::doFindAgain(bool newSearch /* = false */)
 {
 	Q_UNUSED(newSearch)
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 
 	QString	searchText = settings.value(QString::fromLatin1("searchText")).toString();
 	if (searchText.isEmpty())
@@ -931,7 +932,7 @@ void PDFDocument::doFindAgain(bool newSearch /* = false */)
 
 void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygonF> & pdfRegion)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 
 	widget()->setCurrentSearchResultHighlightBrush(_searchResultHighlightBrush);
 	if (kPDFHighlightDuration > 0)
@@ -978,7 +979,7 @@ void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygo
 }
 
 void PDFDocument::setDefaultScale() {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	switch (settings.value(QString::fromLatin1("scaleOption"), kDefault_PreviewScaleOption).toInt()) {
 		case 2:
 			pdfWidget->zoomFitWidth();

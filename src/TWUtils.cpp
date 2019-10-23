@@ -25,6 +25,7 @@
 #include "PDFDocument.h"
 #include "TWVersion.h"
 #include "GitRev.h"
+#include "Settings.h"
 
 #include <QFileDialog>
 #include <QString>
@@ -285,7 +286,7 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	if (!helpPath.isEmpty())
 		helpDir.cd(QString(helpPath));
 
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QString loc = settings.value(QString::fromLatin1("locale")).toString();
 	if (loc.isEmpty())
 		loc = QLocale::system().name();
@@ -549,7 +550,7 @@ QStringList TWUtils::constructUniqueFileLabels(const QStringList & fileList)
 
 void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu, QAction * clearAction) /* static */
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QStringList fileList, labelList;
 	if (settings.contains(QString::fromLatin1("recentFiles"))) {
 		QList<QVariant> files = settings.value(QString::fromLatin1("recentFiles")).toList();
@@ -738,7 +739,7 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 			// hacking the config files.
 			// (Note: this should only be necessary in some special cases, e.g.
 			// on X11 systems with special effects enabled)
-			QSETTINGS_OBJECT(settings);
+			Tw::Settings settings;
 			wDiff = qMax(0, settings.value(QString::fromLatin1("windowWDiff"), 0).toInt());
 			hDiff = qMax(0, settings.value(QString::fromLatin1("windowHDiff"), 0).toInt());
 		}

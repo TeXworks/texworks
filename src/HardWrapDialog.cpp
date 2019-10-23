@@ -20,7 +20,7 @@
 */
 
 #include "HardWrapDialog.h"
-#include "TWApp.h"
+#include "Settings.h"
 
 HardWrapDialog::HardWrapDialog(QWidget *parent)
 	: QDialog(parent)
@@ -32,7 +32,7 @@ HardWrapDialog::HardWrapDialog(QWidget *parent)
 void
 HardWrapDialog::init()
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	int	wrapWidth = settings.value(QString::fromLatin1("hardWrapWidth"), kDefault_HardWrapWidth).toInt();
 	spinbox_charCount->setMaximum(INT_MAX);
 	spinbox_charCount->setValue(wrapWidth);
@@ -56,7 +56,7 @@ HardWrapDialog::init()
 void
 HardWrapDialog::saveSettings()
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	settings.setValue(QString::fromLatin1("hardWrapWidth"), spinbox_charCount->value());
 	settings.setValue(QString::fromLatin1("hardWrapMode"), mode());
 	settings.setValue(QString::fromLatin1("hardWrapRewrap"), checkbox_rewrap->isChecked());

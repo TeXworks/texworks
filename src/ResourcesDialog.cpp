@@ -20,7 +20,7 @@
 */
 
 #include "ResourcesDialog.h"
-#include "ConfigurableApp.h"
+#include "Settings.h"
 #include "TWUtils.h"
 
 ResourcesDialog::ResourcesDialog(QWidget *parent)
@@ -31,12 +31,12 @@ ResourcesDialog::ResourcesDialog(QWidget *parent)
 
 void ResourcesDialog::init()
 {
-	QSETTINGS_OBJECT(s);
+	Tw::Settings s;
 
 	setupUi(this);
 	
 #if defined(Q_OS_WIN)
-	if(ConfigurableApp::instance()->getSettingsFormat() == QSettings::NativeFormat)
+	if(Tw::Settings::defaultFormat() == QSettings::NativeFormat)
 		locationOfSettings->setText(tr("Registry (%1)").arg(s.fileName()));
 	else
 		locationOfSettings->setText(pathToLink(s.fileName()));

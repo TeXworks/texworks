@@ -19,6 +19,7 @@ SOURCES = \
   "../src/ResourcesDialog.cpp" \
   "../src/ScreenCalibrationWidget.cpp" \
   "../src/ScriptManager.cpp" \
+  "../src/Settings.cpp" \
   "../src/TWApp.cpp" \
   "../src/TWScriptable.cpp" \
   "../src/TWSynchronizer.cpp" \
@@ -55,6 +56,7 @@ HEADERS = \
   "../src/ResourcesDialog.h" \
   "../src/ScreenCalibrationWidget.h" \
   "../src/ScriptManager.h" \
+  "../src/Settings.h" \
   "../src/TWApp.h" \
   "../src/TWScriptable.h" \
   "../src/TWSynchronizer.h" \

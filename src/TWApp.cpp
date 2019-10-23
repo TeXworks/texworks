@@ -27,6 +27,7 @@
 #include "DefaultPrefs.h"
 #include "TemplateDialog.h"
 #include "TWSystemCmd.h"
+#include "Settings.h"
 #include "scripting/ScriptAPI.h"
 
 #include "TWVersion.h"
@@ -131,8 +132,8 @@ void TWApp::init()
 		QSettings portable(appDir.filePath(QString::fromLatin1(SETUP_FILE_NAME)), QSettings::IniFormat);
 		if (portable.contains(QString::fromLatin1("inipath"))) {
 			if (iniPath.cd(portable.value(QString::fromLatin1("inipath")).toString())) {
-				setSettingsFormat(QSettings::IniFormat);
-				QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
+				Tw::Settings::setDefaultFormat(QSettings::IniFormat);
+				Tw::Settings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
 			}
 		}
 		if (portable.contains(QString::fromLatin1("libpath"))) {
@@ -147,8 +148,8 @@ void TWApp::init()
 	}
 	QString envPath = QString::fromLocal8Bit(getenv("TW_INIPATH"));
 	if (!envPath.isNull() && iniPath.cd(envPath)) {
-		setSettingsFormat(QSettings::IniFormat);
-		QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
+		Tw::Settings::setDefaultFormat(QSettings::IniFormat);
+		Tw::Settings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
 	}
 	envPath = QString::fromLocal8Bit(getenv("TW_LIBPATH"));
 	if (!envPath.isNull() && libPath.cd(envPath)) {
@@ -159,7 +160,7 @@ void TWApp::init()
 	// Required for TWUtils::getLibraryPath()
 	theAppInstance = this;
 
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	
 	QString locale = settings.value(QString::fromLatin1("locale"), QLocale::system().name()).toString();
 	applyTranslation(locale);
@@ -561,7 +562,7 @@ void TWApp::launchAction()
 	if (!TeXDocument::documentList().empty() || !PDFDocument::documentList().empty())
 		return;
 
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	int launchOption = settings.value(QString::fromLatin1("launchOption"), 1).toInt();
 	switch (launchOption) {
 		case 1: // Blank document
@@ -629,7 +630,7 @@ QStringList TWApp::getOpenFileNames(QString selectedFilter)
 #if defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QString lastOpenDir = settings.value(QString::fromLatin1("openDialogDir")).toString();
 	QStringList filters = *TWUtils::filterList();
 	if (!selectedFilter.isNull() && !filters.contains(selectedFilter))
@@ -644,7 +645,7 @@ QString TWApp::getOpenFileName(QString selectedFilter)
 #if defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QString lastOpenDir = settings.value(QString::fromLatin1("openDialogDir")).toString();
 	QStringList filters = *TWUtils::filterList();
 	if (!selectedFilter.isNull() && !filters.contains(selectedFilter))
@@ -655,7 +656,7 @@ QString TWApp::getOpenFileName(QString selectedFilter)
 
 void TWApp::open()
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QStringList files = getOpenFileNames();
 	foreach (QString fileName, files) {
 		if (!fileName.isEmpty()) {
@@ -708,7 +709,7 @@ void TWApp::setMaxRecentFiles(int value)
 	if (value != recentFilesLimit) {
 		recentFilesLimit = value;
 
-		QSETTINGS_OBJECT(settings);
+		Tw::Settings settings;
 		settings.setValue(QString::fromLatin1("maxRecentFiles"), value);
 
 		updateRecentFileActions();
@@ -813,7 +814,7 @@ const QStringList TWApp::getPrefsBinaryPaths()
 {
 	if (!binaryPaths) {
 		binaryPaths = new QStringList;
-		QSETTINGS_OBJECT(settings);
+		Tw::Settings settings;
 		if (settings.contains(QString::fromLatin1("binaryPaths")))
 			*binaryPaths = settings.value(QString::fromLatin1("binaryPaths")).toStringList();
 		else
@@ -827,7 +828,7 @@ void TWApp::setBinaryPaths(const QStringList& paths)
 	if (!binaryPaths)
 		binaryPaths = new QStringList;
 	*binaryPaths = paths;
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	settings.setValue(QString::fromLatin1("binaryPaths"), paths);
 }
 
@@ -861,7 +862,7 @@ const QList<Engine> TWApp::getEngineList()
 		engineList = new QList<Engine>;
 		bool foundList = false;
 		// check for old engine list in Preferences
-		QSETTINGS_OBJECT(settings);
+		Tw::Settings settings;
 		int count = settings.beginReadArray(QString::fromLatin1("engines"));
 		if (count > 0) {
 			for (int i = 0; i < count; ++i) {
@@ -930,7 +931,7 @@ void TWApp::setEngineList(const QList<Engine>& engines)
 		engineList = new QList<Engine>;
 	*engineList = engines;
 	saveEngineList();
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	settings.setValue(QString::fromLatin1("defaultEngine"), getDefaultEngine().name());
 	emit engineListChanged();
 }
@@ -952,7 +953,7 @@ void TWApp::setDefaultEngine(const QString& name)
 	int i;
 	for (i = 0; i < engines.count(); ++i) {
 		if (engines[i].name() == name) {
-			QSETTINGS_OBJECT(settings);
+			Tw::Settings settings;
 			settings.setValue(QString::fromLatin1("defaultEngine"), name);
 			break;
 		}
@@ -996,7 +997,7 @@ void TWApp::setDefaultCodec(QTextCodec *codec)
 
 	if (codec != defaultCodec) {
 		defaultCodec = codec;
-		QSETTINGS_OBJECT(settings);
+		Tw::Settings settings;
 		settings.setValue(QString::fromLatin1("defaultEncoding"), codec->name());
 	}
 }
@@ -1049,7 +1050,7 @@ void TWApp::applyTranslation(const QString& locale)
 
 void TWApp::addToRecentFiles(const QMap<QString,QVariant>& fileProperties)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 
 	QString fileName = fileProperties.value(QString::fromLatin1("path")).toString();
 	if (fileName.isEmpty())
@@ -1077,7 +1078,7 @@ void TWApp::addToRecentFiles(const QMap<QString,QVariant>& fileProperties)
 
 void TWApp::clearRecentFiles()
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QList<QVariant> fileList;
 	settings.setValue(QString::fromLatin1("recentFiles"), QVariant::fromValue(fileList));
 	updateRecentFileActions();
@@ -1085,7 +1086,7 @@ void TWApp::clearRecentFiles()
 
 QMap<QString,QVariant> TWApp::getFileProperties(const QString& path)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QList<QVariant> fileList = settings.value(QString::fromLatin1("recentFiles")).toList();
 	QList<QVariant>::iterator i = fileList.begin();
 	while (i != fileList.end()) {
@@ -1251,7 +1252,7 @@ int TWApp::getVersion()
 //Q_INVOKABLE
 QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObject * scriptApiObj, const int pos /* = -1 */, const bool askUser /* = false */)
 {
-	QSETTINGS_OBJECT(settings);
+	Tw::Settings settings;
 	QMap<QString, QVariant> retVal;
 	QObject * doc = nullptr;
 	QFileInfo fi(fileName);

@@ -26,6 +26,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   ResourcesDialog.cpp
                   ScreenCalibrationWidget.cpp
                   ScriptManager.cpp
+                  Settings.cpp
                   TemplateDialog.cpp
                   TeXDocks.cpp
                   TeXDocument.cpp
@@ -59,6 +60,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   ResourcesDialog.h
                   ScreenCalibrationWidget.h
                   ScriptManager.h
+                  Settings.h
                   TemplateDialog.h
                   TeXDocks.h
                   TeXDocument.h
@@ -122,7 +124,7 @@ SET(TeXworks_SCRIPT_API_H
   ${CMAKE_CURRENT_SOURCE_DIR}/scripting/Script.h
   ${CMAKE_CURRENT_SOURCE_DIR}/scripting/ScriptAPI.h
   ${CMAKE_CURRENT_SOURCE_DIR}/TWSystemCmd.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/ConfigurableApp.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/Settings.h
   PARENT_SCOPE
 )
 

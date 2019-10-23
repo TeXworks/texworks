@@ -22,6 +22,7 @@
 #include "CompletingEdit.h"
 #include "TWUtils.h"
 #include "TWApp.h"
+#include "Settings.h"
 
 #include <QCompleter>
 #include <QKeyEvent>
@@ -72,7 +73,7 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 		braceMatchingFormat = new QTextCharFormat;
 		currentLineFormat = new QTextCharFormat;
 
-		QSETTINGS_OBJECT(settings);
+		Tw::Settings settings;
 		highlightCurrentLine = settings.value(QString::fromLatin1("highlightCurrentLine"), true).toBool();
 		autocompleteEnabled = settings.value(QString::fromLatin1("autocompleteEnabled"), true).toBool();
 	}
