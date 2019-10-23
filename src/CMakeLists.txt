@@ -15,7 +15,6 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   ClosableTabWidget.cpp
                   CommandlineParser.cpp
                   CompletingEdit.cpp
-                  ConfigurableApp.cpp
                   ConfirmDelete.cpp
                   Engine.cpp
                   FindDialog.cpp
@@ -48,7 +47,6 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   ClosableTabWidget.h
                   CommandlineParser.h
                   CompletingEdit.h
-                  ConfigurableApp.h
                   ConfirmDelete.h
                   DefaultPrefs.h
                   Engine.h

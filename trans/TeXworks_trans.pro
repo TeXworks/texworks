@@ -9,7 +9,6 @@ SOURCES = \
   "../src/ClosableTabWidget.cpp" \
   "../src/CommandlineParser.cpp" \
   "../src/CompletingEdit.cpp" \
-  "../src/ConfigurableApp.cpp" \
   "../src/ConfirmDelete.cpp" \
   "../src/Engine.cpp" \
   "../src/FindDialog.cpp" \
@@ -43,7 +42,6 @@ HEADERS = \
   "../src/ClosableTabWidget.h" \
   "../src/CommandlineParser.h" \
   "../src/CompletingEdit.h" \
-  "../src/ConfigurableApp.h" \
   "../src/ConfirmDelete.h" \
   "../src/DefaultBinaryPaths.h" \
   "../src/DefaultPrefs.h" \

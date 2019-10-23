@@ -30,8 +30,6 @@
 #include <QVariant>
 #include <QHash>
 
-#include "ConfigurableApp.h"
-
 #if defined(Q_OS_WIN)
 #define PATH_LIST_SEP   ";"
 #define EXE             ".exe"
@@ -69,7 +67,7 @@ const int kNewWindowOffset = 32;
 #define TW_OPEN_FILE_MSG		(('T' << 8) + 'W')	// just a small sanity check for the receiver
 #endif
 
-class TWApp : public ConfigurableApp
+class TWApp : public QApplication
 {
 	Q_OBJECT
 

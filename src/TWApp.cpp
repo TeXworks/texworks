@@ -80,7 +80,7 @@ const QEvent::Type TWDocumentOpenEvent::type = static_cast<QEvent::Type>(QEvent:
 
 
 TWApp::TWApp(int &argc, char **argv)
-	: ConfigurableApp(argc, argv)
+	: QApplication(argc, argv)
 	, recentFilesLimit(kDefaultMaxRecentFiles)
 	, defaultCodec(nullptr)
 	, binaryPaths(nullptr)
