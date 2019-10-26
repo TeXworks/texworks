@@ -26,6 +26,7 @@
 #include "TWVersion.h"
 #include "GitRev.h"
 #include "Settings.h"
+#include "utils/FileVersionDatabase.h"
 
 #include <QFileDialog>
 #include <QString>
@@ -40,8 +41,6 @@
 #include <QFile>
 #include <QDirIterator>
 #include <QSignalMapper>
-#include <QCryptographicHash>
-#include <QTextStream>
 #include <QDateTime>
 
 #include <hunspell.h>
@@ -132,7 +131,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 	if (subdir == QString::fromLatin1("translations")) // don't copy the built-in translations
 		return;
 	
-	FileVersionDatabase fvdb = FileVersionDatabase::load(destRootDir.absoluteFilePath(QString::fromLatin1("TwFileVersions.db")));
+	Tw::Utils::FileVersionDatabase fvdb = Tw::Utils::FileVersionDatabase::load(destRootDir.absoluteFilePath(QString::fromLatin1("TwFileVersions.db")));
 	
 	QDirIterator iter(srcDir, QDirIterator::Subdirectories);
 	while (iter.hasNext()) {
@@ -147,15 +146,15 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 
 		// Check if the file is in the database
 		if (fvdb.hasFileRecord(destPath)) {
-			FileVersionDatabase::Record rec = fvdb.getFileRecord(destPath);
+			Tw::Utils::FileVersionDatabase::Record rec = fvdb.getFileRecord(destPath);
 			// If the file no longer exists on the disk, the user has deleted it
 			// Hence we won't recreate it, but we keep the database record to
 			// remember that this file was deleted by the user
 			if (!QFileInfo(destPath).exists())
 				continue;
 			
-			QByteArray srcHash = FileVersionDatabase::hashForFile(srcPath);
-			QByteArray destHash = FileVersionDatabase::hashForFile(destPath);
+			QByteArray srcHash = Tw::Utils::FileVersionDatabase::hashForFile(srcPath);
+			QByteArray destHash = Tw::Utils::FileVersionDatabase::hashForFile(destPath);
 			// If the file was modified, don't do anything, either
 			if (destHash != rec.hash) {
 				// The only exception is if the file on the disk matches the
@@ -182,7 +181,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 			}
 		}
 		else {
-			QByteArray srcHash = FileVersionDatabase::hashForFile(srcPath);
+			QByteArray srcHash = Tw::Utils::FileVersionDatabase::hashForFile(srcPath);
 			// If the file is not in the database, we add it - unless a file
 			// with the name already exists
 			if (!QFileInfo(destPath).exists()) {
@@ -197,7 +196,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// If it happens to be identical with the version we would install
 				// we do take ownership, however, and register it in the
 				// database so that future updates are applied
-				QByteArray destHash = FileVersionDatabase::hashForFile(destPath);
+				QByteArray destHash = Tw::Utils::FileVersionDatabase::hashForFile(destPath);
 				if (srcHash == destHash)
 					fvdb.addFileRecord(destPath, destHash, gitCommitHash());
 			}
@@ -206,9 +205,9 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 
 	// Now, remove all files that are unmodified on disk and were
 	// removed upstream
-	QMutableListIterator<FileVersionDatabase::Record> recIt(fvdb.getFileRecords());
+	QMutableListIterator<Tw::Utils::FileVersionDatabase::Record> recIt(fvdb.getFileRecords());
 	while (recIt.hasNext()) {
-		const FileVersionDatabase::Record & rec = recIt.next();
+		const Tw::Utils::FileVersionDatabase::Record & rec = recIt.next();
 
 		QString destPath = rec.filePath.filePath();
 		QString path = destRootDir.relativeFilePath(destPath);
@@ -220,7 +219,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 		
 		// If the source file no longer exists but the file on disk is up to
 		// date, remove it
-		if (rec.filePath.exists() && FileVersionDatabase::hashForFile(destPath) == rec.hash) {
+		if (rec.filePath.exists() && Tw::Utils::FileVersionDatabase::hashForFile(destPath) == rec.hash) {
 			QFile(destPath).remove();
 			recIt.remove();
 		}
@@ -1266,114 +1265,3 @@ bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
 	return QObject::eventFilter(obj, event);
 }
 
-/*static*/
-FileVersionDatabase FileVersionDatabase::load(const QString & path)
-{
-	QFile fin(path);
-	FileVersionDatabase retVal;
-	QDir rootDir(QFileInfo(path).absoluteDir());
-	
-	if (!fin.open(QIODevice::ReadOnly | QIODevice::Text))
-		return retVal;
-
-	QTextStream strm(&fin);
-	
-	while (!strm.atEnd()) {
-		FileVersionDatabase::Record rec;
-		QString line = strm.readLine().trimmed();
-		
-		// ignore comments
-		if (line.startsWith(QChar::fromLatin1('#'))) continue;
-		
-		rec.version = line.section(QChar::fromLatin1(' '), 0, 0);
-		rec.hash = QByteArray::fromHex(line.section(QChar::fromLatin1(' '), 1, 1).toLatin1());
-		rec.filePath = line.section(QChar::fromLatin1(' '), 2).trimmed();
-		rec.filePath = rootDir.absoluteFilePath(rec.filePath.filePath());
-		retVal.m_records.append(rec);
-	}
-	
-	fin.close();
-	
-	return retVal;
-}
-
-bool FileVersionDatabase::save(const QString & path) const
-{
-	QFile fout(path);
-	QDir rootDir(QFileInfo(path).absoluteDir());
-	
-	if (!fout.open(QIODevice::WriteOnly | QIODevice::Text))
-		return false;
-	
-	QTextStream strm(&fout);
-
-	foreach (FileVersionDatabase::Record rec, m_records) {
-		QString filePath = rec.filePath.absoluteFilePath();
-		strm << rec.version << " " << rec.hash.toHex() << " " << rootDir.relativeFilePath(filePath) << endl;
-	}
-	
-	fout.close();
-	return true;
-}
-
-void FileVersionDatabase::addFileRecord(const QFileInfo & file, const QByteArray & md5Hash, const QString & version)
-{
-	// remove all existing entries for this file
-	QMutableListIterator<FileVersionDatabase::Record> it(m_records);
-	
-	while (it.hasNext()) {
-		const FileVersionDatabase::Record rec = it.next();
-		if (file.absoluteFilePath() == rec.filePath.absoluteFilePath()) {
-			it.remove();
-		}
-	}
-	
-	// add the new data
-	FileVersionDatabase::Record rec;
-	rec.filePath = file;
-	rec.version = version;
-	rec.hash = md5Hash;
-	m_records.append(rec);
-}
-
-bool FileVersionDatabase::hasFileRecord(const QFileInfo & file) const
-{
-	QListIterator<FileVersionDatabase::Record> it(m_records);
-	
-	while (it.hasNext()) {
-		const FileVersionDatabase::Record rec = it.next();
-		if (file.filePath() == rec.filePath.filePath())
-			return true;
-	}
-	return false;
-}
-
-FileVersionDatabase::Record FileVersionDatabase::getFileRecord(const QFileInfo & file) const
-{
-	QListIterator<FileVersionDatabase::Record> it(m_records);
-	
-	while (it.hasNext()) {
-		const FileVersionDatabase::Record rec = it.next();
-		if (file == rec.filePath)
-			return rec;
-	}
-
-	FileVersionDatabase::Record retVal;
-	retVal.version = QString();
-	retVal.hash = QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e"); // hash for the zero-length string
-	return retVal;
-}
-
-/*static*/
-QByteArray FileVersionDatabase::hashForFile(const QString & path)
-{
-	QByteArray retVal = QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e"); // hash for the zero-length string;
-	QFile fin(path);
-	
-	if (!fin.open(QIODevice::ReadOnly))
-		return retVal;
-	
-	retVal = QCryptographicHash::hash(fin.readAll(), QCryptographicHash::Md5);
-	fin.close();
-	return retVal;
-}

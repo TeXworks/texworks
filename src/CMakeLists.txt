@@ -39,7 +39,9 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   scripting/JSScriptInterface.cpp
                   scripting/ScriptAPI.cpp
                   scripting/Script.cpp
-                  scripting/JSScript.cpp)
+                  scripting/JSScript.cpp
+                  utils/FileVersionDatabase.cpp
+                  )
 
 set(TEXWORKS_HDRS BibTeXFile.h
                   CitationSelectDialog.h
@@ -75,7 +77,9 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   scripting/ScriptAPI.h
                   scripting/Script.h
                   scripting/JSScriptInterface.h
-                  scripting/JSScript.h)
+                  scripting/JSScript.h
+                  utils/FileVersionDatabase.h
+                  )
 
 if (WIN32)
   list(APPEND TEXWORKS_HDRS DefaultBinaryPathsWin.h)

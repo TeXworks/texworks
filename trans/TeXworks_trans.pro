@@ -33,7 +33,8 @@ SOURCES = \
   "../src/scripting/JSScript.cpp" \
   "../src/scripting/JSScriptInterface.cpp" \
   "../src/scripting/Script.cpp" \
-  "../src/scripting/ScriptAPI.cpp"
+  "../src/scripting/ScriptAPI.cpp" \
+  "../src/utils/FileVersionDatabase.cpp"
 
 HEADERS = \
   "../src/BibTeXFile.h" \
@@ -71,7 +72,8 @@ HEADERS = \
   "../src/scripting/Script.h" \
   "../src/scripting/ScriptAPI.h" \
   "../src/scripting/ScriptAPIInterface.h" \
-  "../src/scripting/ScriptLanguageInterface.h"
+  "../src/scripting/ScriptLanguageInterface.h" \
+  "../src/utils/FileVersionDatabase.h"
 
 FORMS = \
   "../src/CitationSelectDialog.ui" \
