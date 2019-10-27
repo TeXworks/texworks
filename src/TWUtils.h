@@ -50,7 +50,7 @@ public:
 	// return the path to our "library" folder for resources like templates, completion lists, etc
 	static const QString getLibraryPath(const QString& subdir, const bool updateOnDisk = true);
 	// same as getLibraryPath(), but splits the return value by PATH_LIST_SEP
-	static QStringList getLibraryPaths(const QString& subdir, const bool updateOnDisk = true);
+	static const QStringList getLibraryPaths(const QString& subdir, const bool updateOnDisk = true);
 	static void updateLibraryResources(const QDir& srcRootDir, const QDir& destRootDir, const QString& libPath);
 
 	static void insertHelpMenuItems(QMenu* helpMenu);

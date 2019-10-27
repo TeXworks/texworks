@@ -40,7 +40,8 @@ QHash<QString, QString> * SpellChecker::getDictionaryList(const bool forceReload
 	}
 
 	dictionaryList = new QHash<QString, QString>();
-	foreach (QDir dicDir, TWUtils::getLibraryPaths(QStringLiteral("dictionaries"))) {
+	const QStringList dirs = TWUtils::getLibraryPaths(QStringLiteral("dictionaries"));
+	foreach (QDir dicDir, dirs) {
 		foreach (QFileInfo dicFileInfo, dicDir.entryInfoList(QStringList(QString::fromLatin1("*.dic")),
 					QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
 			QFileInfo affFileInfo(dicFileInfo.dir(), dicFileInfo.completeBaseName() + QLatin1String(".aff"));
@@ -65,7 +66,8 @@ SpellChecker::Dictionary * SpellChecker::getDictionary(const QString& language)
 	if (dictionaries->contains(language))
 		return dictionaries->value(language);
 
-	foreach (QDir dicDir, TWUtils::getLibraryPaths(QStringLiteral("dictionaries"))) {
+	const QStringList dirs = TWUtils::getLibraryPaths(QStringLiteral("dictionaries"));
+	foreach (QDir dicDir, dirs) {
 		QFileInfo affFile(dicDir, language + QLatin1String(".aff"));
 		QFileInfo dicFile(dicDir, language + QLatin1String(".dic"));
 		if (affFile.isReadable() && dicFile.isReadable()) {
