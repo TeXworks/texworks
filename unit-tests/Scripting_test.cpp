@@ -413,7 +413,7 @@ void TestScripting::mocks()
 		};
 		QCOMPARE(api.launchFile(QString()), retVal);
 	}
-	QCOMPARE(api.writeFile(QString(), QString()), ScriptAPIInterface::SystemAccess_Failed);
+	QCOMPARE(api.writeFile(QString(), QString()), static_cast<int>(ScriptAPIInterface::SystemAccess_Failed));
 	{
 		QMap<QString, QVariant> retVal = {
 			{QStringLiteral("status"), ScriptAPIInterface::SystemAccess_Failed},
@@ -422,20 +422,20 @@ void TestScripting::mocks()
 		};
 		QCOMPARE(api.readFile(QString()), retVal);
 	}
-	QCOMPARE(api.fileExists(QString()), ScriptAPIInterface::SystemAccess_Failed);
-	QCOMPARE(api.information(nullptr, QString(), QString()), QMessageBox::NoButton);
-	QCOMPARE(api.question(nullptr, QString(), QString()), QMessageBox::NoButton);
-	QCOMPARE(api.warning(nullptr, QString(), QString()), QMessageBox::NoButton);
-	QCOMPARE(api.critical(nullptr, QString(), QString()), QMessageBox::NoButton);
-	QCOMPARE(api.getInt(nullptr, QString(), QString(), 42), 42);
-	QCOMPARE(api.getDouble(nullptr, QString(), QString(), 42.3), 42.3);
-	QCOMPARE(api.getItem(nullptr, QString(), QString(), {QStringLiteral("1"), QStringLiteral("2")}, 1), QStringLiteral("2"));
-	QCOMPARE(api.getText(nullptr, QString(), QString(), QStringLiteral("42.3")), QStringLiteral("42.3"));
+	QCOMPARE(api.fileExists(QString()), static_cast<int>(ScriptAPIInterface::SystemAccess_Failed));
+	QCOMPARE(api.information(nullptr, QString(), QString()), static_cast<int>(QMessageBox::NoButton));
+	QCOMPARE(api.question(nullptr, QString(), QString()), static_cast<int>(QMessageBox::NoButton));
+	QCOMPARE(api.warning(nullptr, QString(), QString()), static_cast<int>(QMessageBox::NoButton));
+	QCOMPARE(api.critical(nullptr, QString(), QString()), static_cast<int>(QMessageBox::NoButton));
+	QCOMPARE(api.getInt(nullptr, QString(), QString(), 42), QVariant(42));
+	QCOMPARE(api.getDouble(nullptr, QString(), QString(), 42.3), QVariant(42.3));
+	QCOMPARE(api.getItem(nullptr, QString(), QString(), {QStringLiteral("1"), QStringLiteral("2")}, 1), QVariant(QStringLiteral("2")));
+	QCOMPARE(api.getText(nullptr, QString(), QString(), QStringLiteral("42.3")), QVariant(QStringLiteral("42.3")));
 	api.yield();
-	QCOMPARE(api.progressDialog(nullptr), nullptr);
-	QCOMPARE(api.createUIFromString(QString()), nullptr);
-	QCOMPARE(api.createUI(QString()), nullptr);
-	QCOMPARE(api.findChildWidget(nullptr, QString()), nullptr);
+	QCOMPARE(api.progressDialog(nullptr), static_cast<QWidget*>(nullptr));
+	QCOMPARE(api.createUIFromString(QString()), static_cast<QWidget*>(nullptr));
+	QCOMPARE(api.createUI(QString()), static_cast<QWidget*>(nullptr));
+	QCOMPARE(api.findChildWidget(nullptr, QString()), static_cast<QWidget*>(nullptr));
 	QVERIFY(api.makeConnection(nullptr, QString(), nullptr, QString()) == false);
 	QCOMPARE(api.getDictionaryList(), {});
 	QCOMPARE(api.getEngineList(), {});
