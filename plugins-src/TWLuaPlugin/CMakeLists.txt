@@ -25,7 +25,8 @@ else ()
 endif ()
 
 ADD_LIBRARY(TWLuaPlugin ${TWLUAPLUGIN_LIB_TYPE}
-  TWLuaPlugin.cpp
+  LuaScriptInterface.cpp
+  LuaScript.cpp
   ${TWSCRIPT_SRC}
   ${LUA_PLUGIN_MOC}
 )

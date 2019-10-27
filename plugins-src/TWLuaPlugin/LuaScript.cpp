@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2010-2018  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2010-2019  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,35 +19,17 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "TWLuaPlugin.h"
+#include "LuaScript.h"
 
 #include <QTextStream>
 #include <QtPlugin>
 #include <QMetaObject>
 #include <QStringList>
 
-TWLuaPlugin::TWLuaPlugin()
-{
-	// Initialize lua state
-	luaState = luaL_newstate();
-	if (luaState) {
-		luaL_openlibs(luaState);
-	}
-}
+namespace Tw {
+namespace Scripting {
 
-TWLuaPlugin::~TWLuaPlugin()
-{
-	if (luaState)
-		lua_close(luaState);
-}
-
-Tw::Scripting::Script* TWLuaPlugin::newScript(const QString& fileName)
-{
-	return new LuaScript(this, fileName);
-}
-
-
-bool LuaScript::execute(Tw::Scripting::ScriptAPIInterface *tw) const
+bool LuaScript::execute(ScriptAPIInterface * tw) const
 {
 	int status;
 	lua_State * L = m_LuaPlugin->getLuaState();
@@ -443,3 +425,6 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 	}
 	return QVariant();
 }
+
+} // namespace Scripting
+} // namespace Tw

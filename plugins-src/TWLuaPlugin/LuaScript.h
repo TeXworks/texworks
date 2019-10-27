@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2010-2018  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2010-2019  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,12 +19,12 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef TW_LUA_PLUGIN_H
-#define TW_LUA_PLUGIN_H
+#ifndef LuaScript_H
+#define LuaScript_H
 
 #include "scripting/Script.h"
 #include "scripting/ScriptAPIInterface.h"
-#include "scripting/ScriptLanguageInterface.h"
+#include "LuaScriptInterface.h"
 
 #include "lua.hpp"
 
@@ -32,58 +32,11 @@
 #include <QMetaProperty>
 #include <QVariant>
 
-/** \brief Implementation of the script plugin interface */
-class TWLuaPlugin : public QObject, public Tw::Scripting::ScriptLanguageInterface
-{
-	Q_OBJECT
-	Q_INTERFACES(Tw::Scripting::ScriptLanguageInterface)
-	Q_PLUGIN_METADATA(IID "org.tug.texworks.ScriptPlugins.LuaPlugin")
-
-public:
-	/** \brief Constructor
-	 *
-	 * Initializes the lua state
-	 */
-	TWLuaPlugin();
-
-	/** \brief Destructor
-	 *
-	 * Closes the lua state
-	 */
-	virtual ~TWLuaPlugin();
-
-	/** \brief Script factory
-	 *
-	 * \return	pointer to a new LuaScript object cast to Tw::Scripting::Script*
-	 * 			as the interface requires; the caller owns the object and must delete
-	 * 			it.
-	 */
-	virtual Tw::Scripting::Script* newScript(const QString& fileName);
-	
-	/** \brief	Get the supported script language name
-	 *
-	 * \return	the name of the scripting language
-	 */
-	virtual QString scriptLanguageName() const { return QString::fromLatin1("Lua"); }
-	
-	/** \brief	Get a URL for information on the supported script language
-	 *
-	 * \return	a string with a URL for information about the language
-	 */
-	virtual QString scriptLanguageURL() const { return QString::fromLatin1("http://www.lua.org/"); }
-	
-    /** \brief  Return whether the given file is handled by this scripting language plugin
-	 */
-	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QLatin1String("lua"); }
-
-	lua_State * getLuaState() { return luaState; }
-	
-protected:
-	lua_State * luaState;	///< property to hold the lua state
-};
+namespace Tw {
+namespace Scripting {
 
 /** \brief Class for handling lua scripts */
-class LuaScript : public Tw::Scripting::Script
+class LuaScript : public Script
 {
 	Q_OBJECT
 	Q_INTERFACES(Tw::Scripting::Script)
@@ -94,7 +47,7 @@ public:
 	 * Initializes m_LuaPlugin
 	 * \param	lua	pointer to the plugin that holds the lua state to operate on
 	 */
-	LuaScript(TWLuaPlugin* lua, const QString& fileName) : Tw::Scripting::Script(lua, fileName), m_LuaPlugin(lua) { }
+	LuaScript(LuaScriptInterface * lua, const QString& fileName) : Script(lua, fileName), m_LuaPlugin(lua) { }
 	
 	/** \brief Parse the script header
 	 *
@@ -110,7 +63,7 @@ protected:
 	 *
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool execute(Tw::Scripting::ScriptAPIInterface *tw) const;
+	virtual bool execute(ScriptAPIInterface *tw) const;
 	
 	/** \brief Convenience function to wrap a QObject and push it onto the stack
 	 *
@@ -179,7 +132,10 @@ protected:
 	 */
 	static int callMethod(lua_State * L);
 
-	TWLuaPlugin * m_LuaPlugin;	///< pointer to the lua plugin holding the lua state
+	LuaScriptInterface * m_LuaPlugin;	///< pointer to the lua plugin holding the lua state
 };
 
-#endif // !defined(TW_LUA_PLUGIN_H)
+} // namespace Scripting
+} // namespace Tw
+
+#endif // !defined(LuaScript_H)
