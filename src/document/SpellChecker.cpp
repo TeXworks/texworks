@@ -20,7 +20,6 @@
 */
 #include "document/SpellChecker.h"
 #include "TWUtils.h" // for TWUtils::getLibraryPath
-#include "TWApp.h" // FIXME: Remove TWApp dependency (PATH_LIST_SEP)
 
 #include <hunspell.h>
 
@@ -41,7 +40,7 @@ QHash<QString, QString> * SpellChecker::getDictionaryList(const bool forceReload
 	}
 
 	dictionaryList = new QHash<QString, QString>();
-	foreach (QDir dicDir, TWUtils::getLibraryPath(QString::fromLatin1("dictionaries")).split(QLatin1String(PATH_LIST_SEP))) {
+	foreach (QDir dicDir, TWUtils::getLibraryPaths(QStringLiteral("dictionaries"))) {
 		foreach (QFileInfo dicFileInfo, dicDir.entryInfoList(QStringList(QString::fromLatin1("*.dic")),
 					QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
 			QFileInfo affFileInfo(dicFileInfo.dir(), dicFileInfo.completeBaseName() + QLatin1String(".aff"));
@@ -66,7 +65,7 @@ SpellChecker::Dictionary * SpellChecker::getDictionary(const QString& language)
 	if (dictionaries->contains(language))
 		return dictionaries->value(language);
 
-	foreach (QDir dicDir, TWUtils::getLibraryPath(QString::fromLatin1("dictionaries")).split(QLatin1String(PATH_LIST_SEP))) {
+	foreach (QDir dicDir, TWUtils::getLibraryPaths(QStringLiteral("dictionaries"))) {
 		QFileInfo affFile(dicDir, language + QLatin1String(".aff"));
 		QFileInfo dicFile(dicDir, language + QLatin1String(".dic"));
 		if (affFile.isReadable() && dicFile.isReadable()) {
