@@ -227,7 +227,6 @@ public:
 		Q_UNUSED(context);
 		return false;
 	}
-
 };
 
 void TestScripting::scriptLanguageName()
@@ -376,6 +375,75 @@ void TestScripting::parseHeader()
 	QCOMPARE(script->getKeySequence(), keySequence);
 	QCOMPARE(script->getHook(), hook);
 	QCOMPARE(script->getContext(), context);
+}
+
+void TestScripting::mocks()
+{
+	Script * s = JSScriptInterface().newScript(QString());
+	MockAPI api(s);
+
+	QCOMPARE(api.self(), &api);
+	QCOMPARE(api.GetApp(), &api);
+	QCOMPARE(api.GetScript(), s);
+
+	QCOMPARE(api.GetResult(), QVariant());
+	{
+		QVariant testVariant(42.3);
+		api.SetResult(testVariant);
+		QCOMPARE(api.GetResult(), testVariant);
+	}
+
+	QCOMPARE(api.strlen(QStringLiteral("Test")), 4);
+	QCOMPARE(api.platform(), QString());
+	QCOMPARE(api.getQtVersion(), QT_VERSION);
+
+	{
+		QMap<QString, QVariant> retVal = {
+			{QStringLiteral("status"), ScriptAPIInterface::SystemAccess_Failed},
+			{QStringLiteral("result"), 0},
+			{QStringLiteral("message"), QStringLiteral("This is only a MockAPI")},
+			{QStringLiteral("output"), QString()}
+		};
+		QCOMPARE(api.system(QString()), retVal);
+	}
+	{
+		QMap<QString, QVariant> retVal = {
+			{QStringLiteral("status"), ScriptAPIInterface::SystemAccess_Failed},
+			{QStringLiteral("message"), QStringLiteral("This is only a MockAPI")},
+		};
+		QCOMPARE(api.launchFile(QString()), retVal);
+	}
+	QCOMPARE(api.writeFile(QString(), QString()), ScriptAPIInterface::SystemAccess_Failed);
+	{
+		QMap<QString, QVariant> retVal = {
+			{QStringLiteral("status"), ScriptAPIInterface::SystemAccess_Failed},
+			{QStringLiteral("result"), QString()},
+			{QStringLiteral("message"), QStringLiteral("This is only a MockAPI")},
+		};
+		QCOMPARE(api.readFile(QString()), retVal);
+	}
+	QCOMPARE(api.fileExists(QString()), ScriptAPIInterface::SystemAccess_Failed);
+	QCOMPARE(api.information(nullptr, QString(), QString()), QMessageBox::NoButton);
+	QCOMPARE(api.question(nullptr, QString(), QString()), QMessageBox::NoButton);
+	QCOMPARE(api.warning(nullptr, QString(), QString()), QMessageBox::NoButton);
+	QCOMPARE(api.critical(nullptr, QString(), QString()), QMessageBox::NoButton);
+	QCOMPARE(api.getInt(nullptr, QString(), QString(), 42), 42);
+	QCOMPARE(api.getDouble(nullptr, QString(), QString(), 42.3), 42.3);
+	QCOMPARE(api.getItem(nullptr, QString(), QString(), {QStringLiteral("1"), QStringLiteral("2")}, 1), QStringLiteral("2"));
+	QCOMPARE(api.getText(nullptr, QString(), QString(), QStringLiteral("42.3")), QStringLiteral("42.3"));
+	api.yield();
+	QCOMPARE(api.progressDialog(nullptr), nullptr);
+	QCOMPARE(api.createUIFromString(QString()), nullptr);
+	QCOMPARE(api.createUI(QString()), nullptr);
+	QCOMPARE(api.findChildWidget(nullptr, QString()), nullptr);
+	QVERIFY(api.makeConnection(nullptr, QString(), nullptr, QString()) == false);
+	QCOMPARE(api.getDictionaryList(), {});
+	QCOMPARE(api.getEngineList(), {});
+	QVERIFY(api.mayExecuteSystemCommand(QString(), nullptr) == false);
+	QVERIFY(api.mayWriteFile(QString(), nullptr) == false);
+	QVERIFY(api.mayReadFile(QString(), nullptr) == false);
+
+	delete s;
 }
 
 void TestScripting::execute()

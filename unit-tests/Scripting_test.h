@@ -39,6 +39,8 @@ private slots:
 	void parseHeader_data();
 	void parseHeader();
 
+	void mocks();
+
 	void execute();
 };
 
