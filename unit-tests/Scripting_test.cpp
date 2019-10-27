@@ -27,6 +27,8 @@ using namespace Tw::Scripting;
 Q_DECLARE_METATYPE(QSharedPointer<Script>)
 Q_DECLARE_METATYPE(Script::ScriptType)
 
+namespace UnitTest {
+
 class MockTarget : public QObject
 {
 	Q_OBJECT
@@ -401,10 +403,12 @@ void TestScripting::execute()
 	}
 }
 
+} // namespace UnitTest
+
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
   Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
 #endif
 
-QTEST_MAIN(TestScripting)
+QTEST_MAIN(UnitTest::TestScripting)
 
 #include "Scripting_test.moc"

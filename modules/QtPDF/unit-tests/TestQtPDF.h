@@ -23,6 +23,8 @@
 
 #include "PDFBackend.h"
 
+namespace UnitTest {
+
 class TestQtPDF : public QObject
 {
   Q_OBJECT
@@ -127,6 +129,8 @@ private slots:
   void paperSize_data();
   void paperSize();
 };
+
+} // namespace UnitTest
 
 typedef QMap<QString, QString> QStringMap;
 

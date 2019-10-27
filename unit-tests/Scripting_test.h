@@ -20,6 +20,8 @@
 */
 #include <QtTest/QtTest>
 
+namespace UnitTest {
+
 class TestScripting : public QObject
 {
 	Q_OBJECT
@@ -39,3 +41,5 @@ private slots:
 
 	void execute();
 };
+
+} // namespace UnitTest

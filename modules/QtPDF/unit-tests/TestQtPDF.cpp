@@ -29,6 +29,48 @@
   #error Must specify one backend
 #endif
 
+namespace QtPDF {
+void compareDestination(const QtPDF::PDFDestination & a, const QtPDF::PDFDestination & b)
+{
+  QCOMPARE(a.isExplicit(), b.isExplicit());
+  QCOMPARE(a.page(), b.page());
+  if (a.isExplicit()) {
+    QCOMPARE(a.rect(), b.rect());
+    QCOMPARE(a.zoom(), b.zoom());
+  }
+  else
+    QCOMPARE(a.destinationName(), b.destinationName());
+}
+
+bool operator== (const QtPDF::PDFAction & a, const QtPDF::PDFAction & b) {
+  if (a.type() != b.type()) return false;
+  switch (a.type()) {
+  case QtPDF::PDFAction::ActionTypeGoTo:
+  {
+    const QtPDF::PDFGotoAction & A = reinterpret_cast<const QtPDF::PDFGotoAction &>(a);
+    const QtPDF::PDFGotoAction & B = reinterpret_cast<const QtPDF::PDFGotoAction &>(b);
+
+    compareDestination(A.destination(), B.destination());
+    if (QTest::currentTestFailed()) return false;
+    if (A.isRemote() != B.isRemote()) return false;
+    if (A.filename() != B.filename()) return false;
+    if (A.openInNewWindow() != B.openInNewWindow()) return false;
+
+    return true;
+  }
+  case QtPDF::PDFAction::ActionTypeURI:
+  {
+    const QtPDF::PDFURIAction & A = reinterpret_cast<const QtPDF::PDFURIAction &>(a);
+    const QtPDF::PDFURIAction & B = reinterpret_cast<const QtPDF::PDFURIAction &>(b);
+    return A.url() == B.url();
+  }
+  default:
+    return false;
+  }
+}
+} // namespace QtPDF
+
+namespace UnitTest {
 
 class ComparableImage : public QImage {
   double _threshold;
@@ -275,18 +317,6 @@ void TestQtPDF::page()
 //		loadAnnotations
 //		search
   }
-}
-
-void compareDestination(const QtPDF::PDFDestination & a, const QtPDF::PDFDestination & b)
-{
-  QCOMPARE(a.isExplicit(), b.isExplicit());
-  QCOMPARE(a.page(), b.page());
-  if (a.isExplicit()) {
-    QCOMPARE(a.rect(), b.rect());
-    QCOMPARE(a.zoom(), b.zoom());
-  }
-  else
-    QCOMPARE(a.destinationName(), b.destinationName());
 }
 
 void TestQtPDF::resolveDestination_data()
@@ -704,35 +734,6 @@ void TestQtPDF::page_renderToImage()
   QVERIFY(render == ref);
 }
 
-namespace QtPDF {
-bool operator== (const QtPDF::PDFAction & a, const QtPDF::PDFAction & b) {
-  if (a.type() != b.type()) return false;
-  switch (a.type()) {
-  case QtPDF::PDFAction::ActionTypeGoTo:
-  {
-    const QtPDF::PDFGotoAction & A = reinterpret_cast<const QtPDF::PDFGotoAction &>(a);
-    const QtPDF::PDFGotoAction & B = reinterpret_cast<const QtPDF::PDFGotoAction &>(b);
-
-    compareDestination(A.destination(), B.destination());
-    if (QTest::currentTestFailed()) return false;
-    if (A.isRemote() != B.isRemote()) return false;
-    if (A.filename() != B.filename()) return false;
-    if (A.openInNewWindow() != B.openInNewWindow()) return false;
-
-    return true;
-  }
-  case QtPDF::PDFAction::ActionTypeURI:
-  {
-    const QtPDF::PDFURIAction & A = reinterpret_cast<const QtPDF::PDFURIAction &>(a);
-    const QtPDF::PDFURIAction & B = reinterpret_cast<const QtPDF::PDFURIAction &>(b);
-    return A.url() == B.url();
-  }
-  default:
-    return false;
-  }
-}
-} // namespace QtPDF
-
 void printAction(const QtPDF::PDFAction & a)
 {
   switch (a.type()) {
@@ -1057,12 +1058,11 @@ void TestQtPDF::paperSize()
   QCOMPARE(ps.landscape(), landscape);
 }
 
-
-
+} // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
   Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
 #endif
 
-QTEST_MAIN(TestQtPDF)
+QTEST_MAIN(UnitTest::TestQtPDF)
 //#include "TestQtPDF.moc"

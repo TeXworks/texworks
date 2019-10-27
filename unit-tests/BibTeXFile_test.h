@@ -20,6 +20,8 @@
 */
 #include <QtTest/QtTest>
 
+namespace UnitTest {
+
 class TestBibTeXFile : public QObject
 {
   Q_OBJECT
@@ -36,3 +38,5 @@ private slots:
   void entry_year();
   void entry_howPublished();
 };
+
+} // namespace UnitTest
