@@ -36,6 +36,16 @@ class TestQtPDF : public QObject
   QTestData & newDocTest(const char * tag);
   QTestData & newPageTest(const char * tag, const unsigned int iPage);
 
+  static void compareAnnotation(const QtPDF::Annotation::AbstractAnnotation & a, const QtPDF::Annotation::AbstractAnnotation & b);
+  static void compareAnnotations(const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & a, const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & b);
+  static void compareLinks(const QtPDF::Annotation::Link & actual, const QtPDF::Annotation::Link & expected);
+  static void compareSearchResults(const QList<QtPDF::Backend::SearchResult> & actual, const QList<QtPDF::Backend::SearchResult> & expected);
+  static void compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDFToC & expected);
+
+  static void printAction(const QtPDF::PDFAction & a);
+  static void printAnnotation(const QtPDF::Annotation::AbstractAnnotation & a);
+  static void printToC(const QtPDF::Backend::PDFToC & toc, const QString & indent = QString::fromLatin1("  "));
+
 private slots:
   void backendInterface();
 

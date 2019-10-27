@@ -655,7 +655,8 @@ void TestQtPDF::fonts()
   QCOMPARE(actualFontNames, fontNames);
 }
 
-void compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDFToC & expected)
+// static
+void TestQtPDF::compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDFToC & expected)
 {
   QCOMPARE(actual.size(), expected.size());
   if (QTest::currentTestFailed()) return;
@@ -666,7 +667,8 @@ void compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDF
   }
 }
 
-void printToC(const QtPDF::Backend::PDFToC & toc, const QString & indent = QString::fromLatin1("  "))
+// static
+void TestQtPDF::printToC(const QtPDF::Backend::PDFToC & toc, const QString & indent)
 {
   for (int i = 0; i < toc.size(); ++i) {
     qDebug() << qPrintable(indent + toc[i].label());
@@ -734,7 +736,8 @@ void TestQtPDF::page_renderToImage()
   QVERIFY(render == ref);
 }
 
-void printAction(const QtPDF::PDFAction & a)
+// static
+void TestQtPDF::printAction(const QtPDF::PDFAction & a)
 {
   switch (a.type()) {
   case QtPDF::PDFAction::ActionTypeGoTo:
@@ -760,7 +763,8 @@ void printAction(const QtPDF::PDFAction & a)
   }
 }
 
-void compareLinks(const QtPDF::Annotation::Link & actual, const QtPDF::Annotation::Link & expected)
+// static
+void TestQtPDF::compareLinks(const QtPDF::Annotation::Link & actual, const QtPDF::Annotation::Link & expected)
 {
   QCOMPARE(actual.quadPoints(), expected.quadPoints());
   QTEST_ASSERT(actual.actionOnActivation());
@@ -830,7 +834,8 @@ void TestQtPDF::page_loadLinks()
   }
 }
 
-void compareAnnotation(const QtPDF::Annotation::AbstractAnnotation & a, const QtPDF::Annotation::AbstractAnnotation & b)
+// static
+void TestQtPDF::compareAnnotation(const QtPDF::Annotation::AbstractAnnotation & a, const QtPDF::Annotation::AbstractAnnotation & b)
 {
   int pageA = (a.page().toStrongRef() ? a.page().toStrongRef()->pageNum() : -1);
   int pageB = (b.page().toStrongRef() ? b.page().toStrongRef()->pageNum() : -1);
@@ -841,7 +846,8 @@ void compareAnnotation(const QtPDF::Annotation::AbstractAnnotation & a, const Qt
   QCOMPARE(a.contents(), b.contents());
 }
 
-void compareAnnotations(const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & a, const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & b)
+// static
+void TestQtPDF::compareAnnotations(const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & a, const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & b)
 {
   QCOMPARE(a.size(), b.size());
 
@@ -851,7 +857,8 @@ void compareAnnotations(const QList< QSharedPointer<QtPDF::Annotation::AbstractA
   }
 }
 
-void printAnnotation(const QtPDF::Annotation::AbstractAnnotation & a)
+// static
+void TestQtPDF::printAnnotation(const QtPDF::Annotation::AbstractAnnotation & a)
 {
   int page = (a.page().toStrongRef() ? a.page().toStrongRef()->pageNum() : -1);
   qDebug() << "   Type:" << a.type() << "page:" << page << "rect:" << a.rect() << "contents:" << a.contents();
@@ -963,7 +970,8 @@ void TestQtPDF::page_selectedText()
   QCOMPARE(page->selectedText(selection), text);
 }
 
-void compareSearchResults(const QList<QtPDF::Backend::SearchResult> & actual, const QList<QtPDF::Backend::SearchResult> & expected)
+// static
+void TestQtPDF::compareSearchResults(const QList<QtPDF::Backend::SearchResult> & actual, const QList<QtPDF::Backend::SearchResult> & expected)
 {
   QCOMPARE(actual.size(), expected.size());
   for (int i = 0; i < actual.size(); ++i) {
