@@ -111,6 +111,11 @@ const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOn
 	return libPath;
 }
 
+const QStringList TWUtils::getLibraryPaths(const QString & subdir, const bool updateOnDisk)
+{
+	return getLibraryPath(subdir, updateOnDisk).split(QStringLiteral(PATH_LIST_SEP));
+}
+
 /*static*/
 void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRootDir, const QString& subdir)
 {
