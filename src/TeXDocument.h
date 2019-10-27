@@ -23,6 +23,7 @@
 #define TeXDocument_H
 
 #include "TWScriptable.h"
+#include "document/SpellChecker.h"
 
 #include <QList>
 #include <QRegularExpression>
@@ -34,8 +35,6 @@
 #include "ui_TeXDocument.h"
 
 #include "FindDialog.h"
-
-#include <hunspell.h>
 
 class QAction;
 class QMenu;
@@ -289,7 +288,7 @@ private:
 
 	QList<QAction*> recentFileActions;
 
-	Hunhandle *pHunspell;
+	Tw::Document::SpellChecker::Dictionary * _dictionary;
 
 	QFileSystemWatcher *watcher;
 	

@@ -37,7 +37,6 @@ class QMainWindow;
 class QCompleter;
 class TeXDocument;
 class PDFDocument;
-struct Hunhandle;
 
 // static utility methods
 class TWUtils
@@ -60,19 +59,6 @@ public:
 	// get list of available translations
 	static QStringList *getTranslationList();
 	
-	// get list of available dictionaries
-	static QHash<QString, QString> *getDictionaryList(const bool forceReload = false);
-	
-	// get dictionary for a given language
-	static Hunhandle *getDictionary(const QString& language);
-	// get language for a given dictionary
-	static QString getLanguageForDictionary(const Hunhandle * pHunspell);
-	// deallocates all dictionaries
-	// WARNING: Don't call this while some window is using a dictionary (holds a
-	// Hunhandle*) as that window won't be notified; deactivate spell checking
-	// in all windows first (see TWApp::reloadSpellchecker())
-	static void clearDictionaries();
-
 	// list of filename filters for the Open/Save dialogs
 	static QStringList* filterList();
 	static void setDefaultFilters();
@@ -127,10 +113,7 @@ private:
 	TWUtils();
 
 	static QList<QTextCodec*>		*codecList;
-	static QHash<QString, QString>	*dictionaryList;
 	static QStringList				*translationList;
-
-	static QHash<const QString,Hunhandle*>	*dictionaries;
 
 	static QStringList			*filters;
 

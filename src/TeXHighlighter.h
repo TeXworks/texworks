@@ -22,14 +22,14 @@
 #ifndef TEX_HIGHLIGHTER_H
 #define TEX_HIGHLIGHTER_H
 
+#include "document/SpellChecker.h"
+
 #include <QSyntaxHighlighter>
 
 #include <QTextLayout>
 #include <QTextCharFormat>
 #include <QRegularExpression>
 #include <QTimer>
-
-#include <hunspell.h>
 
 class QTextDocument;
 class QTextCodec;
@@ -103,7 +103,7 @@ public:
 	TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument = nullptr);
 	void setActiveIndex(int index);
 
-	void setSpellChecker(Hunhandle *h, QTextCodec *codec);
+	void setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary);
 
 	QString getSyntaxMode() const {
 		return (highlightIndex >= 0 && highlightIndex < syntaxOptions().size())
@@ -146,8 +146,7 @@ private:
 	int highlightIndex;
 	bool isTagging;
 
-	Hunhandle	*pHunspell;
-	QTextCodec	*spellingCodec;
+	Tw::Document::SpellChecker::Dictionary * _dictionary;
 
 	QTextDocument * textDoc;
 };

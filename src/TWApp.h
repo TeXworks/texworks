@@ -116,8 +116,6 @@ public:
 
 	TWScriptManager* getScriptManager() { return scriptManager; }
 	
-	void notifyDictionaryListChanged() const { emit dictionaryListChanged(); }
-
 #if defined(Q_OS_WIN)
 	void createMessageTarget(QWidget* aWindow);
 	static QString GetWindowsVersionString();
@@ -220,10 +218,6 @@ signals:
 	void engineListChanged();
 	
 	void scriptListChanged();
-	
-	// emitted when TWUtils::getDictionaryList reloads the dictionary list;
-	// windows can connect to it to rebuild, e.g., a spellchecking menu
-	void dictionaryListChanged() const;
 	
 	void syncPdf(const QString& sourceFile, int lineNo, int col, bool activatePreview);
 

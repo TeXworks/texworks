@@ -22,14 +22,14 @@
 #ifndef COMPLETING_EDIT_H
 #define COMPLETING_EDIT_H
 
+#include "document/SpellChecker.h"
+
 #include <QTextEdit>
 #include <QHash>
 #include <QTimer>
 #include <QDrag>
 #include <QMimeData>
 #include <QRegularExpression>
-
-#include <hunspell.h>
 
 class QCompleter;
 class QStandardItemModel;
@@ -44,7 +44,7 @@ public:
 	CompletingEdit(QWidget *parent = nullptr);
 	~CompletingEdit();
 
-	void setSpellChecker(Hunhandle *h, QTextCodec *codec);
+	void setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary);
 
 	bool selectWord(QTextCursor& cursor);
 
@@ -191,8 +191,8 @@ private:
 	int prevRow;
 
 	QTextCursor currentWord;
-	Hunhandle *pHunspell;
-	QTextCodec *spellingCodec;
+
+	Tw::Document::SpellChecker::Dictionary * _dictionary;
 
 	QTextCursor	currentCompletionRange;
 

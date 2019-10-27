@@ -28,6 +28,7 @@
 #include "TemplateDialog.h"
 #include "TWSystemCmd.h"
 #include "Settings.h"
+#include "document/SpellChecker.h"
 #include "scripting/ScriptAPI.h"
 
 #include "TWVersion.h"
@@ -1314,8 +1315,8 @@ void TWApp::reloadSpellchecker()
 	
 	// reset dictionaries (getDictionaryList(true) automatically updates all
 	// spell checker menus)
-	TWUtils::clearDictionaries();
-	TWUtils::getDictionaryList(true);
+	Tw::Document::SpellChecker::clearDictionaries();
+	Tw::Document::SpellChecker::getDictionaryList(true);
 	
 	// reenable spell checker
 	for (QHash<TeXDocument*, QString>::iterator it = oldLangs.begin(); it != oldLangs.end(); ++it) {

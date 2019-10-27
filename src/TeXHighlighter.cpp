@@ -36,8 +36,7 @@ TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
     , texDoc(texDocument)
     , highlightIndex(-1)
     , isTagging(true)
-	, pHunspell(nullptr)
-	, spellingCodec(nullptr)
+	, _dictionary(nullptr)
     , textDoc(parent)
 {
 	loadPatterns();
@@ -57,9 +56,7 @@ void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, 
 			if (end > limit)
 				end = limit;
 			if (start < end) {
-				QString word = text.mid(start, end - start);
-				int spellResult = Hunspell_spell(pHunspell, spellingCodec->fromUnicode(word).data());
-				if (spellResult == 0)
+				if (!_dictionary->isWordCorrect(text.mid(start, end - start)))
 					setFormat(start, end - start, spellFormat);
 			}
 		}
@@ -91,11 +88,11 @@ void TeXHighlighter::highlightBlock(const QString &text)
 			// If we found a rule, apply it and advance the character index to
 			// the end of the highlighted range
 			if (firstRule && firstMatch.hasMatch() && (len = firstMatch.capturedLength()) > 0) {
-				if (pHunspell && firstIndex > charPos)
+				if (_dictionary && firstIndex > charPos)
 					spellCheckRange(text, charPos, firstIndex, spellFormat);
 				setFormat(firstIndex, len, firstRule->format);
 				charPos = firstIndex + len;
-				if (pHunspell && firstRule->spellCheck)
+				if (_dictionary && firstRule->spellCheck)
 					spellCheckRange(text, firstIndex, charPos, firstRule->spellFormat);
 			}
 			// If no rule matched, we can break out of the loop
@@ -103,7 +100,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 				break;
 		}
 	}
-	if (pHunspell)
+	if (_dictionary)
 		spellCheckRange(text, charPos, text.length(), spellFormat);
 
 	if (texDoc) {
@@ -153,11 +150,10 @@ void TeXHighlighter::setActiveIndex(int index)
 		rehighlight();
 }
 
-void TeXHighlighter::setSpellChecker(Hunhandle* h, QTextCodec* codec)
+void TeXHighlighter::setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary)
 {
-	if (pHunspell != h || spellingCodec != codec) {
-		pHunspell = h;
-		spellingCodec = codec;
+	if (_dictionary != dictionary) {
+		_dictionary = dictionary;
 		QTimer::singleShot(1, this, SLOT(rehighlight()));
 	}
 }

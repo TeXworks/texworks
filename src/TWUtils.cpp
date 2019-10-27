@@ -43,8 +43,6 @@
 #include <QSignalMapper>
 #include <QDateTime>
 
-#include <hunspell.h>
-
 #pragma mark === TWUtils ===
 
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
@@ -392,82 +390,6 @@ QStringList* TWUtils::getTranslationList()
 	translationList->prepend(QString::fromLatin1("en"));
 	
 	return translationList;
-}
-
-QHash<QString, QString>* TWUtils::dictionaryList = nullptr;
-
-QHash<QString, QString>* TWUtils::getDictionaryList(const bool forceReload /* = false */)
-{
-	if (dictionaryList) {
-		if (!forceReload)
-			return dictionaryList;
-		delete dictionaryList;
-	}
-
-	dictionaryList = new QHash<QString, QString>();
-	foreach (QDir dicDir, TWUtils::getLibraryPath(QString::fromLatin1("dictionaries")).split(QLatin1String(PATH_LIST_SEP))) {
-		foreach (QFileInfo dicFileInfo, dicDir.entryInfoList(QStringList(QString::fromLatin1("*.dic")),
-					QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
-			QFileInfo affFileInfo(dicFileInfo.dir(), dicFileInfo.completeBaseName() + QLatin1String(".aff"));
-			if (affFileInfo.isReadable())
-				dictionaryList->insertMulti(dicFileInfo.canonicalFilePath(), dicFileInfo.completeBaseName());
-		}
-	}
-	
-	TWApp::instance()->notifyDictionaryListChanged();
-	return dictionaryList;
-}
-
-QHash<const QString,Hunhandle*> *TWUtils::dictionaries = nullptr;
-
-Hunhandle* TWUtils::getDictionary(const QString& language)
-{
-	if (language.isEmpty())
-		return nullptr;
-	
-	if (!dictionaries)
-		dictionaries = new QHash<const QString,Hunhandle*>;
-	
-	if (dictionaries->contains(language))
-		return dictionaries->value(language);
-	
-	Hunhandle *h = nullptr;
-	foreach (QDir dicDir, TWUtils::getLibraryPath(QString::fromLatin1("dictionaries")).split(QLatin1String(PATH_LIST_SEP))) {
-		QFileInfo affFile(dicDir, language + QLatin1String(".aff"));
-		QFileInfo dicFile(dicDir, language + QLatin1String(".dic"));
-		if (affFile.isReadable() && dicFile.isReadable()) {
-			h = Hunspell_create(affFile.canonicalFilePath().toLocal8Bit().data(),
-			                    dicFile.canonicalFilePath().toLocal8Bit().data());
-			(*dictionaries)[language] = h;
-			return h;
-		}
-	}
-	return nullptr;
-}
-
-QString TWUtils::getLanguageForDictionary(const Hunhandle * pHunspell)
-{
-	if (!pHunspell || !dictionaries)
-		return QString();
-	
-	for (QHash<const QString,Hunhandle*>::const_iterator it = dictionaries->cbegin(); it != dictionaries->cend(); ++it) {
-		if (it.value() == pHunspell)
-			return it.key();
-	}
-	return QString();
-}
-
-void TWUtils::clearDictionaries()
-{
-	if (!dictionaries)
-		return;
-	
-	for (QHash<const QString,Hunhandle*>::iterator it = dictionaries->begin(); it != dictionaries->end(); ++it) {
-		if (it.value())
-			Hunspell_destroy(it.value());
-	}
-	delete dictionaries;
-	dictionaries = nullptr;
 }
 
 QStringList* TWUtils::filters;

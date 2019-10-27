@@ -91,7 +91,7 @@ TeXDocument::TeXDocument()
 	, keepConsoleOpen(false)
 	, showPdfWhenFinished(true)
 	, userInterrupt(false)
-	, pHunspell(nullptr)
+	, _dictionary(nullptr)
 	, watcher(nullptr)
 	, deferTagListChanges(false)
 	, tagListChanged(false)
@@ -116,7 +116,7 @@ TeXDocument::TeXDocument(const QString &fileName, bool asTemplate)
 	, keepConsoleOpen(false)
 	, showPdfWhenFinished(true)
 	, userInterrupt(false)
-	, pHunspell(nullptr)
+	, _dictionary(nullptr)
 	, watcher(nullptr)
 	, deferTagListChanges(false)
 	, tagListChanged(false)
@@ -141,7 +141,7 @@ void TeXDocument::init()
 	pdfDoc = nullptr;
 	process = nullptr;
 	highlighter = nullptr;
-	pHunspell = nullptr;
+	_dictionary = nullptr;
 	utf8BOM = false;
 #if defined(Q_OS_WIN)
 	lineEndings = kLineEnd_CRLF;
@@ -406,7 +406,7 @@ void TeXDocument::init()
 	group->addAction(actionNone);
 
 	reloadSpellcheckerMenu();
-	connect(TWApp::instance(), SIGNAL(dictionaryListChanged()), this, SLOT(reloadSpellcheckerMenu()));
+	connect(Tw::Document::SpellChecker::instance(), SIGNAL(dictionaryListChanged()), this, SLOT(reloadSpellcheckerMenu()));
 
 	menuShow->addAction(toolBar_run->toggleViewAction());
 	menuShow->addAction(toolBar_edit->toggleViewAction());
@@ -459,24 +459,18 @@ void TeXDocument::setLangInternal(const QString& lang)
 	// called internally by the spelling menu actions;
 	// not for use from scripts as it won't update the menu
 	QTextCodec *spellingCodec;
-	Hunhandle* pOldHunspell = pHunspell;
-	pHunspell = TWUtils::getDictionary(lang);
+	Tw::Document::SpellChecker::Dictionary * oldDictionary = _dictionary;
+	_dictionary = Tw::Document::SpellChecker::getDictionary(lang);
 	// if the dictionary hasn't change, don't reset the spell checker as that
 	// can result in a serious delay for long documents
-	// NB: Don't delete the hunspell handles; the pointers are kept by TWUtils
-	if (pOldHunspell == pHunspell)
+	// NB: Don't delete the dictionaries; the pointers are kept by
+	// Tw::Document::SpellChecker
+	if (oldDictionary == _dictionary)
 		return;
 	
-	if (pHunspell) {
-		spellingCodec = QTextCodec::codecForName(Hunspell_get_dic_encoding(pHunspell));
-		if (!spellingCodec)
-			spellingCodec = QTextCodec::codecForLocale(); // almost certainly wrong, if we couldn't find the actual name!
-	}
-	else
-		spellingCodec = nullptr;
-	textEdit->setSpellChecker(pHunspell, spellingCodec);
+	textEdit->setSpellChecker(_dictionary);
 	if (highlighter)
-		highlighter->setSpellChecker(pHunspell, spellingCodec);
+		highlighter->setSpellChecker(_dictionary);
 }
 
 void TeXDocument::setSpellcheckLanguage(const QString& lang)
@@ -486,9 +480,9 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 	
 	// Determine all aliases for the specified lang
 	QList<QString> langAliases;
-	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
-		if(TWUtils::getDictionaryList()->values(dictKey).contains(lang))
-			langAliases += TWUtils::getDictionaryList()->values(dictKey);
+	foreach (const QString& dictKey, Tw::Document::SpellChecker::getDictionaryList()->uniqueKeys()) {
+		if(Tw::Document::SpellChecker::getDictionaryList()->values(dictKey).contains(lang))
+			langAliases += Tw::Document::SpellChecker::getDictionaryList()->values(dictKey);
 	}
 	langAliases.removeAll(lang);
 	langAliases.prepend(lang);
@@ -512,7 +506,8 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 
 QString TeXDocument::spellcheckLanguage() const
 {
-	return TWUtils::getLanguageForDictionary(pHunspell);
+	if (!_dictionary) return QString();
+	return _dictionary->getLanguage();
 }
 
 void TeXDocument::reloadSpellcheckerMenu()
@@ -537,11 +532,11 @@ void TeXDocument::reloadSpellcheckerMenu()
 	}
 	
 	QList<QAction*> dictActions;
-	foreach (const QString& dictKey, TWUtils::getDictionaryList()->uniqueKeys()) {
+	foreach (const QString& dictKey, Tw::Document::SpellChecker::getDictionaryList()->uniqueKeys()) {
 		QString dict, label;
 		QLocale loc;
 
-		foreach (dict, TWUtils::getDictionaryList()->values(dictKey)) {
+		foreach (dict, Tw::Document::SpellChecker::getDictionaryList()->values(dictKey)) {
 			loc = QLocale(dict);
 
 			if (loc.language() == QLocale::C)

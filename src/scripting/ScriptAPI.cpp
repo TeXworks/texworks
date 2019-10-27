@@ -25,6 +25,7 @@
 #include "TWApp.h"
 #include "Settings.h"
 #include "Engine.h"
+#include "document/SpellChecker.h"
 #include "scripting/Script.h"
 #include "DefaultPrefs.h"
 
@@ -363,7 +364,7 @@ Q_INVOKABLE
 QMap<QString, QVariant> ScriptAPI::getDictionaryList(const bool forceReload /* = false */)
 {
 	QMap<QString, QVariant> retVal;
-	const QHash<QString, QString> * h = TWUtils::getDictionaryList(forceReload);
+	const QHash<QString, QString> * h = Tw::Document::SpellChecker::getDictionaryList(forceReload);
 	for (QHash<QString, QString>::const_iterator it = h->begin(); it != h->end(); ++it) {
 		if (!retVal.contains(it.value()))
 			retVal[it.value()] = QVariant::fromValue((QList<QVariant>() << it.key()));

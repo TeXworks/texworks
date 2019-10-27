@@ -60,8 +60,7 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	  c(nullptr),
 	  itemIndex(0),
 	  prevRow(-1),
-	  pHunspell(nullptr),
-	  spellingCodec(nullptr)
+	  _dictionary(nullptr)
 {
 	if (!sharedCompleter) { // initialize shared (static) members
 		sharedCompleter = new QCompleter(qApp);
@@ -1078,22 +1077,19 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	menu->insertSeparator(menu->actions().first());
 	menu->insertAction(menu->actions().first(), act);
 	
-	if (pHunspell) {
+	if (_dictionary) {
 		currentWord = cursorForPosition(event->pos());
 		currentWord.setPosition(currentWord.position());
 		if (selectWord(currentWord)) {
-			QByteArray word = spellingCodec->fromUnicode(currentWord.selectedText());
-			int spellResult = Hunspell_spell(pHunspell, word.data());
-			if (spellResult == 0) {
-				char **suggestionList;
-				int count = Hunspell_suggest(pHunspell, &suggestionList, word.data());
+			if (!_dictionary->isWordCorrect(currentWord.selectedText())) {
 				QAction *sep = menu->insertSeparator(menu->actions().first());
-				if (count == 0)
+
+				QList<QString> suggestions = _dictionary->suggestionsForWord(currentWord.selectedText());
+				if (suggestions.size() == 0)
 					menu->insertAction(sep, new QAction(tr("No suggestions"), menu));
 				else {
 					QSignalMapper *mapper = new QSignalMapper(menu);
-					for (int i = 0; i < count; ++i) {
-						QString str = spellingCodec->toUnicode(suggestionList[i]);
+					foreach(const QString & str, suggestions) {
 						act = new QAction(str, menu);
 						connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
 						mapper->setMapping(act, str);
@@ -1101,7 +1097,6 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 						if (!defaultAction)
 							defaultAction = act;
 					}
-					Hunspell_free_list(pHunspell, &suggestionList, count);
 					connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(correction(const QString&)));
 				}
 				sep = menu->insertSeparator(menu->actions().first());
@@ -1119,10 +1114,9 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	delete menu;
 }
 
-void CompletingEdit::setSpellChecker(Hunhandle* h, QTextCodec *codec)
+void CompletingEdit::setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary)
 {
-	pHunspell = h;
-	spellingCodec = codec;
+	_dictionary = dictionary;
 }
 
 void CompletingEdit::setAutoIndentMode(int index)
@@ -1144,8 +1138,7 @@ void CompletingEdit::addToDictionary()
 void CompletingEdit::ignoreWord()
 {
 	// note that this is not persistent after quitting TW
-	QByteArray word = spellingCodec->fromUnicode(currentWord.selectedText());
-	(void)Hunspell_add(pHunspell, word.data());
+	_dictionary->ignoreWord(currentWord.selectedText());
 	emit rehighlight();
 }
 
