@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QHash>
+#include <QTextCodec>
 
 struct Hunhandle;
 
