@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2010-2015  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2010-2019  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,74 +19,18 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef TW_PYTHON_PLUGIN_H
-#define TW_PYTHON_PLUGIN_H
-
-// Python uses the name "slots", which Qt hijacks. So we temporarily undefine
-// it, then include the python headers, then redefine it
-#undef slots
-#ifdef __APPLE__ // can't use Q_OS_DARWIN as it's not defined yet!
-#include <Python/Python.h>
-#else
-#include <Python.h>
-#endif
-#define slots Q_SLOTS
+#ifndef PythonScript_H
+#define PythonScript_H
 
 #include "scripting/Script.h"
 #include "scripting/ScriptAPIInterface.h"
-#include "scripting/ScriptLanguageInterface.h"
+#include "PythonScriptInterface.h"
 
-#include <QMetaMethod>
-#include <QMetaProperty>
-#include <QVariant>
-
-/** \brief Implementation of the script plugin interface */
-class TWPythonPlugin : public QObject, public Tw::Scripting::ScriptLanguageInterface
-{
-	Q_OBJECT
-	Q_INTERFACES(Tw::Scripting::ScriptLanguageInterface)
-	Q_PLUGIN_METADATA(IID "org.tug.texworks.ScriptPlugins.PythonPlugin")
-	
-public:
-	/** \brief Constructor
-	 *
-	 * Initializes the python instance
-	 */
-	TWPythonPlugin();
-
-	/** \brief Destructor
-	 *
-	 * Finalizes the python instance
-	 */
-	virtual ~TWPythonPlugin();
-
-	/** \brief Script factory
-	 *
-	 * \return	pointer to a new PythonScript object cast to Tw::Scripting::Script as the
-	 * 			interface requires; the caller owns the object and must delete
-	 * 			it.
-	 */
-	virtual Tw::Scripting::Script* newScript(const QString& fileName);
-
-	/** \brief	Get the supported script language name
-	 *
-	 * \return	the name of the scripting language
-	 */
-	virtual QString scriptLanguageName() const { return QString("Python"); }
-
-	/** \brief	Get a URL for information on the supported script language
-	 *
-	 * \return	a string with a URL for information about the language
-	 */
-	virtual QString scriptLanguageURL() const { return QString("http://www.python.org/"); }
-
-    /** \brief  Return whether the given file is handled by this scripting language plugin
-	 */
-	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QString("py"); }
-};
+namespace Tw {
+namespace Scripting {
 
 /** \brief Class for handling python scripts */
-class PythonScript : public Tw::Scripting::Script
+class PythonScript : public Script
 {
 	Q_OBJECT
 	Q_INTERFACES(Tw::Scripting::Script)
@@ -96,8 +40,8 @@ public:
 	 *
 	 * Does nothing
 	 */
-	PythonScript(TWPythonPlugin * interface, const QString& fileName)
-		: Tw::Scripting::Script(interface, fileName) { }
+	PythonScript(PythonScriptInterface * interface, const QString& fileName)
+		: Script(interface, fileName) { }
 	
 	/** \brief Parse the script header
 	 *
@@ -115,7 +59,7 @@ protected:
      *
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool execute(Tw::Scripting::ScriptAPIInterface *tw) const;
+	virtual bool execute(ScriptAPIInterface *tw) const;
 	
 	/** \brief Handler for attribute requests on QObjects
 	 *
@@ -192,4 +136,7 @@ protected:
 	static bool asQString(PyObject * obj, QString & str);
 };
 
-#endif // !defined(TW_PYTHON_PLUGIN_H)
+} // namespace Scripting
+} // namespace Tw
+
+#endif // !defined(PythonScript_H)

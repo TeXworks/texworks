@@ -21,7 +21,8 @@ else ()
 endif ()
 
 ADD_LIBRARY(TWPythonPlugin ${TWPYTHONPLUGIN_LIB_TYPE}
-  TWPythonPlugin.cpp
+  PythonScriptInterface.cpp
+  PythonScript.cpp
   ${TWSCRIPT_SRC}
   ${PYTHON_PLUGIN_MOC}
 )

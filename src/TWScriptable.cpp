@@ -45,7 +45,8 @@ Q_IMPORT_PLUGIN(LuaScriptInterface)
 #endif
 #if STATIC_PYTHON_SCRIPTING_PLUGIN
 #include <QtPlugin>
-Q_IMPORT_PLUGIN(TWPythonPlugin)
+using namespace Tw::Scripting;
+Q_IMPORT_PLUGIN(PythonScriptInterface)
 #endif
 
 

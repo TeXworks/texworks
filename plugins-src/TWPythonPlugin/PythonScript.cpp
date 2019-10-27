@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2010-2018  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2010-2019  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,13 +19,17 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "TWPythonPlugin.h"
+#include "PythonScript.h"
 
-#include <QtPlugin>
 #include <QMetaObject>
+#include <QMetaMethod>
+#include <QMetaProperty>
 #include <QStringList>
 #include <QTextStream>
 #include <QRegularExpression>
+
+namespace Tw {
+namespace Scripting {
 
 /* macros that may not be available in older python headers */
 #ifndef Py_RETURN_NONE
@@ -82,25 +86,7 @@ static void QObjectMethodDealloc(pyQObjectMethodObject * self) {
 	((PyObject*)self)->ob_type->tp_free((PyObject*)self);
 }
 
-TWPythonPlugin::TWPythonPlugin()
-{
-	// Initialize the python interpretor
-	Py_Initialize();
-}
-
-TWPythonPlugin::~TWPythonPlugin()
-{
-	// Uninitialize the python interpreter
-	Py_Finalize();
-}
-
-Tw::Scripting::Script* TWPythonPlugin::newScript(const QString& fileName)
-{
-	return new PythonScript(this, fileName);
-}
-
-
-bool PythonScript::execute(Tw::Scripting::ScriptAPIInterface * tw) const
+bool PythonScript::execute(ScriptAPIInterface * tw) const
 {
 	// Load the script
 	QFile scriptFile(m_Filename);
@@ -531,3 +517,6 @@ bool PythonScript::asQString(PyObject * obj, QString & str)
 	}
 	return false;
 }
+
+} // namespace Scripting
+} // namespace Tw
