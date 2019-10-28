@@ -35,6 +35,7 @@ SOURCES = \
   "../src/scripting/JSScriptInterface.cpp" \
   "../src/scripting/Script.cpp" \
   "../src/scripting/ScriptAPI.cpp" \
+  "../src/ui/LineNumberWidget.cpp" \
   "../src/utils/FileVersionDatabase.cpp"
 
 HEADERS = \
@@ -75,6 +76,7 @@ HEADERS = \
   "../src/scripting/ScriptAPI.h" \
   "../src/scripting/ScriptAPIInterface.h" \
   "../src/scripting/ScriptLanguageInterface.h" \
+  "../src/ui/LineNumberWidget.h" \
   "../src/utils/FileVersionDatabase.h"
 
 FORMS = \

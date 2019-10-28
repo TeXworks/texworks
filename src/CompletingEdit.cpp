@@ -83,7 +83,7 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
 	connect(this, SIGNAL(selectionChanged()), this, SLOT(cursorPositionChangedSlot()));
 
-	lineNumberArea = new LineNumberArea(this);
+	lineNumberArea = new Tw::UI::LineNumberWidget(this);
 	
 	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
 	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
@@ -1227,20 +1227,6 @@ void CompletingEdit::setLineNumberDisplay(bool displayNumbers)
 	updateLineNumberAreaWidth(0);
 }
 
-int CompletingEdit::lineNumberAreaWidth()
-{
-	int digits = 1;
-	int max = qMax(1, document()->blockCount());
-	while (max >= 10) {
-		max /= 10;
-		++digits;
-	}
-	
-	int space = 3 + fontMetrics().width(QChar::fromLatin1('9')) * digits;
-	
-	return space;
-}
-
 bool CompletingEdit::getLineNumbersVisible() const
 {
 	return lineNumberArea->isVisible();
@@ -1249,7 +1235,7 @@ bool CompletingEdit::getLineNumbersVisible() const
 void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
 {
 	if (lineNumberArea->isVisible()) {
-		setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
+		setViewportMargins(lineNumberArea->sizeHint().width(), 0, 0, 0);
 		lineNumberArea->update();
 	}
 	else {
@@ -1273,7 +1259,7 @@ void CompletingEdit::resizeEvent(QResizeEvent *e)
 	QTextEdit::resizeEvent(e);
 	
 	QRect cr = contentsRect();
-	lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
+	lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberArea->sizeHint().width(), cr.height()));
 }
 
 void CompletingEdit::wheelEvent(QWheelEvent *e)
@@ -1296,36 +1282,6 @@ void CompletingEdit::wheelEvent(QWheelEvent *e)
 	}
 
 	QTextEdit::wheelEvent(e);
-}
-
-void CompletingEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
-{
-	Q_ASSERT(lineNumberArea);
-
-	QPainter painter(lineNumberArea);
-	painter.fillRect(event->rect(), lineNumberArea->bgColor());
-	
-	QTextBlock block = document()->begin();
-	int blockNumber = 1;
-
-	QAbstractTextDocumentLayout *layout = document()->documentLayout();
-	int top = layout->blockBoundingRect(block).top() - verticalScrollBar()->value();
-	int bottom = top + layout->blockBoundingRect(block).height();
-	
-	while (block.isValid() && top <= event->rect().bottom()) {
-		if (bottom >= event->rect().top()) {
-			QString number = QString::number(blockNumber);
-			painter.drawText(0, top, lineNumberArea->width() - 1, fontMetrics().height(),
-							 Qt::AlignRight, number);
-		}
-
-		block = block.next();
-		if (block == document()->end())
-			break;
-		top = bottom;
-		bottom = top + (int)layout->blockBoundingRect(block).height();
-		++blockNumber;
-	}
 }
 
 void CompletingEdit::setTextCursor(const QTextCursor & cursor)

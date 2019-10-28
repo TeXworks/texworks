@@ -41,6 +41,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   scripting/ScriptAPI.cpp
                   scripting/Script.cpp
                   scripting/JSScript.cpp
+                  ui/LineNumberWidget.cpp
                   utils/FileVersionDatabase.cpp
                   )
 
@@ -80,6 +81,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   scripting/Script.h
                   scripting/JSScriptInterface.h
                   scripting/JSScript.h
+                  ui/LineNumberWidget.h
                   utils/FileVersionDatabase.h
                   )
 
