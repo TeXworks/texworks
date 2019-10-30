@@ -18,3 +18,12 @@ add_executable(test_Scripting
 )
 target_link_libraries(test_Scripting ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Scripting COMMAND test_Scripting WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
+
+# LineNumberWidget
+add_executable(test_LineNumberWidget
+	LineNumberWidget_test.cpp
+	LineNumberWidget_test.h
+	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
+)
+target_link_libraries(test_LineNumberWidget ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_test(NAME test_LineNumberWidget COMMAND test_LineNumberWidget WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
