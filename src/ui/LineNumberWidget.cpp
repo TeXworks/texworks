@@ -83,5 +83,13 @@ void LineNumberWidget::paintEvent(QPaintEvent * event)
 	}
 }
 
+void LineNumberWidget::changeEvent(QEvent * event)
+{
+	if (event->type() == QEvent::ParentChange) {
+		_editor = qobject_cast<QTextEdit*>(parentWidget());
+	}
+	QWidget::changeEvent(event);
+}
+
 } // namespace UI
 } // namespace Tw

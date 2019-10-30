@@ -40,6 +40,7 @@ public:
 
 protected:
 	void paintEvent(QPaintEvent * event) override;
+	virtual void changeEvent(QEvent * event) override;
 
 private:
 	QTextEdit * _editor;

@@ -78,7 +78,6 @@ void TestLineNumberWidget::setParent()
 
 	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')) * 1, 0));
 	w.setParent(&e);
-	QEXPECT_FAIL("", "setParent() is not yet handled correctly", Continue);
 	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')) * 2, 0));
 }
 
