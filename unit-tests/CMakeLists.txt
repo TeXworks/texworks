@@ -27,3 +27,13 @@ add_executable(test_LineNumberWidget
 )
 target_link_libraries(test_LineNumberWidget ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_LineNumberWidget COMMAND test_LineNumberWidget WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
+
+# FileVersionDatabase
+add_executable(test_FileVersionDatabase
+	FileVersionDatabase_test.cpp
+	FileVersionDatabase_test.h
+	"${CMAKE_SOURCE_DIR}/src/utils/FileVersionDatabase.cpp"
+)
+target_link_libraries(test_FileVersionDatabase ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_test(NAME test_FileVersionDatabase COMMAND test_FileVersionDatabase WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
+
