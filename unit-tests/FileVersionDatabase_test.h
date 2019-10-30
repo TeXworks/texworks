@@ -26,6 +26,7 @@ class TestFileVersionDatabase : public QObject
 {
 	Q_OBJECT
 private slots:
+	void comparisons();
 	void hashForFile();
 	void addFileRecord();
 	void load();

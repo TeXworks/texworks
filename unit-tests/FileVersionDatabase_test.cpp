@@ -56,6 +56,20 @@ bool operator==(const FileVersionDatabase & db1, const FileVersionDatabase & db2
 
 namespace UnitTest {
 
+void TestFileVersionDatabase::comparisons()
+{
+	Tw::Utils::FileVersionDatabase::Record r1 = {QFileInfo(QStringLiteral("base14-fonts.pdf")), QStringLiteral("v1"), QByteArray()};
+	Tw::Utils::FileVersionDatabase::Record r2 = {QFileInfo(QStringLiteral("base14-fonts.pdf")), QString(), QByteArray::fromHex("814514754a5680a57d172b6720d48a8d")};
+	Tw::Utils::FileVersionDatabase::Record r3 = {QFileInfo(QStringLiteral("does-not=exist")), QString(), QByteArray::fromHex("814514754a5680a57d172b6720d48a8d")};
+
+	QVERIFY(r1 == r1);
+	QVERIFY(r2 == r2);
+	QVERIFY(r3 == r3);
+	QVERIFY(!(r1 == r2));
+	QVERIFY(!(r1 == r3));
+	QVERIFY(!(r2 == r3));
+}
+
 void TestFileVersionDatabase::hashForFile()
 {
 	QByteArray zero = QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e");
@@ -79,7 +93,7 @@ void TestFileVersionDatabase::addFileRecord()
 	QCOMPARE(db.getFileRecord(r1.filePath), r1);
 	QCOMPARE(db.getFileRecords(), QList<Tw::Utils::FileVersionDatabase::Record>{r1});
 	db.addFileRecord(r2.filePath, r2.hash, r2.version);
-	QVERIFY(db.hasFileRecord(r1.filePath));
+	QVERIFY(db.hasFileRecord(r2.filePath));
 	QCOMPARE(db.getFileRecord(r2.filePath), r2);
 	QCOMPARE(db.getFileRecords(), QList<Tw::Utils::FileVersionDatabase::Record>{r2});
 }
