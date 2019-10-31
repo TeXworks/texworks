@@ -11,8 +11,9 @@ add_test(NAME test_BibTeXFile COMMAND test_BibTeXFile WORKING_DIRECTORY "${CMAKE
 add_executable(test_Scripting
 	Scripting_test.cpp
 	Scripting_test.h
-	"${CMAKE_SOURCE_DIR}/src/scripting/JSScriptInterface.cpp"
+	MockScriptingAPI.h
 	"${CMAKE_SOURCE_DIR}/src/scripting/Script.cpp"
+	"${CMAKE_SOURCE_DIR}/src/scripting/JSScriptInterface.cpp"
 	"${CMAKE_SOURCE_DIR}/src/scripting/JSScript.cpp"
 	"${CMAKE_SOURCE_DIR}/src/Settings.cpp"
 )
