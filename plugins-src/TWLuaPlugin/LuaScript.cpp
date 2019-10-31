@@ -403,7 +403,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 					// duplicate the key. If we didn't, lua_tostring could
 					// convert it, thereby confusing lua_next later on
 					lua_pushvalue(L, -2);
-					vm.insert(QString::fromUtf8(lua_tostring(L, -2)), LuaScript::getLuaStackValue(L, -1));
+					vm.insert(QString::fromUtf8(lua_tostring(L, -1)), LuaScript::getLuaStackValue(L, -2));
 					lua_pop(L, 2);
 				}
 				return vm;
