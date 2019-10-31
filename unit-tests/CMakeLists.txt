@@ -20,6 +20,24 @@ add_executable(test_Scripting
 target_link_libraries(test_Scripting ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Scripting COMMAND test_Scripting WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
+IF ( LUA_FOUND AND WITH_LUA )
+	add_executable(test_LuaScripting
+		LuaScripting_test.cpp
+		LuaScripting_test.h
+		MockScriptingAPI.h
+		"${CMAKE_SOURCE_DIR}/src/scripting/Script.cpp"
+		"${CMAKE_SOURCE_DIR}/src/Settings.cpp"
+	)
+	target_include_directories(test_LuaScripting PRIVATE "${LUA_INCLUDE_DIR}")
+	IF (NOT ${BUILD_SHARED_PLUGINS})
+		target_link_libraries(test_LuaScripting TWLuaPlugin ${LUA_LIBRARIES})
+	ENDIF()
+
+	target_link_libraries(test_LuaScripting ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+	add_test(NAME test_LuaScripting COMMAND test_LuaScripting WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
+ENDIF ()
+
+
 # LineNumberWidget
 add_executable(test_LineNumberWidget
 	LineNumberWidget_test.cpp
