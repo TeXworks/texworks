@@ -74,6 +74,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWTextCodecs.h
                   TWUtils.h
                   TWVersion.h
+                  InterProcessCommunicator.h
                   document/SpellChecker.h
                   scripting/ScriptAPIInterface.h
                   scripting/ScriptLanguageInterface.h
@@ -87,8 +88,10 @@ set(TEXWORKS_HDRS BibTeXFile.h
 
 if (WIN32)
   list(APPEND TEXWORKS_HDRS DefaultBinaryPathsWin.h)
+  list(APPEND TEXWORKS_SRCS InterProcessCommunicatorWin.cpp)
 else ()
   list(APPEND TEXWORKS_HDRS DefaultBinaryPaths.h)
+  list(APPEND TEXWORKS_SRCS InterProcessCommunicatorDBus.cpp)
 endif ()
 
 set(TEXWORKS_UIS CitationSelectDialog.ui

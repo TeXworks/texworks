@@ -13,6 +13,7 @@ SOURCES = \
   "../src/Engine.cpp" \
   "../src/FindDialog.cpp" \
   "../src/HardWrapDialog.cpp" \
+  "../src/InterProcessCommunicatorDBus.cpp" \
   "../src/PDFDocument.cpp" \
   "../src/PrefsDialog.cpp" \
   "../src/ResourcesDialog.cpp" \
@@ -52,6 +53,7 @@ HEADERS = \
   "../src/FindDialog.h" \
   "../src/GitRev.h" \
   "../src/HardWrapDialog.h" \
+  "../src/InterProcessCommunicator.h" \
   "../src/PDFDocument.h" \
   "../src/PrefsDialog.h" \
   "../src/ResourcesDialog.h" \

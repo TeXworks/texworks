@@ -120,9 +120,6 @@ void PDFDocument::init()
 	docList.append(this);
 
 	setupUi(this);
-#if defined(Q_OS_WIN)
-	TWApp::instance()->createMessageTarget(this);
-#endif
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);
