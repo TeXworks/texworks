@@ -9,8 +9,8 @@ def getDependencies(filename):
 	out = subprocess.check_output([OBJDUMP, '-x', filename], universal_newlines = True)
 	return set(re.findall('DLL Name: (.*)', out))
 
-def getDependenciesRecursively(filename, checkedAlready = set()):
-	rv = checkedAlready
+def getDependenciesRecursively(filename, checkedAlready = None):
+	rv = checkedAlready if checkedAlready is not None else set()
 	for dep in getDependencies(filename):
 		if dep in rv: continue
 
@@ -30,6 +30,8 @@ if len(sys.argv) != 2:
 print('Checking dependencies for %s' % sys.argv[1])
 
 OUTDIR = os.path.dirname(sys.argv[1])
+# Replace an empty OUTDIR by '.' to have a nicer output
+if OUTDIR == '': OUTDIR = '.'
 
 for dep in sorted(getDependenciesRecursively(sys.argv[1])):
 	src = os.path.normpath(os.path.join(BASEDIR, dep))

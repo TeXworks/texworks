@@ -643,11 +643,10 @@ void CompletingEdit::handleBackspace(QKeyEvent *e)
 
 void CompletingEdit::handleOtherKey(QKeyEvent *e)
 {
-	QTextCursor cursor = textCursor();
 	int pos = textCursor().selectionStart(); // remember cursor before the keystroke
 	int end = textCursor().selectionEnd();
 	QTextEdit::keyPressEvent(e);
-	cursor = textCursor();
+	QTextCursor cursor = textCursor();
 	bool arrowKey = false;
 	if (e->key() == Qt::Key_Left || e->key() == Qt::Key_Right) {
 		arrowKey = true;

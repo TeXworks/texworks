@@ -126,10 +126,10 @@ void TeXHighlighter::highlightBlock(const QString &text)
 					QTextCursor	cursor(document());
 					cursor.setPosition(currentBlock().position() + firstIndex);
 					cursor.setPosition(currentBlock().position() + firstIndex + len, QTextCursor::KeepAnchor);
-					QString text = firstMatch.captured(1);
-					if (text.isEmpty())
-						text = firstMatch.captured(0);
-					texDoc->addTag(cursor, firstPatt->level, text);
+					QString tagText = firstMatch.captured(1);
+					if (tagText.isEmpty())
+						tagText = firstMatch.captured(0);
+					texDoc->addTag(cursor, firstPatt->level, tagText);
 					index = firstIndex + len;
 					changed = true;
 				}

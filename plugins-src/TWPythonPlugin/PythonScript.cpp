@@ -490,8 +490,6 @@ QVariant PythonScript::PythonToVariant(PyObject * o)
 /*static*/
 bool PythonScript::asQString(PyObject * obj, QString & str)
 {
-	PyObject * tmp;
-
 	// Get the parameters
 	// In Python 3.x, the PyString_* were replaced by PyBytes_*
 #if PY_MAJOR_VERSION < 3
@@ -506,7 +504,7 @@ bool PythonScript::asQString(PyObject * obj, QString & str)
 	}
 #endif
 	if (PyUnicode_Check(obj)) {
-		tmp = PyUnicode_AsUTF8String(obj);
+		PyObject * tmp = PyUnicode_AsUTF8String(obj);
 #if PY_MAJOR_VERSION < 3
 		str = QString::fromUtf8(PyString_AsString(tmp));
 #else
