@@ -30,7 +30,7 @@ namespace UI {
 class LineNumberWidget : public QWidget
 {
 public:
-	LineNumberWidget(QTextEdit * parent);
+	explicit LineNumberWidget(QTextEdit * parent);
 	virtual ~LineNumberWidget() override = default;
 
 	QColor bgColor() const { return _bgColor; }

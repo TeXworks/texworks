@@ -47,7 +47,7 @@ public:
 	}
 
 private:
-	InterProcessCommunicatorPrivate(InterProcessCommunicator * q) : hMutex(NULL), msgTarget(NULL), q_ptr(q) {}
+	explicit InterProcessCommunicatorPrivate(InterProcessCommunicator * q) : hMutex(NULL), msgTarget(NULL), q_ptr(q) {}
 
 	friend LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

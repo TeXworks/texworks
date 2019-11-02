@@ -38,7 +38,7 @@ class InterProcessCommunicatorPrivate : public QDBusAbstractAdaptor {
 	bool objectRegistered;
 	QDBusInterface * interface;
 
-	InterProcessCommunicatorPrivate(InterProcessCommunicator * q) : QDBusAbstractAdaptor(q), q_ptr(q), serviceRegistered(false), objectRegistered(false), interface(nullptr) { }
+	explicit InterProcessCommunicatorPrivate(InterProcessCommunicator * q) : QDBusAbstractAdaptor(q), q_ptr(q), serviceRegistered(false), objectRegistered(false), interface(nullptr) { }
 public:
 	~InterProcessCommunicatorPrivate() = default;
 

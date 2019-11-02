@@ -57,8 +57,8 @@ class TeXDocument : public TWScriptable, private Ui::TeXDocument
 	Q_OBJECT
 
 public:
-	TeXDocument();
-	TeXDocument(const QString &fileName, bool asTemplate = false);
+	explicit TeXDocument();
+	explicit TeXDocument(const QString & fileName, bool asTemplate = false);
 
 	virtual ~TeXDocument();
 

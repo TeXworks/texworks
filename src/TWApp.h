@@ -266,7 +266,7 @@ class TWDocumentOpenEvent : public QEvent
 {
 public:
 	static const QEvent::Type type;
-	TWDocumentOpenEvent(const QString & filename, const int pos = 0) : QEvent(type), filename(filename), pos(pos) { }
+	explicit TWDocumentOpenEvent(const QString & filename, const int pos = 0) : QEvent(type), filename(filename), pos(pos) { }
 	
 	QString filename;
 	int pos;

@@ -30,7 +30,7 @@ class TWSystemCmd : public QProcess {
 	Q_OBJECT
 	
 public:
-	TWSystemCmd(QObject* parent, const bool isOutputWanted = true, const bool runInBackground = false);
+	explicit TWSystemCmd(QObject * parent, const bool isOutputWanted = true, const bool runInBackground = false);
 	virtual ~TWSystemCmd() { }
 	
 	QString getResult() { return result; }

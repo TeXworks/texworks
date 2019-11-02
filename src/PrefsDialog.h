@@ -37,7 +37,7 @@ class PrefsDialog : public QDialog, private Ui::PrefsDialog
 	Q_OBJECT
 
 public:
-	PrefsDialog(QWidget *parent);
+	explicit PrefsDialog(QWidget * parent);
 
 	static DialogCode doPrefsDialog(QWidget *parent);
 
@@ -78,7 +78,7 @@ class ToolConfig : public QDialog, private Ui::ToolConfigDialog
 	Q_OBJECT
 	
 public:
-	ToolConfig(QWidget *parent);
+	explicit ToolConfig(QWidget * parent);
 	
 	static DialogCode doToolConfig(QWidget *parent, Engine &engine);
 

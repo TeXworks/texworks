@@ -61,7 +61,7 @@ public:
 class TWSyncTeXSynchronizer : public TWSynchronizer
 {
 public:
-  TWSyncTeXSynchronizer(const QString & filename);
+  explicit TWSyncTeXSynchronizer(const QString & filename);
   virtual ~TWSyncTeXSynchronizer();
 
   bool isValid() const;

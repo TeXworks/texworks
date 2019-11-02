@@ -75,8 +75,8 @@ namespace UnitTest {
 class ComparableImage : public QImage {
   double _threshold;
 public:
-  ComparableImage(const QImage & other, const double threshold = 3) : QImage(other.convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
-  ComparableImage(const QString & filename, const double threshold = 3) : QImage(QImage(filename).convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
+  explicit ComparableImage(const QImage & other, const double threshold = 3) : QImage(other.convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
+  explicit ComparableImage(const QString & filename, const double threshold = 3) : QImage(QImage(filename).convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
 
   bool operator==(const ComparableImage & other) const {
     Q_ASSERT(format() == QImage::Format_RGB32);

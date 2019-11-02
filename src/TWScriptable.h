@@ -43,12 +43,12 @@ public:
 	TWScriptList()
 	{ }
 	
-	TWScriptList(const TWScriptList& orig)
+	explicit TWScriptList(const TWScriptList & orig)
 	: QObject(orig.parent())
 	, name(orig.name)
 	{ }
 	
-	TWScriptList(QObject* parent, const QString& str = QString())
+	explicit TWScriptList(QObject * parent, const QString & str = QString())
 	: QObject(parent), name(str)
 	{ }
 	

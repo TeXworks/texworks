@@ -59,7 +59,7 @@ class FindDialog : public QDialog, private Ui::FindDialog
 	Q_OBJECT
 
 public:
-	FindDialog(QTextEdit *document);
+	explicit FindDialog(QTextEdit * document);
 
 	static DialogCode doFindDialog(QTextEdit *document);
 
@@ -80,7 +80,7 @@ class PDFFindDialog : public QDialog, private Ui::PDFFindDialog
 	Q_OBJECT
 
 public:
-	PDFFindDialog(PDFDocument *document);
+	explicit PDFFindDialog(PDFDocument * document);
 
 	static DialogCode doFindDialog(PDFDocument *document);
 
@@ -98,7 +98,7 @@ class ReplaceDialog : public QDialog, private Ui::ReplaceDialog
 	Q_OBJECT
 
 public:
-	ReplaceDialog(QTextEdit *parent);
+	explicit ReplaceDialog(QTextEdit * parent);
 	
 	typedef enum {
 		Cancel,
@@ -154,7 +154,7 @@ public:
 	static void presentResults(const QString& searchText, const QList<SearchResult>& results,
 							   QMainWindow* parent, bool singleFile);
 	
-	SearchResults(QWidget* parent);
+	explicit SearchResults(QWidget * parent);
 
 protected slots:
 	void focusChanged(QWidget * old, QWidget * now);

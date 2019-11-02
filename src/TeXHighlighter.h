@@ -100,7 +100,7 @@ class TeXHighlighter : public NonblockingSyntaxHighlighter
 	Q_OBJECT
 
 public:
-	TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument = nullptr);
+	explicit TeXHighlighter(QTextDocument * parent, TeXDocument * texDocument = nullptr);
 	void setActiveIndex(int index);
 
 	void setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary);

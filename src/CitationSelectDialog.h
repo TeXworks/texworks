@@ -83,7 +83,7 @@ class CitationSelectDialog : public QDialog, private Ui::CitationSelectDialog
 	Q_OBJECT;
 public:
 
-	CitationSelectDialog(QWidget * parent);
+	explicit CitationSelectDialog(QWidget * parent);
 	virtual ~CitationSelectDialog() { }
 
 	CitationModel & model() { return _model; }
@@ -115,7 +115,7 @@ class KeyForwarder : public QObject
 {
 	Q_OBJECT
 public:
-	KeyForwarder(QObject * target, QObject * parent = nullptr);
+	explicit KeyForwarder(QObject * target, QObject * parent = nullptr);
 protected:
 	bool eventFilter(QObject * watched, QEvent * event);
 	QObject * _target;

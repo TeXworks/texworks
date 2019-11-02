@@ -34,7 +34,7 @@ class ResourcesDialog : public QDialog, private Ui::ResourcesDialog
 	Q_OBJECT
 
 public:
-	ResourcesDialog(QWidget *parent);
+	explicit ResourcesDialog(QWidget * parent);
 	static DialogCode doResourcesDialog(QWidget *parent);
 
 public slots:

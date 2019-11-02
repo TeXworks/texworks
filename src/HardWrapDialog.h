@@ -35,7 +35,7 @@ class HardWrapDialog : public QDialog, private Ui::HardWrapDialog
 	Q_OBJECT
 
 public:
-	HardWrapDialog(QWidget *parent);
+	explicit HardWrapDialog(QWidget * parent);
 
 	virtual ~HardWrapDialog() { }
 

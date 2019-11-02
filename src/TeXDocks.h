@@ -79,7 +79,7 @@ class TeXDockTreeWidget : public QTreeWidget
 	Q_OBJECT
 
 public:
-	TeXDockTreeWidget(QWidget* parent);
+	explicit TeXDockTreeWidget(QWidget * parent);
 	virtual ~TeXDockTreeWidget();
 
 	virtual QSize sizeHint() const;

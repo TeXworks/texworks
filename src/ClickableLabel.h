@@ -30,8 +30,8 @@ class ClickableLabel : public QLabel
 {
 	Q_OBJECT
 public:
-	ClickableLabel(QWidget * parent = 0, Qt::WindowFlags f = 0);
-	ClickableLabel(const QString & text, QWidget * parent = 0, Qt::WindowFlags f = 0);
+	explicit ClickableLabel(QWidget * parent = 0, Qt::WindowFlags f = 0);
+	explicit ClickableLabel(const QString & text, QWidget * parent = 0, Qt::WindowFlags f = 0);
 	virtual ~ClickableLabel() { }
 	
 signals:
