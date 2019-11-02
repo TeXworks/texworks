@@ -106,10 +106,10 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
     if (!fz_is_name(fz_array_get(dest, 1)))
       return PDFDestination();
     QString type = QString::fromAscii(fz_to_name(fz_array_get(dest, 1)));
-    float left, top, bottom, right, zoom;
 
     // /XYZ left top zoom 
     if (type == QString::fromUtf8("XYZ")) {
+      float left, top, zoom;
       if (fz_array_len(dest) != 5)
         return PDFDestination();
       obj = fz_array_get(dest, 2);
@@ -145,6 +145,7 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
     }
     // /FitH top
     else if (type == QString::fromUtf8("FitH")) {
+      float top;
       if (fz_array_len(dest) != 3)
         return PDFDestination();
       obj = fz_array_get(dest, 2);
@@ -159,6 +160,7 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
     }
     // /FitV left
     else if (type == QString::fromUtf8("FitV")) {
+      float left;
       if (fz_array_len(dest) != 3)
         return PDFDestination();
       obj = fz_array_get(dest, 2);
@@ -173,6 +175,7 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
     }
     // /FitR left bottom right top
     if (type == QString::fromUtf8("FitR")) {
+      float left, top, bottom, right, zoom;
       if (fz_array_len(dest) != 6)
         return PDFDestination();
       obj = fz_array_get(dest, 2);
@@ -215,6 +218,7 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
     }
     // /FitBH top
     else if (type == QString::fromUtf8("FitBH")) {
+      float top;
       if (fz_array_len(dest) != 3)
         return PDFDestination();
       obj = fz_array_get(dest, 2);
@@ -229,6 +233,7 @@ PDFDestination toPDFDestination(pdf_xref * xref, fz_obj * dest)
     }
     // /FitBV left
     else if (type == QString::fromUtf8("FitBV")) {
+      float left;
       if (fz_array_len(dest) != 3)
         return PDFDestination();
       obj = fz_array_get(dest, 2);
@@ -679,13 +684,13 @@ QList<PDFFontInfo> Document::fonts() const
             fi.setSource(PDFFontInfo::Source_Embedded);
           }
           else {
-            fz_obj * ff = fz_dict_gets(desc, fontfile2Key);
+            ff = fz_dict_gets(desc, fontfile2Key);
             if (fz_is_dict(ff)) {
               fi.setFontProgramType(PDFFontInfo::ProgramType_TrueType);
               fi.setSource(PDFFontInfo::Source_Embedded);
             }
             else {
-              fz_obj * ff = fz_dict_gets(desc, fontfile3Key);
+              ff = fz_dict_gets(desc, fontfile3Key);
               if (fz_is_dict(ff)) {
                 QString ffSubtype = QString::fromUtf8(fz_to_name(fz_dict_gets(ff, subtypeKey)));
                 if (ffSubtype == QString::fromUtf8("Type1C"))
