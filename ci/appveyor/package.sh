@@ -1,7 +1,7 @@
 #!/bin/sh
 
-. ${APPVEYOR_BUILD_FOLDER}/ci/appveyor/defs.sh
-. ${APPVEYOR_BUILD_FOLDER}/ci/appveyor/package_versions.sh
+. "${APPVEYOR_BUILD_FOLDER}/ci/appveyor/defs.sh"
+. "${APPVEYOR_BUILD_FOLDER}/ci/appveyor/package_versions.sh"
 
 print_headline "Packaging TeXworks"
 
@@ -34,8 +34,8 @@ windeployqt --release "${APPVEYOR_BUILD_FOLDER}/artifact/TeXworks.exe"
 
 print_info "Resolving DLL Dependencies"
 
-python ${APPVEYOR_BUILD_FOLDER}/ci/appveyor/resolve-dlls.py "${APPVEYOR_BUILD_FOLDER}/artifact/TeXworks.exe"
-python ${APPVEYOR_BUILD_FOLDER}/ci/appveyor/resolve-dlls.py "${APPVEYOR_BUILD_FOLDER}/artifact/libTWLuaPlugin.dll"
+python "${APPVEYOR_BUILD_FOLDER}/ci/appveyor/resolve-dlls.py" "${APPVEYOR_BUILD_FOLDER}/artifact/TeXworks.exe"
+python "${APPVEYOR_BUILD_FOLDER}/ci/appveyor/resolve-dlls.py" "${APPVEYOR_BUILD_FOLDER}/artifact/libTWLuaPlugin.dll"
 
 # Copy poppler data
 cp -r share "${APPVEYOR_BUILD_FOLDER}/artifact/"
@@ -45,6 +45,6 @@ cp -r "${APPVEYOR_BUILD_FOLDER}/win32/fonts" "${APPVEYOR_BUILD_FOLDER}/artifact/
 # Package archive
 cd "${APPVEYOR_BUILD_FOLDER}/artifact"
 ARCHIVE="TeXworks-win-${VERSION_NAME}.zip"
-7z a "$ARCHIVE" *
+7z a "$ARCHIVE" -- *
 
 appveyor PushArtifact "${ARCHIVE}"

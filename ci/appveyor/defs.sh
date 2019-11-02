@@ -1,3 +1,5 @@
+#!/bin/sh
+
 print_headline()
 {
 	local MSG="$1"

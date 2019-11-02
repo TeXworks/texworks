@@ -57,7 +57,7 @@ echo "VERSION_NAME = ${VERSION_NAME}"
 cd "${BUILDDIR}"
 
 if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
-	if [ ${QT} -eq 5 ]; then
+	if [ "${QT}" -eq 5 ]; then
 		DEBDATE=$(date -R)
 
 		echo_var "DEBDATE"
@@ -67,7 +67,7 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 			print_error "DEB_MAINTAINER_NAME and/or DEB_MAINTAINER_EMAIL and/or DEB_PASSPHRASE and/or LAUNCHPAD_DISTROS are not set"
 			exit 0
 		fi
-		openssl aes-256-cbc -K $encrypted_54846cac3f0f_key -iv $encrypted_54846cac3f0f_iv -in "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/key.asc.enc" -out "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/key.asc" -d
+		openssl aes-256-cbc -K "$encrypted_54846cac3f0f_key" -iv "$encrypted_54846cac3f0f_iv" -in "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/key.asc.enc" -out "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/key.asc" -d
 		gpg --import "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/key.asc"
 
 		# Add ppa.launchpad.net to ssh's known hosts so we can upload to it
@@ -75,7 +75,7 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		echo "ppa.launchpad.net ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA0aKz5UTUndYgIGG7dQBV+HaeuEZJ2xPHo2DS2iSKvUL4xNMSAY4UguNW+pX56nAQmZKIZZ8MaEvSj6zMEDiq6HFfn5JcTlM80UwlnyKe8B8p7Nk06PPQLrnmQt5fh0HmEcZx+JU9TZsfCHPnX7MNz4ELfZE6cFsclClrKim3BHUIGq//t93DllB+h4O9LHjEUsQ1Sr63irDLSutkLJD6RXchjROXkNirlcNVHH/jwLWR5RcYilNX7S5bIkK8NlWPjsn/8Ua5O7I9/YoE97PpO6i73DTGLh5H9JN/SITwCKBkgSDWUt61uPK3Y11Gty7o2lWsBjhBUm2Y38CBsoGmBw==" >> ~/.ssh/known_hosts
 
 		# Set up key for ssh (sftp) authentication
-		openssl aes-256-cbc -K $encrypted_47834aa722cd_key -iv $encrypted_47834aa722cd_iv -in "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/id_rsa_texworks.enc" -out "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/id_rsa_texworks" -d
+		openssl aes-256-cbc -K "$encrypted_47834aa722cd_key" -iv "$encrypted_47834aa722cd_iv" -in "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/id_rsa_texworks.enc" -out "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/id_rsa_texworks" -d
 		chmod 0600 "${TRAVIS_BUILD_DIR}/ci/travis-ci/launchpad/id_rsa_texworks"
 		print_info "Creating ~/.ssh/config"
 		echo """Host ppa.launchpad.net
@@ -115,10 +115,10 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 			print_info "   preparing changelog"
 			echo "texworks (${DEB_VERSION}) ${DISTRO}; urgency=low\n" > "${DEBDIR}/debian/changelog"
 			if [ -z "${TRAVIS_TAG}" ]; then
-				git log --reverse --pretty=format:"%w(80,4,6)* %s" ${TRAVIS_COMMIT_RANGE} >> "${DEBDIR}/debian/changelog"
+				git log --reverse --pretty=format:"%w(80,4,6)* %s" "${TRAVIS_COMMIT_RANGE}" >> "${DEBDIR}/debian/changelog"
 				echo "" >> "${DEBDIR}/debian/changelog" # git log does not append a newline
 			else
-				NEWS=$(sed -n "/^Release ${TW_VERSION}/,/^Release/p" ${TRAVIS_BUILD_DIR}/NEWS | sed -e '/^Release/d' -e 's/^\t/    /')
+				NEWS=$(sed -n "/^Release ${TW_VERSION}/,/^Release/p" "${TRAVIS_BUILD_DIR}/NEWS" | sed -e '/^Release/d' -e 's/^\t/    /')
 				echo "$NEWS" >> "${DEBDIR}/debian/changelog"
 			fi
 			echo "\n -- ${DEB_MAINTAINER_NAME} <${DEB_MAINTAINER_EMAIL}>  ${DEBDATE}" >> "${DEBDIR}/debian/changelog"
@@ -131,7 +131,7 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 			# will try to sign (at least) the .dsc file and the .changes files,
 			# thus reading the passphrase from the pipe several times
 			# NB: --passphrase-file seems to be broken somehow
-			for i in $(seq 10); do
+			for _ in $(seq 10); do
 				echo "${DEB_PASSPHRASE}" >> "/tmp/passphrase.txt" 2> /dev/null || print_error "Failed to write to /tmp/passphrase.txt"
 			done
 			debuild -k00582F84 -p"gpg --no-tty --batch --passphrase-fd 0" -S < /tmp/passphrase.txt && DEBUILD_RETVAL=$? || DEBUILD_RETVAL=$?
@@ -157,9 +157,9 @@ if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
 	fi
 elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
-	if [ ${QT} -eq 5 ]; then
+	if [ "${QT}" -eq 5 ]; then
 		print_info "Stripping TeXworks.exe"
-		${MXEDIR}/usr/bin/${MXETARGET}-strip ${BUILDDIR}/TeXworks.exe
+		"${MXEDIR}/usr/bin/${MXETARGET}-strip" "${BUILDDIR}/TeXworks.exe"
 		print_info "Assembling package"
 		echo_and_run "mkdir -p \"package-zip/share\""
 		echo_and_run "cp \"${BUILDDIR}/TeXworks.exe\" \"package-zip/\""
@@ -218,7 +218,7 @@ EOF
 		print_error "Skipping unsupported combination '${TARGET_OS}/qt${QT}'"
 	fi
 elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
-	if [ ${QT} -eq 5 ]; then
+	if [ "${QT}" -eq 5 ]; then
 		print_info "Running CPack"
 		cpack --verbose
 

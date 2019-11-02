@@ -41,7 +41,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
 	print_info "Updating homebrew"
 	brew update > brew_update.log || { print_error "Updating homebrew failed"; cat brew_update.log; exit 1; }
-	if [ $QT -eq 5 ]; then
+	if [ "${QT}" -eq 5 ]; then
 		print_info "Brewing packages: qt5 poppler hunspell lua"
 		# Travis-CI comes with python preinstalled; poppler depends on
 		# gobject-introspection, which depends on python@2, which

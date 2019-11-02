@@ -1,7 +1,7 @@
 #!/bin/sh
 
-. ${APPVEYOR_BUILD_FOLDER}/ci/appveyor/defs.sh
-. ${APPVEYOR_BUILD_FOLDER}/ci/appveyor/package_versions.sh
+. "${APPVEYOR_BUILD_FOLDER}/ci/appveyor/defs.sh"
+. "${APPVEYOR_BUILD_FOLDER}/ci/appveyor/package_versions.sh"
 
 
 print_headline "Installing dependencies"
@@ -11,25 +11,25 @@ print_headline "Installing poppler-data"
 print_info "Downloading poppler-data"
 mkdir -p /c/projects/poppler-data
 cd /c/projects/poppler-data
-curl -sSL -O ${popplerdata_URL}
+curl -sSL -O "${popplerdata_URL}"
 # FIXME: Check checksum
 print_info "Extracting poppler-data"
 7z x "${popplerdata_ARCHIVE}" -so | 7z x -si -ttar
 print_info "Renaming ${popplerdata_DIRNAME} > poppler-data"
-mv ${popplerdata_DIRNAME} poppler-data
+mv "${popplerdata_DIRNAME}" poppler-data
 
 
 print_headline "Installing poppler"
 print_info "Downloading poppler"
 mkdir -p /c/projects/poppler
 cd /c/projects/poppler
-curl -sSL -O ${poppler_URL}
+curl -sSL -O "${poppler_URL}"
 # FIXME: Check checksum
 print_info "Extracting poppler"
 7z x "${poppler_ARCHIVE}" -so | 7z x -si -ttar
-cd ${poppler_DIRNAME}
+cd "${poppler_DIRNAME}"
 print_info "Patching poppler"
-for PATCH in $(find ${APPVEYOR_BUILD_FOLDER}/ci/travis-ci/mxe/ -iname 'poppler-*.patch'); do
+for PATCH in $(find "${APPVEYOR_BUILD_FOLDER}/ci/travis-ci/mxe/" -iname 'poppler-*.patch'); do
 	echo "Applying ${PATCH}"
 	patch -p1 < "${PATCH}"
 done
@@ -41,10 +41,10 @@ print_headline "Installing hunspell"
 print_info "Downloading hunspell"
 mkdir -p /c/projects/hunspell
 cd /c/projects/hunspell
-curl -sSL -O ${hunspell_URL}
+curl -sSL -O "${hunspell_URL}"
 # FIXME: Check checksum
 print_info "Extracting hunspell"
 7z x "${hunspell_ARCHIVE}" -so | 7z x -si -ttar
 print_info "Building hunspell"
-cd ${hunspell_DIRNAME}
+cd "${hunspell_DIRNAME}"
 autoreconf -i && ./configure && make -j && make install
