@@ -67,10 +67,10 @@ class AbstractInPlaceTransition : public AbstractTransition
 {
 public:
   AbstractInPlaceTransition() : _spread(0.05) { }
-  virtual ~AbstractInPlaceTransition() { }
+  virtual ~AbstractInPlaceTransition() override { }
   
-  virtual void start(const QImage & imgStart, const QImage & imgEnd);
-  virtual QImage getImage();
+  virtual void start(const QImage & imgStart, const QImage & imgEnd) override;
+  virtual QImage getImage() override;
 protected:
   virtual void initMask() = 0;
   
@@ -82,7 +82,7 @@ class Replace : public AbstractTransition
 {
 public:
   Replace() { }
-  virtual QImage getImage();
+  virtual QImage getImage() override;
 };
 
 class Split : public AbstractInPlaceTransition
@@ -90,7 +90,7 @@ class Split : public AbstractInPlaceTransition
 public:
   Split() { _spread = 0; }
 protected:
-  virtual void initMask();
+  virtual void initMask() override;
 };
 
 class Blinds : public AbstractInPlaceTransition
@@ -98,7 +98,7 @@ class Blinds : public AbstractInPlaceTransition
 public:
   Blinds() : _numBlinds(6) { }
 protected:
-  virtual void initMask();
+  virtual void initMask() override;
   unsigned int _numBlinds;
 };
 
@@ -107,7 +107,7 @@ class Box : public AbstractInPlaceTransition
 public:
   Box() { _spread = 0; }
 protected:
-  virtual void initMask();
+  virtual void initMask() override;
 };
 
 class Wipe : public AbstractInPlaceTransition
@@ -115,7 +115,7 @@ class Wipe : public AbstractInPlaceTransition
 public:
   Wipe() { _spread = 0.f; }
 protected:
-  virtual void initMask();
+  virtual void initMask() override;
 };
 
 class Dissolve : public AbstractInPlaceTransition
@@ -123,7 +123,7 @@ class Dissolve : public AbstractInPlaceTransition
 public:
   Dissolve() { }
 protected:
-  virtual void initMask();
+  virtual void initMask() override;
 };
 
 class Glitter : public AbstractInPlaceTransition
@@ -131,15 +131,15 @@ class Glitter : public AbstractInPlaceTransition
 public:
   Glitter() { _spread = .1f; }
 protected:
-  virtual void initMask();
+  virtual void initMask() override;
 };
 
 class Fly : public AbstractTransition
 {
 public:
   Fly() { }
-  virtual void start(const QImage & imgStart, const QImage & imgEnd);
-  virtual QImage getImage();
+  virtual void start(const QImage & imgStart, const QImage & imgEnd) override;
+  virtual QImage getImage() override;
 protected:
   QImage _mask;
 };
@@ -148,28 +148,28 @@ class Push : public AbstractTransition
 {
 public:
   Push() { }
-  virtual QImage getImage();
+  virtual QImage getImage() override;
 };
 
 class Cover : public AbstractTransition
 {
 public:
   Cover() { }
-  virtual QImage getImage();
+  virtual QImage getImage() override;
 };
 
 class Uncover : public AbstractTransition
 {
 public:
   Uncover() { }
-  virtual QImage getImage();
+  virtual QImage getImage() override;
 };
 
 class Fade : public AbstractTransition
 {
 public:
   Fade() { }
-  virtual QImage getImage();
+  virtual QImage getImage() override;
 };
 
 } // namespace(Transition)

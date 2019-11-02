@@ -107,8 +107,8 @@ public:
   PDFURIAction(const QUrl url) : _url(url), _isMap(false) { }
   PDFURIAction(const PDFURIAction & a) : _url(a._url), _isMap(a._isMap) { }
   
-  ActionType type() const { return ActionTypeURI; }
-  PDFAction * clone() const { return new PDFURIAction(*this); }
+  virtual ActionType type() const override { return ActionTypeURI; }
+  virtual PDFAction * clone() const override { return new PDFURIAction(*this); }
 
   // TODO: handle _isMap (see PDF 1.7 specs)
   QUrl url() const { return _url; }
@@ -124,8 +124,8 @@ public:
   PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination), _isRemote(false), _openInNewWindow(false) { }
   PDFGotoAction(const PDFGotoAction & a) : _destination(a._destination), _isRemote(a._isRemote), _filename(a._filename), _openInNewWindow(a._openInNewWindow) { }
 
-  ActionType type() const { return ActionTypeGoTo; }
-  PDFAction * clone() const { return new PDFGotoAction(*this); }
+  virtual ActionType type() const override { return ActionTypeGoTo; }
+  virtual PDFAction * clone() const override { return new PDFGotoAction(*this); }
 
   PDFDestination destination() const { return _destination; }
   bool isRemote() const { return _isRemote; }
@@ -149,8 +149,8 @@ class PDFLaunchAction : public PDFAction
 public:
   PDFLaunchAction(const QString command) : _command(command), _newWindow(false) { }
 
-  ActionType type() const { return ActionTypeLaunch; }
-  PDFAction * clone() const { return new PDFLaunchAction(*this); }
+  virtual ActionType type() const override { return ActionTypeLaunch; }
+  virtual PDFAction * clone() const override { return new PDFLaunchAction(*this); }
   
   QString command() const { return _command; }
   void setCommand(const QString command) { _command = command; }

@@ -116,7 +116,7 @@ public:
   Markup() : AbstractAnnotation(), _popup(nullptr) { }
   virtual ~Markup();
 
-  virtual bool isMarkup() const { return true; }
+  virtual bool isMarkup() const override { return true; }
 
   virtual QString title() const { return _title; }
   // Synonym for title(), but easier to read
@@ -168,7 +168,7 @@ public:
     return *this;
   }
 
-  AnnotationType type() const { return AnnotationTypeLink; };
+  virtual AnnotationType type() const override { return AnnotationTypeLink; }
 
   HighlightingMode highlightingMode() const { return _highlightingMode; }
   QPolygonF quadPoints() const;
@@ -192,7 +192,7 @@ private:
 class Text : public Markup
 {
 public:
-  AnnotationType type() const { return AnnotationTypeText; }
+  virtual AnnotationType type() const override { return AnnotationTypeText; }
 private:
   bool _open;
   QString _iconName;
@@ -203,14 +203,14 @@ private:
 class FreeText : public Markup
 {
 public:
-  AnnotationType type() const { return AnnotationTypeFreeText; }
+  virtual AnnotationType type() const override { return AnnotationTypeFreeText; }
   // TODO: members
 };
 
 class Caret : public Markup
 {
 public:
-  AnnotationType type() const { return AnnotationTypeCaret; }
+  virtual AnnotationType type() const override { return AnnotationTypeCaret; }
 private:
   QRectF _rectDiff;
   // enum _symbol;
@@ -219,7 +219,7 @@ private:
 class Popup : public AbstractAnnotation
 {
 public:
-  AnnotationType type() const { return AnnotationTypePopup; }
+  virtual AnnotationType type() const override { return AnnotationTypePopup; }
   
   Markup * parent() { return _parent; }
   bool isOpen() const { return _open; }
@@ -235,28 +235,28 @@ private:
 class Highlight : public Markup
 {
 public:
-  AnnotationType type() const { return AnnotationTypeHighlight; }
+  virtual AnnotationType type() const override { return AnnotationTypeHighlight; }
   // TODO: members
 };
 
 class Underline: public Markup
 {
 public:
-  AnnotationType type() const { return AnnotationTypeUnderline; }
+  virtual AnnotationType type() const override { return AnnotationTypeUnderline; }
   // TODO: members
 };
 
 class Squiggly: public Markup
 {
 public:
-  AnnotationType type() const { return AnnotationTypeSquiggly; }
+  virtual AnnotationType type() const override { return AnnotationTypeSquiggly; }
   // TODO: members
 };
 
 class StrikeOut: public Markup
 {
 public:
-  AnnotationType type() const { return AnnotationTypeStrikeOut; }
+  virtual AnnotationType type() const override { return AnnotationTypeStrikeOut; }
   // TODO: members
 };
 
