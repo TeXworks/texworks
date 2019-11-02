@@ -37,7 +37,7 @@ class TeXDock : public QDockWidget
 	Q_OBJECT
 
 public:
-	TeXDock(const QString& title, TeXDocument *doc = 0);
+	TeXDock(const QString & title, TeXDocument * doc = nullptr);
 	virtual ~TeXDock();
 
 protected:
@@ -57,7 +57,7 @@ class TagsDock : public TeXDock
 	Q_OBJECT
 
 public:
-	TagsDock(TeXDocument *doc = 0);
+	TagsDock(TeXDocument *doc = nullptr);
 	virtual ~TagsDock();
 
 public slots:

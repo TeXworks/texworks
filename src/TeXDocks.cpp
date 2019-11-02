@@ -27,7 +27,7 @@
 #include <QHeaderView>
 #include <QScrollBar>
 
-TeXDock::TeXDock(const QString& title, TeXDocument *doc)
+TeXDock::TeXDock(const QString & title, TeXDocument * doc)
 	: QDockWidget(title, doc), document(doc), filled(false)
 {
 	connect(this, SIGNAL(visibilityChanged(bool)), SLOT(myVisibilityChanged(bool)));
@@ -47,7 +47,7 @@ void TeXDock::myVisibilityChanged(bool visible)
 
 //////////////// TAGS ////////////////
 
-TagsDock::TagsDock(TeXDocument *doc)
+TagsDock::TagsDock(TeXDocument * doc)
 	: TeXDock(tr("Tags"), doc)
 {
 	setObjectName(QString::fromLatin1("tags"));

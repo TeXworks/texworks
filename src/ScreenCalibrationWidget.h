@@ -11,7 +11,7 @@ class ScreenCalibrationWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	ScreenCalibrationWidget(QWidget *parent = 0);
+	ScreenCalibrationWidget(QWidget * parent = nullptr);
 	virtual ~ScreenCalibrationWidget() { }
 
 	double dpi() const;

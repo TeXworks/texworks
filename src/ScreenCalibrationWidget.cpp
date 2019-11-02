@@ -3,7 +3,7 @@
 #include <QStyle>
 #include <QApplication>
 
-ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget *parent)
+ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget * parent)
 	: QWidget(parent)
 	, _majorTickHeight(20)
 	, _mediumTickHeight(10)
