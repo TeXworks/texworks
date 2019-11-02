@@ -110,7 +110,7 @@ private:
 		msgTarget = CreateWindowA(TW_HIDDEN_WINDOW_CLASS, "TeXworks", WS_OVERLAPPEDWINDOW,
 						CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 						HWND_MESSAGE, NULL, hInstance, NULL);
-		SetWindowLongPtr(msgTarget, GWLP_USERDATA, reinterpret_cast<LONG>(this));
+		SetWindowLongPtr(msgTarget, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	}
 
 	// The mutex is handled exclusively by the InterProcessCommunicator
