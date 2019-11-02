@@ -31,7 +31,11 @@ class InterProcessCommunicatorPrivate;
 class InterProcessCommunicator : public QObject
 {
 	Q_OBJECT
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
+	Q_DECLARE_PRIVATE_D(_private.data(), InterProcessCommunicator)
+#else
 	Q_DECLARE_PRIVATE_D(_private, InterProcessCommunicator)
+#endif
 	bool _isFirstInstance;
 	QScopedPointer<InterProcessCommunicatorPrivate> _private;
 
