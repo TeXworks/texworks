@@ -1161,7 +1161,8 @@ QList<SearchResult> Page::search(const QString & searchText, const SearchFlags &
           ++spanStart;
         span = span->next;
       }
-      result.bbox |= toRectF(span->text[i + j - spanStart].bbox);
+      if (span)
+        result.bbox |= toRectF(span->text[i + j - spanStart].bbox);
     }
 
     if (flags & ::QtPDF::Backend::Search_Backwards)
