@@ -48,19 +48,7 @@
 #include <QClipboard>
 
 CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
-	: QTextEdit(parent),
-	  mouseMode(none),
-	  droppedOffset(-1),
-	  droppedLength(0),
-	  clickCount(0),
-	  wheelDelta(0),
-	  autoIndentMode(-1),
-	  prefixLength(0),
-	  smartQuotesMode(-1),
-	  c(nullptr),
-	  itemIndex(0),
-	  prevRow(-1),
-	  _dictionary(nullptr)
+	: QTextEdit(parent)
 {
 	if (!sharedCompleter) { // initialize shared (static) members
 		sharedCompleter = new QCompleter(qApp);

@@ -4,7 +4,6 @@
 #include <QDir>
 
 Engine::Engine()
-	: _showPdf(false)
 {
 }
 

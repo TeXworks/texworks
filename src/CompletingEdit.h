@@ -146,17 +146,17 @@ private:
 		extendingSelection,
 		dragSelecting
 	};
-	MouseMode mouseMode;
+	MouseMode mouseMode{none};
 	
 	QTextCursor dragStartCursor;
 
-	int droppedOffset, droppedLength;
+	int droppedOffset{-1}, droppedLength{0};
 	
 	QBasicTimer clickTimer;
 	QPoint clickPos;
-	int clickCount;
+	int clickCount{0};
 
-	int wheelDelta;  // used to accumulate small steps of high-resolution mice
+	int wheelDelta{0};  // used to accumulate small steps of high-resolution mice
 	
 	static void loadIndentModes();
 
@@ -165,8 +165,8 @@ private:
 		QRegularExpression regex;
 	};
 	static QList<IndentMode> *indentModes;
-	int autoIndentMode;
-	int prefixLength;
+	int autoIndentMode{-1};
+	int prefixLength{0};
 
 	static void loadSmartQuotesModes();
 	
@@ -178,18 +178,18 @@ private:
 	};
 	static QList<QuotesMode> *quotesModes;
 	
-	int smartQuotesMode;
+	int smartQuotesMode{-1};
 
-	QCompleter *c;
+	QCompleter * c{nullptr};
 	QTextCursor cmpCursor;
 
 	QString prevCompletion; // used with multiple entries for the same key (e.g., "--")
-	int itemIndex;
-	int prevRow;
+	int itemIndex{0};
+	int prevRow{-1};
 
 	QTextCursor currentWord;
 
-	Tw::Document::SpellChecker::Dictionary * _dictionary;
+	Tw::Document::SpellChecker::Dictionary * _dictionary{nullptr};
 
 	QTextCursor	currentCompletionRange;
 

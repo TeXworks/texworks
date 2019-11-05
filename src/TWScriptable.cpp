@@ -402,9 +402,6 @@ TWScriptManager::runHooks(const QString& hookName, QObject * context /* = nullpt
 }
 
 TWScriptable::TWScriptable()
-	: scriptsMenu(nullptr),
-	  scriptMapper(nullptr),
-	  staticScriptMenuItemCount(0)
 {
 }
 

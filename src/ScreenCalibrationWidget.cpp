@@ -5,14 +5,7 @@
 
 ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget * parent)
 	: QWidget(parent)
-	, _majorTickHeight(20)
-	, _mediumTickHeight(10)
-	, _minorTickHeight(5)
-	, _paperTickHeight(40)
 	, _contextMenuActionGroup(this)
-	, _hSpace(0)
-	, _mouseDownInches(0)
-	, _isDragging(false)
 {
 	_sbDPI = new QDoubleSpinBox(this);
 	_sbDPI->setRange(0, 9999);

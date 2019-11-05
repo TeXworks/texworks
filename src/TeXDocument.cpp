@@ -65,61 +65,15 @@
 #include <windows.h>
 #endif
 
-#define kLineEnd_Mask   0x00FF
-#define kLineEnd_LF     0x0000
-#define kLineEnd_CRLF   0x0001
-#define kLineEnd_CR     0x0002
-
-#define kLineEnd_Flags_Mask  0xFF00
-#define kLineEnd_Mixed       0x0100
-
 QList<TeXDocument*> TeXDocument::docList;
 
 TeXDocument::TeXDocument()
-	: highlighter(nullptr)
-	, pdfDoc(nullptr)
-	, codec(nullptr)
-	, utf8BOM(false)
-	, lineEndings(kLineEnd_LF)
-	, isUntitled(true)
-	, lineNumberLabel(nullptr)
-	, encodingLabel(nullptr)
-	, lineEndingLabel(nullptr)
-	, engineActions(nullptr)
-	, engine(nullptr)
-	, process(nullptr)
-	, keepConsoleOpen(false)
-	, showPdfWhenFinished(true)
-	, userInterrupt(false)
-	, _dictionary(nullptr)
-	, watcher(nullptr)
-	, deferTagListChanges(false)
-	, tagListChanged(false)
 {
 	init();
 	statusBar()->showMessage(tr("New document"), kStatusMessageDuration);
 }
 
 TeXDocument::TeXDocument(const QString &fileName, bool asTemplate)
-	: highlighter(nullptr)
-	, pdfDoc(nullptr)
-	, codec(nullptr)
-	, utf8BOM(false)
-	, lineEndings(kLineEnd_LF)
-	, isUntitled(true)
-	, lineNumberLabel(nullptr)
-	, encodingLabel(nullptr)
-	, lineEndingLabel(nullptr)
-	, engineActions(nullptr)
-	, engine(nullptr)
-	, process(nullptr)
-	, keepConsoleOpen(false)
-	, showPdfWhenFinished(true)
-	, userInterrupt(false)
-	, _dictionary(nullptr)
-	, watcher(nullptr)
-	, deferTagListChanges(false)
-	, tagListChanged(false)
 {
 	init();
 	loadFile(fileName, asTemplate);

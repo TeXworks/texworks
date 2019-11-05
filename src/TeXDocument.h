@@ -52,6 +52,14 @@ class ClickableLabel;
 
 const int kTeXWindowStateVersion = 1; // increment this if we add toolbars/docks/etc
 
+#define kLineEnd_Mask   0x00FF
+#define kLineEnd_LF     0x0000
+#define kLineEnd_CRLF   0x0001
+#define kLineEnd_CR     0x0002
+
+#define kLineEnd_Flags_Mask  0xFF00
+#define kLineEnd_Mixed       0x0100
+
 class TeXDocument : public TWScriptable, private Ui::TeXDocument
 {
 	Q_OBJECT
@@ -256,45 +264,45 @@ private:
 	QString consoleText() { return textEdit_console->toPlainText(); }
 	QString text() { return textEdit->toPlainText(); }
 	
-	TeXHighlighter *highlighter;
-	PDFDocument *pdfDoc;
+	TeXHighlighter * highlighter{nullptr};
+	PDFDocument * pdfDoc{nullptr};
 
-	QTextCodec *codec;
+	QTextCodec * codec{nullptr};
 	// When using the UTF-8 codec, byte order marks (BOMs) are ignored during 
 	// reading and not produced when writing. To keep them in files that have
 	// them, we need to keep track of them ourselves.
-	bool utf8BOM;
-	int lineEndings;
+	bool utf8BOM{false};
+	int lineEndings{kLineEnd_LF};
 	QString curFile;
 	QString rootFilePath;
-	bool isUntitled;
+	bool isUntitled{true};
 	QDateTime lastModified;
 
-	ClickableLabel *lineNumberLabel;
-	ClickableLabel *encodingLabel;
-	ClickableLabel *lineEndingLabel;
+	ClickableLabel * lineNumberLabel{nullptr};
+	ClickableLabel * encodingLabel{nullptr};
+	ClickableLabel * lineEndingLabel{nullptr};
 
-	QActionGroup *engineActions;
+	QActionGroup *engineActions{nullptr};
 	QString engineName;
 	
 	QSignalMapper dictSignalMapper;
 
-	QComboBox *engine;
-	QProcess *process;
-	bool keepConsoleOpen;
-	bool showPdfWhenFinished;
-	bool userInterrupt;
+	QComboBox * engine{nullptr};
+	QProcess * process{nullptr};
+	bool keepConsoleOpen{false};
+	bool showPdfWhenFinished{true};
+	bool userInterrupt{false};
 	QDateTime oldPdfTime;
 
 	QList<QAction*> recentFileActions;
 
-	Tw::Document::SpellChecker::Dictionary * _dictionary;
+	Tw::Document::SpellChecker::Dictionary * _dictionary{nullptr};
 
-	QFileSystemWatcher *watcher;
+	QFileSystemWatcher * watcher{nullptr};
 	
 	QList<Tag>	tags;
-	bool deferTagListChanges;
-	bool tagListChanged;
+	bool deferTagListChanges{false};
+	bool tagListChanged{false};
 
 	QTextCursor	dragSavedCursor;
 

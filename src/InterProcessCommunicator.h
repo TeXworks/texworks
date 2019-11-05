@@ -36,7 +36,7 @@ class InterProcessCommunicator : public QObject
 #else
 	Q_DECLARE_PRIVATE_D(_private, InterProcessCommunicator)
 #endif
-	bool _isFirstInstance;
+	bool _isFirstInstance{true};
 	QScopedPointer<InterProcessCommunicatorPrivate> _private;
 
 public:

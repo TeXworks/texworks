@@ -41,7 +41,7 @@ protected:
 
 	QDoubleSpinBox * _sbDPI;
 	QRect _rulerRect;
-	unsigned int _majorTickHeight, _mediumTickHeight, _minorTickHeight, _paperTickHeight;
+	unsigned int _majorTickHeight{20}, _mediumTickHeight{10}, _minorTickHeight{5}, _paperTickHeight{40};
 	QMenu _contextMenu;
 	QActionGroup _contextMenuActionGroup;
 	QSignalMapper _unitSignalMapper;
@@ -61,11 +61,11 @@ protected:
 	};
 	QList<paperSize> _paperSizes;
 	unsigned int _curUnit;
-	int _hSpace;
+	int _hSpace{0};
 
 	QPoint _mouseDownPos;
-	float _mouseDownInches;
-	bool _isDragging;
+	float _mouseDownInches{0};
+	bool _isDragging{false};
 };
 
 #endif // SCREENCALIBRATIONWIDGET_H

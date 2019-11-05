@@ -47,7 +47,7 @@ private slots:
 private:
 	void init();
 
-	QDirModel *model;
+	QDirModel * model{nullptr};
 };
 
 #endif

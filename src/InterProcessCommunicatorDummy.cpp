@@ -30,8 +30,7 @@ class InterProcessCommunicatorPrivate {
 };
 
 InterProcessCommunicator::InterProcessCommunicator()
-	: _isFirstInstance(true)
-	, _private(nullptr)
+	: _private(nullptr)
 {
 }
 

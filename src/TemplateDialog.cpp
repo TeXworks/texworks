@@ -31,7 +31,6 @@
 
 TemplateDialog::TemplateDialog()
 	: QDialog(nullptr)
-	, model(nullptr)
 {
 	init();
 }

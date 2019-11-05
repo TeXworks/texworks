@@ -145,9 +145,9 @@ protected:
 	void showFloaters();
 
 private:
-	QMenu* scriptsMenu;
-	QSignalMapper* scriptMapper;
-	int staticScriptMenuItemCount;
+	QMenu * scriptsMenu{nullptr};
+	QSignalMapper * scriptMapper{nullptr};
+	int staticScriptMenuItemCount{0};
 
 	QList<QWidget*> latentVisibleWidgets;
 };

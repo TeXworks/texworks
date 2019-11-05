@@ -136,7 +136,6 @@ LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 
 InterProcessCommunicator::InterProcessCommunicator()
 	: _private(new InterProcessCommunicatorPrivate(this))
-	, _isFirstInstance(true)
 {
 	Q_D(InterProcessCommunicator);
 	d->hMutex = CreateMutexA(NULL, FALSE, TW_MUTEX_NAME);

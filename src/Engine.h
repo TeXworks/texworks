@@ -37,7 +37,7 @@ private:
 	QString _name;
 	QString _program;
 	QStringList _arguments;
-	bool _showPdf;
+	bool _showPdf{false};
 };
 
 
