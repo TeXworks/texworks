@@ -54,16 +54,7 @@ QString PDFDocumentView::_translatorLanguage;
 // This class descends from `QGraphicsView` and is responsible for controlling
 // and displaying the contents of a `Document` using a `QGraphicsScene`.
 PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
-  Super(parent),
-  _pdf_scene(nullptr),
-  _zoomLevel(1.0),
-  _currentPage(-1),
-  _lastPage(-1),
-  _currentSearchResult(-1),
-  _useGrayScale(false),
-  _pageMode(PageMode_OneColumnContinuous),
-  _mouseMode(MouseMode_Move),
-  _armedTool(nullptr)
+  Super(parent)
 {
   initResources();
   // FIXME: Allow to initialize with a specific language (in case the
@@ -1593,11 +1584,7 @@ void PDFDocumentView::disarmTool()
 //
 PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = nullptr */) :
   Super(parent),
-  _parent_view(parent),
-  _zoomLevel(1.0),
-  _zoomFactor(2.0),
-  _shape(DocumentTool::MagnifyingGlass::Magnifier_Circle),
-  _size(300)
+  _parent_view(parent)
 {
   // the magnifier should initially be hidden
   hide();
@@ -3484,12 +3471,7 @@ PDFActionEvent::PDFActionEvent(const PDFAction * action) : Super(ActionEvent), a
 QEvent::Type PDFActionEvent::ActionEvent = static_cast<QEvent::Type>( QEvent::registerEventType() );
 
 
-PDFPageLayout::PDFPageLayout() :
-_numCols(1),
-_firstCol(0),
-_xSpacing(10),
-_ySpacing(10),
-_isContinuous(true)
+PDFPageLayout::PDFPageLayout()
 {
 }
 

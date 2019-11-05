@@ -25,12 +25,7 @@ namespace QtPDF {
 
 namespace Transition {
 
-AbstractTransition::AbstractTransition() :
-  _duration(1),
-  _direction(0),
-  _motion(Motion_Inward),
-  _started(false),
-  _finished(false)
+AbstractTransition::AbstractTransition()
 {
 }
 

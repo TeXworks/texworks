@@ -113,7 +113,7 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(AbstractAnnotation::AnnotationFlags)
 class Markup : public AbstractAnnotation
 {
 public:
-  Markup() : AbstractAnnotation(), _popup(nullptr) { }
+  Markup() : AbstractAnnotation() { }
   virtual ~Markup();
 
   virtual bool isMarkup() const override { return true; }
@@ -137,7 +137,7 @@ public:
 
 protected:
   QString _title; // optional; since PDF 1.1; by convention identifies the annotation author
-  Popup * _popup;
+  Popup * _popup{nullptr};
   // float _opacity;
   QString _richContents; // optional; since PDF 1.5; may contain some HTML tags
   QDateTime _creationDate; // optional; since PDF 1.5
@@ -153,7 +153,7 @@ class Link : public AbstractAnnotation
 public:
   enum HighlightingMode { HighlightingNone, HighlightingInvert, HighlightingOutline, HighlightingPush };
 
-  Link() : AbstractAnnotation(), _highlightingMode(HighlightingNone), _actionOnActivation(nullptr) { }
+  Link() : AbstractAnnotation() { }
   virtual ~Link();
   Link(const Link & other) : AbstractAnnotation(other), _highlightingMode(other._highlightingMode), _quadPoints(other._quadPoints) {
     _actionOnActivation = (other._actionOnActivation ? other._actionOnActivation->clone() : nullptr);
@@ -184,9 +184,9 @@ private:
   // because we don't support WebCapture at the moment
   // Note: The PDF specs include a "destination" field for LinkAnnotations;
   // In this implementation this case should be handled by a PDFGoToAction
-  HighlightingMode _highlightingMode;
+  HighlightingMode _highlightingMode{HighlightingNone};
   QPolygonF _quadPoints;
-  PDFAction * _actionOnActivation;
+  PDFAction * _actionOnActivation{nullptr};
 };
 
 class Text : public Markup

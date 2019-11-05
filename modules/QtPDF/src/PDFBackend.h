@@ -75,21 +75,21 @@ protected:
   // From pdf specs
   QString _name;
   QString _family;
-  enum FontStretch _stretch;
-  int _weight;
+  enum FontStretch _stretch{FontStretch_Normal};
+  int _weight{400};
   Flags _flags;
   QRectF _bbox;
-  float _italicAngle;
-  float _ascent;
-  float _descent;
-  float _leading;
-  float _capHeight;
-  float _xHeight;
-  float _stemV;
-  float _stemH;
-  float _avgWidth;
-  float _maxWidth;
-  float _missingWidth;
+  float _italicAngle{0};
+  float _ascent{0};
+  float _descent{0};
+  float _leading{0};
+  float _capHeight{0};
+  float _xHeight{0};
+  float _stemV{0};
+  float _stemH{0};
+  float _avgWidth{0};
+  float _maxWidth{0};
+  float _missingWidth{0};
   QString _charSet;
 
   // From pdf specs for CID fonts only
@@ -114,8 +114,8 @@ public:
                          ProgramType_CIDCFF, ProgramType_OpenType };
   enum FontSource { Source_Embedded, Source_File, Source_Builtin };
   
-  PDFFontInfo() : _source(Source_Builtin), _fontType(FontType_Type1), _CIDType(CIDFont_None), _fontProgramType(ProgramType_None) { };
-  virtual ~PDFFontInfo() { };
+  PDFFontInfo() { }
+  virtual ~PDFFontInfo() { }
   
   FontType fontType() const { return _fontType; }
   CIDFontType CIDType() const { return _CIDType; }
@@ -138,12 +138,12 @@ public:
   void setSource(const FontSource source) { _source = source; }
 
 protected:
-  FontSource _source;
+  FontSource _source{Source_Builtin};
   PDFFontDescriptor _descriptor;
   QFileInfo _substitutionFile;
-  FontType _fontType;
-  CIDFontType _CIDType;
-  FontProgramType _fontProgramType;
+  FontType _fontType{FontType_Type1};
+  CIDFontType _CIDType{CIDFont_None};
+  FontProgramType _fontProgramType{ProgramType_None};
 };
 
 class PDFPageTile;
@@ -364,9 +364,9 @@ private:
   QStack<PageProcessingRequest*> _workStack;
   QMutex _mutex;
   QWaitCondition _waitCondition;
-  bool _idle;
+  bool _idle{true};
   QWaitCondition _idleCondition;
-  bool _quit;
+  bool _quit{false};
 #ifdef DEBUG
   QTime _renderTimer;
   static void dumpWorkStack(const QStack<PageProcessingRequest*> & ws);
@@ -380,7 +380,7 @@ public:
   enum PDFToCItemFlag { Flag_Italic = 0x1, Flag_Bold = 0x2 };
   Q_DECLARE_FLAGS(PDFToCItemFlags, PDFToCItemFlag)
 
-  PDFToCItem(const QString label = QString()) : _label(label), _isOpen(false), _action(nullptr) { }
+  PDFToCItem(const QString label = QString()) : _label(label) { }
   PDFToCItem(const PDFToCItem & o) : _label(o._label), _isOpen(o._isOpen), _color(o._color), _children(o._children), _flags(o._flags) {
     _action = (o._action ? o._action->clone() : nullptr);
   }
@@ -406,8 +406,8 @@ public:
 
 protected:
   QString _label;
-  bool _isOpen; // derived from the sign of the `Count` member of the outline item dictionary
-  PDFAction * _action; // if the `Dest` member of the outline item dictionary is set, it must be converted to a PDFGotoAction
+  bool _isOpen{false}; // derived from the sign of the `Count` member of the outline item dictionary
+  PDFAction * _action{nullptr}; // if the `Dest` member of the outline item dictionary is set, it must be converted to a PDFGotoAction
   QColor _color;
   QList<PDFToCItem> _children;
   PDFToCItemFlags _flags;

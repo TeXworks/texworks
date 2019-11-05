@@ -130,9 +130,7 @@ void PDFViewer::syncFromPdf(const int page, const QPointF pos)
 }
 
 
-PageCounter::PageCounter(QWidget *parent, Qt::WindowFlags f) : super(parent, f),
-  currentPage(1),
-  lastPage(-1)
+PageCounter::PageCounter(QWidget *parent, Qt::WindowFlags f) : super(parent, f)
 {
   refreshText();
 }
@@ -158,8 +156,7 @@ void PageCounter::refreshText() {
 }
 
 
-ZoomTracker::ZoomTracker(QWidget *parent, Qt::WindowFlags f) : super(parent, f),
-  zoom(1.0)
+ZoomTracker::ZoomTracker(QWidget *parent, Qt::WindowFlags f) : super(parent, f)
 {
   refreshText();
 }

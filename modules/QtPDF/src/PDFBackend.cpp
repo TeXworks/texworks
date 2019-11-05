@@ -111,20 +111,7 @@ void PDFPageProcessingThread::dumpWorkStack(const QStack<PageProcessingRequest*>
 // =================
 
 PDFFontDescriptor::PDFFontDescriptor(const QString & fontName /* = QString() */) :
-  _name(fontName),
-  _stretch(FontStretch_Normal),
-  _weight(400),
-  _italicAngle(0),
-  _ascent(0),
-  _descent(0),
-  _leading(0),
-  _capHeight(0),
-  _xHeight(0),
-  _stemV(0),
-  _stemH(0),
-  _avgWidth(0),
-  _maxWidth(0),
-  _missingWidth(0)
+  _name(fontName)
 {
 }
 
@@ -154,9 +141,7 @@ QString PDFFontDescriptor::pureName() const
 // The `PDFPageProcessingThread` is a thread that processes background jobs.
 // Each job is represented by a subclass of `PageProcessingRequest` and
 // contains an `execute` method that performs the actual work.
-PDFPageProcessingThread::PDFPageProcessingThread() :
-  _idle(true),
-  _quit(false)
+PDFPageProcessingThread::PDFPageProcessingThread()
 {
 }
 

@@ -36,8 +36,8 @@ public:
   enum Type { Destination_XYZ, Destination_Fit, Destination_FitH, \
               Destination_FitV, Destination_FitR, Destination_FitB, \
               Destination_FitBH, Destination_FitBV };
-  PDFDestination(const int page = -1) : _page(page), _type(Destination_XYZ), _rect(QRectF(-1, -1, -1, -1)), _zoom(-1) { }
-  PDFDestination(const QString destinationName) : _page(-1), _type(Destination_XYZ), _destinationName(destinationName), _zoom(-1) { }
+  PDFDestination(const int page = -1) : _page(page), _rect(QRectF(-1, -1, -1, -1)) { }
+  PDFDestination(const QString destinationName) : _page(-1), _destinationName(destinationName) { }
 
   bool isValid() const { return _page >= 0 || !_destinationName.isEmpty(); }
   // If the destination is not explicit (i.e., it is a named destination), use
@@ -71,10 +71,10 @@ public:
 
 private:
   int _page;
-  Type _type;
+  Type _type{Destination_XYZ};
   QString _destinationName;
   QRectF _rect; // depending on _type, only some of the components might be significant
-  qreal _zoom;
+  qreal _zoom{-1};
 };
 
 #ifdef DEBUG
@@ -121,7 +121,7 @@ private:
 class PDFGotoAction : public PDFAction
 {
 public:
-  PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination), _isRemote(false), _openInNewWindow(false) { }
+  PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination) { }
   PDFGotoAction(const PDFGotoAction & a) : _destination(a._destination), _isRemote(a._isRemote), _filename(a._filename), _openInNewWindow(a._openInNewWindow) { }
 
   virtual ActionType type() const override { return ActionTypeGoTo; }
@@ -139,9 +139,9 @@ public:
 
 private:
   PDFDestination _destination;
-  bool _isRemote;
+  bool _isRemote{false};
   QString _filename; // relevent only if _isRemote == true; should always refer to a PDF document (for other files, use PDFLaunchAction)
-  bool _openInNewWindow; // relevent only if _isRemote == true
+  bool _openInNewWindow{false}; // relevent only if _isRemote == true
 };
 
 class PDFLaunchAction : public PDFAction

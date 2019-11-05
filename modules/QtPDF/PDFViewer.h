@@ -68,7 +68,7 @@ private slots:
 class PageCounter : public QLabel {
   Q_OBJECT
   typedef QLabel super;
-  int currentPage, lastPage;
+  int currentPage{1}, lastPage{-1};
 
 public:
   PageCounter(QWidget *parent = 0, Qt::WindowFlags f = 0);
@@ -85,7 +85,7 @@ private:
 class ZoomTracker : public QLabel {
   Q_OBJECT
   typedef QLabel super;
-  qreal zoom;
+  qreal zoom{1.0};
 
 public:
   ZoomTracker(QWidget *parent = 0, Qt::WindowFlags f = 0);

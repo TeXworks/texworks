@@ -52,11 +52,11 @@ protected:
   double getFracTime();
   virtual void setImages(const QImage & imgStart, const QImage & imgEnd);
   
-  double _duration;
-  int _direction;
-  Motion _motion;
-  bool _started;
-  bool _finished;
+  double _duration{1};
+  int _direction{0};
+  Motion _motion{Motion_Inward};
+  bool _started{false};
+  bool _finished{false};
   QTime _timer;
   QImage _imgStart;
   QImage _imgEnd;
@@ -66,7 +66,7 @@ protected:
 class AbstractInPlaceTransition : public AbstractTransition
 {
 public:
-  AbstractInPlaceTransition() : _spread(0.05) { }
+  AbstractInPlaceTransition() { }
   virtual ~AbstractInPlaceTransition() override { }
   
   virtual void start(const QImage & imgStart, const QImage & imgEnd) override;
@@ -75,7 +75,7 @@ protected:
   virtual void initMask() = 0;
   
   QImage _mask;
-  double _spread;
+  double _spread{0.05};
 };
 
 class Replace : public AbstractTransition
@@ -96,10 +96,10 @@ protected:
 class Blinds : public AbstractInPlaceTransition
 {
 public:
-  Blinds() : _numBlinds(6) { }
+  Blinds() { }
 protected:
   virtual void initMask() override;
-  unsigned int _numBlinds;
+  unsigned int _numBlinds{6};
 };
 
 class Box : public AbstractInPlaceTransition

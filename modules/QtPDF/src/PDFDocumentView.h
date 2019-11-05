@@ -38,16 +38,16 @@ class PDFDocumentView : public QGraphicsView {
 
   QSharedPointer<PDFDocumentScene> _pdf_scene;
 
-  qreal _zoomLevel;
-  int _currentPage, _lastPage;
+  qreal _zoomLevel{1.0};
+  int _currentPage{-1}, _lastPage{-1};
 
   QString _searchString;
   QList<QGraphicsItem *> _searchResults;
   QFutureWatcher< QList<Backend::SearchResult> > _searchResultWatcher;
-  int _currentSearchResult;
+  int _currentSearchResult{-1};
   QBrush _searchResultHighlightBrush;
   QBrush _currentSearchResultHighlightBrush;
-  bool _useGrayScale;
+  bool _useGrayScale{false};
 
   friend class DocumentTool::AbstractTool;
   friend class DocumentTool::Select;
@@ -197,11 +197,11 @@ protected slots:
   void notifyTextSelectionChanged();
 
 private:
-  PageMode _pageMode;
-  MouseMode _mouseMode;
+  PageMode _pageMode{PageMode_OneColumnContinuous};
+  MouseMode _mouseMode{MouseMode_Move};
   QCursor _hiddenCursor;
   QVector<DocumentTool::AbstractTool*> _tools;
-  DocumentTool::AbstractTool * _armedTool;
+  DocumentTool::AbstractTool * _armedTool{nullptr};
   QMap<uint, DocumentTool::AbstractTool*> _toolAccessors;
 
   QStack<PDFDestination> _oldViewRects;
@@ -220,10 +220,10 @@ class PDFDocumentMagnifierView : public QGraphicsView {
   typedef QGraphicsView Super;
 
   PDFDocumentView * _parent_view;
-  qreal _zoomLevel, _zoomFactor;
+  qreal _zoomLevel{1.0}, _zoomFactor{2.0};
 
-  DocumentTool::MagnifyingGlass::MagnifierShape _shape;
-  int _size;
+  DocumentTool::MagnifyingGlass::MagnifierShape _shape{DocumentTool::MagnifyingGlass::Magnifier_Circle};
+  int _size{300};
 
 public:
   PDFDocumentMagnifierView(PDFDocumentView *parent = nullptr);
@@ -396,11 +396,11 @@ class PDFPageLayout : public QObject {
   };
 
   QList<LayoutItem> _layoutItems;
-  int _numCols;
-  int _firstCol;
-  qreal _xSpacing; // spacing in pixel @ zoom=1
-  qreal _ySpacing;
-  bool _isContinuous;
+  int _numCols{1};
+  int _firstCol{0};
+  qreal _xSpacing{10}; // spacing in pixel @ zoom=1
+  qreal _ySpacing{10};
+  bool _isContinuous{true};
 
 public:
   PDFPageLayout();
