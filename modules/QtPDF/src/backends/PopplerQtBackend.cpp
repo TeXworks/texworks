@@ -1042,6 +1042,7 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 
 } // namespace Backend
 
+// NOLINTNEXTLINE(modernize-use-equals-default)
 PopplerQtBackend::PopplerQtBackend() {
 #if defined(HAVE_POPPLER_XPDF_HEADERS) && defined(Q_OS_DARWIN)
   static bool globalParamsInitialized = false;

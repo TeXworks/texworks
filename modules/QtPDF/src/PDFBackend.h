@@ -60,7 +60,7 @@ public:
   Q_DECLARE_FLAGS(Flags, Flag)
 
   PDFFontDescriptor(const QString & fontName = QString());
-  virtual ~PDFFontDescriptor() { }
+  virtual ~PDFFontDescriptor() = default;
 
   bool isSubset() const;
 
@@ -114,8 +114,8 @@ public:
                          ProgramType_CIDCFF, ProgramType_OpenType };
   enum FontSource { Source_Embedded, Source_File, Source_Builtin };
   
-  PDFFontInfo() { }
-  virtual ~PDFFontInfo() { }
+  PDFFontInfo() = default;
+  virtual ~PDFFontInfo() = default;
   
   FontType fontType() const { return _fontType; }
   CIDFontType CIDType() const { return _CIDType; }
@@ -191,8 +191,8 @@ class PDFPageCache : protected QCache<PDFPageTile, QSharedPointer<QImage> >
 public:
   enum TileStatus { UNKNOWN, PLACEHOLDER, CURRENT, OUTDATED };
 
-  PDFPageCache() { }
-  virtual ~PDFPageCache() { }
+  PDFPageCache() = default;
+  virtual ~PDFPageCache() = default;
 
   // Note: Each image has a cost of 1
   int maxSize() const { return maxCost(); }
@@ -238,7 +238,7 @@ protected:
 public:
   enum Type { PageRendering, LoadLinks };
 
-  virtual ~PageProcessingRequest() { }
+  virtual ~PageProcessingRequest() = default;
   virtual Type type() const = 0;
 
   Page *page;
@@ -335,12 +335,16 @@ public:
 // Class to perform (possibly) lengthy operations on pages in the background
 // Modelled after the "Blocking Fortune Client Example" in the Qt docs
 // (http://doc.qt.nokia.com/stable/network-blockingfortuneclient.html)
+
+// The `PDFPageProcessingThread` is a thread that processes background jobs.
+// Each job is represented by a subclass of `PageProcessingRequest` and
+// contains an `execute` method that performs the actual work.
 class PDFPageProcessingThread : public QThread
 {
   Q_OBJECT
 
 public:
-  PDFPageProcessingThread();
+  PDFPageProcessingThread() = default;
   virtual ~PDFPageProcessingThread();
 
   // add a processing request to the work stack
@@ -589,7 +593,7 @@ public:
     QList<Box> subBoxes;
   };
   
-  virtual ~Page();
+  virtual ~Page() = default;
 
   Document * document() { QReadLocker pageLocker(_pageLock); return _parent; }
   int pageNum();
@@ -659,7 +663,7 @@ class BackendInterface : public QObject
 {
   Q_OBJECT
 public:
-  virtual ~BackendInterface() { }
+  virtual ~BackendInterface() = default;
   virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) = 0;
   virtual QString name() const = 0;
   virtual bool canHandleFile(const QString & fileName) = 0;

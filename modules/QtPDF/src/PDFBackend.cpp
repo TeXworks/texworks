@@ -138,12 +138,6 @@ QString PDFFontDescriptor::pureName() const
 
 // Backend Rendering
 // =================
-// The `PDFPageProcessingThread` is a thread that processes background jobs.
-// Each job is represented by a subclass of `PageProcessingRequest` and
-// contains an `execute` method that performs the actual work.
-PDFPageProcessingThread::PDFPageProcessingThread()
-{
-}
 
 PDFPageProcessingThread::~PDFPageProcessingThread()
 {
@@ -610,13 +604,6 @@ Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
     pageDummyBrush->setTextureImage(brushTex);
     pageDummyBrush->setTransform(QTransform().rotate(-45));
   }
-}
-
-Page::~Page()
-{
-#ifdef DEBUG
-//  qDebug() << "Page::~Page(" << _n << ")";
-#endif
 }
 
 int Page::pageNum() { QReadLocker pageLocker(_pageLock); return _n; }

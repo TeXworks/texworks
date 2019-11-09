@@ -3471,10 +3471,6 @@ PDFActionEvent::PDFActionEvent(const PDFAction * action) : Super(ActionEvent), a
 QEvent::Type PDFActionEvent::ActionEvent = static_cast<QEvent::Type>( QEvent::registerEventType() );
 
 
-PDFPageLayout::PDFPageLayout()
-{
-}
-
 void PDFPageLayout::setColumnCount(const int numCols) {
   // We need at least one column, and we only handle changes
   if (numCols <= 0 || numCols == _numCols)

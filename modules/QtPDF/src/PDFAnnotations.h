@@ -66,8 +66,8 @@ public:
     AnnotationType3D
   };
   
-  AbstractAnnotation() { }
-  virtual ~AbstractAnnotation() { }
+  AbstractAnnotation() = default;
+  virtual ~AbstractAnnotation() = default;
 
   virtual AnnotationType type() const = 0;
   virtual bool isMarkup() const { return false; }

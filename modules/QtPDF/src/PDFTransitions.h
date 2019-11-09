@@ -29,8 +29,8 @@ public:
               Type_Uncover, Type_Fade };
   enum Motion { Motion_Inward, Motion_Outward };
 
-  AbstractTransition();
-  virtual ~AbstractTransition() { }
+  AbstractTransition() = default;
+  virtual ~AbstractTransition() = default;
 
   bool isRunning() const { return (_started && !_finished); }
   bool isFinished() const { return _finished; }
@@ -66,8 +66,8 @@ protected:
 class AbstractInPlaceTransition : public AbstractTransition
 {
 public:
-  AbstractInPlaceTransition() { }
-  virtual ~AbstractInPlaceTransition() override { }
+  AbstractInPlaceTransition() = default;
+  virtual ~AbstractInPlaceTransition() override = default;
   
   virtual void start(const QImage & imgStart, const QImage & imgEnd) override;
   virtual QImage getImage() override;
@@ -81,7 +81,7 @@ protected:
 class Replace : public AbstractTransition
 {
 public:
-  Replace() { }
+  Replace() = default;
   virtual QImage getImage() override;
 };
 
@@ -96,7 +96,7 @@ protected:
 class Blinds : public AbstractInPlaceTransition
 {
 public:
-  Blinds() { }
+  Blinds() = default;
 protected:
   virtual void initMask() override;
   unsigned int _numBlinds{6};
@@ -113,7 +113,7 @@ protected:
 class Wipe : public AbstractInPlaceTransition
 {
 public:
-  Wipe() { _spread = 0.f; }
+  Wipe() { _spread = 0; }
 protected:
   virtual void initMask() override;
 };
@@ -121,7 +121,7 @@ protected:
 class Dissolve : public AbstractInPlaceTransition
 {
 public:
-  Dissolve() { }
+  Dissolve() = default;
 protected:
   virtual void initMask() override;
 };
@@ -129,7 +129,7 @@ protected:
 class Glitter : public AbstractInPlaceTransition
 {
 public:
-  Glitter() { _spread = .1f; }
+  Glitter() { _spread = .1; }
 protected:
   virtual void initMask() override;
 };
@@ -137,7 +137,7 @@ protected:
 class Fly : public AbstractTransition
 {
 public:
-  Fly() { }
+  Fly() = default;
   virtual void start(const QImage & imgStart, const QImage & imgEnd) override;
   virtual QImage getImage() override;
 protected:
@@ -147,28 +147,28 @@ protected:
 class Push : public AbstractTransition
 {
 public:
-  Push() { }
+  Push() = default;
   virtual QImage getImage() override;
 };
 
 class Cover : public AbstractTransition
 {
 public:
-  Cover() { }
+  Cover() = default;
   virtual QImage getImage() override;
 };
 
 class Uncover : public AbstractTransition
 {
 public:
-  Uncover() { }
+  Uncover() = default;
   virtual QImage getImage() override;
 };
 
 class Fade : public AbstractTransition
 {
 public:
-  Fade() { }
+  Fade() = default;
   virtual QImage getImage() override;
 };
 

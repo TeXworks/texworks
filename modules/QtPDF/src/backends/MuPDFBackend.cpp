@@ -362,7 +362,7 @@ QMutex * MuPDFLocaleResetter::_lock = new QMutex(QMutex::Recursive);
 class MuPDFLocaleResetter
 {
 public:
-  MuPDFLocaleResetter() { }
+  MuPDFLocaleResetter() = default;
 };
 #endif // defined(HAVE_LOCALE_H)
 

@@ -134,8 +134,8 @@ class MuPDFBackend : public BackendInterface
   Q_OBJECT
   Q_INTERFACES(QtPDF::BackendInterface)
 public:
-  MuPDFBackend() { }
-  virtual ~MuPDFBackend() { }
+  MuPDFBackend() = default;
+  virtual ~MuPDFBackend() = default;
 
   virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) {
     return QSharedPointer<Backend::Document>(new Backend::MuPDF::Document(fileName));

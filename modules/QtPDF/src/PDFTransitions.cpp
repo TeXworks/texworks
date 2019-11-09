@@ -25,10 +25,6 @@ namespace QtPDF {
 
 namespace Transition {
 
-AbstractTransition::AbstractTransition()
-{
-}
-
 void AbstractTransition::start(const QImage & imgStart, const QImage & imgEnd)
 {
   setImages(imgStart, imgEnd);

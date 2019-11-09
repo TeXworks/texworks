@@ -94,8 +94,8 @@ public:
     ActionTypeRendition, ActionTypeTrans, ActionTypeGoTo3DView
   };
 
-  PDFAction() { }
-  virtual ~PDFAction() { }
+  PDFAction() = default;
+  virtual ~PDFAction() = default;
 
   virtual ActionType type() const = 0;
   virtual PDFAction * clone() const = 0;

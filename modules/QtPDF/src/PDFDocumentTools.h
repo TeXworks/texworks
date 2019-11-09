@@ -43,7 +43,7 @@ class AbstractTool
 public:
   enum Type { Tool_None, Tool_MagnifyingGlass, Tool_ZoomIn, Tool_ZoomOut, Tool_MarqueeZoom, Tool_Move, Tool_ContextMenu, Tool_ContextClick, Tool_Measure, Tool_Select };
   AbstractTool(PDFDocumentView * parent) : _parent(parent), _cursor(QCursor(Qt::ArrowCursor)) { }
-  virtual ~AbstractTool() { }
+  virtual ~AbstractTool() = default;
   
   virtual Type type() const { return Tool_None; }
   virtual bool operator==(const AbstractTool & o) { return (type() == o.type()); }
@@ -195,7 +195,7 @@ class MeasureLine : public QGraphicsLineItem
   friend class Measure;
 public:
   MeasureLine(QGraphicsView * primaryView, QGraphicsItem * parent = nullptr);
-  virtual ~MeasureLine() { }
+  virtual ~MeasureLine() = default;
 
   void setLine(qreal x1, qreal y1, qreal x2, qreal y2) { setLine(QLineF(x1, y1, x2, y2)); }
   void setLine(QPointF p1, QPointF p2) { setLine(QLineF(p1, p2)); }

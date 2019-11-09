@@ -256,7 +256,7 @@ class PDFDocumentInfoWidget : public QWidget
   friend class PDFDocumentView;
 public:
   PDFDocumentInfoWidget(QWidget * parent = nullptr, const QString & title = QString(), const QString & objectName = QString()) : QWidget(parent) { setObjectName(objectName); setWindowTitle(title); }
-  virtual ~PDFDocumentInfoWidget() { }
+  virtual ~PDFDocumentInfoWidget() = default;
   // If the widget has a fixed size, it should not be resized (it can, e.g., be
   // put into a QScrollArea instead).
 public slots:
@@ -300,7 +300,7 @@ class PDFMetaDataInfoWidget : public PDFDocumentInfoWidget
   Q_OBJECT
 public:
   PDFMetaDataInfoWidget(QWidget * parent);
-  virtual ~PDFMetaDataInfoWidget() { }
+  virtual ~PDFMetaDataInfoWidget() = default;
   
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc);
@@ -329,7 +329,7 @@ class PDFFontsInfoWidget : public PDFDocumentInfoWidget
   Q_OBJECT
 public:
   PDFFontsInfoWidget(QWidget * parent);
-  virtual ~PDFFontsInfoWidget() { }
+  virtual ~PDFFontsInfoWidget() = default;
   
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc);
@@ -350,7 +350,7 @@ class PDFPermissionsInfoWidget : public PDFDocumentInfoWidget
   Q_OBJECT
 public:
   PDFPermissionsInfoWidget(QWidget * parent);
-  virtual ~PDFPermissionsInfoWidget() { }
+  virtual ~PDFPermissionsInfoWidget() = default;
   
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc);
@@ -376,7 +376,7 @@ class PDFAnnotationsInfoWidget : public PDFDocumentInfoWidget
 
 public:
   PDFAnnotationsInfoWidget(QWidget * parent);
-  virtual ~PDFAnnotationsInfoWidget() { }
+  virtual ~PDFAnnotationsInfoWidget() = default;
     
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
@@ -403,8 +403,8 @@ class PDFPageLayout : public QObject {
   bool _isContinuous{true};
 
 public:
-  PDFPageLayout();
-  virtual ~PDFPageLayout() { }
+  PDFPageLayout() = default;
+  virtual ~PDFPageLayout() = default;
   int columnCount() const { return _numCols; }
   int firstColumn() const { return _firstCol; }
   qreal xSpacing() const { return _xSpacing; }
