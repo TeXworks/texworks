@@ -22,86 +22,15 @@
 #ifndef TWScriptable_H
 #define TWScriptable_H
 
+#include "TWScriptManager.h"
 #include "scripting/Script.h"
 
 #include <QMainWindow>
 #include <QList>
-#include <QString>
-#include <QFileInfo>
-#include <QDir>
-#include <QProcess>
 
 class QMenu;
 class QAction;
 class QSignalMapper;
-
-class TWScriptList : public QObject
-{
-	Q_OBJECT
-
-public:
-	TWScriptList() = default;
-	
-	explicit TWScriptList(const TWScriptList & orig)
-	: QObject(orig.parent())
-	, name(orig.name)
-	{ }
-	
-	explicit TWScriptList(QObject * parent, const QString & str = QString())
-	: QObject(parent), name(str)
-	{ }
-	
-	const QString& getName() const { return name; }
-
-private:
-	QString name; // name of the folder/submenu
-	// scripts and subfolders are stored as children of the QObject
-};
-
-class TWScriptManager
-{
-public:
-	TWScriptManager();
-	virtual ~TWScriptManager() = default;
-	
-	bool addScript(QObject* scriptList, Tw::Scripting::Script* script);
-	void addScriptsInDirectory(const QDir& dir, const QStringList& disabled, const QStringList& ignore = QStringList()) {
-		addScriptsInDirectory(&m_Scripts, &m_Hooks, dir, disabled, ignore);
-	}
-	void clear();
-		
-	TWScriptList* getScripts() { return &m_Scripts; }
-	TWScriptList* getHookScripts() { return &m_Hooks; }
-	QList<Tw::Scripting::Script*> getHookScripts(const QString& hook) const;
-
-	bool runScript(QObject * script, QObject * context, QVariant & result, Tw::Scripting::Script::ScriptType scriptType = Tw::Scripting::Script::ScriptStandalone);
-	// Convenience overload if no result is required
-	bool runScript(QObject * script, QObject * context, Tw::Scripting::Script::ScriptType scriptType = Tw::Scripting::Script::ScriptStandalone) {
-		QVariant result;
-		return runScript(script, context, result, scriptType);
-	}
-	void runHooks(const QString& hookName, QObject * context = nullptr);
-
-	const QList<QObject*>& languages() const { return scriptLanguages; }
-
-	void reloadScripts(bool forceAll = false);
-	void saveDisabledList();
-
-protected:
-	void addScriptsInDirectory(TWScriptList *scriptList,
-							   TWScriptList *hookList,
-							   const QDir& dir,
-							   const QStringList& disabled,
-							   const QStringList& ignore);
-	void loadPlugins();
-	void reloadScriptsInList(TWScriptList * list, QStringList & processed);
-	
-private:
-	TWScriptList m_Scripts; // hierarchical list of standalone scripts
-	TWScriptList m_Hooks; // hierarchical list of hook scripts
-
-	QList<QObject*> scriptLanguages;
-};
 
 // parent class for document windows (i.e. both the source and PDF window types);
 // handles the Scripts menu and other common functionality

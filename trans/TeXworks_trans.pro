@@ -21,6 +21,7 @@ SOURCES = \
   "../src/ScriptManagerWidget.cpp" \
   "../src/Settings.cpp" \
   "../src/TWApp.cpp" \
+  "../src/TWScriptManager.cpp" \
   "../src/TWScriptable.cpp" \
   "../src/TWSynchronizer.cpp" \
   "../src/TWSystemCmd.cpp" \
@@ -61,6 +62,7 @@ HEADERS = \
   "../src/ScriptManagerWidget.h" \
   "../src/Settings.h" \
   "../src/TWApp.h" \
+  "../src/TWScriptManager.h" \
   "../src/TWScriptable.h" \
   "../src/TWSynchronizer.h" \
   "../src/TWSystemCmd.h" \
