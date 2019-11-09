@@ -34,9 +34,7 @@ InterProcessCommunicator::InterProcessCommunicator()
 {
 }
 
-InterProcessCommunicator::~InterProcessCommunicator()
-{
-}
+InterProcessCommunicator::~InterProcessCommunicator() = default;
 
 void InterProcessCommunicator::sendBringToFront()
 {

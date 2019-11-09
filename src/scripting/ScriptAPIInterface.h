@@ -39,7 +39,7 @@ public:
 		SystemAccess_PermissionDenied
 	};
 
-	virtual ~ScriptAPIInterface() {};
+	virtual ~ScriptAPIInterface() = default;
 
 	virtual QObject* self() = 0;
 

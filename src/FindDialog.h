@@ -44,8 +44,7 @@ public:
 		: QObject(parent), strings(stringList)
 			{}
 	
-	virtual ~RecentStringsKeyFilter()
-			{}
+	virtual ~RecentStringsKeyFilter() = default;
 	
 protected:
 	bool eventFilter(QObject *obj, QEvent *event);

@@ -35,10 +35,6 @@ TemplateDialog::TemplateDialog()
 	init();
 }
 
-TemplateDialog::~TemplateDialog()
-{
-}
-
 void TemplateDialog::init()
 {
 	setupUi(this);

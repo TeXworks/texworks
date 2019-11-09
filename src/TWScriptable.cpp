@@ -401,10 +401,6 @@ TWScriptManager::runHooks(const QString& hookName, QObject * context /* = nullpt
 	}
 }
 
-TWScriptable::TWScriptable()
-{
-}
-
 void
 TWScriptable::initScriptable(QMenu* theScriptsMenu,
 							 QAction* aboutScriptsAction,

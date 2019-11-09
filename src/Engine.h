@@ -11,7 +11,7 @@ class Engine : public QObject
 	Q_OBJECT
 
 public:
-	Engine();
+	Engine() = default;
 	Engine(const QString& name, const QString& program, const QStringList & arguments, bool showPdf);
 	Engine(const Engine& orig);
 	Engine& operator=(const Engine& rhs);

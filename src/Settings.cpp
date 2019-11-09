@@ -2,8 +2,4 @@
 
 namespace Tw {
 
-Settings::Settings()
-{
-}
-
 } // namespace Tw

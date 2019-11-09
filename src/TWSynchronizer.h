@@ -51,8 +51,8 @@ public:
     QList<QRectF> rects;
   };
 
-  TWSynchronizer() { }
-  virtual ~TWSynchronizer() { }
+  TWSynchronizer() = default;
+  virtual ~TWSynchronizer() = default;
   virtual PDFSyncPoint syncFromTeX(const TeXSyncPoint & src, const Resolution resolution) const = 0;
   virtual TeXSyncPoint syncFromPDF(const PDFSyncPoint & src, const Resolution resolution) const = 0;
 };

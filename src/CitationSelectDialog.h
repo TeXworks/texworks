@@ -84,7 +84,7 @@ class CitationSelectDialog : public QDialog, private Ui::CitationSelectDialog
 public:
 
 	explicit CitationSelectDialog(QWidget * parent);
-	virtual ~CitationSelectDialog() { }
+	virtual ~CitationSelectDialog() = default;
 
 	CitationModel & model() { return _model; }
 

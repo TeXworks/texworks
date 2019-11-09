@@ -27,8 +27,8 @@
 class MacCentralEurRomanCodec : public QTextCodec
 {
 public:
-	MacCentralEurRomanCodec() : QTextCodec() { }
-	virtual ~MacCentralEurRomanCodec() { }
+	MacCentralEurRomanCodec() = default;
+	virtual ~MacCentralEurRomanCodec() = default;
 
 	// NOTE: The mib number is arbitrary since this encoding is not in the IANA
 	// list (http://www.iana.org/assignments/character-sets).

@@ -313,7 +313,7 @@ private:
 	 *
 	 * Private, to prevent inadvertent use of the no-arg constructor.
 	 */
-	Script() { }
+	Script() = default;
 	
 	QDateTime m_LastModified;	///< keeps track of the file modification time so we can detect changes
 	qint64	m_FileSize;	///< similar to m_LastModified

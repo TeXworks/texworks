@@ -36,8 +36,8 @@ class JSScriptInterface : public QObject, public ScriptLanguageInterface
 	Q_INTERFACES(Tw::Scripting::ScriptLanguageInterface)
 
 public:
-	JSScriptInterface() {}
-	virtual ~JSScriptInterface() {}
+	JSScriptInterface() = default;
+	virtual ~JSScriptInterface() = default;
 
 	virtual Script* newScript(const QString& fileName);
 

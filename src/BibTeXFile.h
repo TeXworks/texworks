@@ -59,7 +59,7 @@ public:
 		BibTeXFile * _parent;
 	};
 
-	BibTeXFile();
+	BibTeXFile() = default;
 	explicit BibTeXFile(const QString & filename) : BibTeXFile() { load(filename); }
 
 	unsigned int numEntries() const;

@@ -81,11 +81,6 @@ void BibTeXFile::Entry::updateCache()
 	_cache.valid = true;
 }
 
-BibTeXFile::BibTeXFile()
-{
-
-}
-
 bool BibTeXFile::load(const QString & filename)
 {
 	QFile file(filename);

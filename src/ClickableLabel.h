@@ -32,7 +32,7 @@ class ClickableLabel : public QLabel
 public:
 	explicit ClickableLabel(QWidget * parent = nullptr, Qt::WindowFlags f = nullptr);
 	explicit ClickableLabel(const QString & text, QWidget * parent = nullptr, Qt::WindowFlags f = Q_NULLPTR);
-	virtual ~ClickableLabel() { }
+	virtual ~ClickableLabel() = default;
 	
 signals:
 	void mouseDoubleClick(QMouseEvent * event);

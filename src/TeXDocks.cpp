@@ -33,10 +33,6 @@ TeXDock::TeXDock(const QString & title, TeXDocument * doc)
 	connect(this, SIGNAL(visibilityChanged(bool)), SLOT(myVisibilityChanged(bool)));
 }
 
-TeXDock::~TeXDock()
-{
-}
-
 void TeXDock::myVisibilityChanged(bool visible)
 {
 	if (visible && document && !filled) {
@@ -58,10 +54,6 @@ TagsDock::TagsDock(TeXDocument * doc)
 	setWidget(tree);
 	connect(doc, SIGNAL(tagListUpdated()), this, SLOT(listChanged()));
 	saveScrollValue = 0;
-}
-
-TagsDock::~TagsDock()
-{
 }
 
 void TagsDock::fillInfo()
@@ -145,10 +137,6 @@ TeXDockTreeWidget::TeXDockTreeWidget(QWidget* parent)
 	: QTreeWidget(parent)
 {
 	setIndentation(10);
-}
-
-TeXDockTreeWidget::~TeXDockTreeWidget()
-{
 }
 
 QSize TeXDockTreeWidget::sizeHint() const

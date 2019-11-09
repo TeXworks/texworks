@@ -32,10 +32,6 @@ ConfirmDelete::ConfirmDelete(QWidget *parent)
 	init();
 }
 
-ConfirmDelete::~ConfirmDelete()
-{
-}
-
 void ConfirmDelete::init()
 {
 	setupUi(this);

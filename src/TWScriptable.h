@@ -40,8 +40,7 @@ class TWScriptList : public QObject
 	Q_OBJECT
 
 public:
-	TWScriptList()
-	{ }
+	TWScriptList() = default;
 	
 	explicit TWScriptList(const TWScriptList & orig)
 	: QObject(orig.parent())
@@ -63,7 +62,7 @@ class TWScriptManager
 {
 public:
 	TWScriptManager();
-	virtual ~TWScriptManager() {}
+	virtual ~TWScriptManager() = default;
 	
 	bool addScript(QObject* scriptList, Tw::Scripting::Script* script);
 	void addScriptsInDirectory(const QDir& dir, const QStringList& disabled, const QStringList& ignore = QStringList()) {
@@ -111,8 +110,8 @@ class TWScriptable : public QMainWindow
 	Q_OBJECT
 
 public:
-	TWScriptable();
-	virtual ~TWScriptable() { }
+	TWScriptable() = default;
+	virtual ~TWScriptable() = default;
 	
 public slots:
 	void updateScriptsMenu();

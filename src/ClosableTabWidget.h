@@ -34,7 +34,7 @@ class ClosableTabWidget : public QTabWidget
 	Q_OBJECT
 public:
 	ClosableTabWidget(QWidget * parent = nullptr);
-	virtual ~ClosableTabWidget() { }
+	virtual ~ClosableTabWidget() = default;
 
 signals:
 	void requestClose();

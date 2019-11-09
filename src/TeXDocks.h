@@ -38,7 +38,7 @@ class TeXDock : public QDockWidget
 
 public:
 	TeXDock(const QString & title, TeXDocument * doc = nullptr);
-	virtual ~TeXDock();
+	virtual ~TeXDock() = default;
 
 protected:
 	virtual void fillInfo() = 0;
@@ -58,7 +58,7 @@ class TagsDock : public TeXDock
 
 public:
 	TagsDock(TeXDocument *doc = nullptr);
-	virtual ~TagsDock();
+	virtual ~TagsDock() = default;
 
 public slots:
 	virtual void listChanged();
@@ -80,7 +80,7 @@ class TeXDockTreeWidget : public QTreeWidget
 
 public:
 	explicit TeXDockTreeWidget(QWidget * parent);
-	virtual ~TeXDockTreeWidget();
+	virtual ~TeXDockTreeWidget() = default;
 
 	virtual QSize sizeHint() const;
 };

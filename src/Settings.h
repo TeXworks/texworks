@@ -9,7 +9,7 @@ class Settings : public QSettings
 {
 	Q_OBJECT
 public:
-	Settings();
+	Settings() = default;
 
 	using QSettings::defaultFormat;
 	using QSettings::setDefaultFormat;
