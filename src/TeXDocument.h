@@ -150,6 +150,8 @@ protected:
 	virtual void dragLeaveEvent(QDragLeaveEvent *event);
 	virtual void dropEvent(QDropEvent *event);
 
+	QString scriptContext() const override { return QStringLiteral("TeXDocument"); }
+
 public slots:
 	void typeset();
 	void interrupt();

@@ -143,6 +143,8 @@ protected:
 
 	void showFloaters();
 
+	virtual QString scriptContext() const = 0;
+
 private:
 	QMenu * scriptsMenu{nullptr};
 	QSignalMapper * scriptMapper{nullptr};

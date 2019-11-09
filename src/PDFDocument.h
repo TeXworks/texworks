@@ -130,6 +130,8 @@ protected:
 	virtual void contextMenuEvent(QContextMenuEvent *event);
 	virtual void mouseMoveEvent(QMouseEvent *event);
 
+	QString scriptContext() const override { return QStringLiteral("PDFDocument"); }
+
 public slots:
 	void texActivated(TeXDocument * texDoc);
 	void texClosed(QObject *obj);

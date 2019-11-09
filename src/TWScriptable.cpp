@@ -458,7 +458,7 @@ TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 		if (script) {
 			if (!script->isEnabled())
 				continue;
-			if (script->getContext().isEmpty() || script->getContext() == QString::fromUtf8(metaObject()->className())) {
+			if (script->getContext().isEmpty() || script->getContext() == scriptContext()) {
 				QAction *a = menu->addAction(script->getTitle());
 				connect(script, SIGNAL(destroyed(QObject*)), this, SLOT(scriptDeleted(QObject*)));
 				if (!script->getKeySequence().isEmpty())
