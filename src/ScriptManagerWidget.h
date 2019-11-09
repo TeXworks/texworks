@@ -19,15 +19,15 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef ScriptManager_H
-#define ScriptManager_H
+#ifndef ScriptManagerWidget_H
+#define ScriptManagerWidget_H
 
 #include <QDialog>
-#include "ui_ScriptManager.h"
+#include "ui_ScriptManagerWidget.h"
 
 class TWScriptList;
 
-class ScriptManager : public QWidget, private Ui::ScriptManager
+class ScriptManagerWidget : public QWidget, private Ui::ScriptManagerWidget
 {
 	Q_OBJECT
 
@@ -47,7 +47,7 @@ private slots:
 	void treeSelectionChanged();
 
 private:
-	ScriptManager(QWidget * parent = nullptr) : QWidget(parent) { init(); }
+	ScriptManagerWidget(QWidget * parent = nullptr) : QWidget(parent) { init(); }
 	
 	void init();
 	
@@ -57,8 +57,8 @@ private:
 
 	void addDetailsRow(QString& html, const QString & label, const QString & value);
 	
-	static ScriptManager * gManageScriptsWindow;
+	static ScriptManagerWidget * gManageScriptsWindow;
 	static QRect           gGeometry;
 };
 
-#endif // !defined(ScriptManager_H)
+#endif // !defined(ScriptManagerWidget_H)

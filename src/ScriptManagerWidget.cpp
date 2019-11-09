@@ -19,7 +19,7 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "ScriptManager.h"
+#include "ScriptManagerWidget.h"
 #include "TWApp.h"
 #include "scripting/Script.h"
 #include "TWScriptable.h"
@@ -31,10 +31,10 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-ScriptManager * ScriptManager::gManageScriptsWindow = nullptr;
-QRect           ScriptManager::gGeometry;
+ScriptManagerWidget * ScriptManagerWidget::gManageScriptsWindow = nullptr;
+QRect           ScriptManagerWidget::gGeometry;
 
-void ScriptManager::init()
+void ScriptManagerWidget::init()
 {
 	setupUi(this);
 	
@@ -55,7 +55,7 @@ void ScriptManager::init()
 	connect(this, SIGNAL(scriptListChanged()), qApp, SIGNAL(scriptListChanged()));
 }
 
-void ScriptManager::closeEvent(QCloseEvent * event)
+void ScriptManagerWidget::closeEvent(QCloseEvent * event)
 {
 	gGeometry = geometry();
 	hide();
@@ -63,10 +63,10 @@ void ScriptManager::closeEvent(QCloseEvent * event)
 }
 
 /*static*/
-void ScriptManager::showManageScripts()
+void ScriptManagerWidget::showManageScripts()
 {
 	if (!gManageScriptsWindow)
-		gManageScriptsWindow = new ScriptManager(nullptr);
+		gManageScriptsWindow = new ScriptManagerWidget(nullptr);
 
 	if (!gGeometry.isNull())
 		gManageScriptsWindow->setGeometry(gGeometry);
@@ -77,13 +77,13 @@ void ScriptManager::showManageScripts()
 }
 
 /*static*/
-void ScriptManager::refreshScriptList()
+void ScriptManagerWidget::refreshScriptList()
 {
 	if (gManageScriptsWindow)
 		gManageScriptsWindow->populateTree();
 }
 
-void ScriptManager::populateTree()
+void ScriptManagerWidget::populateTree()
 {
 	TWScriptManager * scriptManager = TWApp::instance()->getScriptManager();
 	TWScriptList * scripts = scriptManager->getScripts();
@@ -102,7 +102,7 @@ void ScriptManager::populateTree()
 #define kScriptType (QTreeWidgetItem::UserType + 1)
 #define kFolderType (QTreeWidgetItem::UserType + 2)
 
-void ScriptManager::populateTree(QTreeWidget * tree, QTreeWidgetItem * parentItem, const TWScriptList * scripts)
+void ScriptManagerWidget::populateTree(QTreeWidget * tree, QTreeWidgetItem * parentItem, const TWScriptList * scripts)
 {
 	QTreeWidgetItem * item;
 
@@ -128,7 +128,7 @@ void ScriptManager::populateTree(QTreeWidget * tree, QTreeWidgetItem * parentIte
 	}
 }
 
-void ScriptManager::treeItemClicked(QTreeWidgetItem * item, int /*column*/)
+void ScriptManagerWidget::treeItemClicked(QTreeWidgetItem * item, int /*column*/)
 {
 	if (item->type() == kScriptType) {
 		Tw::Scripting::Script * s = static_cast<Tw::Scripting::Script*>(item->data(0, Qt::UserRole).value<void*>());
@@ -147,7 +147,7 @@ void ScriptManager::treeItemClicked(QTreeWidgetItem * item, int /*column*/)
 	}
 }
 
-void ScriptManager::setFolderCheckedState(QTreeWidgetItem * item)
+void ScriptManagerWidget::setFolderCheckedState(QTreeWidgetItem * item)
 {
 	if (!item || item->type() != kFolderType)
 		return;
@@ -163,7 +163,7 @@ void ScriptManager::setFolderCheckedState(QTreeWidgetItem * item)
 	setFolderCheckedState(item->parent());
 }
 
-void ScriptManager::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
+void ScriptManagerWidget::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 {
 	if (item->type() == kScriptType) {
 		Tw::Scripting::Script * s = static_cast<Tw::Scripting::Script*>(item->data(0, Qt::UserRole).value<void*>());
@@ -172,7 +172,7 @@ void ScriptManager::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 	}
 }
 
-void ScriptManager::treeSelectionChanged()
+void ScriptManagerWidget::treeSelectionChanged()
 {
 	details->setPlainText(QString());
 
@@ -212,7 +212,7 @@ void ScriptManager::treeSelectionChanged()
 	details->setHtml(QString::fromLatin1("<table>%1</table").arg(rows));
 }
 
-void ScriptManager::addDetailsRow(QString& html, const QString & label, const QString & value)
+void ScriptManagerWidget::addDetailsRow(QString& html, const QString & label, const QString & value)
 {
 	if (!value.isEmpty())
 		html += QString::fromLatin1("<tr><td>%1</td><td>%2</td></tr>").arg(label, value);

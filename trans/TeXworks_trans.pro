@@ -18,7 +18,7 @@ SOURCES = \
   "../src/PrefsDialog.cpp" \
   "../src/ResourcesDialog.cpp" \
   "../src/ScreenCalibrationWidget.cpp" \
-  "../src/ScriptManager.cpp" \
+  "../src/ScriptManagerWidget.cpp" \
   "../src/Settings.cpp" \
   "../src/TWApp.cpp" \
   "../src/TWScriptable.cpp" \
@@ -58,7 +58,7 @@ HEADERS = \
   "../src/PrefsDialog.h" \
   "../src/ResourcesDialog.h" \
   "../src/ScreenCalibrationWidget.h" \
-  "../src/ScriptManager.h" \
+  "../src/ScriptManagerWidget.h" \
   "../src/Settings.h" \
   "../src/TWApp.h" \
   "../src/TWScriptable.h" \
@@ -91,7 +91,7 @@ FORMS = \
   "../src/PrefsDialog.ui" \
   "../src/Replace.ui" \
   "../src/ResourcesDialog.ui" \
-  "../src/ScriptManager.ui" \
+  "../src/ScriptManagerWidget.ui" \
   "../src/SearchResults.ui" \
   "../src/TeXDocument.ui" \
   "../src/TemplateDialog.ui" \

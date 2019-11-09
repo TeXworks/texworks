@@ -24,7 +24,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   PrefsDialog.cpp
                   ResourcesDialog.cpp
                   ScreenCalibrationWidget.cpp
-                  ScriptManager.cpp
+                  ScriptManagerWidget.cpp
                   Settings.cpp
                   TemplateDialog.cpp
                   TeXDocks.cpp
@@ -61,7 +61,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   PrefsDialog.h
                   ResourcesDialog.h
                   ScreenCalibrationWidget.h
-                  ScriptManager.h
+                  ScriptManagerWidget.h
                   Settings.h
                   TemplateDialog.h
                   TeXDocks.h
@@ -106,7 +106,7 @@ set(TEXWORKS_UIS CitationSelectDialog.ui
                  PrefsDialog.ui
                  Replace.ui
                  ResourcesDialog.ui
-                 ScriptManager.ui
+                 ScriptManagerWidget.ui
                  SearchResults.ui
                  TemplateDialog.ui
                  TeXDocument.ui

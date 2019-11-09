@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ScriptManager</class>
- <widget class="QWidget" name="ScriptManager">
+ <class>ScriptManagerWidget</class>
+ <widget class="QWidget" name="ScriptManagerWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -21,7 +21,7 @@
 
 #include "TWScriptable.h"
 #include "scripting/ScriptAPI.h"
-#include "ScriptManager.h"
+#include "ScriptManagerWidget.h"
 #include "TWApp.h"
 #include "Settings.h"
 #include "TWUtils.h"
@@ -148,7 +148,7 @@ void TWScriptManager::reloadScripts(bool forceAll /* = false */)
 
 	addScriptsInDirectory(scriptsDir, disabled, processed);
 	
-	ScriptManager::refreshScriptList();
+	ScriptManagerWidget::refreshScriptList();
 }
 
 void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & processed)
@@ -555,7 +555,7 @@ TWScriptable::doAboutScripts()
 void
 TWScriptable::doManageScripts()
 {
-	ScriptManager::showManageScripts();
+	ScriptManagerWidget::showManageScripts();
 }
 
 void TWScriptable::hideFloatersUnlessThis(QWidget* currWindow)
