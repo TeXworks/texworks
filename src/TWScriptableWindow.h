@@ -19,8 +19,8 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef TWScriptable_H
-#define TWScriptable_H
+#ifndef TWScriptableWindow_H
+#define TWScriptableWindow_H
 
 #include "TWScriptManager.h"
 #include "scripting/Script.h"
@@ -34,13 +34,13 @@ class QSignalMapper;
 
 // parent class for document windows (i.e. both the source and PDF window types);
 // handles the Scripts menu and other common functionality
-class TWScriptable : public QMainWindow
+class TWScriptableWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	TWScriptable() = default;
-	virtual ~TWScriptable() = default;
+	TWScriptableWindow() = default;
+	virtual ~TWScriptableWindow() = default;
 	
 public slots:
 	void updateScriptsMenu();
@@ -82,4 +82,4 @@ private:
 	QList<QWidget*> latentVisibleWidgets;
 };
 
-#endif
+#endif // !defined(TWScriptableWindow_H)

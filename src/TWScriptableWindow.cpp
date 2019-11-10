@@ -19,7 +19,7 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "TWScriptable.h"
+#include "TWScriptableWindow.h"
 #include "TWScriptManager.h"
 #include "scripting/ScriptAPI.h"
 #include "ScriptManagerWidget.h"
@@ -39,7 +39,7 @@
 #include <QDockWidget>
 
 void
-TWScriptable::initScriptable(QMenu* theScriptsMenu,
+TWScriptableWindow::initScriptable(QMenu* theScriptsMenu,
 							 QAction* aboutScriptsAction,
 							 QAction* manageScriptsAction,
 							 QAction* updateScriptsAction,
@@ -60,7 +60,7 @@ TWScriptable::initScriptable(QMenu* theScriptsMenu,
 }
 
 void
-TWScriptable::updateScriptsMenu()
+TWScriptableWindow::updateScriptsMenu()
 {
 	TWScriptManager * scriptManager = TWApp::instance()->getScriptManager();
 	
@@ -69,7 +69,7 @@ TWScriptable::updateScriptsMenu()
 }
 
 void
-TWScriptable::removeScriptsFromMenu(QMenu *menu, int startIndex /* = 0 */)
+TWScriptableWindow::removeScriptsFromMenu(QMenu *menu, int startIndex /* = 0 */)
 {
 	if (!menu)
 		return;
@@ -87,7 +87,7 @@ TWScriptable::removeScriptsFromMenu(QMenu *menu, int startIndex /* = 0 */)
 }
 
 int
-TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
+TWScriptableWindow::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 {
 	int count = 0;
 	foreach (QObject *obj, scripts->children()) {
@@ -122,7 +122,7 @@ TWScriptable::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 }
 
 void
-TWScriptable::runScript(QObject* script, Tw::Scripting::Script::ScriptType scriptType)
+TWScriptableWindow::runScript(QObject* script, Tw::Scripting::Script::ScriptType scriptType)
 {
 	QVariant result;
 	
@@ -152,7 +152,7 @@ TWScriptable::runScript(QObject* script, Tw::Scripting::Script::ScriptType scrip
 }
 
 void
-TWScriptable::runHooks(const QString& hookName)
+TWScriptableWindow::runHooks(const QString& hookName)
 {
 	foreach (Tw::Scripting::Script *s, TWApp::instance()->getScriptManager()->getHookScripts(hookName)) {
 		// Don't use TWScriptManager::runHooks here to get status bar messages
@@ -161,7 +161,7 @@ TWScriptable::runHooks(const QString& hookName)
 }
 
 void
-TWScriptable::doAboutScripts()
+TWScriptableWindow::doAboutScripts()
 {
 	Tw::Settings settings;
 	bool enableScriptsPlugins = settings.value(QString::fromLatin1("enableScriptingPlugins"), false).toBool();
@@ -190,14 +190,14 @@ TWScriptable::doAboutScripts()
 }
 
 void
-TWScriptable::doManageScripts()
+TWScriptableWindow::doManageScripts()
 {
 	ScriptManagerWidget::showManageScripts();
 }
 
-void TWScriptable::hideFloatersUnlessThis(QWidget* currWindow)
+void TWScriptableWindow::hideFloatersUnlessThis(QWidget* currWindow)
 {
-	TWScriptable* p = qobject_cast<TWScriptable*>(currWindow);
+	TWScriptableWindow* p = qobject_cast<TWScriptableWindow*>(currWindow);
 	if (p == this)
 		return;
 	foreach (QObject* child, children()) {
@@ -216,24 +216,24 @@ void TWScriptable::hideFloatersUnlessThis(QWidget* currWindow)
 	}
 }
 
-void TWScriptable::showFloaters()
+void TWScriptableWindow::showFloaters()
 {
 	foreach (QWidget* w, latentVisibleWidgets)
 	w->show();
 	latentVisibleWidgets.clear();
 }
 
-void TWScriptable::placeOnLeft()
+void TWScriptableWindow::placeOnLeft()
 {
 	TWUtils::zoomToHalfScreen(this, false);
 }
 
-void TWScriptable::placeOnRight()
+void TWScriptableWindow::placeOnRight()
 {
 	TWUtils::zoomToHalfScreen(this, true);
 }
 
-void TWScriptable::selectWindow(bool activate)
+void TWScriptableWindow::selectWindow(bool activate)
 {
 	show();
 	raise();
@@ -243,7 +243,7 @@ void TWScriptable::selectWindow(bool activate)
 		showNormal();
 }
 
-void TWScriptable::scriptDeleted(QObject * obj)
+void TWScriptableWindow::scriptDeleted(QObject * obj)
 {
 	if (!obj || !scriptMapper)
 		return;

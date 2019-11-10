@@ -1133,7 +1133,7 @@ QList<QVariant> TWApp::getOpenWindows() const
 	QList<QVariant> result;
 	
 	foreach (QWidget *widget, QApplication::topLevelWidgets()) {
-		if (qobject_cast<TWScriptable*>(widget))
+		if (qobject_cast<TWScriptableWindow*>(widget))
 			result << QVariant::fromValue(qobject_cast<QObject*>(widget));
 	}
 	return result;

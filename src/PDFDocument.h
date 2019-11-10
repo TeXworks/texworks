@@ -22,7 +22,7 @@
 #ifndef PDFDocument_H
 #define PDFDocument_H
 
-#include "TWScriptable.h"
+#include "TWScriptableWindow.h"
 
 #include <QImage>
 #include <QLabel>
@@ -91,7 +91,7 @@ protected:
 	QTimer _menuBarTimer;
 };
 
-class PDFDocument : public TWScriptable, private Ui::PDFDocument
+class PDFDocument : public TWScriptableWindow, private Ui::PDFDocument
 {
 	Q_OBJECT
     Q_PROPERTY(QString fileName READ fileName)

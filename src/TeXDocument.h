@@ -22,7 +22,7 @@
 #ifndef TeXDocument_H
 #define TeXDocument_H
 
-#include "TWScriptable.h"
+#include "TWScriptableWindow.h"
 #include "document/SpellChecker.h"
 
 #include <QList>
@@ -60,7 +60,7 @@ const int kTeXWindowStateVersion = 1; // increment this if we add toolbars/docks
 #define kLineEnd_Flags_Mask  0xFF00
 #define kLineEnd_Mixed       0x0100
 
-class TeXDocument : public TWScriptable, private Ui::TeXDocument
+class TeXDocument : public TWScriptableWindow, private Ui::TeXDocument
 {
 	Q_OBJECT
 

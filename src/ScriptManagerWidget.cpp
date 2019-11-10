@@ -22,7 +22,7 @@
 #include "ScriptManagerWidget.h"
 #include "TWApp.h"
 #include "scripting/Script.h"
-#include "TWScriptable.h"
+#include "TWScriptableWindow.h"
 #include "scripting/ScriptLanguageInterface.h"
 
 #include <QLabel>

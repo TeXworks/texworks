@@ -31,7 +31,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   TeXDocument.cpp
                   TeXHighlighter.cpp
                   TWApp.cpp
-                  TWScriptable.cpp
+                  TWScriptableWindow.cpp
                   TWScriptManager.cpp
                   TWSynchronizer.cpp
                   TWSystemCmd.cpp
@@ -69,7 +69,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TeXDocument.h
                   TeXHighlighter.h
                   TWApp.h
-                  TWScriptable.h
+                  TWScriptableWindow.h
                   TWScriptManager.h
                   TWSynchronizer.h
                   TWSystemCmd.h
