@@ -20,6 +20,7 @@
 */
 
 #include "document/TeXDocument.h"
+#include "TeXHighlighter.h"
 
 namespace Tw {
 namespace Document {
@@ -27,6 +28,11 @@ namespace Document {
 TeXDocument::TeXDocument(QObject * parent) : TextDocument(parent) { }
 
 TeXDocument::TeXDocument(const QString & text, QObject * parent) : TextDocument(text, parent) { }
+
+TeXHighlighter * TeXDocument::getHighlighter() const
+{
+	return findChild<TeXHighlighter*>();
+}
 
 } // namespace Document
 } // namespace Tw

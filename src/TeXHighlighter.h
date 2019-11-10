@@ -26,12 +26,12 @@
 
 #include <QSyntaxHighlighter>
 
+#include <QTextDocument>
 #include <QTextLayout>
 #include <QTextCharFormat>
 #include <QRegularExpression>
 #include <QTimer>
 
-class QTextDocument;
 class QTextCodec;
 class TeXDocumentWindow;
 
@@ -45,7 +45,7 @@ class NonblockingSyntaxHighlighter : public QObject
 	Q_OBJECT
 
 public:
-	NonblockingSyntaxHighlighter(QTextDocument * parent) : _processingPending(false), _parent(nullptr), MAX_TIME_MSECS(5), IDLE_DELAY_TIME(40) { setDocument(parent); }
+	NonblockingSyntaxHighlighter(QTextDocument * parent) : QObject(parent), _processingPending(false), _parent(nullptr), MAX_TIME_MSECS(5), IDLE_DELAY_TIME(40) { setDocument(parent); }
 	virtual ~NonblockingSyntaxHighlighter() { setDocument(nullptr); }
 
 	QTextDocument * document() const { return _parent; }

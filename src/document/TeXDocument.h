@@ -23,6 +23,8 @@
 
 #include "document/TextDocument.h"
 
+class TeXHighlighter;
+
 namespace Tw {
 namespace Document {
 
@@ -32,6 +34,8 @@ class TeXDocument : public TextDocument
 public:
 	explicit TeXDocument(QObject * parent = nullptr);
 	explicit TeXDocument(const QString & text, QObject * parent = nullptr);
+
+	TeXHighlighter * getHighlighter() const;
 };
 
 } // namespace Document

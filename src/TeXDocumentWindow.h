@@ -47,7 +47,6 @@ class QActionGroup;
 class QTextCodec;
 class QFileSystemWatcher;
 
-class TeXHighlighter;
 class PDFDocumentWindow;
 class ClickableLabel;
 
@@ -268,7 +267,6 @@ private:
 	QString text() { return textEdit->toPlainText(); }
 	
 	Tw::Document::TeXDocument * _texDoc;
-	TeXHighlighter * highlighter{nullptr};
 	PDFDocumentWindow * pdfDoc{nullptr};
 
 	QTextCodec * codec{nullptr};

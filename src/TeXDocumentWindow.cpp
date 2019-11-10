@@ -98,7 +98,6 @@ void TeXDocumentWindow::init()
 	codec = TWApp::instance()->getDefaultCodec();
 	pdfDoc = nullptr;
 	process = nullptr;
-	highlighter = nullptr;
 	_dictionary = nullptr;
 	utf8BOM = false;
 #if defined(Q_OS_WIN)
@@ -425,8 +424,8 @@ void TeXDocumentWindow::setLangInternal(const QString& lang)
 		return;
 	
 	textEdit->setSpellChecker(_dictionary);
-	if (highlighter)
-		highlighter->setSpellChecker(_dictionary);
+	if (_texDoc && _texDoc->getHighlighter())
+		_texDoc->getHighlighter()->setSpellChecker(_dictionary);
 }
 
 void TeXDocumentWindow::setSpellcheckLanguage(const QString& lang)
@@ -1156,10 +1155,10 @@ void TeXDocumentWindow::loadFile(const QString &fileName, bool asTemplate /* = f
 
 void TeXDocumentWindow::delayedInit()
 {
-	if (!highlighter) {
+	if (_texDoc && !_texDoc->getHighlighter()) {
 		Tw::Settings settings;
 
-		highlighter = new TeXHighlighter(textEdit->document(), this);
+		TeXHighlighter * highlighter = new TeXHighlighter(_texDoc, this);
 		connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
 
 		// set up syntax highlighting
@@ -1499,8 +1498,8 @@ void TeXDocumentWindow::saveRecentFileInfo()
 	fileProperties.insert(QString::fromLatin1("selLength"), selectionLength());
 	fileProperties.insert(QString::fromLatin1("quotesMode"), textEdit->getQuotesMode());
 	fileProperties.insert(QString::fromLatin1("indentMode"), textEdit->getIndentMode());
-	if (highlighter)
-		fileProperties.insert(QString::fromLatin1("syntaxMode"), highlighter->getSyntaxMode());
+	if (_texDoc && _texDoc->getHighlighter())
+		fileProperties.insert(QString::fromLatin1("syntaxMode"), _texDoc->getHighlighter()->getSyntaxMode());
 	fileProperties.insert(QString::fromLatin1("lineNumbers"), textEdit->getLineNumbersVisible());
 	fileProperties.insert(QString::fromLatin1("wrapLines"), textEdit->wordWrapMode() == QTextOption::WordWrap);
 
@@ -2163,8 +2162,8 @@ void TeXDocumentWindow::setWrapLines(bool wrap)
 
 void TeXDocumentWindow::setSyntaxColoring(int index)
 {
-	if (highlighter)
-		highlighter->setActiveIndex(index);
+	if (_texDoc && _texDoc->getHighlighter())
+		_texDoc->getHighlighter()->setActiveIndex(index);
 }
 
 void TeXDocumentWindow::setSyntaxColoringMode(const QString& mode)
