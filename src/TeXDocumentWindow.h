@@ -24,6 +24,7 @@
 
 #include "TWScriptableWindow.h"
 #include "document/SpellChecker.h"
+#include "document/TeXDocument.h"
 
 #include <QList>
 #include <QRegularExpression>
@@ -86,8 +87,8 @@ public:
 		{ return curFile; }
 	QTextCursor textCursor() const
 		{ return textEdit->textCursor(); }
-	QTextDocument* textDoc()
-		{ return textEdit->document(); }
+	Tw::Document::TeXDocument* textDoc()
+		{ return _texDoc; }
 	QString getLineText(int lineNo) const;
 	CompletingEdit* editor()
 		{ return textEdit; }
@@ -266,6 +267,7 @@ private:
 	QString consoleText() { return textEdit_console->toPlainText(); }
 	QString text() { return textEdit->toPlainText(); }
 	
+	Tw::Document::TeXDocument * _texDoc;
 	TeXHighlighter * highlighter{nullptr};
 	PDFDocumentWindow * pdfDoc{nullptr};
 

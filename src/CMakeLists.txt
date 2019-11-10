@@ -38,6 +38,8 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   TWTextCodecs.cpp
                   TWUtils.cpp
                   document/SpellChecker.cpp
+                  document/TextDocument.cpp
+                  document/TeXDocument.cpp
                   scripting/JSScriptInterface.cpp
                   scripting/ScriptAPI.cpp
                   scripting/Script.cpp
@@ -77,7 +79,10 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWUtils.h
                   TWVersion.h
                   InterProcessCommunicator.h
+                  document/Document.h
                   document/SpellChecker.h
+                  document/TextDocument.h
+                  document/TeXDocument.h
                   scripting/ScriptAPIInterface.h
                   scripting/ScriptLanguageInterface.h
                   scripting/ScriptAPI.h

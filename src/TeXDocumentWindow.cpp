@@ -68,12 +68,14 @@
 QList<TeXDocumentWindow*> TeXDocumentWindow::docList;
 
 TeXDocumentWindow::TeXDocumentWindow()
+	: _texDoc(new Tw::Document::TeXDocument(this))
 {
 	init();
 	statusBar()->showMessage(tr("New document"), kStatusMessageDuration);
 }
 
 TeXDocumentWindow::TeXDocumentWindow(const QString &fileName, bool asTemplate)
+	: _texDoc(new Tw::Document::TeXDocument(this))
 {
 	init();
 	loadFile(fileName, asTemplate);
@@ -83,6 +85,8 @@ TeXDocumentWindow::~TeXDocumentWindow()
 {
 	docList.removeAll(this);
 	updateWindowMenu();
+	// Because _texDoc->parent() == this, _texDoc will be destroyed
+	// automatically by ~QObject()
 }
 
 static bool dictActionLessThan(const QAction * a1, const QAction * a2) {
@@ -104,6 +108,7 @@ void TeXDocumentWindow::init()
 #endif
 	
 	setupUi(this);
+	editor()->setDocument(textDoc());
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_MacNoClickThrough, true);

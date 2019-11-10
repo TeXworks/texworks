@@ -40,7 +40,6 @@
 #include <QTextCodec>
 #include <QAbstractTextDocumentLayout>
 #include <QSignalMapper>
-#include <QTextDocument>
 #include <QTextBlock>
 #include <QScrollBar>
 #include <QTimer>

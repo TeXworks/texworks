@@ -32,6 +32,8 @@ SOURCES = \
   "../src/TeXHighlighter.cpp" \
   "../src/TemplateDialog.cpp" \
   "../src/document/SpellChecker.cpp" \
+  "../src/document/TeXDocument.cpp" \
+  "../src/document/TextDocument.cpp" \
   "../src/main.cpp" \
   "../src/scripting/JSScript.cpp" \
   "../src/scripting/JSScriptInterface.cpp" \
@@ -73,7 +75,10 @@ HEADERS = \
   "../src/TeXDocumentWindow.h" \
   "../src/TeXHighlighter.h" \
   "../src/TemplateDialog.h" \
+  "../src/document/Document.h" \
   "../src/document/SpellChecker.h" \
+  "../src/document/TeXDocument.h" \
+  "../src/document/TextDocument.h" \
   "../src/scripting/JSScript.h" \
   "../src/scripting/JSScriptInterface.h" \
   "../src/scripting/Script.h" \
