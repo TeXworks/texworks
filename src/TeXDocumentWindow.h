@@ -47,7 +47,7 @@ class QTextCodec;
 class QFileSystemWatcher;
 
 class TeXHighlighter;
-class PDFDocument;
+class PDFDocumentWindow;
 class ClickableLabel;
 
 const int kTeXWindowStateVersion = 1; // increment this if we add toolbars/docks/etc
@@ -99,7 +99,7 @@ public:
 	
 	QString spellcheckLanguage() const;
 
-	PDFDocument* pdfDocument()
+	PDFDocumentWindow* pdfDocument()
 		{ return pdfDoc; }
 
 	void addTag(const QTextCursor& cursor, int level, const QString& text);
@@ -267,7 +267,7 @@ private:
 	QString text() { return textEdit->toPlainText(); }
 	
 	TeXHighlighter * highlighter{nullptr};
-	PDFDocument * pdfDoc{nullptr};
+	PDFDocumentWindow * pdfDoc{nullptr};
 
 	QTextCodec * codec{nullptr};
 	// When using the UTF-8 codec, byte order marks (BOMs) are ignored during 

@@ -21,7 +21,7 @@
 
 #include "FindDialog.h"
 #include "TeXDocumentWindow.h"
-#include "PDFDocument.h"
+#include "PDFDocumentWindow.h"
 #include "TWApp.h"
 #include "Settings.h"
 
@@ -606,13 +606,13 @@ void SearchResults::focusChanged(QWidget * old, QWidget * now)
 		nowFocused = isAncestorOf(now);
 }
 
-PDFFindDialog::PDFFindDialog(PDFDocument *document)
+PDFFindDialog::PDFFindDialog(PDFDocumentWindow *document)
 	: QDialog(document)
 {
 	init(document);
 }
 
-void PDFFindDialog::init(PDFDocument *document)
+void PDFFindDialog::init(PDFDocumentWindow *document)
 {
 	setupUi(this);
 
@@ -667,7 +667,7 @@ void PDFFindDialog::init(PDFDocument *document)
 	searchText->installEventFilter(new RecentStringsKeyFilter(this, recentStrings));
 }
 
-QDialog::DialogCode PDFFindDialog::doFindDialog(PDFDocument *document)
+QDialog::DialogCode PDFFindDialog::doFindDialog(PDFDocumentWindow *document)
 {
 	PDFFindDialog dlg(document);
 

@@ -23,7 +23,7 @@
 #include "DefaultPrefs.h"
 #include "Settings.h"
 #include "TWApp.h"
-#include "PDFDocument.h"
+#include "PDFDocumentWindow.h"
 #include "TeXHighlighter.h"
 #include "CompletingEdit.h"
 #include "TWUtils.h"
@@ -782,7 +782,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		if (resolution != oldResolution) {
 			settings.setValue(QString::fromLatin1("previewResolution"), resolution);
 			foreach (QWidget *widget, qApp->topLevelWidgets()) {
-				PDFDocument *thePdfDoc = qobject_cast<PDFDocument*>(widget);
+				PDFDocumentWindow *thePdfDoc = qobject_cast<PDFDocumentWindow*>(widget);
 				if (thePdfDoc)
 					thePdfDoc->setResolution(resolution);
 			}
@@ -806,7 +806,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		settings.setValue(QString::fromLatin1("circularMagnifier"), circular);
 		if (oldMagSize != magSize || oldCircular != circular) {
 			foreach (QWidget *widget, qApp->topLevelWidgets()) {
-				PDFDocument *thePdfDoc = qobject_cast<PDFDocument*>(widget);
+				PDFDocumentWindow *thePdfDoc = qobject_cast<PDFDocumentWindow*>(widget);
 				if (thePdfDoc)
 					thePdfDoc->resetMagnifier();
 			}

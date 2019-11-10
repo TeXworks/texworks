@@ -19,7 +19,7 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "PDFDocument.h"
+#include "PDFDocumentWindow.h"
 #include "TeXDocumentWindow.h"
 #include "TWApp.h"
 #include "TWUtils.h"
@@ -68,9 +68,9 @@ const int kPDFHighlightDuration = 2000;
 #pragma mark === PDFDocument ===
 
 // TODO: This is seemingly unused---verify && remove
-QList<PDFDocument*> PDFDocument::docList;
+QList<PDFDocumentWindow*> PDFDocumentWindow::docList;
 
-PDFDocument::PDFDocument(const QString &fileName, TeXDocumentWindow *texDoc)
+PDFDocumentWindow::PDFDocumentWindow(const QString &fileName, TeXDocumentWindow *texDoc)
 	: pdfWidget(nullptr)
 	, scrollArea(nullptr)
 	, toolButtonGroup(nullptr)
@@ -110,12 +110,12 @@ PDFDocument::PDFDocument(const QString &fileName, TeXDocumentWindow *texDoc)
 	}
 }
 
-PDFDocument::~PDFDocument()
+PDFDocumentWindow::~PDFDocumentWindow()
 {
 	docList.removeAll(this);
 }
 
-void PDFDocument::init()
+void PDFDocumentWindow::init()
 {
 	docList.append(this);
 
@@ -309,7 +309,7 @@ void PDFDocument::init()
 	connect(_fullScreenManager, SIGNAL(fullscreenChanged(bool)), this, SLOT(maybeZoomToWindow(bool)), Qt::QueuedConnection);
 }
 
-void PDFDocument::changeEvent(QEvent *event)
+void PDFDocumentWindow::changeEvent(QEvent *event)
 {
 	if (event->type() == QEvent::LanguageChange) {
 		QString title = windowTitle();
@@ -321,7 +321,7 @@ void PDFDocument::changeEvent(QEvent *event)
 	QMainWindow::changeEvent(event);
 }
 
-void PDFDocument::linkToSource(TeXDocumentWindow *texDoc)
+void PDFDocumentWindow::linkToSource(TeXDocumentWindow *texDoc)
 {
 	if (texDoc) {
 		if (!sourceDocList.contains(texDoc))
@@ -330,7 +330,7 @@ void PDFDocument::linkToSource(TeXDocumentWindow *texDoc)
 	}
 }
 
-void PDFDocument::texClosed(QObject *obj)
+void PDFDocumentWindow::texClosed(QObject *obj)
 {
 	TeXDocumentWindow *texDoc = reinterpret_cast<TeXDocumentWindow*>(obj);
 	// can't use qobject_cast here as the object's metadata is already gone!
@@ -341,7 +341,7 @@ void PDFDocument::texClosed(QObject *obj)
 	}
 }
 
-void PDFDocument::texActivated(TeXDocumentWindow * texDoc)
+void PDFDocumentWindow::texActivated(TeXDocumentWindow * texDoc)
 {
 	// A source file was activated. Make sure it is the first in the list of
 	// source docs so that future "Goto Source" actions point there.
@@ -351,12 +351,12 @@ void PDFDocument::texActivated(TeXDocumentWindow * texDoc)
 	}
 }
 
-void PDFDocument::updateRecentFileActions()
+void PDFDocumentWindow::updateRecentFileActions()
 {
 	TWUtils::updateRecentFileActions(this, recentFileActions, menuOpen_Recent, actionClear_Recent_Files);
 }
 
-void PDFDocument::updateWindowMenu()
+void PDFDocumentWindow::updateWindowMenu()
 {
 	TWUtils::updateWindowMenu(this, menuWindow);
 
@@ -375,7 +375,7 @@ void PDFDocument::updateWindowMenu()
 	}
 }
 
-void PDFDocument::sideBySide()
+void PDFDocumentWindow::sideBySide()
 {
 	if (sourceDocList.count() > 0) {
 		TWUtils::sideBySide(sourceDocList.first(), this);
@@ -386,7 +386,7 @@ void PDFDocument::sideBySide()
 		placeOnRight();
 }
 
-bool PDFDocument::event(QEvent *event)
+bool PDFDocumentWindow::event(QEvent *event)
 {
 	switch (event->type()) {
 		case QEvent::WindowActivate:
@@ -399,7 +399,7 @@ bool PDFDocument::event(QEvent *event)
 	return QMainWindow::event(event);
 }
 
-void PDFDocument::closeEvent(QCloseEvent *event)
+void PDFDocumentWindow::closeEvent(QCloseEvent *event)
 {
 	event->accept();
 	if (openedManually) {
@@ -408,7 +408,7 @@ void PDFDocument::closeEvent(QCloseEvent *event)
 	deleteLater();
 }
 
-void PDFDocument::saveRecentFileInfo()
+void PDFDocumentWindow::saveRecentFileInfo()
 {
 	QMap<QString,QVariant> fileProperties;
 	fileProperties.insert(QString::fromLatin1("path"), curFile);
@@ -418,7 +418,7 @@ void PDFDocument::saveRecentFileInfo()
 	TWApp::instance()->addToRecentFiles(fileProperties);
 }
 
-void PDFDocument::loadFile(const QString &fileName)
+void PDFDocumentWindow::loadFile(const QString &fileName)
 {
 	setCurrentFile(fileName);
 	Tw::Settings settings;
@@ -428,7 +428,7 @@ void PDFDocument::loadFile(const QString &fileName)
 	reload();
 }
 
-void PDFDocument::reload()
+void PDFDocumentWindow::reload()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
@@ -443,7 +443,7 @@ void PDFDocument::reload()
 	QApplication::restoreOverrideCursor();
 }
 
-void PDFDocument::loadSyncData()
+void PDFDocumentWindow::loadSyncData()
 {
 	if (_synchronizer) {
 		delete _synchronizer;
@@ -458,7 +458,7 @@ void PDFDocument::loadSyncData()
 		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(_synchronizer->syncTeXFilename()), kStatusMessageDuration);
 }
 
-void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
+void PDFDocumentWindow::syncClick(int pageIndex, const QPointF& pos)
 {
 	Tw::Settings settings;
 	TWSynchronizer::Resolution res;
@@ -479,7 +479,7 @@ void PDFDocument::syncClick(int pageIndex, const QPointF& pos)
 	syncRange(pageIndex, pos, pos, res);
 }
 
-void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QPointF & end, const TWSynchronizer::Resolution resolution)
+void PDFDocumentWindow::syncRange(const int pageIndex, const QPointF & start, const QPointF & end, const TWSynchronizer::Resolution resolution)
 {
 	if (!_synchronizer)
 		return;
@@ -565,7 +565,7 @@ void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QP
 	TeXDocumentWindow::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line, curStart.position() - curStart.block().position(), curEnd.position() - curStart.block().position());
 }
 
-void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview)
+void PDFDocumentWindow::syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview)
 {
 	if (!_synchronizer)
 		return;
@@ -621,7 +621,7 @@ void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col,
 		selectWindow();
 }
 
-void PDFDocument::invalidateSyncHighlight()
+void PDFDocumentWindow::invalidateSyncHighlight()
 {
 	// This slot should be called when the graphics item pointed to by
 	// _syncHighlight goes out of scope (e.g., because the PDF changed, all pages
@@ -630,7 +630,7 @@ void PDFDocument::invalidateSyncHighlight()
 	_syncHighlightRemover.stop();
 }
 
-void PDFDocument::clearSyncHighlight()
+void PDFDocumentWindow::clearSyncHighlight()
 {
 	if (_syncHighlight) {
 		delete _syncHighlight;
@@ -639,14 +639,14 @@ void PDFDocument::clearSyncHighlight()
 	_syncHighlightRemover.stop();
 }
 
-void PDFDocument::clearSearchResultHighlight()
+void PDFDocumentWindow::clearSearchResultHighlight()
 {
 	if (!widget())
 		return;
 	widget()->setCurrentSearchResultHighlightBrush(QBrush(Qt::transparent));
 }
 
-void PDFDocument::copySelectedTextToClipboard()
+void PDFDocumentWindow::copySelectedTextToClipboard()
 {
 	if (!widget()) return;
 	QString textToCopy = widget()->selectedText();
@@ -656,7 +656,7 @@ void PDFDocument::copySelectedTextToClipboard()
 	QApplication::clipboard()->setText(textToCopy);
 }
 
-void PDFDocument::maybeEnableCopyCommand(const bool isTextSelected)
+void PDFDocumentWindow::maybeEnableCopyCommand(const bool isTextSelected)
 {
   Q_ASSERT(actionCopy);
   if (!widget())
@@ -668,7 +668,7 @@ void PDFDocument::maybeEnableCopyCommand(const bool isTextSelected)
 	actionCopy->setEnabled(isTextSelected && doc->permissions().testFlag(QtPDF::Backend::Document::Permission_Extract));
 }
 
-void PDFDocument::setCurrentFile(const QString &fileName)
+void PDFDocumentWindow::setCurrentFile(const QString &fileName)
 {
 	curFile = QFileInfo(fileName).canonicalFilePath();
 	//: Format for the window title (ex. "file.pdf[*] - TeXworks")
@@ -676,19 +676,19 @@ void PDFDocument::setCurrentFile(const QString &fileName)
 	TWApp::instance()->updateWindowMenus();
 }
  
-PDFDocument *PDFDocument::findDocument(const QString &fileName)
+PDFDocumentWindow *PDFDocumentWindow::findDocument(const QString &fileName)
 {
 	QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath();
 
 	foreach (QWidget *widget, qApp->topLevelWidgets()) {
-		PDFDocument *theDoc = qobject_cast<PDFDocument*>(widget);
+		PDFDocumentWindow *theDoc = qobject_cast<PDFDocumentWindow*>(widget);
 		if (theDoc && theDoc->curFile == canonicalFilePath)
 			return theDoc;
 	}
 	return nullptr;
 }
 
-void PDFDocument::zoomToRight(QWidget *otherWindow)
+void PDFDocumentWindow::zoomToRight(QWidget *otherWindow)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect screenRect = desktop->availableGeometry(otherWindow ? otherWindow : this);
@@ -699,29 +699,29 @@ void PDFDocument::zoomToRight(QWidget *otherWindow)
 	setGeometry(screenRect);
 }
 
-void PDFDocument::showPage(int page)
+void PDFDocumentWindow::showPage(int page)
 {
 	pageLabel->setText(tr("page %1 of %2").arg(page).arg(pdfWidget->lastPage()));
 }
 
-void PDFDocument::showScale(qreal scale)
+void PDFDocumentWindow::showScale(qreal scale)
 {
 	scaleLabel->setText(tr("%1%").arg(ROUND(scale * 10000.0) / 100.0));
 }
 
-void PDFDocument::retypeset()
+void PDFDocumentWindow::retypeset()
 {
 	if (sourceDocList.count() > 0)
 		sourceDocList.first()->typeset();
 }
 
-void PDFDocument::interrupt()
+void PDFDocumentWindow::interrupt()
 {
 	if (sourceDocList.count() > 0)
 		sourceDocList.first()->interrupt();
 }
 
-void PDFDocument::goToSource()
+void PDFDocumentWindow::goToSource()
 {
 	if (sourceDocList.count() > 0)
 		sourceDocList.first()->selectWindow();
@@ -730,14 +730,14 @@ void PDFDocument::goToSource()
 		actionGo_to_Source->setEnabled(false);
 }
 
-void PDFDocument::changedDocument(const QWeakPointer<QtPDF::Backend::Document> & newDoc) {
+void PDFDocumentWindow::changedDocument(const QWeakPointer<QtPDF::Backend::Document> & newDoc) {
 	Q_UNUSED(newDoc)
 	updateStatusBar();
 	invalidateSyncHighlight();
 	enablePageActions(pdfWidget->currentPage());
 }
 
-void PDFDocument::enablePageActions(int pageIndex)
+void PDFDocumentWindow::enablePageActions(int pageIndex)
 {
 //#if !defined(Q_OS_DARWIN)
 // On Mac OS X, disabling these leads to a crash if we hit the end of document while auto-repeating a key
@@ -750,13 +750,13 @@ void PDFDocument::enablePageActions(int pageIndex)
 //#endif
 }
 
-void PDFDocument::toggleFullScreen()
+void PDFDocumentWindow::toggleFullScreen()
 {
 	Q_ASSERT(_fullScreenManager);
 	_fullScreenManager->toggleFullscreen();
 }
 
-void PDFDocument::setPageMode(const int newMode)
+void PDFDocumentWindow::setPageMode(const int newMode)
 {
 	if (!pdfWidget)
 		return;
@@ -772,7 +772,7 @@ void PDFDocument::setPageMode(const int newMode)
 	}
 }
 
-void PDFDocument::updatePageMode(const QtPDF::PDFDocumentView::PageMode newMode)
+void PDFDocumentWindow::updatePageMode(const QtPDF::PDFDocumentView::PageMode newMode)
 {
 	// Mark proper menu item
 	actionPageMode_Single->setChecked(newMode == QtPDF::PDFDocumentView::PageMode_SinglePage);
@@ -780,7 +780,7 @@ void PDFDocument::updatePageMode(const QtPDF::PDFDocumentView::PageMode newMode)
 	actionPageMode_TwoPagesContinuous->setChecked(newMode == QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous);
 }
 
-void PDFDocument::resetMagnifier()
+void PDFDocumentWindow::resetMagnifier()
 {
 	Q_ASSERT(pdfWidget);
 	Tw::Settings settings;
@@ -793,19 +793,19 @@ void PDFDocument::resetMagnifier()
 	pdfWidget->setMagnifierSize(magSizes[qBound(0, settings.value(QString::fromLatin1("magnifierSize"), kDefault_MagnifierSize).toInt() - 1, 2)]);
 }
 
-void PDFDocument::setResolution(const double res)
+void PDFDocumentWindow::setResolution(const double res)
 {
 	Q_ASSERT(pdfWidget);
 	if (res > 0)
 		pdfWidget->setResolution(res);
 }
 
-void PDFDocument::enableTypesetAction(bool enabled)
+void PDFDocumentWindow::enableTypesetAction(bool enabled)
 {
 	actionTypeset->setEnabled(enabled);
 }
 
-void PDFDocument::updateTypesettingAction(bool processRunning)
+void PDFDocumentWindow::updateTypesettingAction(bool processRunning)
 {
 	if (processRunning) {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
@@ -822,7 +822,7 @@ void PDFDocument::updateTypesettingAction(bool processRunning)
 	}
 }
 
-void PDFDocument::dragEnterEvent(QDragEnterEvent *event)
+void PDFDocumentWindow::dragEnterEvent(QDragEnterEvent *event)
 {
 	// Only accept files for now
 	event->ignore();
@@ -837,7 +837,7 @@ void PDFDocument::dragEnterEvent(QDragEnterEvent *event)
 	}
 }
 
-void PDFDocument::dropEvent(QDropEvent *event)
+void PDFDocumentWindow::dropEvent(QDropEvent *event)
 {
 	event->ignore();
 	if (event->mimeData()->hasUrls()) {
@@ -849,7 +849,7 @@ void PDFDocument::dropEvent(QDropEvent *event)
 	}
 }
 
-void PDFDocument::contextMenuEvent(QContextMenuEvent *event)
+void PDFDocumentWindow::contextMenuEvent(QContextMenuEvent *event)
 {
 	Q_ASSERT(pdfWidget);
 	QMenu menu(this);
@@ -876,12 +876,12 @@ void PDFDocument::contextMenuEvent(QContextMenuEvent *event)
 	menu.exec(event->globalPos());
 }
 
-void PDFDocument::mouseMoveEvent(QMouseEvent *event)
+void PDFDocumentWindow::mouseMoveEvent(QMouseEvent *event)
 {
 	if (_fullScreenManager) _fullScreenManager->mouseMoveEvent(event);
 }
 
-void PDFDocument::jumpToSource()
+void PDFDocumentWindow::jumpToSource()
 {
 	QAction *act = qobject_cast<QAction*>(sender());
 	if (!act || !pdfWidget)
@@ -901,13 +901,13 @@ void PDFDocument::jumpToSource()
 	syncClick(scene->pageNumFor(page), page->mapToPage(page->mapFromScene(scenePos)));
 }
 
-void PDFDocument::doFindDialog()
+void PDFDocumentWindow::doFindDialog()
 {
 	if (PDFFindDialog::doFindDialog(this) == QDialog::Accepted)
 		doFindAgain(true);
 }
 
-void PDFDocument::doFindAgain(bool newSearch /* = false */)
+void PDFDocumentWindow::doFindAgain(bool newSearch /* = false */)
 {
 	Q_UNUSED(newSearch)
 	Tw::Settings settings;
@@ -927,7 +927,7 @@ void PDFDocument::doFindAgain(bool newSearch /* = false */)
 	widget()->search(searchText, searchFlags);
 }
 
-void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygonF> & pdfRegion)
+void PDFDocumentWindow::searchResultHighlighted(const int pageNum, const QList<QPolygonF> & pdfRegion)
 {
 	Tw::Settings settings;
 
@@ -975,7 +975,7 @@ void PDFDocument::searchResultHighlighted(const int pageNum, const QList<QPolygo
 	}
 }
 
-void PDFDocument::setDefaultScale() {
+void PDFDocumentWindow::setDefaultScale() {
 	Tw::Settings settings;
 	switch (settings.value(QString::fromLatin1("scaleOption"), kDefault_PreviewScaleOption).toInt()) {
 		case 2:
@@ -993,7 +993,7 @@ void PDFDocument::setDefaultScale() {
 	}
 }
 
-void PDFDocument::maybeOpenUrl(const QUrl & url)
+void PDFDocumentWindow::maybeOpenUrl(const QUrl & url)
 {
 	// Opening URLs could be a security risk, so ask the user (but make "yes,
 	// proceed the default option - after all the user typically clicked on the
@@ -1003,7 +1003,7 @@ void PDFDocument::maybeOpenUrl(const QUrl & url)
 		QDesktopServices::openUrl(url);
 }
 
-void PDFDocument::maybeOpenPdf(const QString & filename, const QtPDF::PDFDestination & destination, const bool newWindow)
+void PDFDocumentWindow::maybeOpenPdf(const QString & filename, const QtPDF::PDFDestination & destination, const bool newWindow)
 {
 	Q_UNUSED(newWindow)
 	// Unlike in maybeOpenUrl, this function only works on local PDF files which
@@ -1013,14 +1013,14 @@ void PDFDocument::maybeOpenPdf(const QString & filename, const QtPDF::PDFDestina
 	// PDFDocument (e.g., in the TeXDocument associated with it) to notify the
 	// other parts of the code that a completely new and unrelated document is
 	// loaded here now.
-	PDFDocument * pdf = qobject_cast<PDFDocument*>(TWApp::instance()->openFile(filename));
+	PDFDocumentWindow * pdf = qobject_cast<PDFDocumentWindow*>(TWApp::instance()->openFile(filename));
 	if (!pdf || !pdf->widget())
 		return;
 	pdf->widget()->goToPDFDestination(destination, false);
 }
 
 
-void PDFDocument::print()
+void PDFDocumentWindow::print()
 {
 	// Currently, printing is not supported in a reliable, cross-platform way
 	// Instead, offer to open the document in the system's default viewer
@@ -1037,7 +1037,7 @@ void PDFDocument::print()
 	}
 }
 
-void PDFDocument::showScaleContextMenu(const QPoint pos)
+void PDFDocumentWindow::showScaleContextMenu(const QPoint pos)
 {
 	static QMenu * contextMenu = nullptr;
 	
@@ -1078,7 +1078,7 @@ void PDFDocument::showScaleContextMenu(const QPoint pos)
 	contextMenu->popup(scaleLabel->mapToGlobal(pos));
 }
 
-void PDFDocument::setScaleFromContextMenu(const QString & strZoom)
+void PDFDocumentWindow::setScaleFromContextMenu(const QString & strZoom)
 {
 	bool conversionOK = false;
 	float zoom = strZoom.toFloat(&conversionOK);
@@ -1091,20 +1091,20 @@ void PDFDocument::setScaleFromContextMenu(const QString & strZoom)
 		pdfWidget->setZoomLevel(zoom);
 }
 
-void PDFDocument::updateStatusBar()
+void PDFDocumentWindow::updateStatusBar()
 {
 	Q_ASSERT(pdfWidget);
 	showPage(pdfWidget->currentPage() + 1);
 	showScale(pdfWidget->zoomLevel());
 }
 
-void PDFDocument::setMouseMode(const int newMode)
+void PDFDocumentWindow::setMouseMode(const int newMode)
 {
 	Q_ASSERT(pdfWidget);
 	pdfWidget->setMouseMode((QtPDF::PDFDocumentView::MouseMode)newMode);
 }
 
-void PDFDocument::doPageDialog()
+void PDFDocumentWindow::doPageDialog()
 {
 	bool ok;
 	Q_ASSERT(pdfWidget);
@@ -1116,7 +1116,7 @@ void PDFDocument::doPageDialog()
 		pdfWidget->goToPage(pageNo - 1);
 }
 
-void PDFDocument::doScaleDialog()
+void PDFDocumentWindow::doScaleDialog()
 {
 	bool ok;
 	Q_ASSERT(pdfWidget);

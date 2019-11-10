@@ -20,7 +20,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   FindDialog.cpp
                   HardWrapDialog.cpp
                   main.cpp
-                  PDFDocument.cpp
+                  PDFDocumentWindow.cpp
                   PrefsDialog.cpp
                   ResourcesDialog.cpp
                   ScreenCalibrationWidget.cpp
@@ -58,7 +58,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   FindDialog.h
                   GitRev.h
                   HardWrapDialog.h
-                  PDFDocument.h
+                  PDFDocumentWindow.h
                   PrefsDialog.h
                   ResourcesDialog.h
                   ScreenCalibrationWidget.h
@@ -103,7 +103,7 @@ set(TEXWORKS_UIS CitationSelectDialog.ui
                  ConfirmDelete.ui
                  Find.ui
                  HardWrapDialog.ui
-                 PDFDocument.ui
+                 PDFDocumentWindow.ui
                  PDFFind.ui
                  PrefsDialog.ui
                  Replace.ui

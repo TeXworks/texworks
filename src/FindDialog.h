@@ -33,7 +33,7 @@
 
 class TeXDocumentWindow;
 class QTextEdit;
-class PDFDocument;
+class PDFDocumentWindow;
 
 class RecentStringsKeyFilter : public QObject
 {
@@ -79,16 +79,16 @@ class PDFFindDialog : public QDialog, private Ui::PDFFindDialog
 	Q_OBJECT
 
 public:
-	explicit PDFFindDialog(PDFDocument * document);
+	explicit PDFFindDialog(PDFDocumentWindow * document);
 
-	static DialogCode doFindDialog(PDFDocument *document);
+	static DialogCode doFindDialog(PDFDocumentWindow *document);
 
 private slots:
 //	void toggledFindAllOption(bool checked);
 	void setSearchText();
 
 private:
-	void init(PDFDocument *document);
+	void init(PDFDocumentWindow *document);
 };
 
 
@@ -136,11 +136,11 @@ public:
 
 class PDFSearchResult {
 public:
-	PDFSearchResult(const PDFDocument* pdfdoc = nullptr, int page = -1, QRectF rect = QRectF())
+	PDFSearchResult(const PDFDocumentWindow* pdfdoc = nullptr, int page = -1, QRectF rect = QRectF())
 		: doc(pdfdoc), pageIdx(page), selRect(rect)
 		{ }
 		
-	const PDFDocument* doc;
+	const PDFDocumentWindow* doc;
 	int pageIdx;
 	QRectF selRect;
 };

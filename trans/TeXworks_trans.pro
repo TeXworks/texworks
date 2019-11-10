@@ -14,7 +14,7 @@ SOURCES = \
   "../src/FindDialog.cpp" \
   "../src/HardWrapDialog.cpp" \
   "../src/InterProcessCommunicatorDBus.cpp" \
-  "../src/PDFDocument.cpp" \
+  "../src/PDFDocumentWindow.cpp" \
   "../src/PrefsDialog.cpp" \
   "../src/ResourcesDialog.cpp" \
   "../src/ScreenCalibrationWidget.cpp" \
@@ -55,7 +55,7 @@ HEADERS = \
   "../src/GitRev.h" \
   "../src/HardWrapDialog.h" \
   "../src/InterProcessCommunicator.h" \
-  "../src/PDFDocument.h" \
+  "../src/PDFDocumentWindow.h" \
   "../src/PrefsDialog.h" \
   "../src/ResourcesDialog.h" \
   "../src/ScreenCalibrationWidget.h" \
@@ -88,7 +88,7 @@ FORMS = \
   "../src/ConfirmDelete.ui" \
   "../src/Find.ui" \
   "../src/HardWrapDialog.ui" \
-  "../src/PDFDocument.ui" \
+  "../src/PDFDocumentWindow.ui" \
   "../src/PDFFind.ui" \
   "../src/PrefsDialog.ui" \
   "../src/Replace.ui" \

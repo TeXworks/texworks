@@ -36,7 +36,7 @@
 class QMainWindow;
 class QCompleter;
 class TeXDocumentWindow;
-class PDFDocument;
+class PDFDocumentWindow;
 
 // static utility methods
 class TWUtils

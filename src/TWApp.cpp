@@ -22,7 +22,7 @@
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "TeXDocumentWindow.h"
-#include "PDFDocument.h"
+#include "PDFDocumentWindow.h"
 #include "PrefsDialog.h"
 #include "DefaultPrefs.h"
 #include "TemplateDialog.h"
@@ -557,7 +557,7 @@ void TWApp::launchAction()
 {
 	scriptManager->runHooks(QString::fromLatin1("TeXworksLaunched"));
 
-	if (!TeXDocumentWindow::documentList().empty() || !PDFDocument::documentList().empty())
+	if (!TeXDocumentWindow::documentList().empty() || !PDFDocumentWindow::documentList().empty())
 		return;
 
 	Tw::Settings settings;
@@ -576,7 +576,7 @@ void TWApp::launchAction()
 #if !defined(Q_OS_DARWIN)
 	// on Mac OS, it's OK to end up with no document (we still have the app menu bar)
 	// but on W32 and X11 we need a window otherwise the user can't interact at all
-	if (TeXDocumentWindow::documentList().empty() && PDFDocument::documentList().empty()) {
+	if (TeXDocumentWindow::documentList().empty() && PDFDocumentWindow::documentList().empty()) {
 		newFile();
 		if (TeXDocumentWindow::documentList().empty()) {
 			// something went wrong, give up!
@@ -668,9 +668,9 @@ void TWApp::open()
 QObject* TWApp::openFile(const QString &fileName, int pos /* = 0 */)
 {
 	if (TWUtils::isPDFfile(fileName)) {
-		PDFDocument *doc = PDFDocument::findDocument(fileName);
+		PDFDocumentWindow *doc = PDFDocumentWindow::findDocument(fileName);
 		if (!doc)
-			doc = new PDFDocument(fileName);
+			doc = new PDFDocumentWindow(fileName);
 		if (doc) {
 			if (pos > 0)
 				doc->widget()->goToPage(pos - 1);
@@ -745,7 +745,7 @@ void TWApp::arrangeWindows(WindowArrangementFunction func)
 		foreach (TeXDocumentWindow* texDoc, TeXDocumentWindow::documentList())
 			if (desktop->screenNumber(texDoc) == screenIndex)
 				windows << texDoc;
-		foreach (PDFDocument* pdfDoc, PDFDocument::documentList())
+		foreach (PDFDocumentWindow* pdfDoc, PDFDocumentWindow::documentList())
 			if (desktop->screenNumber(pdfDoc) == screenIndex)
 				windows << pdfDoc;
 		if (!windows.empty())

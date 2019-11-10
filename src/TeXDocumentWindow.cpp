@@ -27,7 +27,7 @@
 #include "Settings.h"
 #include "TWApp.h"
 #include "TWUtils.h"
-#include "PDFDocument.h"
+#include "PDFDocumentWindow.h"
 #include "ConfirmDelete.h"
 #include "HardWrapDialog.h"
 #include "DefaultPrefs.h"
@@ -1314,14 +1314,14 @@ bool TeXDocumentWindow::openPdfIfAvailable(bool show)
 
 	QString pdfName;
 	if (getPreviewFileName(pdfName)) {
-		PDFDocument *existingPdf = PDFDocument::findDocument(pdfName);
+		PDFDocumentWindow *existingPdf = PDFDocumentWindow::findDocument(pdfName);
 		if (existingPdf) {
 			pdfDoc = existingPdf;
 			pdfDoc->selectWindow();
 			pdfDoc->linkToSource(this);
 		}
 		else {
-			pdfDoc = new PDFDocument(pdfName, this);
+			pdfDoc = new PDFDocumentWindow(pdfName, this);
 			if (show)
 				pdfDoc->show();
 		}

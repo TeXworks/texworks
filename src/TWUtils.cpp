@@ -22,7 +22,7 @@
 #include "TWUtils.h"
 #include "TWApp.h"
 #include "TeXDocumentWindow.h"
-#include "PDFDocument.h"
+#include "PDFDocumentWindow.h"
 #include "TWVersion.h"
 #include "GitRev.h"
 #include "Settings.h"
@@ -580,10 +580,10 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 		menu->addAction(selWin);
 	}
 
-	QList<PDFDocument *> pdfDocList;
+	QList<PDFDocumentWindow *> pdfDocList;
 	fileList.clear();
 	labelList.clear();
-	Q_FOREACH(PDFDocument * pdfDoc, PDFDocument::documentList()) {
+	Q_FOREACH(PDFDocumentWindow * pdfDoc, PDFDocumentWindow::documentList()) {
 		pdfDocList.append(pdfDoc);
 		fileList.append(pdfDoc->fileName());
 	}
@@ -592,12 +592,12 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	// append an item for each PDFDocument
 	first = true;
 	for (int i = 0; i < pdfDocList.size(); ++i) {
-		PDFDocument * pdfDoc = pdfDocList[i];
+		PDFDocumentWindow * pdfDoc = pdfDocList[i];
 		if (first && !menu->actions().isEmpty())
 			menu->addSeparator();
 		first = false;
 		SelWinAction *selWin = new SelWinAction(menu, fileList[i], labelList[i]);
-		if (pdfDoc == qobject_cast<PDFDocument*>(window)) {
+		if (pdfDoc == qobject_cast<PDFDocumentWindow*>(window)) {
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
 		}

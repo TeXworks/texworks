@@ -37,7 +37,7 @@
 #include "../modules/QtPDF/src/PDFDocumentWidget.h"
 #include "TWSynchronizer.h"
 
-#include "ui_PDFDocument.h"
+#include "ui_PDFDocumentWindow.h"
 
 const int kDefault_MagnifierSize = 2;
 const bool kDefault_CircularMagnifier = true;
@@ -91,17 +91,17 @@ protected:
 	QTimer _menuBarTimer;
 };
 
-class PDFDocument : public TWScriptableWindow, private Ui::PDFDocument
+class PDFDocumentWindow : public TWScriptableWindow, private Ui::PDFDocumentWindow
 {
 	Q_OBJECT
     Q_PROPERTY(QString fileName READ fileName)
 
 public:
-	PDFDocument(const QString &fileName, TeXDocumentWindow *sourceDoc = nullptr);
-	virtual ~PDFDocument();
+	PDFDocumentWindow(const QString &fileName, TeXDocumentWindow *sourceDoc = nullptr);
+	virtual ~PDFDocumentWindow();
 
-	static PDFDocument *findDocument(const QString &fileName);
-	static QList<PDFDocument*> documentList()
+	static PDFDocumentWindow *findDocument(const QString &fileName);
+	static QList<PDFDocumentWindow*> documentList()
 		{
 			return docList;
 		}
@@ -207,7 +207,7 @@ private:
 
 	bool openedManually;
 	
-	static QList<PDFDocument*> docList;
+	static QList<PDFDocumentWindow*> docList;
 
 	TWSyncTeXSynchronizer * _synchronizer;
 };

@@ -23,7 +23,7 @@
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "TeXDocumentWindow.h"
-#include "PDFDocument.h"
+#include "PDFDocumentWindow.h"
 
 #include <QFileInfo>
 #include <QDir>
@@ -160,7 +160,7 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
 
   QDir curDir(QFileInfo(src.filename).canonicalPath());
   TeXDocumentWindow * tex = TeXDocumentWindow::findDocument(src.filename);
-  PDFDocument * pdf = PDFDocument::findDocument(QFileInfo(curDir, dest.filename).canonicalFilePath());
+  PDFDocumentWindow * pdf = PDFDocumentWindow::findDocument(QFileInfo(curDir, dest.filename).canonicalFilePath());
   if (!tex || !pdf || !pdf->widget())
     return;
   QSharedPointer<QtPDF::Backend::Document> pdfDoc = pdf->widget()->document().toStrongRef();
@@ -221,7 +221,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
     return;
   QDir curDir(QFileInfo(src.filename).canonicalPath());
   TeXDocumentWindow * tex = TeXDocumentWindow::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), false, false, dest.line);
-  PDFDocument * pdf = PDFDocument::findDocument(src.filename);
+  PDFDocumentWindow * pdf = PDFDocumentWindow::findDocument(src.filename);
   if (!tex || !pdf || !pdf->widget())
     return;
   QSharedPointer<QtPDF::Backend::Document> pdfDoc = pdf->widget()->document().toStrongRef();
