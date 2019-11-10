@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="cs" sourcelanguage="en">
+<TS version="2.1" language="cs" sourcelanguage="en">
 <context>
     <name>CitationSelectDialog</name>
     <message>
@@ -14,27 +14,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/CitationSelectDialog.cpp" line="202"/>
+        <location filename="../src/CitationSelectDialog.cpp" line="201"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/CitationSelectDialog.cpp" line="203"/>
+        <location filename="../src/CitationSelectDialog.cpp" line="202"/>
         <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/CitationSelectDialog.cpp" line="204"/>
+        <location filename="../src/CitationSelectDialog.cpp" line="203"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/CitationSelectDialog.cpp" line="205"/>
+        <location filename="../src/CitationSelectDialog.cpp" line="204"/>
         <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/CitationSelectDialog.cpp" line="206"/>
+        <location filename="../src/CitationSelectDialog.cpp" line="205"/>
         <source>Journal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -42,17 +42,17 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="1068"/>
+        <location filename="../src/CompletingEdit.cpp" line="1059"/>
         <source>Jump to PDF</source>
         <translation>Přeskočit do PDF</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="1091"/>
+        <location filename="../src/CompletingEdit.cpp" line="1076"/>
         <source>No suggestions</source>
         <translation>Žádné návrhy</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="1111"/>
+        <location filename="../src/CompletingEdit.cpp" line="1093"/>
         <source>Ignore word</source>
         <translation>Ignorovat slovo</translation>
     </message>
@@ -60,17 +60,17 @@
 <context>
     <name>ConfirmDelete</name>
     <message>
-        <location filename="../src/ConfirmDelete.cpp" line="42"/>
+        <location filename="../src/ConfirmDelete.cpp" line="38"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../src/ConfirmDelete.cpp" line="71"/>
+        <location filename="../src/ConfirmDelete.cpp" line="67"/>
         <source>Unable to delete</source>
         <translation>Nelze smazat</translation>
     </message>
     <message>
-        <location filename="../src/ConfirmDelete.cpp" line="72"/>
+        <location filename="../src/ConfirmDelete.cpp" line="68"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
         <translation>Některé pomocné soubory nebylo možné odstranit. Patrně k tomu nemáte dostatečná oprávnění.</translation>
     </message>
@@ -104,7 +104,7 @@
     <name>FindDialog</name>
     <message>
         <location filename="../src/Find.ui" line="23"/>
-        <location filename="../src/FindDialog.cpp" line="95"/>
+        <location filename="../src/FindDialog.cpp" line="94"/>
         <source>Find</source>
         <translation>Hledat</translation>
     </message>
@@ -154,12 +154,12 @@
         <translation>&amp;Regulární výraz</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="136"/>
+        <location filename="../src/FindDialog.cpp" line="135"/>
         <source>No recent search strings</source>
         <translation>Žádné nedávno hledané řetězce</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="192"/>
+        <location filename="../src/FindDialog.cpp" line="191"/>
         <source>(invalid)</source>
         <translation>(neplatné)</translation>
     </message>
@@ -198,604 +198,602 @@
     </message>
 </context>
 <context>
-    <name>PDFDocument</name>
+    <name>PDFDocumentWindow</name>
     <message>
-        <location filename="../src/PDFDocument.ui" line="45"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="45"/>
         <source>Open Recent</source>
         <translation>Nedávné soubory</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="208"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="214"/>
         <source>Ctrl+=</source>
         <translation type="unfinished">Ctrl+=</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="435"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="441"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>Nepodařilo se otevřít soubor &quot;%1&quot;; zřejmě nejde o platný dokument PDF.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="448"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="454"/>
         <source>Error initializing SyncTeX</source>
         <translation>Chyba při inicializaci SyncTeXu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="450"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="456"/>
         <source>No SyncTeX data available</source>
         <translation>Data SyncTeX nejsou dostupná</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="452"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="458"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="368"/>
-        <location filename="../src/PDFDocument.cpp" line="669"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="374"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="675"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.pdf[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="698"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="704"/>
         <source>page %1 of %2</source>
         <translation>strana %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="703"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="709"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="806"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="813"/>
         <source>Abort typesetting</source>
         <translation>Zrušit sazbu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="856"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="863"/>
         <source>Jump to Source</source>
         <translation>Přeskočit do zdrojového dokumentu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="993"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1001"/>
         <source>Open URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="993"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1001"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1019"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1028"/>
         <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
         <translation>Bohužel, z řady technických důvodů tato verze programu %1 nepodporuje tisk dokumentů PDF.
 </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1020"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1029"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Chcete soubor otevřít ve výchozím prohlížeči pro tisk?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1021"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1030"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (Nezapomeňte jej následně zavřít, abyste předešli problémům s přístupem.)</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1044"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1053"/>
         <source>Custom...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1047"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1056"/>
         <source>200%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1050"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1059"/>
         <source>150%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1055"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1064"/>
         <source>100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1059"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1068"/>
         <source>75%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1062"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1071"/>
         <source>50%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1104"/>
-        <location filename="../src/PDFDocument.cpp" line="1108"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1112"/>
         <source>Go to Page</source>
         <translation>Přejít na stranu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1105"/>
-        <location filename="../src/PDFDocument.cpp" line="1109"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1113"/>
         <source>Page number:</source>
         <translation>Číslo strany:</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1121"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1124"/>
         <source>Set Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.cpp" line="1121"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1124"/>
         <source>Zoom level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="17"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="17"/>
         <source>untitled.pdf[*]</source>
         <translation>bez_nazvu.pdf[*]</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="31"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="31"/>
         <source>Help</source>
         <translation>Nápověda</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="41"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="41"/>
         <source>File</source>
         <translation>Soubor</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="61"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="61"/>
         <source>Edit</source>
         <translation>Úpravy</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="72"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="72"/>
         <source>View</source>
         <translation>Zobrazit</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="96"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="96"/>
         <source>Window</source>
         <translation>Okno</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="100"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="100"/>
         <source>Show</source>
         <translation>Zobrazit</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="115"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="115"/>
         <source>Typeset</source>
         <comment>menu title</comment>
         <translation>Vysázet</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="121"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="121"/>
         <source>Search</source>
         <translation>Hledat</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="128"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="128"/>
         <source>Scripts</source>
         <translation>Skripty</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="132"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="132"/>
         <source>Scripting TeXworks</source>
         <translation>Skriptování TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="160"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="160"/>
         <source>Toolbar</source>
         <translation>Lišta nástrojů</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="197"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="197"/>
         <source>About TeXworks...</source>
         <translation>O aplikaci TeXworks...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="209"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="209"/>
         <source>First Page</source>
         <translation>První strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="221"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="221"/>
         <source>Previous Page</source>
         <translation>Další strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="224"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="224"/>
         <source>Ctrl+PgUp</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>Ctrl+PgUp</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="236"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="236"/>
         <source>Next Page</source>
         <translation>Další strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="239"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="239"/>
         <source>Ctrl+PgDown</source>
         <comment>shortcut key name, do not translate</comment>
         <translation>Ctrl+PgDown</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="251"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="251"/>
         <source>Last Page</source>
         <translation>Poslední strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="259"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="259"/>
         <source>Go to Page...</source>
         <translation>Přejít na stranu...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="262"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="262"/>
         <source>Ctrl+J</source>
         <translation>Ctrl+J</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="274"/>
-        <location filename="../src/PDFDocument.cpp" line="863"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="274"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="870"/>
         <source>Zoom In</source>
         <translation>Zvětšit</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="277"/>
-        <location filename="../src/PDFDocument.cpp" line="207"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="277"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="213"/>
         <source>Ctrl++</source>
         <translation>Ctrl++</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="289"/>
-        <location filename="../src/PDFDocument.cpp" line="864"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="289"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="871"/>
         <source>Zoom Out</source>
         <translation>Zmenšit</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="292"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="292"/>
         <source>Ctrl+-</source>
         <translation>Ctrl+-</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="307"/>
-        <location filename="../src/PDFDocument.cpp" line="867"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="307"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="874"/>
         <source>Fit to Window</source>
         <translation>Přizpůsobit oknu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="310"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="310"/>
         <source>Ctrl+3</source>
         <translation>Ctrl+3</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="322"/>
-        <location filename="../src/PDFDocument.cpp" line="865"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="322"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="872"/>
         <source>Actual Size</source>
         <translation>Skutečná velikost</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="325"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="325"/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="340"/>
-        <location filename="../src/PDFDocument.cpp" line="866"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="340"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="873"/>
         <source>Fit to Width</source>
         <translation>Přizpůsobit šířce okna</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="343"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="343"/>
         <source>Ctrl+2</source>
         <translation>Ctrl+2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="355"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="355"/>
         <source>New</source>
         <translation>Nový</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="358"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="358"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="370"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="370"/>
         <source>Open...</source>
         <translation>Otevřít...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="373"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="373"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="381"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="381"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="384"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="384"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="399"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="399"/>
         <source>Undo</source>
         <translation>Zpět</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="402"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="402"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="417"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="417"/>
         <source>Redo</source>
         <translation>Znovu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="420"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="420"/>
         <source>Ctrl+Shift+Z</source>
         <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="435"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="435"/>
         <source>Cut</source>
         <translation>Vyjmout</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="438"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="438"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="453"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="453"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="456"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="456"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="471"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="471"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="474"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="474"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="485"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="485"/>
         <source>Clear</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="488"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="488"/>
         <source>Ctrl+Backspace</source>
         <translation>Ctrl+Backspace</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="500"/>
-        <location filename="../src/PDFDocument.cpp" line="813"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="500"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="820"/>
         <source>Typeset</source>
         <translation>Vysázet</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="503"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="503"/>
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="515"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="515"/>
         <source>Preferences...</source>
         <translation>Nastavení...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="523"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="523"/>
         <source>Stack</source>
         <translation>Kaskádově</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="531"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="531"/>
         <source>Tile</source>
         <translation>Dlaždicově</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="542"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="542"/>
         <source>Go to Source</source>
         <translation>Přeskočit do zdrojového dokumentu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="545"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="545"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="553"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="553"/>
         <source>New from Template...</source>
         <translation>Nový ze šablony...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="556"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="556"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="567"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="567"/>
         <source>Full Screen</source>
         <translation>Celá obrazovka</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="570"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="570"/>
         <source>Ctrl+Shift+F</source>
         <translation>Ctrl+Shift+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="588"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="588"/>
         <source>Magnify</source>
         <translation>Lupa</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="600"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="600"/>
         <source>Scroll</source>
         <translation>Posouvání</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="612"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="612"/>
         <source>Select Text</source>
         <translation>Výběr textu</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="624"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="624"/>
         <source>Select Image</source>
         <translation>Výběr obrázku</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="629"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="629"/>
         <source>Go to TeXworks home page</source>
         <translation>Domovská stránka TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="634"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="634"/>
         <source>Email to the mailing list</source>
         <translation>Poslat e-mail do elektronické konference</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="642"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="642"/>
         <source>Side by Side</source>
         <translation>Vedle sebe</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="647"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="647"/>
         <source>Place on Left</source>
         <translation>Umístit vlevo</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="652"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="652"/>
         <source>Place on Right</source>
         <translation>Umístit vpravo</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="657"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="657"/>
         <source>Quit TeXworks</source>
         <translation>Ukončit TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="660"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="660"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="672"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="672"/>
         <source>Find...</source>
         <translation>Hledat...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="675"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="675"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="686"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="686"/>
         <source>Find Again</source>
         <translation>Hledat další</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="689"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="689"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="700"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="700"/>
         <source>Reload Script List</source>
         <translation>Obnovit seznam skriptů</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="708"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="708"/>
         <source>Manage Scripts</source>
         <translation>Správa skriptů</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="716"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="716"/>
         <source>Show Scripts Folder</source>
         <translation>Zobrazit adresář se skripty</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="724"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="724"/>
         <source>About Scripts...</source>
         <translation>O skriptech...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="732"/>
-        <location filename="../src/PDFDocument.cpp" line="1024"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="732"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1033"/>
         <source>Print PDF...</source>
         <translation>Tisk PDF...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="735"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="735"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="740"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="740"/>
         <source>Settings and Resources...</source>
         <translation>Nastavení a zdroje...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="751"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="751"/>
         <source>Clear Recent Files</source>
         <translation>Vyčistit nedávnou historii</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="756"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="756"/>
         <source>Go to previous view</source>
         <translation>Přejít na předchozí pohled</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="759"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="759"/>
         <source>Alt+Left</source>
         <translation>Alt+Vlevo</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="771"/>
-        <location filename="../src/PDFDocument.ui" line="774"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="771"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="774"/>
         <source>Fit to Content Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="777"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="777"/>
         <source>Ctrl+4</source>
         <translation type="unfinished">Ctrl+4</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="793"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="793"/>
         <source>Single Page</source>
         <translation>Jedna strana</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="805"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="805"/>
         <source>Single Page Continuous</source>
         <translation>Jedna strana souvisle</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocument.ui" line="817"/>
+        <location filename="../src/PDFDocumentWindow.ui" line="817"/>
         <source>Two Pages Continuous</source>
         <translation>Dvě strany souvisle</translation>
     </message>
@@ -803,12 +801,12 @@ Do you want to continue?</source>
 <context>
     <name>PDFFindDialog</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="628"/>
+        <location filename="../src/FindDialog.cpp" line="619"/>
         <source>Find</source>
         <translation>Hledat</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="670"/>
+        <location filename="../src/FindDialog.cpp" line="661"/>
         <source>No recent search strings</source>
         <translation>Žádné nedávno hledané řetězce</translation>
     </message>
@@ -851,22 +849,22 @@ Do you want to continue?</source>
 <context>
     <name>PrefsDialog</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="136"/>
+        <location filename="../src/PrefsDialog.cpp" line="141"/>
         <source>Choose Directory</source>
         <translation>Zvolte adresář</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="210"/>
+        <location filename="../src/PrefsDialog.cpp" line="215"/>
         <source>New Tool</source>
         <translation>Nový nástroj</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="527"/>
+        <location filename="../src/PrefsDialog.cpp" line="532"/>
         <source>System default [%1]</source>
         <translation>Výchozí jazyk systému [%1]</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="543"/>
+        <location filename="../src/PrefsDialog.cpp" line="548"/>
         <source> (%1)</source>
         <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
         <translation type="unfinished"></translation>
@@ -1249,57 +1247,57 @@ Do you want to continue?</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/TWUtils.cpp" line="481"/>
+        <location filename="../src/TWUtils.cpp" line="408"/>
         <source>TeX documents (*.tex)</source>
         <translation>Dokumenty TeX (*.tex)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="482"/>
+        <location filename="../src/TWUtils.cpp" line="409"/>
         <source>LaTeX documents (*.ltx)</source>
         <translation>Dokumenty LaTeX (*.ltx)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="483"/>
+        <location filename="../src/TWUtils.cpp" line="410"/>
         <source>Log files (*.log *.blg)</source>
         <translation>Protokolovací soubory (*.log *.blg)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="484"/>
+        <location filename="../src/TWUtils.cpp" line="411"/>
         <source>BibTeX databases (*.bib)</source>
         <translation>Databáze BibTeX (*.bib)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="485"/>
+        <location filename="../src/TWUtils.cpp" line="412"/>
         <source>Style files (*.sty)</source>
         <translation>Stylové soubory (*.sty)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="486"/>
+        <location filename="../src/TWUtils.cpp" line="413"/>
         <source>Class files (*.cls)</source>
         <translation>Třídy (*.cls)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="487"/>
+        <location filename="../src/TWUtils.cpp" line="414"/>
         <source>Documented macros (*.dtx)</source>
         <translation>Dokumentovaná makra (*.dtx)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="488"/>
+        <location filename="../src/TWUtils.cpp" line="415"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
         <translation>Pomocné soubory (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="489"/>
+        <location filename="../src/TWUtils.cpp" line="416"/>
         <source>Text files (*.txt)</source>
         <translation>Textové soubory (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="490"/>
+        <location filename="../src/TWUtils.cpp" line="417"/>
         <source>PDF documents (*.pdf)</source>
         <translation>Dokumenty PDF (*.pdf)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="491"/>
+        <location filename="../src/TWUtils.cpp" line="418"/>
         <source>All files</source>
         <translation>Všechny soubory</translation>
     </message>
@@ -1308,32 +1306,32 @@ Do you want to continue?</source>
     <name>ReplaceDialog</name>
     <message>
         <location filename="../src/Replace.ui" line="22"/>
-        <location filename="../src/FindDialog.cpp" line="251"/>
+        <location filename="../src/FindDialog.cpp" line="250"/>
         <source>Replace</source>
         <translation>Nahradit</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="253"/>
+        <location filename="../src/FindDialog.cpp" line="252"/>
         <source>Replace All</source>
         <translation>Nahradit vše</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="255"/>
+        <location filename="../src/FindDialog.cpp" line="254"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="289"/>
+        <location filename="../src/FindDialog.cpp" line="288"/>
         <source>No recent search strings</source>
         <translation>Žádné nedávno hledané řetězce</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="300"/>
+        <location filename="../src/FindDialog.cpp" line="299"/>
         <source>No recent replacement strings</source>
         <translation>Žádné nedávno nahrazované řetězce</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="357"/>
+        <location filename="../src/FindDialog.cpp" line="356"/>
         <source>(invalid)</source>
         <translation>(neplatné)</translation>
     </message>
@@ -1421,134 +1419,224 @@ Use the context menu to change the units.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ScreenCalibrationWidget.cpp" line="55"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="51"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
         <translation type="unfinished"> dpi</translation>
     </message>
     <message>
-        <location filename="../src/ScreenCalibrationWidget.cpp" line="58"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="54"/>
         <source>DIN A4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ScreenCalibrationWidget.cpp" line="59"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="55"/>
         <source>Letter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ScreenCalibrationWidget.cpp" line="63"/>
-        <location filename="../src/ScreenCalibrationWidget.cpp" line="69"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="59"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="65"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ScreenCalibrationWidget.cpp" line="65"/>
-        <location filename="../src/ScreenCalibrationWidget.cpp" line="75"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="61"/>
+        <location filename="../src/ScreenCalibrationWidget.cpp" line="71"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
+    <name>ScriptAPI</name>
+    <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="226"/>
+        <source>Internal error</source>
+        <translation type="unfinished">Vnitřní chyba</translation>
+    </message>
+    <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="241"/>
+        <source>Failed to execute system command: %1</source>
+        <translation type="unfinished">Spuštění systémového příkazu selhalo: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="250"/>
+        <source>Error executing system command: %1</source>
+        <translation type="unfinished">Chyba při spouštění systémového příkazu: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="267"/>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="289"/>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation type="unfinished">Spouštění systémových příkazů je zakázáno (viz Nastavení)</translation>
+    </message>
+    <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="285"/>
+        <source>&quot;%1&quot; could not be opened.</source>
+        <translation type="unfinished">&quot;%1&quot; se nepodařilo otevřít.</translation>
+    </message>
+    <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="331"/>
+        <source>Reading all files is disabled (see Preferences)</source>
+        <translation type="unfinished">Čtení všech souborů je zakázáno (viz Nastavení)</translation>
+    </message>
+    <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="339"/>
+        <source>The file &quot;%1&quot; could not be opened for reading</source>
+        <translation type="unfinished">Soubor &quot;%1&quot; se nepodařilo otevřít pro čtení</translation>
+    </message>
+</context>
+<context>
     <name>ScriptManager</name>
     <message>
-        <location filename="../src/ScriptManager.ui" line="14"/>
         <source>Manage Scripts</source>
-        <translation>Správa skriptů</translation>
+        <translation type="vanished">Správa skriptů</translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.ui" line="34"/>
         <source>Standalone Scripts</source>
-        <translation>Samostatné skripty</translation>
+        <translation type="vanished">Samostatné skripty</translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.ui" line="53"/>
         <source>Hook Scripts</source>
-        <translation>Modifikační skripty</translation>
+        <translation type="vanished">Modifikační skripty</translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.cpp" line="190"/>
         <source>Name: </source>
-        <translation>Název: </translation>
+        <translation type="vanished">Název: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.cpp" line="191"/>
         <source>Context: </source>
-        <translation>Kontext: </translation>
+        <translation type="vanished">Kontext: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.cpp" line="192"/>
         <source>Description: </source>
-        <translation>Popis: </translation>
+        <translation type="vanished">Popis: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.cpp" line="193"/>
         <source>Author: </source>
-        <translation>Autor: </translation>
+        <translation type="vanished">Autor: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.cpp" line="194"/>
         <source>Version: </source>
-        <translation>Verze: </translation>
+        <translation type="vanished">Verze: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.cpp" line="195"/>
         <source>Shortcut: </source>
-        <translation>Zkratka: </translation>
+        <translation type="vanished">Zkratka: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.cpp" line="196"/>
         <source>File: </source>
-        <translation>Soubor: </translation>
+        <translation type="vanished">Soubor: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.cpp" line="204"/>
         <source>Language: </source>
-        <translation>Jazyk: </translation>
+        <translation type="vanished">Jazyk: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManager.cpp" line="208"/>
         <source>Hook: </source>
-        <translation>Modifikace: </translation>
+        <translation type="vanished">Modifikace: </translation>
+    </message>
+</context>
+<context>
+    <name>ScriptManagerWidget</name>
+    <message>
+        <location filename="../src/ScriptManagerWidget.ui" line="14"/>
+        <source>Manage Scripts</source>
+        <translation type="unfinished">Správa skriptů</translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.ui" line="34"/>
+        <source>Standalone Scripts</source>
+        <translation type="unfinished">Samostatné skripty</translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.ui" line="53"/>
+        <source>Hook Scripts</source>
+        <translation type="unfinished">Modifikační skripty</translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.cpp" line="192"/>
+        <source>Name: </source>
+        <translation type="unfinished">Název: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.cpp" line="193"/>
+        <source>Context: </source>
+        <translation type="unfinished">Kontext: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.cpp" line="194"/>
+        <source>Description: </source>
+        <translation type="unfinished">Popis: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.cpp" line="195"/>
+        <source>Author: </source>
+        <translation type="unfinished">Autor: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.cpp" line="196"/>
+        <source>Version: </source>
+        <translation type="unfinished">Verze: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.cpp" line="197"/>
+        <source>Shortcut: </source>
+        <translation type="unfinished">Zkratka: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.cpp" line="198"/>
+        <source>File: </source>
+        <translation type="unfinished">Soubor: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.cpp" line="206"/>
+        <source>Language: </source>
+        <translation type="unfinished">Jazyk: </translation>
+    </message>
+    <message>
+        <location filename="../src/ScriptManagerWidget.cpp" line="210"/>
+        <source>Hook: </source>
+        <translation type="unfinished">Modifikace: </translation>
     </message>
 </context>
 <context>
     <name>SearchResults</name>
     <message>
-        <location filename="../src/FindDialog.cpp" line="482"/>
+        <location filename="../src/FindDialog.cpp" line="480"/>
         <source>Search Results - %1 (%2 found)</source>
         <translation>Výsledky hledání - %1 (nalezeno %2)</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="531"/>
-        <location filename="../src/FindDialog.cpp" line="533"/>
+        <location filename="../src/FindDialog.cpp" line="527"/>
+        <location filename="../src/FindDialog.cpp" line="529"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="539"/>
+        <location filename="../src/FindDialog.cpp" line="535"/>
         <source>File</source>
         <translation>Soubor</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="539"/>
+        <location filename="../src/FindDialog.cpp" line="535"/>
         <source>Line</source>
         <translation>Řádek</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="539"/>
+        <location filename="../src/FindDialog.cpp" line="535"/>
         <source>Start</source>
         <translation>Začátek</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="539"/>
+        <location filename="../src/FindDialog.cpp" line="535"/>
         <source>End</source>
         <translation>Konec</translation>
     </message>
     <message>
-        <location filename="../src/FindDialog.cpp" line="539"/>
+        <location filename="../src/FindDialog.cpp" line="535"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
@@ -1561,223 +1649,222 @@ Use the context menu to change the units.</source>
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="205"/>
-        <location filename="../src/TWApp.cpp" line="276"/>
+        <location filename="../src/TWApp.cpp" line="183"/>
+        <location filename="../src/TWApp.cpp" line="254"/>
         <source>File</source>
         <translation>Soubor</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="207"/>
-        <location filename="../src/TWApp.cpp" line="277"/>
+        <location filename="../src/TWApp.cpp" line="185"/>
+        <location filename="../src/TWApp.cpp" line="255"/>
         <source>New</source>
         <translation>Nový</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="212"/>
-        <location filename="../src/TWApp.cpp" line="279"/>
+        <location filename="../src/TWApp.cpp" line="190"/>
+        <location filename="../src/TWApp.cpp" line="257"/>
         <source>New from Template...</source>
         <translation>Nový ze šablony...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="216"/>
+        <location filename="../src/TWApp.cpp" line="194"/>
         <source>Preferences...</source>
         <translation>Nastavení...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="222"/>
-        <location filename="../src/TWApp.cpp" line="281"/>
+        <location filename="../src/TWApp.cpp" line="200"/>
+        <location filename="../src/TWApp.cpp" line="259"/>
         <source>Open...</source>
         <translation>Otevřít...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="227"/>
-        <location filename="../src/TWApp.cpp" line="286"/>
+        <location filename="../src/TWApp.cpp" line="205"/>
+        <location filename="../src/TWApp.cpp" line="264"/>
         <source>Open Recent</source>
         <translation>Nedávné dokumenty</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="228"/>
+        <location filename="../src/TWApp.cpp" line="206"/>
         <source>Clear Recent Files</source>
         <translation>Vyčistit nedávnou historii</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="234"/>
-        <location filename="../src/TWApp.cpp" line="283"/>
+        <location filename="../src/TWApp.cpp" line="212"/>
+        <location filename="../src/TWApp.cpp" line="261"/>
         <source>Quit TeXworks</source>
         <translation>Ukončit TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="239"/>
-        <location filename="../src/TWApp.cpp" line="288"/>
+        <location filename="../src/TWApp.cpp" line="217"/>
+        <location filename="../src/TWApp.cpp" line="266"/>
         <source>Help</source>
         <translation>Nápověda</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="241"/>
-        <location filename="../src/TWApp.cpp" line="290"/>
+        <location filename="../src/TWApp.cpp" line="219"/>
+        <location filename="../src/TWApp.cpp" line="268"/>
         <source>Go to TeXworks home page</source>
         <translation>Domovská stránka TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="244"/>
-        <location filename="../src/TWApp.cpp" line="291"/>
+        <location filename="../src/TWApp.cpp" line="222"/>
+        <location filename="../src/TWApp.cpp" line="269"/>
         <source>Email to the mailing list</source>
         <translation>Poslat e-mail do elektronické konference</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="250"/>
-        <location filename="../src/TWApp.cpp" line="289"/>
+        <location filename="../src/TWApp.cpp" line="228"/>
+        <location filename="../src/TWApp.cpp" line="267"/>
         <source>About </source>
         <translation>O </translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="278"/>
+        <location filename="../src/TWApp.cpp" line="256"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="280"/>
+        <location filename="../src/TWApp.cpp" line="258"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="282"/>
+        <location filename="../src/TWApp.cpp" line="260"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="298"/>
+        <location filename="../src/TWApp.cpp" line="276"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 je jednoduché prostředí pro úpravu, sazbu a náhled TeXových dokumentů.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="302"/>
+        <location filename="../src/TWApp.cpp" line="280"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
         <translation>&lt;br&gt;Verze %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="304"/>
+        <location filename="../src/TWApp.cpp" line="282"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
         <translation>&lt;br&gt;Verze %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="305"/>
+        <location filename="../src/TWApp.cpp" line="283"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;Šířeno pod &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt; verze 2 či (dle vaší volby) libovolné pozdější verze.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="307"/>
+        <location filename="../src/TWApp.cpp" line="285"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; knihovna pro vykreslování PDF, autoři Kristian H&amp;#xF8;gsberg, Albert Astals Cid a další.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="306"/>
+        <location filename="../src/TWApp.cpp" line="284"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
         <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Aplikační systém Qt&lt;/a&gt; v%1 od The Qt Company.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="308"/>
+        <location filename="../src/TWApp.cpp" line="286"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker, autor L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="309"/>
+        <location filename="../src/TWApp.cpp" line="287"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation>&lt;br&gt;Koncept a prostředky z aplikace &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt;, autor Richard Koch.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="310"/>
+        <location filename="../src/TWApp.cpp" line="288"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt;, autor J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="311"/>
+        <location filename="../src/TWApp.cpp" line="289"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
         <translation>&lt;br&gt;Některé ikony převzaty z &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="312"/>
+        <location filename="../src/TWApp.cpp" line="290"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
         <translation>&lt;p&gt;%1 překlad: %2.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="312"/>
+        <location filename="../src/TWApp.cpp" line="290"/>
         <source>[language name]</source>
         <translation>Český</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="312"/>
+        <location filename="../src/TWApp.cpp" line="290"/>
         <source>[translator&apos;s name/email]</source>
         <translation>&lt;a href=&quot;mailto:texworks-translation.box[zavináč]imx.jurenka.cz&quot;&gt;David Jurenka&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="316"/>
+        <location filename="../src/TWApp.cpp" line="294"/>
         <source>About %1</source>
         <translation>O %1</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="323"/>
+        <location filename="../src/TWApp.cpp" line="301"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
         <translation>Nelze přejít k &quot;%1&quot;; váš prohlížeč nebo mailový klient možná není správně nastavený?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="605"/>
+        <location filename="../src/TWApp.cpp" line="583"/>
         <source>Unable to create window</source>
         <translation>Nelze vytvořit okno</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="606"/>
+        <location filename="../src/TWApp.cpp" line="584"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Něco je velmi špatně; %1 nemohl vytvořit okno dokumentu. Aplikace se nyní ukončí.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="658"/>
-        <location filename="../src/TWApp.cpp" line="673"/>
+        <location filename="../src/TWApp.cpp" line="636"/>
+        <location filename="../src/TWApp.cpp" line="651"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="687"/>
         <source>Save File</source>
-        <translation>Uložit soubor</translation>
+        <translation type="vanished">Uložit soubor</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="852"/>
+        <location filename="../src/TWApp.cpp" line="804"/>
         <source>No default binary directory found</source>
         <translation>Nenalezen žádný výchozí adresář binárních souborů</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="853"/>
+        <location filename="../src/TWApp.cpp" line="805"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Žádný z předdefinovaných adresářů TeXových programů nebyl nalezen.&lt;p&gt;&lt;small&gt;Pro spouštění těchto programů budete muset v dialogu Nastavení, záložka Sazba nastavit adresář (či adresáře) obsahující binární soubory vaší TeXové distribuce.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1154"/>
+        <location filename="../src/TWApp.cpp" line="1105"/>
         <source>Unable to find help file.</source>
         <translation>Nelze nalézt soubor nápovědy.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1343"/>
+        <location filename="../src/TWApp.cpp" line="1216"/>
         <source>Permission request</source>
         <translation>Žádost o oprávnění</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1344"/>
+        <location filename="../src/TWApp.cpp" line="1217"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Skript &quot;%1&quot; se pokouší otevřít soubor &quot;%2&quot; bez příslušného oprávnění. Chcete soubor otevřít?</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="56"/>
+        <location filename="../src/main.cpp" line="50"/>
         <source>Display this message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="57"/>
+        <location filename="../src/main.cpp" line="51"/>
         <source>Open the following file at the given position (line or page)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="58"/>
+        <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1785,101 +1872,133 @@ Use the context menu to change the units.</source>
 <context>
     <name>TWScriptAPI</name>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="217"/>
         <source>Internal error</source>
-        <translation>Vnitřní chyba</translation>
+        <translation type="vanished">Vnitřní chyba</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="232"/>
         <source>Failed to execute system command: %1</source>
-        <translation>Spuštění systémového příkazu selhalo: %1</translation>
+        <translation type="vanished">Spuštění systémového příkazu selhalo: %1</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="241"/>
         <source>Error executing system command: %1</source>
-        <translation>Chyba při spouštění systémového příkazu: %1</translation>
+        <translation type="vanished">Chyba při spouštění systémového příkazu: %1</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="258"/>
-        <location filename="../src/TWScriptAPI.cpp" line="280"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation>Spouštění systémových příkazů je zakázáno (viz Nastavení)</translation>
+        <translation type="vanished">Spouštění systémových příkazů je zakázáno (viz Nastavení)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="276"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation>&quot;%1&quot; se nepodařilo otevřít.</translation>
+        <translation type="vanished">&quot;%1&quot; se nepodařilo otevřít.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="324"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation>Čtení všech souborů je zakázáno (viz Nastavení)</translation>
+        <translation type="vanished">Čtení všech souborů je zakázáno (viz Nastavení)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptAPI.cpp" line="332"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation>Soubor &quot;%1&quot; se nepodařilo otevřít pro čtení</translation>
+        <translation type="vanished">Soubor &quot;%1&quot; se nepodařilo otevřít pro čtení</translation>
     </message>
 </context>
 <context>
     <name>TWScriptable</name>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="576"/>
-        <location filename="../src/TWScriptable.cpp" line="584"/>
         <source>Script &quot;%1&quot;: %2</source>
-        <translation>Skript &quot;%1&quot;: %2</translation>
+        <translation type="vanished">Skript &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="578"/>
         <source>Script result</source>
-        <translation>Výsledek skriptu</translation>
+        <translation type="vanished">Výsledek skriptu</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="583"/>
         <source>unknown error</source>
-        <translation>neznámá chyba</translation>
+        <translation type="vanished">neznámá chyba</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="584"/>
         <source>Script error</source>
-        <translation>Chyba skriptu</translation>
+        <translation type="vanished">Chyba skriptu</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="605"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation>Skripty lze použít k přidání nových příkazů do %1 a k rozšíření či modifikaci výchozího chování programu.</translation>
+        <translation type="vanished">Skripty lze použít k přidání nových příkazů do %1 a k rozšíření či modifikaci výchozího chování programu.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="608"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation>Informace o vytváření a používání skriptů lze nalézt na %1&lt;/p&gt;</translation>
+        <translation type="vanished">Informace o vytváření a používání skriptů lze nalézt na %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="610"/>
         <source>Scripting languages currently available in this copy of %1:</source>
-        <translation>Skriptovací jazyky aktuálně dostupné v této instalaci %1:</translation>
+        <translation type="vanished">Skriptovací jazyky aktuálně dostupné v této instalaci %1:</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="619"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation>(zakázáno v nastavení)</translation>
+        <translation type="vanished">(zakázáno v nastavení)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptable.cpp" line="623"/>
         <source>About Scripts</source>
-        <translation>O skriptech</translation>
+        <translation type="vanished">O skriptech</translation>
+    </message>
+</context>
+<context>
+    <name>TWScriptableWindow</name>
+    <message>
+        <location filename="../src/TWScriptableWindow.cpp" line="142"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="150"/>
+        <source>Script &quot;%1&quot;: %2</source>
+        <translation type="unfinished">Skript &quot;%1&quot;: %2</translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptableWindow.cpp" line="144"/>
+        <source>Script result</source>
+        <translation type="unfinished">Výsledek skriptu</translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptableWindow.cpp" line="149"/>
+        <source>unknown error</source>
+        <translation type="unfinished">neznámá chyba</translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptableWindow.cpp" line="150"/>
+        <source>Script error</source>
+        <translation type="unfinished">Chyba skriptu</translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptableWindow.cpp" line="171"/>
+        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
+        <translation type="unfinished">Skripty lze použít k přidání nových příkazů do %1 a k rozšíření či modifikaci výchozího chování programu.</translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptableWindow.cpp" line="174"/>
+        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
+        <translation type="unfinished">Informace o vytváření a používání skriptů lze nalézt na %1&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptableWindow.cpp" line="176"/>
+        <source>Scripting languages currently available in this copy of %1:</source>
+        <translation type="unfinished">Skriptovací jazyky aktuálně dostupné v této instalaci %1:</translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptableWindow.cpp" line="185"/>
+        <source>(disabled in the preferences)</source>
+        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
+        <translation type="unfinished">(zakázáno v nastavení)</translation>
+    </message>
+    <message>
+        <location filename="../src/TWScriptableWindow.cpp" line="189"/>
+        <source>About Scripts</source>
+        <translation type="unfinished">O skriptech</translation>
     </message>
 </context>
 <context>
     <name>TWSystemCmd</name>
     <message>
-        <location filename="../src/TWSystemCmd.cpp" line="57"/>
+        <location filename="../src/TWSystemCmd.cpp" line="55"/>
         <source>ERROR: failure code %1</source>
         <translation>CHYBA: kód chyby %1</translation>
     </message>
     <message>
-        <location filename="../src/TWSystemCmd.cpp" line="74"/>
+        <location filename="../src/TWSystemCmd.cpp" line="72"/>
         <source>ERROR: exit code %1</source>
         <translation>CHYBA: návratový kód %1</translation>
     </message>
@@ -1887,98 +2006,98 @@ Use the context menu to change the units.</source>
 <context>
     <name>TagsDock</name>
     <message>
-        <location filename="../src/TeXDocks.cpp" line="51"/>
+        <location filename="../src/TeXDocks.cpp" line="47"/>
         <source>Tags</source>
         <translation>Značky</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocks.cpp" line="77"/>
+        <location filename="../src/TeXDocks.cpp" line="69"/>
         <source>Bookmarks</source>
         <translation>Záložky</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocks.cpp" line="82"/>
+        <location filename="../src/TeXDocks.cpp" line="74"/>
         <source>Outline</source>
         <translation>Struktura</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocks.cpp" line="118"/>
+        <location filename="../src/TeXDocks.cpp" line="110"/>
         <source>No tags</source>
         <translation>Žádné značky</translation>
     </message>
 </context>
 <context>
-    <name>TeXDocument</name>
+    <name>TeXDocumentWindow</name>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="80"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="73"/>
         <source>New document</source>
         <translation>Nový dokument</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="193"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="196"/>
         <source>Open Recent</source>
         <translation>Nedávné soubory</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="806"/>
-        <location filename="../src/TeXDocument.ui" line="964"/>
-        <location filename="../src/TeXDocument.ui" line="975"/>
-        <location filename="../src/TeXDocument.ui" line="1016"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="809"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="967"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="978"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1019"/>
         <source>None</source>
         <translation>Vypnuto</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="600"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="581"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="668"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="649"/>
         <source>Abort typesetting?</source>
         <translation>Zrušit sazbu?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="668"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="649"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation>Proces sazby stále běží a před zavřením tohoto okna je třeba jej ukončit.
 Chcete jej ukončit nyní?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="791"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="771"/>
         <source>Save File</source>
         <translation>Uložit soubor</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="829"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="810"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Dokument &quot;%1&quot; byl změněn.
 Chcete své změny uložit?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="834"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="815"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="866"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="847"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>Chcete zahodit všechny změny dokumentu &quot;%1&quot; a vrátit se k poslední uložené verzi?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="868"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="849"/>
         <source>Revert</source>
         <translation>Vrátit se</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="981"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="961"/>
         <source>Unrecognized encoding</source>
         <translation>Neznámé kódování</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="982"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="962"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -1987,14 +2106,14 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 Místo toho bude použito kódování %3; výsledný text proto může obsahovat nesprávné znaky.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1217"/>
-        <location filename="../src/TeXDocument.cpp" line="1278"/>
-        <location filename="../src/TeXDocument.cpp" line="1371"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1198"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1259"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1352"/>
         <source>File changed on disk</source>
         <translation>Dokument změněn na disku</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1218"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1199"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2003,7 +2122,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Chcete zahodit své aktuální změny a znovu načíst soubor z disku?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1372"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1353"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2012,17 +2131,17 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Chcete přesto soubor uložit a přepsat tak stávající verzi na disku?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1377"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1358"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>Dokument &quot;%1&quot; nebyl uložen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1399"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1380"/>
         <source>Text cannot be converted</source>
         <translation>Text nelze zkonvertovat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1400"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1381"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -2031,37 +2150,37 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 Pokud se rozhodnete pokračovat, budou tyto nahrazeny výchozími kódy. V opačném případě raději zvolte jiné kódování (jako např. UTF-8), abyste zabránili ztrátě dat.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="869"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="850"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="518"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="499"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="521"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="502"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="964"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="945"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Nelze číst ze souboru &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1084"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1065"/>
         <source>Layout Problem</source>
         <translation>Vykreslovací problém</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1084"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1065"/>
         <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
  -) Turn syntax highlighting off and on
  -) Turn line numbers off and on
@@ -2076,12 +2195,12 @@ We are sorry for the inconvenience.</source>
 Za tuto nepříjemnost se omlouváme.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1113"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1094"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Soubor &quot;%1&quot; načten</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1279"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1260"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2090,87 +2209,87 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Použijte prosím &quot;Soubor &gt; Návrat k uložené verzi&quot;, jakmile externí program skončí.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1414"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1395"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Nelze zapsat soubor &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1432"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1412"/>
         <source>Error writing file</source>
         <translation>Chyba při zápisu souboru</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1433"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1413"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>Při ukládání souboru došlo k chybě. Zkuste uložit kopii na jiném místě.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1442"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1422"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>Soubor &quot;%1&quot; uložen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1478"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1458"/>
         <source>untitled-%1.tex</source>
         <translation>bez_nazvu-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1496"/>
-        <location filename="../src/TeXDocument.cpp" line="1550"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1476"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1530"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1610"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1590"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Řádek %1 z %2; sl. %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1620"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1600"/>
         <source>LF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1623"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1603"/>
         <source>CRLF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1626"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1606"/>
         <source>CR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1630"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1610"/>
         <source>*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1638"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1618"/>
         <source>LF (Unix, Mac OS X)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1639"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1619"/>
         <source>CRLF (Windows)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1640"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1620"/>
         <source>CR (Mac Classic)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1665"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1645"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>Obnovit za použití zvoleného kódování</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1667"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1647"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2180,17 +2299,17 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 Zvolené kódování nahradí to výchozí a rovněž všechny řádky s &quot;%!TEX encoding&quot; budou ignorovány.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1668"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1648"/>
         <source>Write UTF-8 byte order mark</source>
         <translation>Zapsat UTF-8 byte order mark</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1690"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1670"/>
         <source>Unsaved changes</source>
         <translation>Neuložené změny</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1691"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1671"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2199,37 +2318,35 @@ Do you want to discard your current changes, and reload the file from disk with 
 Chcete stávající změny zahodit a obnovit soubor z disku za použití kódování %1?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1829"/>
-        <location filename="../src/TeXDocument.cpp" line="1833"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1794"/>
         <source>Go to Line</source>
         <translation>Přejít na řádek</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1830"/>
-        <location filename="../src/TeXDocument.cpp" line="1834"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1795"/>
         <source>Line number:</source>
         <translation>Číslo řádku:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="1981"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1947"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2253"/>
-        <location filename="../src/TeXDocument.cpp" line="2367"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2226"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2338"/>
         <source>Invalid regular expression</source>
         <translation>Neplatný regulární výraz</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2299"/>
-        <location filename="../src/TeXDocument.cpp" line="2336"/>
-        <location filename="../src/TeXDocument.cpp" line="2453"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2272"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2309"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2426"/>
         <source>Not found</source>
         <translation>Nenalezeno</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2303"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2276"/>
         <source>Found %n occurrence(s)</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -2239,7 +2356,7 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2472"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2445"/>
         <source>%n occurrence(s)</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -2249,7 +2366,7 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2473"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2446"/>
         <source>%n documents</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -2259,12 +2376,12 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2474"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2447"/>
         <source>Replaced %1 in %2</source>
         <translation>Nahrazeno %1 v %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocument.cpp" line="2486"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2459"/>
         <source>Replaced %n occurrence(s)</source>
         <translatorcomment>incorrect for 3 and 4</translatorcomment>
         <translation>
@@ -2274,646 +2391,646 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2674"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2660"/>
         <source>Cannot process unsaved document</source>
         <translation>Nelze zpracovat neuložený dokument</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2685"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2671"/>
         <source>Root document %1 is not readable</source>
         <translation>Kořenový dokument %1 nelze otevřít</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2691"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2677"/>
         <source>%1 is not properly configured</source>
         <translation>%1 není správně nakonfigurováno</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2737"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2723"/>
         <source>Unable to execute %1</source>
         <translation>Nelze spustit %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2738"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2724"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Program &quot;%1&quot; nebyl nalezen.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2740"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2726"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Pro vysázení vašeho dokumentu potřebujete mít nainstalovánu distribuci TeXu, jako např. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; nebo &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2742"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2728"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Pro vysázení vašeho dokumentu potřebujete mít nainstalovánu distribuci TeXu, jako např. &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2744"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2730"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>Pro vysázení vašeho dokumentu potřebujete mít nainstalovánu distribuci TeXu, jako např. &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;. TeXové distribuce jsou dostupné pro většinu systémů ve formě předkompilovaných balíčků.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2746"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2732"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>Jakmile je distribuce TeXu nainstalována, je možné, že bude třeba nastavit cestu k ní v Úpravy -&gt; Nastavení... -&gt; Sazba.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2749"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2735"/>
         <source>Searched in directories:</source>
         <translation>Hledáno v adresářích:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2751"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2737"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>Zkontrolujte nastavení nástroje %1 a cesty v dialogu Nastavení.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2938"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2927"/>
         <source>Show Console Output</source>
         <translation>Zobrazit výstup na konzoli</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2781"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2767"/>
         <source>Abort typesetting</source>
         <translation>Zrušit sazbu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="2801"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2787"/>
         <source>Process interrupted by user</source>
         <translation>Proces přerušen uživatelem</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3025"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3013"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Nastavit překladač na &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3029"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3017"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>Překladač &quot;%1&quot; není definován</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3139"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3127"/>
         <source>No files found</source>
         <translation>Žádný soubor nenalezen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.cpp" line="3140"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3128"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Momentálně nejsou k tomuto dokumentu přidruženy žádné pomocné soubory.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="17"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="17"/>
         <source>untitled.tex[*]</source>
         <translation>bez_nazvu.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="76"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="76"/>
         <source>Console output</source>
         <translation>Výstup na konzoli</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="189"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="192"/>
         <source>File</source>
         <translation>Soubor</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="214"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="217"/>
         <source>Edit</source>
         <translation>Úpravy</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="218"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="221"/>
         <source>Spelling</source>
         <translation>Kontrola pravopisu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="225"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="228"/>
         <source>Change Case</source>
         <translation>Změnit velká/malá písmena</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="249"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="252"/>
         <source>Typeset</source>
         <comment>menu title</comment>
         <translation>Vysázet</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="256"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="259"/>
         <source>Window</source>
         <translation>Okno</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="260"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="263"/>
         <source>Show</source>
         <translation>Zobrazit</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="277"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="280"/>
         <source>Search</source>
         <translation>Hledat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="293"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="296"/>
         <source>Format</source>
         <translation>Formát</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="297"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="300"/>
         <source>Auto-indent Mode</source>
         <translation>Režim automatického odsazování</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="304"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="307"/>
         <source>Syntax Coloring</source>
         <translation>Zvýrazňování syntaxe</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="311"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="314"/>
         <source>Smart Quotes</source>
         <translation>Automatické uvozovky</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="334"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="337"/>
         <source>Help</source>
         <translation>Nápověda</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="344"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="347"/>
         <source>Scripts</source>
         <translation>Skripty</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="348"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="351"/>
         <source>Scripting TeXworks</source>
         <translation>Skriptování TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="369"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="372"/>
         <source>Typeset Toolbar</source>
         <translation>Lišta sazby</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="393"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="396"/>
         <source>Edit Toolbar</source>
         <translation>Lišta editace</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="440"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="443"/>
         <source>New</source>
         <translation>Nový</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="443"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="446"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="455"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="458"/>
         <source>Open...</source>
         <translation>Otevřít...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="458"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="461"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="466"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="469"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="469"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="472"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="481"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="484"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="484"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="487"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="492"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="495"/>
         <source>Save As...</source>
         <translation>Uložit jako...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="495"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="498"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="506"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="509"/>
         <source>Revert to Saved</source>
         <translation>Návrat k uložené verzi</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="521"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="524"/>
         <source>Undo</source>
         <translation>Zpět</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="524"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="527"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="539"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="542"/>
         <source>Redo</source>
         <translation>Znovu</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="542"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="545"/>
         <source>Ctrl+Shift+Z</source>
         <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="557"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="560"/>
         <source>Cut</source>
         <translation>Vyjmout</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="560"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="563"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="575"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="578"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="578"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="581"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="593"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="596"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="596"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="599"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="607"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="610"/>
         <source>Clear</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="619"/>
-        <location filename="../src/TeXDocument.cpp" line="2773"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="622"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2759"/>
         <source>Typeset</source>
         <translation>Vysázet</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="622"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="625"/>
         <source>Ctrl+T</source>
         <comment>action</comment>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="634"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="637"/>
         <source>Find...</source>
         <translation>Hledat...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="637"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="640"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="645"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="648"/>
         <source>Find Again</source>
         <translation>Hledat další</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="648"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="651"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="660"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="663"/>
         <source>Replace...</source>
         <translation>Nahradit...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="663"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="666"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="671"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="674"/>
         <source>Copy to Find</source>
         <translation>Kopírovat do Hledat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="674"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="677"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="682"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="685"/>
         <source>Copy to Replace</source>
         <translation>Kopírovat do Nahradit</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="685"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="688"/>
         <source>Ctrl+Shift+E</source>
         <translation>Ctrl+Shift+E</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="693"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="696"/>
         <source>Go to Line...</source>
         <translation>Přejít na řádek...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="696"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="699"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="704"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="707"/>
         <source>Find Selection</source>
         <translation>Hledat výběr</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="707"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="710"/>
         <source>Ctrl+H</source>
         <translation>Ctrl+H</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="715"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="718"/>
         <source>Select All</source>
         <translation>Vybrat vše</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="718"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="721"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="726"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="729"/>
         <source>Font...</source>
         <translation>Písmo...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="738"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="741"/>
         <source>Indent</source>
         <translation>Odsadit</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="741"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="744"/>
         <source>Ctrl+]</source>
         <translation>Ctrl+]</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="753"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="756"/>
         <source>Unindent</source>
         <translation>Zrušit odsazení</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="756"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="759"/>
         <source>Ctrl+[</source>
         <translation>Ctrl+[</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="764"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="767"/>
         <source>Comment</source>
         <translation>Zakomentovat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="767"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="770"/>
         <source>Ctrl+Shift+]</source>
         <translation>Ctrl+Shift+]</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="775"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="778"/>
         <source>Uncomment</source>
         <translation>Odkomentovat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="778"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="781"/>
         <source>Ctrl+Shift+[</source>
         <translation>Ctrl+Shift+[</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="792"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="795"/>
         <source>Wrap Lines</source>
         <translation>Zalamování řádků</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="814"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="817"/>
         <source>About TeXworks...</source>
         <translation>O aplikaci TeXworks...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="822"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="825"/>
         <source>Stack</source>
         <translation>Kaskádově</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="830"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="833"/>
         <source>Tile</source>
         <translation>Dlaždicově</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="842"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="845"/>
         <source>Preferences...</source>
         <translation>Nastavení...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="853"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="856"/>
         <source>Go to Preview</source>
         <translation>Přejít na náhled</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="856"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="859"/>
         <source>Ctrl+&apos;</source>
         <translation>Ctrl+&apos;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="864"/>
-        <location filename="../src/TeXDocument.cpp" line="2931"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="867"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2920"/>
         <source>Hide Console Output</source>
         <translation>Skrýt výstup na konzoli</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="867"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="870"/>
         <source>Ctrl+\</source>
         <translation>Ctrl+\</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="875"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="878"/>
         <source>New from Template...</source>
         <translation>Nový ze šablony...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="878"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="881"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="886"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="889"/>
         <source>Show Selection</source>
         <translation>Zobrazit výběr</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="889"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="892"/>
         <source>Ctrl+=</source>
         <translation>Ctrl+=</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="900"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="903"/>
         <source>ALL UPPERCASE</source>
         <translation>VŠE VELKÉ</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="911"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="914"/>
         <source>all lowercase</source>
         <translation>vše malé</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="919"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="922"/>
         <source>Balance Delimiters</source>
         <translation>Spárovat závorky</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="922"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="925"/>
         <source>Ctrl+B</source>
         <translation>Ctrl+B</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="930"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="933"/>
         <source>Go to TeXworks home page</source>
         <translation>Domovská stránka TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="935"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="938"/>
         <source>Email to the mailing list</source>
         <translation>Poslat e-mail do elektronické konference</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="943"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="946"/>
         <source>Side by Side</source>
         <translation>Vedle sebe</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="948"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="951"/>
         <source>Place on Left</source>
         <translation>Umístit vlevo</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="953"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="956"/>
         <source>Place on Right</source>
         <translation>Umístit vpravo</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="980"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="983"/>
         <source>Replace Again</source>
         <translation>Nahradit další</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="983"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="986"/>
         <source>Ctrl+Shift+R</source>
         <translation>Ctrl+Shift+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="991"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="994"/>
         <source>Remove Aux Files...</source>
         <translation>Odstranit pomocné soubory...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="999"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1002"/>
         <source>Quit TeXworks</source>
         <translation>Ukončit TeXworks</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1002"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1005"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1027"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1030"/>
         <source>Toggle Case</source>
         <translation>Invertovat</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1035"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1038"/>
         <source>Hard Wrap...</source>
         <translation>Zalomit natvrdo...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1046"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1049"/>
         <source>Line Numbers</source>
         <translation>Čísla řádků</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1054"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1057"/>
         <source>Show Scripts Folder</source>
         <translation>Zobrazit adresář se skripty</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1062"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1065"/>
         <source>Reload Script List</source>
         <translation>Obnovit seznam skriptů</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1070"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1073"/>
         <source>Manage Scripts</source>
         <translation>Správa skriptů</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1084"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1087"/>
         <source>Auto-Follow Focus</source>
         <translation>Automaticky posouvat PDF</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1092"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1095"/>
         <source>About Scripts...</source>
         <translation>O skriptech...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1100"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1103"/>
         <source>Apply to Selection</source>
         <translation>Použít na výběr</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1108"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1111"/>
         <source>Save All</source>
         <translation>Uložit vše</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1111"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1114"/>
         <source>Ctrl+Alt+S</source>
         <translation>Ctrl+Alt+S</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1119"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1122"/>
         <source>Settings and Resources...</source>
         <translation>Nastavení a zdroje...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1130"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1133"/>
         <source>Clear Recent Files</source>
         <translation>Vyčistit nedávnou historii</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1135"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1138"/>
         <source>Insert Citations...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocument.ui" line="1138"/>
+        <location filename="../src/TeXDocumentWindow.ui" line="1141"/>
         <source>Ctrl+Shift+C</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2921,7 +3038,7 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
 <context>
     <name>TeXHighlighter</name>
     <message>
-        <location filename="../src/TeXHighlighter.cpp" line="183"/>
+        <location filename="../src/TeXHighlighter.cpp" line="186"/>
         <source>default</source>
         <translation>výchozí</translation>
     </message>
@@ -2942,22 +3059,22 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="862"/>
+        <location filename="../src/PrefsDialog.cpp" line="864"/>
         <source>Select program file</source>
         <translation>Zvolte program</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="867"/>
+        <location filename="../src/PrefsDialog.cpp" line="869"/>
         <source>Invalid program</source>
         <translation>Neplatný program</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="868"/>
+        <location filename="../src/PrefsDialog.cpp" line="870"/>
         <source>The file &apos;%1&apos; is not executable!</source>
         <translation>Soubor &apos;%1&apos; není spustitelný!</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="911"/>
+        <location filename="../src/PrefsDialog.cpp" line="913"/>
         <source>NewArgument</source>
         <translation>NovýArgument</translation>
     </message>
@@ -2993,6 +3110,37 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         <location filename="../src/ToolConfig.ui" line="148"/>
         <source>View PDF after running</source>
         <translation>Následně zobrazit PDF</translation>
+    </message>
+</context>
+<context>
+    <name>Tw::Scripting::ScriptAPI</name>
+    <message>
+        <source>Internal error</source>
+        <translation type="obsolete">Vnitřní chyba</translation>
+    </message>
+    <message>
+        <source>Failed to execute system command: %1</source>
+        <translation type="obsolete">Spuštění systémového příkazu selhalo: %1</translation>
+    </message>
+    <message>
+        <source>Error executing system command: %1</source>
+        <translation type="obsolete">Chyba při spouštění systémového příkazu: %1</translation>
+    </message>
+    <message>
+        <source>System command execution is disabled (see Preferences)</source>
+        <translation type="obsolete">Spouštění systémových příkazů je zakázáno (viz Nastavení)</translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; could not be opened.</source>
+        <translation type="obsolete">&quot;%1&quot; se nepodařilo otevřít.</translation>
+    </message>
+    <message>
+        <source>Reading all files is disabled (see Preferences)</source>
+        <translation type="obsolete">Čtení všech souborů je zakázáno (viz Nastavení)</translation>
+    </message>
+    <message>
+        <source>The file &quot;%1&quot; could not be opened for reading</source>
+        <translation type="obsolete">Soubor &quot;%1&quot; se nepodařilo otevřít pro čtení</translation>
     </message>
 </context>
 </TS>
