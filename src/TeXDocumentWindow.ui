@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TeXDocument</class>
- <widget class="QMainWindow" name="TeXDocument">
+ <class>TeXDocumentWindow</class>
+ <widget class="QMainWindow" name="TeXDocumentWindow">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -28,7 +28,7 @@ SOURCES = \
   "../src/TWTextCodecs.cpp" \
   "../src/TWUtils.cpp" \
   "../src/TeXDocks.cpp" \
-  "../src/TeXDocument.cpp" \
+  "../src/TeXDocumentWindow.cpp" \
   "../src/TeXHighlighter.cpp" \
   "../src/TemplateDialog.cpp" \
   "../src/document/SpellChecker.cpp" \
@@ -70,7 +70,7 @@ HEADERS = \
   "../src/TWUtils.h" \
   "../src/TWVersion.h" \
   "../src/TeXDocks.h" \
-  "../src/TeXDocument.h" \
+  "../src/TeXDocumentWindow.h" \
   "../src/TeXHighlighter.h" \
   "../src/TemplateDialog.h" \
   "../src/document/SpellChecker.h" \
@@ -95,7 +95,7 @@ FORMS = \
   "../src/ResourcesDialog.ui" \
   "../src/ScriptManagerWidget.ui" \
   "../src/SearchResults.ui" \
-  "../src/TeXDocument.ui" \
+  "../src/TeXDocumentWindow.ui" \
   "../src/TemplateDialog.ui" \
   "../src/ToolConfig.ui"
 

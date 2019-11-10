@@ -19,7 +19,7 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "TeXDocument.h"
+#include "TeXDocumentWindow.h"
 #include "TeXHighlighter.h"
 #include "TeXDocks.h"
 #include "FindDialog.h"
@@ -65,21 +65,21 @@
 #include <windows.h>
 #endif
 
-QList<TeXDocument*> TeXDocument::docList;
+QList<TeXDocumentWindow*> TeXDocumentWindow::docList;
 
-TeXDocument::TeXDocument()
+TeXDocumentWindow::TeXDocumentWindow()
 {
 	init();
 	statusBar()->showMessage(tr("New document"), kStatusMessageDuration);
 }
 
-TeXDocument::TeXDocument(const QString &fileName, bool asTemplate)
+TeXDocumentWindow::TeXDocumentWindow(const QString &fileName, bool asTemplate)
 {
 	init();
 	loadFile(fileName, asTemplate);
 }
 
-TeXDocument::~TeXDocument()
+TeXDocumentWindow::~TeXDocumentWindow()
 {
 	docList.removeAll(this);
 	updateWindowMenu();
@@ -89,7 +89,7 @@ static bool dictActionLessThan(const QAction * a1, const QAction * a2) {
 	return a1->text().toLower() < a2->text().toLower();
 }
 
-void TeXDocument::init()
+void TeXDocumentWindow::init()
 {
 	codec = TWApp::instance()->getDefaultCodec();
 	pdfDoc = nullptr;
@@ -387,7 +387,7 @@ void TeXDocument::init()
 	delayedInit();
 }
 
-void TeXDocument::changeEvent(QEvent *event)
+void TeXDocumentWindow::changeEvent(QEvent *event)
 {
 	if (event->type() == QEvent::LanguageChange) {
 		QString title = windowTitle();
@@ -405,7 +405,7 @@ void TeXDocument::changeEvent(QEvent *event)
 	QMainWindow::changeEvent(event);
 }
 
-void TeXDocument::setLangInternal(const QString& lang)
+void TeXDocumentWindow::setLangInternal(const QString& lang)
 {
 	// called internally by the spelling menu actions;
 	// not for use from scripts as it won't update the menu
@@ -424,7 +424,7 @@ void TeXDocument::setLangInternal(const QString& lang)
 		highlighter->setSpellChecker(_dictionary);
 }
 
-void TeXDocument::setSpellcheckLanguage(const QString& lang)
+void TeXDocumentWindow::setSpellcheckLanguage(const QString& lang)
 {
 	// this is called by the %!TEX spellcheck... line, or by scripts;
 	// it searches the menu for the given language code, and triggers it if available
@@ -455,13 +455,13 @@ void TeXDocument::setSpellcheckLanguage(const QString& lang)
 	}
 }
 
-QString TeXDocument::spellcheckLanguage() const
+QString TeXDocumentWindow::spellcheckLanguage() const
 {
 	if (!_dictionary) return QString();
 	return _dictionary->getLanguage();
 }
 
-void TeXDocument::reloadSpellcheckerMenu()
+void TeXDocumentWindow::reloadSpellcheckerMenu()
 {
 	Q_ASSERT(menuSpelling);
 	Q_ASSERT(!menuSpelling->actions().empty());
@@ -517,37 +517,37 @@ void TeXDocument::reloadSpellcheckerMenu()
 		menuSpelling->addAction(dictAction);
 }
 
-void TeXDocument::clipboardChanged()
+void TeXDocumentWindow::clipboardChanged()
 {
 	actionPaste->setEnabled(textEdit->canPaste());
 }
 
-void TeXDocument::editMenuAboutToShow()
+void TeXDocumentWindow::editMenuAboutToShow()
 {
 //	undoAction->setText(tr("Undo ") + undoStack->undoText());
 //	redoAction->setText(tr("Redo ") + undoStack->redoText());
 	actionSelect_All->setEnabled(!textEdit->document()->isEmpty());
 }
 
-void TeXDocument::newFile()
+void TeXDocumentWindow::newFile()
 {
-	TeXDocument *doc = new TeXDocument;
+	TeXDocumentWindow *doc = new TeXDocumentWindow;
 	doc->selectWindow();
 	doc->textEdit->updateLineNumberAreaWidth(0);
 	doc->runHooks(QString::fromLatin1("NewFile"));
 }
 
-void TeXDocument::newFromTemplate()
+void TeXDocumentWindow::newFromTemplate()
 {
 	QString templateName = TemplateDialog::doTemplateDialog();
 	if (!templateName.isEmpty()) {
-		TeXDocument *doc = nullptr;
+		TeXDocumentWindow *doc = nullptr;
 		if (isUntitled && textEdit->document()->isEmpty() && !isWindowModified()) {
 			loadFile(templateName, true);
 			doc = this;
 		}
 		else {
-			doc = new TeXDocument(templateName, true);
+			doc = new TeXDocumentWindow(templateName, true);
 		}
 		if (doc) {
 			doc->makeUntitled();
@@ -558,13 +558,13 @@ void TeXDocument::newFromTemplate()
 	}
 }
 
-void TeXDocument::makeUntitled()
+void TeXDocumentWindow::makeUntitled()
 {
 	setCurrentFile(QString());
 	actionRemove_Aux_Files->setEnabled(false);
 }
 
-void TeXDocument::open()
+void TeXDocumentWindow::open()
 {
 	QFileDialog::Options options;
 #if defined(Q_OS_DARWIN)
@@ -586,9 +586,9 @@ void TeXDocument::open()
 	}
 }
 
-TeXDocument* TeXDocument::open(const QString &fileName)
+TeXDocumentWindow* TeXDocumentWindow::open(const QString &fileName)
 {
-	TeXDocument *doc = nullptr;
+	TeXDocumentWindow *doc = nullptr;
 	if (!fileName.isEmpty()) {
 		doc = findDocument(fileName);
 		if (!doc) {
@@ -597,7 +597,7 @@ TeXDocument* TeXDocument::open(const QString &fileName)
 				doc = this;
 			}
 			else {
-				doc = new TeXDocument(fileName);
+				doc = new TeXDocumentWindow(fileName);
 				if (doc->isUntitled) {
 					delete doc;
 					doc = nullptr;
@@ -610,16 +610,16 @@ TeXDocument* TeXDocument::open(const QString &fileName)
 	return doc;
 }
 
-TeXDocument* TeXDocument::openDocument(const QString &fileName, bool activate, bool raiseWindow, int lineNo, int selStart, int selEnd) // static
+TeXDocumentWindow* TeXDocumentWindow::openDocument(const QString &fileName, bool activate, bool raiseWindow, int lineNo, int selStart, int selEnd) // static
 {
-	TeXDocument *doc = findDocument(fileName);
+	TeXDocumentWindow *doc = findDocument(fileName);
 	if (!doc) {
 		if (docList.count() == 1) {
 			doc = docList[0];
 			doc = doc->open(fileName); // open into existing window if untitled/empty
 		}
 		else {
-			doc = new TeXDocument(fileName);
+			doc = new TeXDocumentWindow(fileName);
 			if (doc->isUntitled) {
 				delete doc;
 				doc = nullptr;
@@ -643,7 +643,7 @@ TeXDocument* TeXDocument::openDocument(const QString &fileName, bool activate, b
 	return doc;
 }
 
-void TeXDocument::closeEvent(QCloseEvent *event)
+void TeXDocumentWindow::closeEvent(QCloseEvent *event)
 {
 	if (process) {
 		if (QMessageBox::question(this, tr("Abort typesetting?"), tr("A typesetting process is still running and must be stopped before closing this window.\nDo you want to stop it now?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::No) {
@@ -662,7 +662,7 @@ void TeXDocument::closeEvent(QCloseEvent *event)
 		event->ignore();
 }
 
-bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/qq/qq18-macfeatures.html
+bool TeXDocumentWindow::event(QEvent *event) // based on example at doc.trolltech.com/qq/qq18-macfeatures.html
 {
 	switch (event->type()) {
 		case QEvent::IconDrag:
@@ -725,7 +725,7 @@ bool TeXDocument::event(QEvent *event) // based on example at doc.trolltech.com/
 	return QMainWindow::event(event);
 }
 
-void TeXDocument::openAt(QAction *action)
+void TeXDocumentWindow::openAt(QAction *action)
 {
 	QString path = curFile.left(curFile.indexOf(action->text())) + action->text();
 	if (path == curFile)
@@ -735,17 +735,17 @@ void TeXDocument::openAt(QAction *action)
 	proc.waitForFinished();
 }
 
-bool TeXDocument::save()
+bool TeXDocumentWindow::save()
 {
 	if (isUntitled)
 		return saveAs();
 	return saveFile(curFile);
 }
 
-bool TeXDocument::saveAll()
+bool TeXDocumentWindow::saveAll()
 {
 	bool savedAll = true;
-	foreach (TeXDocument* doc, docList) {
+	foreach (TeXDocumentWindow* doc, docList) {
 		if (doc->textEdit->document()->isModified()) {
 			if (!doc->save()) {
 				savedAll = false;
@@ -755,7 +755,7 @@ bool TeXDocument::saveAll()
 	return savedAll;
 }
 
-bool TeXDocument::saveAs()
+bool TeXDocumentWindow::saveAs()
 {
 	QFileDialog::Options options;
 #if defined(Q_OS_WIN)
@@ -802,7 +802,7 @@ bool TeXDocument::saveAs()
 	return saveFile(fileName);
 }
 
-bool TeXDocument::maybeSave()
+bool TeXDocumentWindow::maybeSave()
 {
 	if (textEdit->document()->isModified()) {
 		QMessageBox::StandardButton ret;
@@ -823,9 +823,9 @@ bool TeXDocument::maybeSave()
 	return true;
 }
 
-bool TeXDocument::saveFilesHavingRoot(const QString& aRootFile)
+bool TeXDocumentWindow::saveFilesHavingRoot(const QString& aRootFile)
 {
-	foreach (TeXDocument* doc, docList) {
+	foreach (TeXDocumentWindow* doc, docList) {
 		if (doc->getRootFilePath() == aRootFile) {
 			if (doc->textEdit->document()->isModified() && !doc->save())
 				return false;
@@ -834,13 +834,13 @@ bool TeXDocument::saveFilesHavingRoot(const QString& aRootFile)
 	return true;
 }
 
-const QString& TeXDocument::getRootFilePath()
+const QString& TeXDocumentWindow::getRootFilePath()
 {
 	findRootFilePath();
 	return rootFilePath;
 }
 
-void TeXDocument::revert()
+void TeXDocumentWindow::revert()
 {
 	if (!isUntitled) {
 		QMessageBox	messageBox(QMessageBox::Warning, tr(TEXWORKS_NAME),
@@ -856,7 +856,7 @@ void TeXDocument::revert()
 	}
 }
 
-void TeXDocument::maybeEnableSaveAndRevert(bool modified)
+void TeXDocumentWindow::maybeEnableSaveAndRevert(bool modified)
 {
 	actionSave->setEnabled(modified || isUntitled);
 	actionRevert_to_Saved->setEnabled(modified && !isUntitled);
@@ -891,7 +891,7 @@ static const char* texshopSynonyms[] = {
 	nullptr
 };
 
-QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName)
+QTextCodec *TeXDocumentWindow::scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName)
 {
 	// peek at the file for %!TEX encoding = ....
 	QRegularExpression re(QStringLiteral(u"% *!TEX +encoding *= *([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
@@ -919,7 +919,7 @@ QTextCodec *TeXDocument::scanForEncoding(const QString &peekStr, bool &hasMetada
 
 #define PEEK_LENGTH 1024
 
-QString TeXDocument::readFile(const QString &fileName,
+QString TeXDocumentWindow::readFile(const QString &fileName,
 							  QTextCodec **codecUsed,
 							  int *lineEndings,
 							  QTextCodec * forceCodec)
@@ -1006,7 +1006,7 @@ QString TeXDocument::readFile(const QString &fileName,
 	return text;
 }
 
-void TeXDocument::loadFile(const QString &fileName, bool asTemplate /* = false */, bool inBackground /* = false */, bool reload /* = false */, QTextCodec * forceCodec /* = nullptr */)
+void TeXDocumentWindow::loadFile(const QString &fileName, bool asTemplate /* = false */, bool inBackground /* = false */, bool reload /* = false */, QTextCodec * forceCodec /* = nullptr */)
 {
 	QString fileContents = readFile(fileName, &codec, &lineEndings, forceCodec);
 	showLineEndingSetting();
@@ -1149,7 +1149,7 @@ void TeXDocument::loadFile(const QString &fileName, bool asTemplate /* = false *
 	runHooks(QString::fromLatin1("LoadFile"));
 }
 
-void TeXDocument::delayedInit()
+void TeXDocumentWindow::delayedInit()
 {
 	if (!highlighter) {
 		Tw::Settings settings;
@@ -1184,7 +1184,7 @@ void TeXDocument::delayedInit()
 }
 
 #define FILE_MODIFICATION_ACCURACY	1000	// in msec
-void TeXDocument::reloadIfChangedOnDisk()
+void TeXDocumentWindow::reloadIfChangedOnDisk()
 {
 	if (isUntitled || !lastModified.isValid())
 		return;
@@ -1295,7 +1295,7 @@ void TeXDocument::reloadIfChangedOnDisk()
 }
 
 // get expected name of the Preview file, and return whether it exists
-bool TeXDocument::getPreviewFileName(QString &pdfName)
+bool TeXDocumentWindow::getPreviewFileName(QString &pdfName)
 {
 	findRootFilePath();
 	if (rootFilePath.isEmpty())
@@ -1306,7 +1306,7 @@ bool TeXDocument::getPreviewFileName(QString &pdfName)
 	return fi.exists();
 }
 
-bool TeXDocument::openPdfIfAvailable(bool show)
+bool TeXDocumentWindow::openPdfIfAvailable(bool show)
 {
 	detachPdf();
 	actionSide_by_Side->setEnabled(false);
@@ -1338,13 +1338,13 @@ bool TeXDocument::openPdfIfAvailable(bool show)
 	return false;
 }
 
-void TeXDocument::pdfClosed()
+void TeXDocumentWindow::pdfClosed()
 {
 	pdfDoc = nullptr;
 	actionSide_by_Side->setEnabled(false);
 }
 
-bool TeXDocument::saveFile(const QString &fileName)
+bool TeXDocumentWindow::saveFile(const QString &fileName)
 {
 	QFileInfo fileInfo(fileName);
 	QDateTime fileModified = fileInfo.lastModified();
@@ -1427,7 +1427,7 @@ bool TeXDocument::saveFile(const QString &fileName)
 	return true;
 }
 
-void TeXDocument::clearFileWatcher()
+void TeXDocumentWindow::clearFileWatcher()
 {
 	const QStringList files = watcher->files();
 	if (files.count() > 0)
@@ -1437,7 +1437,7 @@ void TeXDocument::clearFileWatcher()
 		watcher->removePaths(dirs);	
 }
 
-void TeXDocument::setupFileWatcher()
+void TeXDocumentWindow::setupFileWatcher()
 {
 	clearFileWatcher();
 	if (!isUntitled) {
@@ -1448,7 +1448,7 @@ void TeXDocument::setupFileWatcher()
 	}
 }	
 
-void TeXDocument::setCurrentFile(const QString &fileName)
+void TeXDocumentWindow::setCurrentFile(const QString &fileName)
 {
 
 	curFile = QFileInfo(fileName).canonicalFilePath();
@@ -1480,7 +1480,7 @@ void TeXDocument::setCurrentFile(const QString &fileName)
 	TWApp::instance()->updateWindowMenus();
 }
 
-void TeXDocument::saveRecentFileInfo()
+void TeXDocumentWindow::saveRecentFileInfo()
 {
 	if (isUntitled)
 		return;
@@ -1507,12 +1507,12 @@ void TeXDocument::saveRecentFileInfo()
 	TWApp::instance()->addToRecentFiles(fileProperties);
 }
 
-void TeXDocument::updateRecentFileActions()
+void TeXDocumentWindow::updateRecentFileActions()
 {
 	TWUtils::updateRecentFileActions(this, recentFileActions, menuOpen_Recent, actionClear_Recent_Files);
 }
 
-void TeXDocument::updateWindowMenu()
+void TeXDocumentWindow::updateWindowMenu()
 {
 	TWUtils::updateWindowMenu(this, menuWindow);
 
@@ -1531,7 +1531,7 @@ void TeXDocument::updateWindowMenu()
 	}
 }
 
-void TeXDocument::updateEngineList()
+void TeXDocumentWindow::updateEngineList()
 {
 	engine->disconnect(this);
 	while (menuRun->actions().count() > 2)
@@ -1559,7 +1559,7 @@ void TeXDocument::updateEngineList()
 		engine->setCurrentIndex(index);
 }
 
-void TeXDocument::selectedEngine(QAction* engineAction) // sent by actions in menubar menu; update toolbar combo box
+void TeXDocumentWindow::selectedEngine(QAction* engineAction) // sent by actions in menubar menu; update toolbar combo box
 {
 	engineName = engineAction->text();
 	for (int i = 0; i < engine->count(); ++i)
@@ -1569,7 +1569,7 @@ void TeXDocument::selectedEngine(QAction* engineAction) // sent by actions in me
 		}
 }
 
-void TeXDocument::selectedEngine(const QString& name) // sent by toolbar combo box; need to update menu
+void TeXDocumentWindow::selectedEngine(const QString& name) // sent by toolbar combo box; need to update menu
 {
 	engineName = name;
 	foreach (QAction *act, engineActions->actions()) {
@@ -1580,7 +1580,7 @@ void TeXDocument::selectedEngine(const QString& name) // sent by toolbar combo b
 	}
 }
 
-void TeXDocument::showCursorPosition()
+void TeXDocumentWindow::showCursorPosition()
 {
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.setPosition(cursor.selectionStart());
@@ -1592,7 +1592,7 @@ void TeXDocument::showCursorPosition()
 		emit syncFromSource(curFile, line, col, false);
 }
 
-void TeXDocument::showLineEndingSetting()
+void TeXDocumentWindow::showLineEndingSetting()
 {
 	QString lineEndStr;
 	switch (lineEndings & kLineEnd_Mask) {
@@ -1611,7 +1611,7 @@ void TeXDocument::showLineEndingSetting()
 	lineEndingLabel->setText(lineEndStr);
 }
 
-void TeXDocument::lineEndingPopup(const QPoint loc)
+void TeXDocumentWindow::lineEndingPopup(const QPoint loc)
 {
 	QMenu menu;
 	QAction *cr, *lf, *crlf;
@@ -1633,12 +1633,12 @@ void TeXDocument::lineEndingPopup(const QPoint loc)
 	}
 }
 
-void TeXDocument::showEncodingSetting()
+void TeXDocumentWindow::showEncodingSetting()
 {
 	encodingLabel->setText(codec ? QString::fromUtf8(codec->name().constData()) : QString());
 }
 
-void TeXDocument::encodingPopup(const QPoint loc)
+void TeXDocumentWindow::encodingPopup(const QPoint loc)
 {
 	QMenu menu;
 	//: Item in the encoding popup menu
@@ -1699,7 +1699,7 @@ void TeXDocument::encodingPopup(const QPoint loc)
 	}
 }
 
-void TeXDocument::sideBySide()
+void TeXDocumentWindow::sideBySide()
 {
 	if (pdfDoc) {
 		TWUtils::sideBySide(this, pdfDoc);
@@ -1710,7 +1710,7 @@ void TeXDocument::sideBySide()
 		placeOnLeft();
 }
 
-TeXDocument *TeXDocument::findDocument(const QString &fileName)
+TeXDocumentWindow *TeXDocumentWindow::findDocument(const QString &fileName)
 {
 	QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath();
 	if (canonicalFilePath.isEmpty())
@@ -1719,19 +1719,19 @@ TeXDocument *TeXDocument::findDocument(const QString &fileName)
 			// so just use the name as-is
 
 	foreach (QWidget *widget, qApp->topLevelWidgets()) {
-		TeXDocument *theDoc = qobject_cast<TeXDocument*>(widget);
+		TeXDocumentWindow *theDoc = qobject_cast<TeXDocumentWindow*>(widget);
 		if (theDoc && theDoc->curFile == canonicalFilePath)
 			return theDoc;
 	}
 	return nullptr;
 }
 
-void TeXDocument::clear()
+void TeXDocumentWindow::clear()
 {
 	textEdit->textCursor().removeSelectedText();
 }
 
-QString TeXDocument::getLineText(int lineNo) const
+QString TeXDocumentWindow::getLineText(int lineNo) const
 {
 	QTextDocument* doc = textEdit->document();
 	if (lineNo < 1 || lineNo > doc->blockCount())
@@ -1739,7 +1739,7 @@ QString TeXDocument::getLineText(int lineNo) const
 	return doc->findBlockByNumber(lineNo - 1).text();
 }
 
-void TeXDocument::goToLine(int lineNo, int selStart, int selEnd)
+void TeXDocumentWindow::goToLine(int lineNo, int selStart, int selEnd)
 {
 	QTextDocument* doc = textEdit->document();
 	if (lineNo < 1 || lineNo > doc->blockCount())
@@ -1758,7 +1758,7 @@ void TeXDocument::goToLine(int lineNo, int selStart, int selEnd)
 	maybeCenterSelection(oldScrollValue);
 }
 
-void TeXDocument::maybeCenterSelection(int oldScrollValue)
+void TeXDocumentWindow::maybeCenterSelection(int oldScrollValue)
 {
 	if (oldScrollValue != -1 && textEdit->verticalScrollBar()) {
 		int newScrollValue = textEdit->verticalScrollBar()->value();
@@ -1771,7 +1771,7 @@ void TeXDocument::maybeCenterSelection(int oldScrollValue)
 	}
 }
 
-void TeXDocument::doFontDialog()
+void TeXDocumentWindow::doFontDialog()
 {
 	bool ok;
 	QFont font = QFontDialog::getFont(&ok, textEdit->font());
@@ -1786,7 +1786,7 @@ void TeXDocument::doFontDialog()
 	}
 }
 
-void TeXDocument::doLineDialog()
+void TeXDocumentWindow::doLineDialog()
 {
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.setPosition(cursor.selectionStart());
@@ -1798,50 +1798,50 @@ void TeXDocument::doLineDialog()
 		goToLine(lineNo);
 }
 
-void TeXDocument::doFindDialog()
+void TeXDocumentWindow::doFindDialog()
 {
 	if (FindDialog::doFindDialog(textEdit) == QDialog::Accepted)
 		doFindAgain(true);
 }
 
-void TeXDocument::doReplaceDialog()
+void TeXDocumentWindow::doReplaceDialog()
 {
 	ReplaceDialog::DialogCode result;
 	if ((result = ReplaceDialog::doReplaceDialog(textEdit)) != ReplaceDialog::Cancel)
 		doReplace(result);
 }
 
-void TeXDocument::doIndent()
+void TeXDocumentWindow::doIndent()
 {
 	textEdit->prefixLines(QString::fromLatin1("\t"));
 }
 
-void TeXDocument::doComment()
+void TeXDocumentWindow::doComment()
 {
 	textEdit->prefixLines(QString::fromLatin1("%"));
 }
 
-void TeXDocument::doUnindent()
+void TeXDocumentWindow::doUnindent()
 {
 	textEdit->unPrefixLines(QString::fromLatin1("\t"));
 }
 
-void TeXDocument::doUncomment()
+void TeXDocumentWindow::doUncomment()
 {
 	textEdit->unPrefixLines(QString::fromLatin1("%"));
 }
 
-void TeXDocument::toUppercase()
+void TeXDocumentWindow::toUppercase()
 {
 	replaceSelection(textEdit->textCursor().selectedText().toUpper());
 }
 
-void TeXDocument::toLowercase()
+void TeXDocumentWindow::toLowercase()
 {
 	replaceSelection(textEdit->textCursor().selectedText().toLower());
 }
 
-void TeXDocument::toggleCase()
+void TeXDocumentWindow::toggleCase()
 {
 	QString theText = textEdit->textCursor().selectedText();
 	for (int i = 0; i < theText.length(); ++i) {
@@ -1854,7 +1854,7 @@ void TeXDocument::toggleCase()
 	replaceSelection(theText);
 }
 
-void TeXDocument::replaceSelection(const QString& newText)
+void TeXDocumentWindow::replaceSelection(const QString& newText)
 {
 	QTextCursor cursor = textEdit->textCursor();
 	int start = cursor.selectionStart();
@@ -1865,7 +1865,7 @@ void TeXDocument::replaceSelection(const QString& newText)
 	textEdit->setTextCursor(cursor);
 }
 
-void TeXDocument::selectRange(int start, int length)
+void TeXDocumentWindow::selectRange(int start, int length)
 {
 	QTextCursor c = textCursor();
 	c.setPosition(start);
@@ -1873,18 +1873,18 @@ void TeXDocument::selectRange(int start, int length)
 	editor()->setTextCursor(c);
 }
 
-void TeXDocument::insertText(const QString& text)
+void TeXDocumentWindow::insertText(const QString& text)
 {
 	textCursor().insertText(text);
 }
 
-void TeXDocument::setWindowModified(bool modified)
+void TeXDocumentWindow::setWindowModified(bool modified)
 {
 	QMainWindow::setWindowModified(modified);
 	TWApp::instance()->updateWindowMenus();
 }
 
-void TeXDocument::balanceDelimiters()
+void TeXDocumentWindow::balanceDelimiters()
 {
 	const QString text = textEdit->toPlainText();
 	QTextCursor cursor = textEdit->textCursor();
@@ -1909,7 +1909,7 @@ void TeXDocument::balanceDelimiters()
 	QApplication::beep();
 }
 
-void TeXDocument::doHardWrapDialog()
+void TeXDocumentWindow::doHardWrapDialog()
 {
 	HardWrapDialog dlg(this);
 	
@@ -1920,7 +1920,7 @@ void TeXDocument::doHardWrapDialog()
 	}
 }
 
-void TeXDocument::doInsertCitationsDialog()
+void TeXDocumentWindow::doInsertCitationsDialog()
 {
 	CitationSelectDialog dlg(this);
 
@@ -2038,7 +2038,7 @@ void TeXDocument::doInsertCitationsDialog()
 	}
 }
 
-void TeXDocument::doHardWrap(int mode, int lineWidth, bool rewrap)
+void TeXDocumentWindow::doHardWrap(int mode, int lineWidth, bool rewrap)
 {
 	if (mode == kHardWrapMode_Window) {
 		// fudge this for now.... not accurate with proportional fonts, ignores tabs,....
@@ -2144,25 +2144,25 @@ void TeXDocument::doHardWrap(int mode, int lineWidth, bool rewrap)
 }
 
 
-void TeXDocument::setLineNumbers(bool displayNumbers)
+void TeXDocumentWindow::setLineNumbers(bool displayNumbers)
 {
 	actionLine_Numbers->setChecked(displayNumbers);
 	textEdit->setLineNumberDisplay(displayNumbers);
 }
 
-void TeXDocument::setWrapLines(bool wrap)
+void TeXDocumentWindow::setWrapLines(bool wrap)
 {
 	actionWrap_Lines->setChecked(wrap);
 	textEdit->setWordWrapMode(wrap ? QTextOption::WordWrap : QTextOption::NoWrap);
 }
 
-void TeXDocument::setSyntaxColoring(int index)
+void TeXDocumentWindow::setSyntaxColoring(int index)
 {
 	if (highlighter)
 		highlighter->setActiveIndex(index);
 }
 
-void TeXDocument::setSyntaxColoringMode(const QString& mode)
+void TeXDocumentWindow::setSyntaxColoringMode(const QString& mode)
 {
 	QList<QAction*> actionList = menuSyntax_Coloring->actions();
 	
@@ -2179,7 +2179,7 @@ void TeXDocument::setSyntaxColoringMode(const QString& mode)
 	}
 }
 
-void TeXDocument::setSmartQuotesMode(const QString& mode)
+void TeXDocumentWindow::setSmartQuotesMode(const QString& mode)
 {
 	QList<QAction*> actionList = menuSmart_Quotes_Mode->actions();
 	for (int i = 0; i < actionList.count(); ++i) {
@@ -2194,7 +2194,7 @@ void TeXDocument::setSmartQuotesMode(const QString& mode)
 	}
 }
 
-void TeXDocument::setAutoIndentMode(const QString& mode)
+void TeXDocumentWindow::setAutoIndentMode(const QString& mode)
 {
 	QList<QAction*> actionList = menuAuto_indent_Mode->actions();
 	for (int i = 0; i < actionList.count(); ++i) {
@@ -2209,7 +2209,7 @@ void TeXDocument::setAutoIndentMode(const QString& mode)
 	}
 }
 
-void TeXDocument::doFindAgain(bool fromDialog)
+void TeXDocumentWindow::doFindAgain(bool fromDialog)
 {
 	Tw::Settings settings;
 	QString	searchText = settings.value(QString::fromLatin1("searchText")).toString();
@@ -2234,7 +2234,7 @@ void TeXDocument::doFindAgain(bool fromDialog)
 		QList<SearchResult> results;
 		flags &= ~QTextDocument::FindBackward;
 		int docListIndex = 0;
-		TeXDocument* theDoc = this;
+		TeXDocumentWindow* theDoc = this;
 		while (true) {
 			QTextCursor curs(theDoc->textDoc());
 			curs.movePosition(QTextCursor::End);
@@ -2315,12 +2315,12 @@ void TeXDocument::doFindAgain(bool fromDialog)
 	delete regex;
 }
 
-void TeXDocument::doReplaceAgain()
+void TeXDocumentWindow::doReplaceAgain()
 {
 	doReplace(ReplaceDialog::ReplaceOne);
 }
 
-void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
+void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 {
 	Tw::Settings settings;
 	
@@ -2440,7 +2440,7 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 	else if (mode == ReplaceDialog::ReplaceAll) {
 		if (allFiles) {
 			int replacements = 0;
-			foreach (TeXDocument* doc, docList)
+			foreach (TeXDocumentWindow* doc, docList)
 				replacements += doc->doReplaceAll(searchText, regex, replacement, flags);
 			QString numOccurrences = tr("%n occurrence(s)", "", replacements);
 			QString numDocuments = tr("%n documents", "", docList.count());
@@ -2463,7 +2463,7 @@ void TeXDocument::doReplace(ReplaceDialog::DialogCode mode)
 	delete regex;
 }
 
-int TeXDocument::doReplaceAll(const QString& searchText, QRegularExpression * regex, const QString& replacement,
+int TeXDocumentWindow::doReplaceAll(const QString& searchText, QRegularExpression * regex, const QString& replacement,
 								QTextDocument::FindFlags flags, int rangeStart, int rangeEnd)
 {
 	QTextCursor searchRange = textCursor();
@@ -2511,7 +2511,7 @@ int TeXDocument::doReplaceAll(const QString& searchText, QRegularExpression * re
 	return replacements;
 }
 
-QTextCursor TeXDocument::doSearch(QTextDocument *theDoc, const QString& searchText, const QRegularExpression * regex, QTextDocument::FindFlags flags, int s, int e)
+QTextCursor TeXDocumentWindow::doSearch(QTextDocument *theDoc, const QString& searchText, const QRegularExpression * regex, QTextDocument::FindFlags flags, int s, int e)
 {
 	QTextCursor curs;
 	const QString& docText = theDoc->toPlainText();
@@ -2573,7 +2573,7 @@ QTextCursor TeXDocument::doSearch(QTextDocument *theDoc, const QString& searchTe
 	return curs;
 }
 
-void TeXDocument::copyToFind()
+void TeXDocumentWindow::copyToFind()
 {
 	if (textEdit->textCursor().hasSelection()) {
 		QString searchText = textEdit->textCursor().selectedText();
@@ -2599,7 +2599,7 @@ void TeXDocument::copyToFind()
 	}
 }
 
-void TeXDocument::copyToReplace()
+void TeXDocumentWindow::copyToReplace()
 {
 	if (textEdit->textCursor().hasSelection()) {
 		QString replaceText = textEdit->textCursor().selectedText();
@@ -2624,13 +2624,13 @@ void TeXDocument::copyToReplace()
 	}
 }
 
-void TeXDocument::findSelection()
+void TeXDocumentWindow::findSelection()
 {
 	copyToFind();
 	doFindAgain();
 }
 
-void TeXDocument::showSelection()
+void TeXDocumentWindow::showSelection()
 {
 	int oldScrollValue = -1;
 	if (textEdit->verticalScrollBar())
@@ -2639,7 +2639,7 @@ void TeXDocument::showSelection()
 	maybeCenterSelection(oldScrollValue);
 }
 
-void TeXDocument::zoomToLeft(QWidget *otherWindow)
+void TeXDocumentWindow::zoomToLeft(QWidget *otherWindow)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect screenRect = desktop->availableGeometry(otherWindow ? otherWindow : this);
@@ -2650,7 +2650,7 @@ void TeXDocument::zoomToLeft(QWidget *otherWindow)
 	setGeometry(screenRect);
 }
 
-void TeXDocument::typeset()
+void TeXDocumentWindow::typeset()
 {
 	if (process)
 		return;	// this shouldn't happen if we disable the command at the right time
@@ -2739,7 +2739,7 @@ void TeXDocument::typeset()
 	}
 }
 
-void TeXDocument::interrupt()
+void TeXDocumentWindow::interrupt()
 {
 	if (process) {
 		userInterrupt = true;
@@ -2751,7 +2751,7 @@ void TeXDocument::interrupt()
 	}
 }
 
-void TeXDocument::updateTypesettingAction()
+void TeXDocumentWindow::updateTypesettingAction()
 {
 	if (!process) {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
@@ -2771,7 +2771,7 @@ void TeXDocument::updateTypesettingAction()
 	}
 }
 
-void TeXDocument::processStandardOutput()
+void TeXDocumentWindow::processStandardOutput()
 {
 	QByteArray bytes = process->readAllStandardOutput();
 	QTextCursor cursor(textEdit_console->document());
@@ -2781,7 +2781,7 @@ void TeXDocument::processStandardOutput()
 	textEdit_console->setTextCursor(cursor);
 }
 
-void TeXDocument::processError(QProcess::ProcessError /*error*/)
+void TeXDocumentWindow::processError(QProcess::ProcessError /*error*/)
 {
 	if (userInterrupt)
 		textEdit_console->append(tr("Process interrupted by user"));
@@ -2798,7 +2798,7 @@ void TeXDocument::processError(QProcess::ProcessError /*error*/)
 		pdfDoc->widget()->setWatchForDocumentChangesOnDisk(true);
 }
 
-void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void TeXDocumentWindow::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	// Start watching for changes in the pdf (again)
 	if (pdfDoc && pdfDoc->widget())
@@ -2860,7 +2860,7 @@ void TeXDocument::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	updateTypesettingAction();
 }
 
-void TeXDocument::executeAfterTypesetHooks()
+void TeXDocumentWindow::executeAfterTypesetHooks()
 {
 	TWScriptManager * scriptManager = TWApp::instance()->getScriptManager();
 
@@ -2894,14 +2894,14 @@ void TeXDocument::executeAfterTypesetHooks()
 	}
 }
 
-void TeXDocument::anchorClicked(const QUrl& url)
+void TeXDocumentWindow::anchorClicked(const QUrl& url)
 {
 	if (url.scheme() == QString::fromLatin1("texworks")) {
 		int line = 0;
 		if (url.hasFragment()) {
 			line = url.fragment().toInt();
 		}
-		TeXDocument * target = openDocument(QFileInfo(getRootFilePath()).absoluteDir().filePath(url.path()), true, true, line);
+		TeXDocumentWindow * target = openDocument(QFileInfo(getRootFilePath()).absoluteDir().filePath(url.path()), true, true, line);
 		if (target)
 			target->textEdit->setFocus(Qt::OtherFocusReason);
 	}
@@ -2912,7 +2912,7 @@ void TeXDocument::anchorClicked(const QUrl& url)
 
 // showConsole() and hideConsole() are used internally to update the visibility;
 // they must NOT change the keepConsoleOpen setting that records user choice
-void TeXDocument::showConsole()
+void TeXDocumentWindow::showConsole()
 {
 	consoleTabs->show();
 	if (process)
@@ -2920,7 +2920,7 @@ void TeXDocument::showConsole()
 	actionShow_Hide_Console->setText(tr("Hide Console Output"));
 }
 
-void TeXDocument::hideConsole()
+void TeXDocumentWindow::hideConsole()
 {
 	consoleTabs->hide();
 	inputLine->hide();
@@ -2929,7 +2929,7 @@ void TeXDocument::hideConsole()
 
 // this is connected to the user command, so remember the choice
 // for when typesetting finishes
-void TeXDocument::toggleConsoleVisibility()
+void TeXDocumentWindow::toggleConsoleVisibility()
 {
 	if (consoleTabs->isVisible()) {
 		hideConsole();
@@ -2941,7 +2941,7 @@ void TeXDocument::toggleConsoleVisibility()
 	}
 }
 
-void TeXDocument::acceptInputLine()
+void TeXDocumentWindow::acceptInputLine()
 {
 	if (process) {
 		QString	str = inputLine->text();
@@ -2961,7 +2961,7 @@ void TeXDocument::acceptInputLine()
 	}
 }
 
-void TeXDocument::goToPreview()
+void TeXDocumentWindow::goToPreview()
 {
 	if (pdfDoc)
 		pdfDoc->selectWindow();
@@ -2978,7 +2978,7 @@ void TeXDocument::goToPreview()
 	}
 }
 
-void TeXDocument::syncClick(int lineNo, int col)
+void TeXDocumentWindow::syncClick(int lineNo, int col)
 {
 	if (!isUntitled) {
 		// ensure that there is a pdf to receive our signal
@@ -2987,7 +2987,7 @@ void TeXDocument::syncClick(int lineNo, int col)
 	}
 }
 
-void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*charsAdded*/)
+void TeXDocumentWindow::contentsChanged(int position, int /*charsRemoved*/, int /*charsAdded*/)
 {
 	if (position < PEEK_LENGTH) {
 		QTextCursor curs(textEdit->document());
@@ -3037,7 +3037,7 @@ void TeXDocument::contentsChanged(int position, int /*charsRemoved*/, int /*char
 	}
 }
 
-void TeXDocument::findRootFilePath()
+void TeXDocumentWindow::findRootFilePath()
 {
 	if (isUntitled) {
 		rootFilePath.clear();
@@ -3062,7 +3062,7 @@ void TeXDocument::findRootFilePath()
 		rootFilePath = fileInfo.canonicalFilePath();
 }
 
-void TeXDocument::addTag(const QTextCursor& cursor, int level, const QString& text)
+void TeXDocumentWindow::addTag(const QTextCursor& cursor, int level, const QString& text)
 {
 	int index = 0;
 	while (index < tags.size()) {
@@ -3073,7 +3073,7 @@ void TeXDocument::addTag(const QTextCursor& cursor, int level, const QString& te
 	tags.insert(index, Tag(cursor, level, text));
 }
 
-int TeXDocument::removeTags(int offset, int len)
+int TeXDocumentWindow::removeTags(int offset, int len)
 {
 	int removed = 0;
 	for (int index = tags.count() - 1; index >= 0; --index) {
@@ -3087,7 +3087,7 @@ int TeXDocument::removeTags(int offset, int len)
 	return removed;
 }
 
-void TeXDocument::goToTag(int index)
+void TeXDocumentWindow::goToTag(int index)
 {
 	if (index < tags.count()) {
 		textEdit->setTextCursor(tags[index].cursor);
@@ -3095,7 +3095,7 @@ void TeXDocument::goToTag(int index)
 	}
 }
 
-void TeXDocument::tagsChanged()
+void TeXDocumentWindow::tagsChanged()
 {
 	if (deferTagListChanges)
 		tagListChanged = true;
@@ -3103,7 +3103,7 @@ void TeXDocument::tagsChanged()
 		emit tagListUpdated();
 }
 
-void TeXDocument::removeAuxFiles()
+void TeXDocumentWindow::removeAuxFiles()
 {
 	findRootFilePath();
 	if (rootFilePath.isEmpty())
@@ -3138,7 +3138,7 @@ void TeXDocument::removeAuxFiles()
 #define CREATE_INCLUDE_COMMAND	Qt::LinkAction
 #endif
 
-void TeXDocument::dragEnterEvent(QDragEnterEvent *event)
+void TeXDocumentWindow::dragEnterEvent(QDragEnterEvent *event)
 {
 	event->ignore();
 	if (event->mimeData()->hasUrls()) {
@@ -3152,7 +3152,7 @@ void TeXDocument::dragEnterEvent(QDragEnterEvent *event)
 	}
 }
 
-void TeXDocument::dragMoveEvent(QDragMoveEvent *event)
+void TeXDocumentWindow::dragMoveEvent(QDragMoveEvent *event)
 {
 	if (event->proposedAction() == INSERT_DOCUMENT_TEXT || event->proposedAction() == CREATE_INCLUDE_COMMAND) {
 		if (dragSavedCursor.isNull())
@@ -3169,7 +3169,7 @@ void TeXDocument::dragMoveEvent(QDragMoveEvent *event)
 	event->acceptProposedAction();
 }
 
-void TeXDocument::dragLeaveEvent(QDragLeaveEvent *event)
+void TeXDocumentWindow::dragLeaveEvent(QDragLeaveEvent *event)
 {
 	if (!dragSavedCursor.isNull()) {
 		textEdit->setTextCursor(dragSavedCursor);
@@ -3178,7 +3178,7 @@ void TeXDocument::dragLeaveEvent(QDragLeaveEvent *event)
 	event->accept();
 }
 
-void TeXDocument::dropEvent(QDropEvent *event)
+void TeXDocumentWindow::dropEvent(QDropEvent *event)
 {
 	if (event->mimeData()->hasUrls()) {
 		Qt::DropAction action = event->proposedAction();
@@ -3243,7 +3243,7 @@ void TeXDocument::dropEvent(QDropEvent *event)
 	event->accept();
 }
 
-void TeXDocument::detachPdf()
+void TeXDocumentWindow::detachPdf()
 {
 	if (pdfDoc) {
 		disconnect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));

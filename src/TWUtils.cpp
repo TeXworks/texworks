@@ -21,7 +21,7 @@
 
 #include "TWUtils.h"
 #include "TWApp.h"
-#include "TeXDocument.h"
+#include "TeXDocumentWindow.h"
 #include "PDFDocument.h"
 #include "TWVersion.h"
 #include "GitRev.h"
@@ -551,9 +551,9 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	while (!menu->actions().isEmpty() && menu->actions().last()->isSeparator())
 		menu->removeAction(menu->actions().last());
 	
-	QList<TeXDocument *> texDocList;
+	QList<TeXDocumentWindow *> texDocList;
 	QStringList fileList, labelList;
-	Q_FOREACH(TeXDocument * texDoc, TeXDocument::documentList()) {
+	Q_FOREACH(TeXDocumentWindow * texDoc, TeXDocumentWindow::documentList()) {
 		texDocList.append(texDoc);
 		fileList.append(texDoc->fileName());
 	}
@@ -562,7 +562,7 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	// append an item for each TeXDocument
 	bool first = true;
 	for (int i = 0; i < texDocList.size(); ++i) {
-		TeXDocument * texDoc = texDocList[i];
+		TeXDocumentWindow * texDoc = texDocList[i];
 		if (first && !menu->actions().isEmpty())
 			menu->addSeparator();
 		first = false;
@@ -572,7 +572,7 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 			f.setItalic(true);
 			selWin->setFont(f);
 		}
-		if (texDoc == qobject_cast<TeXDocument*>(window)) {
+		if (texDoc == qobject_cast<TeXDocumentWindow*>(window)) {
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
 		}

@@ -28,7 +28,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   Settings.cpp
                   TemplateDialog.cpp
                   TeXDocks.cpp
-                  TeXDocument.cpp
+                  TeXDocumentWindow.cpp
                   TeXHighlighter.cpp
                   TWApp.cpp
                   TWScriptableWindow.cpp
@@ -66,7 +66,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   Settings.h
                   TemplateDialog.h
                   TeXDocks.h
-                  TeXDocument.h
+                  TeXDocumentWindow.h
                   TeXHighlighter.h
                   TWApp.h
                   TWScriptableWindow.h
@@ -111,7 +111,7 @@ set(TEXWORKS_UIS CitationSelectDialog.ui
                  ScriptManagerWidget.ui
                  SearchResults.ui
                  TemplateDialog.ui
-                 TeXDocument.ui
+                 TeXDocumentWindow.ui
                  ToolConfig.ui)
 
 set(TEXWORKS_RCS ${TeXworks_SOURCE_DIR}/res/resfiles.qrc

@@ -22,7 +22,7 @@
 #include "TWSynchronizer.h"
 #include "TWApp.h"
 #include "TWUtils.h"
-#include "TeXDocument.h"
+#include "TeXDocumentWindow.h"
 #include "PDFDocument.h"
 
 #include <QFileInfo>
@@ -159,7 +159,7 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
     return;
 
   QDir curDir(QFileInfo(src.filename).canonicalPath());
-  TeXDocument * tex = TeXDocument::findDocument(src.filename);
+  TeXDocumentWindow * tex = TeXDocumentWindow::findDocument(src.filename);
   PDFDocument * pdf = PDFDocument::findDocument(QFileInfo(curDir, dest.filename).canonicalFilePath());
   if (!tex || !pdf || !pdf->widget())
     return;
@@ -220,7 +220,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   if (dest.filename.isEmpty())
     return;
   QDir curDir(QFileInfo(src.filename).canonicalPath());
-  TeXDocument * tex = TeXDocument::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), false, false, dest.line);
+  TeXDocumentWindow * tex = TeXDocumentWindow::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), false, false, dest.line);
   PDFDocument * pdf = PDFDocument::findDocument(src.filename);
   if (!tex || !pdf || !pdf->widget())
     return;

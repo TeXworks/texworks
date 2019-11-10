@@ -33,7 +33,7 @@
 
 class QTextDocument;
 class QTextCodec;
-class TeXDocument;
+class TeXDocumentWindow;
 
 // This class implements a non-blocking syntax highlighter that is a rewrite/
 // replacement of QSyntaxHighlighter. It queues all highlight requests and
@@ -100,7 +100,7 @@ class TeXHighlighter : public NonblockingSyntaxHighlighter
 	Q_OBJECT
 
 public:
-	explicit TeXHighlighter(QTextDocument * parent, TeXDocument * texDocument = nullptr);
+	explicit TeXHighlighter(QTextDocument * parent, TeXDocumentWindow * texDocument = nullptr);
 	void setActiveIndex(int index);
 
 	void setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary);
@@ -141,7 +141,7 @@ private:
 	};
 	static QList<TagPattern> *tagPatterns;
 
-	TeXDocument	*texDoc;
+	TeXDocumentWindow	*texDoc;
 
 	int highlightIndex;
 	bool isTagging;

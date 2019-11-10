@@ -23,7 +23,7 @@
 #include <QTextCursor>
 
 #include "TeXHighlighter.h"
-#include "TeXDocument.h"
+#include "TeXDocumentWindow.h"
 #include "TWUtils.h"
 
 #include <climits> // for INT_MAX
@@ -31,7 +31,7 @@
 QList<TeXHighlighter::HighlightingSpec> *TeXHighlighter::syntaxRules = nullptr;
 QList<TeXHighlighter::TagPattern> *TeXHighlighter::tagPatterns = nullptr;
 
-TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocument *texDocument)
+TeXHighlighter::TeXHighlighter(QTextDocument *parent, TeXDocumentWindow *texDocument)
     : NonblockingSyntaxHighlighter(parent)
     , texDoc(texDocument)
     , highlightIndex(-1)

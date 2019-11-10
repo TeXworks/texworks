@@ -51,7 +51,7 @@ class QAction;
 class QMenu;
 class QToolBar;
 class QScrollArea;
-class TeXDocument;
+class TeXDocumentWindow;
 class QShortcut;
 
 class FullscreenManager : public QObject
@@ -97,7 +97,7 @@ class PDFDocument : public TWScriptableWindow, private Ui::PDFDocument
     Q_PROPERTY(QString fileName READ fileName)
 
 public:
-	PDFDocument(const QString &fileName, TeXDocument *sourceDoc = nullptr);
+	PDFDocument(const QString &fileName, TeXDocumentWindow *sourceDoc = nullptr);
 	virtual ~PDFDocument();
 
 	static PDFDocument *findDocument(const QString &fileName);
@@ -116,7 +116,7 @@ public:
 	void resetMagnifier();
 	void enableTypesetAction(bool enabled);
 	void updateTypesettingAction(bool processRunning);
-	void linkToSource(TeXDocument *texDoc);
+	void linkToSource(TeXDocumentWindow *texDoc);
 	bool hasSyncData() const { return _synchronizer != nullptr; }
 
 	QtPDF::PDFDocumentWidget * widget() { return pdfWidget; }
@@ -133,7 +133,7 @@ protected:
 	QString scriptContext() const override { return QStringLiteral("PDFDocument"); }
 
 public slots:
-	void texActivated(TeXDocument * texDoc);
+	void texActivated(TeXDocumentWindow * texDoc);
 	void texClosed(QObject *obj);
 	void reload();
 	void retypeset();
@@ -191,7 +191,7 @@ private:
 	QScrollArea	*scrollArea;
 	QButtonGroup	*toolButtonGroup;
 
-	QLinkedList<TeXDocument*> sourceDocList;
+	QLinkedList<TeXDocumentWindow*> sourceDocList;
 
 	QLabel *pageLabel;
 	QLabel *scaleLabel;

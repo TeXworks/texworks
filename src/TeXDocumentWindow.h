@@ -19,8 +19,8 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef TeXDocument_H
-#define TeXDocument_H
+#ifndef TeXDocumentWindow_H
+#define TeXDocumentWindow_H
 
 #include "TWScriptableWindow.h"
 #include "document/SpellChecker.h"
@@ -32,7 +32,7 @@
 #include <QSignalMapper>
 #include <QMouseEvent>
 
-#include "ui_TeXDocument.h"
+#include "ui_TeXDocumentWindow.h"
 
 #include "FindDialog.h"
 
@@ -60,25 +60,25 @@ const int kTeXWindowStateVersion = 1; // increment this if we add toolbars/docks
 #define kLineEnd_Flags_Mask  0xFF00
 #define kLineEnd_Mixed       0x0100
 
-class TeXDocument : public TWScriptableWindow, private Ui::TeXDocument
+class TeXDocumentWindow : public TWScriptableWindow, private Ui::TeXDocumentWindow
 {
 	Q_OBJECT
 
 public:
-	explicit TeXDocument();
-	explicit TeXDocument(const QString & fileName, bool asTemplate = false);
+	explicit TeXDocumentWindow();
+	explicit TeXDocumentWindow(const QString & fileName, bool asTemplate = false);
 
-	virtual ~TeXDocument();
+	virtual ~TeXDocumentWindow();
 
-	static TeXDocument *findDocument(const QString &fileName);
-	static QList<TeXDocument*> documentList()
+	static TeXDocumentWindow *findDocument(const QString &fileName);
+	static QList<TeXDocumentWindow*> documentList()
 		{
 			return docList;
 		}
-	static TeXDocument *openDocument(const QString &fileName, bool activate = true, bool raiseWindow = true,
+	static TeXDocumentWindow *openDocument(const QString &fileName, bool activate = true, bool raiseWindow = true,
 									 int lineNo = 0, int selStart = -1, int selEnd = -1);
 
-	TeXDocument *open(const QString &fileName);
+	TeXDocumentWindow *open(const QString &fileName);
 	void makeUntitled();
 	bool untitled()
 		{ return isUntitled; }
@@ -308,7 +308,7 @@ private:
 
 	QTextCursor	dragSavedCursor;
 
-	static QList<TeXDocument*> docList;
+	static QList<TeXDocumentWindow*> docList;
 };
 
-#endif
+#endif // !defined(TeXDocumentWindow_H)

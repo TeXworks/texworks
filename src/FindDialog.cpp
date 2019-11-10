@@ -20,7 +20,7 @@
 */
 
 #include "FindDialog.h"
-#include "TeXDocument.h"
+#include "TeXDocumentWindow.h"
 #include "PDFDocument.h"
 #include "TWApp.h"
 #include "Settings.h"
@@ -112,7 +112,7 @@ void FindDialog::init(QTextEdit *document)
 	checkBox_findAll->setChecked(findAll);
 	
 	bool allFiles = settings.value(QString::fromLatin1("searchAllFiles")).toBool();
-	checkBox_allFiles->setEnabled(TeXDocument::documentList().count() > 1);
+	checkBox_allFiles->setEnabled(TeXDocumentWindow::documentList().count() > 1);
 	checkBox_allFiles->setChecked(allFiles && checkBox_allFiles->isEnabled());
 
 	bool selectionOption = settings.value(QString::fromLatin1("searchSelection")).toBool();
@@ -266,7 +266,7 @@ void ReplaceDialog::init(QTextEdit *document)
 	checkBox_words->setEnabled(!regexOption);
 
 	bool allFiles = settings.value(QString::fromLatin1("searchAllFiles")).toBool();
-	checkBox_allFiles->setEnabled(TeXDocument::documentList().count() > 1);
+	checkBox_allFiles->setEnabled(TeXDocumentWindow::documentList().count() > 1);
 	checkBox_allFiles->setChecked(allFiles && checkBox_allFiles->isEnabled());
 
 	bool selectionOption = settings.value(QString::fromLatin1("searchSelection")).toBool();
@@ -445,7 +445,7 @@ void SearchResults::goToSource()
 	fileName = item->toolTip();
 	
 	if (!fileName.isEmpty()) {
-		QWidget *theDoc = TeXDocument::openDocument(fileName);
+		QWidget *theDoc = TeXDocumentWindow::openDocument(fileName);
 		if (theDoc) {
 			QTextEdit *editor = theDoc->findChild<QTextEdit*>(QString::fromLatin1("textEdit"));
 			if (editor)
@@ -572,7 +572,7 @@ void SearchResults::showEntry(QTableWidgetItem * item)
 	int selEnd = item->text().toInt();
 
 	if (!fileName.isEmpty())
-		TeXDocument::openDocument(fileName, false, true, lineNo, selStart, selEnd);
+		TeXDocumentWindow::openDocument(fileName, false, true, lineNo, selStart, selEnd);
 }
 
 void SearchResults::showSelectedEntry()
@@ -590,7 +590,7 @@ void SearchResults::showSelectedEntry()
 void SearchResults::focusChanged(QWidget * old, QWidget * now)
 {
 	bool previouslyFocused, nowFocused;
-	TeXDocument * texDoc = qobject_cast<TeXDocument*>(parent());
+	TeXDocumentWindow * texDoc = qobject_cast<TeXDocumentWindow*>(parent());
 
 	if (!texDoc)
 		return;

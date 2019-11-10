@@ -20,7 +20,7 @@
 */
 
 #include "PDFDocument.h"
-#include "TeXDocument.h"
+#include "TeXDocumentWindow.h"
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "Settings.h"
@@ -70,7 +70,7 @@ const int kPDFHighlightDuration = 2000;
 // TODO: This is seemingly unused---verify && remove
 QList<PDFDocument*> PDFDocument::docList;
 
-PDFDocument::PDFDocument(const QString &fileName, TeXDocument *texDoc)
+PDFDocument::PDFDocument(const QString &fileName, TeXDocumentWindow *texDoc)
 	: pdfWidget(nullptr)
 	, scrollArea(nullptr)
 	, toolButtonGroup(nullptr)
@@ -321,7 +321,7 @@ void PDFDocument::changeEvent(QEvent *event)
 	QMainWindow::changeEvent(event);
 }
 
-void PDFDocument::linkToSource(TeXDocument *texDoc)
+void PDFDocument::linkToSource(TeXDocumentWindow *texDoc)
 {
 	if (texDoc) {
 		if (!sourceDocList.contains(texDoc))
@@ -332,7 +332,7 @@ void PDFDocument::linkToSource(TeXDocument *texDoc)
 
 void PDFDocument::texClosed(QObject *obj)
 {
-	TeXDocument *texDoc = reinterpret_cast<TeXDocument*>(obj);
+	TeXDocumentWindow *texDoc = reinterpret_cast<TeXDocumentWindow*>(obj);
 	// can't use qobject_cast here as the object's metadata is already gone!
 	if (texDoc) {
 		sourceDocList.removeAll(texDoc);
@@ -341,7 +341,7 @@ void PDFDocument::texClosed(QObject *obj)
 	}
 }
 
-void PDFDocument::texActivated(TeXDocument * texDoc)
+void PDFDocument::texActivated(TeXDocumentWindow * texDoc)
 {
 	// A source file was activated. Make sure it is the first in the list of
 	// source docs so that future "Goto Source" actions point there.
@@ -527,7 +527,7 @@ void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QP
 	// on the right line (though not necessarily on the right column or with the
 	// the right selection, yet, as that requires additional handling below)
 	QDir curDir(QFileInfo(curFile).canonicalPath());
-	TeXDocument * texDoc = TeXDocument::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line);
+	TeXDocumentWindow * texDoc = TeXDocumentWindow::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line);
 	if (!texDoc)
 		return;
 
@@ -562,7 +562,7 @@ void PDFDocument::syncRange(const int pageIndex, const QPointF & start, const QP
 	// pointer to the document as that is the only publicly available function
 	// that does what we need (i.e., position the cursor and possibly change the
 	// current selection).
-	TeXDocument::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line, curStart.position() - curStart.block().position(), curEnd.position() - curStart.block().position());
+	TeXDocumentWindow::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line, curStart.position() - curStart.block().position(), curEnd.position() - curStart.block().position());
 }
 
 void PDFDocument::syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview)

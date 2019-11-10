@@ -21,13 +21,13 @@
 
 #include "TeXDocks.h"
 
-#include "TeXDocument.h"
+#include "TeXDocumentWindow.h"
 
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QScrollBar>
 
-TeXDock::TeXDock(const QString & title, TeXDocument * doc)
+TeXDock::TeXDock(const QString & title, TeXDocumentWindow * doc)
 	: QDockWidget(title, doc), document(doc), filled(false)
 {
 	connect(this, SIGNAL(visibilityChanged(bool)), SLOT(myVisibilityChanged(bool)));
@@ -43,7 +43,7 @@ void TeXDock::myVisibilityChanged(bool visible)
 
 //////////////// TAGS ////////////////
 
-TagsDock::TagsDock(TeXDocument * doc)
+TagsDock::TagsDock(TeXDocumentWindow * doc)
 	: TeXDock(tr("Tags"), doc)
 {
 	setObjectName(QString::fromLatin1("tags"));
@@ -62,7 +62,7 @@ void TagsDock::fillInfo()
 	disconnect(tree, SIGNAL(itemActivated(QTreeWidgetItem*, int)), this, SLOT(followTagSelection()));
 	disconnect(tree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(followTagSelection()));
 	tree->clear();
-	const QList<TeXDocument::Tag>& tags = document->getTags();
+	const QList<TeXDocumentWindow::Tag>& tags = document->getTags();
 	if (!tags.empty()) {
 		QTreeWidgetItem *item = nullptr, *bmItem = nullptr;
 		QTreeWidgetItem *bookmarks = new QTreeWidgetItem(tree);
@@ -76,7 +76,7 @@ void TagsDock::fillInfo()
 		outline->setForeground(0, Qt::blue);
 		tree->expandItem(outline);
 		for (int index = 0; index < tags.size(); ++index) {
-			const TeXDocument::Tag& bm = tags[index];
+			const TeXDocumentWindow::Tag& bm = tags[index];
 			if (bm.level < 1) {
 				bmItem = new QTreeWidgetItem(bookmarks, QTreeWidgetItem::UserType);
 				bmItem->setText(0, bm.text);

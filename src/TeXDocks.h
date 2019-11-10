@@ -27,7 +27,7 @@
 #include <QListWidget>
 #include <QScrollArea>
 
-class TeXDocument;
+class TeXDocumentWindow;
 class QListWidget;
 class QTableWidget;
 class QTreeWidgetItem;
@@ -37,13 +37,13 @@ class TeXDock : public QDockWidget
 	Q_OBJECT
 
 public:
-	TeXDock(const QString & title, TeXDocument * doc = nullptr);
+	TeXDock(const QString & title, TeXDocumentWindow * doc = nullptr);
 	virtual ~TeXDock() = default;
 
 protected:
 	virtual void fillInfo() = 0;
 
-	TeXDocument *document;
+	TeXDocumentWindow *document;
 
 	bool filled;
 
@@ -57,7 +57,7 @@ class TagsDock : public TeXDock
 	Q_OBJECT
 
 public:
-	TagsDock(TeXDocument *doc = nullptr);
+	TagsDock(TeXDocumentWindow *doc = nullptr);
 	virtual ~TagsDock() = default;
 
 public slots:

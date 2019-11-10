@@ -31,7 +31,7 @@
 #include "ui_SearchResults.h"
 #include "ui_PDFFind.h"
 
-class TeXDocument;
+class TeXDocumentWindow;
 class QTextEdit;
 class PDFDocument;
 
@@ -124,11 +124,11 @@ private:
 
 class SearchResult {
 public:
-	SearchResult(const TeXDocument* texdoc, int line, int start, int end)
+	SearchResult(const TeXDocumentWindow* texdoc, int line, int start, int end)
 		: doc(texdoc), lineNo(line), selStart(start), selEnd(end)
 		{ }
 
-	const TeXDocument* doc;
+	const TeXDocumentWindow* doc;
 	int lineNo;
 	int selStart;
 	int selEnd;
