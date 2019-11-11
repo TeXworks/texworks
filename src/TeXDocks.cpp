@@ -52,7 +52,7 @@ TagsDock::TagsDock(TeXDocumentWindow * doc)
 	tree->header()->hide();
 	tree->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	setWidget(tree);
-	connect(doc, SIGNAL(tagListUpdated()), this, SLOT(listChanged()));
+	connect(doc->textDoc(), SIGNAL(tagsChanged()), this, SLOT(listChanged()));
 	saveScrollValue = 0;
 }
 

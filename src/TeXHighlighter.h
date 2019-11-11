@@ -32,8 +32,13 @@
 #include <QRegularExpression>
 #include <QTimer>
 
-class QTextCodec;
-class TeXDocumentWindow;
+namespace Tw {
+namespace Document {
+
+class TeXDocument;
+
+} // namespace Document
+} // namespace Tw
 
 // This class implements a non-blocking syntax highlighter that is a rewrite/
 // replacement of QSyntaxHighlighter. It queues all highlight requests and
@@ -100,7 +105,7 @@ class TeXHighlighter : public NonblockingSyntaxHighlighter
 	Q_OBJECT
 
 public:
-	explicit TeXHighlighter(QTextDocument * parent, TeXDocumentWindow * texDocument = nullptr);
+	explicit TeXHighlighter(Tw::Document::TeXDocument * parent);
 	void setActiveIndex(int index);
 
 	void setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary);
@@ -141,14 +146,12 @@ private:
 	};
 	static QList<TagPattern> *tagPatterns;
 
-	TeXDocumentWindow	*texDoc;
-
 	int highlightIndex;
 	bool isTagging;
 
 	Tw::Document::SpellChecker::Dictionary * _dictionary;
 
-	QTextDocument * textDoc;
+	Tw::Document::TeXDocument * texDoc;
 };
 
 #endif

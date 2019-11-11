@@ -102,10 +102,7 @@ public:
 	PDFDocumentWindow* pdfDocument()
 		{ return pdfDoc; }
 
-	void addTag(const QTextCursor& cursor, int level, const QString& text);
-	int removeTags(int offset, int len);
 	void goToTag(int index);
-	void tagsChanged();
 
 	bool isModified() const { return textEdit->document()->isModified(); }
 	void setModified(const bool m = true) { textEdit->document()->setModified(m); }
@@ -127,7 +124,6 @@ public:
 signals:
 	void syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview);
 	void activatedWindow(QWidget*);
-	void tagListUpdated();
 	void asyncFlashStatusBarMessage(const QString & msg, const int timeout = 0);
 
 protected:
@@ -290,9 +286,6 @@ private:
 	Tw::Document::SpellChecker::Dictionary * _dictionary{nullptr};
 
 	QFileSystemWatcher * watcher{nullptr};
-	
-	bool deferTagListChanges{false};
-	bool tagListChanged{false};
 
 	QTextCursor	dragSavedCursor;
 

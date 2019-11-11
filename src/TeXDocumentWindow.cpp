@@ -373,7 +373,6 @@ void TeXDocumentWindow::init()
 	dw->hide();
 	addDockWidget(Qt::LeftDockWidgetArea, dw);
 	menuShow->addAction(dw->toggleViewAction());
-	deferTagListChanges = false;
 
 	watcher = new QFileSystemWatcher(this);
 	connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()), Qt::QueuedConnection);
@@ -1021,12 +1020,7 @@ void TeXDocumentWindow::loadFile(const QString &fileName, bool asTemplate /* = f
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	deferTagListChanges = true;
-	tagListChanged = false;
 	textEdit->setPlainText(fileContents);
-	deferTagListChanges = false;
-	if (tagListChanged)
-		emit tagListUpdated();
 
 	// Ensure the window is shown early (before setPlainText()).
 	// - this ensures it is shown before the PDF (if opening a new doc)
@@ -1158,7 +1152,7 @@ void TeXDocumentWindow::delayedInit()
 	if (_texDoc && !_texDoc->getHighlighter()) {
 		Tw::Settings settings;
 
-		TeXHighlighter * highlighter = new TeXHighlighter(_texDoc, this);
+		TeXHighlighter * highlighter = new TeXHighlighter(_texDoc);
 		connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
 
 		// set up syntax highlighting
@@ -3066,34 +3060,12 @@ void TeXDocumentWindow::findRootFilePath()
 		rootFilePath = fileInfo.canonicalFilePath();
 }
 
-void TeXDocumentWindow::addTag(const QTextCursor & cursor, int level, const QString & text)
-{
-	if (!_texDoc)
-		return;
-	_texDoc->addTag(cursor, level, text);
-}
-
-int TeXDocumentWindow::removeTags(int offset, int len)
-{
-	if (!_texDoc)
-		return 0;
-	return static_cast<int>(_texDoc->removeTags(offset, len));
-}
-
 void TeXDocumentWindow::goToTag(int index)
 {
 	if (_texDoc && index < _texDoc->getTags().count()) {
 		textEdit->setTextCursor(_texDoc->getTags()[index].cursor);
 		textEdit->setFocus(Qt::OtherFocusReason);
 	}
-}
-
-void TeXDocumentWindow::tagsChanged()
-{
-	if (deferTagListChanges)
-		tagListChanged = true;
-	else
-		emit tagListUpdated();
 }
 
 void TeXDocumentWindow::removeAuxFiles()
