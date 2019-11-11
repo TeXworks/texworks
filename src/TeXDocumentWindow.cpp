@@ -3066,35 +3066,24 @@ void TeXDocumentWindow::findRootFilePath()
 		rootFilePath = fileInfo.canonicalFilePath();
 }
 
-void TeXDocumentWindow::addTag(const QTextCursor& cursor, int level, const QString& text)
+void TeXDocumentWindow::addTag(const QTextCursor & cursor, int level, const QString & text)
 {
-	int index = 0;
-	while (index < tags.size()) {
-		if (tags[index].cursor.selectionStart() > cursor.selectionStart())
-			break;
-		++index;
-	}
-	tags.insert(index, Tag(cursor, level, text));
+	if (!_texDoc)
+		return;
+	_texDoc->addTag(cursor, level, text);
 }
 
 int TeXDocumentWindow::removeTags(int offset, int len)
 {
-	int removed = 0;
-	for (int index = tags.count() - 1; index >= 0; --index) {
-		if (tags[index].cursor.selectionStart() < offset)
-			break;
-		if (tags[index].cursor.selectionStart() < offset + len) {
-			tags.removeAt(index);
-			++removed;
-		}
-	}
-	return removed;
+	if (!_texDoc)
+		return 0;
+	return static_cast<int>(_texDoc->removeTags(offset, len));
 }
 
 void TeXDocumentWindow::goToTag(int index)
 {
-	if (index < tags.count()) {
-		textEdit->setTextCursor(tags[index].cursor);
+	if (_texDoc && index < _texDoc->getTags().count()) {
+		textEdit->setTextCursor(_texDoc->getTags()[index].cursor);
 		textEdit->setFocus(Qt::OtherFocusReason);
 	}
 }

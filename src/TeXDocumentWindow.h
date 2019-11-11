@@ -110,17 +110,6 @@ public:
 	bool isModified() const { return textEdit->document()->isModified(); }
 	void setModified(const bool m = true) { textEdit->document()->setModified(m); }
 
-	class Tag {
-	public:
-		QTextCursor	cursor;
-		int			level;
-		QString		text;
-		Tag(const QTextCursor& curs, int lvl, const QString& txt)
-			: cursor(curs), level(lvl), text(txt) { }
-	};
-	const QList<Tag> getTags() const
-		{ return tags; }
-
 	Q_PROPERTY(int cursorPosition READ cursorPosition STORED false)
 	Q_PROPERTY(QString selection READ selectedText STORED false)
 	Q_PROPERTY(int selectionStart READ selectionStart STORED false)
@@ -302,7 +291,6 @@ private:
 
 	QFileSystemWatcher * watcher{nullptr};
 	
-	QList<Tag>	tags;
 	bool deferTagListChanges{false};
 	bool tagListChanged{false};
 

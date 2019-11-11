@@ -23,6 +23,7 @@
 
 #include "document/Document.h"
 
+#include <QTextCursor>
 #include <QTextDocument>
 
 namespace Tw {
@@ -32,8 +33,24 @@ class TextDocument : public QTextDocument, public Document
 {
 	Q_OBJECT
 public:
+	struct Tag {
+		QTextCursor cursor;
+		int level;
+		QString text;
+	};
+
 	explicit TextDocument(QObject * parent = nullptr);
 	explicit TextDocument(const QString & text, QObject * parent = nullptr);
+
+	const QList<Tag> & getTags() const { return _tags; }
+	void addTag(const QTextCursor & cursor, const int level, const QString & text);
+	unsigned int removeTags(int offset, int len);
+
+signals:
+	void tagsChanged() const;
+
+protected:
+	QList<Tag> _tags;
 };
 
 } // namespace Document

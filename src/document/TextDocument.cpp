@@ -28,5 +28,39 @@ TextDocument::TextDocument(QObject * parent) : QTextDocument(parent) { }
 
 TextDocument::TextDocument(const QString & text, QObject * parent) : QTextDocument(text, parent) { }
 
+void TextDocument::addTag(const QTextCursor & cursor, const int level, const QString & text)
+{
+	QList<Tag>::iterator it;
+
+	for (it = _tags.begin(); it != _tags.end(); ++it) {
+		if (it->cursor.selectionStart() > cursor.selectionStart())
+			break;
+	}
+	_tags.insert(it, {cursor, level, text});
+	emit tagsChanged();
+}
+
+unsigned int TextDocument::removeTags(int offset, int len)
+{
+	unsigned int removed = 0;
+	QList<Tag>::iterator start, end;
+
+	for (start = _tags.begin(); start != _tags.end(); ++start) {
+		if (start->cursor.selectionStart() >= offset)
+			break;
+	}
+	for (end = start; end != _tags.end(); ++end) {
+		if (end->cursor.selectionStart() < offset + len)
+			++removed;
+		else
+			break;
+	}
+	if (removed > 0) {
+		_tags.erase(start, end);
+		emit tagsChanged();
+	}
+	return removed;
+}
+
 } // namespace Document
 } // namespace Tw
