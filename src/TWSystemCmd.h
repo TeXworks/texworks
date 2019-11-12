@@ -31,7 +31,7 @@ class TWSystemCmd : public QProcess {
 	
 public:
 	explicit TWSystemCmd(QObject * parent, const bool isOutputWanted = true, const bool runInBackground = false);
-	virtual ~TWSystemCmd() = default;
+	~TWSystemCmd() override = default;
 	
 	QString getResult() { return result; }
 	

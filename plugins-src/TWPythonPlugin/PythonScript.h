@@ -48,7 +48,7 @@ public:
 	 * \return	\c true if successful, \c false if not (e.g. because the file
 	 * 			is no valid Tw python script)
 	 */
-	virtual bool parseHeader() { return doParseHeader("", "", "#"); }
+	bool parseHeader() override { return doParseHeader("", "", "#"); }
 	
 protected:
 	/** \brief Run the python script
@@ -59,7 +59,7 @@ protected:
      *
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool execute(ScriptAPIInterface *tw) const;
+	bool execute(ScriptAPIInterface *tw) const override;
 	
 	/** \brief Handler for attribute requests on QObjects
 	 *

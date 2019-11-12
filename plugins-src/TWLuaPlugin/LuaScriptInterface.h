@@ -52,7 +52,7 @@ public:
 	 *
 	 * Closes the lua state
 	 */
-	virtual ~LuaScriptInterface();
+	~LuaScriptInterface() override;
 
 	/** \brief Script factory
 	 *
@@ -60,23 +60,23 @@ public:
 	 * 			as the interface requires; the caller owns the object and must delete
 	 * 			it.
 	 */
-	virtual Script * newScript(const QString& fileName);
+	Script * newScript(const QString& fileName) override;
 
 	/** \brief	Get the supported script language name
 	 *
 	 * \return	the name of the scripting language
 	 */
-	virtual QString scriptLanguageName() const { return QString::fromLatin1("Lua"); }
+	QString scriptLanguageName() const override { return QString::fromLatin1("Lua"); }
 
 	/** \brief	Get a URL for information on the supported script language
 	 *
 	 * \return	a string with a URL for information about the language
 	 */
-	virtual QString scriptLanguageURL() const { return QString::fromLatin1("http://www.lua.org/"); }
+	QString scriptLanguageURL() const override { return QString::fromLatin1("http://www.lua.org/"); }
 
 	/** \brief  Return whether the given file is handled by this scripting language plugin
 	 */
-	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QLatin1String("lua"); }
+	bool canHandleFile(const QFileInfo& fileInfo) const override { return fileInfo.suffix() == QLatin1String("lua"); }
 
 	lua_State * getLuaState() { return luaState; }
 

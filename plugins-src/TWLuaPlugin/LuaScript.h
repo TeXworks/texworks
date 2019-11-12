@@ -54,7 +54,7 @@ public:
 	 * \return	\c true if successful, \c false if not (e.g. because the file
 	 * 			is no valid Tw lua script)
 	 */
-	virtual bool parseHeader() { return doParseHeader(QString::fromLatin1("--[["), QString::fromLatin1("]]"), QString()); }
+	bool parseHeader() override { return doParseHeader(QString::fromLatin1("--[["), QString::fromLatin1("]]"), QString()); }
 
 protected:
 	/** \brief Run the lua script
@@ -63,7 +63,7 @@ protected:
 	 *
 	 * \return	\c true on success, \c false if an error occured
 	 */
-	virtual bool execute(ScriptAPIInterface *tw) const;
+	bool execute(ScriptAPIInterface *tw) const override;
 	
 	/** \brief Convenience function to wrap a QObject and push it onto the stack
 	 *

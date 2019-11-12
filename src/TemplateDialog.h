@@ -36,7 +36,7 @@ class TemplateDialog : public QDialog, private Ui::TemplateDialog
 
 public:
 	TemplateDialog();
-	virtual ~TemplateDialog() = default;
+	~TemplateDialog() override = default;
 
 	static QString doTemplateDialog();
 

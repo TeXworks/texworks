@@ -51,7 +51,7 @@ class NonblockingSyntaxHighlighter : public QObject
 
 public:
 	NonblockingSyntaxHighlighter(QTextDocument * parent) : QObject(parent), _processingPending(false), _parent(nullptr), MAX_TIME_MSECS(5), IDLE_DELAY_TIME(40) { setDocument(parent); }
-	virtual ~NonblockingSyntaxHighlighter() { setDocument(nullptr); }
+	~NonblockingSyntaxHighlighter() override { setDocument(nullptr); }
 
 	QTextDocument * document() const { return _parent; }
 	void setDocument(QTextDocument * doc);
@@ -119,7 +119,7 @@ public:
 	static QStringList syntaxOptions();
 
 protected:
-	virtual void highlightBlock(const QString &text) override;
+	void highlightBlock(const QString &text) override;
 
 	void spellCheckRange(const QString &text, int index, int limit, const QTextCharFormat &spellFormat);
 

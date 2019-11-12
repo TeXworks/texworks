@@ -63,7 +63,7 @@ public:
 	 *
 	 * Does nothing
 	 */
-	virtual ~Script() = default;
+	~Script() override = default;
 	
 	/** \brief  Return the enabled/disabled status of the script
 	 *

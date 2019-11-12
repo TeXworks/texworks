@@ -36,10 +36,10 @@ public:
 	JSScript(QObject * plugin, const QString& filename)
 		: Tw::Scripting::Script(plugin, filename) { }
 
-	virtual bool parseHeader() { return doParseHeader(QString(), QString(), QString::fromLatin1("//")); }
+	bool parseHeader() override { return doParseHeader(QString(), QString(), QString::fromLatin1("//")); }
 
 protected:
-	virtual bool execute(ScriptAPIInterface *tw) const;
+	bool execute(ScriptAPIInterface *tw) const override;
 };
 
 } // namespace Scripting

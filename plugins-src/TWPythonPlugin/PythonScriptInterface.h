@@ -56,7 +56,7 @@ public:
 	 *
 	 * Finalizes the python instance
 	 */
-	virtual ~PythonScriptInterface();
+	~PythonScriptInterface() override;
 
 	/** \brief Script factory
 	 *
@@ -64,23 +64,23 @@ public:
 	 * 			interface requires; the caller owns the object and must delete
 	 * 			it.
 	 */
-	virtual Script * newScript(const QString& fileName);
+	Script * newScript(const QString& fileName) override;
 
 	/** \brief	Get the supported script language name
 	 *
 	 * \return	the name of the scripting language
 	 */
-	virtual QString scriptLanguageName() const { return QStringLiteral("Python"); }
+	QString scriptLanguageName() const override { return QStringLiteral("Python"); }
 
 	/** \brief	Get a URL for information on the supported script language
 	 *
 	 * \return	a string with a URL for information about the language
 	 */
-	virtual QString scriptLanguageURL() const { return QStringLiteral("http://www.python.org/"); }
+	QString scriptLanguageURL() const override { return QStringLiteral("http://www.python.org/"); }
 
 	/** \brief  Return whether the given file is handled by this scripting language plugin
 	 */
-	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QStringLiteral("py"); }
+	bool canHandleFile(const QFileInfo& fileInfo) const override { return fileInfo.suffix() == QStringLiteral("py"); }
 };
 
 } // namespace Scripting

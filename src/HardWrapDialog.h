@@ -36,7 +36,7 @@ class HardWrapDialog : public QDialog, private Ui::HardWrapDialog
 
 public:
 	explicit HardWrapDialog(QWidget * parent);
-	virtual ~HardWrapDialog() = default;
+	~HardWrapDialog() override = default;
 
 	unsigned int lineWidth() const { // returns 0 for current window size, or char count
 	    return radio_fixedLineLength->isChecked() ? spinbox_charCount->value() : 0;

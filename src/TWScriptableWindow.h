@@ -40,7 +40,7 @@ class TWScriptableWindow : public QMainWindow
 
 public:
 	TWScriptableWindow() = default;
-	virtual ~TWScriptableWindow() = default;
+	~TWScriptableWindow() override = default;
 	
 public slots:
 	void updateScriptsMenu();

@@ -148,7 +148,7 @@ public:
 	static CmdKeyFilter *filter();
 
 protected:
-	bool eventFilter(QObject *obj, QEvent *event);
+	bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
 	static CmdKeyFilter *filterObj;

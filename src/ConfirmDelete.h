@@ -34,7 +34,7 @@ class ConfirmDelete : public QDialog, private Ui::ConfirmDelete
 
 public:
 	ConfirmDelete(QWidget *parent = nullptr);
-	virtual ~ConfirmDelete() = default;
+	~ConfirmDelete() override = default;
 
 	static void doConfirmDelete(const QDir& dir, const QStringList& fileList);
 

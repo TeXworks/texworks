@@ -31,16 +31,16 @@ class LineNumberWidget : public QWidget
 {
 public:
 	explicit LineNumberWidget(QTextEdit * parent);
-	virtual ~LineNumberWidget() override = default;
+	~LineNumberWidget() override = default;
 
 	QColor bgColor() const { return _bgColor; }
 	void setBgColor(const QColor color) { _bgColor = color; }
 
-	virtual QSize sizeHint() const override;
+	QSize sizeHint() const override;
 
 protected:
 	void paintEvent(QPaintEvent * event) override;
-	virtual void changeEvent(QEvent * event) override;
+	void changeEvent(QEvent * event) override;
 
 private:
 	QTextEdit * _editor;

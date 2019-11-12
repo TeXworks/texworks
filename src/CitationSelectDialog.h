@@ -30,17 +30,17 @@
 #include "BibTeXFile.h"
 
 class CitationModel : public QAbstractTableModel {
-	Q_OBJECT;
+	Q_OBJECT
 public:
 	CitationModel(QObject * parent = nullptr);
-	virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-	virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-	virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-	virtual Qt::ItemFlags flags(const QModelIndex &index) const;
-	virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+	Qt::ItemFlags flags(const QModelIndex &index) const override;
+	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
-	virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
+	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 
 	void setSelectedKeys(const QStringList & keys);
 	QStringList selectedKeys() const { return _selectedKeys.values(); }
@@ -61,8 +61,8 @@ class CitationProxyModel : public QSortFilterProxyModel
 {
 public:
 	CitationProxyModel(QObject * parent = nullptr) : QSortFilterProxyModel(parent) { }
-	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
-	virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) { setSortRole(column == 0 ? Qt::CheckStateRole : Qt::DisplayRole); QSortFilterProxyModel::sort(column, order); }
+	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+	void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override { setSortRole(column == 0 ? Qt::CheckStateRole : Qt::DisplayRole); QSortFilterProxyModel::sort(column, order); }
 };
 
 class CitationTableView : public QTableView
@@ -71,7 +71,7 @@ class CitationTableView : public QTableView
 public:
 	CitationTableView(QWidget * parent = nullptr) : QTableView(parent) { }
 protected:
-	virtual void keyPressEvent(QKeyEvent * event);
+	void keyPressEvent(QKeyEvent * event) override;
 };
 
 // The ui header must be included after declaring CitationTableView, as the
@@ -80,11 +80,11 @@ protected:
 
 class CitationSelectDialog : public QDialog, private Ui::CitationSelectDialog
 {
-	Q_OBJECT;
+	Q_OBJECT
 public:
 
 	explicit CitationSelectDialog(QWidget * parent);
-	virtual ~CitationSelectDialog() = default;
+	~CitationSelectDialog() override = default;
 
 	CitationModel & model() { return _model; }
 
@@ -101,7 +101,7 @@ public:
 public slots:
 	void buttonClicked(QAbstractButton * button);
 	void resetData();
-	virtual int exec() { tableView->resizeColumnsToContents(); return QDialog::exec(); }
+	int exec() override { tableView->resizeColumnsToContents(); return QDialog::exec(); }
 
 
 protected:
@@ -117,7 +117,7 @@ class KeyForwarder : public QObject
 public:
 	explicit KeyForwarder(QObject * target, QObject * parent = nullptr);
 protected:
-	bool eventFilter(QObject * watched, QEvent * event);
+	bool eventFilter(QObject * watched, QEvent * event) override;
 	QObject * _target;
 	QSet<int> _keysToForward;
 };

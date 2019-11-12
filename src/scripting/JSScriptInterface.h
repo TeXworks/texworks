@@ -37,13 +37,13 @@ class JSScriptInterface : public QObject, public ScriptLanguageInterface
 
 public:
 	JSScriptInterface() = default;
-	virtual ~JSScriptInterface() = default;
+	~JSScriptInterface() override = default;
 
-	virtual Script* newScript(const QString& fileName);
+	Script* newScript(const QString& fileName) override;
 
-	virtual QString scriptLanguageName() const { return QString::fromLatin1("QtScript"); }
-	virtual QString scriptLanguageURL() const { return QString::fromLatin1("http://doc.qt.io/qt-5/qtscript-index.html"); }
-	virtual bool canHandleFile(const QFileInfo& fileInfo) const { return fileInfo.suffix() == QLatin1String("js"); }
+	QString scriptLanguageName() const override { return QString::fromLatin1("QtScript"); }
+	QString scriptLanguageURL() const override { return QString::fromLatin1("http://doc.qt.io/qt-5/qtscript-index.html"); }
+	bool canHandleFile(const QFileInfo& fileInfo) const override { return fileInfo.suffix() == QLatin1String("js"); }
 };
 
 } // namespace Scripting

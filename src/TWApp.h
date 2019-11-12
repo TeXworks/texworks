@@ -67,7 +67,7 @@ class TWApp : public QApplication
 
 public:
 	TWApp(int &argc, char **argv);
-	virtual ~TWApp();
+	~TWApp() override;
 
 	int maxRecentFiles() const;
 	void setMaxRecentFiles(int value);
@@ -229,7 +229,7 @@ private slots:
 	void globalDestroyed(QObject * obj);
 
 protected:
-	virtual bool event(QEvent *);
+	bool event(QEvent *) override;
 
 private:
 	void init();

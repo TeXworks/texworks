@@ -34,7 +34,7 @@ class SpellChecker : public QObject {
 	Q_OBJECT
 
 	SpellChecker() = default;
-	virtual ~SpellChecker() = default;
+	~SpellChecker() override = default;
 	SpellChecker(const SpellChecker & other) = delete;
 	SpellChecker & operator=(const SpellChecker & other) = delete;
 

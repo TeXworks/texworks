@@ -41,7 +41,7 @@ class InterProcessCommunicator : public QObject
 
 public:
 	InterProcessCommunicator();
-	virtual ~InterProcessCommunicator();
+	~InterProcessCommunicator() override;
 
 	bool isFirstInstance() const { return _isFirstInstance; }
 

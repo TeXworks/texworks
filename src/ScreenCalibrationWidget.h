@@ -12,7 +12,7 @@ class ScreenCalibrationWidget : public QWidget
 	Q_OBJECT
 public:
 	ScreenCalibrationWidget(QWidget * parent = nullptr);
-	virtual ~ScreenCalibrationWidget() = default;
+	~ScreenCalibrationWidget() override = default;
 
 	double dpi() const;
 
@@ -29,14 +29,14 @@ protected slots:
 	void repositionSpinBox();
 
 protected:
-	virtual void paintEvent(QPaintEvent * event);
-	virtual void resizeEvent(QResizeEvent * event);
-	virtual void mousePressEvent(QMouseEvent * event);
-	virtual void mouseMoveEvent(QMouseEvent * event);
-	virtual void mouseReleaseEvent(QMouseEvent * event);
-	virtual void changeEvent(QEvent * event);
-	virtual void contextMenuEvent(QContextMenuEvent * event);
-	virtual bool eventFilter(QObject * object, QEvent * event);
+	void paintEvent(QPaintEvent * event) override;
+	void resizeEvent(QResizeEvent * event) override;
+	void mousePressEvent(QMouseEvent * event) override;
+	void mouseMoveEvent(QMouseEvent * event) override;
+	void mouseReleaseEvent(QMouseEvent * event) override;
+	void changeEvent(QEvent * event) override;
+	void contextMenuEvent(QContextMenuEvent * event) override;
+	bool eventFilter(QObject * object, QEvent * event) override;
 
 
 	QDoubleSpinBox * _sbDPI;

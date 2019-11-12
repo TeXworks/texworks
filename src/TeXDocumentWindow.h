@@ -68,7 +68,7 @@ public:
 	explicit TeXDocumentWindow();
 	explicit TeXDocumentWindow(const QString & fileName, bool asTemplate = false);
 
-	virtual ~TeXDocumentWindow();
+	~TeXDocumentWindow() override;
 
 	static TeXDocumentWindow *findDocument(const QString &fileName);
 	static QList<TeXDocumentWindow*> documentList()
@@ -127,13 +127,13 @@ signals:
 	void asyncFlashStatusBarMessage(const QString & msg, const int timeout = 0);
 
 protected:
-	virtual void changeEvent(QEvent *event);
-	virtual void closeEvent(QCloseEvent *event);
-	virtual bool event(QEvent *event);
-	virtual void dragEnterEvent(QDragEnterEvent *event);
-	virtual void dragMoveEvent(QDragMoveEvent *event);
-	virtual void dragLeaveEvent(QDragLeaveEvent *event);
-	virtual void dropEvent(QDropEvent *event);
+	void changeEvent(QEvent *event) override;
+	void closeEvent(QCloseEvent *event) override;
+	bool event(QEvent *event) override;
+	void dragEnterEvent(QDragEnterEvent *event) override;
+	void dragMoveEvent(QDragMoveEvent *event) override;
+	void dragLeaveEvent(QDragLeaveEvent *event) override;
+	void dropEvent(QDropEvent *event) override;
 
 	QString scriptContext() const override { return QStringLiteral("TeXDocument"); }
 

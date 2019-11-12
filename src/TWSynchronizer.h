@@ -62,15 +62,15 @@ class TWSyncTeXSynchronizer : public TWSynchronizer
 {
 public:
   explicit TWSyncTeXSynchronizer(const QString & filename);
-  virtual ~TWSyncTeXSynchronizer();
+  ~TWSyncTeXSynchronizer() override;
 
   bool isValid() const;
 
   QString syncTeXFilename() const;
   QString pdfFilename() const;
 
-  virtual PDFSyncPoint syncFromTeX(const TeXSyncPoint & src, const Resolution resolution) const;
-  virtual TeXSyncPoint syncFromPDF(const PDFSyncPoint & src, const Resolution resolution) const;
+  PDFSyncPoint syncFromTeX(const TeXSyncPoint & src, const Resolution resolution) const override;
+  TeXSyncPoint syncFromPDF(const PDFSyncPoint & src, const Resolution resolution) const override;
 
 protected:
   void _syncFromTeXFine(const TeXSyncPoint & src, PDFSyncPoint & dest, const Resolution resolution) const;

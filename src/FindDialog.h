@@ -44,10 +44,10 @@ public:
 		: QObject(parent), strings(stringList)
 			{}
 	
-	virtual ~RecentStringsKeyFilter() = default;
+	~RecentStringsKeyFilter() override = default;
 	
 protected:
-	bool eventFilter(QObject *obj, QEvent *event);
+	bool eventFilter(QObject *obj, QEvent *event) override;
 	void setRecentString(QObject *obj, int dir);
 
 	QStringList strings;

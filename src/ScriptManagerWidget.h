@@ -36,7 +36,7 @@ public:
 	static void refreshScriptList();
 
 protected:
-	virtual void closeEvent(QCloseEvent * event);
+	void closeEvent(QCloseEvent * event) override;
 
 signals:
 	void scriptListChanged();

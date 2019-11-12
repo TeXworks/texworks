@@ -42,7 +42,7 @@ class CompletingEdit : public QTextEdit
 
 public:
 	CompletingEdit(QWidget *parent = nullptr);
-	~CompletingEdit();
+	~CompletingEdit() override;
 
 	bool selectWord(QTextCursor& cursor);
 
@@ -88,22 +88,22 @@ signals:
 	void updateRequest(const QRect& rect, int dy);
 
 protected:
-	virtual void keyPressEvent(QKeyEvent *e);
-	virtual void focusInEvent(QFocusEvent *e);
-	virtual void mousePressEvent(QMouseEvent *e);
-	virtual void mouseReleaseEvent(QMouseEvent *e);
-	virtual void mouseMoveEvent(QMouseEvent *e);
-	virtual void mouseDoubleClickEvent(QMouseEvent *e);
-	virtual void contextMenuEvent(QContextMenuEvent *e);
-	virtual void dragEnterEvent(QDragEnterEvent *e);
-	virtual void dropEvent(QDropEvent *e);
-	virtual void timerEvent(QTimerEvent *e);
-	virtual bool canInsertFromMimeData(const QMimeData *source) const;
-	virtual void insertFromMimeData(const QMimeData *source);
-	virtual void resizeEvent(QResizeEvent *event);
-	virtual void wheelEvent(QWheelEvent *event);
-	virtual bool event(QEvent *event);	
-	virtual void scrollContentsBy(int dx, int dy);
+	void keyPressEvent(QKeyEvent *e) override;
+	void focusInEvent(QFocusEvent *e) override;
+	void mousePressEvent(QMouseEvent *e) override;
+	void mouseReleaseEvent(QMouseEvent *e) override;
+	void mouseMoveEvent(QMouseEvent *e) override;
+	void mouseDoubleClickEvent(QMouseEvent *e) override;
+	void contextMenuEvent(QContextMenuEvent *e) override;
+	void dragEnterEvent(QDragEnterEvent *e) override;
+	void dropEvent(QDropEvent *e) override;
+	void timerEvent(QTimerEvent *e) override;
+	bool canInsertFromMimeData(const QMimeData *source) const override;
+	void insertFromMimeData(const QMimeData *source) override;
+	void resizeEvent(QResizeEvent *event) override;
+	void wheelEvent(QWheelEvent *event) override;
+	bool event(QEvent *event) override;
+	void scrollContentsBy(int dx, int dy) override;
 
 	Tw::Document::SpellChecker::Dictionary * getSpellChecker() const;
 

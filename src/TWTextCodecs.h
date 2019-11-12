@@ -28,17 +28,17 @@ class MacCentralEurRomanCodec : public QTextCodec
 {
 public:
 	MacCentralEurRomanCodec() = default;
-	virtual ~MacCentralEurRomanCodec() = default;
+	~MacCentralEurRomanCodec() override = default;
 
 	// NOTE: The mib number is arbitrary since this encoding is not in the IANA
 	// list (http://www.iana.org/assignments/character-sets).
-	int mibEnum() const { return -4000; }
-	QByteArray name() const { return "Mac Central European Roman"; }
-	QList<QByteArray> aliases() const;
+	int mibEnum() const override { return -4000; }
+	QByteArray name() const override { return "Mac Central European Roman"; }
+	QList<QByteArray> aliases() const override;
 
 protected:
-	QByteArray convertFromUnicode(const QChar * input, int length, ConverterState * state) const;
-	QString convertToUnicode(const char * chars, int len, ConverterState * state) const;
+	QByteArray convertFromUnicode(const QChar * input, int length, ConverterState * state) const override;
+	QString convertToUnicode(const char * chars, int len, ConverterState * state) const override;
 };
 
 #endif // !defined(TWTextCodecs)

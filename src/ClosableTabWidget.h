@@ -34,13 +34,13 @@ class ClosableTabWidget : public QTabWidget
 	Q_OBJECT
 public:
 	ClosableTabWidget(QWidget * parent = nullptr);
-	virtual ~ClosableTabWidget() = default;
+	~ClosableTabWidget() override = default;
 
 signals:
 	void requestClose();
 
 protected:
-	void resizeEvent(QResizeEvent * e);
+	void resizeEvent(QResizeEvent * e) override;
 
 	QToolButton * _closeButton;
 };

@@ -59,7 +59,7 @@ class FullscreenManager : public QObject
 	Q_OBJECT
 public:
 	FullscreenManager(QMainWindow * parent);
-	virtual ~FullscreenManager();
+	~FullscreenManager() override;
 
 	void setFullscreen(const bool fullscreen = true);
 	bool isFullscreen() const;
@@ -98,7 +98,7 @@ class PDFDocumentWindow : public TWScriptableWindow, private Ui::PDFDocumentWind
 
 public:
 	PDFDocumentWindow(const QString &fileName, TeXDocumentWindow *sourceDoc = nullptr);
-	virtual ~PDFDocumentWindow();
+	~PDFDocumentWindow() override;
 
 	static PDFDocumentWindow *findDocument(const QString &fileName);
 	static QList<PDFDocumentWindow*> documentList()
@@ -122,13 +122,13 @@ public:
 	QtPDF::PDFDocumentWidget * widget() { return pdfWidget; }
 
 protected:
-	virtual void changeEvent(QEvent *event);
-	virtual bool event(QEvent *event);
-	virtual void closeEvent(QCloseEvent *event);
-	virtual void dragEnterEvent(QDragEnterEvent *event);
-	virtual void dropEvent(QDropEvent *event);
-	virtual void contextMenuEvent(QContextMenuEvent *event);
-	virtual void mouseMoveEvent(QMouseEvent *event);
+	void changeEvent(QEvent *event) override;
+	bool event(QEvent *event) override;
+	void closeEvent(QCloseEvent *event) override;
+	void dragEnterEvent(QDragEnterEvent *event) override;
+	void dropEvent(QDropEvent *event) override;
+	void contextMenuEvent(QContextMenuEvent *event) override;
+	void mouseMoveEvent(QMouseEvent *event) override;
 
 	QString scriptContext() const override { return QStringLiteral("PDFDocument"); }
 
