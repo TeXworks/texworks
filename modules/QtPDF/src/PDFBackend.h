@@ -238,7 +238,7 @@ protected:
 public:
   enum Type { PageRendering, LoadLinks };
 
-  virtual ~PageProcessingRequest() = default;
+  ~PageProcessingRequest() override = default;
   virtual Type type() const = 0;
 
   Page *page;
@@ -262,15 +262,15 @@ public:
     render_box(render_box),
     cache(cache)
   {}
-  Type type() const { return PageRendering; }
+  Type type() const override { return PageRendering; }
 
-  virtual bool operator==(const PageProcessingRequest & r) const;
+  bool operator==(const PageProcessingRequest & r) const override;
 #ifdef DEBUG
-  virtual operator QString() const;
+  operator QString() const override;
 #endif
 
 protected:
-  bool execute();
+  bool execute() override;
 
   double xres, yres;
   QRect render_box;
@@ -305,14 +305,14 @@ class PageProcessingLoadLinksRequest : public PageProcessingRequest
 
 public:
   PageProcessingLoadLinksRequest(Page *page, QObject *listener) : PageProcessingRequest(page, listener) { }
-  Type type() const { return LoadLinks; }
+  Type type() const override { return LoadLinks; }
 
 #ifdef DEBUG
-  virtual operator QString() const;
+  operator QString() const override;
 #endif
 
 protected:
-  bool execute();
+  bool execute() override;
 };
 
 
@@ -345,7 +345,7 @@ class PDFPageProcessingThread : public QThread
 
 public:
   PDFPageProcessingThread() = default;
-  virtual ~PDFPageProcessingThread();
+  ~PDFPageProcessingThread() override;
 
   // add a processing request to the work stack
   // Note: request must have been created on the heap and must be in the scope
@@ -362,7 +362,7 @@ public:
   void clearWorkStack();
 
 protected:
-  virtual void run();
+  void run() override;
 
 private:
   QStack<PageProcessingRequest*> _workStack;
@@ -663,7 +663,7 @@ class BackendInterface : public QObject
 {
   Q_OBJECT
 public:
-  virtual ~BackendInterface() = default;
+  ~BackendInterface() override = default;
   virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) = 0;
   virtual QString name() const = 0;
   virtual bool canHandleFile(const QString & fileName) = 0;

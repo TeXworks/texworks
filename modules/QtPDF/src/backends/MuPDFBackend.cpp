@@ -1326,7 +1326,7 @@ inline bool polygonContains(const QPolygonF & poly, const QRectF & rect)
   return (qAbs(r.width() * r.height() - rect.width() * rect.height()) < 1e-6);
 }
 
-QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes /* = NULL */, QMap<int, QRectF> * charBoxes /* = NULL */)
+QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes /* = NULL */, QMap<int, QRectF> * charBoxes /* = NULL */, const bool onlyFullyEnclosed)
 {
   // FIXME: Implement wordBoxes and charBoxes
   QReadLocker pageLocker(_pageLock);

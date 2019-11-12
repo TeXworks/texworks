@@ -114,9 +114,9 @@ class Markup : public AbstractAnnotation
 {
 public:
   Markup() : AbstractAnnotation() { }
-  virtual ~Markup();
+  ~Markup() override;
 
-  virtual bool isMarkup() const override { return true; }
+  bool isMarkup() const override { return true; }
 
   virtual QString title() const { return _title; }
   // Synonym for title(), but easier to read
@@ -154,7 +154,7 @@ public:
   enum HighlightingMode { HighlightingNone, HighlightingInvert, HighlightingOutline, HighlightingPush };
 
   Link() : AbstractAnnotation() { }
-  virtual ~Link();
+  ~Link() override;
   Link(const Link & other) : AbstractAnnotation(other), _highlightingMode(other._highlightingMode), _quadPoints(other._quadPoints) {
     _actionOnActivation = (other._actionOnActivation ? other._actionOnActivation->clone() : nullptr);
   }
@@ -168,7 +168,7 @@ public:
     return *this;
   }
 
-  virtual AnnotationType type() const override { return AnnotationTypeLink; }
+  AnnotationType type() const override { return AnnotationTypeLink; }
 
   HighlightingMode highlightingMode() const { return _highlightingMode; }
   QPolygonF quadPoints() const;
@@ -192,7 +192,7 @@ private:
 class Text : public Markup
 {
 public:
-  virtual AnnotationType type() const override { return AnnotationTypeText; }
+  AnnotationType type() const override { return AnnotationTypeText; }
 private:
   bool _open;
   QString _iconName;
@@ -203,14 +203,14 @@ private:
 class FreeText : public Markup
 {
 public:
-  virtual AnnotationType type() const override { return AnnotationTypeFreeText; }
+  AnnotationType type() const override { return AnnotationTypeFreeText; }
   // TODO: members
 };
 
 class Caret : public Markup
 {
 public:
-  virtual AnnotationType type() const override { return AnnotationTypeCaret; }
+  AnnotationType type() const override { return AnnotationTypeCaret; }
 private:
   QRectF _rectDiff;
   // enum _symbol;
@@ -219,14 +219,14 @@ private:
 class Popup : public AbstractAnnotation
 {
 public:
-  virtual AnnotationType type() const override { return AnnotationTypePopup; }
-  
+  AnnotationType type() const override { return AnnotationTypePopup; }
+
   Markup * parent() { return _parent; }
   bool isOpen() const { return _open; }
-  
+
   void setParent(Markup * parent) { _parent = parent; }
   void setOpen(const bool open = true) { _open = open; }
-  
+
 private:
   Markup * _parent;
   bool _open;
@@ -235,28 +235,28 @@ private:
 class Highlight : public Markup
 {
 public:
-  virtual AnnotationType type() const override { return AnnotationTypeHighlight; }
+  AnnotationType type() const override { return AnnotationTypeHighlight; }
   // TODO: members
 };
 
 class Underline: public Markup
 {
 public:
-  virtual AnnotationType type() const override { return AnnotationTypeUnderline; }
+  AnnotationType type() const override { return AnnotationTypeUnderline; }
   // TODO: members
 };
 
 class Squiggly: public Markup
 {
 public:
-  virtual AnnotationType type() const override { return AnnotationTypeSquiggly; }
+  AnnotationType type() const override { return AnnotationTypeSquiggly; }
   // TODO: members
 };
 
 class StrikeOut: public Markup
 {
 public:
-  virtual AnnotationType type() const override { return AnnotationTypeStrikeOut; }
+  AnnotationType type() const override { return AnnotationTypeStrikeOut; }
   // TODO: members
 };
 

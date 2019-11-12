@@ -58,20 +58,20 @@ protected:
 
 public:
   Document(const QString & fileName);
-  ~Document();
+  ~Document() override;
 
-  bool isValid() const { QReadLocker docLocker(_docLock.data()); return _isValid(); }
-  bool isLocked() const { QReadLocker docLocker(_docLock.data()); return _isLocked(); }
+  bool isValid() const override { QReadLocker docLocker(_docLock.data()); return _isValid(); }
+  bool isLocked() const override { QReadLocker docLocker(_docLock.data()); return _isLocked(); }
 
-  void reload();
-  bool unlock(const QString password);
+  void reload() override;
+  bool unlock(const QString password) override;
 
-  QWeakPointer<Backend::Page> page(int at);
-  QWeakPointer<Backend::Page> page(int at) const;
-  PDFDestination resolveDestination(const PDFDestination & namedDestination) const;
+  QWeakPointer<Backend::Page> page(int at) override;
+  QWeakPointer<Backend::Page> page(int at) const override;
+  PDFDestination resolveDestination(const PDFDestination & namedDestination) const override;
 
-  PDFToC toc() const;
-  QList<PDFFontInfo> fonts() const;
+  PDFToC toc() const override;
+  QList<PDFFontInfo> fonts() const override;
 
 private:
   void parseDocument();
@@ -95,18 +95,18 @@ protected:
   Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock);
 
 public:
-  ~Page();
+  ~Page() override;
 
-  QSizeF pageSizeF() const;
+  QSizeF pageSizeF() const override;
 
-  QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) const;
+  QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) const override;
 
-  QList< QSharedPointer<Annotation::Link> > loadLinks();
-  QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations();
-  QList< Backend::Page::Box > boxes();
-  QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = nullptr, QMap<int, QRectF> * charBoxes = nullptr, const bool onlyFullyEnclosed = false);
+  QList< QSharedPointer<Annotation::Link> > loadLinks() override;
+  QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations() override;
+  QList< Backend::Page::Box > boxes() override;
+  QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = nullptr, QMap<int, QRectF> * charBoxes = nullptr, const bool onlyFullyEnclosed = false) override;
 
-  QList<Backend::SearchResult> search(const QString & searchText, const SearchFlags & flags);
+  QList<Backend::SearchResult> search(const QString & searchText, const SearchFlags & flags) override;
 };
 
 } // namespace PopplerQt
@@ -119,14 +119,14 @@ class PopplerQtBackend : public BackendInterface
   Q_INTERFACES(QtPDF::BackendInterface)
 public:
   PopplerQtBackend();
-  virtual ~PopplerQtBackend() = default;
+  ~PopplerQtBackend() override = default;
 
-  virtual QSharedPointer<Backend::Document> newDocument(const QString & fileName) {
+  QSharedPointer<Backend::Document> newDocument(const QString & fileName) override {
     return QSharedPointer<Backend::Document>(new Backend::PopplerQt::Document(fileName));
   }
 
-  virtual QString name() const { return QString::fromLatin1("poppler-qt"); }
-  virtual bool canHandleFile(const QString & fileName) { return QFileInfo(fileName).suffix() == QString::fromLatin1("pdf"); }
+  QString name() const override { return QString::fromLatin1("poppler-qt"); }
+  bool canHandleFile(const QString & fileName) override { return QFileInfo(fileName).suffix() == QString::fromLatin1("pdf"); }
 };
 
 } // namespace QtPDF
