@@ -44,8 +44,6 @@ public:
 	CompletingEdit(QWidget *parent = nullptr);
 	~CompletingEdit();
 
-	void setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary);
-
 	bool selectWord(QTextCursor& cursor);
 
 	void setLineNumberDisplay(bool displayNumbers);
@@ -106,7 +104,9 @@ protected:
 	virtual void wheelEvent(QWheelEvent *event);
 	virtual bool event(QEvent *event);	
 	virtual void scrollContentsBy(int dx, int dy);
-	
+
+	Tw::Document::SpellChecker::Dictionary * getSpellChecker() const;
+
 private slots:
 	void cursorPositionChangedSlot();
 	void correction(const QString& suggestion);
@@ -188,8 +188,6 @@ private:
 	int prevRow{-1};
 
 	QTextCursor currentWord;
-
-	Tw::Document::SpellChecker::Dictionary * _dictionary{nullptr};
 
 	QTextCursor	currentCompletionRange;
 

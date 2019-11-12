@@ -98,7 +98,6 @@ void TeXDocumentWindow::init()
 	codec = TWApp::instance()->getDefaultCodec();
 	pdfDoc = nullptr;
 	process = nullptr;
-	_dictionary = nullptr;
 	utf8BOM = false;
 #if defined(Q_OS_WIN)
 	lineEndings = kLineEnd_CRLF;
@@ -410,21 +409,25 @@ void TeXDocumentWindow::changeEvent(QEvent *event)
 
 void TeXDocumentWindow::setLangInternal(const QString& lang)
 {
+	if (_texDoc == nullptr)
+		return;
+
+	TeXHighlighter * highlighter = _texDoc->getHighlighter();
+	if (highlighter == nullptr)
+		return;
+
 	// called internally by the spelling menu actions;
 	// not for use from scripts as it won't update the menu
-	QTextCodec *spellingCodec;
-	Tw::Document::SpellChecker::Dictionary * oldDictionary = _dictionary;
-	_dictionary = Tw::Document::SpellChecker::getDictionary(lang);
+	Tw::Document::SpellChecker::Dictionary * oldDictionary = highlighter->getSpellChecker();
+	Tw::Document::SpellChecker::Dictionary * newDictionary = Tw::Document::SpellChecker::getDictionary(lang);
 	// if the dictionary hasn't change, don't reset the spell checker as that
 	// can result in a serious delay for long documents
 	// NB: Don't delete the dictionaries; the pointers are kept by
 	// Tw::Document::SpellChecker
-	if (oldDictionary == _dictionary)
+	if (oldDictionary == newDictionary)
 		return;
 	
-	textEdit->setSpellChecker(_dictionary);
-	if (_texDoc && _texDoc->getHighlighter())
-		_texDoc->getHighlighter()->setSpellChecker(_dictionary);
+	highlighter->setSpellChecker(newDictionary);
 }
 
 void TeXDocumentWindow::setSpellcheckLanguage(const QString& lang)
@@ -460,8 +463,14 @@ void TeXDocumentWindow::setSpellcheckLanguage(const QString& lang)
 
 QString TeXDocumentWindow::spellcheckLanguage() const
 {
-	if (!_dictionary) return QString();
-	return _dictionary->getLanguage();
+	if (_texDoc == nullptr)
+		return QString();
+	TeXHighlighter * highlighter = _texDoc->getHighlighter();
+	if (highlighter == nullptr)
+		return QString();
+	Tw::Document::SpellChecker::Dictionary * dictionary = highlighter->getSpellChecker();
+	if (dictionary == nullptr) return QString();
+	return dictionary->getLanguage();
 }
 
 void TeXDocumentWindow::reloadSpellcheckerMenu()

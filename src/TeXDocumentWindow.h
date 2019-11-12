@@ -283,8 +283,6 @@ private:
 
 	QList<QAction*> recentFileActions;
 
-	Tw::Document::SpellChecker::Dictionary * _dictionary{nullptr};
-
 	QFileSystemWatcher * watcher{nullptr};
 
 	QTextCursor	dragSavedCursor;
