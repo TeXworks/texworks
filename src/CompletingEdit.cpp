@@ -74,7 +74,9 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 
 	lineNumberArea = new Tw::UI::LineNumberWidget(this);
 	
-	connect(document(), SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
+	// Invoke our setDocument() method to properly set up document-specific
+	// connections
+	setDocument(document());
 	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
 	connect(this, SIGNAL(textChanged()), lineNumberArea, SLOT(update()));
 
@@ -1284,6 +1286,13 @@ void CompletingEdit::setTextCursor(const QTextCursor & cursor)
 	c.setPosition(c.anchor());
 	QTextEdit::setTextCursor(c);
 	QTextEdit::setTextCursor(cursor);
+}
+
+void CompletingEdit::setDocument(QTextDocument * document)
+{
+	disconnect(this, SLOT(updateLineNumberAreaWidth(int)));
+	QTextEdit::setDocument(document);
+	connect(document, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
 }
 
 bool CompletingEdit::event(QEvent *e)

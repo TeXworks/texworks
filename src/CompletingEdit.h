@@ -61,6 +61,9 @@ public:
 	// Override of QTextEdit's method to properly handle scrolling for multiline
 	// cursors
 	void setTextCursor(const QTextCursor & cursor);
+
+	// Override of QTextEdit's method to reconnect signals
+	void setDocument(QTextDocument * document);
 	
 	static QStringList autoIndentModes();
 	static QStringList smartQuotesModes();
