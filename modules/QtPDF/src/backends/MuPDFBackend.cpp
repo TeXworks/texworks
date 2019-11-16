@@ -311,7 +311,7 @@ Annotation::Popup * toPDFPopupAnnotation(Annotation::Markup * parent, fz_obj * s
   static char keyOpen[] = "Open";
 
   if (!fz_is_dict(src))
-    return NULL;
+    return Q_NULLPTR;
 
   Annotation::Popup * retVal = new Annotation::Popup();
 
