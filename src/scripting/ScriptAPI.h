@@ -117,22 +117,22 @@ public:
 	Q_INVOKABLE
 	int information(QWidget* parent,
 					const QString& title, const QString& text,
-					int buttons = static_cast<int>(QMessageBox::Ok),
+					int buttons = QMessageBox::Ok,
 					int defaultButton = QMessageBox::NoButton) override;
 	Q_INVOKABLE
 	int question(QWidget* parent,
 				 const QString& title, const QString& text,
-				 int buttons = static_cast<int>(QMessageBox::Ok),
+				 int buttons = QMessageBox::Ok,
 				 int defaultButton = QMessageBox::NoButton) override;
 	Q_INVOKABLE
 	int warning(QWidget* parent,
 				const QString& title, const QString& text,
-				int buttons = static_cast<int>(QMessageBox::Ok),
+				int buttons = QMessageBox::Ok,
 				int defaultButton = QMessageBox::NoButton) override;
 	Q_INVOKABLE
 	int critical(QWidget* parent,
 				 const QString& title, const QString& text,
-				 int buttons = static_cast<int>(QMessageBox::Ok),
+				 int buttons = QMessageBox::Ok,
 				 int defaultButton = QMessageBox::NoButton) override;
 	
 	// QInputDialog functions
