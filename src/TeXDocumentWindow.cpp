@@ -1939,8 +1939,9 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	}
 
 	// Load the bibfiles
-	Q_FOREACH(QString bibFile, textDoc()->getModeLineValue(QStringLiteral("bibfile")).split(QLatin1Char{','}) +
-			  textDoc()->getModeLineValue(QStringLiteral("bibfiles")).split(QLatin1Char{','})) {
+	QStringList bibFiles = textDoc()->getModeLineValue(QStringLiteral("bibfile")).split(QLatin1Char{','}) +
+						   textDoc()->getModeLineValue(QStringLiteral("bibfiles")).split(QLatin1Char{','});
+	Q_FOREACH(QString bibFile, bibFiles) {
 		bibFile = bibFile.trimmed();
 		if (bibFile.isEmpty()) continue;
 		// Assume relative paths are given with respect to the current file's
