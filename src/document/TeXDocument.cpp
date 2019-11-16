@@ -25,13 +25,71 @@
 namespace Tw {
 namespace Document {
 
-TeXDocument::TeXDocument(QObject * parent) : TextDocument(parent) { }
+TeXDocument::TeXDocument(QObject * parent) : TextDocument(parent)
+{
+	connect(this, SIGNAL(contentsChange(int, int, int)), this, SLOT(maybeUpdateModeLines(int, int, int)));
+}
 
-TeXDocument::TeXDocument(const QString & text, QObject * parent) : TextDocument(text, parent) { }
+TeXDocument::TeXDocument(const QString & text, QObject * parent) : TextDocument(text, parent)
+{
+	connect(this, SIGNAL(contentsChange(int, int, int)), this, SLOT(maybeUpdateModeLines(int, int, int)));
+	parseModeLines();
+}
 
 TeXHighlighter * TeXDocument::getHighlighter() const
 {
 	return findChild<TeXHighlighter*>();
+}
+
+void TeXDocument::parseModeLines()
+{
+	QMap<QString, QString> newModeLines;
+
+	QRegularExpression re(QStringLiteral(u"%\\s*!TEX\\s+(?:TS-)?(\\w+)\\s*=\\s*([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
+
+	QTextCursor curs(this);
+	// (begin|end)EditBlock() is a workaround for QTBUG-24718 that causes
+	// movePosition() to crash the program under some circumstances.
+	// Since we don't change any text in the edit block, it should be a noop
+	// in the context of undo/redo.
+	curs.beginEditBlock();
+	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PeekLength);
+	curs.endEditBlock();
+
+	QRegularExpressionMatchIterator it = re.globalMatch(curs.selectedText());
+
+	while (it.hasNext()) {
+		QRegularExpressionMatch m = it.next();
+		newModeLines.insert(m.captured(1).trimmed().toLower(), m.captured(2).trimmed());
+	}
+
+	if (_modelines != newModeLines) {
+		QStringList changedKeys;
+		QStringList removedKeys;
+
+		Q_FOREACH(QString key, _modelines.keys()) {
+			if (!newModeLines.contains(key)) {
+				removedKeys.append(key);
+			}
+		}
+		Q_FOREACH(QString key, newModeLines.keys()) {
+			if (!_modelines.contains(key) || _modelines.value(key) != newModeLines.value(key)) {
+				changedKeys.append(key);
+			}
+		}
+
+		_modelines = newModeLines;
+		emit modelinesChanged(changedKeys, removedKeys);
+	}
+}
+
+void TeXDocument::maybeUpdateModeLines(int position, int charsRemoved, int charsAdded)
+{
+	Q_UNUSED(charsRemoved)
+	Q_UNUSED(charsAdded)
+
+	if (position < PeekLength)
+		parseModeLines();
 }
 
 } // namespace Document

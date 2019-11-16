@@ -204,7 +204,7 @@ private slots:
 	void acceptInputLine();
 	void selectedEngine(QAction* engineAction);
 	void selectedEngine(const QString& name);
-	void contentsChanged(int position, int charsRemoved, int charsAdded);
+	void handleModelineChange(QStringList changedKeys, QStringList removedKeys);
 	void reloadIfChangedOnDisk();
 	void setupFileWatcher();
 	void lineEndingPopup(const QPoint loc);

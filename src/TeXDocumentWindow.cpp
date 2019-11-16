@@ -205,7 +205,7 @@ void TeXDocumentWindow::init()
 
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(maybeEnableSaveAndRevert(bool)));
-	connect(textEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+	connect(textDoc(), SIGNAL(modelinesChanged(QStringList, QStringList)), this, SLOT(handleModelineChange(QStringList, QStringList)));
 	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
 	connect(textEdit, SIGNAL(syncClick(int, int)), this, SLOT(syncClick(int, int)));
@@ -1182,11 +1182,13 @@ void TeXDocumentWindow::delayedInit()
 				setSyntaxColoringMode(QString());
 		}
 
-		// set the default spell checking language
-		setSpellcheckLanguage(settings.value(QString::fromLatin1("language")).toString());
-
-		// contentsChanged() parses the modlines (thus possibly overrinding the spell checking language)
-		contentsChanged(0, 0, 0);
+		if (_texDoc && _texDoc->hasModeLine(QStringLiteral("spellcheck"))) {
+			setSpellcheckLanguage(_texDoc->getModeLineValue(QStringLiteral("spellcheck")));
+		}
+		else {
+			// set the default spell checking language
+			setSpellcheckLanguage(settings.value(QString::fromLatin1("language")).toString());
+		}
 	}
 }
 
@@ -1931,32 +1933,14 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 {
 	CitationSelectDialog dlg(this);
 
-	// Look for a %!TeX bibfile modline
-	QTextCursor curs(textEdit->document());
-	// (begin|end)EditBlock() is a workaround for QTBUG-24718 that causes
-	// movePosition() to crash the program under some circumstances.
-	// Since we don't change any text in the edit block, it should be a noop
-	// in the context of undo/redo.
-	curs.beginEditBlock();
-	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
-	curs.endEditBlock();
-
-	QString peekStr = curs.selectedText();
-
-	// Search for bibfile(s) modline
-	// TODO: Be able to figure out bib files from \bibliography and
-	//       \nobibliography commands or from aux files
-	// TODO: Be able to parse thebibliography environments
-	QRegularExpression reBib(QStringLiteral(u"% *!TEX +bibfiles? *= *([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
-	QRegularExpressionMatch mBib = reBib.match(peekStr);
-
-	if (!mBib.hasMatch()) {
+	if (!textDoc()->hasModeLine(QStringLiteral("bibfile")) && !textDoc()->hasModeLine(QStringLiteral("bibfiles"))) {
 		emit asyncFlashStatusBarMessage(tr("No '%!TEX bibfile' modline found"), kStatusMessageDuration);
 		return;
 	}
 
 	// Load the bibfiles
-	Q_FOREACH(QString bibFile, mBib.captured(1).split(QLatin1Char(','), QString::SkipEmptyParts)) {
+	Q_FOREACH(QString bibFile, textDoc()->getModeLineValue(QStringLiteral("bibfile")).split(QLatin1Char{','}) +
+			  textDoc()->getModeLineValue(QStringLiteral("bibfiles")).split(QLatin1Char{','})) {
 		bibFile = bibFile.trimmed();
 		if (bibFile.isEmpty()) continue;
 		// Assume relative paths are given with respect to the current file's
@@ -1991,17 +1975,18 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	pattern.chop(1);
 	pattern += QLatin1String(")\\*?\\s*(\\[[^\\]]*\\])?\\s*\\{([^}]*)\\}");
 
-	curs = textEdit->textCursor();
+	QTextCursor curs(textDoc());
+	constexpr int PeekLength = 1024;
 
-	int peekFront = qMin(PEEK_LENGTH, curs.position());
-	int peekBack = qMin(PEEK_LENGTH, textDoc()->characterCount() - curs.position());
+	int peekFront = qMin(PeekLength, curs.position());
+	int peekBack = qMin(PeekLength, textDoc()->characterCount() - curs.position());
 
 	curs.beginEditBlock();
 	curs.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, peekFront);
 	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, peekFront + peekBack);
 	curs.endEditBlock();
 
-	peekStr = curs.selectedText();
+	QString peekStr = curs.selectedText();
 	QRegularExpression reCmd(pattern);
 	QRegularExpressionMatch mCmd;
 
@@ -2994,10 +2979,27 @@ void TeXDocumentWindow::syncClick(int lineNo, int col)
 	}
 }
 
-void TeXDocumentWindow::contentsChanged(int position, int /*charsRemoved*/, int /*charsAdded*/)
+void TeXDocumentWindow::handleModelineChange(QStringList changedKeys, QStringList removedKeys)
 {
-	if (position < PEEK_LENGTH) {
-		QTextCursor curs(textEdit->document());
+	Q_UNUSED(removedKeys);
+
+	if (changedKeys.contains(QStringLiteral("program"))) {
+		QString name = _texDoc->getModeLineValue(QStringLiteral("program"));
+		int index = engine->findText(name, Qt::MatchFixedString);
+		if (index > -1) {
+			if (index != engine->currentIndex()) {
+				engine->setCurrentIndex(index);
+				emit asyncFlashStatusBarMessage(tr("Set engine to \"%1\"").arg(engine->currentText()), kStatusMessageDuration);
+			}
+		}
+		else {
+			emit asyncFlashStatusBarMessage(tr("Engine \"%1\" not defined").arg(name), kStatusMessageDuration);
+		}
+	}
+	if (changedKeys.contains(QStringLiteral("encoding"))) {
+		bool hasMetadata{false};
+		QString reqName;
+		QTextCursor curs(textDoc());
 		// (begin|end)EditBlock() is a workaround for QTBUG-24718 that causes
 		// movePosition() to crash the program under some circumstances.
 		// Since we don't change any text in the edit block, it should be a noop
@@ -3005,42 +3007,15 @@ void TeXDocumentWindow::contentsChanged(int position, int /*charsRemoved*/, int 
 		curs.beginEditBlock();
 		curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
 		curs.endEditBlock();
-		
-		QString peekStr = curs.selectedText();
-		
-		/* Search for engine specification */
-		QRegularExpression re(QStringLiteral(u"% *!TEX +(?:TS-)?program *= *([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
-		QRegularExpressionMatch m = re.match(peekStr);
-		if (m.hasMatch()) {
-			QString name = m.captured(1).trimmed();
-			int index = engine->findText(name, Qt::MatchFixedString);
-			if (index > -1) {
-				if (index != engine->currentIndex()) {
-					engine->setCurrentIndex(index);
-					emit asyncFlashStatusBarMessage(tr("Set engine to \"%1\"").arg(engine->currentText()), kStatusMessageDuration);
-				}
-			}
-			else {
-				emit asyncFlashStatusBarMessage(tr("Engine \"%1\" not defined").arg(name), kStatusMessageDuration);
-			}
-		}
-		
-		/* Search for encoding specification */
-		bool hasMetadata;
-		QString reqName;
-		QTextCodec *newCodec = scanForEncoding(peekStr, hasMetadata, reqName);
+
+		QTextCodec *newCodec = scanForEncoding(curs.selectedText(), hasMetadata, reqName);
 		if (newCodec) {
 			codec = newCodec;
 			showEncodingSetting();
 		}
-		
-		/* Search for spellcheck specification */
-		QRegularExpression reSpell(QStringLiteral(u"% *!TEX +spellcheck *= *([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
-		QRegularExpressionMatch mSpell = reSpell.match(peekStr);
-		if (mSpell.hasMatch()) {
-			QString lang = mSpell.captured(1).trimmed();
-			setSpellcheckLanguage(lang);
-		}
+	}
+	if (changedKeys.contains(QStringLiteral("spellcheck"))) {
+		setSpellcheckLanguage(_texDoc->getModeLineValue(QStringLiteral("spellcheck")));
 	}
 }
 
@@ -3050,16 +3025,12 @@ void TeXDocumentWindow::findRootFilePath()
 		rootFilePath.clear();
 		return;
 	}
+
 	QFileInfo fileInfo(curFile);
-	QString rootName;
-	QTextCursor curs(textEdit->document());
-	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
-	QString peekStr = curs.selectedText();
-	QRegularExpression re(QStringLiteral(u"% *!TEX +root *= *([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
-	QRegularExpressionMatch m = re.match(peekStr);
-	if (m.hasMatch()) {
-		rootName = m.captured(1).trimmed();
-		QFileInfo rootFileInfo(fileInfo.canonicalPath() + QChar::fromLatin1('/') + rootName);
+
+	if (textDoc()->hasModeLine(QStringLiteral("root"))) {
+		QString rootName = textDoc()->getModeLineValue(QStringLiteral("root")).trimmed();
+		QFileInfo rootFileInfo(QDir(fileInfo.canonicalPath()), rootName);
 		if (rootFileInfo.exists())
 			rootFilePath = rootFileInfo.canonicalFilePath();
 		else

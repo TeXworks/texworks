@@ -23,6 +23,8 @@
 
 #include "document/TextDocument.h"
 
+#include <QMap>
+
 class TeXHighlighter;
 
 namespace Tw {
@@ -36,6 +38,21 @@ public:
 	explicit TeXDocument(const QString & text, QObject * parent = nullptr);
 
 	TeXHighlighter * getHighlighter() const;
+
+	void parseModeLines();
+	bool hasModeLine(const QString & key) const { return _modelines.contains(key); }
+	QMap<QString, QString> getModeLines() const { return _modelines; }
+	QString getModeLineValue(const QString & key) const { return _modelines.value(key); }
+
+signals:
+	void modelinesChanged(QStringList changedKeys, QStringList removedKeys);
+
+protected slots:
+	void maybeUpdateModeLines(int position, int charsRemoved, int charsAdded);
+
+protected:
+	static constexpr int PeekLength = 1024;
+	QMap<QString, QString> _modelines;
 };
 
 } // namespace Document
