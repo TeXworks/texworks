@@ -30,6 +30,7 @@ ADD_LIBRARY(TWLuaPlugin ${TWLUAPLUGIN_LIB_TYPE}
   ${TWSCRIPT_SRC}
   ${LUA_PLUGIN_MOC}
 )
+target_compile_options(TWLuaPlugin PRIVATE ${WARNING_OPTIONS})
 
 # Specify link libraries even if the plugin is built statically so all the
 # interface properties of the Qt targets (include directories, lib directories,

@@ -96,6 +96,12 @@ IF(WIN32 AND MINGW)
   SET(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> -O coff <DEFINES> <SOURCE> <OBJECT>")
 ENDIF()
 
+if (MSVC)
+	set(WARNING_OPTIONS /W4)
+else ()
+	set(WARNING_OPTIONS -Wall -Wpedantic -Wextra -Wconversion -Wold-style-cast -Woverloaded-virtual -Wzero-as-null-pointer-constant)
+endif ()
+
 
 # Determine Version Numbers
 # -------------------------

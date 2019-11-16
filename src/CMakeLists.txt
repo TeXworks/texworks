@@ -195,6 +195,9 @@ if (UNIX AND NOT APPLE)
   )
 endif ()
 
+target_compile_options(TeXworks PRIVATE ${WARNING_OPTIONS})
+
+
 # Add translations
 target_add_qt_translations(TeXworks
   PRO_FILE "${CMAKE_SOURCE_DIR}/trans/${PROJECT_NAME}_trans.pro"
