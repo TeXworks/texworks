@@ -147,7 +147,7 @@ private:
 class PDFLaunchAction : public PDFAction
 {
 public:
-  PDFLaunchAction(const QString command) : _command(command), _newWindow(false) { }
+  PDFLaunchAction(const QString command) : _command(command) { }
 
   ActionType type() const override { return ActionTypeLaunch; }
   PDFAction * clone() const override { return new PDFLaunchAction(*this); }
@@ -158,7 +158,7 @@ public:
   // TODO: handle newWindow, implement OS-specific extensions
 private:
   QString _command;
-  bool _newWindow;
+  //bool _newWindow{false};
 };
 
 } // namespace QtPDF

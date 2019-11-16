@@ -194,7 +194,7 @@ class Text : public Markup
 public:
   AnnotationType type() const override { return AnnotationTypeText; }
 private:
-  bool _open;
+  //bool _open;
   QString _iconName;
   QString _state;
   QString _stateModel;

@@ -798,7 +798,7 @@ QList<SearchResult> Page::search(const QString & searchText, const SearchFlags &
   if (!_parent)
     return results;
 
-  result.pageNum = _n;
+  result.pageNum = static_cast<unsigned int>(_n);
 
   QMutexLocker popplerDocLock(dynamic_cast<Document *>(_parent)->_poppler_docLock);
 
