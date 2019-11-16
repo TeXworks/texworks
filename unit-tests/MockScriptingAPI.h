@@ -78,7 +78,7 @@ public:
 	// QMessageBox functions to display alerts
 	int information(QWidget* parent,
 							const QString& title, const QString& text,
-							int buttons = (int)QMessageBox::Ok,
+							int buttons = QMessageBox::Ok,
 							int defaultButton = QMessageBox::NoButton) override {
 		Q_UNUSED(parent);
 		Q_UNUSED(title);
@@ -89,7 +89,7 @@ public:
 	}
 	int question(QWidget* parent,
 						 const QString& title, const QString& text,
-						 int buttons = (int)QMessageBox::Ok,
+						 int buttons = QMessageBox::Ok,
 						 int defaultButton = QMessageBox::NoButton) override {
 		Q_UNUSED(parent);
 		Q_UNUSED(title);
@@ -100,7 +100,7 @@ public:
 	}
 	int warning(QWidget* parent,
 						const QString& title, const QString& text,
-						int buttons = (int)QMessageBox::Ok,
+						int buttons = QMessageBox::Ok,
 						int defaultButton = QMessageBox::NoButton) override {
 		Q_UNUSED(parent);
 		Q_UNUSED(title);
@@ -111,7 +111,7 @@ public:
 	}
 	int critical(QWidget* parent,
 						 const QString& title, const QString& text,
-						 int buttons = (int)QMessageBox::Ok,
+						 int buttons = QMessageBox::Ok,
 						 int defaultButton = QMessageBox::NoButton) override {
 		Q_UNUSED(parent);
 		Q_UNUSED(title);
