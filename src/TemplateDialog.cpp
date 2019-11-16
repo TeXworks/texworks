@@ -98,7 +98,7 @@ QString TemplateDialog::doTemplateDialog()
 
 	TemplateDialog dlg;
 	dlg.show();
-	DialogCode	result = (DialogCode)dlg.exec();
+	DialogCode result = static_cast<DialogCode>(dlg.exec());
 
 	if (result == Accepted) {
 		QModelIndexList selection = dlg.treeView->selectionModel()->selectedRows();

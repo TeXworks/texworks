@@ -238,7 +238,7 @@ unsigned int BibTeXFile::numEntries() const
 {
 	// Only count "normal" entries
 	unsigned int retVal = 0;
-	for (unsigned int i = 0; i < _entries.size(); ++i) {
+	for (int i = 0; i < _entries.size(); ++i) {
 		if (_entries[i].type() == Entry::NORMAL) ++retVal;
 	}
 	return retVal;
@@ -247,7 +247,7 @@ unsigned int BibTeXFile::numEntries() const
 const BibTeXFile::Entry & BibTeXFile::entry(const unsigned int idx) const
 {
 	unsigned int j = 0;
-	for (unsigned int i = 0; i < _entries.size(); ++i) {
+	for (int i = 0; i < _entries.size(); ++i) {
 		if (_entries[i].type() != Entry::NORMAL) continue;
 		if (j == idx) return _entries[i];
 		++j;

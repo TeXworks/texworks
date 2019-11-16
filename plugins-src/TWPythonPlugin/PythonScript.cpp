@@ -384,7 +384,7 @@ PyObject * PythonScript::VariantToPython(const QVariant & v)
 
 	if (v.isNull()) Py_RETURN_NONE;
 
-	switch ((QMetaType::Type)v.type()) {
+	switch (static_cast<int>(v.type())) {
 		case QVariant::Double:
 			return Py_BuildValue("d", v.toDouble());
 		case QVariant::Bool:

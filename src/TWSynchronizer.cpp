@@ -125,7 +125,7 @@ TWSynchronizer::TeXSyncPoint TWSyncTeXSynchronizer::syncFromPDF(const TWSynchron
   if (src.rects.length() != 1)
     return retVal;
 
-  if (SyncTeX::synctex_edit_query(_scanner, src.page, src.rects[0].left(), src.rects[0].top()) > 0) {
+  if (SyncTeX::synctex_edit_query(_scanner, src.page, static_cast<float>(src.rects[0].left()), static_cast<float>(src.rects[0].top())) > 0) {
     SyncTeX::synctex_node_p node;
 	while ((node = SyncTeX::synctex_scanner_next_result(_scanner))) {
       retVal.filename = QString::fromLocal8Bit(SyncTeX::synctex_scanner_get_name(_scanner, SyncTeX::synctex_node_tag(node)));

@@ -43,8 +43,6 @@
 #include <QSignalMapper>
 #include <QDateTime>
 
-#pragma mark === TWUtils ===
-
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 // compile-time default paths - customize by defining in the .pro file
 #ifndef TW_DICPATH
@@ -1148,8 +1146,6 @@ QDateTime TWUtils::gitCommitDate()
 	return QDateTime::fromString(QString::fromLatin1(GIT_COMMIT_DATE), Qt::ISODate).toUTC();
 }
 
-#pragma mark === SelWinAction ===
-
 // action subclass used for dynamic window-selection items in the Window menu
 
 SelWinAction::SelWinAction(QObject *parent, const QString &fileName, const QString &label)
@@ -1158,8 +1154,6 @@ SelWinAction::SelWinAction(QObject *parent, const QString &fileName, const QStri
 	setText(label);
 	setData(fileName);
 }
-
-#pragma mark === CmdKeyFilter ===
 
 // on OS X only, the singleton CmdKeyFilter object is attached to all TeXDocument editor widgets
 // to stop Command-keys getting inserted into edit text items

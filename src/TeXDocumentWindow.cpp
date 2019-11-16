@@ -3142,6 +3142,7 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 						}
 						// for graphic files, fall through (there's no point in
 						// trying to open binary files as text
+						// fall through
 
 					case INSERT_DOCUMENT_TEXT:
 						if (!TWUtils::isPDFfile(fileName) && !TWUtils::isImageFile(fileName) && !TWUtils::isPostscriptFile(fileName)) {
@@ -3158,6 +3159,7 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 							break;
 						}
 						// for graphic files, fall through -- behave the same as the "link" action
+						// fall through
 
 					case CREATE_INCLUDE_COMMAND:
 						if (!editBlockStarted) {

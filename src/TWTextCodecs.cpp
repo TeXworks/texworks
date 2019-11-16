@@ -54,30 +54,29 @@ QList<QByteArray> MacCentralEurRomanCodec::aliases() const
 
 QByteArray MacCentralEurRomanCodec::convertFromUnicode(const QChar * input, int length, ConverterState * state) const
 {
-	const char replacement = (state && state->flags & ConvertInvalidToNull) ? 0 : '?';
+	const uchar replacement = (state && state->flags & ConvertInvalidToNull) ? 0 : '?';
 	QByteArray r(length, Qt::Uninitialized);
-	char *d = r.data();
+	uchar * d = reinterpret_cast<uchar*>(r.data());
 	int invalid = 0;
 	int i, j;
 
 	for (i = 0; i < length; ++i) {
-		uchar c;
+		uchar c = replacement;
 		ushort uc = input[i].unicode();
 		if (uc < 0x0080)
-			c = (unsigned char)uc;
+			c = static_cast<uchar>(uc);
 		else {
 			for (j = 0; j < 128; ++j) {
 				if (MacCentralEurRomanCodes[j] == uc) {
-					c = j + 0x80;
+					c = static_cast<uchar>(j + 0x80);
 					break;
 				}
 			}
 			if (j >= 128) {
 				c = replacement;
-				++invalid;
 			}
 		}
-		d[i] = (char)c;
+		d[i] = c;
 	}
 	if (state) {
 		state->remainingChars = 0;

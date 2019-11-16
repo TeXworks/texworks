@@ -272,10 +272,10 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 				continue;
 			
 			type = QMetaType::type(mm.parameterTypes()[j].constData());
-			typeOfArg = (int)arguments[j].type();
-			if (typeOfArg == (int)type)
+			typeOfArg = static_cast<int>(arguments[j].type());
+			if (typeOfArg == type)
 				continue;
-			if (arguments[j].canConvert((QVariant::Type)type))
+			if (arguments[j].canConvert(type))
 				continue;
 			// allow invalid===nullptr for pointers
 			if (typeOfArg == QVariant::Invalid && type == QMetaType::QObjectStar)
@@ -289,7 +289,7 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 		for (j = 0; j < arguments.count() && j < 10; ++j) {
 			typeName = QString::fromUtf8(mm.parameterTypes()[j].constData());
 			type = QMetaType::type(qPrintable(typeName));
-			typeOfArg = (int)arguments[j].type();
+			typeOfArg = static_cast<int>(arguments[j].type());
 			
 			// allocate type name on the heap so it survives the method call
 			strTypeName = new char[typeName.size() + 1];
@@ -299,8 +299,8 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 				genericArgs.append(QGenericArgument(strTypeName, &arguments[j]));
 				continue;
 			}
-			if (arguments[j].canConvert((QVariant::Type)type))
-				arguments[j].convert((QVariant::Type)type);
+			if (arguments[j].canConvert(type))
+				arguments[j].convert(type);
 			else if (typeOfArg == QVariant::Invalid && type == QMetaType::QObjectStar) {
 				genericArgs.append(QGenericArgument(strTypeName, &myNullPtr));
 				continue;
@@ -385,7 +385,7 @@ void Script::setGlobal(const QString& key, const QVariant& val)
 
 	// For objects on the heap make sure we are notified when their lifetimes
 	// end so that we can remove them from our hash accordingly
-	switch ((QMetaType::Type)val.type()) {
+	switch (static_cast<QMetaType::Type>(val.type())) {
 		case QMetaType::QObjectStar:
 			connect(v.value<QObject*>(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
 			break;
@@ -399,7 +399,7 @@ void Script::globalDestroyed(QObject * obj)
 	QHash<QString, QVariant>::iterator i = m_globals.begin();
 	
 	while (i != m_globals.end()) {
-		switch ((QMetaType::Type)i.value().type()) {
+		switch (static_cast<QMetaType::Type>(i.value().type())) {
 			case QMetaType::QObjectStar:
 				if (i.value().value<QObject*>() == obj)
 					i = m_globals.erase(i);

@@ -220,7 +220,7 @@ void CitationModel::setSelectedKeys(const QStringList & keys)
 {
 	QModelIndex tl, br;
 
-	for (unsigned int iRow = 0; iRow < rowCount(); ++iRow) {
+	for (int iRow = 0; iRow < rowCount(); ++iRow) {
 		const BibTeXFile::Entry * e = _entries[iRow];
 		if (_selectedKeys.contains(e->key()) != keys.contains(e->key())) {
 			br = index(iRow, 0);
@@ -282,14 +282,14 @@ void CitationModel::addBibTeXFile(const BibTeXFile & file)
 void CitationModel::rebuildEntryCache()
 {
 	_entries.clear();
-	unsigned int i = 0, n = 0;
+	int i = 0, n = 0;
 
 	// resize the vector first to avoid reallocations later on
-	for (unsigned int iBibFile = 0; iBibFile < _bibFiles.size(); ++iBibFile)
+	for (int iBibFile = 0; iBibFile < _bibFiles.size(); ++iBibFile)
 		n += _bibFiles[iBibFile].numEntries();
 	_entries.resize(n);
 
-	for (unsigned int iBibFile = 0; iBibFile < _bibFiles.size(); ++iBibFile) {
+	for (int iBibFile = 0; iBibFile < _bibFiles.size(); ++iBibFile) {
 		for (unsigned int iEntry = 0; iEntry < _bibFiles[iBibFile].numEntries(); ++iEntry, ++i) {
 			_entries[i] = &(_bibFiles[iBibFile].entry(iEntry));
 		}

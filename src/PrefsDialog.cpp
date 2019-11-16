@@ -669,7 +669,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	
 	dlg.show();
 
-	DialogCode	result = (DialogCode)dlg.exec();
+	DialogCode result = static_cast<DialogCode>(dlg.exec());
 
 	if (result == Accepted) {
 		sCurrentTab = dlg.tabWidget->currentIndex();
@@ -939,7 +939,7 @@ QDialog::DialogCode ToolConfig::doToolConfig(QWidget *parent, Engine &engine)
 	
 	dlg.show();
 
-	DialogCode	result = (DialogCode)dlg.exec();
+	DialogCode result = static_cast<DialogCode>(dlg.exec());
 	if (result == Accepted) {
 		dlg.arguments->setCurrentItem(nullptr); // ensure editing is terminated
 		engine.setName(dlg.toolName->text());

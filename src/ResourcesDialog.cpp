@@ -86,7 +86,7 @@ QDialog::DialogCode ResourcesDialog::doResourcesDialog(QWidget *parent)
 
 	dlg.show();
 
-	QDialog::DialogCode result = (DialogCode)dlg.exec();
+	QDialog::DialogCode result = static_cast<DialogCode>(dlg.exec());
 	return result;
 }
 

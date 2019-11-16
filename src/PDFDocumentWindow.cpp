@@ -65,8 +65,6 @@ const int kPDFHighlightDuration = 2000;
 
 
 
-#pragma mark === PDFDocument ===
-
 // TODO: This is seemingly unused---verify && remove
 QList<PDFDocumentWindow*> PDFDocumentWindow::docList;
 
@@ -103,7 +101,7 @@ PDFDocumentWindow::PDFDocumentWindow(const QString &fileName, TeXDocumentWindow 
 	QTimer::singleShot(100, this, SLOT(setDefaultScale()));
 
 	if (texDoc) {
-		stackUnder((QWidget*)texDoc);
+		stackUnder(texDoc);
 		actionSide_by_Side->setEnabled(true);
 		actionGo_to_Source->setEnabled(true);
 		sourceDocList.append(texDoc);
@@ -765,7 +763,7 @@ void PDFDocumentWindow::setPageMode(const int newMode)
 		case QtPDF::PDFDocumentView::PageMode_SinglePage:
 		case QtPDF::PDFDocumentView::PageMode_OneColumnContinuous:
 		case QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous:
-			pdfWidget->setPageMode((QtPDF::PDFDocumentView::PageMode)newMode);
+			pdfWidget->setPageMode(static_cast<QtPDF::PDFDocumentView::PageMode>(newMode));
 			break;
 		default:
 			return;
@@ -917,7 +915,7 @@ void PDFDocumentWindow::doFindAgain(bool newSearch /* = false */)
 		return;
 
 	QtPDF::Backend::SearchFlags searchFlags;
-	QTextDocument::FindFlags flags = (QTextDocument::FindFlags)settings.value(QString::fromLatin1("searchFlags")).toInt();
+	QTextDocument::FindFlags flags = static_cast<QTextDocument::FindFlags>(settings.value(QString::fromLatin1("searchFlags")).toInt());
 
 	if ((flags & QTextDocument::FindCaseSensitively) == 0)
 		searchFlags |= QtPDF::Backend::Search_CaseInsensitive;
@@ -1101,7 +1099,7 @@ void PDFDocumentWindow::updateStatusBar()
 void PDFDocumentWindow::setMouseMode(const int newMode)
 {
 	Q_ASSERT(pdfWidget);
-	pdfWidget->setMouseMode((QtPDF::PDFDocumentView::MouseMode)newMode);
+	pdfWidget->setMouseMode(static_cast<QtPDF::PDFDocumentView::MouseMode>(newMode));
 }
 
 void PDFDocumentWindow::doPageDialog()
@@ -1255,7 +1253,7 @@ void FullscreenManager::actionDeleted(QObject * obj)
 {
 	QAction * a = qobject_cast<QAction *>(obj);
 	if (!a) return;
-	for (unsigned int i = 0; i < _shortcuts.size(); ) {
+	for (int i = 0; i < _shortcuts.size(); ) {
 		if (_shortcuts[i].action == a) {
 			delete _shortcuts[i].shortcut;
 			_shortcuts.removeAt(i);

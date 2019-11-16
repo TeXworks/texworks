@@ -117,7 +117,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 		return 1;
 	}
 	
-	switch ((QMetaType::Type)v.type()) {
+	switch (static_cast<int>(v.type())) {
 		case QVariant::Bool:
 			lua_pushboolean(L, v.toBool());
 			return 1;
@@ -188,7 +188,7 @@ int LuaScript::getProperty(lua_State * L)
 	}
 
 	// Get the QObject* we operate on
-	obj = (QObject*)lua_topointer(L, lua_upvalueindex(1));
+	obj = static_cast<QObject*>(lua_touserdata(L, lua_upvalueindex(1)));
 	
 	// Get the parameters
 	propName = QString::fromUtf8(lua_tostring(L, 2));
@@ -225,7 +225,7 @@ int LuaScript::callMethod(lua_State * L)
 	QVariant result;
 
 	// Get the QObject* we operate on
-	obj = (QObject*)lua_topointer(L, lua_upvalueindex(1));
+	obj = static_cast<QObject*>(lua_touserdata(L, lua_upvalueindex(1)));
 
 	methodName = QString::fromUtf8(lua_tostring(L, lua_upvalueindex(2)));
 	
@@ -267,7 +267,7 @@ int LuaScript::setProperty(lua_State * L)
 	}
 
 	// Get the QObject* we operate on
-	obj = (QObject*)lua_topointer(L, lua_upvalueindex(1));
+	obj = static_cast<QObject*>(lua_touserdata(L, lua_upvalueindex(1)));
 
 	// Get the parameters
 	propName = QString::fromUtf8(lua_tostring(L, 2));
@@ -351,12 +351,12 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			iMax = 0;
 			while (lua_next(L, idx)) {
 				if (isArray) {
-					if (!lua_isnumber(L, -2))
+					if (!lua_isinteger(L, -2))
 						isArray = false;
 					else {
 						++n;
-						if (lua_tonumber(L, -2) > iMax)
-							iMax = lua_tonumber(L, -2);
+						if (lua_tointeger(L, -2) > iMax)
+							iMax = static_cast<int>(lua_tointeger(L, -2));
 					}
 				}
 				if (isMap) {
@@ -371,7 +371,6 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 						isMap = false;
 				}
 				lua_pop(L, 1);
-				++i;
 			}
 			if (n != iMax)
 				isArray = false;
@@ -389,7 +388,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 				
 				lua_pushnil(L);
 				while (lua_next(L, idx)) {
-					vl[(int)lua_tonumber(L, -2) - 1] = LuaScript::getLuaStackValue(L, -1);
+					vl[static_cast<int>(lua_tointeger(L, -2) - 1)] = LuaScript::getLuaStackValue(L, -1);
 					lua_pop(L, 1);
 				}
 				return vl;
@@ -411,6 +410,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			
 			// deliberately no break here; if the table could not be converted
 			// to QList or QMap, we have to treat it as unsupported
+			// fall through
 		case LUA_TFUNCTION:
 		case LUA_TUSERDATA:
 		case LUA_TTHREAD:

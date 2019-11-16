@@ -45,7 +45,7 @@ public:
 	void setSelectedKeys(const QStringList & keys);
 	QStringList selectedKeys() const { return _selectedKeys.values(); }
 
-	const BibTeXFile::Entry * getEntry(const unsigned int idx) const { return (idx < _entries.size() ? _entries[idx] : nullptr); }
+	const BibTeXFile::Entry * getEntry(const unsigned int idx) const { return (static_cast<int>(idx) < _entries.size() ? _entries[static_cast<int>(idx)] : nullptr); }
 	const BibTeXFile::Entry * getEntry(const QString & key) const;
 
 	void addBibTeXFile(const BibTeXFile & file);

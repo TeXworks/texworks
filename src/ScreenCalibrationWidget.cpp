@@ -56,7 +56,7 @@ void ScreenCalibrationWidget::retranslate()
 
 	_units.clear();
 	//: this refers to the length unit of centimeters
-	_units.append({tr("cm"), 0.393701});
+	_units.append({tr("cm"), 0.393701f});
 	//: this refers to the length unit of inches
 	_units.append({tr("in"), 1});
 
@@ -80,8 +80,21 @@ void ScreenCalibrationWidget::repositionSpinBox()
 {
 	Q_ASSERT(_sbDPI);
 
+	// Find the layout direction (search recursively through the widget
+	// hierarchy)
+	Qt::LayoutDirection layoutDirection{Qt::LayoutDirectionAuto};
+	QWidget * w = this;
+	while (layoutDirection == Qt::LayoutDirectionAuto && w) {
+		layoutDirection = w->layoutDirection();
+		w = w->parentWidget();
+	}
+	// If none of the widgets had a specific layout direction, fall back to the
+	// QApplication value
+	if (layoutDirection == Qt::LayoutDirectionAuto)
+		layoutDirection = QApplication::layoutDirection();
+
 	_sbDPI->ensurePolished();
-	switch (layoutDirection()) {
+	switch (layoutDirection) {
 		case Qt::LeftToRight:
 			// Ensure the spin box is positioned on the left side and at the top
 			_sbDPI->move(0, 0);
@@ -92,8 +105,9 @@ void ScreenCalibrationWidget::repositionSpinBox()
 			_sbDPI->move(width() - _sbDPI->width(), 0);
 			_rulerRect = QRect(QPoint(0, 0), QPoint(width() - _sbDPI->width() - _hSpace - 2, height() - 2));
 			break;
-		// FIXME: Qt::LayoutDirectionAuto: go up the widget hierarchy until we
-		// find a valid layout direction, or use QApplication's layout direction
+		case Qt::LayoutDirectionAuto:
+			// This should not happen as we resolved the layout direction above
+			break;
 	}
 }
 
@@ -121,7 +135,7 @@ void ScreenCalibrationWidget::paintEvent(QPaintEvent * event)
 {
 	Q_UNUSED(event)
 	Q_ASSERT(_sbDPI);
-	float x;
+	double x;
 
 	double dpi = _sbDPI->value(); // dots per inch
 	double dpu = dpi * static_cast<double>(_units[_curUnit].unitsPerInch); // dots per unit
@@ -138,17 +152,17 @@ void ScreenCalibrationWidget::paintEvent(QPaintEvent * event)
 
 	// Print unit label
 	x = _rulerRect.left() + 2;
-	painter.drawText(x, y + _paperTickHeight, _units[_curUnit].label);
+	painter.drawText(QPointF(x, y + _paperTickHeight), _units[_curUnit].label);
 
 	// Draw tick marks
 	for (majorTick = 0; majorTick * dpu < _rulerRect.width(); ++majorTick) {
 		x = majorTick * dpu + _rulerRect.left();
-		painter.drawLine(x, y, x, y + _majorTickHeight);
+		painter.drawLine(QPointF(x, y), QPointF(x, y + _majorTickHeight));
 
-		painter.drawText(x + 2, y + _majorTickHeight, QString::number(majorTick));
+		painter.drawText(QPointF(x + 2, y + _majorTickHeight), QString::number(majorTick));
 
 		for (minorTick = 1; minorTick < 10 && x + minorTick * dpu / 10. < _rulerRect.right(); ++minorTick) {
-			painter.drawLine(x + minorTick * dpu / 10., y, x + minorTick * dpu / 10., y + (minorTick == 5 ? _mediumTickHeight : _minorTickHeight));
+			painter.drawLine(QPointF(x + minorTick * dpu / 10., y), QPointF(x + minorTick * dpu / 10., y + (minorTick == 5 ? _mediumTickHeight : _minorTickHeight)));
 		}
 	}
 
@@ -158,12 +172,12 @@ void ScreenCalibrationWidget::paintEvent(QPaintEvent * event)
 			continue;
 		x = ps.size.width() * dpi + _rulerRect.left();
 		painter.setPen(ps.col);
-		painter.drawLine(x, y, x, y + _paperTickHeight);
+		painter.drawLine(QPointF(x, y), QPointF(x, y + _paperTickHeight));
 		if (ps.alignment.testFlag(Qt::AlignRight))
 			x -= 2 + painter.fontMetrics().width(ps.name);
 		else
 			x += 2;
-		painter.drawText(x, y + _paperTickHeight, ps.name);
+		painter.drawText(QPointF(x, y + _paperTickHeight), ps.name);
 	}
 }
 

@@ -339,7 +339,8 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 			}
 			setTextCursor(dragStartCursor);
 			mouseMode = dragSelecting;
-			// fall through to dragSelecting
+			// fall through
+			// to dragSelecting
 
 		case dragSelecting:
 			QPoint pos = e->pos();

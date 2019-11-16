@@ -155,9 +155,6 @@ public:
 	
 	explicit SearchResults(QWidget * parent);
 
-protected slots:
-	void focusChanged(QWidget * old, QWidget * now);
-
 private slots:
 	void showSelectedEntry();
 	void showEntry(QTableWidgetItem * item);

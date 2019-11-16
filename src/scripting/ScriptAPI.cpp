@@ -86,9 +86,9 @@ int ScriptAPI::information(QWidget* parent,
 				int buttons,
 				int defaultButton)
 {
-	return (int)QMessageBox::information(parent, title, text,
-										 (QMessageBox::StandardButtons)buttons,
-										 (QMessageBox::StandardButton)defaultButton);
+	return static_cast<int>(QMessageBox::information(parent, title, text,
+										 static_cast<QMessageBox::StandardButtons>(buttons),
+										 static_cast<QMessageBox::StandardButtons>(defaultButton)));
 }
 
 int ScriptAPI::question(QWidget* parent,
@@ -96,9 +96,9 @@ int ScriptAPI::question(QWidget* parent,
 			 int buttons,
 			 int defaultButton)
 {
-	return (int)QMessageBox::question(parent, title, text,
-									  (QMessageBox::StandardButtons)buttons,
-									  (QMessageBox::StandardButton)defaultButton);
+	return static_cast<int>(QMessageBox::question(parent, title, text,
+									  static_cast<QMessageBox::StandardButtons>(buttons),
+									  static_cast<QMessageBox::StandardButtons>(defaultButton)));
 }
 
 int ScriptAPI::warning(QWidget* parent,
@@ -106,9 +106,9 @@ int ScriptAPI::warning(QWidget* parent,
 			int buttons,
 			int defaultButton)
 {
-	return (int)QMessageBox::warning(parent, title, text,
-									 (QMessageBox::StandardButtons)buttons,
-									 (QMessageBox::StandardButton)defaultButton);
+	return static_cast<int>(QMessageBox::warning(parent, title, text,
+									 static_cast<QMessageBox::StandardButtons>(buttons),
+									 static_cast<QMessageBox::StandardButtons>(defaultButton)));
 }
 
 int ScriptAPI::critical(QWidget* parent,
@@ -116,9 +116,9 @@ int ScriptAPI::critical(QWidget* parent,
 			 int buttons,
 			 int defaultButton)
 {
-	return (int)QMessageBox::critical(parent, title, text,
-									  (QMessageBox::StandardButtons)buttons,
-									  (QMessageBox::StandardButton)defaultButton);
+	return static_cast<int>(QMessageBox::critical(parent, title, text,
+									  static_cast<QMessageBox::StandardButtons>(buttons),
+									  static_cast<QMessageBox::StandardButtons>(defaultButton)));
 }
 
 QVariant ScriptAPI::getInt(QWidget* parent, const QString& title, const QString& label,
