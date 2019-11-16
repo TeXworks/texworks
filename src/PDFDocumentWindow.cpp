@@ -604,7 +604,7 @@ void PDFDocumentWindow::syncFromSource(const QString& sourceFile, int lineNo, in
 		path.addRect(r);
 
 	clearSyncHighlight();
-	_syncHighlight = pdfWidget->addHighlightPath(dest.page - 1, path, QColor(255, 255, 0, 63));
+	_syncHighlight = pdfWidget->addHighlightPath(static_cast<unsigned int>(dest.page - 1), path, QColor(255, 255, 0, 63));
 
 	// Ensure that the synhronization point is displayed (in the center)
 	pdfWidget->centerOn(_syncHighlight->mapToScene(_syncHighlight->boundingRect().center()));

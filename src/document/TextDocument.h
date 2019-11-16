@@ -35,7 +35,7 @@ class TextDocument : public QTextDocument, public Document
 public:
 	struct Tag {
 		QTextCursor cursor;
-		int level;
+		unsigned int level;
 		QString text;
 	};
 
@@ -43,7 +43,7 @@ public:
 	explicit TextDocument(const QString & text, QObject * parent = nullptr);
 
 	const QList<Tag> & getTags() const { return _tags; }
-	void addTag(const QTextCursor & cursor, const int level, const QString & text);
+	void addTag(const QTextCursor & cursor, const unsigned int level, const QString & text);
 	unsigned int removeTags(int offset, int len);
 
 signals:

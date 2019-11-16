@@ -238,7 +238,6 @@ PyObject * PythonScript::QObjectToPython(QObject * o)
 PyObject* PythonScript::getAttribute(PyObject * o, PyObject * attr_name)
 {
 	QObject * obj;
-	QMetaMethod method;
 	QString propName;
 	QVariant result;
 	pyQObjectMethodObject * pyMethod;

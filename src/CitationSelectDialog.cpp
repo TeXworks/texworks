@@ -274,7 +274,7 @@ bool CitationModel::setData(const QModelIndex &index, const QVariant &value, int
 void CitationModel::addBibTeXFile(const BibTeXFile & file)
 {
 	int n = rowCount();
-	beginInsertRows(QModelIndex(), n, n + file.numEntries() - 1);
+	beginInsertRows(QModelIndex(), n, n + static_cast<int>(file.numEntries()) - 1);
 	_bibFiles.append(file);
 	endInsertRows();
 }

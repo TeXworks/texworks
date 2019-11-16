@@ -83,12 +83,12 @@ void TagsDock::fillInfo()
 				bmItem->setText(1, QString::number(index));
 			}
 			else  {
-				while (item && item->type() >= QTreeWidgetItem::UserType + bm.level)
+				while (item && item->type() >= QTreeWidgetItem::UserType + static_cast<int>(bm.level))
 					item = item->parent();
 				if (!item)
-					item = new QTreeWidgetItem(outline, QTreeWidgetItem::UserType + bm.level);
+					item = new QTreeWidgetItem(outline, QTreeWidgetItem::UserType + static_cast<int>(bm.level));
 				else
-					item = new QTreeWidgetItem(item, QTreeWidgetItem::UserType + bm.level);
+					item = new QTreeWidgetItem(item, QTreeWidgetItem::UserType + static_cast<int>(bm.level));
 				item->setText(0, bm.text);
 				item->setText(1, QString::number(index));
 				tree->expandItem(item);

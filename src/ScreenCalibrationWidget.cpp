@@ -33,10 +33,10 @@ ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget * parent)
 
 void ScreenCalibrationWidget::recalculateSizes()
 {
-	_majorTickHeight = static_cast<unsigned int>(qRound(1.2 * fontMetrics().lineSpacing()));
-	_mediumTickHeight = static_cast<unsigned int>(qRound(0.5 * _majorTickHeight));
-	_minorTickHeight = static_cast<unsigned int>(qRound(0.25 * _majorTickHeight));
-	_paperTickHeight = static_cast<unsigned int>(qRound(2.2 * fontMetrics().lineSpacing()));
+	_majorTickHeight = qRound(1.2 * fontMetrics().lineSpacing());
+	_mediumTickHeight = qRound(0.5 * _majorTickHeight);
+	_minorTickHeight = qRound(0.25 * _majorTickHeight);
+	_paperTickHeight = qRound(2.2 * fontMetrics().lineSpacing());
 	_hSpace = style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing);
 	if (_hSpace < 0)
 		_hSpace = style()->layoutSpacing(QSizePolicy::SpinBox, QSizePolicy::DefaultType, Qt::Horizontal);

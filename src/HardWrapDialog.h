@@ -39,7 +39,7 @@ public:
 	~HardWrapDialog() override = default;
 
 	unsigned int lineWidth() const { // returns 0 for current window size, or char count
-	    return radio_fixedLineLength->isChecked() ? spinbox_charCount->value() : 0;
+		return radio_fixedLineLength->isChecked() ? static_cast<unsigned int>(spinbox_charCount->value()) : 0;
 	}
 
 	bool rewrap() const { // whether to re-wrap paragraphs (fill lines)
