@@ -283,7 +283,7 @@ public:
 
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc) override;
-  void clear() override;
+  void clear() final;
   void retranslateUi() override;
 signals:
   void actionTriggered(const QtPDF::PDFAction*);
@@ -305,7 +305,7 @@ public:
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc) override;
   void clear() override;
-  void retranslateUi() override;
+  void retranslateUi() final;
   void reload();
 private:
   QGroupBox * _documentGroup;
@@ -333,8 +333,8 @@ public:
   
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc) override;
-  void clear() override;
-  void retranslateUi() override;
+  void clear() final;
+  void retranslateUi() final;
   void reload();
 protected:
   void showEvent(QShowEvent * event) override {
@@ -354,8 +354,8 @@ public:
   
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc) override;
-  void clear() override;
-  void retranslateUi() override;
+  void clear() final;
+  void retranslateUi() final;
   void reload();
 private:
   QLabel * _print, * _printLabel;
@@ -381,7 +381,7 @@ public:
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc) override;
   void clear() override;
-  void retranslateUi() override;
+  void retranslateUi() final;
   void annotationsReady(int index);
 };
 

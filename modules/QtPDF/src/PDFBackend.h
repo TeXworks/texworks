@@ -534,7 +534,7 @@ public:
   virtual QList<SearchResult> search(const QString & searchText, const SearchFlags & flags, const int startPage = 0);
 
 protected:
-  virtual void clearPages();
+  void clearPages();
   virtual void clearMetaData();
 
   int _numPages;
