@@ -31,9 +31,8 @@ IF ( LUA_FOUND AND WITH_LUA )
 		"${CMAKE_SOURCE_DIR}/src/Settings.cpp"
 	)
 	target_compile_options(test_LuaScripting PRIVATE ${WARNING_OPTIONS})
-	target_include_directories(test_LuaScripting PRIVATE "${LUA_INCLUDE_DIR}")
 	IF (NOT ${BUILD_SHARED_PLUGINS})
-		target_link_libraries(test_LuaScripting TWLuaPlugin ${LUA_LIBRARIES})
+		target_link_libraries(test_LuaScripting TWLuaPlugin)
 	ENDIF()
 
 	target_link_libraries(test_LuaScripting ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})

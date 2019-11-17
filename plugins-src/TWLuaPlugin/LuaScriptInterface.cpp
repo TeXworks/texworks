@@ -22,6 +22,8 @@
 #include "LuaScriptInterface.h"
 #include "LuaScript.h"
 
+#include <lua.hpp>
+
 #include <QTextStream>
 #include <QtPlugin>
 #include <QMetaObject>

@@ -25,11 +25,11 @@
 #include "scripting/Script.h"
 #include "scripting/ScriptLanguageInterface.h"
 
-#include "lua.hpp"
-
 #include <QMetaMethod>
 #include <QMetaProperty>
 #include <QVariant>
+
+struct lua_State;
 
 namespace Tw {
 namespace Scripting {

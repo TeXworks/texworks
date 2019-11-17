@@ -26,6 +26,11 @@
 #include "scripting/ScriptAPIInterface.h"
 #include "PythonScriptInterface.h"
 
+// Forward declaration taken from the Python headers to avoid having to include
+// Python in this header file
+struct _object;
+typedef _object PyObject;
+
 namespace Tw {
 namespace Scripting {
 

@@ -26,16 +26,6 @@
 #include "scripting/ScriptAPIInterface.h"
 #include "LuaScriptInterface.h"
 
-#include "lua.hpp"
-
-// Compatibility with lua < 5.3
-#ifndef lua_isinteger
-#define lua_isinteger(L, idx) lua_isnumber((L), (idx))
-#endif // !defined(lua_isinteger)
-#ifndef lua_tointeger
-#define lua_tointeger(L, idx) static_cast<int>(lua_tonumber((L), (idx)))
-#endif // !defined(lua_tointeger)
-
 #include <QMetaMethod>
 #include <QMetaProperty>
 #include <QVariant>

@@ -22,16 +22,6 @@
 #ifndef PythonScriptInterface_H
 #define PythonScriptInterface_H
 
-// Python uses the name "slots", which Qt hijacks. So we temporarily undefine
-// it, then include the python headers, then redefine it
-#undef slots
-#ifdef __APPLE__ // can't use Q_OS_DARWIN as it's not defined yet!
-#include <Python/Python.h>
-#else
-#include <Python.h>
-#endif
-#define slots Q_SLOTS
-
 #include "scripting/Script.h"
 #include "scripting/ScriptLanguageInterface.h"
 
