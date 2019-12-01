@@ -245,6 +245,7 @@
 	</provides>
 	<launchable type="desktop-id">texworks.desktop</launchable>
 	<translation type="qt" />
+	<content_rating type="oars-1.0" />
 
 	<releases>
 		<release version="0.6.3" date="2019-03-16" />
