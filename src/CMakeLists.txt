@@ -268,6 +268,9 @@ endif ()
 
 IF ( UNIX AND NOT APPLE )
   INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/images/TeXworks.png DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_ICON_DIR}/512x512/apps)
+  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/images/TeXworks-128.png DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_ICON_DIR}/128x128/apps RENAME TeXworks.png)
+  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/images/TeXworks-64.png DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_ICON_DIR}/64x64/apps RENAME TeXworks.png)
+  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/images/TeXworks-48.png DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_ICON_DIR}/48x48/apps RENAME TeXworks.png)
   INSTALL(FILES
     ${TeXworks_SOURCE_DIR}/COPYING
     ${TeXworks_SOURCE_DIR}/README.md
