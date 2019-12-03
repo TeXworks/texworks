@@ -80,13 +80,15 @@ public:
 
 	TeXDocumentWindow *open(const QString &fileName);
 	void makeUntitled();
-	bool untitled()
-		{ return isUntitled; }
+	bool untitled() const
+		{ return !textDoc()->isStoredInFilesystem(); }
 	QString fileName() const
-		{ return curFile; }
+		{ return textDoc()->getFileInfo().filePath(); }
 	QTextCursor textCursor() const
 		{ return textEdit->textCursor(); }
 	Tw::Document::TeXDocument* textDoc()
+		{ return _texDoc; }
+	const Tw::Document::TeXDocument* textDoc() const
 		{ return _texDoc; }
 	QString getLineText(int lineNo) const;
 	CompletingEdit* editor()
@@ -221,10 +223,10 @@ private:
 	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
-	QString readFile(const QString &fileName, QTextCodec **codecUsed, int *lineEndings = nullptr, QTextCodec * forceCodec = nullptr);
-	void loadFile(const QString &fileName, bool asTemplate = false, bool inBackground = false, bool reload = false, QTextCodec * forceCodec = nullptr);
-	bool saveFile(const QString &fileName);
-	void setCurrentFile(const QString &fileName);
+	QString readFile(const QFileInfo & fileInfo, QTextCodec **codecUsed, int *lineEndings = nullptr, QTextCodec * forceCodec = nullptr);
+	void loadFile(const QFileInfo & fileInfo, bool asTemplate = false, bool inBackground = false, bool reload = false, QTextCodec * forceCodec = nullptr);
+	bool saveFile(const QFileInfo & fileInfo);
+	void setCurrentFile(const QFileInfo & fileInfo);
 	void saveRecentFileInfo();
 	bool getPreviewFileName(QString &pdfName);
 	bool openPdfIfAvailable(bool show);
@@ -260,9 +262,7 @@ private:
 	// them, we need to keep track of them ourselves.
 	bool utf8BOM{false};
 	int lineEndings{kLineEnd_LF};
-	QString curFile;
 	QString rootFilePath;
-	bool isUntitled{true};
 	QDateTime lastModified;
 
 	ClickableLabel * lineNumberLabel{nullptr};

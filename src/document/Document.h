@@ -21,11 +21,34 @@
 #ifndef Document_Document_H
 #define Document_Document_H
 
+#include <QFileInfo>
+
 namespace Tw {
 namespace Document {
 
 class Document
 {
+public:
+	virtual ~Document() = default;
+
+	virtual QFileInfo getFileInfo() const { return _fileInfo; }
+	virtual void setFileInfo(const QFileInfo & fileInfo) { _fileInfo = fileInfo; }
+	// Returns whether this document is based on an existing file (e.g., loaded
+	// from the file referenced by getFileInfo() or at some point saved to that
+	// file.
+	bool isStoredInFilesystem() const { return _isStoredInFilesystem; }
+	// FIXME: _isStoredInFilesystem should actually be set by load and save
+	// methods
+	/// \deprecated
+	void setStoredInFilesystem(const bool isStored = true) { _isStoredInFilesystem = isStored; }
+	virtual QString absoluteFilePath() const {
+		if (!_fileInfo.filePath().isEmpty())
+			return _fileInfo.absoluteFilePath();
+		return {};
+	}
+protected:
+	bool _isStoredInFilesystem{false};
+	QFileInfo _fileInfo;
 };
 
 } // namespace Document

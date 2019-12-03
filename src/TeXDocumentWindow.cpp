@@ -554,7 +554,7 @@ void TeXDocumentWindow::newFromTemplate()
 	QString templateName = TemplateDialog::doTemplateDialog();
 	if (!templateName.isEmpty()) {
 		TeXDocumentWindow *doc = nullptr;
-		if (isUntitled && textEdit->document()->isEmpty() && !isWindowModified()) {
+		if (untitled() && textEdit->document()->isEmpty() && !isWindowModified()) {
 			loadFile(templateName, true);
 			doc = this;
 		}
@@ -578,7 +578,7 @@ void TeXDocumentWindow::makeUntitled()
 
 void TeXDocumentWindow::open()
 {
-	QFileDialog::Options options;
+	QFileDialog::Options options = QFileDialog::DontResolveSymlinks;
 #if defined(Q_OS_DARWIN)
 		/* use a sheet if we're calling Open from an empty, untitled, untouched window; otherwise use a separate dialog */
 	if (!(isUntitled && textEdit->document()->isEmpty() && !isWindowModified()))
@@ -604,13 +604,13 @@ TeXDocumentWindow* TeXDocumentWindow::open(const QString &fileName)
 	if (!fileName.isEmpty()) {
 		doc = findDocument(fileName);
 		if (!doc) {
-			if (isUntitled && textEdit->document()->isEmpty() && !isWindowModified()) {
+			if (untitled() && textEdit->document()->isEmpty() && !isWindowModified()) {
 				loadFile(fileName);
 				doc = this;
 			}
 			else {
 				doc = new TeXDocumentWindow(fileName);
-				if (doc->isUntitled) {
+				if (doc->untitled()) {
 					delete doc;
 					doc = nullptr;
 				}
@@ -632,7 +632,7 @@ TeXDocumentWindow* TeXDocumentWindow::openDocument(const QString &fileName, bool
 		}
 		else {
 			doc = new TeXDocumentWindow(fileName);
-			if (doc->isUntitled) {
+			if (doc->untitled()) {
 				delete doc;
 				doc = nullptr;
 			}
@@ -684,7 +684,7 @@ bool TeXDocumentWindow::event(QEvent *event) // based on example at doc.trolltec
 				if (mods == Qt::NoModifier) {
 					QDrag *drag = new QDrag(this);
 					QMimeData *data = new QMimeData();
-					data->setUrls(QList<QUrl>() << QUrl::fromLocalFile(curFile));
+					data->setUrls(QList<QUrl>() << QUrl::fromLocalFile(textDoc()->absoluteFilePath()));
 					drag->setMimeData(data);
 					QPixmap dragIcon(QString::fromLatin1(":/images/images/TeXworks-doc-48.png"));
 					drag->setPixmap(dragIcon);
@@ -694,7 +694,7 @@ bool TeXDocumentWindow::event(QEvent *event) // based on example at doc.trolltec
 				else if (mods == Qt::ShiftModifier) {
 					QMenu menu(this);
 					connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(openAt(QAction*)));
-					QFileInfo info(curFile);
+					QFileInfo info(textDoc()->getFileInfo());
 					QAction *action = menu.addAction(info.fileName());
 					action->setIcon(QIcon(QString::fromLatin1(":/images/images/TeXworks-doc.png")));
 					QStringList folders = info.absolutePath().split(QChar::fromLatin1('/'));
@@ -739,6 +739,7 @@ bool TeXDocumentWindow::event(QEvent *event) // based on example at doc.trolltec
 
 void TeXDocumentWindow::openAt(QAction *action)
 {
+	QString curFile = textDoc()->getFileInfo().filePath();
 	QString path = curFile.left(curFile.indexOf(action->text())) + action->text();
 	if (path == curFile)
 		return;
@@ -749,9 +750,9 @@ void TeXDocumentWindow::openAt(QAction *action)
 
 bool TeXDocumentWindow::save()
 {
-	if (isUntitled)
+	if (untitled())
 		return saveAs();
-	return saveFile(curFile);
+	return saveFile(textDoc()->absoluteFilePath());
 }
 
 bool TeXDocumentWindow::saveAll()
@@ -773,15 +774,16 @@ bool TeXDocumentWindow::saveAs()
 #if defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
-	QString selectedFilter = TWUtils::chooseDefaultFilter(curFile, *(TWUtils::filterList()));;
+	QString selectedFilter = TWUtils::chooseDefaultFilter(textDoc()->absoluteFilePath(), *(TWUtils::filterList()));;
 
 	// for untitled docs, default to the last dir used, or $HOME if no saved value
 	Tw::Settings settings;
-	QString lastSaveDir = settings.value(QString::fromLatin1("saveDialogDir")).toString();
+	QDir lastSaveDir = settings.value(QString::fromLatin1("saveDialogDir")).toString();
 	if (lastSaveDir.isEmpty() || !QDir(lastSaveDir).exists())
 		lastSaveDir = QDir::homePath();
+	QString suggestedDir = (textDoc()->isStoredInFilesystem() ? textDoc()->absoluteFilePath() : lastSaveDir.filePath(textDoc()->getFileInfo().filePath()));
 	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-	                                                isUntitled ? lastSaveDir + QChar::fromLatin1('/') + curFile : curFile,
+													suggestedDir,
 	                                                TWUtils::filterList()->join(QLatin1String(";;")),
 													&selectedFilter, options);
 	if (fileName.isEmpty())
@@ -799,7 +801,8 @@ bool TeXDocumentWindow::saveAs()
 			fileName.append(ext);
 	}
 	
-	if (fileName != curFile && pdfDoc) {
+	QFileInfo info(fileName);
+	if (info != textDoc()->getFileInfo() && pdfDoc) {
 		// For the pdf, it is as if it's source doc was closed
 		// Note that this may result in the pdf being closed!
 		pdfDoc->texClosed(this);
@@ -808,7 +811,6 @@ bool TeXDocumentWindow::saveAs()
 		detachPdf();
 	}
 
-	QFileInfo info(fileName);
 	settings.setValue(QString::fromLatin1("saveDialogDir"), info.absolutePath());
 	
 	return saveFile(fileName);
@@ -821,7 +823,7 @@ bool TeXDocumentWindow::maybeSave()
 		QMessageBox msgBox(QMessageBox::Warning, tr(TEXWORKS_NAME),
 						   tr("The document \"%1\" has been modified.\n"
 							  "Do you want to save your changes?")
-						   .arg(TWUtils::strippedName(curFile)),
+						   .arg(textDoc()->getFileInfo().fileName()),
 						   QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
 						   this);
 		msgBox.button(QMessageBox::Discard)->setShortcut(QKeySequence(tr("Ctrl+D", "shortcut: Don't Save")));
@@ -854,24 +856,24 @@ const QString& TeXDocumentWindow::getRootFilePath()
 
 void TeXDocumentWindow::revert()
 {
-	if (!isUntitled) {
+	if (!untitled()) {
 		QMessageBox	messageBox(QMessageBox::Warning, tr(TEXWORKS_NAME),
 					tr("Do you want to discard all changes to the document \"%1\", and revert to the last saved version?")
-					   .arg(TWUtils::strippedName(curFile)), QMessageBox::Cancel, this);
+					   .arg(textDoc()->getFileInfo().fileName()), QMessageBox::Cancel, this);
 		QAbstractButton *revertButton = messageBox.addButton(tr("Revert"), QMessageBox::DestructiveRole);
 		revertButton->setShortcut(QKeySequence(tr("Ctrl+R", "shortcut: Revert")));
 		messageBox.setDefaultButton(QMessageBox::Cancel);
 		messageBox.setWindowModality(Qt::WindowModal);
 		messageBox.exec();
 		if (messageBox.clickedButton() == revertButton)
-			loadFile(curFile);
+			loadFile(textDoc()->absoluteFilePath());
 	}
 }
 
 void TeXDocumentWindow::maybeEnableSaveAndRevert(bool modified)
 {
-	actionSave->setEnabled(modified || isUntitled);
-	actionRevert_to_Saved->setEnabled(modified && !isUntitled);
+	actionSave->setEnabled(modified || untitled());
+	actionRevert_to_Saved->setEnabled(modified && !untitled());
 }
 
 static const char* texshopSynonyms[] = {
@@ -931,7 +933,7 @@ QTextCodec *TeXDocumentWindow::scanForEncoding(const QString &peekStr, bool &has
 
 #define PEEK_LENGTH 1024
 
-QString TeXDocumentWindow::readFile(const QString &fileName,
+QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 							  QTextCodec **codecUsed,
 							  int *lineEndings,
 							  QTextCodec * forceCodec)
@@ -949,13 +951,13 @@ QString TeXDocumentWindow::readFile(const QString &fileName,
 	}
 	
 	utf8BOM = false;
-	QFile file(fileName);
+	QFile file(fileInfo.absoluteFilePath());
 	// Not using QFile::Text because this prevents us reading "classic" Mac files
 	// with CR-only line endings. See issue #242.
 	if (!file.open(QFile::ReadOnly)) {
 		QMessageBox::warning(this, tr(TEXWORKS_NAME),
 							 tr("Cannot read file \"%1\":\n%2")
-							 .arg(fileName, file.errorString()));
+							 .arg(fileInfo.absoluteFilePath(), file.errorString()));
 		return QString();
 	}
 
@@ -973,7 +975,7 @@ QString TeXDocumentWindow::readFile(const QString &fileName,
 				if (QMessageBox::warning(this, tr("Unrecognized encoding"),
 						tr("The text encoding %1 used in %2 is not supported.\n\n"
 						   "It will be interpreted as %3 instead, which may result in incorrect text.")
-							.arg(reqName, fileName, QString::fromUtf8((*codecUsed)->name().constData())),
+							.arg(reqName, fileInfo.absoluteFilePath(), QString::fromUtf8((*codecUsed)->name().constData())),
 						QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
 					return QString();
 			}
@@ -1018,9 +1020,9 @@ QString TeXDocumentWindow::readFile(const QString &fileName,
 	return text;
 }
 
-void TeXDocumentWindow::loadFile(const QString &fileName, bool asTemplate /* = false */, bool inBackground /* = false */, bool reload /* = false */, QTextCodec * forceCodec /* = nullptr */)
+void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bool inBackground, bool reload, QTextCodec * forceCodec)
 {
-	QString fileContents = readFile(fileName, &codec, &lineEndings, forceCodec);
+	QString fileContents = readFile(fileInfo, &codec, &lineEndings, forceCodec);
 	showLineEndingSetting();
 	showEncodingSetting();
 
@@ -1079,7 +1081,7 @@ void TeXDocumentWindow::loadFile(const QString &fileName, bool asTemplate /* = f
 		lastModified = QDateTime();
 	}
 	else {
-		setCurrentFile(fileName);
+		setCurrentFile(fileInfo);
 		if (!reload) {
 			Tw::Settings settings;
 			if (!inBackground && settings.value(QString::fromLatin1("openPDFwithTeX"), kDefault_OpenPDFwithTeX).toBool()) {
@@ -1094,11 +1096,11 @@ void TeXDocumentWindow::loadFile(const QString &fileName, bool asTemplate /* = f
 			// set openDialogDir after openPdfIfAvailable as we want the .tex file's
 			// path to end up in that variable (which might be touched/changed when
 			// loading the pdf
-			QFileInfo info(fileName);
+			QFileInfo info(fileInfo);
 			settings.setValue(QString::fromLatin1("openDialogDir"), info.canonicalPath());
 		}
 
-		statusBar()->showMessage(tr("File \"%1\" loaded").arg(TWUtils::strippedName(curFile)),
+		statusBar()->showMessage(tr("File \"%1\" loaded").arg(textDoc()->getFileInfo().fileName()),
 								 kStatusMessageDuration);
 		setupFileWatcher();
 	}
@@ -1106,7 +1108,7 @@ void TeXDocumentWindow::loadFile(const QString &fileName, bool asTemplate /* = f
 
 	if (!reload) {
 		bool autoPlace = true;
-		QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+		QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(fileInfo.absoluteFilePath());
 		if (properties.contains(QString::fromLatin1("geometry"))) {
 			restoreGeometry(properties.value(QString::fromLatin1("geometry")).toByteArray());
 			autoPlace = false;
@@ -1166,7 +1168,7 @@ void TeXDocumentWindow::delayedInit()
 
 		// set up syntax highlighting
 		// First, use the current file's syntaxMode property (if available)
-		QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(curFile);
+		QMap<QString,QVariant> properties = TWApp::instance()->getFileProperties(textDoc()->absoluteFilePath());
 		if (properties.contains(QString::fromLatin1("syntaxMode")))
 			setSyntaxColoringMode(properties.value(QString::fromLatin1("syntaxMode")).toString());
 		// Secondly, try the global settings
@@ -1195,10 +1197,10 @@ void TeXDocumentWindow::delayedInit()
 #define FILE_MODIFICATION_ACCURACY	1000	// in msec
 void TeXDocumentWindow::reloadIfChangedOnDisk()
 {
-	if (isUntitled || !lastModified.isValid())
+	if (untitled() || !lastModified.isValid())
 		return;
 
-	QDateTime fileModified = QFileInfo(curFile).lastModified();
+	QDateTime fileModified = textDoc()->getFileInfo().lastModified();
 	if (!fileModified.isValid() || fileModified == lastModified)
 		return;
 
@@ -1207,7 +1209,7 @@ void TeXDocumentWindow::reloadIfChangedOnDisk()
 		if (QMessageBox::warning(this, tr("File changed on disk"),
 								 tr("%1 has been modified by another program.\n\n"
 									"Do you want to discard your current changes, and reload the file from disk?")
-								 .arg(curFile),
+								 .arg(textDoc()->getFileInfo().filePath()),
 								 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel) {
 			lastModified = QDateTime();	// invalidate the timestamp
 			return;
@@ -1257,18 +1259,18 @@ void TeXDocumentWindow::reloadIfChangedOnDisk()
 		// accuracy of the file system modification timestamps (if the file changes
 		// twice in one second, the modification timestamp is not altered and we may
 		// miss the second change otherwise)
-		while (QDateTime::currentDateTime() <= QFileInfo(curFile).lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
+		while (QDateTime::currentDateTime() <= textDoc()->getFileInfo().lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			; // do nothing
-		loadFile(curFile, false, true, true);
+		loadFile(textDoc()->absoluteFilePath(), false, true, true);
 		// one final safety check - if the file has not changed, we can safely end this
-		if (QDateTime::currentDateTime() > QFileInfo(curFile).lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
+		if (QDateTime::currentDateTime() > textDoc()->getFileInfo().lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			break;
 	}
 	if (i == 10) { // the file has been changing constantly - give up and inform the user
 		QMessageBox::information(this, tr("File changed on disk"),
 								 tr("%1 is constantly being modified by another program.\n\n"
 									"Please use \"File > Revert to Saved\" manually when the external process has finished.")
-								 .arg(curFile),
+								 .arg(textDoc()->getFileInfo().filePath()),
 								 QMessageBox::Ok, QMessageBox::Ok);
 	}
 
@@ -1353,19 +1355,18 @@ void TeXDocumentWindow::pdfClosed()
 	actionSide_by_Side->setEnabled(false);
 }
 
-bool TeXDocumentWindow::saveFile(const QString &fileName)
+bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 {
-	QFileInfo fileInfo(fileName);
 	QDateTime fileModified = fileInfo.lastModified();
-	if (fileName == curFile && fileModified.isValid() && fileModified != lastModified) {
+	if (fileInfo == textDoc()->getFileInfo() && fileModified.isValid() && fileModified != lastModified) {
 		if (QMessageBox::warning(this, tr("File changed on disk"),
 								 tr("%1 has been modified by another program.\n\n"
 									"Do you want to proceed with saving this file, overwriting the version on disk?")
-								 .arg(fileName),
+								 .arg(fileInfo.absoluteFilePath()),
 								 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Cancel) {
 			notSaved:
 				statusBar()->showMessage(tr("Document \"%1\" was not saved")
-										 .arg(TWUtils::strippedName(curFile)),
+										 .arg(textDoc()->getFileInfo().fileName()),
 										 kStatusMessageDuration);
 				return false;
 		}
@@ -1398,11 +1399,11 @@ bool TeXDocumentWindow::saveFile(const QString &fileName)
 	clearFileWatcher();
 
 	{
-		QFile file(fileName);
+		QFile file(fileInfo.absoluteFilePath());
 		if (!file.open(QFile::WriteOnly)) {
 			QMessageBox::warning(this, tr(TEXWORKS_NAME),
 								 tr("Cannot write file \"%1\":\n%2")
-								 .arg(fileName, file.errorString()));
+								 .arg(fileInfo.absoluteFilePath(), file.errorString()));
 			setupFileWatcher();
 			goto notSaved;
 		}
@@ -1427,9 +1428,14 @@ bool TeXDocumentWindow::saveFile(const QString &fileName)
 		QApplication::restoreOverrideCursor();
 	}
 
-	setCurrentFile(fileName);
+	// Pass the absoluteFilePath to the function; this will create a new
+	// (updated) QFileInfo instance. This is necessary as the original QFileInfo
+	// has the existance of the file cached. If the file is saved for the first
+	// time (i.e. it did not exist before saveFile() was called),
+	// fileInfo.exists() will return the wrong (cached) info.
+	setCurrentFile(fileInfo.absoluteFilePath());
 	statusBar()->showMessage(tr("File \"%1\" saved")
-								.arg(TWUtils::strippedName(curFile)),
+								.arg(textDoc()->getFileInfo().fileName()),
 								kStatusMessageDuration);
 	
 	QTimer::singleShot(0, this, SLOT(setupFileWatcher()));
@@ -1449,25 +1455,25 @@ void TeXDocumentWindow::clearFileWatcher()
 void TeXDocumentWindow::setupFileWatcher()
 {
 	clearFileWatcher();
-	if (!isUntitled) {
-		QFileInfo info(curFile);
+	if (!untitled()) {
+		QFileInfo info(textDoc()->getFileInfo());
 		lastModified = info.lastModified();
-		watcher->addPath(curFile);
+		watcher->addPath(info.absoluteFilePath());
 		watcher->addPath(info.canonicalPath());
 	}
 }	
 
-void TeXDocumentWindow::setCurrentFile(const QString &fileName)
+void TeXDocumentWindow::setCurrentFile(const QFileInfo & fileInfo)
 {
-
-	curFile = QFileInfo(fileName).canonicalFilePath();
-	isUntitled = curFile.isEmpty();
+	bool isUntitled = !fileInfo.exists();
+	textDoc()->setStoredInFilesystem(!isUntitled);
 	if (isUntitled) {
 		static int sequenceNumber = 1;
-		curFile = tr("untitled-%1.tex").arg(sequenceNumber++);
+		textDoc()->setFileInfo(tr("untitled-%1.tex").arg(sequenceNumber++));
 		setWindowIcon(QApplication::windowIcon());
 	}
 	else {
+		textDoc()->setFileInfo(fileInfo);
 		QIcon winIcon;
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 		// The Compiz window manager doesn't seem to support icons larger than
@@ -1477,26 +1483,25 @@ void TeXDocumentWindow::setCurrentFile(const QString &fileName)
 		winIcon.addFile(QString::fromLatin1(":/images/images/TeXworks-doc.png"));
 		setWindowIcon(winIcon);
 	}
-
 	textEdit->document()->setModified(false);
 	setWindowModified(false);
 
 	//: Format for the window title (ex. "file.tex[*] - TeXworks")
-	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile), tr(TEXWORKS_NAME)));
+	setWindowTitle(tr("%1[*] - %2").arg(textDoc()->getFileInfo().fileName(), tr(TEXWORKS_NAME)));
 
-	actionRemove_Aux_Files->setEnabled(!isUntitled);
+	actionRemove_Aux_Files->setEnabled(!untitled());
 	
 	TWApp::instance()->updateWindowMenus();
 }
 
 void TeXDocumentWindow::saveRecentFileInfo()
 {
-	if (isUntitled)
+	if (untitled())
 		return;
 	
 	QMap<QString,QVariant> fileProperties;
 
-	fileProperties.insert(QString::fromLatin1("path"), curFile);
+	fileProperties.insert(QString::fromLatin1("path"), textDoc()->absoluteFilePath());
 	fileProperties.insert(QString::fromLatin1("geometry"), saveGeometry());
 	fileProperties.insert(QString::fromLatin1("state"), saveState(kTeXWindowStateVersion));
 	fileProperties.insert(QString::fromLatin1("selStart"), selectionStart());
@@ -1598,7 +1603,7 @@ void TeXDocumentWindow::showCursorPosition()
 	int col = cursor.position() - textEdit->document()->findBlock(cursor.selectionStart()).position();
 	lineNumberLabel->setText(tr("Line %1 of %2; col %3").arg(line).arg(total).arg(col));
 	if (actionAuto_Follow_Focus->isChecked())
-		emit syncFromSource(curFile, line, col, false);
+		emit syncFromSource(textDoc()->absoluteFilePath(), line, col, false);
 }
 
 void TeXDocumentWindow::showLineEndingSetting()
@@ -1660,7 +1665,7 @@ void TeXDocumentWindow::encodingPopup(const QPoint loc)
 	// Only enable this option if we are currently using the UTF-8 codec
 	BOMAction->setEnabled(codec && codec->mibEnum() == 106);
 	
-	if (!isUntitled)
+	if (!untitled())
 		menu.addAction(reloadAction);
 	menu.addAction(BOMAction);
 	menu.addSeparator();
@@ -1685,7 +1690,7 @@ void TeXDocumentWindow::encodingPopup(const QPoint loc)
 				}
 			}
 			clearFileWatcher(); // stop watching until next save or reload
-			loadFile(curFile, false, true, true, codec);
+			loadFile(textDoc()->getFileInfo(), false, true, true, codec);
 			; // FIXME
 		}
 		else if (result == BOMAction) {
@@ -1729,7 +1734,7 @@ TeXDocumentWindow *TeXDocumentWindow::findDocument(const QString &fileName)
 
 	foreach (QWidget *widget, qApp->topLevelWidgets()) {
 		TeXDocumentWindow *theDoc = qobject_cast<TeXDocumentWindow*>(widget);
-		if (theDoc && theDoc->curFile == canonicalFilePath)
+		if (theDoc && theDoc->textDoc()->getFileInfo().canonicalFilePath() == canonicalFilePath)
 			return theDoc;
 	}
 	return nullptr;
@@ -1946,7 +1951,7 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 		if (bibFile.isEmpty()) continue;
 		// Assume relative paths are given with respect to the current file's
 		// directory.
-		bibFile = QFileInfo(curFile).dir().absoluteFilePath(bibFile);
+		bibFile = textDoc()->getFileInfo().dir().absoluteFilePath(bibFile);
 		dlg.addBibTeXFile(bibFile);
 	}
 
@@ -2648,7 +2653,7 @@ void TeXDocumentWindow::typeset()
 	if (process)
 		return;	// this shouldn't happen if we disable the command at the right time
 
-	if (isUntitled || textEdit->document()->isModified()) {
+	if (untitled() || textEdit->document()->isModified()) {
 		if (!save()) {
 			statusBar()->showMessage(tr("Cannot process unsaved document"), kStatusMessageDuration);
 			return;
@@ -2973,10 +2978,10 @@ void TeXDocumentWindow::goToPreview()
 
 void TeXDocumentWindow::syncClick(int lineNo, int col)
 {
-	if (!isUntitled) {
+	if (!untitled()) {
 		// ensure that there is a pdf to receive our signal
 		goToPreview();
-		emit syncFromSource(curFile, lineNo, col, true);
+		emit syncFromSource(textDoc()->absoluteFilePath(), lineNo, col, true);
 	}
 }
 
@@ -3022,23 +3027,21 @@ void TeXDocumentWindow::handleModelineChange(QStringList changedKeys, QStringLis
 
 void TeXDocumentWindow::findRootFilePath()
 {
-	if (isUntitled) {
+	if (untitled()) {
 		rootFilePath.clear();
 		return;
 	}
 
-	QFileInfo fileInfo(curFile);
-
 	if (textDoc()->hasModeLine(QStringLiteral("root"))) {
 		QString rootName = textDoc()->getModeLineValue(QStringLiteral("root")).trimmed();
-		QFileInfo rootFileInfo(QDir(fileInfo.canonicalPath()), rootName);
+		QFileInfo rootFileInfo(textDoc()->getFileInfo().dir(), rootName);
 		if (rootFileInfo.exists())
 			rootFilePath = rootFileInfo.canonicalFilePath();
 		else
 			rootFilePath = rootFileInfo.filePath();
 	}
 	else
-		rootFilePath = fileInfo.canonicalFilePath();
+		rootFilePath = textDoc()->absoluteFilePath();
 }
 
 void TeXDocumentWindow::goToTag(int index)
