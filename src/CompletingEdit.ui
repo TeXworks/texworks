@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CompletingEdit</class>
+ <widget class="QWidget" name="CompletingEdit">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>100</width>
+    <height>30</height>
+   </rect>
+  </property>
+  <action name="actionNext_Completion">
+   <property name="text">
+    <string>Next Completion</string>
+   </property>
+   <property name="shortcut">
+    <string>Tab</string>
+   </property>
+  </action>
+  <action name="actionPrevious_Completion">
+   <property name="text">
+    <string>Previous Completion</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+Backtab</string>
+   </property>
+  </action>
+  <action name="actionNext_Completion_Placeholder">
+   <property name="text">
+    <string>Next Completion Placeholder</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Tab</string>
+   </property>
+  </action>
+  <action name="actionPrevious_Completion_Placeholder">
+   <property name="text">
+    <string>Previous Completion Placeholder</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Backtab</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

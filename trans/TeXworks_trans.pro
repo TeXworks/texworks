@@ -90,6 +90,7 @@ HEADERS = \
 
 FORMS = \
   "../src/CitationSelectDialog.ui" \
+  "../src/CompletingEdit.ui" \
   "../src/ConfirmDelete.ui" \
   "../src/Find.ui" \
   "../src/HardWrapDialog.ui" \

@@ -81,10 +81,27 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	connect(this, SIGNAL(textChanged()), lineNumberArea, SLOT(update()));
 
 	connect(TWApp::instance(), SIGNAL(highlightLineOptionChanged()), this, SLOT(resetExtraSelections()));
-	
+
+	setupUi(this);
+	// As these actions are not used in menus/toolbars, we need to manually add
+	// them to the widget for TWUtils::installCustomShortcuts to work
+	insertActions(nullptr, {actionNext_Completion, actionPrevious_Completion, actionNext_Completion_Placeholder, actionPrevious_Completion_Placeholder});
+
+#ifdef Q_OS_DARWIN
+	// Backwards compatibility
+	// Ctrl+Tab is mapped to Command+Tab on the Mac, which is the standard key
+	// sequence for switching applications. Hence that combination is changed to
+	// Alt+Tab on the Mac
+	if (actionNext_Completion_Placeholder->shortcut() == QKeySequence(Qt::CTRL + Qt::Key_Tab))
+		actionNext_Completion_Placeholder->setShortcut(QKeySequence(Qt::ALT + Qt::Key_Tab));
+	if (actionPrevious_Completion_Placeholder->shortcut() == QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_Tab))
+		actionPrevious_Completion_Placeholder->setShortcut(QKeySequence(Qt::ALT + Qt::SHIFT + Qt::Key_Tab));
+#endif
+
 	cursorPositionChangedSlot();
 	updateLineNumberAreaWidth(0);
 	updateColors();
+	TWUtils::installCustomShortcuts(this);
 }
 
 void CompletingEdit::prefixLines(const QString &prefix)
@@ -555,11 +572,12 @@ void CompletingEdit::resetExtraSelections()
 
 void CompletingEdit::keyPressEvent(QKeyEvent *e)
 {
-	// Shortcut key for command completion
-	bool isShortcut = (e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab);
-	if (isShortcut && autocompleteEnabled) {
-		handleCompletionShortcut(e);
-		return;
+	if (autocompleteEnabled) {
+		QKeySequence seq(static_cast<int>(e->modifiers()) | e->key());
+		if (seq == actionNext_Completion->shortcut() || seq == actionPrevious_Completion->shortcut() || seq == actionNext_Completion_Placeholder->shortcut() || seq == actionPrevious_Completion_Placeholder->shortcut()) {
+			if (handleCompletionShortcut(e))
+				return;
+		}
 	}
 
 	if (!e->text().isEmpty())
@@ -568,6 +586,11 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 	switch (e->key()) {
 		case Qt::Key_Return:
 			handleReturn(e);
+			break;
+
+		case Qt::Key_Tab:
+		case Qt::Key_Backtab:
+			handleTab(e);
 			break;
 
 		case Qt::Key_Backspace:
@@ -813,24 +836,16 @@ void CompletingEdit::smartenQuotes()
 	}
 }
 
-void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
+// \returns true if shortcut was handled, false otherwise
+bool CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 {
-// usage:
-//   unmodified: next completion
-//   shift     : previous completion
-//   ctl/alt       : skip to next placeholder (alt on Mac, ctl elsewhere)
-//   ctl/alt-shift : skip to previous placeholder
-
-#if defined(Q_OS_DARWIN)
-	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::AltModifier)
-#else
-	if ((e->modifiers() & ~Qt::ShiftModifier) == Qt::ControlModifier)
-#endif
+	QKeySequence seq(static_cast<int>(e->modifiers()) | e->key());
+	if (seq == actionNext_Completion_Placeholder->shortcut() || seq == actionPrevious_Completion_Placeholder->shortcut())
 	{
-		if (!find(QString(0x2022), (e->modifiers() & Qt::ShiftModifier)
+		if (!find(QString(0x2022), (seq == actionPrevious_Completion_Placeholder->shortcut())
 									? QTextDocument::FindBackward : QTextDocument::FindFlags()))
 			QApplication::beep();
-		return;
+		return true;
 	}
 
 	// if we are at the beginning of the line (i.e., only whitespaces before a
@@ -895,10 +910,10 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 					setCompleter(nullptr);
 				}
 				else {
-					if (e->modifiers() == Qt::ShiftModifier)
+					if (seq == actionPrevious_Completion->shortcut())
 						c->setCurrentRow(c->completionCount() - 1);
 					showCurrentCompletion();
-					return;
+					return true;
 				}
 			}
 			break;
@@ -906,7 +921,7 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 	}
 	
 	if (c && c->completionCount() > 0) {
-		if (e->modifiers() == Qt::ShiftModifier)  {
+		if (seq == actionPrevious_Completion->shortcut()) {
 			if (c->currentRow() == 0) {
 				showCompletion(c->completionPrefix());
 				setCompleter(nullptr);
@@ -926,10 +941,14 @@ void CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 				showCurrentCompletion();
 			}
 		}
-		return;
+		return true;
 	}
-	
-	if(!noSelection) {
+	return false;
+}
+
+void CompletingEdit::handleTab(QKeyEvent * e)
+{
+	if (textCursor().hasSelection()) {
 		if(e->modifiers() == Qt::ShiftModifier) {
 			unPrefixLines(QString::fromLatin1("\t"));
 		} else {
@@ -1307,6 +1326,22 @@ bool CompletingEdit::event(QEvent *e)
 	// derive the colors from the application's palette
 	if (e->type() == QEvent::PaletteChange)
 		updateColors();
+	if (e->type() == QEvent::ShortcutOverride) {
+		auto ke = reinterpret_cast<QKeyEvent*>(e);
+		QKeySequence seq(static_cast<int>(ke->modifiers()) | ke->key());
+		if (seq == actionNext_Completion->shortcut() ||
+			seq == actionPrevious_Completion->shortcut() ||
+			seq == actionNext_Completion_Placeholder->shortcut() ||
+			seq == actionPrevious_Completion_Placeholder->shortcut())
+		{
+			// If the key press corresponds to a completion shortcut, accept the
+			// event to tell Qt not to treat it as a shortcut but to send it to
+			// the focused widget normally (thereby invoking the keyPressEvent
+			// handler)
+			e->accept();
+		}
+	}
+
 	return QTextEdit::event(e);
 }
 

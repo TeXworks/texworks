@@ -24,6 +24,7 @@
 
 #include "document/SpellChecker.h"
 #include "ui/LineNumberWidget.h"
+#include "ui_CompletingEdit.h"
 
 #include <QTextEdit>
 #include <QHash>
@@ -36,7 +37,7 @@ class QCompleter;
 class QStandardItemModel;
 class QTextCodec;
 
-class CompletingEdit : public QTextEdit
+class CompletingEdit : public QTextEdit, private Ui::CompletingEdit
 {
 	Q_OBJECT
 
@@ -130,9 +131,10 @@ private:
 	void loadCompletionsFromFile(QStandardItemModel *model, const QString& filename);
 	void loadCompletionFiles(QCompleter *theCompleter);
 
-	void handleCompletionShortcut(QKeyEvent *e);
+	bool handleCompletionShortcut(QKeyEvent *e);
 	void handleReturn(QKeyEvent *e);
 	void handleBackspace(QKeyEvent *e);
+	void handleTab(QKeyEvent * e);
 	void handleOtherKey(QKeyEvent *e);
 	void maybeSmartenQuote(int offset);
 

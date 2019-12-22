@@ -105,6 +105,7 @@ else ()
 endif ()
 
 set(TEXWORKS_UIS CitationSelectDialog.ui
+                 CompletingEdit.ui
                  ConfirmDelete.ui
                  Find.ui
                  HardWrapDialog.ui
