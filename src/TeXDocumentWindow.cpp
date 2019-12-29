@@ -268,6 +268,8 @@ void TeXDocumentWindow::init()
 	b = settings.value(QString::fromLatin1("lineNumbers"), false).toBool();
 	actionLine_Numbers->setChecked(b);
 	setLineNumbers(b);
+
+	actionAuto_Follow_Focus->setChecked(settings.value(QStringLiteral("autoFollowFocusEnabled"), kDefault_AutoFollowFocusEnabled).toBool());
 	
 	QStringList options = TeXHighlighter::syntaxOptions();
 

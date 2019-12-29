@@ -328,6 +328,7 @@ void PrefsDialog::restoreDefaults()
 			encoding->setCurrentIndex(encoding->findText(QString::fromLatin1("UTF-8")));
 			highlightCurrentLine->setChecked(kDefault_HighlightCurrentLine);
 			autocompleteEnabled->setChecked(kDefault_AutocompleteEnabled);
+			autoFollowFocusEnabled->setChecked(kDefault_AutoFollowFocusEnabled);
 			break;
 	
 		case 2:
@@ -578,6 +579,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.encoding->setCurrentIndex(nameList.indexOf(QString::fromUtf8(TWApp::instance()->getDefaultCodec()->name().constData())));
 	dlg.highlightCurrentLine->setChecked(settings.value(QString::fromLatin1("highlightCurrentLine"), kDefault_HighlightCurrentLine).toBool());
 	dlg.autocompleteEnabled->setChecked(settings.value(QString::fromLatin1("autocompleteEnabled"), kDefault_AutocompleteEnabled).toBool());
+	dlg.autoFollowFocusEnabled->setChecked(settings.value(QStringLiteral("autoFollowFocusEnabled"), kDefault_AutoFollowFocusEnabled).toBool());
 
 	QString defDict = settings.value(QString::fromLatin1("language"), QString::fromLatin1("None")).toString();
 	int i = dlg.language->findData(defDict);
@@ -746,6 +748,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		bool autocompleteEnabled = dlg.autocompleteEnabled->isChecked();
 		settings.setValue(QString::fromLatin1("autocompleteEnabled"), autocompleteEnabled);
 		CompletingEdit::setAutocompleteEnabled(autocompleteEnabled);
+
+		settings.setValue(QStringLiteral("autoFollowFocusEnabled"), dlg.autoFollowFocusEnabled->isChecked());
 
 		// Since the tab width can't be set by any other means, forcibly update
 		// all windows now
