@@ -42,6 +42,14 @@
     <string>Ctrl+Shift+Backtab</string>
    </property>
   </action>
+  <action name="actionJump_To_PDF">
+   <property name="text">
+    <string>Jump to PDF</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+J</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

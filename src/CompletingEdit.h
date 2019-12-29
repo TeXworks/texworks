@@ -117,7 +117,8 @@ private slots:
 	void addToDictionary();
 	void ignoreWord();
 	void resetExtraSelections();
-	void jumpToPdf();
+	void jumpToPdf(QTextCursor pos = {});
+	void jumpToPdfFromContextMenu();
 	void updateLineNumberArea(const QRect&, int);
 	
 private:

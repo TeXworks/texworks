@@ -83,9 +83,10 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	connect(TWApp::instance(), SIGNAL(highlightLineOptionChanged()), this, SLOT(resetExtraSelections()));
 
 	setupUi(this);
+	connect(actionJump_To_PDF, SIGNAL(triggered()), this, SLOT(jumpToPdf()));
 	// As these actions are not used in menus/toolbars, we need to manually add
 	// them to the widget for TWUtils::installCustomShortcuts to work
-	insertActions(nullptr, {actionNext_Completion, actionPrevious_Completion, actionNext_Completion_Placeholder, actionPrevious_Completion_Placeholder});
+	insertActions(nullptr, {actionNext_Completion, actionPrevious_Completion, actionNext_Completion_Placeholder, actionPrevious_Completion_Placeholder, actionJump_To_PDF});
 
 #ifdef Q_OS_DARWIN
 	// Backwards compatibility
@@ -1066,7 +1067,14 @@ void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
 	theCompleter->setModel(model);
 }
 
-void CompletingEdit::jumpToPdf()
+void CompletingEdit::jumpToPdf(QTextCursor pos)
+{
+	if (pos.isNull())
+		pos = textCursor();
+	emit syncClick(pos.blockNumber() + 1, pos.positionInBlock());
+}
+
+void CompletingEdit::jumpToPdfFromContextMenu()
 {
 	QAction *act = qobject_cast<QAction*>(sender());
 	if (act) {
@@ -1083,7 +1091,7 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	QTextCursor cur = cursorForPosition(event->pos());
 
 	act->setData(QVariant(QPoint(cur.positionInBlock(), cur.blockNumber() + 1)));
-	connect(act, SIGNAL(triggered()), this, SLOT(jumpToPdf()));
+	connect(act, SIGNAL(triggered()), this, SLOT(jumpToPdfFromContextMenu()));
 	menu->insertSeparator(menu->actions().first());
 	menu->insertAction(menu->actions().first(), act);
 	
