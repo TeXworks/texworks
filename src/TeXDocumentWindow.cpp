@@ -780,10 +780,10 @@ bool TeXDocumentWindow::saveAs()
 
 	// for untitled docs, default to the last dir used, or $HOME if no saved value
 	Tw::Settings settings;
-	QDir lastSaveDir = settings.value(QString::fromLatin1("saveDialogDir")).toString();
+	QString lastSaveDir = settings.value(QString::fromLatin1("saveDialogDir")).toString();
 	if (lastSaveDir.isEmpty() || !QDir(lastSaveDir).exists())
 		lastSaveDir = QDir::homePath();
-	QString suggestedDir = (textDoc()->isStoredInFilesystem() ? textDoc()->absoluteFilePath() : lastSaveDir.filePath(textDoc()->getFileInfo().filePath()));
+	QString suggestedDir = (textDoc()->isStoredInFilesystem() ? textDoc()->absoluteFilePath() : QDir(lastSaveDir).filePath(textDoc()->getFileInfo().filePath()));
 	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
 													suggestedDir,
 	                                                TWUtils::filterList()->join(QLatin1String(";;")),
