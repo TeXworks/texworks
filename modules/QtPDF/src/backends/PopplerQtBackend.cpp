@@ -21,6 +21,7 @@
 #include "GlobalParams.h"
 #include <QCoreApplication>
 #include <QDir>
+#include <memory>
 #endif
 
 
@@ -1054,10 +1055,18 @@ PopplerQtBackend::PopplerQtBackend() {
     // document is opened)
     QDir popplerDataDir(QCoreApplication::applicationDirPath() + QLatin1String("/../poppler-data"));
     if (popplerDataDir.exists()) {
+#if defined(POPPLER_GLOBALPARAMS_IS_UNIQUE)
+      globalParams = std::move(std::unique_ptr<GlobalParams>(new GlobalParams(popplerDataDir.canonicalPath().toUtf8().data())));
+#else
       globalParams = new GlobalParams(popplerDataDir.canonicalPath().toUtf8().data());
+#endif
     }
     else {
+#if defined(POPPLER_GLOBALPARAMS_IS_UNIQUE)
+      globalParams = std::move(std::unique_ptr<GlobalParams>(new GlobalParams()));
+#else
       globalParams = new GlobalParams();
+#endif
     }
   }
 #endif
