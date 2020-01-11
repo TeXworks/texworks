@@ -17,32 +17,32 @@
 class Poppler < Formula
   desc "PDF rendering library (based on the xpdf-3.0 code base)"
   homepage "https://poppler.freedesktop.org/"
-  url "https://poppler.freedesktop.org/poppler-0.79.0.tar.xz"
-  sha256 "f985a4608fe592d2546d9d37d4182e502ff6b4c42f8db4be0a021a1c369528c8"
+  url "https://poppler.freedesktop.org/poppler-0.84.0.tar.xz"
+  sha256 "c7a130da743b38a548f7a21fe5940506fb1949f4ebdd3209f0e5b302fa139731"
   head "https://anongit.freedesktop.org/git/poppler/poppler.git"
 
 # BEGIN TEXWORKS MODIFICATION
 #  bottle do
-#    sha256 "f1c8ead874f888f7324a5ca6c95efd5e04519038393a89a6f7c030b8807bddc1" => :mojave
-#    sha256 "5d050e5f3355e4a72c9bfe4128108a4f64228c0e10fe6bb51aac32a07c10e707" => :high_sierra
-#    sha256 "438fc1e448307d1bf17bdc37eb74bbc645ff526b26dd0423915b5f68af12a49d" => :sierra
+#    sha256 "400df9890bc951aab711cbd2f1449498ce5708298d17b0cc0d2719cc8e20759c" => :catalina
+#    sha256 "a2bd748c1d782e9a75db56fa40a55362c9a998a9021b4d55074694bf7be6e090" => :mojave
+#    sha256 "19b42ed9d840c6476681be4db9578fe029a800450bec08956ee2a9de5e2ed554" => :high_sierra
 #  end
 
-  version '0.79.0-texworks'
+  version '0.84.0-texworks'
 
   TEXWORKS_SOURCE_DIR = Pathname.new(__FILE__).realpath.dirname.join('../../..')
   TEXWORKS_PATCH_DIR = TEXWORKS_SOURCE_DIR + 'lib-patches/'
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0001-Fix-bogus-memory-allocation-in-SplashFTFont-makeGlyp.patch'
-    sha256 "c4006033402c05290efec016a02d395aee9b92cdc9ea4eebe94e01a44b449db7"
+    sha256 "126601cffa976ccee82bfa86a3b4c2bdb2b748efebc4bef8a76f75359dd23b2e"
   end
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0002-Native-Mac-font-handling.patch'
-    sha256 "c336a67610cabcd90b9213eaffd5f744a7a5dbd802c970d5059bb4cfcd3cb0c8"
+    sha256 "520f9da384fa768bee4393cc6134c46450b3f9516fd79636fde4cbd71c7ced7f"
   end
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0003-Add-support-for-persistent-GlobalParams.patch'
-    sha256 "c69efcc986828110fbfac8faa2c52785c7c9a82d84a328d41d3afe3d64ac9ea9"
+    sha256 "51a37734e714e7973c55b433b26bd185f2ea113e4945832294b08f082a8e7af9"
   end
 # END TEXWORKS MODIFICATION
 
@@ -61,6 +61,7 @@ class Poppler < Formula
   depends_on "nss"
   depends_on "openjpeg"
   depends_on "qt"
+  uses_from_macos "curl"
 
   conflicts_with "pdftohtml", "pdf2image", "xpdf",
     :because => "poppler, pdftohtml, pdf2image, and xpdf install conflicting executables"
@@ -111,3 +112,4 @@ class Poppler < Formula
     system "#{bin}/pdfinfo", test_fixtures("test.pdf")
   end
 end
+
