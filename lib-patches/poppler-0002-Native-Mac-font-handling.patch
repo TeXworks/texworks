@@ -1,4 +1,4 @@
-From c5e41d8a218e417c059a2f99bb1a0dc8c3ca78a4 Mon Sep 17 00:00:00 2001
+From 0c51f67e3cb05c9ab74f78f5ca03c8e43c352b02 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Thu, 11 Feb 2016 23:14:20 -0500
 Subject: [PATCH 2/3] Native Mac font handling
@@ -8,9 +8,9 @@ Subject: [PATCH 2/3] Native Mac font handling
  config.h.cmake                 |   3 +
  poppler/GlobalParams.cc        |  15 ++
  poppler/GlobalParams.h         |   7 +
- poppler/GlobalParamsMac.cc     | 314 +++++++++++++++++++++++++++++++++
+ poppler/GlobalParamsMac.cc     | 312 +++++++++++++++++++++++++++++++++
  poppler/poppler-config.h.cmake |   5 +
- 6 files changed, 359 insertions(+), 1 deletion(-)
+ 6 files changed, 357 insertions(+), 1 deletion(-)
  create mode 100644 poppler/GlobalParamsMac.cc
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
@@ -72,7 +72,7 @@ index c92fc352..af08d974 100644
  #cmakedefine WITH_FONTCONFIGURATION_WIN32 1
  
 diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
-index ea5d8125..02ff8e32 100644
+index ea5d8125..5b66e0fb 100644
 --- a/poppler/GlobalParams.cc
 +++ b/poppler/GlobalParams.cc
 @@ -239,6 +239,9 @@ public:
@@ -80,7 +80,7 @@ index ea5d8125..02ff8e32 100644
    void addFcFont(SysFontInfo *si) {fonts->push_back(si);}
  #endif
 +#ifdef WITH_FONTCONFIGURATION_MAC
-+	void addMacFont(SysFontInfo *si) {fonts->append(si);}
++	void addMacFont(SysFontInfo *si) {fonts->push_back(si);}
 +#endif
  private:
  
@@ -119,7 +119,7 @@ index ea5d8125..02ff8e32 100644
  GooString *GlobalParams::findBase14FontFile(const GooString *base14Name, const GfxFont *font) {
    return findFontFile(base14Name);
 diff --git a/poppler/GlobalParams.h b/poppler/GlobalParams.h
-index 755cdc1a..9fff7143 100644
+index 755cdc1a..7dafa2ea 100644
 --- a/poppler/GlobalParams.h
 +++ b/poppler/GlobalParams.h
 @@ -137,6 +137,9 @@ public:
@@ -127,7 +127,7 @@ index 755cdc1a..9fff7143 100644
    CMap *getCMap(const GooString *collection, const GooString *cMapName, Stream *stream = nullptr);
    UnicodeMap *getTextEncoding();
 +#if WITH_FONTCONFIGURATION_MAC
-+  bool loadPlatformFont(char * fontName);
++  bool loadPlatformFont(const char * fontName);
 +#endif
  
    std::vector<GooString*> *getEncodingNames();
@@ -145,10 +145,10 @@ index 755cdc1a..9fff7143 100644
    std::unordered_map<std::string, std::string> fontFiles;
 diff --git a/poppler/GlobalParamsMac.cc b/poppler/GlobalParamsMac.cc
 new file mode 100644
-index 00000000..b94afcb9
+index 00000000..731e7247
 --- /dev/null
 +++ b/poppler/GlobalParamsMac.cc
-@@ -0,0 +1,314 @@
+@@ -0,0 +1,312 @@
 +//========================================================================
 +//
 +// GlobalParamsMac.cc
@@ -177,8 +177,6 @@ index 00000000..b94afcb9
 +
 +#include "goo/gmem.h"
 +#include "goo/GooString.h"
-+#include "goo/GooList.h"
-+#include "goo/GooHash.h"
 +#include "goo/gfile.h"
 +#include "Error.h"
 +
@@ -205,7 +203,7 @@ index 00000000..b94afcb9
 +
 +#include <ApplicationServices/ApplicationServices.h>
 +
-+bool GlobalParams::loadPlatformFont(char * fontName) {
++bool GlobalParams::loadPlatformFont(const char * fontName) {
 +	char * myName = copyString(fontName);
 +	ATSFontRef fontRef = kATSUInvalidFontID;
 +	while (1) {
@@ -412,47 +410,47 @@ index 00000000..b94afcb9
 + ******************************************************************************/
 +
 +// Not needed
-+void GlobalParams::setupBaseFonts(char *dir) {
++void GlobalParams::setupBaseFonts(const char *dir) {
 +}
 +
-+GooString *GlobalParams::findBase14FontFile(GooString *base14Name, GfxFont *font) {
++GooString *GlobalParams::findBase14FontFile(const GooString *base14Name, const GfxFont *font) {
 +  SysFontType type;
 +  int fontNum;
-+  
++
 +  return findSystemFontFile(font, &type, &fontNum, nullptr, base14Name);
 +}
 +
-+GooString *GlobalParams::findSystemFontFile(GfxFont *font,
++GooString *GlobalParams::findSystemFontFile(const GfxFont *font,
 +					  SysFontType *type,
-+					  int *fontNum, GooString *substituteFontName, GooString *base14Name) {
-+	GooString *path = nullptr;
++					  int *fontNum, GooString *substituteFontName, const GooString *base14Name) {
++	std::unordered_map<std::string, std::string>::iterator path;
 +	GooString *fontName = font->getName()->copy();
 +	if (!fontName) return nullptr;
 +	lockGlobalParams;
-+	path = (GooString*)fontFiles->lookup(fontName);
-+	if (!path) {
-+		if (loadPlatformFont(fontName->getCString()))
-+			path = (GooString*)fontFiles->lookup(fontName);
-+		if (!path) {
-+			GooString * substFontName = new GooString(findSubstituteName(fontName->getCString()));
++	path = fontFiles.find(fontName->toStr());
++	if (path == fontFiles.end()) {
++		if (loadPlatformFont(fontName->c_str()))
++			path = fontFiles.find(fontName->toStr());
++		if (path == fontFiles.end()) {
++			GooString * substFontName = new GooString(findSubstituteName(fontName->c_str()));
 +			error(errSyntaxError, -1, "Couldn't find a font for '{0:t}', subst is '{1:t}'", fontName, substFontName);
-+			path = (GooString*)fontFiles->lookup(substFontName);
-+			if (!path) {
-+				if (loadPlatformFont(substFontName->getCString()))
-+					path = (GooString*)fontFiles->lookup(substFontName);
++			path = fontFiles.find(substFontName->toStr());
++			if (path == fontFiles.end()) {
++				if (loadPlatformFont(substFontName->c_str()))
++					path = fontFiles.find(substFontName->toStr());
 +
 +				// this isn't supposed to fail, because the substitutes are system fonts
 +				// that should always be available
-+				assert(path);
++				assert(path != fontFiles.end());
 +				if (substituteFontName)
-+					substituteFontName->Set(substFontName->getCString());
++					substituteFontName->Set(substFontName->c_str());
 +			}
 +			delete substFontName;
 +		}
 +	}
 +
 +	if (type) {
-+		if (path->getLength() > 4 && !strcasecmp(path->getCString() + path->getLength() - 4, ".ttc"))
++		if (path->second.size() > 4 && !strcasecmp(path->second.c_str() + path->second.size() - 4, ".ttc"))
 +			*type = sysFontTTC;
 +		else
 +			*type = sysFontTTF;
@@ -461,7 +459,7 @@ index 00000000..b94afcb9
 +		*fontNum = 0;
 +
 +	unlockGlobalParams;
-+	return path->copy();
++	return new GooString(path->second);
 +}
 diff --git a/poppler/poppler-config.h.cmake b/poppler/poppler-config.h.cmake
 index 2adf181c..4ae3eaf5 100644
