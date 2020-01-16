@@ -88,7 +88,7 @@ int ScriptAPI::information(QWidget* parent,
 {
 	return static_cast<int>(QMessageBox::information(parent, title, text,
 										 static_cast<QMessageBox::StandardButtons>(buttons),
-										 static_cast<QMessageBox::StandardButtons>(defaultButton)));
+										 static_cast<QMessageBox::StandardButton>(defaultButton)));
 }
 
 int ScriptAPI::question(QWidget* parent,
@@ -98,7 +98,7 @@ int ScriptAPI::question(QWidget* parent,
 {
 	return static_cast<int>(QMessageBox::question(parent, title, text,
 									  static_cast<QMessageBox::StandardButtons>(buttons),
-									  static_cast<QMessageBox::StandardButtons>(defaultButton)));
+									  static_cast<QMessageBox::StandardButton>(defaultButton)));
 }
 
 int ScriptAPI::warning(QWidget* parent,
@@ -108,7 +108,7 @@ int ScriptAPI::warning(QWidget* parent,
 {
 	return static_cast<int>(QMessageBox::warning(parent, title, text,
 									 static_cast<QMessageBox::StandardButtons>(buttons),
-									 static_cast<QMessageBox::StandardButtons>(defaultButton)));
+									 static_cast<QMessageBox::StandardButton>(defaultButton)));
 }
 
 int ScriptAPI::critical(QWidget* parent,
@@ -118,7 +118,7 @@ int ScriptAPI::critical(QWidget* parent,
 {
 	return static_cast<int>(QMessageBox::critical(parent, title, text,
 									  static_cast<QMessageBox::StandardButtons>(buttons),
-									  static_cast<QMessageBox::StandardButtons>(defaultButton)));
+									  static_cast<QMessageBox::StandardButton>(defaultButton)));
 }
 
 QVariant ScriptAPI::getInt(QWidget* parent, const QString& title, const QString& label,
