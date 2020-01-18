@@ -537,7 +537,7 @@ protected:
   void clearPages();
   virtual void clearMetaData();
 
-  int _numPages;
+  int _numPages{-1};
   PDFPageProcessingThread _processingThread;
   PDFPageCache _pageCache;
   QVector< QSharedPointer<Page> > _pages;
@@ -554,10 +554,10 @@ protected:
   QString _meta_producer;
   QDateTime _meta_creationDate;
   QDateTime _meta_modDate;
-  qint64 _meta_fileSize;
-  TrappedState _meta_trapped;
+  qint64 _meta_fileSize{0};
+  TrappedState _meta_trapped{Trapped_Unknown};
   QMap<QString, QString> _meta_other;
-  QSharedPointer<QReadWriteLock> _docLock;
+  QSharedPointer<QReadWriteLock> _docLock{new QReadWriteLock(QReadWriteLock::Recursive)};
 };
 
 // This class is thread-safe. See implementation for internals.
@@ -566,10 +566,10 @@ class Page
   friend class Document;
 
 protected:
-  Document *_parent;
-  const int _n;
-  Transition::AbstractTransition * _transition;
-  QReadWriteLock * _pageLock;
+  Document *_parent{nullptr};
+  const int _n{-1};
+  Transition::AbstractTransition * _transition{nullptr};
+  QReadWriteLock * _pageLock{new QReadWriteLock(QReadWriteLock::Recursive)};
   const QSharedPointer<QReadWriteLock> _docLock;
 
   // Getter for derived classes (that are not friends of Document)

@@ -143,9 +143,7 @@ void convertAnnotation(Annotation::AbstractAnnotation * dest, const ::Poppler::A
 // ==============
 Document::Document(const QString & fileName):
   Super(fileName),
-  _poppler_doc(::Poppler::Document::load(fileName)),
-  _poppler_docLock(new QMutex()),
-  _fontsLoaded(false)
+  _poppler_doc(::Poppler::Document::load(fileName))
 {
 #ifdef DEBUG
 //  qDebug() << "PopplerQt::Document::Document(" << fileName << ")";
@@ -513,9 +511,7 @@ bool Document::unlock(const QString password)
 // Page Class
 // ==========
 Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
-  Super(parent, at, docLock),
-  _annotationsLoaded(false),
-  _linksLoaded(false)
+  Super(parent, at, docLock)
 {
   _poppler_page = QSharedPointer< ::Poppler::Page >(dynamic_cast<Document *>(_parent)->_poppler_doc->page(at));
   loadTransitionData();

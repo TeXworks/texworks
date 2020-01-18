@@ -459,11 +459,7 @@ void PDFPageCache::markOutdated()
 // This class is thread-safe. Data access is governed by the QReadWriteLock
 // _docLock.
 Document::Document(QString fileName):
-  _numPages(-1),
-  _fileName(fileName),
-  _meta_fileSize(0),
-  _meta_trapped(Trapped_Unknown),
-  _docLock(new QReadWriteLock(QReadWriteLock::Recursive))
+  _fileName(fileName)
 {
   Q_ASSERT(_docLock != nullptr);
 
@@ -574,8 +570,6 @@ void Document::clearMetaData()
 Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
   _parent(parent),
   _n(at),
-  _transition(nullptr),
-  _pageLock(new QReadWriteLock(QReadWriteLock::Recursive)),
   _docLock(docLock)
 {
   Q_ASSERT(_pageLock);

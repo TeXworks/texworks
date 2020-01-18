@@ -45,11 +45,11 @@ class Document: public Backend::Document
 protected:
   // Poppler is not threadsafe, so some operations need to be serialized with a
   // mutex.
-  QMutex * _poppler_docLock;
+  QMutex * _poppler_docLock{new QMutex};
   // Since ::Poppler::Document::fonts() is extremely slow, we need to cache the
   // result.
   mutable QList<PDFFontInfo> _fonts;
-  mutable bool _fontsLoaded;
+  mutable bool _fontsLoaded{false};
 
   // The following two methods are not thread-safe because they don't acquire a
   // read lock. This is to enable methods that have a write lock to use them.
@@ -86,8 +86,8 @@ class Page: public Backend::Page
   QSharedPointer< ::Poppler::Page > _poppler_page;
   QList< QSharedPointer<Annotation::AbstractAnnotation> > _annotations;
   QList< QSharedPointer<Annotation::Link> > _links;
-  bool _annotationsLoaded;
-  bool _linksLoaded;
+  bool _annotationsLoaded{false};
+  bool _linksLoaded{false};
 
   void loadTransitionData();
 
