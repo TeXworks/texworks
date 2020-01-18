@@ -192,6 +192,7 @@ void Document::parseDocument()
   QWriteLocker docLocker(_docLock.data());
 
   clearMetaData();
+  _meta_fileSize = QFileInfo(_fileName).size();
   _numPages = -1;
 
   if (!_poppler_doc || _isLocked())
@@ -262,7 +263,6 @@ void Document::parseDocument()
     _meta_modDate = fromPDFDate(_poppler_doc->info(QString::fromUtf8("ModDate")));
     metaKeys.removeAll(QString::fromUtf8("ModDate"));
   }
-  _meta_fileSize = QFileInfo(_fileName).size();
 
   // Get the most often used page size
   QMap<QSizeF, int> pageSizes;
