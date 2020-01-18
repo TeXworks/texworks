@@ -3057,7 +3057,7 @@ void PDFMetaDataInfoWidget::reload()
   else
     _fileSize->setText(QString::fromLatin1("%1 %2").arg(fileSize, 0, 'f', 1).arg(sizeUnits[iUnit]));
 
-  _pageSize->setText(PaperSize::findForPDFSize(doc->pageSize()).label());
+  _pageSize->setText(doc->pageSize().isValid() ? PaperSize::findForPDFSize(doc->pageSize()).label() : QString());
 
   _creator->setText(doc->creator());
   _producer->setText(doc->producer());
