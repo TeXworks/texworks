@@ -16,7 +16,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Configure
-	mkdir --parents build && cd build && cmake .. -DTW_BUILD_ID='launchpad' -DCMAKE_INSTALL_PREFIX='/usr' && cd ..
+	mkdir --parents build && cd build && cmake .. -DTW_BUILD_ID='launchpad' -DCMAKE_INSTALL_PREFIX='/usr' -DCMAKE_BUILD_TYPE="RelWithDebInfo" && cd ..
 	touch $@
 
 # Build architecture-independent files
