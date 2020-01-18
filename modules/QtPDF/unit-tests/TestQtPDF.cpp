@@ -554,7 +554,7 @@ void TestQtPDF::fileSize_data()
 
   newDocTest("invalid") << static_cast<qint64>(0);
   newDocTest("base14-fonts") << static_cast<qint64>(3800);
-  newDocTest("base14-locked") << static_cast<qint64>(0);
+  newDocTest("base14-locked") << static_cast<qint64>(4292);
   newDocTest("pgfmanual") << static_cast<qint64>(5346838);
   newDocTest("annotations") << static_cast<qint64>(11817);
 }
