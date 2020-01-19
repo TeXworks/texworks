@@ -51,9 +51,10 @@ elif [ "${TARGET_OS}" = "osx" -a "${TRAVIS_OS_NAME}" = "osx" ]; then
 		# Qt5 is already pre-installed (and will be upgraded to the newest
 		# version automatically if necessary when poppler is upgraded)
 #		brew install qt5
-		# poppler is installed by default, but we need to upgrade it to our own,
+		# poppler is installed by default, but we want to force our own,
 		# patched version
-		brew upgrade "${TRAVIS_BUILD_DIR}/CMake/packaging/mac/poppler.rb"
+		brew uninstall --ignore-dependencies poppler
+		brew install "${TRAVIS_BUILD_DIR}/CMake/packaging/mac/poppler.rb"
 	else
 		print_error "Unsupported Qt version '${QT}'"
 		exit 1
