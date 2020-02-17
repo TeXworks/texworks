@@ -1743,8 +1743,8 @@ Birimleri değiştirmek için menüyü kullanın.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="287"/>
-        <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation>&lt;br&gt;Kavram ve kaynaklar Richard Koch tarafından &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt;&apos;dan.</translation>
+        <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;https://pages.uoregon.edu/koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
+        <translation>&lt;br&gt;Kavram ve kaynaklar Richard Koch tarafından &lt;a href=&quot;https://pages.uoregon.edu/koch/texshop/&quot;&gt;TeXShop&lt;/a&gt;&apos;dan.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="288"/>

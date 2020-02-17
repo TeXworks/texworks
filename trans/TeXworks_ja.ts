@@ -1735,7 +1735,7 @@ Use the context menu to change the units.</source>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="287"/>
-        <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
+        <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;https://pages.uoregon.edu/koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation></translation>
     </message>
     <message>

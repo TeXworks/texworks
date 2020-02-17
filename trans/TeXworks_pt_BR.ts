@@ -1734,8 +1734,8 @@ Use o menu de contexto para mudar as unidades.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="287"/>
-        <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
-        <translation>&lt;br&gt;Conceito e recursos inspirados no &lt;a href=&quot;http://www.uoregon.edu/~koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; de Richard Koch.</translation>
+        <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;https://pages.uoregon.edu/koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
+        <translation>&lt;br&gt;Conceito e recursos inspirados no &lt;a href=&quot;https://pages.uoregon.edu/koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; de Richard Koch.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="288"/>
