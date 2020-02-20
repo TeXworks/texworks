@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2019  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2020  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -275,7 +275,7 @@ void TWApp::about()
 {
 	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(QString::fromLatin1(TEXWORKS_NAME));
 	aboutText += QLatin1String("<small>");
-	aboutText += QLatin1String("<p>&#xA9; 2007-2019  Jonathan Kew, Stefan L&#xF6;ffler, Charlie Sharpsteen");
+	aboutText += QLatin1String("<p>&#xA9; 2007-2020  Jonathan Kew, Stefan L&#xF6;ffler, Charlie Sharpsteen");
 	if (TWUtils::isGitInfoAvailable())
 		aboutText += tr("<br>Version %1 (%2) [r.%3, %4]").arg(QString::fromLatin1(TEXWORKS_VERSION), QString::fromLatin1(TW_BUILD_ID_STR), TWUtils::gitCommitHash(), TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
 	else

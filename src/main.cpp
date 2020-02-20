@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2019  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2020  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 Copyright (C) %1  %2\n\
 License GPLv2+: GNU GPL (version 2 or later) <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
-There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLatin1("2007-2019"), QString::fromUtf8("Jonathan Kew, Stefan Löffler, Charlie Sharpsteen"));
+There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLatin1("2007-2020"), QString::fromUtf8("Jonathan Kew, Stefan Löffler, Charlie Sharpsteen"));
 			strm.flush();
 		}
 		if ((i = clp.getNextSwitch(QString::fromLatin1("help"))) >= 0) {
