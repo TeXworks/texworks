@@ -34,6 +34,7 @@ const int kDefault_SpellcheckLanguage = 0;
 const bool kDefault_LineNumbers = false;
 const bool kDefault_WrapLines = true;
 const int kDefault_TabWidth = 32;
+const int kDefault_LineSpacing = 100;
 const int kDefault_HideConsole = 1;
 const bool kDefault_HighlightCurrentLine = true;
 const bool kDefault_AutocompleteEnabled = true;

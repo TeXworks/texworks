@@ -319,6 +319,7 @@ void PrefsDialog::restoreDefaults()
 				fontSize->setValue(font.pointSize());
 			}
 			tabWidth->setValue(kDefault_TabWidth);
+			lineSpacing->setValue(kDefault_LineSpacing);
 			lineNumbers->setChecked(kDefault_LineNumbers);
 			wrapLines->setChecked(kDefault_WrapLines);
 			syntaxColoring->setCurrentIndex(kDefault_SyntaxColoring);
@@ -568,6 +569,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.lineNumbers->setChecked(settings.value(QString::fromLatin1("lineNumbers"), kDefault_LineNumbers).toBool());
 	dlg.wrapLines->setChecked(settings.value(QString::fromLatin1("wrapLines"), kDefault_WrapLines).toBool());
 	dlg.tabWidth->setValue(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toInt());
+	dlg.lineSpacing->setValue(settings.value(QStringLiteral("lineSpacing"), kDefault_LineSpacing).toInt());
 	QFontDatabase fdb;
 	dlg.editorFont->addItems(fdb.families());
 	QString fontString = settings.value(QString::fromLatin1("font")).toString();
@@ -728,6 +730,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		settings.setValue(QString::fromLatin1("lineNumbers"), dlg.lineNumbers->isChecked());
 		settings.setValue(QString::fromLatin1("wrapLines"), dlg.wrapLines->isChecked());
 		settings.setValue(QString::fromLatin1("tabWidth"), dlg.tabWidth->value());
+		settings.setValue(QStringLiteral("lineSpacing"), dlg.lineSpacing->value());
 		font = QFont(dlg.editorFont->currentText());
 		font.setPointSize(dlg.fontSize->value());
 		settings.setValue(QString::fromLatin1("font"), font.toString());

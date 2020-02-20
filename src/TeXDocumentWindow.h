@@ -167,6 +167,7 @@ public slots:
 	void doHardWrapDialog();
 	void doInsertCitationsDialog();
 	void setLineNumbers(bool displayNumbers);
+	void setLineSpacing(qreal percent);
 	void setWrapLines(bool wrap);
 	void setSyntaxColoring(int index);
 	void copyToFind();

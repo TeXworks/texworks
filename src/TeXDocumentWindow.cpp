@@ -261,6 +261,8 @@ void TeXDocumentWindow::init()
 	textEdit_console->setFont(font);
 	textEdit_console->setLayoutDirection(Qt::LeftToRight);
 	
+	setLineSpacing(settings.value(QStringLiteral("lineSpacing"), kDefault_LineSpacing).toReal());
+
 	bool b = settings.value(QString::fromLatin1("wrapLines"), true).toBool();
 	actionWrap_Lines->setChecked(b);
 	setWrapLines(b);
@@ -2148,6 +2150,26 @@ void TeXDocumentWindow::setLineNumbers(bool displayNumbers)
 {
 	actionLine_Numbers->setChecked(displayNumbers);
 	textEdit->setLineNumberDisplay(displayNumbers);
+}
+
+void TeXDocumentWindow::setLineSpacing(qreal percent)
+{
+	// percent should typically be between 100 (single spacing) and 200 (double
+	// spacing). Values below 1 are simply ignored (this includes the "typical
+	// invalid return value" of 0).
+	if (percent <= 1.)
+		return;
+
+	Q_ASSERT(textDoc() != nullptr);
+
+	// Select the entire document
+	QTextCursor cur{textDoc()};
+	cur.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+
+	// Apply the modified line height
+	QTextBlockFormat fmt;
+	fmt.setLineHeight(percent, QTextBlockFormat::ProportionalHeight);
+	cur.mergeBlockFormat(fmt);
 }
 
 void TeXDocumentWindow::setWrapLines(bool wrap)
