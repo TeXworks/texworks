@@ -74,6 +74,7 @@ case "${PLATFORM}" in
 	*)			OS=$(echo "${PLATFORM}" | sed 's/.*-//')
 esac
 
+appendPath "/usr/local/texlive/2022/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2021/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2020/bin/$ARCH-$OS"
 appendPath "/usr/local/texlive/2019/bin/$ARCH-$OS"
