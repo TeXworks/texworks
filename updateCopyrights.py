@@ -4,6 +4,7 @@
 #  - GitPython: https://pypi.python.org/pypi/GitPython/
 #
 from __future__ import print_function
+import git
 from git import Repo
 import datetime, os, re
 
@@ -46,6 +47,7 @@ class CopyrightedFile:
 
         """
         self.filename = filename
+        self.log = None
 
     @property
     def year_range_str(self):
@@ -55,14 +57,13 @@ class CopyrightedFile:
         if len(timestamp_str.strip()) == 0: raise FileNotVersionedError(self.filename)
         timestamp = float(timestamp_str.replace('"', ''))
         begin = datetime.datetime.fromtimestamp(timestamp).year
-        logs = gitrepo.log('--format="%at %s"', '--', self.filename).split('\n')
+        logs = gitrepo.log('--format="%h %at %s"', '--', self.filename).split('\n')
         for log in logs:
-        	log = log[1:-1]
-        	log = log.split(' ', 1)
-        	if log[1] in ['Update copyrights', 'Update copyright notices', 'Update copyright statements', 'Updated copyright information', 'Update copyright and add Charlie to list of authors', 'Update URLs to http://www.tug.org/texworks/', 'update copyright to 2010']: continue
-        	timestamp_str = log[0]
-        	print('   %s: %s' % (self.filename, log[1]))
-        	break
+            log = log[1:-1]
+            commit, timestamp_str, msg = log.split(' ', 2)
+            if msg in ['Update copyrights', 'Update copyright notices', 'Update copyright statements', 'Updated copyright information', 'Update copyright and add Charlie to list of authors', 'Update URLs to http://www.tug.org/texworks/', 'update copyright to 2010']: continue
+            self.log = (commit, timestamp_str, msg)
+            break
 #        print(logs)
 #        timestamp_str = gitrepo.log('-1', '--format="%at"', '--', self.filename)
         timestamp = float(timestamp_str.replace('"', ''))
@@ -87,13 +88,16 @@ class CopyrightedFile:
                 return True
         return False
 
+    def is_updateable(self):
+        return not self.is_excluded() and self.one_of_replace_extensions()
+
     def needs_update(self):
         """Returns True if the file needs updating, False otherwise."""
-        if self.is_excluded() or not self.one_of_replace_extensions():
-            return False
 
         self.content = open(self.filename).read()
         self.matches = re.search(self.RE_PART_OF_TEXWORKS, self.content[:1000])
+        if self.matches is None:
+            print('    [WARNING] No Copyright notice found in {0}'.format(self.filename))
         return self.matches
 
     def update_copyright(self):
@@ -105,6 +109,10 @@ class CopyrightedFile:
 	        subst = "{0} {1}  {2}".format(self.matches.group(1), self.year_range_str, self.matches.group(2))
         except FileNotVersionedError:
             return
+
+        if subst == orig:
+            print('   Already up to date')
+            return
         self.content = self.content.replace(orig, subst)
 
         # Write the contents to disk
@@ -112,24 +120,31 @@ class CopyrightedFile:
         f.write(self.content)
         f.close()
 
-        print("Updated {0}".format(self.filename))
+        timestamp = datetime.datetime.fromtimestamp(float(self.log[1].replace('"', ''))).strftime('%c')
+
+        print("   Last commit: {0} ({1}) {2}".format(self.log[0], timestamp, self.log[2]))
+        print("   Updated {0}".format(self.filename))
 
 def manual_update_notice():
     """Reminder for places where the copyright information must be updated manually"""
     print("")
     print("Don't forget to manually update the copyright information in the following files:")
-    for f in ["README.md", "texworks.appdata.xml", "TeXworks.plist.in", "CMake/Modules/COPYING-CMAKE-MODULES", "man/texworks.1", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", "travis-ci/launchpad/debian/copyright", "travis-ci/README.win"]:
+    for f in ["README.md", "texworks.appdata.xml", "TeXworks.plist.in", "CMake/Modules/COPYING-CMAKE-MODULES", "man/texworks.1", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", "ci/travis-ci/launchpad/debian/copyright", "ci/travis-ci/README.win"]:
     	print("   {0}".format(f))
 
 def main():
     """Main"""
     global gitrepo
     gitrepo = Repo(".").git
-    for root, _, files in os.walk('.'):
-        for f in files:
-            the_file = CopyrightedFile(os.path.join(root, f))
-            if the_file.needs_update():
-                the_file.update_copyright()
+
+    for f in git.cmd.Git().ls_files().split():
+        the_file = CopyrightedFile(f)
+        if not the_file.is_updateable(): continue
+        print(f)
+        if the_file.needs_update():
+            the_file.update_copyright()
+        else:
+            print('    Skipping')
 
     manual_update_notice()
 
