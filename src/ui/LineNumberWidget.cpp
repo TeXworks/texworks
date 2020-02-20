@@ -77,7 +77,9 @@ void LineNumberWidget::paintEvent(QPaintEvent * event)
 		block = block.next();
 		if (block == _editor->document()->end())
 			break;
-		top = bottom;
+		// NB: The top of this block may not coincide with the bottom of the
+		// previous block in case the line spacing is not 100%
+		top = static_cast<int>(layout->blockBoundingRect(block).top() - _editor->verticalScrollBar()->value());
 		bottom = top + static_cast<int>(layout->blockBoundingRect(block).height());
 		++blockNumber;
 	}
