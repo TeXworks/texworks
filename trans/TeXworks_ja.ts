@@ -49,6 +49,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -59,6 +60,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,6 +71,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,6 +82,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -90,6 +94,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1547,57 +1552,6 @@ Use the context menu to change the units.</source>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">スクリプトの管理</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">単独動作するスクリプト</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">TeX入出力をフックするスクリプト</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">名前: </translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">使用法: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">説明: </translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">作者: </translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">バージョン: </translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">ショートカット: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">ファイル: </translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">言語: </translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">フック: </translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1862,10 +1816,6 @@ Use the context menu to change the units.</source>
         <translation>ヘルプファイルが見つかりません</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">ファイルの保存</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="1216"/>
         <source>Permission request</source>
         <translation>アクセス権の要求</translation>
@@ -1925,77 +1875,6 @@ Use the context menu to change the units.</source>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation>バージョン情報を表示する</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">内部エラー</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">システムコマンド %1 を実行できませんでした</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">システムコマンド %1 の実行時エラー</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">システムコマンドの実行は許可されていません (設定を確認してください)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">&quot;%1&quot; が開けません</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">全てのファイルの読み込み許可がありません (設定を確認してください)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">ファイル &quot;%1&quot; を読み込むことができません</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">不明なエラー</translation>
-    </message>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">スクリプト &quot;%1&quot;: %2</translation>
-    </message>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">実行結果</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">%1 に新しい機能を追加するまたは機能を拡張するためのスクリプトです</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">スクリプトについて詳しくは %1 をご覧ください&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">このバージョンの%1 では、以下の言語が利用できます:</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">スクリプトについて</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">スクリプトエラー</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">この文字列は、該当するスクリプト言語が利用できないことを示します。</translation>
     </message>
 </context>
 <context>
@@ -3155,37 +3034,6 @@ We are sorry for the inconvenience.</source>
         <location filename="../src/ToolConfig.ui" line="60"/>
         <source>Browse...</source>
         <translation>参照...</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">内部エラー</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">システムコマンド %1 を実行できませんでした</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">システムコマンド %1 の実行時エラー</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">システムコマンドの実行は許可されていません (設定を確認してください)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">&quot;%1&quot; が開けません</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">全てのファイルの読み込み許可がありません (設定を確認してください)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">ファイル &quot;%1&quot; を読み込むことができません</translation>
     </message>
 </context>
 </TS>

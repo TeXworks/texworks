@@ -49,6 +49,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -59,6 +60,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,6 +71,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,6 +82,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -90,6 +94,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1546,57 +1551,6 @@ Use the context menu to change the units.</source>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">管理脚本</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">独立脚本</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">钩子脚本</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">名称：</translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">上下文：</translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">描诉：</translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">作者：</translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">版本：</translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">快捷键：</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">文件：</translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">语言：</translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">钩子：</translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1861,10 +1815,6 @@ Use the context menu to change the units.</source>
         <translation>无法找到帮助文件。</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">保存文件</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="1216"/>
         <source>Permission request</source>
         <translation>请求权限</translation>
@@ -1924,77 +1874,6 @@ Use the context menu to change the units.</source>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">内部错误</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">系统命令运行失败：%1 </translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">系统命令运行错误：%1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">运行系统命令已被禁止（见＜首选项＞）</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">“%1”无法打开。</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">禁止读取所有文件（见首选项）</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">无法打开文件“%1”以便读取内容</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">未知错误</translation>
-    </message>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">脚本“%1”：%2</translation>
-    </message>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">脚本执行结果</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">脚本可用于添加新的命令到 %1，以及扩展或修改程序行为。</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">关于创建和使用脚本的更多信息，参见 %1&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">当前 %1 副本中支持的脚本语言：</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">关于脚本</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">脚本错误</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">（已在首选项中停用）</translation>
     </message>
 </context>
 <context>
@@ -3148,37 +3027,6 @@ We are sorry for the inconvenience.</source>
         <location filename="../src/ToolConfig.ui" line="60"/>
         <source>Browse...</source>
         <translation>浏览...</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">内部错误</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">系统命令运行失败：%1 </translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">系统命令运行错误：%1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">运行系统命令已被禁止（见＜首选项＞）</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">“%1”无法打开。</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">禁止读取所有文件（见首选项）</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">无法打开文件“%1”以便读取内容</translation>
     </message>
 </context>
 </TS>

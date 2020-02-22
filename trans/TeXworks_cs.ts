@@ -49,6 +49,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -59,6 +60,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,6 +71,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,6 +82,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -90,6 +94,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1546,57 +1551,6 @@ Use the context menu to change the units.</source>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">Správa skriptů</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">Samostatné skripty</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">Modifikační skripty</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Název: </translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">Kontext: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">Popis: </translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">Autor: </translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">Verze: </translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">Zkratka: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">Soubor: </translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">Jazyk: </translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">Modifikace: </translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1882,10 +1836,6 @@ Use the context menu to change the units.</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">Uložit soubor</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="804"/>
         <source>No default binary directory found</source>
         <translation>Nenalezen žádný výchozí adresář binárních souborů</translation>
@@ -1924,77 +1874,6 @@ Use the context menu to change the units.</source>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">Vnitřní chyba</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Spuštění systémového příkazu selhalo: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">Chyba při spouštění systémového příkazu: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Spouštění systémových příkazů je zakázáno (viz Nastavení)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">&quot;%1&quot; se nepodařilo otevřít.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Čtení všech souborů je zakázáno (viz Nastavení)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Soubor &quot;%1&quot; se nepodařilo otevřít pro čtení</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">Skript &quot;%1&quot;: %2</translation>
-    </message>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">Výsledek skriptu</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">neznámá chyba</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">Chyba skriptu</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">Skripty lze použít k přidání nových příkazů do %1 a k rozšíření či modifikaci výchozího chování programu.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">Informace o vytváření a používání skriptů lze nalézt na %1&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">Skriptovací jazyky aktuálně dostupné v této instalaci %1:</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">(zakázáno v nastavení)</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">O skriptech</translation>
     </message>
 </context>
 <context>
@@ -3167,37 +3046,6 @@ Chcete stávající změny zahodit a obnovit soubor z disku za použití kódov�
         <location filename="../src/ToolConfig.ui" line="148"/>
         <source>View PDF after running</source>
         <translation>Následně zobrazit PDF</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">Vnitřní chyba</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Spuštění systémového příkazu selhalo: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Chyba při spouštění systémového příkazu: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">Spouštění systémových příkazů je zakázáno (viz Nastavení)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">&quot;%1&quot; se nepodařilo otevřít.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">Čtení všech souborů je zakázáno (viz Nastavení)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">Soubor &quot;%1&quot; se nepodařilo otevřít pro čtení</translation>
     </message>
 </context>
 </TS>

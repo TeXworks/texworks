@@ -59,6 +59,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,6 +70,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,6 +81,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -89,6 +92,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -100,6 +104,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1547,57 +1552,6 @@ Use the context menu to change the units.</source>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">أدِر البريمجات</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">البريمجات المستقلة</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">اربط البريمجات</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">الاسم: </translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">السياق: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">الوصف: </translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">المؤلف: </translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">الإصدارة: </translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">الاختصار: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">الملف: </translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">اللغة: </translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">الرابط: </translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1888,10 +1842,6 @@ Use the context menu to change the units.</source>
         <translation>خالد حسني (khaledhosny@eglug.org)</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">احفظ الملف</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="805"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation type="unfinished"></translation>
@@ -1925,68 +1875,6 @@ Use the context menu to change the units.</source>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">عُطل داخلي</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">فشل تنفيذ أمر النظام: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">عُطل عند تنفيذ أمر النظام: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">عُطِّل تنفيذ أوامر النظام (راجع التفضيلات)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">تعذّر فتح &quot;%1&quot;.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">عُطِّلت قراءة كل الملفات (راجع التفضيلات)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">تعذّر فتح الملف &quot;%1&quot; للقراءة</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">البريمج &quot;%1&quot;: ‏%2</translation>
-    </message>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">نتائج البريمج</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">عُطل غير معروف</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">يمكن استخدام البريمجات لإضافة أوامر جديدة إلى %1، لتمديده أو تعديل سلوكه.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">لمزيد من المعلومات عن إنشاء واستخدام البريمجات، طالع %1&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">لغات برمجة البريمجات المتاحة لهذه النسخة من %1:</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">عن البريمجات</translation>
     </message>
 </context>
 <context>
@@ -3167,37 +3055,6 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
         <location filename="../src/ToolConfig.ui" line="148"/>
         <source>View PDF after running</source>
         <translation>اعرض بي&#x202f;دي&#x202f;إف بعد التشغيل</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">عُطل داخلي</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">فشل تنفيذ أمر النظام: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">عُطل عند تنفيذ أمر النظام: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">عُطِّل تنفيذ أوامر النظام (راجع التفضيلات)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">تعذّر فتح &quot;%1&quot;.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">عُطِّلت قراءة كل الملفات (راجع التفضيلات)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">تعذّر فتح الملف &quot;%1&quot; للقراءة</translation>
     </message>
 </context>
 </TS>

@@ -49,6 +49,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -59,6 +60,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,6 +71,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,6 +82,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -90,6 +94,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1547,57 +1552,6 @@ Use the context menu to change the units.</source>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">ساماندهی سندها</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">سند ناوابسته</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">سند لنگری</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">نام:</translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">نوشتار:</translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">بازنمود:</translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">نویسنده:</translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">ویراست:</translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">میان‌بر:</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">پرونده:</translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">زبان:</translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">لنگر:</translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1862,10 +1816,6 @@ Use the context menu to change the units.</source>
         <translation>پروندهٔ کمکی یافت نشد.</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">ذخیرهٔ پرونده</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="1216"/>
         <source>Permission request</source>
         <translation>درخواست پروانه</translation>
@@ -1925,77 +1875,6 @@ Use the context menu to change the units.</source>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">خطای درونی</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">ناتوان در کاربست فرمان سیستم: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">خطا در کاربست فرمان سیستم:%1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">کاربست فرمان سیستم ناممکن است ( ساماندهی‌ها را ببینید)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">&quot;%1&quot; نمی‌تواند باز شود.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">خواندن همهٔ پرونده‌ها نشدنی است (ساماندهی‌ها را ببینید)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">پروندهٔ &quot;%1&quot; را برای خواندن نمی‌توان گشود</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">سند &quot;%1&quot;:%2</translation>
-    </message>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">دستاورد سند</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">خطای ناشناخته</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">سند می‌تواند برای افزودن فرمان تازه به %1 ، یا گسترش و یا بهسازی آن بکار برده شود.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">برای دانستن بیشتر در بارهٔ ساخت و استفاده از سندها به %1 بروید &lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">زبان‌های سند در دسترس در این ویراست از %1:</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">دربارهٔ سند</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">خطای اسکریپت</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">(ناپویا در تنظیم‌ها)</translation>
     </message>
 </context>
 <context>
@@ -3160,37 +3039,6 @@ We are sorry for the inconvenience.</source>
         <location filename="../src/ToolConfig.ui" line="60"/>
         <source>Browse...</source>
         <translation>بازبینی (جستجو)...</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">خطای درونی</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">ناتوان در کاربست فرمان سیستم: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">خطا در کاربست فرمان سیستم:%1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">کاربست فرمان سیستم ناممکن است ( ساماندهی‌ها را ببینید)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">&quot;%1&quot; نمی‌تواند باز شود.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">خواندن همهٔ پرونده‌ها نشدنی است (ساماندهی‌ها را ببینید)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">پروندهٔ &quot;%1&quot; را برای خواندن نمی‌توان گشود</translation>
     </message>
 </context>
 </TS>

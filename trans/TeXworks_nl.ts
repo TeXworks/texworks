@@ -54,6 +54,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -64,6 +65,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -74,6 +76,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -84,6 +87,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -95,6 +99,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1548,57 +1553,6 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">Scripts beheren</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">Zelfstandige Scripts</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">Inhaak Scripts</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Naam: </translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">Context: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">Beschrijving: </translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">Auteur: </translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">Versie: </translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">Toets: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">Bestandsnaam: </translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">Taal: </translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">Haak: </translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1858,10 +1812,6 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
         <translation>&lt;a href=&quot;mailto:taco@luatex.org&quot;&gt;Taco Hoekwater&lt;/a&gt;</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">Bestand opslaan</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="1105"/>
         <source>Unable to find help file.</source>
         <translation>Help bestand niet gevonden.</translation>
@@ -1927,73 +1877,6 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation>Toon versie-informatie</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">Interne fout</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Uitvoeren van systeemcommand niet mogelijk: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">Fout tijdens uitvoeren van systeemcommando: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Systeemcommando&apos;s zijn uitgeschakeld (zie Voorkeuren)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">&quot;%1&quot; kon niet geopend worden.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Algemene bestanden lezen is uitgeschakeld (zie Voorkeuren)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Het bestand &quot;%1&quot; kon niet worden gelezen</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">Script resultaat</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">onbekende fout</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">Scripts kunnen worden gebruikt om nieuwe commandos toe te voegen, en om %1 uit te breiden of aanpassen.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">Voor meer informatie over het maken en gebruiken van scripts, zie %1&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">Script talen momenteel beschikbaar in deze versie van %1:</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">Over Scripts</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">Script fout</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">(uitgezet in voorkeuren)</translation>
     </message>
 </context>
 <context>
@@ -3158,37 +3041,6 @@ Het spijt ons van het ongemak.</translation>
         <location filename="../src/ToolConfig.ui" line="60"/>
         <source>Browse...</source>
         <translation>Bladeren...</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">Interne fout</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Uitvoeren van systeemcommand niet mogelijk: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Fout tijdens uitvoeren van systeemcommando: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">Systeemcommando&apos;s zijn uitgeschakeld (zie Voorkeuren)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">&quot;%1&quot; kon niet geopend worden.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">Algemene bestanden lezen is uitgeschakeld (zie Voorkeuren)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">Het bestand &quot;%1&quot; kon niet worden gelezen</translation>
     </message>
 </context>
 </TS>

@@ -49,6 +49,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -59,6 +60,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,6 +71,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,6 +82,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -90,6 +94,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1580,57 +1585,6 @@ Uporabite kontekstni meni za spremembo enot.</translation>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="obsolete">Urejanje skript</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="obsolete">Samostojne skripte</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="obsolete">Skripte ob dogodkih</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Ime:</translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="obsolete">Okolje: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">Opis:</translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">Avtor:</translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">Verzija:</translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">Bližnjica:</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">Datoteka:</translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">Jezik:</translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="obsolete">Dogodek: </translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1920,10 +1874,6 @@ Uporabite kontekstni meni za spremembo enot.</translation>
         <translation>Odpri datoteko</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">Shrani datoteko</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="804"/>
         <source>No default binary directory found</source>
         <translation>Nobeden od privzetih direktorijev s programi ni bil najden</translation>
@@ -1962,79 +1912,6 @@ Uporabite kontekstni meni za spremembo enot.</translation>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation type="unfinished">Pokaži verzijo</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">Napaka v programu</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Ni bilo mogoče izvesti ukaza: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Napaka pri izvajanju ukaza: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">Izvajanje sistemskih ukazov je onemogočeno (preverite nastavitve programa)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">Ni bilo mogoče odpreti datoteke &quot;%1&quot;.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translatorcomment>TODO</translatorcomment>
-        <translation type="obsolete">Branje vseh datotek je onemogočeno (preverite nastavitve programa)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Datoteke &quot;%1&quot; ni bilo mogoče odpreti za branje</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script result</source>
-        <translatorcomment>to ni rezultat, temveč nekaj drugega, pa mi beseda ne gre z jezika</translatorcomment>
-        <translation type="obsolete">Rezultat izvajanja skripte</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">neznana napaka</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Napaka v skripti</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">Skripte je mogoče uporabiti za dodajanje novih ukazov v program %1, za razširitve ali spremembe njegovega delovanja.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">Za več informacij o pisanju in uporabi skript glej %1&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="obsolete">Podprti skriptnji jeziki v tej različici programa %1:</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">(onemogočeno v nastavitvah)</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="obsolete">O skriptah</translation>
-    </message>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">Skripta &quot;%1&quot;: %2</translation>
     </message>
 </context>
 <context>
@@ -3241,37 +3118,6 @@ Do you want to discard your current changes, and reload the file from disk with 
         <location filename="../src/ToolConfig.ui" line="148"/>
         <source>View PDF after running</source>
         <translation>Po koncu odpri PDF</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">Napaka v programu</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Ni bilo mogoče izvesti ukaza: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Napaka pri izvajanju ukaza: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">Izvajanje sistemskih ukazov je onemogočeno (preverite nastavitve programa)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">Ni bilo mogoče odpreti datoteke &quot;%1&quot;.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">Branje vseh datotek je onemogočeno (preverite nastavitve programa)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">Datoteke &quot;%1&quot; ni bilo mogoče odpreti za branje</translation>
     </message>
 </context>
 </TS>

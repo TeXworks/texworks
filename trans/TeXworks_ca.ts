@@ -49,6 +49,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -59,6 +60,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,6 +71,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,6 +82,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -90,6 +94,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1552,54 +1557,6 @@ Usi el menú de context per canviar les unitats.</translation>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">Gestiona scripts</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">Scripts aïllats</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translatorcomment>Miising translation</translatorcomment>
-        <translation type="vanished">Scripts de ganxo</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Nom:</translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">Context: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">Descripció: </translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">Autor: </translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">Versió: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">Fitxer: </translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">Llenguatge: </translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">Ganxo:</translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1885,10 +1842,6 @@ Usi el menú de context per canviar les unitats.</translation>
         <translation>Obre un fitxer</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">Guarda fitxer</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="804"/>
         <source>No default binary directory found</source>
         <translation>No he trobat el directori de binaris per defecte</translation>
@@ -1927,77 +1880,6 @@ Usi el menú de context per canviar les unitats.</translation>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation>Mostra informació de versió</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">Error intern</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">L&apos;execució de la comanda de sistema %1 ha fallat</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">Error en l&apos;execució de la comanda de sistema %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">L&apos;execució de comandes de sistema està desactivada (miri Preferències)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">&quot;%1&quot; no es pot obrir.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">La lectura de tots elfitxers està desactivada (miri Preferències) </translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">El fitxer &quot;%1&quot; no es pot obrir per lectura</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">Script &quot;%1%: %2</translation>
-    </message>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">Resultat de l&apos;script</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">error desconegut</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">Error a l&apos;script</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">Els scripts poden usar-se per afegir noves comandes a %1 i per amplir o modificar el seu comportament.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">Per a més informació en la creació i ús dels scripts, miri %1&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">Llenguatges d&apos;script actualment disponibles en aquesta còpia de %1:</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">(desactivat a preferències)</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">Quant els scripts</translation>
     </message>
 </context>
 <context>
@@ -3161,37 +3043,6 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
         <location filename="../src/ToolConfig.ui" line="148"/>
         <source>View PDF after running</source>
         <translation>Veure PDF deprés de l&apos;execució</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">Error intern</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">L&apos;execució de la comanda de sistema %1 ha fallat</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Error en l&apos;execució de la comanda de sistema %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">L&apos;execució de comandes de sistema està desactivada (miri Preferències)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">&quot;%1&quot; no es pot obrir.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">La lectura de tots elfitxers està desactivada (miri Preferències) </translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">El fitxer &quot;%1&quot; no es pot obrir per lectura</translation>
     </message>
 </context>
 </TS>

@@ -49,6 +49,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -59,6 +60,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,6 +71,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,6 +82,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -90,6 +94,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1554,57 +1559,6 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">Handter skript</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">Frittståande skript</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">Krokskript</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Namn: </translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">Samanheng: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">Skildring: </translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">Forfattar: </translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">Versjon: </translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">Snøggtast: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">Fil: </translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">Språk: </translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">Krok: </translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1874,10 +1828,6 @@ Bruk kontekstmenyen for å endra einingane.</translation>
         <translation>&lt;p&gt;Distribuert under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versjon 2 eller (om du ønskjer) ein seinare versjon.</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">Lagra fil</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="1105"/>
         <source>Unable to find help file.</source>
         <translation>Fann ikkje hjelpefila.</translation>
@@ -1932,77 +1882,6 @@ Bruk kontekstmenyen for å endra einingane.</translation>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation>Vis versjonsinformasjon</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">Intern feil</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Klarte ikkje køyra systemkommando: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">Feil ved køyring av systemkommando: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">Klarte ikkje opna «%1».</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Lesing av alle filer er slått av (sjå innstillingane)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Klarte ikkje opna fila «%1» for lesing</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">Skript «%1»: %2</translation>
-    </message>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">Skriptresultat</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">ukjend feil</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">Skript kan brukast til å leggja nye kommandoar til %1 og til å utvida eller endra funksjonalitet.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">Du finn meir informasjon om korleis du lagar og brukar skript på %1.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">Skriptspråk som kan brukast i denne utgåva av %1:</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">Om skript</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">Skript-feil</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">(slått av i innstillingane)</translation>
     </message>
 </context>
 <context>
@@ -3172,37 +3051,6 @@ Do you want to discard your current changes, and reload the file from disk with 
         <location filename="../src/ToolConfig.ui" line="60"/>
         <source>Browse...</source>
         <translation>Bla gjennom&#xa0;…</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">Intern feil</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Klarte ikkje køyra systemkommando: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Feil ved køyring av systemkommando: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">Klarte ikkje opna «%1».</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">Lesing av alle filer er slått av (sjå innstillingane)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">Klarte ikkje opna fila «%1» for lesing</translation>
     </message>
 </context>
 </TS>

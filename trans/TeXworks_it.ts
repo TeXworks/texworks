@@ -54,6 +54,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -64,6 +65,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -74,6 +76,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -84,6 +87,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -95,6 +99,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1552,57 +1557,6 @@ Usa il menù constestuale per cambiare le unità.</translation>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">Gestisci script</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">Script autonomi</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">Hook Script</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Nome: </translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">Contesto: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">Descrizione: </translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">Autore: </translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">Versione: </translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">Scorciatoia: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">File: </translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">Linguaggio: </translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">Hook: </translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1867,10 +1821,6 @@ Usa il menù constestuale per cambiare le unità.</translation>
         <translation>Guida non disponibile.</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">Salva file</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="1216"/>
         <source>Permission request</source>
         <translation>Richiesta permesso</translation>
@@ -1930,77 +1880,6 @@ Usa il menù constestuale per cambiare le unità.</translation>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation>Mostra informazioni sulla versione</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">Errore interno</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Tentativo fallito di esecuzione del comando: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">Errore nell&apos;esecuzione del comando: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Esecuzione dei comandi di sistema disabilitata (vedi Preferenze)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">&quot;%1&quot; non può essere aperto.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Lettura di tutti i file disabilitata (vedi Preferenze)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Il file &quot;%1&quot; non può essere aperto per la lettura</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">Script &quot;%1&quot;: %2</translation>
-    </message>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">Risultato dello script</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">errore sconosciuto</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">Gli script possono essere usati per aggiungere nuovi comandi a %1, o estendere o modificare il loro comportamento.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">Per maggiori informazioni su creazione e uso degli script consulta %1&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">Linguaggi di scripting attualmente disponibili in questa copia di %1:</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">A proposito degli script</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">Errore nello script</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">(disabilitato nelle preferenze)</translation>
     </message>
 </context>
 <context>
@@ -3165,37 +3044,6 @@ Ci dispiace per l&apos;inconveniente.</translation>
         <location filename="../src/ToolConfig.ui" line="60"/>
         <source>Browse...</source>
         <translation>Sfoglia...</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">Errore interno</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Tentativo fallito di esecuzione del comando: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Errore nell&apos;esecuzione del comando: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">Esecuzione dei comandi di sistema disabilitata (vedi Preferenze)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">&quot;%1&quot; non può essere aperto.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">Lettura di tutti i file disabilitata (vedi Preferenze)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">Il file &quot;%1&quot; non può essere aperto per la lettura</translation>
     </message>
 </context>
 </TS>

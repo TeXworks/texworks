@@ -15,7 +15,7 @@
     <string>Next Completion</string>
    </property>
    <property name="shortcut">
-    <string>Tab</string>
+    <string extracomment="This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.">Tab</string>
    </property>
   </action>
   <action name="actionPrevious_Completion">
@@ -23,7 +23,7 @@
     <string>Previous Completion</string>
    </property>
    <property name="shortcut">
-    <string>Shift+Backtab</string>
+    <string extracomment="This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.">Shift+Backtab</string>
    </property>
   </action>
   <action name="actionNext_Completion_Placeholder">
@@ -31,7 +31,7 @@
     <string>Next Completion Placeholder</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Tab</string>
+    <string extracomment="This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.">Ctrl+Tab</string>
    </property>
   </action>
   <action name="actionPrevious_Completion_Placeholder">
@@ -39,7 +39,7 @@
     <string>Previous Completion Placeholder</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+Backtab</string>
+    <string extracomment="This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.">Ctrl+Shift+Backtab</string>
    </property>
   </action>
   <action name="actionJump_To_PDF">
@@ -47,7 +47,7 @@
     <string>Jump to PDF</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+J</string>
+    <string extracomment="This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.">Ctrl+Shift+J</string>
    </property>
   </action>
  </widget>

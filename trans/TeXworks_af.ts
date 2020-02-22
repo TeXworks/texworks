@@ -59,6 +59,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,6 +70,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,6 +81,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -89,6 +92,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -100,6 +104,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1550,57 +1555,6 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">Behartig skrippe</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">Alleenstaande skrippe</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">Haak skrippe</translation>
-    </message>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Naam: </translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">Konteks: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">Deskripsie: </translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">Outeur: </translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">Weergawe: </translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">Kortpad: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">Lêer: </translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">Taal: </translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">Haak: </translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1831,10 +1785,6 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <translation>Maak lêer oop</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">Stoor lêer</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="804"/>
         <source>No default binary directory found</source>
         <translation>Geen verstekvakkie vir programme is gevind nie</translation>
@@ -1928,77 +1878,6 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation>Vertoon weergawe informasie</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">Interne fout</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Kon nie sisteembevel %1 uitvoer nie</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">Sisteembevel %1 gee fout</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Uitvoer van sisteembevele word versper (sien Voorkeure)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">&quot;%1&quot; kon nie oopgemaak word nie.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Lees van alle lêers is versper (sien Voorkeure)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Die lêer &quot;%1&quot; kon nie vir lees oopgemaak word nie</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">Skrip &quot;%1&quot;: %2</translation>
-    </message>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">Skrip resultaat</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">onbekende fout</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">Skripfout</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">Skrippe kan gebruik word om nuwe bevele by %1 te voeg, en om die bevele se gedrag te uit te brei of te modifiseer.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">Vir meer inligting oor die skepping en gebruik van skrippe, sien %1&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">Skriptale wat tans in hierdie kopie van %1 beskikbaar is:</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">(afgeskakel in die voorkeure)</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">Oor skrippe</translation>
     </message>
 </context>
 <context>
@@ -3163,37 +3042,6 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
         <location filename="../src/ToolConfig.ui" line="148"/>
         <source>View PDF after running</source>
         <translation>Vertoon PDF na uitvoer van program</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">Interne fout</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Kon nie sisteembevel %1 uitvoer nie</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Sisteembevel %1 gee fout</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">Uitvoer van sisteembevele word versper (sien Voorkeure)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">&quot;%1&quot; kon nie oopgemaak word nie.</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">Lees van alle lêers is versper (sien Voorkeure)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">Die lêer &quot;%1&quot; kon nie vir lees oopgemaak word nie</translation>
     </message>
 </context>
 </TS>

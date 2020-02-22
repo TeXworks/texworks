@@ -50,6 +50,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -60,6 +61,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -70,6 +72,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -80,6 +83,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -91,6 +95,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1566,57 +1571,6 @@ Use the context menu to change the units.</source>
     </message>
 </context>
 <context>
-    <name>ScriptManager</name>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Название: </translation>
-    </message>
-    <message>
-        <source>Context: </source>
-        <translation type="vanished">Контекст: </translation>
-    </message>
-    <message>
-        <source>Description: </source>
-        <translation type="vanished">Описание: </translation>
-    </message>
-    <message>
-        <source>Author: </source>
-        <translation type="vanished">Автор: </translation>
-    </message>
-    <message>
-        <source>Version: </source>
-        <translation type="vanished">Версия: </translation>
-    </message>
-    <message>
-        <source>Shortcut: </source>
-        <translation type="vanished">Комбинация: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="vanished">Файл: </translation>
-    </message>
-    <message>
-        <source>Language: </source>
-        <translation type="vanished">Язык: </translation>
-    </message>
-    <message>
-        <source>Hook: </source>
-        <translation type="vanished">Перехватчик: </translation>
-    </message>
-    <message>
-        <source>Manage Scripts</source>
-        <translation type="vanished">Управление сценариями</translation>
-    </message>
-    <message>
-        <source>Hook Scripts</source>
-        <translation type="vanished">Сценарии перехватчики</translation>
-    </message>
-    <message>
-        <source>Standalone Scripts</source>
-        <translation type="vanished">Автономные сценарии</translation>
-    </message>
-</context>
-<context>
     <name>ScriptManagerWidget</name>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
@@ -1871,10 +1825,6 @@ Use the context menu to change the units.</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <source>Save File</source>
-        <translation type="vanished">Сохранить файл</translation>
-    </message>
-    <message>
         <location filename="../src/TWApp.cpp" line="804"/>
         <source>No default binary directory found</source>
         <translation>Отсутствует заданный по умолчанию каталог с программами</translation>
@@ -1944,77 +1894,6 @@ Use the context menu to change the units.</source>
         <location filename="../src/main.cpp" line="52"/>
         <source>Display version information</source>
         <translation>Показать информацию о версии</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">Внутренняя ошибка</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Не удалось выполнить системную команду: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">Ошибка при выполнении системной команды: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Запуск системных команд отключён (см. Настройки)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">Невозможно открыть «%1».</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Доступ на чтение всех файлов отключён (см. Настройка)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Невозможно открыть файл «%1» для чтения</translation>
-    </message>
-</context>
-<context>
-    <name>TWScriptable</name>
-    <message>
-        <source>Script result</source>
-        <translation type="vanished">Результат работы сценария</translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <translation type="vanished">неизвестная ошибка</translation>
-    </message>
-    <message>
-        <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="vanished">Сценарии можно использовать чтобы добавить новые команды к %1, расширяя или изменяя его действия.</translation>
-    </message>
-    <message>
-        <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="vanished">Подробнее о создании и использовании сценариев см. %1&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="vanished">Языки сценариев доступные в данной копии %1:</translation>
-    </message>
-    <message>
-        <source>About Scripts</source>
-        <translation type="vanished">О сценариях</translation>
-    </message>
-    <message>
-        <source>Script &quot;%1&quot;: %2</source>
-        <translation type="vanished">Сценарий «%1»: %2</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="vanished">Ошибка в сценарии</translation>
-    </message>
-    <message>
-        <source>(disabled in the preferences)</source>
-        <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="vanished">(отключено в Настройках)</translation>
     </message>
 </context>
 <context>
@@ -3185,37 +3064,6 @@ We are sorry for the inconvenience.</source>
         <location filename="../src/ToolConfig.ui" line="148"/>
         <source>View PDF after running</source>
         <translation>Показать PDF после обработки</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="obsolete">Внутренняя ошибка</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="obsolete">Не удалось выполнить системную команду: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="obsolete">Ошибка при выполнении системной команды: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="obsolete">Запуск системных команд отключён (см. Настройки)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="obsolete">Невозможно открыть «%1».</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="obsolete">Доступ на чтение всех файлов отключён (см. Настройка)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="obsolete">Невозможно открыть файл «%1» для чтения</translation>
     </message>
 </context>
 </TS>
