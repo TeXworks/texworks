@@ -241,13 +241,20 @@ IF( WITH_POPPLERQT )
   if (POPPLER_HAS_XPDF)
     set(QTPDF_FLAGS "${QTPDF_FLAGS} -DHAVE_POPPLER_XPDF_HEADERS")
 
-    # GlobalParams was turned into a unique_ptr in 0.83
     set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt5)
+
+    # GlobalParamsIniter was introduced in 0.85
+    CHECK_CXX_SOURCE_COMPILES("#include <GlobalParams.h>\nint main() { GlobalParamsIniter::setCustomDataDir(\"\"); return 0; }" POPPLER_HAS_GLOBALPARAMSINITER)
+    if (POPPLER_HAS_GLOBALPARAMSINITER)
+      add_definitions(-DPOPPLER_HAS_GLOBALPARAMSINITER)
+    endif (POPPLER_HAS_GLOBALPARAMSINITER)
+
+    # GlobalParams was turned into a unique_ptr in 0.83
     CHECK_CXX_SOURCE_COMPILES("#include <GlobalParams.h>\n#include <memory>\nint main() { globalParams = std::move(std::unique_ptr<GlobalParams>(new GlobalParams())); return 0; }" POPPLER_GLOBALPARAMS_IS_UNIQUE)
     if (POPPLER_GLOBALPARAMS_IS_UNIQUE)
       add_definitions(-DPOPPLER_GLOBALPARAMS_IS_UNIQUE)
     endif (POPPLER_GLOBALPARAMS_IS_UNIQUE)
-  endif ()
+  endif (POPPLER_HAS_XPDF)
 ENDIF()
 
 IF( WITH_MUPDF )
