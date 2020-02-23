@@ -3,6 +3,7 @@ This file is part of MXE. See LICENSE.md for licensing information.
 Contains ad hoc patches for cross building.
 
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From ecc0d9223a7a3cdefed52f9a5b39f89bad66b299 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Sun, 5 Nov 2017 20:53:42 +0100
 Subject: [PATCH 1/4] Only check for Type1 fonts in custom directory if path is
@@ -10,12 +11,15 @@ Subject: [PATCH 1/4] Only check for Type1 fonts in custom directory if path is
 
 Otherwise, programs using poppler may crash
 Proposed upstream at https://bugs.freedesktop.org/show_bug.cgi?id=49037
+---
+ poppler/GlobalParamsWin.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/poppler/GlobalParamsWin.cc b/poppler/GlobalParamsWin.cc
-index 1111111..2222222 100644
+index 0bd5a1c0..d98037e2 100644
 --- a/poppler/GlobalParamsWin.cc
 +++ b/poppler/GlobalParamsWin.cc
-@@ -408,7 +408,7 @@ void GlobalParams::setupBaseFonts(char * dir)
+@@ -407,7 +407,7 @@ void GlobalParams::setupBaseFonts(const char * dir)
  
          GooString  *fontName = new GooString(displayFontTab[i].name);
  
@@ -24,15 +28,23 @@ index 1111111..2222222 100644
              GooString *fontPath = appendToPath(new GooString(dir), displayFontTab[i].t1FileName);
              if (FileExists(fontPath->c_str()) ||
                  FileExists(replaceSuffix(fontPath, ".pfb", ".pfa")->c_str())) {
+-- 
+2.20.1
 
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+
+From c775960843e55b93d7cd209e403eaed7e187d8d2 Mon Sep 17 00:00:00 2001
 From: darealshinji <djcj@gmx.de>
 Date: Thu, 14 Jul 2016 13:21:26 +0200
 Subject: [PATCH 2/4] enable cross-building DLLs
 
+---
+ cpp/poppler-global.h     | 2 +-
+ poppler/GlobalParams.cc  | 2 ++
+ qt5/src/poppler-export.h | 2 +-
+ 3 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/cpp/poppler-global.h b/cpp/poppler-global.h
-index 1111111..2222222 100644
+index 03448e1c..b2de3e2f 100644
 --- a/cpp/poppler-global.h
 +++ b/cpp/poppler-global.h
 @@ -22,7 +22,7 @@
@@ -45,10 +57,10 @@ index 1111111..2222222 100644
  #  define LIB_IMPORT __declspec(dllimport)
  #else
 diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
-index 1111111..2222222 100644
+index 81711ea3..2afc67a6 100644
 --- a/poppler/GlobalParams.cc
 +++ b/poppler/GlobalParams.cc
-@@ -104,6 +104,7 @@ GlobalParams *globalParams = nullptr;
+@@ -103,6 +103,7 @@ std::unique_ptr<GlobalParams> globalParams;
  
  static HMODULE hmodule;
  
@@ -56,7 +68,7 @@ index 1111111..2222222 100644
  extern "C" {
    /* Provide declaration to squelch -Wmissing-declarations warning */
    BOOL WINAPI
-@@ -125,6 +126,7 @@ extern "C" {
+@@ -124,6 +125,7 @@ extern "C" {
      return TRUE;
    }
  }
@@ -65,7 +77,7 @@ index 1111111..2222222 100644
  static const char *
  get_poppler_datadir (void)
 diff --git a/qt5/src/poppler-export.h b/qt5/src/poppler-export.h
-index 1111111..2222222 100644
+index 24a4b177..d7e87dc0 100644
 --- a/qt5/src/poppler-export.h
 +++ b/qt5/src/poppler-export.h
 @@ -2,7 +2,7 @@
@@ -77,16 +89,22 @@ index 1111111..2222222 100644
  # define _POPPLER_QT5_LIB_EXPORT __declspec(dllexport)
  # define _POPPLER_QT5_LIB_IMPORT __declspec(dllimport)
  #elif defined(__GNUC__)
+-- 
+2.20.1
 
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+
+From 4b68eb599c8e093a53307ba86fce89808887d0c6 Mon Sep 17 00:00:00 2001
 From: Boris Nagaev <bnagaev@gmail.com>
 Date: Wed, 27 Jul 2016 10:29:52 +0200
 Subject: [PATCH 3/4] do not try to use mman.h (package mman-win32)
 
 fix https://github.com/mxe/mxe/issues/1455
+---
+ poppler/CairoFontEngine.cc | 7 -------
+ 1 file changed, 7 deletions(-)
 
 diff --git a/poppler/CairoFontEngine.cc b/poppler/CairoFontEngine.cc
-index 1111111..2222222 100644
+index 1f637cf5..bb1dc62c 100644
 --- a/poppler/CairoFontEngine.cc
 +++ b/poppler/CairoFontEngine.cc
 @@ -51,13 +51,6 @@
@@ -103,15 +121,21 @@ index 1111111..2222222 100644
  //------------------------------------------------------------------------
  // CairoFont
  //------------------------------------------------------------------------
+-- 
+2.20.1
 
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+
+From 00734cbd6c506e861a16f0690f435a338ad77245 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Sat, 2 Mar 2019 12:42:53 +0100
 Subject: [PATCH 4/4] Add the possibility to disable tests
 
+---
+ CMakeLists.txt | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 1111111..2222222 100644
+index afad5c78..fb9e60eb 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -45,9 +45,10 @@ set (CMAKE_CXX_EXTENSIONS OFF)
@@ -128,7 +152,7 @@ index 1111111..2222222 100644
  option(ENABLE_SPLASH "Build the Splash graphics backend." ON)
  option(ENABLE_UTILS "Compile poppler command line utils." ON)
  option(ENABLE_CPP "Compile poppler cpp wrapper." ON)
-@@ -678,7 +679,9 @@ endif()
+@@ -711,7 +712,9 @@ endif()
  if(ENABLE_GLIB)
    add_subdirectory(glib)
  endif()
@@ -139,3 +163,5 @@ index 1111111..2222222 100644
  if(ENABLE_QT5)
    add_subdirectory(qt5)
  endif()
+-- 
+2.20.1

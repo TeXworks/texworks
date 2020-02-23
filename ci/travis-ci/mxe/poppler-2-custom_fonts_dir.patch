@@ -1,4 +1,4 @@
-From 10f236d0e5019f68fdbaa49d10fcfe8336d9b0d6 Mon Sep 17 00:00:00 2001
+From e1f7a2a8fe7eb28d5bf3a9f89147c4a362eefdce Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Mon, 6 Nov 2017 06:59:37 +0100
 Subject: [PATCH] Use a custom font directory on Windows
@@ -10,10 +10,10 @@ Uses the share/fonts directory alongside the application/poppler library
  2 files changed, 32 insertions(+), 2 deletions(-)
 
 diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
-index f7cebe00..2bd31b57 100644
+index 2afc67a6..15658ea5 100644
 --- a/poppler/GlobalParams.cc
 +++ b/poppler/GlobalParams.cc
-@@ -159,6 +159,36 @@ get_poppler_datadir (void)
+@@ -158,6 +158,36 @@ get_poppler_datadir (void)
  #undef POPPLER_DATADIR
  #define POPPLER_DATADIR get_poppler_datadir ()
  
@@ -50,7 +50,7 @@ index f7cebe00..2bd31b57 100644
  #endif
  
  //------------------------------------------------------------------------
-@@ -818,7 +848,7 @@ static FcPattern *buildFcPattern(const GfxFont *font, const GooString *base14Nam
+@@ -814,7 +844,7 @@ static FcPattern *buildFcPattern(const GfxFont *font, const GooString *base14Nam
  GooString *GlobalParams::findFontFile(const GooString *fontName) {
    GooString *path = nullptr;
  
@@ -60,10 +60,10 @@ index f7cebe00..2bd31b57 100644
    const auto fontFile = fontFiles.find(fontName->toStr());
    if (fontFile != fontFiles.end()) {
 diff --git a/poppler/GlobalParamsWin.cc b/poppler/GlobalParamsWin.cc
-index 74d0d1c0..a76ea3a2 100644
+index d98037e2..8045fe39 100644
 --- a/poppler/GlobalParamsWin.cc
 +++ b/poppler/GlobalParamsWin.cc
-@@ -537,7 +537,7 @@ GooString *GlobalParams::findSystemFontFile(const GfxFont *font,
+@@ -536,7 +536,7 @@ GooString *GlobalParams::findSystemFontFile(const GfxFont *font,
    const GooString *fontName = font->getName();
    if (!fontName) return nullptr;
    std::unique_lock<std::recursive_mutex> locker(mutex);

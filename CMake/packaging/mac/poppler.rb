@@ -17,32 +17,28 @@
 class Poppler < Formula
   desc "PDF rendering library (based on the xpdf-3.0 code base)"
   homepage "https://poppler.freedesktop.org/"
-  url "https://poppler.freedesktop.org/poppler-0.84.0.tar.xz"
-  sha256 "c7a130da743b38a548f7a21fe5940506fb1949f4ebdd3209f0e5b302fa139731"
+  url "https://poppler.freedesktop.org/poppler-0.85.0.tar.xz"
+  sha256 "2bc875eb323002ae6b287e09980473518e2b2ed6b5b7d2e1089e36a6cd00d94b"
   head "https://anongit.freedesktop.org/git/poppler/poppler.git"
 
 # BEGIN TEXWORKS MODIFICATION
 #  bottle do
-#    sha256 "400df9890bc951aab711cbd2f1449498ce5708298d17b0cc0d2719cc8e20759c" => :catalina
-#    sha256 "a2bd748c1d782e9a75db56fa40a55362c9a998a9021b4d55074694bf7be6e090" => :mojave
-#    sha256 "19b42ed9d840c6476681be4db9578fe029a800450bec08956ee2a9de5e2ed554" => :high_sierra
+#    sha256 "34c3bdd40c99baf040f4c312e780302666a2a741febd5a487ef04c1638bfe1ac" => :catalina
+#    sha256 "e0a27de1596fec0070f153106cc2f2562641168264b0466435054ea814d00bcb" => :mojave
+#    sha256 "c721859d4d1297bf623e9fa009b6621feee3af8abc7b133faf3ff3174ed0f2f8" => :high_sierra
 #  end
 
-  version '0.84.0-texworks'
+  version '0.85.0-texworks'
 
   TEXWORKS_SOURCE_DIR = Pathname.new(__FILE__).realpath.dirname.join('../../..')
   TEXWORKS_PATCH_DIR = TEXWORKS_SOURCE_DIR + 'lib-patches/'
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0001-Fix-bogus-memory-allocation-in-SplashFTFont-makeGlyp.patch'
-    sha256 "e012b2498e6f37fe52d1f7382d63c6c73fd56780ff87d4012a39bb59a4f6cab0"
+    sha256 "6742389ce31e6984c4dcedbde51c383fa8cd9c3e1eaabc370068df8c1f538f59"
   end
   patch do
     url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0002-Native-Mac-font-handling.patch'
-    sha256 "a009c04543124ff561b5ad7d28070d07de8eaf254318a58ea3951a0d218753e5"
-  end
-  patch do
-    url "file://" + TEXWORKS_PATCH_DIR + 'poppler-0003-Add-support-for-persistent-GlobalParams.patch'
-    sha256 "d6159cbf1af7cfb570925b172e02508a12fbe885dc09c5ff98d1c5e98e142890"
+    sha256 "162399c185cfb14b1433e5a8c7c0e3ac3bca8bfd4cba0d794f3614e86a47474a"
   end
 # END TEXWORKS MODIFICATION
 
@@ -112,4 +108,3 @@ class Poppler < Formula
     system "#{bin}/pdfinfo", test_fixtures("test.pdf")
   end
 end
-
