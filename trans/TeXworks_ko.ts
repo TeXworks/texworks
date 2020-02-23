@@ -1921,7 +1921,7 @@ Use the context menu to change the units.</source>
         <location filename="../src/TWScriptableWindow.cpp" line="185"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation>(환경설정에서 꺼져 있음)</translation>
+        <translation>(환경 설정에서 꺼져 있음)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="189"/>
