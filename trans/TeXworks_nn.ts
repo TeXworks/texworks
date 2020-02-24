@@ -44,46 +44,60 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="15"/>
         <source>Next Completion</source>
-        <translation type="unfinished"></translation>
+        <oldsource>Text Completion</oldsource>
+        <oldcomment>@title:menu</oldcomment>
+        <translation>Neste fullføring</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
+        <oldsource>Tab</oldsource>
+        <oldcomment>tabulator delimiter</oldcomment>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="23"/>
         <source>Previous Completion</source>
-        <translation type="unfinished"></translation>
+        <oldsource>Previous Completion Match</oldsource>
+        <oldcomment>@action</oldcomment>
+        <translation>Førre fullføring</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
+        <oldsource>Backtab</oldsource>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Shift+Backtab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="31"/>
         <source>Next Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <oldsource>Next Completion Match</oldsource>
+        <oldcomment>@action</oldcomment>
+        <translation>Neste fullføringsplasshaldar</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
+        <oldsource>Ctrl+T</oldsource>
+        <oldcomment>action</oldcomment>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="39"/>
         <source>Previous Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <oldsource>Previous Completion Match</oldsource>
+        <oldcomment>@action</oldcomment>
+        <translation>Førre fullføringsplasshaldar</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
+        <oldsource>Ctrl+Shift+Z</oldsource>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+Backtab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="47"/>
@@ -94,8 +108,9 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
+        <oldsource>Ctrl+Shift+Z</oldsource>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+J</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.cpp" line="1108"/>
@@ -182,7 +197,7 @@
     <message>
         <location filename="../src/Find.ui" line="90"/>
         <source>Find &amp;all occurrences</source>
-        <translation>Vis &amp;alle søkjetreffa</translation>
+        <translation>Vis a&amp;lle søkjetreffa</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="97"/>
@@ -192,7 +207,7 @@
     <message>
         <location filename="../src/Find.ui" line="108"/>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;Skil mellom store og små bokstavar</translation>
+        <translation>S&amp;kil mellom store og små bokstavar</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="115"/>
@@ -892,7 +907,7 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PDFFind.ui" line="92"/>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;Skil mellom store og små bokstavar</translation>
+        <translation>S&amp;kil mellom store og små bokstavar</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="99"/>
@@ -998,7 +1013,8 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <oldsource>Line Spacing:</oldsource>
+        <translation>Linjeavstand:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="315"/>
@@ -1028,7 +1044,8 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="548"/>
         <source>Enable auto-follow focus</source>
-        <translation type="unfinished"></translation>
+        <oldsource>Auto-Follow Focus</oldsource>
+        <translation>Bruk automatisk fokus</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="582"/>
@@ -1179,7 +1196,7 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1031"/>
         <source>Hide console output:</source>
-        <translation>Gøym resultatpanel:</translation>
+        <translation>Gøym resultatpanelet:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1044"/>
@@ -1238,7 +1255,7 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1123"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation>Tillat tilleggs-skriptspråk (desse kan omgå andre avgrensingar på skriptatferd)</translation>
+        <translation>Tillat tilleggs-skriptspråk (desse kan omgå andre avgrensingar av skriptåtferd)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1133"/>
@@ -1434,7 +1451,7 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/Replace.ui" line="139"/>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;Skil mellom store og små bokstavar</translation>
+        <translation>S&amp;kil mellom store og små bokstavar</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="146"/>
@@ -1524,38 +1541,38 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="226"/>
         <source>Internal error</source>
-        <translation type="unfinished">Intern feil</translation>
+        <translation>Intern feil</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="241"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Klarte ikkje køyra systemkommando: %1</translation>
+        <translation>Klarte ikkje køyra systemkommando: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="250"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Feil ved køyring av systemkommando: %1</translation>
+        <translation>Feil ved køyring av systemkommando: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="267"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="289"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
+        <translation>Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="285"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">Klarte ikkje opna «%1».</translation>
+        <translation>Klarte ikkje opna «%1».</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="331"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Lesing av alle filer er slått av (sjå innstillingane)</translation>
+        <translation>Lesing av alle filer er slått av (sjå innstillingane)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="339"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Klarte ikkje opna fila «%1» for lesing</translation>
+        <translation>Klarte ikkje opna fila «%1» for lesing</translation>
     </message>
 </context>
 <context>
@@ -1563,62 +1580,62 @@ Bruk kontekstmenyen for å endra einingane.</translation>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
         <source>Manage Scripts</source>
-        <translation type="unfinished">Handter skript</translation>
+        <translation>Handter skript</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="34"/>
         <source>Standalone Scripts</source>
-        <translation type="unfinished">Frittståande skript</translation>
+        <translation>Frittståande skript</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="53"/>
         <source>Hook Scripts</source>
-        <translation type="unfinished">Krokskript</translation>
+        <translation>Krokskript</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="192"/>
         <source>Name: </source>
-        <translation type="unfinished">Namn: </translation>
+        <translation>Namn: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="193"/>
         <source>Context: </source>
-        <translation type="unfinished">Samanheng: </translation>
+        <translation>Samanheng: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="194"/>
         <source>Description: </source>
-        <translation type="unfinished">Skildring: </translation>
+        <translation>Skildring: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="195"/>
         <source>Author: </source>
-        <translation type="unfinished">Forfattar: </translation>
+        <translation>Forfattar: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="196"/>
         <source>Version: </source>
-        <translation type="unfinished">Versjon: </translation>
+        <translation>Versjon: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="197"/>
         <source>Shortcut: </source>
-        <translation type="unfinished">Snøggtast: </translation>
+        <translation>Snøggtast: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="198"/>
         <source>File: </source>
-        <translation type="unfinished">Fil: </translation>
+        <translation>Fil: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="206"/>
         <source>Language: </source>
-        <translation type="unfinished">Språk: </translation>
+        <translation>Språk: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="210"/>
         <source>Hook: </source>
-        <translation type="unfinished">Krok: </translation>
+        <translation>Krok: </translation>
     </message>
 </context>
 <context>
@@ -1890,48 +1907,48 @@ Bruk kontekstmenyen for å endra einingane.</translation>
         <location filename="../src/TWScriptableWindow.cpp" line="142"/>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script &quot;%1&quot;: %2</source>
-        <translation type="unfinished">Skript «%1»: %2</translation>
+        <translation>Skript «%1»: %2</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="144"/>
         <source>Script result</source>
-        <translation type="unfinished">Skriptresultat</translation>
+        <translation>Skriptresultat</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="149"/>
         <source>unknown error</source>
-        <translation type="unfinished">ukjend feil</translation>
+        <translation>ukjend feil</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script error</source>
-        <translation type="unfinished">Skript-feil</translation>
+        <translation>Skriptfeil</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="171"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="unfinished">Skript kan brukast til å leggja nye kommandoar til %1 og til å utvida eller endra funksjonalitet.</translation>
+        <translation>Skript kan brukast til å leggja nye kommandoar til %1 og til å utvida eller endra funksjonalitet.</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="174"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="unfinished">Du finn meir informasjon om korleis du lagar og brukar skript på %1.&lt;/p&gt;</translation>
+        <translation>Du finn meir informasjon om korleis du lagar og brukar skript på %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="176"/>
         <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="unfinished">Skriptspråk som kan brukast i denne utgåva av %1:</translation>
+        <translation>Skriptspråk som kan brukast i denne utgåva av %1:</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="185"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished">(slått av i innstillingane)</translation>
+        <translation>(slått av i innstillingane)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="189"/>
         <source>About Scripts</source>
-        <translation type="unfinished">Om skript</translation>
+        <translation>Om skript</translation>
     </message>
 </context>
 <context>
@@ -2440,7 +2457,8 @@ Vil du lagra endringane?</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="744"/>
         <source>Ctrl+]</source>
-        <translation>Ctrl+]</translation>
+        <translatorcomment>«]» er lite tilgjengeleg på norsk tastatur, men dette talet ligg på sama tast.</translatorcomment>
+        <translation>Ctrl+8</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="756"/>
@@ -2450,7 +2468,8 @@ Vil du lagra endringane?</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="759"/>
         <source>Ctrl+[</source>
-        <translation>Ctrl+[</translation>
+        <translatorcomment>«[» er lite tilgjengeleg på norsk tastatur, men dette talet ligg på sama tast.</translatorcomment>
+        <translation>Ctrl+7</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="767"/>
@@ -2460,7 +2479,8 @@ Vil du lagra endringane?</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="770"/>
         <source>Ctrl+Shift+]</source>
-        <translation>Ctrl+Shift+]</translation>
+        <translatorcomment>«]» er lite tilgjengeleg på norsk tastatur, men dette talet ligg på sama tast.</translatorcomment>
+        <translation>Ctrl+Shift+8</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="778"/>
@@ -2470,7 +2490,8 @@ Vil du lagra endringane?</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="781"/>
         <source>Ctrl+Shift+[</source>
-        <translation>Ctrl+Shift+[</translation>
+        <translatorcomment>«[» er lite tilgjengeleg på norsk tastatur, men dette talet ligg på sama tast.</translatorcomment>
+        <translation>Ctrl+Shift+7</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="795"/>
@@ -2530,7 +2551,8 @@ Vil du lagra endringane?</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="892"/>
         <source>Ctrl+=</source>
-        <translation>Ctrl+=</translation>
+        <translatorcomment>«=» er lite tilgjengeleg på norsk tastatur, men dette talet ligg på same tast.</translatorcomment>
+        <translation>Ctrl+0</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="903"/>
@@ -2633,7 +2655,7 @@ Vil du lagra endringane?</translation>
         <location filename="../src/TeXDocumentWindow.ui" line="867"/>
         <location filename="../src/TeXDocumentWindow.cpp" line="2942"/>
         <source>Hide Console Output</source>
-        <translation>Gøym resultatpanel</translation>
+        <translation>Gøym resultatpanelet</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="1030"/>
