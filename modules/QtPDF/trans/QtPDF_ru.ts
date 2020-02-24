@@ -726,7 +726,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="1269"/>
         <source>[translator&apos;s name/email]</source>
-        <translation>Владимир/irk.translator@gmail.com</translation>
+        <translation>Владимир/irk.translator@yandex.ru</translation>
     </message>
 </context>
 <context>

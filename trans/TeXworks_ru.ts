@@ -45,46 +45,46 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="15"/>
         <source>Next Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>Следующее дополнение</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="23"/>
         <source>Previous Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>Предыдущее дополнение</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="31"/>
         <source>Next Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>Заполнитель следующего дополнения</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="39"/>
         <source>Previous Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>Заполнитель предыдущего дополнения</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="47"/>
@@ -96,7 +96,7 @@
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.cpp" line="1108"/>
@@ -1011,7 +1011,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Высота строки:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="315"/>
@@ -1046,7 +1046,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="548"/>
         <source>Enable auto-follow focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически переключать фокус окна</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="571"/>
@@ -1536,38 +1536,38 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="226"/>
         <source>Internal error</source>
-        <translation type="unfinished">Внутренняя ошибка</translation>
+        <translation>Внутренняя ошибка</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="241"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Не удалось выполнить системную команду: %1</translation>
+        <translation>Не удалось выполнить системную команду: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="250"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Ошибка при выполнении системной команды: %1</translation>
+        <translation>Ошибка при выполнении системной команды: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="267"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="289"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Запуск системных команд отключён (см. Настройки)</translation>
+        <translation>Запуск системных команд отключён (см. Настройки)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="285"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">Невозможно открыть «%1».</translation>
+        <translation>Невозможно открыть «%1».</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="331"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Доступ на чтение всех файлов отключён (см. Настройка)</translation>
+        <translation>Доступ на чтение всех файлов отключён (см. Настройка)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="339"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Невозможно открыть файл «%1» для чтения</translation>
+        <translation>Невозможно открыть файл «%1» для чтения</translation>
     </message>
 </context>
 <context>
@@ -1575,62 +1575,62 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
         <source>Manage Scripts</source>
-        <translation type="unfinished">Управление сценариями</translation>
+        <translation>Управление сценариями</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="34"/>
         <source>Standalone Scripts</source>
-        <translation type="unfinished">Автономные сценарии</translation>
+        <translation>Автономные сценарии</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="53"/>
         <source>Hook Scripts</source>
-        <translation type="unfinished">Сценарии перехватчики</translation>
+        <translation>Сценарии перехватчики</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="192"/>
         <source>Name: </source>
-        <translation type="unfinished">Название: </translation>
+        <translation>Название: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="193"/>
         <source>Context: </source>
-        <translation type="unfinished">Контекст: </translation>
+        <translation>Контекст: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="194"/>
         <source>Description: </source>
-        <translation type="unfinished">Описание: </translation>
+        <translation>Описание: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="195"/>
         <source>Author: </source>
-        <translation type="unfinished">Автор: </translation>
+        <translation>Автор: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="196"/>
         <source>Version: </source>
-        <translation type="unfinished">Версия: </translation>
+        <translation>Версия: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="197"/>
         <source>Shortcut: </source>
-        <translation type="unfinished">Комбинация: </translation>
+        <translation>Комбинация: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="198"/>
         <source>File: </source>
-        <translation type="unfinished">Файл: </translation>
+        <translation>Файл: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="206"/>
         <source>Language: </source>
-        <translation type="unfinished">Язык: </translation>
+        <translation>Язык: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="210"/>
         <source>Hook: </source>
-        <translation type="unfinished">Перехватчик: </translation>
+        <translation>Перехватчик: </translation>
     </message>
 </context>
 <context>
@@ -1796,7 +1796,7 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/TWApp.cpp" line="290"/>
         <source>[translator&apos;s name/email]</source>
-        <translation>Владимир/irk.translator@gmail.com</translation>
+        <translation>Владимир/irk.translator@yandex.ru</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="294"/>
@@ -1902,48 +1902,48 @@ Use the context menu to change the units.</source>
         <location filename="../src/TWScriptableWindow.cpp" line="142"/>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script &quot;%1&quot;: %2</source>
-        <translation type="unfinished">Сценарий «%1»: %2</translation>
+        <translation>Сценарий «%1»: %2</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="144"/>
         <source>Script result</source>
-        <translation type="unfinished">Результат работы сценария</translation>
+        <translation>Результат работы сценария</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="149"/>
         <source>unknown error</source>
-        <translation type="unfinished">неизвестная ошибка</translation>
+        <translation>неизвестная ошибка</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script error</source>
-        <translation type="unfinished">Ошибка в сценарии</translation>
+        <translation>Ошибка в сценарии</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="171"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="unfinished">Сценарии можно использовать чтобы добавить новые команды к %1, расширяя или изменяя его действия.</translation>
+        <translation>Сценарии можно использовать чтобы добавить новые команды к %1, расширяя или изменяя его действия.</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="174"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="unfinished">Подробнее о создании и использовании сценариев см. %1&lt;/p&gt;</translation>
+        <translation>Подробнее о создании и использовании сценариев см. %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="176"/>
         <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="unfinished">Языки сценариев доступные в данной копии %1:</translation>
+        <translation>Языки сценариев доступные в данной сборке %1:</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="185"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished">(отключено в Настройках)</translation>
+        <translation>(отключено в Настройках)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="189"/>
         <source>About Scripts</source>
-        <translation type="unfinished">О сценариях</translation>
+        <translation>О сценариях</translation>
     </message>
 </context>
 <context>
