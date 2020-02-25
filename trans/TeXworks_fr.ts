@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_BE">
+<TS version="2.0" language="fr_BE">
 <context>
     <name>CitationSelectDialog</name>
     <message>
@@ -49,7 +49,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="15"/>
         <source>Next Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>Autocomplétion suivante</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="23"/>
         <source>Previous Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>Autocomplétion précédente</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
@@ -71,7 +71,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="31"/>
         <source>Next Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>Espace réservé de complétion suivant</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
@@ -82,7 +82,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="39"/>
         <source>Previous Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>Espace réservé de complétion précédent</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
@@ -1126,12 +1126,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Interligne :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="548"/>
         <source>Enable auto-follow focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Permettre le suivi automatique du focus</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="666"/>
@@ -1518,38 +1518,38 @@ Utilisez le menu contextuel pour changer les unités.</translation>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="226"/>
         <source>Internal error</source>
-        <translation type="unfinished">Erreur interne</translation>
+        <translation>Erreur interne</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="241"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Échec de l&apos;exécution de la commande système : %1</translation>
+        <translation>Échec de l&apos;exécution de la commande système : %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="250"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Erreur lors de de l&apos;exécution de la commande système : %1</translation>
+        <translation>Erreur lors de de l&apos;exécution de la commande système : %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="267"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="289"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Exécution des commandes système inactivée (voir Préférences)</translation>
+        <translation>Exécution des commandes système inactivée (voir Préférences)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="285"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; n&apos;a pu être ouvert.</translation>
+        <translation>&quot;%1&quot; n&apos;a pu être ouvert.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="331"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Lecture de tous les fichiers inactivée (voir Préférences)</translation>
+        <translation>Lecture de tous les fichiers inactivée (voir Préférences)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="339"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Le fichier &quot;%1&quot; n&apos;a pu être ouvert en lecture</translation>
+        <translation>Le fichier &quot;%1&quot; n&apos;a pu être ouvert en lecture</translation>
     </message>
 </context>
 <context>
@@ -1557,62 +1557,62 @@ Utilisez le menu contextuel pour changer les unités.</translation>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
         <source>Manage Scripts</source>
-        <translation type="unfinished">Gérer les Scripts</translation>
+        <translation>Gérer les Scripts</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="34"/>
         <source>Standalone Scripts</source>
-        <translation type="unfinished">Scripts Autonomes</translation>
+        <translation>Scripts Autonomes</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="53"/>
         <source>Hook Scripts</source>
-        <translation type="unfinished">Scripts Liés</translation>
+        <translation>Scripts Liés</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="192"/>
         <source>Name: </source>
-        <translation type="unfinished">Nom : </translation>
+        <translation>Nom : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="193"/>
         <source>Context: </source>
-        <translation type="unfinished">Contexte : </translation>
+        <translation>Contexte : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="194"/>
         <source>Description: </source>
-        <translation type="unfinished">Description : </translation>
+        <translation>Description : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="195"/>
         <source>Author: </source>
-        <translation type="unfinished">Auteur : </translation>
+        <translation>Auteur : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="196"/>
         <source>Version: </source>
-        <translation type="unfinished">Version : </translation>
+        <translation>Version : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="197"/>
         <source>Shortcut: </source>
-        <translation type="unfinished">Raccourci : </translation>
+        <translation>Raccourci : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="198"/>
         <source>File: </source>
-        <translation type="unfinished">Fichier : </translation>
+        <translation>Fichier : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="206"/>
         <source>Language: </source>
-        <translation type="unfinished">Language : </translation>
+        <translation>Language : </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="210"/>
         <source>Hook: </source>
-        <translation type="unfinished">Lien : </translation>
+        <translation>Lien : </translation>
     </message>
 </context>
 <context>
@@ -1884,48 +1884,48 @@ Utilisez le menu contextuel pour changer les unités.</translation>
         <location filename="../src/TWScriptableWindow.cpp" line="142"/>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script &quot;%1&quot;: %2</source>
-        <translation type="unfinished">Script &quot;%1&quot;: %2</translation>
+        <translation>Script &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="144"/>
         <source>Script result</source>
-        <translation type="unfinished">Résultat de script</translation>
+        <translation>Résultat de script</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="149"/>
         <source>unknown error</source>
-        <translation type="unfinished">erreur inconnue</translation>
+        <translation>erreur inconnue</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script error</source>
-        <translation type="unfinished">Erreur de script</translation>
+        <translation>Erreur de script</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="171"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="unfinished">Les scripts peuvent être utilisés pour ajouter de nouvelles commandes à %1 et pour étendre ou modifier son comportement.</translation>
+        <translation>Les scripts peuvent être utilisés pour ajouter de nouvelles commandes à %1 et pour étendre ou modifier son comportement.</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="174"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="unfinished">Pour plus d&apos;informations sur la création et l&apos;utiisation des scripts, voir %1&lt;/p&gt;</translation>
+        <translation>Pour plus d&apos;informations sur la création et l&apos;utiisation des scripts, voir %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="176"/>
         <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="unfinished">Langages de script actuellment disponibles dans cette copie de %1 :</translation>
+        <translation>Langages de script actuellment disponibles dans cette copie de %1 :</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="185"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished">Cette chaîne de caractères est ajoutée au nom d&apos;un language de script pour indiquer qu&apos;il est actuellement désactivé</translation>
+        <translation>(actuellement désactivé dans les préférences)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="189"/>
         <source>About Scripts</source>
-        <translation type="unfinished">À propos des scripts</translation>
+        <translation>À propos des scripts</translation>
     </message>
 </context>
 <context>
