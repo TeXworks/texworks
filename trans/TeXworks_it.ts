@@ -49,46 +49,46 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="15"/>
         <source>Next Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>Completamento successivo</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="23"/>
         <source>Previous Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>Completamento precedente</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="31"/>
         <source>Next Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>Segnaposto completamento successivo</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="39"/>
         <source>Previous Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>Segnaposto completamento precedente</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="47"/>
@@ -100,7 +100,7 @@
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.cpp" line="1125"/>
@@ -991,7 +991,7 @@ Vuoi continuare?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spaziatura linee</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="315"/>
@@ -1021,7 +1021,7 @@ Vuoi continuare?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="548"/>
         <source>Enable auto-follow focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita focus automatico</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="582"/>
@@ -1522,38 +1522,38 @@ Usa il menù constestuale per cambiare le unità.</translation>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="226"/>
         <source>Internal error</source>
-        <translation type="unfinished">Errore interno</translation>
+        <translation>Errore interno</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="241"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Tentativo fallito di esecuzione del comando: %1</translation>
+        <translation>Tentativo fallito di esecuzione del comando: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="250"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Errore nell&apos;esecuzione del comando: %1</translation>
+        <translation>Errore nell&apos;esecuzione del comando: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="267"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="289"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Esecuzione dei comandi di sistema disabilitata (vedi Preferenze)</translation>
+        <translation>Esecuzione dei comandi di sistema disabilitata (vedi Preferenze)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="285"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; non può essere aperto.</translation>
+        <translation>&quot;%1&quot; non può essere aperto.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="331"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Lettura di tutti i file disabilitata (vedi Preferenze)</translation>
+        <translation>Lettura di tutti i file disabilitata (vedi Preferenze)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="339"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Il file &quot;%1&quot; non può essere aperto per la lettura</translation>
+        <translation>Il file &quot;%1&quot; non può essere aperto per la lettura</translation>
     </message>
 </context>
 <context>
@@ -1561,62 +1561,62 @@ Usa il menù constestuale per cambiare le unità.</translation>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
         <source>Manage Scripts</source>
-        <translation type="unfinished">Gestisci script</translation>
+        <translation>Gestisci script</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="34"/>
         <source>Standalone Scripts</source>
-        <translation type="unfinished">Script autonomi</translation>
+        <translation>Script autonomi</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="53"/>
         <source>Hook Scripts</source>
-        <translation type="unfinished">Hook Script</translation>
+        <translation>Hook Script</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="192"/>
         <source>Name: </source>
-        <translation type="unfinished">Nome: </translation>
+        <translation>Nome: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="193"/>
         <source>Context: </source>
-        <translation type="unfinished">Contesto: </translation>
+        <translation>Contesto: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="194"/>
         <source>Description: </source>
-        <translation type="unfinished">Descrizione: </translation>
+        <translation>Descrizione: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="195"/>
         <source>Author: </source>
-        <translation type="unfinished">Autore: </translation>
+        <translation>Autore: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="196"/>
         <source>Version: </source>
-        <translation type="unfinished">Versione: </translation>
+        <translation>Versione: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="197"/>
         <source>Shortcut: </source>
-        <translation type="unfinished">Scorciatoia: </translation>
+        <translation>Scorciatoia: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="198"/>
         <source>File: </source>
-        <translation type="unfinished">File: </translation>
+        <translation>File: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="206"/>
         <source>Language: </source>
-        <translation type="unfinished">Linguaggio: </translation>
+        <translation>Linguaggio: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="210"/>
         <source>Hook: </source>
-        <translation type="unfinished">Hook: </translation>
+        <translation>Hook: </translation>
     </message>
 </context>
 <context>
@@ -1888,48 +1888,48 @@ Usa il menù constestuale per cambiare le unità.</translation>
         <location filename="../src/TWScriptableWindow.cpp" line="142"/>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script &quot;%1&quot;: %2</source>
-        <translation type="unfinished">Script &quot;%1&quot;: %2</translation>
+        <translation>Script &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="144"/>
         <source>Script result</source>
-        <translation type="unfinished">Risultato dello script</translation>
+        <translation>Risultato dello script</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="149"/>
         <source>unknown error</source>
-        <translation type="unfinished">errore sconosciuto</translation>
+        <translation>errore sconosciuto</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script error</source>
-        <translation type="unfinished">Errore nello script</translation>
+        <translation>Errore nello script</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="171"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="unfinished">Gli script possono essere usati per aggiungere nuovi comandi a %1, o estendere o modificare il loro comportamento.</translation>
+        <translation>Gli script possono essere usati per aggiungere nuovi comandi a %1, o estendere o modificare il loro comportamento.</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="174"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="unfinished">Per maggiori informazioni su creazione e uso degli script consulta %1&lt;/p&gt;</translation>
+        <translation>Per maggiori informazioni su creazione e uso degli script consulta %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="176"/>
         <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="unfinished">Linguaggi di scripting attualmente disponibili in questa copia di %1:</translation>
+        <translation>Linguaggi di scripting attualmente disponibili in questa copia di %1:</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="185"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished">(disabilitato nelle preferenze)</translation>
+        <translation>(disabilitato nelle preferenze)</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="189"/>
         <source>About Scripts</source>
-        <translation type="unfinished">A proposito degli script</translation>
+        <translation>A proposito degli script</translation>
     </message>
 </context>
 <context>
