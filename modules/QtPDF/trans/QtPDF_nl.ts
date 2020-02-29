@@ -41,7 +41,7 @@
     <message>
         <location filename="../src/PaperSizes.cpp" line="31"/>
         <source>Screen</source>
-        <translation></translation>
+        <translation>Scherm</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="34"/>
