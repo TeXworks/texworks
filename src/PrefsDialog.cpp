@@ -535,6 +535,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	int oldLocaleIndex = oldLocale.isEmpty() ? kSystemLocaleIndex : kEnglishLocaleIndex;
 	QStringList *trList = TWUtils::getTranslationList();
 	QStringList::ConstIterator iter;
+	QList< DictPair > displayList;
 	for (iter = trList->constBegin(); iter != trList->constEnd(); ++iter) {
 		QLocale loc(*iter);
 		QLocale::Language	language = loc.language();
@@ -550,8 +551,13 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 					locName += tr(" (%1)").arg(QLocale::countryToString(country));
 			}
 		}
-		dlg.localePopup->addItem(locName);
-		if (*iter == oldLocale)
+		displayList << qMakePair(locName, *iter);
+	}
+	qSort(displayList.begin(), displayList.end(), dictPairLessThan);
+
+	Q_FOREACH(DictPair p, displayList) {
+		dlg.localePopup->addItem(p.first, p.second);
+		if (p.second == oldLocale)
 			oldLocaleIndex = dlg.localePopup->count() - 1;
 	}
 	dlg.localePopup->setCurrentIndex(oldLocaleIndex);
@@ -715,7 +721,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 					break;
 				default:
 					{
-						const QString & locale = trList->at(dlg.localePopup->currentIndex() - kFirstTranslationIndex);
+						QString locale = dlg.localePopup->itemData(dlg.localePopup->currentIndex()).toString();
 						TWApp::instance()->applyTranslation(locale);
 						settings.setValue(QString::fromLatin1("locale"), locale);
 					}
