@@ -44,46 +44,46 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="15"/>
         <source>Next Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>次の補完候補</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>タブ</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="23"/>
         <source>Previous Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>前の補完候補</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Shift+Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="31"/>
         <source>Next Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>次の補完対象箇所へ</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="39"/>
         <source>Previous Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>前の補完対象箇所へ</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="47"/>
@@ -95,7 +95,7 @@
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+J</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.cpp" line="1108"/>
@@ -994,7 +994,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>行間:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="304"/>
@@ -1039,7 +1039,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="548"/>
         <source>Enable auto-follow focus</source>
-        <translation type="unfinished"></translation>
+        <translation>マウスカーソルの追従を有効にする</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="582"/>
@@ -1299,9 +1299,8 @@ Do you want to continue?</source>
         <translation>プレビュー &gt; ソース(#P)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="550"/>
+        <location filename="../src/PrefsDialog.cpp" line="551"/>
         <source> (%1)</source>
-        <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
         <translation> (%1)</translation>
     </message>
 </context>
@@ -1517,38 +1516,38 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="226"/>
         <source>Internal error</source>
-        <translation type="unfinished">内部エラー</translation>
+        <translation>内部エラー</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="241"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">システムコマンド %1 を実行できませんでした</translation>
+        <translation>システムコマンド %1 を実行できませんでした</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="250"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">システムコマンド %1 の実行時エラー</translation>
+        <translation>システムコマンド %1 の実行時エラー</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="267"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="289"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">システムコマンドの実行は許可されていません (設定を確認してください)</translation>
+        <translation>システムコマンドの実行は許可されていません (設定を確認してください)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="285"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; が開けません</translation>
+        <translation>&quot;%1&quot; が開けません</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="331"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">全てのファイルの読み込み許可がありません (設定を確認してください)</translation>
+        <translation>全てのファイルの読み込み許可がありません (設定を確認してください)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="339"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">ファイル &quot;%1&quot; を読み込むことができません</translation>
+        <translation>ファイル &quot;%1&quot; を読み込むことができません</translation>
     </message>
 </context>
 <context>
@@ -1556,62 +1555,62 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
         <source>Manage Scripts</source>
-        <translation type="unfinished">スクリプトの管理</translation>
+        <translation>スクリプトの管理</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="34"/>
         <source>Standalone Scripts</source>
-        <translation type="unfinished">単独動作するスクリプト</translation>
+        <translation>単独動作するスクリプト</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="53"/>
         <source>Hook Scripts</source>
-        <translation type="unfinished">TeX入出力をフックするスクリプト</translation>
+        <translation>TeX入出力をフックするスクリプト</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="192"/>
         <source>Name: </source>
-        <translation type="unfinished">名前: </translation>
+        <translation>名前: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="193"/>
         <source>Context: </source>
-        <translation type="unfinished">使用法: </translation>
+        <translation>使用法: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="194"/>
         <source>Description: </source>
-        <translation type="unfinished">説明: </translation>
+        <translation>説明: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="195"/>
         <source>Author: </source>
-        <translation type="unfinished">作者: </translation>
+        <translation>作者: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="196"/>
         <source>Version: </source>
-        <translation type="unfinished">バージョン: </translation>
+        <translation>バージョン: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="197"/>
         <source>Shortcut: </source>
-        <translation type="unfinished">ショートカット: </translation>
+        <translation>ショートカット: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="198"/>
         <source>File: </source>
-        <translation type="unfinished">ファイル: </translation>
+        <translation>ファイル: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="206"/>
         <source>Language: </source>
-        <translation type="unfinished">言語: </translation>
+        <translation>言語: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="210"/>
         <source>Hook: </source>
-        <translation type="unfinished">フック: </translation>
+        <translation>フック: </translation>
     </message>
 </context>
 <context>
@@ -1883,48 +1882,48 @@ Use the context menu to change the units.</source>
         <location filename="../src/TWScriptableWindow.cpp" line="142"/>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script &quot;%1&quot;: %2</source>
-        <translation type="unfinished">スクリプト &quot;%1&quot;: %2</translation>
+        <translation>スクリプト &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="144"/>
         <source>Script result</source>
-        <translation type="unfinished">実行結果</translation>
+        <translation>実行結果</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="149"/>
         <source>unknown error</source>
-        <translation type="unfinished">不明なエラー</translation>
+        <translation>不明なエラー</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <source>Script error</source>
-        <translation type="unfinished">スクリプトエラー</translation>
+        <translation>スクリプトエラー</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="171"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="unfinished">%1 に新しい機能を追加するまたは機能を拡張するためのスクリプトです</translation>
+        <translation>%1 に新しい機能を追加するまたは機能を拡張するためのスクリプトです</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="174"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="unfinished">スクリプトについて詳しくは %1 をご覧ください&lt;/p&gt;</translation>
+        <translation>スクリプトについて詳しくは %1 をご覧ください&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="176"/>
         <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="unfinished">このバージョンの%1 では、以下の言語が利用できます:</translation>
+        <translation>このバージョンの%1 では、以下の言語が利用できます:</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="185"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished">この文字列は、該当するスクリプト言語が利用できないことを示します。</translation>
+        <translation>この文字列は、該当するスクリプト言語が利用できないことを示します。</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="189"/>
         <source>About Scripts</source>
-        <translation type="unfinished">スクリプトについて</translation>
+        <translation>スクリプトについて</translation>
     </message>
 </context>
 <context>
@@ -2095,98 +2094,98 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>行番号:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2248"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2360"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2258"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2370"/>
         <source>Invalid regular expression</source>
         <translation>正規表現が正しくありません</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2294"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2331"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2448"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2304"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2341"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2458"/>
         <source>Not found</source>
         <translation>見つかりません</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2298"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2308"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>%n 個見つかりました</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2467"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2477"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n 個</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2468"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2478"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n 個の文書</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2469"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2479"/>
         <source>Replaced %1 in %2</source>
         <translation>%2中の%1が置換されました</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2481"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2491"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>%n 個置換されました</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2682"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2692"/>
         <source>Cannot process unsaved document</source>
         <translation>保存されていない文書を処理できません</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2693"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2703"/>
         <source>Root document %1 is not readable</source>
         <translation>マスターファイル%1が読み込めません</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2699"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2709"/>
         <source>%1 is not properly configured</source>
         <translation>%1の設定が適切になされていないようです</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2745"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2755"/>
         <source>Unable to execute %1</source>
         <translation>%1を実行できません</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2746"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2756"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>プログラム&quot;%1&quot;が見つかりません</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2757"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2767"/>
         <source>Searched in directories:</source>
         <translation>ディレクトリから検索:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3022"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3032"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>&quot;%1&quot;で処理する</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3026"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3036"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>&quot;%1&quot;は定義されていません</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3100"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3110"/>
         <source>No files found</source>
         <translation>ファイルが見つかりません</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3101"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3111"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>現在、この文書に対応する補助ファイルはありません</translation>
     </message>
@@ -2383,7 +2382,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="622"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2781"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2791"/>
         <source>Typeset</source>
         <translation>タイプセット</translation>
     </message>
@@ -2664,7 +2663,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>行番号表示</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2809"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2819"/>
         <source>Process interrupted by user</source>
         <translation>処理はユーザによって中断されました</translation>
     </message>
@@ -2779,7 +2778,7 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>&quot;%1&quot; が保存されました</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2789"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2799"/>
         <source>Abort typesetting</source>
         <translation>タイプセットの中止</translation>
     </message>
@@ -2835,34 +2834,34 @@ Do you want to stop it now?</source>
         <translation>タイプセットを実行中です。ウィンドウを閉じる前に、タイプセットのプロセスを停止させる必要があります。停止させますか?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2748"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2758"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translatorcomment>MikTeX is not so popular. Then URL changed to Japanese famous distribution.</translatorcomment>
         <translation>適切な&lt;b&gt;TeXディストリビューション&lt;/b&gt;を導入してください。タイプセットをおこなうには&lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;や&lt;a href=&quot;http://w32tex.org/&quot;&gt;W32TeX&lt;/a&gt;がシステムにインストールされている必要があります。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2750"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2760"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>適切な&lt;b&gt;TeXディストリビューション&lt;/b&gt;を導入してください。タイプセットをおこなうには&lt;a href=&quot;http://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;等がシステムにインストールされている必要があります。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2752"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2762"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>適切な&lt;b&gt;TeXディストリビューション&lt;/b&gt;を導入してください。タイプセットをおこなうには&lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;等がシステムにインストールされている必要があります。多くのシステムで、TeXディストリビューションをパッケージ管理システムから導入可能です。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2754"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2764"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>TeXディストリビューションを導入したら、そのパスをTeXworksの[編集] - [設定] - [タイプセット]で指定してください。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2759"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2769"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>設定ダイアログで %1 の設定と、パスの指定を確認してください</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="867"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2942"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2952"/>
         <source>Hide Console Output</source>
         <translation>コンソール出力を表示しない</translation>
     </message>
@@ -2887,7 +2886,7 @@ We are sorry for the inconvenience.</source>
 ご不便をおかけして申し訳ありません。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2949"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2959"/>
         <source>Show Console Output</source>
         <translation>コンソール出力を表示する</translation>
     </message>
@@ -2909,7 +2908,6 @@ We are sorry for the inconvenience.</source>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="515"/>
         <source>%1 - %2 (%3)</source>
-        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
         <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
@@ -2983,22 +2981,22 @@ We are sorry for the inconvenience.</source>
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="920"/>
+        <location filename="../src/PrefsDialog.cpp" line="926"/>
         <source>NewArgument</source>
         <translation>新しい引数</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="871"/>
+        <location filename="../src/PrefsDialog.cpp" line="877"/>
         <source>Select program file</source>
         <translation>プログラムの選択</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="876"/>
+        <location filename="../src/PrefsDialog.cpp" line="882"/>
         <source>Invalid program</source>
         <translation>不明なプログラム</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="877"/>
+        <location filename="../src/PrefsDialog.cpp" line="883"/>
         <source>The file &apos;%1&apos; is not executable!</source>
         <translation>ファイル &apos;%1&apos; を実行することができません!</translation>
     </message>
