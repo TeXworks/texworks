@@ -4,12 +4,9 @@
 # Set project name.
 PROJECT(QtPDF)
 
-# We require CMake v2.8 or greater because we don't do any testing with earlier
-# versions.
-# In CMake v2.8.6, the AUTOMOC feature was introduced which simplifies the
-# interaction with Qt.
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.6)
-CMAKE_POLICY(VERSION 2.8.6)
+# CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
+CMAKE_POLICY(VERSION 3.1)
 
 # Silence warning about linking to qtmain.lib statically on Windows
 IF(POLICY CMP0020)
@@ -21,8 +18,19 @@ if(POLICY CMP0042)
   cmake_policy(SET CMP0042 NEW)
 endif()
 
+# Silence warning about ninja custom command byproducts
+if(POLICY CMP0058)
+  cmake_policy(SET CMP0058 NEW)
+endif()
+
+# Silence warning about option() treating variables differently on the first run
+if(POLICY CMP0077)
+  cmake_policy(SET CMP0077 NEW)
+endif()
+
 SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_AUTOMOC TRUE)
+SET(CMAKE_AUTORCC TRUE)
 
 # Always add the current source and binary directories to the header include
 # path when compiling.
@@ -43,35 +51,22 @@ IF ( NOT CMAKE_BUILD_TYPE )
 ENDIF ()
 
 # By default, we build a shared lib...
-IF ( NOT DEFINED BUILD_SHARED_LIBS )
-  SET(BUILD_SHARED_LIBS ON)
-ENDIF ()
+OPTION(BUILD_SHARED_LIBS "Build shared library" ON)
 
-# ...with poppler-qt...
-IF ( NOT DEFINED WITH_POPPLERQT )
-  SET(WITH_POPPLERQT ON)
-ENDIF ()
+# ...with the viewer program...
+OPTION(QTPDF_VIEWER "Build PDF viewer application" ON)
 
-# ...but without MuPDF
-IF ( NOT DEFINED WITH_MUPDF )
-  SET(WITH_MUPDF OFF)
-ENDIF ()
-
-# ...and the viewer programs
-IF ( NOT DEFINED QTPDF_VIEWER )
-  SET(QTPDF_VIEWER ON)
-ENDIF ()
-
-OPTION(QTPDF_VIEWER "Build PDF viewer application" ${QTPDF_VIEWER})
+# ...with tests...
 OPTION(WITH_TESTS "Build tests" ON)
 
-OPTION(WITH_POPPLER "Build Poppler Qt backend" ${WITH_POPPLERQT})
+# ...with poppler-qt...
+OPTION(WITH_POPPLERQT "Build Poppler Qt backend" ON)
+# ...but without MuPDF
 # MuPDF backend is a bit immature, so we don't bother with it by default right
 # now.
-OPTION(WITH_MUPDF "Build MuPDF backend" ${WITH_MUPDF})
+OPTION(WITH_MUPDF "Build MuPDF backend" OFF)
 
 
-OPTION(BUILD_SHARED_LIBS "Build shared library" ${BUILD_SHARED_LIBS})
 
 # Dependency Configuration
 # ========================
@@ -80,149 +75,29 @@ OPTION(BUILD_SHARED_LIBS "Build shared library" ${BUILD_SHARED_LIBS})
 # directory contains scripts that locate project components such as Poppler.
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules)
 
+set (CMAKE_CXX_STANDARD 11)
 
 # Core Components
 # ---------------
 
-set(DESIRED_QT_VERSION "" CACHE STRING "Pick a version of Qt to use: 4 or 5")
-MARK_AS_ADVANCED(DESIRED_QT_VERSION)
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
 
-include(FindPackageMessage)
-MACRO(find_qt5_package pkg)
-  find_package(${pkg} QUIET)
-  if (${pkg}_FOUND)
-    set(_msg "Found ${pkg}")
-    if (${pkg}_DIR)
-      set(_msg "${_msg}: ${${pkg}_DIR}")
-    endif()
-    if (${pkg}_VERSION)
-      set(_msg "${_msg} (found version ${${pkg}_VERSION})")
-    endif()
-    FIND_PACKAGE_MESSAGE(${pkg} ${_msg} "[${${pkg_FOUND}}][${${pkg}_DIR}][${${pkg}_VERSION}]")
-  else()
-    FIND_PACKAGE_MESSAGE(${pkg} "Could not find ${pkg}" "[${${pkg_FOUND}}][${${pkg}_DIR}][${${pkg}_VERSION}]")
+if (WITH_TESTS)
+  find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
+  if (NOT Qt5Test_FOUND)
+    set(WITH_TESTS OFF)
   endif()
-ENDMACRO()
+endif()
 
-# Source: https://stackoverflow.com/a/31010221
-macro(use_cxx11)
-  if (CMAKE_VERSION VERSION_LESS "3.1")
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-    endif ()
-  else ()
-    set (CMAKE_CXX_STANDARD 11)
-  endif ()
-endmacro(use_cxx11)
+if (WIN32 AND NOT BUILD_SHARED_LIBS)
+  find_package(Qt5WindowsPlatformSupport)
+endif ()
 
-use_cxx11()
-
-# Check for Qt5 by default (unless another Qt version was already found, e.g.,
-# by a parent project)
-IF (DESIRED_QT_VERSION MATCHES 5 OR (NOT DESIRED_QT_VERSION AND (QT_VERSION_MAJOR MATCHES 5 OR NOT QT_VERSION_MAJOR)))
-  find_qt5_package(Qt5Core)
-  find_qt5_package(Qt5Widgets)
-  find_qt5_package(Qt5Concurrent)
-  find_qt5_package(Qt5Xml)
-  find_qt5_package(Qt5LinguistTools)
-
-  IF( WITH_TESTS )
-    find_qt5_package(Qt5Test QUIET)
-  ENDIF()
-
-  IF(Qt5Core_FOUND AND Qt5Widgets_FOUND AND Qt5Concurrent_FOUND AND Qt5Xml_FOUND AND Qt5LinguistTools_FOUND AND (NOT WITH_TESTS OR Qt5Test_FOUND))
-    SET(QT5_FOUND TRUE)
-    # Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
-    # etc. which is used here.
-    string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
-    string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
-    string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
-
-    SET(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml)
-    SET(QT_TEST_LIBRARIES ${Qt5Test_LIBRARIES} Qt5::Core)
-  ELSE()
-    SET(QT5_FOUND FALSE)
-  ENDIF()
-  
-  IF( QT5_FOUND AND WIN32 AND NOT BUILD_SHARED_LIBS )
-    # For static Windows builds, we also need to pull in the Qt5 Platform
-    # support library, which is not exposed to CMake properly, unfortunately
-    GET_TARGET_PROPERTY(QT_LIB_DIR Qt5::Widgets LOCATION)
-    GET_FILENAME_COMPONENT(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
-
-    FIND_LIBRARY(Qt5QWindows_LIBRARIES qwindows
-      HINTS "${QT_LIB_DIR}/../plugins/platforms"
-    )
-
-    # Starting with Qt 5.8, Qt5PlatformSupport was modularized
-    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR LESS 8)
-      FIND_LIBRARY(Qt5Platform_LIBRARIES Qt5PlatformSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      LIST(INSERT QT_LIBRARIES 0 ${Qt5Platform_LIBRARIES} ${Qt5QWindows_LIBRARIES})
-    else()
-      FIND_LIBRARY(Qt5FontDatabaseSupport_LIBRARIES Qt5FontDatabaseSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      FIND_LIBRARY(Qt5EventDispatcherSupport_LIBRARIES Qt5EventDispatcherSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      FIND_LIBRARY(Qt5ThemeSupport_LIBRARIES Qt5ThemeSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      FIND_LIBRARY(Qt5AccessibilitySupport_LIBRARIES Qt5AccessibilitySupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      LIST(INSERT QT_LIBRARIES 0 ${Qt5QWindows_LIBRARIES} ${Qt5FontDatabaseSupport_LIBRARIES} ${Qt5EventDispatcherSupport_LIBRARIES} ${Qt5ThemeSupport_LIBRARIES} ${Qt5AccessibilitySupport_LIBRARIES})
-    endif()
-    # Starting with Qt 5.11, WindowsUIAutomation was added
-    if (QT_VERSION_MAJOR EQUAL 5 AND QT_VERSION_MINOR GREATER 10)
-      FIND_LIBRARY(Qt5WindowsUIAutomation_LIBRARIES Qt5WindowsUIAutomationSupport
-        HINTS "${QT_LIB_DIR}"
-      )
-      LIST(APPEND QT_LIBRARIES ${Qt5WindowsUIAutomation_LIBRARIES})
-    endif()
-    ADD_DEFINITIONS(-DSTATIC_QT5)
-  ENDIF()
-
-  # Define version-dependent wrappers
-  MACRO(QT_ADD_RESOURCES)
-    QT5_ADD_RESOURCES(${ARGV})
-  ENDMACRO(QT_ADD_RESOURCES)
-ENDIF()
-# If Qt5 is not found (or not desired), check for Qt4
-IF (DESIRED_QT_VERSION MATCHES 4 OR NOT QT5_FOUND)
-  # Declare Qt libraries required by this project.
-  SET (QT_COMPONENTS
-    QtCore
-    QtGui
-    QtXML
-  )
-  IF( WITH_TESTS )
-    LIST(APPEND QT_COMPONENTS QtTest)
-  ENDIF()
-
-  # Locate Qt. `INCLUDE(UseQt4)` brings in a set of macros that helps us deal
-  # with Qt-specific tasks such as compiling resources or running `moc`.
-  #
-  # Qt 4.6.0 or newer is required for many pieces of functionality used in the
-  # code.
-  FIND_PACKAGE(Qt4 4.6.0 COMPONENTS ${QT_COMPONENTS} QUIET)
-  INCLUDE(UseQt4)
-
-  # TODO: QtTest is included in the list of "normal" libraries.
-  # Therefore, QT_TEST_LIBRARIES is not set here. Can we improve this somehow
-  # (i.e., can we pull in QtTest only for programs that actually use it)?
-
-  # Define version-dependent wrappers
-  MACRO(QT_ADD_RESOURCES)
-    QT4_ADD_RESOURCES(${ARGV})
-  ENDMACRO(QT_ADD_RESOURCES)
-ENDIF()
-
-IF (NOT QT4_FOUND AND NOT QT5_FOUND)
-  MESSAGE(FATAL_ERROR "Could not find required Qt >= 4.6. Please install Qt (see http://qt-project.org/) and/or adjust DESIRED_QT_VERSION.")
-ENDIF()
+# Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
+# etc. which is used here.
+string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
+string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
+string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
 # to include the correct Qt headers (as QTVERSION is not defined before any Qt
@@ -232,44 +107,27 @@ ADD_DEFINITIONS(-DQT_VERSION_MAJOR=${QT_VERSION_MAJOR})
 
 FIND_PACKAGE(ZLIB REQUIRED)
 
-# Aggregate library names and include directories into variables for easy
-# access.
-SET(QTPDF_INCLUDE_DIRS
-  ${ZLIB_INCLUDE_DIR}
-  ${POPPLER_QT_INCLUDE_DIR}
-)
-
 SET(QTPDF_LIBS
-  ${QT_LIBRARIES}
-  ${ZLIB_LIBRARIES}
+  ${QT_PLATFORM_LIBRARIES}
+  Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml
+  ZLIB::ZLIB
 )
 
 
 # Backend Components
 # ------------------
 IF( WITH_POPPLERQT )
+  FIND_PACKAGE(Poppler REQUIRED COMPONENTS qt5)
 
-  FIND_PACKAGE(Poppler REQUIRED)
-  LIST(APPEND QTPDF_INCLUDE_DIRS ${POPPLER_QT_INCLUDE_DIR})
-  # In case poppler is linked statically, its libs have to be given to the
-  # linker **first** for some strange reason or symbols won't be properly
-  # resolved. At least, this is the case with the MinGW linker.
-  SET(QTPDF_LIBS ${POPPLER_LIBRARIES} ${QTPDF_LIBS})
-
-  # The only thing Poppler should need is the location of the include
-  # directories in order to access header files. The library loader should be
-  # able to find libfontconfig on standard search paths.
-  IF ( POPPLER_NEEDS_FONTCONFIG )
-    FIND_PACKAGE(Fontconfig REQUIRED)
-    LIST(APPEND QTPDF_INCLUDE_DIRS ${FONTCONFIG_INCLUDE_DIR})
-  ENDIF ()
+  # As in FindPoppler.cmake, it is important to list poppler after Qt to avoid
+  # confusion with dependencies when using statically linked libraries
+  SET(QTPDF_LIBS ${QTPDF_LIBS} Poppler::poppler-qt5)
 
   # Check if Poppler provides certain features (as poppler does not reliably
   # expose its version number, there is no easy way to check for these at
   # compile-time)
   include(CheckCXXSourceCompiles)
-  set(CMAKE_REQUIRED_INCLUDES ${QTPDF_INCLUDE_DIRS} ${QT_INCLUDE_DIR})
-  set(CMAKE_REQUIRED_LIBRARIES ${QTPDF_LIBS} ${QTPDF_ADDITIONAL_LIBS})
+  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt5)
 
   # Page::SearchFlags were added in 0.31
   CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { double x; Poppler::Document::load(QString())->page(0)->search(QString(), x, x, x, x, Poppler::Page::NextResult, Poppler::Page::IgnoreCase); return 0; }" POPPLER_HAS_SEARCH_FLAGS)
@@ -282,7 +140,6 @@ IF( WITH_POPPLERQT )
   if (POPPLER_HAS_DURATION_REAL)
     add_definitions(-DPOPPLER_HAS_DURATION_REAL)
   endif (POPPLER_HAS_DURATION_REAL)
-
 ENDIF()
 
 IF( WITH_MUPDF )
@@ -336,14 +193,13 @@ ENDIF()
 # Common setup.
 
 INCLUDE_DIRECTORIES(
-  ${QTPDF_INCLUDE_DIRS}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${CMAKE_CURRENT_SOURCE_DIR}/src/backend
+  SYSTEM ${QTPDF_INCLUDE_DIRS}
 )
 
 IF( ${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
   ADD_DEFINITIONS(-DDEBUG -DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
-  SET(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 ENDIF()
 
 
@@ -380,6 +236,25 @@ IF( WITH_POPPLERQT )
   LIST(APPEND QTPDF_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerQtBackend.cpp)
   LIST(APPEND QTPDF_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/src/backends/PopplerQtBackend.h)
   SET(QTPDF_FLAGS "${QTPDF_FLAGS} -DUSE_POPPLERQT")
+
+  get_target_property(POPPLER_HAS_XPDF Poppler::poppler HAS_PRIVATE_HEADERS)
+  if (POPPLER_HAS_XPDF)
+    set(QTPDF_FLAGS "${QTPDF_FLAGS} -DHAVE_POPPLER_XPDF_HEADERS")
+
+    set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt5)
+
+    # GlobalParamsIniter was introduced in 0.85
+    CHECK_CXX_SOURCE_COMPILES("#include <GlobalParams.h>\nint main() { GlobalParamsIniter::setCustomDataDir(\"\"); return 0; }" POPPLER_HAS_GLOBALPARAMSINITER)
+    if (POPPLER_HAS_GLOBALPARAMSINITER)
+      add_definitions(-DPOPPLER_HAS_GLOBALPARAMSINITER)
+    endif (POPPLER_HAS_GLOBALPARAMSINITER)
+
+    # GlobalParams was turned into a unique_ptr in 0.83
+    CHECK_CXX_SOURCE_COMPILES("#include <GlobalParams.h>\n#include <memory>\nint main() { globalParams = std::move(std::unique_ptr<GlobalParams>(new GlobalParams())); return 0; }" POPPLER_GLOBALPARAMS_IS_UNIQUE)
+    if (POPPLER_GLOBALPARAMS_IS_UNIQUE)
+      add_definitions(-DPOPPLER_GLOBALPARAMS_IS_UNIQUE)
+    endif (POPPLER_GLOBALPARAMS_IS_UNIQUE)
+  endif (POPPLER_HAS_XPDF)
 ENDIF()
 
 IF( WITH_MUPDF )
@@ -388,41 +263,42 @@ IF( WITH_MUPDF )
   SET(QTPDF_FLAGS "${QTPDF_FLAGS} -DUSE_MUPDF")
 ENDIF()
 
-# Create translations
-INCLUDE( TranslationMacros )
-FILE(GLOB TRANSLATIONS_SOURCES trans/*.ts)
-LIST(SORT TRANSLATIONS_SOURCES)
-QT_ADD_TRANSLATIONS(QTPDF_QM ${TRANSLATIONS_SOURCES})
-
-CREATE_QT_PRO_FILE("${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro" "src" ${QTPDF_SRCS} ${QTPDF_HDRS} ${TRANSLATIONS_SOURCES})
 
 # Icons
 SET(QTPDF_RCS
   ${CMAKE_CURRENT_SOURCE_DIR}/QtPDF_icons.qrc
 )
-QT_ADD_RESOURCES(QTPDF_RESOURCES ${QTPDF_RCS})
 
 
-ADD_LIBRARY(qtpdf
+ADD_LIBRARY(qtpdf ${QTPDF_LIB_TYPE}
   ${QTPDF_SRCS}
-  ${QTPDF_RESOURCES}
+  ${QTPDF_HDRS}
+  ${QTPDF_RCS}
   ${QTPDF_QM}
 )
 
-set(QTPDF_ADDITIONAL_LIBS "" CACHE STRING "Additional libraries not found by CMake")
-MARK_AS_ADVANCED(QTPDF_ADDITIONAL_LIBS)
+# Create translations
+include(TranslationMacros)
+file(GLOB TRANSLATIONS_SOURCES trans/*.ts)
+target_add_qt_translations(qtpdf PRO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro" TS_FILES ${TRANSLATIONS_SOURCES})
 
-TARGET_LINK_LIBRARIES(qtpdf ${QTPDF_LIBS} ${QTPDF_ADDITIONAL_LIBS})
+
+TARGET_LINK_LIBRARIES(qtpdf ${QTPDF_LIBS})
 
 SET_TARGET_PROPERTIES(qtpdf PROPERTIES
   COMPILE_FLAGS "${QTPDF_FLAGS}"
+  INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
 
-# Inform parent scope (if any) what to do to use QtPDF
-IF(NOT ${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
-  SET(QTPDF_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src PARENT_SCOPE)
-#  ${CMAKE_CURRENT_SOURCE_DIR}/src/backend
-ENDIF()
+if (MSVC)
+  target_compile_options(qtpdf PRIVATE /W4)
+else ()
+  target_compile_options(qtpdf PRIVATE -Wall -Wpedantic -Wextra -Wconversion -Wold-style-cast -Woverloaded-virtual -Wzero-as-null-pointer-constant)
+endif ()
+
+if (NOT TARGET QtPDF::qtpdf)
+  add_library(QtPDF::qtpdf ALIAS qtpdf)
+endif ()
 
 
 # Viewers
@@ -437,14 +313,15 @@ SET(PDFVIEWER_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/PDFViewer.cpp
 )
 
-QT_ADD_RESOURCES(PDFVIEWER_RESOURCES
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons.qrc
+SET(PDFVIEWER_HDRS
+  ${CMAKE_CURRENT_SOURCE_DIR}/PDFViewer.h
 )
 
 IF( WITH_POPPLERQT )
   ADD_EXECUTABLE(poppler-qt${QT_VERSION_MAJOR}_viewer
     ${PDFVIEWER_SRCS}
-    ${PDFVIEWER_RESOURCES}
+    ${PDFVIEWER_HDRS}
+    icons.qrc
   )
 
   # NOTE:
@@ -462,7 +339,8 @@ ENDIF()
 IF( WITH_MUPDF )
   ADD_EXECUTABLE(mupdf_viewer
     ${PDFVIEWER_SRCS}
-    ${PDFVIEWER_RESOURCES}
+    ${PDFVIEWER_HDRS}
+    icons.qrc
   )
 
   SET_TARGET_PROPERTIES(mupdf_viewer PROPERTIES
@@ -482,24 +360,29 @@ IF ( WITH_TESTS )
   SET(QTPDFTEST_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests/TestQtPDF.cpp
   )
+  SET(QTPDFTEST_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests/TestQtPDF.h
+  )
   IF( WITH_POPPLERQT )
     ADD_EXECUTABLE(test_poppler-qt${QT_VERSION_MAJOR}
       ${QTPDFTEST_SRCS}
+      ${QTPDFTEST_HDRS}
     )
     SET_TARGET_PROPERTIES(test_poppler-qt${QT_VERSION_MAJOR} PROPERTIES
       COMPILE_FLAGS "-DUSE_POPPLERQT ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
-    TARGET_LINK_LIBRARIES(test_poppler-qt${QT_VERSION_MAJOR} ${QT_TEST_LIBRARIES} qtpdf)
+    target_link_libraries(test_poppler-qt${QT_VERSION_MAJOR} Qt5::Test qtpdf)
     ADD_TEST(NAME test_poppler-qt${QT_VERSION_MAJOR} COMMAND test_poppler-qt${QT_VERSION_MAJOR} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
   IF( WITH_MUPDF )
     ADD_EXECUTABLE(test_mupdf
       ${QTPDFTEST_SRCS}
+      ${QTPDFTEST_HDRS}
     )
     SET_TARGET_PROPERTIES(test_mupdf PROPERTIES
       COMPILE_FLAGS "-DUSE_MUPDF ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
-    TARGET_LINK_LIBRARIES(test_mupdf ${QT_TEST_LIBRARIES} qtpdf)
+    target_link_libraries(test_mupdf Qt5::Test qtpdf)
     ADD_TEST(NAME test_mupdf COMMAND test_mupdf WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
 ENDIF( WITH_TESTS )

@@ -1,3 +1,23 @@
+/*
+  This is part of TeXworks, an environment for working with TeX documents
+  Copyright (C) 2013-2020  Stefan Löffler
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  For links to further information, or to contact the authors,
+  see <http://www.tug.org/texworks/>.
+*/
 #include "TestQtPDF.h"
 #include "PaperSizes.h"
 
@@ -9,12 +29,54 @@
   #error Must specify one backend
 #endif
 
+namespace QtPDF {
+void compareDestination(const QtPDF::PDFDestination & a, const QtPDF::PDFDestination & b)
+{
+  QCOMPARE(a.isExplicit(), b.isExplicit());
+  QCOMPARE(a.page(), b.page());
+  if (a.isExplicit()) {
+    QCOMPARE(a.rect(), b.rect());
+    QCOMPARE(a.zoom(), b.zoom());
+  }
+  else
+    QCOMPARE(a.destinationName(), b.destinationName());
+}
+
+bool operator== (const QtPDF::PDFAction & a, const QtPDF::PDFAction & b) {
+  if (a.type() != b.type()) return false;
+  switch (a.type()) {
+  case QtPDF::PDFAction::ActionTypeGoTo:
+  {
+    const QtPDF::PDFGotoAction & A = reinterpret_cast<const QtPDF::PDFGotoAction &>(a);
+    const QtPDF::PDFGotoAction & B = reinterpret_cast<const QtPDF::PDFGotoAction &>(b);
+
+    compareDestination(A.destination(), B.destination());
+    if (QTest::currentTestFailed()) return false;
+    if (A.isRemote() != B.isRemote()) return false;
+    if (A.filename() != B.filename()) return false;
+    if (A.openInNewWindow() != B.openInNewWindow()) return false;
+
+    return true;
+  }
+  case QtPDF::PDFAction::ActionTypeURI:
+  {
+    const QtPDF::PDFURIAction & A = reinterpret_cast<const QtPDF::PDFURIAction &>(a);
+    const QtPDF::PDFURIAction & B = reinterpret_cast<const QtPDF::PDFURIAction &>(b);
+    return A.url() == B.url();
+  }
+  default:
+    return false;
+  }
+}
+} // namespace QtPDF
+
+namespace UnitTest {
 
 class ComparableImage : public QImage {
   double _threshold;
 public:
-  ComparableImage(const QImage & other, const double threshold = 3) : QImage(other.convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
-  ComparableImage(const QString & filename, const double threshold = 3) : QImage(QImage(filename).convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
+  explicit ComparableImage(const QImage & other, const double threshold = 3) : QImage(other.convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
+  explicit ComparableImage(const QString & filename, const double threshold = 3) : QImage(QImage(filename).convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
 
   bool operator==(const ComparableImage & other) const {
     Q_ASSERT(format() == QImage::Format_RGB32);
@@ -228,7 +290,7 @@ void TestQtPDF::page()
     QVariantList l(pageSize.value<QVariantList>());
     while (pageSizes.length() < doc->numPages()) {
       for (i = 0; i < l.length(); ++i)
-        pageSizes.append(l[i].value<QSizeF>());
+        pageSizes.append(l[i].toSizeF());
     }
   }
   else {
@@ -257,18 +319,6 @@ void TestQtPDF::page()
   }
 }
 
-void compareDestination(const QtPDF::PDFDestination & a, const QtPDF::PDFDestination & b)
-{
-  QCOMPARE(a.isExplicit(), b.isExplicit());
-  QCOMPARE(a.page(), b.page());
-  if (a.isExplicit()) {
-    QCOMPARE(a.rect(), b.rect());
-    QCOMPARE(a.zoom(), b.zoom());
-  }
-  else
-    QCOMPARE(a.destinationName(), b.destinationName());
-}
-
 void TestQtPDF::resolveDestination_data()
 {
   QTest::addColumn<pDoc>("doc");
@@ -283,7 +333,7 @@ void TestQtPDF::resolveDestination_data()
   {
     QtPDF::PDFDestination d(1);
     QtPDF::PDFDestination n(1);
-    d.setRect(QRectF(102.000000167333, 750.890013065086, -1, -1));
+    d.setRect(QRectF(102, 750.89, -1, -1));
     n.setDestinationName(QString::fromLatin1("page.2"));
     newDocTest("annotations") << d << d;
     newDocTest("annotations") << n << d;
@@ -504,7 +554,7 @@ void TestQtPDF::fileSize_data()
 
   newDocTest("invalid") << static_cast<qint64>(0);
   newDocTest("base14-fonts") << static_cast<qint64>(3800);
-  newDocTest("base14-locked") << static_cast<qint64>(0);
+  newDocTest("base14-locked") << static_cast<qint64>(4292);
   newDocTest("pgfmanual") << static_cast<qint64>(5346838);
   newDocTest("annotations") << static_cast<qint64>(11817);
 }
@@ -605,7 +655,8 @@ void TestQtPDF::fonts()
   QCOMPARE(actualFontNames, fontNames);
 }
 
-void compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDFToC & expected)
+// static
+void TestQtPDF::compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDFToC & expected)
 {
   QCOMPARE(actual.size(), expected.size());
   if (QTest::currentTestFailed()) return;
@@ -616,7 +667,8 @@ void compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDF
   }
 }
 
-void printToC(const QtPDF::Backend::PDFToC & toc, const QString indent = QString::fromLatin1("  "))
+// static
+void TestQtPDF::printToC(const QtPDF::Backend::PDFToC & toc, const QString & indent)
 {
   for (int i = 0; i < toc.size(); ++i) {
     qDebug() << qPrintable(indent + toc[i].label());
@@ -684,36 +736,8 @@ void TestQtPDF::page_renderToImage()
   QVERIFY(render == ref);
 }
 
-namespace QtPDF {
-bool operator== (const QtPDF::PDFAction & a, const QtPDF::PDFAction & b) {
-  if (a.type() != b.type()) return false;
-  switch (a.type()) {
-  case QtPDF::PDFAction::ActionTypeGoTo:
-  {
-    const QtPDF::PDFGotoAction & A = reinterpret_cast<const QtPDF::PDFGotoAction &>(a);
-    const QtPDF::PDFGotoAction & B = reinterpret_cast<const QtPDF::PDFGotoAction &>(b);
-
-    compareDestination(A.destination(), B.destination());
-    if (QTest::currentTestFailed()) return false;
-    if (A.isRemote() != B.isRemote()) return false;
-    if (A.filename() != B.filename()) return false;
-    if (A.openInNewWindow() != B.openInNewWindow()) return false;
-
-    return true;
-  }
-  case QtPDF::PDFAction::ActionTypeURI:
-  {
-    const QtPDF::PDFURIAction & A = reinterpret_cast<const QtPDF::PDFURIAction &>(a);
-    const QtPDF::PDFURIAction & B = reinterpret_cast<const QtPDF::PDFURIAction &>(b);
-    return A.url() == B.url();
-  }
-  default:
-    return false;
-  }
-}
-} // namespace QtPDF
-
-void printAction(const QtPDF::PDFAction & a)
+// static
+void TestQtPDF::printAction(const QtPDF::PDFAction & a)
 {
   switch (a.type()) {
   case QtPDF::PDFAction::ActionTypeGoTo:
@@ -739,7 +763,8 @@ void printAction(const QtPDF::PDFAction & a)
   }
 }
 
-void compareLinks(const QtPDF::Annotation::Link & actual, const QtPDF::Annotation::Link & expected)
+// static
+void TestQtPDF::compareLinks(const QtPDF::Annotation::Link & actual, const QtPDF::Annotation::Link & expected)
 {
   QCOMPARE(actual.quadPoints(), expected.quadPoints());
   QTEST_ASSERT(actual.actionOnActivation());
@@ -772,7 +797,7 @@ void TestQtPDF::page_loadLinks_data()
     l.setRect(r);
     l.setQuadPoints(QPolygonF(r));
     QtPDF::PDFDestination d(1);
-    d.setRect(QRectF(103.0000001689736, 712.8900124039062, -1, -1));
+    d.setRect(QRectF(103, 712.89, -1, -1));
     l.setActionOnActivation(new QtPDF::PDFGotoAction(d));
     data << l;
 
@@ -809,7 +834,8 @@ void TestQtPDF::page_loadLinks()
   }
 }
 
-void compareAnnotation(const QtPDF::Annotation::AbstractAnnotation & a, const QtPDF::Annotation::AbstractAnnotation & b)
+// static
+void TestQtPDF::compareAnnotation(const QtPDF::Annotation::AbstractAnnotation & a, const QtPDF::Annotation::AbstractAnnotation & b)
 {
   int pageA = (a.page().toStrongRef() ? a.page().toStrongRef()->pageNum() : -1);
   int pageB = (b.page().toStrongRef() ? b.page().toStrongRef()->pageNum() : -1);
@@ -820,7 +846,8 @@ void compareAnnotation(const QtPDF::Annotation::AbstractAnnotation & a, const Qt
   QCOMPARE(a.contents(), b.contents());
 }
 
-void compareAnnotations(const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & a, const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & b)
+// static
+void TestQtPDF::compareAnnotations(const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & a, const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & b)
 {
   QCOMPARE(a.size(), b.size());
 
@@ -830,7 +857,8 @@ void compareAnnotations(const QList< QSharedPointer<QtPDF::Annotation::AbstractA
   }
 }
 
-void printAnnotation(const QtPDF::Annotation::AbstractAnnotation & a)
+// static
+void TestQtPDF::printAnnotation(const QtPDF::Annotation::AbstractAnnotation & a)
 {
   int page = (a.page().toStrongRef() ? a.page().toStrongRef()->pageNum() : -1);
   qDebug() << "   Type:" << a.type() << "page:" << page << "rect:" << a.rect() << "contents:" << a.contents();
@@ -942,7 +970,8 @@ void TestQtPDF::page_selectedText()
   QCOMPARE(page->selectedText(selection), text);
 }
 
-void compareSearchResults(const QList<QtPDF::Backend::SearchResult> & actual, const QList<QtPDF::Backend::SearchResult> & expected)
+// static
+void TestQtPDF::compareSearchResults(const QList<QtPDF::Backend::SearchResult> & actual, const QList<QtPDF::Backend::SearchResult> & expected)
 {
   QCOMPARE(actual.size(), expected.size());
   for (int i = 0; i < actual.size(); ++i) {
@@ -1037,12 +1066,11 @@ void TestQtPDF::paperSize()
   QCOMPARE(ps.landscape(), landscape);
 }
 
-
-
+} // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
   Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
 #endif
 
-QTEST_MAIN(TestQtPDF)
+QTEST_MAIN(UnitTest::TestQtPDF)
 //#include "TestQtPDF.moc"

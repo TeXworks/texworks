@@ -69,12 +69,18 @@ can be passed on to you, the packager.
 Other variables that may be useful for packaging include:
    BUILD_SHARED_PLUGINS      flag to indicate whether plugins should be built
                              as separate shared libraries [true]
+   PLATFORM_DEPENDENCIES     additional libraries required by Qt platform
+                             support plugins; currently on used when building
+                             statically on Windows' separate multiple libraries
+                             by a semicolon
+   Poppler_ADDITIONAL_DEPENDENCIES  additional libraries required by poppler;
+                             useful only if CMake does not pick them up
+                             automatically (e.g. when linking poppler
+                             statically); separate multiple libraries by a
+                             semicolon
    PREFER_BUNDLED_SYNCTEX    set this flag to use SyncTeX is bundled with
                              TeXworks even if a system-wide installation is
                              found [false]
-   DESIRED_QT_VERSION        set to 4 or 5 to indicate which Qt version to use;
-                             useful only if you have several versions of Qt
-                             installed
    TeXworks_PLUGIN_DIR       place to install plugin libraries to [OS specific]
    TEXWORKS_ADDITIONAL_LIBS  additional libraries that need to be passed to the
                              linker; useful only if CMake does not pick up all
@@ -141,18 +147,10 @@ documents). By default, TeXworks looks for a folder named "poppler-data"
 alongside the main application on Windows and Mac (see src/TWApp.cpp -
 TWApp::init()). It only sets this directory once while starting up, however, so
 you need ensure poppler doesn't mess with it by building poppler with the
-lib-patches/poppler-qt4-globalparams.patch patch.
+lib-patches/poppler-0003-Add-support-for-persistent-GlobalParams.patch patch.
 
 To check if poppler-data is picked up properly, use the poppler-data testcase
 from https://github.com/TeXworks/texworks/tree/master/testcases.
-
-
-Other libraries and patches
-===========================
-
- * Qt 4.7.0 and 4.7.1 have a bug crashing TeXworks occasionally when using the
-   "Highlight current line" feature together with "Wrap Lines" due to a memory
-   overflow. Use lib-patches/qt-4_7-qpathclipper.patch to fix that.
 
 
 Further information and help

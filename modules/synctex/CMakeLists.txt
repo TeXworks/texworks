@@ -13,3 +13,13 @@ set(SYNCTEX_HDRS
 )
 
 add_library(SyncTeX STATIC ${SYNCTEX_SRCS} ${SYNCTEX_HDRS})
+
+set_target_properties(SyncTeX PROPERTIES
+  INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
+# SyncTeX uses vasprintf which is not in POSIX; thus gcc prints a warning unless
+# _GNU_SOURCE is defined. Other compilers seem to be fine.
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  target_compile_definitions(SyncTeX PRIVATE _GNU_SOURCE)
+endif()

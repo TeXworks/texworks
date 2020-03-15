@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014-2019 Stefan Löffler <st.loeffler@gmail.com> -->
+<!-- Copyright 2014-2020 Stefan Löffler <st.loeffler@gmail.com> -->
 <component type="desktop-application">
 	<id>org.tug.texworks.desktop</id>
 	<metadata_license>CC0-1.0</metadata_license>
@@ -23,7 +23,7 @@
 	<summary xml:lang="nn">Eit enkelt miljø for redigering, sideombrekking og vising av TeX-dokument</summary>
 	<summary xml:lang="pl">Proste środowisko do edycji, składu oraz przeglądania dokumentów w TeXu</summary>
 	<summary xml:lang="pt_BR">TeXworks é um ambiente simples para editar, compilar e prever documentos TeX</summary>
-	<summary xml:lang="ru">TeXworks это простая программа для редактирования, вёрстки и просмотра документов TeX</summary>
+	<summary xml:lang="ru">TeXworks — это простая программа для редактирования, вёрстки и просмотра документов TeX</summary>
 	<summary xml:lang="sl">Okolje za enostavno urejanje, stavljenje in predogled TeX-ovih dokumentov</summary>
 	<summary xml:lang="tr">TeXworks, TeX belgelerini düzenleme, dizme ve önizleme için basit bir ortamdır</summary>
 	<summary xml:lang="zh_CN">一个用于编辑、排版和预览 TeX 文档的简洁集成环境</summary>
@@ -199,20 +199,20 @@
 			og PDF-resultat og moglegheit for utvidingar via eit eige skriptgrensesnitt.
 		</p>
 		<p xml:lang="ru">
-			TeXworks это среда для подготовки документов в TeX (LaTeX, ConTeXt и др.) формате,
-			включающий в себя TeX ориентированный основанный на Unicode редактор, встроенный
-			просмотрщик PDF и простой и понятный интерфейс, доступный обычным пользователям.
+			TeXworks — это среда для подготовки документов в TeX (LaTeX, ConTeXt и др.) формате,
+			состоящая из редактора, поддерживающего Unicode и встроенного просмотра PDF документов
+			соединённые в простом и понятном интерфейсе.
 		</p>
 		<p xml:lang="ru">
 			При своём создании TeXworks взял на основу популярную программу TeXShop для Mac OS X,
-			разрабатываемую Диком Кохом, которая предоставила широкому кругу пользователей без
-			большого опыта получать высококлассные документы используя TeX. Цель TeXworks —
-			предоставить те же возможности простого и интегрированного окружения для пользователей
-			на других платформах, в особенности GNU/Linux и Windows.
+			разрабатываемую Диком Кохом, которая дала большому числу пользователей без лишних
+			усилий получать высококлассные документы используя TeX. Цель TeXworks — предоставить
+			те же возможности простого и интегрированного окружения для пользователей на других
+			платформах, в особенности GNU/Linux и Windows.
 		</p>
 		<p xml:lang="ru">
-			Среди прочего, в TeXworks имеется встроенный просмотр PDF, синхронизация между
-			исходными TeX файлами и PDF выводом и возможности для расширения с помощью сценариев.
+			Среди прочего в TeXworks имеется встроенный просмотр PDF, синхронизация между
+			исходными TeX файлами и PDF выводом, и возможности для расширения с помощью сценариев.
 		</p>
 		<p xml:lang="sl">
 			TeXworks je program za pripravo TeX-ovih dokumentov (vključno z LaTeX-om, ConTeXt-om, itd.).
@@ -245,8 +245,10 @@
 	</provides>
 	<launchable type="desktop-id">texworks.desktop</launchable>
 	<translation type="qt" />
+	<content_rating type="oars-1.0" />
 
 	<releases>
+		<release version="0.6.4" date="2020-03-15" />
 		<release version="0.6.3" date="2019-03-16" />
 		<release version="0.6.2" date="2017-04-30" />
 		<release version="0.6.1" date="2016-05-01" />

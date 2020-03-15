@@ -1,5 +1,27 @@
+/*
+	This is part of TeXworks, an environment for working with TeX documents
+	Copyright (C) 2018-2019  Stefan Löffler
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+	For links to further information, or to contact the authors,
+	see <http://www.tug.org/texworks/>.
+*/
 #include "BibTeXFile_test.h"
 #include "BibTeXFile.h"
+
+namespace UnitTest {
 
 void TestBibTeXFile::load()
 {
@@ -72,8 +94,10 @@ void TestBibTeXFile::entry_howPublished()
   QCOMPARE(b.entry(0).howPublished(), QString());
 }
 
+} // namespace UnitTest
+
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
   Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
 #endif
 
-QTEST_MAIN(TestBibTeXFile)
+QTEST_MAIN(UnitTest::TestBibTeXFile)

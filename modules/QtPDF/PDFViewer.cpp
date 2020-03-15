@@ -1,6 +1,19 @@
+/**
+ * Copyright (C) 2013-2020  Charlie Sharpsteen, Stefan Löffler
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ */
 #include "PDFViewer.h"
 
-PDFViewer::PDFViewer(const QString pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
+PDFViewer::PDFViewer(const QString & pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   QMainWindow(parent, flags)
 {
   QtPDF::PDFDocumentWidget *docWidget = new QtPDF::PDFDocumentWidget(this);
@@ -91,7 +104,7 @@ void PDFViewer::open()
     return;
 
   QtPDF::PDFDocumentWidget * docWidget = qobject_cast<QtPDF::PDFDocumentWidget*>(centralWidget());
-  Q_ASSERT(docWidget != NULL);
+  Q_ASSERT(docWidget != nullptr);
   docWidget->load(pdf_doc);
 }
 
@@ -130,9 +143,7 @@ void PDFViewer::syncFromPdf(const int page, const QPointF pos)
 }
 
 
-PageCounter::PageCounter(QWidget *parent, Qt::WindowFlags f) : super(parent, f),
-  currentPage(1),
-  lastPage(-1)
+PageCounter::PageCounter(QWidget *parent, Qt::WindowFlags f) : super(parent, f)
 {
   refreshText();
 }
@@ -158,8 +169,7 @@ void PageCounter::refreshText() {
 }
 
 
-ZoomTracker::ZoomTracker(QWidget *parent, Qt::WindowFlags f) : super(parent, f),
-  zoom(1.0)
+ZoomTracker::ZoomTracker(QWidget *parent, Qt::WindowFlags f) : super(parent, f)
 {
   refreshText();
 }

@@ -44,8 +44,7 @@ By default, CMake will look for Poppler and produce the `poppler_viewer`
 executable. To enable MuPDF and the `mupdf_viewer`, add `-DWITH_MUDPF=YES` to
 the options passed to `cmake`.
 
-For using poppler-qt5, poppler >= 0.23.3 and Qt5 are required. You can set
-DESIRED_QT_VERSION to force a specific Qt version (e.g., Qt5).
+For using poppler-qt5, poppler >= 0.23.3 and Qt5 are required.
 
 ### Building on Windows
 

@@ -1,7 +1,29 @@
+/*
+  This is part of TeXworks, an environment for working with TeX documents
+  Copyright (C) 2013-2019  Stefan Löffler
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  For links to further information, or to contact the authors,
+  see <http://www.tug.org/texworks/>.
+*/
 #include <QtTest/QtTest>
 #include <QObject>
 
 #include "PDFBackend.h"
+
+namespace UnitTest {
 
 class TestQtPDF : public QObject
 {
@@ -13,6 +35,16 @@ class TestQtPDF : public QObject
 
   QTestData & newDocTest(const char * tag);
   QTestData & newPageTest(const char * tag, const unsigned int iPage);
+
+  static void compareAnnotation(const QtPDF::Annotation::AbstractAnnotation & a, const QtPDF::Annotation::AbstractAnnotation & b);
+  static void compareAnnotations(const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & a, const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & b);
+  static void compareLinks(const QtPDF::Annotation::Link & actual, const QtPDF::Annotation::Link & expected);
+  static void compareSearchResults(const QList<QtPDF::Backend::SearchResult> & actual, const QList<QtPDF::Backend::SearchResult> & expected);
+  static void compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDFToC & expected);
+
+  static void printAction(const QtPDF::PDFAction & a);
+  static void printAnnotation(const QtPDF::Annotation::AbstractAnnotation & a);
+  static void printToC(const QtPDF::Backend::PDFToC & toc, const QString & indent = QString::fromLatin1("  "));
 
 private slots:
   void backendInterface();
@@ -107,6 +139,8 @@ private slots:
   void paperSize_data();
   void paperSize();
 };
+
+} // namespace UnitTest
 
 typedef QMap<QString, QString> QStringMap;
 

@@ -7,6 +7,10 @@
 #  SYNCTEX_VERSION_MAJOR, SYNCTEX_VERSION_MINOR, SYNCTEX_VERSION_PATCH,
 #  SYNCTEX_VERSION_STRING - SyncTeX version information
 #
+# as well as the IMPORT target
+#
+#  SyncTeX::synctex
+#
 # Redistribution and use of this file is allowed according to the terms of the
 # MIT license. For details see the file COPYING-CMAKE-MODULES.
 
@@ -62,7 +66,16 @@ MARK_AS_ADVANCED(SYNCTEX_INCLUDE_DIR SYNCTEX_LIBRARIES )
 
 endif ( NOT PREFER_BUNDLED_SYNCTEX )
 
-if ( NOT SYNCTEX_FOUND )
+if (SYNCTEX_FOUND)
+  if (NOT TARGET SyncTeX::synctex)
+    add_library(SyncTeX::synctex UNKNOWN IMPORTED)
+    set_target_properties(SyncTeX::synctex PROPERTIES
+      IMPORTED_LOCATION "${SYNCTEX_LIBRARIES}"
+      INTERFACE_INCLUDE_DIRECTORIES "${SYNCTEX_INCLUDE_DIR}"
+    )
+  endif ()
+else ()
+
   # If we didn't find a system-wide synctex (or didn't look for one), use the
   # bundled version
   set(SYNCTEX_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/modules/synctex")
@@ -78,4 +91,9 @@ if ( NOT SYNCTEX_FOUND )
   endif ()
 
   FIND_PACKAGE_HANDLE_STANDARD_ARGS(Synctex REQUIRED_VARS SYNCTEX_LIBRARIES SYNCTEX_INCLUDE_DIR VERSION_VAR SYNCTEX_VERSION_STRING )
-endif ( NOT SYNCTEX_FOUND )
+
+  if (NOT TARGET SyncTeX::synctex)
+    add_library(SyncTeX::synctex ALIAS SyncTeX)
+  endif ()
+endif ()
+

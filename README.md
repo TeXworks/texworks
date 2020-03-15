@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/TeXworks/texworks.svg?branch=master)](https://travis-ci.org/TeXworks/texworks)
+[![Build Status](https://travis-ci.com/TeXworks/texworks.svg?branch=master)](https://travis-ci.com/TeXworks/texworks)
+[![Build status](https://ci.appveyor.com/api/projects/status/eb4e9108blt0pehr?svg=true)](https://ci.appveyor.com/project/stloeffler/texworks)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4e9f1a5159b4060a88dd72dc3803f54)](https://www.codacy.com/app/TeXworks/texworks?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TeXworks/texworks&amp;utm_campaign=Badge_Grade)
 
 About TeXworks
@@ -30,7 +31,7 @@ debug information), or file a bug report.
 License
 -------
 
-TeXworks is copyright (C) 2007-2019 by Jonathan Kew, Stefan Löffler, and Charlie
+TeXworks is copyright (C) 2007-2020 by Jonathan Kew, Stefan Löffler, and Charlie
 Sharpsteen. Distributed under the terms of the GNU General Public License,
 version 2 or (at your option) any later version.
 See the file COPYING for details.
@@ -41,22 +42,23 @@ modules/synctex/synctex_parser.c for license details.
 Building TeXworks
 -----------------
 
-Notes by Jonathan Kew, updated 2011-03-20 and 2015-03-29 by Stefan Löffler
+Notes by Jonathan Kew, updated 2011-03-20, 2015-03-29, 2019-03-21 by Stefan
+Löffler
 
 To build TeXworks from source, you will need to install developer packages (or
 equivalent) for:
 
--   Qt (4.6.0 or later)
-    <http://www.qt.io/download/>
+-   Qt (5.0 or later)
+    <https://www.qt.io/download/>
 
--   Poppler (using the latest stable release, currently 0.16, is strongly
-    recommended, although versions as old as the 0.6 series should still work)
-    <http://poppler.freedesktop.org/>
+-   Poppler (using the latest stable release is strongly recommended, although
+    versions as old as the 0.24 series should still work)
+    <https://poppler.freedesktop.org/>
 
 -   Hunspell (release 1.2.8 or later is recommended; earlier 1.2.x releases may
     be used, although support for some non-Latin-script languages may be
     lacking)
-    <http://hunspell.github.io/>
+    <https://hunspell.github.io/>
 
 along with their dependencies (such as Freetype, fontconfig, zlib, etc.) If you
 also want to build the scripting plugins (optional), you additionally need
