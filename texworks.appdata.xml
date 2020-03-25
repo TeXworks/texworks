@@ -248,6 +248,7 @@
 	<content_rating type="oars-1.0" />
 
 	<releases>
+		<release version="0.6.5" date="2020-03-25" />
 		<release version="0.6.4" date="2020-03-15" />
 		<release version="0.6.3" date="2019-03-16" />
 		<release version="0.6.2" date="2017-04-30" />
