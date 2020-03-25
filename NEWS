@@ -1,4 +1,10 @@
-Release 0.6.4 (TL'20) [March 2020]
+Release 0.6.5 (TL'20) [March 2020]
+	* Fix text selection handling when moving the mouse
+	* Fix auto-reloading of TeX documents that were changed outside TeXworks
+
+	* Update translations
+
+Release 0.6.4 [March 2020]
     * Add shortcut (Ctrl+Shift+J) to invoke SyncTeX at the cursor position
     * Make shortcuts for autocompletion configurable
     * Make "Auto-Follow Focus" configurable in the preferences
