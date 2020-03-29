@@ -19,11 +19,11 @@ SET(POPPLER_DATA_ARCHIVE "${POPPLER_DATA_BASE}.tar.gz")
 SET(POPPLER_DATA_ARCHIVE_URL "http://poppler.freedesktop.org/${POPPLER_DATA_ARCHIVE}")
 
 # TeXworks HTML manual: version, matching hash, and derived variables.
-SET(TW_MANUAL_VERSION "20150506-64280a1")
-SET(TW_MANUAL_ARCHIVE_MD5 "6f4cb6bb29b1ff3b482ff0700ff06d9d")
+SET(TW_MANUAL_VERSION "20200329154824-18e0761")
+SET(TW_MANUAL_ARCHIVE_SHA256 "d74cd729abd1dd4b892f6e6e99334cb3f01aceffb4836d848fc84fcfdf2b8b8e")
 SET(TW_MANUAL_BASE "TeXworks-manual-html-${TW_MANUAL_VERSION}")
 SET(TW_MANUAL_ARCHIVE "${TW_MANUAL_BASE}.zip")
-SET(TW_MANUAL_ARCHIVE_URL "https://github.com/TeXworks/manual/releases/download/2015-05-06/${TW_MANUAL_ARCHIVE}")
+SET(TW_MANUAL_ARCHIVE_URL "https://github.com/TeXworks/manual/releases/download/2020-03-29/${TW_MANUAL_ARCHIVE}")
 
 # This `IF` statement ensures that the following commands are executed only when
 # CPack is running---i.e. when a user executes `make package` but not `make install`
@@ -62,10 +62,10 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
   # Download and install TeXworks manual
   # ------------------------------------
   IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}" )
-    MESSAGE(STATUS "Downloading TeXworks HTML manual")
+    MESSAGE(STATUS "Downloading TeXworks HTML manual from ${TW_MANUAL_ARCHIVE_URL}")
     FILE(DOWNLOAD "${TW_MANUAL_ARCHIVE_URL}"
       "${PROJECT_SOURCE_DIR}/${TW_MANUAL_ARCHIVE}"
-      EXPECTED_MD5 "${TW_MANUAL_ARCHIVE_MD5}"
+      EXPECTED_HASH SHA256=${TW_MANUAL_ARCHIVE_SHA256}
       SHOW_PROGRESS
     )
   ELSE ( )
