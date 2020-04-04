@@ -1,0 +1,4 @@
+[Icon Theme]
+Name=tango-texworks
+Comment=Tango-based icons for the TeX editor TeXworks
+Inherits=tango-qtpdf

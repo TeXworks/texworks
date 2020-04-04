@@ -300,8 +300,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-     <normaloff>:/QtPDF/icons/zoom-fitwindow.png</normaloff>:/QtPDF/icons/zoom-fitwindow.png</iconset>
+    <iconset theme="zoom-fit-best"/>
    </property>
    <property name="text">
     <string>Fit to Window</string>
@@ -315,8 +314,7 @@
   </action>
   <action name="actionActual_Size">
    <property name="icon">
-    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-     <normaloff>:/QtPDF/icons/zoom100.png</normaloff>:/QtPDF/icons/zoom100.png</iconset>
+    <iconset theme="zoom-original"/>
    </property>
    <property name="text">
     <string>Actual Size</string>
@@ -333,8 +331,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-     <normaloff>:/QtPDF/icons/zoom-fitwidth.png</normaloff>:/QtPDF/icons/zoom-fitwidth.png</iconset>
+    <iconset theme="zoom-fit-width"/>
    </property>
    <property name="text">
     <string>Fit to Width</string>
@@ -593,8 +590,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-     <normaloff>:/QtPDF/icons/hand.png</normaloff>:/QtPDF/icons/hand.png</iconset>
+    <iconset theme="tool-pan"/>
    </property>
    <property name="text">
     <string>Scroll</string>
@@ -605,8 +601,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-     <normaloff>:/QtPDF/icons/select-text.png</normaloff>:/QtPDF/icons/select-text.png</iconset>
+    <iconset theme="tool-select-text"/>
    </property>
    <property name="text">
     <string>Select Text</string>
@@ -764,8 +759,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-     <normaloff>:/QtPDF/icons/zoom-fitcontentwidth.png</normaloff>:/QtPDF/icons/zoom-fitcontentwidth.png</iconset>
+    <iconset theme="zoom-fit-content-width"/>
    </property>
    <property name="text">
     <string>Fit to Content Width</string>
@@ -786,8 +780,7 @@
      <bool>true</bool>
     </property>
     <property name="icon">
-     <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-      <normaloff>:/QtPDF/icons/pagemode-single.png</normaloff>:/QtPDF/icons/pagemode-single.png</iconset>
+     <iconset theme="view-pages-single"/>
     </property>
     <property name="text">
      <string>Single Page</string>
@@ -798,8 +791,7 @@
      <bool>true</bool>
     </property>
     <property name="icon">
-     <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-      <normaloff>:/QtPDF/icons/pagemode-continuous.png</normaloff>:/QtPDF/icons/pagemode-continuous.png</iconset>
+     <iconset theme="view-pages-continuous"/>
     </property>
     <property name="text">
      <string>Single Page Continuous</string>
@@ -810,8 +802,7 @@
      <bool>true</bool>
     </property>
     <property name="icon">
-     <iconset resource="../modules/QtPDF/QtPDF_icons.qrc">
-      <normaloff>:/QtPDF/icons/pagemode-twocols.png</normaloff>:/QtPDF/icons/pagemode-twocols.png</iconset>
+     <iconset theme="view-pages-facing-continuous"/>
     </property>
     <property name="text">
      <string>Two Pages Continuous</string>
@@ -820,7 +811,6 @@
   </actiongroup>
  </widget>
  <resources>
-  <include location="../modules/QtPDF/QtPDF_icons.qrc"/>
   <include location="../res/resources.qrc"/>
  </resources>
  <connections>

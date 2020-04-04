@@ -105,6 +105,7 @@ void TWApp::init()
 {
 	customTextCodecs << new MacCentralEurRomanCodec();
 
+	QIcon::setThemeName(QStringLiteral("tango-texworks"));
 	QIcon appIcon;
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 	// The Compiz window manager doesn't seem to support icons larger than

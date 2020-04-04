@@ -1,4 +1,7 @@
 <RCC>
+	<qresource>
+		<file>icons/tango-texworks/index.theme</file>
+	</qresource>
 	<qresource prefix="/images">
 		<file>images/TeXworks.png</file>
 		<file>images/TeXworks-128.png</file>
