@@ -1826,7 +1826,7 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
     QVBoxLayout * layout = new QVBoxLayout();
   
     _unlockWidgetLockIcon = new QLabel(_unlockWidget);
-    _unlockWidgetLockIcon->setPixmap(QPixmap(QString::fromUtf8(":/QtPDF/icons/lock.png")));
+    _unlockWidgetLockIcon->setPixmap(QIcon::fromTheme(QStringLiteral("status-locked")).pixmap(48));
     _unlockWidgetLockText = new QLabel(_unlockWidget);
     _unlockWidgetUnlockButton = new QPushButton(_unlockWidget);
     

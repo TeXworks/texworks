@@ -22,7 +22,8 @@
 
 int main(int argc, char **argv) {
   QApplication app(argc, argv);
-  app.setWindowIcon(QIcon(QString::fromUtf8(":/QtPDF/icons/logo.png")));
+  QIcon::setThemeName(QStringLiteral("tango-qtpdf"));
+  app.setWindowIcon(QIcon::fromTheme(QStringLiteral("QtPDF")));
   PDFViewer mainWin(QString::fromUtf8("pgfmanual.pdf"));
 
   mainWin.show();
