@@ -18,6 +18,22 @@
     <file>icons/tango-qtpdf/actions/32x32/zoom-original.png</file>
     <file>icons/tango-qtpdf/actions/32x32/zoom-out.png</file>
     <file>icons/tango-qtpdf/status/48x48/status-locked.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/tool-magnifier.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/tool-measure.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/tool-pan.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/tool-select-text.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/tool-zoom-select.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/view-pages-continuous.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/view-pages-facing-continuous.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/view-pages-single.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/view-presentation.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/zoom-fit-best.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/zoom-fit-content-width.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/zoom-fit-width.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/zoom-in.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/zoom-original.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/zoom-out.png</file>
+    <file>icons/tango-qtpdf/status/48x48@2/status-locked.png</file>
   </qresource>
   <qresource prefix="QtPDF">
     <file>icons/magnifiercursor.png</file>

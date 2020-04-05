@@ -3,5 +3,6 @@
   <qresource>
     <file>icons/tango-qtpdf/actions/32x32/document-open.png</file>
     <file>icons/tango-qtpdf/apps/512x512/QtPDF.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/document-open.png</file>
   </qresource>
 </RCC>

@@ -21,6 +21,11 @@
 #endif
 
 int main(int argc, char **argv) {
+  QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#if QT_VERSION >= 0x050600
+  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
+
   QApplication app(argc, argv);
   QIcon::setThemeName(QStringLiteral("tango-qtpdf"));
   app.setWindowIcon(QIcon::fromTheme(QStringLiteral("QtPDF")));
