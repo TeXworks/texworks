@@ -1,30 +1,6 @@
 Sources:
 ========
 
-document-open.png:                Tango (http://commons.wikimedia.org/w/index.php?title=File:Document-open.svg&oldid=57073679)
-magnifiercursor.png:              Derived from Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
-QtPDF.png:                        Derived from scalable/logo.svg
-status-locked.png:                Derived from scalable/Emblem-readonly.svg
-tool-magnifier.png:               Qt (/tools/assistant/tools/assistant/images/mac/resetzoom.png)
-tool-measure.png:                 Derived from scalable/Measure.svg
-tool-pan.png:                     Derived from scalable/hand.svg
-tool-select-text.png:             Derived from scalable/text-select.svg
-tool-zoom-select.png:             Derived from scalable/zoom.svg
-view-pages-continuous.png:        Derived from scalable/pagemode.svg
-view-pages-facing-continuous.png: Derived from scalable/pagemode.svg
-view-pages-single.png:            Derived from scalable/pagemode.svg
-view-presentation.png:            Derived from scalable/X-office-presentation.svg
-zoom-fit-best.png:                Derived from scalable/zoom-fit.svg
-zoom-fit-content-width.png:       Derived from scalable/zoom-fit.svg
-zoom-fit-width.png:               Derived from scalable/zoom-fit.svg
-zoom-in.png:                      Qt (/tools/assistant/tools/assistant/images/mac)
-zoomincursor.png:                 Derived from zoom-in.png
-zoom-out.png:                     Qt (/tools/assistant/tools/assistant/images/mac)
-zoomoutcursor.png:                Derived from zoom-out.png
-zoom-original.png:                Derived from scalable/zoom-fit.svg
-
-Scalables:
-----------
 document-open:                Tango (https://commons.wikimedia.org/w/index.php?title=File:Document-open.svg&oldid=57073679)
 QtPDF:                        Hand-made using FreeSerif font
 status-locked:                Tango (https://commons.wikimedia.org/w/index.php?title=File:Emblem-readonly.svg&oldid=57074301)
@@ -44,6 +20,12 @@ zoom-fit-width:               Derived from Tango (https://commons.wikimedia.org/
 zoom-in:                      Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:View-zoom-in.svg&oldid=383825483)
 zoom-out:                     Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:View-zoom-out.svg&oldid=383825484)
 zoom-original:                Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764) and CodeTangoSet (https://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+
+Cursors:
+--------
+zoomincursor.png:    Derived from Qt (https://github.com/qt/qttools/blob/dev/src/assistant/assistant/images/mac/zoomin.png)
+zoomoutcursor.png:   Derived from Qt (https://github.com/qt/qttools/blob/dev/src/assistant/assistant/images/mac/zoomout.png)
+magnifiercursor.png: Derived from Qt (https://github.com/qt/qttools/blob/dev/src/assistant/assistant/images/mac/resetzoom.png)
 
 
 Qt icons are under both the GPLv3 and LGPLv2.1
