@@ -69,7 +69,7 @@ ZoomIn::ZoomIn(PDFDocumentView * parent)
 : AbstractTool(parent),
   _started(false)
 {
-  _cursor = QCursor(QPixmap(QString::fromUtf8(":/QtPDF/icons/zoomincursor.png")));
+  _cursor = QCursor(QIcon::fromTheme(QStringLiteral("zoom-in-cursor")).pixmap(32));
 }
 
 void ZoomIn::mousePressEvent(QMouseEvent * event)
@@ -104,7 +104,7 @@ ZoomOut::ZoomOut(PDFDocumentView * parent)
 : AbstractTool(parent),
   _started(false)
 {
-  _cursor = QCursor(QPixmap(QString::fromUtf8(":/QtPDF/icons/zoomoutcursor.png")));
+  _cursor = QCursor(QIcon::fromTheme(QStringLiteral("zoom-out-cursor")).pixmap(32));
 }
 
 void ZoomOut::mousePressEvent(QMouseEvent * event)
@@ -139,7 +139,7 @@ MagnifyingGlass::MagnifyingGlass(PDFDocumentView * parent) :
   _started(false)
 {
   _magnifier = new PDFDocumentMagnifierView(parent);
-  _cursor = QCursor(QPixmap(QString::fromUtf8(":/QtPDF/icons/magnifiercursor.png")));
+  _cursor = QCursor(QIcon::fromTheme(QStringLiteral("tool-magnifier-cursor")).pixmap(32));
 }
 
 void MagnifyingGlass::setMagnifierShape(const MagnifierShape shape)

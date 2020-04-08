@@ -17,6 +17,9 @@
     <file>icons/tango-qtpdf/actions/32x32/zoom-in.png</file>
     <file>icons/tango-qtpdf/actions/32x32/zoom-original.png</file>
     <file>icons/tango-qtpdf/actions/32x32/zoom-out.png</file>
+    <file>icons/tango-qtpdf/cursors/32x32/tool-magnifier-cursor.png</file>
+    <file>icons/tango-qtpdf/cursors/32x32/zoom-in-cursor.png</file>
+    <file>icons/tango-qtpdf/cursors/32x32/zoom-out-cursor.png</file>
     <file>icons/tango-qtpdf/status/48x48/status-locked.png</file>
     <file>icons/tango-qtpdf/actions/32x32@2/tool-magnifier.png</file>
     <file>icons/tango-qtpdf/actions/32x32@2/tool-measure.png</file>
@@ -34,10 +37,5 @@
     <file>icons/tango-qtpdf/actions/32x32@2/zoom-original.png</file>
     <file>icons/tango-qtpdf/actions/32x32@2/zoom-out.png</file>
     <file>icons/tango-qtpdf/status/48x48@2/status-locked.png</file>
-  </qresource>
-  <qresource prefix="QtPDF">
-    <file>icons/magnifiercursor.png</file>
-    <file>icons/zoomincursor.png</file>
-    <file>icons/zoomoutcursor.png</file>
   </qresource>
 </RCC>
