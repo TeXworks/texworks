@@ -184,7 +184,7 @@ void TWApp::init()
 	menuFile = menuBar->addMenu(tr("File"));
 
 	actionNew = new QAction(tr("New"), this);
-	actionNew->setIcon(QIcon(QString::fromLatin1(":/images/tango/document-new.png")));
+	actionNew->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
 	menuFile->addAction(actionNew);
 	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
 
@@ -193,13 +193,13 @@ void TWApp::init()
 	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
 
 	actionPreferences = new QAction(tr("Preferences..."), this);
-	actionPreferences->setIcon(QIcon(QString::fromLatin1(":/images/tango/preferences-system.png")));
+	actionPreferences->setIcon(QIcon::fromTheme(QStringLiteral("preferences-system")));
 	actionPreferences->setMenuRole(QAction::PreferencesRole);
 	menuFile->addAction(actionPreferences);
 	connect(actionPreferences, SIGNAL(triggered()), this, SLOT(preferences()));
 
 	actionOpen = new QAction(tr("Open..."), this);
-	actionOpen->setIcon(QIcon(QString::fromLatin1(":/images/tango/document-open.png")));
+	actionOpen->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
 	menuFile->addAction(actionOpen);
 	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
 

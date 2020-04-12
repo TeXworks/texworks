@@ -151,7 +151,6 @@ void PDFDocumentWindow::init()
 	toolButtonGroup->addButton(qobject_cast<QAbstractButton*>(toolBar->widgetForAction(actionMagnify)), QtPDF::PDFDocumentView::MouseMode_MagnifyingGlass);
 	toolButtonGroup->addButton(qobject_cast<QAbstractButton*>(toolBar->widgetForAction(actionScroll)), QtPDF::PDFDocumentView::MouseMode_Move);
 	toolButtonGroup->addButton(qobject_cast<QAbstractButton*>(toolBar->widgetForAction(actionSelect_Text)), QtPDF::PDFDocumentView::MouseMode_Select);
-//	toolButtonGroup->addButton(qobject_cast<QAbstractButton*>(toolBar->widgetForAction(actionSelect_Image)), kSelectImage);
 	connect(toolButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(setMouseMode(int)));
 	pdfWidget->setMouseModeMagnifyingGlass();
 
@@ -807,14 +806,14 @@ void PDFDocumentWindow::updateTypesettingAction(bool processRunning)
 {
 	if (processRunning) {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
-		actionTypeset->setIcon(QIcon(QString::fromLatin1(":/images/tango/process-stop.png")));
+		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
 		actionTypeset->setText(tr("Abort typesetting"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
 		enableTypesetAction(true);
 	}
 	else {
 		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
-		actionTypeset->setIcon(QIcon(QString::fromLatin1(":/images/images/runtool.png")));
+		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-start")));
 		actionTypeset->setText(tr("Typeset"));
 		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
 	}

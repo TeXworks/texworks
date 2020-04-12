@@ -202,8 +202,7 @@
   </action>
   <action name="actionFirst_Page">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/go-first.png</normaloff>:/images/tango/go-first.png</iconset>
+    <iconset theme="go-first"/>
    </property>
    <property name="text">
     <string>First Page</string>
@@ -214,8 +213,7 @@
   </action>
   <action name="actionPrevious_Page">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/go-previous.png</normaloff>:/images/tango/go-previous.png</iconset>
+    <iconset theme="go-previous"/>
    </property>
    <property name="text">
     <string>Previous Page</string>
@@ -229,8 +227,7 @@
   </action>
   <action name="actionNext_Page">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/go-next.png</normaloff>:/images/tango/go-next.png</iconset>
+    <iconset theme="go-next"/>
    </property>
    <property name="text">
     <string>Next Page</string>
@@ -244,8 +241,7 @@
   </action>
   <action name="actionLast_Page">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/go-last.png</normaloff>:/images/tango/go-last.png</iconset>
+    <iconset theme="go-last"/>
    </property>
    <property name="text">
     <string>Last Page</string>
@@ -267,8 +263,7 @@
   </action>
   <action name="actionZoom_In">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/zoomin.png</normaloff>:/images/images/zoomin.png</iconset>
+    <iconset theme="zoom-in"/>
    </property>
    <property name="text">
     <string>Zoom In</string>
@@ -282,8 +277,7 @@
   </action>
   <action name="actionZoom_Out">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/zoomout.png</normaloff>:/images/images/zoomout.png</iconset>
+    <iconset theme="zoom-out"/>
    </property>
    <property name="text">
     <string>Zoom Out</string>
@@ -345,8 +339,7 @@
   </action>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/document-new.png</normaloff>:/images/tango/document-new.png</iconset>
+    <iconset theme="document-new"/>
    </property>
    <property name="text">
     <string>New</string>
@@ -360,8 +353,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/document-open.png</normaloff>:/images/tango/document-open.png</iconset>
+    <iconset theme="document-open"/>
    </property>
    <property name="text">
     <string>Open...</string>
@@ -389,8 +381,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/edit-undo.png</normaloff>:/images/tango/edit-undo.png</iconset>
+    <iconset theme="edit-undo"/>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -407,8 +398,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/edit-redo.png</normaloff>:/images/tango/edit-redo.png</iconset>
+    <iconset theme="edit-redo"/>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -425,8 +415,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/edit-cut.png</normaloff>:/images/tango/edit-cut.png</iconset>
+    <iconset theme="edit-cut"/>
    </property>
    <property name="text">
     <string>Cut</string>
@@ -443,8 +432,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/edit-copy.png</normaloff>:/images/tango/edit-copy.png</iconset>
+    <iconset theme="edit-copy"/>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -461,8 +449,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/edit-paste.png</normaloff>:/images/tango/edit-paste.png</iconset>
+    <iconset theme="edit-paste"/>
    </property>
    <property name="text">
     <string>Paste</string>
@@ -490,8 +477,7 @@
   </action>
   <action name="actionTypeset">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/runtool.png</normaloff>:/images/images/runtool.png</iconset>
+    <iconset theme="process-start"/>
    </property>
    <property name="text">
     <string>Typeset</string>
@@ -505,8 +491,7 @@
   </action>
   <action name="actionPreferences">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/preferences-system.png</normaloff>:/images/tango/preferences-system.png</iconset>
+    <iconset theme="preferences-system"/>
    </property>
    <property name="text">
     <string>Preferences...</string>
@@ -578,8 +563,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/zoom.png</normaloff>:/images/images/zoom.png</iconset>
+    <iconset theme="tool-magnifier"/>
    </property>
    <property name="text">
     <string>Magnify</string>
@@ -605,18 +589,6 @@
    </property>
    <property name="text">
     <string>Select Text</string>
-   </property>
-  </action>
-  <action name="actionSelect_Image">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/images/rect-select.png</normaloff>:/images/images/rect-select.png</iconset>
-   </property>
-   <property name="text">
-    <string>Select Image</string>
    </property>
   </action>
   <action name="actionGoToHomePage">
@@ -660,8 +632,7 @@
   </action>
   <action name="actionFind">
    <property name="icon">
-    <iconset resource="../res/resources.qrc">
-     <normaloff>:/images/tango/edit-find.png</normaloff>:/images/tango/edit-find.png</iconset>
+    <iconset theme="edit-find"/>
    </property>
    <property name="text">
     <string>Find...</string>

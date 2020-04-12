@@ -40,6 +40,10 @@ struct fileToOpenStruct{
 
 int main(int argc, char *argv[])
 {
+	QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+  #if QT_VERSION >= 0x050600
+	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  #endif
 	TWApp app(argc, argv);
 	Tw::InterProcessCommunicator IPC;
 
