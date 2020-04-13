@@ -20,6 +20,7 @@
 */
 
 #include "CompletingEdit.h"
+#include "DefaultPrefs.h"
 #include "TWUtils.h"
 #include "TWApp.h"
 #include "Settings.h"
@@ -51,6 +52,7 @@
 CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	: QTextEdit(parent)
 {
+	Tw::Settings settings;
 	if (!sharedCompleter) { // initialize shared (static) members
 		sharedCompleter = new QCompleter(qApp);
 		sharedCompleter->setCompletionMode(QCompleter::InlineCompletion);
@@ -61,18 +63,10 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 		braceMatchingFormat = new QTextCharFormat;
 		currentLineFormat = new QTextCharFormat;
 
-		Tw::Settings settings;
 		highlightCurrentLine = settings.value(QString::fromLatin1("highlightCurrentLine"), true).toBool();
 		autocompleteEnabled = settings.value(QString::fromLatin1("autocompleteEnabled"), true).toBool();
 	}
-
-	// Scale the cursor according to the device pixel ratio (i.e., make it
-	// thicker on high-dpi screens to make it more visible)
-	qreal devicePixelRatio = 1.;
-	QWidget * nativeParent = nativeParentWidget();
-	if (nativeParent != nullptr && nativeParent->window() != nullptr)
-		devicePixelRatio = nativeParent->window()->devicePixelRatio();
-	setCursorWidth(qMax(1, static_cast<int>(devicePixelRatio)));
+	setCursorWidth(settings.value(QStringLiteral("cursorWidth"), kDefault_CursorWidth).toInt());
 
 	loadIndentModes();
 	loadSmartQuotesModes();
@@ -1332,7 +1326,10 @@ void CompletingEdit::setTextCursor(const QTextCursor & cursor)
 void CompletingEdit::setDocument(QTextDocument * document)
 {
 	disconnect(this, SLOT(updateLineNumberAreaWidth(int)));
+	// Remember the cursor width setting
+	int oldCursorWidth = cursorWidth();
 	QTextEdit::setDocument(document);
+	setCursorWidth(oldCursorWidth);
 	connect(document, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
 }
 

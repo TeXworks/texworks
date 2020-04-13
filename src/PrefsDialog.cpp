@@ -328,6 +328,7 @@ void PrefsDialog::restoreDefaults()
 			language->setCurrentIndex(kDefault_SpellcheckLanguage);
 			encoding->setCurrentIndex(encoding->findText(QString::fromLatin1("UTF-8")));
 			highlightCurrentLine->setChecked(kDefault_HighlightCurrentLine);
+			cursorWidth->setValue(kDefault_CursorWidth);
 			autocompleteEnabled->setChecked(kDefault_AutocompleteEnabled);
 			autoFollowFocusEnabled->setChecked(kDefault_AutoFollowFocusEnabled);
 			break;
@@ -586,6 +587,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.fontSize->setValue(font.pointSize());
 	dlg.encoding->setCurrentIndex(nameList.indexOf(QString::fromUtf8(TWApp::instance()->getDefaultCodec()->name().constData())));
 	dlg.highlightCurrentLine->setChecked(settings.value(QString::fromLatin1("highlightCurrentLine"), kDefault_HighlightCurrentLine).toBool());
+	dlg.cursorWidth->setValue(settings.value(QStringLiteral("cursorWidth"), kDefault_CursorWidth).toInt());
 	dlg.autocompleteEnabled->setChecked(settings.value(QString::fromLatin1("autocompleteEnabled"), kDefault_AutocompleteEnabled).toBool());
 	dlg.autoFollowFocusEnabled->setChecked(settings.value(QStringLiteral("autoFollowFocusEnabled"), kDefault_AutoFollowFocusEnabled).toBool());
 
@@ -753,6 +755,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		bool highlightLine = dlg.highlightCurrentLine->isChecked();
 		settings.setValue(QString::fromLatin1("highlightCurrentLine"), highlightLine);
 		CompletingEdit::setHighlightCurrentLine(highlightLine);
+
+		settings.setValue(QStringLiteral("cursorWidth"), dlg.cursorWidth->value());
 
 		bool autocompleteEnabled = dlg.autocompleteEnabled->isChecked();
 		settings.setValue(QString::fromLatin1("autocompleteEnabled"), autocompleteEnabled);
