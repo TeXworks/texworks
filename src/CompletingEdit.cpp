@@ -65,7 +65,15 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 		highlightCurrentLine = settings.value(QString::fromLatin1("highlightCurrentLine"), true).toBool();
 		autocompleteEnabled = settings.value(QString::fromLatin1("autocompleteEnabled"), true).toBool();
 	}
-		
+
+	// Scale the cursor according to the device pixel ratio (i.e., make it
+	// thicker on high-dpi screens to make it more visible)
+	qreal devicePixelRatio = 1.;
+	QWidget * nativeParent = nativeParentWidget();
+	if (nativeParent != nullptr && nativeParent->window() != nullptr)
+		devicePixelRatio = nativeParent->window()->devicePixelRatio();
+	setCursorWidth(qMax(1, static_cast<int>(devicePixelRatio)));
+
 	loadIndentModes();
 	loadSmartQuotesModes();
 	
