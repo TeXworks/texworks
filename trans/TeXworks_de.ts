@@ -362,8 +362,8 @@ Wollen Sie fortfahren?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1026"/>
-        <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.\n</source>
-        <translation>Diese Version von %1 kann aufgrund verschiedener technischer Gründe leider keine PDF Dokumente drucken.\n</translation>
+        <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.</source>
+        <translation>Diese Version von %1 kann aufgrund verschiedener technischer Gründe leider keine PDF Dokumente drucken.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="212"/>
