@@ -1024,7 +1024,7 @@ void PDFDocumentWindow::print()
 	
 	QString msg = tr("Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.\n").arg(QString::fromLatin1(TEXWORKS_NAME));
 	msg += tr("Do you want to open the file in the default viewer for printing instead?");
-	msg += tr(" (Remember to close it again to avoid access problems.)");
+	msg += tr(" (remember to close it again to avoid access problems)");
 	
 	if(QMessageBox::information(this,
 		tr("Print PDF..."), msg,
