@@ -377,7 +377,7 @@ Wollen Sie fortfahren?</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1028"/>
-        <source> (Remember to close it again to avoid access problems.)</source>
+        <source> (remember to close it again to avoid access problems)</source>
         <translation> (Bitte schließen Sie es nach dem Drucken wieder, um Zugriffsprobleme zu vermeiden.)</translation>
     </message>
     <message>
