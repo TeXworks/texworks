@@ -6,6 +6,7 @@ set -e
 cd "${TRAVIS_BUILD_DIR}"
 
 . ci/travis-ci/defs.sh
+. ci/travis-ci/travis-config.sh
 
 if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
 	print_warning "Not packaging pull-requests for deployment"

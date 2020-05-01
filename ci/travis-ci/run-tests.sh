@@ -6,6 +6,7 @@ set -e
 cd "${TRAVIS_BUILD_DIR}"
 
 . ci/travis-ci/defs.sh
+. ci/travis-ci/travis-config.sh
 
 print_headline "Testing TeXworks for ${TARGET_OS}/qt${QT}"
 
