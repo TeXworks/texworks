@@ -6,24 +6,24 @@
 #   TeXworks
 #   ├── <a href="CMakeLists.html">CMakeLists.txt</a>
 #   ├── src
-#   │   └── <a href="src/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── <a href="src/CMakeLists.html">CMakeLists.txt</a>
 #   ├── modules
-#   │   ├── <a href="modules/CMakeLists.html">CMakeLists.txt</a>
-#   │   ├── synctex
-#   │   │   └── <a href="modules/synctex/CMakeLists.html">CMakeLists.txt</a>
-#   │   └── QtPDF (documented separately)
+#   │   ├── <a href="modules/CMakeLists.html">CMakeLists.txt</a>
+#   │   ├── synctex
+#   │   │   └── <a href="modules/synctex/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── QtPDF (documented separately)
 #   ├── plugins-src
-#   │   ├── TWLuaPlugin
-#   │   │   └── <a href="plugins-src/TWLuaPlugin/CMakeLists.html">CMakeLists.txt</a>
-#   │   └── TWPythonPlugin
-#   │       └── <a href="plugins-src/TWPythonPlugin/CMakeLists.html">CMakeLists.txt</a>
+#   │   ├── TWLuaPlugin
+#   │   │   └── <a href="plugins-src/TWLuaPlugin/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── TWPythonPlugin
+#   │       └── <a href="plugins-src/TWPythonPlugin/CMakeLists.html">CMakeLists.txt</a>
 #   ├── unit-tests
-#   │   └── <a href="unit-tests/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── <a href="unit-tests/CMakeLists.html">CMakeLists.txt</a>
 #   └── CMake
-#       └── packaging
-#           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.txt</a>
-#           └── mac
-#               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.cmake.in</a>
+#       └── packaging
+#           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.txt</a>
+#           └── mac
+#               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.cmake.in</a>
 # </pre>
 #
 # Using CMake as a buildsystem offers some nice advantages:
@@ -109,6 +109,12 @@ endif ()
 # The values recovered here are used in the filenames of packaged builds and
 # influence parts of the application such as the "About" dialog.
 
+#include(TeXworksVersion)
+#
+#GetTeXworksVersion()
+#UpdateGitRevInfo()
+#GetGitRevInfo()
+
 # Recover canonical (x.y.z) version number from `src/TWVersion.h`.
 FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/TWVersion.h TeXworks_VER_MAJOR REGEX "VER_MAJOR")
 STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_MAJOR ${TeXworks_VER_MAJOR})
@@ -119,21 +125,13 @@ STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_PATCH ${TeXworks_VER_PATCH})
 SET(TeXworks_VERSION ${TeXworks_VER_MAJOR}.${TeXworks_VER_MINOR}.${TeXworks_VER_PATCH})
 
 # Make sure we have up-to-date git commit infos
-IF ( NOT CMAKE_CROSSCOMPILING )
-	IF ( WIN32 )
-		EXECUTE_PROCESS(COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.bat WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-		ADD_CUSTOM_TARGET(GitRev ALL COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.bat WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMENT "Update git commit info")
-	ELSE ( WIN32 )
-		EXECUTE_PROCESS(COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-		ADD_CUSTOM_TARGET(GitRev ALL COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMENT "Update git commit info")
-	ENDIF ( WIN32 )
-ENDIF ( NOT CMAKE_CROSSCOMPILING)
-MESSAGE( STATUS "Git commit info updated" )
+execute_process(COMMAND "${CMAKE_COMMAND}" "-DOUTPUT_DIR=${CMAKE_CURRENT_BINARY_DIR}/src" -P "${PROJECT_SOURCE_DIR}/CMake/Modules/getGitRevInfo.cmake" WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
+add_custom_target(GitRev ALL "${CMAKE_COMMAND}" "-DOUTPUT_DIR=${CMAKE_CURRENT_BINARY_DIR}/src" -P "${PROJECT_SOURCE_DIR}/CMake/Modules/getGitRevInfo.cmake" WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}" COMMENT "Update git commit info")
 
 # Recover git commit info from `src/GitRev.h`.
-FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/GitRev.h TeXworks_GIT_INFO)
+FILE(STRINGS ${CMAKE_CURRENT_BINARY_DIR}/src/GitRev.h TeXworks_GIT_INFO)
 LIST(GET TeXworks_GIT_INFO 1 TeXworks_GIT_COMMIT)
-STRING(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+)\"" "\\1" TeXworks_GIT_HASH "${TeXworks_GIT_COMMIT}")
+STRING(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+\\*?)\"" "\\1" TeXworks_GIT_HASH "${TeXworks_GIT_COMMIT}")
 LIST(GET TeXworks_GIT_INFO 2 TeXworks_GIT_COMMIT)
 STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
 

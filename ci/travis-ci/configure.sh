@@ -9,8 +9,6 @@ cd "${TRAVIS_BUILD_DIR}"
 
 print_headline "Configuring for building for ${TARGET_OS}/qt${QT} on ${TRAVIS_OS_NAME}"
 
-./getGitRevInfo.sh
-
 BUILDDIR="${TRAVIS_BUILD_DIR}/build-${TRAVIS_OS_NAME}-${TARGET_OS}-qt${QT}"
 echo "BUILDDIR=\"${BUILDDIR}\"" >> ci/travis-ci/defs.sh
 
