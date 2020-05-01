@@ -14,6 +14,7 @@
 
 #include <PDFBackend.h>
 #include <QPainter>
+#include <QPainterPath>
 #include <QApplication>
 
 namespace QtPDF {
