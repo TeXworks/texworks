@@ -280,8 +280,21 @@ ADD_LIBRARY(qtpdf ${QTPDF_LIB_TYPE}
 # Create translations
 include(TranslationMacros)
 file(GLOB TRANSLATIONS_SOURCES trans/*.ts)
-target_add_qt_translations(qtpdf PRO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro" TS_FILES ${TRANSLATIONS_SOURCES})
+target_add_qt_translations(qtpdf TS_FILES ${TRANSLATIONS_SOURCES})
 
+get_target_property(lupdatePath Qt5::lupdate LOCATION)
+get_target_property(_sources qtpdf SOURCES)
+add_custom_target(${PROJECT_NAME}_UpdateTranslations COMMAND "${CMAKE_COMMAND}"
+  "-DOUTPUTFILE=\"${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro\""
+  "-DPROJECT_NAME=\"${PROJECT_NAME}\""
+  "-DQt5_LUPDATE_EXECUTABLE=\"${lupdatePath}\""
+  "-DFILES=\"${_sources};${TRANSLATIONS_SOURCES}\""
+  -P "${PROJECT_SOURCE_DIR}/CMake/Modules/UpdateTranslations.cmake"
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+if (NOT TARGET UpdateTranslations)
+  add_custom_target(UpdateTranslations)
+endif (NOT TARGET UpdateTranslations)
+add_dependencies(UpdateTranslations ${PROJECT_NAME}_UpdateTranslations)
 
 TARGET_LINK_LIBRARIES(qtpdf ${QTPDF_LIBS})
 
