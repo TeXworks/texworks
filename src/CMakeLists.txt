@@ -190,6 +190,7 @@ ADD_EXECUTABLE(TeXworks ${GUI_TYPE}
   ${TEXWORKS_RCS}
   ${TeXworks_APP_ICONS}
 )
+add_dependencies(TeXworks GitRev)
 
 if (UNIX AND NOT APPLE)
   set_target_properties(TeXworks PROPERTIES
