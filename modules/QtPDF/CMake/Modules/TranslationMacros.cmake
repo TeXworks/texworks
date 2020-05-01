@@ -92,7 +92,20 @@ function(create_qt_pro_file _pro_path)
   _qt_pro_file_add_sources(_pro_content "${_pro_basepath}" "RC_FILE" ${_my_rcfile})
   _qt_pro_file_add_sources(_pro_content "${_pro_basepath}" "ICON" ${_my_icnsfile})
   _qt_pro_file_add_sources(_pro_content "${_pro_basepath}" "TRANSLATIONS" ${_my_tsfiles})
-  file(WRITE ${_pro_path} "${_pro_content}\n")
+  set(_pro_content "${_pro_content}\n")
+
+  # Check if the file to produce already exists and is identical to what we
+  # would create. If so, don't touch it to avoid unnecessary rebuilds
+  set(_write_file TRUE)
+  if (EXISTS "${_pro_path}")
+    file(READ ${_pro_path} _old_content)
+    if ("${_pro_content}" STREQUAL "${_old_content}")
+      set(_write_file FALSE)
+    endif ("${_pro_content}" STREQUAL "${_old_content}")
+  endif (EXISTS "${_pro_path}")
+  if (${_write_file})
+    file(WRITE ${_pro_path} "${_pro_content}")
+  endif (${_write_file})
 endfunction(create_qt_pro_file)
 
 # create_translations_resource_file(<output_var> <1.qm> [<2.qm> ...])
@@ -104,7 +117,19 @@ function(create_translations_resource_file outfile)
     set(_qm_qrc "${_qm_qrc}<file alias=\"resfiles/translations/${_filename}\">${_file}</file>\n")
   endforeach(_file)
   set(_qm_qrc "${_qm_qrc}</qresource>\n</RCC>\n")
-  file(WRITE ${outfile} ${_qm_qrc})
+
+  # Check if the file to produce already exists and is identical to what we
+  # would create. If so, don't touch it to avoid unnecessary rebuilds
+  set(_write_file TRUE)
+  if (EXISTS "${outfile}")
+    file(READ ${outfile} _old_content)
+    if ("${_qm_qrc}" STREQUAL "${_old_content}")
+      set(_write_file FALSE)
+    endif ("${_qm_qrc}" STREQUAL "${_old_content}")
+  endif (EXISTS "${outfile}")
+  if (${_write_file})
+    file(WRITE ${outfile} "${_qm_qrc}")
+  endif (${_write_file})
 endfunction(create_translations_resource_file)
 
 
