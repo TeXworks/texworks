@@ -150,7 +150,7 @@ foreach (cmp IN LISTS Poppler_FIND_COMPONENTS)
     endif()
   endif ()
 
-  find_package_handle_standard_args(${label} REQUIRED_VARS ${label}_LIBRARY ${label}_INCLUDE_DIR VERSION_VAR ${label}_VERSION_STRING)
+  find_package_handle_standard_args(${label} FOUND_VAR ${label}_FOUND REQUIRED_VARS ${label}_LIBRARY ${label}_INCLUDE_DIR VERSION_VAR ${label}_VERSION_STRING)
 
   if (${label}_FOUND)
     set(${label}_INCLUDE_DIRS "${${label}_INCLUDE_DIR}" "${Poppler_INCLUDE_DIR}")
@@ -178,7 +178,7 @@ endforeach ()
 # Finish up
 # ---------
 
-find_package_handle_standard_args(Poppler REQUIRED_VARS Poppler_LIBRARY VERSION_VAR Poppler_VERSION_STRING HANDLE_COMPONENTS)
+find_package_handle_standard_args(Poppler FOUND_VAR Poppler_FOUND REQUIRED_VARS Poppler_LIBRARY VERSION_VAR Poppler_VERSION_STRING HANDLE_COMPONENTS)
 
 if (Poppler_FOUND)
   set(Poppler_INCLUDE_DIRS "${Poppler_INCLUDE_DIR}")
