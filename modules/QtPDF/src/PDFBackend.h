@@ -24,6 +24,7 @@
 #include <QStack>
 #include <QCache>
 #include <QMutex>
+#include <QElapsedTimer>
 #include <QReadWriteLock>
 #include <QReadLocker>
 #include <QWriteLocker>
@@ -372,7 +373,7 @@ private:
   QWaitCondition _idleCondition;
   bool _quit{false};
 #ifdef DEBUG
-  QTime _renderTimer;
+  QElapsedTimer _renderTimer;
   static void dumpWorkStack(const QStack<PageProcessingRequest*> & ws);
 #endif
 

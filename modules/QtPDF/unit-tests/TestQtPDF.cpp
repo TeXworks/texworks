@@ -83,13 +83,22 @@ public:
     Q_ASSERT(other.format() == QImage::Format_RGB32);
 
     double threshold = qMax(_threshold, other._threshold);
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     if (byteCount() != other.byteCount()) return false;
+#else
+    if (sizeInBytes() != other.sizeInBytes()) return false;
+#endif
 
     double diff = 0.0;
     const uchar * src = bits();
     const uchar * dst = other.bits();
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     for (int i = 0; i < byteCount(); ++i)
       diff += qAbs(static_cast<int>(src[i]) - static_cast<int>(dst[i]));
+#else
+    for (qsizetype i = 0; i < sizeInBytes(); ++i)
+      diff += qAbs(static_cast<int>(src[i]) - static_cast<int>(dst[i]));
+#endif
 
     diff /= size().width() * size().height();
 
@@ -1069,7 +1078,7 @@ void TestQtPDF::paperSize()
 } // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
-  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+  Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
 QTEST_MAIN(UnitTest::TestQtPDF)

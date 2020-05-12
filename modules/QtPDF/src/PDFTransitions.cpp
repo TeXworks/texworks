@@ -596,16 +596,19 @@ QImage Fade::getImage()
   Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
 
   QImage retVal = QImage(_imgEnd.size(), QImage::Format_ARGB32);
-  int i;
   int f = static_cast<int>(255 * getFracTime());
 
   const uchar * img1 = _imgStart.constBits();
   const uchar * img2 = _imgEnd.constBits();
   uchar * img = retVal.bits();
 
-  for (i = 0; i < retVal.byteCount(); ++i) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+  for (int i = 0; i < retVal.byteCount(); ++i)
     img[i] = static_cast<uchar>(((255 - f) * img1[i] + f * img2[i]) / 255);
-  }
+#else
+  for (qsizetype i = 0; i < retVal.sizeInBytes(); ++i)
+    img[i] = static_cast<uchar>(((255 - f) * img1[i] + f * img2[i]) / 255);
+#endif
   return retVal;
 }
 

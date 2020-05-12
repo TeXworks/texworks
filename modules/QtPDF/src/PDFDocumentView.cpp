@@ -38,7 +38,6 @@ static ResourceInitializer _resourceInitializer;
 
 #ifdef DEBUG
 #include <QDebug>
-static QTime stopwatch;
 #endif
 
 // Some utility functions.
@@ -1995,7 +1994,7 @@ void PDFDocumentScene::doUnlockDialog()
   bool ok;
   // TODO: Maybe use some parent for QInputDialog (and QMessageBox below)
   // instead of nullptr?
-  QString password = QInputDialog::getText(nullptr, trUtf8("Unlock PDF"), trUtf8("Please enter the password to unlock the PDF"), QLineEdit::Password, QString(), &ok);
+  QString password = QInputDialog::getText(nullptr, tr("Unlock PDF"), tr("Please enter the password to unlock the PDF"), QLineEdit::Password, QString(), &ok);
   if (ok) {
     if (_doc->unlock(password)) {
       // FIXME: the program crashes in the QGraphicsView::mouseReleaseEvent
@@ -2007,14 +2006,14 @@ void PDFDocumentScene::doUnlockDialog()
       QTimer::singleShot(1, this, SLOT(finishUnlock()));
     }
     else
-      QMessageBox::information(nullptr, trUtf8("Incorrect password"), trUtf8("The password you entered was incorrect."));
+      QMessageBox::information(nullptr, tr("Incorrect password"), tr("The password you entered was incorrect."));
   }
 }
 
 void PDFDocumentScene::retranslateUi()
 {
-  _unlockWidgetLockText->setText(trUtf8("This document is locked. You need a password to open it."));
-  _unlockWidgetUnlockButton->setText(trUtf8("Unlock"));
+  _unlockWidgetLockText->setText(tr("This document is locked. You need a password to open it."));
+  _unlockWidgetUnlockButton->setText(tr("Unlock"));
   
   foreach (QGraphicsItem * i, items()) {
     if (!i)
@@ -2408,8 +2407,11 @@ void PDFPageGraphicsItem::imageToGrayScale(QImage & img)
   // Casting to QRgb* only works for 32bit images
   Q_ASSERT(img.depth() == 32);
   QRgb * data = reinterpret_cast<QRgb*>(img.scanLine(0));
-  int i;
-  for (i = 0; i < img.byteCount() / 4; ++i) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+  for (int i = 0; i < img.byteCount() / 4; ++i) {
+#else
+  for (qsizetype i = 0; i < img.sizeInBytes() / 4; ++i) {
+#endif
     // Qt formula (qGray()): 0.34375 * r + 0.5 * g + 0.15625 * b
     // MuPDF formula (rgb_to_gray()): r * 0.3f + g * 0.59f + b * 0.11f;
     int gray = qGray(data[i]);
@@ -2459,6 +2461,7 @@ bool PDFPageGraphicsItem::event(QEvent *event)
 void PDFPageGraphicsItem::addLinks(QList< QSharedPointer<Annotation::Link> > links)
 {
 #ifdef DEBUG
+  QElapsedTimer stopwatch;
   stopwatch.start();
 #endif
   foreach( QSharedPointer<Annotation::Link> link, links ){
@@ -2478,6 +2481,7 @@ void PDFPageGraphicsItem::addAnnotations(QList< QSharedPointer<Annotation::Abstr
 {
   PDFMarkupAnnotationGraphicsItem *markupAnnotItem;
 #ifdef DEBUG
+  QElapsedTimer stopwatch;
   stopwatch.start();
 #endif
   foreach( QSharedPointer<Annotation::AbstractAnnotation> annot, annotations ){
@@ -2550,7 +2554,7 @@ void PDFLinkGraphicsItem::retranslateUi()
     // Set some meaningful tooltip to inform the user what the link does
     // Using <p>...</p> ensures the tooltip text is interpreted as rich text
     // and thus is wrapping sensibly to avoid over-long lines.
-    // Using PDFDocumentView::trUtf8 avoids having to explicitly derive
+    // Using PDFDocumentView::tr avoids having to explicitly derive
     // PDFLinkGraphicsItem explicily from QObject and puts all translatable
     // strings into the same context.
     switch(action->type()) {
@@ -2561,7 +2565,7 @@ void PDFLinkGraphicsItem::retranslateUi()
             setToolTip(QString::fromUtf8("<p>%1</p>").arg(actionGoto->filename()));
             // FIXME: Possibly include page as well after the filename
           else
-            setToolTip(QString::fromUtf8("<p>") + PDFDocumentView::trUtf8("Goto page %1").arg(actionGoto->destination().page() + 1) + QString::fromUtf8("</p>"));
+            setToolTip(QString::fromUtf8("<p>") + PDFDocumentView::tr("Goto page %1").arg(actionGoto->destination().page() + 1) + QString::fromUtf8("</p>"));
         }
         break;
       case PDFAction::ActionTypeURI:
@@ -2573,7 +2577,7 @@ void PDFLinkGraphicsItem::retranslateUi()
       case PDFAction::ActionTypeLaunch:
         {
           PDFLaunchAction * actionLaunch = dynamic_cast<PDFLaunchAction*>(action);
-          setToolTip(QString::fromUtf8("<p>") + PDFDocumentView::trUtf8("Execute `%1`").arg(actionLaunch->command()) + QString::fromUtf8("</p>"));
+          setToolTip(QString::fromUtf8("<p>") + PDFDocumentView::tr("Execute `%1`").arg(actionLaunch->command()) + QString::fromUtf8("</p>"));
         }
         break;
       default:
@@ -2817,7 +2821,7 @@ void PDFDocumentInfoWidget::changeEvent(QEvent * event)
 // ============
 
 PDFToCInfoWidget::PDFToCInfoWidget(QWidget * parent) :
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Table of Contents"), QString::fromLatin1("QtPDF.ToCInfoWidget"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::tr("Table of Contents"), QString::fromLatin1("QtPDF.ToCInfoWidget"))
 {
   QVBoxLayout * layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
@@ -2834,7 +2838,7 @@ PDFToCInfoWidget::PDFToCInfoWidget(QWidget * parent) :
 
 void PDFToCInfoWidget::retranslateUi()
 {
-  setWindowTitle(PDFDocumentView::trUtf8("Table of Contents"));
+  setWindowTitle(PDFDocumentView::tr("Table of Contents"));
 }
 
 PDFToCInfoWidget::~PDFToCInfoWidget()
@@ -2926,7 +2930,7 @@ void PDFToCInfoWidget::recursiveClearTreeItems(QTreeWidgetItem * parent)
 // PDFMetaDataInfoWidget
 // ============
 PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) : 
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Meta Data"), QString::fromLatin1("QtPDF.MetaDataInfoWidget"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::tr("Meta Data"), QString::fromLatin1("QtPDF.MetaDataInfoWidget"))
 {
   setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
   // scrollArea ... the central widget of the QDockWidget
@@ -2983,7 +2987,7 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   vLayout->addWidget(_documentGroup);
 
   // The "Processing" group box
-  _processingGroup = new QGroupBox(PDFDocumentView::trUtf8("Processing"), this);
+  _processingGroup = new QGroupBox(PDFDocumentView::tr("Processing"), this);
   layout = new QFormLayout(_processingGroup);
 
   _creatorLabel = new QLabel(_processingGroup);
@@ -3015,7 +3019,7 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   vLayout->addWidget(_processingGroup);
 
   // The "Other" group box
-  _otherGroup = new QGroupBox(PDFDocumentView::trUtf8("Other"), this);
+  _otherGroup = new QGroupBox(PDFDocumentView::tr("Other"), this);
   layout = new QFormLayout(_otherGroup);
   // Hide the "Other" group box unless it has something to display
   _otherGroup->setVisible(false);
@@ -3039,15 +3043,15 @@ void PDFMetaDataInfoWidget::reload()
 {
   QStringList sizeUnits;
   //: File size: bytes
-  sizeUnits << PDFDocumentView::trUtf8("B");
+  sizeUnits << PDFDocumentView::tr("B");
   //: File size: kilobytes
-  sizeUnits << PDFDocumentView::trUtf8("kB");
+  sizeUnits << PDFDocumentView::tr("kB");
   //: File size: megabytes
-  sizeUnits << PDFDocumentView::trUtf8("MB");
+  sizeUnits << PDFDocumentView::tr("MB");
   //: File size: gigabytes
-  sizeUnits << PDFDocumentView::trUtf8("GB");
+  sizeUnits << PDFDocumentView::tr("GB");
   //: File size: terabytes
-  sizeUnits << PDFDocumentView::trUtf8("TB");
+  sizeUnits << PDFDocumentView::tr("TB");
 
   QSharedPointer<Backend::Document> doc(_doc.toStrongRef());
   if (!doc) {
@@ -3077,13 +3081,13 @@ void PDFMetaDataInfoWidget::reload()
   _modDate->setText(doc->modDate().toString(Qt::DefaultLocaleLongDate));
   switch (doc->trapped()) {
     case Backend::Document::Trapped_True:
-      _trapped->setText(PDFDocumentView::trUtf8("Yes"));
+      _trapped->setText(PDFDocumentView::tr("Yes"));
       break;
     case Backend::Document::Trapped_False:
-      _trapped->setText(PDFDocumentView::trUtf8("No"));
+      _trapped->setText(PDFDocumentView::tr("No"));
       break;
     default:
-      _trapped->setText(PDFDocumentView::trUtf8("Unknown"));
+      _trapped->setText(PDFDocumentView::tr("Unknown"));
       break;
   }
   QFormLayout * layout = qobject_cast<QFormLayout*>(_otherGroup->layout());
@@ -3120,7 +3124,7 @@ void PDFMetaDataInfoWidget::clear()
   _producer->setText(QString());
   _creationDate->setText(QString());
   _modDate->setText(QString());
-  _trapped->setText(PDFDocumentView::trUtf8("Unknown"));
+  _trapped->setText(PDFDocumentView::tr("Unknown"));
   QFormLayout * layout = qobject_cast<QFormLayout*>(_otherGroup->layout());
   Q_ASSERT(layout != nullptr);
 
@@ -3133,24 +3137,24 @@ void PDFMetaDataInfoWidget::clear()
 
 void PDFMetaDataInfoWidget::retranslateUi()
 {
-  setWindowTitle(PDFDocumentView::trUtf8("Meta Data"));
+  setWindowTitle(PDFDocumentView::tr("Meta Data"));
   
-  _documentGroup->setTitle(PDFDocumentView::trUtf8("Document"));
-  _titleLabel->setText(PDFDocumentView::trUtf8("Title:"));
-  _authorLabel->setText(PDFDocumentView::trUtf8("Author:"));
-  _subjectLabel->setText(PDFDocumentView::trUtf8("Subject:"));
-  _keywordsLabel->setText(PDFDocumentView::trUtf8("Keywords:"));
-  _pageSizeLabel->setText(PDFDocumentView::trUtf8("Page size:"));
-  _fileSizeLabel->setText(PDFDocumentView::trUtf8("File size:"));
+  _documentGroup->setTitle(PDFDocumentView::tr("Document"));
+  _titleLabel->setText(PDFDocumentView::tr("Title:"));
+  _authorLabel->setText(PDFDocumentView::tr("Author:"));
+  _subjectLabel->setText(PDFDocumentView::tr("Subject:"));
+  _keywordsLabel->setText(PDFDocumentView::tr("Keywords:"));
+  _pageSizeLabel->setText(PDFDocumentView::tr("Page size:"));
+  _fileSizeLabel->setText(PDFDocumentView::tr("File size:"));
 
-  _processingGroup->setTitle(PDFDocumentView::trUtf8("Processing"));
-  _creatorLabel->setText(PDFDocumentView::trUtf8("Creator:"));
-  _producerLabel->setText(PDFDocumentView::trUtf8("Producer:"));
-  _creationDateLabel->setText(PDFDocumentView::trUtf8("Creation date:"));
-  _modDateLabel->setText(PDFDocumentView::trUtf8("Modification date:"));
-  _trappedLabel->setText(PDFDocumentView::trUtf8("Trapped:"));
+  _processingGroup->setTitle(PDFDocumentView::tr("Processing"));
+  _creatorLabel->setText(PDFDocumentView::tr("Creator:"));
+  _producerLabel->setText(PDFDocumentView::tr("Producer:"));
+  _creationDateLabel->setText(PDFDocumentView::tr("Creation date:"));
+  _modDateLabel->setText(PDFDocumentView::tr("Modification date:"));
+  _trappedLabel->setText(PDFDocumentView::tr("Trapped:"));
 
-  _otherGroup->setTitle(PDFDocumentView::trUtf8("Other"));
+  _otherGroup->setTitle(PDFDocumentView::tr("Other"));
   
   reload();
 }
@@ -3159,7 +3163,7 @@ void PDFMetaDataInfoWidget::retranslateUi()
 // PDFFontsInfoWidget
 // ============
 PDFFontsInfoWidget::PDFFontsInfoWidget(QWidget * parent) :
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Fonts"), QString::fromLatin1("QtPDF.FontsInfoWidget"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::tr("Fonts"), QString::fromLatin1("QtPDF.FontsInfoWidget"))
 {
   QVBoxLayout * layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
@@ -3209,28 +3213,28 @@ void PDFFontsInfoWidget::reload()
     _table->setItem(i, 0, new QTableWidgetItem(font.descriptor().pureName()));
     switch (font.fontType()) {
       case Backend::PDFFontInfo::FontType_Type0:
-        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 0")));
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::tr("Type 0")));
         break;
       case Backend::PDFFontInfo::FontType_Type1:
-        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 1")));
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::tr("Type 1")));
         break;
       case Backend::PDFFontInfo::FontType_MMType1:
-        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 1 (multiple master)")));
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::tr("Type 1 (multiple master)")));
         break;
       case Backend::PDFFontInfo::FontType_Type3:
-        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("Type 3")));
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::tr("Type 3")));
         break;
       case Backend::PDFFontInfo::FontType_TrueType:
-        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::trUtf8("TrueType")));
+        _table->setItem(i, 1, new QTableWidgetItem(PDFDocumentView::tr("TrueType")));
         break;
     }
-    _table->setItem(i, 2, new QTableWidgetItem(font.isSubset() ? PDFDocumentView::trUtf8("yes") : PDFDocumentView::trUtf8("no")));
+    _table->setItem(i, 2, new QTableWidgetItem(font.isSubset() ? PDFDocumentView::tr("yes") : PDFDocumentView::tr("no")));
     switch (font.source()) {
       case Backend::PDFFontInfo::Source_Embedded:
-        _table->setItem(i, 3, new QTableWidgetItem(PDFDocumentView::trUtf8("[embedded]")));
+        _table->setItem(i, 3, new QTableWidgetItem(PDFDocumentView::tr("[embedded]")));
         break;
       case Backend::PDFFontInfo::Source_Builtin:
-        _table->setItem(i, 3, new QTableWidgetItem(PDFDocumentView::trUtf8("[builtin]")));
+        _table->setItem(i, 3, new QTableWidgetItem(PDFDocumentView::tr("[builtin]")));
         break;
       case Backend::PDFFontInfo::Source_File:
         _table->setItem(i, 3, new QTableWidgetItem(font.fileName().canonicalFilePath()));
@@ -3253,8 +3257,8 @@ void PDFFontsInfoWidget::clear()
 void PDFFontsInfoWidget::retranslateUi()
 {
   Q_ASSERT(_table != nullptr);
-  setWindowTitle(PDFDocumentView::trUtf8("Fonts"));
-  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Name") << PDFDocumentView::trUtf8("Type") << PDFDocumentView::trUtf8("Subset") << PDFDocumentView::trUtf8("Source"));  
+  setWindowTitle(PDFDocumentView::tr("Fonts"));
+  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::tr("Name") << PDFDocumentView::tr("Type") << PDFDocumentView::tr("Subset") << PDFDocumentView::tr("Source"));
   reload();
 }
 
@@ -3262,7 +3266,7 @@ void PDFFontsInfoWidget::retranslateUi()
 // PDFPermissionsInfoWidget)
 // ============
 PDFPermissionsInfoWidget::PDFPermissionsInfoWidget(QWidget * parent) : 
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Permissions"), QString::fromLatin1("QtPDF.PermissionsInfoWidget"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::tr("Permissions"), QString::fromLatin1("QtPDF.PermissionsInfoWidget"))
 {
   setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
   // layout ... lays out the widgets in w
@@ -3311,59 +3315,59 @@ void PDFPermissionsInfoWidget::reload()
   
   if (perm.testFlag(Backend::Document::Permission_Print)) {
     if (perm.testFlag(Backend::Document::Permission_PrintHighRes))
-      _print->setText(PDFDocumentView::trUtf8("Allowed"));
+      _print->setText(PDFDocumentView::tr("Allowed"));
     else
-      _print->setText(PDFDocumentView::trUtf8("Low resolution only"));
+      _print->setText(PDFDocumentView::tr("Low resolution only"));
   }
   else
-    _print->setText(PDFDocumentView::trUtf8("Denied"));
+    _print->setText(PDFDocumentView::tr("Denied"));
 
   _modify->setToolTip(QString());
   if (perm.testFlag(Backend::Document::Permission_Change))
-    _modify->setText(PDFDocumentView::trUtf8("Allowed"));
+    _modify->setText(PDFDocumentView::tr("Allowed"));
   else if (perm.testFlag(Backend::Document::Permission_Assemble)) {
-    _modify->setText(PDFDocumentView::trUtf8("Assembling only"));
-    _modify->setToolTip(PDFDocumentView::trUtf8("Insert, rotate, or delete pages and create bookmarks or thumbnail images"));
+    _modify->setText(PDFDocumentView::tr("Assembling only"));
+    _modify->setToolTip(PDFDocumentView::tr("Insert, rotate, or delete pages and create bookmarks or thumbnail images"));
   }
   else
-    _modify->setText(PDFDocumentView::trUtf8("Denied"));
+    _modify->setText(PDFDocumentView::tr("Denied"));
 
   if (perm.testFlag(Backend::Document::Permission_Extract))
-    _extract->setText(PDFDocumentView::trUtf8("Allowed"));
+    _extract->setText(PDFDocumentView::tr("Allowed"));
   else if (perm.testFlag(Backend::Document::Permission_ExtractForAccessibility))
-    _extract->setText(PDFDocumentView::trUtf8("Accessibility support only"));
+    _extract->setText(PDFDocumentView::tr("Accessibility support only"));
   else
-    _extract->setText(PDFDocumentView::trUtf8("Denied"));
+    _extract->setText(PDFDocumentView::tr("Denied"));
 
   if (perm.testFlag(Backend::Document::Permission_Annotate))
-    _addNotes->setText(PDFDocumentView::trUtf8("Allowed"));
+    _addNotes->setText(PDFDocumentView::tr("Allowed"));
   else
-    _addNotes->setText(PDFDocumentView::trUtf8("Denied"));
+    _addNotes->setText(PDFDocumentView::tr("Denied"));
 
   if (perm.testFlag(Backend::Document::Permission_FillForm))
-    _form->setText(PDFDocumentView::trUtf8("Allowed"));
+    _form->setText(PDFDocumentView::tr("Allowed"));
   else
-    _form->setText(PDFDocumentView::trUtf8("Denied"));
+    _form->setText(PDFDocumentView::tr("Denied"));
 }
 
 void PDFPermissionsInfoWidget::clear()
 {
-  _print->setText(PDFDocumentView::trUtf8("Denied"));
-  _modify->setText(PDFDocumentView::trUtf8("Denied"));
-  _extract->setText(PDFDocumentView::trUtf8("Denied"));
-  _addNotes->setText(PDFDocumentView::trUtf8("Denied"));
-  _form->setText(PDFDocumentView::trUtf8("Denied"));
+  _print->setText(PDFDocumentView::tr("Denied"));
+  _modify->setText(PDFDocumentView::tr("Denied"));
+  _extract->setText(PDFDocumentView::tr("Denied"));
+  _addNotes->setText(PDFDocumentView::tr("Denied"));
+  _form->setText(PDFDocumentView::tr("Denied"));
 }
 
 void PDFPermissionsInfoWidget::retranslateUi()
 {
-  setWindowTitle(PDFDocumentView::trUtf8("Permissions"));
+  setWindowTitle(PDFDocumentView::tr("Permissions"));
 
-  _printLabel->setText(PDFDocumentView::trUtf8("Printing:"));
-  _modifyLabel->setText(PDFDocumentView::trUtf8("Modifications:"));
-  _extractLabel->setText(PDFDocumentView::trUtf8("Extraction:"));
-  _addNotesLabel->setText(PDFDocumentView::trUtf8("Annotation:"));
-  _formLabel->setText(PDFDocumentView::trUtf8("Filling forms:"));
+  _printLabel->setText(PDFDocumentView::tr("Printing:"));
+  _modifyLabel->setText(PDFDocumentView::tr("Modifications:"));
+  _extractLabel->setText(PDFDocumentView::tr("Extraction:"));
+  _addNotesLabel->setText(PDFDocumentView::tr("Annotation:"));
+  _formLabel->setText(PDFDocumentView::tr("Filling forms:"));
   reload();
 }
 
@@ -3371,7 +3375,7 @@ void PDFPermissionsInfoWidget::retranslateUi()
 // PDFAnnotationsInfoWidget
 // ============
 PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
-  PDFDocumentInfoWidget(parent, PDFDocumentView::trUtf8("Annotations"), QString::fromLatin1("QtPDF.AnnotationsInfoWidget"))
+  PDFDocumentInfoWidget(parent, PDFDocumentView::tr("Annotations"), QString::fromLatin1("QtPDF.AnnotationsInfoWidget"))
 {
   QVBoxLayout * layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
@@ -3466,8 +3470,8 @@ void PDFAnnotationsInfoWidget::clear()
 
 void PDFAnnotationsInfoWidget::retranslateUi()
 {
-  setWindowTitle(PDFDocumentView::trUtf8("Annotations"));
-  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::trUtf8("Page") << PDFDocumentView::trUtf8("Subject") << PDFDocumentView::trUtf8("Author") << PDFDocumentView::trUtf8("Contents"));
+  setWindowTitle(PDFDocumentView::tr("Annotations"));
+  _table->setHorizontalHeaderLabels(QStringList() << PDFDocumentView::tr("Page") << PDFDocumentView::tr("Subject") << PDFDocumentView::tr("Author") << PDFDocumentView::tr("Contents"));
 }
 
 

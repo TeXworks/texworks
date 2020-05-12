@@ -416,7 +416,14 @@ QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage *
   // image but leave the pointer intact as that can be held/used elsewhere
   if (!retVal) {
     QSharedPointer<QImage> * toInsert = new QSharedPointer<QImage>(image);
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     insert(tile, toInsert, (image ? image->byteCount() : 0));
+#else
+    // No image (1024x124x4 bytes by default) should ever come even close to the
+    // 2 GB mark corresponding to INT_MAX; note that Document::Document() sets
+    // the cache's max-size to 1 GB total
+    insert(tile, toInsert, (image ? static_cast<int>(image->sizeInBytes()) : 0));
+#endif
     _tileStatus.insert(tile, status);
     retVal = *toInsert;
   }
@@ -739,7 +746,7 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
           ++it;
         }
         // Sort the remaining tiles by size, high-res first
-        qSort(tiles.begin(), tiles.end(), higherResolutionThan);
+        std::sort(tiles.begin(), tiles.end(), higherResolutionThan);
         // Finally, crop, scale and paint each image until the whole area is
         // filled or no images are left in the list
         QPainterPath clipPath;
