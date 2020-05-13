@@ -13,6 +13,7 @@
  */
 
 #include <PDFBackend.h>
+#include <QElapsedTimer>
 #include <QPainter>
 #include <QPainterPath>
 #include <QApplication>
@@ -207,7 +208,8 @@ void PDFPageProcessingThread::run()
 
 #ifdef DEBUG
       qDebug() << "processing work item" << *workItem << "; remaining items:" << _workStack.size();
-      _renderTimer.start();
+      QElapsedTimer timer;
+      timer.start();
 #endif
       workItem->execute();
 #ifdef DEBUG
@@ -220,7 +222,7 @@ void PDFPageProcessingThread::run()
           jobDesc = QString::fromUtf8("rendering page");
           break;
       }
-      qDebug() << "finished " << jobDesc << "for page" << workItem->page->pageNum() << ". Time elapsed: " << _renderTimer.elapsed() << " ms.";
+      qDebug() << "finished " << jobDesc << "for page" << workItem->page->pageNum() << ". Time elapsed: " << timer.elapsed() << " ms.";
 #endif
 
       // Delete the work item as it has fulfilled its purpose
