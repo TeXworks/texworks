@@ -2806,7 +2806,9 @@ void PDFMarkupAnnotationGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent
 void PDFDocumentInfoWidget::setWindowTitle(const QString & windowTitle)
 {
   QWidget::setWindowTitle(windowTitle);
+#if QT_VERSION < QT_VERSION_CHECK(5, 2, 0)
   emit windowTitleChanged(windowTitle);
+#endif
 }
 
 void PDFDocumentInfoWidget::changeEvent(QEvent * event)
