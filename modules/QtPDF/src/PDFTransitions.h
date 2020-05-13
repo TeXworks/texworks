@@ -14,8 +14,8 @@
 #ifndef PDFTransitions_H
 #define PDFTransitions_H
 
-#include <QImage>
 #include <QElapsedTimer>
+#include <QImage>
 
 namespace QtPDF {
 

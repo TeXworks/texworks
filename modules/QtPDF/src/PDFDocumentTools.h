@@ -14,21 +14,20 @@
 #ifndef PDFDocumentTools_H
 #define PDFDocumentTools_H
 
-#include <QKeyEvent>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <QCursor>
-#include <QRubberBand>
-#include <QComboBox>
-#include <QGraphicsView>
-#include <QGraphicsLineItem>
-#include <QGraphicsProxyWidget>
-
 #include "PDFBackend.h"
 
 #ifdef DEBUG
   #include <QDebug>
 #endif
+#include <QComboBox>
+#include <QCursor>
+#include <QGraphicsLineItem>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsView>
+#include <QKeyEvent>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QRubberBand>
 
 namespace QtPDF {
 

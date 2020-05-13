@@ -13,7 +13,8 @@
  */
 
 // NOTE: `PopplerQtBackend.h` is included via `PDFBackend.h`
-#include <PDFBackend.h>
+#include "PDFBackend.h"
+
 #include <QBitArray>
 
 #if defined(HAVE_POPPLER_XPDF_HEADERS) && defined(Q_OS_DARWIN)

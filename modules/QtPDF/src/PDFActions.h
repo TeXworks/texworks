@@ -14,14 +14,12 @@
 #ifndef PDFActions_H
 #define PDFActions_H
 
-#include <QString>
-#include <QRectF>
-#include <QUrl>
-
-
 #ifdef DEBUG
   #include <QDebug>
 #endif
+#include <QRectF>
+#include <QString>
+#include <QUrl>
 
 namespace QtPDF {
 

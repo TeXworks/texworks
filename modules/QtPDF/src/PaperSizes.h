@@ -14,9 +14,9 @@
 #ifndef __PAPER_SIZES_H
 #define __PAPER_SIZES_H
 
-#include <QString>
-#include <QSizeF>
 #include <QCoreApplication>
+#include <QSizeF>
+#include <QString>
 
 class PaperSize
 {

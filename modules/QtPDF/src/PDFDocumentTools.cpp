@@ -11,8 +11,9 @@
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
  * more details.
  */
-#include <PDFDocumentTools.h>
-#include <PDFDocumentView.h>
+
+#include "PDFDocumentTools.h"
+#include "PDFDocumentView.h"
 
 namespace QtPDF {
 namespace DocumentTool {

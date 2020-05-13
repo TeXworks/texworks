@@ -11,10 +11,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
  * more details.
  */
-#include <PDFTransitions.h>
 
-#include <cstdlib>
-#include <ctime>
+#include "PDFTransitions.h"
 
 namespace QtPDF {
 

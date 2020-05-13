@@ -14,14 +14,14 @@
 #ifndef PDFAnnotations_H
 #define PDFAnnotations_H
 
-#include <PDFActions.h>
+#include "PDFActions.h"
 
-#include <QString>
-#include <QRectF>
-#include <QPolygonF>
+#include <QColor>
 #include <QDateTime>
 #include <QFlags>
-#include <QColor>
+#include <QPolygonF>
+#include <QRectF>
+#include <QString>
 #include <QWeakPointer>
 
 namespace QtPDF {

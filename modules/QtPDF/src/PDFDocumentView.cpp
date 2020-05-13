@@ -11,8 +11,9 @@
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
  * more details.
  */
-#include "PDFDocumentView.h"
+
 #include "PaperSizes.h"
+#include "PDFDocumentView.h"
 
 #include <QtConcurrent>
 

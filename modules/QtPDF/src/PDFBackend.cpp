@@ -12,11 +12,12 @@
  * more details.
  */
 
-#include <PDFBackend.h>
+#include "PDFBackend.h"
+
+#include <QApplication>
 #include <QElapsedTimer>
 #include <QPainter>
 #include <QPainterPath>
-#include <QApplication>
 
 namespace QtPDF {
 

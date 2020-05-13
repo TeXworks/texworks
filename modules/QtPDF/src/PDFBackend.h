@@ -14,23 +14,23 @@
 #ifndef PDFBackend_H
 #define PDFBackend_H
 
-#include <PDFAnnotations.h>
-#include <PDFTransitions.h>
+#include "PDFAnnotations.h"
+#include "PDFTransitions.h"
 
-#include <QImage>
-#include <QFileInfo>
-#include <QSharedPointer>
-#include <QThread>
-#include <QStack>
 #include <QCache>
-#include <QMutex>
-#include <QReadWriteLock>
-#include <QReadLocker>
-#include <QWriteLocker>
-#include <QWaitCondition>
 #include <QEvent>
+#include <QFileInfo>
+#include <QImage>
 #include <QMap>
+#include <QMutex>
+#include <QReadLocker>
+#include <QReadWriteLock>
+#include <QSharedPointer>
+#include <QStack>
+#include <QThread>
+#include <QWaitCondition>
 #include <QWeakPointer>
+#include <QWriteLocker>
 
 namespace QtPDF {
 

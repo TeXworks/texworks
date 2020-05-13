@@ -14,10 +14,10 @@
 #ifndef PDFDocumentView_H
 #define PDFDocumentView_H
 
-#include <QtWidgets>
+#include "PDFBackend.h"
+#include "PDFDocumentTools.h"
 
-#include <PDFBackend.h>
-#include <PDFDocumentTools.h>
+#include <QtWidgets>
 
 namespace QtPDF {
 

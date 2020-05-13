@@ -11,8 +11,10 @@
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
  * more details.
  */
-#include <QtGui/QtGui>
+
 #include "PDFDocumentWidget.h"
+
+#include <QtGui/QtGui>
 
 class PageCounter;
 class ZoomTracker;

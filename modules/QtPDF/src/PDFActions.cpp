@@ -11,8 +11,9 @@
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
  * more details.
  */
-#include <PDFActions.h>
-#include <PDFBackend.h>
+
+#include "PDFActions.h"
+#include "PDFBackend.h"
 
 namespace QtPDF {
 

@@ -22,6 +22,7 @@
 #define PopplerBackend_H
 
 #include "PDFBackend.h"
+
 #include <poppler-qt5.h>
 
 namespace QtPDF {
