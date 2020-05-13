@@ -445,7 +445,6 @@ void PrefsDialog::initPathAndToolLists()
 
 const int kSystemLocaleIndex = 0;
 const int kEnglishLocaleIndex = 1;
-const int kFirstTranslationIndex = 1;
 
 typedef QPair<QString, QString> DictPair;
 
