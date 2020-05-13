@@ -154,7 +154,7 @@ void TestLuaScripting::execute()
 } // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
-  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+  Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
 QTEST_MAIN(UnitTest::TestLuaScripting)

@@ -37,7 +37,11 @@ void TestLineNumberWidget::sizeHint()
 {
 	{
 		Tw::UI::LineNumberWidget w(nullptr);
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
 		QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')), 0));
+#else
+		QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().horizontalAdvance(QChar::fromLatin1('9')), 0));
+#endif
 	}
 	{
 		QTextEdit e;
@@ -46,7 +50,11 @@ void TestLineNumberWidget::sizeHint()
 		for (int lines = 1; lines <= 100; lines++, e.insertPlainText(QStringLiteral("\n"))) {
 			if (lines == 10) ++digits;
 			else if (lines == 100) ++digits;
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
 			QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')) * digits, 0));
+#else
+			QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * digits, 0));
+#endif
 		}
 	}
 }
@@ -76,16 +84,24 @@ void TestLineNumberWidget::setParent()
 
 	e.insertPlainText(QStringLiteral("\n\n\n\n\n\n\n\n\n\n"));
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
 	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')) * 1, 0));
+#else
+	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * 1, 0));
+#endif
 	w.setParent(&e);
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
 	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')) * 2, 0));
+#else
+	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * 2, 0));
+#endif
 }
 
 
 } // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
-  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+  Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
 QTEST_MAIN(UnitTest::TestLineNumberWidget)

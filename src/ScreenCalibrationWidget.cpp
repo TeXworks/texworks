@@ -194,7 +194,11 @@ void ScreenCalibrationWidget::paintEvent(QPaintEvent * event)
 		painter.setPen(ps.col);
 		painter.drawLine(QPointF(x, y), QPointF(x, y + _paperTickHeight));
 		if (ps.alignment.testFlag(Qt::AlignRight))
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
 			x -= 2 + painter.fontMetrics().width(ps.name);
+#else
+			x -= 2 + painter.fontMetrics().horizontalAdvance(ps.name);
+#endif
 		else
 			x += 2;
 		painter.drawText(QPointF(x, y + _paperTickHeight), ps.name);

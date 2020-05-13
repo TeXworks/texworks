@@ -48,7 +48,11 @@ QSize LineNumberWidget::sizeHint() const
 		}
 	}
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
 	int space = 3 + fontMetrics().width(QChar::fromLatin1('9')) * digits;
+#else
+	int space = 3 + fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * digits;
+#endif
 	return QSize(space, 0);
 }
 

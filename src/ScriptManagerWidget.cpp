@@ -111,7 +111,7 @@ void ScriptManagerWidget::populateTree(QTreeWidget * tree, QTreeWidgetItem * par
 		if (script && script->getType() != Tw::Scripting::Script::ScriptUnknown) {
 			QStringList strList(script->getTitle());
 			item = parentItem ? new QTreeWidgetItem(parentItem, strList, kScriptType) : new QTreeWidgetItem(tree, strList, kScriptType);
-			item->setData(0, Qt::UserRole, qVariantFromValue(static_cast<void*>(script)));
+			item->setData(0, Qt::UserRole, QVariant::fromValue(static_cast<void*>(script)));
 			item->setCheckState(0, script->isEnabled() ? Qt::Checked : Qt::Unchecked);
 			continue;
 		}

@@ -382,7 +382,11 @@ void NonblockingSyntaxHighlighter::process()
 			_currentFormatRanges.clear();
 			highlightBlock(block.text());
 
-			block.layout()->setAdditionalFormats(_currentFormatRanges);
+#if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
+			block.layout()->setAdditionalFormats(_currentFormatRanges.toList());
+#else
+			block.layout()->setFormats(_currentFormatRanges);
+#endif
 
 			// If the userState has changed, make sure the next block is rehighlighted
 			// as well

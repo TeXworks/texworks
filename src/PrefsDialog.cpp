@@ -494,7 +494,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 
 		dictList << qMakePair(label, dict);
 	}
-	qSort(dictList.begin(), dictList.end(), dictPairLessThan);
+	std::sort(dictList.begin(), dictList.end(), dictPairLessThan);
 	foreach (const DictPair& dict, dictList)
 		dlg.language->addItem(dict.first, dict.second);
 		
@@ -554,7 +554,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		}
 		displayList << qMakePair(locName, *iter);
 	}
-	qSort(displayList.begin(), displayList.end(), dictPairLessThan);
+	std::sort(displayList.begin(), displayList.end(), dictPairLessThan);
 
 	Q_FOREACH(DictPair p, displayList) {
 		dlg.localePopup->addItem(p.first, p.second);
@@ -769,7 +769,11 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		foreach (QWidget* widget, TWApp::instance()->allWidgets()) {
 			QTextEdit* editor = qobject_cast<QTextEdit*>(widget);
 			if (editor)
-			    editor->setTabStopWidth(dlg.tabWidth->value());
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+				editor->setTabStopWidth(dlg.tabWidth->value());
+#else
+				editor->setTabStopDistance(dlg.tabWidth->value());
+#endif
 		}
 		
 		// Preview

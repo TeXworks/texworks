@@ -30,7 +30,7 @@
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
   #include <QtPlugin>
-  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+  Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
 struct fileToOpenStruct{

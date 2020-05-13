@@ -339,8 +339,8 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 		childList->setParent(nullptr);
 
 	// sort the sublists
-	qSort(childLists.begin(), childLists.end(), scriptListLessThan);
-	qSort(childScripts.begin(), childScripts.end(), scriptLessThan);
+	std::sort(childLists.begin(), childLists.end(), scriptListLessThan);
+	std::sort(childScripts.begin(), childScripts.end(), scriptLessThan);
 
 	// add the scripts again, one-by-one
 	foreach (Tw::Scripting::Script* childScript, childScripts)

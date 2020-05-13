@@ -122,7 +122,7 @@ QStringList CitationSelectDialog::getSelectedKeys(const bool ordered /* = true *
 		else unknownKeys.append(key);
 	}
 
-	qStableSort(entries.begin(), entries.end(), BibTeXEntryLessThan);
+	std::stable_sort(entries.begin(), entries.end(), BibTeXEntryLessThan);
 
 	keys.clear();
 	Q_FOREACH(const BibTeXFile::Entry * entry, entries)
@@ -198,11 +198,11 @@ QVariant CitationModel::headerData(int section, Qt::Orientation orientation, int
 		return QVariant();
 
 	if (role == Qt::DisplayRole) {
-		if (section == 1) return CitationSelectDialog::trUtf8("Type");
-		if (section == 2) return CitationSelectDialog::trUtf8("Author");
-		if (section == 3) return CitationSelectDialog::trUtf8("Title");
-		if (section == 4) return CitationSelectDialog::trUtf8("Year");
-		if (section == 5) return CitationSelectDialog::trUtf8("Journal");
+		if (section == 1) return CitationSelectDialog::tr("Type");
+		if (section == 2) return CitationSelectDialog::tr("Author");
+		if (section == 3) return CitationSelectDialog::tr("Title");
+		if (section == 4) return CitationSelectDialog::tr("Year");
+		if (section == 5) return CitationSelectDialog::tr("Journal");
 		return QVariant();
 	}
 	return QVariant();
@@ -227,7 +227,11 @@ void CitationModel::setSelectedKeys(const QStringList & keys)
 			if (!tl.isValid()) tl = br;
 		}
 	}
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	_selectedKeys = keys.toSet();
+#else
+	_selectedKeys = QSet<QString>(keys.begin(), keys.end());
+#endif
 
 	emit dataChanged(tl, br);
 }

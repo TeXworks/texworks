@@ -324,11 +324,11 @@ QString TWApp::GetWindowsVersionString()
 	memset(&osvi, 0, sizeof(OSVERSIONINFOEXA));
 	
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXA);
-	if ( !(bOsVersionInfoEx = GetVersionExA ((OSVERSIONINFOA *) &osvi)) )
+	if ( !(bOsVersionInfoEx = GetVersionExA (reinterpret_cast<OSVERSIONINFOA *>(&osvi))) )
 		return result;
 	
 	// Call GetNativeSystemInfo if supported or GetSystemInfo otherwise.
-	pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo");
+	pGNSI = reinterpret_cast<PGNSI>(GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo"));
 	if (pGNSI)
 		pGNSI(&si);
 	else
@@ -432,7 +432,7 @@ unsigned int TWApp::GetWindowsVersion()
 	memset(&osvi, 0, sizeof(OSVERSIONINFOEXA));
 	
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXA);
-	if ( !GetVersionExA ((OSVERSIONINFOA *) &osvi) )
+	if (!GetVersionExA (reinterpret_cast<OSVERSIONINFOA *>(&osvi)))
 		return 0;
 	
 	return (osvi.dwMajorVersion << 24) | (osvi.dwMinorVersion << 16) | (osvi.wServicePackMajor << 8) | (osvi.wServicePackMinor << 0);
@@ -740,17 +740,20 @@ void TWApp::tileWindows()
 
 void TWApp::arrangeWindows(WindowArrangementFunction func)
 {
-	QDesktopWidget *desktop = QApplication::desktop();
-	for (int screenIndex = 0; screenIndex < desktop->numScreens(); ++screenIndex) {
+	foreach(QScreen * screen, QGuiApplication::screens()) {
 		QWidgetList windows;
-		foreach (TeXDocumentWindow* texDoc, TeXDocumentWindow::documentList())
-			if (desktop->screenNumber(texDoc) == screenIndex)
+		// All windows we iterate over here are top-level windows, so
+		// windowHandle() should return a valid pointer
+		foreach (TeXDocumentWindow* texDoc, TeXDocumentWindow::documentList()) {
+			if (texDoc->windowHandle()->screen() == screen)
 				windows << texDoc;
-		foreach (PDFDocumentWindow* pdfDoc, PDFDocumentWindow::documentList())
-			if (desktop->screenNumber(pdfDoc) == screenIndex)
+		}
+		foreach (PDFDocumentWindow* pdfDoc, PDFDocumentWindow::documentList()) {
+			if (pdfDoc->windowHandle()->screen() == screen)
 				windows << pdfDoc;
+		}
 		if (!windows.empty())
-			(*func)(windows, desktop->availableGeometry(screenIndex));
+			(*func)(windows, screen->availableGeometry());
 	}
 }
 

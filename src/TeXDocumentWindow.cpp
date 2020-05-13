@@ -293,8 +293,14 @@ void TeXDocumentWindow::init()
 	}
 	
 	// kDefault_TabWidth is defined in DefaultPrefs.h
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
 	textEdit->setTabStopWidth(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toInt());
-	
+	textEdit_console->setTabStopWidth(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toInt());
+#else
+	textEdit->setTabStopDistance(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toReal());
+	textEdit_console->setTabStopDistance(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toReal());
+#endif
+
 	// It is VITAL that this connection is queued! Calling showMessage directly
 	// from TeXDocument::contentsChanged would otherwise result in a seg fault
 	// (for whatever reason)
@@ -528,7 +534,7 @@ void TeXDocumentWindow::reloadSpellcheckerMenu()
 			dictActions << act;
 		}
 	}
-	qSort(dictActions.begin(), dictActions.end(), dictActionLessThan);
+	std::sort(dictActions.begin(), dictActions.end(), dictActionLessThan);
 	foreach (QAction* dictAction, dictActions)
 		menuSpelling->addAction(dictAction);
 }
@@ -693,7 +699,7 @@ bool TeXDocumentWindow::event(QEvent *event) // based on example at doc.trolltec
 					QPixmap dragIcon(QString::fromLatin1(":/images/images/TeXworks-doc-48.png"));
 					drag->setPixmap(dragIcon);
 					drag->setHotSpot(QPoint(dragIcon.width() - 5, 5));
-					drag->start(Qt::LinkAction | Qt::CopyAction);
+					drag->exec(Qt::LinkAction | Qt::CopyAction);
 				}
 				else if (mods == Qt::ShiftModifier) {
 					QMenu menu(this);

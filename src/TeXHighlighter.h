@@ -97,7 +97,7 @@ private:
 	QVector<range> _dirtyRanges;
 
 	QTextBlock _currentBlock;
-	QList<QTextLayout::FormatRange> _currentFormatRanges;
+	QVector<QTextLayout::FormatRange> _currentFormatRanges;
 };
 
 class TeXHighlighter : public NonblockingSyntaxHighlighter

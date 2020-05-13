@@ -87,7 +87,7 @@ private:
 
 	void createMessageTarget()
 	{
-		HINSTANCE hInstance = (HINSTANCE)GetModuleHandle(NULL);
+		HINSTANCE hInstance = static_cast<HINSTANCE>(GetModuleHandle(NULL));
 		if (!hInstance)
 			return;
 
@@ -124,7 +124,7 @@ LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 		case WM_COPYDATA:
 		{
 			InterProcessCommunicatorPrivate * ipcp = reinterpret_cast<InterProcessCommunicatorPrivate *>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
-			const COPYDATASTRUCT* pcds = (const COPYDATASTRUCT*)lParam;
+			const COPYDATASTRUCT* pcds = reinterpret_cast<const COPYDATASTRUCT*>(lParam);
 			ipcp->receivedMessage(pcds->dwData, QByteArray::fromRawData(reinterpret_cast<const char*>(pcds->lpData), pcds->cbData));
 			return 0;
 		}
@@ -171,7 +171,7 @@ void InterProcessCommunicator::sendBringToFront()
 	cds.dwData = TW_BRING_TO_FRONT_MSG;
 	cds.cbData = 0;
 	cds.lpData = NULL;
-	SendMessageA(hWnd, WM_COPYDATA, 0, (LPARAM)&cds);
+	SendMessageA(hWnd, WM_COPYDATA, 0, reinterpret_cast<LPARAM>(&cds));
 }
 
 void InterProcessCommunicator::sendOpenFile(const QString & path, const int position)
@@ -185,7 +185,7 @@ void InterProcessCommunicator::sendOpenFile(const QString & path, const int posi
 	cds.dwData = TW_OPEN_FILE_MSG;
 	cds.cbData = ba.length();
 	cds.lpData = ba.data();
-	SendMessageA(hWnd, WM_COPYDATA, 0, (LPARAM)&cds);
+	SendMessageA(hWnd, WM_COPYDATA, 0, reinterpret_cast<LPARAM>(&cds));
 }
 
 } // namespace Tw
