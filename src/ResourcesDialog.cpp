@@ -20,6 +20,7 @@
 */
 
 #include "ResourcesDialog.h"
+
 #include "Settings.h"
 #include "TWUtils.h"
 

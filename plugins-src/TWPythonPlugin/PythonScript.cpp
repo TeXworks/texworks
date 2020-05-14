@@ -31,12 +31,12 @@
 #endif
 #define slots Q_SLOTS
 
-#include <QMetaObject>
 #include <QMetaMethod>
+#include <QMetaObject>
 #include <QMetaProperty>
+#include <QRegularExpression>
 #include <QStringList>
 #include <QTextStream>
-#include <QRegularExpression>
 
 namespace Tw {
 namespace Scripting {

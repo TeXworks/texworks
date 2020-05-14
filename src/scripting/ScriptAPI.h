@@ -22,12 +22,12 @@
 #ifndef ScriptAPI_H
 #define ScriptAPI_H
 
+#include "scripting/ScriptAPIInterface.h"
+
+#include <QMessageBox>
 #include <QObject>
 #include <QString>
 #include <QVariant>
-#include <QMessageBox>
-
-#include "scripting/ScriptAPIInterface.h"
 
 namespace Tw {
 namespace Scripting {

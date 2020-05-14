@@ -21,9 +21,9 @@
 #ifndef BIBTEXFILE_H
 #define BIBTEXFILE_H
 
-#include <QString>
-#include <QMap>
 #include <QList>
+#include <QMap>
+#include <QString>
 
 class BibTeXFile
 {

@@ -23,20 +23,20 @@
 #define TWUtils_H
 
 #include <QAction>
-#include <QString>
-#include <QList>
+#include <QDateTime>
 #include <QDir>
+#include <QList>
 #include <QMap>
 #include <QPair>
 #include <QSettings>
-#include <QDateTime>
+#include <QString>
 
 #define TEXWORKS_NAME "TeXworks" /* app name, for use in menus, messages, etc */
 
-class QMainWindow;
 class QCompleter;
-class TeXDocumentWindow;
+class QMainWindow;
 class PDFDocumentWindow;
+class TeXDocumentWindow;
 
 // static utility methods
 class TWUtils

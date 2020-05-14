@@ -22,22 +22,21 @@
 #ifndef PDFDocument_H
 #define PDFDocument_H
 
+#include "../modules/QtPDF/src/PDFDocumentWidget.h"
+#include "FindDialog.h"
 #include "TWScriptableWindow.h"
+#include "TWSynchronizer.h"
+#include "ui_PDFDocumentWindow.h"
 
+#include <QButtonGroup>
+#include <QCursor>
 #include <QImage>
 #include <QLabel>
 #include <QList>
-#include <QCursor>
-#include <QButtonGroup>
+#include <QMouseEvent>
 #include <QPainterPath>
 #include <QTimer>
-#include <QMouseEvent>
 
-#include "FindDialog.h"
-#include "../modules/QtPDF/src/PDFDocumentWidget.h"
-#include "TWSynchronizer.h"
-
-#include "ui_PDFDocumentWindow.h"
 
 const int kDefault_MagnifierSize = 2;
 const bool kDefault_CircularMagnifier = true;

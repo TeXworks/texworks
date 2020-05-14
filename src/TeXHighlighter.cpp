@@ -19,12 +19,11 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include <QTextCursor>
-
 #include "TeXHighlighter.h"
 #include "TWUtils.h"
 #include "document/TeXDocument.h"
 
+#include <QTextCursor>
 #include <climits> // for INT_MAX
 
 QList<TeXHighlighter::HighlightingSpec> *TeXHighlighter::syntaxRules = nullptr;

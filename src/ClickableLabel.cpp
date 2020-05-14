@@ -21,6 +21,8 @@
 
 #include "ClickableLabel.h"
 
+#include <QApplication>
+
 ClickableLabel::ClickableLabel(QWidget * parent, Qt::WindowFlags f)
 : QLabel(parent, f)
 {

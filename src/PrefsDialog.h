@@ -22,13 +22,12 @@
 #ifndef PrefsDialog_H
 #define PrefsDialog_H
 
-#include <QDialog>
-#include <QList>
-
 #include "Engine.h"
-
 #include "ui_PrefsDialog.h"
 #include "ui_ToolConfig.h"
+
+#include <QDialog>
+#include <QList>
 
 class QListWidgetItem;
 

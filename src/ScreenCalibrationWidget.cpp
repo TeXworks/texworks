@@ -18,10 +18,12 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
+
 #include "ScreenCalibrationWidget.h"
+
+#include <QApplication>
 #include <QPainter>
 #include <QStyle>
-#include <QApplication>
 
 ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget * parent)
 	: QWidget(parent)

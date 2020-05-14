@@ -21,11 +21,11 @@
 #ifndef SCREENCALIBRATIONWIDGET_H
 #define SCREENCALIBRATIONWIDGET_H
 
-#include <QWidget>
 #include <QDoubleSpinBox>
-#include <QResizeEvent>
 #include <QMenu>
+#include <QResizeEvent>
 #include <QSignalMapper>
+#include <QWidget>
 
 class ScreenCalibrationWidget : public QWidget
 {

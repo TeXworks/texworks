@@ -24,7 +24,6 @@
 
 #include <QLabel>
 #include <QMouseEvent>
-#include <QApplication>
 
 class ClickableLabel : public QLabel
 {

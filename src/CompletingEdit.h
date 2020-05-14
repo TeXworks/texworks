@@ -26,12 +26,12 @@
 #include "ui/LineNumberWidget.h"
 #include "ui_CompletingEdit.h"
 
-#include <QTextEdit>
-#include <QHash>
-#include <QTimer>
 #include <QDrag>
+#include <QHash>
 #include <QMimeData>
 #include <QRegularExpression>
+#include <QTextEdit>
+#include <QTimer>
 
 class QCompleter;
 class QStandardItemModel;

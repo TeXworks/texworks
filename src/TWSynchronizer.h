@@ -22,9 +22,9 @@
 #ifndef TW_SYNCHRONIZER_H
 #define TW_SYNCHRONIZER_H
 
-#include <QString>
 #include <QList>
 #include <QRectF>
+#include <QString>
 
 
 namespace SyncTeX {

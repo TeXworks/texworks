@@ -21,10 +21,10 @@
 
 #include "ConfirmDelete.h"
 
-#include <QPushButton>
 #include <QFile>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QPushButton>
 
 ConfirmDelete::ConfirmDelete(QWidget *parent)
 	: QDialog(parent)

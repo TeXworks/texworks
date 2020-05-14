@@ -22,11 +22,11 @@
 #ifndef ConfirmDelete_H
 #define ConfirmDelete_H
 
-#include <QDialog>
-#include <QStringList>
-#include <QDir>
-
 #include "ui_ConfirmDelete.h"
+
+#include <QDialog>
+#include <QDir>
+#include <QStringList>
 
 class ConfirmDelete : public QDialog, private Ui::ConfirmDelete
 {

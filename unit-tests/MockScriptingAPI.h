@@ -18,8 +18,10 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
-#include "scripting/ScriptAPIInterface.h"
+
 #include "scripting/Script.h"
+#include "scripting/ScriptAPIInterface.h"
+
 #include <QObject>
 
 using namespace Tw::Scripting;

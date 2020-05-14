@@ -22,8 +22,9 @@
 #ifndef HardWrapDialog_H
 #define HardWrapDialog_H
 
-#include <QDialog>
 #include "ui_HardWrapDialog.h"
+
+#include <QDialog>
 
 const int kDefault_HardWrapWidth = 64;
 const int kHardWrapMode_Window = 0;

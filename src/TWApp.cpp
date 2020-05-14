@@ -20,45 +20,44 @@
 */
 
 #include "TWApp.h"
-#include "TWUtils.h"
-#include "TeXDocumentWindow.h"
-#include "PDFDocumentWindow.h"
-#include "PrefsDialog.h"
-#include "DefaultPrefs.h"
-#include "TemplateDialog.h"
-#include "TWSystemCmd.h"
-#include "Settings.h"
-#include "document/SpellChecker.h"
-#include "scripting/ScriptAPI.h"
-
-#include "TWVersion.h"
-#include "ResourcesDialog.h"
-#include "TWTextCodecs.h"
 
 #if defined(Q_OS_WIN)
 #include "DefaultBinaryPathsWin.h"
 #else
 #include "DefaultBinaryPaths.h"
 #endif
+#include "DefaultPrefs.h"
+#include "PDFDocumentWindow.h"
+#include "PrefsDialog.h"
+#include "ResourcesDialog.h"
+#include "Settings.h"
+#include "TWSystemCmd.h"
+#include "TWTextCodecs.h"
+#include "TWUtils.h"
+#include "TWVersion.h"
+#include "TeXDocumentWindow.h"
+#include "TemplateDialog.h"
+#include "document/SpellChecker.h"
+#include "scripting/ScriptAPI.h"
 
-#include <QMessageBox>
-#include <QFileDialog>
-#include <QString>
-#include <QMenuBar>
-#include <QMenu>
 #include <QAction>
-#include <QSettings>
-#include <QStringList>
+#include <QDesktopServices>
+#include <QDesktopWidget>
 #include <QEvent>
+#include <QFileDialog>
 #include <QKeyEvent>
 #include <QKeySequence>
-#include <QDesktopWidget>
-#include <QTextCodec>
+#include <QLibraryInfo>
 #include <QLocale>
+#include <QMenu>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QSettings>
+#include <QString>
+#include <QStringList>
+#include <QTextCodec>
 #include <QTranslator>
 #include <QUrl>
-#include <QDesktopServices>
-#include <QLibraryInfo>
 
 #if defined(Q_OS_DARWIN)
 #include <CoreServices/CoreServices.h>

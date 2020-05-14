@@ -22,9 +22,9 @@
 #ifndef PythonScript_H
 #define PythonScript_H
 
+#include "PythonScriptInterface.h"
 #include "scripting/Script.h"
 #include "scripting/ScriptAPIInterface.h"
-#include "PythonScriptInterface.h"
 
 // Forward declaration taken from the Python headers to avoid having to include
 // Python in this header file

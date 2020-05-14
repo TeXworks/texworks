@@ -20,34 +20,35 @@
 */
 
 #include "CompletingEdit.h"
+
 #include "DefaultPrefs.h"
-#include "TWUtils.h"
-#include "TWApp.h"
 #include "Settings.h"
+#include "TWApp.h"
+#include "TWUtils.h"
 #include "TeXHighlighter.h"
 #include "document/TeXDocument.h"
 
-#include <QCompleter>
-#include <QKeyEvent>
 #include <QAbstractItemView>
+#include <QAbstractTextDocumentLayout>
 #include <QApplication>
+#include <QClipboard>
+#include <QCompleter>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QKeyEvent>
+#include <QMenu>
 #include <QModelIndex>
+#include <QPainter>
+#include <QScrollBar>
+#include <QSignalMapper>
 #include <QStandardItem>
 #include <QStandardItemModel>
-#include <QTextCursor>
-#include <QFileInfo>
-#include <QFile>
-#include <QDir>
-#include <QMenu>
-#include <QTextStream>
-#include <QTextCodec>
-#include <QAbstractTextDocumentLayout>
-#include <QSignalMapper>
 #include <QTextBlock>
-#include <QScrollBar>
+#include <QTextCodec>
+#include <QTextCursor>
+#include <QTextStream>
 #include <QTimer>
-#include <QPainter>
-#include <QClipboard>
 
 CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	: QTextEdit(parent)

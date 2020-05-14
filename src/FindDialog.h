@@ -27,9 +27,9 @@
 #include <QList>
 
 #include "ui_Find.h"
+#include "ui_PDFFind.h"
 #include "ui_Replace.h"
 #include "ui_SearchResults.h"
-#include "ui_PDFFind.h"
 
 class TeXDocumentWindow;
 class QTextEdit;

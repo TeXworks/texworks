@@ -22,20 +22,18 @@
 #ifndef TeXDocumentWindow_H
 #define TeXDocumentWindow_H
 
+#include "FindDialog.h"
 #include "TWScriptableWindow.h"
 #include "document/SpellChecker.h"
 #include "document/TeXDocument.h"
-
-#include <QList>
-#include <QRegularExpression>
-#include <QProcess>
-#include <QDateTime>
-#include <QSignalMapper>
-#include <QMouseEvent>
-
 #include "ui_TeXDocumentWindow.h"
 
-#include "FindDialog.h"
+#include <QDateTime>
+#include <QList>
+#include <QMouseEvent>
+#include <QProcess>
+#include <QRegularExpression>
+#include <QSignalMapper>
 
 class QAction;
 class QMenu;

@@ -21,8 +21,8 @@
 #ifndef SpellChecker_H
 #define SpellChecker_H
 
-#include <QObject>
 #include <QHash>
+#include <QObject>
 #include <QTextCodec>
 
 struct Hunhandle;

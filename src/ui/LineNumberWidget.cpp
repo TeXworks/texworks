@@ -18,12 +18,13 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
+
 #include "LineNumberWidget.h"
 
-#include <QPainter>
-#include <QTextBlock>
 #include <QAbstractTextDocumentLayout>
+#include <QPainter>
 #include <QScrollBar>
+#include <QTextBlock>
 
 namespace Tw {
 namespace UI {

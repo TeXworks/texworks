@@ -18,9 +18,11 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
+
 #include "CitationSelectDialog.h"
-#include <QKeyEvent>
+
 #include <QAbstractButton>
+#include <QKeyEvent>
 
 KeyForwarder::KeyForwarder(QObject * target, QObject * parent /* = nullptr */)
   : QObject(parent), _target(target)

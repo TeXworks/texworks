@@ -22,8 +22,9 @@
 #ifndef ScriptManagerWidget_H
 #define ScriptManagerWidget_H
 
-#include <QDialog>
 #include "ui_ScriptManagerWidget.h"
+
+#include <QDialog>
 
 class TWScriptList;
 

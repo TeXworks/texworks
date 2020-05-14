@@ -20,13 +20,14 @@
 */
 
 #include "TWSynchronizer.h"
+
+#include "PDFDocumentWindow.h"
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "TeXDocumentWindow.h"
-#include "PDFDocumentWindow.h"
 
-#include <QFileInfo>
 #include <QDir>
+#include <QFileInfo>
 
 // TODO for fine-grained search:
 // - Specially handle \commands (and possibly other TeX codes)

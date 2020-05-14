@@ -22,9 +22,9 @@
 #ifndef LuaScript_H
 #define LuaScript_H
 
+#include "LuaScriptInterface.h"
 #include "scripting/Script.h"
 #include "scripting/ScriptAPIInterface.h"
-#include "LuaScriptInterface.h"
 
 #include <QMetaMethod>
 #include <QMetaProperty>

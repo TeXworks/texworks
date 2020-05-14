@@ -25,11 +25,11 @@
 #include "TWScriptManager.h"
 #include "scripting/Script.h"
 
-#include <QMainWindow>
 #include <QList>
+#include <QMainWindow>
 
-class QMenu;
 class QAction;
+class QMenu;
 class QSignalMapper;
 
 // parent class for document windows (i.e. both the source and PDF window types);

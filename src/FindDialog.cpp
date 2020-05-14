@@ -20,18 +20,18 @@
 */
 
 #include "FindDialog.h"
-#include "TeXDocumentWindow.h"
 #include "PDFDocumentWindow.h"
-#include "TWApp.h"
 #include "Settings.h"
+#include "TWApp.h"
+#include "TeXDocumentWindow.h"
 
-#include <QPushButton>
-#include <QTableWidget>
-#include <QHeaderView>
-#include <QTextBlock>
 #include <QFileInfo>
+#include <QHeaderView>
 #include <QKeyEvent>
+#include <QPushButton>
 #include <QShortcut>
+#include <QTableWidget>
+#include <QTextBlock>
 #include <QTextBoundaryFinder>
 
 const int kMaxRecentStrings = 10;

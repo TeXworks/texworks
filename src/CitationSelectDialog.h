@@ -21,13 +21,14 @@
 #ifndef __CITATION_SELECT_DIALOG_H
 #define __CITATION_SELECT_DIALOG_H
 
+#include "BibTeXFile.h"
+
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QLineEdit>
-#include <QTableView>
 #include <QSet>
 #include <QSortFilterProxyModel>
-#include "BibTeXFile.h"
+#include <QTableView>
 
 class CitationModel : public QAbstractTableModel {
 	Q_OBJECT

@@ -20,23 +20,24 @@
 */
 
 #include "TWScriptableWindow.h"
-#include "TWScriptManager.h"
-#include "scripting/ScriptAPI.h"
+
 #include "ScriptManagerWidget.h"
-#include "TWApp.h"
 #include "Settings.h"
+#include "TWApp.h"
+#include "TWScriptManager.h"
 #include "TWUtils.h"
 #include "scripting/JSScriptInterface.h"
+#include "scripting/ScriptAPI.h"
 #include "scripting/ScriptLanguageInterface.h"
 
-#include <QSignalMapper>
-#include <QMenu>
 #include <QAction>
+#include <QDockWidget>
 #include <QFile>
+#include <QMenu>
 #include <QMessageBox>
+#include <QSignalMapper>
 #include <QStatusBar>
 #include <QToolBar>
-#include <QDockWidget>
 
 void
 TWScriptableWindow::initScriptable(QMenu* theScriptsMenu,

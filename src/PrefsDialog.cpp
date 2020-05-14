@@ -20,24 +20,24 @@
 */
 
 #include "PrefsDialog.h"
+
+#include "CompletingEdit.h"
 #include "DefaultPrefs.h"
+#include "PDFDocumentWindow.h"
 #include "Settings.h"
 #include "TWApp.h"
-#include "PDFDocumentWindow.h"
-#include "TeXHighlighter.h"
-#include "CompletingEdit.h"
 #include "TWUtils.h"
+#include "TeXHighlighter.h"
 #include "document/SpellChecker.h"
 
-#include <QFontDatabase>
-#include <QTextCodec>
-#include <QSet>
-#include <QFileDialog>
-#include <QMainWindow>
-#include <QToolBar>
 #include <QDesktopWidget>
-//#include <QtAlgorithms>
+#include <QFileDialog>
+#include <QFontDatabase>
+#include <QMainWindow>
 #include <QMessageBox>
+#include <QSet>
+#include <QTextCodec>
+#include <QToolBar>
 
 PrefsDialog::PrefsDialog(QWidget *parent)
 	: QDialog(parent)

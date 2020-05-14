@@ -20,28 +20,29 @@
 */
 
 #include "TWUtils.h"
-#include "TWApp.h"
-#include "TeXDocumentWindow.h"
-#include "PDFDocumentWindow.h"
-#include "TWVersion.h"
+
 #include "GitRev.h"
+#include "PDFDocumentWindow.h"
 #include "Settings.h"
+#include "TWApp.h"
+#include "TWVersion.h"
+#include "TeXDocumentWindow.h"
 #include "utils/FileVersionDatabase.h"
 
-#include <QFileDialog>
-#include <QString>
-#include <QMenu>
 #include <QAction>
-#include <QStringList>
-#include <QEvent>
-#include <QKeyEvent>
-#include <QDesktopWidget>
 #include <QCompleter>
-#include <QTextCodec>
-#include <QFile>
-#include <QDirIterator>
-#include <QSignalMapper>
 #include <QDateTime>
+#include <QDesktopWidget>
+#include <QDirIterator>
+#include <QEvent>
+#include <QFile>
+#include <QFileDialog>
+#include <QKeyEvent>
+#include <QMenu>
+#include <QSignalMapper>
+#include <QString>
+#include <QStringList>
+#include <QTextCodec>
 
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 // compile-time default paths - customize by defining in the .pro file

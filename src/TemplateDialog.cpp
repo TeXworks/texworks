@@ -19,10 +19,10 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "TemplateDialog.h"
-#include "TeXHighlighter.h"
-#include "TWUtils.h"
 #include "Settings.h"
+#include "TWUtils.h"
+#include "TeXHighlighter.h"
+#include "TemplateDialog.h"
 #include "document/TeXDocument.h"
 
 #include <QDirModel>

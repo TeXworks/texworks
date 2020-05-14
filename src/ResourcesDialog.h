@@ -22,12 +22,11 @@
 #ifndef ResourcesDialog_H
 #define ResourcesDialog_H
 
-#include <QDialog>
-#include <QUrl>
-#include <QDesktopServices>
-
 #include "ui_ResourcesDialog.h"
 
+#include <QDesktopServices>
+#include <QDialog>
+#include <QUrl>
 
 class ResourcesDialog : public QDialog, private Ui::ResourcesDialog
 {

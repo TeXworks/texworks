@@ -18,6 +18,7 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
+
 #include <QtTest/QtTest>
 
 namespace UnitTest {

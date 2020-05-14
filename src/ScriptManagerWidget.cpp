@@ -20,15 +20,16 @@
 */
 
 #include "ScriptManagerWidget.h"
+
 #include "TWApp.h"
-#include "scripting/Script.h"
 #include "TWScriptableWindow.h"
+#include "scripting/Script.h"
 #include "scripting/ScriptLanguageInterface.h"
 
-#include <QLabel>
 #include <QCloseEvent>
-#include <QHeaderView>
 #include <QDesktopServices>
+#include <QHeaderView>
+#include <QLabel>
 #include <QUrl>
 
 ScriptManagerWidget * ScriptManagerWidget::gManageScriptsWindow = nullptr;

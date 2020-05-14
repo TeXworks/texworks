@@ -24,12 +24,11 @@
 
 #include "document/SpellChecker.h"
 
+#include <QRegularExpression>
 #include <QSyntaxHighlighter>
-
+#include <QTextCharFormat>
 #include <QTextDocument>
 #include <QTextLayout>
-#include <QTextCharFormat>
-#include <QRegularExpression>
 #include <QTimer>
 
 namespace Tw {

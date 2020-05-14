@@ -20,14 +20,15 @@
 */
 
 #include "LuaScriptInterface.h"
+
 #include "LuaScript.h"
 
-#include <lua.hpp>
-
-#include <QTextStream>
-#include <QtPlugin>
 #include <QMetaObject>
 #include <QStringList>
+#include <QTextStream>
+#include <QtPlugin>
+
+#include <lua.hpp>
 
 namespace Tw {
 namespace Scripting {

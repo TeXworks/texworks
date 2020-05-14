@@ -20,6 +20,7 @@
 */
 
 #include "CommandlineParser.h"
+
 #include <QFileInfo>
 
 bool CommandlineParser::parse()

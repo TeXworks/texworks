@@ -22,17 +22,17 @@
 #ifndef Script_H
 #define Script_H
 
+#include "scripting/ScriptAPIInterface.h"
+
+#include <QDateTime>
+#include <QFileInfo>
+#include <QHash>
+#include <QKeySequence>
 #include <QObject>
 #include <QString>
-#include <QFileInfo>
-#include <QDateTime>
-#include <QKeySequence>
 #include <QStringList>
-#include <QVariant>
-#include <QHash>
 #include <QTextCodec>
-
-#include "scripting/ScriptAPIInterface.h"
+#include <QVariant>
 
 namespace Tw {
 namespace Scripting {

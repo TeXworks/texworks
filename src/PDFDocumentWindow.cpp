@@ -20,37 +20,38 @@
 */
 
 #include "PDFDocumentWindow.h"
-#include "TeXDocumentWindow.h"
+
+#include "ClickableLabel.h"
+#include "FindDialog.h"
+#include "Settings.h"
 #include "TWApp.h"
 #include "TWUtils.h"
-#include "Settings.h"
-#include "FindDialog.h"
-#include "ClickableLabel.h"
+#include "TeXDocumentWindow.h"
 
-#include <QDockWidget>
 #include <QCloseEvent>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QStatusBar>
-#include <QPainter>
-#include <QPaintEngine>
-#include <QLabel>
-#include <QScrollArea>
-#include <QStyle>
-#include <QDesktopWidget>
-#include <QScrollBar>
-#include <QRegion>
-#include <QVector>
-#include <QList>
-#include <QStack>
-#include <QInputDialog>
 #include <QDesktopServices>
-#include <QUrl>
+#include <QDesktopWidget>
+#include <QDockWidget>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QLabel>
+#include <QList>
+#include <QMessageBox>
+#include <QPaintEngine>
+#include <QPainter>
+#include <QRegion>
+#include <QScrollArea>
+#include <QScrollBar>
 #include <QShortcut>
-#include <QToolTip>
 #include <QSignalMapper>
-
+#include <QStack>
+#include <QStatusBar>
+#include <QStyle>
+#include <QToolTip>
+#include <QUrl>
+#include <QVector>
 #include <cmath>
+
 
 #define SYNCTEX_GZ_EXT	".synctex.gz"
 #define SYNCTEX_EXT		".synctex"

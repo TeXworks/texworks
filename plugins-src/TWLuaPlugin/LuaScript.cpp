@@ -31,10 +31,10 @@
 #define lua_tointeger(L, idx) static_cast<int>(lua_tonumber((L), (idx)))
 #endif // !defined(lua_tointeger)
 
-#include <QTextStream>
-#include <QtPlugin>
 #include <QMetaObject>
 #include <QStringList>
+#include <QTextStream>
+#include <QtPlugin>
 
 namespace Tw {
 namespace Scripting {

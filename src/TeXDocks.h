@@ -23,9 +23,9 @@
 #define TEXDOCKS_H
 
 #include <QDockWidget>
-#include <QTreeWidget>
 #include <QListWidget>
 #include <QScrollArea>
+#include <QTreeWidget>
 
 class TeXDocumentWindow;
 class QListWidget;

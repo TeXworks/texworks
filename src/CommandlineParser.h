@@ -25,8 +25,8 @@
 #include <QCoreApplication>
 #include <QList>
 #include <QStringList>
-#include <QVariant>
 #include <QTextStream>
+#include <QVariant>
 
 class CommandlineParser
 {

@@ -22,8 +22,8 @@
 #ifndef ScriptLanguageInterface_H
 #define ScriptLanguageInterface_H
 
-#include <QString>
 #include <QFileInfo>
+#include <QString>
 
 namespace Tw {
 namespace Scripting {

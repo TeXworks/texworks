@@ -18,7 +18,9 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
+
 #include "document/SpellChecker.h"
+
 #include "TWUtils.h" // for TWUtils::getLibraryPath
 
 #include <hunspell.h>

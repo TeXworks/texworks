@@ -21,12 +21,12 @@
 
 #include "scripting/Script.h"
 
-#include <QTextStream>
-#include <QMetaObject>
-#include <QMetaMethod>
-#include <QTextCodec>
 #include <QDir>
+#include <QMetaMethod>
+#include <QMetaObject>
 #include <QRegularExpression>
+#include <QTextCodec>
+#include <QTextStream>
 
 namespace Tw {
 namespace Scripting {

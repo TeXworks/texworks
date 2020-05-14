@@ -18,10 +18,12 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
+
 #include "Scripting_test.h"
-#include "scripting/JSScriptInterface.h"
-#include "scripting/JSScript.h"
+
 #include "MockScriptingAPI.h"
+#include "scripting/JSScript.h"
+#include "scripting/JSScriptInterface.h"
 
 using namespace Tw::Scripting;
 

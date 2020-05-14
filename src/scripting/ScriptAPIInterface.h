@@ -22,10 +22,10 @@
 #ifndef ScriptAPIInterface_H
 #define ScriptAPIInterface_H
 
+#include <QMessageBox>
 #include <QObject>
 #include <QString>
 #include <QVariant>
-#include <QMessageBox>
 
 namespace Tw {
 namespace Scripting {

@@ -22,11 +22,11 @@
 #ifndef TemplateDialog_H
 #define TemplateDialog_H
 
-#include <QDialog>
-#include <QString>
-#include <QItemSelection>
-
 #include "ui_TemplateDialog.h"
+
+#include <QDialog>
+#include <QItemSelection>
+#include <QString>
 
 class QDirModel;
 

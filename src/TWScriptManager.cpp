@@ -19,12 +19,12 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "Settings.h"
 #include "ScriptManagerWidget.h"
+#include "Settings.h"
 #include "TWScriptManager.h"
 #include "TWUtils.h"
-#include "scripting/ScriptAPI.h"
 #include "scripting/JSScriptInterface.h"
+#include "scripting/ScriptAPI.h"
 #include "scripting/ScriptLanguageInterface.h"
 
 #include <QDir>

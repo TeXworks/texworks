@@ -19,28 +19,28 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "scripting/ScriptAPI.h"
+#include "DefaultPrefs.h"
+#include "Engine.h"
+#include "Settings.h"
+#include "TWApp.h"
 #include "TWSystemCmd.h"
 #include "TWUtils.h"
-#include "TWApp.h"
-#include "Settings.h"
-#include "Engine.h"
 #include "document/SpellChecker.h"
 #include "scripting/Script.h"
-#include "DefaultPrefs.h"
+#include "scripting/ScriptAPI.h"
 
-#include <QObject>
-#include <QString>
-#include <QVariant>
-#include <QMessageBox>
-#include <QInputDialog>
-#include <QProgressDialog>
-#include <QCoreApplication>
-#include <QUiLoader>
 #include <QBuffer>
-#include <QDir>
-#include <QUrl>
+#include <QCoreApplication>
 #include <QDesktopServices>
+#include <QDir>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QObject>
+#include <QProgressDialog>
+#include <QString>
+#include <QUiLoader>
+#include <QUrl>
+#include <QVariant>
 
 namespace Tw {
 namespace Scripting {

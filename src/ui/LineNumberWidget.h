@@ -21,8 +21,8 @@
 #ifndef LineNumberWidget_H
 #define LineNumberWidget_H
 
-#include <QTextEdit>
 #include <QPaintEvent>
+#include <QTextEdit>
 
 namespace Tw {
 namespace UI {
