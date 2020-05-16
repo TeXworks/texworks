@@ -464,7 +464,7 @@ const QStringList TWApp::getBinaryPaths()
 	for(QString & path : binPaths) {
 		path = replaceEnvironmentVariables(path);
 	}
-	foreach (QString path, env.value(QStringLiteral("PATH")).split(QStringLiteral(PATH_LIST_SEP), QString::SkipEmptyParts)) {
+	for (QString path : env.value(QStringLiteral("PATH")).split(QStringLiteral(PATH_LIST_SEP), QString::SkipEmptyParts)) {
 		path = replaceEnvironmentVariables(path);
 		if (!binPaths.contains(path)) {
 			binPaths.append(path);
