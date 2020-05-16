@@ -91,8 +91,7 @@ bool Engine::isAvailable() const
 //static
 QStringList Engine::binPaths()
 {
-	QStringList env = QProcess::systemEnvironment();
-	return TWApp::instance()->getBinaryPaths(env);
+	return TWApp::instance()->getBinaryPaths();
 }
 
 // static

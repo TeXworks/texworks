@@ -461,29 +461,18 @@ unsigned int TWApp::GetWindowsVersion()
 }
 #endif
 
-const QStringList TWApp::getBinaryPaths(QStringList& systemEnvironment)
+const QStringList TWApp::getBinaryPaths()
 {
-#if defined(Q_OS_WIN)
-#define PATH_CASE_SENSITIVE	Qt::CaseInsensitive
-#else
-#define PATH_CASE_SENSITIVE	Qt::CaseSensitive
-#endif
 	QStringList binPaths = getPrefsBinaryPaths();
-	QMutableStringListIterator envIter(systemEnvironment);
-	while (envIter.hasNext()) {
-		QString& envVar = envIter.next();
-		if (envVar.startsWith(QLatin1String("PATH="), PATH_CASE_SENSITIVE)) {
-			foreach (const QString& s, envVar.mid(5).split(QString::fromLatin1(PATH_LIST_SEP), QString::SkipEmptyParts)) {
-				if (!binPaths.contains(s)) {
-					binPaths.append(s);
-				}
-			}
-			envVar = envVar.left(5) + binPaths.join(QString::fromLatin1(PATH_LIST_SEP));
-			break;
-		}
-	}
+	QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
 	for(QString & path : binPaths) {
 		path = replaceEnvironmentVariables(path);
+	}
+	foreach (QString path, env.value(QStringLiteral("PATH")).split(QStringLiteral(PATH_LIST_SEP), QString::SkipEmptyParts)) {
+		path = replaceEnvironmentVariables(path);
+		if (!binPaths.contains(path)) {
+			binPaths.append(path);
+		}
 	}
 	return binPaths;
 }
@@ -528,8 +517,7 @@ void TWApp::writeToMailingList()
 #endif
 	body += QLatin1String("Library path     : ") + TWUtils::getLibraryPath(QString()) + QChar::fromLatin1('\n');
 
-	QStringList sysEnv(QProcess::systemEnvironment());
-	const QStringList binPaths = getBinaryPaths(sysEnv);
+	const QStringList binPaths = getBinaryPaths();
 	QString pdftex = findProgram(QString::fromLatin1("pdftex"), binPaths);
 	if (pdftex.isEmpty())
 		pdftex = QLatin1String("not found");
