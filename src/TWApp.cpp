@@ -78,6 +78,29 @@ TWApp *TWApp::theAppInstance = nullptr;
 
 const QEvent::Type TWDocumentOpenEvent::type = static_cast<QEvent::Type>(QEvent::registerEventType());
 
+QString replaceEnvironmentVariables(const QString & s)
+{
+	QString rv{s};
+	QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
+
+	QStringList vars = env.keys();
+	// Sort the variable names from longest to shortest to appropriately handle
+	// cases like $HOMEPATH (if $HOME also exists)
+	std::sort(vars.begin(), vars.end(), [](const QString & a, const QString & b) { return a.length() > b.length(); });
+
+	foreach(const QString & var, vars) {
+#ifdef Q_OS_WINDOWS
+		// Replace "%VAR%" by the value of the corresponding environment variable
+		rv = rv.replace(QStringLiteral("%") + var + QStringLiteral("%"), env.value(var), Qt::CaseInsensitive);
+#else
+		// Replace "${VAR}" and "$VAR" by the value of the corresponding
+		// environment variable (but not "\$HOME")
+		QRegularExpression re{QStringLiteral("(?<!\\\\)\\$(%1|\\{%1\\})").arg(QRegularExpression::escape(var))};
+		rv.replace(re, env.value(var));
+#endif
+	}
+	return rv;
+}
 
 TWApp::TWApp(int &argc, char **argv)
 	: QApplication(argc, argv)
@@ -459,6 +482,9 @@ const QStringList TWApp::getBinaryPaths(QStringList& systemEnvironment)
 			break;
 		}
 	}
+	for(QString & path : binPaths) {
+		path = replaceEnvironmentVariables(path);
+	}
 	return binPaths;
 }
 
@@ -799,7 +825,13 @@ void TWApp::setDefaultPaths()
 		}
 	}
 	for (int i = binaryPaths->count() - 1; i >= 0; --i) {
-		QDir dir(binaryPaths->at(i));
+		// Note: Only replace the environmental variables for testing directory
+		// existance but do not alter the binaryPaths themselves. Those might
+		// get stored, e.g., in the preferences and we want to keep
+		// environmental variables intact in there (as they may be (re)defined
+		// later on).
+		// All binary paths are properly expanded in getBinaryPaths().
+		QDir dir(replaceEnvironmentVariables(binaryPaths->at(i)));
 		if (!dir.exists())
 			binaryPaths->removeAt(i);
 	}
