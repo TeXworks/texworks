@@ -326,20 +326,8 @@ ENDIF ()
 # Update Header Templates
 # -----------------------
 
-# Some header files contain components that must be dynamically generated. For
-# example, `getDefaultBinPaths.sh` is a script that tries to figure out the
-# appropriate path to TeX binaries on UNIX-like systems.
-IF ( UNIX AND NOT CMAKE_CROSSCOMPILING )
-  IF ( NOT EXISTS ${TeXworks_SOURCE_DIR}/src/DefaultBinaryPaths.h )
-    MESSAGE(STATUS "Generating DefaultBinaryPaths.h")
-
-    # FIXME: Make getDefaultBinPaths.sh cross-compilation aware
-    EXECUTE_PROCESS(
-      COMMAND ${TeXworks_SOURCE_DIR}/getDefaultBinPaths.sh
-      WORKING_DIRECTORY ${TeXworks_SOURCE_DIR}
-    )
-  ENDIF ()
-ENDIF ()
+include(GenerateDefaultBinPaths)
+GenerateDefaultBinPaths()
 
 # Building
 # ========

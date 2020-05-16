@@ -21,11 +21,7 @@
 
 #include "TWApp.h"
 
-#if defined(Q_OS_WIN)
-#include "DefaultBinaryPathsWin.h"
-#else
 #include "DefaultBinaryPaths.h"
-#endif
 #include "DefaultPrefs.h"
 #include "PDFDocumentWindow.h"
 #include "PrefsDialog.h"

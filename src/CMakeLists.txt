@@ -55,6 +55,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   CommandlineParser.h
                   CompletingEdit.h
                   ConfirmDelete.h
+                  DefaultBinaryPaths.h
                   DefaultPrefs.h
                   Engine.h
                   FindDialog.h
@@ -94,13 +95,10 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   )
 
 if (WIN32)
-  list(APPEND TEXWORKS_HDRS DefaultBinaryPathsWin.h)
   list(APPEND TEXWORKS_SRCS InterProcessCommunicatorWin.cpp)
 elseif (APPLE)
-  list(APPEND TEXWORKS_HDRS DefaultBinaryPaths.h)
   list(APPEND TEXWORKS_SRCS InterProcessCommunicatorDummy.cpp)
 else ()
-  list(APPEND TEXWORKS_HDRS DefaultBinaryPaths.h)
   list(APPEND TEXWORKS_SRCS InterProcessCommunicatorDBus.cpp)
 endif ()
 
