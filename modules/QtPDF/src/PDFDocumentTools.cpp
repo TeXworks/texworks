@@ -668,19 +668,15 @@ void Measure::keyReleaseEvent(QKeyEvent *event)
 // function returns 0. Otherwise, it returns the smallest Manhatten distance of
 // pt to any point on the border of the rectangle.
 inline double distanceFromRect(const QPointF & pt, const QRectF & rect) {
-  double dx, dy;
+  double dx{0}, dy{0};
   if (pt.x() < rect.left())
     dx = rect.left() - pt.x();
   else if (pt.x() > rect.right())
     dx = pt.x() - rect.right();
-  else
-    dx = 0;
   if (pt.y() < rect.top())
     dy = rect.top() - pt.y();
   else if (pt.y() > rect.bottom())
     dy = pt.y() - rect.bottom();
-  else
-    dy = 0;
   return dx + dy;
 }
 
@@ -864,18 +860,18 @@ void Select::mouseMoveEvent(QMouseEvent *event)
     
     // Find the box (and subbox therein) that is closest to the current mouse
     // position
-    int i, j, endBox = 0, endSubbox;
+    int endBox{0};
     double minDist = -1;
-    for (i = 0; i < _boxes.size(); ++i) {
+    for (int i = 0; i < _boxes.size(); ++i) {
       double dist = distanceFromRect(curPdfCoords, _boxes[i].boundingBox);
       if (minDist < -.5 || dist < minDist) {
         endBox = i;
         minDist = dist;
       }
     }
+    int endSubbox{0};
     minDist = -1;
-    endSubbox = 0;
-    for (i = 0; i < _boxes[endBox].subBoxes.size(); ++i) {
+    for (int i = 0; i < _boxes[endBox].subBoxes.size(); ++i) {
       double dist = distanceFromRect(curPdfCoords, _boxes[endBox].subBoxes[i].boundingBox);
       if (minDist < -.5 || dist < minDist) {
         endSubbox = i;
@@ -902,11 +898,11 @@ void Select::mouseMoveEvent(QMouseEvent *event)
     // Set WindingFill so overlapping, individual paths are both filled
     // completely.
     highlightPath.setFillRule(Qt::WindingFill);
-    for (i = startBox; i <= endBox; ++i) {
+    for (int i = startBox; i <= endBox; ++i) {
       // Iterate over subboxes in the case that not the whole box might be
       // selected
       if ((i == startBox || i == endBox) && !_boxes[i].subBoxes.empty()) {
-        for (j = 0; j < _boxes[i].subBoxes.size(); ++j) {
+        for (int j = 0; j < _boxes[i].subBoxes.size(); ++j) {
           if ((i == startBox && j < startSubbox) || (i == endBox && j > endSubbox))
             continue;
           highlightPath.addRect(toView.mapRect(_boxes[i].subBoxes[j].boundingBox));
@@ -1018,15 +1014,14 @@ void Select::resetBoxes(const int pageNum /* = -1 */)
   // In debug builds, show all selectable boxes
   QTransform toView = pageGraphicsItem->pointScale();  
   foreach(Backend::Page::Box b, _boxes) {
-    QGraphicsRectItem * rectItem;
     if (b.subBoxes.isEmpty()) {
-      rectItem = scene->addRect(toView.mapRect(b.boundingBox), QPen(_highlightColor));
+      QGraphicsRectItem * rectItem = scene->addRect(toView.mapRect(b.boundingBox), QPen(_highlightColor));
       rectItem->setParentItem(pageGraphicsItem);
       _displayBoxes << rectItem;
     }
     else {
       foreach(Backend::Page::Box sb, b.subBoxes) {
-        rectItem = scene->addRect(toView.mapRect(sb.boundingBox), QPen(_highlightColor));
+        QGraphicsRectItem * rectItem = scene->addRect(toView.mapRect(sb.boundingBox), QPen(_highlightColor));
         rectItem->setParentItem(pageGraphicsItem);
         _displayBoxes << rectItem;
       }

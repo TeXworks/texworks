@@ -783,7 +783,7 @@ QList<SearchResult> Page::search(const QString & searchText, const SearchFlags &
 {
   QList<SearchResult> results;
   SearchResult result;
-  double left, right, top, bottom;
+  double left{0}, right{0}, top{0}, bottom{0};
   ::Poppler::Page::SearchDirection searchDir = (flags.testFlag(Search_Backwards) ? ::Poppler::Page::PreviousResult : ::Poppler::Page::NextResult);
 #if POPPLER_HAS_SEARCH_FLAGS
   ::Poppler::Page::SearchFlags searchFlags = (flags.testFlag(Search_CaseInsensitive) ? ::Poppler::Page::IgnoreCase : ::Poppler::Page::SearchFlags());
@@ -803,9 +803,6 @@ QList<SearchResult> Page::search(const QString & searchText, const SearchFlags &
   if (flags & Search_Backwards) {
     left = right = pageSizeF().width();
     top = bottom = pageSizeF().height();
-  }
-  else {
-    left = top = right = bottom = 0;
   }
 
   // The Poppler search function that takes a QRectF has been marked as

@@ -285,20 +285,19 @@ void TestQtPDF::page()
   QFETCH(QVariant, pageSize);
   
   QList<QSizeF> pageSizes;
-  int i;
 
   QVERIFY(!doc.isNull());
   QVERIFY(doc->page(-1).isNull());
   QVERIFY(doc->page(doc->numPages()).isNull());
 
   if (pageSize.type() == QVariant::SizeF) {
-    for (i = 0; i < doc->numPages(); ++i)
+    for (int i = 0; i < doc->numPages(); ++i)
       pageSizes.append(pageSize.toSizeF());
   }
   else if (pageSize.type() == QVariant::List) {
     QVariantList l(pageSize.value<QVariantList>());
     while (pageSizes.length() < doc->numPages()) {
-      for (i = 0; i < l.length(); ++i)
+      for (int i = 0; i < l.length(); ++i)
         pageSizes.append(l[i].toSizeF());
     }
   }
@@ -306,7 +305,7 @@ void TestQtPDF::page()
     QFAIL(pageSize.typeName());
   }
   
-  for (i = 0; i < doc->numPages(); ++i) {
+  for (int i = 0; i < doc->numPages(); ++i) {
     QSharedPointer<QtPDF::Backend::Page> page = doc->page(i).toStrongRef();
     QSizeF size = pageSizes[i];
 

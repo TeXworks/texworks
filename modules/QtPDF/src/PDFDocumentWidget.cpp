@@ -103,7 +103,7 @@ QString PDFDocumentWidget::defaultBackend() const
 
 void PDFDocumentWidget::setDefaultBackend(const QString & backend)
 {
-  int i;
+  int i{0};
   for (i = 0; i < _backends.size(); ++i) {
     if (_backends[i]->name() == backend)
       break;

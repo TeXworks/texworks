@@ -31,9 +31,9 @@ QDateTime fromPDFDate(QString pdfDate)
   QDate date;
   QTime time;
   QString format;
-  int sign = 0;
-  int hourOffset, minuteOffset = 0;
-  bool ok;
+  int sign{0};
+  int hourOffset{0}, minuteOffset{0};
+  bool ok{false};
 
   // "D:" prefix is strongly recommended, but optional; we don't need it here
   if (pdfDate.startsWith(QString::fromUtf8("D:")))
@@ -93,9 +93,8 @@ QDateTime fromPDFDate(QString pdfDate)
 #ifdef DEBUG
 void PDFPageProcessingThread::dumpWorkStack(const QStack<PageProcessingRequest*> & ws)
 {
-  int i;
   QStringList strList;
-  for (i = 0; i < ws.size(); ++i) {
+  for (int i = 0; i < ws.size(); ++i) {
     PageProcessingRequest * request = ws[i];
     if (!request)
       strList << QString::fromUtf8("NULL");
@@ -197,14 +196,12 @@ void PDFPageProcessingThread::addPageProcessingRequest(PageProcessingRequest * r
 
 void PDFPageProcessingThread::run()
 {
-  PageProcessingRequest * workItem;
-
   _mutex.lock();
   _idle = false;
   while (!_quit) {
     // mutex must be locked at start of loop
     if (!_workStack.empty()) {
-      workItem = _workStack.pop();
+      PageProcessingRequest * workItem = _workStack.pop();
       _mutex.unlock();
 
 #ifdef DEBUG
@@ -502,13 +499,11 @@ QList<SearchResult> Document::search(const QString & searchText, const SearchFla
 {
   QReadLocker docLocker(_docLock.data());
   QList<SearchResult> results;
-  int i, start, end, step;
+  int start = startPage;
+  int end = (flags.testFlag(Search_Backwards) ? -1 : _numPages);
+  int step = (flags.testFlag(Search_Backwards) ? -1 : +1);
 
-  start = startPage;
-  end = (flags.testFlag(Search_Backwards) ? -1 : _numPages);
-  step = (flags.testFlag(Search_Backwards) ? -1 : +1);
-
-  for (i = start; i != end; i += step) {
+  for (int i = start; i != end; i += step) {
     QSharedPointer<Page> page(_pages[i]);
     if (!page)
       continue;
@@ -518,7 +513,7 @@ QList<SearchResult> Document::search(const QString & searchText, const SearchFla
   if (flags.testFlag(Search_WrapAround)) {
     start = ((flags & Search_Backwards) ? _numPages - 1 : 0);
     end = startPage;
-    for (i = start; i != end; i += step) {
+    for (int i = start; i != end; i += step) {
       QSharedPointer<Page> page(_pages[i]);
       if (!page)
         continue;
@@ -706,7 +701,7 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
   // 1) it is current
   // 2) it is a placeholder (in this case, it is currently rendering in the
   // background and we don't need to do anything)
-  PDFPageCache::TileStatus status;
+  PDFPageCache::TileStatus status{PDFPageCache::UNKNOWN};
   QSharedPointer<QImage> retVal = getCachedImage(xres, yres, render_box, &status);
   if (retVal && (status == PDFPageCache::CURRENT || status == PDFPageCache::PLACEHOLDER))
     return retVal;

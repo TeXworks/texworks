@@ -244,7 +244,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
   QDockWidget * dock = new QDockWidget(QString(), parent);
   Q_ASSERT(dock != nullptr);
 
-  PDFDocumentInfoWidget * infoWidget;
+  PDFDocumentInfoWidget * infoWidget{nullptr};
   switch (type) {
     case Dock_TableOfContents:
     {
@@ -265,9 +265,6 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
     case Dock_Annotations:
       infoWidget = new PDFAnnotationsInfoWidget(dock);
       // TODO: possibility to jump to selected/activated annotation
-      break;
-    default:
-      infoWidget = nullptr;
       break;
   }
   if (!infoWidget) {
@@ -324,7 +321,6 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
   bool horizontalScrollbar = true, verticalScrollbar = true;
   QRectF viewRect;
   QRectF sceneRect;
-  Qt::ScrollBarPolicy oldHorizontalPolicy, oldVerticalPolicy;
 
   // This method is modeled closely after QGraphicsView::fitInView(), with two
   // notable exceptions: 1) no arbitrary (hard-coded) margin is added, thus
@@ -340,8 +336,8 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
   // Save the current scroll bar policies so we can restore them later;
   // NB: this method repeatedly changes the scroll bar policies to "simulate"
   // cases without scroll bars as needed
-  oldHorizontalPolicy = horizontalScrollBarPolicy();
-  oldVerticalPolicy = verticalScrollBarPolicy();
+  Qt::ScrollBarPolicy oldHorizontalPolicy = horizontalScrollBarPolicy();
+  Qt::ScrollBarPolicy oldVerticalPolicy = verticalScrollBarPolicy();
 
   // Reset the view scale to 1:1.
   QRectF unity = matrix().mapRect(QRectF(0, 0, 1, 1));
@@ -804,8 +800,7 @@ void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* =
 
   // Construct a list of requests that can be passed to QtConcurrent::mapped()
   QList<Backend::SearchRequest> requests;
-  int i;
-  for (i = _currentPage; i < _lastPage; ++i) {
+  for (int i = _currentPage; i < _lastPage; ++i) {
     Backend::SearchRequest request;
     request.doc = _pdf_scene->document();
     request.pageNum = i;
@@ -813,7 +808,7 @@ void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* =
     request.flags = flags;
     requests << request;
   }
-  for (i = 0; i < _currentPage; ++i) {
+  for (int i = 0; i < _currentPage; ++i) {
     Backend::SearchRequest request;
     request.doc = _pdf_scene->document();
     request.pageNum = i;
@@ -990,11 +985,9 @@ void PDFDocumentView::maybeArmTool(uint modifiers)
 
 void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int alignment /* = Qt::AlignLeft | Qt::AlignTop */)
 {
-  int pageNum;
-
   if (!_pdf_scene || !page || !isPageItem(page))
     return;
-  pageNum = _pdf_scene->pageNumFor(page);
+  int pageNum = _pdf_scene->pageNumFor(page);
   if (pageNum == _currentPage)
     return;
 
@@ -1088,11 +1081,9 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int align
 // missing: oldPage handling/checks, presentation mode
 void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const QPointF anchor, const int alignment /* = Qt::AlignHCenter | Qt::AlignVCenter */)
 {
-  int pageNum;
-
   if (!_pdf_scene || !page || !isPageItem(page))
     return;
-  pageNum = _pdf_scene->pageNumFor(page);
+  int pageNum = _pdf_scene->pageNumFor(page);
   if (pageNum == _currentPage)
     return;
 
@@ -1311,13 +1302,11 @@ void PDFDocumentView::notifyTextSelectionChanged()
 
 void PDFDocumentView::registerTool(DocumentTool::AbstractTool * tool)
 {
-  int i;
-  
   if (!tool)
     return;
 
   // Remove any identical tools
-  for (i = 0; i < _tools.size(); ++i) {
+  for (int i = 0; i < _tools.size(); ++i) {
     if (_tools[i] && *_tools[i] == *tool) {
       delete _tools[i];
       _tools.remove(i);
@@ -1390,13 +1379,8 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
       // Check to see if we need to jump to the next page in single page mode.
       if ( pageMode() == PageMode_SinglePage || pageMode() == PageMode_Presentation ) {
-        int scrollStep, scrollPos = verticalScrollBar()->value();
-
-        if ( event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown )
-          scrollStep = verticalScrollBar()->pageStep();
-        else
-          scrollStep = verticalScrollBar()->singleStep();
-
+        int scrollStep = (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown) ? verticalScrollBar()->pageStep() : verticalScrollBar()->singleStep();
+        int scrollPos = verticalScrollBar()->value();
 
         // Take no action on the first and last page so that PageUp/Down can
         // move the view right up to the page boundary.
@@ -1607,8 +1591,6 @@ PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = 
 
 void PDFDocumentMagnifierView::prepareToShow()
 {
-  qreal zoomLevel;
-
   if (!_parent_view)
     return;
 
@@ -1616,7 +1598,7 @@ void PDFDocumentMagnifierView::prepareToShow()
   if (_parent_view->scene() != scene())
     setScene(_parent_view->scene());
   // Fix the zoom
-  zoomLevel = _parent_view->zoomLevel() * _zoomFactor;
+  qreal zoomLevel = _parent_view->zoomLevel() * _zoomFactor;
   if (zoomLevel != _zoomLevel)
     scale(zoomLevel / _zoomLevel, zoomLevel / _zoomLevel);
   _zoomLevel = zoomLevel;
@@ -1992,7 +1974,7 @@ void PDFDocumentScene::doUnlockDialog()
 {
   Q_ASSERT(!_doc.isNull());
 
-  bool ok;
+  bool ok{false};
   // TODO: Maybe use some parent for QInputDialog (and QMessageBox below)
   // instead of nullptr?
   QString password = QInputDialog::getText(nullptr, tr("Unlock PDF"), tr("Please enter the password to unlock the PDF"), QLineEdit::Password, QString(), &ok);
@@ -2061,12 +2043,10 @@ void PDFDocumentScene::reinitializeScene()
   else {
     // Create a `PDFPageGraphicsItem` for each page in the PDF document and let
     // them be layed out by a `PDFPageLayout` instance.
-    int i;
-
     if (_shownPageIdx >= _lastPage)
       _shownPageIdx = _lastPage - 1;
 
-    for (i = 0; i < _lastPage; ++i)
+    for (int i = 0; i < _lastPage; ++i)
     {
       PDFPageGraphicsItem * pagePtr = new PDFPageGraphicsItem(_doc->page(i), _dpiX, _dpiY);
       pagePtr->setVisible(i == _shownPageIdx || _shownPageIdx == -2);
@@ -2100,9 +2080,7 @@ void PDFDocumentScene::reloadDocument()
 // -----
 void PDFDocumentScene::showOnePage(const int pageIdx)
 {
-  int i;
-
-  for (i = 0; i < _pages.size(); ++i) {
+  for (int i = 0; i < _pages.size(); ++i) {
     if (!isPageItem(_pages[i]))
       continue;
     if (i == pageIdx) {
@@ -2116,9 +2094,7 @@ void PDFDocumentScene::showOnePage(const int pageIdx)
 
 void PDFDocumentScene::showOnePage(const PDFPageGraphicsItem * page)
 {
-  int i;
-
-  for (i = 0; i < _pages.size(); ++i) {
+  for (int i = 0; i < _pages.size(); ++i) {
     if (!isPageItem(_pages[i]))
       continue;
     _pages[i]->setVisible(_pages[i] == page);
@@ -2133,9 +2109,7 @@ void PDFDocumentScene::showOnePage(const PDFPageGraphicsItem * page)
 
 void PDFDocumentScene::showAllPages()
 {
-  int i;
-
-  for (i = 0; i < _pages.size(); ++i) {
+  for (int i = 0; i < _pages.size(); ++i) {
     if (!isPageItem(_pages[i]))
       continue;
     _pages[i]->setVisible(true);
@@ -2330,28 +2304,26 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
     QRect visibleRect = scaleT.mapRect(option->exposedRect).toAlignedRect();
   
-    int i, imin, imax;
-    int j, jmin, jmax;
     // Each tile is rendered at TILE_SIZE pixels, which may be scaled (e.g. on
     // high-dpi screens) and displayed at an effective size
     int effectiveTileSize = TILE_SIZE / painter->device()->devicePixelRatio();
 
-    imin = (visibleRect.left() - pageRect.left()) / effectiveTileSize;
-    imax = (visibleRect.right() - pageRect.left());
+    int imin = (visibleRect.left() - pageRect.left()) / effectiveTileSize;
+    int imax = (visibleRect.right() - pageRect.left());
     if (imax % effectiveTileSize == 0)
       imax /= effectiveTileSize;
     else
       imax = imax / effectiveTileSize + 1;
   
-    jmin = (visibleRect.top() - pageRect.top()) / effectiveTileSize;
-    jmax = (visibleRect.bottom() - pageRect.top());
+    int jmin = (visibleRect.top() - pageRect.top()) / effectiveTileSize;
+    int jmax = (visibleRect.bottom() - pageRect.top());
     if (jmax % effectiveTileSize == 0)
       jmax /= effectiveTileSize;
     else
       jmax = jmax / effectiveTileSize + 1;
   
-    for (j = jmin; j < jmax; ++j) {
-      for (i = imin; i < imax; ++i) {
+    for (int j = jmin; j < jmax; ++j) {
+      for (int i = imin; i < imax; ++i) {
         // renderTile is the rect used for rendering/retrieving tiles. It is
         // agnostic of the painter (e.g., its devicePixelRatio)
         QRect renderTile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
@@ -2480,7 +2452,6 @@ void PDFPageGraphicsItem::addLinks(QList< QSharedPointer<Annotation::Link> > lin
 
 void PDFPageGraphicsItem::addAnnotations(QList< QSharedPointer<Annotation::AbstractAnnotation> > annotations)
 {
-  PDFMarkupAnnotationGraphicsItem *markupAnnotItem;
 #ifdef DEBUG
   QElapsedTimer stopwatch;
   stopwatch.start();
@@ -2490,7 +2461,7 @@ void PDFPageGraphicsItem::addAnnotations(QList< QSharedPointer<Annotation::Abstr
     if (!annot->isMarkup())
       continue;
     QSharedPointer<Annotation::Markup> markupAnnot = annot.staticCast<Annotation::Markup>();
-    markupAnnotItem = new PDFMarkupAnnotationGraphicsItem(markupAnnot);
+    PDFMarkupAnnotationGraphicsItem * markupAnnotItem = new PDFMarkupAnnotationGraphicsItem(markupAnnot);
     // Map the link from pdf coordinates to scene coordinates
     markupAnnotItem->setTransform(QTransform::fromTranslate(0, _pageSize.height()).scale(_dpiX / 72., -_dpiY / 72.));
     markupAnnotItem->setParentItem(this);
@@ -2942,7 +2913,6 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   // vLayout ... lays out the group boxes in w
   // layout ... lays out the actual data widgets in groupBox
   QVBoxLayout * vLayout = new QVBoxLayout(this);
-  QFormLayout * layout;
 
   // We want the vLayout to set the size of w (which should encompass all child
   // widgets completely, since we in turn put it into scrollArea to handle
@@ -2954,7 +2924,7 @@ PDFMetaDataInfoWidget::PDFMetaDataInfoWidget(QWidget * parent) :
   // NOTE: The labels are initialized in retranslteUi() below
   // The "Document" group box
   _documentGroup = new QGroupBox(this);
-  layout = new QFormLayout(_documentGroup);
+  QFormLayout * layout = new QFormLayout(_documentGroup);
 
   _titleLabel = new QLabel(_documentGroup);
   _title = new QLabel(_documentGroup);
@@ -3068,7 +3038,7 @@ void PDFMetaDataInfoWidget::reload()
 
   // Convert the file size to human-readable form
   double fileSize = static_cast<double>(doc->fileSize());
-  int iUnit;
+  int iUnit{0};
   for (iUnit = 0; iUnit < sizeUnits.size() && fileSize >= 1000.; ++iUnit)
     fileSize /= 1000.;
   if (iUnit == 0)
@@ -3413,8 +3383,7 @@ void PDFAnnotationsInfoWidget::initFromDocument(const QWeakPointer<Backend::Docu
     return;
 
   QList< QWeakPointer<Backend::Page> > pages;
-  int i;
-  for (i = 0; i < doc->numPages(); ++i) {
+  for (int i = 0; i < doc->numPages(); ++i) {
     QWeakPointer<Backend::Page> page = doc->page(i);
     if (page)
       pages << page;
@@ -3443,9 +3412,7 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > PDFAnnotationsInfoWidget
 void PDFAnnotationsInfoWidget::annotationsReady(int index)
 {
   Q_ASSERT(_table != nullptr);
-  int i;
-  
-  i = _table->rowCount();
+  int i{_table->rowCount()};
   _table->setRowCount(i + _annotWatcher.resultAt(index).count());
 
 
@@ -3669,8 +3636,6 @@ void PDFPageLayout::continuousModeRelayout() {
   // Create arrays to hold offsets and make sure that they have
   // sufficient space (to avoid moving the data around in memory)
   QVector<qreal> colOffsets(_numCols + 1, 0), rowOffsets(rowCount() + 1, 0);
-  int i;
-  qreal x, y;
   QList<LayoutItem>::iterator it;
   QSizeF pageSize;
   QRectF sceneRect;
@@ -3688,9 +3653,9 @@ void PDFPageLayout::continuousModeRelayout() {
   }
 
   // Next, calculate cumulative offsets (including spacing)
-  for (i = 1; i <= _numCols; ++i)
+  for (int i = 1; i <= _numCols; ++i)
     colOffsets[i] += colOffsets[i - 1] + _xSpacing;
-  for (i = 1; i <= rowCount(); ++i)
+  for (int i = 1; i <= rowCount(); ++i)
     rowOffsets[i] += rowOffsets[i - 1] + _ySpacing;
 
   // Finally, position pages
@@ -3705,6 +3670,7 @@ void PDFPageLayout::continuousModeRelayout() {
     // In all other cases, center the page in allotted space (in case we
     // stumble over pages of different sizes, e.g., landscape pages, etc.)
     pageSize = it->page->pageSizeF();
+    qreal x{0};
     if (_numCols > 1 && it->col == 0)
       x = colOffsets[it->col + 1] - _xSpacing - pageSize.width();
     else if (_numCols > 1 && it->col == _numCols - 1)
@@ -3712,7 +3678,7 @@ void PDFPageLayout::continuousModeRelayout() {
     else
       x = 0.5 * (colOffsets[it->col + 1] + colOffsets[it->col] - _xSpacing - pageSize.width());
     // Always center the page vertically
-    y = 0.5 * (rowOffsets[it->row + 1] + rowOffsets[it->row] - _ySpacing - pageSize.height());
+    qreal y = 0.5 * (rowOffsets[it->row + 1] + rowOffsets[it->row] - _ySpacing - pageSize.height());
     it->page->setPos(x, y);
   }
 
@@ -3726,7 +3692,7 @@ void PDFPageLayout::continuousModeRelayout() {
 // Relayout the pages on the canvas in single page mode
 void PDFPageLayout::singlePageModeRelayout()
 {
-  qreal width, height, maxWidth = 0.0, maxHeight = 0.0;
+  qreal maxWidth = 0.0, maxHeight = 0.0;
   QList<LayoutItem>::iterator it;
   QSizeF pageSize;
   QRectF sceneRect;
@@ -3737,8 +3703,8 @@ void PDFPageLayout::singlePageModeRelayout()
     if (!it->page)
       continue;
     pageSize = it->page->pageSizeF();
-    width = pageSize.width();
-    height = pageSize.height();
+    qreal width{pageSize.width()};
+    qreal height{pageSize.height()};
     if (width > maxWidth)
       maxWidth = width;
     if (height > maxHeight)
@@ -3752,10 +3718,8 @@ void PDFPageLayout::singlePageModeRelayout()
 
 void PDFPageLayout::rearrange() {
   QList<LayoutItem>::iterator it;
-  int row, col;
-
-  row = 0;
-  col = _firstCol;
+  int row{0};
+  int col{_firstCol};
   for (it = _layoutItems.begin(); it != _layoutItems.end(); ++it) {
     it->row = row;
     it->col = col;
