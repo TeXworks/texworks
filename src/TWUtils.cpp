@@ -259,7 +259,7 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	QObject::connect(mapper, SIGNAL(mapped(const QString&)), TWApp::instance(), SLOT(openHelpFile(const QString&)));
 
 	QAction* before = nullptr;
-	int i, firstSeparator = 0;
+	int i{0}, firstSeparator = 0;
 	QList<QAction*> actions = helpMenu->actions();
 	for (i = 0; i < actions.count(); ++i) {
 		if (actions[i]->isSeparator() && !firstSeparator)
@@ -343,7 +343,7 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 		QTextCodec *codec = QTextCodec::codecForMib(mib);
 		QString sortKey = QString::fromUtf8(codec->name().constData()).toUpper();
 		QRegularExpressionMatch iso8859Match = iso8859RegExp.match(sortKey);
-		int rank;
+		int rank{5};
 		if (sortKey.startsWith(QLatin1String("UTF-8")))
 			rank = 1;
 		else if (sortKey.startsWith(QLatin1String("UTF-16")))
@@ -354,8 +354,6 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 			else
 				rank = 4;
 		}
-		else
-			rank = 5;
 		sortKey.prepend(QChar('0' + rank));
 		codecMap.insert(sortKey, codec);
 	}

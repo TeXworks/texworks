@@ -105,13 +105,11 @@ void ScriptManagerWidget::populateTree()
 
 void ScriptManagerWidget::populateTree(QTreeWidget * tree, QTreeWidgetItem * parentItem, const TWScriptList * scripts)
 {
-	QTreeWidgetItem * item;
-
 	foreach (QObject * obj, scripts->children()) {
 		Tw::Scripting::Script * script = qobject_cast<Tw::Scripting::Script*>(obj);
 		if (script && script->getType() != Tw::Scripting::Script::ScriptUnknown) {
 			QStringList strList(script->getTitle());
-			item = parentItem ? new QTreeWidgetItem(parentItem, strList, kScriptType) : new QTreeWidgetItem(tree, strList, kScriptType);
+			QTreeWidgetItem * item = parentItem ? new QTreeWidgetItem(parentItem, strList, kScriptType) : new QTreeWidgetItem(tree, strList, kScriptType);
 			item->setData(0, Qt::UserRole, QVariant::fromValue(static_cast<void*>(script)));
 			item->setCheckState(0, script->isEnabled() ? Qt::Checked : Qt::Unchecked);
 			continue;
@@ -119,7 +117,7 @@ void ScriptManagerWidget::populateTree(QTreeWidget * tree, QTreeWidgetItem * par
 		TWScriptList * list = qobject_cast<TWScriptList*>(obj);
 		if (list) {
 			QStringList strList(list->getName());
-			item = parentItem ? new QTreeWidgetItem(parentItem, strList, kFolderType) : new QTreeWidgetItem(tree, strList, kFolderType);
+			QTreeWidgetItem * item = parentItem ? new QTreeWidgetItem(parentItem, strList, kFolderType) : new QTreeWidgetItem(tree, strList, kFolderType);
 			QFont f = item->font(0);
 			f.setBold(true);
 			item->setFont(0, f);

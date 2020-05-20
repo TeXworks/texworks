@@ -459,7 +459,7 @@ void PDFDocumentWindow::loadSyncData()
 void PDFDocumentWindow::syncClick(int pageIndex, const QPointF& pos)
 {
 	Tw::Settings settings;
-	TWSynchronizer::Resolution res;
+	TWSynchronizer::Resolution res{TWSynchronizer::kDefault_Resolution_ToPDF};
 	switch (settings.value(QString::fromLatin1("syncResolutionToTeX"), TWSynchronizer::kDefault_Resolution_ToTeX).toInt()) {
 		case 0:
 			res = TWSynchronizer::CharacterResolution;
@@ -470,8 +470,6 @@ void PDFDocumentWindow::syncClick(int pageIndex, const QPointF& pos)
 		case 2:
 			res = TWSynchronizer::LineResolution;
 			break;
-		default:
-			res = TWSynchronizer::kDefault_Resolution_ToPDF;
 	}
 
 	syncRange(pageIndex, pos, pos, res);
@@ -569,7 +567,7 @@ void PDFDocumentWindow::syncFromSource(const QString& sourceFile, int lineNo, in
 		return;
 
 	Tw::Settings settings;
-	TWSynchronizer::Resolution res;
+	TWSynchronizer::Resolution res{TWSynchronizer::kDefault_Resolution_ToPDF};
 	switch (settings.value(QString::fromLatin1("syncResolutionToPDF"), TWSynchronizer::kDefault_Resolution_ToPDF).toInt()) {
 		case 0:
 			res = TWSynchronizer::CharacterResolution;
@@ -580,8 +578,6 @@ void PDFDocumentWindow::syncFromSource(const QString& sourceFile, int lineNo, in
 		case 2:
 			res = TWSynchronizer::LineResolution;
 			break;
-		default:
-			res = TWSynchronizer::kDefault_Resolution_ToPDF;
 	}
 
 	TWSynchronizer::TeXSyncPoint src;
@@ -1042,7 +1038,7 @@ void PDFDocumentWindow::showScaleContextMenu(const QPoint pos)
 	if (!contextMenu) {
 		contextMenu = new QMenu(this);
 		static QSignalMapper * contextMenuMapper = new QSignalMapper(this);
-		QAction * a;
+		QAction * a{nullptr};
 		
 		contextMenu->addAction(actionFit_to_Width);
 		contextMenu->addAction(actionFit_to_Window);
@@ -1104,8 +1100,8 @@ void PDFDocumentWindow::setMouseMode(const int newMode)
 
 void PDFDocumentWindow::doPageDialog()
 {
-	bool ok;
 	Q_ASSERT(pdfWidget);
+	bool ok{false};
 
 	int pageNo = QInputDialog::getInt(this, tr("Go to Page"),
 									tr("Page number:"), pdfWidget->currentPage() + 1,
@@ -1116,8 +1112,8 @@ void PDFDocumentWindow::doPageDialog()
 
 void PDFDocumentWindow::doScaleDialog()
 {
-	bool ok;
 	Q_ASSERT(pdfWidget);
+	bool ok{false};
 
 	double newScale = QInputDialog::getDouble(this, tr("Set Zoom"), tr("Zoom level:"), 100 * pdfWidget->zoomLevel(), 0, 2147483647, 0, &ok);
 	if (ok)

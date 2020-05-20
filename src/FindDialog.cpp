@@ -424,8 +424,7 @@ SearchResults::SearchResults(QWidget* parent)
 	connect(table, SIGNAL(itemSelectionChanged()), this, SLOT(showSelectedEntry()));
 	connect(table, SIGNAL(itemPressed(QTableWidgetItem*)), this, SLOT(showEntry(QTableWidgetItem*)));
 	connect(table, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(goToSource()));
-	QShortcut *sc;
-	sc = new QShortcut(Qt::Key_Escape, table);
+	QShortcut * sc = new QShortcut(Qt::Key_Escape, table);
 	sc->setContext(Qt::WidgetShortcut);
 	connect(sc, SIGNAL(activated()), this, SLOT(goToSourceAndClose()));
 }
@@ -490,10 +489,9 @@ void SearchResults::presentResults(const QString& searchText,
 		// Only show a limited number of characters before and after the
 		// specified search string to keep the results clear
 		bool truncateStart = true, truncateEnd = true;
-		int iStart, iEnd;
 		QString text = result.doc->getLineText(result.lineNo);
-		iStart = result.selStart - MAXIMUM_CHARACTERS_BEFORE_SEARCH_RESULT;
-		iEnd = result.selEnd + MAXIMUM_CHARACTERS_AFTER_SEARCH_RESULT;
+		int iStart = result.selStart - MAXIMUM_CHARACTERS_BEFORE_SEARCH_RESULT;
+		int iEnd = result.selEnd + MAXIMUM_CHARACTERS_AFTER_SEARCH_RESULT;
 		if (iStart < 0) {
 			iStart = 0;
 			truncateStart = false;

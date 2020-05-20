@@ -83,7 +83,7 @@ void ScreenCalibrationWidget::retranslate()
 	_units.append({tr("in"), 1});
 
 	_contextMenu.clear();
-	QAction * a;
+	QAction * a{nullptr};
 	a = _contextMenu.addAction(tr("cm"));
 	a->setCheckable(true);
 	a->setChecked(_curUnit == 0);
@@ -157,11 +157,9 @@ void ScreenCalibrationWidget::paintEvent(QPaintEvent * event)
 {
 	Q_UNUSED(event)
 	Q_ASSERT(_sbDPI);
-	double x;
 
 	double dpi = _sbDPI->value(); // dots per inch
 	double dpu = dpi * static_cast<double>(_units[_curUnit].unitsPerInch); // dots per unit
-	int majorTick, minorTick;
 
 	int y = _rulerRect.top();
 
@@ -173,17 +171,17 @@ void ScreenCalibrationWidget::paintEvent(QPaintEvent * event)
 	painter.setClipRect(_rulerRect);
 
 	// Print unit label
-	x = _rulerRect.left() + 2;
+	double x = _rulerRect.left() + 2;
 	painter.drawText(QPointF(x, y + _paperTickHeight), _units[_curUnit].label);
 
 	// Draw tick marks
-	for (majorTick = 0; majorTick * dpu < _rulerRect.width(); ++majorTick) {
-		x = majorTick * dpu + _rulerRect.left();
+	for (int majorTick = 0; majorTick * dpu < _rulerRect.width(); ++majorTick) {
+		double x = majorTick * dpu + _rulerRect.left();
 		painter.drawLine(QPointF(x, y), QPointF(x, y + _majorTickHeight));
 
 		painter.drawText(QPointF(x + 2, y + _majorTickHeight), QString::number(majorTick));
 
-		for (minorTick = 1; minorTick < 10 && x + minorTick * dpu / 10. < _rulerRect.right(); ++minorTick) {
+		for (int minorTick = 1; minorTick < 10 && x + minorTick * dpu / 10. < _rulerRect.right(); ++minorTick) {
 			painter.drawLine(QPointF(x + minorTick * dpu / 10., y), QPointF(x + minorTick * dpu / 10., y + (minorTick == 5 ? _mediumTickHeight : _minorTickHeight)));
 		}
 	}
@@ -192,7 +190,7 @@ void ScreenCalibrationWidget::paintEvent(QPaintEvent * event)
 	foreach(paperSize ps, _paperSizes) {
 		if (!ps.visible)
 			continue;
-		x = ps.size.width() * dpi + _rulerRect.left();
+		double x = ps.size.width() * dpi + _rulerRect.left();
 		painter.setPen(ps.col);
 		painter.drawLine(QPointF(x, y), QPointF(x, y + _paperTickHeight));
 		if (ps.alignment.testFlag(Qt::AlignRight))

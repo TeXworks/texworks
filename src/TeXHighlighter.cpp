@@ -46,7 +46,7 @@ TeXHighlighter::TeXHighlighter(Tw::Document::TeXDocument * parent)
 void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, const QTextCharFormat &spellFormat)
 {
 	while (index < limit) {
-		int start, end;
+		int start{0}, end{0};
 		if (TWUtils::findNextWord(text, index, start, end)) {
 			if (start < index)
 				start = index;
@@ -70,7 +70,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 		while (charPos < text.length()) {
 			// ... and find the highlight pattern that matches closest to the
 			// current character index
-			int firstIndex = INT_MAX, len;
+			int firstIndex{INT_MAX}, len{0};
 			const HighlightingRule* firstRule = nullptr;
 			QRegularExpressionMatch firstMatch;
 			for (int i = 0; i < highlightingRules.size(); ++i) {
@@ -105,7 +105,7 @@ void TeXHighlighter::highlightBlock(const QString &text)
 		if (isTagging) {
 			int index = 0;
 			while (index < text.length()) {
-				int firstIndex = INT_MAX, len;
+				int firstIndex{INT_MAX}, len{0};
 				TagPattern* firstPatt = nullptr;
 				QRegularExpressionMatch firstMatch;
 				for (int i = 0; i < tagPatterns->count(); ++i) {
@@ -250,7 +250,7 @@ void TeXHighlighter::loadPatterns()
 				if (parts.size() != 2)
 					continue;
 				TagPattern patt;
-				bool ok;
+				bool ok{false};
 				patt.level = parts[0].toUInt(&ok);
 				if (ok) {
 					patt.pattern = QRegularExpression(parts[1]);
@@ -411,7 +411,7 @@ void NonblockingSyntaxHighlighter::pushHighlightBlock(const QTextBlock & block)
 
 void NonblockingSyntaxHighlighter::pushHighlightRange(const int from, const int to)
 {
-	int i;
+	int i{0};
 	range r;
 	r.from = from;
 	r.to = to;

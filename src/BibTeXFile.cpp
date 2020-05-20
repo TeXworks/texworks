@@ -120,7 +120,7 @@ template <class S, class C> int findBlock(const S & content, int from, const C &
 		return -1;
 
 	int open = 1;
-	int i;
+	int i{from + 1};
 	bool escaped = false;
 	for (i = from + 1; i < content.size() && open > 0; ++i) {
 		if (escaped) escaped = false;
@@ -187,7 +187,6 @@ void BibTeXFile::parseEntry(Entry & e, const QString & block)
 	e._key = block.mid(0, pos).trimmed();
 	if (pos == -1) return;
 
-	int i;
 	QChar startDelim, endDelim;
 
 	do {
@@ -196,6 +195,7 @@ void BibTeXFile::parseEntry(Entry & e, const QString & block)
 		if (pos < 0) break;
 		QString key = block.mid(start, pos - start).trimmed();
 		QString val;
+		int i{pos + 1};
 
 		start = -1;
 

@@ -124,7 +124,7 @@ int ScriptAPI::critical(QWidget* parent,
 QVariant ScriptAPI::getInt(QWidget* parent, const QString& title, const QString& label,
 				int value, int min, int max, int step)
 {
-	bool ok;
+	bool ok{false};
 	int i = QInputDialog::getInt(parent, title, label, value, min, max, step, &ok);
 	return ok ? QVariant(i) : QVariant();
 }
@@ -132,7 +132,7 @@ QVariant ScriptAPI::getInt(QWidget* parent, const QString& title, const QString&
 QVariant ScriptAPI::getDouble(QWidget* parent, const QString& title, const QString& label,
 				   double value, double min, double max, int decimals)
 {
-	bool ok;
+	bool ok{false};
 	double d = QInputDialog::getDouble(parent, title, label, value, min, max, decimals, &ok);
 	return ok ? QVariant(d) : QVariant();
 }
@@ -140,7 +140,7 @@ QVariant ScriptAPI::getDouble(QWidget* parent, const QString& title, const QStri
 QVariant ScriptAPI::getItem(QWidget* parent, const QString& title, const QString& label,
 				 const QStringList& items, int current, bool editable)
 {
-	bool ok;
+	bool ok{false};
 	QString s = QInputDialog::getItem(parent, title, label, items, current, editable, &ok);
 	return ok ? QVariant(s) : QVariant();
 }
@@ -148,7 +148,7 @@ QVariant ScriptAPI::getItem(QWidget* parent, const QString& title, const QString
 QVariant ScriptAPI::getText(QWidget* parent, const QString& title, const QString& label,
 				 const QString& text)
 {
-	bool ok;
+	bool ok{false};
 	QString s = QInputDialog::getText(parent, title, label, QLineEdit::Normal, text, &ok);
 	return ok ? QVariant(s) : QVariant();
 }

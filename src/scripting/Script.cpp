@@ -58,7 +58,6 @@ bool Script::doParseHeader(const QString& beginComment, const QString& endCommen
 	QString line;
 	bool codecChanged = true;
 	bool success = false;
-	QTextCodec* codec;
 
 	if (!file.exists() || !file.open(QIODevice::ReadOnly))
 		return false;
@@ -68,7 +67,7 @@ bool Script::doParseHeader(const QString& beginComment, const QString& endCommen
 		m_Codec = QTextCodec::codecForLocale();
 
 	while (codecChanged) {
-		codec = m_Codec;
+		QTextCodec * codec = m_Codec;
 		file.seek(0);
 		lines = codec->toUnicode(file.readAll()).split(QRegularExpression(QStringLiteral("\r\n|[\n\r]")));
 	
@@ -175,14 +174,11 @@ Script::ParseHeaderResult Script::doParseHeader(const QStringList & lines)
 /*static*/
 Script::PropertyResult Script::doGetProperty(const QObject * obj, const QString& name, QVariant & value)
 {
-	int iProp;
-	QMetaProperty prop;
-	
 	if (!obj || !(obj->metaObject()))
 		return Property_Invalid;
 	
 	// Get the parameters
-	iProp = obj->metaObject()->indexOfProperty(qPrintable(name));
+	int iProp = obj->metaObject()->indexOfProperty(qPrintable(name));
 	
 	// if we didn't find a property maybe it's a method
 	if (iProp < 0) {
@@ -193,7 +189,7 @@ Script::PropertyResult Script::doGetProperty(const QObject * obj, const QString&
 		return Property_DoesNotExist;
 	}
 	
-	prop = obj->metaObject()->property(iProp);
+	QMetaProperty prop = obj->metaObject()->property(iProp);
 	
 	// If we can't get the property's value, abort
 	if (!prop.isReadable())
@@ -206,19 +202,16 @@ Script::PropertyResult Script::doGetProperty(const QObject * obj, const QString&
 /*static*/
 Script::PropertyResult Script::doSetProperty(QObject * obj, const QString& name, const QVariant & value)
 {
-	int iProp;
-	QMetaProperty prop;
-	
 	if (!obj || !(obj->metaObject()))
 		return Property_Invalid;
 	
-	iProp = obj->metaObject()->indexOfProperty(qPrintable(name));
+	int iProp = obj->metaObject()->indexOfProperty(qPrintable(name));
 	
 	// if we didn't find the property abort
 	if (iProp < 0)
 		return Property_DoesNotExist;
 	
-	prop = obj->metaObject()->property(iProp);
+	QMetaProperty prop = obj->metaObject()->property(iProp);
 	
 	// If we can't set the property's value, abort
 	if (!prop.isWritable())
@@ -232,24 +225,20 @@ Script::PropertyResult Script::doSetProperty(QObject * obj, const QString& name,
 Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 											  QVariantList & arguments, QVariant & result)
 {
-	const QMetaObject * mo;
 	bool methodExists = false;
 	QList<QGenericArgument> genericArgs;
-	int type, typeOfArg, i, j;
 	QString typeName;
-	char * strTypeName;
 	QMetaMethod mm;
 	QGenericReturnArgument retValArg;
 	void * retValBuffer = nullptr;
-	Script::MethodResult status;
 	void * myNullPtr = nullptr;
 	
 	if (!obj || !(obj->metaObject()))
 		return Method_Invalid;
 	
-	mo = obj->metaObject();
+	const QMetaObject * mo = obj->metaObject();
 	
-	for (i = 0; i < mo->methodCount(); ++i) {
+	for (int i = 0; i < mo->methodCount(); ++i) {
 		mm = mo->method(i);
 		// Check for the method name
 		if (!QString::fromUtf8(mm.methodSignature()).startsWith(name + QChar::fromLatin1('(')))
@@ -266,13 +255,14 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 		
 		// Check if the given arguments are compatible with those taken by the
 		// method
+		int j{0};
 		for (j = 0; j < arguments.count(); ++j) {
 			// QVariant can be passed as-is
 			if (mm.parameterTypes()[j] == "QVariant")
 				continue;
 			
-			type = QMetaType::type(mm.parameterTypes()[j].constData());
-			typeOfArg = static_cast<int>(arguments[j].type());
+			int type = QMetaType::type(mm.parameterTypes()[j].constData());
+			int typeOfArg = static_cast<int>(arguments[j].type());
 			if (typeOfArg == type)
 				continue;
 			if (arguments[j].canConvert(type))
@@ -288,11 +278,11 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 		// Convert the arguments into QGenericArgument structures
 		for (j = 0; j < arguments.count() && j < 10; ++j) {
 			typeName = QString::fromUtf8(mm.parameterTypes()[j].constData());
-			type = QMetaType::type(qPrintable(typeName));
-			typeOfArg = static_cast<int>(arguments[j].type());
+			int type = QMetaType::type(qPrintable(typeName));
+			int typeOfArg = static_cast<int>(arguments[j].type());
 			
 			// allocate type name on the heap so it survives the method call
-			strTypeName = new char[typeName.size() + 1];
+			char * strTypeName = new char[typeName.size() + 1];
 			strcpy(strTypeName, qPrintable(typeName));
 			
 			if (typeName == QString::fromLatin1("QVariant")) {
@@ -335,6 +325,7 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 			retValArg = QGenericReturnArgument(mm.typeName(), retValBuffer);
 		}
 		
+		Script::MethodResult status{Method_Failed};
 		if (QMetaObject::invokeMethod(obj, qPrintable(name),
 							 Qt::DirectConnection,
 							 retValArg,
@@ -357,8 +348,6 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 				result = QVariant();
 			status = Method_OK;
 		}
-		else
-			status = Method_Failed;
 		
 		if (retValBuffer)
 			QMetaType::destroy(QMetaType::type(mm.typeName()), retValBuffer);

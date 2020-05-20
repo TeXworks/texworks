@@ -127,8 +127,8 @@ TWSynchronizer::TeXSyncPoint TWSyncTeXSynchronizer::syncFromPDF(const TWSynchron
     return retVal;
 
   if (SyncTeX::synctex_edit_query(_scanner, src.page, static_cast<float>(src.rects[0].left()), static_cast<float>(src.rects[0].top())) > 0) {
-    SyncTeX::synctex_node_p node;
-	while ((node = SyncTeX::synctex_scanner_next_result(_scanner))) {
+    SyncTeX::synctex_node_p node{nullptr};
+    while ((node = SyncTeX::synctex_scanner_next_result(_scanner))) {
       retVal.filename = QString::fromLocal8Bit(SyncTeX::synctex_scanner_get_name(_scanner, SyncTeX::synctex_node_tag(node)));
       retVal.line = SyncTeX::synctex_node_line(node);
       if (retVal.line <= 0)
@@ -239,7 +239,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   // Note: this still does not help for paragraphs broken across pages
   QList<QPolygonF> selection;
   if (SyncTeX::synctex_display_query(_scanner, dest.filename.toLocal8Bit().data(), dest.line, -1, src.page) > 0) {
-	SyncTeX::synctex_node_p node;
+    SyncTeX::synctex_node_p node{nullptr};
 	while ((node = SyncTeX::synctex_scanner_next_result(_scanner))) {
       if (SyncTeX::synctex_node_page(node) != src.page)
         continue;
@@ -259,7 +259,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   // to make srcContext more comparable to destContext below.
   srcContext.replace(QChar::fromLatin1('\n'), QChar::fromLatin1(' '));
 
-  int col;
+  int col{0};
   for (col = 0; col < boxes.count(); ++col) {
     if (boxes[col].contains(src.rects[0].center()))
       break;
@@ -311,7 +311,7 @@ int TWSyncTeXSynchronizer::_findCorrespondingPosition(const QString & srcContext
   // found anymore (e.g., because we stumble across some TeX code like a
   // \command or a math delimiter), or the end of the string is reached). Then,
   // repeat the same process to the left.
-  int deltaFront = 0, deltaBack;
+  int deltaFront = 0, deltaBack{1};
   bool found = false;
   unique = false;
 

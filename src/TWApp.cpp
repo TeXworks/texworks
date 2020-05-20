@@ -967,7 +967,7 @@ const Engine TWApp::getDefaultEngine()
 void TWApp::setDefaultEngine(const QString& name)
 {
 	const QList<Engine> engines = getEngineList();
-	int i;
+	int i{0};
 	for (i = 0; i < engines.count(); ++i) {
 		if (engines[i].name() == name) {
 			Tw::Settings settings;

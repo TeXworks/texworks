@@ -57,11 +57,12 @@ int main(int argc, char *argv[])
 
 	bool launchApp = true;
 	if (clp.parse()) {
-		int i, numArgs = 0;
+		int i{-1}, numArgs{0};
 		while ((i = clp.getNextArgument()) >= 0) {
 			++numArgs;
-			int j, pos = -1;
-			if ((j = clp.getPrevOption(QString::fromLatin1("position"), i)) >= 0) {
+			int j = clp.getPrevOption(QString::fromLatin1("position"), i);
+			int pos = -1;
+			if (j >= 0) {
 				pos = clp.at(j).value.toInt();
 				clp.at(j).processed = true;
 			}

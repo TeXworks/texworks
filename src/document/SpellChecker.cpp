@@ -120,7 +120,7 @@ bool SpellChecker::Dictionary::isWordCorrect(const QString & word) const
 QList<QString> SpellChecker::Dictionary::suggestionsForWord(const QString & word) const
 {
 	QList<QString> suggestions;
-	char ** suggestionList;
+	char ** suggestionList{nullptr};
 
 	int numSuggestions = Hunspell_suggest(_hunhandle, &suggestionList, _codec->fromUnicode(word).data());
 	suggestions.reserve(numSuggestions);

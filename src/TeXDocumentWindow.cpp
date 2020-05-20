@@ -830,7 +830,6 @@ bool TeXDocumentWindow::saveAs()
 bool TeXDocumentWindow::maybeSave()
 {
 	if (textEdit->document()->isModified()) {
-		QMessageBox::StandardButton ret;
 		QMessageBox msgBox(QMessageBox::Warning, tr(TEXWORKS_NAME),
 						   tr("The document \"%1\" has been modified.\n"
 							  "Do you want to save your changes?")
@@ -839,7 +838,7 @@ bool TeXDocumentWindow::maybeSave()
 						   this);
 		msgBox.button(QMessageBox::Discard)->setShortcut(QKeySequence(tr("Ctrl+D", "shortcut: Don't Save")));
 		msgBox.setWindowModality(Qt::WindowModal);
-		ret = static_cast<QMessageBox::StandardButton>(msgBox.exec());
+		QMessageBox::StandardButton ret = static_cast<QMessageBox::StandardButton>(msgBox.exec());
 		if (ret == QMessageBox::Save)
 			return save();
 		if (ret == QMessageBox::Cancel)
@@ -978,7 +977,7 @@ QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 	if (forceCodec)
 		*codecUsed = forceCodec;
 	else {
-		bool hasMetadata;
+		bool hasMetadata{false};
 		*codecUsed = scanForEncoding(QString::fromUtf8(peekBytes.constData()), hasMetadata, reqName);
 		if (!(*codecUsed)) {
 			*codecUsed = TWApp::instance()->getDefaultCodec();
@@ -1064,7 +1063,7 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 		QAbstractTextDocumentLayout * docLayout = doc->documentLayout();
 		Q_ASSERT(docLayout);
 
-		int tries;
+		int tries{0};
 		for (tries = 0; tries < 10; ++tries) {
 			bool isLayoutOK = true;
 			for (QTextBlock b = doc->firstBlock(); b.isValid(); b = b.next()) {
@@ -1232,31 +1231,28 @@ void TeXDocumentWindow::reloadIfChangedOnDisk()
 	}
 	// user chose to discard, or there were no local changes
 	// save the current cursor position
-	QTextCursor cur;
-	int oldSelStart, oldSelEnd, oldBlockStart, oldBlockEnd;
-	int xPos = 0, yPos = 0;
-	QString oldSel;
 
 	// Store the selection (note that oldSelStart == oldSelEnd if there is
 	// no selection)
-	cur = textEdit->textCursor();
-	oldSelStart = cur.selectionStart();
-	oldSelEnd = cur.selectionEnd();
-	oldSel = cur.selectedText();
+	QTextCursor cur = textEdit->textCursor();
+	int oldSelStart = cur.selectionStart();
+	int oldSelEnd = cur.selectionEnd();
+	QString oldSel = cur.selectedText();
 
 	// Get the block number and the offset in the block of the start of the
 	// selection
 	cur.setPosition(oldSelStart);
-	oldBlockStart = cur.blockNumber();
+	int oldBlockStart = cur.blockNumber();
 	oldSelStart -= cur.block().position();
 
 	// Get the block number and the offset in the block of the end of the
 	// selection
 	cur.setPosition(oldSelEnd);
-	oldBlockEnd = cur.blockNumber();
+	int oldBlockEnd = cur.blockNumber();
 	oldSelEnd -= cur.block().position();
 
 	// Get the values of the scroll bars so we can later restore the view
+	int xPos{0}, yPos{0};
 	if (textEdit->horizontalScrollBar())
 		xPos = textEdit->horizontalScrollBar()->value();
 	if (textEdit->verticalScrollBar())
@@ -1266,7 +1262,7 @@ void TeXDocumentWindow::reloadIfChangedOnDisk()
 	// Note that the file may change again before the system watcher is enabled
 	// again, so we should catch that case (this sometimes occurs with version
 	// control systems during commits)
-	unsigned int i;
+	unsigned int i{0};
 	// Limit this to avoid infinite loops
 	for (i = 0; i < 10; ++i) {
 		clearFileWatcher(); // stop watching until next save or reload
@@ -1643,11 +1639,10 @@ void TeXDocumentWindow::showLineEndingSetting()
 void TeXDocumentWindow::lineEndingPopup(const QPoint loc)
 {
 	QMenu menu;
-	QAction *cr, *lf, *crlf;
-	menu.addAction(lf = new QAction(tr("LF (Unix, Mac OS X)"), &menu));
-	menu.addAction(crlf = new QAction(tr("CRLF (Windows)"), &menu));
-	menu.addAction(cr = new QAction(tr("CR (Mac Classic)"), &menu));
-	QAction *result = menu.exec(lineEndingLabel->mapToGlobal(loc));
+	QAction * lf = menu.addAction(tr("LF (Unix, Mac OS X)"));
+	QAction * crlf = menu.addAction(tr("CRLF (Windows)"));
+	QAction * cr = menu.addAction(tr("CR (Mac Classic)"));
+	QAction * result = menu.exec(lineEndingLabel->mapToGlobal(loc));
 	int newSetting = (lineEndings & kLineEnd_Mask);
 	if (result == lf)
 		newSetting = kLineEnd_LF;
@@ -1802,7 +1797,7 @@ void TeXDocumentWindow::maybeCenterSelection(int oldScrollValue)
 
 void TeXDocumentWindow::doFontDialog()
 {
-	bool ok;
+	bool ok{false};
 	QFont font = QFontDialog::getFont(&ok, textEdit->font());
 	if (ok) {
 		textEdit->setFont(font);
@@ -1819,7 +1814,7 @@ void TeXDocumentWindow::doLineDialog()
 {
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.setPosition(cursor.selectionStart());
-	bool ok;
+	bool ok{false};
 	int lineNo = QInputDialog::getInt(this, tr("Go to Line"),
 									tr("Line number:"), cursor.blockNumber() + 1,
 									1, textEdit->document()->blockCount(), 1, &ok);
@@ -1835,8 +1830,8 @@ void TeXDocumentWindow::doFindDialog()
 
 void TeXDocumentWindow::doReplaceDialog()
 {
-	ReplaceDialog::DialogCode result;
-	if ((result = ReplaceDialog::doReplaceDialog(textEdit)) != ReplaceDialog::Cancel)
+	ReplaceDialog::DialogCode result = ReplaceDialog::doReplaceDialog(textEdit);
+	if (result != ReplaceDialog::Cancel)
 		doReplace(result);
 }
 
@@ -2412,7 +2407,7 @@ void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 			}
 			else {
 				// Unicode char number \xHHHH
-				bool ok;
+				bool ok{false};
 				ch = QChar(escapeMatch.captured(2).toUInt(&ok, 16));
 			}
 			replacement.replace(index, escapeMatch.capturedLength(), ch);
@@ -2424,7 +2419,7 @@ void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 	bool searchWrap = settings.value(QString::fromLatin1("searchWrap")).toBool();
 	bool searchSel = settings.value(QString::fromLatin1("searchSelection")).toBool();
 	
-	int rangeStart, rangeEnd;
+	int rangeStart{0}, rangeEnd{0};
 	QTextCursor searchRange = textCursor();
 	if (allFiles) {
 		searchRange.select(QTextCursor::Document);
@@ -3195,7 +3190,7 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 
 					case INSERT_DOCUMENT_TEXT:
 						if (!TWUtils::isPDFfile(fileName) && !TWUtils::isImageFile(fileName) && !TWUtils::isPostscriptFile(fileName)) {
-							QTextCodec *codecUsed;
+							QTextCodec * codecUsed{nullptr};
 							text = readFile(fileName, &codecUsed);
 							if (!text.isNull()) {
 								if (!editBlockStarted) {

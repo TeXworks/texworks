@@ -58,14 +58,14 @@ QByteArray MacCentralEurRomanCodec::convertFromUnicode(const QChar * input, int 
 	QByteArray r(length, Qt::Uninitialized);
 	uchar * d = reinterpret_cast<uchar*>(r.data());
 	int invalid = 0;
-	int i, j;
 
-	for (i = 0; i < length; ++i) {
+	for (int i = 0; i < length; ++i) {
 		uchar c = replacement;
 		ushort uc = input[i].unicode();
 		if (uc < 0x0080)
 			c = static_cast<uchar>(uc);
 		else {
+			int j{0};
 			for (j = 0; j < 128; ++j) {
 				if (MacCentralEurRomanCodes[j] == uc) {
 					c = static_cast<uchar>(j + 0x80);

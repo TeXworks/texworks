@@ -189,8 +189,8 @@ void CompletingEdit::updateColors()
 	Q_ASSERT(currentLineFormat);
 	Q_ASSERT(lineNumberArea);
 
-	qreal bgR, bgG, bgB;
-	qreal fgR, fgG, fgB;
+	qreal bgR{1}, bgG{1}, bgB{1};
+	qreal fgR{0}, fgG{0}, fgB{0};
 
 	palette().color(QPalette::Active, QPalette::Base).getRgbF(&bgR, &bgG, &bgB);
 	palette().color(QPalette::Active, QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
@@ -458,7 +458,7 @@ bool CompletingEdit::selectWord(QTextCursor& cursor)
 	if (text.length() < 1) // empty line
 		return false;
 
-	int start, end;
+	int start{0}, end{0};
 	bool result = TWUtils::findNextWord(text, cursor.selectionStart() - block.position(), start, end);
 	cursor.setPosition(block.position() + start);
 	cursor.setPosition(block.position() + end, QTextCursor::KeepAnchor);
