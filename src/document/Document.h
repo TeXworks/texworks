@@ -26,6 +26,11 @@
 namespace Tw {
 namespace Document {
 
+// is the given file a PDF document? image? Postscript?
+bool isPDFfile(const QString& fileName);
+bool isImageFile(const QString& fileName);
+bool isPostscriptFile(const QString& fileName);
+
 class Document
 {
 public:

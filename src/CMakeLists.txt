@@ -37,6 +37,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   TWSystemCmd.cpp
                   TWTextCodecs.cpp
                   TWUtils.cpp
+                  document/Document.cpp
                   document/SpellChecker.cpp
                   document/TextDocument.cpp
                   document/TeXDocument.cpp

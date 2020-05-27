@@ -54,34 +54,6 @@
 #endif
 #endif
 
-bool TWUtils::isPDFfile(const QString& fileName)
-{
-	QFile theFile(fileName);
-	if (theFile.open(QIODevice::ReadOnly)) {
-		QByteArray ba = theFile.peek(8);
-		if (ba.startsWith("%PDF-1."))
-			return true;
-	}
-	return false;
-}
-
-bool TWUtils::isImageFile(const QString& fileName)
-{
-	QImage	image(fileName);
-	return !image.isNull();
-}
-
-bool TWUtils::isPostscriptFile(const QString& fileName)
-{
-	QFile theFile(fileName);
-	if (theFile.open(QIODevice::ReadOnly)) {
-		QByteArray ba = theFile.peek(4);
-		if (ba.startsWith("%!PS"))
-			return true;
-	}
-	return false;
-}
-
 const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOnDisk /* = true */)
 {
 	QString libRootPath, libPath;

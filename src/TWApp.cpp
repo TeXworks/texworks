@@ -677,7 +677,7 @@ void TWApp::open()
 
 QObject* TWApp::openFile(const QString &fileName, int pos /* = 0 */)
 {
-	if (TWUtils::isPDFfile(fileName)) {
+	if (Tw::Document::isPDFfile(fileName)) {
 		PDFDocumentWindow *doc = PDFDocumentWindow::findDocument(fileName);
 		if (!doc)
 			doc = new PDFDocumentWindow(fileName);

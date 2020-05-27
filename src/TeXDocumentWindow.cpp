@@ -3180,7 +3180,7 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 				QString fileName = url.toLocalFile();
 				switch (action) {
 					case OPEN_FILE_IN_NEW_WINDOW:
-						if(!TWUtils::isImageFile(fileName)) {
+						if(!Tw::Document::isImageFile(fileName)) {
 							TWApp::instance()->openFile(fileName);
 							break;
 						}
@@ -3189,7 +3189,7 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 						// fall through
 
 					case INSERT_DOCUMENT_TEXT:
-						if (!TWUtils::isPDFfile(fileName) && !TWUtils::isImageFile(fileName) && !TWUtils::isPostscriptFile(fileName)) {
+						if (!Tw::Document::isPDFfile(fileName) && !Tw::Document::isImageFile(fileName) && !Tw::Document::isPostscriptFile(fileName)) {
 							QTextCodec * codecUsed{nullptr};
 							text = readFile(fileName, &codecUsed);
 							if (!text.isNull()) {
@@ -3211,11 +3211,11 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 							editBlockStarted = true;
 						}
 						textEdit->setTextCursor(curs);
-						if (TWUtils::isPDFfile(fileName))
+						if (Tw::Document::isPDFfile(fileName))
 							text = TWUtils::includePdfCommand();
-						else if (TWUtils::isImageFile(fileName))
+						else if (Tw::Document::isImageFile(fileName))
 							text = TWUtils::includeImageCommand();
-						else if (TWUtils::isPostscriptFile(fileName))
+						else if (Tw::Document::isPostscriptFile(fileName))
 							text = TWUtils::includePostscriptCommand();
 						else
 							text = TWUtils::includeTextCommand();

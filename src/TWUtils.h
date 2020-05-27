@@ -42,11 +42,6 @@ class TeXDocumentWindow;
 class TWUtils
 {
 public:
-	// is the given file a PDF document? image? Postscript?
-	static bool isPDFfile(const QString& fileName);
-	static bool isImageFile(const QString& fileName);
-	static bool isPostscriptFile(const QString& fileName);
-
 	// return the path to our "library" folder for resources like templates, completion lists, etc
 	static const QString getLibraryPath(const QString& subdir, const bool updateOnDisk = true);
 	// same as getLibraryPath(), but splits the return value by PATH_LIST_SEP
