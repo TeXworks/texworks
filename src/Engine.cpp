@@ -109,7 +109,7 @@ QProcess * Engine::run(const QFileInfo & input, QObject * parent /* = nullptr */
 	if (exeFilePath.isEmpty())
 		return nullptr;
 
-	QStringList env = QProcess::systemEnvironment();
+	QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
 	QProcess * process = new QProcess(parent);
 
 	QString workingDir = input.canonicalPath();
@@ -125,11 +125,10 @@ QProcess * Engine::run(const QFileInfo & input, QObject * parent /* = nullptr */
 
 #if !defined(Q_OS_DARWIN) // not supported on OS X yet :(
 	// Add a (customized) TEXEDIT environment variable
-	env << QString::fromLatin1("TEXEDIT=%1 --position=%d %s").arg(QCoreApplication::applicationFilePath());
+	env.insert(QStringLiteral("TEXEDIT"), QStringLiteral("%1 --position=%d %s").arg(QCoreApplication::applicationFilePath()));
 
-	#if defined(Q_OS_WIN) // MiKTeX apparently uses it's own variable
-	env << QString::fromLatin1("MIKTEX_EDITOR=%1 --position=%l \"%f\"").arg(QCoreApplication::applicationFilePath());
-	#endif
+	// MiKTeX apparently uses it's own variable
+	env.insert(QStringLiteral("MIKTEX_EDITOR"), QStringLiteral("%1 --position=%l \"%f\"").arg(QCoreApplication::applicationFilePath()));
 #endif
 
 	QStringList args = arguments();
@@ -154,7 +153,7 @@ QProcess * Engine::run(const QFileInfo & input, QObject * parent /* = nullptr */
 	args.replaceInStrings(QString::fromLatin1("$suffix"), input.suffix());
 	args.replaceInStrings(QString::fromLatin1("$directory"), input.absoluteDir().absolutePath());
 
-	process->setEnvironment(env);
+	process->setEnvironment(env.toStringList());
 	process->setProcessChannelMode(QProcess::MergedChannels);
 
 	process->start(exeFilePath, args);
