@@ -306,7 +306,12 @@ SET_TARGET_PROPERTIES(qtpdf PROPERTIES
 if (MSVC)
   target_compile_options(qtpdf PRIVATE /W4)
 else ()
-  target_compile_options(qtpdf PRIVATE -Wall -Wpedantic -Wextra -Wconversion -Wold-style-cast -Woverloaded-virtual -Wzero-as-null-pointer-constant)
+  target_compile_options(qtpdf PRIVATE -Wall -Wpedantic -Wextra -Wconversion -Wold-style-cast -Woverloaded-virtual)
+  if (NOT "${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}" VERSION_LESS "5.6.0")
+    # Old Qt versions were heavily using 0 instead of nullptr, giving lots
+    # of false positives
+    target_compile_options(qtpdf PRIVATE -Wzero-as-null-pointer-constant)
+  endif ()
 endif ()
 
 if (NOT TARGET QtPDF::qtpdf)
