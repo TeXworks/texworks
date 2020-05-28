@@ -147,21 +147,18 @@ void TestDocument::tags()
 	QCOMPARE(tags, QList<Tw::Document::TextDocument::Tag>() << tag1 << tag2);
 
 	spy.clear();
-	QCOMPARE(doc.removeTags(3, 5), 0);
+	QCOMPARE(doc.removeTags(3, 5), 0u);
 	QCOMPARE(spy.count(), 0);
 
-	QCOMPARE(doc.removeTags(0, 1), 1);
+	QCOMPARE(doc.removeTags(0, 1), 1u);
 	QCOMPARE(spy.count(), 1);
-}
-
-void deleted() {
-	qDebug() << "deleted";
 }
 
 void TestDocument::getHighlighter()
 {
 	Tw::Document::TeXDocument doc;
-	QCOMPARE(doc.getHighlighter(), nullptr);
+	// Older versions of Qt don't support QCOMPARE of pointer and nullptr
+	QVERIFY(doc.getHighlighter() == nullptr);
 	TeXHighlighter highlighter(&doc);
 	QCOMPARE(doc.getHighlighter(), &highlighter);
 }
