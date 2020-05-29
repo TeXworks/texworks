@@ -438,14 +438,23 @@ MACRO(CONFIG_YESNO what enabled)
   CONFIG_INFO("${what}" "${enabled_string}")
 ENDMACRO()
 
-# Print out configuration summary.
-MESSAGE("${PROJECT_NAME} has been configured:\n")
+macro(CONFIG_VERSION lib version)
+  CONFIG_INFO("  ${lib}" "${version}")
+endmacro()
 
-CONFIG_INFO("Version" ${PROJECT_VERSION})
-CONFIG_INFO("Qt version" "${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}")
-CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
+# Print out configuration summary.
+MESSAGE("${PROJECT_NAME} has been configured (CMake ${CMAKE_VERSION}, ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}):\n")
+
+message("  Version info:")
+CONFIG_VERSION("${PROJECT_NAME}" ${PROJECT_VERSION})
+if (WITH_POPPLERQT)
+  CONFIG_VERSION("Poppler" "${Poppler_VERSION_STRING}")
+endif ()
+CONFIG_VERSION("Qt" "${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}")
+CONFIG_VERSION("zlib" "${ZLIB_VERSION_STRING}")
 message("")
 
+CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
 CONFIG_YESNO("Poppler-Qt backend" WITH_POPPLERQT)
 CONFIG_YESNO("MuPDF backend" WITH_MUPDF)
 CONFIG_YESNO("Shared library" BUILD_SHARED_LIBS)
