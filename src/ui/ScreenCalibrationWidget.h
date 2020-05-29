@@ -21,11 +21,11 @@
 #ifndef SCREENCALIBRATIONWIDGET_H
 #define SCREENCALIBRATIONWIDGET_H
 
-#include <QDoubleSpinBox>
 #include <QMenu>
-#include <QResizeEvent>
 #include <QSignalMapper>
 #include <QWidget>
+
+class QDoubleSpinBox;
 
 namespace Tw {
 namespace UI {

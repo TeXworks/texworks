@@ -22,6 +22,8 @@
 #include "ui/ScreenCalibrationWidget.h"
 
 #include <QApplication>
+#include <QDoubleSpinBox>
+#include <QMouseEvent>
 #include <QPainter>
 #include <QStyle>
 
