@@ -469,16 +469,30 @@ MACRO(CONFIG_YESNO what enabled)
   CONFIG_INFO("${what}" "${enabled_string}")
 ENDMACRO()
 
+macro(CONFIG_VERSION lib version)
+  CONFIG_INFO("  ${lib}" "${version}")
+endmacro()
+
 # Print out configuration summary.
-MESSAGE("TeXworks has been configured:\n")
+MESSAGE("TeXworks has been configured (CMake ${CMAKE_VERSION}, ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}):\n")
 
-CONFIG_INFO("Version" ${TeXworks_VERSION})
-CONFIG_INFO("Git Commit" "${TeXworks_GIT_HASH} (${TeXworks_GIT_DATE})")
+message("  Version info")
+CONFIG_VERSION("${PROJECT_NAME}" "${TeXworks_VERSION} (${TeXworks_GIT_HASH}, ${TeXworks_GIT_DATE})")
+# Hunspell does not have a reliable way to determine its version
+CONFIG_YESNO("  Hunspell" "${HUNSPELL_FOUND}")
+IF ( WITH_LUA )
+  CONFIG_VERSION("Lua" "${LUA_VERSION_STRING}")
+ENDIF()
+if (WITH_PYTHON)
+  CONFIG_VERSION("Python" "${PYTHON_VERSION_STRING}")
+endif()
+CONFIG_VERSION("Qt" ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH})
+CONFIG_VERSION("SyncTeX" "${SYNCTEX_VERSION_STRING}")
+CONFIG_VERSION("zlib" "${ZLIB_VERSION_STRING}")
+message("")
+
 CONFIG_INFO("Build ID" ${TW_BUILD_ID})
-CONFIG_INFO("Qt version" ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH})
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
-MESSAGE("")
-
 CONFIG_YESNO("Lua scripting plugin" LUA_FOUND)
 CONFIG_YESNO("Python scripting plugin" PYTHONLIBS_FOUND)
 IF( APPLE )
