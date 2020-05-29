@@ -136,7 +136,7 @@ jobs:
 
   build-macosx-macports:
     name: Mac OS X (MacPorts)
-    runs-on: macos-10.15
+    runs-on: macos-latest
     strategy:
       matrix:
         include:
