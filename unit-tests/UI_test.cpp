@@ -18,12 +18,12 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
-#include "LineNumberWidget_test.h"
+#include "UI_test.h"
 #include "ui/LineNumberWidget.h"
 
 namespace UnitTest {
 
-void TestLineNumberWidget::bgColor()
+void TestUI::LineNumberWidget_bgColor()
 {
 	Tw::UI::LineNumberWidget w(nullptr);
 	QColor color(21, 42, 84, 168);
@@ -33,7 +33,7 @@ void TestLineNumberWidget::bgColor()
 	QCOMPARE(w.bgColor(), color);
 }
 
-void TestLineNumberWidget::sizeHint()
+void TestUI::LineNumberWidget_sizeHint()
 {
 	{
 		Tw::UI::LineNumberWidget w(nullptr);
@@ -59,7 +59,7 @@ void TestLineNumberWidget::sizeHint()
 	}
 }
 
-void TestLineNumberWidget::paint()
+void TestUI::LineNumberWidget_paint()
 {
 	{
 		Tw::UI::LineNumberWidget w(nullptr);
@@ -77,7 +77,7 @@ void TestLineNumberWidget::paint()
 	}
 }
 
-void TestLineNumberWidget::setParent()
+void TestUI::LineNumberWidget_setParent()
 {
 	QTextEdit e;
 	Tw::UI::LineNumberWidget w(nullptr);
@@ -104,4 +104,4 @@ void TestLineNumberWidget::setParent()
   Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
-QTEST_MAIN(UnitTest::TestLineNumberWidget)
+QTEST_MAIN(UnitTest::TestUI)

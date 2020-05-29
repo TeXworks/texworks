@@ -40,15 +40,15 @@ IF ( LUA_FOUND AND WITH_LUA )
 ENDIF ()
 
 
-# LineNumberWidget
-add_executable(test_LineNumberWidget
-	LineNumberWidget_test.cpp
-	LineNumberWidget_test.h
+# UI
+add_executable(test_UI
+	UI_test.cpp
+	UI_test.h
 	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
 )
-target_compile_options(test_LineNumberWidget PRIVATE ${WARNING_OPTIONS})
-target_link_libraries(test_LineNumberWidget ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
-add_test(NAME test_LineNumberWidget COMMAND test_LineNumberWidget WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
+target_compile_options(test_UI PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_UI ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_test(NAME test_UI COMMAND test_UI WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
 # FileVersionDatabase
 add_executable(test_FileVersionDatabase

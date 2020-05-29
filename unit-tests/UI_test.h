@@ -22,14 +22,14 @@
 
 namespace UnitTest {
 
-class TestLineNumberWidget : public QObject
+class TestUI : public QObject
 {
 	Q_OBJECT
 private slots:
-	void bgColor();
-	void sizeHint();
-	void paint();
-	void setParent();
+	void LineNumberWidget_bgColor();
+	void LineNumberWidget_sizeHint();
+	void LineNumberWidget_paint();
+	void LineNumberWidget_setParent();
 };
 
 } // namespace UnitTest
