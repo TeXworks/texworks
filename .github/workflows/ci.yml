@@ -64,8 +64,8 @@ jobs:
         sudo make install
 
     - name: Configure
-      run: |
-        cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE}
+      # `cmake -B build` supported was only introduced in CMake 3.13
+      run: mkdir build && cd build && cmake -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE}
 
     - name: Build
       run: make -j
