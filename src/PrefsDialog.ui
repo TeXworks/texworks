@@ -772,7 +772,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="ScreenCalibrationWidget" name="resolution" native="true"/>
+          <widget class="Tw::UI::ScreenCalibrationWidget" name="resolution" native="true"/>
          </item>
         </layout>
        </item>
@@ -1236,9 +1236,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ScreenCalibrationWidget</class>
+   <class>Tw::UI::ScreenCalibrationWidget</class>
    <extends>QWidget</extends>
-   <header>ScreenCalibrationWidget.h</header>
+   <header>ui/ScreenCalibrationWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

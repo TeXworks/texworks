@@ -23,7 +23,6 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   PDFDocumentWindow.cpp
                   PrefsDialog.cpp
                   ResourcesDialog.cpp
-                  ScreenCalibrationWidget.cpp
                   ScriptManagerWidget.cpp
                   Settings.cpp
                   TemplateDialog.cpp
@@ -46,6 +45,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   scripting/Script.cpp
                   scripting/JSScript.cpp
                   ui/LineNumberWidget.cpp
+                  ui/ScreenCalibrationWidget.cpp
                   utils/FileVersionDatabase.cpp
                   )
 
@@ -65,7 +65,6 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   PDFDocumentWindow.h
                   PrefsDialog.h
                   ResourcesDialog.h
-                  ScreenCalibrationWidget.h
                   ScriptManagerWidget.h
                   Settings.h
                   TemplateDialog.h
@@ -92,6 +91,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   scripting/JSScriptInterface.h
                   scripting/JSScript.h
                   ui/LineNumberWidget.h
+                  ui/ScreenCalibrationWidget.h
                   utils/FileVersionDatabase.h
                   )
 

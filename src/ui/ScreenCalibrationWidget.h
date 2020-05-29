@@ -27,6 +27,9 @@
 #include <QSignalMapper>
 #include <QWidget>
 
+namespace Tw {
+namespace UI {
+
 class ScreenCalibrationWidget : public QWidget
 {
 	Q_OBJECT
@@ -87,5 +90,8 @@ protected:
 	double _mouseDownInches{0};
 	bool _isDragging{false};
 };
+
+} // namespace UI
+} // namespace Tw
 
 #endif // SCREENCALIBRATIONWIDGET_H
