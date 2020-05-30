@@ -41,6 +41,9 @@ private slots:
 	void ClickableLable_ctor();
 	void ClickableLabel_click();
 	void ClickableLabel_doubleClick();
+
+	void ClosableTabWidget_signals();
+	void ClosableTabWidget_resizeEvent();
 };
 
 } // namespace UnitTest

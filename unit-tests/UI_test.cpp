@@ -21,10 +21,12 @@
 #include "UI_test.h"
 
 #include "ui/ClickableLabel.h"
+#include "ui/ClosableTabWidget.h"
 #include "ui/LineNumberWidget.h"
 #include "ui/ScreenCalibrationWidget.h"
 
 #include <QDoubleSpinBox>
+#include <QTabBar>
 
 namespace UnitTest {
 
@@ -36,6 +38,12 @@ public:
 	QDoubleSpinBox * spinBox() { return _sbDPI; }
 	int unit() const { return _curUnit; }
 	QMenu & contextMenu() { return _contextMenu; }
+};
+
+class ClosableTabWidget : public Tw::UI::ClosableTabWidget
+{
+public:
+	QToolButton * closeButton() { return _closeButton; }
 };
 
 class SignalCounter : public QObject
@@ -356,6 +364,30 @@ void TestUI::ClickableLabel_doubleClick()
 
 	QTest::mouseDClick(&cl, Qt::LeftButton);
 	QCOMPARE(spy.count(), 1);
+}
+
+void TestUI::ClosableTabWidget_signals()
+{
+	ClosableTabWidget w;
+	QSignalSpy spy(&w, SIGNAL(requestClose()));
+
+	QVERIFY(spy.isValid());
+	QCOMPARE(spy.count(), 0);
+	QTest::mouseClick(w.closeButton(), Qt::LeftButton);
+	QCOMPARE(spy.count(), 1);
+}
+
+void TestUI::ClosableTabWidget_resizeEvent()
+{
+	ClosableTabWidget w;
+	w.show();
+
+	Q_ASSERT(w.closeButton() != nullptr);
+	Q_ASSERT(w.tabBar() != nullptr);
+
+	int buttonLeft = w.rect().right() - w.closeButton()->sizeHint().width();
+	QCOMPARE(w.closeButton()->geometry().left(), buttonLeft);
+	QCOMPARE(w.tabBar()->maximumWidth(), buttonLeft);
 }
 
 
