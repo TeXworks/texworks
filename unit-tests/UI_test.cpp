@@ -20,10 +20,13 @@
 */
 #include "UI_test.h"
 
+#include "ui/ClickableLabel.h"
 #include "ui/LineNumberWidget.h"
 #include "ui/ScreenCalibrationWidget.h"
 
 #include <QDoubleSpinBox>
+
+namespace UnitTest {
 
 class MyScreenCalibrationWidget : public Tw::UI::ScreenCalibrationWidget
 {
@@ -35,7 +38,21 @@ public:
 	QMenu & contextMenu() { return _contextMenu; }
 };
 
-namespace UnitTest {
+class SignalCounter : public QObject
+{
+	Q_OBJECT
+	unsigned int _count{0};
+	QMetaObject::Connection _connection;
+private slots:
+	void increment() { ++_count; }
+public:
+	SignalCounter(QObject * obj, const char * signal) {
+		_connection = connect(obj, signal, this, SLOT(increment()));
+	}
+	unsigned int count() const { return _count; }
+	void clear() { _count = 0; }
+	bool isValid() const { return static_cast<bool>(_connection); }
+};
 
 void TestUI::LineNumberWidget_bgColor()
 {
@@ -269,11 +286,84 @@ void TestUI::ScreenCalibrationWidget_contextMenu()
 	w.contextMenu().close();
 }
 
+void TestUI::ClickableLable_ctor()
+{
+	const QString s{QStringLiteral("test")};
+
+	Tw::UI::ClickableLabel cl(s);
+	QCOMPARE(cl.text(), s);
+}
+
+void TestUI::ClickableLabel_click()
+{
+	Tw::UI::ClickableLabel cl;
+	SignalCounter leftCounter(&cl, SIGNAL(mouseLeftClick(QMouseEvent*)));
+	SignalCounter middleCounter(&cl, SIGNAL(mouseMiddleClick(QMouseEvent*)));
+	SignalCounter rightCounter(&cl, SIGNAL(mouseRightClick(QMouseEvent*)));
+
+	// Clicking emits appropriate signals
+	QCOMPARE(leftCounter.count(), 0);
+	QCOMPARE(middleCounter.count(), 0);
+	QCOMPARE(rightCounter.count(), 0);
+	QTest::mouseClick(&cl, Qt::LeftButton);
+	QCOMPARE(leftCounter.count(), 1);
+	QCOMPARE(middleCounter.count(), 0);
+	QCOMPARE(rightCounter.count(), 0);
+	QTest::mouseClick(&cl, Qt::MiddleButton);
+	QCOMPARE(leftCounter.count(), 1);
+	QCOMPARE(middleCounter.count(), 1);
+	QCOMPARE(rightCounter.count(), 0);
+	QTest::mouseClick(&cl, Qt::RightButton);
+	QCOMPARE(leftCounter.count(), 1);
+	QCOMPARE(middleCounter.count(), 1);
+	QCOMPARE(rightCounter.count(), 1);
+	QTest::mouseClick(&cl, Qt::ExtraButton1);
+	QCOMPARE(leftCounter.count(), 1);
+	QCOMPARE(middleCounter.count(), 1);
+	QCOMPARE(rightCounter.count(), 1);
+
+	// Dragging does not emit signals
+	QTest::mousePress(&cl, Qt::LeftButton, {}, QPoint(0, 0));
+	QTest::mouseRelease(&cl, Qt::LeftButton, {}, QPoint(QApplication::startDragDistance(), 0));
+	QCOMPARE(leftCounter.count(), 1);
+	QCOMPARE(middleCounter.count(), 1);
+	QCOMPARE(rightCounter.count(), 1);
+	QTest::mousePress(&cl, Qt::MiddleButton, {}, QPoint(0, 0));
+	QTest::mouseRelease(&cl, Qt::MiddleButton, {}, QPoint(QApplication::startDragDistance(), 0));
+	QCOMPARE(leftCounter.count(), 1);
+	QCOMPARE(middleCounter.count(), 1);
+	QCOMPARE(rightCounter.count(), 1);
+	QTest::mousePress(&cl, Qt::RightButton, {}, QPoint(0, 0));
+	QTest::mouseRelease(&cl, Qt::RightButton, {}, QPoint(QApplication::startDragDistance(), 0));
+	QCOMPARE(leftCounter.count(), 1);
+	QCOMPARE(middleCounter.count(), 1);
+	QCOMPARE(rightCounter.count(), 1);
+	QTest::mousePress(&cl, Qt::ExtraButton1, {}, QPoint(0, 0));
+	QTest::mouseRelease(&cl, Qt::ExtraButton1, {}, QPoint(QApplication::startDragDistance(), 0));
+	QCOMPARE(leftCounter.count(), 1);
+	QCOMPARE(middleCounter.count(), 1);
+	QCOMPARE(rightCounter.count(), 1);
+}
+
+void TestUI::ClickableLabel_doubleClick()
+{
+	Tw::UI::ClickableLabel cl;
+
+	SignalCounter spy(&cl, SIGNAL(mouseDoubleClick(QMouseEvent*)));
+
+	QVERIFY(spy.isValid());
+	QCOMPARE(spy.count(), 0);
+
+	QTest::mouseDClick(&cl, Qt::LeftButton);
+	QCOMPARE(spy.count(), 1);
+}
+
 
 } // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
   Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
+#include "UI_test.moc"
 
 QTEST_MAIN(UnitTest::TestUI)

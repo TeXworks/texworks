@@ -37,6 +37,10 @@ private slots:
 	void ScreenCalibrationWidget_paint();
 	void ScreenCalibrationWidget_changeEvent();
 	void ScreenCalibrationWidget_contextMenu();
+
+	void ClickableLable_ctor();
+	void ClickableLabel_click();
+	void ClickableLabel_doubleClick();
 };
 
 } // namespace UnitTest

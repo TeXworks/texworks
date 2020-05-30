@@ -44,6 +44,7 @@ ENDIF ()
 add_executable(test_UI
 	UI_test.cpp
 	UI_test.h
+	"${CMAKE_SOURCE_DIR}/src/ui/ClickableLabel.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ScreenCalibrationWidget.cpp"
 )
