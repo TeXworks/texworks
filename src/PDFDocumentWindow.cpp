@@ -21,12 +21,12 @@
 
 #include "PDFDocumentWindow.h"
 
-#include "ClickableLabel.h"
 #include "FindDialog.h"
 #include "Settings.h"
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "TeXDocumentWindow.h"
+#include "ui/ClickableLabel.h"
 
 #include <QCloseEvent>
 #include <QDesktopServices>
@@ -155,13 +155,13 @@ void PDFDocumentWindow::init()
 	connect(toolButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(setMouseMode(int)));
 	pdfWidget->setMouseModeMagnifyingGlass();
 
-	scaleLabel = new ClickableLabel();
+	scaleLabel = new Tw::UI::ClickableLabel();
 	statusBar()->addPermanentWidget(scaleLabel);
 	scaleLabel->setFrameStyle(QFrame::StyledPanel);
 	scaleLabel->setFont(statusBar()->font());
 	connect(scaleLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(scaleLabelClick(QMouseEvent*)));
 	
-	pageLabel = new ClickableLabel();
+	pageLabel = new Tw::UI::ClickableLabel();
 	statusBar()->addPermanentWidget(pageLabel);
 	pageLabel->setFrameStyle(QFrame::StyledPanel);
 	pageLabel->setFont(statusBar()->font());

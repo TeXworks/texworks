@@ -22,7 +22,6 @@
 #include "TeXDocumentWindow.h"
 
 #include "CitationSelectDialog.h"
-#include "ClickableLabel.h"
 #include "ConfirmDelete.h"
 #include "DefaultPrefs.h"
 #include "Engine.h"
@@ -36,6 +35,7 @@
 #include "TeXHighlighter.h"
 #include "TemplateDialog.h"
 #include "scripting/ScriptAPI.h"
+#include "ui/ClickableLabel.h"
 
 #include <QAbstractButton>
 #include <QAbstractItemView>
@@ -119,19 +119,19 @@ void TeXDocumentWindow::init()
 	keepConsoleOpen = false;
 	connect(consoleTabs, SIGNAL(requestClose()), actionShow_Hide_Console, SLOT(trigger()));
 
-	statusBar()->addPermanentWidget(lineEndingLabel = new ClickableLabel());
+	statusBar()->addPermanentWidget(lineEndingLabel = new Tw::UI::ClickableLabel());
 	lineEndingLabel->setFrameStyle(QFrame::StyledPanel);
 	lineEndingLabel->setFont(statusBar()->font());
 	connect(lineEndingLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(lineEndingLabelClick(QMouseEvent*)));
 	showLineEndingSetting();
 	
-	statusBar()->addPermanentWidget(encodingLabel = new ClickableLabel());
+	statusBar()->addPermanentWidget(encodingLabel = new Tw::UI::ClickableLabel());
 	encodingLabel->setFrameStyle(QFrame::StyledPanel);
 	encodingLabel->setFont(statusBar()->font());
 	connect(encodingLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(encodingLabelClick(QMouseEvent*)));
 	showEncodingSetting();
 	
-	statusBar()->addPermanentWidget(lineNumberLabel = new ClickableLabel());
+	statusBar()->addPermanentWidget(lineNumberLabel = new Tw::UI::ClickableLabel());
 	lineNumberLabel->setFrameStyle(QFrame::StyledPanel);
 	lineNumberLabel->setFont(statusBar()->font());
 	connect(lineNumberLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(doLineDialog()));

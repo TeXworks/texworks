@@ -25,6 +25,9 @@
 #include <QLabel>
 #include <QMouseEvent>
 
+namespace Tw {
+namespace UI {
+
 class ClickableLabel : public QLabel
 {
 	Q_OBJECT
@@ -46,5 +49,8 @@ protected:
 
 	QPoint mouseStartPoint;
 };
+
+} // namespace UI
+} // namespace Tw
 
 #endif // !defined(ClickableLabel_H)

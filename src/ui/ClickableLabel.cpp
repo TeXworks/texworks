@@ -23,6 +23,9 @@
 
 #include <QApplication>
 
+namespace Tw {
+namespace UI {
+
 ClickableLabel::ClickableLabel(QWidget * parent, Qt::WindowFlags f)
 : QLabel(parent, f)
 {
@@ -65,3 +68,5 @@ void ClickableLabel::mouseReleaseEvent(QMouseEvent * event)
 	}
 }
 
+} // namespace UI
+} // namespace Tw

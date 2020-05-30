@@ -46,7 +46,12 @@ class QTextCodec;
 class QFileSystemWatcher;
 
 class PDFDocumentWindow;
+
+namespace Tw {
+namespace UI {
 class ClickableLabel;
+} // namespace UI
+} // namespace Tw
 
 const int kTeXWindowStateVersion = 1; // increment this if we add toolbars/docks/etc
 
@@ -264,9 +269,9 @@ private:
 	QString rootFilePath;
 	QDateTime lastModified;
 
-	ClickableLabel * lineNumberLabel{nullptr};
-	ClickableLabel * encodingLabel{nullptr};
-	ClickableLabel * lineEndingLabel{nullptr};
+	Tw::UI::ClickableLabel * lineNumberLabel{nullptr};
+	Tw::UI::ClickableLabel * encodingLabel{nullptr};
+	Tw::UI::ClickableLabel * lineEndingLabel{nullptr};
 
 	QActionGroup *engineActions{nullptr};
 	QString engineName;
