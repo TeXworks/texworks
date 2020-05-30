@@ -19,7 +19,21 @@
 	see <http://www.tug.org/texworks/>.
 */
 #include "UI_test.h"
+
 #include "ui/LineNumberWidget.h"
+#include "ui/ScreenCalibrationWidget.h"
+
+#include <QDoubleSpinBox>
+
+class MyScreenCalibrationWidget : public Tw::UI::ScreenCalibrationWidget
+{
+public:
+	QRect rulerRect() const { return _rulerRect; }
+	bool isDragging() const { return _isDragging; }
+	QDoubleSpinBox * spinBox() { return _sbDPI; }
+	int unit() const { return _curUnit; }
+	QMenu & contextMenu() { return _contextMenu; }
+};
 
 namespace UnitTest {
 
@@ -95,6 +109,164 @@ void TestUI::LineNumberWidget_setParent()
 #else
 	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * 2, 0));
 #endif
+}
+
+void TestUI::ScreenCalibrationWidget_dpi()
+{
+	Tw::UI::ScreenCalibrationWidget w;
+	QSignalSpy spy(&w, SIGNAL(dpiChanged(double)));
+	constexpr double MagicDPI = 42;
+
+	QVERIFY(spy.isValid());
+
+	QCOMPARE(w.dpi(), w.physicalDpiX());
+	QCOMPARE(spy.count(), 0);
+	w.setDpi(MagicDPI);
+	QCOMPARE(spy.count(), 1);
+	QCOMPARE(w.dpi(), MagicDPI);
+	QCOMPARE(spy[0][0].toDouble(), MagicDPI);
+}
+
+void TestUI::ScreenCalibrationWidget_drag()
+{
+	MyScreenCalibrationWidget w;
+	QSignalSpy spy(&w, SIGNAL(dpiChanged(double)));
+
+	w.resize(400, 40);
+	w.show();
+	QCoreApplication::processEvents();
+
+	double dpi = w.dpi();
+	double newDpi = dpi * (w.rulerRect().bottomRight().x() - w.rulerRect().left()) / (w.rulerRect().center().x() - w.rulerRect().left());
+	// DPI values are passed through a QDoubleSpinbox, which rounds them
+	newDpi = QString::number(newDpi, 'f', w.spinBox()->decimals()).toDouble();
+
+	// Simulate dragging to the right
+
+	QVERIFY(w.isDragging() == false);
+	QCOMPARE(spy.count(), 0);
+
+	QTest::mousePress(&w, Qt::LeftButton, {}, w.rulerRect().center());
+	QVERIFY(w.isDragging() == false);
+	QCOMPARE(spy.count(), 0);
+
+	// QTest::mouseMove and QTest::mouseEvent don't allow to simulate dragging,
+	// i.e., holding down a mouse button while moving. Hence we have to send our
+	// own QMouseEvent.
+	{
+		QMouseEvent me(QEvent::MouseMove, w.mapToGlobal(w.rulerRect().bottomRight()), Qt::LeftButton, Qt::LeftButton, {});
+		QCoreApplication::instance()->notify(&w, &me);
+	}
+	QVERIFY(w.isDragging());
+	QCOMPARE(w.dpi(), newDpi);
+	QCOMPARE(spy.count(), 1);
+	QCOMPARE(spy[0][0].toDouble(), newDpi);
+
+	QTest::mouseRelease(&w, Qt::LeftButton, {}, w.rect().bottomRight());
+	QCOMPARE(spy.count(), 1);
+	QCOMPARE(w.dpi(), newDpi);
+	QVERIFY(w.isDragging() == false);
+
+	// Simulate dragging to the left
+	spy.clear();
+
+	QPoint downPos = w.rulerRect().topRight() + QPoint(-1, 1);
+	QPoint upPos = w.rulerRect().center();
+	dpi = newDpi;
+	newDpi = dpi * (upPos.x() - w.rulerRect().left()) / (downPos.x() - w.rulerRect().left());
+	newDpi = QString::number(newDpi, 'f', w.spinBox()->decimals()).toDouble();
+
+	QVERIFY(w.isDragging() == false);
+	QCOMPARE(spy.count(), 0);
+
+	QTest::mousePress(&w, Qt::LeftButton, {}, downPos);
+	QVERIFY(w.isDragging() == false);
+	QCOMPARE(spy.count(), 0);
+
+	{
+		QMouseEvent me(QEvent::MouseMove, w.mapToGlobal(upPos), Qt::LeftButton, Qt::LeftButton, {});
+		QCoreApplication::instance()->notify(&w, &me);
+	}
+	QVERIFY(w.isDragging());
+	QCOMPARE(w.dpi(), newDpi);
+	QCOMPARE(spy.count(), 1);
+	QCOMPARE(spy[0][0].toDouble(), newDpi);
+
+	QTest::mouseRelease(&w, Qt::LeftButton, {}, upPos);
+	QCOMPARE(spy.count(), 1);
+	QCOMPARE(w.dpi(), newDpi);
+	QVERIFY(w.isDragging() == false);
+}
+
+void TestUI::ScreenCalibrationWidget_unit()
+{
+	QLocale::setDefault(QLocale(QLocale::German));
+	QCOMPARE(MyScreenCalibrationWidget().unit(), 0);
+	QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
+	MyScreenCalibrationWidget w;
+	QCOMPARE(w.unit(), 1);
+	w.setUnit(0);
+	QCOMPARE(w.unit(), 0);
+	w.setUnit(2);
+	QCOMPARE(w.unit(), 0);
+
+	QLocale::setDefault(QLocale::system());
+}
+
+void TestUI::ScreenCalibrationWidget_paint()
+{
+	MyScreenCalibrationWidget w;
+	w.setGeometry(0, 0, 300, 20);
+	w.grab();
+	// TODO: actually test the result
+}
+
+void TestUI::ScreenCalibrationWidget_changeEvent()
+{
+	Tw::UI::ScreenCalibrationWidget w;
+	QFont f(w.font());
+
+	w.setGeometry(0, 0, 300, 20);
+	QPixmap before = w.grab();
+
+	f.setPointSize(2 * f.pointSize());
+	w.setFont(f);
+
+	QVERIFY(w.grab() != before);
+}
+
+void TestUI::ScreenCalibrationWidget_contextMenu()
+{
+	MyScreenCalibrationWidget w;
+
+	w.show();
+	QCoreApplication::processEvents();
+
+	// Click inside the rulerRect
+	QVERIFY(w.contextMenu().isVisible() == false);
+	{
+		QContextMenuEvent cme(QContextMenuEvent::Mouse, w.mapToGlobal(w.rulerRect().center()));
+		QCoreApplication::instance()->notify(&w, &cme);
+	}
+	QVERIFY(w.contextMenu().isVisible());
+	w.contextMenu().close();
+
+	// Click outside the rulerRect
+	QVERIFY(w.contextMenu().isVisible() == false);
+	{
+		QContextMenuEvent cme(QContextMenuEvent::Mouse, w.mapToGlobal(w.rulerRect().topLeft() - QPoint(1, 1)));
+		QCoreApplication::instance()->notify(&w, &cme);
+	}
+	QVERIFY(w.contextMenu().isVisible() == false);
+
+	// Keypress ("outside the rulerRect")
+	QVERIFY(w.contextMenu().isVisible() == false);
+	{
+		QContextMenuEvent cme(QContextMenuEvent::Keyboard, w.mapToGlobal(w.rulerRect().center() - QPoint(1, 1)));
+		QCoreApplication::instance()->notify(&w, &cme);
+	}
+	QVERIFY(w.contextMenu().isVisible());
+	w.contextMenu().close();
 }
 
 

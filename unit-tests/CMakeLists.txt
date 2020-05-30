@@ -45,6 +45,7 @@ add_executable(test_UI
 	UI_test.cpp
 	UI_test.h
 	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
+	"${CMAKE_SOURCE_DIR}/src/ui/ScreenCalibrationWidget.cpp"
 )
 target_compile_options(test_UI PRIVATE ${WARNING_OPTIONS})
 target_link_libraries(test_UI ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})

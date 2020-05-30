@@ -30,6 +30,13 @@ private slots:
 	void LineNumberWidget_sizeHint();
 	void LineNumberWidget_paint();
 	void LineNumberWidget_setParent();
+
+	void ScreenCalibrationWidget_dpi();
+	void ScreenCalibrationWidget_drag();
+	void ScreenCalibrationWidget_unit();
+	void ScreenCalibrationWidget_paint();
+	void ScreenCalibrationWidget_changeEvent();
+	void ScreenCalibrationWidget_contextMenu();
 };
 
 } // namespace UnitTest
