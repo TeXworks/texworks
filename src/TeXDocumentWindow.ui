@@ -64,7 +64,7 @@
         <enum>QFrame::Plain</enum>
        </property>
       </widget>
-      <widget class="ClosableTabWidget" name="consoleTabs">
+      <widget class="Tw::UI::ClosableTabWidget" name="consoleTabs">
        <property name="usesScrollButtons">
         <bool>true</bool>
        </property>
@@ -1129,9 +1129,9 @@
    <header>CompletingEdit.h</header>
   </customwidget>
   <customwidget>
-   <class>ClosableTabWidget</class>
+   <class>Tw::UI::ClosableTabWidget</class>
    <extends>QTabWidget</extends>
-   <header>ClosableTabWidget.h</header>
+   <header>ui/ClosableTabWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -25,6 +25,9 @@
 #include <QTabWidget>
 #include <QToolButton>
 
+namespace Tw {
+namespace UI {
+
 // The ClosableTabWidget class is adapted from code presented by Girish
 // Ramakrishnan in a Qt Labs post:
 //
@@ -44,5 +47,8 @@ protected:
 
 	QToolButton * _closeButton;
 };
+
+} // namespace UI
+} // namespace Tw
 
 #endif // !defined(__CLOSABLE_TAB_WIDGET_H)

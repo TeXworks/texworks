@@ -19,10 +19,13 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "ClosableTabWidget.h"
+#include "ui/ClosableTabWidget.h"
 
 #include <QStyle>
 #include <QTabBar>
+
+namespace Tw {
+namespace UI {
 
 ClosableTabWidget::ClosableTabWidget(QWidget * parent /* = nullptr */)
  : QTabWidget(parent)
@@ -50,3 +53,5 @@ void ClosableTabWidget::resizeEvent(QResizeEvent * e)
 	tabBar()->setMaximumWidth(rect().right() - b.width());
 }
 
+} // namespace UI
+} // namespace Tw

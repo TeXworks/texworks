@@ -11,7 +11,6 @@
 # to remember to re-run `cmake` if a source file is added._
 set(TEXWORKS_SRCS BibTeXFile.cpp
                   CitationSelectDialog.cpp
-                  ClosableTabWidget.cpp
                   CommandlineParser.cpp
                   CompletingEdit.cpp
                   ConfirmDelete.cpp
@@ -44,6 +43,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   scripting/Script.cpp
                   scripting/JSScript.cpp
                   ui/ClickableLabel.cpp
+                  ui/ClosableTabWidget.cpp
                   ui/LineNumberWidget.cpp
                   ui/ScreenCalibrationWidget.cpp
                   utils/FileVersionDatabase.cpp
@@ -51,7 +51,6 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
 
 set(TEXWORKS_HDRS BibTeXFile.h
                   CitationSelectDialog.h
-                  ClosableTabWidget.h
                   CommandlineParser.h
                   CompletingEdit.h
                   ConfirmDelete.h
@@ -90,6 +89,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   scripting/JSScriptInterface.h
                   scripting/JSScript.h
                   ui/ClickableLabel.h
+                  ui/ClosableTabWidget.h
                   ui/LineNumberWidget.h
                   ui/ScreenCalibrationWidget.h
                   utils/FileVersionDatabase.h
