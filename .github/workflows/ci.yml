@@ -80,29 +80,33 @@ jobs:
   build-win-msys:
     name: Windows (MSYS)
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
 
     steps:
+    - name: Configure Git
+      run: git config --global core.autocrlf input
+      shell: bash
+
+    - name: Setup MSYS
+      uses: eine/setup-msys2@v1
+      with:
+        update: true
+        install: mingw-w64-x86_64-cmake git make mingw-w64-x86_64-gcc mingw-w64-x86_64-hunspell mingw-w64-x86_64-lua mingw-w64-x86_64-poppler mingw-w64-x86_64-qt5
+
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Setup MSYS
-      uses: numworks/setup-msys2@v1
-      with:
-        update: true
-
-    - name: Install dependencies
-      # git is needed for getting git revision information
-      run: msys2do pacman --noconfirm -S mingw-w64-x86_64-cmake git make mingw-w64-x86_64-gcc mingw-w64-x86_64-hunspell mingw-w64-x86_64-lua mingw-w64-x86_64-poppler mingw-w64-x86_64-qt5
-
     - name: Configure
-      run: msys2do cmake -G `\`"MSYS Makefiles`\`" -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi'
+      run: cmake -G 'MSYS Makefiles' -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi'
 
     - name: Build
-      run: msys2do make -j
+      run: make -j
       working-directory: build
 
     - name: Test
-      run: msys2do ctest -V
+      run: ctest -V
       working-directory: build
 
 ################################################################################
