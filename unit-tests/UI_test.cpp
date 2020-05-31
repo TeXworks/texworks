@@ -49,7 +49,7 @@ public:
 class SignalCounter : public QObject
 {
 	Q_OBJECT
-	unsigned int _count{0};
+	int _count{0};
 	QMetaObject::Connection _connection;
 private slots:
 	void increment() { ++_count; }
@@ -57,7 +57,7 @@ public:
 	SignalCounter(QObject * obj, const char * signal) {
 		_connection = connect(obj, signal, this, SLOT(increment()));
 	}
-	unsigned int count() const { return _count; }
+	int count() const { return _count; }
 	void clear() { _count = 0; }
 	bool isValid() const { return static_cast<bool>(_connection); }
 };
@@ -144,7 +144,7 @@ void TestUI::ScreenCalibrationWidget_dpi()
 
 	QVERIFY(spy.isValid());
 
-	QCOMPARE(w.dpi(), w.physicalDpiX());
+	QCOMPARE(w.dpi(), static_cast<double>(w.physicalDpiX()));
 	QCOMPARE(spy.count(), 0);
 	w.setDpi(MagicDPI);
 	QCOMPARE(spy.count(), 1);
@@ -252,12 +252,12 @@ void TestUI::ScreenCalibrationWidget_changeEvent()
 	QFont f(w.font());
 
 	w.setGeometry(0, 0, 300, 20);
-	QPixmap before = w.grab();
+	QImage before = w.grab().toImage();
 
 	f.setPointSize(2 * f.pointSize());
 	w.setFont(f);
 
-	QVERIFY(w.grab() != before);
+	QVERIFY(w.grab().toImage() != before);
 }
 
 void TestUI::ScreenCalibrationWidget_contextMenu()
