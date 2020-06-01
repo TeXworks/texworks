@@ -27,6 +27,7 @@
 #include "document/TextDocument.h"
 
 #include <QSignalSpy>
+#include <limits>
 
 void NonblockingSyntaxHighlighter::setDocument(QTextDocument * doc) { Q_UNUSED(doc) }
 void NonblockingSyntaxHighlighter::rehighlight() { }
@@ -244,6 +245,63 @@ void TestDocument::modelines()
 	QCOMPARE(doc.getModeLineValue(QStringLiteral("does-not-exist")), QString());
 	QCOMPARE(doc.hasModeLine(QStringLiteral("key")), true);
 	QCOMPARE(doc.getModeLineValue(QStringLiteral("key")), QStringLiteral("value"));
+}
+
+void TestDocument::findNextWord_data()
+{
+	QTest::addColumn<QString>("text");
+	QTest::addColumn<int>("expectedStart");
+	QTest::addColumn<int>("expectedEnd");
+	QTest::addColumn<bool>("returnValue");
+
+	/*
+a  testcase's word \command \comm@nd \cmd123 $ \[ öÄéàßÇα \@a'quote'
+	 */
+	QString s = QStringLiteral("a\t testcase's word \\command \\comm@nd \\cmd123 $ \\[ öÄéàßÇα \\@a'quote'");
+
+	QTest::newRow("empty") << QString() << 42 << 42 << false;
+	QTest::newRow("beyond-end") << s << 123 << 123 << false;
+	QTest::newRow("single-char") << s << 0 << 1 << true;
+	QTest::newRow("white-space") << s << 1 << 3 << false;
+	QTest::newRow("word-with-apostrophe") << s << 3 << 13 << true;
+	QTest::newRow("backslash") << s << 19 << 27 << false;
+	QTest::newRow("command") << s << 19 << 27 << false;
+	QTest::newRow("@") << s << 28 << 36 << false;
+	QTest::newRow("@-command") << s << 28 << 36 << false;
+	QTest::newRow("digit") << s << 41 << 44 << false;
+	QTest::newRow("command-digit") << s << 37 << 41 << false;
+	QTest::newRow("single-glyph") << s << 45 << 46 << false;
+	QTest::newRow("command-glyph") << s << 47 << 49 << false;
+	QTest::newRow("non-ascii") << s << 50 << 57 << true;
+	QTest::newRow("command-apostrophe") << s << 58 << 61 << false;
+}
+
+void TestDocument::findNextWord()
+{
+	QFETCH(QString, text);
+	QFETCH(int, expectedStart);
+	QFETCH(int, expectedEnd);
+	QFETCH(bool, returnValue);
+
+	for (int index = expectedStart; index < qMax(expectedStart + 1, expectedEnd); ++index) {
+		int start{std::numeric_limits<int>::min()}, end{std::numeric_limits<int>::min()};
+
+		// Note that ' is currently not considered a word-forming character
+		// See 33402c4, https://tug.org/pipermail/texworks/2009q2/000639.html,
+		// https://tug.org/pipermail/texworks/2009q2/000642.html
+		if (index == 11) {
+			QEXPECT_FAIL("word-with-apostrophe", "The apostrophe by itself is not considered part of a word", Abort);
+		}
+
+		bool rv = Tw::Document::TeXDocument::findNextWord(text, index, start, end);
+
+		QString msg = QStringLiteral("\"%1\" [expected: %2--%3, actual %4--%5, index %6]").arg(text).arg(expectedStart).arg(expectedEnd).arg(start).arg(end).arg(index);
+		msg.insert(index + 1, QChar('|'));
+
+		QVERIFY2(rv == returnValue, qPrintable(msg));
+		QVERIFY2(start == expectedStart, qPrintable(msg));
+		QVERIFY2(end == expectedEnd, qPrintable(msg));
+	}
 }
 
 } // namespace UnitTest

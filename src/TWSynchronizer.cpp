@@ -23,7 +23,6 @@
 
 #include "PDFDocumentWindow.h"
 #include "TWApp.h"
-#include "TWUtils.h"
 #include "TeXDocumentWindow.h"
 
 #include <QDir>
@@ -294,7 +293,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
     dest.len = 1;
   }
   else if (resolution == WordResolution) {
-    TWUtils::findNextWord(destContext, destCol, dest.col, dest.len);
+    Tw::Document::TeXDocument::findNextWord(destContext, destCol, dest.col, dest.len);
     dest.len -= dest.col;
     // Always select at least one character
     if (dest.len <= 0)

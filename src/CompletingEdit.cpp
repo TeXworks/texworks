@@ -459,7 +459,7 @@ bool CompletingEdit::selectWord(QTextCursor& cursor)
 		return false;
 
 	int start{0}, end{0};
-	bool result = TWUtils::findNextWord(text, cursor.selectionStart() - block.position(), start, end);
+	bool result = Tw::Document::TeXDocument::findNextWord(text, cursor.selectionStart() - block.position(), start, end);
 	cursor.setPosition(block.position() + start);
 	cursor.setPosition(block.position() + end, QTextCursor::KeepAnchor);
 

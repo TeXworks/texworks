@@ -42,6 +42,8 @@ private slots:
 
 	void getHighlighter();
 	void modelines();
+	void findNextWord_data();
+	void findNextWord();
 };
 
 } // namespace UnitTest

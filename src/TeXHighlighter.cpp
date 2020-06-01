@@ -47,7 +47,7 @@ void TeXHighlighter::spellCheckRange(const QString &text, int index, int limit, 
 {
 	while (index < limit) {
 		int start{0}, end{0};
-		if (TWUtils::findNextWord(text, index, start, end)) {
+		if (Tw::Document::TeXDocument::findNextWord(text, index, start, end)) {
 			if (start < index)
 				start = index;
 			if (end > limit)
