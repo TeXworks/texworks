@@ -533,25 +533,23 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	// System and English are predefined at index 0 and 1 (see constants above)
 	dlg.localePopup->addItem(tr("System default [%1]").arg(QLocale::languageToString(QLocale(QLocale::system().name()).language())));
 	int oldLocaleIndex = oldLocale.isEmpty() ? kSystemLocaleIndex : kEnglishLocaleIndex;
-	QStringList *trList = TWUtils::getTranslationList();
-	QStringList::ConstIterator iter;
 	QList< DictPair > displayList;
-	for (iter = trList->constBegin(); iter != trList->constEnd(); ++iter) {
-		QLocale loc(*iter);
+	foreach(QString trans, TWApp::getTranslationList()) {
+		QLocale loc(trans);
 		QLocale::Language	language = loc.language();
 		QString locName;
 		if (language == QLocale::C)
-			locName = *iter;
+			locName = trans;
 		else {
 			locName = QLocale::languageToString(language);
-			if (iter->contains(QChar::fromLatin1('_'))) {
+			if (trans.contains(QChar::fromLatin1('_'))) {
 				QLocale::Country country  = loc.country();
 				if (country != QLocale::AnyCountry)
 					//: Country suffix for TeXworks translations (ex. "Portuguese (Brazil)")
 					locName += tr(" (%1)").arg(QLocale::countryToString(country));
 			}
 		}
-		displayList << qMakePair(locName, *iter);
+		displayList << qMakePair(locName, trans);
 	}
 	std::sort(displayList.begin(), displayList.end(), dictPairLessThan);
 

@@ -1024,6 +1024,29 @@ void TWApp::activatedWindow(QWidget* theWindow)
 	emit hideFloatersExcept(theWindow);
 }
 
+// static
+QStringList TWApp::getTranslationList()
+{
+	QStringList translationList;
+	QVector<QDir> dirs({QDir(QStringLiteral(":/resfiles/translations")), QDir(TWUtils::getLibraryPath(QString::fromLatin1("translations")))});
+
+	foreach(QDir transDir, dirs) {
+		foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(QStringLiteral(TEXWORKS_NAME "_*.qm")),
+					QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
+			QString locName = qmFileInfo.completeBaseName();
+			locName.remove(QStringLiteral(TEXWORKS_NAME "_"));
+			if (!translationList.contains(locName, Qt::CaseInsensitive))
+				translationList << locName;
+		}
+	}
+
+	// English is always available, and it has to be the first item
+	translationList.removeAll(QString::fromLatin1("en"));
+	translationList.prepend(QString::fromLatin1("en"));
+
+	return translationList;
+}
+
 void TWApp::applyTranslation(const QString& locale)
 {
 	foreach (QTranslator* t, translators) {

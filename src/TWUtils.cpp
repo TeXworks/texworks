@@ -333,39 +333,6 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 	return codecList;
 }
 
-QStringList* TWUtils::translationList = nullptr;
-
-QStringList* TWUtils::getTranslationList()
-{
-	if (translationList)
-		return translationList;
-
-	translationList = new QStringList;
-	
-	QDir transDir(QString::fromLatin1(":/resfiles/translations"));
-	foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(QString::fromLatin1(TEXWORKS_NAME "_*.qm")),
-														  QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
-		QString locName = qmFileInfo.completeBaseName();
-		locName.remove(QString::fromLatin1(TEXWORKS_NAME "_"));
-		*translationList << locName;
-	}
-	
-	transDir = QDir(TWUtils::getLibraryPath(QString::fromLatin1("translations")));
-	foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(QString::fromLatin1(TEXWORKS_NAME "_*.qm")),
-				QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
-		QString locName = qmFileInfo.completeBaseName();
-		locName.remove(QString::fromLatin1(TEXWORKS_NAME "_"));
-		if (!translationList->contains(locName, Qt::CaseInsensitive))
-			*translationList << locName;
-	}
-	
-	// English is always available, and it has to be the first item
-	translationList->removeAll(QString::fromLatin1("en"));
-	translationList->prepend(QString::fromLatin1("en"));
-	
-	return translationList;
-}
-
 QStringList* TWUtils::filters;
 QStringList* TWUtils::filterList()
 {

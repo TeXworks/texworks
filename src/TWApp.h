@@ -104,6 +104,7 @@ public:
 
 	static TWApp *instance();
 	
+	static QStringList getTranslationList();
 	QString getPortableLibPath() const { return portableLibPath; }
 
 	TWScriptManager* getScriptManager() { return scriptManager; }

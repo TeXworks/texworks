@@ -52,9 +52,6 @@ public:
 
 	// return a sorted list of all the available text codecs
 	static QList<QTextCodec*> *findCodecs();
-
-	// get list of available translations
-	static QStringList *getTranslationList();
 	
 	// list of filename filters for the Open/Save dialogs
 	static QStringList* filterList();
