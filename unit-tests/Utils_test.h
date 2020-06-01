@@ -22,15 +22,15 @@
 
 namespace UnitTest {
 
-class TestFileVersionDatabase : public QObject
+class TestUtils : public QObject
 {
 	Q_OBJECT
 private slots:
-	void comparisons();
-	void hashForFile();
-	void addFileRecord();
-	void load();
-	void save();
+	void FileVersionDatabase_comparisons();
+	void FileVersionDatabase_hashForFile();
+	void FileVersionDatabase_addFileRecord();
+	void FileVersionDatabase_load();
+	void FileVersionDatabase_save();
 };
 
 } // namespace UnitTest

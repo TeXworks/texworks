@@ -18,7 +18,9 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
-#include "FileVersionDatabase_test.h"
+
+#include "Utils_test.h"
+
 #include "utils/FileVersionDatabase.h"
 
 #include <QTemporaryFile>
@@ -56,7 +58,7 @@ bool operator==(const FileVersionDatabase & db1, const FileVersionDatabase & db2
 
 namespace UnitTest {
 
-void TestFileVersionDatabase::comparisons()
+void TestUtils::FileVersionDatabase_comparisons()
 {
 	Tw::Utils::FileVersionDatabase::Record r1 = {QFileInfo(QStringLiteral("base14-fonts.pdf")), QStringLiteral("v1"), QByteArray()};
 	Tw::Utils::FileVersionDatabase::Record r2 = {QFileInfo(QStringLiteral("base14-fonts.pdf")), QString(), QByteArray::fromHex("814514754a5680a57d172b6720d48a8d")};
@@ -70,7 +72,7 @@ void TestFileVersionDatabase::comparisons()
 	QVERIFY(!(r2 == r3));
 }
 
-void TestFileVersionDatabase::hashForFile()
+void TestUtils::FileVersionDatabase_hashForFile()
 {
 	QByteArray zero = QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e");
 
@@ -78,7 +80,7 @@ void TestFileVersionDatabase::hashForFile()
 	QCOMPARE(Tw::Utils::FileVersionDatabase::hashForFile(QStringLiteral("base14-fonts.pdf")), QByteArray::fromHex("814514754a5680a57d172b6720d48a8d"));
 }
 
-void TestFileVersionDatabase::addFileRecord()
+void TestUtils::FileVersionDatabase_addFileRecord()
 {
 	Tw::Utils::FileVersionDatabase db;
 	Tw::Utils::FileVersionDatabase::Record empty = {QFileInfo(), QString(), QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e")};
@@ -98,7 +100,7 @@ void TestFileVersionDatabase::addFileRecord()
 	QCOMPARE(db.getFileRecords(), QList<Tw::Utils::FileVersionDatabase::Record>{r2});
 }
 
-void TestFileVersionDatabase::load()
+void TestUtils::FileVersionDatabase_load()
 {
 	Tw::Utils::FileVersionDatabase db;
 	db.addFileRecord(QFileInfo(QStringLiteral("/spaces test.tex")), QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e"), QStringLiteral("v1"));
@@ -110,7 +112,7 @@ void TestFileVersionDatabase::load()
 	QCOMPARE(Tw::Utils::FileVersionDatabase::load(QStringLiteral("script1.js")), Tw::Utils::FileVersionDatabase());
 }
 
-void TestFileVersionDatabase::save()
+void TestUtils::FileVersionDatabase_save()
 {
 	Tw::Utils::FileVersionDatabase db;
 	db.addFileRecord(QFileInfo(QStringLiteral("/spaces test.tex")), QByteArray::fromHex("d41d8cd98f00b204e9800998ecf8427e"), QStringLiteral("v1"));
@@ -133,4 +135,4 @@ void TestFileVersionDatabase::save()
   Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
-QTEST_MAIN(UnitTest::TestFileVersionDatabase)
+QTEST_MAIN(UnitTest::TestUtils)
