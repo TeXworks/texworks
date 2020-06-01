@@ -27,7 +27,6 @@
 #include "PrefsDialog.h"
 #include "ResourcesDialog.h"
 #include "Settings.h"
-#include "TWSystemCmd.h"
 #include "TWTextCodecs.h"
 #include "TWUtils.h"
 #include "TWVersion.h"
@@ -35,6 +34,7 @@
 #include "TemplateDialog.h"
 #include "document/SpellChecker.h"
 #include "scripting/ScriptAPI.h"
+#include "utils/SystemCommand.h"
 
 #include <QAction>
 #include <QDesktopServices>
@@ -534,7 +534,7 @@ void TWApp::writeToMailingList()
 #define UNAME_CMDLINE "uname -a"
 #endif
 	QString unameResult(QLatin1String("unknown"));
-	TWSystemCmd unameCmd(this, true);
+	Tw::Utils::SystemCommand unameCmd(this, true);
 	unameCmd.setProcessChannelMode(QProcess::MergedChannels);
 	unameCmd.start(QString::fromLatin1(UNAME_CMDLINE));
 	if (unameCmd.waitForStarted(1000) && unameCmd.waitForFinished(1000))

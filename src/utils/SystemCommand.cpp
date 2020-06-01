@@ -19,10 +19,12 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "TWSystemCmd.h"
+#include "SystemCommand.h"
 
+namespace Tw {
+namespace Utils {
 
-TWSystemCmd::TWSystemCmd(QObject* parent, const bool isOutputWanted /* = true */, const bool runInBackground /* = false*/ )
+SystemCommand::SystemCommand(QObject* parent, const bool isOutputWanted /* = true */, const bool runInBackground /* = false*/ )
 : QProcess(parent)
 , wantOutput(isOutputWanted)
 , deleteOnFinish(runInBackground)
@@ -34,21 +36,21 @@ TWSystemCmd::TWSystemCmd(QObject* parent, const bool isOutputWanted /* = true */
 	finished = false;
 }
 
-bool TWSystemCmd::waitForStarted(int msecs /* = 30000 */)
+bool SystemCommand::waitForStarted(int msecs /* = 30000 */)
 {
 	if (finished)
 		return finishedSuccessfully;
 	return QProcess::waitForStarted(msecs);
 }
 
-bool TWSystemCmd::waitForFinished(int msecs /* = 30000 */)
+bool SystemCommand::waitForFinished(int msecs /* = 30000 */)
 {
 	if (finished)
 		return finishedSuccessfully;
 	return QProcess::waitForFinished(msecs);
 }
 
-void TWSystemCmd::processError(QProcess::ProcessError error)
+void SystemCommand::processError(QProcess::ProcessError error)
 {
 	finished = true;
 	if (wantOutput)
@@ -57,7 +59,7 @@ void TWSystemCmd::processError(QProcess::ProcessError error)
 		deleteLater();
 }
 
-void TWSystemCmd::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void SystemCommand::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	finished = true;
 	finishedSuccessfully = (exitStatus == QProcess::NormalExit);
@@ -76,7 +78,7 @@ void TWSystemCmd::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 		deleteLater();
 }
 
-void TWSystemCmd::processOutput()
+void SystemCommand::processOutput()
 {
 	if (wantOutput && bytesAvailable() > 0) {
 		QByteArray ba = readAllStandardOutput();
@@ -84,3 +86,5 @@ void TWSystemCmd::processOutput()
 	}
 }
 
+} // namespace Utils
+} // namespace Tw

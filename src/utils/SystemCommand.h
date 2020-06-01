@@ -19,22 +19,23 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef TWSystemCmd_H
-#define TWSystemCmd_H
+#ifndef SystemCommand_H
+#define SystemCommand_H
 
 #include <QProcess>
 
+namespace Tw {
+namespace Utils {
 
-
-class TWSystemCmd : public QProcess {
+class SystemCommand : public QProcess {
 	Q_OBJECT
-	
+
 public:
-	explicit TWSystemCmd(QObject * parent, const bool isOutputWanted = true, const bool runInBackground = false);
-	~TWSystemCmd() override = default;
-	
+	explicit SystemCommand(QObject * parent, const bool isOutputWanted = true, const bool runInBackground = false);
+	~SystemCommand() override = default;
+
 	QString getResult() { return result; }
-	
+
 	// replacement of QProcess::waitForStarted()
 	// unlike the QProcess version, this returns true if the process has already
 	// finished when the function is called
@@ -58,6 +59,7 @@ private:
 	QString result;
 };
 
+} // namespace Utils
+} // namespace Tw
 
-#endif // !defined(TWSystemCmd_H)
-
+#endif // !defined(SystemCommand_H)

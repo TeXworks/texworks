@@ -31,7 +31,6 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   TWScriptableWindow.cpp
                   TWScriptManager.cpp
                   TWSynchronizer.cpp
-                  TWSystemCmd.cpp
                   TWTextCodecs.cpp
                   TWUtils.cpp
                   document/Document.cpp
@@ -47,6 +46,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   ui/LineNumberWidget.cpp
                   ui/ScreenCalibrationWidget.cpp
                   utils/FileVersionDatabase.cpp
+                  utils/SystemCommand.cpp
                   )
 
 set(TEXWORKS_HDRS BibTeXFile.h
@@ -73,7 +73,6 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWScriptableWindow.h
                   TWScriptManager.h
                   TWSynchronizer.h
-                  TWSystemCmd.h
                   TWTextCodecs.h
                   TWUtils.h
                   TWVersion.h
@@ -93,6 +92,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   ui/LineNumberWidget.h
                   ui/ScreenCalibrationWidget.h
                   utils/FileVersionDatabase.h
+                  utils/SystemCommand.h
                   )
 
 if (WIN32)

@@ -23,10 +23,10 @@
 #include "Engine.h"
 #include "Settings.h"
 #include "TWApp.h"
-#include "TWSystemCmd.h"
 #include "document/SpellChecker.h"
 #include "scripting/Script.h"
 #include "scripting/ScriptAPI.h"
+#include "utils/SystemCommand.h"
 
 #include <QBuffer>
 #include <QCoreApplication>
@@ -227,7 +227,7 @@ QMap<QString, QVariant> ScriptAPI::system(const QString& cmdline, bool waitForRe
 	}
 
 	if (mayExecuteSystemCommand(cmdline, m_target)) {
-		TWSystemCmd *process = new TWSystemCmd(this, waitForResult, !waitForResult);
+		Tw::Utils::SystemCommand * process = new Tw::Utils::SystemCommand(this, waitForResult, !waitForResult);
 		if (waitForResult) {
 			process->setProcessChannelMode(QProcess::MergedChannels);
 			process->start(cmdline);
