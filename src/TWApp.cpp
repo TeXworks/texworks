@@ -1030,8 +1030,8 @@ QStringList TWApp::getTranslationList()
 	QStringList translationList;
 	QVector<QDir> dirs({QDir(QStringLiteral(":/resfiles/translations")), QDir(TWUtils::getLibraryPath(QString::fromLatin1("translations")))});
 
-	foreach(QDir transDir, dirs) {
-		foreach (QFileInfo qmFileInfo, transDir.entryInfoList(QStringList(QStringLiteral(TEXWORKS_NAME "_*.qm")),
+	for (QDir transDir : dirs) {
+		for (QFileInfo qmFileInfo : transDir.entryInfoList(QStringList(QStringLiteral(TEXWORKS_NAME "_*.qm")),
 					QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
 			QString locName = qmFileInfo.completeBaseName();
 			locName.remove(QStringLiteral(TEXWORKS_NAME "_"));
