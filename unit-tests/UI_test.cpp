@@ -20,6 +20,7 @@
 */
 #include "UI_test.h"
 
+#include "SignalCounter.h"
 #include "ui/ClickableLabel.h"
 #include "ui/ClosableTabWidget.h"
 #include "ui/LineNumberWidget.h"
@@ -44,22 +45,6 @@ class ClosableTabWidget : public Tw::UI::ClosableTabWidget
 {
 public:
 	QToolButton * closeButton() { return _closeButton; }
-};
-
-class SignalCounter : public QObject
-{
-	Q_OBJECT
-	int _count{0};
-	QMetaObject::Connection _connection;
-private slots:
-	void increment() { ++_count; }
-public:
-	SignalCounter(QObject * obj, const char * signal) {
-		_connection = connect(obj, signal, this, SLOT(increment()));
-	}
-	int count() const { return _count; }
-	void clear() { _count = 0; }
-	bool isValid() const { return static_cast<bool>(_connection); }
 };
 
 void TestUI::LineNumberWidget_bgColor()
@@ -397,6 +382,5 @@ void TestUI::ClosableTabWidget_resizeEvent()
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
   Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
-#include "UI_test.moc"
 
 QTEST_MAIN(UnitTest::TestUI)
