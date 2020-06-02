@@ -21,7 +21,9 @@
 
 #include "Utils_test.h"
 
+#include "SignalCounter.h"
 #include "utils/FileVersionDatabase.h"
+#include "utils/SystemCommand.h"
 
 #include <QTemporaryFile>
 
@@ -127,7 +129,72 @@ void TestUtils::FileVersionDatabase_save()
 	QCOMPARE(Tw::Utils::FileVersionDatabase::load(tmpFile.fileName()), db);
 }
 
+void TestUtils::SystemCommand_wait()
+{
+	Tw::Utils::SystemCommand cmd(this);
+	SignalCounter spy(&cmd, SIGNAL(finished(int, QProcess::ExitStatus)));
 
+	QVERIFY(spy.isValid());
+
+	cmd.start(QStringLiteral("echo \"OK\""));
+	QVERIFY(cmd.waitForStarted());
+	QVERIFY(cmd.waitForFinished());
+
+	spy.clear();
+
+	cmd.start(QStringLiteral("echo \"OK\""));
+	QVERIFY(spy.wait());
+	QVERIFY(cmd.waitForStarted());
+	QVERIFY(cmd.waitForFinished());
+}
+
+void TestUtils::SystemCommand_getResult_data()
+{
+	QTest::addColumn<QString>("program");
+	QTest::addColumn<bool>("outputWanted");
+	QTest::addColumn<bool>("runInBackground");
+	QTest::addColumn<bool>("success");
+	QTest::addColumn<QString>("output");
+
+	QString progOK{QStringLiteral("echo \"OK\"")};
+	QString progInvalid{QStringLiteral("invalid-command")};
+	QString outputQuiet;
+	QString outputOK{QStringLiteral("OK\n")};
+	QString outputInvalid{QStringLiteral("ERROR: failure code 0")};
+
+	QTest::newRow("success-quiet") << progOK << false << false << true << outputQuiet;
+	QTest::newRow("success-quiet-background") << progOK << false << true << true << outputQuiet;
+	QTest::newRow("success") << progOK << true << false << true << outputOK;
+	QTest::newRow("success-background") << progOK << true << true << true << outputOK;
+
+	QTest::newRow("invalid-quiet") << progInvalid << false << false << false << outputQuiet;
+	QTest::newRow("invalid-quiet-background") << progInvalid << false << true << false << outputQuiet;
+	QTest::newRow("invalid") << progInvalid << true << false << false << outputInvalid;
+	QTest::newRow("invalid-background") << progInvalid << true << true << false << outputInvalid;
+}
+
+void TestUtils::SystemCommand_getResult()
+{
+	QFETCH(QString, program);
+	QFETCH(bool, outputWanted);
+	QFETCH(bool, runInBackground);
+	QFETCH(bool, success);
+	QFETCH(QString, output);
+
+	Tw::Utils::SystemCommand * cmd = new Tw::Utils::SystemCommand(this, outputWanted, runInBackground);
+	QSignalSpy spy(cmd, SIGNAL(destroyed()));
+
+	QVERIFY(spy.isValid());
+
+	cmd->start(program);
+	QCOMPARE(cmd->waitForFinished(), success);
+	QCOMPARE(cmd->getResult(), output);
+
+	if (!runInBackground) {
+		cmd->deleteLater();
+	}
+	QVERIFY(spy.wait());
+}
 
 } // namespace UnitTest
 

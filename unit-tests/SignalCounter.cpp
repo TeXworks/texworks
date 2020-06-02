@@ -28,4 +28,28 @@ SignalCounter::SignalCounter(QObject * obj, const char * signal)
 	_connection = connect(obj, signal, this, SLOT(increment()));
 }
 
+bool SignalCounter::wait(int timeout)
+{
+	const int origCount = count();
+	_timerId = startTimer(timeout);
+	_eventLoop.exec();
+	return count() > origCount;
+}
+
+void SignalCounter::timerEvent(QTimerEvent * event)
+{
+	if (event->timerId() != _timerId)
+		return;
+	killTimer(_timerId);
+	_timerId = -1;
+	_eventLoop.exit();
+}
+
+void SignalCounter::increment()
+{
+	++_count;
+	if (_eventLoop.isRunning())
+		_eventLoop.exit();
+}
+
 } // namespace UnitTest

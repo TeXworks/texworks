@@ -58,7 +58,9 @@ add_test(NAME test_UI COMMAND test_UI WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/tes
 add_executable(test_Utils
 	Utils_test.cpp
 	Utils_test.h
+	SignalCounter.cpp
 	"${CMAKE_SOURCE_DIR}/src/utils/FileVersionDatabase.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/SystemCommand.cpp"
 )
 target_compile_options(test_Utils PRIVATE ${WARNING_OPTIONS})
 target_link_libraries(test_Utils ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})

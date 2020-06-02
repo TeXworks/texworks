@@ -22,7 +22,9 @@
 #ifndef SignalCounter_H
 #define SignalCounter_H
 
+#include <QEventLoop>
 #include <QObject>
+#include <QTimerEvent>
 
 namespace UnitTest {
 
@@ -31,13 +33,18 @@ class SignalCounter : public QObject
 	Q_OBJECT
 	int _count{0};
 	QMetaObject::Connection _connection;
-private slots:
-	void increment() { ++_count; }
+	QEventLoop _eventLoop;
+	int _timerId{-1};
 public:
 	SignalCounter(QObject * obj, const char * signal);
 	int count() const { return _count; }
 	void clear() { _count = 0; }
 	bool isValid() const { return static_cast<bool>(_connection); }
+	bool wait(int timeout = 5000);
+protected:
+	void timerEvent(QTimerEvent * event) override;
+private slots:
+	void increment();
 };
 
 } // namespace UnitTest

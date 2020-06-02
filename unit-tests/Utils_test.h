@@ -31,6 +31,10 @@ private slots:
 	void FileVersionDatabase_addFileRecord();
 	void FileVersionDatabase_load();
 	void FileVersionDatabase_save();
+
+	void SystemCommand_wait();
+	void SystemCommand_getResult_data();
+	void SystemCommand_getResult();
 };
 
 } // namespace UnitTest
