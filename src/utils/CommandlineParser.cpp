@@ -19,9 +19,12 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "CommandlineParser.h"
+#include "utils/CommandlineParser.h"
 
 #include <QFileInfo>
+
+namespace Tw {
+namespace Utils {
 
 bool CommandlineParser::parse()
 {
@@ -181,3 +184,6 @@ int CommandlineParser::getPrevSwitch(
 	}
 	return -1;
 }
+
+} // namespace Utils
+} // namespace Tw

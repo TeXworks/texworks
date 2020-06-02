@@ -19,11 +19,11 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "CommandlineParser.h"
 #include "InterProcessCommunicator.h"
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "TWVersion.h"
+#include "utils/CommandlineParser.h"
 
 #include <QTextCodec>
 #include <QTimer>
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 	TWApp app(argc, argv);
 	Tw::InterProcessCommunicator IPC;
 
-	CommandlineParser clp;
+	Tw::Utils::CommandlineParser clp;
 	QList<fileToOpenStruct> filesToOpen;
 	fileToOpenStruct fileToOpen = {QString(), -1};
 	
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 				pos = clp.at(j).value.toInt();
 				clp.at(j).processed = true;
 			}
-			CommandlineParser::CommandlineItem & item = clp.at(i);
+			Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(i);
 			item.processed = true;
 
 			fileToOpen.filename = item.value.toString();

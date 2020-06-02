@@ -28,6 +28,9 @@
 #include <QTextStream>
 #include <QVariant>
 
+namespace Tw {
+namespace Utils {
+
 class CommandlineParser
 {
 public:
@@ -88,5 +91,8 @@ private:
 	QList<CommandlineItem> m_items;
 	QList<CommandlineItemSpec> m_specs;
 };
+
+} // namespace Utils
+} // namespace Tw
 
 #endif // !defined(COMMANDLINE_PARSER_H)

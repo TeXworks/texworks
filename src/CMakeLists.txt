@@ -11,7 +11,6 @@
 # to remember to re-run `cmake` if a source file is added._
 set(TEXWORKS_SRCS BibTeXFile.cpp
                   CitationSelectDialog.cpp
-                  CommandlineParser.cpp
                   CompletingEdit.cpp
                   ConfirmDelete.cpp
                   Engine.cpp
@@ -45,13 +44,13 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   ui/ClosableTabWidget.cpp
                   ui/LineNumberWidget.cpp
                   ui/ScreenCalibrationWidget.cpp
+                  utils/CommandlineParser.cpp
                   utils/FileVersionDatabase.cpp
                   utils/SystemCommand.cpp
                   )
 
 set(TEXWORKS_HDRS BibTeXFile.h
                   CitationSelectDialog.h
-                  CommandlineParser.h
                   CompletingEdit.h
                   ConfirmDelete.h
                   DefaultBinaryPaths.h
@@ -91,6 +90,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   ui/ClosableTabWidget.h
                   ui/LineNumberWidget.h
                   ui/ScreenCalibrationWidget.h
+                  utils/CommandlineParser.h
                   utils/FileVersionDatabase.h
                   utils/SystemCommand.h
                   )
