@@ -311,8 +311,9 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 	codecList = new QList<QTextCodec*>;
 	QMap<QString, QTextCodec*> codecMap;
 	QRegularExpression iso8859RegExp(QStringLiteral("^ISO[- ]8859-([0-9]+)"));
-	foreach (int mib, QTextCodec::availableMibs()) {
-		QTextCodec *codec = QTextCodec::codecForMib(mib);
+
+	foreach (QByteArray name, QTextCodec::availableCodecs()) {
+		QTextCodec * codec = QTextCodec::codecForName(name);
 		QString sortKey = QString::fromUtf8(codec->name().constData()).toUpper();
 		QRegularExpressionMatch iso8859Match = iso8859RegExp.match(sortKey);
 		int rank{5};
@@ -327,7 +328,11 @@ QList<QTextCodec*> *TWUtils::findCodecs()
 				rank = 4;
 		}
 		sortKey.prepend(QChar('0' + rank));
-		codecMap.insert(sortKey, codec);
+		// Add the codec if it is not already in the list
+		// (NB: QTextCodec::availableCodecs() lists all aliases separately)
+		if (!codecMap.contains(sortKey)) {
+			codecMap.insert(sortKey, codec);
+		}
 	}
 	*codecList = codecMap.values();
 	return codecList;
