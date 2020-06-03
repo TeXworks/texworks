@@ -62,6 +62,7 @@ add_executable(test_Utils
 	"${CMAKE_SOURCE_DIR}/src/utils/CommandlineParser.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/FileVersionDatabase.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/SystemCommand.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/TextCodecs.cpp"
 )
 
 target_compile_options(test_Utils PRIVATE ${WARNING_OPTIONS})

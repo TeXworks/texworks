@@ -38,6 +38,8 @@ private slots:
 
 	void CommandLineParser_parse();
 	void CommandLineParser_printUsage();
+
+	void MacCentralEurRomanCodec();
 };
 
 } // namespace UnitTest

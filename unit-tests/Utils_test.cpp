@@ -25,6 +25,7 @@
 #include "utils/CommandlineParser.h"
 #include "utils/FileVersionDatabase.h"
 #include "utils/SystemCommand.h"
+#include "utils/TextCodecs.h"
 
 #include <QTemporaryFile>
 
@@ -292,6 +293,26 @@ void TestUtils::CommandLineParser_printUsage()
 	clp.printUsage(strm);
 
 	QCOMPARE(strm.readAll(), QStringLiteral("Usage: %1 [opts/args]\n\n   --sLong, -s   sDesc\n   --oLong=..., -o=...   oDesc\n").arg(QFileInfo(QCoreApplication::applicationFilePath()).fileName()));
+}
+
+void TestUtils::MacCentralEurRomanCodec()
+{
+	Tw::Utils::MacCentralEurRomanCodec c;
+
+	QCOMPARE(c.mibEnum(), -4000);
+	QCOMPARE(c.name(), QByteArray("Mac Central European Roman"));
+	QCOMPARE(c.aliases(), QList<QByteArray>({"MacCentralEuropeanRoman", "MacCentralEurRoman"}));
+
+	// € cannot be encoded and is replaced by ? (or \x00 if
+	// QTextCodec::ConvertInvalidToNull is specified)
+	QCOMPARE(c.fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4?"));
+	QCOMPARE(c.toUnicode(QByteArray("\x41\x80\x81\xA1\xA4")), QStringLiteral("AÄĀ°§"));
+
+	QCOMPARE(c.toUnicode(nullptr), QString());
+
+	QTextEncoder * e = c.makeEncoder(QTextCodec::ConvertInvalidToNull);
+	QCOMPARE(e->fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4\x00", 6));
+	delete e;
 }
 
 } // namespace UnitTest
