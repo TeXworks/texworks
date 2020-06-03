@@ -428,9 +428,10 @@ void TestUtils::FullscreenManager()
 		QCOMPARE(m.isFullscreen(), false);
 
 		QCOMPARE(m.shortcuts().count(), 1);
-		QCOMPARE(m.shortcuts()[0].action, nullptr);
+		// Older versions of Qt don't support QCOMPARE of pointer and nullptr
+		QVERIFY(m.shortcuts()[0].action == nullptr);
 		QVERIFY(m.shortcuts()[0].shortcut != nullptr);
-		QCOMPARE(m.shortcuts()[0].shortcut->key(), Qt::Key_Escape);
+		QCOMPARE(m.shortcuts()[0].shortcut->key(), QKeySequence(Qt::Key_Escape));
 		QCOMPARE(m.shortcuts()[0].shortcut->isEnabled(), false);
 
 		{
@@ -444,17 +445,17 @@ void TestUtils::FullscreenManager()
 			QCOMPARE(m.shortcuts()[1].shortcut->key(), QKeySequence());
 			QCOMPARE(m.shortcuts()[1].shortcut->isEnabled(), false);
 
-			QCOMPARE(m.shortcuts()[2].action, nullptr);
+			QVERIFY(m.shortcuts()[2].action == nullptr);
 			QVERIFY(m.shortcuts()[2].shortcut != nullptr);
-			QCOMPARE(m.shortcuts()[2].shortcut->key(), Qt::Key_F);
+			QCOMPARE(m.shortcuts()[2].shortcut->key(), QKeySequence(Qt::Key_F));
 			QCOMPARE(m.shortcuts()[2].shortcut->isEnabled(), false);
 
 			m.setFullscreen(true);
 
 			QCOMPARE(m.shortcuts().count(), 3);
-			QCOMPARE(m.shortcuts()[0].action, nullptr);
+			QVERIFY(m.shortcuts()[0].action == nullptr);
 			QVERIFY(m.shortcuts()[0].shortcut != nullptr);
-			QCOMPARE(m.shortcuts()[0].shortcut->key(), Qt::Key_Escape);
+			QCOMPARE(m.shortcuts()[0].shortcut->key(), QKeySequence(Qt::Key_Escape));
 			QCOMPARE(m.shortcuts()[0].shortcut->isEnabled(), true);
 
 			QCOMPARE(m.shortcuts()[1].action, a);
@@ -462,17 +463,17 @@ void TestUtils::FullscreenManager()
 			QCOMPARE(m.shortcuts()[1].shortcut->key(), QKeySequence());
 			QCOMPARE(m.shortcuts()[1].shortcut->isEnabled(), true);
 
-			QCOMPARE(m.shortcuts()[2].action, nullptr);
+			QVERIFY(m.shortcuts()[2].action == nullptr);
 			QVERIFY(m.shortcuts()[2].shortcut != nullptr);
-			QCOMPARE(m.shortcuts()[2].shortcut->key(), Qt::Key_F);
+			QCOMPARE(m.shortcuts()[2].shortcut->key(), QKeySequence(Qt::Key_F));
 			QCOMPARE(m.shortcuts()[2].shortcut->isEnabled(), true);
 
 			m.setFullscreen(false);
 
 			QCOMPARE(m.shortcuts().count(), 3);
-			QCOMPARE(m.shortcuts()[0].action, nullptr);
+			QVERIFY(m.shortcuts()[0].action == nullptr);
 			QVERIFY(m.shortcuts()[0].shortcut != nullptr);
-			QCOMPARE(m.shortcuts()[0].shortcut->key(), Qt::Key_Escape);
+			QCOMPARE(m.shortcuts()[0].shortcut->key(), QKeySequence(Qt::Key_Escape));
 			QCOMPARE(m.shortcuts()[0].shortcut->isEnabled(), false);
 
 			QCOMPARE(m.shortcuts()[1].action, a);
@@ -480,9 +481,9 @@ void TestUtils::FullscreenManager()
 			QCOMPARE(m.shortcuts()[1].shortcut->key(), QKeySequence());
 			QCOMPARE(m.shortcuts()[1].shortcut->isEnabled(), false);
 
-			QCOMPARE(m.shortcuts()[2].action, nullptr);
+			QVERIFY(m.shortcuts()[2].action == nullptr);
 			QVERIFY(m.shortcuts()[2].shortcut != nullptr);
-			QCOMPARE(m.shortcuts()[2].shortcut->key(), Qt::Key_F);
+			QCOMPARE(m.shortcuts()[2].shortcut->key(), QKeySequence(Qt::Key_F));
 			QCOMPARE(m.shortcuts()[2].shortcut->isEnabled(), false);
 
 			// Destroy the action to check if the corresponding shortcut is removed
@@ -491,14 +492,14 @@ void TestUtils::FullscreenManager()
 			QVERIFY(deletionSpy.wait());
 
 			QCOMPARE(m.shortcuts().count(), 2);
-			QCOMPARE(m.shortcuts()[0].action, nullptr);
+			QVERIFY(m.shortcuts()[0].action == nullptr);
 			QVERIFY(m.shortcuts()[0].shortcut != nullptr);
-			QCOMPARE(m.shortcuts()[0].shortcut->key(), Qt::Key_Escape);
+			QCOMPARE(m.shortcuts()[0].shortcut->key(), QKeySequence(Qt::Key_Escape));
 			QCOMPARE(m.shortcuts()[0].shortcut->isEnabled(), false);
 
-			QCOMPARE(m.shortcuts()[1].action, nullptr);
+			QVERIFY(m.shortcuts()[1].action == nullptr);
 			QVERIFY(m.shortcuts()[1].shortcut != nullptr);
-			QCOMPARE(m.shortcuts()[1].shortcut->key(), Qt::Key_F);
+			QCOMPARE(m.shortcuts()[1].shortcut->key(), QKeySequence(Qt::Key_F));
 			QCOMPARE(m.shortcuts()[1].shortcut->isEnabled(), false);
 		}
 	}
