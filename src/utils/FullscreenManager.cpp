@@ -32,7 +32,13 @@ namespace Utils {
 FullscreenManager::FullscreenManager(QMainWindow * parent)
 	: _parent(parent)
 {
-	addShortcut(Qt::Key_Escape, SLOT(toggleFullScreen()));
+	if (parent) {
+		QShortcut * esc = new QShortcut(QKeySequence(Qt::Key_Escape), parent);
+		Q_ASSERT(esc != nullptr);
+		connect(esc, SIGNAL(activated()), this, SLOT(toggleFullscreen()));
+		_shortcuts << shortcut_info{esc, nullptr};
+	}
+
 	_menuBarTimer.setSingleShot(true);
 	_menuBarTimer.setInterval(500);
 	connect(&_menuBarTimer, SIGNAL(timeout()), this, SLOT(showMenuBar()));

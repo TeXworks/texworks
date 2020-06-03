@@ -37,13 +37,15 @@ public:
 	FullscreenManager(QMainWindow * parent);
 	~FullscreenManager() override;
 
-	void setFullscreen(const bool fullscreen = true);
 	bool isFullscreen() const;
-	void toggleFullscreen();
 	void mouseMoveEvent(QMouseEvent * event);
 
 	void addShortcut(QAction * action, const char * member);
 	void addShortcut(const QKeySequence & key, const char * member, QAction * action = nullptr);
+
+public slots:
+	void setFullscreen(const bool fullscreen = true);
+	void toggleFullscreen();
 
 signals:
 	void fullscreenChanged(bool fullscreen);

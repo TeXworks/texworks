@@ -345,6 +345,8 @@ void TestUtils::FullscreenManager()
 		QCOMPARE(spy.count(), 0);
 
 		QCOMPARE(m.shortcuts().count(), 0);
+		m.addShortcut(QKeySequence(Qt::Key_F), SLOT(update()));
+		QCOMPARE(m.shortcuts().count(), 0);
 
 		QMouseEvent e(QMouseEvent::Move, {0, 0}, Qt::NoButton, Qt::NoButton, {});
 		m.mouseMoveEvent(&e);
@@ -420,6 +422,10 @@ void TestUtils::FullscreenManager()
 		QCOMPARE(tb->isVisibleTo(&w), true);
 		QCOMPARE(spy.count(), 2);
 		QCOMPARE(spy[1][0].toBool(), false);
+
+		m.setFullscreen();
+		QTest::keyClick(&w, Qt::Key_Escape);
+		QCOMPARE(m.isFullscreen(), false);
 
 		QCOMPARE(m.shortcuts().count(), 1);
 		QCOMPARE(m.shortcuts()[0].action, nullptr);
