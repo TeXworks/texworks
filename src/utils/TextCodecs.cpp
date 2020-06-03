@@ -19,11 +19,13 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include <TWTextCodecs.h>
+#include "utils/TextCodecs.h"
+
+namespace Tw {
+namespace Utils {
 
 // NOTE: The convert*Unicode functions are modeled after those in the files in
 // <Qt>/src/corelib/codecs/
-
 
 // This data is extracted from http://en.wikipedia.org/w/index.php?title=Macintosh_Central_European_encoding&oldid=450446783
 ushort MacCentralEurRomanCodes[] = {
@@ -102,3 +104,5 @@ QString MacCentralEurRomanCodec::convertToUnicode(const char * chars, int len, C
 	return str;
 }
 
+} // namespace Utils
+} // namespace Tw

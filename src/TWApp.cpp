@@ -27,7 +27,6 @@
 #include "PrefsDialog.h"
 #include "ResourcesDialog.h"
 #include "Settings.h"
-#include "TWTextCodecs.h"
 #include "TWUtils.h"
 #include "TWVersion.h"
 #include "TeXDocumentWindow.h"
@@ -35,6 +34,7 @@
 #include "document/SpellChecker.h"
 #include "scripting/ScriptAPI.h"
 #include "utils/SystemCommand.h"
+#include "utils/TextCodecs.h"
 
 #include <QAction>
 #include <QDesktopServices>
@@ -121,7 +121,7 @@ TWApp::~TWApp()
 
 void TWApp::init()
 {
-	customTextCodecs << new MacCentralEurRomanCodec();
+	customTextCodecs << new Tw::Utils::MacCentralEurRomanCodec();
 
 	QIcon::setThemeName(QStringLiteral("tango-texworks"));
 	QIcon appIcon;

@@ -30,7 +30,6 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   TWScriptableWindow.cpp
                   TWScriptManager.cpp
                   TWSynchronizer.cpp
-                  TWTextCodecs.cpp
                   TWUtils.cpp
                   document/Document.cpp
                   document/SpellChecker.cpp
@@ -48,6 +47,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   utils/FileVersionDatabase.cpp
                   utils/FullscreenManager.cpp
                   utils/SystemCommand.cpp
+                  utils/TextCodecs.cpp
                   )
 
 set(TEXWORKS_HDRS BibTeXFile.h
@@ -73,7 +73,6 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWScriptableWindow.h
                   TWScriptManager.h
                   TWSynchronizer.h
-                  TWTextCodecs.h
                   TWUtils.h
                   TWVersion.h
                   InterProcessCommunicator.h
@@ -95,6 +94,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   utils/FileVersionDatabase.h
                   utils/FullscreenManager.h
                   utils/SystemCommand.h
+                  utils/TextCodecs.h
                   )
 
 if (WIN32)

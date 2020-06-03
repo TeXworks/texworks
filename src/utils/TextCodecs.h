@@ -24,6 +24,9 @@
 
 #include <QTextCodec>
 
+namespace Tw {
+namespace Utils {
+
 class MacCentralEurRomanCodec : public QTextCodec
 {
 public:
@@ -40,5 +43,8 @@ protected:
 	QByteArray convertFromUnicode(const QChar * input, int length, ConverterState * state) const override;
 	QString convertToUnicode(const char * chars, int len, ConverterState * state) const override;
 };
+
+} // namespace Utils
+} // namespace Tw
 
 #endif // !defined(TWTextCodecs)
