@@ -42,6 +42,8 @@ public:
 protected:
 	QByteArray convertFromUnicode(const QChar * input, int length, ConverterState * state) const override;
 	QString convertToUnicode(const char * chars, int len, ConverterState * state) const override;
+private:
+	static ushort unicodeCodepoints[];
 };
 
 } // namespace Utils

@@ -28,7 +28,7 @@ namespace Utils {
 // <Qt>/src/corelib/codecs/
 
 // This data is extracted from http://en.wikipedia.org/w/index.php?title=Macintosh_Central_European_encoding&oldid=450446783
-ushort MacCentralEurRomanCodes[] = {
+ushort MacCentralEurRomanCodec::unicodeCodepoints[] = {
 	0x00C4, 0x0100, 0x0101, 0x00C9, 0x0104, 0x00D6, 0x00DC, 0x00E1,
 	0x0105, 0x010C, 0x00E4, 0x010D, 0x0106, 0x0107, 0x00E9, 0x0179,
 	0x017A, 0x010E, 0x00ED, 0x010F, 0x0112, 0x0113, 0x0116, 0x00F3,
@@ -69,7 +69,7 @@ QByteArray MacCentralEurRomanCodec::convertFromUnicode(const QChar * input, int 
 		else {
 			int j{0};
 			for (j = 0; j < 128; ++j) {
-				if (MacCentralEurRomanCodes[j] == uc) {
+				if (unicodeCodepoints[j] == uc) {
 					c = static_cast<uchar>(j + 0x80);
 					break;
 				}
@@ -98,7 +98,7 @@ QString MacCentralEurRomanCodec::convertToUnicode(const char * chars, int len, C
 	while(len--) {
 		// NOTE: uc->unicode() should always be <= 0xff!
 		if (uc->unicode() >= 0x80 && uc->unicode() <= 0xff)
-			*uc = MacCentralEurRomanCodes[uc->unicode() - 0x80];
+			*uc = unicodeCodepoints[uc->unicode() - 0x80];
 		uc++;
 	}
 	return str;
