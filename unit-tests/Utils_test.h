@@ -40,6 +40,8 @@ private slots:
 	void CommandLineParser_printUsage();
 
 	void MacCentralEurRomanCodec();
+
+	void FullscreenManager();
 };
 
 } // namespace UnitTest

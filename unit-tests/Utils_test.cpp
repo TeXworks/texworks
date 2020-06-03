@@ -24,10 +24,15 @@
 #include "SignalCounter.h"
 #include "utils/CommandlineParser.h"
 #include "utils/FileVersionDatabase.h"
+#include "utils/FullscreenManager.h"
 #include "utils/SystemCommand.h"
 #include "utils/TextCodecs.h"
 
+#include <QMenuBar>
+#include <QMouseEvent>
+#include <QStatusBar>
 #include <QTemporaryFile>
+#include <QToolBar>
 
 namespace Tw {
 namespace Utils {
@@ -61,6 +66,16 @@ bool operator==(const FileVersionDatabase & db1, const FileVersionDatabase & db2
 
 
 namespace UnitTest {
+
+class FullscreenManager : public Tw::Utils::FullscreenManager
+{
+public:
+	FullscreenManager(QMainWindow * parent) : Tw::Utils::FullscreenManager(parent) {
+		_menuBarTimer.setInterval(100);
+	}
+	int timeout() const { return _menuBarTimer.interval(); }
+	QList<shortcut_info> shortcuts() const { return _shortcuts; }
+};
 
 void TestUtils::FileVersionDatabase_comparisons()
 {
@@ -314,6 +329,171 @@ void TestUtils::MacCentralEurRomanCodec()
 	QTextEncoder * e = c->makeEncoder(QTextCodec::ConvertInvalidToNull);
 	QCOMPARE(e->fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4\x00", 6));
 	delete e;
+}
+
+void TestUtils::FullscreenManager()
+{
+	{
+		::UnitTest::FullscreenManager m(nullptr);
+		QSignalSpy spy(&m, SIGNAL(fullscreenChanged(bool)));
+		QVERIFY(spy.isValid());
+		QCOMPARE(m.isFullscreen(), false);
+		m.toggleFullscreen();
+		QCOMPARE(m.isFullscreen(), false);
+		m.setFullscreen();
+		QCOMPARE(m.isFullscreen(), false);
+		QCOMPARE(spy.count(), 0);
+
+		QMouseEvent e(QMouseEvent::Move, {0, 0}, Qt::NoButton, Qt::NoButton, {});
+		m.mouseMoveEvent(&e);
+	}
+	{
+		QMainWindow w;
+		::UnitTest::FullscreenManager m(&w);
+		QSignalSpy spy(&m, SIGNAL(fullscreenChanged(bool)));
+
+		w.setAttribute(Qt::WA_TranslucentBackground);
+		w.setMenuBar(new QMenuBar);
+		w.setStatusBar(new QStatusBar);
+		QToolBar * tb = w.addToolBar(QString());
+
+		w.show();
+		QCoreApplication::processEvents();
+
+		QVERIFY(spy.isValid());
+
+		QCOMPARE(m.isFullscreen(), false);
+		QCOMPARE(w.menuBar()->isVisibleTo(&w), true);
+		QCOMPARE(w.statusBar()->isVisibleTo(&w), true);
+		QCOMPARE(tb->isVisibleTo(&w), true);
+
+		m.toggleFullscreen();
+
+		QCOMPARE(m.isFullscreen(), true);
+		QCOMPARE(w.menuBar()->isVisibleTo(&w), false);
+		QCOMPARE(w.statusBar()->isVisibleTo(&w), false);
+		QCOMPARE(tb->isVisibleTo(&w), false);
+		QCOMPARE(spy.count(), 1);
+		QCOMPARE(spy[0][0].toBool(), true);
+
+		{
+			constexpr int threshold = 10;
+			QMouseEvent mouseOver(QMouseEvent::Move, {0, threshold}, Qt::NoButton, Qt::NoButton, {});
+			QMouseEvent mouseOut(QMouseEvent::Move, {0, qMax(threshold, w.menuBar()->height()) + 1.}, Qt::NoButton, Qt::NoButton, {});
+
+			// Hover over and move away quickly (should not trigger the menubar)
+			m.mouseMoveEvent(&mouseOver);
+			QCOMPARE(w.menuBar()->isVisibleTo(&w), false);
+			spy.wait(m.timeout() / 2);
+			m.mouseMoveEvent(&mouseOut);
+			spy.wait(m.timeout() / 2);
+			QCOMPARE(w.menuBar()->isVisibleTo(&w), false);
+			spy.wait(m.timeout() / 2);
+			QCOMPARE(w.menuBar()->isVisibleTo(&w), false);
+
+			// Hover over and wait
+			m.mouseMoveEvent(&mouseOver);
+			QCOMPARE(w.menuBar()->isVisibleTo(&w), false);
+			spy.wait(m.timeout() + 10);
+			QCOMPARE(w.menuBar()->isVisibleTo(&w), true);
+			m.mouseMoveEvent(&mouseOut);
+			QCOMPARE(w.menuBar()->isVisibleTo(&w), false);
+		}
+
+		// Should do nothing - fullscreen is already active
+		m.setFullscreen(true);
+
+		QCOMPARE(m.isFullscreen(), true);
+		QCOMPARE(w.menuBar()->isVisibleTo(&w), false);
+		QCOMPARE(w.statusBar()->isVisibleTo(&w), false);
+		QCOMPARE(tb->isVisibleTo(&w), false);
+		QCOMPARE(spy.count(), 1);
+		QCOMPARE(spy[0][0].toBool(), true);
+
+		m.setFullscreen(false);
+
+		QCOMPARE(m.isFullscreen(), false);
+		QCOMPARE(w.menuBar()->isVisibleTo(&w), true);
+		QCOMPARE(w.statusBar()->isVisibleTo(&w), true);
+		QCOMPARE(tb->isVisibleTo(&w), true);
+		QCOMPARE(spy.count(), 2);
+		QCOMPARE(spy[1][0].toBool(), false);
+
+		QCOMPARE(m.shortcuts().count(), 1);
+		QCOMPARE(m.shortcuts()[0].action, nullptr);
+		QVERIFY(m.shortcuts()[0].shortcut != nullptr);
+		QCOMPARE(m.shortcuts()[0].shortcut->key(), Qt::Key_Escape);
+		QCOMPARE(m.shortcuts()[0].shortcut->isEnabled(), false);
+
+		{
+			QAction * a = w.menuBar()->addAction(QStringLiteral("a"));
+			m.addShortcut(a, SLOT(update()));
+			m.addShortcut(QKeySequence(Qt::Key_F), SLOT(update()));
+
+			QCOMPARE(m.shortcuts().count(), 3);
+			QCOMPARE(m.shortcuts()[1].action, a);
+			QVERIFY(m.shortcuts()[1].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[1].shortcut->key(), QKeySequence());
+			QCOMPARE(m.shortcuts()[1].shortcut->isEnabled(), false);
+
+			QCOMPARE(m.shortcuts()[2].action, nullptr);
+			QVERIFY(m.shortcuts()[2].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[2].shortcut->key(), Qt::Key_F);
+			QCOMPARE(m.shortcuts()[2].shortcut->isEnabled(), false);
+
+			m.setFullscreen(true);
+
+			QCOMPARE(m.shortcuts().count(), 3);
+			QCOMPARE(m.shortcuts()[0].action, nullptr);
+			QVERIFY(m.shortcuts()[0].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[0].shortcut->key(), Qt::Key_Escape);
+			QCOMPARE(m.shortcuts()[0].shortcut->isEnabled(), true);
+
+			QCOMPARE(m.shortcuts()[1].action, a);
+			QVERIFY(m.shortcuts()[1].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[1].shortcut->key(), QKeySequence());
+			QCOMPARE(m.shortcuts()[1].shortcut->isEnabled(), true);
+
+			QCOMPARE(m.shortcuts()[2].action, nullptr);
+			QVERIFY(m.shortcuts()[2].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[2].shortcut->key(), Qt::Key_F);
+			QCOMPARE(m.shortcuts()[2].shortcut->isEnabled(), true);
+
+			m.setFullscreen(false);
+
+			QCOMPARE(m.shortcuts().count(), 3);
+			QCOMPARE(m.shortcuts()[0].action, nullptr);
+			QVERIFY(m.shortcuts()[0].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[0].shortcut->key(), Qt::Key_Escape);
+			QCOMPARE(m.shortcuts()[0].shortcut->isEnabled(), false);
+
+			QCOMPARE(m.shortcuts()[1].action, a);
+			QVERIFY(m.shortcuts()[1].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[1].shortcut->key(), QKeySequence());
+			QCOMPARE(m.shortcuts()[1].shortcut->isEnabled(), false);
+
+			QCOMPARE(m.shortcuts()[2].action, nullptr);
+			QVERIFY(m.shortcuts()[2].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[2].shortcut->key(), Qt::Key_F);
+			QCOMPARE(m.shortcuts()[2].shortcut->isEnabled(), false);
+
+			// Destroy the action to check if the corresponding shortcut is removed
+			QSignalSpy deletionSpy(a, SIGNAL(destroyed(QObject*)));
+			a->deleteLater();
+			QVERIFY(deletionSpy.wait());
+
+			QCOMPARE(m.shortcuts().count(), 2);
+			QCOMPARE(m.shortcuts()[0].action, nullptr);
+			QVERIFY(m.shortcuts()[0].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[0].shortcut->key(), Qt::Key_Escape);
+			QCOMPARE(m.shortcuts()[0].shortcut->isEnabled(), false);
+
+			QCOMPARE(m.shortcuts()[1].action, nullptr);
+			QVERIFY(m.shortcuts()[1].shortcut != nullptr);
+			QCOMPARE(m.shortcuts()[1].shortcut->key(), Qt::Key_F);
+			QCOMPARE(m.shortcuts()[1].shortcut->isEnabled(), false);
+		}
+	}
 }
 
 } // namespace UnitTest

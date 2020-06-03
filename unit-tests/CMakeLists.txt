@@ -61,6 +61,7 @@ add_executable(test_Utils
 	SignalCounter.cpp
 	"${CMAKE_SOURCE_DIR}/src/utils/CommandlineParser.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/FileVersionDatabase.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/FullscreenManager.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/SystemCommand.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/TextCodecs.cpp"
 )
