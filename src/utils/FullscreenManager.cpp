@@ -145,6 +145,10 @@ void FullscreenManager::addShortcut(QAction * action, const char * member)
 
 void FullscreenManager::addShortcut(const QKeySequence & key, const char * member, QAction * action /* = nullptr */)
 {
+	if (!_parent) {
+		return;
+	}
+
 	shortcut_info sci;
 	sci.shortcut = new QShortcut(key, _parent, member);
 	sci.shortcut->setEnabled(false);

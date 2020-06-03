@@ -344,6 +344,8 @@ void TestUtils::FullscreenManager()
 		QCOMPARE(m.isFullscreen(), false);
 		QCOMPARE(spy.count(), 0);
 
+		QCOMPARE(m.shortcuts().count(), 0);
+
 		QMouseEvent e(QMouseEvent::Move, {0, 0}, Qt::NoButton, Qt::NoButton, {});
 		m.mouseMoveEvent(&e);
 	}
