@@ -253,7 +253,6 @@ private:
 	TWScriptManager *scriptManager;
 
 	QHash<QString, QVariant> m_globals;
-	QList<QTextCodec*> customTextCodecs;
 	
 	static TWApp *theAppInstance;
 };

@@ -29,21 +29,27 @@ namespace Utils {
 
 class MacCentralEurRomanCodec : public QTextCodec
 {
+	Q_DISABLE_COPY(MacCentralEurRomanCodec)
 public:
-	MacCentralEurRomanCodec() = default;
-	~MacCentralEurRomanCodec() override = default;
-
 	// NOTE: The mib number is arbitrary since this encoding is not in the IANA
 	// list (http://www.iana.org/assignments/character-sets).
 	int mibEnum() const override { return -4000; }
 	QByteArray name() const override { return "Mac Central European Roman"; }
 	QList<QByteArray> aliases() const override;
 
+	static MacCentralEurRomanCodec * instance() { return _instance; }
+
 protected:
+	MacCentralEurRomanCodec() = default;
+	~MacCentralEurRomanCodec() override = default;
+	MacCentralEurRomanCodec(MacCentralEurRomanCodec &&) = delete;
+	MacCentralEurRomanCodec & operator=(MacCentralEurRomanCodec &&) = delete;
+
 	QByteArray convertFromUnicode(const QChar * input, int length, ConverterState * state) const override;
 	QString convertToUnicode(const char * chars, int len, ConverterState * state) const override;
 private:
 	static ushort unicodeCodepoints[];
+	static MacCentralEurRomanCodec * _instance;
 };
 
 } // namespace Utils

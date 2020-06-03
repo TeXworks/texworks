@@ -297,20 +297,21 @@ void TestUtils::CommandLineParser_printUsage()
 
 void TestUtils::MacCentralEurRomanCodec()
 {
-	Tw::Utils::MacCentralEurRomanCodec c;
+	Tw::Utils::MacCentralEurRomanCodec * c = Tw::Utils::MacCentralEurRomanCodec::instance();
+	Q_ASSERT(c != nullptr);
 
-	QCOMPARE(c.mibEnum(), -4000);
-	QCOMPARE(c.name(), QByteArray("Mac Central European Roman"));
-	QCOMPARE(c.aliases(), QList<QByteArray>({"MacCentralEuropeanRoman", "MacCentralEurRoman"}));
+	QCOMPARE(c->mibEnum(), -4000);
+	QCOMPARE(c->name(), QByteArray("Mac Central European Roman"));
+	QCOMPARE(c->aliases(), QList<QByteArray>({"MacCentralEuropeanRoman", "MacCentralEurRoman"}));
 
 	// € cannot be encoded and is replaced by ? (or \x00 if
 	// QTextCodec::ConvertInvalidToNull is specified)
-	QCOMPARE(c.fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4?"));
-	QCOMPARE(c.toUnicode(QByteArray("\x41\x80\x81\xA1\xA4")), QStringLiteral("AÄĀ°§"));
+	QCOMPARE(c->fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4?"));
+	QCOMPARE(c->toUnicode(QByteArray("\x41\x80\x81\xA1\xA4")), QStringLiteral("AÄĀ°§"));
 
-	QCOMPARE(c.toUnicode(nullptr), QString());
+	QCOMPARE(c->toUnicode(nullptr), QString());
 
-	QTextEncoder * e = c.makeEncoder(QTextCodec::ConvertInvalidToNull);
+	QTextEncoder * e = c->makeEncoder(QTextCodec::ConvertInvalidToNull);
 	QCOMPARE(e->fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4\x00", 6));
 	delete e;
 }

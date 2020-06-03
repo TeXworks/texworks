@@ -47,6 +47,11 @@ ushort MacCentralEurRomanCodec::unicodeCodepoints[] = {
 	0x00DD, 0x00FD, 0x0137, 0x017B, 0x0141, 0x017C, 0x0122, 0x02C7
 };
 
+// According to the docs [https://doc.qt.io/qt-5/qtextcodec.html#QTextCodec-1],
+// all text codecs should be constructed on the heap, Qt takes ownership, and
+// deletes them when the application terminates
+MacCentralEurRomanCodec * MacCentralEurRomanCodec::_instance = new MacCentralEurRomanCodec();
+
 QList<QByteArray> MacCentralEurRomanCodec::aliases() const
 {
 	QList<QByteArray> list;

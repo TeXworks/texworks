@@ -121,8 +121,6 @@ TWApp::~TWApp()
 
 void TWApp::init()
 {
-	customTextCodecs << new Tw::Utils::MacCentralEurRomanCodec();
-
 	QIcon::setThemeName(QStringLiteral("tango-texworks"));
 	QIcon appIcon;
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
