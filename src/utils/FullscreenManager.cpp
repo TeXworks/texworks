@@ -156,10 +156,10 @@ void FullscreenManager::addShortcut(const QKeySequence & key, const char * membe
 
 void FullscreenManager::actionDeleted(QObject * obj)
 {
-	QAction * a = qobject_cast<QAction *>(obj);
-	if (!a) return;
+	// Do not try to qobject_cast obj to QAction* as the object is already
+	// (mostly) destroyed, so the cast would fail
 	for (int i = 0; i < _shortcuts.size(); ) {
-		if (_shortcuts[i].action == a) {
+		if (_shortcuts[i].action == obj) {
 			delete _shortcuts[i].shortcut;
 			_shortcuts.removeAt(i);
 		}
