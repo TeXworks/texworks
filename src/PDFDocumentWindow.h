@@ -27,6 +27,7 @@
 #include "TWScriptableWindow.h"
 #include "TWSynchronizer.h"
 #include "ui_PDFDocumentWindow.h"
+#include "utils/FullscreenManager.h"
 
 #include <QButtonGroup>
 #include <QCursor>
@@ -52,43 +53,6 @@ class QToolBar;
 class QScrollArea;
 class TeXDocumentWindow;
 class QShortcut;
-
-class FullscreenManager : public QObject
-{
-	Q_OBJECT
-public:
-	FullscreenManager(QMainWindow * parent);
-	~FullscreenManager() override;
-
-	void setFullscreen(const bool fullscreen = true);
-	bool isFullscreen() const;
-	void toggleFullscreen();
-	void mouseMoveEvent(QMouseEvent * event);
-
-	void addShortcut(QAction * action, const char * member);
-	void addShortcut(const QKeySequence & key, const char * member, QAction * action = nullptr);
-
-signals:
-	void fullscreenChanged(bool fullscreen);
-
-private slots:
-	void showMenuBar() { setMenuBarVisible(true); }
-	void hideMenuBar() { setMenuBarVisible(false); }
-	void actionDeleted(QObject * obj);
-
-protected:
-	void setMenuBarVisible(const bool visible = true);
-
-	struct shortcut_info {
-		QShortcut * shortcut;
-		QAction * action;
-	};
-
-	QList<shortcut_info> _shortcuts;
-	QMap<QWidget*, bool> _normalVisibility;
-	QMainWindow * _parent;
-	QTimer _menuBarTimer;
-};
 
 class PDFDocumentWindow : public TWScriptableWindow, private Ui::PDFDocumentWindow
 {
@@ -195,7 +159,7 @@ private:
 	QLabel *pageLabel;
 	QLabel *scaleLabel;
 	QList<QAction*> recentFileActions;
-	FullscreenManager * _fullScreenManager;
+	Tw::Utils::FullscreenManager * _fullScreenManager;
 	QSignalMapper pageModeSignalMapper;
 
 	QGraphicsItem * _syncHighlight;

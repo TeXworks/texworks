@@ -46,6 +46,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   ui/ScreenCalibrationWidget.cpp
                   utils/CommandlineParser.cpp
                   utils/FileVersionDatabase.cpp
+                  utils/FullscreenManager.cpp
                   utils/SystemCommand.cpp
                   )
 
@@ -92,6 +93,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   ui/ScreenCalibrationWidget.h
                   utils/CommandlineParser.h
                   utils/FileVersionDatabase.h
+                  utils/FullscreenManager.h
                   utils/SystemCommand.h
                   )
 
