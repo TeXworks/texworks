@@ -340,7 +340,7 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
   Qt::ScrollBarPolicy oldVerticalPolicy = verticalScrollBarPolicy();
 
   // Reset the view scale to 1:1.
-  QRectF unity = matrix().mapRect(QRectF(0, 0, 1, 1));
+  QRectF unity = transform().mapRect(QRectF(0, 0, 1, 1));
   if (unity.isEmpty())
     return;
   scale(1 / unity.width(), 1 / unity.height());
@@ -350,7 +350,7 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
   _scaleDat[0].horizontalScrollbar = (horizontalScrollBar() ? horizontalScrollBar()->isVisible() : false);
   _scaleDat[0].verticalScrollbar = (verticalScrollBar() ? verticalScrollBar()->isVisible() : false);
   viewRect = viewport()->rect();
-  sceneRect = matrix().mapRect(rect);
+  sceneRect = transform().mapRect(rect);
   if (!viewRect.isEmpty() && !sceneRect.isEmpty()) {
     _scaleDat[0].xratio = viewRect.width() / sceneRect.width();
     _scaleDat[0].yratio = viewRect.height() / sceneRect.height();
@@ -369,8 +369,8 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
 
   viewRect = viewport()->rect();
   setHorizontalScrollBarPolicy(oldHorizontalPolicy);
-  sceneRect.setLeft(matrix().mapRect(_pdf_scene->sceneRect()).left());
-  sceneRect.setRight(matrix().mapRect(_pdf_scene->sceneRect()).right());
+  sceneRect.setLeft(transform().mapRect(_pdf_scene->sceneRect()).left());
+  sceneRect.setRight(transform().mapRect(_pdf_scene->sceneRect()).right());
 
   if (!viewRect.isEmpty() && !sceneRect.isEmpty()) {
     _scaleDat[1].xratio = viewRect.width() / sceneRect.width();
@@ -390,8 +390,8 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
 
   viewRect = viewport()->rect();
   setVerticalScrollBarPolicy(oldVerticalPolicy);
-  sceneRect.setTop(matrix().mapRect(_pdf_scene->sceneRect()).top());
-  sceneRect.setBottom(matrix().mapRect(_pdf_scene->sceneRect()).bottom());
+  sceneRect.setTop(transform().mapRect(_pdf_scene->sceneRect()).top());
+  sceneRect.setBottom(transform().mapRect(_pdf_scene->sceneRect()).bottom());
 
   if (!viewRect.isEmpty() && !sceneRect.isEmpty()) {
     _scaleDat[2].xratio = viewRect.width() / sceneRect.width();
@@ -412,7 +412,7 @@ void PDFDocumentView::fitInView(const QRectF & rect, Qt::AspectRatioMode aspectR
   viewRect = viewport()->rect();
   setHorizontalScrollBarPolicy(oldHorizontalPolicy);
   setVerticalScrollBarPolicy(oldVerticalPolicy);
-  sceneRect = matrix().mapRect(_pdf_scene->sceneRect());
+  sceneRect = transform().mapRect(_pdf_scene->sceneRect());
 
   if (!viewRect.isEmpty() && !sceneRect.isEmpty()) {
     _scaleDat[3].xratio = viewRect.width() / sceneRect.width();
@@ -700,7 +700,7 @@ void PDFDocumentView::zoom100()
   // Reset zoom level to 100%
 
   // Reset the view scale to 1:1.
-  QRectF unity = matrix().mapRect(QRectF(0, 0, 1, 1));
+  QRectF unity = transform().mapRect(QRectF(0, 0, 1, 1));
   if (unity.isEmpty())
       return;
 
@@ -1484,9 +1484,9 @@ void PDFDocumentView::mouseReleaseEvent(QMouseEvent * event)
 
 void PDFDocumentView::wheelEvent(QWheelEvent * event)
 {
-  int delta = event->delta();
+  int deltaY = event->angleDelta().y();
 
-  if (event->orientation() == Qt::Vertical && event->buttons() == Qt::NoButton && event->modifiers() == Qt::ControlModifier) {
+  if (deltaY != 0 && event->buttons() == Qt::NoButton && event->modifiers() == Qt::ControlModifier) {
     // TODO: Possibly make the Ctrl modifier configurable?
     // According to Qt docs, the resolution of delta() is not necessarily the
     // same for all mice. delta() returns the rotation in 1/8 degrees. Here, we
@@ -1495,7 +1495,7 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
     // TODO: for high-resolution mice, this may trigger many small zooms,
     // resulting in the rendering of many intermediate resolutions. This can
     // cause a lagging display and can potentially fill the pdf cache.
-    zoomBy(pow(1.5, delta / 120.), QGraphicsView::AnchorUnderMouse);
+    zoomBy(pow(1.5, deltaY / 120.), QGraphicsView::AnchorUnderMouse);
     event->accept();
     return;
   }
@@ -1504,21 +1504,29 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
     // (e.g., to allow horizontal scrolling)
     // TODO: Possibly make the Shift modifier configurable?
     event->accept();
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QWheelEvent newEvent(event->pos(), event->delta(), event->buttons(), Qt::NoModifier, (event->orientation() == Qt::Vertical ? Qt::Horizontal : Qt::Vertical));
+#else
+    QWheelEvent newEvent(event->position(), event->globalPosition(),
+                         QPoint{event->pixelDelta().y(), event->pixelDelta().x()},
+                         QPoint{event->angleDelta().y(), event->angleDelta().x()},
+                         event->buttons(), event->modifiers(), event->phase(),
+                         event->inverted(), event->source());
+#endif
     wheelEvent(&newEvent);
     return;
   }
-  if (event->orientation() == Qt::Vertical && (pageMode() == PageMode_SinglePage || pageMode() == PageMode_Presentation)) {
+  if (deltaY != 0 && (pageMode() == PageMode_SinglePage || pageMode() == PageMode_Presentation)) {
     // In single page mode we need to flip to the next page if the scroll bar
     // is a the top or bottom of it's range.`
     int scrollPos = verticalScrollBar()->value();
-    if ( delta < 0 && scrollPos == verticalScrollBar()->maximum() ) {
+    if (deltaY < 0 && scrollPos == verticalScrollBar()->maximum()) {
       goNext();
 
       event->accept();
       return;
     }
-    if ( delta > 0 && scrollPos == verticalScrollBar()->minimum() ) {
+    if (deltaY > 0 && scrollPos == verticalScrollBar()->minimum()) {
       goPrev();
 
       event->accept();
