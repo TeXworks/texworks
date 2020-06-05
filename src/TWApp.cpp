@@ -121,6 +121,12 @@ TWApp::~TWApp()
 
 void TWApp::init()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
+#else
+	constexpr auto SkipEmptyParts = Qt::SkipEmptyParts;
+#endif
+
 	QIcon::setThemeName(QStringLiteral("tango-texworks"));
 	QIcon appIcon;
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
@@ -158,7 +164,7 @@ void TWApp::init()
 		}
 		if (portable.contains(QString::fromLatin1("defaultbinpaths"))) {
 			defaultBinPaths = new QStringList;
-			*defaultBinPaths = portable.value(QString::fromLatin1("defaultbinpaths")).toString().split(QString::fromLatin1(PATH_LIST_SEP), QString::SkipEmptyParts);
+			*defaultBinPaths = portable.value(QString::fromLatin1("defaultbinpaths")).toString().split(QString::fromLatin1(PATH_LIST_SEP), SkipEmptyParts);
 		}
 	}
 	QString envPath = QString::fromLocal8Bit(getenv("TW_INIPATH"));
@@ -457,12 +463,18 @@ unsigned int TWApp::GetWindowsVersion()
 
 const QStringList TWApp::getBinaryPaths()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
+#else
+	constexpr auto SkipEmptyParts = Qt::SkipEmptyParts;
+#endif
+
 	QStringList binPaths = getPrefsBinaryPaths();
 	QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
 	for(QString & path : binPaths) {
 		path = replaceEnvironmentVariables(path);
 	}
-	for (QString path : env.value(QStringLiteral("PATH")).split(QStringLiteral(PATH_LIST_SEP), QString::SkipEmptyParts)) {
+	for (QString path : env.value(QStringLiteral("PATH")).split(QStringLiteral(PATH_LIST_SEP), SkipEmptyParts)) {
 		path = replaceEnvironmentVariables(path);
 		if (!binPaths.contains(path)) {
 			binPaths.append(path);
@@ -527,14 +539,14 @@ void TWApp::writeToMailingList()
 	body += QLatin1String("Windows ") + GetWindowsVersionString() + QChar::fromLatin1('\n');
 #else
 #if defined(Q_OS_DARWIN)
-#define UNAME_CMDLINE "uname -v"
+	QStringList unameArgs{QStringLiteral("-v")};
 #else
-#define UNAME_CMDLINE "uname -a"
+	QStringList unameArgs{QStringLiteral("-a")};
 #endif
 	QString unameResult(QLatin1String("unknown"));
 	Tw::Utils::SystemCommand unameCmd(this, true);
 	unameCmd.setProcessChannelMode(QProcess::MergedChannels);
-	unameCmd.start(QString::fromLatin1(UNAME_CMDLINE));
+	unameCmd.start(QStringLiteral("uname"), unameArgs);
 	if (unameCmd.waitForStarted(1000) && unameCmd.waitForFinished(1000))
 		unameResult = unameCmd.getResult().trimmed();
 #if defined(Q_OS_DARWIN)
@@ -782,6 +794,12 @@ bool TWApp::event(QEvent *event)
 
 void TWApp::setDefaultPaths()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
+#else
+	constexpr auto SkipEmptyParts = Qt::SkipEmptyParts;
+#endif
+
 	QDir appDir(applicationDirPath());
 	if (!binaryPaths)
 		binaryPaths = new QStringList;
@@ -797,11 +815,11 @@ void TWApp::setDefaultPaths()
 #endif
 	QString envPath = QString::fromLocal8Bit(getenv("PATH"));
 	if (!envPath.isEmpty())
-		foreach (const QString& s, envPath.split(QString::fromLatin1(PATH_LIST_SEP), QString::SkipEmptyParts))
+		foreach (const QString& s, envPath.split(QString::fromLatin1(PATH_LIST_SEP), SkipEmptyParts))
 		if (!binaryPaths->contains(s))
 			binaryPaths->append(s);
 	if (!defaultBinPaths) {
-		foreach (const QString& s, QString::fromUtf8(DEFAULT_BIN_PATHS).split(QString::fromLatin1(PATH_LIST_SEP), QString::SkipEmptyParts)) {
+		foreach (const QString& s, QString::fromUtf8(DEFAULT_BIN_PATHS).split(QString::fromLatin1(PATH_LIST_SEP), SkipEmptyParts)) {
 			if (!binaryPaths->contains(s))
 				binaryPaths->append(s);
 		}

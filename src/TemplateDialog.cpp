@@ -45,13 +45,19 @@ void TemplateDialog::init()
 	QString templatePath = TWUtils::getLibraryPath(QString::fromLatin1("templates"));
 		// do this before creating the model, as getLibraryPath might initialize a new dir
 		
-	model = new QDirModel(this);
+	model = new QFileSystemModel(this);
+	model->setRootPath(templatePath);
 	treeView->setModel(model);
 	treeView->setRootIndex(model->index(templatePath));
-	treeView->expandAll();
-	treeView->resizeColumnToContents(0);
 	treeView->hideColumn(2);
-	treeView->collapseAll();
+
+	// Resize the first column to take all available space _after_ the widget is
+	// shown and has therefore been resized appropriately
+	QTimer::singleShot(0, [=](){
+		QHeaderView * h = treeView->header();
+		Q_ASSERT(h != nullptr);
+		h->resizeSection(0, h->length() - 2 * h->defaultSectionSize());
+	});
 	
 	connect(treeView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
 			this, SLOT(selectionChanged(const QItemSelection&, const QItemSelection&)));

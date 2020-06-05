@@ -28,12 +28,12 @@
 namespace Tw {
 namespace Document {
 
-QHash<QString, QString> * SpellChecker::dictionaryList = nullptr;
+QMultiHash<QString, QString> * SpellChecker::dictionaryList = nullptr;
 QHash<const QString,SpellChecker::Dictionary*> * SpellChecker::dictionaries = nullptr;
 SpellChecker * SpellChecker::_instance = new SpellChecker();
 
 // static
-QHash<QString, QString> * SpellChecker::getDictionaryList(const bool forceReload /* = false */)
+QMultiHash<QString, QString> * SpellChecker::getDictionaryList(const bool forceReload /* = false */)
 {
 	if (dictionaryList) {
 		if (!forceReload)
@@ -41,14 +41,14 @@ QHash<QString, QString> * SpellChecker::getDictionaryList(const bool forceReload
 		delete dictionaryList;
 	}
 
-	dictionaryList = new QHash<QString, QString>();
+	dictionaryList = new QMultiHash<QString, QString>();
 	const QStringList dirs = TWUtils::getLibraryPaths(QStringLiteral("dictionaries"));
 	foreach (QDir dicDir, dirs) {
 		foreach (QFileInfo dicFileInfo, dicDir.entryInfoList(QStringList(QString::fromLatin1("*.dic")),
 					QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
 			QFileInfo affFileInfo(dicFileInfo.dir(), dicFileInfo.completeBaseName() + QLatin1String(".aff"));
 			if (affFileInfo.isReadable())
-				dictionaryList->insertMulti(dicFileInfo.canonicalFilePath(), dicFileInfo.completeBaseName());
+				dictionaryList->insert(dicFileInfo.canonicalFilePath(), dicFileInfo.completeBaseName());
 		}
 	}
 

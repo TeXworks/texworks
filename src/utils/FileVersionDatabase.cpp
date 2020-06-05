@@ -60,6 +60,9 @@ FileVersionDatabase FileVersionDatabase::load(const QString & path)
 
 bool FileVersionDatabase::save(const QString & path) const
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+	using Qt::endl;
+#endif
 	QFile fout(path);
 	QDir rootDir(QFileInfo(path).absoluteDir());
 

@@ -25,6 +25,7 @@
 #include "ui_TemplateDialog.h"
 
 #include <QDialog>
+#include <QFileSystemModel>
 #include <QItemSelection>
 #include <QString>
 
@@ -47,7 +48,7 @@ private slots:
 private:
 	void init();
 
-	QDirModel * model{nullptr};
+	QFileSystemModel * model{nullptr};
 };
 
 #endif

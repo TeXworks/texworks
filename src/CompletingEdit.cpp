@@ -1291,7 +1291,7 @@ void CompletingEdit::wheelEvent(QWheelEvent *e)
 {
 	if (e->modifiers() & Qt::ControlModifier)
 	{
-		wheelDelta += e->delta();  // accumulate wheelDelta for high-resolution mice, which might pass small values.
+		wheelDelta += e->angleDelta().y();  // accumulate wheelDelta for high-resolution mice, which might pass small values.
 		int sign = (wheelDelta < 0) ? -1 : 1;
 		const int stepSize = 120;  // according to Qt docs a standard wheel step corresponds to a delta of 120.
 		int steps = (sign * wheelDelta) / stepSize;  // abs value to guarantee rounding towards 0.

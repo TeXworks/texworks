@@ -154,7 +154,7 @@ private:
 	QScrollArea	*scrollArea;
 	QButtonGroup	*toolButtonGroup;
 
-	QLinkedList<TeXDocumentWindow*> sourceDocList;
+	QList<TeXDocumentWindow*> sourceDocList;
 
 	QLabel *pageLabel;
 	QLabel *scaleLabel;

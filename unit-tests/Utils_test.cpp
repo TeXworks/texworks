@@ -153,13 +153,13 @@ void TestUtils::SystemCommand_wait()
 
 	QVERIFY(spy.isValid());
 
-	cmd.start(QStringLiteral("echo \"OK\""));
+	cmd.start(QStringLiteral("echo"), QStringList{QStringLiteral("OK")});
 	QVERIFY(cmd.waitForStarted());
 	QVERIFY(cmd.waitForFinished());
 
 	spy.clear();
 
-	cmd.start(QStringLiteral("echo \"OK\""));
+	cmd.start(QStringLiteral("echo"), QStringList{QStringLiteral("OK")});
 	QVERIFY(spy.wait());
 	QVERIFY(cmd.waitForStarted());
 	QVERIFY(cmd.waitForFinished());
@@ -168,31 +168,35 @@ void TestUtils::SystemCommand_wait()
 void TestUtils::SystemCommand_getResult_data()
 {
 	QTest::addColumn<QString>("program");
+	QTest::addColumn<QStringList>("args");
 	QTest::addColumn<bool>("outputWanted");
 	QTest::addColumn<bool>("runInBackground");
 	QTest::addColumn<bool>("success");
 	QTest::addColumn<QString>("output");
 
-	QString progOK{QStringLiteral("echo \"OK\"")};
+	QString progOK{QStringLiteral("echo")};
+	QStringList progOKArgs{QStringLiteral("OK")};
 	QString progInvalid{QStringLiteral("invalid-command")};
+	QStringList progInvalidArgs{};
 	QString outputQuiet;
 	QString outputOK{QStringLiteral("OK\n")};
 	QString outputInvalid{QStringLiteral("ERROR: failure code 0")};
 
-	QTest::newRow("success-quiet") << progOK << false << false << true << outputQuiet;
-	QTest::newRow("success-quiet-background") << progOK << false << true << true << outputQuiet;
-	QTest::newRow("success") << progOK << true << false << true << outputOK;
-	QTest::newRow("success-background") << progOK << true << true << true << outputOK;
+	QTest::newRow("success-quiet") << progOK << progOKArgs << false << false << true << outputQuiet;
+	QTest::newRow("success-quiet-background") << progOK << progOKArgs << false << true << true << outputQuiet;
+	QTest::newRow("success") << progOK << progOKArgs << true << false << true << outputOK;
+	QTest::newRow("success-background") << progOK << progOKArgs << true << true << true << outputOK;
 
-	QTest::newRow("invalid-quiet") << progInvalid << false << false << false << outputQuiet;
-	QTest::newRow("invalid-quiet-background") << progInvalid << false << true << false << outputQuiet;
-	QTest::newRow("invalid") << progInvalid << true << false << false << outputInvalid;
-	QTest::newRow("invalid-background") << progInvalid << true << true << false << outputInvalid;
+	QTest::newRow("invalid-quiet") << progInvalid << progInvalidArgs << false << false << false << outputQuiet;
+	QTest::newRow("invalid-quiet-background") << progInvalid << progInvalidArgs << false << true << false << outputQuiet;
+	QTest::newRow("invalid") << progInvalid << progInvalidArgs << true << false << false << outputInvalid;
+	QTest::newRow("invalid-background") << progInvalid << progInvalidArgs << true << true << false << outputInvalid;
 }
 
 void TestUtils::SystemCommand_getResult()
 {
 	QFETCH(QString, program);
+	QFETCH(QStringList, args);
 	QFETCH(bool, outputWanted);
 	QFETCH(bool, runInBackground);
 	QFETCH(bool, success);
@@ -203,7 +207,7 @@ void TestUtils::SystemCommand_getResult()
 
 	QVERIFY(spy.isValid());
 
-	cmd->start(program);
+	cmd->start(program, args);
 	QCOMPARE(cmd->waitForFinished(), success);
 	QCOMPARE(cmd->getResult(), output);
 

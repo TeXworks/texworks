@@ -163,6 +163,11 @@ QStringList TeXHighlighter::syntaxOptions()
 
 void TeXHighlighter::loadPatterns()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
+#else
+	constexpr auto SkipEmptyParts = Qt::SkipEmptyParts;
+#endif
 	if (syntaxRules)
 		return;
 
@@ -191,7 +196,7 @@ void TeXHighlighter::loadPatterns()
 					spec.name = sectionMatch.captured(1);
 					continue;
 				}
-				QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
+				QStringList parts = line.split(whitespace, SkipEmptyParts);
 				if (parts.size() != 3)
 					continue;
 				QStringList styles = parts[0].split(QChar::fromLatin1(';'));
@@ -246,7 +251,7 @@ void TeXHighlighter::loadPatterns()
 				if (ba[0] == '#' || ba[0] == '\n')
 					continue;
 				QString line = QString::fromUtf8(ba.data(), ba.size());
-				QStringList parts = line.split(whitespace, QString::SkipEmptyParts);
+				QStringList parts = line.split(whitespace, SkipEmptyParts);
 				if (parts.size() != 2)
 					continue;
 				TagPattern patt;
