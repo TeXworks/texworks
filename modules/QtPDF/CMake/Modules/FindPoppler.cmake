@@ -150,7 +150,11 @@ foreach (cmp IN LISTS Poppler_FIND_COMPONENTS)
     endif()
   endif ()
 
-  find_package_handle_standard_args(${label} FOUND_VAR ${label}_FOUND REQUIRED_VARS ${label}_LIBRARY ${label}_INCLUDE_DIR VERSION_VAR ${label}_VERSION_STRING)
+  if (CMAKE_VERSION VERSION_LESS "3.17")
+    find_package_handle_standard_args(${label} FOUND_VAR ${label}_FOUND REQUIRED_VARS ${label}_LIBRARY ${label}_INCLUDE_DIR VERSION_VAR ${label}_VERSION_STRING)
+  else ()
+    find_package_handle_standard_args(${label} FOUND_VAR ${label}_FOUND REQUIRED_VARS ${label}_LIBRARY ${label}_INCLUDE_DIR VERSION_VAR ${label}_VERSION_STRING NAME_MISMATCHED)
+  endif ()
 
   if (${label}_FOUND)
     set(${label}_INCLUDE_DIRS "${${label}_INCLUDE_DIR}" "${Poppler_INCLUDE_DIR}")
