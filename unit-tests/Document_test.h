@@ -44,6 +44,10 @@ private slots:
 	void modelines();
 	void findNextWord_data();
 	void findNextWord();
+
+	void SpellChecker_getDictionaryList();
+	void SpellChecker_getDictionary();
+	void SpellChecker_ignoreWord();
 };
 
 } // namespace UnitTest

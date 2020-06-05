@@ -21,8 +21,10 @@
 
 #include "Document_test.h"
 
+#include "TWUtils.h"
 #include "TeXHighlighter.h"
 #include "document/Document.h"
+#include "document/SpellChecker.h"
 #include "document/TeXDocument.h"
 #include "document/TextDocument.h"
 
@@ -37,6 +39,8 @@ void NonblockingSyntaxHighlighter::process() { }
 void NonblockingSyntaxHighlighter::processWhenIdle() {}
 TeXHighlighter::TeXHighlighter(Tw::Document::TeXDocument * parent) : NonblockingSyntaxHighlighter(parent) { }
 void TeXHighlighter::highlightBlock(const QString &text) { Q_UNUSED(text) }
+
+const QStringList TWUtils::getLibraryPaths(const QString & subdir, const bool updateOnDisk) { Q_UNUSED(subdir) Q_UNUSED(updateOnDisk) return QStringList(QDir::currentPath()); }
 
 namespace Tw {
 namespace Document {
@@ -301,6 +305,83 @@ void TestDocument::findNextWord()
 		QVERIFY2(rv == returnValue, qPrintable(msg));
 		QVERIFY2(start == expectedStart, qPrintable(msg));
 		QVERIFY2(end == expectedEnd, qPrintable(msg));
+	}
+}
+
+void TestDocument::SpellChecker_getDictionaryList()
+{
+	auto * sc = Tw::Document::SpellChecker::instance();
+	Q_ASSERT(sc != nullptr);
+	QSignalSpy spy(sc, SIGNAL(dictionaryListChanged()));
+
+	QVERIFY(spy.isValid());
+
+	QCOMPARE(spy.count(), 0);
+
+	auto dictList = sc->getDictionaryList();
+	Q_ASSERT(dictList);
+
+	QCOMPARE(spy.count(), 1);
+	QVERIFY(dictList->contains(QDir::current().absoluteFilePath(QStringLiteral("dictionary.dic")), QStringLiteral("dictionary")));
+
+	// Calling getDictionaryList() again (without forcing a reload) should give
+	// the same data again
+	QCOMPARE(sc->getDictionaryList(), dictList);
+	QCOMPARE(spy.count(), 1);
+
+	// Calling getDictionaryList() with forceReload should emit the
+	// dictionaryListChanged signal again
+	sc->getDictionaryList(true);
+	QCOMPARE(spy.count(), 2);
+}
+
+void TestDocument::SpellChecker_getDictionary()
+{
+	QString lang{QStringLiteral("dictionary")};
+	QString correctWord{QStringLiteral("World")};
+	QString wrongWord{QStringLiteral("Wrld")};
+
+	auto * sc = Tw::Document::SpellChecker::instance();
+	Q_ASSERT(sc != nullptr);
+
+	QVERIFY(sc->getDictionary(QString()) == nullptr);
+	QVERIFY(sc->getDictionary(QStringLiteral("does-not-exist")) == nullptr);
+
+	auto * d = sc->getDictionary(lang);
+	QVERIFY(d != nullptr);
+	QCOMPARE(sc->getDictionary(lang), d);
+
+	QCOMPARE(d->getLanguage(), lang);
+	QCOMPARE(d->isWordCorrect(correctWord), true);
+	QCOMPARE(d->isWordCorrect(wrongWord), false);
+
+	QCOMPARE(d->suggestionsForWord(wrongWord), QList<QString>{correctWord});
+}
+
+void TestDocument::SpellChecker_ignoreWord()
+{
+	QString lang{QStringLiteral("dictionary")};
+	QString wrongWord{QStringLiteral("Wrld")};
+
+	auto * sc = Tw::Document::SpellChecker::instance();
+	Q_ASSERT(sc != nullptr);
+
+	{
+		auto * d = sc->getDictionary(lang);
+		Q_ASSERT(d != nullptr);
+
+		QCOMPARE(d->isWordCorrect(wrongWord), false);
+		d->ignoreWord(wrongWord);
+		QCOMPARE(d->isWordCorrect(wrongWord), true);
+	}
+	{
+		// Check that ignoring is not persistent
+		sc->clearDictionaries();
+
+		auto * d = sc->getDictionary(lang);
+		Q_ASSERT(d != nullptr);
+
+		QCOMPARE(d->isWordCorrect(wrongWord), false);
 	}
 }
 

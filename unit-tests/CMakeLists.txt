@@ -75,12 +75,13 @@ add_executable(test_Document
 	Document_test.cpp
 	Document_test.h
 	"${CMAKE_SOURCE_DIR}/src/document/Document.cpp"
+	"${CMAKE_SOURCE_DIR}/src/document/SpellChecker.cpp"
 	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.cpp"
 	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.h"
 	"${CMAKE_SOURCE_DIR}/src/document/TextDocument.cpp"
 	"${CMAKE_SOURCE_DIR}/src/TeXHighlighter.h"
 )
 target_compile_options(test_Document PRIVATE ${WARNING_OPTIONS})
-target_link_libraries(test_Document ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+target_link_libraries(test_Document ${QT_LIBRARIES} Hunspell::hunspell ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Document COMMAND test_Document WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
