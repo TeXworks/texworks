@@ -10,3 +10,9 @@
 /poppler-data-*/
 /TeXworks-manual-html-*.zip
 /TeXworks-manual-html-*/
+
+# Files created by Qt Creator
+CMakeLists.txt.user*
+
+# Files created by Inno Setup
+/win32/Output/
