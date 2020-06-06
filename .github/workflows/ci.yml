@@ -80,6 +80,7 @@ jobs:
   build-macosx-macports:
     name: Mac OS X (MacPorts)
     runs-on: macos-latest
+    if: false
     strategy:
       matrix:
         include:
