@@ -1006,13 +1006,13 @@ void Select::resetBoxes(const int pageNum /* = -1 */)
   if (page.isNull())
     return;
 
-  PDFPageGraphicsItem * pageGraphicsItem = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
-  Q_ASSERT(pageGraphicsItem != nullptr);
-  
   _boxes = page->boxes();
 #ifdef DEBUG
   // In debug builds, show all selectable boxes
-  QTransform toView = pageGraphicsItem->pointScale();  
+  PDFPageGraphicsItem * pageGraphicsItem = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(pageNum));
+  Q_ASSERT(pageGraphicsItem != nullptr);
+
+  QTransform toView = pageGraphicsItem->pointScale();
   foreach(Backend::Page::Box b, _boxes) {
     if (b.subBoxes.isEmpty()) {
       QGraphicsRectItem * rectItem = scene->addRect(toView.mapRect(b.boundingBox), QPen(_highlightColor));
