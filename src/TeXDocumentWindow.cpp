@@ -1570,10 +1570,11 @@ void TeXDocumentWindow::updateEngineList()
 	foreach (Engine e, TWApp::instance()->getEngineList()) {
 		QAction *newAction = new QAction(e.name(), engineActions);
 		newAction->setCheckable(true);
-		newAction->setEnabled(e.isAvailable());
+		bool available{e.isAvailable()};
+		newAction->setEnabled(available);
 		menuRun->addAction(newAction);
 		QStandardItem * item = new QStandardItem(e.name());
-		item->setFlags(Qt::ItemIsSelectable | (e.isAvailable() ? Qt::ItemIsEnabled : Qt::NoItemFlags));
+		item->setFlags(Qt::ItemIsSelectable | (available ? Qt::ItemIsEnabled : Qt::NoItemFlags));
 		model->appendRow(item);
 	}
 	connect(engine, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(selectedEngine(const QString&)));

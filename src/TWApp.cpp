@@ -77,8 +77,19 @@ const QEvent::Type TWDocumentOpenEvent::type = static_cast<QEvent::Type>(QEvent:
 QString replaceEnvironmentVariables(const QString & s)
 {
 	QString rv{s};
-	QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
 
+	// If there is nothing to replace, don't bother trying
+#ifdef Q_OS_WINDOWS
+	if (!s.contains(QStringLiteral("%"))) {
+		return rv;
+	}
+#else
+	if (!s.contains(QStringLiteral("$"))) {
+		return rv;
+	}
+#endif
+
+	QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
 	QStringList vars = env.keys();
 	// Sort the variable names from longest to shortest to appropriately handle
 	// cases like $HOMEPATH (if $HOME also exists)
