@@ -846,6 +846,14 @@ void PDFDocumentWindow::dropEvent(QDropEvent *event)
 void PDFDocumentWindow::contextMenuEvent(QContextMenuEvent *event)
 {
 	Q_ASSERT(pdfWidget);
+
+	// If initiated with the mouse, only show the context menu if the user
+	// clicked inside the pdfWidget area
+	if (event->reason() == QContextMenuEvent::Mouse && !pdfWidget->rect().contains(pdfWidget->mapFrom(this, event->pos()))) {
+		TWScriptableWindow::contextMenuEvent(event);
+		return;
+	}
+
 	QMenu menu(this);
 
 	// Disarm the active tool (if any) as the menu will be highjacking all
