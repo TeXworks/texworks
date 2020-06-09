@@ -255,13 +255,13 @@ IF (APPLE)
   SET(VER ${TeXworks_VERSION})
   SET(REV ${TeXworks_GIT_HASH})
   CONFIGURE_FILE(${TeXworks_SOURCE_DIR}/res/TeXworks.plist.in
-    ${TeXworks_SOURCE_DIR}/TeXworks.plist
+    TeXworks.plist
     @ONLY
   )
 
   SET_TARGET_PROPERTIES( TeXworks PROPERTIES
     MACOSX_BUNDLE_INFO_PLIST
-      ${TeXworks_SOURCE_DIR}/TeXworks.plist
+      ${CMAKE_CURRENT_BINARY_DIR}/TeXworks.plist
   )
 ENDIF ()
 
