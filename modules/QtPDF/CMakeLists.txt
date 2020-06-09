@@ -54,7 +54,10 @@ ENDIF ()
 OPTION(BUILD_SHARED_LIBS "Build shared library" ON)
 
 # ...with the viewer program...
-OPTION(QTPDF_VIEWER "Build PDF viewer application" ON)
+if (NOT DEFINED QTPDF_VIEWER)
+  set(QTPDF_VIEWER ON)
+endif (NOT DEFINED QTPDF_VIEWER)
+OPTION(QTPDF_VIEWER "Build PDF viewer application" ${QTPDF_VIEWER})
 
 # ...with tests...
 OPTION(WITH_TESTS "Build tests" ON)
