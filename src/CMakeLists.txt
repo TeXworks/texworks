@@ -161,7 +161,7 @@ IF ( APPLE )
 
   LIST(APPEND TeXworks_LIBS  "-framework CoreServices")
 
-  FILE(GLOB TeXworks_APP_ICONS ${TeXworks_SOURCE_DIR}/*.icns)
+  set(TeXworks_APP_ICONS "${TeXworks_SOURCE_DIR}/res/TeXworks.icns" "${TeXworks_SOURCE_DIR}/res/TeXworks-doc.icns")
   SET_SOURCE_FILES_PROPERTIES( ${TeXworks_APP_ICONS}
     PROPERTIES
       MACOSX_PACKAGE_LOCATION Resources
@@ -254,7 +254,7 @@ endif ()
 IF (APPLE)
   SET(VER ${TeXworks_VERSION})
   SET(REV ${TeXworks_GIT_HASH})
-  CONFIGURE_FILE(${TeXworks_SOURCE_DIR}/TeXworks.plist.in
+  CONFIGURE_FILE(${TeXworks_SOURCE_DIR}/res/TeXworks.plist.in
     ${TeXworks_SOURCE_DIR}/TeXworks.plist
     @ONLY
   )
@@ -293,9 +293,9 @@ IF ( UNIX AND NOT APPLE )
     ${TeXworks_SOURCE_DIR}/README.md
     ${TeXworks_SOURCE_DIR}/NEWS
   DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_DOCS_DIR})
-  INSTALL(FILES ${TeXworks_SOURCE_DIR}/man/texworks.1 DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_MAN_DIR})
-  INSTALL(FILES ${TeXworks_SOURCE_DIR}/texworks.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_DESKTOP_DIR})
-  INSTALL(FILES ${TeXworks_SOURCE_DIR}/texworks.appdata.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_APPDATA_DIR})
+  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/texworks.1 DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_MAN_DIR})
+  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/texworks.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_DESKTOP_DIR})
+  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/texworks.appdata.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_APPDATA_DIR})
 ENDIF ( UNIX AND NOT APPLE )
 
 # On OS X, ensure there is always a `qt.conf` file as all hell will break loose

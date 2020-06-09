@@ -1,7 +1,7 @@
 #!/bin/sh
 
 URL="https://github.com/jlaurens/synctex/raw/2017"
-FOLDER="modules/synctex"
+FOLDER="$(dirname $0)/../modules/synctex"
 
 for FILE in synctex_parser.c synctex_parser.h synctex_parser_utils.c synctex_parser_utils.h synctex_parser_advanced.h synctex_version.h synctex_parser_version.txt; do
 	echo -n "Updating $FILE... "

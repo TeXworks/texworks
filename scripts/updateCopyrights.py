@@ -129,15 +129,17 @@ def manual_update_notice():
     """Reminder for places where the copyright information must be updated manually"""
     print("")
     print("Don't forget to manually update the copyright information in the following files:")
-    for f in ["README.md", "texworks.appdata.xml", "TeXworks.plist.in", "CMake/Modules/COPYING-CMAKE-MODULES", "man/texworks.1", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", "ci/travis-ci/launchpad/debian/copyright", "ci/travis-ci/README.win"]:
+    for f in ["README.md", "res/texworks.appdata.xml", "res/TeXworks.plist.in", "CMake/Modules/COPYING-CMAKE-MODULES", "res/texworks.1", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", "ci/travis-ci/launchpad/debian/copyright", "ci/travis-ci/README.win"]:
     	print("   {0}".format(f))
 
 def main():
     """Main"""
-    global gitrepo
-    gitrepo = Repo(".").git
+    GIT_ROOT = os.path.join(os.path.dirname(__file__), '..')
 
-    for f in git.cmd.Git().ls_files().split():
+    global gitrepo
+    gitrepo = Repo(GIT_ROOT).git
+
+    for f in git.cmd.Git().ls_files(GIT_ROOT).split():
         the_file = CopyrightedFile(f)
         if not the_file.is_updateable(): continue
         print(f)
