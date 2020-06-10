@@ -63,4 +63,3 @@ void Link::setActionOnActivation(PDFAction * const action)
 } // namespace QtPDF
 
 // vim: set sw=2 ts=2 et
-

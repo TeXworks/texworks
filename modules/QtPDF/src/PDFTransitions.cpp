@@ -111,7 +111,7 @@ QImage AbstractInPlaceTransition::getImage()
   Q_ASSERT(_mask.format() == QImage::Format_Indexed8);
 
   QImage retVal(_imgStart.size(), QImage::Format_ARGB32);
-  
+
   // map: 0 -> -_spread, 1 -> 1+_spread
   // this ensures that even with a contrast spread, 0 corresponds to img1, and
   // 1 corresponds to img2
@@ -147,7 +147,7 @@ QImage AbstractInPlaceTransition::getImage()
       img[4 * i + 3] = static_cast<uchar>(img1[4 * i + 3] * (1.0f - f) + img2[4 * i + 3] * f);
     }
   }
-  
+
   return retVal;
 }
 
@@ -329,7 +329,7 @@ void Glitter::initMask()
   int randomRange = static_cast<int>(255 * _spread);
 
   srand(static_cast<unsigned int>(time(nullptr)));
-  
+
   if (_direction == 0) {
     for (int j = 0; j < _mask.height(); ++j) {
       uchar * data = _mask.scanLine(j);
@@ -370,7 +370,7 @@ void Fly::start(const QImage & imgStart, const QImage & imgEnd)
     for (int i = 0; i < _mask.width(); ++i)
       mask[i] = (img1[i] == img2[i] ? 0 : 255);
   }
-  
+
   _started = true;
   _finished = false;
   _timer.start();
@@ -383,7 +383,7 @@ QImage Fly::getImage()
   Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
 
   QImage retVal = QImage(_imgEnd.size(), QImage::Format_ARGB32);
-  
+
   switch (_motion) {
   case Motion_Inward:
     if (_direction == 0) {
@@ -496,7 +496,7 @@ QImage Cover::getImage()
   Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
 
   QImage retVal = QImage(_imgEnd.size(), QImage::Format_ARGB32);
-  
+
   if (_direction == 0) {
     int edge = static_cast<int>(getFracTime() * static_cast<double>(_imgEnd.width()));
     for (int j = 0; j < _imgEnd.height(); ++j) {

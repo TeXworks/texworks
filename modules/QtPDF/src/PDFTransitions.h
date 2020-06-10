@@ -41,17 +41,17 @@ public:
   // for valid values, see pdf specs (use -1 for None)
   void setDirection(const int direction) { _direction = direction; }
   void setMotion(const Motion motion) { _motion = motion; }
-  
+
   virtual void start(const QImage & imgStart, const QImage & imgEnd);
   virtual void reset() { _started = _finished = false; }
   virtual QImage getImage() = 0;
-  
+
   static AbstractTransition * newTransition(const Type type);
-  
+
 protected:
   double getFracTime();
   virtual void setImages(const QImage & imgStart, const QImage & imgEnd);
-  
+
   double _duration{1};
   int _direction{0};
   Motion _motion{Motion_Inward};
@@ -68,12 +68,12 @@ class AbstractInPlaceTransition : public AbstractTransition
 public:
   AbstractInPlaceTransition() = default;
   ~AbstractInPlaceTransition() override = default;
-  
+
   void start(const QImage & imgStart, const QImage & imgEnd) override;
   QImage getImage() override;
 protected:
   virtual void initMask() = 0;
-  
+
   QImage _mask;
   double _spread{0.05};
 };

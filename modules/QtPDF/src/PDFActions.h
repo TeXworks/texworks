@@ -60,7 +60,7 @@ public:
   //  - oldViewport: viewport in old page's coordinate system
   //  - oldZoom
   QRectF viewport(const Backend::Document * doc, const QRectF oldViewport, const qreal oldZoom) const;
-  
+
   void setPage(const int page) { _page = page; }
   void setType(const Type type) { _type = type; }
   void setZoom(const qreal zoom) { _zoom = zoom; }
@@ -104,7 +104,7 @@ class PDFURIAction : public PDFAction
 public:
   PDFURIAction(const QUrl url) : _url(url), _isMap(false) { }
   PDFURIAction(const PDFURIAction & a) : _url(a._url), _isMap(a._isMap) { }
-  
+
   ActionType type() const override { return ActionTypeURI; }
   PDFAction * clone() const override { return new PDFURIAction(*this); }
 
@@ -149,7 +149,7 @@ public:
 
   ActionType type() const override { return ActionTypeLaunch; }
   PDFAction * clone() const override { return new PDFLaunchAction(*this); }
-  
+
   QString command() const { return _command; }
   void setCommand(const QString command) { _command = command; }
 

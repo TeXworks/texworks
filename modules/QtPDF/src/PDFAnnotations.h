@@ -65,13 +65,13 @@ public:
     AnnotationTypePrinterMark, AnnotationTypeTrapNet, AnnotationTypeWatermark,
     AnnotationType3D
   };
-  
+
   AbstractAnnotation() = default;
   virtual ~AbstractAnnotation() = default;
 
   virtual AnnotationType type() const = 0;
   virtual bool isMarkup() const { return false; }
-  
+
   // Declare all the getter/setter methods virtual so derived classes can
   // override them
   virtual QRectF rect() const { return _rect; }

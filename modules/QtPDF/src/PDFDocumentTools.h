@@ -43,7 +43,7 @@ public:
   enum Type { Tool_None, Tool_MagnifyingGlass, Tool_ZoomIn, Tool_ZoomOut, Tool_MarqueeZoom, Tool_Move, Tool_ContextMenu, Tool_ContextClick, Tool_Measure, Tool_Select };
   AbstractTool(PDFDocumentView * parent) : _parent(parent), _cursor(QCursor(Qt::ArrowCursor)) { }
   virtual ~AbstractTool() = default;
-  
+
   virtual Type type() const { return Tool_None; }
   virtual bool operator==(const AbstractTool & o) { return (type() == o.type()); }
 protected:
@@ -184,7 +184,7 @@ protected:
 
   // to be called from friend class Measure during creation of the MeasureLine
   void mouseMove(const QPointF scenePos, const Qt::KeyboardModifiers modifiers);
-  
+
   // 1 for the first handle, 2 for the second handle
   int _pt;
 };
@@ -274,7 +274,7 @@ protected:
   void keyPressEvent(QKeyEvent * event) override;
 
   void resetBoxes(const int pageNum = -1);
-  // Call this to notify Select that the page graphics item it has been working 
+  // Call this to notify Select that the page graphics item it has been working
   // on has been destroyed so all pointers to graphics items should be
   // invalidated
   void pageDestroyed();

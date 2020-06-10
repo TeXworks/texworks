@@ -283,7 +283,7 @@ void TestQtPDF::page()
 {
   QFETCH(pDoc, doc);
   QFETCH(QVariant, pageSize);
-  
+
   QList<QSizeF> pageSizes;
 
   QVERIFY(!doc.isNull());
@@ -304,7 +304,7 @@ void TestQtPDF::page()
   else {
     QFAIL(pageSize.typeName());
   }
-  
+
   for (int i = 0; i < doc->numPages(); ++i) {
     QSharedPointer<QtPDF::Backend::Page> page = doc->page(i).toStrongRef();
     QSizeF size = pageSizes[i];

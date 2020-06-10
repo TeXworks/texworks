@@ -103,7 +103,7 @@ class Page: public Backend::Page
   QList< QSharedPointer<Annotation::Link> > _links;
   bool _annotationsLoaded;
   bool _linksLoaded;
-  
+
   // requires a doc-lock and a page-write-lock
   void loadTransitionData();
 

@@ -74,7 +74,7 @@ public:
   // They are fully wired to this PDFDocumentView (e.g., clicking on entries in
   // the table of contents will change this view)
   QDockWidget * dockWidget(const Dock type, QWidget * parent = nullptr);
-  
+
   DocumentTool::AbstractTool * armedTool() const { return _armedTool; }
   void triggerContextClick(const int page, const QPointF pos) { emit contextClick(page, pos); }
 
@@ -172,7 +172,7 @@ protected:
   void mouseReleaseEvent(QMouseEvent * event) override;
   void wheelEvent(QWheelEvent * event) override;
   void changeEvent(QEvent * event) override;
-  
+
   // Maybe this will become public later on
   // Ownership of tool is transferred to PDFDocumentView
   void registerTool(DocumentTool::AbstractTool * tool);
@@ -205,7 +205,7 @@ private:
   QMap<uint, DocumentTool::AbstractTool*> _toolAccessors;
 
   QStack<PDFDestination> _oldViewRects;
-  
+
   static QTranslator * _translator;
   static QString _translatorLanguage;
 
@@ -245,7 +245,7 @@ public:
 protected:
   void wheelEvent(QWheelEvent * event) override { event->ignore(); }
   void paintEvent(QPaintEvent * event) override;
-  
+
   QPixmap _dropShadow;
 };
 
@@ -303,7 +303,7 @@ class PDFMetaDataInfoWidget : public PDFDocumentInfoWidget
 public:
   PDFMetaDataInfoWidget(QWidget * parent);
   ~PDFMetaDataInfoWidget() override = default;
-  
+
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc) override;
   void clear() override;
@@ -332,7 +332,7 @@ class PDFFontsInfoWidget : public PDFDocumentInfoWidget
 public:
   PDFFontsInfoWidget(QWidget * parent);
   ~PDFFontsInfoWidget() override = default;
-  
+
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc) override;
   void clear() final;
@@ -353,7 +353,7 @@ class PDFPermissionsInfoWidget : public PDFDocumentInfoWidget
 public:
   PDFPermissionsInfoWidget(QWidget * parent);
   ~PDFPermissionsInfoWidget() override = default;
-  
+
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> doc) override;
   void clear() final;
@@ -379,7 +379,7 @@ class PDFAnnotationsInfoWidget : public PDFDocumentInfoWidget
 public:
   PDFAnnotationsInfoWidget(QWidget * parent);
   ~PDFAnnotationsInfoWidget() override = default;
-    
+
 protected slots:
   void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc) override;
   void clear() override;
